@@ -1,6 +1,7 @@
 2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Make sure that gettext is initialised before the UI is built
+	* Bump version number to 3.2.6 for a brown paper bag release
 	
 2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 

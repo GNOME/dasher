@@ -1,3 +1,19 @@
+===================================================================
+Dasher 3.2.6 - "What, those po files are supposed to do something?"
+===================================================================
+
+Make translations actually work
+
+===========================================================
+Dasher 3.2.5 - "Attack of the flying letters - the revenge"
+===========================================================
+
+Fixed a speech crash bug
+Use gtkfilechooser
+WE WELCOME OUR US SPELLING OVERLORDS
+A couple of nasty bugs involving the branch change logic being broken when
+in control mode were fixed, which should fix both hangs and exceptions
+
 ============================================================
 Dasher 3.2.4 - "Helping your Turing Test come back negative"
 ============================================================
