@@ -849,7 +849,7 @@ timer_callback(gpointer data)
     if (onedmode==true) {
       float scalefactor;
       float newy=y;
-      gdk_window_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+      gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
       if (yscale==0) {
 	scalefactor=2;
       } else {
@@ -870,7 +870,7 @@ timer_callback(gpointer data)
     if (onedmode==true) {
       float scalefactor;
       float newy=y;
-      gdk_window_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+      gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
       if (yscale==0) {
 	scalefactor=2;
       } else {
@@ -936,7 +936,7 @@ timer_callback(gpointer data)
 extern "C" gint
 canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
-  gdk_draw_pixmap(the_canvas->window,
+  gdk_draw_drawable(the_canvas->window,
 		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
 		  onscreen_buffer,
 		  event->area.x, event->area.y,
@@ -1176,7 +1176,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   focusEvent->in = TRUE;
 
   gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
-  gtk_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
+  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
 
   g_free(focusEvent);
 
@@ -1342,7 +1342,7 @@ open_window(GladeXML *xml) {
   focusEvent->in = TRUE;
 
   gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
-  gtk_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
+  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
 
   g_free(focusEvent);
 
@@ -1352,7 +1352,7 @@ open_window(GladeXML *xml) {
   dasher_start();
   dasher_redraw();
 
-  gtk_timeout_add(50, timer_callback, NULL );  
+  g_timeout_add(50, timer_callback, NULL );  
 
   // I have no idea why we need to do this when Glade has theoretically done
   // so already, but...

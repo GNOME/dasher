@@ -79,7 +79,6 @@ extern GtkStyle *style;
 //Gtk2DasherCanvas *dasher_canvas;
 //Gtk2DasherPane *dasher_pane;
 //CDasherInterface *interface;
-extern GtkItemFactory *dasher_menu;
 extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
 

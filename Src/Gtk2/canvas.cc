@@ -54,7 +54,7 @@ void blank_callback()
 
   GdkColor background = colours[0];
 
-  gdk_color_alloc(colormap, &background);
+  gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &background);
   
   gdk_draw_rectangle (offscreen_buffer,		      
@@ -86,7 +86,7 @@ void display_callback()
 
   GdkColor background = colours[0];
 
-  gdk_color_alloc(colormap, &background);
+  gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &background);
 
   if (paused==true) {
@@ -97,7 +97,7 @@ void display_callback()
     }
   }
 
-  gdk_draw_pixmap(onscreen_buffer,
+  gdk_draw_drawable(onscreen_buffer,
   		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
   		  offscreen_buffer,
   		  0, 0, 0,0,
@@ -116,7 +116,7 @@ void display_callback()
   update_rect.width = the_canvas->allocation.width;
   update_rect.height = the_canvas->allocation.height;
 
-  gtk_widget_draw(the_canvas,&update_rect);
+  gdk_window_invalidate_rect(the_canvas->window,&update_rect,FALSE);
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
@@ -138,8 +138,8 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
 
   GdkColor foreground = colours[Color];
 
-  gdk_color_alloc(colormap, &foreground);
-  gdk_color_alloc(colormap, &outline);
+  gdk_colormap_alloc_color(colormap, &foreground,FALSE,TRUE);
+  gdk_colormap_alloc_color(colormap, &outline,FALSE,TRUE);
   gdk_gc_set_foreground (graphics_context, &foreground);
   
   if( x2 > x1 ) {
@@ -200,7 +200,7 @@ void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Num
   gdk_gc_get_values(graphics_context,&origvalues);
   colormap = gdk_colormap_get_system();
 
-  gdk_color_alloc(colormap, &colour);
+  gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &colour);
 
   for (int i=0; i < Number; i++) {
@@ -233,7 +233,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
   GdkColor foreground = colours[colour];
 
-  gdk_color_alloc(colormap, &foreground);
+  gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &foreground);
   
   pango_font_description_set_size( font,size*PANGO_SCALE);
@@ -270,7 +270,7 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
 
   GdkColor foreground = colours[4];
 
-  gdk_color_alloc(colormap, &foreground);
+  gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &foreground);
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
@@ -365,33 +365,6 @@ GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
   }
 }
 
-GdkFont *get_font(int size)
-{
-  GdkFont *chosen_font;
-
-  if (size == 11) {
-    chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
-  }
-  else {
-    if (size == 14) {
-      chosen_font = gdk_font_load("-*-fixed-medium-r-normal--13-*-*-*-*-*-*");
-    }
-    else {
-      if (size == 20) {
-	chosen_font = gdk_font_load("-*-fixed-medium-r-normal--15-*-*-*-*-*-*");
-      }
-      else {
-	chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
-      }
-    }
-  }
-
-  if (chosen_font == NULL)
-    chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
-  
-  return chosen_font;
-}
-
 void set_canvas_font(std::string fontname) 
 {
   if(fontname!="") {
@@ -450,7 +423,7 @@ void draw_mouseposbox(int which) {
   }
 
   gdk_gc_get_values(graphics_context,&origvalues);
-  gdk_color_alloc(colormap, &color);
+  gdk_colormap_alloc_color(colormap, &color,FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &color);
   gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
