@@ -11,6 +11,8 @@
 #include "Screen.h"
 #include "DasherEncodingToCP.h"
 #include "../WinLocalisation.h"
+#include "../../DasherCore/DasherWidgetInterface.h"
+#include "../../DasherCore/CustomColours.h"
 using namespace WinLocalisation;
 using namespace Dasher;
 using namespace Opts;
