@@ -17,9 +17,14 @@ void setup_speech() {
   Bonobo_ServerInfo *info;
   CORBA_Object rv;
 
-  servers = bonobo_activation_query (
-	     "repo_ids.has ('IDL:GNOME/Speech/SynthesisDriver:0.3')",
-	     NULL, &ev);
+  servers = bonobo_activation_query ("repo_ids.has_one(['IDL:GNOME/Speech/SynthesisDriver:0.2','IDL:GNOME/Speech/SynthesisDriver:0.3'])", NULL, &ev);
+
+  if (servers->_length==0) {
+    speaker=NULL;
+    printf(_("Unable to initialize speech support\n"));
+    fflush(stdout);
+    return;
+  }
 
   for (int i=0; i<servers->_length; i++) 
     {
