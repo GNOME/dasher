@@ -71,7 +71,9 @@
 #define ID_OPTIONS_EDITKEYBOARDCONTROL  166
 #define IDD_PREFS                       168
 #define ID_OPTIONS_PREFS                169
+#define IDD_COLOUR                      169
 #define ID_OPTIONS_CONTROLMODE          170
+#define ID_OPTIONS_COLOURS              171
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -161,8 +163,8 @@
 #define IDC_DRAWMOUSE                   1094
 #define IDC_SPEECH                      1096
 #define IDC_DRAWMOUSELINE               1097
-#define IDC_CHECK1                      1098
 #define IDC_COLOURSCHEME                1098
+#define IDC_COLOURS                     1099
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -214,9 +216,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        171
+#define _APS_NEXT_RESOURCE_VALUE        172
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1099
+#define _APS_NEXT_CONTROL_VALUE         1100
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

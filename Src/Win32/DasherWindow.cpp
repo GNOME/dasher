@@ -11,6 +11,7 @@
 #include "DasherWindow.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
+#include "Widgets/ColourBox.h"
 #include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/Prefs.h"
@@ -24,7 +25,7 @@ using namespace std;
 CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI)
 	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), Splash(0),
 	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), WinOptions(0),
-	m_CurrentAlphabet("")
+	m_CurrentAlphabet(""), m_CurrentColours("")
 {
 	hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR)IDC_DASHER);
 	
@@ -116,6 +117,10 @@ void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
 	m_CurrentAlphabet = NewAlphabetID;
 }
 
+void CDasherWindow::ChangeColours(const string& NewColourID)
+{
+	m_CurrentColours = NewColourID;
+}
 
 void CDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
 {
@@ -443,6 +448,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				break;
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
+				break;
+			case ID_OPTIONS_COLOURS:
+				{ CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentColours); }
 				break;
 			case ID_OPTIONS_PREFS:
 				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }

@@ -522,6 +522,12 @@
 					RelativePath=".\Widgets\Canvas.h">
 				</File>
 				<File
+					RelativePath="Widgets\ColourBox.cpp">
+				</File>
+				<File
+					RelativePath="Widgets\ColourBox.h">
+				</File>
+				<File
 					RelativePath=".\Widgets\DasherEncodingToCP.cpp">
 				</File>
 				<File

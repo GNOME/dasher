@@ -163,12 +163,13 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "&Fix layout",                 ID_FIX_SPLITTER
     END
-    POPUP "&Options"
+    POPUP "Options"
     BEGIN
         MENUITEM "Edit General Options...",     ID_OPTIONS_PREFS
         MENUITEM "Edit Control Options...",     32814
         MENUITEM SEPARATOR
         MENUITEM "&Alphabet...",                ID_OPTIONS_ALPHABET
+        MENUITEM "Colours...",                  ID_OPTIONS_COLOURS
         POPUP "File &Encoding"
         BEGIN
             MENUITEM "Current Windows ANSI &Codepage", 
@@ -253,20 +254,17 @@ BEGIN
                     168,1
 END
 
-IDD_ALPHABET DIALOG  0, 0, 270, 158
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ALPHABET DIALOGEX 0, 0, 234, 159
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "Select Alphabet"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    LISTBOX         IDC_ALPHABETS,7,18,201,101,LBS_SORT | 
+    LISTBOX         IDC_ALPHABETS,7,18,215,101,LBS_SORT | 
                     LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
-    DEFPUSHBUTTON   "OK",IDOK,213,137,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,159,137,50,14
-    PUSHBUTTON      "&New",IDC_ADD_ALPH,213,18,50,14
-    PUSHBUTTON      "&Delete",IDC_DEL_ALPH,213,35,50,14
-    PUSHBUTTON      "&Clone",IDC_CLONE,213,52,50,14
-    PUSHBUTTON      "&Edit",IDC_EDIT,213,69,50,14
-    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,8,130,255,1
+    DEFPUSHBUTTON   "OK",IDOK,180,138,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,120,138,50,14
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,130,220,1
     LTEXT           "Alphabets available:",IDC_STATIC,7,7,198,8
 END
 
@@ -476,6 +474,20 @@ BEGIN
                     BS_AUTOCHECKBOX | WS_TABSTOP,138,78,108,6
 END
 
+IDD_COLOUR DIALOGEX 0, 0, 234, 159
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Select Colour Scheme"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    LISTBOX         IDC_COLOURS,7,18,215,101,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,180,138,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,120,138,50,14
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,130,220,1
+    LTEXT           "Colour schemes available:",IDC_STATIC,7,7,198,8
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -496,9 +508,9 @@ BEGIN
     IDD_ALPHABET, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 263
+        RIGHTMARGIN, 227
         TOPMARGIN, 7
-        BOTTOMMARGIN, 151
+        BOTTOMMARGIN, 152
     END
 
     IDD_CUSTOMALPHABET, DIALOG
@@ -571,6 +583,14 @@ BEGIN
         RIGHTMARGIN, 255
         TOPMARGIN, 7
         BOTTOMMARGIN, 142
+    END
+
+    IDD_COLOUR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 227
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 152
     END
 END
 #endif    // APSTUDIO_INVOKED

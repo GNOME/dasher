@@ -45,6 +45,7 @@ public:
 	
 	// Settings Interface members
 	void ChangeAlphabet(const std::string& NewAlphabetID);
+	void ChangeColours(const std::string& NewColoursID);
 	void ChangeMaxBitRate(double NewMaxBitRate);
 	void ChangeLanguageModel(unsigned int NewLanguageModelID);
 	void ChangeView(unsigned int NewViewID);
@@ -98,6 +99,7 @@ private:
 	Dasher::CDasherWidgetInterface* DasherWidgetInterface;
 	Dasher::CDasherAppInterface* DasherAppInterface;
 	std::string m_CurrentAlphabet;
+	std::string m_CurrentColours;
 	
 	HACCEL hAccelTable;
 
