@@ -143,3 +143,17 @@ void set_edit_font(gpointer data, guint action, GtkWidget *widget)
   g_signal_connect (editfontdialog->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) editfontdialog);
   gtk_widget_show(GTK_WIDGET(editfontdialog));
 }
+
+void get_new_context_callback( std::string &str, int max )
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_backward_chars(start, max);
+
+  str = std::string( gtk_text_buffer_get_text( the_text_buffer, start, end, FALSE ) );
+}
