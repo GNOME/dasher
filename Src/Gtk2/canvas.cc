@@ -4,6 +4,8 @@ GtkWidget *the_canvas;
 GdkPixmap *offscreen_buffer;
 GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
+PangoFontDescription *font;
+PangoRectangle *ink,*logical;
 
 extern gboolean setup;
 
@@ -23,14 +25,19 @@ void initialise_canvas( int width, int height )
   offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
    onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
+  font = pango_font_description_new();
+
+  pango_font_description_set_family( font,"Sans");
+
+  ink = new PangoRectangle;
+  logical = new PangoRectangle;
 }
 
 void blank_callback()
 {
   if (setup==false) 
     return;
-  gdk_draw_rectangle (offscreen_buffer,
-		      
+  gdk_draw_rectangle (offscreen_buffer,		      
 		      the_canvas->style->white_gc,
                       TRUE,
                       0, 0,
@@ -162,20 +169,15 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 {
   std::string symbol;
   GdkRectangle update_rect;
-  GdkFont *chosen_font;  
-  PangoRectangle *ink,*logical;
 
   if (setup==false)
     return;
 
-  ink = new PangoRectangle;
-  logical = new PangoRectangle;
+  pango_font_description_set_size( font,size*PANGO_SCALE);
 
-  //  symbol = interface->GetDisplayText(Character);
+  pango_layout_set_font_description(the_pangolayout,font);
+
   symbol = dasher_get_display_text( Character );
-  
-  //  chosen_font = dasher_canvas->GetFont(size);
-  chosen_font = get_font(size);
 
   pango_layout_set_text(the_pangolayout,symbol.c_str(),-1);
 
@@ -184,6 +186,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   gdk_draw_layout (offscreen_buffer,
 		   the_canvas->style->black_gc,
 		   x1, y1-(ink->height/2.0), the_pangolayout);
+
 }
 
 void text_size_callback(symbol Character, int* Width, int* Height, int Size)
@@ -193,7 +196,6 @@ void text_size_callback(symbol Character, int* Width, int* Height, int Size)
   if (setup==false)
     return;
 
-  //  chosen_font = dasher_canvas->GetFont(Size);
   chosen_font = get_font(Size);
     
   *Width = gdk_char_height(chosen_font, ('A'));

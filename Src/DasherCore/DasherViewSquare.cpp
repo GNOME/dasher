@@ -117,7 +117,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		MapScreen(&newright2, &newbottom2);
 		newleft = min(newleft2, newright2);
 		newtop = min(newtop2, newbottom2);
-			       
+
 		  Screen().DrawText(Character, newleft, newtop, Size);
 		  }
 		

@@ -156,6 +156,8 @@ class dasher_screen : public CDasherScreen
 	
   Dasher::Opts::FontSize GetFontSize()
     {
+      //FIXME
+      return Dasher::Opts::FontSize(1);
     };
 
   void TextSize(symbol Character, int* Width, int* Height, int Size) const
