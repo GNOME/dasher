@@ -3,8 +3,8 @@
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <colours>
 <palette name="Default">
-<!-- black -->
-<colour r="0" g="0" b="0"/>
+<!-- background -->
+<colour r="255" g="255" b="255"/>
 <!-- mouse line -->
 <colour r="255" g="0" b="0"/>
 <!-- mouse position -->
