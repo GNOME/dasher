@@ -6,6 +6,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana83_JP.txt</train>
+<palette>Hiragana</palette>
 <space d="_" t=" " b="9" />
 <group name="Letters" b="0">
 <s d="&#12353;" t="&#12353;" b="10" />
@@ -98,6 +99,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana60_JP.txt</train>
+<palette>Hiragana</palette>
 <space d="_" t=" " b="9"/>
 <group name="Letters" b="0">
 <s d="&#12353;" t="&#12353;" b="10" />
