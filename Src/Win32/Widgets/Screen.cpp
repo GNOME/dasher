@@ -182,6 +182,6 @@ void CScreen::DrawMousePosBox(int which)
 			brush=CreateSolidBrush(RGB(255,255,0));
 			break;
 	}
-	FillRect(m_hDCBuffer, &Rect, brush);
+	FillRect(m_hDCText, &Rect, brush);
 	Display();
 }

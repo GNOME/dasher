@@ -13,7 +13,7 @@
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
-#include "Widgets/Prefs.h"
+//#include "Widgets/Prefs.h"
 #include "WinLocalisation.h"
 #include "WinUTF8.h"
 using namespace Dasher;
@@ -53,6 +53,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	m_pEdit = new CEdit(m_hwnd);
 	DasherAppInterface->ChangeEdit(m_pEdit);
 	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
+	m_pEdit->SetEditCanvas(m_pCanvas);
 	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
 	m_pSplitter = new CSplitter(m_hwnd, 100, this);
 /*
@@ -433,7 +434,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
 				break;
 			case ID_OPTIONS_PREFS:
-				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
+//				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
 				break;
 			case ID_HELP_CONTENTS:
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);

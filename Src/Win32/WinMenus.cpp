@@ -100,10 +100,8 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   ControlTree *backwardtree = new ControlTree;
   ControlTree *forwardchar = new ControlTree;
   ControlTree *forwardword = new ControlTree;
-  ControlTree *forwardline = new ControlTree;
   ControlTree *backwardchar = new ControlTree;
   ControlTree *backwardword = new ControlTree;
-  ControlTree *backwardline = new ControlTree;
 
   forwardtree->pointer=NULL;
   forwardtree->data=0;
@@ -127,15 +125,9 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   forwardword->pointer=(void*)1;
   forwardword->data=22;
   forwardword->children=forwardtree;
-  forwardword->next=forwardline;
+  forwardword->next=NULL;
   forwardword->text="Word";
   forwardword->type=1;
-  forwardline->pointer=(void*)1;
-  forwardline->data=23;
-  forwardline->children=forwardtree;
-  forwardline->next=NULL;
-  forwardline->text="Line";
-  forwardline->type=1;
 
   backwardchar->pointer=(void*)1;
   backwardchar->data=24;
@@ -146,16 +138,10 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   backwardword->pointer=(void*)1;
   backwardword->data=25;
   backwardword->children=forwardtree;
-  backwardword->next=backwardline;
+  backwardword->next=NULL;
   backwardword->text="Word";
   backwardword->type=1;
-  backwardline->pointer=(void*)1;
-  backwardline->data=26;
-  backwardline->children=forwardtree;
-  backwardline->next=NULL;
-  backwardline->text="Line";
-  backwardline->type=1;
-
+ 
   return forwardtree;
 }
 

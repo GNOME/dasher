@@ -7,8 +7,9 @@
 <encoding type="Western"/>
 <train>training_english_GB.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
-<s d="a" t="a"/>
+<s d="a" t="a" f="g"/>
 <s d="b" t="b"/>
 <s d="c" t="c"/>
 <s d="d" t="d"/>
@@ -71,7 +72,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xd;&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 <alphabet name="English alphabet with lots of punctuation">
@@ -79,6 +80,7 @@
 <encoding type="Western"/>
 <train>training_english_GB.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="b" t="b"/>
@@ -180,7 +182,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xd;&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 <alphabet name="French">
@@ -188,6 +190,7 @@
 <encoding type="Western"/>
 <train>training_french_FR.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -272,7 +275,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xd;&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 <alphabet name="Italian">
@@ -280,6 +283,7 @@
 <encoding type="Western"/>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -360,7 +364,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xd;&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 <alphabet name="Portuguese (Brazilian)">
@@ -368,6 +372,7 @@
 <encoding type="Western"/>
 <train>training_portugese_BR.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -460,7 +465,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xd;&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 <alphabet name="German">
@@ -468,6 +473,7 @@
 <encoding type="Western"/>
 <train>training_german_DE.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="ä" t="ä"/>
@@ -539,7 +545,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xd;&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
   <alphabet name="Polish">
@@ -550,6 +556,7 @@
     <train>training_polish_PL.txt</train>
 
     <space t=" " d="_" />
+    <control d="Control" t=""/>
 
     <group name="Małe litery łacińskie">
       <s t="a" d="a" />
@@ -762,6 +769,7 @@
     <train>training_polish_PL.txt</train>
 
     <space t=" " d="_" />
+    <control d="Control" t=""/>
 
     <group name="Małe litery">
       <s t="a" d="a" />
@@ -953,4 +961,119 @@
 
     <!--Created by: Krzysiek grandysk@go2.pl-->
   </alphabet>
+<alphabet name="Korean">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<train>training_korean_KR.txt</train>
+<space d="_" t=" "/>
+<group name="Korean consonants">
+<s d="ᄀ" t="ᄀ"/>
+<s d="ᄁ" t="ᄁ"/>
+<s d="ᄂ" t="ᄂ"/>
+<s d="ᄃ" t="ᄃ"/>
+<s d="ᄄ" t="ᄄ"/>
+<s d="ᄅ" t="ᄅ"/>
+<s d="ᄆ" t="ᄆ"/>
+<s d="ᄇ" t="ᄇ"/>
+<s d="ᄈ" t="ᄈ"/>
+<s d="ᄉ" t="ᄉ"/>
+<s d="ᄊ" t="ᄊ"/>
+<s d="ᄋ" t="ᄋ"/>
+<s d="ᄌ" t="ᄌ"/>
+<s d="ᄍ" t="ᄍ"/>
+<s d="ᄎ" t="ᄎ"/>
+<s d="ᄏ" t="ᄏ"/>
+<s d="ᄐ" t="ᄐ"/>
+<s d="ᄑ" t="ᄑ"/>
+<s d="ᄒ" t="ᄒ"/>
+</group>
+<group name="Korean vowels">
+<s d="ᅡ" t="ᅡ"/>
+<s d="ᅢ" t="ᅢ"/>
+<s d="ᅣ" t="ᅣ"/>
+<s d="ᅤ" t="ᅤ"/>
+<s d="ᅥ" t="ᅥ"/>
+<s d="ᅦ" t="ᅦ"/>
+<s d="ᅧ" t="ᅧ"/>
+<s d="ᅨ" t="ᅨ"/>
+<s d="ᅩ" t="ᅩ"/>
+<s d="ᅪ" t="ᅪ"/>
+<s d="ᅫ" t="ᅫ"/>
+<s d="ᅬ" t="ᅬ"/>
+<s d="ᅭ" t="ᅭ"/>
+<s d="ᅮ" t="ᅮ"/>
+<s d="ᅭ" t="ᅯ"/>
+<s d="ᅰ" t="ᅰ"/>
+<s d="ᅱ" t="ᅱ"/>
+<s d="ᅲ" t="ᅲ"/>
+<s d="ᅳ" t="ᅳ"/>
+<s d="ᅴ" t="ᅴ"/>
+<s d="ᅵ" t="ᅵ"/>
+</group>
+<group name="Korean filler character">
+<s d="→" t="ᅟᅠ"/>
+</group>
+</alphabet>
+<alphabet name="Japanese (Hiragana)">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<train>training_hiragana_JP.txt</train>
+<space d="_" t=" "/>
+<group name="Hiragana consonents">
+<s d="か" t="か"/>
+<s d="き" t="き"/>
+<s d="く" t="く"/>
+<s d="け" t="け"/>
+<s d="こ" t="こ"/>
+<s d="さ" t="さ"/>
+<s d="し" t="し"/>
+<s d="す" t="す"/>
+<s d="せ" t="せ"/>
+<s d="そ" t="そ"/>
+<s d="た" t="た"/>
+<s d="ち" t="ち"/>
+<s d="つ" t="つ"/>
+<s d="て" t="て"/>
+<s d="と" t="と"/>
+<s d="な" t="な"/>
+<s d="に" t="に"/>
+<s d="ぬ" t="ぬ"/>
+<s d="ね" t="ね"/>
+<s d="の" t="の"/>
+<s d="は" t="は"/>
+<s d="ひ" t="ひ"/>
+<s d="ふ" t="ふ"/>
+<s d="へ" t="へ"/>
+<s d="ほ" t="ほ"/>
+<s d="ま" t="ま"/>
+<s d="み" t="み"/>
+<s d="む" t="む"/>
+<s d="め" t="め"/>
+<s d="も" t="も"/>
+<s d="や" t="や"/>
+<s d="ゆ" t="ゆ"/>
+<s d="よ" t="よ"/>
+<s d="ら" t="ら"/>
+<s d="り" t="り"/>
+<s d="る" t="る"/>
+<s d="れ" t="れ"/>
+<s d="ろ" t="ろ"/>
+<s d="わ" t="わ"/>
+<s d="ゐ" t="ゐ"/>
+<s d="ゑ" t="ゑ"/>
+<s d="を" t="を"/>
+<s d="ん" t="ん"/>
+</group>
+<group name="Hiragana vowels">
+<s d="あ" t="あ"/>
+<s d="い" t="い"/>
+<s d="う" t="う"/>
+<s d="え" t="え"/>
+<s d="お" t="お"/>
+</group>
+<group name="Hiragana diacriticals">
+<s d="゙" t="゙"/>
+<s d="゛" t="゛"/>
+</group>
+</alphabet>
 </alphabets>

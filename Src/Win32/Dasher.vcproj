@@ -552,12 +552,6 @@
 					RelativePath=".\Widgets\Menu.h">
 				</File>
 				<File
-					RelativePath="Widgets\Prefs.cpp">
-				</File>
-				<File
-					RelativePath="Widgets\Prefs.h">
-				</File>
-				<File
 					RelativePath=".\Widgets\Screen.cpp">
 				</File>
 				<File

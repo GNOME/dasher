@@ -13,6 +13,7 @@
 */
 
 #include "Edit.h"
+#include "Canvas.h"
 #include <mbstring.h>
 
 using namespace Dasher;
@@ -50,6 +51,9 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
 	if (hr!=S_OK)
 		pVoice=0;
+	if (pVoice!=0) {
+		pVoice->Speak(L"",SPF_ASYNC,NULL);
+	}
 }
 
 
@@ -608,7 +612,9 @@ LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_KEYUP:
 		// if we enter text or move around the edit control, update the Dasher display
-		m_DasherInterface->ChangeEdit();
+		if (Canvas->Running()==false) {
+			m_DasherInterface->ChangeEdit();
+		}
 		InvalidateRect (Window, NULL, FALSE);
 		break;
 	case WM_COMMAND:
@@ -681,50 +687,85 @@ void CEdit::SetWindow(HWND window)
 void CEdit::outputcontrol (void* pointer, int data, int type)
 {
 	if (type==1) {
+		BYTE pbKeyState[256];
 		switch (data) {
 		  case 2:
 			  // stop
-			//  Canvas->StartStop();
+			  Canvas->StartStop();
 			  break;
 		  case 3:
 			  //	pause
-			  //Canvas->Pause();
+			  Canvas->Pause();
 			  break;
 		  case 4:
 			  speak();
 			  break;
-/*		  case 11:
+		  case 11:
 			  // move left
-			  edit_move_back();
+		    SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
 			  break;
 		  case 12:
 			  // move right
-			  edit_move_forward();
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
 			  break;
 		  case 13:
-			  edit_move_start();
+			// move to the start of the document
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_HOME, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_HOME, NULL);
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
 			  break;
 		  case 14:
-			  edit_move_end();
+			  // go to end
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_END, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_END, NULL);
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
 			  break;
 		  case 21:
-			  edit_delete_forward_character();
+				//delete next character
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
 		  case 22:
-			  edit_delete_forward_word();
-			  break;
-		  case 23:
-			  edit_delete_forward_line();
+			BYTE pbKeyState[256];
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			pbKeyState[VK_SHIFT] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
+			pbKeyState[VK_SHIFT] &= ~0x80;
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
 		  case 24:
-			  edit_delete_callback();
+			  SendMessage(m_hwnd, WM_KEYDOWN, VK_BACK, NULL);
+			  SendMessage(m_hwnd, WM_KEYUP, VK_BACK, NULL);
 			  break;
 		  case 25:
-			  edit_delete_backward_word();
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			pbKeyState[VK_SHIFT] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+			pbKeyState[VK_SHIFT] &= ~0x80;
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
-		  case 26:
-			  edit_delete_backward_line();
-			  break; */
 		}
 	return;
 	}

@@ -51,6 +51,7 @@ public:
 	void StartStop();
 	void DrawOutlines(bool Value) {Screen->DrawOutlines(Value);}
 	void Pause() {running=0;}
+	bool Running() {return running;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

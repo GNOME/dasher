@@ -28,6 +28,8 @@ extern CComModule _Module;
 #include "FilenameGUI.h"
 #include <Oleacc.h>
 
+class CCanvas;
+
 class CEdit : public Dasher::CDashEditbox, public CWinWrap
 {
 public:
@@ -88,6 +90,9 @@ public:
 	// speak text
 	void speak();
 
+	// set canvas
+	void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
+
 protected:
 	bool m_dirty;
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -125,6 +130,8 @@ private:
 	std::string speech;
 
 	void InsertText(Tstring InsertText); // add symbol to edit control
+
+	CCanvas* Canvas;
 };
 
 
