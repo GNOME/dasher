@@ -413,9 +413,13 @@ void get_new_context_callback( std::string &str, int max )
   gtk_text_buffer_get_selection_bounds(the_text_buffer,start,end);
 
   if (gtk_text_iter_get_offset(start)==gtk_text_iter_get_offset(end)) {
+    // if there's no slection, just get the context from the cursor
     gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
     *start=*end;  
   } else {
+    // otherwise, we want to get the context from the left hand edge of
+    // the selection rather than the right hand edge (which is where the 
+    // cursor is)
     *end=*start;
   }
 
