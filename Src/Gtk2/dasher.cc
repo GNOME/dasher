@@ -637,6 +637,42 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 #endif
       }      
     }
+    return TRUE;
+    break;
+  case GDK_F12:
+    int x, y;
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    XWarpPointer(gdk_x11_get_default_xdisplay(), 0, GDK_WINDOW_XID(the_canvas->window), 0, 0, 0, 0, the_canvas->allocation.width/2, the_canvas->allocation.height/2);
+    return TRUE;
+    break;
+  default:
+    return FALSE;
+  }  
+  return FALSE;
+}
+
+gint
+slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
+{
+  if (event->type != GDK_KEY_PRESS)
+    return FALSE;
+
+  switch (event->keyval) {
+  case GDK_space:
+    if (startspace == TRUE) {
+      if (paused == TRUE) {
+	dasher_unpause( get_time() );
+	paused = FALSE;
+      } else {
+	dasher_pause(0,0);    
+	paused = TRUE;
+#ifdef GNOME_SPEECH
+	speak();
+#endif
+      }      
+    }
+    return TRUE;
+    break;
   case GDK_F12:
     int x, y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
@@ -783,6 +819,8 @@ void create_canvas() {
 
     gtk_signal_connect(GTK_OBJECT (the_canvas), "key_press_event", GTK_SIGNAL_FUNC (key_press_event), (gpointer) NULL);
     
+    gtk_signal_connect(GTK_OBJECT (speed_frame), "key_press_event", GTK_SIGNAL_FUNC (slider_key_press_event), (gpointer) NULL);
+
     gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
     canvas_frame = gtk_frame_new (NULL);
     gtk_container_add (GTK_CONTAINER (canvas_frame), the_canvas);

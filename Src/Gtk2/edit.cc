@@ -48,8 +48,7 @@ void edit_output_callback(symbol Symbol)
 
 #ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
-  Display *dpy;
-  dpy = XOpenDisplay(NULL);
+  Display *dpy = gdk_x11_get_default_xdisplay();
   int min, max, numcodes;
   KeySym *keysym;
   KeyCode code;
@@ -72,7 +71,6 @@ void edit_output_callback(symbol Symbol)
     }
   }
   XFlush(dpy);
-  XCloseDisplay(dpy);
   g_free(wideoutput);
 #else
   SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
@@ -132,13 +130,12 @@ void edit_delete_callback()
 #ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
   Display *dpy;
-  dpy = XOpenDisplay(NULL);
+  dpy = gdk_x11_get_default_xdisplay();
   KeyCode code;
   code = XKeysymToKeycode(dpy,XK_BackSpace);
   XTestFakeKeyEvent(dpy, code, True, 0);
   XTestFakeKeyEvent(dpy, code, False, 0);
   XFlush(dpy);
-  XCloseDisplay(dpy);
 #else
   SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
 #endif
