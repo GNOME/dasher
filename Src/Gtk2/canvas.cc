@@ -43,12 +43,28 @@ void blank_callback()
   if (setup==false) 
     return;
 
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
+  GdkGCValues origvalues;
+
+  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+  colormap = gdk_colormap_get_system();
+
+  gdk_gc_get_values(graphics_context,&origvalues);
+
+  GdkColor background = colours[0];
+
+  gdk_color_alloc(colormap, &background);
+  gdk_gc_set_foreground (graphics_context, &background);
+  
   gdk_draw_rectangle (offscreen_buffer,		      
-		      the_canvas->style->white_gc,
+		      graphics_context,
                       TRUE,
                       0, 0,
 		      the_canvas->allocation.width,
 		      the_canvas->allocation.height);
+
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
 
@@ -58,6 +74,20 @@ void display_callback()
 
   if (setup==false)
     return;
+
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
+  GdkGCValues origvalues;
+
+  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+  colormap = gdk_colormap_get_system();
+
+  gdk_gc_get_values(graphics_context,&origvalues);
+
+  GdkColor background = colours[0];
+
+  gdk_color_alloc(colormap, &background);
+  gdk_gc_set_foreground (graphics_context, &background);
 
   if (paused==true) {
     if (firstbox==true) {
@@ -75,7 +105,7 @@ void display_callback()
   		      the_canvas->allocation.height);
 
   gdk_draw_rectangle ( offscreen_buffer,
-		       the_canvas->style->white_gc,
+		       graphics_context,
                       TRUE,
                       0, 0,
 		      the_canvas->allocation.width,
@@ -87,13 +117,14 @@ void display_callback()
   update_rect.height = the_canvas->allocation.height;
 
   gtk_widget_draw(the_canvas,&update_rect);
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
 void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
+  GdkRectangle update_rect;
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkRectangle update_rect;
   GdkGCValues origvalues;
 
   if (setup==false)
