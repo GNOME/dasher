@@ -50,8 +50,6 @@ namespace Keys {
 
 void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 {
-  cout << "In settings defaults: Store is " << Store << endl;
-
 	using namespace Dasher;
 	using namespace Keys;
 	using namespace Opts;
