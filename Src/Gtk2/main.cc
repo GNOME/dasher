@@ -36,6 +36,7 @@ static void timestamp_files(gpointer data, guint action, GtkWidget *widget );
 static void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget );
 static void file_encoding(gpointer data, guint action, GtkWidget *widget );
 static void DrawMouse(gpointer data, guint action, GtkWidget *widget );
+static void SetDimension(gpointer data, guint action, GtkWidget *widget );
 static void select_open_file(gpointer data, guint action, GtkWidget *widget);
 static void select_new_file(gpointer data, guint action, GtkWidget *widget);
 static void select_save_file_as();
@@ -140,7 +141,7 @@ static GtkItemFactoryEntry entries[] = {
   { "/Options/Editing Font...", NULL, NULL, 0, "<Item>" },
   { "/Options/Dasher Font...", NULL, NULL, 0, "<Item>" },
   { "/Options/Reset Fonts", NULL, NULL, 0, "<Item>" },
-  { "/Options/One Dimensional", NULL, NULL, 0, "<CheckItem>" },
+  { "/Options/One Dimensional", NULL, *GtkItemFactoryCallback(SetDimension), 1, "<CheckItem>" },
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, NULL, 0, "<Item>" }
@@ -1065,6 +1066,21 @@ void file_encoding(gpointer data, guint action, GtkWidget *widget )
   //FIXME - need to reimplemnt this
 }
 
+void SetDimension(gpointer data, guint action, GtkWidget *widget )
+{
+  // FIXME - rewrite this sanely, ie:
+  // dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_CHECK_MENU_ITEM(widget)->active  );
+  // plus the same for the above routines
+
+  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+    //    interface->DrawMouse( TRUE );
+    dasher_set_parameter_bool( BOOL_DIMENSIONS, true );
+  } else {
+    //    interface->DrawMouse( FALSE );
+    dasher_set_parameter_bool( BOOL_DIMENSIONS, false );
+  }
+}
+
 void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 {
   // FIXME - rewrite this sanely, ie:
@@ -1549,16 +1565,19 @@ void initialise_edit()
 
 bool get_bool_option_callback(const std::string& Key)
 {
+  cout << "get bool " << Key << endl;
   return( false );
 }
 
 long get_long_option_callback(const std::string& Key)
 {
+  cout << "get long " << Key << endl;
   return( 0 );
 }
 
 string& get_string_option_callback(const std::string& Key)
 {
+  cout << "get string " << Key << endl;
   return ( my_default_string );
 }
   

@@ -222,9 +222,7 @@ void dasher_initialise( int _width, int _height )
 //   dasher_get_alphabets( &alphabet, 1 );
 //   dasher_set_parameter_string( STRING_ALPHABET, alphabet );
  
-//  dss = new dasher_settings_store;
-
-  dss = new CSettingsStore;
+  dss = new dasher_settings_store;
   interface->SetSettingsStore( dss );
 
   dasher_start();
@@ -305,6 +303,7 @@ void dasher_set_parameter_bool( bool_param p, bool value )
   switch( p )
     {
     case BOOL_DIMENSIONS:
+      interface->SetDasherDimensions(value);
       break;
     case BOOL_SHOWTOOLBAR:
       interface->ShowToolbar(value);
