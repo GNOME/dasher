@@ -2,7 +2,7 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
-#ifdef GNOME_SPEECH
+#if (defined GNOME_SPEECH || defined GNOME_A11Y)
 #include <libbonobo.h>
 #endif
 
@@ -17,7 +17,14 @@
 #include "settings_store.h"
 #include "canvas.h"
 #include "edit.h"
+
+#ifdef GNOME_SPEECH
 #include "speech.h"
+#endif
+
+#ifdef GNOME_A11Y
+#include "accessibility.h"
+#endif
 
 //extern GConfClient *the_gconf_client;
 
@@ -68,11 +75,11 @@ main(int argc, char *argv[])
   gconfengine = gconf_engine_get_default();
   the_gconf_client = gconf_client_get_default();
 
-#ifdef GNOME_SPEECH
-  if (!bonobo_init (&argc, argv))
-    {
-      g_error ("Can't initialize Bonobo...\n");
-    }
+#if (defined GNOME_SPEECH || defined GNOME_A11Y)
+    if (!bonobo_init (&argc, argv))
+      {
+        g_error ("Can't initialize Bonobo...\n");
+      }
 #endif
 
   dasher_set_get_bool_option_callback( get_bool_option_callback );
@@ -93,6 +100,7 @@ main(int argc, char *argv[])
   dasher_set_draw_rectangle_callback( draw_rectangle_callback );
   dasher_set_draw_polyline_callback( draw_polyline_callback );
   dasher_set_draw_text_callback( draw_text_callback );
+  dasher_set_draw_text_string_callback( draw_text_string_callback );
   dasher_set_text_size_callback( text_size_callback );
   
   dasher_set_edit_output_callback( edit_output_callback );
@@ -119,11 +127,19 @@ main(int argc, char *argv[])
 
   choose_filename();
 
+#ifdef GNOME_SPEECH
   setup_speech();
+#endif
+
+#ifdef GNOME_A11Y
+  add_control_tree(gettree());
+#endif
 
   gtk_main ();
 
+#ifdef GNOME_SPEECH
   teardown_speech();
+#endif
   
   gconf_engine_unref(gconfengine);
 

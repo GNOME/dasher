@@ -1,5 +1,9 @@
 #include "edit.h"
+#include "accessibility.h"
+
+#ifdef GNOME_SPEECH
 #include "speech.h"
+#endif
 
 GtkWidget *the_text_view;  
 GtkTextBuffer *the_text_buffer;
@@ -31,21 +35,29 @@ void edit_output_callback(symbol Symbol)
   std::string label;
   label = dasher_get_edit_text( Symbol );
 
+#ifdef GNOME_SPEECH
   if (label == " ") {
     SPEAK_DAMN_YOU(&say);
     say="";
   } else {
     say+=label;
   }
+#endif
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
   outputcharacters++;
 }
 
-void edit_outputcontrol_callback(symbol Symbol)
+void edit_outputcontrol_callback(void* pointer, int data)
 {
-  printf("Control\n");
+  if (pointer!=NULL) {
+    if (data==1) {
+      Accessible *myfoo;
+      myfoo=(Accessible *)pointer;
+      AccessibleAction_doAction(Accessible_getAction(myfoo),0);
+    }
+  }
 }
 
 void edit_delete_callback()

@@ -191,6 +191,27 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
 }
 
+void draw_text_string_callback(std::string String, int x1, int y1, int size)
+{
+  GdkRectangle update_rect;
+
+  if (setup==false)
+    return;
+
+  pango_font_description_set_size( font,size*PANGO_SCALE);
+
+  pango_layout_set_font_description(the_pangolayout,font);
+
+  pango_layout_set_text(the_pangolayout,String.c_str(),-1);
+
+  pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
+
+  gdk_draw_layout (offscreen_buffer,
+		   the_canvas->style->black_gc,
+		   x1, y1-(ink->height/2.0), the_pangolayout);
+
+}
+
 void text_size_callback(symbol Character, int* Width, int* Height, int Size)
 {
   // FIXME
