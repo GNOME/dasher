@@ -1,3 +1,25 @@
+3.2.1
+
+(Note: This version is primarily targetted at the Gnome release cycle, and
+so contains relatively few new features for Unix and none for Windows)
+
+General:
+A default colour scheme is now included in the core code, so Dasher will
+work even without a colour.xml file
+atoi() calls now all occur during setup rather than at runtime - should result
+in a noticable performance boost
+
+Unix:
+GPE target added - see http://gpe.handhelds.org for more information
+Ensure that Dasher doesn't try to update itself while shutting down
+Work properly in non-UTF8 locales
+Extra command-line options. -o causes Dasher to present itself for text entry
+into other applications rather than for internal editing. -p causes Dasher to
+only open a preferences window (mostly useful for the GPE port). -s causes
+Dasher to output newly entered text to stdout.
+Fixed a stupid bug that slowed down gnome-vfs operations.
+Dasher now accepts a filename on the command line
+
 3.2.0
 
 General:
