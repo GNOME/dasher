@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Portuguese">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<train>source_pt_br.txt</train>
+<space d="_" t=" "/>
+<group name="Lower case Latin letters">
+<s d="a" t="a"/>
+<s d="à" t="à"/>
+<s d="á" t="á"/>
+<s d="â" t="â"/>
+<s d="ã" t="ã"/>
+<s d="b" t="b"/>
+<s d="c" t="c"/>
+<s d="ç" t="ç"/>
+<s d="d" t="d"/>
+<s d="e" t="e"/>
+<s d="è" t="è"/>
+<s d="é" t="é"/>
+<s d="ê" t="ê"/>
+<s d="f" t="f"/>
+<s d="g" t="g"/>
+<s d="h" t="h"/>
+<s d="i" t="i"/>
+<s d="í" t="í"/>
+<s d="î" t="î"/>
+<s d="j" t="j"/>
+<s d="k" t="k"/>
+<s d="l" t="l"/>
+<s d="m" t="m"/>
+<s d="n" t="n"/>
+<s d="ñ" t="ñ"/>
+<s d="o" t="o"/>
+<s d="ó" t="ó"/>
+<s d="ô" t="ô"/>
+<s d="õ" t="õ"/>
+<s d="p" t="p"/>
+<s d="q" t="q"/>
+<s d="r" t="r"/>
+<s d="s" t="s"/>
+<s d="t" t="t"/>
+<s d="u" t="u"/>
+<s d="ú" t="ú"/>
+<s d="ü" t="ü"/>
+<s d="v" t="v"/>
+<s d="w" t="w"/>
+<s d="x" t="x"/>
+<s d="y" t="y"/>
+<s d="z" t="z"/>
+</group>
+<group name="Upper case Latin letters">
+<s d="A" t="A"/>
+<s d="À" t="À"/>
+<s d="Á" t="Á"/>
+<s d="Ã" t="Ã"/>
+<s d="B" t="B"/>
+<s d="C" t="C"/>
+<s d="Ç" t="Ç"/>
+<s d="D" t="D"/>
+<s d="E" t="E"/>
+<s d="É" t="É"/>
+<s d="Ê" t="Ê"/>
+<s d="F" t="F"/>
+<s d="G" t="G"/>
+<s d="H" t="H"/>
+<s d="I" t="I"/>
+<s d="Í" t="Í"/>
+<s d="J" t="J"/>
+<s d="K" t="K"/>
+<s d="L" t="L"/>
+<s d="M" t="M"/>
+<s d="N" t="N"/>
+<s d="Ñ" t="Ñ"/>
+<s d="O" t="O"/>
+<s d="Ó" t="Ó"/>
+<s d="Ô" t="Ô"/>
+<s d="Õ" t="Õ"/>
+<s d="P" t="P"/>
+<s d="Q" t="Q"/>
+<s d="R" t="R"/>
+<s d="S" t="S"/>
+<s d="T" t="T"/>
+<s d="U" t="U"/>
+<s d="Ú" t="Ú"/>
+<s d="V" t="V"/>
+<s d="W" t="W"/>
+<s d="X" t="X"/>
+<s d="Y" t="Y"/>
+<s d="Z" t="Z"/>
+</group>
+<group name="Punctuation">
+<s d="&amp;" t="&amp;"/>
+<s d="&quot;" t="&quot;"/>
+<s d="&apos;" t="&apos;"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+<s d="¶" t="&#xa;"/>
+</group>
+</alphabet>
+</alphabets>
