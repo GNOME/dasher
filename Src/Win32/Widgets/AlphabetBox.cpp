@@ -123,8 +123,14 @@ void CAlphabetBox::InitCustomBox()
 	SendMessage(GetDlgItem(CustomBox,IDC_CHARS), LB_SETCOLUMNWIDTH, 34, 0);
 	
 	// Set check mark for the "space character"
-	if (CurrentInfo.SpaceCharacter.Text!=std::string(""))
+	if (CurrentInfo.SpaceCharacter.Display!=std::string(""))
 		SendMessage(GetDlgItem(CustomBox,IDC_SPACE), BM_SETCHECK, BST_CHECKED, 0);
+	// Set check mark for the "paragraph character"
+	if (CurrentInfo.ParagraphCharacter.Display!=std::string(""))
+	  SendMessage(GetDlgItem(CustomBox,IDC_PARAGRAPH), BM_SETCHECK, BST_CHECKED, 0);
+	// Set check mark for the "control character"
+	if (CurrentInfo.ControlCharacter.Display!=std::string(""))
+	  SendMessage(GetDlgItem(CustomBox,IDC_CONTROL), BM_SETCHECK, BST_CHECKED, 0);
 }
 
 
@@ -198,7 +204,7 @@ void CAlphabetBox::ShowGroupChars()
 }
 
 
-void CAlphabetBox::CustomCharacter(std::string Display, std::string Text)
+void CAlphabetBox::CustomCharacter(std::string Display, std::string Text, int Colour)
 {
 	vector<CAlphIO::AlphInfo::character>& Chars = CurrentInfo.Groups[CurrentGroup].Characters;
 	
@@ -218,7 +224,8 @@ void CAlphabetBox::CustomCharacter(std::string Display, std::string Text)
 	
 	Chars[CurrentChar].Text = Text;
 	Chars[CurrentChar].Display = Display;
-	
+	Chars[CurrentChar].Colour = Colour;
+
 	ShowGroupChars(); // lazy, don't really need to update whole list
 }
 
@@ -259,9 +266,31 @@ bool CAlphabetBox::UpdateInfo()
 	if (SendMessage(GetDlgItem(CustomBox,IDC_SPACE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 		CurrentInfo.SpaceCharacter.Text = " ";
 		CurrentInfo.SpaceCharacter.Display = "_";
+		CurrentInfo.SpaceCharacter.Colour = 9;
 	} else {
 		CurrentInfo.SpaceCharacter.Text = "";
 		CurrentInfo.SpaceCharacter.Display = "";
+		CurrentInfo.SpaceCharacter.Colour = -1;
+	}
+
+	if (SendMessage(GetDlgItem(CustomBox,IDC_PARAGRAPH), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+		CurrentInfo.ParagraphCharacter.Text = "";
+		CurrentInfo.ParagraphCharacter.Display = "P";
+		CurrentInfo.ParagraphCharacter.Colour = 9;
+	} else {
+		CurrentInfo.ParagraphCharacter.Text = "";
+		CurrentInfo.ParagraphCharacter.Display = "";
+		CurrentInfo.ParagraphCharacter.Colour = -1;
+	}
+
+	if (SendMessage(GetDlgItem(CustomBox,IDC_CONTROL), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+		CurrentInfo.ControlCharacter.Text = "";
+		CurrentInfo.ControlCharacter.Display = "Control";
+		CurrentInfo.ControlCharacter.Colour = 8;
+	} else {
+		CurrentInfo.ControlCharacter.Text = "";
+		CurrentInfo.ControlCharacter.Display = "";
+		CurrentInfo.ControlCharacter.Colour = -1;
 	}
 	
 	CurrentInfo.TrainingFile = GetControlText(CustomBox, IDC_TRAIN);
@@ -392,7 +421,8 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		case (IDOK_ADDCHAR): {
 			string Display = GetControlText(Window, IDC_DISPLAY);
 			string Text = GetControlText(Window, IDC_TEXT);
-			CustomCharacter(Display, Text);
+			int Colour = atoi(GetControlText(Window, IDC_COLOUR);
+			CustomCharacter(Display, Text, Colour);
 			TCHAR Terminator = '\0';
 			SendMessage(GetDlgItem(Window, IDC_DISPLAY), WM_SETTEXT, 0, (LPARAM)&Terminator);
 			SetFocus(GetDlgItem(Window, IDC_DISPLAY));
@@ -401,7 +431,8 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		case (IDOK_CHAR): {
 			string Display = GetControlText(Window, IDC_DISPLAY);
 			string Text = GetControlText(Window, IDC_TEXT);
-			CustomCharacter(Display, Text);
+			int Colour = atoi(GetControlText(Window, IDC_COLOUR);
+			CustomCharacter(Display, Text, Colour);
 			EndDialog(Window, LOWORD(wParam));
 			break;
 		}

@@ -47,7 +47,7 @@ private:
 	void NewGroup(std::string NewGroup);
 	void ShowGroups();
 	void ShowGroupChars();
-	void CustomCharacter(std::string Display, std::string Text);
+	void CustomCharacter(std::string Display, std::string Text, int Colour);
 	bool UpdateInfo();
 };
 
