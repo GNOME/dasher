@@ -125,6 +125,12 @@ inline void CScreen::Polyline(point* Points, int Number) const
 	SelectObject(m_hDCBuffer, hpOld);
 }
 
+inline void CScreen::Polyline(point* Points, int Number, int iColour) const
+{
+	// DJW_TODO - implement coloured lines.
+	Polyline(Points,Number, iColour);
+}
+
 
 inline void CScreen::DrawPolygon(point* Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {
