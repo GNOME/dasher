@@ -169,8 +169,11 @@ inline void CScreen::Display()
 //		ReleaseDC(m_hwnd,RealHDC);
 //	} else
 	
-	BitBlt(m_hDCScreen, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
-	
+	// :: GetDC should have little overhead now we have a private DC
+	HDC hdc = GetDC(m_hwnd);
+	BitBlt(hdc, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+	ReleaseDC(m_hwnd,hdc);
+
 	//RealHDC = 0;
 }
 

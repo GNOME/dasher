@@ -69,7 +69,7 @@ private:
 	std::string m_FontName;
 	
 	HWND m_hwnd;
-	HDC m_hDCBuffer,m_hDCText, m_hDCScreen;
+	HDC m_hDCBuffer,m_hDCText;
 	std::vector<HFONT> m_vhfFonts;
 	//vector<HBRUSH> m_vhbBrushes;
 	std::vector<HBRUSH> m_Brushes;

@@ -17,7 +17,7 @@ using namespace Opts;
 using namespace std;
 
 CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
-  : CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), m_hDCScreen(0), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
+  : CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
 {
 	// set up the off-screen buffers
 	HDC hdc = GetDC(mainwindow);
@@ -25,7 +25,7 @@ CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
 	m_hDCText = CreateCompatibleDC(hdc);    // the other for text
 	m_hbmBit = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
 	m_hbmText = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
-	//ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
+	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
 	m_prevhbmText = SelectObject(m_hDCText,m_hbmText);
 	SetBkMode(m_hDCText,TRANSPARENT);
 	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
@@ -36,7 +36,10 @@ CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
 	CodePage = GetUserCodePage();
 	SetFont("");
 
-	m_hDCScreen = ::GetDC(m_hwnd);
+//	m_hDCScreen = ::GetDC(m_hwnd);
+//	TCHAR debug[256];
+//	_stprintf(debug, TEXT("GetDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
+//	OutputDebugString(debug); 
 }
 
 
@@ -61,6 +64,16 @@ CScreen::~CScreen() {
 		DeleteObject(m_Brushes.back());
 		m_Brushes.pop_back();
 	}
+
+	while (m_Pens.size()!=0) {
+		DeleteObject(m_Pens.back());
+		m_Pens.pop_back();
+	}
+
+//	::ReleaseDC(m_hwnd,m_hDCScreen);
+//	TCHAR debug[256];
+//	_stprintf(debug, TEXT("ReleaseDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
+//	OutputDebugString(debug); 
 
 }
 
@@ -141,9 +154,15 @@ void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 	
 	assert(numcolours>0);
 
-	for (int i=0; i<numcolours; i++) {
-		m_Brushes.push_back(CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i))));
-		m_Pens.push_back(CreatePen(PS_SOLID, 1, RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i))));
+	for (int i=0; i<numcolours; i++) 
+	{
+		// DJW 20031029 - something fishy is going on - i think calls to CreateSolidBrush start to fail
+		HBRUSH hb = CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
+		assert(hb!=0);
+		m_Brushes.push_back(hb);
+		HPEN hp = CreatePen(PS_SOLID, 1, RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
+		assert(hp!=0);
+		m_Pens.push_back(hp);
 	}
 }
 
