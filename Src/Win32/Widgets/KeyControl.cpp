@@ -88,11 +88,11 @@ void CKeyBox::PopulateWidgets()
 	SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
 	SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
 	SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
-	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pCanvas->getuniform()/100);
+	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pCanvas->getuniform());
 
 	uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
 	Buffer = new TCHAR[10];
-	_stprintf(Buffer, TEXT("%0.1f"), m_pCanvas->getuniform()/1000.0);
+	_stprintf(Buffer, TEXT("%0.1f"), m_pCanvas->getuniform()/10.0);
 	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
 	delete[] Buffer;
 
@@ -184,8 +184,8 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			m_pSettingsInterface->SetYScale(ypixels);
 			m_pCanvas->setmouseposdist(mouseposdist);
 			m_pSettingsInterface->SetMousePosDist(mouseposdist);
-			m_pCanvas->setuniform(NewUniform*100);
-			m_pSettingsInterface->SetUniform(NewUniform*100);
+			m_pCanvas->setuniform(NewUniform);
+			m_pSettingsInterface->SetUniform(NewUniform);
 			// Move forward on button press
 /*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pCanvas->setforward(true);

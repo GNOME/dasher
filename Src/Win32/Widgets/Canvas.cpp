@@ -361,6 +361,7 @@ void CCanvas::StartStop() {
 		m_DasherWidgetInterface->Unpause(GetTickCount());
 		firstwindow=false;
 		secondwindow=false;
+		mousepostime=0;
 	} else {
 		m_DasherWidgetInterface->PauseAt(0,0);
 		running=0;
