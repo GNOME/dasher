@@ -146,21 +146,33 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 			// distribute what's left evenly	
 		//tospend+=uniform;
 
-	int current_symbol(0);
-	while( tospend > 0 )
-	  {
-	    if( valid[current_symbol] ) {
-		probs[current_symbol] += 1;
-		tospend -= 1;
-	    }
+//  	int current_symbol(0);
+//  	while( tospend > 0 )
+//  	  {
+//  	    if( valid[current_symbol] ) {
+//  		probs[current_symbol] += 1;
+//  		tospend -= 1;
+//  	    }
 
-	    ++current_symbol;
-	    if( current_symbol == modelchars )
-	      current_symbol = 0;
-	  }
+//  	    ++current_symbol;
+//  	    if( current_symbol == modelchars )
+//  	      current_symbol = 0;
+//  	  }
+
+	int valid_char_count(0);
+
+	for( int i(0); i < modelchars; ++i )
+	  if( valid[i] ) 
+	    ++valid_char_count;
 	  
 	
-		//  for (sym=1;sym<modelchars;sym++) {
+	for (int i(0);i<modelchars;++i) 
+	  if( valid[i] ) {
+	    ulong p=tospend/(valid_char_count);
+	    probs[i] +=p;
+	    --valid_char_count;
+	    tospend -=p;
+	}
 //  			  {
 //  				ulong p=tospend/(modelchars-sym);
 //  				probs[sym]+=p;
