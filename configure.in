@@ -9,7 +9,7 @@ AC_PROG_INTLTOOL([0.18])
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
-ALL_LINGUAS="fr pt sr sr@Latn sv"
+ALL_LINGUAS="en_GB fr pt sr sr@Latn sv"
 AM_GNU_GETTEXT
 #AM_ICONV
 
