@@ -62,6 +62,7 @@ public:
 	void SetDasherDimensions(bool Value);
 	void StartOnLeft(bool Value);
 	void StartOnSpace(bool Value);
+	void KeyControl(bool Value);
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);

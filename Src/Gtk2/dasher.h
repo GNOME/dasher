@@ -37,9 +37,8 @@ void parameter_int_callback( int_param p, long int value );
 void parameter_bool_callback( bool_param p, bool value );
 
 
-
-
-
+void null_log_handler (const gchar *log_domain, GLogLevelFlags log_level, 
+		       const gchar *message, gpointer unused_data);
 
 extern GtkWidget *vbox, *toolbar;
 extern GdkPixbuf *p;

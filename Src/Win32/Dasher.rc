@@ -192,6 +192,7 @@ BEGIN
         MENUITEM "Draw mouse position",         ID_OPTIONS_DRAWMOUSE
         MENUITEM "Mouse button starts/stops",   ID_OPTIONS_LEFTMOUSE
         MENUITEM "Space bar starts/stops",      ID_OPTIONS_SPACE
+        MENUITEM "Keyboard Control",            ID_OPTIONS_KEYCONTROL
     END
     POPUP "&Help"
     BEGIN
@@ -234,9 +235,9 @@ FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
-    LTEXT           "Dasher 3.0.1",IDC_STATIC,67,18,168,10,SS_NOPREFIX
-    LTEXT           "Copyright (C) 1998-2003 David Ward",IDC_STATIC,67,30,
-                    168,10
+    LTEXT           "Dasher 3.0.2",IDC_STATIC,67,18,168,10,SS_NOPREFIX
+    LTEXT           "Copyright (C) 1998-2003 The Dasher Project",IDC_STATIC,
+                    67,30,168,10
     LTEXT           "dasher@mrao.cam.ac.uk",IDC_STATIC,67,63,168,10
     LTEXT           "http://www.inference.phy.cam.ac.uk/dasher/",IDC_STATIC,
                     67,53,168,10
@@ -431,8 +432,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,1,0
- PRODUCTVERSION 3,0,1,0
+ FILEVERSION 3,0,2,0
+ PRODUCTVERSION 3,0,2,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -450,14 +451,14 @@ BEGIN
             VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL.\0"
             VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge\0"
             VALUE "FileDescription", "Dasher\0"
-            VALUE "FileVersion", "3, 0, 1, 0\0"
+            VALUE "FileVersion", "3, 0, 2, 0\0"
             VALUE "InternalName", "Dasher\0"
             VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward\0"
             VALUE "LegalTrademarks", "\0"
             VALUE "OriginalFilename", "dasher.exe\0"
             VALUE "PrivateBuild", "\0"
             VALUE "ProductName", "Dasher\0"
-            VALUE "ProductVersion", "3, 0, 1, 0\0"
+            VALUE "ProductVersion", "3, 0, 2, 0\0"
             VALUE "SpecialBuild", "\0"
         END
     END

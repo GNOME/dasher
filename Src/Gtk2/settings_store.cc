@@ -16,6 +16,9 @@ bool get_bool_option_callback(const std::string& Key, bool *value)
 
   GError *the_error;
 
+  if (gconf_engine_get( gconfengine, keypath, &the_error)==FALSE)
+    return (false);
+
 //   if( gconf_client_unset( the_gconf_client, keypath, &the_error ) )
 //     return( false );
 
@@ -49,6 +52,10 @@ bool get_long_option_callback(const std::string& Key, long *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
+  if (gconf_engine_get( gconfengine, keypath, NULL)==FALSE)
+    return (false);
+
+
   //  cout << "Searching for key " << keypath << endl;
 
 
@@ -74,6 +81,9 @@ char * got_value;
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
+
+  if (gconf_engine_get( gconfengine, keypath, NULL)==FALSE)
+    return (false);
 
   //  cout << "Searching for key " << keypath << endl;
 
