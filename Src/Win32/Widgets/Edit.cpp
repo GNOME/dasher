@@ -487,7 +487,7 @@ void CEdit::get_new_context(string& str, int max)
 	
 	TCHAR *tString = new TCHAR[iFinish+1];
 	
-	SendMessage(m_hwnd, WM_GETTEXT, (LONG)(iFinish+1), (LONG)tString);
+	SendMessage(m_hwnd, WM_GETTEXT, (LONG)(iStart+1), (LONG)tString);
 	
 	string Wasteful;
 	Tstring_to_UTF8string(tString, &Wasteful, CodePage);
