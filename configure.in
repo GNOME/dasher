@@ -1,8 +1,13 @@
+AC_PREREQ(2.50)
 AC_INIT(Src/Main.cc)
 AM_INIT_AUTOMAKE(dasher, 3.0.2)
 
 AC_PROG_RANLIB 
 AC_PROG_MAKE_SET
+AC_PROG_INTLTOOL([0.21])
+
+AM_DISABLE_STATIC
+AM_PROG_LIBTOOL
 
 ALL_LINGUAS="fr"
 AM_GNU_GETTEXT
@@ -10,39 +15,43 @@ AM_GNU_GETTEXT
 
 AC_PROG_CXX
 
-AC_LINK_FILES($nls_cv_header_libgt, $nls_cv_header_intl)
-
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
 AC_ARG_WITH([gtk2],
 	 AC_HELP_STRING([--with-gtk2],[build with GTK2 support (default is NO)]), 
 	[WITHGTK2=true],[WITHGTK2=false])
+AC_ARG_WITH([qte],
+	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
+	[WITHQTE=true],[WITHQTE=false])
 
 AC_ARG_WITH([speech],
 	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]), [WITHSPEECH=true],[WITHSPEECH=false])
 
+if [[ x"$WITHGTK2" != xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
+then
 AM_PATH_GTKMM([1.2.3],[GTKMMVAR=true],[GTKMMVAR=false])
+fi
 
 PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
 
 PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
 
-if [[ "$GTK2HERE" = true ]] && [[ "$GCONF2HERE" = true ]] && [[ "$WITHGTK2" = true ]]
+if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	BUILDGTK2=true
-elif [[ "$GTK2HERE" = true ]] && [[ "$GCONF2HERE" = true ]] && [[ "$GTKMMVAR" != true ]]
+elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$GTKMMVAR" != xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	BUILDGTK2=true
 else 
 	BUILDGTK2=false
 fi
 
-if [[ $BUILDGTK2 = false ]] && [[ "$GTKMMVAR" != true ]]
+if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$GTKMMVAR" != xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	AC_ERROR("Unable to find GTK2 or GTKMM!")
 fi
 
-if [[ "$WITHSPEECH" = true ]]; then
+if [[ x"$WITHSPEECH" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
 	AC_DEFINE([GNOME_SPEECH])
 fi
@@ -52,16 +61,15 @@ AC_SUBST(gnome_speech_CFLAGS)
 
 
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
+AM_CONDITIONAL(DOGTKMM, test x$GTKMMVAR = xtrue)
+AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-AC_OUTPUT([Makefile Src/Gtk2/Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
-
-
-
+AC_OUTPUT([Makefile Src/Common/Makefile Src/Qt/Makefile Src/Gtk2/Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
 
 
 
