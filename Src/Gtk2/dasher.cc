@@ -70,6 +70,7 @@ char *user_data_dir;
 GtkWidget *train_dialog;
 GThread *trainthread;
 GAsyncQueue* trainqueue;
+ControlTree *controltree;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;
@@ -646,6 +647,15 @@ save_file_as (const char *filename, bool append)
 }
 
 #if GTK_CHECK_VERSION(2,3,0)
+
+/* Fudge to avoid Glade complaining about being unable to find this signal 
+   handler */
+extern "C" void
+filesel_hide(GtkWidget *widget, gpointer user_data)
+{
+  return;
+}
+
 extern "C" void
 select_open_file(GtkWidget *widget, gpointer user_data)
 {
@@ -939,7 +949,7 @@ timer_callback(gpointer data)
 	//	deletemenutree();
 	// And making bonobo calls from another thread is likely to lead to
 	// pain as well. It'd be nice to do this while training, but.
-	//	add_control_tree(gettree());
+	add_control_tree(controltree);
 
 	dasher_redraw();
       }

@@ -3,6 +3,8 @@
 	* Fix linking issue - should work with multiple versions of automake
 	* Fix desperately stupid typo that meant colour selection wouldn't
 	  work
+	* Don't complain about filesel_hide on startup
+	* Fix crash on changing alphabets with control mode enabled
 	
 2004-04-15  Matthew Garrett  <mjg59@srcf.ucam.org>
 

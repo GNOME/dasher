@@ -65,6 +65,7 @@ gboolean textentry=FALSE;
 gboolean stdoutpipe=FALSE;
 extern gboolean setup,paused;
 extern int optind;
+extern ControlTree *controltree;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
@@ -253,7 +254,8 @@ main(int argc, char *argv[])
   setupa11y();
 #endif
 
-  add_control_tree(gettree());
+  controltree=gettree();
+  add_control_tree(controltree);
 
   if (optind<argc) {
     open_file(argv[optind]);
