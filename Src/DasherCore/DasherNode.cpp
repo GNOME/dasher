@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ void CDasherNode::Push_Node()
 	if (m_Children) {
 		// if there are children just give them a poke
 		unsigned int i;
-		for (i=1;i<m_iChars;i++)
+		for (i=1;i<m_iChildCount;i++)
 			m_Children[i]->m_bAlive=1;
 		return;
 	}
@@ -89,12 +89,12 @@ void CDasherNode::Push_Node()
 			controltree = m_controltree->children;
 		}
 
-		m_iChars=1;
+		m_iChildCount=1;
 
 		if (controltree!=NULL) {
-			m_iChars++;
+			m_iChildCount++;
 			while(controltree->next!=NULL) {
-				m_iChars++;
+				m_iChildCount++;
 				controltree=controltree->next;
 			}
 		}
@@ -108,11 +108,11 @@ void CDasherNode::Push_Node()
 
 		i=1;
 
-		quantum=int(m_languagemodel->normalization()/m_iChars);
+		quantum=int(m_DasherModel.Normalization()/m_iChildCount);
 
-		m_iChars++;
+		m_iChildCount++;
 
-		m_Children=new CDasherNode *[m_iChars];
+		m_Children=new CDasherNode *[m_iChildCount];
 
 		ColorSchemes ChildScheme;
 		if (m_ColorScheme==Nodes1) {
@@ -121,14 +121,14 @@ void CDasherNode::Push_Node()
 			ChildScheme = Nodes1;
 		}
 
-		m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,240);
+		m_Children[1]=new CDasherNode(m_DasherModel,this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,240);
 
 		while(controltree!=NULL) {
 			i++;
 			if (controltree->colour!=-1) {
-				m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,controltree->colour,controltree);
+				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,controltree->colour,controltree);
 			} else {
-				m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
+				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
 			}
 			controltree=controltree->next;
 		}
@@ -137,15 +137,15 @@ void CDasherNode::Push_Node()
 
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
-	m_languagemodel->GetNodeProbs(m_pContext,newchars,groups,cum);
-	m_iChars=newchars.size();
+	m_languagemodel->GetNodeProbs(m_pContext,newchars,groups,cum,m_DasherModel.Normalization());
+	m_iChildCount=newchars.size();
 	// work out cumulative probs
 	unsigned int i;
-	for (i=1;i<m_iChars;i++)
+	for (i=1;i<m_iChildCount;i++)
 		cum[i]+=cum[i-1];
 
 	assert(m_Children==0); // otherwise we have another memory leak
-	m_Children =new CDasherNode *[m_iChars];
+	m_Children =new CDasherNode *[m_iChildCount];
 
 	// create the children
 	ColorSchemes NormalScheme, SpecialScheme;
@@ -159,18 +159,18 @@ void CDasherNode::Push_Node()
 
 	ColorSchemes ChildScheme;
 
-	for (i=1;i<m_iChars;i++) {
+	for (i=1;i<m_iChildCount;i++) {
 		if (newchars[i]==this->m_languagemodel->GetSpaceSymbol())
 			ChildScheme = SpecialScheme;
 		else
 			ChildScheme = NormalScheme;
-		m_Children[i]=new CDasherNode(this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel,false,m_languagemodel->GetColour(i));
+		m_Children[i]=new CDasherNode(m_DasherModel,this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel,false,m_languagemodel->GetColour(i));
 	}
 }
 
 void CDasherNode::Recursive_Push_Node(int depth) {
 
-  if ((m_iHbnd-m_iLbnd)<0.1*(m_languagemodel->normalization())) {
+  if ((m_iHbnd-m_iLbnd)<0.1*(m_DasherModel.Normalization())) {
     return;
   }
 
@@ -183,7 +183,7 @@ void CDasherNode::Recursive_Push_Node(int depth) {
   if (depth>2)
     return;
 
-  for (unsigned int i=1; i<m_iChars; i++) {
+  for (unsigned int i=1; i<m_iChildCount; i++) {
     if (m_Children!=0 && m_Children[i]!=0) {
       m_Children[i]->Recursive_Push_Node(depth+1);
     }
@@ -201,7 +201,7 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 	if (m_Children) {
 		myint miRange=miY2-miY1;
 		unsigned int i;
-		for (i=1;i<m_iChars;i++) {
+		for (i=1;i<m_iChildCount;i++) {
 			myint miNewy1=miY1+(miRange*m_Children[i]->m_iLbnd)/iNormalization;
 			myint miNewy2=miY1+(miRange*m_Children[i]->m_iHbnd)/iNormalization;
 			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) {
@@ -222,7 +222,7 @@ CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,my
 //		m_iAge=0;
 		m_bAlive=true;
 		unsigned int i;
-		for (i=1;i<m_iChars;i++) {
+		for (i=1;i<m_iChildCount;i++) {
 			myint miNewy1=miY1+(miRange*m_Children[i]->m_iLbnd)/iNormalization;
 			myint miNewy2=miY1+(miRange*m_Children[i]->m_iHbnd)/iNormalization;
 		if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
@@ -238,7 +238,7 @@ void CDasherNode::Delete_dead(CDasherNode* alive)
 {
   if (m_Children) {
 		unsigned int i; 
-		for (i=1;i<m_iChars;i++) {
+		for (i=1;i<m_iChildCount;i++) {
 		        if (m_Children[i]!=0 && m_Children[i]!=alive) {
 			      m_Children[i]->Delete_children();
 			      delete m_Children[i];
