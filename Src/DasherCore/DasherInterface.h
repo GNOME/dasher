@@ -103,7 +103,7 @@ public:
 	void Train(std::string* TrainString, bool IsMore); // Training by string segments or file
 	void TrainFile(std::string Filename);              // all training data must be in UTF-8.
 
-	void GetFontSizes(std::vector<int> *FontSizes);
+	void GetFontSizes(std::vector<int> *FontSizes) const;
 	
 	double GetCurCPM(); // App may want to display characters per minute
 	double GetCurFPS(); // or frames per second.

@@ -895,7 +895,7 @@ void CDasherInterface::TrainFile(string Filename)
 	fclose(InputFile);
 }
 
-void CDasherInterface::GetFontSizes(std::vector<int> *FontSizes)
+void CDasherInterface::GetFontSizes(std::vector<int> *FontSizes) const
 {
   FontSizes->push_back(20);
   FontSizes->push_back(14);
