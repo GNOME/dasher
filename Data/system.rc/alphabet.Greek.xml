@@ -4,20 +4,17 @@
 <alphabets>
 <alphabet name="Ellinas / Greek with punctuation and numerals">
 <orientation type="LR"/>
-<encoding type="Greek"/>
+<encoding type="Western"/>
 <palette>Default</palette>
 <train>training_greek_GR.txt</train>
 <space d="_" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
-<control d="Control" t=""/ b="8"/>
+<control d="Control" t="" b="8"/>
 <group name="lower case letters" b="0">
 <s d="&#x03B1;" t="&#x03B1;" />
 <s d="&#x03B2;" t="&#x03B2;" />
-<s d="&#x1D66;" t="&#x1D66;" />
 <s d="&#x03B3;" t="&#x03B3;" />
 <s d="&#x213D;" t="&#x213D;" />
-<s d="&#x1D67;" t="&#x1D67;" />
-<s d="&#x1D26;" t="&#x1D26;" />
 <s d="&#x03B4;" t="&#x03B4;" />
 <s d="&#x03B5;" t="&#x03B5;" />
 <s d="&#x03DD;" t="&#x03DD;" />
@@ -28,28 +25,21 @@
 <s d="&#x03B9;" t="&#x03B9;" />
 <s d="&#x03BA;" t="&#x03BA;" />
 <s d="&#x03BB;" t="&#x03BB;" />
-<s d="&#x1D27;" t="&#x1D27;" />
 <s d="&#x03BC;" t="&#x03BC;" />
 <s d="&#x03BD;" t="&#x03BD;" />
 <s d="&#x03BE;" t="&#x03BE;" />
 <s d="&#x03BF;" t="&#x03BF;" />
 <s d="&#x03C0;" t="&#x03C0;" />
-<s d="&#x1D28;" t="&#x1D28;" />
 <s d="&#x03DF;" t="&#x03DF;" />
 <s d="&#x03D9;" t="&#x03D9;" />
 <s d="&#x03C1;" t="&#x03C1;" />
-<s d="&#x1D68;" t="&#x1D68;" />
-<s d="&#x1D29;" t="&#x1D29;" />
 <s d="&#x03C3;" t="&#x03C3;" />
 <s d="&#x03C2;" t="&#x03C2;" />
 <s d="&#x03C4;" t="&#x03C4;" />
 <s d="&#x03C5;" t="&#x03C5;" />
 <s d="&#x03C6;" t="&#x03C6;" />
-<s d="&#x1D69;" t="&#x1D69;" />
 <s d="&#x03C7;" t="&#x03C7;" />
-<s d="&#x1D6A;" t="&#x1D6A;" />
 <s d="&#x03C8;" t="&#x03C8;" />
-<s d="&#x1D2A;" t="&#x1D2A;" />
 <s d="&#x03C9;" t="&#x03C9;" />
 <s d="&#x03E1;" t="&#x03E1;" />
 <s d="&#x03F8;" t="&#x03F8;" />
@@ -61,40 +51,33 @@
 <s d="&#x03EB;" t="&#x03EB;" />
 <s d="&#x03ED;" t="&#x03ED;" />
 <s d="&#x03EF;" t="&#x03EF;" />
-<\/group> 
+</group> 
 <group name="upper case letters" b="111"> 
 <s d="&#x0391;" t="&#x0391;" />
 <s d="&#x0392;" t="&#x0392;" />
 <s d="&#x0393;" t="&#x0393;" />
 <s d="&#x213E;" t="&#x213E;" />
-<s d="&#x1D26;" t="&#x1D26;" />
 <s d="&#x0394;" t="&#x0394;" />
 <s d="&#x0395;" t="&#x0395;" />
 <s d="&#x0396;" t="&#x0396;" />
 <s d="&#x0397;" t="&#x0397;" />
 <s d="&#x0398;" t="&#x0398;" />
-<s d="&#x03F4;" t="&#x03F4;" />
 <s d="&#x0399;" t="&#x0399;" />
 <s d="&#x039A;" t="&#x039A;" />
 <s d="&#x039B;" t="&#x039B;" />
-<s d="&#x1D27;" t="&#x1D27;" />
 <s d="&#x039C;" t="&#x039C;" />
 <s d="&#x039D;" t="&#x039D;" />
 <s d="&#x039E;" t="&#x039E;" />
 <s d="&#x039F;" t="&#x039F;" />
 <s d="&#x03A0;" t="&#x03A0;" />
 <s d="&#x213F;" t="&#x213F;" />
-<s d="&#x1D28;" t="&#x1D28;" />
 <s d="&#x03A1;" t="&#x03A1;" />
-<s d="&#x1D29;" t="&#x1D29;" />
 <s d="&#x03A3;" t="&#x03A3;" />
-<s d="&#x03F9;" t="&#x03F9;" />
 <s d="&#x03A4;" t="&#x03A4;" />
 <s d="&#x03A5;" t="&#x03A5;" />
 <s d="&#x03A6;" t="&#x03A6;" />
 <s d="&#x03A7;" t="&#x03A7;" />
 <s d="&#x03A8;" t="&#x03A8;" />
-<s d="&#x1D2A;" t="&#x1D2A;" />
 <s d="&#x03A9;" t="&#x03A9;" />
 <s d="&#x03F7;" t="&#x03F7;" />
 <s d="&#x03FA;" t="&#x03FA;" />

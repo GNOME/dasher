@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Thai with punctuation and numerals">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Thai_TH.txt</train>
+<space d="_" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Thai letters" b="0">
+<s d="&#x0E01;" t="&#x0E01;" />
+<s d="&#x0E02;" t="&#x0E02;" />
+<s d="&#x0E03;" t="&#x0E03;" />
+<s d="&#x0E04;" t="&#x0E04;" />
+<s d="&#x0E05;" t="&#x0E05;" />
+<s d="&#x0E06;" t="&#x0E06;" />
+<s d="&#x0E07;" t="&#x0E07;" />
+<s d="&#x0E08;" t="&#x0E08;" />
+<s d="&#x0E09;" t="&#x0E09;" />
+<s d="&#x0E0A;" t="&#x0E0A;" />
+<s d="&#x0E0B;" t="&#x0E0B;" />
+<s d="&#x0E0C;" t="&#x0E0C;" />
+<s d="&#x0E0D;" t="&#x0E0D;" />
+<s d="&#x0E0E;" t="&#x0E0E;" />
+<s d="&#x0E0F;" t="&#x0E0F;" />
+<s d="&#x0E10;" t="&#x0E10;" />
+<s d="&#x0E11;" t="&#x0E11;" />
+<s d="&#x0E12;" t="&#x0E12;" />
+<s d="&#x0E13;" t="&#x0E13;" />
+<s d="&#x0E14;" t="&#x0E14;" />
+<s d="&#x0E15;" t="&#x0E15;" />
+<s d="&#x0E16;" t="&#x0E16;" />
+<s d="&#x0E17;" t="&#x0E17;" />
+<s d="&#x0E18;" t="&#x0E18;" />
+<s d="&#x0E19;" t="&#x0E19;" />
+<s d="&#x0E1A;" t="&#x0E1A;" />
+<s d="&#x0E1B;" t="&#x0E1B;" />
+<s d="&#x0E1C;" t="&#x0E1C;" />
+<s d="&#x0E1D;" t="&#x0E1D;" />
+<s d="&#x0E1E;" t="&#x0E1E;" />
+<s d="&#x0E1F;" t="&#x0E1F;" />
+<s d="&#x0E20;" t="&#x0E20;" />
+<s d="&#x0E21;" t="&#x0E21;" />
+<s d="&#x0E22;" t="&#x0E22;" />
+<s d="&#x0E23;" t="&#x0E23;" />
+<s d="&#x0E24;" t="&#x0E24;" />
+<s d="&#x0E25;" t="&#x0E25;" />
+<s d="&#x0E26;" t="&#x0E26;" />
+<s d="&#x0E27;" t="&#x0E27;" />
+<s d="&#x0E28;" t="&#x0E28;" />
+<s d="&#x0E29;" t="&#x0E29;" />
+<s d="&#x0E2A;" t="&#x0E2A;" />
+<s d="&#x0E2B;" t="&#x0E2B;" />
+<s d="&#x0E2C;" t="&#x0E2C;" />
+<s d="&#x0E2D;" t="&#x0E2D;" />
+<s d="&#x0E2E;" t="&#x0E2E;" />
+</group>
+<group name="Character modifiers?"  b="111">
+<s d="&#x0E4D;" t="&#x0E4D;" />
+<s d="&#x0E30;" t="&#x0E30;" />
+<s d="&#x0E31;" t="&#x0E31;" />
+<s d="&#x0E32;" t="&#x0E32;" />
+<s d="&#x0E45;" t="&#x0E45;" />
+<s d="&#x0E33;" t="&#x0E33;" />
+<s d="&#x0E34;" t="&#x0E34;" />
+<s d="&#x0E35;" t="&#x0E35;" />
+<s d="&#x0E36;" t="&#x0E36;" />
+<s d="&#x0E37;" t="&#x0E37;" />
+<s d="&#x0E38;" t="&#x0E38;" />
+<s d="&#x0E39;" t="&#x0E39;" />
+<s d="&#x0E40;" t="&#x0E40;" />
+<s d="&#x0E41;" t="&#x0E41;" />
+<s d="&#x0E42;" t="&#x0E42;" />
+<s d="&#x0E43;" t="&#x0E43;" />
+<s d="&#x0E44;" t="&#x0E44;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>

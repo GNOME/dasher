@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Hebrew with punctuation and numerals">
+<orientation type="RL"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_Hebrew_IL.txt</train>
+<space d="_" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="Hebrew letters" b="0">
+<s d="&#x05D0;" t="&#x05D0;" />
+<s d="&#xFB21;" t="&#xFB21;" />
+<s d="&#xFB2E;" t="&#xFB2E;" />
+<s d="&#xFB2F;" t="&#xFB2F;" />
+<s d="&#xFB30;" t="&#xFB30;" />
+<s d="&#x05D1;" t="&#x05D1;" />
+<s d="&#xFB31;" t="&#xFB31;" />
+<s d="&#xFB4C;" t="&#xFB4C;" />
+<s d="&#x05D2;" t="&#x05D2;" />
+<s d="&#xFB32;" t="&#xFB32;" />
+<s d="&#x05D3;" t="&#x05D3;" />
+<s d="&#xFB22;" t="&#xFB22;" />
+<s d="&#xFB33;" t="&#xFB33;" />
+<s d="&#x05D4;" t="&#x05D4;" />
+<s d="&#xFB23;" t="&#xFB23;" />
+<s d="&#xFB34;" t="&#xFB34;" />
+<s d="&#x05D5;" t="&#x05D5;" />
+<s d="&#xFB4B;" t="&#xFB4B;" />
+<s d="&#xFB35;" t="&#xFB35;" />
+<s d="&#x05D6;" t="&#x05D6;" />
+<s d="&#xFB36;" t="&#xFB36;" />
+<s d="&#x05D7;" t="&#x05D7;" />
+<s d="&#x05D8;" t="&#x05D8;" />
+<s d="&#xFB38;" t="&#xFB38;" />
+<s d="&#x05D9;" t="&#x05D9;" />
+<s d="&#xFB1D;" t="&#xFB1D;" />
+<s d="&#xFB39;" t="&#xFB39;" />
+<s d="&#x05DB;" t="&#x05DB;" />
+<s d="&#xFB24;" t="&#xFB24;" />
+<s d="&#x05DA;" t="&#x05DA;" />
+<s d="&#xFB3B;" t="&#xFB3B;" />
+<s d="&#xFB3A;" t="&#xFB3A;" />
+<s d="&#xFB4D;" t="&#xFB4D;" />
+<s d="&#x05DC;" t="&#x05DC;" />
+<s d="&#xFB25;" t="&#xFB25;" />
+<s d="&#xFB3C;" t="&#xFB3C;" />
+<s d="&#x05DE;" t="&#x05DE;" />
+<s d="&#xFB26;" t="&#xFB26;" />
+<s d="&#x05DD;" t="&#x05DD;" />
+<s d="&#xFB3E;" t="&#xFB3E;" />
+<s d="&#x05E0;" t="&#x05E0;" />
+<s d="&#x05DF;" t="&#x05DF;" />
+<s d="&#xFB40;" t="&#xFB40;" />
+<s d="&#x05E1;" t="&#x05E1;" />
+<s d="&#xFB41;" t="&#xFB41;" />
+<s d="&#x05E2;" t="&#x05E2;" />
+<s d="&#xFB20;" t="&#xFB20;" />
+<s d="&#x05E4;" t="&#x05E4;" />
+<s d="&#x05E3;" t="&#x05E3;" />
+<s d="&#xFB44;" t="&#xFB44;" />
+<s d="&#xFB43;" t="&#xFB43;" />
+<s d="&#xFB4E;" t="&#xFB4E;" />
+<s d="&#x05E6;" t="&#x05E6;" />
+<s d="&#x05E5;" t="&#x05E5;" />
+<s d="&#xFB46;" t="&#xFB46;" />
+<s d="&#x05E7;" t="&#x05E7;" />
+<s d="&#xFB47;" t="&#xFB47;" />
+<s d="&#x05E8;" t="&#x05E8;" />
+<s d="&#xFB27;" t="&#xFB27;" />
+<s d="&#xFB48;" t="&#xFB48;" />
+<s d="&#x05E9;" t="&#x05E9;" />
+<s d="&#xFB2B;" t="&#xFB2B;" />
+<s d="&#xFB2A;" t="&#xFB2A;" />
+<s d="&#xFB49;" t="&#xFB49;" />
+<s d="&#xFB2D;" t="&#xFB2D;" />
+<s d="&#xFB2C;" t="&#xFB2C;" />
+<s d="&#x05EA;" t="&#x05EA;" />
+<s d="&#xFB28;" t="&#xFB28;" />
+<s d="&#xFB4A;" t="&#xFB4A;" />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>
