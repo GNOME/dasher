@@ -137,6 +137,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	// Fonts
 	this->SetEditFont(Store->GetStringOption(EDIT_FONT), Store->GetLongOption(EDIT_FONT_SIZE));
 	this->SetDasherFont(Store->GetStringOption(DASHER_FONT));
+	Store->SetLongDefault(DASHER_FONTSIZE, Opts::FontSize(Normal));
 	this->SetDasherFontSize(Dasher::Opts::FontSize(Store->GetLongOption(DASHER_FONTSIZE)));
 
 	// Window Geometry
