@@ -114,15 +114,18 @@ static void Points_to_QPointArray(const Dasher::CDasherScreen::point* const poin
 				  int number,
 				  QPointArray &qpa)
 {
-  for (int i = 0; i < number; i++)
-    qpa.setPoint (i, points[i].x, points[i].y);
+  for (int i = 0; i < number; i++) {
+    qpa.setPoint (i, points[i].x, points[i].y);  
+  }
 }
 
 void QtDasherScreen::Polyline(point* Points, int Number) const
 {
   QPointArray qpa(Number);
   Points_to_QPointArray (Points, Number, qpa);
+  painter->setPen (SolidLine);
   painter->drawPolyline (qpa);
+
 }
 
 void QtDasherScreen::DrawPolygon(point* Points, int Number, int Color,
