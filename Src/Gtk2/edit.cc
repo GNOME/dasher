@@ -121,7 +121,17 @@ void edit_outputcontrol_callback(void* pointer, int data)
     break;
   case 4:
 #ifdef GNOME_SPEECH
+    speak_buffer();
+#endif
+    break;
+  case 5:
+#ifdef GNOME_SPEECH
     speak();
+#endif
+    break;
+  case 6:
+#ifdef GNOME_SPEECH
+    speak_last();
 #endif
     break;
   case 11:

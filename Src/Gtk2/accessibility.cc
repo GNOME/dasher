@@ -38,6 +38,11 @@ ControlTree* buildcontroltree() {
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
+#ifndef GNOME_A11Y
+  // Otherwise menutree hasn't been set yet, and we end up with a bunch of
+  // null pointers rather than children
+  menutree=stoptree;
+#endif
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=menutree;
@@ -64,8 +69,8 @@ ControlTree* buildcontroltree() {
   deletetree->next=speaktree;
   deletetree->colour=0;
   speaktree->pointer=(void*)1;
-  speaktree->data=4;
-  speaktree->children=menutree;
+  speaktree->data=0;
+  speaktree->children=buildspeaktree(speaktree);
   speaktree->text="Speak";
   speaktree->next=NULL;
   speaktree->colour=0;
@@ -102,6 +107,31 @@ ControlTree* buildmovetree(ControlTree *movetree) {
   endtree->next=NULL;
   endtree->colour=0;
   return lefttree;
+}
+
+ControlTree* buildspeaktree(ControlTree *speaktree) {
+  ControlTree *alltree=new ControlTree;
+  ControlTree *newtree=new ControlTree;
+  ControlTree *lasttree=new ControlTree;
+  alltree->pointer=(void*)1;
+  alltree->data=4;
+  alltree->children=menutree;
+  alltree->text="Everything";
+  alltree->next=newtree;
+  alltree->colour=0;
+  newtree->pointer=(void*)1;
+  newtree->data=5;
+  newtree->children=menutree;
+  newtree->text="New";
+  newtree->next=lasttree;
+  newtree->colour=0;
+  lasttree->pointer=(void*)1;
+  lasttree->data=6;
+  lasttree->children=menutree;
+  lasttree->text="Repeat";
+  lasttree->next=NULL;
+  lasttree->colour=0;
+  return alltree;
 }
 
 ControlTree* builddeletetree(ControlTree *deletetree) {
