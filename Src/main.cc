@@ -190,7 +190,7 @@ main(int argc, char *argv[])
 #endif
 
   add_control_tree(gettree());
-  
+
   gtk_main ();
 
 #ifdef GNOME_SPEECH

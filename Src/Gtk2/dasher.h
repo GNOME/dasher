@@ -94,6 +94,11 @@ extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
 void stop();
 void force_dasher_redraw();
 
+struct button {
+  long x;
+  long y;
+};
+
 #endif
 
 

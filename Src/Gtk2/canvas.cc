@@ -42,6 +42,7 @@ void blank_callback()
 {
   if (setup==false || paused==true) 
     return;
+
   gdk_draw_rectangle (offscreen_buffer,		      
 		      the_canvas->style->white_gc,
                       TRUE,
@@ -335,6 +336,9 @@ void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* b
 }
 
 void draw_mouseposbox(int which) {
+  if (setup==false)
+    return;
+
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkRectangle update_rect;
