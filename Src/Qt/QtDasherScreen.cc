@@ -11,7 +11,6 @@
 
 #include "QtDasherScreen.h"
 #include "DasherScreen.h"
-#include "../Common/IOstreamDasherEdit.h"
 #include "SettingsStore.h"
 
 #define MAXFONTSIZE 25
@@ -21,7 +20,7 @@
 
 QtDasherScreen::QtDasherScreen (int _width, int _height,
 				CDasherInterface *_interface,
-				QWidget * _parent):
+				QWidget * _parent, Dasher::CDashEditbox *edit):
   QWidget(_parent), interface( _interface ),
   fontname( "fixed" ), // fontsize(12),
   Dasher::CDasherScreen(_width, _height)
@@ -31,8 +30,6 @@ QtDasherScreen::QtDasherScreen (int _width, int _height,
 
   pixmap = new QPixmap (_width, _height);
 
-  edit = new IOstreamDasherEdit (interface);
-  
   interface->SetSettingsStore(new CSettingsStore);
 
   interface->ChangeLanguageModel(0);
@@ -156,12 +153,12 @@ void QtDasherScreen::timer()
   if (paused==false) {
     QPoint cursorpos;
     cursorpos=this->cursor().pos();
-    mapFromGlobal(cursorpos);
+    cursorpos=mapFromGlobal(cursorpos);
 
     //FIXME - I've hard-coded this to take the height of the title bar into 
     //account
 
-    interface->TapOn(cursorpos.x(), cursorpos.y()-15, get_time());
+    interface->TapOn(cursorpos.x(), cursorpos.y(), get_time());
   }
 }
 

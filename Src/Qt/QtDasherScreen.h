@@ -32,7 +32,7 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
  public:
   QtDasherScreen (int _width, int _height,
 		  CDasherInterface *_interface,
-		  QWidget * _parent=0);
+		  QWidget * _parent=0, Dasher::CDashEditbox* edit=0);
   QtDasherScreen::~QtDasherScreen();
 
   void SetFont(std::string Name)
