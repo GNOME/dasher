@@ -106,13 +106,22 @@ void CAlphIO::GetAlphabets(std::vector< std::string > * AlphabetList) const
 
 const CAlphIO::AlphInfo& CAlphIO::GetInfo(const std::string& AlphID)
 {
-	if (AlphID=="")
-		return Alphabets["Default"];
-	else {
-		AlphInfo& CurInfo = Alphabets[AlphID];
-		Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
-		return Alphabets[AlphID];
-	}
+  if (AlphID=="") {
+    // Eww.
+    if (Alphabets.count("English alphabet - limited punctuation")!=0) {
+      return Alphabets["English alphabet - limited punctuation"];
+    } else {
+      return Alphabets["Default"];
+    }
+  }  else {
+    if (Alphabets.count(AlphID)!=0) {
+      AlphInfo& CurInfo = Alphabets[AlphID];
+      Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
+      return Alphabets[AlphID];
+    } else {
+      return Alphabets["Default"];
+    }
+  }
 }
 
 
