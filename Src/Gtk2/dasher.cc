@@ -343,35 +343,48 @@ open_file (const char *filename)
   FILE *fp;
   int pos = 0;
   gchar *buffer;
+  int failure = 0;
+  GtkWidget *error_dialog;
 
-  stat (filename, &file_stat);
-  buffer = (gchar *) g_malloc (file_stat.st_size);
-  fp = fopen (filename, "r");
-  fread (buffer, file_stat.st_size, 1, fp);
-  fclose (fp);
+  failure = stat (filename, &file_stat);
   
-  dasher_clear();
+  if (failure) {
+    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
+    gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+    gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+    gtk_dialog_run(GTK_DIALOG(error_dialog));
+    gtk_widget_destroy(error_dialog);
+  }
+
+  if (!failure) {
+    buffer = (gchar *) g_malloc (file_stat.st_size);
+    fp = fopen (filename, "r");
+    fread (buffer, file_stat.st_size, 1, fp);
+    fclose (fp);
   
-  file_modified = 1;
+    dasher_clear();
+  
+    file_modified = 1;
 
-  gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, file_stat.st_size);
+    gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, file_stat.st_size);
 
-  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
+    gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
 
-  gtk_window_set_title(GTK_WINDOW(window), filename);
+    gtk_window_set_title(GTK_WINDOW(window), filename);
 
-  dasher_start();
-  dasher_redraw();
+    dasher_start();
+    dasher_redraw();
+  }
 }
 
 extern "C" void
 open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-
-  open_file (filename);
-
+  
   filesel_hide(NULL,NULL);
+  
+  open_file (filename);
 }
 
 
