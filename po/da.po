@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-23 22:43+0200\n"
-"PO-Revision-Date: 2004-08-23 22:43+0200\n"
+"POT-Creation-Date: 2004-10-26 17:49+0200\n"
+"PO-Revision-Date: 2004-10-26 17:50+0200\n"
 "Last-Translator: Martin Willemoes Hansen <mwh@sysrq.dk>\n"
 "Language-Team: Danish <dansk@klid.dk>\n"
 "MIME-Version: 1.0\n"
@@ -162,23 +162,26 @@ msgid "Select File"
 msgstr "Vælg fil"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1647
+#: Src/Gtk2/dasher.cc:1657
 msgid "translator_credits"
 msgstr ""
 "Martin Willemoes Hansen <mwh@sysrq.dk>\n"
-"Ole Laursen <olau@hardworking.dk>"
+"Ole Laursen <olau@hardworking.dk>\n"
+"\n"
+"Dansk-gruppen <dansk@klid.dk>\n"
+"Mere info: http://www.klid.dk/dansk/"
 
-#: Src/Gtk2/dasher.cc:1649 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1659 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1652
+#: Src/Gtk2/dasher.cc:1662
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher er et program til forudsigende tekstindtastning"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2065
+#: Src/Gtk2/dasher.cc:2075
 #, c-format
 msgid "%d characters output in %ld seconds\n"
 msgstr "%d tegn skrevet på %ld sekunder\n"
