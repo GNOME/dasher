@@ -9,7 +9,7 @@
 <space d="_" t=" "/>
 <control d="Control" t=""/>
 <group name="Lower case Latin letters">
-<s d="a" t="a"/>
+<s d="a" t="a" f="g"/>
 <s d="b" t="b"/>
 <s d="c" t="c"/>
 <s d="d" t="d"/>
