@@ -40,15 +40,15 @@ public:
 	
 	// return private data members - read only 
 	CDasherNode ** const Children() const {return m_Children;}
-	const unsigned int Lbnd() const {return m_iLbnd;}
-	const bool Alive() {return m_bAlive;}
+	unsigned int Lbnd() const {return m_iLbnd;}
+	bool Alive() {return m_bAlive;}
 	void Kill()  {m_bAlive=0;m_iAge=0;}
-	const unsigned int Hbnd() const {return m_iHbnd;}
-	const unsigned int Group() const {return m_iGroup;}
-	const unsigned int Age() const {return m_iAge;}
-	const symbol Symbol() const {return m_Symbol;}
-	const unsigned int Chars() const {return m_iChars;}
-	const int Phase() const {return m_iPhase;}
+	unsigned int Hbnd() const {return m_iHbnd;}
+	unsigned int Group() const {return m_iGroup;}
+	unsigned int Age() const {return m_iAge;}
+	symbol Symbol() const {return m_Symbol;}
+	unsigned int Chars() const {return m_iChars;}
+	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
 	
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
@@ -59,5 +59,63 @@ public:
 	void Dump_node() const;                                // diagnostic
 };
 
+/////////////////////////////////////////////////////////////////////////////
+// Inline functions
+/////////////////////////////////////////////////////////////////////////////
+
+using namespace Dasher;
+using namespace Opts;
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm)
+	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
+	m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme)
+{
+	/*
+	switch (ColorScheme) {
+		case Nodes1:
+			m_ColorScheme = Nodes2;
+			break;
+		case Nodes2:
+			m_ColorScheme = Nodes1;
+			break;
+		case Special1:
+			m_ColorScheme = Special2;
+			break;
+		case Special2:
+			m_ColorScheme = Special1;
+			break;
+		case default:
+			m_ColorScheme = ColorScheme;
+			break;
+	}
+	*/
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline void CDasherNode::Delete_children() 
+{
+	if (m_Children) {
+		unsigned int i; 
+		for (i=1;i<m_iChars;i++)
+			delete m_Children[i];
+		delete [] m_Children;
+	}
+	m_Children=0;
+	
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline CDasherNode::~CDasherNode() 
+{
+	Delete_children();
+	if (m_context)
+		m_languagemodel->ReleaseNodeContext(m_context);
+}
+
+/////////////////////////////////////////////////////////////////////////////
 
 #endif /* #ifndef __DasherNode_h__ */

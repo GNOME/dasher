@@ -11,52 +11,7 @@ using namespace Dasher;
 using namespace Opts;
 using namespace std;
 
-CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm)
-	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
-	m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme)
-{
-	/*
-	switch (ColorScheme) {
-		case Nodes1:
-			m_ColorScheme = Nodes2;
-			break;
-		case Nodes2:
-			m_ColorScheme = Nodes1;
-			break;
-		case Special1:
-			m_ColorScheme = Special2;
-			break;
-		case Special2:
-			m_ColorScheme = Special1;
-			break;
-		case default:
-			m_ColorScheme = ColorScheme;
-			break;
-	}
-	*/
-}
-
-
-void CDasherNode::Delete_children() 
-{
-	if (m_Children) {
-		unsigned int i; 
-		for (i=1;i<m_iChars;i++)
-			delete m_Children[i];
-		delete [] m_Children;
-	}
-	m_Children=0;
-	
-}
-
-
-CDasherNode::~CDasherNode() 
-{
-	Delete_children();
-	if (m_context)
-		m_languagemodel->ReleaseNodeContext(m_context);
-}
-
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherNode::Dump_node () const
 { 	
@@ -77,8 +32,10 @@ void CDasherNode::Dump_node () const
 	*/
 }
 
-//TODO: There is a lot of copy-and-pasted code shared between two Push_Node functions
+/////////////////////////////////////////////////////////////////////////////
+// TODO: There is a lot of copy-and-pasted code shared between two Push_Node functions
 // need to rationalise.
+
 void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context) 
 // push a node copying the specified context
 {
@@ -135,6 +92,7 @@ void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context)
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherNode::Push_Node() 
 {
@@ -197,11 +155,12 @@ void CDasherNode::Push_Node()
 
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,const myint miY2,const myint miMousex,const myint miMousey, vector<symbol> &vtString) const
+void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,const myint miY2,const myint miMousex,const myint miMousey, vector<symbol> &vString) const
 {
 	// we are over (*this) node so add it to the string 
-	vtString.push_back(m_Symbol);
+	vString.push_back(m_Symbol);
 	
 	// look for children who might also be under the coords
 	if (m_Children) {
@@ -211,7 +170,7 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 			myint miNewy1=miY1+(miRange*m_Children[i]->m_iLbnd)/iNormalization;
 			myint miNewy2=miY1+(miRange*m_Children[i]->m_iHbnd)/iNormalization;
 			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) {
-				m_Children[i]->Get_string_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey,vtString);
+				m_Children[i]->Get_string_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey,vString);
 				return;
 			}
 		}
@@ -219,6 +178,7 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 	return;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,myint miY2,myint miMousex,myint miMousey) 
 {
@@ -237,3 +197,4 @@ CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,my
 	return this;
 }
 
+/////////////////////////////////////////////////////////////////////////////

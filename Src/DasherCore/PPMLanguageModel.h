@@ -66,7 +66,57 @@ private:
 	void dumpSymbol(int symbol);
 	void dumpString( char *str, int pos, int len );
 	void dumpTrie( CPPMnode *t, int d );
+
+
+
 };
 
+////////////////////////////////////////////////////////////////////////
+// Inline functions 
+////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////
+
+inline CPPMLanguageModel::CPPMnode::CPPMnode(int sym) : symbol(sym)
+{
+	child=next=vine=0;
+	count=1;
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline void CPPMLanguageModel::CPPMContext::dump() 
+	// diagnostic output
+{
+	// TODO uncomment this when headers sorted out
+	//dchar debug[128];
+	//Usprintf(debug,TEXT("head %x order %d\n"),head,order);
+	//DebugOutput(debug);
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline CContext* CPPMLanguageModel::GetRootContext()
+{
+	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*m_rootcontext);
+	CContext *cont=static_cast<CContext *> (nc);
+	return  cont;
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline CContext* CPPMLanguageModel::CloneContext(CContext *copythis)
+{
+	CPPMContext *ppmcontext=static_cast<CPPMContext *> (copythis);
+	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*ppmcontext);
+	return  static_cast<CContext *> (nc);
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline void CPPMLanguageModel::ReleaseContext(CContext *release)
+{
+	delete release;
+}
 
 #endif /* #ifndef __PPMLanguageModel_H__ */

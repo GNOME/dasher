@@ -15,7 +15,7 @@ using namespace std;
 
 // using CLanguageModel::CNodeContext;
 
-
+///////////////////////////////////////////////////////////////////
 
 CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
 	: m_Alphabet(Alphabet), m_iNorm(Normalization)
@@ -24,35 +24,7 @@ CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
 }
 
 
-CLanguageModel::CNodeContext* CLanguageModel::GetRootNodeContext()
-{
-	return (CNodeContext*) GetRootContext();
-}
-
-
-CLanguageModel::CNodeContext* CLanguageModel::CloneNodeContext(CNodeContext* NodeContext)
-{
-	return (CNodeContext*) CloneContext((CContext*) NodeContext);
-}
-
-
-void CLanguageModel::ReleaseNodeContext(CNodeContext* NodeContext)
-{
-	ReleaseContext((CContext*) NodeContext);
-}
-
-
-void CLanguageModel::EnterNodeSymbol(CNodeContext* NodeContext, symbol Symbol)
-{
-	EnterSymbol((CContext*) NodeContext, (modelchar) Symbol);
-}
-
-
-void CLanguageModel::LearnNodeSymbol(CNodeContext* NodeContext, symbol Symbol)
-{
-	LearnSymbol((CContext*) NodeContext, (modelchar) Symbol);
-}
-
+///////////////////////////////////////////////////////////////////
 
 void CLanguageModel::EnterText(CNodeContext* NodeContext, string TheText)
 {
@@ -62,6 +34,7 @@ void CLanguageModel::EnterText(CNodeContext* NodeContext, string TheText)
 		EnterSymbol((CContext*) NodeContext, (modelchar) Symbols[i]);
 }
 
+///////////////////////////////////////////////////////////////////
 
 void CLanguageModel::LearnText(CNodeContext* NodeContext, string* TheText, bool IsMore)
 {
@@ -73,6 +46,7 @@ void CLanguageModel::LearnText(CNodeContext* NodeContext, string* TheText, bool 
 		LearnSymbol((CContext*) NodeContext, (modelchar) Symbols[i]);
 }
 
+///////////////////////////////////////////////////////////////////
 
 bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymbols,
 		vector<unsigned int> &Groups, vector<unsigned int> &Probs, double AddProb)

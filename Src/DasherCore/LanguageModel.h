@@ -79,5 +79,43 @@ private:
 	int m_iNorm;       // normalization of probabilities
 };
 
+using namespace Dasher;
+
+///////////////////////////////////////////////////////////////////
+
+inline CLanguageModel::CNodeContext* CLanguageModel::GetRootNodeContext()
+{
+	return (CNodeContext*) GetRootContext();
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline CLanguageModel::CNodeContext* CLanguageModel::CloneNodeContext(CNodeContext* NodeContext)
+{
+	return (CNodeContext*) CloneContext((CContext*) NodeContext);
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline void CLanguageModel::ReleaseNodeContext(CNodeContext* NodeContext)
+{
+	ReleaseContext((CContext*) NodeContext);
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline void CLanguageModel::EnterNodeSymbol(CNodeContext* NodeContext, symbol Symbol)
+{
+	EnterSymbol((CContext*) NodeContext, (modelchar) Symbol);
+}
+
+///////////////////////////////////////////////////////////////////
+
+inline void CLanguageModel::LearnNodeSymbol(CNodeContext* NodeContext, symbol Symbol)
+{
+	LearnSymbol((CContext*) NodeContext, (modelchar) Symbol);
+}
+
+
 
 #endif /* #ifndef __LanguageModel_h__ */

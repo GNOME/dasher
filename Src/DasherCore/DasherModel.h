@@ -16,7 +16,7 @@
 #include "../Common/NoClones.h"
 #include <math.h>
 #include "DasherTypes.h"
-
+#include "FrameRate.h"
 
 // The CDasherModel represents the current state of Dasher
 // It contains a pointer to a structure of DasherNodes
@@ -58,34 +58,6 @@ public:
 	
 private:
 
-	// keeps track of framerate
-		// computes the Steps parameter
-		// computes RXmax - which controls the maximum rate of zooming in
-	
-	class CFramerate {
-	public:
-		CFramerate() ;
-		~CFramerate() {};
-		const double Rxmax() const {return m_dRXmax;}
-		const int Steps() const {return m_iSteps;}
-		const double Framerate() const {return m_dFr;}
-		void Reset(unsigned long Time);
-		void NewFrame(unsigned long Time);
-		
-		// TODO: These two shouldn't be the same thing:
-		void SetBitrate(double TargetRate);
-		void SetMaxBitrate(double MaxRate);
-	private:
-		double m_dFr;
-		double m_dMaxbitrate;    // the maximum rate of entering information
-		double m_dRXmax;         // the maximum zoomin per frame
-		int m_iFrames,m_iTime,m_iTime2,m_iSamples;
-		int m_iSteps;            // the 'Steps' parameter. See djw thesis.
-	};
-	
-
-
-
 	// Rootmin and Rootmax specify the position of the root node in Dasher coords
 	myint m_Rootmin,m_Rootmax;
 
@@ -102,7 +74,7 @@ private:
 	CLanguageModel* m_languagemodel;   // pointer to the language model
 	CLanguageModel::CNodeContext* LearnContext;        // Used to add data to model as it is entered
 	CAlphabet* m_alphabet;             // pointer to the alphabet
-	CFramerate m_fr;                   // keep track of framerate
+	CFrameRate m_fr;                   // keep track of framerate
 	
 	// TODO - move somewhere
 	// the probability that gets added to every symbol

@@ -56,11 +56,14 @@ void CDasherModel::Make_root(int whichchild)
 	m_Rootmin+=(range*m_Root->Lbnd())/Normalization();
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 CDasherNode * CDasherModel::Get_node_under_crosshair()
 {
 	return m_Root->Get_node_under(Normalization(),m_Rootmin,m_Rootmax,m_DasherOX,m_DasherOY);
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 
 CDasherNode * CDasherModel::Get_node_under_mouse(myint Mousex,myint Mousey)
@@ -68,12 +71,16 @@ CDasherNode * CDasherModel::Get_node_under_mouse(myint Mousex,myint Mousey)
 	return m_Root->Get_node_under(Normalization(),m_Rootmin,m_Rootmax,Mousex,Mousey);
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 
 void CDasherModel::Get_string_under_mouse(const myint Mousex,const myint Mousey, vector<symbol> &str)
 {
 	m_Root->Get_string_under(Normalization(),m_Rootmin,m_Rootmax,Mousex,Mousey,str);
 	return;
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 
 void CDasherModel::Flush(const myint Mousex,const myint Mousey)
@@ -85,6 +92,7 @@ void CDasherModel::Flush(const myint Mousex,const myint Mousey)
 		m_editbox->flush(vtUnder[i]);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Update(CDasherNode *node,CDasherNode *under_mouse,int iSafe)
 // go through the Dasher nodes, delete ones who have expired
@@ -117,6 +125,7 @@ void CDasherModel::Update(CDasherNode *node,CDasherNode *under_mouse,int iSafe)
 	return;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Start()
 {
@@ -144,6 +153,7 @@ void CDasherModel::Start()
 	
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
@@ -204,7 +214,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
 }
 
-
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long Time) 
 	// work out the next viewpoint, opens some new nodes
@@ -272,6 +282,8 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 void CDasherModel::Dump() const 
 	// diagnostic dump
 {
@@ -281,82 +293,3 @@ void CDasherModel::Dump() const
 
 
 
-////////////////////////////////////////////////////////////////////////////////////////////
-//  Framerate
-//
-//  Keeps track of framerate
-//  Also bitrate stuff
-////////////////////////////////////////////////////////////////////////////////////////////
-
-
-
-CDasherModel::CFramerate::CFramerate() {
-
-
- // maxbitrate should be user-defined and/or adaptive. Currently it is not.
-#if defined(_WIN32_WCE)
-	m_dMaxbitrate=5;
-#else
-	m_dMaxbitrate=5.5;
-#endif
-
-	m_dRXmax=2;  // only a transient effect
-	m_iFrames=0;
-	m_iSamples=1;
-
-	// we dont know the framerate yet - play it safe by setting it high
-	m_dFr=1<<5;
-
-	// start off very slow until we have sampled framerate adequately
-	m_iSteps=2000;
-	m_iTime=0; // Hmmm, User must reset framerate before starting.
-}
-
-void CDasherModel::CFramerate::NewFrame(unsigned long Time) 
-	// compute framerate if we have sampled enough frames
-{
-	
-	m_iFrames++;
-
-	if (m_iFrames==m_iSamples) {
-		m_iTime2=Time;
-		if (m_iTime2-m_iTime < 50) 
-			m_iSamples++;      // increase sample size
-		else if (m_iTime2-m_iTime > 80) {
-			m_iSamples--;
-			if (m_iSamples <2)
-				m_iSamples=2;
-		}
-		if (m_iTime2-m_iTime) {
-				m_dFr=m_iFrames*1000.0/(m_iTime2-m_iTime);
-				m_iTime=m_iTime2;
-				m_iFrames=0;
-
-			}
-		m_dRXmax=exp(m_dMaxbitrate*log(2)/m_dFr);
-		m_iSteps=m_iSteps/2+(int)(-log(0.2)*m_dFr/log(2)/m_dMaxbitrate)/2;
-	//	dchar debug[256];
-	//		_stprintf(debug,TEXT("fr %f Steps %d samples %d time2 %d rxmax %f\n"),fr,Steps,samples,time2,RXmax);
-	//	OutputDebugString(debug);
-	
-	}
-}
-
-
-void CDasherModel::CFramerate::Reset(unsigned long Time)
-{
-	m_iFrames=0;
-	m_iTime=Time;
-}
-
-
-void CDasherModel::CFramerate::SetBitrate(double TargetRate)
-{
-	m_dMaxbitrate = TargetRate;
-}
-
-
-void CDasherModel::CFramerate::SetMaxBitrate(double MaxRate)
-{
-	m_dMaxbitrate = MaxRate;
-}

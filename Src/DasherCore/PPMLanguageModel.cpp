@@ -19,13 +19,6 @@ typedef unsigned long ulong;
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMnode::CPPMnode(int sym) : symbol(sym)
-{
-	child=next=vine=0;
-	count=1;
-}
-
-
 CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym)
 // see if symbol is a child of node
 {
@@ -61,21 +54,6 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::add_symbol_to_node(in
 }
 
 
-
-///////////////////////////////////////////////////////////////////
-// CPPMContext definitions
-///////////////////////////////////////////////////////////////////
-
-void CPPMLanguageModel::CPPMContext::dump() 
-	// diagnostic output
-{
-	// TODO uncomment this when headers sorted out
-	//dchar debug[128];
-	//Usprintf(debug,TEXT("head %x order %d\n"),head,order);
-	//DebugOutput(debug);
-}
-
-
 /////////////////////////////////////////////////////////////////////
 // CPPMLanguageModel defs
 /////////////////////////////////////////////////////////////////////
@@ -91,28 +69,6 @@ CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet,int _normalization)
 CPPMLanguageModel::~CPPMLanguageModel()
 {
 	delete root;
-}
-
-
-CContext* CPPMLanguageModel::GetRootContext()
-{
-	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*m_rootcontext);
-	CContext *cont=static_cast<CContext *> (nc);
-	return  cont;
-}
-
-
-CContext* CPPMLanguageModel::CloneContext(CContext *copythis)
-{
-	CPPMContext *ppmcontext=static_cast<CPPMContext *> (copythis);
-	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*ppmcontext);
-	return  static_cast<CContext *> (nc);
-}
-
-
-void CPPMLanguageModel::ReleaseContext(CContext *release)
-{
-	delete release;
 }
 
 
