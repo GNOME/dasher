@@ -18,34 +18,22 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   set_events( GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK );
 
   set_usize(width, height);
+  buffer = new GtkDoubleBuffer( width, height, 16 );
+  
+  // FIXME - Gah - this is so broken
+  // (a) Need to do something more sane than this (ie only creating the font objects as they are required)
+  // (b) Making sure that font objects for all sizes are drawable (I have no idea how to do this)
 
-  //  fg_buffer = gdk_pixmap_new( get_window(), width, height, -1 );
-  //  bg_buffer = gdk_pixmap_new( get_window(), width, height, -1 );
+  char buffer[256];
+  
+  for( int i(0); i < 17; ++i )
+    {
 
-  //fg_buffer = new Gdk_Pixmap( width, height, -1 );
-  //bg_buffer = new Gdk_Pixmap(  width, height, -1 );
-    buffer = new GtkDoubleBuffer( width, height, 16 );
-
-      //    f_small.create("-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*");
-//          f_medium.create("-*-fixed-*-*-*-*-14-*-*-*-*-*-*-*");
-//          f_large.create("-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*");
-
-    // FIXME - Gah - this is so broken
-    // (a) Need to do something more sane than this (ie only creating the font objects as they are required)
-    // (b) Making sure that font objects for all sizes are drawable (I have no idea how to do this)
-
-    for( int i(0); i < 17; ++i )
-      {
-	char buffer[256];
-
-	sprintf( buffer, "-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*" );
-
-	font_list[i].create( buffer );
-
-	cout << font_list[i].char_width('A') << endl;
-
-	//	cout << buffer << endl;
-      }
+      
+      sprintf( buffer, "-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*" );
+      
+      font_list[i].create( buffer );
+    }
 }
 
 const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
