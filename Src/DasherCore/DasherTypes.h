@@ -11,35 +11,18 @@
 #define __DasherTypes_h__
 
 #include <string>
+#include "../Common/Types/int.h"
+#include "../Common/Types/int32.h"
+#include "../Common/Types/int64.h"
 
 namespace Dasher
 {
-	/* TODO: note by IAM 08/2002 {{{
+	// DasherModel co-ordinates are of type myint
+	typedef Cint64 myint;
 	
-	MS docs tell us the __int64 type has no ANSI equivalent
-	I've checked and currently a 32bit long leads to problems.
-	The code could probably be altered to get around this 64bit
-	precision requirement. If not a custom class could be found
-	(or implemented fairly easily). However, as GCC supports
-	"long long int" I'm giving this low priority until someone
-	complains...
-	
-	"ISO C99 supports data types for integers that are at least 64 bits wide,
-	and as an extension GCC supports them in C89 mode and in C++."
-	
-	I've heard some compilers have a "quad int". If "long long int" does not
-	work, try that.
-	}}} */
-	#ifdef _MSC_VER
-		typedef __int64 myint;
-                #define LLONG_MAX 9223372036854775807
-	        #define LLONG_MIN (-LLONG_MAX - 1)
-	#else
-		typedef long long int myint;
-	        #define LLONG_MAX 9223372036854775807LL
-	        #define LLONG_MIN (-LLONG_MAX - 1LL)
-	#endif
-	
+	// All screen co-ordinates are of type screenint
+	typedef Cint32 screenint;
+
 	// Using a signed symbol type allows "Out of band" ie negative {{{
 	// values to be used to flag non-symbol data. For example commands
 	// in dasher nodes.

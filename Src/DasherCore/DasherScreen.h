@@ -25,7 +25,7 @@ class Dasher::CDasherScreen
 public:
         //! \param width Width of the screen
         //! \param height Height of the screen
-	CDasherScreen(int width,int height)
+	CDasherScreen(screenint width,screenint height)
 		: m_iWidth(width), m_iHeight(height) {}
 
 	virtual ~CDasherScreen() {}
@@ -34,13 +34,13 @@ public:
 	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
 	
 	//! Return the width of the screen
-	int GetWidth() const { return m_iWidth; }
+	screenint GetWidth() const { return m_iWidth; }
 
 	//! Return the height of the screen
-	int GetHeight() const { return m_iHeight; }
+	screenint GetHeight() const { return m_iHeight; }
 
 	//! Structure defining a point on the screen
-	typedef struct tagpoint { int x; int y; } point;
+	typedef struct tagpoint { screenint x; screenint y; } point;
 
 	//! Set the Dasher font (ie, the screen font) to Name
 	//!
@@ -56,11 +56,11 @@ public:
 	// DasherView asks for the width and height of the given symbol at a requested height,
 	// then it is able to sensibly specify the upper left corner in DrawText.
 	//! Set Width and Height to those of the character Character at size Size
-	virtual void TextSize(symbol Character, int* Width, int* Height, int Size) const=0;
+	virtual void TextSize(symbol Character, screenint* Width, screenint* Height, int Size) const=0;
 	//! Draw character Character of size Size positioned at x1 and y1
-	virtual void DrawText(symbol Character, int x1, int y1, int Size) const=0;
+	virtual void DrawText(symbol Character, screenint x1, screenint y1, int Size) const=0;
 	//! Draw string String of size Size positioned at x1 and y1
-	virtual void DrawText(std::string String, int x1, int y1, int Size) const=0;
+	virtual void DrawText(std::string String, screenint x1, screenint y1, int Size) const=0;
 
 	
 	// Draw a filled rectangle - given position and color id
@@ -73,7 +73,7 @@ public:
 	//! \param y2 bottom right of rectangle (y coordinate)
 	//! \param Color the colour to be used (numeric)
 	//! \param ColorScheme Which colourscheme is to be used
-	virtual void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const=0;
+	virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme) const=0;
 	
 	// Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
 	//! Draw a line between each of the points in the array
@@ -116,7 +116,7 @@ public:
 
 protected:
 	//! Width and height of the screen
-	const int m_iWidth, m_iHeight;
+	const screenint m_iWidth, m_iHeight;
 
 	//! Pointer to a widget interface for communication with the core
 	CDasherWidgetInterface* m_DasherInterface;

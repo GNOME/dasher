@@ -27,7 +27,10 @@ public:
     
 	// return private data members - read only 
 	CDasherNode ** const Children() const {return m_Children;}
-	unsigned int Lbnd() const {return m_iLbnd;}
+	
+	int Lbnd() const {return m_iLbnd;}
+	int Hbnd() const {return m_iHbnd;}
+	
 	bool Alive() {return m_bAlive;}
 	bool Control() {return m_bControlChild;}
 	bool isSeen() {return m_bSeen;}
@@ -35,7 +38,6 @@ public:
 	bool NodeIsParent(CDasherNode *oldnode);
 	ControlTree* GetControlTree() {return m_controltree;}
 	void Kill()  {m_bAlive=0;}
-	unsigned int Hbnd() const {return m_iHbnd;}
 	unsigned int Group() const {return m_iGroup;}
 	symbol Symbol() const {return m_Symbol;}
 	unsigned int ChildCount() const {return m_iChildCount;}
@@ -60,7 +62,7 @@ public:
 
 private:
 
-	const unsigned int m_iLbnd,m_iHbnd;// the cumulative lower and upper bound prob relative to parent
+	const int m_iLbnd,m_iHbnd;// the cumulative lower and upper bound prob relative to parent
 	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	const symbol m_Symbol;             // the character to display
 	

@@ -17,7 +17,7 @@ using namespace std;
 
 CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused)
   : m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused), m_editbox(Editbox), m_languagemodel(LanguageModel), 
-    m_Root(0),m_iNormalization(1<<28)
+    m_Root(0),m_iNormalization(1<<16)
 {
 	LearnContext = m_languagemodel->GetEmptyContext();
 	
@@ -29,6 +29,11 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel,
 	m_dAddProb = 0.003;
 
 	m_Active = CRange(0,m_DasherY);
+
+
+	m_Rootmin_min = int64_min/m_iNormalization/2;
+	m_Rootmax_max = int64_max/m_iNormalization/2;
+
 }
 
 
@@ -108,8 +113,8 @@ void CDasherModel::Make_root(int whichchild)
 	}
 
 	myint range=m_Rootmax-m_Rootmin;
-	m_Rootmax=m_Rootmin+(range*m_Root->Hbnd())/Normalization();
-	m_Rootmin+=(range*m_Root->Lbnd())/Normalization();
+	m_Rootmax = m_Rootmin + (range*m_Root->Hbnd())/Normalization();
+	m_Rootmin = m_Rootmin+ (range*m_Root->Lbnd())/Normalization();
 }
 
 void CDasherModel::Reparent_root(int lower, int upper)
@@ -123,13 +128,19 @@ void CDasherModel::Reparent_root(int lower, int upper)
     return;
 
   /* Determine how zoomed in we are */
-  double scalefactor=(m_Rootmax-m_Rootmin)/static_cast<double>(upper-lower);
+
+  myint iRootWidth = m_Rootmax-m_Rootmin;
+  myint iWidth = upper-lower;
+//  double scalefactor=(m_Rootmax-m_Rootmin)/static_cast<double>(upper-lower);
 
   m_Root=oldroots.back();
   oldroots.pop_back();
   
-  m_Rootmax=int(m_Rootmax+((Normalization()-upper)*scalefactor));
-  m_Rootmin=int(m_Rootmin-(lower*scalefactor));
+
+  m_Rootmax = m_Rootmax+ ( myint((Normalization()-upper))*iRootWidth / iWidth );
+ 
+  
+  m_Rootmin = m_Rootmin - ( myint(lower) * iRootWidth/ iWidth );
 
 }
 
@@ -237,50 +248,70 @@ void CDasherModel::Start()
 
 void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
-	double dRx=1.0,dRxnew=1.0;
+	double dRx=1.0*m_DasherOX/Mousex;
+	
+	double dRxnew;
 
 	int iSteps=m_fr.Steps();
 
+	ASSERT(iSteps>0);
+
+
 	if (Mousex<m_DasherOX) {
+
 		if (Mousex<=0)
 			Mousex=1;
-		dRx=1.0*m_DasherOX/Mousex;
+
 		//dRxnew=pow(dRx,1.0/iSteps);  // or exp(log(rx)/steps) - i think the replacement is faster   
-	
 		dRxnew=1+(dRx-1)/iSteps;
 		
 		const double dRxmax=m_fr.Rxmax();
 		if (dRxnew>dRxmax)
 		 dRxnew=dRxmax;
-	} else {
-		if (Mousex==m_DasherOX)
-			Mousex++;
-		dRx=1.0001*m_DasherOX/Mousex;
+
+	} 
+	else 
+	{
 		dRxnew=1+(dRx-1)/iSteps;
 
-		if (m_Rootmax<m_DasherY && m_Rootmin>0) {
-		  return;
-		}
+		// Stop zooming out when no parents
+		if (m_Rootmax<m_DasherY && m_Rootmin> myint(0) ) 
+			return;
 	} 
 	myint above=(Mousey-m_Rootmin);//*(1-rxnew)/(1-rx);
 	myint below=(m_Rootmax-Mousey);//*(1-rxnew)/(1-rx);
 
 	myint miDistance=m_DasherY/2-Mousey;
-	miDistance=myint(miDistance*(dRxnew-1)/(dRx-1));
+
+
+	if (Mousex!=m_DasherOX)
+		miDistance=myint(miDistance*(dRxnew-1)/(dRx-1));
+	else
+		miDistance = miDistance/iSteps;
+
 	myint miNewrootzoom=Mousey+miDistance;
 
 	myint newRootmax=miNewrootzoom+myint(below*dRxnew);
 	myint newRootmin=miNewrootzoom-myint(above*dRxnew);
 
-	if (newRootmin>=m_DasherY/2)  newRootmin= m_DasherY/2-1;
-	if (newRootmax<=m_DasherY/2)  newRootmax= m_DasherY/2+1;
-	if (newRootmax>=LLONG_MAX)    newRootmax= LLONG_MAX-1;
-	if (newRootmin<=LLONG_MIN)    newRootmin= LLONG_MIN+1;
-	m_Rootmax=newRootmax;
-	m_Rootmin=newRootmin;	
+	if (newRootmin>=m_DasherY/2)  
+		newRootmin= m_DasherY/2-1;
+	if (newRootmax<=m_DasherY/2)  
+		newRootmax= m_DasherY/2+1;
+
+	// Need to check whether we've expanded beyond limit
+	if (newRootmax<m_Rootmax_max && newRootmin > m_Rootmin_min)    
+	{
+		m_Rootmax=newRootmax;
+		m_Rootmin=newRootmin;
+	} 
+	else
+	{
+		// TODO - force a new root to be chosen
+	}
 }
 
-void CDasherModel::Get_new_goto_coords(float zoomfactor, myint MouseY) 
+void CDasherModel::Get_new_goto_coords(double zoomfactor, myint MouseY) 
                                        // this was mousex.
 
 {
@@ -288,13 +319,13 @@ void CDasherModel::Get_new_goto_coords(float zoomfactor, myint MouseY)
   //float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
 
   // Then zoom in appropriately
-  m_Rootmax+=int(zoomfactor*(m_Rootmax-m_DasherY/2));
-  m_Rootmin+=int(zoomfactor*(m_Rootmin-m_DasherY/2));
+  m_Rootmax = m_Rootmax +myint(zoomfactor*(m_Rootmax-m_DasherY/2));
+  m_Rootmin = m_Rootmin +myint(zoomfactor*(m_Rootmin-m_DasherY/2));
 
   // Afterwards, we need to take care of the vertical offset.
   myint up=(m_DasherY/2)-MouseY;
-  m_Rootmax+=up;
-  m_Rootmin+=up;
+  m_Rootmax = m_Rootmax + up;
+  m_Rootmin = m_Rootmin + up;
 }
 
 myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY)
@@ -332,13 +363,14 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 		right->Push_Node();
 	}
 
+
 	if (Framerate() > 8) {
 		// push node under the crosshair
 		CDasherNode* under_cross=Get_node_under_crosshair();
 		under_cross->Push_Node();
 	}
 
-	unsigned int iRandom;
+	int iRandom;
 #if defined(_WIN32_WCE)
 	iRandom=Random();
 #else
@@ -403,7 +435,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	//	m_Root->Recursive_Push_Node(0);
 }
 
-void CDasherModel::GoTo(float zoomfactor, myint miMousey) 
+void CDasherModel::GoTo(double zoomfactor, myint miMousey) 
 	// work out the next viewpoint, opens some new nodes
 {
         // Find out the current node under the crosshair
@@ -439,15 +471,20 @@ void CDasherModel::GoTo(float zoomfactor, myint miMousey)
 	OutputCharacters(new_under_cross);
 }
 
-void CDasherModel::OutputCharacters(CDasherNode *node) {
-  if (node->Parent()!=NULL && node->Parent()->isSeen()!=true) {
+void CDasherModel::OutputCharacters(CDasherNode *node) 
+{
+  if (node->Parent()!=NULL && node->Parent()->isSeen()!=true) 
+  {
     node->Parent()->Seen(true);
     OutputCharacters(node->Parent());
   }
   symbol t=node->Symbol();
-  if (t) {
+  if (t) 
+  {
     m_editbox->output(t);
-  } else if (node->Control()==true) {
+  } 
+  else if (node->Control()==true) 
+  {
 	  m_editbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
   }
 }

@@ -11,11 +11,11 @@ namespace Dasher {
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
+inline void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey)
 {
-    double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
+    double dashery=double(*mousey)*double(DasherModel().DasherY())/double(CanvasY);
     myint dasherOY=DasherModel().DasherOY();
-    double disty=dasherOY-dashery;
+    double disty=double(dasherOY)-dashery;
     bool DasherRunning = DasherModel().Paused();
 
 
@@ -51,13 +51,13 @@ inline void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
+inline void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myint* idasherx, myint* idashery) const
 {
     bool eyetracker=DasherModel().Eyetracker();
     // bool DasherRunning = DasherModel().Paused();
 	
 
-	*mousey += int(yAutoOffset);
+	imousey += int(yAutoOffset);
 
     // Maybe this mousey tweak should take place earlier, elsewhere, and 
     // have a permanent effect on mousey rather than just local.
@@ -79,7 +79,7 @@ inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
     //  then it might be reasonable to re-zero the offset. But don't.
 
 	// Convert the Y mouse coordinate to one that's based on the canvas size
-	double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
+	double dashery=double(imousey*DasherModel().DasherY()/CanvasY);
 	bool useonebutton=0;
 	if (useonebutton) {
 	    int onebutton = CDasherView::GetOneButton();
@@ -89,7 +89,7 @@ inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
 	// Convert the X mouse coordinate to one that's based on the canvas size 
 	// - we want this the opposite way round to the mouse coordinate system, 
 	// hence the fudging. ixmap gives us the X nonlinearity.	
-	double x=ixmap(1.0*(CanvasX-*mousex)/CanvasX)*DasherModel().DasherY();
+	double x=ixmap(1.0*(CanvasX-imousex)/CanvasX)*DasherModel().DasherY();
 
     // Disable one-button mode for now.
        // if (eyetracker==true) { dashery=onebutton; }
@@ -111,7 +111,7 @@ inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
     myint dasherOY=DasherModel().DasherOY();
     // For Y co-ordinate changes. 
     // disty is the distance between y and centreline. 
-    double disty=dasherOY-dashery;                  
+    double disty=double(dasherOY)-dashery;                  
     //cout << "disty: " << disty << endl;
 
 	// If we're in one-dimensional mode, make new x,y
@@ -233,8 +233,8 @@ inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
         }
     }
     */
-    *mousex=int(x);
-	*mousey=int(dashery);
+    *idasherx=myint(x);
+	*idashery=myint(dashery);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -259,9 +259,9 @@ inline double CDasherViewSquare::xmax(double x, double y) const
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline int CDasherViewSquare::dasherx2screen(const myint sx) const 
+inline int CDasherViewSquare::dasherx2screen(myint sx) const 
 {
-	double x=1.0*sx/(DasherModel().DasherY());
+	double x=double(sx)/double(DasherModel().DasherY());
 	x=xmap(x);
 	return CanvasX-int(x*CanvasX);
 
@@ -274,8 +274,13 @@ inline  int CDasherViewSquare::dashery2screen(myint y) const
 	if (KeyControl==false) {
 		y=m_ymap.map(y);
 	} 
-	y*=CanvasY;
-	y/=DasherModel().DasherY();
+	y= (y * CanvasY /DasherModel().DasherY() );
+
+	// Stop overflow when converting to screen coords
+	if (y> myint(INT_MAX))
+		return INT_MAX;
+	else if (y< myint(INT_MIN))
+		return INT_MIN;
 	return int(y);
 }
 
@@ -363,7 +368,7 @@ inline myint CDasherViewSquare::Cymap::unmap(myint ydash) const
 	else if (ydash<m_Y3)
 		return (ydash-m_Y3)*m_Y1+m_Y3;
 	else
-		return ydash;
+ 		return ydash;
 }
 
 /////////////////////////////////////////////////////////////////////////////

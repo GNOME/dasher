@@ -32,10 +32,10 @@ public:
 	
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.TapOnDisplay
-	virtual void TapOnDisplay(int mousex, int mousey, unsigned long Time)=0;
+	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time)=0;
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.GoTo
-	virtual void GoTo(int mousex, int mousey)=0;
+	virtual void GoTo(screenint mousex, screenint mousey)=0;
 	
 	virtual void ChangeScreen(CDasherScreen* NewScreen)
 	{
@@ -45,9 +45,9 @@ public:
 		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 	}
 
-	virtual void DrawGoTo(int mousex, int mousey)=0;
-	virtual void DrawMouse(int mousex, int mousey)=0;
-	virtual void DrawMouseLine(int mousex, int mousey)=0;
+	virtual void DrawGoTo(screenint mousex, screenint mousey)=0;
+	virtual void DrawMouse(screenint mousex, screenint mousey)=0;
+	virtual void DrawMouseLine(screenint mousex, screenint mousey)=0;
 	virtual void DrawKeyboard()=0;
 
 	// Return references to the model and the screen:
@@ -75,8 +75,8 @@ public:
 
 protected:
 	// Orientation of Dasher Screen
-	inline void MapScreen(int* DrawX, int* DrawY);
-	inline void UnMapScreen(int* DrawX, int* DrawY);
+	inline void MapScreen(screenint* DrawX, screenint* DrawY);
+	inline void UnMapScreen(screenint* DrawX, screenint* DrawY);
 
 	// Keyboard control is on
 	bool KeyControl;

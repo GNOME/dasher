@@ -28,19 +28,19 @@ class Dasher::CDasherViewSquare : public Dasher::CDasherView
 {
 public:
 	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
-	void TapOnDisplay(int mousex,int mousey, unsigned long Time);
-	void GoTo(int mousex,int mousey);
+	void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time);
+	void GoTo(screenint mousex,screenint mousey);
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
-	void CDasherViewSquare::DrawGoTo(int mousex, int mousey);
-	void DrawMouse(int mousex, int mousey);
-	void DrawMouseLine(int mousex, int mousey);
+	void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey);
+	void DrawMouse(screenint mousex, screenint mousey);
+	void DrawMouseLine(screenint mousex, screenint mousey);
 	void DrawKeyboard();
 private:
 	// the x and y non-linearities
-	void screen2dasher(int *mousex, int *mousey) const ;
-	void AutoCalibrate(int *mousex, int *mousey);
-    int dasherx2screen(const myint sx) const ;
+	void screen2dasher(screenint mousex, screenint mousey, myint* dasherx, myint* dashery) const;
+	void AutoCalibrate(screenint *mousex, screenint *mousey);
+    int dasherx2screen(myint sx) const ;
 	int dashery2screen(myint sy) const ;
 	double eyetracker_get_x(double x, double y);
 	double eyetracker_get_y(double x, double y);
