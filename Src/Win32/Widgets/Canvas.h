@@ -63,7 +63,7 @@ private:
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;
 	CEdit* m_DasherEditBox;
-	unsigned int imousex,imousey;
+	screenint imousex,imousey;
 	UINT MY_TIMER;
 	bool running;
 	bool startonleft;

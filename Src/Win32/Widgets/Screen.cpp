@@ -20,7 +20,7 @@ using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
+CScreen::CScreen(HDC hdc, Dasher::screenint iWidth,Dasher::screenint iHeight)
   : CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1)), 
 	m_ptrFontStore( new CFontStore(TEXT("")))
 {

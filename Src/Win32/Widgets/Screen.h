@@ -22,13 +22,15 @@
 #include <cmath>
 #endif
 
+using namespace Dasher;
+
 /////////////////////////////////////////////////////////////////////////////
 
 class CScreen : public Dasher::CDasherScreen, private NoClones
 {
 public:
 
-	CScreen(HDC hdc, int width,int height);
+	CScreen(HDC hdc, Dasher::screenint width,Dasher::screenint height);
 	~CScreen();
 	
 	void SetInterface(Dasher::CDasherWidgetInterface* DasherInterface);
@@ -42,10 +44,10 @@ public:
 	int GetMousePosDist() {return mouseposdist;}
 	void DrawOutlines(bool Value) {drawoutlines=Value;}
 	
-	void TextSize(Dasher::symbol Character, int* Width, int* Height, int Size) const;
-	void DrawText(Dasher::symbol Character, int x1, int y1, int Size) const;
-	void DrawText(std::string, int x1, int y1, int Size) const;
-	void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
+	void TextSize(Dasher::symbol Character, Dasher::screenint* Width, Dasher::screenint* Height, int Size) const;
+	void DrawText(Dasher::symbol Character, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
+	void DrawText(std::string, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
+	void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
 	
 	// Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
 	//! Draw a line between each of the points in the array

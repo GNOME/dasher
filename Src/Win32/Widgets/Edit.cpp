@@ -12,6 +12,7 @@
 	would be unacceptable.
 */
 
+#define NOMINMAX
 #include "Edit.h"
 #include "Canvas.h"
 #include <mbstring.h>

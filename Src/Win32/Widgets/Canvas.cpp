@@ -301,7 +301,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			imousex=mousepos.x;
 
 			if (oned==true) {
-				float scalefactor;
+				double scalefactor;
 				if (yscaling==0) {
 					scalefactor=2.0;
 				} else {
@@ -362,7 +362,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		imousex=mousepos.x;
 	
 		if (oned==true) {
-			float scalefactor;
+			double scalefactor;
 			if (yscaling==0) {
 				scalefactor=2;
 			} else {

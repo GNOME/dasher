@@ -15,7 +15,7 @@ inline Dasher::Opts::FontSize CScreen::GetFontSize() const
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height, int iSize) const
+inline void CScreen::TextSize(Dasher::symbol Character, screenint* Width, screenint* Height, int iSize) const
 {
 	// TODO This function could be improved. The height of an "o" is returned as the
 	// same as the height of an "O". Perhaps GetGlyphOutline could help.
@@ -52,7 +52,7 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 }
 
 
-inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int iSize) const
+inline void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int iSize) const
 {
 	if (m_DasherInterface==0)
 		return;
@@ -87,7 +87,7 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int iSiz
 	SelectObject(m_hDCBuffer, old);
 }
 
-inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int iSize) const
+inline void CScreen::DrawText(std::string OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) const
 {
 	if (m_DasherInterface==0)
 		return;
@@ -124,7 +124,7 @@ inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int iSiz
 	SelectObject(m_hDCBuffer,old);
 }
 
-inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
+inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {
 //	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
 	HBRUSH brush = m_Brushes[Color];
