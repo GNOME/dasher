@@ -33,6 +33,9 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 	for (unsigned int i=0; i<Input->size(); i++) {
 
 		Tmp = (*Input)[i];
+		if ((*Input)[i] & 0x80) { // FIXME - this will only work with
+		  Tmp += (*Input)[++i];   // a subset of UTF-8. Needs to work
+		}                         // with >2 byte characters too
 		CurSymbol = TextMap.Get(Tmp, &KeyIsPrefix);
 
 		if (KeyIsPrefix) {

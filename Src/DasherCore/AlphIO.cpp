@@ -380,12 +380,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 		while (*atts!=0) {
 			if (strcmp(*atts, "t")==0) {
 				atts++;
-				if (strlen(*atts)>1) { // UTF-8 character
-				  //FIXME = this will only work for ISO-8859-1
-				  Ch.Text = *atts[2];
-				} else {
-				  Ch.Text = *atts; 
-				}
+				Ch.Text = *atts; 
 				atts--;
 			}
 			if (strcmp(*atts, "d")==0) {
