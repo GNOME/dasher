@@ -3,6 +3,7 @@
 
 #include <gtk--/dialog.h>
 #include <gtk--/list.h>
+#include <gtk--/button.h>
 
 #include <string>
 #include <vector>
@@ -13,8 +14,13 @@ class GtkDasherAlphabetBox : public Gtk::Dialog
   GtkDasherAlphabetBox();
 
   void AddAlphabet( std::vector< std::string > alphabetlist );
+  Gtk::Button *get_ok_button();
+
+  std::string get_selection();
+
  private:
   Gtk::List l;
+  Gtk::Button b_ok;
 };
 
 #endif

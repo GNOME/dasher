@@ -70,7 +70,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   abox.AddAlphabet( alphabetlist );
 
-  interface->ChangeAlphabet( alphabetlist[2] );
+  interface->ChangeAlphabet( alphabetlist[0] );
 
   interface->ChangeEdit( text );
   interface->ChangeScreen( canvas->get_wrapper() );
@@ -78,6 +78,9 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
 
   canvas->button_press_event.connect(slot(this, &GtkDasherPane::toggle_pause));
+
+
+  abox.get_ok_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet));
 }
 
 void GtkDasherPane::clear()
@@ -276,4 +279,18 @@ long GtkDasherPane::get_time()
   ms_now = tv.tv_usec / 1000;
   
   return( s_now * 1000 + ms_now );
+}
+
+void GtkDasherPane::handle_alphabet()
+{
+  abox.hide();
+
+  std::string foo;
+
+  foo = abox.get_selection();
+
+  cout << "Selection is " << foo << endl;
+
+  
+  interface->ChangeAlphabet( foo );
 }

@@ -2,24 +2,54 @@
 #include <gtk--/dialog.h>
 #include <gtk--/listitem.h>
 #include <gtk--/list.h>
+#include <gtk--/label.h>
 
 #include <string>
 #include <vector>
 #include <list>
 
 GtkDasherAlphabetBox::GtkDasherAlphabetBox()
-  : Dialog()
+  : Dialog(), b_ok( "Ok" )
 {
-  l.set_usize( 128, 256 );
-  
+  l.set_usize( 374, 256 );
+  l.set_selection_mode( GTK_SELECTION_SINGLE );
+
   get_vbox()->pack_start(l, true, true );
   get_vbox()->show_all();
+
+  get_action_area()->pack_start( b_ok, false, false );
+  get_action_area()->show_all();
   //  show();
+}
+
+Gtk::Button *GtkDasherAlphabetBox::get_ok_button()
+{
+  return( &b_ok );
+}
+
+std::string GtkDasherAlphabetBox::get_selection()
+{
+    Gtk::List::SelectionList &selection = l.selection();
+    Gtk::List::SelectionList::iterator i=selection.begin();
+    Gtk::ListItem *item = (*i);
+    Gtk::Label *label = dynamic_cast<Gtk::Label*>(item->get_child());
+    Gtk::string name=label->get();
+    
+    return( string( name ) );
 }
 
 void GtkDasherAlphabetBox::AddAlphabet( std::vector< std::string > alphabetlist )
 {
   for( int i(0); i < alphabetlist.size(); ++i )
-    cout << "Adding alphabet: " << alphabetlist[i] << endl;
+    {
+      cout << "Adding alphabet: " << alphabetlist[i] << endl;
+      
+      Gtk::ListItem *li;
+
+      li = new Gtk::ListItem( alphabetlist[i] );
+
+      l.add( *li );
+      li->show();
+    }
 }
 

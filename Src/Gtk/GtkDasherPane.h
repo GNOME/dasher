@@ -61,6 +61,8 @@ public:
   void timestamp( bool value );
   
   void copy_all_on_pause( bool s );
+  void handle_alphabet();
+
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;
