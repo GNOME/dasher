@@ -44,6 +44,9 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
 
   void kill_flush();
 
+  void set_display_encoding( int _enc );
+  
+
  protected:
   int flush_count;
   CDasherInterface *interface;
@@ -54,6 +57,8 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
 
   Gtk::Text text;
   Gtk::VScrollbar vsb;
+
+  int enc;
   
 };
 

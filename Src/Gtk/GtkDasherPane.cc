@@ -24,6 +24,8 @@
 #include <iostream.h>
 #include <fstream.h>
 
+#include <iconv.h>
+
 GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   : VBox( false, 0 ), paused( true ), started( false ), vp()
 { 
@@ -300,12 +302,82 @@ void GtkDasherPane::handle_alphabet()
 
   cout << "Selection is " << foo << endl;
 
-  text->kill_flush();
-  
   interface->ChangeAlphabet( foo );
+
+  // FIXME - the following should really happen in the notification
+  // callback
+
+  text->kill_flush();
+  select_encoding();
 }
 
 void GtkDasherPane::handle_alphabet_cancel()
 {
   abox.hide();
+}
+
+void GtkDasherPane::select_encoding()
+{
+  // Tries to guess an encoding based on the range of unicode
+  // characters
+
+  int maxcount(0);
+  int maxpage(-1);
+
+  for( int i(1); i < 11; ++i )
+    {
+      // Cycle through the pages
+
+      char encstr[256];
+
+      snprintf( encstr, 255, "ISO-8859-%d", i );
+
+      iconv_t cdesc;
+     
+      cdesc = iconv_open( encstr, "UTF-8" );
+
+      int count(0);
+
+      for( int a(1); a < interface->GetNumberSymbols(); ++a )
+	{
+	  string symbol;
+	  symbol = interface->GetDisplayText(a);
+	  
+	  char *convbuffer = new char[256];
+	  char *inbuffer = new char[256];
+	  
+	  char *cb( convbuffer );
+	  char *ib( inbuffer );
+	  
+	  strncpy( inbuffer, symbol.c_str(), 255 );
+	  
+	  size_t inb = symbol.length();
+	  
+	  size_t outb = 256;
+	  
+	  iconv( cdesc, &inbuffer, &inb, &convbuffer, &outb );
+	  
+	  string csymbol( cb, 256-outb );
+	  
+	  delete cb;
+	  delete ib;
+
+	  if( outb < 256 )
+	    ++count;
+	}
+
+      if( count > maxcount )
+	{
+	  maxcount = count;
+	  maxpage = i;
+	}
+
+      iconv_close( cdesc );
+    }
+
+  cout << "Selected codepage: " << maxpage << endl;
+
+  canvas->set_encoding( maxpage );
+  text->set_display_encoding( maxpage );
+
 }

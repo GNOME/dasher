@@ -9,6 +9,8 @@
 
 #include "DasherInterface.h"
 
+#include <iconv.h>
+
 using namespace Dasher;
 
 class GtkDasherCanvas : public Gtk::DrawingArea
@@ -31,6 +33,7 @@ class GtkDasherCanvas : public Gtk::DrawingArea
   void Display();
 
   void clear();
+  void set_encoding( int _enc );
 
   //  Gdk_Font *get_font( int size ) const;
 
@@ -46,7 +49,9 @@ protected:
   int pmwidth;
   int pmheight;
 
-  void build_fonts();
+  iconv_t cdesc;  // Descriptor for iconv stuff
+
+  bool build_fonts( int encoding );
 
   string fontname;
 
@@ -64,6 +69,8 @@ protected:
   const Gdk_Font *get_font( int size ) const;
 
   void swap_buffers(); 
+
+  int enc;
 
   //gint button_press_event_impl(GdkEventButton *event);
   //gint button_press_event_impl(GdkEventAny *event);

@@ -16,6 +16,7 @@
 #define MAXFONTSIZE 25
 #define MINFONTSIZE 8
 
+#include <iconv.h>
 
 GtkDasherCanvas::GtkScreenWrapper::GtkScreenWrapper(  int _width, int _height, GtkDasherCanvas *_owner )
  : owner( _owner ), CDasherScreen( _width, _height )
@@ -26,6 +27,9 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   : DrawingArea(), pmwidth( _width), pmheight( _height ), 
   interface( _interface ), fontname( "fixed" )
 { 
+  enc = 1; // Asume encoding is iso8859-1 unless we're told otherwise.
+
+  cdesc = iconv_open( "ISO-8859-1", "UTF-8" );
 
   wrapper = new GtkScreenWrapper( _width, _height, this );
 
@@ -46,11 +50,11 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   font_list = new Gdk_Font[17];
   font_init = new bool[17];
 
-  build_fonts();
+  build_fonts( enc );
 
 }
 
-void GtkDasherCanvas::build_fonts()
+bool GtkDasherCanvas::build_fonts( int encoding )
 {
   for( int i(0); i < 17; ++i )
     font_init[i] = false;
@@ -60,11 +64,15 @@ void GtkDasherCanvas::build_fonts()
 
   char xfontstringbuffer[ 256 ];
 
-  snprintf( xfontstringbuffer, 256, "-*-%s-*-*-*-*-*-*-*-*-*-*-*-*", fontname.c_str() );
+  snprintf( xfontstringbuffer, 256, "-*-%s-*-*-*-*-*-*-*-*-*-*-iso8859-%d", fontname.c_str(), encoding );
+
+  cout << "Font string is " << xfontstringbuffer << endl;
 
   fontnames = XListFonts( GDK_DISPLAY(), xfontstringbuffer, 1024, &nfonts );
 
   char size_buffer[256];
+
+  bool got_one( false );
 
   for( int i(0); i < nfonts; ++i )
     {
@@ -98,10 +106,16 @@ void GtkDasherCanvas::build_fonts()
 	  {
 	    font_init[idx] = true;
 	    font_list[idx].create( fontnames[i] );
+	    got_one = true;
 	  }
 	}
 
     }
+
+  if( !got_one )
+    cout << "Warning - failed to find a font" << endl;
+
+  return( got_one );
 
 }
 
@@ -230,8 +244,53 @@ void GtkDasherCanvas::SetFont(std::string Name)
 
   if( actual_name != fontname )
     {
+      // Woo! Confusing structures - try the requested fontname, and
+      // if that fails try fixed, then try to pick any font
+
       fontname = actual_name;
-      build_fonts();
+      if( !build_fonts( enc ) )
+	{
+	  fontname = "fixed";
+	  if( !build_fonts( enc ) )
+	    {
+	      fontname = "*";
+	      build_fonts( enc );
+	    }
+	}
+
+      
+    }
+}
+
+void GtkDasherCanvas::set_encoding( int _enc )
+{
+  // Set the ISO8859 codepage to be used (using gtk1.2 we are limited
+  // to iso8859 characters, so we need to pick an appropriate subset
+  // to be able to display).
+
+  if( _enc != enc )
+    {
+      enc = _enc;
+
+      iconv_close( cdesc );
+
+      char encstr[256];
+
+      snprintf( encstr, 255, "ISO-8859-%d", enc );
+
+      cout << "Setting encoding to " << encstr << endl;
+
+      cdesc = iconv_open( encstr, "UTF-8" );
+
+      if( !build_fonts( enc ) )
+	{
+	  fontname = "fixed";
+	  if( !build_fonts( enc ) )
+	    {
+	      fontname = "*";
+	      build_fonts( enc );
+	    }
+	}
     }
 }
 
@@ -247,16 +306,31 @@ void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Si
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 {
-
-  // FIXME - symbol here will be a utf-8 encoded string, but I don't
-  // know whether draw_string wants that or whether it wants just
-  // ascii / whatever the character set of the font is
-
   if( is_realized() )
     {
 
       string symbol;
       symbol = interface->GetDisplayText(Character);
+
+      char *convbuffer = new char[256];
+      char *inbuffer = new char[256];
+
+      char *cb( convbuffer );
+      char *ib( inbuffer );
+
+      strncpy( inbuffer, symbol.c_str(), 255 );
+
+      size_t inb = symbol.length();
+      
+      size_t outb = 256;
+
+      iconv( cdesc, &inbuffer, &inb, &convbuffer, &outb );
+
+      string csymbol( cb, 256-outb );
+
+
+      delete cb;
+      delete ib;
 
       const Gdk_Font *chosen_font;
       
@@ -280,8 +354,8 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
       gc2.set_foreground(some_color2);
 
 
-      buffer->get_bg_text()->draw_string(*chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font->char_height('A'), symbol);
-      buffer->get_map_text()->draw_string(*chosen_font, gc2, x1, y1+chosen_font->char_height('A'), symbol);
+      buffer->get_bg_text()->draw_string(*chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font->char_height('A'), csymbol);
+      buffer->get_map_text()->draw_string(*chosen_font, gc2, x1, y1+chosen_font->char_height('A'), csymbol);
 
     }    
 }

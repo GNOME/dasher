@@ -8,6 +8,8 @@
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
   : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*")
 {
+  enc = 1;
+  
   pack_start( text, true, true );
   pack_start( vsb, false, false );
 
@@ -159,9 +161,19 @@ void GtkDasherEdit::SetFont(std::string Name, long Size)
 {
   char xfnbuffer[256];
 
-  snprintf( xfnbuffer, 256, "-*-%s-*-*-*-*-%d-*-*-*-*-*-*-*", Name.c_str(), Size );
+  snprintf( xfnbuffer, 256, "-*-%s-*-*-*-*-%d-*-*-*-*-*-iso8859-%d", Name.c_str(), Size, enc );
 
   efont.create(xfnbuffer);
+}
+
+void GtkDasherEdit::set_display_encoding( int _enc )
+{
+  if( _enc != enc )
+    {
+      enc = _enc;
+
+      // Fixme - need to force a font update here too.
+    }
 }
 
 bool GtkDasherEdit::SaveAs(std::string filename, bool a)
