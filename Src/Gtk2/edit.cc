@@ -19,6 +19,7 @@ extern gboolean stdoutpipe;
 GtkWidget *the_text_view;  
 GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;
+GtkClipboard *the_primary_selection;
 std::string last_said;
 std::string say;
 std::string pipetext;
@@ -41,6 +42,7 @@ void initialise_edit()
   int min, max;
   Display *dpy = gdk_x11_get_default_xdisplay();
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+  the_primary_selection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   the_text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (the_text_view));
 #ifdef X_HAVE_UTF8_STRING
   XDisplayKeycodes(dpy,&min,&max);
@@ -487,6 +489,14 @@ void edit_delete_backward_line()
 
 void clipboard_callback( clipboard_action act )
 {
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+  
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
+  
+  gchar *the_text=gtk_text_buffer_get_text(the_text_buffer,start,end,TRUE);
+
   switch( act )
     {
     case CLIPBOARD_CUT: 
@@ -499,8 +509,9 @@ void clipboard_callback( clipboard_action act )
       gtk_text_buffer_paste_clipboard(the_text_buffer, the_text_clipboard, NULL, TRUE);
       break;
     case CLIPBOARD_COPYALL:
-      select_all();
-      gtk_text_buffer_copy_clipboard(the_text_buffer, the_text_clipboard);
+      gtk_clipboard_set_text(the_text_clipboard,the_text,strlen(the_text));
+      gtk_clipboard_set_text(the_primary_selection,the_text,strlen(the_text));
+
       break;
     case CLIPBOARD_SELECTALL:
       select_all();
@@ -509,6 +520,10 @@ void clipboard_callback( clipboard_action act )
       gtk_text_buffer_set_text (the_text_buffer,"",0);
       break;
     }
+  g_free(the_text);
+  
+  delete start;
+  delete end;  
 }
 
 void select_all()
@@ -521,11 +536,15 @@ void select_all()
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
 
+  
   GtkTextMark *selection = gtk_text_buffer_get_mark (the_text_buffer,"selection_bound");
   GtkTextMark *cursor = gtk_text_buffer_get_mark(the_text_buffer,"insert");
 
   gtk_text_buffer_move_mark(the_text_buffer,selection,start);
   gtk_text_buffer_move_mark(the_text_buffer,cursor,end);
+
+  delete start;
+  delete end;
 }
 
 void clear_edit()
