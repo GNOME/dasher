@@ -317,6 +317,16 @@ save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 }
 
 void
+save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+
+  save_file_as(filename,FALSE);
+
+  gtk_exit(0);
+}
+
+void
 append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
@@ -336,7 +346,26 @@ select_save_file_as()
 
   g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
 		    "clicked", G_CALLBACK (save_file_from_filesel), (gpointer) filew);
-    
+  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
+			    "clicked", G_CALLBACK (gtk_widget_destroy),
+			    G_OBJECT (filew));
+
+  if (filename!=NULL)
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(filew), filename);
+
+  gtk_widget_show (filew);
+}
+void
+select_save_file_as_and_quit()
+{
+
+  GtkWidget *filew;
+
+  filew = gtk_file_selection_new ("File selection");
+
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
+		    "clicked", G_CALLBACK (save_file_from_filesel_and_quit), (gpointer) filew);
+
   g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
 			    "clicked", G_CALLBACK (gtk_widget_destroy),
 			    G_OBJECT (filew));
@@ -388,6 +417,17 @@ save_file ()
 }
 
 void
+save_file_and_quit ()
+{
+  if (filename != NULL) {
+    save_file_as(filename,FALSE);
+  }
+  else {
+    select_save_file_as_and_quit();
+  }
+}
+
+void
 select_import_file()
 {
 
@@ -427,9 +467,9 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
       return true;
       break;
     case GTK_RESPONSE_ACCEPT:
-      save_file();
+      gtk_widget_destroy (GTK_WIDGET(dialog));
       write_to_file();
-      gtk_exit(0);
+      save_file_and_quit();
     }
   }
   else {
