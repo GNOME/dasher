@@ -332,7 +332,8 @@ void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
 		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
 		break;
 	default:
-			assert(0);
+			break;
+			//assert(0);
 	}
 }
 

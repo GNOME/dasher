@@ -5,7 +5,7 @@
 // Copyright (c) 2001-2002 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
-
+#include <iostream>
 namespace Dasher {
 
 inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
@@ -14,6 +14,7 @@ inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
     myint dasherOY=DasherModel().DasherOY();
     double disty=dasherOY-dashery;
     bool DasherRunning = DasherModel().Paused();
+
 
     if(!DasherRunning==true) {
         CDasherView::yFilterTimescale = 20;
@@ -49,8 +50,9 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
     bool eyetracker=DasherModel().Eyetracker();
     bool DasherRunning = DasherModel().Paused();
+	
 
-    *mousey += yAutoOffset;
+	*mousey += yAutoOffset;
 
     // Maybe this mousey tweak should take place earlier, elsewhere, and 
     // have a permanent effect on mousey rather than just local.
@@ -73,7 +75,12 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 
 	// Convert the Y mouse coordinate to one that's based on the canvas size
 	double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
-
+	bool useonebutton=0;
+	if (useonebutton) {
+	    int onebutton = CDasherView::GetOneButton();
+	    dashery=onebutton;
+	}
+    
 	// Convert the X mouse coordinate to one that's based on the canvas size 
 	// - we want this the opposite way round to the mouse coordinate system, 
 	// hence the fudging. ixmap gives us the X nonlinearity.	

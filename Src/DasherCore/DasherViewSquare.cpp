@@ -396,10 +396,10 @@ int CDasherView::GetOneButton() {
 }
 
 void CDasherView::SetOneButton(int Value) {
-       if (onebutton < -6000) 
-               onebutton=-6000;
-       if (onebutton > 8000)
-               onebutton=8000;
+       if (onebutton < -5000) 
+               onebutton=-5000;
+       if (onebutton > 7000)
+               onebutton=7000;
  
        onebutton += Value;
 }

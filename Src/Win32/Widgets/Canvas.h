@@ -75,6 +75,13 @@ private:
 	bool secondwindow;
 	bool speakonstop;
 	bool oned;
+	bool direction;
+	bool lbuttonheld;
+	bool inturbo;
+	bool enabletime;
+	DWORD startturbo;
+	DWORD endturbo;
+	DWORD lastlbutton;
 	DWORD mousepostime;
 	DWORD previoustime;
 	RECT coords;

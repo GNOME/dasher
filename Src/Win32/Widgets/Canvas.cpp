@@ -57,6 +57,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	}
 	running = 0;
 	previoustime=GetTickCount();
+	direction=0;
 }
 
 
@@ -109,7 +110,9 @@ void CCanvas::Paint()
 LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	
-		char tmpAutoOffset[25];
+    char tmpAutoOffset[25];
+	char tmpOneButton[25];
+
 	switch (message) {
 
 
@@ -175,6 +178,11 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			startspace();
 			return 0;
 			break;
+		case VK_F9:
+			sprintf(tmpOneButton, "yOneButton: %d", m_DasherAppInterface->GetOneButton());
+			MessageBox(Window, tmpOneButton, NULL, 1);
+			return 0;
+			break;
 		case VK_F11:
 			sprintf(tmpAutoOffset, "yAutoValue: %d", m_DasherAppInterface->GetAutoOffset());
 			MessageBox(Window, tmpAutoOffset, NULL, 1);
@@ -191,11 +199,29 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_LBUTTONDBLCLK:
 		// fall through
 	case WM_LBUTTONDOWN:
+		startturbo=GetTickCount();
 		SetFocus(Window);
+
+		lbuttonheld=1;
+		lastlbutton = GetTickCount();
+		direction = !direction;
+		enabletime=1;
 		if (startonleft==false) {
 			return 0;
 		}
 		StartStop();
+		return 0;
+		break;
+	case WM_LBUTTONUP:
+		endturbo = GetTickCount();
+
+		if (endturbo-startturbo > 1) {
+			
+			TCHAR deb[80];
+			wsprintf(deb,"start: %d\nend: %d\nduration: %d", startturbo, endturbo, endturbo-startturbo);
+			OutputDebugString(deb);
+		}
+		lbuttonheld=0;
 		return 0;
 		break;
 	case WM_MOUSEMOVE:
@@ -285,6 +311,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 				imousey*=scalefactor;
 				imousey+=m_pScreen->GetHeight()/2;
 			}
+
+
+
 			if ((GetTickCount()-previoustime)>200) {
 				m_DasherWidgetInterface->DrawMousePos(imousex,imousey);
 				if (firstwindow==true) {
@@ -297,6 +326,29 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
 			return 0;
 		}
+
+		// One-button mode.
+        if (direction==TRUE) {
+			if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
+				double BitRate = m_DasherAppInterface->GetMaxBitRate();
+				TCHAR deb[80];
+				wsprintf(deb,"bitrate: %d\n", BitRate);
+				OutputDebugString(deb);
+				m_DasherAppInterface->SetOneButton(125);
+			}
+			else {
+				m_DasherAppInterface->SetOneButton(50);
+			}
+        }
+        if (direction==FALSE) {
+			if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
+				m_DasherAppInterface->SetOneButton(-125);
+			}
+			else {
+				m_DasherAppInterface->SetOneButton(-50);
+			}
+        }
+
 		if (windowpause==true) {
 			RECT windowrect;
 
@@ -372,6 +424,7 @@ void CCanvas::StartStop() {
 		firstwindow=false;
 		secondwindow=false;
 		mousepostime=0;
+
 	} else {
 		m_DasherWidgetInterface->PauseAt(0,0);
 		running=0;

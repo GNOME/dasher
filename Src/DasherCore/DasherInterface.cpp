@@ -330,7 +330,6 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 	}
 }
 
-
 void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 {
 	LanguageModelID = NewLanguageModelID;
