@@ -63,14 +63,14 @@ void CDasherNode::Push_Node()
 		{
 			assert (m_pParent !=NULL) ;
 			// Normal symbol - derive context from parent
-			m_pContext = m_languagemodel->CloneNodeContext(m_pParent->m_pContext);
-			m_languagemodel->EnterNodeSymbol(m_pContext,m_Symbol);
+			m_pContext = m_languagemodel->CloneContext(m_pParent->m_pContext);
+			m_languagemodel->EnterSymbol(m_pContext,m_Symbol);
 		}
 		else
 		{
 			// For new "root" nodes (such as under control mode), we want to 
 			// mimic the root context
-			m_pContext=m_languagemodel->GetRootNodeContext();
+			m_pContext=m_languagemodel->GetEmptyContext();
 			m_languagemodel->EnterText(m_pContext, ". ");
 
 		}
@@ -83,7 +83,7 @@ void CDasherNode::Push_Node()
 		int i,quantum;
 		ControlTree *controltree;
 		if (m_controltree==NULL) { // Root of the tree 
-			controltree = m_languagemodel->GetControlTree();
+			controltree = m_DasherModel.GetControlTree();
 		}
 		else { // some way down
 			controltree = m_controltree->children;
@@ -101,7 +101,7 @@ void CDasherNode::Push_Node()
 
 		// Now we go back and build the node tree	  
 		if (m_controltree==NULL) {
-			controltree=m_languagemodel->GetControlTree();
+			controltree=m_DasherModel.GetControlTree();
 		} else {
 			controltree=m_controltree->children; 
 		}
@@ -137,7 +137,7 @@ void CDasherNode::Push_Node()
 
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
-	m_languagemodel->GetNodeProbs(m_pContext,newchars,groups,cum,m_DasherModel.Normalization());
+	m_languagemodel->GetProbs(m_pContext,newchars,groups,cum,m_DasherModel.Normalization());
 	m_iChildCount=newchars.size();
 	// work out cumulative probs
 	unsigned int i;

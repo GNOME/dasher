@@ -56,7 +56,7 @@ public:
 	void Dump_node() const;                                // diagnostic
 
 	// Set/replace the context
-	void SetContext(CLanguageModel::CNodeContext *pContext);
+	void SetContext(CContext *pContext);
 
 private:
 
@@ -78,7 +78,7 @@ private:
 	const CDasherModel& m_DasherModel;
 	CLanguageModel *m_languagemodel;   // pointer to the language model - in future, could be different for each node	
 	CDasherNode *m_pParent;             // pointer to parent - only needed to grab parent context
-	CLanguageModel::CNodeContext *m_pContext;
+	CContext *m_pContext;
 	ControlTree *m_controltree;
 
 
@@ -140,15 +140,15 @@ inline CDasherNode::~CDasherNode()
 {
 	Delete_children();
 	if (m_pContext)
-		m_languagemodel->ReleaseNodeContext(m_pContext);
+		m_languagemodel->ReleaseContext(m_pContext);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CDasherNode::SetContext(CLanguageModel::CNodeContext *pContext)
+inline void CDasherNode::SetContext(CContext *pContext)
 {
 	if (m_pContext)
-		m_languagemodel->ReleaseNodeContext(m_pContext);
+		m_languagemodel->ReleaseContext(m_pContext);
 	m_pContext = pContext;
 }
 

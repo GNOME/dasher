@@ -100,11 +100,11 @@ CPPMLanguageModel::~CPPMLanguageModel()
 }
 
 
-bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, int norm)
+bool CPPMLanguageModel::GetProbs(const CContext *pContext,vector<unsigned int> &probs, int norm) const
 	// get the probability distribution at the context
 {
 	// seems like we have to have this hack for VC++
-	CPPMContext *ppmcontext=static_cast<CPPMContext *> (context);
+	const CPPMContext *ppmcontext=static_cast<const CPPMContext *> (pContext);
 	
 	
 	int modelchars=GetNumberModelChars();
@@ -286,7 +286,7 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 
 
 // update context with symbol 'Symbol'
-void CPPMLanguageModel::EnterSymbol(CContext* Context, modelchar Symbol)
+void CPPMLanguageModel::EnterSymbol(CContext* Context, int Symbol)
 {
 	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	
@@ -313,7 +313,7 @@ void CPPMLanguageModel::EnterSymbol(CContext* Context, modelchar Symbol)
 }
 
 
-void CPPMLanguageModel::LearnSymbol(CContext* Context, modelchar Symbol)
+void CPPMLanguageModel::LearnSymbol(CContext* Context, int Symbol)
 {
 	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	AddSymbol(context, Symbol);

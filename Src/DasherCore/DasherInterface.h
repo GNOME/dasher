@@ -179,7 +179,7 @@ private:
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
-	CLanguageModel::CNodeContext* TrainContext;
+	CContext* TrainContext;
 	
 	std::string AlphabetID;
 	std::string ColourID;

@@ -78,6 +78,9 @@ public:
 
 	myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY);
 
+	void NewControlTree(ControlTree *tree) { m_pControltree=tree; }
+	ControlTree* GetControlTree() const { return m_pControltree; }
+
 private:
 
 	// Old root notes
@@ -105,7 +108,7 @@ private:
 
 	CDashEditbox* m_editbox;           // pointer to the editbox
 	CLanguageModel* m_languagemodel;   // pointer to the language model
-	CLanguageModel::CNodeContext* LearnContext;        // Used to add data to model as it is entered
+	CContext* LearnContext;        // Used to add data to model as it is entered
 	CFrameRate m_fr;                   // keep track of framerate
 	
 	// TODO - move somewhere
@@ -125,6 +128,7 @@ private:
 
 	int m_iNormalization; // The arithmetic interval for child nodes
 
+	ControlTree* m_pControltree;
 
 
 };

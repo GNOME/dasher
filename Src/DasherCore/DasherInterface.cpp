@@ -58,7 +58,7 @@ m_EditFontSize(0)
 CDasherInterface::~CDasherInterface()
 {
 	if (m_LanguageModel)
-		m_LanguageModel->ReleaseNodeContext(TrainContext);
+		m_LanguageModel->ReleaseContext(TrainContext);
 	delete m_DasherModel;   // The order of some of these deletions matters
 	delete m_LanguageModel; // eg DasherModel has a pointer to LanguageModel.
 	delete m_Alphabet;      // DM baulks if LM is deleted before it is.
@@ -359,14 +359,14 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 	LanguageModelID = NewLanguageModelID;
 	if (m_Alphabet!=0) {
 		if (m_LanguageModel)
-			m_LanguageModel->ReleaseNodeContext(TrainContext);
+			m_LanguageModel->ReleaseContext(TrainContext);
 		TrainContext = 0;
 		delete m_DasherModel; // Have to delete DasherModel, or removing its LanguageModel will confuse it
 		m_DasherModel = 0;
 		delete m_LanguageModel;
 		// TODO Use LanguageModelID to decide which model to use
 		m_LanguageModel = new CPPMLanguageModel(m_Alphabet);
-		TrainContext = m_LanguageModel->GetRootNodeContext();
+		TrainContext = m_LanguageModel->GetEmptyContext();
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);
 		TrainFile(m_UserLocation+T);
@@ -924,7 +924,7 @@ double CDasherInterface::GetCurFPS()
 
 void CDasherInterface::AddControlTree(ControlTree *controltree)
 {
-  m_LanguageModel->NewControlTree(controltree);
+  m_DasherModel->NewControlTree(controltree);
 }
 
 void CDasherInterface::Render()

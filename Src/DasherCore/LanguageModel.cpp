@@ -20,37 +20,36 @@ using namespace std;
 CLanguageModel::CLanguageModel(CAlphabet* Alphabet)
 	: m_Alphabet(Alphabet)
 {
-	m_iModelChars = m_Alphabet->GetNumberSymbols();
 	m_uniform = 50;
 }
 
 
 ///////////////////////////////////////////////////////////////////
 
-void CLanguageModel::EnterText(CNodeContext* NodeContext, string TheText)
+void CLanguageModel::EnterText(CContext* pContext, string TheText)
 {
 	vector<symbol> Symbols;
 	m_Alphabet->GetSymbols(&Symbols, &TheText, false);
 	for (unsigned int i=0; i<Symbols.size(); i++)
-		EnterSymbol((CContext*) NodeContext, (modelchar) Symbols[i]);
+		EnterSymbol(pContext, Symbols[i]);
 }
 
 ///////////////////////////////////////////////////////////////////
 
-void CLanguageModel::LearnText(CNodeContext* NodeContext, string* TheText, bool IsMore)
+void CLanguageModel::LearnText(CContext* Context, string* TheText, bool IsMore)
 {
 	vector<symbol> Symbols;
 	
 	m_Alphabet->GetSymbols(&Symbols, TheText, IsMore);
 	
 	for (unsigned int i=0; i<Symbols.size(); i++)
-		LearnSymbol((CContext*) NodeContext, (modelchar) Symbols[i]);
+		LearnSymbol( Context,  Symbols[i]);
 }
 
 ///////////////////////////////////////////////////////////////////
 
-bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymbols,
-		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm)
+bool CLanguageModel::GetProbs(CContext* Context, vector<symbol> &NewSymbols,
+		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm) const
 {
 	// make sure it is a valid context
 	if (Context) {
@@ -107,22 +106,25 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 	return false;
 }
 
-int CLanguageModel::GetColour(int character)
+int CLanguageModel::GetColour(int character) const
 {
   return m_Alphabet->GetColour(character);
 }
 
-int CLanguageModel::GetGroupColour(int group)
+int CLanguageModel::GetGroupColour(int group) const
 {
 	return m_Alphabet->GetGroupColour(group);
 }
 
-std::string CLanguageModel::GetGroupLabel(int group)
+std::string CLanguageModel::GetGroupLabel(int group) const
 {
     return m_Alphabet->GetGroupLabel(group);
 }
 
-bool CLanguageModel::isRealSymbol( symbol _s ) {
+///////////////////////////////////////////////////////////////////
+
+bool CLanguageModel::isRealSymbol( symbol _s ) const
+{
   if( _s  == 0 )
     return false;
   else if( _s == GetControlSymbol() )
@@ -130,3 +132,5 @@ bool CLanguageModel::isRealSymbol( symbol _s ) {
   else
     return true;
 }
+
+///////////////////////////////////////////////////////////////////

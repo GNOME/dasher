@@ -27,6 +27,23 @@ public:
 	CPPMLanguageModel(CAlphabet *_alphabet);
 	~CPPMLanguageModel();
 	
+	
+	void ReleaseContext(CContext*);
+	
+	CContext* GetEmptyContext() const;
+	
+	CContext* CloneContext(const CContext*);
+	
+	void EnterSymbol(CContext* pContext, int Symbol);
+	
+	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
+	virtual bool GetProbs(const CContext* pContext, std::vector<unsigned int> &Probs, int norm) const;
+	
+	void LearnSymbol(CContext* Context, int Symbol);
+	void dump();
+	
+private:
+
 	class CPPMnode {
 	public:
 		CPPMnode* find_symbol(int sym) const;
@@ -48,25 +65,14 @@ public:
 		CPPMnode* head;
 		int order;
 	};
-	
-	void ReleaseContext(CContext*);
-	CContext* GetRootContext();
-	inline CContext* CloneContext(CContext*);
-	void EnterSymbol(CContext* context, modelchar Symbol);
-	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
-	bool GetProbs(CContext*, std::vector<unsigned int> &Probs, int norm);
-	
-	void LearnSymbol(CContext* Context, modelchar Symbol);
-	void dump();
-	
-private:
-	CPPMContext *m_rootcontext;
-	CPPMnode *root;
+
 	void AddSymbol(CPPMContext& context,int symbol);
 	void dumpSymbol(int symbol);
 	void dumpString( char *str, int pos, int len );
 	void dumpTrie( CPPMnode *t, int d );
 
+	CPPMContext *m_rootcontext;
+	CPPMnode *root;
 
 
 };
@@ -96,20 +102,17 @@ inline void CPPMLanguageModel::CPPMContext::dump()
 
 ///////////////////////////////////////////////////////////////////
 
-inline CContext* CPPMLanguageModel::GetRootContext()
+inline CContext* CPPMLanguageModel::GetEmptyContext() const
 {
-	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*m_rootcontext);
-	CContext *cont=static_cast<CContext *> (nc);
-	return  cont;
+	return  static_cast<CContext *>(new CPPMLanguageModel::CPPMContext(*m_rootcontext));
 }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CContext* CPPMLanguageModel::CloneContext(CContext *copythis)
+inline CContext* CPPMLanguageModel::CloneContext(const CContext *pCopyThis)
 {
-	CPPMContext *ppmcontext=static_cast<CPPMContext *> (copythis);
-	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*ppmcontext);
-	return  static_cast<CContext *> (nc);
+	const CPPMContext *pPPMcontext=static_cast<const CPPMContext *> (pCopyThis);
+	return  static_cast<CContext *> (new CPPMContext(*pPPMcontext));
 }
 
 ///////////////////////////////////////////////////////////////////
