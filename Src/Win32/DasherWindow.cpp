@@ -29,9 +29,9 @@ using namespace std;
 
 #define IDT_TIMER1 200
 
-CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI)
-	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), Splash(0),
-	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), WinOptions(0),
+CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI, CWinOptions& WO)
+	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), WinOptions(WO), Splash(0), 
+	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), 
 	m_CurrentAlphabet(""), m_CurrentColours("")
 {
 	hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR)IDC_DASHER);
@@ -46,6 +46,8 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 		CW_USEDEFAULT, CW_USEDEFAULT, 400, 500, NULL, NULL, WinHelper::hInstApp, NULL);
 	WinWrapMap::add(m_hwnd, this);
 	
+
+
 	// Splash screen (turned off for debugging when it gets in the way)
 	// It is deleted when Show() is called.
 	/*
@@ -70,8 +72,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	MyTime = GetTickCount() - MyTime;
 */
 
-
-
+	
 	SetTimer(m_hwnd, IDT_TIMER1,               // timer identifier 
 
     20,                     // 5-second interval 
@@ -83,6 +84,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 
 CDasherWindow::~CDasherWindow()
 {
+
 	delete Splash; // In case Show() was never called.
 	delete m_pToolbar;
 	delete m_pEdit;
@@ -121,9 +123,11 @@ void CDasherWindow::Show(int nCmdShow)
 	delete Splash;
 	Splash = 0;
 	
+
 	// Show Window
 	InvalidateRect(m_hwnd, NULL, FALSE);
-	ShowWindow(m_hwnd, nCmdShow);
+	if	(!LoadWindowState())
+		ShowWindow(m_hwnd,nCmdShow);                          // Now set up. Kill splash screen and display main window
 	UpdateWindow(m_hwnd);
 }
 
@@ -407,6 +411,26 @@ void CDasherWindow::KeyboardMode(bool Value)
 	keyboardmode=Value;
 }
 
+void CDasherWindow::SaveWindowState() const
+{
+	WINDOWPLACEMENT wp;
+	wp.length = sizeof (WINDOWPLACEMENT);
+	GetWindowPlacement(m_hwnd,&wp);
+	WinOptions.SaveSetting("Placement",&wp);
+}
+
+bool CDasherWindow::LoadWindowState()
+{
+	WINDOWPLACEMENT wp;
+	if (WinOptions.LoadSetting("Placement",&wp))
+	{
+		SetWindowPlacement(m_hwnd,&wp);
+		return true;
+	}
+	return false;
+}
+
+
 void CDasherWindow::ControlMode(bool Value)
 {
 	controlmode=Value;
@@ -666,9 +690,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 	case WM_INITMENUPOPUP:
 		WinMenu.SortOut((HMENU) wParam);
 		break;
+	case WM_CLOSE:
+		SaveWindowState();
+		return DefWindowProc(m_hwnd, message, wParam, lParam);
 	case WM_SIZE:
 		if (wParam==SIZE_MINIMIZED)
 			break;
+		DasherSettingsInterface->SetScreenSize(LOWORD(lParam),HIWORD(lParam));
 		Layout();
 		break;
 	default:
@@ -754,4 +782,5 @@ void CDasherWindow::Layout()
 	int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
 	
 	m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+
 }

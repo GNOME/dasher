@@ -74,6 +74,8 @@ bool CWinOptions::LoadSetting(const std::string& Key, bool* Value)
 	return true;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 
 bool CWinOptions::LoadSetting(const std::string& Key, long* Value)
 {
@@ -93,11 +95,11 @@ bool CWinOptions::LoadSetting(const std::string& Key, long* Value)
 	return true;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
+bool CWinOptions::LoadSetting(const std::string& Key, Tstring* TValue)
 {
-
-	Tstring TKey,TValue;
+	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
 	BYTE* Data=0;
 	
@@ -106,13 +108,79 @@ bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
 		return false;
 	}
 	
-	TValue = (TCHAR *)Data;
-	Tstring_to_UTF8string(TValue, Value);
-	
+	*TValue = (TCHAR *)Data;
 	delete[] Data;
+	
 	return true;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
+{
+
+	Tstring str;
+	if (LoadSetting(Key,&str))
+	{
+		Tstring_to_UTF8string(str, Value);
+		return true;	
+
+	}
+	return false;
+
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+static TCHAR FormatWindowPlacement[] = TEXT("%u,%u,%d,%d,%d,%d,%d,%d,%d,%d");
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CWinOptions::SaveSetting(const std::string& Key, const LPWINDOWPLACEMENT pwp)
+{
+	DASHER_ASSERT(pwp!=NULL);
+	
+	TCHAR t[200];
+	_stprintf(t, FormatWindowPlacement,
+				pwp->flags, pwp->showCmd,
+				pwp->ptMinPosition.x, pwp->ptMinPosition.y, pwp->ptMaxPosition.x, pwp->ptMaxPosition.y,
+				pwp->rcNormalPosition.left, pwp->rcNormalPosition.top,pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom);
+
+	Tstring ts(t);
+	SaveSetting(Key, ts);
+
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+bool CWinOptions::LoadSetting(const std::string& Key, LPWINDOWPLACEMENT pwp)
+{
+	DASHER_ASSERT(pwp!=NULL);
+	
+
+	Tstring str;
+
+	if (!LoadSetting(Key, &str))
+		return false;
+
+	WINDOWPLACEMENT wp;
+	int nRead=_stscanf(str.c_str(), FormatWindowPlacement,
+						&wp.flags, &wp.showCmd,
+						&wp.ptMinPosition.x, &wp.ptMinPosition.y,
+						&wp.ptMaxPosition.x, &wp.ptMaxPosition.y,
+						&wp.rcNormalPosition.left, &wp.rcNormalPosition.top,
+						&wp.rcNormalPosition.right, &wp.rcNormalPosition.bottom);
+
+	if (nRead != 10)
+		return false;
+	wp.length=sizeof(wp);
+
+	*pwp = wp;
+	return true;
+
+}
+
+/////////////////////////////////////////////////////////////////////////////
 
 void CWinOptions::SaveSetting(const std::string& Key, bool Value)
 {
@@ -122,6 +190,7 @@ void CWinOptions::SaveSetting(const std::string& Key, bool Value)
 		SaveSetting(Key, 0l);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CWinOptions::SaveSetting(const std::string& Key, long Value)
 {
@@ -136,18 +205,15 @@ void CWinOptions::SaveSetting(const std::string& Key, long Value)
 		REG_DWORD, (const unsigned char*) RegValue, MemAllow);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
+void CWinOptions::SaveSetting(const std::string& Key, const Tstring& TValue)
 {
 	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
-	
-	// DJW20031107 - i think Values should also be converted to Tstring
-	Tstring TValue;
-	UTF8string_to_Tstring(Value, &TValue);
-	
 
-	DWORD MemAllow = (Value.size()+1) * sizeof(TCHAR);
+
+	DWORD MemAllow = (TValue.size()+1) * sizeof(TCHAR);
 	
 	//const unsigned char* StrInput = (const unsigned char*) Value.c_str();
 	//LONG ErrVal = RegSetValueEx(ProductKey, TKey.c_str(), 0,
@@ -155,6 +221,19 @@ void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
 
 	LONG ErrVal = RegSetValueEx(ProductKey, TKey.c_str(), 0,
 		REG_SZ, (CONST BYTE *)TValue.c_str(), MemAllow);
+
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
+{
+	
+	// DJW20031107 - i think Values should also be converted to Tstring
+	Tstring TValue;
+	UTF8string_to_Tstring(Value, &TValue);
+	
+	SaveSetting(Key,TValue);
 }
 
 

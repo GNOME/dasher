@@ -25,15 +25,22 @@ class CWinOptions : public CSettingsStore, private NoClones
 public:
 	CWinOptions(const std::string& Group, const std::string& Product);
 	~CWinOptions();
+
+	bool LoadSetting(const std::string& Key, LPWINDOWPLACEMENT pwp);
+	void SaveSetting(const std::string& Key, const LPWINDOWPLACEMENT pwp);
+
 private:	
 	// Platform Specific settings file management
 	bool LoadSetting(const std::string& Key, bool* Value);
 	bool LoadSetting(const std::string& Key, long* Value);
 	bool LoadSetting(const std::string& Key, std::string* Value);
+	bool LoadSetting(const std::string& Key, Tstring* Value);
 	
 	void SaveSetting(const std::string& Key, bool Value);
 	void SaveSetting(const std::string& Key, long Value);
 	void SaveSetting(const std::string& Key, const std::string& Value);
+	
+	void SaveSetting(const std::string& Key, const Tstring& TValue);
 
 	// Used to store settings in memory
 	std::map<std::string, bool> BoolMap;

@@ -117,9 +117,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	{
 		DasherInterface.ChangeLanguageModel(0);
-		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
+		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions); // Main Window
 		DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
 		DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
+	
 
 
 		iRet = DasherWindow.MessageLoop();
@@ -130,4 +131,5 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	return iRet;
 }
+
 

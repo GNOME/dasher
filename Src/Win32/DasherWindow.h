@@ -40,7 +40,7 @@ class CDasherWindow : public CWinWrap, public CSplitterOwner,
 public:
 	CDasherWindow(Dasher::CDasherSettingsInterface* SI,
                   Dasher::CDasherWidgetInterface* WI,
-                  Dasher::CDasherAppInterface* AI);
+				  Dasher::CDasherAppInterface* AI, CWinOptions& WO);
 	~CDasherWindow();
 	
 	void Show(int nCmdShow);
@@ -55,6 +55,9 @@ public:
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 	void SetFileEncoding(Dasher::Opts::FileEncodingFormats Encoding);
 	
+	void SaveWindowState() const;
+	bool LoadWindowState();
+
 	void ShowToolbar(bool Value);
 	void ShowToolbarText(bool Value);
 	void ShowToolbarLargeIcons(bool Value);
@@ -135,7 +138,7 @@ private:
 	CCanvas* m_pCanvas;
 	CSlidebar* m_pSlidebar;
 	CSplitter* m_pSplitter;
-	CWinOptions* WinOptions;
+	CWinOptions& WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;
 
