@@ -79,29 +79,39 @@ void edit_output_callback(symbol Symbol)
     KeyCode code;
     glong numoutput;
     
-    wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);
-    for (size_t i=0; i<numoutput; i++) {
-      modifiedkey=(modifiedkey+1)%10;
-      // This gives us the magic X keysym
-      wideoutput[i]=wideoutput[i] | 0x01000000;
-      
-      XDisplayKeycodes(dpy,&min,&max);
-      keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
-      keysym[(max-min-modifiedkey-1)*numcodes]=wideoutput[i];
-      XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
-      XSync(dpy,true);
-      XFree(keysym);
-      //      code = XKeysymToKeycode(dpy,wideoutput[i]);    
-      code=(max-modifiedkey-1);
+    if (label[0]=='\n') {
+      code = XKeysymToKeycode(dpy,XK_Return);
       if (code!=0) {
 	XTestFakeKeyEvent(dpy, code, True, CurrentTime);
 	XSync(dpy,true);
 	XTestFakeKeyEvent(dpy, code, False, CurrentTime);
 	XSync(dpy,true);
       }
+    } else {
+      wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);    
+      for (size_t i=0; i<numoutput; i++) {
+	modifiedkey=(modifiedkey+1)%10;
+	// This gives us the magic X keysym
+	wideoutput[i]=wideoutput[i] | 0x01000000;
+	
+	XDisplayKeycodes(dpy,&min,&max);
+	keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
+	keysym[(max-min-modifiedkey-1)*numcodes]=wideoutput[i];
+	XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
+	XSync(dpy,true);
+	XFree(keysym);
+	//      code = XKeysymToKeycode(dpy,wideoutput[i]);    
+	code=(max-modifiedkey-1);
+	if (code!=0) {
+	  XTestFakeKeyEvent(dpy, code, True, CurrentTime);
+	  XSync(dpy,true);
+	  XTestFakeKeyEvent(dpy, code, False, CurrentTime);
+	  XSync(dpy,true);
+	}
+      }
+      XSync(dpy,true);
+      g_free(wideoutput);
     }
-    XSync(dpy,true);
-    g_free(wideoutput);
 #else
     SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
