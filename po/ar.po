@@ -9,113 +9,129 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-23 03:19+0100\n"
-"PO-Revision-Date: 2004-02-06 14:16+0100\n"
+"POT-Creation-Date: 2004-02-29 03:08+0100\n"
+"PO-Revision-Date: 2004-02-29 13:14+0100\n"
 "Last-Translator: Arafat Medini <lumina@silverpen.de>\n"
 "Language-Team: Arabic <doc@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:61
 msgid "Menus"
 msgstr "قوائم"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:68
+msgid "Windows"
+msgstr "نوافذ"
+
+#: Src/Gtk2/accessibility.cc:73
+msgid "Application"
+msgstr "تطبيق"
+
+#: Src/Gtk2/accessibility.cc:80
 msgid "Buttons"
 msgstr "أزرار"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:86
 msgid "Panels"
 msgstr "شرائط"
 
-#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:93
+msgid "Text"
+msgstr "نص"
+
+#: Src/Gtk2/accessibility.cc:167 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "قطعة"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:172
 msgid "Stop"
 msgstr "توقف"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:178
 msgid "Pause"
 msgstr "إيقاف مؤقت"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:185
 msgid "Move"
 msgstr "نقل"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:192
 msgid "Delete"
 msgstr "حذt"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:201
 msgid "Speak"
 msgstr "تكلم"
 
-#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:219 Src/Gtk2/accessibility.cc:288
 msgid "<"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:225 Src/Gtk2/accessibility.cc:282
 msgid ">"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:231
 msgid "<<<"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:237
 msgid ">>>"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:250
 msgid "Everything"
 msgstr "كل شيئ"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:256
 msgid "New"
 msgstr "جديد"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:262
 msgid "Repeat"
 msgstr "إعادة"
 
-#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:294 Src/Gtk2/accessibility.cc:317
 msgid "Character"
 msgstr "رمز"
 
-#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:305 Src/Gtk2/accessibility.cc:327
 msgid "Word"
 msgstr "كلمة"
 
-#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:310 Src/Gtk2/accessibility.cc:333
 msgid "Line"
 msgstr "سطر"
 
-#: Src/Gtk2/dasher.cc:183
+#: Src/Gtk2/accessibility.cc:403
+msgid "Unknown"
+msgstr "مجهول"
+
+#: Src/Gtk2/dasher.cc:184
 msgid "Training Dasher, please wait"
 msgstr "جاري تدريب داشر، الرجاء الانتظار"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1760
 msgid "translator_credits"
-msgstr "تحت إشراف عربايز (http://www.arabeyes.org):/n"
-"/n"
-"عرفات المديني، تونس <lumina@silverpen.de>"
+msgstr ""
+"تحت إشراف عربايز (http://www.arabeyes.org):/n/nعرفات المديني، تونس "
+"<lumina@silverpen.de>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1762 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "داشر"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1765
 msgid "Dasher is a predictive text entry application"
 msgstr "داشر تطبيق يتنبأ بإدخال النصوص"
 
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2172
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d رموز اخرجت في %d ثوان\n"
@@ -498,12 +514,17 @@ msgstr "اللون"
 msgid "Orientation"
 msgstr "الاتجاه"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "لا يمكن تشغيل الأصوات"
+
+#: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "تنبيه: لا يمكن ضبط مثبتات الكلام\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:98
 msgid "Dasher Text Entry"
 msgstr "الخانة النصية لداشر"
 
