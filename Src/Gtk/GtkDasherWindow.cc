@@ -19,7 +19,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel(gettext("Dasher Font")), efontsel(gettext("Editing Font")), slider_shown( true ),toolbar_shown(true), ofilesel(gettext("Open")), afilesel(gettext("Append To File")), copy_all_on_pause( false ),ifilesel(gettext("Import Training Text")), button(gettext("Close")), label(gettext("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk")), fix_pane( false ), timestamp( false ), current_or( Alphabet ), current_enc( UserDefault )
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel(gettext("Dasher Font")), efontsel(gettext("Editing Font")), slider_shown( true ),toolbar_shown(true), ofilesel(gettext("Open")), afilesel(gettext("Append To File")), copy_all_on_pause( false ),ifilesel(gettext("Import Training Text")), button(gettext("Close")), label(gettext("Dasher - Version 3.0.1\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk")), fix_pane( false ), timestamp( false ), current_or( Alphabet ), current_enc( UserDefault )
 {
   set_title("Dasher");
 

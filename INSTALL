@@ -5,13 +5,13 @@ Here's how to do it:
 
 1. Unpack the source tarball:
 
-> gunzip -c dasher-3.0.0.tar.gz | tar -x
+> gunzip -c dasher-3.0.1.tar.gz | tar -x
 
 (or one of the many equivalent methods)
 
 2. Change into the source directory:
 
-> cd dasher-3.0.0
+> cd dasher-3.0.1
 
 3. Configure the installation:
 

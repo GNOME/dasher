@@ -40,11 +40,11 @@ msgstr "Fermer"
 
 #: Src/Gtk/GtkDasherWindow.cc:22
 msgid ""
-"Dasher - Version 3.0.0 preview 2\n"
+"Dasher - Version 3.0.1\n"
 "Web: http://www.inference.phy.cam.ac.uk/dasher/\n"
 "email: dasher@mrao.cam.ac.uk"
 msgstr ""
-"Dasher - Version 3.0.0\n"
+"Dasher - Version 3.0.1\n"
 "Web: http://www.inference.phy.cam.ac.uk/dasher/\n"
 "email: dasher@mrao.cam.ac.uk"
 
