@@ -141,6 +141,8 @@ load_training_file (const gchar *filename)
 gpointer
 change_alphabet(gpointer alph)
 {
+  // This is launched as a separate thread in order to let the main thread
+  // carry on updating the training window
   dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
   g_free(alph);
   g_async_queue_push(trainqueue,(void *)1);
@@ -158,9 +160,12 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &alph, -1);    
+    // There's no point in training if the alphabet is already selected
     if (alph!=alphabet) {
       alphabet=alph;
 #ifndef WITH_GPE
+      // Note that we're training - this is needed in order to avoid
+      // doing anything that would conflict with the other thread
       training=TRUE;
       trainqueue=g_async_queue_new();
       trainthread=g_thread_create(change_alphabet,alph,false,NULL);
@@ -168,8 +173,10 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
       gtk_window_set_resizable(GTK_WINDOW(train_dialog), FALSE);
       gtk_window_present(GTK_WINDOW(train_dialog));
 #else
+      // For GPE, we're not so fussed at the moment
       dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
 #endif
+      g_free(alph);
     } else {
       g_free(alph);
     }
@@ -178,7 +185,9 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 
 void update_colours()
 {
-  if (training==true) {
+  if (training==TRUE) {
+    // We can go back and do this after training, but doing it now would
+    // break stuff
     return;
   }
 
@@ -188,6 +197,8 @@ void update_colours()
   int colour_count = dasher_get_colours( colourlist, colourlist_size );
   for (int i=0; i<colour_count; i++) {
     if (colourscheme==colourlist[i]) {
+      // We need to build a path - GTK 2.2 lets us do this nicely, but we
+      // want to support 2.0
       gchar ugly_path_hack[100];
       sprintf(ugly_path_hack,"%d",i);
       gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_string(ugly_path_hack));
@@ -220,6 +231,8 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
 
 extern "C" void 
 generate_preferences(GtkWidget *widget, gpointer user_data) { 
+  // We need to populate the lists of alphabets and colours
+
   int alphabet_count, colour_count;
 
   const int alphabetlist_size = 128;
@@ -228,12 +241,13 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   const char *colourlist[ colourlist_size ];
   GtkTreeIter alphiter, colouriter;
 
+  // Build the alphabet tree - this is nasty
   alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
   alph_list_store = gtk_list_store_new(1,G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
   alphselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection),GTK_SELECTION_BROWSE);
-  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphab\et",gtk_cell_renderer_text_new(),"text",0,NULL);
+  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphabet",gtk_cell_renderer_text_new(),"text",0,NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview),column);
 
   // Clear the contents of the alphabet list
@@ -245,6 +259,7 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   // Connect up a signal so we can select a new alphabet
   g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
 
+  // Do the actual list population
   for (int i=0; i<alphabet_count; ++i) {
     gtk_list_store_append (alph_list_store, &alphiter);
     gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
@@ -296,8 +311,12 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
 extern "C" void
 preferences_display(GtkWidget *widget, gpointer user_data)
 {
-  if (preferences_window==NULL)
+  if (preferences_window==NULL) {
     preferences_window=glade_xml_get_widget(widgets, "preferences");
+  }
+
+  // Keep the preferences window in the correct position relative to the
+  // main Dasher window
   gtk_window_set_transient_for(GTK_WINDOW(preferences_window),GTK_WINDOW(window));
   gtk_window_present(GTK_WINDOW(preferences_window));
 }
@@ -312,6 +331,8 @@ preferences_hide(GtkWidget *widget, gpointer user_data)
 extern "C" gboolean
 button_preferences_show(GtkWidget *widget, gpointer user_data)
 {
+  // FIXME
+  // Ugly, ugly, ugly, ugly. Hmm, could this be done with an enum instead?
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton1")),buttons[1].x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton2")),buttons[2].x);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton3")),buttons[3].x);
@@ -371,7 +392,10 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   gtk_spin_button_update(spinbutton);
   coordcalled=false;
   value=int(gtk_spin_button_get_value(spinbutton));
-
+  
+  // FIXME
+  // See previous comment about enums
+  // (Mind you, the whole of this is a mess anyway...)
   if (widget==glade_xml_get_widget(widgets,"spinbutton1")) {
     buttons[1].x=value;
     set_long_option_callback("Button1X",value);
@@ -433,6 +457,7 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
 void
 vfs_print_error(GnomeVFSResult *result)
 {
+  // Turns a Gnome VFS error into English
   GtkWidget *error_dialog;
   error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", filename,gnome_vfs_result_to_string (*result));
   gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
@@ -542,7 +567,7 @@ select_open_file(GtkWidget *widget, gpointer user_data)
 extern "C" void
 select_new_file(GtkWidget *widget, gpointer user_data)
 {
-  //FIXME - confirm this
+  //FIXME - confirm this. We should check whether the user wants to lose their work.
 
   choose_filename();
 
@@ -573,6 +598,9 @@ save_file_as (const char *filename, bool append)
   GnomeVFSResult result;
   GnomeVFSHandle *handle;
 
+  // Yeah, uh. This is bad. If we have a filename that's not absolute, 
+  // try to turn it into an absolute filename. This is needed as
+  // Gnome-VFS really dislikes stuff like file://../foo
   if (filename[0]!='/') {    
     std::string realname;
     char dirpath[PATH_MAX];
@@ -583,12 +611,14 @@ save_file_as (const char *filename, bool append)
     filename=realname.c_str();
   }
 
+  // We need OPEN_RANDOM as we need to seek to the end of the file
+  // if we're appending
   result=gnome_vfs_open(&handle,filename,GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
 
   sleep(10);
 
   if (result==GNOME_VFS_ERROR_NOT_FOUND) {
-    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0666);
+    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0664);
   } else if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
     return false;
@@ -628,7 +658,10 @@ save_file_as (const char *filename, bool append)
   switch (fileencoding) {
   case Opts::UserDefault:
   case Opts::AlphabetDefault:
-    //FIXME - need to call GetAlphabetType and do appropriate stuff
+    //FIXME - need to call GetAlphabetType and do appropriate stuff regarding the
+    // character set. Arguably we should always be saving in either UTF8 or the user's
+    // locale (which may, of course, be UTF8) because otherwise we're going to read
+    // in rubbish, and we shouldn't be encouraging weird codepage madness any further
     //FIXME - error handling  
     outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
     break;
@@ -636,6 +669,9 @@ save_file_as (const char *filename, bool append)
     outbuffer=inbuffer;
     bytes_written=length;
     break;
+  // Does /anyone/ want to save text files in UTF16?
+  // (in any case, my opinions regarding encouragement of data formats with
+  // endianness damage are almost certainly unprintable)
   case Opts::UTF16LE:
     cd=g_iconv_open("UTF16LE","UTF8");
     outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
@@ -648,7 +684,7 @@ save_file_as (const char *filename, bool append)
 
 #ifdef GNOME_LIBS
   GnomeVFSFileSize vfs_bytes_written;
-  if (append==true) {
+  if (append==true) {    
     result=gnome_vfs_seek(handle,GNOME_VFS_SEEK_END,0);
   } else {
     gnome_vfs_seek(handle,GNOME_VFS_SEEK_START,0);
@@ -798,12 +834,10 @@ select_import_file(GtkWidget *widget, gpointer user_data)
 extern "C" void
 filesel_hide(GtkWidget *widget, gpointer user_data)
 {
+  // FIXME - uh. Yes. This works, but is it in any way guaranteed to?
+  // Of course, if glade let us set user_data stuff properly, this would
+  // be a lot easier
   gtk_widget_hide(gtk_widget_get_parent(gtk_widget_get_parent(gtk_widget_get_parent(widget))));
-}
-
-extern "C" void 
-toolbar_save(GtkWidget *widget, gpointer data)
-{
 }
 
 extern "C" bool
@@ -837,36 +871,15 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
     }
   }
   else {
+    // It should be noted that write_to_file merely saves the new text to the training
+    // file rather than saving it to a file of the user's choice
     write_to_file();
     gtk_main_quit();
   }
 }
 
-extern "C" void 
-toolbar_cut(GtkWidget *widget, gpointer data)
-{
-  gtk_editable_cut_clipboard(GTK_EDITABLE(the_text_view));
-
-  return;
-}
-
-extern "C" void 
-toolbar_copy(GtkWidget *widget, gpointer data)
-{
-  gtk_editable_copy_clipboard(GTK_EDITABLE(the_text_view));
-
-  return;
-}
-
-extern "C" void 
-toolbar_paste(GtkWidget *widget, gpointer data)
-{
-  gtk_editable_paste_clipboard(GTK_EDITABLE(the_text_view));
-
-  return;
-}
-
 long get_time() {
+  // We need to provide a monotonic time source that ticks every millisecond
   long s_now;
   long ms_now;
   
@@ -884,22 +897,27 @@ long get_time() {
 gint
 timer_callback(gpointer data)
 {
-  if (training==true)
+  if (training==TRUE)
     {
+      // Check if we're still training, and if so just return non-0 in order to get
+      // called again
       if (g_async_queue_try_pop(trainqueue)==NULL) {
 	return 1;
       } else {
-	training=false;
+	// Otherwise, we've just finished training - make everything work again
+	training=FALSE;
+	// Get rid of the training dialog and thread
 	g_async_queue_unref(trainqueue);
 	gtk_widget_hide(train_dialog);
 	// We need to do this again to get the configuration saved, as we
 	// can't do gconf stuff from the other thread
 	dasher_set_parameter_string( STRING_ALPHABET, alphabet.c_str() );
 	
+	// And call update_colours again now that we can do something useful
 	update_colours();
 	deletemenutree();
 	// And making bonobo calls from another thread is likely to lead to
-	// pain as well
+	// pain as well. It'd be nice to do this while training, but.
 	add_control_tree(gettree());
 
 	dasher_redraw();
@@ -915,28 +933,42 @@ timer_callback(gpointer data)
       gdk_window_get_pointer(GTK_WIDGET(window)->window, &x, &y, NULL);
       
       if (x>dasherwidth || x<0 || y>dasherheight || y<0) {
+	// Don't do anything with the mouse position if we're outside the window. There's a
+	// minor issue with this - if the user moves the cursor back in, Dasher will think
+	// that lots of time has passed and jerk forwards until it recalculates the framerate
 	return 1;
       }
     }
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
     if (onedmode==true) {
+      // In one dimensional mode, we want to scale the vertical component so that it's possible
+      // for the amount of input to cover the entire canvas
       float scalefactor;
       float newy=y;
       gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
       if (yscale==0) {
+	// For the magic value 0, we want the canvas size to reflect a full Y deflection
+	// otherwise the user can't access the entire range. 2 is actually a slight
+	// overestimate, but doing it properly would require thought and the benefit
+	// is probably insufficient.
 	scalefactor=2;
       } else {
 	scalefactor=float(dasherheight)/float(yscale);
       }
+      // Transform the real Y coordinate into a fudged Y coordinate
       newy-=dasherheight/2;
       newy=newy*scalefactor;
       newy+=dasherheight/2;
       y=int(newy);
     } 
+    // And then provide the mouse position to the core. Of course, the core may then
+    // do its own fudging.
     dasher_tap_on( x, y, get_time() );
   }
   
   else {
+    // If we're paused, then we still need to work out where the mouse is for two
+    // reasons - start on mouse position, and to update the on-screen representation
     int x,y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
     
@@ -958,6 +990,9 @@ timer_callback(gpointer data)
     dasher_draw_mouse_position(x,y);
     
     if (mouseposstart==true) {
+      // The user must hold the mouse pointer inside the red box, then the yellow box
+      // If the user fails to move to the yellow box, display the red box again and
+      // start over
       dasherheight=the_canvas->allocation.height;
       gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
       
@@ -967,11 +1002,14 @@ timer_callback(gpointer data)
       }
       
       if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist) && firstbox==true) {
-	// Inside the red box
+	// The pointer is inside the red box
 	if (starttime==0) {
+	  // for the first time
 	  starttime=time(NULL);
 	} else {
+	  // for some period of time
 	  if ((time(NULL)-starttime)>2) {
+	    // for long enough to trigger the yellow box
 	    starttime=time(NULL);
 	    secondbox=true;
 	    firstbox=false;
@@ -981,22 +1019,29 @@ timer_callback(gpointer data)
       } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
 	// inside the yellow box, and the yellow box has been displayed
 	if (starttime2==0) {
+	  // for the first time
 	  starttime2=time(NULL);
 	  starttime=0;
 	} else {
+	  // for some period of time
 	  if ((time(NULL)-starttime2)>2) {
+	    // for long enough to trigger starting Dasher
 	    secondbox=false;
 	    stop(); // Yes, confusingly named
 	  }
 	}
       } else {
 	if (secondbox==true && (starttime2>0 || (time(NULL)-starttime)>3)) {
+	  // remove the yellow box if the user moves the pointer outside it
+	  // or fails to select it sufficiently quickly
 	  secondbox=false;
 	  firstbox=true;
 	  starttime2=0;
 	  starttime=0;
 	  dasher_redraw();
 	} else if (firstbox==true) {
+	  // Start counting again if the mouse is outside the red box and the yellow
+	  // box isn't being displayed
 	  starttime=0;
 	}
       }
@@ -1017,6 +1062,8 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 		  event->area.width, event->area.height);
 
   if (firsttime==TRUE) {
+    // canvas_expose_event() is the easiest function to catch
+    // if we want to know when everything is set up and displayed
     paused=true;
     firsttime=false;
   }
@@ -1027,6 +1074,7 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 extern "C" gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
+  // If the canvas is resized, we need to regenerate all of the buffers
   rebuild_buffer();
 
   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
@@ -1034,6 +1082,7 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
   dasher_redraw();
 
   if (setup==TRUE) {
+    // If we're set up and resized, then save those settings
     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
     gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
     dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
@@ -1047,18 +1096,10 @@ extern "C" gboolean
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   if (paused==true) {
+    // Dasher needs to update based on the context
     dasher_start();
     dasher_redraw();
     return FALSE;
-  }
-}
-
-extern "C" void
-edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
-{
-  if(keycontrol==false) {
-    dasher_start();
-    dasher_redraw();
   }
 }
 
@@ -1076,7 +1117,8 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
       gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
   }
 
-  switch (event->keyval) {
+  // Eww. This stuff all needs to be rewritten at some point, anyway
+  switch (event->keyval) {    
   case GDK_Up:
     if (keyboardcontrol == true) {
       if (cyclickeyboardmodeon==true) {
@@ -1198,6 +1240,8 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
     return TRUE;
     break;
   case GDK_F12:
+    // If the user presses F12, recentre the cursor. Useful for one-dimensional use - 
+    // probably should be documented somewhere, really.
     int x, y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
     XWarpPointer(gdk_x11_get_default_xdisplay(), 0, GDK_WINDOW_XID(the_canvas->window), 0, 0, 0, 0, the_canvas->allocation.width/2, the_canvas->allocation.height/2);
@@ -1241,6 +1285,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   gboolean *returnType;
 
 #ifdef WITH_GPE
+  // GPE version requires the button to be held down rather than clicked
   if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
     return;
 #else
@@ -1293,12 +1338,15 @@ void interface_setup(GladeXML *xml) {
   
   widgets=xml;
 
+  // What's this doing here? I'm sure we ought to just be using whatever
+  // the core provides us with
   float initial_bitrate = 3.0;
 
   the_canvas=glade_xml_get_widget(xml, "the_canvas");
   text_scrolled_window=glade_xml_get_widget(xml, "text_scrolled_window");
   the_text_view=glade_xml_get_widget(xml, "the_text_view");
 
+  // Needed so we can make it visible or not as we wish
   speed_frame=glade_xml_get_widget(xml, "speed_frame");
   speed_hscale=glade_xml_get_widget(xml, "speed_hscale");
 
@@ -1318,7 +1366,7 @@ void interface_setup(GladeXML *xml) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
   }
 
-  // Configure the buttons
+  // Configure the buttons. FIXME - more enums?
   if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
     buttons[1].x=0;
   }
@@ -1377,10 +1425,16 @@ void interface_setup(GladeXML *xml) {
 
 void
 interface_late_setup() {
+  // Stuff that needs to be done after the core has
+  // set itself up
   alphabet=dasher_get_current_alphabet();
   colourscheme=dasher_get_current_colours();
   generate_preferences(NULL,NULL);
 #ifdef WITH_GPE
+  // We always want this on in the GPE version, otherwise it's entirely useless
+  // Well, I suppose you could give it to kids, or impress primitive tribes,
+  // or convince members of the appropriate sex that you're somehow deeply cool,
+  // but they're not really our design goals.
   dasher_set_parameter_bool( BOOL_KEYBOARDMODE, true );
 #endif
 }
@@ -1393,13 +1447,16 @@ open_window(GladeXML *xml) {
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
   sprintf( user_data_dir, "%s/.dasher/", home_dir );
 
+  // Ooh, I love Unix
   mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
 
+  // PROGDATA is provided by the makefile
   system_data_dir = PROGDATA"/";
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 
+  // Add all available alphabets and colour schemes to the core
   scan_alphabet_files();
   scan_colour_files();
 
@@ -1411,9 +1468,12 @@ open_window(GladeXML *xml) {
   dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
   edit_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "edit_fontselector"));
 
+  // I'm not entirely sure we want to be doing this
   gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
 
   // Focus the canvas
+  // I'm almost entirely sure we don't want to be doing this
+  // In fact, what /are/ we doing here?
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
   
@@ -1433,6 +1493,7 @@ open_window(GladeXML *xml) {
   dasher_start();
   dasher_redraw();
 
+  // Aim for 20 frames per second
   g_timeout_add(50, timer_callback, NULL );  
 
   // I have no idea why we need to do this when Glade has theoretically done
@@ -1447,6 +1508,7 @@ open_window(GladeXML *xml) {
 
 extern "C" void choose_filename() {
   if (timestamp==TRUE) {
+    // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
     
@@ -1488,6 +1550,7 @@ extern "C" void clipboard_select_all(void) {
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data)
 {
+  // Again, this could be neater.
   if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
     if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton1")) {
       dasher_set_orientation(Alphabet);
@@ -1521,7 +1584,6 @@ extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
 
 extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data)
 {
-
   if(GTK_TOGGLE_BUTTON(widget)->active) {
     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, true );
   } else {
@@ -1563,7 +1625,11 @@ extern "C" void file_encoding(GtkWidget *widget, gpointer user_data)
   //    dasher_set_encoding( Dasher::Opts::FileEncodingFormats(realaction) );
   //  }
   //  interface->SetFileEncoding(Opts::FileEncodingFormats(realaction));
-  //FIXME - need to reimplemnt this
+  //FIXME - need to reimplement this
+  //Actually, I'd be inclined to just get rid of the damn thing.
+  //When we open the file, we have no real idea what format it's in - 
+  //We assume that it's UTF-8 because that's sane. We should save files
+  //based on the user locale and just forget about it.
 }
 
 extern "C" void SetDimension(GtkWidget *widget, gpointer user_data)
@@ -1636,8 +1702,10 @@ extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
 {
 #ifdef GNOME_LIBS
+  // Give them a lovely Gnome-style about box
   GdkPixbuf* pixbuf = NULL;
 
+  // In alphabetical order
   gchar *authors[] = {
     "Chris Ball",
     "Phil Cowens",
@@ -1648,11 +1716,13 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
     NULL
   };
     
+  // Yeah, should really do some Gnome documentation for it...
   gchar *documenters[] = {
     "Matthew Garrett",
     NULL
   };
 
+  // This gets pulled out via gettext
   gchar *translator_credits = _("translator_credits");
   
   about = gnome_about_new (_("Dasher"), 
@@ -1668,6 +1738,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
   //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
   gtk_widget_show(about);
 #else
+  // EAT UGLY ABOUT BOX, PHILISTINE
   GtkWidget *label, *button;
   char *tmp;
   
@@ -1693,7 +1764,6 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
   gtk_widget_show(button);
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox),button, FALSE, FALSE, 0);
   g_signal_connect_swapped(G_OBJECT(button), "clicked", G_CALLBACK(gtk_widget_destroy), G_OBJECT(about));
-
 
   gtk_widget_show (about);
 #endif
@@ -1763,6 +1833,7 @@ extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data)
 {
   drawoutline=GTK_TOGGLE_BUTTON(widget)->active;
   dasher_set_parameter_bool( BOOL_OUTLINEMODE, GTK_TOGGLE_BUTTON(widget)->active );
+  // Instant apply looks significantly less instant otherwise
   dasher_redraw();
 }
 
@@ -1776,6 +1847,7 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 {
   mouseposstartdist=int(widget->adjustment->value);
   set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
+  // Need to redraw the boxes
   dasher_redraw();
 }
 
@@ -1906,6 +1978,8 @@ void parameter_int_callback( int_param p, long int value )
     case INT_SCREENHEIGHT:
       window_y=value;
 #ifndef WITH_GPE
+      // We don't want to remember window size if we're running under GPE
+      // - we should just be the right size
       if (setup==true) {
 	setup=false;
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
@@ -1986,6 +2060,7 @@ void parameter_bool_callback( bool_param p, bool value )
       mouseposstart=value;
       firstbox=value;
       secondbox=false;
+      // Make them appear now
       dasher_redraw();
       break;
     case BOOL_KEYBOARDCONTROL:
@@ -2021,17 +2096,24 @@ void parameter_bool_callback( bool_param p, bool value )
 }
 
 void interface_cleanup() {
+  // Functions that need to be called as we're shutting down
   cleanup_edit();
 }
 
 void stop() {
+  // Actually starts Dasher if we're already stopped. I'd rename it,
+  // but I derive perverse satisfaction from this.
   if (paused == TRUE) {
     dasher_unpause( get_time() );
     paused = FALSE;
     starttime=starttime2=0;
   } else {
+    // should really be the current position, but that's not necessarily anywhere near the canvas
+    // and it doesn't seem to actually matter in any case
     dasher_pause(0,0);    
     if (onedmode==true) {
+      // Don't immediately jump back to full speed if started in one-dimensional mode
+      // (I wonder how many of our heuristics violate the principle of least surprise?)
       dasher_halt();
     }
     paused = TRUE;
@@ -2040,6 +2122,7 @@ void stop() {
       speak();
 #endif
     if (timedata==TRUE) {
+      // Just a debugging thing
       printf("%d characters output in %d seconds\n",outputcharacters,
 	     time(NULL)-starttime);
     }
@@ -2052,6 +2135,8 @@ void stop() {
 
 void scan_alphabet_files()
 {
+  // Hurrah for glib making this a nice easy thing to do
+  // rather than the WORLD OF PAIN it would otherwise be
   GDir* directory;
   G_CONST_RETURN gchar* filename;
   alphabetglob=g_pattern_spec_new("alphabet*xml");

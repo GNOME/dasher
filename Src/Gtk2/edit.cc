@@ -42,6 +42,8 @@ void initialise_edit()
 
 void cleanup_edit() {
 #ifdef X_HAVE_UTF8_STRING
+  // We want to set the keymap back to whatever it was before,
+  // if that's possible
   int min, max;
   Display *dpy = gdk_x11_get_default_xdisplay();
   XDisplayKeycodes(dpy,&min,&max);
@@ -51,6 +53,7 @@ void cleanup_edit() {
 
 void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data)
 {
+  // Let the core get new context and redraw it if the cursor is moved
   dasher_start();
   dasher_redraw();
 }
@@ -72,6 +75,10 @@ void edit_output_callback(symbol Symbol)
 
   if (keyboardmodeon==true) {
 #ifdef X_HAVE_UTF8_STRING
+    // FIXME
+    // We should really check this at runtime rather than compile time
+    // Ought to be possible by doing keysym_to_string on a Unicode keysym
+    // and seeing if we get anything back
     Display *dpy = gdk_x11_get_default_xdisplay();
     int min, max;
     KeySym *keysym;
@@ -79,6 +86,7 @@ void edit_output_callback(symbol Symbol)
     glong numoutput;
     
     if (label[0]=='\n') {
+      // If it's a nreline, we want to mimic an enter press rather than a raw newline
       code = XKeysymToKeycode(dpy,XK_Return);
       if (code!=0) {
 	XTestFakeKeyEvent(dpy, code, True, CurrentTime);
@@ -99,7 +107,8 @@ void edit_output_callback(symbol Symbol)
 	XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
 	XSync(dpy,true);
 	XFree(keysym);
-	//      code = XKeysymToKeycode(dpy,wideoutput[i]);    
+	// There's no way whatsoever that this could ever possibly
+	// be guaranteed to work (ever), but it does.
 	code=(max-modifiedkey-1);
 	if (code!=0) {
 	  XTestFakeKeyEvent(dpy, code, True, CurrentTime);
@@ -113,6 +122,9 @@ void edit_output_callback(symbol Symbol)
     }
 #else
 #ifdef GNOME_A11Y
+    // This would be the preferred way of doing it, but there's currently
+    // only a small set of character sets that it works for, and you need
+    // the keysym in your keymap anyway
     SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
 #endif
@@ -122,6 +134,8 @@ void edit_output_callback(symbol Symbol)
 
 void write_to_file()
 {
+  // Add the text from the edit box to the user training file so we
+  // can learn from them
   std::string filename=dasher_get_training_file();
   int fd=open(filename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
   write(fd,outputtext.c_str(),outputtext.length());
@@ -485,7 +499,9 @@ void speak()
 
 void speak_last()
 {
+  // Repeat whatever it was that we last spoke
   if (last_said.length()>0) {
+    // Festival seems unhappy about quotes
     while (last_said.find("\"") != std::string::npos) {
       last_said.replace(last_said.find("\""), 1, "");
     }
