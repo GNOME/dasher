@@ -80,14 +80,18 @@ ControlTree* buildcontroltree() {
     deletetree->data=0;
     deletetree->children=builddeletetree(deletetree);
     deletetree->text=_("Delete");
-    deletetree->next=speaktree;
     deletetree->colour=-1;
+#ifndef GNOME_SPEECH
+    deletetree->next=NULL;
+#else
+    deletetree->next=speaktree;
     speaktree->pointer=(void*)1;
     speaktree->data=0;
     speaktree->children=buildspeaktree(speaktree);
     speaktree->text=_("Speak");
     speaktree->next=NULL;
     speaktree->colour=-1;
+#endif
   } else {
     pausetree->next=NULL;
   }

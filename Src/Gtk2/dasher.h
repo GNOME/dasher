@@ -70,7 +70,7 @@ extern GtkWidget *pw;
 extern GtkWidget *text_view;
 extern GtkWidget *speed_frame;
 extern GtkObject *speed_slider;
-extern GtkWidget *speed_hscale;
+extern GtkScale *speed_hscale;
 extern GtkWidget *text_scrolled_window;
 extern GtkWidget *canvas_frame;
 extern GtkWidget *ofilesel;

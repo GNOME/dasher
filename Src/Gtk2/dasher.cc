@@ -45,7 +45,7 @@ GdkPixbuf *p;
 GtkWidget *pw;
 GtkWidget *text_view;
 GtkWidget *speed_frame;
-GtkWidget *speed_hscale;
+GtkScale *speed_hscale;
 GtkWidget *text_scrolled_window;
 GtkStyle *style;
 GtkAccelGroup *dasher_accel;
@@ -134,6 +134,8 @@ GtkWidget *file_selector;
 
 std::string dasherfont="DASHERFONT";
 std::string editfont="Sans 10";
+
+double bitrate;
 
 void 
 load_training_file (const gchar *filename)
@@ -1396,9 +1398,14 @@ void interface_setup(GladeXML *xml) {
     gtk_widget_hide(toolbar);
   }
 
+#ifndef GNOME_SPEECH
+  // This ought to be greyed out if not built with speech support
+  gtk_widget_set_sensitive(glade_xml_get_widget(widgets,"speakbutton"),false);
+#endif
+
   // Needed so we can make it visible or not as we wish
   speed_frame=glade_xml_get_widget(xml, "speed_frame");
-  speed_hscale=glade_xml_get_widget(xml, "speed_hscale");
+  speed_hscale=GTK_SCALE(glade_xml_get_widget(xml, "speed_hscale"));
 
   initialise_canvas(360,360);
   initialise_edit();
@@ -1938,6 +1945,7 @@ void parameter_double_callback( double_param p, double value )
   switch(p)
     {
     case DOUBLE_MAXBITRATE:
+      bitrate=value;
       gtk_range_set_value(GTK_RANGE(speed_hscale), value);
       break;
     }
@@ -2079,6 +2087,7 @@ void parameter_bool_callback( bool_param p, bool value )
 
       if (value) {
 	gtk_widget_show(speed_frame);
+	gtk_range_set_value(GTK_RANGE(speed_hscale), bitrate);
       } else {
 	gtk_widget_hide(speed_frame);
       }
