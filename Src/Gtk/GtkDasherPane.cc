@@ -53,15 +53,15 @@ GtkDasherPane::GtkDasherPane()
 
   text = new GtkDasherEdit( interface );
   text->set_usize(128, 128);
-  text->thaw();
+  //  text->thaw();
 
   slider = new GtkDasherSlider( interface );
   
   canvas = new GtkDasherCanvas( 480, 480, interface );
 
-  pack_start( *text );
-  pack_start( *canvas );
-  pack_start( *slider );
+  pack_start( *text, false, false );
+  pack_start( *canvas, true, true );
+  pack_start( *slider, false, false );
   show_all();
 
   interface->ChangeLanguageModel(0);
@@ -122,7 +122,7 @@ GtkDasherPane::GtkDasherPane()
   //  interface->Start();
 
   interface->ChangeEdit( text );
-  interface->ChangeScreen( canvas );
+  interface->ChangeScreen( canvas->get_wrapper() );
 
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
 

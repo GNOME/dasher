@@ -16,10 +16,18 @@
 #define MAXFONTSIZE 25
 #define MINFONTSIZE 8
 
+
+GtkDasherCanvas::GtkScreenWrapper::GtkScreenWrapper(  int _width, int _height, GtkDasherCanvas *_owner )
+ : owner( _owner ), CDasherScreen( _width, _height )
+{
+}
+
 GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_interface )
-  : DrawingArea(), CDasherScreen( _width, _height ), pmwidth( _width), pmheight( _height ), 
+  : DrawingArea(), pmwidth( _width), pmheight( _height ), 
   interface( _interface ), fontname( "fixed" )
 { 
+
+  wrapper = new GtkScreenWrapper( _width, _height, this );
 
   // Tell the system we want to receive button press events
 
@@ -168,7 +176,12 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
       // Need to tell the interface that its dimensions have changed here.
 
-      interface->Redraw();
+      delete( wrapper );
+      wrapper = new GtkScreenWrapper( pmwidth, pmheight, this );
+
+      interface->ChangeScreen( wrapper );
+
+      //      interface->Redraw();
     }
 
   get_window().draw_pixmap( this->get_style()->get_white_gc(), *(buffer->get_fg()), 0, 0, 0, 0, pmwidth, pmheight );
@@ -186,13 +199,23 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
 void GtkDasherCanvas::SetFont(std::string Name)
 {
-  cout << "Setting font to " << Name << endl;
+  string actual_name( Name );
 
-  if( Name == "" )
-    fontname = "fixed";
-  else
-    fontname = Name;
-  build_fonts();
+  // We want to use fixed if no font name is specified (which seems to
+  // be the default)
+
+  if( actual_name == "" )
+    actual_name = "fixed";
+
+  // Only rebuild the font list if the font name has actually changed
+  // (this helps solve problems caused by repeated font changes that
+  // happen during resizing)
+
+  if( actual_name != fontname )
+    {
+      fontname = actual_name;
+      build_fonts();
+    }
 }
 
 void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const
@@ -239,6 +262,13 @@ void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, O
   some_color.set_green(((ColorScheme * 3 + Color) >> 1 ) * 30000 + 30000);
   some_color.set_blue(((ColorScheme * 3 + Color) >> 2 ) * 30000 + 30000);
 
+  if( ((ColorScheme * 3 + Color) % 8 ) == 0 )
+    {
+      some_color.set_red(45000 );
+  some_color.set_green(45000);
+  some_color.set_blue(45000);
+    }
+
   //  cout << "Colour: " << Color << " (" << (Color & 1) * 30000 + 30000 << ", " << ((Color & 2) >> 1 ) * 30000 + 30000 << ", " << ((Color & 3) >> 2 ) * 30000 + 30000 << " = " << ColorScheme << endl;
 
   some_colormap.alloc(some_color);
@@ -260,7 +290,7 @@ void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, O
     }
 }
 
-void GtkDasherCanvas::Polyline(point* Points, int Number) const
+void GtkDasherCanvas::Polyline(Dasher::CDasherScreen::point* Points, int Number) const
 { 
   if( is_realized() )
     {
@@ -280,7 +310,7 @@ void GtkDasherCanvas::Polyline(point* Points, int Number) const
     }
 }
  
-void GtkDasherCanvas::DrawPolygon(point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const
+void GtkDasherCanvas::DrawPolygon(Dasher::CDasherScreen::point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const
 {
 }
 

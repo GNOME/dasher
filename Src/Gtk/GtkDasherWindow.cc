@@ -22,7 +22,7 @@ GtkDasherWindow::GtkDasherWindow()
   //  set_toolbar(toolbar);
   main_vbox.pack_start(menubar, false,false,0);
   main_vbox.pack_start(toolbar,false,false,0);
-  main_vbox.pack_start(dasher_pane,false,false,0);
+  main_vbox.pack_start(dasher_pane,true,true,0);
 
   // use helpers to st up menu
   {
@@ -121,7 +121,8 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_EFONT)));
     list_opts.push_back(MenuElem("Dasher Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_DFONT)));
-    list_opts.push_back(MenuElem("Reset Fonts"));
+    list_opts.push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_RFONT)));
 			
     Menu *menu_help = new Menu();
     MenuList &list_help = menu_help->items();
@@ -442,6 +443,9 @@ void GtkDasherWindow::menu_button_cb(int c)
     case MENU_DFONT:
       dfontsel.show();
       break;
+    case MENU_RFONT:
+      reset_fonts();
+      break;
 
     case MENU_ABOUT:
       aboutbox.show();
@@ -451,6 +455,12 @@ void GtkDasherWindow::menu_button_cb(int c)
       cout << "Undefined menu action called" << endl;
       break;
     }
+}
+
+void GtkDasherWindow::reset_fonts()
+{
+  dasher_pane.set_edit_font( "", 0 );
+  dasher_pane.set_dasher_font( "" );
 }
 
 void GtkDasherWindow::orientation( Opts::ScreenOrientations o )

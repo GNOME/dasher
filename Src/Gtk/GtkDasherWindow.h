@@ -49,7 +49,7 @@
 #define MENU_CAOS 302
 #define MENU_EFONT 303
 #define MENU_DFONT 304
-
+#define MENU_RFONT 305
 
 
 #define MENU_ABOUT 400
@@ -107,6 +107,8 @@ protected:
   void open();
 
   void orientation( Opts::ScreenOrientations o );
+
+  void reset_fonts();
 
   bool slider_shown;
   bool copy_all_on_pause;

@@ -2,6 +2,8 @@
 #define GTK_DASHER_EDIT_H
 
 #include <gtk--/text.h>
+#include <gtk--/box.h>
+#include <gtk--/scrollbar.h>
 #include "DashEdit.h"
 #include "DasherTypes.h"
 #include "DasherInterface.h"
@@ -11,7 +13,7 @@
 using namespace Dasher;
 using namespace Gtk;
 
-class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
+class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
 {
  public:
   GtkDasherEdit( CDasherInterface *_interface );
@@ -42,6 +44,9 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
   bool filename_set;
 
   Gdk_Font efont;
+
+  Gtk::Text text;
+  Gtk::VScrollbar vsb;
   
 };
 

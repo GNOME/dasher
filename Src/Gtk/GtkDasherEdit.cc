@@ -6,9 +6,15 @@
 #include <fstream.h>
 
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
-  : Gtk::Text(), Dasher::CDashEditbox(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*")
+  : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*")
 {
-  set_editable( true );
+  pack_start( text, true, true );
+  pack_start( vsb, false, false );
+
+  vsb.set_adjustment(text.get_vadjustment()); 
+
+  text.set_editable( true );
+  show_all();
 }
 
 GtkDasherEdit::~GtkDasherEdit()
@@ -25,7 +31,7 @@ void GtkDasherEdit::get_new_context(std::string& str, int max)
 
 void GtkDasherEdit::unflush()
 {
-  backward_delete( flush_count );
+  text.backward_delete( flush_count );
   flush_count = 0;
 }
 
@@ -41,7 +47,7 @@ void GtkDasherEdit::output(symbol Symbol)
   //  Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
-  insert ( efont, black, white, label, 1);
+  text.insert ( efont, black, white, label, 1);
 }
 
 void GtkDasherEdit::flush(symbol Symbol)
@@ -56,38 +62,38 @@ void GtkDasherEdit::flush(symbol Symbol)
   // Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
-  insert ( efont, black, white, label, 1);
+  text.insert ( efont, black, white, label, 1);
 }
 
 void GtkDasherEdit::Cut()
 {
-  cut_clipboard();
+  text.cut_clipboard();
 }
 
 void GtkDasherEdit::Copy()
 {
-  copy_clipboard();
+  text.copy_clipboard();
 }
 
 void GtkDasherEdit::CopyAll()
 {
-  select_region(0, -1 );
-  copy_clipboard();
+  text.select_region(0, -1 );
+  text.copy_clipboard();
 }
 
 void GtkDasherEdit::Paste()
 {
-  paste_clipboard();
+  text.paste_clipboard();
 }
 
 void GtkDasherEdit::SelectAll()
 {
-  select_region(0, -1 );
+  text.select_region(0, -1 );
 }
 
 void GtkDasherEdit::Clear()
 {
-  delete_text(0, -1 );
+  text.delete_text(0, -1 );
 }
 
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
@@ -121,7 +127,11 @@ bool GtkDasherEdit::Save()
   if( ofile.bad() )
     return( false );
 
-  ofile << get_chars(0, -1) << endl;
+  string contents;
+
+  contents = text.get_chars(0, -1);
+
+  ofile << contents << endl;
   ofile.close();
 
   return( true );
@@ -133,12 +143,12 @@ bool GtkDasherEdit::Open( std::string filename )
 
   current_filename = filename;
 
-  ifstream ifile( filename.c_str() );
+  ifstream ifile( filename.c_str(), ios::binary );
   
   if( ifile.bad() )
     return( false );
 
-  freeze();
+  text.freeze();
 
   Clear();
 
@@ -156,16 +166,16 @@ bool GtkDasherEdit::Open( std::string filename )
 
       string rtext( fbuffer );
 
-      ifile >> rtext;
+      //      ifile >> rtext;
 
-      cout << rtext << endl;
+      //cout << rtext << endl;
 
-      insert ( efont, black, white, rtext.c_str(), 1);
+      text.insert( efont, black, white, rtext.c_str(), 1023);
     }
 
   ifile.close();
 
-  thaw();
+  text.thaw();
 
   return( true );
 }
