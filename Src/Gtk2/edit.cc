@@ -412,7 +412,7 @@ void get_new_context_callback( std::string &str, int max )
 void speak()
 {
   if (say.length()>0) {
-    while (say.find("\"") != string::npos) {
+    while (say.find("\"") != std::string::npos) {
       say.replace(say.find("\""), 1, "");
     }
     SPEAK_DAMN_YOU(&say);
