@@ -1,21 +1,27 @@
 #include "WinMenus.h"
+
 #include <comutil.h>
 
 using namespace WinMenus;
-
 std::vector<HWND> windownames;
-
 ControlTree* menutree;
 
-ControlTree* WinMenus::GetWindowMenus() {
+ControlTree* WinMenus::GetWindowMenus()
+{
 	menutree = buildcontroltree();
+
 #ifdef ACCESSIBLE
 	EnumDesktopWindows(GetThreadDesktop(GetCurrentThreadId()),WNDENUMPROC(WindowProc),LPARAM(0));
 	return (ProcessWindows());
 #else
+
 	return menutree;
+
 #endif
+
 }
+
+
 
 BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
 {
@@ -23,7 +29,10 @@ BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
 	return TRUE;
 }
 
-ControlTree* WinMenus::buildcontroltree() {
+
+
+ControlTree* WinMenus::buildcontroltree()
+{
   ControlTree *stoptree=new ControlTree;
   ControlTree *pausetree=new ControlTree;
   ControlTree *movetree=new ControlTree;
@@ -146,8 +155,12 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
 }
 
 
+
+
 #ifdef ACCESSIBLE
-ControlTree* WinMenus::ProcessWindows() {
+
+ControlTree* WinMenus::ProcessWindows() 
+{
 	IAccessible* AccessibleObject=0;
 	VARIANT AccessibleChild;
 	VariantInit(&AccessibleChild);
@@ -161,6 +174,7 @@ ControlTree* WinMenus::ProcessWindows() {
 	RootNode->data=0;
 	RootNode->type=0;
 	RootNode->text="Menus";
+
 	for (int i=0; i<windownames.size(); i++) {
 		AccessibleObjectFromWindow(windownames[i],OBJID_WINDOW,IID_IAccessible,(void**)&AccessibleObject);
 		if (AccessibleObject!=0) {
@@ -169,6 +183,8 @@ ControlTree* WinMenus::ProcessWindows() {
 	}
 	return RootNode;
 }
+
+
 
 bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeParent)
 {
@@ -182,7 +198,6 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 	AccessibleObjectVariant.vt=VT_I4;
 	AccessibleObjectVariant.lVal=CHILDID_SELF;
 
-
 	BSTR ObjectName=NULL;
 	HRESULT hr;
 	hr=AccessibleObject->get_accName(AccessibleObjectVariant,&ObjectName);
@@ -192,9 +207,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 		return false;
 	}			
 
-
 	// Check if we have any children
-
 
 	ControlTree* NewNode = new ControlTree;
 	NewNode->parent=TreeParent;
@@ -210,8 +223,8 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 	AccessibleObject->get_accChildCount(&NumChildren);
 
 	if (NumChildren>0) { // if we have kids, recurse through them
-		IEnumVARIANT* ParentEnum = NULL;
 
+		IEnumVARIANT* ParentEnum = NULL;
 		AccessibleObject->QueryInterface(IID_IEnumVARIANT, (PVOID*) &ParentEnum);
 
 		if (ParentEnum) {
@@ -219,6 +232,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 		}
 
 		for (int i=1; i<=NumChildren; i++) {
+
 			IDispatch* ChildDispatch=NULL;
 			IAccessible* ChildAccessible=NULL;
 
@@ -229,6 +243,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 				AccessibleObjectVariant.vt=VT_I4;
 				AccessibleObjectVariant.lVal=i;
 			}
+
 			if (AccessibleObjectVariant.vt==VT_I4) {
 				HRESULT hr = AccessibleObject->get_accChild(AccessibleObjectVariant,&ChildDispatch);
 			} else {
@@ -249,6 +264,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 			}
 		}
 	} else {
+
 		// We have no kids - check whether we're a menu item
 		VARIANT ObjectRole;
 		VariantInit(&ObjectRole);
@@ -260,6 +276,8 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 			useful=true;
 		}
 	}
+
+
 
 	// If no useful children, remove our node
 
@@ -276,12 +294,15 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 			}
 			ParentNext->next=NewNode;
 		}
+
 		// And give it a name
 		NewNode->text=bstrstring;
+
 	}
 
 	VariantClear(&AccessibleObjectVariant);
 
 	return useful;
 }
+
 #endif
