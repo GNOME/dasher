@@ -1,0 +1,38 @@
+#ifndef DASHER_PANE_HH
+#define DASHER_PANE_HH
+
+#include <gtk--/box.h>
+#include <gtk--/text.h>
+
+#include "GtkDasherCanvas.h"
+#include "GtkDasherEdit.h"
+
+#include "DasherInterface.h"
+#include "SettingsStore.h"
+
+using namespace Dasher;
+
+class GtkDasherPane : public Gtk::VBox
+{
+public:
+  GtkDasherPane();
+  ~GtkDasherPane();
+
+  void clear();
+
+protected:
+  GtkDasherEdit *text;
+  GtkDasherCanvas *canvas;
+  
+  CSettingsStore *store;
+
+  CDasherInterface *interface;
+
+  gint timer_callback();
+
+  int toggle_pause( GdkEventButton *e);
+
+  bool paused;
+};
+
+#endif
