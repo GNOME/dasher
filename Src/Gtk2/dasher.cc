@@ -421,6 +421,7 @@ save_file_and_quit ()
 {
   if (filename != NULL) {
     save_file_as(filename,FALSE);
+    gtk_exit(0);
   }
   else {
     select_save_file_as_and_quit();
