@@ -1,3 +1,8 @@
+2004-02-26  Sanlig Badral  <badral@openmn.org>
+
+	* /Data/Translation: Added Mongolian alphabet schema.
+	* /Data/system.rc: Added Mongolian training text.
+
 2004-02-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* make distcheck actually works now
