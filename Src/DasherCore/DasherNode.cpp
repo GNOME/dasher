@@ -33,15 +33,7 @@ void CDasherNode::Dump_node () const
 }
 
 void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
-	if (m_Children) {
-		// if there are children just give them a poke
-		unsigned int i;
-		for (i=1;i<m_iChars;i++) {
-			m_Children[i]->m_iAge=0;
-			m_Children[i]->m_bAlive=1;
-		}
-		return;
-	}
+
 	m_iAge=0;
 	m_bAlive=true;
 	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
@@ -84,6 +76,17 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context) 
 // push a node copying the specified context
 {
+
+	if (m_Children) {
+		// if there are children just give them a poke
+		unsigned int i;
+		for (i=1;i<m_iChars;i++) {
+			m_Children[i]->m_iAge=0;
+			m_Children[i]->m_bAlive=1;
+		}
+		return;
+	}
+
 	// if we haven't got a context then try to get a new one
 	m_context=m_languagemodel->CloneNodeContext(context);
 	// if it fails, be patient
@@ -96,6 +99,16 @@ void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context)
 
 void CDasherNode::Push_Node() 
 {
+
+	if (m_Children) {
+		// if there are children just give them a poke
+		unsigned int i;
+		for (i=1;i<m_iChars;i++) {
+			m_Children[i]->m_iAge=0;
+			m_Children[i]->m_bAlive=1;
+		}
+		return;
+	}
 
 	// if we haven't got a context then try to get a new one
 	if (m_parent) 
