@@ -6,6 +6,10 @@
 
         * configure.in: Added "pa" (Punjabi) to ALL_LINGUAS.
 
+2004-03-22  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* bump version number
+	
 2004-03-21  Mugurel Tudor  <mugurelu@go.ro>
 
 	* configure.in: Added "ro" to ALL_LINGUAS
