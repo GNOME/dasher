@@ -191,15 +191,13 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
 void text_size_callback(symbol Character, int* Width, int* Height, int Size)
 {
-  GdkFont *chosen_font;
+  // FIXME
 
   if (setup==false)
     return;
 
-  chosen_font = get_font(Size);
-    
-  *Width = gdk_char_height(chosen_font, ('A'));
-  *Height = gdk_char_height(chosen_font, ('A'));
+  *Width = Size;
+  *Height = Size;
 }
 
 GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
