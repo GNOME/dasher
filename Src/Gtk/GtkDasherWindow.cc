@@ -127,7 +127,8 @@ GtkDasherWindow::GtkDasherWindow()
     list_opts->push_back(CheckMenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_CAOS)));
     list_opts->push_back(SeparatorElem());
-    list_opts->push_back(MenuElem("Alphabet..."));
+    list_opts->push_back(MenuElem("Alphabet...", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_ALPHABET)));
     list_opts->push_back(MenuElem("File Encoding", *menu_enc ));
     list_opts->push_back(SeparatorElem());
     list_opts->push_back(MenuElem("Editing Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
@@ -137,7 +138,7 @@ GtkDasherWindow::GtkDasherWindow()
     list_opts->push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
 
-    static_cast<MenuItem *>( (*list_opts)[3] )->set_sensitive( false );
+    //    static_cast<MenuItem *>( (*list_opts)[3] )->set_sensitive( false );
     static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
 
     //    static_cast<CheckMenuItem *>( list_opts[0] )->set_active( false );
@@ -491,6 +492,9 @@ void GtkDasherWindow::menu_button_cb(int c)
       break;
     case MENU_CAOS:
       toggle_copy_all();
+      break;
+    case MENU_ALPHABET:
+      dasher_pane.show_alphabet_box();
       break;
     case MENU_EFONT:
       efontsel.show();

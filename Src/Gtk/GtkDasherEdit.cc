@@ -27,6 +27,9 @@ void GtkDasherEdit::write_to_file()
 
 void GtkDasherEdit::get_new_context(std::string& str, int max)
 {
+  cout << "get_new_context called" << endl;
+
+  cout << "length is " << text.get_length() << endl;
 }
 
 void GtkDasherEdit::unflush()

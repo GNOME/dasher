@@ -10,25 +10,16 @@
 GtkDasherAlphabetBox::GtkDasherAlphabetBox()
   : Dialog()
 {
+  l.set_usize( 128, 256 );
+  
   get_vbox()->pack_start(l, true, true );
-  show_all();
-  show();
+  get_vbox()->show_all();
+  //  show();
 }
 
 void GtkDasherAlphabetBox::AddAlphabet( std::vector< std::string > alphabetlist )
 {
-  Gtk::List_Helpers::ItemList *al = &(l.items());
-
   for( int i(0); i < alphabetlist.size(); ++i )
-    {
-      cout << "Adding alphabet: " << alphabetlist[i] << endl;
-
-      Gtk::ListItem li( alphabetlist[i] );
-      al->push_back( li );
-
-    }
-
-
-
+    cout << "Adding alphabet: " << alphabetlist[i] << endl;
 }
 

@@ -70,7 +70,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   abox.AddAlphabet( alphabetlist );
 
-  interface->ChangeAlphabet( alphabetlist[0] );
+  interface->ChangeAlphabet( alphabetlist[2] );
 
   interface->ChangeEdit( text );
   interface->ChangeScreen( canvas->get_wrapper() );
@@ -102,6 +102,11 @@ void GtkDasherPane::set_settings_ui( Dasher::CDasherSettingsInterface *settingsi
 
 void GtkDasherPane::save()
 {
+}
+
+void GtkDasherPane::show_alphabet_box()
+{
+  abox.show();
 }
 
 bool GtkDasherPane::open( std::string filename )

@@ -44,6 +44,8 @@ public:
   void orientation( Opts::ScreenOrientations o );
   void set_settings_ui( Dasher::CDasherSettingsInterface *setingsif );
 
+  void show_alphabet_box();
+
   void set_dasher_font( string fontname );
   void set_edit_font( string fontname, long size );
   void show_speed_slider( bool value );  // Tell interface we wish to show slider

@@ -52,10 +52,11 @@
 #define MENU_OBT 214
 
 #define MENU_TIMESTAMP 300
-#define MENU_CAOS 301
-#define MENU_EFONT 302
-#define MENU_DFONT 303
-#define MENU_RFONT 304
+#define MENU_ALPHABET 301
+#define MENU_CAOS 302
+#define MENU_EFONT 303
+#define MENU_DFONT 304
+#define MENU_RFONT 305
 
 #define MENU_ABOUT 400
 
