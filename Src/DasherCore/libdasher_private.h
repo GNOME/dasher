@@ -22,15 +22,12 @@ void handle_edit_unflush();
 
 void handle_clipboard( clipboard_action act );
 
-bool handle_get_bool_option(const std::string& Key);
-long handle_get_long_option(const std::string& Key);
-std::string& handle_get_string_option(const std::string& Key);
+bool handle_get_bool_option(const std::string& Key, bool *Value);
+bool handle_get_long_option(const std::string& Key, long *Value);
+bool handle_get_string_option(const std::string& Key, std::string *Value);
 void handle_set_bool_option(const std::string& Key, bool Value);
 void handle_set_long_option(const std::string& Key, long Value);
 void handle_set_string_option(const std::string& Key, const std::string& Value);
-void handle_set_bool_default(const std::string& Key, bool Value);
-void handle_set_long_default(const std::string& Key, long Value);
-void handle_set_string_default(const std::string& Key, const std::string& Value);
 
 class dasher_ui : public CDasherSettingsInterface
 {
@@ -198,50 +195,35 @@ class dasher_screen : public CDasherScreen
 
 class dasher_settings_store : public CSettingsStore
 {
- public:
-  bool GetBoolOption(const std::string& Key)
+ private:
+  bool LoadSetting(const std::string& Key, bool* Value)
     {
-      return( handle_get_bool_option( Key ) );
+      return( handle_get_bool_option( Key, Value ) );
     };
 
-  long GetLongOption(const std::string& Key)
+  bool LoadSetting(const std::string& Key, long* Value)
     {
-      return( handle_get_long_option( Key ) );
+      return( handle_get_long_option( Key, Value ) );
     };
 
-  std::string& GetStringOption(const std::string& Key)
+  bool LoadSetting(const std::string& Key, std::string* Value)
     {
-      return( handle_get_string_option( Key ) );
+      return( handle_get_string_option( Key, Value ) );
     };
-  
-  void SetBoolOption(const std::string& Key, bool Value)
+
+  virtual void SaveSetting(const std::string& Key, bool Value)
     {
       handle_set_bool_option( Key, Value );
     };
 
-  void SetLongOption(const std::string& Key, long Value)
+  void SaveSetting(const std::string& Key, long Value)
     {
       handle_set_long_option( Key, Value );
     };
 
-  void SetStringOption(const std::string& Key, const std::string& Value)
+  void SaveSetting(const std::string& Key, const std::string& Value)
     {
       handle_set_string_option( Key, Value );
-    };
-  
-  void SetBoolDefault(const std::string& Key, bool Value)
-    {
-      handle_set_bool_default( Key, Value );
-    };
-
-  void SetLongDefault(const std::string& Key, long Value)
-    {
-      handle_set_long_default( Key, Value );
-    };
-
-  void SetStringDefault(const std::string& Key, const std::string& Value)
-    {
-      handle_set_string_default( Key, Value );
     };
 };
 

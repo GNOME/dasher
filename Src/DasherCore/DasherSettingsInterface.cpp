@@ -50,6 +50,8 @@ namespace Keys {
 
 void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 {
+  cout << "In settings defaults: Store is " << Store << endl;
+
 	using namespace Dasher;
 	using namespace Keys;
 	using namespace Opts;
@@ -101,7 +103,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
 
 	// FIXME - need to work out why this breaks stuff
-	//	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
+	//this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
 	this->ChangeView(Store->GetLongOption(VIEW_ID));
 	
 	// Fonts

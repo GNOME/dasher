@@ -71,17 +71,13 @@ GdkFont *get_font(int size);
 
 void rebuild_buffer();
 
-bool get_bool_option_callback(const std::string& Key);
-long get_long_option_callback(const std::string& Key);
-string& get_string_option_callback(const std::string& Key);
+bool get_bool_option_callback(const std::string& Key, bool *value);
+bool get_long_option_callback(const std::string& Key, long *value);
+bool get_string_option_callback(const std::string& Key, std::string *value);
   
 void set_bool_option_callback(const std::string& Key, bool Value);
 void set_long_option_callback(const std::string& Key, long Value);
 void set_string_option_callback(const std::string& Key, const std::string& Value);
-  
-void set_bool_default_callback(const std::string& Key, bool Value);
-void set_long_default_callback(const std::string& Key, long Value);
-void set_string_default_callback(const std::string& Key, const std::string& Value);
 
 std::string my_default_string( "" );
 
@@ -895,6 +891,14 @@ main(int argc, char *argv[])
 {
   gtk_init (&argc, &argv);
 
+  dasher_set_get_bool_option_callback( get_bool_option_callback );
+  dasher_set_get_long_option_callback( get_long_option_callback );
+  dasher_set_get_string_option_callback( get_string_option_callback );
+
+  dasher_set_set_bool_option_callback( set_bool_option_callback );
+  dasher_set_set_long_option_callback( set_long_option_callback );
+  dasher_set_set_string_option_callback( set_string_option_callback );
+
   dasher_initialise( 360, 360 );
 
   dasher_set_string_callback( parameter_string_callback );
@@ -915,17 +919,7 @@ main(int argc, char *argv[])
 
   dasher_set_clipboard_callback( clipboard_callback );
 
-  dasher_set_get_bool_option_callback( get_bool_option_callback );
-  dasher_set_get_long_option_callback( get_long_option_callback );
-  dasher_set_get_string_option_callback( get_string_option_callback );
-
-  dasher_set_set_bool_option_callback( set_bool_option_callback );
-  dasher_set_set_long_option_callback( set_long_option_callback );
-  dasher_set_set_string_option_callback( set_string_option_callback );
-
-  dasher_set_set_bool_default_callback( set_bool_default_callback );
-  dasher_set_set_long_default_callback( set_long_default_callback );
-  dasher_set_set_string_default_callback( set_string_default_callback );
+  
 
   setlocale (LC_ALL, "");
 
@@ -1112,7 +1106,6 @@ void parameter_int_callback( int_param p, long int value )
 
 void parameter_bool_callback( bool_param p, bool value )
 {
-  cout << "In bool callback" << endl;
   switch(p)
     {
     case BOOL_SHOWTOOLBAR:
@@ -1563,22 +1556,22 @@ void initialise_edit()
   //  g_signal_connect(G_OBJECT(the_text_view), "button_press_event", G_CALLBACK(handle_cursor_move), (gpointer) this);
 }
 
-bool get_bool_option_callback(const std::string& Key)
+bool get_bool_option_callback(const std::string& Key, bool *value)
 {
-  cout << "get bool " << Key << endl;
+  cout << "Get bool " << Key << endl;
   return( false );
 }
 
-long get_long_option_callback(const std::string& Key)
+bool get_long_option_callback(const std::string& Key, long *value)
 {
-  cout << "get long " << Key << endl;
-  return( 0 );
+  cout << "Get long " << Key << endl;
+  return( false );
 }
 
-string& get_string_option_callback(const std::string& Key)
+bool get_string_option_callback(const std::string& Key, std::string *value)
 {
-  cout << "get string " << Key << endl;
-  return ( my_default_string );
+  cout << "Get string " << Key << endl;
+  return( false );
 }
   
 void set_bool_option_callback(const std::string& Key, bool Value)
@@ -1590,17 +1583,5 @@ void set_long_option_callback(const std::string& Key, long Value)
 }
 
 void set_string_option_callback(const std::string& Key, const std::string& Value)
-{
-}
-  
-void set_bool_default_callback(const std::string& Key, bool Value)
-{
-}
-
-void set_long_default_callback(const std::string& Key, long Value)
-{
-}
-
-void set_string_default_callback(const std::string& Key, const std::string& Value)
 {
 }

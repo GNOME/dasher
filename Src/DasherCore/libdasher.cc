@@ -35,17 +35,14 @@ void (*edit_unflush_callback)() = NULL;
 
 void (*clipboard_callback)( clipboard_action ) = NULL;
 
-bool (*get_bool_option_callback)(const std::string&) = NULL;
-long (*get_long_option_callback)(const std::string&) = NULL;
-string& (*get_string_option_callback)(const std::string& Key) = NULL;
+bool (*get_bool_option_callback)(const std::string&, bool *) = NULL;
+bool (*get_long_option_callback)(const std::string&, long *) = NULL;
+bool (*get_string_option_callback)(const std::string&, std::string *) = NULL;
   
 void (*set_bool_option_callback)(const std::string&, bool) = NULL;
 void (*set_long_option_callback)(const std::string&, long) = NULL;
 void (*set_string_option_callback)(const std::string&, const std::string&) = NULL;
-  
-void (*set_bool_default_callback)(const std::string&, bool) = NULL;
-void (*set_long_default_callback)(const std::string&, long) = NULL;
-void (*set_string_default_callback)(const std::string&, const std::string&) = NULL;
+
 
 void handle_parameter_string( string_param p, const string & value )
 {
@@ -134,28 +131,30 @@ void handle_clipboard( clipboard_action act )
 }
 
 
-bool handle_get_bool_option(const std::string& Key)
+bool handle_get_bool_option(const std::string& Key, bool *Value)
 {
+  //  cout << "Get bool_option_callback " << get_bool_option_callback << " " << &get_bool_option_callback << endl;
+
   if( get_bool_option_callback != NULL )
-    return( get_bool_option_callback( Key ) );
+    return( get_bool_option_callback( Key, Value ) );
   else
     return( false );
 }
 
-long handle_get_long_option(const std::string& Key)
+bool handle_get_long_option(const std::string& Key, long *Value)
 {
   if( get_long_option_callback != NULL )
-    return( get_long_option_callback( Key ) );
+    return( get_long_option_callback( Key, Value ) );
   else
-    return(0);
+    return( false );
 }
 
-std::string& handle_get_string_option(const std::string& Key)
+bool handle_get_string_option(const std::string& Key, std::string *Value)
 {
   if( get_string_option_callback != NULL )
-    return( get_string_option_callback( Key ) );
+    return( get_string_option_callback( Key, Value ) );
   else
-    return( default_string );
+    return( false );
 }
 
 void handle_set_bool_option(const std::string& Key, bool Value)
@@ -174,24 +173,6 @@ void handle_set_string_option(const std::string& Key, const std::string& Value)
 {
   if( set_string_option_callback != NULL )
     set_string_option_callback( Key, Value );
-}
-  
-void handle_set_bool_default(const std::string& Key, bool Value)
-{
-  if( set_bool_default_callback != NULL )
-    set_bool_default_callback( Key, Value );
-}
-
-void handle_set_long_default(const std::string& Key, long Value)
-{
-  if( set_long_default_callback != NULL )
-    set_long_default_callback( Key, Value );
-}
-
-void handle_set_string_default(const std::string& Key, const std::string& Value)
-{
-  if( set_string_default_callback != NULL )
-    set_string_default_callback( Key, Value );
 }
 
 // Initialisation and finalisation routines
@@ -224,6 +205,8 @@ void dasher_initialise( int _width, int _height )
  
   dss = new dasher_settings_store;
   interface->SetSettingsStore( dss );
+
+  //  cout << "Settings store - " << dss << endl;
 
   dasher_start();
 
@@ -429,17 +412,18 @@ void dasher_set_clipboard_callback( void (*_cb)( clipboard_action ) )
   clipboard_callback = _cb;
 }
 
-void dasher_set_get_bool_option_callback( bool (*_cb)(const std::string&) )
+void dasher_set_get_bool_option_callback( bool (*_cb)(const std::string&, bool *) )
 {
+  //  cout << "Setting bool otion callback to " << &_cb << endl;
   get_bool_option_callback = _cb;
 }
 
-void dasher_set_get_long_option_callback( long (*_cb)(const std::string&) )
+void dasher_set_get_long_option_callback( bool (*_cb)(const std::string&, long *) )
 {
   get_long_option_callback = _cb;
 }
 
-void dasher_set_get_string_option_callback( string& (*_cb)(const std::string& Key) )
+void dasher_set_get_string_option_callback( bool (*_cb)(const std::string&, std::string *) )
 {
   get_string_option_callback = _cb;
 }
@@ -458,25 +442,7 @@ void dasher_set_set_string_option_callback( void (*_cb)(const std::string&, cons
 {
   set_string_option_callback = _cb;
 }
-  
-void dasher_set_set_bool_default_callback( void (*_cb)(const std::string&, bool) )
-{
-  set_bool_default_callback = _cb;
-}
-
-void dasher_set_set_long_default_callback( void (*_cb)(const std::string&, long) )
-{
-  set_long_default_callback = _cb;
-}
-
-void dasher_set_set_string_default_callback( void (*_cb)(const std::string&, const std::string&) )
-{
-  set_string_default_callback = _cb;
-}
-
-
-
-
+ 
 void dasher_start()
 {
   interface->Start();
