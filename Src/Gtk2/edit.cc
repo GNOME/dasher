@@ -22,6 +22,7 @@ std::string say;
 std::string outputtext;
 KeySym *origkeymap;
 int modifiedkey=0;
+int numcodes;
 
 gunichar* wideoutput;
 
@@ -29,7 +30,7 @@ extern gint outputcharacters;
 extern bool file_modified;
 void initialise_edit()
 {
-  int min, max, numcodes;
+  int min, max;
   Display *dpy = gdk_x11_get_default_xdisplay();
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   the_text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (the_text_view));
@@ -41,8 +42,7 @@ void initialise_edit()
 
 void cleanup_edit() {
 #ifdef X_HAVE_UTF8_STRING
-  int min, max, numcodes;
-  numcodes = 0;
+  int min, max;
   Display *dpy = gdk_x11_get_default_xdisplay();
   XDisplayKeycodes(dpy,&min,&max);
   XChangeKeyboardMapping(dpy,min,numcodes,origkeymap,(max-min));
@@ -74,7 +74,7 @@ void edit_output_callback(symbol Symbol)
 #ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
     Display *dpy = gdk_x11_get_default_xdisplay();
-    int min, max, numcodes;
+    int min, max;
     KeySym *keysym;
     KeyCode code;
     glong numoutput;
