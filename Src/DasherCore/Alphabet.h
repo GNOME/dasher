@@ -13,9 +13,10 @@
 #define __DASHER_ALPHABET_H__
 
 
+#include "../Common/MSVC_Unannoy.h"
+
 #include "DasherTypes.h"
 
-#include "../Common/MSVC_Unannoy.h"
 
 #include <vector>
 #include "AlphabetMap.h"

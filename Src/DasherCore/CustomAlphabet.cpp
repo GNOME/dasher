@@ -48,7 +48,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 }
 
 void CCustomAlphabet::AddControlSymbol() {
-	if (m_AlphInfo->ControlCharacter.Display != "" && GetControlSymbol()==-1) {
+	if (m_AlphInfo->ControlCharacter.Display != std::string("") && GetControlSymbol()==-1) {
 		AddChar(m_AlphInfo->ControlCharacter.Text, m_AlphInfo->ControlCharacter.Display, m_AlphInfo->ControlCharacter.Colour, m_AlphInfo->ControlCharacter.Foreground);
 		SetControlSymbol();
 	}
