@@ -1388,6 +1388,7 @@ void interface_setup(GladeXML *xml) {
   the_canvas=glade_xml_get_widget(xml, "the_canvas");
   text_scrolled_window=glade_xml_get_widget(xml, "text_scrolled_window");
   the_text_view=glade_xml_get_widget(xml, "the_text_view");
+  speed_frame=glade_xml_get_widget(xml, "speed_frame");
   toolbar=glade_xml_get_widget(xml, "toolbar");
 
   if (textentry==TRUE) {
@@ -1397,6 +1398,7 @@ void interface_setup(GladeXML *xml) {
     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), true);
     gtk_widget_set_sensitive(glade_xml_get_widget(widgets,"keyboardmode"),false);
     gtk_widget_hide(toolbar);
+    gtk_widget_hide(speed_frame);
   }
 
 #ifndef GNOME_SPEECH
@@ -2087,7 +2089,9 @@ void parameter_bool_callback( bool_param p, bool value )
 	break;
 
       if (value) {
-	gtk_widget_show(speed_frame);
+	if (textentry==FALSE) {
+	  gtk_widget_show(speed_frame);
+	}
 	gtk_range_set_value(GTK_RANGE(speed_hscale), bitrate);
       } else {
 	gtk_widget_hide(speed_frame);
