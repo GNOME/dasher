@@ -1,4 +1,4 @@
-// Microsoft Visual C++ generated resource script.
+//Microsoft Developer Studio generated resource script.
 //
 #include "resource.h"
 
@@ -29,8 +29,8 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 // Bitmap
 //
 
-IDB_COPY_ALL_SMALL_COLOR BITMAP                  "CopyAllSmall.bmp"
-IDB_COPY_ALL_LARGE_COLOR BITMAP                  "CopyAllLarge.bmp"
+IDB_COPY_ALL_SMALL_COLOR BITMAP  MOVEABLE PURE   "CopyAllSmall.bmp"
+IDB_COPY_ALL_LARGE_COLOR BITMAP  MOVEABLE PURE   "CopyAllLarge.bmp"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-2 TEXTINCLUDE 
+2 TEXTINCLUDE MOVEABLE PURE 
 BEGIN
     "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
     "#include ""windows.h""\r\n"
@@ -59,7 +59,7 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE 
+3 TEXTINCLUDE MOVEABLE PURE 
 BEGIN
     "\r\n"
     "\0"
@@ -86,7 +86,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE 
+1 TEXTINCLUDE MOVEABLE PURE 
 BEGIN
     "resource.h\0"
 END
@@ -101,19 +101,19 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_DASHER              ICON                    "dasher.ico"
+IDI_DASHER              ICON    DISCARDABLE     "dasher.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
 
-IDC_DASHER MENU 
+IDC_DASHER MENU DISCARDABLE 
 BEGIN
     POPUP "&File"
     BEGIN
         MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
-        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN, GRAYED
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
         MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
         MENUITEM "&Append to File...",          ID_FILE_APPEND, GRAYED
@@ -193,7 +193,7 @@ END
 // Accelerator
 //
 
-IDC_DASHER ACCELERATORS 
+IDC_DASHER ACCELERATORS MOVEABLE PURE 
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
@@ -214,10 +214,9 @@ END
 //
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 242, 151
-STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
-    WS_SYSMENU
+STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
-FONT 8, "MS Shell Dlg", 0, 0, 0x0
+FONT 8, "MS Shell Dlg"
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
@@ -234,8 +233,8 @@ BEGIN
                     168,1
 END
 
-IDD_ALPHABET DIALOG  0, 0, 270, 158
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ALPHABET DIALOG DISCARDABLE  0, 0, 270, 158
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Alphabet"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -251,8 +250,8 @@ BEGIN
     LTEXT           "Alphabets available:",IDC_STATIC,7,7,198,8
 END
 
-IDD_CUSTOMALPHABET DIALOG  0, 0, 278, 258
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_CUSTOMALPHABET DIALOG DISCARDABLE  0, 0, 278, 258
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Customize Alphabet"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -290,8 +289,8 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK_CUSTOMIZE,221,237,50,14
 END
 
-IDD_ADDLETTERS DIALOG  0, 0, 145, 79
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ADDLETTERS DIALOG DISCARDABLE  0, 0, 145, 79
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Add characters"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -305,8 +304,8 @@ BEGIN
     DEFPUSHBUTTON   "Add",IDOK_ADDCHAR,88,58,50,14
 END
 
-IDD_NEWALPHABET DIALOG  0, 0, 186, 69
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_NEWALPHABET DIALOG DISCARDABLE  0, 0, 186, 69
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "New Alphabet"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -317,8 +316,8 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,41,170,1
 END
 
-IDD_NEWGROUP DIALOG  0, 0, 186, 68
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_NEWGROUP DIALOG DISCARDABLE  0, 0, 186, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "New Group"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -329,8 +328,8 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,41,170,1
 END
 
-IDD_EDITLETTER DIALOG  0, 0, 145, 79
-STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_EDITLETTER DIALOG DISCARDABLE  0, 0, 145, 79
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Edit character"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -351,7 +350,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO 
+GUIDELINES DESIGNINFO MOVEABLE PURE 
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -412,6 +411,7 @@ END
 #endif    // APSTUDIO_INVOKED
 
 
+#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -434,15 +434,15 @@ BEGIN
     BEGIN
         BLOCK "080904b0"
         BEGIN
-            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL."
-            VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
-            VALUE "FileDescription", "Dasher"
-            VALUE "FileVersion", "3, 0, 0"
-            VALUE "InternalName", "Dasher"
-            VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward"
-            VALUE "OriginalFilename", "dasher.exe"
-            VALUE "ProductName", "Dasher"
-            VALUE "ProductVersion", "3, 0, 0"
+            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL.\0"
+            VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge\0"
+            VALUE "FileDescription", "Dasher\0"
+            VALUE "FileVersion", "3, 0, 0\0"
+            VALUE "InternalName", "Dasher\0"
+            VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward\0"
+            VALUE "OriginalFilename", "dasher.exe\0"
+            VALUE "ProductName", "Dasher\0"
+            VALUE "ProductVersion", "3, 0, 0\0"
         END
     END
     BLOCK "VarFileInfo"
@@ -451,13 +451,15 @@ BEGIN
     END
 END
 
+#endif    // !_MAC
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
 
-STRINGTABLE 
+STRINGTABLE DISCARDABLE 
 BEGIN
     IDS_APP_TITLE           "Dasher"
     IDS_FILE_SAVE           "Save"
@@ -465,7 +467,7 @@ BEGIN
     IDS_FILE_NEW            "New"
 END
 
-STRINGTABLE 
+STRINGTABLE DISCARDABLE 
 BEGIN
     IDS_EDIT_CUT            "Cut"
     IDS_EDIT_COPY           "Copy"
@@ -482,7 +484,7 @@ BEGIN
     IDS_TYPE_Cyrillic       "Cyrillic"
 END
 
-STRINGTABLE 
+STRINGTABLE DISCARDABLE 
 BEGIN
     IDS_TYPE_Greek          "Greek"
     IDS_TYPE_Hebrew         "Hebrew"
@@ -498,7 +500,7 @@ BEGIN
     IDS_ERR_ALPH_DESC       "Please provide a unique description for this alphabet."
 END
 
-STRINGTABLE 
+STRINGTABLE DISCARDABLE 
 BEGIN
     IDS_QUERY_SAVE_CHANGES  "Would you like to save changes\nto the current file?"
     IDS_UNTITLED_FILE       "Untitled"
