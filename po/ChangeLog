@@ -1,6 +1,7 @@
 2004-09-11  Abel Cheung  <maddog@linuxhall.org>
 
 	* zh_TW.po: Updated traditional Chinese translation by GNOME HK Team.
+	* ar.po: Fix plural definition in header.
 
 2004-09-09  Arafat Medini  <lumina@silverpen.de>
 
