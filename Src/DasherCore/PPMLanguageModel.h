@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 1999-2002 David Ward
+// Copyright (c) 1999-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -24,12 +24,12 @@ namespace Dasher {class CPPMLanguageModel;}
 class Dasher::CPPMLanguageModel : public Dasher::CLanguageModel, private NoClones
 {
 public:
-	CPPMLanguageModel(CAlphabet *_alphabet, int _normalization);
+	CPPMLanguageModel(CAlphabet *_alphabet);
 	~CPPMLanguageModel();
 	
 	class CPPMnode {
 	public:
-		CPPMnode* find_symbol(int sym);
+		CPPMnode* find_symbol(int sym) const;
 		CPPMnode* add_symbol_to_node(int sym,int *update);
 		CPPMnode* child;
 		CPPMnode* next;

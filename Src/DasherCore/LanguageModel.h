@@ -26,7 +26,7 @@ namespace Dasher {class CLanguageModel;}
 class Dasher::CLanguageModel
 {
 public:
-	CLanguageModel(CAlphabet* Alphabet, int Normalization);
+	CLanguageModel(CAlphabet* Alphabet);
 
 	virtual ~CLanguageModel() {}
 
@@ -39,9 +39,6 @@ public:
 		virtual ~CNodeContext() {};
 	};
 	
-	// return the model's normalization - what the probabilities sum to
-	const int normalization() const { return m_iNorm;}
-	
 	CNodeContext* GetRootNodeContext();
 	CNodeContext* CloneNodeContext(CNodeContext* NodeContext);
 	void ReleaseNodeContext(CNodeContext* NodeContext);
@@ -50,7 +47,7 @@ public:
 	void EnterText(CNodeContext* NodeContext, std::string TheText);
 	void LearnText(CNodeContext* NodeContext, std::string* TheText, bool IsMore);
 	bool GetNodeProbs(CNodeContext* Context, std::vector<symbol> &NewSymbols,
-		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs);
+		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, int iNorm);
 	
 	// Alphabet pass-through functions for widely needed information
 	symbol GetSpaceSymbol() {return m_Alphabet->GetSpaceSymbol();}

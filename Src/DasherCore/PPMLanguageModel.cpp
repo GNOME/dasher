@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 1999-2002 David Ward
+// Copyright (c) 1999-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -20,7 +20,7 @@ typedef unsigned long ulong;
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym)
+CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym) const
 // see if symbol is a child of node
 {
 	//  printf("finding symbol %d at node %d\n",sym,node->id);
@@ -36,21 +36,22 @@ CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym)
 
 CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::add_symbol_to_node(int sym,int *update)
 {
-	CPPMnode *born,*search;
-	search=find_symbol(sym);
-	if (!search) {
-		born = new CPPMnode(sym);
-		born->next=child;
-		child=born;
-		//   node->count=1;
-		return born;		
-	} else {
-		if (*update) {   // perform update exclusions
-			search->count++;
+	CPPMnode *pReturn = find_symbol(sym);
+	
+	if (pReturn!=NULL)
+	{
+		if (*update) 
+		{   // perform update exclusions
+			pReturn->count++;
 			*update=0;
 		}
-		return search;
+		return pReturn;
 	}
+
+	pReturn = new CPPMnode(sym);  // count is initialized to 1
+	pReturn->next=child;
+	child=pReturn;
+	return pReturn;		
 	
 }
 
@@ -59,8 +60,8 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::add_symbol_to_node(in
 // CPPMLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet,int _normalization)
-	: CLanguageModel(_alphabet,_normalization)
+CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet)
+	: CLanguageModel(_alphabet)
 {
 	root=new CPPMnode(-1);
 	m_rootcontext=new CPPMContext(root,0);

@@ -17,8 +17,8 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////
 
-CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
-	: m_Alphabet(Alphabet), m_iNorm(Normalization)
+CLanguageModel::CLanguageModel(CAlphabet* Alphabet)
+	: m_Alphabet(Alphabet)
 {
 	m_iModelChars = m_Alphabet->GetNumberSymbols();
 	m_uniform = 50;
@@ -50,7 +50,7 @@ void CLanguageModel::LearnText(CNodeContext* NodeContext, string* TheText, bool 
 ///////////////////////////////////////////////////////////////////
 
 bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymbols,
-		vector<unsigned int> &Groups, vector<unsigned int> &Probs)
+		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm)
 {
 	// make sure it is a valid context
 	if (Context) {
@@ -72,14 +72,13 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		if( real_s <= 0 )
 		  return false;
 
-		int norm( normalization() );
 		//		int control( norm * 0.1 ); // FIXME - control node fration is decided here
 
 		//		if( GetControlSymbol() != -1 )
 		//  norm -= control;
 
-		int uniform_add = ((norm / 1000 ) / real_s ) * m_uniform;
-		int nonuniform_norm = norm - real_s * uniform_add;
+		int uniform_add = ((iNorm / 1000 ) / real_s ) * m_uniform;
+		int nonuniform_norm = iNorm - real_s * uniform_add;
 
 		NewSymbols.resize(s);
 		Groups.resize(s);
