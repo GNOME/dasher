@@ -35,12 +35,7 @@ void edit_output_callback(symbol Symbol)
   label = dasher_get_edit_text( Symbol );
 
 #ifdef GNOME_SPEECH
-  if (label == " ") {
-    SPEAK_DAMN_YOU(&say);
-    say="";
-  } else {
-    say+=label;
-  }
+  say+=label;
 #endif
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
@@ -82,7 +77,9 @@ void edit_delete_callback()
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_SPEECH
-  //  say.erase(say.length()-1,say.length());
+  if(say.length()>0) {
+    say.resize(say.length()-1);
+  }
 #endif
 
 #ifdef GNOME_A11Y
@@ -185,3 +182,13 @@ void get_new_context_callback( std::string &str, int max )
 
   str = std::string( gtk_text_buffer_get_text( the_text_buffer, start, end, FALSE ) );
 }
+
+#ifdef GNOME_SPEECH
+void speak()
+{
+  if (say.length()>0) {
+    SPEAK_DAMN_YOU(&say);
+  }
+  say="";
+}
+#endif

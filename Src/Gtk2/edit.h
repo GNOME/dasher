@@ -18,3 +18,7 @@ void set_edit_font(gpointer data, guint action, GtkWidget *widget);
 void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
 void reset_edit_font();
 void get_new_context_callback( std::string &str, int max );
+
+#ifdef GNOME_SPEECH
+void speak();
+#endif

@@ -639,6 +639,9 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
       } else {
 	dasher_pause(0,0);    
 	paused = TRUE;
+#ifdef GNOME_SPEECH
+	speak();
+#endif
       }
     }
     break;
@@ -676,6 +679,9 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
     } else {
       dasher_pause( (gint) event->x,(gint) event->y );    
       paused = TRUE;
+#ifdef GNOME_SPEECH
+      speak();
+#endif
       if (timedata==TRUE) {
 	printf("%d characters output in %d seconds\n",outputcharacters,
 	       time(NULL)-starttime);
