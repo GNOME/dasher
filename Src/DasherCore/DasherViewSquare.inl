@@ -14,21 +14,28 @@ inline const myint CDasherViewSquare::screen2dasherx(const int mousex)
 	//	double x=1.0*(CanvasX-mousex)/CanvasY;
 		double x=1.0*(CanvasX-mousex)/CanvasX;
 	x=ixmap(x);
-	return int ( x*(1<<DasherModel().Shift()) );
+	return int ( x* DasherModel().DasherY()) ;
 }
 
 
-inline const myint CDasherViewSquare::screen2dashery(const int mousey) 
+inline const myint CDasherViewSquare::screen2dashery(int screeny) 
 {
-	double y=1.0*mousey/CanvasY;
-	y=iymap(y);
-	return int(y*(1<<DasherModel().Shift()));
+	myint dashery=screeny;
+	dashery*=DasherModel().DasherY();
+	dashery/=CanvasY;
+
+	if (dashery>m_Y2)
+		dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
+	else if (dashery<m_Y3)
+		dashery= (dashery-m_Y3)*m_Y1+m_Y3;
+
+	return dashery;
 }
 
 
 inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 {
-	double x=1.0*sx/(1<<DasherModel().Shift());
+	double x=1.0*sx/(DasherModel().DasherY());
 	x=xmap(x);
 //	return CanvasX-int(x*CanvasY);
 	return CanvasX-int(x*CanvasX);
@@ -36,12 +43,16 @@ inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 }
 
 
-inline const int CDasherViewSquare::dashery2screen(const myint sy)
+inline const int CDasherViewSquare::dashery2screen(myint y)
 {
-	//double 
-	double y=1.0*sy/(1<<DasherModel().Shift());
-	y=ymap(y);
-	return int(y*CanvasY);
+	if (y > m_Y2 )
+		y= m_Y2 +  (y-m_Y2)/m_Y1;
+	else if (y<m_Y3)
+		y= m_Y3+   (y-m_Y3 )/m_Y1;
+	y*=CanvasY;
+	y/=DasherModel().DasherY();
+
+	return int(y);
 }
 
 
@@ -67,6 +78,31 @@ inline void CDasherViewSquare::Crosshair(myint sx)
 	MapScreen(&crosshair[1].x, &crosshair[1].y);
 	Screen().Polyline(crosshair,2);
 }
+
+
+
+
+
+inline double CDasherViewSquare::ixmap(double x)
+// invert x non-linearity
+{
+	if (x<m_dXmpb*m_dXmpc)
+		return x/m_dXmpc;
+	else
+		return m_dXmpb-m_dXmpa + m_dXmpa * exp( (x/m_dXmpc - m_dXmpb) / m_dXmpa);
+	
+}
+
+
+inline double CDasherViewSquare::xmap(double x)
+// x non-linearity
+{
+	if (x<m_dXmpb)
+		return m_dXmpc*x;
+	else
+		return m_dXmpc*(m_dXmpa*log((x+m_dXmpa-m_dXmpb)/m_dXmpa) +m_dXmpb);
+}
+
 
 
 } // namespace Dasher

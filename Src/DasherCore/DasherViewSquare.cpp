@@ -44,6 +44,10 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_dY1=0.1;     // these are for the y non-linearity
 	m_dY2=0.95;
 	m_dY3=0.05;
+
+	m_Y2=int (m_dY2 * (CDasherView::DasherModel().DasherY()) );
+	m_Y3=int (m_dY3 * (CDasherView::DasherModel().DasherY()) );
+	m_Y1=20;
 }
 
 
@@ -141,7 +145,7 @@ void CDasherViewSquare::CheckForNewRoot()
 		myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
 		myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
 		
-		if (newy1<0 && newy2> 1<<DasherModel().Shift()) {
+		if (newy1<0 && newy2> DasherModel().DasherY()) {
 			myint left=dasherx2screen(newy2-newy1);
 			if (left<0) {
 				DasherModel().Make_root(theone);
@@ -179,48 +183,3 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 	CanvasY=Height;
 }
 
-
-inline double CDasherViewSquare::ymap(double y)
-// y non-linearity
-{
-	if (y>m_dY2)
-		return m_dY2+(y-m_dY2)*m_dY1;
-	else if (y>m_dY3)
-		return y; 
-	else
-		return m_dY3+(y-m_dY3 )*m_dY1;
-}
-
-
-inline double CDasherViewSquare::iymap(double y)
-// invert y non-linearity
-{
-	
-	if (y>m_dY2)
-		return (y-m_dY2)/m_dY1 + m_dY2;
-	else if (y>m_dY3)
-		return y;
-	else
-		return (y-m_dY3)/m_dY1+m_dY3;
-}
-
-
-inline double CDasherViewSquare::ixmap(double x)
-// invert x non-linearity
-{
-	if (x<m_dXmpb*m_dXmpc)
-		return x/m_dXmpc;
-	else
-		return m_dXmpb-m_dXmpa + m_dXmpa * exp( (x/m_dXmpc - m_dXmpb) / m_dXmpa);
-	
-}
-
-
-inline double CDasherViewSquare::xmap(double x)
-// x non-linearity
-{
-	if (x<m_dXmpb)
-		return m_dXmpc*x;
-	else
-		return m_dXmpc*(m_dXmpa*log((x+m_dXmpa-m_dXmpb)/m_dXmpa) +m_dXmpb);
-}

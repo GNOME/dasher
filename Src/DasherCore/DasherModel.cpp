@@ -21,10 +21,10 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel)
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	
 	// various settings
-	m_iShift = 12;
-	m_isCanvasY = 1<<m_iShift;
-	m_isCanvasOY = m_isCanvasY/2;
-	m_isCanvasOX = m_isCanvasY/2;
+	int iShift = 12;
+	m_DasherY = 1<<iShift;
+	m_DasherOY = m_DasherY/2;
+	m_DasherOX = m_DasherY/2;
 	m_dAddProb = 0.003;
 }
 
@@ -51,35 +51,35 @@ void CDasherModel::Make_root(int whichchild)
 	oldroot->Children()[whichchild]=0;  // null the pointer so we don't delete the whole tree
 	delete oldroot;
 	
-	myint range=m_iRootmax-m_iRootmin;
-	m_iRootmax=m_iRootmin+(range*m_Root->Hbnd())/Normalization();
-	m_iRootmin+=(range*m_Root->Lbnd())/Normalization();
+	myint range=m_Rootmax-m_Rootmin;
+	m_Rootmax=m_Rootmin+(range*m_Root->Hbnd())/Normalization();
+	m_Rootmin+=(range*m_Root->Lbnd())/Normalization();
 }
 
 
 CDasherNode * CDasherModel::Get_node_under_crosshair()
 {
-	return m_Root->Get_node_under(Normalization(),m_iRootmin,m_iRootmax,m_isCanvasOX,m_isCanvasOY);
+	return m_Root->Get_node_under(Normalization(),m_Rootmin,m_Rootmax,m_DasherOX,m_DasherOY);
 }
 
 
-CDasherNode * CDasherModel::Get_node_under_mouse(myint miMousex,myint miMousey)
+CDasherNode * CDasherModel::Get_node_under_mouse(myint Mousex,myint Mousey)
 {
-	return m_Root->Get_node_under(Normalization(),m_iRootmin,m_iRootmax,miMousex,miMousey);
+	return m_Root->Get_node_under(Normalization(),m_Rootmin,m_Rootmax,Mousex,Mousey);
 }
 
 
-void CDasherModel::Get_string_under_mouse(const myint miMousex,const myint miMousey, vector<symbol> &str)
+void CDasherModel::Get_string_under_mouse(const myint Mousex,const myint Mousey, vector<symbol> &str)
 {
-	m_Root->Get_string_under(Normalization(),m_iRootmin,m_iRootmax,miMousex,miMousey,str);
+	m_Root->Get_string_under(Normalization(),m_Rootmin,m_Rootmax,Mousex,Mousey,str);
 	return;
 }
 
 
-void CDasherModel::Flush(const myint miMousex,const myint miMousey)
+void CDasherModel::Flush(const myint Mousex,const myint Mousey)
 {
 	vector<symbol> vtUnder;
-	Get_string_under_mouse(m_isCanvasOX,m_isCanvasOY,vtUnder);
+	Get_string_under_mouse(m_DasherOX,m_DasherOY,vtUnder);
 	unsigned int i;
 	for (i=0;i<vtUnder.size();i++)
 		m_editbox->flush(vtUnder[i]);
@@ -120,8 +120,8 @@ void CDasherModel::Update(CDasherNode *node,CDasherNode *under_mouse,int iSafe)
 
 void CDasherModel::Start()
 {
-	m_iRootmin=0;
-	m_iRootmax=m_isCanvasY;
+	m_Rootmin=0;
+	m_Rootmax=m_DasherY;
 	
 	delete m_Root;
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
@@ -145,7 +145,7 @@ void CDasherModel::Start()
 }
 
 
-void CDasherModel::Get_new_root_coords(myint miMousex,myint miMousey)
+void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
 	int cappedrate=0;
 	double dRx=1.0,dRxnew=1.0;
@@ -153,11 +153,11 @@ void CDasherModel::Get_new_root_coords(myint miMousex,myint miMousey)
 
 	int iSteps=m_fr.Steps();
 
-	if (miMousex<m_isCanvasOX) {
+	if (Mousex<m_DasherOX) {
 	//	rx=1.0001*Ixmap[mx]/Ixmap[cx];
-		if (miMousex<=0)
-			miMousex=1;
-		dRx=1.0*m_isCanvasOX/miMousex;
+		if (Mousex<=0)
+			Mousex=1;
+		dRx=1.0*m_DasherOX/Mousex;
 		dRxnew=pow(dRx,1.0/iSteps);  // or exp(log(rx)/steps) - i think the replacement is faster   
 	
 		dRxnew2=1+(dRx-1)/iSteps;
@@ -169,15 +169,15 @@ void CDasherModel::Get_new_root_coords(myint miMousex,myint miMousey)
 		 dRxnew=dRxmax;
 		//		cappedrate=1;
 	} else {
-		if (miMousex==m_isCanvasOX)
-			miMousex++;
+		if (Mousex==m_DasherOX)
+			Mousex++;
 	//		OutputDebugString(TEXT("zoom out\n"));
-		dRx=1.0001*m_isCanvasOX/miMousex;
+		dRx=1.0001*m_DasherOX/Mousex;
 		dRxnew=exp(log(dRx)/iSteps);
 	//	get_coords(root->lbnd,root->hbnd,&x1,&y1,&y2);
 		//if (x1>0 || y1>0 || y2<CanvasY)
 		//go_back_a_char();
-		if (m_iRootmax<m_isCanvasY && m_iRootmin>0)
+		if (m_Rootmax<m_DasherY && m_Rootmin>0)
 			return;
 	} 
 //	dchar debug[256];
@@ -185,21 +185,21 @@ void CDasherModel::Get_new_root_coords(myint miMousex,myint miMousey)
 //	OutputDebugString(debug);
 	//wsprintf(debug,TEXT("rx %f rxnew %f\n"),rx,rxnew);
 	//OutputDebugString(debug);
-	myint above=(miMousey-m_iRootmin);//*(1-rxnew)/(1-rx);
-	myint below=(m_iRootmax-miMousey);//*(1-rxnew)/(1-rx);
+	myint above=(Mousey-m_Rootmin);//*(1-rxnew)/(1-rx);
+	myint below=(m_Rootmax-Mousey);//*(1-rxnew)/(1-rx);
 
 //	wsprintf(debug,TEXT("above %I64d below %I64d \n"),above,below);
 //	OutputDebugString(debug);
 
-	myint miDistance=m_isCanvasY/2-miMousey;
+	myint miDistance=m_DasherY/2-Mousey;
 	miDistance=myint(miDistance*(dRxnew-1)/(dRx-1));
-	myint miNewrootzoom=miMousey+miDistance;
+	myint miNewrootzoom=Mousey+miDistance;
 
 	myint newRootmax=miNewrootzoom+myint(below*dRxnew);
 	myint newRootmin=miNewrootzoom-myint(above*dRxnew);
-	if (newRootmin<m_isCanvasY/2 && newRootmax>m_isCanvasY/2 && newRootmax<INT_MAX && newRootmin>INT_MIN) {
-		m_iRootmax=newRootmax;
-		m_iRootmin=newRootmin;	
+	if (newRootmin<m_DasherY/2 && newRootmax>m_DasherY/2 && newRootmax<INT_MAX && newRootmin>INT_MIN) {
+		m_Rootmax=newRootmax;
+		m_Rootmin=newRootmin;	
 	}
 
 }
