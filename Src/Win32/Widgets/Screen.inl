@@ -67,6 +67,35 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 }
 
+inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size) const
+{
+	if (m_DasherInterface==0)
+		return;
+	
+	Tstring OutputText;
+
+	WinUTF8::UTF8string_to_Tstring(OutputString,&OutputText);
+	
+	RECT Rect;
+	Rect.left = x1;
+	Rect.top = y1;
+	Rect.right = x1+50;
+	Rect.bottom = y1+50;
+	
+	if (Size <= 11) {
+		Size = 2;
+	} else {
+		if (Size <= 14)
+			Size = 1;
+		else
+			Size = 0;
+	}
+
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+	// The Windows API dumps all its function names in the global namespace, ::
+	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+}
 
 inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {

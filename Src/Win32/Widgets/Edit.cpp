@@ -763,3 +763,18 @@ void CEdit::SetWindow(HWND window)
 		SetFocus(window);
 	}
 }
+
+void CEdit::outputcontrol (void* pointer, int data)
+{
+	if (pointer==NULL) {
+		return;
+	}
+	IAccessible* AccessibleObject=(IAccessible*)pointer;
+	VARIANT AccessibleVariant;
+	HRESULT hr;
+	AccessibleVariant.vt=VT_I4;
+	AccessibleVariant.iVal=data;
+	VariantInit(&AccessibleVariant);
+	hr=AccessibleObject->accDoDefaultAction(AccessibleVariant);
+	VariantClear(&AccessibleVariant);
+}

@@ -17,6 +17,7 @@
 #include "../../DasherCore/DashEdit.h"
 #include "../WinWrap.h"
 #include "FilenameGUI.h"
+#include <Oleacc.h>
 
 class CEdit : public Dasher::CDashEditbox, public CWinWrap
 {
@@ -70,7 +71,7 @@ public:
 	void output(Dasher::symbol Symbol);
 	
 	// called when outputting a control symbol
-	void outputcontrol (void* pointer, int data) {};
+	void outputcontrol (void* pointer, int data);
 
 	// flush text from Dasher display to edit control
 	void flush(Dasher::symbol Symbol);

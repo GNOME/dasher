@@ -34,7 +34,7 @@ public:
 	Dasher::Opts::FontSize GetFontSize();
 	inline void TextSize(Dasher::symbol Character, int* Width, int* Height, int Size) const;
 	inline void DrawText(Dasher::symbol Character, int x1, int y1, int Size) const;
-	inline void DrawText(std::string, int x1, int y1, int Size) const {};
+	inline void DrawText(std::string, int x1, int y1, int Size) const;
 	inline void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
 	inline void Polyline(point* Points, int Number) const;
 	inline void DrawPolygon(point* Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;

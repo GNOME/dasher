@@ -7,18 +7,21 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher.vcproj", "
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
-		ConfigName.0 = Debug
-		ConfigName.1 = Release
-		ConfigName.2 = Unicode Debug
-		ConfigName.3 = Unicode Release
-		ConfigName.4 = Win95 compatible Debug
-		ConfigName.5 = Win95 compatible Release
+		ConfigName.0 = Accessible Unicode Debug
+		ConfigName.1 = Debug
+		ConfigName.2 = Release
+		ConfigName.3 = Unicode Debug
+		ConfigName.4 = Unicode Release
+		ConfigName.5 = Win95 compatible Debug
+		ConfigName.6 = Win95 compatible Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.0 = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.1 = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.0 = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.1 = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.ActiveCfg = Accessible Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.Build.0 = Accessible Unicode Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.ActiveCfg = Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.Build.0 = Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Release.ActiveCfg = Release|Win32
@@ -31,6 +34,8 @@ Global
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Accessible Unicode Debug.ActiveCfg = Accessible Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Accessible Unicode Debug.Build.0 = Accessible Unicode Debug|Win32
 		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Debug.ActiveCfg = Debug|Win32
 		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Debug.Build.0 = Debug|Win32
 		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Release.ActiveCfg = Release|Win32
@@ -43,6 +48,8 @@ Global
 		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
 		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
 		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Accessible Unicode Debug.ActiveCfg = Accessible Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Accessible Unicode Debug.Build.0 = Accessible Unicode Debug|Win32
 		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Debug.ActiveCfg = Debug|Win32
 		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Debug.Build.0 = Debug|Win32
 		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Release.ActiveCfg = Release|Win32
