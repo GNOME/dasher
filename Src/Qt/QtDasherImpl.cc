@@ -2,7 +2,7 @@
 #include <qapplication.h>
 #include <qobject.h>
 #include <qpixmap.h>
-#include "../DasherCore/DasherInterface.h"
+#include "DasherInterface.h"
 #include "QtDasherScreen.h"
 #include "QtDasherImpl.h"
 
