@@ -23,8 +23,11 @@ GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
   //  text.button_release_event.connect_after((SigC::Slot1<gint, GdkEventButton *>(this, &GtkDasherEdit::handle_cursor_move)));
   
   SigC::Slot1<gint, GdkEventButton *> s = SigC::slot(this, &GtkDasherEdit::handle_cursor_move);
+  SigC::Slot1<gint, GdkEventKey *> s2 = SigC::slot(this, &GtkDasherEdit::handle_key_press);
 
-  text.button_release_event.connect( s );
+  text.button_press_event.connect_after( s );
+  text.key_press_event.connect_after( s2 );
+
 }
 
 GtkDasherEdit::~GtkDasherEdit( )
@@ -43,6 +46,25 @@ gint GtkDasherEdit::handle_cursor_move( GdkEventButton *e )
     text.set_point( text.get_selection_end_pos() );
 
   //  text.delete_selection();
+
+  kill_flush();
+
+  interface->Start();
+  interface->Redraw();
+
+  return( true );
+}
+
+gint GtkDasherEdit::handle_key_press( GdkEventKey *e )
+{
+  // if( text.get_selection_start_pos() < text.get_selection_end_pos() )
+  //   text.set_point( text.get_selection_start_pos() );
+  // else
+  //  text.set_point( text.get_selection_end_pos() );
+
+ // cout << text.get_selection_start_pos() << " " <<  text.get_selection_end_pos() << endl;
+
+  text.set_point( text.get_position() );
 
   kill_flush();
 

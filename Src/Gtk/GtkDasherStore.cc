@@ -7,8 +7,6 @@
 
 GtkDasherStore::GtkDasherStore()
 {
-  cout << "Warning - this version of Dasher has been built without support for storage" << endl << "of configuration settings. Changes made to the configuration will be lost" << endl << "when you exit Dasher." << endl;
-  
   read_from_file();
 }
 
@@ -48,20 +46,29 @@ bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 	
 void GtkDasherStore::SaveSetting(const std::string& Key, bool Value)
 {
-  bmap[Key] = Value;
-  write_to_file();
+  if( bmap[Key] != Value )
+    {
+      bmap[Key] = Value;
+      write_to_file();
+    }
 }
 
 void GtkDasherStore::SaveSetting(const std::string& Key, long Value)
 {
-  lmap[Key] = Value;
-  write_to_file();
+  if( lmap[Key] != Value )
+    {
+      lmap[Key] = Value;
+      write_to_file();
+    }
 }
 
 void GtkDasherStore::SaveSetting(const std::string& Key, const std::string& Value)
 {
-  smap[Key] = Value;
-  write_to_file();
+  if( smap[Key] != Value )
+    {
+      smap[Key] = Value;
+      write_to_file();
+    }
 }
 
 void GtkDasherStore::write_to_file()

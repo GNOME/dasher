@@ -138,7 +138,7 @@ GtkDasherWindow::GtkDasherWindow()
     list_opts->push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
 
-    //    static_cast<MenuItem *>( (*list_opts)[3] )->set_sensitive( false );
+    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
     static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
 
     //    static_cast<CheckMenuItem *>( list_opts[0] )->set_active( false );

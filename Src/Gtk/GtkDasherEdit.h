@@ -40,7 +40,8 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   void Paste();
   void SelectAll();
 
-  gint handle_cursor_move( GdkEventButton *e );
+  gint handle_cursor_move( GdkEventButton *e );  
+  gint handle_key_press( GdkEventKey *e );
 
   void kill_flush();
 
