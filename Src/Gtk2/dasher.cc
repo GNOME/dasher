@@ -295,6 +295,8 @@ select_new_file(gpointer data, guint action, GtkWidget *widget)
     
     filename = g_strdup (tbuffer);
 
+  } else {
+    filename=NULL;
   }
 
   clear_edit();
