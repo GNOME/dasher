@@ -38,7 +38,7 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
 	Types.push_back(AT(Opts::Turkish, "Turkish"));
 	Types.push_back(AT(Opts::VietNam, "VietNam"));
 	Types.push_back(AT(Opts::Western, "Western"));
-	for (int i=0; i<Types.size(); i++) {
+	for (unsigned int i=0; i<Types.size(); i++) {
 		StoT[Types[i].second] = Types[i].first;
 		TtoS[Types[i].first] = Types[i].second;
 	}
@@ -83,7 +83,7 @@ void CAlphIO::ParseFile(std::string Filename)
 }
 
 
-void CAlphIO::GetAlphabets(std::vector< std::string >* AlphabetList) const
+void CAlphIO::GetAlphabets(std::vector< std::string > * AlphabetList) const
 {
 	AlphabetList->clear();
 	
@@ -242,7 +242,7 @@ void CAlphIO::CreateDefault()
 	Default.Groups.resize(1);
 	Default.Groups[0].Description = "Lower case Latin letters";
 	Default.Groups[0].Characters.resize(Chars.size());
-	for (int i=0; i<Chars.size(); i++) {
+	for (unsigned int i=0; i<Chars.size(); i++) {
 		Default.Groups[0].Characters[i].Text = Chars[i];
 		Default.Groups[0].Characters[i].Display = Chars[i];
 	}
@@ -255,7 +255,7 @@ void CAlphIO::XML_Escape(std::string* Text, bool Attribute)
 	
 	string& Input = *Text; // Makes syntax less fiddly below
 	
-	for (int i=0; i<Text->size(); i++) {
+	for (unsigned int i=0; i<Text->size(); i++) {
 		// & and < need escaping in XML. In one rare circumstance >
 		// needs escaping too. I'll always do it, as I'm allowed to.
 		if (Input[i]=='&') {
