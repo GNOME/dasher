@@ -264,6 +264,10 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   int value=int(gtk_spin_button_get_value(spinbutton));
 
   // Really dreadfully hacky stuff to avoid recursion
+  //
+  // The recursion only seems to happen if the value ends up as 0, so
+  // if we read a 0 twice in a row from the same widget then just break
+  // out and assume that it really is a 0
   if (coordcalled==true && value==0) {
     return true;
   } else if (value==0) {
