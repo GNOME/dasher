@@ -16,7 +16,7 @@
 #include "DasherTypes.h"
 
 #include "../Common/MSVC_Unannoy.h"
-#include <map>
+
 #include <vector>
 #include "AlphabetMap.h"
 
