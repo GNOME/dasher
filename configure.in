@@ -9,9 +9,11 @@ AC_PROG_INTLTOOL([0.18])
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
+GETTEXT_PACKAGE=dasher
+AC_SUBST(GETTEXT_PACKAGE)
+AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 ALL_LINGUAS="ar cs da de el en_GB es et fr ga hr hu ja ko lt mn nl no pl pt sk sq sr sr@Latn sv"
 AM_GNU_GETTEXT
-#AM_ICONV
 
 AC_PROG_CXX
 
