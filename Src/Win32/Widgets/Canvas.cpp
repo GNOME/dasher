@@ -21,6 +21,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	canvasclass.cbSize = sizeof( WNDCLASSEX );
 	GetClassInfoEx(NULL,TEXT("STATIC"),&canvasclass);
 	canvasclass.lpszClassName=TEXT("CANVAS");
+	canvasclass.lpfnWndProc= WinWrapMap::WndProc;
 	canvasclass.hCursor=LoadCursor(NULL,IDC_CROSS);
 //	canvasclass.style=canvasclass.style|WS_EX_TOOLWINDOW;
 	canvasclass.style=CS_OWNDC;	// give this window its own Private DC
@@ -40,7 +41,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 
  	
 	WinWrapMap::add(m_hwnd, this);
-	SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
+//	SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
 	ShowWindow(m_hwnd,SW_SHOW);
 	
 	m_hdc = GetDC(m_hwnd);
