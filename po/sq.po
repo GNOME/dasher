@@ -4,129 +4,179 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-20 12:49+0100\n"
-"PO-Revision-Date: 2004-02-20 12:58+0100\n"
+"POT-Creation-Date: 2004-05-08 20:13+0200\n"
+"PO-Revision-Date: 2004-05-08 20:14+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:63
 msgid "Menus"
 msgstr "Menutë"
 
-#: Src/Gtk2/accessibility.cc:65
+#: Src/Gtk2/accessibility.cc:70
 msgid "Windows"
 msgstr "Dritaret"
 
-#: Src/Gtk2/accessibility.cc:70
+#: Src/Gtk2/accessibility.cc:75
 msgid "Application"
 msgstr "Programi"
 
-#: Src/Gtk2/accessibility.cc:77
+#: Src/Gtk2/accessibility.cc:82
 msgid "Buttons"
 msgstr "Butonat"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Panelët"
 
-#: Src/Gtk2/accessibility.cc:90
+#: Src/Gtk2/accessibility.cc:95
 msgid "Text"
 msgstr "Teksti"
 
-#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:170 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Kontrollo"
 
-#: Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Ndalo"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:181
 msgid "Pause"
 msgstr "Pezullo"
 
-#: Src/Gtk2/accessibility.cc:181
+#: Src/Gtk2/accessibility.cc:188
 msgid "Move"
 msgstr "Lëvize"
 
-#: Src/Gtk2/accessibility.cc:188
+#: Src/Gtk2/accessibility.cc:195
 msgid "Delete"
 msgstr "Elemino"
 
-#: Src/Gtk2/accessibility.cc:197
+#: Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Fol"
 
-#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:212 Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Shpejtësia"
+
+#: Src/Gtk2/accessibility.cc:229 Src/Gtk2/accessibility.cc:383
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:377
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:227
+#: Src/Gtk2/accessibility.cc:241
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:247
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:260
 msgid "Everything"
 msgstr "Gjithçka"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:266
 msgid "New"
 msgstr "E re"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:272
 msgid "Repeat"
 msgstr "Përsërit"
 
-#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
+#: Src/Gtk2/accessibility.cc:294
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:301
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:308
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:315
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:322
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:329
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:336
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:343
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:350
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:357
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:389 Src/Gtk2/accessibility.cc:412
 msgid "Character"
 msgstr "Simboli"
 
-#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
+#: Src/Gtk2/accessibility.cc:400 Src/Gtk2/accessibility.cc:422
 msgid "Word"
 msgstr "Fjala"
 
-#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:405 Src/Gtk2/accessibility.cc:428
 msgid "Line"
 msgstr "Linja"
 
-#: Src/Gtk2/accessibility.cc:399
+#: Src/Gtk2/accessibility.cc:508
 msgid "Unknown"
 msgstr "Nuk njihet"
 
-#: Src/Gtk2/dasher.cc:183
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
 msgstr "Duke udhëzuar Dasher, ju lutem durim"
 
+#: Src/Gtk2/dasher.cc:664 Src/Gtk2/dasher.cc:677 Src/Gtk2/dasher.cc:690
+#: Src/Gtk2/dasher.cc:703 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Zgjidh file"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1771
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher është një program për futjen e tekstit të parashikuar"
 
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2178
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d simbole rezultues në %d sekonda\n"
@@ -159,7 +209,7 @@ msgstr "<b>Zgjedhja e Alfabetit:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Rregullimi i pulsantit të kontrollit</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Zgjedhja e ngjyrës:</b>"
 
@@ -227,11 +277,11 @@ msgstr "Modaliteti pulsante"
 msgid "Button:"
 msgstr "Pulsanti:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Ndrysho automatikisht ngjyrën e skemës"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Ngjyra"
 
@@ -357,10 +407,6 @@ msgstr "Ruaj file"
 msgid "Save file as"
 msgstr "Ruaj file si"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Zgjidh file"
-
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
 msgstr "Zgjidh gërmat"
@@ -380,10 +426,6 @@ msgstr "Shfaq instrumentet"
 #: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
 msgstr "Fol kur ndalon"
-
-#: Src/Gtk2/dasher.glade.h:65
-msgid "Speed"
-msgstr "Shpejtësia"
 
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
@@ -491,37 +533,30 @@ msgstr "_Rivendos gërmat"
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Zgjedhja e ngjyrës:</b>"
-
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Shpejtësia</b>"
-
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Ndrysho automatikisht ngjyrën e skemës"
-
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Ngjyra"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Orientimi"
 
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "E pamundur nisja e suportit për zërin\n"
+
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "E pamundur nisja e zërave"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:66
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Kujdes: i pamundur rregullimi i parametrave të shqiptimit\n"
 
-#: Src/main.cc:98
+#: Src/main.cc:103
 msgid "Dasher Text Entry"
 msgstr "Elementi tekst i Dasher"
 
