@@ -16,7 +16,5 @@
 using namespace Dasher;
 
 ControlTree* gettree();
-int scantree(Accessible *parent);
-GNode* buildtree(Accessible *parent, GNode *treeparent);
-ControlTree* buildmenutree(GNode* tree, ControlTree *ctree);
+bool buildmenutree(Accessible *parent, ControlTree *ctree);
 #endif
