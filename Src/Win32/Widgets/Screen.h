@@ -16,6 +16,7 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/MSVC_Unannoy.h"
 #include <vector>
+#include <cmath>
 
 
 class CScreen : public Dasher::CDasherScreen, private NoClones
