@@ -1221,6 +1221,7 @@ void parameter_int_callback( int_param p, long int value )
 	}
       break;
     case INT_UNIFORM:
+      gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), float(value)/10);
       break;
     }
 }
