@@ -174,7 +174,8 @@ void CDasherModel::Start()
 	}
 
 	m_Root->Push_Node(therootcontext);
-
+	m_Root->Recursive_Push_Node(0);
+	
 	m_languagemodel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
 //	dump();

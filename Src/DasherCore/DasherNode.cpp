@@ -197,7 +197,11 @@ void CDasherNode::Push_Node()
 
 void CDasherNode::Recursive_Push_Node(int depth) {
 
-  if ((m_iHbnd-m_iLbnd)<10) {
+  if ((m_iHbnd-m_iLbnd)<0.1*(m_languagemodel->normalization())) {
+    return;
+  }
+
+  if (m_Symbol==m_languagemodel->GetControlSymbol()) {
     return;
   }
 
