@@ -1071,5 +1071,9 @@
 <s d="え" t="え"/>
 <s d="お" t="お"/>
 </group>
+<group name="Hiragana diacriticals">
+<s d="゙" t="゙"/>
+<s d="゛" t="゛"/>
+</group>
 </alphabet>
 </alphabets>
