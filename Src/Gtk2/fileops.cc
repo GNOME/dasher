@@ -60,16 +60,33 @@ gboolean gnome_vfs_open_file (const char* myfilename, gchar** buffer, unsigned l
   GnomeVFSResult result;
   GnomeVFSFileInfo info;
   GnomeVFSFileSize bytes_read;
+  GnomeVFSURI *uri;
 
-  result=gnome_vfs_open (&read_handle, myfilename, GNOME_VFS_OPEN_READ);
+  uri=gnome_vfs_uri_new(myfilename);
+
+  if (uri==NULL) { // It's not a URI we can cope with - assume it's a filename
+    char *tmpfilename=gnome_vfs_get_uri_from_local_path(myfilename);
+    if (myfilename!=filename) {
+      g_free((void *)myfilename);
+    }
+    myfilename=tmpfilename;
+    uri=gnome_vfs_uri_new(myfilename);
+    if (uri==NULL) {
+      return FALSE;
+    }
+  }
+
+  result=gnome_vfs_open_uri (&read_handle, uri, GNOME_VFS_OPEN_READ);
   if (result != GNOME_VFS_OK) {
     vfs_print_error(&result,myfilename);
+    g_free(uri);
     return FALSE;
   }
 
-  result=gnome_vfs_get_file_info(myfilename,&info,GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
+  result=gnome_vfs_get_file_info_uri(uri,&info,GNOME_VFS_FILE_INFO_FOLLOW_LINKS);
   if (result != GNOME_VFS_OK) {
     vfs_print_error(&result,myfilename);
+    g_free(uri);
     return FALSE;
   }
 
@@ -78,9 +95,11 @@ gboolean gnome_vfs_open_file (const char* myfilename, gchar** buffer, unsigned l
   result = gnome_vfs_read (read_handle, *buffer, *size, &bytes_read);
   if (result != GNOME_VFS_OK) {
     vfs_print_error(&result,myfilename);
+    g_free(uri);
     return FALSE;
   }
   gnome_vfs_close(read_handle);
+  g_free(uri);
   return TRUE;
 }
 #endif
@@ -236,19 +255,35 @@ gboolean gnome_vfs_save_file(const char* myfilename, gchar* buffer, unsigned lon
   GnomeVFSResult result;
   GnomeVFSFileInfo info;
   GnomeVFSFileSize bytes_written;
+  GnomeVFSURI *uri;
 
-  result = gnome_vfs_create (&write_handle, myfilename, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE|GNOME_VFS_OPEN_RANDOM), TRUE, 0666);
+  uri=gnome_vfs_uri_new(myfilename);
+
+  if (uri==NULL) { // It's not a URI we can cope with - assume it's a filename
+    char *tmpfilename=gnome_vfs_get_uri_from_local_path(myfilename);
+    if (myfilename!=filename) {
+      g_free((void *)myfilename);
+    }
+    myfilename=tmpfilename;
+    uri=gnome_vfs_uri_new(myfilename);
+    if (uri==NULL) {
+      return FALSE;
+    }
+  }
+
+  result = gnome_vfs_create_uri (&write_handle, uri, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE|GNOME_VFS_OPEN_RANDOM), TRUE, 0666);
 
   if (result==GNOME_VFS_ERROR_FILE_EXISTS) {
     if (append) {
-      result = gnome_vfs_open (&write_handle, myfilename, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE|GNOME_VFS_OPEN_RANDOM));
+      result = gnome_vfs_open_uri (&write_handle, uri, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE|GNOME_VFS_OPEN_RANDOM));
     } else {
-      result = gnome_vfs_create (&write_handle, myfilename, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE|GNOME_VFS_OPEN_RANDOM), FALSE, 0666);
+      result = gnome_vfs_create_uri (&write_handle, uri, GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE|GNOME_VFS_OPEN_RANDOM), FALSE, 0666);
     }
   }
 
   if (result != GNOME_VFS_OK) {
     vfs_print_error(&result,myfilename);
+    g_free(uri);
     return FALSE;
   }
 
@@ -256,6 +291,7 @@ gboolean gnome_vfs_save_file(const char* myfilename, gchar* buffer, unsigned lon
     result=gnome_vfs_seek(write_handle,GNOME_VFS_SEEK_END,0);
     if (result != GNOME_VFS_OK) {
       vfs_print_error(&result,myfilename);
+      g_free(uri);
       return FALSE;
     }
   }
@@ -263,10 +299,12 @@ gboolean gnome_vfs_save_file(const char* myfilename, gchar* buffer, unsigned lon
   result=gnome_vfs_write(write_handle,buffer,length, &bytes_written);
   if (result != GNOME_VFS_OK) {
     vfs_print_error(&result,myfilename);
+    g_free(uri);
     return FALSE;
   }
 
   gnome_vfs_close(write_handle);
+  g_free(uri);
   return TRUE;
 }
 

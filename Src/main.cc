@@ -258,11 +258,16 @@ main(int argc, char *argv[])
   add_control_tree(controltree);
 
   if (optind<argc) {
-    char *cwd;
-    cwd=(char *)malloc(1024*sizeof(char));
-    getcwd(cwd,1024);
-    filename=g_build_path("/",cwd,argv[optind],NULL);
-    open_file(filename);
+    if (!g_path_is_absolute(argv[optind])) {
+      char *cwd;
+      cwd=(char *)malloc(1024*sizeof(char));
+      getcwd(cwd,1024);
+      filename=g_build_path("/",cwd,argv[optind],NULL);
+      open_file(filename);
+    } else {
+      filename=argv[optind];
+      open_file(filename);
+    }
   } else {
     choose_filename();
   }

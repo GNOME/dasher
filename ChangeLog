@@ -1,6 +1,7 @@
 2004-07-30  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Switch to using gnome-vfs
+	* Add support for non-local files
 	
 2004-07-29  Matthew Garrett  <mjg59@srcf.ucam.org>
 
