@@ -30,7 +30,7 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 {
 	string Tmp;
 	symbol CurSymbol=0, TmpSymbol=0;
-	bool KeyIsPrefix;
+	bool KeyIsPrefix=false;
 	int z= Input->size();
 	int extras;
 	unsigned int bit;
