@@ -283,7 +283,11 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	  }
 	}
 
-	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+	if (ColourMode==true) {
+	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
+	} else {
+	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+	}
 }
 
 void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
@@ -322,7 +326,11 @@ void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
 	mouseline[1].x=mousex;
 	mouseline[1].y=mousey;	  	
 
-	Screen().Polyline(mouseline,2);
+	if (ColourMode==true) {
+	  Screen().Polyline(mouseline,2,1);
+	} else {
+	  Screen().Polyline(mouseline,2);
+	}
 }
 
 void CDasherViewSquare::DrawKeyboard()
