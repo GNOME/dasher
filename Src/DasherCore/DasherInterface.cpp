@@ -518,8 +518,6 @@ void CDasherInterface::WindowPause(bool Value)
 void CDasherInterface::ControlMode(bool Value)
 {
   m_ControlMode=Value;
-  if (m_SettingsUI!=0)
-    m_SettingsUI->ControlMode(Value);
   if (m_SettingsStore!=0)
     m_SettingsStore->SetBoolOption(Keys::CONTROL_MODE, Value);
   if (m_Alphabet!=0) {
@@ -528,9 +526,13 @@ void CDasherInterface::ControlMode(bool Value)
     } else {
       m_Alphabet->DelControlSymbol();
     }
-    Start();
-    Redraw();
   }
+
+  if (m_SettingsUI!=0)
+    m_SettingsUI->ControlMode(Value);
+
+  Start();
+  Redraw();
 }
 
 void CDasherInterface::KeyboardMode(bool Value)

@@ -89,6 +89,7 @@ public:
 
 	// toggle text entry mode
 	void TextEntry(bool Value) {textentry=Value;}
+	bool GetTextEntry() {return textentry;}
 
 	// speak text
 	void speak(int what);

@@ -29,7 +29,7 @@ using namespace WinUTF8;
 
 
 CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
-	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0), pVoice(0)
+	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0), pVoice(0), textentry(false)
 {
 	Tstring WindowTitle;
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
@@ -684,15 +684,17 @@ void CEdit::deletetext()
 
 void CEdit::SetWindow(HWND window)
 {
-	targetwindow=window;
-	if (threadid!=NULL) {
-		AttachThreadInput(GetCurrentThreadId(),threadid,FALSE);
-//		SetFocus(Parent);
-	}
-	if (window!=NULL) {
-		threadid=GetWindowThreadProcessId(window,NULL);
-		AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(window,NULL),TRUE);
-//		SetFocus(window);
+	if (targetwindow!=window) {
+		targetwindow=window;
+		if (threadid!=NULL) {
+			AttachThreadInput(GetCurrentThreadId(),threadid,FALSE);
+			//		SetFocus(Parent);
+		}
+		if (window!=NULL) {
+			threadid=GetWindowThreadProcessId(window,NULL);
+			AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(window,NULL),TRUE);
+			//		SetFocus(window);
+		}
 	}
 }
 

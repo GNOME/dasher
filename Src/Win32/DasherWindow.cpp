@@ -379,6 +379,7 @@ void CDasherWindow::ControlMode(bool Value)
 {
 	controlmode=Value;
 	WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, Value);
+	m_pCanvas->SetScreenInterface(DasherWidgetInterface);
 }
 
 void CDasherWindow::SetDasherEyetracker(bool Value)
@@ -428,7 +429,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 
 			case ID_OPTIONS_ENTERTEXT:
 				GetWindowRect(m_hwnd,&windowsize);
-				if (WinMenu.GetCheck(ID_OPTIONS_ENTERTEXT)) {
+				if (m_pEdit->GetTextEntry()==false) {
 					SetWindowPos(m_hwnd, HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right-windowsize.left), (windowsize.bottom-windowsize.top), NULL);
 					WinMenu.SetStatus(ID_OPTIONS_ENTERTEXT, false, true);
 					m_pEdit->TextEntry(true);

@@ -51,6 +51,7 @@ public:
 	void DrawOutlines(bool Value) {m_pScreen->DrawOutlines(Value);}
 	void Pause() {running=0;}
 	bool Running() {return running;}
+	void SetScreenInterface(Dasher::CDasherWidgetInterface* widgetinterface){m_pScreen->SetInterface(widgetinterface);}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
