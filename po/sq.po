@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.sq\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-07 11:19+0100\n"
-"PO-Revision-Date: 2004-02-07 11:21+0100\n"
+"POT-Creation-Date: 2004-02-12 15:46+0100\n"
+"PO-Revision-Date: 2004-02-12 15:51+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Dritaret"
 
 #: Src/Gtk2/accessibility.cc:70
 msgid "Application"
-msgstr "Aplikativi"
+msgstr "Programi"
 
 #: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
@@ -124,13 +124,13 @@ msgstr "Dasher"
 
 #: Src/Gtk2/dasher.cc:1758
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher është një aplikativ për futjen e tekstit të parashikuar"
+msgstr "Dasher është një program për futjen e tekstit të parashikuar"
 
 #. Just a debugging thing
 #: Src/Gtk2/dasher.cc:2165
 #, c-format
 msgid "%d characters output in %d seconds\n"
-msgstr "%d gërma rezultuese në %d sekonda\n"
+msgstr "%d simbole rezultues në %d sekonda\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -178,7 +178,7 @@ msgstr "<b>Orientimi:</b>"
 
 #: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
 msgid "<b>Smoothing:</b>"
-msgstr "<b>Smuzimi:</b>"
+msgstr "<b>Rrumbullakimi:</b>"
 
 #: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
@@ -186,7 +186,7 @@ msgstr "<b>Nisja dhe ndalimi:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Heq modalitetin pulsante:</b>"
+msgstr "<b>Heq modalitetin pulsant:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
@@ -522,7 +522,7 @@ msgstr "E pamundur nisja e zërave"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Kujdes: i pamundur rregullimi i parametrave të shqiptimit\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:98
 msgid "Dasher Text Entry"
 msgstr "Elementi tekst i Dasher"
 
