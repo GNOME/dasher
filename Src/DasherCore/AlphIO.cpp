@@ -152,6 +152,7 @@ void CAlphIO::Save(const std::string& AlphID)
 	// without. I'm going to ignore AlphID and save all alphabets as the
 	// overhead doesn't seem to matter and it makes things much easier.
 	
+        std::string NumberFudge;
 	FILE* Output;
 	string Filename = UserLocation + "alphabet.xml";
 	if ((Output = fopen (Filename.c_str(), "w")) == (FILE*)0) {
@@ -200,17 +201,54 @@ void CAlphIO::Save(const std::string& AlphID)
 		fwrite(TtoS[Info.Type].c_str(), sizeof(char), TtoS[Info.Type].size(), Output);
 		fwrite("\"/>\n", sizeof(char), 4, Output);
 		
+
+		fwrite("<palette>", sizeof(char), 9, Output);
+		XML_Escape(&Info.PreferredColours, false);
+		fwrite(Info.PreferredColours.c_str(), sizeof(char), Info.PreferredColours.size(), Output);
+		fwrite("</palette>\n", sizeof(char), 11, Output);
+
 		fwrite("<train>", sizeof(char), 7, Output);
 		XML_Escape(&Info.TrainingFile, false);
 		fwrite(Info.TrainingFile.c_str(), sizeof(char), Info.TrainingFile.size(), Output);
 		fwrite("</train>\n", sizeof(char), 9, Output);
-		
+
+		// Write out the space character
 		fwrite("<space d=\"", sizeof(char), 10, Output);
 		XML_Escape(&Info.SpaceCharacter.Display, true);
 		fwrite(Info.SpaceCharacter.Display.c_str(), sizeof(char), Info.SpaceCharacter.Display.size(), Output);
 		fwrite("\" t=\"", sizeof(char), 5, Output);
 		XML_Escape(&Info.SpaceCharacter.Text, true);
 		fwrite(Info.SpaceCharacter.Text.c_str(), sizeof(char), Info.SpaceCharacter.Text.size(), Output);
+		fwrite("\" b=\"", sizeof(char), 5, Output);
+		NumberFudge=Info.SpaceCharacter.Colour;
+		XML_Escape(&NumberFudge, true);
+		fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+		fwrite("\"/>\n", sizeof(char), 4, Output);
+
+		// Write out the paragraph character
+		fwrite("<paragraph d=\"", sizeof(char), 14, Output);
+		XML_Escape(&Info.ParagraphCharacter.Display, true);
+		fwrite(Info.ParagraphCharacter.Display.c_str(), sizeof(char), Info.ParagraphCharacter.Display.size(), Output);
+		fwrite("\" t=\"", sizeof(char), 5, Output);
+		XML_Escape(&Info.ParagraphCharacter.Text, true);
+		fwrite(Info.ParagraphCharacter.Text.c_str(), sizeof(char), Info.ParagraphCharacter.Text.size(), Output);
+		fwrite("\" b=\"", sizeof(char), 5, Output);
+		NumberFudge=Info.ParagraphCharacter.Colour;
+		XML_Escape(&NumberFudge, true);
+		fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+		fwrite("\"/>\n", sizeof(char), 4, Output);
+
+		// Write out the control character
+		fwrite("<control d=\"", sizeof(char), 11, Output);
+		XML_Escape(&Info.ControlCharacter.Display, true);
+		fwrite(Info.ControlCharacter.Display.c_str(), sizeof(char), Info.ControlCharacter.Display.size(), Output);
+		fwrite("\" t=\"", sizeof(char), 5, Output);
+		XML_Escape(&Info.ControlCharacter.Text, true);
+		fwrite(Info.ControlCharacter.Text.c_str(), sizeof(char), Info.ControlCharacter.Text.size(), Output);
+		fwrite("\" b=\"", sizeof(char), 5, Output);
+		NumberFudge=Info.ControlCharacter.Colour;
+		XML_Escape(&NumberFudge, true);
+		fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
 		fwrite("\"/>\n", sizeof(char), 4, Output);
 		
 		typedef vector<AlphInfo::group>::iterator gi;
@@ -219,6 +257,10 @@ void CAlphIO::Save(const std::string& AlphID)
 			fwrite("<group name=\"", sizeof(char), 13, Output);
 			XML_Escape(&CG->Description, true);
 			fwrite(CG->Description.c_str(), sizeof(char), CG->Description.size(), Output);
+			fwrite("\" b=\"", sizeof(char), 5, Output);
+			NumberFudge=CG->Colour;
+			XML_Escape(&NumberFudge, true);
+			fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
 			fwrite("\">\n", sizeof(char), 3, Output);
 			
 			// Iterate over CG->Characters
@@ -231,6 +273,10 @@ void CAlphIO::Save(const std::string& AlphID)
 				fwrite("\" t=\"", sizeof(char), 5, Output);
 				XML_Escape(&CC->Text, true);
 				fwrite(CC->Text.c_str(), sizeof(char), CC->Text.size(), Output);
+				fwrite("\" b=\"", sizeof(char), 5, Output);
+				NumberFudge=CC->Colour;
+				XML_Escape(&NumberFudge, true);
+				fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
 				fwrite("\"/>\n", sizeof(char), 4, Output);
 			}
 			
