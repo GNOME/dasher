@@ -1,9 +1,7 @@
 # Turkish translation of Dasher.
 # Copyright (C) 2004 THE Dasher'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Dasher package.
-# Burçin Dönmez <bdonmez@cisunix.unh.edu>, 2004.
-# , fuzzy
-# 
+# BurÃ§in DÃ¶nmez <bdonmez@cisunix.unh.edu>, 2004.
 # 
 msgid ""
 msgstr ""
@@ -11,7 +9,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-02-16 14:40+0100\n"
 "PO-Revision-Date: 2004-02-16 20:17-0500\n"
-"Last-Translator: Burçin Dönmez <bdonmez@cisunix.unh.edu>\n"
+"Last-Translator: BurÃ§in DÃ¶nmez <bdonmez@cisunix.unh.edu>\n"
 "Language-Team: Turkish <gnome-turk@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
