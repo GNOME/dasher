@@ -130,7 +130,7 @@ void CDasherViewSquare::CheckForNewRoot()
 {
 	CDasherNode * const root=DasherModel().Root();
 	CDasherNode ** const children=root->Children();
-	
+
 	if (children==0)
 		return;
 	
@@ -144,13 +144,12 @@ void CDasherViewSquare::CheckForNewRoot()
 		}
 	}
 	
-	if (alive==1) {
+	if (alive==1) {	  
 		myint y1=DasherModel().Rootmin();
 		myint y2=DasherModel().Rootmax();
 		myint range=y2-y1;
 		myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
 		myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
-		
 		if (newy1<0 && newy2> DasherModel().DasherY()) {
 			myint left=dasherx2screen(newy2-newy1);
 			if (left<-1000) {
