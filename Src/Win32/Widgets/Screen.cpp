@@ -125,8 +125,8 @@ void CScreen::Build_Colours ()
 	m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
 	
 	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
 	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
+	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
 	
 	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(180,245,180)));
 	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(160,200,160)));
