@@ -1,3 +1,7 @@
+2004-03-12  Dafydd Harries  <daf@muse.19inch.net>
+
+	* configure.in: Added "cy" (Welsh) to ALL_LINGUAS.
+
 2004-03-11  Maxim Dziumanenko <mvd@mylinux.com.ua>
 
 	* configure.in: Added "uk" (Ukrainian) to ALL_LINGUAS.
