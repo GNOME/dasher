@@ -365,7 +365,7 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 		m_DasherModel = 0;
 		delete m_LanguageModel;
 		// TODO Use LanguageModelID to decide which model to use
-		m_LanguageModel = new CPPMLanguageModel(m_Alphabet,1<<30);
+		m_LanguageModel = new CPPMLanguageModel(m_Alphabet);
 		TrainContext = m_LanguageModel->GetRootNodeContext();
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);
