@@ -68,6 +68,7 @@ public:
 	void Unpause(unsigned long Time);                       // Dasher run at the
 	void Redraw();                                          // correct speed.
 
+	void DrawMousePos(int MouseX, int MouseY);
 	void GoTo(int MouseX, int MouseY);
 	void DrawGoTo(int MouseX, int MouseY);
 	

@@ -11,8 +11,8 @@ PangoRectangle *ink,*logical;
 GdkColor *colours;
 
 extern gboolean setup;
-extern gboolean paused;
 extern long mouseposstartdist;
+extern gboolean firstbox, secondbox,paused;
 
 gboolean drawoutline=FALSE;
 
@@ -40,7 +40,7 @@ void initialise_canvas( int width, int height )
 
 void blank_callback()
 {
-  if (setup==false || paused==true) 
+  if (setup==false) 
     return;
 
   gdk_draw_rectangle (offscreen_buffer,		      
@@ -56,8 +56,16 @@ void display_callback()
 { 
   GdkRectangle update_rect;
 
-  if (setup==false || paused==true)
+  if (setup==false)
     return;
+
+  if (paused==true) {
+    if (firstbox==true) {
+      draw_mouseposbox(0);
+    } else if (secondbox==true) {
+      draw_mouseposbox(1);
+    }
+  }
 
   gdk_draw_pixmap(onscreen_buffer,
   		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
@@ -88,7 +96,7 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   GdkRectangle update_rect;
   GdkGCValues origvalues;
 
-  if (setup==false || paused==true)
+  if (setup==false)
     return;
 
   GdkColor black = {0, 0, 0, 0};
@@ -144,7 +152,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   GdkRectangle update_rect;
   GdkGCValues origvalues;
 
-  if (setup==false || paused==true)
+  if (setup==false)
     return;
 
   GdkColor black = {0, 0, 0, 0};
@@ -172,7 +180,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   std::string symbol;
   GdkRectangle update_rect;
 
-  if (setup==false || paused==true)
+  if (setup==false)
     return;
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
@@ -195,7 +203,7 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
 {
   GdkRectangle update_rect;
 
-  if (setup==false || paused==true)
+  if (setup==false)
     return;
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
@@ -216,7 +224,7 @@ void text_size_callback(symbol Character, int* Width, int* Height, int Size)
 {
   // FIXME
 
-  if (setup==false || paused==true)
+  if (setup==false)
     return;
 
   *Width = Size;
@@ -348,10 +356,6 @@ void draw_mouseposbox(int which) {
   colormap = gdk_colormap_get_system();
   int top, bottom;
 
-  paused=false;
-  dasher_render();
-  paused=true;
-
   switch (which) {
   case 0:
     color.pixel=0;
@@ -369,25 +373,11 @@ void draw_mouseposbox(int which) {
     break;
   }
 
-  gdk_draw_pixmap(onscreen_buffer,
-  		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-  		  offscreen_buffer,
-  		  0, 0, 0,0,
-		  the_canvas->allocation.width,
-		  the_canvas->allocation.height);
-
   gdk_gc_get_values(graphics_context,&origvalues);
   gdk_color_alloc(colormap, &color);
   gdk_gc_set_foreground (graphics_context, &color);
-  gdk_draw_rectangle (onscreen_buffer, graphics_context, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
+  gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
-
-  update_rect.x = 0;
-  update_rect.y = 0;
-  update_rect.width = the_canvas->allocation.width;
-  update_rect.height = the_canvas->allocation.height;
-
-  gtk_widget_draw(the_canvas,&update_rect);
 }
 
 

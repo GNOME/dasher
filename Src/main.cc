@@ -36,7 +36,7 @@
 
 GError *gconferror;
 gboolean timedata;
-extern gboolean setup;
+extern gboolean setup,paused;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
@@ -137,6 +137,8 @@ main(int argc, char *argv[])
   interface_setup(xml);
 
   dasher_early_initialise();
+
+  paused=true;
 
   glade_xml_signal_autoconnect(xml);
   open_window(xml);

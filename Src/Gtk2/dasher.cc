@@ -122,7 +122,7 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 
     dasher_set_parameter_string( STRING_ALPHABET, alph );
     
-    force_dasher_redraw();
+    dasher_redraw();
 
     g_free(alph);
 
@@ -143,7 +143,7 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
 
     dasher_set_parameter_string( STRING_COLOUR, colour );
     
-    force_dasher_redraw();
+    dasher_redraw();
 
     g_free(colour);
   }
@@ -409,12 +409,9 @@ select_new_file(GtkWidget *widget, gpointer user_data)
 
   clear_edit();
   add_control_tree(gettree());
-  paused=false;
   dasher_start();
   dasher_redraw();
   dasher_pause(0,0);
-  paused=true;
-
 }
 
 extern "C" void 
@@ -728,46 +725,52 @@ timer_callback(gpointer data)
     dasher_tap_on( x, y, get_time() );
   }
 
-  else if (mouseposstart==true) {
+  else {
     int x,y;
-    dasherheight=the_canvas->allocation.height;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    
+    dasher_draw_mouse_position(x,y);
 
-    if (firsttime==firstbox==secondbox==false) { // special case for Dasher 
-      firstbox=true;                             // startup
-      draw_mouseposbox(0);
-    }
-
-    if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist) && firstbox==true) {
-      // Inside the red box
-      if (starttime==0) {
-	starttime=time(NULL);
-      } else {
-	if ((time(NULL)-starttime)>2) {
-	  draw_mouseposbox(1);
-	  secondbox=true;
-	  firstbox=false;
+    if (mouseposstart==true) {
+      dasherheight=the_canvas->allocation.height;
+      gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+      
+      if (firsttime==firstbox==secondbox==false) { // special case for Dasher 
+	firstbox=true;                             // startup
+	dasher_redraw();
+      }
+      
+      if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist) && firstbox==true) {
+	// Inside the red box
+	if (starttime==0) {
+	  starttime=time(NULL);
+	} else {
+	  if ((time(NULL)-starttime)>2) {
+	    secondbox=true;
+	    firstbox=false;
+	    dasher_redraw();
+	  }
 	}
-      }
-    } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
-      // inside the yellow box, and the yellow box has been displayed
-      if (starttime2==0) {
-	starttime2=time(NULL);
-	starttime=0;
-      } else {
-	if ((time(NULL)-starttime2)>2) {
-	  stop(); // Yes, confusingly named
+      } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
+	// inside the yellow box, and the yellow box has been displayed
+	if (starttime2==0) {
+	  starttime2=time(NULL);
+	  starttime=0;
+	} else {
+	  if ((time(NULL)-starttime2)>2) {
+	    stop(); // Yes, confusingly named
+	  }
 	}
+      } else {
+	if (secondbox==true && starttime2>0) {
+	  secondbox=false;
+	  firstbox=true;
+	  starttime2=0;
+	  starttime=0;
+	  dasher_redraw();
+	}
+	starttime=starttime2=0;
       }
-    } else {
-      if (secondbox==true && starttime2>0) {
-	draw_mouseposbox(0);
-	secondbox=false;
-	firstbox=true;
-	starttime2=0;
-	starttime=0;
-      }
-      starttime=starttime2=0;
     }
   }
 
@@ -788,9 +791,6 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
   if (firsttime==TRUE) {
     paused=true;
     firsttime=false;
-    if (mouseposstart==true) {
-      draw_mouseposbox(0);
-    }
   }
 
   return TRUE;
@@ -803,7 +803,7 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 
   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
 
-  force_dasher_redraw();
+  dasher_redraw();
 
   if (setup==TRUE) {
     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
@@ -820,7 +820,7 @@ edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer da
 {
   if (paused==true) {
     dasher_start();
-    force_dasher_redraw();
+    dasher_redraw();
     return FALSE;
   }
 }
@@ -830,7 +830,7 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   if(keycontrol==false) {
     dasher_start();
-    force_dasher_redraw();
+    dasher_redraw();
   }
 }
 
@@ -1192,7 +1192,7 @@ open_window(GladeXML *xml) {
   dasher_get_alphabets( &alphabet, 1 );
 
   dasher_start();
-  force_dasher_redraw();
+  dasher_redraw();
 
   gtk_timeout_add(50, timer_callback, NULL );  
 
@@ -1262,7 +1262,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data)
     }
   }
 
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
@@ -1275,7 +1275,7 @@ extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
     } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizevlarge")) {
       dasher_set_parameter_int( INT_DASHERFONTSIZE, VBig);
     }
-    force_dasher_redraw();
+    dasher_redraw();
   }
 }
 
@@ -1366,7 +1366,7 @@ extern "C" void controlmode(GtkWidget *widget, gpointer user_data)
   controlmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
   dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
   dasher_start();
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data)
@@ -1378,7 +1378,7 @@ extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data)
 extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data)
 {
   dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_TOGGLE_BUTTON(widget)->active );
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
@@ -1429,7 +1429,7 @@ extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
     set_canvas_font(font_name);
   }
   fontsel_hide(NULL,NULL);
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data)
@@ -1448,7 +1448,7 @@ extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
     set_editbox_font(font_name);
   }
   fontsel_hide(NULL,NULL);
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
@@ -1474,14 +1474,14 @@ extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data)
 {
   drawoutline=GTK_TOGGLE_BUTTON(widget)->active;
   dasher_set_parameter_bool( BOOL_OUTLINEMODE, GTK_TOGGLE_BUTTON(widget)->active );
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 {
   mouseposstartdist=int(widget->adjustment->value);
   set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
-  force_dasher_redraw();
+  dasher_redraw();
 }
 
 extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
@@ -1585,7 +1585,7 @@ void parameter_int_callback( int_param p, long int value )
     case INT_EDITHEIGHT:
       editheight=value;
       gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),value);
-      force_dasher_redraw();
+      dasher_redraw();
       break;
     case INT_SCREENWIDTH:
       window_x=value;
@@ -1596,7 +1596,7 @@ void parameter_int_callback( int_param p, long int value )
       } else {
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
       }
-      force_dasher_redraw();
+      dasher_redraw();
       break;
     case INT_SCREENHEIGHT:
       window_y=value;
@@ -1607,7 +1607,7 @@ void parameter_int_callback( int_param p, long int value )
       } else {
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
       }
-      force_dasher_redraw();
+      dasher_redraw();
       break;
     }
 }
@@ -1674,7 +1674,7 @@ void parameter_bool_callback( bool_param p, bool value )
       mouseposstart=value;
       firstbox=value;
       secondbox=false;
-      force_dasher_redraw();
+      dasher_redraw();
       break;
     case BOOL_KEYBOARDCONTROL:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), value);
@@ -1688,7 +1688,7 @@ void parameter_bool_callback( bool_param p, bool value )
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"controlmode")), value);
       controlmodeon=value;
       dasher_start();
-      force_dasher_redraw();
+      dasher_redraw();
       break;
     case BOOL_KEYBOARDMODE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), value);
@@ -1726,23 +1726,9 @@ void stop() {
       printf("%d characters output in %d seconds\n",outputcharacters,
 	     time(NULL)-starttime);
     }
-    if (mouseposstart==TRUE) {
-      draw_mouseposbox(0);
+    if (mouseposstart==true) {
+      firstbox=true;
+      dasher_redraw();
     }
-  }
-}
-
-void force_dasher_redraw() {
-  if (paused==true) {
-    paused=false;    
-    dasher_redraw();    
-    paused=true;
-    if (firstbox==true) {
-      draw_mouseposbox(0);
-    } else if (secondbox==true) {
-      draw_mouseposbox(1);
-    }
-  } else {
-    dasher_redraw();
   }
 }

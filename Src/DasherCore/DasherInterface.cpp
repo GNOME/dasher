@@ -154,6 +154,18 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 		m_DasherModel->NewFrame(Time);
 }
 
+void CDasherInterface::DrawMousePos(int MouseX, int MouseY)
+{
+  m_DasherView->Render();
+  if (m_DrawMouse==true) {
+    m_DasherView->DrawMouse(MouseX, MouseY);
+  }
+  if (m_DrawKeyboard==true) {
+    m_DasherView->DrawKeyboard();
+  }
+  m_DasherView->Display();
+}
+
 void CDasherInterface::GoTo(int MouseX, int MouseY)
 {
 	if (m_DasherView!=0) {

@@ -33,6 +33,13 @@ public:
 	//! \param Time Time in milliseconds, required to keep Dasher running
 	//! at the correct speed
 	virtual void TapOn(int MouseX, int MouseY, unsigned long Time)=0;
+
+	//! Draw the mouse position
+	//
+	//! Gives a coordinate that the mouse position should be shown at
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	virtual void DrawMousePos(int MouseX, int MouseY)=0;
 	
 	//! Signal a location that should be jumped to
 	//

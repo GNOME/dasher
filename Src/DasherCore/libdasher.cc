@@ -584,6 +584,11 @@ void dasher_tap_on( int x, int y, unsigned long int time )
   interface->TapOn( x, y, time );
 }
 
+void dasher_draw_mouse_position( int x, int y)
+{
+  interface->DrawMousePos( x, y );
+}
+
 void dasher_go_to( int x, int y )
 {
   interface->GoTo( x, y );
