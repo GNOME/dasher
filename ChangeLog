@@ -1,3 +1,9 @@
+2004-03-15  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix the panel finding code - applications don't have 
+	  SPI_STATE_ENABLED
+	* Bump version number to 3.2.7
+	
 2004-03-12  Dafydd Harries  <daf@muse.19inch.net>
 
 	* configure.in: Added "cy" (Welsh) to ALL_LINGUAS.

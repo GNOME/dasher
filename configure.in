@@ -1,5 +1,5 @@
 AC_PREREQ(2.50)
-AC_INIT([dasher],[3.2.6],[dasher@mrao.cam.ac.uk])
+AC_INIT([dasher],[3.2.7],[dasher@mrao.cam.ac.uk])
 AM_INIT_AUTOMAKE
 AM_MAINTAINER_MODE
 
