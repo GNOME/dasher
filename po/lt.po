@@ -8,127 +8,133 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-07 16:35+0200\n"
-"PO-Revision-Date: 2004-03-07 16:45+0200\n"
+"POT-Creation-Date: 2004-04-30 01:16+0300\n"
+"PO-Revision-Date: 2004-04-30 01:17+0300\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:61
+#: Src/Gtk2/accessibility.cc:63
 msgid "Menus"
 msgstr "Meniu"
 
-#: Src/Gtk2/accessibility.cc:68
+#: Src/Gtk2/accessibility.cc:70
 msgid "Windows"
 msgstr "Langai"
 
-#: Src/Gtk2/accessibility.cc:73
+#: Src/Gtk2/accessibility.cc:75
 msgid "Application"
 msgstr "Programa"
 
-#: Src/Gtk2/accessibility.cc:80
+#: Src/Gtk2/accessibility.cc:82
 msgid "Buttons"
 msgstr "Mygtukai"
 
-#: Src/Gtk2/accessibility.cc:86
+#: Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Skydeliai"
 
-#: Src/Gtk2/accessibility.cc:93
+#: Src/Gtk2/accessibility.cc:95
 msgid "Text"
 msgstr "Tekstas"
 
-#: Src/Gtk2/accessibility.cc:167 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:169 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Valdiklis"
 
-#: Src/Gtk2/accessibility.cc:172
+#: Src/Gtk2/accessibility.cc:174
 msgid "Stop"
 msgstr "Sustabdyti"
 
-#: Src/Gtk2/accessibility.cc:178
+#: Src/Gtk2/accessibility.cc:180
 msgid "Pause"
 msgstr "Pauzė"
 
-#: Src/Gtk2/accessibility.cc:185
+#: Src/Gtk2/accessibility.cc:187
 msgid "Move"
 msgstr "Perkelti"
 
-#: Src/Gtk2/accessibility.cc:192
+#: Src/Gtk2/accessibility.cc:194
 msgid "Delete"
 msgstr "Ištrinti"
 
-#: Src/Gtk2/accessibility.cc:201
+#: Src/Gtk2/accessibility.cc:203
 msgid "Speak"
 msgstr "Kalbėti"
 
-#: Src/Gtk2/accessibility.cc:219 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:290
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:225 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:227 Src/Gtk2/accessibility.cc:284
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:231
+#: Src/Gtk2/accessibility.cc:233
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:237
+#: Src/Gtk2/accessibility.cc:239
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:252
 msgid "Everything"
 msgstr "Viską"
 
-#: Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:258
 msgid "New"
 msgstr "Naujas"
 
-#: Src/Gtk2/accessibility.cc:262
+#: Src/Gtk2/accessibility.cc:264
 msgid "Repeat"
 msgstr "Pakartoti"
 
-#: Src/Gtk2/accessibility.cc:294 Src/Gtk2/accessibility.cc:317
+#: Src/Gtk2/accessibility.cc:296 Src/Gtk2/accessibility.cc:319
 msgid "Character"
 msgstr "Simbolis"
 
-#: Src/Gtk2/accessibility.cc:305 Src/Gtk2/accessibility.cc:327
+#: Src/Gtk2/accessibility.cc:307 Src/Gtk2/accessibility.cc:329
 msgid "Word"
 msgstr "Žodis"
 
-#: Src/Gtk2/accessibility.cc:310 Src/Gtk2/accessibility.cc:333
+#: Src/Gtk2/accessibility.cc:312 Src/Gtk2/accessibility.cc:335
 msgid "Line"
 msgstr "Eilutė"
 
-#: Src/Gtk2/accessibility.cc:412
+#: Src/Gtk2/accessibility.cc:415
 msgid "Unknown"
 msgstr "Nežinoma"
 
-#: Src/Gtk2/dasher.cc:184
+#: Src/Gtk2/dasher.cc:186
 msgid "Training Dasher, please wait"
 msgstr "Mokomas Dasher, prašome palaukti"
 
+#: Src/Gtk2/dasher.cc:662 Src/Gtk2/dasher.cc:675 Src/Gtk2/dasher.cc:688
+#: Src/Gtk2/dasher.cc:701 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Pasirinkit bylą"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1760
+#: Src/Gtk2/dasher.cc:1747
 msgid "translator_credits"
 msgstr "Gediminas Čičinskas <wooz@parok.lt>"
 
-#: Src/Gtk2/dasher.cc:1762 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1749 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1765
+#: Src/Gtk2/dasher.cc:1752
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher yra tekstų įvesties nuspėjimo programa"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2172
+#: Src/Gtk2/dasher.cc:2159
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d simbolių išvestis per %d sekundes\n"
@@ -161,17 +167,17 @@ msgstr "<b>Raidyno pasirinkimas:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Klavišų valdymo suderinimas</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Spalvos pasirinkimas:</b>"
 
 #: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
-msgstr "<b>Valdymo stylius:</b>"
+msgstr "<b>Valdymo stilius:</b>"
 
 #: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>Įvairios parinktys:</b>"
+msgstr "<b>Įvairūs nustatymai:</b>"
 
 #: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
@@ -183,7 +189,7 @@ msgstr "<b>Lygumas:</b>"
 
 #: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>Pradėti ir pabaigti:</b>"
+msgstr "<b>Pradėjimas ir pabaigimas:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
@@ -191,7 +197,7 @@ msgstr "<b>Perjungti klavišo režimą:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
-msgstr "<b>Rodymo parinktys:</b>"
+msgstr "<b>Vaizdo nustatymai:</b>"
 
 #: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
@@ -199,7 +205,7 @@ msgstr "<b>X/Y kordinatės:</b>"
 
 #: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Y ašies parinktys:</b>"
+msgstr "<b>Y ašies nustatymai:</b>"
 
 #: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
@@ -229,11 +235,11 @@ msgstr "Klavišo režimas"
 msgid "Button:"
 msgstr "Klavišas:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Pakeisti spalvų schemą automatiškai"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Spalva"
 
@@ -357,10 +363,6 @@ msgstr "Išsaugoti bylą"
 #: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
 msgid "Save file as"
 msgstr "Išsaugoti bylą kaip"
-
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Pasirinkit bylą"
 
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
@@ -492,37 +494,38 @@ msgstr "_Atkurti šriftus"
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Spalvos pasirinkimas:</b>"
-
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Greitis</b>"
-
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Pakeisti spalvų schemą automatiškai"
-
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Spalva"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Orientacija"
 
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Negaliu inicializuoti kalbos palaikymo\n"
+
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "Negaliu inicializuoti balsų"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:66
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Įspėjimas: negalima nustatyti kalbėjimo parametrų\n"
 
-#: Src/main.cc:98
+#: Src/main.cc:103
 msgid "Dasher Text Entry"
 msgstr "Dasher teksto elementas"
 
+#~ msgid "Change color scheme automatically"
+#~ msgstr "Pakeisti spalvų schemą automatiškai"
+
+#~ msgid "<b>Colour Selection:</b>"
+#~ msgstr "<b>Spalvos pasirinkimas:</b>"
+
+#~ msgid "Colour"
+#~ msgstr "Spalva"
