@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-05 15:38+0100\n"
+"POT-Creation-Date: 2004-02-09 12:50+0100\n"
 "PO-Revision-Date: 2002-09-13 00:17+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -514,7 +514,12 @@ msgstr "Kolor"
 msgid "Orientation"
 msgstr "Położenie"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "Nie można zainicjować głosów"
+
+#: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Uwaga: nie można ustawić parametrów mowy\n"
