@@ -112,6 +112,18 @@
 			settings = {
 			};
 		};
+		190697530492AACE0000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = Readme.html;
+			refType = 4;
+		};
+		190697550492B65B0000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = ReadmeDeveloper.txt;
+			refType = 4;
+		};
 		191CE19C04595BBA0000000A = {
 			isa = PBXFileReference;
 			path = DasherApp.icns;
@@ -126,6 +138,7 @@
 		191CE2BB045978530000000A = {
 			children = (
 				191CE2BC045978C90000000A,
+				19D3EEE70491289C0000000A,
 			);
 			isa = PBXGroup;
 			name = Configuration;
@@ -692,6 +705,7 @@
 				19A33CBF048AA9AE0000000A,
 				19A33CC6048AAEE20000000A,
 				195E6E8B048BFC8F0000000A,
+				19D3EEE80491289C0000000A,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1120,6 +1134,19 @@
 			settings = {
 			};
 		};
+		19D3EEE70491289C0000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			name = training_english_GB.txt;
+			path = ../../Data/system.rc/training_english_GB.txt;
+			refType = 4;
+		};
+		19D3EEE80491289C0000000A = {
+			fileRef = 19D3EEE70491289C0000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		19D442390454667F0000000A = {
 			children = (
 				19D4423A0454667F0000000A,
@@ -1204,6 +1231,8 @@
 			children = (
 				19BDB54F0455ED620000000A,
 				19351BF304575C6C0000000A,
+				190697550492B65B0000000A,
+				190697530492AACE0000000A,
 				191CE2BB045978530000000A,
 				080E96DDFE201D6D7F000001,
 				19ABB4E1044F7F080000000A,
