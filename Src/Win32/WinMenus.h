@@ -13,6 +13,6 @@ namespace WinMenus {
 	ControlTree* ProcessWindows();
 	bool ProcessObject(IAccessible* AccessibleObject);
 	UINT GetObjectState(IAccessible* pacc, VARIANT* pvarChild, LPTSTR lpszState, UINT cchState);
-	void AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeParent);
+	bool AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeParent);
 
 };
