@@ -112,6 +112,9 @@ public:
 	//! Should keyboard input be enabled?
 	virtual void KeyboardMode(bool Value) {};
 
+	//! Should Dasher start based on the mouse position?
+	virtual void MouseposStart(bool Value) {};
+
 	virtual void SetUniform(int Value) {};
 };
 
@@ -140,6 +143,7 @@ namespace Keys
 	extern const std::string WINDOW_PAUSE;
 	extern const std::string CONTROL_MODE;
 	extern const std::string KEYBOARD_MODE;
+	extern const std::string MOUSEPOS_START;
 	// long options
 	extern const std::string FILE_ENCODING;
 	extern const std::string MAX_BITRATE_TIMES100;

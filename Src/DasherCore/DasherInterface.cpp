@@ -26,7 +26,7 @@ CDasherInterface::CDasherInterface()
 	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
 	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
 	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
-	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0), m_ColourMode(0)
+	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0), m_ColourMode(0), m_Paused(0)
 {
 }
 
@@ -100,6 +100,7 @@ void CDasherInterface::Start()
 {
 	if (m_DasherModel!=0)
 		m_DasherModel->Start();
+	m_Paused=false;
 }
 
 
@@ -110,6 +111,12 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
 		if (m_CopyAllOnStop)
 			m_DashEditbox->CopyAll();
 	}
+	if (m_DasherView!=0 && m_MouseposStart==true) {
+	  m_DasherView->Render();
+	  m_DasherView->DrawMouseposBox();
+	  m_DasherView->Display();
+	}
+	m_Paused=true;
 }
 
 
@@ -122,9 +129,10 @@ void CDasherInterface::Unpause(unsigned long Time)
 
 void CDasherInterface::Redraw()
 {
-
   if (m_DasherView!=0) {
     m_DasherView->Render();
+    if (m_MouseposStart==true && m_Paused==true)
+      m_DasherView->DrawMouseposBox();
     m_DasherView->Display();
   }
 
@@ -481,6 +489,16 @@ void CDasherInterface::KeyboardMode(bool Value)
   if (m_SettingsStore!=0)
     m_SettingsStore->SetBoolOption(Keys::KEYBOARD_MODE, Value);
 }
+
+void CDasherInterface::MouseposStart(bool Value)
+{
+  m_MouseposStart=Value;
+  if (m_SettingsUI!=0)
+    m_SettingsUI->MouseposStart(Value);
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetBoolOption(Keys::MOUSEPOS_START, Value);
+}
+
 
 void CDasherInterface::SetEditFont(string Name, long Size)
 {

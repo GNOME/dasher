@@ -106,8 +106,9 @@ void handle_colour_scheme(CCustomColours *Colours)
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
-  if( draw_rectangle_callback != NULL )
+  if( draw_rectangle_callback != NULL ) {
     draw_rectangle_callback( x1, y1, x2, y2, Color, ColorScheme );
+  }
 }
 
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number)
@@ -234,6 +235,7 @@ void dasher_late_initialise( int _width, int _height)
   interface->SetSettingsStore( dss );
 
   dasher_start();
+  dasher_redraw();
 
   dui = new dasher_ui;
   interface->SetSettingsUI( dui );
@@ -368,6 +370,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
       break;
     case BOOL_KEYBOARDMODE:
       interface->KeyboardMode(value);
+      break;
+    case BOOL_MOUSEPOSSTART:
+      interface->MouseposStart(value);
       break;
     }
 }

@@ -10,8 +10,8 @@ PangoFontDescription *font;
 PangoRectangle *ink,*logical;
 GdkColor *colours;
 
-
 extern gboolean setup;
+extern gboolean paused;
 
 void rebuild_buffer()
 {
@@ -39,7 +39,7 @@ void initialise_canvas( int width, int height )
 
 void blank_callback()
 {
-  if (setup==false) 
+  if (setup==false || paused==true) 
     return;
   gdk_draw_rectangle (offscreen_buffer,		      
 		      the_canvas->style->white_gc,
@@ -53,36 +53,16 @@ void blank_callback()
 void display_callback()
 { 
   GdkRectangle update_rect;
-  //  the_buffer->swap_buffers();
 
-  //  GdkPixmap *temp;
-  // temp = offscreen_buffer;
-  //offscreen_buffer=onscreen_buffer;
-  //onscreen_buffer = temp;
-
-  if (setup==false)
+  if (setup==false || paused==true)
     return;
-  
+
   gdk_draw_pixmap(onscreen_buffer,
-		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-		  offscreen_buffer,
-		  0, 0, 0,0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
-
-  // GdkGC *mask_gc;
-
-//   mask_gc = gdk_gc_new( the_canvas->window );
-
-//   gdk_gc_set_clip_mask( mask_gc, offscreen_text_mask );
-
-//   gdk_draw_pixmap(onscreen_buffer,
-// 		  mask_gc,
-// 		  offscreen_text_buffer,
-// 		  0, 0, 0,0,
-// 		      the_canvas->allocation.width,
-// 		      the_canvas->allocation.height);
-		 
+  		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+  		  offscreen_buffer,
+  		  0, 0, 0,0,
+  		      the_canvas->allocation.width,
+  		      the_canvas->allocation.height);
 
   gdk_draw_rectangle ( offscreen_buffer,
 		       the_canvas->style->white_gc,
@@ -105,7 +85,7 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   GdkColormap *colormap;
   GdkRectangle update_rect;
 
-  if (setup==false)
+  if (setup==false || paused==true)
     return;
 
   GdkColor black = {0, 0, 0, 0};
@@ -151,7 +131,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   GdkColormap *colormap;
   GdkRectangle update_rect;
 
-  if (setup==false)
+  if (setup==false || paused==true)
     return;
 
   GdkColor black = {0, 0, 0, 0};
@@ -177,7 +157,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   std::string symbol;
   GdkRectangle update_rect;
 
-  if (setup==false)
+  if (setup==false || paused==true)
     return;
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
@@ -200,7 +180,7 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
 {
   GdkRectangle update_rect;
 
-  if (setup==false)
+  if (setup==false || paused==true)
     return;
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
@@ -221,7 +201,7 @@ void text_size_callback(symbol Character, int* Width, int* Height, int Size)
 {
   // FIXME
 
-  if (setup==false)
+  if (setup==false || paused==true)
     return;
 
   *Width = Size;

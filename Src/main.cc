@@ -170,12 +170,14 @@ main(int argc, char *argv[])
   
   choose_filename();
 
+  dasher_pause(0,0); // we start paused
+
 #ifdef GNOME_SPEECH
   setup_speech();
 #endif
 
   add_control_tree(gettree());
-
+  
   gtk_main ();
 
 #ifdef GNOME_SPEECH

@@ -60,7 +60,8 @@ bool keyboardmodeon=false;
 guint window_x = 500, window_y = 500;
 
 gboolean setup = FALSE;
-gboolean paused = TRUE;
+gboolean paused = FALSE;
+gboolean firsttime = TRUE;
 gboolean indrag = FALSE;
 gboolean file_modified = FALSE;
 gboolean showtoolbar;
@@ -70,6 +71,7 @@ gboolean startleft;
 gboolean startspace;
 gboolean keyboardcontrol;
 gboolean leavewindowpause;
+gboolean mouseposstart;
 
 gint dasherwidth, dasherheight;
 
@@ -348,10 +350,12 @@ select_new_file(gpointer data, guint action, GtkWidget *widget)
   choose_filename();
 
   clear_edit();
+  add_control_tree(gettree());
+  paused=false;
   dasher_start();
   dasher_redraw();
-
-  add_control_tree(gettree());
+  dasher_pause(0,0);
+  paused=true;
 
 }
 
@@ -651,7 +655,7 @@ timer_callback(gpointer data)
     dasher_tap_on( x, y, get_time() );
   }
 
-  else {
+  else if (mouseposstart==true) {
     int x,y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
     if (y>0 && y<100) {
@@ -681,6 +685,11 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 		  event->area.x, event->area.y,
 		  event->area.x, event->area.y,
 		  event->area.width, event->area.height);
+
+  if (firsttime==TRUE) {
+    paused=true;
+    firsttime=false;
+  }
 
   return TRUE;
 }
@@ -870,7 +879,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 59,
+				 60,
 				 entries,
 				 NULL );
 
@@ -1045,7 +1054,7 @@ open_window() {
   gtk_timeout_add(50, timer_callback, NULL );  
 
   setup = TRUE;
-
+  
   return window;
 }
 
@@ -1195,6 +1204,11 @@ void startonleft(gpointer data, guint action, GtkWidget *widget )
 void startonspace(gpointer data, guint action, GtkWidget *widget )
 {
   dasher_set_parameter_bool( BOOL_STARTONSPACE, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
+void startonmousepos(gpointer data, guint action, GtkWidget *widget )
+{
+  dasher_set_parameter_bool( BOOL_MOUSEPOSSTART, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 
 void keycontrol(gpointer data, guint action, GtkWidget *widget )
@@ -1457,6 +1471,10 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_STARTONSPACE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Space Bar")), value);
       startspace=value;
+      break;
+    case BOOL_MOUSEPOSSTART:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Mouse Position")), value);
+      mouseposstart=value;
       break;
     case BOOL_KEYBOARDCONTROL:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Keyboard Control")), value);

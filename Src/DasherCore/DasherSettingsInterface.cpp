@@ -29,6 +29,7 @@ namespace Keys {
         const std::string CONTROL_MODE = "ControlMode";
         const std::string COLOUR_MODE = "ColourMode";
         const std::string KEYBOARD_MODE = "KeyboardMode";
+        const std::string MOUSEPOS_START = "StartOnMousePosition";
 
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -138,6 +139,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetLongDefault(UNIFORM, 1000 );
 	this->SetUniform(Store->GetLongOption(UNIFORM));
+
+	Store->SetBoolDefault(MOUSEPOS_START, false);
+	this->MouseposStart(Store->GetBoolOption(MOUSEPOS_START));
 }
 
 

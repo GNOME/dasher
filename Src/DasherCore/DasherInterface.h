@@ -135,6 +135,7 @@ public:
 	void ControlMode(bool Value);
 	void ColourMode(bool Value);
 	void KeyboardMode(bool Value);
+	void MouseposStart(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
@@ -175,6 +176,8 @@ private:
 	bool m_ControlMode;
 	bool m_ColourMode;
 	bool m_KeyboardMode;
+	bool m_MouseposStart;
+	bool m_Paused;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;

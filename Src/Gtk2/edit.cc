@@ -119,6 +119,7 @@ void edit_outputcontrol_callback(void* pointer, int data)
     break;
   case 3:
     //	pause
+    dasher_pause(0,0);
     paused=true;
     break;
   case 4:

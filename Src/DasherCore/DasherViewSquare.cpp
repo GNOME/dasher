@@ -311,6 +311,11 @@ void CDasherViewSquare::DrawKeyboard()
   Screen().Polyline(line,2);
 }
 
+void CDasherViewSquare::DrawMouseposBox()
+{
+  Screen().DrawRectangle(0, 0, Screen().GetWidth(), 100, 1, Opts::ColorSchemes(Objects));
+}
+
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 {
 	CDasherView::ChangeScreen(NewScreen);

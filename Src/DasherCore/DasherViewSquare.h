@@ -35,6 +35,7 @@ public:
 	void CDasherViewSquare::DrawGoTo(int mousex, int mousey);
 	void DrawMouse(int mousex, int mousey);
 	void DrawKeyboard();
+	void DrawMouseposBox();
 private:
 	// the x and y non-linearities
 	inline const void screen2dasher(int *mousex, int *mousey);

@@ -57,6 +57,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Options/Start on Left Mouse", NULL, *GtkItemFactoryCallback(startonleft), 1, "<CheckItem>" },
   { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },
+  { "/Options/Start on Mouse Position", NULL, *GtkItemFactoryCallback(startonmousepos), 1, "<CheckItem>" },
   { "/Options/Keyboard Control", NULL, *GtkItemFactoryCallback(keycontrol), 1, "<CheckItem>" },
   { "/Options/Pause outside Window", NULL, *GtkItemFactoryCallback(windowpause), 1, "<CheckItem>" },
   { "/Options/Control Mode", NULL, *GtkItemFactoryCallback(controlmode), 1, "<CheckItem>" },
