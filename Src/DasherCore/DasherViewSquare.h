@@ -41,7 +41,10 @@ private:
 	inline const void screen2dasher(int *mousex, int *mousey);
 	inline const int dasherx2screen(const myint sx);
 	inline const int dashery2screen(myint sy);
-	
+	inline double eyetracker_get_x(double x, double y);
+	inline double eyetracker_get_y(double x, double y);
+	inline double xmax(double x, double y);
+
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
 		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext);
 	

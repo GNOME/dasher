@@ -48,6 +48,7 @@ public:
 	const myint Rootmin() const {return m_Rootmin;}
 	const myint Rootmax() const {return m_Rootmax;}
 	const myint DasherOX() const {return m_DasherOX;}
+	const myint DasherOY() const {return m_DasherOY;}
 	CDasherNode* Root() const {return m_Root;}
 	int Normalization() const {return m_languagemodel->normalization();}
 	myint DasherY() const {return m_DasherY;}
