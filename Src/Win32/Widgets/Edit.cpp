@@ -432,6 +432,9 @@ void CEdit::SetEncoding(Dasher::Opts::FileEncodingFormats Encoding)
 
 void CEdit::SetFont(string Name, long Size)
 {
+
+#ifndef _WIN32_WCE
+
 	m_FontName = Name;
 	m_FontSize = Size;
 	
@@ -450,6 +453,13 @@ void CEdit::SetFont(string Name, long Size)
 		         FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 	
 	SendMessage(m_hwnd, WM_SETFONT, (WPARAM)m_Font, true);
+#else 
+	// not implemented
+	#pragma message ( "CEdit::SetFot not implemented on WinCE")
+	assert(0);
+#endif
+
+
 }
 
 
