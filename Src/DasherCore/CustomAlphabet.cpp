@@ -6,12 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-#include "CustomAlphabet.h"
-
-#ifdef _MSC_VER
 #include "../Common/Common.h"
-#endif
+#include "CustomAlphabet.h"
 
 using namespace Dasher;
 using namespace std;

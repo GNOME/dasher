@@ -29,10 +29,6 @@ namespace Dasher
 	//typedef unsigned int symbol; // }}}
 	typedef int symbol;
 
-#ifdef _MSC_VER	// Not needed on UNIX, and break the QT build
-	typedef unsigned int uint;
-	typedef unsigned short ushort;
-#endif
 
 	namespace Opts
 	{

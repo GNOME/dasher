@@ -6,12 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-#include "DasherModel.h"
-
-#ifdef _MSC_VER
 #include "../Common/Common.h"
-#endif
+#include "DasherModel.h"
 
 using namespace Dasher;
 using namespace std;

@@ -6,27 +6,15 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
 
 #include "DasherViewSquare.h"
-#include "../Common/Platform.h"
 #include "DasherModel.h"
+
+#include <algorithm>
 
 using namespace Dasher;
 
-// ARG! MSVC++ V6 doesn't seem to come with min and max in <algorithm>
-#if (_MSC_VER)  &&  ( _MSC_VER <= 1200 )
-	#ifndef max
-		#define max(a,b) (((a) > (b)) ? (a) : (b))
-	#endif
-	#ifndef min
-		#define min(a,b) (((a) < (b)) ? (a) : (b))
-	#endif
-#else
-
-	#include <algorithm>
-	using std::min;
-	using std::max;
-#endif
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -135,8 +123,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		    screenint newbottom2 = (height+FontHeight)/2 + top;
 		    MapScreen(&newleft2, &newtop2);
 		    MapScreen(&newright2, &newbottom2);
-		    newleft = min(newleft2, newright2);
-		    newtop = min(newtop2, newbottom2);
+			newleft = std::min(newleft2, newright2);
+			newtop = std::min(newtop2, newbottom2);
 
 //#ifdef DASHER_WIN32
 //	#if defined DrawText

@@ -6,13 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-
-#include "PPMLanguageModel.h"
-
-#ifdef _MSC_VER
 #include "../Common/Common.h"
-#endif
+#include "PPMLanguageModel.h"
 
 #include <math.h>
 #include <stack>
