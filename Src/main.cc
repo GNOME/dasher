@@ -8,6 +8,9 @@
 
 #include <libintl.h>
 #include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <getopt.h>
 
 #include "libdasher.h"
 #include "dasher.h"
@@ -20,10 +23,27 @@
 
 GError *gconferror;
 GConfEngine *gconfengine;
+gboolean timedata;
 
 int
 main(int argc, char *argv[])
 {
+  int c;
+
+  while (1) {
+    c=getopt( argc, argv, "w" );
+
+    if (c == -1)
+      break;
+
+    switch (c) {
+    case 'w':
+      timedata=TRUE;
+      break;
+    }
+  }
+    
+
   gtk_init (&argc, &argv);
 
   gconf_init( argc, argv, &gconferror );

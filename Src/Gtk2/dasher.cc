@@ -130,10 +130,15 @@ gboolean startleft;
 gboolean startspace;
 gboolean keyboardcontrol;
 
+extern gboolean timedata;
+
 gint prev_pos_x;
 gint prev_pos_y;
 
 gint fileencoding;
+
+gint outputcharacters;
+time_t starttime;
 
 const gchar *filename = NULL;
 
@@ -657,10 +662,16 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   if (startleft == TRUE) {
     if (paused == TRUE) {
       dasher_unpause( get_time() );
-      paused = FALSE;
+      starttime=time(NULL);
+      outputcharacters=0;
+      paused = FALSE;      
     } else {
       dasher_pause( (gint) event->x,(gint) event->y );    
       paused = TRUE;
+      if (timedata==TRUE) {
+	printf("%d characters output in %d seconds\n",outputcharacters,
+	       time(NULL)-starttime);
+      }
     }
   }
   return;

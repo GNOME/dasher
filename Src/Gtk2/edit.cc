@@ -9,6 +9,8 @@ std::string say;
 
 int flush_count;
 
+extern gint outputcharacters;
+
 void initialise_edit()
 {
   flush_count = 0;
@@ -38,6 +40,7 @@ void edit_output_callback(symbol Symbol)
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  outputcharacters++;
 }
 
 void edit_flush_callback(symbol Symbol)
@@ -52,6 +55,7 @@ void edit_flush_callback(symbol Symbol)
   }
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  outputcharacters++;
 }
 
 void edit_unflush_callback()
