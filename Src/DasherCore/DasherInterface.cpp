@@ -228,6 +228,10 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  // Apply options from alphabet
 
 	  m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
+
+          if (m_ControlMode==true) {
+            m_Alphabet->AddControlSymbol();
+          }
 	
 	  // Recreate widgets and language model
 	  if (m_DashEditbox!=0)
@@ -241,10 +245,6 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  
 	  if (m_Alphabet->GetPalette()!="" && m_PaletteChange==true) {
 	    ChangeColours(m_Alphabet->GetPalette());
-	  }
-	  
-	  if (m_ControlMode==true) {
-	    m_Alphabet->AddControlSymbol();
 	  }
 	  
 	  Start();
