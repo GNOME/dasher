@@ -117,6 +117,8 @@ void dasher_unpause( unsigned long int time );
 void dasher_halt();
 
 void dasher_pause( int x, int y );
+void dasher_reset_nats();
+double dasher_get_nats();
 
 std::string dasher_get_display_text( symbol Character );
 std::string dasher_get_edit_text( symbol Character );

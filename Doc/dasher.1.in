@@ -23,8 +23,9 @@ Dasher will open a preferences window and not the main window.
 Dasher will output the entered text to stdout whenever stopped. Only text
 entered since the last stop will be output.
 .IP "-w"
-The number of characters entered in a period of time will be printed
-whenever Dasher is stopped.
+Whenever Dasher is stopped, the time taken, number of characters
+entered, and number of bits of information will be displayed, along
+with ratios of these quantities.
 
 .SH USAGE
 After startup, Dasher will present the user with a window containing two major

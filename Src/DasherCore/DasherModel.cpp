@@ -199,6 +199,8 @@ void CDasherModel::Start()
 	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
 
+	//	total_nats = 0.0;
+
 	
 	/*
 	// DJW 20031106 - this is unsafe - oldroots[1] is not valid when size == 1
@@ -247,16 +249,17 @@ void CDasherModel::Start()
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
+double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
 	double dRx=1.0*m_DasherOX/Mousex;
 	
 	double dRxnew;
 
+	// URGH - floating point
+
 	int iSteps=m_fr.Steps();
 
 	DASHER_ASSERT(iSteps>0);
-
 
 	if (Mousex<m_DasherOX) {
 
@@ -277,10 +280,17 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
 		// Stop zooming out when no parents
 		if (m_Rootmax<m_DasherY && m_Rootmin> myint(0) ) 
-			return;
+			return(1.0);
 	} 
+
+	// dRxnew is the scale factor (treat the above as a definition)
+
 	myint above=(Mousey-m_Rootmin);//*(1-rxnew)/(1-rx);
 	myint below=(m_Rootmax-Mousey);//*(1-rxnew)/(1-rx);
+
+	// Distances above and below the mouse cursor of the top and bottom of the canvas
+
+	// The below is horrible - fix it sometime
 
 	myint miDistance=m_DasherY/2-Mousey;
 
@@ -310,6 +320,9 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 	{
 		// TODO - force a new root to be chosen
 	}
+
+	return log( dRxnew );
+
 }
 
 void CDasherModel::Get_new_goto_coords(double zoomfactor, myint MouseY) 
@@ -350,7 +363,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
         CDasherNode *old_under_cross=Get_node_under_crosshair();	
 	
 	// works out next viewpoint
-	Get_new_root_coords(miMousex,miMousey);
+	total_nats += Get_new_root_coords(miMousex,miMousey);
 
 	// opens up new nodes
 

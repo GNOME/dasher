@@ -647,6 +647,16 @@ void dasher_pause( int x, int y )
   interface->PauseAt( x, y );
 }
 
+void dasher_reset_nats()
+{
+  interface->ResetNats();
+}
+
+double dasher_get_nats()
+{
+  return interface->GetNats();
+}
+
 // FIXME - this should not use c++ style strings
 
 string dasher_get_display_text( symbol Character )

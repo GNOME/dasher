@@ -76,6 +76,14 @@ public:
 	void Make_root(int whichchild);                                 // find a new root node
 	void Reparent_root(int lower, int upper);                                 // change back to the previous root
 	
+	void ResetNats() {
+	  total_nats = 0;
+	};
+	
+	double GetNats() {
+	  return total_nats;
+	};
+	
 	
 	myint PlotGoTo(myint MouseX, myint MouseY);
 
@@ -131,6 +139,8 @@ private:
 	
 	CContext* LearnContext;        // Used to add data to model as it is entered
 	CFrameRate m_fr;                   // keep track of framerate
+
+	double total_nats; // Information entered so far
 	
 	// TODO - move somewhere
 	// the probability that gets added to every symbol
@@ -141,7 +151,7 @@ private:
 	CDasherNode* Get_node_under_mouse(myint smousex,myint smousey);
 	CDasherNode* Get_node_under_crosshair();
 	CDasherNode* m_Root;
-	void Get_new_root_coords(myint mousex,myint mousey);
+	double Get_new_root_coords(myint mousex,myint mousey);
 	void Get_new_goto_coords(double zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 	void Update(CDasherNode* node,CDasherNode* under,int safe);

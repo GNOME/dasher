@@ -163,6 +163,18 @@ public:
     int GetAutoOffset();
     void Render();
 
+    double GetNats() {
+      if( m_DasherModel )
+	return m_DasherModel->GetNats();
+      else
+	return 0.0;
+    }
+
+    void ResetNats() {
+       if( m_DasherModel )
+	m_DasherModel->ResetNats();
+    }
+
 private:
 	CAlphabet* m_Alphabet;
 	CCustomColours* m_Colours;
