@@ -22,6 +22,7 @@ AC_PROG_CXX
 WITHGNOME=true;
 WITHSPEECH=true;
 WITHA11Y=true;
+WITHGTK2=true;
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
@@ -59,6 +60,7 @@ fi
 
 if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$WITHQTE" != xtrue ]]
 then
+	echo $WITHGTK2
 	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
 fi
 

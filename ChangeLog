@@ -1,3 +1,7 @@
+2004-06-28  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix the configure script so that it doesn't drop out unnecessarily
+	
 2004-06-18  Mohammad DAMT  <mdamt@bisnisweb.com>
  
         * po/id.po: Added Indonesian translation by Ahmad Riza H Nst <rizahnst@eriagempita.co.id>
