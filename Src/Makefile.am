@@ -5,5 +5,5 @@ dasher_SOURCES = Main.cc
 
 LDADD = Gtk/libdashergtk.a DasherCore/libdashercore.a
 
-CXXFLAGS = `gtkmm-config --cflags` -I./DasherCore -I./Gtk 
-LDFLAGS = `gtkmm-config --cflags --libs` -lexpat
+CXXFLAGS = $(GTKMM_CFLAGS) -I./DasherCore -I./Gtk 
+LDFLAGS = $(GTKMM_LDFLAGS) -lexpat
