@@ -294,6 +294,7 @@ void GtkDasherPane::handle_alphabet()
 
   cout << "Selection is " << foo << endl;
 
+  text->kill_flush();
   
   interface->ChangeAlphabet( foo );
 }

@@ -18,11 +18,14 @@ GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
 
   // FIXME - need to call handle_cursor_move when the cursor position changes.
 
-  // text.button_release_event.connect_after(slot(this, &GtkDasherEdit::handle_cursor_move));
+  //  text.button_release_event.connect_after((SigC::Slot1<gint, GdkEventButton *>(this, &GtkDasherEdit::handle_cursor_move)));
+  
+  SigC::Slot1<gint, GdkEventButton *> s = SigC::slot(this, &GtkDasherEdit::handle_cursor_move);
 
+  text.button_release_event.connect( s );
 }
 
-GtkDasherEdit::~GtkDasherEdit()
+GtkDasherEdit::~GtkDasherEdit( )
 {
 }
 
@@ -30,16 +33,19 @@ void GtkDasherEdit::write_to_file()
 {
 }
 
-void GtkDasherEdit::handle_cursor_move(GdkEventButton* e )
+gint GtkDasherEdit::handle_cursor_move( GdkEventButton *e )
 {
-  //  cout << "Cursor has moved " << a << ", " << b << endl;
+  text.set_point( text.get_position() );
 
-  cout << "Foo" << endl;
-
-  text.set_point( 0 );
+  kill_flush();
 
   interface->Start();
   interface->Redraw();
+}
+
+void GtkDasherEdit::kill_flush()
+{
+  flush_count = 0;
 }
 
 void GtkDasherEdit::get_new_context(std::string& str, int max)
@@ -218,6 +224,8 @@ bool GtkDasherEdit::Open( std::string filename )
   text.thaw();
 
   // Restart the interface with the new context
+
+  kill_flush();
 
   interface->Start();
   interface->Redraw();
