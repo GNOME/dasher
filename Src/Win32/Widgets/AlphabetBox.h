@@ -39,8 +39,8 @@ private:
 	bool Editing;
 	bool EditChar;
 	bool Cloning;
-	int CurrentGroup;
-	int CurrentChar;
+	unsigned int CurrentGroup;
+	unsigned int CurrentChar;
 	
 	void PopulateList();
 	void InitCustomBox();

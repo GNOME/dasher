@@ -189,7 +189,7 @@ void CAlphabetBox::ShowGroupChars()
 	}
 	
 	Tstring Data;
-	for (int j=0; j<CurrentInfo.Groups[CurrentGroup].Characters.size(); j++) {
+	for (unsigned int j=0; j<CurrentInfo.Groups[CurrentGroup].Characters.size(); j++) {
 		WinUTF8::UTF8string_to_Tstring(CurrentInfo.Groups[CurrentGroup].Characters[j].Display, &Data, GetACP());
 		SendMessage(Chars, LB_ADDSTRING, 0, (LPARAM)Data.c_str());
 	}
@@ -228,7 +228,7 @@ bool CAlphabetBox::UpdateInfo()
 	
 	// Check description is unique and not blank
 	bool Unique=true;
-	for (int i=0; i<AlphabetList.size(); i++) {
+	for (unsigned int i=0; i<AlphabetList.size(); i++) {
 		if ((AlphabetList[i]==CurrentInfo.AlphID) && (AlphabetList[i]!=m_CurrentAlphabet)) {
 			Unique=false;
 			break;
@@ -438,7 +438,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
 			LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
 			LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
-			if (CurrentIndex>=0 && CurrentIndex<AlphabetList.size()) {
+			if (CurrentIndex>=0 && (unsigned int)CurrentIndex<AlphabetList.size()) {
 				m_AppInterface->DeleteAlphabet(AlphabetList[CurrentIndex]);
 				PopulateList();
 			}
