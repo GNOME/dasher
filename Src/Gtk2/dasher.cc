@@ -489,6 +489,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
     //      } */
   }
   else {
+    write_to_file();
     gtk_exit (0);
   }
 }
@@ -650,7 +651,6 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 #ifdef GNOME_SPEECH
 	speak();
 #endif
-	write_to_file();
       }      
     }
     return TRUE;
@@ -697,7 +697,6 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 #ifdef GNOME_SPEECH
       speak();
 #endif
-      write_to_file();
       if (timedata==TRUE) {
 	printf("%d characters output in %d seconds\n",outputcharacters,
 	       time(NULL)-starttime);
