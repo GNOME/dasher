@@ -862,7 +862,6 @@
 		      <child>
 			<widget class="GtkCheckButton" id="keyboardbutton">
 			  <property name="border_width">2</property>
-			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Button mode</property>
 			  <property name="use_underline">True</property>
