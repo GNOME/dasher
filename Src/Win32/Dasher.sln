@@ -15,8 +15,8 @@ Global
 		ConfigName.5 = Win95 compatible Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.0 = {5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.1 = {C765540D-03CF-4628-AD7A-46F198678E13}
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.0 = {C765540D-03CF-4628-AD7A-46F198678E13}
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.1 = {5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Debug.ActiveCfg = Debug|Win32
@@ -55,6 +55,10 @@ Global
 		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
 		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
 		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionItems) = postSolution
+		Item:1 = ..\Common\MSVC_Unannoy.h
+		Item:2 = ..\Common\NoClones.h
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
