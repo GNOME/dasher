@@ -226,7 +226,7 @@ class dasher_screen : public CDasherScreen
     {
     };
 	
-  Dasher::Opts::FontSize GetFontSize()
+  Dasher::Opts::FontSize GetFontSize() const
     {
       if (dasherfontsize==0)
 	return Dasher::Opts::FontSize(1);

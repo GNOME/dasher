@@ -46,7 +46,7 @@ public:
 
 	//! Tell the interface how many font sizes there are and what they are
 
-	virtual void GetFontSizes(std::vector<int> *FontSizes)=0;
+	virtual void GetFontSizes(std::vector<int> *FontSizes) const =0;
 
 	//! Provides the number of characters per minute input. (Not implemented)
 	virtual double GetCurCPM()=0;

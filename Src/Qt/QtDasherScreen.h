@@ -42,7 +42,7 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
     {
 #warning QtDasherScreen::SetFontSize() not implemented
     }
-  Dasher::Opts::FontSize GetFontSize()
+  Dasher::Opts::FontSize GetFontSize() const
     {
 #warning QtDasherScreen::GetFontSize() not implemented
       return (Dasher::Opts::Normal);
