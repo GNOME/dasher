@@ -26,7 +26,8 @@ void GtkDasherCanvas::clear()
 
   {
     // Wipe the two drawing areas:
-
+    if( is_realized() )
+      {
    Gdk_GC graphics_context;
   graphics_context.create(get_window());
 
@@ -45,7 +46,7 @@ void GtkDasherCanvas::clear()
   buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, width, height );
   buffer->get_fg()->draw_rectangle( graphics_context, true, 0, 0, width, height );
 
-
+      }
 
 }
 
@@ -90,6 +91,8 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 {
   // Fixme - need to do symbol->character lookup properly.
 
+  if( is_realized() )
+    {
   char foo;
 
   foo = Character + 96;
@@ -111,11 +114,13 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
     }
 
   buffer->get_bg()->draw_string(text_font, this->get_style()->get_black_gc(), x1, y1+text_font.char_height('A'), label);
-
+    }
 }
   
 void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
 {
+  if( is_realized() )
+    {
   Gdk_GC graphics_context;
   graphics_context.create(get_window()); 
 
@@ -129,10 +134,13 @@ void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, O
 
 
   buffer->get_bg()->draw_rectangle( graphics_context, true, x1, y1, x2-x1, y2-y1 );
+    }
 }
 
 void GtkDasherCanvas::Polyline(point* Points, int Number) const
 { 
+  if( is_realized() )
+    {
   Gdk_GC graphics_context;
   graphics_context.create(get_window()); 
 
@@ -146,6 +154,7 @@ void GtkDasherCanvas::Polyline(point* Points, int Number) const
 
   for( int i(0); i < Number - 1; ++i )
     buffer->get_bg()->draw_line( graphics_context, Points[i].x, Points[i].y, Points[i+1].x, Points[i+1].y );
+    }
 }
  
 void GtkDasherCanvas::DrawPolygon(point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const
@@ -154,6 +163,8 @@ void GtkDasherCanvas::DrawPolygon(point* Points, int Number, int Color, Opts::Co
 
 void GtkDasherCanvas::Blank() const
 {
+  if( is_realized() )
+    {
      Gdk_GC graphics_context;
   graphics_context.create(get_window());
 
@@ -170,6 +181,7 @@ void GtkDasherCanvas::Blank() const
     
 
   buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, width, height );
+    }
  }
 
 void GtkDasherCanvas::Display()
