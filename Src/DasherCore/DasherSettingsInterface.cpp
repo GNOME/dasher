@@ -24,6 +24,8 @@ namespace Keys {
 	const std::string SHOW_SLIDER = "ShowSpeedSlider";
 	const std::string COPY_ALL_ON_STOP = "CopyAllOnStop";
         const std::string DRAW_MOUSE = "DrawMouse";
+        const std::string START_MOUSE = "StartOnLeft";
+        const std::string START_SPACE = "StartOnSpace";
 	
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -64,7 +66,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
 	this->SetFileEncoding((FileEncodingFormats) Store->GetLongOption(FILE_ENCODING));
 	
-	//Store->SetBoolDefault(SHOW_SLIDER, true);
+	Store->SetBoolDefault(SHOW_SLIDER, true);
 	this->ShowSpeedSlider(Store->GetBoolOption(SHOW_SLIDER));
 	Store->SetBoolDefault(FIX_LAYOUT, false);
 	this->FixLayout(Store->GetBoolOption(FIX_LAYOUT));
@@ -75,18 +77,18 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetBoolDefault(SHOW_LARGE_ICONS, true);
 	this->ShowToolbarLargeIcons(Store->GetBoolOption(SHOW_LARGE_ICONS));
 
-	// commented out because otherwise toobarseetings not loaded and
-	// just assumed to be true. similarly for slider settings above. FIX.
-
-	//Store->SetBoolDefault(SHOW_TOOLBAR, true);
+	Store->SetBoolDefault(SHOW_TOOLBAR, true);
 	this->ShowToolbar(Store->GetBoolOption(SHOW_TOOLBAR));
 	
-	std::cout << Store->GetBoolOption(SHOW_TOOLBAR) << " toolbar \n";
-	std::cout << Store->GetBoolOption(SHOW_SLIDER) << " slider \n";
-
 	Store->SetLongDefault(SCREEN_ORIENTATION, Opts::LeftToRight);
 	this->ChangeOrientation((ScreenOrientations) Store->GetLongOption(SCREEN_ORIENTATION));
 	
+	Store->SetBoolDefault(START_MOUSE, true);
+	this->StartOnLeft(Store->GetBoolOption(START_MOUSE));
+
+	Store->SetBoolDefault(START_SPACE, false);
+	this->StartOnSpace(Store->GetBoolOption(START_SPACE));
+
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"
 	// The user may have saved a preference for some of these options though:
@@ -100,9 +102,16 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->SetDasherFont(Store->GetStringOption(DASHER_FONT));
 	this->SetDasherFontSize(Dasher::Opts::FontSize(Store->GetLongOption(DASHER_FONTSIZE)));
 
+	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
 	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
+
+	Store->SetBoolDefault(DRAW_MOUSE, false);
+	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
 
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));
 	this->SetScreenSize(Store->GetLongOption(SCREEN_WIDTH), Store->GetLongOption(SCREEN_HEIGHT));
 }
+
+
+

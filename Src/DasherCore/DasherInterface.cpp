@@ -358,6 +358,24 @@ void CDasherInterface::DrawMouse(bool Value)
 	        m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSE, Value);
 }
 
+void CDasherInterface::StartOnSpace(bool Value)
+{
+        m_StartSpace = Value;
+	if (m_SettingsUI!=0)
+	  m_SettingsUI->StartOnSpace(Value);
+	if (m_SettingsStore!=0)
+	  m_SettingsStore->SetBoolOption(Keys::START_SPACE, Value);
+}
+
+void CDasherInterface::StartOnLeft(bool Value)
+{
+  m_StartLeft = Value;
+	if (m_SettingsUI!=0)
+	  m_SettingsUI->StartOnLeft(Value);
+	if (m_SettingsStore!=0)
+	  m_SettingsStore->SetBoolOption(Keys::START_MOUSE, Value);
+}
+
 void CDasherInterface::SetEditFont(string Name, long Size)
 {
 	m_EditFont = Name;

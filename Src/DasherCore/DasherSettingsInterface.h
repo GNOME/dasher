@@ -84,6 +84,12 @@ public:
 
 	//! Set the height of the edit box
 	virtual void SetEditHeight(long Value) {};
+	
+	//! Should Dasher start and stop on space bar?
+	virtual void StartOnSpace(bool Value) {};
+
+	//! Should Dasher start and stop on left mouse button?
+	virtual void StartOnLeft(bool Value) {};
 };
 
 
@@ -105,6 +111,8 @@ namespace Keys
 	extern const std::string SHOW_SLIDER;
 	extern const std::string COPY_ALL_ON_STOP;
 	extern const std::string DRAW_MOUSE;
+	extern const std::string START_SPACE;
+	extern const std::string START_MOUSE;
 	
 	// long options
 	extern const std::string FILE_ENCODING;
@@ -128,3 +136,7 @@ namespace Keys
 
 
 #endif /* #ifndef __DasherSettingsInterface_h__ */
+
+
+
+
