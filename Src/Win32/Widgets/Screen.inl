@@ -65,6 +65,9 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+
+	// DJW - need to select the old object back into the DC
+	SelectObject(m_hDCText, old);
 }
 
 inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size) const
@@ -108,8 +111,9 @@ inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Da
 	Rect.bottom = y2;
 	FillRect(m_hDCBuffer, &Rect, brush);
 	if (drawoutlines==true) {
-		brush = CreateSolidBrush(RGB(0,0,0));
-		FrameRect(m_hDCBuffer, &Rect, brush);
+		// DJW -- you have to delete these -- lets use a stock brush instead
+		// brush = CreateSolidBrush(RGB(0,0,0));
+		FrameRect(m_hDCBuffer, &Rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
 	}
 }
 
@@ -162,14 +166,15 @@ inline void CScreen::Display()
 {
 	BitBlt(m_hDCBuffer, 0, 0, m_iWidth,m_iHeight,m_hDCText, 0, 0, SRCAND);
 	
-	if (RealHDC==0) {
-		RealHDC = GetDC(m_hwnd);
-		BitBlt(RealHDC, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
-		ReleaseDC(m_hwnd,RealHDC);
-	} else
-		BitBlt(RealHDC, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+//	if (RealHDC==0) {
+//		RealHDC = GetDC(m_hwnd);
+//		BitBlt(RealHDC, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+//		ReleaseDC(m_hwnd,RealHDC);
+//	} else
 	
-	RealHDC = 0;
+	BitBlt(m_hDCScreen, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+	
+	//RealHDC = 0;
 }
 
 

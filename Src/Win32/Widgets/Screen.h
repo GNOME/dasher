@@ -57,10 +57,11 @@ public:
 	inline void Blank() const;
 	inline void Display();
 	
-	inline void SetNextHDC(HDC NewHDC) { RealHDC = NewHDC; }
+	//inline void SetNextHDC(HDC NewHDC) {
+		//assert(NewHDC!=0); 
+		//RealHDC = NewHDC; 
+	//}
 private:
-	void Build_Colours();
-	void Free_Colours();
 	
 	inline const void point2POINT(const point* In, POINT* Out, int Number) const;
 	inline GetDisplayTstring(Dasher::symbol Symbol);
@@ -68,11 +69,12 @@ private:
 	std::string m_FontName;
 	
 	HWND m_hwnd;
-	HDC m_hDCBuffer,m_hDCText, RealHDC;
+	HDC m_hDCBuffer,m_hDCText, m_hDCScreen;
 	std::vector<HFONT> m_vhfFonts;
 	//vector<HBRUSH> m_vhbBrushes;
 	std::vector<HBRUSH> m_Brushes;
 	HBITMAP m_hbmBit,m_hbmText;
+	HGDIOBJ m_prevhbmBit,m_prevhbmText;
 	std::vector<Tstring> DisplayStrings;
 	UINT CodePage;
 	Dasher::Opts::FontSize Fontsize;

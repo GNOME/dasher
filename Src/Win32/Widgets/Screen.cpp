@@ -17,40 +17,51 @@ using namespace Opts;
 using namespace std;
 
 CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
-  : CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), RealHDC(0), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
+  : CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), m_hDCScreen(0), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
 {
 	// set up the off-screen buffers
-	HDC hdc = GetWindowDC(mainwindow);
+	HDC hdc = GetDC(mainwindow);
 	m_hDCBuffer = CreateCompatibleDC(hdc);  // one for rectangles
 	m_hDCText = CreateCompatibleDC(hdc);    // the other for text
 	m_hbmBit = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
 	m_hbmText = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
-	ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
-	SelectObject(m_hDCText,m_hbmText);
+	//ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
+	m_prevhbmText = SelectObject(m_hDCText,m_hbmText);
 	SetBkMode(m_hDCText,TRANSPARENT);
-	SelectObject(m_hDCBuffer,m_hbmBit);
+	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
 	
 	// create the brushes
 //	Build_Colours();
 	
 	CodePage = GetUserCodePage();
 	SetFont("");
+
+	m_hDCScreen = ::GetDC(m_hwnd);
 }
 
 
 CScreen::~CScreen() {
 	// tidy up
-	
-	DeleteDC(m_hDCBuffer);
-	DeleteDC(m_hDCText);
+
+	SelectObject(m_hDCBuffer,m_prevhbmBit);
+	SelectObject(m_hDCText,m_prevhbmText);
+
 	DeleteObject(m_hbmBit);
 	DeleteObject(m_hbmText);
+
+	DeleteDC(m_hDCBuffer);
+	DeleteDC(m_hDCText);
+	
 	while (m_vhfFonts.size()) {
 		DeleteObject(m_vhfFonts.back());
 		m_vhfFonts.pop_back();
 	}
 	
-	Free_Colours();
+	while (m_Brushes.size()!=0) {
+		DeleteObject(m_Brushes.back());
+		m_Brushes.pop_back();
+	}
+
 }
 
 
@@ -118,15 +129,23 @@ FontSize CScreen::GetFontSize()
 
 void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 {
-	m_Brushes.clear();
+	// DJW - must delete brushes ala free_colours. Would be nice to encapsuted this into a Brush Container
+	while (m_Brushes.size()!=0) {
+		DeleteObject(m_Brushes.back());
+		m_Brushes.pop_back();
+	}
+
 	int numcolours=Colours->GetNumColours();
+	
+	assert(numcolours>0);
+
 	for (int i=0; i<numcolours; i++) {
 		m_Brushes.push_back(CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i))));
 	}
 }
 
-void CScreen::Build_Colours ()
-{
+//void CScreen::Build_Colours ()
+//{
 //	m_Brushes.resize(6);
 	
 	// Currently white and gray. Intended for use by a space character, placed last in alphabet
@@ -146,20 +165,20 @@ void CScreen::Build_Colours ()
 //	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,185,255)));
 //	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(140,200,255)));
 //	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,175,175)));
-}
+//}
 
 
-void CScreen::Free_Colours ()
-{
+//void CScreen::Free_Colours ()
+//{
 	// tidy up
-	while (m_Brushes.size()) {
+//	while (m_Brushes.size()) {
 //		while (m_Brushes.back().size()) {
 //			DeleteObject(m_Brushes.back().back());
 //			m_Brushes.back().pop_back();
 //		}
-		m_Brushes.pop_back();
-	}
-}
+//		m_Brushes.pop_back();
+//	}
+//}
 
 void CScreen::DrawMousePosBox(int which)
 {
@@ -181,6 +200,8 @@ void CScreen::DrawMousePosBox(int which)
 			Rect.top=m_iHeight-100;
 			brush=CreateSolidBrush(RGB(255,255,0));
 			break;
+		default:
+			assert(0);
 	}
 	FillRect(m_hDCText, &Rect, brush);
 	Display();

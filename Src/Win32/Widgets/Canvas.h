@@ -49,7 +49,7 @@ public:
 	void startspace();
 	void centrecursor();
 	void StartStop();
-	void DrawOutlines(bool Value) {Screen->DrawOutlines(Value);}
+	void DrawOutlines(bool Value) {m_pScreen->DrawOutlines(Value);}
 	void Pause() {running=0;}
 	bool Running() {return running;}
 protected:
@@ -58,7 +58,7 @@ private:
 	HWND Parent;
 	int keycoords[18],buttonnum,yscaling;
 	bool forward,backward,select;
-	CScreen* Screen;
+	CScreen* m_pScreen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;
 	CEdit* m_DasherEditBox;
