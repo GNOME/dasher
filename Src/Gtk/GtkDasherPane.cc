@@ -139,11 +139,45 @@ void GtkDasherPane::reset()
   text->Clear();
 }
 
-void GtkDasherPane::save( string filename )
+void GtkDasherPane::save()
+{
+}
+
+void GtkDasherPane::save_as( string filename )
 {
   //  cout << "In Save: " << filename << endl;
 
   text->SaveAs( filename );
+}
+
+void GtkDasherPane::select_all()
+{
+  text->SelectAll();
+}
+
+void GtkDasherPane::cut()
+{
+  text->Cut();
+}
+
+void GtkDasherPane::copy()
+{
+  text->Copy();
+}
+
+void GtkDasherPane::paste()
+{
+  text->Paste();
+}
+
+void GtkDasherPane::copy_all()
+{
+  text->CopyAll();
+}
+
+void GtkDasherPane::orientation( Opts::ScreenOrientations o )
+{
+  interface->ChangeOrientation( o );
 }
 
 GtkDasherPane::~GtkDasherPane()

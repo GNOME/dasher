@@ -25,7 +25,16 @@ public:
   void clear();
 
   void reset();
-  void save( string filename );
+  void save();
+  void save_as( string filename );
+
+  void select_all();
+  void cut();
+  void copy();
+  void paste();
+  void copy_all();
+
+  void orientation( Opts::ScreenOrientations o );
 
 private:
   GtkDasherEdit *text;

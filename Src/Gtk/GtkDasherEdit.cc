@@ -8,6 +8,7 @@
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
   : Gtk::Text(), Dasher::CDashEditbox(), flush_count(0), interface( _interface ), filename_set( false )
 {
+  set_editable( true );
 }
 
 GtkDasherEdit::~GtkDasherEdit()
@@ -56,6 +57,32 @@ void GtkDasherEdit::flush(symbol Symbol)
   Gdk_Color white("white");
 
   insert ( Gdk_Font(), black, white, label, 1);
+}
+
+void GtkDasherEdit::Cut()
+{
+  cut_clipboard();
+}
+
+void GtkDasherEdit::Copy()
+{
+  copy_clipboard();
+}
+
+void GtkDasherEdit::CopyAll()
+{
+  select_region(0, -1 );
+  copy_clipboard();
+}
+
+void GtkDasherEdit::Paste()
+{
+  paste_clipboard();
+}
+
+void GtkDasherEdit::SelectAll()
+{
+  select_region(0, -1 );
 }
 
 void GtkDasherEdit::Clear()

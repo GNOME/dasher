@@ -8,19 +8,42 @@
 #include <gtk--/menubar.h>
 #include <gtk--/menu.h>
 #include <gtk--/image.h>
+#include <gtk--/dialog.h>
 
 //#include <gnome--/app.h>
 
 #include "GtkDasherSave.h"
 #include "GtkDasherPane.h"
 
-#define TB_NEW "new"
-#define TB_OPEN "open"
-#define TB_SAVE "save"
-#define TB_CUT "cut"
-#define TB_COPY "copy"
-#define TB_COPY_ALL "copy_all"
-#define TB_PASTE "paste"
+#define TB_NEW 0
+#define TB_OPEN 1
+#define TB_SAVE 2
+#define TB_CUT 3
+#define TB_COPY 4
+#define TB_COPY_ALL 5
+#define TB_PASTE 6
+
+#define MENU_NEW 0
+#define MENU_OPEN 1
+#define MENU_SAVE 2
+#define MENU_SAVEAS 3
+#define MENU_APPEND 4
+#define MENU_IMPORT 5
+#define MENU_EXIT 6
+
+#define MENU_CUT 100
+#define MENU_COPY 101
+#define MENU_PASTE 102
+#define MENU_COPYALL 103
+#define MENU_SELECTALL 104
+
+#define MENU_ODEFAULT 210
+#define MENU_OLR 211
+#define MENU_ORL 212
+#define MENU_OTB 213
+#define MENU_OBT 214
+
+#define MENU_ABOUT 400
 
 class GtkDasherWindow : public Gtk::Window
 {
@@ -39,8 +62,24 @@ protected:
 
   Gtk::Pixmap first_pixmap;
 
-  void toolbar_button_cb(char *);
+  Gtk::Dialog aboutbox;
+
+  void toolbar_button_cb(int c);
+  void menu_button_cb(int c);
   void file_ok_sel();
+
+  void reset();
+  void save();
+  void save_as();
+  void exit();
+
+  void select_all();
+  void cut();
+  void copy();
+  void paste();
+  void copy_all();
+
+  void orientation( Opts::ScreenOrientations o );
 };
 
 #endif

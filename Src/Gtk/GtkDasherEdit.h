@@ -29,6 +29,12 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
   bool SaveAs( const std::string filename );
   bool Save();
   bool Open( const std::string filename );
+
+  void Cut();
+  void Copy();
+  void CopyAll();
+  void Paste();
+  void SelectAll();
  protected:
   int flush_count;
   CDasherInterface *interface;
