@@ -18,6 +18,33 @@
 //#include "Gtk2DasherStore.h"
 
 
+GtkWidget *vbox, *toolbar;
+GdkPixbuf *p;
+GtkWidget *pw;
+Gtk2DasherEdit *dasher_text_view;
+GtkWidget *text_view;
+GtkWidget *speed_frame;
+GtkObject *speed_slider;
+GtkWidget *speed_hscale;
+GtkWidget *text_scrolled_window;
+GtkWidget *canvas_frame;
+GtkWidget *ofilesel;
+GtkWidget *ifilesel;
+GtkWidget *afilesel;
+GtkStyle *style;
+Gtk2DasherCanvas *dasher_canvas;
+Gtk2DasherPane *dasher_pane;
+CDasherInterface *interface;
+GtkItemFactory *dasher_menu;
+GtkAccelGroup *dasher_accel;
+GtkWidget *dasher_menu_bar;
+
+void clipboard_copy(void);
+void clipboard_cut(void);
+void clipboard_paste(void);
+void load_training_file_from_filesel ();
+static void orientation(gpointer data, guint action, GtkWidget  *widget );
+
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
   Gtk2DasherEdit *dasher_text;
@@ -25,31 +52,31 @@ typedef struct {
 
 static GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
-  { "/File/_New",     "<CTRL>N", NULL,     1, "<Item>" },
-  { "/File/_Open...", "<CTRL>O", NULL,    1, "<Item>" },
-  { "/File/Save",     NULL, NULL, 1, "<Item>" },
-  { "/File/Save As...", NULL, NULL, 1, "<Item>" },
-  { "/File/Append to File...", NULL, NULL, 1, "<Item>" },
+  { "/File/_New",     "<CTRL>N", NULL,     0, "<Item>" },
+  { "/File/_Open...", "<CTRL>O", NULL,    0, "<Item>" },
+  { "/File/Save",     NULL, NULL, 0, "<Item>" },
+  { "/File/Save As...", NULL, NULL, 0, "<Item>" },
+  { "/File/Append to File...", NULL, NULL, 0, "<Item>" },
   { "/File/sep1",     NULL,      NULL,         0, "<Separator>" },
-  { "/File/Import Training Text...", NULL, NULL, 1, "<Item>" },
+  { "/File/Import Training Text...", NULL, NULL, 0, "<Item>" },
   { "/File/sepl", NULL, NULL, 0, "<Separator>" },
   { "/File/_Quit",    "<CTRL>Q", NULL, 0, "<StockItem>", GTK_STOCK_QUIT },
   { "/Edit", NULL, NULL, 0, "<Branch>" },
-  { "/Edit/Cut", NULL, NULL, 0, "<Item>" },
-  { "/Edit/Copy", NULL, NULL, 0, "<Item>" },
-  { "/Edit/Paste", NULL, NULL, 0, "<Item>" },
+  { "/Edit/Cut", NULL, clipboard_cut, 0, "<Item>" },
+  { "/Edit/Copy", NULL, clipboard_copy, 0, "<Item>" },
+  { "/Edit/Paste", NULL, clipboard_paste, 0, "<Item>" },
   { "/Edit/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Edit/Copy All", NULL, NULL, 0, "<Item>" },
   { "/Edit/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Edit/Select All", NULL, NULL, 0, "<Item>" },
   { "/View", NULL, NULL, 0, "<Branch>" },
   { "/View/Orientation", NULL, NULL, 0, "<Branch>" },
-  { "/View/Orientation/Alphabet Default", NULL, NULL, 0, "<RadioItem>" },
+  { "/View/Orientation/Alphabet Default", NULL, *GtkItemFactoryCallback(orientation), 1, "<RadioItem>" },
   { "/View/Orientation/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/View/Orientation/Left to Right", NULL, NULL, 0, "/View/Orientation/Alphabet Default" },
-  { "/View/Orientation/Right to Left", NULL, NULL, 0, "/View/Orientation/Alphabet Default" },
-  { "/View/Orientation/Top to Bottom", NULL, NULL, 0, "/View/Orientation/Alphabet Default" },
-  { "/View/Orientation/Bottom to Top", NULL, NULL, 0, "/View/Orientation/Alphabet Default" },
+  { "/View/Orientation/Left to Right", NULL, *GtkItemFactoryCallback(orientation), 3, "/View/Orientation/Alphabet Default" },
+  { "/View/Orientation/Right to Left", NULL, *GtkItemFactoryCallback(orientation), 4, "/View/Orientation/Alphabet Default" },
+  { "/View/Orientation/Top to Bottom", NULL, *GtkItemFactoryCallback(orientation), 5, "/View/Orientation/Alphabet Default" },
+  { "/View/Orientation/Bottom to Top", NULL, *GtkItemFactoryCallback(orientation), 6, "/View/Orientation/Alphabet Default" },
   { "/View/sepl", NULL, NULL, 0, "<Separator>" },
   { "/View/Show Toolbar", NULL, NULL, 0, "<CheckItem>" },
   { "/View/Speed Slider", NULL, NULL, 0, "<CheckItem>" },
@@ -108,7 +135,7 @@ GtkWidget *window;
 GtkWidget *file_selector;
 
 static void 
-load_training_file (char *filename, CDasherInterface *interface)
+load_training_file (const gchar *filename, CDasherInterface *interface)
 {
   interface->TrainFile(filename);
 }
@@ -116,10 +143,7 @@ load_training_file (char *filename, CDasherInterface *interface)
 static void
 load_training_file_from_filesel (GtkFileSelection *selector, gpointer data)
 {
-  Gtk2DasherCanvas *dasher_canvas = static_cast<Gtk2DasherCanvas*>(data);
-  
-  //  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (file_selector));
-  load_training_file (filename, dasher_canvas->interface);
+  load_training_file (gtk_file_selection_get_filename(GTK_FILE_SELECTION(file_selector)), dasher_canvas->interface);
   
   gtk_widget_destroy (file_selector);
 }
@@ -198,7 +222,7 @@ configure (GtkWidget *widget, gpointer data)
   
   file_selector = gtk_file_selection_new ("Import Training File ...");
   
-  gtk_signal_connect (GTK_OBJECT (file_selector), "completed", GTK_SIGNAL_FUNC (load_training_file_from_filesel), (gpointer) dasher_canvas);
+  //  gtk_signal_connect (GTK_OBJECT (file_selector), "completed", GTK_SIGNAL_FUNC (load_training_file_from_filesel), (gpointer) dasher_canvas);
 
   gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->cancel_button), "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy), GTK_OBJECT (file_selector));
 
@@ -553,23 +577,6 @@ static void speed_changed(GtkAdjustment *adj, Gtk2DasherCanvas *dasher_canvas) {
 static void
 open_window (void)
 {
-  GtkWidget *vbox, *toolbar;
-  GdkPixbuf *p;
-  GtkWidget *pw;
-  Gtk2DasherEdit *dasher_text_view;
-  GtkWidget *text_view;
-  GtkWidget *speed_frame;
-  GtkObject *speed_slider;
-  GtkWidget *speed_hscale;
-  GtkWidget *text_scrolled_window;
-  GtkWidget *canvas_frame;
-  GtkStyle *style;
-  Gtk2DasherCanvas *dasher_canvas;
-  Gtk2DasherPane *dasher_pane;
-  CDasherInterface *interface;
-  GtkItemFactory *dasher_menu;
-  GtkAccelGroup *dasher_accel;
-  GtkWidget *dasher_menu_bar;
   //GdkPixmap *pmap;
   //GdkBitmap *bmap;
   char *system_data_dir;
@@ -588,6 +595,16 @@ open_window (void)
 				      NULL );
 
   float initial_bitrate = 3.0;
+
+  interface = new CDasherInterface;
+
+  dasher_canvas = new Gtk2DasherCanvas (360, 360, interface);
+  dasher_text_view = new Gtk2DasherEdit (interface);
+  dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
+
+  ofilesel = gtk_file_selection_new("Open a file");
+  afilesel = gtk_file_selection_new("Append to file");
+  ifilesel = gtk_file_selection_new("Import Training Text");
 
   home_dir = getenv( "HOME" );
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
@@ -611,21 +628,14 @@ open_window (void)
   gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
   gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 
-  interface = new CDasherInterface;
-
-  dasher_canvas = new Gtk2DasherCanvas (360, 360, interface);
-  dasher_text_view = new Gtk2DasherEdit (interface);
-
   gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), dasher_text_view);
-
-  dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
 
   gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
   gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
 
   text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  gtk_box_pack_start (GTK_BOX (vbox), text_scrolled_window, FALSE, FALSE, 0);
   gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+  gtk_box_pack_start (GTK_BOX (vbox), text_scrolled_window, FALSE, FALSE, 0);
 
   gtk_container_add (GTK_CONTAINER (text_scrolled_window), dasher_text_view->text_view);
 
@@ -729,9 +739,20 @@ main(int argc, char *argv[])
   return 0;
 }
 
+void clipboard_copy(void) {
+  dasher_text_view->Copy();
+}
 
+void clipboard_cut(void) {
+  dasher_text_view->Cut();
+}
 
+void clipboard_paste(void) {
+  dasher_text_view->Paste();
+}
 
-
-
-
+void orientation(gpointer data, guint action, GtkWidget  *widget )
+{
+  signed int RealAction=action-3;
+  interface->ChangeOrientation(Dasher::Opts::ScreenOrientations(RealAction));
+}
