@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-#include "MainWindow.h"
+#include "DasherWindow.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/SplashScreen.h"
