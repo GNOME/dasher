@@ -700,3 +700,13 @@ void add_control_tree(ControlTree *controltree)
 {
   interface->AddControlTree(controltree);
 }
+
+void add_alphabet_filename(const char* filename)
+{
+  interface->AddAlphabetFilename(filename);
+}
+
+void add_colour_filename(const char* filename)
+{
+  interface->AddColourFilename(filename);
+}

@@ -132,4 +132,7 @@ void dasher_clear();
 
 void add_control_tree(ControlTree *controltree);
 
+void add_alphabet_filename(const char* filename);
+void add_colour_filename(const char* filename);
+
 #endif

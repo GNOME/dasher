@@ -14,16 +14,26 @@ using namespace std;
 using namespace expat;
 
 
-CColourIO::CColourIO(string SystemLocation, string UserLocation)
+CColourIO::CColourIO(string SystemLocation, string UserLocation, vector<string> Filenames)
 	: SystemLocation(SystemLocation), UserLocation(UserLocation),
-	  BlankInfo(), LoadMutable(false), CData("")
+	  Filenames(Filenames), BlankInfo(), LoadMutable(false), CData("")
 {
 	CreateDefault();
 	
 	LoadMutable = false;
 	ParseFile(SystemLocation + "colour.xml");
+        if (Filenames.size()>0) {
+          for (int i=0; i<Filenames.size(); i++) {
+            ParseFile(SystemLocation + Filenames[i]);
+          }
+        }
 	LoadMutable = true;
 	ParseFile(UserLocation + "colour.xml");
+        if (Filenames.size()>0) {
+          for (int i=0; i<Filenames.size(); i++) {
+            ParseFile(UserLocation + Filenames[i]);
+          }
+        }
 }
 
 

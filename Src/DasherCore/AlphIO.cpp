@@ -14,9 +14,9 @@ using namespace std;
 using namespace expat;
 
 
-CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
+CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector<string> Filenames)
 	: SystemLocation(SystemLocation), UserLocation(UserLocation),
-	  BlankInfo(), LoadMutable(false), CData("")
+	  Filenames(Filenames), BlankInfo(), LoadMutable(false), CData("")
 {
 	CreateDefault();
 	
@@ -44,8 +44,18 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
 	
 	LoadMutable = false;
 	ParseFile(SystemLocation + "alphabet.xml");
+	if (Filenames.size()>0) {
+	  for (int i=0; i<Filenames.size(); i++) {
+	    ParseFile(SystemLocation + Filenames[i]);
+	  }
+	}
 	LoadMutable = true;
 	ParseFile(UserLocation + "alphabet.xml");
+	if (Filenames.size()>0) {
+	  for (int i=0; i<Filenames.size(); i++) {
+	    ParseFile(UserLocation + Filenames[i]);
+	  }
+	}
 }
 
 

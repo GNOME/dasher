@@ -60,7 +60,7 @@ public:
 		character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
 	};
 	
-	CAlphIO(std::string SystemLocation, std::string UserLocation);
+	CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames);
 	void GetAlphabets(std::vector< std::string >* AlphabetList) const;
 	const AlphInfo& GetInfo(const std::string& AlphID);
 	void SetInfo(const AlphInfo& NewInfo);
@@ -70,7 +70,8 @@ private:
 	std::string SystemLocation;
 	std::string UserLocation;
 	std::map<std::string, AlphInfo> Alphabets; // map short names (file names) to descriptions
-	
+	std::vector<std::string> Filenames;
+
 	void Save(const std::string& AlphID);
 	void CreateDefault(); // Give the user an English alphabet rather than nothing if anything goes horribly wrong.
 	

@@ -58,6 +58,12 @@ public:
 	//! Set the path for system-wide configuration and files
 	void SetSystemLocation(std::string SystemLocation);
 	
+	//! Add an alphabet filename
+	void AddAlphabetFilename(std::string Filename);
+
+	//! Add a colour filename
+	void AddColourFilename(std::string Filename);
+
 	// Widget Interface
 	// -----------------------------------------------------
 	void Start();
@@ -197,6 +203,8 @@ private:
 	std::string m_TrainFile;
 	std::string m_DasherFont;
 	std::string m_EditFont;
+	std::vector<std::string> m_AlphabetFilenames;
+	std::vector<std::string> m_ColourFilenames;
 	int m_EditFontSize;
 	static const std::string EmptyString;
 	

@@ -98,6 +98,12 @@ struct button {
   long y;
 };
 
+void scan_alphabet_files();
+void scan_colour_files();
+
+int alphabet_filter(const struct dirent *);
+int colour_filter(const struct dirent *);
+
 #endif
 
 

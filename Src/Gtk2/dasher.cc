@@ -8,6 +8,7 @@
 #include <vector>
 #include <stdio.h>
 #include <time.h>
+#include <dirent.h>
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -48,6 +49,8 @@ GladeXML *widgets;
 GtkWidget *filesel;
 std::string alphabet;
 std::string colourscheme;
+char *system_data_dir;
+char *user_data_dir;
 
 
 bool controlmodeon=false;
@@ -101,6 +104,8 @@ time_t starttime=0;
 time_t starttime2=0;
 
 const gchar *filename = NULL;
+GPatternSpec *alphabetglob, *colourglob;
+
 
 GtkWidget *window;
 GtkWidget *file_selector;
@@ -1181,9 +1186,7 @@ interface_late_setup() {
 
 void
 open_window(GladeXML *xml) {
-  char *system_data_dir;
   char *home_dir;
-  char *user_data_dir;
 
   home_dir = getenv( "HOME" );
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
@@ -1195,6 +1198,9 @@ open_window(GladeXML *xml) {
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
+
+  scan_alphabet_files();
+  scan_colour_files();
 
   window=glade_xml_get_widget(xml, "window");
   vbox=glade_xml_get_widget(xml, "vbox1");
@@ -1797,4 +1803,50 @@ void stop() {
       dasher_redraw();
     }
   }
+}
+
+void scan_alphabet_files()
+{
+  dirent **names;
+  alphabetglob=g_pattern_spec_new("alphabet*xml");
+  int number = scandir(system_data_dir,&names,alphabet_filter,alphasort);
+  if (number>0) {
+    for (int i=0; i<number; i++) {
+      add_alphabet_filename(names[i]->d_name);
+    }
+  }
+  number = scandir(user_data_dir,&names,alphabet_filter,alphasort);
+  if (number>0) {
+    for (int i=0; i<number; i++) {
+      add_alphabet_filename(names[i]->d_name);
+    }
+  }
+}
+
+void scan_colour_files()
+{
+  dirent **names;
+  colourglob=g_pattern_spec_new("colour*xml");
+  int number = scandir(system_data_dir,&names,colour_filter,alphasort);
+  if (number>0) {
+    for (int i=0; i<number; i++) {
+      add_colour_filename(names[i]->d_name);
+    }
+  }
+  number = scandir(user_data_dir,&names,colour_filter,alphasort);
+  if (number>0) {
+    for (int i=0; i<number; i++) {
+      add_colour_filename(names[i]->d_name);
+    }
+  }
+}
+
+int alphabet_filter(const struct dirent *dirent)
+{
+  return int(g_pattern_match_string(alphabetglob,dirent->d_name));
+}
+
+int colour_filter(const struct dirent *dirent)
+{
+  return int(g_pattern_match_string(colourglob,dirent->d_name));
 }

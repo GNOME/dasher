@@ -79,6 +79,15 @@ void CDasherInterface::SetSystemLocation(std::string SystemLocation)
 	m_SystemLocation = SystemLocation;
 }
 
+void CDasherInterface::AddAlphabetFilename(std::string Filename)
+{
+  m_AlphabetFilenames.push_back(Filename);
+}
+
+void CDasherInterface::AddColourFilename(std::string Filename)
+{
+  m_ColourFilenames.push_back(Filename);
+}
 
 void CDasherInterface::CreateDasherModel()
 {
@@ -205,7 +214,7 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	
 	AlphabetID = NewAlphabetID;
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
+		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
 	m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
 
 	CAlphabet* old = m_Alphabet;
@@ -265,7 +274,7 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	
 	ColourID = NewColourID;
 	if (!m_ColourIO)
-		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation);
+		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);
 	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
 	m_Colours = new CCustomColours(m_ColourInfo);
 
@@ -704,7 +713,7 @@ const std::string& CDasherInterface::GetTrainFile()
 void CDasherInterface::GetAlphabets(std::vector< std::string >* AlphabetList)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);	
+		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);	
 	m_AlphIO->GetAlphabets(AlphabetList);
 }
 
@@ -712,7 +721,7 @@ void CDasherInterface::GetAlphabets(std::vector< std::string >* AlphabetList)
 const CAlphIO::AlphInfo& CDasherInterface::GetInfo(const std::string& AlphID)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
+		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
 	
 	return m_AlphIO->GetInfo(AlphID);
 }
@@ -721,7 +730,7 @@ const CAlphIO::AlphInfo& CDasherInterface::GetInfo(const std::string& AlphID)
 void CDasherInterface::SetInfo(const CAlphIO::AlphInfo& NewInfo)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
+		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
 	
 	m_AlphIO->SetInfo(NewInfo);
 }
@@ -730,7 +739,7 @@ void CDasherInterface::SetInfo(const CAlphIO::AlphInfo& NewInfo)
 void CDasherInterface::DeleteAlphabet(const std::string& AlphID)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
+		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
 	
 	m_AlphIO->Delete(AlphID);
 }
@@ -738,7 +747,7 @@ void CDasherInterface::DeleteAlphabet(const std::string& AlphID)
 void CDasherInterface::GetColours(std::vector< std::string >* ColourList)
 {
 	if (!m_ColourIO)
-		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation);	
+		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);	
 	m_ColourIO->GetColours(ColourList);
 }
 
