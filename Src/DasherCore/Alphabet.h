@@ -38,6 +38,7 @@ public:
 	const std::string& GetDisplayText(symbol i) const {return m_Display[i];} // return display string for i'th symbol
 	const std::string& GetText(symbol i) const {return m_Characters[i];}     // return string for i'th symbol
 	const std::string& GetColour(symbol i) const {return m_Colours[i];}     // return the colour for i'th symbol
+	int GetTextColour(symbol i);      // return the foreground colour for i'th symbol
 	const std::string& GetForeground(symbol i) const {return m_Foreground[i];} // return the foreground colour for i'th symbol
 	int get_group(symbol i) const {return m_Group[i];}                // return group membership of i'th symbol
 	

@@ -128,3 +128,13 @@ void CAlphabet::dump() const {
 	}
 */
 }
+
+int CAlphabet::GetTextColour(symbol Symbol)
+{
+  std::string TextColour=m_Foreground[Symbol];
+  if (TextColour != "") {
+    return atoi(TextColour.c_str());
+  } else {
+    return 0;
+  }
+}

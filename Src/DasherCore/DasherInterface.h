@@ -71,6 +71,7 @@ public:
 	unsigned int GetNumberSymbols();           // These are needed so widgets know
 	const std::string& GetDisplayText(symbol Symbol); // how to render the alphabet. All
 	const std::string& GetEditText(symbol Symbol);    // strings are encoded in UTF-8
+	int GetTextColour(symbol Symbol);    // the foreground colour of the text
 	Opts::ScreenOrientations GetAlphabetOrientation();
 	Opts::AlphabetTypes GetAlphabetType();
 	const std::string& GetTrainFile();

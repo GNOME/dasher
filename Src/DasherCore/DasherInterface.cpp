@@ -483,6 +483,14 @@ const string& CDasherInterface::GetEditText(symbol Symbol)
 		return EmptyString;
 }
 
+int CDasherInterface::GetTextColour(symbol Symbol)
+{
+	if (m_Alphabet!=0)
+		return m_Alphabet->GetTextColour(Symbol);
+	else
+	        return 0;
+}
+
 
 Opts::ScreenOrientations CDasherInterface::GetAlphabetOrientation()
 {

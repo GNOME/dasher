@@ -73,6 +73,10 @@ public:
 	//! \param Symbol the symbol that is to be displayed
 	virtual const std::string& GetEditText(Dasher::symbol Symbol)=0;
 
+	//! Request the foreground colour for the text to be drawn on the canvas
+	//! \param Symbol the symbol that is to be displayed
+	virtual int GetTextColour(Dasher::symbol Symbol)=0;
+
 	//! Request the default screen orientation for the current alphabet
 	//
 	//! (Eg, left to right for English, right to left for Hebrew)
