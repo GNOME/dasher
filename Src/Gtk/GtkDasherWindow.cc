@@ -107,6 +107,8 @@ GtkDasherWindow::GtkDasherWindow()
     static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( true );
     static_cast<CheckMenuItem *>( (*list_view)[3] )->set_active( true );
 
+    static_cast<CheckMenuItem *>( (*list_view)[5] )->set_sensitive( false );
+
     Menu *menu_enc = new Menu();
     MenuList &list_enc = menu_enc->items();
 
