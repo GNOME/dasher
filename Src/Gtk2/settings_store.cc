@@ -4,63 +4,57 @@ GConfClient *the_gconf_client;
 
 bool get_bool_option_callback(const std::string& Key, bool *value)
 {
-  bool got_value;
-
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
   GError *the_error;
 
-  if (gconf_engine_get( gconfengine, keypath, &the_error)==FALSE)
-    return (false);
+  GConfValue* got_value = gconf_client_get_without_default( the_gconf_client, keypath, &the_error);
 
-  got_value = gconf_client_get_bool( the_gconf_client, keypath, &the_error);
+  if (got_value==NULL) {
+    return false;
+  }
 
-  *value = got_value;
+  *value = gconf_value_get_bool(got_value);
+  gconf_value_free(got_value);
   return( true );
 }
 
 bool get_long_option_callback(const std::string& Key, long *value)
 {
-  long got_value;
-
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  if (gconf_engine_get( gconfengine, keypath, NULL)==FALSE) {
-    return (false);
-  }
+  GError *the_error;
 
-  got_value = gconf_client_get_int( the_gconf_client, keypath, NULL);
+  GConfValue* got_value = gconf_client_get_without_default( the_gconf_client, keypath, &the_error);
 
-  *value = got_value;
+  if (got_value==NULL)
+    return false;
 
+  *value = gconf_value_get_int(got_value);
+  gconf_value_free(got_value);
   return( true );
 }
 
 bool get_string_option_callback(const std::string& Key, std::string *value)
 {
-  char * got_value;
-
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  if (gconf_engine_get( gconfengine, keypath, NULL)==FALSE)
-    return (false);
+  GError *the_error;
 
-  got_value = gconf_client_get_string( the_gconf_client, keypath, NULL);
+  GConfValue* got_value = gconf_client_get_without_default( the_gconf_client, keypath, &the_error);
 
-  if( got_value != NULL )
-    {
-      *value = std::string( got_value );
+  if (got_value==NULL)
+    return false;
 
-      return( true );
-    }
-  else
-    return( false );
+  *value = gconf_value_get_string(got_value);
+  gconf_value_free(got_value);
+  return( true );
 }
   
 void set_bool_option_callback(const std::string& Key, bool Value)
