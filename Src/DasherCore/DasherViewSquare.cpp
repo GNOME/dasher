@@ -41,14 +41,15 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_dXmpa=0.2;   // these are for the x non-linearity
 	m_dXmpb=0.5;
 	m_dXmpc=0.9;
+	m_dXmpd=0.5;   // slow X movement when accelerating Y
 
-	double dY1=0.1;     // these are for the y non-linearity
-	double dY2=0.95;
-	double dY3=0.05;
+	double dY1=0.05;    // these are for the y non-linearity
+	double dY2=0.95;    // Accelerate Y movement below this point
+	double dY3=0.05;    // Accelerate Y movement above this point
 
 	m_Y2=int (dY2 * (CDasherView::DasherModel().DasherY()) );
 	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
-	m_Y1=int(1.0/dY3);
+	m_Y1=int(1.0/dY1);
 }
 
 

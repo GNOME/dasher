@@ -43,7 +43,7 @@ private:
 	
 	void CheckForNewRoot();
 	inline void Crosshair(myint sx);
-	double m_dXmpc,m_dXmpa,m_dXmpb;
+	double m_dXmpa,m_dXmpb,m_dXmpc,m_dXmpd;
 	myint m_Y1,m_Y2,m_Y3;
 	int CanvasX,CanvasY,CanvasBorder;
 	double xmap(double x);
