@@ -19,5 +19,6 @@
 		#include "MSVC_Unannoy.h"
 	#endif
 	
+#include "assert.h"
 
 #endif // __include__
