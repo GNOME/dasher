@@ -34,13 +34,20 @@ public:
 	void StartOnSpace(bool Value) {startonspace = Value;}
 	void KeyControl(bool Value) {keycontrol = Value;}
 	void WindowPause(bool Value) {windowpause = Value;}
-	void setkeycoords(int coords[8]) {for (int i=0; i<8; i++) {keycoords[i]=coords[i];};}
+	void setkeycoords(int coords[18]) {for (int i=0; i<18; i++) {keycoords[i]=coords[i];};}
 	int* getkeycoords() {return keycoords;}
+	void setforward(bool value) {forward=value;}
+	void setbackward(bool value) {backward=value;}
+	void setselect(bool value) {select=value;}
+	bool getforward() {return forward;}
+	bool getbackward() {return backward;}
+	bool getselect() {return select;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	HWND Parent;
-	int keycoords[8];
+	int keycoords[18],buttonnum;
+	bool forward,backward,select;
 	CScreen* Screen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;

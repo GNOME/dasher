@@ -1,4 +1,4 @@
-// AlphabetBox.cpp
+// KeyControl.cpp
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -39,7 +39,7 @@ std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
 
 void CKeyBox::PopulateWidgets()
 {
-	int widgets[8];
+	int widgets[18];
 	widgets[0]=IDC_UPX;
 	widgets[1]=IDC_UPY;
 	widgets[2]=IDC_DOWNX;
@@ -48,22 +48,41 @@ void CKeyBox::PopulateWidgets()
 	widgets[5]=IDC_LEFTY;
 	widgets[6]=IDC_RIGHTX;
 	widgets[7]=IDC_RIGHTY;
+	widgets[8]=IDC_5X;
+	widgets[9]=IDC_5Y;
+	widgets[10]=IDC_6X;
+	widgets[11]=IDC_6Y;
+	widgets[12]=IDC_7X;
+	widgets[13]=IDC_7Y;
+	widgets[14]=IDC_8X;
+	widgets[15]=IDC_8Y;
+	widgets[16]=IDC_9X;
+	widgets[17]=IDC_9Y;
 
 	int* coords = m_pCanvas->getkeycoords();
-	for (int i=0; i<8; i++) {
+	for (int i=0; i<18; i++) {
 			keycoords[i]=coords[i];
 	}
-	for (int i=0; i<8; i++) {
-	HWND EditBox = GetDlgItem(m_hwnd, widgets[i]);
-	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
+	for (int i=0; i<18; i++) {
+		HWND EditBox = GetDlgItem(m_hwnd, widgets[i]);
+		SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
 	
-	char dummybuffer[256];
-	wchar_t widebuffer[256];
+		char dummybuffer[256];
+		wchar_t widebuffer[256];
 
-	itoa(keycoords[i],dummybuffer,10);
-	mbstowcs(widebuffer,dummybuffer,256);
+		itoa(keycoords[i],dummybuffer,10);
+		mbstowcs(widebuffer,dummybuffer,256);
 
-	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
+		SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
+	}
+	if (m_pCanvas->getforward()==true) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_KCFORWARD), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if (m_pCanvas->getbackward()==true) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_KCBACK), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if (m_pCanvas->getselect()==true) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_KCSELECT), BM_SETCHECK, BST_CHECKED, 0);
 	}
 }
 
@@ -102,8 +121,36 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			keycoords[5]=atoi(GetControlText(Window,IDC_LEFTY).c_str());
 			keycoords[6]=atoi(GetControlText(Window,IDC_RIGHTX).c_str());
 			keycoords[7]=atoi(GetControlText(Window,IDC_RIGHTY).c_str());
+			keycoords[8]=atoi(GetControlText(Window,IDC_5X).c_str());
+			keycoords[9]=atoi(GetControlText(Window,IDC_5Y).c_str());
+			keycoords[10]=atoi(GetControlText(Window,IDC_6X).c_str());
+			keycoords[11]=atoi(GetControlText(Window,IDC_6Y).c_str());
+			keycoords[12]=atoi(GetControlText(Window,IDC_7X).c_str());
+			keycoords[13]=atoi(GetControlText(Window,IDC_7Y).c_str());
+			keycoords[14]=atoi(GetControlText(Window,IDC_8X).c_str());
+			keycoords[15]=atoi(GetControlText(Window,IDC_8Y).c_str());
+			keycoords[16]=atoi(GetControlText(Window,IDC_9X).c_str());
+			keycoords[17]=atoi(GetControlText(Window,IDC_9Y).c_str());
 			EndDialog(Window, LOWORD(wParam));
 			m_pCanvas->setkeycoords(keycoords);
+			// Move forward on button press
+			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pCanvas->setforward(true);
+			} else {
+				m_pCanvas->setforward(false);
+			}
+			// Move backward on button press
+			if (SendMessage(GetDlgItem(Window,IDC_KCBACK), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pCanvas->setbackward(true);
+			} else {
+				m_pCanvas->setbackward(false);
+			}
+			// Select on button press
+			if (SendMessage(GetDlgItem(Window,IDC_KCSELECT), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pCanvas->setselect(true);
+			} else {
+				m_pCanvas->setselect(false);
+			}
 			return TRUE;
 			break;
 		case (IDCANCEL):

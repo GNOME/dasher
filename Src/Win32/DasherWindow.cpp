@@ -404,11 +404,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case IDM_ABOUT:
 				{ CAboutbox Aboutbox(m_hwnd); }
 				break;
-#ifdef DOM
 			case ID_OPTIONS_EDITKEYS:
 				{ CKeyBox KeyBox(m_hwnd,m_pCanvas); }
 				break;
-#endif		
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
 				break;

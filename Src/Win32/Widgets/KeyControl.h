@@ -28,7 +28,7 @@ private:
 	HWND m_hwnd;
 	HWND CustomBox;
 	CCanvas* m_pCanvas;
-	int keycoords[8];
+	int keycoords[18];
 
 	// Some status flags:
 	bool Editing;

@@ -13,7 +13,7 @@ using namespace Dasher;
 
 CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB)
 	: dwThreadID(0), m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
-	m_DasherEditBox(EB), imousex(0), imousey(0), Parent(Parent)
+	m_DasherEditBox(EB), imousex(0), imousey(0), Parent(Parent), buttonnum(0)
 {
 
 #ifndef _WIN32_WCE
@@ -86,61 +86,58 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
 			if (keycontrol == true) {
 
-				case VK_UP:
-
-					m_DasherWidgetInterface->Unpause(GetTickCount());
-
-					GetClientRect(Window, &coords);
-
-					for (i=0; i<300; i+=10) {
-
-						m_DasherWidgetInterface->TapOn(int(0.70*coords.right), int(0.20*coords.bottom), GetTickCount()+i);
-
-					}
-
-				 m_DasherWidgetInterface->PauseAt(150,150);
-
-				 return 0;
-
-				 break;
-
-				case VK_DOWN:
-
-					GetClientRect(Window, &coords);
-
-					m_DasherWidgetInterface->Unpause(GetTickCount());
-
-				    for (i=0; i<300; i+=10) {
-
-						m_DasherWidgetInterface->TapOn(int(0.70*coords.right), int(0.790*coords.bottom), GetTickCount()+i);
-
-				    }
-
-					m_DasherWidgetInterface->PauseAt(150,150);
-
-					return 0;
-
-					break;
-
-				case VK_LEFT:
-
-					GetClientRect(Window, &coords);
-
-					m_DasherWidgetInterface->Unpause(GetTickCount());
-
-					for (i=0; i<300; i+=10) {
-
-						m_DasherWidgetInterface->TapOn(int(0.25*coords.right),int(0.47*coords.bottom), GetTickCount()+i);
-
-					}
-
-					m_DasherWidgetInterface->PauseAt(150,150);
-
-					return 0;
-
-					break;
-
+		case VK_UP:
+			if (forward==true) {
+				buttonnum++;
+				if (buttonnum==9) {
+					buttonnum=0;
 				}
+				while (keycoords[buttonnum*2]==NULL) {
+					buttonnum++;
+					if (buttonnum==9) {
+						buttonnum=0;
+					}
+				}
+				m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+			} else {
+				m_DasherWidgetInterface->GoTo(keycoords[0], keycoords[1]);
+			}
+			return 0;
+			break;
+			
+		case VK_DOWN:
+					
+			if (backward==true) {
+				buttonnum--;
+				if (buttonnum==-1) {
+					buttonnum=8;
+				}
+				while (keycoords[buttonnum*2]==NULL) {
+					buttonnum--;
+					if (buttonnum==-1) {
+						buttonnum=8;
+					}
+				}
+				m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+			} else {
+				m_DasherWidgetInterface->GoTo(keycoords[2], keycoords[3]);
+			}
+			return 0;
+			break;
+				case VK_LEFT:
+					if (select==true) {
+						m_DasherWidgetInterface->GoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+						m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+					} else {
+						m_DasherWidgetInterface->GoTo(keycoords[4],keycoords[5]);
+					}
+					return 0;
+					break;
+				case VK_RIGHT:
+					m_DasherWidgetInterface->GoTo(keycoords[6],keycoords[7]);
+					return 0;
+					break;
+			}
 
 			case VK_SPACE:
 
