@@ -105,6 +105,7 @@ gboolean secondbox=FALSE;
 gboolean speakonstop=FALSE;
 gboolean training=FALSE;
 gboolean exiting=FALSE;
+gboolean direction=TRUE;
 
 gint dasherwidth, dasherheight;
 long yscale, mouseposstartdist=0;
@@ -124,6 +125,7 @@ gint fileencoding;
 
 gint outputcharacters;
 
+time_t lastdirection=0;
 time_t dasherstarttime;
 time_t starttime=0;
 time_t starttime2=0;
@@ -954,7 +956,18 @@ timer_callback(gpointer data)
 	dasher_redraw();
       }
     }
-  if (!paused) {
+  
+    if (!paused) {
+    
+     if (eyetrackermode) {
+        if (direction==TRUE) {
+            dasher_set_parameter_int(INT_ONEBUTTON, 150);
+        }
+        if (direction==FALSE) {
+            dasher_set_parameter_int(INT_ONEBUTTON, -150); 
+        }
+        cout << dasher_get_onebutton() << endl;
+    }
     int x;
     int y;
     
@@ -1321,11 +1334,17 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
     return FALSE;
 #endif
 
+
+
   // CJB,  2003-08.  If we have a selection, replace it with the new input.
   // This code is duplicated in key_press_event.
   if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
     gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
-  
+
+  // CJB.  2004-07.
+  // One-button mode; change direction on mouse click.
+  direction=!direction;
+
   if (startleft == TRUE) {
     stop();
   }
@@ -1464,6 +1483,7 @@ void
 interface_late_setup() {
   // Stuff that needs to be done after the core has
   // set itself up
+  dasher_set_parameter_int(INT_ONEBUTTON, 0);
   alphabet=dasher_get_current_alphabet();
   colourscheme=dasher_get_current_colours();
   generate_preferences(NULL,NULL);

@@ -305,6 +305,9 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_LANGUAGEMODEL:
       interface->ChangeLanguageModel( value );
       break;
+    case INT_ONEBUTTON:
+      interface->SetOneButton( value );
+      break;
     case INT_VIEW:
       interface->ChangeView( value );
       break;
@@ -657,6 +660,11 @@ string dasher_get_edit_text( symbol Character )
 int dasher_get_text_colour( symbol Character )
 {
   return(interface->GetTextColour(Character));
+}
+
+int dasher_get_onebutton(void)
+{
+  return(interface->GetOneButton());
 }
 
 void dasher_resize_canvas( int _width, int _height )

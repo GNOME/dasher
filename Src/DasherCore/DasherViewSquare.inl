@@ -19,6 +19,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	// hence the fudging. ixmap gives us the X nonlinearity.	
 	double x=ixmap(1.0*(CanvasX-*mousex)/CanvasX)*DasherModel().DasherY();
 
+    if (eyetracker==true) { dashery=onebutton; }
 	// If we're in standard mode, fudge things for the vertical acceleration
 	if (DasherModel().Dimensions()==false && KeyControl==false && eyetracker==false) {
 		if (dashery>m_Y2)
@@ -36,11 +37,11 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	// If we're in one-dimensional mode, we need to use the Y coordinate to 
 	// generate a new and exciting X coordinate
 	if (DasherModel().Dimensions()==true || eyetracker==true) {
-		if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
-			*mousex=int(x);
-			*mousey=int(dashery);
-			return;
-		}
+		//if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
+		//	*mousex=int(x);
+		//	*mousey=int(dashery);
+		//	return;
+		//}
       
 		double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb;	
 
@@ -95,33 +96,31 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		} 
 		else {
 			// For eyetracker mode.
-			if (eyetracker==true&&(disty>circlesize||disty < -(circlesize))) {
-
+			//if (eyetracker==true&&(disty>circlesize||disty < -(circlesize))) {
 				// double x_prime = eyetracker_get_x(x, dashery);
 				// double y_prime = eyetracker_get_y(x, dashery);
 
-				double double_x = -((x-dasherOX)/dasherOX);                
-				double double_y = -((rel_dashery-rel_dasherOY)/rel_dasherOY);
+				//double double_x = -((x-dasherOX)/dasherOX);                
+				//double double_y = -((rel_dashery-rel_dasherOY)/rel_dasherOY);
 
 				//cout << "double_y: " << double_y << endl;
 				//cout << "double_x: " << double_x << endl;
 
-				double xmax_y = xmax(double_x, double_y);
+				//double xmax_y = xmax(double_x, double_y);
               
-				if(double_x < xmax_y) {
-					double_x = xmax_y;
-				}
+				//if(double_x < xmax_y) {
+				//	double_x = xmax_y;
+				//}
                   
-				disty = circlesize;
-
-			}
+				//disty = circlesize;
+			//}
 		    
-			else { 
+			//else { 
 				// Going forwards.
 				angle=((disty*3.14159/2)/yforwardrange);
 				x=cos(angle)*circlesize;
 				dashery=-sin(angle)*circlesize+dasherOY;
-			}
+			//}
 		}
 		x=dasherOX-x;
 	}

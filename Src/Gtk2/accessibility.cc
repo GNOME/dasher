@@ -157,6 +157,7 @@ ControlTree* buildcontroltree() {
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
   ControlTree *paneltree=new ControlTree;
+  ControlTree *speedtree=new ControlTree;
 #ifndef GNOME_A11Y
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
   // null pointers rather than children
@@ -194,7 +195,7 @@ ControlTree* buildcontroltree() {
     deletetree->text=_("Delete");
     deletetree->colour=-1;
 #ifndef GNOME_SPEECH
-    deletetree->next=NULL;
+    deletetree->next=speedtree;
 #else
     deletetree->next=speaktree;
     speaktree->pointer=(void*)1;
@@ -203,10 +204,17 @@ ControlTree* buildcontroltree() {
     speaktree->text=_("Speak");
     speaktree->next=NULL;
     speaktree->colour=-1;
+    speaktree->next=speedtree;
 #endif
-  } else {
+    speedtree->pointer=(void*)1;
+    speedtree->data=0;
+    speedtree->children=buildspeedtree(speedtree);
+    speedtree->text=_("Speed");
+    speedtree->next=NULL;
+    speedtree->colour=-1;
+} else {
     pausetree->next=NULL;
-  }
+}
   return stoptree;
 }
 
@@ -267,6 +275,91 @@ ControlTree* buildspeaktree(ControlTree *speaktree) {
   return alltree;
 }
 
+ControlTree* buildspeedtree(ControlTree *speedtree) {
+
+  ControlTree *onetree=new ControlTree;
+  ControlTree *twotree=new ControlTree;
+  ControlTree *threetree=new ControlTree;
+  ControlTree *fourtree=new ControlTree;
+  ControlTree *fivetree=new ControlTree;
+  ControlTree *sixtree=new ControlTree;
+  ControlTree *seventree=new ControlTree;
+  ControlTree *eighttree=new ControlTree;
+  ControlTree *ninetree=new ControlTree;
+  ControlTree *tentree=new ControlTree;
+  
+  onetree->pointer=(void*)1;
+  onetree->data=41;
+  onetree->children=dummy;
+  onetree->text=_("1");
+  onetree->next=twotree;
+  onetree->colour=-1;
+
+  twotree->pointer=(void*)1;
+  twotree->data=42;
+  twotree->children=dummy;
+  twotree->text=_("2");
+  twotree->next=threetree;
+  twotree->colour=-1;
+
+  threetree->pointer=(void*)1;
+  threetree->data=43;
+  threetree->children=dummy;
+  threetree->text=_("3");
+  threetree->next=fourtree;
+  threetree->colour=-1;
+  
+  fourtree->pointer=(void*)1;
+  fourtree->data=44;
+  fourtree->children=dummy;
+  fourtree->text=_("4");
+  fourtree->next=fivetree;
+  fourtree->colour=-1;
+  
+  fivetree->pointer=(void*)1;
+  fivetree->data=45;
+  fivetree->children=dummy;
+  fivetree->text=_("5");
+  fivetree->next=sixtree;
+  fivetree->colour=-1;
+  
+  sixtree->pointer=(void*)1;
+  sixtree->data=46;
+  sixtree->children=dummy;
+  sixtree->text=_("6");
+  sixtree->next=seventree;
+  sixtree->colour=-1;
+  
+  seventree->pointer=(void*)1;
+  seventree->data=47;
+  seventree->children=dummy;
+  seventree->text=_("7");
+  seventree->next=eighttree;
+  seventree->colour=-1;
+  
+  eighttree->pointer=(void*)1;
+  eighttree->data=48;
+  eighttree->children=dummy;
+  eighttree->text=_("8");
+  eighttree->next=ninetree;
+  eighttree->colour=-1;
+  
+  ninetree->pointer=(void*)1;
+  ninetree->data=49;
+  ninetree->children=dummy;
+  ninetree->text=_("9");
+  ninetree->next=tentree;
+  ninetree->colour=-1;
+  
+  tentree->pointer=(void*)1;
+  tentree->data=50;
+  tentree->children=dummy;
+  tentree->text=_("10");
+  tentree->next=NULL;
+  tentree->colour=-1;
+  
+ return onetree;
+}
 ControlTree* builddeletetree(ControlTree *deletetree) {
   ControlTree *forwardtree = new ControlTree;
   ControlTree *backwardtree = new ControlTree;

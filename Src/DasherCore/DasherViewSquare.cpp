@@ -1,5 +1,6 @@
 // DasherViewSquare.cpp
 //
+//
 /////////////////////////////////////////////////////////////////////////////
 //
 // Copyright (c) 2001-2002 David Ward
@@ -52,6 +53,8 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_Y1=int(1.0/dY1);
 
 	KeyControl=false;
+
+	onebutton=-2000;
 }
 
 

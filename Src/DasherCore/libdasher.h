@@ -25,7 +25,8 @@ enum int_param{ INT_LANGUAGEMODEL,
 		INT_EDITHEIGHT,
 		INT_ORIENTATION,
 		INT_ENCODING,
-		INT_UNIFORM };
+		INT_UNIFORM,
+		INT_ONEBUTTON};
 
 enum bool_param{ BOOL_DIMENSIONS, 
 		 BOOL_EYETRACKER,
@@ -120,6 +121,7 @@ void dasher_pause( int x, int y );
 std::string dasher_get_display_text( symbol Character );
 std::string dasher_get_edit_text( symbol Character );
 int dasher_get_text_colour( symbol Character );
+int dasher_get_onebutton(void);
 
 void dasher_resize_canvas( int _width, int _height );
 
