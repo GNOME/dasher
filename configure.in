@@ -13,14 +13,38 @@ AC_PROG_CXX
 AC_LINK_FILES($nls_cv_header_libgt, $nls_cv_header_intl)
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
-#AM_PATH_GTKMM(1.2.3,,AC_MSG_ERROR([Cannot find correct gtkmm version]))
 
-PKG_CHECK_MODULES(GTK2, gtk+-2.0) 
+AC_ARG_WITH([gtk2],
+	 AC_HELP_STRING([--with-gtk2],[build with GTK2 support (default is NO)]), 
+	[WITHGTK2=true],[WITHGTK2=false])
+
+AM_PATH_GTKMM([1.2.3],[GTKMMVAR=true],[GTKMMVAR=false])
+
+PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
+
+PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
+
+if [[ "$GTK2HERE" = true ]] && [[ "$GCONF2HERE" = true ]] && [[ "$WITHGTK2" = true ]]
+then
+	BUILDGTK2=true
+elif [[ "$GTK2HERE" = true ]] && [[ "$GCONF2HERE" = true ]] && [[ "$GTKMMVAR" != true ]]
+then
+	BUILDGTK2=true
+else 
+	BUILDGTK2=false
+fi
+
+if [[ $BUILDGTK2 = false ]] && [[ "$GTKMMVAR" != true ]]
+then
+	AC_ERROR("Unable to find GTK2 or GTKMM!")
+fi
+
+AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
+
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
-
-PKG_CHECK_MODULES(GCONF, gconf-2.0)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-AC_OUTPUT([Makefile Src/Gtk2/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
+AC_OUTPUT([Makefile Src/Gtk2/Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
+
