@@ -1,6 +1,6 @@
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" 
       "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-	<!ENTITY version "1.0.53"> 
+	<!ENTITY version "3.2.1"> 
         <!-- replace with actual application  version number-->  
 ]>
 
@@ -96,8 +96,7 @@ This document describes version &version; of <application>Dasher</application>.
 	  <title>Dasher Main Window</title>
 	  <screenshot>
 	    <screeninfo>Dasher Main Window</screeninfo>
-	    <graphic fileref="main.png" format="png"
-	    srccredit="ME">
+	    <graphic fileref="main.png" format="png" srccredit="ME">
 	    </graphic>
 	  </screenshot>
 	</figure>
@@ -105,23 +104,30 @@ This document describes version &version; of <application>Dasher</application>.
       </para>
 
       <para>
-	To get a proof of a theorem, just enter the statement of
-	the theorem in the <guilabel>Theorem statement</guilabel> field
-	and press <guibutton>Prove!</guibutton>.  
+      Initially, the characters appear in boxes in a vertical column on the right hand side, as shown in figure 1.  Start by clicking the left mouse button near the cross-hair move the pointer towards the first letter you want to write. e.g. 't'.  The display will start to zoom in towards the 't'.  You can stop at any time by clicking on the left mouse button. The horizontal direction controls the rate of zooming in. Moving the pointer to the right zooms in. Moving the pointer to the left zooms out. The vertical co-ordinates determine the place which is being zoomed in on.  As the desired letter moves towards the crosshair, further letters can be selected by searching within the box of the current letter. In figure 2, 'h' is being selected. 
+</para>
+<!-- ==============Figure=================================== -->
+        <figure id="zoomingin">
+          <title>Writing 't' followed by 'h'.</title>
+          <screenshot>
+            <screeninfo>Writing 't' followed by 'h'.</screeninfo>
+            <graphic fileref="figure2.png" format="png" srccredit="ME">
+            </graphic>
+          </screenshot>
+        </figure>
+<!-- ==============End of Figure=================================== -->
+<para>
+Always look inside the current letter for the next letter. For example, to write 'the', point at the 'e' within 'h'. An easy mistake to make is to go for the first e you see, and not the 'e' within 'h'. The text box above the display shows what is being written. To start again, tap New.
+ 
       </para>
-    <!-- You might want to include a note, warning, or tip, e.g. -->
+    <!-- You might want to include a note, warning, or tip, e.g. 
     <warning> 
       <title>WARNING</title>
       <para>
         Dasher can not prove incorrect theorems. 
 	</para>
-    </warning>
+    </warning>-->
     </sect2>
-
-       <!-- this section also should describe main elements of graphic
-       user interface, such as menus and buttons, unless this
-       description is too long - in that case, it should be moved to a
-       separate section. For example -->
 
       <!-- =========Subsection=========================== -->   
     <sect2 id="menubar">
@@ -133,52 +139,47 @@ This document describes version &version; of <application>Dasher</application>.
       <!-- =========List=========================== -->
       <variablelist>
 	<varlistentry> <term><guimenu>File</guimenu></term>
-          <listitem><para> This menu contains commands
-	      <menuchoice>
-	        <shortcut><keysym>Ctrl-S</keysym>
-		</shortcut>
-		<guimenuitem>Save</guimenuitem>
-	      </menuchoice>
-	      and
-	      <menuchoice>
-	        <shortcut><keysym>Ctrl-Q</keysym>
-		</shortcut>
-		<guimenuitem>Quit</guimenuitem>
-	      </menuchoice>
-	      both of which are self-explanatory.
-	    </para>
+          <listitem><para> This menu contains the commands:
+	  <itemizedlist>
+	      <listitem><para><guimenuitem>New</guimenuitem></para></listitem>
+	      <listitem><para><guimenuitem>Open</guimenuitem></para></listitem>
+	      <listitem><para><guimenuitem>Save</guimenuitem></para></listitem>
+	      <listitem><para><guimenuitem>Save As</guimenuitem></para></listitem>
+	      <listitem><para><guimenuitem>Append to file</guimenuitem>&mdash;this command can be used to append the current Dasher buffer to an existing text file.</para></listitem>
+	      <listitem><para><guimenuitem>Import training text</guimenuitem>&mdash;this command can be used to add the contents of an existing text file to Dasher's language model.</para></listitem>
+	      <listitem><para><guimenuitem>Quit</guimenuitem></para></listitem>
+	    </itemizedlist></para>
 	  </listitem> 
 	</varlistentry> 
-
-	<varlistentry> 
-	  <term><guimenu>Settings...</guimenu></term>
-	  <listitem><para>
-	      This menu contains only one command,
-	      <guimenuitem>Preferences</guimenuitem>, which launches
-	      <link linkend="prefs"><interface>Preferences
-		  Dialog</interface></link> 
-	      </para>
-	  </listitem>
-	</varlistentry>
 
 	<varlistentry>
 	  <term><guimenu>Edit</guimenu></term>
 	  <listitem><para>
 	      This menu contains the following commands:
 	      <itemizedlist>
-		<listitem>
-		  <para><guimenuitem>COMMAND1</guimenuitem>
-		    &mdash;this command does ....
-		  </para></listitem>
-	       <listitem>
-		  <para><guimenuitem>COMMAND2</guimenuitem>
-                &mdash;this command does ....
-		  </para>
-		  </listitem>
+	       <listitem><para><guimenuitem>Cut</guimenuitem></para></listitem>
+	       <listitem><para><guimenuitem>Copy</guimenuitem></para></listitem>
+               <listitem><para><guimenuitem>Paste</guimenuitem></para></listitem>
+               <listitem><para><guimenuitem>Copy All</guimenuitem></para></listitem>
 	      </itemizedlist>
 	    </para>
 	  </listitem>
 	</varlistentry>
+
+	<varlistentry> 
+	  <term><guimenu>Options</guimenu></term>
+	  <listitem><para>
+	      This menu contains the following commands:
+	      <itemizedlist>
+	       <listitem><para><guimenuitem>Preferences</guimenuitem>, 
+              which launches the <link linkend="prefs"><interface>Preferences
+		  Dialog</interface></link></para></listitem> 
+               <listitem><para><guimenuitem>Edit font</guimenuitem>&mdash;alters the font used in the edit box.</para></listitem>
+               <listitem><para><guimenuitem>Dasher font</guimenuitem>&mdash;alters the size of the moving characters.</para></listitem>
+               <listitem><para><guimenuitem>Dasher font size</guimenuitem></para></listitem>
+               <listitem><para><guimenuitem>Enter text into other windows</guimenuitem>&mdash;this causes Dasher to enter text into whichever window is selected.</para></listitem>
+               <listitem><para><guimenuitem>Control mode</guimenuitem>&mdash;this causes an extra node to appear at the bottom of the alphabet. Here, you can edit text directly from within Dasher, cause Dasher to speak text that you have entered and stop or pause Dasher.</para></listitem></itemizedlist>
+	</para></listitem></varlistentry>
 
 	<varlistentry>
 	  <term><guimenu>Help</guimenu></term>
@@ -186,14 +187,7 @@ This document describes version &version; of <application>Dasher</application>.
 	      This menu contains commands
 	      <itemizedlist>
 		<listitem>
-		  <para><guimenuitem>Manual</guimenuitem> &mdash;
-		    shows this manual
-		  </para>
-		</listitem>
-
-		<listitem>
-		  <para><guimenuitem>About</guimenuitem> &mdash;
-		    shows basic information about
+		  <para><guimenuitem>About</guimenuitem>&mdash;shows basic information about
 		    <application>Dasher</application>, such as
 		    author's name and version number.
 		  </para>
@@ -225,44 +219,124 @@ This document describes version &version; of <application>Dasher</application>.
       To change default settings, select
       <guimenuitem>Preferences</guimenuitem> command in
       <guimenu>Settings</guimenu> menu. This launches the
-      <interface>Preferences dialog</interface>, shown in <xref
-      linkend="shot2">.</xref> 
+      <interface>Preferences dialog</interface>, shown in 
+      <xref linkend="prefs1">prefs1</xref>, <xref linkend="prefs2">prefs2</xref>, <xref linkend="prefs3">prefs3</xref>, <xref linkend="prefs4">prefs4</xref> and <xref linkend="prefs5">prefs5.</xref> 
      </para>
+
 <!-- ==============Figure=================================== -->
-	<figure id="shot2">
-	  <title>Preferences Dialog</title>
+	<figure id="prefs1">
+	  <title>"Alphabet" dialog</title>
 	  <screenshot>
 	    <screeninfo>Preferences dialog</screeninfo>
-	    <graphic fileref="SCREENSHOT" format="png"
+	    <graphic fileref="prefs1.png" format="png"
 	    srccredit="ME">
 	    </graphic>
 	  </screenshot>
+
+<para>Dasher has support for many languages, and the choice of which language to write in is made with this dialog.  Note that some languages (for example, Hiragana, Korean and the International Phonetic Alphabet) may require fonts that you do not have installed.  For information on creating your own alphabet files, see the <ulink url="http://www.inference.phy.cam.ac.uk/dasher/" type="http">Dasher website</ulink>.</para>
+ 
 	</figure>
+<!-- ==============End of Figure=================================== -->
+
+<!-- ==============Figure=================================== -->
+        <figure id="prefs2">
+          <title>"Colour" dialog</title>
+          <screenshot>
+            <screeninfo>Preferences dialog</screeninfo>
+            <graphic fileref="prefs2.png" format="png"
+            srccredit="ME">
+            </graphic>
+          </screenshot>
+        </figure>
+
+        <para>Dasher has support for different colour schemes.  The 'Default' colour scheme is a simple rotation of colours that should work with any language.  Enhanced colour schemes may be used for languages with logical groupings (such as Hiragana or Korean) or to increase contrast.</para>
+<!-- ==============End of Figure=================================== -->
+
+<!-- ==============Figure=================================== -->
+        <figure id="prefs3">
+          <title>"Control" dialog</title>
+          <screenshot>
+            <screeninfo>Preferences dialog</screeninfo>
+            <graphic fileref="prefs3.png" format="png"
+            srccredit="ME">
+            </graphic>
+          </screenshot>
+        
+	<para>
+	  <itemizedlist>
+	    <listitem><para><guimenuitem>One dimensional mode</guimenuitem>&mdash;maps the Y coordinate of the mouse position to an X/Y coordinate, for use with one-dimensional input methods.</para></listitem>
+            <listitem><para><guimenuitem>Eyetracker mode</guimenuitem>&mdash;optimisations for eyetrackers -- specifically, makes Dasher behave as in one-dimensional mode near the right hand edge of the screen.</para></listitem>
+            <listitem><para><guimenuitem>Start on left mouse button</guimenuitem>&mdash;the left mouse button starts and stops Dasher.</para></listitem>
+            <listitem><para><guimenuitem>Start on space bar</guimenuitem>&mdash;the space bar starts and stops Dasher.</para></listitem>
+            <listitem><para><guimenuitem>Start with mouse position</guimenuitem>&mdash;when Dasher is paused, a red box appears. Hold the cursor inside the red box until a yellow box appears. Hold the cursor inside the yellow box. Dasher will then start..</para></listitem>
+            <listitem><para><guimenuitem>Copy all on stop</guimenuitem>&mdash;when stopped, Dasher will copy all text to the clipboard automatically.</para></listitem>
+	    <listitem><para><guimenuitem>Speak on stop</guimenuitem>&mdash;when stopped, Dasher will speak newly entered text automatically.</para></listitem>
+	    <listitem><para><guimenuitem>Pause outside window</guimenuitem>&mdash;Dasher will pause if the mouse pointer moves outside its window.</para></listitem>
+</itemizedlist></para>
+
+</figure>
+<!-- ==============End of Figure=================================== -->
+
+<!-- ==============Figure=================================== -->
+        <figure id="prefs4">
+          <title>"View" dialog</title>
+          <screenshot>
+            <screeninfo>Preferences dialog</screeninfo>
+            <graphic fileref="prefs4.png" format="png"
+            srccredit="ME">
+            </graphic>
+          </screenshot>
+	
+       <para>
+          <itemizedlist>
+            <listitem><para><guimenuitem>Orientation</guimenuitem>&mdash;alters the direction that the text moves in. If set to "Alphabet default", the alphabet file will choose the appropriate direction for the alphabet.</para></listitem>
+            <listitem><para><guimenuitem>Show toolbar</guimenuitem>&mdash;you can hide Dasher's toolbar if you wish.  Calling dasher with the '-o' switch will open a reduced-options version of dasher, designed for entry into other applications.</para></listitem>
+            <listitem><para><guimenuitem>Show speed slider</guimenuitem>&mdash;enable/disable the speed slider.</para></listitem>
+            <listitem><para><guimenuitem>Show mouse position</guimenuitem>&mdash;in some situations (such as one-dimensional or eyetracker mode), the absolute position of the mouse will differ from Dasher's perception of the mouse position.  This option shows you where Dasher's mouse is.</para></listitem>
+            <listitem><para><guimenuitem>Draw line between crosshairs and mouse</guimenuitem>&mdash;helpful for users who have trouble keeping track of the pointer.</para></listitem>
+            <listitem><para><guimenuitem>Draw box outlines</guimenuitem>&mdash;increases the contrast around the edges of boxes, to help distinguish between them.</para></listitem>
+            <listitem><para><guimenuitem>Change colour scheme automatically</guimenuitem>&mdash;languages such as Hiragana are aware of which colour scheme they should be using.  This option allows an alphabet to select its colour scheme automatically.</para></listitem>
+</itemizedlist></para>
+	
+	
+	</figure>
+	<!-- ==============End of Figure=================================== -->
+
+<!-- ==============Figure=================================== -->
+        <figure id="prefs5">
+          <title>"Advanced" dialog</title>
+          <screenshot>
+            <screeninfo>Preferences dialog</screeninfo>
+            <graphic fileref="prefs5.png" format="png"
+            srccredit="ME">
+            </graphic>
+          </screenshot>
+
+       <para>
+          <itemizedlist>
+            <listitem><para><guimenuitem>Smoothing</guimenuitem>&mdash;adds a "uniform" element to the language model's predictions.  A smoothing value of 100 will result in an entirely uniform distribution being used -- each box will have the same size.</para></listitem>
+            <listitem><para><guimenuitem>Timestamp new files</guimenuitem>&mdash;each file created by Dasher will automatically have the current time in its filename.</para></listitem>
+            <listitem><para><guimenuitem>Distance from centreline for start on mouse position</guimenuitem>&mdash;controls the range for the 'Start on mouse position' option.</para></listitem>
+            <listitem><para><guimenuitem>Number of pixels that should cover the entire Y range</guimenuitem>&mdash;some input devices do not have enough gain to cover an entire Dasher window; this option increases the gain of displacement on the Y axis.</para></listitem>
+</itemizedlist></para>
+
+
+        </figure>
 <!-- ==============End of Figure=================================== -->
     
   </sect1>
 
 
 <!-- =============New section============================= -->
-  <sect1 id="bugs">
-    <!-- This section should describe known bugs and limitations of
-    the program if there are any - please be frank and list all
-    problems you know of --> 
-    <title>Known bugs and limitations</title>
-    <para>
-      Millions
-      </para>
-    </sect1>
-
-<!-- =============New section============================= -->
 
   <sect1 id="authors">
     <title>Authors</title>
      <para>
-      <application>Dasher</application> was written by GNOME-HACKER
-      (<email>hacker@gnome.org</email>). To find more information
-      about it, please visit <application>Dasher</application> <ulink
-      url="http://www.my-gnome-app.org" type="http">Web page</ulink>.
+      <application>Dasher</application> was written by the members of
+      The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). To find 
+      more information about it, please visit <application>Dasher's</application> 
+      <ulink url="http://www.inference.phy.cam.ac.uk/dasher/" type="http">
+      Web page</ulink>.
       Please send all comments, suggestions, and bug reports to the
       <ulink url="http://bugs.gnome.org" type="http">GNOME bug
       tracking database</ulink>. Instructions for submitting bug reports
@@ -273,13 +347,7 @@ This document describes version &version; of <application>Dasher</application>.
       <command>bug-buddy</command> for submitting bug reports. 
       </para>
     <para>
-      This manual was written by ME
-      (<email>MYNAME@MYADDRESS</email>). Please send all comments
-      and suggestions regarding the manual to the GNOME Documentation
-      Project at <email>docs@gnome.org</email>. You can also add your
-      comments online by using <ulink type="http"
-      url="http://www.gnome.org/gdp/doctable/">GNOME Documentation
-      Status Table</ulink>. 
+      This manual was written by The Dasher Project (<email>dasher@mrao.cam.ac.uk</email>). Please send all comments and suggestions regarding the manual to the GNOME Documentation Project at <email>docs@gnome.org</email>. You can also add your comments online by using <ulink type="http" url="http://www.gnome.org/gdp/doctable/">GNOME Documentation Status Table</ulink>. 
       </para>
     <!-- For translations: uncomment this:
       <para> Latin translation was done by ME
