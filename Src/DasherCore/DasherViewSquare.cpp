@@ -122,7 +122,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		    int newbottom2 = (height+FontHeight)/2 + top;
 		    MapScreen(&newleft2, &newtop2);
 		    MapScreen(&newright2, &newbottom2);
-		    //newleft = min(newleft2, newright2);
+		    newleft = min(newleft2, newright2);
 		    newtop = min(newtop2, newbottom2);
 
 #undef DrawText
