@@ -746,6 +746,7 @@ timer_callback(gpointer data)
 	  starttime=time(NULL);
 	} else {
 	  if ((time(NULL)-starttime)>2) {
+	    starttime=time(NULL);
 	    secondbox=true;
 	    firstbox=false;
 	    dasher_redraw();
@@ -762,18 +763,18 @@ timer_callback(gpointer data)
 	  }
 	}
       } else {
-	if (secondbox==true && starttime2>0) {
+	if (secondbox==true && (starttime2>0 || (time(NULL)-starttime)>3)) {
 	  secondbox=false;
 	  firstbox=true;
 	  starttime2=0;
 	  starttime=0;
 	  dasher_redraw();
+	} else if (firstbox==true) {
+	  starttime=0;
 	}
-	starttime=starttime2=0;
       }
     }
   }
-
   // need non-zero return value so timer repeats
   return 1;
 }
