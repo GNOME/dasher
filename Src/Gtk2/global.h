@@ -21,6 +21,8 @@ GtkWidget *dasher_menu_bar;
 PangoLayout *the_pangolayout;
 GtkWidget *the_canvas;
 
+GConfClient *the_gconf_client;
+
 //Gtk2DoubleBuffer *the_buffer;
 
 GdkPixmap *offscreen_buffer;
