@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-05 04:10+0100\n"
-"PO-Revision-Date: 2005-03-05 09:08+0530\n"
+"POT-Creation-Date: 2005-03-07 04:46+0100\n"
+"PO-Revision-Date: 2005-03-07 09:29+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 
@@ -184,39 +185,10 @@ msgid "Dasher is a predictive text entry application"
 msgstr "ડેશર એ લખાણ પ્રવેશ કાર્યક્રમ છે"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2084
+#: Src/Gtk2/dasher.cc:2081
 #, c-format
-msgid "In %ld seconds\n"
-msgstr "%ld સેકન્ડોમાં\n"
-
-#: Src/Gtk2/dasher.cc:2085
-#, c-format
-msgid "%d characters\n"
-msgstr "%d અક્ષરો\n"
-
-#: Src/Gtk2/dasher.cc:2086
-#, c-format
-msgid "%f bits\n"
-msgstr "%f બીટ\n"
-
-#: Src/Gtk2/dasher.cc:2088
-#, c-format
-msgid "%f characters per second\n"
-msgstr "એક સેકન્ડ પ્રતિ %f અક્ષરો\n"
-
-#: Src/Gtk2/dasher.cc:2089
-#, c-format
-msgid "%f bits per second\n"
-msgstr "એક સેકન્ડ પ્રતિ %f બીટ\n"
-
-#: Src/Gtk2/dasher.cc:2090
-#, c-format
-msgid ""
-"%f bits per character\n"
-"\n"
-msgstr ""
-"એક અક્ષર પ્રતિ %f બીટ\n"
-"\n"
+msgid "%d characters output in %ld seconds\n"
+msgstr "%d અક્ષરોનું આઉટપુટ %ld સેકન્ડોમાં\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
