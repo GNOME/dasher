@@ -5,7 +5,7 @@
 <alphabet name="English alphabet - limited punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>source.txt</train>
+<train>training_english_GB.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
@@ -77,7 +77,7 @@
 <alphabet name="English alphabet with lots of punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>source.txt</train>
+<train>training_english_GB.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
@@ -186,7 +186,7 @@
 <alphabet name="French">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>source_fr.txt</train>
+<train>training_french_FR.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
@@ -278,7 +278,7 @@
 <alphabet name="Portuguese">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>source_pt_br.txt</train>
+<train>training_portugese_BR.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
@@ -378,7 +378,7 @@
 <alphabet name="German">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>source_de.txt</train>
+<train>training_german_DE.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
@@ -459,7 +459,7 @@
 
     <encoding type="CentralEurope" />
 
-    <train>trening-pl.txt</train>
+    <train>training_polish_PL.txt</train>
 
     <space t=" " d="_" />
 
@@ -671,7 +671,7 @@
 
     <encoding type="CentralEurope" />
 
-    <train>trening-pl.txt</train>
+    <train>training_polish_PL.txt</train>
 
     <space t=" " d="_" />
 
