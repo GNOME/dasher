@@ -7,6 +7,7 @@
 #include <gtk/gtk.h>
 #include <gtk--/window.h>
 #include <gtk--/main.h>
+#include <gtk--/app-helper.h> 
 
 using namespace SigC;
 
@@ -21,13 +22,31 @@ GtkDasherWindow::GtkDasherWindow()
 
   {
     using namespace Gtk::Toolbar_Helpers;
+    using namespace Gnome::UI;
 
-    toolbar.tools().push_back(ButtonElem( "Click me",
+    toolbar.tools().push_back(ButtonElem( "New", Icon("New"), 
 					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
-						       "'Click me' button"),
-					  "toolbar btn",""));
-  
+						       TB_NEW)));
+    toolbar.tools().push_back(ButtonElem( "Open",
+					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+						       TB_OPEN)));
 
+    toolbar.tools().push_back(ButtonElem( "Save",
+					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+						       TB_SAVE)));
+    toolbar.tools().push_back(Space());
+    toolbar.tools().push_back(ButtonElem( "Cut",
+					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+						       TB_CUT)));
+    toolbar.tools().push_back(ButtonElem( "Copy",
+					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+						       TB_COPY)));
+    toolbar.tools().push_back(ButtonElem( "Copy All",
+					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+						       TB_COPY_ALL)));
+    toolbar.tools().push_back(ButtonElem( "Paste",
+					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+						       TB_PASTE)));
   }
 
   show_all();

@@ -9,6 +9,14 @@
 
 #include "GtkDasherPane.h"
 
+#define TB_NEW "new"
+#define TB_OPEN "open"
+#define TB_SAVE "save"
+#define TB_CUT "cut"
+#define TB_COPY "copy"
+#define TB_COPY_ALL "copy_all"
+#define TB_PASTE "paste"
+
 class GtkDasherWindow : public Gtk::Window
 {
 public:
