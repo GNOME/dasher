@@ -37,6 +37,7 @@
 GError *gconferror;
 GConfEngine *gconfengine;
 gboolean timedata;
+extern gboolean setup;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
@@ -155,14 +156,20 @@ main(int argc, char *argv[])
 
   dasher_early_initialise();
 
+  glade_xml_signal_autoconnect(xml);
   open_window(xml);
+  window = glade_xml_get_widget(xml, "window");
 
+  dasher_late_initialise(360,360);
+
+  gtk_widget_show_all(window);
+
+  setup=TRUE;
 
   // We support advanced colour mode
-  window = glade_xml_get_widget(xml, "window");
-  glade_xml_signal_autoconnect(xml);
+  dasher_set_parameter_bool( BOOL_COLOURMODE, true);
 
-
+  
   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
   wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
   wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
@@ -173,10 +180,6 @@ main(int argc, char *argv[])
   XSetWMHints (GDK_WINDOW_XDISPLAY (window->window), GDK_WINDOW_XWINDOW (window->window), &wm_hints);
   XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
   gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
-
-  dasher_late_initialise(360,360);
-
-  dasher_set_parameter_bool( BOOL_COLOURMODE, true);
   
   choose_filename();
 

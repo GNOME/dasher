@@ -34,7 +34,6 @@ GtkWidget *text_view;
 GtkWidget *speed_frame;
 GtkWidget *speed_hscale;
 GtkWidget *text_scrolled_window;
-GtkWidget *canvas_frame;
 GtkStyle *style;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
@@ -827,7 +826,6 @@ open_window(GladeXML *xml) {
   vbox=glade_xml_get_widget(xml, "vbox1");
   vpane=glade_xml_get_widget(xml, "vpaned1");
   toolbar=glade_xml_get_widget(xml, "toolbar");
-  canvas_frame=glade_xml_get_widget(xml, "canvas_frame");
   dasher_menu_bar=glade_xml_get_widget(xml, "dasher_menu_bar");
   dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
 
@@ -857,16 +855,15 @@ open_window(GladeXML *xml) {
   const char *alphabet;
 
   dasher_get_alphabets( &alphabet, 1 );
-  
+
   dasher_start();
+  force_dasher_redraw();
 
   gtk_timeout_add(50, timer_callback, NULL );  
 
   // I have no idea why we need to do this when Glade has theoretically done
   // so already, but...
   gtk_widget_add_events (the_canvas, GDK_BUTTON_PRESS_MASK);
-
-  setup = TRUE;
 }
 
 extern "C" void choose_filename() {
