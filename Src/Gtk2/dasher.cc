@@ -285,7 +285,7 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   }
   
   // Do the same for colours
-  colourtreeview = glade_xml_get_widget(widgets,"ColourTree");  
+  colourtreeview = glade_xml_get_widget(widgets,"ColorTree");  
 
   // Make sure that the colour tree is realized now as we'll need to do
   // stuff with it before it's actually displayed
