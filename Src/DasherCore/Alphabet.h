@@ -35,6 +35,7 @@ public:
 	std::string& GetTrainingFile() {return m_TrainingFile;}
 	
 	symbol GetSpaceSymbol() {return m_SpaceSymbol;}
+	symbol GetControlSymbol() {return m_ControlSymbol;}
 	const std::string& GetDisplayText(symbol i) const {return m_Display[i];} // return display string for i'th symbol
 	const std::string& GetText(symbol i) const {return m_Characters[i];}     // return string for i'th symbol
 	const std::string& GetColour(symbol i) const {return m_Colours[i];}     // return the colour for i'th symbol
@@ -60,7 +61,9 @@ protected:
 	
 	// Alphabet language parameters
 	void SetSpaceSymbol() {m_SpaceSymbol=m_Characters.size()-1;}         // We can set the space symbol to be the last character added
+	void SetControlSymbol() {m_ControlSymbol=m_Characters.size()-1;} // We set the control symbol to be the last character added. Given the above, this is a hack.
 	void SetSpaceSymbol(symbol SpaceSymbol) {m_SpaceSymbol=SpaceSymbol;} // ...or any desired symbol.
+	void SetControlSymbol(symbol ControlSymbol) {m_ControlSymbol=ControlSymbol;}
 	void SetOrientation(Opts::ScreenOrientations Orientation) {m_Orientation=Orientation;}
 	void SetLanguage(Opts::AlphabetTypes Group) {m_DefaultEncoding=Group;}
 	void SetTrainingFile(std::string TrainingFile) {m_TrainingFile=TrainingFile;}
@@ -68,6 +71,7 @@ private:
 	Opts::AlphabetTypes m_DefaultEncoding;
 	Opts::ScreenOrientations m_Orientation;
 	symbol m_SpaceSymbol;
+	symbol m_ControlSymbol;
 	std::string m_TrainingFile;
 	
 	std::vector<std::string> m_Characters; // stores the characters

@@ -50,6 +50,7 @@ public:
 	
 	// Alphabet pass-through functions for widely needed information
 	symbol GetSpaceSymbol() {return m_Alphabet->GetSpaceSymbol();}
+	symbol GetControlSymbol() {return m_Alphabet->GetControlSymbol();}
 	
 	int GetColour(int character);
 

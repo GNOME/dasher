@@ -37,4 +37,8 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 		SetSpaceSymbol();
 	}
+	if (AlphInfo.ControlCharacter.Display != empty ) {
+		AddChar(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
+		SetControlSymbol();
+	}
 }

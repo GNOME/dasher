@@ -54,6 +54,7 @@ public:
 		};
 		std::vector< group > Groups;
 		character SpaceCharacter; // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.
+		character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
 	};
 	
 	CAlphIO(std::string SystemLocation, std::string UserLocation);

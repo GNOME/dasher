@@ -358,6 +358,22 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 		}
 		return;
 	}
+	if (strcmp(name, "control")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Text = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Display = *atts;
+				atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
 	
 	if (strcmp(name, "group")==0) {
 		AlphInfo::group NewGroup;
