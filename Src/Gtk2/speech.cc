@@ -41,6 +41,12 @@ void setup_speech() {
 
   voices = GNOME_Speech_SynthesisDriver_getAllVoices (rv, &ev);
 
+  if (voices==NULL) {
+    printf(_("Unable to initialize voices"));
+    speaker=NULL;
+    return;
+  }
+
   speaker = GNOME_Speech_SynthesisDriver_createSpeaker (rv,
                                                         &voices->_buffer[0],
                                                         &ev);
@@ -74,7 +80,9 @@ void teardown_speech() {
 }
 
 void SPEAK_DAMN_YOU(std::string *speech) {
-  GNOME_Speech_Speaker_say (speaker, speech->c_str(), &ev);
+  if (speaker!=NULL) {
+    GNOME_Speech_Speaker_say (speaker, speech->c_str(), &ev);
+  }
 }
 
 #else

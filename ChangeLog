@@ -1,3 +1,7 @@
+2004-02-06  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* don't crash if speech can't be set up
+
 2004-02-04  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* fix up entering text into arbitrary text widgets via the
