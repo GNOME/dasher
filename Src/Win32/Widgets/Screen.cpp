@@ -165,16 +165,16 @@ void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 
 	int numcolours=Colours->GetNumColours();
 	
-	assert(numcolours>0);
+	DASHER_ASSERT(numcolours>0);
 
 	for (int i=0; i<numcolours; i++) 
 	{
 		// DJW 20031029 - something fishy is going on - i think calls to CreateSolidBrush start to fail
 		HBRUSH hb = CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
-		assert(hb!=0);
+		DASHER_ASSERT(hb!=0);
 		m_Brushes.push_back(hb);
 		HPEN hp = CreatePen(PS_SOLID, 1, RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
-		assert(hp!=0);
+		DASHER_ASSERT(hp!=0);
 		m_Pens.push_back(hp);
 	}
 }
@@ -238,7 +238,7 @@ void CScreen::DrawMousePosBox(int which)
 			brush=CreateSolidBrush(RGB(255,255,0));
 			break;
 		default:
-			assert(0);
+			DASHER_ASSERT(0);
 	}
 	FillRect(m_hDCText, &Rect, brush);
 	DeleteObject(brush);

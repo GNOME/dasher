@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "DasherNode.h"
-#include <cassert>
+#include "../Common/assert.h"
 using namespace Dasher;
 using namespace Opts;
 using namespace std;
@@ -61,7 +61,7 @@ void CDasherNode::Push_Node()
 	{
 		if (m_Symbol!=0)
 		{
-			assert (m_pParent !=NULL) ;
+			DASHER_ASSERT (m_pParent !=NULL) ;
 			// Normal symbol - derive context from parent
 			m_pContext = m_languagemodel->CloneContext(m_pParent->m_pContext);
 			m_languagemodel->EnterSymbol(m_pContext,m_Symbol);
@@ -144,7 +144,7 @@ void CDasherNode::Push_Node()
 	for (i=1;i<m_iChildCount;i++)
 		cum[i]+=cum[i-1];
 
-	assert(m_Children==0); // otherwise we have another memory leak
+	DASHER_ASSERT(m_Children==0); // otherwise we have another memory leak
 	m_Children =new CDasherNode *[m_iChildCount];
 
 	// create the children
