@@ -30,8 +30,6 @@ void setup_speech() {
 					       0, NULL, &ev);
       if (!BONOBO_EX (&ev)) {
 	break;
-      } else {
-	printf("Failed to activate %s.\n", info->iid);
       }
     }
 
