@@ -1514,6 +1514,12 @@ extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data)
   dasher_redraw();
 }
 
+extern "C" void palettechange(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_PALETTECHANGE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_redraw();
+}
+
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 {
   mouseposstartdist=int(widget->adjustment->value);
@@ -1745,6 +1751,9 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_OUTLINEMODE:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), value);
       drawoutline=value;
+      break;
+    case BOOL_PALETTECHANGE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"palettebutton")), value);
       break;
     case BOOL_SPEECHMODE:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speakbutton")), value);

@@ -202,6 +202,10 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_OUTLINEMODE, Value );
     }
+  void PaletteChange(bool Value)
+    {
+      handle_parameter_bool( BOOL_PALETTECHANGE, Value );
+    }
 };
 
 

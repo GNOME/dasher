@@ -399,6 +399,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_OUTLINEMODE:
       interface->OutlineBoxes(value);
       break;
+    case BOOL_PALETTECHANGE:
+      interface->PaletteChange(value);
+      break;
     }
 }
 

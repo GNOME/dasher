@@ -130,6 +130,9 @@ public:
 	//! Should Dasher speak?
 	virtual void Speech(bool Value) {};
 
+	//! Should Dasher automatically change colour scheme?
+	virtual void PaletteChange(bool Value) {};
+
 	//! How uniform (ie, non-predictive) should the language model be?
 	virtual void SetUniform(int Value) {};
 };
@@ -163,6 +166,7 @@ namespace Keys
 	extern const std::string MOUSEPOS_START;
 	extern const std::string SPEECH_MODE;
 	extern const std::string OUTLINE_MODE;
+	extern const std::string PALETTE_CHANGE;
 	// long options
 	extern const std::string FILE_ENCODING;
 	extern const std::string MAX_BITRATE_TIMES100;

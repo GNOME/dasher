@@ -143,6 +143,7 @@ public:
 	void MouseposStart(bool Value);
 	void Speech(bool Value);
 	void OutlineBoxes(bool Value);
+	void PaletteChange(bool Value);
 	void SetScreenSize(long Width, long Height);
 	void SetEditHeight(long Value);
 	void SetEditFont(std::string Name, long Size);
@@ -189,6 +190,7 @@ private:
 	bool m_KeyboardMode;
 	bool m_MouseposStart;
 	bool m_Paused;
+	bool m_PaletteChange;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
