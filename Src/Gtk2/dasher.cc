@@ -1548,10 +1548,10 @@ void parameter_int_callback( int_param p, long int value )
       window_x=value;
       if (setup==true) {
 	setup=false;
-	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
 	setup=true;
       } else {
-	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
       }
       force_dasher_redraw();
       break;
@@ -1559,10 +1559,10 @@ void parameter_int_callback( int_param p, long int value )
       window_y=value;
       if (setup==true) {
 	setup=false;
-	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
 	setup=true;
       } else {
-	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
       }
       force_dasher_redraw();
       break;
