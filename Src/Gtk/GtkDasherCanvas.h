@@ -31,6 +31,7 @@ class GtkDasherCanvas : public Gtk::DrawingArea
   FontSize GetFontSize();
   void TextSize(symbol Character, int* Width, int* Height, int Size) const;
   void DrawText(symbol Character, int x1, int y1, int Size) const;
+  void DrawText(std::string String, int x1, int y1, int Size) {};
   void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const;
   void Polyline(Dasher::CDasherScreen::point* Points, int Number) const;
   void DrawPolygon(Dasher::CDasherScreen::point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const;
@@ -109,6 +110,7 @@ protected:
       Dasher::Opts::FontSize GetFontSize() {owner->GetFontSize(); }
       void TextSize(symbol Character, int* Width, int* Height, int Size) const { owner->TextSize( Character, Width, Height, Size ); }
       void DrawText(symbol Character, int x1, int y1, int Size) const { owner->DrawText( Character, x1, y1, Size ); }
+      void DrawText(std::string String, int x1, int y1, int Size) const { owner->DrawText( String, x1, y1, Size ); }
 
       void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
 	{
