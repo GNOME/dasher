@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-04-18 03:15+0200\n"
-"PO-Revision-Date: 2004-04-18 15:35+0200\n"
+"POT-Creation-Date: 2004-05-14 14:08+0200\n"
+"PO-Revision-Date: 2004-05-14 20:30+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -39,103 +39,147 @@ msgstr "Panelen"
 msgid "Text"
 msgstr "Tekst"
 
-#: Src/Gtk2/accessibility.cc:169 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:170 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Bediening"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Stoppen"
 
-#: Src/Gtk2/accessibility.cc:180
+#: Src/Gtk2/accessibility.cc:181
 msgid "Pause"
 msgstr "Pauzeren"
 
-#: Src/Gtk2/accessibility.cc:187
+#: Src/Gtk2/accessibility.cc:188
 msgid "Move"
 msgstr "Verplaatsen"
 
-#: Src/Gtk2/accessibility.cc:194
+#: Src/Gtk2/accessibility.cc:195
 msgid "Delete"
 msgstr "Verwijderen"
 
 # spreken is ook mogelijk
 # (tekst wordt opgezegd nadat hij is ingevoerd)
-#: Src/Gtk2/accessibility.cc:203
+#: Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Opzeggen"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:290
+#: Src/Gtk2/accessibility.cc:212 Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Snelheid"
+
+#: Src/Gtk2/accessibility.cc:229 Src/Gtk2/accessibility.cc:383
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:227 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:377
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:241
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:239
+#: Src/Gtk2/accessibility.cc:247
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:260
 msgid "Everything"
 msgstr "Alles"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:266
 msgid "New"
 msgstr "Nieuw"
 
-#: Src/Gtk2/accessibility.cc:264
+#: Src/Gtk2/accessibility.cc:272
 msgid "Repeat"
 msgstr "Herhalen"
 
-#: Src/Gtk2/accessibility.cc:296 Src/Gtk2/accessibility.cc:319
+#: Src/Gtk2/accessibility.cc:294
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:301
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:308
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:315
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:322
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:329
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:336
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:343
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:350
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:357
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:389 Src/Gtk2/accessibility.cc:412
 msgid "Character"
 msgstr "Teken"
 
-#: Src/Gtk2/accessibility.cc:307 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:400 Src/Gtk2/accessibility.cc:422
 msgid "Word"
 msgstr "Woord"
 
-#: Src/Gtk2/accessibility.cc:312 Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:405 Src/Gtk2/accessibility.cc:428
 msgid "Line"
 msgstr "Regel"
 
-#: Src/Gtk2/accessibility.cc:415
+#: Src/Gtk2/accessibility.cc:508
 msgid "Unknown"
 msgstr "Onbekend"
 
-#: Src/Gtk2/dasher.cc:186
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
 msgstr "Dasher aan het trainen, een ogenblik geduld"
 
-#: Src/Gtk2/dasher.cc:662 Src/Gtk2/dasher.cc:675 Src/Gtk2/dasher.cc:688
-#: Src/Gtk2/dasher.cc:701 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:664 Src/Gtk2/dasher.cc:677 Src/Gtk2/dasher.cc:690
+#: Src/Gtk2/dasher.cc:703 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:61
 msgid "Select File"
 msgstr "Bestand selecteren"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1747
+#: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
 msgstr "Tino Meinen <a.t.meinen@chello.nl>"
 
-#: Src/Gtk2/dasher.cc:1749 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1752
+#: Src/Gtk2/dasher.cc:1771
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher is een toepassing voor tekstinvoer met voorspelling"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2159
+#: Src/Gtk2/dasher.cc:2178
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d tekens uitvoer in %d seconden\n"
@@ -388,10 +432,6 @@ msgstr "Werkbalk tonen"
 #: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
 msgstr "Opzeggen bij stoppen"
-
-#: Src/Gtk2/dasher.glade.h:65
-msgid "Speed"
-msgstr "Snelheid"
 
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
