@@ -396,3 +396,8 @@ std::string GtkDasherPane::get_current_filename()
 {
   return( text->get_current_filename() );
 }
+
+bool GtkDasherPane::is_dirty()
+{
+  return( text->is_dirty() );
+}

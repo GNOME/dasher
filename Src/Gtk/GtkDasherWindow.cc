@@ -591,6 +591,9 @@ void GtkDasherWindow::open()
 
 void GtkDasherWindow::exit()
 {
+  if( dasher_pane.is_dirty() )
+    cout << "Warning - exiting without saving changes" << endl;
+
   Gtk::Main::quit();
 }
 

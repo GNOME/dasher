@@ -335,3 +335,7 @@ bool GtkDasherEdit::Open( std::string filename )
   return( true );
 }
 
+bool GtkDasherEdit::is_dirty()
+{
+  return( dirty );
+}

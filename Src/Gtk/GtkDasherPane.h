@@ -75,6 +75,8 @@ public:
 
   std::string get_current_filename();
 
+  bool is_dirty();
+
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;

@@ -51,6 +51,8 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   void set_display_encoding( int _enc );
   std::string get_current_filename();
 
+  bool is_dirty();
+
  protected:
   int flush_count;
   CDasherInterface *interface;
