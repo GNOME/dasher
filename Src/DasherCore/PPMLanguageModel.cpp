@@ -113,7 +113,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,d
 			while (s) {
 				if (!exclusions[s->symbol]) {
 					exclusions[s->symbol]=1;
-					ulong p=size_of_slice*(2*s->count-1)/2/ulong(total);
+					ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
 					probs[s->symbol]+=p;
 					tospend-=p;		
 				}

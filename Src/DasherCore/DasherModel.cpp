@@ -87,12 +87,12 @@ void CDasherModel::Reparent_root(int lower, int upper)
     return;
 
   /* Determine how zoomed in we are */
-  float scalefactor=float((m_Rootmax-m_Rootmin)/(upper-lower));
+  double scalefactor=(m_Rootmax-m_Rootmin)/static_cast<double>(upper-lower);
 
   m_Root=oldroots.back();
   oldroots.pop_back();
   
-  m_Rootmax=int(m_Rootmax+((1024-upper)*scalefactor));
+  m_Rootmax=int(m_Rootmax+((Normalization()-upper)*scalefactor));
   m_Rootmin=int(m_Rootmin-(lower*scalefactor));
 
 }
