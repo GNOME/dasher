@@ -657,9 +657,11 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 extern "C" gboolean
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  dasher_start();
-  force_dasher_redraw();
-  return FALSE;
+  if (paused==true) {
+    dasher_start();
+    force_dasher_redraw();
+    return FALSE;
+  }
 }
 
 extern "C" void
