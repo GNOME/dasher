@@ -31,16 +31,21 @@ others. Can set both d (display) and t (text) to "" to disable. -->
 <!ELEMENT space EMPTY>
 <!ATTLIST space d CDATA #REQUIRED>
 <!ATTLIST space t CDATA #REQUIRED>
+<!ATTLIST space f CDATA #IMPLIED>
+<!ATTLIST space b CDATA #IMPLIED>
 
 <!-- The control character is special, and not part of the main alphabet. -->
 
 <!ELEMENT control EMPTY>
 <!ATTLIST control d CDATA #REQUIRED>
 <!ATTLIST control t CDATA #REQUIRED>
+<!ATTLIST control f CDATA #IMPLIED>
+<!ATTLIST control b CDATA #IMPLIED>
 
 <!-- Logical groups of symbols, eg name="Lower case letters" -->
 <!ELEMENT group (s*)>
 <!ATTLIST group name CDATA #REQUIRED>
+<!ATTLIST group b CDATA #IMPLIED>
 
 <!-- Symbols Dasher can use. It shows text d in the nodes and sends
 text t to the edit box -->
