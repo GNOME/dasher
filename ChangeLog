@@ -1,3 +1,8 @@
+2004-06-18  Mohammad DAMT  <mdamt@bisnisweb.com>
+
+	* po/id.po: Added Indonesian translation by Ahmad Riza H Nst <rizahnst@eriagempita.co.id>
+	* configure.in (ALL_LINGUAS): Added "id" for Indonesian
+
 2004-06-01  Alexander Shopov  <ash@contact.bg>
 
 	* configure.in (ALL_LINGUAS): Added "bg" Bulgarian
