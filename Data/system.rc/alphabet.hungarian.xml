@@ -5,6 +5,7 @@
 <alphabet name="Hungarian lower and uppercase included, short / magyar nagybetűssel, rövid">
 <orientation type="LR"/>
 <encoding type="CentralEurope"/>
+<control d="Control" t=""/>
 <palette>Default</palette>
 <train>training_hungarian_HU.txt</train>
 <space d="_" t=" "/>

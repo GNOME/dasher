@@ -6,6 +6,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
+<control d="Control" t=""/>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
