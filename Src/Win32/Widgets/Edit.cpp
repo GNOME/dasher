@@ -767,8 +767,7 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
 		  case 24:
-			  SendMessage(m_hwnd, WM_KEYDOWN, VK_BACK, NULL);
-			  SendMessage(m_hwnd, WM_KEYUP, VK_BACK, NULL);
+			  deletetext();
 			  break;
 		  case 25:
 			GetKeyboardState((LPBYTE) &pbKeyState);
