@@ -219,7 +219,7 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
 void GtkDasherCanvas::SetFont(std::string Name)
 {
-  string actual_name( Name );
+  std::string actual_name( Name );
 
   // We want to use fixed if no font name is specified (which seems to
   // be the default)
@@ -296,7 +296,7 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
   if( is_realized() )
     {
 
-      string symbol;
+      std::string symbol;
       symbol = interface->GetDisplayText(Character);
 
       char *convbuffer = new char[256];
@@ -313,7 +313,7 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 
       iconv( cdesc, &inbuffer, &inb, &convbuffer, &outb );
 
-      string csymbol( cb, 256-outb );
+      std::string csymbol( cb, 256-outb );
 
 
       delete cb;

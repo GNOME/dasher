@@ -724,10 +724,6 @@ void GtkDasherWindow::CopyAllOnStop(bool Value)
 
 void GtkDasherWindow::toggle_toolbar()
 {
-  cout << "toggle_toolbar ";
-
-  cout << static_cast<CheckMenuItem *>( (*list_view)[2] )->get_active() << endl;
-
   dasher_pane.show_toolbar(static_cast<CheckMenuItem *>( (*list_view)[2] )->get_active());
 }
 
