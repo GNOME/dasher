@@ -202,7 +202,7 @@ main(int argc, char *argv[])
 
 #ifdef GNOME_A11Y
   deletemenutree();
-  //  SPI_exit();
+  SPI_exit();
 #endif
 
   dasher_finalise();
