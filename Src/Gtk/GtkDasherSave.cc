@@ -2,7 +2,7 @@
 // (c) 2002 Philip Cowans
 
 #include "GtkDasherSave.h"
-#include <iostream.h>
+#include <iostream>
 
 GtkDasherSave::GtkDasherSave()
   : FileSelection("Save As"), current_filename("")
@@ -12,7 +12,7 @@ GtkDasherSave::GtkDasherSave()
 }
 
 void GtkDasherSave::file_ok_sel() {
-  cout << "Save here with filename " << get_filename() << endl;
+  std::cout << "Save here with filename " << get_filename() << std::endl;
 
   current_filename = get_filename();
 
