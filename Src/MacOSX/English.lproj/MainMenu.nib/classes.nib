@@ -1,0 +1,14 @@
+{
+    IBClasses = (
+        {
+            ACTIONS = {changeSpeed = id; importTrainingText = id; showPreferences = id; }; 
+            CLASS = DasherApp; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {dasherEdit = NSTextView; dasherView = DasherView; dasherWindow = NSWindow; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {CLASS = DasherView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }
+    ); 
+    IBVersion = 1; 
+}

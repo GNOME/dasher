@@ -1,0 +1,42 @@
+{
+    IBClasses = (
+        {CLASS = FirstResponder; LANGUAGE = ObjC; SUPERCLASS = NSObject; }, 
+        {
+            ACTIONS = {
+                alphabetIDAction = id; 
+                copyAllOnStopAction = id; 
+                dasherDimensionsAction = id; 
+                dasherFontAction = id; 
+                dasherFontSizeAction = id; 
+                drawMouseAction = id; 
+                editFontAction = id; 
+                keyControlAction = id; 
+                maxBitRateAction = id; 
+                screenOrientationAction = id; 
+                startMouseAction = id; 
+                startSpaceAction = id; 
+            }; 
+            CLASS = PreferencesController; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {
+                alphabetIDUI = NSBrowser; 
+                copyAllOnStopUI = NSButtonCell; 
+                dasherDimensionsUI = NSButtonCell; 
+                dasherFontSizeUI = NSMatrix; 
+                dasherFontUI = NSTextField; 
+                drawMouseUI = NSButtonCell; 
+                editFontUI = NSTextField; 
+                fileEncodingUI = NSMatrix; 
+                keyControlUI = NSButtonCell; 
+                maxBitRateUI = NSSlider; 
+                panel = NSPanel; 
+                screenOrientationUI = NSMatrix; 
+                startMouseUI = NSButtonCell; 
+                startSpaceUI = NSButtonCell; 
+                timestampNewFilesUI = NSButtonCell; 
+            }; 
+            SUPERCLASS = NSObject; 
+        }
+    ); 
+    IBVersion = 1; 
+}

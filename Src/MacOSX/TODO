@@ -1,0 +1,62 @@
+TODO
+
+(MISSING - file handling)
+- file encoding pref - is that needed on MacOSX, or something different?  see ProjectBuilder Format->File Encodings! for example
+- timestamp files pref
+- new/open/save/saveas
+
+(MISSING)
+- i18n
+- help text
+- about box
+- keyboard control - pref is there, the actual kb handling (arrow keys) is not
+
+(NICE TO HAVE)
+- add pref to auto-read training file (and add text field to contain path of training file)
+- remember divider position in defaults - is that what EDIT_HEIGHT is about?
+- make an image with "paused" in it, display that when it is, yes, paused
+- option to make window transparent?
+- option to make window float over other windows?
+
+(BUGS, NOT SERIOUS)
+- should display displayName rather than fontName in font pref
+
+(ANNOYANCE)
+- .inl files are being put in the app under Resources because PB doesn't recognise .inl
+
+
+(BUGS - Dasher Core)
+- at certain sizes (try below about 370 pixels wide), a given frame may contain only rects, no chars.
+
+
+DONE
+
+30-04-2003
+- expat now linked in explicitly rather than with -l, so users don't have to install expat separately
+- now handles foreign alphabets correctly; uses stringWithUTF8String rather than stringWithCString in function NSStringFromStdString
+- range of speed slider now 0 - 8 to match other implementations
+
+29-04-2003
+- editbox no longer crashes in unflush when the number of flushed characters is larger than the number of characters in the edit box.
+
+28-04-2003
+- added the parameter_xxx_callback functions; now works correctly if user hasn't any Dasher defaults.
+- initialise dasher at the size of DasherView stored in the nib, NOT 10, 10.
+
+26-4-2003
+- edit font pref
+- speed is correctly set on app startup
+- dasher font & font size is selectable in prefs
+- put dasher font on appearance; edit font on files, got rid of fonts tab in prefs
+- add standard text menus & editing functions for use in edit box
+
+25-4-2003 
+- user can select alphabet in preferences
+- sets system and user dirs, system dir is resourcePath inside the app; user dir is ~/.dasher/.
+- displays the edit text rather than the display text in the edit box 
+- kb control pref, but doesn't do anything (the pref is saved and restored correctly)
+- app icon added (DasherApp.icns from Iain Murray)
+- copy all on stop works
+- other clipboard functions implemented, not tested
+- dasher font size pref
+
