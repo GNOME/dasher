@@ -7,6 +7,7 @@
 #include <gtk--/window.h>
 #include <gtk--/main.h>
 #include <gtk--/dialog.h>
+#include <gtk--/radiomenuitem.h>
 
 using namespace SigC;
 
@@ -67,16 +68,18 @@ GtkDasherWindow::GtkDasherWindow()
     Menu *menu_or = new Menu();
     MenuList& list_or = menu_or->items();
 
-    list_or.push_back(MenuElem("Alphabet Default",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    RadioMenuItem_Helpers::Group ogroup;
+
+    list_or.push_back(RadioMenuElem(ogroup,"Alphabet Default",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ODEFAULT)));
     list_or.push_back(SeparatorElem());
-    list_or.push_back(MenuElem("Left to Right",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or.push_back(RadioMenuElem(ogroup,"Left to Right",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OLR)));
-    list_or.push_back(MenuElem("Right to Left",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or.push_back(RadioMenuElem(ogroup,"Right to Left",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ORL)));
-    list_or.push_back(MenuElem("Top to Bottom",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or.push_back(RadioMenuElem(ogroup,"Top to Bottom",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OTB)));
-    list_or.push_back(MenuElem("Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or.push_back(RadioMenuElem(ogroup,"Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OBT)));
 
     Menu *menu_tool = new Menu();
@@ -93,10 +96,10 @@ GtkDasherWindow::GtkDasherWindow()
     list_view.push_back(MenuElem("Orientation", *menu_or ));
     list_view.push_back(SeparatorElem());
     list_view.push_back(MenuElem("Toolbar", *menu_tool));
-    list_view.push_back(MenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_view.push_back(CheckMenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SLIDER)));
     list_view.push_back(SeparatorElem());
-    list_view.push_back(MenuElem("Fix Layout"));
+    list_view.push_back(CheckMenuElem("Fix Layout"));
 
     Menu *menu_enc = new Menu();
     MenuList &list_enc = menu_enc->items();
@@ -106,7 +109,7 @@ GtkDasherWindow::GtkDasherWindow()
     Menu *menu_opts = new Menu();
     MenuList & list_opts = menu_opts->items();
     
-    list_opts.push_back(MenuElem("Timestamp New Files"));
+    list_opts.push_back(CheckMenuElem("Timestamp New Files"));
     list_opts.push_back(CheckMenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_CAOS)));
     list_opts.push_back(SeparatorElem());

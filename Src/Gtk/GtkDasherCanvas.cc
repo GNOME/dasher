@@ -152,6 +152,9 @@ GtkDasherCanvas::~GtkDasherCanvas()
 
 gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 {
+  // FIXME - resizing should probably be done on the configure_event
+  // rather than the expose_event
+  
   if(( width() != pmwidth ) || ( height() != pmheight ))
     {
       cout << "Resizing canvas" << endl;
