@@ -10,7 +10,6 @@
 #ifndef __WinHelper_h__
 #define __WinHelper_h__
 
-#include "../Common/MSVC_Unannoy.h"
 
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN // Excludes rarely-used stuff from the Windows headers
@@ -52,7 +51,6 @@
 #include <string>
 typedef std::basic_string<TCHAR> Tstring;
 
-#include <cassert>
 
 // Some global helpers. In all my applications there is just one instance,
 // or one important one, and WinHelper::hInstApp saves passing it around endlessly

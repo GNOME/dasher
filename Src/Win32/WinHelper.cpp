@@ -10,6 +10,8 @@
 
 #include "WinHelper.h"
 
+#include "../Common/Platform.h"
+
 namespace WinHelper
 {
 	HINSTANCE hInstApp;
@@ -65,8 +67,14 @@ namespace {
 void WinHelper::GetUserDirectory(Tstring* Output)
 {
 	Tstring& UserData = *Output;
-	
-#ifndef OriginalWin95
+
+#ifdef 	OriginalWin95
+	// Not a lot else I can do :(
+	GetAppDirectory(Output);
+#elif  defined DASHER_WINCE
+	GetAppDirectory(Output);
+#else 
+
 	TCHAR Buffer[MAX_PATH];
 	// My documentation says SHGetSpecialFolderPath returns NOERROR if successful
 	// With my headers NOERROR==0 and this function returns TRUE==1 as docs online say.
@@ -77,10 +85,9 @@ void WinHelper::GetUserDirectory(Tstring* Output)
 	UserData = Buffer;
 	if (UserData[UserData.size()-1]!=TEXT('\\'))
 		UserData+=TEXT('\\');
-#else
-	// Not a lot else I can do :(
-	GetAppDirectory(Output);
+
 #endif
+
 }
 
 
