@@ -1,0 +1,210 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR Free Software Foundation, Inc.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2003-01-12 10:20+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Src/Gtk/GtkDasherWindow.cc:22
+msgid "Dasher Font"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:22
+msgid "Editing Font"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:22 Src/Gtk/GtkDasherWindow.cc:179
+msgid "Open"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:22
+msgid "Append To File"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:22
+msgid "Import Training Text"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:22
+msgid "Close"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:22
+msgid ""
+"Dasher - Version 3.0.0 preview 2\n"
+"Web: http://www.inference.phy.cam.ac.uk/dasher/\n"
+"email: dasher@mrao.cam.ac.uk"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:44
+msgid "_New"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:46
+msgid "_Open..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:48
+msgid "_Save"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:50
+msgid "Sa_ve As..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:53
+msgid "_Append to File..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:56
+msgid "_Import Training Text..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:59
+msgid "E_xit"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:65 Src/Gtk/GtkDasherWindow.cc:187
+msgid "Cut"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:67 Src/Gtk/GtkDasherWindow.cc:190
+msgid "Copy"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:69 Src/Gtk/GtkDasherWindow.cc:196
+msgid "Paste"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:72 Src/Gtk/GtkDasherWindow.cc:193
+msgid "Copy All"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:75
+msgid "Select All"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:83
+msgid "Alphabet Default"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:86
+msgid "Left to Right"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:88
+msgid "Right to Left"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:90
+msgid "Top to Bottom"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:92
+msgid "Bottom to Top"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:99
+msgid "Orientation"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:102
+msgid "Show Toolbar"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:104
+msgid "Speed Slider"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:107
+msgid "Fix Layout"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:118
+msgid "Unicode UTF-8"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:123
+msgid "Timestamp New Files"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:130
+msgid "Copy All on Stop"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:133
+msgid "Alphabet..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:135
+msgid "File Encoding"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:137
+msgid "Editing Font..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:139
+msgid "Dasher Font..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:141
+msgid "Reset Fonts"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:151
+msgid "About Dasher..."
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:158
+msgid "_File"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:159
+msgid "_Edit"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:160
+msgid "_View"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:161
+msgid "_Options"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:162
+msgid "_Help"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:176
+msgid "New"
+msgstr ""
+
+#: Src/Gtk/GtkDasherWindow.cc:183
+msgid "Save"
+msgstr ""
+
+#: Src/Gtk/GtkDasherSlider.cc:11
+msgid "Maximum Speed (Bit Rate)"
+msgstr ""
+
+#: Src/Gtk/GtkDasherAlphabetBox.cc:17
+msgid "Ok"
+msgstr ""
+
+#: Src/Gtk/GtkDasherAlphabetBox.cc:17
+msgid "Cancel"
+msgstr ""
+
+#: Src/Gtk/GtkDasherAlphabetBox.cc:20
+msgid "Alphabet"
+msgstr ""

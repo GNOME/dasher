@@ -3,11 +3,12 @@
 
 #include "GtkDasherSlider.h"
 
+#include <libintl.h>
 
 #include <gtk--/adjustment.h>
 
 GtkDasherSlider::GtkDasherSlider( CDasherInterface *_interface )
-  : s( ), interface( _interface ), Frame( "Maximum Speed (Bit Rate)" ), f()
+  : s( ), interface( _interface ), Frame( gettext("Maximum Speed (Bit Rate)") ), f()
 {
   a = manage( new Gtk::Adjustment( 5.0, 1.0, 8.0, 1.0, 1.0 ));
   

@@ -1,6 +1,9 @@
 // Main.cc
 // (c) 2002 Philip Cowans
 
+#include <libintl.h>
+#include <locale.h>
+
 // Gtk includes
 
 #include <gtk--/main.h>
@@ -11,6 +14,12 @@
 
 int main( int argc, char **argv )
 {
+  // Do gettext stuff
+
+  setlocale (LC_ALL, "");
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  textdomain (PACKAGE);
+
   Gtk::Main gtk_main( argc, argv );
 
   GtkDasherWindow main_window;

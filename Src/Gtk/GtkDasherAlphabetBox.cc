@@ -11,11 +11,13 @@
 #include <vector>
 #include <list>
 
+#include <libintl.h>
+
 GtkDasherAlphabetBox::GtkDasherAlphabetBox()
-  : Dialog(), b_ok( "Ok" ), b_cancel( "Cancel" )
+  : Dialog(), b_ok( gettext("Ok") ), b_cancel( gettext("Cancel") )
 {
   //get_vbox()->set_border_width( 10 );
-  set_title( "Alphabet" );
+  set_title( gettext("Alphabet") );
 
   l.set_usize( 374, 256 );
   l.set_selection_mode( GTK_SELECTION_SINGLE );

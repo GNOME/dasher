@@ -12,14 +12,16 @@
 #include <gtk--/dialog.h>
 #include <gtk--/radiomenuitem.h>
 
+#include <libintl.h>
+
 #include <iostream>
 
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk"), fix_pane( false ), timestamp( false ), current_or( Alphabet )
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel(gettext("Dasher Font")), efontsel(gettext("Editing Font")), slider_shown( true ),toolbar_shown(true), ofilesel(gettext("Open")), afilesel(gettext("Append To File")), copy_all_on_pause( false ),ifilesel(gettext("Import Training Text")), button(gettext("Close")), label(gettext("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk")), fix_pane( false ), timestamp( false ), current_or( Alphabet )
 {
-  set_title( "Dasher" );
+  set_title("Dasher");
 
   add(main_vbox);
 
@@ -39,38 +41,38 @@ GtkDasherWindow::GtkDasherWindow()
     Menu *menu_file = new Menu();
     MenuList& list_file = menu_file->items();
     
-    list_file.push_back(MenuElem("_New",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_file.push_back(MenuElem(gettext("_New"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_NEW)));
-    list_file.push_back(MenuElem("_Open...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_file.push_back(MenuElem(gettext("_Open..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OPEN)));
-    list_file.push_back(MenuElem("_Save",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_file.push_back(MenuElem(gettext("_Save"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SAVE)));
-    list_file.push_back(MenuElem("Sa_ve As...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_file.push_back(MenuElem(gettext("Sa_ve As..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SAVEAS)));
 
-       list_file.push_back(MenuElem( "_Append to File...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+       list_file.push_back(MenuElem(gettext("_Append to File..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						     MENU_APPEND)));
     list_file.push_back(SeparatorElem());
-    list_file.push_back(MenuElem("_Import Training Text...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_file.push_back(MenuElem(gettext("_Import Training Text..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_IMPORT)));
     list_file.push_back(SeparatorElem());
-    list_file.push_back(MenuElem("E_xit",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_file.push_back(MenuElem(gettext("E_xit"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_EXIT)));
 
     Menu *menu_edit = new Menu();
     MenuList& list_edit = menu_edit->items();
 
-    list_edit.push_back(MenuElem("Cut",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_edit.push_back(MenuElem(gettext("Cut"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_CUT)));
-    list_edit.push_back(MenuElem("Copy",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_edit.push_back(MenuElem(gettext("Copy"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_COPY)));
-    list_edit.push_back(MenuElem("Paste",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_edit.push_back(MenuElem(gettext("Paste"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_PASTE)));
     list_edit.push_back(SeparatorElem());
-    list_edit.push_back(MenuElem("Copy All",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_edit.push_back(MenuElem(gettext("Copy All"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_COPYALL)));
     list_edit.push_back(SeparatorElem());
-    list_edit.push_back(MenuElem("Select All",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_edit.push_back(MenuElem(gettext("Select All"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SELECTALL)));
 
     Menu *menu_or = new Menu();
@@ -78,31 +80,31 @@ GtkDasherWindow::GtkDasherWindow()
 
     RadioMenuItem_Helpers::Group ogroup;
 
-    list_or->push_back(RadioMenuElem(ogroup,"Alphabet Default",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,gettext("Alphabet Default"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ODEFAULT)));
     list_or->push_back(SeparatorElem());
-    list_or->push_back(RadioMenuElem(ogroup,"Left to Right",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,gettext("Left to Right"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OLR)));
-    list_or->push_back(RadioMenuElem(ogroup,"Right to Left",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,gettext("Right to Left"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ORL)));
-    list_or->push_back(RadioMenuElem(ogroup,"Top to Bottom",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,gettext("Top to Bottom"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OTB)));
-    list_or->push_back(RadioMenuElem(ogroup,"Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,gettext("Bottom to Top"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OBT)));
 
 
     Menu *menu_view = new Menu();
     list_view = &(menu_view->items());
     
-    list_view->push_back(MenuElem("Orientation", *menu_or ));
+    list_view->push_back(MenuElem(gettext("Orientation"), *menu_or ));
     list_view->push_back(SeparatorElem());
-    //    list_view.push_back(MenuElem("Toolbar", *menu_tool));
-    list_view->push_back(CheckMenuElem("Show Toolbar",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    //    list_view.push_back(MenuElem(gettext("Toolbar"), *menu_tool));
+    list_view->push_back(CheckMenuElem(gettext("Show Toolbar"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 								MENU_TOOLBAR)));
-    list_view->push_back(CheckMenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_view->push_back(CheckMenuElem(gettext("Speed Slider"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SLIDER)));
     list_view->push_back(SeparatorElem());
-    list_view->push_back(CheckMenuElem("Fix Layout",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_view->push_back(CheckMenuElem(gettext("Fix Layout"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_FIX)));
 
     static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( true );
@@ -113,30 +115,30 @@ GtkDasherWindow::GtkDasherWindow()
     Menu *menu_enc = new Menu();
     MenuList &list_enc = menu_enc->items();
 
-    list_enc.push_back(MenuElem("Unicode UTF-8"));
+    list_enc.push_back(MenuElem(gettext("Unicode UTF-8")));
 
     Menu *menu_opts = new Menu();
     list_opts = &menu_opts->items();
 
-    CheckMenuElem timestamp_elem("Timestamp New Files",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    CheckMenuElem timestamp_elem(gettext("Timestamp New Files"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 								  MENU_TIMESTAMP));
     
 
     //    static_cast<CheckMenuItem *>( timestamp_elem.get_child() )->set_active( true );
 
     list_opts->push_back(timestamp_elem);
-    list_opts->push_back(CheckMenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(CheckMenuElem(gettext("Copy All on Stop"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_CAOS)));
     list_opts->push_back(SeparatorElem());
-    list_opts->push_back(MenuElem("Alphabet...", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(MenuElem(gettext("Alphabet..."), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ALPHABET)));
-    list_opts->push_back(MenuElem("File Encoding", *menu_enc ));
+    list_opts->push_back(MenuElem(gettext("File Encoding"), *menu_enc ));
     list_opts->push_back(SeparatorElem());
-    list_opts->push_back(MenuElem("Editing Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(MenuElem(gettext("Editing Font..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_EFONT)));
-    list_opts->push_back(MenuElem("Dasher Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(MenuElem(gettext("Dasher Font..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_DFONT)));
-    list_opts->push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(MenuElem(gettext("Reset Fonts"), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
 
     //    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
@@ -146,18 +148,18 @@ GtkDasherWindow::GtkDasherWindow()
     Menu *menu_help = new Menu();
     MenuList &list_help = menu_help->items();
 
-    list_help.push_back(MenuElem("About Dasher...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_help.push_back(MenuElem(gettext("About Dasher..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ABOUT)));
 
 
     // Create the menu bar
     //   Gtk+ does not have O(1) tail lookups so you should build menus 
     //   backwards whenever you plan to make lots of access to back().
-    menubar.items().push_back(MenuElem("_File","<control>f",*menu_file));
-    menubar.items().push_back(MenuElem("_Edit","<control>e",*menu_edit));
-    menubar.items().push_back(MenuElem("_View","<control>v",*menu_view));
-    menubar.items().push_back(MenuElem("_Options","<control>o",*menu_opts));
-    menubar.items().push_back(MenuElem("_Help","<control>h",*menu_help));
+    menubar.items().push_back(MenuElem(gettext("_File"),"<control>f",*menu_file));
+    menubar.items().push_back(MenuElem(gettext("_Edit"),"<control>e",*menu_edit));
+    menubar.items().push_back(MenuElem(gettext("_View"),"<control>v",*menu_view));
+    menubar.items().push_back(MenuElem(gettext("_Options"),"<control>o",*menu_opts));
+    menubar.items().push_back(MenuElem(gettext("_Help"),"<control>h",*menu_help));
   }
 
   //Item(const Icon& icon, const Gtk::string& str, const Callback& cb, const Gtk::string& tip=Gtk::string());
@@ -171,27 +173,27 @@ GtkDasherWindow::GtkDasherWindow()
 	//    Gnome::UI::Icon new_icon("New");
 	//    a.add( Gnome::UI::Item(new_icon, "New", bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb), TB_NEW)));
 
-	toolbar.tools().push_back(ButtonElem( "New",
+	toolbar.tools().push_back(ButtonElem( gettext("New"),
 					      bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
 							   TB_NEW)));
-     toolbar.tools().push_back(ButtonElem( "Open",
+     toolbar.tools().push_back(ButtonElem( gettext("Open"),
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_OPEN)));
 
-     toolbar.tools().push_back(ButtonElem( "Save",
+     toolbar.tools().push_back(ButtonElem( gettext("Save"),
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_SAVE)));
      toolbar.tools().push_back(Space());
-     toolbar.tools().push_back(ButtonElem( "Cut",
+     toolbar.tools().push_back(ButtonElem( gettext("Cut"),
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_CUT)));
-     toolbar.tools().push_back(ButtonElem( "Copy",
+     toolbar.tools().push_back(ButtonElem( gettext("Copy"),
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_COPY)));
-     toolbar.tools().push_back(ButtonElem( "Copy All",
+     toolbar.tools().push_back(ButtonElem( gettext("Copy All"),
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_COPY_ALL)));
-     toolbar.tools().push_back(ButtonElem( "Paste",
+     toolbar.tools().push_back(ButtonElem( gettext("Paste"),
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_PASTE)));
   }
