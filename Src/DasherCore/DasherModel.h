@@ -19,6 +19,7 @@
 #include "DasherTypes.h"
 #include "FrameRate.h"
 #include <vector>
+#include <deque>
 
 // The CDasherModel represents the current state of Dasher
 // It contains a pointer to a structure of DasherNodes
@@ -73,7 +74,7 @@ public:
 private:
 
 	// Old root notes
-	std::vector<CDasherNode*> oldroots;
+	std::deque<CDasherNode*> oldroots;
 
 	// Rootmin and Rootmax specify the position of the root node in Dasher coords
 	myint m_Rootmin,m_Rootmax;

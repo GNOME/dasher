@@ -69,6 +69,7 @@ public:
 	void Push_Node();                                      // give birth to children
 	void Push_Node(CLanguageModel::CNodeContext *context); // give birth to children with this context
 	void Delete_children();
+	void Delete_dead(CDasherNode* alive);
 	void Dump_node() const;                                // diagnostic
 };
 
@@ -113,13 +114,14 @@ inline void CDasherNode::Delete_children()
 	if (m_Children) {
 		unsigned int i; 
 		for (i=1;i<m_iChars;i++) {
-			m_Children[i]->Delete_children();
-			delete m_Children[i];
+		        if (m_Children!=0 && m_Children[i]!=0) {
+			      m_Children[i]->Delete_children();
+			      delete m_Children[i];
+			}
 		}
 		delete [] m_Children;
 	}
-	m_Children=0;
-	
+	m_Children=0;	
 }
 
 /////////////////////////////////////////////////////////////////////////////

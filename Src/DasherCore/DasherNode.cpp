@@ -223,3 +223,18 @@ CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,my
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+void CDasherNode::Delete_dead(CDasherNode* alive) 
+{
+  if (m_Children) {
+		unsigned int i; 
+		for (i=1;i<m_iChars;i++) {
+		        if (m_Children[i]!=0 && m_Children[i]!=alive) {
+			      m_Children[i]->Delete_children();
+			      delete m_Children[i];
+			}
+		}
+		delete [] m_Children;
+	}
+	m_Children=0;
+}

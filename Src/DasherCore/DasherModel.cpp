@@ -65,6 +65,12 @@ void CDasherModel::Make_root(int whichchild)
 	
 	oldroots.push_back(oldroot);
 
+	while (oldroots.size()>10) {
+	  oldroots[0]->Delete_dead(oldroots[1]);
+	  delete oldroots[0];
+	  oldroots.pop_front();
+	}
+
 	myint range=m_Rootmax-m_Rootmin;
 	m_Rootmax=m_Rootmin+(range*m_Root->Hbnd())/Normalization();
 	m_Rootmin+=(range*m_Root->Lbnd())/Normalization();
@@ -144,9 +150,13 @@ void CDasherModel::Start()
 {
 	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
-	
+
 	delete m_Root;
+
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
+
+	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
+	m_Root->Push_Node(therootcontext);
 	
 	//Rootparent=new DasherNode(0,0,0,therootcontext,0,0,0,Normalization(),languagemodel);	
 	if (m_editbox) {
@@ -158,18 +168,13 @@ void CDasherModel::Start()
 		m_languagemodel->ReleaseNodeContext(LearnContext);
 		LearnContext = m_languagemodel->CloneNodeContext(therootcontext);
 	}
-	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
-	m_Root->Push_Node(therootcontext);
 
 	// Get rid of the old root notes
-	for (int i=oldroots.size(); i>0; i--) {
-		if(oldroots[i-1]!=0) {
-			oldroots[i-1]->DeleteChildren();
-			delete oldroots[i-1];
-		}
+	if (oldroots.size()>1) {
+	  delete oldroots[1];
 	}
 	oldroots.clear();
-
+	
 	m_languagemodel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
 //	dump();
