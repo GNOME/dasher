@@ -359,7 +359,7 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
 
   role=Accessible_getRole(parent);
 
-  if (!AccessibleStateSet_contains(state_set,SPI_STATE_ENABLED)) {
+  if (!AccessibleStateSet_contains(state_set,SPI_STATE_ENABLED) && role!=SPI_ROLE_APPLICATION) {
     return false;
   }
 
