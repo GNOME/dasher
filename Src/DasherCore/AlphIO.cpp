@@ -382,6 +382,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Me->InputInfo.ControlCharacter.Text = *atts;
 				atts--;
 			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Display = *atts;
+				atts--;
+			}
 			if (strcmp(*atts, "b")==0) {
 				atts++;
 				Me->InputInfo.ControlCharacter.Colour = *atts;
