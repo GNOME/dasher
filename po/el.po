@@ -1,3 +1,4 @@
+# translation of el.po to Greek
 # translation of dasher.HEAD.po to Greek
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -5,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-11 13:34+0200\n"
-"PO-Revision-Date: 2004-01-11 13:32+0200\n"
+"POT-Creation-Date: 2004-01-25 11:41+0200\n"
+"PO-Revision-Date: 2004-01-25 11:43+0200\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
@@ -16,72 +17,80 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: Src/Gtk2/accessibility.cc:27
+#: Src/Gtk2/accessibility.cc:51
 msgid "Menus"
 msgstr "Μενού"
 
-#: Src/Gtk2/accessibility.cc:58 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:58
+msgid "Buttons"
+msgstr "Κουμπιά"
+
+#: Src/Gtk2/accessibility.cc:64
+msgid "Panels"
+msgstr "Ταμπλώ"
+
+#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Έλεγχος"
 
-#: Src/Gtk2/accessibility.cc:63
+#: Src/Gtk2/accessibility.cc:140
 msgid "Stop"
 msgstr "Διακοπή"
 
-#: Src/Gtk2/accessibility.cc:69
+#: Src/Gtk2/accessibility.cc:146
 msgid "Pause"
 msgstr "Παύση"
 
-#: Src/Gtk2/accessibility.cc:76
+#: Src/Gtk2/accessibility.cc:153
 msgid "Move"
 msgstr "Μετακίνηση"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:160
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: Src/Gtk2/accessibility.cc:92
+#: Src/Gtk2/accessibility.cc:169
 msgid "Speak"
 msgstr "Ομιλία"
 
-#: Src/Gtk2/accessibility.cc:110 Src/Gtk2/accessibility.cc:179
+#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:116 Src/Gtk2/accessibility.cc:173
+#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:122
+#: Src/Gtk2/accessibility.cc:199
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:128
+#: Src/Gtk2/accessibility.cc:205
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:141
+#: Src/Gtk2/accessibility.cc:218
 msgid "Everything"
 msgstr "Όλα"
 
-#: Src/Gtk2/accessibility.cc:147
+#: Src/Gtk2/accessibility.cc:224
 msgid "New"
 msgstr "Νέο"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:230
 msgid "Repeat"
 msgstr "Επανάληψη"
 
-#: Src/Gtk2/accessibility.cc:186 Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
 msgid "Character"
 msgstr "Χαρακτήρας"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:211
+#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
 msgid "Word"
 msgstr "Λέξη"
 
-#: Src/Gtk2/accessibility.cc:198 Src/Gtk2/accessibility.cc:217
+#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
 msgid "Line"
 msgstr "Γραμμή"
 
@@ -90,21 +99,21 @@ msgid "Training Dasher, please wait"
 msgstr "Εκπαίδευση του Dasher, παρακαλώ περιμένετε"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1787
+#: Src/Gtk2/dasher.cc:1753
 msgid "translator_credits"
 msgstr "Κώστας Παπαδήμας <pkst@gnome.org>"
 
-#: Src/Gtk2/dasher.cc:1789 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1792
+#: Src/Gtk2/dasher.cc:1758
 msgid "Dasher is a predictive text entry application"
 msgstr "O Dasher είναι μια εφαρμογή πρόγνωσης καταχώρησης κειμένου"
 
 #. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2199
+#: Src/Gtk2/dasher.cc:2165
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "αποτέλεσμα %d χαρακτήρες  σε %d δευτερόλεπτα\n"
@@ -496,3 +505,4 @@ msgstr "Προειδοποίηση: αδυναμία ορισμού παραμέ
 #: Src/main.cc:97
 msgid "Dasher Text Entry"
 msgstr "Καταχώρηση κειμένου Dasher"
+
