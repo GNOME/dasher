@@ -357,6 +357,16 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Me->InputInfo.SpaceCharacter.Display = *atts;
 				atts--;
 			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.SpaceCharacter.Colour = *atts;
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.SpaceCharacter.Foreground = *atts;
+			  atts--;
+			}
 			atts += 2;
 		}
 		return;
@@ -368,9 +378,14 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Me->InputInfo.ControlCharacter.Text = *atts;
 				atts--;
 			}
-			if (strcmp(*atts, "d")==0) {
+			if (strcmp(*atts, "b")==0) {
 				atts++;
-				Me->InputInfo.ControlCharacter.Display = *atts;
+				Me->InputInfo.ControlCharacter.Colour = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Foreground = *atts;
 				atts--;
 			}
 			atts += 2;
