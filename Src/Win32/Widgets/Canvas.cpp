@@ -11,18 +11,15 @@
 #include "Canvas.h"
 using namespace Dasher;
 
-const UINT MY_TIMER=WM_USER+1;
-bool running;
-
 
 DWORD WINAPI Thread2 (PVOID pArg)
 {
 	// send MY_TIMER messages to the main thread
 	// the main thread responds by advancing Dasher one frame
 	do {
-		SendMessage((HWND) pArg,MY_TIMER,0,0);
+		SendMessage(((ThreadParams *)pArg)->hw,((ThreadParams *)pArg)->cb,0,0);
 		Sleep(20); // Don't bother trying to get more than 50fps.
-	} while (running);
+	} while (true);
 	return 0x15;
 }
 
@@ -31,6 +28,8 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	: dwThreadID(0), m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
 	imousex(0), imousey(0), Parent(Parent)
 {
+        MY_TIMER = RegisterWindowMessage( (LPCTSTR)"Custom timer callback" );
+  
 	m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("STATIC"), NULL,
 		WS_CHILD | WS_VISIBLE,
 		0,0,0,0, Parent, NULL, WinHelper::hInstApp, NULL );
@@ -41,6 +40,20 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	
 	Screen = new CScreen(m_hwnd, 300, 300);
 	m_DasherAppInterface->ChangeScreen(Screen);
+
+	// Create a second thread to handle the callbacks
+
+	tp = new ThreadParams;
+
+	tp->hw = m_hwnd;
+	tp->cb = MY_TIMER;
+
+	hThreadl= CreateThread(NULL,0,Thread2,(PVOID)tp,0,&dwThreadID);
+	SetThreadPriority(hThreadl,THREAD_PRIORITY_BELOW_NORMAL);
+
+	SuspendThread( hThreadl );
+
+	running = 0;
 }
 
 
@@ -88,10 +101,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			imousex=LOWORD(lParam);
 			imousey=HIWORD(lParam);
 			
-			// create a 2nd thread to send MY_TIMER messages to main thread
-			hThreadl= CreateThread(NULL,0,Thread2,(PVOID)m_hwnd,0,&dwThreadID);
-			CloseHandle(hThreadl);
-			SetThreadPriority(hThreadl,THREAD_PRIORITY_BELOW_NORMAL);
+			ResumeThread( hThreadl );
 			
 		} else {
 			// if dasher is running
@@ -101,6 +111,8 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			//theeditbox->write_to_file();
 			running=0;
 			ReleaseCapture();
+
+			SuspendThread( hThreadl );
 		}
 		return 0;
 		break;
@@ -126,7 +138,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		m_DasherAppInterface->ChangeScreen(Screen);
 		InvalidateRect(Window, NULL, FALSE);
 		break;
-	case MY_TIMER: {
+	default:
+	  if( message == MY_TIMER )
+	    {
 		if (imousey<0 || imousey>30000)
 			imousey=0;
 		if (imousex>30000)
@@ -136,10 +150,8 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 		//ReleaseDC(Window,hdc);
 		return 0;
-		break;
-	}
-	default:
-		break;
+	    }
+	  break;
 	}
 	
 	return DefWindowProc(Window, message, wParam, lParam);

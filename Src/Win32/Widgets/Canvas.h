@@ -15,6 +15,12 @@
 #include "../../DasherCore/DasherAppInterface.h"
 #include "Screen.h"
 
+struct ThreadParams
+{
+  HWND hw;
+  UINT cb;
+};
+
 class CCanvas : public CWinWrap
 {
 public:
@@ -32,6 +38,9 @@ private:
 	HANDLE hThreadl;
 	DWORD dwThreadID;
 	unsigned int imousex,imousey;
+	UINT MY_TIMER;
+	bool running;
+	ThreadParams *tp;
 };
 
 
