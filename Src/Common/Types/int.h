@@ -13,15 +13,16 @@
 
 #ifdef _MSC_VER
 
+	#include <limits>
 	typedef __int64 int64;
 	typedef unsigned __int64 uint64;
-   	typedef __int32 int32;
-	typedef unsigned __int32 uint32;
-	#ifndef LLONG_MAX
+   	typedef int int32;
+	typedef unsigned int uint32;
+	#if _MSC_VER < 1300
 		#define LLONG_MAX 9223372036854775807
 		#define LLONG_MIN (-LLONG_MAX - 1)
 	#endif
-	
+		
 #else
 
 	typedef long long int int64;
@@ -39,8 +40,8 @@
 	const int64 int64_min = LLONG_MIN;
 
 
-	template <typename T> 
-	bool AreDifferentSigns(T lhs, T rhs) 
+	template <class T> 
+	inline bool AreDifferentSigns(T lhs, T rhs) 
 	{ 
 		return ((lhs ^ rhs) < 0); 	
 	}

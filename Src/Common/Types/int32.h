@@ -24,6 +24,11 @@ class Cint64;
 	#if _MSC_VER == 1300
 		#define NON_STANDARD_LL
 	#endif
+	#if _WIN32_WCE
+		#define NON_STANDARD_LL
+	#endif
+	
+
 #endif
 
 #ifdef NON_STANDARD_LL
@@ -51,10 +56,10 @@ public:
 	Cint32(double d) 
 	{
 		if (d > double(Cint32::Max()))
-			ASSERT(0);
+			DASHER_ASSERT(0);
 
 		if (d < double(Cint32::Min()))
-			ASSERT(0);
+			DASHER_ASSERT(0);
 		m_i = int32(d);
 	}
 
@@ -75,7 +80,7 @@ public:
 				// 2-ve
 				if(m_i < Min() - rhs.m_i)
 				{
-					ASSERT(0);	
+					DASHER_ASSERT(0);	
 				}
 				// ok
 			}
@@ -84,7 +89,7 @@ public:
 				// 2+ve
 				if( Max() - m_i  < rhs.m_i)
 				{
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				}
 				// ok
 			}
@@ -102,14 +107,14 @@ public:
 			{
 				if(m_i > Max() + rhs.m_i)
 				{				
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				}
 			}
 			else
 			{
 				// lhs -ve
 				if(m_i < Min() + rhs.m_i)
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				// ok
 			}
 		}
@@ -130,18 +135,18 @@ public:
 			return *this;
 		}
 	
-		ASSERT(0);
+		DASHER_ASSERT(0);
 		return *this;
 	}	
 
 	Cint32& operator/=(Cint32 rhs)
 	{
 		if(rhs.m_i == 0)
-			ASSERT(0);
+			DASHER_ASSERT(0);
 		
 		// corner case where this = Min and rhs = -1
 		if(m_i == Min() && rhs.m_i == -1)
-			ASSERT(0);
+			DASHER_ASSERT(0);
 		
 		m_i /= rhs.m_i;
 		return *this;
@@ -334,9 +339,9 @@ inline bool operator <(long lhs, Cint32 rhs)
 inline	Cint32::Cint32(Cint64 i) 
 {
 	if ((int64)i > int64(Cint32::Max()))
-		ASSERT(0);
+		DASHER_ASSERT(0);
 	if ( (int64)i < int64(Cint32::Min()))
-		ASSERT(0);
+		DASHER_ASSERT(0);
 	m_i = int32(i);
 }
 

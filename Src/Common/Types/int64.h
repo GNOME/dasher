@@ -34,10 +34,10 @@ public:
 	Cint64(double d) 
 	{
 		if (d > double(Cint64::Max()))
-			ASSERT(0);
+			DASHER_ASSERT(0);
 
 		if (d < double(Cint64::Min()))
-			ASSERT(0);
+			DASHER_ASSERT(0);
 		m_i = int64(d);
 	}
 
@@ -58,7 +58,7 @@ public:
 				// 2-ve
 				if(m_i < Min() - rhs.m_i)
 				{
-					ASSERT(0);	
+					DASHER_ASSERT(0);	
 				}
 				// ok
 			}
@@ -67,7 +67,7 @@ public:
 				// 2+ve
 				if( Max() - m_i  < rhs.m_i)
 				{
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				}
 				// ok
 			}
@@ -86,14 +86,14 @@ public:
 			{
 				if(m_i > Max() + rhs.m_i)
 				{				
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				}
 			}
 			else
 			{
 				if(m_i < Min() + rhs.m_i)
 				{
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				}
 
 			}
@@ -117,15 +117,15 @@ public:
 			{
 				// 2+ve
 				if(Max()/m_i < rhs.m_i)
-					ASSERT(0);
+					DASHER_ASSERT(0);
 			}
 			else
 			{
 				// 2-ve
 				if(m_i == Min() || rhs.m_i == Min())
-					ASSERT(0);
+					DASHER_ASSERT(0);
 				if(Max()/(-m_i) < (-rhs.m_i) )
-					ASSERT(0);
+					DASHER_ASSERT(0);
 			}
 		}
 		else
@@ -134,12 +134,12 @@ public:
 			if(m_i < 0)
 			{
 				if(m_i < Min()/rhs.m_i)
-					ASSERT(0);
+					DASHER_ASSERT(0);
 			}
 			else
 			{
 				if(rhs.m_i < Min()/m_i)
-				ASSERT(0);
+					DASHER_ASSERT(0);
 			}
 		}
 
@@ -151,11 +151,11 @@ public:
 	Cint64& operator/=(Cint64 rhs)
 	{
 		if(rhs.m_i == 0)
-			ASSERT(0);
+			DASHER_ASSERT(0);
 		
 		// edge case where lhs = Min and rhs = -1
 		if(m_i == Min() && rhs.m_i == -1)
-			ASSERT(0);
+			DASHER_ASSERT(0);
 
 		m_i /= rhs.m_i;
 		return *this;
@@ -203,9 +203,9 @@ inline Cint64::Cint64(Cint32 i) : m_i( int64(i) ) {}
 inline Cint64::operator int32() const
 {
 	if (m_i > Cint32::Max())
-		ASSERT(0);
+		DASHER_ASSERT(0);
 	if (m_i < Cint32::Min())
-		ASSERT(0);
+		DASHER_ASSERT(0);
 
 	return (int32)m_i;
 }
