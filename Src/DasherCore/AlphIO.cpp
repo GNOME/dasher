@@ -6,12 +6,9 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
 
 #include "AlphIO.h"
-
-#ifdef _MSC_VER
-#include "../Common/Common.h"
-#endif
 
 using namespace Dasher;
 using namespace std;
