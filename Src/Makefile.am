@@ -24,7 +24,7 @@ AM_LDFLAGS = $(GTK2_LIBS) $(SETTINGS_LIBS) $(gnome_speech_LIBS) $(gnome_a11y_LIB
 
 endif
 
-if DOQTE
+if DOQT
 
 QTDIR=/usr/share/qt3
 dasher_SOURCES = QMain.cc
