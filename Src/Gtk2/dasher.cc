@@ -598,37 +598,45 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   }
 }
 
-void
+gint
 key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
   int i,width,height;
   if (event->type != GDK_KEY_PRESS)
-    return;
+    return FALSE;
+
+  if (keyboardcontrol == false) {
+    // CJB,  2003-08.  If we have a selection, replace it with the new input.
+    // This code is duplicated in button_press_event. 
+    if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
+      gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
+  }
 
   switch (event->keyval) {
-    if (keyboardcontrol == false) {
-      // CJB,  2003-08.  If we have a selection, replace it with the new input.
-      // This code is duplicated in button_press_event. 
-      if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
-        gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
-      std::cout << "Here" << std::endl;
-    } else {
-    case GDK_Up:
+  case GDK_Up:
+    if (keyboardcontrol == true) {
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
       dasher_go_to((int)(0.70*width), (int)(0.20*height));
-      break;
-    case GDK_Down:
+      return TRUE;
+    }
+    break;
+  case GDK_Down:
+    if (keyboardcontrol == true) {
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
       dasher_go_to((int)(0.70*width), (int)(0.80*height));
-      break;
-    case GDK_Left:
+      return TRUE;
+    }
+    break;
+  case GDK_Left:
+    if (keyboardcontrol == true) {
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
       dasher_go_to((int)(0.25*width), (int)(0.50*height));
-      break;
+      return TRUE;
     }
+    break;
   case GDK_space:
     if (startspace == TRUE) {
       if (paused == TRUE) {
@@ -640,13 +648,14 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 #ifdef GNOME_SPEECH
 	speak();
 #endif
-      }
+      }      
     }
+    return TRUE;
     break;
   default:
-    return;
+    return FALSE;
   }  
-  return;
+  return FALSE;
 }
 
 void
