@@ -30,7 +30,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	
 	// Set Space character if requested
 
-	// This line make it a bit easier for our WindowsCE compiler
+	// This line makes it a bit easier for our WindowsCE compiler
 	std::string empty="";
 
 	if (AlphInfo.SpaceCharacter.Text != empty ) {

@@ -286,10 +286,6 @@ SOURCE=.\DasherWidgetInterface.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\EnglishAlphabet.h
-# End Source File
-# Begin Source File
-
 SOURCE=.\LanguageModel.cpp
 # End Source File
 # Begin Source File
