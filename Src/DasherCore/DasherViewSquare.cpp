@@ -51,6 +51,7 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
 	m_Y1=int(1.0/dY1);
 
+	KeyControl=false;
 }
 
 
