@@ -4,6 +4,8 @@
 
 #include <gnome-speech/gnome-speech.h>
 #include <bonobo/bonobo-exception.h>
+#include <libintl.h>
+#define _(_x) gettext(_x)
 
 GNOME_Speech_Speaker speaker;
 GNOME_Speech_VoiceInfoList *voices;
