@@ -181,7 +181,6 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	mousex=dasherx2screen(mousex);
 	mousey=dashery2screen(mousey);
 	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 0, Opts::ColorSchemes(Objects));
-	Screen().Display();
 }
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)

@@ -55,10 +55,14 @@ public:
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}
 	CDasherScreen& Screen() {return *m_Screen;}
+
+	void Display() {m_Screen->Display();};
+
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(int* DrawX, int* DrawY);
 	inline void UnMapScreen(int* DrawX, int* DrawY);
+
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents

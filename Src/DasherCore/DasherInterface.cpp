@@ -128,6 +128,7 @@ void CDasherInterface::Redraw()
 {
 	if (m_DasherView!=0) {
 		m_DasherView->Render();
+		m_DasherView->Display();
 	}
 }
 
@@ -140,6 +141,7 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 		if (m_DrawMouse==true) {
 		  m_DasherView->DrawMouse(MouseX, MouseY);
 		}
+		m_DasherView->Display();
 	}
 	if (m_DasherModel!=0)
 		m_DasherModel->NewFrame(Time);
