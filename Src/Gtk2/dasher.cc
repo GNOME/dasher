@@ -20,6 +20,7 @@
 
 #ifdef GNOME
 #include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs.h>
 #endif
 
 #include "libdasher.h"
@@ -397,17 +398,59 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   }
 }
 
+void
+vfs_print_error(GnomeVFSResult *result)
+{
+  GtkWidget *error_dialog;
+  error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", filename,gnome_vfs_result_to_string (*result));
+  gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+  gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+  gtk_dialog_run(GTK_DIALOG(error_dialog));
+  gtk_widget_destroy(error_dialog);
+  return;
+}
+
 extern "C" void 
 open_file (const char *filename)
 {
+  int size;
+  gchar *buffer;
+  GtkWidget *error_dialog;
+#ifdef GNOME
+  GnomeVFSHandle *handle;
+  GnomeVFSResult result;
+  GnomeVFSFileInfo info;
+
+  result=gnome_vfs_open(&handle, filename, GNOME_VFS_OPEN_READ);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+  result=gnome_vfs_get_file_info(filename,&info,GNOME_VFS_FILE_INFO_DEFAULT);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+  size=info.size;
+  
+  buffer = (gchar *) g_malloc (size);
+
+  result=gnome_vfs_read(handle,buffer,size,NULL);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+
+  gnome_vfs_close(handle);
+#else
   struct stat file_stat;
   FILE *fp;
   int pos = 0;
-  gchar *buffer;
   int failure = 0;
-  GtkWidget *error_dialog;
 
   failure = stat (filename, &file_stat);
+
+  size=file_stat.st_size();
   
   if (failure) {
     error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
@@ -415,27 +458,28 @@ open_file (const char *filename)
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
     gtk_dialog_run(GTK_DIALOG(error_dialog));
     gtk_widget_destroy(error_dialog);
+    return;
   }
 
   if (!failure) {
-    buffer = (gchar *) g_malloc (file_stat.st_size);
+    buffer = (gchar *) g_malloc (size);
     fp = fopen (filename, "r");
-    fread (buffer, file_stat.st_size, 1, fp);
+    fread (buffer, size, 1, fp);
     fclose (fp);
-  
-    dasher_clear();
-  
-    file_modified = 1;
-
-    gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, file_stat.st_size);
-
-    gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
-
-    gtk_window_set_title(GTK_WINDOW(window), filename);
-
-    dasher_start();
-    dasher_redraw();
   }
+#endif  
+  dasher_clear();
+  
+  file_modified = 1;
+
+  gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
+
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
+
+  gtk_window_set_title(GTK_WINDOW(window), filename);
+
+  dasher_start();
+  dasher_redraw();
 }
 
 extern "C" void
@@ -479,7 +523,6 @@ select_new_file(GtkWidget *widget, gpointer user_data)
 extern "C" void 
 save_file_as (const char *filename, bool append)
 {
-  FILE *fp;
   int opened;
   gint length;
   gchar *inbuffer,*outbuffer = NULL;
@@ -491,6 +534,24 @@ save_file_as (const char *filename, bool append)
 
   start = new GtkTextIter;
   end = new GtkTextIter;
+
+#ifdef GNOME
+  GnomeVFSResult result;
+  GnomeVFSHandle *handle;
+
+  result=gnome_vfs_open(&handle,filename,GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
+
+  sleep(10);
+
+  if (result==GNOME_VFS_ERROR_NOT_FOUND) {
+    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0666);
+  } else if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+
+#else
+  FILE *fp;
 
   if (append == true) {
     fp = fopen (filename, "a");
@@ -510,43 +571,58 @@ save_file_as (const char *filename, bool append)
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
     gtk_dialog_run(GTK_DIALOG(error_dialog));
     gtk_widget_destroy(error_dialog);
+    return;
+  }
+#endif
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
+  
+  inbuffer = gtk_text_iter_get_slice (start,end);
+  
+  length = strlen(inbuffer);
+  
+  switch (fileencoding) {
+  case Opts::UserDefault:
+  case Opts::AlphabetDefault:
+    //FIXME - need to call GetAlphabetType and do appropriate stuff
+    //FIXME - error handling  
+    outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
+    break;
+  case Opts::UTF8:
+    outbuffer=inbuffer;
+    bytes_written=length;
+    break;
+  case Opts::UTF16LE:
+    cd=g_iconv_open("UTF16LE","UTF8");
+    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+    break;
+  case Opts::UTF16BE:
+    cd=g_iconv_open("UTF16BE","UTF8");
+    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+    break;
+  }	       
+
+#ifdef GNOME
+  GnomeVFSFileSize vfs_bytes_written;
+  if (append==true) {
+    result=gnome_vfs_seek(handle,GNOME_VFS_SEEK_END,0);
+  } else {
+    gnome_vfs_seek(handle,GNOME_VFS_SEEK_START,0);
+  }
+
+  result=gnome_vfs_write(handle,outbuffer,strlen(outbuffer),&vfs_bytes_written);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;    
   }
   
-  if (opened) {
-    gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
-    gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
-
-    inbuffer = gtk_text_iter_get_slice (start,end);
-
-    length = strlen(inbuffer);
-
-    switch (fileencoding) {
-    case Opts::UserDefault:
-    case Opts::AlphabetDefault:
-      //FIXME - need to call GetAlphabetType and do appropriate stuff
-      //FIXME - error handling  
-      outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
-      break;
-    case Opts::UTF8:
-      outbuffer=inbuffer;
-      bytes_written=length;
-      break;
-    case Opts::UTF16LE:
-      cd=g_iconv_open("UTF16LE","UTF8");
-      outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
-      break;
-    case Opts::UTF16BE:
-      cd=g_iconv_open("UTF16BE","UTF8");
-      outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
-      break;
-    }	       
-	       
-    fwrite(outbuffer,1,bytes_written,fp);
-    fclose (fp);
-
-    file_modified = 0;
-    gtk_window_set_title(GTK_WINDOW(window), filename);
-  }
+  gnome_vfs_close(handle);
+#else  
+  fwrite(outbuffer,1,bytes_written,fp);
+  fclose (fp);
+#endif
+  file_modified = 0;
+  gtk_window_set_title(GTK_WINDOW(window), filename);
 }
 
 extern "C" void
