@@ -116,7 +116,7 @@ msgstr "Preparando o Dasher, por favor aguarde"
 #: Src/Gtk2/dasher.cc:626 Src/Gtk2/dasher.cc:639 Src/Gtk2/dasher.cc:652
 #: Src/Gtk2/dasher.cc:665 Src/Gtk2/dashergpe.glade.h:61
 msgid "Select File"
-msgstr "Selecionando Arquivo"
+msgstr "Selecionar Arquivo"
 
 #. This gets pulled out via gettext
 #: Src/Gtk2/dasher.cc:1585
@@ -160,11 +160,11 @@ msgstr "9:"
 
 #: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>Alfabeto de Seleção:</b>"
+msgstr "<b>Seleção de Alfabeto:</b>"
 
 #: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
-msgstr "<b>Botão de controle para configuração</b>"
+msgstr "<b>Configuração do botão de controle</b>"
 
 #: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
@@ -216,7 +216,7 @@ msgstr "Alfabeto"
 
 #: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
 msgid "Alphabet Default"
-msgstr "Alfabeto Padrão"
+msgstr "Padrão do Alfabeto"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -224,7 +224,7 @@ msgstr "Do fim ao início"
 
 #: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
-msgstr "Botão de controle para configuração"
+msgstr "Configuração do botão de controle"
 
 #: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
 msgid "Button mode"
@@ -236,11 +236,11 @@ msgstr "Botão:"
 
 #: Src/Gtk2/dasher.glade.h:25
 msgid "Change color scheme automatically"
-msgstr "Modifique o esquema de cores automaticamente"
+msgstr "Modificar o esquema de cores automaticamente"
 
 #: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
-msgstr "Colorido"
+msgstr "Cor"
 
 #: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
@@ -272,11 +272,11 @@ msgstr "Para baixo/3:"
 
 #: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
-msgstr "Esquematizando o desenho da caixa"
+msgstr "Desenhar contornos da caixa"
 
 #: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr "Desenhe a linha entre a mira e o mouse"
+msgstr "Desenhar a linha entre a mira e o mouse"
 
 #: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -288,7 +288,7 @@ msgstr "Entre com o texto em outras janelas"
 
 #: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
-msgstr "Olhe o modo da faixa"
+msgstr "Modo de rastreio visual"
 
 #: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:44
 msgid ""
@@ -296,8 +296,9 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
-"Se este modo é selecionado, para cima e para baixo\n"
-"irão avançar e recuar entre as coordenadas e a direita irá confirmar a escolha"
+"Se este modo for selecionado, para cima e para baixo\n"
+"irão avançar e recuar entre as coordenadas e a direita irá confirmar a "
+"escolha"
 
 #: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
@@ -317,15 +318,15 @@ msgstr "Normal"
 
 #: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr "Número de pixels que irá auxiliá-lo em obter a escala de ordem da linha y:"
+msgstr "Número de pixels que devem cobrir todo alcance y:"
 
 #: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
-msgstr "Modo único dimensional"
+msgstr "Modo unidimensional"
 
 #: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
-msgstr "Parando a janela do lado externo"
+msgstr "Pausar a janela do lado externo"
 
 #: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
@@ -337,23 +338,23 @@ msgstr "Direito/4:"
 
 #: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
-msgstr "Selecionando Fonte"
+msgstr "Selecionar Fonte"
 
 #: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show mouse position"
-msgstr "Mostrando a posição do mouse"
+msgstr "Mostrar a posição do mouse"
 
 #: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
-msgstr "Mostrando a velocidade de indicação"
+msgstr "Mostrar indicação da velocidade"
 
 #: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
-msgstr "Mostrando a barra de ferramentas"
+msgstr "Mostrar a barra de ferramentas"
 
 #: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
-msgstr "Conversando e parando"
+msgstr "Conversar ao parar"
 
 #: Src/Gtk2/dasher.glade.h:57
 msgid "Speed"
@@ -361,15 +362,15 @@ msgstr "Velocidade"
 
 #: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
-msgstr "Iniciando no botão esquerdo do mouse"
+msgstr "Iniciar no botão esquerdo do mouse"
 
 #: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
-msgstr "Iniciando na barra de espaço"
+msgstr "Iniciar na barra de espaço"
 
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
-msgstr "Iniciando com a posição do mouse"
+msgstr "Iniciar com a posição do mouse"
 
 #: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
@@ -377,7 +378,7 @@ msgstr "Marca de tempo para novos arquivos"
 
 #: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
-msgstr "Do ínicio ao fim"
+msgstr "Do início ao fim"
 
 #: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training"
@@ -398,8 +399,8 @@ msgid ""
 "your writing speed."
 msgstr ""
 "Use este controle para ajustar os tamanhos relativos das \n"
-" caixas da letra. Observe que selecionar valores elevados irá "
-"diminuir a sua velocidade de escrita."
+" caixas da letra. Selecionar valores elevados irá diminuir a velocidade de "
+"escrita."
 
 #: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
@@ -487,7 +488,7 @@ msgstr "Novo arquivo"
 
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Open file"
-msgstr "Abrindo arquivo"
+msgstr "Abrir arquivo"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
@@ -495,33 +496,26 @@ msgstr "Orientação"
 
 #: Src/Gtk2/dashergpe.glade.h:55
 msgid "Paste"
-msgstr "Colando"
+msgstr "Colar"
 
 #: Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file"
-msgstr "Salvando arquivo"
+msgstr "Salvar arquivo"
 
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Save file as"
-msgstr "Salvando arquivo em"
+msgstr "Salvar arquivo como"
 
 #: Src/Gtk2/speech.cc:45
 #, c-format
 msgid "Unable to initialize voices"
-msgstr "Incapaz de inicializar as vozes"
+msgstr "Não foi possível inicializar as vozes"
 
 #: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
-msgstr "Aviso: sobre a impossibilidade para adaptar os parâmetros\n"
+msgstr "Aviso: não foi possível definir parâmetros de conversação\n"
 
 #: Src/main.cc:102
 msgid "Dasher Text Entry"
-msgstr "Texto de entrada no Dasher"
-
-#~ msgid "<b>Colour Selection:</b>"
-#~ msgstr "<b>Selecionando a Tonalidade:</b>"
-
-#~ msgid "Colour"
-#~ msgstr "Tonalidade"
-
+msgstr "Entrada de Texto do Dasher"
