@@ -102,6 +102,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },
   { "/Options/Keyboard Control", NULL, *GtkItemFactoryCallback(keycontrol), 1, "<CheckItem>" },
   { "/Options/Pause outside Window", NULL, *GtkItemFactoryCallback(windowpause), 1, "<CheckItem>" },
+  { "/Options/Control Mode", NULL, *GtkItemFactoryCallback(controlmode), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
  };
@@ -722,7 +723,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 56,
+				 57,
 				 entries,
 				 NULL );
 
@@ -1038,6 +1039,11 @@ void windowpause(gpointer data, guint action, GtkWidget *widget )
   dasher_set_parameter_bool( BOOL_WINDOWPAUSE, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 
+void controlmode(gpointer data, guint action, GtkWidget *widget )
+{
+  dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
 void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 {
   // FIXME - rewrite this sanely, ie:
@@ -1234,6 +1240,9 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_WINDOWPAUSE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Pause outside Window")), value);
       leavewindowpause=value;
+      break;
+    case BOOL_CONTROLMODE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Control Mode")), value);
       break;
     }
 }
