@@ -1,3 +1,7 @@
+2004-02-01  Marcel Telka  <marcel@telka.sk>
+
+	* configure.in (ALL_LINGUAS): Added sk.
+
 2004-02-01  Christian Neumair  <chris@gnome-de.org>
 
 	* configure.in: Added "de" (German) to ALL_LINGUAS.
