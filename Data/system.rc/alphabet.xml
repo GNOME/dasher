@@ -71,7 +71,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="Â¶" t="&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 <alphabet name="English alphabet with lots of punctuation">
@@ -168,7 +168,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="Â¶" t="&#xa;"/>
+<s d="¶" t="&#xa;"/>
 </group>
 <group name="Numbers">
 <s d="1" t="1"/>
