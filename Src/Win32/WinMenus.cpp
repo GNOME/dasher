@@ -2,12 +2,19 @@
 #include <comutil.h>
 
 using namespace WinMenus;
-#ifdef ACCESSIBLE
+
 std::vector<HWND> windownames;
 
+ControlTree* menutree;
+
 ControlTree* WinMenus::GetWindowMenus() {
+	menutree = buildcontroltree();
+#ifdef ACCESSIBLE
 	EnumDesktopWindows(GetThreadDesktop(GetCurrentThreadId()),WNDENUMPROC(WindowProc),LPARAM(0));
 	return (ProcessWindows());
+#else
+	return menutree;
+#endif
 }
 
 BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
@@ -16,6 +23,144 @@ BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
 	return TRUE;
 }
 
+ControlTree* WinMenus::buildcontroltree() {
+  ControlTree *stoptree=new ControlTree;
+  ControlTree *pausetree=new ControlTree;
+  ControlTree *movetree=new ControlTree;
+  ControlTree *deletetree=new ControlTree;
+  ControlTree *speaktree=new ControlTree;
+  stoptree->pointer=(void*)1;
+  stoptree->data=2;
+  stoptree->children=menutree;
+  stoptree->text="Stop";
+  stoptree->next=pausetree;
+  stoptree->type=1;
+  pausetree->pointer=(void*)1;
+  pausetree->data=3;
+  pausetree->children=menutree;
+  pausetree->text="Pause";
+  pausetree->next=movetree;
+  pausetree->type=1;
+  movetree->pointer=NULL;
+  movetree->data=0;
+  movetree->children=menutree;
+  movetree->text="Move";
+  movetree->next=deletetree;
+  movetree->children=buildmovetree(movetree);
+  movetree->type=1;
+  deletetree->pointer=NULL;
+  deletetree->data=0;
+  deletetree->children=builddeletetree(deletetree);
+  deletetree->text="Delete";
+  deletetree->next=speaktree;
+  deletetree->type=1;
+  speaktree->pointer=(void*)1;
+  speaktree->data=4;
+  speaktree->children=menutree;
+  speaktree->text="Speak";
+  speaktree->next=NULL;
+  speaktree->type=1;
+  return stoptree;
+}
+
+ControlTree* WinMenus::buildmovetree(ControlTree *movetree) {
+  ControlTree *lefttree=new ControlTree;
+  ControlTree *righttree=new ControlTree;
+  ControlTree *beginningtree=new ControlTree;
+  ControlTree *endtree=new ControlTree;
+  lefttree->pointer=(void*)1;
+  lefttree->data=11;
+  lefttree->children=lefttree;
+  lefttree->text="Previous";
+  lefttree->next=righttree;
+  lefttree->type=1;
+  righttree->pointer=(void*)1;
+  righttree->data=12;
+  righttree->children=lefttree;
+  righttree->text="Next";
+  righttree->next=beginningtree;
+  righttree->type=1;
+  beginningtree->pointer=(void*)1;
+  beginningtree->data=13;
+  beginningtree->children=lefttree;
+  beginningtree->text="Beginning";
+  beginningtree->next=endtree;
+  beginningtree->type=1;
+  endtree->pointer=(void*)1;
+  endtree->data=14;
+  endtree->children=lefttree;
+  endtree->text="End";
+  endtree->next=NULL;
+  endtree->type=1;
+  return lefttree;
+}
+
+ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
+  ControlTree *forwardtree = new ControlTree;
+  ControlTree *backwardtree = new ControlTree;
+  ControlTree *forwardchar = new ControlTree;
+  ControlTree *forwardword = new ControlTree;
+  ControlTree *forwardline = new ControlTree;
+  ControlTree *backwardchar = new ControlTree;
+  ControlTree *backwardword = new ControlTree;
+  ControlTree *backwardline = new ControlTree;
+
+  forwardtree->pointer=NULL;
+  forwardtree->data=0;
+  forwardtree->next=backwardtree;
+  forwardtree->children=forwardchar;
+  forwardtree->text="Forward";
+  forwardtree->type=1;
+  backwardtree->pointer=NULL;
+  backwardtree->data=0;
+  backwardtree->next=NULL;
+  backwardtree->children=backwardchar;
+  backwardtree->text="Backward";
+  backwardtree->type=1;
+
+  forwardchar->pointer=(void*)1;
+  forwardchar->data=21;
+  forwardchar->children=forwardtree;
+  forwardchar->next=forwardword;
+  forwardchar->text="Character";
+  forwardchar->type=1;
+  forwardword->pointer=(void*)1;
+  forwardword->data=22;
+  forwardword->children=forwardtree;
+  forwardword->next=forwardline;
+  forwardword->text="Word";
+  forwardword->type=1;
+  forwardline->pointer=(void*)1;
+  forwardline->data=23;
+  forwardline->children=forwardtree;
+  forwardline->next=NULL;
+  forwardline->text="Line";
+  forwardline->type=1;
+
+  backwardchar->pointer=(void*)1;
+  backwardchar->data=24;
+  backwardchar->children=forwardtree;
+  backwardchar->next=backwardword;
+  backwardchar->text="Character";
+  backwardchar->type=1;
+  backwardword->pointer=(void*)1;
+  backwardword->data=25;
+  backwardword->children=forwardtree;
+  backwardword->next=backwardline;
+  backwardword->text="Word";
+  backwardword->type=1;
+  backwardline->pointer=(void*)1;
+  backwardline->data=26;
+  backwardline->children=forwardtree;
+  backwardline->next=NULL;
+  backwardline->text="Line";
+  backwardline->type=1;
+
+  return forwardtree;
+}
+
+
+#ifdef ACCESSIBLE
 ControlTree* WinMenus::ProcessWindows() {
 	IAccessible* AccessibleObject=0;
 	VARIANT AccessibleChild;
@@ -28,6 +173,7 @@ ControlTree* WinMenus::ProcessWindows() {
 	RootNode->next=NULL;
 	RootNode->pointer=NULL;
 	RootNode->data=0;
+	RootNode->type=0;
 	RootNode->text="Menus";
 	for (int i=0; i<windownames.size(); i++) {
 		AccessibleObjectFromWindow(windownames[i],OBJID_WINDOW,IID_IAccessible,(void**)&AccessibleObject);
@@ -69,6 +215,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 	NewNode->children=NULL;
 	NewNode->next=NULL;
 	NewNode->pointer=NULL;
+	NewNode->type=0;
 
 	// We don't need to hook it into the tree yet
 

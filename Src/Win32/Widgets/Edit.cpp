@@ -678,8 +678,57 @@ void CEdit::SetWindow(HWND window)
 	}
 }
 
-void CEdit::outputcontrol (void* pointer, int data)
+void CEdit::outputcontrol (void* pointer, int data, int type)
 {
+	if (type==1) {
+		switch (data) {
+		  case 2:
+			  // stop
+			//  Canvas->StartStop();
+			  break;
+		  case 3:
+			  //	pause
+			  //Canvas->Pause();
+			  break;
+		  case 4:
+			  speak();
+			  break;
+/*		  case 11:
+			  // move left
+			  edit_move_back();
+			  break;
+		  case 12:
+			  // move right
+			  edit_move_forward();
+			  break;
+		  case 13:
+			  edit_move_start();
+			  break;
+		  case 14:
+			  edit_move_end();
+			  break;
+		  case 21:
+			  edit_delete_forward_character();
+			  break;
+		  case 22:
+			  edit_delete_forward_word();
+			  break;
+		  case 23:
+			  edit_delete_forward_line();
+			  break;
+		  case 24:
+			  edit_delete_callback();
+			  break;
+		  case 25:
+			  edit_delete_backward_word();
+			  break;
+		  case 26:
+			  edit_delete_backward_line();
+			  break; */
+		}
+	return;
+	}
+
 	if (pointer==NULL) {
 		return;
 	}

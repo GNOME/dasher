@@ -77,7 +77,7 @@ public:
 	void output(Dasher::symbol Symbol);
 	
 	// called when outputting a control symbol
-	void outputcontrol (void* pointer, int data);
+	void outputcontrol (void* pointer, int data, int type);
 	
 	// remove the previous character
 	void deletetext();

@@ -50,6 +50,7 @@ public:
 	void centrecursor();
 	void StartStop();
 	void DrawOutlines(bool Value) {Screen->DrawOutlines(Value);}
+	void Pause() {running=0;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
