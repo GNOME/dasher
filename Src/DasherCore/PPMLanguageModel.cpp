@@ -67,7 +67,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::add_symbol_to_node(in
 /////////////////////////////////////////////////////////////////////
 
 CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet)
-	: CLanguageModel(_alphabet)
+  : CLanguageModel(_alphabet), max_order( 10 )
 {
 	root=new CPPMnode(-1);
 	m_rootcontext=new CPPMContext(root,0);
@@ -284,7 +284,7 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 		temp=temp->vine;
 	}
 	vineptr->vine=root;
-	if (context.order>MAX_ORDER){
+	if (context.order>max_order){
 		context.head=context.head->vine;
 		context.order--;
 	}

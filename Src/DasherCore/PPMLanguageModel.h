@@ -17,7 +17,6 @@
 #include <stdio.h>
 
 //static char dumpTrieStr[40000];
-const int MAX_ORDER = 5;
 const int maxcont =200;
 
 namespace Dasher {class CPPMLanguageModel;}
@@ -74,6 +73,7 @@ private:
 	CPPMContext *m_rootcontext;
 	CPPMnode *root;
 
+	int max_order;
 
 };
 

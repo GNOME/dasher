@@ -20,6 +20,7 @@
 
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
+#include <libgnome/libgnome.h>
 #endif
 
 #include "libdasher.h"
