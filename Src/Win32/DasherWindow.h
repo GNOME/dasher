@@ -10,26 +10,29 @@
 #ifndef __DasherWindow_h__
 #define __DasherWindow_h__
 
-// Abstract interfaces to the Dasher engine
-// #define _DASHER_VER_ 0x0300 /* Probably not the way to do things */
-#include "../DasherCore/DasherSettingsInterface.h"
-#include "../DasherCore/DasherWidgetInterface.h"
-#include "../DasherCore/DasherAppInterface.h"
 
 // Stuff to make the window work
 #include "WinWrap.h"
 #include "resource.h"
 
-// Window components
-#include "Widgets/Toolbar.h"
-#include "Widgets/Edit.h"
-#include "Widgets/Canvas.h"
-#include "Widgets/Slidebar.h"
+
 #include "Widgets/Splitter.h"
 #include "Widgets/WinOptions.h"
 #include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
+
+class CToolbar;
+class CSlidebar;
+namespace Dasher 
+{
+	class CDasherWidgetInterface;
+	class CDasherAppInterface;
+};
+
+// Abstract interfaces to the Dasher engine
+#include "../DasherCore/DasherSettingsInterface.h"
+
 
 class CDasherWindow : public CWinWrap, public CSplitterOwner,
 	public Dasher::CDasherSettingsInterface
@@ -65,19 +68,33 @@ public:
 	void CopyAllOnStop(bool Value);
 	bool GetCopyAll() {return copyallonstop;}
 	void DrawMouse(bool Value);
+
 	bool GetDrawMouse() {return drawmouse;}
+
 	void DrawMouseLine(bool Value);
+
 	bool GetDrawMouseLine() {return drawmouseline;}
+
 	void SetDasherDimensions(bool Value);
+
 	bool GetDasherDimensions() {return oned;}
+
 	void StartOnLeft(bool Value);
+
 	bool GetStartOnLeft() {return startonleft;}
+
 	void StartOnSpace(bool Value);
+
 	bool GetStartOnSpace() {return startonspace;}
+
 	void KeyControl(bool Value);
+
 	bool GetKeyControl() {return keycontrol;}
+
 	void WindowPause(bool Value);
+
 	bool GetWindowPause() {return windowpause;}
+
 	void ControlMode(bool Value);
 	bool GetControlMode() {return controlmode;}
 	void ColourMode(bool Value);
@@ -129,7 +146,9 @@ private:
 	char tmpAutoOffset[25];
 
 	bool startonspace;
+
 	bool startonleft;
+
 	bool timestampnewfiles;
 	bool drawmouse;
 	bool drawmouseline;

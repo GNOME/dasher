@@ -7,9 +7,9 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-#include "../DasherCore/DasherTypes.h"
 #include "DasherWindow.h"
-#include "WinMenus.h"
+
+#include "../DasherCore/DasherTypes.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/ColourBox.h"
@@ -18,6 +18,11 @@
 #include "Widgets/Prefs.h"
 #include "WinLocalisation.h"
 #include "WinUTF8.h"
+#include "WinMenus.h"
+#include "Widgets/Toolbar.h"
+#include "Widgets/Slidebar.h"
+#include "../DasherCore/DasherWidgetInterface.h"
+#include "../DasherCore/DasherAppInterface.h"
 using namespace Dasher;
 using namespace std;
 
