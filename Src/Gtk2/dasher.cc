@@ -537,7 +537,7 @@ select_new_file(GtkWidget *widget, gpointer user_data)
 extern "C" void 
 save_file_as (const char *filename, bool append)
 {
-  int opened;
+  int opened=1;
   gint length;
   gchar *inbuffer,*outbuffer = NULL;
   gsize bytes_read, bytes_written;
