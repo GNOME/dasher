@@ -141,7 +141,7 @@ void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
 	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
 	
-	// DJW20030907 - i think Values should also be converted to Tstring
+	// DJW20031107 - i think Values should also be converted to Tstring
 	Tstring TValue;
 	UTF8string_to_Tstring(Value, &TValue);
 	
