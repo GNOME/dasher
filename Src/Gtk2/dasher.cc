@@ -1401,7 +1401,7 @@ open_window(GladeXML *xml) {
   dasher_redraw();
 
   // Aim for 20 frames per second
-  g_timeout_add(50, timer_callback, NULL );  
+  g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,50, timer_callback, NULL,NULL); 
 
   // I have no idea why we need to do this when Glade has theoretically done
   // so already, but...
