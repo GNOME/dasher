@@ -275,7 +275,7 @@
 <s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
-<alphabet name="Portuguese">
+<alphabet name="Portuguese (Brazilian)">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_portugese_BR.txt</train>
@@ -454,7 +454,7 @@
 <s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
-  <alphabet name="PL">
+  <alphabet name="Polish">
       <orientation type="LR" />
 
     <encoding type="CentralEurope" />

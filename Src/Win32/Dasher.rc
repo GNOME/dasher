@@ -442,7 +442,7 @@ BEGIN
             VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
-            VALUE "ProductVersion", "3, 0, 0 - preview 1"
+            VALUE "ProductVersion", "3, 0, 0"
         END
     END
     BLOCK "VarFileInfo"
