@@ -10,9 +10,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-29 13:51+0300\n"
-"PO-Revision-Date: 2004-08-29 13:56+0300\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
+"POT-Creation-Date: 2004-09-07 15:01-0300\n"
+"PO-Revision-Date: 2004-09-07 15:05+0300\n"
+"Last-Translator: Nikos Charonitakis <charosn@her.forthnet.gr>\n"
 "Language-Team:  <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -25,7 +25,7 @@ msgstr "Μενού"
 
 #: Src/Gtk2/accessibility.cc:67
 msgid "Windows"
-msgstr "Παράθυρο"
+msgstr "Παράθυρα"
 
 #: Src/Gtk2/accessibility.cc:72
 msgid "Application"
@@ -236,7 +236,7 @@ msgstr "<b>Εκκίνηση και Διακοπή:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Λειτουργία εναλλαγής κουμπιού:</b>"
+msgstr "<b>Λειτουργία Εναλλαγής κουμπιού:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
@@ -492,7 +492,7 @@ msgstr "Y:"
 
 #: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
-msgstr "Πε_ρί"
+msgstr "Π_ερί"
 
 #: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
@@ -516,7 +516,7 @@ msgstr "_Επεξεργασία Γραμματοσειράς"
 
 #: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
-msgstr "Αρ_χείο"
+msgstr "_Αρχείο"
 
 #: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Help"
@@ -546,7 +546,10 @@ msgstr "<b>Ταχύτητα</b>"
 msgid ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
-msgstr "Αν αυτή η λειτουργία επιλεχθεί, το πάνω και κάτω θα κάνουν κύκλο πρός τα πίσω και μπροστά μεταξύ των συντεταγμένων και το δεξιά θα επιβεβαιώνει τη επιλογή"
+msgstr ""
+"Αν αυτή η λειτουργία επιλεχθεί, το πάνω και κάτω θα κάνουν κύκλο πρός τα "
+"πίσω και μπροστά μεταξύ των συντεταγμένων και το δεξιά θα επιβεβαιώνει τη "
+"επιλογή"
 
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -556,7 +559,10 @@ msgstr "Προσανατολισμός"
 msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
-msgstr "Χρήση αυτού του ελέγχου για την ρύθμιση σχετικών μεγεθών των κουτιών γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει την ταχύτητα γραφής σας."
+msgstr ""
+"Χρήση αυτού του ελέγχου για την ρύθμιση σχετικών μεγεθών των κουτιών "
+"γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει την ταχύτητα "
+"γραφής σας."
 
 #: Src/Gtk2/speech.cc:24
 #, c-format
@@ -576,4 +582,3 @@ msgstr "Προειδοποίηση: αδυναμία ορισμού παραμέ
 #: Src/main.cc:104
 msgid "Dasher Text Entry"
 msgstr "Καταχώρηση Κειμένου Dasher"
-
