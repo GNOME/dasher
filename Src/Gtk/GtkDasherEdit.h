@@ -4,6 +4,7 @@
 #include <gtk--/text.h>
 #include "DashEdit.h"
 #include "DasherTypes.h"
+#include "DasherInterface.h"
 
 using namespace Dasher;
 using namespace Gtk;
@@ -11,7 +12,7 @@ using namespace Gtk;
 class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
 {
  public:
-  GtkDasherEdit();
+  GtkDasherEdit( CDasherInterface *_interface );
   ~GtkDasherEdit();
 
   void write_to_file();
@@ -25,6 +26,7 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
   void SetFont(std::string Name, long Size);
  protected:
   int flush_count;
+  CDasherInterface *interface;
 };
 
 #endif

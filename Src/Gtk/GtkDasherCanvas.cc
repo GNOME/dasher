@@ -9,8 +9,9 @@
 
 #include "DasherScreen.h"
 
-GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
-  : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height )
+GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_interface )
+  : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height ), 
+    interface( _interface )
 {
   set_events( GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK );
 
@@ -23,14 +24,19 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
   //bg_buffer = new Gdk_Pixmap(  width, height, -1 );
     buffer = new GtkDoubleBuffer( width, height, 16 );
 
-    f_small.create("-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1");
-    f_medium.create("-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1");
-    f_large.create("-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1");
+    f_small.create("-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*");
+    f_medium.create("-*-fixed-*-*-*-*-14-*-*-*-*-*-*-*");
+    f_large.create("-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*");
 }
 
 Gdk_Font GtkDasherCanvas::get_font( int size ) const
 {
-  return( f_small );
+  if( size < 12 )
+    return( f_small );
+  else if( size < 17 )
+    return( f_medium );
+  else
+    return( f_large );
 }
 
 void GtkDasherCanvas::clear()
@@ -99,21 +105,22 @@ void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Si
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 {
-  // Fixme - need to do symbol->character lookup properly.
+
+  // FIXME - symbol here will be a utf-8 encoded string, but I don't
+  // know whether draw_string wants that or whether it wants just
+  // ascii / whatever the character set of the font is
 
   if( is_realized() )
     {
-  char foo;
 
-  foo = Character + 96;
+      string symbol;
+      symbol = interface->GetDisplayText(Character);
 
-  string label(&foo, 1);
-
-  Gdk_Font chosen_font;
-
-  chosen_font = get_font( Size );
-
-  buffer->get_bg()->draw_string(chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font.char_height('A'), label);
+      Gdk_Font chosen_font;
+      
+      chosen_font = get_font( Size );
+      
+      buffer->get_bg()->draw_string(chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font.char_height('A'), symbol);
     }    
 }
   

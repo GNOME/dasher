@@ -7,12 +7,14 @@
 #include "DasherScreen.h"
 #include "GtkDoubleBuffer.h"
 
+#include "DasherInterface.h"
+
 using namespace Dasher;
 
 class GtkDasherCanvas : public Gtk::DrawingArea,  public Dasher::CDasherScreen
 {
 public:
-  GtkDasherCanvas( int _width, int _height );
+  GtkDasherCanvas( int _width, int _height, CDasherInterface *_interface );
   ~GtkDasherCanvas();
   
   void SetFont(std::string Name);
@@ -27,6 +29,8 @@ public:
   void clear();
   Gdk_Font get_font( int size ) const;
 protected:
+  CDasherInterface *interface;
+
   gint expose_event_impl(GdkEventExpose *event);
 
   int width;

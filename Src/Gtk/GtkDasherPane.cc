@@ -17,18 +17,18 @@
 
 GtkDasherPane::GtkDasherPane()
   : VBox( false, 0 ), paused( false )
-{
-  text = new GtkDasherEdit;
+{ 
+  interface = new CDasherInterface;
+
+  text = new GtkDasherEdit( interface );
   text->set_usize(128, 128);
   text->thaw();
-
-  canvas = new GtkDasherCanvas( 480, 480 );
+ 
+  canvas = new GtkDasherCanvas( 480, 480, interface );
 
   pack_start( *text );
   pack_start( *canvas );
   show_all();
-
-  interface = new CDasherInterface;
 
   interface->ChangeLanguageModel(0);
   interface->ChangeView(0);
