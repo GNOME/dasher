@@ -1,8 +1,8 @@
 #!/bin/sh
 
 aclocal -I m4
-libtoolize
-intltoolize
+libtoolize --force
+intltoolize --force
 autoconf
 automake -c -a
 ./configure $@
