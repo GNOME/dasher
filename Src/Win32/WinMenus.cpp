@@ -33,23 +33,33 @@ BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
 
 ControlTree* WinMenus::buildcontroltree()
 {
+  ControlTree *dummytree=new ControlTree;
   ControlTree *stoptree=new ControlTree;
   ControlTree *pausetree=new ControlTree;
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
+  dummytree->pointer=NULL;
+  dummytree->data=0;
+  dummytree->type=1;
+  dummytree->next=NULL;
+  dummytree->colour=8;
+  dummytree->text="Control";
+  dummytree->children=stoptree;
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=menutree;
   stoptree->text="Stop";
   stoptree->next=pausetree;
   stoptree->type=1;
+  stoptree->colour=242;
   pausetree->pointer=(void*)1;
   pausetree->data=3;
   pausetree->children=menutree;
   pausetree->text="Pause";
   pausetree->next=movetree;
   pausetree->type=1;
+  pausetree->colour=241;
   movetree->pointer=NULL;
   movetree->data=0;
   movetree->children=menutree;
@@ -57,18 +67,21 @@ ControlTree* WinMenus::buildcontroltree()
   movetree->next=deletetree;
   movetree->children=buildmovetree(movetree);
   movetree->type=1;
+  movetree->colour=-1;
   deletetree->pointer=NULL;
   deletetree->data=0;
   deletetree->children=builddeletetree(deletetree);
   deletetree->text="Delete";
   deletetree->next=speaktree;
   deletetree->type=1;
+  deletetree->colour=-1;
   speaktree->pointer=(void*)1;
   speaktree->data=4;
   speaktree->children=menutree;
   speaktree->text="Speak";
   speaktree->next=NULL;
   speaktree->type=1;
+  speaktree->colour=-1;
   return stoptree;
 }
 
@@ -83,24 +96,28 @@ ControlTree* WinMenus::buildmovetree(ControlTree *movetree) {
   lefttree->text="Previous";
   lefttree->next=righttree;
   lefttree->type=1;
+  lefttree->colour=-1;
   righttree->pointer=(void*)1;
   righttree->data=12;
   righttree->children=lefttree;
   righttree->text="Next";
   righttree->next=beginningtree;
   righttree->type=1;
+  righttree->colour=-1;
   beginningtree->pointer=(void*)1;
   beginningtree->data=13;
   beginningtree->children=lefttree;
   beginningtree->text="Beginning";
   beginningtree->next=endtree;
   beginningtree->type=1;
+  beginningtree->colour=-1;
   endtree->pointer=(void*)1;
   endtree->data=14;
   endtree->children=lefttree;
   endtree->text="End";
   endtree->next=NULL;
   endtree->type=1;
+  endtree->colour=-1;
   return lefttree;
 }
 
@@ -118,12 +135,14 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   forwardtree->children=forwardchar;
   forwardtree->text="Forward";
   forwardtree->type=1;
+  forwardtree->colour=-1;
   backwardtree->pointer=NULL;
   backwardtree->data=0;
   backwardtree->next=NULL;
   backwardtree->children=backwardchar;
   backwardtree->text="Backward";
   backwardtree->type=1;
+  backwardtree->colour=-1;
 
   forwardchar->pointer=(void*)1;
   forwardchar->data=21;
@@ -131,12 +150,14 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   forwardchar->next=forwardword;
   forwardchar->text="Character";
   forwardchar->type=1;
+  forwardchar->colour=-1;
   forwardword->pointer=(void*)1;
   forwardword->data=22;
   forwardword->children=forwardtree;
   forwardword->next=NULL;
   forwardword->text="Word";
   forwardword->type=1;
+  forwardword->colour=-1;
 
   backwardchar->pointer=(void*)1;
   backwardchar->data=24;
@@ -144,12 +165,14 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   backwardchar->next=backwardword;
   backwardchar->text="Character";
   backwardchar->type=1;
+  backwardchar->colour=-1;
   backwardword->pointer=(void*)1;
   backwardword->data=25;
   backwardword->children=forwardtree;
   backwardword->next=NULL;
   backwardword->text="Word";
   backwardword->type=1;
+  backwardword->colour=-1;
  
   return forwardtree;
 }
@@ -174,6 +197,7 @@ ControlTree* WinMenus::ProcessWindows()
 	RootNode->data=0;
 	RootNode->type=0;
 	RootNode->text="Menus";
+	RootNode->colour=-1;
 
 	for (int i=0; i<windownames.size(); i++) {
 		AccessibleObjectFromWindow(windownames[i],OBJID_WINDOW,IID_IAccessible,(void**)&AccessibleObject);
@@ -215,6 +239,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 	NewNode->next=NULL;
 	NewNode->pointer=NULL;
 	NewNode->type=0;
+	NewNode->colour=-1;
 
 	// We don't need to hook it into the tree yet
 

@@ -13,7 +13,7 @@
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
-//#include "Widgets/Prefs.h"
+#include "Widgets/Prefs.h"
 #include "WinLocalisation.h"
 #include "WinUTF8.h"
 using namespace Dasher;
@@ -260,9 +260,15 @@ void CDasherWindow::DrawMouse(bool Value)
 	drawmouse=Value;
 }
 
+void CDasherWindow::DrawMouseLine(bool Value)
+{
+	drawmouseline=Value;
+}
+
 void CDasherWindow::SetDasherDimensions(bool Value)
 {
 	oned=Value;
+	m_pCanvas->onedimensional(Value);
 }
 
 void CDasherWindow::StartOnLeft(bool Value)
@@ -298,6 +304,11 @@ void CDasherWindow::Speech(bool Value)
 {
 	speech=Value;
 	m_pCanvas->SpeakOnStop(Value);
+}
+
+void CDasherWindow::PaletteChange(bool Value)
+{
+	palettechange=Value;
 }
 
 void CDasherWindow::OutlineBoxes(bool Value)
@@ -434,7 +445,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
 				break;
 			case ID_OPTIONS_PREFS:
-//				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
+				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
 				break;
 			case ID_HELP_CONTENTS:
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);

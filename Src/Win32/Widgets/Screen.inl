@@ -111,17 +111,15 @@ inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Da
 	Rect.bottom = y2;
 	FillRect(m_hDCBuffer, &Rect, brush);
 	if (drawoutlines==true) {
-		// DJW -- you have to delete these -- lets use a stock brush instead
-		// brush = CreateSolidBrush(RGB(0,0,0));
-		FrameRect(m_hDCBuffer, &Rect, (HBRUSH)GetStockObject(BLACK_BRUSH));
+		FrameRect(m_hDCBuffer, &Rect, m_Brushes[3]);
 	}
 }
 
 
-inline void CScreen::Polyline(point* Points, int Number) const
+inline void CScreen::Polyline(point* Points, int Number, int iColour) const
 {
 	HGDIOBJ hpOld;
-	hpOld = (HPEN)SelectObject(m_hDCBuffer, (HPEN)GetStockObject(BLACK_PEN));
+	hpOld = (HPEN)SelectObject(m_hDCBuffer, (HPEN)m_Pens[iColour]);
 	POINT* WinPoints = new POINT[Number];
 	point2POINT(Points, WinPoints, Number);
 	::Polyline(m_hDCBuffer, WinPoints, Number);
@@ -129,10 +127,9 @@ inline void CScreen::Polyline(point* Points, int Number) const
 	SelectObject(m_hDCBuffer, hpOld);
 }
 
-inline void CScreen::Polyline(point* Points, int Number, int iColour) const
+inline void CScreen::Polyline(point* Points, int Number) const
 {
-	// DJW_TODO - implement coloured lines.
-	Polyline(Points,Number);
+	Polyline(Points,Number,0);
 }
 
 

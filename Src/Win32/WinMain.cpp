@@ -16,6 +16,36 @@
 #include "../DasherCore/DasherInterface.h"
 using namespace Dasher;
 
+void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
+{
+	using namespace WinHelper;
+	using namespace WinUTF8;
+
+	std::string filename;
+	WIN32_FIND_DATA find;
+	HANDLE handle;
+
+	handle=FindFirstFile(Alphabets,&find);
+	if (handle!=INVALID_HANDLE_VALUE) {
+		Tstring_to_UTF8string(find.cFileName, &filename);
+		Interface->AddAlphabetFilename(filename);
+		while (FindNextFile(handle,&find)!=false) {
+			Tstring_to_UTF8string(find.cFileName, &filename);
+			Interface->AddAlphabetFilename(filename);
+		}
+	}
+
+	handle=FindFirstFile(Colours,&find);
+	if (handle!=INVALID_HANDLE_VALUE) {
+		Tstring_to_UTF8string(find.cFileName, &filename);
+		Interface->AddColourFilename(filename);
+		while (FindNextFile(handle,&find)!=false) {
+			Tstring_to_UTF8string(find.cFileName, &filename);
+			Interface->AddColourFilename(filename);
+		}
+	}
+}
+
 /*
 	Entry point to program on Windows systems
 	
@@ -41,6 +71,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// Get folder names for system and user data.
 	Tstring UserData, AppData;
 	std::string UserData2, AppData2;
+	Tstring Alphabets, Colours;
 	GetUserDirectory(&UserData);
 	GetAppDirectory(&AppData);
 	UserData+=TEXT("dasher.rc\\");
@@ -62,8 +93,21 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	CDasherInterface DasherInterface;                     // Fat interface to all of Dasher's core,
 	DasherInterface.SetSystemLocation(AppData2);
 	DasherInterface.SetUserLocation(UserData2);
+
+	Alphabets=UserData;
+	Alphabets+=TEXT("alphabet*.xml");
+	Colours=UserData;
+	Colours+=TEXT("colour*.xml");
+	AddFiles(Alphabets.c_str(),Colours.c_str(),&DasherInterface);
+	Alphabets=AppData;
+	Alphabets+=TEXT("alphabet*.xml");
+	Colours=AppData;
+	Colours+=TEXT("colours*.xml");
+	AddFiles(Alphabets.c_str(),Colours.c_str(),&DasherInterface);
+
 	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
 	DasherInterface.ColourMode(true);
+
 	{
 		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
 		DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
@@ -76,3 +120,4 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	return iRet;
 }
+

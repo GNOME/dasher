@@ -132,7 +132,9 @@ void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 	// DJW - must delete brushes ala free_colours. Would be nice to encapsuted this into a Brush Container
 	while (m_Brushes.size()!=0) {
 		DeleteObject(m_Brushes.back());
+		DeleteObject(m_Pens.back());
 		m_Brushes.pop_back();
+		m_Pens.pop_back();
 	}
 
 	int numcolours=Colours->GetNumColours();
@@ -141,6 +143,7 @@ void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 
 	for (int i=0; i<numcolours; i++) {
 		m_Brushes.push_back(CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i))));
+		m_Pens.push_back(CreatePen(PS_SOLID, 1, RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i))));
 	}
 }
 

@@ -394,7 +394,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			if (strcmp(*atts, "d")==0) {
 			  atts++;
 			  Me->InputInfo.ParagraphCharacter.Display = *atts;
+#ifdef WIN32
+			  Me->InputInfo.ParagraphCharacter.Text = "\r\n";
+#else
 			  Me->InputInfo.ParagraphCharacter.Text = "\n";
+#endif	
 			  atts--;
 			}
 			if (strcmp(*atts, "b")==0) {

@@ -160,6 +160,9 @@
 #define IDC_COPYALLONSTOP               1093
 #define IDC_DRAWMOUSE                   1094
 #define IDC_SPEECH                      1096
+#define IDC_DRAWMOUSELINE               1097
+#define IDC_CHECK1                      1098
+#define IDC_COLOURSCHEME                1098
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -213,7 +216,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        171
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1097
+#define _APS_NEXT_CONTROL_VALUE         1099
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

@@ -73,6 +73,7 @@ private:
 	std::vector<HFONT> m_vhfFonts;
 	//vector<HBRUSH> m_vhbBrushes;
 	std::vector<HBRUSH> m_Brushes;
+	std::vector<HPEN> m_Pens;
 	HBITMAP m_hbmBit,m_hbmText;
 	HGDIOBJ m_prevhbmBit,m_prevhbmText;
 	std::vector<Tstring> DisplayStrings;

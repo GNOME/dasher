@@ -229,30 +229,45 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 					}
 				}
 			}
+			imousey=mousepos.y;
+			imousex=mousepos.x;
+			if (oned==true) {
+				float scalefactor;
+				if (yscaling==0) {
+					scalefactor=2.0;
+				} else {
+					scalefactor=m_pScreen->GetHeight()/yscaling;
+				}
+				imousey-=m_pScreen->GetHeight()/2;
+				imousey*=scalefactor;
+				imousey+=m_pScreen->GetHeight()/2;
+			}
+
+			m_DasherWidgetInterface->DrawMousePos(imousex,imousey);
+
 			return 0;
 		}
-
 		if (windowpause==true) {
 			RECT windowrect;
 			GetWindowRect(m_hwnd, &windowrect);
 			if (mousepos.y>windowrect.bottom || mousepos.y<windowrect.top || mousepos.x >windowrect.right || mousepos.x < windowrect.left)
 				return 0;
 		}
-
 		ScreenToClient(Window,&mousepos);			
-
 		imousey=mousepos.y;
-
 		imousex=mousepos.x;
-
-
-		if (yscaling!=0) {			
-			float scalefactor=m_pScreen->GetHeight()/yscaling;
+	
+		if (oned==true) {
+			float scalefactor;
+			if (yscaling==0) {
+				scalefactor=2;
+			} else {
+				float scalefactor=m_pScreen->GetHeight()/yscaling;
+			}	
 			imousey-=m_pScreen->GetHeight()/2;
 			imousey*=scalefactor;
 			imousey+=m_pScreen->GetHeight()/2;
 		}
-
 		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 		break;
 	default:

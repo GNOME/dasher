@@ -59,8 +59,14 @@ void CPrefs::PopulateWidgets()
 	if (m_pWindow->GetDrawMouse()==true) {
 		SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSE), BM_SETCHECK, BST_CHECKED, 0);
 	}
+	if (m_pWindow->GetDrawMouseLine()==true) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSELINE), BM_SETCHECK, BST_CHECKED, 0);
+	}
 	if (m_pWindow->GetSpeech()==true) {
 		SendMessage(GetDlgItem(m_hwnd, IDC_SPEECH), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if (m_pWindow->GetPaletteChange()==true) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_SETCHECK, BST_CHECKED, 0);
 	}
 	m_pWidget->Redraw();
 }
@@ -152,6 +158,18 @@ LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 			} else {
 				m_pSettings->DrawMouse(false);
 			}
+			if (SendMessage(GetDlgItem(Window,IDC_DRAWMOUSELINE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pSettings->DrawMouseLine(true);
+			} else {
+				m_pSettings->DrawMouseLine(false);
+			}
+
+			if (SendMessage(GetDlgItem(Window,IDC_COLOURSCHEME), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pSettings->PaletteChange(true);
+			} else {
+				m_pSettings->PaletteChange(false);
+			}
+
 
 			EndDialog(Window, LOWORD(wParam));
 			return TRUE;

@@ -62,6 +62,8 @@ public:
 	bool GetCopyAll() {return copyallonstop;}
 	void DrawMouse(bool Value);
 	bool GetDrawMouse() {return drawmouse;}
+	void DrawMouseLine(bool Value);
+	bool GetDrawMouseLine() {return drawmouseline;}
 	void SetDasherDimensions(bool Value);
 	bool GetDasherDimensions() {return oned;}
 	void StartOnLeft(bool Value);
@@ -86,6 +88,8 @@ public:
 	bool GetOutlines() {return outlines;}
 	void SetDasherEyetracker(bool Value);
 	bool GetDasherEyetracker() {return eyetracker;}
+	void PaletteChange(bool Value);
+	bool GetPaletteChange() {return palettechange;}
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -113,6 +117,7 @@ private:
 	bool startonleft;
 	bool timestampnewfiles;
 	bool drawmouse;
+	bool drawmouseline;
 	bool oned;
 	bool windowpause;
 	bool keycontrol;
@@ -125,6 +130,7 @@ private:
 	bool keyboardmode;
 	bool mouseposstart;
 	bool speech;
+	bool palettechange;
 
 	// Misc window handling
 	void SetMenuCheck(UINT MenuItem, bool Value);

@@ -40,6 +40,7 @@ public:
 	int* getkeycoords() {return keycoords;}
 	void setyscale(int y) {yscaling=y;}
 	int getyscale() {return yscaling;}
+	void onedimensional(bool value) {oned=value;}
 	void setforward(bool value) {forward=value;}
 	void setbackward(bool value) {backward=value;}
 	void setselect(bool value) {select=value;}
@@ -75,6 +76,7 @@ private:
 	bool firstwindow;
 	bool secondwindow;
 	bool speakonstop;
+	bool oned;
 	DWORD mousepostime;
 	RECT coords;
 	ThreadParams *tp;
