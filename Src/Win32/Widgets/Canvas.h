@@ -51,6 +51,7 @@ protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	HWND Parent;
+	HDC m_hdc;
 	int keycoords[18],buttonnum,yscaling;
 	bool forward,backward,select;
 	CScreen* m_pScreen;

@@ -98,6 +98,8 @@ inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	
+	SelectObject(m_hDCText,old);
 }
 
 inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
@@ -136,14 +138,14 @@ inline void CScreen::Polyline(point* Points, int Number) const
 inline void CScreen::DrawPolygon(point* Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {
 	HPEN pen=(HPEN)GetStockObject(NULL_PEN);
-	HGDIOBJ hold;
-	hold=SelectObject (m_hDCBuffer, pen);
-	SelectObject (m_hDCBuffer, m_Brushes[ColorScheme]);
+	HPEN hpold= (HPEN)SelectObject (m_hDCBuffer, pen);
+	HBRUSH hbold =(HBRUSH)SelectObject (m_hDCBuffer, m_Brushes[ColorScheme]);
 	POINT* WinPoints = new POINT[Number];
 	point2POINT(Points, WinPoints, Number);
 	::Polygon(m_hDCBuffer, WinPoints, Number);
 	delete[] WinPoints;
-	SelectObject (m_hDCBuffer, hold);
+	SelectObject (m_hDCBuffer, hpold);
+	SelectObject (m_hDCBuffer, hbold);
 }
 
 
@@ -170,10 +172,10 @@ inline void CScreen::Display()
 //	} else
 	
 	// :: GetDC should have little overhead now we have a private DC
-	HDC hdc = GetDC(m_hwnd);
-	BitBlt(hdc, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
-	ReleaseDC(m_hwnd,hdc);
-
+//	HDC hdc = GetDC(m_hwnd);
+	BitBlt(m_hdc, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+//	int iRes = ReleaseDC(m_hwnd,hdc);
+	//assert (iRes);
 	//RealHDC = 0;
 }
 

@@ -20,6 +20,7 @@
 using namespace Dasher;
 using namespace std;
 
+
 #define IDT_TIMER1 200
 
 CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI)
@@ -63,9 +64,14 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	MyTime = GetTickCount() - MyTime;
 */
 
+
+
 	SetTimer(m_hwnd, IDT_TIMER1,               // timer identifier 
+
     20,                     // 5-second interval 
+
     (TIMERPROC) NULL); // timer callback
+
 }
 
 
@@ -78,7 +84,9 @@ CDasherWindow::~CDasherWindow()
 	delete m_pSlidebar;
 	delete m_pSplitter;
 	
-	SendMessage(m_hwnd, WM_CLOSE, 0, 0);
+	DestroyIcon(m_hIconSm);
+
+//	SendMessage(m_hwnd, WM_CLOSE, 0, 0);
 	WinWrapMap::remove(m_hwnd);
 }
 
@@ -97,6 +105,7 @@ void CDasherWindow::Show(int nCmdShow)
 	ShowWindow(m_hwnd, nCmdShow);
 	UpdateWindow(m_hwnd);
 }
+
 
 int CDasherWindow::MessageLoop()
 {
@@ -260,15 +269,19 @@ void CDasherWindow::TimeStampNewFiles(bool Value)
 	timestampnewfiles=Value;
 }
 
+
 void CDasherWindow::DrawMouse(bool Value)
 {
 	drawmouse=Value;
 }
 
+
 void CDasherWindow::DrawMouseLine(bool Value)
 {
 	drawmouseline=Value;
 }
+
+
 
 void CDasherWindow::SetDasherDimensions(bool Value)
 {
@@ -276,11 +289,15 @@ void CDasherWindow::SetDasherDimensions(bool Value)
 	m_pCanvas->onedimensional(Value);
 }
 
+
+
 void CDasherWindow::StartOnLeft(bool Value)
 {
 	startonleft=Value;
 	m_pCanvas->StartOnLeftClick(Value);
 }
+
+
 
 void CDasherWindow::StartOnSpace(bool Value)
 {
@@ -288,17 +305,22 @@ void CDasherWindow::StartOnSpace(bool Value)
 	m_pCanvas->StartOnSpace(Value);
 }
 
+
+
 void CDasherWindow::WindowPause(bool Value)
 {
 	windowpause=Value;
 	m_pCanvas->WindowPause(Value);
 }
 
+
+
 void CDasherWindow::KeyControl(bool Value)
 {
 	keycontrol=Value;
 	m_pCanvas->KeyControl(Value);
 }
+
 
 void CDasherWindow::CopyAllOnStop(bool Value)
 {
@@ -358,11 +380,17 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		Layout();
 		break;
 	case WM_SETFOCUS:
+
 		SetFocus(m_pCanvas->getwindow());
+
 		break;
+
 	case WM_TIMER:
+
 		SendMessage( m_pCanvas->getwindow(), message, wParam, lParam);
+
 		break;
+
 	case WM_COMMAND:
 		{
 			const int wmId    = LOWORD(wParam);
@@ -377,12 +405,17 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			// Parse the menu selections:
 			switch (wmId)
 			{
+
 			case ID_OPTIONS_ENTERTEXT:
 				{ CWinSel WinSel(m_hwnd,m_pEdit); }
 			break;
+
 			case ID_OPTIONS_CONTROLMODE:
+
 				DasherSettingsInterface->ControlMode(!WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+
 				break;
+
 			case ID_OPTIONS_FONTSIZE_NORMAL: {
 			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
@@ -459,7 +492,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);
 				break;
 			case IDM_EXIT:
-				DestroyWindow(m_hwnd);
+				SendMessage(m_hwnd, WM_CLOSE, 0, 0);
 				break;
 			case ID_TB_SHOW:
 				DasherSettingsInterface->ShowToolbar(!WinMenu.GetCheck(ID_TB_SHOW));
@@ -552,6 +585,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		if (m_pEdit!=0) {
 			m_pEdit->write_to_file();
 		}
+		
+		// Canvas needs to free its resources before its window is deleted
+		if (m_pCanvas!=0)
+		{
+			delete m_pCanvas;
+			m_pCanvas=0;
+		}		
 		PostQuitMessage(0);
 		break;
 	case WM_GETMINMAXINFO:
@@ -597,8 +637,11 @@ Tstring CDasherWindow::CreateMyClass()
 		wndclass.lpszClassName  = WndClassName; // Not in a resource - does not require translation
 		//wndclass.hIconSm        = LoadIcon(wndclass.hInstance, (LPCTSTR)IDI_DASHER);
 		// This gives a better small icon:
-		wndclass.hIconSm        = (HICON) LoadImage(wndclass.hInstance, (LPCTSTR) IDI_DASHER, IMAGE_ICON,
+
+		m_hIconSm = (HICON) LoadImage(wndclass.hInstance, (LPCTSTR) IDI_DASHER, IMAGE_ICON,
 			GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
+
+		wndclass.hIconSm        = m_hIconSm;
 		
 		RegisterClassEx(&wndclass);
 	}

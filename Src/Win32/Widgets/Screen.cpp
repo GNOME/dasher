@@ -16,16 +16,16 @@ using namespace Dasher;
 using namespace Opts;
 using namespace std;
 
-CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
-  : CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
+CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
+  : CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
 {
 	// set up the off-screen buffers
-	HDC hdc = GetDC(mainwindow);
+//	HDC hdc = GetDC(mainwindow);
 	m_hDCBuffer = CreateCompatibleDC(hdc);  // one for rectangles
 	m_hDCText = CreateCompatibleDC(hdc);    // the other for text
 	m_hbmBit = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
 	m_hbmText = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
-	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
+//	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
 	m_prevhbmText = SelectObject(m_hDCText,m_hbmText);
 	SetBkMode(m_hDCText,TRANSPARENT);
 	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
@@ -226,5 +226,6 @@ void CScreen::DrawMousePosBox(int which)
 			assert(0);
 	}
 	FillRect(m_hDCText, &Rect, brush);
+	DeleteObject(brush);
 	Display();
 }

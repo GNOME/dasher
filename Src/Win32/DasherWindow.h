@@ -115,6 +115,9 @@ private:
 	CWinOptions* WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;
+
+	HICON m_hIconSm;
+
 	bool startonspace;
 	bool startonleft;
 	bool timestampnewfiles;

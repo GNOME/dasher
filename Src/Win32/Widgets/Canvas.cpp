@@ -22,8 +22,8 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	GetClassInfoEx(NULL,TEXT("STATIC"),&canvasclass);
 	canvasclass.lpszClassName=TEXT("CANVAS");
 	canvasclass.hCursor=LoadCursor(NULL,IDC_CROSS);
-	canvasclass.style=canvasclass.style|WS_EX_TOOLWINDOW;
-	canvasclass.style=canvasclass.style|CS_OWNDC;	// give this window its own Private DC
+//	canvasclass.style=canvasclass.style|WS_EX_TOOLWINDOW;
+	canvasclass.style=CS_OWNDC;	// give this window its own Private DC
 	if (RegisterClassEx(&canvasclass)==0)
 		exit(0);
 #else
@@ -43,7 +43,12 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
 	ShowWindow(m_hwnd,SW_SHOW);
 	
-	m_pScreen = new CScreen(m_hwnd, 300, 300);
+	m_hdc = GetDC(m_hwnd);
+	HDC hdc2 = GetDC(m_hwnd);
+	HDC hdc3 = GetDC(m_hwnd);
+
+	m_pScreen = new CScreen(m_hdc, 300, 300);
+	//ReleaseDC(m_hwnd,m_hDC);
 	m_DasherAppInterface->ChangeScreen(m_pScreen);
 
 	for (int i=0; i<18; i++) {
@@ -57,8 +62,33 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 
 CCanvas::~CCanvas()
 {
+	int iRC = ReleaseDC(m_hwnd,m_hdc);
+	if (!iRC)
+	{
+		LPVOID lpMsgBuf;
+FormatMessage( 
+    FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+    FORMAT_MESSAGE_FROM_SYSTEM | 
+    FORMAT_MESSAGE_IGNORE_INSERTS,
+    NULL,
+    GetLastError(),
+    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+    (LPTSTR) &lpMsgBuf,
+    0,
+    NULL 
+);
+// Process any inserts in lpMsgBuf.
+// ...
+// Display the string.
+MessageBox( NULL, (LPCTSTR)lpMsgBuf, TEXT("Error"), MB_OK | MB_ICONINFORMATION );
+// Free the buffer.
+LocalFree( lpMsgBuf );
+
+
+	}
+
+
 	delete m_pScreen;
-	DestroyWindow(m_hwnd);
 }
 
 
@@ -167,7 +197,8 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_PAINT: {
 		PAINTSTRUCT ps;
 		HDC hdc = BeginPaint(Window, &ps);
-//		Screen->SetNextHDC(hdc);
+	
+///		Screen->SetNextHDC(hdc);
 		m_DasherWidgetInterface->Redraw();
 		if (firstwindow==true) {
 			m_pScreen->DrawMousePosBox(0);
@@ -175,14 +206,14 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			m_pScreen->DrawMousePosBox(1);
 		}
 		EndPaint(Window, &ps);
-		
+	
 		return 0;
 		break;
 	}
 	case WM_SIZE:
 		if (m_pScreen!=0)
 			delete m_pScreen;
-		m_pScreen = new CScreen(m_hwnd, LOWORD(lParam), HIWORD(lParam));
+		m_pScreen = new CScreen(m_hdc, LOWORD(lParam), HIWORD(lParam));
 		m_DasherAppInterface->ChangeScreen(m_pScreen);
 		InvalidateRect(Window, NULL, FALSE);
 		break;
@@ -231,7 +262,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 				}
 			}
 			imousey=mousepos.y;
+
 			imousex=mousepos.x;
+
 			if (oned==true) {
 				float scalefactor;
 				if (yscaling==0) {
@@ -251,14 +284,23 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			return 0;
 		}
 		if (windowpause==true) {
+
 			RECT windowrect;
+
 			GetWindowRect(m_hwnd, &windowrect);
+
 			if (mousepos.y>windowrect.bottom || mousepos.y<windowrect.top || mousepos.x >windowrect.right || mousepos.x < windowrect.left)
+
 				return 0;
+
 		}
+
 		ScreenToClient(Window,&mousepos);			
+
 		imousey=mousepos.y;
+
 		imousex=mousepos.x;
+
 	
 		if (oned==true) {
 			float scalefactor;

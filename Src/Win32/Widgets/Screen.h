@@ -24,7 +24,7 @@
 class CScreen : public Dasher::CDasherScreen, private NoClones
 {
 public:
-	CScreen(HWND mainwindow, int width,int height);
+	CScreen(HDC hdc, int width,int height);
 	~CScreen();
 	
 	void SetInterface(Dasher::CDasherWidgetInterface* DasherInterface);
@@ -68,7 +68,8 @@ private:
 	
 	std::string m_FontName;
 	
-	HWND m_hwnd;
+//	HWND m_hwnd;
+	HDC m_hdc;
 	HDC m_hDCBuffer,m_hDCText;
 	std::vector<HFONT> m_vhfFonts;
 	//vector<HBRUSH> m_vhbBrushes;
