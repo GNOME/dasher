@@ -28,6 +28,7 @@ void (*display_callback)() = NULL;
 void (*colour_scheme_callback)(int, int*, int*, int*) = NULL;
 void (*draw_rectangle_callback)(int, int, int, int, int, Opts::ColorSchemes) = NULL;
 void (*draw_polyline_callback)(Dasher::CDasherScreen::point*, int) = NULL;
+void (*draw_colour_polyline_callback)(Dasher::CDasherScreen::point*, int, int) = NULL;
 void (*draw_text_callback)(symbol, int, int, int) = NULL;
 void (*draw_text_string_callback)(std::string, int, int, int) = NULL;
 void (*text_size_callback)(symbol, int*, int*, int) = NULL;
@@ -116,6 +117,12 @@ void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number)
 {
   if( draw_polyline_callback != NULL )
     draw_polyline_callback( Points, Number );
+}
+
+void handle_draw_colour_polyline(Dasher::CDasherScreen::point* Points, int Number, int Colour)
+{
+  if( draw_colour_polyline_callback != NULL )
+    draw_colour_polyline_callback( Points, Number, Colour );
 }
 
 void handle_draw_text(symbol Character, int x1, int y1, int size)
@@ -504,6 +511,11 @@ void dasher_set_draw_rectangle_callback( void (*_cb)(int, int, int, int, int, Op
 void dasher_set_draw_polyline_callback(void (*_cb)(Dasher::CDasherScreen::point*, int) )
 {
   draw_polyline_callback = _cb;
+}
+
+void dasher_set_draw_colour_polyline_callback(void (*_cb)(Dasher::CDasherScreen::point*, int, int) )
+{
+  draw_colour_polyline_callback = _cb;
 }
 
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int))

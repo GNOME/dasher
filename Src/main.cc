@@ -113,6 +113,7 @@ main(int argc, char *argv[])
   dasher_set_colour_scheme_callback( receive_colour_scheme_callback );
   dasher_set_draw_rectangle_callback( draw_rectangle_callback );
   dasher_set_draw_polyline_callback( draw_polyline_callback );
+  dasher_set_draw_colour_polyline_callback( draw_colour_polyline_callback );
   dasher_set_draw_text_callback( draw_text_callback );
   dasher_set_draw_text_string_callback( draw_text_string_callback );
   dasher_set_text_size_callback( text_size_callback );

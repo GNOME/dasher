@@ -73,6 +73,13 @@ public:
 	//
 	//! \param Number the number of points in the array
 	virtual void Polyline(point* Points, int Number) const=0;
+
+	// Draw a line of arbitrary colour.
+	//! Draw a line between each of the points in the array
+	//
+	//! \param Number the number of points in the array
+	//! \param Colour the colour to be drawn
+	virtual void Polyline(point* Points, int Number, int Colour) const=0;
 	
 	// Draw a filled polygon - given vertices and color id
 	// This is not (currently) used in standard Dasher. However, it could be very

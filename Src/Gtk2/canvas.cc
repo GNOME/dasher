@@ -146,6 +146,11 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
 }
 
 void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
+{
+  draw_colour_polyline_callback(Points, Number, 0);
+}
+
+void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
 { 
   GdkGC *graphics_context;
   GdkColormap *colormap;
@@ -155,7 +160,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   if (setup==false)
     return;
 
-  GdkColor black = {0, 0, 0, 0};
+  GdkColor colour = colours[Colour];
   GdkPoint *gdk_points;
 
   gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
@@ -163,8 +168,8 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   gdk_gc_get_values(graphics_context,&origvalues);
   colormap = gdk_colormap_get_system();
 
-  gdk_color_alloc(colormap, &black);
-  gdk_gc_set_foreground (graphics_context, &black);
+  gdk_color_alloc(colormap, &colour);
+  gdk_gc_set_foreground (graphics_context, &colour);
 
   for (int i=0; i < Number; i++) {
     gdk_points[i].x = Points[i].x;

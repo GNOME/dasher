@@ -16,6 +16,7 @@ void handle_colour_scheme(CCustomColours *Colours);
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme);
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number);
+void handle_draw_colour_polyline(Dasher::CDasherScreen::point* Points, int Number, int Colour);
 void handle_draw_text(symbol Character, int x1, int y1, int size);
 void handle_draw_text(std::string String, int x1, int y1, int size);
 void handle_text_size(symbol Character, int* Width, int* Height, int Size);
@@ -252,6 +253,11 @@ class dasher_screen : public CDasherScreen
   void Polyline(point* Points, int Number) const
     {
       handle_draw_polyline( Points, Number );
+    };
+
+  void Polyline(point* Points, int Number, int Colour) const
+    {
+      handle_draw_colour_polyline( Points, Number, Colour );
     };
 	
   void DrawPolygon(point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const
