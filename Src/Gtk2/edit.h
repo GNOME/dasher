@@ -5,6 +5,12 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <X11/X.h>
+#include <X11/Xlib.h>
+#include <X11/keysym.h>
+#ifdef X_HAVE_UTF8_STRING
+#include <X11/extensions/XTest.h>
+#endif
 
 void initialise_edit();
 void edit_output_callback(symbol Symbol);

@@ -14,6 +14,8 @@ GtkClipboard *the_text_clipboard;
 std::string say;
 std::string outputtext;
 
+wchar_t wideoutput[256];
+
 extern gint outputcharacters;
 
 void initialise_edit()
@@ -44,6 +46,32 @@ void edit_output_callback(symbol Symbol)
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
+#ifdef X_HAVE_UTF8_STRING
+  Display *dpy;
+  dpy = XOpenDisplay(NULL);
+  int min, max, numcodes;
+  KeySym *keysym;
+  KeyCode code;
+  size_t numoutput=mbstowcs(wideoutput,label.c_str(),255);
+  
+  for (size_t i=0; i<numoutput; i++) {
+    // This gives us the magic X keysym
+    wideoutput[i]=wideoutput[i] | 0x01000000;
+
+    XDisplayKeycodes(dpy,&min,&max);
+    keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
+    keysym[(max-min-1)*numcodes]=wideoutput[i];
+    XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
+    XFree(keysym);
+    code = XKeysymToKeycode(dpy,wideoutput[i]);
+    if (code!=0) {
+      XTestFakeKeyEvent(dpy, code, True, 1);
+      XTestFakeKeyEvent(dpy, code, False, 1);
+    }
+  }
+  XFlush(dpy);
+  XCloseDisplay(dpy);
+#else
   SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
 
@@ -104,6 +132,15 @@ void edit_delete_callback()
 #ifdef GNOME_A11Y
   SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
 #endif
+
+  Display *dpy;
+  dpy = XOpenDisplay(NULL);
+  KeyCode code;
+  code = XKeysymToKeycode(dpy,XK_BackSpace);
+  XTestFakeKeyEvent(dpy, code, True, 0);
+  XTestFakeKeyEvent(dpy, code, False, 0);
+  XFlush(dpy);
+  XCloseDisplay(dpy);
 
   outputcharacters--;
 }
