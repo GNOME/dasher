@@ -1,15 +1,15 @@
-// DasherNode.cpp: implementation of the CDasherNode class.
+// DasherNode.cpp
 //
-//////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2001-2002 David Ward
+//
+/////////////////////////////////////////////////////////////////////////////
 
 #include "DasherNode.h"
 using namespace Dasher;
 using namespace Opts;
 using namespace std;
-
-//////////////////////////////////////////
-////// DasherNode ////////////////////////
-//////////////////////////////////////////
 
 CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm)
 	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),

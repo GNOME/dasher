@@ -1,3 +1,12 @@
+// AlphabetMap.h
+//
+/////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2002 Iain Murray
+//
+/////////////////////////////////////////////////////////////////////////////
+
+
 /*
 If I were just using GCC, which comes with the CGI "STL" implementation, I would
 use hash_map (which isn't part of the ANSI/ISO standard C++ STL, but hey it's nice).

@@ -362,16 +362,16 @@
 			RelativePath=".\LanguageModel.h">
 		</File>
 		<File
+			RelativePath="PPMModel.cpp">
+		</File>
+		<File
+			RelativePath="PPMModel.h">
+		</File>
+		<File
 			RelativePath=".\SettingsStore.cpp">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.h">
-		</File>
-		<File
-			RelativePath=".\ppmModel.cpp">
-		</File>
-		<File
-			RelativePath=".\ppmModel.h">
 		</File>
 	</Files>
 	<Globals>
