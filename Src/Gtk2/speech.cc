@@ -18,7 +18,7 @@ void setup_speech() {
   CORBA_Object rv;
 
   servers = bonobo_activation_query (
-	     "repo_ids.has ('IDL:GNOME/Speech/SynthesisDriver:0.2')",
+	     "repo_ids.has ('IDL:GNOME/Speech/SynthesisDriver:0.3')",
 	     NULL, &ev);
 
   for (int i=0; i<servers->_length; i++) 
@@ -41,7 +41,7 @@ void setup_speech() {
 
   voices = GNOME_Speech_SynthesisDriver_getAllVoices (rv, &ev);
 
-  if (voices==NULL) {
+  if (voices==NULL || BONOBO_EX (&ev)) {
     printf(_("Unable to initialize voices"));
     speaker=NULL;
     return;
