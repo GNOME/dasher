@@ -1,3 +1,7 @@
+2004-08-16  Kjartan Maraas  <kmaraas@gnome.org>
+
+	* configure.in: Added nb to ALL_LINGUAS.
+
 2004-08-09 Amanpreet Singh Alam <aalam@redht.com>
 
 	* Lang Gujurati is add to configure.in
