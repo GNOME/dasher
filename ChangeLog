@@ -5,6 +5,7 @@
 	* Fix infinite loops when moving between two control branches, and
 	  fix a crasher bug that was hidden by that	
 	* Use gtkfilechooser
+	* Bumped version number to 3.2.5
 	
 2004-03-06  Matthew Garrett  <mjg59@srcf.ucam.org>
 
