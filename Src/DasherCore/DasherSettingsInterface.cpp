@@ -22,6 +22,7 @@ namespace Keys {
 	const std::string SHOW_SLIDER = "ShowSpeedSlider";
 	const std::string COPY_ALL_ON_STOP = "CopyAllOnStop";
         const std::string DRAW_MOUSE = "DrawMouse";
+        const std::string DRAW_MOUSELINE = "DrawMouseLine";
         const std::string START_MOUSE = "StartOnLeft";
         const std::string START_SPACE = "StartOnSpace";
         const std::string KEY_CONTROL = "KeyControl";
@@ -73,6 +74,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetBoolDefault(DRAW_MOUSE, false);
 	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
+
+	Store->SetBoolDefault(DRAW_MOUSELINE, false);
+	this->DrawMouseLine(Store->GetBoolOption(DRAW_MOUSELINE));
 
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
 	this->SetFileEncoding((FileEncodingFormats) Store->GetLongOption(FILE_ENCODING));

@@ -284,6 +284,37 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	}
 
 	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+}
+
+void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
+{
+        if (DasherModel().Dimensions()==true) {
+  
+	  int Swapper;
+	
+	  screen2dasher(&mousex,&mousey);
+	  mousex=dasherx2screen(mousex);
+	  mousey=dashery2screen(mousey);
+	  switch (ScreenOrientation) {
+	  case (LeftToRight):
+	    break;
+	  case (RightToLeft):
+	    mousex = Screen().GetWidth() - mousex;
+	    break;
+	  case (TopToBottom):
+	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  case (BottomToTop):
+	    // Note rotation by 90 degrees not reversible like others
+	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  }
+	}
+
 	CDasherScreen::point mouseline[2];
 
 	mouseline[0].x=dasherx2screen(DasherModel().DasherOX());

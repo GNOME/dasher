@@ -132,6 +132,7 @@ public:
 	void TimeStampNewFiles(bool Value);
 	void CopyAllOnStop(bool Value);
 	void DrawMouse(bool Value);
+	void DrawMouseLine(bool Value);
 	void StartOnSpace(bool Value);
 	void StartOnLeft(bool Value);
 	void KeyControl(bool Value);
@@ -175,6 +176,7 @@ private:
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
 	bool m_DrawMouse;
+	bool m_DrawMouseLine;
 	bool m_DrawKeyboard;
 	bool m_StartSpace;
 	bool m_StartLeft;

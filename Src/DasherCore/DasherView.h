@@ -53,6 +53,7 @@ public:
 
 	virtual void DrawGoTo(int mousex, int mousey)=0;
 	virtual void DrawMouse(int mousex, int mousey)=0;
+	virtual void DrawMouseLine(int mousex, int mousey)=0;
 	virtual void DrawKeyboard()=0;
 
 	// Return references to the model and the screen:

@@ -1404,6 +1404,12 @@ extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data)
   dasher_redraw();
 }
 
+extern "C" void DrawMouseLine(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_DRAWMOUSELINE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_redraw();
+}
+
 extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
 {
   cyclickeyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
@@ -1682,6 +1688,9 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_DRAWMOUSE:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmousebutton")), value);
+      break;
+    case BOOL_DRAWMOUSELINE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmouselinebutton")), value);
       break;
     case BOOL_DIMENSIONS:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"onedbutton")), value);

@@ -34,6 +34,7 @@ public:
 	void ChangeScreen(CDasherScreen* NewScreen);
 	void CDasherViewSquare::DrawGoTo(int mousex, int mousey);
 	void DrawMouse(int mousex, int mousey);
+	void DrawMouseLine(int mousex, int mousey);
 	void DrawKeyboard();
 private:
 	// the x and y non-linearities

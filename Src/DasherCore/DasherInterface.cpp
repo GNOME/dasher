@@ -145,6 +145,9 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 		if (m_DrawMouse==true) {
 		  m_DasherView->DrawMouse(MouseX, MouseY);
 		}
+		if (m_DrawMouseLine==true) {
+		  m_DasherView->DrawMouseLine(MouseX, MouseY);
+		}
 		if (m_DrawKeyboard==true) {
 		  m_DasherView->DrawKeyboard();
 		}
@@ -159,6 +162,9 @@ void CDasherInterface::DrawMousePos(int MouseX, int MouseY)
   m_DasherView->Render();
   if (m_DrawMouse==true) {
     m_DasherView->DrawMouse(MouseX, MouseY);
+  }
+  if (m_DrawMouseLine==true) {
+    m_DasherView->DrawMouseLine(MouseX, MouseY);
   }
   if (m_DrawKeyboard==true) {
     m_DasherView->DrawKeyboard();
@@ -447,6 +453,15 @@ void CDasherInterface::DrawMouse(bool Value)
                 m_SettingsUI->DrawMouse(Value);
 	if (m_SettingsStore!=0)
 	        m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSE, Value);
+}
+
+void CDasherInterface::DrawMouseLine(bool Value)
+{
+        m_DrawMouseLine = Value;
+	if (m_SettingsUI!=0)
+                m_SettingsUI->DrawMouseLine(Value);
+	if (m_SettingsStore!=0)
+	        m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSELINE, Value);
 }
 
 void CDasherInterface::StartOnSpace(bool Value)

@@ -135,6 +135,11 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_bool( BOOL_DRAWMOUSE, Value );
     };
 
+  void DrawMouseLine(bool Value) 
+    {
+      handle_parameter_bool( BOOL_DRAWMOUSELINE, Value );
+    };
+
   void SetEditFont(string Name, long Size) 
     {
       handle_parameter_string( STRING_EDITFONT, Name );

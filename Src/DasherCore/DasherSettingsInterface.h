@@ -88,6 +88,9 @@ public:
 	//! True if a box should be drawn to represent the logical position of the mouse
 	virtual void DrawMouse(bool Value) {};
 
+	//! True if a line should be drawn between the logical position of the mouse and the crosshair
+	virtual void DrawMouseLine(bool Value) {};
+
 	//! Set the editbox font 
 	virtual void SetEditFont(std::string Name, long Size) {};
 
@@ -150,6 +153,7 @@ namespace Keys
 	extern const std::string SHOW_SLIDER;
 	extern const std::string COPY_ALL_ON_STOP;
 	extern const std::string DRAW_MOUSE;
+	extern const std::string DRAW_MOUSELINE;
 	extern const std::string START_SPACE;
 	extern const std::string START_MOUSE;
 	extern const std::string KEY_CONTROL;
