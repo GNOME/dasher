@@ -98,7 +98,9 @@ LRESULT CColourBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 			break;
 		case (IDOK):
-			m_SettingsInterface->ChangeColours(m_CurrentColours);
+			if (m_CurrentColours!="") {
+				m_SettingsInterface->ChangeColours(m_CurrentColours);
+			}
 			// deliberate fall through
 		case (IDCANCEL):
 		{

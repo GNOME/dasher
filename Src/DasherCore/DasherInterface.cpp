@@ -211,8 +211,6 @@ void CDasherInterface::DrawGoTo(int MouseX, int MouseY)
 
 void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ChangeAlphabet(NewAlphabetID);
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetStringOption(Keys::ALPHABET_ID, NewAlphabetID);
 	
@@ -220,6 +218,13 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	if (!m_AlphIO)
 		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
 	m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
+
+	AlphabetID = m_AlphInfo.AlphID.c_str();
+
+        if (m_SettingsUI!=0)
+                m_SettingsUI->ChangeAlphabet(AlphabetID);
+        if (m_SettingsStore!=0)
+                m_SettingsStore->SetStringOption(Keys::ALPHABET_ID, AlphabetID);
 
 	CAlphabet* old = m_Alphabet;   // So we can delete the old alphabet later
 
@@ -272,16 +277,17 @@ std::string CDasherInterface::GetCurrentAlphabet()
 
 void CDasherInterface::ChangeColours(const std::string& NewColourID)
 {
-  	if (m_SettingsUI!=0)
-		m_SettingsUI->ChangeColours(NewColourID);
-	if (m_SettingsStore!=0)
-		m_SettingsStore->SetStringOption(Keys::COLOUR_ID, NewColourID);
-	
-	ColourID = NewColourID;
 	if (!m_ColourIO)
 		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);
 	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
 	m_Colours = new CCustomColours(m_ColourInfo);
+
+	ColourID=m_ColourInfo.ColourID;
+
+        if (m_SettingsUI!=0)
+                m_SettingsUI->ChangeColours(ColourID);
+        if (m_SettingsStore!=0)
+                m_SettingsStore->SetStringOption(Keys::COLOUR_ID, ColourID);
 
 	if (m_DasherScreen!=0) {
 	  m_DasherScreen->SetColourScheme(m_Colours);

@@ -19,7 +19,7 @@ using namespace std;
 
 
 CKeyBox::CKeyBox(HWND Parent, CCanvas* m_pCanvas, CDasherSettingsInterface* m_pSettingsInterface)
-	: m_hwnd(0), m_pCanvas(m_pCanvas), m_pSettingsInterface(m_pSettingsInterface)
+	: m_hwnd(0), m_pCanvas(m_pCanvas), m_pSettingsInterface(m_pSettingsInterface), NewUniform(-1)
 {
 	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_KEYCONTROL1, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 }
@@ -184,8 +184,10 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			m_pSettingsInterface->SetYScale(ypixels);
 			m_pCanvas->setmouseposdist(mouseposdist);
 			m_pSettingsInterface->SetMousePosDist(mouseposdist);
-			m_pCanvas->setuniform(NewUniform);
-			m_pSettingsInterface->SetUniform(NewUniform);
+			if (NewUniform!=-1) {
+				m_pCanvas->setuniform(NewUniform);
+				m_pSettingsInterface->SetUniform(NewUniform);
+			}
 			// Move forward on button press
 /*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pCanvas->setforward(true);

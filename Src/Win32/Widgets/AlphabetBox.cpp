@@ -467,7 +467,9 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_CUSTOMALPHABET, Window, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 			break;
 		case (IDOK):
-			m_SettingsInterface->ChangeAlphabet(m_CurrentAlphabet);
+			if (m_CurrentAlphabet!="") {
+				m_SettingsInterface->ChangeAlphabet(m_CurrentAlphabet);
+			}
 			// deliberate fall through
 		case (IDCANCEL):
 		{
