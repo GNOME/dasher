@@ -1,5 +1,8 @@
 #include "edit.h"
+
+#ifdef GNOME_A11Y
 #include "accessibility.h"
+#endif
 
 #ifdef GNOME_SPEECH
 #include "speech.h"
