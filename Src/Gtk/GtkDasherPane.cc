@@ -1,7 +1,7 @@
 // GtkDasherPane.cc
 // (c) 2002 Philip Cowans
 
-#include <iostream.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -24,8 +24,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include <iostream.h>
-#include <fstream.h>
+#include <fstream>
 
 #include <iconv.h>
 
@@ -389,7 +388,7 @@ gint GtkDasherPane::abox_close_sel( GdkEventAny *e )
 
 gint GtkDasherPane::key_press_event_impl( GdkEventKey *e )
 {
-  cout << "Received keypress" << endl;
+  std::cout << "Received keypress" << std::endl;
 }
 
 std::string GtkDasherPane::get_current_filename()

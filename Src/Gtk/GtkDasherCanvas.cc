@@ -5,7 +5,7 @@
 #include <gtk--/style.h>
 #include <gtk--/pixmap.h>
 #include <gdk/gdk.h>
-#include <iostream.h>
+#include <iostream>
 
 #include <string>
 
@@ -120,7 +120,7 @@ bool GtkDasherCanvas::build_fonts( int encoding )
     }
 
   if( !got_one )
-    cerr << "Warning - failed to find a font" << endl;
+    std::cerr << "Warning - failed to find a font" << std::endl;
 
   return( got_one );
 

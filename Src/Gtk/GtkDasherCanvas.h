@@ -68,7 +68,7 @@ protected:
   Gdk_GC special1gc;
   Gdk_GC special2gc;
 
-  string fontname;
+  std::string fontname;
 
   // Double buffers for the display
 

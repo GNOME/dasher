@@ -2,8 +2,8 @@
 // (c) 2002 Philip Cowans
 
 #include "GtkDasherStore.h"
-#include <iostream.h>
-#include <fstream.h>
+#include <iostream>
+#include <fstream>
 
 #include <map>
 #include <stdio.h>
@@ -44,7 +44,7 @@ bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 {
   *Value = smap[Key];
 
-  if( *Value == string() )
+  if( *Value == std::string() )
     return( false );
   else
     return( true );
@@ -79,7 +79,7 @@ void GtkDasherStore::SaveSetting(const std::string& Key, const std::string& Valu
 
 void GtkDasherStore::write_to_file()
 {
-  ofstream outfile;
+  std::ofstream outfile;
 
   char *HomeDir;
 
@@ -101,7 +101,7 @@ void GtkDasherStore::write_to_file()
       
       while( bit != bmap.end() )
 	{
-	  outfile << "b:" << bit->first << ":" << bit->second << endl;
+	  outfile << "b:" << bit->first << ":" << bit->second << std::endl;
 	  ++bit;
 	}
     }
@@ -113,19 +113,19 @@ void GtkDasherStore::write_to_file()
       
       while( lit != lmap.end() )
 	{
-	  outfile << "l:" << lit->first << ":" << lit->second << endl;
+	  outfile << "l:" << lit->first << ":" << lit->second << std::endl;
 	  ++lit;
 	}
     } 
     
     { 
-      std::map<std::string, string>::iterator sit;
+      std::map<std::string, std::string>::iterator sit;
       
       sit = smap.begin();
       
       while( sit != smap.end() )
 	{
-	  outfile << "s:" << sit->first << ":" << sit->second << endl;
+	  outfile << "s:" << sit->first << ":" << sit->second << std::endl;
 	  ++sit;
 	}
     }
@@ -133,14 +133,14 @@ void GtkDasherStore::write_to_file()
     outfile.close();
   }
   else
-    cerr << "Warning - failed to save configuration data" << endl;
+    std::cerr << "Warning - failed to save configuration data" << std::endl;
   
   delete( UserDataDir );
 }
 
 void GtkDasherStore::read_from_file()
 {
- ifstream infile;
+ std::ifstream infile;
 
   char *HomeDir;
 
@@ -161,7 +161,7 @@ void GtkDasherStore::read_from_file()
 
      while( !infile.eof() )
        {
-	 string foo(ibuffer);
+	 std::string foo(ibuffer);
 
 	 int pos1;
 	 int pos2;
@@ -169,8 +169,8 @@ void GtkDasherStore::read_from_file()
 	 pos1 = foo.find(':');
 	 pos2 = foo.find(':',pos1+1);
 
-	 string key( foo.substr( pos1+1, pos2-pos1-1 ) );
-	 string value( foo.substr( pos2+1 ));
+	 std::string key( foo.substr( pos1+1, pos2-pos1-1 ) );
+	 std::string value( foo.substr( pos2+1 ));
 
 	 switch( foo[0] )
 	   {
@@ -184,7 +184,7 @@ void GtkDasherStore::read_from_file()
 	     smap[ key ] = value;
 	     break;
 	   default:
-	     cerr << "Waring - possibly corrupt configuration file" << endl;
+	     std::cerr << "Waring - possibly corrupt configuration file" << std::endl;
 	     break;
 	   }
 	 infile.getline( ibuffer, 256 );

@@ -49,7 +49,7 @@ std::string GtkDasherAlphabetBox::get_selection()
 
     if( selection.empty() )
       {
-	return( string("") );
+	return( std::string("") );
       }
     else
       {
@@ -57,7 +57,7 @@ std::string GtkDasherAlphabetBox::get_selection()
 	Gtk::ListItem *item = (*i);
 	Gtk::Label *label = dynamic_cast<Gtk::Label*>(item->get_child());
 	Gtk::string name=label->get();
-	return( string( name ) );
+	return( std::string( name ) );
       }
 }
 

@@ -12,6 +12,8 @@
 #include <gtk--/dialog.h>
 #include <gtk--/radiomenuitem.h>
 
+#include <iostream>
+
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
@@ -429,7 +431,7 @@ void GtkDasherWindow::toolbar_button_cb(int c)
       paste();
       break;
     default:
-      cerr << "Undefined toolbar action called" << endl;
+      std::cerr << "Undefined toolbar action called" << std::endl;
     }
 }
 
@@ -530,7 +532,7 @@ void GtkDasherWindow::menu_button_cb(int c)
       break;
       
     default:
-      cerr << "Undefined menu action called" << endl;
+      std::cerr << "Undefined menu action called" << std::endl;
       break;
     }
 }
@@ -592,7 +594,7 @@ void GtkDasherWindow::open()
 void GtkDasherWindow::exit()
 {
   if( dasher_pane.is_dirty() )
-    cout << "Warning - exiting without saving changes" << endl;
+    std::cout << "Warning - exiting without saving changes" << std::endl;
 
   Gtk::Main::quit();
 }

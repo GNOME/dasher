@@ -6,7 +6,7 @@
 
 #include <string>
 #include <iostream>
-#include <fstream.h>
+#include <fstream>
 
 #include <time.h>
 
@@ -108,7 +108,7 @@ void GtkDasherEdit::output(symbol Symbol)
   // FIXME - again, label is utf-8 encoded, and insert is probably not
   // expecting this to be the case
 
-  string label;
+  std::string label;
   label = interface->GetEditText( Symbol );
 
   Gdk_Color black("black");
@@ -131,7 +131,7 @@ void GtkDasherEdit::flush(symbol Symbol)
     {
       ++flush_count;
 
-      string label;
+      std::string label;
       
       label = interface->GetEditText( Symbol );
   
@@ -174,7 +174,7 @@ void GtkDasherEdit::SelectAll()
 void GtkDasherEdit::Clear()
 {
   if( dirty )
-    cout << "Warning - loosing unsaved changes - probably should prompt here" << endl;
+    std::cout << "Warning - losing unsaved changes - probably should prompt here" << std::endl;
 
   if( timestamp )
     {
@@ -256,21 +256,21 @@ bool GtkDasherEdit::Save(bool a)
   if( !filename_set )
     return( false );
 
-  ofstream ofile;
+  std::ofstream ofile;
 
   if( a )
-    ofile.open( current_filename.c_str(), ios::app );
+    ofile.open( current_filename.c_str(), std::ios::app );
   else
     ofile.open( current_filename.c_str() );
 
   if( ofile.bad() )
     return( false );
 
-  string contents;
+  std::string contents;
 
   contents = text.get_chars(0, -1);
 
-  ofile << contents << endl;
+  ofile << contents << std::endl;
   ofile.close();
 
   dirty = false;
@@ -282,12 +282,12 @@ bool GtkDasherEdit::Open( std::string filename )
 {
 
   if( dirty )
-    cout << "Warning - loosing unsaved changes - probably should prompt here" << endl;
+    std::cout << "Warning - losing unsaved changes - probably should prompt here" << std::endl;
 
 
   //  current_filename = filename;
 
-  ifstream ifile( filename.c_str(), ios::binary );
+  std::ifstream ifile( filename.c_str(), std::ios::binary );
   
   if( ifile.bad() )
     return( false );
