@@ -9,19 +9,33 @@
 #ifndef __assert_h__
 #define __assert_h__
 
-#include <cassert>
+#include "Platform.h"
 
-#ifdef _MSC_VER
+#ifdef DASHER_WIN32
 
-	// The _ASSERT macro causes execution to break into the debugger in _DEBUG mode
+	// The _ASSERT macro causes execution to break into the debugger in DEBUG mode
 	// In no-debug debug builds - no check is done
-	#include 	<crtdbg.h>
-	#define ASSERT(expr) _ASSERT(expr)
+
+	#ifdef DASHER_WINCE
+		#ifdef DEBUG
+			#define DASHER_ASSERT(x)   if (!(x)) DebugBreak()
+		#else
+			#define DASHER_ASSERT(x)
+		#endif 
+
+	#else
+
+		#include <crtdbg.h>
+		#define DASHER_ASSERT(expr) _ASSERT(expr)
+	
+	#endif
 
 #else
 
+	#include <cassert>
+	
 	// Please feel free to implement this differently on your platform
-	#define ASSERT(expr) assert(expr)
+	#define DASHER_ASSERT(expr) assert(expr)
 
 #endif
 
