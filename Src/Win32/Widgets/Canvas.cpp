@@ -12,7 +12,7 @@
 using namespace Dasher;
 
 CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB)
-	: dwThreadID(0), m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
+	: m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
 	m_DasherEditBox(EB), imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0)
 {
 
@@ -326,7 +326,7 @@ void CCanvas::StartStop() {
 		m_DasherWidgetInterface->PauseAt(0,0);
 		running=0;
 		if (speakonstop==true) {
-			m_DasherEditBox->speak();
+			m_DasherEditBox->speak(2);
 		}
 		ReleaseCapture();
 	}

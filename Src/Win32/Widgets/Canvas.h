@@ -16,12 +16,6 @@
 #include "Screen.h"
 #include "Edit.h"
 
-struct ThreadParams
-{
-  HWND hw;
-  UINT cb;
-};
-
 class CCanvas : public CWinWrap
 {
 public:
@@ -63,8 +57,6 @@ private:
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;
 	CEdit* m_DasherEditBox;
-	HANDLE hThreadl;
-	DWORD dwThreadID;
 	unsigned int imousex,imousey;
 	UINT MY_TIMER;
 	bool running;
@@ -80,7 +72,6 @@ private:
 	DWORD mousepostime;
 	DWORD previoustime;
 	RECT coords;
-	ThreadParams *tp;
 };
 
 

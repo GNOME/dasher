@@ -241,10 +241,15 @@
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="1">
+			CharacterSet="1"
+			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
+				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="1"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -465,6 +470,9 @@
 				RelativePath=".\DasherWindow.h">
 			</File>
 			<File
+				RelativePath=".\resource.h">
+			</File>
+			<File
 				RelativePath=".\WinHelper.cpp">
 			</File>
 			<File
@@ -497,17 +505,14 @@
 			<File
 				RelativePath=".\WinWrap.h">
 			</File>
-			<File
-				RelativePath=".\resource.h">
-			</File>
 			<Filter
 				Name="Widgets"
 				Filter=".cpp">
 				<File
-					RelativePath=".\Widgets\AboutBox.h">
+					RelativePath=".\Widgets\Aboutbox.cpp">
 				</File>
 				<File
-					RelativePath=".\Widgets\Aboutbox.cpp">
+					RelativePath=".\Widgets\AboutBox.h">
 				</File>
 				<File
 					RelativePath=".\Widgets\AlphabetBox.cpp">
@@ -597,16 +602,16 @@
 					RelativePath=".\Widgets\Toolbar.h">
 				</File>
 				<File
-					RelativePath=".\Widgets\WinOptions.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\WinOptions.h">
-				</File>
-				<File
 					RelativePath=".\widgets\WindowSelect.cpp">
 				</File>
 				<File
 					RelativePath=".\widgets\WindowSelect.h">
+				</File>
+				<File
+					RelativePath=".\Widgets\WinOptions.cpp">
+				</File>
+				<File
+					RelativePath=".\Widgets\WinOptions.h">
 				</File>
 			</Filter>
 		</Filter>

@@ -88,7 +88,7 @@ public:
 	void SetWindow(HWND window);
 
 	// speak text
-	void speak();
+	void speak(int what);
 
 	// set canvas
 	void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
@@ -128,6 +128,8 @@ private:
 
 	ISpVoice * pVoice;
 	std::string speech;
+	std::string allspeech;
+	std::string lastspeech;
 
 	void InsertText(Tstring InsertText); // add symbol to edit control
 

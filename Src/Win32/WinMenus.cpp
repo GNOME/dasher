@@ -5,10 +5,22 @@
 using namespace WinMenus;
 std::vector<HWND> windownames;
 ControlTree* menutree;
+ControlTree *dummytree;
+ControlTree *stoptree;
 
 ControlTree* WinMenus::GetWindowMenus()
 {
+	dummytree = new ControlTree;
+	stoptree = new ControlTree;
+	dummytree->pointer=NULL;
+	dummytree->data=0;
+	dummytree->type=1;
+	dummytree->next=NULL;
+	dummytree->colour=8;
+	dummytree->text="Control";
+	dummytree->children=stoptree;
 	menutree = buildcontroltree();
+
 
 #ifdef ACCESSIBLE
 	EnumDesktopWindows(GetThreadDesktop(GetCurrentThreadId()),WNDENUMPROC(WindowProc),LPARAM(0));
@@ -33,19 +45,10 @@ BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
 
 ControlTree* WinMenus::buildcontroltree()
 {
-  ControlTree *dummytree=new ControlTree;
-  ControlTree *stoptree=new ControlTree;
   ControlTree *pausetree=new ControlTree;
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
-  dummytree->pointer=NULL;
-  dummytree->data=0;
-  dummytree->type=1;
-  dummytree->next=NULL;
-  dummytree->colour=8;
-  dummytree->text="Control";
-  dummytree->children=stoptree;
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=menutree;
@@ -77,14 +80,13 @@ ControlTree* WinMenus::buildcontroltree()
   deletetree->next=speaktree;
   deletetree->type=1;
   deletetree->colour=-1;
-  speaktree->pointer=(void*)1;
-  speaktree->data=4;
-  speaktree->children=menutree;
+  speaktree->pointer=0;
+  speaktree->data=0;
+  speaktree->children=buildspeaktree(speaktree);
   speaktree->text="Speak";
   speaktree->next=NULL;
   speaktree->type=1;
   speaktree->colour=-1;
-  speaktree->children=dummytree;
   return stoptree;
 }
 
@@ -180,7 +182,35 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
   return forwardtree;
 }
 
+ControlTree* WinMenus::buildspeaktree(ControlTree *speaktree) {
+  ControlTree *everythingtree = new ControlTree;
+  ControlTree *newtree = new ControlTree;
+  ControlTree *repeattree = new ControlTree;
 
+  everythingtree->pointer=(void*)1;
+  everythingtree->data=4;
+  everythingtree->next=newtree;
+  everythingtree->children=dummytree;
+  everythingtree->text="Everything";
+  everythingtree->type=1;
+  everythingtree->colour=-1;
+  newtree->pointer=(void*)1;
+  newtree->data=5;
+  newtree->next=repeattree;
+  newtree->children=dummytree;
+  newtree->text="New";
+  newtree->type=1;
+  newtree->colour=-1;
+  repeattree->pointer=(void*)1;
+  repeattree->data=6;
+  repeattree->children=dummytree;
+  repeattree->next=NULL;
+  repeattree->text="Repeat";
+  repeattree->type=1;
+  repeattree->colour=-1;
+ 
+  return everythingtree;
+}
 
 
 #ifdef ACCESSIBLE

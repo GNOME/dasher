@@ -437,6 +437,8 @@ void CEdit::SelectAll()
 void CEdit::Clear()
 {
 	SendMessage(m_hwnd, WM_SETTEXT, 0, (LPARAM) TEXT(""));
+	allspeech="";
+	speech="";
 }
 
 
@@ -603,6 +605,7 @@ void CEdit::output(symbol Symbol)
 	m_Output += m_DasherInterface->GetEditText(Symbol);
 
 	speech+=m_DasherInterface->GetEditText(Symbol);
+	allspeech+=m_DasherInterface->GetEditText(Symbol);
 }
 
 LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -672,8 +675,10 @@ void CEdit::deletetext()
 		keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
 #endif
 	}
-	if (speech.length()>0) 
+	if (speech.length()>0) {
 		speech.resize(speech.length()-1);
+		allspeech.resize(allspeech.length()-1);
+	}
 }
 
 void CEdit::SetWindow(HWND window)
@@ -684,6 +689,7 @@ void CEdit::SetWindow(HWND window)
 		SetFocus(Parent);
 	}
 	if (window!=NULL) {
+		threadid=GetWindowThreadProcessId(window,NULL);
 		AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(window,NULL),TRUE);
 		SetFocus(window);
 	}
@@ -703,7 +709,13 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 			  Canvas->Pause();
 			  break;
 		  case 4:
-			  speak();
+			  speak(1);
+			  break;
+		  case 5:
+			  speak(2);
+			  break;
+		  case 6:
+			  speak(3);
 			  break;
 		  case 11:
 			  // move left
@@ -790,12 +802,26 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 	VariantClear(&AccessibleVariant);
 }
 
-void CEdit::speak() {
+void CEdit::speak(int what) {
 	if (pVoice!=0) {
-		wchar_t* widespeech=new wchar_t[4096];
-		mbstowcs(widespeech,speech.c_str(),speech.length()+1);
-		pVoice->Speak(widespeech,SPF_ASYNC,NULL);
-		delete(widespeech);
-		speech="";
+		if (what==1) {
+			wchar_t* widespeech=new wchar_t[allspeech.length()+1];
+			mbstowcs(widespeech,allspeech.c_str(),allspeech.length()+1);
+			pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+			delete(widespeech);
+			lastspeech=allspeech;
+		} else if (what==2) {
+			wchar_t* widespeech=new wchar_t[speech.length()+1];
+			mbstowcs(widespeech,speech.c_str(),speech.length()+1);
+			pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+			delete(widespeech);
+			lastspeech=speech;
+			speech="";
+		} else if (what==3) {
+			wchar_t* widespeech=new wchar_t[lastspeech.length()+1];
+			mbstowcs(widespeech,lastspeech.c_str(),lastspeech.length()+1);
+			pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+			delete(widespeech);
+		}	
 	}
 }
