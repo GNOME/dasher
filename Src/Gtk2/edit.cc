@@ -132,6 +132,11 @@ void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
   gtk_widget_destroy (GTK_WIDGET(editfontdialog));
 }
 
+void reset_edit_font()
+{
+  gtk_widget_modify_font (the_text_view,pango_font_description_from_string("Sans 10"));
+}
+
 void set_edit_font(gpointer data, guint action, GtkWidget *widget)
 {
   editfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));

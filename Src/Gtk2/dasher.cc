@@ -89,7 +89,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Font Size/Very Large Fonts", NULL, NULL, 0, "/Options/Font Size/Default Fonts" },
   { "/Options/Editing Font...", NULL, *GtkItemFactoryCallback(set_edit_font), 1, "<Item>" },
   { "/Options/Dasher Font...", NULL, *GtkItemFactoryCallback(set_dasher_font), 1, "<Item>" },
-  { "/Options/Reset Fonts", NULL, NULL, 0, "<Item>" },
+  { "/Options/Reset Fonts", NULL, *GtkItemFactoryCallback(reset_fonts), 1, "<Item>" },
   { "/Options/One Dimensional", NULL, *GtkItemFactoryCallback(SetDimension), 1, "<CheckItem>" },
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
@@ -874,6 +874,12 @@ void DrawMouse(gpointer data, guint action, GtkWidget *widget )
   }
 
   dasher_redraw();
+}
+
+void reset_fonts(gpointer data, guint action, GtkWidget *widget )
+{
+  reset_edit_font();
+  reset_dasher_font();
 }
 
 // Callbacks to be notified of when something changes

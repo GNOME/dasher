@@ -298,6 +298,13 @@ void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
   gtk_widget_destroy (GTK_WIDGET(dasherfontdialog));
 }
 
+void reset_dasher_font()
+{
+  pango_font_description_free(font);
+  font=pango_font_description_from_string("Sans 12");
+  dasher_redraw();
+}
+
 void set_dasher_font(gpointer data, guint action, GtkWidget *widget)
 {
   dasherfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));

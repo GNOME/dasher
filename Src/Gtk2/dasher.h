@@ -6,6 +6,7 @@ void clipboard_cut(void);
 void clipboard_paste(void);
 void clipboard_copy_all(void);
 void clipboard_select_all(void);
+void reset_fonts(gpointer data, guint action, GtkWidget *widget );
 void ask_save_before_exit(GtkWidget *widget, gpointer data);
 void preferences(gpointer data, guint action, GtkWidget *widget);
 void orientation(gpointer data, guint action, GtkWidget  *widget );
