@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Hebrew alphabet with lots of punctuation">
+<orientation type="RL"/>
+<encoding type="Hebrew"/>
+<palette>Default</palette>
+<train>training_hebrew_IL.txt</train>
+<space d="_" t=" "/>
+<control d="Control" t=""/>
+<paragraph d="&#182;" b="9"/>
+<group name="Hebrew letters" b="0">
+<s d="א" t="א"/>
+<s d="ב" t="ב"/>
+<s d="ג" t="ג"/>
+<s d="ד" t="ד"/>
+<s d="ה" t="ה"/>
+<s d="ו" t="ו"/>
+<s d="ז" t="ז"/>
+<s d="ח" t="ח"/>
+<s d="ט" t="ט"/>
+<s d="י" t="י"/>
+<s d="כ" t="כ"/>
+<s d="ך" t="ך"/>
+<s d="ל" t="ל"/>
+<s d="מ" t="מ"/>
+<s d="ם" t="ם"/>
+<s d="נ" t="נ"/>
+<s d="ן" t="ן"/>
+<s d="ס" t="ס"/>
+<s d="ע" t="ע"/>
+<s d="פ" t="פ"/>
+<s d="ף" t="ף"/>
+<s d="צ" t="צ"/>
+<s d="ץ" t="ץ"/>
+<s d="ק" t="ק"/>
+<s d="ר" t="ר"/>
+<s d="ש" t="ש"/>
+<s d="ת" t="ת"/>
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>
