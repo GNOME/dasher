@@ -59,6 +59,7 @@ void edit_output_callback(symbol Symbol)
 
 void edit_outputcontrol_callback(void* pointer, int data)
 {
+#ifdef GNOME_A11Y
   if (pointer!=NULL) {
     if (data==1) {
       Accessible *myfoo;
@@ -66,6 +67,7 @@ void edit_outputcontrol_callback(void* pointer, int data)
       AccessibleAction_doAction(Accessible_getAction(myfoo),0);
     }
   }
+#endif
 }
 
 void edit_delete_callback()
