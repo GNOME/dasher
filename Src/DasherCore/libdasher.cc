@@ -32,6 +32,18 @@ void (*edit_unflush_callback)() = NULL;
 
 void (*clipboard_callback)( clipboard_action ) = NULL;
 
+bool (*get_bool_option_callback)(const std::string&) = NULL;
+long (*get_long_option_callback)(const std::string&) = NULL;
+string& (*get_string_option_callback)(const std::string& Key) = NULL;
+  
+void (*set_bool_option_callback)(const std::string&, bool) = NULL;
+void (*set_long_option_callback)(const std::string&, long) = NULL;
+void (*set_string_option_callback)(const std::string&, const std::string&) = NULL;
+  
+void (*set_bool_default_callback)(const std::string&, bool) = NULL;
+void (*set_long_default_callback)(const std::string&, long) = NULL;
+void (*set_string_default_callback)(const std::string&, const std::string&) = NULL;
+
 void handle_parameter_string( string_param p, const string & value )
 {
   if( string_callback != NULL )
@@ -353,6 +365,54 @@ void dasher_set_clipboard_callback( void (*_cb)( clipboard_action ) )
 {
   clipboard_callback = _cb;
 }
+
+void dasher_set_get_bool_option_callback( bool (*_cb)(const std::string&) )
+{
+  get_bool_option_callback = _cb;
+}
+
+void dasher_set_get_long_option_callback( long (*_cb)(const std::string&) )
+{
+  get_long_option_callback = _cb;
+}
+
+void dasher_set_get_string_option_callback( string& (*_cb)(const std::string& Key) )
+{
+  get_string_option_callback = _cb;
+}
+  
+void dasher_set_set_bool_option_callback( void (*_cb)(const std::string&, bool) )
+{
+  set_bool_option_callback = _cb;
+}
+
+void dasher_set_set_long_option_callback( void (*_cb)(const std::string&, long) )
+{
+  set_long_option_callback = _cb;
+}
+
+void dasher_set_set_string_option_callback( void (*_cb)(const std::string&, const std::string&) )
+{
+  set_string_option_callback = _cb;
+}
+  
+void dasher_set_set_bool_default_callback( void (*_cb)(const std::string&, bool) )
+{
+  set_bool_default_callback = _cb;
+}
+
+void dasher_set_set_long_default_callback( void (*_cb)(const std::string&, long) )
+{
+  set_long_default_callback = _cb;
+}
+
+void dasher_set_set_string_default_callback( void (*_cb)(const std::string&, const std::string&) )
+{
+  set_string_default_callback = _cb;
+}
+
+
+
 
 void dasher_start()
 {

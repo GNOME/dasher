@@ -56,7 +56,7 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, bool& force)
+	myint y1, myint y2, int& mostleft, bool& force, bool text)
 {
 	int top = dashery2screen(y1);
 	if (top>CanvasY)
@@ -85,8 +85,10 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		int newleft=left, newtop=top, newright=right, newbottom=bottom;
 		MapScreen(&newleft, &newtop);
 		MapScreen(&newright, &newbottom);
-		Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
-		
+		if( !text )
+		  Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
+		else
+		  {
 		if (left<mostleft)
 			left=mostleft;
 		
@@ -116,7 +118,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		newleft = min(newleft2, newright2);
 		newtop = min(newtop2, newbottom2);
 			       
-		Screen().DrawText(Character, newleft, newtop, Size);
+		  Screen().DrawText(Character, newleft, newtop, Size);
+		  }
 		
 		return 1;
 	} else 

@@ -70,6 +70,17 @@ GdkFont *get_font(int size);
 
 void rebuild_buffer();
 
+bool get_bool_option_callback(const std::string& Key);
+long get_long_option_callback(const std::string& Key);
+string& get_string_option_callback(const std::string& Key);
+  
+void set_bool_option_callback(const std::string& Key, bool Value);
+void set_long_option_callback(const std::string& Key, long Value);
+void set_string_option_callback(const std::string& Key, const std::string& Value);
+  
+void set_bool_default_callback(const std::string& Key, bool Value);
+void set_long_default_callback(const std::string& Key, long Value);
+void set_string_default_callback(const std::string& Key, const std::string& Value);
 
 // typedef struct {
 //   Gtk2DasherCanvas *dasher_canvas;
@@ -901,6 +912,18 @@ main(int argc, char *argv[])
 
   dasher_set_clipboard_callback( clipboard_callback );
 
+  dasher_set_get_bool_option_callback( get_bool_option_callback );
+  dasher_set_get_long_option_callback( get_long_option_callback );
+  dasher_set_get_string_option_callback( get_string_option_callback );
+
+  dasher_set_set_bool_option_callback( set_bool_option_callback );
+  dasher_set_set_long_option_callback( set_long_option_callback );
+  dasher_set_set_string_option_callback( set_string_option_callback );
+
+  dasher_set_set_bool_default_callback( set_bool_default_callback );
+  dasher_set_set_long_default_callback( set_long_default_callback );
+  dasher_set_set_string_default_callback( set_string_default_callback );
+
   setlocale (LC_ALL, "");
 
   bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
@@ -1141,18 +1164,18 @@ void display_callback()
 		      the_canvas->allocation.width,
 		      the_canvas->allocation.height);
 
-  GdkGC *mask_gc;
+  // GdkGC *mask_gc;
 
-  mask_gc = gdk_gc_new( the_canvas->window );
+//   mask_gc = gdk_gc_new( the_canvas->window );
 
-  gdk_gc_set_clip_mask( mask_gc, offscreen_text_mask );
+//   gdk_gc_set_clip_mask( mask_gc, offscreen_text_mask );
 
-  gdk_draw_pixmap(onscreen_buffer,
-		  mask_gc,
-		  offscreen_text_buffer,
-		  0, 0, 0,0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
+//   gdk_draw_pixmap(onscreen_buffer,
+// 		  mask_gc,
+// 		  offscreen_text_buffer,
+// 		  0, 0, 0,0,
+// 		      the_canvas->allocation.width,
+// 		      the_canvas->allocation.height);
 		 
 
   gdk_draw_rectangle ( offscreen_buffer,
@@ -1275,7 +1298,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
   pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
 
-  gdk_draw_layout (offscreen_text_buffer,
+  gdk_draw_layout (offscreen_buffer,
 		   the_canvas->style->black_gc,
 		   x1, y1-(ink->height/2.0), the_pangolayout);
 
@@ -1291,6 +1314,19 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   //  transparency :-)
 
 
+  GdkRegion* the_clip_region;
+
+  gint foo[2];
+
+  foo[0] = 0;
+  foo[1] = 128;
+
+  the_clip_region =  gdk_pango_layout_get_clip_region
+                                            (the_pangolayout,
+					     x1, y1-(ink->height/2.0),
+					     foo, 1 );
+
+
   GdkGC *the_gc;
 
   the_gc = gdk_gc_new( offscreen_text_mask );
@@ -1299,10 +1335,12 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
   gdk_gc_set_foreground( the_gc, &the_color );
 
+  gdk_gc_set_clip_region( the_gc, the_clip_region );
    gdk_draw_rectangle ( offscreen_text_mask,
    		       the_gc,
                      TRUE,
-   		       x1, y1, 16, 16 );
+   		       0, 0, the_canvas->allocation.width,
+		      the_canvas->allocation.height  );
 
   
  //  gdk_draw_layout_with_colors (offscreen_text_mask,
@@ -1481,7 +1519,13 @@ offscreen_text_mask = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.
 // offscreen_text_buffer = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 1,  the_canvas->allocation.width, the_canvas->allocation.height )
 
  
-// gdk_drawable_set_colormap(offscreen_text_mask, gdk_colormap_new (gdk_visual_get_system(), TRUE ));
+//  GdkColormap *the_colormap = gdk_colormap_new();
+
+ // the_colormap->parent_instance = NULL;
+ // the_colormap->size=2;
+ // the_colormap->colors = NULL;
+ 
+ //gdk_drawable_set_colormap(offscreen_text_mask, gdk_colormap_new(gdk_drawable_get_visual(offscreen_text_mask), TRUE ));
 
 }
 
@@ -1499,4 +1543,40 @@ void initialise_edit()
 
   // FIXME - need to make this work
   //  g_signal_connect(G_OBJECT(the_text_view), "button_press_event", G_CALLBACK(handle_cursor_move), (gpointer) this);
+}
+
+bool get_bool_option_callback(const std::string& Key)
+{
+}
+
+long get_long_option_callback(const std::string& Key)
+{
+}
+
+string& get_string_option_callback(const std::string& Key)
+{
+}
+  
+void set_bool_option_callback(const std::string& Key, bool Value)
+{
+}
+
+void set_long_option_callback(const std::string& Key, long Value)
+{
+}
+
+void set_string_option_callback(const std::string& Key, const std::string& Value)
+{
+}
+  
+void set_bool_default_callback(const std::string& Key, bool Value)
+{
+}
+
+void set_long_default_callback(const std::string& Key, long Value)
+{
+}
+
+void set_string_default_callback(const std::string& Key, const std::string& Value)
+{
 }

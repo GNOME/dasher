@@ -64,6 +64,16 @@ void dasher_set_edit_unflush_callback( void (*_cb)() );
 
 void dasher_set_clipboard_callback( void (*_cb)( clipboard_action ) );
 
+void dasher_set_get_bool_option_callback( bool (*_cb)(const std::string&) );
+void dasher_set_get_long_option_callback( long (*_cb)(const std::string&) );
+void dasher_set_get_string_option_callback( string& (*_cb)(const std::string& Key) );
+void dasher_set_set_bool_option_callback( void (*_cb)(const std::string&, bool) );
+void dasher_set_set_long_option_callback( void (*_cb)(const std::string&, long) );
+void dasher_set_set_string_option_callback( void (*_cb)(const std::string&, const std::string&) );
+void dasher_set_set_bool_default_callback( void (*_cb)(const std::string&, bool) );
+void dasher_set_set_long_default_callback( void (*_cb)(const std::string&, long) );
+void dasher_set_set_string_default_callback( void (*_cb)(const std::string&, const std::string&) );
+
 void dasher_train_file( const char *filename );
 int dasher_get_alphabets( const char **alphabetlist, int s );
 

@@ -70,13 +70,13 @@ private:
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
 	virtual int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force)=0;
+		myint y1, myint y2, int& mostleft, bool& force, bool text)=0;
 	
 	// Responsible for all the Render_node calls
-	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft);
+	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);
 	
 	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-	void RenderGroups(CDasherNode* Render, myint y1, myint y2);
+	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
 	
 	// Orientation of Dasher Screen
 	Dasher::Opts::ScreenOrientations ScreenOrientation;

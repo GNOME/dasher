@@ -22,8 +22,8 @@ SOURCES = $(patsubst %,%.cc,$(MEMBERS))
 all: dasher
 
 dasher: $(OBJS)
-	g++ -o $@ $^ -L../DasherCore -lgpewidget -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
-#	g++ -o $@ $^ -L../DasherCore -lgpewidget -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
+	g++ -o $@ $^ -L../DasherCore -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
+#	g++ -o $@ $^ -L../DasherCore -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
 
 clean:
 	rm -f $(OBJS) $(DEPS)
