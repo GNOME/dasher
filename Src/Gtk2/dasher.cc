@@ -116,6 +116,8 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
     force_dasher_redraw();
 
     g_free(alph);
+
+    add_control_tree(gettree());
   }
 }
 
