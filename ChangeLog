@@ -3,6 +3,8 @@
 	* Fix crash if libwnck doesn't give us any windows
 	* Fix thinko in the initialisation of endpos in Gtk2/edit.cc
 	* Version 3.2.14
+	* Brown paper bag - wnck API has changed. Fixed.
+	* Version 3.2.15
 	
 2005-01-30  Matthew Garrett  <mjg59@srcf.ucam.org>
 
