@@ -1,0 +1,771 @@
+# translation of dasher to Kinyarwanda.
+# Copyright (C) 2005 Free Software Foundation, Inc.
+# This file is distributed under the same license as the dasher package.
+# Steve Murphy <murf@e-tools.com>, 2005
+# Steve performed initial rough translation from compendium built from translations provided by the following translators:
+# Philibert Ndandali  <ndandali@yahoo.fr>, 2005.
+# Viateur MUGENZI <muvia1@yahoo.fr>, 2005.
+# Noëlla Mupole <s24211045@tuks.co.za>, 2005.
+# Carole Karema <karemacarole@hotmail.com>, 2005.
+# JEAN BAPTISTE NGENDAHAYO <ngenda_denis@yahoo.co.uk>, 2005.
+# Augustin KIBERWA  <akiberwa@yahoo.co.uk>, 2005.
+# Donatien NSENGIYUMVA <ndonatienuk@yahoo.co.uk>, 2005..
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher 2.12\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2005-03-31 16:26-0700\n"
+"PO-Revision-Date: 2005-03-28 19:34-0700\n"
+"Last-Translator: Steve Murphy <murf@e-tools.com>\n"
+"Language-Team: Kinyarwanda <translation-team-rw@lists.sourceforge.net>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Paneltree
+#. |         /-menutree
+#. Widgettree------buttontree
+#. \-edittree
+#.
+#. Tree, parent, children, next, pointer, data, string, colour
+#: Src/Gtk2/accessibility.cc:82
+msgid "Panels"
+msgstr ""
+
+# filter/source\xsltdialog\xmlfiltertabpagebasic.src:RID_XML_FILTER_TABPAGE_BASIC.FT_XML_APPLICATION.text
+#: Src/Gtk2/accessibility.cc:83
+msgid "Application"
+msgstr "Porogaramu"
+
+#: Src/Gtk2/accessibility.cc:85
+msgid "Menus"
+msgstr "Ibikubiyemo"
+
+# sfx2/source\toolbox\tbxcust.src:RID_USERDEFBMP.GB_FUNCTION.text
+#: Src/Gtk2/accessibility.cc:86
+msgid "Buttons"
+msgstr "Utubuto"
+
+#: Src/Gtk2/accessibility.cc:87
+msgid "Text"
+msgstr "Umwandiko"
+
+#: Src/Gtk2/accessibility.cc:162 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/dashergpe.glade.h:28
+msgid "Control"
+msgstr "Igenzura"
+
+#: Src/Gtk2/accessibility.cc:168
+msgid "Windows"
+msgstr ""
+
+# basctl/source\basicide\basidesh.src:RID_BASICIDE_OBJECTBAR.SID_BASICSTOP.text
+#: Src/Gtk2/accessibility.cc:175
+msgid "Stop"
+msgstr "Guhagarara"
+
+# 4630
+#: Src/Gtk2/accessibility.cc:182
+msgid "Pause"
+msgstr "akaruhuko"
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_UNDO_MOVE.text
+#: Src/Gtk2/accessibility.cc:189
+msgid "Move"
+msgstr "Kwimura"
+
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\basidesh.src:RID_POPUP_TABBAR.SID_BASICIDE_DELETECURRENT.text
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\brkdlg.src:RID_BASICIDE_BREAKPOINTDLG.RID_PB_DEL.text
+#: Src/Gtk2/accessibility.cc:196
+msgid "Delete"
+msgstr "Gusiba"
+
+#: Src/Gtk2/accessibility.cc:206
+msgid "Speak"
+msgstr ""
+
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.LB_COND1.2.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.LB_COND2.2.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.LB_COND3.2.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_PIVOTFILTER.LB_COND1.2.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_PIVOTFILTER.LB_COND2.2.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_PIVOTFILTER.LB_COND3.2.text
+#: Src/Gtk2/accessibility.cc:233 Src/Gtk2/accessibility.cc:387
+msgid "<"
+msgstr "<"
+
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.LB_COND1.3.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.LB_COND2.3.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_FILTER.LB_COND3.3.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_PIVOTFILTER.LB_COND1.3.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_PIVOTFILTER.LB_COND2.3.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\filter.src:RID_SCDLG_PIVOTFILTER.LB_COND3.3.text
+#: Src/Gtk2/accessibility.cc:239 Src/Gtk2/accessibility.cc:381
+msgid ">"
+msgstr ">"
+
+# desktop/source\app\ssodlg.src:DLG_SSOLOGIN.text
+#: Src/Gtk2/accessibility.cc:245
+#, fuzzy
+msgid "<<<"
+msgstr "<<<"
+
+# desktop/source\app\ssodlg.src:DLG_SSOLOGIN.text
+#: Src/Gtk2/accessibility.cc:251
+#, fuzzy
+msgid ">>>"
+msgstr ">>>"
+
+#: Src/Gtk2/accessibility.cc:264
+msgid "Everything"
+msgstr ""
+
+# basctl/source\basicide\brkdlg.src:RID_BASICIDE_BREAKPOINTDLG.RID_PB_NEW.text
+#: Src/Gtk2/accessibility.cc:270
+msgid "New"
+msgstr "Gishya"
+
+# sfx2/sdi\sfxslots.src:SID_REPEAT.text
+#: Src/Gtk2/accessibility.cc:276
+msgid "Repeat"
+msgstr "Gusubiramo"
+
+#: Src/Gtk2/accessibility.cc:298
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:305
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:312
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:319
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:326
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:333
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:340
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:347
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:354
+msgid "9"
+msgstr "9"
+
+# officecfg/registry\data\org\openoffice\Office\Common.xcu:..Common.View.Localisation.DialogScale.text
+#: Src/Gtk2/accessibility.cc:361
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:393 Src/Gtk2/accessibility.cc:416
+msgid "Character"
+msgstr "Inyuguti"
+
+# #-#-#-#-#  svx.pot (Gnome 2.12)  #-#-#-#-#
+# svx/source\dialog\commonlingui.src:RID_SVX_WND_COMMON_LINGU.FT_NEWWORD.text
+# #-#-#-#-#  svx.pot (Gnome 2.12)  #-#-#-#-#
+# svx/source\dialog\hyphen.src:RID_SVXDLG_HYPHENATE.FT_WORD.text
+# #-#-#-#-#  svx.pot (Gnome 2.12)  #-#-#-#-#
+# svx/source\dialog\thesdlg.src:RID_SVXDLG_THESAURUS.FT_WORD.text
+# #-#-#-#-#  svx.pot (Gnome 2.12)  #-#-#-#-#
+# svx/source\options\optdict.src:RID_SFXDLG_EDITDICT.FT_WORD.text
+#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:426
+#, fuzzy
+msgid "Word"
+msgstr "ijambo"
+
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\app\strings.src:STR_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib2.src:TAB_AXIS.1.RID_SVXPAGE_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib2.src:TAB_X_AXIS.1.RID_SVXPAGE_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib2.src:TAB_Y_AXIS.1.RID_SVXPAGE_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib2.src:TAB_Z_AXIS.1.RID_SVXPAGE_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib2.src:TAB_GRID.1.RID_SVXPAGE_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib2.src:TAB_LINE.1.RID_SVXPAGE_LINE.text
+# #-#-#-#-#  sch.pot (Gnome 2.12)  #-#-#-#-#
+# sch/source\ui\dlg\attrib.src:TAB_DATA_LINE.1.RID_SVXPAGE_LINE.text
+#: Src/Gtk2/accessibility.cc:409 Src/Gtk2/accessibility.cc:432
+msgid "Line"
+msgstr "Umurongo"
+
+# filter/source\xsltdialog\xmlfilterdialogstrings.src:STR_UNKNOWN_APPLICATION.text
+#: Src/Gtk2/accessibility.cc:542
+msgid "Unknown"
+msgstr "Kitazwi"
+
+#: Src/Gtk2/dasher.cc:189
+#, fuzzy
+msgid "Training Dasher, please wait"
+msgstr "Tegereza"
+
+# wizards/source\euro\euro.src:MESSAGES_+_2.text
+#: Src/Gtk2/dasher.cc:502 Src/Gtk2/dasher.cc:523 Src/Gtk2/dasher.cc:544
+#: Src/Gtk2/dasher.cc:565 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:60
+#, fuzzy
+msgid "Select File"
+msgstr "Guhitamo idosiye"
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/dasher.cc:1661
+msgid "translator_credits"
+msgstr ""
+
+#: Src/Gtk2/dasher.cc:1663 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dashergpe.glade.h:35
+msgid "Dasher"
+msgstr ""
+
+#: Src/Gtk2/dasher.cc:1666
+#, fuzzy
+msgid "Dasher is a predictive text entry application"
+msgstr "ni a Umwandiko Icyinjijwe Porogaramu"
+
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2079
+#, fuzzy, c-format
+msgid "%d characters output in %ld seconds\n"
+msgstr "%dInyuguti Ibisohoka in"
+
+#: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
+#, fuzzy
+msgid "5:"
+msgstr "5"
+
+#: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
+#, fuzzy
+msgid "6:"
+msgstr "6"
+
+#: Src/Gtk2/dasher.glade.h:3 Src/Gtk2/dashergpe.glade.h:3
+#, fuzzy
+msgid "7:"
+msgstr "7"
+
+#: Src/Gtk2/dasher.glade.h:4 Src/Gtk2/dashergpe.glade.h:4
+#, fuzzy
+msgid "8:"
+msgstr "8"
+
+#: Src/Gtk2/dasher.glade.h:5 Src/Gtk2/dashergpe.glade.h:5
+#, fuzzy
+msgid "9:"
+msgstr "9"
+
+#: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
+#, fuzzy
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
+#, fuzzy
+msgid "<b>Button control setup</b>"
+msgstr "<B Igenzura Imikorere B"
+
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
+#, fuzzy
+msgid "<b>Color Selection:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
+#, fuzzy
+msgid "<b>Control Style:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
+#, fuzzy
+msgid "<b>Miscellaneous Options:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
+#, fuzzy
+msgid "<b>Orientation:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
+#, fuzzy
+msgid "<b>Smoothing:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
+#, fuzzy
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
+#, fuzzy
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<B Akabuto B"
+
+#: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
+#, fuzzy
+msgid "<b>View Options:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
+#, fuzzy
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
+#, fuzzy
+msgid "<b>Y Axis Options:</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
+msgid "Advanced"
+msgstr "Urwego rwo hejuru"
+
+#: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
+msgid "Alphabet"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
+msgid "Alphabet Default"
+msgstr ""
+
+# sc/source\ui\src\scstring.src:SCSTR_ORIENTATION_BOTTOMTOP.text
+#: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
+msgid "Bottom to Top"
+msgstr "Hasi kujya hejuru"
+
+#: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
+#, fuzzy
+msgid "Button control setup"
+msgstr "Igenzura Imikorere"
+
+#: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
+#, fuzzy
+msgid "Button mode"
+msgstr "Ubwoko"
+
+# basctl/source\basicide\tbxctl.src:RID_TOOLBOX.SID_INSERT_PUSHBUTTON.text
+#: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
+#, fuzzy
+msgid "Button:"
+msgstr "Akabuto"
+
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+#, fuzzy
+msgid "Change colour scheme automatically"
+msgstr "Igishusho ku buryo bwikora"
+
+# #-#-#-#-#  officecfg.pot (Gnome 2.12)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Calc.xcs:....Layout.Line.GridLineColor.text
+# #-#-#-#-#  officecfg.pot (Gnome 2.12)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Impress.xcs:....Misc.Preview..0.text
+# #-#-#-#-#  officecfg.pot (Gnome 2.12)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Impress.xcs:....Print.Other.Quality..0.text
+# #-#-#-#-#  officecfg.pot (Gnome 2.12)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Draw.xcs:....Misc.Preview..0.text
+# #-#-#-#-#  officecfg.pot (Gnome 2.12)  #-#-#-#-#
+# officecfg/registry\schema\org\openoffice\Office\Draw.xcs:....Print.Other.Quality..0.text
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
+msgid "Color"
+msgstr "Ibara"
+
+#: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
+#, fuzzy
+msgid "Control mode"
+msgstr "Ubwoko"
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_COPY.text
+#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "Gukoporora"
+
+#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:31
+msgid "Copy _All"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:32
+#, fuzzy
+msgid "Copy all on stop"
+msgstr "Byose ku Guhagarara"
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_CUT.text
+#: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "Gukata"
+
+#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
+#, fuzzy
+msgid "Cyclical button mode"
+msgstr "Akabuto Ubwoko"
+
+#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
+msgid "Dasher Preferences"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
+#, fuzzy
+msgid "Distance from centreline for start on mouse position:"
+msgstr "Bivuye kugirango Gutangira ku Imbeba Ibirindiro"
+
+#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
+#, fuzzy
+msgid "Down/3:"
+msgstr "3."
+
+#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
+#, fuzzy
+msgid "Draw box outlines"
+msgstr "Agasanduku"
+
+#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
+#, fuzzy
+msgid "Draw line between crosshairs and mouse"
+msgstr "Umurongo hagati Na Imbeba"
+
+#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
+#, fuzzy
+msgid "Edit Button-control options"
+msgstr "Igenzura Amahitamo"
+
+#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:42
+#, fuzzy
+msgid "Enter text into other windows"
+msgstr "Umwandiko Ikindi"
+
+#: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
+#, fuzzy
+msgid "Eyetracker mode"
+msgstr "Ubwoko"
+
+#: Src/Gtk2/dasher.glade.h:43
+#, fuzzy
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+"iyi Ubwoko ni Byahiswemo Hejuru Na Hasi Inyuma Na hagati Na Iburyo: Kwemeza"
+
+# offmgr/source\offapp\dialog\optgdlg.src:OFA_TP_VIEW.LB_BIG.3.text
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
+msgid "Large"
+msgstr "Binini"
+
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:46
+msgid "Left to Right"
+msgstr "Ibumoso ku iburyo"
+
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:47
+#, fuzzy
+msgid "Left/2:"
+msgstr "2."
+
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:48
+#, fuzzy
+msgid "New file"
+msgstr "IDOSIYE"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Save.Graphic.Format..0.text
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:49
+msgid "Normal"
+msgstr "Bisanzwe"
+
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:50
+#, fuzzy
+msgid "Number of pixels that should cover the entire y range:"
+msgstr "Bya Pigiseli Y Urutonde"
+
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:51
+#, fuzzy
+msgid "One dimensional mode"
+msgstr "Ubwoko"
+
+# sfx2/sdi\sfxslots.src:SID_OPENDOC.text
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:52
+#, fuzzy
+msgid "Open file"
+msgstr "Gufungura Dosiye"
+
+# dbaccess/source/ui/inc/toolbox.hrc:MID_SBA_QRY_PASTE.text
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:54
+msgid "Paste"
+msgstr "Komeka"
+
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:55
+#, fuzzy
+msgid "Pause outside window"
+msgstr "Hanze Idirishya"
+
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:56
+msgid "Right to Left"
+msgstr "Iburyo ku ibumoso"
+
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:57
+#, fuzzy
+msgid "Right/4:"
+msgstr "4."
+
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:58
+#, fuzzy
+msgid "Save file"
+msgstr "Bika idosiye"
+
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:59
+#, fuzzy
+msgid "Save file as"
+msgstr "Kubika IDOSIYE Nka"
+
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:61
+msgid "Select Font"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:62
+#, fuzzy
+msgid "Show mouse position"
+msgstr "Imbeba Ibirindiro"
+
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:63
+#, fuzzy
+msgid "Show speed slider"
+msgstr "Umuvuduko"
+
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:64
+#, fuzzy
+msgid "Show toolbar"
+msgstr "Erekana UmwanyaBikoresho"
+
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:65
+#, fuzzy
+msgid "Speak on stop"
+msgstr "ku Guhagarara"
+
+#: Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Umuvuduko"
+
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:66
+#, fuzzy
+msgid "Start on left mouse button"
+msgstr "Gutangira ku Ibumoso: Imbeba Akabuto"
+
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:67
+#, fuzzy
+msgid "Start on space bar"
+msgstr "Gutangira ku Umwanya"
+
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:68
+#, fuzzy
+msgid "Start with mouse position"
+msgstr "Gutangira Na: Imbeba Ibirindiro"
+
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:69
+#, fuzzy
+msgid "Timestamp new files"
+msgstr "Gishya Idosiye"
+
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_SCATTR_PAGE_TOPDOWN.text
+# #-#-#-#-#  sc.pot (Gnome 2.12)  #-#-#-#-#
+# sc/source\ui\src\scstring.src:SCSTR_ORIENTATION_TOPBOTTOM.text
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:70
+#, fuzzy
+msgid "Top to Bottom"
+msgstr "Hejuru ujya hasi"
+
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:71
+msgid "Training"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:72
+#, fuzzy
+msgid "Training Dasher - please wait"
+msgstr "Tegereza"
+
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:73
+#, fuzzy
+msgid "Up/1:"
+msgstr "1."
+
+#: Src/Gtk2/dasher.glade.h:74
+#, fuzzy
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+"iyi Igenzura Kuri Bifitanye isano Bya Ibaruwa... kirekire Uduciro Umuvuduko"
+
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:75
+msgid "Very Large"
+msgstr ""
+
+# #-#-#-#-#  offmgr.pot (Gnome 2.12)  #-#-#-#-#
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_GENERAL_OPTIONS.5.text
+# #-#-#-#-#  offmgr.pot (Gnome 2.12)  #-#-#-#-#
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SW_EDITOPTIONS.3.text
+# #-#-#-#-#  offmgr.pot (Gnome 2.12)  #-#-#-#-#
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SW_ONLINEOPTIONS.2.text
+# #-#-#-#-#  offmgr.pot (Gnome 2.12)  #-#-#-#-#
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SC_EDITOPTIONS.3.text
+# #-#-#-#-#  offmgr.pot (Gnome 2.12)  #-#-#-#-#
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SD_EDITOPTIONS.3.text
+# #-#-#-#-#  offmgr.pot (Gnome 2.12)  #-#-#-#-#
+# offmgr/source\offapp\dialog\treeopt.src:RID_OFADLG_OPTIONS_TREE_PAGES.SID_SD_GRAPHIC_OPTIONS.3.text
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:76
+msgid "View"
+msgstr "Igaragaza"
+
+# officecfg/registry\schema\org\openoffice\Office\Common.xcs:....Font.Strikeout..6.text
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:77
+#, fuzzy
+msgid "X:"
+msgstr "X"
+
+# svx/source\engine3d\float3d.src:RID_SVXFLOAT3D_FIX_Y.text
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:78
+#, fuzzy
+msgid "Y:"
+msgstr "Y"
+
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:79
+#, fuzzy
+msgid "_About"
+msgstr "Bigyanye"
+
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:80
+#, fuzzy
+msgid "_Append to file"
+msgstr "Kuri IDOSIYE"
+
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:81
+msgid "_Dasher Font"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:82
+msgid "_Dasher Font Size"
+msgstr ""
+
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\basidesh.src:RID_BASICMENU.MN_EDIT.text
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\basidesh.src:RID_BASICPLUGINMENU.MN_PLEDIT.text
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\macrodlg.src:RID_MACROCHOOSER.RID_PB_EDIT.text
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\moduldlg.src:RID_TP_MODULS.RID_PB_EDIT.text
+# #-#-#-#-#  basctl.pot (Gnome 2.12)  #-#-#-#-#
+# basctl/source\basicide\moduldlg.src:RID_TP_LIBS.RID_PB_EDIT.text
+#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:83
+#, fuzzy
+msgid "_Edit"
+msgstr "Guhindura"
+
+#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:84
+msgid "_Edit Font"
+msgstr ""
+
+# sc/source\ui\src\globstr.src:RID_GLOBSTR.STR_HFCMD_FILE.text
+#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:85
+#, fuzzy
+msgid "_File"
+msgstr "IDOSIYE"
+
+#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:86
+#, fuzzy
+msgid "_Help"
+msgstr "Ifashayobora"
+
+#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:87
+msgid "_Import Training Text"
+msgstr ""
+
+# basctl/source\basicide\moduldlg.src:RID_DLG_LIBS.RID_FL_OPTIONS.text
+#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:88
+#, fuzzy
+msgid "_Options"
+msgstr "Amahitamo"
+
+#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:89
+#, fuzzy
+msgid "_Reset fonts"
+msgstr "Imyandikire"
+
+#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:90
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: Src/Gtk2/dashergpe.glade.h:13
+#, fuzzy
+msgid "<b>Speed</b>"
+msgstr "<B B"
+
+#: Src/Gtk2/dashergpe.glade.h:44
+#, fuzzy
+msgid ""
+"If this mode is selected, up and down will cycle backwards and forwards "
+"between coordinates and right will confirm the choice"
+msgstr ""
+"iyi Ubwoko ni Byahiswemo Hejuru Na Hasi Uruziga Inyuma Na hagati Na Iburyo: "
+"Kwemeza"
+
+#: Src/Gtk2/dashergpe.glade.h:53
+msgid "Orientation"
+msgstr "Icyerekezo"
+
+#: Src/Gtk2/dashergpe.glade.h:74
+#, fuzzy
+msgid ""
+"Use this control to adjust the relative sizes of the letter boxes. Note that "
+"selecting high values will slow your writing speed."
+msgstr ""
+"iyi Igenzura Kuri Bifitanye isano Bya Ibaruwa... kirekire Uduciro Buhoro "
+"Umuvuduko"
+
+#: Src/Gtk2/speech.cc:24
+#, fuzzy, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Kuri gutangiza"
+
+#: Src/Gtk2/speech.cc:50
+#, fuzzy, c-format
+msgid "Unable to initialize voices"
+msgstr "Kuri gutangiza"
+
+#: Src/Gtk2/speech.cc:65
+#, fuzzy, c-format
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Kuri Gushyiraho"
+
+#: Src/main.cc:104
+msgid "Dasher Text Entry"
+msgstr ""
