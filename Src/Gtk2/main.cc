@@ -867,6 +867,7 @@ void orientation(gpointer data, guint action, GtkWidget  *widget )
 {
   signed int RealAction=action-3;
   interface->ChangeOrientation(Dasher::Opts::ScreenOrientations(RealAction));
+  interface->Redraw();
 }
 
 void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
