@@ -77,7 +77,11 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -132,7 +136,11 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -246,7 +254,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				GlobalOptimizations="TRUE"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
@@ -470,9 +478,6 @@
 				RelativePath=".\DasherWindow.h">
 			</File>
 			<File
-				RelativePath=".\resource.h">
-			</File>
-			<File
 				RelativePath=".\WinHelper.cpp">
 			</File>
 			<File
@@ -505,14 +510,17 @@
 			<File
 				RelativePath=".\WinWrap.h">
 			</File>
+			<File
+				RelativePath=".\resource.h">
+			</File>
 			<Filter
 				Name="Widgets"
 				Filter=".cpp">
 				<File
-					RelativePath=".\Widgets\Aboutbox.cpp">
+					RelativePath=".\Widgets\AboutBox.h">
 				</File>
 				<File
-					RelativePath=".\Widgets\AboutBox.h">
+					RelativePath=".\Widgets\Aboutbox.cpp">
 				</File>
 				<File
 					RelativePath=".\Widgets\AlphabetBox.cpp">
@@ -602,16 +610,16 @@
 					RelativePath=".\Widgets\Toolbar.h">
 				</File>
 				<File
-					RelativePath=".\widgets\WindowSelect.cpp">
-				</File>
-				<File
-					RelativePath=".\widgets\WindowSelect.h">
-				</File>
-				<File
 					RelativePath=".\Widgets\WinOptions.cpp">
 				</File>
 				<File
 					RelativePath=".\Widgets\WinOptions.h">
+				</File>
+				<File
+					RelativePath=".\widgets\WindowSelect.cpp">
+				</File>
+				<File
+					RelativePath=".\widgets\WindowSelect.h">
 				</File>
 			</Filter>
 		</Filter>
