@@ -3,6 +3,7 @@
 #include <fstream.h>
 
 #include <map>
+#include <stdio.h>
 
 GtkDasherStore::GtkDasherStore()
 {
@@ -79,7 +80,16 @@ void GtkDasherStore::write_to_file()
 {
   ofstream outfile;
 
-  outfile.open("/home/pjc51/.dasher/dasherrc");
+  char *HomeDir;
+
+  HomeDir = getenv( "HOME" );
+
+  char *UserDataDir;
+
+  UserDataDir = new char[ strlen( HomeDir ) + 18 ];
+  sprintf( UserDataDir, "%s/.dasher/dasherrc", HomeDir );
+
+  outfile.open(UserDataDir);
 
   if( !outfile.bad() )
   {
@@ -123,13 +133,24 @@ void GtkDasherStore::write_to_file()
 }
   else
     cerr << "Warning - failed to save configuration data" << endl;
+
+  delete( UserDataDir );
 }
 
 void GtkDasherStore::read_from_file()
 {
  ifstream infile;
 
- infile.open("/home/pjc51/.dasher/dasherrc");
+  char *HomeDir;
+
+  HomeDir = getenv( "HOME" );
+
+  char *UserDataDir;
+
+  UserDataDir = new char[ strlen( HomeDir ) + 18 ];
+  sprintf( UserDataDir, "%s/.dasher/dasherrc", HomeDir );
+
+  infile.open( UserDataDir );
  
  if( !infile.bad() )
    {
@@ -139,7 +160,6 @@ void GtkDasherStore::read_from_file()
 
      while( !infile.eof() )
        {
-	 cout << "Read: " << ibuffer << endl;
 	 string foo(ibuffer);
 
 	 int pos1;
@@ -148,12 +168,8 @@ void GtkDasherStore::read_from_file()
 	 pos1 = foo.find(':');
 	 pos2 = foo.find(':',pos1+1);
 
-	 cout << pos1 << ", " << pos2 << endl;
-
 	 string key( foo.substr( pos1+1, pos2-pos1-1 ) );
 	 string value( foo.substr( pos2+1 ));
-
-	 cout << key << " " << value << endl;
 
 	 switch( foo[0] )
 	   {
@@ -170,10 +186,10 @@ void GtkDasherStore::read_from_file()
 	     cerr << "Waring - possibly corrupt configuration file" << endl;
 	     break;
 	   }
-
-
 	 infile.getline( ibuffer, 256 );
        }
    }
+
+ delete( UserDataDir );
  
 }
