@@ -77,7 +77,7 @@ dnl path to Xtst
 	AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst)
 	if test "x$XTST_LIBS" = x; then
 	  save_LIBS="$LIBS"
-	  for xtstpath in /usr/X11R6/lib /usr/openwin/lib $x_libraries; do
+	  for xtstpath in /usr/X11R6/lib64 /usr/X11R6/lib /usr/openwin/lib $x_libraries; do
 	    LIBS="-L$xtstpath -lXtst"
 	    case "$host" in
 	    *solaris*) XTST_RPATH_FLAGS="-R$xtstpath" ;;

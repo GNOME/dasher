@@ -3,6 +3,9 @@
 	* Make autogen.sh do the right thing
 	* Add Bengali support (from sayamindu@gnome.org)
 	* Add a couple of colons to remove gcc warnings (from sobhi@us.ibm.com)
+	* Make sure non-void functions return something (from 
+	  clahey@ximian.com)
+	* Check in /usr/X11R6/lib64 for libXtst (from clahey@ximian.com)
 	
 2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 

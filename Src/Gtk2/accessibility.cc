@@ -72,8 +72,6 @@ ControlTree* gettree() {
   int numchildren;
   desktop = SPI_getDesktop(0);
 
-  fprintf(stderr,"Called gettree()\n");
-
   /* Paneltree
          |         /-menutree
      Widgettree------buttontree

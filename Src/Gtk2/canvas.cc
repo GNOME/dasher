@@ -376,6 +376,10 @@ void set_canvas_font(std::string fontname)
     font=pango_font_description_from_string(fontname.c_str());
     dasher_redraw();
   }
+  {
+    GdkColor foreground = { 0, 255*257, 185*257, 255*257 };
+    return foreground;
+  }
 }
 
 void reset_dasher_font()
