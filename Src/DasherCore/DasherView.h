@@ -18,6 +18,7 @@
 #include "../Common/MSVC_Unannoy.h"
 #include "DasherScreen.h"
 #include "DasherModel.h"
+#include "LanguageModel.h"
 
 // CDasherView is an abstract view class
 // The implentation must provide several functions - defined here as pure virtual functions
@@ -27,7 +28,7 @@ namespace Dasher {class CDasherView;}
 class Dasher::CDasherView
 {
 public:
-	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
+	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	~CDasherView() {}		
 	
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
@@ -80,6 +81,8 @@ protected:
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
+
+	CLanguageModel* m_LanguageModel;
 	
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration

@@ -10,8 +10,8 @@
 using namespace Dasher;
 
 
-CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation, bool ColourMode)
-  : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(ColourMode)
+CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Opts::ScreenOrientations Orientation, bool ColourMode)
+  : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(ColourMode), m_LanguageModel(LanguageModel)
 {
 //	XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 }
@@ -33,7 +33,13 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	  if (Render->Colour()!=-1) {
 	    Color = Render->Colour();
 	  } else {
-	    Color = (Render->Symbol()%3)+10;
+	    if (Render->Symbol()==m_LanguageModel->GetSpaceSymbol()) {
+	      Color = 9;
+	    } else if (Render->Symbol()==m_LanguageModel->GetControlSymbol()) {
+	      Color = 8;
+	    } else {
+	      Color = (Render->Symbol()%3)+10;
+	    }
 	  }
 	} else {
 	  Color = Render->Phase()%3; 

@@ -13,7 +13,7 @@
 #include "DasherScreen.h"
 #include "DasherModel.h"
 #include "DasherView.h"
-
+#include "LanguageModel.h"
 
 // An implementation of the DasherView class
 //
@@ -27,7 +27,7 @@ namespace Dasher {class CDasherViewSquare;}
 class Dasher::CDasherViewSquare : public Dasher::CDasherView
 {
 public:
-	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
+	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	void TapOnDisplay(int mousex,int mousey, unsigned long Time);
 	void GoTo(int mousex,int mousey);
 	
