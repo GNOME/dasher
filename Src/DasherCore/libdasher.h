@@ -71,6 +71,7 @@ void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int));
 void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int));
 
 void dasher_set_edit_output_callback(void (*_cb)(symbol));
+void dasher_set_edit_delete_callback(void (*_cb)());
 void dasher_set_edit_flush_callback(void (*_cb)(symbol));
 void dasher_set_edit_unflush_callback( void (*_cb)() );
 void dasher_set_get_new_context_callback( void (*_cb)( std::string &, int ) );

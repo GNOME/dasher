@@ -43,6 +43,24 @@ void edit_output_callback(symbol Symbol)
   outputcharacters++;
 }
 
+void edit_delete_callback()
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_backward_chars(start, 1);
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  outputcharacters--;
+}
+
+
 void edit_flush_callback(symbol Symbol)
 {
   std::string label;

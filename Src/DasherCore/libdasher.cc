@@ -32,6 +32,7 @@ void (*draw_text_callback)(symbol, int, int, int) = NULL;
 void (*text_size_callback)(symbol, int*, int*, int) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
+void (*edit_delete_callback)() = NULL;
 void (*edit_flush_callback)(symbol) = NULL;
 void (*edit_unflush_callback)() = NULL;
 void (*get_new_context_callback)(std::string &, int ) = NULL;
@@ -112,6 +113,12 @@ void handle_edit_output(symbol Character)
 {
   if( edit_output_callback != NULL )
     edit_output_callback( Character );
+}
+
+void handle_edit_delete()
+{
+  if( edit_delete_callback != NULL )
+    edit_delete_callback( );
 }
 
 void handle_edit_flush(symbol Character)
@@ -415,6 +422,11 @@ void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int))
 void dasher_set_edit_output_callback( void (*_cb )(symbol))
 {
   edit_output_callback = _cb;
+}
+
+void dasher_set_edit_delete_callback( void (*_cb )())
+{
+  edit_delete_callback = _cb;
 }
 
 void dasher_set_edit_flush_callback( void (*_cb )(symbol))

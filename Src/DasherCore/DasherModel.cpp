@@ -45,16 +45,37 @@ void CDasherModel::Make_root(int whichchild)
 		m_editbox->output(t);
 		m_languagemodel->LearnNodeSymbol(LearnContext, t);
 	}
+
 	CDasherNode * oldroot=m_Root;
 	
 	CDasherNode **children=m_Root->Children();
 	m_Root=children[whichchild];
-	oldroot->Children()[whichchild]=0;  // null the pointer so we don't delete the whole tree
-	delete oldroot;
+	//	oldroot->Children()[whichchild]=0;  // null the pointer so we don't delete the whole tree
+	//	delete oldroot;
 	
+	oldroots.push_back(oldroot);
+
 	myint range=m_Rootmax-m_Rootmin;
 	m_Rootmax=m_Rootmin+(range*m_Root->Hbnd())/Normalization();
 	m_Rootmin+=(range*m_Root->Lbnd())/Normalization();
+}
+
+void CDasherModel::Reparent_root(int lower, int upper)
+{
+  /* Change the root node to the parent of the existing node
+     We need to recalculate the coordinates for the "new" root as the 
+     user may have moved around within the current root */
+
+  /* Determine how zoomed in we are */
+	float scalefactor=(m_Rootmax-m_Rootmin)/(upper-lower);
+
+	m_Rootmax=int(m_Rootmax+((1024-upper)*scalefactor));
+	m_Rootmin=int(m_Rootmin-(lower*scalefactor));
+
+	m_editbox->deletetext();
+
+	m_Root=oldroots.back();
+	oldroots.pop_back();
 }
 
 /////////////////////////////////////////////////////////////////////////////

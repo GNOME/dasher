@@ -17,6 +17,7 @@
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
+#include <vector>
 
 // The CDasherModel represents the current state of Dasher
 // It contains a pointer to a structure of DasherNodes
@@ -57,9 +58,13 @@ public:
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node
+	void Reparent_root(int lower, int upper);                                 // change back to the previous root
 	void Reset_framerate(unsigned long Time) {m_fr.Reset(Time);}
 	
 private:
+
+	// Old root notes
+	std::vector<CDasherNode*> oldroots;
 
 	// Rootmin and Rootmax specify the position of the root node in Dasher coords
 	myint m_Rootmin,m_Rootmax;

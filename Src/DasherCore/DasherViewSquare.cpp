@@ -72,12 +72,12 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	
 	int height=bottom-top;
 	
-	if (height==0)
+	if (height==0 && text==true)
 		force=false;
 	
 	if (force || height>1) {
 		force=true;
-		
+
 		int left=dasherx2screen(y2-y1);
 		
 		int right=CanvasX;
@@ -89,36 +89,36 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		  Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
 		else
 		  {
-		if (left<mostleft)
-			left=mostleft;
-		
-		int Size;
-		if (left*Screen().GetFontSize()<CanvasX*19/20) {
-			Size = 20*Screen().GetFontSize();
-		} else if (left*Screen().GetFontSize()<CanvasX*159/160) {
-			Size = 14*Screen().GetFontSize();
-		} else {
-			Size = 11*Screen().GetFontSize();
-		}
-		
-		int TextWidth, TextHeight, OriginX=0, OriginY=0;
-		Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
-		UnMapScreen(&TextWidth, &TextHeight);
-		UnMapScreen(&OriginX, &OriginY);		
-		int FontHeight = abs(TextHeight-OriginY);		
-		int FontWidth = abs(TextWidth-OriginX);
-		mostleft = left + FontWidth;
-
-		int newleft2 = left;
-		int newtop2 = (height-FontHeight)/2 + top;
-		int newright2 = left + FontWidth;
-		int newbottom2 = (height+FontHeight)/2 + top;
-		MapScreen(&newleft2, &newtop2);
-		MapScreen(&newright2, &newbottom2);
-		newleft = min(newleft2, newright2);
-		newtop = min(newtop2, newbottom2);
-
-		  Screen().DrawText(Character, newleft, newtop, Size);
+		    if (left<mostleft)
+		      left=mostleft;
+		    
+		    int Size;
+		    if (left*Screen().GetFontSize()<CanvasX*19/20) {
+		      Size = 20*Screen().GetFontSize();
+		    } else if (left*Screen().GetFontSize()<CanvasX*159/160) {
+		      Size = 14*Screen().GetFontSize();
+		    } else {
+		      Size = 11*Screen().GetFontSize();
+		    }
+		    
+		    int TextWidth, TextHeight, OriginX=0, OriginY=0;
+		    Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
+		    UnMapScreen(&TextWidth, &TextHeight);
+		    UnMapScreen(&OriginX, &OriginY);		
+		    int FontHeight = abs(TextHeight-OriginY);		
+		    int FontWidth = abs(TextWidth-OriginX);
+		    mostleft = left + FontWidth;
+		    
+		    int newleft2 = left;
+		    int newtop2 = (height-FontHeight)/2 + top;
+		    int newright2 = left + FontWidth;
+		    int newbottom2 = (height+FontHeight)/2 + top;
+		    MapScreen(&newleft2, &newtop2);
+		    MapScreen(&newright2, &newbottom2);
+		    newleft = min(newleft2, newright2);
+		    newtop = min(newtop2, newbottom2);
+		    
+		    Screen().DrawText(Character, newleft, newtop, Size);
 		  }
 		
 		return 1;
@@ -132,9 +132,17 @@ void CDasherViewSquare::CheckForNewRoot()
 	CDasherNode * const root=DasherModel().Root();
 	CDasherNode ** const children=root->Children();
 
+
+	myint y1=DasherModel().Rootmin();
+	myint y2=DasherModel().Rootmax();
+	
+	if ((y1>0 || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0) && root->Symbol()!=0) {
+	  DasherModel().Reparent_root(root->Lbnd(),root->Hbnd());
+	}
+	    
 	if (children==0)
 		return;
-	
+
 	int alive=0;
 	int theone=0;
 	unsigned int i;
@@ -146,14 +154,14 @@ void CDasherViewSquare::CheckForNewRoot()
 	}
 	
 	if (alive==1) {	  
-		myint y1=DasherModel().Rootmin();
-		myint y2=DasherModel().Rootmax();
+	        y1=DasherModel().Rootmin();
+		y2=DasherModel().Rootmax();
 		myint range=y2-y1;
 		myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
 		myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
 		if (newy1<0 && newy2> DasherModel().DasherY()) {
 			myint left=dasherx2screen(newy2-newy1);
-			if (left<-1000) {
+			if (left<0) {
 				DasherModel().Make_root(theone);
 				return;
 			}
