@@ -1,6 +1,6 @@
-#include "DasherInterface.h"
-#include "SettingsStore.h"
-#include "DashEdit.h"
+//#include "DasherInterface.h"
+//#include "SettingsStore.h"
+//#include "DashEdit.h"
 
 #include "libdasher.h"
 #include "libdasher_private.h"
@@ -256,6 +256,11 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     }
 }
 
+void dasher_set_orientation( Opts::ScreenOrientations or )
+{
+  interface->ChangeOrientation( or );
+}
+
 void dasher_train_file( const char *filename )
 {
   interface->TrainFile(filename);
@@ -416,4 +421,9 @@ void dasher_copy_all()
 void dasher_select_all()
 {
   ded->SelectAll();
+}
+
+void dasher_clear()
+{
+  ded->Clear();
 }

@@ -1,3 +1,6 @@
+#include "DasherInterface.h"
+#include "DasherSettingsInterface.h"
+
 using namespace Dasher;
 using namespace std;
 
@@ -224,7 +227,10 @@ class dasher_edit : public CDashEditbox
     {
       handle_edit_flush(Symbol);
     };
-  void Clear() {};
+  void Clear()
+    {
+      handle_clipboard( CLIPBOARD_CLEAR );
+    };
   void SetEncoding(Opts::FileEncodingFormats Encoding) {};
   void SetFont(std::string Name, long Size) {};
   void Cut()

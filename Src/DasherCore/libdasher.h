@@ -1,3 +1,7 @@
+#include "DasherScreen.h"
+#include "DasherView.h"
+#include "DasherTypes.h"
+
 enum string_param{ STRING_ALPHABET, 
 		   STRING_EDITFONT, 
 		   STRING_DASHERFONT, 
@@ -29,7 +33,8 @@ enum clipboard_action { CLIPBOARD_CUT,
 			CLIPBOARD_COPY,
 			CLIPBOARD_PASTE,
 			CLIPBOARD_COPYALL,
-			CLIPBOARD_SELECTALL };
+			CLIPBOARD_SELECTALL,
+			CLIPBOARD_CLEAR };
 
 void dasher_initialise( int _width, int _height );
 void dasher_finalise();
@@ -38,6 +43,8 @@ void dasher_set_parameter_string( string_param p, const char *value );
 void dasher_set_parameter_double( double_param p, double value );
 void dasher_set_parameter_int( int_param p, long int value );
 void dasher_set_parameter_bool( bool_param p, bool value );
+
+void dasher_set_orientation( Opts::ScreenOrientations or );
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) );
 void dasher_set_double_callback( void(*_cb)( double_param, double ) );
@@ -76,3 +83,4 @@ void dasher_copy();
 void dasher_paste();
 void dasher_copy_all();
 void dasher_select_all();
+void dasher_clear();
