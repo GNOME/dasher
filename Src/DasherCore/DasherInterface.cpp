@@ -39,6 +39,10 @@ CDasherInterface::~CDasherInterface()
 	delete m_LanguageModel; // eg DasherModel has a pointer to LanguageModel.
 	delete m_Alphabet;      // DM baulks if LM is deleted before it is.
 	delete m_DasherView;
+	delete m_ColourIO;
+	delete m_AlphIO;
+	delete m_Colours;
+
 	// Do NOT delete Edit box or Screen. This class did not create them.
 }
 
@@ -217,7 +221,8 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
 	m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
 
-	CAlphabet* old = m_Alphabet;
+	CAlphabet* old = m_Alphabet;   // So we can delete the old alphabet later
+
 	m_Alphabet = new CCustomAlphabet(m_AlphInfo);
 	
 	// Apply options from alphabet
