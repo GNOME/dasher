@@ -469,160 +469,166 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Win32"
+			Name="Framework"
+			Filter="">
+			<File
+				RelativePath="Framework\Window.cpp">
+			</File>
+			<File
+				RelativePath="Framework\Window.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Widgets"
 			Filter=".cpp">
 			<File
-				RelativePath=".\DasherWindow.cpp">
+				RelativePath=".\Widgets\AboutBox.h">
 			</File>
 			<File
-				RelativePath=".\DasherWindow.h">
+				RelativePath=".\Widgets\Aboutbox.cpp">
 			</File>
 			<File
-				RelativePath=".\WinHelper.cpp">
+				RelativePath=".\Widgets\AlphabetBox.cpp">
 			</File>
 			<File
-				RelativePath=".\WinHelper.h">
+				RelativePath=".\Widgets\AlphabetBox.h">
 			</File>
 			<File
-				RelativePath=".\WinLocalisation.cpp">
+				RelativePath=".\Widgets\Canvas.cpp">
 			</File>
 			<File
-				RelativePath=".\WinLocalisation.h">
+				RelativePath=".\Widgets\Canvas.h">
 			</File>
 			<File
-				RelativePath=".\WinMain.cpp">
+				RelativePath="Widgets\ColourBox.cpp">
 			</File>
 			<File
-				RelativePath="WinMenus.cpp">
+				RelativePath="Widgets\ColourBox.h">
 			</File>
 			<File
-				RelativePath="WinMenus.h">
+				RelativePath=".\Widgets\DasherEncodingToCP.cpp">
 			</File>
 			<File
-				RelativePath=".\WinUTF8.cpp">
+				RelativePath=".\Widgets\DasherEncodingToCP.h">
 			</File>
 			<File
-				RelativePath=".\WinUTF8.h">
+				RelativePath=".\Widgets\Edit.cpp">
 			</File>
 			<File
-				RelativePath=".\WinWrap.cpp">
+				RelativePath=".\Widgets\Edit.h">
 			</File>
 			<File
-				RelativePath=".\WinWrap.h">
+				RelativePath=".\Widgets\FilenameGUI.cpp">
 			</File>
 			<File
-				RelativePath=".\resource.h">
+				RelativePath=".\Widgets\FilenameGUI.h">
 			</File>
-			<Filter
-				Name="Widgets"
-				Filter=".cpp">
-				<File
-					RelativePath=".\Widgets\AboutBox.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Aboutbox.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\AlphabetBox.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\AlphabetBox.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Canvas.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Canvas.h">
-				</File>
-				<File
-					RelativePath="Widgets\ColourBox.cpp">
-				</File>
-				<File
-					RelativePath="Widgets\ColourBox.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\DasherEncodingToCP.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\DasherEncodingToCP.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Edit.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Edit.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\FilenameGUI.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\FilenameGUI.h">
-				</File>
-				<File
-					RelativePath="Widgets\KeyControl.cpp">
-				</File>
-				<File
-					RelativePath="Widgets\KeyControl.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Menu.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Menu.h">
-				</File>
-				<File
-					RelativePath="Widgets\Prefs.cpp">
-				</File>
-				<File
-					RelativePath="Widgets\Prefs.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Screen.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Screen.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Screen.inl">
-				</File>
-				<File
-					RelativePath=".\Widgets\Slidebar.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Slidebar.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\SplashScreen.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\SplashScreen.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Splitter.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Splitter.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\Toolbar.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\Toolbar.h">
-				</File>
-				<File
-					RelativePath=".\Widgets\WinOptions.cpp">
-				</File>
-				<File
-					RelativePath=".\Widgets\WinOptions.h">
-				</File>
-				<File
-					RelativePath=".\widgets\WindowSelect.cpp">
-				</File>
-				<File
-					RelativePath=".\widgets\WindowSelect.h">
-				</File>
-			</Filter>
+			<File
+				RelativePath="Widgets\KeyControl.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\KeyControl.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Menu.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Menu.h">
+			</File>
+			<File
+				RelativePath="Widgets\Prefs.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\Prefs.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Screen.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Screen.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Screen.inl">
+			</File>
+			<File
+				RelativePath=".\Widgets\Slidebar.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Slidebar.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\SplashScreen.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\SplashScreen.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Splitter.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Splitter.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\Toolbar.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\Toolbar.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\WinOptions.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\WinOptions.h">
+			</File>
+			<File
+				RelativePath=".\widgets\WindowSelect.cpp">
+			</File>
+			<File
+				RelativePath=".\widgets\WindowSelect.h">
+			</File>
 		</Filter>
+		<File
+			RelativePath=".\DasherWindow.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherWindow.h">
+		</File>
+		<File
+			RelativePath=".\WinHelper.cpp">
+		</File>
+		<File
+			RelativePath=".\WinHelper.h">
+		</File>
+		<File
+			RelativePath=".\WinLocalisation.cpp">
+		</File>
+		<File
+			RelativePath=".\WinLocalisation.h">
+		</File>
+		<File
+			RelativePath=".\WinMain.cpp">
+		</File>
+		<File
+			RelativePath="WinMenus.cpp">
+		</File>
+		<File
+			RelativePath="WinMenus.h">
+		</File>
+		<File
+			RelativePath=".\WinUTF8.cpp">
+		</File>
+		<File
+			RelativePath=".\WinUTF8.h">
+		</File>
+		<File
+			RelativePath=".\WinWrap.cpp">
+		</File>
+		<File
+			RelativePath=".\WinWrap.h">
+		</File>
+		<File
+			RelativePath=".\resource.h">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>
