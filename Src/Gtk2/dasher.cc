@@ -486,9 +486,12 @@ open_file (const char *filename)
   
   file_modified = 1;
 
-  gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
-
-  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
+  if (size!=0) {
+    // Don't attempt to insert new text if the file is empty as it makes
+    // GTK cry
+    gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
+    gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
+  }
 
   gtk_window_set_title(GTK_WINDOW(window), filename);
 
