@@ -1,5 +1,6 @@
 #include "accessibility.h"
 #include <libintl.h>
+#include <iostream>
 
 ControlTree *menutree;
 ControlTree *dummy; // This one is used to fake another control node
@@ -11,7 +12,6 @@ extern gboolean textentry;
 std::vector<Accessible*> menuitems;
 Accessible *desktop=NULL;
 #endif
-
 
 ControlTree* gettree() {
 #ifdef GNOME_A11Y
@@ -26,6 +26,7 @@ ControlTree* gettree() {
   menutree->data=0;
   menutree->text=_("Menus");
   menutree->colour=-1;
+  menutree->next=NULL;
   numchildren = Accessible_getChildCount(desktop);
   for (int i=0; i<numchildren; i++) {
     child=Accessible_getChildAtIndex(desktop,i);
@@ -221,24 +222,35 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
 
 #ifdef GNOME_A11Y
 bool buildmenutree(Accessible *parent,ControlTree *ctree) {  
+  // This code is not desperately nice, and probably ought to be rewritten
+  // In any case, the job is as follows: accept an accessible object (parent)
+  // and a tree of Dasher nodes (ctree) and build a tree underneath that.
+  // We need to search every widget in case there's a menu lurking under
+  // it, so go right down to the bottom of the tree and then return true if
+  // something is found and false otherwise. Each branch that returns true gets
+  // added to the tree, the ones that return false are dropped on the floor.
   int numchildren;
+  // Whether or not any of our children are useful - if not (and if we're not
+  // useful ourselves) then return false.
   bool useful=false;
   Accessible *child;
   ControlTree *childnode;
 
+  // This is the node that will represent us if we're useful
+  // We don't insert ourselves into the tree just yet, though
   ControlTree* NewNode = new ControlTree;
   NewNode->parent=ctree;
   NewNode->children=NULL;
   NewNode->next=NULL;
   NewNode->pointer=NULL;
   NewNode->colour=-1;
-  // We don't insert ourselves just yet, though
 
   numchildren=Accessible_getChildCount(parent);
 
   if (numchildren>0) {
     for (int i=0; i<numchildren; i++) {
       child=Accessible_getChildAtIndex(parent,i);
+      // If we already have one useful child, then we want to remain useful
       useful=(buildmenutree(child,NewNode)||useful);
     }
     NewNode->text=Accessible_getName(parent);
@@ -256,13 +268,17 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
   }
   if (useful==false) {
     delete NewNode;
-    //    menuitems.push_back(parent);
   } else {
     if (ctree->children==NULL) {
-      ctree->children=NewNode;
+      if (NewNode->text=="") {
+	// We have no text - attach our child instead of ourselves      
+      	ctree->children=NewNode->children;
+      } else {	  
+	ctree->children=NewNode;
+      }
     } else {
       ControlTree* parentnext;
-      parentnext=ctree->children;
+      parentnext=ctree->children;      
       while (parentnext->next!=NULL) {
 	parentnext=parentnext->next;
       };
