@@ -84,7 +84,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   abox.AddAlphabet( alphabetlist );
 
-  interface->ChangeAlphabet( alphabetlist[0] );
+  //  interface->ChangeAlphabet( alphabetlist[0] );
 
   interface->ChangeEdit( text );
   interface->ChangeScreen( canvas->get_wrapper() );

@@ -5,26 +5,7 @@ AC_PROG_RANLIB
 AC_PROG_CXX
 AC_PROG_MAKE_SET
 
-AC_CHECK_LIB(expat, XML_Parse)
+AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 AM_PATH_GTKMM(1.2.3,,AC_MSG_ERROR([Cannot find correct gtkmm version]))
-
-# GNOME--:
-# (These macros are in the 'macros' directory,
-# copied from the gnome-libs distribution.)
-
-# GNOME_INIT sets the GNOME_CONFIG variable, among other things:
-
-#GNOME_INIT
-#GNOME_COMMON_INIT
-#GNOME_COMPILE_WARNINGS
-
-# GNOME-CONFIG script knows about gnomemm:
-# ('gnome-config' is installed by GNOME)
-# So call gnome-config with some arguments:
-#GNOMEMM_CFLAGS="`$GNOME_CONFIG --cflags gnomemm`"
-#GNOMEMM_LIBS="`$GNOME_CONFIG --libs gnomemm`"
-
-#AC_SUBST(GNOMEMM_CFLAGS)
-#AC_SUBST(GNOMEMM_LIBS)
 
 AC_OUTPUT([Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile])
