@@ -1,3 +1,7 @@
+2004-04-19  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Build accessibility, gnome and speech by default
+
 2004-04-16  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix linking issue - should work with multiple versions of automake

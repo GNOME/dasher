@@ -22,20 +22,20 @@ AC_PROG_CXX
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
 AC_ARG_WITH([gnome],
-	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is NO)]), 
-	[WITHGNOME=true],[WITHGNOME=false])
+	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
+	[WITHGNOME=false],[WITHGNOME=true])
 AC_ARG_WITH([qte],
 	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
 	[WITHQTE=true],[WITHQTE=false])
 
 AC_ARG_WITH([speech],
-	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]), [WITHSPEECH=true],[WITHSPEECH=false])
+	 AC_HELP_STRING([--with-speech],[build with speech support (default is YES)]), [WITHSPEECH=false],[WITHSPEECH=true])
 
 AC_ARG_WITH([gpe],
 	 AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]), [WITHGPE=true],[WITHGPE=false])
 
 AC_ARG_WITH([a11y],
-	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library(default is NO)]), [WITHA11Y=true],[WITHA11Y=false])
+	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library(default is YES)]), [WITHA11Y=false],[WITHA11Y=true])
 
 PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
 
@@ -88,26 +88,19 @@ dnl path to Xtst
 	    AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])
 	  fi
 	fi
-
 AC_SUBST(X_LIBS)
 fi
 
-
-
 if [[ x"$WITHGNOME" = xtrue ]]; then
-	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0)
-	AC_DEFINE([GNOME_LIBS])
+	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0,AC_DEFINE([GNOME_LIBS]),AC_MSG_RESULT(Missing GNOME libraries so not building GNOME support))
 fi
 
 if [[ x"$WITHSPEECH" = xtrue ]]; then
-	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
-	AC_DEFINE([GNOME_SPEECH])
-	SPEECH_SOURCES='speech.$(OBJEXT)'
+	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0,[AC_DEFINE([GNOME_SPEECH]),SPEECH_SOURCES='speech.$(OBJEXT)'],AC_MSG_RESULT(Missing speech libs so not building speech support))
 fi
 
 if [[ x"$WITHA11Y" = xtrue ]]; then
-	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0)
-	AC_DEFINE([GNOME_A11Y])
+	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0,AC_DEFINE([GNOME_A11Y]),AC_MSG_RESULT(Missing A11Y libs so not building accessibility support))
 fi
 
 if [[ x"$WITHGPE" = xtrue ]]; then
