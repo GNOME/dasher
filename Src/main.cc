@@ -2,9 +2,9 @@
 #include <gdk/gdkx.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
-#include <gnome.h>
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
+#include <gnome.h>
 #include <libbonobo.h>
 #endif
 
