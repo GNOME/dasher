@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-05 19:24+0100\n"
-"PO-Revision-Date: 2004-01-06 02:02+0100\n"
+"POT-Creation-Date: 2004-01-08 14:12+0100\n"
+"PO-Revision-Date: 2004-01-08 17:17+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
 "MIME-Version: 1.0\n"
@@ -137,8 +137,8 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>Bedieningsknoppen instellen</b>"
 
 #: Src/Gtk2/dasher.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Kleurselection:</b>"
+msgid "<b>Color Selection:</b>"
+msgstr "<b>Kleurselectie:</b>"
 
 #: Src/Gtk2/dasher.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -205,12 +205,12 @@ msgid "Button:"
 msgstr "Knop:"
 
 #: Src/Gtk2/dasher.glade.h:25
-msgid "Change colour scheme automatically"
+msgid "Change color scheme automatically"
 msgstr "Kleurenschema automatisch aanpassen"
 
 # Kleuren
 #: Src/Gtk2/dasher.glade.h:26
-msgid "Colour"
+msgid "Color"
 msgstr "Kleur"
 
 #: Src/Gtk2/dasher.glade.h:28
@@ -275,7 +275,9 @@ msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
-msgstr "Als deze modus wordt geselecteerd, zal op en neer rouleren tussen achteruit en vooruit tussen coördinaten en rechts zal de keuze bevestigen"
+msgstr ""
+"Als deze modus wordt geselecteerd, zal op en neer rouleren tussen achteruit "
+"en vooruit tussen coördinaten en rechts zal de keuze bevestigen"
 
 #: Src/Gtk2/dasher.glade.h:45
 msgid "Large"
@@ -472,6 +474,7 @@ msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
 #: Src/Gtk2/speech.cc:55
+#, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Waarschuwing: kon de spraakparameters niet instellen\n"
 
