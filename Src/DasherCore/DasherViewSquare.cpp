@@ -80,7 +80,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	if (force || height>1) {
 		force=true;
 		
-		int left=dasherx2screen(y2*Screen().GetFontSize()-y1*Screen().GetFontSize());
+		int left=dasherx2screen(y2-y1);
 		
 		int right=CanvasX;
 		
@@ -93,9 +93,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 			left=mostleft;
 		
 		int Size;
-		if (left<pow(CanvasX*19/20,1/Screen().GetFontSize())) {
+		if (left*Screen().GetFontSize()<CanvasX*19/20) {
 			Size = 20*Screen().GetFontSize();
-		} else if (left<pow(CanvasX*159/160,1/Screen().GetFontSize())) {
+		} else if (left*Screen().GetFontSize()<CanvasX*159/160) {
 			Size = 14*Screen().GetFontSize();
 		} else {
 			Size = 11*Screen().GetFontSize();
