@@ -29,6 +29,7 @@ public:
   void save();
   bool save_as( string filename );
   bool open( string filename );
+  bool append( string filename );
   void import( string filename );
 
   void select_all();

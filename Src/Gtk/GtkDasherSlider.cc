@@ -8,7 +8,7 @@ GtkDasherSlider::GtkDasherSlider( CDasherInterface *_interface )
 {
   //  set_padding(8);
 
-  Gtk::Adjustment *a = manage( new Gtk::Adjustment( 2.0, 1.0, 5.0 ));
+  Gtk::Adjustment *a = manage( new Gtk::Adjustment( 2.0, 1.0, 8.0, 1.0, 1.0 ));
   
   s.set_adjustment(a);
   s.set_update_policy(GTK_UPDATE_CONTINUOUS);

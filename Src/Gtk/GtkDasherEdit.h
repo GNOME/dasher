@@ -28,8 +28,8 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
-  bool SaveAs( const std::string filename );
-  bool Save();
+  bool SaveAs( const std::string filename, bool a );
+  bool Save( bool a=false);
   bool Open( const std::string filename );
 
   void Cut();

@@ -74,6 +74,7 @@ protected:
 
   Gtk::FileSelection ofilesel;
   Gtk::FileSelection ifilesel;
+  Gtk::FileSelection afilesel;
 
   Gtk::Pixmap first_pixmap;
 
@@ -92,6 +93,9 @@ protected:
 
   void ifile_ok_sel();
   void ifile_cancel_sel();
+
+  void afile_ok_sel();
+  void afile_cancel_sel();
 
   void reset();
   void save();

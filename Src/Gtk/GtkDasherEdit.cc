@@ -88,7 +88,7 @@ void GtkDasherEdit::Paste()
 
 void GtkDasherEdit::SelectAll()
 {
-  text.select_region(0, -1 );
+  text.select_region(0, -1 ); 
 }
 
 void GtkDasherEdit::Clear()
@@ -109,20 +109,25 @@ void GtkDasherEdit::SetFont(std::string Name, long Size)
   efont.create(xfnbuffer);
 }
 
-bool GtkDasherEdit::SaveAs(std::string filename)
+bool GtkDasherEdit::SaveAs(std::string filename, bool a)
 {
   current_filename = filename;
   filename_set = true;
 
-  return( Save() );
+  return( Save(a) );
 }
 
-bool GtkDasherEdit::Save()
+bool GtkDasherEdit::Save(bool a)
 {
   if( !filename_set )
     return( false );
 
-  ofstream ofile( current_filename.c_str() );
+  ofstream ofile;
+
+  if( a )
+    ofile.open( current_filename.c_str(), ios::app );
+  else
+    ofile.open( current_filename.c_str() );
 
   if( ofile.bad() )
     return( false );

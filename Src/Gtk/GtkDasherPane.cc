@@ -164,7 +164,12 @@ bool GtkDasherPane::save_as( string filename )
 {
   //  cout << "In Save: " << filename << endl;
 
-  return(text->SaveAs( filename ));
+  return(text->SaveAs( filename, false ));
+}
+
+bool GtkDasherPane::append( string filename )
+{
+  return(text->SaveAs( filename, true ));
 }
 
 void GtkDasherPane::select_all()

@@ -12,7 +12,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ), ofilesel("Open"), copy_all_on_pause( false ),ifilesel("Import Training Text")
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text")
 {  
   set_title( "Dasher" );
 
@@ -187,7 +187,10 @@ GtkDasherWindow::GtkDasherWindow()
   ofilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_cancel_sel));
 
   ifilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_ok_sel));
-  ifilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_cancel_sel));
+  ifilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_cancel_sel)); 
+
+  afilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::afile_ok_sel));
+  afilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::afile_cancel_sel));
   show_all();
   
   dasher_pane.clear();
@@ -237,6 +240,17 @@ void GtkDasherWindow::ifile_ok_sel()
 void GtkDasherWindow::ifile_cancel_sel()
 {
   ifilesel.hide();
+}
+
+void GtkDasherWindow::afile_ok_sel()
+{
+  afilesel.hide();
+  dasher_pane.append( afilesel.get_filename() );
+}
+
+void GtkDasherWindow::afile_cancel_sel()
+{
+  afilesel.hide();
 }
 
 void GtkDasherWindow::dfont_ok_sel()
@@ -387,7 +401,7 @@ void GtkDasherWindow::menu_button_cb(int c)
       save_as();
       break;
     case MENU_APPEND:
-      // Not yet implemented
+      afilesel.show();
       break;
     case MENU_IMPORT:
       ifilesel.show();
