@@ -267,6 +267,9 @@ void dasher_set_parameter_string( string_param p, const char *value )
     case STRING_ALPHABET:
       interface->ChangeAlphabet( s );
       break;
+    case STRING_COLOUR:
+      interface->ChangeColours( s);
+      break;
     case STRING_EDITFONT:
       interface->SetEditFont( s, 0 );
       break;
@@ -414,6 +417,24 @@ int dasher_get_alphabets( const char **alphabetlist, int s )
   while(( it != alist.end() ) && ( i < s ))
     {
       alphabetlist[i] = it->c_str();
+      ++i;
+      ++it;
+    }
+
+  return( i );
+}
+
+int dasher_get_colours( const char **colourlist, int s )
+{
+  vector< string > alist;
+  interface->GetColours( &alist );
+
+  int i(0);
+  vector<string>::iterator it( alist.begin() );
+
+  while(( it != alist.end() ) && ( i < s ))
+    {
+      colourlist[i] = it->c_str();
       ++i;
       ++it;
     }

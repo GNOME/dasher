@@ -44,6 +44,11 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_string( STRING_ALPHABET, NewAlphabetID ); 
     };
 
+  void ChangeColour(const string& NewColourID)
+    {
+      handle_parameter_string( STRING_COLOUR, NewColourID );
+    };
+
   void ChangeMaxBitRate(double NewMaxBitRate) 
     { 
       handle_parameter_double( DOUBLE_MAXBITRATE, NewMaxBitRate ); 

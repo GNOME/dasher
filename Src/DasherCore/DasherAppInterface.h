@@ -67,6 +67,9 @@ public:
 	//! Delete the alphabet with name AlphID
 	virtual void DeleteAlphabet(const std::string& AlphID)=0;
 
+	//! Get a vector containing a list of colour schemes available to Dasher
+	virtual void GetColours(std::vector< std::string >* AlphabetList)=0;
+
 	//! Add a control node of some description
 	virtual void AddControlTree(ControlTree *controltree)=0;
 };

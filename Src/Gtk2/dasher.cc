@@ -40,9 +40,10 @@ GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
 GtkFontSelectionDialog *dasher_fontselector;
-GtkTreeSelection *selection;
+GtkTreeSelection *alphselection, *colourselection;
 GtkWidget *preferences_window;
-GtkListStore *list_store;
+GtkListStore *alph_list_store;
+GtkListStore *colour_list_store;
 GladeXML *widgets;
 GtkWidget *filesel;
 
@@ -118,34 +119,80 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
   }
 }
 
+extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  gchar *colour;
+  GdkCursor *waitcursor, *arrowcursor;
+  GtkWidget *preferences_window = GTK_WIDGET(data);
+
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, 0, &colour, -1);
+
+    dasher_set_parameter_string( STRING_COLOUR, colour );
+    
+    force_dasher_redraw();
+
+    g_free(colour);
+  }
+}
+
 extern "C" void 
 generate_preferences(GtkWidget *widget, gpointer user_data) { 
-  int alphabet_count;
+  int alphabet_count,colour_count;
+
   const int alphabetlist_size = 128;
   const char *alphabetlist[ alphabetlist_size ];
-  GtkTreeIter iter;
-  GtkWidget *alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
-  list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  const int colourlist_size=128;
+  const char *colourlist[ colourlist_size ];
+  GtkTreeIter alphiter, colouriter;
 
-  gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(list_store));
-  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(selection),GTK_SELECTION_SINGLE);
+  GtkWidget *alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
+  alph_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
+  alphselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection),GTK_SELECTION_SINGLE);
   GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphab\et",gtk_cell_renderer_text_new(),"text",0,NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview),column);
 
   // Clear the contents of the alphabet list
-  gtk_list_store_clear( list_store );
+  gtk_list_store_clear( alph_list_store );
 
   // And repopulate it with an up to date list
   alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
   // Connect up a signal so we can select a new alphabet
-  g_signal_connect_after(G_OBJECT(selection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
+  g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
 
   for (int i=0; i<alphabet_count; ++i) {
-    gtk_list_store_append (list_store, &iter);
-    gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
+    gtk_list_store_append (alph_list_store, &alphiter);
+    gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
   }
+  
+  // Do the same for colours
+  GtkWidget *colourtreeview = glade_xml_get_widget(widgets,"ColourTree");  
+  colour_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
+  colourselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(colourtreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection),GTK_SELECTION_SINGLE);
+  column = gtk_tree_view_column_new_with_attributes ("Colour",gtk_cell_renderer_text_new(),"text",0,NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview),column);
+
+  // Clear the contents of the colour list
+  gtk_list_store_clear( colour_list_store );
+
+  // And repopulate it with an up to date list
+  colour_count = dasher_get_colours( colourlist, colourlist_size );
+
+  // Connect up a signal so we can select a new colour scheme
+  g_signal_connect_after(G_OBJECT(colourselection),"changed",GTK_SIGNAL_FUNC(colour_select),NULL);
+
+  for (int i=0; i<colour_count; ++i) {
+    gtk_list_store_append (colour_list_store, &colouriter);
+    gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
+  }
+
 }
 
 extern "C" void

@@ -665,6 +665,14 @@ void CDasherInterface::DeleteAlphabet(const std::string& AlphID)
 	m_AlphIO->Delete(AlphID);
 }
 
+void CDasherInterface::GetColours(std::vector< std::string >* ColourList)
+{
+	if (!m_ColourIO)
+		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation);	
+	m_ColourIO->GetColours(ColourList);
+}
+
+
 
 void CDasherInterface::ChangeEdit()
 {

@@ -106,8 +106,8 @@ public:
 	void SetInfo(const CAlphIO::AlphInfo& NewInfo);
 	void DeleteAlphabet(const std::string& AlphID);
 
+	void GetColours(std::vector< std::string >* ColourList);
 	void AddControlTree(ControlTree *controltree);
-	
 	// Settings Interface (options saved between sessions)
 	// -----------------------------------------------------
 	
