@@ -20,6 +20,7 @@
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
+#include <popt.h>
 
 static const struct poptOption options [] =
 {

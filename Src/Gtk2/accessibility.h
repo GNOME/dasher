@@ -11,7 +11,6 @@
 #include <cspi/spi.h>
 #include <libgnomeui/gnome-ui-init.h>
 #endif
-#include <popt.h>
 #include <vector>
 #include "DasherTypes.h"
 

@@ -1,4 +1,8 @@
-2004-02-08  Matthew Garrett  <mjg50@srcf.ucam.org>
+2004-02-09  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Don't include popt.h except when needed
+	
+2004-02-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* updated the documentation system 
 
