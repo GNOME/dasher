@@ -348,8 +348,8 @@
 		</Configuration>
 		<Configuration
 			Name="Accessible Unicode Debug|Win32"
-			OutputDirectory="Accessible Unicode Debug"
-			IntermediateDirectory="Accessible Unicode Debug"
+			OutputDirectory=".\Target\Accessible Unicode Debug"
+			IntermediateDirectory=".\Target\Accessible Unicode Debug\Intermediate"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"

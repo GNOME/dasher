@@ -34,6 +34,7 @@ ControlTree* WinMenus::ProcessWindows() {
 	RootNode->parent=NULL;
 	RootNode->children=NULL;
 	RootNode->next=NULL;
+	RootNode->pointer=NULL;
 	RootNode->data=0;
 	RootNode->text="Menus";
 	for (int i=0; i<AccessibleWindows.size(); i++) {
@@ -49,6 +50,24 @@ bool WinMenus::ProcessObject(IAccessible* AccessibleObject)
 	bool useful=false;
 	VARIANT ChildVariant;
 	IEnumVARIANT* ParentEnum = NULL;
+	VARIANT ObjectRole;
+	BSTR ObjectName;
+	VariantInit(&ObjectRole);
+	VariantInit(&ChildVariant);
+	ObjectRole.vt=ChildVariant.vt=VT_I4;
+	ChildVariant.lVal=CHILDID_SELF;
+
+	HRESULT hr=AccessibleObject->get_accName(ChildVariant,&ObjectName);
+	if (hr==S_OK) {
+		if (ObjectName!=NULL) {
+			_bstr_t bstrstring = ObjectName;
+			std::string StringChildName=bstrstring;
+
+//			if(strstr(StringChildName.c_str(),"Visual")) {
+//				return false;	
+//			}
+		}
+	}
 
 	AccessibleObject->QueryInterface(IID_IEnumVARIANT, (PVOID*) &ParentEnum);
 
@@ -57,6 +76,11 @@ bool WinMenus::ProcessObject(IAccessible* AccessibleObject)
 	}
 
 	AccessibleObject->get_accChildCount(&NumChildren);
+
+	AccessibleObject->get_accRole(ChildVariant,&ObjectRole);
+	if (ObjectRole.iVal==ROLE_SYSTEM_MENUITEM && NumChildren==0) {
+		useful=true;
+	}
 
 	for (int i=1; i<=NumChildren; i++) {
 		IDispatch* ChildDispatch=NULL;
@@ -99,11 +123,20 @@ bool WinMenus::ProcessObject(IAccessible* AccessibleObject)
 			ChildVariant.lVal=CHILDID_SELF;
 
 			BSTR ChildName;
-			ChildAccessible->get_accName(ChildVariant,&ChildName);
-			if(VarBstrCmp(ChildName,L"System",LOCALE_USER_DEFAULT,NORM_IGNORECASE)==1) {
-				ChildAccessible->Release();
-				continue;
+			HRESULT hr=ChildAccessible->get_accName(ChildVariant,&ChildName);
+			if (hr==S_OK) {
+				if (ChildName!=NULL) {
+					_bstr_t bstrstring = ChildName;
+					std::string StringChildName=bstrstring;
+					if(StringChildName=="System") {
+						ChildAccessible->Release();
+						continue;
+					}
+				}
 			}
+			VARIANT ChildRole;
+			VariantInit(&ChildRole);
+			ChildRole.vt=VT_I4;
 
 			if (useful!=true)
 				useful=ProcessObject(ChildAccessible);
@@ -123,21 +156,22 @@ void WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 
 	// Add our name
 	
-	VARIANT ChildVariant;
+	VARIANT ChildVariant,ObjectRole;
 	BSTR ChildName=NULL;
 	HRESULT hr;
 	ChildVariant.vt=VT_I4;
 	ChildVariant.iVal=CHILDID_SELF;
 	VariantInit(&ChildVariant);
+	VariantInit(&ObjectRole);
+	ObjectRole.vt=VT_I4;
+
 	hr=AccessibleObject->get_accName(ChildVariant,&ChildName);
-	if (hr==S_OK) {
+	if (hr==S_OK && ChildName!=NULL) {
 		_bstr_t bstrstring = ChildName;
 		ChildTree->text=bstrstring;
 	} else {
 		ChildTree->text="";
 	}
-
-	VariantClear(&ChildVariant);
 
 	if (ChildTree->text=="") {
 		return; // uninteresting
@@ -148,15 +182,17 @@ void WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 		TreeParent->children=ChildTree;
 	} else {
 		ControlTree* ParentNext;
-		ParentNext=TreeParent;
+		ParentNext=TreeParent->children;
 		while (ParentNext->next!=NULL) {
 			ParentNext=ParentNext->next;
 		}
 		ParentNext->next=ChildTree;
 	}
-	ChildTree->pointer=NULL;
-	ChildTree->data=0;
+
 	// Now do the same for our children
+
+	VariantClear(&ChildVariant);
+	VariantClear(&ObjectRole);
 
 	long NumChildren;
 	unsigned long NumFetched;
@@ -171,6 +207,15 @@ void WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 
 	AccessibleObject->get_accChildCount(&NumChildren);
 
+	AccessibleObject->get_accRole(ChildVariant,&ObjectRole);
+	if (ObjectRole.iVal==ROLE_SYSTEM_MENUITEM && NumChildren==0) {
+		ChildTree->pointer=AccessibleObject;
+		ChildTree->data=ChildVariant.lVal;
+	} else {
+		ChildTree->pointer=NULL;
+		ChildTree->data=0;
+	}
+	
 	for (int i=1; i<=NumChildren; i++) {
 		IDispatch* ChildDispatch=NULL;
 		IAccessible* ChildAccessible=NULL;
@@ -202,7 +247,7 @@ void WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 						ChildTree->children=MenuNode;
 					} else {
 						ControlTree* MenuNext;
-						MenuNext=ChildTree;
+						MenuNext=ChildTree->children;
 						while (MenuNext->next!=NULL) {
 							MenuNext=MenuNext->next;
 						}
@@ -212,14 +257,14 @@ void WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 					BSTR ChildName=NULL;
 					HRESULT hr;
 					hr=AccessibleObject->get_accName(ChildVariant,&ChildName);
-					if (hr==S_OK) {
+					if (hr==S_OK && ChildName!=NULL) {
 						_bstr_t bstrstring = ChildName;
 						MenuNode->text=bstrstring;
 					} else {
 						MenuNode->text="";
 					}
 					MenuNode->pointer=AccessibleObject;
-					MenuNode->data=i;
+					MenuNode->data=ChildVariant.lVal;
 				}
 				continue;
 			}
@@ -240,7 +285,7 @@ void WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 
 			BSTR ChildName;
 			ChildAccessible->get_accName(ChildVariant,&ChildName);
-			if(VarBstrCmp(ChildName,L"System",LOCALE_USER_DEFAULT,NORM_IGNORECASE)==1) {
+			if (ChildName==L"System") {
 				ChildAccessible->Release();
 				continue;
 			}		

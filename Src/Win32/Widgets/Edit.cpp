@@ -770,11 +770,13 @@ void CEdit::outputcontrol (void* pointer, int data)
 		return;
 	}
 	IAccessible* AccessibleObject=(IAccessible*)pointer;
+	BSTR AccessibleAction;
 	VARIANT AccessibleVariant;
 	HRESULT hr;
-	AccessibleVariant.vt=VT_I4;
-	AccessibleVariant.iVal=data;
 	VariantInit(&AccessibleVariant);
+	AccessibleVariant.vt=VT_I4;
+	AccessibleVariant.lVal=data;
+	hr=AccessibleObject->get_accDefaultAction(AccessibleVariant,&AccessibleAction);
 	hr=AccessibleObject->accDoDefaultAction(AccessibleVariant);
 	VariantClear(&AccessibleVariant);
 }

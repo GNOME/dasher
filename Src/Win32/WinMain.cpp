@@ -46,7 +46,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	CreateDirectory(AppData.c_str(), NULL);  // to do any harm if they already exist.
 	Tstring_to_UTF8string(UserData, &UserData2); // TODO: I don't know if special characters will work.
 	Tstring_to_UTF8string(AppData, &AppData2);   // ASCII-only filenames are safest. Being English doesn't help debug this...
-	
+
+	// Set up COM for the accessibility stuff
+	CoInitialize(NULL);
+
 	// Set up the registry
 	CWinOptions WinOptions("Inference_Group", "Dasher3"); // Settings storage using Windows Registry.
 
