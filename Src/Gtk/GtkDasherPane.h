@@ -13,6 +13,7 @@
 #include "DasherInterface.h"
 #include "SettingsStore.h"
 #include "DasherSettingsInterface.h"
+#include "GtkDasherAlphabetBox.h"
 
 #include <time.h>
 #include <string.h>
@@ -66,6 +67,9 @@ private:
   GtkDasherStore *store;
 
   Gtk::VPaned vp;
+
+  GtkDasherAlphabetBox abox;
+
 
   CDasherInterface *interface;
 

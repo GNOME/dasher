@@ -42,32 +42,18 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   SystemDataDir = "/etc/dasher/";
 
-  cout << "User configuration directory is " << UserDataDir << endl;
-  cout << "System configuration directory is " << SystemDataDir << endl;
-
   interface = new CDasherInterface;
-
-  cout << "setif is " << setif << endl;
-
-  //  interface->SetSettingsUI( setif );
-
-  cout << "foo" << endl;
 
   interface->SetSystemLocation(SystemDataDir);
   interface->SetUserLocation(UserDataDir);
   interface->SetSettingsStore( store );
 
-
   text = new GtkDasherEdit( interface );
   text->set_usize(128, 128);
-  //  text->thaw();
 
   slider = new GtkDasherSlider( interface );
   
   canvas = new GtkDasherCanvas( 360, 360, interface );
-
-  //  pack_start( *text, false, false );
-  // pack_start( *canvas, true, true );
 
   vp.pack1( *text, true, true );
   vp.pack2( *canvas, true, true );
@@ -82,56 +68,9 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   std::vector< std::string > alphabetlist;
   interface->GetAlphabets( &alphabetlist );  
 
+  abox.AddAlphabet( alphabetlist );
+
   interface->ChangeAlphabet( alphabetlist[0] );
-
- 
-   // Load in training data here
-
-  char training_file[ strlen( SystemDataDir) + 10 ];
-
-  sprintf( training_file, "%strain.txt", SystemDataDir );
-
-  //  ifstream t( "/etc/dasher/train.txt" );
-
-
-  // Here
-//   ifstream t( training_file );
-
-//   if( !t.bad() )
-//     {
-//       cout << "Training ... " << flush;
-
-//       char b[256];
-      
-//       while( !t.eof() )
-//       {
-//       int i(0);
-
-//       while( (i < 255) && ( !t.eof() ) )
-// 	{
-// 	  t.read( &b[i], 1 );
-// 	  ++i;
-// 	}
-
-//       b[i] = 0;
-
-//       string s( b );
-
-//       if( !t.eof() )
-// 	interface->Train( &s, true );
-//       else
-// 	interface->Train( &s, false );
-//     }
-
-//       cout << "done." << endl;
-//     }
-
-// To here
-
-  interface->TrainFile(string(training_file));
-
-  // interface->Redraw();
-  //  interface->Start();
 
   interface->ChangeEdit( text );
   interface->ChangeScreen( canvas->get_wrapper() );

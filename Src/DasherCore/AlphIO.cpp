@@ -73,6 +73,9 @@ void CAlphIO::ParseFile(std::string Filename)
 	do {
 		size_t len = fread(Buffer, 1, sizeof(Buffer), Input);
 		Done = len < sizeof(Buffer);
+
+		cout << Buffer << " " << len << " " << Done << endl;
+
 		if (XML_Parse(Parser, Buffer, len, Done) == XML_STATUS_ERROR) {
 			break;
 		}
