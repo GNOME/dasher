@@ -22,37 +22,47 @@ GtkDasherStore::~GtkDasherStore()
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, bool* Value)
 {
-  *Value = bmap[Key];
-
-  if( *Value == bool() )
-    return( false );
+  if( bmap.count( Key ) != 0 )
+    {
+      *Value = bmap[Key];
+      return( true );
+    }
   else
-    return( true );
+    {
+      return( false );
+    }
 }
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, long* Value)
 {
-  *Value = lmap[Key];
-
-  if( *Value == long() )
-    return( false );
+  if( lmap.count( Key ) != 0 )
+    {
+      *Value = lmap[Key];
+      return( true );
+    }
   else
-    return( true );
+    {
+      return( false );
+    }
 }
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 {
-  *Value = smap[Key];
-
-  if( *Value == std::string() )
-    return( false );
+  if( smap.count( Key ) != 0 )
+    {
+      *Value = smap[Key];
+      return( true );
+    }
   else
-    return( true );
+    {
+      return( false );
+    }
+
 }
 	
 void GtkDasherStore::SaveSetting(const std::string& Key, bool Value)
 {
-  if( bmap[Key] != Value )
+  if( (bmap.count( Key ) == 0 ) || (bmap[Key] != Value ))
     {
       bmap[Key] = Value;
       write_to_file();
@@ -61,7 +71,7 @@ void GtkDasherStore::SaveSetting(const std::string& Key, bool Value)
 
 void GtkDasherStore::SaveSetting(const std::string& Key, long Value)
 {
-  if( lmap[Key] != Value )
+  if( (lmap.count( Key ) == 0 ) || (lmap[Key] != Value ))
     {
       lmap[Key] = Value;
       write_to_file();
@@ -70,7 +80,7 @@ void GtkDasherStore::SaveSetting(const std::string& Key, long Value)
 
 void GtkDasherStore::SaveSetting(const std::string& Key, const std::string& Value)
 {
-  if( smap[Key] != Value )
+  if( (smap.count( Key ) == 0 ) || (smap[Key] != Value ))
     {
       smap[Key] = Value;
       write_to_file();
@@ -213,16 +223,3 @@ void GtkDasherStore::create_rcdir()
   delete( UserDataDir );
   delete( HomeDir );
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
