@@ -39,11 +39,21 @@ class Dasher::CDasherInterface : private NoClones,
 public:
 	CDasherInterface();
 	~CDasherInterface();
-	
+
+	//! Tell the core which CSettingsStore should be used
 	void SetSettingsStore(CSettingsStore* SettingsStore);
+
+	//! Tell the core which CDasherSettingsInterface should be used
+	//
+	//! Provide a pointer to an instance of CDasherSettingsInterface in 
+	//! order to allow for platform dependent configuration of certain 
+	//! options
 	void SetSettingsUI(CDasherSettingsInterface* SettingsUI);
 	
+	//! Set the path for user specific configuration and files
 	void SetUserLocation(std::string UserLocation);
+
+	//! Set the path for system-wide configuration and files
 	void SetSystemLocation(std::string SystemLocation);
 	
 	// Widget Interface

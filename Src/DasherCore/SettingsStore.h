@@ -30,7 +30,7 @@ public:
 	bool GetBoolOption(const std::string& Key);
 	long GetLongOption(const std::string& Key);
 	std::string& GetStringOption(const std::string& Key);
-	
+
 	void SetBoolOption(const std::string& Key, bool Value);
 	void SetLongOption(const std::string& Key, long Value);
 	void SetStringOption(const std::string& Key, const std::string& Value);
@@ -43,12 +43,43 @@ private:
 
 	// LoadSetting changes Value only if it succeeds in loading the setting,
 	// in which case it also returns true. Failure is indicated by returning false.
+        //! Load a setting with a boolean value
+        //
+        //! Load a setting with a boolean value. Return true if successful
+        //! \param Key Name of the setting
+	//! \param Value Value of the setting
 	virtual bool LoadSetting(const std::string& Key, bool* Value);
+
+        //! Load a setting with a long value
+        //
+        //! Load a setting with a long value. Return true if successful
+        //! \param Key Name of the setting
+	//! \param Value Value of the setting
 	virtual bool LoadSetting(const std::string& Key, long* Value);
+
+        //! Load a setting with a string value
+        //
+        //! Load a setting with a string value. Return true if successful
+        //! \param Key Name of the setting
+	//! \param Value Value of the setting, UTF8 encoded
 	virtual bool LoadSetting(const std::string& Key, std::string* Value);
 	
+	//! Save a setting with a boolean value
+	//
+	//! \param Key Name of the setting
+	//! \param Value Value of the setting
 	virtual void SaveSetting(const std::string& Key, bool Value);
+
+	//! Save a setting with a long value
+	//
+	//! \param Key Name of the setting
+	//! \param Value Value of the setting
 	virtual void SaveSetting(const std::string& Key, long Value);
+
+	//! Save a setting with a string value
+	//
+	//! \param Key Name of the setting
+	//! \param Value Value of the setting, UTF8 encoded
 	virtual void SaveSetting(const std::string& Key, const std::string& Value);
 	
 	// Used to store settings in memory
