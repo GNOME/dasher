@@ -7,7 +7,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-
 #include "AlphIO.h"
 
 using namespace Dasher;
@@ -237,8 +236,10 @@ void CAlphIO::CreateDefault()
 	Default.Orientation = Opts::LeftToRight;
 	Default.SpaceCharacter.Display = "_";
 	Default.SpaceCharacter.Text = " ";
+	Default.SpaceCharacter.Colour = "9";
 	Default.ControlCharacter.Display = "Control";
 	Default.ControlCharacter.Text = "";
+	Default.ControlCharacter.Colour = "9";
 	Default.TrainingFile = "training_english_GB.txt";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);
@@ -248,6 +249,9 @@ void CAlphIO::CreateDefault()
 	for (unsigned int i=0; i<Chars.size(); i++) {
 		Default.Groups[0].Characters[i].Text = Chars[i];
 		Default.Groups[0].Characters[i].Display = Chars[i];
+		char dummy[10];
+		snprintf(dummy,10,"%d",i+10);
+		Default.Groups[0].Characters[i].Colour = dummy;
 	}
 }
 
