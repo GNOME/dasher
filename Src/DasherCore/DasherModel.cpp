@@ -32,12 +32,25 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel,
 CDasherModel::~CDasherModel()
 {
 	m_languagemodel->ReleaseNodeContext(LearnContext);
-	while (oldroots.size()>0) {
+
+	// This is yukky
+
+	while (oldroots.size()>1) {
 	  oldroots[0]->Delete_dead(oldroots[1]);
 	  delete oldroots[0];
 	  oldroots.pop_front();
 	}
+
+	// even more yukky
+	if (oldroots.size()==1)
+	{
+		 oldroots[0]->Delete_dead(m_Root);
+		delete oldroots[0];
+		oldroots.clear();
+	}
+
 	delete m_Root;  // which will also delete all the whole structure
+
 }
 
 
