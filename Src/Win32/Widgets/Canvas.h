@@ -78,6 +78,7 @@ private:
 	bool speakonstop;
 	bool oned;
 	DWORD mousepostime;
+	DWORD previoustime;
 	RECT coords;
 	ThreadParams *tp;
 };

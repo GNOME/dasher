@@ -51,6 +51,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	}
 	yscaling=0;
 	running = 0;
+	previoustime=GetTickCount();
 }
 
 
@@ -242,8 +243,10 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 				imousey*=scalefactor;
 				imousey+=m_pScreen->GetHeight()/2;
 			}
-
-			m_DasherWidgetInterface->DrawMousePos(imousex,imousey);
+			if ((GetTickCount()-previoustime)>200) {
+				m_DasherWidgetInterface->DrawMousePos(imousex,imousey);
+				previoustime=GetTickCount();
+			}
 
 			return 0;
 		}
