@@ -298,11 +298,11 @@ SOURCE=.\LanguageModel.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\ppmModel.cpp
+SOURCE=.\PPMLanguageModel.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\ppmModel.h
+SOURCE=.\PPMLanguageModel.h
 # End Source File
 # Begin Source File
 

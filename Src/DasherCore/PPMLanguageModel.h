@@ -1,4 +1,4 @@
-// PPMModel.h
+// PPMLanguageModel.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -6,8 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#ifndef __ppmModel_h__
-#define __ppmModel_h__
+#ifndef __PPMLanguageModel_h__
+#define __PPMLanguageModel_h__
 
 #include "../Common/NoClones.h"
 #include "../Common/MSVC_Unannoy.h"
@@ -20,12 +20,12 @@ static char dumpTrieStr[40000];
 const int MAX_ORDER = 4;
 const int maxcont =200;
 
-namespace Dasher {class CPPMModel;}
-class Dasher::CPPMModel : public Dasher::CLanguageModel, private NoClones
+namespace Dasher {class CPPMLanguageModel;}
+class Dasher::CPPMLanguageModel : public Dasher::CLanguageModel, private NoClones
 {
 public:
-	CPPMModel(CAlphabet *_alphabet, int _normalization);
-	~CPPMModel();
+	CPPMLanguageModel(CAlphabet *_alphabet, int _normalization);
+	~CPPMLanguageModel();
 	
 	class CPPMnode {
 	public:
@@ -69,4 +69,4 @@ private:
 };
 
 
-#endif /* #ifndef __PPMMODEL_H__ */
+#endif /* #ifndef __PPMLanguageModel_H__ */

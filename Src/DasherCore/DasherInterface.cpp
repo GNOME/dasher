@@ -13,7 +13,7 @@
 #include "EnglishAlphabet.h"
 #include "CustomAlphabet.h"
 #include "DasherViewSquare.h"
-#include "ppmModel.h"
+#include "PPMLanguageModel.h"
 namespace {
 	#include "stdio.h"
 }
@@ -199,7 +199,7 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 		m_DasherModel = 0;
 		delete m_LanguageModel;
 		// TODO Use LanguageModelID to decide which model to use
-		m_LanguageModel = new CPPMModel(m_Alphabet,1<<10);
+		m_LanguageModel = new CPPMLanguageModel(m_Alphabet,1<<10);
 		TrainContext = m_LanguageModel->GetRootNodeContext();
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);

@@ -1,4 +1,4 @@
-// PPMModel.h
+// PPMLanguageModel.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include <math.h>
-#include "PPMModel.h"
+#include "PPMLanguageModel.h"
 
 using namespace Dasher;
 using namespace std;
@@ -19,14 +19,14 @@ typedef unsigned long ulong;
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMModel::CPPMnode::CPPMnode(int sym) : symbol(sym)
+CPPMLanguageModel::CPPMnode::CPPMnode(int sym) : symbol(sym)
 {
 	child=next=vine=0;
 	count=1;
 }
 
 
-CPPMModel::CPPMnode *CPPMModel::CPPMnode::find_symbol(int sym)
+CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym)
 // see if symbol is a child of node
 {
 	//  printf("finding symbol %d at node %d\n",sym,node->id);
@@ -40,7 +40,7 @@ CPPMModel::CPPMnode *CPPMModel::CPPMnode::find_symbol(int sym)
 }
 
 
-CPPMModel::CPPMnode * CPPMModel::CPPMnode::add_symbol_to_node(int sym,int *update)
+CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::add_symbol_to_node(int sym,int *update)
 {
 	CPPMnode *born,*search;
 	search=find_symbol(sym);
@@ -66,7 +66,7 @@ CPPMModel::CPPMnode * CPPMModel::CPPMnode::add_symbol_to_node(int sym,int *updat
 // CPPMContext definitions
 ///////////////////////////////////////////////////////////////////
 
-void CPPMModel::CPPMContext::dump() 
+void CPPMLanguageModel::CPPMContext::dump() 
 	// diagnostic output
 {
 	// TODO uncomment this when headers sorted out
@@ -77,10 +77,10 @@ void CPPMModel::CPPMContext::dump()
 
 
 /////////////////////////////////////////////////////////////////////
-// CPPMModel defs
+// CPPMLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CPPMModel::CPPMModel(CAlphabet *_alphabet,int _normalization)
+CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet,int _normalization)
 	: CLanguageModel(_alphabet,_normalization)
 {
 	root=new CPPMnode(-1);
@@ -88,35 +88,35 @@ CPPMModel::CPPMModel(CAlphabet *_alphabet,int _normalization)
 }
 
 
-CPPMModel::~CPPMModel()
+CPPMLanguageModel::~CPPMLanguageModel()
 {
 	delete root;
 }
 
 
-CContext* CPPMModel::GetRootContext()
+CContext* CPPMLanguageModel::GetRootContext()
 {
-	CPPMContext * nc = new CPPMModel::CPPMContext(*m_rootcontext);
+	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*m_rootcontext);
 	CContext *cont=static_cast<CContext *> (nc);
 	return  cont;
 }
 
 
-CContext* CPPMModel::CloneContext(CContext *copythis)
+CContext* CPPMLanguageModel::CloneContext(CContext *copythis)
 {
 	CPPMContext *ppmcontext=static_cast<CPPMContext *> (copythis);
-	CPPMContext * nc = new CPPMModel::CPPMContext(*ppmcontext);
+	CPPMContext * nc = new CPPMLanguageModel::CPPMContext(*ppmcontext);
 	return  static_cast<CContext *> (nc);
 }
 
 
-void CPPMModel::ReleaseContext(CContext *release)
+void CPPMLanguageModel::ReleaseContext(CContext *release)
 {
 	delete release;
 }
 
 
-bool CPPMModel::GetProbs(CContext *context,vector<unsigned int> &probs,double addprob)
+bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,double addprob)
 	// get the probability distribution at the context
 {
 	// seems like we have to have this hack for VC++
@@ -200,7 +200,7 @@ bool CPPMModel::GetProbs(CContext *context,vector<unsigned int> &probs,double ad
 }
 
 
-void CPPMModel::AddSymbol(CPPMModel::CPPMContext &context,int symbol)
+void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int symbol)
 	// add symbol to the context
 	// creates new nodes, updates counts
 	// and leaves 'context' at the new context
@@ -231,9 +231,9 @@ void CPPMModel::AddSymbol(CPPMModel::CPPMContext &context,int symbol)
 
 
 // update context with symbol 'Symbol'
-void CPPMModel::EnterSymbol(CContext* Context, modelchar Symbol)
+void CPPMLanguageModel::EnterSymbol(CContext* Context, modelchar Symbol)
 {
-	CPPMModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
+	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	
 	CPPMnode *find;
 	CPPMnode *temp=context.head;
@@ -259,14 +259,14 @@ void CPPMModel::EnterSymbol(CContext* Context, modelchar Symbol)
 }
 
 
-void CPPMModel::LearnSymbol(CContext* Context, modelchar Symbol)
+void CPPMLanguageModel::LearnSymbol(CContext* Context, modelchar Symbol)
 {
-	CPPMModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
+	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	AddSymbol(context, Symbol);
 }
 
 
-void CPPMModel::dumpSymbol(int symbol)
+void CPPMLanguageModel::dumpSymbol(int symbol)
 {
 	if ((symbol <= 32) || (symbol >= 127))
 		printf( "<%d>", symbol );
@@ -275,7 +275,7 @@ void CPPMModel::dumpSymbol(int symbol)
 }
 
 
-void CPPMModel::dumpString( char *str, int pos, int len )
+void CPPMLanguageModel::dumpString( char *str, int pos, int len )
 	// Dump the string STR starting at position POS
 {
 	char cc;
@@ -290,7 +290,7 @@ void CPPMModel::dumpString( char *str, int pos, int len )
 }
 
 
-void CPPMModel::dumpTrie( CPPMModel::CPPMnode *t, int d )
+void CPPMLanguageModel::dumpTrie( CPPMLanguageModel::CPPMnode *t, int d )
 	// diagnostic display of the PPM trie from node t and deeper
 {
 //TODO
@@ -327,7 +327,7 @@ void CPPMModel::dumpTrie( CPPMModel::CPPMnode *t, int d )
 }
 
 
-void CPPMModel::dump()
+void CPPMLanguageModel::dump()
 	// diagnostic display of the whole PPM trie
 {
 // TODO:
