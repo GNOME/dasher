@@ -273,5 +273,5 @@ void CDasherNode::Delete_dead(CDasherNode* alive)
 		}
 		delete [] m_Children;
 	}
-	m_Children=0;
+  m_Children=0;
 }

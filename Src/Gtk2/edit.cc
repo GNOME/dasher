@@ -285,6 +285,9 @@ void edit_delete_callback()
 #endif
   }
   outputcharacters--;
+
+  delete start;
+  delete end;
 }
 
 void edit_delete_forward_character()
@@ -450,6 +453,9 @@ void get_new_context_callback( std::string &str, int max )
   gtk_text_iter_backward_chars(start, max);
 
   str = std::string( gtk_text_buffer_get_text( the_text_buffer, start, end, FALSE ) );
+
+  delete start;
+  delete end;  
 }
 
 #ifdef GNOME_SPEECH

@@ -157,6 +157,14 @@ void CDasherModel::Start()
 		oldroots.clear();
 	}
 
+	if (m_Root) {
+	  delete m_Root;
+	}
+
+	//	if (LearnContext) {
+	//	  delete LearnContext;
+	//	}
+
 	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
 

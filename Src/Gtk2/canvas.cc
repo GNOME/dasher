@@ -18,8 +18,8 @@ gboolean drawoutline=FALSE;
 
 void rebuild_buffer()
 {
-  delete(offscreen_buffer);
-  delete(onscreen_buffer);
+  g_free(offscreen_buffer);
+  g_free(onscreen_buffer);
 
   offscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
   onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
