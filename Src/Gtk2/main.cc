@@ -15,7 +15,8 @@
 #include "Gtk2DasherPane.h"
 #include "Gtk2DasherEdit.h"
 #include "Gtk2DoubleBuffer.h"
-//#include "Gtk2DasherStore.h"
+#include "DasherSettingsInterface.h"
+#include "Gtk2DasherStore.h"
 
 
 GtkWidget *vbox, *toolbar;
@@ -44,6 +45,8 @@ void clipboard_cut(void);
 void clipboard_paste(void);
 void load_training_file_from_filesel ();
 static void orientation(gpointer data, guint action, GtkWidget  *widget );
+static void show_toolbar(gpointer data, guint action, GtkWidget  *widget );
+static void show_slider(gpointer data, guint action, GtkWidget  *widget );
 
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
@@ -78,8 +81,8 @@ static GtkItemFactoryEntry entries[] = {
   { "/View/Orientation/Top to Bottom", NULL, *GtkItemFactoryCallback(orientation), 5, "/View/Orientation/Alphabet Default" },
   { "/View/Orientation/Bottom to Top", NULL, *GtkItemFactoryCallback(orientation), 6, "/View/Orientation/Alphabet Default" },
   { "/View/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/View/Show Toolbar", NULL, NULL, 0, "<CheckItem>" },
-  { "/View/Speed Slider", NULL, NULL, 0, "<CheckItem>" },
+  { "/View/Show Toolbar", NULL, *GtkItemFactoryCallback(show_toolbar), 1, "<CheckItem>" },
+  { "/View/Speed Slider", NULL, *GtkItemFactoryCallback(show_slider), 1, "<CheckItem>" },
   { "/View/sepl", NULL, NULL, 0, "<Separator>" },
   { "/View/Fix Layout", NULL, NULL, 0, "<CheckItem>" },
   { "/Options", NULL, NULL, 0, "<Branch>" },
@@ -574,152 +577,190 @@ static void speed_changed(GtkAdjustment *adj, Gtk2DasherCanvas *dasher_canvas) {
   dasher_canvas->interface->ChangeMaxBitRate(adj->value);
 }
 
-static void
-open_window (void)
+class GtkDasherUI : Dasher::CDasherSettingsInterface
 {
-  //GdkPixmap *pmap;
-  //GdkBitmap *bmap;
-  char *system_data_dir;
-  char *home_dir;
-  char *user_data_dir;
+public:
+  
+  GtkDasherUI(Dasher::CDasherInterface *interface) {
 
-  dasher_accel = gtk_accel_group_new();
+    char *system_data_dir;
+    char *home_dir;
+    char *user_data_dir;
 
-  dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
-				     "<DasherMenu>",
-				     dasher_accel);
+    GtkDasherStore *store = new GtkDasherStore;
+    interface->SetSettingsStore( store );
+    interface->SetSettingsUI( this );
+    
+    dasher_accel = gtk_accel_group_new();
+    
+    dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
+				       "<DasherMenu>",
+				       dasher_accel);
+    
+    gtk_item_factory_create_items( dasher_menu,
+				   54,
+				   entries,
+				   NULL );
+    
+    float initial_bitrate = 3.0;
+    
+    dasher_canvas = new Gtk2DasherCanvas (360, 360, interface);
+    dasher_text_view = new Gtk2DasherEdit (interface);
+    dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
+    
+    ofilesel = gtk_file_selection_new("Open a file");
+    afilesel = gtk_file_selection_new("Append to file");
+    ifilesel = gtk_file_selection_new("Import Training Text");
+    
+    home_dir = getenv( "HOME" );
+    user_data_dir = new char[ strlen( home_dir ) + 10 ];
+    sprintf( user_data_dir, "%s/.dasher/", home_dir );
+    
+    // CHANGE THIS!
+    //system_data_dir = "/etc/dasher/";
+    system_data_dir = user_data_dir;
+    
+    interface->SetSystemLocation(system_data_dir);
+    interface->SetSystemLocation(user_data_dir);
+    
+    vbox = gtk_vbox_new (FALSE, 2);
+    
+    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+    gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
+    gtk_window_set_policy (GTK_WINDOW(window), FALSE, FALSE, FALSE);
+    
+    gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
+    dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
+    
+    toolbar = gtk_toolbar_new ();
+    gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
+    gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+    
+    gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), dasher_text_view);
+    
+    gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
+    
+    text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
+    gtk_box_pack_start (GTK_BOX (vbox), text_scrolled_window, FALSE, FALSE, 0);
+    
+    gtk_container_add (GTK_CONTAINER (text_scrolled_window), dasher_text_view->text_view);
+    
+    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (dasher_canvas->canvas), GTK_CAN_FOCUS);
+    gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(dasher_canvas->canvas));
+    
+    gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "expose_event", GTK_SIGNAL_FUNC (canvas_expose_event), (gpointer) dasher_canvas);
+    
+    gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) dasher_canvas);
+    
+    gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) dasher_pane);
+    
+    //gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
+    
+    gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
+    
+    gtk_signal_connect(GTK_OBJECT (dasher_text_view->text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) dasher_text_view);
+    
+    gtk_signal_connect(GTK_OBJECT (dasher_text_view->text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) dasher_text_view);
+    
+    gtk_widget_set_events(dasher_text_view->text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
 
-  gtk_item_factory_create_items( dasher_menu,
-				      54,
-				      entries,
-				      NULL );
+    canvas_frame = gtk_frame_new (NULL);
+    gtk_box_pack_start (GTK_BOX (vbox), canvas_frame, TRUE, TRUE, 0);
+    gtk_container_add (GTK_CONTAINER (canvas_frame), dasher_canvas->canvas);
+    
+    speed_frame = gtk_frame_new ("Speed");
+    speed_slider = gtk_adjustment_new(initial_bitrate, 1.0, 8.0, 1.0, 1.0, 0.0);
+    speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
+    gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
+    
+    gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), dasher_canvas);
+    
+    gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
+    gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
+    
+    gtk_container_add (GTK_CONTAINER (window), vbox);
+    gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+    
+    gtk_widget_realize (window);
+    gtk_widget_realize (vbox);
+    gtk_widget_realize (text_scrolled_window);
+    gtk_widget_realize (dasher_text_view->text_view);
+    gtk_widget_realize (toolbar);
+    gtk_widget_realize (canvas_frame);
+    gtk_widget_realize (dasher_canvas->canvas);
+    gtk_widget_realize (speed_frame);
+    gtk_widget_realize (speed_hscale);
+    gtk_widget_realize (dasher_menu_bar);
+    
+    gtk_widget_show (window);
+    gtk_widget_show (vbox);
+    gtk_widget_show (text_scrolled_window);
+    gtk_widget_show (dasher_text_view->text_view);
+    gtk_widget_show (toolbar);
+    gtk_widget_show (canvas_frame);
+    gtk_widget_show (dasher_canvas->canvas);
+    gtk_widget_show (speed_frame);
+    gtk_widget_show (speed_hscale);
+    gtk_widget_show (dasher_menu_bar);
+    
+    interface->ChangeLanguageModel(0);
+    interface->ChangeView(0);
+    
+    std::vector< std::string > alphabetlist;
+    interface->GetAlphabets( &alphabetlist );  
+    
+    interface->ChangeAlphabet( alphabetlist[0] );
+    
+    // load trainig data file -- CHANGE THIS!
+    char training_file[ strlen(system_data_dir) + 10 ];
+    
+    sprintf( training_file, "%strain.txt", system_data_dir );
+    interface->TrainFile(std::string(training_file));
+    
+    interface->ChangeEdit(dasher_text_view);
+    interface->ChangeScreen(dasher_canvas->wrapper);
+    interface->ChangeMaxBitRate(initial_bitrate);
+    
+    interface->Start();
+    
+    gtk_timeout_add(5, timer_callback, dasher_canvas);  
+    
+    setup = TRUE;
 
-  float initial_bitrate = 3.0;
+    load_training_file ("/usr/share/dasher/training_english_GB.txt", interface);
 
-  interface = new CDasherInterface;
+  };
 
-  dasher_canvas = new Gtk2DasherCanvas (360, 360, interface);
-  dasher_text_view = new Gtk2DasherEdit (interface);
-  dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
+  void GtkDasherUI::ShowToolbar(bool Value) {
+    if (toolbar==NULL) 
+      return;
 
-  ofilesel = gtk_file_selection_new("Open a file");
-  afilesel = gtk_file_selection_new("Append to file");
-  ifilesel = gtk_file_selection_new("Import Training Text");
+    if (Value==TRUE) {
+      gtk_widget_show(toolbar);
+    } else {
+      gtk_widget_hide(toolbar);
+    }
+  };
 
-  home_dir = getenv( "HOME" );
-  user_data_dir = new char[ strlen( home_dir ) + 10 ];
-  sprintf( user_data_dir, "%s/.dasher/", home_dir );
+  void GtkDasherUI::ShowSpeedSlider(bool Value) {
+    if (speed_frame==NULL) 
+      return;
 
+    if (Value==TRUE) {
+      gtk_widget_show(speed_frame);
+    } else {
+      gtk_widget_hide(speed_frame);
+    }
+  };
 
-  // CHANGE THIS!
-  //system_data_dir = "/etc/dasher/";
-  system_data_dir = user_data_dir;
+};
 
-  vbox = gtk_vbox_new (FALSE, 2);
-
-  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
-  gtk_window_set_policy (GTK_WINDOW(window), FALSE, FALSE, FALSE);
-
-  gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
-  dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
-
-  toolbar = gtk_toolbar_new ();
-  gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
-  gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-
-  gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), dasher_text_view);
-
-  gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
-
-  text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-  gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX (vbox), text_scrolled_window, FALSE, FALSE, 0);
-
-  gtk_container_add (GTK_CONTAINER (text_scrolled_window), dasher_text_view->text_view);
-
-  GTK_WIDGET_SET_FLAGS (GTK_WIDGET (dasher_canvas->canvas), GTK_CAN_FOCUS);
-  gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(dasher_canvas->canvas));
-
-  gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "expose_event", GTK_SIGNAL_FUNC (canvas_expose_event), (gpointer) dasher_canvas);
-
-  gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) dasher_canvas);
-
-  gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) dasher_pane);
-
-  //gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
-
-  gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
-
-  gtk_signal_connect(GTK_OBJECT (dasher_text_view->text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) dasher_text_view);
-
-  gtk_signal_connect(GTK_OBJECT (dasher_text_view->text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) dasher_text_view);
-
-  gtk_widget_set_events(dasher_text_view->text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
-
-  canvas_frame = gtk_frame_new (NULL);
-  gtk_box_pack_start (GTK_BOX (vbox), canvas_frame, TRUE, TRUE, 0);
-  gtk_container_add (GTK_CONTAINER (canvas_frame), dasher_canvas->canvas);
-
-  speed_frame = gtk_frame_new ("Speed");
-  speed_slider = gtk_adjustment_new(initial_bitrate, 1.0, 8.0, 1.0, 1.0, 0.0);
-  speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
-  gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
-
-  gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), dasher_canvas);
-
-  gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
-
-  gtk_container_add (GTK_CONTAINER (window), vbox);
-  gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
-
-  gtk_widget_realize (window);
-  gtk_widget_realize (vbox);
-  gtk_widget_realize (text_scrolled_window);
-  gtk_widget_realize (dasher_text_view->text_view);
-  gtk_widget_realize (toolbar);
-  gtk_widget_realize (canvas_frame);
-  gtk_widget_realize (dasher_canvas->canvas);
-  gtk_widget_realize (speed_frame);
-  gtk_widget_realize (speed_hscale);
-  gtk_widget_realize (dasher_menu_bar);
-
-  gtk_widget_show (window);
-  gtk_widget_show (vbox);
-  gtk_widget_show (text_scrolled_window);
-  gtk_widget_show (dasher_text_view->text_view);
-  gtk_widget_show (toolbar);
-  gtk_widget_show (canvas_frame);
-  gtk_widget_show (dasher_canvas->canvas);
-  gtk_widget_show (speed_frame);
-  gtk_widget_show (speed_hscale);
-  gtk_widget_show (dasher_menu_bar);
-
-  interface->ChangeLanguageModel(0);
-  interface->ChangeView(0);
-
-  std::vector< std::string > alphabetlist;
-  interface->GetAlphabets( &alphabetlist );  
-
-  interface->ChangeAlphabet( alphabetlist[0] );
-
-  // load trainig data file -- CHANGE THIS!
-  char training_file[ strlen(system_data_dir) + 10 ];
-
-  sprintf( training_file, "%strain.txt", system_data_dir );
-  interface->TrainFile(std::string(training_file));
-
-  interface->ChangeEdit(dasher_text_view);
-  interface->ChangeScreen(dasher_canvas->wrapper);
-  interface->ChangeMaxBitRate(initial_bitrate);
- 
-  interface->Start();
-
-  gtk_timeout_add(5, timer_callback, dasher_canvas);  
-
-  setup = TRUE;
+static void
+open_window() {
+     interface = new CDasherInterface;    
+     GtkDasherUI *dasherui = new GtkDasherUI(interface);
 }
 
 int
@@ -756,3 +797,24 @@ void orientation(gpointer data, guint action, GtkWidget  *widget )
   signed int RealAction=action-3;
   interface->ChangeOrientation(Dasher::Opts::ScreenOrientations(RealAction));
 }
+
+void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
+{
+
+  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+    interface->ShowToolbar( TRUE );
+  } else {
+    interface->ShowToolbar( FALSE );
+  }
+
+}
+
+void show_slider(gpointer data, guint action, GtkWidget  *widget )
+{
+  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+    interface->ShowSpeedSlider( TRUE );
+  } else {
+    interface->ShowSpeedSlider( FALSE );
+  }
+}
+

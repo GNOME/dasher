@@ -3,6 +3,7 @@
 
 #include "Gtk2DasherCanvas.h"
 #include "Gtk2DasherEdit.h"
+#include "DasherSettingsInterface.h"
 
 class Gtk2DasherPane
 {
