@@ -1,8 +1,13 @@
 #include "edit.h"
+#include "dasher.h"
+
+extern int paused;
 
 #ifdef GNOME_A11Y
 #include "accessibility.h"
 #endif
+
+#include <gdk/gdkx.h>
 
 #ifdef GNOME_SPEECH
 #include "speech.h"
@@ -92,14 +97,109 @@ void write_to_file()
 void edit_outputcontrol_callback(void* pointer, int data)
 {
 #ifdef GNOME_A11Y
-  if (pointer!=NULL) {
-    if (data==1) {
+  switch(data) {
+  case 1:
+    if (pointer!=NULL) {
       Accessible *myfoo;
       myfoo=(Accessible *)pointer;
       AccessibleAction_doAction(Accessible_getAction(myfoo),0);
+      break;
     }
+  case 2:
+    // stop
+    stop();
+    break;
+  case 3:
+    //	pause
+    paused=true;
+    break;
+  case 4:
+    speak();
+    break;
+  case 11:
+    // move left
+    edit_move_back();
+    break;
+  case 12:
+    // move right
+    edit_move_forward();
+    break;
+  case 13:
+    edit_move_start();
+    break;
+  case 14:
+    edit_move_end();
+    break;
+  case 21:
+    edit_delete_forward_character();
+    break;
+  case 22:
+    edit_delete_forward_word();
+    break;
+  case 23:
+    edit_delete_forward_line();
+    break;
+  case 24:
+    edit_delete_callback();
+    break;
+  case 25:
+    edit_delete_backward_word();
+    break;
+  case 26:
+    edit_delete_backward_line();
+    break;
   }
 #endif
+}
+
+void edit_move_forward()
+{
+  GtkTextIter *pos = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,pos,gtk_text_buffer_get_insert(the_text_buffer));
+
+  gtk_text_iter_forward_cursor_position(pos);
+
+  gtk_text_buffer_place_cursor(the_text_buffer,pos);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_move_back()
+{
+  GtkTextIter *pos = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,pos,gtk_text_buffer_get_insert(the_text_buffer));
+
+  gtk_text_iter_backward_cursor_position(pos);
+
+  gtk_text_buffer_place_cursor(the_text_buffer,pos);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_move_start()
+{
+  GtkTextIter *pos = new GtkTextIter;
+
+  gtk_text_buffer_get_start_iter(the_text_buffer,pos);
+
+  gtk_text_buffer_place_cursor(the_text_buffer,pos);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_move_end()
+{
+  GtkTextIter *pos = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,pos,gtk_text_buffer_get_insert(the_text_buffer));
+
+  gtk_text_iter_forward_to_end(pos);
+
+  gtk_text_buffer_place_cursor(the_text_buffer,pos);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void edit_delete_callback()
@@ -142,6 +242,86 @@ void edit_delete_callback()
 #endif
 
   outputcharacters--;
+}
+
+void edit_delete_forward_character()
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_forward_chars(end, 1);
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_delete_forward_word()
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_forward_word_ends(end, 1);
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_delete_forward_line()
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_forward_lines(end,1);
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_delete_backward_word()
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_backward_word_starts(start, 1);
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+}
+
+void edit_delete_backward_line()
+{
+  GtkTextIter *start = new GtkTextIter;
+  GtkTextIter *end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+
+  *start=*end;  
+
+  gtk_text_iter_backward_lines(start,1);
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void clipboard_callback( clipboard_action act )

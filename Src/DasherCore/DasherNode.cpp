@@ -66,6 +66,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	  }
 
 	  i=1;
+	  // FIXME - hard coded height
 	  quantum=int(1024/m_iChars);
 
 	  m_iChars++;
@@ -79,11 +80,11 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	    ChildScheme = Nodes1;
 	  }
 
-	  m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false);
+	  m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,0);
 
 	  while(controltree!=NULL) {
 	    i++;
-	    m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,100,controltree);
+	    m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
 	    controltree=controltree->next;
 	  }
 	  return;

@@ -635,16 +635,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
     break;
   case GDK_space:
     if (startspace == TRUE) {
-      if (paused == TRUE) {
-	dasher_unpause( get_time() );
-	paused = FALSE;
-      } else {
-	dasher_pause(0,0);    
-	paused = TRUE;
-#ifdef GNOME_SPEECH
-	speak();
-#endif
-      }      
+      stop();      
     }
     return TRUE;
     break;
@@ -669,16 +660,7 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
   switch (event->keyval) {
   case GDK_space:
     if (startspace == TRUE) {
-      if (paused == TRUE) {
-	dasher_unpause( get_time() );
-	paused = FALSE;
-      } else {
-	dasher_pause(0,0);    
-	paused = TRUE;
-#ifdef GNOME_SPEECH
-	speak();
-#endif
-      }      
+      stop();
     }
     return TRUE;
     break;
@@ -719,22 +701,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
     gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
   
   if (startleft == TRUE) {
-    if (paused == TRUE) {
-      dasher_unpause( get_time() );
-      starttime=time(NULL);
-      outputcharacters=0;
-      paused = FALSE;      
-    } else {
-      dasher_pause( (gint) event->x,(gint) event->y );    
-      paused = TRUE;
-#ifdef GNOME_SPEECH
-      speak();
-#endif
-      if (timedata==TRUE) {
-	printf("%d characters output in %d seconds\n",outputcharacters,
-	       time(NULL)-starttime);
-      }
-    }
+    stop();
   }
   return;
 }
@@ -1350,3 +1317,19 @@ void parameter_bool_callback( bool_param p, bool value )
 
 void null_log_handler (const gchar *log_domain, GLogLevelFlags log_level, 
 		       const gchar *message, gpointer unused_data) {}
+void stop() {
+  if (paused == TRUE) {
+    dasher_unpause( get_time() );
+    paused = FALSE;
+  } else {
+    dasher_pause(0,0);    
+    paused = TRUE;
+#ifdef GNOME_SPEECH
+    speak();
+#endif
+    if (timedata==TRUE) {
+      printf("%d characters output in %d seconds\n",outputcharacters,
+	     time(NULL)-starttime);
+    }
+  }
+}

@@ -16,5 +16,8 @@
 using namespace Dasher;
 
 ControlTree* gettree();
+ControlTree* buildcontroltree();
+ControlTree* buildmovetree(ControlTree* movetree);
+ControlTree* builddeletetree(ControlTree* movetree);
 bool buildmenutree(Accessible *parent, ControlTree *ctree);
 #endif
