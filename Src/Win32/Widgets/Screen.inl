@@ -6,6 +6,15 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+
+inline Dasher::Opts::FontSize CScreen::GetFontSize() const
+{
+  return Fontsize;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height, int iSize) const
 {
 	// TODO This function could be improved. The height of an "o" is returned as the
@@ -31,13 +40,13 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 
 	HFONT old = (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
 	
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 
 
 	// Get the dimensions of the text in pixels
 	SIZE OutSize;
-	GetTextExtentPoint32(m_hDCText, OutputText.c_str(), OutputText.size(), &OutSize);
-	SelectObject(m_hDCText,old);
+	GetTextExtentPoint32(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &OutSize);
+	SelectObject(m_hDCBuffer,old);
 	*Width = OutSize.cx;
 	*Height = OutSize.cy;
 }
@@ -68,14 +77,14 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int iSiz
 
 	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
 
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 
 	// DJW - need to select the old object back into the DC
-	SelectObject(m_hDCText, old);
+	SelectObject(m_hDCBuffer, old);
 }
 
 inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int iSize) const
@@ -105,14 +114,14 @@ inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int iSiz
 
 	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
 */
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 
 
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	
-	SelectObject(m_hDCText,old);
+	SelectObject(m_hDCBuffer,old);
 }
 
 inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
@@ -170,13 +179,13 @@ inline void CScreen::Blank() const
 	rect.bottom = long(m_iHeight);
 	rect.left=0;
 	FillRect(m_hDCBuffer, &rect, (HBRUSH)GetStockObject(WHITE_BRUSH));
-	FillRect(m_hDCText , &rect, (HBRUSH)GetStockObject(WHITE_BRUSH));
+//	FillRect(m_hDCText , &rect, (HBRUSH)GetStockObject(WHITE_BRUSH));
 }
 
 
 inline void CScreen::Display()
 {
-	BitBlt(m_hDCBuffer, 0, 0, m_iWidth,m_iHeight,m_hDCText, 0, 0, SRCAND);
+	//BitBlt(m_hDCBuffer, 0, 0, m_iWidth,m_iHeight,m_hDCText, 0, 0, SRCAND);
 	
 //	if (RealHDC==0) {
 //		RealHDC = GetDC(m_hwnd);

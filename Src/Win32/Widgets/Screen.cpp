@@ -1,8 +1,8 @@
-// Screen.h
+// Screen.cpp
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2002 David Ward
+// Copyright (c) 2002-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -16,6 +16,8 @@ using namespace Dasher;
 using namespace Opts;
 using namespace std;
 
+/////////////////////////////////////////////////////////////////////////////
+
 CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
   : CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1)), 
 	m_ptrFontStore( new CFontStore(TEXT("")))
@@ -28,7 +30,7 @@ CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
 	m_hbmText = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
 //	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
 	m_prevhbmText = SelectObject(m_hDCText,m_hbmText);
-	SetBkMode(m_hDCText,TRANSPARENT);
+	SetBkMode(m_hDCBuffer,TRANSPARENT);
 	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
 	
 	// create the brushes
@@ -43,8 +45,10 @@ CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
 //	OutputDebugString(debug); 
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-CScreen::~CScreen() {
+CScreen::~CScreen() 
+{
 	// tidy up
 
 	SelectObject(m_hDCBuffer,m_prevhbmBit);
@@ -78,6 +82,7 @@ CScreen::~CScreen() {
 
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CScreen::SetInterface(CDasherWidgetInterface* DasherInterface)
 {
@@ -95,6 +100,7 @@ void CScreen::SetInterface(CDasherWidgetInterface* DasherInterface)
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CScreen::SetFont(string Name)
 {
@@ -134,16 +140,16 @@ void CScreen::SetFont(string Name)
 	*/
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 void CScreen::SetFontSize(FontSize size)
 {
   Fontsize=size;
   SetFont(m_FontName);
 }
 
-FontSize CScreen::GetFontSize()
-{
-  return Fontsize;
-}
+/////////////////////////////////////////////////////////////////////////////
+
 
 void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 {
@@ -207,6 +213,8 @@ void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 //	}
 //}
 
+/////////////////////////////////////////////////////////////////////////////
+
 void CScreen::DrawMousePosBox(int which)
 {
 //	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
@@ -234,3 +242,5 @@ void CScreen::DrawMousePosBox(int which)
 	DeleteObject(brush);
 	Display();
 }
+
+/////////////////////////////////////////////////////////////////////////////
