@@ -78,7 +78,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetBoolDefault(DRAW_MOUSE, false);
 	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
 
-	Store->SetBoolDefault(DRAW_MOUSELINE, false);
+	Store->SetBoolDefault(DRAW_MOUSELINE, true);
 	this->DrawMouseLine(Store->GetBoolOption(DRAW_MOUSELINE));
 
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
