@@ -590,8 +590,10 @@ edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer da
 void
 edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  dasher_start();
-  dasher_redraw();
+  if(keycontrol==false) {
+    dasher_start();
+    dasher_redraw();
+  }
 }
 
 void
@@ -602,38 +604,26 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
     return;
 
   switch (event->keyval) {
-    if (keyboardcontrol == true) {
+    if (keyboardcontrol == false) {
       // CJB,  2003-08.  If we have a selection, replace it with the new input.
       // This code is duplicated in button_press_event. 
       if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
         gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
-
+    } else {
     case GDK_Up:
-      dasher_unpause(get_time());
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
-      for (i=0; i<300; i+=10) {
-	dasher_tap_on((int)(0.70*width), (int)(0.20*height), get_time()+i);
-      }
-      dasher_pause(150,150);
+      dasher_go_to((int)(0.70*width), (int)(0.20*height));
       break;
     case GDK_Down:
-      dasher_unpause(get_time());
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
-      for (i=0; i<300; i+=10) {
-	dasher_tap_on((int)(0.70*width), (int)(0.79*height), get_time()+i);
-      }
-      dasher_pause(150,150);
+      dasher_go_to((int)(0.70*width), (int)(0.80*height));
       break;
     case GDK_Left:
-      dasher_unpause(get_time());
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
-      for (i=0; i<300; i+=10) {
-	dasher_tap_on((int)(0.25*width), (int)(0.47*height), get_time()+i);
-      }
-      dasher_pause(150,150);
+      dasher_go_to((int)(0.25*width), (int)(0.50*height));
       break;
     }
   case GDK_space:

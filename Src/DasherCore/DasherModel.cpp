@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "DasherModel.h"
+#include <iostream>
 
 using namespace Dasher;
 using namespace std;
@@ -188,7 +189,6 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 	
 		dRxnew2=1+(dRx-1)/iSteps;
 		
-
 		const double dRxmax=m_fr.Rxmax();
 		if (dRxnew>dRxmax)
 		 dRxnew=dRxmax;
@@ -215,6 +215,20 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 		m_Rootmin=newRootmin;	
 	}
 }
+
+void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
+{
+  float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+  m_Rootmax+=zoomfactor*(m_Rootmax-m_DasherY/2);
+  m_Rootmin+=zoomfactor*(m_Rootmin-m_DasherY/2);
+  int up=(m_DasherY/2)-MouseY;
+  float upfactor=up/(m_DasherY/2*1.0);
+  //Distance to move up is height*upfactor
+  myint height=myint(upfactor*(m_Rootmax-m_Rootmin)/2);
+  m_Rootmax+=height;
+  m_Rootmin+=height;
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -311,15 +325,24 @@ void CDasherModel::GoTo(myint miMousex,myint miMousey)
         CDasherNode *old_under_cross=Get_node_under_crosshair();	
 	
 	// works out next viewpoint
-	Get_new_root_coords(miMousex,miMousey);
+	Get_new_goto_coords(miMousex,miMousey);
 
-	// push node under mouse
-	CDasherNode *under_mouse=Get_node_under_mouse(miMousex,miMousey);
-	under_mouse->Push_Node();
-
-	Update(m_Root,under_mouse,0);
+	// push node under crosshair
 
 	CDasherNode* new_under_cross = Get_node_under_crosshair();
+
+	new_under_cross->Push_Node();
+
+	// And try to push the parents
+	
+	CDasherNode* parentnode = new_under_cross->Parent();
+
+	while (parentnode!=0) {
+	  parentnode->Push_Node();
+	  parentnode=parentnode->Parent();
+	}
+
+	Update(m_Root,new_under_cross,0);
 
 	if (new_under_cross!=old_under_cross) {
 	  DeleteCharacters(new_under_cross,old_under_cross);

@@ -100,6 +100,7 @@ private:
 	CDasherNode* Get_node_under_crosshair();
 	CDasherNode* m_Root;
 	void Get_new_root_coords(myint mousex,myint mousey);
+	void Get_new_goto_coords(myint mousex,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 	void Update(CDasherNode* node,CDasherNode* under,int safe);
 
