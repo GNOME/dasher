@@ -11,6 +11,9 @@
 
 #include <windows.h>
 
+#pragma warning(disable:4311)
+#pragma warning(disable:4312)
+
 class CWindow
 {
 
@@ -44,15 +47,15 @@ inline LRESULT CALLBACK CWindow::BaseWndProc(HWND hwnd, UINT msg,
 {
     //A pointer to the object is passed in the CREATESTRUCT
     if(msg == WM_NCCREATE)
-        SetWindowLongPtr(hwnd, GWLP_USERDATA,
-        (LONG_PTR)((LPCREATESTRUCT)lParam)->lpCreateParams);
+        SetWindowLong(hwnd, GWL_USERDATA,
+        (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
     
     BOOL bProcessed = FALSE;
     LRESULT lResult;
     
     //Retrieve the pointer
     CWindow *pObj = 
-        (CWindow *)GetWindowLongPtr(hwnd, GWLP_USERDATA);
+        (CWindow *)GetWindowLong(hwnd, GWL_USERDATA);
 
     //Filter message through child classes
     if(pObj)
