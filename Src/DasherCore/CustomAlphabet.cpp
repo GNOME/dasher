@@ -29,7 +29,11 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	}
 	
 	// Set Space character if requested
-	if (AlphInfo.SpaceCharacter.Text!="") {
+
+	// This line make it a bit easier for our WindowsCE compiler
+	std::string empty="";
+
+	if (AlphInfo.SpaceCharacter.Text != empty ) {
 		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display);
 		SetSpaceSymbol();
 	}

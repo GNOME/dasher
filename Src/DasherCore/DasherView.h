@@ -15,6 +15,7 @@
 #ifndef __DasherView_h_
 #define __DasherView_h_
 
+#include "../Common/MSVC_Unannoy.h"
 #include "DasherScreen.h"
 #include "DasherModel.h"
 

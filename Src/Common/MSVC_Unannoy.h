@@ -10,6 +10,7 @@
 // information - there is nothing wrong with the code. IAM 08/2002
 #ifdef _MSC_VER
 #pragma warning(disable:4786)
+#pragma warning(disable:4018)
 #endif
 
 

@@ -91,7 +91,7 @@ void CAlphIO::GetAlphabets(std::vector< std::string > * AlphabetList) const
 	CI End = Alphabets.end();
 	
 	for (CI Cur=Alphabets.begin(); Cur!=End; Cur++)
-		AlphabetList->push_back(Cur->second.AlphID);
+		AlphabetList->push_back( (*Cur).second.AlphID);
 }
 
 
@@ -145,7 +145,7 @@ void CAlphIO::Save(const std::string& AlphID)
 	typedef std::map<std::string, AlphInfo>::const_iterator CI;
 	CI End = Alphabets.end();
 	for (CI Cur=Alphabets.begin(); Cur!=End; Cur++) {
-		AlphInfo Info = Cur->second; // Take a copy so that special characters can be escaped
+		AlphInfo Info = (*Cur).second; // Take a copy so that special characters can be escaped
 		
 		if (Info.Mutable==false) // this is a system alphabet, not one we write
 			continue;

@@ -9,10 +9,10 @@
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
 
+#include "../Common/MSVC_Unannoy.h"
 #include "DashEdit.h"
 #include "DasherNode.h"
 #include "LanguageModel.h"
-
 #include "../Common/NoClones.h"
 #include <math.h>
 #include "DasherTypes.h"
