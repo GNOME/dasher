@@ -1,3 +1,4 @@
+# translation of mk.po to Macedonian
 # translation of dasher.HEAD.po to Macedonian
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
@@ -5,10 +6,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-09-08 11:05+0200\n"
-"PO-Revision-Date: 2004-09-11 16:06+0200\n"
+"PO-Revision-Date: 2004-09-22 01:58+0200\n"
 "Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -179,7 +180,7 @@ msgstr "Dasher е предвидлива апликација за внесув�
 #: Src/Gtk2/dasher.cc:2065
 #, c-format
 msgid "%d characters output in %ld seconds\n"
-msgstr ""
+msgstr "%d карактери во %ld секунди\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -307,7 +308,7 @@ msgstr "Отсечи"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
-msgstr ""
+msgstr "Кружен режим на копчето"
 
 #: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
@@ -323,11 +324,11 @@ msgstr "Долу/3:"
 
 #: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
-msgstr ""
+msgstr "Нацртај ги надворешните линии на кутијата"
 
 #: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Нацртај линија помеѓу глушецот и покажувачот"
 
 #: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -339,7 +340,7 @@ msgstr "Внеси текст во други прозорци"
 
 #: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
-msgstr ""
+msgstr "Режим на следење"
 
 #: Src/Gtk2/dasher.glade.h:43
 msgid ""
@@ -347,6 +348,8 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
+"Ако е избран овој режим, горе и доле\n"
+"ќе се заменат со напред и назад помеѓу координатите, додека десното копче ќе го потврдува изборот"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
@@ -570,5 +573,5 @@ msgstr "Предупредување: не можам да ги поставам
 
 #: Src/main.cc:104
 msgid "Dasher Text Entry"
-msgstr ""
+msgstr "Поле за внесување на Dasher"
 
