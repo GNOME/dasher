@@ -164,7 +164,9 @@ void GtkDasherWindow::toolbar_button_cb(char *c)
 
 
   if( !strcmp( c, TB_NEW ) )
-    cout << "Restart dasher here" << endl;
+    //    cout << "Restart dasher here" << endl;
+    dasher_pane.reset();
+    
   else if( !strcmp( c, TB_SAVE ) )
     save_dialogue.show();
 }

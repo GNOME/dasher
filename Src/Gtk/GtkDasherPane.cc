@@ -125,6 +125,16 @@ void GtkDasherPane::clear()
   interface->Redraw();
 }
 
+void GtkDasherPane::reset()
+{
+  cout << "In Reset" << endl;
+}
+
+void GtkDasherPane::save( string filename )
+{
+  cout << "In Save: " << filename << endl;
+}
+
 GtkDasherPane::~GtkDasherPane()
 {
    delete( text );

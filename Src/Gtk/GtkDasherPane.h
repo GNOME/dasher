@@ -12,6 +12,7 @@
 #include "SettingsStore.h"
 
 #include <time.h>
+#include <string.h>
 
 using namespace Dasher;
 
@@ -22,6 +23,9 @@ public:
   ~GtkDasherPane();
 
   void clear();
+
+  void reset();
+  void save( string filename );
 
 private:
   GtkDasherEdit *text;
