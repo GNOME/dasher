@@ -255,7 +255,7 @@ void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 {
   file_encoding = Encoding;
 
-  cout << "File encoding is now " << Encoding << endl;
+  std::cout << "File encoding is now " << Encoding << std::endl;
 }
 
 void GtkDasherEdit::SetFont(std::string Name, long Size)

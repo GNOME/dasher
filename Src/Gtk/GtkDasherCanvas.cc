@@ -16,9 +16,6 @@
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
-#define MAXFONTSIZE 25
-#define MINFONTSIZE 8
-
 #include <iconv.h>
 
 GtkDasherCanvas::GtkScreenWrapper::GtkScreenWrapper(  int _width, int _height, GtkDasherCanvas *_owner )
@@ -47,6 +44,12 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   // Initialise the double buffer class
 
   buffer = new GtkDoubleBuffer( pmwidth, pmheight, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
+
+  // Set the font sizes
+
+  MaxFontSize = 20;
+  MinFontSize = 8;
+
   // Initialise the font list
 
   font_list = new Gdk_Font[17];
@@ -103,10 +106,10 @@ bool GtkDasherCanvas::build_fonts( int encoding )
 
       fsize = atoi( size_buffer );
 
-      if(( fsize >= MINFONTSIZE ) && ( fsize <= MAXFONTSIZE ))
+      if(( fsize >= MinFontSize ) && ( fsize <= MaxFontSize ))
 	{
 	  int idx;
-	  idx = fsize - MINFONTSIZE;
+	  idx = fsize - MinFontSize;
 
 	  if( !font_init[idx] )
 	  {
@@ -130,10 +133,10 @@ const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
   int d( 10000 );
   int idx(-1);
   
-  for( int i(0); i < MAXFONTSIZE - MINFONTSIZE; ++i )
-    if( font_init[i] && ( abs( i - size + MINFONTSIZE ) < d ) )
+  for( int i(0); i < MaxFontSize - MinFontSize; ++i )
+    if( font_init[i] && ( abs( i - size + MinFontSize ) < d ) )
       {
-	d =  abs(i - size + MINFONTSIZE);
+	d =  abs(i - size + MinFontSize);
 	idx = i;
       }
 

@@ -87,7 +87,8 @@ protected:
 
   int enc;
 
-
+  int MaxFontSize;
+  int MinFontSize;
 
   //gint button_press_event_impl(GdkEventButton *event);
   //gint button_press_event_impl(GdkEventAny *event);

@@ -44,7 +44,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   
   char *SystemDataDir;
 
-  SystemDataDir = PROGDATA; // Set by configure
+  SystemDataDir = PROGDATA"/"; // Set by configure
 
   interface = new CDasherInterface;
 
