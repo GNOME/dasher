@@ -25,7 +25,7 @@ public:
   void Display();
 
   void clear();
-
+  Gdk_Font get_font( int size ) const;
 protected:
   gint expose_event_impl(GdkEventExpose *event);
 
@@ -39,6 +39,8 @@ protected:
   Gdk_Font f_large;
   Gdk_Font f_medium;
   Gdk_Font f_small;
+
+  //  Gdk_Font *get_font( int size );
 
   void swap_buffers(); 
 

@@ -28,6 +28,11 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
     f_large.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
 }
 
+Gdk_Font GtkDasherCanvas::get_font( int size ) const
+{
+  return( f_small );
+}
+
 void GtkDasherCanvas::clear()
 
   {
@@ -84,36 +89,12 @@ void GtkDasherCanvas::SetFont(std::string Name)
 
 void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const
 {
-  //  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+  Gdk_Font chosen_font;
 
-//    switch( Size )
-//      {
-//      case 11:
-//        text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
-//        break;
-//      case 14:
-//        text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
-//        break;
-//      case 20:
-//        text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
-//        break;
-//      }
+  chosen_font = get_font( Size );
 
-  switch( Size )
-    {
-    case 11:
-      *Width = f_small.char_width('A');
-      *Height = f_small.char_height('A');
-      break;
-    case 14:
-      *Width = f_medium.char_width('A');
-      *Height = f_medium.char_height('A');
-      break;
-    case 20:
-      *Width = f_large.char_width('A');
-      *Height = f_large.char_height('A');
-      break;
-    }
+  *Width = chosen_font.char_width('A');
+  *Height = chosen_font.char_height('A');
 }
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
@@ -127,34 +108,13 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
   foo = Character + 96;
 
   string label(&foo, 1);
-  //  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
 
- //   switch( Size )
-//      {
-//      case 11:
-//        text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
-//        break;
-//      case 14:
-//        text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
-//        break;
-//      case 20:
-//        text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
-//        break;
-//      }
-switch( Size )
-    {
-    case 11:
-      buffer->get_bg()->draw_string(f_small, this->get_style()->get_black_gc(), x1, y1+f_small.char_height('A'), label);
-      break;
-    case 14:
-     buffer->get_bg()->draw_string(f_medium, this->get_style()->get_black_gc(), x1, y1+f_medium.char_height('A'), label);
-      break;
-    case 20:
-     buffer->get_bg()->draw_string(f_large, this->get_style()->get_black_gc(), x1, y1+f_large.char_height('A'), label);
-      break;
-    }
-//  buffer->get_bg()->draw_string(text_font, this->get_style()->get_black_gc(), x1, y1+text_font.char_height('A'), label);
-    }
+  Gdk_Font chosen_font;
+
+  chosen_font = get_font( Size );
+
+  buffer->get_bg()->draw_string(chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font.char_height('A'), label);
+    }    
 }
   
 void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
