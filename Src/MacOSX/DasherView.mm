@@ -8,12 +8,12 @@
 
 #import "DasherView.h"
 #import <AppKit/AppKit.h>
+#import <Foundation/Foundation.h>
 #import "DasherUtil.h"
 
 #import "DasherApp.h"
 #import "PreferencesController.h"
 
-#include "libdasher.h"
 #include <sys/time.h>
 
 #import "ZippyCache.h"
@@ -41,66 +41,6 @@ unsigned long int get_time() {
 }
 
 
-NSColor *getColor(int aColor, Opts::ColorSchemes aColorScheme)
-{
-#define c(__x) (__x * 257.0) / 65535.0
-
-  static float c0 = 0.0;
-  static float c100 = c(100);
-  static float c140 = c(140);
-  static float c160 = c(160);
-  static float c175 = c(175);
-  static float c185 = c(185);
-  static float c180 = c(180);
-  static float c200 = c(200);
-  static float c240 = c(240);
-  static float c245 = c(245);
-  static float c255 = c(255);
-  static float alpha = 1.0;
-
-  if (aColorScheme == Special1) {
-    return [NSColor colorWithCalibratedRed:c240 green:c240 blue:c240 alpha:alpha];
-  }
-  if (aColorScheme == Special2) {
-    return [NSColor colorWithCalibratedRed:c255 green:c255 blue:c255 alpha:alpha];
-  }
-  if (aColorScheme == Objects) {
-    return [NSColor colorWithCalibratedRed:c0 green:c0 blue:c0 alpha:alpha];
-  }
-  if (aColorScheme == Groups) {
-    if (aColor%3 == 0) {
-      return [NSColor colorWithCalibratedRed:c255 green:c255 blue:c0 alpha:alpha];
-    }
-    if (aColor%3 == 1) {
-      return [NSColor colorWithCalibratedRed:c255 green:c100 blue:c100 alpha:alpha];
-    }
-    if (aColor %3 == 2) {
-      return [NSColor colorWithCalibratedRed:c0 green:c255 blue:c0 alpha:alpha];
-    }
-  }
-  if (aColorScheme == Nodes1) {
-    if (aColor%3 == 0) {
-      return [NSColor colorWithCalibratedRed:c180 green:c245 blue:c180 alpha:alpha];
-    }
-    if (aColor%3 == 1) {
-      return [NSColor colorWithCalibratedRed:c160 green:c200 blue:c160 alpha:alpha];
-    }
-    if (aColor %3 == 2) {
-      return [NSColor colorWithCalibratedRed:c0 green:c255 blue:c255 alpha:alpha];
-    }
-  }
-  if (aColorScheme == Nodes2) {
-    if (aColor%3 == 0) {
-      return [NSColor colorWithCalibratedRed:c255 green:c185 blue:c255 alpha:alpha];
-    }
-    if (aColor%3 == 1) {
-      return [NSColor colorWithCalibratedRed:c140 green:c200 blue:c255 alpha:alpha];
-    }
-    if (aColor %3 == 2) {
-      return [NSColor colorWithCalibratedRed:c255 green:c175 blue:c175 alpha:alpha];
-    }
-  }
-}
 
 
 void blank_callback()
@@ -116,7 +56,7 @@ void display_callback()
 
 void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
-  [XXXdasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 color:getColor(Color, ColorScheme)];
+  [XXXdasherView rectangleCallbackX1:x1 y1:y1 x2:x2 y2:y2 colorNumber:Color colorScheme:ColorScheme];
 }
 
 void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
@@ -172,6 +112,8 @@ static void registerCallbacks()
     textPointCache = (NSPoint *)malloc(MAX_CACHE_COUNT * sizeof(NSPoint));
     textCacheCount = 0;
 
+    [self setupColors];
+
     XXXdasherView = self;
 
     dasher_early_initialise();
@@ -223,7 +165,7 @@ static void registerCallbacks()
 
 
   NSString *systemDir = [NSString stringWithFormat:@"%@/", [[NSBundle mainBundle] resourcePath]];
-  NSString *userDir = [NSString stringWithFormat:@"%@/.dasher/", NSHomeDirectory()];
+  NSString *userDir = [NSString stringWithFormat:@"%@/Library/Application Support/Dasher/", NSHomeDirectory()];
   
     // system resources are inside the .app, under the Resources directory
   dasher_set_parameter_string( STRING_SYSTEMDIR, [systemDir cString]);
@@ -238,7 +180,7 @@ static void registerCallbacks()
   
 //  choose_filename();
 
-  dasher_late_initialise([self bounds].size.width, [self bounds].size.height);
+  dasher_late_initialise((int)[self bounds].size.width, (int)[self bounds].size.height);
 
   dasher_start();
 
@@ -353,7 +295,7 @@ static void registerCallbacks()
 
 
 
-- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 color:(NSColor *)aColor
+- (void)rectangleCallbackX1:(int)x1 y1:(int)y1 x2:(int)x2 y2:(int)y2 colorNumber:(int)aColorNumber colorScheme:(Opts::ColorSchemes)aColorScheme
 {
   int x = x1;
   int y = y1;
@@ -372,7 +314,7 @@ static void registerCallbacks()
   }
 
   r = NSMakeRect(x, y, width, height);
-  [self addRect:r color:aColor];
+  [self addRect:r color:[self colorWithColorNumber:aColorNumber colorScheme:aColorScheme]];
 }
 
 - (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize
@@ -411,6 +353,63 @@ static void registerCallbacks()
   [bp closePath];
 }
 
+- (void)setupColors
+{
+#define c(__x) (__x * 257.0) / 65535.0
+
+  static float c0 = 0.0;
+  static float c100 = c(100);
+  static float c140 = c(140);
+  static float c160 = c(160);
+  static float c175 = c(175);
+  static float c185 = c(185);
+  static float c180 = c(180);
+  static float c200 = c(200);
+  static float c240 = c(240);
+  static float c245 = c(245);
+  static float c255 = c(255);
+  static float alpha = 1.0;
+
+  special1Color = [[NSColor colorWithCalibratedRed:c240 green:c240 blue:c240 alpha:alpha] retain];
+  special2Color = [[NSColor colorWithCalibratedRed:c255 green:c255 blue:c255 alpha:alpha] retain];
+  objectsColor = [[NSColor colorWithCalibratedRed:c0 green:c0 blue:c0 alpha:alpha] retain];
+  groupsColor[0] = [[NSColor colorWithCalibratedRed:c255 green:c255 blue:c0 alpha:alpha] retain];
+  groupsColor[1] = [[NSColor colorWithCalibratedRed:c255 green:c100 blue:c100 alpha:alpha] retain];
+  groupsColor[2] = [[NSColor colorWithCalibratedRed:c0 green:c255 blue:c0 alpha:alpha] retain];
+  nodes1Color[0] = [[NSColor colorWithCalibratedRed:c180 green:c245 blue:c180 alpha:alpha] retain];
+  nodes1Color[1] = [[NSColor colorWithCalibratedRed:c160 green:c200 blue:c160 alpha:alpha] retain];
+  nodes1Color[2] = [[NSColor colorWithCalibratedRed:c0 green:c255 blue:c255 alpha:alpha] retain];
+  nodes2Color[0] = [[NSColor colorWithCalibratedRed:c255 green:c185 blue:c255 alpha:alpha] retain];
+  nodes2Color[1] = [[NSColor colorWithCalibratedRed:c140 green:c200 blue:c255 alpha:alpha] retain];
+  nodes2Color[2] = [[NSColor colorWithCalibratedRed:c255 green:c175 blue:c175 alpha:alpha] retain];
+}
+
+- (NSColor *)colorWithColorNumber:(int) aColor colorScheme:(Opts::ColorSchemes)aColorScheme
+{
+  if (aColorScheme == Special1) {
+    return special1Color;
+  }
+  if (aColorScheme == Special2) {
+    return special2Color;
+  }
+  if (aColorScheme == Objects) {
+    return objectsColor;
+  }
+  if (aColorScheme == Groups) {
+    return groupsColor[aColor % 3];
+  }
+  if (aColorScheme == Nodes1) {
+    return nodes1Color[aColor % 3];
+  }
+  if (aColorScheme == Nodes2) {
+    return nodes2Color[aColor % 3];
+  }
+
+  return nil;
+}
+
+
+
 - (IBAction)changeFont:(id)sender
 {
   [[PreferencesController preferencesController] changeDasherFont:sender];
@@ -445,13 +444,13 @@ static void registerCallbacks()
   }
 }
 
-- (NSDictionary *)textAttributeCache {
+- (NSMutableDictionary *)textAttributeCache {
   return _textAttributeCache;
 }
 
 - (void)setTextAttributeCache:(NSMutableDictionary *)newTextAttributes {
   if (_textAttributeCache != newTextAttributes) {
-    NSDictionary *oldValue = _textAttributeCache;
+    NSMutableDictionary *oldValue = _textAttributeCache;
     _textAttributeCache = [newTextAttributes retain];
     [oldValue release];
   }
@@ -602,6 +601,17 @@ static void registerCallbacks()
   [self clearTextCache];
   free(textCache);
   free(textPointCache);
+
+  [special1Color release];
+  [special2Color release];
+  [objectsColor release];
+
+  for (int i = 0; i < 3; i++) {
+    [groupsColor[i] release];
+    [nodes1Color[i] release];
+    [nodes2Color[i] release];
+  }
+  
 
   [super dealloc];
 }
