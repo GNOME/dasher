@@ -1,12 +1,13 @@
-Dasher version 3.1.9
+Dasher version 3.2.0
 --------------------
 
-This is the beta release of Dasher 3.2.0. Documentation may be found
+This is the full release of Dasher 3.2.0. Documentation may be found
 in Doc/
 
 In order to compile the Unix code with speech support, pass --with-speech to
 configure. In order to compile the Unix code with accessible menu support, pass
---with-a11y to configure.
+--with-a11y to configure. In order to compile the Unix code with Gnome support,
+pass --with-gnome to configure.
 
 We'd appreciate any feedback / bug reports / patches - please send
 them to dasher@mrao.cam.ac.uk
