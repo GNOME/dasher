@@ -32,6 +32,11 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel,
 CDasherModel::~CDasherModel()
 {
 	m_languagemodel->ReleaseNodeContext(LearnContext);
+	while (oldroots.size()>0) {
+	  oldroots[0]->Delete_dead(oldroots[1]);
+	  delete oldroots[0];
+	  oldroots.pop_front();
+	}
 	delete m_Root;  // which will also delete all the whole structure
 }
 
@@ -338,8 +343,12 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	  DeleteCharacters(new_under_cross,old_under_cross);
 	}
 
-	if (new_under_cross->isSeen()==true)
+	if (new_under_cross->isSeen()==true) {
+	  if (new_under_cross->Control()!=true) {
+	    SetBitrate(m_dMaxRate);
+	  }
 	  return;
+	}
 
 	new_under_cross->Seen(true);
 
@@ -347,8 +356,10 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 	if (new_under_cross->Control()==true) {
 		m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
+		SetBitrate(m_dMaxRate/3);
 	} else {
 	  OutputCharacters(new_under_cross);
+	  SetBitrate(m_dMaxRate);
 	}
 	//	m_Root->Recursive_Push_Node(0);
 }

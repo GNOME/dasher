@@ -42,7 +42,7 @@ public:
 	
 	// User control of speed
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate
-	void SetMaxBitrate(double MaxRate) {m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
+	void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 	
 	// functions returning private data (read only access)
 	const myint Rootmin() const {return m_Rootmin;}
@@ -106,6 +106,8 @@ private:
 	// TODO - move somewhere
 	// the probability that gets added to every symbol
 	double m_dAddProb;             
+
+	double m_dMaxRate;
 	
 	CDasherNode* Get_node_under_mouse(myint smousex,myint smousey);
 	CDasherNode* Get_node_under_crosshair();
