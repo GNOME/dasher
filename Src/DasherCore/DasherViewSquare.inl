@@ -48,9 +48,10 @@ inline const myint CDasherViewSquare::screen2dashery(int screeny)
 			screeny= (screeny-s_Y3)*m_Y1+s_Y3;
 	}
 	myint dashery=screeny;
-	dashery+=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
+//	dashery+=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
 	dashery*=DasherModel().DasherY();
-	dashery/=CanvasY*Screen().GetFontSize();
+//	dashery/=CanvasY*Screen().GetFontSize();
+	dashery/=CanvasY;
 
 	return dashery;
 }
@@ -73,9 +74,10 @@ inline const int CDasherViewSquare::dashery2screen(myint y)
 	else if (y<m_Y3)
 		y= m_Y3+   (y-m_Y3 )/m_Y1;
 
-	y*=CanvasY*Screen().GetFontSize();
+//	y*=CanvasY*Screen().GetFontSize();
+	y*=CanvasY;
 	y/=DasherModel().DasherY();
-	y-=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
+//	y-=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
 	return int(y);
 }
 
