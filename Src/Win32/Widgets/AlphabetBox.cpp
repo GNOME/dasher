@@ -122,7 +122,7 @@ void CAlphabetBox::InitCustomBox()
 	SendMessage(GetDlgItem(CustomBox,IDC_CHARS), LB_SETCOLUMNWIDTH, 34, 0);
 	
 	// Set check mark for the "space character"
-	if (CurrentInfo.SpaceCharacter.Text!="")
+	if (CurrentInfo.SpaceCharacter.Text!=std::string(""))
 		SendMessage(GetDlgItem(CustomBox,IDC_SPACE), BM_SETCHECK, BST_CHECKED, 0);
 }
 
@@ -165,7 +165,7 @@ void CAlphabetBox::ShowGroups()
 		return;
 	}
 	
-	for (uint k=0; k<CurrentInfo.Groups.size(); k++) {
+	for (unsigned int k=0; k<CurrentInfo.Groups.size(); k++) {
 		WinUTF8::UTF8string_to_Tstring(CurrentInfo.Groups[k].Description, &Data, GetACP());
 		SendMessage(Groups, LB_ADDSTRING, 0, (LPARAM)Data.c_str());
 	}
