@@ -1,3 +1,7 @@
+2004-03-21  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "ru" "tr" "zh_CN" "zh_TW" to ALL_LINGUAS.
+
 2004-03-20  Evandro Fernandes Giovanini  <evandrofg@ig.com.br>
  
         * configure.in(ALL_LINGUAS): Added "pt_BR"
