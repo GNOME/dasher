@@ -1,3 +1,7 @@
+2004-09-11  Guntupalli Karunakar  <karunakar@freedomink.org>
+
+	* configure.in: Added "hi" (Hindi) to ALL_LINGUAS.
+	
 2004-09-11  Abel Cheung  <maddog@linux.org.hk>
 
 	* configure.in: Added "gu" to ALL_LINGUAS.
