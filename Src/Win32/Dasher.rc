@@ -187,6 +187,8 @@ BEGIN
         MENUITEM "&Editing Font...",            ID_OPTIONS_EDITFONT
         MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
+        MENUITEM "One dimensional",             ID_OPTIONS_1D
+        MENUITEM "Draw mouse position",         ID_OPTIONS_DRAWMOUSE
     END
     POPUP "&Help"
     BEGIN

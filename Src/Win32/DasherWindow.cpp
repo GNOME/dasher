@@ -248,6 +248,15 @@ void CDasherWindow::TimeStampNewFiles(bool Value)
 	WinMenu.SetStatus(ID_TIMESTAMP, false, Value);
 }
 
+void CDasherWindow::DrawMouse(bool Value)
+{
+	WinMenu.SetStatus(ID_OPTIONS_DRAWMOUSE, false, Value);
+}
+
+void CDasherWindow::SetDasherDimensions(bool Value)
+{
+	WinMenu.SetStatus(ID_OPTIONS_1D, false, Value);
+}
 
 void CDasherWindow::CopyAllOnStop(bool Value)
 {
@@ -277,6 +286,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			// Parse the menu selections:
 			switch (wmId)
 			{
+			case ID_OPTIONS_1D:
+				DasherSettingsInterface->SetDasherDimensions(!WinMenu.GetCheck(ID_OPTIONS_1D));
+			break;
+			case ID_OPTIONS_DRAWMOUSE:
+				DasherSettingsInterface->DrawMouse(!WinMenu.GetCheck(ID_OPTIONS_DRAWMOUSE));
+				break;		
 			case ID_OPTIONS_FONTSIZE_NORMAL: {
 			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);

@@ -58,7 +58,9 @@ public:
 	void FixLayout(bool Value);
 	void TimeStampNewFiles(bool Value);
 	void CopyAllOnStop(bool Value);
-	
+	void DrawMouse(bool Value);
+	void SetDasherDimensions(bool Value);
+
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
