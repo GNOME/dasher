@@ -21,7 +21,7 @@
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
-GtkWidget *vbox, *toolbar;
+GtkWidget *vbox1, *vbox2, *toolbar;
 GdkPixbuf *p;
 GtkWidget *pw;
 GtkWidget *text_view;
@@ -37,6 +37,7 @@ GtkStyle *style;
 GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
+GtkWidget *vpane;
 
 GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
@@ -184,7 +185,7 @@ preferences(gpointer data, guint action, GtkWidget *widget)
 
   sw=gtk_scrolled_window_new(NULL,NULL);
   gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw),GTK_SHADOW_ETCHED_IN);
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),GTK_POLICY_NEVER,GTK_POLICY_AUTOMATIC);
+  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
   gtk_box_pack_start (GTK_BOX(vbox), sw, TRUE, TRUE, 0);
 
   treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL(list_store));  
@@ -644,7 +645,9 @@ open_window() {
     afilesel = gtk_file_selection_new("Append to file");
     ifilesel = gtk_file_selection_new("Import Training Text");
     
-    vbox = gtk_vbox_new (FALSE, 2);
+    vbox1 = gtk_vbox_new (FALSE, 2);
+    vbox2 = gtk_vbox_new (FALSE, 2);
+    vpane = gtk_vpaned_new();
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
@@ -674,13 +677,16 @@ open_window() {
     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"), _("Paste"), G_CALLBACK (clipboard_paste), NULL, -1);
 
     gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), NULL);
+
+    gtk_paned_add1 (GTK_PANED(vpane),vbox1);
+    gtk_paned_add2 (GTK_PANED(vpane),vbox2);
     
-    gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox1), dasher_menu_bar, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox1), toolbar, FALSE, FALSE, 0);
     
     text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-    gtk_box_pack_start (GTK_BOX (vbox), text_scrolled_window, FALSE, FALSE, 0);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_box_pack_start (GTK_BOX (vbox1), text_scrolled_window, TRUE, TRUE, 0);
     
     gtk_container_add (GTK_CONTAINER (text_scrolled_window), the_text_view);
     
@@ -702,20 +708,22 @@ open_window() {
     gtk_widget_set_events(the_text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
 
     canvas_frame = gtk_frame_new (NULL);
-    gtk_box_pack_start (GTK_BOX (vbox), canvas_frame, TRUE, TRUE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox2), canvas_frame, TRUE, TRUE, 0);
     gtk_container_add (GTK_CONTAINER (canvas_frame), the_canvas);
     
        
     gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), NULL);
     
-    gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
+    gtk_box_pack_start (GTK_BOX (vbox2), speed_frame, FALSE, FALSE, 0);
     gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
     
-    gtk_container_add (GTK_CONTAINER (window), vbox);
+    gtk_container_add (GTK_CONTAINER (window), vpane);
     gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
     
     gtk_widget_realize (window);
-    gtk_widget_realize (vbox);
+    gtk_widget_realize (vpane);
+    gtk_widget_realize (vbox1);
+    gtk_widget_realize (vbox2);
     gtk_widget_realize (text_scrolled_window);
     gtk_widget_realize (the_text_view);
     gtk_widget_realize (toolbar);
@@ -726,7 +734,9 @@ open_window() {
     gtk_widget_realize (dasher_menu_bar);
     
     gtk_widget_show (window);
-    gtk_widget_show (vbox);
+    gtk_widget_show (vpane);
+    gtk_widget_show (vbox1);
+    gtk_widget_show (vbox2);
     gtk_widget_show (text_scrolled_window);
     gtk_widget_show (the_text_view);
     gtk_widget_show (toolbar);
