@@ -23,7 +23,7 @@
 <colour r="80" g="80" b="80"/>
 <!-- space -->
 <colour r="235" g="235" b="235"/>
-<!-- letters -->
+<!-- letters (10-109)-->
 <colour r="0" g="255" b="255"/>
 <colour r="180" g="238" b="180"/>
 <colour r="155" g="205" b="155"/>
@@ -124,7 +124,7 @@
 <colour r="180" g="238" b="180"/>
 <colour r="155" g="205" b="155"/>
 <colour r="0" g="255" b="255"/>
-<!-- groups -->
+<!-- groups (110-139)-->
 <colour r="0" g="255" b="0"/>
 <colour r="255" g="255" b="0"/>
 <colour r="255" g="0" b="0"/>
@@ -145,7 +145,7 @@
 <colour r="255" g="0" b="0"/>
 <colour r="0" g="255" b="0"/>
 <colour r="255" g="255" b="0"/>
-<!-- currently unused -->
+<!-- currently unused (130-137)-->
 <colour r="0" g="0" b="0"/>
 <colour r="0" g="0" b="0"/>
 <colour r="0" g="0" b="0"/>
@@ -158,7 +158,7 @@
 <colour r="80" g="80" b="80"/>
 <!-- alternate space -->
 <colour r="255" g="255" b="255"/>
-<!-- alternate colours -->
+<!-- alternate colours (140-239) -->
 <colour r="135" g="206" b="255"/>
 <colour r="255" g="174" b="185"/>
 <colour r="255" g="187" b="255"/>
@@ -259,13 +259,12 @@
 <colour r="255" g="174" b="185"/>
 <colour r="255" g="187" b="255"/>
 <colour r="135" g="206" b="255"/>
+<!-- Control mode colours -->
+<!-- Green (240) -->
+<colour r="0" g="255" b="0"/>
+<!-- Amber (241) -->
+<colour r="240" g="240" b="0"/>
+<!-- Red (242) -->
+<colour r="255" g="0" b="0"/>
 </palette>
 </colours>
-
-
-
-
-
-
-
-
