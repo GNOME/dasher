@@ -1,3 +1,7 @@
+2004-02-14  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Don't generate bogus colour numbers if not in advanced colour mode
+
 2004-02-11  Arafat Medini  <lumina@silverpen.de>
                                                                                 
         * configure.in: Added Arabic locale "ar" to ALL_LINGUAS.
