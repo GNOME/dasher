@@ -107,18 +107,7 @@ void CDasherWindow::Show(int nCmdShow)
 }
 
 
-int CDasherWindow::MessageLoop()
-{
-	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0)) {
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
-	
-	return msg.wParam;
-}
+
 
 
 void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
