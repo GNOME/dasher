@@ -1,4 +1,4 @@
-// MainWindow.h
+// DasherWindow.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -7,8 +7,8 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-#ifndef __MainWindow_h__
-#define __MainWindow_h__
+#ifndef __DasherWindow_h__
+#define __DasherWindow_h__
 
 // Abstract interfaces to the Dasher engine
 // #define _DASHER_VER_ 0x0300 /* Probably not the way to do things */
