@@ -6,6 +6,7 @@
 
 #include "GtkDasherCanvas.h"
 #include "GtkDasherEdit.h"
+#include "GtkDasherStore.h"
 
 #include "DasherInterface.h"
 #include "SettingsStore.h"
@@ -24,7 +25,8 @@ protected:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;
   
-  CSettingsStore *store;
+  //  CSettingsStore *store;
+  GtkDasherStore *store;
 
   CDasherInterface *interface;
 

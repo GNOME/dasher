@@ -8,6 +8,7 @@
 
 #include "GtkDasherPane.h"
 #include "GtkDasherCanvas.h"
+#include "GtkDasherStore.h"
 #include "GtkDasherEdit.h"
 
 #include "DasherInterface.h"
@@ -23,6 +24,8 @@
 GtkDasherPane::GtkDasherPane()
   : VBox( false, 0 ), paused( false )
 { 
+
+  store = new GtkDasherStore;
 
   char *HomeDir;
 
@@ -44,7 +47,7 @@ GtkDasherPane::GtkDasherPane()
 
   interface->SetSystemLocation(SystemDataDir);
   interface->SetUserLocation(UserDataDir);
-
+  interface->SetSettingsStore( store );
 
 
   text = new GtkDasherEdit( interface );
