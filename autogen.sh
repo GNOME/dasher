@@ -1,7 +1,6 @@
 #!/bin/sh
 
-cat m4/* >acinclude.m4
-aclocal
+aclocal -I m4
 libtoolize --force
 intltoolize --force
 autoconf
