@@ -1,3 +1,15 @@
+2004-03-07  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Be somewhat more paranoid about what widgets we examine, since the
+	  new filechooser contains a hidden widget of extreme badness
+	* Fix infinite loops when moving between two control branches, and
+	  fix a crasher bug that was hidden by that	
+	
+2004-03-06  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Check CORBA return sanely, so no crash if we're unable to find
+	  a voice
+	
 2004-02-26  Sanlig Badral  <badral@openmn.org>
 
 	* /Data/Translation: Added Mongolian alphabet schema.

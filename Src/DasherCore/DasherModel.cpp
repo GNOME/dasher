@@ -388,7 +388,8 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	symbol t=new_under_cross->Symbol();
 
 	if (new_under_cross->Control()==true) {
-		m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
+	  //		m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
+		OutputCharacters(new_under_cross);
 		SetBitrate(m_dMaxRate/3);
 	} else {
 	  OutputCharacters(new_under_cross);
@@ -479,6 +480,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
     while (oldnode!=lastseen) {
       oldnode->Seen(false);
       if (oldnode->Control()==true||oldnode->Symbol()==m_languagemodel->GetControlSymbol() || oldnode->Symbol()==0) {
+	oldnode=oldnode->Parent();
 	continue;
       }
       m_editbox->deletetext(oldnode->Symbol());
