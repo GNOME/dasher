@@ -15,14 +15,14 @@ void setup_speech() {
   Bonobo_ServerInfo *info;
   CORBA_Object rv;
 
-  CORBA_exception_init (&ev);
-
   servers = bonobo_activation_query (
 	     "repo_ids.has ('IDL:GNOME/Speech/SynthesisDriver:0.2')",
 	     NULL, &ev);
 
   for (int i=0; i<servers->_length; i++) 
     {
+      CORBA_exception_init (&ev);
+
       info = &servers->_buffer[i];
       printf ("Atempting to activate %s.\n", info->iid);
 
