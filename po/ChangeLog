@@ -1,5 +1,9 @@
 2004-01-05  Danilo Šegan  <dsegan@gmx.net>
 
+	* sr.po, sr@Latn.po: Added Serbian translation.
+
+2004-01-05  Danilo Šegan  <dsegan@gmx.net>
+
 	* .cvsignore: Added.
 
 	* dasher.pot: Removed, this is a generated file.
