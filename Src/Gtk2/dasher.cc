@@ -665,6 +665,12 @@ save_file_as (const char *filename, bool append)
     // in rubbish, and we shouldn't be encouraging weird codepage madness any further
     //FIXME - error handling  
     outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
+    if (outbuffer==NULL) {
+      // We can't represent the text in the current locale, so fall back to 
+      // UTF-8
+      outbuffer=inbuffer;
+      bytes_written=length;
+    }
     break;
   case Opts::UTF8:
     outbuffer=inbuffer;
