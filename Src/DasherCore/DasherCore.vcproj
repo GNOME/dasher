@@ -60,7 +60,7 @@
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				GlobalOptimizations="TRUE"
@@ -68,7 +68,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC,_UNICODE"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
@@ -242,13 +242,14 @@
 			ConfigurationType="4"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
-			CharacterSet="2">
+			CharacterSet="1">
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB,_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
+				TreatWChar_tAsBuiltInType="FALSE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
@@ -375,6 +376,9 @@
 		</File>
 		<File
 			RelativePath=".\DasherWidgetInterface.h">
+		</File>
+		<File
+			RelativePath="FrameRate.h">
 		</File>
 		<File
 			RelativePath=".\LanguageModel.cpp">
