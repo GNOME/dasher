@@ -8,90 +8,106 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-24 03:23+0100\n"
-"PO-Revision-Date: 2004-01-24 21:17+0100\n"
+"POT-Creation-Date: 2004-02-06 03:13+0100\n"
+"PO-Revision-Date: 2004-02-06 17:34+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:58
 msgid "Menus"
 msgstr "Menu"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:65
+msgid "Windows"
+msgstr "Okna"
+
+#: Src/Gtk2/accessibility.cc:70
+msgid "Application"
+msgstr "Aplikace"
+
+#: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
 msgstr "Tlačítka"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:83
 msgid "Panels"
 msgstr "Panely"
 
-#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:90
+msgid "Text"
+msgstr "Text"
+
+#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Ovládání"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:168
 msgid "Stop"
 msgstr "Zastavit"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:174
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:181
 msgid "Move"
 msgstr "Přesunout"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:188
 msgid "Delete"
 msgstr "Odstranit"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:197
 msgid "Speak"
 msgstr "Mluvit"
 
-#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:227
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:233
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:246
 msgid "Everything"
 msgstr "Vše"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:252
 msgid "New"
 msgstr "Nový"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:258
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
 msgid "Character"
 msgstr "Znak"
 
-#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
 msgid "Word"
 msgstr "Slovo"
 
-#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
 msgid "Line"
 msgstr "Řádek"
+
+#: Src/Gtk2/accessibility.cc:399
+msgid "Unknown"
+msgstr "Neznámý"
 
 #: Src/Gtk2/dasher.cc:183
 msgid "Training Dasher, please wait"
