@@ -7,10 +7,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD.pa\n"
+"Project-Id-Version: pa\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-21 11:03+0200\n"
-"PO-Revision-Date: 2004-08-21 14:54+0530\n"
+"PO-Revision-Date: 2004-08-26 12:43+0530\n"
 "Last-Translator: Amanpreet Singh Alam <aalam@redhat.com>\n"
 "Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -306,7 +306,7 @@ msgstr "ਰੋਕਣ ਤੇ ਸਭ ਦੀ ਨਕਲ"
 
 #: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
-msgstr "ਕੱਰੋ"
+msgstr "ਕੱਟੋ"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
@@ -318,7 +318,7 @@ msgstr "ਡੈਸ਼ਰ ਪਸੰਦ"
 
 #: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr "ਕੇਦਰੀ-ਰੇਖਾ ਤੋ ਮਾਊਸ ਦੀ ਸਥਿਤੀ ਤੋ ਸ਼ੁਰੂ ਦੀ ਦੂਰੀਃ"
+msgstr "ਕੇਂਦਰੀ-ਰੇਖਾ ਤੋ ਮਾਊਸ ਦੀ ਸਥਿਤੀ ਤੋ ਸ਼ੁਰੂ ਦੀ ਦੂਰੀਃ"
 
 #: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -352,7 +352,7 @@ msgid ""
 msgstr ""
 "ਜੇਕਰ ਇਹ ਮੋਡ ਨਿਰਧਾਰਿਤ ਕੀਤਾ ਗਿਆ ਤਾਂ ਉਪੱਰ ਤੇ ਹੇਠਾਂ\n"
 "ਲਗਾਤਾਰ ਧੁਰਿਆ ਵਿੱਚ ਅੱਗੇ ਪਿੱਛੇ ਜਾਵੇਗਾ ਅਤੇ ਸਹੀ ਚੋਣ ਦੀ ਤਸਦੀਕ "
-"ਕਰੇਗਾ|"
+"ਕਰੇਗਾ।"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
@@ -472,9 +472,9 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"ਇਸ ਕੰਟੋਰਲ ਨੂੰ ਲੇਟਰ ਬਾਕਸਾਂ ਦਾ ਅਨੁਸਾਰੀ ਅਕਾਰ ਨਿਰਧਾਰਨ ਕਰ ਲਈ ਵਰਤੋ| \n"
+"ਇਸ ਕੰਟੋਰਲ ਨੂੰ ਲੇਟਰ ਬਾਕਸਾਂ ਦਾ ਅਨੁਸਾਰੀ ਅਕਾਰ ਨਿਰਧਾਰਨ ਕਰ ਲਈ ਵਰਤੋ। \n"
 "ਇਹ ਯਾਦ ਰੱਖੋ ਕਿ ਵਧੇਰੇ ਜਿਆਦਾ ਮੁੱਲ ਤੁਹਾਡੀ ਲਿਖਣ ਦੀ ਗਤੀ ਘਟਾ \n"
-"ਦੇਵੇਗਾ|"
+"ਦੇਵੇਗਾ।"
 
 #: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
@@ -550,7 +550,7 @@ msgid ""
 "between coordinates and right will confirm the choice"
 msgstr ""
 "ਜੇਕਰ ਇਹ ਮੋਡ ਨਿਰਧਾਰਿਤ ਕੀਤਾ ਗਿਆ ਤਾਂ ਉਪੱਰ ਤੇ ਹੇਠਾਂ\n"
-"ਲਗਾਤਾਰ ਧੁਰਿਆ ਵਿੱਚ ਅੱਗੇ ਪਿੱਛੇ ਜਾਵੇਗਾ ਅਤੇ ਸਹੀ ਚੋਣ ਦੀ ਤਸਦੀਕ ਕਰ ਦੇਵੇਗਾ|"
+"ਲਗਾਤਾਰ ਧੁਰਿਆ ਵਿੱਚ ਅੱਗੇ ਪਿੱਛੇ ਜਾਵੇਗਾ ਅਤੇ ਸਹੀ ਚੋਣ ਦੀ ਤਸਦੀਕ ਕਰ ਦੇਵੇਗਾ।"
 
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -561,8 +561,8 @@ msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
 msgstr ""
-"ਇਸ ਕੰਟੋਰਲ ਨੂੰ ਲੇਟਰ ਬਾਕਸਾਂ ਦਾ ਅਨੁਸਾਰੀ ਅਕਾਰ ਨਿਰਧਾਰਨ ਕਰ ਲਈ ਵਰਤੋ| ਇਹ ਯਾਦ ਰੱਖੋ ਕਿ ਵਧੇਰੇ ਜਿਆਦਾ "
-"ਮੁੱਲ ਤੁਹਾਡੀ ਲਿਖਣ ਦੀ ਗਤੀ ਘਟਾ ਦੇਵੇਗਾ|"
+"ਇਸ ਕੰਟੋਰਲ ਨੂੰ ਲੇਟਰ ਬਾਕਸਾਂ ਦਾ ਅਨੁਸਾਰੀ ਅਕਾਰ ਨਿਰਧਾਰਨ ਕਰ ਲਈ ਵਰਤੋ। ਇਹ ਯਾਦ ਰੱਖੋ ਕਿ "
+"ਵਧੇਰੇ ਜਿਆਦਾ ਮੁੱਲ ਤੁਹਾਡੀ ਲਿਖਣ ਦੀ ਗਤੀ ਘਟਾ ਦੇਵੇਗਾ।"
 
 #: Src/Gtk2/speech.cc:24
 #, c-format
