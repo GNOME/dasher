@@ -54,6 +54,44 @@ then
 	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
 fi
 
+if [[ x"$WITHQTE" != xtrue ]]
+then
+dnl test for X libraries
+	if test	x$no_x = xyes ; then
+	  AC_MSG_ERROR([X development libraries not found])
+	else
+	  X_LIBS="$X_LIBS $X_PRE_LIBS -lX11 $X_EXTRA_LIBS"
+	fi
+
+dnl path to Xtst
+	AC_CHECK_LIB(Xtst, XTestFakeKeyEvent, XTST_LIBS=-lXtst)
+	if test "x$XTST_LIBS" = x; then
+	  save_LIBS="$LIBS"
+	  for xtstpath in /usr/X11R6/lib /usr/openwin/lib $x_libraries; do
+	    LIBS="-L$xtstpath -lXtst"
+	    case "$host" in
+	    *solaris*) XTST_RPATH_FLAGS="-R$xtstpath" ;;
+	    esac
+	    AC_MSG_CHECKING(for -lXtst in $xtstpath)
+	    AC_TRY_LINK([], [XTestFakeKeyEvent()], [
+	        AC_MSG_RESULT(yes)
+	        XTST_LIBS="$XTST_RPATH_FLAGS -L$xtstpath -lXtst"
+	        LIBS="$save_LIBS"
+	        break],[AC_MSG_RESULT(no)])
+	  done
+	  if test "x$XTST_LIBS" = x; then
+	    AC_MSG_ERROR(Couldn't find the Xtst library. Check config.log for details)
+	  else
+	    X_LIBS="$X_LIBS $XTST_LIBS"
+	    AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])
+	  fi
+	fi
+
+AC_SUBST(X_LIBS)
+fi
+
+
+
 if [[ x"$WITHGNOME" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0)
 	AC_DEFINE([GNOME_LIBS])
