@@ -85,8 +85,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		int newleft=left, newtop=top, newright=right, newbottom=bottom;
 		MapScreen(&newleft, &newtop);
 		MapScreen(&newright, &newbottom);
-		if( !text )
+		if( !text ) {
 		  Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
+		}
 		else
 		  {
 		    if (left<mostleft)

@@ -26,7 +26,7 @@ CDasherInterface::CDasherInterface()
 	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
 	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
 	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
-	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0)
+	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0), m_ColourMode(0)
 {
 }
 
@@ -213,6 +213,12 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 
 	if (m_Orientation==Opts::Alphabet)
  		ChangeOrientation(Opts::Alphabet);
+
+	//FIXME - this should really be done when the new view is generated
+	//rather than fixing things up afterwards
+	if (m_DasherView!=0) {
+	  m_DasherView->SetColourMode(m_ColourMode);
+	}
 
 	Redraw();
 }
@@ -627,6 +633,7 @@ void CDasherInterface::ColourMode(bool Value)
   if (m_DasherView!=0) {
     m_DasherView->SetColourMode(Value);
   }
+  m_ColourMode=Value;
   Start();
   Redraw();
 }

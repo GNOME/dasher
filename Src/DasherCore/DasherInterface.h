@@ -169,6 +169,7 @@ private:
 	bool m_Dimensions;
 	bool m_WindowPause;
 	bool m_ControlMode;
+	bool m_ColourMode;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
