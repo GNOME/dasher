@@ -184,7 +184,7 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 	if (m_SettingsUI!=0)
 		m_SettingsUI->ChangeMaxBitRate(m_MaxBitRate);
 	if (m_SettingsStore!=0)
-		m_SettingsStore->SetLongOption(Keys::MAX_BITRATE_TIMES100, m_MaxBitRate*100);
+		m_SettingsStore->SetLongOption(Keys::MAX_BITRATE_TIMES100, long(m_MaxBitRate*100) );
 }
 
 
