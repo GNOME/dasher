@@ -72,6 +72,9 @@ public:
   void change_alphabet( std::string _alphabet );
 
   void select_encoding();
+
+  std::string get_current_filename();
+
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;

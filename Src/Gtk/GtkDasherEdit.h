@@ -49,13 +49,17 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   void kill_flush();
 
   void set_display_encoding( int _enc );
-  
+  std::string get_current_filename();
 
  protected:
   int flush_count;
   CDasherInterface *interface;
   string current_filename;
   bool filename_set;
+
+  bool timestamp;
+
+  bool dirty;
 
   Gdk_Font efont;
 

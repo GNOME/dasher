@@ -101,6 +101,8 @@ public:
   void SetDasherFont(std::string Name) {}; // UI doesn't need to know
   void SetEditHeight(long Value) {}; // Not implemented
 
+  void refresh_title();
+
 protected:
 
   Gtk::Menu_Helpers::MenuList *list_opts;

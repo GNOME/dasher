@@ -391,3 +391,8 @@ gint GtkDasherPane::key_press_event_impl( GdkEventKey *e )
 {
   cout << "Received keypress" << endl;
 }
+
+std::string GtkDasherPane::get_current_filename()
+{
+  return( text->get_current_filename() );
+}

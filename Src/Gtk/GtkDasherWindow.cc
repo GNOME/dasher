@@ -141,7 +141,7 @@ GtkDasherWindow::GtkDasherWindow()
     list_opts->push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
 
-    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
+    //    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
     static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
 
     //    static_cast<CheckMenuItem *>( list_opts[0] )->set_active( false );
@@ -229,6 +229,8 @@ GtkDasherWindow::GtkDasherWindow()
   
   dasher_pane.clear();
 
+  refresh_title();
+
   aboutbox.set_title("About Dasher");
 
 
@@ -269,14 +271,9 @@ void GtkDasherWindow::file_ok_sel()
   save_dialogue.set_filename(save_dialogue.current_filename.c_str());
   save_dialogue.hide();
   
-  if( dasher_pane.save_as( save_dialogue.current_filename ))
-    {
-      char tbuffer[256];
-      
-      snprintf( tbuffer, 256, "Dasher - %s", ofilesel.get_filename().c_str());
-      
-      set_title(tbuffer);
-    }
+  dasher_pane.save_as( save_dialogue.current_filename );
+
+  refresh_title();
 }
 
 void GtkDasherWindow::ifile_ok_sel()
@@ -383,15 +380,11 @@ void GtkDasherWindow::efont_cancel_sel()
 
 void GtkDasherWindow::ofile_ok_sel()
 {
-  if( dasher_pane.open(ofilesel.get_filename()))
-    {
-      char tbuffer[256];
-
-      snprintf( tbuffer, 256, "Dasher - %s", ofilesel.get_filename().c_str());
-
-      set_title(tbuffer);
-    }
+  dasher_pane.open(ofilesel.get_filename());
+    
   ofilesel.hide();
+
+  refresh_title();
 }
 
 void GtkDasherWindow::ofile_cancel_sel()
@@ -555,8 +548,28 @@ void GtkDasherWindow::orientation( Opts::ScreenOrientations o )
 
 void GtkDasherWindow::reset()
 {
-  set_title("Dasher");
-  dasher_pane.reset();
+ dasher_pane.reset();
+ 
+ refresh_title();
+} 
+
+void GtkDasherWindow::refresh_title()
+{
+  // Updates the title to match the current filename according to the dasher pane
+
+  string cfn;
+
+  cfn = dasher_pane.get_current_filename();
+
+  if( cfn == std::string() )
+    set_title("Dasher");
+  else
+    {
+      char tbuffer[256];
+      snprintf( tbuffer, 256, "Dasher - %s", cfn.c_str());
+      set_title(tbuffer);
+    }
+
 }
 
 void GtkDasherWindow::save()
@@ -565,12 +578,14 @@ void GtkDasherWindow::save()
 }
 
 void GtkDasherWindow::save_as()
-{
+{ 
+  save_dialogue.set_filename( dasher_pane.get_current_filename() );
   save_dialogue.show();
 }
 
 void GtkDasherWindow::open()
 {
+  ofilesel.set_filename( dasher_pane.get_current_filename() );
   ofilesel.show();
 }
 

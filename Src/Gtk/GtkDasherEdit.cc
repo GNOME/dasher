@@ -5,11 +5,13 @@
 
 
 #include <string>
-#include <iostream.h>
+#include <iostream>
 #include <fstream.h>
 
+#include <time.h>
+
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
-  : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*")
+  : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*"), timestamp( true ), dirty( false )
 {
   enc = 1;
   
@@ -93,6 +95,12 @@ void GtkDasherEdit::unflush()
 {
   text.backward_delete( flush_count );
   flush_count = 0;
+
+  dirty = true;
+
+  // FIXME - we could do something more sophisticated with dirtying -
+  // ie if you flush then unflush with the net result being that there
+  // is no change then it might be a good idea to unset dirty.
 }
 
 void GtkDasherEdit::output(symbol Symbol)
@@ -110,6 +118,8 @@ void GtkDasherEdit::output(symbol Symbol)
 
   text.delete_selection();
   text.insert ( efont, black, white, label, 1);
+
+  dirty = true;
 }
 
 void GtkDasherEdit::flush(symbol Symbol)
@@ -130,6 +140,8 @@ void GtkDasherEdit::flush(symbol Symbol)
       
       text.delete_selection();
       text.insert ( efont, black, white, label, 1);
+
+      dirty = true;
     }
 }
 
@@ -161,11 +173,41 @@ void GtkDasherEdit::SelectAll()
 
 void GtkDasherEdit::Clear()
 {
+  if( dirty )
+    cout << "Warning - loosing unsaved changes - probably should prompt here" << endl;
+
+  if( timestamp )
+    {
+      tm *t_struct;
+      
+      time_t ctime;
+      
+      ctime = time( NULL );
+      
+      t_struct= localtime( &ctime );
+      
+      char tbuffer[256];
+      
+      snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+      
+      current_filename = std::string(tbuffer);
+    }
+  else
+    current_filename = std::string();
+
   text.delete_text(0, -1 );
+
+  dirty = false;
+}
+
+std::string GtkDasherEdit::get_current_filename()
+{
+  return( current_filename );
 }
 
 void GtkDasherEdit::TimeStampNewFiles(bool Value)
 {
+  timestamp = Value;
 }
 
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
@@ -193,10 +235,20 @@ void GtkDasherEdit::set_display_encoding( int _enc )
 
 bool GtkDasherEdit::SaveAs(std::string filename, bool a)
 {
+  std::string old_filename;
+
+  old_filename = current_filename;
+
   current_filename = filename;
   filename_set = true;
 
-  return( Save(a) );
+  if( Save(a) )
+    return( true );
+  else
+    {
+      current_filename = old_filename;
+      return( false );
+    }
 }
 
 bool GtkDasherEdit::Save(bool a)
@@ -221,22 +273,29 @@ bool GtkDasherEdit::Save(bool a)
   ofile << contents << endl;
   ofile.close();
 
+  dirty = false;
+
   return( true );
 }
 
 bool GtkDasherEdit::Open( std::string filename )
 {
 
-  current_filename = filename;
+  if( dirty )
+    cout << "Warning - loosing unsaved changes - probably should prompt here" << endl;
+
+
+  //  current_filename = filename;
 
   ifstream ifile( filename.c_str(), ios::binary );
   
   if( ifile.bad() )
     return( false );
 
-  text.freeze();
+  current_filename = filename;
 
-  Clear();
+  text.freeze();
+  text.delete_text(0, -1 );
 
   char fbuffer[ 1024 ];
 
@@ -270,6 +329,8 @@ bool GtkDasherEdit::Open( std::string filename )
 
   interface->Start();
   interface->Redraw();
+
+  dirty = false;
 
   return( true );
 }
