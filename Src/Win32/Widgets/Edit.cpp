@@ -717,8 +717,8 @@ void CEdit::unflush()
 			keybd_event(VK_BACK,0,NULL,NULL);
 			keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
 		}
-	}
 #endif
+	}
 	m_iFlushed=0;
 }
 
@@ -747,8 +747,8 @@ void CEdit::deletetext()
 		SetFocus(targetwindow);
 		keybd_event(VK_BACK,0,NULL,NULL);
 		keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
-	}
 #endif
+	}
 }
 
 void CEdit::SetWindow(HWND window)
