@@ -219,12 +219,11 @@ void CColourIO::Save(const std::string& ColourID)
 
 void CColourIO::CreateDefault()
 {
-	// TODO I appreciate these strings should probably be in a resource file.
-	// Not urgent though as this is not intended to be used. It's just a
-	// last ditch effort in case file I/O totally fails.
 	ColourInfo& Default = Colours["Default"];
 	Default.ColourID = "Default";
 	Default.Mutable = false;
+	Default.Reds.push_back(255);
+	
 }
 
 

@@ -45,14 +45,14 @@ public:
 		{
 			std::string Display;
 			std::string Text;
-		        std::string Colour;
+		        int Colour;
 		        std::string Foreground;
 		};
 		struct group
 		{
 			std::string Description;
 			std::vector< character > Characters;
-			std::string Colour;
+			int Colour;
 		};
 		std::vector< group > Groups;
 	        character ParagraphCharacter; // display and edit text of paragraph character. Use ("", "") if no paragraph character.

@@ -258,26 +258,24 @@ void CAlphIO::CreateDefault()
 	Default.Orientation = Opts::LeftToRight;
 	Default.ParagraphCharacter.Display = "";
 	Default.ParagraphCharacter.Text = "";
-	Default.ParagraphCharacter.Colour = "-1";
+	Default.ParagraphCharacter.Colour = -1;
 	Default.SpaceCharacter.Display = "_";
 	Default.SpaceCharacter.Text = " ";
-	Default.SpaceCharacter.Colour = "9";
+	Default.SpaceCharacter.Colour = 9;
 	Default.ControlCharacter.Display = "Control";
 	Default.ControlCharacter.Text = "";
-	Default.ControlCharacter.Colour = "8";
+	Default.ControlCharacter.Colour = 8;
 	Default.TrainingFile = "training_english_GB.txt";
 	Default.PreferredColours = "Default";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);
 	Default.Groups[0].Description = "Lower case Latin letters";
 	Default.Groups[0].Characters.resize(Chars.size());
-	Default.Groups[0].Colour = "0";
+	Default.Groups[0].Colour = 0;
 	for (unsigned int i=0; i<Chars.size(); i++) {
 		Default.Groups[0].Characters[i].Text = Chars[i];
 		Default.Groups[0].Characters[i].Display = Chars[i];
-		char dummy[10];
-		sprintf(dummy,"%d",i+10);
-		Default.Groups[0].Characters[i].Colour = dummy;
+		Default.Groups[0].Characters[i].Colour = i+10;
 	}
 }
 
@@ -333,6 +331,9 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 		AlphInfo NewInfo;
 		Me->InputInfo = NewInfo;
 		Me->InputInfo.Mutable = Me->LoadMutable;
+		Me->InputInfo.SpaceCharacter.Colour = -1;
+		Me->InputInfo.ParagraphCharacter.Colour = -1;
+		Me->InputInfo.ControlCharacter.Colour = -1;
 		while (*atts!=0) {
 			if (strcmp(*atts, "name")==0) {
 				atts++;
@@ -389,7 +390,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			}
 			if (strcmp(*atts, "b")==0) {
 			  atts++;
-			  Me->InputInfo.SpaceCharacter.Colour = *atts;
+			  Me->InputInfo.SpaceCharacter.Colour = atoi(*atts);
 			  atts--;
 			}
 			if (strcmp(*atts, "f")==0) {
@@ -415,7 +416,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			}
 			if (strcmp(*atts, "b")==0) {
 			  atts++;
-			  Me->InputInfo.ParagraphCharacter.Colour = *atts;
+			  Me->InputInfo.ParagraphCharacter.Colour = atoi(*atts);
 			  atts--;
 			}
 			if (strcmp(*atts, "f")==0) {
@@ -441,7 +442,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			}
 			if (strcmp(*atts, "b")==0) {
 				atts++;
-				Me->InputInfo.ControlCharacter.Colour = *atts;
+				Me->InputInfo.ControlCharacter.Colour = atoi(*atts);
 				atts--;
 			}
 			if (strcmp(*atts, "f")==0) {
@@ -456,6 +457,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 	
 	if (strcmp(name, "group")==0) {
 		AlphInfo::group NewGroup;
+		NewGroup.Colour=-1;
 		Me->InputInfo.Groups.push_back(NewGroup);
 		while (*atts!=0) {
 			if (strcmp(*atts, "name")==0) {
@@ -465,7 +467,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			}
 			if (strcmp(*atts, "b")==0) {
 				atts++;
-				Me->InputInfo.Groups.back().Colour = *atts;
+				Me->InputInfo.Groups.back().Colour = atoi(*atts);
 				atts--;
 			}
 			atts += 2;
@@ -475,6 +477,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 	
 	if (strcmp(name, "s")==0) {
 		AlphInfo::character NewCharacter;
+		NewCharacter.Colour=-1;
 		Me->InputInfo.Groups.back().Characters.push_back(NewCharacter);
 		AlphInfo::character& Ch = Me->InputInfo.Groups.back().Characters.back();
 		while (*atts!=0) {
@@ -490,7 +493,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			}
 			if (strcmp(*atts, "b")==0) {
 			        atts++;
-				Ch.Colour = *atts;
+				Ch.Colour = atoi(*atts);
 				atts--;
 			}
 			if (strcmp(*atts, "f")==0) {

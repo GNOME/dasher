@@ -146,7 +146,7 @@ change_alphabet(gpointer alph)
   // This is launched as a separate thread in order to let the main thread
   // carry on updating the training window
   dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
-  g_free(alph);
+  //  g_free(alph);
   g_async_queue_push(trainqueue,(void *)1);
   g_thread_exit(NULL);
 }
@@ -166,6 +166,11 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
     if (alph!=alphabet) {
       alphabet=alph;
 #ifndef WITH_GPE
+      // Don't let them select another alphabet while we're training the first one
+      if (training==true) {
+	return;
+      }
+
       // Note that we're training - this is needed in order to avoid
       // doing anything that would conflict with the other thread
       training=TRUE;
@@ -187,7 +192,7 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 
 void update_colours()
 {
-  if (training==TRUE) {
+  if (training==true) {
     // We can go back and do this after training, but doing it now would
     // break stuff
     return;

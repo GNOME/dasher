@@ -20,7 +20,7 @@ CAlphabet::CAlphabet() : m_Groups(0), m_DefaultEncoding(Opts::Western), m_Orient
 {
 	m_Characters.push_back("");
 	m_Display.push_back("");
-	m_Colours.push_back("");
+	m_Colours.push_back(-1);
 	m_Foreground.push_back("");
 	m_Group.push_back(0);
 }
@@ -96,7 +96,7 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 
 
 // add single char to the character set
-void CAlphabet::AddChar(const string NewCharacter, const string Display, const string Colour, const string Foreground)
+void CAlphabet::AddChar(const string NewCharacter, const string Display, int Colour, const string Foreground)
 {
 	m_Characters.push_back(NewCharacter);
 	m_Display.push_back(Display);
@@ -117,7 +117,7 @@ void CAlphabet::DelChar(symbol Symbol) {
   m_Group.erase(m_Group.begin()+Symbol); 
 }
 
-void CAlphabet::StartNewGroup(std::string colour)
+void CAlphabet::StartNewGroup(int colour)
 {
 	m_GroupColour.push_back(colour);
 	m_Groups++;

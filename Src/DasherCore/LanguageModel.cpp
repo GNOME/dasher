@@ -110,22 +110,12 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 
 int CLanguageModel::GetColour(int character)
 {
-  std::string colour=m_Alphabet->GetColour(character);
-  if (colour!="") {
-    return atoi(colour.c_str());
-  } else {
-    return -1;
-  }
+  return m_Alphabet->GetColour(character);
 }
 
 int CLanguageModel::GetGroupColour(int group)
 {
-	std::string colour=m_Alphabet->GetGroupColour(group);
-	if (colour!="") {
-		return atoi(colour.c_str());
-	} else {
-		return -1;
-	}
+	return m_Alphabet->GetGroupColour(group);
 }
 
 bool CLanguageModel::isRealSymbol( symbol _s ) {
