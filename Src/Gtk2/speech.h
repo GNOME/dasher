@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 void setup_speech();
 void teardown_speech();

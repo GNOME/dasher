@@ -21,17 +21,20 @@ void setup_speech() {
 	     "repo_ids.has ('IDL:GNOME/Speech/SynthesisDriver:0.2')",
 	     NULL, &ev);
 
-  int i=0;
-  do {
-    info = &servers->_buffer[i];
-    printf ("Atempting to activate %s.\n", info->iid);
+  for (int i=0; i<servers->_length; i++) 
+    {
+      info = &servers->_buffer[i];
+      printf ("Atempting to activate %s.\n", info->iid);
 
-    rv = bonobo_activation_activate_from_id (
-					     (const Bonobo_ActivationID) info->iid,
-					     0, NULL, &ev);
-    
-    i++;
-  } while (BONOBO_EX (&ev));
+      rv = bonobo_activation_activate_from_id (
+					       (const Bonobo_ActivationID) info->iid,
+					       0, NULL, &ev);
+      if (!BONOBO_EX (&ev)) {
+	break;
+      } else {
+	printf("Failed to activate %s.\n", info->iid);
+      }
+    }
 
   CORBA_free (servers);
 
