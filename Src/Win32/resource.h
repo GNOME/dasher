@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by Dasher.rc
 //
 #define IDC_MYICON                      2
@@ -57,6 +57,17 @@
 #define IDD_NEWALPHABET                 153
 #define IDD_NEWGROUP                    154
 #define IDD_EDITLETTER                  155
+#define IDD_KEYCONTROL                  156
+#define ID_Menu                         156
+#define IDD_ADDKEYS                     157
+#define ID_OPTIONS_EDITFONT             157
+#define IDD_WINSELECT                   158
+#define ID_OPTIONS_ENTERTEXT            159
+#define IDB_FINDER_EMPTY                162
+#define IDB_BITMAP1                     163
+#define IDB_FINDER_FULL                 163
+#define IDC_CURSOR1                     165
+#define IDC_SEARCH_CURSOR               165
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -64,6 +75,7 @@
 #define IDC_COMBO1                      1012
 #define IDC_CHARS                       1013
 #define IDC_BUTTON1                     1014
+#define IDC_DRAGBUTTON                  1014
 #define IDC_ADD_ALPH                    1015
 #define IDC_BUTTON2                     1016
 #define IDC_DEL_ALPH                    1017
@@ -87,7 +99,7 @@
 #define IDC_MOVE_CHAR                   1035
 #define IDC_SPACE                       1036
 #define IDC_RO                          1037
-#define IDC_EDIT1                       1038
+#define IDC_RIGHTY                      1038
 #define IDC_DISPLAY                     1039
 #define IDC_EDIT2                       1040
 #define IDC_TEXT                        1041
@@ -103,6 +115,20 @@
 #define IDC_CHAR_BUDDY                  1051
 #define IDOK_ADDCHAR                    1052
 #define ID_CUSTOM_CANCEL                1054
+#define IDC_ADD_KEY                     1055
+#define IDC_DEL_KEY                     1056
+#define IDC_EDIT_KEY                    1057
+#define IDC_KEYS                        1058
+#define IDC_UPX                         1059
+#define IDC_UPY                         1060
+#define IDC_DOWNX                       1061
+#define IDC_DOWNY                       1062
+#define IDC_LEFTX                       1063
+#define IDC_LEFTY                       1064
+#define IDC_RIGHTX                      1065
+#define IDOK_KEYCONT                    1066
+#define ID_CANCEL_KEYCONT               1067
+#define IDC_DRAGCONTROL                 1068
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -110,7 +136,7 @@
 #define ID_EDIT_SELECTALL               32775
 #define ID_HELP_CONTENTS                32776
 #define ID_OPTIONS_ALPHABET             32777
-#define ID_OPTIONS_EDITFONT             32778
+#define ID_OPTIONS_EDIfsd               32778
 #define ID_OPTIONS_DASHERFONT           32779
 #define ID_OPTIONS_RESETFONT            32780
 #define ID_OPTIONS_PROFILE              32781
@@ -145,17 +171,18 @@
 #define ID_OPTIONS_DRAWMOUSE            32811
 #define ID_OPTIONS_LEFTMOUSE            32812
 #define ID_OPTIONS_SPACE                32813
-#define ID_OPTIONS_KEYCONTROL           32814
-#define ID_OPTIONS_WINDOWPAUSE          32815
+#define ID_OPTIONS_EDITKEYS             32814
+#define ID_OPTIONS_KEYCONTROL           32815
+#define ID_OPTIONS_WINDOWPAUSE          32816
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        156
-#define _APS_NEXT_COMMAND_VALUE         32816
-#define _APS_NEXT_CONTROL_VALUE         1055
+#define _APS_NEXT_RESOURCE_VALUE        166
+#define _APS_NEXT_COMMAND_VALUE         32817
+#define _APS_NEXT_CONTROL_VALUE         1069
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

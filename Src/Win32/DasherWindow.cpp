@@ -11,6 +11,7 @@
 #include "DasherWindow.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
+#include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
 #include "WinLocalisation.h"
 #include "WinUTF8.h"
@@ -332,6 +333,15 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case ID_OPTIONS_KEYCONTROL:
 				DasherSettingsInterface->KeyControl(!WinMenu.GetCheck(ID_OPTIONS_KEYCONTROL));
 			break;
+
+			case ID_OPTIONS_ENTERTEXT:
+#ifdef UNICODE
+				{ CWinSel WinSel(m_hwnd,m_pEdit); }
+#else
+				MessageBox (m_hwnd, TEXT ("Sorry, this option is only available in the Windows 2000 and higher version of Dasher"), TEXT("Feature unavailable"),MB_OK|MB_ICONERROR);
+#endif
+				break;
+			
 			case ID_OPTIONS_1D:
 				DasherSettingsInterface->SetDasherDimensions(!WinMenu.GetCheck(ID_OPTIONS_1D));
 			break;
@@ -398,6 +408,11 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case IDM_ABOUT:
 				{ CAboutbox Aboutbox(m_hwnd); }
 				break;
+#ifdef DOM
+			case ID_OPTIONS_EDITKEYS:
+				{ CKeyBox KeyBox(m_hwnd,m_pCanvas); }
+				break;
+#endif		
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
 				break;

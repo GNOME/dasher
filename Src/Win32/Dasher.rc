@@ -1,4 +1,4 @@
-//Microsoft Developer Studio generated resource script.
+// Microsoft Visual C++ generated resource script.
 //
 #include "resource.h"
 
@@ -29,8 +29,8 @@ LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
 // Bitmap
 //
 
-IDB_COPY_ALL_SMALL_COLOR BITMAP  MOVEABLE PURE   "CopyAllSmall.bmp"
-IDB_COPY_ALL_LARGE_COLOR BITMAP  MOVEABLE PURE   "CopyAllLarge.bmp"
+IDB_COPY_ALL_SMALL_COLOR BITMAP                  "CopyAllSmall.bmp"
+IDB_COPY_ALL_LARGE_COLOR BITMAP                  "CopyAllLarge.bmp"
 #endif    // Neutral resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
 // TEXTINCLUDE
 //
 
-2 TEXTINCLUDE MOVEABLE PURE 
+2 TEXTINCLUDE 
 BEGIN
     "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
     "#include ""windows.h""\r\n"
@@ -59,7 +59,7 @@ BEGIN
     "\0"
 END
 
-3 TEXTINCLUDE MOVEABLE PURE 
+3 TEXTINCLUDE 
 BEGIN
     "\r\n"
     "\0"
@@ -80,13 +80,21 @@ LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
 #pragma code_page(1252)
 #endif //_WIN32
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_FINDER_EMPTY        BITMAP                  "findere.bmp"
+IDB_FINDER_FULL         BITMAP                  "finderf.bmp"
+
 #ifdef APSTUDIO_INVOKED
 /////////////////////////////////////////////////////////////////////////////
 //
 // TEXTINCLUDE
 //
 
-1 TEXTINCLUDE MOVEABLE PURE 
+1 TEXTINCLUDE 
 BEGIN
     "resource.h\0"
 END
@@ -101,14 +109,14 @@ END
 
 // Icon with lowest ID value placed first to ensure application icon
 // remains consistent on all systems.
-IDI_DASHER              ICON    DISCARDABLE     "dasher.ico"
+IDI_DASHER              ICON                    "dasher.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // Menu
 //
 
-IDC_DASHER MENU DISCARDABLE 
+IDC_DASHER MENU 
 BEGIN
     POPUP "&File"
     BEGIN
@@ -184,7 +192,7 @@ BEGIN
             MENUITEM "Very Large",                  ID_OPTIONS_FONTSIZE_VERYLARGE
 
         END
-        MENUITEM "&Editing Font...",            ID_OPTIONS_EDITFONT
+        MENUITEM "Editing Font...",             ID_OPTIONS_EDITFONT
         MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
         MENUITEM SEPARATOR
@@ -192,8 +200,10 @@ BEGIN
         MENUITEM "Draw mouse position",         ID_OPTIONS_DRAWMOUSE
         MENUITEM "Mouse button starts/stops",   ID_OPTIONS_LEFTMOUSE
         MENUITEM "Space bar starts/stops",      ID_OPTIONS_SPACE
-        MENUITEM "Keyboard Control",            ID_OPTIONS_KEYCONTROL
+        MENUITEM "Keyboard Control",            ID_OPTIONS_EDITKEYS
         MENUITEM "Pause outside Window",        ID_OPTIONS_WINDOWPAUSE
+        MENUITEM SEPARATOR
+        MENUITEM "Enter Text into Other Window...", ID_OPTIONS_ENTERTEXT
     END
     POPUP "&Help"
     BEGIN
@@ -209,7 +219,7 @@ END
 // Accelerator
 //
 
-IDC_DASHER ACCELERATORS MOVEABLE PURE 
+IDC_DASHER ACCELERATORS 
 BEGIN
     "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
     "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
@@ -229,8 +239,9 @@ END
 // Dialog
 //
 
-IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 242, 151
-STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ABOUTBOX DIALOG  0, 0, 242, 151
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
 CAPTION "About"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -248,8 +259,8 @@ BEGIN
                     168,1
 END
 
-IDD_ALPHABET DIALOG DISCARDABLE  0, 0, 270, 158
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ALPHABET DIALOG  0, 0, 270, 158
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Select Alphabet"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -265,8 +276,8 @@ BEGIN
     LTEXT           "Alphabets available:",IDC_STATIC,7,7,198,8
 END
 
-IDD_CUSTOMALPHABET DIALOG DISCARDABLE  0, 0, 278, 258
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_CUSTOMALPHABET DIALOG  0, 0, 278, 258
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Customize Alphabet"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -304,8 +315,8 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK_CUSTOMIZE,221,237,50,14
 END
 
-IDD_ADDLETTERS DIALOG DISCARDABLE  0, 0, 145, 79
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_ADDLETTERS DIALOG  0, 0, 145, 79
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Add characters"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -319,8 +330,8 @@ BEGIN
     DEFPUSHBUTTON   "Add",IDOK_ADDCHAR,88,58,50,14
 END
 
-IDD_NEWALPHABET DIALOG DISCARDABLE  0, 0, 186, 69
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_NEWALPHABET DIALOG  0, 0, 186, 69
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "New Alphabet"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -331,8 +342,8 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,41,170,1
 END
 
-IDD_NEWGROUP DIALOG DISCARDABLE  0, 0, 186, 68
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_NEWGROUP DIALOG  0, 0, 186, 68
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "New Group"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -343,8 +354,8 @@ BEGIN
     CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,41,170,1
 END
 
-IDD_EDITLETTER DIALOG DISCARDABLE  0, 0, 145, 79
-STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+IDD_EDITLETTER DIALOG  0, 0, 145, 79
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Edit character"
 FONT 8, "MS Shell Dlg"
 BEGIN
@@ -358,6 +369,60 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK_CHAR,88,58,50,14
 END
 
+IDD_KEYCONTROL DIALOGEX 0, 0, 269, 100
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Edit keyboard control"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,73,222,1
+    PUSHBUTTON      "Cancel",ID_CANCEL_KEYCONT,170,79,50,14
+    DEFPUSHBUTTON   "OK",IDOK_KEYCONT,109,79,50,14
+    LTEXT           "Up",IDC_STATIC,7,17,10,8
+    EDITTEXT        IDC_UPX,35,15,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_UPY,80,15,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DOWNX,35,30,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_DOWNY,80,30,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LEFTX,35,45,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_LEFTY,80,45,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_RIGHTX,35,60,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_RIGHTY,80,60,42,12,ES_AUTOHSCROLL
+    LTEXT           "Down",IDC_STATIC,7,32,19,8
+    LTEXT           "Left",IDC_STATIC,7,47,17,8
+    LTEXT           "Right",IDC_STATIC,7,62,18,8
+    LTEXT           "X",IDC_STATIC,40,7,32,7
+    LTEXT           "Y",IDC_STATIC,85,7,32,7
+END
+
+IDD_ADDKEYS DIALOG  0, 0, 145, 79
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add characters"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Display:",IDC_STATIC,7,7,59,8
+    EDITTEXT        IDC_DISPLAY,7,19,40,14,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,69,7,57,8
+    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,51,131,1
+    PUSHBUTTON      "Close",IDCANCEL,33,58,50,14
+    DEFPUSHBUTTON   "Add",IDOK_ADDCHAR,88,58,50,14
+END
+
+IDD_WINSELECT DIALOGEX 0, 0, 186, 82
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Select a Window"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,129,7,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,129,24,50,14
+    CONTROL         163,IDC_DRAGCONTROL,"Static",SS_BITMAP | SS_NOTIFY,45,40,
+                    21,20
+    LTEXT           "Drag the crosshair to the window you want to enter text into, and then press OK",
+                    IDC_STATIC,7,7,113,28
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -365,7 +430,7 @@ END
 //
 
 #ifdef APSTUDIO_INVOKED
-GUIDELINES DESIGNINFO MOVEABLE PURE 
+GUIDELINES DESIGNINFO 
 BEGIN
     IDD_ABOUTBOX, DIALOG
     BEGIN
@@ -422,11 +487,34 @@ BEGIN
         TOPMARGIN, 7
         BOTTOMMARGIN, 72
     END
+
+    IDD_KEYCONTROL, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 229
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 93
+    END
+
+    IDD_ADDKEYS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 138
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+
+    IDD_WINSELECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 75
+    END
 END
 #endif    // APSTUDIO_INVOKED
 
 
-#ifndef _MAC
 /////////////////////////////////////////////////////////////////////////////
 //
 // Version
@@ -449,18 +537,15 @@ BEGIN
     BEGIN
         BLOCK "080904b0"
         BEGIN
-            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL.\0"
-            VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge\0"
-            VALUE "FileDescription", "Dasher\0"
-            VALUE "FileVersion", "3, 0, 2, 0\0"
-            VALUE "InternalName", "Dasher\0"
-            VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward\0"
-            VALUE "LegalTrademarks", "\0"
-            VALUE "OriginalFilename", "dasher.exe\0"
-            VALUE "PrivateBuild", "\0"
-            VALUE "ProductName", "Dasher\0"
-            VALUE "ProductVersion", "3, 0, 2, 0\0"
-            VALUE "SpecialBuild", "\0"
+            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL."
+            VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
+            VALUE "FileDescription", "Dasher"
+            VALUE "FileVersion", "3, 0, 2, 0"
+            VALUE "InternalName", "Dasher"
+            VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward"
+            VALUE "OriginalFilename", "dasher.exe"
+            VALUE "ProductName", "Dasher"
+            VALUE "ProductVersion", "3, 0, 2, 0"
         END
     END
     BLOCK "VarFileInfo"
@@ -469,15 +554,20 @@ BEGIN
     END
 END
 
-#endif    // !_MAC
 
+/////////////////////////////////////////////////////////////////////////////
+//
+// Cursor
+//
+
+IDC_SEARCH_CURSOR       CURSOR                  "searchw.cur"
 
 /////////////////////////////////////////////////////////////////////////////
 //
 // String Table
 //
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_APP_TITLE           "Dasher"
     IDS_FILE_SAVE           "Save"
@@ -485,7 +575,7 @@ BEGIN
     IDS_FILE_NEW            "New"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_EDIT_CUT            "Cut"
     IDS_EDIT_COPY           "Copy"
@@ -502,7 +592,7 @@ BEGIN
     IDS_TYPE_Cyrillic       "Cyrillic"
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_TYPE_Greek          "Greek"
     IDS_TYPE_Hebrew         "Hebrew"
@@ -518,7 +608,7 @@ BEGIN
     IDS_ERR_ALPH_DESC       "Please provide a unique description for this alphabet."
 END
 
-STRINGTABLE DISCARDABLE 
+STRINGTABLE 
 BEGIN
     IDS_QUERY_SAVE_CHANGES  "Would you like to save changes\nto the current file?"
     IDS_UNTITLED_FILE       "Untitled"

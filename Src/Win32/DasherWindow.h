@@ -29,7 +29,7 @@
 #include "Widgets/WinOptions.h"
 #include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
-
+#include "Widgets/WindowSelect.h"
 
 class CDasherWindow : public CWinWrap, public CSplitterOwner,
 	public Dasher::CDasherSettingsInterface

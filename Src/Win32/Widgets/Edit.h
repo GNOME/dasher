@@ -78,6 +78,9 @@ public:
 	// remove the previous character
 	void deletetext();
 
+	// set the window that text should be entered into
+	void SetWindow(HWND window);
+
 protected:
 	bool m_dirty;
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -89,6 +92,7 @@ private:
 	                     // especially for the append mode!
 	CFilenameGUI* m_FilenameGUI;
 	Tstring m_filename;
+	HWND textwindow;
 	bool AppendMode;
 	void TNew(const Tstring& filename);
 	bool TOpen(const Tstring& filename);
@@ -103,6 +107,12 @@ private:
 	UINT CodePage; // for font and possible for finding the encoding
 	Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
 	std::vector<Tstring> DisplayStrings;
+
+	DWORD threadid;
+	HWND targetwindow;
+#ifdef UNICODE
+	INPUT fakekey[2];
+#endif
 
 	void InsertText(Tstring InsertText); // add symbol to edit control
 };

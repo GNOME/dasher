@@ -33,10 +33,13 @@ public:
 	void StartOnSpace(bool Value) {startonspace = Value;}
 	void KeyControl(bool Value) {keycontrol = Value;}
 	void WindowPause(bool Value) {windowpause = Value;}
+	void setkeycoords(int coords[8]) {for (int i=0; i<8; i++) {keycoords[i]=coords[i];};}
+	int* getkeycoords() {return keycoords;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	HWND Parent;
+	int keycoords[8];
 	CScreen* Screen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;

@@ -188,7 +188,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,UNICODE,_STATIC"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
@@ -245,7 +245,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				InlineFunctionExpansion="1"
-				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,UNICODE,_STATIC"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
@@ -363,6 +363,15 @@
 			<File
 				RelativePath=".\Dasher.rc">
 			</File>
+			<File
+				RelativePath="findere.bmp">
+			</File>
+			<File
+				RelativePath="finderf.bmp">
+			</File>
+			<File
+				RelativePath="searchw.cur">
+			</File>
 		</Filter>
 		<Filter
 			Name="Win32"
@@ -443,6 +452,12 @@
 					RelativePath=".\Widgets\FilenameGUI.h">
 				</File>
 				<File
+					RelativePath="Widgets\KeyControl.cpp">
+				</File>
+				<File
+					RelativePath="Widgets\KeyControl.h">
+				</File>
+				<File
 					RelativePath=".\Widgets\Menu.cpp">
 				</File>
 				<File
@@ -486,6 +501,12 @@
 				</File>
 				<File
 					RelativePath=".\Widgets\WinOptions.h">
+				</File>
+				<File
+					RelativePath=".\widgets\WindowSelect.cpp">
+				</File>
+				<File
+					RelativePath=".\widgets\WindowSelect.h">
 				</File>
 			</Filter>
 		</Filter>
