@@ -211,13 +211,14 @@ preferences_display(GtkWidget *widget, gpointer user_data)
 {
   if (preferences_window==NULL)
     preferences_window=glade_xml_get_widget(widgets, "preferences");
-  gtk_widget_show_all(preferences_window);
+  gtk_window_set_transient_for(GTK_WINDOW(preferences_window),GTK_WINDOW(window));
+  gtk_window_present(GTK_WINDOW(preferences_window));
 }
   
 extern "C" gboolean
 preferences_hide(GtkWidget *widget, gpointer user_data)
 {
-  gtk_widget_hide_all(preferences_window);
+  gtk_widget_hide(preferences_window);
   return TRUE;
 }
 
@@ -242,19 +243,20 @@ button_preferences_show(GtkWidget *widget, gpointer user_data)
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton16")),buttons[7].y);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton17")),buttons[8].y);
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton18")),buttons[9].y);
-  gtk_widget_show_all(glade_xml_get_widget(widgets,"buttonprefs"));
+  gtk_window_set_transient_for(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")),GTK_WINDOW(preferences_window));
+  gtk_window_present(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")));
 }
 
 extern "C" gboolean
 button_preferences_hide(GtkWidget *widget, gpointer user_data)
 {
-  gtk_widget_hide_all(glade_xml_get_widget(widgets,"buttonprefs"));
+  gtk_widget_hide(glade_xml_get_widget(widgets,"buttonprefs"));
 }
 
 extern "C" gboolean
 fontsel_hide(GtkWidget *widget, gpointer user_data)
 {
-  gtk_widget_hide_all(GTK_WIDGET(dasher_fontselector));
+  gtk_widget_hide(GTK_WIDGET(dasher_fontselector));
 }
 
 extern "C" gboolean
@@ -369,7 +371,7 @@ open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   open_file (filename);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  filesel_hide(NULL,NULL);
 }
 
 
@@ -381,7 +383,8 @@ select_open_file(GtkWidget *widget, gpointer user_data)
 
   g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
 		    "clicked", G_CALLBACK (open_file_from_filesel), (gpointer) filesel);
-  gtk_widget_show (filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
 extern "C" void
@@ -464,7 +467,7 @@ save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   save_file_as(filename,FALSE);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  filesel_hide(NULL,NULL);
 }
 
 extern "C" void
@@ -484,7 +487,7 @@ append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   save_file_as(filename,TRUE);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  filesel_hide(NULL,NULL);
 }
 
 extern "C" void
@@ -498,8 +501,8 @@ select_save_file_as(GtkWidget *widget, gpointer user_data)
 
   if (filename!=NULL)
     gtk_file_selection_set_filename (GTK_FILE_SELECTION(filesel), filename);
-
-  gtk_widget_show (filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
 extern "C" void
@@ -513,8 +516,8 @@ select_save_file_as_and_quit(GtkWidget *widget, gpointer user_data)
 
   if (filename!=NULL)
     gtk_file_selection_set_filename (GTK_FILE_SELECTION(filesel), filename);
-
-  gtk_widget_show (filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
 extern "C" void
@@ -524,7 +527,7 @@ import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   load_training_file(filename);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  filesel_hide(NULL,NULL);
 }
 
 extern "C" void
@@ -536,7 +539,8 @@ select_append_file(GtkWidget *widget, gpointer user_data)
   g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
 		    "clicked", G_CALLBACK (append_file_from_filesel), (gpointer) filesel);
   
-  gtk_widget_show (filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
 extern "C" void
@@ -570,7 +574,8 @@ select_import_file(GtkWidget *widget, gpointer user_data)
 
   g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
 		    "clicked", G_CALLBACK (import_file_from_filesel), (gpointer) filesel);
-  gtk_widget_show (filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
 extern "C" void
@@ -1394,7 +1399,8 @@ extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
 extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data)
 {
   g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasher_fontselector);
-  gtk_widget_show_all(GTK_WIDGET(dasher_fontselector));
+  gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector),GTK_WINDOW(window));
+  gtk_window_present(GTK_WINDOW(dasher_fontselector));
 }
 
 extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
@@ -1412,7 +1418,8 @@ extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
 extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
 {
   g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) dasher_fontselector);
-  gtk_widget_show_all(GTK_WIDGET(dasher_fontselector));
+  gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector),GTK_WINDOW(window));
+  gtk_window_present(GTK_WINDOW(dasher_fontselector));
 }
 
 extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
