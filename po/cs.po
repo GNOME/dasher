@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-20 19:04+0200\n"
-"PO-Revision-Date: 2004-08-20 22:42+0200\n"
+"POT-Creation-Date: 2004-09-05 11:04+0200\n"
+"PO-Revision-Date: 2004-09-05 15:20+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -523,7 +523,7 @@ msgstr "_Nápověda"
 
 #: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
-msgstr "_Importovat učicí text"
+msgstr "_Importovat učící text"
 
 #: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:88
 msgid "_Options"
