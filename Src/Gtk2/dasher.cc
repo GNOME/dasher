@@ -52,7 +52,7 @@ bool controlmodeon=false;
 bool keyboardmodeon=false;
 bool onedmode=false;
 bool eyetrackermode=false;
-bool cyclicalkeyboardmodeon=false;
+bool cyclickeyboardmodeon=false;
 
 button buttons[10];
 
@@ -81,6 +81,9 @@ gboolean speakonstop=FALSE;
 
 gint dasherwidth, dasherheight;
 long yscale, mouseposstartdist=0;
+gboolean coordcalled;
+
+gint buttonnum=0;
 
 extern gboolean timedata;
 extern gboolean drawoutline;
@@ -257,66 +260,74 @@ fontsel_hide(GtkWidget *widget, gpointer user_data)
 extern "C" gboolean
 button_coordinates_changed(GtkWidget *widget, gpointer user_data)
 {
-  if (GTK_WIDGET_VISIBLE(glade_xml_get_widget(widgets,"buttonprefs"))==true) {
-    GtkSpinButton *spinbutton=GTK_SPIN_BUTTON(widget);
-    gtk_spin_button_update(spinbutton);
-    int value=int(gtk_spin_button_get_value(spinbutton));
-    if (widget==glade_xml_get_widget(widgets,"spinbutton1")) {
-      buttons[1].x=value;
-      set_long_option_callback("Button1X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton2")) {
-      buttons[2].x=value;
-      set_long_option_callback("Button2X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton3")) {
-      buttons[3].x=value;
-      set_long_option_callback("Button3X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton4")) {
-      buttons[4].x=value;
-      set_long_option_callback("Button4X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton5")) {
-      buttons[5].x=value;
-      set_long_option_callback("Button5X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton6")) {
-      buttons[6].x=value;
-      set_long_option_callback("Button6X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton7")) {
-      buttons[7].x=value;
-      set_long_option_callback("Button7X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton8")) {
-      buttons[8].x=value;
-      set_long_option_callback("Button8X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton9")) {
-      buttons[9].x=value;
-      set_long_option_callback("Button9X",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton10")) {
-      buttons[1].y=value;
-      set_long_option_callback("Button1Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton11")) {
-      buttons[2].y=value;
-      set_long_option_callback("Button2Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton12")) {
-      buttons[3].y=value;
-      set_long_option_callback("Button3Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton13")) {
-      buttons[4].y=value;
-      set_long_option_callback("Button4Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton14")) {
-      buttons[5].y=value;
-      set_long_option_callback("Button5Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton15")) {
-      buttons[6].y=value;
-      set_long_option_callback("Button6Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton16")) {
-      buttons[7].y=value;
-      set_long_option_callback("Button7Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton17")) {
-      buttons[8].y=value;
-      set_long_option_callback("Button8Y",value);
-    } else if (widget==glade_xml_get_widget(widgets,"spinbutton18")) {
-      buttons[9].y=value;
-      set_long_option_callback("Button9Y",value);
-    }
-    }
+  GtkSpinButton *spinbutton=GTK_SPIN_BUTTON(widget);
+  int value=int(gtk_spin_button_get_value(spinbutton));
+
+  // Really dreadfully hacky stuff to avoid recursion
+  if (coordcalled==true && value==0) {
+    return true;
+  } else if (value==0) {
+    coordcalled=true;
+  }
+  gtk_spin_button_update(spinbutton);
+  coordcalled=false;
+  value=int(gtk_spin_button_get_value(spinbutton));
+
+  if (widget==glade_xml_get_widget(widgets,"spinbutton1")) {
+    buttons[1].x=value;
+    set_long_option_callback("Button1X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton2")) {
+    buttons[2].x=value;
+    set_long_option_callback("Button2X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton3")) {
+    buttons[3].x=value;
+    set_long_option_callback("Button3X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton4")) {
+    buttons[4].x=value;
+    set_long_option_callback("Button4X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton5")) {
+    buttons[5].x=value;
+    set_long_option_callback("Button5X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton6")) {
+    buttons[6].x=value;
+    set_long_option_callback("Button6X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton7")) {
+    buttons[7].x=value;
+    set_long_option_callback("Button7X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton8")) {
+    buttons[8].x=value;
+    set_long_option_callback("Button8X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton9")) {
+    buttons[9].x=value;
+    set_long_option_callback("Button9X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton10")) {
+    buttons[1].y=value;
+    set_long_option_callback("Button1Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton11")) {
+    buttons[2].y=value;
+    set_long_option_callback("Button2Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton12")) {
+    buttons[3].y=value;
+    set_long_option_callback("Button3Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton13")) {
+    buttons[4].y=value;
+    set_long_option_callback("Button4Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton14")) {
+    buttons[5].y=value;
+    set_long_option_callback("Button5Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton15")) {
+    buttons[6].y=value;
+    set_long_option_callback("Button6Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton16")) {
+    buttons[7].y=value;
+    set_long_option_callback("Button7Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton17")) {
+    buttons[8].y=value;
+    set_long_option_callback("Button8Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton18")) {
+    buttons[9].y=value;
+    set_long_option_callback("Button9Y",value);
+  }
 }
 
 extern "C" void 
@@ -795,35 +806,116 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
   switch (event->keyval) {
   case GDK_Up:
     if (keyboardcontrol == true) {
-      width = the_canvas->allocation.width;
-      height = the_canvas->allocation.height;
-      paused=false;
-      dasher_go_to((int)(0.70*width), (int)(0.20*height));
-      dasher_draw_go_to((int)(0.70*width), (int)(0.20*height));
-      paused=true;
-      return TRUE;
+      if (cyclickeyboardmodeon==true) {
+	int cycles=0;
+	buttonnum++;
+	buttonnum=buttonnum%9;
+	while(buttons[buttonnum+1].x==0 && buttons[buttonnum+1].y==0 && cycles<10) {
+	  buttonnum++;
+	  buttonnum=buttonnum%9;
+	  cycles++;
+	}
+	paused=false;
+	dasher_draw_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	paused=true;
+	return TRUE;
+      }
+      if (buttons[1].x==0 && buttons[1].y==0) {
+	width = the_canvas->allocation.width;
+	height = the_canvas->allocation.height;
+	paused=false;
+	dasher_go_to((int)(0.70*width), (int)(0.20*height));
+	dasher_draw_go_to((int)(0.70*width), (int)(0.20*height));
+	paused=true;
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[1].x),int(buttons[1].y));
+	dasher_draw_go_to(int(buttons[1].x),int(buttons[1].y));
+	paused=true;
+	return TRUE;
+      }
     }
     break;
   case GDK_Down:
     if (keyboardcontrol == true) {
-      width = the_canvas->allocation.width;
-      height = the_canvas->allocation.height;
-      paused=false;
-      dasher_go_to((int)(0.70*width), (int)(0.80*height));
-      dasher_draw_go_to((int)(0.70*width), (int)(0.80*height));
-      paused=true;
-      return TRUE;
+      if (cyclickeyboardmodeon==true) {
+	int cycles=0;
+	buttonnum--;
+	if (buttonnum<0) {
+	  buttonnum=8;
+	}
+	buttonnum=buttonnum%9;
+	while(buttons[buttonnum+1].x==0 && buttons[buttonnum+1].y==0 && cycles<10) {
+	  buttonnum--;
+	  if (buttonnum<0) {
+	    buttonnum=8;
+	  }
+	  cycles++;
+	}
+
+	paused=false;
+	dasher_draw_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	paused=true;
+	return TRUE;
+      }
+      if (buttons[3].x==0 && buttons[3].y==0) {
+	width = the_canvas->allocation.width;
+	height = the_canvas->allocation.height;
+	paused=false;
+	dasher_go_to((int)(0.70*width), (int)(0.80*height));
+	dasher_draw_go_to((int)(0.70*width), (int)(0.80*height));
+	paused=true;
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[3].x),int(buttons[3].y));
+	dasher_draw_go_to(int(buttons[3].x),int(buttons[3].y));
+	paused=true;
+	return TRUE;
+      }
     }
     break;
   case GDK_Left:
     if (keyboardcontrol == true) {
-      width = the_canvas->allocation.width;
-      height = the_canvas->allocation.height;
-      paused=false;
-      dasher_go_to((int)(0.25*width), (int)(0.50*height));
-      dasher_draw_go_to((int)(0.25*width), (int)(0.50*height));
-      paused=true;
-      return TRUE;
+      if (cyclickeyboardmodeon==true) {
+	return TRUE;
+      }
+      if (buttons[2].x==0 && buttons[2].y==0) {
+	width = the_canvas->allocation.width;
+	height = the_canvas->allocation.height;
+	paused=false;
+	dasher_go_to((int)(0.25*width), (int)(0.50*height));
+	dasher_draw_go_to((int)(0.25*width), (int)(0.50*height));
+	paused=true;
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[2].x),int(buttons[2].y));
+	dasher_draw_go_to(int(buttons[2].x),int(buttons[2].y));
+	paused=true;
+	return TRUE;
+      }
+    }
+    break;
+  case GDK_Right:
+    if (keyboardcontrol==true) {
+      if (cyclickeyboardmodeon==true) {
+	paused=false;
+      	dasher_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	dasher_draw_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	paused=true;
+	return TRUE;
+      }
+      if (buttons[4].x==0 && buttons[4].y==0) {
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[4].x),int(buttons[4].y));
+	dasher_draw_go_to(int(buttons[4].x),int(buttons[4].y));
+	paused=true;
+	return TRUE;
+      }
     }
     break;
   case GDK_space:
@@ -944,8 +1036,8 @@ void interface_setup(GladeXML *xml) {
     gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
   }
 
-  if(get_bool_option_callback("Cyclicalbuttons",&cyclicalkeyboardmodeon)!=false) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclicalkeyboardmodeon);
+  if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
   }
 
   // Configure the buttons
@@ -1246,8 +1338,8 @@ extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data)
 
 extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
 {
-  cyclicalkeyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
-  set_bool_option_callback("Cyclicalbuttons",cyclicalkeyboardmodeon);
+  cyclickeyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
+  set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
 }
 
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)

@@ -2615,7 +2615,7 @@ your writing speed.</property>
 			      <property name="snap_to_ticks">False</property>
 			      <property name="wrap">False</property>
 			      <property name="adjustment">1 0 1000 1 10 10</property>
-			      <signal name="changed" handler="button_coordinates_changed" last_modification_time="Sat, 27 Sep 2003 13:36:22 GMT"/>
+			      <signal name="changed" handler="button_coordinates_changed" last_modification_time="Sat, 27 Sep 2003 22:29:00 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="left_attach">1</property>
