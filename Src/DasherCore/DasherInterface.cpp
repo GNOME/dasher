@@ -508,6 +508,13 @@ void CDasherInterface::Speech(bool Value)
     m_SettingsStore->SetBoolOption(Keys::SPEECH_MODE, Value);
 }
 
+void CDasherInterface::SetEditHeight(long Value)
+{
+  if (m_SettingsStore!=0) {
+    m_SettingsStore->SetLongOption(Keys::EDIT_HEIGHT, Value);
+  }
+}
+
 void CDasherInterface::SetEditFont(string Name, long Size)
 {
 	m_EditFont = Name;

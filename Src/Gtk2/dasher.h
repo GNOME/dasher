@@ -45,6 +45,7 @@ extern "C" void save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileS
 extern "C" void filesel_hide(GtkWidget *widget, gpointer user_data);
 extern "C" void speak(GtkWidget *widget, gpointer user_data);
 extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data);
+extern "C" void change_edit_height(GtkWidget *widget, gpointer user_data);
 
 void interface_setup(GladeXML *xml);
 void open_window(GladeXML *xml);

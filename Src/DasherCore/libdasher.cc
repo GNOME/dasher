@@ -307,6 +307,7 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_EDITFONTSIZE:
       break;
     case INT_EDITHEIGHT:
+      interface->SetEditHeight(value);
       break;
     case INT_ENCODING:
       interface->SetFileEncoding(Dasher::Opts::FileEncodingFormats(value));

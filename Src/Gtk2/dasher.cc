@@ -633,6 +633,10 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 
   force_dasher_redraw();
 
+  if (setup==TRUE) {
+    dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
+  }
+
   return FALSE;
 }
 
@@ -1221,6 +1225,9 @@ void parameter_int_callback( int_param p, long int value )
       break;
     case INT_UNIFORM:
       gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), float(value)/10);
+      break;
+    case INT_EDITHEIGHT:
+      gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),value);
       break;
     }
 }
