@@ -128,7 +128,7 @@ inline void CScreen::Polyline(point* Points, int Number) const
 inline void CScreen::Polyline(point* Points, int Number, int iColour) const
 {
 	// DJW_TODO - implement coloured lines.
-	Polyline(Points,Number, iColour);
+	Polyline(Points,Number);
 }
 
 
