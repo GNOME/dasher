@@ -177,14 +177,21 @@ void CDasherNode::Push_Node()
 	}
 
 	// if we haven't got a context then try to get a new one
-	if (m_parent) 
-		m_context=m_languagemodel->CloneNodeContext(m_parent->m_context);
-	else
-		m_context=m_languagemodel->GetRootNodeContext();
-	
-	// if it fails, be patient
-	if (!m_context)
-		return;
+	if (m_Symbol!=0) {
+	  if (m_parent) 
+	    m_context=m_languagemodel->CloneNodeContext(m_parent->m_context);
+	  else
+	    m_context=m_languagemodel->GetRootNodeContext();
+	} else {
+	  // For new "root" nodes (such as under control mode), we want to 
+	  // mimic the root context
+	  m_context=m_languagemodel->GetRootNodeContext();
+	  m_languagemodel->EnterText(m_context, ". ");
+	}
+
+	  // if it fails, be patient
+	  if (!m_context)
+	    return;
 	Generic_Push_Node(m_context);
 }
 
