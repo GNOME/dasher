@@ -1,10 +1,9 @@
 #include "GtkDoubleBuffer.h"
 
-GtkDoubleBuffer::GtkDoubleBuffer(const Gdk_Drawable  &drawable,
-				 gint        width, 
+GtkDoubleBuffer::GtkDoubleBuffer( gint        width, 
 				 gint        height,
 				 gint        depth=-1)
-  : fg_buffer( drawable, width, height, depth ), bg_buffer( drawable, width, height, depth ), swapped( false )
+  : fg_buffer( width, height, depth ), bg_buffer( width, height, depth ), swapped( false )
 {
 }
 

@@ -19,7 +19,7 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
 
   //fg_buffer = new Gdk_Pixmap( width, height, -1 );
   //bg_buffer = new Gdk_Pixmap(  width, height, -1 );
-  buffer = new GtkDoubleBuffer( NULL, width, height, 16 );
+    buffer = new GtkDoubleBuffer( width, height, 16 );
 }
 
 void GtkDasherCanvas::clear()

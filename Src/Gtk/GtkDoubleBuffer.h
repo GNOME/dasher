@@ -7,10 +7,9 @@
 class GtkDoubleBuffer
 {
  public:
-  GtkDoubleBuffer(const Gdk_Drawable  &drawable,
-                  gint        width, 
+  GtkDoubleBuffer( gint        width, 
                   gint        height,
-                  gint        depth=-1);
+                  gint        depth);
   ~GtkDoubleBuffer();
 
   Gdk_Pixmap *get_fg();
