@@ -639,6 +639,11 @@ string dasher_get_edit_text( symbol Character )
   return(interface->GetEditText(Character));
 }
 
+int dasher_get_text_colour( symbol Character )
+{
+  return(interface->GetTextColour(Character));
+}
+
 void dasher_resize_canvas( int _width, int _height )
 {
   delete( dsc );

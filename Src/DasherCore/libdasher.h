@@ -117,6 +117,7 @@ void dasher_pause( int x, int y );
 
 std::string dasher_get_display_text( symbol Character );
 std::string dasher_get_edit_text( symbol Character );
+int dasher_get_text_colour( symbol Character );
 
 void dasher_resize_canvas( int _width, int _height );
 

@@ -178,12 +178,28 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
 
 void draw_text_callback(symbol Character, int x1, int y1, int size)
 {
-  std::string symbol;
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
   GdkRectangle update_rect;
+  GdkGCValues origvalues;
+  std::string symbol;
 
   if (setup==false)
     return;
 
+  GdkColor black = {0, 0, 0, 0};
+  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+  colormap = gdk_colormap_get_system();
+
+  gdk_gc_get_values(graphics_context,&origvalues);
+
+  int colour=dasher_get_text_colour(Character);
+
+  GdkColor foreground = colours[colour];
+
+  gdk_color_alloc(colormap, &foreground);
+  gdk_gc_set_foreground (graphics_context, &foreground);
+  
   pango_font_description_set_size( font,size*PANGO_SCALE);
 
   pango_layout_set_font_description(the_pangolayout,font);
@@ -194,10 +210,13 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
   pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
 
+  gdk_gc_set_foreground (graphics_context, &foreground);
+
   gdk_draw_layout (offscreen_buffer,
-		   the_canvas->style->black_gc,
+		   graphics_context,
 		   x1, y1-(ink->height/2.0), the_pangolayout);
 
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
 void draw_text_string_callback(std::string String, int x1, int y1, int size)
