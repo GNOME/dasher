@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "DasherNode.h"
+
 using namespace Dasher;
 using namespace Opts;
 using namespace std;
@@ -43,11 +44,13 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
       if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
 	  int i,quantum;
 	  ControlTree *controltree;
-	  if (m_controltree==NULL) // Root of the tree
+	  if (m_controltree==NULL) { // Root of the tree 
 	    controltree = m_languagemodel->GetControlTree();
-	  else // some way down
+	  }
+	  else { // some way down
 	    controltree = m_controltree->children;
-	  
+	  }
+
 	  m_iChars=1;
 	  
 	  if (controltree!=NULL) {
@@ -66,8 +69,8 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	  }
 
 	  i=1;
-	  // FIXME - hard coded height
-	  quantum=int(1024/m_iChars);
+
+	  quantum=int(m_languagemodel->normalization()/m_iChars);
 
 	  m_iChars++;
 

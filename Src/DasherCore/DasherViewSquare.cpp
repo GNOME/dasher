@@ -59,14 +59,17 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)
 {
 	int top = dashery2screen(y1);
-	if (top>CanvasY)
+	if (top>CanvasY) {
 		return 0;
-	if (top<0)
+	}
+	if (top<0) {
 		top=0;
+	}
 	
 	int bottom = dashery2screen(y2);
-	if (bottom<0)
+	if (bottom<0) {
 		return 0;
+	}
 	if (bottom>CanvasY)
 		bottom=CanvasY;
 	

@@ -29,9 +29,7 @@
 #include "speech.h"
 #endif
 
-#ifdef GNOME_A11Y
 #include "accessibility.h"
-#endif
 
 //extern GConfClient *the_gconf_client;
 
@@ -176,18 +174,7 @@ main(int argc, char *argv[])
   setup_speech();
 #endif
 
-#ifdef GNOME_A11Y
   add_control_tree(gettree());
-#else
-  ControlTree* dummy = new ControlTree;
-  dummy->parent=NULL;
-  dummy->children=NULL;
-  dummy->pointer=NULL;
-  dummy->next=NULL;
-  dummy->data=0;
-  dummy->text="";
-  add_control_tree(dummy);
-#endif
 
   gtk_main ();
 

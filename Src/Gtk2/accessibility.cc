@@ -3,11 +3,12 @@
 ControlTree *menutree;
 
 ControlTree* gettree() {
+#ifdef GNOME_A11Y
+  menutree = new ControlTree;
   Accessible *desktop, *child;
   ControlTree *controltree;
   int numchildren;
   desktop = SPI_getDesktop(0);
-  menutree = new ControlTree;
   menutree->parent=NULL;
   menutree->children=NULL;
   menutree->pointer=NULL;
@@ -19,6 +20,9 @@ ControlTree* gettree() {
     buildmenutree(child,menutree);
   }
   menutree->next=buildcontroltree();
+#else
+  ControlTree *menutree=buildcontroltree();
+#endif
   return menutree;
 }
 
@@ -141,6 +145,7 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
   return forwardtree;
 }
 
+#ifdef GNOME_A11Y
 bool buildmenutree(Accessible *parent,ControlTree *ctree) {  
   int numchildren;
   bool useful=false;
@@ -201,3 +206,4 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
   }
   return useful;
 }
+#endif

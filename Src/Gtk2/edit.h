@@ -36,7 +36,7 @@ extern GtkClipboard *the_text_clipboard;
 void set_editbox_font(std::string FontName);
 void reset_edit_font();
 void get_new_context_callback( std::string &str, int max );
-
+void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
 void write_to_file();
 
 #ifdef GNOME_SPEECH

@@ -23,6 +23,7 @@
 #include "canvas.h"
 #include "edit.h"
 #include "menus.h"
+#include "accessibility.h"
 
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
@@ -54,14 +55,6 @@ bool keyboardmodeon=false;
 
 #define _(_x) gettext(_x)
 
-#define TB_NEW "new"
-#define TB_OPEN "open"
-#define TB_SAVE "save"
-#define TB_CUT "cut"
-#define TB_COPY "copy"
-#define TB_PASTE "paste"
-#define TB_PREFERENCES "preferences"
-
 #define NO_PREV_POS -1
 
 guint window_x = 500, window_y = 500;
@@ -88,7 +81,8 @@ gint prev_pos_y;
 gint fileencoding;
 
 gint outputcharacters;
-time_t starttime;
+
+time_t starttime=0;
 
 const gchar *filename = NULL;
 
@@ -356,6 +350,8 @@ select_new_file(gpointer data, guint action, GtkWidget *widget)
   clear_edit();
   dasher_start();
   dasher_redraw();
+
+  add_control_tree(gettree());
 
 }
 
@@ -641,7 +637,7 @@ timer_callback(gpointer data)
   if (!paused) {
     int x;
     int y;
-    
+
     if (leavewindowpause==true) {
       gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
 
@@ -655,8 +651,24 @@ timer_callback(gpointer data)
     dasher_tap_on( x, y, get_time() );
   }
 
-  // need non-zero return value so timer repeats
+  else {
+    int x,y;
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    if (y>0 && y<100) {
+      if (starttime==0) {
+	starttime=time(NULL);
+      } else {
+	if ((time(NULL)-starttime)>5) {
+	  starttime=0;
+	  stop(); // Yes, confusingly named
+	}
+      }
+    } else {
+      starttime=0;
+    }
+  }
 
+  // need non-zero return value so timer repeats
   return 1;
 }
 
@@ -897,11 +909,11 @@ void create_edit_box() {
     text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
     gtk_container_add (GTK_CONTAINER (text_scrolled_window), the_text_view);
-    gtk_signal_connect(GTK_OBJECT (the_text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) NULL);
+    g_signal_connect(G_OBJECT (the_text_view), "button_release_event", G_CALLBACK (edit_button_release_event), (gpointer) NULL);
     
-    gtk_signal_connect(GTK_OBJECT (the_text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) NULL);
+    g_signal_connect(GTK_OBJECT (the_text_view), "key-press-event", G_CALLBACK(edit_key_release_event), (gpointer) the_text_view);
     
-    gtk_widget_set_events(the_text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
+    gtk_widget_set_events(the_text_view, GDK_BUTTON_RELEASE_MASK);
 
 }
 
@@ -1203,7 +1215,6 @@ void controlmode(gpointer data, guint action, GtkWidget *widget )
 
 void keyboardmode(gpointer data, guint action, GtkWidget *widget )
 {
-  printf("keyboard mode set to %d\n",GTK_CHECK_MENU_ITEM(widget)->active);
   keyboardmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
   dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
 }

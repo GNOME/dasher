@@ -1,12 +1,9 @@
 #include "edit.h"
 #include "dasher.h"
+#include "accessibility.h"
 
 extern int paused;
 extern bool keyboardmodeon;
-
-#ifdef GNOME_A11Y
-#include "accessibility.h"
-#endif
 
 #include <gdk/gdkx.h>
 
@@ -34,7 +31,14 @@ void initialise_edit()
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (the_text_view), GTK_WRAP_WORD);
 
   // FIXME - need to make this work
-  //  g_signal_connect(G_OBJECT(the_text_view), "button_press_event", G_CALLBACK(handle_cursor_move), (gpointer) this);
+  //  g_signal_connect(G_OBJECT(the_text_view), "move-cursor", G_CALLBACK(handle_cursor_move), (gpointer) the_text_view);
+  //  g_signal_connect(G_OBJECT(the_text_view), "key-press-event", G_CALLBACK(handle_cursor_move), (gpointer) the_text_view);
+}
+
+void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data)
+{
+  dasher_start();
+  dasher_redraw();
 }
 
 void edit_output_callback(symbol Symbol)
@@ -99,8 +103,8 @@ void write_to_file()
 
 void edit_outputcontrol_callback(void* pointer, int data)
 {
-#ifdef GNOME_A11Y
   switch(data) {
+#ifdef GNOME_A11Y
   case 1:
     if (pointer!=NULL) {
       Accessible *myfoo;
@@ -108,6 +112,7 @@ void edit_outputcontrol_callback(void* pointer, int data)
       AccessibleAction_doAction(Accessible_getAction(myfoo),0);
       break;
     }
+#endif
   case 2:
     // stop
     stop();
@@ -117,7 +122,9 @@ void edit_outputcontrol_callback(void* pointer, int data)
     paused=true;
     break;
   case 4:
+#ifdef GNOME_SPEECH
     speak();
+#endif
     break;
   case 11:
     // move left
@@ -152,7 +159,6 @@ void edit_outputcontrol_callback(void* pointer, int data)
     edit_delete_backward_line();
     break;
   }
-#endif
 }
 
 void edit_move_forward()
