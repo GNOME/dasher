@@ -24,6 +24,7 @@ void (*bool_callback)( bool_param, bool ) = NULL;
 
 void (*blank_callback)() = NULL;
 void (*display_callback)() = NULL;
+void (*colour_scheme_callback)(int, int*, int*, int*) = NULL;
 void (*draw_rectangle_callback)(int, int, int, int, int, Opts::ColorSchemes) = NULL;
 void (*draw_polyline_callback)(Dasher::CDasherScreen::point*, int) = NULL;
 void (*draw_text_callback)(symbol, int, int, int) = NULL;
@@ -83,6 +84,25 @@ void handle_display()
     display_callback();
 }
 
+void handle_colour_scheme(CCustomColours *Colours)
+{
+  if (colour_scheme_callback==NULL)
+    return;
+
+  int numcolours=Colours->GetNumColours();
+  int* reds = new int[numcolours];
+  int* greens = new int[numcolours];
+  int* blues = new int[numcolours];
+  for (int i=0; i<numcolours; i++) {
+    reds[i]=Colours->GetRed(i);
+    greens[i]=Colours->GetGreen(i);
+    blues[i]=Colours->GetBlue(i);
+  }
+  colour_scheme_callback(numcolours,reds,greens,blues);
+  delete reds;
+  delete greens;
+  delete blues;
+}
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
@@ -337,6 +357,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_CONTROLMODE:
       interface->ControlMode(value);
       break;
+    case BOOL_COLOURMODE:
+      interface->ColourMode(value);
+      break;
     }
 }
 
@@ -406,6 +429,11 @@ void dasher_set_blank_callback( void (*_cb)() )
 void dasher_set_display_callback( void (*_cb)() )
 {
   display_callback =_cb;
+}
+
+void dasher_set_colour_scheme_callback( void (*_cb)(int, int*, int*, int*) )
+{
+  colour_scheme_callback = _cb;
 }
 
 void dasher_set_draw_rectangle_callback( void (*_cb)(int, int, int, int, int, Opts::ColorSchemes) )

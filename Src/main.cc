@@ -124,6 +124,7 @@ main(int argc, char *argv[])
 
   dasher_set_blank_callback( blank_callback );
   dasher_set_display_callback( display_callback );
+  dasher_set_colour_scheme_callback( receive_colour_scheme_callback );
   dasher_set_draw_rectangle_callback( draw_rectangle_callback );
   dasher_set_draw_polyline_callback( draw_polyline_callback );
   dasher_set_draw_text_callback( draw_text_callback );
@@ -150,6 +151,8 @@ main(int argc, char *argv[])
 
   dasher_early_initialise();
 
+  // We support advanced colour mode
+
   window=open_window ();
 
   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
@@ -162,9 +165,11 @@ main(int argc, char *argv[])
   XSetWMHints (GDK_WINDOW_XDISPLAY (window->window), GDK_WINDOW_XWINDOW (window->window), &wm_hints);
   XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
   gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
-  
+
   dasher_late_initialise(360,360);
 
+  dasher_set_parameter_bool( BOOL_COLOURMODE, true);
+  
   choose_filename();
 
 #ifdef GNOME_SPEECH

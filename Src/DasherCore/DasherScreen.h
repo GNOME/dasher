@@ -12,6 +12,7 @@
 
 #include "DasherWidgetInterface.h"
 #include "DasherTypes.h"
+#include "CustomColours.h"
 
 namespace Dasher {class CDasherScreen;}
 class Dasher::CDasherScreen
@@ -91,6 +92,11 @@ public:
 
 	//! Signal that a frame is finished - the screen should be updated
 	virtual void Display()=0;
+
+	//! Set a colour scheme
+	//
+	//! \param A colour scheme that should be used
+	virtual void SetColourScheme(CCustomColours *ColourScheme)=0;
 
 protected:
 	//! Width and height of the screen

@@ -102,6 +102,9 @@ public:
 
 	//! Should control mode be enabled?
 	virtual void ControlMode(bool Value) {};
+
+	//! Should advanced colour mode be enabled?
+	virtual void ColourMode(bool Value) {};	
 };
 
 

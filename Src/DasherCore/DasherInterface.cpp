@@ -228,9 +228,12 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	if (!m_ColourIO)
 		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation);
 	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
-
 	m_Colours = new CCustomColours(m_ColourInfo);
-	
+
+	if (m_DasherScreen!=0) {
+	  m_DasherScreen->SetColourScheme(m_Colours);
+	}
+
 	Redraw();
 }
 
@@ -621,6 +624,14 @@ void CDasherInterface::ChangeEdit(CDashEditbox* NewEdit)
 	ChangeEdit();
 }
 
+void CDasherInterface::ColourMode(bool Value)
+{
+  if (m_DasherView!=0) {
+    m_DasherView->SetColourMode(Value);
+  }
+  Start();
+  Redraw();
+}
 
 void CDasherInterface::Train(string* TrainString, bool IsMore)
 {

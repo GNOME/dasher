@@ -1,5 +1,6 @@
 #include "DasherInterface.h"
 #include "DasherSettingsInterface.h"
+#include "CustomColours.h"
 
 using namespace Dasher;
 using namespace std;
@@ -11,6 +12,7 @@ void handle_parameter_bool( bool_param p, bool value );
 
 void handle_blank();
 void handle_display();
+void handle_colour_scheme(CCustomColours *Colours);
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme);
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number);
@@ -160,6 +162,10 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_CONTROLMODE, Value );
     };
+  void ColourMode(bool Value)
+    {
+      handle_parameter_bool( BOOL_COLOURMODE, Value );
+    };
 };
 
 
@@ -225,6 +231,11 @@ class dasher_screen : public CDasherScreen
   void Display()
     {
       handle_display();
+    };
+
+  void SetColourScheme(CCustomColours *Colours)
+    {
+      handle_colour_scheme(Colours);
     };
 };
 

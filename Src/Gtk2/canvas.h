@@ -27,3 +27,5 @@ void reset_dasher_font();
 
 GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme);
 GdkFont *get_font(int size);
+
+void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* blue);

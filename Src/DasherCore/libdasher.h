@@ -38,7 +38,8 @@ enum bool_param{ BOOL_DIMENSIONS,
 		 BOOL_STARTONLEFT,
 		 BOOL_KEYBOARDCONTROL,
 		 BOOL_WINDOWPAUSE,
-		 BOOL_CONTROLMODE};
+		 BOOL_CONTROLMODE,
+		 BOOL_COLOURMODE};
 
 enum clipboard_action { CLIPBOARD_CUT,
 			CLIPBOARD_COPY,
@@ -66,6 +67,7 @@ void dasher_set_bool_callback( void(*_cb)( bool_param, bool ) );
 
 void dasher_set_blank_callback( void(*_cb)() );
 void dasher_set_display_callback( void(*_cb)() );
+void dasher_set_colour_scheme_callback( void (*_cb)(int, int*, int*, int*) );
 void dasher_set_draw_rectangle_callback( void (*_cb)(int, int, int, int, int, Opts::ColorSchemes) );
 void dasher_set_draw_polyline_callback( void (*_cb)(Dasher::CDasherScreen::point*, int) );
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int));

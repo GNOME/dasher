@@ -133,6 +133,7 @@ public:
 	void KeyControl(bool Value);
 	void WindowPause(bool Value);
 	void ControlMode(bool Value);
+	void ColourMode(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);

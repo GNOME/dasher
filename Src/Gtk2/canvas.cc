@@ -8,6 +8,8 @@ GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
 PangoFontDescription *font;
 PangoRectangle *ink,*logical;
+GdkColor *colours;
+
 
 extern gboolean setup;
 
@@ -99,7 +101,6 @@ void display_callback()
 
 void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
-
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkRectangle update_rect;
@@ -108,15 +109,11 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
     return;
 
   GdkColor black = {0, 0, 0, 0};
-  GdkColor new_foreground = { 0, 45000, 45000, 45000 };
-  GdkColor foreground = {0, ((ColorScheme * 3 + Color) & 1) * 30000 + 30000, 
-			 ((ColorScheme * 3 + Color) >> 1 ) * 30000 + 30000, 
-			 ((ColorScheme * 3 + Color) >> 2 ) * 30000 + 30000 };
-  
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
 
-  foreground = get_color(Color, ColorScheme);
+  //  foreground = get_color(Color, ColorScheme);
+  GdkColor foreground = colours[Color];
 
   gdk_color_alloc(colormap, &foreground);
   gdk_gc_set_foreground (graphics_context, &foreground);
@@ -325,3 +322,13 @@ void reset_dasher_font()
   dasher_redraw();
 }
 
+void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* blue)
+{
+  colours = new GdkColor[numcolours];
+  for (int i=0; i<numcolours; i++) {
+    colours[i].pixel=0;
+    colours[i].red=red[i]*257;
+    colours[i].green=green[i]*257;
+    colours[i].blue=blue[i]*257;
+  }
+}
