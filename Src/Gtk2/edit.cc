@@ -78,10 +78,6 @@ void edit_output_callback(symbol Symbol)
 #endif
 #endif
 
-  if (outputtext.length()>10) {
-    write_to_file();
-  }
-
   outputcharacters++;
 }
 
