@@ -24,18 +24,28 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
 		else if (dashery<m_Y3)
 			dashery= (dashery-m_Y3)*m_Y1+m_Y3;
+		if (dashery>DasherModel().DasherY()) {
+			dashery=DasherModel().DasherY();
+		}
+		if (dashery<0) {
+			dashery=0;
+		}
 	}
 
 	// If we're in one-dimensional mode, we need to use the Y coordinate to generate a new
 	// and exciting X coordinate
 	if (DasherModel().Dimensions()==true) {
 		double disty,circlesize;	
-		
+
 		// The x coordinate of the crosshairs
 		myint dasherOX=DasherModel().DasherOX();
+
+		// Make needed Y less than DasherY
+		// dashery=2*dashery-DasherModel().DasherY()/2;
 		
 		// The distance between the Y coordinate and the centreline
 		disty=DasherModel().DasherY()/2-dashery;
+
 
 		// This is the radius of the circle transcribed by the one-dimensional mapping
 		circlesize=DasherModel().DasherY()/2.5;
