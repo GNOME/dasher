@@ -125,16 +125,22 @@ show_preferences(gpointer data, guint action, GtkWidget *widget) {
   const char *alphabetlist[ alphabetlist_size ];
   GtkTreeIter iter;
 
+  // Clear the contents of the alphabet list
+
   gtk_list_store_clear( list_store );
+
+  // And repopulate it with an up to date list
   
   alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
-    for (int i=0; i<alphabet_count; ++i) {
-      gtk_list_store_append (list_store, &iter);
-      gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
-    }
+  for (int i=0; i<alphabet_count; ++i) {
+    gtk_list_store_append (list_store, &iter);
+    gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
+  }
 
-    gtk_widget_show_all(preferences_window); 
+  // Finally show the dialogue box to the user
+
+  gtk_widget_show_all(preferences_window); 
 
 }
 
@@ -145,7 +151,9 @@ preferences()
   GtkWidget *vbox;
   GtkWidget *vbox_alphabet;
   GtkWidget *vbox_lmodel;
-  GtkWidget *vbox_advanced;
+  GtkWidget *vbox_advancedl;
+  GtkWidget *vbox_advancedr;
+  GtkWidget *hbox_advanced;
   GtkTreeModel *model;
   GtkWidget *treeview;
   GtkWidget *sw;
@@ -229,9 +237,15 @@ GtkObject *uniform_adjustment;
   gtk_container_add( GTK_CONTAINER(uniform_frame), uniform_scale);
   gtk_box_pack_start( GTK_BOX(vbox_lmodel), uniform_frame, false, false, 0); 
 
-  vbox_advanced = gtk_vbox_new (FALSE,8);
+  vbox_advancedl = gtk_vbox_new (FALSE,8);
+  vbox_advancedr = gtk_vbox_new (FALSE,8);
+  hbox_advanced = gtk_hbox_new (FALSE,8);
+
+  gtk_box_pack_start( GTK_BOX(hbox_advanced), vbox_advancedl, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(hbox_advanced), vbox_advancedr, false, false, 0); 
+
   label_advanced = gtk_label_new( "Advanced" );
-  gtk_notebook_append_page( GTK_NOTEBOOK(nbook), vbox_advanced, label_advanced );
+  gtk_notebook_append_page( GTK_NOTEBOOK(nbook), hbox_advanced, label_advanced );
 
   //Advanced settings pane
 
@@ -245,15 +259,27 @@ GtkObject *uniform_adjustment;
   GtkWidget *advanced_control = gtk_check_button_new_with_label( "Control Mode" );
   GtkWidget *advanced_textentry = gtk_check_button_new_with_label( "Enter Text Into Other Windows" );
 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_oned, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_eyetracker, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_drawpos, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_startleft, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_startspace, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_keyboard, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_pause, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_control, false, false, 0); 
-  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_textentry, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_oned, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_eyetracker, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_drawpos, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_startleft, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_startspace, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_keyboard, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_pause, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_control, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advancedl), advanced_textentry, false, false, 0); 
+
+  GtkWidget *advanced_alphabet_default = gtk_radio_button_new_with_label( NULL, "Alphabet Default" );
+  GtkWidget *advanced_ltor = gtk_radio_button_new_with_label_from_widget( GTK_RADIO_BUTTON(advanced_alphabet_default), "Left To Right" );
+  GtkWidget *advanced_rtol = gtk_radio_button_new_with_label_from_widget(  GTK_RADIO_BUTTON(advanced_alphabet_default), "Right To Left" );
+  GtkWidget *advanced_ttob = gtk_radio_button_new_with_label_from_widget(  GTK_RADIO_BUTTON(advanced_alphabet_default), "Top To Bottom" );
+  GtkWidget *advanced_btot = gtk_radio_button_new_with_label_from_widget(  GTK_RADIO_BUTTON(advanced_alphabet_default), "Bottom To Top" );
+
+  gtk_box_pack_start( GTK_BOX(vbox_advancedr), advanced_alphabet_default, false, false, 0);
+  gtk_box_pack_start( GTK_BOX(vbox_advancedr), advanced_ltor, false, false, 0);
+  gtk_box_pack_start( GTK_BOX(vbox_advancedr), advanced_rtol, false, false, 0);
+  gtk_box_pack_start( GTK_BOX(vbox_advancedr), advanced_ttob, false, false, 0);
+  gtk_box_pack_start( GTK_BOX(vbox_advancedr), advanced_btot, false, false, 0);
 
   ok = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
 
