@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __Platform_h__
-#define __Platform__
+#define __Platform_h__
 
 // Place to set platform-defines of the form DASHER_........
 
@@ -22,8 +22,8 @@
 	#endif
 
 #else
-	
-	// Please set platform-defines here
+
+// Please set platform-defines here
 
 #endif
 
