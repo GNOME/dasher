@@ -1,3 +1,6 @@
+2004-08-20  Jayaradha  <njaya@redhat.com>
+
+	* configure.in: Added "ta" to ALL_LINGUAS
 2004-08-19  Chris Ball      <cjb@mrao.cam.ac.uk>
 
     * Src/Gtk2/dasher.glade: Revert dasher.glade to a last-known-good
