@@ -107,8 +107,6 @@ void CDasherInterface::Start()
 
 void CDasherInterface::PauseAt(int MouseX, int MouseY)
 {
-	if (m_DasherView!=0)
-		m_DasherView->FlushAt(MouseX, MouseY);
 	if (m_DashEditbox!=0) {
 		m_DashEditbox->write_to_file();
 		if (m_CopyAllOnStop)
@@ -119,8 +117,6 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
 
 void CDasherInterface::Unpause(unsigned long Time)
 {
-	if (m_DashEditbox!=0)
-		m_DashEditbox->unflush();
 	if (m_DasherModel!=0)
 		m_DasherModel->Reset_framerate(Time);
 }

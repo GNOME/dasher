@@ -147,6 +147,14 @@ void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context)
 
 /////////////////////////////////////////////////////////////////////////////
 
+bool CDasherNode::NodeIsParent(CDasherNode *oldnode) {
+  if (oldnode==m_parent) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
 void CDasherNode::Push_Node() 
 {
 

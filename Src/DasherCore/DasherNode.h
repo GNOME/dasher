@@ -25,6 +25,7 @@ private:
 	bool m_bAlive;                     // if true, then display node, else dont bother
 	bool m_bControlNode;               // if true, node is a control node
 	bool m_bControlChild;              // if true, node is offspring of a control node
+	bool m_bSeen;                      // if true, node has been output already
 	//bool m_Cscheme;                  // color scheme for the node - alternates through relatives
 	Opts::ColorSchemes m_ColorScheme;
 	int m_iPhase;                      // index for coloring
@@ -47,6 +48,9 @@ public:
 	unsigned int Lbnd() const {return m_iLbnd;}
 	bool Alive() {return m_bAlive;}
 	bool Control() {return m_bControlChild;}
+	bool isSeen() {return m_bSeen;}
+	void Seen(bool seen) {m_bSeen=seen;}
+	bool NodeIsParent(CDasherNode *oldnode);
 	ControlTree* GetControlTree() {return m_controltree;}
 	void Kill()  {m_bAlive=0;m_iAge=0;}
 	unsigned int Hbnd() const {return m_iHbnd;}
@@ -57,7 +61,8 @@ public:
 	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
 	int Colour() const {return m_iColour;}
-	
+	CDasherNode* Parent() const {return m_parent;}
+
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
 	void Get_string_under(const int,const myint y1,const myint y2,const myint smousex,const myint smousey,std::vector<symbol>&) const; // get string under given co-ords
 	void Generic_Push_Node(CLanguageModel::CNodeContext *context);
@@ -78,7 +83,7 @@ using namespace Opts;
 
 inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=0, ControlTree *controltree=0)
 	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
-  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(ControlChild), m_iColour(Colour), m_controltree(controltree)
+  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(ControlChild), m_iColour(Colour), m_controltree(controltree), m_bSeen(false)
 {
 	/*
 	switch (ColorScheme) {

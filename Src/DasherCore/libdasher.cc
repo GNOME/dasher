@@ -33,8 +33,6 @@ void (*text_size_callback)(symbol, int*, int*, int) = NULL;
 void (*edit_output_callback)(symbol) = NULL;
 void (*edit_outputcontrol_callback)(void*, int) = NULL;
 void (*edit_delete_callback)() = NULL;
-void (*edit_flush_callback)(symbol) = NULL;
-void (*edit_unflush_callback)() = NULL;
 void (*get_new_context_callback)(std::string &, int ) = NULL;
 
 void (*clipboard_callback)( clipboard_action ) = NULL;
@@ -132,18 +130,6 @@ void handle_edit_delete()
 {
   if( edit_delete_callback != NULL )
     edit_delete_callback( );
-}
-
-void handle_edit_flush(symbol Character)
-{
-  if( edit_flush_callback != NULL )
-    edit_flush_callback( Character );
-}
-
-void handle_edit_unflush()
-{
-  if( edit_unflush_callback != NULL )
-    edit_unflush_callback();
 }
 
 void handle_get_new_context( std::string &str, int max )
@@ -453,16 +439,6 @@ void dasher_set_edit_outputcontrol_callback( void (*_cb )(void*, int))
 void dasher_set_edit_delete_callback( void (*_cb )())
 {
   edit_delete_callback = _cb;
-}
-
-void dasher_set_edit_flush_callback( void (*_cb )(symbol))
-{
-  edit_flush_callback = _cb;
-}
-
-void dasher_set_edit_unflush_callback( void (*_cb)() )
-{
-  edit_unflush_callback = _cb;
 }
 
 void dasher_set_get_new_context_callback( void (*_cb)( std::string &, int ) )

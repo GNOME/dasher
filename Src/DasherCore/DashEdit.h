@@ -23,7 +23,7 @@ namespace Dasher {class CDashEditbox;}
 class Dasher::CDashEditbox
 {
 public:
-	CDashEditbox() : m_iFlushed(0), m_DasherInterface(0), m_dirty(false) {}
+	CDashEditbox() : m_DasherInterface(0), m_dirty(false) {}
 
 	//! Provide the Editbox with a widget interface
 	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
@@ -31,21 +31,12 @@ public:
 	//! Write some buffered output to a file
 	virtual void write_to_file()=0;
 	
-	//! Set the number of flushed characters
-	//
-	//! Set the number of flushed characters to an arbitrary number.
-	//! Usually used to reset it to 0 after unflushing
-	void set_flushed(int i) {m_iFlushed=i;}
-	
 	//! Provide context from the editbox for the core
 	//
 	//! Provide the context at the current position within the editbox to 
 	//! the core. Set str to up to max characters before 
 	//! the cursor position within the editbox.
 	virtual void get_new_context(std::string& str, int max)=0;
-	
-	//! Delete flushed text from the editbox
-	virtual inline void unflush()=0;
 	
 	//! Enter a the character Symbol into the text box
 	virtual void output(symbol Symbol)=0;
@@ -55,12 +46,6 @@ public:
 
 	//! Delete the previous symbol from the text box
 	virtual void deletetext()=0;
-	
-	//! Enter a character into the text box and remember that it is flushed
-	//
-	//! Output the character and increment m_iFlushed. When unflush is
-	//! called, remove the previous m_iFlushed characters
-	virtual void flush(symbol Symbol)=0;
 	
 	// File I/O (optional)
 
@@ -154,9 +139,6 @@ public:
 protected:
 	//! Have the contents of the editbox been altered since the last save?
 	bool m_dirty;
-
-	//! Record the number of characters that have been flushed
-	int m_iFlushed; // how many characters have been flushed
 
 	//! Pointer to a DasherWidgetInterface for communication with the core
 	CDasherWidgetInterface* m_DasherInterface;

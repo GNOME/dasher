@@ -32,9 +32,6 @@ public:
 	
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 	
-	// TODO Sort this out
-	void FlushAt(int mousex,int mousey);
-	
 	// renders Dasher
 	inline void Render();
 	

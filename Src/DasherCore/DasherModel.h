@@ -49,8 +49,9 @@ public:
 	myint DasherY() const {return m_DasherY;}
 	bool Dimensions() const {return m_Dimensions;}
 
+	void OutputCharacters(CDasherNode *node);
+	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
 	void Dump() const;                                              // diagnostics
-	void Flush(const myint smousex,const myint smousey);            // flush to the edit control
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
        void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}

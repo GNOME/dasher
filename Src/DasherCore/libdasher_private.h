@@ -20,8 +20,6 @@ void handle_text_size(symbol Character, int* Width, int* Height, int Size);
 void handle_edit_output(symbol Character);
 void handle_edit_outputcontrol(void* pointer, int data);
 void handle_edit_delete();
-void handle_edit_flush(symbol Character);
-void handle_edit_unflush();
 void handle_get_new_context( std::string &str, int max );
 
 void handle_clipboard( clipboard_action act );
@@ -272,10 +270,6 @@ class dasher_edit : public CDashEditbox
     {
       handle_get_new_context( str, max );
     }
-  void unflush()
-    {
-      handle_edit_unflush();
-    };
   void output(symbol Symbol) 
     {
       handle_edit_output(Symbol);
@@ -287,10 +281,6 @@ class dasher_edit : public CDashEditbox
   void deletetext()
     {
       handle_edit_delete();
-    };
-  void flush(symbol Symbol)
-    {
-      handle_edit_flush(Symbol);
     };
   void Clear()
     {
