@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <time.h>
 
+#include <iostream>
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
@@ -609,6 +611,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
       // This code is duplicated in button_press_event. 
       if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
         gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
+      std::cout << "Here" << std::endl;
     } else {
     case GDK_Up:
       width = the_canvas->allocation.width;

@@ -224,7 +224,7 @@ void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
   int up=(m_DasherY/2)-MouseY;
   float upfactor=up/(m_DasherY/2*1.0);
   //Distance to move up is height*upfactor
-  myint height=myint(upfactor*(m_Rootmax-m_Rootmin)/2);
+  myint height=myint(upfactor*m_DasherY/2);
   m_Rootmax+=height;
   m_Rootmin+=height;
 }
