@@ -1,5 +1,6 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
+#include <glade/glade.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
@@ -57,7 +58,9 @@ GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *e
 int
 main(int argc, char *argv[])
 {
+  GladeXML *xml;
   GtkWidget *window;
+
   int c;
   XWMHints wm_hints;
   Atom wm_window_protocols[3];
@@ -79,6 +82,8 @@ main(int argc, char *argv[])
   gtk_init (&argc, &argv);
 
   gconf_init( argc, argv, &gconferror );
+
+  xml = glade_xml_new("/usr/share/dasher/dasher.glade", NULL, NULL);
 
   /* I am a bad man and I will go straight to hell.
 
@@ -145,13 +150,18 @@ main(int argc, char *argv[])
   SPI_init ();
 #endif
 
-  interface_setup();
+
+  interface_setup(xml);
 
   dasher_early_initialise();
 
-  // We support advanced colour mode
+  open_window(xml);
 
-  window=open_window ();
+
+  // We support advanced colour mode
+  window = glade_xml_get_widget(xml, "window");
+  glade_xml_signal_autoconnect(xml);
+
 
   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
   wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");

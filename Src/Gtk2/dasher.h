@@ -2,48 +2,52 @@
 #define DASHER_H
 
 #include <gdk/gdkkeysyms.h>
+#include <glade/glade.h>
 
-void clipboard_copy(void);
-void clipboard_cut(void);
-void clipboard_paste(void);
-void clipboard_copy_all(void);
-void clipboard_select_all(void);
-void reset_fonts(gpointer data, guint action, GtkWidget *widget );
-bool ask_save_before_exit(GtkWidget *widget, gpointer data);
-void preferences();
-void show_preferences(gpointer data, guint action, GtkWidget *widget);
-void orientation(gpointer data, guint action, GtkWidget  *widget );
-void set_dasher_fontsize(gpointer data, guint action, GtkWidget  *widget );
-void show_toolbar(gpointer data, guint action, GtkWidget  *widget );
-void show_slider(gpointer data, guint action, GtkWidget  *widget );
-void timestamp_files(gpointer data, guint action, GtkWidget *widget );
-void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget );
-void file_encoding(gpointer data, guint action, GtkWidget *widget );
-void about_dasher(gpointer data, guint action, GtkWidget *widget );
-void DrawMouse(gpointer data, guint action, GtkWidget *widget );
-void SetDimension(gpointer data, guint action, GtkWidget *widget );
-void SetEyetracker(gpointer data, guint action, GtkWidget *widget );
-void startonleft(gpointer data, guint action, GtkWidget *widget );
-void startonspace(gpointer data, guint action, GtkWidget *widget );
-void startonmousepos(gpointer data, guint action, GtkWidget *widget );
-void keycontrol(gpointer data, guint action, GtkWidget *widget );
-void windowpause(gpointer data, guint action, GtkWidget *widget );
-void controlmode(gpointer data, guint action, GtkWidget *widget );
-void keyboardmode(gpointer data, guint action, GtkWidget *widget );
-void select_open_file(gpointer data, guint action, GtkWidget *widget);
-void select_new_file(gpointer data, guint action, GtkWidget *widget);
-void select_save_file_as();
-void select_save_file_as_and_quit();
-void select_append_file();
-void save_file();
-void save_file_and_quit();
-void select_import_file();
-void save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector );
-void save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector );
-void interface_setup();
-GtkWidget* open_window();
-void choose_filename();
-void uniform_changed(GtkAdjustment *adj);
+extern "C" void clipboard_copy(void);
+extern "C" void clipboard_cut(void);
+extern "C" void clipboard_paste(void);
+extern "C" void clipboard_copy_all(void);
+extern "C" void clipboard_select_all(void);
+extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data);
+extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer user_data);
+extern "C" void preferences_display(GtkWidget *widget, gpointer user_data);
+extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data);
+extern "C" void generate_preferences(GtkWidget *widget, gpointer user_data);
+extern "C" void orientation(GtkWidget *widget, gpointer user_data);
+extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data);
+extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data);
+extern "C" void show_slider(GtkWidget *widget, gpointer user_data);
+extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data);
+extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data);
+extern "C" void file_encoding(GtkWidget *widget, gpointer user_data);
+extern "C" void about_dasher(GtkWidget *widget, gpointer user_data);
+extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data);
+extern "C" void SetDimension(GtkWidget *widget, gpointer user_data);
+extern "C" void SetEyetracker(GtkWidget *widget, gpointer user_data);
+extern "C" void startonleft(GtkWidget *widget, gpointer user_data);
+extern "C" void startonspace(GtkWidget *widget, gpointer user_data);
+extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data);
+extern "C" void keycontrol(GtkWidget *widget, gpointer user_data);
+extern "C" void windowpause(GtkWidget *widget, gpointer user_data);
+extern "C" void controlmode(GtkWidget *widget, gpointer user_data);
+extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data);
+extern "C" void select_open_file(GtkWidget *widget, gpointer user_data);
+extern "C" void select_new_file(GtkWidget *widget, gpointer user_data);
+extern "C" void select_save_file_as(GtkWidget *widget, gpointer user_data);
+extern "C" void select_save_file_as_and_quit(GtkWidget *widget, gpointer user_data);
+extern "C" void select_append_file(GtkWidget *widget, gpointer user_data);
+extern "C" void save_file(GtkWidget *widget, gpointer user_data);
+extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data);
+extern "C" void select_import_file(GtkWidget *widget, gpointer user_data);
+extern "C" void save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector );
+extern "C" void save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector );
+extern "C" void filesel_hide(GtkWidget *widget, gpointer user_data);
+
+void interface_setup(GladeXML *xml);
+void open_window(GladeXML *xml);
+extern "C" void choose_filename();
+extern "C" void uniform_changed(GtkHScale *hscale);
 
 void parameter_string_callback( string_param p, const char *value );
 void parameter_double_callback( double_param p, double value );
@@ -78,10 +82,10 @@ extern GtkWidget *dasher_menu_bar;
 extern bool controlmodeon;
 extern bool keyboardmodeon;
 
-void set_dasher_font(gpointer data, guint action, GtkWidget *widget);
-void get_font_from_dialog( GtkWidget *one, GtkWidget *two );
-void set_edit_font(gpointer data, guint action, GtkWidget *widget);
-void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
+extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data);
+extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two );
+extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data);
+extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
 
 void stop();
 

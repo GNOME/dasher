@@ -24,8 +24,6 @@ void rebuild_buffer()
 
 void initialise_canvas( int width, int height )
 {
-  the_canvas = gtk_drawing_area_new ();
-
   offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
    onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
