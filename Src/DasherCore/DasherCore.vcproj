@@ -353,9 +353,6 @@
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
-			RelativePath=".\EnglishAlphabet.h">
-		</File>
-		<File
 			RelativePath=".\LanguageModel.cpp">
 		</File>
 		<File
