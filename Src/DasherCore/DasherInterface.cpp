@@ -892,3 +892,17 @@ void CDasherInterface::Render()
   if (m_DasherView!=0)
     m_DasherView->Render();
 }
+
+int CDasherInterface::GetOneButton() {
+  if (m_DasherView!=0) {
+    return m_DasherView->GetOneButton();
+  }
+  return -1;
+}
+
+void CDasherInterface::SetOneButton(int Value) {
+  if (m_DasherView!=0) {
+    m_DasherView->SetOneButton(Value);
+  }
+}
+

@@ -160,7 +160,9 @@ public:
 	void SetUniform(int Value);
 	void SetYScale(int Value);
 	void SetMousePosDist(int Value);
-	void Render();
+	int GetOneButton();
+    void SetOneButton(int Value);
+    void Render();
 
 private:
 	CAlphabet* m_Alphabet;

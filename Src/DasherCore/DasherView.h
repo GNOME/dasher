@@ -68,6 +68,10 @@ public:
 	// Toggle keyboard control mode
 	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
 
+    int GetOneButton();
+    void SetOneButton(int Value);
+
+    int CDasherView::onebutton;
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(int* DrawX, int* DrawY);

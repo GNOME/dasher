@@ -380,4 +380,16 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 	CanvasY=Height;
 }
 
+int CDasherView::GetOneButton() {
+     return onebutton;
+}
+
+void CDasherView::SetOneButton(int Value) {
+       if (onebutton < -6000) 
+               onebutton=-6000;
+       if (onebutton > 8000)
+               onebutton=8000;
+ 
+       onebutton += Value;
+}
 
