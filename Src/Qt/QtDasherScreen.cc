@@ -17,6 +17,7 @@
 #define MINFONTSIZE 8
 
 #include <iconv.h>
+#include <iostream>
 
 QtDasherScreen::QtDasherScreen (int _width, int _height,
 				CDasherInterface *_interface,
@@ -29,19 +30,29 @@ QtDasherScreen::QtDasherScreen (int _width, int _height,
   painter = new QPainter ();
 
   pixmap = new QPixmap (_width, _height);
-
+  pixmap->setOptimization(QPixmap::BestOptim);
   interface->SetSettingsStore(new CSettingsStore);
 
   interface->ChangeLanguageModel(0);
   interface->ChangeView(0);
   interface->ChangeEdit(edit);
+
+  interface->GetFontSizes(&FontSizes);
+
+  for (int i=0; i<FontSizes.size(); i++) {
+    if (FontSizes[i]>Fonts.size())
+      Fonts.resize((FontSizes[i])+1);    
+    Fonts[FontSizes[i]]= QFont (fontname.c_str(), FontSizes[i]);
+    Fonts[FontSizes[i]].setPixelSize(FontSizes[i]);
+  }
+
   interface->ChangeScreen(this);
 
   paused=true;
-
+		     
   QTimer *tmr = new QTimer(this);
   connect (tmr, SIGNAL(timeout()), SLOT(timer()));
-  tmr->start(40);
+  tmr->start(200);
 
 }
 
@@ -55,10 +66,12 @@ long QtDasherScreen::get_time()
   
   gettimeofday( &tv, &tz );
   
-  s_now = tv.tv_sec;
+  s_now = tv.tv_sec-1054487600;
+
   ms_now = tv.tv_usec / 1000;
-  
-  return( s_now * 1000 + ms_now );
+
+  return( long(s_now*1000 + ms_now) );
+
 }
 
 QtDasherScreen::~QtDasherScreen()
@@ -102,7 +115,6 @@ QColor QtDasherScreen::getColor(int Color, const Opts::ColorSchemes ColorScheme)
 void QtDasherScreen::DrawRectangle(int x1, int y1, int x2, int y2,
 				   int Color, Opts::ColorSchemes ColorScheme) const
 {
-  painter->setPen (NoPen);
   painter->setBrush (getColor (Color, ColorScheme));
   painter->drawRect (x1, y1, x2-x1, y2-y1);
 }
@@ -122,13 +134,12 @@ void QtDasherScreen::Polyline(point* Points, int Number) const
   Points_to_QPointArray (Points, Number, qpa);
   painter->setPen (SolidLine);
   painter->drawPolyline (qpa);
-
+  painter->setPen (NoPen);
 }
 
 void QtDasherScreen::DrawPolygon(point* Points, int Number, int Color,
 				 Opts::ColorSchemes ColorScheme) const
 {
-  painter->setPen (NoPen);
   painter->setBrush (getColor (Color, ColorScheme));
   QPointArray qpa(Number);
   Points_to_QPointArray (Points, Number, qpa);
@@ -154,9 +165,6 @@ void QtDasherScreen::timer()
     QPoint cursorpos;
     cursorpos=this->cursor().pos();
     cursorpos=mapFromGlobal(cursorpos);
-
-    //FIXME - I've hard-coded this to take the height of the title bar into 
-    //account
 
     interface->TapOn(cursorpos.x(), cursorpos.y(), get_time());
   }

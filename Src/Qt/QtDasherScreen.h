@@ -50,22 +50,17 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
   
   void TextSize(symbol Character, int* Width, int* Height, int Size) const
     { 
-#warning QtDasherScreen::TextSize() not implemented
       // should probably use QPainter::boundingRect()
-      QFont font = QFont (fontname.c_str(), Size);
-      font.setPixelSize(Size);
-      *Width = *Height = font.pixelSize();
+      *Width = *Height = Fonts[Size].pixelSize();
       
     }
   void DrawText(symbol Character, int x1, int y1, int Size) const
     {
-      QFont font = QFont (fontname.c_str(), Size);
-      font.setPixelSize(Size);
+      //      QFont font = QFont (fontname.c_str(), Size);
+      //      font.setPixelSize(Size);
       QPoint point = QPoint(x1, y1+Size/2);
   
-      
-
-      painter->setFont (font);
+      painter->setFont (Fonts[Size]);
       painter->drawText (point,
 			 QString(interface->GetDisplayText(Character).c_str()));
     }
@@ -76,8 +71,12 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
   void DrawPolygon(point* Points, int Number, int Color,
 		   Opts::ColorSchemes ColorScheme) const;
 
+  std::vector<int> FontSizes;
+  std::vector<QFont> Fonts;
+
   void Blank() const {
     painter->begin(pixmap);
+    painter->setPen (NoPen);
     painter->fillRect(0, 0, m_iWidth, m_iHeight,
 		      QColor(255,255,255));
   }
@@ -88,17 +87,13 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
 
   void paintEvent( QPaintEvent * )
   {
-    painter->begin(this);
-    painter->drawPixmap (0, 0, *pixmap);
-    painter->end();
+    bitBlt(this, 0, 0, pixmap);
   }
 
   void mousePressEvent (QMouseEvent *e);
   void mouseReleaseEvent (QMouseEvent *e);
   
  protected:
-  // void set_the_font();
-
   QColor getColor(int Color, const Opts::ColorSchemes ColorScheme) const;
   
   long QtDasherScreen::get_time();
@@ -112,9 +107,7 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
 
   QPixmap* pixmap;
 
-  // QFont* font;
   std::string fontname;
-  // int fontsize;
 
   protected slots:
     void timer();
