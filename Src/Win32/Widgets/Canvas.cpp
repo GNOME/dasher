@@ -6,9 +6,12 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
+#include "../../Common/Common.h"
 
 #include "Canvas.h"
+
+#include "Edit.h"
+
 using namespace Dasher;
 
 CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB)

@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../../Common/Common.h"
+
 #include "SplashScreen.h"
 
 /////////////////////////////////////////////////////////////////////////////
@@ -54,18 +56,35 @@ LRESULT CALLBACK CSplash::TmpWndProc(HWND Window, UINT message, WPARAM wParam, L
 
 CSplash::CSplash(HWND Parent)
 {
+
+#ifdef DASHER_WINCE
+	WNDCLASS wndclass;
+	memset(&wndclass, 0, sizeof(WNDCLASS));
+#else
 	WNDCLASSEX  wndclass;
-	
 	memset(&wndclass, 0, sizeof(WNDCLASSEX));
 	wndclass.cbSize         = sizeof(wndclass);
+
+#endif	
 	wndclass.lpfnWndProc    = TmpWndProc;
 	wndclass.hInstance      = WinHelper::hInstApp;
 	wndclass.hbrBackground  = (HBRUSH) GetStockObject(NULL_BRUSH);
 	wndclass.lpszClassName  = TEXT("Splash");
+
+#ifdef DASHER_WINCE
+	RegisterClass (&wndclass);
+	m_hwnd = CreateWindowEx(WS_EX_TOPMOST | WS_EX_TOOLWINDOW,	TEXT("Splash"), TEXT("Splash"), WS_POPUP | WS_VISIBLE,
+		0, 0, 0, 0, Parent, NULL,
+		WinHelper::hInstApp, NULL);
+
+#else
 	RegisterClassEx (&wndclass);
 	m_hwnd = CreateWindowEx(WS_EX_TOPMOST | WS_EX_TOOLWINDOW,
 		TEXT("Splash"), TEXT("Splash"), WS_POPUP | WS_VISIBLE, 0, 0, 0, 0, Parent, NULL,
 		WinHelper::hInstApp, NULL);
+
+#endif
+
 	
 	WinWrapMap::add(m_hwnd, this);
 	UpdateWindow(m_hwnd);

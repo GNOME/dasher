@@ -13,8 +13,12 @@
 #include "../WinWrap.h"
 #include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/DasherAppInterface.h"
+#include "../../DasherCore/DasherTypes.h"
+
+
 #include "Screen.h"
-#include "Edit.h"
+
+class CEdit;
 
 class CCanvas : public CWinWrap
 {
@@ -24,10 +28,15 @@ public:
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
 	HWND getwindow() {return m_hwnd;}
+
 	void StartOnLeftClick(bool Value) {startonleft = Value;}
+
 	void StartOnSpace(bool Value) {startonspace = Value;}
+
 	void KeyControl(bool Value) {keycontrol = Value;}
+
 	void WindowPause(bool Value) {windowpause = Value;}
+
 	void MousePosStart(bool Value);
 	void SpeakOnStop(bool Value) {speakonstop = Value;}
 	void setkeycoords(int coords[18]) {for (int i=0; i<18; i++) {keycoords[i]=coords[i];};}
@@ -55,6 +64,7 @@ public:
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
+
 	HWND Parent;
 	HDC m_hdc;
 	int keycoords[18],buttonnum,yscaling,mouseposdist,uniform;
@@ -63,28 +73,47 @@ private:
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;
 	CEdit* m_DasherEditBox;
-	screenint imousex,imousey;
+	Dasher::screenint imousex,imousey;
 	UINT MY_TIMER;
 	bool running;
 	bool startonleft;
+
 	bool startonspace;
+
 	bool keycontrol;
+
 	bool windowpause;
+
 	bool mouseposstart;
+
 	bool firstwindow;
+
 	bool secondwindow;
+
 	bool speakonstop;
+
 	bool oned;
+
 	bool direction;
+
 	bool lbuttonheld;
+
 	bool inturbo;
+
 	bool enabletime;
+
 	DWORD startturbo;
+
 	DWORD endturbo;
+
 	DWORD lastlbutton;
+
 	DWORD mousepostime;
+
 	DWORD previoustime;
+
 	RECT coords;
+
 };
 
 

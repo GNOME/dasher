@@ -29,9 +29,15 @@
 	IAM 08/02
 */
 
+#include ",,/../../../Common/Common.h"
 #include "FilenameGUI.h"
 #include "../WinLocalisation.h"
 #include "../resource.h"
+
+
+#ifndef _MAX_FNAME
+#define _MAX_FNAME                 64
+#endif
 
 using namespace std;
 
@@ -41,6 +47,8 @@ CFilenameGUI::CFilenameGUI(HWND WindowWithTitlebar, Tstring AppName, bool NewWit
 	: WindowWithTitlebar(WindowWithTitlebar), AppName(AppName),
 	NewWithDate(NewWithDate), Dirty(false), FileAndPath(TEXT(""))
 {
+
+#ifndef DASHER_WINCE
 	TCHAR CurrentDirectory[_MAX_DIR];
 	if (GetCurrentDirectory(_MAX_DIR, CurrentDirectory)>0) {
 		OriginalPath = CurrentDirectory;
@@ -48,6 +56,7 @@ CFilenameGUI::CFilenameGUI(HWND WindowWithTitlebar, Tstring AppName, bool NewWit
 		if (OriginalPath[OriginalPath.size()-1]!=TEXT('\\')) // Yuck. Can't find a call to get
 			OriginalPath+=TEXT('\\');                        // the directory separator
 	} else
+#endif
 		OriginalPath = TEXT("");
 	
 	if (NewWithDate) {
@@ -87,7 +96,7 @@ const Tstring& CFilenameGUI::New()
 const Tstring& CFilenameGUI::Open()
 {
 	OPENFILENAME OpenDialogStructure;
-	TCHAR FullOpenFilename[MAX_PATH] = TEXT("");
+	TCHAR FullOpenFilename[_MAX_PATH] = TEXT("");
 	
 	// Initialize OPENFILENAME
 	ZeroMemory(&OpenDialogStructure, sizeof(OpenDialogStructure));
@@ -178,10 +187,13 @@ void CFilenameGUI::SetWindowTitle()
 {
 	Tstring TitleText;
 	
+
+#ifndef DASHER_WINCE	
 	TCHAR PrettyName[_MAX_FNAME];
 	if (GetFileTitle(FileAndPath.c_str(), PrettyName, _MAX_FNAME)==0)
 		TitleText = PrettyName;
 	else
+#endif
 		WinLocalisation::GetResourceString(IDS_UNTITLED_FILE, &TitleText);
 	
 	if (Dirty)

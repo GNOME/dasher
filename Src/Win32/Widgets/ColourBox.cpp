@@ -6,6 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../../Common/Common.h"
 
 #include "ColourBox.h"
 #include "../resource.h"
@@ -99,7 +100,7 @@ LRESULT CColourBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPa
 			return TRUE;
 			break;
 		case (IDOK):
-			if (m_CurrentColours!="") {
+			if (m_CurrentColours!= std::string("") ) {
 				m_SettingsInterface->ChangeColours(m_CurrentColours);
 			}
 			// deliberate fall through

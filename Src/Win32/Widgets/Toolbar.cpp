@@ -9,6 +9,8 @@
 // This is a very much hard-wired toolbar.
 // Code would need more logic and less copy and pasting to be more generally useful.
 
+#include "../../Common/Common.h"
+
 #include "Toolbar.h"
 #include "../resource.h"
 #include "../WinLocalisation.h"
