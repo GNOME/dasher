@@ -40,22 +40,12 @@ QtDasherScreen::QtDasherScreen (int _width, int _height,
   interface->ChangeEdit(edit);
   interface->ChangeScreen(this);
 
-  //  interface->Unpause(get_time());
-
   paused=true;
 
   QTimer *tmr = new QTimer(this);
   connect (tmr, SIGNAL(timeout()), SLOT(timer()));
   tmr->start(40);
 
-  // enc = 1; // Asume encoding is iso8859-1 unless we're told otherwise.
-  // cdesc = iconv_open( "ISO-8859-1", "UTF-8" );
-
-  // Tell the system we want to receive button press events
-  //set_events( GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK );
-
-  // Initialise the double buffer class
-  //buffer = new GtkDoubleBuffer( pmwidth, pmheight, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
 }
 
 long QtDasherScreen::get_time()
@@ -171,3 +161,12 @@ void QtDasherScreen::timer()
     interface->TapOn(cursorpos.x(), cursorpos.y()-30, get_time());
   }
 }
+
+
+
+
+
+
+
+
+
