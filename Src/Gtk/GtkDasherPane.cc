@@ -135,13 +135,15 @@ void GtkDasherPane::reset()
   // FIXME - need to reset the contents of the edit box here too
 
   clear();
+
+  text->Clear();
 }
 
 void GtkDasherPane::save( string filename )
 {
   //  cout << "In Save: " << filename << endl;
 
-  //  text->save( filename );
+  text->SaveAs( filename );
 }
 
 GtkDasherPane::~GtkDasherPane()

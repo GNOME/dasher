@@ -1,9 +1,12 @@
 #include "GtkDasherEdit.h"
 
+
 #include <string>
+#include <iostream.h>
+#include <fstream.h>
 
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
-  : Gtk::Text(), Dasher::CDashEditbox(), flush_count(0), interface( _interface )
+  : Gtk::Text(), Dasher::CDashEditbox(), flush_count(0), interface( _interface ), filename_set( false )
 {
 }
 
@@ -57,7 +60,7 @@ void GtkDasherEdit::flush(symbol Symbol)
 
 void GtkDasherEdit::Clear()
 {
-  cout << "In clear method" << endl;
+  delete_text(0, -1 );
 }
 
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
@@ -66,4 +69,33 @@ void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 
 void GtkDasherEdit::SetFont(std::string Name, long Size)
 {
+}
+
+bool GtkDasherEdit::SaveAs(std::string filename)
+{
+  current_filename = filename;
+  filename_set = true;
+
+  return( Save() );
+}
+
+bool GtkDasherEdit::Save()
+{
+  if( !filename_set )
+    return( false );
+
+  ofstream ofile( current_filename.c_str() );
+
+  if( ofile.bad() )
+    return( false );
+
+  ofile << get_chars(0, -1) << endl;
+  ofile.close();
+
+  return( true );
+}
+
+bool GtkDasherEdit::Open( std::string filename )
+{
+  return( false );
 }

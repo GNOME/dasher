@@ -26,10 +26,15 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
-  void save( string filename );
+  bool SaveAs( const std::string filename );
+  bool Save();
+  bool Open( const std::string filename );
  protected:
   int flush_count;
   CDasherInterface *interface;
+  string current_filename;
+  bool filename_set;
+  
 };
 
 #endif
