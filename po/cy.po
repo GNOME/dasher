@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-13 19:36+0000\n"
-"PO-Revision-Date: 2004-03-13 19:37+0000\n"
+"POT-Creation-Date: 2004-03-15 23:01+0000\n"
+"PO-Revision-Date: 2004-03-15 23:01+0000\n"
 "Last-Translator: Dafydd Harries <daf@muse.19inch.net>\n"
 "Language-Team: Welsh <gnome-cy@pengwyn.linux.org.uk>\n"
 "MIME-Version: 1.0\n"
@@ -168,9 +168,8 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>Cyfluniad rheoli botymau</b>"
 
 #: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
-#, fuzzy
 msgid "<b>Color Selection:</b>"
-msgstr "<b>Dewisiad Lliwiau:</b>"
+msgstr "<b>Dewis Lliwiau:</b>"
 
 #: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -237,12 +236,10 @@ msgid "Button:"
 msgstr "Botwm:"
 
 #: Src/Gtk2/dasher.glade.h:25
-#, fuzzy
 msgid "Change color scheme automatically"
-msgstr "Newid y cyllun lliwiau yn awtomatig"
+msgstr "Newid y cynllun lliwiau yn awtomatig"
 
 #: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
-#, fuzzy
 msgid "Color"
 msgstr "Lliw"
 
@@ -471,7 +468,7 @@ msgstr "abcdefghijk ABCDEFGHIJK"
 
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
-msgstr ""
+msgstr "<b>Cyflymder</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:26
 msgid "Change colour scheme automatically"
@@ -494,9 +491,8 @@ msgid "Open file"
 msgstr "Agor ffeil"
 
 #: Src/Gtk2/dashergpe.glade.h:54
-#, fuzzy
 msgid "Orientation"
-msgstr "<b>Gogwydd:</b>"
+msgstr "Gogwydd"
 
 #: Src/Gtk2/dashergpe.glade.h:55
 msgid "Paste"
@@ -512,7 +508,7 @@ msgstr "Cadw'r ffeil fel"
 
 #: Src/Gtk2/speech.cc:45
 msgid "Unable to initialize voices"
-msgstr ""
+msgstr "Ni ellir paratoi lleisiau"
 
 #: Src/Gtk2/speech.cc:61
 msgid "Warning: unable to set speech parameters\n"
