@@ -12,7 +12,7 @@
 #include <iconv.h>
 
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
-  : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*"), timestamp( true ), dirty( false )
+  : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*"), timestamp( true ), dirty( false )
 {
   enc = 1;
   snprintf( encstr, 255, "ISO-8859-%d", enc);
@@ -54,8 +54,6 @@ gint GtkDasherEdit::handle_cursor_move( GdkEventButton *e )
 
   //  text.delete_selection();
 
-  kill_flush();
-
   interface->Start();
   interface->Redraw();
 
@@ -66,17 +64,10 @@ gint GtkDasherEdit::handle_key_press( GdkEventKey *e )
 {
   text.set_point( text.get_position() );
 
-  kill_flush();
-
   interface->Start();
   interface->Redraw();
 
   return( true );
-}
-
-void GtkDasherEdit::kill_flush()
-{
-  flush_count = 0;
 }
 
 void GtkDasherEdit::get_new_context(std::string& str, int max)
@@ -97,18 +88,6 @@ void GtkDasherEdit::deletetext()
 {
   text.backward_delete(1);
   dirty=true;
-}
-
-void GtkDasherEdit::unflush()
-{
-  text.backward_delete( flush_count );
-  flush_count = 0;
-
-  dirty = true;
-
-  // FIXME - we could do something more sophisticated with dirtying -
-  // ie if you flush then unflush with the net result being that there
-  // is no change then it might be a good idea to unset dirty.
 }
 
 void GtkDasherEdit::output(symbol Symbol)
@@ -147,49 +126,6 @@ void GtkDasherEdit::output(symbol Symbol)
   text.insert ( efont, black, white, csymbol, 1);
 
   dirty = true;
-}
-
-void GtkDasherEdit::flush(symbol Symbol)
-{
-  // We seem to be passed Symbol 0 (root node) sometimes, so ignore
-  // this
-
-  if( Symbol != 0 )
-    {
-      ++flush_count;
-
-      std::string label;
-
-      label = interface->GetEditText( Symbol );
-  
-      iconv_t cdesc=iconv_open(encstr,"UTF-8");
-      
-      char *convbuffer = new char[256];
-      char *inbuffer = new char[256];
-
-      char *cb( convbuffer );
-      char *ib( inbuffer );
-
-      strncpy( inbuffer, label.c_str(), 255 );
-
-      size_t inb = label.length();
-
-      size_t outb = 256;
-      iconv( cdesc, &inbuffer, &inb, &convbuffer, &outb );
-      
-      std::string csymbol( cb, 256-outb );
-
-      delete cb;
-      delete ib;
-      
-      Gdk_Color black("black");
-      Gdk_Color white("white");
-      
-      text.delete_selection();
-      text.insert ( efont, black, white, csymbol, 1);
-
-      dirty = true;
-    }
 }
 
 void GtkDasherEdit::Cut()
@@ -509,8 +445,6 @@ bool GtkDasherEdit::Open( std::string filename )
   text.thaw();
 
   // Restart the interface with the new context
-
-  kill_flush();
 
   interface->Start();
   interface->Redraw();

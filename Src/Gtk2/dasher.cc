@@ -265,8 +265,6 @@ open_file (const char *filename)
 
   file_modified = 0;
   
-  flush_count = 0;
-
   gtk_window_set_title(GTK_WINDOW(window), filename);
 
   dasher_start();
@@ -585,8 +583,6 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 void
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  flush_count = 0;
-
   dasher_start();
   dasher_redraw();
 }
@@ -594,8 +590,6 @@ edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer da
 void
 edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  flush_count = 0;
-
   dasher_start();
   dasher_redraw();
 }

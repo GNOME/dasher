@@ -399,7 +399,6 @@ void GtkDasherPane::select_encoding()
 
 void GtkDasherPane::change_alphabet( std::string _alphabet )
 {
-  text->kill_flush();
   select_encoding();
 
   abox.set_selection( _alphabet );

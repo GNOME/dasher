@@ -4,7 +4,7 @@
 #include <gconf/gconf-client.h>
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
-#include <gnome.h>
+//#include <gnome.h>
 #include <libbonobo.h>
 #endif
 
@@ -133,8 +133,6 @@ main(int argc, char *argv[])
   dasher_set_edit_output_callback( edit_output_callback );
   dasher_set_edit_outputcontrol_callback( edit_outputcontrol_callback );
   dasher_set_edit_delete_callback( edit_delete_callback );
-  dasher_set_edit_flush_callback( edit_flush_callback );
-  dasher_set_edit_unflush_callback( edit_unflush_callback );
   dasher_set_get_new_context_callback( get_new_context_callback );
 
   dasher_set_clipboard_callback( clipboard_callback );

@@ -24,11 +24,9 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
 
   void write_to_file();
   void get_new_context(std::string& str, int max);
-  void unflush();
   void deletetext();
   void output(symbol Symbol);
   void outputcontrol(void* pointer, int data) {};
-  void flush(symbol Symbol);
   void Clear();
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);
@@ -48,15 +46,12 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   gint handle_cursor_move( GdkEventButton *e );  
   gint handle_key_press( GdkEventKey *e );
 
-  void kill_flush();
-
   void set_display_encoding( int _enc );
   std::string get_current_filename();
 
   bool is_dirty();
 
  protected:
-  int flush_count;
   CDasherInterface *interface;
   string current_filename;
   bool filename_set;
