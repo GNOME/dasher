@@ -1,4 +1,4 @@
-.TH DASHER "1" "April 2003" "dasher 3.0.2" "User Commands"
+.TH DASHER "1" "November 2003" "dasher 3.2.0" "User Commands"
 .SH NAME 
 dasher \- graphical predictive text entry system
 
@@ -71,10 +71,102 @@ Copy the entire contents of the edit box to the clipboard
 .IP "Select all"
 Highlight all of the text in the edit box
 
+.SS Options
+
+.IP "Preferences"
+Opens the preferences dialog (see
+.SM
+.B "THE PREFERENCES DIALOG"
+below)
+
+.IP "Edit font"
+Choose the font used in the edit box
+
+.IP "Dasher font"
+Choose the font used in the Dasher canvas
+
+.IP "Dasher font size"
+Choose the size of the font used in the Dasher canvas
+
+.IP "Reset fonts"
+Reset the fonts back to the defaults
+
+.IP "Enter text into other windows"
+Make Dasher enter text into the currently focused window. Requires Dasher to 
+have been built with 
+.B--with-a11y. 
+Note that some languages will only work correctly if XFree 4.0.2 or higher is 
+being used.
+
+.IP "Control mode"
+Provides a control node at the bottom of the screen. This allows various tasks
+to be performed inside Dasher, such as editing the text written, speaking 
+entered text and stopping or pausing Dasher. If compiled with 
+.B--with-a11y 
+and using a desktop supporting the ATK accessibility framework, compliant 
+applications will have their menu trees exported to Dasher and these may be
+accessed via this node.
+
+.SS Help
+
+.IP "About Dasher"
+Display information about the current version of Dasher
+
+.SH THE PREFERENCES DIALOG
+
+The preferences dialog is split into several panes.
+
+.SS Alphabet
+Choose a different alphabet. Dasher will automatically retrain itself if the
+alphabet specified training file is present
+
+.SS Colour
+Choose a different colour scheme.
+
+.SS Control
+
+Alter various control options
+
+.IP "One dimensional mode"
+Map the Y position of the mouse to a 2 dimensional position on the Dasher
+canvas (useful for limited mobility users)
+
+.IP "Eyetracker mode"
+Similar to one dimensional mode, but behaves normally except at the right-hand
+side of the canvas. Designed for eyetracker users.
+
+.IP "Start on left mouse button"
+The left mouse button will toggle Dasher between running and paused state
+
+.IP "Start on space bar"
+The space bar will toggle Dasher between running and paused state
+
+.IP "Start with mouse position"
+When paused, Dasher will display a red box. If the pointer is held in the red
+box until a yellow box appears, and then in the yellow box until it vanishes,
+Dasher will start. This allows users with no button input to start and stop 
+Dasher.
+
+.IP "Copy all on stop"
+Toggle whether the current text is automatically copied to the clipboard when
+Dasher is stopped
+
+.IP "Speak on stop"
+Toggle whether the newly entered text should be spoken when Dasher is stopped.
+Requires
+.B --with-speech
+to have been used during Dasher configuration and building.
+
+.IP "Pause outside window"
+Toggle whether Dasher pauses if the mouse cursor is moved outside the Dasher
+window
+
 .SS View
 
 .IP Orientation
-Change the relative position of the letters to the crosshairs
+Change the relative position of the letters to the crosshairs.
+.B Alphabet Default
+will allow alphabets to set this automatically.
 
 .IP "Show toolbar"
 Toggle whether or not the row of buttons at the top of the window is displayed
@@ -82,58 +174,38 @@ Toggle whether or not the row of buttons at the top of the window is displayed
 .IP "Show speed slider"
 Toggle whether or not the speed slider at the bottom of the window is displayed
 
-.IP "Fix layout"
-Toggle whether or not the relative size of the edit box and Dasher canvas is
-fixed or changeable (not currently implemented)
+.IP "Show mouse position"
+Toggle whether Dasher should draw a box showing the logical position of the
+mouse cursor
 
-.SS Options
+.IP "Draw line between crosshairs and mouse"
+Toggle whether Dasher should draw a line between the crosshairs and the logical
+mouse position
+
+.IP "Draw box outlines"
+Toggle whether Dasher should draw a box outline around every box it draws
+
+.IP "Change colour scheme automatically"
+Alphabets may provide a preferred colour scheme. If this option is enabled,
+Dasher will automatically change to it.
+
+.SS Advanced
+
+.IP "Smoothing"
+The greater the smoothing value, the greater the uniformity of the box sizes.
+This will reduce the predictive capabilities of Dasher, and so may reduce
+writing speed.
 
 .IP "Timestamp new files"
 Include the time at which a file is saved in the filename
 
-.IP "Copy all on stop"
-Toggle whether the current text is automatically copied to the clipboard when
-Dasher is stopped
+.IP "Distance from centreline for start on mouse position"
+Controls the distance from the centre of the Dasher screen that the mouse
+position start boxes will appear.
 
-.IP Alphabet
-Choose a different alphabet. Dasher will automatically retrain itself if the
-alphabet specified training file is present
-
-.IP "File encoding"
-Choose the encoding used in a saved file (not currently implemented)
-
-.IP "Editing font"
-Choose the font used in the edit box
-
-.IP "Dasher font"
-Choose the font used in the Dasher canvas
-
-.IP "Reset fonts"
-Reset the fonts back to the defaults
-
-.IP "One Dimensional"
-Map the Y position of the mouse to a 2 dimensional position on the Dasher
-canvas (useful for limited mobility users)
-
-.IP "Draw Mouse"
-Draw the logical position of the mouse - this option makes the behaviour of
-one dimensional mode significantly cleaer
-
-.IP "Start on Left Mouse"
-The left mouse button will toggle Dasher between running and paused state
-
-.IP "Start on Space Bar"
-The space bar will toggle Dasher between running and paused state
-
-.IP "Keyboard Control"
-The up and down cursor keys will move Dasher diagonally forward and up or 
-forward and down respectively. The left cursor key will move Dasher straight
-backwards. This mode is designed for use with switch input devices
-
-.SS Help
-
-.IP "About Dasher"
-Display information about the current version of Dasher
+.IP "Number of pixels that should cover the entire y range"
+Controls how many pixels of input should correspond to complete coverage of
+the Dasher canvas. Only used in one dimensional mode.
 
 .SH CONVERTING TRAINING FILES TO UTF-8
 
@@ -162,13 +234,13 @@ User configuration files
 will utilise data from both of these directories. Training texts from both will
 be used, allowing users to add their own training data to the system wide data
 
-.I dasherrc
+.I alphabet*.xml
 .RS
-The Dasher configuration details are stored here
+The files defining the alphabets available to Dasher
 .RE
-.I alphabet.xml
+.I colour*.xml
 .RS
-The file defining the alphabets available to Dasher
+The files defining the colour schemes available to Dasher
 .RE
 .I train*txt
 .RS
