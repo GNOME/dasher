@@ -38,11 +38,6 @@ void edit_output_callback(symbol Symbol)
   say+=label;
 #endif
 
-  // CJB,  2003-08.  If we have a selection, replace it with the new input.
-  // We cut to the clipboard rather than calling delete_text.
-  if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
-      gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
-
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 

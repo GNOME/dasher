@@ -603,6 +603,11 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 
   switch (event->keyval) {
     if (keyboardcontrol == true) {
+      // CJB,  2003-08.  If we have a selection, replace it with the new input.
+      // This code is duplicated in button_press_event. 
+      if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
+        gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
+
     case GDK_Up:
       dasher_unpause(get_time());
       width = the_canvas->allocation.width;
@@ -670,6 +675,11 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 
   g_free(focusEvent);
 
+  // CJB,  2003-08.  If we have a selection, replace it with the new input.
+  // This code is duplicated in key_press_event.
+  if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
+    gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
+  
   if (startleft == TRUE) {
     if (paused == TRUE) {
       dasher_unpause( get_time() );
