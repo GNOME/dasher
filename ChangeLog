@@ -1,3 +1,9 @@
+2005-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix crash if libwnck doesn't give us any windows
+	* Fix thinko in the initialisation of endpos in Gtk2/edit.cc
+	* Version 3.2.14
+	
 2005-01-30  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Make autogen.sh do the right thing
