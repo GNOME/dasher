@@ -353,6 +353,9 @@
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
+			RelativePath="FrameRate.h">
+		</File>
+		<File
 			RelativePath=".\LanguageModel.cpp">
 		</File>
 		<File
