@@ -76,19 +76,6 @@ main(int argc, char *argv[])
   XWMHints wm_hints;
   Atom wm_window_protocols[3];
 
-  while (1) {
-    c=getopt( argc, argv, "w" );
-
-    if (c == -1)
-      break;
-
-    switch (c) {
-    case 'w':
-      timedata=TRUE;
-      break;
-    }
-  }
-
 #ifdef GNOME
   GnomeProgram *program=0;
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
@@ -101,6 +88,11 @@ main(int argc, char *argv[])
 
   gconf_init( argc, argv, &gconferror );
 
+  // We need thread support for updating the splash window while
+  // training...
+
+  g_thread_init(NULL);
+
   xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
 
   the_gconf_client = gconf_client_get_default();
@@ -112,6 +104,19 @@ main(int argc, char *argv[])
       }
     bonobo_activate();
 #endif
+
+  while (1) {
+    c=getopt( argc, argv, "w" );
+
+    if (c == -1)
+      break;
+
+    switch (c) {
+    case 'w':
+      timedata=TRUE;
+      break;
+    }
+  }
 
   dasher_set_get_bool_option_callback( get_bool_option_callback );
   dasher_set_get_long_option_callback( get_long_option_callback );
