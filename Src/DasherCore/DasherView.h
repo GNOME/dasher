@@ -71,6 +71,7 @@ public:
     int GetOneButton();
     void SetOneButton(int Value);
     
+    int GetAutoOffset();
     void ResetSum();
     void ResetSumCounter();
     void ResetYAutoOffset();

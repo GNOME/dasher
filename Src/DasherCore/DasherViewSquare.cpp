@@ -387,6 +387,10 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 	CanvasY=Height;
 }
 
+int CDasherView::GetAutoOffset() {
+	 return CDasherView::yAutoOffset;
+}
+
 int CDasherView::GetOneButton() {
      return onebutton;
 }

@@ -160,8 +160,9 @@ public:
 	void SetUniform(int Value);
 	void SetYScale(int Value);
 	void SetMousePosDist(int Value);
-	int GetOneButton();
+    int GetOneButton();
     void SetOneButton(int Value);
+    int GetAutoOffset();
     void Render();
 
 private:

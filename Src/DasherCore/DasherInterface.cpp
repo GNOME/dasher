@@ -917,6 +917,14 @@ int CDasherInterface::GetOneButton() {
   return -1;
 }
 
+int CDasherInterface::GetAutoOffset() {
+  if (m_DasherView!=0) {
+    return m_DasherView->GetAutoOffset();
+  }
+  return -1;
+}
+
+
 void CDasherInterface::SetOneButton(int Value) {
   if (m_DasherView!=0) {
     m_DasherView->SetOneButton(Value);

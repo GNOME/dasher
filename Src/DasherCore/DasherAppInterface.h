@@ -74,6 +74,7 @@ public:
 	virtual void AddControlTree(ControlTree *controltree)=0;
 
     virtual int GetOneButton()=0;
+    virtual int GetAutoOffset()=0;
     virtual void SetOneButton(int Value)=0;
 };
 
