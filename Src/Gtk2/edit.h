@@ -13,3 +13,7 @@ extern GtkWidget *the_text_view;
 extern GtkTextBuffer *the_text_buffer;
 extern GtkClipboard *the_text_clipboard;
 extern int flush_count;
+
+void set_edit_font(gpointer data, guint action, GtkWidget *widget);
+void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
+

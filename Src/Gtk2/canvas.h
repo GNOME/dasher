@@ -21,5 +21,8 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number);
 void draw_text_callback(symbol Character, int x1, int y1, int size);
 void text_size_callback(symbol Character, int* Width, int* Height, int Size);
 
+void set_dasher_font(gpointer data, guint action, GtkWidget *widget);
+void get_font_from_dialog( GtkWidget *one, GtkWidget *two );
+
 GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme);
 GdkFont *get_font(int size);

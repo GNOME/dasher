@@ -6,6 +6,7 @@ GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
 PangoFontDescription *font;
 PangoRectangle *ink,*logical;
+GtkFontSelectionDialog *dasherfontdialog;
 
 extern gboolean setup;
 
@@ -283,4 +284,24 @@ GdkFont *get_font(int size)
     chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
   
   return chosen_font;
+}
+
+void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
+{
+  char *font_name;
+  font_name=gtk_font_selection_dialog_get_font_name(dasherfontdialog);
+  if (font_name) {
+    pango_font_description_free(font);
+    font=pango_font_description_from_string(font_name);
+    dasher_redraw();
+  }
+  gtk_widget_destroy (GTK_WIDGET(dasherfontdialog));
+}
+
+void set_dasher_font(gpointer data, guint action, GtkWidget *widget)
+{
+  dasherfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));
+  g_signal_connect (dasherfontdialog->cancel_button, "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT (dasherfontdialog));
+  g_signal_connect (dasherfontdialog->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasherfontdialog);
+  gtk_widget_show(GTK_WIDGET(dasherfontdialog));
 }
