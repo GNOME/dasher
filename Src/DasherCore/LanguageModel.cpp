@@ -55,7 +55,10 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 	// make sure it is a valid context
 	if (Context) {
 		int s = m_Alphabet->GetNumberSymbols();
-		
+
+		if( s <= 1 )
+		  return false;
+
 		int norm( normalization() );
 
 		int uniform_add = ((norm / 1000 ) / (s-1) ) * m_uniform;
