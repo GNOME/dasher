@@ -7,114 +7,180 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-01 15:56+0100\n"
-"PO-Revision-Date: 2004-02-01 16:12+0100\n"
+"POT-Creation-Date: 2004-06-13 09:15+0200\n"
+"PO-Revision-Date: 2004-06-13 09:32+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:63
 msgid "Menus"
 msgstr "Menu"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:70
+msgid "Windows"
+msgstr "Okná"
+
+#: Src/Gtk2/accessibility.cc:75
+msgid "Application"
+msgstr "Aplikácia"
+
+#: Src/Gtk2/accessibility.cc:82
 msgid "Buttons"
 msgstr "Tlačidlá"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Panely"
 
-#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:95
+msgid "Text"
+msgstr "Text"
+
+#: Src/Gtk2/accessibility.cc:170 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Ovládanie"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Zastaviť"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:181
 msgid "Pause"
 msgstr "Prerušiť"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:188
 msgid "Move"
 msgstr "Presunúť"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:195
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Hovoriť"
 
-#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:212 Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Rýchlosť"
+
+#: Src/Gtk2/accessibility.cc:229 Src/Gtk2/accessibility.cc:383
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:377
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:241
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:247
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:260
 msgid "Everything"
 msgstr "Všetko"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:266
 msgid "New"
 msgstr "Nový"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:272
 msgid "Repeat"
 msgstr "Opakovať"
 
-#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:294
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:301
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:308
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:315
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:322
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:329
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:336
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:343
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:350
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:357
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:389 Src/Gtk2/accessibility.cc:412
 msgid "Character"
 msgstr "Znak"
 
-#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:400 Src/Gtk2/accessibility.cc:422
 msgid "Word"
 msgstr "Slovo"
 
-#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:405 Src/Gtk2/accessibility.cc:428
 msgid "Line"
 msgstr "Riadok"
 
-#: Src/Gtk2/dasher.cc:183
+#: Src/Gtk2/accessibility.cc:508
+msgid "Unknown"
+msgstr "Neznámy"
+
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
 msgstr "Dasher sa učí, prosím čakajte"
 
+#: Src/Gtk2/dasher.cc:664 Src/Gtk2/dasher.cc:677 Src/Gtk2/dasher.cc:690
+#: Src/Gtk2/dasher.cc:703 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Vybrať súbor"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
 msgstr "Marcel Telka <marcel@telka.sk>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1771
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je aplikácia na prediktívne zadávanie textu"
 
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2178
 #, c-format
 msgid "%d characters output in %d seconds\n"
-msgstr ""
+msgstr "Výstup %d znakov za %d sekúnd\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -144,7 +210,7 @@ msgstr "<b>Výber abecedy:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Nastavenie tlačidla ovládania</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Výber farby:</b>"
 
@@ -170,7 +236,7 @@ msgstr "<b>Spúšťanie a zastavovanie:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
-msgstr ""
+msgstr "<b>Prepnúť režim tlačidla:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
@@ -212,11 +278,11 @@ msgstr "Režim tlačidla"
 msgid "Button:"
 msgstr "Tlačidlo:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Zmeniť farebnú schému automaticky"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Farba"
 
@@ -242,7 +308,7 @@ msgstr "Vystrihnúť"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
-msgstr ""
+msgstr "Cyklický režim tlačidla"
 
 #: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
@@ -305,7 +371,7 @@ msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr ""
+msgstr "Počet bodov, ktoré majú pokryť celý rozsah y:"
 
 #: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
@@ -339,10 +405,6 @@ msgstr "Uložiť súbor"
 msgid "Save file as"
 msgstr "Uložiť súbor ako"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Vybrať súbor"
-
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
 msgstr "Vybrať písmo"
@@ -363,25 +425,21 @@ msgstr "Zobraziť lištu nástrojov"
 msgid "Speak on stop"
 msgstr ""
 
-#: Src/Gtk2/dasher.glade.h:65
-msgid "Speed"
-msgstr "Rýchlosť"
-
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
-msgstr ""
+msgstr "Spustiť pri stlačení ľavého tlačidla myši"
 
 #: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
-msgstr ""
+msgstr "Spustiť pri stlačení medzerníka"
 
 #: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
-msgstr ""
+msgstr "Spustiť pri pohybe myši"
 
 #: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
-msgstr ""
+msgstr "Časová značka nových súborov"
 
 #: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
@@ -470,30 +528,26 @@ msgstr ""
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Výber farby:</b>"
-
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Rýchlosť</b>"
-
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Zmeniť farebnú schému automaticky"
-
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Farba"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Orientácia"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:24
+msgid "Unable to initialize speech support\n"
+msgstr "Nepodarilo sa inicializovať hlasovú podporu\n"
+
+#: Src/Gtk2/speech.cc:50
+msgid "Unable to initialize voices"
+msgstr "Nepodarilo sa inizializovať hlasy"
+
+#: Src/Gtk2/speech.cc:66
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Upozornenie: nepodarilo sa nastaviť parametre reči\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:103
 msgid "Dasher Text Entry"
-msgstr ""
+msgstr "Textový vstup pre Dasher"
