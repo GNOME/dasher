@@ -1,0 +1,27 @@
+3.0.1
+
+General:
+Default alphabet reordered
+API documentation added
+Font size changeable
+Interfaces now use a crosshair within the Dasher canvas
+Flicker reduced
+One dimensional input mode introduced
+Logical position of the mouse pointer can be displayed
+All settings should now be saved between runs
+Various fixes to improve prediction
+
+Windows:
+Windows version can be started and stopped using the space bar rather than the
+mouse
+Fixed Windows file operations
+Import training file should now work
+Fix handling of rapid mouse clicks
+
+Unix:
+GTK version gettextised for ease of translation
+Added experimental GTK2 version
+
+3.0.0
+
+First full release
