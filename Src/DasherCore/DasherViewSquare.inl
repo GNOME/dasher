@@ -11,16 +11,20 @@ namespace Dasher {
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
 	int dashery=*mousey;
+
 	double x=1.0*(CanvasX-*mousex)/CanvasX;
-	if (DasherModel().Dimensions()==false) {
-		if (dashery>s_Y2)
-			dashery= (dashery-s_Y2)*m_Y1 + s_Y2;
-		else if (dashery<s_Y3)
-			dashery= (dashery-s_Y3)*m_Y1+s_Y3;
-	}
 	dashery*=DasherModel().DasherY();
 	dashery/=CanvasY;
+
+	if (DasherModel().Dimensions()==false) {
+		if (dashery>m_Y2)
+			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
+		else if (dashery<m_Y3)
+			dashery= (dashery-m_Y3)*m_Y1+m_Y3;
+	}
+
 	x=ixmap(x)*DasherModel().DasherY();
+
 	if (DasherModel().Dimensions()==true) {
 		double distx, disty;	
 		
