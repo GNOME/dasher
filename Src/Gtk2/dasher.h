@@ -43,6 +43,7 @@ extern "C" void select_import_file(GtkWidget *widget, gpointer user_data);
 extern "C" void save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector );
 extern "C" void save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector );
 extern "C" void filesel_hide(GtkWidget *widget, gpointer user_data);
+extern "C" void edit_filesel_hide(GtkWidget *widget, gpointer user_data);
 extern "C" void speak(GtkWidget *widget, gpointer user_data);
 extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data);
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data);
