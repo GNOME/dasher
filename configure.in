@@ -12,7 +12,7 @@ AM_PROG_LIBTOOL
 GETTEXT_PACKAGE=dasher
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
-ALL_LINGUAS="ar az be cs da de el en_CA en_GB es et fi fr ga hr hu ja ko lt mn ms nl no pl pt sk sq sr sr@Latn sv"
+ALL_LINGUAS="ar az be ca cs da de el en_CA en_GB es et fi fr ga hr hu ja ko lt mn ms nl no pl pt sk sq sr sr@Latn sv"
 AM_GNU_GETTEXT
 
 AC_PROG_CXX
