@@ -1,3 +1,6 @@
+// Main.cc
+// (c) 2002 Philip Cowans
+
 // Gtk includes
 
 #include <gtk--/main.h>
