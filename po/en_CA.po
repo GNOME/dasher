@@ -7,14 +7,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
-"POT-Creation-Date: 2004-04-16 11:13-0400\n"
-"PO-Revision-Date: 2004-04-16 16:15-0400\n"
-"Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-05-15 08:07-0400\n"
+"PO-Revision-Date: 2004-05-15 08:28-0400\n"
+"Last-Translator: Alexander Winston <alexander.winston@comcast.net>\n"
 "Language-Team: English/Canada <adamw@FreeBSD.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Report-Msgid-Bugs-To: \n"
 
 #: Src/Gtk2/accessibility.cc:63
 msgid "Menus"
@@ -40,101 +40,147 @@ msgstr "Panels"
 msgid "Text"
 msgstr "Text"
 
-#: Src/Gtk2/accessibility.cc:169 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:170 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Control"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Stop"
 
-#: Src/Gtk2/accessibility.cc:180
+#: Src/Gtk2/accessibility.cc:181
 msgid "Pause"
 msgstr "Pause"
 
-#: Src/Gtk2/accessibility.cc:187
+#: Src/Gtk2/accessibility.cc:188
 msgid "Move"
 msgstr "Move"
 
-#: Src/Gtk2/accessibility.cc:194
+#: Src/Gtk2/accessibility.cc:195
 msgid "Delete"
 msgstr "Delete"
 
-#: Src/Gtk2/accessibility.cc:203
+#: Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Speak"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:290
+#: Src/Gtk2/accessibility.cc:212 Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Speed"
+
+#: Src/Gtk2/accessibility.cc:229 Src/Gtk2/accessibility.cc:383
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:227 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:377
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:241
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:239
+#: Src/Gtk2/accessibility.cc:247
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:260
 msgid "Everything"
 msgstr "Everything"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:266
 msgid "New"
 msgstr "New"
 
-#: Src/Gtk2/accessibility.cc:264
+#: Src/Gtk2/accessibility.cc:272
 msgid "Repeat"
 msgstr "Repeat"
 
-#: Src/Gtk2/accessibility.cc:296 Src/Gtk2/accessibility.cc:319
+#: Src/Gtk2/accessibility.cc:294
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:301
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:308
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:315
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:322
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:329
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:336
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:343
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:350
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:357
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:389 Src/Gtk2/accessibility.cc:412
 msgid "Character"
 msgstr "Character"
 
-#: Src/Gtk2/accessibility.cc:307 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:400 Src/Gtk2/accessibility.cc:422
 msgid "Word"
 msgstr "Word"
 
-#: Src/Gtk2/accessibility.cc:312 Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:405 Src/Gtk2/accessibility.cc:428
 msgid "Line"
 msgstr "Line"
 
-#: Src/Gtk2/accessibility.cc:415
+#: Src/Gtk2/accessibility.cc:508
 msgid "Unknown"
 msgstr "Unknown"
 
-#: Src/Gtk2/dasher.cc:186
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
 msgstr "Training Dasher, please wait"
 
-#: Src/Gtk2/dasher.cc:662 Src/Gtk2/dasher.cc:675 Src/Gtk2/dasher.cc:688
-#: Src/Gtk2/dasher.cc:701 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:664 Src/Gtk2/dasher.cc:677 Src/Gtk2/dasher.cc:690
+#: Src/Gtk2/dasher.cc:703 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:61
 msgid "Select File"
 msgstr "Select File"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1747
+#: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
-msgstr "Adam Weinberger <adamw@gnome.org>"
+msgstr ""
+"Adam Weinberger <adamw@gnome.org>\n"
+"Alexander Winston <alexander.winston@comcast.net>"
 
-#: Src/Gtk2/dasher.cc:1749 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1752
+#: Src/Gtk2/dasher.cc:1771
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher is a predictive text entry application"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2159
+#: Src/Gtk2/dasher.cc:2178
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d characters output in %d seconds\n"
@@ -385,10 +431,6 @@ msgstr "Show toolbar"
 msgid "Speak on stop"
 msgstr "Speak on stop"
 
-#: Src/Gtk2/dasher.glade.h:65
-msgid "Speed"
-msgstr "Speed"
-
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
 msgstr "Start on left mouse button"
@@ -504,18 +546,20 @@ msgid "Orientation"
 msgstr "Orientation"
 
 #: Src/Gtk2/speech.cc:24
+#, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Unable to initialize speech support\n"
 
 #: Src/Gtk2/speech.cc:50
+#, c-format
 msgid "Unable to initialize voices"
 msgstr "Unable to initialize voices"
 
 #: Src/Gtk2/speech.cc:66
+#, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Warning: unable to set speech parameters\n"
 
 #: Src/main.cc:103
 msgid "Dasher Text Entry"
 msgstr "Dasher Text Entry"
-
