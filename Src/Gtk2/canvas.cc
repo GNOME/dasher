@@ -248,7 +248,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
   gdk_draw_layout (offscreen_buffer,
 		   graphics_context,
-		   x1, y1-(ink->height/2.0), the_pangolayout);
+		   x1, y1-ink->height/2, the_pangolayout);
 
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
@@ -283,7 +283,7 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
 
   gdk_draw_layout (offscreen_buffer,
 		   graphics_context,
-		   x1, y1, the_pangolayout);
+		   x1, y1-ink->height/2, the_pangolayout);
 
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
@@ -304,7 +304,7 @@ void text_size_callback(symbol Character, int* Width, int* Height, int size)
   pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
 
   *Width =ink->width;
-  *Height=logical->height;
+  *Height=ink->height;
 }
 
 GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
