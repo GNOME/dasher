@@ -4,7 +4,7 @@ GConfClient *the_gconf_client;
 
 bool get_bool_option_callback(const std::string& Key, bool *value)
 {
-  cout << "Get bool " << Key << endl;
+  //  cout << "Get bool " << Key << endl;
 
   bool got_value;
 
@@ -12,7 +12,7 @@ bool get_bool_option_callback(const std::string& Key, bool *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  cout << "Searching for key " << keypath << endl;
+  //  cout << "Searching for key " << keypath << endl;
 
   GError *the_error;
 
@@ -23,7 +23,7 @@ bool get_bool_option_callback(const std::string& Key, bool *value)
 
 //   if( the_error->code == GCONF_ERROR_SUCCESS )
 //     {
-      cout << "got value " << got_value << endl;
+  //      cout << "got value " << got_value << endl;
       *value = got_value;
       return( true );
      
@@ -41,7 +41,7 @@ bool get_bool_option_callback(const std::string& Key, bool *value)
 
 bool get_long_option_callback(const std::string& Key, long *value)
 {
-  cout << "Get long " << Key << endl;
+  //  cout << "Get long " << Key << endl;
 
   long got_value;
 
@@ -49,7 +49,7 @@ bool get_long_option_callback(const std::string& Key, long *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  cout << "Searching for key " << keypath << endl;
+  //  cout << "Searching for key " << keypath << endl;
 
 
 //   if( gconf_client_unset( the_gconf_client, keypath, NULL ) )
@@ -68,14 +68,14 @@ bool get_long_option_callback(const std::string& Key, long *value)
 
 bool get_string_option_callback(const std::string& Key, std::string *value)
 {
-  cout << "Get string " << Key << endl;
+  //  cout << "Get string " << Key << endl;
 char * got_value;
 
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  cout << "Searching for key " << keypath << endl;
+  //  cout << "Searching for key " << keypath << endl;
 
   //GError *the_error;
 
@@ -85,7 +85,7 @@ char * got_value;
 //       return( false );
 //     }
 
-  cout << "I survived the check" << endl;
+  //  cout << "I survived the check" << endl;
 
   got_value = gconf_client_get_string( the_gconf_client, keypath, NULL);
 
@@ -101,13 +101,13 @@ char * got_value;
   
 void set_bool_option_callback(const std::string& Key, bool Value)
 {
-  cout << "Setting bool option " << Key << " to " << Value << endl; 
+  //  cout << "Setting bool option " << Key << " to " << Value << endl; 
 
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  cout << "Searching for key " << keypath << endl;
+  //  cout << "Searching for key " << keypath << endl;
 
   GError *the_error;
 
@@ -117,13 +117,13 @@ void set_bool_option_callback(const std::string& Key, bool Value)
 
 void set_long_option_callback(const std::string& Key, long Value)
 {
- cout << "Setting bool option " << Key << " to " << Value << endl; 
+  // cout << "Setting bool option " << Key << " to " << Value << endl; 
 
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  cout << "Searching for key " << keypath << endl;
+  //  cout << "Searching for key " << keypath << endl;
 
   GError *the_error;
 
@@ -132,13 +132,13 @@ void set_long_option_callback(const std::string& Key, long Value)
 
 void set_string_option_callback(const std::string& Key, const std::string& Value)
 {
- cout << "Setting bool option " << Key << " to " << Value << endl; 
+  // cout << "Setting bool option " << Key << " to " << Value << endl; 
 
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  cout << "Searching for key " << keypath << endl;
+  //  cout << "Searching for key " << keypath << endl;
 
   GError *the_error;
 

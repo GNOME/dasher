@@ -38,11 +38,6 @@ GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 
-// typedef struct {
-//   Gtk2DasherCanvas *dasher_canvas;
-//   Gtk2DasherEdit *dasher_text;
-// } Gtk2DasherComponents;
-
 static GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
   { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<Item>" },
@@ -144,7 +139,6 @@ void alphabet_select(GtkTreeSelection *selection, gpointer data)
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &alph, -1);
 
-    //    interface->ChangeAlphabet(alphabet);
     dasher_set_parameter_string( STRING_ALPHABET, alph );
 
     g_free(alph);
@@ -164,9 +158,6 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   GtkWidget *ok;
   
   list_store = gtk_list_store_new(1,G_TYPE_STRING);
-
-  //  std::vector< std::string > alphabetlist;
-  //  interface->GetAlphabets( &alphabetlist );
 
   // FIXME - need to check that this is doing the right thing, no
   // memory leaks due to strings not being dealloced etc...
@@ -234,7 +225,6 @@ open_file (const char *filename)
   fread (buffer, file_stat.st_size, 1, fp);
   fclose (fp);
   
-  //  dasher_text_view->Clear();
   dasher_clear();
   
   file_modified = 1;
@@ -249,16 +239,11 @@ open_file (const char *filename)
 
   dasher_start();
   dasher_redraw();
-
-  //  dasher_text_view->interface->Start();
-  //  dasher_text_view->interface->Redraw();
 }
 
 static void
 open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
   open_file (filename);
@@ -445,9 +430,8 @@ toolbar_save(GtkWidget *widget, gpointer data)
 static void
 ask_save_before_exit(GtkWidget *widget, gpointer data)
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-  
   if (file_modified == TRUE) {
+    // FIXME - ask question here
     //        switch(gpe_question_ask ("Save current file before exiting?", _("Question"), "question",_("Don't save"), "stop", _("Save"), "save"))
     //      {
     //      case 1: /* Save */
@@ -466,7 +450,6 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
 static void 
 toolbar_cut(GtkWidget *widget, gpointer data)
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
   gtk_editable_cut_clipboard(GTK_EDITABLE(the_text_view));
 
   return;
@@ -475,7 +458,6 @@ toolbar_cut(GtkWidget *widget, gpointer data)
 static void 
 toolbar_copy(GtkWidget *widget, gpointer data)
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
   gtk_editable_copy_clipboard(GTK_EDITABLE(the_text_view));
 
   return;
@@ -484,7 +466,6 @@ toolbar_copy(GtkWidget *widget, gpointer data)
 static void 
 toolbar_paste(GtkWidget *widget, gpointer data)
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
   gtk_editable_paste_clipboard(GTK_EDITABLE(the_text_view));
 
   return;
@@ -508,8 +489,6 @@ long get_time() {
 static gint
 timer_callback(gpointer data)
 {
-  //  Gtk2DasherCanvas *dasher_canvas = static_cast<Gtk2DasherCanvas*>(data);
-  
   if (!paused) {
     int x;
     int y;
@@ -528,8 +507,6 @@ timer_callback(gpointer data)
 static gint
 canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
-  //  Gtk2DasherCanvas *dasher_canvas = static_cast<Gtk2DasherCanvas*>(data);
-
   gdk_draw_pixmap(the_canvas->window,
 		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
 		  onscreen_buffer,
@@ -543,9 +520,6 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 static gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
-  //  Gtk2DasherCanvas *dasher_canvas = static_cast<Gtk2DasherCanvas*>(data);
-
-  //  dasher_canvas->CreateNewBuffer();  
   rebuild_buffer();
 
   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
@@ -557,13 +531,7 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 static void
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-  //dasher_text_view->get_new_context();
-
- flush_count = 0;
-
-  //  dasher_text_view->interface->Start();  
-  //  dasher_text_view->interface->Redraw();  
+  flush_count = 0;
 
   dasher_start();
   dasher_redraw();
@@ -572,12 +540,7 @@ edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer da
 static void
 edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-
   flush_count = 0;
-
-  //  dasher_text_view->interface->Start();  
-  //  dasher_text_view->interface->Redraw();  
 
   dasher_start();
   dasher_redraw();
@@ -586,11 +549,6 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 static void
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  //  Gtk2DasherPane *dasher_pane = static_cast<Gtk2DasherPane*>(data);
-  //  Gtk2DasherCanvas *dasher_canvas = dasher_pane->canvas;
-  //  Gtk2DasherEdit *dasher_text_view = dasher_pane->edit;
-
-
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
 
@@ -608,30 +566,18 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   g_free(focusEvent);
 
   if (paused == TRUE) {
-    //    dasher_canvas->interface->Unpause(get_time());
     dasher_unpause( get_time() );
     paused = FALSE;
   } else {
-    //    dasher_canvas->interface->PauseAt((gint) event->x,(gint) event->y);
     dasher_pause( (gint) event->x,(gint) event->y );
     paused = TRUE;
   }
-  //  gint start = GTK_EDITABLE(the_text_view)->selection_start_pos;
-  //  gint end = GTK_EDITABLE(the_text_view)->selection_end_pos;
-
-  //  if (end-start != 0)
-  //    gtk_editable_delete_selection(GTK_EDITABLE(the_text_view));
-
   return;
 }
 
 static gboolean
 button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  //  Gtk2DasherCanvas *dasher_canvas = static_cast<Gtk2DasherCanvas*>(data);
-
-  //  dasher_canvas->interface->PauseAt((gint) event->x,(gint) event->y);
-
   dasher_pause( (gint) event->x,(gint) event->y );
   paused = TRUE;
 
@@ -646,9 +592,6 @@ static void speed_changed(GtkAdjustment *adj) {
 
 void
 open_window() {
-  //     interface = new CDasherInterface;    
-  //   GtkDasherUI *dasherui = new GtkDasherUI(interface);  
-
   char *system_data_dir;
     char *home_dir;
     char *user_data_dir;
@@ -670,9 +613,7 @@ open_window() {
 				       "<DasherMenu>",
 				       dasher_accel);
 
-    //     dasher_text_view = new Gtk2DasherEdit ();
-    
-     initialise_edit();
+    initialise_edit();
 
     gtk_item_factory_create_items( dasher_menu,
 				   54,
@@ -682,11 +623,7 @@ open_window() {
     float initial_bitrate = 3.0;
     
 
-    //    dasher_canvas = new Gtk2DasherCanvas (360, 360);
-
     initialise_canvas( 360, 360 );
-    
-    //    dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
     
     ofilesel = gtk_file_selection_new("Open a file");
     afilesel = gtk_file_selection_new("Append to file");
@@ -700,9 +637,6 @@ open_window() {
     //system_data_dir = "/etc/dasher/";
     system_data_dir = user_data_dir;
     
-    //    interface->SetSystemLocation(system_data_dir);
-    // interface->SetSystemLocation(user_data_dir);
-
     
     dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
     dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
@@ -711,7 +645,6 @@ open_window() {
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
-    //  gtk_window_set_policy (GTK_WINDOW(window), FALSE, FALSE, FALSE);
     gtk_window_set_resizable( GTK_WINDOW(window), TRUE );
     
     gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
@@ -721,8 +654,6 @@ open_window() {
     gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
     gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
 
-    //gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("Reset dasher"), _("Reset dasher"), G_CALLBACK (clipboard_cut), NULL, -1);
-    
     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"), _("New"), G_CALLBACK (select_new_file), NULL, -1);
 
     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open"), _("Open"), G_CALLBACK (select_open_file), NULL, -1);
@@ -758,8 +689,6 @@ open_window() {
     gtk_signal_connect(GTK_OBJECT (the_canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) NULL);
     
     gtk_signal_connect(GTK_OBJECT (the_canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) NULL);
-    
-    //gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
     
     gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
     
@@ -813,15 +742,9 @@ open_window() {
     //    interface->SettingsDefaults( store );
 
 
-    //    interface->ChangeLanguageModel(0);
-    //interface->ChangeView(0);
-
     dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
     dasher_set_parameter_int( INT_VIEW, 0 );
     
-    //    std::vector< std::string > alphabetlist;
-    // interface->GetAlphabets( &alphabetlist );
-
     const char *alphabet;
 
     dasher_get_alphabets( &alphabet, 1 );
@@ -830,12 +753,8 @@ open_window() {
 
 
 
-    //    interface->ChangeMaxBitRate(initial_bitrate);
-    
     dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
     
-    //    interface->Start();
-
     dasher_start();
 
     gtk_timeout_add(50, timer_callback, NULL );  
@@ -875,10 +794,8 @@ void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
 {
 
   if(GTK_CHECK_MENU_ITEM(widget)->active) {
-    //    interface->ShowToolbar( TRUE );
     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, true );
   } else {
-    //    interface->ShowToolbar( FALSE );
     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, false );
   }
 }
@@ -886,10 +803,8 @@ void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
 void show_slider(gpointer data, guint action, GtkWidget  *widget )
 {
   if(GTK_CHECK_MENU_ITEM(widget)->active) {
-    //    interface->ShowSpeedSlider( TRUE );
- dasher_set_parameter_bool( BOOL_SHOWSPEEDSLIDER, true );
+    dasher_set_parameter_bool( BOOL_SHOWSPEEDSLIDER, true );
   } else {
-    //interface->ShowSpeedSlider( FALSE );
     dasher_set_parameter_bool( BOOL_SHOWSPEEDSLIDER, false );
   }
 }
@@ -897,10 +812,8 @@ void show_slider(gpointer data, guint action, GtkWidget  *widget )
 void timestamp_files(gpointer data, guint action, GtkWidget *widget )
 {
   if(GTK_CHECK_MENU_ITEM(widget)->active) {
-    //    interface->TimeStampNewFiles( TRUE );
     dasher_set_parameter_bool( BOOL_TIMESTAMPNEWFILES, true );
   } else {
-    //    interface->TimeStampNewFiles( FALSE );
     dasher_set_parameter_bool( BOOL_TIMESTAMPNEWFILES, false );
   }
 }
@@ -908,10 +821,8 @@ void timestamp_files(gpointer data, guint action, GtkWidget *widget )
 void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget )
 {
   if(GTK_CHECK_MENU_ITEM(widget)->active) {
-    //    interface->CopyAllOnStop( TRUE );
     dasher_set_parameter_bool( BOOL_COPYALLONSTOP, true );
   } else {
-    //    interface->CopyAllOnStop( FALSE );
     dasher_set_parameter_bool( BOOL_COPYALLONSTOP, false );
   }
 }
