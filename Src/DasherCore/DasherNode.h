@@ -23,6 +23,7 @@ private:
 	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	unsigned int m_iChars, m_iAge;
 	bool m_bAlive;                     // if true, then display node, else dont bother
+	bool m_bControlChild;              // if true, node is offspring of a control node
 	//bool m_Cscheme;                  // color scheme for the node - alternates through relatives
 	Opts::ColorSchemes m_ColorScheme;
 	int m_iPhase;                      // index for coloring
@@ -37,11 +38,12 @@ public:
 	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm);
 	~CDasherNode();
 	bool m_bForce;                     // flag to force a node to be drawn - shouldn't be public
-	
+    
 	// return private data members - read only 
 	CDasherNode ** const Children() const {return m_Children;}
 	unsigned int Lbnd() const {return m_iLbnd;}
 	bool Alive() {return m_bAlive;}
+	bool Control() {return m_bControlChild;}
 	void Kill()  {m_bAlive=0;m_iAge=0;}
 	unsigned int Hbnd() const {return m_iHbnd;}
 	unsigned int Group() const {return m_iGroup;}
@@ -70,7 +72,7 @@ using namespace Opts;
 
 inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm)
 	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
-	m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme)
+  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(false)
 {
 	/*
 	switch (ColorScheme) {
