@@ -13,7 +13,7 @@ GtkWidget *ifilesel;
 GtkWidget *afilesel;
 GtkStyle *style;
 Gtk2DasherCanvas *dasher_canvas;
-Gtk2DasherPane *dasher_pane;
+//Gtk2DasherPane *dasher_pane;
 //CDasherInterface *interface;
 GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;

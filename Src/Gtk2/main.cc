@@ -12,7 +12,7 @@
 #include <gdk/gdk.h>
 
 #include "Gtk2DasherCanvas.h"
-#include "Gtk2DasherPane.h"
+//#include "Gtk2DasherPane.h"
 #include "Gtk2DasherEdit.h"
 #include "Gtk2DoubleBuffer.h"
 #include "DasherSettingsInterface.h"
@@ -607,9 +607,10 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 static void
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  Gtk2DasherPane *dasher_pane = static_cast<Gtk2DasherPane*>(data);
-  Gtk2DasherCanvas *dasher_canvas = dasher_pane->canvas;
-  Gtk2DasherEdit *dasher_text_view = dasher_pane->edit;
+  //  Gtk2DasherPane *dasher_pane = static_cast<Gtk2DasherPane*>(data);
+  //  Gtk2DasherCanvas *dasher_canvas = dasher_pane->canvas;
+  //  Gtk2DasherEdit *dasher_text_view = dasher_pane->edit;
+
 
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
@@ -704,7 +705,7 @@ open_window() {
     
 
     dasher_canvas = new Gtk2DasherCanvas (360, 360);
-    dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
+    //    dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
     
     ofilesel = gtk_file_selection_new("Open a file");
     afilesel = gtk_file_selection_new("Append to file");
@@ -772,7 +773,7 @@ open_window() {
     
     gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) dasher_canvas);
     
-    gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) dasher_pane);
+    gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) NULL);
     
     //gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
     
