@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_finnish_FI.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="lower case letters" b="0">
@@ -117,8 +117,9 @@
 <s d="&gt;" t="&gt;"/>
 <s d="(" t="("/>
 <s d=")" t=")"/>
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s d="&quot;" t="&quot;"/>
-<s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>
 <s d="-" t="-"/>
 <s d=":" t=":"/>

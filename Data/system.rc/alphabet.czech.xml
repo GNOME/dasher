@@ -24,7 +24,6 @@
       <s t="f" d="f" />
       <s t="g" d="g" />
       <s t="h" d="h" />
-      <s t="ch" d="ch" />
       <s t="i" d="i" />
       <s t="í" d="í" />
       <s t="j" d="j" />
@@ -68,8 +67,6 @@
       <s t="F" d="F" />
       <s t="G" d="G" />
       <s t="H" d="H" />
-      <s t="Ch" d="Ch" />
-      <s t="CH" d="CH" />
       <s t="I" d="I" />
       <s t="Í" d="Í" />
       <s t="J" d="J" />
@@ -112,18 +109,49 @@
       <s t="9" d="9" />
     </group>
     <group name="Interpunkce" b="112">
-      <s t="," d="," />
-      <s t="." d="." />
-      <s t=":" d=":" />
-      <s t=";" d=";" />
-      <s t="&#34;" d="&#34;" />
-      <s t="!" d="!" />
-      <s t="*" d="*" />
-      <s t="-" d="-" />
-      <s t="+" d="+" />
-      <s t="/" d="/" />
-      <s t="?" d="?" />
-      <s t="=" d="=" />
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
+<s d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
+<s d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s d="&quot;" t="&quot;"/>
+<s d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
+<s d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
+<s d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
     </group>
   </alphabet>
 </alphabets>

@@ -14,10 +14,10 @@
 <s d="a" t="a"/>
 <s d="b" t="b"/>
 <s d="c" t="c"/>
-<s d="ç" t="ç"/>
+<s d="&#x00E7;" t="&#x00E7;"/>
 <s d="d" t="d"/>
 <s d="e" t="e"/>
-<s d="ë" t="ë"/>
+<s d="&#x00EB;" t="&#x00EB;"/>
 <s d="f" t="f"/>
 <s d="g" t="g"/>
 <s d="h" t="h"/>
@@ -43,10 +43,10 @@
 <s d="A" t="A"/>
 <s d="B" t="B"/>
 <s d="C" t="C"/>
-<s d="Ç" t="Ç"/>
+<s d="&#x00C7;" t="&#x00C7;"/>
 <s d="D" t="D"/>
 <s d="E" t="E"/>
-<s d="Ë" t="Ë"/>
+<s d="&#x00CB;" t="&#x00CB;"/>
 <s d="F" t="F"/>
 <s d="G" t="G"/>
 <s d="H" t="H"/>
@@ -103,9 +103,14 @@
 <s d="&gt;" t="&gt;"/>
 <s d="(" t="("/>
 <s d=")" t=")"/>
-<s d="&quot;" t="&quot;"/>
-<s d="`" t="`"/>
-<s d="&apos;" t="&apos;"/>
+<s d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
+<s d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
+<s d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s d="-" t="-"/>
 <s d=":" t=":"/>
 <s d=";" t=";"/>
@@ -116,3 +121,9 @@
 </group>
 </alphabet>
 </alphabets>
+
+
+
+
+
+

@@ -117,9 +117,10 @@
 <s d="&gt;" t="&gt;"/>
 <s d="(" t="("/>
 <s d=")" t=")"/>
+<s d="&#x201D;" t="&#x201D;" note="right double quotation mark" />
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
-<s d="&apos;" t="&apos;"/>
+<s d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
 <s d="-" t="-"/>
 <s d=":" t=":"/>
 <s d=";" t=";"/>

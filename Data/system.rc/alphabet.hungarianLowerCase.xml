@@ -5,11 +5,9 @@
 <alphabet name="Hungarian lowercase, short / magyar, kisbetűs, rövid">
 <orientation type="LR"/>
 <encoding type="CentralEurope"/>
-<control d="Control" t=""/>
-<palette>Default</palette>
 <train>training_hungarian_HU.txt</train>
 <space d="_" t=" "/>
-<paragraph d="&#182;" b="9"/>
+<control d="Control" t=""/>
 <group name="Lower case Hungarian letters, short">
 <s d="a" t="a"/>
 <s d="á" t="á"/>

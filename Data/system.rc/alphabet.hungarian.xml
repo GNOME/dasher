@@ -2,15 +2,13 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Hungarian lower and uppercase included, short / magyar nagybetűssel, rövid">
+<alphabet name="Magyar / Hungarian / nagybetűssel, rövid">
 <orientation type="LR"/>
-<encoding type="CentralEurope"/>
 <control d="Control" t=""/>
-<paragraph d="&#182;" b="9"/>
-<palette>Default</palette>
+<encoding type="CentralEurope"/>
 <train>training_hungarian_HU.txt</train>
 <space d="_" t=" "/>
-<group name="Lower case Hungarian letters, short" b="0">
+<group name="Lower case Hungarian letters, short">
 <s d="a" t="a"/>
 <s d="á" t="á"/>
 <s d="b" t="b"/>
@@ -47,7 +45,7 @@
 <s d="y" t="y"/>
 <s d="z" t="z"/>
 </group>
-<group name="Upper case Hungarian letters, short" b="111">
+<group name="Upper case Hungarian letters, short">
 <s d="A" t="A"/>
 <s d="Á" t="Á"/>
 <s d="B" t="B"/>
@@ -84,7 +82,7 @@
 <s d="Y" t="Y"/>
 <s d="Z" t="Z"/>
 </group>
-<group name="Numbers" b="113">
+<group name="Numbers">
 <s d="1" t="1"/>
 <s d="2" t="2"/>
 <s d="3" t="3"/>
@@ -96,7 +94,7 @@
 <s d="9" t="9"/>
 <s d="0" t="0"/>
 </group>
-<group name="Punctuation" b="112">
+<group name="Punctuation">
 <s d="%" t="%"/>
 <s d="*" t="*"/>
 <s d="+" t="+"/>
@@ -129,6 +127,7 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
+<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 </alphabets>

@@ -6,7 +6,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
-<train>training_Esperanto_GB.txt</train>
+<train>training_Esperanto_XX.txt</train>
 <space d="_" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>

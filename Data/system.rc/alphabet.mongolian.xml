@@ -4,7 +4,7 @@
 <alphabets>
 <alphabet name="Mongolian with punctuation and numerals">
 <orientation type="LR"/>
-<encoding type="Cyrillic"/>
+<encoding type="Western"/>
 <control d="Control" t=""/>
 <palette>Default</palette>
 <train>training_mongolian_MN.txt</train>

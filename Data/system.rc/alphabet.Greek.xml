@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Ellinas / Greek with punctuation and numerals">
+<alphabet name="Ellinika / Greek with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
@@ -42,8 +42,8 @@
 <s d="&#x03C8;" t="&#x03C8;" />
 <s d="&#x03C9;" t="&#x03C9;" />
 <s d="&#x03E1;" t="&#x03E1;" />
-<s d="&#x03F8;" t="&#x03F8;" />
-<s d="&#x03FB;" t="&#x03FB;" />
+<s d="&#x03F8;" t="&#x03F8;" note="problem character 1?" />
+<s d="&#x03FB;" t="&#x03FB;" note="problem character 2?" />
 <s d="&#x03E3;" t="&#x03E3;" />
 <s d="&#x03E5;" t="&#x03E5;" />
 <s d="&#x03E7;" t="&#x03E7;" />
@@ -124,6 +124,10 @@
 <s d="&gt;" t="&gt;"/>
 <s d="(" t="("/>
 <s d=")" t=")"/>
+<s d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>

@@ -5,7 +5,8 @@
 <alphabet name="International Phonetic Alphabet">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<!--<train>source.txt</train>-->
+<palette>Default</palette>
+<train>training_ipa_GB.txt</train>
 <paragraph d="&#182;" b="9"/>
 <space d="_" t=" "/>
 <control d="Control" t="" b="8"/>
@@ -176,7 +177,6 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="&para;" t="&#xa;"/>
 </group>
 </alphabet>
 </alphabets>

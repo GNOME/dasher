@@ -281,9 +281,14 @@
 <s d="&gt;" t="&gt;"/>
 <s d="(" t="("/>
 <s d=")" t=")"/>
-<s d="&quot;" t="&quot;"/>
-<s d="`" t="`"/>
-<s d="&apos;" t="&apos;"/>
+<s d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
+<s d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
+<s d="&#x201E;" t="&#x201E;" note="German left double quotation mark; Albanian right" />
+<s d="&#x201C;" t="&#x201C;" note="left double quotation mark" />
+<s d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
+<s d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
+<s d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s d="-" t="-"/>
 <s d=":" t=":"/>
 <s d=";" t=";"/>
