@@ -2,13 +2,16 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
+
 #include <iostream>
 namespace Dasher {
 
-inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
+/////////////////////////////////////////////////////////////////////////////
+
+inline void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
 {
     double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
     myint dasherOY=DasherModel().DasherOY();
@@ -46,13 +49,15 @@ inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
     }
 }
 
-inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
+/////////////////////////////////////////////////////////////////////////////
+
+inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
 {
     bool eyetracker=DasherModel().Eyetracker();
     // bool DasherRunning = DasherModel().Paused();
 	
 
-	*mousey += yAutoOffset;
+	*mousey += int(yAutoOffset);
 
     // Maybe this mousey tweak should take place earlier, elsewhere, and 
     // have a permanent effect on mousey rather than just local.
@@ -235,7 +240,10 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	*mousey=int(dashery);
 }
 
-inline double CDasherViewSquare::xmax(double x, double y) {
+/////////////////////////////////////////////////////////////////////////////
+
+inline double CDasherViewSquare::xmax(double x, double y) const
+{
 	// DJCM -- define a function xmax(y) thus:
 	// xmax(y) = a*[exp(b*y*y)-1] 
 	// then:  if(x<xmax(y) [if the mouse is to the RIGHT of the line xmax(y)]
@@ -252,7 +260,9 @@ inline double CDasherViewSquare::xmax(double x, double y) {
 	return xmax;
 }
 
-inline const int CDasherViewSquare::dasherx2screen(const myint sx)
+/////////////////////////////////////////////////////////////////////////////
+
+inline int CDasherViewSquare::dasherx2screen(const myint sx) const 
 {
 	double x=1.0*sx/(DasherModel().DasherY());
 	x=xmap(x);
@@ -260,8 +270,9 @@ inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-inline const int CDasherViewSquare::dashery2screen(myint y)
+inline  int CDasherViewSquare::dashery2screen(myint y) const
 {
 	if (KeyControl==false) {
 		if (y > m_Y2 )
@@ -274,6 +285,7 @@ inline const int CDasherViewSquare::dashery2screen(myint y)
 	return int(y);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 inline void CDasherViewSquare::Crosshair(myint sx)
 {
@@ -306,11 +318,9 @@ inline void CDasherViewSquare::Crosshair(myint sx)
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-
-
-
-inline double CDasherViewSquare::ixmap(double x)
+inline double CDasherViewSquare::ixmap(double x) const
 // invert x non-linearity
 {
 	if (KeyControl==false) {
@@ -323,8 +333,9 @@ inline double CDasherViewSquare::ixmap(double x)
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-inline double CDasherViewSquare::xmap(double x)
+inline double CDasherViewSquare::xmap(double x) const
 // x non-linearity
 {
 	if (KeyControl==false) {

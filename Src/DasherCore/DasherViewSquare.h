@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -38,14 +38,16 @@ public:
 	void DrawKeyboard();
 private:
 	// the x and y non-linearities
-	inline const void screen2dasher(int *mousex, int *mousey);
-	inline const void AutoCalibrate(int *mousex, int *mousey);
-    inline const int dasherx2screen(const myint sx);
-	inline const int dashery2screen(myint sy);
-	inline double eyetracker_get_x(double x, double y);
-	inline double eyetracker_get_y(double x, double y);
-	inline double xmax(double x, double y);
-    
+	void screen2dasher(int *mousex, int *mousey) const ;
+	void AutoCalibrate(int *mousex, int *mousey);
+    int dasherx2screen(const myint sx) const ;
+	int dashery2screen(myint sy) const ;
+	double eyetracker_get_x(double x, double y);
+	double eyetracker_get_y(double x, double y);
+	double xmax(double x, double y) const;
+    double xmap(double x) const;
+	double ixmap(double x) const;
+
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
 		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext);
 	
@@ -55,9 +57,8 @@ private:
 	myint m_Y1,m_Y2,m_Y3;
 	myint s_Y1,s_Y2,s_Y3;
 	int CanvasX,CanvasY,CanvasBorder;
-	double xmap(double x);
-	double ixmap(double x);
-
+	
+	
     // Calibration.
 };
 

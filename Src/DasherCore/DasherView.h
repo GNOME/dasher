@@ -52,6 +52,7 @@ public:
 
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}
+	const CDasherModel& DasherModel() const {return m_DasherModel;}
 	CDasherScreen& Screen() {return *m_Screen;}
 
 	void Display() {m_Screen->Display();}
@@ -62,7 +63,7 @@ public:
 	// Toggle keyboard control mode
 	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
 
-    int GetOneButton();
+    int GetOneButton() const;
     void SetOneButton(int Value);
     
     int GetAutoOffset();

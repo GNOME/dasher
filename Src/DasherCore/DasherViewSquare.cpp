@@ -1,20 +1,14 @@
 // DasherViewSquare.cpp
 //
-//
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
 
-//////////////////////////////////////////////////////////////////////
-// DasherViewSquare.cpp: implementation of the DasherViewSquare class.
-// Copyright 2002 David Ward
-//////////////////////////////////////////////////////////////////////
-
-#include "DasherModel.h"
 #include "DasherViewSquare.h"
+#include "DasherModel.h"
 
 using namespace Dasher;
 
@@ -32,6 +26,7 @@ using std::min;
 using std::max;
 #endif
 
+/////////////////////////////////////////////////////////////////////////////
 
 CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
   : CDasherView(DasherScreen, DasherModel, LanguageModel, Orientation, Colourmode)
@@ -57,6 +52,7 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	onebutton=-2000;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
 	myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)
@@ -129,7 +125,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		    //newleft = min(newleft2, newright2);
 		    newtop = min(newtop2, newbottom2);
 
-		    if(displaytext!="") {
+#undef DrawText
+			if(displaytext!="") {
 		      Screen().DrawText(displaytext, newleft, newtop, Size);
 		    } else {
 		      Screen().DrawText(Character, newleft, newtop, Size);
@@ -141,6 +138,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		return 0;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::CheckForNewRoot()
 {
@@ -168,7 +166,7 @@ void CDasherViewSquare::CheckForNewRoot()
 	unsigned int i;
 
 	// Find whether there is exactly one alive child; if more, we don't care.
-	for (i=1;i<root->Chars();i++) {
+	for (i=1;i<root->ChildCount();i++) {
 		if (children[i]->Alive()) {
 			alive++;
 			theone=i;
@@ -195,6 +193,7 @@ void CDasherViewSquare::CheckForNewRoot()
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
 // work out the next viewpoint
 // move the rectangles accordingly
@@ -240,7 +239,9 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 	CheckForNewRoot();
 }
 
+/////////////////////////////////////////////////////////////////////////////
 // move to the specified point
+
 void CDasherViewSquare::GoTo(int mousex,int mousey) 
 {
 	// convert mouse (screen) coords into dasher coords
@@ -250,6 +251,8 @@ void CDasherViewSquare::GoTo(int mousex,int mousey)
 	DasherModel().GoTo(mousex,mousey);
 	CheckForNewRoot();
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
 {
@@ -276,6 +279,7 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
   Screen().DrawRectangle(left, bottom+5, right, bottom-5, 1, Opts::ColorSchemes(Objects));
 }
   
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {
@@ -314,6 +318,8 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
 	}
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
 {
@@ -360,6 +366,8 @@ void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 void CDasherViewSquare::DrawKeyboard()
 {
   CDasherScreen::point line[2];
@@ -397,6 +405,8 @@ void CDasherViewSquare::DrawKeyboard()
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 {
 	CDasherView::ChangeScreen(NewScreen);
@@ -407,13 +417,19 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 	CanvasY=Height;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
 int CDasherView::GetAutoOffset() {
 	 return CDasherView::yAutoOffset;
 }
 
-int CDasherView::GetOneButton() {
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherView::GetOneButton() const {
      return onebutton;
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherView::SetOneButton(int Value) {
        if (onebutton < -5000) 
@@ -423,4 +439,6 @@ void CDasherView::SetOneButton(int Value) {
  
        onebutton += Value;
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
