@@ -12,7 +12,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2"), fix_pane( false ), timestamp( false )
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2"), fix_pane( false ), timestamp( false ), current_or( Alphabet )
 {
   //  dasher_pane.set_settings_ui( this );
   
@@ -73,20 +73,20 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_SELECTALL)));
 
     Menu *menu_or = new Menu();
-    MenuList& list_or = menu_or->items();
+    list_or = &(menu_or->items());
 
     RadioMenuItem_Helpers::Group ogroup;
 
-    list_or.push_back(RadioMenuElem(ogroup,"Alphabet Default",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,"Alphabet Default",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ODEFAULT)));
-    list_or.push_back(SeparatorElem());
-    list_or.push_back(RadioMenuElem(ogroup,"Left to Right",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(SeparatorElem());
+    list_or->push_back(RadioMenuElem(ogroup,"Left to Right",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OLR)));
-    list_or.push_back(RadioMenuElem(ogroup,"Right to Left",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,"Right to Left",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_ORL)));
-    list_or.push_back(RadioMenuElem(ogroup,"Top to Bottom",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,"Top to Bottom",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OTB)));
-    list_or.push_back(RadioMenuElem(ogroup,"Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_or->push_back(RadioMenuElem(ogroup,"Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OBT)));
 
 
@@ -676,7 +676,34 @@ void GtkDasherWindow::TimeStampNewFiles(bool Value)
 
 void GtkDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
-  // FIXME - need to update menu radio buttons here
+  cout << "Change orientation " << Orientation  << endl;
+
+  // FIXME - the following commented out code is broken (and generates signal propagation loops)
+
+//    if( current_or != Orientation )
+//      {
+//        current_or = Orientation;
+//        switch( current_or )
+//  	{
+//  	case Alphabet:
+//  	  static_cast<CheckMenuItem *>( (*list_or)[0] )->set_active( true );
+//  	  break;
+//  	case LeftToRight:
+//  	  static_cast<CheckMenuItem *>( (*list_or)[2] )->set_active( true );
+//  	  break;
+//  	case RightToLeft:
+//  	  static_cast<CheckMenuItem *>( (*list_or)[3] )->set_active( true );
+//  	  break;
+//  	case TopToBottom:
+//  	  static_cast<CheckMenuItem *>( (*list_or)[4] )->set_active( true );
+//  	  break;
+//  	case BottomToTop:
+//  	  static_cast<CheckMenuItem *>( (*list_or)[5] )->set_active( true );
+//  	  break;
+//  	}
+//      }
+
+
 }
 
 

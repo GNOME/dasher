@@ -101,7 +101,8 @@ protected:
 
   Gtk::Menu_Helpers::MenuList *list_opts;
   Gtk::Menu_Helpers::MenuList *list_view;
-
+  Gtk::Menu_Helpers::MenuList *list_or;
+ 
 
   GtkDasherPane dasher_pane;
   GtkDasherSave save_dialogue;
@@ -122,6 +123,8 @@ protected:
   Gtk::Pixmap first_pixmap;
 
   Gtk::Dialog aboutbox;
+
+  Opts::ScreenOrientations current_or;
 
   void toolbar_button_cb(int c);
   void menu_button_cb(int c);

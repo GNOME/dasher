@@ -184,6 +184,7 @@ bool GtkDasherEdit::Open( std::string filename )
     }
 
   ifile.close();
+  //  text.set_point( text.get_length() -1);
 
   text.thaw();
 
