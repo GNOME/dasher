@@ -87,6 +87,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   interface->ChangeEdit( text );
   interface->ChangeScreen( canvas->get_wrapper() );
+  interface->SetDasherFontSize(Normal);
 
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
 
@@ -344,7 +345,6 @@ void GtkDasherPane::select_encoding()
       cdesc = iconv_open( encstr, "UTF-8" );
 
       int count(0);
-
       for( int a(1); a < interface->GetNumberSymbols(); ++a )
 	{
 	  string symbol;

@@ -142,7 +142,7 @@ const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
       }
 
   if( idx == -1 )
-    return( NULL );
+    return (NULL);
   else
     return( &font_list[idx] );
 }
@@ -255,6 +255,7 @@ void GtkDasherCanvas::SetFont(std::string Name)
 }
 
 void GtkDasherCanvas::SetFontSize(FontSize size) {
+  fs=size;
   switch( size )
     {
     case Normal:
@@ -273,6 +274,11 @@ void GtkDasherCanvas::SetFontSize(FontSize size) {
       build_fonts( enc );
       break;
     }
+}
+
+Dasher::Opts::FontSize GtkDasherCanvas::GetFontSize()
+{
+  return fs;
 }
 
 void GtkDasherCanvas::set_encoding( int _enc )

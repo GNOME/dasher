@@ -13,6 +13,7 @@
 #include "CustomAlphabet.h"
 #include "DasherViewSquare.h"
 #include "PPMLanguageModel.h"
+#include <iostream>
 namespace {
 	#include "stdio.h"
 }
@@ -375,8 +376,9 @@ void CDasherInterface::SetDasherFontSize(FontSize fontsize)
 {
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetLongOption(Keys::DASHER_FONTSIZE, fontsize);
-	if (m_DasherScreen!=0)
+	if (m_DasherScreen!=0) {
 	         m_DasherScreen->SetFontSize(fontsize);
+	}
 	Redraw();
 }
 

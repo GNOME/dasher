@@ -28,6 +28,7 @@ class GtkDasherCanvas : public Gtk::DrawingArea
   
   void SetFont(std::string Name);
   void SetFontSize(FontSize size);
+  FontSize GetFontSize();
   void TextSize(symbol Character, int* Width, int* Height, int Size) const;
   void DrawText(symbol Character, int x1, int y1, int Size) const;
   void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const;
@@ -57,6 +58,8 @@ protected:
 
   int pmwidth;
   int pmheight;
+
+  FontSize fs;         // Store the font size
 
   iconv_t cdesc;  // Descriptor for iconv stuff
 
@@ -102,6 +105,7 @@ protected:
 
       void SetFont(std::string Name) { owner->SetFont( Name ); }
       void SetFontSize(Dasher::Opts::FontSize fontsize) { owner->SetFontSize( fontsize); }
+      Dasher::Opts::FontSize GetFontSize() {owner->GetFontSize(); }
       void TextSize(symbol Character, int* Width, int* Height, int Size) const { owner->TextSize( Character, Width, Height, Size ); }
       void DrawText(symbol Character, int x1, int y1, int Size) const { owner->DrawText( Character, x1, y1, Size ); }
 

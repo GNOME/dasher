@@ -14,6 +14,7 @@
 
 #include "DasherModel.h"
 #include "DasherViewSquare.h"
+#include <iostream>
 
 using namespace Dasher;
 
@@ -56,13 +57,13 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
 	myint y1, myint y2, int& mostleft, bool& force)
 {
-	int top = dashery2screen(y1);
+	int top = dashery2screen(y1)*Screen().GetFontSize();
 	if (top>CanvasY)
 		return 0;
 	if (top<0)
 		top=0;
 	
-	int bottom = dashery2screen(y2);
+	int bottom = dashery2screen(y2)*Screen().GetFontSize();
 	if (bottom<0)
 		return 0;
 	if (bottom>CanvasY)
@@ -90,11 +91,11 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		
 		int Size;
 		if (left<CanvasX*19/20) {
-			Size = 20;
+			Size = 20*Screen().GetFontSize();
 		} else if (left<CanvasX*159/160) {
-			Size = 14;
+			Size = 14*Screen().GetFontSize();
 		} else {
-			Size = 11;
+			Size = 11*Screen().GetFontSize();
 		}
 		
 		int TextWidth, TextHeight, OriginX=0, OriginY=0;
