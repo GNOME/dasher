@@ -14,7 +14,7 @@ GtkClipboard *the_text_clipboard;
 std::string say;
 std::string outputtext;
 
-wchar_t wideoutput[256];
+gunichar* wideoutput;
 
 extern gint outputcharacters;
 
@@ -52,8 +52,9 @@ void edit_output_callback(symbol Symbol)
   int min, max, numcodes;
   KeySym *keysym;
   KeyCode code;
-  size_t numoutput=mbstowcs(wideoutput,label.c_str(),255);
-  
+  glong numoutput;
+
+  wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);
   for (size_t i=0; i<numoutput; i++) {
     // This gives us the magic X keysym
     wideoutput[i]=wideoutput[i] | 0x01000000;
@@ -71,6 +72,7 @@ void edit_output_callback(symbol Symbol)
   }
   XFlush(dpy);
   XCloseDisplay(dpy);
+  g_free(wideoutput);
 #else
   SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
@@ -131,9 +133,7 @@ void edit_delete_callback()
   }
 
 #ifdef GNOME_A11Y
-  SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
-#endif
-
+#ifdef X_HAVE_UTF8_STRING
   Display *dpy;
   dpy = XOpenDisplay(NULL);
   KeyCode code;
@@ -142,6 +142,10 @@ void edit_delete_callback()
   XTestFakeKeyEvent(dpy, code, False, 0);
   XFlush(dpy);
   XCloseDisplay(dpy);
+#else
+  SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
+#endif
+#endif
 
   outputcharacters--;
 }
