@@ -7,6 +7,10 @@
 
 #include "DasherScreen.h"
 
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
+
+
 #define MAXFONTSIZE 25
 #define MINFONTSIZE 8
 
@@ -25,14 +29,15 @@ Gtk2DasherCanvas::Gtk2DasherCanvas(guint width, guint height, CDasherInterface *
 
   this->interface = interface;
   canvas = gtk_drawing_area_new ();
-  
-  buffer = new Gtk2DoubleBuffer(canvas->window, width, height, 16);
+
+  buffer = new Gtk2DoubleBuffer(canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
 }
 
 void Gtk2DasherCanvas::CreateNewBuffer()
 {
   delete(buffer);
-  buffer = new Gtk2DoubleBuffer(canvas->window, canvas->allocation.width, canvas->allocation.height, 16);
+
+  buffer = new Gtk2DoubleBuffer(canvas->window, canvas->allocation.width, canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
 
   // may need to draw a white rectangle on all of them at this point.
 }
