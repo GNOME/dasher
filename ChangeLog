@@ -1,3 +1,22 @@
+2004-04-14  Matthew Garrett <mjg59@srcf.ucam.org>
+
+	* 3.2.2 - "It's got LASER POWERED FLYING LETTERS that ATTACK
+	THE MOUSE POINTER with TITANIUM TEETH and it RUNS PROGRAMS and 
+	EVERYTHING"
+	* Major refactoring of application control. Only the menus of the 
+	focused application are displayed, along with those of the panel.
+	* Won't crash. Ever. Guaranteed. And if it does, it's spi's fault.
+	* Blah blah move to GNOME CVS
+	* Exciting translation action
+	* Windows code has support for editing alphabets again, like it used
+	to
+	* FreeBSD build fix
+	* Slightly more sensible about which menu nodes to show. Should still
+	be better.
+	* Significantly saner locale handling
+	* Initialise speech properly
+	* CONFORM TO THE SPELLING PREFERENCES OF OUR US OVERLORDS
+	
 2004-01-11  Kostas Papadimas <pkst@gnome.org>
 
 	* configure.in: Added "el" (Greek) to ALL_LINGUAS.
