@@ -88,7 +88,7 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				int mostleft;
 				bool force;
 				if (ColourMode==true) {
-					RenderNode(0,Render->GroupColour(),Opts::Groups,newy1,newy2,mostleft,force,text,"");
+					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,"");
 				} else {
 					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
 				}
