@@ -393,13 +393,16 @@ void CDasherInterface::SetDasherFontSize(FontSize fontsize)
 	Redraw();
 }
 
-void CDasherInterface::SetDimensions(long dimensions)
+void CDasherInterface::SetDasherDimensions(bool Value)
 {
 	if (m_SettingsStore!=0)
-		m_SettingsStore->SetLongOption(Keys::DASHER_DIMENSIONS, dimensions);
+		m_SettingsStore->SetLongOption(Keys::DASHER_DIMENSIONS, Value);
 	if (m_DasherModel!=0) {
-	         m_DasherModel->Set_dimensions(int(dimensions));
+	         m_DasherModel->Set_dimensions(Value);
 	}
+	if (m_SettingsUI!=0) {
+	         m_SettingsUI->SetDasherDimensions(Value);
+	}	  
 }
 
 

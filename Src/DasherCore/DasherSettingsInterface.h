@@ -45,7 +45,7 @@ public:
 	virtual void SetDasherFontSize(Dasher::Opts::FontSize fontsize) {};
 
 	//! Set the number of dimensions of input (either 1 or 2)
-	virtual void SetDasherDimensions(int dimensions) {};
+	virtual void SetDasherDimensions(bool Value) {};
 
 	// These are recommended options for the Dasher GUI. {{{ They don't actually
 	// change the way Dasher works. They are part of the Dasher interface

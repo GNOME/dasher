@@ -471,10 +471,10 @@ void GtkDasherCanvas::build_colours()
 	  col.set_rgb(255*256,255*256,0*256);
 	  break;
 	case 1:
-	  col.set_rgb(0*256,255*256,0*256);
+	  col.set_rgb(255*256,100*256,100*256);
 	  break;
 	case 2:
-	  col.set_rgb(255*256,100*256,100*256);
+	  col.set_rgb(0*256,255*256,0*256);
 	  break;
 	}
       cm.alloc( col );

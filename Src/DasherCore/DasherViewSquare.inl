@@ -12,7 +12,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
 	int dashery=*mousey;
 	double x=1.0*(CanvasX-*mousex)/CanvasX;
-	if (DasherModel().Dimensions()==2) {
+	if (DasherModel().Dimensions()==false) {
 		if (dashery>s_Y2)
 			dashery= (dashery-s_Y2)*m_Y1 + s_Y2;
 		else if (dashery<s_Y3)
@@ -21,7 +21,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	dashery*=DasherModel().DasherY();
 	dashery/=CanvasY;
 	x=ixmap(x)*DasherModel().DasherY();
-	if (DasherModel().Dimensions()==1) {
+	if (DasherModel().Dimensions()==true) {
 		double distx, disty;	
 		
 		distx=2048-x;
