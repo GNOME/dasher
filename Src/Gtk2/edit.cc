@@ -74,6 +74,7 @@ void edit_output_callback(symbol Symbol)
 #else
   SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
+#endif
 
   if (outputtext.length()>10) {
     write_to_file();
