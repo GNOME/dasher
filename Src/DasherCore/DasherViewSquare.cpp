@@ -8,6 +8,7 @@
 
 
 #include "DasherViewSquare.h"
+#include "../Common/Platform.h"
 #include "DasherModel.h"
 
 using namespace Dasher;
@@ -137,8 +138,12 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		    newleft = min(newleft2, newright2);
 		    newtop = min(newtop2, newbottom2);
 
-#undef DrawText
-			if(displaytext!="") {
+//#ifdef DASHER_WIN32
+//	#if defined DrawText
+	//	#undef DrawText
+//	#endif
+//#endif
+			if(displaytext!= std::string("") ) {
 		      Screen().DrawText(displaytext, newleft, newtop, Size);
 		    } else {
 		      Screen().DrawText(Character, newleft, newtop, Size);
