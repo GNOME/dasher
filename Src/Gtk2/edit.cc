@@ -69,13 +69,14 @@ void edit_output_callback(symbol Symbol)
     keysym[(max-min-1)*numcodes]=wideoutput[i];
     XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
     XFree(keysym);
-    code = XKeysymToKeycode(dpy,wideoutput[i]);
+    XSync(dpy,true);
+    code = XKeysymToKeycode(dpy,wideoutput[i]);    
     if (code!=0) {
       XTestFakeKeyEvent(dpy, code, True, 1);
       XTestFakeKeyEvent(dpy, code, False, 1);
     }
   }
-  XFlush(dpy);
+  XSync(dpy,true);
   g_free(wideoutput);
 #else
   SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
