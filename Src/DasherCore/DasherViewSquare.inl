@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include <iostream>
+
 namespace Dasher {
 
 
@@ -29,14 +31,15 @@ inline const myint CDasherViewSquare::screen2dasherx(const int mousex, const int
 
 inline const myint CDasherViewSquare::screen2dashery(int screeny) 
 {
-	myint dashery=screeny;
-	dashery*=DasherModel().DasherY();
-	dashery/=CanvasY;
+	if (screeny>s_Y2)
+		screeny= (screeny-s_Y2)*m_Y1 + s_Y2;
+	else if (screeny<s_Y3)
+		screeny= (screeny-s_Y3)*m_Y1+s_Y3;
 
-	if (dashery>m_Y2)
-		dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
-	else if (dashery<m_Y3)
-		dashery= (dashery-m_Y3)*m_Y1+m_Y3;
+	myint dashery=screeny;
+	dashery+=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
+	dashery*=DasherModel().DasherY();
+	dashery/=CanvasY*Screen().GetFontSize();
 
 	return dashery;
 }
@@ -58,9 +61,10 @@ inline const int CDasherViewSquare::dashery2screen(myint y)
 		y= m_Y2 +  (y-m_Y2)/m_Y1;
 	else if (y<m_Y3)
 		y= m_Y3+   (y-m_Y3 )/m_Y1;
-	y*=CanvasY;
-	y/=DasherModel().DasherY();
 
+	y*=CanvasY*Screen().GetFontSize();
+	y/=DasherModel().DasherY();
+	y-=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
 	return int(y);
 }
 

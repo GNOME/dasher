@@ -51,19 +51,22 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_Y2=int (dY2 * (CDasherView::DasherModel().DasherY()) );
 	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
 	m_Y1=int(1.0/dY1);
+
+	s_Y2=int (dY2 * CanvasY);
+	s_Y3=int (dY3 * CanvasY);
 }
 
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
 	myint y1, myint y2, int& mostleft, bool& force)
 {
-	int top = dashery2screen(y1)*Screen().GetFontSize();
+	int top = dashery2screen(y1);
 	if (top>CanvasY)
 		return 0;
 	if (top<0)
 		top=0;
 	
-	int bottom = dashery2screen(y2)*Screen().GetFontSize();
+	int bottom = dashery2screen(y2);
 	if (bottom<0)
 		return 0;
 	if (bottom>CanvasY)
@@ -77,7 +80,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	if (force || height>1) {
 		force=true;
 		
-		int left=dasherx2screen(y2-y1);
+		int left=dasherx2screen(y2*Screen().GetFontSize()-y1*Screen().GetFontSize());
 		
 		int right=CanvasX;
 		
