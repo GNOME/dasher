@@ -20,7 +20,6 @@
 
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
-#include <libgnomevfs/gnome-vfs.h>
 #endif
 
 #include "libdasher.h"
@@ -58,11 +57,6 @@ GtkWidget *preferences_window;
 GtkListStore *alph_list_store;
 GtkListStore *colour_list_store;
 GladeXML *widgets;
-GtkWidget *open_filesel;
-GtkWidget *save_filesel;
-GtkWidget *save_and_quit_filesel;
-GtkWidget *import_filesel;
-GtkWidget *append_filesel;
 std::string alphabet;
 std::string colourscheme;
 char *system_data_dir;
@@ -465,74 +459,22 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   }
 }
 
-#ifdef GNOME_LIBS
-void
-vfs_print_error(GnomeVFSResult *result)
-{
-  // Turns a Gnome VFS error into English
-  GtkWidget *error_dialog;
-  error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", filename,gnome_vfs_result_to_string (*result));
-  gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
-  gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
-  gtk_dialog_run(GTK_DIALOG(error_dialog));
-  gtk_widget_destroy(error_dialog);
-  return;
-}
-#endif
-
 extern "C" void 
 open_file (const char *myfilename)
 {
   int size;
   gchar *buffer;
   GtkWidget *error_dialog;
-#ifdef GNOME_LIBS
-  GnomeVFSHandle *handle;
-  GnomeVFSResult result;
-  GnomeVFSFileInfo info;
 
-  //Try to make the path roughly absolute
-  if (myfilename[0]!='/') {    
-    std::string realname;
-    char dirpath[PATH_MAX];
-    getcwd(dirpath,PATH_MAX);
-    realname+=dirpath;
-    realname+="/";
-    realname+=myfilename;
-    myfilename=realname.c_str();
-  }
-
-  result=gnome_vfs_open(&handle, myfilename, GNOME_VFS_OPEN_READ);
-  if (result!=GNOME_VFS_OK) {
-    vfs_print_error(&result);
-    return;
-  }
-  result=gnome_vfs_get_file_info(myfilename,&info,GNOME_VFS_FILE_INFO_DEFAULT);
-  if (result!=GNOME_VFS_OK) {
-    vfs_print_error(&result);
-    return;
-  }
-  size=info.size;
-  
-  buffer = (gchar *) g_malloc (size);
-
-  result=gnome_vfs_read(handle,buffer,size,NULL);
-  if (result!=GNOME_VFS_OK) {
-    vfs_print_error(&result);
-    return;
-  }
-
-  gnome_vfs_close(handle);
-#else
   struct stat file_stat;
   FILE *fp;
   int pos = 0;
 
   stat (myfilename, &file_stat);
-  fp = fopen (filename, "r");
+  fp = fopen (myfilename, "r");
 
   if (fp==NULL || S_ISDIR(file_stat.st_mode)) {
-    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
+    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", myfilename);
     gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
     gtk_dialog_run(GTK_DIALOG(error_dialog));
@@ -545,7 +487,6 @@ open_file (const char *myfilename)
   fread (buffer, size, 1, fp);
   fclose (fp);
 
-#endif  
   dasher_clear();
   
   file_modified = TRUE;
@@ -571,30 +512,6 @@ open_file (const char *myfilename)
 }
 
 extern "C" void
-open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
-{
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-  
-  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
-  
-  open_file (filename);
-}
-
-
-extern "C" void
-select_open_file(GtkWidget *widget, gpointer user_data)
-{
-  if (open_filesel==NULL) {
-    open_filesel = glade_xml_get_widget(widgets, "open_fileselector");  
-    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (open_filesel)->ok_button),
-		      "clicked", G_CALLBACK (open_file_from_filesel), (gpointer) open_filesel);
-  }
-
-  gtk_window_set_transient_for(GTK_WINDOW(open_filesel),GTK_WINDOW(window));
-  gtk_window_present (GTK_WINDOW(open_filesel));
-}
-
-extern "C" void
 select_new_file(GtkWidget *widget, gpointer user_data)
 {
   //FIXME - confirm this. We should check whether the user wants to lose their work.
@@ -607,7 +524,7 @@ select_new_file(GtkWidget *widget, gpointer user_data)
   dasher_pause(0,0);
 }
 
-extern "C" bool 
+extern "C" bool
 save_file_as (const char *filename, bool append)
 {
   int opened=1;
@@ -622,42 +539,13 @@ save_file_as (const char *filename, bool append)
   start = new GtkTextIter;
   end = new GtkTextIter;
 
-#ifdef GNOME_LIBS
-  GnomeVFSResult result;
-  GnomeVFSHandle *handle;
-
-  // Yeah, uh. This is bad. If we have a filename that's not absolute, 
-  // try to turn it into an absolute filename. This is needed as
-  // Gnome-VFS really dislikes stuff like file://../foo
-  if (filename[0]!='/') {    
-    std::string realname;
-    char dirpath[PATH_MAX];
-    getcwd(dirpath,PATH_MAX);
-    realname+=dirpath;
-    realname+="/";
-    realname+=filename;
-    filename=realname.c_str();
-  }
-
-  // We need OPEN_RANDOM as we need to seek to the end of the file
-  // if we're appending
-  result=gnome_vfs_open(&handle,filename,GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
-
-  if (result==GNOME_VFS_ERROR_NOT_FOUND) {
-    // umask should take care of keeping permissions sane
-    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0666);
-  } else if (result!=GNOME_VFS_OK) {
-    vfs_print_error(&result);
-    return false;
-  }
-
-#else
   FILE *fp;
 
   if (append == true) {
     fp = fopen (filename, "a");
+
     if (fp == NULL) {
-      opened = 0; 
+      opened = 0;
     }
   } else {
     fp = fopen (filename, "w");
@@ -674,14 +562,20 @@ save_file_as (const char *filename, bool append)
     gtk_widget_destroy(error_dialog);
     return false;
   }
-#endif
+
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
-  
+
   inbuffer = gtk_text_iter_get_slice (start,end);
-  
-  length = strlen(inbuffer);
-  
+
+  length = gtk_text_iter_get_offset(end)-gtk_text_iter_get_offset(start);
+  (void*)outbuffer = malloc((length+1)*sizeof(gchar));
+  memcpy((void*)outbuffer,(void*)inbuffer,length*sizeof(gchar));
+  outbuffer[length]=0;
+  g_free(inbuffer);
+  inbuffer=outbuffer;
+  outbuffer=NULL;
+
   switch (fileencoding) {
   case Opts::UserDefault:
   case Opts::AlphabetDefault:
@@ -689,15 +583,14 @@ save_file_as (const char *filename, bool append)
     // character set. Arguably we should always be saving in either UTF8 or the user's
     // locale (which may, of course, be UTF8) because otherwise we're going to read
     // in rubbish, and we shouldn't be encouraging weird codepage madness any further
-    //FIXME - error handling  
-    outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
+    //FIXME - error handling
+    outbuffer=g_locale_from_utf8(inbuffer,-1,&bytes_read,&bytes_written,&error);
     if (outbuffer==NULL) {
-      // We can't represent the text in the current locale, so fall back to 
+      // We can't represent the text in the current locale, so fall back to
       // UTF-8
       outbuffer=inbuffer;
       bytes_written=length;
     }
-    break;
   case Opts::UTF8:
     outbuffer=inbuffer;
     bytes_written=length;
@@ -705,124 +598,78 @@ save_file_as (const char *filename, bool append)
   // Does /anyone/ want to save text files in UTF16?
   // (in any case, my opinions regarding encouragement of data formats with
   // endianness damage are almost certainly unprintable)
+
   case Opts::UTF16LE:
     cd=g_iconv_open("UTF16LE","UTF8");
-    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+    outbuffer=g_convert_with_iconv(inbuffer,-1,cd,&bytes_read,&bytes_written,&error);
     break;
   case Opts::UTF16BE:
     cd=g_iconv_open("UTF16BE","UTF8");
-    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+    outbuffer=g_convert_with_iconv(inbuffer,-1,cd,&bytes_read,&bytes_written,&error);
     break;
-  }	       
-
-#ifdef GNOME_LIBS
-  GnomeVFSFileSize vfs_bytes_written;
-  if (append==true) {    
-    result=gnome_vfs_seek(handle,GNOME_VFS_SEEK_END,0);
-  } else {
-    gnome_vfs_seek(handle,GNOME_VFS_SEEK_START,0);
+  default:
+    outbuffer=inbuffer;
+    bytes_written=length;
   }
 
-  result=gnome_vfs_write(handle,outbuffer,strlen(outbuffer),&vfs_bytes_written);
-  if (result!=GNOME_VFS_OK) {
-    vfs_print_error(&result);
-    return false;    
-  }
-  
-  gnome_vfs_close(handle);
-#else  
   fwrite(outbuffer,1,bytes_written,fp);
   fclose (fp);
-#endif
+
   file_modified = FALSE;
   gtk_window_set_title(GTK_WINDOW(window), filename);
 }
 
+ 
 extern "C" void
-save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+select_open_file(GtkWidget *widget, gpointer user_data)
 {
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  GtkWidget* filesel = gtk_file_chooser_dialog_new (_("Select File"),GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,GTK_STOCK_OPEN,GTK_RESPONSE_ACCEPT,GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
 
-  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
-  
-  save_file_as(filename,FALSE);
-}
-
-extern "C" void
-save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector )
-{
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-
-  if (save_file_as(filename,FALSE)==false) {
-    return;
-  } else {
-    exiting=TRUE;
-    gtk_main_quit();
+  if (gtk_dialog_run (GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
+    char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
+    open_file(filename);
+    g_free(filename);
   }
-}
-
-extern "C" void
-append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
-{
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-
-  save_file_as(filename,TRUE);
-
-  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+  gtk_widget_destroy(filesel);
 }
 
 extern "C" void
 select_save_file_as(GtkWidget *widget, gpointer user_data)
 {
-  if (save_filesel==NULL) {
-    save_filesel = glade_xml_get_widget(widgets, "save_fileselector");
-    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (save_filesel)->ok_button),
-		      "clicked", G_CALLBACK (save_file_from_filesel), (gpointer) save_filesel);
+  GtkWidget* filesel = gtk_file_chooser_dialog_new (_("Select File"),GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SAVE,GTK_STOCK_SAVE,GTK_RESPONSE_ACCEPT,GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+  
+  if (gtk_dialog_run (GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
+    char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
+    save_file_as(filename,FALSE);
+    g_free(filename);
   }
-
-  if (filename!=NULL)
-    gtk_file_selection_set_filename (GTK_FILE_SELECTION(save_filesel), filename);
-  gtk_window_set_transient_for(GTK_WINDOW(save_filesel),GTK_WINDOW(window));
-  gtk_window_present (GTK_WINDOW(save_filesel));
-}
-
-extern "C" void
-select_save_file_as_and_quit(GtkWidget *widget, gpointer user_data)
-{
-  if (save_and_quit_filesel==NULL) {
-    save_and_quit_filesel = glade_xml_get_widget(widgets, "save_and_quit_fileselector");
-    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (save_and_quit_filesel)->ok_button),
-		      "clicked", G_CALLBACK (save_file_from_filesel_and_quit), (gpointer) save_and_quit_filesel);
-  }
-
-  if (filename!=NULL)
-    gtk_file_selection_set_filename (GTK_FILE_SELECTION(save_and_quit_filesel), filename);
-  gtk_window_set_transient_for(GTK_WINDOW(save_and_quit_filesel),GTK_WINDOW(window));
-  gtk_window_present (GTK_WINDOW(save_and_quit_filesel));
-}
-
-extern "C" void
-import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
-{
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-
-  load_training_file(filename);
-
-  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+  gtk_widget_destroy(filesel);
 }
 
 extern "C" void
 select_append_file(GtkWidget *widget, gpointer user_data)
 {
-  if (append_filesel==NULL) {
-    append_filesel = glade_xml_get_widget(widgets, "append_fileselector");
-
-    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (append_filesel)->ok_button),
-		      "clicked", G_CALLBACK (append_file_from_filesel), (gpointer) append_filesel);
+  GtkWidget* filesel = gtk_file_chooser_dialog_new (_("Select File"),GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SAVE,GTK_STOCK_SAVE,GTK_RESPONSE_ACCEPT,GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+  
+  if (gtk_dialog_run (GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
+    char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
+    save_file_as(filename,TRUE);
+    g_free(filename);
   }
+  gtk_widget_destroy(filesel);
+}
 
-  gtk_window_set_transient_for(GTK_WINDOW(append_filesel),GTK_WINDOW(window));
-  gtk_window_present (GTK_WINDOW(append_filesel));
+extern "C" void
+select_import_file(GtkWidget *widget, gpointer user_data)
+{
+  GtkWidget* filesel = gtk_file_chooser_dialog_new (_("Select File"),GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,GTK_STOCK_OPEN,GTK_RESPONSE_ACCEPT,GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, NULL);
+  
+  if (gtk_dialog_run (GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
+    char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
+    load_training_file(filename);
+    g_free(filename);
+  }
+  gtk_widget_destroy(filesel);
 }
 
 extern "C" void
@@ -848,31 +695,9 @@ save_file_and_quit (GtkWidget *widget, gpointer user_data)
     }
   }
   else {
-    select_save_file_as_and_quit(NULL,NULL);
+    select_save_file_as(NULL,NULL);
+    gtk_main_quit();
   }
-}
-
-extern "C" void
-select_import_file(GtkWidget *widget, gpointer user_data)
-{
-  if (import_filesel==NULL) {
-    import_filesel = glade_xml_get_widget(widgets, "import_fileselector");
-
-    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (import_filesel)->ok_button),
-		      "clicked", G_CALLBACK (import_file_from_filesel), (gpointer) import_filesel);
-  }
-
-  gtk_window_set_transient_for(GTK_WINDOW(import_filesel),GTK_WINDOW(window));
-  gtk_window_present (GTK_WINDOW(import_filesel));
-}
-
-extern "C" void
-filesel_hide(GtkWidget *widget, gpointer user_data)
-{
-  // FIXME - uh. Yes. This works, but is it in any way guaranteed to?
-  // Of course, if glade let us set user_data stuff properly, this would
-  // be a lot easier
-  gtk_widget_hide(gtk_widget_get_parent(gtk_widget_get_parent(gtk_widget_get_parent(widget))));
 }
 
 extern "C" bool

@@ -314,6 +314,10 @@ void edit_move_end()
 
 void edit_delete_callback(symbol Symbol)
 {
+  if (Symbol==0) {
+    return;
+  }
+
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;
   int length,displaylength;
