@@ -21,6 +21,7 @@ CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
 	: m_Alphabet(Alphabet), m_iNorm(Normalization)
 {
 	m_iModelChars = m_Alphabet->GetNumberSymbols();
+	m_uniform = 50;
 }
 
 
@@ -49,18 +50,28 @@ void CLanguageModel::LearnText(CNodeContext* NodeContext, string* TheText, bool 
 ///////////////////////////////////////////////////////////////////
 
 bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymbols,
-		vector<unsigned int> &Groups, vector<unsigned int> &Probs, double AddProb)
+		vector<unsigned int> &Groups, vector<unsigned int> &Probs)
 {
 	// make sure it is a valid context
 	if (Context) {
 		int s = m_Alphabet->GetNumberSymbols();
+		
+		int norm( normalization() );
+
+		int uniform_add = ((norm / 1000 ) / s ) * m_uniform;
+		int nonuniform_norm = norm - s * uniform_add;
+
 		NewSymbols.resize(s);
 		Groups.resize(s);
 		for (int i=0;i<s;i++) {
 			NewSymbols[i]=i; // This will be replaced by something that works out valid nodes for this context
 			Groups[i]=m_Alphabet->get_group(i);
 		}
-		GetProbs((CContext*) Context,Probs,AddProb);
+		GetProbs((CContext*) Context,Probs,nonuniform_norm);
+
+		for( vector<unsigned int>::iterator it( Probs.begin() ); it != Probs.end(); ++it )
+		  (*it) += uniform_add;
+
 		return true;
 	}
 	return false;

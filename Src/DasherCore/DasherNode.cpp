@@ -92,7 +92,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
-	m_languagemodel->GetNodeProbs(m_context,newchars,groups,cum,0.003);
+	m_languagemodel->GetNodeProbs(m_context,newchars,groups,cum);
 	m_iChars=newchars.size();
 	// work out cumulative probs
 	unsigned int i;

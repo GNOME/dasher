@@ -72,7 +72,7 @@ CPPMLanguageModel::~CPPMLanguageModel()
 }
 
 
-bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,double addprob)
+bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,int norm)
 	// get the probability distribution at the context
 {
 	// seems like we have to have this hack for VC++
@@ -80,7 +80,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,d
 	
 	
 	int modelchars=GetNumberModelChars();
-	int norm=CLanguageModel::normalization();
+	//	int norm=CLanguageModel::normalization();
 	probs.resize(modelchars);
 	CPPMnode *temp,*s; 
 	int loop,total;
@@ -88,8 +88,8 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,d
 	ulong spent=0; 
 	ulong size_of_slice;
 	bool *exclusions=new bool [modelchars];
-	ulong uniform=modelchars;
-	ulong tospend=norm-uniform;
+	//	ulong uniform=modelchars;
+	ulong tospend=norm;
 	temp=ppmcontext->head;
 	for (loop=0; loop <modelchars; loop++) {   /* set up the exclusions array */
 		probs[loop]=0;
@@ -140,7 +140,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,d
 			}
 			
 			// distribute what's left evenly	
-			tospend+=uniform;
+		//tospend+=uniform;
 			for (sym=1;sym<modelchars;sym++) {
 				ulong p=tospend/(modelchars-sym);
 				probs[sym]+=p;

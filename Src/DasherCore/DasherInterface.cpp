@@ -487,6 +487,16 @@ void CDasherInterface::SetEditFont(string Name, long Size)
 	}
 }
 
+void CDasherInterface::SetUniform(int Value)
+{
+  std::cout << "Calling set uniform with " << Value << std::endl;
+
+  if( m_LanguageModel != NULL )
+    m_LanguageModel->SetUniform(Value);
+  if (m_SettingsStore!=0) {
+    m_SettingsStore->SetLongOption(Keys::UNIFORM, Value);
+  }
+}
 
 void CDasherInterface::SetDasherFont(string Name)
 {

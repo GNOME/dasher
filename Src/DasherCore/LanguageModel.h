@@ -47,7 +47,7 @@ public:
 	void EnterText(CNodeContext* NodeContext, std::string TheText);
 	void LearnText(CNodeContext* NodeContext, std::string* TheText, bool IsMore);
 	bool GetNodeProbs(CNodeContext* Context, std::vector<symbol> &NewSymbols,
-		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, double AddProb);
+		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs);
 	
 	// Alphabet pass-through functions for widely needed information
 	symbol GetSpaceSymbol() {return m_Alphabet->GetSpaceSymbol();}
@@ -59,6 +59,8 @@ public:
 	void NewControlTree(ControlTree *tree) { controltree=tree; }
 
 	ControlTree* GetControlTree() { return controltree; }
+
+	void SetUniform( int _uniform ) { m_uniform = _uniform; };
 
 protected:
 	int GetNumberModelChars() {return m_Alphabet->GetNumberSymbols();}
@@ -80,12 +82,13 @@ protected:
 	// update context with a character:
 	virtual void EnterSymbol(CContext* context, modelchar Symbol)=0;
 	// get the probability distrubution at the given context:
-	virtual bool GetProbs(CContext* Context, std::vector<unsigned int> &Probs, double AddProb)=0;
+	virtual bool GetProbs(CContext* Context, std::vector<unsigned int> &Probs, int norm)=0;
 	
 private:
 	CAlphabet *m_Alphabet;
 	int m_iModelChars; // number of charater in the model 1...ModelChars
 	int m_iNorm;       // normalization of probabilities
+	int m_uniform;     // Fraction to allocate to uniform dist. (*1000)
 	ControlTree *controltree;
 };
 

@@ -42,6 +42,7 @@ namespace Keys {
         const std::string DASHER_FONTSIZE = "DasherFontSize";
         const std::string DASHER_DIMENSIONS = "NumberDimensions";
         const std::string DASHER_EYETRACKER = "EyetrackerMode";
+        const std::string UNIFORM = "UniformTimes1000";
 
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";
@@ -130,6 +131,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));
 	this->SetScreenSize(Store->GetLongOption(SCREEN_WIDTH), Store->GetLongOption(SCREEN_HEIGHT));
+
+	Store->SetLongDefault(UNIFORM, 1000 );
+	this->SetUniform(Store->GetLongOption(UNIFORM));
 }
 
 

@@ -108,6 +108,8 @@ public:
 
 	//! Should advanced colour mode be enabled?
 	virtual void ColourMode(bool Value) {};	
+
+	virtual void SetUniform(int Value) {};
 };
 
 
@@ -147,6 +149,7 @@ namespace Keys
 	extern const std::string DASHER_FONTSIZE;
 	extern const std::string DASHER_DIMENSIONS;
 	extern const std::string DASHER_EYETRACKER;
+	extern const std::string UNIFORM;
 
 	// string options
 	extern const std::string ALPHABET_ID;

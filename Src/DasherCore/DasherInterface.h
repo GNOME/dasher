@@ -139,6 +139,7 @@ public:
 	void SetDasherFontSize(FontSize fontsize);
 	void SetDasherDimensions(bool Value);
 	void SetDasherEyetracker(bool Value);
+	void SetUniform(int Value);
 
 private:
 	CAlphabet* m_Alphabet;
