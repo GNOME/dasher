@@ -16,6 +16,7 @@
 
 #include "../../DasherCore/DasherAppInterface.h"
 #include "../../DasherCore/DasherSettingsInterface.h"
+#include "../../DasherCore/ColourIO.h"
 
 
 class CColourBox : public CWinWrap
