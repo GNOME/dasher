@@ -1,3 +1,7 @@
+2004-03-11  Maxim Dziumanenko <mvd@mylinux.com.ua>
+
+	* configure.in: Added "uk" (Ukrainian) to ALL_LINGUAS.
+
 2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Make sure that gettext is initialised before the UI is built
