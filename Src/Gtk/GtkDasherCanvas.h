@@ -40,7 +40,10 @@ protected:
   Gdk_Font f_medium;
   Gdk_Font f_small;
 
-  void swap_buffers();
+  void swap_buffers(); 
+
+  //gint button_press_event_impl(GdkEventButton *event);
+  //gint button_press_event_impl(GdkEventAny *event);
 };
 
 #endif

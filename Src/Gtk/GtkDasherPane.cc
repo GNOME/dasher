@@ -79,8 +79,11 @@ gint GtkDasherPane::timer_callback()
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
   cout << "In toggle_pause" << endl;
-
-  //  interface->PauseAt(0,0);
+  int x;
+  int y;
+      
+  gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
+  interface->PauseAt(x,y);
   paused = !paused;
 
   return( true );

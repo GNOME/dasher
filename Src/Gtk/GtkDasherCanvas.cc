@@ -12,6 +12,8 @@
 GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
   : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height )
 {
+  set_events( GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK );
+
   set_usize(width, height);
 
   //  fg_buffer = gdk_pixmap_new( get_window(), width, height, -1 );
@@ -67,6 +69,14 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
   return( true );
 }
+
+
+//  gint GtkDasherCanvas::button_press_event_impl(GdkEventButton *event)
+//    {
+//      cout << "foo" << endl;
+//      return( true );
+//    }
+
 
 void GtkDasherCanvas::SetFont(std::string Name)
 {
