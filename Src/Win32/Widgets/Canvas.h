@@ -31,6 +31,7 @@ public:
 	HWND getwindow() {return m_hwnd;}
 	void StartOnLeftClick(bool Value) {startonleft = Value;}
 	void StartOnSpace(bool Value) {startonspace = Value;}
+	void KeyControl(bool Value) {keycontrol = Value;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -45,6 +46,8 @@ private:
 	bool running;
 	bool startonleft;
 	bool startonspace;
+	bool keycontrol;
+	RECT coords;
 	ThreadParams *tp;
 };
 

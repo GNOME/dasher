@@ -73,7 +73,7 @@ void CAlphabetBox::InitCustomBox()
 	
 	// Load encodings list box from resource strings
 	vector< pair<int, int> > Encodings;
-	Encodings.push_back(pair<int, int>(IDS_TYPE_None, Opts::None));
+	Encodings.push_back(pair<int, int>(IDS_TYPE_None, Opts::MyNone));
 	Encodings.push_back(pair<int, int>(IDS_TYPE_Arabic, Opts::Arabic));
 	Encodings.push_back(pair<int, int>(IDS_TYPE_Baltic, Opts::Baltic));
 	Encodings.push_back(pair<int, int>(IDS_TYPE_CentralEurope, Opts::CentralEurope));

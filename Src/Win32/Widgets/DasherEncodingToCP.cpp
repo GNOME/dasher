@@ -32,7 +32,7 @@ UINT EncodingToCP(Dasher::Opts::AlphabetTypes Encoding)
 		return 1201;
 		break;
 */
-	case None:
+	case MyNone:
 		CodePage = GetUserCodePage();
 		break;
 	case Arabic:                       // The rest need checking. Return

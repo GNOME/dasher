@@ -69,27 +69,58 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		return 0;
 		break;
 	case WM_KEYDOWN:
-		if (startonspace == false) {
+		int i;
+		switch (wParam) {
+			if (keycontrol == true) {
+				case VK_UP:
+					m_DasherWidgetInterface->Unpause(GetTickCount());
+					GetClientRect(Window, &coords);
+					for (i=0; i<300; i+=10) {
+						m_DasherWidgetInterface->TapOn(0.70*coords.right, 0.20*(coords.bottom), GetTickCount()+i);
+					}
+				 m_DasherWidgetInterface->PauseAt(150,150);
+				 return 0;
+				 break;
+				case VK_DOWN:
+					GetClientRect(Window, &coords);
+					m_DasherWidgetInterface->Unpause(GetTickCount());
+				    for (i=0; i<300; i+=10) {
+						m_DasherWidgetInterface->TapOn(0.70*coords.right, 0.790*(coords.bottom), GetTickCount()+i);
+				    }
+					m_DasherWidgetInterface->PauseAt(150,150);
+					return 0;
+					break;
+				case VK_LEFT:
+					GetClientRect(Window, &coords);
+					m_DasherWidgetInterface->Unpause(GetTickCount());
+					for (i=0; i<300; i+=10) {
+						m_DasherWidgetInterface->TapOn(0.25*coords.right,0.47*(coords.bottom), GetTickCount()+i);
+					}
+					m_DasherWidgetInterface->PauseAt(150,150);
+					return 0;
+					break;
+				}
+			case VK_SPACE:
+				if (startonspace == false) {
+					return 0;
+					break;
+				} else {
+					if (running==0) {
+						SetCapture(Window);
+						running=1;
+						m_DasherWidgetInterface->Unpause(GetTickCount());
+					} else {
+						m_DasherWidgetInterface->PauseAt(0,0);
+						running=0;
+						ReleaseCapture();
+					}
+					return 0;
+					break;
+				}
+			default:
 			return 0;
+			break;
 		}
-		if (wParam != VkKeyScan(' ')) {
-				return 0;
-		}
-		if (running==0) {
-			SetCapture(Window);
-
-			running=1;
-			m_DasherWidgetInterface->Unpause(GetTickCount());
-			ResumeThread( hThreadl );
-		} else {
-			m_DasherWidgetInterface->PauseAt(0,0);
-			running=0;
-			ReleaseCapture();
-
-			SuspendThread( hThreadl );
-		}
-		return 0;
-		break;
 	case WM_LBUTTONDBLCLK:
 	case WM_LBUTTONDOWN:
 		SetFocus(Window);
