@@ -1,6 +1,7 @@
 2004-09-17  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Src/Gtk2/speech.cc: Check that voices->_length isn't 0	
+	* Data/Makefile.am: Add dasher.schemas to EXTRA_DIST
 	
 2004-09-11  Guntupalli Karunakar  <karunakar@freedomink.org>
 

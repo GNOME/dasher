@@ -9,4 +9,4 @@ install-schemas:
 	      GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
 	      gconftool --makefile-install-rule dasher.schemas
 
-EXTRA_DIST=dasher.desktop dasher.png
+EXTRA_DIST=dasher.desktop dasher.png dasher.schemas
