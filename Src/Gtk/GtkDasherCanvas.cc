@@ -46,8 +46,7 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
 
   // Initialise the double buffer class
 
-  buffer = new GtkDoubleBuffer( pmwidth, pmheight, 16 );
-
+  buffer = new GtkDoubleBuffer( pmwidth, pmheight, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
   // Initialise the font list
 
   font_list = new Gdk_Font[17];
@@ -193,7 +192,7 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
       delete( buffer );
 
-      buffer = new GtkDoubleBuffer( pmwidth, pmheight, 16 );
+      buffer = new GtkDoubleBuffer( pmwidth, pmheight, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
 
       delete( wrapper );
       wrapper = new GtkScreenWrapper( pmwidth, pmheight, this );
