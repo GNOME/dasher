@@ -112,8 +112,10 @@ inline void CDasherNode::Delete_children()
 {
 	if (m_Children) {
 		unsigned int i; 
-		for (i=1;i<m_iChars;i++)
+		for (i=1;i<m_iChars;i++) {
+			m_Children[i]->Delete_children();
 			delete m_Children[i];
+		}
 		delete [] m_Children;
 	}
 	m_Children=0;

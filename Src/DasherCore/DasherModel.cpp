@@ -162,6 +162,12 @@ void CDasherModel::Start()
 	m_Root->Push_Node(therootcontext);
 
 	// Get rid of the old root notes
+	for (int i=oldroots.size(); i>0; i--) {
+		if(oldroots[i-1]!=0) {
+			oldroots[i-1]->DeleteChildren();
+			delete oldroots[i-1];
+		}
+	}
 	oldroots.clear();
 
 	m_languagemodel->ReleaseNodeContext(therootcontext);
