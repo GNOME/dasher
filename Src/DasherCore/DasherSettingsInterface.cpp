@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
+#include <iostream>
 
 #include "DasherSettingsInterface.h"
 
@@ -23,6 +23,9 @@ namespace Keys {
 	const std::string FIX_LAYOUT = "FixLayout";
 	const std::string SHOW_SLIDER = "ShowSpeedSlider";
 	const std::string COPY_ALL_ON_STOP = "CopyAllOnStop";
+        const std::string DRAW_MOUSE = "DrawMouse";
+        const std::string START_MOUSE = "StartOnLeft";
+        const std::string START_SPACE = "StartOnSpace";
 	
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -35,7 +38,8 @@ namespace Keys {
 	const std::string SCREEN_WIDTH = "ScreenWidth";
 	const std::string SCREEN_HEIGHT = "ScreenHeight";
         const std::string DASHER_FONTSIZE = "DasherFontSize";
-	
+        const std::string DASHER_DIMENSIONS = "NumberDimensions";
+
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";
 	const std::string DASHER_FONT = "DasherFont";
@@ -50,14 +54,17 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	using namespace Keys;
 	using namespace Opts;
 	
-	Store->SetLongDefault(MAX_BITRATE_TIMES100, 200);
+	Store->SetLongDefault(MAX_BITRATE_TIMES100, 150);
 	this->ChangeMaxBitRate(Store->GetLongOption(MAX_BITRATE_TIMES100)/100.0);
 	
 	Store->SetBoolDefault(TIME_STAMP, true);
 	this->TimeStampNewFiles(Store->GetBoolOption(TIME_STAMP));
 	Store->SetBoolDefault(COPY_ALL_ON_STOP, false);
 	this->CopyAllOnStop(Store->GetBoolOption(COPY_ALL_ON_STOP));
-	
+
+	Store->SetBoolDefault(DRAW_MOUSE, false);
+	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
+
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
 	this->SetFileEncoding((FileEncodingFormats) Store->GetLongOption(FILE_ENCODING));
 	
@@ -71,25 +78,41 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->ShowToolbarText(Store->GetBoolOption(SHOW_TOOLBAR_TEXT));
 	Store->SetBoolDefault(SHOW_LARGE_ICONS, true);
 	this->ShowToolbarLargeIcons(Store->GetBoolOption(SHOW_LARGE_ICONS));
+
 	Store->SetBoolDefault(SHOW_TOOLBAR, true);
 	this->ShowToolbar(Store->GetBoolOption(SHOW_TOOLBAR));
-	
+
 	Store->SetLongDefault(SCREEN_ORIENTATION, Opts::LeftToRight);
 	this->ChangeOrientation((ScreenOrientations) Store->GetLongOption(SCREEN_ORIENTATION));
 	
+	Store->SetBoolDefault(START_MOUSE, true);
+	this->StartOnLeft(Store->GetBoolOption(START_MOUSE));
+
+	Store->SetBoolDefault(START_SPACE, false);
+	this->StartOnSpace(Store->GetBoolOption(START_SPACE));
+
+	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
+	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
+
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"
 	// The user may have saved a preference for some of these options though:
-
-	this->ChangeView(Store->GetLongOption(VIEW_ID));	
+	
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
-	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
+
+	// FIXME - need to work out why this breaks stuff
+	//this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
+	this->ChangeView(Store->GetLongOption(VIEW_ID));
 	
 	// Fonts
 	this->SetEditFont(Store->GetStringOption(EDIT_FONT), Store->GetLongOption(EDIT_FONT_SIZE));
 	this->SetDasherFont(Store->GetStringOption(DASHER_FONT));
-	
+	this->SetDasherFontSize(Dasher::Opts::FontSize(Store->GetLongOption(DASHER_FONTSIZE)));
+
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));
 	this->SetScreenSize(Store->GetLongOption(SCREEN_WIDTH), Store->GetLongOption(SCREEN_HEIGHT));
 }
+
+
+

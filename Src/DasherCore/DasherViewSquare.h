@@ -31,20 +31,21 @@ public:
 	void TapOnDisplay(int mousex,int mousey, unsigned long Time);
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
+	void DrawMouse(int mousex, int mousey);
 private:
 	// the x and y non-linearities
-	inline const myint screen2dasherx(const int mousex,const int mousey);
-	inline const myint screen2dashery(int mousey);
+	inline const void screen2dasher(int *mousex, int *mousey);
 	inline const int dasherx2screen(const myint sx);
 	inline const int dashery2screen(myint sy);
 	
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool Control);
+		myint y1, myint y2, int& mostleft, bool& force, bool text);
 	
 	void CheckForNewRoot();
 	inline void Crosshair(myint sx);
 	double m_dXmpa,m_dXmpb,m_dXmpc,m_dXmpd;
 	myint m_Y1,m_Y2,m_Y3;
+	myint s_Y1,s_Y2,s_Y3;
 	int CanvasX,CanvasY,CanvasBorder;
 	double xmap(double x);
 	double ixmap(double x);

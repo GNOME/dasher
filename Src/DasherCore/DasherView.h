@@ -49,14 +49,20 @@ public:
 		// DJW - removed floating point stuff
 		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 	}
+
+	virtual void DrawMouse(int mousex, int mousey)=0;
 	
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}
 	CDasherScreen& Screen() {return *m_Screen;}
+
+	void Display() {m_Screen->Display();};
+
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(int* DrawX, int* DrawY);
 	inline void UnMapScreen(int* DrawX, int* DrawY);
+
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
@@ -64,13 +70,13 @@ private:
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
 	virtual int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool Control)=0;
+		myint y1, myint y2, int& mostleft, bool& force, bool text)=0;
 	
 	// Responsible for all the Render_node calls
-	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft);
+	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);
 	
 	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-	void RenderGroups(CDasherNode* Render, myint y1, myint y2);
+	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
 	
 	// Orientation of Dasher Screen
 	Dasher::Opts::ScreenOrientations ScreenOrientation;

@@ -23,7 +23,6 @@ private:
 	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	unsigned int m_iChars, m_iAge;
 	bool m_bAlive;                     // if true, then display node, else dont bother
-	bool m_ControlChild;               // if true, node is offspring of a control node
 	//bool m_Cscheme;                  // color scheme for the node - alternates through relatives
 	Opts::ColorSchemes m_ColorScheme;
 	int m_iPhase;                      // index for coloring
@@ -33,7 +32,6 @@ private:
 	CDasherNode **m_Children;          // pointer to array of children
 	CDasherNode *m_parent;             // pointer to parent - only needed to grab parent context
 	CLanguageModel::CNodeContext *m_context;
-	bool m_bSeen;                      // node has been dealt with
 public:
 	
 	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm);
@@ -49,20 +47,16 @@ public:
 	unsigned int Group() const {return m_iGroup;}
 	unsigned int Age() const {return m_iAge;}
 	symbol Symbol() const {return m_Symbol;}
-	bool Control() const {return m_ControlChild;}
 	unsigned int Chars() const {return m_iChars;}
 	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
-	bool Been_seen() const {return m_bSeen;}
 	
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
 	void Get_string_under(const int,const myint y1,const myint y2,const myint smousex,const myint smousey,std::vector<symbol>&) const; // get string under given co-ords
 	void Push_Node();                                      // give birth to children
 	void Push_Node(CLanguageModel::CNodeContext *context); // give birth to children with this context
-	void Push_Node_Generic();                              // generic code for the above two functions
 	void Delete_children();
 	void Dump_node() const;                                // diagnostic
-	void Seen();
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -76,7 +70,7 @@ using namespace Opts;
 
 inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm)
 	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
-  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_ControlChild(false), m_bSeen(false)
+	m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme)
 {
 	/*
 	switch (ColorScheme) {

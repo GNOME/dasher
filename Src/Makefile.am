@@ -4,12 +4,12 @@ datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
-SUBDIRS = DasherCore Gtk
+SUBDIRS = DasherCore Gtk2
 
 bin_PROGRAMS = dasher
-dasher_SOURCES = Main.cc
+dasher_SOURCES = main.cc
 
-LDADD =  Gtk/libdashergtk.a DasherCore/libdashercore.a
+LDADD =  Gtk2/libdashergtk.a DasherCore/libdashercore.a
 
-CXXFLAGS = $(GTKMM_CFLAGS) -I./DasherCore -I./Gtk -I../intl -I$(top_srcdir)/intl
-LDFLAGS = $(GTKMM_LIBS) -lexpat
+CXXFLAGS = $(GTK2_CFLAGS) $(GCONF_CFLAGS) -I./Gtk2/ -I./DasherCore/ -I../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\"
+LDFLAGS = $(GTK2_LIBS) $(GCONF_LIBS) -lexpat

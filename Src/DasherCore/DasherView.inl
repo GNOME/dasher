@@ -12,13 +12,11 @@ inline void Dasher::CDasherView::Render()
 	m_Screen->Blank();
 	
 	// Render nodes to screen object (should use off screen buffer)
-	RecursiveRender(m_DasherModel.Root(), m_DasherModel.Rootmin(), m_DasherModel.Rootmax(), 2);
-	
+	RecursiveRender(m_DasherModel.Root(), m_DasherModel.Rootmin(), m_DasherModel.Rootmax(), 2, false);
+	RecursiveRender(m_DasherModel.Root(), m_DasherModel.Rootmin(), m_DasherModel.Rootmax(), 2, true);
 	Crosshair(m_DasherModel.DasherOX()); // add crosshair
-	
-	m_Screen->Display();                 // copy from buffer to screen
+//	m_Screen->Display();                 // copy from buffer to screen
 }
-
 
 inline void Dasher::CDasherView::MapScreen(int* DrawX, int* DrawY)
 {

@@ -110,10 +110,6 @@ void CAlphabet::StartNewGroup()
 	m_Groups++;
 }
 
-void CAlphabet::AlphabetComplete()
-{
-        m_NumAlphabetSymbols=m_Characters.size();
-}
 
 // diagnostic dump of character set
 void CAlphabet::dump() const {

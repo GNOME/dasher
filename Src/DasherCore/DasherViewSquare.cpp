@@ -14,6 +14,7 @@
 
 #include "DasherModel.h"
 #include "DasherViewSquare.h"
+#include <iostream>
 
 using namespace Dasher;
 
@@ -43,18 +44,19 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_dXmpc=0.9;
 	m_dXmpd=0.5;   // slow X movement when accelerating Y
 
-	double dY1=0.05;    // these are for the y non-linearity
+	double dY1=0.25;    // Amount of acceleration
 	double dY2=0.95;    // Accelerate Y movement below this point
 	double dY3=0.05;    // Accelerate Y movement above this point
 
 	m_Y2=int (dY2 * (CDasherView::DasherModel().DasherY()) );
 	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
 	m_Y1=int(1.0/dY1);
+
 }
 
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, bool& force, bool Control)
+	myint y1, myint y2, int& mostleft, bool& force, bool text)
 {
 	int top = dashery2screen(y1);
 	if (top>CanvasY)
@@ -83,28 +85,30 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		int newleft=left, newtop=top, newright=right, newbottom=bottom;
 		MapScreen(&newleft, &newtop);
 		MapScreen(&newright, &newbottom);
-		Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
-		
+		if( !text )
+		  Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
+		else
+		  {
 		if (left<mostleft)
 			left=mostleft;
 		
 		int Size;
-		if (left<CanvasX*19/20) {
-			Size = 20;
-		} else if (left<CanvasX*159/160) {
-			Size = 14;
+		if (left*Screen().GetFontSize()<CanvasX*19/20) {
+			Size = 20*Screen().GetFontSize();
+		} else if (left*Screen().GetFontSize()<CanvasX*159/160) {
+			Size = 14*Screen().GetFontSize();
 		} else {
-			Size = 11;
+			Size = 11*Screen().GetFontSize();
 		}
 		
 		int TextWidth, TextHeight, OriginX=0, OriginY=0;
-		Screen().TextSize(Character, &TextWidth, &TextHeight, Size, Control);
+		Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
 		UnMapScreen(&TextWidth, &TextHeight);
-		UnMapScreen(&OriginX, &OriginY);
-		int FontHeight = abs(TextHeight-OriginY);
+		UnMapScreen(&OriginX, &OriginY);		
+		int FontHeight = abs(TextHeight-OriginY);		
 		int FontWidth = abs(TextWidth-OriginX);
 		mostleft = left + FontWidth;
-		
+
 		int newleft2 = left;
 		int newtop2 = (height-FontHeight)/2 + top;
 		int newright2 = left + FontWidth;
@@ -113,8 +117,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		MapScreen(&newright2, &newbottom2);
 		newleft = min(newleft2, newright2);
 		newtop = min(newtop2, newbottom2);
-		
-		Screen().DrawText(Character, newleft, newtop, Size, Control);
+
+		  Screen().DrawText(Character, newleft, newtop, Size);
+		  }
 		
 		return 1;
 	} else 
@@ -126,7 +131,7 @@ void CDasherViewSquare::CheckForNewRoot()
 {
 	CDasherNode * const root=DasherModel().Root();
 	CDasherNode ** const children=root->Children();
-	
+
 	if (children==0)
 		return;
 	
@@ -140,13 +145,12 @@ void CDasherViewSquare::CheckForNewRoot()
 		}
 	}
 	
-	if (alive==1) {
+	if (alive==1) {	  
 		myint y1=DasherModel().Rootmin();
 		myint y2=DasherModel().Rootmax();
 		myint range=y2-y1;
 		myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
 		myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
-		
 		if (newy1<0 && newy2> DasherModel().DasherY()) {
 			myint left=dasherx2screen(newy2-newy1);
 			if (left<-1000) {
@@ -167,13 +171,18 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 		mousex=CanvasX;
 	
 	UnMapScreen(&mousex, &mousey);
-	myint DasherMousey=screen2dashery(mousey);
-	myint DasherMousex=screen2dasherx(mousex,mousey);
-	
-	DasherModel().Tap_on_display(DasherMousex,DasherMousey, Time);
+	screen2dasher(&mousex,&mousey);
+	DasherModel().Tap_on_display(mousex,mousey, Time);
 	CheckForNewRoot();
 }
 
+void CDasherViewSquare::DrawMouse(int mousex, int mousey)
+{
+	screen2dasher(&mousex,&mousey);
+	mousex=dasherx2screen(mousex);
+	mousey=dashery2screen(mousey);
+	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 0, Opts::ColorSchemes(Objects));
+}
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 {

@@ -17,8 +17,8 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////
 
-CLanguageModel::CLanguageModel(CAlphabet* Alphabet, CAlphabet* ControlAlphabet, int Normalization)
-  : m_Alphabet(Alphabet), m_iNorm(Normalization), m_ControlAlphabet(ControlAlphabet)
+CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
+	: m_Alphabet(Alphabet), m_iNorm(Normalization)
 {
 	m_iModelChars = m_Alphabet->GetNumberSymbols();
 }
@@ -64,16 +64,4 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		return true;
 	}
 	return false;
-}
-
-void CLanguageModel::GetControlNodes(vector<symbol> &NewSymbols,
-		vector<unsigned int> &Groups)
-{
-  int s = m_ControlAlphabet->GetNumberSymbols();
-  NewSymbols.resize(s);
-  Groups.resize(s);
-  for (int i=0;i<s;i++) {
-    NewSymbols[i]=i; // This will be replaced by something that works out valid nodes for this context
-    Groups[i]=m_ControlAlphabet->get_group(i);
-  }
 }

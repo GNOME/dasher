@@ -23,7 +23,7 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
 	
 	typedef pair<Opts::AlphabetTypes, string> AT;
 	vector<AT> Types;
-	Types.push_back(AT(Opts::None, "None"));
+	Types.push_back(AT(Opts::MyNone, "None"));
 	Types.push_back(AT(Opts::Arabic, "Arabic"));
 	Types.push_back(AT(Opts::Baltic, "Baltic"));
 	Types.push_back(AT(Opts::CentralEurope, "CentralEurope"));
@@ -57,7 +57,7 @@ void CAlphIO::ParseFile(std::string Filename)
 		// could not open file
 		return;
 	}
-	
+
 	XML_Parser Parser = XML_ParserCreate(NULL);
 	
 	// Members passed as callbacks must be static, so don't have a "this" pointer.
@@ -103,19 +103,6 @@ const CAlphIO::AlphInfo& CAlphIO::GetInfo(const std::string& AlphID)
 		AlphInfo& CurInfo = Alphabets[AlphID];
 		Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
 		return Alphabets[AlphID];
-	}
-}
-
-
-const CAlphIO::AlphInfo& CAlphIO::GetControlInfo(const std::string& AlphID)
-{        
-	if (AlphID=="")
-		return Alphabets["ControlDefault"];
-	else {
-   	        std::string ControlID="Control"+AlphID;
-	        AlphInfo& CurInfo = Alphabets[ControlID];
-		Alphabets[ControlID].AlphID = ControlID; // Ensure consistency
-		return Alphabets[ControlID];
 	}
 }
 

@@ -39,11 +39,21 @@ class Dasher::CDasherInterface : private NoClones,
 public:
 	CDasherInterface();
 	~CDasherInterface();
-	
+
+	//! Tell the core which CSettingsStore should be used
 	void SetSettingsStore(CSettingsStore* SettingsStore);
+
+	//! Tell the core which CDasherSettingsInterface should be used
+	//
+	//! Provide a pointer to an instance of CDasherSettingsInterface in 
+	//! order to allow for platform dependent configuration of certain 
+	//! options
 	void SetSettingsUI(CDasherSettingsInterface* SettingsUI);
 	
+	//! Set the path for user specific configuration and files
 	void SetUserLocation(std::string UserLocation);
+
+	//! Set the path for system-wide configuration and files
 	void SetSystemLocation(std::string SystemLocation);
 	
 	// Widget Interface
@@ -59,7 +69,7 @@ public:
 	void ChangeEdit();   // affected by external interaction
 	
 	unsigned int GetNumberSymbols();           // These are needed so widgets know
-	const std::string& GetDisplayText(symbol Symbol, bool Control); // how to render the alphabet. All
+	const std::string& GetDisplayText(symbol Symbol); // how to render the alphabet. All
 	const std::string& GetEditText(symbol Symbol);    // strings are encoded in UTF-8
 	Opts::ScreenOrientations GetAlphabetOrientation();
 	Opts::AlphabetTypes GetAlphabetType();
@@ -78,6 +88,8 @@ public:
 	
 	void Train(std::string* TrainString, bool IsMore); // Training by string segments or file
 	void TrainFile(std::string Filename);              // all training data must be in UTF-8.
+
+	void GetFontSizes(std::vector<int> *FontSizes);
 	
 	double GetCurCPM(); // App may want to display characters per minute
 	double GetCurFPS(); // or frames per second.
@@ -106,13 +118,16 @@ public:
 	void FixLayout(bool Value);
 	void TimeStampNewFiles(bool Value);
 	void CopyAllOnStop(bool Value);
+	void DrawMouse(bool Value);
+	void StartOnSpace(bool Value);
+	void StartOnLeft(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
+	void SetDasherDimensions(bool Value);
 
 private:
 	CAlphabet* m_Alphabet;
-	CAlphabet* m_ControlAlphabet;
 	CLanguageModel* m_LanguageModel;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;
@@ -129,6 +144,10 @@ private:
 	int ViewID;
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
+	bool m_DrawMouse;
+	bool m_StartSpace;
+	bool m_StartLeft;
+	bool m_Dimensions;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
