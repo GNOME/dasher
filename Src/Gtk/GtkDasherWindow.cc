@@ -890,14 +890,18 @@ void GtkDasherWindow::CopyAllOnStop(bool Value)
     }
 }
 
+void GtkDasherWindow::SetDasherDimensions(bool Value)
+{
+  oned = Value;
+
+  static_cast<CheckMenuItem *>( (*list_opts)[10] ) ->set_active( oned );
+}
+
 void GtkDasherWindow::DrawMouse(bool Value)
 {
-  if( draw_mouse != Value )
-    {
-      draw_mouse = Value;
+  draw_mouse = Value;
 
-      static_cast<CheckMenuItem *>( (*list_opts)[1] )->set_active( draw_mouse );
-    }
+  static_cast<CheckMenuItem *>( (*list_opts)[11] )->set_active( draw_mouse );
 }
 
 void GtkDasherWindow::toggle_toolbar()

@@ -109,6 +109,7 @@ public:
   void FixLayout(bool Value);
   void TimeStampNewFiles(bool Value);
   void CopyAllOnStop(bool Value);
+  void SetDasherDimensions(bool Value);
   void DrawMouse(bool Value);
   void SetEditFont(std::string Name, long Size) {}; // UI doesn't need to know
   void SetDasherFont(std::string Name) {}; // UI doesn't need to know
@@ -199,6 +200,7 @@ protected:
   bool slider_shown;
   bool copy_all_on_pause;
   bool draw_mouse;
+  bool oned;
   bool toolbar_shown;
   bool fix_pane;
   bool timestamp;
