@@ -1,5 +1,6 @@
 #include "libdasher.h"
 #include <gtk/gtk.h>
+#include <X11/keysym.h>
 
 void initialise_edit();
 void edit_output_callback(symbol Symbol);

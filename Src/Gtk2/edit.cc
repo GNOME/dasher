@@ -46,6 +46,11 @@ void edit_output_callback(symbol Symbol)
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+  SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
+#endif
+
   outputcharacters++;
 }
 
@@ -74,6 +79,11 @@ void edit_delete_callback()
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+  SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
+#endif
+
   outputcharacters--;
 }
 
@@ -90,6 +100,11 @@ void edit_flush_callback(symbol Symbol)
   }
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+  SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
+#endif
+
   outputcharacters++;
 }
 
@@ -106,8 +121,14 @@ void edit_unflush_callback()
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
-  flush_count=0;
 
+#ifdef GNOME_A11Y
+  for (int i=flush_count; flush_count>0; flush_count--) {
+    SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
+  }
+#endif
+
+  flush_count=0;
 }
 
 void clipboard_callback( clipboard_action act )
