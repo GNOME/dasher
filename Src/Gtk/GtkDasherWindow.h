@@ -79,7 +79,7 @@ public:
 
   // Methods inherited from CDasherSettingsInterface
 
-  void ChangeAlphabet(const std::string& NewAlphabetID) { }; // Not implemented
+  void ChangeAlphabet(const std::string& NewAlphabetID);
   void ChangeMaxBitRate(double NewMaxBitRate);
   void ChangeLanguageModel(unsigned int NewLanguageModelID) {}; // Not implemented
   void ChangeView(unsigned int NewViewID) {}; // Not implemented

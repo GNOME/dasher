@@ -296,21 +296,12 @@ void GtkDasherPane::handle_alphabet()
 {
   abox.hide();
 
-  std::string foo;
+  std::string _alphabet( abox.get_selection() );
 
-  foo = abox.get_selection();
-
-  if( foo != "" )
-    {
-      interface->ChangeAlphabet( foo );
-
-      // FIXME - the following should really happen in the notification
-      // callback
-      
-      text->kill_flush();
-      select_encoding();
-    }
+  if( _alphabet != "" )
+    interface->ChangeAlphabet( _alphabet );
 }
+
 
 void GtkDasherPane::handle_alphabet_cancel()
 {
@@ -381,4 +372,12 @@ void GtkDasherPane::select_encoding()
   canvas->set_encoding( maxpage );
   text->set_display_encoding( maxpage );
 
+}
+
+void GtkDasherPane::change_alphabet( std::string _alphabet )
+{
+  text->kill_flush();
+  select_encoding();
+
+  abox.set_selection( _alphabet );
 }

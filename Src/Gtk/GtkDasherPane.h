@@ -65,6 +65,8 @@ public:
   void handle_alphabet();
   void handle_alphabet_cancel();
 
+  void change_alphabet( std::string _alphabet );
+
   void select_encoding();
 private:
   GtkDasherEdit *text;

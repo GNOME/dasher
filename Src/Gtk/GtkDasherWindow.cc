@@ -732,8 +732,10 @@ void GtkDasherWindow::toggle_timestamp()
 
 void GtkDasherWindow::toggle_copy_all()
 {
-  //  copy_all_on_pause = !copy_all_on_pause;
-  //  dasher_pane.copy_all_on_pause( copy_all_on_pause );
-
   dasher_pane.copy_all_on_pause( static_cast<CheckMenuItem *>( (*list_opts)[1] )->get_active() );
+}
+
+void GtkDasherWindow::ChangeAlphabet(const std::string& NewAlphabetID)
+{
+  dasher_pane.change_alphabet( NewAlphabetID );
 }

@@ -20,6 +20,7 @@ class GtkDasherAlphabetBox : public Gtk::Dialog
   Gtk::Button *get_cancel_button();
 
   std::string get_selection();
+  void set_selection( std::string _selection );
 
  private:
   Gtk::List l;

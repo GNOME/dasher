@@ -46,7 +46,7 @@ std::string GtkDasherAlphabetBox::get_selection()
 
     if( selection.empty() )
       {
-	return( "" );
+	return( string("") );
       }
     else
       {
@@ -56,6 +56,18 @@ std::string GtkDasherAlphabetBox::get_selection()
 	Gtk::string name=label->get();
 	return( string( name ) );
       }
+}
+
+void GtkDasherAlphabetBox::set_selection( std::string _selection )
+{
+  Gtk::List::ItemList::iterator i( l.items().begin() );
+  
+  while( i != l.items().end() )
+    {
+      if( dynamic_cast<Gtk::Label*>((*i)->get_child())->get() == _selection )
+	(*i)->select();
+      i++;
+    }
 }
 
 void GtkDasherAlphabetBox::AddAlphabet( std::vector< std::string > alphabetlist )
