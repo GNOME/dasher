@@ -6,9 +6,11 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../../Common/Common.h"
+
+#include "Screen.h"
 
 #include "../WinHelper.h"
-#include "Screen.h"
 #include "DasherEncodingToCP.h"
 #include "../WinLocalisation.h"
 #include "../../DasherCore/DasherWidgetInterface.h"

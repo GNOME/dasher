@@ -9,12 +9,13 @@
 #ifndef __Screen_h__
 #define __Screen_h__
 
-#include "../../DasherCore/DasherScreen.h"
+
 #include "../WinHelper.h"
 #include "../WinUTF8.h"
+#include "../../DasherCore/DasherScreen.h"
 
 #include "../../Common/NoClones.h"
-#include "../../Common/MSVC_Unannoy.h"
+
 #include "../GDI/FontStore.h"
 
 #include <vector>

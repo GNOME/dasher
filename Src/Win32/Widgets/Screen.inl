@@ -134,9 +134,13 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 	Rect.right = x2;
 	Rect.bottom = y2;
 	FillRect(m_hDCBuffer, &Rect, brush);
+
+#ifndef DASHER_WINCE
 	if (drawoutlines==true) {
 		FrameRect(m_hDCBuffer, &Rect, m_Brushes[3]);
 	}
+#endif
+
 }
 
 
