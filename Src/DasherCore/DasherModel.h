@@ -31,7 +31,7 @@ class Dasher::CDasherModel : private NoClones
 {
 public:
 	
-	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker);
+	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused);
 	~CDasherModel();
 	
 	// framerate functions
@@ -54,6 +54,8 @@ public:
 	myint DasherY() const {return m_DasherY;}
 	bool Dimensions() const {return m_Dimensions;}
 	bool Eyetracker() const {return m_Eyetracker;}
+    bool Paused() const {return m_Paused; }
+
 
 	void OutputCharacters(CDasherNode *node);
 	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
@@ -62,7 +64,7 @@ public:
 
        void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
        void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
-
+       void Set_paused(bool paused)         {m_Paused=paused;}
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void GoTo(myint,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
@@ -98,6 +100,8 @@ private:
 
 	// Eyetracker mode
 	bool m_Eyetracker;
+
+	bool m_Paused;
 
 	CDashEditbox* m_editbox;           // pointer to the editbox
 	CLanguageModel* m_languagemodel;   // pointer to the language model

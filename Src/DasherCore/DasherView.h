@@ -70,8 +70,14 @@ public:
 
     int GetOneButton();
     void SetOneButton(int Value);
-
+    
+    void ResetSum();
+    void ResetSumCounter();
+    void ResetYAutoOffset();
     int CDasherView::onebutton;
+    myint ySum, ySumCounter, yFilterTimescale, ySigBiasPixels, ySigBiasPercentage, yAutoOffset;
+    bool AutoCalibrate;
+
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(int* DrawX, int* DrawY);

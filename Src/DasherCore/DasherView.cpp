@@ -14,6 +14,8 @@ CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel,
   : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(ColourMode), m_LanguageModel(LanguageModel)
 {
 //	XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
+
+myint ySum=0, ySumCounter=0, yFilterTimescale=2, yAutoOffset=0, ySigBiasPixels=0, ySigBiasPercentage=0;   
 }
 
 
@@ -76,6 +78,10 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 
 
 }
+
+void CDasherView::ResetSum() { ySum=0; }
+void CDasherView::ResetSumCounter() { ySumCounter=0; }
+void CDasherView::ResetYAutoOffset() { yAutoOffset=0; }
 
 
 void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text)

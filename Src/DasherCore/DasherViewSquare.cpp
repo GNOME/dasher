@@ -215,6 +215,10 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 	  }
 	}
 	
+    bool autocalibrate=1;
+    if (autocalibrate) {
+        AutoCalibrate(&mousex, &mousey);
+    }
 	screen2dasher(&mousex,&mousey);
 	DasherModel().Tap_on_display(mousex,mousey, Time);
 	CheckForNewRoot();
@@ -259,7 +263,7 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
 
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {
-        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+        if (1) { //DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
   
 	  int Swapper;
 	

@@ -8,9 +8,69 @@
 
 namespace Dasher {
 
+inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
+{
+    double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
+    myint dasherOY=DasherModel().DasherOY();
+    double disty=dasherOY-dashery;
+    bool DasherRunning = DasherModel().Paused();
+
+    if(!DasherRunning==true) {
+        CDasherView::yFilterTimescale = 20;
+        CDasherView::ySum += disty;
+        CDasherView::ySumCounter++;
+
+        CDasherView::ySigBiasPercentage=50;
+        CDasherView::ySigBiasPixels = CDasherView::ySigBiasPercentage * DasherModel().DasherY() / 100;
+
+        //cout << "yAutoOffset: " << CDasherView::yAutoOffset << endl;
+
+        if (CDasherView::ySumCounter > CDasherView::yFilterTimescale) {
+          CDasherView::ySumCounter = 0;
+
+          // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+          // change if we're past the significance boundary.
+
+          if (CDasherView::ySum > CDasherView::ySigBiasPixels || CDasherView::ySum < -CDasherView::ySigBiasPixels) {
+             if (CDasherView::ySum > CDasherView::yFilterTimescale)
+                 CDasherView::yAutoOffset--;
+             else if (CDasherView::ySum < -CDasherView::yFilterTimescale)
+                 CDasherView::yAutoOffset++;
+            
+             CDasherView::ySum = 0;
+          }
+        }
+        
+        //*mousey=int(dashery);
+    }
+}
+
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
-	bool eyetracker=DasherModel().Eyetracker();
+    bool eyetracker=DasherModel().Eyetracker();
+    bool DasherRunning = DasherModel().Paused();
+
+    *mousey += yAutoOffset;
+
+    // Maybe this mousey tweak should take place earlier, elsewhere, and 
+    // have a permanent effect on mousey rather than just local.
+
+    //SUMMARY OF  Y autocallibrate additions: 
+    // If autocallibrate  {
+    //    tweak mousey right now before anyone looks at it.
+    //    If dasher running {
+    //        Adjust our tweak estimate
+    //    }
+    // }
+    // end summary
+
+    // If autocallibrate  {
+    //    tweak mousey right now before anyone looks at it.
+    //           NOTE: yAutoOffset should be set to zero ONCE when Dasher 
+    //                 first started, then left alone. In principle, if 
+    //                 someone moves their Dasher window from one locn to another
+    //  then it might be reasonable to re-zero the offset. But don't.
+
 	// Convert the Y mouse coordinate to one that's based on the canvas size
 	double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
 
@@ -19,8 +79,10 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	// hence the fudging. ixmap gives us the X nonlinearity.	
 	double x=ixmap(1.0*(CanvasX-*mousex)/CanvasX)*DasherModel().DasherY();
 
-    if (eyetracker==true) { dashery=onebutton; }
-	// If we're in standard mode, fudge things for the vertical acceleration
+    // Disable one-button mode for now.
+       // if (eyetracker==true) { dashery=onebutton; }
+	
+    // If we're in standard mode, fudge things for the vertical acceleration
 	if (DasherModel().Dimensions()==false && KeyControl==false && eyetracker==false) {
 		if (dashery>m_Y2)
 			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
@@ -34,9 +96,17 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		}
 	}
 
-	// If we're in one-dimensional mode, we need to use the Y coordinate to 
-	// generate a new and exciting X coordinate
-	if (DasherModel().Dimensions()==true || eyetracker==true) {
+    // The X and Y origins.
+    myint dasherOX=DasherModel().DasherOX();
+    //cout << "dasherOX: " << dasherOX << endl;
+    myint dasherOY=DasherModel().DasherOY();
+    // For Y co-ordinate changes. 
+    // disty is the distance between y and centreline. 
+    double disty=dasherOY-dashery;                  
+    //cout << "disty: " << disty << endl;
+
+	// If we're in one-dimensional mode, make new x,y
+	if (DasherModel().Dimensions()==true) {
 		//if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
 		//	*mousex=int(x);
 		//	*mousey=int(dashery);
@@ -45,15 +115,11 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
       
 		double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb;	
 
-		// The X and Y origins.
-		myint dasherOX=DasherModel().DasherOX();
-		myint dasherOY=DasherModel().DasherOY();
-        
-		// The distance between the Y coordinate and the centreline
+		// The distance between the Y coordinate and the centreline in pixels
 		disty=dasherOY-dashery;
         
-		double rel_dashery=dashery+1726;
-		double rel_dasherOY=dasherOY+1726;
+        //		double rel_dashery=dashery+1726;
+		//      double rel_dasherOY=dasherOY+1726;
 		//cout << "x: " << x << endl;
 		//cout << "dashery: " << rel_dashery << endl << endl;
 
@@ -93,38 +159,72 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 				x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
 				dashery=(1+cos(angle))*circlesize/2+dasherOY;
 			}   
-		} 
-		else {
-			// For eyetracker mode.
-			//if (eyetracker==true&&(disty>circlesize||disty < -(circlesize))) {
-				// double x_prime = eyetracker_get_x(x, dashery);
-				// double y_prime = eyetracker_get_y(x, dashery);
-
-				//double double_x = -((x-dasherOX)/dasherOX);                
-				//double double_y = -((rel_dashery-rel_dasherOY)/rel_dasherOY);
-
-				//cout << "double_y: " << double_y << endl;
-				//cout << "double_x: " << double_x << endl;
-
-				//double xmax_y = xmax(double_x, double_y);
-              
-				//if(double_x < xmax_y) {
-				//	double_x = xmax_y;
-				//}
-                  
-				//disty = circlesize;
-			//}
-		    
-			//else { 
-				// Going forwards.
-				angle=((disty*3.14159/2)/yforwardrange);
-				x=cos(angle)*circlesize;
-				dashery=-sin(angle)*circlesize+dasherOY;
-			//}
 		}
+
+        else {
+          angle=((disty*3.14159/2)/yforwardrange);
+          x=cos(angle)*circlesize;
+          dashery=-sin(angle)*circlesize+dasherOY;
+        }
 		x=dasherOX-x;
-	}
-	*mousex=int(x);
+    }
+    else if (eyetracker==true) {
+
+      myint dasherOX=DasherModel().DasherOX(); 
+      //cout << "dasherOX: " << dasherOX << endl; 
+      myint dasherOY=DasherModel().DasherOY(); 
+         
+      // X co-ordinate changes. 
+      double double_x = (x/dasherOX); 
+      double double_y = -((dashery-dasherOY)/(double)(dasherOY) ); 
+             
+      double xmax_y = xmax(double_x, double_y); 
+                 
+      if(double_x < xmax_y) { 
+        double_x = xmax_y; 
+      } 
+
+      x = dasherOX*double_x;                 
+
+      // Finished x-coord changes.
+
+      double repulsionparameter=0.5;
+      dashery = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
+    } 
+    /* 
+    // Finish the yautocallibrate
+    //    If dasher running, adjust our tweak estimate
+      if(!DasherRunning==true) {
+        CDasherView::yFilterTimescale = 60;
+        CDasherView::ySum += disty; 
+        CDasherView::ySumCounter++; 
+       
+        CDasherView::ySigBiasPercentage=50;
+        CDasherView::ySigBiasPixels = CDasherView::ySigBiasPercentage * DasherModel().DasherY() / 100;
+
+        // FIXME: screen2dasher appears to be being called thrice per frame.
+        // I don't know why.  
+        CDasherView::ySigBiasPixels*=3;
+
+        cout <<"ySum: " << CDasherView::ySum << " | ySigBiasPixels: " << CDasherView::ySigBiasPixels << " | disty: " << disty << " | yAutoOffset: " << CDasherView::yAutoOffset << endl;
+  
+        if (CDasherView::ySumCounter > CDasherView::yFilterTimescale) {
+          CDasherView::ySumCounter = 0;
+
+          // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+          // change if we're past the significance boundary.
+
+          if (CDasherView::ySum > CDasherView::ySigBiasPixels || CDasherView::ySum < -CDasherView::ySigBiasPixels) {
+             if (CDasherView::ySum > CDasherView::yFilterTimescale)
+              CDasherView::yAutoOffset--; 
+              else if (CDasherView::ySum < -CDasherView::yFilterTimescale)
+              CDasherView::yAutoOffset++;
+            CDasherView::ySum = 0;
+          }
+        }
+    }
+    */
+    *mousex=int(x);
 	*mousey=int(dashery);
 }
 
@@ -135,7 +235,7 @@ inline double CDasherViewSquare::xmax(double x, double y) {
 	// set x=xmax(y).  But set xmax=c if(xmax>c).
 	// I would set a=1, b=1, c=16, to start with. 
 
-	int a=1, b=1, c=16;
+	int a=1, b=1, c=10;
 	double xmax = a*(exp(b*y*y)-1);
 	//cout << "xmax = " << xmax << endl;
 

@@ -76,7 +76,6 @@ inline void CFrameRate::Initialise(void) {
 inline void CFrameRate::NewFrame(unsigned long Time) 
 	// compute framerate if we have sampled enough frames
 {
-	
 	m_iFrames++;
 
 	if (m_iFrames==m_iSamples) {

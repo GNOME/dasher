@@ -98,7 +98,7 @@ void CDasherInterface::CreateDasherModel()
 
   if (m_DashEditbox!=0 && m_LanguageModel!=0) {
     delete m_DasherModel;
-    m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel, m_Dimensions, m_Eyetracker);
+    m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel, m_Dimensions, m_Eyetracker, m_Paused);
     if (m_MaxBitRate>=0)
       m_DasherModel->SetMaxBitrate(m_MaxBitRate);
     if (ViewID!=-1)
@@ -111,9 +111,16 @@ void CDasherInterface::CreateDasherModel()
 
 void CDasherInterface::Start()
 {
-	if (m_DasherModel!=0)
+    m_Paused=false;
+	if (m_DasherModel!=0) {
 		m_DasherModel->Start();
-	m_Paused=false;
+        m_DasherModel->Set_paused(m_Paused);
+	}
+    if (m_DasherView!=0) {
+        m_DasherView->ResetSum();
+        m_DasherView->ResetSumCounter();
+        m_DasherView->ResetYAutoOffset();
+    }
 }
 
 
@@ -125,6 +132,9 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
 			m_DashEditbox->CopyAll();
 	}	
 	m_Paused=true;
+    if (m_DasherModel!=0) {
+        m_DasherModel->Set_paused(m_Paused);
+    }
 }
 
 void CDasherInterface::Halt()
@@ -135,8 +145,15 @@ void CDasherInterface::Halt()
 
 void CDasherInterface::Unpause(unsigned long Time)
 {
-	if (m_DasherModel!=0)
+	m_Paused=false;
+    if (m_DasherModel!=0) {
 		m_DasherModel->Reset_framerate(Time);
+        m_DasherModel->Set_paused(m_Paused);
+    }
+    if (m_DasherView!=0) {
+        m_DasherView->ResetSum();
+        m_DasherView->ResetSumCounter();
+    }
 }
 
 

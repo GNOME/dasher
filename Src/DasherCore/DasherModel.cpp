@@ -15,8 +15,8 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker)
-  : m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0), m_Dimensions(Dimensions), m_Eyetracker(Eyetracker)
+CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused)
+  : m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0), m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused)
 {
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	
@@ -244,9 +244,9 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 		if (Mousex<=0)
 			Mousex=1;
 		dRx=1.0*m_DasherOX/Mousex;
-		dRxnew=pow(dRx,1.0/iSteps);  // or exp(log(rx)/steps) - i think the replacement is faster   
+		//dRxnew=pow(dRx,1.0/iSteps);  // or exp(log(rx)/steps) - i think the replacement is faster   
 	
-		dRxnew2=1+(dRx-1)/iSteps;
+		dRxnew=1+(dRx-1)/iSteps;
 		
 		const double dRxmax=m_fr.Rxmax();
 		if (dRxnew>dRxmax)
@@ -255,7 +255,8 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 		if (Mousex==m_DasherOX)
 			Mousex++;
 		dRx=1.0001*m_DasherOX/Mousex;
-		dRxnew=exp(log(dRx)/iSteps);
+		dRxnew=1+(dRx-1)/iSteps;
+
 		if (m_Rootmax<m_DasherY && m_Rootmin>0) {
 		  return;
 		}
@@ -274,6 +275,33 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 		m_Rootmin=newRootmin;	
 	}
 }
+
+void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
+{
+  // First, we need to work out how far we need to zoom in
+  float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+
+  // Then zoom in appropriately
+  m_Rootmax+=zoomfactor*(m_Rootmax-m_DasherY/2);
+  m_Rootmin+=zoomfactor*(m_Rootmin-m_DasherY/2);
+
+  // Afterwards, we need to take care of the vertical offset.
+  myint up=(m_DasherY/2)-MouseY;
+  m_Rootmax+=up;
+  m_Rootmin+=up;
+}
+
+myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY)
+{
+  // First, we need to work out how far we need to zoom in
+  float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+  zoomfactor=pow(float(0.5),zoomfactor);
+
+  myint height=m_DasherY*zoomfactor/2;
+
+  return height;
+}
+  
 
 /////////////////////////////////////////////////////////////////////////////
 
