@@ -2484,7 +2484,7 @@
 			19EEB1A204627AC40000000A,
 		);
 		perUserDictionary = {
-			PBXPerProjectTemplateStateSaveDate = 77320499;
+			PBXPerProjectTemplateStateSaveDate = 77322665;
 			PBXWorkspaceContents = (
 				{
 					LeftSlideOut = {
@@ -2909,7 +2909,7 @@
 					WindowLocation = "{0, 38}";
 				},
 			);
-			PBXWorkspaceStateSaveDate = 77320499;
+			PBXWorkspaceStateSaveDate = 77322665;
 		};
 		perUserProjectItems = {
 			190835A104900B6D0000000A = 190835A104900B6D0000000A;

@@ -163,6 +163,12 @@
 			path = mktar.sh;
 			refType = 4;
 		};
+		193D5BF1049BDC460000000A = {
+			fileRef = 19D3EEE70491289C0000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		1946CAB90481AD440000000A = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -705,6 +711,7 @@
 				19A33CBF048AA9AE0000000A,
 				19A33CC6048AAEE20000000A,
 				195E6E8B048BFC8F0000000A,
+				193D5BF1049BDC460000000A,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
