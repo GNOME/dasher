@@ -1,6 +1,10 @@
+2004-02-22  Ilkka Tuohela <hile@iki.fi>
+
+	* Added Finnish to ALL_LINGUAS
+
 2004-02-22  Mətin Əmirov  <metin@karegen.com>
                                                                                 
-        * configure.in: Added "az" to ALL_LINGUAS.
+	* configure.in: Added "az" to ALL_LINGUAS.
 
 2004-02-21 Hasbullah Bin Pit <sebol@my-penguin.org>
 	
