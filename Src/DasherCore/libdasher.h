@@ -1,3 +1,6 @@
+#ifndef LIBDASHER_H
+#define LIBDASHER_H
+
 #include "DasherScreen.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
@@ -93,3 +96,5 @@ void dasher_paste();
 void dasher_copy_all();
 void dasher_select_all();
 void dasher_clear();
+
+#endif

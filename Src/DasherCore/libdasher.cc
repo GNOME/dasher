@@ -186,10 +186,8 @@ void dasher_initialise( int _width, int _height )
   dsc = new dasher_screen( _width, _height );
   interface->ChangeScreen( dsc );
 
-  ded = new dasher_edit();
+  ded = new dasher_edit;
   interface->ChangeEdit( ded );
-    
-
   
   dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
  

@@ -12,9 +12,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
-#include <gconf/gconf-enum-types.h>
+
 
 //#include "Gtk2DasherCanvas.h"
 //#include "Gtk2DasherEdit.h"
@@ -22,68 +20,38 @@
 
 #include "libdasher.h"
 
-#include "global.h"
+#include "dasher.h"
+#include "canvas.h"
 
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
-void clipboard_copy(void);
-void clipboard_cut(void);
-void clipboard_paste(void);
-void clipboard_copy_all(void);
-void clipboard_select_all(void);
-static void preferences(gpointer data, guint action, GtkWidget *widget);
-static void orientation(gpointer data, guint action, GtkWidget  *widget );
-static void show_toolbar(gpointer data, guint action, GtkWidget  *widget );
-static void show_slider(gpointer data, guint action, GtkWidget  *widget );
-static void timestamp_files(gpointer data, guint action, GtkWidget *widget );
-static void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget );
-static void file_encoding(gpointer data, guint action, GtkWidget *widget );
-static void DrawMouse(gpointer data, guint action, GtkWidget *widget );
-static void SetDimension(gpointer data, guint action, GtkWidget *widget );
-static void select_open_file(gpointer data, guint action, GtkWidget *widget);
-static void select_new_file(gpointer data, guint action, GtkWidget *widget);
-static void select_save_file_as();
-static void select_append_file();
-static void save_file();
-static void select_import_file();
-void initialise_canvas( int width, int height );
-void initialise_edit();
-void select_all();
+GtkWidget *vbox, *toolbar;
+GdkPixbuf *p;
+GtkWidget *pw;
+//Gtk2DasherEdit *dasher_text_view;
+GtkWidget *text_view;
+GtkWidget *speed_frame;
+GtkObject *speed_slider;
+GtkWidget *speed_hscale;
+GtkWidget *text_scrolled_window;
+GtkWidget *canvas_frame;
+GtkWidget *ofilesel;
+GtkWidget *ifilesel;
+GtkWidget *afilesel;
+GtkStyle *style;
+//Gtk2DasherCanvas *dasher_canvas;
+//Gtk2DasherPane *dasher_pane;
+//CDasherInterface *interface;
+GtkItemFactory *dasher_menu;
+GtkAccelGroup *dasher_accel;
+GtkWidget *dasher_menu_bar;
 
-void parameter_string_callback( string_param p, const char *value );
-void parameter_double_callback( double_param p, double value );
-void parameter_int_callback( int_param p, long int value );
-void parameter_bool_callback( bool_param p, bool value );
+GtkWidget *the_text_view;  
+GtkTextBuffer *the_text_buffer;
+GtkClipboard *the_text_clipboard;
 
-void blank_callback();
-void display_callback();
-
-void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme);
-void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number);
-void draw_text_callback(symbol Character, int x1, int y1, int size);
-void text_size_callback(symbol Character, int* Width, int* Height, int Size);
-
-void edit_output_callback(symbol Symbol);
-void edit_flush_callback(symbol Symbol);
-void edit_unflush_callback();
-
-void clipboard_callback( clipboard_action act );
-
-GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme);
-GdkFont *get_font(int size);
-
-void rebuild_buffer();
-
-bool get_bool_option_callback(const std::string& Key, bool *value);
-bool get_long_option_callback(const std::string& Key, long *value);
-bool get_string_option_callback(const std::string& Key, std::string *value);
-  
-void set_bool_option_callback(const std::string& Key, bool Value);
-void set_long_option_callback(const std::string& Key, long Value);
-void set_string_option_callback(const std::string& Key, const std::string& Value);
-
-std::string my_default_string( "" );
+int flush_count;
 
 // typedef struct {
 //   Gtk2DasherCanvas *dasher_canvas;
@@ -691,7 +659,7 @@ static void speed_changed(GtkAdjustment *adj) {
 }
 
 
-static void
+void
 open_window() {
   //     interface = new CDasherInterface;    
   //   GtkDasherUI *dasherui = new GtkDasherUI(interface);  
@@ -890,63 +858,6 @@ open_window() {
     setup = TRUE;
 }
 
-int
-main(int argc, char *argv[])
-{
-  gtk_init (&argc, &argv);
-
-  GError *gconferror;
-
-  gconf_init( argc, argv, &gconferror );
-
-  the_gconf_client = gconf_client_get_default();
-
-  dasher_set_get_bool_option_callback( get_bool_option_callback );
-  dasher_set_get_long_option_callback( get_long_option_callback );
-  dasher_set_get_string_option_callback( get_string_option_callback );
-
-  dasher_set_set_bool_option_callback( set_bool_option_callback );
-  dasher_set_set_long_option_callback( set_long_option_callback );
-  dasher_set_set_string_option_callback( set_string_option_callback );
-
-  dasher_initialise( 360, 360 );
-
-  dasher_set_string_callback( parameter_string_callback );
-  dasher_set_double_callback( parameter_double_callback );
-  dasher_set_int_callback( parameter_int_callback );
-  dasher_set_bool_callback( parameter_bool_callback );
-
-  dasher_set_blank_callback( blank_callback );
-  dasher_set_display_callback( display_callback );
-  dasher_set_draw_rectangle_callback( draw_rectangle_callback );
-  dasher_set_draw_polyline_callback( draw_polyline_callback );
-  dasher_set_draw_text_callback( draw_text_callback );
-  dasher_set_text_size_callback( text_size_callback );
-  
-  dasher_set_edit_output_callback( edit_output_callback );
-  dasher_set_edit_flush_callback( edit_flush_callback );
-  dasher_set_edit_unflush_callback( edit_unflush_callback );
-
-  dasher_set_clipboard_callback( clipboard_callback );
-
-  
-
-  setlocale (LC_ALL, "");
-
-  bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
-  textdomain (PACKAGE);
-
-  open_window ();
-
-
-
-  gtk_main ();
-
-  dasher_finalise();
-
-  return 0;
-}
-
 void clipboard_copy(void) {
   dasher_copy();
 }
@@ -1098,6 +1009,8 @@ void DrawMouse(gpointer data, guint action, GtkWidget *widget )
     //    interface->DrawMouse( FALSE );
     dasher_set_parameter_bool( BOOL_DRAWMOUSE, false );
   }
+
+  dasher_redraw();
 }
 
 // Callbacks to be notified of when something changes
@@ -1145,410 +1058,10 @@ void parameter_bool_callback( bool_param p, bool value )
     }
 }
 
-void blank_callback()
-{
-  gdk_draw_rectangle (offscreen_buffer,
-		      
-		      the_canvas->style->white_gc,
-                      TRUE,
-                      0, 0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
-  
 
 
-  gdk_draw_rectangle (offscreen_text_buffer,
-		      the_canvas->style->white_gc,
-                      TRUE,
-                      0, 0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
 
-  // FIXME - need to draw to mask here
 
-}
-
-void display_callback()
-{ 
-  GdkRectangle update_rect;
-  //  the_buffer->swap_buffers();
-
-  //  GdkPixmap *temp;
-  // temp = offscreen_buffer;
-  //offscreen_buffer=onscreen_buffer;
-  //onscreen_buffer = temp;
-  
-  gdk_draw_pixmap(onscreen_buffer,
-		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-		  offscreen_buffer,
-		  0, 0, 0,0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
-
-  // GdkGC *mask_gc;
-
-//   mask_gc = gdk_gc_new( the_canvas->window );
-
-//   gdk_gc_set_clip_mask( mask_gc, offscreen_text_mask );
-
-//   gdk_draw_pixmap(onscreen_buffer,
-// 		  mask_gc,
-// 		  offscreen_text_buffer,
-// 		  0, 0, 0,0,
-// 		      the_canvas->allocation.width,
-// 		      the_canvas->allocation.height);
-		 
-
-  gdk_draw_rectangle ( offscreen_buffer,
-		       the_canvas->style->white_gc,
-                      TRUE,
-                      0, 0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
-  gdk_draw_rectangle ( offscreen_text_buffer,
-		       the_canvas->style->white_gc,
-                      TRUE,
-                      0, 0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);;
-
-  GdkGC *the_gc;
-
-  the_gc = gdk_gc_new( offscreen_text_mask );
-
-  GdkColor the_color = {0,0,0,0};
-
-  gdk_gc_set_foreground( the_gc, &the_color );
-
-  gdk_draw_rectangle ( offscreen_text_mask,
-		       the_gc,
-                      TRUE,
-                      0, 0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);;
-  
-  update_rect.x = 0;
-  update_rect.y = 0;
-  update_rect.width = the_canvas->allocation.width;
-  update_rect.height = the_canvas->allocation.height;
-
-  gtk_widget_draw(the_canvas,&update_rect);
-}
-
-void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
-{
-
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkRectangle update_rect;
-
-  GdkColor black = {0, 0, 0, 0};
-  GdkColor new_foreground = { 0, 45000, 45000, 45000 };
-  GdkColor foreground = {0, ((ColorScheme * 3 + Color) & 1) * 30000 + 30000, 
-			 ((ColorScheme * 3 + Color) >> 1 ) * 30000 + 30000, 
-			 ((ColorScheme * 3 + Color) >> 2 ) * 30000 + 30000 };
-  
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  foreground = get_color(Color, ColorScheme);
-
-  gdk_color_alloc(colormap, &foreground);
-  gdk_gc_set_foreground (graphics_context, &foreground);
-  
-  if( x2 > x1 ) {
-    if( y2 > y1 ) {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y1, x2-x1, y2-y1);
-    }
-    else {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y2, x2-x1, y1-y2);
-    }
-  }
-  else {
-    if( y2 > y1 ) {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y1, x1-x2, y2-y1);
-    }
-    else {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y2, x1-x2, y1-y2);
-    }
-  }
-
-  gdk_gc_set_foreground (graphics_context, &black);
-}
-
-void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
-{ 
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkRectangle update_rect;
-
-  GdkColor black = {0, 0, 0, 0};
-  GdkPoint gdk_points[Number];
-
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  gdk_color_alloc(colormap, &black);
-  gdk_gc_set_foreground (graphics_context, &black);
-
-  for (int i=0; i < Number; i++) {
-    gdk_points[i].x = Points[i].x;
-    gdk_points[i].y = Points[i].y;
-  }
-
-  gdk_draw_lines(offscreen_buffer, graphics_context, gdk_points, Number);
-}
-
-void draw_text_callback(symbol Character, int x1, int y1, int size)
-{
-  std::string symbol;
-  GdkRectangle update_rect;
-  GdkFont *chosen_font;  
-  PangoRectangle *ink,*logical;
-
-  ink = new PangoRectangle;
-  logical = new PangoRectangle;
-
-  //  symbol = interface->GetDisplayText(Character);
-  symbol = dasher_get_display_text( Character );
-  
-  //  chosen_font = dasher_canvas->GetFont(size);
-  chosen_font = get_font(size);
-
-  pango_layout_set_text(the_pangolayout,symbol.c_str(),-1);
-
-  pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
-
-  gdk_draw_layout (offscreen_buffer,
-		   the_canvas->style->black_gc,
-		   x1, y1-(ink->height/2.0), the_pangolayout);
-
-  // THIS IS THE BIT TO FIX!!! 
-
-  // The below bit just draws a rectangle to reveal the text on the
-  // upper layer. We really need to draw an outline ofthe text so that
-  // it looks sensible, but it doesn't seem to want to do this unless
-  // offscreen_text_mask has a colour map, and I'm not sure how to
-  // give it one.
-
-  //  For bonus marks, make a version that can do full alpha
-  //  transparency :-)
-
-
-  GdkRegion* the_clip_region;
-
-  gint foo[2];
-
-  foo[0] = 0;
-  foo[1] = 128;
-
-  the_clip_region =  gdk_pango_layout_get_clip_region
-                                            (the_pangolayout,
-					     x1, y1-(ink->height/2.0),
-					     foo, 1 );
-
-
-  GdkGC *the_gc;
-
-  the_gc = gdk_gc_new( offscreen_text_mask );
-
-  GdkColor the_color = {1,0,0,0};
-
-  gdk_gc_set_foreground( the_gc, &the_color );
-
-  gdk_gc_set_clip_region( the_gc, the_clip_region );
-   gdk_draw_rectangle ( offscreen_text_mask,
-   		       the_gc,
-                     TRUE,
-   		       0, 0, the_canvas->allocation.width,
-		      the_canvas->allocation.height  );
-
-  
- //  gdk_draw_layout_with_colors (offscreen_text_mask,
-//   		   the_gc,
-//   		   x1, y1-(ink->height/2.0), the_pangolayout, &the_color, NULL);
-}
-
-void text_size_callback(symbol Character, int* Width, int* Height, int Size)
-{
-  GdkFont *chosen_font;
-
-  //  chosen_font = dasher_canvas->GetFont(Size);
-  chosen_font = get_font(Size);
-    
-  *Width = gdk_char_height(chosen_font, ('A'));
-  *Height = gdk_char_height(chosen_font, ('A'));
-}
-
-void edit_output_callback(symbol Symbol)
-{
-  std::string label;
-  label = dasher_get_edit_text( Symbol );
-
-  gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
-}
-
-void edit_flush_callback(symbol Symbol)
-{
-  std::string label;
-  label = dasher_get_edit_text( Symbol );
-
-  gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
-
-  if (label!="") {
-    ++flush_count;
-  }
-
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
-}
-
-void edit_unflush_callback()
-{
-  GtkTextIter *start = new GtkTextIter;
-  GtkTextIter *end = new GtkTextIter;
-
-  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
-
-  *start=*end;  
-
-  gtk_text_iter_backward_chars(start, flush_count);
-
-  gtk_text_buffer_delete(the_text_buffer,start,end);
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
-  flush_count=0;
-
-}
-
-GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
-{
-  if (ColorScheme == Special1) {
-    GdkColor foreground = { 0, 240*257, 240*257, 240*257 };
-    return foreground;
-  }
-  if (ColorScheme == Special2) {
-    GdkColor foreground = { 0, 255*257, 255*257, 255*257 };
-    return foreground;
-  }
-  if (ColorScheme == Objects) {
-    GdkColor foreground = { 0, 0, 0, 0 };
-    return foreground;
-  }
-  if (ColorScheme == Groups) {
-    if (Color%3 == 0) {
-      GdkColor foreground = { 0, 255*257, 255*257 ,0 };
-      return foreground;
-    }
-    if (Color%3 == 1) {
-      GdkColor foreground = { 0, 255*257 ,100*257, 100*257 };
-      return foreground;
-    }
-    if (Color %3 == 2) {
-      GdkColor foreground = { 0, 0, 255*257 ,0 };
-      return foreground;
-    }
-  }
-  if (ColorScheme == Nodes1) {
-    if (Color%3 == 0) {
-      GdkColor foreground = { 0, 180*257 ,245*257 ,180*257 };
-      return foreground;
-    }
-    if (Color%3 == 1) {
-      GdkColor foreground = { 0, 160*257 ,200*257 ,160*257 };
-      return foreground;
-    }
-    if (Color %3 == 2) {
-      GdkColor foreground = { 0, 0, 255*257, 255*257 };
-      return foreground;
-    }
-  }
-  if (ColorScheme == Nodes2) {
-    if (Color%3 == 0) {
-      GdkColor foreground = { 0, 255*257, 185*257, 255*257 };
-      return foreground;
-    }
-    if (Color%3 == 1) {
-      GdkColor foreground = { 0, 140*257, 200*257, 255*257 };
-      return foreground;
-    }
-    if (Color %3 == 2) {
-      GdkColor foreground = { 0, 255*257, 175*257, 175*257 };
-      return foreground;
-    }
-  }
-}
-
-GdkFont *get_font(int size)
-{
-  GdkFont *chosen_font;
-
-  if (size == 11) {
-    chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
-  }
-  else {
-    if (size == 14) {
-      chosen_font = gdk_font_load("-*-fixed-medium-r-normal--13-*-*-*-*-*-*");
-    }
-    else {
-      if (size == 20) {
-	chosen_font = gdk_font_load("-*-fixed-medium-r-normal--15-*-*-*-*-*-*");
-      }
-      else {
-	chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
-      }
-    }
-  }
-
-  if (chosen_font == NULL)
-    chosen_font = gdk_font_load("-*-fixed-medium-r-normal--8-*-*-*-*-*-*");
-  
-  return chosen_font;
-}
-
-void rebuild_buffer()
-{
-  delete(offscreen_buffer);
-  delete(onscreen_buffer);
-  delete(offscreen_text_buffer);
-  delete(offscreen_text_mask);
-
-  // the_buffer = new Gtk2DoubleBuffer(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-
-  offscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-  onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-
-offscreen_text_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-offscreen_text_mask = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, 1);
-
-// offscreen_text_buffer = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 1,  the_canvas->allocation.width, the_canvas->allocation.height )
-
-// gdk_drawable_set_colormap(offscreen_text_mask, gdk_colormap_new (gdk_visual_get_system(), TRUE ));
-  // may need to draw a white rectangle on all of them at this point.
-}
-
-void initialise_canvas( int width, int height )
-{
-  the_canvas = gtk_drawing_area_new ();
-
-  //  the_buffer = new Gtk2DoubleBuffer(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-  offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-   onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-  the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
-  //offscreen_text_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-offscreen_text_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
-offscreen_text_mask = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, 1);
-// offscreen_text_buffer = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 1,  the_canvas->allocation.width, the_canvas->allocation.height )
-
- 
-//  GdkColormap *the_colormap = gdk_colormap_new();
-
- // the_colormap->parent_instance = NULL;
- // the_colormap->size=2;
- // the_colormap->colors = NULL;
- 
- //gdk_drawable_set_colormap(offscreen_text_mask, gdk_colormap_new(gdk_drawable_get_visual(offscreen_text_mask), TRUE ));
-
-}
 
 void initialise_edit()
 {
@@ -1564,147 +1077,4 @@ void initialise_edit()
 
   // FIXME - need to make this work
   //  g_signal_connect(G_OBJECT(the_text_view), "button_press_event", G_CALLBACK(handle_cursor_move), (gpointer) this);
-}
-
-bool get_bool_option_callback(const std::string& Key, bool *value)
-{
-  cout << "Get bool " << Key << endl;
-
-  bool got_value;
-
-  char keypath[1024];
-
-  snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
-
-  cout << "Searching for key " << keypath << endl;
-
-  GError *the_error;
-
-//   if( gconf_client_unset( the_gconf_client, keypath, &the_error ) )
-//     return( false );
-
-  got_value = gconf_client_get_bool( the_gconf_client, keypath, &the_error);
-
-//   if( the_error->code == GCONF_ERROR_SUCCESS )
-//     {
-      cout << "got value " << got_value << endl;
-      *value = got_value;
-      return( true );
-     
- //    }
-//   else
-//     {
-//       cout << "could not get value - error code was " << the_error->code << endl;
-//       return( false );
-//     }
-
-      *value = got_value;
-
-  return( true );
-}
-
-bool get_long_option_callback(const std::string& Key, long *value)
-{
-  cout << "Get long " << Key << endl;
-
-  long got_value;
-
-  char keypath[1024];
-
-  snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
-
-  cout << "Searching for key " << keypath << endl;
-
-
-//   if( gconf_client_unset( the_gconf_client, keypath, NULL ) )
-//     {
-//       cout << "error was:" << endl;
-//       return( false );
-//     }
-
-
-  got_value = gconf_client_get_int( the_gconf_client, keypath, NULL);
-
-  *value = got_value;
-
-  return( true );
-}
-
-bool get_string_option_callback(const std::string& Key, std::string *value)
-{
-  cout << "Get string " << Key << endl;
-char * got_value;
-
-  char keypath[1024];
-
-  snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
-
-  cout << "Searching for key " << keypath << endl;
-
-  //GError *the_error;
-
- //  if( gconf_client_unset( the_gconf_client, keypath, NULL ) )
-//     {
-//       cout << "Key didn't exist" << endl;
-//       return( false );
-//     }
-
-  cout << "I survived the check" << endl;
-
-  got_value = gconf_client_get_string( the_gconf_client, keypath, NULL);
-
-  if( got_value != NULL )
-    {
-  *value = std::string( got_value );
-
-  return( true );
-    }
-  else
-    return( false );
-}
-  
-void set_bool_option_callback(const std::string& Key, bool Value)
-{
-  cout << "Setting bool option " << Key << " to " << Value << endl; 
-
-  char keypath[1024];
-
-  snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
-
-  cout << "Searching for key " << keypath << endl;
-
-  GError *the_error;
-
-  gconf_client_set_bool( the_gconf_client, keypath, Value, &the_error );
-
-}
-
-void set_long_option_callback(const std::string& Key, long Value)
-{
- cout << "Setting bool option " << Key << " to " << Value << endl; 
-
-  char keypath[1024];
-
-  snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
-
-  cout << "Searching for key " << keypath << endl;
-
-  GError *the_error;
-
-  gconf_client_set_int( the_gconf_client, keypath, Value, &the_error );
-}
-
-void set_string_option_callback(const std::string& Key, const std::string& Value)
-{
- cout << "Setting bool option " << Key << " to " << Value << endl; 
-
-  char keypath[1024];
-
-  snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
-
-  cout << "Searching for key " << keypath << endl;
-
-  GError *the_error;
-
-  gconf_client_set_string( the_gconf_client, keypath, Value.c_str(), &the_error );
 }
