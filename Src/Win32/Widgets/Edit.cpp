@@ -62,8 +62,11 @@ CEdit::~CEdit()
 	DeleteObject(m_Font);
 	
 	// Release the voice object created by constructor
-	pVoice->Release();
-
+	if (pVoice!=NULL)
+	{	
+		pVoice->Release();
+		pVoice=NULL;
+	}
 	delete m_FilenameGUI;
 	if (FileHandle!=INVALID_HANDLE_VALUE)
 		CloseHandle(FileHandle);
