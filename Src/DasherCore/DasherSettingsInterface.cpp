@@ -64,7 +64,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
 	this->SetFileEncoding((FileEncodingFormats) Store->GetLongOption(FILE_ENCODING));
 	
-	Store->SetBoolDefault(SHOW_SLIDER, true);
+	//Store->SetBoolDefault(SHOW_SLIDER, true);
 	this->ShowSpeedSlider(Store->GetBoolOption(SHOW_SLIDER));
 	Store->SetBoolDefault(FIX_LAYOUT, false);
 	this->FixLayout(Store->GetBoolOption(FIX_LAYOUT));
@@ -74,9 +74,16 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->ShowToolbarText(Store->GetBoolOption(SHOW_TOOLBAR_TEXT));
 	Store->SetBoolDefault(SHOW_LARGE_ICONS, true);
 	this->ShowToolbarLargeIcons(Store->GetBoolOption(SHOW_LARGE_ICONS));
-	Store->SetBoolDefault(SHOW_TOOLBAR, true);
+
+	// commented out because otherwise toobarseetings not loaded and
+	// just assumed to be true. similarly for slider settings above. FIX.
+
+	//Store->SetBoolDefault(SHOW_TOOLBAR, true);
 	this->ShowToolbar(Store->GetBoolOption(SHOW_TOOLBAR));
 	
+	std::cout << Store->GetBoolOption(SHOW_TOOLBAR) << " toolbar \n";
+	std::cout << Store->GetBoolOption(SHOW_SLIDER) << " slider \n";
+
 	Store->SetLongDefault(SCREEN_ORIENTATION, Opts::LeftToRight);
 	this->ChangeOrientation((ScreenOrientations) Store->GetLongOption(SCREEN_ORIENTATION));
 	
