@@ -3,12 +3,16 @@
 # This file is distributed under the same license as the dasher package.
 # Telsa Gwynne <hobbit@aloss.ukuu.org.uk>, 2004
 #
+# Seems a bit stupid to have credit for this: Dasher was originally
+# in en_GB, and I just copied the strings before it was converted to
+# en_US. Hence the credits -- Telsa.  
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-06 09:41+0000\n"
-"PO-Revision-Date: 2004-01-06 09:52+0000\n"
+"POT-Creation-Date: 2004-01-06 12:15+0000\n"
+"PO-Revision-Date: 2004-01-06 12:20+0000\n"
 "Last-Translator: Telsa Gwynne <hobbit@aloss.ukuu.org.uk>\n"
 "Language-Team: British English\n"
 "MIME-Version: 1.0\n"
@@ -135,7 +139,7 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>Button control setup</b>"
 
 #: Src/Gtk2/dasher.glade.h:8
-msgid "<b>Colour Selection:</b>"
+msgid "<b>Color Selection:</b>"
 msgstr "<b>Colour Selection:</b>"
 
 #: Src/Gtk2/dasher.glade.h:9
@@ -203,11 +207,11 @@ msgid "Button:"
 msgstr "Button:"
 
 #: Src/Gtk2/dasher.glade.h:25
-msgid "Change colour scheme automatically"
+msgid "Change color scheme automatically"
 msgstr "Change colour scheme automatically"
 
 #: Src/Gtk2/dasher.glade.h:26
-msgid "Colour"
+msgid "Color"
 msgstr "Colour"
 
 #: Src/Gtk2/dasher.glade.h:28
