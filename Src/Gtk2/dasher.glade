@@ -688,7 +688,7 @@
 	      <child>
 		<widget class="GtkLabel" id="label16">
 		  <property name="visible">True</property>
-		  <property name="label" translatable="yes">&lt;b&gt;Colour Selection:&lt;/b&gt;</property>
+		  <property name="label" translatable="yes">&lt;b&gt;Color Selection:&lt;/b&gt;</property>
 		  <property name="use_underline">False</property>
 		  <property name="use_markup">True</property>
 		  <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -760,7 +760,7 @@
 	  <child>
 	    <widget class="GtkLabel" id="label6">
 	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Colour</property>
+	      <property name="label" translatable="yes">Color</property>
 	      <property name="use_underline">False</property>
 	      <property name="use_markup">False</property>
 	      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -1372,7 +1372,7 @@
 			  <property name="border_width">2</property>
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="label" translatable="yes">Change colour scheme automatically</property>
+			  <property name="label" translatable="yes">Change color scheme automatically</property>
 			  <property name="use_underline">True</property>
 			  <property name="relief">GTK_RELIEF_NORMAL</property>
 			  <property name="active">False</property>
