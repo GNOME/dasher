@@ -19,12 +19,14 @@ DasherEdit *XXXdasherEdit;
 
 void edit_output_callback(symbol Symbol)
 {
-  [XXXdasherEdit outputCallback:NSStringFromStdString(dasher_get_edit_text(Symbol))];
+  NSString *s = NSStringFromStdString(dasher_get_edit_text(Symbol));
+  [XXXdasherEdit outputCallback:s];
 }
 
 void edit_flush_callback(symbol Symbol)
 {
-  [XXXdasherEdit flushCallback:NSStringFromStdString(dasher_get_edit_text(Symbol))];
+  NSString *s = NSStringFromStdString(dasher_get_edit_text(Symbol));
+  [XXXdasherEdit flushCallback:s];
 }
 
 void edit_unflush_callback()
@@ -172,17 +174,24 @@ static DasherEdit *dasherEdit = nil;
 {
   NSString *s = [[self currentTextUI] string];
   NSRange r = [[self currentTextUI] selectedRange];
+  unsigned int location = 0;
+  unsigned int length = maxChars;
+  NSString *result = nil;
 
-  unsigned int q = MIN(r.location, maxChars);
+  if (r.location < maxChars) {
+    location = 0;
+    length = r.location;
+  } else {
+    location = r.location - maxChars;
+    length = maxChars;
+  }
 
-  r = NSMakeRange(r.location - q, r.length + q);
-
-  dasherIsModifyingText = YES;
-  dasherIsModifyingText = NO;
+  r = NSMakeRange(location, length);
 
   flushCount = 0;
 
-  return r.length <= 0 ? nil : [s substringWithRange:r];
+  result = r.length <= 0 ? @"" : [s substringWithRange:r];
+  return result;
 }
 
 - clipboardCallbackWithAction:(clipboard_action)act
