@@ -32,6 +32,7 @@ void deletemenutree();
 bool buildmenutree(Accessible *parent, ControlTree *ctree, accessibletype Type);
 ControlTree* getmenutree();
 gboolean dasher_check_window(AccessibleRole role);
+gboolean findpanels(Accessible *parent);
 #endif
 #endif
 

@@ -601,8 +601,6 @@ select_new_file(GtkWidget *widget, gpointer user_data)
   choose_filename();
 
   clear_edit();
-  deletemenutree();
-  add_control_tree(gettree());
   dasher_start();
   dasher_redraw();
   dasher_pause(0,0);

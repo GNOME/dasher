@@ -5,11 +5,14 @@
 
 ControlTree *menutree;
 ControlTree *buttontree;
+ControlTree *paneltree;
 ControlTree *dummy; // This one is used to fake another control node
 #define _(x) gettext(x)
 
 extern gboolean textentry;
 extern GtkWidget *the_canvas;
+
+gboolean panels;
 
 #ifdef GNOME_A11Y
 std::vector<Accessible*> menuitems;
@@ -28,8 +31,8 @@ void setupa11y() {
   focusListener = SPI_createAccessibleEventListener(dasher_focus_listener,
 						    NULL);
   // FIXME - this gives us an AtkObject, not an Accessible
-  /*  gboolean success=SPI_registerGlobalEventListener (focusListener, "focus:");
-  while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
+  gboolean success=SPI_registerGlobalEventListener (focusListener, "focus:");
+  /*  while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
     tempaccessible=Accessible_getParent(accessible);
     if (tempaccessible==NULL) {
       break;
@@ -47,10 +50,11 @@ ControlTree* gettree() {
 #ifdef GNOME_A11Y
   menutree = new ControlTree;
   buttontree = new ControlTree;
+  paneltree = new ControlTree;
   Accessible *child;
   ControlTree *controltree;
   int numchildren;
-  //  desktop = SPI_getDesktop(0);
+  desktop = SPI_getDesktop(0);
   menutree->parent=NULL;
   menutree->children=NULL;
   menutree->pointer=NULL;
@@ -65,6 +69,20 @@ ControlTree* gettree() {
   buttontree->text=_("Buttons");
   buttontree->colour=-1;
   buttontree->next=NULL;
+  paneltree->parent=NULL;
+  paneltree->children=NULL;
+  paneltree->pointer=NULL;
+  paneltree->text=_("Panels");
+  paneltree->colour=-1;
+  paneltree->next=menutree;
+  numchildren = Accessible_getChildCount(desktop);
+  for (int i=0; i<numchildren; i++) {
+    if (findpanels(Accessible_getChildAtIndex(desktop,i))==TRUE) {
+      buildmenutree(Accessible_getChildAtIndex(desktop,i),paneltree,menus);
+      panels=TRUE;
+    }
+  }
+  
   if (focusedwindow!=NULL) {
     buildmenutree(focusedwindow,menutree,menus);
     buildmenutree(focusedwindow,buttontree,pushbuttons);
@@ -76,7 +94,28 @@ ControlTree* gettree() {
 #else
   ControlTree *menutree=buildcontroltree();
 #endif
-  return menutree;
+  if (panels==TRUE) {
+    return paneltree;
+  } else {
+    return menutree;
+  }
+}
+
+gboolean findpanels(Accessible *parent) {
+  Accessible *child;
+  gboolean useful=FALSE;
+
+  if(!strcmp(Accessible_getName(parent),"gnome-panel")) {
+    return TRUE;
+  }
+
+  int numchildren=Accessible_getChildCount(parent);
+  if (numchildren>0) {
+    for (int i=0; i<numchildren; i++) {
+      useful=(findpanels(Accessible_getChildAtIndex(parent,i))||useful);
+    }
+  }
+  return useful;
 }
 
 ControlTree* buildcontroltree() {
@@ -86,6 +125,7 @@ ControlTree* buildcontroltree() {
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
+  ControlTree *paneltree=new ControlTree;
 #ifndef GNOME_A11Y
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
   // null pointers rather than children
@@ -295,6 +335,7 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
     }
     NewNode->text=Accessible_getName(parent);
     menuitems.push_back(parent);
+    Accessible_ref(parent);
   } else {
     // We have no kids - check if we're a menu item
     if (Type==menus) {
@@ -315,9 +356,10 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
       } 
     }
     menuitems.push_back(parent);
+    Accessible_ref(parent);
   }
   if (useful==false) {
-    delete NewNode;
+    delete NewNode;    
   } else {
     if (ctree->children==NULL) {
       if (NewNode->text=="") {
@@ -340,11 +382,11 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
 #endif
 void deletemenutree() {  
 #ifdef GNOME_A11Y
-  //  while (menuitems.size()>0) {
-  //    int i=menuitems.size()-1;
-  //    Accessible_unref(menuitems[i]);
-  //    menuitems.pop_back();    
-  //  }
+  while (menuitems.size()>0) {
+    int i=menuitems.size()-1;
+    Accessible_unref(menuitems[i]);
+    menuitems.pop_back();    
+  }
 #else
   return;
 #endif
@@ -360,12 +402,12 @@ void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
     if (tempaccessible==NULL) {
       break;
     }
-    //    Accessible_unref(accessible);
+    Accessible_unref(accessible);
     accessible=tempaccessible;
   }
   if (accessible!=focusedwindow) { // The focused window has changed
     if (focusedwindow!=NULL) {
-      //      Accessible_unref(focusedwindow);
+      Accessible_unref(focusedwindow);
     }
     // FIXME - setup code above needs to work
     //    if (focusedwindow==dasherwindow) {
