@@ -11,7 +11,8 @@ namespace Dasher {
 
 inline const myint CDasherViewSquare::screen2dasherx(const int mousex)
 {
-	double x=1.0*(CanvasX-mousex)/CanvasY;
+	//	double x=1.0*(CanvasX-mousex)/CanvasY;
+		double x=1.0*(CanvasX-mousex)/CanvasX;
 	x=ixmap(x);
 	return int ( x*(1<<DasherModel().Shift()) );
 }
@@ -29,7 +30,9 @@ inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 {
 	double x=1.0*sx/(1<<DasherModel().Shift());
 	x=xmap(x);
-	return CanvasX-int(x*CanvasY);
+//	return CanvasX-int(x*CanvasY);
+	return CanvasX-int(x*CanvasX);
+
 }
 
 
