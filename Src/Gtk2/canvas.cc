@@ -224,6 +224,8 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   if (setup==false||preferences==true)
     return;
 
+  symbol = dasher_get_display_text( Character );
+
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
 
@@ -239,8 +241,6 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   pango_font_description_set_size( font,size*PANGO_SCALE);
 
   pango_layout_set_font_description(the_pangolayout,font);
-
-  symbol = dasher_get_display_text( Character );
 
   pango_layout_set_text(the_pangolayout,symbol.c_str(),-1);
 
@@ -293,7 +293,13 @@ void text_size_callback(symbol Character, int* Width, int* Height, int size)
   if (setup==false||preferences==true)
       return;
 
-  std::string symbol = dasher_get_display_text( Character );
+  std::string symbol;
+
+  if (Character!=0) {
+    symbol = dasher_get_display_text( Character );
+  } else {
+    symbol = "I"; // Fudge to get some sort of approximate height
+  }
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
 
