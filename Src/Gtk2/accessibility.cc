@@ -15,9 +15,7 @@ ControlTree* gettree() {
   Accessible *child;
   ControlTree *controltree;
   int numchildren;
-  if (desktop==NULL) {
-    desktop = SPI_getDesktop(0);
-  }
+  desktop = SPI_getDesktop(0);
   menutree->parent=NULL;
   menutree->children=NULL;
   menutree->pointer=NULL;
@@ -232,7 +230,7 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
       useful=(buildmenutree(child,NewNode)||useful);
     }
     NewNode->text=Accessible_getName(parent);
-    Accessible_unref(parent);
+    menuitems.push_back(parent);
   } else {
     // We have no kids - check if we're a menu item
     if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM) {      
@@ -241,12 +239,12 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
       NewNode->children=menutree;
       NewNode->text=Accessible_getName(parent);      
       useful=true;
-      menuitems.push_back(parent);
     }
+    menuitems.push_back(parent);
   }
   if (useful==false) {
     delete NewNode;
-    Accessible_unref(parent);
+    //    menuitems.push_back(parent);
   } else {
     if (ctree->children==NULL) {
       ctree->children=NewNode;
@@ -264,7 +262,8 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
 
 void deletemenutree() {  
   while (menuitems.size()>0) {
-    Accessible_unref(menuitems[menuitems.size()-1]);
+    int i=menuitems.size()-1;
+    Accessible_unref(menuitems[i]);
     menuitems.pop_back();
   }
   Accessible_unref(desktop);

@@ -137,6 +137,7 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
       gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
       alphabet=alph;
       dasher_redraw();
+      deletemenutree();
       add_control_tree(gettree());
       
     }
@@ -429,6 +430,7 @@ select_new_file(GtkWidget *widget, gpointer user_data)
   choose_filename();
 
   clear_edit();
+  deletemenutree();
   add_control_tree(gettree());
   dasher_start();
   dasher_redraw();
