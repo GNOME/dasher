@@ -35,6 +35,10 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	  Color = Render->Phase()%3; 
 	}
 
+	if ((Render->Cscheme()%2)==0) {
+	  Color+=40;
+	}
+
 	if (Render->GetControlTree()!=NULL) {
 	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,Render->GetControlTree()->text))
 	    RenderGroups(Render, y1, y2, text);

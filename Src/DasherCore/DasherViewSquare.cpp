@@ -244,9 +244,9 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
   right=dasherx2screen(right);
   
   // Draw the lines
-  Screen().DrawRectangle(left, top+5, right, top-5, 0, Opts::ColorSchemes(Objects));
-  Screen().DrawRectangle(left+5, top+5, left, bottom-5, 0, Opts::ColorSchemes(Objects));
-  Screen().DrawRectangle(left, bottom+5, right, bottom-5, 0, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left, top+5, right, top-5, 1, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left+5, top+5, left, bottom-5, 1, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left, bottom+5, right, bottom-5, 1, Opts::ColorSchemes(Objects));
 }
   
 
@@ -279,7 +279,7 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	  }
 	}
 
-	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 0, Opts::ColorSchemes(Objects));
+	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
 }
 
 void CDasherViewSquare::DrawKeyboard()
