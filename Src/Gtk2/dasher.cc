@@ -477,7 +477,7 @@ vfs_print_error(GnomeVFSResult *result)
 #endif
 
 extern "C" void 
-open_file (const char *filename)
+open_file (const char *myfilename)
 {
   int size;
   gchar *buffer;
@@ -488,22 +488,22 @@ open_file (const char *filename)
   GnomeVFSFileInfo info;
 
   //Try to make the path roughly absolute
-  if (filename[0]!='/') {    
+  if (myfilename[0]!='/') {    
     std::string realname;
     char dirpath[PATH_MAX];
     getcwd(dirpath,PATH_MAX);
     realname+=dirpath;
     realname+="/";
-    realname+=filename;
-    filename=realname.c_str();
+    realname+=myfilename;
+    myfilename=realname.c_str();
   }
 
-  result=gnome_vfs_open(&handle, filename, GNOME_VFS_OPEN_READ);
+  result=gnome_vfs_open(&handle, myfilename, GNOME_VFS_OPEN_READ);
   if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
     return;
   }
-  result=gnome_vfs_get_file_info(filename,&info,GNOME_VFS_FILE_INFO_DEFAULT);
+  result=gnome_vfs_get_file_info(myfilename,&info,GNOME_VFS_FILE_INFO_DEFAULT);
   if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
     return;
@@ -524,7 +524,7 @@ open_file (const char *filename)
   FILE *fp;
   int pos = 0;
 
-  stat (filename, &file_stat);
+  stat (myfilename, &file_stat);
   fp = fopen (filename, "r");
 
   if (fp==NULL || S_ISDIR(file_stat.st_mode)) {
@@ -559,7 +559,8 @@ open_file (const char *filename)
     gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
   }
 
-  gtk_window_set_title(GTK_WINDOW(window), filename);
+  gtk_window_set_title(GTK_WINDOW(window), myfilename);
+  filename=myfilename;
 
   dasher_start();
   dasher_redraw();
