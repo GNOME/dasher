@@ -55,7 +55,7 @@ void alphabet_map::RecursiveAdd(const string& Key, symbol Value, bool PrefixFlag
 		Entries.reserve(Entries.size()<<1);
 		
 		// Rehash as the pointers will all be mangled.
-		for (uint j=0; j<Entries.size(); j++) {
+		for (unsigned int j=0; j<Entries.size(); j++) {
 			Entry*& HashEntry2 = HashTable[Hash(Entries[j].Key)];
 			Entries[j].Next = HashEntry2;
 			HashEntry2 = &Entries[j];

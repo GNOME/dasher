@@ -61,8 +61,9 @@ IAM 08/2002
 namespace Dasher {class alphabet_map;}
 class Dasher::alphabet_map
 {
+
 public:
-	alphabet_map(uint InitialTableSize=255);
+	alphabet_map(unsigned int InitialTableSize=255);
 	void Add(const std::string& Key, symbol Value);
 	symbol Get(const std::string& Key, bool* KeyIsPrefix=0) const;
 	
@@ -82,8 +83,8 @@ private:
 	void RecursiveAdd(const std::string& Key, symbol Value, bool PrefixFlag);
 	
 	// A standard hash -- could try and research something specific.
-	inline uint Hash(const std::string& Input) const {
-		uint Result = 0;
+	inline unsigned int Hash(const std::string& Input) const {
+		unsigned int Result = 0;
 	
 		typedef std::string::const_iterator CI;
 		CI Cur = Input.begin();
