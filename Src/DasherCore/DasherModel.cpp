@@ -15,8 +15,8 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions)
-  : m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0), m_Dimensions(Dimensions)
+CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker)
+  : m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0), m_Dimensions(Dimensions), m_Eyetracker(Eyetracker)
 {
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	
@@ -336,6 +336,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	} else {
 	  OutputCharacters(new_under_cross);
 	}
+	//	m_Root->Recursive_Push_Node(0);
 }
 
 void CDasherModel::GoTo(myint miMousex,myint miMousey) 
@@ -372,11 +373,7 @@ void CDasherModel::GoTo(myint miMousex,myint miMousey)
 
 	symbol t=new_under_cross->Symbol();
 
-	if (new_under_cross->Control()==true) {
-	  m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data);
-	} else {
-	  OutputCharacters(new_under_cross);
-	}
+	OutputCharacters(new_under_cross);
 }
 
 void CDasherModel::OutputCharacters(CDasherNode *node) {
@@ -387,6 +384,8 @@ void CDasherModel::OutputCharacters(CDasherNode *node) {
   symbol t=node->Symbol();
   if (t) {
     m_editbox->output(t);
+  } else if (node->Control()==true) {
+    m_editbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data);
   }
 }
 

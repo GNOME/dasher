@@ -138,6 +138,7 @@ public:
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
 	void SetDasherDimensions(bool Value);
+	void SetDasherEyetracker(bool Value);
 
 private:
 	CAlphabet* m_Alphabet;
@@ -167,6 +168,7 @@ private:
 	bool m_StartLeft;
 	bool m_KeyControl;
 	bool m_Dimensions;
+	bool m_Eyetracker;
 	bool m_WindowPause;
 	bool m_ControlMode;
 	bool m_ColourMode;

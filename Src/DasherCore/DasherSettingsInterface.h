@@ -50,6 +50,9 @@ public:
 	//! Set the number of dimensions of input (either 1 or 2)
 	virtual void SetDasherDimensions(bool Value) {};
 
+	//! Set eyetracking mode on or off
+	virtual void SetDasherEyetracker(bool Value) {};
+
 	// These are recommended options for the Dasher GUI. {{{ They don't actually
 	// change the way Dasher works. They are part of the Dasher interface
 	// anyway so that it can handle option saving for you, and to make it
@@ -143,7 +146,8 @@ namespace Keys
 	extern const std::string SCREEN_HEIGHT;
 	extern const std::string DASHER_FONTSIZE;
 	extern const std::string DASHER_DIMENSIONS;
-	
+	extern const std::string DASHER_EYETRACKER;
+
 	// string options
 	extern const std::string ALPHABET_ID;
 	extern const std::string COLOUR_ID;

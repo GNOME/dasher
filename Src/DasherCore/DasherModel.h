@@ -31,7 +31,7 @@ class Dasher::CDasherModel : private NoClones
 {
 public:
 	
-	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions);
+	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker);
 	~CDasherModel();
 	
 	// framerate functions
@@ -50,6 +50,7 @@ public:
 	int Normalization() const {return m_languagemodel->normalization();}
 	myint DasherY() const {return m_DasherY;}
 	bool Dimensions() const {return m_Dimensions;}
+	bool Eyetracker() const {return m_Eyetracker;}
 
 	void OutputCharacters(CDasherNode *node);
 	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
@@ -57,7 +58,8 @@ public:
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
        void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
-	
+       void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
+
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void GoTo(myint,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
@@ -90,6 +92,9 @@ private:
 
 	// Number of input dimensions
 	bool m_Dimensions;
+
+	// Eyetracker mode
+	bool m_Eyetracker;
 
 	CDashEditbox* m_editbox;           // pointer to the editbox
 	CLanguageModel* m_languagemodel;   // pointer to the language model

@@ -85,6 +85,11 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_bool( BOOL_DIMENSIONS, Value );
     };
 
+  void SetDasherEyetracker(bool Value) 
+    {
+      handle_parameter_bool( BOOL_EYETRACKER, Value );
+    };
+
   void ShowToolbar(bool Value)
     {
       handle_parameter_bool( BOOL_SHOWTOOLBAR, Value );

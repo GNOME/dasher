@@ -10,6 +10,7 @@ namespace Dasher {
 
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
+	bool eyetracker=DasherModel().Eyetracker();
 	// Convert the Y mouse coordinate to one that's based on the canvas size
 	double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
 	
@@ -19,7 +20,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	double x=ixmap(1.0*(CanvasX-*mousex)/CanvasX)*DasherModel().DasherY();
 
 	// If we're in standard mode, fudge things for the vertical acceleration
-	if (DasherModel().Dimensions()==false && KeyControl==false) {
+	if (DasherModel().Dimensions()==false && KeyControl==false && eyetracker==false) {
 		if (dashery>m_Y2)
 			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
 		else if (dashery<m_Y3)
@@ -34,7 +35,13 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 
 	// If we're in one-dimensional mode, we need to use the Y coordinate to generate a new
 	// and exciting X coordinate
-	if (DasherModel().Dimensions()==true) {
+	if (DasherModel().Dimensions()==true || eyetracker==true) {
+		if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
+		*mousex=int(x);
+		*mousey=int(dashery);
+		return;
+		}
+
 		double disty,circlesize;	
 
 		// The x coordinate of the crosshairs
@@ -50,7 +57,8 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		// This is the radius of the circle transcribed by the one-dimensional mapping
 		circlesize=DasherModel().DasherY()/2.5;
 
-		if (disty>circlesize) {
+		if (disty>circlesize && eyetracker==false) {
+			printf("1\n");
 			dashery=2*(dasherOX-circlesize)-dashery;
 			disty=dasherOX-(circlesize/2)-dashery;
 			if(disty<-(circlesize/2)) {
@@ -63,7 +71,8 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 			*mousey=int(dashery);
 			return;
 		}
-		else if (disty <-(circlesize)) {
+		else if (disty <-(circlesize) && eyetracker==false) {
+			printf("2\n");
 			dashery=2*(dasherOX+circlesize)-dashery;
 			disty=dasherOX+circlesize/2-dashery;			
 			if(disty>circlesize/2) {
@@ -76,6 +85,8 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 			*mousey=int(dashery);
 			return;
 		} else {
+			if (eyetracker==true && (disty>circlesize || disty < -(circlesize)))
+				disty=circlesize;
 			x=pow(pow(circlesize,2)-pow(disty,2),0.5);
 		}
 		x=dasherOX-x;

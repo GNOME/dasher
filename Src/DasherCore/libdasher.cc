@@ -320,6 +320,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_DIMENSIONS:
       interface->SetDasherDimensions(value);
       break;
+    case BOOL_EYETRACKER:
+      interface->SetDasherEyetracker(value);
+      break;
     case BOOL_SHOWTOOLBAR:
       interface->ShowToolbar(value);
       break;

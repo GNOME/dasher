@@ -69,6 +69,7 @@ public:
 	void Generic_Push_Node(CLanguageModel::CNodeContext *context);
 	void Push_Node();                                      // give birth to children
 	void Push_Node(CLanguageModel::CNodeContext *context); // give birth to children with this context
+	void Recursive_Push_Node(int depth);
 	void Delete_children();
 	void Delete_dead(CDasherNode* alive);
 	void Dump_node() const;                                // diagnostic

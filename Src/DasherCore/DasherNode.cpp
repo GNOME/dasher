@@ -181,6 +181,24 @@ void CDasherNode::Push_Node()
 	Generic_Push_Node(m_context);
 }
 
+void CDasherNode::Recursive_Push_Node(int depth) {
+
+  if ((m_iHbnd-m_iLbnd)<10) {
+    return;
+  }
+
+  Push_Node();
+
+  if (depth>2)
+    return;
+
+  for (int i=1; i<m_iChars; i++) {
+    if (m_Children!=0 && m_Children[i]!=0) {
+      m_Children[i]->Recursive_Push_Node(depth+1);
+    }
+  }
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,const myint miY2,const myint miMousex,const myint miMousey, vector<symbol> &vString) const
