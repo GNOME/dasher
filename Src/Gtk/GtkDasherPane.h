@@ -11,6 +11,8 @@
 #include "DasherInterface.h"
 #include "SettingsStore.h"
 
+#include <time.h>
+
 using namespace Dasher;
 
 class GtkDasherPane : public Gtk::VBox
@@ -21,7 +23,7 @@ public:
 
   void clear();
 
-protected:
+private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;
   
@@ -38,9 +40,6 @@ protected:
 
   bool paused;
   bool started;
-
-  int pause_time;
-
 };
 
 #endif
