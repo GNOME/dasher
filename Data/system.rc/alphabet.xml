@@ -1018,13 +1018,7 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_hiragana_JP.txt</train>
-<group name="Hiragana vowels">
-<s d="あ" t="あ"/>
-<s d="い" t="い"/>
-<s d="う" t="う"/>
-<s d="え" t="え"/>
-<s d="お" t="お"/>
-</group>
+<space d="_" t=" "/>
 <group name="Hiragana consonents">
 <s d="か" t="か"/>
 <s d="き" t="き"/>
@@ -1069,6 +1063,13 @@
 <s d="ゑ" t="ゑ"/>
 <s d="を" t="を"/>
 <s d="ん" t="ん"/>
+</group>
+<group name="Hiragana vowels">
+<s d="あ" t="あ"/>
+<s d="い" t="い"/>
+<s d="う" t="う"/>
+<s d="え" t="え"/>
+<s d="お" t="お"/>
 </group>
 </alphabet>
 </alphabets>
