@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 #include <stdio.h>
+#include <time.h>
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -276,34 +277,30 @@ select_open_file(gpointer data, guint action, GtkWidget *widget)
 }
 
 void
-new_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+select_new_file(gpointer data, guint action, GtkWidget *widget)
 {
-  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  //FIXME - confirm this
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  if (timestamp==TRUE) {
+    tm *t_struct;
+    time_t ctime;
+    
+    ctime = time( NULL );
+    
+    t_struct= localtime( &ctime );
+    
+    char tbuffer[256];
+    
+    snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+    
+    filename = g_strdup (tbuffer);
 
+  }
 
   clear_edit();
   dasher_start();
   dasher_redraw();
-}
 
-
-void
-select_new_file(gpointer data, guint action, GtkWidget *widget)
-{
-
-  GtkWidget *filew;
-
-  filew = gtk_file_selection_new ("File selection");
-
-  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
-		    "clicked", G_CALLBACK (new_file_from_filesel), (gpointer) filew);
-    
-  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
-			    "clicked", G_CALLBACK (gtk_widget_destroy),
-			    G_OBJECT (filew));
-  gtk_widget_show (filew);
 }
 
 void 
@@ -794,8 +791,25 @@ open_window() {
   dasher_start();
 
   gtk_timeout_add(50, timer_callback, NULL );  
-  
+
   setup = TRUE;
+}
+
+void choose_filename() {
+  if (timestamp==TRUE) {
+    tm *t_struct;
+    time_t ctime;
+    
+    ctime = time( NULL );
+    
+    t_struct= localtime( &ctime );
+    
+    char tbuffer[256];
+    
+    snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+    
+    filename = g_strdup (tbuffer);
+  }
 }
 
 void clipboard_copy(void) {

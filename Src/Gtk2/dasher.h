@@ -27,6 +27,7 @@ void save_file();
 void select_import_file();
 void interface_setup();
 void open_window();
+void choose_filename();
 
 void parameter_string_callback( string_param p, const char *value );
 void parameter_double_callback( double_param p, double value );

@@ -63,6 +63,8 @@ main(int argc, char *argv[])
 
   dasher_late_initialise(360,360);
 
+  choose_filename();
+
   gtk_main ();
 
   dasher_finalise();
