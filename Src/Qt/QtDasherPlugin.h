@@ -18,8 +18,9 @@ public:
   void get_new_context(std::string&, int) {};
   void unflush();
   void output(int);
-  void outputcontrol(void* pointer, int data) {};
+  void outputcontrol(void* pointer, int data, int) {};
   void deletetext();
+  void deletetext(int) {deletetext();};
   void flush(int);
   void Clear() {};
   void SetEncoding(Dasher::Opts::FileEncodingFormats) {};

@@ -1,4 +1,4 @@
-QTDIR=/usr/share/qte2
+QTDIR=/opt/Qtopia/sharp
 
 AM_CXXFLAGS = -O2 -fno-rtti -DQWS -I../DasherCore -I$(QTDIR)/include -DPROGDATA=\"$(pkgdatadir)/\"
 
@@ -7,14 +7,14 @@ SOURCES = QtDasherScreen.cc moc_QtDasherScreen.cc QtDasherImpl.cc moc_QtDasherIm
 BINARIES = QtDasherScreen.o moc_QtDasherScreen.o QtDasherImpl.o moc_QtDasherImpl.o QtDasherPlugin.o moc_QtDasherPlugin.o
 
 libqdasher.so.0.0.0: $(BINARIES)
-	$(CXX) -shared $(BINARIES) ../DasherCore/libdashercore.a -lqte -lqpe -Wl,-static -lexpat -Wl,-soname -Wl,libqdasher.so.0 -o $@
+	$(CXX) -shared $(BINARIES) ../DasherCore/libdashercore.a -L${QTDIR}/lib -lqte -lqpe -Wl,-static -lexpat -Wl,-soname -Wl,libqdasher.so.0 -o $@
 	$(STRIP) $@
 
 moc_%.cc: %.h
-	/usr/share/qte2/bin/moc $< -o $@
+	$(QTDIR)/bin/moc $< -o $@
 
 %.o: %.cc
-	$(CXX) -c $(CXXFLAGS) $< -o $@
+	$(CXX) -c $(AM_CXXFLAGS) $(CXXFLAGS) $< -o $@
 
 all: libqdasher.so.0.0.0
 
