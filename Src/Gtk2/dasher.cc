@@ -154,6 +154,7 @@ change_alphabet(gpointer alph)
   //  g_free(alph);
   g_async_queue_push(trainqueue,(void *)1);
   g_thread_exit(NULL);
+  return NULL;
 }
 
 
@@ -365,24 +366,28 @@ button_preferences_show(GtkWidget *widget, gpointer user_data)
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton18")),buttons[9].y);
   gtk_window_set_transient_for(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")),GTK_WINDOW(preferences_window));
   gtk_window_present(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")));
+  return FALSE;
 }
 
 extern "C" gboolean
 button_preferences_hide(GtkWidget *widget, gpointer user_data)
 {
   gtk_widget_hide(glade_xml_get_widget(widgets,"buttonprefs"));
+  return FALSE;
 }
 
 extern "C" gboolean
 fontsel_hide(GtkWidget *widget, gpointer user_data)
 {
   gtk_widget_hide(GTK_WIDGET(dasher_fontselector));
+  return FALSE;
 }
 
 extern "C" gboolean
 edit_fontsel_hide(GtkWidget *widget, gpointer user_data)
 {
   gtk_widget_hide(GTK_WIDGET(edit_fontselector));
+  return FALSE;
 }
 
 extern "C" gboolean
@@ -590,7 +595,7 @@ save_file_as (const char *filename, bool append)
   inbuffer = gtk_text_iter_get_slice (start,end);
 
   length = gtk_text_iter_get_offset(end)-gtk_text_iter_get_offset(start);
-  (void*)outbuffer = malloc((length+1)*sizeof(gchar));
+  outbuffer = (char *)malloc((length+1)*sizeof(gchar));
   memcpy((void*)outbuffer,(void*)inbuffer,length*sizeof(gchar));
   outbuffer[length]=0;
   g_free(inbuffer);
