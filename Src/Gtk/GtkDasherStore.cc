@@ -8,8 +8,11 @@
 #include <map>
 #include <stdio.h>
 
+#include <sys/stat.h>
+
 GtkDasherStore::GtkDasherStore()
 {
+  create_rcdir();
   read_from_file();
 }
 
@@ -190,4 +193,23 @@ void GtkDasherStore::read_from_file()
 
  delete( UserDataDir );
  
+}
+
+void GtkDasherStore::create_rcdir()
+{
+  // Create a .dasher directory if it doesn't already exist
+
+  char *HomeDir;
+
+  HomeDir = getenv( "HOME" );
+
+  char *UserDataDir;
+
+  UserDataDir = new char[ strlen( HomeDir ) + 9 ];
+  sprintf( UserDataDir, "%s/.dasher", HomeDir );
+
+  mkdir( UserDataDir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+
+  delete( UserDataDir );
+  delete( HomeDir );
 }

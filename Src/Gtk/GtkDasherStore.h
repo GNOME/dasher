@@ -28,6 +28,9 @@ class GtkDasherStore : public CSettingsStore
 
   void write_to_file();
   void read_from_file();
+  
+  void create_rcdir();
+
 };
 
 #endif
