@@ -133,7 +133,7 @@ void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
 
 void reset_edit_font()
 {
-  gtk_widget_modify_font (the_text_view,pango_font_description_from_string("Sans 10"));
+  gtk_widget_modify_font (the_text_view,pango_font_description_from_string("Fixed 10"));
 }
 
 void set_edit_font(gpointer data, guint action, GtkWidget *widget)
