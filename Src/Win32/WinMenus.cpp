@@ -53,6 +53,7 @@ ControlTree* WinMenus::buildcontroltree()
   stoptree->next=pausetree;
   stoptree->type=1;
   stoptree->colour=242;
+  stoptree->children=dummytree;
   pausetree->pointer=(void*)1;
   pausetree->data=3;
   pausetree->children=menutree;
@@ -60,6 +61,7 @@ ControlTree* WinMenus::buildcontroltree()
   pausetree->next=movetree;
   pausetree->type=1;
   pausetree->colour=241;
+  pausetree->children=dummytree;
   movetree->pointer=NULL;
   movetree->data=0;
   movetree->children=menutree;
@@ -82,6 +84,7 @@ ControlTree* WinMenus::buildcontroltree()
   speaktree->next=NULL;
   speaktree->type=1;
   speaktree->colour=-1;
+  speaktree->children=dummytree;
   return stoptree;
 }
 
