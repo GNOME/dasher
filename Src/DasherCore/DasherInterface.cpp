@@ -26,7 +26,9 @@ CDasherInterface::CDasherInterface()
 	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
 	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
 	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
-	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0), m_ColourMode(0), m_Paused(0), m_PaletteChange(0)
+	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DasherFontSize(Opts::Normal),
+	  m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0), m_ColourMode(0), m_Paused(0), 
+	  m_PaletteChange(0)
 {
 }
 
@@ -353,6 +355,7 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 {
 	m_DasherScreen = NewScreen;
 	m_DasherScreen->SetFont(m_DasherFont);
+	m_DasherScreen->SetFontSize(m_DasherFontSize);
 	m_DasherScreen->SetColourScheme(m_Colours);
 	m_DasherScreen->SetInterface(this);
 	ChangeScreen();
@@ -651,6 +654,7 @@ void CDasherInterface::SetDasherFontSize(FontSize fontsize)
 {
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetLongOption(Keys::DASHER_FONTSIZE, fontsize);
+	m_DasherFontSize = fontsize;
 	if (m_DasherScreen!=0) {
 	         m_DasherScreen->SetFontSize(fontsize);
 	}
