@@ -315,7 +315,7 @@ class dasher_edit : public CDashEditbox
     {
       handle_edit_output(Symbol);
     };
-  void outputcontrol(void* pointer, int data)
+  void outputcontrol(void* pointer, int data, int type)
     {
       handle_edit_outputcontrol(pointer, data);
     };
