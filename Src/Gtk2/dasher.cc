@@ -18,7 +18,7 @@
 #include <gnome-speech/gnome-speech.h>
 #endif
 
-#ifdef GNOME
+#ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
 #endif
@@ -398,6 +398,7 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   }
 }
 
+#ifdef GNOME_LIBS
 void
 vfs_print_error(GnomeVFSResult *result)
 {
@@ -409,6 +410,7 @@ vfs_print_error(GnomeVFSResult *result)
   gtk_widget_destroy(error_dialog);
   return;
 }
+#endif
 
 extern "C" void 
 open_file (const char *filename)
@@ -416,7 +418,7 @@ open_file (const char *filename)
   int size;
   gchar *buffer;
   GtkWidget *error_dialog;
-#ifdef GNOME
+#ifdef GNOME_LIBS
   GnomeVFSHandle *handle;
   GnomeVFSResult result;
   GnomeVFSFileInfo info;
@@ -450,7 +452,7 @@ open_file (const char *filename)
 
   failure = stat (filename, &file_stat);
 
-  size=file_stat.st_size();
+  size=file_stat.st_size;
   
   if (failure) {
     error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
@@ -535,7 +537,7 @@ save_file_as (const char *filename, bool append)
   start = new GtkTextIter;
   end = new GtkTextIter;
 
-#ifdef GNOME
+#ifdef GNOME_LIBS
   GnomeVFSResult result;
   GnomeVFSHandle *handle;
 
@@ -602,7 +604,7 @@ save_file_as (const char *filename, bool append)
     break;
   }	       
 
-#ifdef GNOME
+#ifdef GNOME_LIBS
   GnomeVFSFileSize vfs_bytes_written;
   if (append==true) {
     result=gnome_vfs_seek(handle,GNOME_VFS_SEEK_END,0);
@@ -1553,7 +1555,7 @@ extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
 
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
 {
-#ifdef GNOME
+#ifdef GNOME_LIBS
   GdkPixbuf* pixbuf = NULL;
 
   gchar *authors[] = {

@@ -54,7 +54,7 @@ fi
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0)
-	AC_DEFINE([GNOME])
+	AC_DEFINE([GNOME_LIBS])
 fi
 
 if [[ x"$WITHSPEECH" = xtrue ]]; then
