@@ -1751,8 +1751,10 @@ void parameter_bool_callback( bool_param p, bool value )
     }
 }
 
-void null_log_handler (const gchar *log_domain, GLogLevelFlags log_level, 
-		       const gchar *message, gpointer unused_data) {}
+void interface_cleanup() {
+  cleanup_edit();
+}
+
 void stop() {
   if (paused == TRUE) {
     dasher_unpause( get_time() );

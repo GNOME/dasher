@@ -179,6 +179,8 @@ main(int argc, char *argv[])
 
   gtk_main ();
 
+  interface_cleanup();
+
   g_object_unref(the_gconf_client);
 
 #ifdef GNOME_SPEECH

@@ -51,6 +51,7 @@ extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data);
 void interface_setup(GladeXML *xml);
 void interface_late_setup();
 void open_window(GladeXML *xml);
+void interface_cleanup();
 extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale *hscale);
 
@@ -59,9 +60,6 @@ void parameter_double_callback( double_param p, double value );
 void parameter_int_callback( int_param p, long int value );
 void parameter_bool_callback( bool_param p, bool value );
 
-
-void null_log_handler (const gchar *log_domain, GLogLevelFlags log_level, 
-		       const gchar *message, gpointer unused_data);
 
 extern GtkWidget *vbox, *toolbar;
 extern GdkPixbuf *p;

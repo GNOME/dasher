@@ -13,6 +13,7 @@
 #endif
 
 void initialise_edit();
+void cleanup_edit();
 void edit_output_callback(symbol Symbol);
 void edit_outputcontrol_callback(void* pointer, int data);
 void edit_delete_callback();

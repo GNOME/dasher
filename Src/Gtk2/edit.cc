@@ -20,6 +20,8 @@ GtkClipboard *the_text_clipboard;
 std::string last_said;
 std::string say;
 std::string outputtext;
+KeySym *origkeymap;
+int modifiedkey=0;
 
 gunichar* wideoutput;
 
@@ -27,8 +29,23 @@ extern gint outputcharacters;
 extern bool file_modified;
 void initialise_edit()
 {
+  int min, max, numcodes;
+  Display *dpy = gdk_x11_get_default_xdisplay();
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   the_text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (the_text_view));
+#ifdef X_HAVE_UTF8_STRING
+  XDisplayKeycodes(dpy,&min,&max);
+  origkeymap = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
+#endif
+}
+
+void cleanup_edit() {
+#ifdef X_HAVE_UTF8_STRING
+  int min, max, numcodes;
+  Display *dpy = gdk_x11_get_default_xdisplay();
+  XDisplayKeycodes(dpy,&min,&max);
+  XChangeKeyboardMapping(dpy,min,numcodes,origkeymap,(max-min));
+#endif
 }
 
 void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data)
@@ -63,16 +80,18 @@ void edit_output_callback(symbol Symbol)
     
     wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);
     for (size_t i=0; i<numoutput; i++) {
+      modifiedkey=(modifiedkey+1)%10;
       // This gives us the magic X keysym
       wideoutput[i]=wideoutput[i] | 0x01000000;
       
       XDisplayKeycodes(dpy,&min,&max);
       keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
-      keysym[(max-min-1)*numcodes]=wideoutput[i];
+      keysym[(max-min-modifiedkey-1)*numcodes]=wideoutput[i];
       XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
       XSync(dpy,true);
       XFree(keysym);
-      code = XKeysymToKeycode(dpy,wideoutput[i]);    
+      //      code = XKeysymToKeycode(dpy,wideoutput[i]);    
+      code=(max-modifiedkey-1);
       if (code!=0) {
 	XTestFakeKeyEvent(dpy, code, True, CurrentTime);
 	XSync(dpy,true);
