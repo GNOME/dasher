@@ -9,6 +9,7 @@
 
 #include "../DasherCore/DasherTypes.h"
 #include "DasherWindow.h"
+#include "WinMenus.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/ColourBox.h"
@@ -128,6 +129,7 @@ void CDasherWindow::Show(int nCmdShow)
 void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
 {
 	m_CurrentAlphabet = NewAlphabetID;
+	DasherAppInterface->AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
 }
 
 void CDasherWindow::ChangeColours(const string& NewColourID)
