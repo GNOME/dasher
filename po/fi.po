@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-05 03:05+0200\n"
+"POT-Creation-Date: 2005-03-07 14:58+0200\n"
 "PO-Revision-Date: 2005-03-05 03:05+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
@@ -182,39 +182,10 @@ msgid "Dasher is a predictive text entry application"
 msgstr "Dasher on ennustava tekstinsyöttösovellus"
 
 #. Just a debugging thing, output to the console
-#: ../Src/Gtk2/dasher.cc:2084
+#: ../Src/Gtk2/dasher.cc:2081
 #, c-format
-msgid "In %ld seconds\n"
-msgstr "%ld sekunnissa\n"
-
-#: ../Src/Gtk2/dasher.cc:2085
-#, c-format
-msgid "%d characters\n"
-msgstr "%d merkkiä\n"
-
-#: ../Src/Gtk2/dasher.cc:2086
-#, c-format
-msgid "%f bits\n"
-msgstr "%f bittiä\n"
-
-#: ../Src/Gtk2/dasher.cc:2088
-#, c-format
-msgid "%f characters per second\n"
-msgstr "%f merkkiä sekunnissa\n"
-
-#: ../Src/Gtk2/dasher.cc:2089
-#, c-format
-msgid "%f bits per second\n"
-msgstr "%f bittiä sekunnissa\n"
-
-#: ../Src/Gtk2/dasher.cc:2090
-#, c-format
-msgid ""
-"%f bits per character\n"
-"\n"
-msgstr ""
-"%f bittiä per merkki\n"
-"\n"
+msgid "%d characters output in %ld seconds\n"
+msgstr "%f merkkiä tulostettu %ld sekunnissa\n"
 
 #: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -613,6 +584,25 @@ msgstr "Varoitus: puheen parametreja ei voitu asettaa\n"
 #: ../Src/main.cc:104
 msgid "Dasher Text Entry"
 msgstr "Dasherin tekstisyöte"
+
+#~ msgid "In %ld seconds\n"
+#~ msgstr "%ld sekunnissa\n"
+
+#~ msgid "%d characters\n"
+#~ msgstr "%d merkkiä\n"
+
+#~ msgid "%f bits\n"
+#~ msgstr "%f bittiä\n"
+
+#~ msgid "%f bits per second\n"
+#~ msgstr "%f bittiä sekunnissa\n"
+
+#~ msgid ""
+#~ "%f bits per character\n"
+#~ "\n"
+#~ msgstr ""
+#~ "%f bittiä per merkki\n"
+#~ "\n"
 
 #~ msgid "_Contents"
 #~ msgstr "_Sisältö"
