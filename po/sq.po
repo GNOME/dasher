@@ -1,13 +1,13 @@
-# translation of dasher Albanian
+# Albanian translation of dasher
 # This file is distributed under the same license as the dasher package.
 # Laurent Dhima <laurenti@alblinux.net>, 2004.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: dasher.HEAD.sq\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-17 10:53+0100\n"
-"PO-Revision-Date: 2004-01-17 11:20+0100\n"
+"POT-Creation-Date: 2004-02-01 00:21+0100\n"
+"PO-Revision-Date: 2004-02-01 00:19+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Ndalo"
 
 #: Src/Gtk2/accessibility.cc:146
 msgid "Pause"
-msgstr "Pause"
+msgstr "Pezullo"
 
 #: Src/Gtk2/accessibility.cc:153
 msgid "Move"
@@ -46,7 +46,7 @@ msgstr "Lëvize"
 
 #: Src/Gtk2/accessibility.cc:160
 msgid "Delete"
-msgstr "Fshi"
+msgstr "Elemino"
 
 #: Src/Gtk2/accessibility.cc:169
 msgid "Speak"
@@ -74,7 +74,7 @@ msgstr "Gjithçka"
 
 #: Src/Gtk2/accessibility.cc:224
 msgid "New"
-msgstr "E re"
+msgstr "I/e re"
 
 #: Src/Gtk2/accessibility.cc:230
 msgid "Repeat"
@@ -82,7 +82,7 @@ msgstr "Përsërit"
 
 #: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
 msgid "Character"
-msgstr "Character"
+msgstr "Simboli"
 
 #: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
 msgid "Word"
@@ -108,7 +108,7 @@ msgstr "Dasher"
 
 #: Src/Gtk2/dasher.cc:1758
 msgid "Dasher is a predictive text entry application"
-msgstr ""
+msgstr "Dasher është një aplikativ për futjen e tekstit të parashikuar"
 
 #. Just a debugging thing
 #: Src/Gtk2/dasher.cc:2165
@@ -186,7 +186,7 @@ msgstr "<b>Opcionet e aksit Y:</b>"
 
 #: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
-msgstr "Të avancuara"
+msgstr "Të hollësishme"
 
 #: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
@@ -238,7 +238,7 @@ msgstr "Kopjo gjithçka kur ndalon"
 
 #: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
-msgstr "Pri"
+msgstr "Prije"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
@@ -282,6 +282,9 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
+"Nëse është zgjedhur kjo menyrë, sipër  dhe poshtë do të\n"
+"ciklojë mbrapa dhe para midis koordinatave dhe djathtas do të konfermohet "
+"zgjedhja"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
@@ -305,7 +308,7 @@ msgstr "Normal"
 
 #: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr ""
+msgstr "Numri i pixels që duhet të mbulojë të gjithë gjerësinë y:"
 
 #: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
@@ -353,7 +356,7 @@ msgstr "Shfaq pozicionin e mouse"
 
 #: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
-msgstr ""
+msgstr "Trego shpejtësinë e rrëshkitësit"
 
 #: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
@@ -411,7 +414,7 @@ msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
-msgstr "Tepër e madhe"
+msgstr "Tepër i/e madhe"
 
 #: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
 msgid "View"
@@ -501,4 +504,3 @@ msgstr "Kujdes: i pamundur rregullimi i parametrave të shqiptimit\n"
 #: Src/main.cc:97
 msgid "Dasher Text Entry"
 msgstr "Elementi tekst i Dasher"
-
