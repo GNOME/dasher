@@ -1848,46 +1848,54 @@ void stop() {
 
 void scan_alphabet_files()
 {
-  dirent **names;
+  GDir* directory;
+  G_CONST_RETURN gchar* filename;
   alphabetglob=g_pattern_spec_new("alphabet*xml");
-  int number = scandir(system_data_dir,&names,alphabet_filter,alphasort);
-  if (number>0) {
-    for (int i=0; i<number; i++) {
-      add_alphabet_filename(names[i]->d_name);
+  directory = g_dir_open(system_data_dir,0,NULL);
+
+  while(filename=g_dir_read_name(directory)) {
+    if (alphabet_filter(filename)) {
+      add_alphabet_filename(filename);
     }
   }
-  number = scandir(user_data_dir,&names,alphabet_filter,alphasort);
-  if (number>0) {
-    for (int i=0; i<number; i++) {
-      add_alphabet_filename(names[i]->d_name);
+
+  directory = g_dir_open(user_data_dir,0,NULL);
+
+  while(filename=g_dir_read_name(directory)) {
+    if (alphabet_filter(filename)) {
+      add_alphabet_filename(filename);
     }
   }
 }
 
 void scan_colour_files()
 {
-  dirent **names;
+  GDir* directory;
+  G_CONST_RETURN gchar* filename;
   colourglob=g_pattern_spec_new("colour*xml");
-  int number = scandir(system_data_dir,&names,colour_filter,alphasort);
-  if (number>0) {
-    for (int i=0; i<number; i++) {
-      add_colour_filename(names[i]->d_name);
+  directory = g_dir_open(system_data_dir,0,NULL);
+
+  while(filename=g_dir_read_name(directory)) {
+    if (colour_filter(filename)) {
+      add_colour_filename(filename);
     }
   }
-  number = scandir(user_data_dir,&names,colour_filter,alphasort);
-  if (number>0) {
-    for (int i=0; i<number; i++) {
-      add_colour_filename(names[i]->d_name);
+
+  directory = g_dir_open(user_data_dir,0,NULL);
+
+  while(filename=g_dir_read_name(directory)) {
+    if (colour_filter(filename)) {
+      add_colour_filename(filename);
     }
   }
 }
 
-int alphabet_filter(const struct dirent *dirent)
+int alphabet_filter(const gchar* filename)
 {
-  return int(g_pattern_match_string(alphabetglob,dirent->d_name));
+  return int(g_pattern_match_string(alphabetglob,filename));
 }
 
-int colour_filter(const struct dirent *dirent)
+int colour_filter(const gchar* filename)
 {
-  return int(g_pattern_match_string(colourglob,dirent->d_name));
+  return int(g_pattern_match_string(colourglob,filename));
 }

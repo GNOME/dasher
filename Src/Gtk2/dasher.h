@@ -103,8 +103,8 @@ void scan_colour_files();
 void update_colours();
 void update_alphabets();
 
-int alphabet_filter(const struct dirent *);
-int colour_filter(const struct dirent *);
+int alphabet_filter(const gchar* filename);
+int colour_filter(const gchar* filename);
 
 #endif
 
