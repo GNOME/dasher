@@ -361,18 +361,17 @@ static void registerCallbacks()
   int height = y2 - y1;
   NSRect r;
 
-  if (x1 > x2)
-    {
+  if (x1 > x2) {
     x = x2;
     width = x1 - x2;
-    }
-  if (y1 > y2)
-    {
+  }
+  
+  if (y1 > y2) {
     y = y2;
     height = y1 - y2;
-    }
+  }
 
-  r = NSMakeRect(x1, y1, width, height);
+  r = NSMakeRect(x, y, width, height);
   [self addRect:r color:aColor];
 }
 
