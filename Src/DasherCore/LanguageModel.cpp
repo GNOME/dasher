@@ -93,7 +93,7 @@ int CLanguageModel::GetColour(int character)
   if (colour!="") {
     return atoi(colour.c_str());
   } else {
-    return 0;
+    return -1;
   }
 }
 
@@ -103,6 +103,6 @@ int CLanguageModel::GetGroupColour(int group)
 	if (colour!="") {
 		return atoi(colour.c_str());
 	} else {
-		return 0;
+		return -1;
 	}
 }

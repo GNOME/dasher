@@ -30,7 +30,11 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	int Color;
 
 	if (ColourMode==true) {
-	  Color = Render->Colour();
+	  if (Render->Colour()!=-1) {
+	    Color = Render->Colour();
+	  } else {
+	    Color = (Render->Symbol()%3)+10;
+	  }
 	} else {
 	  Color = Render->Phase()%3; 
 	}
@@ -92,7 +96,12 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				int mostleft;
 				bool force;
 				if (ColourMode==true) {
+				  int Colour = Render->GroupColour(current);
+				  if (Colour!=-1) {
 					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				  } else {
+				    RenderNode(0,(current%3)+40,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				  }
 				} else {
 					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
 				}
