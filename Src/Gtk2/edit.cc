@@ -2,11 +2,13 @@
 #include "dasher.h"
 #include "accessibility.h"
 #include "canvas.h"
+#include <iostream>
 
 extern int paused;
 extern bool keyboardmodeon;
 extern bool mouseposstart;
 extern bool onedmode;
+extern gboolean stdoutpipe;
 
 #include <gdk/gdkx.h>
 
@@ -19,6 +21,7 @@ GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;
 std::string last_said;
 std::string say;
+std::string pipetext;
 std::string outputtext;
 KeySym *origkeymap;
 int modifiedkey=0;
@@ -66,6 +69,10 @@ void edit_output_callback(symbol Symbol)
 #ifdef GNOME_SPEECH
   say+=label;
 #endif
+
+  if (stdoutpipe==TRUE) {
+    pipetext+=label;
+  }
 
   outputtext+=label;
   file_modified=TRUE;
@@ -290,6 +297,12 @@ void edit_delete_callback()
   }
 #endif
 
+  if (stdoutpipe==true) {
+    if (pipetext.length()>0) {
+      pipetext.resize(pipetext.length()-1);
+    }
+  }
+
   if(outputtext.length()>0) {
     outputtext.resize(outputtext.length()-1);
   }
@@ -481,6 +494,13 @@ void get_new_context_callback( std::string &str, int max )
 
   delete start;
   delete end;  
+}
+
+void outputpipe()
+{
+  printf("%s",pipetext.c_str());
+  fflush(stdout);
+  pipetext="";
 }
 
 #ifdef GNOME_SPEECH

@@ -14,14 +14,17 @@ text-entry system wherever a full-size keyboard cannot be used.
 .SH OPTIONS
 .B dasher 
 takes the following options:
-.IP "-w"
-The number of characters entered in a period of time will be printed
-whenever Dasher is stopped.
 .IP "-o"
 Dasher will appear without a text edit box and will default to entering
 text into other windows.
 .IP "-p"
 Dasher will open a preferences window and not the main window.
+.IP "-s"
+Dasher will output the entered text to stdout whenever stopped. Only text
+entered since the last stop will be output.
+.IP "-w"
+The number of characters entered in a period of time will be printed
+whenever Dasher is stopped.
 
 .SH USAGE
 After startup, Dasher will present the user with a window containing two major
@@ -58,7 +61,7 @@ Add the contents of the Dasher edit box to the end of a file chosen by the user
 .IP "Import training text"
 Use a file to further train Dasher (for instance, a training file containing
 scientific terms to add to the initial English training). Training files must
-be UTF-8 encoding.
+be UTF-8 encoded.
 
 .IP Exit
 Quit Dasher

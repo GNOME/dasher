@@ -113,6 +113,7 @@ gint buttonnum=0;
 extern gboolean timedata;
 extern gboolean drawoutline;
 extern gboolean textentry;
+extern gboolean stdoutpipe;
 
 gint prev_pos_x;
 gint prev_pos_y;
@@ -2190,6 +2191,9 @@ void stop() {
     if (speakonstop==true)
       speak();
 #endif
+    if (stdoutpipe==true) {
+      outputpipe();
+    }
     if (timedata==TRUE) {
       // Just a debugging thing
       printf(_("%d characters output in %d seconds\n"),outputcharacters,

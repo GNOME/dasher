@@ -61,6 +61,7 @@ GError *gconferror;
 gboolean timedata=FALSE;
 gboolean preferences=FALSE;
 gboolean textentry=FALSE;
+gboolean stdoutpipe=FALSE;
 extern gboolean setup,paused;
 extern int optind;
 
@@ -131,21 +132,27 @@ main(int argc, char *argv[])
 #endif
 
   while (1) {
-    c=getopt( argc, argv, "wpo" );
+    c=getopt( argc, argv, "wpos" );
 
     if (c == -1)
       break;
 
     switch (c) {
     case 'w':
+      // Print number of characters produced per second
       timedata=TRUE;
       break;
     case 'p':
+      // Only show the preferences window
       preferences=TRUE;
       break;
     case 'o':
       // Onscreen text entry mode
       textentry=TRUE;
+      break;
+    case 's':
+      // Pipe stuff to stdout
+      stdoutpipe=TRUE;
       break;
     }
   }
