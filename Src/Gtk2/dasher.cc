@@ -123,7 +123,7 @@ GtkItemFactoryEntry entries[] = {
 
 #define NO_PREV_POS -1
 
-guint window_x = 500, window_y = 600;
+guint window_x = 500, window_y = 500;
 
 gboolean setup = FALSE;
 gboolean paused = TRUE;
