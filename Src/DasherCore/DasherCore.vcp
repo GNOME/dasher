@@ -175,7 +175,7 @@ BSC32=bscmake.exe
 # PROP BASE CPU_ID "{D6518FFC-710F-11D3-99F2-00105A0DF099}"
 # PROP BASE Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP BASE Target_Dir ""
-# PROP Use_MFC 0
+# PROP Use_MFC 1
 # PROP Use_Debug_Libraries 1
 # PROP Output_Dir "ARMDbg"
 # PROP Intermediate_Dir "ARMDbg"
@@ -184,7 +184,7 @@ BSC32=bscmake.exe
 # PROP Target_Dir ""
 CPP=clarm.exe
 # ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
-# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /FR /YX /M$(CECrtMTDebug) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -256,9 +256,6 @@ BSC32=bscmake.exe
 # Name "DasherCore - Win32 (WCE ARM) Debug"
 # Name "DasherCore - Win32 (WCE x86em) Release"
 # Name "DasherCore - Win32 (WCE x86em) Debug"
-# Begin Group "Source Files"
-
-# PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
 SOURCE=.\Alphabet.cpp
@@ -311,7 +308,11 @@ DEP_CPP_ALPHA=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_ALPHA=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\DasherTypes.h"\
@@ -337,6 +338,10 @@ DEP_CPP_ALPHA=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\Alphabet.h
 # End Source File
 # Begin Source File
 
@@ -385,7 +390,11 @@ DEP_CPP_ALPHAB=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_ALPHAB=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\AlphabetMap.h"\
 	".\DasherTypes.h"\
 	
@@ -408,6 +417,10 @@ DEP_CPP_ALPHAB=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\AlphabetMap.h
 # End Source File
 # Begin Source File
 
@@ -461,8 +474,12 @@ DEP_CPP_ALPHI=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_ALPHI=\
+	"..\Common\assert.h"\
 	"..\Common\Expat\lib\expat.h"\
 	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\AlphIO.h"\
 	".\DasherTypes.h"\
 	
@@ -487,6 +504,14 @@ DEP_CPP_ALPHI=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\AlphIO.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Context.h
 # End Source File
 # Begin Source File
 
@@ -555,8 +580,12 @@ DEP_CPP_CUSTO=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_CUSTO=\
+	"..\Common\assert.h"\
 	"..\Common\Expat\lib\expat.h"\
 	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\AlphIO.h"\
@@ -593,6 +622,18 @@ DEP_CPP_CUSTO=\
 # End Source File
 # Begin Source File
 
+SOURCE=.\CustomAlphabet.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DashEdit.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherAppInterface.h
+# End Source File
+# Begin Source File
+
 SOURCE=.\DasherInterface.cpp
 
 !IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
@@ -619,10 +660,12 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
+	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
 	
 
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
@@ -649,10 +692,12 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
+	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
 	
 
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
@@ -679,10 +724,12 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
+	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
 	
 
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
@@ -709,10 +756,12 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
+	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
 	
 
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
@@ -739,23 +788,31 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
+	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
 	
 
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_DASHE=\
+	"..\Common\assert.h"\
 	"..\Common\Expat\lib\expat.h"\
 	"..\Common\MSVC_Unannoy.h"\
 	"..\Common\NoClones.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\AlphIO.h"\
+	".\ColourIO.h"\
 	".\Context.h"\
 	".\CustomAlphabet.h"\
+	".\CustomColours.h"\
 	".\DashEdit.h"\
 	".\DasherAppInterface.h"\
 	".\DasherInterface.h"\
@@ -769,7 +826,7 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
+	".\FrameRate.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
@@ -799,10 +856,12 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
+	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
 	
 
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
@@ -829,14 +888,20 @@ DEP_CPP_DASHE=\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
 	".\DasherWidgetInterface.h"\
-	".\EnglishAlphabet.h"\
 	".\LanguageModel.h"\
 	".\PPMLanguageModel.h"\
 	".\SettingsStore.h"\
 	
+NODEP_CPP_DASHE=\
+	".\EnglishAlphabet.h"\
+	
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherInterface.h
 # End Source File
 # Begin Source File
 
@@ -925,16 +990,21 @@ DEP_CPP_DASHER=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_DASHER=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
 	"..\Common\NoClones.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\Context.h"\
 	".\DashEdit.h"\
 	".\DasherModel.h"\
 	".\DasherNode.h"\
+	".\DasherScreen.h"\
 	".\DasherTypes.h"\
-	".\DasherWidgetInterface.h"\
+	".\FrameRate.h"\
 	".\LanguageModel.h"\
 	
 
@@ -972,6 +1042,10 @@ DEP_CPP_DASHER=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherModel.h
 # End Source File
 # Begin Source File
 
@@ -1045,13 +1119,21 @@ DEP_CPP_DASHERN=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_DASHERN=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
 	"..\Common\NoClones.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
 	".\DasherNode.h"\
+	".\DasherScreen.h"\
 	".\DasherTypes.h"\
+	".\FrameRate.h"\
 	".\LanguageModel.h"\
 	
 
@@ -1083,6 +1165,14 @@ DEP_CPP_DASHERN=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherNode.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherScreen.h
 # End Source File
 # Begin Source File
 
@@ -1136,7 +1226,11 @@ DEP_CPP_DASHERS=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_DASHERS=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\DasherSettingsInterface.h"\
 	".\DasherTypes.h"\
 	".\SettingsStore.h"\
@@ -1162,6 +1256,14 @@ DEP_CPP_DASHERS=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherSettingsInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherTypes.h
 # End Source File
 # Begin Source File
 
@@ -1265,8 +1367,12 @@ DEP_CPP_DASHERV=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_DASHERV=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
 	"..\Common\NoClones.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\Context.h"\
@@ -1277,7 +1383,7 @@ DEP_CPP_DASHERV=\
 	".\DasherTypes.h"\
 	".\DasherView.h"\
 	".\DasherView.inl"\
-	".\DasherWidgetInterface.h"\
+	".\FrameRate.h"\
 	".\LanguageModel.h"\
 	
 
@@ -1321,6 +1427,14 @@ DEP_CPP_DASHERV=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherView.inl
 # End Source File
 # Begin Source File
 
@@ -1434,8 +1548,12 @@ DEP_CPP_DASHERVI=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_DASHERVI=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
 	"..\Common\NoClones.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\Context.h"\
@@ -1448,7 +1566,7 @@ DEP_CPP_DASHERVI=\
 	".\DasherView.inl"\
 	".\DasherViewSquare.h"\
 	".\DasherViewSquare.inl"\
-	".\DasherWidgetInterface.h"\
+	".\FrameRate.h"\
 	".\LanguageModel.h"\
 	
 
@@ -1496,6 +1614,22 @@ DEP_CPP_DASHERVI=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherViewSquare.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherViewSquare.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherWidgetInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\EnglishAlphabet.h
 # End Source File
 # Begin Source File
 
@@ -1559,7 +1693,11 @@ DEP_CPP_LANGU=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_LANGU=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\Context.h"\
@@ -1591,6 +1729,10 @@ DEP_CPP_LANGU=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\LanguageModel.h
 # End Source File
 # Begin Source File
 
@@ -1664,8 +1806,12 @@ DEP_CPP_PPMLA=\
 !ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
 
 DEP_CPP_PPMLA=\
+	"..\Common\assert.h"\
 	"..\Common\MSVC_Unannoy.h"\
 	"..\Common\NoClones.h"\
+	"..\Common\Types\int.h"\
+	"..\Common\Types\int32.h"\
+	"..\Common\Types\int64.h"\
 	".\Alphabet.h"\
 	".\AlphabetMap.h"\
 	".\Context.h"\
@@ -1702,6 +1848,10 @@ DEP_CPP_PPMLA=\
 
 !ENDIF 
 
+# End Source File
+# Begin Source File
+
+SOURCE=.\PPMLanguageModel.h
 # End Source File
 # Begin Source File
 
@@ -1766,98 +1916,9 @@ DEP_CPP_SETTI=\
 !ENDIF 
 
 # End Source File
-# End Group
-# Begin Group "Header Files"
-
-# PROP Default_Filter "h;hpp;hxx;hm;inl"
-# Begin Source File
-
-SOURCE=.\Alphabet.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\AlphabetMap.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\AlphIO.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Context.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\CustomAlphabet.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DashEdit.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherAppInterface.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherInterface.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherModel.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherNode.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherScreen.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherSettingsInterface.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherTypes.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherView.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherView.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherViewSquare.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherViewSquare.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\DasherWidgetInterface.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\EnglishAlphabet.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\LanguageModel.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\PPMLanguageModel.h
-# End Source File
 # Begin Source File
 
 SOURCE=.\SettingsStore.h
 # End Source File
-# End Group
 # End Target
 # End Project

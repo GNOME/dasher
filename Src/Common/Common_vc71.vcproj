@@ -352,6 +352,9 @@
 			RelativePath=".\assert.h">
 		</File>
 		<File
+			RelativePath=".\Common.h">
+		</File>
+		<File
 			RelativePath=".\MSVC_Unannoy.h">
 		</File>
 		<File

@@ -58,7 +58,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "NDEBUG" /d "$(CePlatform)" /d "MIPS" /d "_MIPS_" /r
 CPP=clmips.exe
 # ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Yu"stdafx.h" /Oxs /M$(CECrtMT) /c
-# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Yu"stdafx.h" /Oxs /M$(CECrtMT) /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Oxs /M$(CECrtMT) /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
@@ -91,7 +92,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "DEBUG" /d "$(CePlatform)" /d "MIPS" /d "_MIPS_" /r
 CPP=clmips.exe
 # ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /Yu"stdafx.h" /M$(CECrtMTDebug) /c
-# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /Yu"stdafx.h" /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /M$(CECrtMTDebug) /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
@@ -124,7 +126,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "NDEBUG" /d "$(CePlatform)" /d "SHx" /d "SH3" /d "_SH3_" /r
 CPP=shcl.exe
 # ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Yu"stdafx.h" /Oxs /M$(CECrtMT) /c
-# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Yu"stdafx.h" /Oxs /M$(CECrtMT) /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Oxs /M$(CECrtMT) /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
@@ -157,7 +160,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "DEBUG" /d "$(CePlatform)" /d "SHx" /d "SH3" /d "_SH3_" /r
 CPP=shcl.exe
 # ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /Yu"stdafx.h" /M$(CECrtMTDebug) /c
-# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /Yu"stdafx.h" /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /M$(CECrtMTDebug) /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
@@ -190,7 +194,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "NDEBUG" /d "$(CePlatform)" /d "ARM" /d "_ARM_" /r
 CPP=clarm.exe
 # ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Yu"stdafx.h" /Oxs /M$(CECrtMT) /c
-# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Yu"stdafx.h" /Oxs /M$(CECrtMT) /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /Oxs /M$(CECrtMT) /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
@@ -223,7 +228,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "DEBUG" /d "$(CePlatform)" /d "ARM" /d "_ARM_" /r
 CPP=clarm.exe
 # ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /Yu"stdafx.h" /M$(CECrtMTDebug) /c
-# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /Yu"stdafx.h" /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /M$(CECrtMTDebug) /c
+# SUBTRACT CPP /Fr /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
@@ -256,7 +262,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "NDEBUG" /d "$(CePlatform)" /d "_X86_" /d "x86" /d "i486" /r
 CPP=cl.exe
 # ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /Yu"stdafx.h" /Gz /Oxs /c
-# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /Yu"stdafx.h" /Gz /Oxs /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /Gz /Oxs /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /o "NUL" /win32
@@ -289,7 +296,8 @@ RSC=rc.exe
 # ADD RSC /l 0x409 /d UNDER_CE=$(CEVersion) /d _WIN32_WCE=$(CEVersion) /d "UNICODE" /d "_UNICODE" /d "DEBUG" /d "$(CePlatform)" /d "_X86_" /d "x86" /d "i486" /r
 CPP=cl.exe
 # ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "i486" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /Yu"stdafx.h" /Gz /c
-# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "i486" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /Yu"stdafx.h" /Gz /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D "i486" /D UNDER_CE=$(CEVersion) /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /Gz /c
+# SUBTRACT CPP /YX /Yc /Yu
 MTL=midl.exe
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /o "NUL" /win32
@@ -315,278 +323,1181 @@ LINK32=link.exe
 # Begin Group "Resource Files"
 
 # PROP Default_Filter "ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe"
-# Begin Source File
-
-SOURCE=.\Dasher.ico
-# End Source File
-# Begin Source File
-
-SOURCE=.\Dasher.rc
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\newres.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\resource.h
-# End Source File
 # End Group
 # Begin Group "Widgets"
 
 # PROP Default_Filter ""
 # Begin Source File
 
-SOURCE=.\Widgets\AboutBox.cpp
+SOURCE=..\..\Win32\Widgets\AboutBox.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
 DEP_CPP_ABOUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\AboutBox.h"\
-	".\WinHelper.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\WinHelper.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\AboutBox.h
+SOURCE=..\..\Win32\Widgets\AboutBox.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\AlphabetBox.cpp
+SOURCE=..\..\Win32\Widgets\AlphabetBox.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
-	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
-	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
 DEP_CPP_ALPHA=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\AlphabetBox.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Canvas.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_CANVA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Canvas.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\ColourBox.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_COLOU=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\ColourBox.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\DasherEncodingToCP.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\DasherEncodingToCP.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Edit.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_EDIT_=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Edit.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\FilenameGUI.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_FILEN=\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_FILEN=\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\FilenameGUI.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\KeyControl.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
@@ -595,1038 +1506,865 @@ DEP_CPP_ALPHA=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\AlphabetBox.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Canvas.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_CANVA=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_CANVA=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherAppInterface.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherWidgetInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-DEP_CPP_CANVA=\
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Canvas.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\DasherEncodingToCP.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_DASHE=\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-DEP_CPP_DASHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\DasherCore\DasherTypes.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\DasherEncodingToCP.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Edit.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_EDIT_=\
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_EDIT_=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\DasherCore\DashEdit.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-# PROP Exclude_From_Build 1
-DEP_CPP_EDIT_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Edit.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\FilenameGUI.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-# PROP Exclude_From_Build 1
-DEP_CPP_FILEN=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\FilenameGUI.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Menu.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-NODEP_CPP_MENU_=\
-	"..\Common\MSVC_Unannoy.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-# PROP Exclude_From_Build 1
-DEP_CPP_MENU_=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Menu.h"\
-	".\WinHelper.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Menu.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Panel.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-DEP_CPP_PANEL=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Panel.h"\
-	".\WinHelper.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Panel.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Screen.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_SCREE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_SCREE=\
-	"..\Common\MSVC_Unannoy.h"\
-	"..\Common\NoClones.h"\
-	"..\DasherCore\DasherScreen.h"\
-	"..\DasherCore\DasherTypes.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-# PROP Exclude_From_Build 1
-DEP_CPP_SCREE=\
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+# SUBTRACT CPP /Fr
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_KEYCO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\KeyControl.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Panel.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_PANEL=\
+	"..\..\Win32\Widgets\Panel.h"\
+	"..\..\Win32\WinHelper.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Panel.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Prefs.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_PREFS=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Prefs.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Screen.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
-	".\Widgets\DasherEncodingToCP.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Screen.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Screen.inl
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Slidebar.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
-DEP_CPP_SLIDE=\
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_SLIDE=\
-	"..\DasherCore\DasherSettingsInterface.h"\
-	
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-# PROP Exclude_From_Build 1
-DEP_CPP_SLIDE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherTypes.h"\
-	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\Slidebar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinWrap.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
-
-!ENDIF 
-
-# End Source File
-# Begin Source File
-
-SOURCE=.\Widgets\Slidebar.h
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	
+
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	
+
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	
+
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-# PROP Exclude_From_Build 1
+DEP_CPP_SCREE=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\CustomColours.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\DasherEncodingToCP.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\SplashScreen.cpp
+SOURCE=..\..\Win32\Widgets\Screen.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\Screen.inl
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\Widgets\SplashScreen.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
@@ -1634,9 +2372,9 @@ DEP_CPP_SPLAS=\
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
@@ -1644,9 +2382,9 @@ DEP_CPP_SPLAS=\
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
@@ -1654,9 +2392,9 @@ DEP_CPP_SPLAS=\
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
@@ -1664,19 +2402,21 @@ DEP_CPP_SPLAS=\
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_SPLAS=\
+	"..\..\Common\Common.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
@@ -1684,244 +2424,305 @@ DEP_CPP_SPLAS=\
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-# PROP Exclude_From_Build 1
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\SplashScreen.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinWrap.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\SplashScreen.h
+SOURCE=..\..\Win32\Widgets\SplashScreen.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\Splitter.cpp
+SOURCE=..\..\Win32\Widgets\Toolbar.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
-DEP_CPP_SPLIT=\
+DEP_CPP_TOOLB=\
+	"..\..\Common\Common.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-# PROP Exclude_From_Build 1
-DEP_CPP_SPLIT=\
-	"..\..\Common\MSVC_Unannoy.h"\
+DEP_CPP_TOOLB=\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Splitter.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\Splitter.h
+SOURCE=..\..\Win32\Widgets\Toolbar.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\Toolbar.cpp
+SOURCE=..\..\Win32\Widgets\WindowSelect.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
-DEP_CPP_TOOLB=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	
-NODEP_CPP_TOOLB=\
-	"..\Common\NoClones.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-DEP_CPP_TOOLB=\
+DEP_CPP_WINDO=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\Toolbar.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\WindowSelect.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\Toolbar.h
+SOURCE=..\..\Win32\Widgets\WindowSelect.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\WinOptions.cpp
+SOURCE=..\..\Win32\Widgets\WinOptions.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
@@ -1929,12 +2730,10 @@ NODEP_CPP_WINOP=\
 DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
@@ -1942,12 +2741,10 @@ NODEP_CPP_WINOP=\
 DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
@@ -1955,12 +2752,10 @@ NODEP_CPP_WINOP=\
 DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
@@ -1968,25 +2763,23 @@ NODEP_CPP_WINOP=\
 DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_WINOP=\
+	"..\..\Common\Common.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
@@ -1994,12 +2787,10 @@ NODEP_CPP_WINOP=\
 DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINOP=\
-	"..\DasherCore\SettingsStore.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
@@ -2008,109 +2799,141 @@ DEP_CPP_WINOP=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\Widgets\WinOptions.h
+SOURCE=..\..\Win32\Widgets\WinOptions.h
 # End Source File
 # End Group
 # Begin Source File
 
-SOURCE=.\Dasher.cpp
+SOURCE=..\..\DasherCore\Alphabet.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	
-NODEP_CPP_DASHER=\
-	".\ipapi.h"\
-	".\ygshell.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-# PROP Exclude_From_Build 1
-DEP_CPP_DASHER=\
-	".\Dasher.h"\
-	".\StdAfx.h"\
-	{$(INCLUDE)}"aygshell.h"\
-	{$(INCLUDE)}"sipapi.h"\
+DEP_CPP_ALPHAB=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
+	"..\..\DasherCore\DasherTypes.h"\
 	
 
 !ENDIF 
@@ -2118,7 +2941,130 @@ DEP_CPP_DASHER=\
 # End Source File
 # Begin Source File
 
-SOURCE=.\Dasher.h
+SOURCE=..\..\DasherCore\AlphIO.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -2126,11 +3072,16 @@ SOURCE=.\DasherWindow.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2138,33 +3089,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2172,33 +3134,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2206,33 +3179,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2240,33 +3224,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2274,33 +3269,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2308,33 +3314,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2342,33 +3359,44 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-DEP_CPP_DASHERW=\
+DEP_CPP_DASHER=\
+	"..\..\Common\assert.h"\
 	"..\..\Common\Expat\lib\expat.h"\
-	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
 	"..\..\DasherCore\DasherScreen.h"\
@@ -2376,29 +3404,31 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherTypes.h"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\GDI\FontStore.h"\
+	"..\..\Win32\Widgets\AboutBox.h"\
+	"..\..\Win32\Widgets\AlphabetBox.h"\
+	"..\..\Win32\Widgets\Canvas.h"\
+	"..\..\Win32\Widgets\ColourBox.h"\
+	"..\..\Win32\Widgets\Edit.h"\
+	"..\..\Win32\Widgets\FilenameGUI.h"\
+	"..\..\Win32\Widgets\KeyControl.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\Prefs.h"\
+	"..\..\Win32\Widgets\Screen.h"\
+	"..\..\Win32\Widgets\Screen.inl"\
+	"..\..\Win32\Widgets\Slidebar.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\Toolbar.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	".\DasherWindow.h"\
-	".\StdAfx.h"\
-	".\Widgets\AboutBox.h"\
-	".\Widgets\AlphabetBox.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	{$(INCLUDE)}"aygshell.h"\
-	{$(INCLUDE)}"sipapi.h"\
 	
-# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
@@ -2409,129 +3439,73 @@ SOURCE=.\DasherWindow.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\StdAfx.cpp
-
-!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-DEP_CPP_STDAF=\
-	".\StdAfx.h"\
-	
-# ADD CPP /Yc"stdafx.h"
-
-!ENDIF 
-
+SOURCE=..\..\Win32\resource.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\StdAfx.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\WinHelper.cpp
+SOURCE=..\..\Win32\WinHelper.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_WINHE=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
 DEP_CPP_WINHE=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Win32\WinHelper.h"\
 	
 
 !ENDIF 
@@ -2539,74 +3513,73 @@ DEP_CPP_WINHE=\
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinHelper.h
+SOURCE=..\..\Win32\WinHelper.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinLocalisation.cpp
+SOURCE=..\..\Win32\WinLocalisation.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_WINLO=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
 DEP_CPP_WINLO=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinLocalisation.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinLocalisation.h"\
 	
 
 !ENDIF 
@@ -2614,7 +3587,7 @@ DEP_CPP_WINLO=\
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinLocalisation.h
+SOURCE=..\..\Win32\WinLocalisation.h
 # End Source File
 # Begin Source File
 
@@ -2623,273 +3596,345 @@ SOURCE=.\WinMain.cpp
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
 DEP_CPP_WINMA=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Common.h"\
 	"..\..\Common\Expat\lib\expat.h"\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\Alphabet.h"\
+	"..\..\DasherCore\AlphabetMap.h"\
 	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\ColourIO.h"\
+	"..\..\DasherCore\Context.h"\
+	"..\..\DasherCore\CustomColours.h"\
 	"..\..\DasherCore\DashEdit.h"\
 	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherInterface.h"\
+	"..\..\DasherCore\DasherModel.h"\
+	"..\..\DasherCore\DasherNode.h"\
 	"..\..\DasherCore\DasherScreen.h"\
 	"..\..\DasherCore\DasherSettingsInterface.h"\
 	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherView.h"\
+	"..\..\DasherCore\DasherView.inl"\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\FrameRate.h"\
+	"..\..\DasherCore\LanguageModel.h"\
 	"..\..\DasherCore\SettingsStore.h"\
-	".\DasherWindow.h"\
-	".\Widgets\Canvas.h"\
-	".\Widgets\Edit.h"\
-	".\Widgets\FilenameGUI.h"\
-	".\Widgets\Menu.h"\
-	".\Widgets\Screen.h"\
-	".\Widgets\Screen.inl"\
-	".\Widgets\Slidebar.h"\
-	".\Widgets\SplashScreen.h"\
-	".\Widgets\Splitter.h"\
-	".\Widgets\Toolbar.h"\
-	".\Widgets\WinOptions.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	".\WinWrap.h"\
-	
-NODEP_CPP_WINMA=\
-	"..\DasherCore\DasherInterface.h"\
+	"..\..\Win32\DasherWindow.h"\
+	"..\..\Win32\Widgets\Menu.h"\
+	"..\..\Win32\Widgets\SplashScreen.h"\
+	"..\..\Win32\Widgets\Splitter.h"\
+	"..\..\Win32\Widgets\WinOptions.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinMenus.h"\
+	"..\..\Win32\WinUTF8.h"\
+	"..\..\Win32\WinWrap.h"\
 	
 
 !ENDIF 
@@ -2897,94 +3942,185 @@ NODEP_CPP_WINMA=\
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinUTF8.cpp
+SOURCE=..\..\Win32\WinMenus.cpp
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Platform.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+DEP_CPP_WINME=\
+	"..\..\Common\assert.h"\
+	"..\..\Common\Types\int.h"\
+	"..\..\Common\Types\int32.h"\
+	"..\..\Common\Types\int64.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\Win32\WinMenus.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\WinMenus.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\Win32\WinUTF8.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
 
 DEP_CPP_WINUT=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
 DEP_CPP_WINUT=\
 	"..\..\Common\MSVC_Unannoy.h"\
-	".\WinHelper.h"\
-	".\WinUTF8.h"\
-	
-NODEP_CPP_WINUT=\
-	"..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.c"\
+	"..\..\Common\Unicode\ConvertUTF.h"\
+	"..\..\Win32\WinHelper.h"\
+	"..\..\Win32\WinUTF8.h"\
 	
 
 !ENDIF 
@@ -2992,90 +4128,34 @@ NODEP_CPP_WINUT=\
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinUTF8.h
+SOURCE=..\..\Win32\WinUTF8.h
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinWrap.cpp
+SOURCE=..\..\Win32\WinWrap.cpp
 
 !IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
 
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
-
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
-
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
 
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
-
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
-
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
 
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
-
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
-
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
 
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
-
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
-
-DEP_CPP_WINWR=\
-	"..\..\Common\MSVC_Unannoy.h"\
-	"..\..\Common\NoClones.h"\
-	".\WinHelper.h"\
-	".\WinWrap.h"\
-	
 
 !ENDIF 
 
 # End Source File
 # Begin Source File
 
-SOURCE=.\WinWrap.h
+SOURCE=..\..\Win32\WinWrap.h
 # End Source File
 # End Target
 # End Project

@@ -3,7 +3,7 @@ Microsoft eMbedded Visual Tools Workspace File, Format Version 3.00
 
 ###############################################################################
 
-Project: "Dasher"=".\Dasher.vcp" - Package Owner=<4>
+Project: "Common"=..\..\Common\Common.vcp - Package Owner=<4>
 
 Package=<5>
 {{{
@@ -11,14 +11,23 @@ Package=<5>
 
 Package=<4>
 {{{
-    Begin Project Dependency
-    Project_Dep_Name DasherCore
-    End Project Dependency
 }}}
 
 ###############################################################################
 
-Project: "DasherCore"="..\..\DasherCore\DasherCore.vcp" - Package Owner=<4>
+Project: "Dasher"=.\Dasher.vcp - Package Owner=<4>
+
+Package=<5>
+{{{
+}}}
+
+Package=<4>
+{{{
+}}}
+
+###############################################################################
+
+Project: "DasherCore"=..\..\DasherCore\DasherCore.vcp - Package Owner=<4>
 
 Package=<5>
 {{{
