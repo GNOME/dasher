@@ -9,13 +9,17 @@
 #ifndef __DasherAppInterface_h__
 #define __DasherAppInterface_h__
 
-#include "DasherScreen.h"
-#include "DashEdit.h"
 #include "AlphIO.h"
 #include <string>
 #include <vector>
 
-namespace Dasher {class CDasherAppInterface;}
+namespace Dasher
+{
+	class CDasherAppInterface;
+	class CDasherScreen;
+	class CDashEditbox;
+}
+
 class Dasher::CDasherAppInterface
 {
 public:

@@ -17,9 +17,16 @@ e.g. - output characters to the edit control
 #ifndef __DashEdit_h__
 #define __DashEdit_h__
 
-#include "DasherWidgetInterface.h"
+#include "DasherTypes.h"
+#include <string>
 
-namespace Dasher {class CDashEditbox;}
+namespace Dasher 
+{
+	class CDashEditbox;
+	class CDasherWidgetInterface;
+}
+
+
 class Dasher::CDashEditbox
 {
 public:
