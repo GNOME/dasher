@@ -60,6 +60,8 @@ public:
 	void CopyAllOnStop(bool Value);
 	void DrawMouse(bool Value);
 	void SetDasherDimensions(bool Value);
+	void StartOnLeft(bool Value);
+	void StartOnSpace(bool Value);
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -83,7 +85,9 @@ private:
 	CWinOptions* WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;
-	
+	bool startonspace;
+	bool startonleft;
+
 	// Misc window handling
 	void SetMenuCheck(UINT MenuItem, bool Value);
 	void Layout();

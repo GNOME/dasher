@@ -29,6 +29,8 @@ public:
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
 	HWND getwindow() {return m_hwnd;}
+	void StartOnLeftClick(bool Value) {startonleft = Value;}
+	void StartOnSpace(bool Value) {startonspace = Value;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -41,6 +43,8 @@ private:
 	unsigned int imousex,imousey;
 	UINT MY_TIMER;
 	bool running;
+	bool startonleft;
+	bool startonspace;
 	ThreadParams *tp;
 };
 

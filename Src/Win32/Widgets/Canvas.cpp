@@ -84,6 +84,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		return 0;
 		break;
 	case WM_KEYDOWN:
+		if (startonspace == false) {
+			return 0;
+		}
 		if (wParam != VkKeyScan(' ')) {
 				return 0;
 		}
@@ -105,7 +108,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_LBUTTONDBLCLK:
 	case WM_LBUTTONDOWN:
 		SetFocus(Window);
-		
+		if (startonleft==false) {
+			return 0;
+		}
 		if (running==0) {
 			// if dasher is idle
 			

@@ -187,8 +187,11 @@ BEGIN
         MENUITEM "&Editing Font...",            ID_OPTIONS_EDITFONT
         MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
+        MENUITEM SEPARATOR
         MENUITEM "One dimensional",             ID_OPTIONS_1D
         MENUITEM "Draw mouse position",         ID_OPTIONS_DRAWMOUSE
+        MENUITEM "Mouse button starts/stops",   ID_OPTIONS_LEFTMOUSE
+        MENUITEM "Space bar starts/stops",      ID_OPTIONS_SPACE
     END
     POPUP "&Help"
     BEGIN

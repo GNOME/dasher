@@ -258,6 +258,18 @@ void CDasherWindow::SetDasherDimensions(bool Value)
 	WinMenu.SetStatus(ID_OPTIONS_1D, false, Value);
 }
 
+void CDasherWindow::StartOnLeft(bool Value)
+{
+	m_pCanvas->StartOnLeftClick(Value);
+	WinMenu.SetStatus(ID_OPTIONS_LEFTMOUSE, false, Value);
+}
+
+void CDasherWindow::StartOnSpace(bool Value)
+{
+	m_pCanvas->StartOnSpace(Value);
+	WinMenu.SetStatus(ID_OPTIONS_SPACE, false, Value);
+}
+
 void CDasherWindow::CopyAllOnStop(bool Value)
 {
 	// TODO either add something here or in interface to actually do something
@@ -289,6 +301,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			// Parse the menu selections:
 			switch (wmId)
 			{
+			case ID_OPTIONS_LEFTMOUSE:
+				DasherSettingsInterface->StartOnLeft(!WinMenu.GetCheck(ID_OPTIONS_LEFTMOUSE));
+			break;
+			case ID_OPTIONS_SPACE:
+				DasherSettingsInterface->StartOnSpace(!WinMenu.GetCheck(ID_OPTIONS_SPACE));
+			break;
 			case ID_OPTIONS_1D:
 				DasherSettingsInterface->SetDasherDimensions(!WinMenu.GetCheck(ID_OPTIONS_1D));
 			break;

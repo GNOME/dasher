@@ -143,6 +143,8 @@
 #define ID_OPTIONS_FONTSIZE_VERYLARGE   32809
 #define ID_OPTIONS_1D                   32810
 #define ID_OPTIONS_DRAWMOUSE            32811
+#define ID_OPTIONS_LEFTMOUSE            32812
+#define ID_OPTIONS_SPACE                32813
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -150,7 +152,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        156
-#define _APS_NEXT_COMMAND_VALUE         32812
+#define _APS_NEXT_COMMAND_VALUE         32814
 #define _APS_NEXT_CONTROL_VALUE         1055
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
