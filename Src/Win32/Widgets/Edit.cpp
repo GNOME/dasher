@@ -680,6 +680,10 @@ void CEdit::deletetext()
 	if (speech.length()>0) {
 		speech.resize(speech.length()-1);
 	}
+
+        if (m_Output.length()>0) {
+		m_Output.resize(m_Output.length()-1);
+	}
 }
 
 void CEdit::SetWindow(HWND window)
