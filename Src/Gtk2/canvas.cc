@@ -112,7 +112,6 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
 
-  //  foreground = get_color(Color, ColorScheme);
   GdkColor foreground = colours[Color];
 
   gdk_color_alloc(colormap, &foreground);
@@ -121,17 +120,25 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   if( x2 > x1 ) {
     if( y2 > y1 ) {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y1, x2-x1, y2-y1);
+      gdk_gc_set_foreground (graphics_context, &black);
+      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y1, x2-x1, y2-y1);
     }
     else {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y2, x2-x1, y1-y2);
+      gdk_gc_set_foreground (graphics_context, &black);
+      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y2, x2-x1, y1-y2);
     }
   }
   else {
     if( y2 > y1 ) {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y1, x1-x2, y2-y1);
+      gdk_gc_set_foreground (graphics_context, &black);
+      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y1, x1-x2, y2-y1);
     }
     else {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y2, x1-x2, y1-y2);
+      gdk_gc_set_foreground (graphics_context, &black);
+      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y2, x1-x2, y1-y2);
     }
   }
 
