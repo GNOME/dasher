@@ -153,7 +153,7 @@ void GtkDasherStore::read_from_file()
 
   infile.open( UserDataDir );
  
- if( !infile.bad() )
+ if( infile.good() )
    {
      char ibuffer[256];
 
