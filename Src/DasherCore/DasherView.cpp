@@ -44,7 +44,7 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	  Color = Render->Phase()%3; 
 	}
 
-	if ((Render->Cscheme()%2)==1 && Color<130) { // We don't loop on high
+	if ((Render->Cscheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
 	  Color+=130;                                // colours
 	}
 
