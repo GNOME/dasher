@@ -806,6 +806,8 @@ open_window() {
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
   sprintf( user_data_dir, "%s/.dasher/", home_dir );
 
+  mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+
   // FIXME CHANGE THIS!
   system_data_dir = PROGDATA"/";
   

@@ -1,4 +1,5 @@
 #include "edit.h"
+#include <iostream>
 
 #ifdef GNOME_A11Y
 #include "accessibility.h"
@@ -13,6 +14,7 @@ GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;
 GtkFontSelectionDialog *editfontdialog;
 std::string say;
+std::string outputtext;
 
 extern gint outputcharacters;
 
@@ -38,6 +40,8 @@ void edit_output_callback(symbol Symbol)
   say+=label;
 #endif
 
+  outputtext+=label;
+
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
@@ -45,7 +49,20 @@ void edit_output_callback(symbol Symbol)
   SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
 
+  if (outputtext.length()>10) {
+    write_to_file();
+  }
+
   outputcharacters++;
+}
+
+void write_to_file()
+{
+  std::string filename=dasher_get_training_file();
+  int fd=open(filename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
+  write(fd,outputtext.c_str(),outputtext.length());
+  close(fd);
+  outputtext="";
 }
 
 void edit_outputcontrol_callback(void* pointer, int data)
@@ -81,6 +98,10 @@ void edit_delete_callback()
     say.resize(say.length()-1);
   }
 #endif
+
+  if(outputtext.length()>0) {
+    outputtext.resize(outputtext.length()-1);
+  }
 
 #ifdef GNOME_A11Y
   SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);

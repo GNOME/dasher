@@ -353,6 +353,11 @@ void dasher_train_file( const char *filename )
   interface->TrainFile(filename);
 }
 
+const char* dasher_get_training_file()
+{
+  return (interface->GetTrainFile()).c_str();
+}
+
 int dasher_get_alphabets( const char **alphabetlist, int s )
 {
   vector< string > alist;

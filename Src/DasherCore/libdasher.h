@@ -88,6 +88,7 @@ void dasher_set_set_string_option_callback( void (*_cb)(const std::string&, cons
 
 void dasher_train_file( const char *filename );
 int dasher_get_alphabets( const char **alphabetlist, int s );
+const char* dasher_get_training_file();
 
 void dasher_start();
 void dasher_redraw();
