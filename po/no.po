@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: zenity 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-16 21:58+0100\n"
-"PO-Revision-Date: 2004-01-16 22:04+0100\n"
+"POT-Creation-Date: 2004-02-24 18:24+0100\n"
+"PO-Revision-Date: 2004-02-24 18:28+0100\n"
 "Last-Translator: Sigurd Gartmann <sigurd-gnome-translate@brogar.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -16,103 +16,119 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:58
 msgid "Menus"
 msgstr "Menyer"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:65
+msgid "Windows"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:70
+msgid "Application"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
 msgstr "Knapper"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:83
 msgid "Panels"
 msgstr "Paneler"
 
-#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:90
+msgid "Text"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Kontroll"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:168
 msgid "Stop"
 msgstr "Stopp"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:174
 msgid "Pause"
 msgstr "Pause"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:181
 msgid "Move"
 msgstr "Flytt"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:188
 msgid "Delete"
 msgstr "Slett"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:197
 msgid "Speak"
 msgstr "Tal"
 
-#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:227
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:233
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:246
 msgid "Everything"
 msgstr "Alt"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:252
 msgid "New"
 msgstr "Ny"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:258
 msgid "Repeat"
 msgstr "Gjenta"
 
-#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
 msgid "Character"
 msgstr "Tegn"
 
-#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
 msgid "Word"
 msgstr "Ord"
 
-#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
 msgid "Line"
 msgstr "Linje"
+
+#: Src/Gtk2/accessibility.cc:399
+msgid "Unknown"
+msgstr ""
 
 #: Src/Gtk2/dasher.cc:183
 msgid "Training Dasher, please wait"
 msgstr ""
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1757
 msgid "translator_credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1759 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1762
 msgid "Dasher is a predictive text entry application"
 msgstr ""
 
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2169
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr ""
@@ -146,9 +162,8 @@ msgid "<b>Button control setup</b>"
 msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:8
-#, fuzzy
 msgid "<b>Color Selection:</b>"
-msgstr "<b>Farge</b>"
+msgstr "<b>Fargevalg:</b>"
 
 #: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -171,37 +186,32 @@ msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Start og stopp:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
-#, fuzzy
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>M_ussporingsmodus</b>"
+msgstr "<b>Brytermodus:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
-#, fuzzy
 msgid "<b>View Options:</b>"
-msgstr "<b>Posisjon</b>"
+msgstr "<b>Visningsalternativer:</b>"
 
 #: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
-#, fuzzy
 msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>Farge</b>"
+msgstr "<b>X/Y-koordinater:</b>"
 
 #: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
-#, fuzzy
 msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Posisjon</b>"
+msgstr "<b>Alternativer for Y-akse:</b>"
 
 #: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
-msgstr ""
+msgstr "Avansert"
 
 #: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
 msgstr "Alfabet"
 
 #: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
-#, fuzzy
 msgid "Alphabet Default"
-msgstr "standardvalg for tale"
+msgstr "Forvalg for alfabet"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -209,11 +219,11 @@ msgstr "Bunn til topp"
 
 #: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
-msgstr ""
+msgstr "Oppsett av knappekontroll"
 
 #: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
 msgid "Button mode"
-msgstr ""
+msgstr "Knappemodus"
 
 #: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
@@ -221,7 +231,7 @@ msgstr "Knapp:"
 
 #: Src/Gtk2/dasher.glade.h:25
 msgid "Change color scheme automatically"
-msgstr ""
+msgstr "Endre fargevalg automatisk"
 
 #: Src/Gtk2/dasher.glade.h:26
 msgid "Color"
@@ -261,7 +271,7 @@ msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
-msgstr ""
+msgstr "Ned/3:"
 
 #: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
@@ -435,16 +445,15 @@ msgstr "_Om"
 
 #: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
-msgstr ""
+msgstr "_Legg til i fil"
 
 #: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Dasher Font"
-msgstr ""
+msgstr "Skrift for _dasher"
 
 #: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:85
-#, fuzzy
 msgid "_Dasher Font Size"
-msgstr "Størrelse på skrift"
+msgstr "Skriftstørrelse for _dasher"
 
 #: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Edit"
@@ -479,9 +488,8 @@ msgid "abcdefghijk ABCDEFGHIJK"
 msgstr ""
 
 #: Src/Gtk2/dashergpe.glade.h:8
-#, fuzzy
 msgid "<b>Colour Selection:</b>"
-msgstr "<b>Markørinnstilling</b>"
+msgstr "<b>Fargevalg:</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
@@ -489,7 +497,7 @@ msgstr "<b>Hastighet</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:26
 msgid "Change colour scheme automatically"
-msgstr ""
+msgstr "Endre fargevalg automatisk"
 
 #: Src/Gtk2/dashergpe.glade.h:27
 msgid "Colour"
@@ -499,11 +507,16 @@ msgstr "Farge"
 msgid "Orientation"
 msgstr "Orientering"
 
-#: Src/Gtk2/speech.cc:55
-#, fuzzy
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Kunne ikke sette talestatus: %d."
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "Kan ikke initiere stemmer"
 
-#: Src/main.cc:97
+#: Src/Gtk2/speech.cc:61
+#, c-format
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Advarsel: kunne ikke sette parametere for tale\n"
+
+#: Src/main.cc:98
 msgid "Dasher Text Entry"
 msgstr ""
