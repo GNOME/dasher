@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Dasher 3.2.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-04 23:30+0100\n"
-"PO-Revision-Date: 2005-03-04 23:27+0100\n"
+"POT-Creation-Date: 2005-03-06 20:44+0100\n"
+"PO-Revision-Date: 2005-03-06 20:41+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
@@ -183,39 +183,10 @@ msgid "Dasher is a predictive text entry application"
 msgstr "Dasher est une application de saisie de texte prédictive"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2084
+#: Src/Gtk2/dasher.cc:2081
 #, c-format
-msgid "In %ld seconds\n"
-msgstr "Dans %ld secondes\n"
-
-#: Src/Gtk2/dasher.cc:2085
-#, c-format
-msgid "%d characters\n"
-msgstr "%d caractères\n"
-
-#: Src/Gtk2/dasher.cc:2086
-#, c-format
-msgid "%f bits\n"
-msgstr "%f bits\n"
-
-#: Src/Gtk2/dasher.cc:2088
-#, c-format
-msgid "%f characters per second\n"
-msgstr "%f caractères par secondes\n"
-
-#: Src/Gtk2/dasher.cc:2089
-#, c-format
-msgid "%f bits per second\n"
-msgstr "%f bits par secondes\n"
-
-#: Src/Gtk2/dasher.cc:2090
-#, c-format
-msgid ""
-"%f bits per character\n"
-"\n"
-msgstr ""
-"%f bits par caractères\n"
-"\n"
+msgid "%d characters output in %ld seconds\n"
+msgstr "%d caractères écrits en %ld secondes\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
