@@ -41,13 +41,14 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_dXmpa=0.2;   // these are for the x non-linearity
 	m_dXmpb=0.5;
 	m_dXmpc=0.9;
-	m_dY1=0.1;     // these are for the y non-linearity
-	m_dY2=0.95;
-	m_dY3=0.05;
 
-	m_Y2=int (m_dY2 * (CDasherView::DasherModel().DasherY()) );
-	m_Y3=int (m_dY3 * (CDasherView::DasherModel().DasherY()) );
-	m_Y1=20;
+	double dY1=0.1;     // these are for the y non-linearity
+	double dY2=0.95;
+	double dY3=0.05;
+
+	m_Y2=int (dY2 * (CDasherView::DasherModel().DasherY()) );
+	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
+	m_Y1=int(1.0/dY3);
 }
 
 
