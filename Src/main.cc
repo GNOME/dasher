@@ -249,6 +249,10 @@ main(int argc, char *argv[])
   setup_speech();
 #endif
 
+#ifdef GNOME_A11Y
+  setupa11y();
+#endif
+
   add_control_tree(gettree());
 
   if (optind<argc) {

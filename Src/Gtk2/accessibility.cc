@@ -1,25 +1,56 @@
 #include "accessibility.h"
+#include "libdasher.h"
 #include <libintl.h>
 #include <iostream>
 
 ControlTree *menutree;
+ControlTree *buttontree;
 ControlTree *dummy; // This one is used to fake another control node
 #define _(x) gettext(x)
 
 extern gboolean textentry;
+extern GtkWidget *the_canvas;
 
 #ifdef GNOME_A11Y
 std::vector<Accessible*> menuitems;
 Accessible *desktop=NULL;
+Accessible *focusedwindow=NULL;
+Accessible *dasherwindow=NULL;
+static void dasher_focus_listener (const AccessibleEvent *event,
+                                    void *user_data);
+static AccessibleEventListener* focusListener;
 #endif
+
+void setupa11y() {
+#ifdef GNOME_A11Y
+  Accessible *tempaccessible;
+  //  Accessible *accessible = gtk_widget_get_accessible(the_canvas);  
+  focusListener = SPI_createAccessibleEventListener(dasher_focus_listener,
+						    NULL);
+  // FIXME - this gives us an AtkObject, not an Accessible
+  /*  gboolean success=SPI_registerGlobalEventListener (focusListener, "focus:");
+  while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
+    tempaccessible=Accessible_getParent(accessible);
+    if (tempaccessible==NULL) {
+      break;
+    }
+    //    Accessible_unref(accessible);
+    accessible=tempaccessible;
+  }
+  if (accessible!=gtk_widget_get_accessible(the_canvas)) {
+    dasherwindow=accessible;
+    } */
+#endif
+}
 
 ControlTree* gettree() {
 #ifdef GNOME_A11Y
   menutree = new ControlTree;
+  buttontree = new ControlTree;
   Accessible *child;
   ControlTree *controltree;
   int numchildren;
-  desktop = SPI_getDesktop(0);
+  //  desktop = SPI_getDesktop(0);
   menutree->parent=NULL;
   menutree->children=NULL;
   menutree->pointer=NULL;
@@ -27,12 +58,21 @@ ControlTree* gettree() {
   menutree->text=_("Menus");
   menutree->colour=-1;
   menutree->next=NULL;
-  numchildren = Accessible_getChildCount(desktop);
-  for (int i=0; i<numchildren; i++) {
-    child=Accessible_getChildAtIndex(desktop,i);
-    buildmenutree(child,menutree);
+  buttontree->parent=NULL;
+  buttontree->children=NULL;
+  buttontree->pointer=NULL;
+  buttontree->data=0;
+  buttontree->text=_("Buttons");
+  buttontree->colour=-1;
+  buttontree->next=NULL;
+  if (focusedwindow!=NULL) {
+    buildmenutree(focusedwindow,menutree,menus);
+    buildmenutree(focusedwindow,buttontree,pushbuttons);
+    menutree->next=buttontree;
+    buttontree->next=buildcontroltree();
+  } else {
+    ControlTree *menutree=buildcontroltree();
   }
-  menutree->next=buildcontroltree();
 #else
   ControlTree *menutree=buildcontroltree();
 #endif
@@ -221,7 +261,7 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
 }
 
 #ifdef GNOME_A11Y
-bool buildmenutree(Accessible *parent,ControlTree *ctree) {  
+bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {  
   // This code is not desperately nice, and probably ought to be rewritten
   // In any case, the job is as follows: accept an accessible object (parent)
   // and a tree of Dasher nodes (ctree) and build a tree underneath that.
@@ -251,18 +291,28 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
     for (int i=0; i<numchildren; i++) {
       child=Accessible_getChildAtIndex(parent,i);
       // If we already have one useful child, then we want to remain useful
-      useful=(buildmenutree(child,NewNode)||useful);
+      useful=(buildmenutree(child,NewNode,Type)||useful);
     }
     NewNode->text=Accessible_getName(parent);
     menuitems.push_back(parent);
   } else {
     // We have no kids - check if we're a menu item
-    if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM) {      
-      NewNode->pointer=parent;
-      NewNode->data=1;
-      NewNode->children=menutree;
-      NewNode->text=Accessible_getName(parent);      
-      useful=true;
+    if (Type==menus) {
+      if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM) {      
+	NewNode->pointer=parent;
+	NewNode->data=1;
+	NewNode->children=menutree;
+	NewNode->text=Accessible_getName(parent);      
+	useful=true;
+      } 
+    } else if (Type==pushbuttons) {
+      if (Accessible_getRole(parent)==SPI_ROLE_PUSH_BUTTON||Accessible_getRole(parent)==SPI_ROLE_RADIO_BUTTON||Accessible_getRole(parent)==SPI_ROLE_TOGGLE_BUTTON) {
+	NewNode->pointer=parent;
+	NewNode->data=1;
+	NewNode->children=menutree;
+	NewNode->text=Accessible_getName(parent);      
+	useful=true;
+      } 
     }
     menuitems.push_back(parent);
   }
@@ -290,13 +340,64 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
 #endif
 void deletemenutree() {  
 #ifdef GNOME_A11Y
-  while (menuitems.size()>0) {
-    int i=menuitems.size()-1;
-    Accessible_unref(menuitems[i]);
-    menuitems.pop_back();    
-  }
-  Accessible_unref(desktop);
+  //  while (menuitems.size()>0) {
+  //    int i=menuitems.size()-1;
+  //    Accessible_unref(menuitems[i]);
+  //    menuitems.pop_back();    
+  //  }
 #else
   return;
 #endif
 }
+
+#ifdef GNOME_A11Y
+void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
+{
+  Accessible *tempaccessible;
+  Accessible *accessible = event->source;
+  while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
+    tempaccessible=Accessible_getParent(accessible);
+    if (tempaccessible==NULL) {
+      break;
+    }
+    //    Accessible_unref(accessible);
+    accessible=tempaccessible;
+  }
+  if (accessible!=focusedwindow) { // The focused window has changed
+    if (focusedwindow!=NULL) {
+      //      Accessible_unref(focusedwindow);
+    }
+    // FIXME - setup code above needs to work
+    //    if (focusedwindow==dasherwindow) {
+    //      return;
+    //    }
+    deletemenutree();
+    focusedwindow=accessible;
+    add_control_tree(gettree());
+    dasher_start();
+  }
+}
+
+//FIXME - ripped straight from gok. The same qualms as they have apply.
+
+gboolean dasher_check_window(AccessibleRole role)
+{
+  /* TODO - improve efficiency here? Also, roles get added and we need
+     to maintain this...  maybe we need to go about this differently */
+  if ((role == SPI_ROLE_WINDOW) ||
+      (role == SPI_ROLE_DIALOG) ||
+      (role == SPI_ROLE_FILE_CHOOSER) ||
+      (role == SPI_ROLE_FRAME) ||
+      (role == SPI_ROLE_DESKTOP_FRAME) ||
+      (role == SPI_ROLE_FONT_CHOOSER) ||
+      (role == SPI_ROLE_COLOR_CHOOSER) ||
+      (role == SPI_ROLE_APPLICATION) ||
+      (role == SPI_ROLE_ALERT)
+      )
+    {
+      return TRUE;
+    }
+  return FALSE;
+}
+#endif
+
