@@ -151,8 +151,7 @@ void CAlphIO::Save(const std::string& AlphID)
 	// is very simple. There are line breaks though as it is very hard to read
 	// without. I'm going to ignore AlphID and save all alphabets as the
 	// overhead doesn't seem to matter and it makes things much easier.
-	
-        std::string NumberFudge;
+	char Number[sizeof(int)];
 	FILE* Output;
 	string Filename = UserLocation + "alphabet.xml";
 	if ((Output = fopen (Filename.c_str(), "w")) == (FILE*)0) {
@@ -220,9 +219,8 @@ void CAlphIO::Save(const std::string& AlphID)
 		XML_Escape(&Info.SpaceCharacter.Text, true);
 		fwrite(Info.SpaceCharacter.Text.c_str(), sizeof(char), Info.SpaceCharacter.Text.size(), Output);
 		fwrite("\" b=\"", sizeof(char), 5, Output);
-		NumberFudge=Info.SpaceCharacter.Colour;
-		XML_Escape(&NumberFudge, true);
-		fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+		sprintf(Number,"%d",Info.SpaceCharacter.Colour);
+		fwrite(Number, sizeof(char), strlen(Number), Output);
 		fwrite("\"/>\n", sizeof(char), 4, Output);
 
 		// Write out the paragraph character
@@ -233,22 +231,20 @@ void CAlphIO::Save(const std::string& AlphID)
 		XML_Escape(&Info.ParagraphCharacter.Text, true);
 		fwrite(Info.ParagraphCharacter.Text.c_str(), sizeof(char), Info.ParagraphCharacter.Text.size(), Output);
 		fwrite("\" b=\"", sizeof(char), 5, Output);
-		NumberFudge=Info.ParagraphCharacter.Colour;
-		XML_Escape(&NumberFudge, true);
-		fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+		sprintf(Number,"%d",Info.ParagraphCharacter.Colour);
+		fwrite(Number, sizeof(char), strlen(Number), Output);
 		fwrite("\"/>\n", sizeof(char), 4, Output);
 
 		// Write out the control character
-		fwrite("<control d=\"", sizeof(char), 11, Output);
+		fwrite("<control d=\"", sizeof(char), 12, Output);
 		XML_Escape(&Info.ControlCharacter.Display, true);
 		fwrite(Info.ControlCharacter.Display.c_str(), sizeof(char), Info.ControlCharacter.Display.size(), Output);
 		fwrite("\" t=\"", sizeof(char), 5, Output);
 		XML_Escape(&Info.ControlCharacter.Text, true);
 		fwrite(Info.ControlCharacter.Text.c_str(), sizeof(char), Info.ControlCharacter.Text.size(), Output);
 		fwrite("\" b=\"", sizeof(char), 5, Output);
-		NumberFudge=Info.ControlCharacter.Colour;
-		XML_Escape(&NumberFudge, true);
-		fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+		sprintf(Number,"%d",Info.ControlCharacter.Colour);
+		fwrite(Number, sizeof(char), strlen(Number), Output);
 		fwrite("\"/>\n", sizeof(char), 4, Output);
 		
 		typedef vector<AlphInfo::group>::iterator gi;
@@ -258,9 +254,8 @@ void CAlphIO::Save(const std::string& AlphID)
 			XML_Escape(&CG->Description, true);
 			fwrite(CG->Description.c_str(), sizeof(char), CG->Description.size(), Output);
 			fwrite("\" b=\"", sizeof(char), 5, Output);
-			NumberFudge=CG->Colour;
-			XML_Escape(&NumberFudge, true);
-			fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+			sprintf(Number,"%d",CG->Colour);
+			fwrite(Number, sizeof(char), strlen(Number), Output);
 			fwrite("\">\n", sizeof(char), 3, Output);
 			
 			// Iterate over CG->Characters
@@ -274,9 +269,8 @@ void CAlphIO::Save(const std::string& AlphID)
 				XML_Escape(&CC->Text, true);
 				fwrite(CC->Text.c_str(), sizeof(char), CC->Text.size(), Output);
 				fwrite("\" b=\"", sizeof(char), 5, Output);
-				NumberFudge=CC->Colour;
-				XML_Escape(&NumberFudge, true);
-				fwrite(NumberFudge.c_str(), sizeof(char), NumberFudge.size(), Output);
+				sprintf(Number,"%d",CC->Colour);
+				fwrite(Number, sizeof(char), strlen(Number), Output);
 				fwrite("\"/>\n", sizeof(char), 4, Output);
 			}
 			

@@ -130,7 +130,7 @@ void CAlphabetBox::InitCustomBox()
 	  SendMessage(GetDlgItem(CustomBox,IDC_PARAGRAPH), BM_SETCHECK, BST_CHECKED, 0);
 	// Set check mark for the "control character"
 	if (CurrentInfo.ControlCharacter.Display!=std::string(""))
-	  SendMessage(GetDlgItem(CustomBox,IDC_CONTROL), BM_SETCHECK, BST_CHECKED, 0);
+	  SendMessage(GetDlgItem(CustomBox,IDC_CONTROLCHAR), BM_SETCHECK, BST_CHECKED, 0);
 }
 
 
@@ -274,8 +274,8 @@ bool CAlphabetBox::UpdateInfo()
 	}
 
 	if (SendMessage(GetDlgItem(CustomBox,IDC_PARAGRAPH), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-		CurrentInfo.ParagraphCharacter.Text = "";
-		CurrentInfo.ParagraphCharacter.Display = "P";
+		CurrentInfo.ParagraphCharacter.Text = "\r\n";
+		CurrentInfo.ParagraphCharacter.Display = "";
 		CurrentInfo.ParagraphCharacter.Colour = 9;
 	} else {
 		CurrentInfo.ParagraphCharacter.Text = "";
@@ -283,8 +283,8 @@ bool CAlphabetBox::UpdateInfo()
 		CurrentInfo.ParagraphCharacter.Colour = -1;
 	}
 
-	if (SendMessage(GetDlgItem(CustomBox,IDC_CONTROL), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-		CurrentInfo.ControlCharacter.Text = "";
+	if (SendMessage(GetDlgItem(CustomBox,IDC_CONTROLCHAR), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+		CurrentInfo.ControlCharacter.Text = "Control";
 		CurrentInfo.ControlCharacter.Display = "Control";
 		CurrentInfo.ControlCharacter.Colour = 8;
 	} else {
@@ -310,6 +310,12 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		} else if (Editing) {
 			CustomBox = Window;
 			InitCustomBox();
+		} else if (EditChar) {
+			char colour[100];
+			sprintf(colour,"%d",CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar].Colour);
+			SendMessage(GetDlgItem(Window, IDC_DISPLAY), WM_SETTEXT, 0, (LPARAM)(LPCSTR)CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar].Display.c_str());
+			SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM)(LPCSTR)CurrentInfo.Groups[CurrentGroup].Characters[CurrentChar].Text.c_str());
+			SendMessage(GetDlgItem(Window, IDC_COLOUR), WM_SETTEXT, 0, (LPARAM)(LPCSTR)colour);
 		}
 		return TRUE;
 		break;
@@ -421,7 +427,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		case (IDOK_ADDCHAR): {
 			string Display = GetControlText(Window, IDC_DISPLAY);
 			string Text = GetControlText(Window, IDC_TEXT);
-			int Colour = atoi(GetControlText(Window, IDC_COLOUR);
+			int Colour = atoi(GetControlText(Window, IDC_COLOUR).c_str());
 			CustomCharacter(Display, Text, Colour);
 			TCHAR Terminator = '\0';
 			SendMessage(GetDlgItem(Window, IDC_DISPLAY), WM_SETTEXT, 0, (LPARAM)&Terminator);
@@ -431,9 +437,10 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		case (IDOK_CHAR): {
 			string Display = GetControlText(Window, IDC_DISPLAY);
 			string Text = GetControlText(Window, IDC_TEXT);
-			int Colour = atoi(GetControlText(Window, IDC_COLOUR);
+			int Colour = atoi(GetControlText(Window, IDC_COLOUR).c_str());
 			CustomCharacter(Display, Text, Colour);
 			EndDialog(Window, LOWORD(wParam));
+			EditChar=false;
 			break;
 		}
 		case (IDC_ADD_GROUP):

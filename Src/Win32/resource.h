@@ -171,6 +171,10 @@
 #define IDC_SLIDER1                     1100
 #define IDC_UNIFORMSLIDER               1100
 #define IDC_MOUSEPOSDIST                1101
+#define IDC_PARAGRAPH                   1102
+#define IDC_CONTROLCHAR                 1103
+#define IDC_EDIT1                       1104
+#define IDC_COLOUR                      1104
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -224,7 +228,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        172
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1102
+#define _APS_NEXT_CONTROL_VALUE         1105
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
