@@ -148,14 +148,29 @@ GtkDasherWindow::GtkDasherWindow()
  						       TB_PASTE)));
   }
 
+  save_dialogue.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::file_ok_sel));
+
   show_all();
   
   dasher_pane.clear();
 
 }
 
+
+
 GtkDasherWindow::~GtkDasherWindow()
 {
+}
+
+void GtkDasherWindow::file_ok_sel()
+{
+  save_dialogue.current_filename = save_dialogue.get_filename();
+
+  save_dialogue.set_filename(save_dialogue.current_filename.c_str());
+  save_dialogue.hide();
+  //  cout << "foo" << endl;
+  
+  dasher_pane.save( save_dialogue.current_filename );
 }
 
 void GtkDasherWindow::toolbar_button_cb(char *c)

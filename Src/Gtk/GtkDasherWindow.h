@@ -40,6 +40,7 @@ protected:
   Gtk::Pixmap first_pixmap;
 
   void toolbar_button_cb(char *);
+  void file_ok_sel();
 };
 
 #endif

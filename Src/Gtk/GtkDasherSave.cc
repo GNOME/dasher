@@ -4,7 +4,7 @@
 GtkDasherSave::GtkDasherSave()
   : FileSelection("Save As"), current_filename("")
 {
-  get_ok_button()->clicked.connect(slot(this, &GtkDasherSave::file_ok_sel));
+  // get_ok_button()->clicked.connect(slot(this, &GtkDasherSave::file_ok_sel));
   get_cancel_button()->clicked.connect(slot(this, &GtkDasherSave::file_cancel_sel));
 }
 

@@ -22,7 +22,7 @@
 #include <fstream.h>
 
 GtkDasherPane::GtkDasherPane()
-  : VBox( false, 0 ), paused( false ), started( false )
+  : VBox( false, 0 ), paused( true ), started( false )
 { 
 
   store = new GtkDasherStore;
@@ -128,11 +128,20 @@ void GtkDasherPane::clear()
 void GtkDasherPane::reset()
 {
   cout << "In Reset" << endl;
+  interface->Start();
+  paused = true;
+  // text->
+
+  // FIXME - need to reset the contents of the edit box here too
+
+  clear();
 }
 
 void GtkDasherPane::save( string filename )
 {
-  cout << "In Save: " << filename << endl;
+  //  cout << "In Save: " << filename << endl;
+
+  //  text->save( filename );
 }
 
 GtkDasherPane::~GtkDasherPane()
@@ -145,7 +154,7 @@ GtkDasherPane::~GtkDasherPane()
 gint GtkDasherPane::timer_callback()
 {
 
-  if( !paused && started )
+  if( !paused )
     {
       int x;
       int y;
@@ -163,26 +172,20 @@ gint GtkDasherPane::timer_callback()
 
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
-  if( !started )
+  cout << "In toggle_pause" << endl;
+
+  if( !paused )
     {
-      interface->Start();
-      started = true;
+      int x;
+      int y;
+      
+      gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
+      interface->PauseAt(x,y);
     }
   else
-    {
-      if( !paused )
-	{
-	  int x;
-	  int y;
-	  
-	  gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
-	  interface->PauseAt(x,y);
-	}
-      else
-	interface->Unpause( 0 );  // FIXME - need to specify a time here
-      
-      paused = !paused;
-    }
+    interface->Unpause( 0 );  // FIXME - need to specify a time here
+  
+  paused = !paused;
   return( true );
 }
 

@@ -8,9 +8,9 @@ class GtkDasherSave : public Gtk::FileSelection
 {
  public:
   GtkDasherSave();
- protected:
-  string current_filename;
 
+  string current_filename;
+ protected:
   void file_ok_sel();
   void file_cancel_sel();
   

@@ -6,6 +6,8 @@
 #include "DasherTypes.h"
 #include "DasherInterface.h"
 
+#include <string.h>
+
 using namespace Dasher;
 using namespace Gtk;
 
@@ -24,6 +26,7 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
+  void save( string filename );
  protected:
   int flush_count;
   CDasherInterface *interface;

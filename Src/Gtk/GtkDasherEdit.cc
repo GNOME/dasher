@@ -57,6 +57,7 @@ void GtkDasherEdit::flush(symbol Symbol)
 
 void GtkDasherEdit::Clear()
 {
+  cout << "In clear method" << endl;
 }
 
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
