@@ -183,6 +183,14 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_int( INT_UNIFORM, Value );
     }
+  void Speech(bool Value)
+    {
+      handle_parameter_bool( BOOL_SPEECHMODE, Value );
+    }
+  void OutlineBoxes(bool Value)
+    {
+      handle_parameter_bool( BOOL_OUTLINEMODE, Value );
+    }
 };
 
 

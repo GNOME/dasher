@@ -374,6 +374,12 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_MOUSEPOSSTART:
       interface->MouseposStart(value);
       break;
+    case BOOL_SPEECHMODE:
+      interface->Speech(value);
+      break;
+    case BOOL_OUTLINEMODE:
+      interface->OutlineBoxes(value);
+      break;
     }
 }
 

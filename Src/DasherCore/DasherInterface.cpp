@@ -492,6 +492,21 @@ void CDasherInterface::MouseposStart(bool Value)
     m_SettingsStore->SetBoolOption(Keys::MOUSEPOS_START, Value);
 }
 
+void CDasherInterface::OutlineBoxes(bool Value)
+{
+  if (m_SettingsUI!=0)
+    m_SettingsUI->OutlineBoxes(Value);
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetBoolOption(Keys::OUTLINE_MODE, Value);
+}
+
+void CDasherInterface::Speech(bool Value)
+{
+  if (m_SettingsUI!=0)
+    m_SettingsUI->Speech(Value);
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetBoolOption(Keys::SPEECH_MODE, Value);
+}
 
 void CDasherInterface::SetEditFont(string Name, long Size)
 {

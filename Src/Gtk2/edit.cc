@@ -1,9 +1,11 @@
 #include "edit.h"
 #include "dasher.h"
 #include "accessibility.h"
+#include "canvas.h"
 
 extern int paused;
 extern bool keyboardmodeon;
+extern bool mouseposstart;
 
 #include <gdk/gdkx.h>
 
@@ -113,6 +115,8 @@ void edit_outputcontrol_callback(void* pointer, int data)
     //	pause
     dasher_pause(0,0);
     paused=true;
+    if (mouseposstart==true)
+      draw_mouseposbox(0);
     break;
   case 4:
 #ifdef GNOME_SPEECH

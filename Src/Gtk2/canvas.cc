@@ -12,6 +12,7 @@ GdkColor *colours;
 
 extern gboolean setup;
 extern gboolean paused;
+gboolean drawoutline=FALSE;
 
 void rebuild_buffer()
 {
@@ -82,6 +83,7 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkRectangle update_rect;
+  GdkGCValues origvalues;
 
   if (setup==false || paused==true)
     return;
@@ -89,6 +91,8 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   GdkColor black = {0, 0, 0, 0};
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
+
+  gdk_gc_get_values(graphics_context,&origvalues);
 
   GdkColor foreground = colours[Color];
 
@@ -98,29 +102,36 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   if( x2 > x1 ) {
     if( y2 > y1 ) {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y1, x2-x1, y2-y1);
-      gdk_gc_set_foreground (graphics_context, &black);
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y1, x2-x1, y2-y1);
+      if (drawoutline==TRUE) {
+	gdk_gc_set_foreground (graphics_context, &black);
+	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y1, x2-x1, y2-y1);
+      }
     }
     else {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y2, x2-x1, y1-y2);
-      gdk_gc_set_foreground (graphics_context, &black);
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y2, x2-x1, y1-y2);
+      if (drawoutline==TRUE) {
+	gdk_gc_set_foreground (graphics_context, &black);
+	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y2, x2-x1, y1-y2);
+      }
     }
   }
   else {
     if( y2 > y1 ) {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y1, x1-x2, y2-y1);
-      gdk_gc_set_foreground (graphics_context, &black);
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y1, x1-x2, y2-y1);
+      if (drawoutline==TRUE) {
+	gdk_gc_set_foreground (graphics_context, &black);
+	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y1, x1-x2, y2-y1);
+      }
     }
     else {
       gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y2, x1-x2, y1-y2);
-      gdk_gc_set_foreground (graphics_context, &black);
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y2, x1-x2, y1-y2);
+      if (drawoutline==TRUE) {
+	gdk_gc_set_foreground (graphics_context, &black);
+	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y2, x1-x2, y1-y2);
+      }
     }
   }
-
-  gdk_gc_set_foreground (graphics_context, &black);
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
 void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
@@ -128,6 +139,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkRectangle update_rect;
+  GdkGCValues origvalues;
 
   if (setup==false || paused==true)
     return;
@@ -137,6 +149,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
 
   gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+  gdk_gc_get_values(graphics_context,&origvalues);
   colormap = gdk_colormap_get_system();
 
   gdk_color_alloc(colormap, &black);
@@ -148,6 +161,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   }
 
   gdk_draw_lines(offscreen_buffer, graphics_context, gdk_points, Number);
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
 void draw_text_callback(symbol Character, int x1, int y1, int size)
@@ -323,6 +337,7 @@ void draw_mouseposbox(int which) {
   GdkColormap *colormap;
   GdkRectangle update_rect;
   GdkColor color;
+  GdkGCValues origvalues;
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
   int top, bottom;
@@ -357,9 +372,11 @@ void draw_mouseposbox(int which) {
 		  the_canvas->allocation.width,
 		  the_canvas->allocation.height);
 
+  gdk_gc_get_values(graphics_context,&origvalues);
   gdk_color_alloc(colormap, &color);
   gdk_gc_set_foreground (graphics_context, &color);
   gdk_draw_rectangle (onscreen_buffer, graphics_context, TRUE, 0, top, the_canvas->allocation.width, bottom);
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 
   update_rect.x = 0;
   update_rect.y = 0;

@@ -115,6 +115,13 @@ public:
 	//! Should Dasher start based on the mouse position?
 	virtual void MouseposStart(bool Value) {};
 
+	//! Should Dasher draw outlines around boxes?
+	virtual void OutlineBoxes(bool Value) {};
+
+	//! Should Dasher speak?
+	virtual void Speech(bool Value) {};
+
+	//! How uniform (ie, non-predictive) should the language model be?
 	virtual void SetUniform(int Value) {};
 };
 
@@ -144,6 +151,8 @@ namespace Keys
 	extern const std::string CONTROL_MODE;
 	extern const std::string KEYBOARD_MODE;
 	extern const std::string MOUSEPOS_START;
+	extern const std::string SPEECH_MODE;
+	extern const std::string OUTLINE_MODE;
 	// long options
 	extern const std::string FILE_ENCODING;
 	extern const std::string MAX_BITRATE_TIMES100;

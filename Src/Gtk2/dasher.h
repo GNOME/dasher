@@ -43,6 +43,8 @@ extern "C" void select_import_file(GtkWidget *widget, gpointer user_data);
 extern "C" void save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector );
 extern "C" void save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector );
 extern "C" void filesel_hide(GtkWidget *widget, gpointer user_data);
+extern "C" void speak(GtkWidget *widget, gpointer user_data);
+extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data);
 
 void interface_setup(GladeXML *xml);
 void open_window(GladeXML *xml);
@@ -88,6 +90,7 @@ extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data);
 extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
 
 void stop();
+void force_dasher_redraw();
 
 #endif
 

@@ -173,15 +173,6 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="dasher_font1">
-		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">_Dasher Font</property>
-		      <property name="use_underline">True</property>
-		      <signal name="activate" handler="set_dasher_font" last_modification_time="Tue, 23 Sep 2003 17:57:37 GMT"/>
-		    </widget>
-		  </child>
-
-		  <child>
 		    <widget class="GtkMenuItem" id="edit_font1">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Edit Font</property>
@@ -191,11 +182,91 @@
 		  </child>
 
 		  <child>
+		    <widget class="GtkMenuItem" id="dasher_font1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Dasher Font</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="set_dasher_font" last_modification_time="Tue, 23 Sep 2003 17:57:37 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="dasher_font_size1">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Dasher Font Size</property>
+		      <property name="use_underline">True</property>
+
+		      <child>
+			<widget class="GtkMenu" id="dasher_font_size1_menu">
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="fontsizenormal">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Normal</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="fontsizelarge">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Large</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">True</property>
+			      <property name="group">fontsizenormal</property>
+			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
+			    </widget>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioMenuItem" id="fontsizevlarge">
+			      <property name="visible">True</property>
+			      <property name="label" translatable="yes">Very Large</property>
+			      <property name="use_underline">True</property>
+			      <property name="active">False</property>
+			      <property name="group">fontsizenormal</property>
+			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
 		    <widget class="GtkMenuItem" id="reset_fonts1">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_Reset fonts</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="reset_fonts" last_modification_time="Tue, 23 Sep 2003 17:57:37 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkMenuItem" id="separator2">
+		      <property name="visible">True</property>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkCheckMenuItem" id="keyboardmode">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Text entry mode</property>
+		      <property name="use_underline">True</property>
+		      <property name="active">False</property>
+		      <signal name="activate" handler="keyboardmode" last_modification_time="Wed, 24 Sep 2003 12:44:11 GMT"/>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkCheckMenuItem" id="controlmode">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Control mode</property>
+		      <property name="use_underline">True</property>
+		      <property name="active">False</property>
+		      <signal name="activate" handler="controlmode" last_modification_time="Wed, 24 Sep 2003 12:44:11 GMT"/>
 		    </widget>
 		  </child>
 		</widget>
@@ -469,7 +540,7 @@
 </widget>
 
 <widget class="GtkWindow" id="preferences">
-  <property name="title" translatable="yes">window2</property>
+  <property name="title" translatable="yes">Dasher Preferences</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
   <property name="modal">False</property>
@@ -1111,6 +1182,7 @@
 			  <property name="active">False</property>
 			  <property name="inconsistent">False</property>
 			  <property name="draw_indicator">True</property>
+			  <signal name="clicked" handler="speak" last_modification_time="Wed, 24 Sep 2003 12:17:22 GMT"/>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -1120,7 +1192,22 @@
 		      </child>
 
 		      <child>
-			<placeholder/>
+			<widget class="GtkCheckButton" id="outlinebutton">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="label" translatable="yes">Draw box outlines</property>
+			  <property name="use_underline">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="active">False</property>
+			  <property name="inconsistent">False</property>
+			  <property name="draw_indicator">True</property>
+			  <signal name="clicked" handler="outlineboxes" last_modification_time="Wed, 24 Sep 2003 12:40:43 GMT"/>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
 		      </child>
 		    </widget>
 		  </child>
@@ -1270,6 +1357,10 @@
 	  <property name="expand">True</property>
 	  <property name="fill">True</property>
 	</packing>
+      </child>
+
+      <child>
+	<placeholder/>
       </child>
 
       <child>

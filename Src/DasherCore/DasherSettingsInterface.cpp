@@ -30,6 +30,8 @@ namespace Keys {
         const std::string COLOUR_MODE = "ColourMode";
         const std::string KEYBOARD_MODE = "KeyboardMode";
         const std::string MOUSEPOS_START = "StartOnMousePosition";
+        const std::string SPEECH_MODE = "SpeechEnabled";
+        const std::string OUTLINE_MODE = "OutlineBoxes";
 
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -142,6 +144,12 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetBoolDefault(MOUSEPOS_START, false);
 	this->MouseposStart(Store->GetBoolOption(MOUSEPOS_START));
+
+	Store->SetBoolDefault(OUTLINE_MODE, true);
+	this->OutlineBoxes(Store->GetBoolOption(OUTLINE_MODE));
+
+	Store->SetBoolDefault(SPEECH_MODE, false);
+	this->Speech(Store->GetBoolOption(SPEECH_MODE));
 }
 
 

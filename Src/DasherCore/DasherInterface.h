@@ -136,6 +136,8 @@ public:
 	void ColourMode(bool Value);
 	void KeyboardMode(bool Value);
 	void MouseposStart(bool Value);
+	void Speech(bool Value);
+	void OutlineBoxes(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);

@@ -71,10 +71,12 @@ gboolean leavewindowpause;
 gboolean mouseposstart;
 gboolean firstbox=FALSE;
 gboolean secondbox=FALSE;
+gboolean speakonstop=FALSE;
 
 gint dasherwidth, dasherheight;
 
 extern gboolean timedata;
+extern gboolean drawoutline;
 
 gint prev_pos_x;
 gint prev_pos_y;
@@ -109,10 +111,8 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
     gtk_tree_model_get(model, &iter, 0, &alph, -1);
 
     dasher_set_parameter_string( STRING_ALPHABET, alph );
-
-    paused=false;
-    dasher_redraw();
-    paused=true;
+    
+    force_dasher_redraw();
 
     g_free(alph);
   }
@@ -568,6 +568,9 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
   if (firsttime==TRUE) {
     paused=true;
     firsttime=false;
+    if (mouseposstart==true) {
+      draw_mouseposbox(0);
+    }
   }
 
   return TRUE;
@@ -579,10 +582,8 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
   rebuild_buffer();
 
   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
-  
-  paused=false;
-  dasher_redraw();
-  paused=true;
+
+  force_dasher_redraw();
 
   return FALSE;
 }
@@ -591,7 +592,7 @@ extern "C" void
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   dasher_start();
-  dasher_redraw();
+  force_dasher_redraw();
 }
 
 extern "C" void
@@ -599,7 +600,7 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   if(keycontrol==false) {
     dasher_start();
-    dasher_redraw();
+    force_dasher_redraw();
   }
 }
 
@@ -876,18 +877,21 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data)
     }
   }
 
-  paused=false;
-  dasher_redraw();
-  paused=true;
+  force_dasher_redraw();
 }
 
 extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
 {
-  //  if( GTK_CHECK_MENU_ITEM(widget)->active)
-  //    {
-  //      dasher_set_parameter_int( INT_DASHERFONTSIZE, Dasher::Opts::FontSize(action) );
-  //      dasher_redraw();
-  //    }
+  if (GTK_CHECK_MENU_ITEM(widget)->active==TRUE) {
+    if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizenormal")) {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, Normal);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizelarge")) {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, Big);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizevlarge")) {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, VBig);
+    }
+    force_dasher_redraw();
+  }
 }
 
 extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data)
@@ -974,20 +978,22 @@ extern "C" void windowpause(GtkWidget *widget, gpointer user_data)
 
 extern "C" void controlmode(GtkWidget *widget, gpointer user_data)
 {
-  controlmodeon=GTK_TOGGLE_BUTTON(widget)->active;
-  dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_TOGGLE_BUTTON(widget)->active );
+  controlmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
+  dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+  dasher_start();
+  force_dasher_redraw();
 }
 
 extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data)
 {
-  keyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
-  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_TOGGLE_BUTTON(widget)->active );
+  keyboardmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
+  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 
 extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data)
 {
   dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_TOGGLE_BUTTON(widget)->active );
-  dasher_redraw();
+  force_dasher_redraw();
 }
 
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
@@ -1032,9 +1038,7 @@ extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
     set_canvas_font(font_name);
   }
   fontsel_hide(NULL,NULL);
-  paused=false;
-  dasher_redraw();
-  paused=true;
+  force_dasher_redraw();
 }
 
 extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data)
@@ -1052,9 +1056,7 @@ extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
     set_editbox_font(font_name);
   }
   fontsel_hide(NULL,NULL);
-  paused=false;
-  dasher_redraw();
-  paused=true;
+  force_dasher_redraw();
 }
 
 extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
@@ -1067,6 +1069,19 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
 {
   reset_edit_font();
   reset_dasher_font();
+}
+
+extern "C" void speak(GtkWidget *widget, gpointer user_data)
+{
+  speakonstop=GTK_TOGGLE_BUTTON(widget)->active;
+  dasher_set_parameter_bool( BOOL_SPEECHMODE, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data)
+{
+  drawoutline=GTK_TOGGLE_BUTTON(widget)->active;
+  dasher_set_parameter_bool( BOOL_OUTLINEMODE, GTK_TOGGLE_BUTTON(widget)->active );
+  force_dasher_redraw();
 }
 
 // Callbacks to be notified of when something changes
@@ -1148,13 +1163,13 @@ void parameter_int_callback( int_param p, long int value )
       switch(value)
 	{
 	case Opts::Normal:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/Font Size/Default Fonts")), TRUE);
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
 	  break;
 	case Opts::Big:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/Font Size/Large Fonts")), TRUE);
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
 	  break;
 	case Opts::VBig:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/Font Size/Very Large Fonts")), TRUE);
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
 	  break;
 	}
       break;
@@ -1221,6 +1236,9 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_MOUSEPOSSTART:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"mouseposbutton")), value);
       mouseposstart=value;
+      firstbox=value;
+      secondbox=false;
+      force_dasher_redraw();
       break;
     case BOOL_KEYBOARDCONTROL:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), value);
@@ -1231,8 +1249,22 @@ void parameter_bool_callback( bool_param p, bool value )
       leavewindowpause=value;
       break;
     case BOOL_CONTROLMODE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"controlmode")), value);
+      controlmodeon=true;
+      dasher_start();
+      force_dasher_redraw();
       break;
     case BOOL_KEYBOARDMODE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), value);
+      keyboardmodeon=true;
+      break;
+    case BOOL_OUTLINEMODE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), value);
+      drawoutline=value;
+      break;
+    case BOOL_SPEECHMODE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speakbutton")), value);
+      speakonstop=value;
       break;
     }
 }
@@ -1248,7 +1280,8 @@ void stop() {
     dasher_pause(0,0);    
     paused = TRUE;
 #ifdef GNOME_SPEECH
-    speak();
+    if (speakonstop==true)
+      speak();
 #endif
     if (timedata==TRUE) {
       printf("%d characters output in %d seconds\n",outputcharacters,
@@ -1257,5 +1290,20 @@ void stop() {
     if (mouseposstart==TRUE) {
       draw_mouseposbox(0);
     }
+  }
+}
+
+void force_dasher_redraw() {
+  if (paused==true) {
+    paused=false;    
+    dasher_redraw();    
+    paused=true;
+    if (firstbox==true) {
+      draw_mouseposbox(0);
+    } else if (secondbox==true) {
+      draw_mouseposbox(1);
+    }
+  } else {
+    dasher_redraw();
   }
 }
