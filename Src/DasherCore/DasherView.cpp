@@ -106,7 +106,7 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				  if (Colour!=-1) {
 					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,"");
 				  } else {
-				    RenderNode(0,(current%3)+109,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,force,text,"");
 				  }
 				} else {
 					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
