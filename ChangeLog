@@ -1,3 +1,7 @@
+2004-02-11  Arafat Medini  <lumina@silverpen.de>
+                                                                                
+        * configure.in: Added Arabic locale "ar" to ALL_LINGUAS.
+
 2004-02-11  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Don't assume that symbols are all one character long when deleting
