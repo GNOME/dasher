@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Hungarian lowercase, short / magyar, kisbetűs, rövid">
+<orientation type="LR"/>
+<encoding type="CentralEurope"/>
+<train>training_hungarian_HU.txt</train>
+<space d="_" t=" "/>
+<group name="Lower case Hungarian letters, short">
+<s d="a" t="a"/>
+<s d="á" t="á"/>
+<s d="b" t="b"/>
+<s d="c" t="c"/>
+<s d="d" t="d"/>
+<s d="e" t="e"/>
+<s d="é" t="é"/>
+<s d="f" t="f"/>
+<s d="g" t="g"/>
+<s d="h" t="h"/>
+<s d="i" t="i"/>
+<s d="í" t="í"/>
+<s d="j" t="j"/>
+<s d="k" t="k"/>
+<s d="l" t="l"/>
+<s d="m" t="m"/>
+<s d="n" t="n"/>
+<s d="o" t="o"/>
+<s d="ó" t="ó"/>
+<s d="ö" t="ö"/>
+<s d="ő" t="ő"/>
+<s d="p" t="p"/>
+<s d="q" t="q"/>
+<s d="r" t="r"/>
+<s d="s" t="s"/>
+<s d="t" t="t"/>
+<s d="u" t="u"/>
+<s d="ú" t="ú"/>
+<s d="ü" t="ü"/>
+<s d="ű" t="ű"/>
+<s d="v" t="v"/>
+<s d="w" t="w"/>
+<s d="x" t="x"/>
+<s d="y" t="y"/>
+<s d="z" t="z"/>
+</group>
+</alphabet>
+</alphabets>

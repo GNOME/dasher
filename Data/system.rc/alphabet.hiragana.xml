@@ -5,7 +5,7 @@
 <alphabet name="Hiragana 83">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>training_hiragana83.txt</train>
+<train>training_hiragana83_JP.txt</train>
 <space d="_" t=" " b="9" />
 <group name="Letters" b="0">
 <s d="&#12353;" t="&#12353;" b="10" />
@@ -97,7 +97,7 @@
 <alphabet name="Hiragana 60">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>training_hiragana60.txt</train>
+<train>training_hiragana60_JP.txt</train>
 <space d="_" t=" " b="9"/>
 <group name="Letters" b="0">
 <s d="&#12353;" t="&#12353;" b="10" />
