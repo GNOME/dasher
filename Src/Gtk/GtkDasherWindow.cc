@@ -30,12 +30,86 @@ GtkDasherWindow::GtkDasherWindow()
     MenuList& list_file = menu_file->items();
     
     list_file.push_back(MenuElem("_New"));
+    list_file.push_back(MenuElem("_Open..."));
+    list_file.push_back(MenuElem("_Save"));
+    list_file.push_back(MenuElem("Sa_ve As..."));
+    list_file.push_back(MenuElem("_Append to File..."));
     list_file.push_back(SeparatorElem());
+    list_file.push_back(MenuElem("_Import Training Test..."));
+    list_file.push_back(SeparatorElem());
+    list_file.push_back(MenuElem("E_xit"));
+
+    Menu *menu_edit = new Menu();
+    MenuList& list_edit = menu_edit->items();
+
+    list_edit.push_back(MenuElem("Cut"));
+    list_edit.push_back(MenuElem("Copy"));
+    list_edit.push_back(MenuElem("Paste"));
+    list_edit.push_back(SeparatorElem());
+    list_edit.push_back(MenuElem("Copy All"));
+    list_edit.push_back(SeparatorElem());
+    list_edit.push_back(MenuElem("Select All"));
+
+    Menu *menu_or = new Menu();
+    MenuList& list_or = menu_or->items();
+
+    list_or.push_back(MenuElem("Alphabet Default"));
+    list_or.push_back(SeparatorElem());
+    list_or.push_back(MenuElem("Left to Right"));
+    list_or.push_back(MenuElem("Right to Left"));
+    list_or.push_back(MenuElem("Top to Bottom"));
+    list_or.push_back(MenuElem("Bottom to Top"));
+
+    Menu *menu_tool = new Menu();
+    MenuList &list_tool = menu_tool->items();
+
+    list_tool.push_back(MenuElem("Visible"));
+    list_tool.push_back(SeparatorElem());
+    list_tool.push_back(MenuElem("Show Text"));
+    list_tool.push_back(MenuElem("Large Icons"));
+
+    Menu *menu_view = new Menu();
+    MenuList& list_view = menu_view->items();
+    
+    list_view.push_back(MenuElem("Orientation", *menu_or ));
+    list_view.push_back(SeparatorElem());
+    list_view.push_back(MenuElem("Toolbar", *menu_tool));
+    list_view.push_back(MenuElem("Speed Slider"));
+    list_view.push_back(SeparatorElem());
+    list_view.push_back(MenuElem("Fix Layout"));
+
+    Menu *menu_enc = new Menu();
+    MenuList &list_enc = menu_enc->items();
+
+    list_enc.push_back(MenuElem("Unicode UTF-8"));
+
+    Menu *menu_opts = new Menu();
+    MenuList & list_opts = menu_opts->items();
+    
+    list_opts.push_back(MenuElem("Timestamp New Files"));
+    list_opts.push_back(MenuElem("Copy All on Stop"));
+    list_opts.push_back(SeparatorElem());
+    list_opts.push_back(MenuElem("Alphabet..."));
+    list_opts.push_back(MenuElem("File Encoding", *menu_enc ));
+    list_opts.push_back(SeparatorElem());
+    list_opts.push_back(MenuElem("Editing Font..."));
+    list_opts.push_back(MenuElem("Dasher Font..."));
+    list_opts.push_back(MenuElem("Reset Fonts"));
+			
+    Menu *menu_help = new Menu();
+    MenuList &list_help = menu_help->items();
+
+    list_help.push_back(MenuElem("About Dasher..."));
+
 
     // Create the menu bar
     //   Gtk+ does not have O(1) tail lookups so you should build menus 
     //   backwards whenever you plan to make lots of access to back().
-    menubar.items().push_front(MenuElem("_File","<control>f",*menu_file));
+    menubar.items().push_back(MenuElem("_File","<control>f",*menu_file));
+    menubar.items().push_back(MenuElem("_Edit","<control>e",*menu_edit));
+    menubar.items().push_back(MenuElem("_View","<control>v",*menu_view));
+    menubar.items().push_back(MenuElem("_Options","<control>o",*menu_opts));
+    menubar.items().push_back(MenuElem("_Help","<control>h",*menu_help));
   }
 
   //Item(const Icon& icon, const Gtk::string& str, const Callback& cb, const Gtk::string& tip=Gtk::string());
