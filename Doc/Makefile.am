@@ -4,6 +4,6 @@ EXTRA_DIST = dasher.1.in LICENSE.txt GPL-2.0 API/Doxyfile Colourschemes
 DISTCLEANFILES=dasher.1
 
 dasher.1:
-	sed s/PACKAGE_VERSION/$(PACKAGE_VERSION)/ <dasher.1.in >dasher.1
+	sed s/PACKAGE_VERSION/$(PACKAGE_VERSION)/ <$(srcdir)/dasher.1.in >dasher.1
 
 
