@@ -32,6 +32,8 @@ protected:
 
   int toggle_pause( GdkEventButton *e);
 
+  int visibility_event_impl(GdkEventAny *event);
+
   bool paused;
 };
 

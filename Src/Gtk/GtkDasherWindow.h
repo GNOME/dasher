@@ -2,6 +2,10 @@
 #define MAINWINDOW_HH
 
 #include <gtk--/window.h>
+#include <gtk--/toolbar.h>
+#include <gtk--/button.h>
+#include <gtk--/box.h>
+#include <gtk--/menubar.h>
 
 #include "GtkDasherPane.h"
 
@@ -14,7 +18,12 @@ public:
   int delete_event_impl(GdkEventAny *event);
 
 protected:
-  GtkDasherPane *dasher_pane;
+  GtkDasherPane dasher_pane;
+  Gtk::Toolbar toolbar;
+  Gtk::VBox main_vbox; 
+  Gtk::MenuBar menu;
+
+  void toolbar_button_cb(char *);
 };
 
 #endif

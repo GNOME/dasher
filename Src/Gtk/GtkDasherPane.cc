@@ -24,39 +24,26 @@ GtkDasherPane::GtkDasherPane()
 
   pack_start( *text );
   pack_start( *canvas );
+  show_all();
 
   interface = new CDasherInterface;
-
-  cout << "Canvas is " << canvas << endl;
-
-  std::vector< std::string > alphabetlist;
-  
-  interface->GetAlphabets( &alphabetlist );
-
-  cout << "Alphabet count " << alphabetlist.size() << " " << alphabetlist[0] << endl;
 
   interface->ChangeLanguageModel(0);
   interface->ChangeView(0);
 
+  std::vector< std::string > alphabetlist;
+  interface->GetAlphabets( &alphabetlist );  
+
   interface->ChangeAlphabet( alphabetlist[0] );
 
-  // interface->ChangeScreen( canvas );
   interface->ChangeEdit( text );
-   interface->ChangeScreen( canvas );
+  interface->ChangeScreen( canvas );
+ 
   interface->Start();
-  interface->Unpause(0);
-  cout << "Foo" << endl;
-  interface->Redraw();
 
-  show_all();
+  Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
 
-  //  SigC::Slot0<gint> my_slot = bind(slot(this,&GtkDasherPane::timer_callback),0);
-
-  // now connect the slot to Gtk::Main::timeout
-  Gtk::Connection conn = Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
-
-
-  button_press_event.connect(slot(this, &GtkDasherPane::toggle_pause));
+  canvas->button_press_event.connect(slot(this, &GtkDasherPane::toggle_pause));
 }
 
 void GtkDasherPane::clear()
@@ -77,14 +64,14 @@ gint GtkDasherPane::timer_callback()
 
   if( !paused )
     {
-  int x;
-  int y;
-
-   gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
-
-  interface->TapOn(x,y,50);
-
-  // We need to return a nonzero value so that the timer repeats
+      int x;
+      int y;
+      
+      gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
+      
+      interface->TapOn(x,y,50);
+      
+      // We need to return a nonzero value so that the timer repeats
     }
   return( 1 );
 }
@@ -97,7 +84,10 @@ int GtkDasherPane::toggle_pause( GdkEventButton *e )
   paused = !paused;
 }
 
-
+int GtkDasherPane::visibility_event_impl(GdkEventAny *event)
+{
+  cout << "In visibility event handler" << endl;
+}
 
 
 

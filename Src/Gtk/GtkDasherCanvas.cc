@@ -1,3 +1,4 @@
+#include <gdk--/font.h>
 #include <gtk--/style.h>
 #include <gtk--/pixmap.h>
 #include <gdk/gdk.h>
@@ -66,8 +67,23 @@ void GtkDasherCanvas::SetFont(std::string Name)
 
 void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const
 {
-  *Width = 10;
-  *Height = 10;
+  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+
+  switch( Size )
+    {
+    case 11:
+      text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+      break;
+    case 14:
+      text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+      break;
+    case 20:
+      text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
+      break;
+    }
+
+  *Width = text_font.char_width('A');
+  *Height = text_font.char_height('A');
 }
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
@@ -79,10 +95,23 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
   foo = Character + 96;
 
   string label(&foo, 1);
+  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
 
+  switch( Size )
+    {
+    case 11:
+      text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+      break;
+    case 14:
+      text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+      break;
+    case 20:
+      text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
+      break;
+    }
 
-  Gdk_Font text_font("10x20");
-  buffer->get_bg()->draw_string(text_font, this->get_style()->get_black_gc(), x1, y1, label);
+  buffer->get_bg()->draw_string(text_font, this->get_style()->get_black_gc(), x1, y1+text_font.char_height('A'), label);
+
 }
   
 void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
@@ -154,4 +183,15 @@ void GtkDasherCanvas::swap_buffers()
 {
   buffer->swap_buffers();
 }
+
+
+
+
+
+
+
+
+
+
+
 
