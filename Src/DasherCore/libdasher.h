@@ -89,6 +89,7 @@ void dasher_start();
 void dasher_redraw();
 void dasher_tap_on( int x, int y, unsigned long int time );
 void dasher_unpause( unsigned long int time );
+
 void dasher_pause( int x, int y );
 
 std::string dasher_get_display_text( symbol Character );
