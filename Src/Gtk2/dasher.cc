@@ -172,6 +172,8 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   
   alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
+  printf("Got %d alphabets\n",alphabet_count);
+
   for (int i=0; i<alphabet_count; ++i) {
     gtk_list_store_append (list_store, &iter);
     gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
@@ -685,9 +687,8 @@ open_window() {
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
   sprintf( user_data_dir, "%s/.dasher/", home_dir );
 
-  // CHANGE THIS!
-  //system_data_dir = "/etc/dasher/";
-  system_data_dir = user_data_dir;
+  // FIXME CHANGE THIS!
+  system_data_dir = "/usr/share/dasher/";
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
@@ -745,13 +746,13 @@ open_window() {
   gtk_widget_show (canvas_frame);
   gtk_widget_show (the_canvas);
   gtk_widget_show (dasher_menu_bar);
+  gtk_widget_show (speed_hscale);
 
   if (showtoolbar==TRUE)
     gtk_widget_show (toolbar);
 
   if (showslider==TRUE) {
     gtk_widget_show (speed_frame);
-    gtk_widget_show (speed_hscale);
   }
 
     // FIXME - need to implement this
@@ -766,12 +767,8 @@ open_window() {
 
   dasher_get_alphabets( &alphabet, 1 );
   
-  dasher_set_parameter_string( STRING_ALPHABET, alphabet );
-  
-  //  dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
-  
   dasher_start();
-  
+
   gtk_timeout_add(50, timer_callback, NULL );  
   
   setup = TRUE;

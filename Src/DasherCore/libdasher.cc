@@ -6,6 +6,8 @@
 #include "libdasher.h"
 #include "libdasher_private.h"
 
+#include <iostream>
+
 CDasherInterface *interface;
 dasher_ui *dui;
 dasher_screen *dsc;
@@ -179,39 +181,35 @@ void handle_set_string_option(const std::string& Key, const std::string& Value)
 
 using namespace std;
 
-void dasher_initialise( int _width, int _height )
+void dasher_early_initialise( int _width, int _height )
 {
   interface = new CDasherInterface;
-
+  
   dsc = new dasher_screen( _width, _height );
   interface->ChangeScreen( dsc );
-
+  
   ded = new dasher_edit;
   interface->ChangeEdit( ded );
   
   dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
- 
+  
   dasher_set_parameter_int( INT_VIEW, 0 ); 
+  
+}
+
+void dasher_late_initialise()
+{
   const char *alphabet;
   dasher_get_alphabets( &alphabet, 1 );
   dasher_set_parameter_string( STRING_ALPHABET, alphabet );
-  //  dasher_start();
 
-//   const char *alphabet;
-//   dasher_get_alphabets( &alphabet, 1 );
-//   dasher_set_parameter_string( STRING_ALPHABET, alphabet );
- 
   dss = new dasher_settings_store;
   interface->SetSettingsStore( dss );
-
-  //  cout << "Settings store - " << dss << endl;
 
   dasher_start();
 
   dui = new dasher_ui;
   interface->SetSettingsUI( dui );
-
-  
 }
 
 void dasher_finalise()

@@ -480,8 +480,7 @@ const std::string& CDasherInterface::GetTrainFile()
 void CDasherInterface::GetAlphabets(std::vector< std::string >* AlphabetList)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
-	
+		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);	
 	m_AlphIO->GetAlphabets(AlphabetList);
 }
 

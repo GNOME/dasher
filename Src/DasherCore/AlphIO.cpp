@@ -57,7 +57,7 @@ void CAlphIO::ParseFile(std::string Filename)
 		// could not open file
 		return;
 	}
-	
+
 	XML_Parser Parser = XML_ParserCreate(NULL);
 	
 	// Members passed as callbacks must be static, so don't have a "this" pointer.
