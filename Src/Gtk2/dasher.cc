@@ -58,7 +58,9 @@ std::string alphabet;
 std::string colourscheme;
 char *system_data_dir;
 char *user_data_dir;
-
+GtkWidget *train_dialog;
+GThread *trainthread;
+GAsyncQueue* trainqueue;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;
@@ -90,6 +92,7 @@ gboolean mouseposstart;
 gboolean firstbox=FALSE;
 gboolean secondbox=FALSE;
 gboolean speakonstop=FALSE;
+gboolean training=FALSE;
 
 gint dasherwidth, dasherheight;
 long yscale, mouseposstartdist=0;
@@ -126,6 +129,16 @@ load_training_file (const gchar *filename)
   dasher_train_file( filename );
 }
 
+gpointer
+change_alphabet(gpointer alph)
+{
+  dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
+  g_free(alph);
+  g_async_queue_push(trainqueue,(void *)1);
+  g_thread_exit(NULL);
+}
+
+
 extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 {
   GtkTreeIter iter;
@@ -135,31 +148,27 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
   GtkWidget *preferences_window = GTK_WIDGET(data);
 
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, 0, &alph, -1);
-    
+    gtk_tree_model_get(model, &iter, 0, &alph, -1);    
     if (alph!=alphabet) {
-      GtkWindow* trainwindow=GTK_WINDOW(glade_xml_get_widget(widgets,"trainwindow"));
-      gtk_window_set_transient_for(trainwindow,GTK_WINDOW(preferences_window));
-      gtk_window_present(trainwindow);
-
-      while (gtk_events_pending ()) {
-      	gtk_main_iteration_do(false);
-      }
-
-      dasher_set_parameter_string( STRING_ALPHABET, alph );
-      gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
       alphabet=alph;
-      update_colours();
-      dasher_redraw();
-      deletemenutree();
-      add_control_tree(gettree());
+      training=TRUE;
+      trainqueue=g_async_queue_new();
+      trainthread=g_thread_create(change_alphabet,alph,false,NULL);
+      train_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
+      gtk_window_set_resizable(GTK_WINDOW(train_dialog), FALSE);
+      gtk_window_present(GTK_WINDOW(train_dialog));
+    } else {
+      g_free(alph);
     }
-    g_free(alph);
   }
 }
 
 void update_colours()
 {
+  if (training==true) {
+    return;
+  }
+
   colourscheme=dasher_get_current_colours();
   const int colourlist_size=128;
   const char *colourlist[ colourlist_size ];
@@ -235,7 +244,7 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
 
   // Make sure that the colour tree is realized now as we'll need to do
   // stuff with it before it's actually displayed
-  gtk_widget_realize(colourtreeview)
+  gtk_widget_realize(colourtreeview);
 
   colour_list_store = gtk_list_store_new(1,G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
@@ -837,15 +846,36 @@ long get_time() {
 gint
 timer_callback(gpointer data)
 {
+  if (training==true)
+    {
+      if (g_async_queue_try_pop(trainqueue)==NULL) {
+	return 1;
+      } else {
+	training=false;
+	g_async_queue_unref(trainqueue);
+	gtk_widget_hide(train_dialog);
+	// We need to do this again to get the configuration saved, as we
+	// can't do gconf stuff from the other thread
+	dasher_set_parameter_string( STRING_ALPHABET, alphabet.c_str() );
+	
+	update_colours();
+	deletemenutree();
+	// And making bonobo calls from another thread is likely to lead to
+	// pain as well
+	add_control_tree(gettree());
+
+	dasher_redraw();
+      }
+    }
   if (!paused) {
     int x;
     int y;
-
+    
     if (leavewindowpause==true) {
       gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
-
+      
       gdk_window_get_pointer(GTK_WIDGET(window)->window, &x, &y, NULL);
-
+      
       if (x>dasherwidth || x<0 || y>dasherheight || y<0) {
 	return 1;
       }
@@ -867,7 +897,7 @@ timer_callback(gpointer data)
     } 
     dasher_tap_on( x, y, get_time() );
   }
-
+  
   else {
     int x,y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
@@ -886,9 +916,9 @@ timer_callback(gpointer data)
       newy+=dasherheight/2;
       y=int(newy);
     } 
-
+    
     dasher_draw_mouse_position(x,y);
-
+    
     if (mouseposstart==true) {
       dasherheight=the_canvas->allocation.height;
       gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
@@ -1672,6 +1702,8 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
   reset_dasher_font();
   dasher_set_parameter_string( STRING_DASHERFONT, "Serif 12" );
   dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
+  editfont="Serif 12";
+  dasherfont="Sans 10";
 }
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data)

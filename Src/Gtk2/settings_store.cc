@@ -1,6 +1,7 @@
 #include "settings_store.h"
 
 GConfClient *the_gconf_client;
+extern bool training;
 
 bool get_bool_option_callback(const std::string& Key, bool *value)
 {
@@ -81,6 +82,10 @@ void set_long_option_callback(const std::string& Key, long Value)
 
 void set_string_option_callback(const std::string& Key, const std::string& Value)
 {
+  if (training==true) {
+    return;
+  }
+
   char keypath[1024];
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );

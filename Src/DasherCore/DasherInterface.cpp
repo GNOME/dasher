@@ -211,63 +211,62 @@ void CDasherInterface::DrawGoTo(int MouseX, int MouseY)
 
 void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 {
-	if (m_SettingsStore!=0)
-		m_SettingsStore->SetStringOption(Keys::ALPHABET_ID, NewAlphabetID);
+        if (AlphabetID != NewAlphabetID) { // Don't bother doing any of this if
+	  AlphabetID = NewAlphabetID; // it's the same alphabet
+
+	  if (!m_AlphIO)
+	    m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
+
+	  m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
+	  
+	  AlphabetID = m_AlphInfo.AlphID.c_str();
+
+	  CAlphabet* old = m_Alphabet;   // So we can delete the old alphabet later
+
+	  m_Alphabet = new CCustomAlphabet(m_AlphInfo);
 	
-	AlphabetID = NewAlphabetID;
-	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
-	m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
+	  // Apply options from alphabet
 
-	AlphabetID = m_AlphInfo.AlphID.c_str();
+	  m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
+	
+	  // Recreate widgets and language model
+	  if (m_DashEditbox!=0)
+	    m_DashEditbox->SetInterface(this);
+	  if (m_DasherScreen!=0)
+	    m_DasherScreen->SetInterface(this);
+	  if (LanguageModelID!=-1 || m_LanguageModel)
+	    ChangeLanguageModel(LanguageModelID);
+	  
+	  delete old; // only delete old alphabet after telling all other objects not to use it
+	  
+	  if (m_Alphabet->GetPalette()!="" && m_PaletteChange==true) {
+	    ChangeColours(m_Alphabet->GetPalette());
+	  }
+	  
+	  if (m_ControlMode==true) {
+	    m_Alphabet->AddControlSymbol();
+	  }
+	  
+	  Start();
+	  
+	  // We can only change the orientation after we have called
+	  // Start, as this will prompt a redraw, which will fail if the
+	  // model hasn't been updated for the new alphabet
+	  
+	  if (m_Orientation==Opts::Alphabet)
+	    ChangeOrientation(Opts::Alphabet);
+	  
+	  //FIXME - this should really be done when the new view is generated
+	  //rather than fixing things up afterwards
+	  if (m_DasherView!=0) {
+	    m_DasherView->SetColourMode(m_ColourMode);
+	  }
+	}
 
-        if (m_SettingsUI!=0)
-                m_SettingsUI->ChangeAlphabet(AlphabetID);
+	if (m_SettingsUI!=0)
+	  m_SettingsUI->ChangeAlphabet(AlphabetID);
         if (m_SettingsStore!=0)
-                m_SettingsStore->SetStringOption(Keys::ALPHABET_ID, AlphabetID);
-
-	CAlphabet* old = m_Alphabet;   // So we can delete the old alphabet later
-
-	m_Alphabet = new CCustomAlphabet(m_AlphInfo);
-	
-	// Apply options from alphabet
-
-	m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
-	
-	// Recreate widgets and language model
-	if (m_DashEditbox!=0)
-		m_DashEditbox->SetInterface(this);
-	if (m_DasherScreen!=0)
-		m_DasherScreen->SetInterface(this);
-	if (LanguageModelID!=-1 || m_LanguageModel)
-		ChangeLanguageModel(LanguageModelID);
-
-	delete old; // only delete old alphabet after telling all other objects not to use it
-
-	if (m_Alphabet->GetPalette()!="" && m_PaletteChange==true) {
-	  ChangeColours(m_Alphabet->GetPalette());
-	}
-
-	if (m_ControlMode==true) {
-	  m_Alphabet->AddControlSymbol();
-	}
-
-	Start();
-
-	// We can only change the orientation after we have called
-	// Start, as this will prompt a redraw, which will fail if the
-	// model hasn't been updated for the new alphabet
-
-	if (m_Orientation==Opts::Alphabet)
- 		ChangeOrientation(Opts::Alphabet);
-
-	//FIXME - this should really be done when the new view is generated
-	//rather than fixing things up afterwards
-	if (m_DasherView!=0) {
-	  m_DasherView->SetColourMode(m_ColourMode);
-	}
-
-	Redraw();
+	  m_SettingsStore->SetStringOption(Keys::ALPHABET_ID, AlphabetID);
 }
 
 std::string CDasherInterface::GetCurrentAlphabet()
@@ -292,8 +291,6 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	if (m_DasherScreen!=0) {
 	  m_DasherScreen->SetColourScheme(m_Colours);
 	}
-
-	Redraw();
 }
 
 std::string CDasherInterface::GetCurrentColours() {
