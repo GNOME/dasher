@@ -1,3 +1,4 @@
+# translation of dasher.HEAD.az.po to Azerbaijani
 # translation of dasher.HEAD.po to Azerbaijani Turkish
 # This file is distributed under the same license as the dasher package.
 # Copyright (C) 2003 Mətin Əmirov.
@@ -5,59 +6,60 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: dasher.HEAD.az\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-05 14:11+0100\n"
-"PO-Revision-Date: 2004-02-14 15:22+0200\n"
+"POT-Creation-Date: 2004-08-16 11:00+0200\n"
+"PO-Revision-Date: 2004-08-17 22:23+0300\n"
 "Last-Translator: Mətin Əmirov <metin@karegen.com>\n"
-"Language-Team: Azerbaijani Turkish <translation-team-az@lists.sourceforge.net>\n"
+"Language-Team: Azerbaijani <translation-team-az@lists.sourceforge.net>\n"
+"net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"X-Generator: KBabel 1.3.1\n"
 
-#: Src/Gtk2/accessibility.cc:61
+#: Src/Gtk2/accessibility.cc:60
 msgid "Menus"
 msgstr "Menyular"
 
-#: Src/Gtk2/accessibility.cc:68
+#: Src/Gtk2/accessibility.cc:67
 msgid "Windows"
 msgstr "Pəncərələr"
 
-#: Src/Gtk2/accessibility.cc:73
+#: Src/Gtk2/accessibility.cc:72
 msgid "Application"
 msgstr "Proqram"
 
-#: Src/Gtk2/accessibility.cc:80
+#: Src/Gtk2/accessibility.cc:79
 msgid "Buttons"
 msgstr "Düymələr"
 
-#: Src/Gtk2/accessibility.cc:86
+#: Src/Gtk2/accessibility.cc:85
 msgid "Panels"
 msgstr "Panellər"
 
-#: Src/Gtk2/accessibility.cc:93
+#: Src/Gtk2/accessibility.cc:92
 msgid "Text"
 msgstr "Mətn"
 
-#: Src/Gtk2/accessibility.cc:167 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:166 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "İdarə"
 
-#: Src/Gtk2/accessibility.cc:172
+#: Src/Gtk2/accessibility.cc:171
 msgid "Stop"
 msgstr "Dayan"
 
-#: Src/Gtk2/accessibility.cc:178
+#: Src/Gtk2/accessibility.cc:177
 msgid "Pause"
 msgstr "Fasilə ver"
 
-#: Src/Gtk2/accessibility.cc:185
+#: Src/Gtk2/accessibility.cc:184
 msgid "Move"
 msgstr "Daşı"
 
-#: Src/Gtk2/accessibility.cc:192
+#: Src/Gtk2/accessibility.cc:191
 msgid "Delete"
 msgstr "Sil"
 
@@ -65,56 +67,102 @@ msgstr "Sil"
 msgid "Speak"
 msgstr "Danış"
 
-#: Src/Gtk2/accessibility.cc:219 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:228 Src/Gtk2/accessibility.cc:382
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:225 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:234 Src/Gtk2/accessibility.cc:376
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:231
+#: Src/Gtk2/accessibility.cc:240
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:237
+#: Src/Gtk2/accessibility.cc:246
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:259
 msgid "Everything"
 msgstr "Hər şey"
 
-#: Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:265
 msgid "New"
 msgstr "Yeni"
 
-#: Src/Gtk2/accessibility.cc:262
+#: Src/Gtk2/accessibility.cc:271
 msgid "Repeat"
 msgstr "Təkrarla"
 
-#: Src/Gtk2/accessibility.cc:294 Src/Gtk2/accessibility.cc:317
+#: Src/Gtk2/accessibility.cc:293
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:300
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:307
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:314
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:321
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:328
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:335
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:342
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:349
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:356
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:388 Src/Gtk2/accessibility.cc:411
 msgid "Character"
 msgstr "Hərf"
 
-#: Src/Gtk2/accessibility.cc:305 Src/Gtk2/accessibility.cc:327
+#: Src/Gtk2/accessibility.cc:399 Src/Gtk2/accessibility.cc:421
 msgid "Word"
 msgstr "Kəlmə"
 
-#: Src/Gtk2/accessibility.cc:310 Src/Gtk2/accessibility.cc:333
+#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:427
 msgid "Line"
 msgstr "Sətir"
 
-#: Src/Gtk2/accessibility.cc:403
+#: Src/Gtk2/accessibility.cc:506
 msgid "Unknown"
 msgstr "Namə'lum"
 
-#: Src/Gtk2/dasher.cc:184
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
 msgstr "Dasher öyrənir, xahiş edirik gözləyin"
 
+#: Src/Gtk2/dasher.cc:501 Src/Gtk2/dasher.cc:522 Src/Gtk2/dasher.cc:543
+#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:58
+#: Src/Gtk2/dashergpe.glade.h:60
+msgid "Select File"
+msgstr "Faylı Seç"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1760
+#: Src/Gtk2/dasher.cc:1647
 msgid "translator_credits"
 msgstr ""
 "Mətin Əmirov <metin@karegen.com>\n"
@@ -122,20 +170,20 @@ msgstr ""
 "Tərcümə işləri üzrə yazışma siyahısı ünvanımız:\n"
 "<translation-team-az@lists.sourceforge.net>"
 
-#: Src/Gtk2/dasher.cc:1762 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1649 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1765
+#: Src/Gtk2/dasher.cc:1652
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher bir mətn girişi proqramıdır"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2172
+#: Src/Gtk2/dasher.cc:2065
 #, c-format
-msgid "%d characters output in %d seconds\n"
-msgstr "%d hərf %d saniyə içində\n"
+msgid "%d characters output in %ld seconds\n"
+msgstr "%d hərf %ld saniyə içində\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -165,7 +213,7 @@ msgstr "<b>Əlifba Seçimi:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Düymə idarə qurğusu</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Rəng Seçimi:</b>"
 
@@ -233,11 +281,11 @@ msgstr "Düymə modu"
 msgid "Button:"
 msgstr "Düymə:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Rəng sxemini avtomatik dəyişdir"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Rəng"
 
@@ -299,234 +347,220 @@ msgstr "Eyetracker modu"
 
 #: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:44
 msgid ""
-"If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"Bu mod seçilidirsə, yuxarı və aşağı düymələri\n"
-"koordinatlar arasında geri və irəli gəzəcəkdir və sağa düyməsi seçimi "
-"təstiqləyəcəkdir."
+"If this mode is selected, up and down will cycle backwards and forwards "
+"between coordinates and right will confirm the choice"
+msgstr "Bu mod seçilidirsə, yuxarı və aşağı düymələri koordinatlar arasında geri və irəli gəzəcəkdir və sağa düyməsi seçimi təstiqləyəcəkdir"
 
-#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
+#: Src/Gtk2/dasher.glade.h:44 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
 msgstr "Geniş"
 
-#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:47
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
 msgid "Left to Right"
 msgstr "Soldan Sağa"
 
-#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:48
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:47
 msgid "Left/2:"
 msgstr "Sol/2:"
 
-#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:49
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
 msgstr "Yeni fayl"
 
-#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:50
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:49
 msgid "Normal"
 msgstr "Normal"
 
-#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
 msgstr "Bütün y sahəsini örtməsi istənən piksel ədədi:"
 
-#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
 msgstr "Tək boyutlu mod"
 
-#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:53
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
 msgstr "Faylı aç"
 
-#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:55
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:54
 msgid "Paste"
 msgstr "Yapışdır"
 
-#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:55
 msgid "Pause outside window"
 msgstr "Pəncərənin xaricinə yapışdır"
 
-#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "Sağdan Sola"
 
-#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
 msgstr "Sağ/4:"
 
-#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:59
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
 msgstr "Faylı qeyd et"
 
-#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
 msgstr "Faylı fərqli qeyd et"
 
 #: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Faylı Seç"
-
-#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
 msgstr "Yazı Növünü Seç"
 
-#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:63
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
 msgstr "Siçanın mövqeyini göstər"
 
-#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show speed slider"
 msgstr "Sür'ət dəyişsiricisini göstər"
 
-#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show toolbar"
 msgstr "Vasitə çubuğunu göstər"
 
-#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
 msgid "Speak on stop"
 msgstr "Dayananda danış"
 
-#: Src/Gtk2/dasher.glade.h:65
+#: Src/Gtk2/dasher.glade.h:64
 msgid "Speed"
 msgstr "Sür'ət"
 
-#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
+#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
 msgstr "Siçanın sol düyməsinə basıldığında başla"
 
-#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on space bar"
 msgstr "Boşluq düyməsinə basıldığında başla"
 
-#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start with mouse position"
 msgstr "Siçan mövqeyində başla"
 
-#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
 msgstr "Yeni fayllara tarixi mühürlə"
 
-#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
 msgid "Top to Bottom"
 msgstr "Üstdən Ala"
 
-#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:72
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
 msgid "Training"
 msgstr "Öyrənmə"
 
-#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training Dasher - please wait"
 msgstr "Dasher Öyrənir - xahiş edirik gözləyin"
 
-#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
 msgid "Up/1:"
 msgstr "Yuxarı/1:"
 
-#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:75
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
 msgid ""
-"Use this control to adjust the relative sizes of the \n"
-"letter boxes. Note that selecting high values will slow\n"
-"your writing speed."
-msgstr ""
-"Bu idarəni məktub qutularının nisbi böyüklüyünü dəyişdirmək \n"
-"üçün işlədin. Qeyd edək ki, yüksək qiymətlərin seçilməsi\n"
-"yazma sür'ətinizi yavaşladacaqdır."
+"Use this control to adjust the relative sizes of the letter boxes. Note that "
+"selecting high values will slow your writing speed."
+msgstr "Bu idarəni məktub qutularının nisbi böyüklüyünü dəyişdirmək üçün işlədin. Qeyd edək ki, yüksək qiymətlərin seçilməsi yazma sürətinizi yavaşladacaqdır."
 
-#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
+#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
 msgstr "Çox Geniş"
 
-#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
+#: Src/Gtk2/dasher.glade.h:75 Src/Gtk2/dashergpe.glade.h:76
 msgid "View"
 msgstr "Görünüş"
 
-#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:80
+#: Src/Gtk2/dasher.glade.h:76 Src/Gtk2/dashergpe.glade.h:77
 msgid "X:"
 msgstr "X:"
 
-#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:81
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
 msgid "Y:"
 msgstr "Y:"
 
-#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:82
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
 msgstr "_Haqqında"
 
-#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:83
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
 msgstr "_Fayla əlavə et"
 
-#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:84
+#: Src/Gtk2/dasher.glade.h:80
+msgid "_Contents"
+msgstr "_Məzmun"
+
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:81
 msgid "_Dasher Font"
 msgstr "_Dasher Yazı Növü"
 
-#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:85
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:82
 msgid "_Dasher Font Size"
 msgstr "_Dasher Yazı Növü Böyüklüyü"
 
-#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:86
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Edit"
 msgstr "_Düzəlt"
 
-#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:87
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Edit Font"
 msgstr "_Yazı Növünü Düzəlt"
 
-#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:88
+#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
 msgstr "_Fayl"
 
-#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:89
+#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Help"
 msgstr "_Yardım"
 
-#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:90
+#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
 msgstr "Ö_yrətmə Mətni İdxal Et"
 
-#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
+#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:88
 msgid "_Options"
 msgstr "_Seçimlər"
 
-#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:92
+#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:89
 msgid "_Reset fonts"
 msgstr "Yazı növlərini _sıfırla"
 
-#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:93
+#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:90
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
-
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Rəng Seçimi:</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Sür'ət</b>"
 
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Rəng sxemini avtomatik dəyişdir"
-
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Rəng"
-
-#: Src/Gtk2/dashergpe.glade.h:54
+#: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
 msgstr "İstiqamət"
 
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Səs dəstəyi hazırlana bilmədi\n"
+
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "Səslər hazırlana bilmədi"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:65
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Xəbərdarlıq danışıq parametrləri seçilə bilmədi\n"
 
-#: Src/main.cc:98
+#: Src/main.cc:104
 msgid "Dasher Text Entry"
 msgstr "Dasher Mətn Girişi"
+
