@@ -157,12 +157,9 @@ void CDasherModel::Start()
 		oldroots.clear();
 	}
 
+	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
 
-	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
-	m_Root->Push_Node(therootcontext);
-	
-	//Rootparent=new DasherNode(0,0,0,therootcontext,0,0,0,Normalization(),languagemodel);	
 	if (m_editbox) {
 		string ContextString;
 		m_editbox->get_new_context(ContextString,5);
@@ -172,6 +169,8 @@ void CDasherModel::Start()
 		m_languagemodel->ReleaseNodeContext(LearnContext);
 		LearnContext = m_languagemodel->CloneNodeContext(therootcontext);
 	}
+
+	m_Root->Push_Node(therootcontext);
 
 	m_languagemodel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
