@@ -284,6 +284,14 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	}
 
 	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+	CDasherScreen::point mouseline[2];
+
+	mouseline[0].x=dasherx2screen(DasherModel().DasherOX());
+	mouseline[0].y=CanvasY/2;
+	mouseline[1].x=mousex;
+	mouseline[1].y=mousey;	  	
+
+	Screen().Polyline(mouseline,2);
 }
 
 void CDasherViewSquare::DrawKeyboard()
