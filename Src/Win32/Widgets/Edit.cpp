@@ -13,6 +13,7 @@
 */
 
 #include "Edit.h"
+#include <mbstring.h>
 
 using namespace Dasher;
 using namespace std;
@@ -537,17 +538,15 @@ void CEdit::output(symbol Symbol)
 		return;
 	
 	InsertText(DisplayStrings[Symbol]);
-#ifdef UNICODE	
 	if (targetwindow!=NULL) {
 		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
-
+#ifdef UNICODE
 		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
 			// Newline, so we want to fake an enter
 			fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-			fakekey[0].ki.wScan=fakekey[1].ki.wScan=0x1C;
+			fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_RETURN;
 			fakekey[0].ki.time=fakekey[1].ki.time=0;
-			fakekey[0].ki.dwFlags=KEYEVENTF_SCANCODE;
-			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP||KEYEVENTF_SCANCODE;
+			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
 
 			SetFocus(targetwindow);
 			SendInput(2,fakekey,sizeof(INPUT));
@@ -555,7 +554,7 @@ void CEdit::output(symbol Symbol)
 		wchar_t outputstring[256];
 		int i=mbstowcs(outputstring,DisplayText,255);
 
-		for (int j=0; j<1; j++) {
+		for (int j=0; j<i; j++) {
 			fakekey[0].type=INPUT_KEYBOARD;
 			fakekey[0].ki.dwFlags=KEYEVENTF_UNICODE;
 			fakekey[0].ki.wVk=0;
@@ -564,8 +563,29 @@ void CEdit::output(symbol Symbol)
 			SetFocus(targetwindow);
 			SendInput(1,fakekey,sizeof(INPUT));
 		}
-	}
+#else
+		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
+			// Newline, so we want to fake an enter
+			SetFocus(targetwindow);
+			keybd_event(VK_RETURN,0,NULL,NULL);
+			keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,NULL);
+		}
+		Tstring character;
+		WinUTF8::UTF8string_to_Tstring(DisplayText,&character,1252); 
+		TCHAR test=character[0];
+		SHORT outputvk=VkKeyScan(char(character[0]));
+		SetFocus(targetwindow);
+		if(HIBYTE(outputvk)&&6) {
+			keybd_event(VK_SHIFT,0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
+			keybd_event(VK_SHIFT,0,KEYEVENTF_KEYUP,NULL);
+		} else {
+			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
+		}
 #endif
+	}
 	m_Output += m_DasherInterface->GetEditText(Symbol);
 	if (m_Output.size()>=1024)
 		write_to_file();
@@ -577,25 +597,23 @@ void CEdit::flush(symbol Symbol)
 	Tstring OutputText = DisplayStrings[Symbol];
 	
 	InsertText(OutputText);
-#ifdef UNICODE
 	if (targetwindow!=NULL) {
 		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
-
+#ifdef UNICODE
 		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
 			// Newline, so we want to fake an enter
 			fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-			fakekey[0].ki.wScan=fakekey[1].ki.wScan=0x1C;
+			fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_RETURN;
 			fakekey[0].ki.time=fakekey[1].ki.time=0;
-			fakekey[0].ki.dwFlags=KEYEVENTF_SCANCODE;
-			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP||KEYEVENTF_SCANCODE;
-
+			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
+		
 			SetFocus(targetwindow);
 			SendInput(2,fakekey,sizeof(INPUT));
 		}
 		wchar_t outputstring[256];
 		int i=mbstowcs(outputstring,DisplayText,255);
 
-		for (int j=0; j<1; j++) {
+		for (int j=0; j<i; j++) {
 			fakekey[0].type=INPUT_KEYBOARD;
 			fakekey[0].ki.dwFlags=KEYEVENTF_UNICODE;
 			fakekey[0].ki.wVk=0;
@@ -604,8 +622,29 @@ void CEdit::flush(symbol Symbol)
 			SetFocus(targetwindow);
 			SendInput(1,fakekey,sizeof(INPUT));
 		}
-	}
+#else
+		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
+			// Newline, so we want to fake an enter
+			SetFocus(targetwindow);
+			keybd_event(VK_RETURN,0,NULL,NULL);
+			keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,NULL);
+		}
+		Tstring character;
+		WinUTF8::UTF8string_to_Tstring(DisplayText,&character,1252); 
+		TCHAR test=character[0];
+		SHORT outputvk=VkKeyScan(char(character[0]));
+		SetFocus(targetwindow);
+		if(HIBYTE(outputvk)&&6) {
+			keybd_event(VK_SHIFT,0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
+			keybd_event(VK_SHIFT,0,KEYEVENTF_KEYUP,NULL);
+		} else {
+			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
+		}
 #endif
+	}
 	m_iFlushed += OutputText.size();
 }
 
@@ -660,10 +699,10 @@ void CEdit::unflush()
 	TCHAR out [2];
 	wsprintf(out,TEXT(""));
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE,(LONG)out);
-#ifdef UNICODE
 	if (targetwindow!=NULL) {
+#ifdef UNICODE
 		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-		fakekey[0].ki.wScan=fakekey[1].ki.wScan=0xE;
+		fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_BACK;
 		fakekey[0].ki.time=fakekey[1].ki.time=0;
 		fakekey[0].ki.dwFlags=KEYEVENTF_SCANCODE;
 		fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP||KEYEVENTF_SCANCODE;
@@ -671,6 +710,12 @@ void CEdit::unflush()
 		for (m_iFlushed; m_iFlushed>0; m_iFlushed--) {
 			SetFocus(targetwindow);
 			SendInput(2,fakekey,sizeof(INPUT));
+		}
+#else
+		for (m_iFlushed; m_iFlushed>0; m_iFlushed--) {
+			SetFocus(targetwindow);
+			keybd_event(VK_BACK,0,NULL,NULL);
+			keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
 		}
 	}
 #endif
@@ -686,16 +731,22 @@ void CEdit::deletetext()
 	TCHAR out [2];
 	wsprintf(out,TEXT(""));
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
-#ifdef UNICODE
 	if (targetwindow!=NULL) {
+#ifdef UNICODE
 		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-		fakekey[0].ki.wScan=fakekey[1].ki.wScan=0xE;
+		fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_BACK;
 		fakekey[0].ki.time=fakekey[1].ki.time=0;
 		fakekey[0].ki.dwFlags=KEYEVENTF_SCANCODE;
 		fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP||KEYEVENTF_SCANCODE;
 
+		for (m_iFlushed; m_iFlushed>0; m_iFlushed--) {
+			SetFocus(targetwindow);
+			SendInput(2,fakekey,sizeof(INPUT));
+		}
+#else
 		SetFocus(targetwindow);
-		SendInput(2,fakekey,sizeof(INPUT));
+		keybd_event(VK_BACK,0,NULL,NULL);
+		keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
 	}
 #endif
 }

@@ -335,11 +335,11 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			break;
 
 			case ID_OPTIONS_ENTERTEXT:
-#ifdef UNICODE
+//#ifdef UNICODE
 				{ CWinSel WinSel(m_hwnd,m_pEdit); }
-#else
-				MessageBox (m_hwnd, TEXT ("Sorry, this option is only available in the Windows 2000 and higher version of Dasher"), TEXT("Feature unavailable"),MB_OK|MB_ICONERROR);
-#endif
+//#else
+//				MessageBox (m_hwnd, TEXT ("Sorry, this option is only available in the Windows 2000 and higher version of Dasher"), TEXT("Feature unavailable"),MB_OK|MB_ICONERROR);
+//#endif
 				break;
 			
 			case ID_OPTIONS_1D:
