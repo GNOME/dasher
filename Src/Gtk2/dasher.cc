@@ -732,11 +732,14 @@ timer_callback(gpointer data)
     int x,y;
     dasherheight=the_canvas->allocation.height;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
-    if (firsttime==firstbox==secondbox==false) {
-      firstbox=true;
+
+    if (firsttime==firstbox==secondbox==false) { // special case for Dasher 
+      firstbox=true;                             // startup
       draw_mouseposbox(0);
     }
-    if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist)) {
+
+    if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist) && firstbox==true) {
+      // Inside the red box
       if (starttime==0) {
 	starttime=time(NULL);
       } else {
@@ -747,6 +750,7 @@ timer_callback(gpointer data)
 	}
       }
     } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
+      // inside the yellow box, and the yellow box has been displayed
       if (starttime2==0) {
 	starttime2=time(NULL);
 	starttime=0;
@@ -760,6 +764,8 @@ timer_callback(gpointer data)
 	draw_mouseposbox(0);
 	secondbox=false;
 	firstbox=true;
+	starttime2=0;
+	starttime=0;
       }
       starttime=starttime2=0;
     }
