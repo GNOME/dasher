@@ -62,6 +62,7 @@ public:
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
 	int Colour() const {return m_iColour;}
 	int GroupColour(int group) const {return m_languagemodel->GetGroupColour(group);}
+	std::string GroupLabel(int group) const {return m_languagemodel->GetGroupLabel(group);}
 	CDasherNode* Parent() const {return m_parent;}
 
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords

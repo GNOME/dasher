@@ -500,6 +500,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 	if (strcmp(name, "group")==0) {
 		AlphInfo::group NewGroup;
 		NewGroup.Colour=-1;
+		NewGroup.Label="";
 		Me->InputInfo.Groups.push_back(NewGroup);
 		while (*atts!=0) {
 			if (strcmp(*atts, "name")==0) {
@@ -512,6 +513,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Me->InputInfo.Groups.back().Colour = atoi(*atts);
 				atts--;
 			}
+            if (strcmp(*atts, "label")==0) {
+                atts++;
+				Me->InputInfo.Groups.back().Label = *atts; 
+                atts--;
+            }
 			atts += 2;
 		}
 		return;

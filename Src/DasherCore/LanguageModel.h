@@ -60,7 +60,7 @@ public:
 
 	int GetColour(int character);
 	int GetGroupColour(int group);
-
+	std::string GetGroupLabel(int group);
 	void NewControlTree(ControlTree *tree) { controltree=tree; }
 
 	ControlTree* GetControlTree() { return controltree; }

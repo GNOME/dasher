@@ -91,6 +91,8 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 	int current=0;
 	int lower=0;
 	int upper=0;
+    std::string Label="";
+
 	myint range=y2-y1;
 	for (unsigned int i=1; i<Render->Chars(); i++) {
 		int g=Children[i]->Group();
@@ -106,14 +108,16 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				int mostleft;
 				bool force;
 				if (ColourMode==true) {
+                  std::string Label = Render->GroupLabel(current);
 				  int Colour = Render->GroupColour(current);
-				  if (Colour!=-1) {
-					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,"");
+                  
+                  if (Colour!=-1) {
+					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,Label);
 				  } else {
-				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,force,text,Label);
 				  }
 				} else {
-					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,Label);
 				}
 			}
 			current=g;

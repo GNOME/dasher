@@ -118,6 +118,11 @@ int CLanguageModel::GetGroupColour(int group)
 	return m_Alphabet->GetGroupColour(group);
 }
 
+std::string CLanguageModel::GetGroupLabel(int group)
+{
+    return m_Alphabet->GetGroupLabel(group);
+}
+
 bool CLanguageModel::isRealSymbol( symbol _s ) {
   if( _s  == 0 )
     return false;

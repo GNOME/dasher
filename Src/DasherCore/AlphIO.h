@@ -53,6 +53,7 @@ public:
 			std::string Description;
 			std::vector< character > Characters;
 			int Colour;
+			std::string Label;
 		};
 		std::vector< group > Groups;
 	        character ParagraphCharacter; // display and edit text of paragraph character. Use ("", "") if no paragraph character.

@@ -42,6 +42,7 @@ public:
 	const std::string& GetText(symbol i) const {return m_Characters[i];}     // return string for i'th symbol
 	int GetColour(symbol i) const {return m_Colours[i];}     // return the colour for i'th symbol
 	int GetGroupColour(int i) const {return m_GroupColour[i];} // return the colour for i'th group
+	std::string GetGroupLabel(int i) const {return m_GroupLabel[i];}
 	int GetTextColour(symbol i);      // return the foreground colour for i'th symbol
 	const std::string& GetForeground(symbol i) const {return m_Foreground[i];} // return the foreground colour for i'th symbol
 	int get_group(symbol i) const {return m_Group[i];}                // return group membership of i'th symbol
@@ -65,7 +66,7 @@ protected:
 	void AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground); // add single char to the alphabet
 	// Delete a character
 	void DelChar(symbol Symbol);
-	void StartNewGroup(int colour=-1);
+	void StartNewGroup(int colour=-1,std::string label="");
 
 	// Alphabet language parameters
 	void SetParagraphSymbol() {m_ParagraphSymbol=m_Characters.size()-1;}
@@ -93,7 +94,8 @@ private:
 	std::vector<std::string> m_Foreground; // stores the colour of the character foreground
 	std::vector<int> m_Group;              // stores the group indicators - e.g. caps, numbers, punctuation
 	std::vector<int> m_GroupColour; // stores the colour of the group
-	int m_Groups;                          // number of groups
+    std::vector<std::string> m_GroupLabel;
+    int m_Groups;                          // number of groups
 	alphabet_map TextMap;
 };
 
