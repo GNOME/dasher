@@ -477,7 +477,7 @@ save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *select
 
   save_file_as(filename,FALSE);
 
-  gtk_exit(0);
+  gtk_main_quit();
 }
 
 extern "C" void
@@ -559,7 +559,7 @@ save_file_and_quit (GtkWidget *widget, gpointer user_data)
 {
   if (filename != NULL) {
     save_file_as(filename,FALSE);
-    gtk_exit(0);
+    gtk_main_quit();
   }
   else {
     select_save_file_as_and_quit(NULL,NULL);
@@ -607,7 +607,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
     case GTK_RESPONSE_REJECT:
       write_to_file();
-      gtk_exit(0);
+      gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
       gtk_widget_destroy (GTK_WIDGET(dialog));
@@ -621,7 +621,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
   }
   else {
     write_to_file();
-    gtk_exit (0);
+    gtk_main_quit();
   }
 }
 

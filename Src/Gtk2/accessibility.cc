@@ -1,11 +1,13 @@
 #include "accessibility.h"
 
 ControlTree *menutree;
+std::vector<Accessible*> menuitems;
+Accessible *desktop;
 
 ControlTree* gettree() {
 #ifdef GNOME_A11Y
   menutree = new ControlTree;
-  Accessible *desktop, *child;
+  Accessible *child;
   ControlTree *controltree;
   int numchildren;
   desktop = SPI_getDesktop(0);
@@ -165,32 +167,24 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
   if (numchildren>0) {
     for (int i=0; i<numchildren; i++) {
       child=Accessible_getChildAtIndex(parent,i);
-      if (numchildren==1 && Accessible_getName(child)=="") {
-	// ignore nodes that have one child and are nameless
-	if (useful==false) {
-	  useful=buildmenutree(child,ctree);
-	} else {
-	  buildmenutree(child,ctree);
-	}
-      } else {
-	if (useful==false) {
-	  useful=buildmenutree(child,NewNode);
-	} else {
-	  buildmenutree(child,NewNode);
-	}
-      }
+      useful=(buildmenutree(child,NewNode)||useful);
     }
+    NewNode->text=Accessible_getName(parent);
+    Accessible_unref(parent);
   } else {
     // We have no kids - check if we're a menu item
     if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM) {      
       NewNode->pointer=parent;
       NewNode->data=1;
       NewNode->children=menutree;
+      NewNode->text=Accessible_getName(parent);      
       useful=true;
+      menuitems.push_back(parent);
     }
   }
   if (useful==false) {
     delete NewNode;
+    Accessible_unref(parent);
   } else {
     if (ctree->children==NULL) {
       ctree->children=NewNode;
@@ -202,8 +196,15 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
       };
       parentnext->next=NewNode;
     }
-    NewNode->text=Accessible_getName(parent);
   }
   return useful;
+}
+
+void deletemenutree() {  
+  while (menuitems.size()>0) {
+    Accessible_unref(menuitems[menuitems.size()-1]);
+    menuitems.pop_back();
+  }
+  Accessible_unref(desktop);
 }
 #endif

@@ -111,6 +111,7 @@ main(int argc, char *argv[])
       {
         g_error ("Can't initialize Bonobo...\n");
       }
+    bonobo_activate();
 #endif
 
   dasher_set_get_bool_option_callback( get_bool_option_callback );
@@ -199,7 +200,14 @@ main(int argc, char *argv[])
   
   gconf_engine_unref(gconfengine);
 
+#ifdef GNOME_A11Y
+  deletemenutree();
+  //  SPI_exit();
+#endif
+
   dasher_finalise();
 
   return 0;
 }
+
+
