@@ -1666,7 +1666,7 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
   reset_edit_font();
   reset_dasher_font();
   dasher_set_parameter_string( STRING_DASHERFONT, "Serif 12" );
-  dasher_set_parameter_string( STRING_DASHERFONT, "Sans 10" );
+  dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
 }
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data)
