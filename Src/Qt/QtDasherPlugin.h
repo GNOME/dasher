@@ -3,7 +3,6 @@
 #include "QtDasherScreen.h"
 #include "DasherInterface.h"
 #include "DashEdit.h"
-#include "../Common/IOstreamDasherEdit.h"
 
 class QtDasherPlugin : public QFrame, public CDashEditbox
 {
@@ -31,7 +30,6 @@ public:
  private:
   QtDasherScreen *d;
   CDasherInterface *interface;
-  IOstreamDasherEdit *edit;
   int flushcount;
   QUtf8Codec *utf8_codec;
 };

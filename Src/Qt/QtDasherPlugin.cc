@@ -1,5 +1,4 @@
 #include "QtDasherPlugin.h"
-#include "../Common/IOstreamDasherEdit.h"
 
 #include <qpe/global.h>
  
@@ -20,8 +19,6 @@ QtDasherPlugin::QtDasherPlugin(QWidget* parent, const char* name, WFlags f) : QF
 {
   (new QHBoxLayout(this))->setAutoAdd(TRUE);
   interface = new CDasherInterface;
-  //  edit = new IOstreamDasherEdit(interface);
-  //  interface->ChangeOrientation(Dasher::Opts::ScreenOrientations(3));
   interface->SetSystemLocation("/usr/share/dasher/");
   interface->Unpause(0);
   interface->Start();  
