@@ -241,6 +241,7 @@ void CAlphIO::CreateDefault()
 	Default.ControlCharacter.Text = "";
 	Default.ControlCharacter.Colour = "8";
 	Default.TrainingFile = "training_english_GB.txt";
+	Default.PreferredColours = "Default";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);
 	Default.Groups[0].Description = "Lower case Latin letters";
@@ -465,6 +466,11 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name)
 	if (strcmp(name, "train")==0) {
 		Me->InputInfo.TrainingFile = Me->CData;
 		return;
+	}
+
+	if (strcmp(name, "palette")==0) {
+	  Me->InputInfo.PreferredColours = Me->CData;
+	  return;
 	}
 }
 

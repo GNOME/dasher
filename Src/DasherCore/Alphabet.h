@@ -33,6 +33,7 @@ public:
 	Opts::ScreenOrientations GetOrientation() {return m_Orientation;}
 	Opts::AlphabetTypes GetType() {return m_DefaultEncoding;}
 	std::string& GetTrainingFile() {return m_TrainingFile;}
+	std::string& GetPalette() {return m_DefaultPalette;}
 	
 	symbol GetSpaceSymbol() {return m_SpaceSymbol;}
 	symbol GetControlSymbol() {return m_ControlSymbol;}
@@ -73,13 +74,15 @@ protected:
 	void SetOrientation(Opts::ScreenOrientations Orientation) {m_Orientation=Orientation;}
 	void SetLanguage(Opts::AlphabetTypes Group) {m_DefaultEncoding=Group;}
 	void SetTrainingFile(std::string TrainingFile) {m_TrainingFile=TrainingFile;}
+	void SetPalette(std::string Palette) {m_DefaultPalette=Palette;}
 private:
 	Opts::AlphabetTypes m_DefaultEncoding;
 	Opts::ScreenOrientations m_Orientation;
 	symbol m_SpaceSymbol;
 	symbol m_ControlSymbol;
 	std::string m_TrainingFile;
-	
+	std::string m_DefaultPalette;
+
 	std::vector<std::string> m_Characters; // stores the characters
 	std::vector<std::string> m_Display;    // stores how the characters are visually represented in the Dasher nodes
 	std::vector<std::string> m_Colours;    // stores the colour of the characters

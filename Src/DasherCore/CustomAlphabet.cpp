@@ -18,6 +18,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	SetOrientation(AlphInfo.Orientation);
 	SetLanguage(AlphInfo.Type);
 	SetTrainingFile(AlphInfo.TrainingFile);
+	SetPalette(AlphInfo.PreferredColours);
 	
 	m_AlphInfo=&AlphInfo;
 
