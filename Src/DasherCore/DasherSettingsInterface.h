@@ -24,13 +24,13 @@ public:
 	virtual void ChangeAlphabet(const std::string& NewAlphabetID) {};
 
 	//! Get the current alphabet in use
-	virtual std::string GetCurrentAlphabet() {};
+	virtual std::string GetCurrentAlphabet() {return "";}
 
 	//! Change the colour scheme in use to NewColourID
 	virtual void ChangeColours(const std::string& NewColourID) {};
 
 	//! Get the current colour scheme
-	virtual std::string GetCurrentColours() {};
+	virtual std::string GetCurrentColours() {return "";}
 
 	//! Change the maximum bitrate (effectively the speed) of Dasher
 	virtual void ChangeMaxBitRate(double NewMaxBitRate) {};
