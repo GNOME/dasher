@@ -173,6 +173,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
 
   gdk_draw_lines(offscreen_buffer, graphics_context, gdk_points, Number);
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+  g_free(gdk_points);
 }
 
 void draw_text_callback(symbol Character, int x1, int y1, int size)
