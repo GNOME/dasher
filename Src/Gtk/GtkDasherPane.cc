@@ -15,7 +15,7 @@
 #include "DasherInterface.h"
 #include "SettingsStore.h"
 
-#include <time.h>
+#include <sys/time.h>
 #include <stdlib.h>
 #include <string.h>
 
@@ -134,12 +134,8 @@ void GtkDasherPane::reset()
   cout << "In Reset" << endl;
   interface->Start();
   paused = true;
-  // text->
-
-  // FIXME - need to reset the contents of the edit box here too
-
+  started = false;
   clear();
-
   text->Clear();
 }
 
@@ -206,12 +202,9 @@ gint GtkDasherPane::timer_callback()
       
       gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
 
-      //      cout << "x: " << x << " y: " << y << endl;
-      
-      interface->TapOn(x,y,50);
-      
-      // We need to return a nonzero value so that the timer repeats
+      interface->TapOn(x,y, get_time() );
     }
+
   return( 1 );
 }
 
@@ -238,7 +231,7 @@ int GtkDasherPane::toggle_pause( GdkEventButton *e )
       interface->PauseAt(x,y);
     }
   else
-    interface->Unpause( 0 );  // FIXME - need to specify a time here
+    interface->Unpause( get_time() );
   
   paused = !paused;
   return( true );
@@ -262,4 +255,20 @@ void GtkDasherPane::show_slider( bool s )
 void GtkDasherPane::copy_all_on_pause( bool s )
 {
   interface->CopyAllOnStop( s );
+}
+
+long GtkDasherPane::get_time()
+{
+  long s_now;
+  long ms_now;
+  
+  struct timeval tv;
+  struct timezone tz;
+  
+  gettimeofday( &tv, &tz );
+  
+  s_now = tv.tv_sec;
+  ms_now = tv.tv_usec / 1000;
+  
+  return( s_now * 1000 + ms_now );
 }

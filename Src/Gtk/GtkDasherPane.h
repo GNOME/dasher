@@ -60,9 +60,12 @@ private:
   int toggle_pause( GdkEventButton *e);
 
   int visibility_event_impl(GdkEventAny *event);
-
+  long get_time();
   bool paused;
   bool started;
+
+  long s_pause;
+  long ms_pause;
 
 };
 
