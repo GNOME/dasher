@@ -40,8 +40,9 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_SAVE)));
     list_file.push_back(MenuElem("Sa_ve As...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SAVEAS)));
-    list_file.push_back(MenuElem("_Append to File...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
-						      MENU_APPEND)));
+
+       list_file.push_back(MenuElem( "_Append to File...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						     MENU_APPEND)));
     list_file.push_back(SeparatorElem());
     list_file.push_back(MenuElem("_Import Training Text...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_IMPORT)));
