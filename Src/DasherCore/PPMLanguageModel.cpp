@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include <math.h>
+#include <stack>
 #include "PPMLanguageModel.h"
 
 using namespace Dasher;
@@ -68,7 +69,33 @@ CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet,int _normalization)
 
 CPPMLanguageModel::~CPPMLanguageModel()
 {
-	delete root;
+
+	delete m_rootcontext;
+
+	// A non-recursive node deletion algorithm using a stack
+	std::stack<CPPMnode*> deletenodes;
+	deletenodes.push(root);
+	while (!deletenodes.empty())
+	{
+		CPPMnode* temp = deletenodes.top();
+		deletenodes.pop();
+		CPPMnode* next;
+		do	
+		{
+			next = temp->next;
+
+			// push the child
+			if (temp->child)
+				deletenodes.push(temp->child);
+			
+			delete temp;
+
+			temp=next;
+			
+		} while (temp !=0); 
+
+	}
+
 }
 
 
