@@ -11,10 +11,11 @@
 
 #include "../Common/NoClones.h"
 #include "../Common/MSVC_Unannoy.h"
-#include <vector>
-#include <stdio.h>
 
 #include "LanguageModel.h"
+
+#include <vector>
+#include <stdio.h>
 
 //static char dumpTrieStr[40000];
 const int MAX_ORDER = 5;

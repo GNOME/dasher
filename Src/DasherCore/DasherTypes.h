@@ -10,10 +10,10 @@
 #ifndef __DasherTypes_h__
 #define __DasherTypes_h__
 
-#include <string>
 #include "../Common/Types/int.h"
 #include "../Common/Types/int32.h"
 #include "../Common/Types/int64.h"
+#include <string>
 
 namespace Dasher
 {

@@ -6,10 +6,12 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include <math.h>
-#include <stack>
+
 #include "PPMLanguageModel.h"
 
+
+#include <math.h>
+#include <stack>
 using namespace Dasher;
 using namespace std;
 
@@ -114,8 +116,8 @@ bool CPPMLanguageModel::GetProbs(const CContext *pContext,vector<unsigned int> &
 	  *it = 0;
 
 	vector<bool> exclusions( probs.size() );
-	for( vector<bool>::iterator it( exclusions.begin() ); it != exclusions.end(); ++it )
-	  *it = false;
+	for( vector<bool>::iterator it2( exclusions.begin() ); it2 != exclusions.end(); ++it2 )
+	  *it2 = false;
 
 	vector<bool> valid( probs.size() );
 	for( unsigned int i(0); i < valid.size(); ++i )
@@ -227,15 +229,15 @@ bool CPPMLanguageModel::GetProbs(const CContext *pContext,vector<unsigned int> &
 
 	int valid_char_count(0);
 
-	for( int i(0); i < modelchars; ++i )
-	  if( valid[i] ) 
+	for( int k(0); k < modelchars; ++k )
+	  if( valid[k] ) 
 	    ++valid_char_count;
 	  
 	
-	for (int i(0);i<modelchars;++i) 
-	  if( valid[i] ) {
+	for (int j(0);j<modelchars;++j) 
+	  if( valid[j] ) {
 	    ulong p=tospend/(valid_char_count);
-	    probs[i] +=p;
+	    probs[j] +=p;
 	    --valid_char_count;
 	    tospend -=p;
 	  }
