@@ -6,6 +6,7 @@
 #include <gtk--/button.h>
 #include <gtk--/box.h>
 #include <gtk--/menubar.h>
+#include <gnome--/app.h>
 
 #include "GtkDasherPane.h"
 
@@ -17,7 +18,7 @@
 #define TB_COPY_ALL "copy_all"
 #define TB_PASTE "paste"
 
-class GtkDasherWindow : public Gtk::Window
+class GtkDasherWindow : public Gnome::App
 {
 public:
   GtkDasherWindow();
