@@ -268,6 +268,13 @@ void dasher_set_parameter_int( int_param p, long int value )
       break;
     case INT_EDITHEIGHT:
       break;
+    case INT_ENCODING:
+      interface->SetFileEncoding(Dasher::Opts::FileEncodingFormats(value));
+      break;
+    case INT_DASHERFONTSIZE:
+      dasherfontsize=value;
+      interface->SetDasherFontSize(Dasher::Opts::FontSize(value));
+      break;
     }
 }
 
@@ -310,6 +317,11 @@ void dasher_set_parameter_bool( bool_param p, bool value )
 void dasher_set_orientation( Dasher::Opts::ScreenOrientations orient )
 {
   interface->ChangeOrientation( orient );
+}
+
+void dasher_set_encoding( Dasher::Opts::FileEncodingFormats encoding )
+{
+  interface->SetFileEncoding( encoding );
 }
 
 void dasher_train_file( const char *filename )

@@ -18,7 +18,6 @@ void initialise_edit()
 
   gtk_text_view_set_wrap_mode (GTK_TEXT_VIEW (the_text_view), GTK_WRAP_WORD);
 
-
   // FIXME - need to make this work
   //  g_signal_connect(G_OBJECT(the_text_view), "button_press_event", G_CALLBACK(handle_cursor_move), (gpointer) this);
 }

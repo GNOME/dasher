@@ -77,16 +77,16 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Options/Alphabet...", NULL, *GtkItemFactoryCallback(preferences), 1, "<Item>" },
   { "/Options/File Encoding", NULL, NULL, 0, "<Branch>" },
-  { "/Options/File Encoding/User Default", NULL, *GtkItemFactoryCallback(file_encoding), 1, "<RadioItem>" },
-  { "/Options/File Encoding/Alphabet Default", NULL, *GtkItemFactoryCallback(file_encoding), 2, "/Options/File Encoding/User Default" },
+  { "/Options/File Encoding/User Default", NULL, *GtkItemFactoryCallback(file_encoding), 2, "<RadioItem>" },
+  { "/Options/File Encoding/Alphabet Default", NULL, *GtkItemFactoryCallback(file_encoding), 1, "/Options/File Encoding/User Default" },
   { "/Options/File Encoding/Unicode UTF8", NULL, *GtkItemFactoryCallback(file_encoding), 65004, "/Options/File Encoding/User Default" },
   { "/Options/File Encoding/Unicode UTF16 (LE)", NULL, *GtkItemFactoryCallback(file_encoding), 1203, "/Options/File Encoding/User Default" },
   { "/Options/File Encoding/Unicode UTF16 (BE)", NULL, *GtkItemFactoryCallback(file_encoding), 1204, "/Options/File Encoding/User Default" },
   { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Options/Font Size", NULL, NULL, 0, "<Branch>" },
-  { "/Options/Font Size/Default Fonts", NULL, NULL, 0, "<RadioItem>" },
-  { "/Options/Font Size/Large Fonts", NULL, NULL, 0, "/Options/Font Size/Default Fonts" },
-  { "/Options/Font Size/Very Large Fonts", NULL, NULL, 0, "/Options/Font Size/Default Fonts" },
+  { "/Options/Font Size/Default Fonts", NULL, *GtkItemFactoryCallback(set_dasher_fontsize), 1, "<RadioItem>" },
+  { "/Options/Font Size/Large Fonts", NULL, *GtkItemFactoryCallback(set_dasher_fontsize), 2, "/Options/Font Size/Default Fonts" },
+  { "/Options/Font Size/Very Large Fonts", NULL, *GtkItemFactoryCallback(set_dasher_fontsize), 4, "/Options/Font Size/Default Fonts" },
   { "/Options/Editing Font...", NULL, *GtkItemFactoryCallback(set_edit_font), 1, "<Item>" },
   { "/Options/Dasher Font...", NULL, *GtkItemFactoryCallback(set_dasher_font), 1, "<Item>" },
   { "/Options/Reset Fonts", NULL, *GtkItemFactoryCallback(reset_fonts), 1, "<Item>" },
@@ -116,9 +116,12 @@ gboolean indrag = FALSE;
 gboolean file_modified = FALSE;
 gboolean showtoolbar;
 gboolean showslider;
+gboolean timestamp;
 
 gint prev_pos_x;
 gint prev_pos_y;
+
+gint fileencoding;
 
 const gchar *filename = NULL;
 
@@ -308,7 +311,10 @@ save_file_as (const char *filename, bool append)
 {
   FILE *fp;
   gint length;
-  gchar *buffer;
+  gchar *inbuffer,*outbuffer = NULL;
+  gsize bytes_read, bytes_written;
+  GError *error = NULL;
+  GIConv cd;
 
   GtkTextIter *start, *end;
 
@@ -324,15 +330,35 @@ save_file_as (const char *filename, bool append)
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
 
-  length = gtk_text_iter_get_offset(end);
+  inbuffer = gtk_text_iter_get_slice (start,end);
 
-  buffer = gtk_text_iter_get_slice (start,end);
+  length = strlen(inbuffer);
 
-  fwrite(buffer,1,length,fp);
+  switch (fileencoding) {
+  case Opts::UserDefault:
+  case Opts::AlphabetDefault:
+    //FIXME - need to call GetAlphabetType and do appropriate stuff
+    //FIXME - error handling  
+    outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
+    break;
+  case Opts::UTF8:
+    outbuffer=inbuffer;
+    bytes_written=length;
+    break;
+  case Opts::UTF16LE:
+    cd=g_iconv_open("UTF16LE","UTF8");
+    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+    break;
+  case Opts::UTF16BE:
+    cd=g_iconv_open("UTF16BE","UTF8");
+    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+    break;
+  }	       
+	       
+  fwrite(outbuffer,1,bytes_written,fp);
   fclose (fp);
 
   file_modified = 0;
-  
 }
 
 void
@@ -577,7 +603,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
     dasher_unpause( get_time() );
     paused = FALSE;
   } else {
-    dasher_pause( (gint) event->x,(gint) event->y );
+    dasher_pause( (gint) event->x,(gint) event->y );    
     paused = TRUE;
   }
   return;
@@ -803,6 +829,15 @@ void orientation(gpointer data, guint action, GtkWidget  *widget )
     }
 }
 
+void set_dasher_fontsize(gpointer data, guint action, GtkWidget  *widget )
+{
+  if( GTK_CHECK_MENU_ITEM(widget)->active)
+    {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, Dasher::Opts::FontSize(action) );
+      dasher_redraw();
+    }
+}
+
 void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
 {
 
@@ -843,6 +878,9 @@ void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget )
 void file_encoding(gpointer data, guint action, GtkWidget *widget )
 {
   signed int realaction = action -3;
+  if( GTK_CHECK_MENU_ITEM(widget)->active) {
+    dasher_set_encoding( Dasher::Opts::FileEncodingFormats(realaction) );
+  }
   //  interface->SetFileEncoding(Opts::FileEncodingFormats(realaction));
   //FIXME - need to reimplemnt this
 }
@@ -925,6 +963,41 @@ void parameter_int_callback( int_param p, long int value )
 	  break;
 	}
       break;
+    case INT_ENCODING:
+      fileencoding=value;
+      switch(value)
+	{
+	case Opts::UserDefault:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/User Default")), TRUE);
+	  break;
+	case Opts::AlphabetDefault:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Alphabet Default")), TRUE);
+	  break;
+	case Opts::UTF8:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Unicode UTF8")), TRUE);
+	  break;
+	case Opts::UTF16LE:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Unicode UTF16 (LE)")), TRUE);
+	  break;
+	case Opts::UTF16BE:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Unicode UTF16 (BE)")), TRUE);
+	  break;
+	}
+      break;
+    case INT_DASHERFONTSIZE:
+      switch(value)
+	{
+	case Opts::Normal:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Font Size/Default Fonts")), TRUE);
+	  break;
+	case Opts::Big:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Font Size/Large Fonts")), TRUE);
+	  break;
+	case Opts::VBig:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Font Size/Very Large Fonts")), TRUE);
+	  break;
+	}
+      break;
     }
 }
 
@@ -968,6 +1041,7 @@ void parameter_bool_callback( bool_param p, bool value )
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/One Dimensional")), value);
       break;
     case BOOL_TIMESTAMPNEWFILES:
+      timestamp=value;
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Timestamp New Files")), value);
       break;
     case BOOL_COPYALLONSTOP:

@@ -29,6 +29,8 @@ void handle_set_bool_option(const std::string& Key, bool Value);
 void handle_set_long_option(const std::string& Key, long Value);
 void handle_set_string_option(const std::string& Key, const std::string& Value);
 
+int dasherfontsize=0;
+
 class dasher_ui : public CDasherSettingsInterface
 {
  public:
@@ -58,7 +60,10 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_int( INT_ORIENTATION, Orientation );
     };
 
-  void SetFileEncoding(Opts::FileEncodingFormats Encoding) {};
+  void SetFileEncoding(Opts::FileEncodingFormats Encoding) 
+    {
+      handle_parameter_int( INT_ENCODING, Encoding );
+    };
 
   void SetScreenSize(long Width, long Height) 
     {
@@ -66,7 +71,10 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_int( INT_SCREENHEIGHT, Height );
     };
 
-  void SetDasherFontSize(Dasher::Opts::FontSize fontsize) {};
+  void SetDasherFontSize(Dasher::Opts::FontSize fontsize) 
+    {
+      handle_parameter_int( INT_DASHERFONTSIZE, fontsize );
+    };
 
   void SetDasherDimensions(bool Value) 
     {
@@ -160,8 +168,10 @@ class dasher_screen : public CDasherScreen
 	
   Dasher::Opts::FontSize GetFontSize()
     {
-      //FIXME
-      return Dasher::Opts::FontSize(1);
+      if (dasherfontsize==0)
+	return Dasher::Opts::FontSize(1);
+      else
+	return Dasher::Opts::FontSize(dasherfontsize);
     };
 
   void TextSize(symbol Character, int* Width, int* Height, int Size) const

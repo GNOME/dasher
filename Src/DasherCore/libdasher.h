@@ -19,9 +19,11 @@ enum int_param{ INT_LANGUAGEMODEL,
 		INT_VIEW, 
 		INT_SCREENWIDTH, 
 		INT_SCREENHEIGHT,  
-		INT_EDITFONTSIZE, 
+		INT_EDITFONTSIZE,
+		INT_DASHERFONTSIZE,
 		INT_EDITHEIGHT,
-		INT_ORIENTATION };
+		INT_ORIENTATION,
+		INT_ENCODING };
 
 enum bool_param{ BOOL_DIMENSIONS, 
 		 BOOL_SHOWTOOLBAR, 
@@ -52,6 +54,7 @@ void dasher_set_parameter_int( int_param p, long int value );
 void dasher_set_parameter_bool( bool_param p, bool value );
 
 void dasher_set_orientation( Opts::ScreenOrientations orient );
+void dasher_set_encoding( Opts::FileEncodingFormats encoding );
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) );
 void dasher_set_double_callback( void(*_cb)( double_param, double ) );

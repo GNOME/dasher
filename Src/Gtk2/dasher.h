@@ -10,6 +10,7 @@ void reset_fonts(gpointer data, guint action, GtkWidget *widget );
 void ask_save_before_exit(GtkWidget *widget, gpointer data);
 void preferences(gpointer data, guint action, GtkWidget *widget);
 void orientation(gpointer data, guint action, GtkWidget  *widget );
+void set_dasher_fontsize(gpointer data, guint action, GtkWidget  *widget );
 void show_toolbar(gpointer data, guint action, GtkWidget  *widget );
 void show_slider(gpointer data, guint action, GtkWidget  *widget );
 void timestamp_files(gpointer data, guint action, GtkWidget *widget );
