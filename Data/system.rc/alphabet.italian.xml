@@ -5,6 +5,7 @@
 <alphabet name="Italian alphabet - limited punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
+<palette>Default</palette>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
@@ -103,6 +104,7 @@
 <alphabet name="Italian alphabet with lots of punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
+<palette>Default</palette>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">

@@ -5,6 +5,7 @@
 <alphabet name="Albanian alphabet with lots of punctuation">
 <orientation type="LR"/>
 <encoding type="Western"/>
+<palette>Default</palette>
 <train>training_albanian_SQ.txt</train>
 <space d="_" t=" "/>
 <control d="Control" t=""/>

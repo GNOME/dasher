@@ -7,8 +7,8 @@
 
     <encoding type="CentralEurope" />
 
-    <train>training_polish_PL.txt</train>
     <palette>Default</palette>
+<train>training_polish_PL.txt</train>
     <space t=" " d="_" />
     <control d="Control" t=""/>
 

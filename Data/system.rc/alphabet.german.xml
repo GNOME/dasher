@@ -5,8 +5,8 @@
 <alphabet name="German">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>training_german_DE.txt</train>
 <palette>Default</palette>
+<train>training_german_DE.txt</train>
 <space d="_" t=" "/>
 <control d="Control" t=""/>
 <group name="Lower case Latin letters">
