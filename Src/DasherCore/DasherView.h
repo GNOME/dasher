@@ -2,15 +2,9 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
-
-
-//////////////////////////////////////////////////////////////////////
-// DasherView.h: interface for the DasherView class.
-// Copyright 2002 David Ward
-//////////////////////////////////////////////////////////////////////
 
 #ifndef __DasherView_h_
 #define __DasherView_h_
@@ -76,7 +70,6 @@ public:
     void ResetSumCounter();
     void ResetYAutoOffset();
     int CDasherView::onebutton;
-    myint ySum, ySumCounter, yFilterTimescale, ySigBiasPixels, ySigBiasPercentage, yAutoOffset;
     bool AutoCalibrate;
 
 protected:
@@ -93,6 +86,9 @@ protected:
 	// Advanced colour mode
 	bool ColourMode;
 
+	// DJW20040818 - perhaps these are DasherSquare-specific ?
+    int ySum, ySumCounter, yFilterTimescale, ySigBiasPixels, ySigBiasPercentage, yAutoOffset;
+ 
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
@@ -110,6 +106,7 @@ private:
 	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
 	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
 	
+ 
 };
 
 

@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -65,7 +65,7 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	if (!Children)
 	  return 0;
 	int norm=DasherModel().Normalization();
-		for (unsigned int i=1; i<Render->Chars(); i++) {
+		for (unsigned int i=1; i<Render->ChildCount(); i++) {
 		if (Children[i]->Alive()) {
 			myint Range=y2-y1;
 			myint newy1=y1+(Range*Children[i]->Lbnd())/norm;
@@ -94,7 +94,7 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
     std::string Label="";
 
 	myint range=y2-y1;
-	for (unsigned int i=1; i<Render->Chars(); i++) {
+	for (unsigned int i=1; i<Render->ChildCount(); i++) {
 		int g=Children[i]->Group();
 		if (g!=current) {
 			lower=upper;
