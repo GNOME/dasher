@@ -33,13 +33,51 @@ void CDasherNode::Dump_node () const
 	*/
 }
 
-void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
+/////////////////////////////////////////////////////////////////////////////
 
-	m_iAge=0;
+bool CDasherNode::NodeIsParent(CDasherNode *oldnode) {
+  if (oldnode==m_pParent) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherNode::Push_Node() 
+{
+	if (m_Children) {
+		// if there are children just give them a poke
+		unsigned int i;
+		for (i=1;i<m_iChars;i++)
+			m_Children[i]->m_bAlive=1;
+		return;
+	}
+
+	// if we haven't got a context then derive it
+	
+	if (m_pContext==NULL)
+	{
+		if (m_Symbol!=0)
+		{
+			assert (m_pParent !=NULL) ;
+			// Normal symbol - derive context from parent
+			m_pContext = m_languagemodel->CloneNodeContext(m_pParent->m_pContext);
+			m_languagemodel->EnterNodeSymbol(m_pContext,m_Symbol);
+		}
+		else
+		{
+			// For new "root" nodes (such as under control mode), we want to 
+			// mimic the root context
+			m_pContext=m_languagemodel->GetRootNodeContext();
+			m_languagemodel->EnterText(m_pContext, ". ");
+
+		}
+
+	}
+
 	m_bAlive=true;
-
-	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
-		m_languagemodel->EnterNodeSymbol(m_context,m_Symbol);
 
 	if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
 		int i,quantum;
@@ -99,7 +137,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
-	m_languagemodel->GetNodeProbs(m_context,newchars,groups,cum);
+	m_languagemodel->GetNodeProbs(m_pContext,newchars,groups,cum);
 	m_iChars=newchars.size();
 	// work out cumulative probs
 	unsigned int i;
@@ -128,72 +166,6 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 			ChildScheme = NormalScheme;
 		m_Children[i]=new CDasherNode(this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel,false,m_languagemodel->GetColour(i));
 	}
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context) 
-// push a node copying the specified context
-{
-
-	if (m_Children) {
-		// if there are children just give them a poke
-		unsigned int i;
-		for (i=1;i<m_iChars;i++) {
-			m_Children[i]->m_iAge=0;
-			m_Children[i]->m_bAlive=1;
-		}
-		return;
-	}
-
-	// if we haven't got a context then try to get a new one
-	m_context=m_languagemodel->CloneNodeContext(context);
-	// if it fails, be patient
-	if (!m_context)
-		return;
-	Generic_Push_Node(m_context);
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool CDasherNode::NodeIsParent(CDasherNode *oldnode) {
-  if (oldnode==m_parent) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-void CDasherNode::Push_Node() 
-{
-
-	if (m_Children) {
-		// if there are children just give them a poke
-		unsigned int i;
-		for (i=1;i<m_iChars;i++) {
-			m_Children[i]->m_iAge=0;
-			m_Children[i]->m_bAlive=1;
-		}
-		return;
-	}
-
-	// if we haven't got a context then try to get a new one
-	if (m_Symbol!=0) {
-	  if (m_parent) 
-	    m_context=m_languagemodel->CloneNodeContext(m_parent->m_context);
-	  else
-	    m_context=m_languagemodel->GetRootNodeContext();
-	} else {
-	  // For new "root" nodes (such as under control mode), we want to 
-	  // mimic the root context
-	  m_context=m_languagemodel->GetRootNodeContext();
-	  m_languagemodel->EnterText(m_context, ". ");
-	}
-
-	  // if it fails, be patient
-	  if (!m_context)
-	    return;
-	Generic_Push_Node(m_context);
 }
 
 void CDasherNode::Recursive_Push_Node(int depth) {
@@ -247,7 +219,7 @@ CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,my
 {
 	if (m_Children) {
 		myint miRange=miY2-miY1;
-		m_iAge=0;
+//		m_iAge=0;
 		m_bAlive=true;
 		unsigned int i;
 		for (i=1;i<m_iChars;i++) {
