@@ -1,3 +1,10 @@
+2004-01-10  Danilo Šegan  <dsegan@gmx.net>
+
+	* sr.po, sr@Latn.po: Updated Serbian translation.
+
+	* POTFILES.in: Added Src/Gtk2/dashergpe.glade, sorted, added
+	comment.
+
 2004-01-10  Vincent van Adrighem  <adrighem@gnome.org>
 
 	* nl.po: Translation updated by Tino Meinen.
