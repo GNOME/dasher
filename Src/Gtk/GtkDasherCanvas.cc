@@ -12,7 +12,6 @@
 #include "GtkDasherCanvas.h"
 
 #include "DasherScreen.h"
-#include "DasherSpecial.h"
 
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
