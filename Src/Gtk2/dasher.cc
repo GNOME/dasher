@@ -1371,6 +1371,10 @@ void interface_setup(GladeXML *xml) {
   float initial_bitrate = 3.0;
 
   the_canvas=glade_xml_get_widget(xml, "the_canvas");
+
+  // Realize the canvas now so that it can set up the buffers correctly
+  gtk_widget_realize(the_canvas);
+
   text_scrolled_window=glade_xml_get_widget(xml, "text_scrolled_window");
   the_text_view=glade_xml_get_widget(xml, "the_text_view");
   toolbar=glade_xml_get_widget(xml, "toolbar");

@@ -21,14 +21,14 @@ void rebuild_buffer()
   g_free(offscreen_buffer);
   g_free(onscreen_buffer);
 
-  offscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, gdk_visual_get_best_depth());
-  onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, gdk_visual_get_best_depth());
+  offscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
+  onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
 }
 
 void initialise_canvas( int width, int height )
 {
-  offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, gdk_visual_get_best_depth());
-   onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, gdk_visual_get_best_depth());
+  offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
+   onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
   font = pango_font_description_new();
 
