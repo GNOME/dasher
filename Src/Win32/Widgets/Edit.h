@@ -82,7 +82,7 @@ public:
 	void outputcontrol (void* pointer, int data, int type);
 	
 	// remove the previous character
-	void deletetext();
+	void deletetext(Dasher::symbol);
 
 	// set the window that text should be entered into
 	void SetWindow(HWND window);

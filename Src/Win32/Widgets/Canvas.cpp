@@ -108,7 +108,11 @@ void CCanvas::Paint()
 
 LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	
+		char tmpAutoOffset[25];
 	switch (message) {
+
+
 	case WM_COMMAND:
 		SendMessage(Parent, message, wParam, lParam);
 		return 0;
@@ -169,6 +173,11 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			}
 		case VK_SPACE:
 			startspace();
+			return 0;
+			break;
+		case VK_F11:
+			sprintf(tmpAutoOffset, "yAutoValue: %d", m_DasherAppInterface->GetAutoOffset());
+			MessageBox(Window, tmpAutoOffset, NULL, 1);
 			return 0;
 			break;
 		case VK_F12:

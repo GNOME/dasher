@@ -653,7 +653,7 @@ void CEdit::dumpedit(int i) const
 }
 */
 
-void CEdit::deletetext()
+void CEdit::deletetext(Dasher::symbol)
 {
 	DWORD start,finish;
 	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start, (LONG)&finish);
@@ -774,7 +774,7 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
 		  case 24:
-			  deletetext();
+			  deletetext(1);
 			  break;
 		  case 25:
 			GetKeyboardState((LPBYTE) &pbKeyState);

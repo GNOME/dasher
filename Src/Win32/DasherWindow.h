@@ -124,6 +124,10 @@ private:
 
 	HICON m_hIconSm;
 
+	LPCWSTR AutoOffset;
+	LPCWSTR DialogCaption;
+	char tmpAutoOffset[25];
+
 	bool startonspace;
 	bool startonleft;
 	bool timestampnewfiles;
