@@ -14,11 +14,11 @@
 #ifdef _MSC_VER
 
 	#ifdef WIN32
-		#define DASHER_WIN32
+		#define DASHER_WIN32 _MSC_VER
 	#endif
 
 	#ifdef _WIN32_WCE
-		#define DASHER_WINCE
+		#define DASHER_WINCE 
 	#endif
 
 #else
