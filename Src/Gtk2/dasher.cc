@@ -831,6 +831,7 @@ timer_callback(gpointer data)
 	  starttime=0;
 	} else {
 	  if ((time(NULL)-starttime2)>2) {
+	    secondbox=false;
 	    stop(); // Yes, confusingly named
 	  }
 	}
