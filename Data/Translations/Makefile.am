@@ -1,3 +1,3 @@
-pkgdata_DATA = training*.txt
+pkgdata_DATA = $(srcdir)/training*.txt
 
-EXTRA_DIST = training*.txt
+EXTRA_DIST = $(srcdir)/training*.txt

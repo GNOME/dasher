@@ -7,13 +7,104 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2003-10-23 13:53+0100\n"
+"POT-Creation-Date: 2003-12-09 02:40+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: Src/Gtk2/dasher.cc:183
+msgid "Training Dasher, please wait"
+msgstr ""
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/dasher.cc:1787
+msgid "translator_credits"
+msgstr ""
+
+#: Src/Gtk2/dasher.cc:1789 Src/Gtk2/dasher.glade.h:34
+msgid "Dasher"
+msgstr ""
+
+#: Src/Gtk2/dasher.cc:1792
+msgid "Dasher is a predictive text entry application"
+msgstr ""
+
+#. Just a debugging thing
+#: Src/Gtk2/dasher.cc:2199
+#, c-format
+msgid "%d characters output in %d seconds\n"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:27
+msgid "Menus"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:57 Src/Gtk2/dasher.glade.h:27
+msgid "Control"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:62
+msgid "Stop"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:68
+msgid "Pause"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:75
+msgid "Move"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:82
+msgid "Delete"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:91
+msgid "Speak"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:109 Src/Gtk2/accessibility.cc:178
+msgid "<"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:115 Src/Gtk2/accessibility.cc:172
+msgid ">"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:121
+msgid "<<<"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:127
+msgid ">>>"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:140
+msgid "Everything"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:146
+msgid "New"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:152
+msgid "Repeat"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:185 Src/Gtk2/accessibility.cc:204
+msgid "Character"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:192 Src/Gtk2/accessibility.cc:210
+msgid "Word"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:197 Src/Gtk2/accessibility.cc:216
+msgid "Line"
+msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:1
 msgid "5:"
@@ -119,10 +210,6 @@ msgstr ""
 msgid "Colour"
 msgstr ""
 
-#: Src/Gtk2/dasher.glade.h:27
-msgid "Control"
-msgstr ""
-
 #: Src/Gtk2/dasher.glade.h:28
 msgid "Control mode"
 msgstr ""
@@ -145,10 +232,6 @@ msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:33
 msgid "Cyclical button mode"
-msgstr ""
-
-#: Src/Gtk2/dasher.glade.h:34
-msgid "Dasher"
 msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:35
@@ -375,4 +458,12 @@ msgstr ""
 
 #: Src/Gtk2/dasher.glade.h:92
 msgid "abcdefghijk ABCDEFGHIJK"
+msgstr ""
+
+#: Src/Gtk2/speech.cc:53
+msgid "Warning: unable to set speech parameters\n"
+msgstr ""
+
+#: Src/main.cc:97
+msgid "Dasher Text Entry"
 msgstr ""
