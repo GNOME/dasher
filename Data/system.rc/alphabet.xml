@@ -1010,5 +1010,8 @@
 <s d="ᅴ" t="ᅴ"/>
 <s d="ᅵ" t="ᅵ"/>
 </group>
+<group name="Korean filler character">
+<s d="→" t="ᅟᅠ"/>
+</group>
 </alphabet>
 </alphabets>
