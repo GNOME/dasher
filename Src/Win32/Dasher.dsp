@@ -343,11 +343,11 @@ SOURCE=.\Widgets\WinOptions.h
 # End Group
 # Begin Source File
 
-SOURCE=.\MainWindow.cpp
+SOURCE=.\DasherWindow.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\MainWindow.h
+SOURCE=.\DasherWindow.h
 # End Source File
 # Begin Source File
 
