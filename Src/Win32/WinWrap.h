@@ -58,7 +58,6 @@ Iain Murray August 2002
 #include "WinHelper.h"
 
 #include "../Common/NoClones.h"
-#include "../Common/MSVC_Unannoy.h"
 #include <map>
 
 
@@ -87,3 +86,4 @@ namespace WinWrapMap
 
 
 #endif /* #ifndef __WinWrap_h__ */
+
