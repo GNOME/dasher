@@ -641,7 +641,7 @@ save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *select
     exiting=TRUE;
     gtk_main_quit();
   }
-  //  return true;
+  return true;
 }
 
 extern "C" void
@@ -733,7 +733,7 @@ save_file_and_quit (GtkWidget *widget, gpointer user_data)
     select_save_file_as(NULL,NULL);
     gtk_main_quit();
   }
-  //  return true;
+  return true;
 }
 
 extern "C" bool
@@ -1350,7 +1350,7 @@ void interface_setup(GladeXML *xml) {
   if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
     buttons[9].y=0;
   }
-  //  return TRUE;
+  return TRUE;
 }
 
 void
@@ -2059,11 +2059,9 @@ void stop() {
     paused = FALSE;
     starttime=starttime2=0;
     dasherstarttime=time(NULL);
-    dasher_reset_nats();
   } else {
     // should really be the current position, but that's not necessarily anywhere near the canvas
     // and it doesn't seem to actually matter in any case
-
     dasher_pause(0,0);    
     if (onedmode==true) {
       // Don't immediately jump back to full speed if started in one-dimensional mode
@@ -2080,15 +2078,8 @@ void stop() {
     }
     if (timedata==TRUE) {
       // Just a debugging thing, output to the console
-
-      printf(_("In %ld seconds\n"),time(NULL)-dasherstarttime);
-      printf(_("%d characters\n"),outputcharacters);
-      printf(_("%f bits\n"), dasher_get_nats()/log(2.0) );
-
-      printf(_("%f characters per second\n"), outputcharacters/double(time(NULL)-dasherstarttime));
-      printf(_("%f bits per second\n"), dasher_get_nats()/(log(2.0)*double(time(NULL)-dasherstarttime)));
-      printf(_("%f bits per character\n\n"), dasher_get_nats()/(log(2.0)*double(outputcharacters)));
-
+      printf(_("%d characters output in %ld seconds\n"),outputcharacters,
+	     time(NULL)-dasherstarttime);
       outputcharacters=0;
     }
     if (mouseposstart==true) {
