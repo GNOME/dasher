@@ -67,6 +67,10 @@
 #define MENU_EUTF16LE 313
 #define MENU_EUTF16BE 314
 
+#define MENU_FSDEFAULT 320
+#define MENU_FSBIG 321
+#define MENU_FSVBIG 322
+
 #define MENU_ABOUT 400
 
 class GtkDasherWindow : public Gtk::Window, Dasher::CDasherSettingsInterface
@@ -115,6 +119,7 @@ protected:
   Gtk::Menu_Helpers::MenuList *list_view;
   Gtk::Menu_Helpers::MenuList *list_or;
   Gtk::Menu_Helpers::MenuList *list_enc;
+  Gtk::Menu_Helpers::MenuList *list_fsize;
   
   gint about_delete_sel( GdkEventAny *e );
 

@@ -27,6 +27,7 @@ class GtkDasherCanvas : public Gtk::DrawingArea
   ~GtkDasherCanvas();
   
   void SetFont(std::string Name);
+  void SetFontSize(FontSize size);
   void TextSize(symbol Character, int* Width, int* Height, int Size) const;
   void DrawText(symbol Character, int x1, int y1, int Size) const;
   void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const;

@@ -148,6 +148,20 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_ALPHABET)));
     list_opts->push_back(MenuElem(gettext("File Encoding"), *menu_enc ));
     list_opts->push_back(SeparatorElem());
+
+    Menu *menu_fsize = new Menu();
+    list_fsize = &(menu_fsize->items());
+    RadioMenuItem_Helpers::Group fsgroup;
+
+    list_fsize->push_back(RadioMenuElem(fsgroup,gettext("Default size"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_FSDEFAULT)));
+    list_fsize->push_back(RadioMenuElem(fsgroup,gettext("Large fonts"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_FSBIG)));
+    list_fsize->push_back(RadioMenuElem(fsgroup,gettext("Very large fonts"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_FSVBIG)));
+
+    list_opts->push_back(MenuElem(gettext("Font size"), *menu_fsize ));
+
     list_opts->push_back(MenuElem(gettext("Editing Font..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_EFONT)));
     list_opts->push_back(MenuElem(gettext("Dasher Font..."),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
@@ -553,6 +567,16 @@ void GtkDasherWindow::menu_button_cb(int c)
       break;
     case MENU_EUTF16BE:
       encoding( UTF16BE );
+      break;
+
+    case MENU_FSDEFAULT:
+      dasher_pane.set_dasher_font_size(Normal);
+      break;
+    case MENU_FSBIG:
+      dasher_pane.set_dasher_font_size(Big);
+      break;
+    case MENU_FSVBIG:
+      dasher_pane.set_dasher_font_size(VBig);
       break;
 
     case MENU_ABOUT:

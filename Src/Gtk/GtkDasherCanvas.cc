@@ -253,6 +253,27 @@ void GtkDasherCanvas::SetFont(std::string Name)
     }
 }
 
+void GtkDasherCanvas::SetFontSize(FontSize size) {
+  switch( size )
+    {
+    case Normal:
+      MaxFontSize = 20;
+      MinFontSize = 8;
+      build_fonts( enc );
+      break;
+    case Big:
+      MaxFontSize = 30;
+      MinFontSize = 14;
+      build_fonts( enc );
+      break;
+    case VBig:
+      MaxFontSize = 40;
+      MinFontSize = 20;
+      build_fonts( enc );
+      break;
+    }
+}
+
 void GtkDasherCanvas::set_encoding( int _enc )
 {
   // Set the ISO8859 codepage to be used (using gtk1.2 we are limited

@@ -216,6 +216,11 @@ void GtkDasherPane::set_edit_font( string fontname, long size )
   interface->SetEditFont( fontname, size );
 }
 
+void GtkDasherPane::set_dasher_font_size( FontSize size )
+{
+  canvas->SetFontSize( size );
+}
+
 void GtkDasherPane::show_speed_slider( bool value )
 {
   interface->ShowSpeedSlider( value );
