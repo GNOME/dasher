@@ -11,7 +11,7 @@ CPPFLAGS += -g -D_GNU_SOURCE
 CFLAGS += -DPACKAGE=\"dasher\" -DPREFIX=\"$(PREFIX)\" -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\" $(GTKCFLAGS)
 CFLAGS += -MD
 
-CXXFLAGS = $(CFLAGS) -I../DasherCore
+CXXFLAGS = $(CFLAGS) -I../DasherCore -I /usr/local/include/libgpewidget
 
 MEMBERS = main
 
@@ -22,7 +22,7 @@ SOURCES = $(patsubst %,%.cc,$(MEMBERS))
 all: dasher
 
 dasher: $(OBJS)
-	g++ -o $@ $^ -L../DasherCore -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
+	g++ -o $@ $^ -L../DasherCore -lgpewidget -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
 #	g++ -o $@ $^ -L../DasherCore -lgpewidget -ldashercore -lstdc++ -lexpat $(GTKLDFLAGS) -g
 
 clean:
