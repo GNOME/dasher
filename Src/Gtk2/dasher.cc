@@ -41,19 +41,19 @@ GtkWidget *vpane;
 
 GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
-  { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<Item>" },
-  { "/File/_Open...", "<CTRL>O", *GtkItemFactoryCallback(select_open_file),    1, "<Item>" },
-  { "/File/Save",     NULL, save_file, 0, "<Item>" },
-  { "/File/Save As...", NULL, select_save_file_as, 0, "<Item>" },
+  { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<StockItem>", GTK_STOCK_NEW },
+  { "/File/_Open...", "<CTRL>O", *GtkItemFactoryCallback(select_open_file),    1, "<StockItem>", GTK_STOCK_OPEN },
+  { "/File/Save",     NULL, save_file, 0, "<StockItem>", GTK_STOCK_SAVE },
+  { "/File/Save As...", NULL, select_save_file_as, 0, "<StockItem>", GTK_STOCK_SAVE_AS },
   { "/File/Append to File...", NULL, select_append_file, 0, "<Item>" },
   { "/File/sep1",     NULL,      NULL,         0, "<Separator>" },
   { "/File/Import Training Text...", NULL, select_import_file, 0, "<Item>" },
   { "/File/sepl", NULL, NULL, 0, "<Separator>" },
   { "/File/_Quit",    "<CTRL>Q", *GtkItemFactoryCallback(ask_save_before_exit), 0, "<StockItem>", GTK_STOCK_QUIT },
   { "/Edit", NULL, NULL, 0, "<Branch>" },
-  { "/Edit/Cut", NULL, clipboard_cut, 0, "<Item>" },
-  { "/Edit/Copy", NULL, clipboard_copy, 0, "<Item>" },
-  { "/Edit/Paste", NULL, clipboard_paste, 0, "<Item>" },
+  { "/Edit/Cut", NULL, clipboard_cut, 0, "<StockItem>", GTK_STOCK_CUT },
+  { "/Edit/Copy", NULL, clipboard_copy, 0, "<StockItem>", GTK_STOCK_COPY },
+  { "/Edit/Paste", NULL, clipboard_paste, 0, "<StockItem>", GTK_STOCK_PASTE },
   { "/Edit/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Edit/Copy All", NULL, clipboard_copy_all, 0, "<Item>" },
   { "/Edit/sepl", NULL, NULL, 0, "<Separator>" },
@@ -93,7 +93,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/One Dimensional", NULL, *GtkItemFactoryCallback(SetDimension), 1, "<CheckItem>" },
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
-  { "/Help/About", NULL, NULL, 0, "<Item>" }
+  { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
  };
 
 #define _(_x) gettext(_x)
@@ -916,6 +916,40 @@ void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 
   dasher_redraw();
 }
+
+void about_dasher(gpointer data, guint action, GtkWidget *widget )
+{
+  GtkWidget *about = NULL;
+  GtkWidget *label, *button;
+  char *tmp;
+  
+  about = gtk_dialog_new();
+
+  gtk_dialog_set_has_separator(GTK_DIALOG(about), FALSE);
+  gtk_window_set_title(GTK_WINDOW(about), "About Dasher");
+
+  tmp = g_strdup_printf("Dasher Version %s ", VERSION);
+  label = gtk_label_new(tmp);
+  gtk_widget_show(label);
+  gtk_box_pack_start (GTK_BOX(GTK_DIALOG(about)->vbox),label, FALSE, FALSE, 0);
+  
+  label = gtk_label_new("http://www.inference.phy.cam.ac.uk/dasher/");
+  gtk_widget_show(label);
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), label, FALSE, FALSE, 0);
+
+  label = gtk_label_new("Copyright The Dasher Project");
+  gtk_widget_show(label);
+  gtk_box_pack_start (GTK_BOX(GTK_DIALOG(about)->vbox),label, TRUE, TRUE, 0);
+  
+  button = gtk_button_new_from_stock(GTK_STOCK_OK);
+  gtk_widget_show(button);
+  gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox),button, FALSE, FALSE, 0);
+  g_signal_connect_swapped(G_OBJECT(button), "clicked", G_CALLBACK(gtk_widget_destroy), G_OBJECT(about));
+
+
+  gtk_widget_show (about);
+}
+
 
 void reset_fonts(gpointer data, guint action, GtkWidget *widget )
 {

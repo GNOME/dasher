@@ -16,6 +16,7 @@ void show_slider(gpointer data, guint action, GtkWidget  *widget );
 void timestamp_files(gpointer data, guint action, GtkWidget *widget );
 void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget );
 void file_encoding(gpointer data, guint action, GtkWidget *widget );
+void about_dasher(gpointer data, guint action, GtkWidget *widget );
 void DrawMouse(gpointer data, guint action, GtkWidget *widget );
 void SetDimension(gpointer data, guint action, GtkWidget *widget );
 void select_open_file(gpointer data, guint action, GtkWidget *widget);
