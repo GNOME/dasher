@@ -75,7 +75,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 			ChildScheme = SpecialScheme;
 		else
 			ChildScheme = NormalScheme;
-		m_Children[i]=new CDasherNode(this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel);
+		m_Children[i]=new CDasherNode(this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel,m_languagemodel->GetColour(i));
 	}
 }
 

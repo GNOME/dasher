@@ -51,6 +51,8 @@ public:
 	// Alphabet pass-through functions for widely needed information
 	symbol GetSpaceSymbol() {return m_Alphabet->GetSpaceSymbol();}
 	
+	int GetColour(int character);
+
 protected:
 	int GetNumberModelChars() {return m_Alphabet->GetNumberSymbols();}
 	

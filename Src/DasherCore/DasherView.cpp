@@ -11,7 +11,7 @@ using namespace Dasher;
 
 
 CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation)
-  : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(false)
+  : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(true)
 {
 //	XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 }

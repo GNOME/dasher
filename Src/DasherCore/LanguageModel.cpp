@@ -65,3 +65,13 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 	}
 	return false;
 }
+
+int CLanguageModel::GetColour(int character)
+{
+  std::string colour=m_Alphabet->GetColour(character);
+  if (colour!="") {
+    return atoi(colour.c_str());
+  } else {
+    return 0;
+  }
+}
