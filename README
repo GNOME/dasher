@@ -1,7 +1,7 @@
-Dasher version 3.2.0
+Dasher version 3.2.1
 --------------------
 
-This is the full release of Dasher 3.2.0. Documentation may be found
+This is the full release of Dasher 3.2.1. Documentation may be found
 in Doc/
 
 In order to compile the Unix code with speech support, pass --with-speech to
@@ -9,9 +9,15 @@ configure. In order to compile the Unix code with accessible menu support, pass
 --with-a11y to configure. In order to compile the Unix code with Gnome support,
 pass --with-gnome to configure.
 
+For Linux PDAs:
+
+Pass --with-gpe to build a GPE version of Dasher. Pass --with-qte to build
+a QTopia version of Dasher.
+
 We'd appreciate any feedback / bug reports / patches - please send
 them to dasher@mrao.cam.ac.uk
 
 Yours,
 
 The Dasher Team
+

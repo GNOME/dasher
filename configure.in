@@ -23,9 +23,6 @@ AC_ARG_WITH([gnome],
 AC_ARG_WITH([qte],
 	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
 	[WITHQTE=true],[WITHQTE=false])
-AC_ARG_WITH([qteplugin],
-	 AC_HELP_STRING([--with-qteplugin],[build with QTE input plugin support (default is NO)]), 
-	[WITHQTEPLUGIN=true],[WITHQTEPLUGIN=false])
 
 AC_ARG_WITH([speech],
 	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]), [WITHSPEECH=true],[WITHSPEECH=false])
@@ -40,19 +37,19 @@ PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false])
 
 PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
 
-if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
+if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	BUILDGTK2=true
-elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
+elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	BUILDGTK2=true
 else 
 	BUILDGTK2=false
 fi
 
-if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
+if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$WITHQTE" != xtrue ]]
 then
-	AC_ERROR("Unable to find GTK2!")
+	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
 fi
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
@@ -99,7 +96,6 @@ AC_SUBST(GETTEXT_PACKAGE)
 
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
-AM_CONDITIONAL(DOQTEPLUGIN, test x$WITHQTEPLUGIN = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
