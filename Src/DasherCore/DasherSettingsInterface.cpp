@@ -26,7 +26,8 @@ namespace Keys {
         const std::string DRAW_MOUSE = "DrawMouse";
         const std::string START_MOUSE = "StartOnLeft";
         const std::string START_SPACE = "StartOnSpace";
-	
+        const std::string KEY_CONTROL = "KeyControl";
+
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
 	const std::string MAX_BITRATE_TIMES100 = "MaxBitRateTimes100";
@@ -91,6 +92,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetBoolDefault(START_SPACE, false);
 	this->StartOnSpace(Store->GetBoolOption(START_SPACE));
 
+	Store->SetBoolDefault(KEY_CONTROL, false);
+	this->KeyControl(Store->GetBoolOption(KEY_CONTROL));
+
 	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
 	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
 
@@ -101,7 +105,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
 
 	// FIXME - need to work out why this breaks stuff
-	//this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
+	//	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
 	this->ChangeView(Store->GetLongOption(VIEW_ID));
 	
 	// Fonts

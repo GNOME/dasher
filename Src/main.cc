@@ -13,15 +13,34 @@
 
 //extern GConfClient *the_gconf_client;
 
+GError *gconferror;
+GConfEngine *gconfengine;
+
 int
 main(int argc, char *argv[])
 {
   gtk_init (&argc, &argv);
 
-  GError *gconferror;
-
   gconf_init( argc, argv, &gconferror );
 
+  /* I am a bad man and I will go straight to hell.
+
+     But seriously.
+
+     There's no way of determining whether a key exists through the 
+     gconf_client interface, so we need a gconfengine. But if you have both,
+     gconf complains at length (and, to be fair, it is a really bad idea in
+     the general case). Because I'm more concerned about making the user feel
+     happy than I am about making the user think I'm incompetent, we make those
+     errors go to a nice place where they're happy and won't scare the user.
+
+     The null_log_handler should probably check whether it's actually the
+     error that we're worried about, and if not pass it on to the default
+     handler - FIXME */
+
+  g_log_set_handler ("GConf", G_LOG_LEVEL_WARNING, null_log_handler, NULL);
+
+  gconfengine = gconf_engine_get_default();
   the_gconf_client = gconf_client_get_default();
 
   dasher_set_get_bool_option_callback( get_bool_option_callback );
@@ -67,6 +86,8 @@ main(int argc, char *argv[])
   choose_filename();
 
   gtk_main ();
+
+  gconf_engine_unref(gconfengine);
 
   dasher_finalise();
 

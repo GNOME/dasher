@@ -90,6 +90,9 @@ public:
 
 	//! Should Dasher start and stop on left mouse button?
 	virtual void StartOnLeft(bool Value) {};
+	
+	//! Should Dasher be keyboard controlled?
+	virtual void KeyControl(bool Value) {};
 };
 
 
@@ -113,7 +116,7 @@ namespace Keys
 	extern const std::string DRAW_MOUSE;
 	extern const std::string START_SPACE;
 	extern const std::string START_MOUSE;
-	
+	extern const std::string KEY_CONTROL;
 	// long options
 	extern const std::string FILE_ENCODING;
 	extern const std::string MAX_BITRATE_TIMES100;

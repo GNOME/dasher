@@ -121,6 +121,7 @@ public:
 	void DrawMouse(bool Value);
 	void StartOnSpace(bool Value);
 	void StartOnLeft(bool Value);
+	void KeyControl(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
@@ -147,6 +148,7 @@ private:
 	bool m_DrawMouse;
 	bool m_StartSpace;
 	bool m_StartLeft;
+	bool m_KeyControl;
 	bool m_Dimensions;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
