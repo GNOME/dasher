@@ -13,7 +13,7 @@
 #include "DashEdit.h"
 #include "AlphIO.h"
 #include <string>
-
+#include <vector>
 
 namespace Dasher {class CDasherAppInterface;}
 class Dasher::CDasherAppInterface
@@ -43,6 +43,10 @@ public:
 	virtual void TrainFile(std::string Filename)=0;
 	
 	// App may want to display characters per minute or frames per second.
+
+	//! Tell the interface how many font sizes there are and what they are
+
+	virtual void GetFontSizes(std::vector<int> *FontSizes)=0;
 
 	//! Provides the number of characters per minute input. (Not implemented)
 	virtual double GetCurCPM()=0;

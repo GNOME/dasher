@@ -568,6 +568,19 @@ void CDasherInterface::TrainFile(string Filename)
 	fclose(InputFile);
 }
 
+void CDasherInterface::GetFontSizes(std::vector<int> *FontSizes)
+{
+  FontSizes->push_back(20);
+  FontSizes->push_back(14);
+  FontSizes->push_back(11);
+  FontSizes->push_back(40);
+  FontSizes->push_back(28);
+  FontSizes->push_back(22);
+  FontSizes->push_back(80);
+  FontSizes->push_back(56);
+  FontSizes->push_back(44);
+}
+  
 
 double CDasherInterface::GetCurCPM()
 {
