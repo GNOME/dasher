@@ -41,6 +41,7 @@ class Gtk2DasherCanvas
   GtkWidget *canvas;
   CDasherInterface *interface;
   Gtk2ScreenWrapper *wrapper;
+  PangoLayout *pangolayout;
 
   Gtk2ScreenWrapper *get_wrapper() { return ( wrapper ); }
 

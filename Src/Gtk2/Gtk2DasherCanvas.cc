@@ -31,6 +31,7 @@ Gtk2DasherCanvas::Gtk2DasherCanvas(guint width, guint height, CDasherInterface *
   canvas = gtk_drawing_area_new ();
 
   buffer = new Gtk2DoubleBuffer(canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
+  pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(canvas), "");
 }
 
 void Gtk2DasherCanvas::CreateNewBuffer()
@@ -150,24 +151,23 @@ void Gtk2DasherCanvas::DrawText(symbol Character, int x1, int y1, int size) cons
   std::string symbol;
   GdkRectangle update_rect;
   GdkFont *chosen_font;  
+  PangoRectangle *ink,*logical;
+
+  ink = new PangoRectangle;
+  logical = new PangoRectangle;
 
   symbol = interface->GetDisplayText(Character);
 
   chosen_font = GetFont(size);
 
-  gdk_draw_string (buffer->get_bg(),
-		   chosen_font,
+  pango_layout_set_text(pangolayout,symbol.c_str(),-1);
+
+  pango_layout_get_pixel_extents(pangolayout,ink,logical);
+
+  gdk_draw_layout (buffer->get_bg(),
 		   canvas->style->black_gc,
-		   x1, y1+gdk_char_height(chosen_font, ('A')), symbol.c_str());
+		   x1, y1-(ink->height/2.0), pangolayout);
 
-  /*
-  update_rect.x = x1;
-  update_rect.y = y1+gdk_char_height(chosen_font, ('A'));
-  update_rect.width = gdk_string_width(chosen_font, symbol.c_str());
-  update_rect.height = gdk_char_height(chosen_font, ('A'));
-
-  gtk_widget_draw (GTK_WIDGET (canvas), &update_rect);
-  */
   return;
 }
   
@@ -235,14 +235,7 @@ void Gtk2DasherCanvas::Polyline(Dasher::CDasherScreen::point* Points, int Number
   }
 
   gdk_draw_lines(buffer->get_bg(), graphics_context, gdk_points, Number);
-  /*
-  update_rect.x = 0;
-  update_rect.y = 0;
-  update_rect.width = canvas->allocation.width;
-  update_rect.height = canvas->allocation.height;
 
-  gtk_widget_draw (GTK_WIDGET (canvas), &update_rect);
-  */
   return;
 }
  
@@ -277,7 +270,6 @@ void Gtk2DasherCanvas::Display()
   update_rect.width = canvas->allocation.width;
   update_rect.height = canvas->allocation.height;
 
-  //gtk_widget_queue_draw_area(canvas,0,0, canvas->allocation.width,canvas->allocation.height);
   gtk_widget_draw(canvas,&update_rect);
 }
 

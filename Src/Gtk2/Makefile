@@ -1,10 +1,11 @@
 PREFIX = /usr/local
 PACKAGE = dasher
 
-GTKCFLAGS = `pkg-config --cflags gtk+-2.0` -DGTK_ENABLE_BROKEN
+GTKCFLAGS = `pkg-config --cflags gtk+-2.0` 
+FOO = -DGTK_ENABLE_BROKEN
 GTKLDFLAGS += `pkg-config --libs gtk+-2.0`
 
-CPPFLAGS += -D_GNU_SOURCE
+CPPFLAGS += -g -D_GNU_SOURCE
 
 # was -Wall as well
 CFLAGS += -DPACKAGE=\"dasher\" -DPREFIX=\"$(PREFIX)\" -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\" $(GTKCFLAGS)

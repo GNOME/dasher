@@ -122,6 +122,8 @@ void Gtk2DasherEdit::Copy()
 
 void Gtk2DasherEdit::CopyAll()
 {
+  SelectAll();
+  Copy();
 }
 
 void Gtk2DasherEdit::Paste()
@@ -131,6 +133,20 @@ void Gtk2DasherEdit::Paste()
 
 void Gtk2DasherEdit::SelectAll()
 {
+  GtkTextIter *start, *end;
+
+  start = new GtkTextIter;
+  end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(text_buffer),start,0);
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(text_buffer),end,-1);
+
+  GtkTextMark *selection = gtk_text_buffer_get_mark (text_buffer,"selection_bound");
+  GtkTextMark *cursor = gtk_text_buffer_get_mark(text_buffer,"insert");
+
+  gtk_text_buffer_move_mark(text_buffer,selection,start);
+  gtk_text_buffer_move_mark(text_buffer,cursor,end);
+
 }
 
 void Gtk2DasherEdit::TimeStampNewFiles(bool Value) {
