@@ -37,7 +37,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Timestamp New Files", NULL, *GtkItemFactoryCallback(timestamp_files), 1, "<CheckItem>" },
   { "/Options/Copy All on Stop", NULL, *GtkItemFactoryCallback(copy_all_on_stop), 1, "<CheckItem>" },
   { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/Options/Alphabet...", NULL, *GtkItemFactoryCallback(preferences), 1, "<Item>" },
+  { "/Options/Alphabet...", NULL, *GtkItemFactoryCallback(show_preferences), 1, "<Item>" },
   { "/Options/File Encoding", NULL, NULL, 0, "<Branch>" },
   { "/Options/File Encoding/User Default", NULL, *GtkItemFactoryCallback(file_encoding), 2, "<RadioItem>" },
   { "/Options/File Encoding/Alphabet Default", NULL, *GtkItemFactoryCallback(file_encoding), 1, "/Options/File Encoding/User Default" },

@@ -46,6 +46,8 @@ GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
 GtkFontSelectionDialog *dasherfontdialog;
 GtkFontSelectionDialog *editfontdialog;
+GtkWidget *preferences_window;
+GtkListStore *list_store;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;
@@ -117,7 +119,27 @@ void alphabet_select(GtkTreeSelection *selection, gpointer data)
 }
 
 void 
-preferences(gpointer data, guint action, GtkWidget *widget)
+show_preferences(gpointer data, guint action, GtkWidget *widget) { 
+  int alphabet_count;
+  const int alphabetlist_size = 128;
+  const char *alphabetlist[ alphabetlist_size ];
+  GtkTreeIter iter;
+
+  gtk_list_store_clear( list_store );
+  
+  alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
+
+    for (int i=0; i<alphabet_count; ++i) {
+      gtk_list_store_append (list_store, &iter);
+      gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
+    }
+
+    gtk_widget_show_all(preferences_window); 
+
+}
+
+void
+preferences()
 {
   GtkTreeSelection *selection;
   GtkWidget *vbox;
@@ -127,13 +149,16 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   GtkTreeModel *model;
   GtkWidget *treeview;
   GtkWidget *sw;
-  GtkListStore *list_store;
-  GtkTreeIter iter;
+ 
+  //  GtkTreeIter iter;
   GtkWidget *ok;
   GtkWidget *label_alphabet;
   GtkWidget *label_lmodel;
   GtkWidget *label_advanced;
   GtkWidget *uniform_frame;
+GtkObject *uniform_adjustment;
+
+ uniform_adjustment = gtk_adjustment_new( 5.0, 0.0, 100.0, 1.0, 10.0, 0.0 );
 
 
   GtkWidget *nbook;
@@ -144,22 +169,21 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   // FIXME - need to check that this is doing the right thing, no
   // memory leaks due to strings not being dealloced etc...
 
-  const int alphabetlist_size = 128;
-  const char *alphabetlist[ alphabetlist_size ];
 
-  int alphabet_count;
+
+  //  int alphabet_count;
   
-  alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
+//    alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
-  for (int i=0; i<alphabet_count; ++i) {
-    gtk_list_store_append (list_store, &iter);
-    gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
-  }
+//    for (int i=0; i<alphabet_count; ++i) {
+//      gtk_list_store_append (list_store, &iter);
+//      gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
+//    }
 
   // FIXME - delete strings here????
 
-  GtkWidget *preferences_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_signal_connect (GTK_OBJECT (preferences_window), "destroy", GTK_SIGNAL_FUNC (gtk_widget_destroy), NULL);
+  preferences_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_signal_connect (GTK_OBJECT (preferences_window), "destroy", GTK_SIGNAL_FUNC (gtk_widget_hide), NULL);
   gtk_container_set_border_width(GTK_CONTAINER(preferences_window),8);
   vbox = gtk_vbox_new (FALSE,8);
   gtk_container_add(GTK_CONTAINER(preferences_window),vbox);
@@ -196,7 +220,7 @@ preferences(gpointer data, guint action, GtkWidget *widget)
 
   uniform_frame = gtk_frame_new("Smoothing");
 
-  GtkObject *uniform_adjustment = gtk_adjustment_new( 5.0, 0.0, 100.0, 1.0, 10.0, 0.0 );
+
   GtkWidget *uniform_scale = gtk_hscale_new( GTK_ADJUSTMENT(uniform_adjustment) );
   gtk_range_set_update_policy(GTK_RANGE(uniform_scale), GTK_UPDATE_CONTINUOUS);
 
@@ -209,13 +233,35 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   label_advanced = gtk_label_new( "Advanced" );
   gtk_notebook_append_page( GTK_NOTEBOOK(nbook), vbox_advanced, label_advanced );
 
+  //Advanced settings pane
+
+  GtkWidget *advanced_oned = gtk_check_button_new_with_label( "One Dimensional" );
+  GtkWidget *advanced_eyetracker = gtk_check_button_new_with_label( "Eyetracker Mode" );
+  GtkWidget *advanced_drawpos = gtk_check_button_new_with_label( "Draw Position" );
+  GtkWidget *advanced_startleft = gtk_check_button_new_with_label( "Start On Left Mouse" );
+  GtkWidget *advanced_startspace = gtk_check_button_new_with_label( "Start On Space" );
+  GtkWidget *advanced_keyboard = gtk_check_button_new_with_label( "Keyboard Control" );
+  GtkWidget *advanced_pause = gtk_check_button_new_with_label( "Pause Outside Window" );
+  GtkWidget *advanced_control = gtk_check_button_new_with_label( "Control Mode" );
+  GtkWidget *advanced_textentry = gtk_check_button_new_with_label( "Enter Text Into Other Windows" );
+
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_oned, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_eyetracker, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_drawpos, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_startleft, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_startspace, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_keyboard, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_pause, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_control, false, false, 0); 
+  gtk_box_pack_start( GTK_BOX(vbox_advanced), advanced_textentry, false, false, 0); 
+
   ok = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
 
-  g_signal_connect_swapped (G_OBJECT (ok), "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT(preferences_window));
+  g_signal_connect_swapped (G_OBJECT (ok), "clicked", G_CALLBACK (gtk_widget_hide), G_OBJECT(preferences_window));
 
   gtk_box_pack_start( GTK_BOX(vbox), ok, false, false, 0);
 
-  gtk_widget_show_all(preferences_window);
+  //  gtk_widget_show_all(preferences_window);
 }
   
 void 
@@ -775,6 +821,8 @@ void interface_setup() {
     speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
     gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
 
+
+  
   initialise_canvas(360,360);
   initialise_edit();
 
@@ -787,6 +835,8 @@ void interface_setup() {
 				 59,
 				 entries,
 				 NULL );
+
+  preferences();
 
 }
 
