@@ -519,18 +519,21 @@ void GtkDasherCanvas::Blank() const
 {
   if( is_realized() )
     {
+
+      // FIXME - need to get colourmap for the drawables, not
+      // necessarily the system colour map (documentation is vague on
+      // how to do this)
+
+      Gdk_Colormap cm(Gdk_Colormap::get_system());
       Gdk_GC gc1;
       
       gc1.create(*(buffer->get_bg_text()));
       
       Gdk_Color some_color1;
       some_color1.set_rgb( 65535, 65535, 65535 );
-      
+      cm.alloc( some_color1 );
+
       gc1.set_foreground(some_color1);
-      
-
-
-  
 
       buffer->get_bg_text()->draw_rectangle( gc1, true, 0, 0, pmwidth, pmheight );
       
@@ -540,8 +543,9 @@ void GtkDasherCanvas::Blank() const
       
       Gdk_Color some_color3;
       some_color3.set_rgb( 65535, 65535, 65535 );
-      
+       cm.alloc( some_color3 );
       gc3.set_foreground(some_color3);
+      
       buffer->get_bg_squares()->draw_rectangle( gc3, true, 0, 0, pmwidth, pmheight );
       
       Gdk_GC gc2;
@@ -553,7 +557,7 @@ void GtkDasherCanvas::Blank() const
       clr.pixel = 0;
      
       Gdk_Color some_color2( clr );
-      
+      //cm.alloc( some_color2 );
       gc2.set_foreground(some_color2);
       
       buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
