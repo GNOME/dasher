@@ -118,12 +118,14 @@ FontSize CScreen::GetFontSize()
 
 void CScreen::Build_Colours ()
 {
-	m_Brushes.resize(5);
+	m_Brushes.resize(6);
 	
 	// Currently white and gray. Intended for use by a space character, placed last in alphabet
 	m_Brushes[Special1].push_back(CreateSolidBrush(RGB(240,240,240))); // making lighter for djcm
 	m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
 	
+	m_Brushes[Objects].push_back(CreateSolidBrush(RGB(0,0,0)));
+
 	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
 	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
 	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
