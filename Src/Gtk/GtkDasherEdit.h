@@ -25,6 +25,7 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   void write_to_file();
   void get_new_context(std::string& str, int max);
   void unflush();
+  void deletetext();
   void output(symbol Symbol);
   void outputcontrol(void* pointer, int data) {};
   void flush(symbol Symbol);

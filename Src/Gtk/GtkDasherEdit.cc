@@ -93,6 +93,12 @@ void GtkDasherEdit::get_new_context(std::string& str, int max)
   str = text.get_chars( start, end );
 }
 
+void GtkDasherEdit::deletetext()
+{
+  text.backward_delete(1);
+  dirty=true;
+}
+
 void GtkDasherEdit::unflush()
 {
   text.backward_delete( flush_count );
