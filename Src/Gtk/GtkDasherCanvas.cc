@@ -294,8 +294,8 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 {
   if( is_realized() )
     {
-
       std::string symbol;
+
       symbol = interface->GetDisplayText(Character);
 
       char *convbuffer = new char[256];

@@ -28,7 +28,7 @@ public:
 	CAlphabet();
 	~CAlphabet() {}
 	
-	int GetNumberSymbols() const {return m_Characters.size();}        // return size of alphabet
+	int GetNumberSymbols() const { return m_Characters.size();}        // return size of alphabet
 	
 	Opts::ScreenOrientations GetOrientation() {return m_Orientation;}
 	Opts::AlphabetTypes GetType() {return m_DefaultEncoding;}

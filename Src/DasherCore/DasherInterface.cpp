@@ -153,12 +153,12 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	if (!m_AlphIO)
 		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
 	CAlphIO::AlphInfo Info = m_AlphIO->GetInfo(NewAlphabetID);
+
 	CAlphabet* old = m_Alphabet;
 	m_Alphabet = new CCustomAlphabet(Info);
 	
 	// Apply options from alphabet
-	if (m_Orientation==Opts::Alphabet)
-		ChangeOrientation(Opts::Alphabet);
+
 	m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
 	
 	// Recreate widgets and language model
@@ -168,8 +168,18 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 		m_DasherScreen->SetInterface(this);
 	if (LanguageModelID!=-1 || m_LanguageModel)
 		ChangeLanguageModel(LanguageModelID);
+
 	delete old; // only delete old alphabet after telling all other objects not to use it
+
 	Start();
+
+	// We can only change the orientation after we have called
+	// Start, as this will prompt a redraw, which will fail if the
+	// model hasn't been updated for the new alphabet
+
+	if (m_Orientation==Opts::Alphabet)
+ 		ChangeOrientation(Opts::Alphabet);
+
 	Redraw();
 }
 
