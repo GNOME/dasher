@@ -101,6 +101,7 @@ ControlTree* gettree() {
   }
 }
 
+#ifdef GNOME_A11Y
 gboolean findpanels(Accessible *parent) {
   Accessible *child;
   gboolean useful=FALSE;
@@ -117,6 +118,7 @@ gboolean findpanels(Accessible *parent) {
   }
   return useful;
 }
+#endif
 
 ControlTree* buildcontroltree() {
   dummy=new ControlTree;
