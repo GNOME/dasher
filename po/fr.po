@@ -1,186 +1,221 @@
 # French translation of dasher.
-# Copyright (C) 2003-2004 Free Software Foundation, Inc.
+# Copyright (C) 2003-2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 #
 # Phil Cowens <pjc51@srcf.ucam.org>, 2003.
-# Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2004.
+# Christophe Merlet (RedFox) <redfox@redfoxcenter.org>, 2004-2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Dasher 3.2.11\n"
+"Project-Id-Version: Dasher 3.2.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-10-10 19:35+0200\n"
-"PO-Revision-Date: 2004-10-10 19:31+0200\n"
+"POT-Creation-Date: 2005-03-04 23:30+0100\n"
+"PO-Revision-Date: 2005-03-04 23:27+0100\n"
 "Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:60
-msgid "Menus"
-msgstr "Menus"
-
-#: Src/Gtk2/accessibility.cc:67
-msgid "Windows"
-msgstr "Fenêtres"
-
-#: Src/Gtk2/accessibility.cc:72
-msgid "Application"
-msgstr "Application"
-
-#: Src/Gtk2/accessibility.cc:79
-msgid "Buttons"
-msgstr "Boutons"
-
-#: Src/Gtk2/accessibility.cc:85
+#. Paneltree
+#. |         /-menutree
+#. Widgettree------buttontree
+#. \-edittree
+#.
+#. Tree, parent, children, next, pointer, data, string, colour
+#: Src/Gtk2/accessibility.cc:82
 msgid "Panels"
 msgstr "Tableaux de bord"
 
-#: Src/Gtk2/accessibility.cc:92
+#: Src/Gtk2/accessibility.cc:83
+msgid "Application"
+msgstr "Application"
+
+#: Src/Gtk2/accessibility.cc:85
+msgid "Menus"
+msgstr "Menus"
+
+#: Src/Gtk2/accessibility.cc:86
+msgid "Buttons"
+msgstr "Boutons"
+
+#: Src/Gtk2/accessibility.cc:87
 msgid "Text"
 msgstr "Texte"
 
-#: Src/Gtk2/accessibility.cc:166 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:162 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Contrôle"
 
-#: Src/Gtk2/accessibility.cc:171
+#: Src/Gtk2/accessibility.cc:168
+msgid "Windows"
+msgstr "Fenêtres"
+
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Arrêter"
 
-#: Src/Gtk2/accessibility.cc:177
+#: Src/Gtk2/accessibility.cc:182
 msgid "Pause"
 msgstr "Suspendre"
 
-#: Src/Gtk2/accessibility.cc:184
+#: Src/Gtk2/accessibility.cc:189
 msgid "Move"
 msgstr "Déplacer"
 
-#: Src/Gtk2/accessibility.cc:191
+#: Src/Gtk2/accessibility.cc:196
 msgid "Delete"
 msgstr "Supprimer"
 
-#: Src/Gtk2/accessibility.cc:201
+#: Src/Gtk2/accessibility.cc:206
 msgid "Speak"
 msgstr "Parler"
 
-#: Src/Gtk2/accessibility.cc:228 Src/Gtk2/accessibility.cc:382
+#: Src/Gtk2/accessibility.cc:233 Src/Gtk2/accessibility.cc:387
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:234 Src/Gtk2/accessibility.cc:376
+#: Src/Gtk2/accessibility.cc:239 Src/Gtk2/accessibility.cc:381
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:240
+#: Src/Gtk2/accessibility.cc:245
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:251
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:259
+#: Src/Gtk2/accessibility.cc:264
 msgid "Everything"
 msgstr "Tout"
 
-#: Src/Gtk2/accessibility.cc:265
+#: Src/Gtk2/accessibility.cc:270
 msgid "New"
 msgstr "Nouveau"
 
-#: Src/Gtk2/accessibility.cc:271
+#: Src/Gtk2/accessibility.cc:276
 msgid "Repeat"
 msgstr "Répéter"
 
-#: Src/Gtk2/accessibility.cc:293
+#: Src/Gtk2/accessibility.cc:298
 msgid "1"
 msgstr "1"
 
-#: Src/Gtk2/accessibility.cc:300
+#: Src/Gtk2/accessibility.cc:305
 msgid "2"
 msgstr "2"
 
-#: Src/Gtk2/accessibility.cc:307
+#: Src/Gtk2/accessibility.cc:312
 msgid "3"
 msgstr "3"
 
-#: Src/Gtk2/accessibility.cc:314
+#: Src/Gtk2/accessibility.cc:319
 msgid "4"
 msgstr "4"
 
-#: Src/Gtk2/accessibility.cc:321
+#: Src/Gtk2/accessibility.cc:326
 msgid "5"
 msgstr "5"
 
-#: Src/Gtk2/accessibility.cc:328
+#: Src/Gtk2/accessibility.cc:333
 msgid "6"
 msgstr "6"
 
-#: Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:340
 msgid "7"
 msgstr "7"
 
-#: Src/Gtk2/accessibility.cc:342
+#: Src/Gtk2/accessibility.cc:347
 msgid "8"
 msgstr "8"
 
-#: Src/Gtk2/accessibility.cc:349
+#: Src/Gtk2/accessibility.cc:354
 msgid "9"
 msgstr "9"
 
-#: Src/Gtk2/accessibility.cc:356
+#: Src/Gtk2/accessibility.cc:361
 msgid "10"
 msgstr "10"
 
-#: Src/Gtk2/accessibility.cc:388 Src/Gtk2/accessibility.cc:411
+#: Src/Gtk2/accessibility.cc:393 Src/Gtk2/accessibility.cc:416
 msgid "Character"
 msgstr "Caractère"
 
-#: Src/Gtk2/accessibility.cc:399 Src/Gtk2/accessibility.cc:421
+#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:426
 msgid "Word"
 msgstr "Mot"
 
-#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:427
+#: Src/Gtk2/accessibility.cc:409 Src/Gtk2/accessibility.cc:432
 msgid "Line"
 msgstr "Ligne"
 
-#: Src/Gtk2/accessibility.cc:506
+#: Src/Gtk2/accessibility.cc:536
 msgid "Unknown"
 msgstr "Inconnu"
 
-#: Src/Gtk2/dasher.cc:188
+#: Src/Gtk2/dasher.cc:189
 msgid "Training Dasher, please wait"
 msgstr "Apprentissage de Dasher, veuillez patienter"
 
-#: Src/Gtk2/dasher.cc:501 Src/Gtk2/dasher.cc:522 Src/Gtk2/dasher.cc:543
-#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:502 Src/Gtk2/dasher.cc:523 Src/Gtk2/dasher.cc:544
+#: Src/Gtk2/dasher.cc:565 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "Sélectionnez un fichier"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1656
+#: Src/Gtk2/dasher.cc:1663
 msgid "translator_credits"
 msgstr ""
 "Phil Cowens <pjc51@srcf.ucam.org>\n"
 "Christophe Merlet (RedFox) <redfox@redfoxcenter.org>"
 
-#: Src/Gtk2/dasher.cc:1658 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1665 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1661
+#: Src/Gtk2/dasher.cc:1668
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher est une application de saisie de texte prédictive"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2074
+#: Src/Gtk2/dasher.cc:2084
 #, c-format
-msgid "%d characters output in %ld seconds\n"
-msgstr "%d caractères sortis en %ld secondes\n"
+msgid "In %ld seconds\n"
+msgstr "Dans %ld secondes\n"
+
+#: Src/Gtk2/dasher.cc:2085
+#, c-format
+msgid "%d characters\n"
+msgstr "%d caractères\n"
+
+#: Src/Gtk2/dasher.cc:2086
+#, c-format
+msgid "%f bits\n"
+msgstr "%f bits\n"
+
+#: Src/Gtk2/dasher.cc:2088
+#, c-format
+msgid "%f characters per second\n"
+msgstr "%f caractères par secondes\n"
+
+#: Src/Gtk2/dasher.cc:2089
+#, c-format
+msgid "%f bits per second\n"
+msgstr "%f bits par secondes\n"
+
+#: Src/Gtk2/dasher.cc:2090
+#, c-format
+msgid ""
+"%f bits per character\n"
+"\n"
+msgstr ""
+"%f bits par caractères\n"
+"\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
