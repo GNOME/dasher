@@ -1,8 +1,12 @@
+2004-03-05  Ilkka Tuohela <hile@iki.fi>
+
+	* fi.po: Updated Finnish translation
+	* Removed random CVS merge errors (===,>>> stuff) from Changelog
+
 2004-02-29  Arafat medini  <lumina@silverpen.de>
 
 	* ar.po: Updated Arabic translation.
 
-=======
 2004-02-29  Funda Wang  <fundawang@linux.net.cn>
 
 	* zh_CN.po: Added Simplified Chinese translation.
@@ -75,7 +79,6 @@
 
 	* sq.po: Updated Albanian translation.
 
->>>>>>> 1.73
 2004-02-12  Danilo Šegan  <dsegan@gmx.net>
 
 	* sr.po, sr@Latn.po: Updated Serbian translation.

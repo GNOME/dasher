@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-23 00:27+0200\n"
+"POT-Creation-Date: 2004-02-29 16:52+0200\n"
 "PO-Revision-Date: 2004-02-23-00:27+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Gnome Finnish Translation Team <laatu@gnome-fi.org>\n"
@@ -115,7 +115,7 @@ msgstr "Opetetaan Dasheria, odota hetki"
 #. This gets pulled out via gettext
 #: Src/Gtk2/dasher.cc:1757
 msgid "translator_credits"
-msgstr "kääntäjän_ansiot"
+msgstr "Ilkka Tuohela, 2004\n\nhttp://gnome-fi.org/"
 
 #: Src/Gtk2/dasher.cc:1759 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
@@ -124,7 +124,7 @@ msgstr "Dasher"
 
 #: Src/Gtk2/dasher.cc:1762
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher on ennustava tekstinsyöttöohjelma"
+msgstr "Dasher on ennustava tekstinsyöttösovellus"
 
 #. Just a debugging thing, output to the console
 #: Src/Gtk2/dasher.cc:2169
@@ -134,7 +134,7 @@ msgstr "%d merkkiä tulostetta %d sekunnissa\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
-msgstr "5:5:5:5:5:"
+msgstr "5:"
 
 #: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
 msgid "6:"
@@ -154,7 +154,7 @@ msgstr "9:"
 
 #: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>Kirjaimiston valinta:</b>"
+msgstr "<b>Aakkoston valinta:</b>"
 
 #: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
@@ -206,11 +206,11 @@ msgstr "Edistyneet"
 
 #: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
-msgstr "Kirjaimisto"
+msgstr "Aakkosto"
 
 #: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
 msgid "Alphabet Default"
-msgstr "Oletuskirjaimisto"
+msgstr "Oletusaakkosto"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -297,7 +297,8 @@ msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
-msgstr "Jos tämä tila on valittu, ylös ja alas\n"
+msgstr ""
+"Jos tämä tila on valittu, ylös ja alas\n"
 "siirtyvät takaisin ja eteenpäin koordinaattien välillä ja oikealle vahvistaa "
 "valinnan"
 
@@ -422,7 +423,8 @@ msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
-msgstr "Käytä tätä ohjainta säätääksesi aakkoslaatikoiden\n"
+msgstr ""
+"Käytä tätä ohjainta säätääksesi kirjainlaatikoiden\n"
 " kokoa. Ota huomioon, että suuren koon valinta hidastaa\n"
 "kirjoitusnopeuttasi."
 
@@ -513,7 +515,7 @@ msgstr "Suunta"
 #: Src/Gtk2/speech.cc:45
 #, c-format
 msgid "Unable to initialize voices"
-msgstr "Puheääni ei voitu ottaa käyttöön"
+msgstr "Puheääniä ei voitu ottaa käyttöön"
 
 #: Src/Gtk2/speech.cc:61
 #, c-format
