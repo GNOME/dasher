@@ -1,3 +1,8 @@
+2004-09-07  Gurban M. Tewekgeli  <gmtavakkoli@yahoo.com>
+
+	* po/tk.po: Added Turkmen translation.
+	* configure.in: Added "tk"to ALL_LINGUAS
+
 2004-08-20  Jayaradha  <njaya@redhat.com>
 
 	* configure.in: Added "ta" to ALL_LINGUAS
