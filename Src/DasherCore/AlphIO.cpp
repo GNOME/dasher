@@ -393,6 +393,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Ch.Colour = *atts;
 				atts--;
 			}
+			if (strcmp(*atts, "f")==0) {
+			        atts++;
+				Ch.Foreground = *atts;
+				atts--;
+			}
 			atts += 2;
 		}
 		return;

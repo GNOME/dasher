@@ -21,6 +21,7 @@ CAlphabet::CAlphabet() : m_Groups(0), m_DefaultEncoding(Opts::Western), m_Orient
 	m_Characters.push_back("");
 	m_Display.push_back("");
 	m_Colours.push_back("");
+	m_Foreground.push_back("");
 	m_Group.push_back(0);
 }
 
@@ -95,13 +96,14 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 
 
 // add single char to the character set
-void CAlphabet::AddChar(const string NewCharacter, const string Display, const string Colour)
+void CAlphabet::AddChar(const string NewCharacter, const string Display, const string Colour, const string Foreground)
 {
 	m_Characters.push_back(NewCharacter);
 	m_Display.push_back(Display);
 	m_Colours.push_back(Colour);
+	m_Foreground.push_back(Foreground);
 	m_Group.push_back(m_Groups);
-	
+
 	symbol ThisSymbol = m_Characters.size()-1;
 	TextMap.Add(NewCharacter, ThisSymbol);
 }

@@ -23,7 +23,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	// Add all the characters.
 	for (unsigned int i=0; i<AlphInfo.Groups.size(); i++) { // loop groups
 		for (unsigned int j=0; j<AlphInfo.Groups[i].Characters.size(); j++) { // loop characters
-			AddChar(AlphInfo.Groups[i].Characters[j].Text, AlphInfo.Groups[i].Characters[j].Display, AlphInfo.Groups[i].Characters[j].Colour);
+			AddChar(AlphInfo.Groups[i].Characters[j].Text, AlphInfo.Groups[i].Characters[j].Display, AlphInfo.Groups[i].Characters[j].Colour, AlphInfo.Groups[i].Characters[j].Foreground);
 		}
 		StartNewGroup();
 	}
@@ -34,7 +34,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	std::string empty="";
 
 	if (AlphInfo.SpaceCharacter.Text != empty ) {
-		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour);
+		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 		SetSpaceSymbol();
 	}
 }
