@@ -24,6 +24,8 @@
 #include "DasherScreen.h"
 #include "Alphabet.h"
 #include "AlphIO.h"
+#include "CustomColours.h"
+#include "ColourIO.h"
 #include "LanguageModel.h"
 #include "DasherModel.h"
 #include "DashEdit.h"
@@ -110,6 +112,7 @@ public:
 	// -----------------------------------------------------
 	
 	void ChangeAlphabet(const std::string& NewAlphabetID);
+	void ChangeColours(const std::string& NewColourID);
 	void ChangeMaxBitRate(double NewMaxBitRate);
 	void ChangeLanguageModel(unsigned int NewLanguageModelID);
 	void ChangeView(unsigned int NewViewID);
@@ -137,6 +140,7 @@ public:
 
 private:
 	CAlphabet* m_Alphabet;
+	CCustomColours* m_Colours;
 	CLanguageModel* m_LanguageModel;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;
@@ -144,12 +148,14 @@ private:
 	CDasherView* m_DasherView;
 	CSettingsStore* m_SettingsStore;
 	CDasherSettingsInterface* m_SettingsUI;
-	CAlphIO* m_AlphIO;
+	CAlphIO* m_AlphIO;	
 	CAlphIO::AlphInfo m_AlphInfo;
-	
+	CColourIO* m_ColourIO;
+	CColourIO::ColourInfo m_ColourInfo;
 	CLanguageModel::CNodeContext* TrainContext;
 	
 	std::string AlphabetID;
+	std::string ColourID;
 	int LanguageModelID;
 	int ViewID;
 	double m_MaxBitRate;

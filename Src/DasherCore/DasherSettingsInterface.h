@@ -23,6 +23,9 @@ public:
 	//! Change the alphabet in use to NewAlphabetID
 	virtual void ChangeAlphabet(const std::string& NewAlphabetID) {};
 
+	//! Change the colour scheme in use to NewColourID
+	virtual void ChangeColours(const std::string& NewColourID) {};
+
 	//! Change the maximum bitrate (effectively the speed) of Dasher
 	virtual void ChangeMaxBitRate(double NewMaxBitRate) {};
 
@@ -140,6 +143,7 @@ namespace Keys
 	
 	// string options
 	extern const std::string ALPHABET_ID;
+	extern const std::string COLOUR_ID;
 	extern const std::string DASHER_FONT;
 	extern const std::string EDIT_FONT;
 }

@@ -6,11 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-
 #include "DasherInterface.h"
 //#include "EnglishAlphabet.h"
 #include "CustomAlphabet.h"
+#include "CustomColours.h"
 #include "DasherViewSquare.h"
 #include "PPMLanguageModel.h"
 namespace {
@@ -27,7 +26,7 @@ CDasherInterface::CDasherInterface()
 	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
 	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
 	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
-	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false)
+	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false), m_Colours(0)
 {
 }
 
@@ -218,6 +217,22 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	Redraw();
 }
 
+void CDasherInterface::ChangeColours(const std::string& NewColourID)
+{
+  	if (m_SettingsUI!=0)
+		m_SettingsUI->ChangeColours(NewColourID);
+	if (m_SettingsStore!=0)
+		m_SettingsStore->SetStringOption(Keys::COLOUR_ID, NewColourID);
+	
+	ColourID = NewColourID;
+	if (!m_ColourIO)
+		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation);
+	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
+
+	m_Colours = new CCustomColours(m_ColourInfo);
+	
+	Redraw();
+}
 
 void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 {

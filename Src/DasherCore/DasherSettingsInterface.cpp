@@ -43,6 +43,7 @@ namespace Keys {
 
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";
+	const std::string COLOUR_ID = "ColourID";
 	const std::string DASHER_FONT = "DasherFont";
 	const std::string EDIT_FONT = "EditFont";
 }
@@ -111,6 +112,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
 
+	this->ChangeColours(Store->GetStringOption(COLOUR_ID));
 
 	// FIXME - need to work out why this breaks stuff
 	//	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));

@@ -15,8 +15,6 @@
 #include "DasherModel.h"
 #include "DasherViewSquare.h"
 
-#include <iostream>
-
 using namespace Dasher;
 
 // ARG! MSVC++ V6 doesn't seem to come with min and max in <algorithm>
@@ -226,7 +224,6 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
   Screen().DrawRectangle(left, top+5, right, top-5, 0, Opts::ColorSchemes(Objects));
   Screen().DrawRectangle(left+5, top+5, left, bottom-5, 0, Opts::ColorSchemes(Objects));
   Screen().DrawRectangle(left, bottom+5, right, bottom-5, 0, Opts::ColorSchemes(Objects));
-  std::cout << top << " " << bottom << " " << left << " " << right << std::endl;
 }
   
 
