@@ -144,6 +144,6 @@ int CAlphabet::GetTextColour(symbol Symbol)
   if (TextColour != "") {
     return atoi(TextColour.c_str());
   } else {
-    return 0;
+    return 4;
   }
 }

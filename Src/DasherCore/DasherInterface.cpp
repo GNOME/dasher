@@ -670,7 +670,7 @@ int CDasherInterface::GetTextColour(symbol Symbol)
 	if (m_Alphabet!=0)
 		return m_Alphabet->GetTextColour(Symbol);
 	else
-	        return 0;
+	  return 4; // Default colour for text
 }
 
 
