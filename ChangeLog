@@ -1,3 +1,7 @@
+2004-02-08  Matthew Garrett  <mjg50@srcf.ucam.org>
+
+	* updated the documentation system 
+
 2004-02-08  Priit Laes  <plaes@cvs.gnome.org>
 
 	* configure.in: Added et to ALL_LINGUAS.
