@@ -27,14 +27,27 @@ bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 void GtkDasherStore::SaveSetting(const std::string& Key, bool Value)
 {
   //  cout << "Save Setting " << Key << ", " << Value << endl;
+  
+  //  bmap[Key] = Value;
+  // write_to_file();
 }
 
 void GtkDasherStore::SaveSetting(const std::string& Key, long Value)
 {
   //  cout << "Save Setting " << Key << ", " << Value << endl;
+
+  //  lmap[Key] = Value;
+
+  write_to_file();
 }
 
 void GtkDasherStore::SaveSetting(const std::string& Key, const std::string& Value)
 {
   //  cout << "Save Setting " << Key << ", " << Value << endl;
+}
+
+void GtkDasherStore::write_to_file()
+{
+  //  cout << "Writing to file:" << endl;
+  //cout << "done." << endl;
 }
