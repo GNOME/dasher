@@ -207,7 +207,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
 	myint newRootmax=miNewrootzoom+myint(below*dRxnew);
 	myint newRootmin=miNewrootzoom-myint(above*dRxnew);
-	if (newRootmin<m_DasherY/2 && newRootmax>m_DasherY/2 && newRootmax<INT_MAX && newRootmin>INT_MIN) {
+	if (newRootmin<m_DasherY/2 && newRootmax>m_DasherY/2 && newRootmax<LLONG_MAX && newRootmin>LLONG_MIN) {
 		m_Rootmax=newRootmax;
 		m_Rootmin=newRootmin;	
 	}
