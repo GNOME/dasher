@@ -23,6 +23,8 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
+ protected:
+  int flush_count;
 };
 
 #endif

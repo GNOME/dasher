@@ -35,6 +35,9 @@ protected:
   int visibility_event_impl(GdkEventAny *event);
 
   bool paused;
+
+  int pause_time;
+
 };
 
 #endif

@@ -13,6 +13,8 @@
 #include "DasherInterface.h"
 #include "SettingsStore.h"
 
+#include <time.h>
+
 GtkDasherPane::GtkDasherPane()
   : VBox( false, 0 ), paused( false )
 {
@@ -78,12 +80,17 @@ gint GtkDasherPane::timer_callback()
 
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
-  cout << "In toggle_pause" << endl;
-  int x;
-  int y;
+  if( !paused )
+    {
+      int x;
+      int y;
       
-  gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
-  interface->PauseAt(x,y);
+      gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
+      interface->PauseAt(x,y);
+    }
+  else
+    interface->Unpause( 0 );  // FIXME - need to specify a time here
+  
   paused = !paused;
 
   return( true );
