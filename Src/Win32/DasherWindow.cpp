@@ -52,7 +52,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	m_pEdit = new CEdit(m_hwnd);
 	DasherAppInterface->ChangeEdit(m_pEdit);
 	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
-	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false);
+	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
 	m_pSplitter = new CSplitter(m_hwnd, 100, this);
 /*
 	DWORD MyTime = GetTickCount();

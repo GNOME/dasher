@@ -42,6 +42,8 @@ public:
 	bool getforward() {return forward;}
 	bool getbackward() {return backward;}
 	bool getselect() {return select;}
+	void startspace();
+	void centrecursor();
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

@@ -55,13 +55,14 @@ void CSlidebar::CreateEdit()
 }
 
 
-CSlidebar::CSlidebar(HWND ParentWindow, CDasherSettingsInterface *NewDasherInterface, double StartValue, bool Visible)
+CSlidebar::CSlidebar(HWND ParentWindow, CDasherSettingsInterface *NewDasherInterface, double StartValue, bool Visible, CCanvas *NewDasherCanvas)
 	: Visible(Visible)
 {
 	m_Height = 200;
 	
 	DasherInterface = NewDasherInterface;
-	
+	DasherCanvas = NewDasherCanvas;
+
 	// A nicer font than SYSTEM. Generally useful to have around.
 	HGDIOBJ hGuiFont;
 	hGuiFont = GetStockObject(DEFAULT_GUI_FONT);
@@ -89,12 +90,14 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherSettingsInterface *NewDasherInter
 	SB_slider = CreateWindowEx(0L, TRACKBAR_CLASS, TEXT(""),
 		WS_CHILD | WS_VISIBLE | TBS_AUTOTICKS | WS_TABSTOP,
 		0, 0, 0, 0, m_hwnd, NULL, WinHelper::hInstApp, NULL);
-	
+
 	// Slider format: bit rate range of 0-8 with control precision of 0.01
 	SendMessage(SB_slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
 	SendMessage(SB_slider, TBM_SETTICFREQ, 100, 0L);
 	SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 800));
 	SendMessage(SB_slider, TBM_SETPOS, TRUE, 201);   // TRUE means can show it now.
+	WinWrapMap::add(SB_slider, this);
+	SL_WndFunc = (WNDPROC) SetWindowLong(SB_slider, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
 	
 	SetValue(StartValue);
 }
@@ -129,9 +132,27 @@ int CSlidebar::Resize(int Width, int Base)
 LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	// Allows us to process messages sent to our slide bar
-	
-	LRESULT result=CallWindowProc(SB_WndFunc, Window, message, wParam, lParam);
-	
+	LRESULT result;
+
+	if(message==WM_KEYDOWN) {
+		switch (wParam) {
+		case VK_SPACE:
+			DasherCanvas->startspace();
+			return 0;
+			break;
+		case VK_F12:
+			DasherCanvas->centrecursor();
+			return 0;
+			break;
+		}
+	}
+
+	if (Window==m_hwnd) {
+		result=CallWindowProc(SB_WndFunc, Window, message, wParam, lParam);
+	} else {
+		result=CallWindowProc(SL_WndFunc, Window, message, wParam, lParam);
+	}
+
 	switch (message) {
 	case WM_HSCROLL:
 		double NewBitrate;
@@ -151,26 +172,24 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
 	return result;
 }
 
-
 void CSlidebar::SetValue(double NewSlideVal)
 {
-	SlideVal = NewSlideVal;
-	SetSlideBar(SlideVal);
-	SetEditBox(SlideVal);
+        SlideVal = NewSlideVal;
+        SetSlideBar(SlideVal);
+        SetEditBox(SlideVal);
 }
 
 
 double CSlidebar::GetValue()
 {
-	return SlideVal;
+        return SlideVal;
 }
 
 
 void CSlidebar::SetSlideBar(double value)
 {
-	SendMessage(SB_slider, TBM_SETPOS, (WPARAM) TRUE, (LPARAM) (value*100));
+        SendMessage(SB_slider, TBM_SETPOS, (WPARAM) TRUE, (LPARAM) (value*100));
 }
-
 
 void CSlidebar::SetEditBox(double value)
 {

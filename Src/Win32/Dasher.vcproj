@@ -348,8 +348,8 @@
 		</Configuration>
 		<Configuration
 			Name="Accessible Unicode Debug|Win32"
-			OutputDirectory=".\Target\Accessible Unicode Debug"
-			IntermediateDirectory=".\Target\Accessible Unicode Debug\Intermediate"
+			OutputDirectory=".\Target/Accessible Unicode Debug"
+			IntermediateDirectory=".\Target/Accessible Unicode Debug/Intermediate"
 			ConfigurationType="1"
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="FALSE"
@@ -361,10 +361,10 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
-				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Dasher.pch"
-				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
-				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
-				ProgramDataBaseFileName=".\Target/Win32 Unicode Debug/Intermediate/"
+				PrecompiledHeaderFile=".\Target/Accessible Unicode Debug/Intermediate/Dasher.pch"
+				AssemblerListingLocation=".\Target/Accessible Unicode Debug/Intermediate/"
+				ObjectFile=".\Target/Accessible Unicode Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Accessible Unicode Debug/Intermediate/"
 				BrowseInformation="1"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
@@ -375,11 +375,11 @@
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
 				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib Oleacc.lib comsupp.lib"
-				OutputFile=".\Target/Win32 Unicode Debug/Dasher.exe"
+				OutputFile=".\Target/Accessible Unicode Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
 				GenerateDebugInformation="TRUE"
-				ProgramDatabaseFile=".\Target/Win32 Unicode Debug/Dasher.pdb"
+				ProgramDatabaseFile=".\Target/Accessible Unicode Debug/Dasher.pdb"
 				SubSystem="2"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -387,7 +387,7 @@
 				MkTypLibCompatible="TRUE"
 				SuppressStartupBanner="TRUE"
 				TargetEnvironment="1"
-				TypeLibraryName=".\Target/Win32 Unicode Debug/Dasher.tlb"/>
+				TypeLibraryName=".\Target/Accessible Unicode Debug/Dasher.tlb"/>
 			<Tool
 				Name="VCPostBuildEventTool"/>
 			<Tool
@@ -398,6 +398,30 @@
 				Name="VCResourceCompilerTool"
 				PreprocessorDefinitions="_DEBUG"
 				Culture="2057"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+		</Configuration>
+		<Configuration
+			Name="foo|Win32"
+			ConfigurationType="1">
+			<Tool
+				Name="VCCLCompilerTool"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool

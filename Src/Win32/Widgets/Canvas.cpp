@@ -34,9 +34,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 
 
 	m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("CANVAS"), NULL,
-
 		WS_CHILD | WS_VISIBLE,
-
 		0,0,0,0, Parent, NULL, WinHelper::hInstApp, NULL );
 
  	
@@ -79,13 +77,8 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		break;
 
 	case WM_KEYDOWN:
-
-		int i;
-
 		switch (wParam) {
-
 			if (keycontrol == true) {
-
 		case VK_UP:
 			if (forward==true) {
 				buttonnum++;
@@ -104,9 +97,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			}
 			return 0;
 			break;
-			
-		case VK_DOWN:
-					
+		case VK_DOWN:	
 			if (backward==true) {
 				buttonnum--;
 				if (buttonnum==-1) {
@@ -124,64 +115,35 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			}
 			return 0;
 			break;
-				case VK_LEFT:
-					if (select==true) {
-						m_DasherWidgetInterface->GoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
-						m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
-					} else {
-						m_DasherWidgetInterface->GoTo(keycoords[4],keycoords[5]);
-					}
-					return 0;
-					break;
-				case VK_RIGHT:
-					m_DasherWidgetInterface->GoTo(keycoords[6],keycoords[7]);
-					return 0;
-					break;
+		case VK_LEFT:
+			if (select==true) {
+				m_DasherWidgetInterface->GoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+				m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+			} else {
+				m_DasherWidgetInterface->GoTo(keycoords[4],keycoords[5]);
+			}
+			return 0;
+			break;
+		case VK_RIGHT:
+			m_DasherWidgetInterface->GoTo(keycoords[6],keycoords[7]);
+			return 0;
+			break;
 			}
 
-			case VK_SPACE:
-
-				if (startonspace == false) {
-
-					return 0;
-
-					break;
-
-				} else {
-
-					if (running==0) {
-
-						SetCapture(Window);
-
-						running=1;
-
-						m_DasherWidgetInterface->Unpause(GetTickCount());
-
-					} else {
-
-						m_DasherWidgetInterface->PauseAt(0,0);
-
-						running=0;
-
-						ReleaseCapture();
-
-					}
-
-					return 0;
-
-					break;
-
-				}
-
-			default:
-
+		case VK_SPACE:
+			startspace();
 			return 0;
-
 			break;
-
+		case VK_F12:
+			centrecursor();
+			return 0;
+			break;
+		default:
+			return 0;
+			break;
 		}
-
 	case WM_LBUTTONDBLCLK:
+		// fall through
 	case WM_LBUTTONDOWN:
 		SetFocus(Window);
 		if (startonleft==false) {
@@ -205,8 +167,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			ResumeThread( hThreadl );
 			
 		} else {
-			// if dasher is running
-			
+			// if dasher is running			
 			m_DasherWidgetInterface->PauseAt(imousex, imousey);
 			m_DasherEditBox->speak();
 			running=0;
@@ -240,15 +201,11 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		break;
 
 	case WM_TIMER:
-
 		if (running==0)
-
 			return 0;
 
-		POINT mousepos;
-		
+		POINT mousepos;		
 		GetCursorPos(&mousepos);
-
 
 		if (windowpause==true) {
 			RECT windowrect;
@@ -258,22 +215,39 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		}
 
 		ScreenToClient(Window,&mousepos);
-
 		imousey=mousepos.y;
-
 		imousex=mousepos.x;
 
-//		if (imousey<-30000 || imousey>30000)
-//			imousey=-30000;
-//		if (imousex>30000)
-//			imousex=0;
 		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 		break;
-
 	default:
-
 		break;
-
 	}
 	return DefWindowProc(Window, message, wParam, lParam);
 }
+
+void CCanvas::startspace()
+{
+	if (startonspace == false) {
+		return;
+	} else {
+		if (running==0) {
+			SetCapture(m_hwnd);		
+			running=1;
+			m_DasherWidgetInterface->Unpause(GetTickCount());
+		} else {
+			m_DasherWidgetInterface->PauseAt(0,0);
+			running=0;
+			m_DasherEditBox->speak();
+			ReleaseCapture();
+		}
+	}
+}
+
+void CCanvas::centrecursor() {
+	POINT mousepos;
+	mousepos.x=Screen->GetWidth()/2;
+	mousepos.y=Screen->GetHeight()/2;
+	ClientToScreen(m_hwnd,&mousepos);
+	SetCursorPos(mousepos.x,mousepos.y);
+};
