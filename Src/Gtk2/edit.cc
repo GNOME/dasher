@@ -1,3 +1,4 @@
+#include <iostream.h>
 #include "edit.h"
 #include "dasher.h"
 #include "accessibility.h"
@@ -427,14 +428,17 @@ void speak()
       say.replace(say.find("\""), 1, "");
     }
     SPEAK_DAMN_YOU(&say);
+    last_said = say;
   }
-  last_said = say;
   say="";
 }
 
 void speak_last()
 {
   if (last_said.length()>0) {
+    while (last_said.find("\"") != std::string::npos) {
+      last_said.replace(last_said.find("\""), 1, "");
+    }
     SPEAK_DAMN_YOU(&last_said);
   }
 }
@@ -452,7 +456,13 @@ void speak_buffer()
   
   buffer = gtk_text_iter_get_slice (speak_start,speak_end);
 
-  SPEAK_DAMN_YOU(&buffer);
+  if (buffer.length()>0) {
+    while (buffer.find("\"") != std::string::npos) {
+      buffer.replace(buffer.find("\""), 1, "");
+    }
+    SPEAK_DAMN_YOU(&buffer);
+    last_said = buffer;
+  }
 }
 #endif
 
