@@ -1,3 +1,12 @@
+// FilenameGUI.cpp
+//
+/////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+
 /*
 	TODO: For some reason I can't get VC++ 6 SP4 or SP5 (I upgraded just to see) on win2k SP1
 	to debug this module without raising "user breakpoints". While this can be due to
