@@ -158,6 +158,10 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_WINDOWPAUSE, Value );
     };
+  void ControlMode(bool Value)
+    {
+      handle_parameter_bool( BOOL_CONTROLMODE, Value );
+    };
 };
 
 

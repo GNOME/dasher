@@ -108,6 +108,14 @@ void CAlphabet::AddChar(const string NewCharacter, const string Display, const s
 	TextMap.Add(NewCharacter, ThisSymbol);
 }
 
+// Delete single char from the character set
+void CAlphabet::DelChar(symbol Symbol) {
+  m_Characters.erase(m_Characters.begin()+Symbol);
+  m_Display.erase(m_Display.begin()+Symbol);
+  m_Colours.erase(m_Colours.begin()+Symbol);
+  m_Foreground.erase(m_Foreground.begin()+Symbol);
+  m_Group.erase(m_Group.begin()+Symbol); 
+}
 
 void CAlphabet::StartNewGroup()
 {

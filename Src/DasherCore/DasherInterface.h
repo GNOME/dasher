@@ -126,6 +126,7 @@ public:
 	void StartOnLeft(bool Value);
 	void KeyControl(bool Value);
 	void WindowPause(bool Value);
+	void ControlMode(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
@@ -141,6 +142,7 @@ private:
 	CSettingsStore* m_SettingsStore;
 	CDasherSettingsInterface* m_SettingsUI;
 	CAlphIO* m_AlphIO;
+	CAlphIO::AlphInfo m_AlphInfo;
 	
 	CLanguageModel::CNodeContext* TrainContext;
 	
@@ -156,6 +158,7 @@ private:
 	bool m_KeyControl;
 	bool m_Dimensions;
 	bool m_WindowPause;
+	bool m_ControlMode;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;

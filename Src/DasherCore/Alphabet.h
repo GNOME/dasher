@@ -54,9 +54,14 @@ public:
 	
 	void dump() const; // diagnostic
 	
+	virtual void AddControlSymbol()=0;
+	virtual void DelControlSymbol()=0;
+
 protected:
 	// Add the characters that can appear in Nodes
 	void AddChar(const std::string NewCharacter, const std::string Display, const std::string Colour, const std::string Foreground); // add single char to the alphabet
+	// Delete a character
+	void DelChar(symbol Symbol);
 	void StartNewGroup();
 	
 	// Alphabet language parameters

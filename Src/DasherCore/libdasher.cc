@@ -346,6 +346,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_WINDOWPAUSE:
       interface->WindowPause(value);
       break;
+    case BOOL_CONTROLMODE:
+      interface->ControlMode(value);
+      break;
     }
 }
 

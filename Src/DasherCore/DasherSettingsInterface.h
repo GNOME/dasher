@@ -96,6 +96,9 @@ public:
 	
 	//! Should Dasher pause when the pointer leaves the window?
 	virtual void WindowPause(bool Value) {};
+
+	//! Should control mode be enabled?
+	virtual void ControlMode(bool Value) {};
 };
 
 
@@ -121,6 +124,7 @@ namespace Keys
 	extern const std::string START_MOUSE;
 	extern const std::string KEY_CONTROL;
 	extern const std::string WINDOW_PAUSE;
+	extern const std::string CONTROL_MODE;
 	// long options
 	extern const std::string FILE_ENCODING;
 	extern const std::string MAX_BITRATE_TIMES100;

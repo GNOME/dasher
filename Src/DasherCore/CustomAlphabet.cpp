@@ -12,7 +12,6 @@
 using namespace Dasher;
 using namespace std;
 
-
 CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 {
 	// Set miscellaneous options
@@ -20,6 +19,8 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	SetLanguage(AlphInfo.Type);
 	SetTrainingFile(AlphInfo.TrainingFile);
 	
+	m_AlphInfo=&AlphInfo;
+
 	// Add all the characters.
 	for (unsigned int i=0; i<AlphInfo.Groups.size(); i++) { // loop groups
 		for (unsigned int j=0; j<AlphInfo.Groups[i].Characters.size(); j++) { // loop characters
@@ -37,8 +38,18 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 		SetSpaceSymbol();
 	}
-	if (AlphInfo.ControlCharacter.Display != empty ) {
-		AddChar(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
+}
+
+void CCustomAlphabet::AddControlSymbol() {
+	if (m_AlphInfo->ControlCharacter.Display != "") {
+		AddChar(m_AlphInfo->ControlCharacter.Text, m_AlphInfo->ControlCharacter.Display, m_AlphInfo->ControlCharacter.Colour, m_AlphInfo->ControlCharacter.Foreground);
 		SetControlSymbol();
 	}
+}
+
+void CCustomAlphabet::DelControlSymbol() {
+  if (GetControlSymbol()!=-1) {
+    DelChar(GetControlSymbol());
+    SetControlSymbol(-1);
+  }
 }

@@ -237,6 +237,8 @@ void CAlphIO::CreateDefault()
 	Default.Orientation = Opts::LeftToRight;
 	Default.SpaceCharacter.Display = "_";
 	Default.SpaceCharacter.Text = " ";
+	Default.ControlCharacter.Display = "Control";
+	Default.ControlCharacter.Text = "";
 	Default.TrainingFile = "training_english_GB.txt";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);

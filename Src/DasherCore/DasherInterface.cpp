@@ -165,10 +165,10 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	AlphabetID = NewAlphabetID;
 	if (!m_AlphIO)
 		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
-	CAlphIO::AlphInfo Info = m_AlphIO->GetInfo(NewAlphabetID);
+	m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
 
 	CAlphabet* old = m_Alphabet;
-	m_Alphabet = new CCustomAlphabet(Info);
+	m_Alphabet = new CCustomAlphabet(m_AlphInfo);
 	
 	// Apply options from alphabet
 
@@ -400,11 +400,24 @@ void CDasherInterface::KeyControl(bool Value)
 
 void CDasherInterface::WindowPause(bool Value)
 {
-        m_KeyControl = Value;
 	if (m_SettingsUI!=0)
 	  m_SettingsUI->WindowPause(Value);
 	if (m_SettingsStore!=0)
 	  m_SettingsStore->SetBoolOption(Keys::WINDOW_PAUSE, Value);
+}
+
+void CDasherInterface::ControlMode(bool Value)
+{
+  m_ControlMode=Value;
+  if (m_SettingsUI!=0)
+    m_SettingsUI->ControlMode(Value);
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetBoolOption(Keys::CONTROL_MODE, Value);
+  if (Value==true) {
+    m_Alphabet->AddControlSymbol();
+  } else {
+    m_Alphabet->DelControlSymbol();
+  }
 }
 
 void CDasherInterface::SetEditFont(string Name, long Size)

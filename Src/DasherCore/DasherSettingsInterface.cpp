@@ -26,6 +26,7 @@ namespace Keys {
         const std::string START_SPACE = "StartOnSpace";
         const std::string KEY_CONTROL = "KeyControl";
         const std::string WINDOW_PAUSE = "PauseOutsideWindow";
+        const std::string CONTROL_MODE = "ControlMode";
 
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -100,11 +101,17 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetBoolDefault(WINDOW_PAUSE, false);
 	this->WindowPause(Store->GetBoolOption(WINDOW_PAUSE));
 
+
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"
 	// The user may have saved a preference for some of these options though:
 	
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
+
+	// This has to be done after the alphabet is set
+	Store->SetBoolDefault(CONTROL_MODE, false);
+	this->ControlMode(Store->GetBoolOption(CONTROL_MODE));
+
 
 	// FIXME - need to work out why this breaks stuff
 	//	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
