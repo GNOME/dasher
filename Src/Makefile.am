@@ -10,8 +10,8 @@ SUBDIRS = DasherCore Gtk2
 dasher_SOURCES = main.cc
 LDADD =  Gtk2/libdashergtk.a DasherCore/libdashercore.a
 
-CXXFLAGS = $(GTK2_CFLAGS) $(GCONF_CFLAGS) -I./Gtk2/ -I./DasherCore/ -I../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\"
-LDFLAGS = $(GTK2_LIBS) $(GCONF_LIBS) -lexpat
+CXXFLAGS = $(GTK2_CFLAGS) $(GCONF_CFLAGS) $(gnome_speech_CFLAGS) -I./Gtk2/ -I./DasherCore/ -I../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\"
+LDFLAGS = $(GTK2_LIBS) $(GCONF_LIBS) $(gnome_speech_LIBS) -lexpat
 
 else
 

@@ -2,6 +2,10 @@
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
+#ifdef GNOME_SPEECH
+#include <libbonobo.h>
+#endif
+
 #include <libintl.h>
 #include <locale.h>
 
@@ -10,6 +14,7 @@
 #include "settings_store.h"
 #include "canvas.h"
 #include "edit.h"
+#include "speech.h"
 
 //extern GConfClient *the_gconf_client;
 
@@ -42,6 +47,13 @@ main(int argc, char *argv[])
 
   gconfengine = gconf_engine_get_default();
   the_gconf_client = gconf_client_get_default();
+
+#ifdef GNOME_SPEECH
+  if (!bonobo_init (&argc, argv))
+    {
+      g_error ("Can't initialize Bonobo...\n");
+    }
+#endif
 
   dasher_set_get_bool_option_callback( get_bool_option_callback );
   dasher_set_get_long_option_callback( get_long_option_callback );
@@ -85,8 +97,12 @@ main(int argc, char *argv[])
 
   choose_filename();
 
+  setup_speech();
+
   gtk_main ();
 
+  teardown_speech();
+  
   gconf_engine_unref(gconfengine);
 
   dasher_finalise();

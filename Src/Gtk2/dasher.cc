@@ -13,6 +13,11 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
+#ifdef GNOME_SPEECH
+#include <libbonobo.h>
+#include <gnome-speech/gnome-speech.h>
+#endif
+
 #include "libdasher.h"
 
 #include "dasher.h"
@@ -1201,9 +1206,4 @@ void parameter_bool_callback( bool_param p, bool value )
 }
 
 void null_log_handler (const gchar *log_domain, GLogLevelFlags log_level, 
-		       const gchar *message, gpointer unused_data) {};
-
-
-
-
-
+		       const gchar *message, gpointer unused_data) {}

@@ -1,9 +1,11 @@
 #include "edit.h"
+#include "speech.h"
 
 GtkWidget *the_text_view;  
 GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;
 GtkFontSelectionDialog *editfontdialog;
+std::string say;
 
 int flush_count;
 
@@ -26,6 +28,13 @@ void edit_output_callback(symbol Symbol)
 {
   std::string label;
   label = dasher_get_edit_text( Symbol );
+
+  if (label == " ") {
+    SPEAK_DAMN_YOU(&say);
+    say="";
+  } else {
+    say+=label;
+  }
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));

@@ -18,6 +18,9 @@ AC_ARG_WITH([gtk2],
 	 AC_HELP_STRING([--with-gtk2],[build with GTK2 support (default is NO)]), 
 	[WITHGTK2=true],[WITHGTK2=false])
 
+AC_ARG_WITH([speech],
+	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]), [WITHSPEECH=true],[WITHSPEECH=false])
+
 AM_PATH_GTKMM([1.2.3],[GTKMMVAR=true],[GTKMMVAR=false])
 
 PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
@@ -39,6 +42,15 @@ then
 	AC_ERROR("Unable to find GTK2 or GTKMM!")
 fi
 
+if [[ "$WITHSPEECH" = true ]]; then
+	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
+	AC_DEFINE([GNOME_SPEECH])
+fi
+
+AC_SUBST(gnome_speech_LIBS)
+AC_SUBST(gnome_speech_CFLAGS)
+
+
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
 
 AC_SUBST(GTK2_CFLAGS)
@@ -47,4 +59,11 @@ AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
 AC_OUTPUT([Makefile Src/Gtk2/Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
+
+
+
+
+
+
+
 
