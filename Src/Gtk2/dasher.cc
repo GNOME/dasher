@@ -112,6 +112,7 @@ gint buttonnum=0;
 
 extern gboolean timedata;
 extern gboolean drawoutline;
+extern gboolean textentry;
 
 gint prev_pos_x;
 gint prev_pos_y;
@@ -1361,6 +1362,16 @@ void interface_setup(GladeXML *xml) {
   the_canvas=glade_xml_get_widget(xml, "the_canvas");
   text_scrolled_window=glade_xml_get_widget(xml, "text_scrolled_window");
   the_text_view=glade_xml_get_widget(xml, "the_text_view");
+  toolbar=glade_xml_get_widget(xml, "toolbar");
+
+  if (textentry==TRUE) {
+    gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),0);
+    gtk_widget_hide(text_scrolled_window);
+    keyboardmodeon=true;
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), true);
+    gtk_widget_set_sensitive(glade_xml_get_widget(widgets,"keyboardmode"),false);
+    gtk_widget_hide(toolbar);
+  }
 
   // Needed so we can make it visible or not as we wish
   speed_frame=glade_xml_get_widget(xml, "speed_frame");
@@ -1479,7 +1490,6 @@ open_window(GladeXML *xml) {
   window=glade_xml_get_widget(xml, "window");
   vbox=glade_xml_get_widget(xml, "vbox1");
   vpane=glade_xml_get_widget(xml, "vpaned1");
-  toolbar=glade_xml_get_widget(xml, "toolbar");
   dasher_menu_bar=glade_xml_get_widget(xml, "dasher_menu_bar");
   dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
   edit_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "edit_fontselector"));
@@ -1693,8 +1703,12 @@ extern "C" void controlmode(GtkWidget *widget, gpointer user_data)
 
 extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data)
 {
-  keyboardmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
-  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+  if (textentry==TRUE) {
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), true);
+  } else {
+    keyboardmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
+    dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+  }
 }
 
 extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data)
@@ -1974,9 +1988,11 @@ void parameter_int_callback( int_param p, long int value )
       gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), float(value)/10);
       break;
     case INT_EDITHEIGHT:
-      editheight=value;
-      gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),value);
-      dasher_redraw();
+      if (textentry==FALSE) {
+	editheight=value;
+	gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),value);
+	dasher_redraw();
+      }
       break;
     case INT_SCREENWIDTH:
       window_x=value;
@@ -2022,7 +2038,9 @@ void parameter_bool_callback( bool_param p, bool value )
 
 #ifndef WITH_GPE // Don't show the toolbar if running under GPE
       if (value) {
-	gtk_widget_show(toolbar);
+	if (textentry==FALSE) {
+	  gtk_widget_show(toolbar);
+	}
       } else {
 	gtk_widget_hide(toolbar);
       }
@@ -2094,8 +2112,10 @@ void parameter_bool_callback( bool_param p, bool value )
       dasher_redraw();
       break;
     case BOOL_KEYBOARDMODE:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), value);
-      keyboardmodeon=value;
+      if (textentry==FALSE) {
+	gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), value);
+	keyboardmodeon=value;
+      }
       break;
     case BOOL_OUTLINEMODE:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), value);

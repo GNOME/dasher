@@ -3,6 +3,8 @@
 ControlTree *menutree;
 ControlTree *dummy; // This one is used to fake another control node
 
+extern gboolean textentry;
+
 #ifdef GNOME_A11Y
 std::vector<Accessible*> menuitems;
 Accessible *desktop=NULL;
@@ -62,27 +64,31 @@ ControlTree* buildcontroltree() {
   pausetree->data=3;
   pausetree->children=dummy;
   pausetree->text="Pause";
-  pausetree->next=movetree;
   pausetree->colour=241;
-  movetree->pointer=NULL;
-  movetree->data=0;
-  movetree->children=menutree;
-  movetree->text="Move";
-  movetree->next=deletetree;
-  movetree->children=buildmovetree(movetree);
-  movetree->colour=-1;
-  deletetree->pointer=NULL;
-  deletetree->data=0;
-  deletetree->children=builddeletetree(deletetree);
-  deletetree->text="Delete";
-  deletetree->next=speaktree;
-  deletetree->colour=-1;
-  speaktree->pointer=(void*)1;
-  speaktree->data=0;
-  speaktree->children=buildspeaktree(speaktree);
-  speaktree->text="Speak";
-  speaktree->next=NULL;
-  speaktree->colour=-1;
+  if (textentry==FALSE) {
+    pausetree->next=movetree;
+    movetree->pointer=NULL;
+    movetree->data=0;
+    movetree->children=menutree;
+    movetree->text="Move";
+    movetree->next=deletetree;
+    movetree->children=buildmovetree(movetree);
+    movetree->colour=-1;
+    deletetree->pointer=NULL;
+    deletetree->data=0;
+    deletetree->children=builddeletetree(deletetree);
+    deletetree->text="Delete";
+    deletetree->next=speaktree;
+    deletetree->colour=-1;
+    speaktree->pointer=(void*)1;
+    speaktree->data=0;
+    speaktree->children=buildspeaktree(speaktree);
+    speaktree->text="Speak";
+    speaktree->next=NULL;
+    speaktree->colour=-1;
+  } else {
+    pausetree->next=NULL;
+  }
   return stoptree;
 }
 

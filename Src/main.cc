@@ -60,6 +60,7 @@ static const struct poptOption options [] =
 GError *gconferror;
 gboolean timedata=FALSE;
 gboolean preferences=FALSE;
+gboolean textentry=FALSE;
 extern gboolean setup,paused;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
@@ -129,7 +130,7 @@ main(int argc, char *argv[])
 #endif
 
   while (1) {
-    c=getopt( argc, argv, "wp" );
+    c=getopt( argc, argv, "wpo" );
 
     if (c == -1)
       break;
@@ -140,6 +141,10 @@ main(int argc, char *argv[])
       break;
     case 'p':
       preferences=TRUE;
+      break;
+    case 'o':
+      // Onscreen text entry mode
+      textentry=TRUE;
       break;
     }
   }
