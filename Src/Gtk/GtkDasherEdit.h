@@ -32,6 +32,8 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   bool Save( bool a=false);
   bool Open( const std::string filename );
 
+  void TimeStampNewFiles(bool Value);
+
   void Cut();
   void Copy();
   void CopyAll();

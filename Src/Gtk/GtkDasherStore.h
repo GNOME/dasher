@@ -16,7 +16,6 @@ class GtkDasherStore : public CSettingsStore
   void SaveSetting(const std::string& Key, bool Value);
   void SaveSetting(const std::string& Key, long Value);
   void SaveSetting(const std::string& Key, const std::string& Value);
-
 };
 
 #endif

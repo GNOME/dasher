@@ -24,7 +24,7 @@
 #include <fstream.h>
 
 GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
-  : VBox( false, 0 ), paused( true ), started( false )
+  : VBox( false, 0 ), paused( true ), started( false ), vp()
 { 
 
   store = new GtkDasherStore;
@@ -66,8 +66,13 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   
   canvas = new GtkDasherCanvas( 360, 360, interface );
 
-  pack_start( *text, false, false );
-  pack_start( *canvas, true, true );
+  //  pack_start( *text, false, false );
+  // pack_start( *canvas, true, true );
+
+  vp.pack1( *text, true, true );
+  vp.pack2( *canvas, true, true );
+
+  pack_start( vp, true, true );
   pack_start( *slider, false, false );
   show_all();
 
@@ -296,6 +301,21 @@ void GtkDasherPane::move_slider( double position )
 void GtkDasherPane::copy_all_on_pause( bool s )
 {
   interface->CopyAllOnStop( s );
+}
+
+void GtkDasherPane::fix_pane( bool value )
+{
+  interface->FixLayout( value );
+}
+
+void GtkDasherPane::fix( bool value )
+{
+  // vp.set_sensitive( !value );  // This doesn't work
+}
+
+void GtkDasherPane::timestamp( bool value )
+{
+  interface->TimeStampNewFiles( value );
 }
 
 long GtkDasherPane::get_time()

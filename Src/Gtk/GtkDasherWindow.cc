@@ -12,9 +12,9 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2")
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2"), fix_pane( false ), timestamp( false )
 {
-  dasher_pane.set_settings_ui( this );
+  //  dasher_pane.set_settings_ui( this );
   
   set_title( "Dasher" );
 
@@ -29,6 +29,10 @@ GtkDasherWindow::GtkDasherWindow()
   // use helpers to st up menu
   {
     using namespace Gtk::Menu_Helpers;
+
+
+    // ** WARNING ** If you change the order of the menus, you need to
+    // update the array indicies used to access the checkboxes etc...
     
     // Create the file menu
     Menu *menu_file = new Menu();
@@ -85,26 +89,23 @@ GtkDasherWindow::GtkDasherWindow()
     list_or.push_back(RadioMenuElem(ogroup,"Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OBT)));
 
-   //  Menu *menu_tool = new Menu();
-//     MenuList &list_tool = menu_tool->items();
-
-//     list_tool.push_back(MenuElem("Visible"));
-//     list_tool.push_back(SeparatorElem());
-//     list_tool.push_back(MenuElem("Show Text"));
-//     list_tool.push_back(MenuElem("Large Icons"));
 
     Menu *menu_view = new Menu();
-    MenuList& list_view = menu_view->items();
+    list_view = &(menu_view->items());
     
-    list_view.push_back(MenuElem("Orientation", *menu_or ));
-    list_view.push_back(SeparatorElem());
+    list_view->push_back(MenuElem("Orientation", *menu_or ));
+    list_view->push_back(SeparatorElem());
     //    list_view.push_back(MenuElem("Toolbar", *menu_tool));
-    list_view.push_back(CheckMenuElem("Show Toolbar",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_view->push_back(CheckMenuElem("Show Toolbar",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 								MENU_TOOLBAR)));
-    list_view.push_back(CheckMenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_view->push_back(CheckMenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SLIDER)));
-    list_view.push_back(SeparatorElem());
-    list_view.push_back(CheckMenuElem("Fix Layout"));
+    list_view->push_back(SeparatorElem());
+    list_view->push_back(CheckMenuElem("Fix Layout",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_FIX)));
+
+    static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( true );
+    static_cast<CheckMenuItem *>( (*list_view)[3] )->set_active( true );
 
     Menu *menu_enc = new Menu();
     MenuList &list_enc = menu_enc->items();
@@ -112,22 +113,32 @@ GtkDasherWindow::GtkDasherWindow()
     list_enc.push_back(MenuElem("Unicode UTF-8"));
 
     Menu *menu_opts = new Menu();
-    MenuList & list_opts = menu_opts->items();
+    list_opts = &menu_opts->items();
+
+    CheckMenuElem timestamp_elem("Timestamp New Files",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+								  MENU_TIMESTAMP));
     
-    list_opts.push_back(CheckMenuElem("Timestamp New Files"));
-    list_opts.push_back(CheckMenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+
+    //    static_cast<CheckMenuItem *>( timestamp_elem.get_child() )->set_active( true );
+
+    list_opts->push_back(timestamp_elem);
+    list_opts->push_back(CheckMenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_CAOS)));
-    list_opts.push_back(SeparatorElem());
-    list_opts.push_back(MenuElem("Alphabet..."));
-    list_opts.push_back(MenuElem("File Encoding", *menu_enc ));
-    list_opts.push_back(SeparatorElem());
-    list_opts.push_back(MenuElem("Editing Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(SeparatorElem());
+    list_opts->push_back(MenuElem("Alphabet..."));
+    list_opts->push_back(MenuElem("File Encoding", *menu_enc ));
+    list_opts->push_back(SeparatorElem());
+    list_opts->push_back(MenuElem("Editing Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_EFONT)));
-    list_opts.push_back(MenuElem("Dasher Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(MenuElem("Dasher Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_DFONT)));
-    list_opts.push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(MenuElem("Reset Fonts", bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
-			
+
+    static_cast<MenuItem *>( (*list_opts)[3] )->set_sensitive( false );
+    static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
+
+    //    static_cast<CheckMenuItem *>( list_opts[0] )->set_active( false );
     Menu *menu_help = new Menu();
     MenuList &list_help = menu_help->items();
 
@@ -180,6 +191,12 @@ GtkDasherWindow::GtkDasherWindow()
  					  bind<int>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_PASTE)));
   }
+
+  cout << "Hello" << endl;
+
+  dasher_pane.set_settings_ui( this );
+
+  cout << "Hello2" << endl;
 
   save_dialogue.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::file_ok_sel));
   dfontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_ok_sel));
@@ -447,6 +464,9 @@ void GtkDasherWindow::menu_button_cb(int c)
     case MENU_SLIDER:
       toggle_slider();
       break;
+    case MENU_FIX:
+      toggle_fix();
+      break;
 
     case MENU_ODEFAULT:
       orientation( Alphabet );
@@ -464,6 +484,9 @@ void GtkDasherWindow::menu_button_cb(int c)
       orientation( BottomToTop );
       break;
 
+    case MENU_TIMESTAMP:
+      toggle_timestamp();
+      break;
     case MENU_CAOS:
       toggle_copy_all();
       break;
@@ -565,7 +588,40 @@ int GtkDasherWindow::delete_event_impl(GdkEventAny *event)
 
 void GtkDasherWindow::toggle_slider()
 {
-  dasher_pane.show_speed_slider( !slider_shown );
+  dasher_pane.show_speed_slider(  static_cast<CheckMenuItem *>( (*list_view)[3] )->get_active());
+}
+
+void GtkDasherWindow::toggle_fix()
+{
+  dasher_pane.fix_pane( static_cast<CheckMenuItem *>( (*list_view)[5] )->get_active());
+}
+
+void GtkDasherWindow::FixLayout(bool Value)
+{
+  if( Value != fix_pane )
+    {
+      fix_pane = Value;
+
+      if( fix_pane )
+	{
+	  cout << "Fix layout" << endl;
+	  // Need to actually fix the thing here
+
+	  //	  vp.set_sensitive( false );
+
+	  dasher_pane.fix( true );
+	}
+      else
+	{
+	  cout << "Unfix layout" << endl;
+	  // Unfix the pane here
+
+	  //	  vp.set_sensitive( true );
+	  dasher_pane.fix( false );
+	}
+
+      static_cast<CheckMenuItem *>( (*list_view)[5] )->set_active( fix_pane );
+    }
 }
 
 void GtkDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
@@ -584,7 +640,7 @@ void GtkDasherWindow::ShowToolbar( bool value )
       else
 	toolbar.hide();
 
-      // FIXME - also need to update flag on menu here
+      static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( toolbar_shown );
     }
 }
 
@@ -595,7 +651,24 @@ void GtkDasherWindow::ShowSpeedSlider( bool value )
       slider_shown = value;
       dasher_pane.show_slider( slider_shown );
 
-      // FIXME - also need to update flag on menu here
+      static_cast<CheckMenuItem *>( (*list_view)[3] )->set_active( slider_shown );
+    }
+}
+
+void GtkDasherWindow::TimeStampNewFiles(bool Value)
+{
+  if( timestamp != Value )
+    {
+      timestamp = Value;
+
+      cout << "value is " << Value << endl;
+
+      cout << "list_opts is " << list_opts << endl;
+
+      static_cast<CheckMenuItem *>( (*list_opts)[0] )->set_active( timestamp );
+
+      // FIXME - are we supposed to actually do anything with this information??
+      // Also need to update menu indicator here
     }
 }
 
@@ -611,13 +684,22 @@ void GtkDasherWindow::CopyAllOnStop(bool Value)
     {
       copy_all_on_pause = Value;
 
-      // FIXME - also need to update flag on menu here
+      static_cast<CheckMenuItem *>( (*list_opts)[1] )->set_active( copy_all_on_pause );
     }
 }
 
 void GtkDasherWindow::toggle_toolbar()
 {
-  dasher_pane.show_toolbar( !toolbar_shown );
+  cout << "toggle_toolbar ";
+
+  cout << static_cast<CheckMenuItem *>( (*list_view)[2] )->get_active() << endl;
+
+  dasher_pane.show_toolbar(static_cast<CheckMenuItem *>( (*list_view)[2] )->get_active());
+}
+
+void GtkDasherWindow::toggle_timestamp()
+{
+  dasher_pane.timestamp(  static_cast<CheckMenuItem *>( (*list_opts)[0] )->get_active());
 }
 
 void GtkDasherWindow::toggle_copy_all()
@@ -625,5 +707,5 @@ void GtkDasherWindow::toggle_copy_all()
   //  copy_all_on_pause = !copy_all_on_pause;
   //  dasher_pane.copy_all_on_pause( copy_all_on_pause );
 
-  dasher_pane.copy_all_on_pause( !copy_all_on_pause );
+  dasher_pane.copy_all_on_pause( static_cast<CheckMenuItem *>( (*list_opts)[1] )->get_active() );
 }

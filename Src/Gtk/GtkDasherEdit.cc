@@ -96,6 +96,11 @@ void GtkDasherEdit::Clear()
   text.delete_text(0, -1 );
 }
 
+void GtkDasherEdit::TimeStampNewFiles(bool Value)
+{
+  cout << "Timestamp set to " << Value << endl;
+}
+
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 {
 }

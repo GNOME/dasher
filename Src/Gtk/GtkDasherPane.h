@@ -3,6 +3,7 @@
 
 #include <gtk--/box.h>
 #include <gtk--/text.h>
+#include <gtk--/paned.h>
 
 #include "GtkDasherCanvas.h"
 #include "GtkDasherEdit.h"
@@ -50,6 +51,12 @@ public:
 
   void show_toolbar( bool value );
 
+  void fix_pane( bool value ); // Notify of fix
+
+  void fix( bool value ); // Actually do it
+
+  void timestamp( bool value );
+  
   void copy_all_on_pause( bool s );
 private:
   GtkDasherEdit *text;
@@ -57,6 +64,8 @@ private:
   
   //  CSettingsStore *store;
   GtkDasherStore *store;
+
+  Gtk::VPaned vp;
 
   CDasherInterface *interface;
 

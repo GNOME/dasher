@@ -43,7 +43,7 @@
 
 #define MENU_TOOLBAR 200
 #define MENU_SLIDER 201
-
+#define MENU_FIX 202
 
 #define MENU_ODEFAULT 210
 #define MENU_OLR 211
@@ -51,11 +51,11 @@
 #define MENU_OTB 213
 #define MENU_OBT 214
 
-#define MENU_CAOS 302
-#define MENU_EFONT 303
-#define MENU_DFONT 304
-#define MENU_RFONT 305
-
+#define MENU_TIMESTAMP 300
+#define MENU_CAOS 301
+#define MENU_EFONT 302
+#define MENU_DFONT 303
+#define MENU_RFONT 304
 
 #define MENU_ABOUT 400
 
@@ -90,14 +90,19 @@ public:
   void ShowToolbarText(bool Value) {}; // This will never be implemented
   void ShowToolbarLargeIcons(bool Value) {}; // Nor will this
   void ShowSpeedSlider(bool Value);	
-  void FixLayout(bool Value) {}; // Not implemented
-  void TimeStampNewFiles(bool Value) {}; // Not implemented
+  void FixLayout(bool Value);
+  void TimeStampNewFiles(bool Value);
   void CopyAllOnStop(bool Value);
   void SetEditFont(std::string Name, long Size) {}; // UI doesn't need to know
   void SetDasherFont(std::string Name) {}; // UI doesn't need to know
   void SetEditHeight(long Value) {}; // Not implemented
 
 protected:
+
+  Gtk::Menu_Helpers::MenuList *list_opts;
+  Gtk::Menu_Helpers::MenuList *list_view;
+
+
   GtkDasherPane dasher_pane;
   GtkDasherSave save_dialogue;
   Gtk::Toolbar toolbar;
@@ -157,9 +162,14 @@ protected:
   bool slider_shown;
   bool copy_all_on_pause;
   bool toolbar_shown;
+  bool fix_pane;
+  bool timestamp;
+
   void toggle_slider();
   void toggle_copy_all();
   void toggle_toolbar();
+  void toggle_fix();
+  void toggle_timestamp();
 };
 
 #endif

@@ -4,7 +4,6 @@
 GtkDasherStore::GtkDasherStore()
 {
   cout << "Warning - this version of Dasher has been built without support for storage" << endl << "of configuration settings. Changes made to the configuration will be lost" << endl << "when you exit Dasher." << endl;
-
 }
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, bool* Value)
