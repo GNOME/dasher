@@ -34,7 +34,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 				x=2048;
 				dashery=2048;
 			} else {
-				x=2048+pow(pow(750,2)-pow(disty,2),0.5);
+				x=2048+pow(pow(750,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
 			*mousey=dashery;
@@ -47,7 +47,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 				x=2048;
 				dashery=2048;
 			} else {
-				x=2048+pow(pow(750,2)-pow(disty,2),0.5);
+				x=2048+pow(pow(750,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
 			*mousey=dashery;
