@@ -56,13 +56,30 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 	if (Context) {
 		int s = m_Alphabet->GetNumberSymbols();
 
-		if( s <= 1 )
+		// Subtract some number of nodes to actually get the number of real symbols
+
+		int real_s;
+
+		if( GetControlSymbol() == -1 )
+		  real_s = s - 1;
+		else
+		  real_s = s - 2;
+
+		//real_s = s-1;
+		
+		// Panic if we have no real symbols
+
+		if( real_s <= 0 )
 		  return false;
 
 		int norm( normalization() );
+		int control( norm * 0.1 ); // FIXME - control node fration is decided here
 
-		int uniform_add = ((norm / 1000 ) / (s-1) ) * m_uniform;
-		int nonuniform_norm = norm - (s-1) * uniform_add;
+		if( GetControlSymbol() != -1 )
+		  norm -= control;
+
+		int uniform_add = ((norm / 1000 ) / real_s ) * m_uniform;
+		int nonuniform_norm = norm - real_s * uniform_add;
 
 		NewSymbols.resize(s);
 		Groups.resize(s);
@@ -72,15 +89,12 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		}
 		GetProbs((CContext*) Context,Probs,nonuniform_norm);
 
-//  		for( int i(0); i < s; ++i )
-//  		  std::cout << "Probs: " << Probs[i] << " Symbol: " << NewSymbols[i] << std::endl;
-
-//  		for( vector<unsigned int>::iterator it( Probs.begin() ); it != Probs.end(); ++it )
-//  		  (*it) += uniform_add;
-
 		for( int i(0); i < Probs.size(); ++i )
-		  if( NewSymbols[i] != 0 )
+		  if( isRealSymbol( NewSymbols[i] ) )
 		    Probs[i] += uniform_add;
+
+		if( GetControlSymbol() != -1 )
+		  Probs[ GetControlSymbol() ] += control;
 
 		return true;
 	}
@@ -105,4 +119,13 @@ int CLanguageModel::GetGroupColour(int group)
 	} else {
 		return -1;
 	}
+}
+
+bool CLanguageModel::isRealSymbol( symbol _s ) {
+  if( _s  == 0 )
+    return false;
+  else if( _s == GetControlSymbol() )
+    return false;
+  else
+    return true;
 }

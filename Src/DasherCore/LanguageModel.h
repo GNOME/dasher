@@ -53,6 +53,8 @@ public:
 	symbol GetSpaceSymbol() {return m_Alphabet->GetSpaceSymbol();}
 	symbol GetControlSymbol() {return m_Alphabet->GetControlSymbol();}
 	
+	bool isRealSymbol( symbol _s );
+
 	int GetColour(int character);
 	int GetGroupColour(int group);
 
