@@ -220,8 +220,8 @@ CAPTION "About"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
-    ICON            IDI_DASHER,IDC_MYICON,23,18,21,20
-    LTEXT           "Dasher 3.0.0 (Build 1)",IDC_STATIC,67,18,168,10,
+    ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
+    LTEXT           "Dasher 3.0.0 (Build 2)",IDC_STATIC,67,18,168,10,
                     SS_NOPREFIX
     LTEXT           "Copyright (C) 1998-2002 David Ward",IDC_STATIC,67,30,
                     168,10
