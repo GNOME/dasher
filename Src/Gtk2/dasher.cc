@@ -179,10 +179,10 @@ void update_colours()
   int colour_count = dasher_get_colours( colourlist, colourlist_size );
   for (int i=0; i<colour_count; i++) {
     if (colourscheme==colourlist[i]) {
-	std::string ugly_path_hack;
-	ugly_path_hack=i;
-      gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_string(ugly_path_hack.c_str()));
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack.c_str()),NULL,false);
+      gchar ugly_path_hack[100];
+      sprintf(ugly_path_hack,"%d",i);
+      gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_string(ugly_path_hack));
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
     }
   }
 }
@@ -240,10 +240,10 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
     gtk_list_store_append (alph_list_store, &alphiter);
     gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
     if (alphabetlist[i]==alphabet) {
-      std::string ugly_path_hack;
-      ugly_path_hack=i;
+      gchar ugly_path_hack[100];
+      sprintf(ugly_path_hack,"%d",i);
       gtk_tree_selection_select_iter(alphselection, &alphiter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_string(ugly_path_hack.c_str()),NULL,false);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
     }
   }
   
@@ -274,10 +274,10 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
     gtk_list_store_append (colour_list_store, &colouriter);
     gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
     if (colourlist[i]==colourscheme) {
-      std::string ugly_path_hack;
-      ugly_path_hack=i;
+      gchar ugly_path_hack[100];
+      sprintf(ugly_path_hack,"%d",i);
       gtk_tree_selection_select_iter(colourselection, &colouriter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack.c_str()),NULL,false);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
     }
 
   }
