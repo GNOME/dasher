@@ -22,7 +22,7 @@ static void select_append_file();
 static void save_file();
 static void select_import_file();
 void open_window();
-void initialise_edit();
+
 void select_all();
 
 void parameter_string_callback( string_param p, const char *value );
@@ -57,10 +57,6 @@ extern GtkStyle *style;
 extern GtkItemFactory *dasher_menu;
 extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
-
-extern GtkWidget *the_text_view;  
-extern GtkTextBuffer *the_text_buffer;
-extern GtkClipboard *the_text_clipboard;
 
 extern int flush_count;
 
