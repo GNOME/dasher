@@ -20,6 +20,10 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
   //fg_buffer = new Gdk_Pixmap( width, height, -1 );
   //bg_buffer = new Gdk_Pixmap(  width, height, -1 );
     buffer = new GtkDoubleBuffer( width, height, 16 );
+
+    f_small.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+    f_medium.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+    f_large.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
 }
 
 void GtkDasherCanvas::clear()
@@ -68,23 +72,36 @@ void GtkDasherCanvas::SetFont(std::string Name)
 
 void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const
 {
-  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+  //  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+
+//    switch( Size )
+//      {
+//      case 11:
+//        text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+//        break;
+//      case 14:
+//        text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+//        break;
+//      case 20:
+//        text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
+//        break;
+//      }
 
   switch( Size )
     {
     case 11:
-      text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+      *Width = f_small.char_width('A');
+      *Height = f_small.char_height('A');
       break;
     case 14:
-      text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+      *Width = f_medium.char_width('A');
+      *Height = f_medium.char_height('A');
       break;
     case 20:
-      text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
+      *Width = f_large.char_width('A');
+      *Height = f_large.char_height('A');
       break;
     }
-
-  *Width = text_font.char_width('A');
-  *Height = text_font.char_height('A');
 }
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
@@ -98,22 +115,33 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
   foo = Character + 96;
 
   string label(&foo, 1);
-  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+  //  Gdk_Font text_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
 
-  switch( Size )
+ //   switch( Size )
+//      {
+//      case 11:
+//        text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+//        break;
+//      case 14:
+//        text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+//        break;
+//      case 20:
+//        text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
+//        break;
+//      }
+switch( Size )
     {
     case 11:
-      text_font.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+      buffer->get_bg()->draw_string(f_small, this->get_style()->get_black_gc(), x1, y1+f_small.char_height('A'), label);
       break;
     case 14:
-      text_font.create("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+     buffer->get_bg()->draw_string(f_medium, this->get_style()->get_black_gc(), x1, y1+f_medium.char_height('A'), label);
       break;
     case 20:
-      text_font.create("-misc-fixed-medium-r-*-*-*-200-*-*-*-*-*-*");
+     buffer->get_bg()->draw_string(f_large, this->get_style()->get_black_gc(), x1, y1+f_large.char_height('A'), label);
       break;
     }
-
-  buffer->get_bg()->draw_string(text_font, this->get_style()->get_black_gc(), x1, y1+text_font.char_height('A'), label);
+//  buffer->get_bg()->draw_string(text_font, this->get_style()->get_black_gc(), x1, y1+text_font.char_height('A'), label);
     }
 }
   

@@ -15,8 +15,8 @@ GtkDasherWindow::GtkDasherWindow()
 {  
 
   add(main_vbox);
-  main_vbox.pack_start(menu, false,false,0);
-  main_vbox.pack_start(toolbar,false,false,0);
+  //  main_vbox.pack_start(menu, false,false,0);
+  //  main_vbox.pack_start(toolbar,false,false,0);
   main_vbox.pack_start(dasher_pane,false,false,0);
 
   {

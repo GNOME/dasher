@@ -3,6 +3,7 @@
 
 #include <gtk--/drawingarea.h>
 #include <gtk--/pixmap.h>
+#include <gdk--/font.h>
 #include "DasherScreen.h"
 #include "GtkDoubleBuffer.h"
 
@@ -34,6 +35,10 @@ protected:
   // Double buffers for the display
 
   GtkDoubleBuffer *buffer;
+
+  Gdk_Font f_large;
+  Gdk_Font f_medium;
+  Gdk_Font f_small;
 
   void swap_buffers();
 };
