@@ -62,12 +62,40 @@
 class GtkDasherWindow : public Gtk::Window, Dasher::CDasherSettingsInterface
 {
 public:
+
+  // Construtor
+
   GtkDasherWindow();
+
+  // Destructor
+  
   ~GtkDasherWindow();
+  
+  // Event handlers
+
   int destroy_event_impl(GdkEventAny *event);
   int delete_event_impl(GdkEventAny *event);
 
+  // Methods inherited from CDasherSettingsInterface
+
+  void ChangeAlphabet(const std::string& NewAlphabetID) { }; // Not implemented
   void ChangeMaxBitRate(double NewMaxBitRate);
+  void ChangeLanguageModel(unsigned int NewLanguageModelID) {}; // Not implemented
+  void ChangeView(unsigned int NewViewID) {}; // Not implemented
+  void ChangeOrientation(Opts::ScreenOrientations Orientation);
+  void SetFileEncoding(Opts::FileEncodingFormats Encoding) {}; // Not implemented
+  void SetScreenSize(long Width, long Height) {}; // Not implemented
+	
+  void ShowToolbar(bool Value); 
+  void ShowToolbarText(bool Value) {}; // This will never be implemented
+  void ShowToolbarLargeIcons(bool Value) {}; // Nor will this
+  void ShowSpeedSlider(bool Value);	
+  void FixLayout(bool Value) {}; // Not implemented
+  void TimeStampNewFiles(bool Value) {}; // Not implemented
+  void CopyAllOnStop(bool Value);
+  void SetEditFont(std::string Name, long Size) {}; // UI doesn't need to know
+  void SetDasherFont(std::string Name) {}; // UI doesn't need to know
+  void SetEditHeight(long Value) {}; // Not implemented
 
 protected:
   GtkDasherPane dasher_pane;

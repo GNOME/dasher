@@ -44,9 +44,11 @@ public:
 
   void set_dasher_font( string fontname );
   void set_edit_font( string fontname, long size );
-  
-  void show_slider( bool s );
+  void show_speed_slider( bool value );  // Tell interface we wish to show slider
+  void show_slider( bool s ); // Actually do it
   void move_slider( double position );
+
+  void show_toolbar( bool value );
 
   void copy_all_on_pause( bool s );
 private:

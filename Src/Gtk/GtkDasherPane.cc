@@ -246,6 +246,16 @@ void GtkDasherPane::set_edit_font( string fontname, long size )
   interface->SetEditFont( fontname, size );
 }
 
+void GtkDasherPane::show_speed_slider( bool value )
+{
+  interface->ShowSpeedSlider( value );
+}
+
+void GtkDasherPane::show_toolbar( bool value )
+{
+  interface->ShowToolbar( value );
+}
+
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
   if( !paused )

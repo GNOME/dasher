@@ -565,29 +565,65 @@ int GtkDasherWindow::delete_event_impl(GdkEventAny *event)
 
 void GtkDasherWindow::toggle_slider()
 {
-  slider_shown = !slider_shown;
-  dasher_pane.show_slider( slider_shown );
+  dasher_pane.show_speed_slider( !slider_shown );
 }
 
 void GtkDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
 {
-  cout << "Notified of bitrate change to " << NewMaxBitRate << endl;
-
   dasher_pane.move_slider( NewMaxBitRate );
+}
+
+void GtkDasherWindow::ShowToolbar( bool value )
+{
+  if( value != toolbar_shown )
+    {
+      toolbar_shown = value;
+
+      if( toolbar_shown )
+	toolbar.show();
+      else
+	toolbar.hide();
+
+      // FIXME - also need to update flag on menu here
+    }
+}
+
+void GtkDasherWindow::ShowSpeedSlider( bool value )
+{
+  if( value != slider_shown )
+    {
+      slider_shown = value;
+      dasher_pane.show_slider( slider_shown );
+
+      // FIXME - also need to update flag on menu here
+    }
+}
+
+void GtkDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation)
+{
+  // FIXME - need to update menu radio buttons here
+}
+
+
+void GtkDasherWindow::CopyAllOnStop(bool Value)
+{
+  if( copy_all_on_pause != Value )
+    {
+      copy_all_on_pause = Value;
+
+      // FIXME - also need to update flag on menu here
+    }
 }
 
 void GtkDasherWindow::toggle_toolbar()
 {
-  toolbar_shown = !toolbar_shown;
-
-  if( toolbar_shown )
-    toolbar.show();
-  else
-    toolbar.hide();
+  dasher_pane.show_toolbar( !toolbar_shown );
 }
 
 void GtkDasherWindow::toggle_copy_all()
 {
-  copy_all_on_pause = !copy_all_on_pause;
-  dasher_pane.copy_all_on_pause( copy_all_on_pause );
+  //  copy_all_on_pause = !copy_all_on_pause;
+  //  dasher_pane.copy_all_on_pause( copy_all_on_pause );
+
+  dasher_pane.copy_all_on_pause( !copy_all_on_pause );
 }
