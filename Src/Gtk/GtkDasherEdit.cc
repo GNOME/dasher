@@ -35,6 +35,8 @@ void GtkDasherEdit::write_to_file()
 
 gint GtkDasherEdit::handle_cursor_move( GdkEventButton *e )
 {
+  cout << text.get_selection_start_pos() << " " << text.get_selection_end_pos() << endl;
+  
   text.set_point( text.get_position() );
 
   kill_flush();
