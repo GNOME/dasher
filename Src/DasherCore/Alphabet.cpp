@@ -9,7 +9,8 @@
 #include "Alphabet.h"
 #include "AlphabetMap.h"
 
-#include <iostream>
+//#include <iostream>
+//WinCE doesn't have iostream!
 
 using namespace Dasher;
 using namespace std;
@@ -29,7 +30,7 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 	symbol CurSymbol=0, TmpSymbol=0;
 	bool KeyIsPrefix;
 	int z= Input->size();
-	for (int i=0; i<Input->size(); i++) {
+	for (unsigned int i=0; i<Input->size(); i++) {
 
 		Tmp = (*Input)[i];
 		CurSymbol = TextMap.Get(Tmp, &KeyIsPrefix);
