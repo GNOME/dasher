@@ -4,6 +4,8 @@ datadir = @datadir@
 localedir = $(datadir)/locale
 DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
+bin_PROGRAMS = dasher
+
 if DOGTK2
 
 SUBDIRS = DasherCore Gtk2
@@ -31,12 +33,6 @@ if DOQTE
 QTDIR=/usr/share/qte2
 
 SUBDIRS = DasherCore Qt
-dasher_SOURCES = QMain.cc
-LDADD =  Qt/libdasherqt.a DasherCore/libdashercore.a
-
-CXXFLAGS = -O2 -DQWS -fno-rtti -I./DasherCore -I../intl -I$(top_srcdir)/intl -I$(QTDIR)/include
-LDFLAGS = -lqte -ljpeg -lexpat -lqpe
 
 endif
 
-bin_PROGRAMS = dasher
