@@ -7,7 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "DasherNode.h"
-
+#include <cassert>
 using namespace Dasher;
 using namespace Opts;
 using namespace std;
@@ -41,60 +41,60 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
 		m_languagemodel->EnterNodeSymbol(m_context,m_Symbol);
 
-      if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
-	  int i,quantum;
-	  ControlTree *controltree;
-	  if (m_controltree==NULL) { // Root of the tree 
-	    controltree = m_languagemodel->GetControlTree();
-	  }
-	  else { // some way down
-	    controltree = m_controltree->children;
-	  }
+	if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
+		int i,quantum;
+		ControlTree *controltree;
+		if (m_controltree==NULL) { // Root of the tree 
+			controltree = m_languagemodel->GetControlTree();
+		}
+		else { // some way down
+			controltree = m_controltree->children;
+		}
 
-	  m_iChars=1;
-	  
-	  if (controltree!=NULL) {
-	    m_iChars++;
-	    while(controltree->next!=NULL) {
-	      m_iChars++;
-	      controltree=controltree->next;
-	    }
-	  }
+		m_iChars=1;
 
-	  // Now we go back and build the node tree	  
-	  if (m_controltree==NULL) {
-	    controltree=m_languagemodel->GetControlTree();
-	  } else {
-	    controltree=m_controltree->children; 
-	  }
+		if (controltree!=NULL) {
+			m_iChars++;
+			while(controltree->next!=NULL) {
+				m_iChars++;
+				controltree=controltree->next;
+			}
+		}
 
-	  i=1;
+		// Now we go back and build the node tree	  
+		if (m_controltree==NULL) {
+			controltree=m_languagemodel->GetControlTree();
+		} else {
+			controltree=m_controltree->children; 
+		}
 
-	  quantum=int(m_languagemodel->normalization()/m_iChars);
+		i=1;
 
-	  m_iChars++;
+		quantum=int(m_languagemodel->normalization()/m_iChars);
 
-	  m_Children=new CDasherNode *[m_iChars];
+		m_iChars++;
 
-	  ColorSchemes ChildScheme;
-	  if (m_ColorScheme==Nodes1) {
-	    ChildScheme = Nodes2;
-	  } else {
-	    ChildScheme = Nodes1;
-	  }
+		m_Children=new CDasherNode *[m_iChars];
 
-	  m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,240);
+		ColorSchemes ChildScheme;
+		if (m_ColorScheme==Nodes1) {
+			ChildScheme = Nodes2;
+		} else {
+			ChildScheme = Nodes1;
+		}
 
-	  while(controltree!=NULL) {
-	    i++;
-	    if (controltree->colour!=-1) {
-	      m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,controltree->colour,controltree);
-	    } else {
-	      m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
-	    }
-	    controltree=controltree->next;
-	  }
-	  return;
+		m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,240);
+
+		while(controltree!=NULL) {
+			i++;
+			if (controltree->colour!=-1) {
+				m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,controltree->colour,controltree);
+			} else {
+				m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
+			}
+			controltree=controltree->next;
+		}
+		return;
 	}
 
 	vector<symbol> newchars;   // place to put this list of characters
@@ -106,6 +106,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	for (i=1;i<m_iChars;i++)
 		cum[i]+=cum[i-1];
 
+	assert(m_Children==0); // otherwise we have another memory leak
 	m_Children =new CDasherNode *[m_iChars];
 
 	// create the children
@@ -117,7 +118,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 		NormalScheme = Nodes1;
 		SpecialScheme = Special1;
 	}
-	
+
 	ColorSchemes ChildScheme;
 
 	for (i=1;i<m_iChars;i++) {
