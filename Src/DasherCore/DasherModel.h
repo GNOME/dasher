@@ -9,6 +9,7 @@
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
 
+#include <iostream>
 #include "../Common/MSVC_Unannoy.h"
 #include "DashEdit.h"
 #include "DasherNode.h"
@@ -60,7 +61,10 @@ public:
 	void Make_root(int whichchild);                                 // find a new root node
 	void Reparent_root(int lower, int upper);                                 // change back to the previous root
 	void Reset_framerate(unsigned long Time) {m_fr.Reset(Time);}
+
+	CAlphabet* m_alphabet;             // pointer to the alphabet
 	
+	CAlphabet* GetAlphabet() { return m_alphabet; }
 private:
 
 	// Old root notes
@@ -84,7 +88,6 @@ private:
 	CDashEditbox* m_editbox;           // pointer to the editbox
 	CLanguageModel* m_languagemodel;   // pointer to the language model
 	CLanguageModel::CNodeContext* LearnContext;        // Used to add data to model as it is entered
-	CAlphabet* m_alphabet;             // pointer to the alphabet
 	CFrameRate m_fr;                   // keep track of framerate
 	
 	// TODO - move somewhere

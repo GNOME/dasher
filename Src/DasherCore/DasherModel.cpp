@@ -110,8 +110,11 @@ void CDasherModel::Flush(const myint Mousex,const myint Mousey)
 	vector<symbol> vtUnder;
 	Get_string_under_mouse(m_DasherOX,m_DasherOY,vtUnder);
 	unsigned int i;
-	for (i=0;i<vtUnder.size();i++)
-		m_editbox->flush(vtUnder[i]);
+	for (i=0;i<vtUnder.size();i++) {
+	  if (vtUnder[i]==0)
+	    continue;
+	  m_editbox->flush(vtUnder[i]);
+	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -45,7 +45,7 @@ namespace Dasher
 	typedef int symbol;
 	
 //	typedef unsigned int uint;
-	typedef unsigned short ushort;
+	//	typedef unsigned short ushort;
 	
 	namespace Opts
 	{
