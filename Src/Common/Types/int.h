@@ -46,7 +46,7 @@
 	inline bool AreDifferentSigns(T lhs, T rhs) 
 	{ 
 		return ((lhs ^ rhs) < 0); 	
-	}
+	};
 
 
 #endif

@@ -1,7 +1,8 @@
 2005-01-30  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Make autogen.sh do the right thing
-	* Add Bengali support
+	* Add Bengali support (from sayamindu@gnome.org)
+	* Add a couple of colons to remove gcc warnings (from sobhi@us.ibm.com)
 	
 2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 
