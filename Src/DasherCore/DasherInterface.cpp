@@ -374,17 +374,20 @@ void CDasherInterface::ChangeView(unsigned int NewViewID)
 
 void CDasherInterface::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
-	m_Orientation = Orientation;
 	if (m_DasherView!=0) {
 		if (Orientation==Opts::Alphabet)
 			m_DasherView->ChangeOrientation(GetAlphabetOrientation());
 		else
 			m_DasherView->ChangeOrientation(Orientation);
 	}
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ChangeOrientation(Orientation);
-	if (m_SettingsStore!=0)
-		m_SettingsStore->SetLongOption(Keys::SCREEN_ORIENTATION, Orientation);
+
+	if (m_Orientation != Orientation) {
+	  m_Orientation = Orientation;
+	  if (m_SettingsUI!=0)
+	    m_SettingsUI->ChangeOrientation(Orientation);
+	  if (m_SettingsStore!=0)
+	    m_SettingsStore->SetLongOption(Keys::SCREEN_ORIENTATION, Orientation);
+	}
 }
 
 

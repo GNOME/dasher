@@ -20,7 +20,6 @@ CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel,
 void CDasherView::ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation)
 {
 	ScreenOrientation = Orientation;
-	Render();
 }
 
 

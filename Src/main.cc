@@ -212,6 +212,10 @@ main(int argc, char *argv[])
 #ifdef GNOME_SPEECH
   teardown_speech();
 #endif
+
+#ifdef GNOME_LIBS
+  gnome_vfs_shutdown();
+#endif
   
 #ifdef GNOME_A11Y
   deletemenutree();
