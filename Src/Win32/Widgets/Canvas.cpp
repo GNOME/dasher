@@ -110,8 +110,8 @@ void CCanvas::Paint()
 LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	
-    char tmpAutoOffset[25];
-	char tmpOneButton[25];
+    TCHAR tmpAutoOffset[25];
+	TCHAR tmpOneButton[25];
 
 	switch (message) {
 
@@ -179,12 +179,12 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			return 0;
 			break;
 		case VK_F9:
-			sprintf(tmpOneButton, "yOneButton: %d", m_DasherAppInterface->GetOneButton());
+			wsprintf(tmpOneButton, TEXT("yOneButton: %d"), m_DasherAppInterface->GetOneButton());
 			MessageBox(Window, tmpOneButton, NULL, 1);
 			return 0;
 			break;
 		case VK_F11:
-			sprintf(tmpAutoOffset, "yAutoValue: %d", m_DasherAppInterface->GetAutoOffset());
+			wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_DasherAppInterface->GetAutoOffset());
 			MessageBox(Window, tmpAutoOffset, NULL, 1);
 			return 0;
 			break;
@@ -218,7 +218,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		if (endturbo-startturbo > 1) {
 			
 			TCHAR deb[80];
-			wsprintf(deb,"start: %d\nend: %d\nduration: %d", startturbo, endturbo, endturbo-startturbo);
+			wsprintf(deb,TEXT("start: %d\nend: %d\nduration: %d"), startturbo, endturbo, endturbo-startturbo);
 			OutputDebugString(deb);
 		}
 		lbuttonheld=0;
@@ -330,10 +330,10 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		// One-button mode.
         if (direction==TRUE) {
 			if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
-				double BitRate = m_DasherAppInterface->GetMaxBitRate();
-				TCHAR deb[80];
-				wsprintf(deb,"bitrate: %d\n", BitRate);
-				OutputDebugString(deb);
+//				double BitRate = m_DasherAppInterface->GetMaxBitRate();
+			//	TCHAR deb[80];
+			//	wsprintf(deb,TEXT("bitrate: %d\n"), BitRate);
+			//	OutputDebugString(deb);
 				m_DasherAppInterface->SetOneButton(125);
 			}
 			else {
