@@ -53,6 +53,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Dasher Font...", NULL, *GtkItemFactoryCallback(set_dasher_font), 1, "<Item>" },
   { "/Options/Reset Fonts", NULL, *GtkItemFactoryCallback(reset_fonts), 1, "<Item>" },
   { "/Options/One Dimensional", NULL, *GtkItemFactoryCallback(SetDimension), 1, "<CheckItem>" },
+  { "/Options/Eyetracker Mode", NULL, *GtkItemFactoryCallback(SetEyetracker), 1, "<CheckItem>" },
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Options/Start on Left Mouse", NULL, *GtkItemFactoryCallback(startonleft), 1, "<CheckItem>" },
   { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },

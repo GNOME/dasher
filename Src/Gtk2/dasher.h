@@ -21,6 +21,7 @@ void file_encoding(gpointer data, guint action, GtkWidget *widget );
 void about_dasher(gpointer data, guint action, GtkWidget *widget );
 void DrawMouse(gpointer data, guint action, GtkWidget *widget );
 void SetDimension(gpointer data, guint action, GtkWidget *widget );
+void SetEyetracker(gpointer data, guint action, GtkWidget *widget );
 void startonleft(gpointer data, guint action, GtkWidget *widget );
 void startonspace(gpointer data, guint action, GtkWidget *widget );
 void keycontrol(gpointer data, guint action, GtkWidget *widget );

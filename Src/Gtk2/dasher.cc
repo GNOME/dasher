@@ -740,7 +740,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 57,
+				 58,
 				 entries,
 				 NULL );
 
@@ -1040,6 +1040,21 @@ void SetDimension(gpointer data, guint action, GtkWidget *widget )
   }
 }
 
+void SetEyetracker(gpointer data, guint action, GtkWidget *widget )
+{
+  // FIXME - rewrite this sanely, ie:
+  // dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_CHECK_MENU_ITEM(widget)->active  );
+  // plus the same for the above routines
+
+  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+    //    interface->DrawMouse( TRUE );
+    dasher_set_parameter_bool( BOOL_EYETRACKER, true );
+  } else {
+    //    interface->DrawMouse( FALSE );
+    dasher_set_parameter_bool( BOOL_EYETRACKER, false );
+  }
+}
+
 void startonleft(gpointer data, guint action, GtkWidget *widget )
 {
   dasher_set_parameter_bool( BOOL_STARTONLEFT, GTK_CHECK_MENU_ITEM(widget)->active );
@@ -1285,6 +1300,9 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_DIMENSIONS:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/One Dimensional")), value);
+      break;
+    case BOOL_EYETRACKER:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Eyetracker Mode")), value);
       break;
     case BOOL_TIMESTAMPNEWFILES:
       timestamp=value;
