@@ -1,3 +1,17 @@
+3.0.2
+
+General:
+Fixed acceleration behaviour around window edges
+Implemented keyboard control (available in Windows and GTK2 interfaces)
+
+Windows:
+Minor stability issues dealt with
+
+Unix:
+GTK2 version now actually usable - do ./configure --with-gtk2 to get it 
+to build. Should have most of the functionality of the other interfaces, 
+and it's significantly more attractive.
+
 3.0.1
 
 General:

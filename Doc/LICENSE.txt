@@ -1,4 +1,4 @@
-Dasher 3.0.1
+Dasher 3.0.2
 
 Copyright (C) 2002: David Ward djw30@mrao.cam.ac.uk
 
