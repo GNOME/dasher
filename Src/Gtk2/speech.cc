@@ -3,6 +3,7 @@
 #ifdef GNOME_SPEECH
 
 #include <gnome-speech/gnome-speech.h>
+#include <bonobo/bonobo-exception.h>
 
 GNOME_Speech_Speaker speaker;
 GNOME_Speech_VoiceInfoList *voices;
@@ -20,12 +21,17 @@ void setup_speech() {
 	     "repo_ids.has ('IDL:GNOME/Speech/SynthesisDriver:0.2')",
 	     NULL, &ev);
 
-  info = &servers->_buffer[0];
-  printf ("Atempting to activate %s.\n", info->iid);
+  int i=0;
+  do {
+    info = &servers->_buffer[i];
+    printf ("Atempting to activate %s.\n", info->iid);
 
-  rv = bonobo_activation_activate_from_id (
-	   (const Bonobo_ActivationID) info->iid,
-	   0, NULL, &ev);
+    rv = bonobo_activation_activate_from_id (
+					     (const Bonobo_ActivationID) info->iid,
+					     0, NULL, &ev);
+    
+    i++;
+  } while (BONOBO_EX (&ev));
 
   CORBA_free (servers);
 
