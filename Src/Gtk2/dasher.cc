@@ -119,44 +119,46 @@ load_training_file (const gchar *filename)
   dasher_train_file( filename );
 }
 
-extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
+extern "C" void alphabet_select(GtkTreeView *treeview, GtkTreePath *arg1, GtkTreeViewColumn *arg2, gpointer user_data)
 {
-  GtkTreeIter iter;
-  GtkTreeModel *model;
-  gchar *alph;
-  GdkCursor *waitcursor, *arrowcursor;
-  GtkWidget *preferences_window = GTK_WIDGET(data);
+  std::string alph;
+  gint *indices;
+  //  GdkCursor *waitcursor, *arrowcursor;
+  //  GtkWidget *preferences_window = GTK_WIDGET(data);
 
-  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, 0, &alph, -1);
+  const int alphabetlist_size=128;
+  const char *alphabetlist[ alphabetlist_size ];
+  dasher_get_alphabets( alphabetlist, alphabetlist_size );
+
+  indices=gtk_tree_path_get_indices(arg1);
+
+  alph=alphabetlist[indices[0]];
+
+  if (alph!=alphabet) {
+    // This stuff doesn't currently work properly - FIXME
+    //      GtkWindow* trainwindow=GTK_WINDOW(glade_xml_get_widget(widgets,"trainwindow"));
+    //      gtk_window_set_transient_for(trainwindow,GTK_WINDOW(preferences_window));
+    //      gtk_window_set_position (trainwindow,GTK_WIN_POS_CENTER_ON_PARENT);
+    //      gtk_widget_show(glade_xml_get_widget(widgets,"trainwindow"));
+    //      while (gtk_events_pending ()) {
+    //	gtk_main_iteration_do(false);
+    //      }
+    dasher_set_parameter_string( STRING_ALPHABET, alph.c_str() );
+    //      gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
+    alphabet=alph;
     
-    if (alph!=alphabet) {
-      GtkWindow* trainwindow=GTK_WINDOW(glade_xml_get_widget(widgets,"trainwindow"));
-      gtk_window_set_transient_for(trainwindow,GTK_WINDOW(preferences_window));
-      gtk_window_set_position (trainwindow,GTK_WIN_POS_CENTER_ON_PARENT);
-      gtk_widget_show(glade_xml_get_widget(widgets,"trainwindow"));
-      while (gtk_events_pending ()) {
-	gtk_main_iteration_do(false);
-      }
-      dasher_set_parameter_string( STRING_ALPHABET, alph );
-      gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
-      alphabet=alph;
-
-      update_colours();
-
-      dasher_redraw();
-      deletemenutree();
-      add_control_tree(gettree());
-      
-    }
-    g_free(alph);
+    update_colours();
+    
+    deletemenutree();
+    add_control_tree(gettree());
+    dasher_redraw();
+    
   }
 }
 
 void update_colours()
 {
-  // Reset the colour selection as well
-  colourscheme=dasher_get_current_colours();;
+  colourscheme=dasher_get_current_colours();
   const int colourlist_size=128;
   const char *colourlist[ colourlist_size ];
   int colour_count = dasher_get_colours( colourlist, colourlist_size );
@@ -167,25 +169,42 @@ void update_colours()
   }   
 }
 
-extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
+void update_alphabets()
 {
-  GtkTreeIter iter;
-  GtkTreeModel *model;
-  gchar *colour;
-  GdkCursor *waitcursor, *arrowcursor;
-  GtkWidget *preferences_window = GTK_WIDGET(data);
+  alphabet=dasher_get_current_alphabet();
+  const int alphabetlist_size=128;
+  const char *alphabetlist[ alphabetlist_size ];
+  int alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
+  for (int i=0; i<alphabet_count; i++) {
+    if (alphabet==alphabetlist[i]) {
+      gtk_tree_selection_select_path(alphselection,gtk_tree_path_new_from_indices(i,-1));
+    }
+  }   
+}
 
-  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, 0, &colour, -1);
+extern "C" void colour_select(GtkTreeView *treeview, GtkTreePath *arg1, GtkTreeViewColumn *arg2, gpointer user_data)
+{
+  std::string colour;
+  gint *indices;
+  //  GdkCursor *waitcursor, *arrowcursor;
+  //  GtkWidget *preferences_window = GTK_WIDGET(data);
 
-    dasher_set_parameter_string( STRING_COLOUR, colour );    
+  const int colourlist_size=128;
+  const char *colourlist[ colourlist_size ];
+  dasher_get_colours( colourlist, colourlist_size );
 
-    // Reset the colour selection as well
+  indices=gtk_tree_path_get_indices(arg1);
+
+  colour=colourlist[indices[0]];
+
+  if (colour!=colourscheme) {
+    dasher_set_parameter_string( STRING_COLOUR, colour.c_str() );
+    //      gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
     colourscheme=colour;
-
+    
+    update_colours();
+    
     dasher_redraw();
-
-    g_free(colour);
   }
 }
 
@@ -201,10 +220,11 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
 
   GtkWidget *alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
   alph_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+
   gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
   alphselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection),GTK_SELECTION_SINGLE);
-  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphab\et",gtk_cell_renderer_text_new(),"text",0,NULL);
+  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphabet",gtk_cell_renderer_text_new(),"text",0,NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview),column);
 
   // Clear the contents of the alphabet list
@@ -214,14 +234,11 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
   // Connect up a signal so we can select a new alphabet
-  g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
+  g_signal_connect_after(G_OBJECT(alphabettreeview),"row-activated",GTK_SIGNAL_FUNC(alphabet_select),NULL);
 
   for (int i=0; i<alphabet_count; ++i) {
     gtk_list_store_append (alph_list_store, &alphiter);
     gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
-    if (alphabetlist[i]==alphabet) {
-      gtk_tree_selection_select_iter(alphselection, &alphiter);
-    }
   }
   
   // Do the same for colours
@@ -240,16 +257,15 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   colour_count = dasher_get_colours( colourlist, colourlist_size );
 
   // Connect up a signal so we can select a new colour scheme
-  g_signal_connect_after(G_OBJECT(colourselection),"changed",GTK_SIGNAL_FUNC(colour_select),NULL);
+  g_signal_connect_after(G_OBJECT(colourtreeview),"row-activated",GTK_SIGNAL_FUNC(colour_select),NULL);
 
   for (int i=0; i<colour_count; ++i) {
     gtk_list_store_append (colour_list_store, &colouriter);
     gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
-    if (colourlist[i]==colourscheme) {
-      gtk_tree_selection_select_iter(colourselection, &colouriter);
-    }
-
   }
+
+  update_colours();
+  update_alphabets();
 
 }
 
@@ -259,6 +275,8 @@ preferences_display(GtkWidget *widget, gpointer user_data)
   if (preferences_window==NULL)
     preferences_window=glade_xml_get_widget(widgets, "preferences");
   gtk_window_set_transient_for(GTK_WINDOW(preferences_window),GTK_WINDOW(window));
+  update_colours();
+  update_alphabets();
   gtk_window_present(GTK_WINDOW(preferences_window));
 }
   
@@ -1523,6 +1541,8 @@ extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
   g_signal_connect (edit_fontselector->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) edit_fontselector);
   gtk_window_set_transient_for(GTK_WINDOW(edit_fontselector),GTK_WINDOW(window));
   gtk_font_selection_dialog_set_font_name(edit_fontselector,editfont.c_str());
+  GtkWidget *cancel_butto3 = glade_xml_get_widget(widgets,"cancel_butto3");
+  gtk_widget_hide(cancel_butto3);
   gtk_window_present(GTK_WINDOW(edit_fontselector));
 }
 
