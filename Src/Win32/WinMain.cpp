@@ -16,7 +16,11 @@
 #include "../DasherCore/DasherInterface.h"
 using namespace Dasher;
 
-void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
+// DJW 200301 - tip - don't use LPCWSTR explicitely
+// instead TCHAR (or our Tstring) is your friend - it type-defs to char or wchar depending whether or not you have UNICODE defined
+
+//void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
+void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface)
 {
 	using namespace WinHelper;
 	using namespace WinUTF8;
@@ -25,7 +29,7 @@ void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
 	WIN32_FIND_DATA find;
 	HANDLE handle;
 
-	handle=FindFirstFile(Alphabets,&find);
+	handle=FindFirstFile(Alphabets.c_str(),&find);
 	if (handle!=INVALID_HANDLE_VALUE) {
 		Tstring_to_UTF8string(find.cFileName, &filename);
 		Interface->AddAlphabetFilename(filename);
@@ -35,7 +39,7 @@ void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
 		}
 	}
 
-	handle=FindFirstFile(Colours,&find);
+	handle=FindFirstFile(Colours.c_str(),&find);
 	if (handle!=INVALID_HANDLE_VALUE) {
 		Tstring_to_UTF8string(find.cFileName, &filename);
 		Interface->AddColourFilename(filename);
@@ -98,12 +102,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	Alphabets+=TEXT("alphabet*.xml");
 	Colours=UserData;
 	Colours+=TEXT("colour*.xml");
-	AddFiles(Alphabets.c_str(),Colours.c_str(),&DasherInterface);
+	AddFiles(Alphabets,Colours,&DasherInterface);
 	Alphabets=AppData;
 	Alphabets+=TEXT("alphabet*.xml");
 	Colours=AppData;
 	Colours+=TEXT("colours*.xml");
-	AddFiles(Alphabets.c_str(),Colours.c_str(),&DasherInterface);
+	AddFiles(Alphabets,Colours,&DasherInterface);
 
 	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
 	DasherInterface.ColourMode(true);
