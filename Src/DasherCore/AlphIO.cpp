@@ -107,18 +107,21 @@ void CAlphIO::GetAlphabets(std::vector< std::string > * AlphabetList) const
 const CAlphIO::AlphInfo& CAlphIO::GetInfo(const std::string& AlphID)
 {
   if (AlphID=="") {
-    // Eww.
+    // Eww. If no alphabet is configured, default to this one...
     if (Alphabets.count("English alphabet - limited punctuation")!=0) {
       return Alphabets["English alphabet - limited punctuation"];
     } else {
+      // unless it doesn't exist, in which case return default
       return Alphabets["Default"];
     }
   }  else {
     if (Alphabets.count(AlphID)!=0) {
+      // if we have the alphabet they ask for, return it
       AlphInfo& CurInfo = Alphabets[AlphID];
       Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
       return Alphabets[AlphID];
     } else {
+      // otherwise, give them default - it's better than nothing
       return Alphabets["Default"];
     }
   }
