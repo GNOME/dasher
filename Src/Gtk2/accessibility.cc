@@ -1,110 +1,87 @@
 #include "accessibility.h"
 #include <iostream>
 
-std::vector<ControlTree*> mytree;
-GNode* gtree;
+ControlTree *menutree;
 
 ControlTree* gettree() {
-  Accessible *desktop;
+  Accessible *desktop, *child;
+  int numchildren;
   desktop = SPI_getDesktop(0);
-  gtree = buildtree(desktop,NULL);
-  buildmenutree(gtree,NULL);
-  return mytree[0];
+  menutree = new ControlTree;
+  menutree->parent=NULL;
+  menutree->children=NULL;
+  menutree->next=NULL;
+  menutree->pointer=NULL;
+  menutree->data=0;
+  menutree->text="Menus";
+  numchildren = Accessible_getChildCount(desktop);
+  for (int i=0; i<numchildren; i++) {
+    child=Accessible_getChildAtIndex(desktop,i);
+    buildmenutree(child,menutree);
+  }
+  return menutree;
 }
 
-int scantree(Accessible *parent) {
+bool buildmenutree(Accessible *parent,ControlTree *ctree) {  
+  int numchildren;
+  bool useful=false;
   Accessible *child;
-  int children, i, useful=0;
-  children = Accessible_getChildCount(parent);
-  for (i=0; i<children; i++) {
-    child = Accessible_getChildAtIndex(parent,i);
-    if (useful==0) 
-      useful = scantree(child);
-    else
-      scantree(child);
-    if (Accessible_getRole(child)==SPI_ROLE_MENU_ITEM||Accessible_getRole(child)==SPI_ROLE_CHECK_MENU_ITEM) {
-      useful=1;
-    }
-  }
-  return useful;  
-}
-
-GNode* buildtree(Accessible *parent, GNode *treeparent) {
-  Accessible *child;
-  int children, i;
-  GNode *me;
-
-  if(treeparent==NULL) {
-    treeparent=g_node_new(NULL);
-    me=treeparent;
-  } else {
-    me=g_node_new(parent);
-    g_node_append(treeparent,me);
-  }
-
-  children = Accessible_getChildCount(parent);
-  for (i=0; i<children; i++) {
-    child = Accessible_getChildAtIndex(parent,i);
-    if (scantree(child)==1) {
-      buildtree(child,me);
-    }
-    if (Accessible_getRole(child)==SPI_ROLE_MENU_ITEM||Accessible_getRole(child)==SPI_ROLE_CHECK_MENU_ITEM) {
-      g_node_append(me,g_node_new(child));
-    }
-  }
-  if(me->parent!=NULL)
-    return 0;
-  else {
-    return me;
-  }
-}
-
-ControlTree* buildmenutree(GNode* tree, ControlTree *ctree) {  
   ControlTree *childnode;
-  if (ctree==NULL) {
-    ctree = new ControlTree;
-    ctree->parent=NULL;
-    ctree->children=NULL;
-    ctree->next=NULL;
-    ctree->pointer=NULL;
-    ctree->data=0;
-    ctree->text="Menus";
-    mytree.push_back(ctree);
+
+  ControlTree* NewNode = new ControlTree;
+  NewNode->parent=ctree;
+  NewNode->children=NULL;
+  NewNode->next=NULL;
+  NewNode->pointer=NULL;
+    
+  // We don't insert ourselves just yet, though
+
+  numchildren=Accessible_getChildCount(parent);
+
+  if (numchildren>0) {
+    for (int i=0; i<numchildren; i++) {
+      child=Accessible_getChildAtIndex(parent,i);
+      if (numchildren==1 && Accessible_getName(child)=="") {
+	// ignore nodes that have one child and are nameless
+	if (useful==false) {
+	  useful=buildmenutree(child,ctree);
+	} else {
+	  buildmenutree(child,ctree);
+	}
+      } else {
+	if (useful==false) {
+	  useful=buildmenutree(child,NewNode);
+	} else {
+	  buildmenutree(child,NewNode);
+	}
+      }
+    }
+  } else {
+    // We have no kids - check if we're a menu item
+    if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM) {      
+      NewNode->pointer=parent;
+      NewNode->data=1;
+      NewNode->children=menutree;
+      useful=true;
+    }
   }
-  if (tree->children!=NULL) {
-    childnode=new ControlTree;    
-    childnode->parent=ctree;
-    childnode->children=NULL;
-    childnode->next=NULL;
-    childnode->pointer=NULL;
-    childnode->data=0;
-    ctree->children=childnode;
-    if(tree->data!=NULL)
-      ctree->text=Accessible_getName((Accessible*)tree->data);
-    mytree.push_back(childnode);
-    buildmenutree(tree->children,childnode);    
+  if (useful==false) {
+    delete NewNode;
+  } else {
+    if (ctree->children==NULL) {
+      ctree->children=NewNode;
+    } else {
+      ControlTree* parentnext;
+      parentnext=ctree->children;
+      while (parentnext->next!=NULL) {
+	parentnext=parentnext->next;
+      };
+      parentnext->next=NewNode;
+    }
+    NewNode->text=Accessible_getName(parent);
   }
-  if (tree->next!=NULL) {
-    childnode=new ControlTree;
-    childnode->parent=ctree->parent;
-    childnode->children=NULL;
-    childnode->next=NULL;
-    childnode->pointer=NULL;
-    childnode->data=0;
-    ctree->next=childnode;
-    //    ctree->text=Accessible_getName((Accessible*)tree->data);
-    mytree.push_back(childnode);
-    buildmenutree(tree->next,childnode);
-  }
-  if (tree->children==NULL) {
-    ctree->pointer=tree->data;
-    ctree->data=1;
-    ctree->text=Accessible_getName((Accessible*)tree->data);
-  }
-  if(ctree->parent==NULL)
-    return ctree;
-  else
-    return 0;
+  return useful;
 }
   
   
+
