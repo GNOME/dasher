@@ -70,12 +70,14 @@ void edit_output_callback(symbol Symbol)
       keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
       keysym[(max-min-1)*numcodes]=wideoutput[i];
       XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
-      XFree(keysym);
       XSync(dpy,true);
+      XFree(keysym);
       code = XKeysymToKeycode(dpy,wideoutput[i]);    
       if (code!=0) {
-	XTestFakeKeyEvent(dpy, code, True, 1);
-	XTestFakeKeyEvent(dpy, code, False, 1);
+	XTestFakeKeyEvent(dpy, code, True, CurrentTime);
+	XSync(dpy,true);
+	XTestFakeKeyEvent(dpy, code, False, CurrentTime);
+	XSync(dpy,true);
       }
     }
     XSync(dpy,true);
