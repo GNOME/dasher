@@ -1,0 +1,167 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft eMbedded Visual C++ generated include file.
+// Used by DASHER.RC
+//
+#define IDM_MENU			203
+#define IDS_HELP			205
+
+#define IDS_COMMAND1			301
+
+#define IDM_MAIN_COMMAND1		40001
+#define IDM_HELP_ABOUT			40003
+
+#define IDC_MYICON                      2
+#define IDD_DASHER_DIALOG               102
+#define IDS_APP_TITLE                   103
+#define IDD_DIALOG2                     104
+#define IDD_ABOUTBOX                    105
+#define IDM_ABOUT                       106
+#define IDS_FILE_SAVE                   107
+#define IDM_EXIT                        108
+#define IDS_FILE_OPEN                   109
+#define IDS_HELLO                       110
+#define IDS_FILE_NEW                    111
+#define IDI_DASHER                      112
+#define IDS_EDIT_CUT                    113
+#define IDI_SMALL                       114
+#define IDS_EDIT_COPY                   115
+#define IDC_DASHER                      116
+#define IDS_EDIT_PASTE                  117
+#define IDS_MAX_SPEED                   118
+#define IDS_EDIT_COPY_ALL               119
+#define IDS_TYPE_Western                120
+#define IDS_TYPE_None                   121
+#define IDS_TYPE_Arabic                 122
+#define IDS_TYPE_Baltic                 123
+#define IDS_TYPE_CentralEurope          124
+#define IDS_TYPE_ChineseSimplified      125
+#define IDS_TYPE_ChineseTraditional     126
+#define IDS_TYPE_Cyrillic               127
+#define IDS_TYPE_Greek                  128
+#define IDS_TYPE_Hebrew                 129
+#define IDS_TYPE_Japanese               130
+#define IDS_TYPE_Korean                 131
+#define IDS_TYPE_Thai                   132
+#define IDS_TYPE_Turkish                133
+#define IDR_MAINFRAME                   134
+#define IDS_ENC_VietNam                 135
+#define IDS_TYPE_VietNam                136
+#define IDS_ORIENT_LR                   137
+#define IDS_ORIENT_RL                   138
+#define IDS_ORIENT_TB                   139
+#define IDD_DIALOG1                     140
+#define IDD_ALPHABET                    141
+#define IDS_ORIENT_BT                   142
+#define IDS_ERR_ALPH_DESC               143
+#define IDD_ABOUTBOX_OLD                144
+#define IDS_QUERY_SAVE_CHANGES          145
+#define IDB_COPY_ALL_SMALL_COLOR        146
+#define IDS_UNTITLED_FILE               147
+#define IDB_COPY_ALL_LARGE_COLOR        148
+#define IDS_UNSAVED_CHANGES             149
+#define IDD_CUSTOMALPHABET              150
+#define IDD_CUSTOMLETTER                151
+#define IDD_ADDLETTERS                  152
+#define IDD_NEWALPHABET                 153
+#define IDD_NEWGROUP                    154
+#define IDD_EDITLETTER                  155
+#define IDC_LIST1                       1008
+#define IDC_LIST_ALPH                   1009
+#define IDC_ALPHABETS                   1010
+#define IDC_GROUPS                      1011
+#define IDC_COMBO1                      1012
+#define IDC_CHARS                       1013
+#define IDC_BUTTON1                     1014
+#define IDC_ADD_ALPH                    1015
+#define IDC_BUTTON2                     1016
+#define IDC_DEL_ALPH                    1017
+#define IDC_BUTTON3                     1018
+#define IDC_ADD_GROUP                   1019
+#define IDC_CLIPTOALPH_UNORDERED        1020
+#define IDC_LIST2                       1021
+#define IDC_LIST_GROUP                  1022
+#define IDC_CLIPTOALPH_ORDERED          1023
+#define IDC_DELGROUP                    1024
+#define IDC_BUTTON4                     1025
+#define IDC_DEL_GROUP                   1026
+#define IDC_ADD_CHAR                    1027
+#define IDC_CLONE                       1028
+#define IDC_DEL_CHAR                    1029
+#define IDC_EDIT                        1030
+#define IDC_EDIT_CHAR                   1031
+#define IDC_MOVE_GROUP                  1032
+#define IDC_ENCODING                    1033
+#define IDC_MOVE_GROUP2                 1034
+#define IDC_MOVE_CHAR                   1035
+#define IDC_SPACE                       1036
+#define IDC_RO                          1037
+#define IDC_EDIT1                       1038
+#define IDC_DISPLAY                     1039
+#define IDC_EDIT2                       1040
+#define IDC_TEXT                        1041
+#define IDOK_NEWALPH                    1042
+#define IDC_NEW_ALPH_STRING             1043
+#define IDOK_CUSTOMIZE                  1044
+#define IDC_DESCRIPTION                 1045
+#define IDC_TRAIN                       1046
+#define IDOK_NEWGROUP                   1047
+#define IDC_GROUP_TEXT                  1048
+#define IDOK_CHAR                       1049
+#define IDC_GROUP_BUDDY                 1050
+#define IDC_CHAR_BUDDY                  1051
+#define IDOK_ADDCHAR                    1052
+#define ID_CUSTOM_CANCEL                1054
+#define ID_FILE_NEW                     32771
+#define ID_EDIT_CUT                     32772
+#define ID_EDIT_COPY                    32773
+#define ID_EDIT_PASTE                   32774
+#define ID_EDIT_SELECTALL               32775
+#define ID_HELP_CONTENTS                32776
+#define ID_OPTIONS_ALPHABET             32777
+#define ID_OPTIONS_EDITFONT             32778
+#define ID_OPTIONS_DASHERFONT           32779
+#define ID_OPTIONS_RESETFONT            32780
+#define ID_OPTIONS_PROFILE              32781
+#define ID_FILE_SAVE                    32782
+#define ID_FILE_OPEN                    32783
+#define ID_TB_SHOW                      32785
+#define ID_SHOW_STATUS                  32786
+#define ID_SHOW_SLIDE                   32787
+#define ID_TB_LARGE                     32788
+#define ID_TB_TEXT                      32789
+#define ID_FIX_SPLITTER                 32790
+#define ID_FILE_SAVE_AS                 32791
+#define ID_TIMESTAMP                    32792
+#define ID_SAVE_AS_USER_CODEPAGE        32793
+#define ID_SAVE_AS_UTF8                 32794
+#define ID_SAVE_AS_UTF16_BIG            32795
+#define ID_SAVE_AS_UTF16_LITTLE         32796
+#define ID_COPY_ALL_ON_STOP             32797
+#define ID_EDIT_COPY_ALL                32798
+#define ID_IMPORT_TRAINFILE             32799
+#define ID_FILE_APPEND                  32800
+#define ID_ORIENT_ALPHABET              32801
+#define ID_ORIENT_LR                    32802
+#define ID_ORIENT_RL                    32803
+#define ID_ORIENT_TB                    32804
+#define ID_ORIENT_BT                    32805
+#define ID_SAVE_AS_ALPHABET_CODEPAGE    32806
+#define IDC_STATIC                      -1
+
+
+
+
+
+
+
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_NEXT_RESOURCE_VALUE        104
+#define _APS_NEXT_COMMAND_VALUE         40004
+#define _APS_NEXT_CONTROL_VALUE         1001
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif
