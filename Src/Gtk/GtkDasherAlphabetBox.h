@@ -1,3 +1,6 @@
+// GtkDasherAlphabetBox.h
+// (c) 2002 Philip Cowans
+
 #ifndef GTK_DASHER_ALPHABET_BOX_H
 #define GTK_DASHER_ALPHABET_BOX_H
 

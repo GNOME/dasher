@@ -1,3 +1,6 @@
+// GtkDasherPane.h
+// (c) 2002 Philip Cowans
+
 #ifndef DASHER_PANE_HH
 #define DASHER_PANE_HH
 

@@ -1,3 +1,6 @@
+// GtkDasherCanvas.cc
+// (c) 2002 Philip Cowans
+
 #include <gdk--/font.h>
 #include <gtk--/style.h>
 #include <gtk--/pixmap.h>
@@ -51,6 +54,12 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   font_init = new bool[17];
 
   build_fonts( enc );
+}
+
+void GtkDasherCanvas::realize_impl()
+{
+  DrawingArea::realize_impl();
+  build_colours();
 
 }
 
@@ -65,8 +74,6 @@ bool GtkDasherCanvas::build_fonts( int encoding )
   char xfontstringbuffer[ 256 ];
 
   snprintf( xfontstringbuffer, 256, "-*-%s-*-*-*-*-*-*-*-*-*-*-iso8859-%d", fontname.c_str(), encoding );
-
-  cout << "Font string is " << xfontstringbuffer << endl;
 
   fontnames = XListFonts( GDK_DISPLAY(), xfontstringbuffer, 1024, &nfonts );
 
@@ -113,7 +120,7 @@ bool GtkDasherCanvas::build_fonts( int encoding )
     }
 
   if( !got_one )
-    cout << "Warning - failed to find a font" << endl;
+    cerr << "Warning - failed to find a font" << endl;
 
   return( got_one );
 
@@ -146,8 +153,6 @@ void GtkDasherCanvas::clear()
 
   Gdk_GC gc2;
   
-  //  cout << buffer->get_map_text() << " - a" << endl;
-
   gc2.create(*(buffer->get_map_text()));
 
   GdkColor clr;
@@ -201,14 +206,6 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
   return( true );
 }
 
-
-//  gint GtkDasherCanvas::button_press_event_impl(GdkEventButton *event)
-//    {
-//      cout << "foo" << endl;
-//      return( true );
-//    }
-
-
 void GtkDasherCanvas::SetFont(std::string Name)
 {
   string actual_name( Name );
@@ -258,8 +255,6 @@ void GtkDasherCanvas::set_encoding( int _enc )
       char encstr[256];
 
       snprintf( encstr, 255, "ISO-8859-%d", enc );
-
-      cout << "Setting encoding to " << encstr << endl;
 
       cdesc = iconv_open( encstr, "UTF-8" );
 
@@ -319,11 +314,6 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 
       Gdk_GC gc2;
       gc2.create(*(buffer->get_map_text()));
-      //      cout << buffer->get_map_text() << " - b" << endl;
-
-      //      Gdk_Color some_color2;
-      
-      // some_color2.set_rgb(1,1,1);
       
       GdkColor clr;
 
@@ -340,45 +330,144 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
 
     }    
 }
+
+void GtkDasherCanvas::build_colours()
+{
+  Gdk_Colormap cm(Gdk_Colormap::get_system());
+
+  // Create grphics contexts for the first set of nodes
+
+  for( int i(0); i < 3; ++i )
+    {
+      nodes1gc[i].create( get_window() );
+
+      Gdk_Color col;
+      switch(i)
+	{
+	case 0:
+	  col.set_rgb(180*256,245*256,180*256);
+	  break;
+	case 1:
+	  col.set_rgb(160*256,200*256,160*256);
+	  break;
+	case 2:
+	  col.set_rgb(0*256,255*256,255*256);
+	  break;
+	}
+      cm.alloc( col );
+
+      nodes1gc[i].set_foreground( col );
+    }
+
+  // Create graphics contexts for the second row of nodes
+
+  for( int i(0); i < 3; ++i )
+    {
+      nodes2gc[i].create( get_window() );
+
+      Gdk_Color col;
+      switch(i)
+	{
+	case 0:
+	  col.set_rgb(255*256,185*256,255*256);
+	  break;
+	case 1:
+	  col.set_rgb(140*256,200*256,255*256);
+	  break;
+	case 2:
+	  col.set_rgb(255*256,175*256,175*256);
+	  break;
+	}
+      cm.alloc( col );
+
+      nodes2gc[i].set_foreground( col );
+    }
+
+  {
+    special1gc.create( get_window() );
+
+    Gdk_Color col;
+    col.set_rgb(240*256,240*256,240*256);
+    cm.alloc( col );
+
+    special1gc.set_foreground( col );
+  }
+
+  {
+    special2gc.create( get_window() );
+
+    Gdk_Color col;
+    col.set_rgb(255*256,255*256,255*256);
+    cm.alloc( col );
+
+    special2gc.set_foreground( col );
+  }
+
+  for( int i(0); i < 3; ++i )
+    {
+      groupsgc[i].create( get_window() );
+
+      Gdk_Color col;
+      switch(i)
+	{
+	case 0:
+	  col.set_rgb(255*256,255*256,0*256);
+	  break;
+	case 1:
+	  col.set_rgb(255*256,100*256,100*256);
+	  break;
+	case 2:
+	  col.set_rgb(0*256,255*256,0*256);
+	  break;
+	}
+      cm.alloc( col );
+
+      groupsgc[i].set_foreground( col );
+    }
+
+}
+
+const Gdk_GC *GtkDasherCanvas::get_color( int colour, Opts::ColorSchemes colour_scheme ) const
+{
+  switch( colour_scheme )
+    {
+    case Nodes1:
+      return( &nodes1gc[ colour % 3 ] );
+      break;
+    case Nodes2:
+      return( &nodes2gc[ colour % 3 ] );
+      break;
+    case Special1:
+      return( &special1gc );
+      break;
+    case Special2:
+      return( &special2gc );
+      break;
+    case Groups:
+      return( &groupsgc[ colour % 3 ] );
+      break;
+    }
+}
   
 void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
 {
   if( is_realized() )
     {
-  Gdk_GC graphics_context;
-  graphics_context.create(get_window()); 
 
-  Gdk_Color some_color;
-  Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
-  some_color.set_red(((ColorScheme * 3 + Color) & 1) * 30000 + 30000 );
-  some_color.set_green(((ColorScheme * 3 + Color) >> 1 ) * 30000 + 30000);
-  some_color.set_blue(((ColorScheme * 3 + Color) >> 2 ) * 30000 + 30000);
+      const Gdk_GC *graphics_context;
 
-  if( ((ColorScheme * 3 + Color) % 8 ) == 0 )
-    {
-      some_color.set_red(45000 );
-  some_color.set_green(45000);
-  some_color.set_blue(45000);
-    }
+      graphics_context = get_color( Color, ColorScheme );
 
-  //  cout << "Colour: " << Color << " (" << (Color & 1) * 30000 + 30000 << ", " << ((Color & 2) >> 1 ) * 30000 + 30000 << ", " << ((Color & 3) >> 2 ) * 30000 + 30000 << " = " << ColorScheme << endl;
-
-  some_colormap.alloc(some_color);
-  graphics_context.set_foreground(some_color);
-
-  //  cout << "Rectangle: " << x1 << ", " << y1 << " -> " << x2 << ", " << y2 << endl;
-
-
-  if( x2 > x1 )
-    if( y2 > y1 )
-      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x1, y1, x2-x1, y2-y1 );
-    else
-      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x1, y2, x2-x1, y1-y2 );
-  else
-    if( y2 > y1 )
-      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x2, y1, x1-x2, y2-y1 );
-    else
-      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x2, y2, x1-x2, y1-y2 );
+      if( x2 > x1 )
+	if( y2 > y1 )
+	  buffer->get_bg_squares()->draw_rectangle( *graphics_context, true, x1, y1, x2-x1, y2-y1 );
+	else
+	  buffer->get_bg_squares()->draw_rectangle( *graphics_context, true, x1, y2, x2-x1, y1-y2 );
+      else
+	if( y2 > y1 )
+	  buffer->get_bg_squares()->draw_rectangle( *graphics_context, true, x2, y1, x1-x2, y2-y1 );
+	else
+	  buffer->get_bg_squares()->draw_rectangle( *graphics_context, true, x2, y2, x1-x2, y1-y2 );
     }
 }
 

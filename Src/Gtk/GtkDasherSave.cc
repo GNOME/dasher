@@ -1,3 +1,6 @@
+// GtkDasherSave.cc
+// (c) 2002 Philip Cowans
+
 #include "GtkDasherSave.h"
 #include <iostream.h>
 

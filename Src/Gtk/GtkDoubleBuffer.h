@@ -1,3 +1,6 @@
+// GtkDoubleBuffer.h
+// (c) 2002 Philip Cowans
+
 #ifndef GTKDOUBLEBUFFER_H
 #define GTKDOUBLEBUFFER_H
 

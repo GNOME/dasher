@@ -1,3 +1,6 @@
+// GtkDasherWindow.h
+// (c) 2002 Philip Cowans
+
 #include "GtkDasherWindow.h"
 #include "GtkDasherPane.h"
 
@@ -265,7 +268,6 @@ void GtkDasherWindow::file_ok_sel()
 
   save_dialogue.set_filename(save_dialogue.current_filename.c_str());
   save_dialogue.hide();
-  //  cout << "foo" << endl;
   
   if( dasher_pane.save_as( save_dialogue.current_filename ))
     {
@@ -434,7 +436,7 @@ void GtkDasherWindow::toolbar_button_cb(int c)
       paste();
       break;
     default:
-      cout << "Undefined toolbar action called" << endl;
+      cerr << "Undefined toolbar action called" << endl;
     }
 }
 
@@ -535,7 +537,7 @@ void GtkDasherWindow::menu_button_cb(int c)
       break;
       
     default:
-      cout << "Undefined menu action called" << endl;
+      cerr << "Undefined menu action called" << endl;
       break;
     }
 }
@@ -584,8 +586,6 @@ void GtkDasherWindow::select_all()
 
 void GtkDasherWindow::cut()
 {
-  cout << "In cut routine" << endl;
-
   dasher_pane.cut();
 }
 
@@ -633,23 +633,10 @@ void GtkDasherWindow::FixLayout(bool Value)
       fix_pane = Value;
 
       if( fix_pane )
-	{
-	  cout << "Fix layout" << endl;
-	  // Need to actually fix the thing here
-
-	  //	  vp.set_sensitive( false );
-
-	  dasher_pane.fix( true );
-	}
+	dasher_pane.fix( true );
       else
-	{
-	  cout << "Unfix layout" << endl;
-	  // Unfix the pane here
-
-	  //	  vp.set_sensitive( true );
-	  dasher_pane.fix( false );
-	}
-
+	dasher_pane.fix( false );
+      
       static_cast<CheckMenuItem *>( (*list_view)[5] )->set_active( fix_pane );
     }
 }
@@ -696,8 +683,6 @@ void GtkDasherWindow::TimeStampNewFiles(bool Value)
 
 void GtkDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
-  cout << "Change orientation " << Orientation  << endl;
-
   // FIXME - the following commented out code is broken (and generates signal propagation loops)
 
 //    if( current_or != Orientation )

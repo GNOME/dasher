@@ -1,3 +1,6 @@
+// GtkDoubleBuffer.cc
+// (c) 2002 Philip Cowans
+
 #include "GtkDoubleBuffer.h"
 
 #include "gtk--/pixmap.h"

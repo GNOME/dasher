@@ -1,3 +1,6 @@
+// GtkDasherStore.cc
+// (c) 2002 Philip Cowans
+
 #include "GtkDasherStore.h"
 #include <iostream.h>
 #include <fstream.h>

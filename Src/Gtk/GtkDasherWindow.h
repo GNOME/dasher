@@ -1,3 +1,6 @@
+// GtkDasherWindow.h
+// (c) 2002 Philip Cowans
+
 #ifndef MAINWINDOW_HH
 #define MAINWINDOW_HH
 

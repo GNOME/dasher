@@ -1,3 +1,6 @@
+// GtkDasherStore.h
+// (c) 2002 Philip Cowans
+
 #ifndef GTKDASHERSTORE_H
 #define GTKDASHERSTORE_H
 

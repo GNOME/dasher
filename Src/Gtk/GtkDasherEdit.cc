@@ -1,3 +1,6 @@
+// GtkDasherEdit.cc
+// (c) 2002 Philip Cowans
+
 #include "GtkDasherEdit.h"
 
 
@@ -25,7 +28,7 @@ GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
   SigC::Slot1<gint, GdkEventButton *> s = SigC::slot(this, &GtkDasherEdit::handle_cursor_move);
   SigC::Slot1<gint, GdkEventKey *> s2 = SigC::slot(this, &GtkDasherEdit::handle_key_press);
 
-  text.button_press_event.connect_after( s );
+  text.button_release_event.connect( s );
   text.key_press_event.connect_after( s2 );
 
 }
@@ -57,13 +60,6 @@ gint GtkDasherEdit::handle_cursor_move( GdkEventButton *e )
 
 gint GtkDasherEdit::handle_key_press( GdkEventKey *e )
 {
-  // if( text.get_selection_start_pos() < text.get_selection_end_pos() )
-  //   text.set_point( text.get_selection_start_pos() );
-  // else
-  //  text.set_point( text.get_selection_end_pos() );
-
- // cout << text.get_selection_start_pos() << " " <<  text.get_selection_end_pos() << endl;
-
   text.set_point( text.get_position() );
 
   kill_flush();
@@ -97,8 +93,6 @@ void GtkDasherEdit::unflush()
 {
   text.backward_delete( flush_count );
   flush_count = 0;
-
-  //  cout << "Point is " << text.get_point() << endl;
 }
 
 void GtkDasherEdit::output(symbol Symbol)
@@ -172,7 +166,6 @@ void GtkDasherEdit::Clear()
 
 void GtkDasherEdit::TimeStampNewFiles(bool Value)
 {
-  cout << "Timestamp set to " << Value << endl;
 }
 
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
@@ -233,7 +226,6 @@ bool GtkDasherEdit::Save(bool a)
 
 bool GtkDasherEdit::Open( std::string filename )
 {
-  cout << "Filename is " << filename << endl;
 
   current_filename = filename;
 

@@ -1,3 +1,6 @@
+// GtkDasherSave.h
+// (c) 2002 Philip Cowans
+
 #ifndef GTKDASHERSAVE_H
 #define GTKDASHERSAVE_H
 

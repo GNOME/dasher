@@ -1,3 +1,6 @@
+// GtkDasherCanvas.h
+// (c) 2002 Philip Cowans
+
 #ifndef DASHER_CANVAS_HH
 #define DASHER_CANVAS_HH
 
@@ -33,7 +36,12 @@ class GtkDasherCanvas : public Gtk::DrawingArea
   void Display();
 
   void clear();
-  void set_encoding( int _enc );
+  void set_encoding( int _enc ); 
+
+  void realize_impl();
+
+  
+  const Gdk_GC *get_color( int colour, Opts::ColorSchemes colour_scheme ) const;
 
   //  Gdk_Font *get_font( int size ) const;
 
@@ -52,6 +60,13 @@ protected:
   iconv_t cdesc;  // Descriptor for iconv stuff
 
   bool build_fonts( int encoding );
+  void build_colours();
+
+  Gdk_GC nodes1gc[3];
+  Gdk_GC nodes2gc[3];
+  Gdk_GC groupsgc[3];
+  Gdk_GC special1gc;
+  Gdk_GC special2gc;
 
   string fontname;
 
@@ -71,6 +86,8 @@ protected:
   void swap_buffers(); 
 
   int enc;
+
+
 
   //gint button_press_event_impl(GdkEventButton *event);
   //gint button_press_event_impl(GdkEventAny *event);
@@ -97,7 +114,6 @@ protected:
 	}
       void Blank() const { owner->Blank(); }
       void Display() {owner->Display(); }
-
     private:
       GtkDasherCanvas *owner;
     };

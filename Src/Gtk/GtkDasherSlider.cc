@@ -1,22 +1,27 @@
+// GtkDasherSlider.cc
+// (c) 2002 Philip Cowans
+
 #include "GtkDasherSlider.h"
 
 
 #include <gtk--/adjustment.h>
 
 GtkDasherSlider::GtkDasherSlider( CDasherInterface *_interface )
-  : s( ), interface( _interface ), Frame( "Max bitrate (speed)" )
+  : s( ), interface( _interface ), Frame( "Maximum Speed (Bit Rate)" ), f()
 {
   a = manage( new Gtk::Adjustment( 5.0, 1.0, 8.0, 1.0, 1.0 ));
   
   set_border_width(2);
 
   s.set_adjustment(a);
-  s.set_update_policy(GTK_UPDATE_CONTINUOUS);
+  s.set_update_policy(GTK_UPDATE_DISCONTINUOUS);
 
-  //  hb.pack_start( l, false, false, 8 );
-  // hb.pack_start( s, true, true, 8 );
+  f.add( s );
+  
+  f.set_border_width(2);
+  f.set_shadow_type(GTK_SHADOW_NONE);
 
-  add( s );
+  add(f);
 
   a->value_changed.connect(bind(slot(this,&GtkDasherSlider::update_speed),a));
 

@@ -1,3 +1,6 @@
+// GtkDasherSlider.h
+// (c) 2002 Philip Cowans
+
 #ifndef DASHER_SLIDER_H
 #define DASHER_SLIDER_H
 
@@ -18,7 +21,7 @@ class GtkDasherSlider : public Gtk::Frame
  private:
   //  Gtk::Label l;
   Gtk::HScale s;
-
+  Gtk::Frame f;
   //  Gtk::HBox hb;
 
   void update_speed( Gtk::Adjustment *adj );

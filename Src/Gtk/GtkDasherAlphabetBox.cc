@@ -1,3 +1,6 @@
+// GtkDasherAlphabetBox.cc
+// (c) 2002 Philip Cowans
+
 #include "GtkDasherAlphabetBox.h"
 #include <gtk--/dialog.h>
 #include <gtk--/listitem.h>
@@ -74,8 +77,6 @@ void GtkDasherAlphabetBox::AddAlphabet( std::vector< std::string > alphabetlist 
 {
   for( int i(0); i < alphabetlist.size(); ++i )
     {
-      cout << "Adding alphabet: " << alphabetlist[i] << endl;
-      
       Gtk::ListItem *li;
 
       li = new Gtk::ListItem( alphabetlist[i] );

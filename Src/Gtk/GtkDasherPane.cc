@@ -1,3 +1,6 @@
+// GtkDasherPane.cc
+// (c) 2002 Philip Cowans
+
 #include <iostream.h>
 #include <string>
 #include <vector>
@@ -239,8 +242,6 @@ int GtkDasherPane::toggle_pause( GdkEventButton *e )
 
 int GtkDasherPane::visibility_event_impl(GdkEventAny *event)
 {
-  cout << "In visibility event handler" << endl;
-
   return( true );
 }
 
@@ -367,9 +368,6 @@ void GtkDasherPane::select_encoding()
 
       iconv_close( cdesc );
     }
-
-  cout << "Selected codepage: " << maxpage << endl;
-
   canvas->set_encoding( maxpage );
   text->set_display_encoding( maxpage );
 
