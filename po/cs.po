@@ -8,80 +8,88 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-12 03:11+0100\n"
-"PO-Revision-Date: 2004-01-12 09:42+0100\n"
+"POT-Creation-Date: 2004-01-14 03:12+0100\n"
+"PO-Revision-Date: 2004-01-14 09:11+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:27
+#: Src/Gtk2/accessibility.cc:50
 msgid "Menus"
 msgstr "Menu"
 
-#: Src/Gtk2/accessibility.cc:58 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:57
+msgid "Buttons"
+msgstr "Tlačítka"
+
+#: Src/Gtk2/accessibility.cc:63
+msgid "Panels"
+msgstr "Panely"
+
+#: Src/Gtk2/accessibility.cc:134 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Ovládání"
 
-#: Src/Gtk2/accessibility.cc:63
+#: Src/Gtk2/accessibility.cc:139
 msgid "Stop"
 msgstr "Zastavit"
 
-#: Src/Gtk2/accessibility.cc:69
+#: Src/Gtk2/accessibility.cc:145
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: Src/Gtk2/accessibility.cc:76
+#: Src/Gtk2/accessibility.cc:152
 msgid "Move"
 msgstr "Přesunout"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:159
 msgid "Delete"
 msgstr "Odstranit"
 
-#: Src/Gtk2/accessibility.cc:92
+#: Src/Gtk2/accessibility.cc:168
 msgid "Speak"
 msgstr "Mluvit"
 
-#: Src/Gtk2/accessibility.cc:110 Src/Gtk2/accessibility.cc:179
+#: Src/Gtk2/accessibility.cc:186 Src/Gtk2/accessibility.cc:255
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:116 Src/Gtk2/accessibility.cc:173
+#: Src/Gtk2/accessibility.cc:192 Src/Gtk2/accessibility.cc:249
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:122
+#: Src/Gtk2/accessibility.cc:198
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:128
+#: Src/Gtk2/accessibility.cc:204
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:141
+#: Src/Gtk2/accessibility.cc:217
 msgid "Everything"
 msgstr "Vše"
 
-#: Src/Gtk2/accessibility.cc:147
+#: Src/Gtk2/accessibility.cc:223
 msgid "New"
 msgstr "Nový"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:229
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: Src/Gtk2/accessibility.cc:186 Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:262 Src/Gtk2/accessibility.cc:281
 msgid "Character"
 msgstr "Znak"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:211
+#: Src/Gtk2/accessibility.cc:269 Src/Gtk2/accessibility.cc:287
 msgid "Word"
 msgstr "Slovo"
 
-#: Src/Gtk2/accessibility.cc:198 Src/Gtk2/accessibility.cc:217
+#: Src/Gtk2/accessibility.cc:274 Src/Gtk2/accessibility.cc:293
 msgid "Line"
 msgstr "Řádek"
 
@@ -90,21 +98,21 @@ msgid "Training Dasher, please wait"
 msgstr "Učím Dasher, čekejte prosím"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1787
+#: Src/Gtk2/dasher.cc:1785
 msgid "translator_credits"
 msgstr "Miloslav Trmac <mitr@volny.cz>"
 
-#: Src/Gtk2/dasher.cc:1789 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1787 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1792
+#: Src/Gtk2/dasher.cc:1790
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je aplikace pro vstup textu s předpovídáním"
 
 #. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2199
+#: Src/Gtk2/dasher.cc:2197
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "vypsáno %d znaků z %d sekund\n"
