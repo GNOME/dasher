@@ -13,6 +13,7 @@
 
 #include "../WinHelper.h"
 #include "../../Common/NoClones.h"
+#include "../../Common/assert.h"
 #include <vector>
 
 class CFontStore : public NoClones
@@ -33,7 +34,7 @@ private:
 
 inline HFONT CFontStore::GetFont(int iSize) const
 {
-	assert(iSize>=0);
+	DASHER_ASSERT(iSize>=0);
 	int iMax =m_vhfFonts.size()-1;
 	if (iSize>=iMax)
 		iSize = iMax;

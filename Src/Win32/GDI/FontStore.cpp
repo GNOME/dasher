@@ -28,7 +28,7 @@ CFontStore::CFontStore(Tstring FontName)
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 
-			assert(Font!=0);		
+			DASHER_ASSERT(Font!=0);		
 			m_vhfFonts.push_back(Font);
 		}
 	}
