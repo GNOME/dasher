@@ -7,176 +7,211 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-21 10:38+0300\n"
-"PO-Revision-Date: 2004-08-21 10:40+0300\n"
+"POT-Creation-Date: 2005-03-05 17:55+0200\n"
+"PO-Revision-Date: 2005-03-05 10:40+0300\n"
 "Last-Translator: Maxim Dziumanenko <mvd@mylinux.com.ua>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:60
-msgid "Menus"
-msgstr "Меню"
-
-#: Src/Gtk2/accessibility.cc:67
-msgid "Windows"
-msgstr "Вікна"
-
-#: Src/Gtk2/accessibility.cc:72
-msgid "Application"
-msgstr "Додатки"
-
-#: Src/Gtk2/accessibility.cc:79
-msgid "Buttons"
-msgstr "Кнопки"
-
-#: Src/Gtk2/accessibility.cc:85
+#. Paneltree
+#. |         /-menutree
+#. Widgettree------buttontree
+#. \-edittree
+#.
+#. Tree, parent, children, next, pointer, data, string, colour
+#: Src/Gtk2/accessibility.cc:82
 msgid "Panels"
 msgstr "Панелі"
 
-#: Src/Gtk2/accessibility.cc:92
+#: Src/Gtk2/accessibility.cc:83
+msgid "Application"
+msgstr "Додатки"
+
+#: Src/Gtk2/accessibility.cc:85
+msgid "Menus"
+msgstr "Меню"
+
+#: Src/Gtk2/accessibility.cc:86
+msgid "Buttons"
+msgstr "Кнопки"
+
+#: Src/Gtk2/accessibility.cc:87
 msgid "Text"
 msgstr "Текст"
 
-#: Src/Gtk2/accessibility.cc:166 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:162 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Керування"
 
-#: Src/Gtk2/accessibility.cc:171
+#: Src/Gtk2/accessibility.cc:168
+msgid "Windows"
+msgstr "Вікна"
+
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Зупинити"
 
-#: Src/Gtk2/accessibility.cc:177
+#: Src/Gtk2/accessibility.cc:182
 msgid "Pause"
 msgstr "Пауза"
 
-#: Src/Gtk2/accessibility.cc:184
+#: Src/Gtk2/accessibility.cc:189
 msgid "Move"
 msgstr "Перемістити"
 
-#: Src/Gtk2/accessibility.cc:191
+#: Src/Gtk2/accessibility.cc:196
 msgid "Delete"
 msgstr "Видалити"
 
-#: Src/Gtk2/accessibility.cc:201
+#: Src/Gtk2/accessibility.cc:206
 msgid "Speak"
 msgstr "Вимовити"
 
-#: Src/Gtk2/accessibility.cc:228 Src/Gtk2/accessibility.cc:382
+#: Src/Gtk2/accessibility.cc:233 Src/Gtk2/accessibility.cc:387
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:234 Src/Gtk2/accessibility.cc:376
+#: Src/Gtk2/accessibility.cc:239 Src/Gtk2/accessibility.cc:381
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:240
+#: Src/Gtk2/accessibility.cc:245
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:251
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:259
+#: Src/Gtk2/accessibility.cc:264
 msgid "Everything"
 msgstr "Все"
 
-#: Src/Gtk2/accessibility.cc:265
+#: Src/Gtk2/accessibility.cc:270
 msgid "New"
 msgstr "Нове"
 
-#: Src/Gtk2/accessibility.cc:271
+#: Src/Gtk2/accessibility.cc:276
 msgid "Repeat"
 msgstr "Повторити"
 
-#: Src/Gtk2/accessibility.cc:293
+#: Src/Gtk2/accessibility.cc:298
 msgid "1"
 msgstr "1"
 
-#: Src/Gtk2/accessibility.cc:300
+#: Src/Gtk2/accessibility.cc:305
 msgid "2"
 msgstr "2"
 
-#: Src/Gtk2/accessibility.cc:307
+#: Src/Gtk2/accessibility.cc:312
 msgid "3"
 msgstr "3"
 
-#: Src/Gtk2/accessibility.cc:314
+#: Src/Gtk2/accessibility.cc:319
 msgid "4"
 msgstr "4"
 
-#: Src/Gtk2/accessibility.cc:321
+#: Src/Gtk2/accessibility.cc:326
 msgid "5"
 msgstr "5"
 
-#: Src/Gtk2/accessibility.cc:328
+#: Src/Gtk2/accessibility.cc:333
 msgid "6"
 msgstr "6"
 
-#: Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:340
 msgid "7"
 msgstr "7"
 
-#: Src/Gtk2/accessibility.cc:342
+#: Src/Gtk2/accessibility.cc:347
 msgid "8"
 msgstr "8"
 
-#: Src/Gtk2/accessibility.cc:349
+#: Src/Gtk2/accessibility.cc:354
 msgid "9"
 msgstr "9"
 
-#: Src/Gtk2/accessibility.cc:356
+#: Src/Gtk2/accessibility.cc:361
 msgid "10"
 msgstr "10"
 
-#: Src/Gtk2/accessibility.cc:388 Src/Gtk2/accessibility.cc:411
+#: Src/Gtk2/accessibility.cc:393 Src/Gtk2/accessibility.cc:416
 msgid "Character"
 msgstr "Символ"
 
-#: Src/Gtk2/accessibility.cc:399 Src/Gtk2/accessibility.cc:421
+#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:426
 msgid "Word"
 msgstr "Слово"
 
-#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:427
+#: Src/Gtk2/accessibility.cc:409 Src/Gtk2/accessibility.cc:432
 msgid "Line"
 msgstr "Рядок"
 
-#: Src/Gtk2/accessibility.cc:506
+#: Src/Gtk2/accessibility.cc:536
 msgid "Unknown"
 msgstr "Невідомо"
 
-#: Src/Gtk2/dasher.cc:188
+#: Src/Gtk2/dasher.cc:189
 msgid "Training Dasher, please wait"
 msgstr "Триває перевірка Dasher, будь ласка, зачекайте"
 
-#: Src/Gtk2/dasher.cc:501 Src/Gtk2/dasher.cc:522 Src/Gtk2/dasher.cc:543
-#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:502 Src/Gtk2/dasher.cc:523 Src/Gtk2/dasher.cc:544
+#: Src/Gtk2/dasher.cc:565 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "Вибір файлу"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1647
+#: Src/Gtk2/dasher.cc:1663
 msgid "translator_credits"
 msgstr "Максим Дзюманенко <mvd@mylinux.com.ua>"
 
-#: Src/Gtk2/dasher.cc:1649 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1665 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1652
+#: Src/Gtk2/dasher.cc:1668
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher - програма передрікання вмісту текстових полів"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2065
+#: Src/Gtk2/dasher.cc:2084
 #, c-format
-msgid "%d characters output in %ld seconds\n"
-msgstr "Виведено %d символів за %ld секунд\n"
+msgid "In %ld seconds\n"
+msgstr "Через %ld секунд\n"
+
+#: Src/Gtk2/dasher.cc:2085
+#, c-format
+msgid "%d characters\n"
+msgstr "%d символів\n"
+
+#: Src/Gtk2/dasher.cc:2086
+#, c-format
+msgid "%f bits\n"
+msgstr "%f біт\n"
+
+#: Src/Gtk2/dasher.cc:2088
+#, c-format
+msgid "%f characters per second\n"
+msgstr "%f символів за секунду\n"
+
+#: Src/Gtk2/dasher.cc:2089
+#, c-format
+msgid "%f bits per second\n"
+msgstr "%f біт за секунду\n"
+
+#: Src/Gtk2/dasher.cc:2090
+#, c-format
+msgid ""
+"%f bits per character\n"
+"\n"
+msgstr ""
+"%f біт на символ\n"
+"\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
