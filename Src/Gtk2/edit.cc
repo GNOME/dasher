@@ -410,9 +410,14 @@ void get_new_context_callback( std::string &str, int max )
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;
 
-  gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_buffer_get_selection_bounds(the_text_buffer,start,end);
 
-  *start=*end;  
+  if (gtk_text_iter_get_offset(start)==gtk_text_iter_get_offset(end)) {
+    gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
+    *start=*end;  
+  } else {
+    *end=*start;
+  }
 
   gtk_text_iter_backward_chars(start, max);
 
