@@ -96,12 +96,16 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   abox.get_ok_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet));
   abox.get_cancel_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet_cancel));
   abox.delete_event.connect( SigC::slot(this, &GtkDasherPane::abox_close_sel) );
+
 }
 
 void GtkDasherPane::clear()
 {
   canvas->clear();
   interface->Redraw();
+  GdkCursor* cursor = gdk_cursor_new(GDK_CROSSHAIR);
+  gdk_window_set_cursor(canvas->get_window(), cursor);
+  gdk_cursor_destroy(cursor);
 }
 
 void GtkDasherPane::reset()
@@ -201,6 +205,7 @@ gint GtkDasherPane::timer_callback()
       gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
 
       interface->TapOn(x,y, get_time() );
+
     }
 
   return( 1 );
@@ -218,7 +223,7 @@ void GtkDasherPane::set_edit_font( string fontname, long size )
 
 void GtkDasherPane::set_dasher_font_size( FontSize size )
 {
-  canvas->SetFontSize( size );
+  interface->SetDasherFontSize( size );
 }
 
 void GtkDasherPane::show_speed_slider( bool value )

@@ -108,7 +108,8 @@ public:
 	void CopyAllOnStop(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
-	
+	void SetDasherFontSize(FontSize fontsize);
+
 private:
 	CAlphabet* m_Alphabet;
 	CLanguageModel* m_LanguageModel;

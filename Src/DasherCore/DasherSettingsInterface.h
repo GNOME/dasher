@@ -42,6 +42,7 @@ public:
 	virtual void SetEditFont(std::string Name, long Size) {};
 	virtual void SetDasherFont(std::string Name) {};
 	virtual void SetEditHeight(long Value) {};
+	virtual void SetDasherFontSize(Dasher::Opts::FontSize fontsize) {};
 };
 
 
@@ -73,6 +74,7 @@ namespace Keys
 	extern const std::string EDIT_HEIGHT;
 	extern const std::string SCREEN_WIDTH;
 	extern const std::string SCREEN_HEIGHT;
+	extern const std::string DASHER_FONTSIZE;
 	
 	// string options
 	extern const std::string ALPHABET_ID;

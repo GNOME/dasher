@@ -101,7 +101,7 @@ protected:
       GtkScreenWrapper(  int _width, int _height, GtkDasherCanvas *_owner );
 
       void SetFont(std::string Name) { owner->SetFont( Name ); }
-	
+      void SetFontSize(Dasher::Opts::FontSize fontsize) { owner->SetFontSize( fontsize); }
       void TextSize(symbol Character, int* Width, int* Height, int Size) const { owner->TextSize( Character, Width, Height, Size ); }
       void DrawText(symbol Character, int x1, int y1, int Size) const { owner->DrawText( Character, x1, y1, Size ); }
 

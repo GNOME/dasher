@@ -27,6 +27,7 @@ public:
 	typedef struct tagpoint { int x; int y; } point;
 	
 	virtual void SetFont(std::string Name)=0;
+	virtual void SetFontSize(Dasher::Opts::FontSize fontsize)=0;
 	
 	// DasherView asks for the width and height of the given symbol at a requested height,
 	// then it is able to sensibly specify the upper left corner in DrawText.

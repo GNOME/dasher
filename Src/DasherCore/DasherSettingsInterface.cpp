@@ -34,6 +34,7 @@ namespace Keys {
 	const std::string EDIT_HEIGHT = "EditHeight";
 	const std::string SCREEN_WIDTH = "ScreenWidth";
 	const std::string SCREEN_HEIGHT = "ScreenHeight";
+        const std::string DASHER_FONTSIZE = "DasherFontSize";
 	
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";

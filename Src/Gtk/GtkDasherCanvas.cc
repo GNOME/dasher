@@ -56,6 +56,7 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   font_init = new bool[17];
 
   build_fonts( enc );
+
 }
 
 void GtkDasherCanvas::realize_impl()
