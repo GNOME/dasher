@@ -42,6 +42,7 @@ GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
 GtkFontSelectionDialog *dasher_fontselector, *edit_fontselector;
 GtkTreeSelection *alphselection, *colourselection;
+GtkWidget *alphabettreeview, *colourtreeview;
 GtkWidget *preferences_window;
 GtkListStore *alph_list_store;
 GtkListStore *colour_list_store;
@@ -162,6 +163,7 @@ void update_colours()
   for (int i=0; i<colour_count; i++) {
     if (colourscheme==colourlist[i]) {
       gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_indices(i,-1));
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
     }
   }   
 }
@@ -198,7 +200,7 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   const char *colourlist[ colourlist_size ];
   GtkTreeIter alphiter, colouriter;
 
-  GtkWidget *alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
+  alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
   alph_list_store = gtk_list_store_new(1,G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
   alphselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
@@ -220,11 +222,12 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
     gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
     if (alphabetlist[i]==alphabet) {
       gtk_tree_selection_select_iter(alphselection, &alphiter);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
     }
   }
   
   // Do the same for colours
-  GtkWidget *colourtreeview = glade_xml_get_widget(widgets,"ColourTree");  
+  colourtreeview = glade_xml_get_widget(widgets,"ColourTree");  
   colour_list_store = gtk_list_store_new(1,G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
   colourselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(colourtreeview));
@@ -246,6 +249,7 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
     gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
     if (colourlist[i]==colourscheme) {
       gtk_tree_selection_select_iter(colourselection, &colouriter);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
     }
 
   }
@@ -1579,7 +1583,6 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
 {
   yscale=int(widget->adjustment->value);
-  printf("Got yscale of %d\n",yscale);
   set_long_option_callback("YScale",yscale);
 }
 
