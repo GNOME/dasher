@@ -3,6 +3,7 @@
 #include "accessibility.h"
 #include "canvas.h"
 #include <iostream>
+#include <libwnck/libwnck.h>
 
 extern int paused;
 extern bool keyboardmodeon;
@@ -68,7 +69,7 @@ void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, 
   dasher_redraw();
 }
 
-void edit_output_callback(symbol Symbol)
+void gtk2_edit_output_callback(symbol Symbol)
 {
   std::string label;
   label = dasher_get_edit_text( Symbol );
@@ -167,7 +168,7 @@ void write_to_file()
   outputtext="";
 }
 
-void edit_outputcontrol_callback(void* pointer, int data)
+void gtk2_edit_outputcontrol_callback(void* pointer, int data)
 {
   switch(data) {
 #ifdef GNOME_A11Y
@@ -183,6 +184,11 @@ void edit_outputcontrol_callback(void* pointer, int data)
       set_textbox((Accessible *)pointer);
     }
     break;
+  case 31:
+	  if (pointer!=NULL) {
+		  wnck_window_activate((WnckWindow *)pointer);
+	  }
+	  break;
 #endif
   case 2:
     // stop
@@ -237,7 +243,7 @@ void edit_outputcontrol_callback(void* pointer, int data)
     edit_delete_forward_line();
     break;
   case 24:
-    edit_delete_callback(-1);
+    gtk2_edit_delete_callback(-1);
     break;
   case 25:
     edit_delete_backward_word();
@@ -314,7 +320,7 @@ void edit_move_end()
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
-void edit_delete_callback(symbol Symbol)
+void gtk2_edit_delete_callback(symbol Symbol)
 {
   if (Symbol==0) {
     return;
@@ -487,7 +493,7 @@ void edit_delete_backward_line()
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
-void clipboard_callback( clipboard_action act )
+void gtk2_clipboard_callback( clipboard_action act )
 {
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;
@@ -566,7 +572,7 @@ void reset_edit_font()
   gtk_widget_modify_font (the_text_view,pango_font_description_from_string("Sans 10"));
 }
 
-void get_new_context_callback( std::string &str, int max )
+void gtk2_get_new_context_callback( std::string &str, int max )
 {
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;

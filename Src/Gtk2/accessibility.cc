@@ -3,6 +3,7 @@
 #include "edit.h"
 #include <libintl.h>
 #include <iostream>
+#include <libwnck/libwnck.h>
 
 ControlTree *menutree;
 ControlTree *buttontree;
@@ -21,7 +22,9 @@ extern gboolean quitting;
 extern GtkWidget *the_canvas;
 extern GtkWidget *window;
 
-gboolean panels;
+WnckScreen *wnckscreen;
+
+gboolean panels=FALSE;
 gboolean building=FALSE;
 
 #ifdef GNOME_A11Y
@@ -40,9 +43,24 @@ void setupa11y() {
 						    NULL);
   SPI_registerGlobalEventListener (focusListener, "focus:");
 #endif
+  // FIXME - should check for correct screen
+  wnckscreen = wnck_screen_get_default();
 }
 
-ControlTree* gettree() {
+void setuptree(ControlTree *tree, ControlTree *parent, ControlTree *children, 
+	       ControlTree *next, void* pointer, int data, std::string string, 
+	       int colour)
+{
+	tree->parent=parent;
+	tree->children=children;
+	tree->pointer=pointer;
+	tree->text=string;
+	tree->next=next;
+	tree->data=data;
+	tree->colour=colour;
+}
+
+ControlTree* gettree() {	
 #ifdef GNOME_A11Y
   building=TRUE;
   menutree = new ControlTree;
@@ -53,45 +71,23 @@ ControlTree* gettree() {
   windowtree = new ControlTree;
   int numchildren;
   desktop = SPI_getDesktop(0);
-  menutree->parent=widgettree;
-  menutree->children=NULL;
-  menutree->pointer=NULL;
-  menutree->data=0;
-  menutree->text=_("Menus");
-  menutree->colour=-1;
-  menutree->next=buttontree;
-  windowtree->parent=NULL;
-  windowtree->children=NULL;
-  windowtree->pointer=NULL;
-  windowtree->data=0;
-  windowtree->text=_("Windows");
-  windowtree->next=paneltree;
-  widgettree->parent=NULL;
-  widgettree->children=menutree;
-  widgettree->pointer=NULL;
-  widgettree->text=_("Application");
-  widgettree->colour=-1;
-  widgettree->next=NULL;
-  buttontree->parent=NULL;
-  buttontree->children=NULL;
-  buttontree->pointer=NULL;
-  buttontree->data=0;
-  buttontree->text=_("Buttons");
-  buttontree->colour=-1;
-  buttontree->next=edittree;
-  paneltree->parent=NULL;
-  paneltree->children=NULL;
-  paneltree->pointer=NULL;
-  paneltree->text=_("Panels");
-  paneltree->colour=-1;
-  paneltree->next=widgettree;
-  edittree->parent=NULL;
-  edittree->children=NULL;
-  edittree->pointer=NULL;
-  edittree->data=0;
-  edittree->text=_("Text");
-  edittree->next=NULL;
-  edittree->colour=-1;
+
+  fprintf(stderr,"Called gettree()\n");
+
+  /* Paneltree
+         |         /-menutree
+     Widgettree------buttontree
+                   \-edittree
+  */
+
+  /* Tree, parent, children, next, pointer, data, string, colour */
+  setuptree(paneltree, NULL, NULL, widgettree, NULL, 0, _("Panels"), -1);
+  setuptree(widgettree, NULL, menutree, NULL, NULL, 0, _("Application"),
+	    -1);
+  setuptree(menutree, widgettree, NULL, buttontree, NULL, 0, _("Menus"), -1);
+  setuptree(buttontree, NULL, NULL, edittree, NULL, 0, _("Buttons"), -1);
+  setuptree(edittree, NULL, NULL, NULL, NULL, 0, _("Text"), -1);
+
   numchildren = Accessible_getChildCount(desktop);
   for (int i=0; i<numchildren; i++) {
     if (findpanels(Accessible_getChildAtIndex(desktop,i))==TRUE) {
@@ -99,6 +95,8 @@ ControlTree* gettree() {
       panels=TRUE;
     }
   }
+
+  widgettree->children = menutree;
   
   if (focusedwindow!=NULL) {
     buildmenutree(focusedwindow,menutree,menus);
@@ -108,7 +106,6 @@ ControlTree* gettree() {
     widgettree->next=buildcontroltree();
   } else {
     widgettree=buildcontroltree();
-    paneltree->next=widgettree;
   }
 #else
   widgettree=buildcontroltree();
@@ -148,6 +145,7 @@ gboolean findpanels(Accessible *parent) {
 ControlTree* buildcontroltree() {
   dummy=new ControlTree;
   stoptree=new ControlTree;
+  windowtree = new ControlTree;
   ControlTree *pausetree=new ControlTree;
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
@@ -157,7 +155,7 @@ ControlTree* buildcontroltree() {
 #ifndef GNOME_A11Y
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
   // null pointers rather than children
-  menutree=stoptree;
+  menutree=windowtree;
 #endif
   dummy->pointer=NULL;
   dummy->data=0;
@@ -165,12 +163,21 @@ ControlTree* buildcontroltree() {
   dummy->children=menutree;
   dummy->text=_("Control");
   dummy->colour=8;
+
+  windowtree->pointer=NULL;
+  windowtree->data=0;
+  windowtree->children=buildwindowtree();
+  windowtree->text=_("Windows");
+  windowtree->colour=-1;
+  windowtree->next=stoptree;
+
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=dummy;
   stoptree->text=_("Stop");
   stoptree->next=pausetree;
   stoptree->colour=242;
+
   pausetree->pointer=(void*)1;
   pausetree->data=3;
   pausetree->children=dummy;
@@ -214,7 +221,7 @@ ControlTree* buildcontroltree() {
 } else {
     pausetree->next=NULL;
 }
-  return stoptree;
+  return windowtree;
 }
 
 ControlTree* buildmovetree(ControlTree *movetree) {
@@ -428,6 +435,31 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
     backwardline->colour=-1;
   }
   return forwardtree;
+}
+
+ControlTree* buildwindowtree()
+{
+	GList *l;
+	wnck_screen_force_update(wnckscreen);
+	ControlTree *firstchild = new ControlTree;
+	ControlTree *tmptree = firstchild;
+	WnckWindow *window;
+	std::string name;
+	GList *windows = wnck_screen_get_windows(wnckscreen);
+
+	for (l = windows; l; l = l->next) {
+		window = (WnckWindow*)l->data;
+		name = wnck_window_get_name (window);
+		setuptree(tmptree, NULL, controltree, NULL, (void *)window, 31, name, -1);
+		tmptree->next = new ControlTree;
+		tmptree->next->parent = tmptree;
+		tmptree = tmptree->next;
+
+	}
+	
+	tmptree->parent->next = NULL;
+	delete tmptree;
+	return firstchild;
 }
 
 #ifdef GNOME_A11Y

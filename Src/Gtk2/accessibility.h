@@ -27,6 +27,7 @@ ControlTree* buildmovetree(ControlTree* movetree);
 ControlTree* builddeletetree(ControlTree* movetree);
 ControlTree* buildspeaktree(ControlTree* speaktree);
 ControlTree* buildspeedtree(ControlTree* speedtree);
+ControlTree* buildwindowtree();
 void deletemenutree();
 #ifdef GNOME_A11Y
 bool buildmenutree(Accessible *parent, ControlTree *ctree, accessibletype Type);

@@ -18,9 +18,9 @@
 
 void initialise_edit();
 void cleanup_edit();
-void edit_output_callback(symbol Symbol);
-void edit_outputcontrol_callback(void* pointer, int data);
-void edit_delete_callback(symbol Symbol);
+void gtk2_edit_output_callback(symbol Symbol);
+void gtk2_edit_outputcontrol_callback(void* pointer, int data);
+void gtk2_edit_delete_callback(symbol Symbol);
 void edit_move_back();
 void edit_move_forward();
 void edit_move_start();
@@ -30,7 +30,7 @@ void edit_delete_forward_line();
 void edit_delete_forward_word();
 void edit_delete_backward_line();
 void edit_delete_backward_word();
-void clipboard_callback( clipboard_action act );
+void gtk2_clipboard_callback( clipboard_action act );
 void select_all();
 void clear_edit();
 
@@ -40,7 +40,7 @@ extern GtkClipboard *the_text_clipboard;
 
 void set_editbox_font(std::string FontName);
 void reset_edit_font();
-void get_new_context_callback( std::string &str, int max );
+void gtk2_get_new_context_callback( std::string &str, int max );
 void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
 void write_to_file();
 void outputpipe();

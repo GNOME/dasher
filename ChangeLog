@@ -1,8 +1,15 @@
+2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix a couple of crash bugs in the window-focus handling
+	* Make window choice available on non-accessible builds
+	
 2005-01-12  Matthew Garrett  <mjg59@srcf.ucam.org>
 	
 	* Make the build system work after autotools make my life miserable
 	  again.
-
+	* Add support for focusing windows from within Dasher
+	* Bump version to 3.2.12
+	
 2004-10-01  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Added "mk" to ALL_LINGUAS.

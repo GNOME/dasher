@@ -187,12 +187,12 @@ main(int argc, char *argv[])
   dasher_set_draw_text_string_callback( draw_text_string_callback );
   dasher_set_text_size_callback( text_size_callback );
   
-  dasher_set_edit_output_callback( edit_output_callback );
-  dasher_set_edit_outputcontrol_callback( edit_outputcontrol_callback );
+  dasher_set_edit_output_callback( gtk2_edit_output_callback );
+  dasher_set_edit_outputcontrol_callback( gtk2_edit_outputcontrol_callback );
 
-  dasher_set_edit_delete_callback( edit_delete_callback );
-  dasher_set_get_new_context_callback( get_new_context_callback );
-  dasher_set_clipboard_callback( clipboard_callback );
+  dasher_set_edit_delete_callback( gtk2_edit_delete_callback );
+  dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
+  dasher_set_clipboard_callback( gtk2_clipboard_callback );
 
 #ifdef GNOME_A11Y
   SPI_init ();
