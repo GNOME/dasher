@@ -69,6 +69,7 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
   Gtk::VScrollbar vsb;
 
   int enc;
+  char encstr[256];
   
 };
 

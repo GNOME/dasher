@@ -9,12 +9,14 @@
 #include <fstream>
 
 #include <time.h>
+#include <iconv.h>
 
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
   : Gtk::HBox(), Dasher::CDashEditbox(), text(), vsb(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*"), timestamp( true ), dirty( false )
 {
   enc = 1;
-  
+  snprintf( encstr, 255, "ISO-8859-%d", enc);
+
   pack_start( text, true, true );
   pack_start( vsb, false, false );
 
@@ -111,13 +113,32 @@ void GtkDasherEdit::output(symbol Symbol)
   std::string label;
   label = interface->GetEditText( Symbol );
 
+  label = interface->GetEditText( Symbol );
+  
+  iconv_t cdesc=iconv_open(encstr,"UTF-8");
+      
+  char *convbuffer = new char[256];
+  char *inbuffer = new char[256];
+  
+  char *cb( convbuffer );
+  char *ib( inbuffer );
+  
+  strncpy( inbuffer, label.c_str(), 255 );
+  
+  size_t inb = label.length();
+  
+  size_t outb = 256;
+  iconv( cdesc, &inbuffer, &inb, &convbuffer, &outb );
+  
+  std::string csymbol( cb, 256-outb );
+  
   Gdk_Color black("black");
   //  Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
 
   text.delete_selection();
-  text.insert ( efont, black, white, label, 1);
+  text.insert ( efont, black, white, csymbol, 1);
 
   dirty = true;
 }
@@ -132,14 +153,34 @@ void GtkDasherEdit::flush(symbol Symbol)
       ++flush_count;
 
       std::string label;
-      
+
       label = interface->GetEditText( Symbol );
   
+      iconv_t cdesc=iconv_open(encstr,"UTF-8");
+      
+      char *convbuffer = new char[256];
+      char *inbuffer = new char[256];
+
+      char *cb( convbuffer );
+      char *ib( inbuffer );
+
+      strncpy( inbuffer, label.c_str(), 255 );
+
+      size_t inb = label.length();
+
+      size_t outb = 256;
+      iconv( cdesc, &inbuffer, &inb, &convbuffer, &outb );
+      
+      std::string csymbol( cb, 256-outb );
+
+      delete cb;
+      delete ib;
+      
       Gdk_Color black("black");
       Gdk_Color white("white");
       
       text.delete_selection();
-      text.insert ( efont, black, white, label, 1);
+      text.insert ( efont, black, white, csymbol, 1);
 
       dirty = true;
     }
@@ -228,6 +269,8 @@ void GtkDasherEdit::set_display_encoding( int _enc )
   if( _enc != enc )
     {
       enc = _enc;
+
+      snprintf( encstr, 255, "ISO-8859-%d", enc);
 
       // Fixme - need to force a font update here too.
     }
