@@ -153,7 +153,7 @@ ControlTree* buildcontroltree() {
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
 //  ControlTree *paneltree=new ControlTree;
-  ControlTree *speedtree=new ControlTree;
+//  ControlTree *speedtree=new ControlTree;
 #ifndef GNOME_A11Y
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
   // null pointers rather than children
@@ -191,7 +191,8 @@ ControlTree* buildcontroltree() {
     deletetree->text=_("Delete");
     deletetree->colour=-1;
 #ifndef GNOME_SPEECH
-    deletetree->next=speedtree;
+//    deletetree->next=speedtree;
+    deletetree->next=NULL;
 #else
     deletetree->next=speaktree;
     speaktree->pointer=(void*)1;
@@ -200,14 +201,16 @@ ControlTree* buildcontroltree() {
     speaktree->text=_("Speak");
     speaktree->next=NULL;
     speaktree->colour=-1;
-    speaktree->next=speedtree;
+//    speaktree->next=speedtree;
+    speaktree->next=NULL;
 #endif
-    speedtree->pointer=(void*)1;
+/*    speedtree->pointer=(void*)1;
     speedtree->data=0;
     speedtree->children=buildspeedtree(speedtree);
     speedtree->text=_("Speed");
     speedtree->next=NULL;
     speedtree->colour=-1;
+*/
 } else {
     pausetree->next=NULL;
 }
