@@ -284,7 +284,7 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  
 	  delete old; // only delete old alphabet after telling all other objects not to use it
 	  
-	  if (m_Alphabet->GetPalette()!="" && m_PaletteChange==true) {
+	  if (m_Alphabet->GetPalette()!= std::string("") && m_PaletteChange==true) {
 	    ChangeColours(m_Alphabet->GetPalette());
 	  }
 	  

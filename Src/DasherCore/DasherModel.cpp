@@ -254,7 +254,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
 	int iSteps=m_fr.Steps();
 
-	ASSERT(iSteps>0);
+	DASHER_ASSERT(iSteps>0);
 
 
 	if (Mousex<m_DasherOX) {
