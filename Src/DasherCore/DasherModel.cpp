@@ -33,6 +33,20 @@ CDasherModel::~CDasherModel()
 {
 	m_languagemodel->ReleaseNodeContext(LearnContext);
 
+
+	// DJW 20031106 - hope to get it right this time
+	
+	if (oldroots.size()>0) { 
+		delete oldroots[0];
+		oldroots.clear();
+		// At this point we have also deleted the root - so better NULL pointer
+		m_Root=NULL;
+	}
+	
+	delete m_Root;
+
+
+	/*
 	// This is yukky
 
 	while (oldroots.size()>1) {
@@ -50,6 +64,7 @@ CDasherModel::~CDasherModel()
 	}
 
 	delete m_Root;  // which will also delete all the whole structure
+*/
 
 }
 
@@ -169,22 +184,27 @@ void CDasherModel::Start()
 	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
 
-	// Get rid of the old root nodes
-	//	if (oldroots.size()>0) { 
-	//		delete oldroots[0];
-	//		oldroots.clear();
-	//	}
-
+	
+	/*
+	// DJW 20031106 - this is unsafe - oldroots[1] is not valid when size == 1
 	while (oldroots.size()>0) {
 	  oldroots[0]->Delete_dead(oldroots[1]);
 	  delete oldroots[0];
 	  oldroots.pop_front();
 	}
+	*/
 
-	//	if (m_Root) {
-	//	  delete m_Root;
-	//	}
-
+	// DJW 20031106 - hope to get it right this time
+	
+	if (oldroots.size()>0) { 
+		delete oldroots[0];
+		oldroots.clear();
+		// At this point we have also deleted the root - so better NULL pointer
+		m_Root=NULL;
+	}
+	
+	delete m_Root;
+	
 	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
 
@@ -265,7 +285,7 @@ void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
   m_Rootmin+=zoomfactor*(m_Rootmin-m_DasherY/2);
 
   // Afterwards, we need to take care of the vertical offset.
-  int up=(m_DasherY/2)-MouseY;
+  myint up=(m_DasherY/2)-MouseY;
   m_Rootmax+=up;
   m_Rootmin+=up;
 }
