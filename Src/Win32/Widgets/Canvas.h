@@ -32,6 +32,7 @@ public:
 	void StartOnLeftClick(bool Value) {startonleft = Value;}
 	void StartOnSpace(bool Value) {startonspace = Value;}
 	void KeyControl(bool Value) {keycontrol = Value;}
+	void WindowPause(bool Value) {windowpause = Value;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -47,6 +48,7 @@ private:
 	bool startonleft;
 	bool startonspace;
 	bool keycontrol;
+	bool windowpause;
 	RECT coords;
 	ThreadParams *tp;
 };

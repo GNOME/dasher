@@ -274,6 +274,12 @@ void CDasherWindow::StartOnSpace(bool Value)
 	WinMenu.SetStatus(ID_OPTIONS_SPACE, false, Value);
 }
 
+void CDasherWindow::WindowPause(bool Value)
+{
+	m_pCanvas->WindowPause(Value);
+	WinMenu.SetStatus(ID_OPTIONS_WINDOW_PAUSE, false, Value);
+}
+
 void CDasherWindow::KeyControl(bool Value)
 {
 	m_pCanvas->KeyControl(Value);
@@ -319,6 +325,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			break;
 			case ID_OPTIONS_SPACE:
 				DasherSettingsInterface->StartOnSpace(!WinMenu.GetCheck(ID_OPTIONS_SPACE));
+			break;
+			case ID_OPTIONS_WINDOWPAUSE:
+				DasherSettingsInterface->WindowPause(!WinMenu.GetCheck(ID_OPTIONS_WINDOWPAUSE));
 			break;
 			case ID_OPTIONS_KEYCONTROL:
 				DasherSettingsInterface->KeyControl(!WinMenu.GetCheck(ID_OPTIONS_KEYCONTROL));
