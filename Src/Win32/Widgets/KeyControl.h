@@ -13,7 +13,7 @@
 
 #include "../WinWrap.h"
 #include "../resource.h"
-#include "../../DasherCore/DasherTypes.h"
+
 #include "../../DasherCore/DasherSettingsInterface.h"
 #include "Canvas.h"
 
@@ -39,8 +39,8 @@ private:
 	bool Editing;
 	bool SelectionSet;
 
-	TCHAR* Buffer;
-
+	TCHAR m_tcBuffer[1000];
+	
 	Dasher::CDasherSettingsInterface* m_pSettingsInterface;
 };
 
