@@ -247,6 +247,7 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_COPYALLONSTOP:
       break;
     case BOOL_DRAWMOUSE:
+      interface->DrawMouse(value);
       break;
     case BOOL_STARTONSPACE:
       break;

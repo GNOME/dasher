@@ -20,26 +20,8 @@
 
 #include "libdasher.h"
 
-GtkWidget *vbox, *toolbar;
-GdkPixbuf *p;
-GtkWidget *pw;
-Gtk2DasherEdit *dasher_text_view;
-GtkWidget *text_view;
-GtkWidget *speed_frame;
-GtkObject *speed_slider;
-GtkWidget *speed_hscale;
-GtkWidget *text_scrolled_window;
-GtkWidget *canvas_frame;
-GtkWidget *ofilesel;
-GtkWidget *ifilesel;
-GtkWidget *afilesel;
-GtkStyle *style;
-Gtk2DasherCanvas *dasher_canvas;
-Gtk2DasherPane *dasher_pane;
-//CDasherInterface *interface;
-GtkItemFactory *dasher_menu;
-GtkAccelGroup *dasher_accel;
-GtkWidget *dasher_menu_bar;
+#include "global.h"
+
 
 void clipboard_copy(void);
 void clipboard_cut(void);
@@ -861,10 +843,6 @@ open_window() {
 
     dasher_set_parameter_string( STRING_ALPHABET, alphabet );
 
-    // FIXME - need to implement screen and edit classes in the library
-    
-    //    interface->ChangeEdit(dasher_text_view);
-    // interface->ChangeScreen(dasher_canvas->wrapper);
 
 
     //    interface->ChangeMaxBitRate(initial_bitrate);
@@ -922,27 +900,22 @@ main(int argc, char *argv[])
 }
 
 void clipboard_copy(void) {
-  //  dasher_text_view->Copy();
   dasher_copy();
 }
 
 void clipboard_cut(void) {
-  //  dasher_text_view->Cut();
   dasher_cut();
 }
 
 void clipboard_paste(void) {
-  //  dasher_text_view->Paste();
   dasher_paste();
 }
 
 void clipboard_copy_all(void) {
-  // dasher_text_view->CopyAll();
   dasher_copy_all();
 }
 
 void clipboard_select_all(void) {
-  //  dasher_text_view->SelectAll();
   dasher_select_all();
 }
 
