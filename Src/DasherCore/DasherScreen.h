@@ -46,7 +46,7 @@ public:
 	virtual void SetFontSize(Dasher::Opts::FontSize fontsize)=0;
 	
 	//! Return the Dasher font size
-	virtual Dasher::Opts::FontSize GetFontSize()=0;
+	virtual Dasher::Opts::FontSize GetFontSize() const =0;
 
 	// DasherView asks for the width and height of the given symbol at a requested height,
 	// then it is able to sensibly specify the upper left corner in DrawText.
