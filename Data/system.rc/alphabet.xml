@@ -961,4 +961,54 @@
 
     <!--Created by: Krzysiek grandysk@go2.pl-->
   </alphabet>
+<alphabet name="Korean">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<train>training_korean_KR.txt</train>
+<space d="_" t=" "/>
+<group name="Korean consonants">
+<s d="ᄀ" t="ᄀ"/>
+<s d="ᄁ" t="ᄁ"/>
+<s d="ᄂ" t="ᄂ"/>
+<s d="ᄃ" t="ᄃ"/>
+<s d="ᄄ" t="ᄄ"/>
+<s d="ᄅ" t="ᄅ"/>
+<s d="ᄆ" t="ᄆ"/>
+<s d="ᄇ" t="ᄇ"/>
+<s d="ᄈ" t="ᄈ"/>
+<s d="ᄉ" t="ᄉ"/>
+<s d="ᄊ" t="ᄊ"/>
+<s d="ᄋ" t="ᄋ"/>
+<s d="ᄌ" t="ᄌ"/>
+<s d="ᄍ" t="ᄍ"/>
+<s d="ᄎ" t="ᄎ"/>
+<s d="ᄏ" t="ᄏ"/>
+<s d="ᄐ" t="ᄐ"/>
+<s d="ᄑ" t="ᄑ"/>
+<s d="ᄒ" t="ᄒ"/>
+</group>
+<group name="Korean vowels">
+<s d="ᅡ" t="ᅡ"/>
+<s d="ᅢ" t="ᅢ"/>
+<s d="ᅣ" t="ᅣ"/>
+<s d="ᅤ" t="ᅤ"/>
+<s d="ᅥ" t="ᅥ"/>
+<s d="ᅦ" t="ᅦ"/>
+<s d="ᅧ" t="ᅧ"/>
+<s d="ᅨ" t="ᅨ"/>
+<s d="ᅩ" t="ᅩ"/>
+<s d="ᅪ" t="ᅪ"/>
+<s d="ᅫ" t="ᅫ"/>
+<s d="ᅬ" t="ᅬ"/>
+<s d="ᅭ" t="ᅭ"/>
+<s d="ᅮ" t="ᅮ"/>
+<s d="ᅭ" t="ᅯ"/>
+<s d="ᅰ" t="ᅰ"/>
+<s d="ᅱ" t="ᅱ"/>
+<s d="ᅲ" t="ᅲ"/>
+<s d="ᅳ" t="ᅳ"/>
+<s d="ᅴ" t="ᅴ"/>
+<s d="ᅵ" t="ᅵ"/>
+</group>
+</alphabet>
 </alphabets>
