@@ -6,13 +6,14 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../../Common/Common.h"
 
 #include "AlphabetBox.h"
 #include "../resource.h"
 #include "../WinUTF8.h"
 #include "../WinLocalisation.h"
-
-#include <utility> // for std::pair
+#include "../../DasherCore/DasherAppInterface.h"
+#include "../../DasherCore/DasherSettingsInterface.h"
 
 using namespace Dasher;
 using namespace std;
@@ -506,7 +507,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_CUSTOMALPHABET, Window, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 			break;
 		case (IDOK):
-			if (m_CurrentAlphabet!="") {
+			if (m_CurrentAlphabet!=std::string("")) {
 				m_SettingsInterface->ChangeAlphabet(m_CurrentAlphabet);
 			}
 			// deliberate fall through

@@ -13,10 +13,13 @@
 
 #include "../WinWrap.h"
 #include "../resource.h"
+#include "../../DasherCore/AlphIO.h"
 
-#include "../../DasherCore/DasherAppInterface.h"
-#include "../../DasherCore/DasherSettingsInterface.h"
-
+namespace Dasher 
+{
+	class CDasherSettingsInterface;
+	class CDasherAppInterface;
+};
 
 class CAlphabetBox : public CWinWrap
 {
