@@ -1,3 +1,7 @@
+2004-10-01  Abel Cheung  <maddog@linuxhall.org>
+
+	* configure.in: Added "mk" to ALL_LINGUAS.
+
 2004-09-21  David Ward  <djw30@mrao.cam.ac.uk>
 
 	* New integer-overflow checking classes in _DEBUG mode
