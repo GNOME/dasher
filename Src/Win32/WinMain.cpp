@@ -56,17 +56,23 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// Set up the registry
 	CWinOptions WinOptions("Inference_Group", "Dasher3"); // Settings storage using Windows Registry.
 
+	int iRet=0;
+
 	// Set up Dasher
 	CDasherInterface DasherInterface;                     // Fat interface to all of Dasher's core,
 	DasherInterface.SetSystemLocation(AppData2);
 	DasherInterface.SetUserLocation(UserData2);
 	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
 	DasherInterface.ColourMode(true);
-	CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
-	DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
-	DasherInterface.ChangeLanguageModel(0);
-	DasherInterface.AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
-	DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
+	{
+		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
+		DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
+		DasherInterface.ChangeLanguageModel(0);
+		DasherInterface.AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
+		DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
 
-	return DasherWindow.MessageLoop();
+		iRet = DasherWindow.MessageLoop();
+	}
+
+	return iRet;
 }
