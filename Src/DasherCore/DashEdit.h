@@ -25,6 +25,8 @@ class Dasher::CDashEditbox
 public:
 	CDashEditbox() : m_DasherInterface(0), m_dirty(false) {}
 
+	virtual ~CDashEditbox() {}
+
 	//! Provide the Editbox with a widget interface
 	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
 	

@@ -22,7 +22,9 @@ public:
         //! \param height Height of the screen
 	CDasherScreen(int width,int height)
 		: m_iWidth(width), m_iHeight(height) {}
-	
+
+	virtual ~CDasherScreen() {}
+
 	//! Set the widget interface used for communication with the core
 	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
 	
