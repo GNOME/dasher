@@ -1,16 +1,16 @@
 # Hungarian translation of dasher.
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
-# Andras Timar <timar@fsf.hu>, 2004.
-# Laszlo Dvornik <dvornikl@mailbox.hu>, 2004.
+# Andras Timar <timar@gnome.hu>, 2004.
+# Laszlo Dvornik <dvornik@invitel.hu>, 2004.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-12 02:36+0200\n"
-"PO-Revision-Date: 2004-05-16 14:13+0200\n"
-"Last-Translator: Laszlo Dvornik <dvornikl@mailbox.hu>\n"
+"POT-Creation-Date: 2004-07-03 19:20+0200\n"
+"PO-Revision-Date: 2004-07-03 21:53+0200\n"
+"Last-Translator: Laszlo Dvornik <dvornik@invitel.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -40,102 +40,147 @@ msgstr "Panelek"
 msgid "Text"
 msgstr "Szöveg"
 
-#: Src/Gtk2/accessibility.cc:169 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:170 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Vezérlőelem"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Leállítás"
 
-#: Src/Gtk2/accessibility.cc:180
+#: Src/Gtk2/accessibility.cc:181
 msgid "Pause"
 msgstr "Szünet"
 
-#: Src/Gtk2/accessibility.cc:187
+#: Src/Gtk2/accessibility.cc:188
 msgid "Move"
 msgstr "Áthelyezés"
 
-#: Src/Gtk2/accessibility.cc:194
+#: Src/Gtk2/accessibility.cc:195
 msgid "Delete"
 msgstr "Törlés"
 
-#: Src/Gtk2/accessibility.cc:203
+#: Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Felolvasás"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:290
+#: Src/Gtk2/accessibility.cc:212 Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Sebesség"
+
+#: Src/Gtk2/accessibility.cc:229 Src/Gtk2/accessibility.cc:383
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:227 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:377
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:241
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:239
+#: Src/Gtk2/accessibility.cc:247
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:260
 msgid "Everything"
 msgstr "Minden"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:266
 msgid "New"
 msgstr "Új"
 
-#: Src/Gtk2/accessibility.cc:264
+#: Src/Gtk2/accessibility.cc:272
 msgid "Repeat"
 msgstr "Ismétlés"
 
-#: Src/Gtk2/accessibility.cc:296 Src/Gtk2/accessibility.cc:319
+#: Src/Gtk2/accessibility.cc:294
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:301
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:308
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:315
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:322
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:329
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:336
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:343
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:350
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:357
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:389 Src/Gtk2/accessibility.cc:412
 msgid "Character"
 msgstr "Karakter"
 
-#: Src/Gtk2/accessibility.cc:307 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:400 Src/Gtk2/accessibility.cc:422
 msgid "Word"
 msgstr "Szó"
 
-#: Src/Gtk2/accessibility.cc:312 Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:405 Src/Gtk2/accessibility.cc:428
 msgid "Line"
 msgstr "Sor"
 
-#: Src/Gtk2/accessibility.cc:415
+#: Src/Gtk2/accessibility.cc:508
 msgid "Unknown"
 msgstr "Ismeretlen"
 
-#: Src/Gtk2/dasher.cc:180
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
-msgstr "A Dasher betanítása, várjon."
+msgstr "A Dasher betanítása, várjon"
 
-#: Src/Gtk2/dasher.cc:632 Src/Gtk2/dasher.cc:645 Src/Gtk2/dasher.cc:658
-#: Src/Gtk2/dasher.cc:671 Src/Gtk2/dashergpe.glade.h:61
+#: Src/Gtk2/dasher.cc:664 Src/Gtk2/dasher.cc:677 Src/Gtk2/dasher.cc:690
+#: Src/Gtk2/dasher.cc:703 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
 msgid "Select File"
 msgstr "Fájl kiválasztása"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1591
+#: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
 msgstr ""
-"Dvornik László <dvornikl@mailbox.hu>\n"
+"Dvornik László <dvornik@invitel.hu>\n"
 "Tímár András <timar@gnome.hu>"
 
-#: Src/Gtk2/dasher.cc:1593 Src/Gtk2/dasher.glade.h:32
+#: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1596
+#: Src/Gtk2/dasher.cc:1771
 msgid "Dasher is a predictive text entry application"
 msgstr "A Dasher egy előrelátó szövegfeljegyző alkalmazás"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2003
+#: Src/Gtk2/dasher.cc:2178
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d karakter kiadása %d másodperc alatt\n"
@@ -236,8 +281,8 @@ msgstr "Gomb mód"
 msgid "Button:"
 msgstr "Gomb:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Színséma automatikus változtatása"
 
 #: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
@@ -248,217 +293,247 @@ msgstr "Szín"
 msgid "Control mode"
 msgstr "Vezérlőelem mód"
 
-#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:31
+#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "Másolat"
+
+#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:31
 msgid "Copy _All"
 msgstr "Mi_ndent másol"
 
-#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:32
+#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:32
 msgid "Copy all on stop"
-msgstr ""
+msgstr "Mindent másol leállításkor"
 
-#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:34
+#: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "Kivágás"
+
+#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
 msgstr "Periodikus gomb mód"
 
-#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:36
+#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
 msgstr "Dasher beállításai"
 
-#: Src/Gtk2/dasher.glade.h:34 Src/Gtk2/dashergpe.glade.h:37
+#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
 msgstr "Távolság a középvonaltól az egér pozíciójától induláshoz:"
 
-#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:38
+#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
 msgstr "Le/3:"
 
-#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:39
+#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
 msgstr "Dobozkörvonalak rajzolása"
 
-#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:40
+#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Vonal rajzolása a célkeresztek és az egér közé"
 
-#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:41
+#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
 msgstr "Gomb-vezérlés beállításainak szerkesztése"
 
-#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:42
+#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
 msgstr "Szöveg beírása más ablakokba"
 
-#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:43
+#: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
 msgstr "Tekintetkövető mód"
 
-#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:44
+#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:44
 msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
+"Ha ki van választva ez a mód, akkor a fel és le nyíllal\n"
+"vissza és előre fog körözni a koordináták között és a jobb nyíl fogja "
+"megerősíteni a választást"
 
-#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:46
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
 msgstr "Nagy"
 
-#: Src/Gtk2/dasher.glade.h:44 Src/Gtk2/dashergpe.glade.h:47
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:47
 msgid "Left to Right"
 msgstr "Balról jobbra"
 
-#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:48
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:48
 msgid "Left/2:"
 msgstr "Bal/2:"
 
-#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:50
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:49
+msgid "New file"
+msgstr "Új fájl"
+
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:50
 msgid "Normal"
 msgstr "Normál"
 
-#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
 msgstr "A teljes y tartományt lefedő képpontok száma:"
 
-#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
 msgstr "Egy dimenziós mód"
 
-#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:56
-msgid "Pause outside window"
-msgstr ""
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:53
+msgid "Open file"
+msgstr "Fájl megnyitása"
 
-#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:55
+msgid "Paste"
+msgstr "Beillesztés"
+
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
+msgid "Pause outside window"
+msgstr "Ablakon kívüli szünet"
+
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
 msgstr "Jobbról balra"
 
-#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:58
 msgid "Right/4:"
 msgstr "Jobb/4:"
 
-#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:62
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:59
+msgid "Save file"
+msgstr "Fájl mentése"
+
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
+msgid "Save file as"
+msgstr "Fájl mentése másként"
+
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
 msgstr "Betűkészlet kiválasztása"
 
-#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:63
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show mouse position"
 msgstr "Egér pozíciójának megjelenítése"
 
-#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:64
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
 msgstr "Sebességcsúszka megjelenítése"
 
-#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:65
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:66
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
-msgstr ""
+msgstr "Felolvasás leállításkor"
 
-#: Src/Gtk2/dasher.glade.h:57
-msgid "Speed"
-msgstr "Sebesség"
-
-#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:67
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
 msgstr "Indulás bal egérgombra"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:68
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
 msgstr "Indulás szóközre"
 
-#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:69
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
 msgstr "Indulás az egérpozícióval"
 
-#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:70
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
-msgstr ""
+msgstr "Új fájlok időbélyegzése"
 
-#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:71
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
 msgstr "Fentről lefelé"
 
-#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:72
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training"
 msgstr "Gyakorlás"
 
-#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:73
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
 msgid "Training Dasher - please wait"
 msgstr "A Dasher betanítása - várjon"
 
-#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:74
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
 msgid "Up/1:"
 msgstr "Fel/1:"
 
-#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:75
+#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:75
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
+"Használja ezt a vezérlőt a postaládák relatív méretének \n"
+"állításához. Megjegyzés: magas értékek kiválasztása le fogja\n"
+"lassítani az írási sebességet."
 
-#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:78
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
 msgstr "Nagyon nagy"
 
-#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:79
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
 msgid "View"
 msgstr "Nézet"
 
-#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:80
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:80
 msgid "X:"
 msgstr "X:"
 
-#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:81
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:81
 msgid "Y:"
 msgstr "Y:"
 
-#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:82
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:82
 msgid "_About"
 msgstr "_Névjegy"
 
-#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:83
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
 msgstr "_Hozzáfűzés fájlhoz"
 
-#: Src/Gtk2/dasher.glade.h:75 Src/Gtk2/dashergpe.glade.h:84
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Dasher Font"
 msgstr "_Dasher betűkészlet"
 
-#: Src/Gtk2/dasher.glade.h:76 Src/Gtk2/dashergpe.glade.h:85
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:85
 msgid "_Dasher Font Size"
 msgstr "_Dasher betűméret"
 
-#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:86
+#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:87
+#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:87
 msgid "_Edit Font"
 msgstr "Betűkészlet s_zerkesztése"
 
-#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:88
+#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:88
 msgid "_File"
 msgstr "_Fájl"
 
-#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:89
+#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:89
 msgid "_Help"
 msgstr "_Súgó"
 
-#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:90
+#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:90
 msgid "_Import Training Text"
 msgstr "Gyakorlószöveg _importálása"
 
-#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:91
+#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
 msgstr "_Beállítások"
 
-#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:92
+#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
 msgstr "Betűkészletek _visszaállítása"
 
-#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:93
+#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:93
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "árvíztűrő tükörfúrógép ÁRVÍZTŰRŐ TÜKÖRFÚRÓGÉP"
 
@@ -466,48 +541,21 @@ msgstr "árvíztűrő tükörfúrógép ÁRVÍZTŰRŐ TÜKÖRFÚRÓGÉP"
 msgid "<b>Speed</b>"
 msgstr "<b>Sebesség</b>"
 
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Színséma automatikus változtatása"
-
-#: Src/Gtk2/dashergpe.glade.h:30
-msgid "Copy"
-msgstr "Másolat"
-
-#: Src/Gtk2/dashergpe.glade.h:33
-msgid "Cut"
-msgstr "Kivágás"
-
-#: Src/Gtk2/dashergpe.glade.h:49
-msgid "New file"
-msgstr "Új fájl"
-
-#: Src/Gtk2/dashergpe.glade.h:53
-msgid "Open file"
-msgstr "Fájl megnyitása"
-
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Tájolás"
 
-#: Src/Gtk2/dashergpe.glade.h:55
-msgid "Paste"
-msgstr "Beillesztés"
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Nem lehet inicializálni a beszédtámogatást\n"
 
-#: Src/Gtk2/dashergpe.glade.h:59
-msgid "Save file"
-msgstr "Fájl mentése"
-
-#: Src/Gtk2/dashergpe.glade.h:60
-msgid "Save file as"
-msgstr "Fájl mentése másként"
-
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "Nem lehet inicializálni a hangokat"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:66
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Figyelmeztetés: nem lehet beállítani a beszéd paramétereket\n"
