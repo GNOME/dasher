@@ -421,7 +421,7 @@ void edit_delete_forward_character()
 #ifdef GNOME_A11Y
   if (textbox!=NULL) {
     int startpos=AccessibleText_getCaretOffset(textbox);
-    int endpos=endpos+1;      
+    int endpos=startpos+1;      
     AccessibleEditableText_deleteText(edittextbox,startpos,endpos);
   }
 #endif
