@@ -1319,30 +1319,17 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
   return FALSE;
 }
 
-extern "C" void
+extern "C" gboolean
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
-  gboolean *returnType;
-
 #ifdef WITH_GPE
   // GPE version requires the button to be held down rather than clicked
   if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
-    return;
+    return FALSE;
 #else
   if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_2BUTTON_PRESS))
-    return;
+    return FALSE;
 #endif
-
-  focusEvent->type = GDK_FOCUS_CHANGE;
-  focusEvent->window = (GdkWindow *) the_canvas;
-  focusEvent->send_event = FALSE;
-  focusEvent->in = TRUE;
-
-  gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
-  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
-
-  g_free(focusEvent);
 
   // CJB,  2003-08.  If we have a selection, replace it with the new input.
   // This code is duplicated in key_press_event.
@@ -1352,7 +1339,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   if (startleft == TRUE) {
     stop();
   }
-  return;
+  return FALSE;
 }
 
 
@@ -1522,25 +1509,6 @@ open_window(GladeXML *xml) {
   dasher_menu_bar=glade_xml_get_widget(xml, "dasher_menu_bar");
   dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
   edit_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "edit_fontselector"));
-
-  // I'm not entirely sure we want to be doing this
-  gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
-
-  // Focus the canvas
-  // I'm almost entirely sure we don't want to be doing this
-  // In fact, what /are/ we doing here?
-  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
-  gboolean *returnType;
-  
-  focusEvent->type = GDK_FOCUS_CHANGE;
-  focusEvent->window = (GdkWindow *) the_canvas;
-  focusEvent->send_event = FALSE;
-  focusEvent->in = TRUE;
-
-  gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
-  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
-
-  g_free(focusEvent);
 
   dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
   dasher_set_parameter_int( INT_VIEW, 0 );

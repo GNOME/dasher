@@ -12,6 +12,7 @@ ControlTree *dummy; // This one is used to fake another control node
 extern gboolean textentry;
 extern gboolean training;
 extern GtkWidget *the_canvas;
+extern GtkWidget *window;
 
 gboolean panels;
 
@@ -390,9 +391,11 @@ void deletemenutree() {
 #ifdef GNOME_A11Y
 void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
 {
+  char *name;
   if (training==TRUE) {
     return;
   }
+  
   Accessible *tempaccessible;
   Accessible *accessible = event->source;
   while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
@@ -403,19 +406,21 @@ void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
     Accessible_unref(accessible);
     accessible=tempaccessible;
   }
+  name=Accessible_getName(accessible);
   if (accessible!=focusedwindow) { // The focused window has changed
-    if (focusedwindow!=NULL) {
-      Accessible_unref(focusedwindow);
+    if (!strcmp(name,"Dasher")) {
+      Accessible_unref(accessible);
+    } else {
+      if (focusedwindow!=NULL) {
+	Accessible_unref(focusedwindow);
+      }
+      focusedwindow=accessible;
+      deletemenutree();
+      add_control_tree(gettree());
+      dasher_start();
     }
-    // FIXME - setup code above needs to work
-    //    if (focusedwindow==dasherwindow) {
-    //      return;
-    //    }
-    deletemenutree();
-    focusedwindow=accessible;
-    add_control_tree(gettree());
-    dasher_start();
   }
+  SPI_freeString(name);
 }
 
 //FIXME - ripped straight from gok. The same qualms as they have apply.
