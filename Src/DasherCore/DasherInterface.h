@@ -158,6 +158,8 @@ public:
 	void SetDasherDimensions(bool Value);
 	void SetDasherEyetracker(bool Value);
 	void SetUniform(int Value);
+	void SetYScale(int Value);
+	void SetMousePosDist(int Value);
 	void Render();
 
 private:

@@ -18,10 +18,10 @@ using namespace Dasher;
 using namespace std;
 
 
-CKeyBox::CKeyBox(HWND Parent, CCanvas* m_pCanvas)
-	: m_hwnd(0), m_pCanvas(m_pCanvas)
+CKeyBox::CKeyBox(HWND Parent, CCanvas* m_pCanvas, CDasherSettingsInterface* m_pSettingsInterface)
+	: m_hwnd(0), m_pCanvas(m_pCanvas), m_pSettingsInterface(m_pSettingsInterface)
 {
-	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_KEYCONTROL, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
+	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_KEYCONTROL1, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 }
 
 std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
@@ -39,11 +39,11 @@ std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
 
 void CKeyBox::PopulateWidgets()
 {
-	int widgets[18];
+//	int widgets[18];
 	char dummybuffer[256];
 	wchar_t widebuffer[256];
 
-	widgets[0]=IDC_UPX;
+/*	widgets[0]=IDC_UPX;
 	widgets[1]=IDC_UPY;
 	widgets[2]=IDC_DOWNX;
 	widgets[3]=IDC_DOWNY;
@@ -62,20 +62,27 @@ void CKeyBox::PopulateWidgets()
 	widgets[16]=IDC_9X;
 	widgets[17]=IDC_9Y;
 
-	int* coords = m_pCanvas->getkeycoords();
+	int* coords = m_pCanvas->getkeycoords(); */
 	ypixels = m_pCanvas->getyscale();
+	mouseposdist = m_pCanvas->getmouseposdist();
 
-	for (int i=0; i<18; i++) {
+/*	for (int i=0; i<18; i++) {
 			keycoords[i]=coords[i];
 	}
-	
+*/	
 	HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
 	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
 	itoa(ypixels,dummybuffer,10);
 	mbstowcs(widebuffer,dummybuffer,256);
 	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
 
-	for (int i=0; i<18; i++) {
+	EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
+	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
+	itoa(mouseposdist,dummybuffer,10);
+	mbstowcs(widebuffer,dummybuffer,256);
+	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
+
+/*	for (int i=0; i<18; i++) {
 		EditBox = GetDlgItem(m_hwnd, widgets[i]);
 		SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
 	
@@ -92,7 +99,7 @@ void CKeyBox::PopulateWidgets()
 	}
 	if (m_pCanvas->getselect()==true) {
 		SendMessage(GetDlgItem(m_hwnd, IDC_KCSELECT), BM_SETCHECK, BST_CHECKED, 0);
-	}
+	} */
 }
 
 LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -122,7 +129,7 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			}
 			break;
 		case (IDOK_KEYCONT):
-			keycoords[0]=atoi(GetControlText(Window,IDC_UPX).c_str());
+/*			keycoords[0]=atoi(GetControlText(Window,IDC_UPX).c_str());
 			keycoords[1]=atoi(GetControlText(Window,IDC_UPY).c_str());
 			keycoords[2]=atoi(GetControlText(Window,IDC_DOWNX).c_str());
 			keycoords[3]=atoi(GetControlText(Window,IDC_DOWNY).c_str());
@@ -139,13 +146,17 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			keycoords[14]=atoi(GetControlText(Window,IDC_8X).c_str());
 			keycoords[15]=atoi(GetControlText(Window,IDC_8Y).c_str());
 			keycoords[16]=atoi(GetControlText(Window,IDC_9X).c_str());
-			keycoords[17]=atoi(GetControlText(Window,IDC_9Y).c_str());
+			keycoords[17]=atoi(GetControlText(Window,IDC_9Y).c_str()); */
 			ypixels=atoi(GetControlText(Window,IDC_YPIX).c_str());
+			mouseposdist=atoi(GetControlText(Window,IDC_MOUSEPOSDIST).c_str());
 			EndDialog(Window, LOWORD(wParam));
-			m_pCanvas->setkeycoords(keycoords);
+		//	m_pCanvas->setkeycoords(keycoords);
 			m_pCanvas->setyscale(ypixels);
+			m_pSettingsInterface->SetYScale(ypixels);
+			m_pCanvas->setmouseposdist(mouseposdist);
+			m_pSettingsInterface->SetMousePosDist(mouseposdist);
 			// Move forward on button press
-			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+/*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pCanvas->setforward(true);
 			} else {
 				m_pCanvas->setforward(false);
@@ -161,7 +172,7 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 				m_pCanvas->setselect(true);
 			} else {
 				m_pCanvas->setselect(false);
-			}
+			} */
 			return TRUE;
 			break;
 		case (IDCANCEL):

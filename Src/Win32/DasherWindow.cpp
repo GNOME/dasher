@@ -351,6 +351,16 @@ void CDasherWindow::MouseposStart(bool Value)
 	m_pCanvas->MousePosStart(Value);
 }
 
+void CDasherWindow::SetYScale(int Value)
+{
+	m_pCanvas->setyscale(Value);
+}
+
+void CDasherWindow::SetMousePosDist(int Value)
+{
+	m_pCanvas->setmouseposdist(Value);
+}
+
 void CDasherWindow::KeyboardMode(bool Value)
 {
 	keyboardmode=Value;
@@ -477,7 +487,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				{ CAboutbox Aboutbox(m_hwnd); }
 				break;
 			case ID_OPTIONS_EDITKEYS:
-				{ CKeyBox KeyBox(m_hwnd,m_pCanvas); }
+				{ CKeyBox KeyBox(m_hwnd,m_pCanvas, DasherSettingsInterface); }
 				break;
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }

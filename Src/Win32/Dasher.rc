@@ -361,7 +361,7 @@ BEGIN
     DEFPUSHBUTTON   "OK",IDOK_CHAR,88,58,50,14
 END
 
-IDD_KEYCONTROL DIALOGEX 0, 0, 269, 199
+IDD_KEYCONTROL2 DIALOGEX 0, 0, 269, 199
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
 CAPTION "Edit keyboard control"
@@ -488,6 +488,27 @@ BEGIN
     LTEXT           "Colour schemes available:",IDC_STATIC,7,7,198,8
 END
 
+IDD_KEYCONTROL1 DIALOGEX 0, 0, 244, 119
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Edit advanced options"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,12,90,220,1
+    PUSHBUTTON      "Cancel",ID_CANCEL_KEYCONT,186,96,50,14
+    DEFPUSHBUTTON   "OK",IDOK_KEYCONT,126,96,50,14
+    EDITTEXT        IDC_YPIX,12,12,30,12,ES_AUTOHSCROLL
+    LTEXT           "Scale the Y input by this amount",IDC_STATIC,48,12,180,
+                    8
+    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,12,48,222,12
+    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",
+                    IDC_STATIC,18,66,210,18
+    EDITTEXT        IDC_MOUSEPOSDIST,12,30,30,12,ES_AUTOHSCROLL
+    LTEXT           "Distance from centre line for ""Start on mouse position""",
+                    IDC_STATIC,48,30,174,12
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -553,7 +574,7 @@ BEGIN
         BOTTOMMARGIN, 72
     END
 
-    IDD_KEYCONTROL, DIALOG
+    IDD_KEYCONTROL2, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 229
@@ -591,6 +612,14 @@ BEGIN
         RIGHTMARGIN, 227
         TOPMARGIN, 7
         BOTTOMMARGIN, 152
+    END
+
+    IDD_KEYCONTROL1, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 204
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 106
     END
 END
 #endif    // APSTUDIO_INVOKED

@@ -210,16 +210,16 @@ void CScreen::DrawMousePosBox(int which)
 	switch (which) {
 		case 0:
 			Rect.left=0;
-			Rect.top=0;
+			Rect.top=m_iHeight/2-mouseposdist-50;
 			Rect.right=m_iWidth;
-			Rect.bottom=100;
+			Rect.bottom=Rect.top+100;
 			brush=CreateSolidBrush(RGB(255,0,0));
 			break;
 		case 1:
 			Rect.left=0;
-			Rect.bottom=m_iHeight;
+			Rect.bottom=m_iHeight/2+mouseposdist+50;
 			Rect.right=m_iWidth;
-			Rect.top=m_iHeight-100;
+			Rect.top=Rect.bottom-100;
 			brush=CreateSolidBrush(RGB(255,255,0));
 			break;
 		default:

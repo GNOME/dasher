@@ -34,6 +34,8 @@ public:
 	int* getkeycoords() {return keycoords;}
 	void setyscale(int y) {yscaling=y;}
 	int getyscale() {return yscaling;}
+	void setmouseposdist(int y) {m_pScreen->SetMousePosDist(y);mouseposdist=y;}
+	int getmouseposdist() {return m_pScreen->GetMousePosDist();}
 	void onedimensional(bool value) {oned=value;}
 	void setforward(bool value) {forward=value;}
 	void setbackward(bool value) {backward=value;}
@@ -52,7 +54,7 @@ protected:
 private:
 	HWND Parent;
 	HDC m_hdc;
-	int keycoords[18],buttonnum,yscaling;
+	int keycoords[18],buttonnum,yscaling,mouseposdist;
 	bool forward,backward,select;
 	CScreen* m_pScreen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;

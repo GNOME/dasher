@@ -59,6 +59,7 @@
 #define IDD_EDITLETTER                  155
 #define IDD_KEYCONTROL                  156
 #define ID_Menu                         156
+#define IDD_KEYCONTROL2                 156
 #define IDD_ADDKEYS                     157
 #define ID_OPTIONS_EDITFONT             157
 #define IDD_WINSELECT                   158
@@ -73,6 +74,7 @@
 #define ID_OPTIONS_PREFS                169
 #define IDD_COLOUR                      169
 #define ID_OPTIONS_CONTROLMODE          170
+#define IDD_KEYCONTROL1                 170
 #define ID_OPTIONS_COLOURS              171
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
@@ -165,6 +167,9 @@
 #define IDC_DRAWMOUSELINE               1097
 #define IDC_COLOURSCHEME                1098
 #define IDC_COLOURS                     1099
+#define IDC_SLIDER1                     1100
+#define IDC_EDIT1                       1101
+#define IDC_MOUSEPOSDIST                1101
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -218,7 +223,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        172
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1100
+#define _APS_NEXT_CONTROL_VALUE         1102
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

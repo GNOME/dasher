@@ -615,6 +615,20 @@ void CDasherInterface::SetUniform(int Value)
   }
 }
 
+void CDasherInterface::SetYScale(int Value)
+{
+	if (m_SettingsStore!=0) {
+		m_SettingsStore->SetLongOption(Keys::YSCALE, Value);
+	}
+}
+
+void CDasherInterface::SetMousePosDist(int Value)
+{
+	if (m_SettingsStore!=0) {
+		m_SettingsStore->SetLongOption(Keys::MOUSEPOSDIST, Value);
+	}
+}
+
 void CDasherInterface::SetDasherFont(string Name)
 {
 	if (m_SettingsStore!=0)

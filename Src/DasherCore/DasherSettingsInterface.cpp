@@ -49,6 +49,8 @@ namespace Keys {
         const std::string DASHER_DIMENSIONS = "NumberDimensions";
         const std::string DASHER_EYETRACKER = "EyetrackerMode";
         const std::string UNIFORM = "UniformTimes1000";
+	const std::string YSCALE = "YScaling";
+	const std::string MOUSEPOSDIST = "MousePositionBoxDistance";
 
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";
@@ -149,6 +151,12 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetLongDefault(UNIFORM, 50 );
 	this->SetUniform(Store->GetLongOption(UNIFORM));
+
+	Store->SetLongDefault(YSCALE, 0 );
+	this->SetYScale(Store->GetLongOption(YSCALE));
+
+	Store->SetLongDefault(MOUSEPOSDIST, 50);
+	this->SetMousePosDist(Store->GetLongOption(MOUSEPOSDIST));
 
 	Store->SetBoolDefault(MOUSEPOS_START, false);
 	this->MouseposStart(Store->GetBoolOption(MOUSEPOS_START));

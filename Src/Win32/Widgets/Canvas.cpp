@@ -54,7 +54,6 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	for (int i=0; i<18; i++) {
 		keycoords[i]=0;
 	}
-	yscaling=0;
 	running = 0;
 	previoustime=GetTickCount();
 }
@@ -230,7 +229,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 					m_pScreen->DrawMousePosBox(0);
 					firstwindow=true;
 				}
-				if (mousepos.y>0 && mousepos.y<100 && firstwindow==true) {
+				if (mousepos.y>m_pScreen->GetHeight()/2-mouseposdist-50 && mousepos.y<m_pScreen->GetHeight()/2-mouseposdist+50 && firstwindow==true) {
 					// Mouse is in the top box
 					if (mousepostime==0) {
 						mousepostime=GetTickCount();
@@ -245,7 +244,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 					mousepostime=0;
 				}
 				if (secondwindow==true) {
-					if (mousepos.y< m_pScreen->GetHeight() && mousepos.y>(m_pScreen->GetHeight()-100)) {
+					if (mousepos.y< m_pScreen->GetHeight()/2+mouseposdist+50 && mousepos.y>(m_pScreen->GetHeight()/2+mouseposdist-50)) {
 						// In second window
 						if (mousepostime==0) {
 							mousepostime=GetTickCount();
@@ -278,29 +277,27 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			}
 			if ((GetTickCount()-previoustime)>200) {
 				m_DasherWidgetInterface->DrawMousePos(imousex,imousey);
+				if (firstwindow==true) {
+					m_pScreen->DrawMousePosBox(0);
+				} else if (secondwindow==true) {
+					m_pScreen->DrawMousePosBox(1);
+				}
 				previoustime=GetTickCount();
 			}
 
 			return 0;
 		}
 		if (windowpause==true) {
-
 			RECT windowrect;
 
 			GetWindowRect(m_hwnd, &windowrect);
-
 			if (mousepos.y>windowrect.bottom || mousepos.y<windowrect.top || mousepos.x >windowrect.right || mousepos.x < windowrect.left)
-
 				return 0;
-
 		}
 
 		ScreenToClient(Window,&mousepos);			
-
 		imousey=mousepos.y;
-
 		imousex=mousepos.x;
-
 	
 		if (oned==true) {
 			float scalefactor;

@@ -91,6 +91,8 @@ public:
 	bool GetDasherEyetracker() {return eyetracker;}
 	void PaletteChange(bool Value);
 	bool GetPaletteChange() {return palettechange;}
+	void SetYScale(int Value);
+	void SetMousePosDist(int Value);
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);

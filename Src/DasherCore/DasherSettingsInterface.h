@@ -135,6 +135,13 @@ public:
 
 	//! How uniform (ie, non-predictive) should the language model be?
 	virtual void SetUniform(int Value) {};
+
+	//! How should the Y axis input be scaled?
+	virtual void SetYScale(int Value) {};
+
+	//! How far from the centre line should mouse start position boxes be?
+	virtual void SetMousePosDist(int Value) {};
+
 };
 
 
@@ -181,6 +188,8 @@ namespace Keys
 	extern const std::string DASHER_DIMENSIONS;
 	extern const std::string DASHER_EYETRACKER;
 	extern const std::string UNIFORM;
+	extern const std::string YSCALE;
+	extern const std::string MOUSEPOSDIST;
 
 	// string options
 	extern const std::string ALPHABET_ID;

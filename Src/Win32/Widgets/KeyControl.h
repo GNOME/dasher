@@ -14,12 +14,13 @@
 #include "../WinWrap.h"
 #include "../resource.h"
 #include "../../DasherCore/DasherTypes.h"
+#include "../../DasherCore/DasherSettingsInterface.h"
 #include "Canvas.h"
 
 class CKeyBox : public CWinWrap
 {
 public:
-	CKeyBox(HWND Parent, CCanvas* m_pCanvas);
+	CKeyBox(HWND Parent, CCanvas* m_pCanvas, Dasher::CDasherSettingsInterface *Interface);
 	void PopulateWidgets();
 	std::string GetControlText(HWND Dialog, int ControlID);
 protected:
@@ -30,10 +31,13 @@ private:
 	CCanvas* m_pCanvas;
 	int keycoords[18];
 	int ypixels;
+	int mouseposdist;
 
 	// Some status flags:
 	bool Editing;
 	bool SelectionSet;
+
+	Dasher::CDasherSettingsInterface* m_pSettingsInterface;
 };
 
 
