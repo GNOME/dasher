@@ -43,7 +43,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		else if (disty <-1500) {
 			dashery=3548+(3548-dashery);
 			disty=2798-dashery;
-			if(disty<-750) {
+			if(disty>750) {
 				x=2048;
 				dashery=2048;
 			} else {
