@@ -506,11 +506,13 @@ void CDasherInterface::TrainFile(string Filename)
 		NumberRead = fread(InputBuffer, 1, BufferSize-1, InputFile);
 		InputBuffer[NumberRead] = '\0';
 		StringBuffer += InputBuffer;
-		m_LanguageModel->LearnText(TrainContext, &StringBuffer, true);
+		if (NumberRead == (BufferSize-1)) {
+		  m_LanguageModel->LearnText(TrainContext, &StringBuffer, true);
+		} else {
+		  m_LanguageModel->LearnText(TrainContext, &StringBuffer, false);
+		}
 	} while (NumberRead==BufferSize-1);
-	
-	m_LanguageModel->LearnText(TrainContext, &StringBuffer, false);
-	
+
 	fclose(InputFile);
 }
 

@@ -140,7 +140,9 @@ void CDasherModel::Start()
 		m_editbox->set_flushed(0);
 		string ContextString;
 		m_editbox->get_new_context(ContextString,5);
-		m_languagemodel->EnterText(therootcontext, ContextString);
+		if (ContextString.size() != 0) {
+		  m_languagemodel->EnterText(therootcontext, ContextString);
+		}
 		m_languagemodel->ReleaseNodeContext(LearnContext);
 		LearnContext = m_languagemodel->CloneNodeContext(therootcontext);
 	}
