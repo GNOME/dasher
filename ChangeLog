@@ -1,3 +1,7 @@
+2004-07-07  Gil Osher  <dolfin@rpg.org.il>
+
+	* configure.in: Added 'he' (Hebrew) to ALL_LINGUAS.
+
 2004-06-28  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix the configure script so that it doesn't drop out unnecessarily
