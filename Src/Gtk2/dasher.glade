@@ -1717,7 +1717,6 @@ your writing speed.</property>
 
 		  <child>
 		    <widget class="GtkButton" id="button13">
-		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Edit Button-control options</property>
 		      <property name="use_underline">True</property>
