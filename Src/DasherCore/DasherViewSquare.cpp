@@ -15,6 +15,8 @@
 #include "DasherModel.h"
 #include "DasherViewSquare.h"
 
+#include <iostream>
+
 using namespace Dasher;
 
 // ARG! MSVC++ V6 doesn't seem to come with min and max in <algorithm>
@@ -199,6 +201,34 @@ void CDasherViewSquare::GoTo(int mousex,int mousey)
 	DasherModel().GoTo(mousex,mousey);
 	CheckForNewRoot();
 }
+
+void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
+{
+  // Draw a box surrounding the area of the screen that will be zoomed into
+  UnMapScreen(&mousex, &mousey);
+  screen2dasher(&mousex,&mousey);
+  // So, we have a set of coordinates. We need a bunch of points back.
+  CDasherScreen::point line1, line2, line3, line4;
+  myint height=DasherModel().PlotGoTo(mousex, mousey);
+  myint top, bottom, left, right;
+
+  // Convert back to screen coordinates?
+  top=mousey-height/2;
+  bottom=mousey+height/2;
+  left=mousex+height/2;
+  right=mousex-height/2;
+  top=dashery2screen(top);
+  bottom=dashery2screen(bottom);
+  left=dasherx2screen(left);
+  right=dasherx2screen(right);
+  
+  // Draw the lines
+  Screen().DrawRectangle(left, top+5, right, top-5, 0, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left+5, top+5, left, bottom-5, 0, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left, bottom+5, right, bottom-5, 0, Opts::ColorSchemes(Objects));
+  std::cout << top << " " << bottom << " " << left << " " << right << std::endl;
+}
+  
 
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {

@@ -164,6 +164,14 @@ void CDasherInterface::GoTo(int MouseX, int MouseY)
 	}
 }
 
+void CDasherInterface::DrawGoTo(int MouseX, int MouseY)
+{
+	if (m_DasherView!=0) {
+		m_DasherView->DrawGoTo(MouseX, MouseY);
+		m_DasherView->Display();
+	}
+}
+
 void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 {
 	if (m_SettingsUI!=0)

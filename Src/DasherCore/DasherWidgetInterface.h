@@ -42,6 +42,14 @@ public:
 	//! \param MouseY The mouse Y coordinate, in screen coordinates
 	virtual void GoTo(int MouseX, int MouseY)=0;
 
+	//! Show the area that would be zoomed in on with these coordinates
+	//
+	//! Draw the area that would be zoomed in on if a GoTo was executed
+	//! on this location
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	virtual void DrawGoTo(int MouseX, int MouseY)=0;
+
 	//! Signal an input event and pause the simulation
 	virtual void PauseAt(int MouseX, int MouseY)=0;
 	

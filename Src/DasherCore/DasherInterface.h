@@ -66,6 +66,7 @@ public:
 	void Redraw();                                          // correct speed.
 
 	void GoTo(int MouseX, int MouseY);
+	void DrawGoTo(int MouseX, int MouseY);
 	
 	void ChangeScreen(); // The widgets need to tell the engine when they have been
 	void ChangeEdit();   // affected by external interaction

@@ -85,11 +85,12 @@ inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 
 inline const int CDasherViewSquare::dashery2screen(myint y)
 {
-	if (y > m_Y2 )
-		y= m_Y2 +  (y-m_Y2)/m_Y1;
-	else if (y<m_Y3)
-		y= m_Y3+   (y-m_Y3 )/m_Y1;
-
+	if (KeyControl==false) {
+		if (y > m_Y2 )
+			y= m_Y2 +  (y-m_Y2)/m_Y1;
+		else if (y<m_Y3)
+			y= m_Y3+   (y-m_Y3 )/m_Y1;
+	} 
 	y*=CanvasY;
 	y/=DasherModel().DasherY();
 	return int(y);
@@ -140,12 +141,21 @@ inline double CDasherViewSquare::ixmap(double x)
 inline double CDasherViewSquare::xmap(double x)
 // x non-linearity
 {
-	if (x<m_dXmpb)
-		return m_dXmpc*x;
-	else
-		return m_dXmpc*(m_dXmpa*log((x+m_dXmpa-m_dXmpb)/m_dXmpa) +m_dXmpb);
+	if (KeyControl==false) {
+		if (x<m_dXmpb)
+			return m_dXmpc*x;
+		else
+			return m_dXmpc*(m_dXmpa*log((x+m_dXmpa-m_dXmpb)/m_dXmpa) +m_dXmpb);
+	} else {
+		return x;
+	}
 }
 
-
-
 } // namespace Dasher
+
+
+
+
+
+
+

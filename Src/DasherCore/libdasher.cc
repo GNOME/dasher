@@ -509,6 +509,11 @@ void dasher_go_to( int x, int y )
   interface->GoTo( x, y );
 }
 
+void dasher_draw_go_to( int x, int y )
+{
+  interface->DrawGoTo( x, y );
+}
+
 void dasher_unpause( unsigned long int time )
 {
   interface->Unpause( time );

@@ -50,6 +50,7 @@ public:
 		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 	}
 
+	virtual void DrawGoTo(int mousex, int mousey)=0;
 	virtual void DrawMouse(int mousex, int mousey)=0;
 	virtual void DrawKeyboard()=0;
 

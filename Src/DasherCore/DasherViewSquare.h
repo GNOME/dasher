@@ -32,6 +32,7 @@ public:
 	void GoTo(int mousex,int mousey);
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
+	void CDasherViewSquare::DrawGoTo(int mousex, int mousey);
 	void DrawMouse(int mousex, int mousey);
 	void DrawKeyboard();
 private:

@@ -12,6 +12,7 @@
 #include "../Common/MSVC_Unannoy.h"
 #include "DashEdit.h"
 #include "DasherNode.h"
+#include "DasherScreen.h"
 #include "LanguageModel.h"
 #include "../Common/NoClones.h"
 #include <math.h>
@@ -66,6 +67,8 @@ public:
 	CAlphabet* m_alphabet;             // pointer to the alphabet
 	
 	CAlphabet* GetAlphabet() { return m_alphabet; }
+
+	myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY);
 
 private:
 

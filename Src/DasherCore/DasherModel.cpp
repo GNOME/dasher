@@ -8,6 +8,8 @@
 
 #include "DasherModel.h"
 
+#include <iostream>
+
 using namespace Dasher;
 using namespace std;
 
@@ -230,6 +232,21 @@ void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
   m_Rootmin+=up;
 }
 
+myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY)
+{
+  std::cout << MouseX << " " << MouseY << std::endl;
+
+  // First, we need to work out how far we need to zoom in
+  float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+  zoomfactor=pow(float(0.5),zoomfactor);
+
+  myint height=m_DasherY*zoomfactor/2;
+  std::cout << "Height is " << height << std::endl;
+  std::cout << "Zoomfactor is " << zoomfactor << std::endl;
+
+  return height;
+}
+  
 
 /////////////////////////////////////////////////////////////////////////////
 
