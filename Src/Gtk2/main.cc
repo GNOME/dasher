@@ -51,6 +51,10 @@ static void timestamp_files(gpointer data, guint action, GtkWidget *widget );
 static void file_encoding(gpointer data, guint action, GtkWidget *widget );
 static void DrawMouse(gpointer data, guint action, GtkWidget *widget );
 static void select_open_file(gpointer data, guint action, GtkWidget *widget);
+static void select_new_file(gpointer data, guint action, GtkWidget *widget);
+static void select_save_file_as();
+static void select_append_file();
+static void save_file();
 
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
@@ -59,11 +63,11 @@ typedef struct {
 
 static GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
-  { "/File/_New",     "<CTRL>N", NULL,     0, "<Item>" },
+  { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<Item>" },
   { "/File/_Open...", "<CTRL>O", *GtkItemFactoryCallback(select_open_file),    1, "<Item>" },
-  { "/File/Save",     NULL, NULL, 0, "<Item>" },
-  { "/File/Save As...", NULL, NULL, 0, "<Item>" },
-  { "/File/Append to File...", NULL, NULL, 0, "<Item>" },
+  { "/File/Save",     NULL, save_file, 0, "<Item>" },
+  { "/File/Save As...", NULL, select_save_file_as, 0, "<Item>" },
+  { "/File/Append to File...", NULL, select_append_file, 0, "<Item>" },
   { "/File/sep1",     NULL,      NULL,         0, "<Separator>" },
   { "/File/Import Training Text...", NULL, NULL, 0, "<Item>" },
   { "/File/sepl", NULL, NULL, 0, "<Separator>" },
@@ -258,29 +262,6 @@ toolbar_new(GtkWidget *widget, gpointer data)
   return;
 }
 
-static void
-save_file_as (GtkFileSelection *selector, gpointer data)
-{
-  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-  guint text_length;
-  FILE *fp;
-  gchar *buffer;
-  
-  //  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (file_selector));
-  
-  text_length = gtk_text_get_length (GTK_TEXT (dasher_text_view->text_view));
-  buffer = (gchar *) g_malloc (text_length);
-  buffer = gtk_editable_get_chars (GTK_EDITABLE (dasher_text_view->text_view), 0, text_length);
-  
-  fwrite (buffer, 1, text_length, fp);
-  fclose (fp);
-  g_free (buffer);
-  
-  file_modified = FALSE;
-  
-  gtk_widget_destroy (file_selector);
-}
-
 static void 
 open_file (const char *filename)
 {
@@ -341,33 +322,125 @@ select_open_file(gpointer data, guint action, GtkWidget *widget)
 }
 
 static void
-select_save_file_as (Gtk2DasherEdit *dasher_text_view)
+new_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
-  gchar *suggested_filename;
-  guint text_length;
-  
-  text_length = gtk_text_get_length (GTK_TEXT (dasher_text_view->text_view));
-  if (text_length > 10)
-    text_length = 10;
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
-  suggested_filename = (gchar *) g_malloc (text_length);
-  suggested_filename = gtk_editable_get_chars (GTK_EDITABLE (dasher_text_view->text_view), 0, text_length);
+  gtk_widget_destroy (GTK_WIDGET(selector));
+}
 
-  file_selector = gtk_file_selection_new ("Save As ..");
-  
-  gtk_signal_connect (GTK_OBJECT (file_selector), "completed", GTK_SIGNAL_FUNC (save_file_as), (gpointer) dasher_text_view);
 
-  gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->cancel_button), "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy), GTK_OBJECT (file_selector));
+static void
+select_new_file(gpointer data, guint action, GtkWidget *widget)
+{
 
-  //  gtk_entry_set_text (GTK_ENTRY (GTK_FILE_SELECTION (file_selector)->entry), suggested_filename);
+  GtkWidget *filew;
+
+  filew = gtk_file_selection_new ("File selection");
+
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
+		    "clicked", G_CALLBACK (new_file_from_filesel), (gpointer) filew);
+    
+  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
+			    "clicked", G_CALLBACK (gtk_widget_destroy),
+			    G_OBJECT (filew));
+  gtk_widget_show (filew);
+}
+
+static void 
+save_file_as (const char *filename, bool append)
+{
+  FILE *fp;
+  gint length;
+  gchar *buffer;
+
+  GtkTextIter *start, *end;
+
+  start = new GtkTextIter;
+  end = new GtkTextIter;
+
+  if (append == true) {
+    fp = fopen (filename, "a");
+  } else {
+    fp = fopen (filename, "w");
+  }
+
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(dasher_text_view->text_buffer),start,0);
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(dasher_text_view->text_buffer),end,-1);
+
+  length = gtk_text_iter_get_offset(end);
+
+  buffer = gtk_text_iter_get_slice (start,end);
+
+  fwrite(buffer,1,length,fp);
+  fclose (fp);
+
+  file_modified = 0;
   
-  gtk_widget_show (file_selector);
-  
-  g_free (suggested_filename);
-  while (GTK_IS_WIDGET(file_selector)) {
-    while (gtk_events_pending()) {
-      gtk_main_iteration_do(FALSE);
-    }
+}
+
+static void
+save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+
+  save_file_as(filename,FALSE);
+
+  gtk_widget_destroy (GTK_WIDGET(selector));
+}
+
+static void
+append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+
+  save_file_as(filename,TRUE);
+
+  gtk_widget_destroy (GTK_WIDGET(selector));
+}
+
+static void
+select_save_file_as()
+{
+
+  GtkWidget *filew;
+
+  filew = gtk_file_selection_new ("File selection");
+
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
+		    "clicked", G_CALLBACK (save_file_from_filesel), (gpointer) filew);
+    
+  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
+			    "clicked", G_CALLBACK (gtk_widget_destroy),
+			    G_OBJECT (filew));
+  gtk_widget_show (filew);
+}
+
+static void
+select_append_file()
+{
+
+  GtkWidget *filew;
+
+  filew = gtk_file_selection_new ("File selection");
+
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
+		    "clicked", G_CALLBACK (append_file_from_filesel), (gpointer) filew);
+    
+  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
+			    "clicked", G_CALLBACK (gtk_widget_destroy),
+			    G_OBJECT (filew));
+  gtk_widget_show (filew);
+}
+
+static void
+save_file ()
+{
+  if (filename != NULL) {
+    save_file_as(filename,FALSE);
+  }
+  else {
+    select_save_file_as();
   }
 }
 
@@ -379,9 +452,9 @@ toolbar_save(GtkWidget *widget, gpointer data)
   FILE *fp;
   gchar *buffer;
 
-  if (filename == NULL) {
-    select_save_file_as (dasher_text_view);
-  }
+    if (filename == NULL) {
+  //    select_save_file_as (dasher_text_view);
+    }
   else {
     if ((fp = fopen(filename, "w")) == NULL) {
       //      gpe_perror_box (filename);
