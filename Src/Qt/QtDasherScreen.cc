@@ -158,7 +158,7 @@ void QtDasherScreen::timer()
     //FIXME - I've hard-coded this to take the height of the title bar into 
     //account
 
-    interface->TapOn(cursorpos.x(), cursorpos.y()-30, get_time());
+    interface->TapOn(cursorpos.x(), cursorpos.y()-15, get_time());
   }
 }
 

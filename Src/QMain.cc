@@ -8,10 +8,10 @@ int main (int argc, char **argv)
 {
   QPEApplication app (argc, argv);
 
-  QtDasherScreen *dasher = new QtDasherScreen (240, 320, 
+  QtDasherScreen *dasher = new QtDasherScreen (240, 310, 
 					       new CDasherInterface, 0);
   app.setMainWidget (dasher);
-  dasher->show();
+  dasher->showMaximized();
 
   return app.exec();
 }
