@@ -28,6 +28,9 @@ class Dasher::CLanguageModel
 public:
 	CLanguageModel(CAlphabet* Alphabet, int Normalization);
 
+	virtual ~CLanguageModel() {}
+
+
 	// Interface for the Dasher code
 	// --------------------------------------------------------------------------
 	class CNodeContext {
