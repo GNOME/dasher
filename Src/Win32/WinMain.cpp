@@ -8,7 +8,7 @@
 
 
 #include "WinHelper.h"
-#include "MainWindow.h"
+#include "DasherWindow.h"
 #include "Widgets/WinOptions.h"
 #include "WinUTF8.h"
 
