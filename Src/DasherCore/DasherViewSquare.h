@@ -29,6 +29,7 @@ class Dasher::CDasherViewSquare : public Dasher::CDasherView
 public:
 	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
 	void TapOnDisplay(int mousex,int mousey, unsigned long Time);
+	void GoTo(int mousex,int mousey);
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
 	void DrawMouse(int mousex, int mousey);

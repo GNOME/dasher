@@ -188,6 +188,17 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 	CheckForNewRoot();
 }
 
+// move to the specified point
+void CDasherViewSquare::GoTo(int mousex,int mousey) 
+{
+	// convert mouse (screen) coords into dasher coords
+	
+	UnMapScreen(&mousex, &mousey);
+	screen2dasher(&mousex,&mousey);
+	DasherModel().GoTo(mousex,mousey);
+	CheckForNewRoot();
+}
+
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {
 	screen2dasher(&mousex,&mousey);

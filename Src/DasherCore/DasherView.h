@@ -38,6 +38,9 @@ public:
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.TapOnDisplay
 	virtual void TapOnDisplay(int mousex, int mousey, unsigned long Time)=0;
+	// translates the screen coordinates to Dasher coordinates and calls
+	// dashermodel.GoTo
+	virtual void GoTo(int mousex, int mousey)=0;
 	
 	virtual void ChangeScreen(CDasherScreen* NewScreen)
 	{

@@ -34,6 +34,14 @@ public:
 	//! at the correct speed
 	virtual void TapOn(int MouseX, int MouseY, unsigned long Time)=0;
 	
+	//! Signal a location that should be jumped to
+	//
+	//! Signal a location that should be jumped to. Mostly useful for
+	//! button or keyboard input.
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	virtual void GoTo(int MouseX, int MouseY)=0;
+
 	//! Signal an input event and pause the simulation
 	virtual void PauseAt(int MouseX, int MouseY)=0;
 	

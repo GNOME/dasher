@@ -57,6 +57,7 @@ public:
        void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
 	
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
+	void GoTo(myint,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node
 	void Reparent_root(int lower, int upper);                                 // change back to the previous root

@@ -502,6 +502,11 @@ void dasher_tap_on( int x, int y, unsigned long int time )
   interface->TapOn( x, y, time );
 }
 
+void dasher_go_to( int x, int y )
+{
+  interface->GoTo( x, y );
+}
+
 void dasher_unpause( unsigned long int time )
 {
   interface->Unpause( time );

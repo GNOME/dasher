@@ -304,6 +304,41 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	}
 }
 
+void CDasherModel::GoTo(myint miMousex,myint miMousey) 
+	// work out the next viewpoint, opens some new nodes
+{
+        // Find out the current node under the crosshair
+        CDasherNode *old_under_cross=Get_node_under_crosshair();	
+	
+	// works out next viewpoint
+	Get_new_root_coords(miMousex,miMousey);
+
+	// push node under mouse
+	CDasherNode *under_mouse=Get_node_under_mouse(miMousex,miMousey);
+	under_mouse->Push_Node();
+
+	Update(m_Root,under_mouse,0);
+
+	CDasherNode* new_under_cross = Get_node_under_crosshair();
+
+	if (new_under_cross!=old_under_cross) {
+	  DeleteCharacters(new_under_cross,old_under_cross);
+	}
+
+	if (new_under_cross->isSeen()==true)
+	  return;
+
+	new_under_cross->Seen(true);
+
+	symbol t=new_under_cross->Symbol();
+
+	if (new_under_cross->Control()==true) {
+	  m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data);
+	} else {
+	  OutputCharacters(new_under_cross);
+	}
+}
+
 void CDasherModel::OutputCharacters(CDasherNode *node) {
   if (node->Parent()!=NULL && node->Parent()->isSeen()!=true) {
     node->Parent()->Seen(true);
