@@ -21,8 +21,8 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	SetTrainingFile(AlphInfo.TrainingFile);
 	
 	// Add all the characters.
-	for (int i=0; i<AlphInfo.Groups.size(); i++) { // loop groups
-		for (int j=0; j<AlphInfo.Groups[i].Characters.size(); j++) { // loop characters
+	for (unsigned int i=0; i<AlphInfo.Groups.size(); i++) { // loop groups
+		for (unsigned int j=0; j<AlphInfo.Groups[i].Characters.size(); j++) { // loop characters
 			AddChar(AlphInfo.Groups[i].Characters[j].Text, AlphInfo.Groups[i].Characters[j].Display);
 		}
 		StartNewGroup();
