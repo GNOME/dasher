@@ -18,7 +18,7 @@
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <getopt.h>
+//#include <getopt.h>
 
 #include "libdasher.h"
 #include "dasher.h"

@@ -1,6 +1,6 @@
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = intl  Src Data Doc intl po
+SUBDIRS = intl  Src Data Doc po
 DISTFILES = ABOUT-NLS
 
 

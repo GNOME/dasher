@@ -24,14 +24,14 @@ datadir = ${prefix}/share
 localedir = $(datadir)/locale
 gettextsrcdir = $(datadir)/gettext/po
 
-INSTALL = /usr/bin/install -c
+INSTALL = /usr/local/bin/install -c
 INSTALL_DATA = ${INSTALL} -m 644
 MKINSTALLDIRS = ./mkinstalldirs
 mkinstalldirs = $(SHELL) $(MKINSTALLDIRS)
 
-GMSGFMT = /usr/bin/msgfmt
-MSGFMT = /usr/bin/msgfmt
-XGETTEXT = /usr/bin/xgettext
+GMSGFMT = :
+MSGFMT = :
+XGETTEXT = :
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
 MSGINIT = msginit
@@ -344,7 +344,7 @@ $(DUMMYPOFILES):
 update-gmo: Makefile $(GMOFILES)
 	@:
 
-Makefile: Makefile.in.in $(top_builddir)/config.status @POMAKEFILEDEPS@
+Makefile: Makefile.in.in $(top_builddir)/config.status
 	cd $(top_builddir) \
 	  && CONFIG_FILES=$(subdir)/$@.in CONFIG_HEADERS= \
 	       $(SHELL) ./config.status

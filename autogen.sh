@@ -2,7 +2,7 @@
 
 libtoolize
 intltoolize
-aclocal
+aclocal -I m4
 autoconf
 automake
 ./configure $@
