@@ -1,1 +1,1 @@
-pkgdata_DATA = alphabet.dtd alphabet.xml alphabet.xsl source.txt 
+pkgdata_DATA = alphabet.dtd alphabet.xml alphabet.xsl training_english_GB.txt 

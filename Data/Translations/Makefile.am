@@ -1,1 +1,2 @@
-pkgdata_DATA = source_de.txt source_fr.txt source_pt_br.txt 
+pkgdata_DATA = training_french_FR.txt training_portugese_BR.txt training_dutch_NL.txt training_german_DE.txt
+
