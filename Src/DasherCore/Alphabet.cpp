@@ -16,7 +16,7 @@ using namespace Dasher;
 using namespace std;
 
 
-CAlphabet::CAlphabet() : m_Groups(0), m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight)
+CAlphabet::CAlphabet() : m_Groups(0), m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1)
 {
 	m_Characters.push_back("");
 	m_Display.push_back("");
