@@ -13,6 +13,7 @@
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
+#include "Widgets/Prefs.h"
 #include "WinLocalisation.h"
 #include "WinUTF8.h"
 using namespace Dasher;
@@ -250,49 +251,84 @@ void CDasherWindow::FixLayout(bool Value)
 
 void CDasherWindow::TimeStampNewFiles(bool Value)
 {
-	WinMenu.SetStatus(ID_TIMESTAMP, false, Value);
+	timestampnewfiles=Value;
 }
 
 void CDasherWindow::DrawMouse(bool Value)
 {
-	WinMenu.SetStatus(ID_OPTIONS_DRAWMOUSE, false, Value);
+	drawmouse=Value;
 }
 
 void CDasherWindow::SetDasherDimensions(bool Value)
 {
-	WinMenu.SetStatus(ID_OPTIONS_1D, false, Value);
+	oned=Value;
 }
 
 void CDasherWindow::StartOnLeft(bool Value)
 {
+	startonleft=Value;
 	m_pCanvas->StartOnLeftClick(Value);
-	WinMenu.SetStatus(ID_OPTIONS_LEFTMOUSE, false, Value);
 }
 
 void CDasherWindow::StartOnSpace(bool Value)
 {
+	startonspace=Value;
 	m_pCanvas->StartOnSpace(Value);
-	WinMenu.SetStatus(ID_OPTIONS_SPACE, false, Value);
 }
 
 void CDasherWindow::WindowPause(bool Value)
 {
+	windowpause=Value;
 	m_pCanvas->WindowPause(Value);
-	WinMenu.SetStatus(ID_OPTIONS_WINDOWPAUSE, false, Value);
 }
 
 void CDasherWindow::KeyControl(bool Value)
 {
+	keycontrol=Value;
 	m_pCanvas->KeyControl(Value);
-	WinMenu.SetStatus(ID_OPTIONS_KEYCONTROL, false, Value);
 }
 
 void CDasherWindow::CopyAllOnStop(bool Value)
 {
-	// TODO either add something here or in interface to actually do something
-	WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, Value);
+	copyallonstop=Value;
 }
 
+void CDasherWindow::Speech(bool Value)
+{
+	speech=Value;
+}
+
+void CDasherWindow::OutlineBoxes(bool Value)
+{
+	outlines=Value;
+}
+
+void CDasherWindow::MouseposStart(bool Value)
+{
+	mouseposstart=Value;
+	m_pCanvas->MousePosStart(Value);
+}
+
+void CDasherWindow::KeyboardMode(bool Value)
+{
+	keyboardmode=Value;
+}
+
+void CDasherWindow::ControlMode(bool Value)
+{
+	controlmode=Value;
+	WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, Value);
+}
+
+void CDasherWindow::SetDasherEyetracker(bool Value)
+{
+	eyetracker=Value;
+}
+
+void CDasherWindow::ColourMode(bool Value)
+{
+	// Do nothing - colour mode is fixed
+}
 
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -321,29 +357,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			// Parse the menu selections:
 			switch (wmId)
 			{
-			case ID_OPTIONS_LEFTMOUSE:
-				DasherSettingsInterface->StartOnLeft(!WinMenu.GetCheck(ID_OPTIONS_LEFTMOUSE));
-			break;
-			case ID_OPTIONS_SPACE:
-				DasherSettingsInterface->StartOnSpace(!WinMenu.GetCheck(ID_OPTIONS_SPACE));
-			break;
-			case ID_OPTIONS_WINDOWPAUSE:
-				DasherSettingsInterface->WindowPause(!WinMenu.GetCheck(ID_OPTIONS_WINDOWPAUSE));
-			break;
-			case ID_OPTIONS_KEYCONTROL:
-				DasherSettingsInterface->KeyControl(!WinMenu.GetCheck(ID_OPTIONS_KEYCONTROL));
-			break;
-
 			case ID_OPTIONS_ENTERTEXT:
 				{ CWinSel WinSel(m_hwnd,m_pEdit); }
 			break;
-			
-			case ID_OPTIONS_1D:
-				DasherSettingsInterface->SetDasherDimensions(!WinMenu.GetCheck(ID_OPTIONS_1D));
-			break;
-			case ID_OPTIONS_DRAWMOUSE:
-				DasherSettingsInterface->DrawMouse(!WinMenu.GetCheck(ID_OPTIONS_DRAWMOUSE));
-				break;		
+			case ID_OPTIONS_CONTROLMODE:
+				DasherSettingsInterface->ControlMode(!WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+				break;
 			case ID_OPTIONS_FONTSIZE_NORMAL: {
 			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
@@ -409,6 +428,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				break;
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
+				break;
+			case ID_OPTIONS_PREFS:
+				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
 				break;
 			case ID_HELP_CONTENTS:
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);

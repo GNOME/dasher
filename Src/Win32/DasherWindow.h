@@ -57,13 +57,35 @@ public:
 	void ShowSpeedSlider(bool Value);
 	void FixLayout(bool Value);
 	void TimeStampNewFiles(bool Value);
+	bool GetTimeStamp() {return timestampnewfiles;}
 	void CopyAllOnStop(bool Value);
+	bool GetCopyAll() {return copyallonstop;}
 	void DrawMouse(bool Value);
+	bool GetDrawMouse() {return drawmouse;}
 	void SetDasherDimensions(bool Value);
+	bool GetDasherDimensions() {return oned;}
 	void StartOnLeft(bool Value);
+	bool GetStartOnLeft() {return startonleft;}
 	void StartOnSpace(bool Value);
+	bool GetStartOnSpace() {return startonspace;}
 	void KeyControl(bool Value);
+	bool GetKeyControl() {return keycontrol;}
 	void WindowPause(bool Value);
+	bool GetWindowPause() {return windowpause;}
+	void ControlMode(bool Value);
+	bool GetControlMode() {return controlmode;}
+	void ColourMode(bool Value);
+	bool GetColourMode() {return colourmode;}
+	void KeyboardMode(bool Value);
+	bool GetKeyboardMode() {return keyboardmode;}
+	void MouseposStart(bool Value);
+	bool GetMouseposStart() {return mouseposstart;}
+	void Speech(bool Value);
+	bool GetSpeech() {return speech;}
+	void OutlineBoxes(bool Value);
+	bool GetOutlines() {return outlines;}
+	void SetDasherEyetracker(bool Value);
+	bool GetDasherEyetracker() {return eyetracker;}
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -89,6 +111,20 @@ private:
 	CSplash* Splash;
 	bool startonspace;
 	bool startonleft;
+	bool timestampnewfiles;
+	bool drawmouse;
+	bool oned;
+	bool windowpause;
+	bool keycontrol;
+	bool copyallonstop;
+	bool eyetracker;
+	bool outlines;
+	bool mousepos;
+	bool controlmode;
+	bool colourmode;
+	bool keyboardmode;
+	bool mouseposstart;
+	bool speech;
 
 	// Misc window handling
 	void SetMenuCheck(UINT MenuItem, bool Value);

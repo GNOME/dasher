@@ -160,3 +160,28 @@ void CScreen::Free_Colours ()
 		m_Brushes.pop_back();
 	}
 }
+
+void CScreen::DrawMousePosBox(int which)
+{
+//	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+	RECT Rect;
+	HBRUSH brush;
+	switch (which) {
+		case 0:
+			Rect.left=0;
+			Rect.top=0;
+			Rect.right=m_iWidth;
+			Rect.bottom=100;
+			brush=CreateSolidBrush(RGB(255,0,0));
+			break;
+		case 1:
+			Rect.left=0;
+			Rect.bottom=m_iHeight;
+			Rect.right=m_iWidth;
+			Rect.top=m_iHeight-100;
+			brush=CreateSolidBrush(RGB(255,255,0));
+			break;
+	}
+	FillRect(m_hDCBuffer, &Rect, brush);
+	Display();
+}

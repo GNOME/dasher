@@ -34,6 +34,7 @@ public:
 	void StartOnSpace(bool Value) {startonspace = Value;}
 	void KeyControl(bool Value) {keycontrol = Value;}
 	void WindowPause(bool Value) {windowpause = Value;}
+	void MousePosStart(bool Value);
 	void setkeycoords(int coords[18]) {for (int i=0; i<18; i++) {keycoords[i]=coords[i];};}
 	int* getkeycoords() {return keycoords;}
 	void setyscale(int y) {yscaling=y;}
@@ -65,6 +66,10 @@ private:
 	bool startonspace;
 	bool keycontrol;
 	bool windowpause;
+	bool mouseposstart;
+	bool firstwindow;
+	bool secondwindow;
+	DWORD mousepostime;
 	RECT coords;
 	ThreadParams *tp;
 };

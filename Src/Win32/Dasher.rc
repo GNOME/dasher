@@ -165,8 +165,8 @@ BEGIN
     END
     POPUP "&Options"
     BEGIN
-        MENUITEM "&Timestamp new files",        ID_TIMESTAMP
-        MENUITEM "Copy all on &Stop",           ID_COPY_ALL_ON_STOP
+        MENUITEM "Edit General Options...",     ID_OPTIONS_PREFS
+        MENUITEM "Edit Control Options...",     32814
         MENUITEM SEPARATOR
         MENUITEM "&Alphabet...",                ID_OPTIONS_ALPHABET
         POPUP "File &Encoding"
@@ -196,15 +196,8 @@ BEGIN
         MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
         MENUITEM SEPARATOR
-        MENUITEM "One dimensional",             ID_OPTIONS_1D
-        MENUITEM "Draw mouse position",         ID_OPTIONS_DRAWMOUSE
-        MENUITEM "Mouse button starts/stops",   ID_OPTIONS_LEFTMOUSE
-        MENUITEM "Space bar starts/stops",      ID_OPTIONS_SPACE
-        MENUITEM "Keyboard Control",            ID_OPTIONS_KEYCONTROL
-        MENUITEM "Pause outside Window",        ID_OPTIONS_WINDOWPAUSE
-        MENUITEM SEPARATOR
         MENUITEM "Enter Text into Other Window...", ID_OPTIONS_ENTERTEXT
-        MENUITEM "Edit Control Options...",     32814
+        MENUITEM "Control Mode",                ID_OPTIONS_CONTROLMODE
     END
     POPUP "&Help"
     BEGIN
@@ -442,6 +435,43 @@ BEGIN
                     IDC_STATIC,7,7,113,28
 END
 
+IDD_PREFS DIALOGEX 0, 0, 256, 137
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dasher Preferences"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,132,114,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,192,114,50,14
+    GROUPBOX        "Control",IDC_STATIC,6,6,114,54
+    CONTROL         "One dimensional mode",IDC_1D,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,12,18,84,6
+    CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,12,30,78,6
+    CONTROL         "Button mode",IDC_BUTTON,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,12,42,54,6
+    GROUPBOX        "Start and stop",IDC_CONTROL,138,6,102,72
+    CONTROL         "On left mouse button",IDC_LEFT,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,144,18,78,6
+    CONTROL         "On space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,144,30,66,6
+    CONTROL         "Outside the window",IDC_WINDOWPAUSE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,144,42,78,6
+    CONTROL         "On mouse position",IDC_MOUSEPOS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,144,54,78,6
+    GROUPBOX        "Miscellaneous",IDC_STATIC,6,66,114,60
+    CONTROL         "Draw outlines around boxes",IDC_OUTLINE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,12,78,102,6
+    CONTROL         "Timestamp new files",IDC_TIMESTAMP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,12,90,90,6
+    CONTROL         "Copy All on Stop",IDC_COPYALLONSTOP,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,12,102,84,6
+    CONTROL         "Draw mouse position",IDC_DRAWMOUSE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,12,114,102,6
+    CONTROL         "Speak on Stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,144,66,84,6
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -529,6 +559,14 @@ BEGIN
         RIGHTMARGIN, 179
         TOPMARGIN, 7
         BOTTOMMARGIN, 75
+    END
+
+    IDD_PREFS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 249
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 130
     END
 END
 #endif    // APSTUDIO_INVOKED

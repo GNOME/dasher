@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=Dasher
-OutputBaseFilename=Dasher95 3.0.1
-AppVerName=Dasher 3.0.1
+OutputBaseFilename=Dasher95 3.0.3
+AppVerName=Dasher 3.0.3
 AppPublisher=Dasher Project
 AppPublisherURL=http://www.inference.phy.cam.ac.uk/dasher/
 AppSupportURL=http://www.inference.phy.cam.ac.uk/dasher/

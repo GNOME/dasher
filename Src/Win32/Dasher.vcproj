@@ -405,6 +405,7 @@
 		</Configuration>
 		<Configuration
 			Name="foo|Win32"
+			IntermediateDirectory="foo"
 			ConfigurationType="1">
 			<Tool
 				Name="VCCLCompilerTool"/>
@@ -549,6 +550,12 @@
 				</File>
 				<File
 					RelativePath=".\Widgets\Menu.h">
+				</File>
+				<File
+					RelativePath="Widgets\Prefs.cpp">
+				</File>
+				<File
+					RelativePath="Widgets\Prefs.h">
 				</File>
 				<File
 					RelativePath=".\Widgets\Screen.cpp">

@@ -69,6 +69,9 @@
 #define IDC_CURSOR1                     165
 #define IDC_SEARCH_CURSOR               165
 #define ID_OPTIONS_EDITKEYBOARDCONTROL  166
+#define IDD_PREFS                       168
+#define ID_OPTIONS_PREFS                169
+#define ID_OPTIONS_CONTROLMODE          170
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -134,6 +137,7 @@
 #define IDC_KCFORWARD                   1069
 #define IDC_KCBACK                      1070
 #define IDC_CHECK3                      1071
+#define IDC_LEFT                        1071
 #define IDC_5X                          1072
 #define IDC_5Y                          1073
 #define IDC_6X                          1074
@@ -144,8 +148,18 @@
 #define IDC_8Y                          1079
 #define IDC_9X                          1080
 #define IDC_9Y                          1081
-#define IDC_EDIT1                       1082
 #define IDC_YPIX                        1082
+#define IDC_1D                          1084
+#define IDC_EYETRACKER                  1085
+#define IDC_BUTTON                      1086
+#define IDC_WINDOWPAUSE                 1088
+#define IDC_MOUSEPOS                    1089
+#define IDC_CONTROL                     1090
+#define IDC_OUTLINE                     1091
+#define IDC_TIMESTAMP                   1092
+#define IDC_COPYALLONSTOP               1093
+#define IDC_DRAWMOUSE                   1094
+#define IDC_SPEECH                      1096
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -197,9 +211,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        167
+#define _APS_NEXT_RESOURCE_VALUE        171
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1083
+#define _APS_NEXT_CONTROL_VALUE         1097
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
