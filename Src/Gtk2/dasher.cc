@@ -644,11 +644,12 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
   return FALSE;
 }
 
-extern "C" void
+extern "C" gboolean
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   dasher_start();
   force_dasher_redraw();
+  return FALSE;
 }
 
 extern "C" void
@@ -870,6 +871,10 @@ open_window(GladeXML *xml) {
   // I have no idea why we need to do this when Glade has theoretically done
   // so already, but...
   gtk_widget_add_events (the_canvas, GDK_BUTTON_PRESS_MASK);
+
+  // We need to monitor the text buffer for mark_set in order to get
+  // signals when the cursor is moved
+  g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
 }
 
 extern "C" void choose_filename() {
@@ -1330,13 +1335,13 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_CONTROLMODE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"controlmode")), value);
-      controlmodeon=true;
+      controlmodeon=value;
       dasher_start();
       force_dasher_redraw();
       break;
     case BOOL_KEYBOARDMODE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), value);
-      keyboardmodeon=true;
+      keyboardmodeon=value;
       break;
     case BOOL_OUTLINEMODE:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), value);

@@ -404,13 +404,13 @@
 	      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 	      <property name="shadow_type">GTK_SHADOW_NONE</property>
 	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
-	      <signal name="button_release_event" handler="edit_button_release_event" last_modification_time="Mon, 22 Sep 2003 19:51:49 GMT"/>
-	      <signal name="key_press_event" handler="edit_key_release_event" after="yes" last_modification_time="Mon, 22 Sep 2003 19:52:10 GMT"/>
 
 	      <child>
 		<widget class="GtkTextView" id="the_text_view">
 		  <property name="visible">True</property>
+		  <property name="can_default">True</property>
 		  <property name="can_focus">True</property>
+		  <property name="events">GDK_BUTTON_PRESS_MASK | GDK_KEY_PRESS_MASK</property>
 		  <property name="editable">True</property>
 		  <property name="justification">GTK_JUSTIFY_LEFT</property>
 		  <property name="wrap_mode">GTK_WRAP_WORD</property>
@@ -422,6 +422,8 @@
 		  <property name="right_margin">0</property>
 		  <property name="indent">0</property>
 		  <property name="text" translatable="yes"></property>
+		  <signal name="button_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:01:59 GMT"/>
+		  <signal name="key_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:02:05 GMT"/>
 		</widget>
 	      </child>
 	    </widget>
