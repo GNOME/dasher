@@ -16,6 +16,7 @@
 namespace {
 	#include "stdio.h"
 }
+#include <iostream>
 using namespace Dasher;
 using namespace std;
 
@@ -24,7 +25,7 @@ const string CDasherInterface::EmptyString = "";
 
 
 CDasherInterface::CDasherInterface()
-	: m_DashEditbox(0), m_DasherScreen(0), m_LanguageModel(0), TrainContext(0), m_Alphabet(0),
+  : m_DashEditbox(0), m_DasherScreen(0), m_LanguageModel(0), TrainContext(0), m_Alphabet(0), m_ControlAlphabet(0),
 	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
 	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
 	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
@@ -40,6 +41,7 @@ CDasherInterface::~CDasherInterface()
 	delete m_DasherModel;   // The order of some of these deletions matters
 	delete m_LanguageModel; // eg DasherModel has a pointer to LanguageModel.
 	delete m_Alphabet;      // DM baulks if LM is deleted before it is.
+	delete m_ControlAlphabet;
 	delete m_DasherView;
 	// Do NOT delete Edit box or Screen. This class did not create them.
 }
@@ -84,13 +86,13 @@ void CDasherInterface::SetSystemLocation(std::string SystemLocation)
 
 void CDasherInterface::CreateDasherModel()
 {
-	if (m_DashEditbox!=0 && m_LanguageModel!=0) {
-		delete m_DasherModel;
-		m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel);
-		if (m_MaxBitRate>=0)
-			m_DasherModel->SetMaxBitrate(m_MaxBitRate);
-		if (ViewID!=-1)
-			ChangeView(ViewID);
+	if (m_DashEditbox!=0 && m_LanguageModel!=0 && m_DasherScreen!=0) {
+	  delete m_DasherModel;	  
+	  m_DasherModel = new CDasherModel(m_DashEditbox, m_DasherScreen, m_LanguageModel);
+	  if (m_MaxBitRate>=0)
+	    m_DasherModel->SetMaxBitrate(m_MaxBitRate);
+	  if (ViewID!=-1)
+	    ChangeView(ViewID);
 	}
 }
 
@@ -153,10 +155,12 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	if (!m_AlphIO)
 		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation);
 	CAlphIO::AlphInfo Info = m_AlphIO->GetInfo(NewAlphabetID);
+	CAlphIO::AlphInfo ControlInfo = m_AlphIO->GetControlInfo(NewAlphabetID);
 
 	CAlphabet* old = m_Alphabet;
 	m_Alphabet = new CCustomAlphabet(Info);
-	
+	m_ControlAlphabet = new CCustomAlphabet(ControlInfo);
+
 	// Apply options from alphabet
 
 	m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
@@ -166,7 +170,7 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 		m_DashEditbox->SetInterface(this);
 	if (m_DasherScreen!=0)
 		m_DasherScreen->SetInterface(this);
-	if (LanguageModelID!=-1 || m_LanguageModel)
+	if (LanguageModelID!=-1 || m_LanguageModel && m_DasherScreen != 0)
 		ChangeLanguageModel(LanguageModelID);
 
 	delete old; // only delete old alphabet after telling all other objects not to use it
@@ -208,7 +212,7 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 		m_DasherModel = 0;
 		delete m_LanguageModel;
 		// TODO Use LanguageModelID to decide which model to use
-		m_LanguageModel = new CPPMLanguageModel(m_Alphabet,1<<10);
+		m_LanguageModel = new CPPMLanguageModel(m_Alphabet,m_ControlAlphabet,1<<10);
 		TrainContext = m_LanguageModel->GetRootNodeContext();
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);
@@ -390,12 +394,19 @@ unsigned int CDasherInterface::GetNumberSymbols()
 }
 
 
-const string& CDasherInterface::GetDisplayText(symbol Symbol)
+const string& CDasherInterface::GetDisplayText(symbol Symbol, bool Control)
 {
+  if (Control==false) {
 	if (m_Alphabet!=0)
 		return m_Alphabet->GetDisplayText(Symbol);
 	else
 		return EmptyString;
+  } else {
+    if (m_ControlAlphabet!=0)
+      return m_ControlAlphabet->GetDisplayText(Symbol);
+    else
+      return EmptyString;
+  }
 }
 
 

@@ -24,7 +24,7 @@ namespace Dasher {class CPPMLanguageModel;}
 class Dasher::CPPMLanguageModel : public Dasher::CLanguageModel, private NoClones
 {
 public:
-	CPPMLanguageModel(CAlphabet *_alphabet, int _normalization);
+	CPPMLanguageModel(CAlphabet *_alphabet, CAlphabet* _controlalphabet, int _normalization);
 	~CPPMLanguageModel();
 	
 	class CPPMnode {

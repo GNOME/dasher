@@ -31,8 +31,8 @@ public:
 	
 	// DasherView asks for the width and height of the given symbol at a requested height,
 	// then it is able to sensibly specify the upper left corner in DrawText.
-	virtual void TextSize(symbol Character, int* Width, int* Height, int Size) const=0;
-	virtual void DrawText(symbol Character, int x1, int y1, int Size) const=0;
+	virtual void TextSize(symbol Character, int* Width, int* Height, int Size, bool Control) const=0;
+	virtual void DrawText(symbol Character, int x1, int y1, int Size, bool Control) const=0;
 
 	
 	// Draw a filled rectangle - given position and color id
@@ -50,6 +50,7 @@ public:
 	// Signal the screen when a frame is started and finished
 	virtual void Blank() const=0;
 	virtual void Display()=0;
+	virtual void Pause()=0;
 protected:
 	const int m_iWidth, m_iHeight;
 	CDasherWidgetInterface* m_DasherInterface;

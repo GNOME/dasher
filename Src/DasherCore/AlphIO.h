@@ -57,6 +57,7 @@ public:
 	CAlphIO(std::string SystemLocation, std::string UserLocation);
 	void GetAlphabets(std::vector< std::string >* AlphabetList) const;
 	const AlphInfo& GetInfo(const std::string& AlphID);
+	const AlphInfo& GetControlInfo(const std::string& AlphID);
 	void SetInfo(const AlphInfo& NewInfo);
 	void Delete(const std::string& AlphID);
 private:

@@ -37,4 +37,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display);
 		SetSpaceSymbol();
 	}
+	AddChar("","Control");
+	SetControlSymbol();
+	AlphabetComplete();
 }

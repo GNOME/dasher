@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "DasherModel.h"
+#include <iostream>
 
 using namespace Dasher;
 using namespace std;
@@ -15,8 +16,8 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel)
-: m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0)
+CDasherModel::CDasherModel(CDashEditbox* Editbox, CDasherScreen* Screen, CLanguageModel* LanguageModel)
+: m_editbox(Editbox), m_screen(Screen), m_languagemodel(LanguageModel), m_Root(0)
 {
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	
@@ -40,7 +41,7 @@ void CDasherModel::Make_root(int whichchild)
  // find a new root node 
 {
 	symbol t=m_Root->Symbol();
-	if (t) {
+	if (t && m_Root->Control()==false) {
 		m_editbox->output(t);
 		m_languagemodel->LearnNodeSymbol(LearnContext, t);
 	}
@@ -230,6 +231,12 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	CDasherNode *under_mouse=Get_node_under_mouse(miMousex,miMousey);
 	under_mouse->Push_Node();
 
+	CDasherNode *under_cross=Get_node_under_crosshair();
+
+	if (under_cross->Control()==true && under_cross->Been_seen()==false) {
+	        under_cross->Seen();
+	        Do_special(under_cross->Symbol());
+	}
 
 	if (Framerate() > 4) {
 		// push node under mouse but with x coord on RHS
@@ -239,7 +246,6 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 	if (Framerate() > 8) {
 		// push node under the crosshair
-		CDasherNode *under_cross=Get_node_under_crosshair();
 		under_cross->Push_Node();
 	}
 
@@ -285,6 +291,24 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+void CDasherModel::Do_special(symbol symbol)
+{  
+  switch (symbol) {
+  case 1:
+    m_screen->Pause();
+    break;
+  case 2:
+    std::cout << "Copy!\n";
+    break;
+  case 3:
+    std::cout << "Select a window!\n";
+    break;
+  default:
+    std::cout << "Unknown special character!\n";
+    break;
+  }
+}
 
 void CDasherModel::Dump() const 
 	// diagnostic dump

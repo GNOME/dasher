@@ -54,7 +54,7 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, bool& force)
+	myint y1, myint y2, int& mostleft, bool& force, bool Control)
 {
 	int top = dashery2screen(y1);
 	if (top>CanvasY)
@@ -98,7 +98,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		}
 		
 		int TextWidth, TextHeight, OriginX=0, OriginY=0;
-		Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
+		Screen().TextSize(Character, &TextWidth, &TextHeight, Size, Control);
 		UnMapScreen(&TextWidth, &TextHeight);
 		UnMapScreen(&OriginX, &OriginY);
 		int FontHeight = abs(TextHeight-OriginY);
@@ -114,7 +114,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		newleft = min(newleft2, newright2);
 		newtop = min(newtop2, newbottom2);
 		
-		Screen().DrawText(Character, newleft, newtop, Size);
+		Screen().DrawText(Character, newleft, newtop, Size, Control);
 		
 		return 1;
 	} else 

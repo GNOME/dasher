@@ -33,7 +33,7 @@ public:
 	// These are needed so widgets know how to render the alphabet.
 	// All strings are encoded in UTF-8.
 	virtual unsigned int GetNumberSymbols()=0;
-	virtual const std::string& GetDisplayText(Dasher::symbol Symbol)=0;
+	virtual const std::string& GetDisplayText(Dasher::symbol Symbol, bool Control)=0;
 	virtual const std::string& GetEditText(Dasher::symbol Symbol)=0;
 	virtual Opts::ScreenOrientations GetAlphabetOrientation()=0;
 	virtual Opts::AlphabetTypes GetAlphabetType()=0;

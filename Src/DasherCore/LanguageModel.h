@@ -25,7 +25,7 @@ namespace Dasher {class CLanguageModel;}
 class Dasher::CLanguageModel
 {
 public:
-	CLanguageModel(CAlphabet* Alphabet, int Normalization);
+	CLanguageModel(CAlphabet* Alphabet, CAlphabet* ControlAlphabet, int Normalization);
 
 	// Interface for the Dasher code
 	// --------------------------------------------------------------------------
@@ -47,9 +47,12 @@ public:
 	void LearnText(CNodeContext* NodeContext, std::string* TheText, bool IsMore);
 	bool GetNodeProbs(CNodeContext* Context, std::vector<symbol> &NewSymbols,
 		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, double AddProb);
-	
+	void CLanguageModel::GetControlNodes(std::vector<symbol> &NewSymbols,
+					     std::vector<unsigned int> &Groups);
+
 	// Alphabet pass-through functions for widely needed information
 	symbol GetSpaceSymbol() {return m_Alphabet->GetSpaceSymbol();}
+	symbol GetControlSymbol() {return m_Alphabet->GetControlSymbol();}
 	
 protected:
 	int GetNumberModelChars() {return m_Alphabet->GetNumberSymbols();}
@@ -75,6 +78,7 @@ protected:
 	
 private:
 	CAlphabet *m_Alphabet;
+	CAlphabet *m_ControlAlphabet;
 	int m_iModelChars; // number of charater in the model 1...ModelChars
 	int m_iNorm;       // normalization of probabilities
 };

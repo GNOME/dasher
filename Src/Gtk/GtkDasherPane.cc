@@ -75,6 +75,8 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   pack_start( *slider, false, false );
   show_all();
 
+  interface->ChangeScreen( canvas->get_wrapper() );
+
   //  interface->ChangeLanguageModel(0); // The core seems to deal with this
   interface->ChangeView(0);
 
@@ -86,7 +88,6 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   //  interface->ChangeAlphabet( alphabetlist[0] );
 
   interface->ChangeEdit( text );
-  interface->ChangeScreen( canvas->get_wrapper() );
 
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
 
@@ -197,7 +198,7 @@ GtkDasherPane::~GtkDasherPane()
 gint GtkDasherPane::timer_callback()
 {
 
-  if( !paused )
+  if( !canvas->Paused() )
     {
       int x;
       int y;
@@ -238,7 +239,7 @@ void GtkDasherPane::show_toolbar( bool value )
 
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
-  if( !paused )
+  if( !(canvas->Paused()) )
     {
       int x;
       int y;
@@ -249,7 +250,7 @@ int GtkDasherPane::toggle_pause( GdkEventButton *e )
   else
     interface->Unpause( get_time() );
   
-  paused = !paused;
+  canvas->toggle_paused();
   return( true );
 }
 
@@ -348,7 +349,7 @@ void GtkDasherPane::select_encoding()
       for( int a(1); a < interface->GetNumberSymbols(); ++a )
 	{
 	  string symbol;
-	  symbol = interface->GetDisplayText(a);
+	  symbol = interface->GetDisplayText(a,false);
 	  
 	  char *convbuffer = new char[256];
 	  char *inbuffer = new char[256];

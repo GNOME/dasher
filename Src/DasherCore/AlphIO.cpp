@@ -107,6 +107,19 @@ const CAlphIO::AlphInfo& CAlphIO::GetInfo(const std::string& AlphID)
 }
 
 
+const CAlphIO::AlphInfo& CAlphIO::GetControlInfo(const std::string& AlphID)
+{        
+	if (AlphID=="")
+		return Alphabets["ControlDefault"];
+	else {
+   	        std::string ControlID="Control"+AlphID;
+	        AlphInfo& CurInfo = Alphabets[ControlID];
+		Alphabets[ControlID].AlphID = ControlID; // Ensure consistency
+		return Alphabets[ControlID];
+	}
+}
+
+
 void CAlphIO::SetInfo(const AlphInfo& NewInfo)
 {
 	Alphabets[NewInfo.AlphID] = NewInfo;

@@ -11,6 +11,7 @@
 
 #include "../Common/MSVC_Unannoy.h"
 #include "DashEdit.h"
+#include "DasherScreen.h"
 #include "DasherNode.h"
 #include "LanguageModel.h"
 #include "../Common/NoClones.h"
@@ -28,7 +29,7 @@ class Dasher::CDasherModel : private NoClones
 {
 public:
 	
-	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel);
+	CDasherModel(CDashEditbox* Editbox, CDasherScreen* Screen, CLanguageModel* LanguageModel);
 	~CDasherModel();
 	
 	// framerate functions
@@ -48,6 +49,7 @@ public:
 	myint DasherY() const {return m_DasherY;}
 
 	void Dump() const;                                              // diagnostics
+	void Do_special(symbol symbol);
 	void Flush(const myint smousex,const myint smousey);            // flush to the edit control
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 	
@@ -71,9 +73,11 @@ private:
 	myint m_DasherOY;     
 	
 	CDashEditbox* m_editbox;           // pointer to the editbox
+	CDasherScreen* m_screen;           // pointer to the canvas
 	CLanguageModel* m_languagemodel;   // pointer to the language model
 	CLanguageModel::CNodeContext* LearnContext;        // Used to add data to model as it is entered
 	CAlphabet* m_alphabet;             // pointer to the alphabet
+	CAlphabet* m_controlalphabet;      // the control node alphabet
 	CFrameRate m_fr;                   // keep track of framerate
 	
 	// TODO - move somewhere

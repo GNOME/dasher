@@ -59,7 +59,7 @@ public:
 	void ChangeEdit();   // affected by external interaction
 	
 	unsigned int GetNumberSymbols();           // These are needed so widgets know
-	const std::string& GetDisplayText(symbol Symbol); // how to render the alphabet. All
+	const std::string& GetDisplayText(symbol Symbol, bool Control); // how to render the alphabet. All
 	const std::string& GetEditText(symbol Symbol);    // strings are encoded in UTF-8
 	Opts::ScreenOrientations GetAlphabetOrientation();
 	Opts::AlphabetTypes GetAlphabetType();
@@ -112,6 +112,7 @@ public:
 
 private:
 	CAlphabet* m_Alphabet;
+	CAlphabet* m_ControlAlphabet;
 	CLanguageModel* m_LanguageModel;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;

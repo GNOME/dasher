@@ -28,13 +28,16 @@ class GtkDasherCanvas : public Gtk::DrawingArea
   
   void SetFont(std::string Name);
   void SetFontSize(FontSize size);
-  void TextSize(symbol Character, int* Width, int* Height, int Size) const;
-  void DrawText(symbol Character, int x1, int y1, int Size) const;
+  void TextSize(symbol Character, int* Width, int* Height, int Size, bool Control) const;
+  void DrawText(symbol Character, int x1, int y1, int Size, bool Control) const;
   void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const;
   void Polyline(Dasher::CDasherScreen::point* Points, int Number) const;
   void DrawPolygon(Dasher::CDasherScreen::point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const;
   void Blank() const;
   void Display();
+  void Pause();
+  bool Paused();
+  void toggle_paused();
 
   void clear();
   void set_encoding( int _enc ); 
@@ -86,6 +89,8 @@ protected:
 
   void swap_buffers(); 
 
+  bool paused;
+
   int enc;
 
   int MaxFontSize;
@@ -102,8 +107,8 @@ protected:
 
       void SetFont(std::string Name) { owner->SetFont( Name ); }
       void SetFontSize(Dasher::Opts::FontSize fontsize) { owner->SetFontSize( fontsize); }
-      void TextSize(symbol Character, int* Width, int* Height, int Size) const { owner->TextSize( Character, Width, Height, Size ); }
-      void DrawText(symbol Character, int x1, int y1, int Size) const { owner->DrawText( Character, x1, y1, Size ); }
+      void TextSize(symbol Character, int* Width, int* Height, int Size, bool Control) const { owner->TextSize( Character, Width, Height, Size, Control ); }
+      void DrawText(symbol Character, int x1, int y1, int Size, bool Control) const { owner->DrawText( Character, x1, y1, Size, Control ); }
 
       void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
 	{
@@ -116,6 +121,7 @@ protected:
 	}
       void Blank() const { owner->Blank(); }
       void Display() {owner->Display(); }
+      void Pause() {owner->Pause(); }
     private:
       GtkDasherCanvas *owner;
     };

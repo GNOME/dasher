@@ -80,10 +80,10 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"
 	// The user may have saved a preference for some of these options though:
-	
+
+	this->ChangeView(Store->GetLongOption(VIEW_ID));	
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
 	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
-	this->ChangeView(Store->GetLongOption(VIEW_ID));
 	
 	// Fonts
 	this->SetEditFont(Store->GetStringOption(EDIT_FONT), Store->GetLongOption(EDIT_FONT_SIZE));

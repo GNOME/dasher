@@ -13,6 +13,7 @@
 
 #include "DasherScreen.h"
 
+#include <X11/X.h>
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
@@ -56,6 +57,9 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   font_init = new bool[17];
 
   build_fonts( enc );
+
+  // Start in a paused state
+  paused = true;
 
 }
 
@@ -305,7 +309,7 @@ void GtkDasherCanvas::set_encoding( int _enc )
     }
 }
 
-void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const
+void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size, bool Control) const
 {
   const Gdk_Font *chosen_font;
 
@@ -315,13 +319,13 @@ void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Si
   *Height = chosen_font->char_height('A');
 }
  
-void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
+void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size, bool Control) const
 {
   if( is_realized() )
     {
       std::string symbol;
 
-      symbol = interface->GetDisplayText(Character);
+      symbol = interface->GetDisplayText(Character, Control);
 
       char *convbuffer = new char[256];
       char *inbuffer = new char[256];
@@ -594,6 +598,18 @@ void GtkDasherCanvas::Display()
   swap_buffers();
 
   draw(0);
+}
+
+void GtkDasherCanvas::Pause() {
+  paused=true;
+}
+
+bool GtkDasherCanvas::Paused() {
+  return paused;
+}
+
+void GtkDasherCanvas::toggle_paused() {
+  paused=!paused;
 }
 
 void GtkDasherCanvas::swap_buffers()
