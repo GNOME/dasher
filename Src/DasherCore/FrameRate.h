@@ -95,6 +95,11 @@ inline void CFrameRate::NewFrame(unsigned long Time)
 			}
 		m_dRXmax=exp(m_dMaxbitrate*LN2/m_dFr);
 		m_iSteps=m_iSteps/2+(int)(-log(0.2)*m_dFr/LN2/m_dMaxbitrate)/2;
+
+		// If the framerate slows to < 4 then we end up with steps < 1 ! 
+		if (m_iSteps==0)
+			m_iSteps=1;
+
 	//	dchar debug[256];
 	//		_stprintf(debug,TEXT("fr %f Steps %d samples %d time2 %d rxmax %f\n"),fr,Steps,samples,time2,RXmax);
 	//	OutputDebugString(debug);
