@@ -94,6 +94,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   abox.get_ok_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet));
   abox.get_cancel_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet_cancel));
+  abox.delete_event.connect( SigC::slot(this, &GtkDasherPane::abox_close_sel) );
 }
 
 void GtkDasherPane::clear()
@@ -380,4 +381,10 @@ void GtkDasherPane::change_alphabet( std::string _alphabet )
   select_encoding();
 
   abox.set_selection( _alphabet );
+}
+
+gint GtkDasherPane::abox_close_sel( GdkEventAny *e )
+{
+  abox.hide();
+  return( true );
 }

@@ -104,6 +104,7 @@ protected:
   Gtk::Menu_Helpers::MenuList *list_view;
   Gtk::Menu_Helpers::MenuList *list_or;
  
+  gint about_delete_sel( GdkEventAny *e );
 
   GtkDasherPane dasher_pane;
   GtkDasherSave save_dialogue;
@@ -132,19 +133,27 @@ protected:
   void toolbar_button_cb(int c);
   void menu_button_cb(int c);
   void file_ok_sel();
+  gint file_close_sel( GdkEventAny *e );
+
   void dfont_ok_sel();
   void dfont_cancel_sel();
+  gint dfont_close_sel( GdkEventAny *e );
+
   void efont_ok_sel();
   void efont_cancel_sel();
-
+  gint efont_close_sel( GdkEventAny *e );
+  
   void ofile_ok_sel();
   void ofile_cancel_sel();
+  gint ofile_close_sel( GdkEventAny *e );
 
   void ifile_ok_sel();
   void ifile_cancel_sel();
+  gint ifile_close_sel( GdkEventAny *e );
 
   void afile_ok_sel();
   void afile_cancel_sel();
+  gint afile_close_sel( GdkEventAny *e );
 
   void about_close_sel();
 

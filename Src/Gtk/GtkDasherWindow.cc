@@ -197,21 +197,32 @@ GtkDasherWindow::GtkDasherWindow()
 
   dasher_pane.set_settings_ui( this );
 
+  show_all();
+
   save_dialogue.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::file_ok_sel));
+  save_dialogue.delete_event.connect( SigC::slot(this, &GtkDasherWindow::file_close_sel) );
+
   dfontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_ok_sel));
   dfontsel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_cancel_sel));
+  dfontsel.delete_event.connect( SigC::slot(this, &GtkDasherWindow::dfont_close_sel) );
+
   efontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::efont_ok_sel));
   efontsel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::efont_cancel_sel));
+  efontsel.delete_event.connect( SigC::slot(this, &GtkDasherWindow::efont_close_sel) );
+
 
   ofilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_ok_sel));
   ofilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_cancel_sel));
+  ofilesel.delete_event.connect( SigC::slot(this, &GtkDasherWindow::ofile_close_sel) );
 
   ifilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_ok_sel));
-  ifilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_cancel_sel)); 
+  ifilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_cancel_sel));
+  ifilesel.delete_event.connect( SigC::slot(this, &GtkDasherWindow::ifile_close_sel) );
+
 
   afilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::afile_ok_sel));
   afilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::afile_cancel_sel));
-  show_all();
+  afilesel.delete_event.connect( SigC::slot(this, &GtkDasherWindow::afile_close_sel) );
   
   dasher_pane.clear();
 
@@ -235,6 +246,10 @@ GtkDasherWindow::GtkDasherWindow()
     
 
   button.clicked.connect(slot(this, &GtkDasherWindow::about_close_sel));
+  
+  SigC::Slot1<gint, GdkEventAny *> s = SigC::slot(this, &GtkDasherWindow::about_delete_sel);
+
+  aboutbox.delete_event.connect(s);
 
 }
 
@@ -385,6 +400,12 @@ void GtkDasherWindow::ofile_cancel_sel()
 void GtkDasherWindow::about_close_sel()
 {
   aboutbox.hide();
+}
+
+gint GtkDasherWindow::about_delete_sel( GdkEventAny *e )
+{
+  aboutbox.hide();
+  return( true );
 }
 
 void GtkDasherWindow::toolbar_button_cb(int c)
@@ -739,3 +760,39 @@ void GtkDasherWindow::ChangeAlphabet(const std::string& NewAlphabetID)
 {
   dasher_pane.change_alphabet( NewAlphabetID );
 }
+
+gint GtkDasherWindow::file_close_sel( GdkEventAny *e )
+{
+  save_dialogue.hide();
+  return( true );
+};
+
+gint GtkDasherWindow::dfont_close_sel( GdkEventAny *e )
+{
+  dfontsel.hide();
+  return( true );
+};
+
+gint GtkDasherWindow::efont_close_sel( GdkEventAny *e )
+{
+  efontsel.hide();
+  return( true );
+};
+
+gint GtkDasherWindow::ofile_close_sel( GdkEventAny *e )
+{
+  ofilesel.hide();
+  return( true );
+};
+
+gint GtkDasherWindow::ifile_close_sel( GdkEventAny *e )
+{
+  ifilesel.hide();
+  return( true );
+};
+
+gint GtkDasherWindow::afile_close_sel( GdkEventAny *e )
+{
+  afilesel.hide();
+  return( true );
+};
