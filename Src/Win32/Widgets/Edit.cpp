@@ -13,6 +13,7 @@
 */
 
 #include "Edit.h"
+
 using namespace Dasher;
 using namespace std;
 
@@ -291,7 +292,7 @@ bool CEdit::TOpen(const Tstring& filename)
 	// Could also base codepage on menu.
 	// Best thing is probably to trust any BOMs at the beginning of file, but otherwise
 	// to believe menu. Unicode files don't necessarily have BOMs, especially from Unix.
-	
+
 	HANDLE TmpHandle = CreateFile(filename.c_str(), GENERIC_READ | GENERIC_WRITE,
 		FILE_SHARE_READ, (LPSECURITY_ATTRIBUTES) NULL,
 		OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL,
@@ -306,9 +307,22 @@ bool CEdit::TOpen(const Tstring& filename)
 	m_filename = filename;
 	
 	SetFilePointer(FileHandle, NULL, NULL, FILE_BEGIN);
+
+	DWORD filesize = GetFileSize(FileHandle,NULL);
+	unsigned long amountread;
+
+	char* filebuffer = new char[filesize];
 	
 	// Just read in whole file as char* and cast later.
 	
+	ReadFile(FileHandle,filebuffer,filesize,&amountread,NULL);
+
+	string text;
+	text = text+filebuffer;
+	Tstring inserttext;
+	UTF8string_to_Tstring(text,&inserttext, GetACP());
+	InsertText(inserttext);
+
 	AppendMode = false;
 	m_FilenameGUI->SetFilename(m_filename);
 	m_FilenameGUI->SetDirty(false);
