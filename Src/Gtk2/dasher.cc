@@ -768,10 +768,10 @@ timer_callback(gpointer data)
       if (yscale==0) {
 	scalefactor=2;
       } else {
-	float scalefactor=dasherheight/yscale;
+	scalefactor=float(dasherheight)/float(yscale);
       }
       newy-=dasherheight/2;
-      newy*=scalefactor;
+      newy=newy*scalefactor;
       newy+=dasherheight/2;
       y=int(newy);
     } 
@@ -782,6 +782,21 @@ timer_callback(gpointer data)
     int x,y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
     
+    if (onedmode==true) {
+      float scalefactor;
+      float newy=y;
+      gdk_window_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+      if (yscale==0) {
+	scalefactor=2;
+      } else {
+	scalefactor=float(dasherheight)/float(yscale);
+      }
+      newy-=dasherheight/2;
+      newy=newy*scalefactor;
+      newy+=dasherheight/2;
+      y=int(newy);
+    } 
+
     dasher_draw_mouse_position(x,y);
 
     if (mouseposstart==true) {
@@ -1564,6 +1579,7 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
 {
   yscale=int(widget->adjustment->value);
+  printf("Got yscale of %d\n",yscale);
   set_long_option_callback("YScale",yscale);
 }
 
