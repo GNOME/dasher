@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 3.2.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-03-20 19:13+0100\n"
-"PO-Revision-Date: 2004-03-21 00:40-0200\n"
+"POT-Creation-Date: 2004-03-22 13:26-0500\n"
+"PO-Revision-Date: 2004-03-22 13:25-0500\n"
 "Last-Translator: Rodrigo Lima <rdlima@terra.com.br>\n"
 "Language-Team: Portuguese/Brazil\n"
 "MIME-Version: 1.0\n"
@@ -111,7 +111,7 @@ msgstr "Desconhecido"
 
 #: Src/Gtk2/dasher.cc:178
 msgid "Training Dasher, please wait"
-msgstr "Preparando o Dasher, por favor aguarde"
+msgstr "Treinando o Dasher, por favor aguarde"
 
 #: Src/Gtk2/dasher.cc:626 Src/Gtk2/dasher.cc:639 Src/Gtk2/dasher.cc:652
 #: Src/Gtk2/dasher.cc:665 Src/Gtk2/dashergpe.glade.h:61
@@ -130,7 +130,7 @@ msgstr "Dasher"
 
 #: Src/Gtk2/dasher.cc:1590
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher é uma aplicação para anotações de texto"
+msgstr "Dasher é uma aplicação para entrada de texto"
 
 #. Just a debugging thing, output to the console
 #: Src/Gtk2/dasher.cc:1997
@@ -220,7 +220,7 @@ msgstr "Padrão do Alfabeto"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
-msgstr "Do fim ao início"
+msgstr "De baixo para cima"
 
 #: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
@@ -264,7 +264,7 @@ msgstr "Preferências do Dasher"
 
 #: Src/Gtk2/dasher.glade.h:34 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr "Distância do centro da linha para iniciar a posição do mouse:"
+msgstr "Distância do centro da linha para iniciar pela posição do mouse:"
 
 #: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -507,12 +507,10 @@ msgid "Save file as"
 msgstr "Salvar arquivo como"
 
 #: Src/Gtk2/speech.cc:45
-#, c-format
 msgid "Unable to initialize voices"
 msgstr "Não foi possível inicializar as vozes"
 
 #: Src/Gtk2/speech.cc:61
-#, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Aviso: não foi possível definir parâmetros de conversação\n"
 
