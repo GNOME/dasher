@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-05 11:58+0200\n"
-"PO-Revision-Date: 2005-03-05 15:46+0200\n"
+"POT-Creation-Date: 2005-03-06 14:15+0200\n"
+"PO-Revision-Date: 2005-03-06 14:15+0200\n"
 "Last-Translator: Žygimantas Beručka <uid0@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -181,39 +181,10 @@ msgid "Dasher is a predictive text entry application"
 msgstr "Dasher yra tekstų įvesties nuspėjimo programa"
 
 #. Just a debugging thing, output to the console
-#: ../Src/Gtk2/dasher.cc:2084
+#: ../Src/Gtk2/dasher.cc:2081
 #, c-format
-msgid "In %ld seconds\n"
-msgstr "Per %ld sekundes\n"
-
-#: ../Src/Gtk2/dasher.cc:2085
-#, c-format
-msgid "%d characters\n"
-msgstr "%d simbolių\n"
-
-#: ../Src/Gtk2/dasher.cc:2086
-#, c-format
-msgid "%f bits\n"
-msgstr "%f bitų\n"
-
-#: ../Src/Gtk2/dasher.cc:2088
-#, c-format
-msgid "%f characters per second\n"
-msgstr "%f simbolių per sekundę\n"
-
-#: ../Src/Gtk2/dasher.cc:2089
-#, c-format
-msgid "%f bits per second\n"
-msgstr "%f bitų per sekundę\n"
-
-#: ../Src/Gtk2/dasher.cc:2090
-#, c-format
-msgid ""
-"%f bits per character\n"
-"\n"
-msgstr ""
-"%f bitų per sekundę\n"
-"\n"
+msgid "%d characters output in %ld seconds\n"
+msgstr "%d simbolių išvestis per %ld sekundes\n"
 
 #: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -612,6 +583,25 @@ msgstr "Įspėjimas: negalima nustatyti kalbėjimo parametrų\n"
 #: ../Src/main.cc:104
 msgid "Dasher Text Entry"
 msgstr "Dasher teksto elementas"
+
+#~ msgid "In %ld seconds\n"
+#~ msgstr "Per %ld sekundes\n"
+
+#~ msgid "%d characters\n"
+#~ msgstr "%d simbolių\n"
+
+#~ msgid "%f bits\n"
+#~ msgstr "%f bitų\n"
+
+#~ msgid "%f bits per second\n"
+#~ msgstr "%f bitų per sekundę\n"
+
+#~ msgid ""
+#~ "%f bits per character\n"
+#~ "\n"
+#~ msgstr ""
+#~ "%f bitų per sekundę\n"
+#~ "\n"
 
 #~ msgid "Change color scheme automatically"
 #~ msgstr "Pakeisti spalvų schemą automatiškai"
