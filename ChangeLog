@@ -1,3 +1,7 @@
+2004-02-21 Hasbullah Bin Pit <sebol@my-penguin.org>
+	
+	* configure.in: Added Malay 'ms' to ALL_LINGUAS.
+
 2004-02-21  Matthew Garrett  <mjg59@srcf.ucam.og>
 
 	* Sort out strange visuals stuff - should work on kdrive now
