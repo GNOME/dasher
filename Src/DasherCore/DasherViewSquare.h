@@ -54,10 +54,25 @@ private:
 	void CheckForNewRoot();
 	inline void Crosshair(myint sx);
 	double m_dXmpa,m_dXmpb,m_dXmpc,m_dXmpd;
-	myint m_Y1,m_Y2,m_Y3;
-	myint s_Y1,s_Y2,s_Y3;
+//	myint s_Y1,s_Y2,s_Y3;
 	int CanvasX,CanvasY,CanvasBorder;
 	
+	class Cymap
+	{
+	public:
+		Cymap(myint iScale);
+		Cymap() {}
+		
+		myint map(myint y) const;
+	
+		myint unmap(myint y) const;
+	private:
+		myint m_Y1,m_Y2,m_Y3;
+
+	};
+
+
+	Cymap m_ymap;
 	
     // Calibration.
 };

@@ -81,6 +81,17 @@ public:
 	void NewControlTree(ControlTree *tree) { m_pControltree=tree; }
 	ControlTree* GetControlTree() const { return m_pControltree; }
 
+	
+	struct CRange
+	{
+		CRange(myint _iMin, myint _iMax) : iMin(_iMin), iMax(_iMax) {}
+		CRange() {}
+		myint iMin;
+		myint iMax;
+	};
+
+	void SetActive(const CRange& range) { m_Active = range;}
+
 private:
 
 	// Old root notes
@@ -97,6 +108,9 @@ private:
 
 	// y position of crosshair in Dasher coords - distance from top in square Dasher
 	myint m_DasherOY;     
+
+	// The active interval over which Dasher nodes are maintained - this is most likely bigger than (0,DasherY)
+	CRange m_Active;
 
 	// Number of input dimensions
 	bool m_Dimensions;

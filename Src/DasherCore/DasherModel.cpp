@@ -27,6 +27,8 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel,
 	m_DasherOY = m_DasherY/2;
 	m_DasherOX = m_DasherY/2;
 	m_dAddProb = 0.003;
+
+	m_Active = CRange(0,m_DasherY);
 }
 
 
@@ -298,8 +300,8 @@ void CDasherModel::Get_new_goto_coords(float zoomfactor, myint MouseY)
 myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY)
 {
   // First, we need to work out how far we need to zoom in
-  float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
-  zoomfactor=pow(float(0.5),zoomfactor);
+  double zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+  zoomfactor=pow(0.5,zoomfactor);
 
   myint height=int(m_DasherY*zoomfactor/2);
 

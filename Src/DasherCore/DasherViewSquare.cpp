@@ -28,6 +28,19 @@ using std::max;
 
 /////////////////////////////////////////////////////////////////////////////
 
+CDasherViewSquare::Cymap::Cymap(myint iScale)
+{
+	double dY1=0.25;    // Amount of acceleration
+	double dY2=0.95;    // Accelerate Y movement below this point
+	double dY3=0.05;    // Accelerate Y movement above this point
+
+	m_Y2=myint (dY2 * iScale );
+	m_Y3=myint (dY3 * iScale );
+	m_Y1=myint(1.0/dY1);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
   : CDasherView(DasherScreen, DasherModel, LanguageModel, Orientation, Colourmode)
 {
@@ -39,17 +52,15 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_dXmpc=0.9;
 	m_dXmpd=0.5;   // slow X movement when accelerating Y
 
-	double dY1=0.25;    // Amount of acceleration
-	double dY2=0.95;    // Accelerate Y movement below this point
-	double dY3=0.05;    // Accelerate Y movement above this point
-
-	m_Y2=int (dY2 * (CDasherView::DasherModel().DasherY()) );
-	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
-	m_Y1=int(1.0/dY1);
 
 	KeyControl=false;
 
 	onebutton=-2000;
+
+	m_ymap = Cymap(DasherModel.DasherY());
+
+	CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel.DasherY()) );
+	DasherModel.SetActive(rActive);
 }
 
 /////////////////////////////////////////////////////////////////////////////

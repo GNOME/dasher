@@ -96,10 +96,7 @@ inline void CDasherViewSquare::screen2dasher(int *mousex, int *mousey) const
 	
     // If we're in standard mode, fudge things for the vertical acceleration
 	if (DasherModel().Dimensions()==false && KeyControl==false && eyetracker==false) {
-		if (dashery>m_Y2)
-			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
-		else if (dashery<m_Y3)
-			dashery= (dashery-m_Y3)*m_Y1+m_Y3;
+		dashery = m_ymap.unmap(dashery);
 		if (dashery>DasherModel().DasherY()) {
 			dashery=DasherModel().DasherY();
 		}
@@ -275,10 +272,7 @@ inline int CDasherViewSquare::dasherx2screen(const myint sx) const
 inline  int CDasherViewSquare::dashery2screen(myint y) const
 {
 	if (KeyControl==false) {
-		if (y > m_Y2 )
-			y= m_Y2 +  (y-m_Y2)/m_Y1;
-		else if (y<m_Y3)
-			y= m_Y3+   (y-m_Y3 )/m_Y1;
+		y=m_ymap.map(y);
 	} 
 	y*=CanvasY;
 	y/=DasherModel().DasherY();
@@ -348,10 +342,33 @@ inline double CDasherViewSquare::xmap(double x) const
 	}
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+inline myint CDasherViewSquare::Cymap::map(myint y) const
+{
+	if (y > m_Y2 )
+		return  m_Y2 +  (y-m_Y2)/m_Y1;
+	else if (y<m_Y3)
+		return m_Y3+   (y-m_Y3 )/m_Y1;
+	else
+		return y;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline myint CDasherViewSquare::Cymap::unmap(myint ydash) const
+{
+	if (ydash > m_Y2)
+		return (ydash-m_Y2)*m_Y1 + m_Y2;
+	else if (ydash<m_Y3)
+		return (ydash-m_Y3)*m_Y1+m_Y3;
+	else
+		return ydash;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 } // namespace Dasher
-
-
-
 
 
 
