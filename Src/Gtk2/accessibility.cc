@@ -10,6 +10,7 @@ ControlTree *paneltree;
 ControlTree *edittree;
 ControlTree *widgettree;
 ControlTree *windowtree;
+ControlTree *stoptree;
 ControlTree *dummy; // This one is used to fake another control node
 #define _(x) gettext(x)
 
@@ -149,7 +150,7 @@ gboolean findpanels(Accessible *parent) {
 
 ControlTree* buildcontroltree() {
   dummy=new ControlTree;
-  ControlTree *stoptree=new ControlTree;
+  stoptree=new ControlTree;
   ControlTree *pausetree=new ControlTree;
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
@@ -354,13 +355,17 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
 
   AccessibleStateSet *state_set;
   state_set=Accessible_getStateSet(parent);
+  AccessibleRole role;
 
-  if (!Accessible_getRole(parent)==SPI_ROLE_APPLICATION && !Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM && !Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM && !Accessible_getRole(parent)==SPI_ROLE_MENU && !Accessible_getRole(parent)==SPI_ROLE_PUSH_BUTTON && !Accessible_getRole(parent)==SPI_ROLE_RADIO_BUTTON && !Accessible_getRole(parent)==SPI_ROLE_TOGGLE_BUTTON && !Accessible_getRole(parent)==SPI_ROLE_RADIO_MENU_ITEM) {
+  role=Accessible_getRole(parent);
+
+  if (role!=SPI_ROLE_APPLICATION && role!=SPI_ROLE_CHECK_MENU_ITEM && role!=SPI_ROLE_MENU_ITEM && role!=SPI_ROLE_MENU && role!=SPI_ROLE_PUSH_BUTTON && role!=SPI_ROLE_RADIO_BUTTON && role!=SPI_ROLE_TOGGLE_BUTTON && role!=SPI_ROLE_RADIO_MENU_ITEM) {
     if (!AccessibleStateSet_contains(state_set,SPI_STATE_VISIBLE)) {
       return false;
     }
   }
   
+
   // This is the node that will represent us if we're useful
   // We don't insert ourselves into the tree just yet, though
   ControlTree* NewNode = new ControlTree;
@@ -383,30 +388,30 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
   } else {
     // We have no kids - check if we're a menu item
     if (Type==menus) {
-      if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_RADIO_MENU_ITEM) {      
+      if (role==SPI_ROLE_MENU_ITEM||role==SPI_ROLE_CHECK_MENU_ITEM||role==SPI_ROLE_RADIO_MENU_ITEM) {      
 	NewNode->pointer=parent;
 	NewNode->data=1;
-	NewNode->children=menutree;
+	NewNode->children=stoptree;
 	NewNode->text=Accessible_getName(parent);      
 	useful=true;
       } 
     } else if (Type==pushbuttons) {
-      if (Accessible_getRole(parent)==SPI_ROLE_PUSH_BUTTON||Accessible_getRole(parent)==SPI_ROLE_RADIO_BUTTON||Accessible_getRole(parent)==SPI_ROLE_TOGGLE_BUTTON) {
+      if (role==SPI_ROLE_PUSH_BUTTON||role==SPI_ROLE_RADIO_BUTTON||role==SPI_ROLE_TOGGLE_BUTTON) {
 	NewNode->pointer=parent;
 	NewNode->data=1;
-	NewNode->children=menutree;
+	NewNode->children=stoptree;
 	NewNode->text=Accessible_getName(parent);      
 	useful=true;
       } 
     } else if (Type==textenter) {
-      if (Accessible_getRole(parent)==SPI_ROLE_TEXT) {
+      if (role==SPI_ROLE_TEXT) {
 	AccessibleStateSet *state_set;
 	state_set=Accessible_getStateSet(parent);
 	if (AccessibleStateSet_contains(state_set,SPI_STATE_EDITABLE)) {  
 	  AccessibleRelation **relations;
 	  NewNode->pointer=parent;
 	  NewNode->data=30;
-	  NewNode->children=menutree;
+	  NewNode->children=stoptree;
 	  relations=Accessible_getRelationSet(parent);
 	  if (relations == NULL || *relations == NULL) {
 	    NewNode->text=_("Unknown");
