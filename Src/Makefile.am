@@ -13,7 +13,9 @@ LDADD =  Gtk2/libdashergtk.a DasherCore/libdashercore.a
 CXXFLAGS = $(GTK2_CFLAGS) $(GCONF_CFLAGS) $(gnome_speech_CFLAGS) -I./Gtk2/ -I./DasherCore/ -I../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\"
 LDFLAGS = $(GTK2_LIBS) $(GCONF_LIBS) $(gnome_speech_LIBS) -lexpat
 
-else
+endif
+
+if DOGTKMM
 
 SUBDIRS = DasherCore Gtk
 dasher_SOURCES = Main.cc
@@ -24,9 +26,21 @@ LDFLAGS = $(GTKMM_LIBS) -lexpat
 
 endif
 
+if DOQTE
 
+QTDIR=/usr/share/qte2
+
+SUBDIRS = DasherCore Common Qt
+dasher_SOURCES = QMain.cc
+LDADD =  Qt/libdasherqt.a DasherCore/libdashercore.a Common/libdashermisc.a
+
+CXXFLAGS = -DQWS -fno-rtti -I./DasherCore -I../intl -I$(top_srcdir)/intl -I$(QTDIR)/include
+LDFLAGS = -lqte -ljpeg -lexpat
+
+endif
 
 bin_PROGRAMS = dasher
+
 
 
 
