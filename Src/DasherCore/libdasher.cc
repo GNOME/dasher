@@ -541,6 +541,11 @@ void dasher_redraw()
   interface->Redraw();
 }
 
+void dasher_render()
+{
+  interface->Render();
+}
+
 void dasher_tap_on( int x, int y, unsigned long int time )
 {
   interface->TapOn( x, y, time );

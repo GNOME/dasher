@@ -72,6 +72,8 @@ gboolean startspace;
 gboolean keyboardcontrol;
 gboolean leavewindowpause;
 gboolean mouseposstart;
+gboolean firstbox=FALSE;
+gboolean secondbox=FALSE;
 
 gint dasherwidth, dasherheight;
 
@@ -85,6 +87,7 @@ gint fileencoding;
 gint outputcharacters;
 
 time_t starttime=0;
+time_t starttime2=0;
 
 const gchar *filename = NULL;
 
@@ -657,18 +660,38 @@ timer_callback(gpointer data)
 
   else if (mouseposstart==true) {
     int x,y;
+    dasherheight=the_canvas->allocation.height;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    if (firsttime==firstbox==secondbox==false) {
+      firstbox=true;
+      draw_mouseposbox(0);
+    }
     if (y>0 && y<100) {
       if (starttime==0) {
 	starttime=time(NULL);
       } else {
-	if ((time(NULL)-starttime)>5) {
-	  starttime=0;
+	if ((time(NULL)-starttime)>2) {
+	  draw_mouseposbox(1);
+	  secondbox=true;
+	  firstbox=false;
+	}
+      }
+    } else if (y<dasherheight && y>dasherheight-100 && secondbox==true) {      
+      if (starttime2==0) {
+	starttime2=time(NULL);
+	starttime=0;
+      } else {
+	if ((time(NULL)-starttime2)>2) {
 	  stop(); // Yes, confusingly named
 	}
       }
     } else {
-      starttime=0;
+      if (secondbox==true && starttime2>0) {
+	draw_mouseposbox(0);
+	secondbox=false;
+	firstbox=true;
+      }
+      starttime=starttime2=0;
     }
   }
 
@@ -1498,6 +1521,7 @@ void stop() {
   if (paused == TRUE) {
     dasher_unpause( get_time() );
     paused = FALSE;
+    starttime=starttime2=0;
   } else {
     dasher_pause(0,0);    
     paused = TRUE;
@@ -1507,6 +1531,9 @@ void stop() {
     if (timedata==TRUE) {
       printf("%d characters output in %d seconds\n",outputcharacters,
 	     time(NULL)-starttime);
+    }
+    if (mouseposstart==TRUE) {
+      draw_mouseposbox(0);
     }
   }
 }

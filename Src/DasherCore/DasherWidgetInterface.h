@@ -62,6 +62,9 @@ public:
 	//! Signal that the core should redraw the screen
 	virtual void Redraw()=0;
 	
+	//! Signal that the core should rerender the screen without displaying it
+	virtual void Render()=0;
+
 	// The widgets need to tell the engine when they have been affected
 	// by external interaction
 	

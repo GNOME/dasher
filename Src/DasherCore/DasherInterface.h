@@ -142,6 +142,7 @@ public:
 	void SetDasherDimensions(bool Value);
 	void SetDasherEyetracker(bool Value);
 	void SetUniform(int Value);
+	void Render();
 
 private:
 	CAlphabet* m_Alphabet;

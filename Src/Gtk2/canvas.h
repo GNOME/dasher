@@ -22,6 +22,8 @@ void draw_text_callback(symbol Character, int x1, int y1, int size);
 void draw_text_string_callback(std::string String, int x1, int y1, int size);
 void text_size_callback(symbol Character, int* Width, int* Height, int Size);
 
+void draw_mouseposbox(int which);
+
 void set_canvas_font(std::string fontname);
 void reset_dasher_font();
 

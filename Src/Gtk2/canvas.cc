@@ -319,3 +319,58 @@ void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* b
     colours[i].blue=blue[i]*257;
   }
 }
+
+void draw_mouseposbox(int which) {
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
+  GdkRectangle update_rect;
+  GdkColor color;
+  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+  colormap = gdk_colormap_get_system();
+  int top, bottom;
+
+  paused=false;
+  dasher_render();
+  paused=true;
+
+  switch (which) {
+  case 0:
+    color.pixel=0;
+    color.red=255*257;
+    color.green=0*257;
+    color.blue=0*257;
+    top=0;
+    bottom=100;
+    break;
+  case 1:
+    color.pixel=0;
+    color.red=255*257;
+    color.green=255*257;
+    color.blue=0*257;
+    bottom=the_canvas->allocation.height;
+    top=bottom-100;
+    break;
+  }
+
+  gdk_draw_pixmap(onscreen_buffer,
+  		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+  		  offscreen_buffer,
+  		  0, 0, 0,0,
+		  the_canvas->allocation.width,
+		  the_canvas->allocation.height);
+
+  gdk_color_alloc(colormap, &color);
+  gdk_gc_set_foreground (graphics_context, &color);
+  gdk_draw_rectangle (onscreen_buffer, graphics_context, TRUE, 0, top, the_canvas->allocation.width, bottom);
+
+  update_rect.x = 0;
+  update_rect.y = 0;
+  update_rect.width = the_canvas->allocation.width;
+  update_rect.height = the_canvas->allocation.height;
+
+  gtk_widget_draw(the_canvas,&update_rect);
+}
+
+
+
+

@@ -111,11 +111,6 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
 		if (m_CopyAllOnStop)
 			m_DashEditbox->CopyAll();
 	}
-	if (m_DasherView!=0 && m_MouseposStart==true) {
-	  m_DasherView->Render();
-	  m_DasherView->DrawMouseposBox();
-	  m_DasherView->Display();
-	}
 	m_Paused=true;
 }
 
@@ -131,8 +126,6 @@ void CDasherInterface::Redraw()
 {
   if (m_DasherView!=0) {
     m_DasherView->Render();
-    if (m_MouseposStart==true && m_Paused==true)
-      m_DasherView->DrawMouseposBox();
     m_DasherView->Display();
   }
 
@@ -758,4 +751,10 @@ double CDasherInterface::GetCurFPS()
 void CDasherInterface::AddControlTree(ControlTree *controltree)
 {
   m_LanguageModel->NewControlTree(controltree);
+}
+
+void CDasherInterface::Render()
+{
+  if (m_DasherView!=0)
+    m_DasherView->Render();
 }
