@@ -53,6 +53,7 @@ doctype-system="http://www.w3.org/TR/html4/strict.dtd" />
 	<li>Encoding type: <xsl:value-of select="encoding/@type"/></li>
 	<li>Default orientation: <xsl:value-of select="orientation/@type"/></li>
 	<li>Space character: <xsl:value-of select="space/@d"/></li>
+	<li>Paragraph character: <xsl:value-of select="paragraph/@d"/></li>
 	</ul>
 	<table>
 	<xsl:for-each select="group">

@@ -24,6 +24,7 @@ CAlphabetBox::CAlphabetBox(HWND Parent, CDasherAppInterface* AI,
 	  m_CurrentAlphabet(CurrentAlphabet), Editing(false), Cloning(false),
 	  EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0)
 {
+	m_hwnd=0;
 	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_ALPHABET, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 }
 
