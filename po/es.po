@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-18 14:56+0100\n"
-"PO-Revision-Date: 2004-01-18 15:31+0100\n"
+"POT-Creation-Date: 2004-02-07 00:18+0100\n"
+"PO-Revision-Date: 2004-02-07 00:19+0100\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -16,82 +16,98 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.0.2\n"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:58
 msgid "Menus"
 msgstr "Menús"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:65
+msgid "Windows"
+msgstr "Ventanas"
+
+#: Src/Gtk2/accessibility.cc:70
+msgid "Application"
+msgstr "Aplicación"
+
+#: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
 msgstr "Botones"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:83
 msgid "Panels"
 msgstr "Paneles"
 
-#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:90
+msgid "Text"
+msgstr "Texto"
+
+#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Control"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:168
 msgid "Stop"
 msgstr "Detener"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:174
 msgid "Pause"
 msgstr "Pausar"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:181
 msgid "Move"
 msgstr "Mover"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:188
 msgid "Delete"
 msgstr "Borrar"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:197
 msgid "Speak"
 msgstr "Hablar"
 
-#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:227
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:233
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:246
 msgid "Everything"
 msgstr "Todo"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:252
 msgid "New"
 msgstr "Nuevo"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:258
 msgid "Repeat"
 msgstr "Repetir"
 
-#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
 msgid "Character"
 msgstr "Carácter"
 
-#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
 msgid "Word"
 msgstr "Palabra"
 
-#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
 msgid "Line"
 msgstr "Línea"
+
+#: Src/Gtk2/accessibility.cc:399
+msgid "Unknown"
+msgstr "Desconocido"
 
 #: Src/Gtk2/dasher.cc:183
 msgid "Training Dasher, please wait"
@@ -495,7 +511,12 @@ msgstr "Color"
 msgid "Orientation"
 msgstr "Orientación"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "Imposible inicializar las voces"
+
+#: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Advertencia: No se pueden establecer los parámetros de habla\n"
