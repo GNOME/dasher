@@ -167,10 +167,6 @@ void GtkDasherCanvas::clear()
   buffer->get_bg_text()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
 
   
-  cout << "some_color2: " << some_color2.get_pixel() << endl;
-
-  //buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
-
   buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
   buffer->get_fg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
 
@@ -360,42 +356,36 @@ void GtkDasherCanvas::Blank() const
   if( is_realized() )
     {
      Gdk_GC graphics_context;
-  graphics_context.create(get_window());
+     graphics_context.create(get_window());
 
 
-  // FIXME - This is very broked - we should set up the colour map in advance
+     // FIXME - This is very broked - we should set up the colour map in advance
 
-  Gdk_Color some_color;
-  Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
-  some_color.set_red(65535);
-  some_color.set_green(65535);
-  some_color.set_blue(65535);
-  some_colormap.alloc(some_color);
-  graphics_context.set_foreground(some_color);
+     Gdk_Color some_color;
+     Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
+     some_color.set_red(65535);
+     some_color.set_green(65535);
+     some_color.set_blue(65535);
+     some_colormap.alloc(some_color);
+     graphics_context.set_foreground(some_color);
     
 
-  buffer->get_bg_text()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
-  buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+     buffer->get_bg_text()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+     buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
 
-Gdk_GC gc2;
+     Gdk_GC gc2;
   
-//  cout << buffer->get_map_text() << " - a" << endl;
+     gc2.create(*(buffer->get_map_text()));
 
-  gc2.create(*(buffer->get_map_text()));
+     GdkColor clr;
 
-   GdkColor clr;
-
-  clr.pixel = 0;
-
-  Gdk_Color some_color2( clr );
+     clr.pixel = 0;
+     
+     Gdk_Color some_color2( clr );
   
-  gc2.set_foreground(some_color2);
-
-  gc2.set_fill( GDK_SOLID );
-
-  gc2.set_clip_mask();
-
-  buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
+     gc2.set_foreground(some_color2);
+  
+     buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
     
     }
  }
@@ -409,10 +399,16 @@ void GtkDasherCanvas::Display()
 
 void GtkDasherCanvas::swap_buffers()
 {
-  Gdk_GC graphics_context;
-  graphics_context.create( get_window());
+  // Only swap the buffers if the canvas has been realised (otherwise
+  // we will be unable to get a graphics context).
 
-  buffer->swap_buffers( &graphics_context );
+  if( is_realized() )
+    {
+      Gdk_GC graphics_context;
+      graphics_context.create( get_window());
+      
+      buffer->swap_buffers( &graphics_context );
+    }
 }
 
 

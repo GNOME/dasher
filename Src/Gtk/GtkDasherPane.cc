@@ -56,8 +56,17 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   
   canvas = new GtkDasherCanvas( 360, 360, interface );
 
-  vp.pack1( *text, true, true );
-  vp.pack2( *canvas, true, true );
+  canvasframe.set_border_width( 2 );
+  canvasframe.set_shadow_type( GTK_SHADOW_IN );
+  canvasframe.add( *canvas );
+
+  editframe.set_border_width( 1 );
+  editframe.set_shadow_type( GTK_SHADOW_NONE );
+  editframe.add( *text );
+
+  vp.pack1( editframe, true, true );
+
+  vp.pack2( canvasframe, true, true );
 
   pack_start( vp, true, true );
   pack_start( *slider, false, false );
@@ -122,15 +131,12 @@ bool GtkDasherPane::open( std::string filename )
 
 void GtkDasherPane::import( std::string filename )
 {
-  cout << "Import: " << filename << endl;
   interface -> TrainFile( filename );
 }
 
 bool GtkDasherPane::save_as( string filename )
 {
-  //  cout << "In Save: " << filename << endl;
-
-  return(text->SaveAs( filename, false ));
+    return(text->SaveAs( filename, false ));
 }
 
 bool GtkDasherPane::append( string filename )

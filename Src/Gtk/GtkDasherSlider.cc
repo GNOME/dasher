@@ -4,15 +4,19 @@
 #include <gtk--/adjustment.h>
 
 GtkDasherSlider::GtkDasherSlider( CDasherInterface *_interface )
-  : HBox(), l("Speed:"), s( ), interface( _interface )
+  : s( ), interface( _interface ), Frame( "Max bitrate (speed)" )
 {
   a = manage( new Gtk::Adjustment( 5.0, 1.0, 8.0, 1.0, 1.0 ));
   
+  set_border_width(2);
+
   s.set_adjustment(a);
   s.set_update_policy(GTK_UPDATE_CONTINUOUS);
 
-  pack_start( l, false, false, 8 );
-  pack_start( s, true, true, 8 );
+  //  hb.pack_start( l, false, false, 8 );
+  // hb.pack_start( s, true, true, 8 );
+
+  add( s );
 
   a->value_changed.connect(bind(slot(this,&GtkDasherSlider::update_speed),a));
 

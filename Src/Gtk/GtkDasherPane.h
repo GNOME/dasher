@@ -4,6 +4,7 @@
 #include <gtk--/box.h>
 #include <gtk--/text.h>
 #include <gtk--/paned.h>
+#include <gtk--/frame.h>
 
 #include "GtkDasherCanvas.h"
 #include "GtkDasherEdit.h"
@@ -69,6 +70,9 @@ private:
   
   //  CSettingsStore *store;
   GtkDasherStore *store;
+
+  Gtk::Frame canvasframe;
+  Gtk::Frame editframe;
 
   Gtk::VPaned vp;
 

@@ -9,13 +9,16 @@
 #include <list>
 
 GtkDasherAlphabetBox::GtkDasherAlphabetBox()
-  : Dialog(), b_ok( "Ok" ), b_cancel( "Cancel" ), f( "Select Alphabet" )
+  : Dialog(), b_ok( "Ok" ), b_cancel( "Cancel" )
 {
   //get_vbox()->set_border_width( 10 );
   set_title( "Alphabet" );
 
   l.set_usize( 374, 256 );
   l.set_selection_mode( GTK_SELECTION_SINGLE );
+
+  f.set_border_width(4);
+  f.set_shadow_type( GTK_SHADOW_IN );
 
   f.add( l );
 

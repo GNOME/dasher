@@ -4,10 +4,11 @@
 #include <gtk--/box.h>
 #include <gtk--/label.h>
 #include <gtk--/scale.h>
+#include <gtk--/frame.h>
 
 #include "DasherInterface.h"
 
-class GtkDasherSlider : public Gtk::HBox
+class GtkDasherSlider : public Gtk::Frame
 {
  public:
   GtkDasherSlider(CDasherInterface *_interface );
@@ -15,9 +16,11 @@ class GtkDasherSlider : public Gtk::HBox
   void move( double position );
 
  private:
-  Gtk::Label l;
+  //  Gtk::Label l;
   Gtk::HScale s;
-  
+
+  //  Gtk::HBox hb;
+
   void update_speed( Gtk::Adjustment *adj );
 
   CDasherInterface *interface;

@@ -220,10 +220,10 @@ bool GtkDasherEdit::Open( std::string filename )
       while( !ifile.eof() && (fpos < 1024) )
 	{
 	  fbuffer[fpos] = ifile.get();
-	  ++fpos;
+	  
+	  if( !ifile.eof() )
+	    ++fpos;
 	}
-
-      cout << fpos << endl;
 
       text.insert( efont, black, white, fbuffer, fpos);
     }

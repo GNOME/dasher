@@ -12,7 +12,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2"), fix_pane( false ), timestamp( false ), current_or( Alphabet )
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk"), fix_pane( false ), timestamp( false ), current_or( Alphabet )
 {
   //  dasher_pane.set_settings_ui( this );
   
@@ -195,11 +195,7 @@ GtkDasherWindow::GtkDasherWindow()
  						       TB_PASTE)));
   }
 
-  cout << "Hello" << endl;
-
   dasher_pane.set_settings_ui( this );
-
-  cout << "Hello2" << endl;
 
   save_dialogue.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::file_ok_sel));
   dfontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_ok_sel));
@@ -221,15 +217,22 @@ GtkDasherWindow::GtkDasherWindow()
 
   aboutbox.set_title("About Dasher");
 
-  //  Gtk::Button button("click me");
-  Gtk::HBox *dialogHBox = aboutbox.get_action_area();
-  dialogHBox->pack_start (button, true, true, 0);
-  button.show();
 
-  //  Gtk::Label label("Dialogs are groovy");
-  Gtk::VBox *vbox = aboutbox.get_vbox();
-  vbox->pack_start (label, true, true, 0);
-  label.show();
+  
+  Gtk::HBox *dialogHBox = aboutbox.get_action_area();
+  dialogHBox->pack_start (button, false, false, 0);
+
+
+  abframe.set_border_width(8);
+  label.set_padding(8,8);
+  abframe.add( label );
+
+  aboutbox.get_vbox()->pack_start (abframe, true, true, 0);
+
+
+  aboutbox.get_action_area()->show_all();
+  aboutbox.get_vbox()->show_all();
+    
 
   button.clicked.connect(slot(this, &GtkDasherWindow::about_close_sel));
 
@@ -666,15 +669,7 @@ void GtkDasherWindow::TimeStampNewFiles(bool Value)
   if( timestamp != Value )
     {
       timestamp = Value;
-
-      cout << "value is " << Value << endl;
-
-      cout << "list_opts is " << list_opts << endl;
-
       static_cast<CheckMenuItem *>( (*list_opts)[0] )->set_active( timestamp );
-
-      // FIXME - are we supposed to actually do anything with this information??
-      // Also need to update menu indicator here
     }
 }
 

@@ -113,6 +113,8 @@ protected:
 
   Gtk::Button button;
   Gtk::Label label;
+  Gtk::Frame abframe;
+
 
   Gtk::FontSelectionDialog dfontsel;
   Gtk::FontSelectionDialog efontsel;
