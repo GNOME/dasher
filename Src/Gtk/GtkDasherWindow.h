@@ -6,8 +6,10 @@
 #include <gtk--/button.h>
 #include <gtk--/box.h>
 #include <gtk--/menubar.h>
+
 //#include <gnome--/app.h>
 
+#include "GtkDasherSave.h"
 #include "GtkDasherPane.h"
 
 #define TB_NEW "new"
@@ -28,6 +30,7 @@ public:
 
 protected:
   GtkDasherPane dasher_pane;
+  GtkDasherSave save_dialogue;
   Gtk::Toolbar toolbar;
   Gtk::VBox main_vbox; 
   Gtk::MenuBar menu;

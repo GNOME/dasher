@@ -7,13 +7,14 @@
 #include <gtk/gtk.h>
 #include <gtk--/window.h>
 #include <gtk--/main.h>
+
 //#include <gnome--/app-helper.h> 
 //#include <gnome--/app.h>
 
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menu(), Window() 
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menu(), Window(), save_dialogue()
 {  
   add(main_vbox);
 
@@ -72,6 +73,12 @@ GtkDasherWindow::~GtkDasherWindow()
 void GtkDasherWindow::toolbar_button_cb(char *c)
 {
   printf("toolbar_button_cb : %s\n",c);
+
+
+  if( !strcmp( c, TB_NEW ) )
+    cout << "Restart dasher here" << endl;
+  else if( !strcmp( c, TB_SAVE ) )
+    save_dialogue.show();
 }
 
 int GtkDasherWindow::destroy_event_impl(GdkEventAny *event)
