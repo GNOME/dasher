@@ -32,7 +32,7 @@ void select_append_file();
 void save_file();
 void select_import_file();
 void interface_setup();
-void open_window();
+GtkWidget* open_window();
 void choose_filename();
 
 void parameter_string_callback( string_param p, const char *value );

@@ -783,7 +783,7 @@ void create_canvas() {
     
 }
 
-void
+GtkWidget*
 open_window() {
   char *system_data_dir;
   char *home_dir;
@@ -891,6 +891,8 @@ open_window() {
   gtk_timeout_add(50, timer_callback, NULL );  
 
   setup = TRUE;
+
+  return window;
 }
 
 void choose_filename() {
