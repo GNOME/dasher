@@ -107,8 +107,8 @@ GtkDasherWindow::GtkDasherWindow()
     list_view->push_back(CheckMenuElem(gettext("Fix Layout"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_FIX)));
 
-    static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( true );
-    static_cast<CheckMenuItem *>( (*list_view)[3] )->set_active( true );
+    //    static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( true );
+    //    static_cast<CheckMenuItem *>( (*list_view)[3] )->set_active( true );
 
     static_cast<CheckMenuItem *>( (*list_view)[5] )->set_sensitive( false );
 
@@ -230,9 +230,9 @@ GtkDasherWindow::GtkDasherWindow()
  						       TB_PASTE)));
   }
 
-  dasher_pane.set_settings_ui( this );
-
   show_all();
+
+  dasher_pane.set_settings_ui( this );
 
   save_dialogue.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::file_ok_sel));
   save_dialogue.delete_event.connect( SigC::slot(this, &GtkDasherWindow::file_close_sel) );
@@ -796,28 +796,22 @@ void GtkDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
 
 void GtkDasherWindow::ShowToolbar( bool value )
 {
-  if( value != toolbar_shown )
-    {
-      toolbar_shown = value;
-
-      if( toolbar_shown )
-	toolbar.show();
-      else
-	toolbar.hide();
-
-      static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( toolbar_shown );
-    }
+  toolbar_shown = value;
+  
+  if( toolbar_shown )
+    toolbar.show();
+  else
+    toolbar.hide();
+  
+  static_cast<CheckMenuItem *>( (*list_view)[2] )->set_active( value );
 }
 
 void GtkDasherWindow::ShowSpeedSlider( bool value )
 {
-  if( value != slider_shown )
-    {
       slider_shown = value;
       dasher_pane.show_slider( slider_shown );
 
       static_cast<CheckMenuItem *>( (*list_view)[3] )->set_active( slider_shown );
-    }
 }
 
 void GtkDasherWindow::TimeStampNewFiles(bool Value)

@@ -50,7 +50,6 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
   interface->SetSystemLocation(SystemDataDir);
   interface->SetUserLocation(UserDataDir);
-  interface->SetSettingsStore( store );
 
   text = new GtkDasherEdit( interface );
   text->set_usize(128, 128);
@@ -74,6 +73,8 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   pack_start( vp, true, true );
   pack_start( *slider, false, false );
   show_all();
+
+  interface->SetSettingsStore( store );
 
   //  interface->ChangeLanguageModel(0); // The core seems to deal with this
   interface->ChangeView(0);

@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
+#include <iostream>
 
 #include "DasherSettingsInterface.h"
 
@@ -79,7 +79,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetBoolDefault(SHOW_TOOLBAR, true);
 	this->ShowToolbar(Store->GetBoolOption(SHOW_TOOLBAR));
-	
+
 	Store->SetLongDefault(SCREEN_ORIENTATION, Opts::LeftToRight);
 	this->ChangeOrientation((ScreenOrientations) Store->GetLongOption(SCREEN_ORIENTATION));
 	
