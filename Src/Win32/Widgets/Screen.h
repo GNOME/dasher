@@ -16,7 +16,9 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/MSVC_Unannoy.h"
 #include <vector>
+#ifndef _WIN32_WCE
 #include <cmath>
+#endif
 
 
 class CScreen : public Dasher::CDasherScreen, private NoClones
