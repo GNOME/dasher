@@ -75,3 +75,13 @@ int CLanguageModel::GetColour(int character)
     return 0;
   }
 }
+
+int CLanguageModel::GetGroupColour(int group)
+{
+	std::string colour=m_Alphabet->GetGroupColour(group);
+	if (colour!="") {
+		return atoi(colour.c_str());
+	} else {
+		return 0;
+	}
+}

@@ -30,7 +30,7 @@ private:
 	Opts::ColorSchemes m_ColorScheme;
 	int m_iPhase;                      // index for coloring
 	int m_iColour;                     // for the advanced colour mode
-	
+
 	const symbol m_Symbol;             // the character to display
 	CLanguageModel *m_languagemodel;   // pointer to the language model - in future, could be different for each node	
 	CDasherNode **m_Children;          // pointer to array of children
@@ -61,6 +61,7 @@ public:
 	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
 	int Colour() const {return m_iColour;}
+	int GroupColour() const {return m_languagemodel->GetGroupColour(m_iGroup);}
 	CDasherNode* Parent() const {return m_parent;}
 
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords

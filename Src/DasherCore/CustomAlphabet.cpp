@@ -26,7 +26,7 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 		for (unsigned int j=0; j<AlphInfo.Groups[i].Characters.size(); j++) { // loop characters
 			AddChar(AlphInfo.Groups[i].Characters[j].Text, AlphInfo.Groups[i].Characters[j].Display, AlphInfo.Groups[i].Characters[j].Colour, AlphInfo.Groups[i].Characters[j].Foreground);
 		}
-		StartNewGroup();
+		StartNewGroup(AlphInfo.Groups[i].Colour);
 	}
 	
 	// Set Space character if requested

@@ -244,6 +244,7 @@ void CAlphIO::CreateDefault()
 	Default.Groups.resize(1);
 	Default.Groups[0].Description = "Lower case Latin letters";
 	Default.Groups[0].Characters.resize(Chars.size());
+	Default.Groups[0].Colour = "0";
 	for (unsigned int i=0; i<Chars.size(); i++) {
 		Default.Groups[0].Characters[i].Text = Chars[i];
 		Default.Groups[0].Characters[i].Display = Chars[i];
@@ -384,6 +385,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			if (strcmp(*atts, "name")==0) {
 				atts++;
 				Me->InputInfo.Groups.back().Description = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+				atts++;
+				Me->InputInfo.Groups.back().Colour = *atts;
 				atts--;
 			}
 			atts += 2;

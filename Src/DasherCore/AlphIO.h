@@ -51,6 +51,7 @@ public:
 		{
 			std::string Description;
 			std::vector< character > Characters;
+			std::string Colour;
 		};
 		std::vector< group > Groups;
 		character SpaceCharacter; // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.

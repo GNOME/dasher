@@ -54,6 +54,7 @@ public:
 	symbol GetControlSymbol() {return m_Alphabet->GetControlSymbol();}
 	
 	int GetColour(int character);
+	int GetGroupColour(int group);
 
 	void NewControlTree(ControlTree *tree) { controltree=tree; }
 

@@ -230,7 +230,6 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
   UnMapScreen(&mousex, &mousey);
   screen2dasher(&mousex,&mousey);
   // So, we have a set of coordinates. We need a bunch of points back.
-  CDasherScreen::point line1, line2, line3, line4;
   myint height=DasherModel().PlotGoTo(mousex, mousey);
   myint top, bottom, left, right;
 

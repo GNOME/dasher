@@ -40,7 +40,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
 		m_languagemodel->EnterNodeSymbol(m_context,m_Symbol);
 
-        if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
+      if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
 	  int i,quantum;
 	  ControlTree *controltree;
 	  if (m_controltree==NULL) // Root of the tree

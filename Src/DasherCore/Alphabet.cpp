@@ -117,8 +117,9 @@ void CAlphabet::DelChar(symbol Symbol) {
   m_Group.erase(m_Group.begin()+Symbol); 
 }
 
-void CAlphabet::StartNewGroup()
+void CAlphabet::StartNewGroup(std::string colour)
 {
+	m_GroupColour.push_back(colour);
 	m_Groups++;
 }
 

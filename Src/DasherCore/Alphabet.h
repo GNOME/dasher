@@ -39,6 +39,7 @@ public:
 	const std::string& GetDisplayText(symbol i) const {return m_Display[i];} // return display string for i'th symbol
 	const std::string& GetText(symbol i) const {return m_Characters[i];}     // return string for i'th symbol
 	const std::string& GetColour(symbol i) const {return m_Colours[i];}     // return the colour for i'th symbol
+	const std::string& GetGroupColour(int i) const {return m_GroupColour[i];} // return the colour for i'th group
 	int GetTextColour(symbol i);      // return the foreground colour for i'th symbol
 	const std::string& GetForeground(symbol i) const {return m_Foreground[i];} // return the foreground colour for i'th symbol
 	int get_group(symbol i) const {return m_Group[i];}                // return group membership of i'th symbol
@@ -62,8 +63,8 @@ protected:
 	void AddChar(const std::string NewCharacter, const std::string Display, const std::string Colour, const std::string Foreground); // add single char to the alphabet
 	// Delete a character
 	void DelChar(symbol Symbol);
-	void StartNewGroup();
-	
+	void StartNewGroup(std::string colour="");
+
 	// Alphabet language parameters
 	void SetSpaceSymbol() {m_SpaceSymbol=m_Characters.size()-1;}         // We can set the space symbol to be the last character added
 	void SetControlSymbol() {m_ControlSymbol=m_Characters.size()-1;} // We set the control symbol to be the last character added. Given the above, this is a hack.
@@ -84,6 +85,7 @@ private:
 	std::vector<std::string> m_Colours;    // stores the colour of the characters
 	std::vector<std::string> m_Foreground; // stores the colour of the character foreground
 	std::vector<int> m_Group;              // stores the group indicators - e.g. caps, numbers, punctuation
+	std::vector<std::string> m_GroupColour; // stores the colour of the group
 	int m_Groups;                          // number of groups
 	alphabet_map TextMap;
 };

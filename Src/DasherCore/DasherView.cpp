@@ -87,7 +87,11 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				myint newy2=y1+(range*hbnd)/m_DasherModel.Normalization();
 				int mostleft;
 				bool force;
-				RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				if (ColourMode==true) {
+					RenderNode(0,Render->GroupColour(),Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				} else {
+					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				}
 			}
 			current=g;
 		}
