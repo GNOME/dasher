@@ -28,7 +28,7 @@ void initialise_canvas( int width, int height )
   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
   font = pango_font_description_new();
 
-  pango_font_description_set_family( font,"Sans");
+  pango_font_description_set_family( font,"Fixed");
 
   ink = new PangoRectangle;
   logical = new PangoRectangle;
@@ -323,7 +323,7 @@ void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
 void reset_dasher_font()
 {
   pango_font_description_free(font);
-  font=pango_font_description_from_string("Sans 12");
+  font=pango_font_description_from_string("Fixed 12");
   dasher_redraw();
 }
 
