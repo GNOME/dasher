@@ -40,11 +40,11 @@
 - (void)setCachedFontName:(NSString *)newCachedFontName;
 
 - (void)clearRectCache;
-- (void)flushRectCache;
+- (void)drawRectCache;
 - (void)addRect:(NSRect)aRect color:(NSColor *)aColor;
 
 - (void)clearTextCache;
-- (void)flushTextCache;
+- (void)drawTextCache;
 - (void)addText:(ZippyString *)aZippyString point:(NSPoint)aPoint;
 
 - (NSBezierPath *)polylineCache;

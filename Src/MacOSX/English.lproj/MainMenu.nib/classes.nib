@@ -4,7 +4,13 @@
             ACTIONS = {changeSpeed = id; importTrainingText = id; showPreferences = id; }; 
             CLASS = DasherApp; 
             LANGUAGE = ObjC; 
-            OUTLETS = {dasherEdit = NSTextView; dasherView = DasherView; dasherWindow = NSWindow; }; 
+            OUTLETS = {dasherView = DasherView; dasherWindow = NSWindow; }; 
+            SUPERCLASS = NSObject; 
+        }, 
+        {
+            CLASS = DasherEdit; 
+            LANGUAGE = ObjC; 
+            OUTLETS = {dasherTextUI = NSTextView; }; 
             SUPERCLASS = NSObject; 
         }, 
         {CLASS = DasherView; LANGUAGE = ObjC; SUPERCLASS = NSView; }, 

@@ -133,52 +133,15 @@ void text_size_callback(symbol Character, int* Width, int* Height, int Size)
 }
 
 
-void edit_output_callback(symbol Symbol)
-{
-  [XXXdasherApp outputCallback:NSStringFromStdString(dasher_get_edit_text(Symbol))];
-}
-
-// TODO this flush stuff never gets called?  and the context only gets called at the very start!
-void edit_flush_callback(symbol Symbol)
-{
-  [XXXdasherApp flushCallback:NSStringFromStdString(dasher_get_edit_text(Symbol))];
-}
-
-void edit_unflush_callback()
-{
-  [XXXdasherApp unflushCallback];
-}
-
-void get_new_context_callback( std::string &str, int max )
-{
-  NSString *s = [XXXdasherApp getNewContextCallback:max];
-  str = (s == nil || [s length] == 0) ? new std::string() : new std::string([s cString]);
-}
-
-void clipboard_callback( clipboard_action act )
-{
-  [XXXdasherApp clipboardCallbackWithAction:(clipboard_action)act];
-}
-
 
 static void registerCallbacks()
 {
-
   dasher_set_blank_callback( blank_callback );
   dasher_set_display_callback( display_callback );
   dasher_set_draw_rectangle_callback( draw_rectangle_callback );
   dasher_set_draw_polyline_callback( draw_polyline_callback );
   dasher_set_draw_text_callback( draw_text_callback );
   dasher_set_text_size_callback( text_size_callback );
-
-  dasher_set_edit_output_callback( edit_output_callback );
-  dasher_set_edit_flush_callback( edit_flush_callback );
-  dasher_set_edit_unflush_callback( edit_unflush_callback );
-  
-  dasher_set_get_new_context_callback( get_new_context_callback );
-
-  dasher_set_clipboard_callback( clipboard_callback );
-  
 }
 
 
@@ -250,15 +213,11 @@ unsigned long int get_time() {
   XXXdasherView = dasherView;
   XXXdasherApp = self;
   
-  // TODO this should actually happen on creating a new document
-  [dasherEdit setFont:[NSFont fontWithName:[defaults stringForKey:EDIT_FONT] size:(float)[defaults integerForKey:EDIT_FONT_SIZE]]];
-
   dasher_redraw();
 }
 
 - (void)applicationDidFinishLaunching:(NSNotification *)notification
 {
-  flushCount = 0;
 
 }
 
@@ -294,73 +253,6 @@ unsigned long int get_time() {
   dasher_tap_on( (int)q.x, (int)q.y, get_time() );
 }
 
-
-- (void)outputCallback:(NSString *)aString
-{
-  [dasherEdit insertText:aString];
-}
-
-- (void)flushCallback:(NSString *)aString
-{
-  [dasherEdit insertText:aString];
-
-  if (![aString isEqualToString:@""])
-    {
-    flushCount++;
-    }
-
-}
-
-- (void)unflushCallback
-{
-  NSString *s = [dasherEdit string];
-  int numChar = [s length] - flushCount;
-  
-  if (numChar <= 0)
-    {
-    numChar = [s length];
-    }
-  [dasherEdit setString:[s substringToIndex:numChar]];
-  
-  flushCount = 0;
-}
-
-- (NSString *)getNewContextCallback:(int)maxChars
-{
-  NSString *s = [dasherEdit string];
-  int i = [s length] - maxChars;
-  if (i < 0)
-    {
-    i = 0;
-    }
-  return [s substringFromIndex:i];
-}
-
-- clipboardCallbackWithAction:(clipboard_action)act
-{
-  switch( act )
-    {
-    case CLIPBOARD_CUT:
-      [dasherEdit cut:self];
-      break;
-    case CLIPBOARD_COPY:
-      [dasherEdit copy:self];
-      break;
-    case CLIPBOARD_PASTE:
-      [dasherEdit paste:self];
-      break;
-    case CLIPBOARD_COPYALL:
-      [dasherEdit selectAll:self];
-      [dasherEdit copy:self];
-      break;
-    case CLIPBOARD_SELECTALL:
-      [dasherEdit selectAll:self];
-      break;
-    case CLIPBOARD_CLEAR:
-      [dasherEdit setString:nil];
-      break;
-    }
-}
 
 
 

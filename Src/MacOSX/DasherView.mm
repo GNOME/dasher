@@ -46,12 +46,12 @@
   return self;
 }
 
-- (void)setFrameSize:(NSSize)newSize
+- (void)setFrame:(NSRect)newRect
 {
-  [super setFrameSize:newSize];
+  [super setFrame:newRect];
 
 #if !defined(TOY)
-  dasher_resize_canvas((int)newSize.width, (int)newSize.height);
+  dasher_resize_canvas((int)newRect.size.width, (int)newRect.size.height);
   dasher_redraw();
 #endif
 }
@@ -98,8 +98,8 @@
   [[NSColor whiteColor] set];
   NSRectFill(r);
   
-  [self flushRectCache];
-  [self flushTextCache];
+  [self drawRectCache];
+  [self drawTextCache];
 
   [[NSColor blackColor] set];
   [[self polylineCache] stroke];
@@ -260,7 +260,7 @@
   textCacheCount = 0;
 }
 
-- (void)flushTextCache {
+- (void)drawTextCache {
   if (textCacheCount == 0) {
     return;
   }
@@ -270,8 +270,6 @@
   for (i = 0; i < textCacheCount; i++) {
     [textCache[i] drawAtPoint:textPointCache[i]];
   }
-
-  [self clearTextCache];
 }
 
 - (void)addText:(ZippyString *)aZippyString point:(NSPoint)aPoint {
@@ -301,14 +299,13 @@
   rectCacheCount++;
 }
 
-- (void)flushRectCache {
+- (void)drawRectCache {
   if (rectCacheCount == 0) {
     return;
     }
   
   // assumes focus is already LOCKED
   NSRectFillListWithColors(rectCache, rectColorCache, rectCacheCount);
-  [self clearRectCache];
 }
 
 - (void)clearRectCache {
@@ -365,11 +362,14 @@
   [_cachedFontName release];
   [_zippyCache release];
   [_textAttributeCache release];
+
   [_polylineCache release];
-  
+
+  [self clearRectCache];
   free(rectCache);
   free(rectColorCache);
 
+  [self clearTextCache];
   free(textCache);
   free(textPointCache);
   

@@ -23,13 +23,13 @@
     [self setString:aString];
     [self setAttributes:someAttributes];
     [self setSize:[aString sizeWithAttributes:someAttributes]];
-    if (s.width != 0 && s.height != 0) {
+    if ([aString length] == 1 && s.width != 0 && s.height != 0) {
       m = [[NSImage alloc] initWithSize:[self size]];
       [m setFlipped:YES];
       [m lockFocus];
       [self drawAtPoint:NSMakePoint(0, 0)];
       [m unlockFocus];
-      [self setImage:m];
+      [self setImage:[m autorelease]];
     }
   }
 

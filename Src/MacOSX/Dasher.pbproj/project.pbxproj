@@ -9,6 +9,8 @@
 			children = (
 				19C49619045029A40000000A,
 				19EEDB310450E75F0000000A,
+				1904CDA5048813400000000A,
+				1904CDA6048813400000000A,
 				19C4961D045029D70000000A,
 				199DCCD70450B94C0000000A,
 				19D4423C04546C410000000A,
@@ -80,6 +82,30 @@
 //192
 //193
 //194
+		1904CDA5048813400000000A = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = DasherEdit.h;
+			refType = 4;
+		};
+		1904CDA6048813400000000A = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = DasherEdit.mm;
+			refType = 4;
+		};
+		1904CDA7048813400000000A = {
+			fileRef = 1904CDA5048813400000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		1904CDA8048813400000000A = {
+			fileRef = 1904CDA6048813400000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		191CE19C04595BBA0000000A = {
 			isa = PBXFileReference;
 			path = DasherApp.icns;
@@ -482,6 +508,7 @@
 				19D4423E04546C410000000A,
 				1946CABD0481AD440000000A,
 				1946CABF0481AD440000000A,
+				1904CDA7048813400000000A,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -523,6 +550,7 @@
 				19D4423F04546C410000000A,
 				1946CABE0481AD440000000A,
 				1946CAC00481AD440000000A,
+				1904CDA8048813400000000A,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;

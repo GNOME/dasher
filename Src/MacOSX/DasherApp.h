@@ -22,10 +22,8 @@ unsigned long int get_time();
 {
     IBOutlet DasherView *dasherView;
     IBOutlet NSWindow *dasherWindow;
-    IBOutlet NSTextView *dasherEdit;
 
     NSTimer *_timer;
-    int flushCount;
 }
 
 - (NSTimer *)timer;

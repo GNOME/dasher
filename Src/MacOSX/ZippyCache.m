@@ -30,7 +30,9 @@
   result = [sizeCache objectForKey:aString];
   if (result == nil) {
     result = [ZippyString zippyStringWithString:aString attributes:someAttributes];
-    [sizeCache setObject:result forKey:aString];
+    if ([aString length] == 1) {
+      [sizeCache setObject:result forKey:aString];
+    }
   }
 
   [latestString release];
