@@ -57,11 +57,11 @@ main(int argc, char *argv[])
 
   interface_setup();
 
-  dasher_early_initialise( 360, 360 );
+  dasher_early_initialise();
 
   open_window ();
 
-  dasher_late_initialise();
+  dasher_late_initialise(360,360);
 
   gtk_main ();
 

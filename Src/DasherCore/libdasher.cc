@@ -45,7 +45,6 @@ void (*set_bool_option_callback)(const std::string&, bool) = NULL;
 void (*set_long_option_callback)(const std::string&, long) = NULL;
 void (*set_string_option_callback)(const std::string&, const std::string&) = NULL;
 
-
 void handle_parameter_string( string_param p, const string & value )
 {
   if( string_callback != NULL )
@@ -181,27 +180,22 @@ void handle_set_string_option(const std::string& Key, const std::string& Value)
 
 using namespace std;
 
-void dasher_early_initialise( int _width, int _height )
+void dasher_early_initialise()
 {
   interface = new CDasherInterface;
   
-  dsc = new dasher_screen( _width, _height );
-  interface->ChangeScreen( dsc );
-  
-  ded = new dasher_edit;
-  interface->ChangeEdit( ded );
-  
-  dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
-  
-  dasher_set_parameter_int( INT_VIEW, 0 ); 
   
 }
 
-void dasher_late_initialise()
+void dasher_late_initialise( int _width, int _height)
 {
   const char *alphabet;
-  dasher_get_alphabets( &alphabet, 1 );
-  dasher_set_parameter_string( STRING_ALPHABET, alphabet );
+
+  dsc = new dasher_screen( _width, _height );
+  interface->ChangeScreen( dsc );
+
+  ded = new dasher_edit;
+  interface->ChangeEdit( ded );
 
   dss = new dasher_settings_store;
   interface->SetSettingsStore( dss );

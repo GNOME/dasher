@@ -42,8 +42,8 @@ enum clipboard_action { CLIPBOARD_CUT,
 			CLIPBOARD_SELECTALL,
 			CLIPBOARD_CLEAR };
 
-void dasher_early_initialise( int _width, int _height );
-void dasher_late_initialise( );
+void dasher_early_initialise( );
+void dasher_late_initialise( int _width, int _height );
 void dasher_finalise();
 
 void dasher_set_parameter_string( string_param p, const char *value );
