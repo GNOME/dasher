@@ -44,6 +44,7 @@ GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
 GtkFontSelectionDialog *dasherfontdialog;
+GtkFontSelectionDialog *editfontdialog;
 
 bool controlmodeon=false;
 
@@ -1128,6 +1129,25 @@ void set_dasher_font(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_show(GTK_WIDGET(dasherfontdialog));
 }
 
+void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
+{
+  char *font_name;
+  font_name=gtk_font_selection_dialog_get_font_name(editfontdialog);
+  if (font_name) {
+    dasher_set_parameter_string( STRING_EDITFONT, font_name );
+    set_editbox_font(font_name);
+  }
+  gtk_widget_destroy (GTK_WIDGET(editfontdialog));
+}
+
+void set_edit_font(gpointer data, guint action, GtkWidget *widget)
+{
+  editfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));
+  g_signal_connect (editfontdialog->cancel_button, "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT (editfontdialog));
+  g_signal_connect (editfontdialog->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) editfontdialog);
+  gtk_widget_show(GTK_WIDGET(editfontdialog));
+}
+
 void reset_fonts(gpointer data, guint action, GtkWidget *widget )
 {
   reset_edit_font();
@@ -1142,6 +1162,9 @@ void parameter_string_callback( string_param p, const char *value )
     {
     case STRING_DASHERFONT:
       set_canvas_font(value);
+      break;
+    case STRING_EDITFONT:
+      set_editbox_font(value);
       break;
     }
 }

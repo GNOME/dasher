@@ -246,6 +246,7 @@ void dasher_set_parameter_string( string_param p, const char *value )
       interface->ChangeAlphabet( s );
       break;
     case STRING_EDITFONT:
+      interface->SetEditFont( s, 0 );
       break;
     case STRING_DASHERFONT:
       interface->SetDasherFont( s );

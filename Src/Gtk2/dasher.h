@@ -70,6 +70,8 @@ extern bool controlmodeon;
 
 void set_dasher_font(gpointer data, guint action, GtkWidget *widget);
 void get_font_from_dialog( GtkWidget *one, GtkWidget *two );
+void set_edit_font(gpointer data, guint action, GtkWidget *widget);
+void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
 
 #endif
 

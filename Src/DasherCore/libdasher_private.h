@@ -126,7 +126,7 @@ class dasher_ui : public CDasherSettingsInterface
   void SetEditFont(string Name, long Size) 
     {
       handle_parameter_string( STRING_EDITFONT, Name );
-      handle_parameter_int( INT_EDITFONTSIZE, Size );
+      //      handle_parameter_int( INT_EDITFONTSIZE, Size );
     };
 
   void SetDasherFont(string Name)

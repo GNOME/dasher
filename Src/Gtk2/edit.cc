@@ -11,7 +11,6 @@
 GtkWidget *the_text_view;  
 GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;
-GtkFontSelectionDialog *editfontdialog;
 std::string say;
 std::string outputtext;
 
@@ -166,27 +165,9 @@ void clear_edit()
 
 }
 
-void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
-{
-  char *font_name;
-  font_name=gtk_font_selection_dialog_get_font_name(editfontdialog);
-  if (font_name) {
-    gtk_widget_modify_font (the_text_view,pango_font_description_from_string(font_name));
-  }
-  gtk_widget_destroy (GTK_WIDGET(editfontdialog));
-}
-
 void reset_edit_font()
 {
   gtk_widget_modify_font (the_text_view,pango_font_description_from_string("Sans 10"));
-}
-
-void set_edit_font(gpointer data, guint action, GtkWidget *widget)
-{
-  editfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));
-  g_signal_connect (editfontdialog->cancel_button, "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT (editfontdialog));
-  g_signal_connect (editfontdialog->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) editfontdialog);
-  gtk_widget_show(GTK_WIDGET(editfontdialog));
 }
 
 void get_new_context_callback( std::string &str, int max )
@@ -214,3 +195,9 @@ void speak()
 }
 #endif
 
+void set_editbox_font(std::string FontName)
+{
+  if (FontName!="") {
+    gtk_widget_modify_font (the_text_view,pango_font_description_from_string(FontName.c_str()));
+  }
+}
