@@ -466,7 +466,7 @@ void CEdit::write_to_file()
 	} else {
 		DWORD NumberOfBytesWritten;
 		SetFilePointer (hFile, 0, NULL, FILE_END);
-		for (int i=0;i<m_Output.size();i++) {
+		for (unsigned int i=0;i<m_Output.size();i++) {
 			WriteFile(hFile, &m_Output[i], 1, &NumberOfBytesWritten, NULL);
 		}
 		

@@ -37,7 +37,7 @@ void CAlphabetBox::PopulateList()
 	
 	// Add each string to list box and index each one
 	bool SelectionSet=false;
-	for (int i=0; i<AlphabetList.size(); i++) {
+	for (unsigned int i=0; i<AlphabetList.size(); i++) {
 		Tstring Item;
 		WinUTF8::UTF8string_to_Tstring(AlphabetList[i], &Item, GetACP());
 		LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
@@ -90,7 +90,7 @@ void CAlphabetBox::InitCustomBox()
 	Encodings.push_back(pair<int, int>(IDS_TYPE_Western, Opts::Western));
 	Tstring ResourceString;
 	const HWND Encoding = GetDlgItem(CustomBox,IDC_ENCODING);
-	for (int i=0; i<Encodings.size(); i++) {
+	for (unsigned int i=0; i<Encodings.size(); i++) {
 		WinLocalisation::GetResourceString(Encodings[i].first, &ResourceString);
 		LRESULT Index = SendMessage(Encoding, CB_ADDSTRING, 0, (LPARAM)ResourceString.c_str());
 		SendMessage(Encoding, CB_SETITEMDATA, Index, (LPARAM)Encodings[i].second);
@@ -105,7 +105,7 @@ void CAlphabetBox::InitCustomBox()
 	Orientations.push_back(pair<int, int>(IDS_ORIENT_TB, Opts::TopToBottom));
 	Orientations.push_back(pair<int, int>(IDS_ORIENT_BT, Opts::BottomToTop));
 	const HWND Orientation = GetDlgItem(CustomBox,IDC_RO);
-	for (int j=0; j<Orientations.size(); j++) {
+	for (unsigned int j=0; j<Orientations.size(); j++) {
 		WinLocalisation::GetResourceString(Orientations[j].first, &ResourceString);
 		LRESULT Index = SendMessage(Orientation, CB_ADDSTRING, 0, (LPARAM)ResourceString.c_str());
 		SendMessage(Orientation, CB_SETITEMDATA, Index, (LPARAM)Orientations[j].second);
@@ -165,7 +165,7 @@ void CAlphabetBox::ShowGroups()
 		return;
 	}
 	
-	for (int k=0; k<CurrentInfo.Groups.size(); k++) {
+	for (uint k=0; k<CurrentInfo.Groups.size(); k++) {
 		WinUTF8::UTF8string_to_Tstring(CurrentInfo.Groups[k].Description, &Data, GetACP());
 		SendMessage(Groups, LB_ADDSTRING, 0, (LPARAM)Data.c_str());
 	}
