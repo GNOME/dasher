@@ -508,6 +508,15 @@ void CDasherInterface::Speech(bool Value)
     m_SettingsStore->SetBoolOption(Keys::SPEECH_MODE, Value);
 }
 
+void CDasherInterface::SetScreenSize(long Width, long Height)
+{
+  if (m_SettingsStore!=0) {
+    m_SettingsStore->SetLongOption(Keys::SCREEN_HEIGHT, Height);
+    m_SettingsStore->SetLongOption(Keys::SCREEN_WIDTH, Width);
+  }
+}
+
+
 void CDasherInterface::SetEditHeight(long Value)
 {
   if (m_SettingsStore!=0) {

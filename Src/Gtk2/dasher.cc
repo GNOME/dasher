@@ -54,7 +54,7 @@ bool keyboardmodeon=false;
 
 #define NO_PREV_POS -1
 
-guint window_x = 500, window_y = 500;
+guint window_x = 500, window_y = 500, editheight = 50;
 
 gboolean setup = FALSE;
 gboolean paused = FALSE;
@@ -634,7 +634,11 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
   force_dasher_redraw();
 
   if (setup==TRUE) {
+    int dasherwidth, dasherheight;
     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
+    gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
+    dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
+    dasher_set_parameter_int(INT_SCREENWIDTH, dasherwidth);
   }
 
   return FALSE;
@@ -837,8 +841,6 @@ open_window(GladeXML *xml) {
 
   gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
 
-  gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
-    
   // Focus the canvas
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
@@ -1227,7 +1229,31 @@ void parameter_int_callback( int_param p, long int value )
       gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), float(value)/10);
       break;
     case INT_EDITHEIGHT:
+      editheight=value;
       gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),value);
+      force_dasher_redraw();
+      break;
+    case INT_SCREENWIDTH:
+      window_x=value;
+      if (setup==true) {
+	setup=false;
+	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+	setup=true;
+      } else {
+	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+      }
+      force_dasher_redraw();
+      break;
+    case INT_SCREENHEIGHT:
+      window_y=value;
+      if (setup==true) {
+	setup=false;
+	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+	setup=true;
+      } else {
+	gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
+      }
+      force_dasher_redraw();
       break;
     }
 }

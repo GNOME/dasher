@@ -138,6 +138,7 @@ public:
 	void MouseposStart(bool Value);
 	void Speech(bool Value);
 	void OutlineBoxes(bool Value);
+	void SetScreenSize(long Width, long Height);
 	void SetEditHeight(long Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);

@@ -133,13 +133,16 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->SetDasherFontSize(Dasher::Opts::FontSize(Store->GetLongOption(DASHER_FONTSIZE)));
 
 	// Window Geometry
+	Store->SetLongDefault(EDIT_HEIGHT,75);
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));
+	Store->SetLongDefault(SCREEN_WIDTH,400);
+	Store->SetLongDefault(SCREEN_HEIGHT,500);
 	this->SetScreenSize(Store->GetLongOption(SCREEN_WIDTH), Store->GetLongOption(SCREEN_HEIGHT));
 
 	Store->SetBoolDefault(KEYBOARD_MODE, false);
 	this->KeyboardMode(Store->GetBoolOption(KEYBOARD_MODE));
 
-	Store->SetLongDefault(UNIFORM, 1000 );
+	Store->SetLongDefault(UNIFORM, 50 );
 	this->SetUniform(Store->GetLongOption(UNIFORM));
 
 	Store->SetBoolDefault(MOUSEPOS_START, false);

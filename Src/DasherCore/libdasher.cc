@@ -14,6 +14,7 @@ CSettingsStore *dss;
 dasher_edit *ded;
 
 string default_string("");
+int height, width;
 
 // Function pointers for the callbacks
 
@@ -301,8 +302,12 @@ void dasher_set_parameter_int( int_param p, long int value )
       interface->ChangeView( value );
       break;
     case INT_SCREENWIDTH:
+      width=value;
+      interface->SetScreenSize(width,height);
       break;
     case INT_SCREENHEIGHT:
+      height=value;
+      interface->SetScreenSize(width,height);
       break;
     case INT_EDITFONTSIZE:
       break;
