@@ -156,20 +156,20 @@ void CDasherViewSquare::CheckForNewRoot()
 			theone=i;
 		}
 	}
-	
+
 	if (alive==1) {	  
-	        y1=DasherModel().Rootmin();
-		y2=DasherModel().Rootmax();
-		myint range=y2-y1;
-		myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
-		myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
-		if (newy1<0 && newy2> DasherModel().DasherY()) {
-			myint left=dasherx2screen(newy2-newy1);
-			if (left<0) {
-				DasherModel().Make_root(theone);
-				return;
-			}
-		}
+	  y1=DasherModel().Rootmin();
+	  y2=DasherModel().Rootmax();
+	  myint range=y2-y1;
+	  myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
+	  myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
+	  if (newy1<0 && newy2> DasherModel().DasherY()) {
+	    myint left=dasherx2screen(newy2-newy1);
+	    if (left<0) {
+	      DasherModel().Make_root(theone);
+	      return;
+	    }
+	  }
 	}
 }
 

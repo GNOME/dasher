@@ -7,7 +7,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "DasherModel.h"
-#include <iostream>
 
 using namespace Dasher;
 using namespace std;
@@ -218,15 +217,17 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
 void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
 {
+  // First, we need to work out how far we need to zoom in
   float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+
+  // Then zoom in appropriately
   m_Rootmax+=zoomfactor*(m_Rootmax-m_DasherY/2);
   m_Rootmin+=zoomfactor*(m_Rootmin-m_DasherY/2);
+
+  // Afterwards, we need to take care of the vertical offset.
   int up=(m_DasherY/2)-MouseY;
-  float upfactor=up/(m_DasherY/2*1.0);
-  //Distance to move up is height*upfactor
-  myint height=myint(upfactor*m_DasherY/2);
-  m_Rootmax+=height;
-  m_Rootmin+=height;
+  m_Rootmax+=up;
+  m_Rootmin+=up;
 }
 
 
@@ -332,15 +333,6 @@ void CDasherModel::GoTo(myint miMousex,myint miMousey)
 	CDasherNode* new_under_cross = Get_node_under_crosshair();
 
 	new_under_cross->Push_Node();
-
-	// And try to push the parents
-	
-	CDasherNode* parentnode = new_under_cross->Parent();
-
-	while (parentnode!=0) {
-	  parentnode->Push_Node();
-	  parentnode=parentnode->Parent();
-	}
 
 	Update(m_Root,new_under_cross,0);
 

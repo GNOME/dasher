@@ -15,11 +15,11 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	
 	// Convert the X mouse coordinate to one that's based on the canvas size - we want this
 	// the opposite way round to the mouse coordinate system, hence the fudging. ixmap gives
-	// us the X nonlinearity.
+	// us the X nonlinearity.	
 	double x=ixmap(1.0*(CanvasX-*mousex)/CanvasX)*DasherModel().DasherY();
 
 	// If we're in standard mode, fudge things for the vertical acceleration
-	if (DasherModel().Dimensions()==false) {
+	if (DasherModel().Dimensions()==false && KeyControl==false) {
 		if (dashery>m_Y2)
 			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
 		else if (dashery<m_Y3)
@@ -126,11 +126,14 @@ inline void CDasherViewSquare::Crosshair(myint sx)
 inline double CDasherViewSquare::ixmap(double x)
 // invert x non-linearity
 {
-	if (x<m_dXmpb*m_dXmpc)
-		return x/m_dXmpc;
-	else
-		return m_dXmpb-m_dXmpa + m_dXmpa * exp( (x/m_dXmpc - m_dXmpb) / m_dXmpa);
-	
+	if (KeyControl==false) {
+		if (x<m_dXmpb*m_dXmpc)	
+			return x/m_dXmpc;
+		else	
+			return m_dXmpb-m_dXmpa + m_dXmpa * exp( (x/m_dXmpc - m_dXmpb) / m_dXmpa);
+	} else {
+		return x;
+	}
 }
 
 

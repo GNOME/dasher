@@ -410,6 +410,8 @@ void CDasherInterface::KeyControl(bool Value)
 	  m_SettingsUI->KeyControl(Value);
 	if (m_SettingsStore!=0)
 	  m_SettingsStore->SetBoolOption(Keys::KEY_CONTROL, Value);
+	if (m_DasherView!=0)
+	  m_DasherView->SetKeyControl(Value);
 }
 
 void CDasherInterface::WindowPause(bool Value)

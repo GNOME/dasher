@@ -62,10 +62,16 @@ public:
 	// Toggle advanced colour mode
 	void SetColourMode(bool colourmode) {ColourMode=colourmode;}
 
+	// Toggle keyboard control mode
+	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
+
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(int* DrawX, int* DrawY);
 	inline void UnMapScreen(int* DrawX, int* DrawY);
+
+	// Keyboard control is on
+	bool KeyControl;
 
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
@@ -88,8 +94,6 @@ private:
 	// Advanced colour mode
 	bool ColourMode;
 
-	// DJW - removed floating point stuff
-	//double XYScale;
 };
 
 
