@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: zenity 0.1\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-02-24 18:24+0100\n"
-"PO-Revision-Date: 2004-02-24 18:28+0100\n"
+"PO-Revision-Date: 2004-03-09 14:14+0100\n"
 "Last-Translator: Sigurd Gartmann <sigurd-gnome-translate@brogar.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -22,11 +22,11 @@ msgstr "Menyer"
 
 #: Src/Gtk2/accessibility.cc:65
 msgid "Windows"
-msgstr ""
+msgstr "Vinduer"
 
 #: Src/Gtk2/accessibility.cc:70
 msgid "Application"
-msgstr ""
+msgstr "Applikasjon"
 
 #: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
@@ -38,7 +38,7 @@ msgstr "Paneler"
 
 #: Src/Gtk2/accessibility.cc:90
 msgid "Text"
-msgstr ""
+msgstr "Tekst"
 
 #: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
@@ -107,11 +107,11 @@ msgstr "Linje"
 
 #: Src/Gtk2/accessibility.cc:399
 msgid "Unknown"
-msgstr ""
+msgstr "Ukjent"
 
 #: Src/Gtk2/dasher.cc:183
 msgid "Training Dasher, please wait"
-msgstr ""
+msgstr "Trener opp Dasher, vennligst vent"
 
 #. This gets pulled out via gettext
 #: Src/Gtk2/dasher.cc:1757
@@ -125,13 +125,13 @@ msgstr "Dasher"
 
 #: Src/Gtk2/dasher.cc:1762
 msgid "Dasher is a predictive text entry application"
-msgstr ""
+msgstr "Dasher er en applikasjon for forutseende inntasting av tekst"
 
 #. Just a debugging thing, output to the console
 #: Src/Gtk2/dasher.cc:2169
 #, c-format
 msgid "%d characters output in %d seconds\n"
-msgstr ""
+msgstr "%d tegn skrevet ut på %d sekunder\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -155,11 +155,11 @@ msgstr "9:"
 
 #: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
-msgstr ""
+msgstr "<b>Alfabetutvalg:</b>"
 
 #: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
-msgstr ""
+msgstr "<b>Oppsett av knappekontroll</b>"
 
 #: Src/Gtk2/dasher.glade.h:8
 msgid "<b>Color Selection:</b>"
@@ -259,7 +259,7 @@ msgstr "Klipp ut"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
-msgstr ""
+msgstr "Syklisk knappemodus"
 
 #: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
@@ -267,7 +267,7 @@ msgstr "Brukervalg for Dasher"
 
 #: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
+msgstr "Avstand fra midtlinjen for start på musposisjon:"
 
 #: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -275,19 +275,19 @@ msgstr "Ned/3:"
 
 #: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
-msgstr ""
+msgstr "Tegn omriss for bokser"
 
 #: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Tegn en linje mellom kors og mus"
 
 #: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
-msgstr ""
+msgstr "Rediger alternativer for knappekontroll"
 
 #: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
-msgstr ""
+msgstr "Skriv inn tekst i andre vinduer"
 
 #: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
@@ -299,6 +299,8 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
+"Hvis dette modus velges vil opp og ned gå\n"
+"bakover og fremover mellom koordinater og høyre vil bekrefte valget"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
@@ -322,11 +324,11 @@ msgstr "Normal"
 
 #: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr ""
+msgstr "Antall piksler som skal dekke hele y-området:"
 
 #: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
-msgstr ""
+msgstr "Endimensjonalt modus"
 
 #: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:53
 msgid "Open file"
@@ -338,7 +340,7 @@ msgstr "Lim inn"
 
 #: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
-msgstr ""
+msgstr "Pause utenfor vindu"
 
 #: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
@@ -370,7 +372,7 @@ msgstr "Vis musposisjon"
 
 #: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
-msgstr ""
+msgstr "Vis justering av hastighet"
 
 #: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
@@ -378,7 +380,7 @@ msgstr "Vis verktøylinje"
 
 #: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
-msgstr ""
+msgstr "Snakk ved stopp"
 
 #: Src/Gtk2/dasher.glade.h:65
 msgid "Speed"
@@ -386,19 +388,19 @@ msgstr "Hastighet"
 
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
-msgstr ""
+msgstr "Start med venstre musknapp"
 
 #: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
-msgstr ""
+msgstr "Start med mellomrom"
 
 #: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
-msgstr ""
+msgstr "Start med musposisjon"
 
 #: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
-msgstr ""
+msgstr "Tidsmerking på nye filer"
 
 #: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
@@ -410,7 +412,7 @@ msgstr "Opplæring"
 
 #: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
 msgid "Training Dasher - please wait"
-msgstr ""
+msgstr "Trener opp Dasher - vennligst vent"
 
 #: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
 msgid "Up/1:"
@@ -422,6 +424,9 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
+"Bruk denne kontrollen for å justere relative størrelser for\n"
+"bokstavboksene. Merking av høye verdier vil bremse ned\n"
+"skrivehastigheten."
 
 #: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
@@ -473,7 +478,7 @@ msgstr "_Hjelp"
 
 #: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:90
 msgid "_Import Training Text"
-msgstr ""
+msgstr "_Importer treningstekst"
 
 #: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
@@ -481,11 +486,11 @@ msgstr "_Alternativer"
 
 #: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
-msgstr ""
+msgstr "_Nullstill skrifter"
 
 #: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:93
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr ""
+msgstr "abcdefghijkæøå ABCDEFGHIJKÆØÅ"
 
 #: Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Colour Selection:</b>"
@@ -519,4 +524,4 @@ msgstr "Advarsel: kunne ikke sette parametere for tale\n"
 
 #: Src/main.cc:98
 msgid "Dasher Text Entry"
-msgstr ""
+msgstr "Dasher tekstoppføring"
