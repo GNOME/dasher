@@ -45,10 +45,12 @@ namespace Dasher
 	// in dasher nodes.
 	//typedef unsigned int symbol; // }}}
 	typedef int symbol;
-	
-//	typedef unsigned int uint;
-	//	typedef unsigned short ushort;
-	
+
+#ifdef _MSC_VER	// Not needed on UNIX, and break the QT build
+	typedef unsigned int uint;
+	typedef unsigned short ushort;
+#endif
+
 	namespace Opts
 	{
 		// Numbers should be applied to elements of the following two enumerations as these preferences may be stored to file. Constancy between
