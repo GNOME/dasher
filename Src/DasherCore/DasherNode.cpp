@@ -83,7 +83,8 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	    ChildScheme = Nodes1;
 	  }
 
-	  m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes2,0,int(i*quantum),m_languagemodel,false,0);
+	  // FIXME - should be fixed to be green all the time
+	  m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,112);
 
 	  while(controltree!=NULL) {
 	    i++;

@@ -37,7 +37,7 @@
 <s d="y" t="y" b="34"/>
 <s d="z" t="z" b="35"/>
 </group>
-<group name="Upper case Latin letters" b="80">
+<group name="Upper case Latin letters" b="110">
 <s d="A" t="A" b="12"/>
 <s d="B" t="B" b="13"/>
 <s d="C" t="C" b="14"/>
@@ -65,7 +65,7 @@
 <s d="Y" t="Y" b="36"/>
 <s d="Z" t="Z" b="37"/>
 </group>
-<group name="Punctuation" b="81">
+<group name="Punctuation" b="111">
 <s d="&amp;" t="&amp;" b="11"/>
 <s d="&quot;" t="&quot;" b="12"/>
 <s d="&apos;" t="&apos;" b="13"/>
