@@ -18,8 +18,6 @@ GtkDasherStore::~GtkDasherStore()
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, bool* Value)
 {
-  //  cout << "Load Setting " << Key <<  endl;
-
   *Value = bmap[Key];
 
   if( *Value == bool() )
@@ -30,7 +28,6 @@ bool GtkDasherStore::LoadSetting(const std::string& Key, bool* Value)
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, long* Value)
 {
-  //  cout << "Load Setting " << Key << endl;
   *Value = lmap[Key];
 
   if( *Value == long() )
@@ -41,7 +38,6 @@ bool GtkDasherStore::LoadSetting(const std::string& Key, long* Value)
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 {
-  //  cout << "Load Setting " << Key <<  endl;
   *Value = smap[Key];
 
   if( *Value == string() )
@@ -52,27 +48,19 @@ bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 	
 void GtkDasherStore::SaveSetting(const std::string& Key, bool Value)
 {
-  //  cout << "Save Setting " << Key << ", " << Value << endl;
-  
-    bmap[Key] = Value;
-   write_to_file();
+  bmap[Key] = Value;
+  write_to_file();
 }
 
 void GtkDasherStore::SaveSetting(const std::string& Key, long Value)
 {
-  //  cout << "Save Setting " << Key << ", " << Value << endl;
-
   lmap[Key] = Value;
-
   write_to_file();
 }
 
 void GtkDasherStore::SaveSetting(const std::string& Key, const std::string& Value)
 {
-  //  cout << "Save Setting " << Key << ", " << Value << endl;
-
   smap[Key] = Value;
-
   write_to_file();
 }
 
@@ -93,47 +81,47 @@ void GtkDasherStore::write_to_file()
 
   if( !outfile.bad() )
   {
-  {
-    std::map<std::string, bool>::iterator bit;
+    {
+      std::map<std::string, bool>::iterator bit;
+      
+      bit = bmap.begin();
+      
+      while( bit != bmap.end() )
+	{
+	  outfile << "b:" << bit->first << ":" << bit->second << endl;
+	  ++bit;
+	}
+    }
     
-    bit = bmap.begin();
+    { 
+      std::map<std::string, long>::iterator lit;
+      
+      lit = lmap.begin();
+      
+      while( lit != lmap.end() )
+	{
+	  outfile << "l:" << lit->first << ":" << lit->second << endl;
+	  ++lit;
+	}
+    } 
     
-    while( bit != bmap.end() )
-      {
-	outfile << "b:" << bit->first << ":" << bit->second << endl;
-	++bit;
-      }
+    { 
+      std::map<std::string, string>::iterator sit;
+      
+      sit = smap.begin();
+      
+      while( sit != smap.end() )
+	{
+	  outfile << "s:" << sit->first << ":" << sit->second << endl;
+	  ++sit;
+	}
+    }
+    
+    outfile.close();
   }
-   
-  { 
-    std::map<std::string, long>::iterator lit;
-    
-    lit = lmap.begin();
-    
-    while( lit != lmap.end() )
-      {
-	outfile << "l:" << lit->first << ":" << lit->second << endl;
-	++lit;
-      }
-  } 
-
-  { 
-    std::map<std::string, string>::iterator sit;
-    
-    sit = smap.begin();
-    
-    while( sit != smap.end() )
-      {
-	outfile << "s:" << sit->first << ":" << sit->second << endl;
-	++sit;
-      }
-  }
-
-  outfile.close();
-}
   else
     cerr << "Warning - failed to save configuration data" << endl;
-
+  
   delete( UserDataDir );
 }
 
