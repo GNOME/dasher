@@ -485,7 +485,7 @@ open_file (const char *filename)
 #endif  
   dasher_clear();
   
-  file_modified = 1;
+  file_modified = TRUE;
 
   if (size!=0) {
     // Don't attempt to insert new text if the file is empty as it makes
@@ -651,7 +651,7 @@ save_file_as (const char *filename, bool append)
   fwrite(outbuffer,1,bytes_written,fp);
   fclose (fp);
 #endif
-  file_modified = 0;
+  file_modified = FALSE;
   gtk_window_set_title(GTK_WINDOW(window), filename);
 }
 
@@ -797,7 +797,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog = NULL;
 
-  if (file_modified == TRUE) {
+  if (file_modified != FALSE) {
     // Ask whether to save the modified file, insert filename if it exists.
     if (filename != NULL) {
       dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE,"Do you want to save your changes to %s?\n\nYour changes will be lost if you don't save them.", filename);
