@@ -1,6 +1,7 @@
 2004-02-07  Takeshi AIHANA <aihana@gnome.gr.jp>
 
 	* ja.po: Added Japanese translation.
+	* LINGUAS: Added 'ja' (Japanese) to install.
 
 2004-02-07  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
