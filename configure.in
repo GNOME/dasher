@@ -30,6 +30,9 @@ AC_ARG_WITH([qteplugin],
 AC_ARG_WITH([speech],
 	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]), [WITHSPEECH=true],[WITHSPEECH=false])
 
+AC_ARG_WITH([gpe],
+	 AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]), [WITHGPE=true],[WITHGPE=false])
+
 AC_ARG_WITH([a11y],
 	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library(default is NO)]), [WITHA11Y=true],[WITHA11Y=false])
 
@@ -68,6 +71,10 @@ if [[ x"$WITHA11Y" = xtrue ]]; then
 	AC_DEFINE([GNOME_A11Y])
 fi
 
+if [[ x"$WITHGPE" = xtrue ]]; then
+	AC_DEFINE([WITH_GPE])
+fi
+
 PKG_CHECK_MODULES(glade, libglade-2.0)
 
 AC_SUBST(gnome_speech_LIBS)
@@ -91,6 +98,7 @@ AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(DOQTEPLUGIN, test x$WITHQTEPLUGIN = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
+AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)

@@ -377,7 +377,7 @@ void set_canvas_font(std::string fontname)
 void reset_dasher_font()
 {
   pango_font_description_free(font);
-  font=pango_font_description_from_string("Serif 12");
+  font=pango_font_description_from_string("DASHERFONT");
   dasher_redraw();
 }
 

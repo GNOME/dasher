@@ -265,7 +265,7 @@ void deletemenutree() {
   while (menuitems.size()>0) {
     int i=menuitems.size()-1;
     Accessible_unref(menuitems[i]);
-    menuitems.pop_back();
+    menuitems.pop_back();    
   }
   Accessible_unref(desktop);
 #else

@@ -124,7 +124,7 @@ GPatternSpec *alphabetglob, *colourglob;
 GtkWidget *window;
 GtkWidget *file_selector;
 
-std::string dasherfont="Serif 12";
+std::string dasherfont="DASHERFONT";
 std::string editfont="Sans 10";
 
 void 
@@ -1231,8 +1231,13 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
 
+#ifdef WITH_GPE
+  if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
+    return;
+#else
   if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_2BUTTON_PRESS))
     return;
+#endif
 
   focusEvent->type = GDK_FOCUS_CHANGE;
   focusEvent->window = (GdkWindow *) the_canvas;
@@ -1366,6 +1371,9 @@ interface_late_setup() {
   alphabet=dasher_get_current_alphabet();
   colourscheme=dasher_get_current_colours();
   generate_preferences(NULL,NULL);
+#ifdef WITH_GPE
+  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, true );
+#endif
 }
 
 void
@@ -1421,6 +1429,7 @@ open_window(GladeXML *xml) {
   // I have no idea why we need to do this when Glade has theoretically done
   // so already, but...
   gtk_widget_add_events (the_canvas, GDK_BUTTON_PRESS_MASK);
+  gtk_widget_add_events (the_canvas, GDK_BUTTON_RELEASE_MASK);
 
   // We need to monitor the text buffer for mark_set in order to get
   // signals when the cursor is moved
@@ -1729,10 +1738,10 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
 {
   reset_edit_font();
   reset_dasher_font();
-  dasher_set_parameter_string( STRING_DASHERFONT, "Serif 12" );
+  dasher_set_parameter_string( STRING_DASHERFONT, "DASHERFONT" );
   dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
-  editfont="Serif 12";
-  dasherfont="Sans 10";
+  editfont="Sans 10";
+  dasherfont="DASHERFONT";
 }
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data)
@@ -1777,7 +1786,7 @@ void parameter_string_callback( string_param p, const char *value )
       set_canvas_font(value);
       dasherfont=value;
       if (dasherfont=="") {
-	dasherfont="Serif 12";
+	dasherfont="DASHERFONT";
       }
       break;
     case STRING_EDITFONT:
@@ -1874,6 +1883,7 @@ void parameter_int_callback( int_param p, long int value )
       break;
     case INT_SCREENWIDTH:
       window_x=value;
+#ifndef WITH_GPE
       if (setup==true) {
 	setup=false;
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
@@ -1881,10 +1891,12 @@ void parameter_int_callback( int_param p, long int value )
       } else {
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
       }
+#endif
       dasher_redraw();
       break;
     case INT_SCREENHEIGHT:
       window_y=value;
+#ifndef WITH_GPE
       if (setup==true) {
 	setup=false;
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
@@ -1892,6 +1904,7 @@ void parameter_int_callback( int_param p, long int value )
       } else {
 	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
       }
+#endif
       dasher_redraw();
       break;
     }
@@ -1908,11 +1921,13 @@ void parameter_bool_callback( bool_param p, bool value )
       if (toolbar==NULL) 
 	break;
 
+#ifndef WITH_GPE // Don't show the toolbar if running under GPE
       if (value) {
 	gtk_widget_show(toolbar);
       } else {
 	gtk_widget_hide(toolbar);
       }
+#endif
 
       break;
     case BOOL_SHOWSPEEDSLIDER:

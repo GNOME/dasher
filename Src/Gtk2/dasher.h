@@ -105,6 +105,12 @@ void update_alphabets();
 int alphabet_filter(const gchar* filename);
 int colour_filter(const gchar* filename);
 
+#ifdef WITH_GPE
+#define DASHERFONT "Serif 10"
+#else
+#define DASHERFONT "Serif 12"
+#endif
+
 #endif
 
 

@@ -95,7 +95,11 @@ main(int argc, char *argv[])
   g_thread_init(NULL);
 #endif
 
+#ifdef WITH_GPE
+  xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
+#else
   xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
+#endif
 
   the_gconf_client = gconf_client_get_default();
 
@@ -145,9 +149,9 @@ main(int argc, char *argv[])
   
   dasher_set_edit_output_callback( edit_output_callback );
   dasher_set_edit_outputcontrol_callback( edit_outputcontrol_callback );
+
   dasher_set_edit_delete_callback( edit_delete_callback );
   dasher_set_get_new_context_callback( get_new_context_callback );
-
   dasher_set_clipboard_callback( clipboard_callback );
 
   setlocale (LC_ALL, "");
@@ -173,6 +177,10 @@ main(int argc, char *argv[])
   dasher_late_initialise(360,360);
 
   interface_late_setup();
+
+#ifdef WITH_GPE
+  gtk_window_set_decorated(GTK_WINDOW(window),false);
+#endif
 
   gtk_widget_show(window);
 
