@@ -50,6 +50,7 @@ static void show_slider(gpointer data, guint action, GtkWidget  *widget );
 static void timestamp_files(gpointer data, guint action, GtkWidget *widget );
 static void file_encoding(gpointer data, guint action, GtkWidget *widget );
 static void DrawMouse(gpointer data, guint action, GtkWidget *widget );
+static void select_open_file(gpointer data, guint action, GtkWidget *widget);
 
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
@@ -59,7 +60,7 @@ typedef struct {
 static GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
   { "/File/_New",     "<CTRL>N", NULL,     0, "<Item>" },
-  { "/File/_Open...", "<CTRL>O", NULL,    0, "<Item>" },
+  { "/File/_Open...", "<CTRL>O", *GtkItemFactoryCallback(select_open_file),    1, "<Item>" },
   { "/File/Save",     NULL, NULL, 0, "<Item>" },
   { "/File/Save As...", NULL, NULL, 0, "<Item>" },
   { "/File/Append to File...", NULL, NULL, 0, "<Item>" },
@@ -135,7 +136,7 @@ gboolean file_modified = FALSE;
 gint prev_pos_x;
 gint prev_pos_y;
 
-gchar *filename = NULL;
+const gchar *filename = NULL;
 
 GtkWidget *window;
 GtkWidget *file_selector;
@@ -281,7 +282,7 @@ save_file_as (GtkFileSelection *selector, gpointer data)
 }
 
 static void 
-open_file (char *filename, Gtk2DasherEdit *dasher_text_view)
+open_file (const char *filename)
 {
   struct stat file_stat;
   FILE *fp;
@@ -290,14 +291,18 @@ open_file (char *filename, Gtk2DasherEdit *dasher_text_view)
 
   stat (filename, &file_stat);
   buffer = (gchar *) g_malloc (file_stat.st_size);
+  fp = fopen (filename, "r");
   fread (buffer, file_stat.st_size, 1, fp);
   fclose (fp);
   
   dasher_text_view->Clear();
   
   file_modified = 1;
-  gtk_editable_insert_text (GTK_EDITABLE (dasher_text_view->text_view), buffer, file_stat.st_size, &pos);
-  
+
+  gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (dasher_text_view->text_buffer), buffer, file_stat.st_size);
+
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (dasher_text_view->text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(dasher_text_view->text_buffer)));
+
   file_modified = 0;
   
   dasher_text_view->flush_count = 0;
@@ -306,29 +311,33 @@ open_file (char *filename, Gtk2DasherEdit *dasher_text_view)
 }
 
 static void
-open_file_from_filesel (GtkFileSelection *selector, gpointer data)
+open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
-  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-  
-  //  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION (file_selector));
-  open_file (filename, dasher_text_view);
-  
-  gtk_widget_destroy (file_selector);
+  //  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
+
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+
+  open_file (filename);
+
+  gtk_widget_destroy (GTK_WIDGET(selector));
 }
 
 
 static void
-select_open_file(GtkWidget *widget, gpointer data)
+select_open_file(gpointer data, guint action, GtkWidget *widget)
 {
-  Gtk2DasherEdit *dasher_text_view = static_cast<Gtk2DasherEdit*>(data);
-  
-  file_selector = gtk_file_selection_new ("Open File ...");
-  
-  gtk_signal_connect (GTK_OBJECT (file_selector), "completed", GTK_SIGNAL_FUNC (open_file_from_filesel), (gpointer) dasher_text_view);
 
-  gtk_signal_connect_object (GTK_OBJECT (GTK_FILE_SELECTION(file_selector)->cancel_button), "clicked", GTK_SIGNAL_FUNC (gtk_widget_destroy), GTK_OBJECT (file_selector));
+  GtkWidget *filew;
 
-  gtk_widget_show (file_selector);
+  filew = gtk_file_selection_new ("File selection");
+
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
+		    "clicked", G_CALLBACK (open_file_from_filesel), (gpointer) filew);
+    
+  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
+			    "clicked", G_CALLBACK (gtk_widget_destroy),
+			    G_OBJECT (filew));
+  gtk_widget_show (filew);
 }
 
 static void
@@ -599,16 +608,16 @@ public:
     dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
 				       "<DasherMenu>",
 				       dasher_accel);
+    dasher_text_view = new Gtk2DasherEdit (interface);
     
     gtk_item_factory_create_items( dasher_menu,
 				   54,
 				   entries,
-				   NULL );
+				   &dasher_text_view );
     
     float initial_bitrate = 3.0;
     
     dasher_canvas = new Gtk2DasherCanvas (360, 360, interface);
-    dasher_text_view = new Gtk2DasherEdit (interface);
     dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
     
     ofilesel = gtk_file_selection_new("Open a file");
