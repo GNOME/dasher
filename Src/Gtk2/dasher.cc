@@ -617,10 +617,9 @@ save_file_as (const char *filename, bool append)
   // if we're appending
   result=gnome_vfs_open(&handle,filename,GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
 
-  sleep(10);
-
   if (result==GNOME_VFS_ERROR_NOT_FOUND) {
-    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0664);
+    // umask should take care of keeping permissions sane
+    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0666);
   } else if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
     return false;
