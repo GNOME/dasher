@@ -8,6 +8,7 @@
 
 #include "SplashScreen.h"
 
+/////////////////////////////////////////////////////////////////////////////
 
 LRESULT CSplash::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
