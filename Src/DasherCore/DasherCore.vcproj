@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="DasherCore"
-	ProjectGUID="{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -353,19 +352,16 @@
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
-			RelativePath="FrameRate.h">
-		</File>
-		<File
 			RelativePath=".\LanguageModel.cpp">
 		</File>
 		<File
 			RelativePath=".\LanguageModel.h">
 		</File>
 		<File
-			RelativePath="PPMLanguageModel.cpp">
+			RelativePath=".\PPMLanguageModel.cpp">
 		</File>
 		<File
-			RelativePath="PPMLanguageModel.h">
+			RelativePath=".\PPMLanguageModel.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">

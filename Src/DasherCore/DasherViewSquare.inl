@@ -10,7 +10,7 @@ namespace Dasher {
 
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
-	int dashery=*mousey;
+	double dashery=*mousey;
 
 	double x=1.0*(CanvasX-*mousex)/CanvasX;
 	dashery*=DasherModel().DasherY();
@@ -41,7 +41,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 				x=2048+pow(pow(750,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
-			*mousey=dashery;
+			*mousey=int(dashery);
 			return;
 		}
 		else if (disty <-1500) {
@@ -54,7 +54,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 				x=2048+pow(pow(750,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
-			*mousey=dashery;
+			*mousey=int(dashery);
 			return;
 		} else {
 			x=pow(pow(1500,2)-pow(disty,2),0.5);
@@ -62,7 +62,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		x=2048-x;
 	}
 	*mousex=int(x);
-	*mousey=dashery;
+	*mousey=int(dashery);
 }
 
 inline const int CDasherViewSquare::dasherx2screen(const myint sx)
