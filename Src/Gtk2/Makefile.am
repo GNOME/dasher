@@ -1,4 +1,4 @@
-LIBS = @INTLLIBS@ @LIBS@
+LIBS = @LTLIBINTL@ @LIBS@
 
 noinst_LIBRARIES = libdashergtk.a
 

@@ -8,38 +8,38 @@
 # Please note that the actual code of GNU gettext is covered by the GNU
 # General Public License and is *not* in the public domain.
 
-PACKAGE = @PACKAGE@
-VERSION = @VERSION@
+PACKAGE = dasher
+VERSION = 3.1.9
 
 SHELL = /bin/sh
-@SET_MAKE@
 
-srcdir = @srcdir@
-top_srcdir = @top_srcdir@
-VPATH = @srcdir@
 
-prefix = @prefix@
-exec_prefix = @exec_prefix@
-datadir = @datadir@
+srcdir = .
+top_srcdir = ..
+
+
+prefix = /usr/local
+exec_prefix = ${prefix}
+datadir = ${prefix}/share
 localedir = $(datadir)/locale
 gettextsrcdir = $(datadir)/gettext/po
 
-INSTALL = @INSTALL@
-INSTALL_DATA = @INSTALL_DATA@
-MKINSTALLDIRS = @MKINSTALLDIRS@
+INSTALL = /usr/bin/install -c
+INSTALL_DATA = ${INSTALL} -m 644
+MKINSTALLDIRS = ./mkinstalldirs
 mkinstalldirs = $(SHELL) $(MKINSTALLDIRS)
 
-GMSGFMT = @GMSGFMT@
-MSGFMT = @MSGFMT@
-XGETTEXT = @XGETTEXT@
+GMSGFMT = /usr/bin/msgfmt
+MSGFMT = /usr/bin/msgfmt
+XGETTEXT = /usr/bin/xgettext
 MSGMERGE = msgmerge
 MSGMERGE_UPDATE = @MSGMERGE@ --update
 MSGINIT = msginit
 MSGCONV = msgconv
 MSGFILTER = msgfilter
 
-POFILES = @POFILES@
-GMOFILES = @GMOFILES@
+POFILES =  fr.po
+GMOFILES =  fr.gmo
 UPDATEPOFILES = @UPDATEPOFILES@
 DUMMYPOFILES = @DUMMYPOFILES@
 DISTFILES.common = Makefile.in.in remove-potcdate.sin \
@@ -49,8 +49,11 @@ $(POFILES) $(GMOFILES) \
 $(DISTFILES.extra1) $(DISTFILES.extra2) $(DISTFILES.extra3)
 
 POTFILES = \
+     ../Src/Gtk/GtkDasherWindow.cc \
+     ../Src/Gtk/GtkDasherSlider.cc \
+     ../Src/Gtk/GtkDasherAlphabetBox.cc
 
-CATALOGS = @CATALOGS@
+CATALOGS =  fr.gmo
 
 # Makevars gets inserted here. (Don't remove this line!)
 
@@ -72,7 +75,7 @@ CATALOGS = @CATALOGS@
 	mv t-$@ $@
 
 
-all: all-@USE_NLS@
+all: all-yes
 
 all-yes: stamp-po
 all-no:
@@ -135,7 +138,7 @@ $(POFILES): $(srcdir)/$(DOMAIN).pot
 
 install: install-exec install-data
 install-exec:
-install-data: install-data-@USE_NLS@
+install-data: install-data-yes
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	  for file in $(DISTFILES.common) Makevars.template; do \
@@ -194,7 +197,7 @@ install-strip: install
 
 installdirs: installdirs-exec installdirs-data
 installdirs-exec:
-installdirs-data: installdirs-data-@USE_NLS@
+installdirs-data: installdirs-data-yes
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  $(mkinstalldirs) $(DESTDIR)$(gettextsrcdir); \
 	else \
@@ -239,7 +242,7 @@ installcheck:
 
 uninstall: uninstall-exec uninstall-data
 uninstall-exec:
-uninstall-data: uninstall-data-@USE_NLS@
+uninstall-data: uninstall-data-yes
 	if test "$(PACKAGE)" = "gettext-tools"; then \
 	  for file in $(DISTFILES.common) Makevars.template; do \
 	    rm -f $(DESTDIR)$(gettextsrcdir)/$$file; \

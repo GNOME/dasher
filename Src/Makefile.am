@@ -1,4 +1,4 @@
-LIBS = @INTLLIBS@ @LIBS@
+LIBS = @LTLIBINTL@ @LIBS@
 
 datadir = @datadir@
 localedir = $(datadir)/locale

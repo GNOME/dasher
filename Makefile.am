@@ -1,5 +1,7 @@
 ACLOCAL_AMFLAGS = -I m4
 
-SUBDIRS = Src Data Doc intl po
+SUBDIRS = intl  Src Data Doc intl po
 DISTFILES = ABOUT-NLS
 
+
+EXTRA_DIST = config.rpath

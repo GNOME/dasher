@@ -1,0 +1,3 @@
+     ../Src/Gtk/GtkDasherWindow.cc \
+     ../Src/Gtk/GtkDasherSlider.cc \
+     ../Src/Gtk/GtkDasherAlphabetBox.cc
