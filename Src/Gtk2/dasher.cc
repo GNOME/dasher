@@ -2159,7 +2159,7 @@ void stop() {
 #endif
     if (timedata==TRUE) {
       // Just a debugging thing
-      printf("%d characters output in %d seconds\n",outputcharacters,
+      printf(_("%d characters output in %d seconds\n"),outputcharacters,
 	     time(NULL)-starttime);
     }
     if (mouseposstart==true) {

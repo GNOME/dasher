@@ -48,7 +48,7 @@ void setup_speech() {
     {
       if (!BONOBO_EX (&ev))
 	CORBA_free (list);
-      printf("Warning: unable to set speech parameters\n");
+      printf(_("Warning: unable to set speech parameters\n"));
       return;
     }
   for (i = 0; i < list->_length; i++)

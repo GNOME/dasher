@@ -1,7 +1,9 @@
 #include "accessibility.h"
+#include <libintl.h>
 
 ControlTree *menutree;
 ControlTree *dummy; // This one is used to fake another control node
+#define _(x) gettext(x)
 
 extern gboolean textentry;
 
@@ -22,7 +24,7 @@ ControlTree* gettree() {
   menutree->children=NULL;
   menutree->pointer=NULL;
   menutree->data=0;
-  menutree->text="Menus";
+  menutree->text=_("Menus");
   menutree->colour=-1;
   numchildren = Accessible_getChildCount(desktop);
   for (int i=0; i<numchildren; i++) {
@@ -52,38 +54,38 @@ ControlTree* buildcontroltree() {
   dummy->data=0;
   dummy->next=NULL;
   dummy->children=menutree;
-  dummy->text="Control";
+  dummy->text=_("Control");
   dummy->colour=8;
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=dummy;
-  stoptree->text="Stop";
+  stoptree->text=_("Stop");
   stoptree->next=pausetree;
   stoptree->colour=242;
   pausetree->pointer=(void*)1;
   pausetree->data=3;
   pausetree->children=dummy;
-  pausetree->text="Pause";
+  pausetree->text=_("Pause");
   pausetree->colour=241;
   if (textentry==FALSE) {
     pausetree->next=movetree;
     movetree->pointer=NULL;
     movetree->data=0;
     movetree->children=menutree;
-    movetree->text="Move";
+    movetree->text=_("Move");
     movetree->next=deletetree;
     movetree->children=buildmovetree(movetree);
     movetree->colour=-1;
     deletetree->pointer=NULL;
     deletetree->data=0;
     deletetree->children=builddeletetree(deletetree);
-    deletetree->text="Delete";
+    deletetree->text=_("Delete");
     deletetree->next=speaktree;
     deletetree->colour=-1;
     speaktree->pointer=(void*)1;
     speaktree->data=0;
     speaktree->children=buildspeaktree(speaktree);
-    speaktree->text="Speak";
+    speaktree->text=_("Speak");
     speaktree->next=NULL;
     speaktree->colour=-1;
   } else {
@@ -100,25 +102,25 @@ ControlTree* buildmovetree(ControlTree *movetree) {
   lefttree->pointer=(void*)1;
   lefttree->data=11;
   lefttree->children=lefttree;
-  lefttree->text="<";
+  lefttree->text=_("<");
   lefttree->next=righttree;
   lefttree->colour=-1;
   righttree->pointer=(void*)1;
   righttree->data=12;
   righttree->children=lefttree;
-  righttree->text=">";
+  righttree->text=_(">");
   righttree->next=beginningtree;
   righttree->colour=-1;
   beginningtree->pointer=(void*)1;
   beginningtree->data=13;
   beginningtree->children=lefttree;
-  beginningtree->text="<<<";
+  beginningtree->text=_("<<<");
   beginningtree->next=endtree;
   beginningtree->colour=-1;
   endtree->pointer=(void*)1;
   endtree->data=14;
   endtree->children=lefttree;
-  endtree->text=">>>";
+  endtree->text=_(">>>");
   endtree->next=NULL;
   endtree->colour=-1;
   return lefttree;
@@ -131,19 +133,19 @@ ControlTree* buildspeaktree(ControlTree *speaktree) {
   alltree->pointer=(void*)1;
   alltree->data=4;
   alltree->children=dummy;
-  alltree->text="Everything";
+  alltree->text=_("Everything");
   alltree->next=newtree;
   alltree->colour=-1;
   newtree->pointer=(void*)1;
   newtree->data=5;
   newtree->children=dummy;
-  newtree->text="New";
+  newtree->text=_("New");
   newtree->next=lasttree;
   newtree->colour=-1;
   lasttree->pointer=(void*)1;
   lasttree->data=6;
   lasttree->children=dummy;
-  lasttree->text="Repeat";
+  lasttree->text=_("Repeat");
   lasttree->next=NULL;
   lasttree->colour=-1;
   return alltree;
@@ -163,51 +165,51 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
   forwardtree->data=0;
   forwardtree->next=backwardtree;
   forwardtree->children=forwardchar;
-  forwardtree->text=">";
+  forwardtree->text=_(">");
   forwardtree->colour=-1;
   backwardtree->pointer=NULL;
   backwardtree->data=0;
   backwardtree->next=NULL;
   backwardtree->children=backwardchar;
-  backwardtree->text="<";
+  backwardtree->text=_("<");
   backwardtree->colour=-1;
 
   forwardchar->pointer=(void*)1;
   forwardchar->data=21;
   forwardchar->children=forwardtree;
   forwardchar->next=forwardword;
-  forwardchar->text="Character";
+  forwardchar->text=_("Character");
   forwardchar->colour=-1;
   forwardword->pointer=(void*)1;
   forwardword->data=22;
   forwardword->colour=-1;
   forwardword->children=forwardtree;
   forwardword->next=forwardline;
-  forwardword->text="Word";
+  forwardword->text=_("Word");
   forwardline->pointer=(void*)1;
   forwardline->data=23;
   forwardline->children=forwardtree;
   forwardline->next=NULL;
-  forwardline->text="Line";
+  forwardline->text=_("Line");
   forwardline->colour=-1;
 
   backwardchar->pointer=(void*)1;
   backwardchar->data=24;
   backwardchar->children=forwardtree;
   backwardchar->next=backwardword;
-  backwardchar->text="Character";
+  backwardchar->text=_("Character");
   backwardchar->colour=-1;
   backwardword->pointer=(void*)1;
   backwardword->data=25;
   backwardword->children=forwardtree;
   backwardword->next=backwardline;
-  backwardword->text="Word";
+  backwardword->text=_("Word");
   backwardword->colour=-1;
   backwardline->pointer=(void*)1;
   backwardline->data=26;
   backwardline->children=forwardtree;
   backwardline->next=NULL;
-  backwardline->text="Line";
+  backwardline->text=_("Line");
   backwardline->colour=-1;
 
   return forwardtree;
