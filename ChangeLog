@@ -1,8 +1,13 @@
+2004-07-30  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Switch to using gnome-vfs
+	
 2004-07-29  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* copy all on stop no longer causes the selection to change
 	* revamp the documentation build a little, make help actually work
 	* switch to the gnome-common autogen script
+	* fix a couple of stray linebreaks in glade files
 	
 2004-07-12  Pawan Chitrakar  <pawan@nplinux.org>
 

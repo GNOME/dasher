@@ -20,7 +20,6 @@
 
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
-#include <libgnomevfs/gnome-vfs.h>
 #endif
 
 #include "libdasher.h"
@@ -29,6 +28,7 @@
 #include "canvas.h"
 #include "edit.h"
 #include "accessibility.h"
+#include "fileops.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
@@ -473,71 +473,14 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   }
 }
 
-#ifdef GNOME_LIBS
-void
-vfs_print_error(GnomeVFSResult *result)
+#if GTK_CHECK_VERSION(2,3,0)
+
+/* Fudge to avoid Glade complaining about being unable to find this signal 
+   handler */
+extern "C" void
+filesel_hide(GtkWidget *widget, gpointer user_data)
 {
-  // Turns a Gnome VFS error into English
-  GtkWidget *error_dialog;
-  error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", filename,gnome_vfs_result_to_string (*result));
-  gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
-  gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
-  gtk_dialog_run(GTK_DIALOG(error_dialog));
-  gtk_widget_destroy(error_dialog);
   return;
-}
-#endif
-
-extern "C" void 
-open_file (const char *myfilename)
-{
-  int size;
-  gchar *buffer;
-  GtkWidget *error_dialog;
-
-  struct stat file_stat;
-  FILE *fp;
-  int pos = 0;
-
-  stat (myfilename, &file_stat);
-  fp = fopen (myfilename, "r");
-
-  if (fp==NULL || S_ISDIR(file_stat.st_mode)) {
-    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", myfilename);
-    gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
-    gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
-    gtk_dialog_run(GTK_DIALOG(error_dialog));
-    gtk_widget_destroy(error_dialog);
-    return;
-  }
-
-  size=file_stat.st_size;
-  buffer = (gchar *) g_malloc (size);
-  fread (buffer, size, 1, fp);
-  fclose (fp);
-
-  dasher_clear();
-  
-  file_modified = TRUE;
-
-  if (size!=0) {
-    // Don't attempt to insert new text if the file is empty as it makes
-    // GTK cry
-    if (g_utf8_validate(buffer,size,NULL)==FALSE) {
-      // It's not UTF8, so we do the best we can...
-      gchar* buffer2=g_locale_to_utf8(buffer,size,NULL,NULL,NULL);
-      g_free(buffer);
-      buffer=buffer2;
-    }
-    gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
-    gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
-  }
-
-  gtk_window_set_title(GTK_WINDOW(window), myfilename);
-  filename=myfilename;
-
-  dasher_start();
-  dasher_redraw();
 }
 
 extern "C" void
@@ -551,111 +494,6 @@ select_new_file(GtkWidget *widget, gpointer user_data)
   dasher_start();
   dasher_redraw();
   dasher_pause(0,0);
-}
-
-extern "C" bool
-save_file_as (const char *filename, bool append)
-{
-  int opened=1;
-  gint length;
-  gchar *inbuffer,*outbuffer = NULL;
-  gsize bytes_read, bytes_written;
-  GError *error = NULL;
-  GIConv cd;
-  GtkWidget *error_dialog;
-  GtkTextIter *start, *end;
-
-  start = new GtkTextIter;
-  end = new GtkTextIter;
-
-  FILE *fp;
-
-  if (append == true) {
-    fp = fopen (filename, "a");
-
-    if (fp == NULL) {
-      opened = 0;
-    }
-  } else {
-    fp = fopen (filename, "w");
-    if (fp == NULL) {
-      opened = 0;
-    }
-  }
-
-  if (!opened) {
-    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not save the file \"%s\".\n", filename);
-    gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
-    gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
-    gtk_dialog_run(GTK_DIALOG(error_dialog));
-    gtk_widget_destroy(error_dialog);
-    return false;
-  }
-
-  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
-  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
-
-  inbuffer = gtk_text_iter_get_slice (start,end);
-
-  length = gtk_text_iter_get_offset(end)-gtk_text_iter_get_offset(start);
-  outbuffer = (char *)malloc((length+1)*sizeof(gchar));
-  memcpy((void*)outbuffer,(void*)inbuffer,length*sizeof(gchar));
-  outbuffer[length]=0;
-  g_free(inbuffer);
-  inbuffer=outbuffer;
-  outbuffer=NULL;
-
-  switch (fileencoding) {
-  case Opts::UserDefault:
-  case Opts::AlphabetDefault:
-    //FIXME - need to call GetAlphabetType and do appropriate stuff regarding the
-    // character set. Arguably we should always be saving in either UTF8 or the user's
-    // locale (which may, of course, be UTF8) because otherwise we're going to read
-    // in rubbish, and we shouldn't be encouraging weird codepage madness any further
-    //FIXME - error handling
-    outbuffer=g_locale_from_utf8(inbuffer,-1,&bytes_read,&bytes_written,&error);
-    if (outbuffer==NULL) {
-      // We can't represent the text in the current locale, so fall back to
-      // UTF-8
-      outbuffer=inbuffer;
-      bytes_written=length;
-    }
-  case Opts::UTF8:
-    outbuffer=inbuffer;
-    bytes_written=length;
-    break;
-  // Does /anyone/ want to save text files in UTF16?
-  // (in any case, my opinions regarding encouragement of data formats with
-  // endianness damage are almost certainly unprintable)
-
-  case Opts::UTF16LE:
-    cd=g_iconv_open("UTF16LE","UTF8");
-    outbuffer=g_convert_with_iconv(inbuffer,-1,cd,&bytes_read,&bytes_written,&error);
-    break;
-  case Opts::UTF16BE:
-    cd=g_iconv_open("UTF16BE","UTF8");
-    outbuffer=g_convert_with_iconv(inbuffer,-1,cd,&bytes_read,&bytes_written,&error);
-    break;
-  default:
-    outbuffer=inbuffer;
-    bytes_written=length;
-  }
-
-  fwrite(outbuffer,1,bytes_written,fp);
-  fclose (fp);
-  
-  file_modified = FALSE;
-  gtk_window_set_title(GTK_WINDOW(window), filename);
-}
-
-#if GTK_CHECK_VERSION(2,3,0)
-
-/* Fudge to avoid Glade complaining about being unable to find this signal 
-   handler */
-extern "C" void
-filesel_hide(GtkWidget *widget, gpointer user_data)
-{
-  return;
 }
 
 extern "C" void
@@ -1387,15 +1225,6 @@ void interface_setup(GladeXML *xml) {
   the_text_view=glade_xml_get_widget(xml, "the_text_view");
   toolbar=glade_xml_get_widget(xml, "toolbar");
 
-  if (textentry==TRUE) {
-    gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),0);
-    gtk_widget_hide(text_scrolled_window);
-    keyboardmodeon=true;
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), true);
-    gtk_widget_set_sensitive(glade_xml_get_widget(widgets,"keyboardmode"),false);
-    gtk_widget_hide(toolbar);
-  }
-
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
   gtk_widget_set_sensitive(glade_xml_get_widget(widgets,"speakbutton"),false);
@@ -1540,6 +1369,7 @@ open_window(GladeXML *xml) {
   // We need to monitor the text buffer for mark_set in order to get
   // signals when the cursor is moved
   g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
+
 }
 
 extern "C" void choose_filename() {
@@ -1547,19 +1377,30 @@ extern "C" void choose_filename() {
     // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
+    char *cwd;
+    char *tbuffer;
+
+    cwd=(char *)malloc(1024*sizeof(char));
+    tbuffer=(char *)malloc(1024*sizeof(char));
     
     ctime = time( NULL );
     
     t_struct= localtime( &ctime );
     
-    char tbuffer[256];
     
     snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
     
-    filename = g_strdup (tbuffer);
+    if (filename) {
+      g_free((void *)filename);
+    }
+    getcwd(cwd,1024);
+    filename = g_build_path("/",cwd,tbuffer,NULL);
     gtk_window_set_title(GTK_WINDOW(window), filename);
   } else {
     gtk_window_set_title(GTK_WINDOW(window), "Dasher");
+    if (filename) {
+      g_free((void *)filename);
+    }
     filename = NULL;
   }
 }
@@ -2118,7 +1959,7 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_KEYBOARDCONTROL:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), value);
-      keyboardcontrol=value;
+      keyboardcontrol=value;      
       break;
     case BOOL_WINDOWPAUSE:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"winpausebutton")), value);

@@ -3,6 +3,7 @@
 
 #include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
+#include "libdasher.h"
 
 extern "C" void open_file (const char *filename);
 extern "C" void clipboard_copy(void);
@@ -54,6 +55,10 @@ void interface_setup(GladeXML *xml);
 void interface_late_setup();
 void open_window(GladeXML *xml);
 void interface_cleanup();
+void dasher_clear();
+void dasher_start();
+void dasher_redraw();
+
 extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale *hscale);
 

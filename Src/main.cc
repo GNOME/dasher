@@ -66,6 +66,7 @@ gboolean stdoutpipe=FALSE;
 extern gboolean setup,paused;
 extern int optind;
 extern ControlTree *controltree;
+extern const gchar* filename;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
@@ -205,13 +206,14 @@ main(int argc, char *argv[])
   paused=true;
 
   glade_xml_signal_autoconnect(xml);
-  open_window(xml);
 
   if (preferences==TRUE) {
     window = glade_xml_get_widget(xml, "preferences");
   } else {
     window = glade_xml_get_widget(xml, "window");
   }
+
+  open_window(xml);
 
   dasher_late_initialise(360,360);
 
@@ -242,8 +244,6 @@ main(int argc, char *argv[])
   XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
   gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
   
-  choose_filename();
-
   dasher_pause(0,0); // we start paused
 
 #ifdef GNOME_SPEECH
@@ -258,7 +258,13 @@ main(int argc, char *argv[])
   add_control_tree(controltree);
 
   if (optind<argc) {
-    open_file(argv[optind]);
+    char *cwd;
+    cwd=(char *)malloc(1024*sizeof(char));
+    getcwd(cwd,1024);
+    filename=g_build_path("/",cwd,argv[optind],NULL);
+    open_file(filename);
+  } else {
+    choose_filename();
   }
 
   gtk_main ();

@@ -13,7 +13,7 @@ EXTRA_DIST = gpesettings_store.cc gpesettings_store.h
 SETTINGS_CFLAGS=$(GCONF_CFLAGS)
 endif
 
-libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h dasher.glade dashergpe.glade $(settings_store)
+libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h fileops.cc fileops.h dasher.glade dashergpe.glade $(settings_store)
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@
