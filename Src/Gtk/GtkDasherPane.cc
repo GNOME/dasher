@@ -316,7 +316,7 @@ void GtkDasherPane::select_encoding()
   int maxcount(0);
   int maxpage(-1);
 
-  for( int i(1); i < 11; ++i )
+  for( int i(1); i < 15; ++i )
     {
       // Cycle through the pages
 
