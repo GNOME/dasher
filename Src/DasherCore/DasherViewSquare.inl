@@ -11,8 +11,10 @@ namespace Dasher {
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
 	double dashery=*mousey;
-
+	
 	double x=1.0*(CanvasX-*mousex)/CanvasX;
+	myint dasherOX=DasherModel().DasherOX();
+
 	dashery*=DasherModel().DasherY();
 	dashery/=CanvasY;
 
@@ -28,30 +30,30 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	if (DasherModel().Dimensions()==true) {
 		double distx, disty;	
 		
-		distx=2048-x;
+		distx=DasherModel().DasherOX()-x;
 		disty=DasherModel().DasherY()/2-dashery;
 
 		if (disty>1500) {
-			dashery=548+(548-dashery);
-			disty=1298-dashery;
+			dashery=(dasherOX-1500)+((dasherOX-1500)-dashery);
+			disty=(dasherOX-750)-dashery;
 			if(disty<-750) {
-				x=2048;
-				dashery=2048;
+				x=double(dasherOX);
+				dashery=double(DasherModel().DasherY()/2);
 			} else {
-				x=2048+pow(pow(750,2)-pow(disty,2),0.5)*10;
+				x=dasherOX+pow(pow(750,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
 			*mousey=int(dashery);
 			return;
 		}
 		else if (disty <-1500) {
-			dashery=3548+(3548-dashery);
-			disty=2798-dashery;
+			dashery=dasherOX+1500+(dasherOX+1500-dashery);
+			disty=dasherOX+750-dashery;
 			if(disty>750) {
-				x=2048;
-				dashery=2048;
+				x=double(dasherOX);
+				dashery=double(DasherModel().DasherY()/2);
 			} else {
-				x=2048+pow(pow(750,2)-pow(disty,2),0.5)*10;
+				x=dasherOX+pow(pow(750,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
 			*mousey=int(dashery);
@@ -59,7 +61,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		} else {
 			x=pow(pow(1500,2)-pow(disty,2),0.5);
 		}
-		x=2048-x;
+		x=dasherOX-x;
 	}
 	*mousex=int(x);
 	*mousey=int(dashery);
