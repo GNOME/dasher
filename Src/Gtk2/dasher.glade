@@ -846,6 +846,7 @@
 				  <property name="active">False</property>
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
+				  <signal name="clicked" handler="orientation" last_modification_time="Tue, 23 Sep 2003 22:57:43 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -865,6 +866,7 @@
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
 				  <property name="group">radiobutton1</property>
+				  <signal name="clicked" handler="orientation" last_modification_time="Tue, 23 Sep 2003 22:57:50 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -884,6 +886,7 @@
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
 				  <property name="group">radiobutton1</property>
+				  <signal name="clicked" handler="orientation" last_modification_time="Tue, 23 Sep 2003 22:57:57 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -903,6 +906,7 @@
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
 				  <property name="group">radiobutton1</property>
+				  <signal name="clicked" handler="orientation" last_modification_time="Tue, 23 Sep 2003 22:58:03 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -922,6 +926,7 @@
 				  <property name="inconsistent">False</property>
 				  <property name="draw_indicator">True</property>
 				  <property name="group">radiobutton1</property>
+				  <signal name="clicked" handler="orientation" last_modification_time="Tue, 23 Sep 2003 22:58:11 GMT"/>
 				</widget>
 				<packing>
 				  <property name="padding">0</property>
@@ -1268,38 +1273,22 @@
       </child>
 
       <child>
-	<widget class="GtkHBox" id="hbox1">
+	<widget class="GtkHButtonBox" id="hbuttonbox1">
 	  <property name="visible">True</property>
-	  <property name="homogeneous">False</property>
+	  <property name="layout_style">GTK_BUTTONBOX_END</property>
 	  <property name="spacing">0</property>
 
 	  <child>
-	    <placeholder/>
-	  </child>
-
-	  <child>
-	    <widget class="GtkHButtonBox" id="hbuttonbox1">
+	    <widget class="GtkButton" id="button11">
+	      <property name="border_width">5</property>
 	      <property name="visible">True</property>
-	      <property name="layout_style">GTK_BUTTONBOX_DEFAULT_STYLE</property>
-	      <property name="spacing">0</property>
-
-	      <child>
-		<widget class="GtkButton" id="button11">
-		  <property name="visible">True</property>
-		  <property name="can_default">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="label">gtk-close</property>
-		  <property name="use_stock">True</property>
-		  <property name="relief">GTK_RELIEF_NORMAL</property>
-		  <signal name="clicked" handler="preferences_hide" last_modification_time="Tue, 23 Sep 2003 20:29:33 GMT"/>
-		</widget>
-	      </child>
+	      <property name="can_default">True</property>
+	      <property name="can_focus">True</property>
+	      <property name="label">gtk-close</property>
+	      <property name="use_stock">True</property>
+	      <property name="relief">GTK_RELIEF_NORMAL</property>
+	      <signal name="clicked" handler="preferences_hide" last_modification_time="Tue, 23 Sep 2003 22:55:19 GMT"/>
 	    </widget>
-	    <packing>
-	      <property name="padding">0</property>
-	      <property name="expand">False</property>
-	      <property name="fill">True</property>
-	    </packing>
 	  </child>
 	</widget>
 	<packing>

@@ -14,7 +14,7 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer user_data);
 extern "C" void preferences_display(GtkWidget *widget, gpointer user_data);
 extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data);
 extern "C" void generate_preferences(GtkWidget *widget, gpointer user_data);
-extern "C" void orientation(GtkWidget *widget, gpointer user_data);
+extern "C" void orientation(GtkRadioButton *widget, gpointer user_data);
 extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data);
 extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data);
 extern "C" void show_slider(GtkWidget *widget, gpointer user_data);

@@ -768,7 +768,6 @@ open_window(GladeXML *xml) {
 
   mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
 
-  // FIXME CHANGE THIS!
   system_data_dir = PROGDATA"/";
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
@@ -788,10 +787,6 @@ open_window(GladeXML *xml) {
 
   gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
     
-    // FIXME - need to implement this
-
-    //    interface->SettingsDefaults( store );
-
   // Focus the canvas
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
@@ -865,15 +860,25 @@ extern "C" void clipboard_select_all(void) {
   dasher_select_all();
 }
 
-extern "C" void orientation(GtkWidget *widget, gpointer user_data)
+extern "C" void orientation(GtkRadioButton *widget, gpointer user_data)
 {
-  //  signed int RealAction=action-3;
+  if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
+    if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton1")) {
+      dasher_set_orientation(Alphabet);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton2")) {
+      dasher_set_orientation(LeftToRight);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton3")) {
+      dasher_set_orientation(RightToLeft);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton4")) {
+      dasher_set_orientation(TopToBottom);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton5")) {
+      dasher_set_orientation(BottomToTop);
+    }
+  }
 
-  //  if( GTK_TOGGLE_BUTTON(widget)->active)
-  //    {
-  //      dasher_set_orientation( Dasher::Opts::ScreenOrientations(RealAction) );
-  //      dasher_redraw();
-  //    }
+  paused=false;
+  dasher_redraw();
+  paused=true;
 }
 
 extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
@@ -1097,19 +1102,24 @@ void parameter_int_callback( int_param p, long int value )
       switch(value)
 	{
 	case Opts::Alphabet:
-	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "/View/Orientation/Alphabet Default")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1"))) != TRUE)
+	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1")), TRUE);
 	  break;
 	case Opts::LeftToRight:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/View/Orientation/Left to Right")), TRUE);
-	  break;
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2")), TRUE);
+	  break;	  
 	case Opts::RightToLeft:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/View/Orientation/Right to Left")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3")), TRUE);
 	  break;
 	case Opts::TopToBottom:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/View/Orientation/Top to Bottom")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4")), TRUE);
 	  break;
 	case Opts::BottomToTop:
-	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/View/Orientation/Bottom to Top")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5")), TRUE);
 	  break;
 	}
       break;
