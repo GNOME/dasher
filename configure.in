@@ -76,6 +76,7 @@ if [[ x"$WITHGPE" = xtrue ]]; then
 fi
 
 PKG_CHECK_MODULES(glade, libglade-2.0)
+PKG_CHECK_MODULES(gthread, gthread-2.0)
 
 AC_SUBST(gnome_speech_LIBS)
 AC_SUBST(gnome_speech_CFLAGS)
@@ -90,6 +91,9 @@ AC_SUBST(gnome_CFLAGS)
 
 AC_SUBST(glade_LIBS)
 AC_SUBST(glade_CFLAGS)
+
+AC_SUBST(gthread_LIBS)
+AC_SUBST(gthread_CFLAGS)
 
 AC_SUBST(GETTEXT_PACKAGE)
 

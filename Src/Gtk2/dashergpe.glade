@@ -478,7 +478,6 @@
 
       <child>
 	<widget class="GtkDrawingArea" id="the_canvas">
-	  <property name="height_request">100</property>
 	  <property name="visible">True</property>
 	  <property name="can_default">True</property>
 	  <property name="has_default">True</property>

@@ -29,7 +29,12 @@
 #include "canvas.h"
 #include "edit.h"
 #include "accessibility.h"
+
+#ifdef WITH_GPE
+#include "gpesettings_store.h"
+#else
 #include "settings_store.h"
+#endif
 
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>

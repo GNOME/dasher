@@ -6,14 +6,21 @@ DEFS = -DLOCALEDIR=\"$(localedir)\" @DEFS@
 
 bin_PROGRAMS = dasher
 
+if WITH_GPE
+SETTINGS_LIBS = -lgpewidget -lXsettings-client -lXsettings
+else
+SETTINGS_CFLAGS = $(GCONF_CFLAGS)
+SETTINGS_LIBS = $(GCONF_LIBS)
+endif
+
 if DOGTK2
 
 SUBDIRS = DasherCore Gtk2 Common
 dasher_SOURCES = main.cc
 LDADD =  Gtk2/libdashergtk.a DasherCore/libdashercore.a
 
-AM_CXXFLAGS = -O2 $(GTK2_CFLAGS) $(GCONF_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) -I./Gtk2/ -I./DasherCore/ -I../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\" -DPROGDATA=\"$(pkgdatadir)\"
-AM_LDFLAGS = $(GTK2_LIBS) $(GCONF_LIBS) $(gnome_speech_LIBS) $(gnome_a11y_LIBS) $(glade_LIBS) $(gnome_LIBS) -lexpat -L/usr/X11R6/lib -lXtst -lX11 -export-dynamic
+AM_CXXFLAGS = -O2 $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(gthread_CFLAGS) -I./Gtk2/ -I./DasherCore/ -I../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\" -DPROGDATA=\"$(pkgdatadir)\"
+AM_LDFLAGS = $(GTK2_LIBS) $(SETTINGS_LIBS) $(gnome_speech_LIBS) $(gnome_a11y_LIBS) $(glade_LIBS) $(gnome_LIBS) $(gthread_LIBS) -lexpat -L/usr/X11R6/lib -lXtst -lX11 -export-dynamic $(GPELIB)
 
 endif
 

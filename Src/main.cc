@@ -1,12 +1,19 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
+
+#ifndef WITH_GPE
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
+#endif
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
 //#include <gnome.h>
 #include <libbonobo.h>
+#endif
+
+#ifdef WITH_GPE
+#include <gpe/init.h>
 #endif
 
 #ifdef GNOME_LIBS
@@ -33,9 +40,14 @@ static const struct poptOption options [] =
 
 #include "libdasher.h"
 #include "dasher.h"
-#include "settings_store.h"
 #include "canvas.h"
 #include "edit.h"
+
+#ifdef WITH_GPE
+#include "gpesettings_store.h"
+#else
+#include "settings_store.h"
+#endif
 
 #ifdef GNOME_SPEECH
 #include "speech.h"
@@ -84,9 +96,12 @@ main(int argc, char *argv[])
 
 #endif
 
+#ifdef WITH_GPE
+  gpe_application_init (&argc, &argv);
+#else
   gtk_init (&argc, &argv);
-
   gconf_init( argc, argv, &gconferror );
+#endif
 
   // We need thread support for updating the splash window while
   // training...
@@ -99,9 +114,9 @@ main(int argc, char *argv[])
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
   xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
+  the_gconf_client = gconf_client_get_default();
 #endif
 
-  the_gconf_client = gconf_client_get_default();
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
     if (!bonobo_init (&argc, argv))
@@ -215,7 +230,9 @@ main(int argc, char *argv[])
 
   interface_cleanup();
 
+#ifndef WITH_GPE
   g_object_unref(the_gconf_client);
+#endif
 
 #ifdef GNOME_SPEECH
   teardown_speech();

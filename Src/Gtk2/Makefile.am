@@ -4,15 +4,20 @@ noinst_LIBRARIES = libdashergtk.a
 
 if WITH_GPE
 gladefile = dashergpe.glade
+settings_store = gpesettings_store.cc gpesettings_store.h
+EXTRA_DIST = settings_store.cc settings_store.h
 else
 gladefile = dasher.glade
+settings_store = settings_store.cc settings_store.h
+EXTRA_DIST = gpesettings_store.cc gpesettings_store.h
+SETTINGS_CFLAGS=$(GCONF_CFLAGS)
 endif
 
-libdashergtk_a_SOURCES = dasher.cc dasher.h settings_store.cc settings_store.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h $(gladefile)
+libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h dasher.glade dashergpe.glade $(settings_store)
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@
 
-AM_CXXFLAGS = -O2 $(GTK2_CFLAGS) $(GCONF_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) -I../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl
+AM_CXXFLAGS = -O2 $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) -I../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl
 
 pkgdata_DATA = $(gladefile) 
