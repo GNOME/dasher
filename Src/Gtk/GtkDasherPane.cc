@@ -411,11 +411,6 @@ gint GtkDasherPane::abox_close_sel( GdkEventAny *e )
   return( true );
 }
 
-gint GtkDasherPane::key_press_event_impl( GdkEventKey *e )
-{
-  std::cout << "Received keypress" << std::endl;
-}
-
 std::string GtkDasherPane::get_current_filename()
 {
   return( text->get_current_filename() );

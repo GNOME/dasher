@@ -112,7 +112,6 @@ private:
 
   long s_pause;
   long ms_pause;
-  gint key_press_event_impl( GdkEventKey *e );
 };
 
 #endif
