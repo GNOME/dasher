@@ -649,12 +649,12 @@ void CDasherInterface::SetDasherFontSize(FontSize fontsize)
 {
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetLongOption(Keys::DASHER_FONTSIZE, fontsize);
-	m_DasherFontSie = fontsize
+	m_DasherFontSize = fontsize;
 	if (m_DasherScreen!=0) {
 	         m_DasherScreen->SetFontSize(fontsize);
 	}
 	if (m_SettingsUI!=0) {
-	  m_SettingsUI->SetDasherFontSie(fontsize);
+	  m_SettingsUI->SetDasherFontSize(fontsize);
 	}
 	Redraw();
 }
