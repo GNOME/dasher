@@ -21,7 +21,7 @@
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
-GtkWidget *vbox1, *vbox2, *toolbar;
+GtkWidget *vbox, *toolbar;
 GdkPixbuf *p;
 GtkWidget *pw;
 GtkWidget *text_view;
@@ -114,6 +114,8 @@ gboolean setup = FALSE;
 gboolean paused = TRUE;
 gboolean indrag = FALSE;
 gboolean file_modified = FALSE;
+gboolean showtoolbar;
+gboolean showslider;
 
 gint prev_pos_x;
 gint prev_pos_y;
@@ -620,6 +622,59 @@ void interface_setup() {
 
 }
 
+void create_toolbar() {
+  toolbar = gtk_toolbar_new ();
+  gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
+  gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+  
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"), _("New"), G_CALLBACK (select_new_file), NULL, -1);
+  
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open"), _("Open"), G_CALLBACK (select_open_file), NULL, -1);
+  
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE, _("Save"), _("Save"), G_CALLBACK (save_file), NULL, -1);
+  
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE_AS, _("Save As"), _("Save As"), G_CALLBACK (select_save_file_as), NULL, -1);
+    
+  gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
+    
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_CUT, _("Cut"), _("Cut"), G_CALLBACK (clipboard_cut), NULL, -1);
+    
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_COPY, _("Copy"), _("Copy"), G_CALLBACK (clipboard_copy), NULL, -1);
+    
+  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"), _("Paste"), G_CALLBACK (clipboard_paste), NULL, -1);
+}
+
+void create_menu() {
+  gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
+  dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
+}  
+
+void create_edit_box() {
+    text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
+    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+    gtk_container_add (GTK_CONTAINER (text_scrolled_window), the_text_view);
+    gtk_signal_connect(GTK_OBJECT (the_text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) NULL);
+    
+    gtk_signal_connect(GTK_OBJECT (the_text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) NULL);
+    
+    gtk_widget_set_events(the_text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
+
+}
+
+void create_canvas() {
+    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (the_canvas), GTK_CAN_FOCUS);
+    gtk_signal_connect(GTK_OBJECT (the_canvas), "expose_event", GTK_SIGNAL_FUNC (canvas_expose_event), (gpointer) NULL);
+    
+    gtk_signal_connect(GTK_OBJECT (the_canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) NULL);
+    
+    gtk_signal_connect(GTK_OBJECT (the_canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) NULL);
+    
+    gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
+    canvas_frame = gtk_frame_new (NULL);
+    gtk_container_add (GTK_CONTAINER (canvas_frame), the_canvas);
+    
+}
+
 void
 open_window() {
   char *system_data_dir;
@@ -637,136 +692,89 @@ open_window() {
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 
+  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
+  gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
+  gtk_window_set_resizable( GTK_WINDOW(window), TRUE );
 
+  gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), NULL);
 
+  create_menu();
+  create_toolbar();
+  create_edit_box();
+  create_canvas();
 
-    
-    ofilesel = gtk_file_selection_new("Open a file");
-    afilesel = gtk_file_selection_new("Append to file");
-    ifilesel = gtk_file_selection_new("Import Training Text");
-    
-    vbox1 = gtk_vbox_new (FALSE, 2);
-    vbox2 = gtk_vbox_new (FALSE, 2);
-    vpane = gtk_vpaned_new();
-    
-    window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-    gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
-    gtk_window_set_resizable( GTK_WINDOW(window), TRUE );
-    
-    gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
-    dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
-    
-    toolbar = gtk_toolbar_new ();
-    gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
-    gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
+  gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
 
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"), _("New"), G_CALLBACK (select_new_file), NULL, -1);
+  vbox = gtk_vbox_new (FALSE, 0);
+  vpane = gtk_vpaned_new();
+    
+  gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
+  gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
+    
+  gtk_paned_add1(GTK_PANED(vpane),text_scrolled_window);
+  gtk_paned_add2(GTK_PANED(vpane),canvas_frame);
 
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open"), _("Open"), G_CALLBACK (select_open_file), NULL, -1);
-
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE, _("Save"), _("Save"), G_CALLBACK (save_file), NULL, -1);
-
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE_AS, _("Save As"), _("Save As"), G_CALLBACK (select_save_file_as), NULL, -1);
-
-    gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
-
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_CUT, _("Cut"), _("Cut"), G_CALLBACK (clipboard_cut), NULL, -1);
-
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_COPY, _("Copy"), _("Copy"), G_CALLBACK (clipboard_copy), NULL, -1);
-
-    gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"), _("Paste"), G_CALLBACK (clipboard_paste), NULL, -1);
-
-    gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), NULL);
-
-    gtk_paned_add1 (GTK_PANED(vpane),vbox1);
-    gtk_paned_add2 (GTK_PANED(vpane),vbox2);
-    
-    gtk_box_pack_start (GTK_BOX (vbox1), dasher_menu_bar, FALSE, FALSE, 0);
-    gtk_box_pack_start (GTK_BOX (vbox1), toolbar, FALSE, FALSE, 0);
-    
-    text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_box_pack_start (GTK_BOX (vbox1), text_scrolled_window, TRUE, TRUE, 0);
-    
-    gtk_container_add (GTK_CONTAINER (text_scrolled_window), the_text_view);
-    
-    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (the_canvas), GTK_CAN_FOCUS);
-    gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
-    
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "expose_event", GTK_SIGNAL_FUNC (canvas_expose_event), (gpointer) NULL);
-    
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) NULL);
-    
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) NULL);
-    
-    gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
-    
-    gtk_signal_connect(GTK_OBJECT (the_text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) NULL);
-    
-    gtk_signal_connect(GTK_OBJECT (the_text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) NULL);
-    
-    gtk_widget_set_events(the_text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
-
-    canvas_frame = gtk_frame_new (NULL);
-    gtk_box_pack_start (GTK_BOX (vbox2), canvas_frame, TRUE, TRUE, 0);
-    gtk_container_add (GTK_CONTAINER (canvas_frame), the_canvas);
-    
+  gtk_box_pack_start (GTK_BOX (vbox), vpane, TRUE, TRUE, 0);    
        
-    gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), NULL);
+  gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), NULL);
+
+  gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
+  gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
+
+  gtk_container_add (GTK_CONTAINER(window), vbox);
+
+  gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
     
-    gtk_box_pack_start (GTK_BOX (vbox2), speed_frame, FALSE, FALSE, 0);
-    gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
-    
-    gtk_container_add (GTK_CONTAINER (window), vpane);
-    gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
-    
-    gtk_widget_realize (window);
-    gtk_widget_realize (vpane);
-    gtk_widget_realize (vbox1);
-    gtk_widget_realize (vbox2);
-    gtk_widget_realize (text_scrolled_window);
-    gtk_widget_realize (the_text_view);
-    gtk_widget_realize (toolbar);
-    gtk_widget_realize (canvas_frame);
-    gtk_widget_realize (the_canvas);
-    gtk_widget_realize (speed_frame);
-    gtk_widget_realize (speed_hscale);
-    gtk_widget_realize (dasher_menu_bar);
-    
-    gtk_widget_show (window);
-    gtk_widget_show (vpane);
-    gtk_widget_show (vbox1);
-    gtk_widget_show (vbox2);
-    gtk_widget_show (text_scrolled_window);
-    gtk_widget_show (the_text_view);
+  gtk_widget_realize (window);
+  gtk_widget_realize (vpane);
+  gtk_widget_realize (vbox);
+  gtk_widget_realize (text_scrolled_window);
+  gtk_widget_realize (the_text_view);
+  gtk_widget_realize (toolbar);
+  gtk_widget_realize (canvas_frame);
+  gtk_widget_realize (the_canvas);
+  gtk_widget_realize (speed_frame);
+  gtk_widget_realize (speed_hscale);
+  gtk_widget_realize (dasher_menu_bar);
+  
+  gtk_widget_show (window);
+  gtk_widget_show (vpane);
+  gtk_widget_show (vbox);
+  gtk_widget_show (text_scrolled_window);
+  gtk_widget_show (the_text_view);
+  gtk_widget_show (canvas_frame);
+  gtk_widget_show (the_canvas);
+  gtk_widget_show (dasher_menu_bar);
+
+  if (showtoolbar==TRUE)
     gtk_widget_show (toolbar);
-    gtk_widget_show (canvas_frame);
-    gtk_widget_show (the_canvas);
+
+  if (showslider==TRUE) {
     gtk_widget_show (speed_frame);
     gtk_widget_show (speed_hscale);
-    gtk_widget_show (dasher_menu_bar);
+  }
 
     // FIXME - need to implement this
 
     //    interface->SettingsDefaults( store );
 
 
-    dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
-    dasher_set_parameter_int( INT_VIEW, 0 );
-    
-    const char *alphabet;
+  dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
+  dasher_set_parameter_int( INT_VIEW, 0 );
+  
+  const char *alphabet;
 
-    dasher_get_alphabets( &alphabet, 1 );
-
-    dasher_set_parameter_string( STRING_ALPHABET, alphabet );
-
-    //    dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
-    
-    dasher_start();
-
-    gtk_timeout_add(50, timer_callback, NULL );  
-    
-    setup = TRUE;
+  dasher_get_alphabets( &alphabet, 1 );
+  
+  dasher_set_parameter_string( STRING_ALPHABET, alphabet );
+  
+  //  dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
+  
+  dasher_start();
+  
+  gtk_timeout_add(50, timer_callback, NULL );  
+  
+  setup = TRUE;
 }
 
 void clipboard_copy(void) {
@@ -931,6 +939,8 @@ void parameter_bool_callback( bool_param p, bool value )
     {
     case BOOL_SHOWTOOLBAR:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Show Toolbar")), value);
+      
+      showtoolbar=value;
 
       if (toolbar==NULL) 
 	break;
@@ -944,6 +954,8 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_SHOWSPEEDSLIDER:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Speed Slider")), value);
+
+      showslider=value;
 
       if (speed_frame==NULL) 
 	break;
