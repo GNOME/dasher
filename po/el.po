@@ -3,96 +3,117 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
 # Kostas Papadimas <pkst@gnome.org>, 2004.
-#
+# Nikos Charonitakis <charosn@her.forthnet.gr>, 2004.
+# Nikos 08Feb2004 small update, minor fixes
 msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-01-25 11:41+0200\n"
-"PO-Revision-Date: 2004-01-25 11:43+0200\n"
-"Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
+"POT-Creation-Date: 2004-02-09 23:49+0200\n"
+"PO-Revision-Date: 2004-02-09 23:53-0200\n"
+"Last-Translator: Nikos Charonitakis <charosn@her.fothnet.gr>\n"
 "Language-Team: Greek <nls@tux.hellug.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:58
 msgid "Menus"
 msgstr "Μενού"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:65
+msgid "Windows"
+msgstr "Παράθυρο"
+
+#: Src/Gtk2/accessibility.cc:70
+msgid "Application"
+msgstr "Εφαρμογή"
+
+#: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
 msgstr "Κουμπιά"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:83
 msgid "Panels"
 msgstr "Ταμπλώ"
 
-#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:90
+msgid "Text"
+msgstr "Κείμενο"
+
+#: Src/Gtk2/accessibility.cc:163
+#: Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Έλεγχος"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:168
 msgid "Stop"
 msgstr "Διακοπή"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:174
 msgid "Pause"
 msgstr "Παύση"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:181
 msgid "Move"
 msgstr "Μετακίνηση"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:188
 msgid "Delete"
 msgstr "Διαγραφή"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:197
 msgid "Speak"
 msgstr "Ομιλία"
 
-#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:215
+#: Src/Gtk2/accessibility.cc:284
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:221
+#: Src/Gtk2/accessibility.cc:278
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:227
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:233
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:246
 msgid "Everything"
 msgstr "Όλα"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:252
 msgid "New"
 msgstr "Νέο"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:258
 msgid "Repeat"
 msgstr "Επανάληψη"
 
-#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:290
+#: Src/Gtk2/accessibility.cc:313
 msgid "Character"
 msgstr "Χαρακτήρας"
 
-#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:301
+#: Src/Gtk2/accessibility.cc:323
 msgid "Word"
 msgstr "Λέξη"
 
-#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:306
+#: Src/Gtk2/accessibility.cc:329
 msgid "Line"
 msgstr "Γραμμή"
+
+#: Src/Gtk2/accessibility.cc:399
+msgid "Unknown"
+msgstr "Άγνωστο"
 
 #: Src/Gtk2/dasher.cc:183
 msgid "Training Dasher, please wait"
@@ -103,7 +124,8 @@ msgstr "Εκπαίδευση του Dasher, παρακαλώ περιμένετ�
 msgid "translator_credits"
 msgstr "Κώστας Παπαδήμας <pkst@gnome.org>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1755
+#: Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
@@ -118,31 +140,38 @@ msgstr "O Dasher είναι μια εφαρμογή πρόγνωσης κατα�
 msgid "%d characters output in %d seconds\n"
 msgstr "αποτέλεσμα %d χαρακτήρες  σε %d δευτερόλεπτα\n"
 
-#: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
+#: Src/Gtk2/dasher.glade.h:1
+#: Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
 msgstr "5:"
 
-#: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
+#: Src/Gtk2/dasher.glade.h:2
+#: Src/Gtk2/dashergpe.glade.h:2
 msgid "6:"
 msgstr "6:"
 
-#: Src/Gtk2/dasher.glade.h:3 Src/Gtk2/dashergpe.glade.h:3
+#: Src/Gtk2/dasher.glade.h:3
+#: Src/Gtk2/dashergpe.glade.h:3
 msgid "7:"
 msgstr "7:"
 
-#: Src/Gtk2/dasher.glade.h:4 Src/Gtk2/dashergpe.glade.h:4
+#: Src/Gtk2/dasher.glade.h:4
+#: Src/Gtk2/dashergpe.glade.h:4
 msgid "8:"
 msgstr "8:"
 
-#: Src/Gtk2/dasher.glade.h:5 Src/Gtk2/dashergpe.glade.h:5
+#: Src/Gtk2/dasher.glade.h:5
+#: Src/Gtk2/dashergpe.glade.h:5
 msgid "9:"
 msgstr "9:"
 
-#: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
+#: Src/Gtk2/dasher.glade.h:6
+#: Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>Επιλογή αλφάβητου:</b>"
+msgstr "<b>Επιλογή Αλφάβητου:</b>"
 
-#: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
+#: Src/Gtk2/dasher.glade.h:7
+#: Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
 msgstr "<b>Ρύθμιση κουμπιού ελέγχου</b>"
 
@@ -150,67 +179,83 @@ msgstr "<b>Ρύθμιση κουμπιού ελέγχου</b>"
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Επιλογή Χρώματος:</b>"
 
-#: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
+#: Src/Gtk2/dasher.glade.h:9
+#: Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
-msgstr "<b>Στυλ ελέγχου:</b>"
+msgstr "<b>Στυλ Ελέγχου:</b>"
 
-#: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
+#: Src/Gtk2/dasher.glade.h:10
+#: Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>Διάφορες επιλογές:</b>"
+msgstr "<b>Διάφορες Επιλογές:</b>"
 
-#: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
+#: Src/Gtk2/dasher.glade.h:11
+#: Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
 msgstr "<b>Προσανατολισμός:</b>"
 
-#: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
+#: Src/Gtk2/dasher.glade.h:12
+#: Src/Gtk2/dashergpe.glade.h:12
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Εξομάλυνση:</b>"
 
-#: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
+#: Src/Gtk2/dasher.glade.h:13
+#: Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>Εκκίνηση και διακοπή:</b>"
+msgstr "<b>Εκκίνηση και Διακοπή:</b>"
 
-#: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
+#: Src/Gtk2/dasher.glade.h:14
+#: Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
 msgstr "<b>Λειτουργία εναλλαγής κουμπιού:</b>"
 
-#: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
+#: Src/Gtk2/dasher.glade.h:15
+#: Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
 msgstr "<b>Προβολή Επιλογών:</b>"
 
-#: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
+#: Src/Gtk2/dasher.glade.h:16
+#: Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
 msgstr "<b>Συντεταγμένες X/Y:</b>"
 
-#: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
+#: Src/Gtk2/dasher.glade.h:17
+#: Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Επιλογές άξονα Y :</b>"
+msgstr "<b>Επιλογές Άξονα Y :</b>"
 
-#: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
+#: Src/Gtk2/dasher.glade.h:18
+#: Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
 msgstr "Για Προχωρημένους"
 
-#: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
+#: Src/Gtk2/dasher.glade.h:19
+#: Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
 msgstr "Αλφάβητο"
 
-#: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
+#: Src/Gtk2/dasher.glade.h:20
+#: Src/Gtk2/dashergpe.glade.h:21
 msgid "Alphabet Default"
-msgstr "Προεπιλογή αλφαβήτου"
+msgstr "Προεπιλογή Αλφαβήτου"
 
-#: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
+#: Src/Gtk2/dasher.glade.h:21
+#: Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
-msgstr "Κάτω πρός πάνω"
+msgstr "Κάτω προς Πάνω"
 
-#: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
+#: Src/Gtk2/dasher.glade.h:22
+#: Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
 msgstr "Ρύθμιση ελέγχου κουμπιού"
 
-#: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
+#: Src/Gtk2/dasher.glade.h:23
+#: Src/Gtk2/dashergpe.glade.h:24
 msgid "Button mode"
 msgstr "Λειτουργία κουμπιού"
 
-#: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
+#: Src/Gtk2/dasher.glade.h:24
+#: Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
 msgstr "Κουμπί:"
 
@@ -222,149 +267,182 @@ msgstr "Αυτόματη αλλαγή χρώματος σχήματος"
 msgid "Color"
 msgstr "Χρώμα"
 
-#: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
+#: Src/Gtk2/dasher.glade.h:28
+#: Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
 msgstr "Λειτουργία ελέγχου"
 
-#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:30
+#: Src/Gtk2/dasher.glade.h:29
+#: Src/Gtk2/dashergpe.glade.h:30
 msgid "Copy"
 msgstr "Αντιγραφή"
 
-#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:31
+#: Src/Gtk2/dasher.glade.h:30
+#: Src/Gtk2/dashergpe.glade.h:31
 msgid "Copy _All"
 msgstr "Αντιγραφή Ό_λων"
 
-#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:32
+#: Src/Gtk2/dasher.glade.h:31
+#: Src/Gtk2/dashergpe.glade.h:32
 msgid "Copy all on stop"
 msgstr "Αντιγραφή όλων στην διακοπή"
 
-#: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
+#: Src/Gtk2/dasher.glade.h:32
+#: Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
 msgstr "Αποκοπή"
 
-#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
+#: Src/Gtk2/dasher.glade.h:33
+#: Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
 msgstr "Κυκλική λειτουργία κουμπιού"
 
-#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
+#: Src/Gtk2/dasher.glade.h:35
+#: Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
 msgstr "Προτιμήσεις Dasher "
 
-#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
+#: Src/Gtk2/dasher.glade.h:36
+#: Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
 msgstr "Απόσταση από την κεντρική γραμμή για την αρχική θέση του ποντικιού:"
 
-#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
+#: Src/Gtk2/dasher.glade.h:37
+#: Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
 msgstr "Κάτω/3:"
 
-#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
+#: Src/Gtk2/dasher.glade.h:38
+#: Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
 msgstr "Σχεδίαση περιγραμμάτων κουτιών"
 
-#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
+#: Src/Gtk2/dasher.glade.h:39
+#: Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Σχεδίαση γραμμής μεταξύ crosshairs και ποντικιού"
 
-#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
+#: Src/Gtk2/dasher.glade.h:40
+#: Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
 msgstr "Επεξεργασία επιλογών ελέγχου κουμπιών"
 
-#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:42
+#: Src/Gtk2/dasher.glade.h:41
+#: Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
 msgstr "Εισάγετε κείμενο σε άλλα παράθυρα"
 
-#: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
+#: Src/Gtk2/dasher.glade.h:42
+#: Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
 msgstr "Λειτουργία Eyetracker"
 
-#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:44
+#: Src/Gtk2/dasher.glade.h:43
+#: Src/Gtk2/dashergpe.glade.h:44
 msgid ""
 "If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
+"cycle backwards and forwards between coordinates and right will confirm the choice"
 msgstr ""
 "Αν αυτή η λειτουργία επιλεχθεί, το πάνω και κάτω θα\n"
-"κάνουν κύκλο πρός τα πίσω και μπροστά μεταξύ των συντεταγμένων και το δεξιά "
-"θα επιβεβαιώνει τη επιλογή"
+"κάνουν κύκλο πρός τα πίσω και μπροστά μεταξύ των συντεταγμένων και το δεξιά θα επιβεβαιώνει τη επιλογή"
 
-#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
+#: Src/Gtk2/dasher.glade.h:45
+#: Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
 msgstr "Μεγάλο"
 
-#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:47
+#: Src/Gtk2/dasher.glade.h:46
+#: Src/Gtk2/dashergpe.glade.h:47
 msgid "Left to Right"
-msgstr "Αριστερά πρός τα δεξιά"
+msgstr "Αριστερά πρός τα Δεξιά"
 
-#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:48
+#: Src/Gtk2/dasher.glade.h:47
+#: Src/Gtk2/dashergpe.glade.h:48
 msgid "Left/2:"
 msgstr "Αριστερά/2:"
 
-#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:49
+#: Src/Gtk2/dasher.glade.h:48
+#: Src/Gtk2/dashergpe.glade.h:49
 msgid "New file"
 msgstr "Νέο αρχείο"
 
-#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:50
+#: Src/Gtk2/dasher.glade.h:49
+#: Src/Gtk2/dashergpe.glade.h:50
 msgid "Normal"
 msgstr "Κανονικό"
 
-#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:50
+#: Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
 msgstr "Αριθμός από εικονοστοιχεία που θα καλύπτουν ολόκληρο το εύρος y:"
 
-#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:51
+#: Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
 msgstr "Μονοδιάστατη λειτουργία"
 
-#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:53
+#: Src/Gtk2/dasher.glade.h:52
+#: Src/Gtk2/dashergpe.glade.h:53
 msgid "Open file"
 msgstr "Άνοιγμα αρχείου"
 
-#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:55
+#: Src/Gtk2/dasher.glade.h:53
+#: Src/Gtk2/dashergpe.glade.h:55
 msgid "Paste"
 msgstr "Επικόλληση"
 
-#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
+#: Src/Gtk2/dasher.glade.h:54
+#: Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
 msgstr "Παύση έξω από το παράθυρο"
 
-#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:55
+#: Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
-msgstr "Δεξιά πρός τα αριστερά"
+msgstr "Δεξιά προς τα Αριστερά"
 
-#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:56
+#: Src/Gtk2/dashergpe.glade.h:58
 msgid "Right/4:"
 msgstr "Δεξιά/4:"
 
-#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:59
+#: Src/Gtk2/dasher.glade.h:57
+#: Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file"
 msgstr "Αποθήκευση αρχείου"
 
-#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
+#: Src/Gtk2/dasher.glade.h:58
+#: Src/Gtk2/dashergpe.glade.h:60
 msgid "Save file as"
 msgstr "Αποθήκευση αρχείου ως"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
+#: Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
 msgid "Select File"
 msgstr "Επιλογή Αρχείου"
 
-#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
+#: Src/Gtk2/dasher.glade.h:60
+#: Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
-msgstr "Επιλογή γραμματοσειράς"
+msgstr "Επιλογή Γραμματοσειράς"
 
-#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:63
+#: Src/Gtk2/dasher.glade.h:61
+#: Src/Gtk2/dashergpe.glade.h:63
 msgid "Show mouse position"
 msgstr "Προβολή θέσης ποντικιού"
 
-#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
+#: Src/Gtk2/dasher.glade.h:62
+#: Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
 msgstr "Εμφάνιση μπάρας ταχύτητας"
 
-#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
+#: Src/Gtk2/dasher.glade.h:63
+#: Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
 msgstr "Προβολή εργαλειοθήκης"
 
-#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
+#: Src/Gtk2/dasher.glade.h:64
+#: Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
 msgstr "Ομιλία στην διακοπή"
 
@@ -372,39 +450,48 @@ msgstr "Ομιλία στην διακοπή"
 msgid "Speed"
 msgstr "Ταχύτητα"
 
-#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
+#: Src/Gtk2/dasher.glade.h:66
+#: Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
 msgstr "Εκκίνηση στο πάτημα του αριστερού κουμπιού του ποντικιού"
 
-#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
+#: Src/Gtk2/dasher.glade.h:67
+#: Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
 msgstr "Εκκίνηση στο πάτημα του space bar"
 
-#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
+#: Src/Gtk2/dasher.glade.h:68
+#: Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
 msgstr "Εκκίνηση με την θέση του ποντικιού"
 
-#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
+#: Src/Gtk2/dasher.glade.h:69
+#: Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
 msgstr "Αποτύπωση ώρας σε νέα αρχεία"
 
-#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
+#: Src/Gtk2/dasher.glade.h:70
+#: Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
-msgstr "Πάνω πρός τα κάτω"
+msgstr "Πάνω προς τα Κάτω"
 
-#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:72
+#: Src/Gtk2/dasher.glade.h:71
+#: Src/Gtk2/dashergpe.glade.h:72
 msgid "Training"
 msgstr "Εκπαίδευση"
 
-#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
+#: Src/Gtk2/dasher.glade.h:72
+#: Src/Gtk2/dashergpe.glade.h:73
 msgid "Training Dasher - please wait"
 msgstr "Εκπαίδευση Dasher - παρακαλώ περιμένετε"
 
-#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
+#: Src/Gtk2/dasher.glade.h:73
+#: Src/Gtk2/dashergpe.glade.h:74
 msgid "Up/1:"
 msgstr "Πάνω/1:"
 
-#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:75
+#: Src/Gtk2/dasher.glade.h:74
+#: Src/Gtk2/dashergpe.glade.h:75
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -414,73 +501,89 @@ msgstr ""
 "κουτιών γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει\n"
 "την ταχύτητα γραφής σας."
 
-#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
+#: Src/Gtk2/dasher.glade.h:77
+#: Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
 msgstr "Πολύ μεγάλο"
 
-#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
+#: Src/Gtk2/dasher.glade.h:78
+#: Src/Gtk2/dashergpe.glade.h:79
 msgid "View"
 msgstr "Προβολή"
 
-#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:80
+#: Src/Gtk2/dasher.glade.h:79
+#: Src/Gtk2/dashergpe.glade.h:80
 msgid "X:"
 msgstr "X:"
 
-#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:81
+#: Src/Gtk2/dasher.glade.h:80
+#: Src/Gtk2/dashergpe.glade.h:81
 msgid "Y:"
 msgstr "Y:"
 
-#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:82
+#: Src/Gtk2/dasher.glade.h:81
+#: Src/Gtk2/dashergpe.glade.h:82
 msgid "_About"
 msgstr "Πε_ρί"
 
-#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:83
+#: Src/Gtk2/dasher.glade.h:82
+#: Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
 msgstr "Π_ρόσθεση σε αρχείο"
 
-#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:84
+#: Src/Gtk2/dasher.glade.h:83
+#: Src/Gtk2/dashergpe.glade.h:84
 msgid "_Dasher Font"
 msgstr "Γραμματοσειρά _Dasher"
 
-#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:85
+#: Src/Gtk2/dasher.glade.h:84
+#: Src/Gtk2/dashergpe.glade.h:85
 msgid "_Dasher Font Size"
-msgstr "Μέγεθος γραμματοσειράς _Dasher"
+msgstr "Μέγεθος Γραμματοσειράς _Dasher"
 
-#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:86
+#: Src/Gtk2/dasher.glade.h:85
+#: Src/Gtk2/dashergpe.glade.h:86
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:87
+#: Src/Gtk2/dasher.glade.h:86
+#: Src/Gtk2/dashergpe.glade.h:87
 msgid "_Edit Font"
-msgstr "_Επεξεργασία γραμματοσειράς"
+msgstr "_Επεξεργασία Γραμματοσειράς"
 
-#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:88
+#: Src/Gtk2/dasher.glade.h:87
+#: Src/Gtk2/dashergpe.glade.h:88
 msgid "_File"
 msgstr "Αρ_χείο"
 
-#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:89
+#: Src/Gtk2/dasher.glade.h:88
+#: Src/Gtk2/dashergpe.glade.h:89
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:90
+#: Src/Gtk2/dasher.glade.h:89
+#: Src/Gtk2/dashergpe.glade.h:90
 msgid "_Import Training Text"
-msgstr "Ε_ισαγωγή κειμένου εκπαίδευσης"
+msgstr "Ε_ισαγωγή Κειμένου Εκπαίδευσης"
 
-#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
+#: Src/Gtk2/dasher.glade.h:90
+#: Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
 msgstr "Επιλ_ογές"
 
-#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:92
+#: Src/Gtk2/dasher.glade.h:91
+#: Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
 msgstr "Επαναφο_ρά γραμματοσειρών"
 
-#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:93
+#: Src/Gtk2/dasher.glade.h:92
+#: Src/Gtk2/dashergpe.glade.h:93
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "αβγδεζηθικ ΑΒΓΔΕΖΗΘΙΚ"
 
 #: Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Colour Selection:</b>"
-msgstr "<b>Επιλογή χρώματος:</b>"
+msgstr "<b>Επιλογή Χρώματος:</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
@@ -498,11 +601,15 @@ msgstr "Χρώμα"
 msgid "Orientation"
 msgstr "Προσανατολισμός"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+msgid "Unable to initialize voices"
+msgstr ""
+
+#: Src/Gtk2/speech.cc:61
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Προειδοποίηση: αδυναμία ορισμού παραμέτρων ομιλίας\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:98
 msgid "Dasher Text Entry"
-msgstr "Καταχώρηση κειμένου Dasher"
+msgstr "Καταχώρηση Κειμένου Dasher"
 
