@@ -11,7 +11,11 @@
 using namespace Dasher;
 using namespace std;
 
-using CLanguageModel::CNodeContext;
+// I have removed the following as it doesn't seem to compile in gcc:
+
+// using CLanguageModel::CNodeContext;
+
+
 
 CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
 	: m_Alphabet(Alphabet), m_iNorm(Normalization)
@@ -20,13 +24,13 @@ CLanguageModel::CLanguageModel(CAlphabet* Alphabet, int Normalization)
 }
 
 
-CNodeContext* CLanguageModel::GetRootNodeContext()
+CLanguageModel::CNodeContext* CLanguageModel::GetRootNodeContext()
 {
 	return (CNodeContext*) GetRootContext();
 }
 
 
-CNodeContext* CLanguageModel::CloneNodeContext(CNodeContext* NodeContext)
+CLanguageModel::CNodeContext* CLanguageModel::CloneNodeContext(CNodeContext* NodeContext)
 {
 	return (CNodeContext*) CloneContext((CContext*) NodeContext);
 }
