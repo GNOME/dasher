@@ -1,0 +1,16 @@
+Dasher version 3.0.0 preview release 1
+--------------------------------------
+
+This release has been provided for the impatient so that you can see
+what we have been doing. Please bear in mind that 3.0.0 is a complete
+rewrite, and as such some features that were present in 1.6.8 have not
+yet been implemented in this version. In particular, the Linux user
+interface is very far from complete. The build system has also not
+been thoroughly tested - you run 'make install' at your own risk ;)
+
+We'd appreciate any feedback / bug reports / patches - please send
+them to dasher@mrao.cam.ac.uk
+
+Yours,
+
+The Dasher Team
