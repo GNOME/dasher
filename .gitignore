@@ -9,3 +9,10 @@
 Makefile
 Makefile.in
 dasher.xml
+*.Plo
+*.lo
+*.la
+autom4te.cache
+*.Po
+build-aux
+stamp-*
