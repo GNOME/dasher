@@ -59,6 +59,11 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 
 CEdit::~CEdit()
 {
+	DeleteObject(m_Font);
+	
+	// Release the voice object created by constructor
+	pVoice->Release();
+
 	delete m_FilenameGUI;
 	if (FileHandle!=INVALID_HANDLE_VALUE)
 		CloseHandle(FileHandle);
