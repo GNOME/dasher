@@ -8,6 +8,8 @@
 <train>training_hiragana83_JP.txt</train>
 <palette>Hiragana</palette>
 <space d="_" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
 <group name="Letters" b="0">
 <s d="&#12353;" t="&#12353;" b="10" />
 <s d="&#12354;" t="&#12354;" b="10" />
@@ -101,6 +103,8 @@
 <train>training_hiragana60_JP.txt</train>
 <palette>Hiragana</palette>
 <space d="_" t=" " b="9"/>
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
 <group name="Letters" b="0">
 <s d="&#12353;" t="&#12353;" b="10" />
 <s d="&#12354;" t="&#12354;" b="10" />

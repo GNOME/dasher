@@ -6,9 +6,10 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
-<train>training_portugese_BR.txt</train>
+<train>training_portuguese_BR.txt</train>
 <space d="_" t=" "/>
 <control d="Control" t=""/>
+<paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -101,7 +102,6 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 </alphabets>

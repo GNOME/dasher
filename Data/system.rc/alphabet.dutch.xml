@@ -9,6 +9,7 @@
 <train>training_dutch_NL.txt</train>
 <space d="_" t=" "/>
 <control d="Control" t=""/>
+<paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="ä" t="ä"/>
@@ -80,7 +81,6 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 </alphabets>

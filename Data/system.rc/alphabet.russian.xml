@@ -9,6 +9,7 @@
 <palette>Default</palette>
 <train>training_russian_RU.txt</train>
 <space d="_" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
 <group "lower case Russian letters" b="0">
 <s d="&#x0430;" t="&#x0430;" />
 <s d="&#x0431;" t="&#x0431;" />
@@ -124,7 +125,6 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 </alphabets>

@@ -11,7 +11,7 @@
 <train>training_polish_PL.txt</train>
     <space t=" " d="_" />
     <control d="Control" t=""/>
-
+    <paragraph d="&#182;" b="9"/>
     <group name="Małe litery">
       <s t="a" d="a" />
 

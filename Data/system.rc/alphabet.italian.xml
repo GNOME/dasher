@@ -7,6 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <control d="Control" t=""/>
+<paragraph d="&#182;" b="9"/>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
 <group name="Lower case Latin letters">
@@ -98,7 +99,6 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 
@@ -109,6 +109,7 @@
 <palette>Default</palette>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
+<paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -223,7 +224,6 @@
 <s d="!" t="!"/>
 <s d="," t=","/>
 <s d="." t="."/>
-<s d="¶" t="&#xa;"/>
 </group>
 </alphabet>
 </alphabets>
