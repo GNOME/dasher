@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=Dasher
-OutputBaseFilename=Dasher 3.0.0 (Build 1)
+OutputBaseFilename=Dasher 3.0.0 (Build 2)
 AppVerName=Dasher 3.0.0 - Preview 1
 AppPublisher=Dasher Project
 AppPublisherURL=http://www.inference.phy.cam.ac.uk/dasher/
@@ -24,6 +24,8 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
 Source: "..\..\..\Src\Win32\Target\Win32 Win95 compatible Release\Dasher.exe"; DestDir: "{app}"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\Help\Win32\Dasher.hlp"; DestDir: "{app}"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\Help\Win32\Dasher.cnt"; DestDir: "{app}"; CopyMode: alwaysoverwrite
+Source: "..\..\..\Data\system.rc\source.txt"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
+Source: "..\..\..\Data\system.rc\alphabet.xml"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 
 
 [INI]

@@ -1027,6 +1027,7 @@ NODEP_CPP_EDIT_=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_EDIT_=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
@@ -1119,6 +1120,7 @@ DEP_CPP_FILEN=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_FILEN=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	".\Widgets\FilenameGUI.h"\
@@ -1217,6 +1219,7 @@ NODEP_CPP_MENU_=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_MENU_=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	".\Widgets\Menu.h"\
@@ -1439,6 +1442,7 @@ NODEP_CPP_SCREE=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_SCREE=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
@@ -1569,6 +1573,7 @@ NODEP_CPP_SLIDE=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_SLIDE=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
@@ -1588,6 +1593,27 @@ DEP_CPP_SLIDE=\
 # Begin Source File
 
 SOURCE=.\Widgets\Slidebar.h
+
+!IF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Release"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE MIPS) Debug"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Release"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE SH3) Debug"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Release"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE ARM) Debug"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Release"
+
+!ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
+
+# PROP Exclude_From_Build 1
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
@@ -1665,6 +1691,7 @@ DEP_CPP_SPLAS=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_SPLAS=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
@@ -1757,6 +1784,7 @@ DEP_CPP_SPLIT=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_SPLIT=\
 	"..\..\Common\MSVC_Unannoy.h"\
 	"..\..\Common\NoClones.h"\
@@ -2077,6 +2105,7 @@ NODEP_CPP_DASHER=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
+# PROP Exclude_From_Build 1
 DEP_CPP_DASHER=\
 	".\Dasher.h"\
 	".\StdAfx.h"\
@@ -2348,6 +2377,7 @@ DEP_CPP_DASHERW=\
 	"..\..\DasherCore\DasherWidgetInterface.h"\
 	"..\..\DasherCore\SettingsStore.h"\
 	".\DasherWindow.h"\
+	".\StdAfx.h"\
 	".\Widgets\AboutBox.h"\
 	".\Widgets\AlphabetBox.h"\
 	".\Widgets\Canvas.h"\
@@ -2365,7 +2395,10 @@ DEP_CPP_DASHERW=\
 	".\WinLocalisation.h"\
 	".\WinUTF8.h"\
 	".\WinWrap.h"\
+	{$(INCLUDE)}"aygshell.h"\
+	{$(INCLUDE)}"sipapi.h"\
 	
+# SUBTRACT CPP /YX /Yc /Yu
 
 !ENDIF 
 
@@ -2827,7 +2860,37 @@ NODEP_CPP_WINMA=\
 
 !ELSEIF  "$(CFG)" == "Dasher - Win32 (WCE x86em) Debug"
 
-# PROP Exclude_From_Build 1
+DEP_CPP_WINMA=\
+	"..\..\Common\Expat\lib\expat.h"\
+	"..\..\Common\MSVC_Unannoy.h"\
+	"..\..\Common\NoClones.h"\
+	"..\..\DasherCore\AlphIO.h"\
+	"..\..\DasherCore\DashEdit.h"\
+	"..\..\DasherCore\DasherAppInterface.h"\
+	"..\..\DasherCore\DasherScreen.h"\
+	"..\..\DasherCore\DasherSettingsInterface.h"\
+	"..\..\DasherCore\DasherTypes.h"\
+	"..\..\DasherCore\DasherWidgetInterface.h"\
+	"..\..\DasherCore\SettingsStore.h"\
+	".\DasherWindow.h"\
+	".\Widgets\Canvas.h"\
+	".\Widgets\Edit.h"\
+	".\Widgets\FilenameGUI.h"\
+	".\Widgets\Menu.h"\
+	".\Widgets\Screen.h"\
+	".\Widgets\Screen.inl"\
+	".\Widgets\Slidebar.h"\
+	".\Widgets\SplashScreen.h"\
+	".\Widgets\Splitter.h"\
+	".\Widgets\Toolbar.h"\
+	".\Widgets\WinOptions.h"\
+	".\WinHelper.h"\
+	".\WinUTF8.h"\
+	".\WinWrap.h"\
+	
+NODEP_CPP_WINMA=\
+	"..\DasherCore\DasherInterface.h"\
+	
 
 !ENDIF 
 
