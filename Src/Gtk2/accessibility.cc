@@ -4,7 +4,7 @@ ControlTree *menutree;
 
 #ifdef GNOME_A11Y
 std::vector<Accessible*> menuitems;
-Accessible *desktop;
+Accessible *desktop=NULL;
 #endif
 
 ControlTree* gettree() {
@@ -13,7 +13,9 @@ ControlTree* gettree() {
   Accessible *child;
   ControlTree *controltree;
   int numchildren;
-  desktop = SPI_getDesktop(0);
+  if (desktop==NULL) {
+    desktop = SPI_getDesktop(0);
+  }
   menutree->parent=NULL;
   menutree->children=NULL;
   menutree->pointer=NULL;
