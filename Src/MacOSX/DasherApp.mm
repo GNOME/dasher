@@ -184,13 +184,13 @@ static void registerCallbacks()
 
 // TODO make another file (c? c++?) of utilities used by both this and the view
 unsigned long int get_time() {
+
   long s_now;
   long ms_now;
 
   struct timeval tv;
-  struct timezone tz;
-
-  gettimeofday (&tv, &tz);
+ 
+  gettimeofday (&tv, NULL);
 
   s_now = tv.tv_sec;
   ms_now = tv.tv_usec / 1000;
@@ -265,7 +265,8 @@ unsigned long int get_time() {
 - (void)startDashing
 {
   dasher_unpause(get_time());
-  [self setTimer:[NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(timerCallback:) userInfo:nil repeats:YES]];
+
+  [self setTimer:[NSTimer scheduledTimerWithTimeInterval:1.0/17.0 target:self selector:@selector(timerCallback:) userInfo:nil repeats:YES]];
 }
 
 - (void)stopDashing
