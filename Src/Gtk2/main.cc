@@ -592,7 +592,7 @@ public:
     GtkDasherStore *store = new GtkDasherStore;
     interface->SetSettingsStore( store );
     interface->SetSettingsUI( this );
-    
+
     dasher_accel = gtk_accel_group_new();
     
     dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
@@ -706,7 +706,9 @@ public:
     gtk_widget_show (speed_frame);
     gtk_widget_show (speed_hscale);
     gtk_widget_show (dasher_menu_bar);
-    
+
+    interface->SettingsDefaults( store );
+
     interface->ChangeLanguageModel(0);
     interface->ChangeView(0);
     
@@ -744,6 +746,8 @@ public:
     } else {
       gtk_widget_hide(toolbar);
     }
+
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Show Toolbar")), Value);
   };
 
   void GtkDasherUI::ShowSpeedSlider(bool Value) {
@@ -755,6 +759,8 @@ public:
     } else {
       gtk_widget_hide(speed_frame);
     }
+    
+    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Speed Slider")), Value);
   };
 
 };
@@ -808,7 +814,6 @@ void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
   } else {
     interface->ShowToolbar( FALSE );
   }
-
 }
 
 void show_slider(gpointer data, guint action, GtkWidget  *widget )
