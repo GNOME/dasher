@@ -23,9 +23,9 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height)
   //bg_buffer = new Gdk_Pixmap(  width, height, -1 );
     buffer = new GtkDoubleBuffer( width, height, 16 );
 
-    f_small.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
-    f_medium.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
-    f_large.create("-misc-fixed-medium-r-*-*-*-110-*-*-*-*-*-*");
+    f_small.create("-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1");
+    f_medium.create("-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1");
+    f_large.create("-misc-fixed-medium-r-normal--14-130-75-75-c-70-iso8859-1");
 }
 
 Gdk_Font GtkDasherCanvas::get_font( int size ) const
