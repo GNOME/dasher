@@ -43,6 +43,11 @@ void edit_output_callback(symbol Symbol)
   outputcharacters++;
 }
 
+void edit_outputcontrol_callback(symbol Symbol)
+{
+  printf("Control\n");
+}
+
 void edit_delete_callback()
 {
   GtkTextIter *start = new GtkTextIter;

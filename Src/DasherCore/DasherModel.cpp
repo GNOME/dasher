@@ -41,9 +41,14 @@ void CDasherModel::Make_root(int whichchild)
  // find a new root node 
 {
 	symbol t=m_Root->Symbol();
+
 	if (t) {
-		m_editbox->output(t);
-		m_languagemodel->LearnNodeSymbol(LearnContext, t);
+	      if (m_Root->Control()==true) {
+	            m_editbox->outputcontrol(t);
+	      } else {
+		    m_editbox->output(t);
+		    m_languagemodel->LearnNodeSymbol(LearnContext, t);
+	      }
 	}
 
 	CDasherNode * oldroot=m_Root;
@@ -171,7 +176,7 @@ void CDasherModel::Start()
 		m_languagemodel->ReleaseNodeContext(LearnContext);
 		LearnContext = m_languagemodel->CloneNodeContext(therootcontext);
 	}
-	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel);
+	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
 	m_Root->Push_Node(therootcontext);
 	
 	m_languagemodel->ReleaseNodeContext(therootcontext);

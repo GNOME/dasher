@@ -96,6 +96,7 @@ main(int argc, char *argv[])
   dasher_set_text_size_callback( text_size_callback );
   
   dasher_set_edit_output_callback( edit_output_callback );
+  dasher_set_edit_outputcontrol_callback( edit_outputcontrol_callback );
   dasher_set_edit_delete_callback( edit_delete_callback );
   dasher_set_edit_flush_callback( edit_flush_callback );
   dasher_set_edit_unflush_callback( edit_unflush_callback );

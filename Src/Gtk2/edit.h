@@ -3,6 +3,7 @@
 
 void initialise_edit();
 void edit_output_callback(symbol Symbol);
+void edit_outputcontrol_callback(symbol Symbol);
 void edit_delete_callback();
 void edit_flush_callback(symbol Symbol);
 void edit_unflush_callback();

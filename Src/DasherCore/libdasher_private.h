@@ -17,6 +17,7 @@ void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number);
 void handle_draw_text(symbol Character, int x1, int y1, int size);
 void handle_text_size(symbol Character, int* Width, int* Height, int Size);
 void handle_edit_output(symbol Character);
+void handle_edit_outputcontrol(symbol Character);
 void handle_edit_delete();
 void handle_edit_flush(symbol Character);
 void handle_edit_unflush();
@@ -268,6 +269,10 @@ class dasher_edit : public CDashEditbox
   void output(symbol Symbol) 
     {
       handle_edit_output(Symbol);
+    };
+  void outputcontrol(symbol Symbol)
+    {
+      handle_edit_outputcontrol(Symbol);
     };
   void deletetext()
     {

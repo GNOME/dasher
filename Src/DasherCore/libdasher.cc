@@ -32,6 +32,7 @@ void (*draw_text_callback)(symbol, int, int, int) = NULL;
 void (*text_size_callback)(symbol, int*, int*, int) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
+void (*edit_outputcontrol_callback)(symbol) = NULL;
 void (*edit_delete_callback)() = NULL;
 void (*edit_flush_callback)(symbol) = NULL;
 void (*edit_unflush_callback)() = NULL;
@@ -113,6 +114,12 @@ void handle_edit_output(symbol Character)
 {
   if( edit_output_callback != NULL )
     edit_output_callback( Character );
+}
+
+void handle_edit_outputcontrol(symbol Character)
+{
+  if( edit_outputcontrol_callback != NULL )
+    edit_outputcontrol_callback( Character );
 }
 
 void handle_edit_delete()
@@ -422,6 +429,11 @@ void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int))
 void dasher_set_edit_output_callback( void (*_cb )(symbol))
 {
   edit_output_callback = _cb;
+}
+
+void dasher_set_edit_outputcontrol_callback( void (*_cb )(symbol))
+{
+  edit_outputcontrol_callback = _cb;
 }
 
 void dasher_set_edit_delete_callback( void (*_cb )())
