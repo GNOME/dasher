@@ -275,6 +275,9 @@ new_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
   gtk_widget_destroy (GTK_WIDGET(selector));
+
+  dasher_start();
+  dasher_redraw();
 }
 
 
@@ -592,6 +595,13 @@ void speed_changed(GtkAdjustment *adj) {
 void interface_setup() {
   dasher_accel = gtk_accel_group_new();
   
+    float initial_bitrate = 3.0;
+
+ speed_frame = gtk_frame_new ("Speed");
+    speed_slider = gtk_adjustment_new(initial_bitrate, 1.0, 8.0, 1.0, 1.0, 0.0);
+    speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
+    gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
+
   initialise_canvas(360,360);
   initialise_edit();
 
@@ -626,7 +636,7 @@ open_window() {
 
 
 
-    float initial_bitrate = 3.0;
+
     
     ofilesel = gtk_file_selection_new("Open a file");
     afilesel = gtk_file_selection_new("Append to file");
@@ -693,11 +703,7 @@ open_window() {
     gtk_box_pack_start (GTK_BOX (vbox), canvas_frame, TRUE, TRUE, 0);
     gtk_container_add (GTK_CONTAINER (canvas_frame), the_canvas);
     
-    speed_frame = gtk_frame_new ("Speed");
-    speed_slider = gtk_adjustment_new(initial_bitrate, 1.0, 8.0, 1.0, 1.0, 0.0);
-    speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
-    gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
-    
+       
     gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), NULL);
     
     gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
@@ -742,7 +748,7 @@ open_window() {
 
     dasher_set_parameter_string( STRING_ALPHABET, alphabet );
 
-    dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
+    //    dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
     
     dasher_start();
 
@@ -775,8 +781,11 @@ void orientation(gpointer data, guint action, GtkWidget  *widget )
 {
   signed int RealAction=action-3;
 
-  dasher_set_orientation( Dasher::Opts::ScreenOrientations(RealAction) );
-  dasher_redraw();
+  if( GTK_CHECK_MENU_ITEM(widget)->active)
+    {
+      dasher_set_orientation( Dasher::Opts::ScreenOrientations(RealAction) );
+      dasher_redraw();
+    }
 }
 
 void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
@@ -863,10 +872,39 @@ void parameter_string_callback( string_param p, const char *value )
 
 void parameter_double_callback( double_param p, double value )
 {
+  switch(p)
+    {
+    case DOUBLE_MAXBITRATE:
+      gtk_adjustment_set_value(GTK_ADJUSTMENT(speed_slider),  value);
+      break;
+    }
 }
 
 void parameter_int_callback( int_param p, long int value )
 {
+  switch(p)
+    {
+    case INT_ORIENTATION:
+      switch(value)
+	{
+	case Opts::Alphabet:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Alphabet Default")), TRUE);
+	  break;
+	case Opts::LeftToRight:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Left to Right")), TRUE);
+	  break;
+	case Opts::RightToLeft:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Right to Left")), TRUE);
+	  break;
+	case Opts::TopToBottom:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Top to Bottom")), TRUE);
+	  break;
+	case Opts::BottomToTop:
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Bottom to Top")), TRUE);
+	  break;
+	}
+      break;
+    }
 }
 
 void parameter_bool_callback( bool_param p, bool value )
@@ -897,15 +935,19 @@ void parameter_bool_callback( bool_param p, bool value )
       } else {
 	gtk_widget_hide(speed_frame);
       }
-    
+      break;
     case BOOL_DRAWMOUSE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Draw Position")), value);
+      break;
     case BOOL_DIMENSIONS:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/One Dimensional")), value);
+      break;
     case BOOL_TIMESTAMPNEWFILES:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Timestamp New Files")), value);
+      break;
     case BOOL_COPYALLONSTOP:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Copy All on Stop")), value);
+      break;
     }
 }
 

@@ -53,7 +53,11 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_int( INT_VIEW, NewViewID );
     };
 
-  void ChangeOrientation(Opts::ScreenOrientations Orientation) {};
+  void ChangeOrientation(Opts::ScreenOrientations Orientation) 
+    {
+      handle_parameter_int( INT_ORIENTATION, Orientation );
+    };
+
   void SetFileEncoding(Opts::FileEncodingFormats Encoding) {};
 
   void SetScreenSize(long Width, long Height) 

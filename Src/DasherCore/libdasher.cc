@@ -297,10 +297,13 @@ void dasher_set_parameter_bool( bool_param p, bool value )
       interface->ShowSpeedSlider(value);
       break;
     case BOOL_FIXLAYOUT:
+      interface->FixLayout(value);
       break;
     case BOOL_TIMESTAMPNEWFILES:
+      interface->TimeStampNewFiles(value);
       break;
     case BOOL_COPYALLONSTOP:
+      interface->CopyAllOnStop(value);
       break;
     case BOOL_DRAWMOUSE:
       interface->DrawMouse(value);
