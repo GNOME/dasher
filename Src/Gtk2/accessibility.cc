@@ -59,13 +59,13 @@ ControlTree* buildcontroltree() {
   stoptree->children=dummy;
   stoptree->text="Stop";
   stoptree->next=pausetree;
-  stoptree->colour=111;
+  stoptree->colour=112;
   pausetree->pointer=(void*)1;
   pausetree->data=3;
   pausetree->children=dummy;
   pausetree->text="Pause";
   pausetree->next=movetree;
-  pausetree->colour=110;
+  pausetree->colour=111;
   movetree->pointer=NULL;
   movetree->data=0;
   movetree->children=menutree;
