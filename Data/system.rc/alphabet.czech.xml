@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+  <alphabet name="Czech">
+    <orientation type="LR" />
+    <encoding type="CentralEurope" />
+    <palette>Default</palette>
+    <train>training_czech_CS.txt</train>
+    <space t=" " d="_" />
+    <control d="Control" t=""/>
+    <paragraph d="&#182;" b="9"/>
+    <group name="Malá písmena" b="0">
+      <s t="a" d="a" />
+      <s t="á" d="á" />
+      <s t="b" d="b" />
+      <s t="c" d="c" />
+      <s t="č" d="č" />
+      <s t="d" d="d" />
+      <s t="ď" d="ď" />
+      <s t="e" d="e" />
+      <s t="é" d="é" />
+      <s t="ě" d="ě" />
+      <s t="f" d="f" />
+      <s t="g" d="g" />
+      <s t="h" d="h" />
+      <s t="ch" d="ch" />
+      <s t="i" d="i" />
+      <s t="í" d="í" />
+      <s t="j" d="j" />
+      <s t="k" d="k" />
+      <s t="l" d="l" />
+      <s t="m" d="m" />
+      <s t="n" d="n" />
+      <s t="ň" d="ň" />
+      <s t="o" d="o" />
+      <s t="ó" d="ó" />
+      <s t="p" d="p" />
+      <s t="q" d="q" />
+      <s t="r" d="r" />
+      <s t="ř" d="ř" />
+      <s t="s" d="s" />
+      <s t="š" d="š" />
+      <s t="t" d="t" />
+      <s t="ť" d="ť" />
+      <s t="u" d="u" />
+      <s t="ú" d="ú" />
+      <s t="ů" d="ů" />
+      <s t="v" d="v" />
+      <s t="w" d="w" />
+      <s t="x" d="x" />
+      <s t="y" d="y" />
+      <s t="ý" d="ý" />
+      <s t="z" d="z" />
+      <s t="ž" d="ž" />
+    </group>
+    <group name="Velká písmena" b="111">
+      <s t="A" d="A" />
+      <s t="Á" d="Á" />
+      <s t="B" d="B" />
+      <s t="C" d="C" />
+      <s t="Č" d="Č" />
+      <s t="D" d="D" />
+      <s t="Ď" d="Ď" />
+      <s t="E" d="E" />
+      <s t="É" d="É" />
+      <s t="Ě" d="Ě" />
+      <s t="F" d="F" />
+      <s t="G" d="G" />
+      <s t="H" d="H" />
+      <s t="Ch" d="Ch" />
+      <s t="CH" d="CH" />
+      <s t="I" d="I" />
+      <s t="Í" d="Í" />
+      <s t="J" d="J" />
+      <s t="K" d="K" />
+      <s t="L" d="L" />
+      <s t="M" d="M" />
+      <s t="N" d="N" />
+      <s t="Ň" d="Ň" />
+      <s t="O" d="O" />
+      <s t="Ó" d="Ó" />
+      <s t="P" d="P" />
+      <s t="Q" d="Q" />
+      <s t="R" d="R" />
+      <s t="Ř" d="Ř" />
+      <s t="S" d="S" />
+      <s t="Š" d="Š" />
+      <s t="T" d="T" />
+      <s t="Ť" d="Ť" />
+      <s t="U" d="U" />
+      <s t="Ú" d="Ú" />
+      <s t="Ů" d="Ů" />
+      <s t="V" d="V" />
+      <s t="W" d="W" />
+      <s t="X" d="X" />
+      <s t="Y" d="Y" />
+      <s t="Ý" d="Ý" />
+      <s t="Z" d="Z" />
+      <s t="Ž" d="Ž" />
+    </group>
+    <group name="Číslice" b="113">
+      <s t="0" d="0" />
+      <s t="1" d="1" />
+      <s t="2" d="2" />
+      <s t="3" d="3" />
+      <s t="4" d="4" />
+      <s t="5" d="5" />
+      <s t="6" d="6" />
+      <s t="7" d="7" />
+      <s t="8" d="8" />
+      <s t="9" d="9" />
+    </group>
+    <group name="Interpunkce" b="112">
+      <s t="," d="," />
+      <s t="." d="." />
+      <s t=":" d=":" />
+      <s t=";" d=";" />
+      <s t="&#34;" d="&#34;" />
+      <s t="!" d="!" />
+      <s t="*" d="*" />
+      <s t="-" d="-" />
+      <s t="+" d="+" />
+      <s t="/" d="/" />
+      <s t="?" d="?" />
+      <s t="=" d="=" />
+    </group>
+  </alphabet>
+</alphabets>

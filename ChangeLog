@@ -1,3 +1,17 @@
+2004-06-09  Stanislav Brabec  <sbrabec@suse.cz>
+
+	* Data/system.rc/alphabet.czech.xml: Added support for Czech
+	language.
+
+	* Data/Translations/Makefile.am,
+	Data/Translations/training_czech_CS.txt,
+	Data/Translations/training_czech_CS.COPYING: Added Czech training
+	text. With permission of the Institute of the Czech National
+	Corpus.
+
+	* po/cs.po: Added copyright of the Institute of the Czech National
+	Corpus to translator_credits.
+
 2004-06-01  Alexander Shopov  <ash@contact.bg>
 
 	* configure.in (ALL_LINGUAS): Added "bg" Bulgarian

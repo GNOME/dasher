@@ -166,7 +166,9 @@ msgstr "Zvolte soubor"
 #. This gets pulled out via gettext
 #: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
-msgstr "Miloslav Trmač <mitr@volny.cz>"
+msgstr "Překlad: Miloslav Trmač <mitr@volny.cz>\n"
+"Učící text: © 2004 Ústav Českého národního korpusu\n"
+"http://ucnk.ff.cuni.cz"
 
 #: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
