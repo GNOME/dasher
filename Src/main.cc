@@ -1,10 +1,17 @@
 #include <gtk/gtk.h>
+#include <gdk/gdkx.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
+#include <gnome.h>
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
 #include <libbonobo.h>
 #endif
+
+#define PREFIX "/usr/"
+#define SYSCONFDIR "/usr/share/dasher/"
+#define LIBDIR "/usr/lib/"
+#define DATADIR "/usr/share/dasher/"
 
 #include <libintl.h>
 #include <locale.h>
@@ -32,10 +39,30 @@ GError *gconferror;
 GConfEngine *gconfengine;
 gboolean timedata;
 
+GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
+{
+  XEvent *xev = (XEvent *)xevent;
+ 
+  if (xev->xany.type == ClientMessage &&
+      (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom (
+							      gdk_atom_intern ("WM_TAKE_FOCUS", False)))
+    {
+      return GDK_FILTER_REMOVE;
+    }
+  else
+    {
+      return GDK_FILTER_CONTINUE;
+    }
+}
+
+
 int
 main(int argc, char *argv[])
 {
+  GtkWidget *window;
   int c;
+  XWMHints wm_hints;
+  Atom wm_window_protocols[3];
 
   while (1) {
     c=getopt( argc, argv, "w" );
@@ -117,12 +144,27 @@ main(int argc, char *argv[])
   bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
   textdomain (PACKAGE);
 
+#ifdef GNOME_A11Y
+  SPI_init ();
+#endif
+
   interface_setup();
 
   dasher_early_initialise();
 
-  open_window ();
+  window=open_window ();
 
+  wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
+  wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
+  wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+  
+  wm_hints.flags = InputHint;
+  wm_hints.input = False;
+
+  XSetWMHints (GDK_WINDOW_XDISPLAY (window->window), GDK_WINDOW_XWINDOW (window->window), &wm_hints);
+  XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
+  gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
+  
   dasher_late_initialise(360,360);
 
   choose_filename();
