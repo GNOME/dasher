@@ -51,6 +51,8 @@
 #include <string>
 typedef std::basic_string<TCHAR> Tstring;
 
+#include <cassert>
+
 // Some global helpers. In all my applications there is just one instance,
 // or one important one, and WinHelper::hInstApp saves passing it around endlessly
 namespace WinHelper

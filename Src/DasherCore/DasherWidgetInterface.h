@@ -33,9 +33,35 @@ public:
 	//! \param Time Time in milliseconds, required to keep Dasher running
 	//! at the correct speed
 	virtual void TapOn(int MouseX, int MouseY, unsigned long Time)=0;
+
+	//! Draw the mouse position
+	//
+	//! Gives a coordinate that the mouse position should be shown at
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	virtual void DrawMousePos(int MouseX, int MouseY)=0;
 	
+	//! Signal a location that should be jumped to
+	//
+	//! Signal a location that should be jumped to. Mostly useful for
+	//! button or keyboard input.
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	virtual void GoTo(int MouseX, int MouseY)=0;
+
+	//! Show the area that would be zoomed in on with these coordinates
+	//
+	//! Draw the area that would be zoomed in on if a GoTo was executed
+	//! on this location
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	virtual void DrawGoTo(int MouseX, int MouseY)=0;
+
 	//! Signal an input event and pause the simulation
 	virtual void PauseAt(int MouseX, int MouseY)=0;
+
+	//! Signal that we have stopped for some reason
+	virtual void Halt()=0;
 	
 	//! Unpause the simulation.
 	//
@@ -46,6 +72,9 @@ public:
 	//! Signal that the core should redraw the screen
 	virtual void Redraw()=0;
 	
+	//! Signal that the core should rerender the screen without displaying it
+	virtual void Render()=0;
+
 	// The widgets need to tell the engine when they have been affected
 	// by external interaction
 	
@@ -72,6 +101,10 @@ public:
 	//! Note - the returned string is in UTF-8 encoding.
 	//! \param Symbol the symbol that is to be displayed
 	virtual const std::string& GetEditText(Dasher::symbol Symbol)=0;
+
+	//! Request the foreground colour for the text to be drawn on the canvas
+	//! \param Symbol the symbol that is to be displayed
+	virtual int GetTextColour(Dasher::symbol Symbol)=0;
 
 	//! Request the default screen orientation for the current alphabet
 	//

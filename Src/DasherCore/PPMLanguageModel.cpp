@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include <math.h>
+#include <stack>
 #include "PPMLanguageModel.h"
 
 using namespace Dasher;
@@ -68,11 +69,37 @@ CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet,int _normalization)
 
 CPPMLanguageModel::~CPPMLanguageModel()
 {
-	delete root;
+
+	delete m_rootcontext;
+
+	// A non-recursive node deletion algorithm using a stack
+	std::stack<CPPMnode*> deletenodes;
+	deletenodes.push(root);
+	while (!deletenodes.empty())
+	{
+		CPPMnode* temp = deletenodes.top();
+		deletenodes.pop();
+		CPPMnode* next;
+		do	
+		{
+			next = temp->next;
+
+			// push the child
+			if (temp->child)
+				deletenodes.push(temp->child);
+			
+			delete temp;
+
+			temp=next;
+			
+		} while (temp !=0); 
+
+	}
+
 }
 
 
-bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,double addprob)
+bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, int norm)
 	// get the probability distribution at the context
 {
 	// seems like we have to have this hack for VC++
@@ -80,47 +107,90 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,d
 	
 	
 	int modelchars=GetNumberModelChars();
-	int norm=CLanguageModel::normalization();
-	probs.resize(modelchars);
+	//	int norm=CLanguageModel::normalization();
+	probs.resize( GetNumberModelChars() );
+	for( vector<unsigned int>::iterator it( probs.begin() ); it != probs.end(); ++it )
+	  *it = 0;
+
+	vector<bool> exclusions( probs.size() );
+	for( vector<bool>::iterator it( exclusions.begin() ); it != exclusions.end(); ++it )
+	  *it = false;
+
+	vector<bool> valid( probs.size() );
+	for( int i(0); i < valid.size(); ++i )
+	  valid[i] = isRealSymbol( i );
+	
 	CPPMnode *temp,*s; 
-	int loop,total;
+	//	int loop,total;
 	int sym; 
 	ulong spent=0; 
 	ulong size_of_slice;
-	bool *exclusions=new bool [modelchars];
-	ulong uniform=modelchars;
-	ulong tospend=norm-uniform;
+	ulong tospend=norm;
 	temp=ppmcontext->head;
-	for (loop=0; loop <modelchars; loop++) {   /* set up the exclusions array */
-		probs[loop]=0;
-		exclusions[loop]=0;
-	}
+
+	int total;
+
 	while (temp!=0) {
-		//	Usprintf(debug,TEXT("tospend %u\n"),tospend);
-		//	DebugOutput(TEXT("round\n"));
+
+	  int controlcount;
+
 		total=0;
 		s=temp->child;
 		while (s) {
-			sym=s->symbol; 
-			if (!exclusions[s->symbol])
-				total=total+s->count;
-			s=s->next;
+		  sym=s->symbol; 
+		  if (!exclusions[sym] && valid[sym]) {
+		    if( sym == GetControlSymbol() ) {
+		      // Do nothing
+		    } 
+		    else if( sym == GetSpaceSymbol() ) {
+		      total=total+s->count;
+		      
+		      controlcount = 0.4 * s->count; // FIXME - and here
+		      
+		      if( controlcount < 1 )
+			controlcount = 1;
+
+		      if( GetControlSymbol() != -1 )
+			total = total + controlcount;
+
+		    }
+		    else {
+		      total=total+s->count;
+		    }
+		  }
+		  s=s->next;
 		}
 		if (total) {
-			//	Usprintf(debug,TEXT"escape %u\n"),tospend*
-			size_of_slice=tospend;
-			s=temp->child;
-			while (s) {
-				if (!exclusions[s->symbol]) {
-					exclusions[s->symbol]=1;
-					ulong p=size_of_slice*(2*s->count-1)/2/ulong(total);
-					probs[s->symbol]+=p;
-					tospend-=p;		
-				}
-				//				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
-				//				DebugOutput(debug);
-				s=s->next;
-			}
+		  size_of_slice=tospend;
+		  s=temp->child;
+		  while (s) {
+		    if (!exclusions[s->symbol] && valid[s->symbol]) {
+		      //		      exclusions[s->symbol]=1; 
+		      if( s->symbol == GetControlSymbol() ) {
+			// Do nothing
+		      } 
+		      else if( s->symbol == GetSpaceSymbol() ) {
+			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+			probs[s->symbol]+=p;
+			tospend-=p;
+			exclusions[s->symbol]=1;
+			if( GetControlSymbol() != -1 )
+			  if( !exclusions[GetControlSymbol()] ) {
+			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
+			    probs[GetControlSymbol()]+=p;
+			    tospend-=p;
+			    exclusions[GetControlSymbol()]=1;
+			  }
+		      }
+		      else {
+			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+			probs[s->symbol]+=p;
+			tospend-=p;	
+			exclusions[s->symbol]=1;
+		      }
+		    }
+		    s=s->next;
+		  }
 		}
 		temp = temp->vine;
 	}
@@ -129,29 +199,58 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs,d
 	
 	size_of_slice=tospend;
 	int symbolsleft=0;
-	for (sym=1;sym<modelchars;sym++)
-		if (!probs[sym])
-			symbolsleft++;
-		for (sym=1;sym<modelchars;sym++) 
-			if (!probs[sym]) {
-				ulong p=size_of_slice/symbolsleft;
-				probs[sym]+=p;
-				tospend-=p;
-			}
-			
+	for (sym=0;sym<modelchars;sym++)
+	  if (!probs[sym] && valid[sym])
+	    symbolsleft++;
+	for (sym=0;sym<modelchars;sym++) 
+	  if (!probs[sym] && valid[sym]) {
+	    ulong p=size_of_slice/symbolsleft;
+	    probs[sym]+=p;
+	    tospend-=p;
+	  }
+	
 			// distribute what's left evenly	
-			tospend+=uniform;
-			for (sym=1;sym<modelchars;sym++) {
-				ulong p=tospend/(modelchars-sym);
-				probs[sym]+=p;
-				tospend-=p;
-			}
+		//tospend+=uniform;
+
+//  	int current_symbol(0);
+//  	while( tospend > 0 )
+//  	  {
+//  	    if( valid[current_symbol] ) {
+//  		probs[current_symbol] += 1;
+//  		tospend -= 1;
+//  	    }
+
+//  	    ++current_symbol;
+//  	    if( current_symbol == modelchars )
+//  	      current_symbol = 0;
+//  	  }
+
+	int valid_char_count(0);
+
+	for( int i(0); i < modelchars; ++i )
+	  if( valid[i] ) 
+	    ++valid_char_count;
+	  
+	
+	for (int i(0);i<modelchars;++i) 
+	  if( valid[i] ) {
+	    ulong p=tospend/(valid_char_count);
+	    probs[i] +=p;
+	    --valid_char_count;
+	    tospend -=p;
+	  }
+//  			  {
+//  				ulong p=tospend/(modelchars-sym);
+//  				probs[sym]+=p;
+//  				tospend-=p;
+//  			  }
+//  			}
 			//	Usprintf(debug,TEXT("finaltospend %u\n"),tospend);
 			//	DebugOutput(debug);
 			
 			// free(exclusions); // !!!
 			// !!! NB by IAM: p577 Stroustrup 3rd Edition: "Allocating an object using new and deleting it using free() is asking for trouble"
-			delete[] exclusions;
+	//		delete[] exclusions;
 			return true;
 }
 

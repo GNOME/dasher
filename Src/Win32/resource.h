@@ -1,5 +1,5 @@
 //{{NO_DEPENDENCIES}}
-// Microsoft Developer Studio generated include file.
+// Microsoft Visual C++ generated include file.
 // Used by Dasher.rc
 //
 #define IDC_MYICON                      2
@@ -57,6 +57,25 @@
 #define IDD_NEWALPHABET                 153
 #define IDD_NEWGROUP                    154
 #define IDD_EDITLETTER                  155
+#define IDD_KEYCONTROL                  156
+#define ID_Menu                         156
+#define IDD_KEYCONTROL2                 156
+#define IDD_ADDKEYS                     157
+#define ID_OPTIONS_EDITFONT             157
+#define IDD_WINSELECT                   158
+#define ID_OPTIONS_ENTERTEXT            159
+#define IDB_FINDER_EMPTY                162
+#define IDB_BITMAP1                     163
+#define IDB_FINDER_FULL                 163
+#define IDC_CURSOR1                     165
+#define IDC_SEARCH_CURSOR               165
+#define ID_OPTIONS_EDITKEYBOARDCONTROL  166
+#define IDD_PREFS                       168
+#define ID_OPTIONS_PREFS                169
+#define IDD_COLOUR                      169
+#define ID_OPTIONS_CONTROLMODE          170
+#define IDD_KEYCONTROL1                 170
+#define ID_OPTIONS_COLOURS              171
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -64,6 +83,7 @@
 #define IDC_COMBO1                      1012
 #define IDC_CHARS                       1013
 #define IDC_BUTTON1                     1014
+#define IDC_DRAGBUTTON                  1014
 #define IDC_ADD_ALPH                    1015
 #define IDC_BUTTON2                     1016
 #define IDC_DEL_ALPH                    1017
@@ -73,6 +93,7 @@
 #define IDC_LIST2                       1021
 #define IDC_LIST_GROUP                  1022
 #define IDC_CLIPTOALPH_ORDERED          1023
+#define IDC_KCSELECT                    1023
 #define IDC_DELGROUP                    1024
 #define IDC_BUTTON4                     1025
 #define IDC_DEL_GROUP                   1026
@@ -87,9 +108,10 @@
 #define IDC_MOVE_CHAR                   1035
 #define IDC_SPACE                       1036
 #define IDC_RO                          1037
-#define IDC_EDIT1                       1038
+#define IDC_RIGHTY                      1038
 #define IDC_DISPLAY                     1039
 #define IDC_EDIT2                       1040
+#define IDC_UNIFORMVAL                  1040
 #define IDC_TEXT                        1041
 #define IDOK_NEWALPH                    1042
 #define IDC_NEW_ALPH_STRING             1043
@@ -103,6 +125,52 @@
 #define IDC_CHAR_BUDDY                  1051
 #define IDOK_ADDCHAR                    1052
 #define ID_CUSTOM_CANCEL                1054
+#define IDC_ADD_KEY                     1055
+#define IDC_DEL_KEY                     1056
+#define IDC_EDIT_KEY                    1057
+#define IDC_KEYS                        1058
+#define IDC_UPX                         1059
+#define IDC_UPY                         1060
+#define IDC_DOWNX                       1061
+#define IDC_DOWNY                       1062
+#define IDC_LEFTX                       1063
+#define IDC_LEFTY                       1064
+#define IDC_RIGHTX                      1065
+#define IDOK_KEYCONT                    1066
+#define ID_CANCEL_KEYCONT               1067
+#define IDC_DRAGCONTROL                 1068
+#define IDC_KCFORWARD                   1069
+#define IDC_KCBACK                      1070
+#define IDC_CHECK3                      1071
+#define IDC_LEFT                        1071
+#define IDC_5X                          1072
+#define IDC_5Y                          1073
+#define IDC_6X                          1074
+#define IDC_6Y                          1075
+#define IDC_7X                          1076
+#define IDC_7Y                          1077
+#define IDC_8X                          1078
+#define IDC_8Y                          1079
+#define IDC_9X                          1080
+#define IDC_9Y                          1081
+#define IDC_YPIX                        1082
+#define IDC_1D                          1084
+#define IDC_EYETRACKER                  1085
+#define IDC_BUTTON                      1086
+#define IDC_WINDOWPAUSE                 1088
+#define IDC_MOUSEPOS                    1089
+#define IDC_CONTROL                     1090
+#define IDC_OUTLINE                     1091
+#define IDC_TIMESTAMP                   1092
+#define IDC_COPYALLONSTOP               1093
+#define IDC_DRAWMOUSE                   1094
+#define IDC_SPEECH                      1096
+#define IDC_DRAWMOUSELINE               1097
+#define IDC_COLOURSCHEME                1098
+#define IDC_COLOURS                     1099
+#define IDC_SLIDER1                     1100
+#define IDC_UNIFORMSLIDER               1100
+#define IDC_MOUSEPOSDIST                1101
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -110,7 +178,7 @@
 #define ID_EDIT_SELECTALL               32775
 #define ID_HELP_CONTENTS                32776
 #define ID_OPTIONS_ALPHABET             32777
-#define ID_OPTIONS_EDITFONT             32778
+#define ID_OPTIONS_EDIfsd               32778
 #define ID_OPTIONS_DASHERFONT           32779
 #define ID_OPTIONS_RESETFONT            32780
 #define ID_OPTIONS_PROFILE              32781
@@ -138,15 +206,25 @@
 #define ID_ORIENT_TB                    32804
 #define ID_ORIENT_BT                    32805
 #define ID_SAVE_AS_ALPHABET_CODEPAGE    32806
+#define ID_OPTIONS_FONTSIZE_NORMAL      32807
+#define ID_OPTIONS_FONTSIZE_LARGE       32808
+#define ID_OPTIONS_FONTSIZE_VERYLARGE   32809
+#define ID_OPTIONS_1D                   32810
+#define ID_OPTIONS_DRAWMOUSE            32811
+#define ID_OPTIONS_LEFTMOUSE            32812
+#define ID_OPTIONS_SPACE                32813
+#define ID_OPTIONS_EDITKEYS             32814
+#define ID_OPTIONS_KEYCONTROL           32815
+#define ID_OPTIONS_WINDOWPAUSE          32816
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        156
-#define _APS_NEXT_COMMAND_VALUE         32807
-#define _APS_NEXT_CONTROL_VALUE         1055
+#define _APS_NEXT_RESOURCE_VALUE        172
+#define _APS_NEXT_COMMAND_VALUE         32817
+#define _APS_NEXT_CONTROL_VALUE         1102
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

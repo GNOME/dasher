@@ -10,6 +10,8 @@
 #ifndef __DasherTypes_h__
 #define __DasherTypes_h__
 
+#include <string>
+
 namespace Dasher
 {
 	/* TODO: note by IAM 08/2002 {{{
@@ -43,10 +45,12 @@ namespace Dasher
 	// in dasher nodes.
 	//typedef unsigned int symbol; // }}}
 	typedef int symbol;
-	
+
+#ifdef _MSC_VER	// Not needed on UNIX, and break the QT build
 	typedef unsigned int uint;
 	typedef unsigned short ushort;
-	
+#endif
+
 	namespace Opts
 	{
 		// Numbers should be applied to elements of the following two enumerations as these preferences may be stored to file. Constancy between
@@ -61,6 +65,16 @@ namespace Dasher
 		enum FontSize {Normal=1, Big=2, VBig=4};
 	}
 
+	struct ControlTree {
+	  void* pointer;
+	  int data;
+	  int type;
+	  int colour;
+	  std::string text;
+	  ControlTree *parent;
+	  ControlTree *children;
+	  ControlTree *next;
+	};
 }
 
 #endif /* #ifndef __DasherTypes_h__ */

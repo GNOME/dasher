@@ -28,7 +28,7 @@ namespace WinWrapMap
 LRESULT CALLBACK WinWrapMap::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	CWinWrap* WinWrap = WinMap[Window];
-	
+
 	/* A WinWrap object may be deleted before the Window has stopped processing
 	messages. Also DialogBox() does not return, so we didn't get a change to add
 	a dialog to the map. Therefore, we check that the object still exists first.*/

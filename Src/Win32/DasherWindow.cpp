@@ -7,20 +7,26 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
+#include "../DasherCore/DasherTypes.h"
 #include "DasherWindow.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
+#include "Widgets/ColourBox.h"
+#include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
+#include "Widgets/Prefs.h"
 #include "WinLocalisation.h"
 #include "WinUTF8.h"
 using namespace Dasher;
 using namespace std;
 
 
+#define IDT_TIMER1 200
+
 CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI)
 	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), Splash(0),
 	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), WinOptions(0),
-	m_CurrentAlphabet("")
+	m_CurrentAlphabet(""), m_CurrentColours("")
 {
 	hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR)IDC_DASHER);
 	
@@ -43,19 +49,29 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	Splash = new CSplash(m_hwnd);
 #endif
 	*/
-	
+
 	// Create Widgets
 	m_pToolbar = new CToolbar(m_hwnd, false, false, false);
 	m_pEdit = new CEdit(m_hwnd);
 	DasherAppInterface->ChangeEdit(m_pEdit);
-	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface);
-	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false);
+	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
+	m_pEdit->SetEditCanvas(m_pCanvas);
+	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
 	m_pSplitter = new CSplitter(m_hwnd, 100, this);
 /*
 	DWORD MyTime = GetTickCount();
 	DasherAppInterface->TrainFile("Source.txt");
 	MyTime = GetTickCount() - MyTime;
 */
+
+
+
+	SetTimer(m_hwnd, IDT_TIMER1,               // timer identifier 
+
+    20,                     // 5-second interval 
+
+    (TIMERPROC) NULL); // timer callback
+
 }
 
 
@@ -68,10 +84,27 @@ CDasherWindow::~CDasherWindow()
 	delete m_pSlidebar;
 	delete m_pSplitter;
 	
-	SendMessage(m_hwnd, WM_CLOSE, 0, 0);
+	DestroyIcon(m_hIconSm);
+
+//	SendMessage(m_hwnd, WM_CLOSE, 0, 0);
 	WinWrapMap::remove(m_hwnd);
 }
 
+
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherWindow::MessageLoop()
+{
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0)) {
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+	
+	return msg.wParam;
+}
 
 void CDasherWindow::Show(int nCmdShow)
 {
@@ -89,18 +122,7 @@ void CDasherWindow::Show(int nCmdShow)
 }
 
 
-int CDasherWindow::MessageLoop()
-{
-	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0)) {
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
-	
-	return msg.wParam;
-}
+
 
 
 void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
@@ -108,6 +130,10 @@ void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
 	m_CurrentAlphabet = NewAlphabetID;
 }
 
+void CDasherWindow::ChangeColours(const string& NewColourID)
+{
+	m_CurrentColours = NewColourID;
+}
 
 void CDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
 {
@@ -244,23 +270,171 @@ void CDasherWindow::FixLayout(bool Value)
 
 void CDasherWindow::TimeStampNewFiles(bool Value)
 {
-	WinMenu.SetStatus(ID_TIMESTAMP, false, Value);
+	timestampnewfiles=Value;
+}
+
+
+void CDasherWindow::DrawMouse(bool Value)
+{
+	drawmouse=Value;
+}
+
+
+void CDasherWindow::DrawMouseLine(bool Value)
+{
+	drawmouseline=Value;
+}
+
+
+
+void CDasherWindow::SetDasherDimensions(bool Value)
+{
+	oned=Value;
+	m_pCanvas->onedimensional(Value);
+}
+
+
+
+void CDasherWindow::StartOnLeft(bool Value)
+{
+	startonleft=Value;
+	m_pCanvas->StartOnLeftClick(Value);
+}
+
+
+
+void CDasherWindow::StartOnSpace(bool Value)
+{
+	startonspace=Value;
+	m_pCanvas->StartOnSpace(Value);
+}
+
+void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
+{
+	using namespace Opts;
+
+	switch(fontsize) {
+	case Normal:
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+		break;
+	case Big:
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, true);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+	break;
+	case VBig:
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
+		break;
+	default:
+			assert(0);
+	}
+}
+
+
+void CDasherWindow::WindowPause(bool Value)
+{
+	windowpause=Value;
+	m_pCanvas->WindowPause(Value);
+}
+
+
+
+void CDasherWindow::KeyControl(bool Value)
+{
+	keycontrol=Value;
+	m_pCanvas->KeyControl(Value);
 }
 
 
 void CDasherWindow::CopyAllOnStop(bool Value)
 {
-	// TODO either add something here or in interface to actually do something
-	WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, Value);
+	copyallonstop=Value;
 }
 
+void CDasherWindow::Speech(bool Value)
+{
+	speech=Value;
+	m_pCanvas->SpeakOnStop(Value);
+}
+
+void CDasherWindow::PaletteChange(bool Value)
+{
+	palettechange=Value;
+}
+
+void CDasherWindow::OutlineBoxes(bool Value)
+{
+	outlines=Value;
+	m_pCanvas->DrawOutlines(Value);
+	DasherWidgetInterface->Redraw();
+}
+
+void CDasherWindow::MouseposStart(bool Value)
+{
+	mouseposstart=Value;
+	m_pCanvas->MousePosStart(Value);
+}
+
+void CDasherWindow::SetYScale(int Value)
+{
+	m_pCanvas->setyscale(Value);
+}
+
+void CDasherWindow::SetMousePosDist(int Value)
+{
+	m_pCanvas->setmouseposdist(Value);
+}
+
+void CDasherWindow::SetUniform(int Value)
+{
+	m_pCanvas->setuniform(Value);
+}
+
+void CDasherWindow::KeyboardMode(bool Value)
+{
+	keyboardmode=Value;
+}
+
+void CDasherWindow::ControlMode(bool Value)
+{
+	controlmode=Value;
+	WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, Value);
+	m_pCanvas->SetScreenInterface(DasherWidgetInterface);
+}
+
+void CDasherWindow::SetDasherEyetracker(bool Value)
+{
+	eyetracker=Value;
+}
+
+void CDasherWindow::ColourMode(bool Value)
+{
+	// Do nothing - colour mode is fixed
+}
 
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	HWND testwindow;
+	RECT windowsize;
 	switch (message)
 	{
 	case MY_LAYOUT:
 		Layout();
+		break;
+	case WM_SETFOCUS:
+		SetFocus(m_pCanvas->getwindow());
+		break;
+	case WM_TIMER:
+		// Ugh. Can't find a desperately nicer way of doing this, though
+		testwindow=GetForegroundWindow();
+		if (testwindow!=m_hwnd) {
+			m_pEdit->SetWindow(testwindow);
+		}
+		SendMessage( m_pCanvas->getwindow(), message, wParam, lParam);
 		break;
 	case WM_COMMAND:
 		{
@@ -276,6 +450,45 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			// Parse the menu selections:
 			switch (wmId)
 			{
+
+			case ID_OPTIONS_ENTERTEXT:
+				GetWindowRect(m_hwnd,&windowsize);
+				if (m_pEdit->GetTextEntry()==false) {
+					SetWindowPos(m_hwnd, HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right-windowsize.left), (windowsize.bottom-windowsize.top), NULL);
+					WinMenu.SetStatus(ID_OPTIONS_ENTERTEXT, false, true);
+					m_pEdit->TextEntry(true);
+				} else {
+					SetWindowPos(m_hwnd, HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right-windowsize.left), (windowsize.bottom-windowsize.top), NULL);
+					WinMenu.SetStatus(ID_OPTIONS_ENTERTEXT, false, false);
+					m_pEdit->TextEntry(false);
+				}
+				break;
+			case ID_OPTIONS_CONTROLMODE:
+				DasherSettingsInterface->ControlMode(!WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+				break;
+			case ID_OPTIONS_FONTSIZE_NORMAL: {
+			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+				break;
+			}
+			case ID_OPTIONS_FONTSIZE_LARGE: {
+			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(2));
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, true);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+
+				break;
+			}
+			case ID_OPTIONS_FONTSIZE_VERYLARGE: {
+			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(4));
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
+
+				break;
+			}
 			case ID_OPTIONS_EDITFONT: {
 				CHOOSEFONT Data;
 				LOGFONT lf;
@@ -313,14 +526,23 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case IDM_ABOUT:
 				{ CAboutbox Aboutbox(m_hwnd); }
 				break;
+			case ID_OPTIONS_EDITKEYS:
+				{ CKeyBox KeyBox(m_hwnd,m_pCanvas, DasherSettingsInterface); }
+				break;
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
+				break;
+			case ID_OPTIONS_COLOURS:
+				{ CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentColours); }
+				break;
+			case ID_OPTIONS_PREFS:
+				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
 				break;
 			case ID_HELP_CONTENTS:
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);
 				break;
 			case IDM_EXIT:
-				DestroyWindow(m_hwnd);
+				SendMessage(m_hwnd, WM_CLOSE, 0, 0);
 				break;
 			case ID_TB_SHOW:
 				DasherSettingsInterface->ShowToolbar(!WinMenu.GetCheck(ID_TB_SHOW));
@@ -358,6 +580,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				break;
 			case ID_FILE_SAVE_AS:
 				m_pEdit->SaveAs();
+				break;
+			case ID_IMPORT_TRAINFILE:
+			        DasherAppInterface->TrainFile(m_pEdit->Import());
 				break;
 			case ID_FIX_SPLITTER:
 				DasherSettingsInterface->FixLayout(!WinMenu.GetCheck(ID_FIX_SPLITTER));
@@ -407,6 +632,16 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		}
 		break;
 	case WM_DESTROY:
+		if (m_pEdit!=0) {
+			m_pEdit->write_to_file();
+		}
+		
+		// Canvas needs to free its resources before its window is deleted
+		if (m_pCanvas!=0)
+		{
+			delete m_pCanvas;
+			m_pCanvas=0;
+		}		
 		PostQuitMessage(0);
 		break;
 	case WM_GETMINMAXINFO:
@@ -452,8 +687,11 @@ Tstring CDasherWindow::CreateMyClass()
 		wndclass.lpszClassName  = WndClassName; // Not in a resource - does not require translation
 		//wndclass.hIconSm        = LoadIcon(wndclass.hInstance, (LPCTSTR)IDI_DASHER);
 		// This gives a better small icon:
-		wndclass.hIconSm        = (HICON) LoadImage(wndclass.hInstance, (LPCTSTR) IDI_DASHER, IMAGE_ICON,
+
+		m_hIconSm = (HICON) LoadImage(wndclass.hInstance, (LPCTSTR) IDI_DASHER, IMAGE_ICON,
 			GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
+
+		wndclass.hIconSm        = m_hIconSm;
 		
 		RegisterClassEx(&wndclass);
 	}

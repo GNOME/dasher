@@ -13,6 +13,8 @@
 */
 
 #include "Edit.h"
+#include "Canvas.h"
+#include <mbstring.h>
 
 using namespace Dasher;
 using namespace std;
@@ -27,7 +29,7 @@ using namespace WinUTF8;
 
 
 CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
-	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0)
+	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0), pVoice(0), textentry(false)
 {
 	Tstring WindowTitle;
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
@@ -43,11 +45,28 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 	WinWrapMap::add(m_hwnd, this);
 	TextWndFunc = (WNDPROC)SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
 	ShowWindow(m_hwnd,SW_SHOW);
+
+	// Initialise speech support
+	speech.resize(0);
+	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+	if (hr!=S_OK)
+		pVoice=0;
+	if (pVoice!=0) {
+		pVoice->Speak(L"",SPF_ASYNC,NULL);
+	}
 }
 
 
 CEdit::~CEdit()
 {
+	DeleteObject(m_Font);
+	
+	// Release the voice object created by constructor
+	if (pVoice!=NULL)
+	{	
+		pVoice->Release();
+		pVoice=NULL;
+	}
 	delete m_FilenameGUI;
 	if (FileHandle!=INVALID_HANDLE_VALUE)
 		CloseHandle(FileHandle);
@@ -262,6 +281,13 @@ void CEdit::SaveAs()
 	TSaveAs(m_FilenameGUI->SaveAs());
 }
 
+std::string CEdit::Import()
+{
+        string filename;
+	Tstring_to_UTF8string(m_FilenameGUI->Open(),&filename,CodePage);
+	return filename;
+}
+
 
 void CEdit::SetDirty()
 {
@@ -361,7 +387,6 @@ bool CEdit::TSaveAs(const Tstring& filename)
 		return false;
 }
 
-
 void CEdit::Cut()
 {
 	SendMessage(m_hwnd, WM_CUT, 0, 0);
@@ -415,6 +440,7 @@ void CEdit::SelectAll()
 void CEdit::Clear()
 {
 	SendMessage(m_hwnd, WM_SETTEXT, 0, (LPARAM) TEXT(""));
+	speech.resize(0);
 }
 
 
@@ -426,6 +452,9 @@ void CEdit::SetEncoding(Dasher::Opts::FileEncodingFormats Encoding)
 
 void CEdit::SetFont(string Name, long Size)
 {
+
+#ifndef _WIN32_WCE
+
 	m_FontName = Name;
 	m_FontSize = Size;
 	
@@ -444,6 +473,13 @@ void CEdit::SetFont(string Name, long Size)
 		         FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 	
 	SendMessage(m_hwnd, WM_SETFONT, (WPARAM)m_Font, true);
+#else 
+	// not implemented
+	#pragma message ( "CEdit::SetFot not implemented on WinCE")
+	assert(0);
+#endif
+
+
 }
 
 
@@ -462,7 +498,6 @@ void CEdit::SetInterface(CDasherWidgetInterface* DasherInterface)
 		WinUTF8::UTF8string_to_Tstring(m_DasherInterface->GetEditText(i), &DisplayStrings[i], CodePage);
 	}
 }
-
 
 void CEdit::write_to_file()
 {
@@ -521,21 +556,59 @@ void CEdit::output(symbol Symbol)
 		return;
 	
 	InsertText(DisplayStrings[Symbol]);
-	
+	if (targetwindow!=NULL && textentry==true) {
+		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
+#ifdef UNICODE
+		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
+			// Newline, so we want to fake an enter
+			fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
+			fakekey[0].ki.wVk=fakekey[1].ki.wVk=VK_RETURN;
+			fakekey[0].ki.time=fakekey[1].ki.time=0;
+			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
+
+			SetFocus(targetwindow);
+			SendInput(2,fakekey,sizeof(INPUT));
+		}
+		wchar_t outputstring[256];
+		int i=mbstowcs(outputstring,DisplayText,255);
+
+		for (int j=0; j<i; j++) {
+			fakekey[0].type=INPUT_KEYBOARD;
+			fakekey[0].ki.dwFlags=KEYEVENTF_UNICODE;
+			fakekey[0].ki.wVk=0;
+			fakekey[0].ki.time=NULL;
+			fakekey[0].ki.wScan=outputstring[j];
+			SetFocus(targetwindow);
+			SendInput(1,fakekey,sizeof(INPUT));
+		}
+#else
+		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
+			// Newline, so we want to fake an enter
+			SetFocus(targetwindow);
+			keybd_event(VK_RETURN,0,NULL,NULL);
+			keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,NULL);
+		}
+		Tstring character;
+		WinUTF8::UTF8string_to_Tstring(DisplayText,&character,1252); 
+		TCHAR test=character[0];
+		SHORT outputvk=VkKeyScan(char(character[0]));
+		SetFocus(targetwindow);
+		if(HIBYTE(outputvk)&&6) {
+			keybd_event(VK_SHIFT,0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
+			keybd_event(VK_SHIFT,0,KEYEVENTF_KEYUP,NULL);
+		} else {
+			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
+			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
+		}
+#endif
+	}
 	m_Output += m_DasherInterface->GetEditText(Symbol);
-	if (m_Output.size()>=1024)
-		write_to_file();
+
+	UTF8string_to_Tstring(m_DasherInterface->GetEditText(Symbol), &newchar, GetACP());	
+	speech+=newchar;
 }
-
-
-void CEdit::flush(symbol Symbol)
-{
-	Tstring OutputText = DisplayStrings[Symbol];
-	
-	InsertText(OutputText);
-	m_iFlushed += OutputText.size();
-}
-
 
 LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -549,7 +622,9 @@ LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_KEYUP:
 		// if we enter text or move around the edit control, update the Dasher display
-		m_DasherInterface->ChangeEdit();
+		if (Canvas->Running()==false) {
+			m_DasherInterface->ChangeEdit();
+		}
 		InvalidateRect (Window, NULL, FALSE);
 		break;
 	case WM_COMMAND:
@@ -578,15 +653,193 @@ void CEdit::dumpedit(int i) const
 }
 */
 
-
-void CEdit::unflush()
+void CEdit::deletetext()
 {
 	DWORD start,finish;
-	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start,(LONG)&finish);
-	start-=m_iFlushed;
-	SendMessage(m_hwnd, EM_SETSEL, (LONG)start,(LONG)finish);
+	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start, (LONG)&finish);
+	start-=1;
+	SendMessage(m_hwnd, EM_SETSEL, (LONG)start, (LONG)finish);
 	TCHAR out [2];
 	wsprintf(out,TEXT(""));
-	SendMessage(m_hwnd, EM_REPLACESEL, TRUE,(LONG)out);
-	m_iFlushed=0;
+	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
+	if (targetwindow!=NULL && textentry==true) {
+#ifdef _UNICODE
+		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
+		fakekey[0].ki.wVk=fakekey[1].ki.wVk=VK_BACK;
+		fakekey[0].ki.time=fakekey[1].ki.time=0;
+		fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
+		
+		SetFocus(targetwindow);
+		SendInput(2,fakekey,sizeof(INPUT));
+#else
+		SetFocus(targetwindow);
+		keybd_event(VK_BACK,0,NULL,NULL);
+		keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
+#endif
+	}
+	if (speech.length()>0) {
+		speech.resize(speech.length()-1);
+	}
+}
+
+void CEdit::SetWindow(HWND window)
+{
+	if (targetwindow!=window) {
+		targetwindow=window;
+		if (threadid!=NULL) {
+			AttachThreadInput(GetCurrentThreadId(),threadid,FALSE);
+			//		SetFocus(Parent);
+		}
+		if (window!=NULL) {
+			threadid=GetWindowThreadProcessId(window,NULL);
+			AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(window,NULL),TRUE);
+			//		SetFocus(window);
+		}
+	}
+}
+
+void CEdit::outputcontrol (void* pointer, int data, int type)
+{
+	if (type==1) {
+		BYTE pbKeyState[256];
+		switch (data) {
+		  case 2:
+			  // stop
+			  Canvas->StartStop();
+			  break;
+		  case 3:
+			  //	pause
+			  Canvas->Pause();
+			  break;
+		  case 4:
+			  speak(1);
+			  break;
+		  case 5:
+			  speak(2);
+			  break;
+		  case 6:
+			  speak(3);
+			  break;
+		  case 11:
+			  // move left
+		    SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+			  break;
+		  case 12:
+			  // move right
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
+			  break;
+		  case 13:
+			// move to the start of the document
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_HOME, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_HOME, NULL);
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			  break;
+		  case 14:
+			  // go to end
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_END, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_END, NULL);
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			  break;
+		  case 21:
+				//delete next character
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
+			  break;
+		  case 22:
+			BYTE pbKeyState[256];
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			pbKeyState[VK_SHIFT] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
+			pbKeyState[VK_SHIFT] &= ~0x80;
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
+			  break;
+		  case 24:
+			  deletetext();
+			  break;
+		  case 25:
+			GetKeyboardState((LPBYTE) &pbKeyState);
+			pbKeyState[VK_CONTROL] |= 0x80;
+			pbKeyState[VK_SHIFT] |= 0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+			pbKeyState[VK_SHIFT] &= ~0x80;
+			pbKeyState[VK_CONTROL] &= ~0x80;
+			SetKeyboardState((LPBYTE) &pbKeyState);
+			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
+			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
+			  break;
+		}
+	return;
+	}
+
+	if (pointer==NULL) {
+		return;
+	}
+	IAccessible* AccessibleObject=(IAccessible*)pointer;
+	BSTR AccessibleAction;
+	VARIANT AccessibleVariant;
+	HRESULT hr;
+	VariantInit(&AccessibleVariant);
+	AccessibleVariant.vt=VT_I4;
+	AccessibleVariant.lVal=data;
+	hr=AccessibleObject->get_accDefaultAction(AccessibleVariant,&AccessibleAction);
+	hr=AccessibleObject->accDoDefaultAction(AccessibleVariant);
+	VariantClear(&AccessibleVariant);
+}
+
+void CEdit::speak(int what) {
+	if (pVoice!=0) {
+		if (what==1) {
+			int speechlength=GetWindowTextLength(m_hwnd);
+			LPTSTR allspeech = new TCHAR[speechlength+1];
+			GetWindowText(m_hwnd,allspeech,speechlength+1);
+#ifdef _UNICODE
+			pVoice->Speak(allspeech,SPF_ASYNC,NULL);
+#else
+			wchar_t* widespeech= new wchar_t[speechlength+1];
+			mbstowcs(widespeech,allspeech,speechlength+1);
+			pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+			delete widespeech;
+#endif
+			lastspeech=allspeech;
+			delete allspeech;
+		} else if (what==2) {
+#ifdef _UNICODE
+			pVoice->Speak(speech.c_str(),SPF_ASYNC,NULL);
+#else
+			wchar_t* widespeech= new wchar_t[speech.length()+1];
+			mbstowcs(widespeech,speech.c_str(),speech.length()+1);
+			pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+			delete widespeech;
+#endif
+			lastspeech=speech;
+			speech.resize(0);
+		} else if (what==3) {
+#ifdef _UNICODE
+			pVoice->Speak(lastspeech.c_str(),SPF_ASYNC,NULL);
+#else
+			wchar_t* widespeech= new wchar_t[lastspeech.length()+1];
+			mbstowcs(widespeech,lastspeech.c_str(),lastspeech.length()+1);
+			pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+			delete widespeech;
+#endif
+		}	
+	}
 }

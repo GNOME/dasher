@@ -12,11 +12,14 @@
 #include "../Common/MSVC_Unannoy.h"
 #include "DashEdit.h"
 #include "DasherNode.h"
+#include "DasherScreen.h"
 #include "LanguageModel.h"
 #include "../Common/NoClones.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
+#include <vector>
+#include <deque>
 
 // The CDasherModel represents the current state of Dasher
 // It contains a pointer to a structure of DasherNodes
@@ -28,16 +31,18 @@ class Dasher::CDasherModel : private NoClones
 {
 public:
 	
-	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions);
+	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker);
 	~CDasherModel();
 	
 	// framerate functions
 	void NewFrame(unsigned long Time) {m_fr.NewFrame(Time);}    // called everytime we render a new frame
 	const double Framerate () {return m_fr.Framerate();}        // return the framerate
+
+	void Halt() {m_fr.Initialise();}
 	
 	// User control of speed
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate
-	void SetMaxBitrate(double MaxRate) {m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
+	void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 	
 	// functions returning private data (read only access)
 	const myint Rootmin() const {return m_Rootmin;}
@@ -47,19 +52,33 @@ public:
 	int Normalization() const {return m_languagemodel->normalization();}
 	myint DasherY() const {return m_DasherY;}
 	bool Dimensions() const {return m_Dimensions;}
+	bool Eyetracker() const {return m_Eyetracker;}
 
+	void OutputCharacters(CDasherNode *node);
+	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
 	void Dump() const;                                              // diagnostics
-	void Flush(const myint smousex,const myint smousey);            // flush to the edit control
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
        void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
-	
+       void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
+
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
+	void GoTo(myint,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node
+	void Reparent_root(int lower, int upper);                                 // change back to the previous root
 	void Reset_framerate(unsigned long Time) {m_fr.Reset(Time);}
+
+	CAlphabet* m_alphabet;             // pointer to the alphabet
 	
+	CAlphabet* GetAlphabet() { return m_alphabet; }
+
+	myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY);
+
 private:
+
+	// Old root notes
+	std::deque<CDasherNode*> oldroots;
 
 	// Rootmin and Rootmax specify the position of the root node in Dasher coords
 	myint m_Rootmin,m_Rootmax;
@@ -76,20 +95,25 @@ private:
 	// Number of input dimensions
 	bool m_Dimensions;
 
+	// Eyetracker mode
+	bool m_Eyetracker;
+
 	CDashEditbox* m_editbox;           // pointer to the editbox
 	CLanguageModel* m_languagemodel;   // pointer to the language model
 	CLanguageModel::CNodeContext* LearnContext;        // Used to add data to model as it is entered
-	CAlphabet* m_alphabet;             // pointer to the alphabet
 	CFrameRate m_fr;                   // keep track of framerate
 	
 	// TODO - move somewhere
 	// the probability that gets added to every symbol
 	double m_dAddProb;             
+
+	double m_dMaxRate;
 	
 	CDasherNode* Get_node_under_mouse(myint smousex,myint smousey);
 	CDasherNode* Get_node_under_crosshair();
 	CDasherNode* m_Root;
 	void Get_new_root_coords(myint mousex,myint mousey);
+	void Get_new_goto_coords(myint mousex,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 	void Update(CDasherNode* node,CDasherNode* under,int safe);
 
@@ -98,6 +122,5 @@ private:
 
 
 };
-
 
 #endif /* #ifndef __DasherModel_h__ */

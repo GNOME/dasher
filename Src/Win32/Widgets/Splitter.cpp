@@ -9,6 +9,11 @@
 
 #include "Splitter.h"
 
+// For WinCE
+#ifndef MAKEPOINTS
+#define MAKEPOINTS(l)   (*((POINTS FAR *) & (l))) 
+#endif
+
 
 CSplitter::CSplitter(HWND Parent, int Pos, CSplitterOwner* NewOwner, bool Visible)
 	: SplitStatus(None), m_Pos(Pos), Parent(Parent), Owner(NewOwner), Visible(Visible)

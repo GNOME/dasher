@@ -1,5 +1,3 @@
-ACLOCAL_AMFLAGS = -I m4
+SUBDIRS = intl  Src Data po Doc
 
-SUBDIRS = Src Data Doc intl po
-DISTFILES = ABOUT-NLS
-
+EXTRA_DIST = intltool-merge.in intltool-extract.in intltool-update.in

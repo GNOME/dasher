@@ -16,41 +16,66 @@ using namespace Dasher;
 using namespace Opts;
 using namespace std;
 
-CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
-	: CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), RealHDC(0), m_FontName("")
+CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
+  : CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1)), 
+	m_ptrFontStore( new CFontStore(TEXT("")))
 {
 	// set up the off-screen buffers
-	HDC hdc = GetWindowDC(mainwindow);
+//	HDC hdc = GetDC(mainwindow);
 	m_hDCBuffer = CreateCompatibleDC(hdc);  // one for rectangles
 	m_hDCText = CreateCompatibleDC(hdc);    // the other for text
 	m_hbmBit = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
 	m_hbmText = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
-	ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
-	SelectObject(m_hDCText,m_hbmText);
+//	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
+	m_prevhbmText = SelectObject(m_hDCText,m_hbmText);
 	SetBkMode(m_hDCText,TRANSPARENT);
-	SelectObject(m_hDCBuffer,m_hbmBit);
+	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
 	
 	// create the brushes
-	Build_Colours();
+//	Build_Colours();
 	
 	CodePage = GetUserCodePage();
 	SetFont("");
+
+//	m_hDCScreen = ::GetDC(m_hwnd);
+//	TCHAR debug[256];
+//	_stprintf(debug, TEXT("GetDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
+//	OutputDebugString(debug); 
 }
 
 
 CScreen::~CScreen() {
 	// tidy up
-	
-	DeleteDC(m_hDCBuffer);
-	DeleteDC(m_hDCText);
+
+	SelectObject(m_hDCBuffer,m_prevhbmBit);
+	SelectObject(m_hDCText,m_prevhbmText);
+
 	DeleteObject(m_hbmBit);
 	DeleteObject(m_hbmText);
-	while (m_vhfFonts.size()) {
+
+	DeleteDC(m_hDCBuffer);
+	DeleteDC(m_hDCText);
+	
+/*	while (m_vhfFonts.size()) {
 		DeleteObject(m_vhfFonts.back());
 		m_vhfFonts.pop_back();
-	}
+	}*/
 	
-	Free_Colours();
+	while (m_Brushes.size()!=0) {
+		DeleteObject(m_Brushes.back());
+		m_Brushes.pop_back();
+	}
+
+	while (m_Pens.size()!=0) {
+		DeleteObject(m_Pens.back());
+		m_Pens.pop_back();
+	}
+
+//	::ReleaseDC(m_hwnd,m_hDCScreen);
+//	TCHAR debug[256];
+//	_stprintf(debug, TEXT("ReleaseDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
+//	OutputDebugString(debug); 
+
 }
 
 
@@ -78,6 +103,9 @@ void CScreen::SetFont(string Name)
 	Tstring FontName;
 	WinUTF8::UTF8string_to_Tstring(Name, &FontName);
 	
+	m_ptrFontStore.reset( new CFontStore(FontName) );
+
+	/*
 	// Destroy old fonts
 	while (m_vhfFonts.size()!=0) {
 		DeleteObject(m_vhfFonts[m_vhfFonts.size()-1]);
@@ -85,57 +113,124 @@ void CScreen::SetFont(string Name)
 	}
 	
 	if (Name=="") {
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, -20));
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, -14));
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, -11));
+		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-20.0*sqrt(GetFontSize()))));
+		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-14.0*sqrt(GetFontSize()))));
+		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-11.0*sqrt(GetFontSize()))));
 	} else {
 		HFONT Font;
-		Font = CreateFont(-20, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+		Font = CreateFont(int(-20.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 		m_vhfFonts.push_back(Font);
-		Font = CreateFont(-14, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+		Font = CreateFont(int(-14.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 		m_vhfFonts.push_back(Font);
-		Font = CreateFont(-11, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+		Font = CreateFont(int(-11.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 		m_vhfFonts.push_back(Font);
 	}
+	*/
 }
 
-
-void CScreen::Build_Colours ()
+void CScreen::SetFontSize(FontSize size)
 {
-	m_Brushes.resize(5);
+  Fontsize=size;
+  SetFont(m_FontName);
+}
+
+FontSize CScreen::GetFontSize()
+{
+  return Fontsize;
+}
+
+void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
+{
+	// DJW - must delete brushes ala free_colours. Would be nice to encapsuted this into a Brush Container
+	while (m_Brushes.size()!=0) {
+		DeleteObject(m_Brushes.back());
+		DeleteObject(m_Pens.back());
+		m_Brushes.pop_back();
+		m_Pens.pop_back();
+	}
+
+	int numcolours=Colours->GetNumColours();
+	
+	assert(numcolours>0);
+
+	for (int i=0; i<numcolours; i++) 
+	{
+		// DJW 20031029 - something fishy is going on - i think calls to CreateSolidBrush start to fail
+		HBRUSH hb = CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
+		assert(hb!=0);
+		m_Brushes.push_back(hb);
+		HPEN hp = CreatePen(PS_SOLID, 1, RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
+		assert(hp!=0);
+		m_Pens.push_back(hp);
+	}
+}
+
+//void CScreen::Build_Colours ()
+//{
+//	m_Brushes.resize(6);
 	
 	// Currently white and gray. Intended for use by a space character, placed last in alphabet
-	m_Brushes[Special1].push_back(CreateSolidBrush(RGB(240,240,240))); // making lighter for djcm
-	m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
+//	m_Brushes[Special1].push_back(CreateSolidBrush(RGB(240,240,240))); // making lighter for djcm
+//	m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
 	
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
+//	m_Brushes[Objects].push_back(CreateSolidBrush(RGB(0,0,0)));
+
+//	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
+//	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
+//	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
 	
-	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(180,245,180)));
-	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(160,200,160)));
-	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(0,255,255)));
+//	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(180,245,180)));
+//	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(160,200,160)));
+//	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(0,255,255)));
 	
-	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,185,255)));
-	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(140,200,255)));
-	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,175,175)));
-}
+//	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,185,255)));
+//	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(140,200,255)));
+//	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,175,175)));
+//}
 
 
-void CScreen::Free_Colours ()
-{
+//void CScreen::Free_Colours ()
+//{
 	// tidy up
-	while (m_Brushes.size()) {
-		while (m_Brushes.back().size()) {
-			DeleteObject(m_Brushes.back().back());
-			m_Brushes.back().pop_back();
-		}
-		m_Brushes.pop_back();
+//	while (m_Brushes.size()) {
+//		while (m_Brushes.back().size()) {
+//			DeleteObject(m_Brushes.back().back());
+//			m_Brushes.back().pop_back();
+//		}
+//		m_Brushes.pop_back();
+//	}
+//}
+
+void CScreen::DrawMousePosBox(int which)
+{
+//	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+	RECT Rect;
+	HBRUSH brush;
+	switch (which) {
+		case 0:
+			Rect.left=0;
+			Rect.top=m_iHeight/2-mouseposdist-50;
+			Rect.right=m_iWidth;
+			Rect.bottom=Rect.top+100;
+			brush=CreateSolidBrush(RGB(255,0,0));
+			break;
+		case 1:
+			Rect.left=0;
+			Rect.bottom=m_iHeight/2+mouseposdist+50;
+			Rect.right=m_iWidth;
+			Rect.top=Rect.bottom-100;
+			brush=CreateSolidBrush(RGB(255,255,0));
+			break;
+		default:
+			assert(0);
 	}
+	FillRect(m_hDCText, &Rect, brush);
+	DeleteObject(brush);
+	Display();
 }

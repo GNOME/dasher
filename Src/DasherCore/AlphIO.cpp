@@ -7,7 +7,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-
 #include "AlphIO.h"
 
 using namespace Dasher;
@@ -15,9 +14,9 @@ using namespace std;
 using namespace expat;
 
 
-CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
+CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector<string> Filenames)
 	: SystemLocation(SystemLocation), UserLocation(UserLocation),
-	  BlankInfo(), LoadMutable(false), CData("")
+	  Filenames(Filenames), BlankInfo(), LoadMutable(false), CData("")
 {
 	CreateDefault();
 	
@@ -45,8 +44,18 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
 	
 	LoadMutable = false;
 	ParseFile(SystemLocation + "alphabet.xml");
+	if (Filenames.size()>0) {
+	  for (int i=0; i<Filenames.size(); i++) {
+	    ParseFile(SystemLocation + Filenames[i]);
+	  }
+	}
 	LoadMutable = true;
 	ParseFile(UserLocation + "alphabet.xml");
+	if (Filenames.size()>0) {
+	  for (int i=0; i<Filenames.size(); i++) {
+	    ParseFile(UserLocation + Filenames[i]);
+	  }
+	}
 }
 
 
@@ -97,13 +106,22 @@ void CAlphIO::GetAlphabets(std::vector< std::string > * AlphabetList) const
 
 const CAlphIO::AlphInfo& CAlphIO::GetInfo(const std::string& AlphID)
 {
-	if (AlphID=="")
-		return Alphabets["Default"];
-	else {
-		AlphInfo& CurInfo = Alphabets[AlphID];
-		Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
-		return Alphabets[AlphID];
-	}
+  if (AlphID=="") {
+    // Eww.
+    if (Alphabets.count("English alphabet - limited punctuation")!=0) {
+      return Alphabets["English alphabet - limited punctuation"];
+    } else {
+      return Alphabets["Default"];
+    }
+  }  else {
+    if (Alphabets.count(AlphID)!=0) {
+      AlphInfo& CurInfo = Alphabets[AlphID];
+      Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
+      return Alphabets[AlphID];
+    } else {
+      return Alphabets["Default"];
+    }
+  }
 }
 
 
@@ -235,16 +253,28 @@ void CAlphIO::CreateDefault()
 	Default.Type = Opts::Western;
 	Default.Mutable = false;
 	Default.Orientation = Opts::LeftToRight;
+	Default.ParagraphCharacter.Display = "";
+	Default.ParagraphCharacter.Text = "";
+	Default.ParagraphCharacter.Colour = "-1";
 	Default.SpaceCharacter.Display = "_";
 	Default.SpaceCharacter.Text = " ";
+	Default.SpaceCharacter.Colour = "9";
+	Default.ControlCharacter.Display = "Control";
+	Default.ControlCharacter.Text = "";
+	Default.ControlCharacter.Colour = "8";
 	Default.TrainingFile = "training_english_GB.txt";
+	Default.PreferredColours = "Default";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);
 	Default.Groups[0].Description = "Lower case Latin letters";
 	Default.Groups[0].Characters.resize(Chars.size());
+	Default.Groups[0].Colour = "0";
 	for (unsigned int i=0; i<Chars.size(); i++) {
 		Default.Groups[0].Characters[i].Text = Chars[i];
 		Default.Groups[0].Characters[i].Display = Chars[i];
+		char dummy[10];
+		sprintf(dummy,"%d",i+10);
+		Default.Groups[0].Characters[i].Colour = dummy;
 	}
 }
 
@@ -354,6 +384,68 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Me->InputInfo.SpaceCharacter.Display = *atts;
 				atts--;
 			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.SpaceCharacter.Colour = *atts;
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.SpaceCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	if (strcmp(name, "paragraph")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "d")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Display = *atts;
+#ifdef WIN32
+			  Me->InputInfo.ParagraphCharacter.Text = "\r\n";
+#else
+			  Me->InputInfo.ParagraphCharacter.Text = "\n";
+#endif	
+			  atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Colour = *atts;
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	if (strcmp(name, "control")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Text = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Display = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Colour = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+				atts++;
+				Me->InputInfo.ControlCharacter.Foreground = *atts;
+				atts--;
+			}
 			atts += 2;
 		}
 		return;
@@ -366,6 +458,11 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			if (strcmp(*atts, "name")==0) {
 				atts++;
 				Me->InputInfo.Groups.back().Description = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+				atts++;
+				Me->InputInfo.Groups.back().Colour = *atts;
 				atts--;
 			}
 			atts += 2;
@@ -388,6 +485,16 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 				Ch.Display = *atts;
 				atts--;
 			}
+			if (strcmp(*atts, "b")==0) {
+			        atts++;
+				Ch.Colour = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			        atts++;
+				Ch.Foreground = *atts;
+				atts--;
+			}
 			atts += 2;
 		}
 		return;
@@ -407,6 +514,11 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name)
 	if (strcmp(name, "train")==0) {
 		Me->InputInfo.TrainingFile = Me->CData;
 		return;
+	}
+
+	if (strcmp(name, "palette")==0) {
+	  Me->InputInfo.PreferredColours = Me->CData;
+	  return;
 	}
 }
 

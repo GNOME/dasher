@@ -37,6 +37,7 @@ public:
 		
 		// Complete description of the alphabet:
 		std::string TrainingFile;
+	        std::string PreferredColours;
 		Opts::AlphabetTypes Encoding;
 		Opts::AlphabetTypes Type;
 		Opts::ScreenOrientations Orientation;
@@ -44,17 +45,22 @@ public:
 		{
 			std::string Display;
 			std::string Text;
+		        std::string Colour;
+		        std::string Foreground;
 		};
 		struct group
 		{
 			std::string Description;
 			std::vector< character > Characters;
+			std::string Colour;
 		};
 		std::vector< group > Groups;
+	        character ParagraphCharacter; // display and edit text of paragraph character. Use ("", "") if no paragraph character.
 		character SpaceCharacter; // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.
+		character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
 	};
 	
-	CAlphIO(std::string SystemLocation, std::string UserLocation);
+	CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames);
 	void GetAlphabets(std::vector< std::string >* AlphabetList) const;
 	const AlphInfo& GetInfo(const std::string& AlphID);
 	void SetInfo(const AlphInfo& NewInfo);
@@ -64,7 +70,8 @@ private:
 	std::string SystemLocation;
 	std::string UserLocation;
 	std::map<std::string, AlphInfo> Alphabets; // map short names (file names) to descriptions
-	
+	std::vector<std::string> Filenames;
+
 	void Save(const std::string& AlphID);
 	void CreateDefault(); // Give the user an English alphabet rather than nothing if anything goes horribly wrong.
 	

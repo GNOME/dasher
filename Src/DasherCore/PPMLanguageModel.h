@@ -54,7 +54,7 @@ public:
 	inline CContext* CloneContext(CContext*);
 	void EnterSymbol(CContext* context, modelchar Symbol);
 	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
-	bool GetProbs(CContext*, std::vector<unsigned int> &Probs, double AddProb);
+	bool GetProbs(CContext*, std::vector<unsigned int> &Probs, int norm);
 	
 	void LearnSymbol(CContext* Context, modelchar Symbol);
 	void dump();

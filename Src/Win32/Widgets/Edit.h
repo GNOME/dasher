@@ -14,9 +14,21 @@
 #include <string>
 #include <vector>
 
+#define _ATL_APARTMENT_THREADED
+
+#include <atlbase.h>
+//You may derive a class from CComModule and use it if you want to override something, 
+//but do not change the name of _Module
+extern CComModule _Module;
+#include <atlcom.h>
+#include <sapi.h>
+
 #include "../../DasherCore/DashEdit.h"
 #include "../WinWrap.h"
 #include "FilenameGUI.h"
+#include <Oleacc.h>
+
+class CCanvas;
 
 class CEdit : public Dasher::CDashEditbox, public CWinWrap
 {
@@ -42,6 +54,7 @@ public:
 	void Open();
 	void OpenAppendMode();
 	void SaveAs();
+	std::string Import();
 	void SetDirty(); // Parent window gets notification Edit window has changed.
 	
 	void Cut();
@@ -61,16 +74,29 @@ public:
 	
 	// get the context from the current cursor position with max history
 	void get_new_context(std::string& str, int max);
-	
-	// delete flushed text from the edit control
-	void unflush();
-	
+		
 	// called when characters fall of the LHS of the screen
 	void output(Dasher::symbol Symbol);
 	
-	// flush text from Dasher display to edit control
-	void flush(Dasher::symbol Symbol);
+	// called when outputting a control symbol
+	void outputcontrol (void* pointer, int data, int type);
 	
+	// remove the previous character
+	void deletetext();
+
+	// set the window that text should be entered into
+	void SetWindow(HWND window);
+
+	// toggle text entry mode
+	void TextEntry(bool Value) {textentry=Value;}
+	bool GetTextEntry() {return textentry;}
+
+	// speak text
+	void speak(int what);
+
+	// set canvas
+	void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
+
 protected:
 	bool m_dirty;
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -82,12 +108,13 @@ private:
 	                     // especially for the append mode!
 	CFilenameGUI* m_FilenameGUI;
 	Tstring m_filename;
+	HWND textwindow;
 	bool AppendMode;
 	void TNew(const Tstring& filename);
 	bool TOpen(const Tstring& filename);
 	bool TOpenAppendMode(const Tstring& filename);
 	bool TSaveAs(const Tstring& filename);
-	
+
 	HFONT m_Font;
 	std::string m_FontName;
 	long m_FontSize;
@@ -97,7 +124,21 @@ private:
 	Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
 	std::vector<Tstring> DisplayStrings;
 
+	DWORD threadid;
+	HWND targetwindow;
+	bool textentry;
+#ifdef _UNICODE
+	INPUT fakekey[2];
+#endif
+
+	ISpVoice * pVoice;
+	Tstring speech;
+	Tstring lastspeech;
+	Tstring newchar;
+
 	void InsertText(Tstring InsertText); // add symbol to edit control
+
+	CCanvas* Canvas;
 };
 
 

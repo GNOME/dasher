@@ -16,10 +16,12 @@ using namespace Dasher;
 using namespace std;
 
 
-CAlphabet::CAlphabet() : m_Groups(0), m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight)
+CAlphabet::CAlphabet() : m_Groups(0), m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1)
 {
 	m_Characters.push_back("");
 	m_Display.push_back("");
+	m_Colours.push_back("");
+	m_Foreground.push_back("");
 	m_Group.push_back(0);
 }
 
@@ -28,7 +30,7 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 {
 	string Tmp;
 	symbol CurSymbol=0, TmpSymbol=0;
-	bool KeyIsPrefix;
+	bool KeyIsPrefix=false;
 	int z= Input->size();
 	int extras;
 	unsigned int bit;
@@ -94,19 +96,30 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 
 
 // add single char to the character set
-void CAlphabet::AddChar(const string NewCharacter, const string Display)
+void CAlphabet::AddChar(const string NewCharacter, const string Display, const string Colour, const string Foreground)
 {
 	m_Characters.push_back(NewCharacter);
 	m_Display.push_back(Display);
+	m_Colours.push_back(Colour);
+	m_Foreground.push_back(Foreground);
 	m_Group.push_back(m_Groups);
-	
+
 	symbol ThisSymbol = m_Characters.size()-1;
 	TextMap.Add(NewCharacter, ThisSymbol);
 }
 
+// Delete single char from the character set
+void CAlphabet::DelChar(symbol Symbol) {
+  m_Characters.erase(m_Characters.begin()+Symbol);
+  m_Display.erase(m_Display.begin()+Symbol);
+  m_Colours.erase(m_Colours.begin()+Symbol);
+  m_Foreground.erase(m_Foreground.begin()+Symbol);
+  m_Group.erase(m_Group.begin()+Symbol); 
+}
 
-void CAlphabet::StartNewGroup()
+void CAlphabet::StartNewGroup(std::string colour)
 {
+	m_GroupColour.push_back(colour);
 	m_Groups++;
 }
 
@@ -123,4 +136,14 @@ void CAlphabet::dump() const {
 		DebugOutput(deb);
 	}
 */
+}
+
+int CAlphabet::GetTextColour(symbol Symbol)
+{
+  std::string TextColour=m_Foreground[Symbol];
+  if (TextColour != "") {
+    return atoi(TextColour.c_str());
+  } else {
+    return 4;
+  }
 }

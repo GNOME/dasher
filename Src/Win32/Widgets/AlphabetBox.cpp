@@ -73,7 +73,7 @@ void CAlphabetBox::InitCustomBox()
 	
 	// Load encodings list box from resource strings
 	vector< pair<int, int> > Encodings;
-	Encodings.push_back(pair<int, int>(IDS_TYPE_None, Opts::None));
+	Encodings.push_back(pair<int, int>(IDS_TYPE_None, Opts::MyNone));
 	Encodings.push_back(pair<int, int>(IDS_TYPE_Arabic, Opts::Arabic));
 	Encodings.push_back(pair<int, int>(IDS_TYPE_Baltic, Opts::Baltic));
 	Encodings.push_back(pair<int, int>(IDS_TYPE_CentralEurope, Opts::CentralEurope));
@@ -122,7 +122,7 @@ void CAlphabetBox::InitCustomBox()
 	SendMessage(GetDlgItem(CustomBox,IDC_CHARS), LB_SETCOLUMNWIDTH, 34, 0);
 	
 	// Set check mark for the "space character"
-	if (CurrentInfo.SpaceCharacter.Text!="")
+	if (CurrentInfo.SpaceCharacter.Text!=std::string(""))
 		SendMessage(GetDlgItem(CustomBox,IDC_SPACE), BM_SETCHECK, BST_CHECKED, 0);
 }
 
@@ -165,7 +165,7 @@ void CAlphabetBox::ShowGroups()
 		return;
 	}
 	
-	for (uint k=0; k<CurrentInfo.Groups.size(); k++) {
+	for (unsigned int k=0; k<CurrentInfo.Groups.size(); k++) {
 		WinUTF8::UTF8string_to_Tstring(CurrentInfo.Groups[k].Description, &Data, GetACP());
 		SendMessage(Groups, LB_ADDSTRING, 0, (LPARAM)Data.c_str());
 	}
@@ -467,7 +467,9 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_CUSTOMALPHABET, Window, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 			break;
 		case (IDOK):
-			m_SettingsInterface->ChangeAlphabet(m_CurrentAlphabet);
+			if (m_CurrentAlphabet!="") {
+				m_SettingsInterface->ChangeAlphabet(m_CurrentAlphabet);
+			}
 			// deliberate fall through
 		case (IDCANCEL):
 		{

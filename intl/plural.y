@@ -48,7 +48,6 @@
 #define YYPARSE_PARAM	arg
 %}
 %pure_parser
-%expect 10
 
 %union {
   unsigned long int num;

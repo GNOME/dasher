@@ -1,6 +1,10 @@
+:Base dasher.hlp
 :Title Dasher
-1 Introducing Dasher=IDH_TUTORIAL
-1 Copying Text To Other Applications=IDH_COPY
-1 The Language Model=IDH_MODEL@dasher.hlp
-1 Release History=IDH_RELEASE
-1 Feedback=IDH_FEEDBACK
+1 Dasher basics=Tutorial
+1 Training Dasher=Training
+1 Entering text into other programs=Enteringtext
+1 View menu=Viewmenu
+1 Options menu=OptionsMenu
+1 General Options=GeneralOptions
+1 Advanced Options=AdvancedOptions
+1 Feedback=Feedback

@@ -21,6 +21,7 @@ class CFrameRate {
 	public:
 		CFrameRate() ;
 		~CFrameRate() {};
+		void Initialise();
 		const double Rxmax() const {return m_dRXmax;}
 		const int Steps() const {return m_iSteps;}
 		const double Framerate() const {return m_dFr;}
@@ -47,6 +48,19 @@ inline CFrameRate::CFrameRate() {
 	m_dMaxbitrate=5.5;
 #endif
 
+	m_dRXmax=2;  // only a transient effect
+	m_iFrames=0;
+	m_iSamples=1;
+
+	// we dont know the framerate yet - play it safe by setting it high
+	m_dFr=1<<5;
+
+	// start off very slow until we have sampled framerate adequately
+	m_iSteps=2000;
+	m_iTime=0; // Hmmm, User must reset framerate before starting.
+}
+
+inline void CFrameRate::Initialise(void) {
 	m_dRXmax=2;  // only a transient effect
 	m_iFrames=0;
 	m_iSamples=1;
@@ -94,7 +108,6 @@ inline void CFrameRate::Reset(unsigned long Time)
 	m_iFrames=0;
 	m_iTime=Time;
 }
-
 
 inline void CFrameRate::SetBitrate(double TargetRate)
 {

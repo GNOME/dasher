@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.00"
 	Name="DasherCore"
-	ProjectGUID="{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -64,7 +63,11 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -149,7 +152,12 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				Optimization="2"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -191,7 +199,11 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -287,6 +299,12 @@
 			RelativePath=".\AlphabetMap.h">
 		</File>
 		<File
+			RelativePath="ColourIO.cpp">
+		</File>
+		<File
+			RelativePath="ColourIO.h">
+		</File>
+		<File
 			RelativePath=".\Context.h">
 		</File>
 		<File
@@ -294,6 +312,12 @@
 		</File>
 		<File
 			RelativePath=".\CustomAlphabet.h">
+		</File>
+		<File
+			RelativePath="CustomColours.cpp">
+		</File>
+		<File
+			RelativePath="CustomColours.h">
 		</File>
 		<File
 			RelativePath=".\DashEdit.h">
@@ -353,19 +377,16 @@
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
-			RelativePath="FrameRate.h">
-		</File>
-		<File
 			RelativePath=".\LanguageModel.cpp">
 		</File>
 		<File
 			RelativePath=".\LanguageModel.h">
 		</File>
 		<File
-			RelativePath="PPMLanguageModel.cpp">
+			RelativePath=".\PPMLanguageModel.cpp">
 		</File>
 		<File
-			RelativePath="PPMLanguageModel.h">
+			RelativePath=".\PPMLanguageModel.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">

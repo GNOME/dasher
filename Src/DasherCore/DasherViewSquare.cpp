@@ -14,7 +14,6 @@
 
 #include "DasherModel.h"
 #include "DasherViewSquare.h"
-#include <iostream>
 
 using namespace Dasher;
 
@@ -33,8 +32,8 @@ using std::max;
 #endif
 
 
-CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation)
-	: CDasherView(DasherScreen, DasherModel, Orientation)
+CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
+  : CDasherView(DasherScreen, DasherModel, LanguageModel, Orientation, Colourmode)
 {
 	ChangeScreen(DasherScreen);
 	
@@ -52,32 +51,36 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_Y3=int (dY3 * (CDasherView::DasherModel().DasherY()) );
 	m_Y1=int(1.0/dY1);
 
+	KeyControl=false;
 }
 
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, bool& force, bool text)
+	myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)
 {
 	int top = dashery2screen(y1);
-	if (top>CanvasY)
+	if (top>CanvasY) {
 		return 0;
-	if (top<0)
+	}
+	if (top<0) {
 		top=0;
+	}
 	
 	int bottom = dashery2screen(y2);
-	if (bottom<0)
+	if (bottom<0) {
 		return 0;
+	}
 	if (bottom>CanvasY)
 		bottom=CanvasY;
 	
 	int height=bottom-top;
 	
-	if (height==0)
+	if (height==0 && text==true)
 		force=false;
 	
 	if (force || height>1) {
 		force=true;
-		
+
 		int left=dasherx2screen(y2-y1);
 		
 		int right=CanvasX;
@@ -85,40 +88,45 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		int newleft=left, newtop=top, newright=right, newbottom=bottom;
 		MapScreen(&newleft, &newtop);
 		MapScreen(&newright, &newbottom);
-		if( !text )
+		if( !text ) {
 		  Screen().DrawRectangle(newleft, newtop, newright, newbottom, Color, ColorScheme);
+		}
 		else
 		  {
-		if (left<mostleft)
-			left=mostleft;
-		
-		int Size;
-		if (left*Screen().GetFontSize()<CanvasX*19/20) {
-			Size = 20*Screen().GetFontSize();
-		} else if (left*Screen().GetFontSize()<CanvasX*159/160) {
-			Size = 14*Screen().GetFontSize();
-		} else {
-			Size = 11*Screen().GetFontSize();
-		}
-		
-		int TextWidth, TextHeight, OriginX=0, OriginY=0;
-		Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
-		UnMapScreen(&TextWidth, &TextHeight);
-		UnMapScreen(&OriginX, &OriginY);		
-		int FontHeight = abs(TextHeight-OriginY);		
-		int FontWidth = abs(TextWidth-OriginX);
-		mostleft = left + FontWidth;
+		    if (left<mostleft)
+		      left=mostleft;
+		    
+		    int Size;
+		    if (left*Screen().GetFontSize()<CanvasX*19/20) {
+		      Size = 20*Screen().GetFontSize();
+		    } else if (left*Screen().GetFontSize()<CanvasX*159/160) {
+		      Size = 14*Screen().GetFontSize();
+		    } else {
+		      Size = 11*Screen().GetFontSize();
+		    }
+		    
+		    int TextWidth, TextHeight, OriginX=0, OriginY=0;
+		    Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
+		    UnMapScreen(&TextWidth, &TextHeight);
+		    UnMapScreen(&OriginX, &OriginY);		
+		    int FontHeight = abs(TextHeight-OriginY);		
+		    int FontWidth = abs(TextWidth-OriginX);
+		    mostleft = left + FontWidth;
+		    
+		    int newleft2 = left;
+		    int newtop2 = (height-FontHeight)/2 + top;
+		    int newright2 = left + FontWidth;
+		    int newbottom2 = (height+FontHeight)/2 + top;
+		    MapScreen(&newleft2, &newtop2);
+		    MapScreen(&newright2, &newbottom2);
+		    newleft = min(newleft2, newright2);
+		    newtop = min(newtop2, newbottom2);
 
-		int newleft2 = left;
-		int newtop2 = (height-FontHeight)/2 + top;
-		int newright2 = left + FontWidth;
-		int newbottom2 = (height+FontHeight)/2 + top;
-		MapScreen(&newleft2, &newtop2);
-		MapScreen(&newright2, &newbottom2);
-		newleft = min(newleft2, newright2);
-		newtop = min(newtop2, newbottom2);
-
-		  Screen().DrawText(Character, newleft, newtop, Size);
+		    if(displaytext!="") {
+		      Screen().DrawText(displaytext, newleft, newtop, Size);
+		    } else {
+		      Screen().DrawText(Character, newleft, newtop, Size);
+		    }
 		  }
 		
 		return 1;
@@ -132,9 +140,18 @@ void CDasherViewSquare::CheckForNewRoot()
 	CDasherNode * const root=DasherModel().Root();
 	CDasherNode ** const children=root->Children();
 
+
+	myint y1=DasherModel().Rootmin();
+	myint y2=DasherModel().Rootmax();
+	
+	if ((y1>0 || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0)) {
+	  DasherModel().Reparent_root(root->Lbnd(),root->Hbnd());
+	  return;
+	}
+	    
 	if (children==0)
 		return;
-	
+
 	int alive=0;
 	int theone=0;
 	unsigned int i;
@@ -144,20 +161,20 @@ void CDasherViewSquare::CheckForNewRoot()
 			theone=i;
 		}
 	}
-	
+
 	if (alive==1) {	  
-		myint y1=DasherModel().Rootmin();
-		myint y2=DasherModel().Rootmax();
-		myint range=y2-y1;
-		myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
-		myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
-		if (newy1<0 && newy2> DasherModel().DasherY()) {
-			myint left=dasherx2screen(newy2-newy1);
-			if (left<-1000) {
-				DasherModel().Make_root(theone);
-				return;
-			}
-		}
+	  y1=DasherModel().Rootmin();
+	  y2=DasherModel().Rootmax();
+	  myint range=y2-y1;
+	  myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
+	  myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
+	  if (newy1<0 && newy2> DasherModel().DasherY()) {
+	    myint left=dasherx2screen(newy2-newy1);
+	    if (left<0) {
+	      DasherModel().Make_root(theone);
+	      return;
+	    }
+	  }
 	}
 }
 
@@ -167,21 +184,190 @@ void CDasherViewSquare::CheckForNewRoot()
 void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time) 
 {
 	// convert mouse (screen) coords into dasher coords
+        int Swapper;
+
 	if (mousex>CanvasX)
 		mousex=CanvasX;
-	
+
 	UnMapScreen(&mousex, &mousey);
+
+	if (DasherModel().Dimensions()==true) {
+	  switch (ScreenOrientation) {
+	  case (LeftToRight):
+	    break;
+	  case (RightToLeft):
+	    mousex = Screen().GetWidth() - mousex;
+	    break;
+	  case (TopToBottom):
+	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  case (BottomToTop):
+	    // Note rotation by 90 degrees not reversible like others
+	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  }
+	}
+	
 	screen2dasher(&mousex,&mousey);
 	DasherModel().Tap_on_display(mousex,mousey, Time);
 	CheckForNewRoot();
 }
 
+// move to the specified point
+void CDasherViewSquare::GoTo(int mousex,int mousey) 
+{
+	// convert mouse (screen) coords into dasher coords
+	
+	UnMapScreen(&mousex, &mousey);
+	screen2dasher(&mousex,&mousey);
+	DasherModel().GoTo(mousex,mousey);
+	CheckForNewRoot();
+}
+
+void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
+{
+  // Draw a box surrounding the area of the screen that will be zoomed into
+  UnMapScreen(&mousex, &mousey);
+  screen2dasher(&mousex,&mousey);
+  // So, we have a set of coordinates. We need a bunch of points back.
+  myint height=DasherModel().PlotGoTo(mousex, mousey);
+  myint top, bottom, left, right;
+
+  // Convert back to screen coordinates?
+  top=mousey-height/2;
+  bottom=mousey+height/2;
+  left=mousex+height/2;
+  right=mousex-height/2;
+  top=dashery2screen(top);
+  bottom=dashery2screen(bottom);
+  left=dasherx2screen(left);
+  right=dasherx2screen(right);
+  
+  // Draw the lines
+  Screen().DrawRectangle(left, top+5, right, top-5, 1, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left+5, top+5, left, bottom-5, 1, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left, bottom+5, right, bottom-5, 1, Opts::ColorSchemes(Objects));
+}
+  
+
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {
-	screen2dasher(&mousex,&mousey);
-	mousex=dasherx2screen(mousex);
-	mousey=dashery2screen(mousey);
-	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 0, Opts::ColorSchemes(Objects));
+        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+  
+	  int Swapper;
+	
+	  screen2dasher(&mousex,&mousey);
+	  mousex=dasherx2screen(mousex);
+	  mousey=dashery2screen(mousey);
+	  switch (ScreenOrientation) {
+	  case (LeftToRight):
+	    break;
+	  case (RightToLeft):
+	    mousex = Screen().GetWidth() - mousex;
+	    break;
+	  case (TopToBottom):
+	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  case (BottomToTop):
+	    // Note rotation by 90 degrees not reversible like others
+	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  }
+	}
+
+	if (ColourMode==true) {
+	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
+	} else {
+	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+	}
+}
+
+void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
+{
+        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+  
+	  int Swapper;
+	
+	  screen2dasher(&mousex,&mousey);
+	  mousex=dasherx2screen(mousex);
+	  mousey=dashery2screen(mousey);
+	  switch (ScreenOrientation) {
+	  case (LeftToRight):
+	    break;
+	  case (RightToLeft):
+	    mousex = Screen().GetWidth() - mousex;
+	    break;
+	  case (TopToBottom):
+	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  case (BottomToTop):
+	    // Note rotation by 90 degrees not reversible like others
+	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  }
+	}
+
+	CDasherScreen::point mouseline[2];
+
+	mouseline[0].x=dasherx2screen(DasherModel().DasherOX());
+	mouseline[0].y=CanvasY/2;
+	mouseline[1].x=mousex;
+	mouseline[1].y=mousey;	  	
+
+	if (ColourMode==true) {
+	  Screen().Polyline(mouseline,2,1);
+	} else {
+	  Screen().Polyline(mouseline,2);
+	}
+}
+
+void CDasherViewSquare::DrawKeyboard()
+{
+  CDasherScreen::point line[2];
+  line[0].x = 200;
+  line[0].y = 0;
+  line[1].x = 200;
+  line[1].y = CanvasY/2;
+  
+  if (ColourMode==true) {
+    Screen().Polyline(line,2,6);
+  } else {
+    Screen().Polyline(line,2);
+  }
+
+  line[0].x = 200;
+  line[0].y = CanvasY/2;
+  line[1].x = 0;
+  line[1].y = CanvasY/2;
+
+  if (ColourMode==true) {
+    Screen().Polyline(line,2,6);
+  } else {
+    Screen().Polyline(line,2);
+  }
+
+  line[0].x = 200;
+  line[0].y = CanvasY/2;
+  line[1].x = 200;
+  line[1].y = CanvasY;
+
+  if (ColourMode==true) {
+    Screen().Polyline(line,2,6);
+  } else {
+    Screen().Polyline(line,2);
+  }
 }
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
@@ -193,4 +379,5 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 	CanvasBorder=Width-CanvasX;
 	CanvasY=Height;
 }
+
 

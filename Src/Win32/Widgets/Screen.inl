@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height, int Size) const
+inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height, int iSize) const
 {
 	// TODO This function could be improved. The height of an "o" is returned as the
 	// same as the height of an "O". Perhaps GetGlyphOutline could help.
@@ -17,7 +17,8 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 		return;
 	
 	Tstring OutputText = DisplayStrings[Character];
-	
+
+	/*
 	// Choose the closest font we have
 	if (Size <= 11) {
 		Size = 2;
@@ -28,8 +29,11 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 			Size = 0;
 	}
 
-	HFONT old = (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+	HFONT old = (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
 	
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+
+
 	// Get the dimensions of the text in pixels
 	SIZE OutSize;
 	GetTextExtentPoint32(m_hDCText, OutputText.c_str(), OutputText.size(), &OutSize);
@@ -39,7 +43,7 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 }
 
 
-inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size) const
+inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int iSize) const
 {
 	if (m_DasherInterface==0)
 		return;
@@ -51,7 +55,45 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 	Rect.top = y1;
 	Rect.right = x1+50;
 	Rect.bottom = y1+50;
+
+	/*
+	if (Size <= 11) {
+		Size = 2;
+	} else {
+		if (Size <= 14)
+			Size = 1;
+		else
+			Size = 0;
+	}
+
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
+
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+
+	// The Windows API dumps all its function names in the global namespace, ::
+	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+
+	// DJW - need to select the old object back into the DC
+	SelectObject(m_hDCText, old);
+}
+
+inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int iSize) const
+{
+	if (m_DasherInterface==0)
+		return;
 	
+	Tstring OutputText;
+
+	WinUTF8::UTF8string_to_Tstring(OutputString,&OutputText);
+	
+	RECT Rect;
+	Rect.left = x1;
+	Rect.top = y1;
+	Rect.right = x1+50;
+	Rect.bottom = y1+50;
+	
+	/*
 	if (Size <= 11) {
 		Size = 2;
 	} else {
@@ -62,28 +104,37 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 	}
 
 	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+*/
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+
+
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	
+	SelectObject(m_hDCText,old);
 }
-
 
 inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {
-	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+//	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+	HBRUSH brush = m_Brushes[Color];
 	RECT Rect;
 	Rect.left = x1;
 	Rect.top = y1;
 	Rect.right = x2;
 	Rect.bottom = y2;
 	FillRect(m_hDCBuffer, &Rect, brush);
+	if (drawoutlines==true) {
+		FrameRect(m_hDCBuffer, &Rect, m_Brushes[3]);
+	}
 }
 
 
-inline void CScreen::Polyline(point* Points, int Number) const
+inline void CScreen::Polyline(point* Points, int Number, int iColour) const
 {
 	HGDIOBJ hpOld;
-	hpOld = (HPEN)SelectObject(m_hDCBuffer, (HPEN)GetStockObject(BLACK_PEN));
+	hpOld = (HPEN)SelectObject(m_hDCBuffer, (HPEN)m_Pens[iColour]);
 	POINT* WinPoints = new POINT[Number];
 	point2POINT(Points, WinPoints, Number);
 	::Polyline(m_hDCBuffer, WinPoints, Number);
@@ -91,18 +142,23 @@ inline void CScreen::Polyline(point* Points, int Number) const
 	SelectObject(m_hDCBuffer, hpOld);
 }
 
+inline void CScreen::Polyline(point* Points, int Number) const
+{
+	Polyline(Points,Number,0);
+}
+
 
 inline void CScreen::DrawPolygon(point* Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {
 	HPEN pen=(HPEN)GetStockObject(NULL_PEN);
-	HGDIOBJ hold;
-	hold=SelectObject (m_hDCBuffer, pen);
-	SelectObject (m_hDCBuffer, m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()]);
+	HPEN hpold= (HPEN)SelectObject (m_hDCBuffer, pen);
+	HBRUSH hbold =(HBRUSH)SelectObject (m_hDCBuffer, m_Brushes[ColorScheme]);
 	POINT* WinPoints = new POINT[Number];
 	point2POINT(Points, WinPoints, Number);
 	::Polygon(m_hDCBuffer, WinPoints, Number);
 	delete[] WinPoints;
-	SelectObject (m_hDCBuffer, hold);
+	SelectObject (m_hDCBuffer, hpold);
+	SelectObject (m_hDCBuffer, hbold);
 }
 
 
@@ -122,14 +178,18 @@ inline void CScreen::Display()
 {
 	BitBlt(m_hDCBuffer, 0, 0, m_iWidth,m_iHeight,m_hDCText, 0, 0, SRCAND);
 	
-	if (RealHDC==0) {
-		RealHDC = GetDC(m_hwnd);
-		BitBlt(RealHDC, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
-		ReleaseDC(m_hwnd,RealHDC);
-	} else
-		BitBlt(RealHDC, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+//	if (RealHDC==0) {
+//		RealHDC = GetDC(m_hwnd);
+//		BitBlt(RealHDC, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+//		ReleaseDC(m_hwnd,RealHDC);
+//	} else
 	
-	RealHDC = 0;
+	// :: GetDC should have little overhead now we have a private DC
+//	HDC hdc = GetDC(m_hwnd);
+	BitBlt(m_hdc, 0, 0, m_iWidth,m_iHeight, m_hDCBuffer, 0, 0, SRCCOPY);
+//	int iRes = ReleaseDC(m_hwnd,hdc);
+	//assert (iRes);
+	//RealHDC = 0;
 }
 
 

@@ -29,7 +29,7 @@
 #include "Widgets/WinOptions.h"
 #include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
-
+#include "Widgets/WindowSelect.h"
 
 class CDasherWindow : public CWinWrap, public CSplitterOwner,
 	public Dasher::CDasherSettingsInterface
@@ -45,6 +45,7 @@ public:
 	
 	// Settings Interface members
 	void ChangeAlphabet(const std::string& NewAlphabetID);
+	void ChangeColours(const std::string& NewColoursID);
 	void ChangeMaxBitRate(double NewMaxBitRate);
 	void ChangeLanguageModel(unsigned int NewLanguageModelID);
 	void ChangeView(unsigned int NewViewID);
@@ -55,10 +56,48 @@ public:
 	void ShowToolbarText(bool Value);
 	void ShowToolbarLargeIcons(bool Value);
 	void ShowSpeedSlider(bool Value);
+
+	void SetDasherFontSize(Dasher::Opts::FontSize fontsize);
+
 	void FixLayout(bool Value);
 	void TimeStampNewFiles(bool Value);
+	bool GetTimeStamp() {return timestampnewfiles;}
 	void CopyAllOnStop(bool Value);
-	
+	bool GetCopyAll() {return copyallonstop;}
+	void DrawMouse(bool Value);
+	bool GetDrawMouse() {return drawmouse;}
+	void DrawMouseLine(bool Value);
+	bool GetDrawMouseLine() {return drawmouseline;}
+	void SetDasherDimensions(bool Value);
+	bool GetDasherDimensions() {return oned;}
+	void StartOnLeft(bool Value);
+	bool GetStartOnLeft() {return startonleft;}
+	void StartOnSpace(bool Value);
+	bool GetStartOnSpace() {return startonspace;}
+	void KeyControl(bool Value);
+	bool GetKeyControl() {return keycontrol;}
+	void WindowPause(bool Value);
+	bool GetWindowPause() {return windowpause;}
+	void ControlMode(bool Value);
+	bool GetControlMode() {return controlmode;}
+	void ColourMode(bool Value);
+	bool GetColourMode() {return colourmode;}
+	void KeyboardMode(bool Value);
+	bool GetKeyboardMode() {return keyboardmode;}
+	void MouseposStart(bool Value);
+	bool GetMouseposStart() {return mouseposstart;}
+	void Speech(bool Value);
+	bool GetSpeech() {return speech;}
+	void OutlineBoxes(bool Value);
+	bool GetOutlines() {return outlines;}
+	void SetDasherEyetracker(bool Value);
+	bool GetDasherEyetracker() {return eyetracker;}
+	void PaletteChange(bool Value);
+	bool GetPaletteChange() {return palettechange;}
+	void SetYScale(int Value);
+	void SetMousePosDist(int Value);
+	void SetUniform(int Value);
+
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -66,9 +105,10 @@ private:
 	Dasher::CDasherWidgetInterface* DasherWidgetInterface;
 	Dasher::CDasherAppInterface* DasherAppInterface;
 	std::string m_CurrentAlphabet;
+	std::string m_CurrentColours;
 	
 	HACCEL hAccelTable;
-	
+
 	// Fiddly Window initialisation
 	Tstring CreateMyClass();
 	
@@ -81,11 +121,33 @@ private:
 	CWinOptions* WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;
-	
+
+	HICON m_hIconSm;
+
+	bool startonspace;
+	bool startonleft;
+	bool timestampnewfiles;
+	bool drawmouse;
+	bool drawmouseline;
+	bool oned;
+	bool windowpause;
+	bool keycontrol;
+	bool copyallonstop;
+	bool eyetracker;
+	bool outlines;
+	bool mousepos;
+	bool controlmode;
+	bool colourmode;
+	bool keyboardmode;
+	bool mouseposstart;
+	bool speech;
+	bool palettechange;
+
 	// Misc window handling
 	void SetMenuCheck(UINT MenuItem, bool Value);
 	void Layout();
 };
+
 
 
 #endif /* #ifdef __MainWindow_h__ */

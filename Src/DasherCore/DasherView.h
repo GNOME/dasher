@@ -18,6 +18,7 @@
 #include "../Common/MSVC_Unannoy.h"
 #include "DasherScreen.h"
 #include "DasherModel.h"
+#include "LanguageModel.h"
 
 // CDasherView is an abstract view class
 // The implentation must provide several functions - defined here as pure virtual functions
@@ -27,13 +28,10 @@ namespace Dasher {class CDasherView;}
 class Dasher::CDasherView
 {
 public:
-	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
-	~CDasherView() {}
+	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
+	virtual ~CDasherView() {}		
 	
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
-	
-	// TODO Sort this out
-	void FlushAt(int mousex,int mousey);
 	
 	// renders Dasher
 	inline void Render();
@@ -41,6 +39,9 @@ public:
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.TapOnDisplay
 	virtual void TapOnDisplay(int mousex, int mousey, unsigned long Time)=0;
+	// translates the screen coordinates to Dasher coordinates and calls
+	// dashermodel.GoTo
+	virtual void GoTo(int mousex, int mousey)=0;
 	
 	virtual void ChangeScreen(CDasherScreen* NewScreen)
 	{
@@ -50,27 +51,47 @@ public:
 		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 	}
 
+	virtual void DrawGoTo(int mousex, int mousey)=0;
 	virtual void DrawMouse(int mousex, int mousey)=0;
-	
+	virtual void DrawMouseLine(int mousex, int mousey)=0;
+	virtual void DrawKeyboard()=0;
+
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}
 	CDasherScreen& Screen() {return *m_Screen;}
 
-	void Display() {m_Screen->Display();};
+	void Display() {m_Screen->Display();}
+
+	// Toggle advanced colour mode
+	void SetColourMode(bool colourmode) {ColourMode=colourmode;}
+
+	// Toggle keyboard control mode
+	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
 
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(int* DrawX, int* DrawY);
 	inline void UnMapScreen(int* DrawX, int* DrawY);
 
+	// Keyboard control is on
+	bool KeyControl;
+
+	// Orientation of Dasher Screen
+	Dasher::Opts::ScreenOrientations ScreenOrientation;
+
+	// Advanced colour mode
+	bool ColourMode;
+
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
+
+	CLanguageModel* m_LanguageModel;
 	
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
 	virtual int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool text)=0;
+		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)=0;
 	
 	// Responsible for all the Render_node calls
 	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);
@@ -78,11 +99,6 @@ private:
 	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
 	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
 	
-	// Orientation of Dasher Screen
-	Dasher::Opts::ScreenOrientations ScreenOrientation;
-
-	// DJW - removed floating point stuff
-	//double XYScale;
 };
 
 

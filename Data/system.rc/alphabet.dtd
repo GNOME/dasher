@@ -4,7 +4,7 @@ how those symbols may be used. -->
 
 <!ELEMENT alphabets (alphabet*)>
 
-<!ELEMENT alphabet (orientation, encoding, train, space, group*)>
+<!ELEMENT alphabet (orientation, encoding, train, paragraph, space, control, group*)>
 <!ATTLIST alphabet name CDATA #REQUIRED>
 
 <!-- Left-Right, Right-Left, Top-Bottom or Bottom-Top?
@@ -26,19 +26,38 @@ can over-ride the alphabet anyway. -->
 <!-- Default training file for this alphabet -->
 <!ELEMENT train (#PCDATA)>
 
+<!-- Traditionally the paragraph character is rendered differently to all
+others. Can set d (display) to "" to disable. -->
+<!ELEMENT paragraph EMPTY>
+<!ATTLIST paragraph d CDATA #REQUIRED>
+<!ATTLIST paragraph f CDATA #IMPLIED>
+<!ATTLIST paragraph b CDATA #IMPLIED>
+
 <!-- Traditionally the space character is rendered differently to all
 others. Can set both d (display) and t (text) to "" to disable. -->
 <!ELEMENT space EMPTY>
 <!ATTLIST space d CDATA #REQUIRED>
 <!ATTLIST space t CDATA #REQUIRED>
+<!ATTLIST space f CDATA #IMPLIED>
+<!ATTLIST space b CDATA #IMPLIED>
+
+<!-- The control character is special, and not part of the main alphabet. -->
+
+<!ELEMENT control EMPTY>
+<!ATTLIST control d CDATA #REQUIRED>
+<!ATTLIST control t CDATA #REQUIRED>
+<!ATTLIST control f CDATA #IMPLIED>
+<!ATTLIST control b CDATA #IMPLIED>
 
 <!-- Logical groups of symbols, eg name="Lower case letters" -->
 <!ELEMENT group (s*)>
 <!ATTLIST group name CDATA #REQUIRED>
+<!ATTLIST group b CDATA #IMPLIED>
 
 <!-- Symbols Dasher can use. It shows text d in the nodes and sends
 text t to the edit box -->
 <!ELEMENT s EMPTY>
-<!ATTLIST s d NMTOKEN #REQUIRED>
+<!ATTLIST s d CDATA #REQUIRED>
 <!ATTLIST s t CDATA #REQUIRED>
-
+<!ATTLIST s f CDATA #IMPLIED>
+<!ATTLIST s b CDATA #IMPLIED>

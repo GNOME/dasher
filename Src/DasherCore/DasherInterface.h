@@ -24,6 +24,8 @@
 #include "DasherScreen.h"
 #include "Alphabet.h"
 #include "AlphIO.h"
+#include "CustomColours.h"
+#include "ColourIO.h"
 #include "LanguageModel.h"
 #include "DasherModel.h"
 #include "DashEdit.h"
@@ -56,14 +58,25 @@ public:
 	//! Set the path for system-wide configuration and files
 	void SetSystemLocation(std::string SystemLocation);
 	
+	//! Add an alphabet filename
+	void AddAlphabetFilename(std::string Filename);
+
+	//! Add a colour filename
+	void AddColourFilename(std::string Filename);
+
 	// Widget Interface
 	// -----------------------------------------------------
 	void Start();
 	
 	void TapOn(int MouseX, int MouseY, unsigned long Time); // Times in milliseconds
 	void PauseAt(int MouseX, int MouseY);                   // are required to make
+	void Halt();
 	void Unpause(unsigned long Time);                       // Dasher run at the
 	void Redraw();                                          // correct speed.
+
+	void DrawMousePos(int MouseX, int MouseY);
+	void GoTo(int MouseX, int MouseY);
+	void DrawGoTo(int MouseX, int MouseY);
 	
 	void ChangeScreen(); // The widgets need to tell the engine when they have been
 	void ChangeEdit();   // affected by external interaction
@@ -71,6 +84,7 @@ public:
 	unsigned int GetNumberSymbols();           // These are needed so widgets know
 	const std::string& GetDisplayText(symbol Symbol); // how to render the alphabet. All
 	const std::string& GetEditText(symbol Symbol);    // strings are encoded in UTF-8
+	int GetTextColour(symbol Symbol);    // the foreground colour of the text
 	Opts::ScreenOrientations GetAlphabetOrientation();
 	Opts::AlphabetTypes GetAlphabetType();
 	const std::string& GetTrainFile();
@@ -99,11 +113,16 @@ public:
 	const CAlphIO::AlphInfo& GetInfo(const std::string& AlphID);
 	void SetInfo(const CAlphIO::AlphInfo& NewInfo);
 	void DeleteAlphabet(const std::string& AlphID);
-	
+
+	void GetColours(std::vector< std::string >* ColourList);
+	void AddControlTree(ControlTree *controltree);
 	// Settings Interface (options saved between sessions)
 	// -----------------------------------------------------
 	
 	void ChangeAlphabet(const std::string& NewAlphabetID);
+	std::string GetCurrentAlphabet();
+	void ChangeColours(const std::string& NewColourID);
+	std::string GetCurrentColours();
 	void ChangeMaxBitRate(double NewMaxBitRate);
 	void ChangeLanguageModel(unsigned int NewLanguageModelID);
 	void ChangeView(unsigned int NewViewID);
@@ -119,15 +138,33 @@ public:
 	void TimeStampNewFiles(bool Value);
 	void CopyAllOnStop(bool Value);
 	void DrawMouse(bool Value);
+	void DrawMouseLine(bool Value);
 	void StartOnSpace(bool Value);
 	void StartOnLeft(bool Value);
+	void KeyControl(bool Value);
+	void WindowPause(bool Value);
+	void ControlMode(bool Value);
+	void ColourMode(bool Value);
+	void KeyboardMode(bool Value);
+	void MouseposStart(bool Value);
+	void Speech(bool Value);
+	void OutlineBoxes(bool Value);
+	void PaletteChange(bool Value);
+	void SetScreenSize(long Width, long Height);
+	void SetEditHeight(long Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
 	void SetDasherDimensions(bool Value);
+	void SetDasherEyetracker(bool Value);
+	void SetUniform(int Value);
+	void SetYScale(int Value);
+	void SetMousePosDist(int Value);
+	void Render();
 
 private:
 	CAlphabet* m_Alphabet;
+	CCustomColours* m_Colours;
 	CLanguageModel* m_LanguageModel;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;
@@ -135,25 +172,41 @@ private:
 	CDasherView* m_DasherView;
 	CSettingsStore* m_SettingsStore;
 	CDasherSettingsInterface* m_SettingsUI;
-	CAlphIO* m_AlphIO;
-	
+	CAlphIO* m_AlphIO;	
+	CAlphIO::AlphInfo m_AlphInfo;
+	CColourIO* m_ColourIO;
+	CColourIO::ColourInfo m_ColourInfo;
 	CLanguageModel::CNodeContext* TrainContext;
 	
 	std::string AlphabetID;
+	std::string ColourID;
 	int LanguageModelID;
 	int ViewID;
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
 	bool m_DrawMouse;
+	bool m_DrawMouseLine;
+	bool m_DrawKeyboard;
 	bool m_StartSpace;
 	bool m_StartLeft;
+	bool m_KeyControl;
 	bool m_Dimensions;
+	bool m_Eyetracker;
+	bool m_WindowPause;
+	bool m_ControlMode;
+	bool m_ColourMode;
+	bool m_KeyboardMode;
+	bool m_MouseposStart;
+	bool m_Paused;
+	bool m_PaletteChange;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
 	std::string m_TrainFile;
 	std::string m_DasherFont;
 	std::string m_EditFont;
+	std::vector<std::string> m_AlphabetFilenames;
+	std::vector<std::string> m_ColourFilenames;
 	int m_EditFontSize;
 	static const std::string EmptyString;
 	

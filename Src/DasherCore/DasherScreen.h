@@ -12,6 +12,7 @@
 
 #include "DasherWidgetInterface.h"
 #include "DasherTypes.h"
+#include "CustomColours.h"
 
 namespace Dasher {class CDasherScreen;}
 class Dasher::CDasherScreen
@@ -21,7 +22,9 @@ public:
         //! \param height Height of the screen
 	CDasherScreen(int width,int height)
 		: m_iWidth(width), m_iHeight(height) {}
-	
+
+	virtual ~CDasherScreen() {}
+
 	//! Set the widget interface used for communication with the core
 	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
 	
@@ -51,6 +54,8 @@ public:
 	virtual void TextSize(symbol Character, int* Width, int* Height, int Size) const=0;
 	//! Draw character Character of size Size positioned at x1 and y1
 	virtual void DrawText(symbol Character, int x1, int y1, int Size) const=0;
+	//! Draw string String of size Size positioned at x1 and y1
+	virtual void DrawText(std::string String, int x1, int y1, int Size) const=0;
 
 	
 	// Draw a filled rectangle - given position and color id
@@ -70,6 +75,13 @@ public:
 	//
 	//! \param Number the number of points in the array
 	virtual void Polyline(point* Points, int Number) const=0;
+
+	// Draw a line of arbitrary colour.
+	//! Draw a line between each of the points in the array
+	//
+	//! \param Number the number of points in the array
+	//! \param Colour the colour to be drawn
+	virtual void Polyline(point* Points, int Number, int Colour) const=0;
 	
 	// Draw a filled polygon - given vertices and color id
 	// This is not (currently) used in standard Dasher. However, it could be very
@@ -89,6 +101,11 @@ public:
 
 	//! Signal that a frame is finished - the screen should be updated
 	virtual void Display()=0;
+
+	//! Set a colour scheme
+	//
+	//! \param A colour scheme that should be used
+	virtual void SetColourScheme(CCustomColours *ColourScheme)=0;
 
 protected:
 	//! Width and height of the screen

@@ -17,12 +17,12 @@
 
 #include "../WinWrap.h"
 #include "../../DasherCore/DasherSettingsInterface.h"
-
+#include "Canvas.h"
 
 class CSlidebar : public CWinWrap
 {
 public:
-	CSlidebar(HWND ParentWindow, Dasher::CDasherSettingsInterface* NewDasherInterface, double StartValue=2.51, bool Visible=true);
+	CSlidebar(HWND ParentWindow, Dasher::CDasherSettingsInterface* NewDasherInterface, double StartValue=2.51, bool Visible=true, CCanvas *NewDasherCanvas=0);
 	
 	// Base is the desired position of the bottom of the slidebar.
 	// The height of the slide bar is returned.
@@ -35,12 +35,14 @@ public:
 	void SetVisible(bool Value);
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+	WNDPROC sliderWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	double SlideVal;
 	
 	// Message handler stuff
 	WNDPROC SB_WndFunc;
-	
+	WNDPROC SL_WndFunc;
+
 	// Used to keep edit box and slide bar in synch.
 	void SetEditBox(double value);
 	void SetSlideBar(double value);
@@ -66,6 +68,7 @@ private:
 	
 	// The model to poke
 	Dasher::CDasherSettingsInterface* DasherInterface;
+	CCanvas* DasherCanvas;
 };
 
 

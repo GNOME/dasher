@@ -10,8 +10,8 @@
 using namespace Dasher;
 
 
-CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation)
-	: m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation)
+CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Opts::ScreenOrientations Orientation, bool ColourMode)
+  : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(ColourMode), m_LanguageModel(LanguageModel)
 {
 //	XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 }
@@ -24,21 +24,42 @@ void CDasherView::ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation
 }
 
 
-void CDasherView::FlushAt(int mousex,int mousey) 
-{
-	m_DasherModel.Flush(0,0);
-}
-
 int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text)
 {
 	symbol CurChar = Render->Symbol();
-	
-	int Color= Render->Phase()%3;
-	
-	if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text))
-		RenderGroups(Render, y1, y2, text);
-	else
-		Render->Kill();
+	int Color;
+
+	if (ColourMode==true) {
+	  if (Render->Colour()!=-1) {
+	    Color = Render->Colour();
+	  } else {
+	    if (Render->Symbol()==m_LanguageModel->GetSpaceSymbol()) {
+	      Color = 9;
+	    } else if (Render->Symbol()==m_LanguageModel->GetControlSymbol()) {
+	      Color = 8;
+	    } else {
+	      Color = (Render->Symbol()%3)+10;
+	    }
+	  }
+	} else {
+	  Color = Render->Phase()%3; 
+	}
+
+	if ((Render->Cscheme()%2)==1 && Color<130) { // We don't loop on high
+	  Color+=130;                                // colours
+	}
+
+	if (Render->GetControlTree()!=NULL) {
+	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,Render->GetControlTree()->text))
+	    RenderGroups(Render, y1, y2, text);
+	  else
+	    Render->Kill();
+	} else {
+	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,""))
+	    RenderGroups(Render, y1, y2, text);
+	  else
+	    Render->Kill();
+	}
 	
 	CDasherNode** const Children=Render->Children();
 	if (!Children)
@@ -80,7 +101,16 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				myint newy2=y1+(range*hbnd)/m_DasherModel.Normalization();
 				int mostleft;
 				bool force;
-				RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text);
+				if (ColourMode==true) {
+				  int Colour = Render->GroupColour(current);
+				  if (Colour!=-1) {
+					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				  } else {
+				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				  }
+				} else {
+					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
+				}
 			}
 			current=g;
 		}

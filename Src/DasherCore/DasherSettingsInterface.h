@@ -23,6 +23,15 @@ public:
 	//! Change the alphabet in use to NewAlphabetID
 	virtual void ChangeAlphabet(const std::string& NewAlphabetID) {};
 
+	//! Get the current alphabet in use
+	virtual std::string GetCurrentAlphabet() {return "";}
+
+	//! Change the colour scheme in use to NewColourID
+	virtual void ChangeColours(const std::string& NewColourID) {};
+
+	//! Get the current colour scheme
+	virtual std::string GetCurrentColours() {return "";}
+
 	//! Change the maximum bitrate (effectively the speed) of Dasher
 	virtual void ChangeMaxBitRate(double NewMaxBitRate) {};
 
@@ -46,6 +55,9 @@ public:
 
 	//! Set the number of dimensions of input (either 1 or 2)
 	virtual void SetDasherDimensions(bool Value) {};
+
+	//! Set eyetracking mode on or off
+	virtual void SetDasherEyetracker(bool Value) {};
 
 	// These are recommended options for the Dasher GUI. {{{ They don't actually
 	// change the way Dasher works. They are part of the Dasher interface
@@ -76,6 +88,9 @@ public:
 	//! True if a box should be drawn to represent the logical position of the mouse
 	virtual void DrawMouse(bool Value) {};
 
+	//! True if a line should be drawn between the logical position of the mouse and the crosshair
+	virtual void DrawMouseLine(bool Value) {};
+
 	//! Set the editbox font 
 	virtual void SetEditFont(std::string Name, long Size) {};
 
@@ -90,6 +105,43 @@ public:
 
 	//! Should Dasher start and stop on left mouse button?
 	virtual void StartOnLeft(bool Value) {};
+	
+	//! Should Dasher be keyboard controlled?
+	virtual void KeyControl(bool Value) {};
+	
+	//! Should Dasher pause when the pointer leaves the window?
+	virtual void WindowPause(bool Value) {};
+
+	//! Should control mode be enabled?
+	virtual void ControlMode(bool Value) {};
+
+	//! Should advanced colour mode be enabled?
+	virtual void ColourMode(bool Value) {};	
+
+	//! Should keyboard input be enabled?
+	virtual void KeyboardMode(bool Value) {};
+
+	//! Should Dasher start based on the mouse position?
+	virtual void MouseposStart(bool Value) {};
+
+	//! Should Dasher draw outlines around boxes?
+	virtual void OutlineBoxes(bool Value) {};
+
+	//! Should Dasher speak?
+	virtual void Speech(bool Value) {};
+
+	//! Should Dasher automatically change colour scheme?
+	virtual void PaletteChange(bool Value) {};
+
+	//! How uniform (ie, non-predictive) should the language model be?
+	virtual void SetUniform(int Value) {};
+
+	//! How should the Y axis input be scaled?
+	virtual void SetYScale(int Value) {};
+
+	//! How far from the centre line should mouse start position boxes be?
+	virtual void SetMousePosDist(int Value) {};
+
 };
 
 
@@ -111,9 +163,17 @@ namespace Keys
 	extern const std::string SHOW_SLIDER;
 	extern const std::string COPY_ALL_ON_STOP;
 	extern const std::string DRAW_MOUSE;
+	extern const std::string DRAW_MOUSELINE;
 	extern const std::string START_SPACE;
 	extern const std::string START_MOUSE;
-	
+	extern const std::string KEY_CONTROL;
+	extern const std::string WINDOW_PAUSE;
+	extern const std::string CONTROL_MODE;
+	extern const std::string KEYBOARD_MODE;
+	extern const std::string MOUSEPOS_START;
+	extern const std::string SPEECH_MODE;
+	extern const std::string OUTLINE_MODE;
+	extern const std::string PALETTE_CHANGE;
 	// long options
 	extern const std::string FILE_ENCODING;
 	extern const std::string MAX_BITRATE_TIMES100;
@@ -126,9 +186,14 @@ namespace Keys
 	extern const std::string SCREEN_HEIGHT;
 	extern const std::string DASHER_FONTSIZE;
 	extern const std::string DASHER_DIMENSIONS;
-	
+	extern const std::string DASHER_EYETRACKER;
+	extern const std::string UNIFORM;
+	extern const std::string YSCALE;
+	extern const std::string MOUSEPOSDIST;
+
 	// string options
 	extern const std::string ALPHABET_ID;
+	extern const std::string COLOUR_ID;
 	extern const std::string DASHER_FONT;
 	extern const std::string EDIT_FONT;
 }
