@@ -141,9 +141,12 @@ void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, O
 
   Gdk_Color some_color;
   Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
-  some_color.set_red((Color & 1) * 30000 + 30000 );
-  some_color.set_green(((Color & 2) >> 1 ) * 30000 + 30000);
-  some_color.set_blue(((Color & 3) >> 2 ) * 30000 + 30000);
+  some_color.set_red(((ColorScheme * 3 + Color) & 1) * 30000 + 30000 );
+  some_color.set_green(((ColorScheme * 3 + Color) >> 1 ) * 30000 + 30000);
+  some_color.set_blue(((ColorScheme * 3 + Color) >> 2 ) * 30000 + 30000);
+
+  //  cout << "Colour: " << Color << " (" << (Color & 1) * 30000 + 30000 << ", " << ((Color & 2) >> 1 ) * 30000 + 30000 << ", " << ((Color & 3) >> 2 ) * 30000 + 30000 << " = " << ColorScheme << endl;
+
   some_colormap.alloc(some_color);
   graphics_context.set_foreground(some_color);
 
