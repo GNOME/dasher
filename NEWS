@@ -1,3 +1,15 @@
+============
+Dasher 3.2.9
+============
+
+Changed default compile options so accessibility, speech and gnome support
+are built by default. Use --with-gnome=false, --with-speech=false and 
+--with-gnome=false to disable this
+
+Fixed bugs related to control-mode crashing and colour selection not working
+
+A couple of minor build-system cleanups
+
 =============================================
 Dasher 3.2.8 - "Meaningless phrase goes here"
 =============================================
