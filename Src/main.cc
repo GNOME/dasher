@@ -250,9 +250,7 @@ main(int argc, char *argv[])
   setup_speech();
 #endif
 
-#ifdef GNOME_A11Y
   setupa11y();
-#endif
 
   controltree=gettree();
   add_control_tree(controltree);
