@@ -1,0 +1,65 @@
+The Dasher colour scheme format has been designed so that any colour
+scheme should work with any alphabet. Alphabets may define a preferred
+colour scheme - however, they should not depend upon it.
+
+Alphabet files may define colours using the b attribute. Letters should be
+between 10 and 109, and groups between 110 and 129 (both inclusive)
+
+The following colours should exist in a colour scheme file:
+
+Colour 0:
+This will be the background of the canvas
+
+Colour 1:
+The line drawn between the crosshair and the mouse position
+
+Colour 2:
+The box drawn to show the mouse position
+
+Colour 3:
+The box outlines if "Draw outlines around boxes" is enabled
+
+Colour 4:
+The default colour for text
+
+Colour 5:
+The colour of the crosshairs
+
+Colour 6:
+Shows where button input will zoom to
+
+Colour 7:
+The background of the root node
+
+Colour 8:
+The colour of the control node
+
+Colour 9:
+The colour of the space and paragraph symbols
+
+Colours 10-109:
+These represent the node colours for letters.
+
+Colours 110-129:
+These represent the node colours for groups.
+
+Colours 130-137:
+Current unusued, but must exist. Please do not reuse for other purposes
+
+Colour 138:
+The alternate control node colour
+
+Colour 139:
+The alternate space and paragraph node colour
+
+Colours 140-239:
+The alternate letter colours
+
+Colour 240:
+Should be a green colour
+
+Colour 241:
+Should be an amber colour
+
+Colour 242:
+Should be a red colour
