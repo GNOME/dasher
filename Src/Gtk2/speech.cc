@@ -37,6 +37,8 @@ void setup_speech() {
 
   CORBA_free (servers);
 
+  GNOME_Speech_SynthesisDriver_driverInit (rv, &ev);
+
   voices = GNOME_Speech_SynthesisDriver_getAllVoices (rv, &ev);
 
   speaker = GNOME_Speech_SynthesisDriver_createSpeaker (rv,
