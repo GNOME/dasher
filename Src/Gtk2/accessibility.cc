@@ -23,7 +23,7 @@ ControlTree* gettree() {
   menutree->pointer=NULL;
   menutree->data=0;
   menutree->text="Menus";
-  menutree->colour=0;
+  menutree->colour=-1;
   numchildren = Accessible_getChildCount(desktop);
   for (int i=0; i<numchildren; i++) {
     child=Accessible_getChildAtIndex(desktop,i);
@@ -53,7 +53,7 @@ ControlTree* buildcontroltree() {
   dummy->next=NULL;
   dummy->children=menutree;
   dummy->text="Control";
-  dummy->colour=112;
+  dummy->colour=8;
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=dummy;
@@ -72,19 +72,19 @@ ControlTree* buildcontroltree() {
   movetree->text="Move";
   movetree->next=deletetree;
   movetree->children=buildmovetree(movetree);
-  movetree->colour=0;
+  movetree->colour=-1;
   deletetree->pointer=NULL;
   deletetree->data=0;
   deletetree->children=builddeletetree(deletetree);
   deletetree->text="Delete";
   deletetree->next=speaktree;
-  deletetree->colour=0;
+  deletetree->colour=-1;
   speaktree->pointer=(void*)1;
   speaktree->data=0;
   speaktree->children=buildspeaktree(speaktree);
   speaktree->text="Speak";
   speaktree->next=NULL;
-  speaktree->colour=0;
+  speaktree->colour=-1;
   return stoptree;
 }
 
@@ -98,25 +98,25 @@ ControlTree* buildmovetree(ControlTree *movetree) {
   lefttree->children=lefttree;
   lefttree->text="Previous";
   lefttree->next=righttree;
-  lefttree->colour=0;
+  lefttree->colour=-1;
   righttree->pointer=(void*)1;
   righttree->data=12;
   righttree->children=lefttree;
   righttree->text="Next";
   righttree->next=beginningtree;
-  righttree->colour=0;
+  righttree->colour=-1;
   beginningtree->pointer=(void*)1;
   beginningtree->data=13;
   beginningtree->children=lefttree;
   beginningtree->text="Beginning";
   beginningtree->next=endtree;
-  beginningtree->colour=0;
+  beginningtree->colour=-1;
   endtree->pointer=(void*)1;
   endtree->data=14;
   endtree->children=lefttree;
   endtree->text="End";
   endtree->next=NULL;
-  endtree->colour=0;
+  endtree->colour=-1;
   return lefttree;
 }
 
@@ -129,19 +129,19 @@ ControlTree* buildspeaktree(ControlTree *speaktree) {
   alltree->children=dummy;
   alltree->text="Everything";
   alltree->next=newtree;
-  alltree->colour=0;
+  alltree->colour=-1;
   newtree->pointer=(void*)1;
   newtree->data=5;
   newtree->children=dummy;
   newtree->text="New";
   newtree->next=lasttree;
-  newtree->colour=0;
+  newtree->colour=-1;
   lasttree->pointer=(void*)1;
   lasttree->data=6;
   lasttree->children=dummy;
   lasttree->text="Repeat";
   lasttree->next=NULL;
-  lasttree->colour=0;
+  lasttree->colour=-1;
   return alltree;
 }
 
@@ -160,23 +160,23 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
   forwardtree->next=backwardtree;
   forwardtree->children=forwardchar;
   forwardtree->text="Forward";
-  forwardtree->colour=0;
+  forwardtree->colour=-1;
   backwardtree->pointer=NULL;
   backwardtree->data=0;
   backwardtree->next=NULL;
   backwardtree->children=backwardchar;
   backwardtree->text="Backward";
-  backwardtree->colour=0;
+  backwardtree->colour=-1;
 
   forwardchar->pointer=(void*)1;
   forwardchar->data=21;
   forwardchar->children=forwardtree;
   forwardchar->next=forwardword;
   forwardchar->text="Character";
-  forwardchar->colour=0;
+  forwardchar->colour=-1;
   forwardword->pointer=(void*)1;
   forwardword->data=22;
-  forwardword->colour=0;
+  forwardword->colour=-1;
   forwardword->children=forwardtree;
   forwardword->next=forwardline;
   forwardword->text="Word";
@@ -185,26 +185,26 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
   forwardline->children=forwardtree;
   forwardline->next=NULL;
   forwardline->text="Line";
-  forwardline->colour=0;
+  forwardline->colour=-1;
 
   backwardchar->pointer=(void*)1;
   backwardchar->data=24;
   backwardchar->children=forwardtree;
   backwardchar->next=backwardword;
   backwardchar->text="Character";
-  backwardchar->colour=0;
+  backwardchar->colour=-1;
   backwardword->pointer=(void*)1;
   backwardword->data=25;
   backwardword->children=forwardtree;
   backwardword->next=backwardline;
   backwardword->text="Word";
-  backwardword->colour=0;
+  backwardword->colour=-1;
   backwardline->pointer=(void*)1;
   backwardline->data=26;
   backwardline->children=forwardtree;
   backwardline->next=NULL;
   backwardline->text="Line";
-  backwardline->colour=0;
+  backwardline->colour=-1;
 
   return forwardtree;
 }
@@ -221,7 +221,7 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
   NewNode->children=NULL;
   NewNode->next=NULL;
   NewNode->pointer=NULL;
-  NewNode->colour=0;
+  NewNode->colour=-1;
   // We don't insert ourselves just yet, though
 
   numchildren=Accessible_getChildCount(parent);

@@ -88,7 +88,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 
 	  while(controltree!=NULL) {
 	    i++;
-	    if (controltree->colour!=0) {
+	    if (controltree->colour!=-1) {
 	      m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,controltree->colour,controltree);
 	    } else {
 	      m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
