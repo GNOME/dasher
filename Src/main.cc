@@ -62,6 +62,7 @@ gboolean timedata=FALSE;
 gboolean preferences=FALSE;
 gboolean textentry=FALSE;
 extern gboolean setup,paused;
+extern int optind;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
@@ -242,6 +243,10 @@ main(int argc, char *argv[])
 #endif
 
   add_control_tree(gettree());
+
+  if (optind<argc) {
+    open_file(argv[optind]);
+  }
 
   gtk_main ();
 

@@ -121,6 +121,7 @@ gint fileencoding;
 
 gint outputcharacters;
 
+time_t dasherstarttime;
 time_t starttime=0;
 time_t starttime2=0;
 
@@ -2147,6 +2148,7 @@ void stop() {
     dasher_unpause( get_time() );
     paused = FALSE;
     starttime=starttime2=0;
+    dasherstarttime=time(NULL);
   } else {
     // should really be the current position, but that's not necessarily anywhere near the canvas
     // and it doesn't seem to actually matter in any case
@@ -2164,7 +2166,8 @@ void stop() {
     if (timedata==TRUE) {
       // Just a debugging thing
       printf(_("%d characters output in %d seconds\n"),outputcharacters,
-	     time(NULL)-starttime);
+	     time(NULL)-dasherstarttime);
+      outputcharacters=0;
     }
     if (mouseposstart==true) {
       firstbox=true;

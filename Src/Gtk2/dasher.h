@@ -4,6 +4,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
 
+extern "C" void open_file (const char *filename);
 extern "C" void clipboard_copy(void);
 extern "C" void clipboard_cut(void);
 extern "C" void clipboard_paste(void);
