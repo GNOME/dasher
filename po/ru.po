@@ -1,400 +1,527 @@
+# translation of dasher.HEAD.po to Russian
 # Russian translation of Dasher.
 # Copyright (C) 2004 THE Dasher'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the Dasher package.
 # Alex Ziranov <estyler@yandex.ru>, 2004.
-# 
+# Leonid Kanter <leon@asplinux.ru>, 2004.
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: Dasher VERSION\n"
-"POT-Creation-Date: 2003-11-17 15:58+0000\n"
-"PO-Revision-Date: 2004-01-28 07:01+0500\n"
-"Last-Translator: Alex Ziranov <estyler@yandex.ru>\n"
+"Project-Id-Version: dasher.HEAD\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2004-03-22 03:19+0100\n"
+"PO-Revision-Date: 2004-03-22 12:07+0200\n"
+"Last-Translator: Leonid Kanter <leon@asplinux.ru>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=koi8-r\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3.1\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: Src/Gtk2/dasher.cc:161
+#: Src/Gtk2/accessibility.cc:62
+msgid "Menus"
+msgstr "п°п╣п╫я▌"
+
+#: Src/Gtk2/accessibility.cc:69
+msgid "Windows"
+msgstr "п·п╨п╫п╟"
+
+#: Src/Gtk2/accessibility.cc:74
+msgid "Application"
+msgstr "п÷я─п╦п╩п╬п╤п╣п╫п╦п╣"
+
+#: Src/Gtk2/accessibility.cc:81
+msgid "Buttons"
+msgstr "п п╫п╬п©п╨п╦"
+
+#: Src/Gtk2/accessibility.cc:87
+msgid "Panels"
+msgstr "п÷п╟п╫п╣п╩п╦"
+
+#: Src/Gtk2/accessibility.cc:94
+msgid "Text"
+msgstr "п╒п╣п╨я│я┌"
+
+#: Src/Gtk2/accessibility.cc:168 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/dashergpe.glade.h:28
+msgid "Control"
+msgstr "п╜п╩п╣п╪п╣п╫я┌ я┐п©я─п╟п╡п╩п╣п╫п╦я▐"
+
+#: Src/Gtk2/accessibility.cc:173
+msgid "Stop"
+msgstr "п║я┌п╬п©"
+
+#: Src/Gtk2/accessibility.cc:179
+msgid "Pause"
+msgstr "п÷п╟я┐п╥п╟"
+
+#: Src/Gtk2/accessibility.cc:186
+msgid "Move"
+msgstr "п÷п╣я─п╣п╪п╣я│я┌п╦я┌я▄"
+
+#: Src/Gtk2/accessibility.cc:193
+msgid "Delete"
+msgstr "пёп╢п╟п╩п╦я┌я▄"
+
+#: Src/Gtk2/accessibility.cc:202
+msgid "Speak"
+msgstr "п÷я─п╬п╦п╥п╫п╣я│я┌п╦"
+
+#: Src/Gtk2/accessibility.cc:220 Src/Gtk2/accessibility.cc:289
+msgid "<"
+msgstr "<"
+
+#: Src/Gtk2/accessibility.cc:226 Src/Gtk2/accessibility.cc:283
+msgid ">"
+msgstr ">"
+
+#: Src/Gtk2/accessibility.cc:232
+msgid "<<<"
+msgstr "<<<"
+
+#: Src/Gtk2/accessibility.cc:238
+msgid ">>>"
+msgstr ">>>"
+
+#: Src/Gtk2/accessibility.cc:251
+msgid "Everything"
+msgstr "п▓я│я▒"
+
+#: Src/Gtk2/accessibility.cc:257
+msgid "New"
+msgstr "п║п╬п╥п╢п╟я┌я▄"
+
+#: Src/Gtk2/accessibility.cc:263
+msgid "Repeat"
+msgstr "п÷п╬п╡я┌п╬я─п╦я┌я▄"
+
+#: Src/Gtk2/accessibility.cc:295 Src/Gtk2/accessibility.cc:318
+msgid "Character"
+msgstr "п║п╦п╪п╡п╬п╩"
+
+#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:328
+msgid "Word"
+msgstr "п║п╩п╬п╡п╬"
+
+#: Src/Gtk2/accessibility.cc:311 Src/Gtk2/accessibility.cc:334
+msgid "Line"
+msgstr "п║я┌я─п╬п╨п╟"
+
+#: Src/Gtk2/accessibility.cc:414
+msgid "Unknown"
+msgstr "п²п╣п╦п╥п╡п╣я│я┌п╫п╬"
+
+#: Src/Gtk2/dasher.cc:178
 msgid "Training Dasher, please wait"
-msgstr "Тренируем Dasher, пожалуйста подождите"
+msgstr "п≤п╢п╣я┌ я┌я─п╣п╫п╦я─п╬п╡п╨п╟ Dasher, п©п╬п╢п╬п╤п╢п╦я┌п╣, п©п╬п╤п╟п╩я┐п╧я│я┌п╟"
 
-#: Src/Gtk2/dasher.cc:1638
+#: Src/Gtk2/dasher.cc:626 Src/Gtk2/dasher.cc:639 Src/Gtk2/dasher.cc:652
+#: Src/Gtk2/dasher.cc:665 Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "п▓я▀п╠п╬я─ я└п╟п╧п╩"
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/dasher.cc:1585
 msgid "translator_credits"
 msgstr ""
+"Alex Ziranov <estyler@yandex.ru>\n"
+"п⌡п╣п╬п╫п╦п╢ п п╟п╫я┌п╣я─ <leon@asplinux.ru>"
 
-#: Src/Gtk2/dasher.cc:1640 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1587 Src/Gtk2/dasher.glade.h:32
+#: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
-msgstr ""
+msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1643
+#: Src/Gtk2/dasher.cc:1590
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher - средство предиктивного ввода текста"
+msgstr "Dasher - я│я─п╣п╢я│я┌п╡п╬ п©я─п╣п╢п╦п╨я┌п╦п╡п╫п╬пЁп╬ п╡п╡п╬п╢п╟ я┌п╣п╨я│я┌п╟"
 
-#: Src/Gtk2/dasher.glade.h:1
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:1997
+#, c-format
+msgid "%d characters output in %d seconds\n"
+msgstr "п▓я▀п╡п╣п╢п╣п╫п╬ %d я│п╦п╪п╡п╬п╩п╬п╡ п╥п╟ %d я│п╣п╨я┐п╫п╢\n"
+
+#: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
-msgstr ""
+msgstr "5:"
 
-#: Src/Gtk2/dasher.glade.h:2
+#: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
 msgid "6:"
-msgstr ""
+msgstr "6:"
 
-#: Src/Gtk2/dasher.glade.h:3
+#: Src/Gtk2/dasher.glade.h:3 Src/Gtk2/dashergpe.glade.h:3
 msgid "7:"
-msgstr ""
+msgstr "7:"
 
-#: Src/Gtk2/dasher.glade.h:4
+#: Src/Gtk2/dasher.glade.h:4 Src/Gtk2/dashergpe.glade.h:4
 msgid "8:"
-msgstr ""
+msgstr "8:"
 
-#: Src/Gtk2/dasher.glade.h:5
+#: Src/Gtk2/dasher.glade.h:5 Src/Gtk2/dashergpe.glade.h:5
 msgid "9:"
-msgstr ""
+msgstr "9:"
 
-#: Src/Gtk2/dasher.glade.h:6
+#: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>Выбор Алфавита:</b>"
+msgstr "<b>п▓я▀п╠п╬я─ п╟п╩я└п╟п╡п╦я┌п╟:</b>"
 
-#: Src/Gtk2/dasher.glade.h:7
+#: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
-msgstr "<b>Настройка кнопок</b>"
+msgstr "<b>п²п╟я│я┌я─п╬п╧п╨п╟ п╨п╫п╬п©п╬п╨</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Выбор Цвета</b>"
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
+msgid "<b>Color Selection:</b>"
+msgstr "<b>п▓я▀п╠п╬я─ я├п╡п╣я┌п╟:</b>"
 
-#: Src/Gtk2/dasher.glade.h:9
+#: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
-msgstr "<b>Стиль Элемента Управления</b>"
+msgstr "<b>п║я┌п╦п╩я▄ я█п╩п╣п╪п╣п╫я┌п╟ я┐п©я─п╟п╡п╩п╣п╫п╦я▐:</b>"
 
-#: Src/Gtk2/dasher.glade.h:10
+#: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>Различные Настройки</b>"
+msgstr "<b>п═п╟п╥п╩п╦я┤п╫я▀п╣ п©п╟я─п╟п╪п╣я┌я─я▀:</b>"
 
-#: Src/Gtk2/dasher.glade.h:11
+#: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
-msgstr "<b>Ориентация:</b>"
+msgstr "<b>п·я─п╦п╣п╫я┌п╟я├п╦я▐:</b>"
 
-#: Src/Gtk2/dasher.glade.h:12
+#: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
 msgid "<b>Smoothing:</b>"
-msgstr "<b>Сглаживание:</b>"
+msgstr "<b>п║пЁп╩п╟п╤п╦п╡п╟п╫п╦п╣:</b>"
 
-#: Src/Gtk2/dasher.glade.h:13
+#: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>Запуск И Остановка:</b>"
+msgstr "<b>п≈п╟п©я┐я│п╨ п╦ п╬я│я┌п╟п╫п╬п╡:</b>"
 
-#: Src/Gtk2/dasher.glade.h:14
+#: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Режим Переключателя</b>"
+msgstr "<b>п═п╣п╤п╦п╪ п©п╣я─п╣п╨п╩я▌я┤п╟я┌п╣п╩я▐:</b>"
 
-#: Src/Gtk2/dasher.glade.h:15
+#: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
-msgstr "<b>Настройка Внешнего Вида</b>"
+msgstr "<b>п÷п╟я─п╟п╪п╣я┌я─я▀ п©я─п╬я│п╪п╬я┌я─п╟:</b>"
 
-#: Src/Gtk2/dasher.glade.h:16
+#: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y Координаты</b>"
+msgstr "<b>п п╬п╬я─п╢п╦п╫п╟я┌я▀ X/Y:</b>"
 
-#: Src/Gtk2/dasher.glade.h:17
+#: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Настройки Оси Y</b>"
+msgstr "<b>п÷п╟я─п╟п╪п╣я┌я─я▀ п╬я│п╦ Y:</b>"
 
-#: Src/Gtk2/dasher.glade.h:18
+#: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
-msgstr "Расширенный"
+msgstr "п■п╬п©п╬п╩п╫п╦я┌п╣п╩п╫п╬"
 
-#: Src/Gtk2/dasher.glade.h:19
+#: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
-msgstr "Алфавит"
+msgstr "п░п╩я└п╟п╡п╦я┌"
 
-#: Src/Gtk2/dasher.glade.h:20
+#: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
 msgid "Alphabet Default"
-msgstr "Алфавит по умолчанию"
+msgstr "п░п╩я└п╟п╡п╦я┌ п©п╬ я┐п╪п╬п╩я┤п╟п╫п╦я▌"
 
-#: Src/Gtk2/dasher.glade.h:21
+#: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
-msgstr "Снизу Вверх"
+msgstr "п║п╫п╦п╥я┐ п╡п╡п╣я─я┘"
 
-#: Src/Gtk2/dasher.glade.h:22
+#: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
-msgstr "Настройка кнопки"
+msgstr "п²п╟я│я┌я─п╬п╧п╨п╟ п╨п╫п╬п©п╨п╦"
 
-#: Src/Gtk2/dasher.glade.h:23
+#: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
 msgid "Button mode"
-msgstr "Режим кнопки"
+msgstr "п═п╣п╤п╦п╪ п╨п╫п╬п©п╨п╦"
 
-#: Src/Gtk2/dasher.glade.h:24
+#: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
-msgstr "Кнопка:"
+msgstr "п п╫п╬п©п╨п╟:"
 
 #: Src/Gtk2/dasher.glade.h:25
-msgid "Change colour scheme automatically"
-msgstr "Автоматически менять цветовую схему"
+msgid "Change color scheme automatically"
+msgstr "п░п╡я┌п╬п╪п╟я┌п╦я┤п╣я│п╨п╦ п╪п╣п╫я▐я┌я▄ я├п╡п╣я┌п╬п╡я┐я▌ я│я┘п╣п╪я┐"
 
-#: Src/Gtk2/dasher.glade.h:26
-msgid "Colour"
-msgstr "Цвет"
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
+msgid "Color"
+msgstr "п╕п╡п╣я┌"
 
-#: Src/Gtk2/dasher.glade.h:27
-msgid "Control"
-msgstr "Элемент управления"
-
-#: Src/Gtk2/dasher.glade.h:28
+#: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
-msgstr "Режим элемента управления"
+msgstr "п═п╣п╤п╦п╪ я█п╩п╣п╪п╣п╫я┌п╟ я┐п©я─п╟п╡п╩п╣п╫п╦я▐"
 
-#: Src/Gtk2/dasher.glade.h:29
-msgid "Copy"
-msgstr "Копировать"
-
-#: Src/Gtk2/dasher.glade.h:30
+#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:31
 msgid "Copy _All"
-msgstr "Копировать Все"
+msgstr "п п╬п©п╦я─п╬п╡п╟я┌я▄ _п╡я│п╣"
 
-#: Src/Gtk2/dasher.glade.h:31
+#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:32
 msgid "Copy all on stop"
-msgstr "Копировать все при остановке"
+msgstr "п п╬п©п╦я─п╬п╡п╟я┌я▄ п╡я│п╣ п©я─п╦ п╬я│я┌п╟п╫п╬п╡п╨п╣"
 
-#: Src/Gtk2/dasher.glade.h:32
-msgid "Cut"
-msgstr "Вырезать"
-
-#: Src/Gtk2/dasher.glade.h:33
+#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
-msgstr "Циклический режим кнопок"
+msgstr "п╕п╦п╨п╩п╦я┤п╣я│п╨п╦п╧ я─п╣п╤п╦п╪ п╨п╫п╬п©п╬п╨"
 
-#: Src/Gtk2/dasher.glade.h:35
+#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
-msgstr "Настройки Dasher'а"
+msgstr "п²п╟я│я┌я─п╬п╧п╨п╟ Dasher"
 
-#: Src/Gtk2/dasher.glade.h:36
+#: Src/Gtk2/dasher.glade.h:34 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
-"Расстояние от центральной линии до положения мыши, достаточное для старта"
+msgstr "п═п╟я│я│я┌п╬я▐п╫п╦п╣ п╬я┌ я├п╣п╫я┌я─п╟п╩я▄п╫п╬п╧ п╩п╦п╫п╦п╦ п╢п╬ п©п╬п╩п╬п╤п╣п╫п╦я▐ п╪я▀я┬п╦, п╢п╬я│я┌п╟я┌п╬я┤п╫п╬п╣ п╢п╩я▐ я│я┌п╟я─я┌п╟:"
 
-#: Src/Gtk2/dasher.glade.h:37
+#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
-msgstr "Вниз/3"
+msgstr "п▓п╫п╦п╥/3:"
 
-#: Src/Gtk2/dasher.glade.h:38
+#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
-msgstr "Рисовать внешние линии прямоугольников"
+msgstr "п═п╦я│п╬п╡п╟я┌я▄ п╡п╫п╣я┬п╫п╦п╣ п╩п╦п╫п╦п╦ п©я─я▐п╪п╬я┐пЁп╬п╩я▄п╫п╦п╨п╬п╡"
 
-#: Src/Gtk2/dasher.glade.h:39
+#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr "Рисовать линию между перекрестием и мышью"
+msgstr "п═п╦я│п╬п╡п╟я┌я▄ п╩п╦п╫п╦я▌ п╪п╣п╤п╢я┐ п©п╣я─п╣п╨я─п╣я│я┌я▄п╣п╪ п╦ п╪я▀я┬я▄я▌"
 
-#: Src/Gtk2/dasher.glade.h:40
+#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
-msgstr "Редактировать настройки Кнопок"
+msgstr "п═п╣п╢п╟п╨я┌п╦я─п╬п╡п╟я┌я▄ п╫п╟я│я┌я─п╬п╧п╨п╦ п╨п╫п╬п©п╬п╨"
 
-#: Src/Gtk2/dasher.glade.h:41
+#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
-msgstr "Ввести текст в другие окна"
+msgstr "п▓п╡п╣я│я┌п╦ я┌п╣п╨я│я┌ п╡ п╢я─я┐пЁп╦п╣ п╬п╨п╫п╟"
 
-#: Src/Gtk2/dasher.glade.h:42
+#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
-msgstr "Режим Глазной мыши"
+msgstr "п═п╣п╤п╦п╪ я│п╩п╣п╤п╣п╫п╦я▐ п╥п╟ п╡п╥пЁп╩я▐п╢п╬п╪"
 
-#: Src/Gtk2/dasher.glade.h:43
+#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:44
 msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
-"Если выбран этот режим, вверх и вниз будут циклическими координатами вперед и "
-"назад, а вправо будет подтверждать выбор"
+"п∙я│п╩п╦ п╡я▀п╠я─п╟п╫ я█я┌п╬я┌ я─п╣п╤п╦п╪, п╡п╡п╣я─я┘ п╦ п╡п╫п╦п╥ п╠я┐п╢я┐я┌\n"
+"п©я─п╬п╨я─я┐я┤п╦п╡п╟я┌я▄ п╨п╬п╬я─п╢п╦п╫п╟я┌я▀ п╡п©п╣я─п╣п╢ п╦ п╫п╟п╥п╟п╢, п╟ п╡п©я─п╟п╡п╬ п╠я┐п╢п╣я┌ п©п╬п╢я┌п╡п╣я─п╤п╢п╟я┌я▄ п╡я▀п╠п╬я─"
 
-#: Src/Gtk2/dasher.glade.h:45
+#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
-msgstr "Большой"
+msgstr "п▒п╬п╩я▄я┬п╬п╧"
 
-#: Src/Gtk2/dasher.glade.h:46
+#: Src/Gtk2/dasher.glade.h:44 Src/Gtk2/dashergpe.glade.h:47
 msgid "Left to Right"
-msgstr "Слева Направо"
+msgstr "п║п╩п╣п╡п╟ п╫п╟п©я─п╟п╡п╬"
 
-#: Src/Gtk2/dasher.glade.h:47
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:48
 msgid "Left/2:"
-msgstr "Влево/2"
+msgstr "п▓п╩п╣п╡п╬/2:"
 
-#: Src/Gtk2/dasher.glade.h:48
-msgid "New file"
-msgstr "Новый файл"
-
-#: Src/Gtk2/dasher.glade.h:49
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:50
 msgid "Normal"
-msgstr "Нормальный"
+msgstr "п²п╬я─п╪п╟п╩я▄п╫я▀п╧"
 
-#: Src/Gtk2/dasher.glade.h:50
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr "Количество пикселей, которые должны покрыть все направление y"
+msgstr "п п╬п╩п╦я┤п╣я│я┌п╡п╬ п©п╦п╨я│п╣п╩п╬п╡, п╨п╬я┌п╬я─п╬п╣ п╢п╬п╩п╤п╫я▀ п©п╬п╨я─я▀я┌я▄ п╡я│п╣ п╫п╟п©я─п╟п╡п╩п╣п╫п╦п╣ y:"
 
-#: Src/Gtk2/dasher.glade.h:51
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
-msgstr "Одномерный режим"
+msgstr "п·п╢п╫п╬п╪п╣я─п╫я▀п╧ я─п╣п╤п╦п╪"
 
-#: Src/Gtk2/dasher.glade.h:52
-msgid "Open file"
-msgstr "Открыть файл"
-
-#: Src/Gtk2/dasher.glade.h:53
-msgid "Paste"
-msgstr "Вставить"
-
-#: Src/Gtk2/dasher.glade.h:54
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
-msgstr "Приостанавливать вне окна"
+msgstr "п÷я─п╦п╬я│я┌п╟п╫п╟п╡п╩п╦п╡п╟я┌я▄ п╥п╟ п©я─п╣п╢п╣п╩п╟п╪п╦ п╬п╨п╫п╟"
 
-#: Src/Gtk2/dasher.glade.h:55
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
-msgstr "Справа на лево"
+msgstr "п║п©я─п╟п╡п╟ п╫п╟п╩п╣п╡п╬"
 
-#: Src/Gtk2/dasher.glade.h:56
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:58
 msgid "Right/4:"
-msgstr "Вправо/4"
+msgstr "п▓п©я─п╟п╡п╬/4:"
+
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:62
+msgid "Select Font"
+msgstr "п▓я▀п╠п╬я─ я┬я─п╦я└я┌п╟"
+
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:63
+msgid "Show mouse position"
+msgstr "п·я┌п╬п╠я─п╟п╤п╟я┌я▄ п©п╬п╩п╬п╤п╣п╫п╦п╣ п╪я▀я┬п╦"
+
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:64
+msgid "Show speed slider"
+msgstr "п·я┌п╬п╠я─п╟п╤п╟я┌я▄ п©п╬п╩п╥я┐п╫п╬п╨ я│п╨п╬я─п╬я│я┌п╦"
+
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:65
+msgid "Show toolbar"
+msgstr "п·я┌п╬п╠я─п╟п╤п╟я┌я▄ п©п╟п╫п╣п╩я▄ п╦п╫я│я┌я─я┐п╪п╣п╫я┌п╬п╡"
+
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:66
+msgid "Speak on stop"
+msgstr "п÷я─п╬пЁп╬п╡п╬я─п╦я┌я▄ п©я─п╦ п╬я│я┌п╟п╫п╬п╡п╨п╣"
 
 #: Src/Gtk2/dasher.glade.h:57
-msgid "Save file"
-msgstr "Сохранить файл"
-
-#: Src/Gtk2/dasher.glade.h:58
-msgid "Save file as"
-msgstr "Сохранить файл как"
-
-#: Src/Gtk2/dasher.glade.h:59
-msgid "Select File"
-msgstr "Выберите файл"
-
-#: Src/Gtk2/dasher.glade.h:60
-msgid "Select Font"
-msgstr "Выбор Шрифта"
-
-#: Src/Gtk2/dasher.glade.h:61
-msgid "Show mouse position"
-msgstr "Отображать положение мыши"
-
-#: Src/Gtk2/dasher.glade.h:62
-msgid "Show speed slider"
-msgstr "Отображать ползунок скорости"
-
-#: Src/Gtk2/dasher.glade.h:63
-msgid "Show toolbar"
-msgstr "Отображать панель инструментов"
-
-#: Src/Gtk2/dasher.glade.h:64
-msgid "Speak on stop"
-msgstr "Сказать при остановке"
-
-#: Src/Gtk2/dasher.glade.h:65
 msgid "Speed"
-msgstr "Скорость"
+msgstr "п║п╨п╬я─п╬я│я┌я▄"
 
-#: Src/Gtk2/dasher.glade.h:66
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
-msgstr "Начинать с нажатия левой кнопки мыши"
+msgstr "п²п╟я┤п╦п╫п╟я┌я▄ я│ п╫п╟п╤п╟я┌п╦я▐ п╩п╣п╡п╬п╧ п╨п╫п╬п©п╨п╦ п╪я▀я┬п╦"
 
-#: Src/Gtk2/dasher.glade.h:67
+#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
-msgstr "Начинать с нажатия пробела"
+msgstr "п²п╟я┤п╦п╫п╟я┌я▄ я│ п╫п╟п╤п╟я┌п╦я▐ п©я─п╬п╠п╣п╩п╟"
 
-#: Src/Gtk2/dasher.glade.h:68
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
-msgstr "Начинать с положения мыши"
+msgstr "п²п╟я┤п╦п╫п╟я┌я▄ я│ п©п╬п╩п╬п╤п╣п╫п╦я▐ п╪я▀я┬п╦"
 
-#: Src/Gtk2/dasher.glade.h:69
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
-msgstr "Ставить дату в новых файлах"
+msgstr "п║я┌п╟п╡п╦я┌я▄ п╢п╟я┌я┐ п╡ п╫п╬п╡я▀я┘ я└п╟п╧п╩п╟я┘"
 
-#: Src/Gtk2/dasher.glade.h:70
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
-msgstr "Сверху Вниз"
+msgstr "п║п╡п╣я─я┘я┐ п╡п╫п╦п╥"
 
-#: Src/Gtk2/dasher.glade.h:71
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training"
-msgstr "Обучение"
+msgstr "п·п╠я┐я┤п╣п╫п╦п╣"
 
-#: Src/Gtk2/dasher.glade.h:72
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:73
 msgid "Training Dasher - please wait"
-msgstr "Обучение Dasher'а - пожалуйста подождите"
+msgstr "п≤п╢п╣я┌ п╬п╠я┐я┤п╣п╫п╦п╣ Dasher, п©п╬п╢п╬п╤п╢п╦я┌п╣, п©п╬п╤п╟п╩я┐п╧я│я┌п╟"
 
-#: Src/Gtk2/dasher.glade.h:73
+#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:74
 msgid "Up/1:"
-msgstr "Вверх/1"
+msgstr "п▓п╡п╣я─я┘/1:"
 
-#: Src/Gtk2/dasher.glade.h:74
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:75
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Используйте этот элемент управления для того, чтобы настроить размеры "
-"прямоугольников букв. Обратите внимание на то, что выбор слишком больших "
-"значений снизит скорость набора."
+"п≤я│п©п╬п╩я▄п╥я┐п╧я┌п╣ я█я┌п╬я┌ я█п╩п╣п╪п╣п╫я┌ я┐п©я─п╟п╡п╩п╣п╫п╦я▐ п╢п╩я▐ я┌п╬пЁп╬, я┤я┌п╬п╠я▀\n"
+"п╫п╟я│я┌я─п╬п╦я┌я▄ я─п╟п╥п╪п╣я─я▀ п©я─я▐п╪п╬я┐пЁп╬п╩я▄п╫п╦п╨п╬п╡ п╠я┐п╨п╡. п·п╠я─п╟я┌п╦я┌п╣\n"
+"п╡п╫п╦п╪п╟п╫п╦п╣ п╫п╟ я┌п╬, я┤я┌п╬ п╡я▀п╠п╬я─ я│п╩п╦я┬п╨п╬п╪ п╠п╬п╩я▄я┬п╦я┘\n"
+"п╥п╫п╟я┤п╣п╫п╦п╧ я│п╫п╦п╥п╦я┌ я│п╨п╬я─п╬я│я┌я▄ п╫п╟п╠п╬я─п╟."
 
-#: Src/Gtk2/dasher.glade.h:77
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
-msgstr "Очень Большой"
+msgstr "п·я┤п╣п╫я▄ п╠п╬п╩я▄я┬п╬п╧"
 
-#: Src/Gtk2/dasher.glade.h:78
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:79
 msgid "View"
-msgstr "Вид"
+msgstr "п▓п╦п╢"
 
-#: Src/Gtk2/dasher.glade.h:79
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:80
 msgid "X:"
-msgstr ""
+msgstr "X:"
 
-#: Src/Gtk2/dasher.glade.h:80
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:81
 msgid "Y:"
-msgstr ""
+msgstr "Y:"
 
-#: Src/Gtk2/dasher.glade.h:81
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:82
 msgid "_About"
-msgstr "_О программе"
+msgstr "_п· п©я─п╬пЁя─п╟п╪п╪п╣"
 
-#: Src/Gtk2/dasher.glade.h:82
+#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
-msgstr "_Присоединить к файлу"
+msgstr "_п■п╬п╠п╟п╡п╦я┌я▄ п╡ я└п╟п╧п╩"
 
-#: Src/Gtk2/dasher.glade.h:83
+#: Src/Gtk2/dasher.glade.h:75 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Dasher Font"
-msgstr "_Шрифт Dasher'а"
+msgstr "_п╗я─п╦я└я┌ Dasher"
 
-#: Src/Gtk2/dasher.glade.h:84
+#: Src/Gtk2/dasher.glade.h:76 Src/Gtk2/dashergpe.glade.h:85
 msgid "_Dasher Font Size"
-msgstr "_Размер шрифта Dasher'а"
+msgstr "_п═п╟п╥п╪п╣я─ я┬я─п╦я└я┌п╟ Dasher"
 
-#: Src/Gtk2/dasher.glade.h:85
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Edit"
-msgstr "_Правка"
+msgstr "_п÷я─п╟п╡п╨п╟"
 
-#: Src/Gtk2/dasher.glade.h:86
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:87
 msgid "_Edit Font"
-msgstr "_Редактировать Шрифт"
+msgstr "_п≤п╥п╪п╣п╫п╦я┌я▄ я┬я─п╦я└я┌"
 
-#: Src/Gtk2/dasher.glade.h:87
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:88
 msgid "_File"
-msgstr "_Файл"
+msgstr "_п╓п╟п╧п╩"
 
-#: Src/Gtk2/dasher.glade.h:88
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:89
 msgid "_Help"
-msgstr "_Помощь"
+msgstr "_п║п©я─п╟п╡п╨п╟"
 
-#: Src/Gtk2/dasher.glade.h:89
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:90
 msgid "_Import Training Text"
-msgstr "_Импортировать Обучающий Текст"
+msgstr "_п≤п╪п©п╬я─я┌ п╬п╠я┐я┤п╟я▌я┴п╣пЁп╬ я┌п╣п╨я│я┌п╟"
 
-#: Src/Gtk2/dasher.glade.h:90
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
-msgstr "_Настройки"
+msgstr "_п÷п╟я─п╟п╪п╣я┌я─я▀"
 
-#: Src/Gtk2/dasher.glade.h:91
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
-msgstr "_Сбросить шрифты"
+msgstr "_п║п╠я─п╬я│п╦я┌я▄ я┬я─п╦я└я┌я▀"
 
-#: Src/Gtk2/dasher.glade.h:92
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:93
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr ""
+msgstr "п╟п╠п╡пЁп╢п╣я▒п╤п╥п╦п╨ п░п▒п▓п⌠п■п∙п│п√п≈п≤п "
 
-#: Src/main.cc:81
+#: Src/Gtk2/dashergpe.glade.h:13
+msgid "<b>Speed</b>"
+msgstr "<b>п║п╨п╬я─п╬я│я┌я▄</b>"
+
+#: Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
+msgstr "п░п╡я┌п╬п╪п╟я┌п╦я┤п╣я│п╨п╦ п╪п╣п╫я▐я┌я▄ я├п╡п╣я┌п╬п╡я┐я▌ я│я┘п╣п╪я┐"
+
+#: Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "п п╬п©п╦я─п╬п╡п╟я┌я▄"
+
+#: Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "п▓я▀я─п╣п╥п╟я┌я▄"
+
+#: Src/Gtk2/dashergpe.glade.h:49
+msgid "New file"
+msgstr "п║п╬п╥п╢п╟я┌я▄ я└п╟п╧п╩"
+
+#: Src/Gtk2/dashergpe.glade.h:53
+msgid "Open file"
+msgstr "п·я┌п╨я─я▀я┌я▄ я└п╟п╧п╩"
+
+#: Src/Gtk2/dashergpe.glade.h:54
+msgid "Orientation"
+msgstr "п·я─п╦п╣п╫я┌п╟я├п╦я▐"
+
+#: Src/Gtk2/dashergpe.glade.h:55
+msgid "Paste"
+msgstr "п▓я│я┌п╟п╡п╦я┌я▄"
+
+#: Src/Gtk2/dashergpe.glade.h:59
+msgid "Save file"
+msgstr "п║п╬я┘я─п╟п╫п╦я┌я▄ я└п╟п╧п╩"
+
+#: Src/Gtk2/dashergpe.glade.h:60
+msgid "Save file as"
+msgstr "п║п╬я┘я─п╟п╫п╦я┌я▄ я└п╟п╧п╩ п╨п╟п╨"
+
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "п²п╣ я┐п╢п╟п╣я┌я│я▐ п╦п╫п╦я├п╦п╟п╩п╦п╥п╦я─п╬п╡п╟я┌я▄ пЁп╬п╩п╬я│п╟"
+
+#: Src/Gtk2/speech.cc:61
+#, c-format
+msgid "Warning: unable to set speech parameters\n"
+msgstr "п÷я─п╣п╢я┐п©я─п╣п╤п╢п╣п╫п╦п╣: п╫п╣ я┐п╢п╟п╣я┌я│я▐ я┐я│я┌п╟п╫п╬п╡п╦я┌я▄ п©п╟я─п╟п╪п╣я┌я─я▀ я─п╣я┤п╦\n"
+
+#: Src/main.cc:102
 msgid "Dasher Text Entry"
-msgstr "Текстовая Облась Dasher'а"
+msgstr "п·п╠п╩п╟я│я┌я▄ п╡п╡п╬п╢п╟ я┌п╣п╨я│я┌п╟ Dasher"
 
