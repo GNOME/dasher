@@ -276,6 +276,8 @@ new_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   gtk_widget_destroy (GTK_WIDGET(selector));
 
+
+  clear_edit();
   dasher_start();
   dasher_redraw();
 }

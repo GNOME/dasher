@@ -7,6 +7,7 @@ void edit_flush_callback(symbol Symbol);
 void edit_unflush_callback();
 void clipboard_callback( clipboard_action act );
 void select_all();
+void clear_edit();
 
 extern GtkWidget *the_text_view;  
 extern GtkTextBuffer *the_text_buffer;

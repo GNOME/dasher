@@ -104,3 +104,19 @@ void select_all()
   gtk_text_buffer_move_mark(the_text_buffer,selection,start);
   gtk_text_buffer_move_mark(the_text_buffer,cursor,end);
 }
+
+void clear_edit()
+{
+  GtkTextIter *start, *end;
+
+  start = new GtkTextIter;
+  end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1); 
+
+  gtk_text_buffer_delete(the_text_buffer,start,end);
+
+  flush_count = 0;
+
+}
