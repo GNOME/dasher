@@ -172,5 +172,17 @@
 <s d="¶" t="
 "/>
 </group>
+<group name="Numbers">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
 </alphabet>
 </alphabets>
