@@ -1,0 +1,472 @@
+# Беларускі пераклад dasher.HEAD.
+# translation of dasher.HEAD.po to Belarusian
+# Беларускі пераклад dasher.
+# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+# Ales Nyakhaychyk <nab@mail.by>, 2004.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher.HEAD\n"
+"POT-Creation-Date: 2003-12-09 02:40+0000\n"
+"PO-Revision-Date: 2004-02-17 01:18+0200\n"
+"Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
+"Language-Team: Belarusian <i18n@mova.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.0.2\n"
+
+#: Src/Gtk2/dasher.cc:183
+msgid "Training Dasher, please wait"
+msgstr "Навучаньне Калатоўкі, калі ласка, пачакайце..."
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/dasher.cc:1787
+msgid "translator_credits"
+msgstr "Алесь Няхайчык <nab@mail.by>"
+
+#: Src/Gtk2/dasher.cc:1789 Src/Gtk2/dasher.glade.h:34
+msgid "Dasher"
+msgstr "Калатоўка"
+
+#: Src/Gtk2/dasher.cc:1792
+msgid "Dasher is a predictive text entry application"
+msgstr "Дашар - гэта прадказальнае дастасаваньне ўводу тэкста"
+
+#. Just a debugging thing
+#: Src/Gtk2/dasher.cc:2199
+#, c-format
+msgid "%d characters output in %d seconds\n"
+msgstr "%d знакаў выведзена за %d сэкундаў\n"
+
+#: Src/Gtk2/accessibility.cc:27
+msgid "Menus"
+msgstr "Мэню"
+
+#: Src/Gtk2/accessibility.cc:57 Src/Gtk2/dasher.glade.h:27
+msgid "Control"
+msgstr "Кантроль"
+
+#: Src/Gtk2/accessibility.cc:62
+msgid "Stop"
+msgstr "Спыніць"
+
+#: Src/Gtk2/accessibility.cc:68
+msgid "Pause"
+msgstr "Прыпыніць"
+
+#: Src/Gtk2/accessibility.cc:75
+msgid "Move"
+msgstr "Перамясьціць"
+
+#: Src/Gtk2/accessibility.cc:82
+msgid "Delete"
+msgstr "Выдаліць"
+
+#: Src/Gtk2/accessibility.cc:91
+msgid "Speak"
+msgstr "Вымавіць"
+
+#: Src/Gtk2/accessibility.cc:109 Src/Gtk2/accessibility.cc:178
+msgid "<"
+msgstr "менш"
+
+#: Src/Gtk2/accessibility.cc:115 Src/Gtk2/accessibility.cc:172
+msgid ">"
+msgstr "больш"
+
+#: Src/Gtk2/accessibility.cc:121
+msgid "<<<"
+msgstr "<<<"
+
+#: Src/Gtk2/accessibility.cc:127
+msgid ">>>"
+msgstr ">>>"
+
+#: Src/Gtk2/accessibility.cc:140
+msgid "Everything"
+msgstr "Штозаўгодна"
+
+#: Src/Gtk2/accessibility.cc:146
+msgid "New"
+msgstr "Стварыць"
+
+#: Src/Gtk2/accessibility.cc:152
+msgid "Repeat"
+msgstr "Паўтарыць"
+
+#: Src/Gtk2/accessibility.cc:185 Src/Gtk2/accessibility.cc:204
+msgid "Character"
+msgstr "Знак"
+
+#: Src/Gtk2/accessibility.cc:192 Src/Gtk2/accessibility.cc:210
+msgid "Word"
+msgstr "Слова"
+
+#: Src/Gtk2/accessibility.cc:197 Src/Gtk2/accessibility.cc:216
+msgid "Line"
+msgstr "Радок"
+
+#: Src/Gtk2/dasher.glade.h:1
+msgid "5:"
+msgstr "5:"
+
+#: Src/Gtk2/dasher.glade.h:2
+msgid "6:"
+msgstr "6:"
+
+#: Src/Gtk2/dasher.glade.h:3
+msgid "7:"
+msgstr "7:"
+
+#: Src/Gtk2/dasher.glade.h:4
+msgid "8:"
+msgstr "8:"
+
+#: Src/Gtk2/dasher.glade.h:5
+msgid "9:"
+msgstr "9:"
+
+#: Src/Gtk2/dasher.glade.h:6
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>Вылучэньне абэцэды:</b>"
+
+#: Src/Gtk2/dasher.glade.h:7
+msgid "<b>Button control setup</b>"
+msgstr "<b>Наладка клявішаў кантролю</b>"
+
+#: Src/Gtk2/dasher.glade.h:8
+msgid "<b>Colour Selection:</b>"
+msgstr "<b>Вылучэньне колераў:</b>"
+
+#: Src/Gtk2/dasher.glade.h:9
+msgid "<b>Control Style:</b>"
+msgstr "<b>Стыль кантролю:</b>"
+
+#: Src/Gtk2/dasher.glade.h:10
+msgid "<b>Miscellaneous Options:</b>"
+msgstr "<b>Разнастайныя выбары:</b>"
+
+#: Src/Gtk2/dasher.glade.h:11
+msgid "<b>Orientation:</b>"
+msgstr "<b>Спагляданьне:</b>"
+
+#: Src/Gtk2/dasher.glade.h:12
+msgid "<b>Smoothing:</b>"
+msgstr "<b>Згладжваньне:</b>"
+
+#: Src/Gtk2/dasher.glade.h:13
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>Пачынаньне й спыненьне:</b>"
+
+#: Src/Gtk2/dasher.glade.h:14
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<b>Пераключэньне кнопкі рэжыму:</b>"
+
+#: Src/Gtk2/dasher.glade.h:15
+msgid "<b>View Options:</b>"
+msgstr "<b>Выбары выгляду:</b>"
+
+#: Src/Gtk2/dasher.glade.h:16
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<b>Кардынаты X/Y:</b>"
+
+#: Src/Gtk2/dasher.glade.h:17
+msgid "<b>Y Axis Options:</b>"
+msgstr "<b>Выбары восі Y:</b>"
+
+#: Src/Gtk2/dasher.glade.h:18
+msgid "Advanced"
+msgstr "Адмысловыя"
+
+#: Src/Gtk2/dasher.glade.h:19
+msgid "Alphabet"
+msgstr "Абэцэда"
+
+#: Src/Gtk2/dasher.glade.h:20
+msgid "Alphabet Default"
+msgstr "Дапомная абэцэда"
+
+#: Src/Gtk2/dasher.glade.h:21
+msgid "Bottom to Top"
+msgstr "Ад долу ў гору"
+
+#: Src/Gtk2/dasher.glade.h:22
+msgid "Button control setup"
+msgstr "Наладкі кантролю кнопак"
+
+#: Src/Gtk2/dasher.glade.h:23
+msgid "Button mode"
+msgstr "Рэжым кнопкі"
+
+#: Src/Gtk2/dasher.glade.h:24
+msgid "Button:"
+msgstr "Кнопка:"
+
+#: Src/Gtk2/dasher.glade.h:25
+msgid "Change colour scheme automatically"
+msgstr "Аўтаматычна зьмяняць схему колераў"
+
+#: Src/Gtk2/dasher.glade.h:26
+msgid "Colour"
+msgstr "Колер"
+
+#: Src/Gtk2/dasher.glade.h:28
+msgid "Control mode"
+msgstr "Рэжым кантролю"
+
+#: Src/Gtk2/dasher.glade.h:29
+msgid "Copy"
+msgstr "Скапіяваць"
+
+#: Src/Gtk2/dasher.glade.h:30
+msgid "Copy _All"
+msgstr "Скапіяваць _усё"
+
+#: Src/Gtk2/dasher.glade.h:31
+msgid "Copy all on stop"
+msgstr "Капіяваць усё на спыненьні"
+
+#: Src/Gtk2/dasher.glade.h:32
+msgid "Cut"
+msgstr "Выразаць"
+
+#: Src/Gtk2/dasher.glade.h:33
+msgid "Cyclical button mode"
+msgstr "Цыклічны рэжым кнопак"
+
+#: Src/Gtk2/dasher.glade.h:35
+msgid "Dasher Preferences"
+msgstr "Перавагі Калатоўкі"
+
+#: Src/Gtk2/dasher.glade.h:36
+msgid "Distance from centreline for start on mouse position:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:37
+msgid "Down/3:"
+msgstr "Долу/3:"
+
+#: Src/Gtk2/dasher.glade.h:38
+msgid "Draw box outlines"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:39
+msgid "Draw line between crosshairs and mouse"
+msgstr "Маляваць лінію паміж крыжыкам і мышой"
+
+#: Src/Gtk2/dasher.glade.h:40
+msgid "Edit Button-control options"
+msgstr "Рэдагваць выбары кнопак кантролю"
+
+#: Src/Gtk2/dasher.glade.h:41
+msgid "Enter text into other windows"
+msgstr "Уводзіць тэкст у іншыя вокны"
+
+#: Src/Gtk2/dasher.glade.h:42
+msgid "Eyetracker mode"
+msgstr "Рэжым адсочваньня вачэй"
+
+#: Src/Gtk2/dasher.glade.h:43
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:45
+msgid "Large"
+msgstr "Вялікі"
+
+#: Src/Gtk2/dasher.glade.h:46
+msgid "Left to Right"
+msgstr "Зьлева на права"
+
+#: Src/Gtk2/dasher.glade.h:47
+msgid "Left/2:"
+msgstr "Налева/2:"
+
+#: Src/Gtk2/dasher.glade.h:48
+msgid "New file"
+msgstr "Новы файл"
+
+#: Src/Gtk2/dasher.glade.h:49
+msgid "Normal"
+msgstr "Звычайны"
+
+#: Src/Gtk2/dasher.glade.h:50
+msgid "Number of pixels that should cover the entire y range:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:51
+msgid "One dimensional mode"
+msgstr "Аднавымяральны рэжым"
+
+#: Src/Gtk2/dasher.glade.h:52
+msgid "Open file"
+msgstr "Адчыніць файл"
+
+#: Src/Gtk2/dasher.glade.h:53
+msgid "Paste"
+msgstr "Уставіць"
+
+#: Src/Gtk2/dasher.glade.h:54
+msgid "Pause outside window"
+msgstr "Прыпыняцца па за межамі вакна"
+
+#: Src/Gtk2/dasher.glade.h:55
+msgid "Right to Left"
+msgstr "Зправа на лева"
+
+#: Src/Gtk2/dasher.glade.h:56
+msgid "Right/4:"
+msgstr "Направа/4:"
+
+#: Src/Gtk2/dasher.glade.h:57
+msgid "Save file"
+msgstr "Захаваць файл"
+
+#: Src/Gtk2/dasher.glade.h:58
+msgid "Save file as"
+msgstr "Захаваць файл як"
+
+#: Src/Gtk2/dasher.glade.h:59
+msgid "Select File"
+msgstr "Вылучыць файл"
+
+#: Src/Gtk2/dasher.glade.h:60
+msgid "Select Font"
+msgstr "Вылучыць шрыфт"
+
+#: Src/Gtk2/dasher.glade.h:61
+msgid "Show mouse position"
+msgstr "Паказваць становішча мышы"
+
+#: Src/Gtk2/dasher.glade.h:62
+msgid "Show speed slider"
+msgstr "Паказваць паўзунок хуткасьці"
+
+#: Src/Gtk2/dasher.glade.h:63
+msgid "Show toolbar"
+msgstr "Паказваць панэлю сродкаў"
+
+#: Src/Gtk2/dasher.glade.h:64
+msgid "Speak on stop"
+msgstr "Вымаўляць на спыненьні"
+
+#: Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Хуткасьць"
+
+#: Src/Gtk2/dasher.glade.h:66
+msgid "Start on left mouse button"
+msgstr "Пачынаць ад левае кнопкі мышы"
+
+#: Src/Gtk2/dasher.glade.h:67
+msgid "Start on space bar"
+msgstr "Пачынаць ад прагала"
+
+#: Src/Gtk2/dasher.glade.h:68
+msgid "Start with mouse position"
+msgstr "Пачынаць ад становішча мышы"
+
+#: Src/Gtk2/dasher.glade.h:69
+msgid "Timestamp new files"
+msgstr "Адбітак часу на новых файлах"
+
+#: Src/Gtk2/dasher.glade.h:70
+msgid "Top to Bottom"
+msgstr "З гары да долу"
+
+#: Src/Gtk2/dasher.glade.h:71
+msgid "Training"
+msgstr "Навучаньне"
+
+#: Src/Gtk2/dasher.glade.h:72
+msgid "Training Dasher - please wait"
+msgstr "Ідзе навучаньне, калі ласка, пачакайце..."
+
+#: Src/Gtk2/dasher.glade.h:73
+msgid "Up/1:"
+msgstr "Угору/1:"
+
+#: Src/Gtk2/dasher.glade.h:74
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:77
+msgid "Very Large"
+msgstr "Вельмі вялікі"
+
+#: Src/Gtk2/dasher.glade.h:78
+msgid "View"
+msgstr "Выгляд"
+
+#: Src/Gtk2/dasher.glade.h:79
+msgid "X:"
+msgstr "X:"
+
+#: Src/Gtk2/dasher.glade.h:80
+msgid "Y:"
+msgstr "Y:"
+
+#: Src/Gtk2/dasher.glade.h:81
+msgid "_About"
+msgstr "А_б праграме"
+
+#: Src/Gtk2/dasher.glade.h:82
+msgid "_Append to file"
+msgstr "Дадаць да файла"
+
+#: Src/Gtk2/dasher.glade.h:83
+msgid "_Dasher Font"
+msgstr "Шрыфт _Калатоўкі"
+
+#: Src/Gtk2/dasher.glade.h:84
+msgid "_Dasher Font Size"
+msgstr "Па_мер шрыфта Калатоўкі"
+
+#: Src/Gtk2/dasher.glade.h:85
+msgid "_Edit"
+msgstr "_Рэдагаваньне"
+
+#: Src/Gtk2/dasher.glade.h:86
+msgid "_Edit Font"
+msgstr "Р_эдагаваць шрыфт"
+
+#: Src/Gtk2/dasher.glade.h:87
+msgid "_File"
+msgstr "_Файл"
+
+#: Src/Gtk2/dasher.glade.h:88
+msgid "_Help"
+msgstr "_Даведка"
+
+#: Src/Gtk2/dasher.glade.h:89
+msgid "_Import Training Text"
+msgstr "_Імпартаваць вучэбны тэкст"
+
+#: Src/Gtk2/dasher.glade.h:90
+msgid "_Options"
+msgstr "_Выбары"
+
+#: Src/Gtk2/dasher.glade.h:91
+msgid "_Reset fonts"
+msgstr "Ск_інуць шрыфты"
+
+#: Src/Gtk2/dasher.glade.h:92
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "абвгдеёжз АБВГДЕЁЖЗ"
+
+#: Src/Gtk2/speech.cc:53
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Увага! Немагчыма ўсталяваць парамэтры маўленьня\n"
+
+#: Src/main.cc:97
+msgid "Dasher Text Entry"
+msgstr "Увод тэкста калатоўкай"
+
