@@ -1,3 +1,7 @@
+2004-01-11  Kostas Papadimas <pkst@gnome.org>
+
+	* configure.in: Added "el" (Greek) to ALL_LINGUAS.
+
 2004-01-09  Miloslav Trmac  <mitr@volny.cz>
 
 	* configure.in: Added "cs" (Czech) to ALL_LINGUAS.
