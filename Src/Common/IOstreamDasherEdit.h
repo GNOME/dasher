@@ -13,7 +13,9 @@
 #include <string.h>
 #include <iostream>
 
-#define FUDGE
+#ifndef ICONV_CONST
+#define ICONV_CONST const
+#endif
 
 using namespace Dasher;
 
