@@ -14,6 +14,7 @@
 #include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/DasherAppInterface.h"
 #include "Screen.h"
+#include "Edit.h"
 
 struct ThreadParams
 {
@@ -24,7 +25,7 @@ struct ThreadParams
 class CCanvas : public CWinWrap
 {
 public:
-	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI);
+	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB);
 	~CCanvas();
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
@@ -43,6 +44,7 @@ private:
 	CScreen* Screen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;
+	CEdit* m_DasherEditBox;
 	HANDLE hThreadl;
 	DWORD dwThreadID;
 	unsigned int imousex,imousey;

@@ -14,6 +14,15 @@
 #include <string>
 #include <vector>
 
+#define _ATL_APARTMENT_THREADED
+
+#include <atlbase.h>
+//You may derive a class from CComModule and use it if you want to override something, 
+//but do not change the name of _Module
+extern CComModule _Module;
+#include <atlcom.h>
+#include <sapi.h>
+
 #include "../../DasherCore/DashEdit.h"
 #include "../WinWrap.h"
 #include "FilenameGUI.h"
@@ -63,24 +72,21 @@ public:
 	
 	// get the context from the current cursor position with max history
 	void get_new_context(std::string& str, int max);
-	
-	// delete flushed text from the edit control
-	void unflush();
-	
+		
 	// called when characters fall of the LHS of the screen
 	void output(Dasher::symbol Symbol);
 	
 	// called when outputting a control symbol
 	void outputcontrol (void* pointer, int data);
-
-	// flush text from Dasher display to edit control
-	void flush(Dasher::symbol Symbol);
 	
 	// remove the previous character
 	void deletetext();
 
 	// set the window that text should be entered into
 	void SetWindow(HWND window);
+
+	// speak text
+	void speak();
 
 protected:
 	bool m_dirty;
@@ -114,6 +120,9 @@ private:
 #ifdef UNICODE
 	INPUT fakekey[2];
 #endif
+
+	ISpVoice * pVoice;
+	std::string speech;
 
 	void InsertText(Tstring InsertText); // add symbol to edit control
 };

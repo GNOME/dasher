@@ -11,9 +11,9 @@
 #include "Canvas.h"
 using namespace Dasher;
 
-CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI)
+CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB)
 	: dwThreadID(0), m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
-	imousex(0), imousey(0), Parent(Parent)
+	m_DasherEditBox(EB), imousex(0), imousey(0), Parent(Parent)
 {
 
 #ifndef _WIN32_WCE
@@ -199,8 +199,6 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			SetCapture(Window);
 			
 			running=1;
-			// theeditbox->unflush();
-			// dashermodel->Reset_framerate();
 			m_DasherWidgetInterface->Unpause(GetTickCount());
 			
 			// update the mouse coords
@@ -213,8 +211,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			// if dasher is running
 			
 			m_DasherWidgetInterface->PauseAt(imousex, imousey);
-			//dasherview->Flush_at(imousex,imousey);
-			//theeditbox->write_to_file();
+			m_DasherEditBox->speak();
 			running=0;
 			ReleaseCapture();
 

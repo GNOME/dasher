@@ -51,7 +51,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	m_pToolbar = new CToolbar(m_hwnd, false, false, false);
 	m_pEdit = new CEdit(m_hwnd);
 	DasherAppInterface->ChangeEdit(m_pEdit);
-	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface);
+	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
 	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false);
 	m_pSplitter = new CSplitter(m_hwnd, 100, this);
 /*
@@ -335,12 +335,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			break;
 
 			case ID_OPTIONS_ENTERTEXT:
-//#ifdef UNICODE
 				{ CWinSel WinSel(m_hwnd,m_pEdit); }
-//#else
-//				MessageBox (m_hwnd, TEXT ("Sorry, this option is only available in the Windows 2000 and higher version of Dasher"), TEXT("Feature unavailable"),MB_OK|MB_ICONERROR);
-//#endif
-				break;
+			break;
 			
 			case ID_OPTIONS_1D:
 				DasherSettingsInterface->SetDasherDimensions(!WinMenu.GetCheck(ID_OPTIONS_1D));

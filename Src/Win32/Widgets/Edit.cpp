@@ -28,7 +28,7 @@ using namespace WinUTF8;
 
 
 CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
-	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0)
+	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0), pVoice(0)
 {
 	Tstring WindowTitle;
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
@@ -44,6 +44,10 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 	WinWrapMap::add(m_hwnd, this);
 	TextWndFunc = (WNDPROC)SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
 	ShowWindow(m_hwnd,SW_SHOW);
+
+	// Initialise speech support
+	speech="";
+	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
 }
 
 
@@ -544,7 +548,7 @@ void CEdit::output(symbol Symbol)
 		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
 			// Newline, so we want to fake an enter
 			fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-			fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_RETURN;
+			fakekey[0].ki.wVk=fakekey[1].ki.wVk=VK_RETURN;
 			fakekey[0].ki.time=fakekey[1].ki.time=0;
 			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
 
@@ -587,65 +591,11 @@ void CEdit::output(symbol Symbol)
 #endif
 	}
 	m_Output += m_DasherInterface->GetEditText(Symbol);
+
+	speech+=m_DasherInterface->GetEditText(Symbol);
+
 	if (m_Output.size()>=1024)
 		write_to_file();
-}
-
-
-void CEdit::flush(symbol Symbol)
-{
-	Tstring OutputText = DisplayStrings[Symbol];
-	
-	InsertText(OutputText);
-	if (targetwindow!=NULL) {
-		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
-#ifdef UNICODE
-		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
-			// Newline, so we want to fake an enter
-			fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-			fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_RETURN;
-			fakekey[0].ki.time=fakekey[1].ki.time=0;
-			fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
-		
-			SetFocus(targetwindow);
-			SendInput(2,fakekey,sizeof(INPUT));
-		}
-		wchar_t outputstring[256];
-		int i=mbstowcs(outputstring,DisplayText,255);
-
-		for (int j=0; j<i; j++) {
-			fakekey[0].type=INPUT_KEYBOARD;
-			fakekey[0].ki.dwFlags=KEYEVENTF_UNICODE;
-			fakekey[0].ki.wVk=0;
-			fakekey[0].ki.time=NULL;
-			fakekey[0].ki.wScan=outputstring[j];
-			SetFocus(targetwindow);
-			SendInput(1,fakekey,sizeof(INPUT));
-		}
-#else
-		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
-			// Newline, so we want to fake an enter
-			SetFocus(targetwindow);
-			keybd_event(VK_RETURN,0,NULL,NULL);
-			keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,NULL);
-		}
-		Tstring character;
-		WinUTF8::UTF8string_to_Tstring(DisplayText,&character,1252); 
-		TCHAR test=character[0];
-		SHORT outputvk=VkKeyScan(char(character[0]));
-		SetFocus(targetwindow);
-		if(HIBYTE(outputvk)&&6) {
-			keybd_event(VK_SHIFT,0,NULL,NULL);
-			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
-			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
-			keybd_event(VK_SHIFT,0,KEYEVENTF_KEYUP,NULL);
-		} else {
-			keybd_event(LOBYTE(outputvk),0,NULL,NULL);
-			keybd_event(LOBYTE(outputvk),0,KEYEVENTF_KEYUP,NULL);
-		}
-#endif
-	}
-	m_iFlushed += OutputText.size();
 }
 
 LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -689,39 +639,6 @@ void CEdit::dumpedit(int i) const
 }
 */
 
-
-void CEdit::unflush()
-{
-	DWORD start,finish;
-	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start,(LONG)&finish);
-	start-=m_iFlushed;
-	SendMessage(m_hwnd, EM_SETSEL, (LONG)start,(LONG)finish);
-	TCHAR out [2];
-	wsprintf(out,TEXT(""));
-	SendMessage(m_hwnd, EM_REPLACESEL, TRUE,(LONG)out);
-	if (targetwindow!=NULL) {
-#ifdef UNICODE
-		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-		fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_BACK;
-		fakekey[0].ki.time=fakekey[1].ki.time=0;
-		fakekey[0].ki.dwFlags=KEYEVENTF_SCANCODE;
-		fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP||KEYEVENTF_SCANCODE;
-
-		for (m_iFlushed; m_iFlushed>0; m_iFlushed--) {
-			SetFocus(targetwindow);
-			SendInput(2,fakekey,sizeof(INPUT));
-		}
-#else
-		for (m_iFlushed; m_iFlushed>0; m_iFlushed--) {
-			SetFocus(targetwindow);
-			keybd_event(VK_BACK,0,NULL,NULL);
-			keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
-		}
-#endif
-	}
-	m_iFlushed=0;
-}
-
 void CEdit::deletetext()
 {
 	DWORD start,finish;
@@ -734,21 +651,20 @@ void CEdit::deletetext()
 	if (targetwindow!=NULL) {
 #ifdef UNICODE
 		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
-		fakekey[0].ki.wScan=fakekey[1].ki.wVk=VK_BACK;
+		fakekey[0].ki.wVk=fakekey[1].ki.wVk=VK_BACK;
 		fakekey[0].ki.time=fakekey[1].ki.time=0;
-		fakekey[0].ki.dwFlags=KEYEVENTF_SCANCODE;
-		fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP||KEYEVENTF_SCANCODE;
-
-		for (m_iFlushed; m_iFlushed>0; m_iFlushed--) {
-			SetFocus(targetwindow);
-			SendInput(2,fakekey,sizeof(INPUT));
-		}
+		fakekey[1].ki.dwFlags=KEYEVENTF_KEYUP;
+		
+		SetFocus(targetwindow);
+		SendInput(2,fakekey,sizeof(INPUT));
 #else
 		SetFocus(targetwindow);
 		keybd_event(VK_BACK,0,NULL,NULL);
 		keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
 #endif
 	}
+	if (speech.length()>0) 
+		speech.resize(speech.length()-1);
 }
 
 void CEdit::SetWindow(HWND window)
@@ -779,4 +695,12 @@ void CEdit::outputcontrol (void* pointer, int data)
 	hr=AccessibleObject->get_accDefaultAction(AccessibleVariant,&AccessibleAction);
 	hr=AccessibleObject->accDoDefaultAction(AccessibleVariant);
 	VariantClear(&AccessibleVariant);
+}
+
+void CEdit::speak() {
+	wchar_t* widespeech=new wchar_t[4096];
+	mbstowcs(widespeech,speech.c_str(),speech.length()+1);
+	pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+	delete(widespeech);
+	speech="";
 }

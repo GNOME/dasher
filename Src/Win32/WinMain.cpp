@@ -61,7 +61,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
 	DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
 	DasherInterface.ChangeLanguageModel(0);
-	DasherInterface.AddControlTree(WinMenus::GetWindowMenus());
+#ifdef ACCESSIBLE
+	DasherInterface.AddControlTree(WinMenus::GetWindowMenus()); // Grab menu tree
+#endif
 	DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
 
 	return DasherWindow.MessageLoop();

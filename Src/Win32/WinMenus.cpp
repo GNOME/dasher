@@ -2,7 +2,7 @@
 #include <comutil.h>
 
 using namespace WinMenus;
-
+#ifdef ACCESSIBLE
 std::vector<HWND> windownames;
 
 ControlTree* WinMenus::GetWindowMenus() {
@@ -121,7 +121,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 		VariantInit(&ObjectRole);
 		ObjectRole.vt=VT_I4;
 		AccessibleObject->get_accRole(AccessibleObjectVariant,&ObjectRole);
-		if (ObjectRole.iVal==ROLE_SYSTEM_MENUITEM && NumChildren==0) {
+		if ((ObjectRole.iVal==ROLE_SYSTEM_MENUITEM||ObjectRole.iVal==ROLE_SYSTEM_PUSHBUTTON) && NumChildren==0) {
 			NewNode->pointer=AccessibleObject;
 			NewNode->data=CHILDID_SELF;
 			useful=true;
@@ -151,3 +151,4 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 
 	return useful;
 }
+#endif
