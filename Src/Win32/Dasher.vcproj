@@ -587,16 +587,6 @@
 				RelativePath=".\widgets\WindowSelect.h">
 			</File>
 		</Filter>
-		<Filter
-			Name="GDI"
-			Filter="">
-			<File
-				RelativePath="GDI\FontStore.cpp">
-			</File>
-			<File
-				RelativePath="GDI\FontStore.h">
-			</File>
-		</Filter>
 		<File
 			RelativePath=".\DasherWindow.cpp">
 		</File>

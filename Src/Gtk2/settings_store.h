@@ -17,3 +17,4 @@ void set_long_option_callback(const std::string& Key, long Value);
 void set_string_option_callback(const std::string& Key, const std::string& Value);
 
 extern GConfClient *the_gconf_client;
+extern GConfEngine *gconfengine;

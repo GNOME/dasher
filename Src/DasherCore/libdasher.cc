@@ -6,8 +6,6 @@
 #include "libdasher.h"
 #include "libdasher_private.h"
 
-#include <iostream>
-
 CDasherInterface *interface;
 dasher_ui *dui;
 dasher_screen *dsc;
@@ -16,6 +14,7 @@ CSettingsStore *dss;
 dasher_edit *ded;
 
 string default_string("");
+int height, width;
 
 // Function pointers for the callbacks
 
@@ -26,14 +25,17 @@ void (*bool_callback)( bool_param, bool ) = NULL;
 
 void (*blank_callback)() = NULL;
 void (*display_callback)() = NULL;
+void (*colour_scheme_callback)(int, int*, int*, int*) = NULL;
 void (*draw_rectangle_callback)(int, int, int, int, int, Opts::ColorSchemes) = NULL;
 void (*draw_polyline_callback)(Dasher::CDasherScreen::point*, int) = NULL;
+void (*draw_colour_polyline_callback)(Dasher::CDasherScreen::point*, int, int) = NULL;
 void (*draw_text_callback)(symbol, int, int, int) = NULL;
+void (*draw_text_string_callback)(std::string, int, int, int) = NULL;
 void (*text_size_callback)(symbol, int*, int*, int) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
-void (*edit_flush_callback)(symbol) = NULL;
-void (*edit_unflush_callback)() = NULL;
+void (*edit_outputcontrol_callback)(void*, int) = NULL;
+void (*edit_delete_callback)() = NULL;
 void (*get_new_context_callback)(std::string &, int ) = NULL;
 
 void (*clipboard_callback)( clipboard_action ) = NULL;
@@ -84,11 +86,31 @@ void handle_display()
     display_callback();
 }
 
+void handle_colour_scheme(CCustomColours *Colours)
+{
+  if (colour_scheme_callback==NULL || Colours==NULL)
+    return;
+
+  int numcolours=Colours->GetNumColours();
+  int* reds = new int[numcolours];
+  int* greens = new int[numcolours];
+  int* blues = new int[numcolours];
+  for (int i=0; i<numcolours; i++) {
+    reds[i]=Colours->GetRed(i);
+    greens[i]=Colours->GetGreen(i);
+    blues[i]=Colours->GetBlue(i);
+  }
+  colour_scheme_callback(numcolours,reds,greens,blues);
+  delete reds;
+  delete greens;
+  delete blues;
+}
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
-  if( draw_rectangle_callback != NULL )
+  if( draw_rectangle_callback != NULL ) {
     draw_rectangle_callback( x1, y1, x2, y2, Color, ColorScheme );
+  }
 }
 
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number)
@@ -97,11 +119,24 @@ void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number)
     draw_polyline_callback( Points, Number );
 }
 
+void handle_draw_colour_polyline(Dasher::CDasherScreen::point* Points, int Number, int Colour)
+{
+  if( draw_colour_polyline_callback != NULL )
+    draw_colour_polyline_callback( Points, Number, Colour );
+}
+
 void handle_draw_text(symbol Character, int x1, int y1, int size)
 {
   if( draw_text_callback != NULL )
     draw_text_callback( Character, x1, y1, size );
 }
+
+void handle_draw_text(std::string String, int x1, int y1, int size)
+{
+  if( draw_text_string_callback != NULL )
+    draw_text_string_callback( String, x1, y1, size );
+}
+
 void handle_text_size(symbol Character, int* Width, int* Height, int Size)
 {
   if( text_size_callback != NULL )
@@ -114,16 +149,16 @@ void handle_edit_output(symbol Character)
     edit_output_callback( Character );
 }
 
-void handle_edit_flush(symbol Character)
+void handle_edit_outputcontrol(void* pointer, int data)
 {
-  if( edit_flush_callback != NULL )
-    edit_flush_callback( Character );
+  if( edit_outputcontrol_callback != NULL )
+    edit_outputcontrol_callback( pointer, data );
 }
 
-void handle_edit_unflush()
+void handle_edit_delete()
 {
-  if( edit_unflush_callback != NULL )
-    edit_unflush_callback();
+  if( edit_delete_callback != NULL )
+    edit_delete_callback( );
 }
 
 void handle_get_new_context( std::string &str, int max )
@@ -208,6 +243,7 @@ void dasher_late_initialise( int _width, int _height)
   interface->SetSettingsStore( dss );
 
   dasher_start();
+  dasher_redraw();
 
   dui = new dasher_ui;
   interface->SetSettingsUI( dui );
@@ -222,7 +258,7 @@ void dasher_finalise()
   delete( ded );
 }
 
-// Routines for the UI to request chnages to parameters
+// Routines for the UI to request changes to parameters
 
 void dasher_set_parameter_string( string_param p, const char *value )
 {
@@ -239,9 +275,14 @@ void dasher_set_parameter_string( string_param p, const char *value )
     case STRING_ALPHABET:
       interface->ChangeAlphabet( s );
       break;
+    case STRING_COLOUR:
+      interface->ChangeColours( s);
+      break;
     case STRING_EDITFONT:
+      interface->SetEditFont( s, 0 );
       break;
     case STRING_DASHERFONT:
+      interface->SetDasherFont( s );
       break;
     }
 }
@@ -268,12 +309,17 @@ void dasher_set_parameter_int( int_param p, long int value )
       interface->ChangeView( value );
       break;
     case INT_SCREENWIDTH:
+      width=value;
+      interface->SetScreenSize(width,height);
       break;
     case INT_SCREENHEIGHT:
+      height=value;
+      interface->SetScreenSize(width,height);
       break;
     case INT_EDITFONTSIZE:
       break;
     case INT_EDITHEIGHT:
+      interface->SetEditHeight(value);
       break;
     case INT_ENCODING:
       interface->SetFileEncoding(Dasher::Opts::FileEncodingFormats(value));
@@ -281,6 +327,9 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_DASHERFONTSIZE:
       dasherfontsize=value;
       interface->SetDasherFontSize(Dasher::Opts::FontSize(value));
+      break;
+    case INT_UNIFORM:
+      interface->SetUniform(value);
       break;
     }
 }
@@ -291,6 +340,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     {
     case BOOL_DIMENSIONS:
       interface->SetDasherDimensions(value);
+      break;
+    case BOOL_EYETRACKER:
+      interface->SetDasherEyetracker(value);
       break;
     case BOOL_SHOWTOOLBAR:
       interface->ShowToolbar(value);
@@ -314,11 +366,41 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_DRAWMOUSE:
       interface->DrawMouse(value);
       break;
+    case BOOL_DRAWMOUSELINE:
+      interface->DrawMouseLine(value);
+      break;
     case BOOL_STARTONSPACE:
       interface->StartOnSpace(value);
       break;
     case BOOL_STARTONLEFT:
       interface->StartOnLeft(value);
+      break;
+    case BOOL_KEYBOARDCONTROL:
+      interface->KeyControl(value);
+      break;
+    case BOOL_WINDOWPAUSE:
+      interface->WindowPause(value);
+      break;
+    case BOOL_CONTROLMODE:
+      interface->ControlMode(value);
+      break;
+    case BOOL_COLOURMODE:
+      interface->ColourMode(value);
+      break;
+    case BOOL_KEYBOARDMODE:
+      interface->KeyboardMode(value);
+      break;
+    case BOOL_MOUSEPOSSTART:
+      interface->MouseposStart(value);
+      break;
+    case BOOL_SPEECHMODE:
+      interface->Speech(value);
+      break;
+    case BOOL_OUTLINEMODE:
+      interface->OutlineBoxes(value);
+      break;
+    case BOOL_PALETTECHANGE:
+      interface->PaletteChange(value);
       break;
     }
 }
@@ -338,6 +420,11 @@ void dasher_train_file( const char *filename )
   interface->TrainFile(filename);
 }
 
+const char* dasher_get_training_file()
+{
+  return (interface->GetTrainFile()).c_str();
+}
+
 int dasher_get_alphabets( const char **alphabetlist, int s )
 {
   vector< string > alist;
@@ -354,6 +441,34 @@ int dasher_get_alphabets( const char **alphabetlist, int s )
     }
 
   return( i );
+}
+
+const char* dasher_get_current_alphabet()
+{
+  return(interface->GetCurrentAlphabet().c_str());
+}
+
+int dasher_get_colours( const char **colourlist, int s )
+{
+  vector< string > alist;
+  interface->GetColours( &alist );
+
+  int i(0);
+  vector<string>::iterator it( alist.begin() );
+
+  while(( it != alist.end() ) && ( i < s ))
+    {
+      colourlist[i] = it->c_str();
+      ++i;
+      ++it;
+    }
+
+  return( i );
+}
+
+const char* dasher_get_current_colours()
+{
+  return(interface->GetCurrentColours().c_str());
 }
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) )
@@ -386,6 +501,11 @@ void dasher_set_display_callback( void (*_cb)() )
   display_callback =_cb;
 }
 
+void dasher_set_colour_scheme_callback( void (*_cb)(int, int*, int*, int*) )
+{
+  colour_scheme_callback = _cb;
+}
+
 void dasher_set_draw_rectangle_callback( void (*_cb)(int, int, int, int, int, Opts::ColorSchemes) )
 {
   draw_rectangle_callback = _cb;
@@ -396,9 +516,19 @@ void dasher_set_draw_polyline_callback(void (*_cb)(Dasher::CDasherScreen::point*
   draw_polyline_callback = _cb;
 }
 
+void dasher_set_draw_colour_polyline_callback(void (*_cb)(Dasher::CDasherScreen::point*, int, int) )
+{
+  draw_colour_polyline_callback = _cb;
+}
+
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int))
 {
   draw_text_callback = _cb;
+}
+
+void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int))
+{
+  draw_text_string_callback = _cb;
 }
 
 void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int))
@@ -411,14 +541,14 @@ void dasher_set_edit_output_callback( void (*_cb )(symbol))
   edit_output_callback = _cb;
 }
 
-void dasher_set_edit_flush_callback( void (*_cb )(symbol))
+void dasher_set_edit_outputcontrol_callback( void (*_cb )(void*, int))
 {
-  edit_flush_callback = _cb;
+  edit_outputcontrol_callback = _cb;
 }
 
-void dasher_set_edit_unflush_callback( void (*_cb)() )
+void dasher_set_edit_delete_callback( void (*_cb )())
 {
-  edit_unflush_callback = _cb;
+  edit_delete_callback = _cb;
 }
 
 void dasher_set_get_new_context_callback( void (*_cb)( std::string &, int ) )
@@ -472,14 +602,39 @@ void dasher_redraw()
   interface->Redraw();
 }
 
+void dasher_render()
+{
+  interface->Render();
+}
+
 void dasher_tap_on( int x, int y, unsigned long int time )
 {
   interface->TapOn( x, y, time );
 }
 
+void dasher_draw_mouse_position( int x, int y)
+{
+  interface->DrawMousePos( x, y );
+}
+
+void dasher_go_to( int x, int y )
+{
+  interface->GoTo( x, y );
+}
+
+void dasher_draw_go_to( int x, int y )
+{
+  interface->DrawGoTo( x, y );
+}
+
 void dasher_unpause( unsigned long int time )
 {
   interface->Unpause( time );
+}
+
+void dasher_halt()
+{
+  interface->Halt();
 }
 
 void dasher_pause( int x, int y )
@@ -497,6 +652,11 @@ string dasher_get_display_text( symbol Character )
 string dasher_get_edit_text( symbol Character )
 {
   return(interface->GetEditText(Character));
+}
+
+int dasher_get_text_colour( symbol Character )
+{
+  return(interface->GetTextColour(Character));
 }
 
 void dasher_resize_canvas( int _width, int _height )
@@ -534,4 +694,19 @@ void dasher_select_all()
 void dasher_clear()
 {
   ded->Clear();
+}
+
+void add_control_tree(ControlTree *controltree)
+{
+  interface->AddControlTree(controltree);
+}
+
+void add_alphabet_filename(const char* filename)
+{
+  interface->AddAlphabetFilename(filename);
+}
+
+void add_colour_filename(const char* filename)
+{
+  interface->AddColourFilename(filename);
 }

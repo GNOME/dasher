@@ -56,9 +56,6 @@ public:
 	void ShowToolbarText(bool Value);
 	void ShowToolbarLargeIcons(bool Value);
 	void ShowSpeedSlider(bool Value);
-
-	void SetDasherFontSize(Dasher::Opts::FontSize fontsize);
-
 	void FixLayout(bool Value);
 	void TimeStampNewFiles(bool Value);
 	bool GetTimeStamp() {return timestampnewfiles;}

@@ -17,8 +17,7 @@ using namespace Opts;
 using namespace std;
 
 CScreen::CScreen(HDC hdc, int iWidth,int iHeight)
-  : CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1)), 
-	m_ptrFontStore( new CFontStore(TEXT("")))
+  : CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
 {
 	// set up the off-screen buffers
 //	HDC hdc = GetDC(mainwindow);
@@ -56,10 +55,10 @@ CScreen::~CScreen() {
 	DeleteDC(m_hDCBuffer);
 	DeleteDC(m_hDCText);
 	
-/*	while (m_vhfFonts.size()) {
+	while (m_vhfFonts.size()) {
 		DeleteObject(m_vhfFonts.back());
 		m_vhfFonts.pop_back();
-	}*/
+	}
 	
 	while (m_Brushes.size()!=0) {
 		DeleteObject(m_Brushes.back());
@@ -103,9 +102,6 @@ void CScreen::SetFont(string Name)
 	Tstring FontName;
 	WinUTF8::UTF8string_to_Tstring(Name, &FontName);
 	
-	m_ptrFontStore.reset( new CFontStore(FontName) );
-
-	/*
 	// Destroy old fonts
 	while (m_vhfFonts.size()!=0) {
 		DeleteObject(m_vhfFonts[m_vhfFonts.size()-1]);
@@ -113,25 +109,24 @@ void CScreen::SetFont(string Name)
 	}
 	
 	if (Name=="") {
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-20.0*sqrt(GetFontSize()))));
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-14.0*sqrt(GetFontSize()))));
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-11.0*sqrt(GetFontSize()))));
+		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-20*sqrt(GetFontSize()))));
+		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-14*sqrt(GetFontSize()))));
+		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-11*sqrt(GetFontSize()))));
 	} else {
 		HFONT Font;
-		Font = CreateFont(int(-20.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+		Font = CreateFont(int(-20*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 		m_vhfFonts.push_back(Font);
-		Font = CreateFont(int(-14.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+		Font = CreateFont(int(-14*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 		m_vhfFonts.push_back(Font);
-		Font = CreateFont(int(-11.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
+		Font = CreateFont(int(-11*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
 		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
 		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
 		m_vhfFonts.push_back(Font);
 	}
-	*/
 }
 
 void CScreen::SetFontSize(FontSize size)

@@ -95,8 +95,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, long* Value)
 
 bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
 {
-
-	Tstring TKey,TValue;
+	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
 	BYTE* Data=0;
 	
@@ -105,9 +104,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
 		return false;
 	}
 	
-	TValue = (TCHAR *)Data;
-	Tstring_to_UTF8string(TValue, Value);
-	
+	*Value = (char*)Data;
 	delete[] Data;
 	return true;
 }
@@ -141,19 +138,11 @@ void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
 	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
 	
-	// DJW20031107 - i think Values should also be converted to Tstring
-	Tstring TValue;
-	UTF8string_to_Tstring(Value, &TValue);
+	DWORD MemAllow = (Value.size()+1) * sizeof(char);
 	
-
-	DWORD MemAllow = (Value.size()+1) * sizeof(TCHAR);
-	
-	//const unsigned char* StrInput = (const unsigned char*) Value.c_str();
-	//LONG ErrVal = RegSetValueEx(ProductKey, TKey.c_str(), 0,
-	//	REG_SZ, StrInput, MemAllow);
-
+	const unsigned char* StrInput = (const unsigned char*) Value.c_str();
 	LONG ErrVal = RegSetValueEx(ProductKey, TKey.c_str(), 0,
-		REG_SZ, (CONST BYTE *)TValue.c_str(), MemAllow);
+		REG_SZ, StrInput, MemAllow);
 }
 
 

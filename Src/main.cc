@@ -1,9 +1,35 @@
 #include <gtk/gtk.h>
+#include <gdk/gdkx.h>
+#include <glade/glade.h>
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 
+#if (defined GNOME_SPEECH || defined GNOME_A11Y)
+//#include <gnome.h>
+#include <libbonobo.h>
+#endif
+
+#ifdef GNOME
+#include <libgnome/libgnome.h>
+#include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs.h>
+
+static const struct poptOption options [] =
+{
+  {NULL, '\0', 0, NULL, 0}
+};
+#endif
+
+#define PREFIX "/usr/"
+#define SYSCONFDIR "/usr/share/dasher/"
+#define LIBDIR "/usr/lib/"
+#define DATADIR "/usr/share/dasher/"
+
 #include <libintl.h>
 #include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+//#include <getopt.h>
 
 #include "libdasher.h"
 #include "dasher.h"
@@ -11,18 +37,81 @@
 #include "canvas.h"
 #include "edit.h"
 
+#ifdef GNOME_SPEECH
+#include "speech.h"
+#endif
+
+#include "accessibility.h"
+
 //extern GConfClient *the_gconf_client;
+
+GError *gconferror;
+gboolean timedata;
+extern gboolean setup,paused;
+
+GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
+{
+  XEvent *xev = (XEvent *)xevent;
+ 
+  if (xev->xany.type == ClientMessage &&
+      (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom (
+							      gdk_atom_intern ("WM_TAKE_FOCUS", False)) && keyboardmodeon==true)
+    {
+      return GDK_FILTER_REMOVE;
+    }
+  else
+    {
+      return GDK_FILTER_CONTINUE;
+    }
+}
+
 
 int
 main(int argc, char *argv[])
 {
-  gtk_init (&argc, &argv);
+  GladeXML *xml;
+  GtkWidget *window;
 
-  GError *gconferror;
+  int c;
+  XWMHints wm_hints;
+  Atom wm_window_protocols[3];
+
+  while (1) {
+    c=getopt( argc, argv, "w" );
+
+    if (c == -1)
+      break;
+
+    switch (c) {
+    case 'w':
+      timedata=TRUE;
+      break;
+    }
+  }
+
+#ifdef GNOME
+  GnomeProgram *program=0;
+  program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
+
+  gnome_vfs_init();
+
+#endif
+
+  gtk_init (&argc, &argv);
 
   gconf_init( argc, argv, &gconferror );
 
+  xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
+
   the_gconf_client = gconf_client_get_default();
+
+#if (defined GNOME_SPEECH || defined GNOME_A11Y)
+    if (!bonobo_init (&argc, argv))
+      {
+        g_error ("Can't initialize Bonobo...\n");
+      }
+    bonobo_activate();
+#endif
 
   dasher_set_get_bool_option_callback( get_bool_option_callback );
   dasher_set_get_long_option_callback( get_long_option_callback );
@@ -39,14 +128,17 @@ main(int argc, char *argv[])
 
   dasher_set_blank_callback( blank_callback );
   dasher_set_display_callback( display_callback );
+  dasher_set_colour_scheme_callback( receive_colour_scheme_callback );
   dasher_set_draw_rectangle_callback( draw_rectangle_callback );
   dasher_set_draw_polyline_callback( draw_polyline_callback );
+  dasher_set_draw_colour_polyline_callback( draw_colour_polyline_callback );
   dasher_set_draw_text_callback( draw_text_callback );
+  dasher_set_draw_text_string_callback( draw_text_string_callback );
   dasher_set_text_size_callback( text_size_callback );
   
   dasher_set_edit_output_callback( edit_output_callback );
-  dasher_set_edit_flush_callback( edit_flush_callback );
-  dasher_set_edit_unflush_callback( edit_unflush_callback );
+  dasher_set_edit_outputcontrol_callback( edit_outputcontrol_callback );
+  dasher_set_edit_delete_callback( edit_delete_callback );
   dasher_set_get_new_context_callback( get_new_context_callback );
 
   dasher_set_clipboard_callback( clipboard_callback );
@@ -56,19 +148,72 @@ main(int argc, char *argv[])
   bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
   textdomain (PACKAGE);
 
-  interface_setup();
+#ifdef GNOME_A11Y
+  SPI_init ();
+#endif
+
+
+  interface_setup(xml);
 
   dasher_early_initialise();
 
-  open_window ();
+  paused=true;
+
+  glade_xml_signal_autoconnect(xml);
+  open_window(xml);
+  window = glade_xml_get_widget(xml, "window");
 
   dasher_late_initialise(360,360);
 
+  interface_late_setup();
+
+  gtk_widget_show(window);
+
+  setup=TRUE;
+
+  // We support advanced colour mode
+  dasher_set_parameter_bool( BOOL_COLOURMODE, true);
+
+  
+  wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
+  wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
+  wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+  
+  wm_hints.flags = InputHint;
+  wm_hints.input = False;
+
+  XSetWMHints (GDK_WINDOW_XDISPLAY (window->window), GDK_WINDOW_XWINDOW (window->window), &wm_hints);
+  XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
+  gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
+  
   choose_filename();
 
+  dasher_pause(0,0); // we start paused
+
+#ifdef GNOME_SPEECH
+  setup_speech();
+#endif
+
+  add_control_tree(gettree());
+
   gtk_main ();
+
+  interface_cleanup();
+
+  g_object_unref(the_gconf_client);
+
+#ifdef GNOME_SPEECH
+  teardown_speech();
+#endif
+  
+#ifdef GNOME_A11Y
+  deletemenutree();
+  SPI_exit();
+#endif
 
   dasher_finalise();
 
   return 0;
 }
+
+

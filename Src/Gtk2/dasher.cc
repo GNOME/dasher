@@ -4,117 +4,79 @@
 #include <stdlib.h>
 #include <libintl.h>
 #include <locale.h>
-#include <iostream>
 #include <string>
 #include <vector>
 #include <stdio.h>
 #include <time.h>
+#include <dirent.h>
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+
+#ifdef GNOME_SPEECH
+#include <libbonobo.h>
+#include <gnome-speech/gnome-speech.h>
+#endif
+
+#ifdef GNOME_LIBS
+#include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs.h>
+#endif
 
 #include "libdasher.h"
 
 #include "dasher.h"
 #include "canvas.h"
 #include "edit.h"
+#include "accessibility.h"
+#include "settings_store.h"
 
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
 
 GtkWidget *vbox, *toolbar;
+GtkWidget *about;
 GdkPixbuf *p;
 GtkWidget *pw;
 GtkWidget *text_view;
 GtkWidget *speed_frame;
-GtkObject *speed_slider;
 GtkWidget *speed_hscale;
 GtkWidget *text_scrolled_window;
-GtkWidget *canvas_frame;
-GtkWidget *ofilesel;
-GtkWidget *ifilesel;
-GtkWidget *afilesel;
 GtkStyle *style;
-GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
+GtkFontSelectionDialog *dasher_fontselector, *edit_fontselector;
+GtkTreeSelection *alphselection, *colourselection;
+GtkWidget *alphabettreeview, *colourtreeview;
+GtkWidget *preferences_window;
+GtkListStore *alph_list_store;
+GtkListStore *colour_list_store;
+GladeXML *widgets;
+GtkWidget *filesel;
+std::string alphabet;
+std::string colourscheme;
+char *system_data_dir;
+char *user_data_dir;
 
-GtkItemFactoryEntry entries[] = {
-  { "/_File",         NULL,      NULL,         0, "<Branch>" },
-  { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<StockItem>", GTK_STOCK_NEW },
-  { "/File/_Open...", "<CTRL>O", *GtkItemFactoryCallback(select_open_file),    1, "<StockItem>", GTK_STOCK_OPEN },
-  { "/File/Save",     NULL, save_file, 0, "<StockItem>", GTK_STOCK_SAVE },
-  { "/File/Save As...", NULL, select_save_file_as, 0, "<StockItem>", GTK_STOCK_SAVE_AS },
-  { "/File/Append to File...", NULL, select_append_file, 0, "<Item>" },
-  { "/File/sep1",     NULL,      NULL,         0, "<Separator>" },
-  { "/File/Import Training Text...", NULL, select_import_file, 0, "<Item>" },
-  { "/File/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/File/_Quit",    "<CTRL>Q", *GtkItemFactoryCallback(ask_save_before_exit), 0, "<StockItem>", GTK_STOCK_QUIT },
-  { "/Edit", NULL, NULL, 0, "<Branch>" },
-  { "/Edit/Cut", NULL, clipboard_cut, 0, "<StockItem>", GTK_STOCK_CUT },
-  { "/Edit/Copy", NULL, clipboard_copy, 0, "<StockItem>", GTK_STOCK_COPY },
-  { "/Edit/Paste", NULL, clipboard_paste, 0, "<StockItem>", GTK_STOCK_PASTE },
-  { "/Edit/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/Edit/Copy All", NULL, clipboard_copy_all, 0, "<Item>" },
-  { "/Edit/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/Edit/Select All", NULL, clipboard_select_all, 0, "<Item>" },
-  { "/View", NULL, NULL, 0, "<Branch>" },
-  { "/View/Orientation", NULL, NULL, 0, "<Branch>" },
-  { "/View/Orientation/Alphabet Default", NULL, *GtkItemFactoryCallback(orientation), 1, "<RadioItem>" },
-  { "/View/Orientation/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/View/Orientation/Left to Right", NULL, *GtkItemFactoryCallback(orientation), 3, "/View/Orientation/Alphabet Default" },
-  { "/View/Orientation/Right to Left", NULL, *GtkItemFactoryCallback(orientation), 4, "/View/Orientation/Alphabet Default" },
-  { "/View/Orientation/Top to Bottom", NULL, *GtkItemFactoryCallback(orientation), 5, "/View/Orientation/Alphabet Default" },
-  { "/View/Orientation/Bottom to Top", NULL, *GtkItemFactoryCallback(orientation), 6, "/View/Orientation/Alphabet Default" },
-  { "/View/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/View/Show Toolbar", NULL, *GtkItemFactoryCallback(show_toolbar), 1, "<CheckItem>" },
-  { "/View/Speed Slider", NULL, *GtkItemFactoryCallback(show_slider), 1, "<CheckItem>" },
-  //  { "/View/sepl", NULL, NULL, 0, "<Separator>" },
-  //  { "/View/Fix Layout", NULL, NULL, 0, "<CheckItem>" },
-  { "/Options", NULL, NULL, 0, "<Branch>" },
-  { "/Options/Timestamp New Files", NULL, *GtkItemFactoryCallback(timestamp_files), 1, "<CheckItem>" },
-  { "/Options/Copy All on Stop", NULL, *GtkItemFactoryCallback(copy_all_on_stop), 1, "<CheckItem>" },
-  { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/Options/Alphabet...", NULL, *GtkItemFactoryCallback(preferences), 1, "<Item>" },
-  { "/Options/File Encoding", NULL, NULL, 0, "<Branch>" },
-  { "/Options/File Encoding/User Default", NULL, *GtkItemFactoryCallback(file_encoding), 2, "<RadioItem>" },
-  { "/Options/File Encoding/Alphabet Default", NULL, *GtkItemFactoryCallback(file_encoding), 1, "/Options/File Encoding/User Default" },
-  { "/Options/File Encoding/Unicode UTF8", NULL, *GtkItemFactoryCallback(file_encoding), 65004, "/Options/File Encoding/User Default" },
-  { "/Options/File Encoding/Unicode UTF16 (LE)", NULL, *GtkItemFactoryCallback(file_encoding), 1203, "/Options/File Encoding/User Default" },
-  { "/Options/File Encoding/Unicode UTF16 (BE)", NULL, *GtkItemFactoryCallback(file_encoding), 1204, "/Options/File Encoding/User Default" },
-  { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/Options/Font Size", NULL, NULL, 0, "<Branch>" },
-  { "/Options/Font Size/Default Fonts", NULL, *GtkItemFactoryCallback(set_dasher_fontsize), 1, "<RadioItem>" },
-  { "/Options/Font Size/Large Fonts", NULL, *GtkItemFactoryCallback(set_dasher_fontsize), 2, "/Options/Font Size/Default Fonts" },
-  { "/Options/Font Size/Very Large Fonts", NULL, *GtkItemFactoryCallback(set_dasher_fontsize), 4, "/Options/Font Size/Default Fonts" },
-  { "/Options/Editing Font...", NULL, *GtkItemFactoryCallback(set_edit_font), 1, "<Item>" },
-  { "/Options/Dasher Font...", NULL, *GtkItemFactoryCallback(set_dasher_font), 1, "<Item>" },
-  { "/Options/Reset Fonts", NULL, *GtkItemFactoryCallback(reset_fonts), 1, "<Item>" },
-  { "/Options/One Dimensional", NULL, *GtkItemFactoryCallback(SetDimension), 1, "<CheckItem>" },
-  { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
-  { "/Options/Start on Left Mouse", NULL, *GtkItemFactoryCallback(startonleft), 1, "<CheckItem>" },
-  { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },
-  { "/Help", NULL, NULL, 0, "<Branch>" },
-  { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
- };
+
+bool controlmodeon=false;
+bool keyboardmodeon=false;
+bool onedmode=false;
+bool eyetrackermode=false;
+bool cyclickeyboardmodeon=false;
+
+button buttons[10];
 
 #define _(_x) gettext(_x)
 
-#define TB_NEW "new"
-#define TB_OPEN "open"
-#define TB_SAVE "save"
-#define TB_CUT "cut"
-#define TB_COPY "copy"
-#define TB_PASTE "paste"
-#define TB_PREFERENCES "preferences"
-
 #define NO_PREV_POS -1
 
-guint window_x = 500, window_y = 400;
+guint window_x = 500, window_y = 500, editheight = 50;
 
 gboolean setup = FALSE;
-gboolean paused = TRUE;
+gboolean paused = FALSE;
+gboolean firsttime = TRUE;
 gboolean indrag = FALSE;
 gboolean file_modified = FALSE;
 gboolean showtoolbar;
@@ -122,16 +84,41 @@ gboolean showslider;
 gboolean timestamp;
 gboolean startleft;
 gboolean startspace;
+gboolean keyboardcontrol;
+gboolean leavewindowpause;
+gboolean mouseposstart;
+gboolean firstbox=FALSE;
+gboolean secondbox=FALSE;
+gboolean speakonstop=FALSE;
+
+gint dasherwidth, dasherheight;
+long yscale, mouseposstartdist=0;
+gboolean coordcalled;
+
+gint buttonnum=0;
+
+extern gboolean timedata;
+extern gboolean drawoutline;
 
 gint prev_pos_x;
 gint prev_pos_y;
 
 gint fileencoding;
 
+gint outputcharacters;
+
+time_t starttime=0;
+time_t starttime2=0;
+
 const gchar *filename = NULL;
+GPatternSpec *alphabetglob, *colourglob;
+
 
 GtkWidget *window;
 GtkWidget *file_selector;
+
+std::string dasherfont="Serif 12";
+std::string editfont="Sans 10";
 
 void 
 load_training_file (const gchar *filename)
@@ -139,7 +126,7 @@ load_training_file (const gchar *filename)
   dasher_train_file( filename );
 }
 
-void alphabet_select(GtkTreeSelection *selection, gpointer data)
+extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 {
   GtkTreeIter iter;
   GtkTreeModel *model;
@@ -149,104 +136,350 @@ void alphabet_select(GtkTreeSelection *selection, gpointer data)
 
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &alph, -1);
+    
+    if (alph!=alphabet) {
+      GtkWindow* trainwindow=GTK_WINDOW(glade_xml_get_widget(widgets,"trainwindow"));
+      gtk_window_set_transient_for(trainwindow,GTK_WINDOW(preferences_window));
+      gtk_window_present(trainwindow);
 
-    dasher_set_parameter_string( STRING_ALPHABET, alph );
+      while (gtk_events_pending ()) {
+      	gtk_main_iteration_do(false);
+      }
 
+      dasher_set_parameter_string( STRING_ALPHABET, alph );
+      gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
+      alphabet=alph;
+      update_colours();
+      dasher_redraw();
+      deletemenutree();
+      add_control_tree(gettree());
+    }
     g_free(alph);
   }
 }
 
-void 
-preferences(gpointer data, guint action, GtkWidget *widget)
+void update_colours()
 {
-  GtkTreeSelection *selection;
-  GtkWidget *vbox;
-  GtkTreeModel *model;
-  GtkWidget *treeview;
-  GtkWidget *sw;
-  GtkListStore *list_store;
-  GtkTreeIter iter;
-  GtkWidget *ok;
-  
-  list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  colourscheme=dasher_get_current_colours();
+  const int colourlist_size=128;
+  const char *colourlist[ colourlist_size ];
+  int colour_count = dasher_get_colours( colourlist, colourlist_size );
+  for (int i=0; i<colour_count; i++) {
+    if (colourscheme==colourlist[i]) {
+      gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_indices(i,-1));
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
+    }
+  }
+}
 
-  // FIXME - need to check that this is doing the right thing, no
-  // memory leaks due to strings not being dealloced etc...
+extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
+{
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  gchar *colour;
+  GdkCursor *waitcursor, *arrowcursor;
+  GtkWidget *preferences_window = GTK_WIDGET(data);
+
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, 0, &colour, -1);
+
+    dasher_set_parameter_string( STRING_COLOUR, colour );    
+
+    // Reset the colour selection as well
+    colourscheme=colour;
+
+    dasher_redraw();
+
+    g_free(colour);
+  }
+}
+
+extern "C" void 
+generate_preferences(GtkWidget *widget, gpointer user_data) { 
+  int alphabet_count, colour_count;
 
   const int alphabetlist_size = 128;
   const char *alphabetlist[ alphabetlist_size ];
+  const int colourlist_size=128;
+  const char *colourlist[ colourlist_size ];
+  GtkTreeIter alphiter, colouriter;
 
-  int alphabet_count;
-  
+  alphabettreeview = glade_xml_get_widget(widgets,"AlphabetTree");  
+  alph_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
+  alphselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection),GTK_SELECTION_BROWSE);
+  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphab\et",gtk_cell_renderer_text_new(),"text",0,NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview),column);
+
+  // Clear the contents of the alphabet list
+  gtk_list_store_clear( alph_list_store );
+
+  // And repopulate it with an up to date list
   alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
+  // Connect up a signal so we can select a new alphabet
+  g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
+
   for (int i=0; i<alphabet_count; ++i) {
-    gtk_list_store_append (list_store, &iter);
-    gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
+    gtk_list_store_append (alph_list_store, &alphiter);
+    gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
+    if (alphabetlist[i]==alphabet) {
+      gtk_tree_selection_select_iter(alphselection, &alphiter);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
+    }
+  }
+  
+  // Do the same for colours
+  colourtreeview = glade_xml_get_widget(widgets,"ColourTree");  
+
+  // Make sure that the colour tree is realized now as we'll need to do
+  // stuff with it before it's actually displayed
+  gtk_widget_realize(colourtreeview)
+
+  colour_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
+  colourselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(colourtreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection),GTK_SELECTION_BROWSE);
+  column = gtk_tree_view_column_new_with_attributes ("Colour",gtk_cell_renderer_text_new(),"text",0,NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview),column);
+
+  // Clear the contents of the colour list
+  gtk_list_store_clear( colour_list_store );
+
+  // And repopulate it with an up to date list
+  colour_count = dasher_get_colours( colourlist, colourlist_size );
+
+  // Connect up a signal so we can select a new colour scheme
+  g_signal_connect_after(G_OBJECT(colourselection),"changed",GTK_SIGNAL_FUNC(colour_select),NULL);
+
+  for (int i=0; i<colour_count; ++i) {
+    gtk_list_store_append (colour_list_store, &colouriter);
+    gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
+    if (colourlist[i]==colourscheme) {
+      gtk_tree_selection_select_iter(colourselection, &colouriter);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
+    }
+
   }
 
-  // FIXME - delete strings here????
+}
 
-  GtkWidget *preferences_window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_signal_connect (GTK_OBJECT (preferences_window), "destroy", GTK_SIGNAL_FUNC (gtk_widget_destroy), NULL);
-  gtk_container_set_border_width(GTK_CONTAINER(preferences_window),8);
-  vbox = gtk_vbox_new (FALSE,8);
-  gtk_container_add(GTK_CONTAINER(preferences_window),vbox);
-
-  sw=gtk_scrolled_window_new(NULL,NULL);
-  gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw),GTK_SHADOW_ETCHED_IN);
-  gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX(vbox), sw, TRUE, TRUE, 0);
-
-  treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL(list_store));  
-  gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (treeview), TRUE);
-  gtk_tree_view_set_search_column (GTK_TREE_VIEW (treeview), 0);
-  gtk_container_add (GTK_CONTAINER(sw), treeview);
-
-  selection = gtk_tree_view_get_selection (GTK_TREE_VIEW (treeview));
-  gtk_tree_selection_set_mode (GTK_TREE_SELECTION(selection),GTK_SELECTION_SINGLE);
-
-  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphabet",gtk_cell_renderer_text_new(),"text",0,NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(treeview),column);
-
-  gtk_window_set_default_size (GTK_WINDOW(preferences_window), 280, 250);
-
-  g_signal_connect (selection, "changed", G_CALLBACK(alphabet_select), preferences_window);
-
-  ok = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
-
-  g_signal_connect_swapped (G_OBJECT (ok), "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT(preferences_window));
-
-  gtk_box_pack_start( GTK_BOX(vbox), ok, false, false, 0);
-
-  gtk_widget_show_all(preferences_window);
+extern "C" void
+preferences_display(GtkWidget *widget, gpointer user_data)
+{
+  if (preferences_window==NULL)
+    preferences_window=glade_xml_get_widget(widgets, "preferences");
+  gtk_window_set_transient_for(GTK_WINDOW(preferences_window),GTK_WINDOW(window));
+  gtk_window_present(GTK_WINDOW(preferences_window));
 }
   
-void 
+extern "C" gboolean
+preferences_hide(GtkWidget *widget, gpointer user_data)
+{
+  gtk_widget_hide(preferences_window);
+  return TRUE;
+}
+
+extern "C" gboolean
+button_preferences_show(GtkWidget *widget, gpointer user_data)
+{
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton1")),buttons[1].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton2")),buttons[2].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton3")),buttons[3].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton4")),buttons[4].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton5")),buttons[5].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton6")),buttons[6].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton7")),buttons[7].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton8")),buttons[8].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton9")),buttons[9].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton10")),buttons[1].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton11")),buttons[2].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton12")),buttons[3].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton13")),buttons[4].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton14")),buttons[5].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton15")),buttons[6].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton16")),buttons[7].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton17")),buttons[8].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton18")),buttons[9].y);
+  gtk_window_set_transient_for(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")),GTK_WINDOW(preferences_window));
+  gtk_window_present(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")));
+}
+
+extern "C" gboolean
+button_preferences_hide(GtkWidget *widget, gpointer user_data)
+{
+  gtk_widget_hide(glade_xml_get_widget(widgets,"buttonprefs"));
+}
+
+extern "C" gboolean
+fontsel_hide(GtkWidget *widget, gpointer user_data)
+{
+  gtk_widget_hide(GTK_WIDGET(dasher_fontselector));
+}
+
+extern "C" gboolean
+edit_fontsel_hide(GtkWidget *widget, gpointer user_data)
+{
+  gtk_widget_hide(GTK_WIDGET(edit_fontselector));
+}
+
+extern "C" gboolean
+button_coordinates_changed(GtkWidget *widget, gpointer user_data)
+{
+  GtkSpinButton *spinbutton=GTK_SPIN_BUTTON(widget);
+  int value=int(gtk_spin_button_get_value(spinbutton));
+
+  // Really dreadfully hacky stuff to avoid recursion
+  //
+  // The recursion only seems to happen if the value ends up as 0, so
+  // if we read a 0 twice in a row from the same widget then just break
+  // out and assume that it really is a 0
+  if (coordcalled==true && value==0) {
+    return true;
+  } else if (value==0) {
+    coordcalled=true;
+  }
+  gtk_spin_button_update(spinbutton);
+  coordcalled=false;
+  value=int(gtk_spin_button_get_value(spinbutton));
+
+  if (widget==glade_xml_get_widget(widgets,"spinbutton1")) {
+    buttons[1].x=value;
+    set_long_option_callback("Button1X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton2")) {
+    buttons[2].x=value;
+    set_long_option_callback("Button2X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton3")) {
+    buttons[3].x=value;
+    set_long_option_callback("Button3X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton4")) {
+    buttons[4].x=value;
+    set_long_option_callback("Button4X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton5")) {
+    buttons[5].x=value;
+    set_long_option_callback("Button5X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton6")) {
+    buttons[6].x=value;
+    set_long_option_callback("Button6X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton7")) {
+    buttons[7].x=value;
+    set_long_option_callback("Button7X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton8")) {
+    buttons[8].x=value;
+    set_long_option_callback("Button8X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton9")) {
+    buttons[9].x=value;
+    set_long_option_callback("Button9X",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton10")) {
+    buttons[1].y=value;
+    set_long_option_callback("Button1Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton11")) {
+    buttons[2].y=value;
+    set_long_option_callback("Button2Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton12")) {
+    buttons[3].y=value;
+    set_long_option_callback("Button3Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton13")) {
+    buttons[4].y=value;
+    set_long_option_callback("Button4Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton14")) {
+    buttons[5].y=value;
+    set_long_option_callback("Button5Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton15")) {
+    buttons[6].y=value;
+    set_long_option_callback("Button6Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton16")) {
+    buttons[7].y=value;
+    set_long_option_callback("Button7Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton17")) {
+    buttons[8].y=value;
+    set_long_option_callback("Button8Y",value);
+  } else if (widget==glade_xml_get_widget(widgets,"spinbutton18")) {
+    buttons[9].y=value;
+    set_long_option_callback("Button9Y",value);
+  }
+}
+
+#ifdef GNOME_LIBS
+void
+vfs_print_error(GnomeVFSResult *result)
+{
+  GtkWidget *error_dialog;
+  error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", filename,gnome_vfs_result_to_string (*result));
+  gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+  gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+  gtk_dialog_run(GTK_DIALOG(error_dialog));
+  gtk_widget_destroy(error_dialog);
+  return;
+}
+#endif
+
+extern "C" void 
 open_file (const char *filename)
 {
+  int size;
+  gchar *buffer;
+  GtkWidget *error_dialog;
+#ifdef GNOME_LIBS
+  GnomeVFSHandle *handle;
+  GnomeVFSResult result;
+  GnomeVFSFileInfo info;
+
+  result=gnome_vfs_open(&handle, filename, GNOME_VFS_OPEN_READ);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+  result=gnome_vfs_get_file_info(filename,&info,GNOME_VFS_FILE_INFO_DEFAULT);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+  size=info.size;
+  
+  buffer = (gchar *) g_malloc (size);
+
+  result=gnome_vfs_read(handle,buffer,size,NULL);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
+  }
+
+  gnome_vfs_close(handle);
+#else
   struct stat file_stat;
   FILE *fp;
   int pos = 0;
-  gchar *buffer;
+  int failure = 0;
 
-  stat (filename, &file_stat);
-  buffer = (gchar *) g_malloc (file_stat.st_size);
-  fp = fopen (filename, "r");
-  fread (buffer, file_stat.st_size, 1, fp);
-  fclose (fp);
+  failure = stat (filename, &file_stat);
+
+  size=file_stat.st_size;
   
+  if (failure) {
+    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
+    gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+    gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+    gtk_dialog_run(GTK_DIALOG(error_dialog));
+    gtk_widget_destroy(error_dialog);
+    return;
+  }
+
+  if (!failure) {
+    buffer = (gchar *) g_malloc (size);
+    fp = fopen (filename, "r");
+    fread (buffer, size, 1, fp);
+    fclose (fp);
+  }
+#endif  
   dasher_clear();
   
   file_modified = 1;
 
-  gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, file_stat.st_size);
+  gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
 
   gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
-
-  file_modified = 0;
-  
-  flush_count = 0;
 
   gtk_window_set_title(GTK_WINDOW(window), filename);
 
@@ -254,75 +487,105 @@ open_file (const char *filename)
   dasher_redraw();
 }
 
-void
+extern "C" void
 open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-
+  
+  filesel_hide(NULL,NULL);
+  
   open_file (filename);
-
-  gtk_widget_destroy (GTK_WIDGET(selector));
 }
 
 
-void
-select_open_file(gpointer data, guint action, GtkWidget *widget)
+extern "C" void
+select_open_file(GtkWidget *widget, gpointer user_data)
 {
+  if (filesel==NULL)
+    filesel = glade_xml_get_widget(widgets, "dasher_fileselector");
 
-  GtkWidget *filew;
-
-  filew = gtk_file_selection_new ("File selection");
-
-  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
-		    "clicked", G_CALLBACK (open_file_from_filesel), (gpointer) filew);
-    
-  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
-			    "clicked", G_CALLBACK (gtk_widget_destroy),
-			    G_OBJECT (filew));
-  gtk_widget_show (filew);
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
+		    "clicked", G_CALLBACK (open_file_from_filesel), (gpointer) filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
-void
-select_new_file(gpointer data, guint action, GtkWidget *widget)
+extern "C" void
+select_new_file(GtkWidget *widget, gpointer user_data)
 {
   //FIXME - confirm this
 
   choose_filename();
 
   clear_edit();
+  deletemenutree();
+  add_control_tree(gettree());
   dasher_start();
   dasher_redraw();
-
+  dasher_pause(0,0);
 }
 
-void 
+extern "C" void 
 save_file_as (const char *filename, bool append)
 {
-  FILE *fp;
+  int opened;
   gint length;
   gchar *inbuffer,*outbuffer = NULL;
   gsize bytes_read, bytes_written;
   GError *error = NULL;
   GIConv cd;
-
+  GtkWidget *error_dialog;
   GtkTextIter *start, *end;
 
   start = new GtkTextIter;
   end = new GtkTextIter;
 
-  if (append == true) {
-    fp = fopen (filename, "a");
-  } else {
-    fp = fopen (filename, "w");
+#ifdef GNOME_LIBS
+  GnomeVFSResult result;
+  GnomeVFSHandle *handle;
+
+  result=gnome_vfs_open(&handle,filename,GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
+
+  sleep(10);
+
+  if (result==GNOME_VFS_ERROR_NOT_FOUND) {
+    gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0666);
+  } else if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;
   }
 
+#else
+  FILE *fp;
+
+  if (append == true) {
+    fp = fopen (filename, "a");
+    if (fp == NULL) {
+      opened = 0; 
+    }
+  } else {
+    fp = fopen (filename, "w");
+    if (fp == NULL) {
+      opened = 0;
+    }
+  }
+
+  if (!opened) {
+    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not save the file \"%s\".\n", filename);
+    gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+    gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+    gtk_dialog_run(GTK_DIALOG(error_dialog));
+    gtk_widget_destroy(error_dialog);
+    return;
+  }
+#endif
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
-
+  
   inbuffer = gtk_text_iter_get_slice (start,end);
-
+  
   length = strlen(inbuffer);
-
+  
   switch (fileencoding) {
   case Opts::UserDefault:
   case Opts::AlphabetDefault:
@@ -343,139 +606,196 @@ save_file_as (const char *filename, bool append)
     outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
     break;
   }	       
-	       
+
+#ifdef GNOME_LIBS
+  GnomeVFSFileSize vfs_bytes_written;
+  if (append==true) {
+    result=gnome_vfs_seek(handle,GNOME_VFS_SEEK_END,0);
+  } else {
+    gnome_vfs_seek(handle,GNOME_VFS_SEEK_START,0);
+  }
+
+  result=gnome_vfs_write(handle,outbuffer,strlen(outbuffer),&vfs_bytes_written);
+  if (result!=GNOME_VFS_OK) {
+    vfs_print_error(&result);
+    return;    
+  }
+  
+  gnome_vfs_close(handle);
+#else  
   fwrite(outbuffer,1,bytes_written,fp);
   fclose (fp);
-
+#endif
   file_modified = 0;
   gtk_window_set_title(GTK_WINDOW(window), filename);
 }
 
-void
+extern "C" void
 save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+
+  filesel_hide(NULL,NULL);
+  
+  save_file_as(filename,FALSE);
+}
+
+extern "C" void
+save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
   save_file_as(filename,FALSE);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  gtk_main_quit();
 }
 
-void
+extern "C" void
 append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
   save_file_as(filename,TRUE);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  filesel_hide(NULL,NULL);
 }
 
-void
-select_save_file_as()
+extern "C" void
+select_save_file_as(GtkWidget *widget, gpointer user_data)
 {
+  if (filesel==NULL)
+    filesel = glade_xml_get_widget(widgets, "dasher_fileselector");
 
-  GtkWidget *filew;
-
-  filew = gtk_file_selection_new ("File selection");
-
-  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
-		    "clicked", G_CALLBACK (save_file_from_filesel), (gpointer) filew);
-    
-  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
-			    "clicked", G_CALLBACK (gtk_widget_destroy),
-			    G_OBJECT (filew));
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
+		    "clicked", G_CALLBACK (save_file_from_filesel), (gpointer) filesel);
 
   if (filename!=NULL)
-    gtk_file_selection_set_filename (GTK_FILE_SELECTION(filew), filename);
-
-  gtk_widget_show (filew);
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(filesel), filename);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
-void
+extern "C" void
+select_save_file_as_and_quit(GtkWidget *widget, gpointer user_data)
+{
+  if (filesel==NULL)
+    filesel = glade_xml_get_widget(widgets, "dasher_fileselector");
+
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
+		    "clicked", G_CALLBACK (save_file_from_filesel_and_quit), (gpointer) filesel);
+
+  if (filename!=NULL)
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(filesel), filename);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
+}
+
+extern "C" void
 import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
-
-
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
   load_training_file(filename);
 
-  gtk_widget_destroy (GTK_WIDGET(selector));
+  filesel_hide(NULL,NULL);
 }
 
-void
-select_append_file()
+extern "C" void
+select_append_file(GtkWidget *widget, gpointer user_data)
 {
+  if (filesel==NULL)
+    filesel = glade_xml_get_widget(widgets, "dasher_fileselector");
 
-  GtkWidget *filew;
-
-  filew = gtk_file_selection_new ("File selection");
-
-  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
-		    "clicked", G_CALLBACK (append_file_from_filesel), (gpointer) filew);
-    
-  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
-			    "clicked", G_CALLBACK (gtk_widget_destroy),
-			    G_OBJECT (filew));
-  gtk_widget_show (filew);
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
+		    "clicked", G_CALLBACK (append_file_from_filesel), (gpointer) filesel);
+  
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
 }
 
-void
-save_file ()
+extern "C" void
+save_file (GtkWidget *widget, gpointer user_data)
 {
   if (filename != NULL) {
     save_file_as(filename,FALSE);
   }
   else {
-    select_save_file_as();
+    select_save_file_as(NULL,NULL);
   }
 }
 
-void
-select_import_file()
+extern "C" void
+save_file_and_quit (GtkWidget *widget, gpointer user_data)
 {
-
-  GtkWidget *filew;
-
-  filew = gtk_file_selection_new ("File selection");
-
-  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filew)->ok_button),
-		    "clicked", G_CALLBACK (import_file_from_filesel), (gpointer) filew);
-    
-  g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
-			    "clicked", G_CALLBACK (gtk_widget_destroy),
-			    G_OBJECT (filew));
-  gtk_widget_show (filew);
+  if (filename != NULL) {
+    save_file_as(filename,FALSE);
+    gtk_main_quit();
+  }
+  else {
+    select_save_file_as_and_quit(NULL,NULL);
+  }
 }
 
+extern "C" void
+select_import_file(GtkWidget *widget, gpointer user_data)
+{
+  if (filesel==NULL)
+    filesel = glade_xml_get_widget(widgets, "dasher_fileselector");
 
-void 
+  g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (filesel)->ok_button),
+		    "clicked", G_CALLBACK (import_file_from_filesel), (gpointer) filesel);
+  gtk_window_set_transient_for(GTK_WINDOW(filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(filesel));
+}
+
+extern "C" void
+filesel_hide(GtkWidget *widget, gpointer user_data)
+{
+  gtk_widget_hide (filesel);
+}
+
+extern "C" void 
 toolbar_save(GtkWidget *widget, gpointer data)
 {
 }
 
-void
+extern "C" bool
 ask_save_before_exit(GtkWidget *widget, gpointer data)
 {
+  GtkWidget *dialog = NULL;
+
   if (file_modified == TRUE) {
-    // FIXME - ask question here
-    //        switch(gpe_question_ask ("Save current file before exiting?", _("Question"), "question",_("Don't save"), "stop", _("Save"), "save"))
-    //      {
-    //      case 1: /* Save */
-    //	toolbar_save (widget, data);
-    //      case 0: /* Don't Save */
-    //	gtk_exit (0);
-    //      default:
-    //	toolbar_save (widget, data);
-    //      } */
+    // Ask whether to save the modified file, insert filename if it exists.
+    if (filename != NULL) {
+      dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE,"Do you want to save your changes to %s?\n\nYour changes will be lost if you don't save them.", filename);
+    }
+    else if (filename == NULL) {
+      dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_QUESTION,GTK_BUTTONS_NONE,"Do you want to save your changes?\n\nYour changes will be lost if you don't save them.");
+    }
+
+    gtk_dialog_add_buttons(GTK_DIALOG(dialog),"Don't save",GTK_RESPONSE_REJECT,"Don't quit",GTK_RESPONSE_CANCEL,"Save and quit",GTK_RESPONSE_ACCEPT,NULL);
+    switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
+    case GTK_RESPONSE_REJECT:
+      write_to_file();
+      gtk_main_quit();
+      break;
+    case GTK_RESPONSE_CANCEL:
+      gtk_widget_destroy (GTK_WIDGET(dialog));
+      return true;
+      break;
+    case GTK_RESPONSE_ACCEPT:
+      gtk_widget_destroy (GTK_WIDGET(dialog));
+      write_to_file();
+      save_file_and_quit(NULL,NULL);
+    }
   }
   else {
-    gtk_exit (0);
+    write_to_file();
+    gtk_main_quit();
   }
 }
 
-void 
+extern "C" void 
 toolbar_cut(GtkWidget *widget, gpointer data)
 {
   gtk_editable_cut_clipboard(GTK_EDITABLE(the_text_view));
@@ -483,7 +803,7 @@ toolbar_cut(GtkWidget *widget, gpointer data)
   return;
 }
 
-void 
+extern "C" void 
 toolbar_copy(GtkWidget *widget, gpointer data)
 {
   gtk_editable_copy_clipboard(GTK_EDITABLE(the_text_view));
@@ -491,7 +811,7 @@ toolbar_copy(GtkWidget *widget, gpointer data)
   return;
 }
 
-void 
+extern "C" void 
 toolbar_paste(GtkWidget *widget, gpointer data)
 {
   gtk_editable_paste_clipboard(GTK_EDITABLE(the_text_view));
@@ -520,79 +840,333 @@ timer_callback(gpointer data)
   if (!paused) {
     int x;
     int y;
-    
-    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
-    //    dasher_canvas->interface->TapOn(x,y,get_time());
 
+    if (leavewindowpause==true) {
+      gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
+
+      gdk_window_get_pointer(GTK_WIDGET(window)->window, &x, &y, NULL);
+
+      if (x>dasherwidth || x<0 || y>dasherheight || y<0) {
+	return 1;
+      }
+    }
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    if (onedmode==true) {
+      float scalefactor;
+      float newy=y;
+      gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+      if (yscale==0) {
+	scalefactor=2;
+      } else {
+	scalefactor=float(dasherheight)/float(yscale);
+      }
+      newy-=dasherheight/2;
+      newy=newy*scalefactor;
+      newy+=dasherheight/2;
+      y=int(newy);
+    } 
     dasher_tap_on( x, y, get_time() );
   }
 
-  // need non-zero return value so timer repeats
+  else {
+    int x,y;
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    
+    if (onedmode==true) {
+      float scalefactor;
+      float newy=y;
+      gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+      if (yscale==0) {
+	scalefactor=2;
+      } else {
+	scalefactor=float(dasherheight)/float(yscale);
+      }
+      newy-=dasherheight/2;
+      newy=newy*scalefactor;
+      newy+=dasherheight/2;
+      y=int(newy);
+    } 
 
+    dasher_draw_mouse_position(x,y);
+
+    if (mouseposstart==true) {
+      dasherheight=the_canvas->allocation.height;
+      gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+      
+      if (firsttime==firstbox==secondbox==false) { // special case for Dasher 
+	firstbox=true;                             // startup
+	dasher_redraw();
+      }
+      
+      if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist) && firstbox==true) {
+	// Inside the red box
+	if (starttime==0) {
+	  starttime=time(NULL);
+	} else {
+	  if ((time(NULL)-starttime)>2) {
+	    starttime=time(NULL);
+	    secondbox=true;
+	    firstbox=false;
+	    dasher_redraw();
+	  }
+	}
+      } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
+	// inside the yellow box, and the yellow box has been displayed
+	if (starttime2==0) {
+	  starttime2=time(NULL);
+	  starttime=0;
+	} else {
+	  if ((time(NULL)-starttime2)>2) {
+	    secondbox=false;
+	    stop(); // Yes, confusingly named
+	  }
+	}
+      } else {
+	if (secondbox==true && (starttime2>0 || (time(NULL)-starttime)>3)) {
+	  secondbox=false;
+	  firstbox=true;
+	  starttime2=0;
+	  starttime=0;
+	  dasher_redraw();
+	} else if (firstbox==true) {
+	  starttime=0;
+	}
+      }
+    }
+  }
+  // need non-zero return value so timer repeats
   return 1;
 }
 
-gint
+extern "C" gint
 canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
-  gdk_draw_pixmap(the_canvas->window,
+  gdk_draw_drawable(the_canvas->window,
 		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
 		  onscreen_buffer,
 		  event->area.x, event->area.y,
 		  event->area.x, event->area.y,
 		  event->area.width, event->area.height);
 
+  if (firsttime==TRUE) {
+    paused=true;
+    firsttime=false;
+  }
+
   return TRUE;
 }
 
-gint
+extern "C" gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
   rebuild_buffer();
 
   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
+
   dasher_redraw();
+
+  if (setup==TRUE) {
+    dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
+    gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
+    dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
+    dasher_set_parameter_int(INT_SCREENWIDTH, dasherwidth);
+  }
 
   return FALSE;
 }
 
-void
+extern "C" gboolean
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  flush_count = 0;
-
-  dasher_start();
-  dasher_redraw();
+  if (paused==true) {
+    dasher_start();
+    dasher_redraw();
+    return FALSE;
+  }
 }
 
-void
+extern "C" void
 edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  flush_count = 0;
-
-  dasher_start();
-  dasher_redraw();
+  if(keycontrol==false) {
+    dasher_start();
+    dasher_redraw();
+  }
 }
 
-void
-key_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
+extern "C" gint
+key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
+{
+  int i,width,height;
+  if (event->type != GDK_KEY_PRESS)
+    return FALSE;
+
+  if (keyboardcontrol == false) {
+    // CJB,  2003-08.  If we have a selection, replace it with the new input.
+    // This code is duplicated in button_press_event. 
+    if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
+      gtk_text_buffer_cut_clipboard(the_text_buffer,the_text_clipboard,TRUE);
+  }
+
+  switch (event->keyval) {
+  case GDK_Up:
+    if (keyboardcontrol == true) {
+      if (cyclickeyboardmodeon==true) {
+	int cycles=0;
+	buttonnum++;
+	buttonnum=buttonnum%9;
+	while(buttons[buttonnum+1].x==0 && buttons[buttonnum+1].y==0 && cycles<10) {
+	  buttonnum++;
+	  buttonnum=buttonnum%9;
+	  cycles++;
+	}
+	paused=false;
+	dasher_draw_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	paused=true;
+	return TRUE;
+      }
+      if (buttons[1].x==0 && buttons[1].y==0) {
+	width = the_canvas->allocation.width;
+	height = the_canvas->allocation.height;
+	paused=false;
+	dasher_go_to((int)(0.70*width), (int)(0.20*height));
+	dasher_draw_go_to((int)(0.70*width), (int)(0.20*height));
+	paused=true;
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[1].x),int(buttons[1].y));
+	dasher_draw_go_to(int(buttons[1].x),int(buttons[1].y));
+	paused=true;
+	return TRUE;
+      }
+    }
+    break;
+  case GDK_Down:
+    if (keyboardcontrol == true) {
+      if (cyclickeyboardmodeon==true) {
+	int cycles=0;
+	buttonnum--;
+	if (buttonnum<0) {
+	  buttonnum=8;
+	}
+	buttonnum=buttonnum%9;
+	while(buttons[buttonnum+1].x==0 && buttons[buttonnum+1].y==0 && cycles<10) {
+	  buttonnum--;
+	  if (buttonnum<0) {
+	    buttonnum=8;
+	  }
+	  cycles++;
+	}
+
+	paused=false;
+	dasher_draw_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	paused=true;
+	return TRUE;
+      }
+      if (buttons[3].x==0 && buttons[3].y==0) {
+	width = the_canvas->allocation.width;
+	height = the_canvas->allocation.height;
+	paused=false;
+	dasher_go_to((int)(0.70*width), (int)(0.80*height));
+	dasher_draw_go_to((int)(0.70*width), (int)(0.80*height));
+	paused=true;
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[3].x),int(buttons[3].y));
+	dasher_draw_go_to(int(buttons[3].x),int(buttons[3].y));
+	paused=true;
+	return TRUE;
+      }
+    }
+    break;
+  case GDK_Left:
+    if (keyboardcontrol == true) {
+      if (cyclickeyboardmodeon==true) {
+	return TRUE;
+      }
+      if (buttons[2].x==0 && buttons[2].y==0) {
+	width = the_canvas->allocation.width;
+	height = the_canvas->allocation.height;
+	paused=false;
+	dasher_go_to((int)(0.25*width), (int)(0.50*height));
+	dasher_draw_go_to((int)(0.25*width), (int)(0.50*height));
+	paused=true;
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[2].x),int(buttons[2].y));
+	dasher_draw_go_to(int(buttons[2].x),int(buttons[2].y));
+	paused=true;
+	return TRUE;
+      }
+    }
+    break;
+  case GDK_Right:
+    if (keyboardcontrol==true) {
+      if (cyclickeyboardmodeon==true) {
+	paused=false;
+      	dasher_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	dasher_draw_go_to(int(buttons[buttonnum+1].x),int(buttons[buttonnum+1].y));
+	paused=true;
+	return TRUE;
+      }
+      if (buttons[4].x==0 && buttons[4].y==0) {
+	return TRUE;
+      } else {
+	paused=false;
+	dasher_go_to(int(buttons[4].x),int(buttons[4].y));
+	dasher_draw_go_to(int(buttons[4].x),int(buttons[4].y));
+	paused=true;
+	return TRUE;
+      }
+    }
+    break;
+  case GDK_space:
+    if (startspace == TRUE) {
+      stop();      
+    }
+    return TRUE;
+    break;
+  case GDK_F12:
+    int x, y;
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    XWarpPointer(gdk_x11_get_default_xdisplay(), 0, GDK_WINDOW_XID(the_canvas->window), 0, 0, 0, 0, the_canvas->allocation.width/2, the_canvas->allocation.height/2);
+    return TRUE;
+    break;
+  default:
+    return FALSE;
+  }  
+  return FALSE;
+}
+
+extern "C" gint
+slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
   if (event->type != GDK_KEY_PRESS)
-    return;
+    return FALSE;
 
-  if (startspace == TRUE) {
-    if (paused == TRUE) {
-      dasher_unpause( get_time() );
-      paused = FALSE;
-    } else {
-      dasher_pause( (gint) event->x,(gint) event->y );    
-      paused = TRUE;
+  switch (event->keyval) {
+  case GDK_space:
+    if (startspace == TRUE) {
+      stop();
     }
-  }
-  return;
+    return TRUE;
+    break;
+  case GDK_F12:
+    int x, y;
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    XWarpPointer(gdk_x11_get_default_xdisplay(), 0, GDK_WINDOW_XID(the_canvas->window), 0, 0, 0, 0, the_canvas->allocation.width/2, the_canvas->allocation.height/2);
+    return TRUE;
+    break;
+  default:
+    return FALSE;
+  }  
+  return FALSE;
 }
 
-void
+extern "C" void
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
@@ -607,24 +1181,23 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   focusEvent->in = TRUE;
 
   gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
-  gtk_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
+  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
 
   g_free(focusEvent);
 
+  // CJB,  2003-08.  If we have a selection, replace it with the new input.
+  // This code is duplicated in key_press_event.
+  if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
+    gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
+  
   if (startleft == TRUE) {
-    if (paused == TRUE) {
-      dasher_unpause( get_time() );
-      paused = FALSE;
-    } else {
-      dasher_pause( (gint) event->x,(gint) event->y );    
-      paused = TRUE;
-    }
+    stop();
   }
   return;
 }
 
 
-gboolean
+extern "C" gboolean
 button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   dasher_pause( (gint) event->x,(gint) event->y );
@@ -633,172 +1206,136 @@ button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
-void speed_changed(GtkAdjustment *adj) {
-
-  dasher_set_parameter_double( DOUBLE_MAXBITRATE, adj->value );
+extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data) {
+  dasher_set_parameter_double( DOUBLE_MAXBITRATE, GTK_RANGE(hscale)->adjustment->value );
 }
 
-void interface_setup() {
+extern "C" void uniform_changed(GtkHScale *hscale) {
+  dasher_set_parameter_int( INT_UNIFORM, int(GTK_RANGE(hscale)->adjustment->value*10));
+}
+
+
+void interface_setup(GladeXML *xml) {
   dasher_accel = gtk_accel_group_new();
   
-    float initial_bitrate = 3.0;
+  widgets=xml;
 
- speed_frame = gtk_frame_new ("Speed");
-    speed_slider = gtk_adjustment_new(initial_bitrate, 1.0, 8.0, 1.0, 1.0, 0.0);
-    speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
-    gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
+  float initial_bitrate = 3.0;
+
+  the_canvas=glade_xml_get_widget(xml, "the_canvas");
+  text_scrolled_window=glade_xml_get_widget(xml, "text_scrolled_window");
+  the_text_view=glade_xml_get_widget(xml, "the_text_view");
+
+  speed_frame=glade_xml_get_widget(xml, "speed_frame");
+  speed_hscale=glade_xml_get_widget(xml, "speed_hscale");
 
   initialise_canvas(360,360);
   initialise_edit();
 
+  // interface specific preferences
+  if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
+  }
   
-  dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
-				     "<DasherMenu>",
-				     dasher_accel);
+  if(get_long_option_callback("YScale",&yscale)!=false) {
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
+  }
 
-  gtk_item_factory_create_items( dasher_menu,
-				 54,
-				 entries,
-				 NULL );
+  if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
+  }
 
-}
-
-void create_toolbar() {
-  toolbar = gtk_toolbar_new ();
-  gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
-  gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-  
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"), _("New"), G_CALLBACK (select_new_file), NULL, -1);
-  
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open"), _("Open"), G_CALLBACK (select_open_file), NULL, -1);
-  
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE, _("Save"), _("Save"), G_CALLBACK (save_file), NULL, -1);
-  
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE_AS, _("Save As"), _("Save As"), G_CALLBACK (select_save_file_as), NULL, -1);
-    
-  gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
-    
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_CUT, _("Cut"), _("Cut"), G_CALLBACK (clipboard_cut), NULL, -1);
-    
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_COPY, _("Copy"), _("Copy"), G_CALLBACK (clipboard_copy), NULL, -1);
-    
-  gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"), _("Paste"), G_CALLBACK (clipboard_paste), NULL, -1);
-}
-
-void create_menu() {
-  gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
-  dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
-}  
-
-void create_edit_box() {
-    text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-    gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
-    gtk_container_add (GTK_CONTAINER (text_scrolled_window), the_text_view);
-    gtk_signal_connect(GTK_OBJECT (the_text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) NULL);
-    
-    gtk_signal_connect(GTK_OBJECT (the_text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) NULL);
-    
-    gtk_widget_set_events(the_text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
-
-}
-
-void create_canvas() {
-    GTK_WIDGET_SET_FLAGS (GTK_WIDGET (the_canvas), GTK_CAN_FOCUS);
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "expose_event", GTK_SIGNAL_FUNC (canvas_expose_event), (gpointer) NULL);
-    
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) NULL);
-    
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) NULL);
-
-    gtk_signal_connect(GTK_OBJECT (the_canvas), "key_press_event", GTK_SIGNAL_FUNC (key_press_event), (gpointer) NULL);
-    
-    gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
-    canvas_frame = gtk_frame_new (NULL);
-    gtk_container_add (GTK_CONTAINER (canvas_frame), the_canvas);
-    
+  // Configure the buttons
+  if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
+    buttons[1].x=0;
+  }
+  if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
+    buttons[2].x=0;
+  }
+  if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
+    buttons[3].x=0;
+  }
+  if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
+    buttons[4].x=0;
+  }
+  if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
+    buttons[5].x=0;
+  }
+  if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
+    buttons[6].x=0;
+  }
+  if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
+    buttons[7].x=0;
+  }
+  if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
+    buttons[8].x=0;
+  }
+  if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
+    buttons[9].x=0;
+  }
+  if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
+    buttons[1].y=0;
+  }
+  if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
+    buttons[2].y=0;
+  }
+  if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
+    buttons[3].y=0;
+  }
+  if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
+    buttons[4].y=0;
+  }
+  if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
+    buttons[5].y=0;
+  }
+  if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
+    buttons[6].y=0;
+  }
+  if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
+    buttons[7].y=0;
+  }
+  if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
+    buttons[8].y=0;
+  }
+  if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
+    buttons[9].y=0;
+  }
 }
 
 void
-open_window() {
-  char *system_data_dir;
+interface_late_setup() {
+  alphabet=dasher_get_current_alphabet();
+  colourscheme=dasher_get_current_colours();
+  generate_preferences(NULL,NULL);
+}
+
+void
+open_window(GladeXML *xml) {
   char *home_dir;
-  char *user_data_dir;
-  
+
   home_dir = getenv( "HOME" );
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
   sprintf( user_data_dir, "%s/.dasher/", home_dir );
 
-  // FIXME CHANGE THIS!
-  system_data_dir = "/usr/share/dasher/";
+  mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
+
+  system_data_dir = PROGDATA"/";
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 
-  window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-  gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
-  gtk_window_set_resizable( GTK_WINDOW(window), TRUE );
+  scan_alphabet_files();
+  scan_colour_files();
 
-  gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), NULL);
-
-  create_menu();
-  create_toolbar();
-  create_edit_box();
-  create_canvas();
+  window=glade_xml_get_widget(xml, "window");
+  vbox=glade_xml_get_widget(xml, "vbox1");
+  vpane=glade_xml_get_widget(xml, "vpaned1");
+  toolbar=glade_xml_get_widget(xml, "toolbar");
+  dasher_menu_bar=glade_xml_get_widget(xml, "dasher_menu_bar");
+  dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
+  edit_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "edit_fontselector"));
 
   gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
-
-  vbox = gtk_vbox_new (FALSE, 0);
-  vpane = gtk_vpaned_new();
-    
-  gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
-  gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
-    
-  gtk_paned_add1(GTK_PANED(vpane),text_scrolled_window);
-  gtk_paned_add2(GTK_PANED(vpane),canvas_frame);
-
-  gtk_box_pack_start (GTK_BOX (vbox), vpane, TRUE, TRUE, 0);    
-       
-  gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), NULL);
-
-  gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
-  gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
-
-  gtk_container_add (GTK_CONTAINER(window), vbox);
-
-  gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
-    
-  gtk_widget_realize (window);
-  gtk_widget_realize (vpane);
-  gtk_widget_realize (vbox);
-  gtk_widget_realize (text_scrolled_window);
-  gtk_widget_realize (the_text_view);
-  gtk_widget_realize (toolbar);
-  gtk_widget_realize (canvas_frame);
-  gtk_widget_realize (the_canvas);
-  gtk_widget_realize (speed_frame);
-  gtk_widget_realize (speed_hscale);
-  gtk_widget_realize (dasher_menu_bar);
-  
-  gtk_widget_show (window);
-  gtk_widget_show (vpane);
-  gtk_widget_show (vbox);
-  gtk_widget_show (text_scrolled_window);
-  gtk_widget_show (the_text_view);
-  gtk_widget_show (canvas_frame);
-  gtk_widget_show (the_canvas);
-  gtk_widget_show (dasher_menu_bar);
-  gtk_widget_show (speed_hscale);
-
-  if (showtoolbar==TRUE)
-    gtk_widget_show (toolbar);
-
-  if (showslider==TRUE) {
-    gtk_widget_show (speed_frame);
-  }
-
-    // FIXME - need to implement this
-
-    //    interface->SettingsDefaults( store );
 
   // Focus the canvas
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
@@ -810,25 +1347,28 @@ open_window() {
   focusEvent->in = TRUE;
 
   gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
-  gtk_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
+  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
 
   g_free(focusEvent);
 
   dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
   dasher_set_parameter_int( INT_VIEW, 0 );
   
-  const char *alphabet;
-
-  dasher_get_alphabets( &alphabet, 1 );
-  
   dasher_start();
+  dasher_redraw();
 
-  gtk_timeout_add(50, timer_callback, NULL );  
+  g_timeout_add(50, timer_callback, NULL );  
 
-  setup = TRUE;
+  // I have no idea why we need to do this when Glade has theoretically done
+  // so already, but...
+  gtk_widget_add_events (the_canvas, GDK_BUTTON_PRESS_MASK);
+
+  // We need to monitor the text buffer for mark_set in order to get
+  // signals when the cursor is moved
+  g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
 }
 
-void choose_filename() {
+extern "C" void choose_filename() {
   if (timestamp==TRUE) {
     tm *t_struct;
     time_t ctime;
@@ -849,138 +1389,208 @@ void choose_filename() {
   }
 }
 
-void clipboard_copy(void) {
+extern "C" void clipboard_copy(void) {
   dasher_copy();
 }
 
-void clipboard_cut(void) {
+extern "C" void clipboard_cut(void) {
   dasher_cut();
 }
 
-void clipboard_paste(void) {
+extern "C" void clipboard_paste(void) {
   dasher_paste();
 }
 
-void clipboard_copy_all(void) {
+extern "C" void clipboard_copy_all(void) {
   dasher_copy_all();
 }
 
-void clipboard_select_all(void) {
+extern "C" void clipboard_select_all(void) {
   dasher_select_all();
 }
 
-void orientation(gpointer data, guint action, GtkWidget  *widget )
+extern "C" void orientation(GtkRadioButton *widget, gpointer user_data)
 {
-  signed int RealAction=action-3;
-
-  if( GTK_CHECK_MENU_ITEM(widget)->active)
-    {
-      dasher_set_orientation( Dasher::Opts::ScreenOrientations(RealAction) );
-      dasher_redraw();
+  if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
+    if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton1")) {
+      dasher_set_orientation(Alphabet);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton2")) {
+      dasher_set_orientation(LeftToRight);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton3")) {
+      dasher_set_orientation(RightToLeft);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton4")) {
+      dasher_set_orientation(TopToBottom);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton5")) {
+      dasher_set_orientation(BottomToTop);
     }
+  }
+
+  dasher_redraw();
 }
 
-void set_dasher_fontsize(gpointer data, guint action, GtkWidget  *widget )
+extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
 {
-  if( GTK_CHECK_MENU_ITEM(widget)->active)
-    {
-      dasher_set_parameter_int( INT_DASHERFONTSIZE, Dasher::Opts::FontSize(action) );
-      dasher_redraw();
+  if (GTK_CHECK_MENU_ITEM(widget)->active==TRUE) {
+    if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizenormal")) {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, Normal);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizelarge")) {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, Big);
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"fontsizevlarge")) {
+      dasher_set_parameter_int( INT_DASHERFONTSIZE, VBig);
     }
+    dasher_redraw();
+  }
 }
 
-void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
+extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data)
 {
 
-  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+  if(GTK_TOGGLE_BUTTON(widget)->active) {
     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, true );
   } else {
     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, false );
   }
 }
 
-void show_slider(gpointer data, guint action, GtkWidget  *widget )
+extern "C" void show_slider(GtkWidget *widget, gpointer user_data)
 {
-  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+  if(GTK_TOGGLE_BUTTON(widget)->active) {
     dasher_set_parameter_bool( BOOL_SHOWSPEEDSLIDER, true );
   } else {
     dasher_set_parameter_bool( BOOL_SHOWSPEEDSLIDER, false );
   }
 }
 
-void timestamp_files(gpointer data, guint action, GtkWidget *widget )
+extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data )
 {
-  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+  if(GTK_TOGGLE_BUTTON(widget)->active) {
     dasher_set_parameter_bool( BOOL_TIMESTAMPNEWFILES, true );
   } else {
     dasher_set_parameter_bool( BOOL_TIMESTAMPNEWFILES, false );
   }
 }
 
-void copy_all_on_stop(gpointer data, guint action, GtkWidget *widget )
+extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data)
 {
-  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+  if(GTK_TOGGLE_BUTTON(widget)->active) {
     dasher_set_parameter_bool( BOOL_COPYALLONSTOP, true );
   } else {
     dasher_set_parameter_bool( BOOL_COPYALLONSTOP, false );
   }
 }
 
-void file_encoding(gpointer data, guint action, GtkWidget *widget )
+extern "C" void file_encoding(GtkWidget *widget, gpointer user_data)
 {
-  signed int realaction = action -3;
-  if( GTK_CHECK_MENU_ITEM(widget)->active) {
-    dasher_set_encoding( Dasher::Opts::FileEncodingFormats(realaction) );
-  }
+    //  signed int realaction = action -3;
+  //  if( GTK_TOGGLE_BUTTON(widget)->active) {
+  //    dasher_set_encoding( Dasher::Opts::FileEncodingFormats(realaction) );
+  //  }
   //  interface->SetFileEncoding(Opts::FileEncodingFormats(realaction));
   //FIXME - need to reimplemnt this
 }
 
-void SetDimension(gpointer data, guint action, GtkWidget *widget )
+extern "C" void SetDimension(GtkWidget *widget, gpointer user_data)
 {
-  // FIXME - rewrite this sanely, ie:
-  // dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_CHECK_MENU_ITEM(widget)->active  );
-  // plus the same for the above routines
-
-  if(GTK_CHECK_MENU_ITEM(widget)->active) {
-    //    interface->DrawMouse( TRUE );
-    dasher_set_parameter_bool( BOOL_DIMENSIONS, true );
-  } else {
-    //    interface->DrawMouse( FALSE );
-    dasher_set_parameter_bool( BOOL_DIMENSIONS, false );
-  }
+  dasher_set_parameter_bool(BOOL_DIMENSIONS, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
-void startonleft(gpointer data, guint action, GtkWidget *widget )
+extern "C" void SetEyetracker(GtkWidget *widget, gpointer user_data)
 {
-  dasher_set_parameter_bool( BOOL_STARTONLEFT, GTK_CHECK_MENU_ITEM(widget)->active );
+  dasher_set_parameter_bool(BOOL_EYETRACKER, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
-void startonspace(gpointer data, guint action, GtkWidget *widget )
+extern "C" void startonleft(GtkWidget *widget, gpointer user_data)
 {
-  dasher_set_parameter_bool( BOOL_STARTONSPACE, GTK_CHECK_MENU_ITEM(widget)->active );
+  dasher_set_parameter_bool( BOOL_STARTONLEFT, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
-void DrawMouse(gpointer data, guint action, GtkWidget *widget )
+extern "C" void startonspace(GtkWidget *widget, gpointer user_data)
 {
-  // FIXME - rewrite this sanely, ie:
-  // dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_CHECK_MENU_ITEM(widget)->active  );
-  // plus the same for the above routines
+  dasher_set_parameter_bool( BOOL_STARTONSPACE, GTK_TOGGLE_BUTTON(widget)->active );
+}
 
-  if(GTK_CHECK_MENU_ITEM(widget)->active) {
-    //    interface->DrawMouse( TRUE );
-    dasher_set_parameter_bool( BOOL_DRAWMOUSE, true );
-  } else {
-    //    interface->DrawMouse( FALSE );
-    dasher_set_parameter_bool( BOOL_DRAWMOUSE, false );
-  }
+extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data)
+{
+ dasher_set_parameter_bool( BOOL_MOUSEPOSSTART, GTK_TOGGLE_BUTTON(widget)->active );
+}
 
+extern "C" void keycontrol(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_KEYBOARDCONTROL, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void windowpause(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_WINDOWPAUSE, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void controlmode(GtkWidget *widget, gpointer user_data)
+{
+  controlmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
+  dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+  dasher_start();
   dasher_redraw();
 }
 
-void about_dasher(gpointer data, guint action, GtkWidget *widget )
+extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data)
 {
-  GtkWidget *about = NULL;
+  keyboardmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
+  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
+extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_DRAWMOUSE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_redraw();
+}
+
+extern "C" void DrawMouseLine(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_DRAWMOUSELINE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_redraw();
+}
+
+extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
+{
+  cyclickeyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
+  set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
+}
+
+extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
+{
+#ifdef GNOME_LIBS
+  GdkPixbuf* pixbuf = NULL;
+
+  gchar *authors[] = {
+    "Chris Ball",
+    "Phil Cowens",
+    "Matthew Garrett",
+    "Iain Murray",
+    "Hanna Wallach",
+    "David Ward",
+    NULL
+  };
+    
+  gchar *documenters[] = {
+    "Matthew Garrett",
+    NULL
+  };
+
+  gchar *translator_credits = _("translator_credits");
+  
+  about = gnome_about_new (_("Dasher"), 
+			   PACKAGE_VERSION, 
+			   "Copyright The Dasher Project\n",
+			   _("Dasher is a predictive text entry application"),
+			   (const char **)authors,
+			   (const char **)documenters,
+			   strcmp (translator_credits, "translator_credits") != 0 ? (const char *)translator_credits : NULL,
+			   NULL);
+  
+  gtk_window_set_transient_for (GTK_WINDOW(about), GTK_WINDOW (window));
+  //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
+  gtk_widget_show(about);
+#else
   GtkWidget *label, *button;
   char *tmp;
   
@@ -1009,19 +1619,114 @@ void about_dasher(gpointer data, guint action, GtkWidget *widget )
 
 
   gtk_widget_show (about);
+#endif
 }
 
+extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
+{
+  char *font_name;
+  font_name=gtk_font_selection_dialog_get_font_name(dasher_fontselector);
+  if (font_name) {
+    dasher_set_parameter_string( STRING_DASHERFONT, font_name );
+    dasherfont=font_name;
+    set_canvas_font(font_name);
+  }
+  fontsel_hide(NULL,NULL);
+  dasher_redraw();
+}
 
-void reset_fonts(gpointer data, guint action, GtkWidget *widget )
+extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data)
+{
+  g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasher_fontselector);
+  gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector),GTK_WINDOW(window));
+  gtk_font_selection_dialog_set_font_name(dasher_fontselector,dasherfont.c_str());
+  gtk_window_present(GTK_WINDOW(dasher_fontselector));
+}
+
+extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
+{
+  char *font_name;
+  font_name=gtk_font_selection_dialog_get_font_name(edit_fontselector);
+  if (font_name) {
+    dasher_set_parameter_string( STRING_EDITFONT, font_name );
+    set_editbox_font(font_name);
+    editfont=font_name;
+  }
+  edit_fontsel_hide(NULL,NULL);
+  dasher_redraw();
+}
+
+extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
+{
+  g_signal_connect (edit_fontselector->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) edit_fontselector);
+  gtk_window_set_transient_for(GTK_WINDOW(edit_fontselector),GTK_WINDOW(window));
+  gtk_font_selection_dialog_set_font_name(edit_fontselector,editfont.c_str());
+  GtkWidget *cancel_butto3 = glade_xml_get_widget(widgets,"cancel_butto3");
+  gtk_widget_hide(cancel_butto3);
+  gtk_window_present(GTK_WINDOW(edit_fontselector));
+}
+
+extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
 {
   reset_edit_font();
   reset_dasher_font();
+  dasher_set_parameter_string( STRING_DASHERFONT, "Serif 12" );
+  dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
+}
+
+extern "C" void speak(GtkWidget *widget, gpointer user_data)
+{
+  speakonstop=GTK_TOGGLE_BUTTON(widget)->active;
+  dasher_set_parameter_bool( BOOL_SPEECHMODE, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data)
+{
+  drawoutline=GTK_TOGGLE_BUTTON(widget)->active;
+  dasher_set_parameter_bool( BOOL_OUTLINEMODE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_redraw();
+}
+
+extern "C" void palettechange(GtkWidget *widget, gpointer user_data)
+{
+  dasher_set_parameter_bool( BOOL_PALETTECHANGE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_redraw();
+}
+
+extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
+{
+  mouseposstartdist=int(widget->adjustment->value);
+  set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
+  dasher_redraw();
+}
+
+extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
+{
+  yscale=int(widget->adjustment->value);
+  set_long_option_callback("YScale",yscale);
 }
 
 // Callbacks to be notified of when something changes
 
 void parameter_string_callback( string_param p, const char *value )
 {
+  switch(p)
+    {
+    case STRING_DASHERFONT:
+      set_canvas_font(value);
+      dasherfont=value;
+      if (dasherfont=="") {
+	dasherfont="Serif 12";
+      }
+      break;
+    case STRING_EDITFONT:
+      set_editbox_font(value);
+      editfont=value;
+      if (editfont=="") {
+	editfont="Sans 10";
+      }
+      break;
+    }
 }
 
 void parameter_double_callback( double_param p, double value )
@@ -1029,7 +1734,7 @@ void parameter_double_callback( double_param p, double value )
   switch(p)
     {
     case DOUBLE_MAXBITRATE:
-      gtk_adjustment_set_value(GTK_ADJUSTMENT(speed_slider),  value);
+      gtk_range_set_value(GTK_RANGE(speed_hscale), value);
       break;
     }
 }
@@ -1042,19 +1747,24 @@ void parameter_int_callback( int_param p, long int value )
       switch(value)
 	{
 	case Opts::Alphabet:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Alphabet Default")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1"))) != TRUE)
+	    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1")), TRUE);
 	  break;
 	case Opts::LeftToRight:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Left to Right")), TRUE);
-	  break;
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2")), TRUE);
+	  break;	  
 	case Opts::RightToLeft:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Right to Left")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3")), TRUE);
 	  break;
 	case Opts::TopToBottom:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Top to Bottom")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4")), TRUE);
 	  break;
 	case Opts::BottomToTop:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Orientation/Bottom to Top")), TRUE);
+	  if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5")), TRUE);
 	  break;
 	}
       break;
@@ -1063,19 +1773,19 @@ void parameter_int_callback( int_param p, long int value )
       switch(value)
 	{
 	case Opts::UserDefault:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/User Default")), TRUE);
+	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/File Encoding/User Default")), TRUE);
 	  break;
 	case Opts::AlphabetDefault:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Alphabet Default")), TRUE);
+	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/File Encoding/Alphabet Default")), TRUE);
 	  break;
 	case Opts::UTF8:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Unicode UTF8")), TRUE);
+	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/File Encoding/Unicode UTF8")), TRUE);
 	  break;
 	case Opts::UTF16LE:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Unicode UTF16 (LE)")), TRUE);
+	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/File Encoding/Unicode UTF16 (LE)")), TRUE);
 	  break;
 	case Opts::UTF16BE:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/File Encoding/Unicode UTF16 (BE)")), TRUE);
+	  //	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu_bar, "/Options/File Encoding/Unicode UTF16 (BE)")), TRUE);
 	  break;
 	}
       break;
@@ -1083,15 +1793,45 @@ void parameter_int_callback( int_param p, long int value )
       switch(value)
 	{
 	case Opts::Normal:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Font Size/Default Fonts")), TRUE);
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
 	  break;
 	case Opts::Big:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Font Size/Large Fonts")), TRUE);
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
 	  break;
 	case Opts::VBig:
-	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Font Size/Very Large Fonts")), TRUE);
+	  gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
 	  break;
 	}
+      break;
+    case INT_UNIFORM:
+      gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), float(value)/10);
+      break;
+    case INT_EDITHEIGHT:
+      editheight=value;
+      gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")),value);
+      dasher_redraw();
+      break;
+    case INT_SCREENWIDTH:
+      window_x=value;
+      if (setup==true) {
+	setup=false;
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
+	setup=true;
+      } else {
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
+      }
+      dasher_redraw();
+      break;
+    case INT_SCREENHEIGHT:
+      window_y=value;
+      if (setup==true) {
+	setup=false;
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
+	setup=true;
+      } else {
+	gtk_window_set_default_size (GTK_WINDOW(window), window_x, window_y);
+      }
+      dasher_redraw();
       break;
     }
 }
@@ -1101,8 +1841,7 @@ void parameter_bool_callback( bool_param p, bool value )
   switch(p)
     {
     case BOOL_SHOWTOOLBAR:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Show Toolbar")), value);
-      
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"toolbarbutton")), value);
       showtoolbar=value;
 
       if (toolbar==NULL) 
@@ -1116,8 +1855,7 @@ void parameter_bool_callback( bool_param p, bool value )
 
       break;
     case BOOL_SHOWSPEEDSLIDER:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Speed Slider")), value);
-
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speedsliderbutton")), value);
       showslider=value;
 
       if (speed_frame==NULL) 
@@ -1130,32 +1868,153 @@ void parameter_bool_callback( bool_param p, bool value )
       }
       break;
     case BOOL_DRAWMOUSE:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Draw Position")), value);
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmousebutton")), value);
+      break;
+    case BOOL_DRAWMOUSELINE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmouselinebutton")), value);
       break;
     case BOOL_DIMENSIONS:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/One Dimensional")), value);
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"onedbutton")), value);
+      onedmode=value;
+      break;
+    case BOOL_EYETRACKER:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"eyetrackerbutton")), value);
+      eyetrackermode=value;
       break;
     case BOOL_TIMESTAMPNEWFILES:
       timestamp=value;
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Timestamp New Files")), value);
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"timestampbutton")), value);
       break;
     case BOOL_COPYALLONSTOP:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Copy All on Stop")), value);
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"copyallstopbutton")), value);
       break;
     case BOOL_STARTONLEFT:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Left Mouse")), value);
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"leftbutton")), value);
       startleft=value;
       break;
     case BOOL_STARTONSPACE:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Space Bar")), value);
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"spacebutton")), value);
       startspace=value;
+      break;
+    case BOOL_MOUSEPOSSTART:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"mouseposbutton")), value);
+      mouseposstart=value;
+      firstbox=value;
+      secondbox=false;
+      dasher_redraw();
+      break;
+    case BOOL_KEYBOARDCONTROL:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), value);
+      keyboardcontrol=value;
+      break;
+    case BOOL_WINDOWPAUSE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"winpausebutton")), value);
+      leavewindowpause=value;
+      break;
+    case BOOL_CONTROLMODE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"controlmode")), value);
+      controlmodeon=value;
+      dasher_start();
+      dasher_redraw();
+      break;
+    case BOOL_KEYBOARDMODE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), value);
+      keyboardmodeon=value;
+      break;
+    case BOOL_OUTLINEMODE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), value);
+      drawoutline=value;
+      break;
+    case BOOL_PALETTECHANGE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"palettebutton")), value);
+      break;
+    case BOOL_SPEECHMODE:
+      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speakbutton")), value);
+      speakonstop=value;
       break;
     }
 }
 
+void interface_cleanup() {
+  cleanup_edit();
+}
 
+void stop() {
+  if (paused == TRUE) {
+    dasher_unpause( get_time() );
+    paused = FALSE;
+    starttime=starttime2=0;
+  } else {
+    dasher_pause(0,0);    
+    if (onedmode==true) {
+      dasher_halt();
+    }
+    paused = TRUE;
+#ifdef GNOME_SPEECH
+    if (speakonstop==true)
+      speak();
+#endif
+    if (timedata==TRUE) {
+      printf("%d characters output in %d seconds\n",outputcharacters,
+	     time(NULL)-starttime);
+    }
+    if (mouseposstart==true) {
+      firstbox=true;
+      dasher_redraw();
+    }
+  }
+}
 
+void scan_alphabet_files()
+{
+  GDir* directory;
+  G_CONST_RETURN gchar* filename;
+  alphabetglob=g_pattern_spec_new("alphabet*xml");
+  directory = g_dir_open(system_data_dir,0,NULL);
 
+  while(filename=g_dir_read_name(directory)) {
+    if (alphabet_filter(filename)) {
+      add_alphabet_filename(filename);
+    }
+  }
 
+  directory = g_dir_open(user_data_dir,0,NULL);
 
+  while(filename=g_dir_read_name(directory)) {
+    if (alphabet_filter(filename)) {
+      add_alphabet_filename(filename);
+    }
+  }
+}
 
+void scan_colour_files()
+{
+  GDir* directory;
+  G_CONST_RETURN gchar* filename;
+  colourglob=g_pattern_spec_new("colour*xml");
+  directory = g_dir_open(system_data_dir,0,NULL);
+
+  while(filename=g_dir_read_name(directory)) {
+    if (colour_filter(filename)) {
+      add_colour_filename(filename);
+    }
+  }
+
+  directory = g_dir_open(user_data_dir,0,NULL);
+
+  while(filename=g_dir_read_name(directory)) {
+    if (colour_filter(filename)) {
+      add_colour_filename(filename);
+    }
+  }
+}
+
+int alphabet_filter(const gchar* filename)
+{
+  return int(g_pattern_match_string(alphabetglob,filename));
+}
+
+int colour_filter(const gchar* filename)
+{
+  return int(g_pattern_match_string(colourglob,filename));
+}
