@@ -310,6 +310,9 @@ void dasher_set_parameter_int( int_param p, long int value )
       dasherfontsize=value;
       interface->SetDasherFontSize(Dasher::Opts::FontSize(value));
       break;
+    case INT_UNIFORM:
+      interface->SetUniform(value);
+      break;
     }
 }
 

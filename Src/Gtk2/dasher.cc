@@ -1259,6 +1259,8 @@ void parameter_int_callback( int_param p, long int value )
 	  break;
 	}
       break;
+    case INT_UNIFORM:
+      break;
     }
 }
 

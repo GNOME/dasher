@@ -171,6 +171,11 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_COLOURMODE, Value );
     };
+
+  void SetUniform(int Value)
+    {
+      handle_parameter_int( INT_UNIFORM, Value );
+    }
 };
 
 
