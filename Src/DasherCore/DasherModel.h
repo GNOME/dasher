@@ -66,7 +66,7 @@ public:
        void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
        void Set_paused(bool paused)         {m_Paused=paused;}
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
-	void GoTo(myint,myint);                                         // jumps to a new viewpoint
+	void GoTo(float,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node
 	void Reparent_root(int lower, int upper);                                 // change back to the previous root
@@ -118,7 +118,7 @@ private:
 	CDasherNode* Get_node_under_crosshair();
 	CDasherNode* m_Root;
 	void Get_new_root_coords(myint mousex,myint mousey);
-	void Get_new_goto_coords(myint mousex,myint mousey);
+	void Get_new_goto_coords(float zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 	void Update(CDasherNode* node,CDasherNode* under,int safe);
 

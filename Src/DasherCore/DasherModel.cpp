@@ -269,16 +269,21 @@ void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
 	myint newRootmax=miNewrootzoom+myint(below*dRxnew);
 	myint newRootmin=miNewrootzoom-myint(above*dRxnew);
-	if (newRootmin<m_DasherY/2 && newRootmax>m_DasherY/2 && newRootmax<LLONG_MAX && newRootmin>LLONG_MIN) {
-		m_Rootmax=newRootmax;
-		m_Rootmin=newRootmin;	
-	}
+
+	if (newRootmin>=m_DasherY/2)  newRootmin= m_DasherY/2-1;
+	if (newRootmax<=m_DasherY/2)  newRootmax= m_DasherY/2+1;
+	if (newRootmax>=LLONG_MAX)    newRootmax= LLONG_MAX-1;
+	if (newRootmin<=LLONG_MIN)    newRootmin= LLONG_MIN+1;
+	m_Rootmax=newRootmax;
+	m_Rootmin=newRootmin;	
 }
 
-void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
+void CDasherModel::Get_new_goto_coords(float zoomfactor, myint MouseY) 
+                                       // this was mousex.
+
 {
   // First, we need to work out how far we need to zoom in
-  float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
+  //float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
 
   // Then zoom in appropriately
   m_Rootmax+=int(zoomfactor*(m_Rootmax-m_DasherY/2));
@@ -396,14 +401,14 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	//	m_Root->Recursive_Push_Node(0);
 }
 
-void CDasherModel::GoTo(myint miMousex,myint miMousey) 
+void CDasherModel::GoTo(float zoomfactor, myint miMousey) 
 	// work out the next viewpoint, opens some new nodes
 {
         // Find out the current node under the crosshair
         CDasherNode *old_under_cross=Get_node_under_crosshair();	
 	
 	// works out next viewpoint
-	Get_new_goto_coords(miMousex,miMousey);
+	Get_new_goto_coords(zoomfactor,miMousey);
 
 	// push node under crosshair
 
@@ -413,7 +418,8 @@ void CDasherModel::GoTo(myint miMousex,myint miMousey)
 
 	// push node under goto point
 
-	CDasherNode* node_under_goto = Get_node_under_mouse(miMousex, miMousey);
+	// We don't have a mousex, so "emulating" one.
+	CDasherNode* node_under_goto = Get_node_under_mouse(50, miMousey);
 
 	node_under_goto->Push_Node();
 
