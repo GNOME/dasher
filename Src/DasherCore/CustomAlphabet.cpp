@@ -35,6 +35,12 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	// This line makes it a bit easier for our WindowsCE compiler
 	std::string empty="";
 
+	if (AlphInfo.ParagraphCharacter.Text != empty ) {
+		AddChar(AlphInfo.ParagraphCharacter.Text, AlphInfo.ParagraphCharacter.Display, AlphInfo.ParagraphCharacter.Colour, AlphInfo.ParagraphCharacter.Foreground);
+		SetParagraphSymbol();
+	}
+
+
 	if (AlphInfo.SpaceCharacter.Text != empty ) {
 		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 		SetSpaceSymbol();

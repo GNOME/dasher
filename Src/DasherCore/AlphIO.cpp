@@ -234,6 +234,9 @@ void CAlphIO::CreateDefault()
 	Default.Type = Opts::Western;
 	Default.Mutable = false;
 	Default.Orientation = Opts::LeftToRight;
+	Default.ParagraphCharacter.Display = "";
+	Default.ParagraphCharacter.Text = "";
+	Default.ParagraphCharacter.Colour = "-1";
 	Default.SpaceCharacter.Display = "_";
 	Default.SpaceCharacter.Text = " ";
 	Default.SpaceCharacter.Colour = "9";
@@ -370,6 +373,28 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			if (strcmp(*atts, "f")==0) {
 			  atts++;
 			  Me->InputInfo.SpaceCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	if (strcmp(name, "paragraph")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "d")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Display = *atts;
+			  Me->InputInfo.ParagraphCharacter.Text = "\n";
+			  atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Colour = *atts;
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.ParagraphCharacter.Foreground = *atts;
 			  atts--;
 			}
 			atts += 2;

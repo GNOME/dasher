@@ -35,6 +35,7 @@ public:
 	std::string& GetTrainingFile() {return m_TrainingFile;}
 	std::string& GetPalette() {return m_DefaultPalette;}
 	
+	symbol GetParagraphSymbol() {return m_ParagraphSymbol;}
 	symbol GetSpaceSymbol() {return m_SpaceSymbol;}
 	symbol GetControlSymbol() {return m_ControlSymbol;}
 	const std::string& GetDisplayText(symbol i) const {return m_Display[i];} // return display string for i'th symbol
@@ -67,8 +68,10 @@ protected:
 	void StartNewGroup(std::string colour="");
 
 	// Alphabet language parameters
+	void SetParagraphSymbol() {m_ParagraphSymbol=m_Characters.size()-1;}
 	void SetSpaceSymbol() {m_SpaceSymbol=m_Characters.size()-1;}         // We can set the space symbol to be the last character added
 	void SetControlSymbol() {m_ControlSymbol=m_Characters.size()-1;} // We set the control symbol to be the last character added. Given the above, this is a hack.
+	void SetParagraphSymbol(symbol ParagraphSymbol) {m_ParagraphSymbol=ParagraphSymbol;}
 	void SetSpaceSymbol(symbol SpaceSymbol) {m_SpaceSymbol=SpaceSymbol;} // ...or any desired symbol.
 	void SetControlSymbol(symbol ControlSymbol) {m_ControlSymbol=ControlSymbol;}
 	void SetOrientation(Opts::ScreenOrientations Orientation) {m_Orientation=Orientation;}
@@ -78,6 +81,7 @@ protected:
 private:
 	Opts::AlphabetTypes m_DefaultEncoding;
 	Opts::ScreenOrientations m_Orientation;
+	symbol m_ParagraphSymbol;
 	symbol m_SpaceSymbol;
 	symbol m_ControlSymbol;
 	std::string m_TrainingFile;
