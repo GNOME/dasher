@@ -1070,13 +1070,6 @@ timer_callback(gpointer data)
 extern "C" gint
 canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
-  gdk_draw_drawable(the_canvas->window,
-		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-		  onscreen_buffer,
-		  event->area.x, event->area.y,
-		  event->area.x, event->area.y,
-		  event->area.width, event->area.height);
-
   if (firsttime==TRUE) {
     // canvas_expose_event() is the easiest function to catch
     // if we want to know when everything is set up and displayed
