@@ -26,6 +26,11 @@ GtkWidget *the_canvas;
 GdkPixmap *offscreen_buffer;
 GdkPixmap *onscreen_buffer;
 
+GdkPixmap *offscreen_text_buffer;
+GdkPixmap *offscreen_text_mask;
+
+//GdkPixbuf *offscreen_text_buffer;
+
 GtkWidget *the_text_view;  
 GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;

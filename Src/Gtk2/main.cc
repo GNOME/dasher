@@ -415,6 +415,8 @@ select_save_file_as()
 static void
 import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
+
+
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
   load_training_file(filename);
@@ -692,9 +694,6 @@ open_window() {
     //system_data_dir = "/etc/dasher/";
     system_data_dir = user_data_dir;
     
-    //    interface->SetSystemLocation(system_data_dir);
-    //    interface->SetSystemLocation(user_data_dir);
-
     dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
     dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 
@@ -745,7 +744,8 @@ open_window() {
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
-    gtk_window_set_policy (GTK_WINDOW(window), FALSE, FALSE, FALSE);
+    //  gtk_window_set_policy (GTK_WINDOW(window), FALSE, FALSE, FALSE);
+    gtk_window_set_resizable( GTK_WINDOW(window), TRUE );
     
     gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
     dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
@@ -982,10 +982,8 @@ void orientation(gpointer data, guint action, GtkWidget  *widget )
 {
   signed int RealAction=action-3;
 
-  // FIXME - need to implement this
-
-  //  interface->ChangeOrientation(Dasher::Opts::ScreenOrientations(RealAction));
-  // interface->Redraw();
+  dasher_set_orientation( Dasher::Opts::ScreenOrientations(RealAction) );
+  dasher_redraw();
 }
 
 void show_toolbar(gpointer data, guint action, GtkWidget  *widget )
@@ -1110,6 +1108,17 @@ void blank_callback()
                       0, 0,
 		      the_canvas->allocation.width,
 		      the_canvas->allocation.height);
+  
+
+
+  gdk_draw_rectangle (offscreen_text_buffer,
+		      the_canvas->style->white_gc,
+                      TRUE,
+                      0, 0,
+		      the_canvas->allocation.width,
+		      the_canvas->allocation.height);
+
+  // FIXME - need to draw to mask here
 
 }
 
@@ -1118,12 +1127,31 @@ void display_callback()
   GdkRectangle update_rect;
   //  the_buffer->swap_buffers();
 
-  GdkPixmap *temp;
-  temp = offscreen_buffer;
-  offscreen_buffer=onscreen_buffer;
-  onscreen_buffer = temp;
+  //  GdkPixmap *temp;
+  // temp = offscreen_buffer;
+  //offscreen_buffer=onscreen_buffer;
+  //onscreen_buffer = temp;
   
+  gdk_draw_pixmap(onscreen_buffer,
+		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+		  offscreen_buffer,
+		  0, 0, 0,0,
+		      the_canvas->allocation.width,
+		      the_canvas->allocation.height);
 
+  GdkGC *mask_gc;
+
+  mask_gc = gdk_gc_new( the_canvas->window );
+
+  gdk_gc_set_clip_mask( mask_gc, offscreen_text_mask );
+
+  gdk_draw_pixmap(onscreen_buffer,
+		  mask_gc,
+		  offscreen_text_buffer,
+		  0, 0, 0,0,
+		      the_canvas->allocation.width,
+		      the_canvas->allocation.height);
+		 
 
   gdk_draw_rectangle ( offscreen_buffer,
 		       the_canvas->style->white_gc,
@@ -1131,6 +1159,27 @@ void display_callback()
                       0, 0,
 		      the_canvas->allocation.width,
 		      the_canvas->allocation.height);
+  gdk_draw_rectangle ( offscreen_text_buffer,
+		       the_canvas->style->white_gc,
+                      TRUE,
+                      0, 0,
+		      the_canvas->allocation.width,
+		      the_canvas->allocation.height);;
+
+  GdkGC *the_gc;
+
+  the_gc = gdk_gc_new( offscreen_text_mask );
+
+  GdkColor the_color = {0,0,0,0};
+
+  gdk_gc_set_foreground( the_gc, &the_color );
+
+  gdk_draw_rectangle ( offscreen_text_mask,
+		       the_gc,
+                      TRUE,
+                      0, 0,
+		      the_canvas->allocation.width,
+		      the_canvas->allocation.height);;
   
   update_rect.x = 0;
   update_rect.y = 0;
@@ -1224,9 +1273,39 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
   pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
 
-  gdk_draw_layout (offscreen_buffer,
+  gdk_draw_layout (offscreen_text_buffer,
 		   the_canvas->style->black_gc,
 		   x1, y1-(ink->height/2.0), the_pangolayout);
+
+  // THIS IS THE BIT TO FIX!!! 
+
+  // The below bit just draws a rectangle to reveal the text on the
+  // upper layer. We really need to draw an outline ofthe text so that
+  // it looks sensible, but it doesn't seem to want to do this unless
+  // offscreen_text_mask has a colour map, and I'm not sure how to
+  // give it one.
+
+  //  For bonus marks, make a version that can do full alpha
+  //  transparency :-)
+
+
+  GdkGC *the_gc;
+
+  the_gc = gdk_gc_new( offscreen_text_mask );
+
+  GdkColor the_color = {1,0,0,0};
+
+  gdk_gc_set_foreground( the_gc, &the_color );
+
+   gdk_draw_rectangle ( offscreen_text_mask,
+   		       the_gc,
+                     TRUE,
+   		       x1, y1, 16, 16 );
+
+  
+ //  gdk_draw_layout_with_colors (offscreen_text_mask,
+//   		   the_gc,
+//   		   x1, y1-(ink->height/2.0), the_pangolayout, &the_color, NULL);
 }
 
 void text_size_callback(symbol Character, int* Width, int* Height, int Size)
@@ -1369,12 +1448,20 @@ void rebuild_buffer()
 {
   delete(offscreen_buffer);
   delete(onscreen_buffer);
+  delete(offscreen_text_buffer);
+  delete(offscreen_text_mask);
 
   // the_buffer = new Gtk2DoubleBuffer(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
 
   offscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
   onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
 
+offscreen_text_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
+offscreen_text_mask = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, 1);
+
+// offscreen_text_buffer = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 1,  the_canvas->allocation.width, the_canvas->allocation.height )
+
+// gdk_drawable_set_colormap(offscreen_text_mask, gdk_colormap_new (gdk_visual_get_system(), TRUE ));
   // may need to draw a white rectangle on all of them at this point.
 }
 
@@ -1386,6 +1473,13 @@ void initialise_canvas( int width, int height )
   offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
    onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
+  //offscreen_text_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
+offscreen_text_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
+offscreen_text_mask = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, 1);
+// offscreen_text_buffer = gdk_pixbuf_new(GDK_COLORSPACE_RGB, TRUE, 1,  the_canvas->allocation.width, the_canvas->allocation.height )
+
+ 
+// gdk_drawable_set_colormap(offscreen_text_mask, gdk_colormap_new (gdk_visual_get_system(), TRUE ));
 
 }
 

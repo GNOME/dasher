@@ -13,7 +13,7 @@ CFLAGS += -MD
 
 CXXFLAGS = $(CFLAGS) -I../DasherCore
 
-MEMBERS = main Gtk2DasherCanvas Gtk2DasherEdit Gtk2DoubleBuffer Gtk2DasherStore
+MEMBERS = main
 
 DEPS = $(patsubst %,%.d,$(MEMBERS))
 OBJS = $(patsubst %,%.o,$(MEMBERS))
