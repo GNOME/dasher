@@ -23,7 +23,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 
 	canvasclass.lpszClassName=TEXT("CANVAS");
 	canvasclass.hCursor=LoadCursor(NULL,IDC_CROSS);
-
+	canvasclass.style=canvasclass.style|WS_EX_TOOLWINDOW;
 	if (RegisterClassEx(&canvasclass)==0)
 		exit(0);
 
@@ -151,10 +151,15 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_TIMER:
 		if (running==0)
 			return 0;
-		if (imousey<0 || imousey>30000)
-			imousey=0;
-		if (imousex>30000)
-			imousex=0;
+		POINT mousepos;
+		GetCursorPos(&mousepos);
+		ScreenToClient(Window,&mousepos);
+		imousey=mousepos.y;
+		imousex=mousepos.x;
+//		if (imousey<-30000 || imousey>30000)
+//			imousey=-30000;
+//		if (imousex>30000)
+//			imousex=0;
 		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 		break;
 	default:
