@@ -23,7 +23,7 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation)
 	
 	typedef pair<Opts::AlphabetTypes, string> AT;
 	vector<AT> Types;
-	Types.push_back(AT(Opts::None, "None"));
+	Types.push_back(AT(Opts::MyNone, "None"));
 	Types.push_back(AT(Opts::Arabic, "Arabic"));
 	Types.push_back(AT(Opts::Baltic, "Baltic"));
 	Types.push_back(AT(Opts::CentralEurope, "CentralEurope"));
