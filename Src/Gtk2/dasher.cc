@@ -733,7 +733,6 @@ save_file_and_quit (GtkWidget *widget, gpointer user_data)
     select_save_file_as(NULL,NULL);
     gtk_main_quit();
   }
-  return true;
 }
 
 extern "C" bool
@@ -1350,7 +1349,6 @@ void interface_setup(GladeXML *xml) {
   if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
     buttons[9].y=0;
   }
-  return TRUE;
 }
 
 void
