@@ -102,6 +102,7 @@ gboolean firstbox=FALSE;
 gboolean secondbox=FALSE;
 gboolean speakonstop=FALSE;
 gboolean training=FALSE;
+gboolean exiting=FALSE;
 
 gint dasherwidth, dasherheight;
 long yscale, mouseposstartdist=0;
@@ -723,6 +724,7 @@ save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *select
   if (save_file_as(filename,FALSE)==false) {
     return;
   } else {
+    exiting=TRUE;
     gtk_main_quit();
   }
 }
@@ -807,6 +809,7 @@ save_file_and_quit (GtkWidget *widget, gpointer user_data)
 {
   if (filename != NULL) {
     if (save_file_as(filename,FALSE)==true) {
+      exiting=TRUE;
       gtk_main_quit();
     } else {
       return;
@@ -858,6 +861,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
     case GTK_RESPONSE_REJECT:
       write_to_file();
+      exiting=TRUE;
       gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
@@ -874,6 +878,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
     // It should be noted that write_to_file merely saves the new text to the training
     // file rather than saving it to a file of the user's choice
     write_to_file();
+    exiting=TRUE;
     gtk_main_quit();
   }
 }
@@ -897,6 +902,11 @@ long get_time() {
 gint
 timer_callback(gpointer data)
 {
+  if (exiting==TRUE)
+    {
+      // Exit if we're called when Dasher is exiting
+      return 0;
+    }
   if (training==TRUE)
     {
       // Check if we're still training, and if so just return non-0 in order to get
