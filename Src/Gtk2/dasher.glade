@@ -203,7 +203,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Normal</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
+			      <property name="active">False</property>
 			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
 			  </child>
@@ -224,7 +224,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Very Large</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
+			      <property name="active">False</property>
 			      <property name="group">fontsizenormal</property>
 			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
@@ -304,7 +304,6 @@
 
       <child>
 	<widget class="GtkToolbar" id="toolbar">
-	  <property name="visible">True</property>
 	  <property name="orientation">GTK_ORIENTATION_HORIZONTAL</property>
 	  <property name="toolbar_style">GTK_TOOLBAR_ICONS</property>
 	  <property name="tooltips">True</property>

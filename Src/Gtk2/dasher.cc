@@ -143,18 +143,16 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
       gtk_window_present(trainwindow);
 
       while (gtk_events_pending ()) {
-	gtk_main_iteration_do(false);
+      	gtk_main_iteration_do(false);
       }
+
       dasher_set_parameter_string( STRING_ALPHABET, alph );
       gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
       alphabet=alph;
-
       update_colours();
-
       dasher_redraw();
       deletemenutree();
       add_control_tree(gettree());
-      
     }
     g_free(alph);
   }
@@ -171,7 +169,7 @@ void update_colours()
       gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_indices(i,-1));
       gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_indices(i,-1),NULL,false);
     }
-  }   
+  }
 }
 
 extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
