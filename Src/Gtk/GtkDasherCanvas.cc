@@ -143,8 +143,35 @@ void GtkDasherCanvas::clear()
   some_colormap.alloc(some_color);
   graphics_context.set_foreground(some_color);
     
+  
+  Gdk_GC gc2;
+  
+  //  cout << buffer->get_map_text() << " - a" << endl;
 
-  buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+  gc2.create(*(buffer->get_map_text()));
+
+  GdkColor clr;
+
+  clr.pixel = 0;
+
+  Gdk_Color some_color2( clr );
+  
+  gc2.set_foreground(some_color2);
+
+  gc2.set_fill( GDK_SOLID );
+
+  gc2.set_clip_mask();
+
+  buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
+  
+  buffer->get_bg_text()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
+
+  
+  cout << "some_color2: " << some_color2.get_pixel() << endl;
+
+  //buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
+
+  buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
   buffer->get_fg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
 
       }
@@ -238,8 +265,28 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
       const Gdk_Font *chosen_font;
       
       chosen_font = get_font( Size );
+
+      Gdk_GC gc2;
+      gc2.create(*(buffer->get_map_text()));
+      //      cout << buffer->get_map_text() << " - b" << endl;
+
+      //      Gdk_Color some_color2;
       
-      buffer->get_bg()->draw_string(*chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font->char_height('A'), symbol);
+      // some_color2.set_rgb(1,1,1);
+      
+      GdkColor clr;
+
+  clr.pixel = 1;
+
+  Gdk_Color some_color2( clr );
+
+      
+      gc2.set_foreground(some_color2);
+
+
+      buffer->get_bg_text()->draw_string(*chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font->char_height('A'), symbol);
+      buffer->get_map_text()->draw_string(*chosen_font, gc2, x1, y1+chosen_font->char_height('A'), symbol);
+
     }    
 }
   
@@ -273,14 +320,14 @@ void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, O
 
   if( x2 > x1 )
     if( y2 > y1 )
-      buffer->get_bg()->draw_rectangle( graphics_context, true, x1, y1, x2-x1, y2-y1 );
+      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x1, y1, x2-x1, y2-y1 );
     else
-      buffer->get_bg()->draw_rectangle( graphics_context, true, x1, y2, x2-x1, y1-y2 );
+      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x1, y2, x2-x1, y1-y2 );
   else
     if( y2 > y1 )
-      buffer->get_bg()->draw_rectangle( graphics_context, true, x2, y1, x1-x2, y2-y1 );
+      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x2, y1, x1-x2, y2-y1 );
     else
-      buffer->get_bg()->draw_rectangle( graphics_context, true, x2, y2, x1-x2, y1-y2 );
+      buffer->get_bg_squares()->draw_rectangle( graphics_context, true, x2, y2, x1-x2, y1-y2 );
     }
 }
 
@@ -300,7 +347,7 @@ void GtkDasherCanvas::Polyline(Dasher::CDasherScreen::point* Points, int Number)
   graphics_context.set_foreground(some_color);
 
   for( int i(0); i < Number - 1; ++i )
-    buffer->get_bg()->draw_line( graphics_context, Points[i].x, Points[i].y, Points[i+1].x, Points[i+1].y );
+    buffer->get_bg_squares()->draw_line( graphics_context, Points[i].x, Points[i].y, Points[i+1].x, Points[i+1].y );
     }
 }
  
@@ -327,7 +374,29 @@ void GtkDasherCanvas::Blank() const
   graphics_context.set_foreground(some_color);
     
 
-  buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+  buffer->get_bg_text()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+  buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+
+Gdk_GC gc2;
+  
+//  cout << buffer->get_map_text() << " - a" << endl;
+
+  gc2.create(*(buffer->get_map_text()));
+
+   GdkColor clr;
+
+  clr.pixel = 0;
+
+  Gdk_Color some_color2( clr );
+  
+  gc2.set_foreground(some_color2);
+
+  gc2.set_fill( GDK_SOLID );
+
+  gc2.set_clip_mask();
+
+  buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
+    
     }
  }
 
@@ -340,7 +409,10 @@ void GtkDasherCanvas::Display()
 
 void GtkDasherCanvas::swap_buffers()
 {
-  buffer->swap_buffers();
+  Gdk_GC graphics_context;
+  graphics_context.create( get_window());
+
+  buffer->swap_buffers( &graphics_context );
 }
 
 
