@@ -379,7 +379,7 @@ void draw_mouseposbox(int which) {
   gdk_gc_get_values(graphics_context,&origvalues);
   gdk_color_alloc(colormap, &color);
   gdk_gc_set_foreground (graphics_context, &color);
-  gdk_draw_rectangle (onscreen_buffer, graphics_context, TRUE, 0, top, the_canvas->allocation.width, 100);
+  gdk_draw_rectangle (onscreen_buffer, graphics_context, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 
   update_rect.x = 0;
