@@ -275,7 +275,7 @@ bool CAlphabetBox::UpdateInfo()
 
 	if (SendMessage(GetDlgItem(CustomBox,IDC_PARAGRAPH), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 		CurrentInfo.ParagraphCharacter.Text = "\r\n";
-		CurrentInfo.ParagraphCharacter.Display = "";
+		CurrentInfo.ParagraphCharacter.Display = "¶";
 		CurrentInfo.ParagraphCharacter.Colour = 9;
 	} else {
 		CurrentInfo.ParagraphCharacter.Text = "";
