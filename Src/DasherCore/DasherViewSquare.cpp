@@ -149,7 +149,7 @@ void CDasherViewSquare::CheckForNewRoot()
 		
 		if (newy1<0 && newy2> DasherModel().DasherY()) {
 			myint left=dasherx2screen(newy2-newy1);
-			if (left<0) {
+			if (left<-1000) {
 				DasherModel().Make_root(theone);
 				return;
 			}
