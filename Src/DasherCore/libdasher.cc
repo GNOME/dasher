@@ -599,6 +599,11 @@ void dasher_unpause( unsigned long int time )
   interface->Unpause( time );
 }
 
+void dasher_halt()
+{
+  interface->Halt();
+}
+
 void dasher_pause( int x, int y )
 {
   interface->PauseAt( x, y );

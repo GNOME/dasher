@@ -163,9 +163,12 @@ void CDasherModel::Start()
 	if (m_editbox) {
 		string ContextString;
 		m_editbox->get_new_context(ContextString,5);
-		if (ContextString.size() != 0) {
-		  m_languagemodel->EnterText(therootcontext, ContextString);
+		if (ContextString.size()==0) {
+		  // If there is no root context, pretend that we've just
+		  // finished a sentence
+		  ContextString=". " + ContextString;
 		}
+		m_languagemodel->EnterText(therootcontext, ContextString);
 		m_languagemodel->ReleaseNodeContext(LearnContext);
 		LearnContext = m_languagemodel->CloneNodeContext(therootcontext);
 	}

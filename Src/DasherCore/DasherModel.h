@@ -37,6 +37,8 @@ public:
 	// framerate functions
 	void NewFrame(unsigned long Time) {m_fr.NewFrame(Time);}    // called everytime we render a new frame
 	const double Framerate () {return m_fr.Framerate();}        // return the framerate
+
+	void Halt() {m_fr.Initialise();}
 	
 	// User control of speed
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate

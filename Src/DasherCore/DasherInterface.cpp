@@ -110,10 +110,15 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
 		m_DashEditbox->write_to_file();
 		if (m_CopyAllOnStop)
 			m_DashEditbox->CopyAll();
-	}
+	}	
 	m_Paused=true;
 }
 
+void CDasherInterface::Halt()
+{
+  if (m_DasherModel!=0)
+    m_DasherModel->Halt();
+}
 
 void CDasherInterface::Unpause(unsigned long Time)
 {

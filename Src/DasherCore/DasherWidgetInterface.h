@@ -52,6 +52,9 @@ public:
 
 	//! Signal an input event and pause the simulation
 	virtual void PauseAt(int MouseX, int MouseY)=0;
+
+	//! Signal that we have stopped for some reason
+	virtual void Halt()=0;
 	
 	//! Unpause the simulation.
 	//

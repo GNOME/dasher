@@ -1714,6 +1714,9 @@ void stop() {
     starttime=starttime2=0;
   } else {
     dasher_pause(0,0);    
+    if (onedmode==true) {
+      dasher_halt();
+    }
     paused = TRUE;
 #ifdef GNOME_SPEECH
     if (speakonstop==true)

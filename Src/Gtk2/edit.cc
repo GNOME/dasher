@@ -1,4 +1,3 @@
-#include <iostream.h>
 #include "edit.h"
 #include "dasher.h"
 #include "accessibility.h"
@@ -7,6 +6,7 @@
 extern int paused;
 extern bool keyboardmodeon;
 extern bool mouseposstart;
+extern bool onedmode;
 
 #include <gdk/gdkx.h>
 
@@ -116,6 +116,9 @@ void edit_outputcontrol_callback(void* pointer, int data)
   case 3:
     //	pause
     dasher_pause(0,0);
+    if (onedmode==true) {
+      dasher_halt();
+    }
     paused=true;
     if (mouseposstart==true)
       draw_mouseposbox(0);

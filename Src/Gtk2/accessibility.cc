@@ -1,11 +1,13 @@
 #include "accessibility.h"
 
 ControlTree *menutree;
+ControlTree *dummy; // This one is used to fake another control node
 
 #ifdef GNOME_A11Y
 std::vector<Accessible*> menuitems;
 Accessible *desktop=NULL;
 #endif
+
 
 ControlTree* gettree() {
 #ifdef GNOME_A11Y
@@ -35,6 +37,7 @@ ControlTree* gettree() {
 }
 
 ControlTree* buildcontroltree() {
+  dummy=new ControlTree;
   ControlTree *stoptree=new ControlTree;
   ControlTree *pausetree=new ControlTree;
   ControlTree *movetree=new ControlTree;
@@ -45,15 +48,21 @@ ControlTree* buildcontroltree() {
   // null pointers rather than children
   menutree=stoptree;
 #endif
+  dummy->pointer=NULL;
+  dummy->data=0;
+  dummy->next=NULL;
+  dummy->children=menutree;
+  dummy->text="Control";
+  dummy->colour=8;
   stoptree->pointer=(void*)1;
   stoptree->data=2;
-  stoptree->children=menutree;
+  stoptree->children=dummy;
   stoptree->text="Stop";
   stoptree->next=pausetree;
   stoptree->colour=41;
   pausetree->pointer=(void*)1;
   pausetree->data=3;
-  pausetree->children=menutree;
+  pausetree->children=dummy;
   pausetree->text="Pause";
   pausetree->next=movetree;
   pausetree->colour=42;
@@ -117,19 +126,19 @@ ControlTree* buildspeaktree(ControlTree *speaktree) {
   ControlTree *lasttree=new ControlTree;
   alltree->pointer=(void*)1;
   alltree->data=4;
-  alltree->children=menutree;
+  alltree->children=dummy;
   alltree->text="Everything";
   alltree->next=newtree;
   alltree->colour=0;
   newtree->pointer=(void*)1;
   newtree->data=5;
-  newtree->children=menutree;
+  newtree->children=dummy;
   newtree->text="New";
   newtree->next=lasttree;
   newtree->colour=0;
   lasttree->pointer=(void*)1;
   lasttree->data=6;
-  lasttree->children=menutree;
+  lasttree->children=dummy;
   lasttree->text="Repeat";
   lasttree->next=NULL;
   lasttree->colour=0;

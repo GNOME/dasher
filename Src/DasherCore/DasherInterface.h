@@ -64,6 +64,7 @@ public:
 	
 	void TapOn(int MouseX, int MouseY, unsigned long Time); // Times in milliseconds
 	void PauseAt(int MouseX, int MouseY);                   // are required to make
+	void Halt();
 	void Unpause(unsigned long Time);                       // Dasher run at the
 	void Redraw();                                          // correct speed.
 
