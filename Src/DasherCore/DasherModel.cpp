@@ -6,7 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include <iostream>
 #include "DasherModel.h"
 
 using namespace Dasher;
@@ -42,13 +41,13 @@ void CDasherModel::Make_root(int whichchild)
 {
 	symbol t=m_Root->Symbol();
 
-	if (t) {
-	      if (m_Root->Control()==true) {
-	            m_editbox->outputcontrol(t);
-	      } else {
-		    m_editbox->output(t);
-		    m_languagemodel->LearnNodeSymbol(LearnContext, t);
-	      }
+	if (m_Root->Control()==true) {
+	  m_editbox->outputcontrol(m_Root->GetControlTree()->pointer,m_Root->GetControlTree()->data);
+	} else {
+	  if (t) {
+	    m_editbox->output(t);
+	    m_languagemodel->LearnNodeSymbol(LearnContext, t);
+	  }
 	}
 
 	CDasherNode * oldroot=m_Root;
@@ -70,6 +69,9 @@ void CDasherModel::Reparent_root(int lower, int upper)
   /* Change the root node to the parent of the existing node
      We need to recalculate the coordinates for the "new" root as the 
      user may have moved around within the current root */
+
+  if (oldroots.size()==0) // There is no node to reparent to
+    return;
 
   /* Determine how zoomed in we are */
 	float scalefactor=(m_Rootmax-m_Rootmin)/(upper-lower);

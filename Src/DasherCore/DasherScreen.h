@@ -51,6 +51,8 @@ public:
 	virtual void TextSize(symbol Character, int* Width, int* Height, int Size) const=0;
 	//! Draw character Character of size Size positioned at x1 and y1
 	virtual void DrawText(symbol Character, int x1, int y1, int Size) const=0;
+	//! Draw string String of size Size positioned at x1 and y1
+	virtual void DrawText(std::string String, int x1, int y1, int Size) const=0;
 
 	
 	// Draw a filled rectangle - given position and color id

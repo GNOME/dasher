@@ -40,10 +40,17 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	  Color = Render->Phase()%3; 
 	}
 
-	if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text))
-		RenderGroups(Render, y1, y2, text);
-	else
-		Render->Kill();
+	if (Render->GetControlTree()!=NULL) {
+	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,Render->GetControlTree()->text))
+	    RenderGroups(Render, y1, y2, text);
+	  else
+	    Render->Kill();
+	} else {
+	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,""))
+	    RenderGroups(Render, y1, y2, text);
+	  else
+	    Render->Kill();
+	}
 	
 	CDasherNode** const Children=Render->Children();
 	if (!Children)
@@ -85,7 +92,7 @@ void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool tex
 				myint newy2=y1+(range*hbnd)/m_DasherModel.Normalization();
 				int mostleft;
 				bool force;
-				RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text);
+				RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,"");
 			}
 			current=g;
 		}

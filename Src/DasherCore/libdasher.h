@@ -68,10 +68,11 @@ void dasher_set_display_callback( void(*_cb)() );
 void dasher_set_draw_rectangle_callback( void (*_cb)(int, int, int, int, int, Opts::ColorSchemes) );
 void dasher_set_draw_polyline_callback( void (*_cb)(Dasher::CDasherScreen::point*, int) );
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int));
+void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int));
 void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int));
 
 void dasher_set_edit_output_callback(void (*_cb)(symbol));
-void dasher_set_edit_outputcontrol_callback(void (*_cb)(symbol));
+void dasher_set_edit_outputcontrol_callback(void (*_cb)(void*, int));
 void dasher_set_edit_delete_callback(void (*_cb)());
 void dasher_set_edit_flush_callback(void (*_cb)(symbol));
 void dasher_set_edit_unflush_callback( void (*_cb)() );
@@ -107,5 +108,7 @@ void dasher_paste();
 void dasher_copy_all();
 void dasher_select_all();
 void dasher_clear();
+
+void add_control_tree(ControlTree *controltree);
 
 #endif

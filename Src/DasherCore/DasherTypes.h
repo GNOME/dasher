@@ -10,6 +10,8 @@
 #ifndef __DasherTypes_h__
 #define __DasherTypes_h__
 
+#include <string>
+
 namespace Dasher
 {
 	/* TODO: note by IAM 08/2002 {{{
@@ -61,6 +63,14 @@ namespace Dasher
 		enum FontSize {Normal=1, Big=2, VBig=4};
 	}
 
+	struct ControlTree {
+	  void* pointer;
+	  int data;
+	  std::string text;
+	  ControlTree *parent;
+	  ControlTree *children;
+	  ControlTree *next;
+	};
 }
 
 #endif /* #ifndef __DasherTypes_h__ */

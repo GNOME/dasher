@@ -74,7 +74,7 @@ private:
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
 	virtual int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool text)=0;
+		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)=0;
 	
 	// Responsible for all the Render_node calls
 	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);

@@ -15,9 +15,10 @@ void handle_display();
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme);
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number);
 void handle_draw_text(symbol Character, int x1, int y1, int size);
+void handle_draw_text(std::string String, int x1, int y1, int size);
 void handle_text_size(symbol Character, int* Width, int* Height, int Size);
 void handle_edit_output(symbol Character);
-void handle_edit_outputcontrol(symbol Character);
+void handle_edit_outputcontrol(void* pointer, int data);
 void handle_edit_delete();
 void handle_edit_flush(symbol Character);
 void handle_edit_unflush();
@@ -195,6 +196,11 @@ class dasher_screen : public CDasherScreen
       handle_draw_text( Character, x1, y1, Size );
     };
 
+  void DrawText(std::string String, int x1, int y1, int Size) const
+    {
+      handle_draw_text( String, x1, y1, Size );
+    };
+
   void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
     {
       handle_draw_rectangle( x1, y1, x2, y2, Color, ColorScheme);
@@ -270,9 +276,9 @@ class dasher_edit : public CDashEditbox
     {
       handle_edit_output(Symbol);
     };
-  void outputcontrol(symbol Symbol)
+  void outputcontrol(void* pointer, int data)
     {
-      handle_edit_outputcontrol(Symbol);
+      handle_edit_outputcontrol(pointer, data);
     };
   void deletetext()
     {

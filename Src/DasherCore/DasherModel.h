@@ -9,7 +9,6 @@
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
 
-#include <iostream>
 #include "../Common/MSVC_Unannoy.h"
 #include "DashEdit.h"
 #include "DasherNode.h"
@@ -65,6 +64,7 @@ public:
 	CAlphabet* m_alphabet;             // pointer to the alphabet
 	
 	CAlphabet* GetAlphabet() { return m_alphabet; }
+
 private:
 
 	// Old root notes
@@ -106,6 +106,5 @@ private:
 
 
 };
-
 
 #endif /* #ifndef __DasherModel_h__ */

@@ -35,9 +35,10 @@ private:
 	CDasherNode **m_Children;          // pointer to array of children
 	CDasherNode *m_parent;             // pointer to parent - only needed to grab parent context
 	CLanguageModel::CNodeContext *m_context;
+	ControlTree *m_controltree;
 public:
 	
-	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour);
+	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour, ControlTree *controltree);
 	~CDasherNode();
 	bool m_bForce;                     // flag to force a node to be drawn - shouldn't be public
     
@@ -46,6 +47,7 @@ public:
 	unsigned int Lbnd() const {return m_iLbnd;}
 	bool Alive() {return m_bAlive;}
 	bool Control() {return m_bControlChild;}
+	ControlTree* GetControlTree() {return m_controltree;}
 	void Kill()  {m_bAlive=0;m_iAge=0;}
 	unsigned int Hbnd() const {return m_iHbnd;}
 	unsigned int Group() const {return m_iGroup;}
@@ -74,9 +76,9 @@ using namespace Opts;
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=0)
+inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=0, ControlTree *controltree=0)
 	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
-  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(ControlChild), m_iColour(Colour)
+  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(ControlChild), m_iColour(Colour), m_controltree(controltree)
 {
 	/*
 	switch (ColorScheme) {

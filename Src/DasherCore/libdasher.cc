@@ -6,8 +6,6 @@
 #include "libdasher.h"
 #include "libdasher_private.h"
 
-#include <iostream>
-
 CDasherInterface *interface;
 dasher_ui *dui;
 dasher_screen *dsc;
@@ -29,10 +27,11 @@ void (*display_callback)() = NULL;
 void (*draw_rectangle_callback)(int, int, int, int, int, Opts::ColorSchemes) = NULL;
 void (*draw_polyline_callback)(Dasher::CDasherScreen::point*, int) = NULL;
 void (*draw_text_callback)(symbol, int, int, int) = NULL;
+void (*draw_text_string_callback)(std::string, int, int, int) = NULL;
 void (*text_size_callback)(symbol, int*, int*, int) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
-void (*edit_outputcontrol_callback)(symbol) = NULL;
+void (*edit_outputcontrol_callback)(void*, int) = NULL;
 void (*edit_delete_callback)() = NULL;
 void (*edit_flush_callback)(symbol) = NULL;
 void (*edit_unflush_callback)() = NULL;
@@ -104,6 +103,13 @@ void handle_draw_text(symbol Character, int x1, int y1, int size)
   if( draw_text_callback != NULL )
     draw_text_callback( Character, x1, y1, size );
 }
+
+void handle_draw_text(std::string String, int x1, int y1, int size)
+{
+  if( draw_text_string_callback != NULL )
+    draw_text_string_callback( String, x1, y1, size );
+}
+
 void handle_text_size(symbol Character, int* Width, int* Height, int Size)
 {
   if( text_size_callback != NULL )
@@ -116,10 +122,10 @@ void handle_edit_output(symbol Character)
     edit_output_callback( Character );
 }
 
-void handle_edit_outputcontrol(symbol Character)
+void handle_edit_outputcontrol(void* pointer, int data)
 {
   if( edit_outputcontrol_callback != NULL )
-    edit_outputcontrol_callback( Character );
+    edit_outputcontrol_callback( pointer, data );
 }
 
 void handle_edit_delete()
@@ -421,6 +427,11 @@ void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int))
   draw_text_callback = _cb;
 }
 
+void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int))
+{
+  draw_text_string_callback = _cb;
+}
+
 void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int))
 {
   text_size_callback = _cb;
@@ -431,7 +442,7 @@ void dasher_set_edit_output_callback( void (*_cb )(symbol))
   edit_output_callback = _cb;
 }
 
-void dasher_set_edit_outputcontrol_callback( void (*_cb )(symbol))
+void dasher_set_edit_outputcontrol_callback( void (*_cb )(void*, int))
 {
   edit_outputcontrol_callback = _cb;
 }
@@ -564,4 +575,9 @@ void dasher_select_all()
 void dasher_clear()
 {
   ded->Clear();
+}
+
+void add_control_tree(ControlTree *controltree)
+{
+  interface->AddControlTree(controltree);
 }

@@ -34,15 +34,61 @@ void CDasherNode::Dump_node () const
 
 void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 
-	if (m_Symbol==m_languagemodel->GetControlSymbol())
-	  return;
-
 	m_iAge=0;
 	m_bAlive=true;
+
 	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
 		m_languagemodel->EnterNodeSymbol(m_context,m_Symbol);
 
-	
+        if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
+	  int i,quantum;
+	  ControlTree *controltree;
+	  if (m_controltree==NULL) // Root of the tree
+	    controltree = m_languagemodel->GetControlTree();
+	  else // some way down
+	    controltree = m_controltree->children;
+	  
+	  m_iChars=1;
+	  
+	  if (controltree!=NULL) {
+	    m_iChars++;
+	    while(controltree->next!=NULL) {
+	      m_iChars++;
+	      controltree=controltree->next;
+	    }
+	  }
+
+	  // Now we go back and build the node tree	  
+	  if (m_controltree==NULL) {
+	    controltree=m_languagemodel->GetControlTree();
+	  } else {
+	    controltree=m_controltree->children; 
+	  }
+
+	  i=1;
+	  quantum=int(1024/m_iChars);
+
+	  m_iChars++;
+
+	  m_Children=new CDasherNode *[m_iChars];
+
+	  ColorSchemes ChildScheme;
+	  if (m_ColorScheme==Nodes1) {
+	    ChildScheme = Nodes2;
+	  } else {
+	    ChildScheme = Nodes1;
+	  }
+
+	  m_Children[1]=new CDasherNode(this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false);
+
+	  while(controltree!=NULL) {
+	    i++;
+	    m_Children[i]=new CDasherNode(this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,100,controltree);
+	    controltree=controltree->next;
+	  }
+	  return;
+	}
+
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
 	m_languagemodel->GetNodeProbs(m_context,newchars,groups,cum,0.003);

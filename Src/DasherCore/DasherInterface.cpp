@@ -13,7 +13,6 @@
 #include "CustomAlphabet.h"
 #include "DasherViewSquare.h"
 #include "PPMLanguageModel.h"
-#include <iostream>
 namespace {
 	#include "stdio.h"
 }
@@ -633,4 +632,9 @@ double CDasherInterface::GetCurFPS()
 {
 	//
 	return 0;
+}
+
+void CDasherInterface::AddControlTree(ControlTree *controltree)
+{
+  m_LanguageModel->NewControlTree(controltree);
 }

@@ -40,7 +40,7 @@ private:
 	inline const int dashery2screen(myint sy);
 	
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool text);
+		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext);
 	
 	void CheckForNewRoot();
 	inline void Crosshair(myint sx);

@@ -51,7 +51,7 @@ public:
 	virtual void output(symbol Symbol)=0;
 
 	//! Send a control command
-	virtual void outputcontrol(symbol Symbol)=0;
+	virtual void outputcontrol(void* pointer, int data)=0;
 
 	//! Delete the previous symbol from the text box
 	virtual void deletetext()=0;

@@ -66,6 +66,9 @@ public:
 
 	//! Delete the alphabet with name AlphID
 	virtual void DeleteAlphabet(const std::string& AlphID)=0;
+
+	//! Add a control node of some description
+	virtual void AddControlTree(ControlTree *controltree)=0;
 };
 
 

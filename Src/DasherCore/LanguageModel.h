@@ -20,6 +20,7 @@
 
 #include "Alphabet.h"
 #include "Context.h"
+#include "DasherTypes.h"
 
 namespace Dasher {class CLanguageModel;}
 class Dasher::CLanguageModel
@@ -54,6 +55,10 @@ public:
 	
 	int GetColour(int character);
 
+	void NewControlTree(ControlTree *tree) { controltree=tree; }
+
+	ControlTree* GetControlTree() { return controltree; }
+
 protected:
 	int GetNumberModelChars() {return m_Alphabet->GetNumberSymbols();}
 	
@@ -80,6 +85,7 @@ private:
 	CAlphabet *m_Alphabet;
 	int m_iModelChars; // number of charater in the model 1...ModelChars
 	int m_iNorm;       // normalization of probabilities
+	ControlTree *controltree;
 };
 
 using namespace Dasher;

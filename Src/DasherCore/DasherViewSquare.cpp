@@ -14,7 +14,6 @@
 
 #include "DasherModel.h"
 #include "DasherViewSquare.h"
-#include <iostream>
 
 using namespace Dasher;
 
@@ -56,7 +55,7 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, bool& force, bool text)
+	myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)
 {
 	int top = dashery2screen(y1);
 	if (top>CanvasY)
@@ -117,8 +116,12 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		    MapScreen(&newright2, &newbottom2);
 		    newleft = min(newleft2, newright2);
 		    newtop = min(newtop2, newbottom2);
-		    
-		    Screen().DrawText(Character, newleft, newtop, Size);
+
+		    if(displaytext!="") {
+		      Screen().DrawText(displaytext, newleft, newtop, Size);
+		    } else {
+		      Screen().DrawText(Character, newleft, newtop, Size);
+		    }
 		  }
 		
 		return 1;
@@ -136,7 +139,7 @@ void CDasherViewSquare::CheckForNewRoot()
 	myint y1=DasherModel().Rootmin();
 	myint y2=DasherModel().Rootmax();
 	
-	if ((y1>0 || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0) && root->Symbol()!=0) {
+	if ((y1>0 || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0)) {
 	  DasherModel().Reparent_root(root->Lbnd(),root->Hbnd());
 	}
 	    
@@ -226,4 +229,5 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 	CanvasBorder=Width-CanvasX;
 	CanvasY=Height;
 }
+
 
