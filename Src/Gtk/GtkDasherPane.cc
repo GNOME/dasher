@@ -386,3 +386,8 @@ gint GtkDasherPane::abox_close_sel( GdkEventAny *e )
   abox.hide();
   return( true );
 }
+
+gint GtkDasherPane::key_press_event_impl( GdkEventKey *e )
+{
+  cout << "Received keypress" << endl;
+}

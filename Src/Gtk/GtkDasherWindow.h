@@ -188,6 +188,8 @@ protected:
   void toggle_toolbar();
   void toggle_fix();
   void toggle_timestamp();
+
+  //  gint key_press_event_impl( GdkEventKey *e );
 };
 
 #endif

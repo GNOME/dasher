@@ -781,3 +781,10 @@ gint GtkDasherWindow::afile_close_sel( GdkEventAny *e )
   afilesel.hide();
   return( true );
 };
+
+//gint GtkDasherWindow::key_press_event_impl( GdkEventKey *e )
+//{
+ // cout << "Received keypress" << endl;
+//  
+//  return( true );
+//}
