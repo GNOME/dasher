@@ -407,6 +407,9 @@ void CDasherWindow::ControlMode(bool Value)
 	controlmode=Value;
 	WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, Value);
 	m_pCanvas->SetScreenInterface(DasherWidgetInterface);
+
+	// The edit control caches the symbols so we need to refresh
+	m_pEdit->SetInterface(DasherWidgetInterface);
 }
 
 void CDasherWindow::SetDasherEyetracker(bool Value)
