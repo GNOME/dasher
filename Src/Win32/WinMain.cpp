@@ -16,7 +16,7 @@
 #include "../DasherCore/DasherInterface.h"
 using namespace Dasher;
 
-// DJW 200301 - tip - don't use LPCWSTR explicitely
+// DJW 20031029 - tip - don't use LPCWSTR explicitely
 // instead TCHAR (or our Tstring) is your friend - it type-defs to char or wchar depending whether or not you have UNICODE defined
 
 //void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
