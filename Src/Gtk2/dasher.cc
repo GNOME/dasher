@@ -464,13 +464,11 @@ open_file (const char *filename)
   struct stat file_stat;
   FILE *fp;
   int pos = 0;
-  int failure = 0;
 
-  failure = stat (filename, &file_stat);
+  stat (filename, &file_stat);
+  fp = fopen (filename, "r");
 
-  size=file_stat.st_size;
-  
-  if (failure) {
+  if (fp==NULL) {
     error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
     gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
@@ -479,12 +477,11 @@ open_file (const char *filename)
     return;
   }
 
-  if (!failure) {
-    buffer = (gchar *) g_malloc (size);
-    fp = fopen (filename, "r");
-    fread (buffer, size, 1, fp);
-    fclose (fp);
-  }
+  size=file_stat.st_size;
+  buffer = (gchar *) g_malloc (size);
+  fread (buffer, size, 1, fp);
+  fclose (fp);
+
 #endif  
   dasher_clear();
   
