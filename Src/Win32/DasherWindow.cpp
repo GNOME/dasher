@@ -272,6 +272,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 	case MY_LAYOUT:
 		Layout();
 		break;
+	case WM_SETFOCUS:
+		SetFocus(m_pCanvas->getwindow());
+		break;
 	case WM_COMMAND:
 		{
 			const int wmId    = LOWORD(wParam);

@@ -83,6 +83,26 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		SendMessage(Parent, message, wParam, lParam);
 		return 0;
 		break;
+	case WM_KEYDOWN:
+		if (wParam != VkKeyScan(' ')) {
+				return 0;
+		}
+		if (running==0) {
+			SetCapture(Window);
+
+			running=1;
+			m_DasherWidgetInterface->Unpause(GetTickCount());
+			ResumeThread( hThreadl );
+		} else {
+			m_DasherWidgetInterface->PauseAt(0,0);
+			running=0;
+			ReleaseCapture();
+
+			SuspendThread( hThreadl );
+		}
+		return 0;
+		break;
+	case WM_LBUTTONDBLCLK:
 	case WM_LBUTTONDOWN:
 		SetFocus(Window);
 		

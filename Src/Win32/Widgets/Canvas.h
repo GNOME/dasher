@@ -28,6 +28,7 @@ public:
 	~CCanvas();
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
+	HWND getwindow() {return m_hwnd;}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
