@@ -8,36 +8,50 @@
 #include <gtk--/window.h>
 #include <gtk--/main.h>
 
-//#include <gnome--/app-helper.h> 
-//#include <gnome--/app.h>
-
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menu(), Window(), save_dialogue()
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue()
 {  
   add(main_vbox);
 
   //set_contents(main_vbox);
   //  set_toolbar(toolbar);
-  main_vbox.pack_start(menu, false,false,0);
+  main_vbox.pack_start(menubar, false,false,0);
   main_vbox.pack_start(toolbar,false,false,0);
   main_vbox.pack_start(dasher_pane,false,false,0);
+
+  // use helpers to st up menu
+  {
+    using namespace Gtk::Menu_Helpers;
+    
+    // Create the file menu
+    Menu *menu_file = new Menu();
+    MenuList& list_file = menu_file->items();
+    
+    list_file.push_back(MenuElem("_New"));
+    list_file.push_back(SeparatorElem());
+
+    // Create the menu bar
+    //   Gtk+ does not have O(1) tail lookups so you should build menus 
+    //   backwards whenever you plan to make lots of access to back().
+    menubar.items().push_front(MenuElem("_File","<control>f",*menu_file));
+  }
 
   //Item(const Icon& icon, const Gtk::string& str, const Callback& cb, const Gtk::string& tip=Gtk::string());
 
   {
         using namespace Gtk::Toolbar_Helpers;
-    //        using namespace Gnome::UI;
+	//using namespace Gnome::UI;
 
 	//	Array<Info> a;	
 
 	//    Gnome::UI::Icon new_icon("New");
 	//    a.add( Gnome::UI::Item(new_icon, "New", bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb), TB_NEW)));
 
-     toolbar.tools().push_back(ButtonElem( "New", 
- 					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
- 						       TB_NEW)));
+	toolbar.tools().push_back(ButtonElem( "New",
+					      bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
+							   TB_NEW)));
      toolbar.tools().push_back(ButtonElem( "Open",
  					  bind<char*>( slot(this,&GtkDasherWindow::toolbar_button_cb),
  						       TB_OPEN)));

@@ -6,6 +6,8 @@
 #include <gtk--/button.h>
 #include <gtk--/box.h>
 #include <gtk--/menubar.h>
+#include <gtk--/menu.h>
+#include <gtk--/image.h>
 
 //#include <gnome--/app.h>
 
@@ -33,7 +35,9 @@ protected:
   GtkDasherSave save_dialogue;
   Gtk::Toolbar toolbar;
   Gtk::VBox main_vbox; 
-  Gtk::MenuBar menu;
+  Gtk::MenuBar menubar;
+
+  Gtk::Pixmap first_pixmap;
 
   void toolbar_button_cb(char *);
 };
