@@ -12,7 +12,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text")
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text")
 {  
   set_title( "Dasher" );
 
@@ -83,20 +83,22 @@ GtkDasherWindow::GtkDasherWindow()
     list_or.push_back(RadioMenuElem(ogroup,"Bottom to Top",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_OBT)));
 
-    Menu *menu_tool = new Menu();
-    MenuList &list_tool = menu_tool->items();
+   //  Menu *menu_tool = new Menu();
+//     MenuList &list_tool = menu_tool->items();
 
-    list_tool.push_back(MenuElem("Visible"));
-    list_tool.push_back(SeparatorElem());
-    list_tool.push_back(MenuElem("Show Text"));
-    list_tool.push_back(MenuElem("Large Icons"));
+//     list_tool.push_back(MenuElem("Visible"));
+//     list_tool.push_back(SeparatorElem());
+//     list_tool.push_back(MenuElem("Show Text"));
+//     list_tool.push_back(MenuElem("Large Icons"));
 
     Menu *menu_view = new Menu();
     MenuList& list_view = menu_view->items();
     
     list_view.push_back(MenuElem("Orientation", *menu_or ));
     list_view.push_back(SeparatorElem());
-    list_view.push_back(MenuElem("Toolbar", *menu_tool));
+    //    list_view.push_back(MenuElem("Toolbar", *menu_tool));
+    list_view.push_back(CheckMenuElem("Show Toolbar",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+								MENU_TOOLBAR)));
     list_view.push_back(CheckMenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_SLIDER)));
     list_view.push_back(SeparatorElem());
@@ -428,6 +430,9 @@ void GtkDasherWindow::menu_button_cb(int c)
       select_all();
       break;
 
+    case MENU_TOOLBAR:
+      toggle_toolbar();
+      break;
     case MENU_SLIDER:
       toggle_slider();
       break;
@@ -551,8 +556,16 @@ void GtkDasherWindow::toggle_slider()
 {
   slider_shown = !slider_shown;
   dasher_pane.show_slider( slider_shown );
+}
 
+void GtkDasherWindow::toggle_toolbar()
+{
+  toolbar_shown = !toolbar_shown;
 
+  if( toolbar_shown )
+    toolbar.show();
+  else
+    toolbar.hide();
 }
 
 void GtkDasherWindow::toggle_copy_all()

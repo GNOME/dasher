@@ -38,7 +38,9 @@
 #define MENU_COPYALL 103
 #define MENU_SELECTALL 104
 
-#define MENU_SLIDER 200
+#define MENU_TOOLBAR 200
+#define MENU_SLIDER 201
+
 
 #define MENU_ODEFAULT 210
 #define MENU_OLR 211
@@ -116,8 +118,10 @@ protected:
 
   bool slider_shown;
   bool copy_all_on_pause;
+  bool toolbar_shown;
   void toggle_slider();
   void toggle_copy_all();
+  void toggle_toolbar();
 };
 
 #endif

@@ -164,18 +164,18 @@ bool GtkDasherEdit::Open( std::string filename )
 
   while( !ifile.eof() )
     {
-      
+    
+      int fpos(0);
 
-      ifile.read( fbuffer, 1023 );
-      fbuffer[1023] = 0;
+      while( !ifile.eof() && (fpos < 1024) )
+	{
+	  fbuffer[fpos] = ifile.get();
+	  ++fpos;
+	}
 
-      string rtext( fbuffer );
+      cout << fpos << endl;
 
-      //      ifile >> rtext;
-
-      //cout << rtext << endl;
-
-      text.insert( efont, black, white, rtext.c_str(), 1023);
+      text.insert( efont, black, white, fbuffer, fpos);
     }
 
   ifile.close();
