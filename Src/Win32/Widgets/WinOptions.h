@@ -11,7 +11,6 @@
 #define __WinOptions_h__
 
 #include "../../Common/NoClones.h"
-#include "../../Common/MSVC_Unannoy.h"
 #include <string>
 #include <map>
 
