@@ -637,6 +637,10 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 #endif
       }      
     }
+  case GDK_F12:
+    int x, y;
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    XWarpPointer(gdk_x11_get_default_xdisplay(), 0, GDK_WINDOW_XID(the_canvas->window), 0, 0, 0, 0, the_canvas->allocation.width/2, the_canvas->allocation.height/2);
     return TRUE;
     break;
   default:
