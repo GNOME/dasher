@@ -302,9 +302,13 @@ void CAlphIO::CreateDefault()
 	Default.Type = Opts::Western;
 	Default.Mutable = false;
 	Default.Orientation = Opts::LeftToRight;
-	Default.ParagraphCharacter.Display = "";
-	Default.ParagraphCharacter.Text = "";
-	Default.ParagraphCharacter.Colour = -1;
+	Default.ParagraphCharacter.Display = "¶";
+#ifdef WIN32
+	Default.ParagraphCharacter.Text = "\r\n";
+#else
+	Default.ParagraphCharacter.Text = "\n";
+#endif	
+	Default.ParagraphCharacter.Colour = 9;
 	Default.SpaceCharacter.Display = "_";
 	Default.SpaceCharacter.Text = " ";
 	Default.SpaceCharacter.Colour = 9;
