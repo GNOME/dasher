@@ -5,7 +5,7 @@
 <alphabet name="Dutch">
 <orientation type="LR"/>
 <encoding type="Western"/>
-<train>training_german_DE.txt</train>
+<train>training_dutch_NL.txt</train>
 <palette>Default</palette>
 <space d="_" t=" "/>
 <control d="Control" t=""/>
