@@ -35,7 +35,8 @@ namespace Keys {
 	const std::string SCREEN_WIDTH = "ScreenWidth";
 	const std::string SCREEN_HEIGHT = "ScreenHeight";
         const std::string DASHER_FONTSIZE = "DasherFontSize";
-	
+        const std::string DASHER_DIMENSIONS = "NumberDimensions";
+
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";
 	const std::string DASHER_FONT = "DasherFont";
@@ -89,6 +90,8 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->SetEditFont(Store->GetStringOption(EDIT_FONT), Store->GetLongOption(EDIT_FONT_SIZE));
 	this->SetDasherFont(Store->GetStringOption(DASHER_FONT));
 	this->SetDasherFontSize(Dasher::Opts::FontSize(Store->GetLongOption(DASHER_FONTSIZE)));
+
+	this->SetDasherDimensions(Store->GetLongOption(DASHER_DIMENSIONS));
 
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));

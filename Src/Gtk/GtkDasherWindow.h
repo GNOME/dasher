@@ -60,6 +60,7 @@
 #define MENU_EFONT 303
 #define MENU_DFONT 304
 #define MENU_RFONT 305
+#define MENU_1D 306
 
 #define MENU_EUDEFAULT 310
 #define MENU_EADEFAULT 311
@@ -204,6 +205,7 @@ protected:
   void toggle_toolbar();
   void toggle_fix();
   void toggle_timestamp();
+  void toggle_1d();
 
   //  gint key_press_event_impl( GdkEventKey *e );
 };

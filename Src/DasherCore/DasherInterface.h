@@ -109,6 +109,7 @@ public:
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
+	void SetDimensions(long dimensions);
 
 private:
 	CAlphabet* m_Alphabet;

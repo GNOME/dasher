@@ -6,8 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include <iostream>
-
 namespace Dasher {
 
 
@@ -15,27 +13,40 @@ inline const myint CDasherViewSquare::screen2dasherx(const int mousex, const int
 {
 	//	double x=1.0*(CanvasX-mousex)/CanvasY;
 		double x=1.0*(CanvasX-mousex)/CanvasX;
-	myint dashery=screeny;
-	dashery*=DasherModel().DasherY();
-	dashery/=CanvasY;
-
+	myint dashery=screen2dashery(screeny);
 	x=ixmap(x)*DasherModel().DasherY();
-	if (dashery>m_Y2) {	// Slow X expansion if Y is accelerated
-	}
-	else if (dashery<m_Y3) { // Ditto
-	}
 
+	if (DasherModel().Dimensions()==1) {
+		double distx, disty;	
+		
+		distx=2048-x;
+		disty=dashery-DasherModel().DasherY()/2;
+
+		if(disty>=1500 || disty<-1500) {
+			x=-(pow(pow(disty,2)-pow(1500,2),0.5));
+		} else {
+			x=pow(pow(1500,2)-pow(disty,2),0.5);
+		}
+		
+		return int(2048-x);
+	} else {
+		if (dashery>m_Y2) {	// Slow X expansion if Y is accelerated
+		}
+		else if (dashery<m_Y3) { // Ditto
+		}
+	}
 	return int (x);
 }
 
 
 inline const myint CDasherViewSquare::screen2dashery(int screeny) 
 {
-	if (screeny>s_Y2)
-		screeny= (screeny-s_Y2)*m_Y1 + s_Y2;
-	else if (screeny<s_Y3)
-		screeny= (screeny-s_Y3)*m_Y1+s_Y3;
-
+	if (DasherModel().Dimensions()==2) {
+		if (screeny>s_Y2)
+			screeny= (screeny-s_Y2)*m_Y1 + s_Y2;
+		else if (screeny<s_Y3)
+			screeny= (screeny-s_Y3)*m_Y1+s_Y3;
+	}
 	myint dashery=screeny;
 	dashery+=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
 	dashery*=DasherModel().DasherY();

@@ -93,9 +93,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 			left=mostleft;
 		
 		int Size;
-		if (left<CanvasX*19/20) {
+		if (left<pow(CanvasX*19/20,1/Screen().GetFontSize())) {
 			Size = 20*Screen().GetFontSize();
-		} else if (left<CanvasX*159/160) {
+		} else if (left<pow(CanvasX*159/160,1/Screen().GetFontSize())) {
 			Size = 14*Screen().GetFontSize();
 		} else {
 			Size = 11*Screen().GetFontSize();
@@ -104,11 +104,11 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		int TextWidth, TextHeight, OriginX=0, OriginY=0;
 		Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
 		UnMapScreen(&TextWidth, &TextHeight);
-		UnMapScreen(&OriginX, &OriginY);
-		int FontHeight = abs(TextHeight-OriginY);
+		UnMapScreen(&OriginX, &OriginY);		
+		int FontHeight = abs(TextHeight-OriginY);		
 		int FontWidth = abs(TextWidth-OriginX);
 		mostleft = left + FontWidth;
-		
+
 		int newleft2 = left;
 		int newtop2 = (height-FontHeight)/2 + top;
 		int newright2 = left + FontWidth;
@@ -117,7 +117,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 		MapScreen(&newright2, &newbottom2);
 		newleft = min(newleft2, newright2);
 		newtop = min(newtop2, newbottom2);
-		
+			       
 		Screen().DrawText(Character, newleft, newtop, Size);
 		
 		return 1;

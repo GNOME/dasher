@@ -54,6 +54,7 @@ public:
   void set_dasher_font( string fontname );
   void set_edit_font( string fontname, long size );
   void set_dasher_font_size( FontSize size );
+  void set_dasher_dimensions( bool value );
   void show_speed_slider( bool value );  // Tell interface we wish to show slider
   void show_slider( bool s ); // Actually do it
   void move_slider( double position );

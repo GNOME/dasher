@@ -78,6 +78,7 @@ bool GtkDasherCanvas::build_fonts( int encoding )
 
   snprintf( xfontstringbuffer, 256, "-*-%s-*-*-*-*-*-*-*-*-*-*-iso8859-%d", fontname.c_str(), encoding );
 
+ FINDFONT:
   fontnames = XListFonts( GDK_DISPLAY(), xfontstringbuffer, 1024, &nfonts );
 
   char size_buffer[256];
@@ -122,8 +123,11 @@ bool GtkDasherCanvas::build_fonts( int encoding )
 
     }
 
-  if( !got_one )
+  if( !got_one ) {
     std::cerr << "Warning - failed to find a font" << std::endl;
+    snprintf( xfontstringbuffer, 256, "-*-*-*-*-*-*-*-*-*-*-*-*-iso8859-%d", encoding );
+    goto FINDFONT;
+  }
 
   return( got_one );
 
@@ -143,8 +147,8 @@ const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
 
   if( idx == -1 )
     return (NULL);
-  else
-    return( &font_list[idx] );
+
+  return( &font_list[idx] );
 }
 
 void GtkDasherCanvas::clear()
@@ -264,13 +268,13 @@ void GtkDasherCanvas::SetFontSize(FontSize size) {
       build_fonts( enc );
       break;
     case Big:
-      MaxFontSize = 30;
+      MaxFontSize = 25;
       MinFontSize = 14;
       build_fonts( enc );
       break;
     case VBig:
-      MaxFontSize = 40;
-      MinFontSize = 20;
+      MaxFontSize = 35;
+      MinFontSize = 25;
       build_fonts( enc );
       break;
     }
@@ -319,6 +323,7 @@ void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Si
 
   *Width = chosen_font->char_width('A');
   *Height = chosen_font->char_height('A');
+  
 }
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const

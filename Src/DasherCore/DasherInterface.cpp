@@ -382,6 +382,15 @@ void CDasherInterface::SetDasherFontSize(FontSize fontsize)
 	Redraw();
 }
 
+void CDasherInterface::SetDimensions(long dimensions)
+{
+	if (m_SettingsStore!=0)
+		m_SettingsStore->SetLongOption(Keys::DASHER_DIMENSIONS, dimensions);
+	if (m_DasherModel!=0) {
+	         m_DasherModel->Set_dimensions(int(dimensions));
+	}
+}
+
 
 unsigned int CDasherInterface::GetNumberSymbols()
 {

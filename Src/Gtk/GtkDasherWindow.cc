@@ -168,6 +168,8 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_DFONT)));
     list_opts->push_back(MenuElem(gettext("Reset Fonts"), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
+    list_opts->push_back(MenuElem(gettext("One Dimensional"), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_1D)));
 
     //    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
     // static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
@@ -578,6 +580,9 @@ void GtkDasherWindow::menu_button_cb(int c)
     case MENU_FSVBIG:
       dasher_pane.set_dasher_font_size(VBig);
       break;
+    case MENU_1D:
+      toggle_1d();
+      break;
 
     case MENU_ABOUT:
       aboutbox.show();
@@ -900,6 +905,13 @@ void GtkDasherWindow::toggle_copy_all()
 {
   dasher_pane.copy_all_on_pause( static_cast<CheckMenuItem *>( (*list_opts)[1] )->get_active() );
 }
+
+void GtkDasherWindow::toggle_1d()
+{
+  dasher_pane.set_dasher_dimensions( static_cast<CheckMenuItem *>( (*list_opts)[10] )->get_active());
+}
+
+
 
 void GtkDasherWindow::ChangeAlphabet(const std::string& NewAlphabetID)
 {

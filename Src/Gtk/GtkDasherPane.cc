@@ -227,6 +227,14 @@ void GtkDasherPane::set_dasher_font_size( FontSize size )
   interface->SetDasherFontSize( size );
 }
 
+void GtkDasherPane::set_dasher_dimensions( bool value )
+{
+  if (value == true)
+    interface->SetDimensions( 1 );
+  else
+    interface->SetDimensions( 2 );
+}
+
 void GtkDasherPane::show_speed_slider( bool value )
 {
   interface->ShowSpeedSlider( value );

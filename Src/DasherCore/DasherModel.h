@@ -46,10 +46,13 @@ public:
 	CDasherNode* Root() const {return m_Root;}
 	int Normalization() const {return m_languagemodel->normalization();}
 	myint DasherY() const {return m_DasherY;}
+	int Dimensions() const {return m_Dimensions;}
 
 	void Dump() const;                                              // diagnostics
 	void Flush(const myint smousex,const myint smousey);            // flush to the edit control
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
+
+        void Set_dimensions(int dimensions) {m_Dimensions=dimensions;}
 	
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void Start();                                                   // initializes the data structure
@@ -69,7 +72,10 @@ private:
 
 	// y position of crosshair in Dasher coords - distance from top in square Dasher
 	myint m_DasherOY;     
-	
+
+	// Number of input dimensions
+	int m_Dimensions;
+
 	CDashEditbox* m_editbox;           // pointer to the editbox
 	CLanguageModel* m_languagemodel;   // pointer to the language model
 	CLanguageModel::CNodeContext* LearnContext;        // Used to add data to model as it is entered
