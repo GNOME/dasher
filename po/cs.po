@@ -8,127 +8,133 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-07 14:18+0100\n"
-"PO-Revision-Date: 2004-02-07 17:13+0100\n"
+"POT-Creation-Date: 2004-04-16 14:16+0200\n"
+"PO-Revision-Date: 2004-04-16 16:26+0200\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:62
 msgid "Menus"
 msgstr "Menu"
 
-#: Src/Gtk2/accessibility.cc:65
+#: Src/Gtk2/accessibility.cc:69
 msgid "Windows"
 msgstr "Okna"
 
-#: Src/Gtk2/accessibility.cc:70
+#: Src/Gtk2/accessibility.cc:74
 msgid "Application"
 msgstr "Aplikace"
 
-#: Src/Gtk2/accessibility.cc:77
+#: Src/Gtk2/accessibility.cc:81
 msgid "Buttons"
 msgstr "Tlačítka"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:87
 msgid "Panels"
 msgstr "Panely"
 
-#: Src/Gtk2/accessibility.cc:90
+#: Src/Gtk2/accessibility.cc:94
 msgid "Text"
 msgstr "Text"
 
-#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:168 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Ovládání"
 
-#: Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:173
 msgid "Stop"
 msgstr "Zastavit"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:179
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: Src/Gtk2/accessibility.cc:181
+#: Src/Gtk2/accessibility.cc:186
 msgid "Move"
 msgstr "Přesunout"
 
-#: Src/Gtk2/accessibility.cc:188
+#: Src/Gtk2/accessibility.cc:193
 msgid "Delete"
 msgstr "Odstranit"
 
-#: Src/Gtk2/accessibility.cc:197
+#: Src/Gtk2/accessibility.cc:202
 msgid "Speak"
 msgstr "Mluvit"
 
-#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:220 Src/Gtk2/accessibility.cc:289
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
+#: Src/Gtk2/accessibility.cc:226 Src/Gtk2/accessibility.cc:283
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:227
+#: Src/Gtk2/accessibility.cc:232
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:238
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:251
 msgid "Everything"
 msgstr "Vše"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:257
 msgid "New"
 msgstr "Nový"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:263
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
+#: Src/Gtk2/accessibility.cc:295 Src/Gtk2/accessibility.cc:318
 msgid "Character"
 msgstr "Znak"
 
-#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
+#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:328
 msgid "Word"
 msgstr "Slovo"
 
-#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:311 Src/Gtk2/accessibility.cc:334
 msgid "Line"
 msgstr "Řádek"
 
-#: Src/Gtk2/accessibility.cc:399
+#: Src/Gtk2/accessibility.cc:414
 msgid "Unknown"
 msgstr "Neznámý"
 
-#: Src/Gtk2/dasher.cc:183
+#: Src/Gtk2/dasher.cc:185
 msgid "Training Dasher, please wait"
 msgstr "Učím Dasher, čekejte prosím"
 
+#: Src/Gtk2/dasher.cc:652 Src/Gtk2/dasher.cc:665 Src/Gtk2/dasher.cc:678
+#: Src/Gtk2/dasher.cc:691 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Zvolte soubor"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1737
 msgid "translator_credits"
 msgstr "Miloslav Trmač <mitr@volny.cz>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1739 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1742
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je aplikace pro vstup textu s předpovídáním"
 
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2149
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "vypsáno %d znaků z %d sekund\n"
@@ -161,7 +167,7 @@ msgstr "<b>Výběr abecedy:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Nastavení ovládání tlačítky</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Výběr barev:</b>"
 
@@ -229,11 +235,11 @@ msgstr "Režim tlačítka"
 msgid "Button:"
 msgstr "Tlačítko:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Automaticky změnit schéma barev"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Barva"
 
@@ -357,10 +363,6 @@ msgstr "Uložit soubor"
 #: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
 msgid "Save file as"
 msgstr "Uložit soubor jako"
-
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Zvolte soubor"
 
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
@@ -492,36 +494,38 @@ msgstr "_Vrátit písma na implicitní"
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "aábcčdďeéěf AÁBCČDĎEÉĚF"
 
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Výběr barev:</b>"
-
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Rychlost</b>"
-
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Automaticky změnit schéma barev"
-
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Barva"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Orientace"
 
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Nemohu inicializovat podporu řeči\n"
+
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "Nemohu inicializovat hlasy"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:66
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Varování: nemohu nastavit parametry řeči\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:102
 msgid "Dasher Text Entry"
 msgstr "Pole textu Dasheru"
+
+#~ msgid "Change color scheme automatically"
+#~ msgstr "Automaticky změnit schéma barev"
+
+#~ msgid "<b>Colour Selection:</b>"
+#~ msgstr "<b>Výběr barev:</b>"
+
+#~ msgid "Colour"
+#~ msgstr "Barva"
