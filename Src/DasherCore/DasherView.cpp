@@ -45,7 +45,7 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	  Color = Render->Phase()%3; 
 	}
 
-	if ((Render->Cscheme()%2)==1 && Render->GetControlTree()==NULL) {
+	if ((Render->Cscheme()%2)==1) { // && Render->GetControlTree()==NULL) {
 	  Color+=130;
 	}
 
