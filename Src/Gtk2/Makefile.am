@@ -2,7 +2,7 @@ LIBS = @INTLLIBS@ @LIBS@
 
 noinst_LIBRARIES = libdashergtk.a
 
-libdashergtk_a_SOURCES = dasher.cc dasher.h global.h settings_store.cc settings_store.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h
+libdashergtk_a_SOURCES = dasher.cc dasher.h settings_store.cc settings_store.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h dasher.glade
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@

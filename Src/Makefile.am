@@ -8,7 +8,7 @@ bin_PROGRAMS = dasher
 
 if DOGTK2
 
-SUBDIRS = DasherCore Gtk2
+SUBDIRS = DasherCore Gtk2 Common
 dasher_SOURCES = main.cc
 LDADD =  Gtk2/libdashergtk.a DasherCore/libdashercore.a
 

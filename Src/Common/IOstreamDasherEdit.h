@@ -13,11 +13,11 @@
 #include <string.h>
 #include <iostream>
 
-#if __GNUC__ < 3
-#define FUDGE (const char**)
-#else
+//#if __GNUC__ < 3
+//#define FUDGE (const char**)
+//#else
 #define FUDGE
-#endif
+//#endif
 
 using namespace Dasher;
 

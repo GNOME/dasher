@@ -1,3 +1,29 @@
+3.2.0
+
+General:
+Added support for variable colour schemes
+Multiple languages added
+New eyetracker mode
+Speech support
+Application control features
+Control mode allows in-situ editing
+Key entry to other applications
+Extra options for cursor visibility
+Support for multiple alphabet and colour files
+Dasher can be started and stopped based on mouse position
+Optional outlines around boxes
+Y axis values can be scaled for one dimensional mode
+Degree of prediction can be altered
+Various memory leaks fixed
+Pressing F12 recentres the cursor
+Rounding errors fixed in probability calculations
+
+Unix:
+Cross-platform support improved
+Revamped preferences
+Integrates with gnome-accessibility framework
+File i/o properly checked
+
 3.0.2
 
 General:
