@@ -1,17 +1,12 @@
 TODO
 
-- in DasherView don't instantiate colours everytime one is needed - make some sort of cache
-- change USERDIR from ~/.dasher to ~/Library/Application Support/Dasher
-- put the training files into the app's resources (however, this does make the app bigger!)
-- reading a training file is rather slow.  this is especially noticeable when it is read at startup, the icon bounces about 10 times rather than just 1 or 2
-
-
-(MISSING)
 - i18n, strings need extracting from the app and nibs
 - help text
 - about box; make sure it has got the right copyright notices and credits
 - keyboard control - pref is there, the actual kb handling (arrow keys) is not
 - file encoding pref - is that needed on MacOSX, or something different?  see ProjectBuilder Format->File Encodings! for example
+- reading a training file is rather slow.  this is especially noticeable when it is read at startup, the icon bounces about 10 times rather than just 1 or 2
+- need pretty splash window at startup to hide training file loading time
 
 (NICE TO HAVE)
 - make an image with "paused" in it, display that when it is, yes, paused
@@ -27,6 +22,10 @@ TODO
 DONE
 
 05-06-2003
+- put the English training file into the app's resources
+- changed USERDIR from ~/.dasher to ~/Library/Application Support/Dasher
+- cleaned up a large number of compiler warnings in DasherView (mostly by putting method declarations in DasherView.h)
+- in DasherView, now instantiate colours in init and re-use
 - fixed problems with rects for non left to right view orientation (see bugzilla report)
 
 02-06-2003
