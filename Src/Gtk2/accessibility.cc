@@ -10,6 +10,7 @@ ControlTree *dummy; // This one is used to fake another control node
 #define _(x) gettext(x)
 
 extern gboolean textentry;
+extern gboolean training;
 extern GtkWidget *the_canvas;
 
 gboolean panels;
@@ -27,22 +28,9 @@ static AccessibleEventListener* focusListener;
 void setupa11y() {
 #ifdef GNOME_A11Y
   Accessible *tempaccessible;
-  //  Accessible *accessible = gtk_widget_get_accessible(the_canvas);  
   focusListener = SPI_createAccessibleEventListener(dasher_focus_listener,
 						    NULL);
-  // FIXME - this gives us an AtkObject, not an Accessible
   gboolean success=SPI_registerGlobalEventListener (focusListener, "focus:");
-  /*  while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
-    tempaccessible=Accessible_getParent(accessible);
-    if (tempaccessible==NULL) {
-      break;
-    }
-    //    Accessible_unref(accessible);
-    accessible=tempaccessible;
-  }
-  if (accessible!=gtk_widget_get_accessible(the_canvas)) {
-    dasherwindow=accessible;
-    } */
 #endif
 }
 
@@ -106,7 +94,12 @@ gboolean findpanels(Accessible *parent) {
   Accessible *child;
   gboolean useful=FALSE;
 
+  if (parent==NULL) {
+    return FALSE;
+  }
+
   if(!strcmp(Accessible_getName(parent),"gnome-panel")) {
+    Accessible_unref(parent);
     return TRUE;
   }
 
@@ -116,6 +109,7 @@ gboolean findpanels(Accessible *parent) {
       useful=(findpanels(Accessible_getChildAtIndex(parent,i))||useful);
     }
   }
+  Accessible_unref(parent);
   return useful;
 }
 #endif
@@ -337,7 +331,6 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
     }
     NewNode->text=Accessible_getName(parent);
     menuitems.push_back(parent);
-    Accessible_ref(parent);
   } else {
     // We have no kids - check if we're a menu item
     if (Type==menus) {
@@ -358,7 +351,6 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
       } 
     }
     menuitems.push_back(parent);
-    Accessible_ref(parent);
   }
   if (useful==false) {
     delete NewNode;    
@@ -389,6 +381,7 @@ void deletemenutree() {
     Accessible_unref(menuitems[i]);
     menuitems.pop_back();    
   }
+  Accessible_unref(desktop);
 #else
   return;
 #endif
@@ -397,6 +390,9 @@ void deletemenutree() {
 #ifdef GNOME_A11Y
 void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
 {
+  if (training==TRUE) {
+    return;
+  }
   Accessible *tempaccessible;
   Accessible *accessible = event->source;
   while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {

@@ -956,10 +956,10 @@ timer_callback(gpointer data)
 	
 	// And call update_colours again now that we can do something useful
 	update_colours();
-	deletemenutree();
+	//	deletemenutree();
 	// And making bonobo calls from another thread is likely to lead to
 	// pain as well. It'd be nice to do this while training, but.
-	add_control_tree(gettree());
+	//	add_control_tree(gettree());
 
 	dasher_redraw();
       }
