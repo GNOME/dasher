@@ -430,6 +430,11 @@ int dasher_get_alphabets( const char **alphabetlist, int s )
   return( i );
 }
 
+const char* dasher_get_current_alphabet()
+{
+  return(interface->GetCurrentAlphabet().c_str());
+}
+
 int dasher_get_colours( const char **colourlist, int s )
 {
   vector< string > alist;
@@ -446,6 +451,11 @@ int dasher_get_colours( const char **colourlist, int s )
     }
 
   return( i );
+}
+
+const char* dasher_get_current_colours()
+{
+  return(interface->GetCurrentColours().c_str());
 }
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) )

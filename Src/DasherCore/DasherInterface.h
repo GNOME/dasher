@@ -114,7 +114,9 @@ public:
 	// -----------------------------------------------------
 	
 	void ChangeAlphabet(const std::string& NewAlphabetID);
+	std::string GetCurrentAlphabet();
 	void ChangeColours(const std::string& NewColourID);
+	std::string GetCurrentColours();
 	void ChangeMaxBitRate(double NewMaxBitRate);
 	void ChangeLanguageModel(unsigned int NewLanguageModelID);
 	void ChangeView(unsigned int NewViewID);

@@ -46,6 +46,8 @@ GtkListStore *alph_list_store;
 GtkListStore *colour_list_store;
 GladeXML *widgets;
 GtkWidget *filesel;
+std::string alphabet;
+std::string colourscheme;
 
 
 bool controlmodeon=false;
@@ -103,6 +105,9 @@ const gchar *filename = NULL;
 GtkWidget *window;
 GtkWidget *file_selector;
 
+std::string dasherfont="Serif 12";
+std::string editfont="Sans 10";
+
 void 
 load_training_file (const gchar *filename)
 {
@@ -119,14 +124,23 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &alph, -1);
-
-    dasher_set_parameter_string( STRING_ALPHABET, alph );
     
-    dasher_redraw();
-
+    if (alph!=alphabet) {
+      GtkWindow* trainwindow=GTK_WINDOW(glade_xml_get_widget(widgets,"trainwindow"));
+      gtk_window_set_transient_for(trainwindow,GTK_WINDOW(preferences_window));
+      gtk_window_set_position (trainwindow,GTK_WIN_POS_CENTER_ON_PARENT);
+      gtk_widget_show(glade_xml_get_widget(widgets,"trainwindow"));
+      while (gtk_events_pending ()) {
+	gtk_main_iteration_do(false);
+      }
+      dasher_set_parameter_string( STRING_ALPHABET, alph );
+      gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
+      alphabet=alph;
+      dasher_redraw();
+      add_control_tree(gettree());
+      
+    }
     g_free(alph);
-
-    add_control_tree(gettree());
   }
 }
 
@@ -142,7 +156,7 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
     gtk_tree_model_get(model, &iter, 0, &colour, -1);
 
     dasher_set_parameter_string( STRING_COLOUR, colour );
-    
+    colourscheme=colour;
     dasher_redraw();
 
     g_free(colour);
@@ -179,6 +193,9 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   for (int i=0; i<alphabet_count; ++i) {
     gtk_list_store_append (alph_list_store, &alphiter);
     gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
+    if (alphabetlist[i]==alphabet) {
+      gtk_tree_selection_select_iter(alphselection, &alphiter);
+    }
   }
   
   // Do the same for colours
@@ -202,6 +219,10 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
   for (int i=0; i<colour_count; ++i) {
     gtk_list_store_append (colour_list_store, &colouriter);
     gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
+    if (colourlist[i]==colourscheme) {
+      gtk_tree_selection_select_iter(colourselection, &colouriter);
+    }
+
   }
 
 }
@@ -1144,6 +1165,13 @@ void interface_setup(GladeXML *xml) {
 }
 
 void
+interface_late_setup() {
+  alphabet=dasher_get_current_alphabet();
+  colourscheme=dasher_get_current_colours();
+  generate_preferences(NULL,NULL);
+}
+
+void
 open_window(GladeXML *xml) {
   char *system_data_dir;
   char *home_dir;
@@ -1167,8 +1195,6 @@ open_window(GladeXML *xml) {
   dasher_menu_bar=glade_xml_get_widget(xml, "dasher_menu_bar");
   dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
 
-  generate_preferences(NULL,NULL);
-
   gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(the_canvas));
 
   // Focus the canvas
@@ -1188,10 +1214,6 @@ open_window(GladeXML *xml) {
   dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
   dasher_set_parameter_int( INT_VIEW, 0 );
   
-  const char *alphabet;
-
-  dasher_get_alphabets( &alphabet, 1 );
-
   dasher_start();
   dasher_redraw();
 
@@ -1427,6 +1449,7 @@ extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
   font_name=gtk_font_selection_dialog_get_font_name(dasher_fontselector);
   if (font_name) {
     dasher_set_parameter_string( STRING_DASHERFONT, font_name );
+    dasherfont=font_name;
     set_canvas_font(font_name);
   }
   fontsel_hide(NULL,NULL);
@@ -1437,6 +1460,7 @@ extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data)
 {
   g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasher_fontselector);
   gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector),GTK_WINDOW(window));
+  gtk_font_selection_dialog_set_font_name(dasher_fontselector,dasherfont.c_str());
   gtk_window_present(GTK_WINDOW(dasher_fontselector));
 }
 
@@ -1447,6 +1471,7 @@ extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
   if (font_name) {
     dasher_set_parameter_string( STRING_EDITFONT, font_name );
     set_editbox_font(font_name);
+    editfont=font_name;
   }
   fontsel_hide(NULL,NULL);
   dasher_redraw();
@@ -1456,6 +1481,7 @@ extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
 {
   g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) dasher_fontselector);
   gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector),GTK_WINDOW(window));
+  gtk_font_selection_dialog_set_font_name(dasher_fontselector,editfont.c_str());
   gtk_window_present(GTK_WINDOW(dasher_fontselector));
 }
 
@@ -1463,6 +1489,8 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
 {
   reset_edit_font();
   reset_dasher_font();
+  dasher_set_parameter_string( STRING_DASHERFONT, "Serif 12" );
+  dasher_set_parameter_string( STRING_DASHERFONT, "Sans 10" );
 }
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data)
@@ -1499,9 +1527,17 @@ void parameter_string_callback( string_param p, const char *value )
     {
     case STRING_DASHERFONT:
       set_canvas_font(value);
+      dasherfont=value;
+      if (dasherfont=="") {
+	dasherfont="Serif 12";
+      }
       break;
     case STRING_EDITFONT:
       set_editbox_font(value);
+      editfont=value;
+      if (editfont=="") {
+	editfont="Sans 10";
+      }
       break;
     }
 }

@@ -245,6 +245,11 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	Redraw();
 }
 
+std::string CDasherInterface::GetCurrentAlphabet()
+{
+  return AlphabetID;
+}
+
 void CDasherInterface::ChangeColours(const std::string& NewColourID)
 {
   	if (m_SettingsUI!=0)
@@ -263,6 +268,10 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	}
 
 	Redraw();
+}
+
+std::string CDasherInterface::GetCurrentColours() {
+  return ColourID;
 }
 
 void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)

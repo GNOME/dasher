@@ -49,6 +49,7 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data);
 extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data);
 
 void interface_setup(GladeXML *xml);
+void interface_late_setup();
 void open_window(GladeXML *xml);
 extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale *hscale);

@@ -146,6 +146,8 @@ main(int argc, char *argv[])
 
   dasher_late_initialise(360,360);
 
+  interface_late_setup();
+
   gtk_widget_show_all(window);
 
   setup=TRUE;
