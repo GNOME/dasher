@@ -286,6 +286,12 @@
 			RelativePath=".\AlphabetMap.h">
 		</File>
 		<File
+			RelativePath="ColourIO.cpp">
+		</File>
+		<File
+			RelativePath="ColourIO.h">
+		</File>
+		<File
 			RelativePath=".\Context.h">
 		</File>
 		<File
@@ -293,6 +299,12 @@
 		</File>
 		<File
 			RelativePath=".\CustomAlphabet.h">
+		</File>
+		<File
+			RelativePath="CustomColours.cpp">
+		</File>
+		<File
+			RelativePath="CustomColours.h">
 		</File>
 		<File
 			RelativePath=".\DashEdit.h">
