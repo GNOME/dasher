@@ -653,7 +653,7 @@ void CEdit::deletetext()
 	wsprintf(out,TEXT(""));
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
 	if (targetwindow!=NULL) {
-#ifdef UNICODE
+#ifdef _UNICODE
 		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
 		fakekey[0].ki.wVk=fakekey[1].ki.wVk=VK_BACK;
 		fakekey[0].ki.time=fakekey[1].ki.time=0;
