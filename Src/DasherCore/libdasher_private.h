@@ -22,7 +22,7 @@ void handle_draw_text(std::string String, int x1, int y1, int size);
 void handle_text_size(symbol Character, int* Width, int* Height, int Size);
 void handle_edit_output(symbol Character);
 void handle_edit_outputcontrol(void* pointer, int data);
-void handle_edit_delete();
+void handle_edit_delete(symbol Character);
 void handle_get_new_context( std::string &str, int max );
 
 void handle_clipboard( clipboard_action act );
@@ -334,9 +334,9 @@ class dasher_edit : public CDashEditbox
     {
       handle_edit_outputcontrol(pointer, data);
     };
-  void deletetext()
+  void deletetext(symbol Symbol)
     {
-      handle_edit_delete();
+      handle_edit_delete(Symbol);
     };
   void Clear()
     {

@@ -35,7 +35,7 @@ void (*text_size_callback)(symbol, int*, int*, int) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
 void (*edit_outputcontrol_callback)(void*, int) = NULL;
-void (*edit_delete_callback)() = NULL;
+void (*edit_delete_callback)(symbol) = NULL;
 void (*get_new_context_callback)(std::string &, int ) = NULL;
 
 void (*clipboard_callback)( clipboard_action ) = NULL;
@@ -155,10 +155,10 @@ void handle_edit_outputcontrol(void* pointer, int data)
     edit_outputcontrol_callback( pointer, data );
 }
 
-void handle_edit_delete()
+void handle_edit_delete(symbol Character)
 {
   if( edit_delete_callback != NULL )
-    edit_delete_callback( );
+    edit_delete_callback(Character);
 }
 
 void handle_get_new_context( std::string &str, int max )
@@ -546,7 +546,7 @@ void dasher_set_edit_outputcontrol_callback( void (*_cb )(void*, int))
   edit_outputcontrol_callback = _cb;
 }
 
-void dasher_set_edit_delete_callback( void (*_cb )())
+void dasher_set_edit_delete_callback( void (*_cb )(symbol))
 {
   edit_delete_callback = _cb;
 }

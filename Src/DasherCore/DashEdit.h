@@ -47,7 +47,7 @@ public:
 	virtual void outputcontrol(void* pointer, int data, int type)=0;
 
 	//! Delete the previous symbol from the text box
-	virtual void deletetext()=0;
+	virtual void deletetext(symbol Symbol)=0;
 	
 	// File I/O (optional)
 

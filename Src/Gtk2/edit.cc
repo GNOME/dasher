@@ -235,7 +235,7 @@ void edit_outputcontrol_callback(void* pointer, int data)
     edit_delete_forward_line();
     break;
   case 24:
-    edit_delete_callback();
+    edit_delete_callback(-1);
     break;
   case 25:
     edit_delete_backward_word();
@@ -312,42 +312,49 @@ void edit_move_end()
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
-void edit_delete_callback()
+void edit_delete_callback(symbol Symbol)
 {
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;
+  int length,displaylength;
+  if (Symbol!=-1) {
+    length = dasher_get_edit_text(Symbol).length();
+    displaylength = g_utf8_strlen(dasher_get_edit_text(Symbol).c_str(),-1);
+  } else {
+    displaylength=length=1;
+  }
 
   gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
 
   *start=*end;  
 
-  gtk_text_iter_backward_chars(start, 1);
+  gtk_text_iter_backward_chars(start, displaylength);
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_SPEECH
-  if(say.length()>0) {
-    say.resize(say.length()-1);
+  if((say.length()-length)>=0) {
+    say.resize(say.length()-length);
   }
 #endif
 
   if (stdoutpipe==true) {
-    if (pipetext.length()>0) {
-      pipetext.resize(pipetext.length()-1);
+    if ((pipetext.length()-length)>=0) {
+      pipetext.resize(pipetext.length()-length);
     }
   }
 
-  if(outputtext.length()>0) {
-    outputtext.resize(outputtext.length()-1);
+  if((outputtext.length()-length)>=0) {
+    outputtext.resize(outputtext.length()-length);
   }
 
 #ifdef GNOME_A11Y
   if (textbox!=NULL) {
     int endpos=AccessibleText_getCaretOffset(textbox);
     if (endpos!=0) {
-      int startpos=endpos-1;      
+      int startpos=endpos-length;      
       AccessibleEditableText_deleteText(edittextbox,startpos,endpos);
     }
     outputcharacters--;
@@ -364,12 +371,16 @@ void edit_delete_callback()
     dpy = gdk_x11_get_default_xdisplay();
     KeyCode code;
     code = XKeysymToKeycode(dpy,XK_BackSpace);
-    XTestFakeKeyEvent(dpy, code, True, 0);
-    XTestFakeKeyEvent(dpy, code, False, 0);
+    for (int i=0; i<displaylength; i++) {
+      XTestFakeKeyEvent(dpy, code, True, 0);
+      XTestFakeKeyEvent(dpy, code, False, 0);
+    }
     XFlush(dpy);
 #else
 #ifdef GNOME_A11Y
-    SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
+    for (int i=0; i<displaylength; i++) {
+      SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
+    }
 #endif
 #endif
   }

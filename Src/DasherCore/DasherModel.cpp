@@ -456,14 +456,14 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
   if (newnode->isSeen()==true) {
     if (oldnode->Parent()==newnode) {
       if (oldnode->Symbol()!=m_languagemodel->GetControlSymbol()&&oldnode->Control()==false&&oldnode->Symbol()!=0) {
-	m_editbox->deletetext();
+	m_editbox->deletetext(oldnode->Symbol());
       }
       oldnode->Seen(false);
       return true;
     }
     if (DeleteCharacters(newnode,oldnode->Parent())==true) {
       if (oldnode->Symbol()!=m_languagemodel->GetControlSymbol()&&oldnode->Control()==false&&oldnode->Symbol()!=0) {
-	m_editbox->deletetext();
+	m_editbox->deletetext(oldnode->Symbol());
       }
       oldnode->Seen(false);
       return true;
@@ -475,21 +475,17 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
     while (lastseen!=NULL && lastseen->isSeen()==false) {      
       lastseen=lastseen->Parent();
     };
-    int i;
     // Delete back to last seen node
-    for (i=0; oldnode!=lastseen; i++) {
+    while (oldnode!=lastseen) {
       oldnode->Seen(false);
       if (oldnode->Control()==true||oldnode->Symbol()==m_languagemodel->GetControlSymbol() || oldnode->Symbol()==0) {
-	i--;
+	continue;
       }
+      m_editbox->deletetext(oldnode->Symbol());
       oldnode=oldnode->Parent();
       if (oldnode==NULL) {
 	return false;
       }
-    }
-    while (i>0) {
-      m_editbox->deletetext();
-      i--;
     }
   }
   return false;
