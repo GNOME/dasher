@@ -58,6 +58,7 @@ namespace Dasher
 		// Would allow literal as well as semantic colors for
 		// greater flexibility. }}}
 		enum ColorSchemes {Nodes1=0, Nodes2=1, Special1=2, Special2=3, Groups=4};
+		enum FontSize {Normal=0, Big=1, VBig=2};
 	}
 
 }
