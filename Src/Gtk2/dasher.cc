@@ -244,6 +244,8 @@ open_file (const char *filename)
   
   flush_count = 0;
 
+  gtk_window_set_title(GTK_WINDOW(window), filename);
+
   dasher_start();
   dasher_redraw();
 }
@@ -281,23 +283,7 @@ select_new_file(gpointer data, guint action, GtkWidget *widget)
 {
   //FIXME - confirm this
 
-  if (timestamp==TRUE) {
-    tm *t_struct;
-    time_t ctime;
-    
-    ctime = time( NULL );
-    
-    t_struct= localtime( &ctime );
-    
-    char tbuffer[256];
-    
-    snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
-    
-    filename = g_strdup (tbuffer);
-
-  } else {
-    filename=NULL;
-  }
+  choose_filename();
 
   clear_edit();
   dasher_start();
@@ -358,6 +344,7 @@ save_file_as (const char *filename, bool append)
   fclose (fp);
 
   file_modified = 0;
+  gtk_window_set_title(GTK_WINDOW(window), filename);
 }
 
 void
@@ -394,6 +381,10 @@ select_save_file_as()
   g_signal_connect_swapped (G_OBJECT (GTK_FILE_SELECTION (filew)->cancel_button),
 			    "clicked", G_CALLBACK (gtk_widget_destroy),
 			    G_OBJECT (filew));
+
+  if (filename!=NULL)
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(filew), filename);
+
   gtk_widget_show (filew);
 }
 
@@ -811,6 +802,10 @@ void choose_filename() {
     snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
     
     filename = g_strdup (tbuffer);
+    gtk_window_set_title(GTK_WINDOW(window), filename);
+  } else {
+    gtk_window_set_title(GTK_WINDOW(window), "Dasher");
+    filename = NULL;
   }
 }
 
