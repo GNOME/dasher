@@ -17,7 +17,7 @@ using namespace Opts;
 using namespace std;
 
 CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
-	: CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), RealHDC(0), m_FontName("")
+  : CDasherScreen(iWidth, iHeight), m_hwnd(mainwindow), RealHDC(0), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1))
 {
 	// set up the off-screen buffers
 	HDC hdc = GetWindowDC(mainwindow);
@@ -105,6 +105,15 @@ void CScreen::SetFont(string Name)
 	}
 }
 
+void CScreen::SetFontSize(FontSize size)
+{
+  Fontsize=size;
+}
+
+FontSize CScreen::GetFontSize()
+{
+  return Fontsize;
+}
 
 void CScreen::Build_Colours ()
 {

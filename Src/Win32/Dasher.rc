@@ -118,7 +118,7 @@ BEGIN
         MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
         MENUITEM "&Append to File...",          ID_FILE_APPEND, GRAYED
         MENUITEM SEPARATOR
-        MENUITEM "&Import Training Text",       ID_IMPORT_TRAINFILE, GRAYED
+        MENUITEM "&Import Training Text",       ID_IMPORT_TRAINFILE
         MENUITEM SEPARATOR
         MENUITEM "E&xit",                       IDM_EXIT
     END
@@ -175,6 +175,15 @@ BEGIN
             MENUITEM "Unicode (UTF-16&BE)",         ID_SAVE_AS_UTF16_BIG
         END
         MENUITEM SEPARATOR
+        POPUP "Font Size"
+        BEGIN
+            MENUITEM "Normal",                      ID_OPTIONS_FONTSIZE_NORMAL
+            , CHECKED
+            MENUITEM "Large",                       ID_OPTIONS_FONTSIZE_LARGE
+
+            MENUITEM "Very Large",                  ID_OPTIONS_FONTSIZE_VERYLARGE
+
+        END
         MENUITEM "&Editing Font...",            ID_OPTIONS_EDITFONT
         MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
@@ -216,7 +225,7 @@ END
 IDD_ABOUTBOX DIALOGEX 0, 0, 242, 151
 STYLE DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "About"
-FONT 8, "MS Shell Dlg"
+FONT 8, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
     ICON            IDI_DASHER,IDC_MYICON,23,18,20,20

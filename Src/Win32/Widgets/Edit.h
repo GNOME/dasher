@@ -42,6 +42,7 @@ public:
 	void Open();
 	void OpenAppendMode();
 	void SaveAs();
+	std::string Import();
 	void SetDirty(); // Parent window gets notification Edit window has changed.
 	
 	void Cut();
@@ -87,7 +88,7 @@ private:
 	bool TOpen(const Tstring& filename);
 	bool TOpenAppendMode(const Tstring& filename);
 	bool TSaveAs(const Tstring& filename);
-	
+
 	HFONT m_Font;
 	std::string m_FontName;
 	long m_FontSize;

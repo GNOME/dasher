@@ -138,6 +138,9 @@
 #define ID_ORIENT_TB                    32804
 #define ID_ORIENT_BT                    32805
 #define ID_SAVE_AS_ALPHABET_CODEPAGE    32806
+#define ID_OPTIONS_FONTSIZE_NORMAL      32807
+#define ID_OPTIONS_FONTSIZE_LARGE       32808
+#define ID_OPTIONS_FONTSIZE_VERYLARGE   32809
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -145,7 +148,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        156
-#define _APS_NEXT_COMMAND_VALUE         32807
+#define _APS_NEXT_COMMAND_VALUE         32810
 #define _APS_NEXT_CONTROL_VALUE         1055
 #define _APS_NEXT_SYMED_VALUE           110
 #endif

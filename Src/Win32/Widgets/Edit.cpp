@@ -262,6 +262,13 @@ void CEdit::SaveAs()
 	TSaveAs(m_FilenameGUI->SaveAs());
 }
 
+std::string CEdit::Import()
+{
+        string filename;
+	Tstring_to_UTF8string(m_FilenameGUI->Open(),&filename,CodePage);
+	return filename;
+}
+
 
 void CEdit::SetDirty()
 {
@@ -360,7 +367,6 @@ bool CEdit::TSaveAs(const Tstring& filename)
 	} else
 		return false;
 }
-
 
 void CEdit::Cut()
 {

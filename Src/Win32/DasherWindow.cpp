@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
+#include "../DasherCore/DasherTypes.h"
 #include "DasherWindow.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
@@ -276,6 +277,29 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			// Parse the menu selections:
 			switch (wmId)
 			{
+			case ID_OPTIONS_FONTSIZE_NORMAL: {
+			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+				break;
+			}
+			case ID_OPTIONS_FONTSIZE_LARGE: {
+			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(2));
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, true);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+
+				break;
+			}
+			case ID_OPTIONS_FONTSIZE_VERYLARGE: {
+			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(4));
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
+
+				break;
+			}
 			case ID_OPTIONS_EDITFONT: {
 				CHOOSEFONT Data;
 				LOGFONT lf;
@@ -358,6 +382,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				break;
 			case ID_FILE_SAVE_AS:
 				m_pEdit->SaveAs();
+				break;
+			case ID_IMPORT_TRAINFILE:
+			        DasherAppInterface->TrainFile(m_pEdit->Import());
 				break;
 			case ID_FIX_SPLITTER:
 				DasherSettingsInterface->FixLayout(!WinMenu.GetCheck(ID_FIX_SPLITTER));
