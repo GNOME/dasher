@@ -820,6 +820,7 @@ void CEdit::speak(int what) {
 #endif
 			lastspeech=allspeech;
 			delete allspeech;
+			speech.resize(0);
 		} else if (what==2) {
 #ifdef _UNICODE
 			pVoice->Speak(speech.c_str(),SPF_ASYNC,NULL);
