@@ -91,6 +91,21 @@ CDasherWindow::~CDasherWindow()
 }
 
 
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherWindow::MessageLoop()
+{
+	MSG msg;
+	while (GetMessage(&msg, NULL, 0, 0)) {
+		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+	}
+	
+	return msg.wParam;
+}
+
 void CDasherWindow::Show(int nCmdShow)
 {
 	// Make sure Dasher has started up.

@@ -145,19 +145,6 @@ private:
 	void Layout();
 };
 
-/////////////////////////////////////////////////////////////////////////////
 
-inline int CDasherWindow::MessageLoop()
-{
-	MSG msg;
-	while (GetMessage(&msg, NULL, 0, 0)) {
-		if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
-			TranslateMessage(&msg);
-			DispatchMessage(&msg);
-		}
-	}
-	
-	return msg.wParam;
-}
 
 #endif /* #ifdef __MainWindow_h__ */
