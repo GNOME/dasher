@@ -5,6 +5,8 @@ GdkPixmap *offscreen_buffer;
 GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
 
+extern gboolean setup;
+
 void rebuild_buffer()
 {
   delete(offscreen_buffer);
@@ -25,6 +27,8 @@ void initialise_canvas( int width, int height )
 
 void blank_callback()
 {
+  if (setup==false) 
+    return;
   gdk_draw_rectangle (offscreen_buffer,
 		      
 		      the_canvas->style->white_gc,
@@ -44,6 +48,9 @@ void display_callback()
   // temp = offscreen_buffer;
   //offscreen_buffer=onscreen_buffer;
   //onscreen_buffer = temp;
+
+  if (setup==false)
+    return;
   
   gdk_draw_pixmap(onscreen_buffer,
 		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
@@ -88,6 +95,9 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   GdkColormap *colormap;
   GdkRectangle update_rect;
 
+  if (setup==false)
+    return;
+
   GdkColor black = {0, 0, 0, 0};
   GdkColor new_foreground = { 0, 45000, 45000, 45000 };
   GdkColor foreground = {0, ((ColorScheme * 3 + Color) & 1) * 30000 + 30000, 
@@ -128,6 +138,9 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   GdkColormap *colormap;
   GdkRectangle update_rect;
 
+  if (setup==false)
+    return;
+
   GdkColor black = {0, 0, 0, 0};
   GdkPoint gdk_points[Number];
 
@@ -152,6 +165,9 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   GdkFont *chosen_font;  
   PangoRectangle *ink,*logical;
 
+  if (setup==false)
+    return;
+
   ink = new PangoRectangle;
   logical = new PangoRectangle;
 
@@ -173,6 +189,9 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 void text_size_callback(symbol Character, int* Width, int* Height, int Size)
 {
   GdkFont *chosen_font;
+
+  if (setup==false)
+    return;
 
   //  chosen_font = dasher_canvas->GetFont(Size);
   chosen_font = get_font(Size);
