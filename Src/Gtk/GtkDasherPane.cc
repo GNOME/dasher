@@ -14,11 +14,39 @@
 #include "SettingsStore.h"
 
 #include <time.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include <iostream.h>
+#include <fstream.h>
 
 GtkDasherPane::GtkDasherPane()
   : VBox( false, 0 ), paused( false )
 { 
+
+  char *HomeDir;
+
+  HomeDir = getenv( "HOME" );
+
+  char *UserDataDir;
+
+  UserDataDir = new char[ strlen( HomeDir ) + 10 ];
+  sprintf( UserDataDir, "%s/.dasher/", HomeDir );
+  
+  char *SystemDataDir;
+
+  SystemDataDir = "/etc/dasher/";
+
+  cout << "User configuration directory is " << UserDataDir << endl;
+  cout << "System configuration directory is " << SystemDataDir << endl;
+
   interface = new CDasherInterface;
+
+  interface->SetSystemLocation(SystemDataDir);
+  interface->SetUserLocation(UserDataDir);
+
+  // Load in training data here
+
 
   text = new GtkDasherEdit( interface );
   text->set_usize(128, 128);
