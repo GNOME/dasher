@@ -207,6 +207,10 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 
 	delete old; // only delete old alphabet after telling all other objects not to use it
 
+	if (m_Alphabet->GetPalette()!="") {
+	  ChangeColours(m_Alphabet->GetPalette());
+	}
+
 	if (m_ControlMode==true) {
 	  m_Alphabet->AddControlSymbol();
 	}
