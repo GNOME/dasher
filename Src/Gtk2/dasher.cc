@@ -691,7 +691,6 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 extern "C" void
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  printf("Called\n");
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
 
@@ -781,6 +780,7 @@ open_window(GladeXML *xml) {
   toolbar=glade_xml_get_widget(xml, "toolbar");
   canvas_frame=glade_xml_get_widget(xml, "canvas_frame");
   dasher_menu_bar=glade_xml_get_widget(xml, "dasher_menu_bar");
+  dasher_fontselector=GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(xml, "dasher_fontselector"));
 
   generate_preferences(NULL,NULL);
 
@@ -816,6 +816,10 @@ open_window(GladeXML *xml) {
   dasher_start();
 
   gtk_timeout_add(50, timer_callback, NULL );  
+
+  // I have no idea why we need to do this when Glade has theoretically done
+  // so already, but...
+  gtk_widget_add_events (the_canvas, GDK_BUTTON_PRESS_MASK);
 
   setup = TRUE;
 }
@@ -1023,12 +1027,15 @@ extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
     set_canvas_font(font_name);
   }
   fontsel_hide(NULL,NULL);
+  paused=false;
+  dasher_redraw();
+  paused=true;
 }
 
 extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data)
 {
   g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasher_fontselector);
-  gtk_widget_show(GTK_WIDGET(dasher_fontselector));
+  gtk_widget_show_all(GTK_WIDGET(dasher_fontselector));
 }
 
 extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
@@ -1040,12 +1047,15 @@ extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two )
     set_editbox_font(font_name);
   }
   fontsel_hide(NULL,NULL);
+  paused=false;
+  dasher_redraw();
+  paused=true;
 }
 
 extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data)
 {
   g_signal_connect (dasher_fontselector->ok_button, "clicked", G_CALLBACK (get_edit_font_from_dialog), (gpointer) dasher_fontselector);
-  gtk_widget_show(GTK_WIDGET(dasher_fontselector));
+  gtk_widget_show_all(GTK_WIDGET(dasher_fontselector));
 }
 
 extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
