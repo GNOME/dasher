@@ -95,6 +95,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Options/Start on Left Mouse", NULL, *GtkItemFactoryCallback(startonleft), 1, "<CheckItem>" },
   { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },
+  { "/Options/Keyboard Control", NULL, *GtkItemFactoryCallback(keycontrol), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
  };
@@ -122,6 +123,7 @@ gboolean showslider;
 gboolean timestamp;
 gboolean startleft;
 gboolean startspace;
+gboolean keyboardcontrol;
 
 gint prev_pos_x;
 gint prev_pos_y;
@@ -575,20 +577,56 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 }
 
 void
-key_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
+key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
+  int i,width,height;
   if (event->type != GDK_KEY_PRESS)
     return;
 
-  if (startspace == TRUE) {
-    if (paused == TRUE) {
-      dasher_unpause( get_time() );
-      paused = FALSE;
-    } else {
-      dasher_pause( (gint) event->x,(gint) event->y );    
-      paused = TRUE;
+  switch (event->keyval) {
+    if (keyboardcontrol == true) {
+    case GDK_Up:
+      dasher_unpause(get_time());
+      width = the_canvas->allocation.width;
+      height = the_canvas->allocation.height;
+      for (i=0; i<300; i+=10) {
+	dasher_tap_on((int)(0.70*width), (int)(0.20*height), get_time()+i);
+      }
+      dasher_pause(150,150);
+      break;
+    case GDK_Down:
+      dasher_unpause(get_time());
+      width = the_canvas->allocation.width;
+      height = the_canvas->allocation.height;
+      for (i=0; i<300; i+=10) {
+	dasher_tap_on((int)(0.70*width), (int)(0.79*height), get_time()+i);
+      }
+      dasher_pause(150,150);
+      break;
+    case GDK_Left:
+      dasher_unpause(get_time());
+      width = the_canvas->allocation.width;
+      height = the_canvas->allocation.height;
+      for (i=0; i<300; i+=10) {
+	dasher_tap_on((int)(0.25*width), (int)(0.47*height), get_time()+i);
+      }
+      dasher_pause(150,150);
+      break;
     }
-  }
+  case GDK_space:
+    if (startspace == TRUE) {
+      if (paused == TRUE) {
+	dasher_unpause( get_time() );
+	paused = FALSE;
+      } else {
+	dasher_pause(0,0);    
+	paused = TRUE;
+      }
+    }
+    break;
+  default:
+    return;
+  }  
   return;
 }
 
@@ -657,7 +695,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 54,
+				 55,
 				 entries,
 				 NULL );
 
@@ -961,6 +999,11 @@ void startonspace(gpointer data, guint action, GtkWidget *widget )
   dasher_set_parameter_bool( BOOL_STARTONSPACE, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 
+void keycontrol(gpointer data, guint action, GtkWidget *widget )
+{
+  dasher_set_parameter_bool( BOOL_KEYBOARDCONTROL, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
 void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 {
   // FIXME - rewrite this sanely, ie:
@@ -1149,6 +1192,10 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_STARTONSPACE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Space Bar")), value);
       startspace=value;
+      break;
+    case BOOL_KEYBOARDCONTROL:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Keyboard Control")), value);
+      keyboardcontrol=value;
       break;
     }
 }

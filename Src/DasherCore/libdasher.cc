@@ -320,6 +320,8 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_STARTONLEFT:
       interface->StartOnLeft(value);
       break;
+    case BOOL_KEYBOARDCONTROL:
+      interface->KeyControl(value);
     }
 }
 

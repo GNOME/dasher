@@ -147,6 +147,10 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_STARTONLEFT, Value );
     };
+  void KeyControl(bool Value)
+    {
+      handle_parameter_bool( BOOL_KEYBOARDCONTROL, Value );
+    };
 };
 
 
