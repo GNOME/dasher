@@ -151,6 +151,10 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_KEYBOARDCONTROL, Value );
     };
+  void WindowPause(bool Value)
+    {
+      handle_parameter_bool( BOOL_WINDOWPAUSE, Value );
+    };
 };
 
 

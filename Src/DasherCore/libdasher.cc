@@ -322,6 +322,10 @@ void dasher_set_parameter_bool( bool_param p, bool value )
       break;
     case BOOL_KEYBOARDCONTROL:
       interface->KeyControl(value);
+      break;
+    case BOOL_WINDOWPAUSE:
+      interface->WindowPause(value);
+      break;
     }
 }
 

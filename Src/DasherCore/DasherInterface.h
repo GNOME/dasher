@@ -122,6 +122,7 @@ public:
 	void StartOnSpace(bool Value);
 	void StartOnLeft(bool Value);
 	void KeyControl(bool Value);
+	void WindowPause(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
@@ -151,6 +152,7 @@ private:
 	bool m_StartLeft;
 	bool m_KeyControl;
 	bool m_Dimensions;
+	bool m_WindowPause;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;

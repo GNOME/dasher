@@ -27,6 +27,7 @@ namespace Keys {
         const std::string START_MOUSE = "StartOnLeft";
         const std::string START_SPACE = "StartOnSpace";
         const std::string KEY_CONTROL = "KeyControl";
+        const std::string WINDOW_PAUSE = "PauseOutsideWindow";
 
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -97,6 +98,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
 	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
+
+	Store->SetBoolDefault(WINDOW_PAUSE, false);
+	this->WindowPause(Store->GetBoolOption(WINDOW_PAUSE));
 
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"

@@ -101,6 +101,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Start on Left Mouse", NULL, *GtkItemFactoryCallback(startonleft), 1, "<CheckItem>" },
   { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },
   { "/Options/Keyboard Control", NULL, *GtkItemFactoryCallback(keycontrol), 1, "<CheckItem>" },
+  { "/Options/Pause outside Window", NULL, *GtkItemFactoryCallback(windowpause), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
  };
@@ -129,6 +130,9 @@ gboolean timestamp;
 gboolean startleft;
 gboolean startspace;
 gboolean keyboardcontrol;
+gboolean leavewindowpause;
+
+gint dasherwidth, dasherheight;
 
 extern gboolean timedata;
 
@@ -533,9 +537,16 @@ timer_callback(gpointer data)
     int x;
     int y;
     
-    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
-    //    dasher_canvas->interface->TapOn(x,y,get_time());
+    if (leavewindowpause==true) {
+      gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
 
+      gdk_window_get_pointer(GTK_WIDGET(window)->window, &x, &y, NULL);
+
+      if (x>dasherwidth || x<0 || y>dasherheight || y<0) {
+	return 1;
+      }
+    }
+    gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
     dasher_tap_on( x, y, get_time() );
   }
 
@@ -711,7 +722,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 55,
+				 56,
 				 entries,
 				 NULL );
 
@@ -777,7 +788,7 @@ open_window() {
   char *system_data_dir;
   char *home_dir;
   char *user_data_dir;
-  
+
   home_dir = getenv( "HOME" );
   user_data_dir = new char[ strlen( home_dir ) + 10 ];
   sprintf( user_data_dir, "%s/.dasher/", home_dir );
@@ -1020,6 +1031,11 @@ void keycontrol(gpointer data, guint action, GtkWidget *widget )
   dasher_set_parameter_bool( BOOL_KEYBOARDCONTROL, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 
+void windowpause(gpointer data, guint action, GtkWidget *widget )
+{
+  dasher_set_parameter_bool( BOOL_WINDOWPAUSE, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
 void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 {
   // FIXME - rewrite this sanely, ie:
@@ -1212,6 +1228,10 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_KEYBOARDCONTROL:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Keyboard Control")), value);
       keyboardcontrol=value;
+      break;
+    case BOOL_WINDOWPAUSE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Pause outside Window")), value);
+      leavewindowpause=value;
       break;
     }
 }

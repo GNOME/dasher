@@ -399,6 +399,15 @@ void CDasherInterface::KeyControl(bool Value)
 	  m_SettingsStore->SetBoolOption(Keys::KEY_CONTROL, Value);
 }
 
+void CDasherInterface::WindowPause(bool Value)
+{
+        m_KeyControl = Value;
+	if (m_SettingsUI!=0)
+	  m_SettingsUI->WindowPause(Value);
+	if (m_SettingsStore!=0)
+	  m_SettingsStore->SetBoolOption(Keys::WINDOW_PAUSE, Value);
+}
+
 void CDasherInterface::SetEditFont(string Name, long Size)
 {
 	m_EditFont = Name;
