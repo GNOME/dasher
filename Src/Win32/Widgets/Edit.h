@@ -122,7 +122,7 @@ private:
 
 	DWORD threadid;
 	HWND targetwindow;
-#ifdef UNICODE
+#ifdef _UNICODE
 	INPUT fakekey[2];
 #endif
 
