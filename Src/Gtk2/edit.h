@@ -12,6 +12,10 @@
 #include <X11/extensions/XTest.h>
 #endif
 
+#ifdef GNOME_A11Y
+#include <cspi/spi.h>
+#endif
+
 void initialise_edit();
 void cleanup_edit();
 void edit_output_callback(symbol Symbol);
@@ -46,3 +50,9 @@ void speak();
 void speak_last();
 void speak_buffer();
 #endif
+
+#ifdef GNOME_A11Y
+void set_textbox(Accessible *textbox);
+#endif
+
+gboolean a11y_text_entry();

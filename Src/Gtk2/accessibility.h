@@ -17,7 +17,7 @@
 
 using namespace Dasher;
 
-enum accessibletype { menus=1, toolbars=2, pushbuttons=3, focusables=4 };
+enum accessibletype { menus=1, toolbars=2, pushbuttons=3, focusables=4, textenter=5 };
 
 void setupa11y();
 void cleanupa11y();

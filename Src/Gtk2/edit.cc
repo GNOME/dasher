@@ -27,6 +27,11 @@ KeySym *origkeymap;
 int modifiedkey=0;
 int numcodes;
 
+#ifdef GNOME_A11Y
+AccessibleText* textbox=NULL;
+AccessibleEditableText* edittextbox=NULL;
+#endif
+
 gunichar* wideoutput;
 
 extern gint outputcharacters;
@@ -79,6 +84,16 @@ void edit_output_callback(symbol Symbol)
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+  if (textbox!=NULL) {
+    int position=AccessibleText_getCaretOffset(textbox);
+    AccessibleEditableText_insertText(edittextbox,position,label.c_str(),label.size());
+    position=position+g_utf8_strlen(label.c_str(),-1);
+    AccessibleText_setCaretOffset(textbox,position);
+    return;
+  }
+#endif
 
   if (keyboardmodeon==true) {
 #ifdef X_HAVE_UTF8_STRING
@@ -159,8 +174,13 @@ void edit_outputcontrol_callback(void* pointer, int data)
       Accessible *myfoo;
       myfoo=(Accessible *)pointer;
       AccessibleAction_doAction(Accessible_getAction(myfoo),0);
-      break;
     }
+    break;
+  case 30:
+    if (pointer!=NULL) {
+      set_textbox((Accessible *)pointer);
+    }
+    break;
 #endif
   case 2:
     // stop
@@ -237,6 +257,13 @@ void edit_move_forward()
   gtk_text_buffer_place_cursor(the_text_buffer,pos);
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+    int position=AccessibleText_getCaretOffset(textbox);
+    position++;
+    AccessibleText_setCaretOffset(textbox,position);
+#endif
+
 }
 
 void edit_move_back()
@@ -250,6 +277,15 @@ void edit_move_back()
   gtk_text_buffer_place_cursor(the_text_buffer,pos);
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+    int position=AccessibleText_getCaretOffset(textbox);
+    position--;
+    if (position<0) {
+      position=0;
+    }	     
+    AccessibleText_setCaretOffset(textbox,position);
+#endif
 }
 
 void edit_move_start()
@@ -307,6 +343,21 @@ void edit_delete_callback()
     outputtext.resize(outputtext.length()-1);
   }
 
+#ifdef GNOME_A11Y
+  if (textbox!=NULL) {
+    int endpos=AccessibleText_getCaretOffset(textbox);
+    if (endpos!=0) {
+      int startpos=endpos-1;      
+      AccessibleEditableText_deleteText(edittextbox,startpos,endpos);
+    }
+    outputcharacters--;
+
+    delete start;
+    delete end;
+    return;
+  }
+#endif
+
   if (keyboardmodeon==true) {
 #ifdef X_HAVE_UTF8_STRING
     Display *dpy;
@@ -342,6 +393,17 @@ void edit_delete_forward_character()
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+
+#ifdef GNOME_A11Y
+  if (textbox!=NULL) {
+    int startpos=AccessibleText_getCaretOffset(textbox);
+    int endpos=endpos+1;      
+    AccessibleEditableText_deleteText(edittextbox,startpos,endpos);
+  }
+#endif
+
+  delete start;
+  delete end;
 }
 
 void edit_delete_forward_word()
@@ -557,4 +619,30 @@ void set_editbox_font(std::string FontName)
   if (FontName!="") {
     gtk_widget_modify_font (the_text_view,pango_font_description_from_string(FontName.c_str()));
   }
+}
+
+#ifdef GNOME_A11Y
+void set_textbox(Accessible* newtextbox) {
+  AccessibleText_unref(textbox);
+  AccessibleEditableText_unref(textbox);
+  if (newtextbox==NULL) {
+    textbox=NULL;
+    edittextbox=NULL;
+  } else {
+    AccessibleComponent *component;
+    component=Accessible_getComponent(newtextbox);
+    //    AccessibleComponent_grabFocus(component);
+    textbox=Accessible_getText(newtextbox);
+    edittextbox=Accessible_getEditableText(newtextbox);
+  }
+}
+#endif
+
+gboolean a11y_text_entry() {
+#ifdef GNOME_A11Y
+  if (textbox!=NULL) {
+    return TRUE;
+  }
+#endif
+  return FALSE;
 }

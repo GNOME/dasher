@@ -1,11 +1,15 @@
 #include "accessibility.h"
 #include "libdasher.h"
+#include "edit.h"
 #include <libintl.h>
 #include <iostream>
 
 ControlTree *menutree;
 ControlTree *buttontree;
 ControlTree *paneltree;
+ControlTree *edittree;
+ControlTree *widgettree;
+ControlTree *windowtree;
 ControlTree *dummy; // This one is used to fake another control node
 #define _(x) gettext(x)
 
@@ -40,30 +44,52 @@ ControlTree* gettree() {
   menutree = new ControlTree;
   buttontree = new ControlTree;
   paneltree = new ControlTree;
+  edittree = new ControlTree;
+  widgettree = new ControlTree;
+  windowtree = new ControlTree;
   Accessible *child;
   ControlTree *controltree;
   int numchildren;
   desktop = SPI_getDesktop(0);
-  menutree->parent=NULL;
+  menutree->parent=widgettree;
   menutree->children=NULL;
   menutree->pointer=NULL;
   menutree->data=0;
   menutree->text=_("Menus");
   menutree->colour=-1;
-  menutree->next=NULL;
+  menutree->next=buttontree;
+  windowtree->parent=NULL;
+  windowtree->children=NULL;
+  windowtree->pointer=NULL;
+  windowtree->data=0;
+  windowtree->text=_("Windows");
+  windowtree->next=paneltree;
+  widgettree->parent=NULL;
+  widgettree->children=menutree;
+  widgettree->pointer=NULL;
+  widgettree->text=_("Application");
+  widgettree->colour=-1;
+  widgettree->next=NULL;
   buttontree->parent=NULL;
   buttontree->children=NULL;
   buttontree->pointer=NULL;
   buttontree->data=0;
   buttontree->text=_("Buttons");
   buttontree->colour=-1;
-  buttontree->next=NULL;
+  buttontree->next=edittree;
   paneltree->parent=NULL;
   paneltree->children=NULL;
   paneltree->pointer=NULL;
   paneltree->text=_("Panels");
   paneltree->colour=-1;
-  paneltree->next=menutree;
+  paneltree->next=widgettree;
+  edittree->parent=NULL;
+  edittree->children=NULL;
+  edittree->pointer=NULL;
+  edittree->data=0;
+  edittree->text=_("Text");
+  edittree->next=NULL;
+  edittree->colour=-1;
   numchildren = Accessible_getChildCount(desktop);
   for (int i=0; i<numchildren; i++) {
     if (findpanels(Accessible_getChildAtIndex(desktop,i))==TRUE) {
@@ -75,18 +101,20 @@ ControlTree* gettree() {
   if (focusedwindow!=NULL) {
     buildmenutree(focusedwindow,menutree,menus);
     buildmenutree(focusedwindow,buttontree,pushbuttons);
+    buildmenutree(focusedwindow,edittree,textenter);
     menutree->next=buttontree;
-    buttontree->next=buildcontroltree();
+    widgettree->next=buildcontroltree();
   } else {
-    ControlTree *menutree=buildcontroltree();
+    widgettree=buildcontroltree();
+    paneltree->next=widgettree;
   }
 #else
-  ControlTree *menutree=buildcontroltree();
+  widgettree=buildcontroltree();
 #endif
   if (panels==TRUE) {
     return paneltree;
   } else {
-    return menutree;
+    return widgettree;
   }
 }
 
@@ -259,41 +287,48 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
   forwardchar->pointer=(void*)1;
   forwardchar->data=21;
   forwardchar->children=forwardtree;
-  forwardchar->next=forwardword;
   forwardchar->text=_("Character");
   forwardchar->colour=-1;
-  forwardword->pointer=(void*)1;
-  forwardword->data=22;
-  forwardword->colour=-1;
-  forwardword->children=forwardtree;
-  forwardword->next=forwardline;
-  forwardword->text=_("Word");
-  forwardline->pointer=(void*)1;
-  forwardline->data=23;
-  forwardline->children=forwardtree;
-  forwardline->next=NULL;
-  forwardline->text=_("Line");
-  forwardline->colour=-1;
-
+  if (a11y_text_entry()==TRUE) {
+    forwardchar->next=NULL;
+  } else {
+    forwardchar->next=forwardword;
+    forwardword->pointer=(void*)1;
+    forwardword->data=22;
+    forwardword->colour=-1;
+    forwardword->children=forwardtree;
+    forwardword->next=forwardline;
+    forwardword->text=_("Word");
+    forwardline->pointer=(void*)1;
+    forwardline->data=23;
+    forwardline->children=forwardtree;
+    forwardline->next=NULL;
+    forwardline->text=_("Line");
+    forwardline->colour=-1;
+  }
+  
   backwardchar->pointer=(void*)1;
   backwardchar->data=24;
   backwardchar->children=forwardtree;
-  backwardchar->next=backwardword;
   backwardchar->text=_("Character");
   backwardchar->colour=-1;
-  backwardword->pointer=(void*)1;
-  backwardword->data=25;
-  backwardword->children=forwardtree;
-  backwardword->next=backwardline;
-  backwardword->text=_("Word");
-  backwardword->colour=-1;
-  backwardline->pointer=(void*)1;
-  backwardline->data=26;
-  backwardline->children=forwardtree;
-  backwardline->next=NULL;
-  backwardline->text=_("Line");
-  backwardline->colour=-1;
-
+  if (a11y_text_entry()==TRUE) {
+    backwardchar->next=NULL;
+  } else {
+    backwardchar->next=backwardword;
+    backwardword->pointer=(void*)1;
+    backwardword->data=25;
+    backwardword->children=forwardtree;
+    backwardword->next=backwardline;
+    backwardword->text=_("Word");
+    backwardword->colour=-1;
+    backwardline->pointer=(void*)1;
+    backwardline->data=26;
+    backwardline->children=forwardtree;
+    backwardline->next=NULL;
+    backwardline->text=_("Line");
+    backwardline->colour=-1;
+  }
   return forwardtree;
 }
 
@@ -350,6 +385,33 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
 	NewNode->text=Accessible_getName(parent);      
 	useful=true;
       } 
+    } else if (Type==textenter) {
+      if (Accessible_getRole(parent)==SPI_ROLE_TEXT) {
+	AccessibleStateSet *state_set;
+	state_set=Accessible_getStateSet(parent);
+	if (AccessibleStateSet_contains(state_set,SPI_STATE_EDITABLE)) {  
+	  AccessibleRelation **relations;
+	  NewNode->pointer=parent;
+	  NewNode->data=30;
+	  NewNode->children=menutree;
+	  relations=Accessible_getRelationSet(parent);
+	  if (relations == NULL || *relations == NULL) {
+	    NewNode->text=_("Unknown");
+	  } else {
+	    for (int i=0; relations[i]; i++) {
+	      if (AccessibleRelation_getRelationType(relations[i])==SPI_RELATION_LABELED_BY) {
+		Accessible *label=AccessibleRelation_getTarget(relations[i],0);		
+		NewNode->text=Accessible_getName(label);
+		Accessible_unref(label);
+		break;
+	      }	      
+	    }
+	    delete relations;
+	  }
+	  useful=true;
+	}
+	AccessibleStateSet_unref(state_set);
+      } 
     }
     menuitems.push_back(parent);
   }
@@ -383,6 +445,7 @@ void deletemenutree() {
     menuitems.pop_back();    
   }
   Accessible_unref(desktop);
+  set_textbox(NULL);
 #else
   return;
 #endif
@@ -418,6 +481,7 @@ void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
       deletemenutree();
       add_control_tree(gettree());
       dasher_start();
+      set_textbox(NULL);
     }
   }
   SPI_freeString(name);
