@@ -16,6 +16,7 @@ extern bool mouseposstart;
 GtkWidget *the_text_view;  
 GtkTextBuffer *the_text_buffer;
 GtkClipboard *the_text_clipboard;
+std::string last_said;
 std::string say;
 std::string outputtext;
 
@@ -417,7 +418,31 @@ void speak()
     }
     SPEAK_DAMN_YOU(&say);
   }
+  last_said = say;
   say="";
+}
+
+void speak_last()
+{
+  if (last_said.length()>0) {
+    SPEAK_DAMN_YOU(&last_said);
+  }
+}
+
+void speak_buffer()
+{
+  std::string buffer;
+  GtkTextIter *speak_start, *speak_end;
+
+  speak_start = new GtkTextIter;
+  speak_end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),speak_start,0);
+  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),speak_end,-1);
+  
+  buffer = gtk_text_iter_get_slice (speak_start,speak_end);
+
+  SPEAK_DAMN_YOU(&buffer);
 }
 #endif
 
