@@ -81,41 +81,47 @@ GtkDasherPane::GtkDasherPane()
 
   //  ifstream t( "/etc/dasher/train.txt" );
 
-  ifstream t( training_file );
 
-  if( !t.bad() )
-    {
-      cout << "Training ... " << flush;
+  // Here
+//   ifstream t( training_file );
 
-      char b[256];
+//   if( !t.bad() )
+//     {
+//       cout << "Training ... " << flush;
+
+//       char b[256];
       
-      while( !t.eof() )
-      {
-      int i(0);
+//       while( !t.eof() )
+//       {
+//       int i(0);
 
-      while( (i < 255) && ( !t.eof() ) )
-	{
-	  t.read( &b[i], 1 );
-	  ++i;
-	}
+//       while( (i < 255) && ( !t.eof() ) )
+// 	{
+// 	  t.read( &b[i], 1 );
+// 	  ++i;
+// 	}
 
-      b[i] = 0;
+//       b[i] = 0;
 
-      string s( b );
+//       string s( b );
 
-      if( !t.eof() )
-	interface->Train( &s, true );
-      else
-	interface->Train( &s, false );
-    }
+//       if( !t.eof() )
+// 	interface->Train( &s, true );
+//       else
+// 	interface->Train( &s, false );
+//     }
 
-      cout << "done." << endl;
-    }
+//       cout << "done." << endl;
+//     }
+
+// To here
+
+  interface->TrainFile(string(training_file));
 
   // interface->Redraw();
   //  interface->Start();
 
- interface->ChangeEdit( text );
+  interface->ChangeEdit( text );
   interface->ChangeScreen( canvas );
 
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
@@ -143,16 +149,22 @@ void GtkDasherPane::save()
 {
 }
 
-void GtkDasherPane::open( std::string filename )
+bool GtkDasherPane::open( std::string filename )
 {
-  text->Open(filename);
+  return(text->Open(filename));
 }
 
-void GtkDasherPane::save_as( string filename )
+void GtkDasherPane::import( std::string filename )
+{
+  cout << "Import: " << filename << endl;
+  interface -> TrainFile( filename );
+}
+
+bool GtkDasherPane::save_as( string filename )
 {
   //  cout << "In Save: " << filename << endl;
 
-  text->SaveAs( filename );
+  return(text->SaveAs( filename ));
 }
 
 void GtkDasherPane::select_all()

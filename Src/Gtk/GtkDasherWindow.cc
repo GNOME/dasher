@@ -11,8 +11,10 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Edit Font"), slider_shown( true ), ofilesel(), copy_all_on_pause( false )
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ), ofilesel("Open"), copy_all_on_pause( false ),ifilesel("Import Training Text")
 {  
+  set_title( "Dasher" );
+
   add(main_vbox);
 
   //set_contents(main_vbox);
@@ -178,6 +180,9 @@ GtkDasherWindow::GtkDasherWindow()
 
   ofilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_ok_sel));
   ofilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_cancel_sel));
+
+  ifilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_ok_sel));
+  ifilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ifile_cancel_sel));
   show_all();
   
   dasher_pane.clear();
@@ -208,7 +213,25 @@ void GtkDasherWindow::file_ok_sel()
   save_dialogue.hide();
   //  cout << "foo" << endl;
   
-  dasher_pane.save_as( save_dialogue.current_filename );
+  if( dasher_pane.save_as( save_dialogue.current_filename ))
+    {
+      char tbuffer[256];
+      
+      snprintf( tbuffer, 256, "Dasher - %s", ofilesel.get_filename().c_str());
+      
+      set_title(tbuffer);
+    }
+}
+
+void GtkDasherWindow::ifile_ok_sel()
+{
+  ifilesel.hide();
+  dasher_pane.import( ifilesel.get_filename() );
+}
+
+void GtkDasherWindow::ifile_cancel_sel()
+{
+  ifilesel.hide();
 }
 
 void GtkDasherWindow::dfont_ok_sel()
@@ -293,7 +316,14 @@ void GtkDasherWindow::efont_cancel_sel()
 
 void GtkDasherWindow::ofile_ok_sel()
 {
-  dasher_pane.open(ofilesel.get_filename());
+  if( dasher_pane.open(ofilesel.get_filename()))
+    {
+      char tbuffer[256];
+
+      snprintf( tbuffer, 256, "Dasher - %s", ofilesel.get_filename().c_str());
+
+      set_title(tbuffer);
+    }
   ofilesel.hide();
 }
 
@@ -355,7 +385,7 @@ void GtkDasherWindow::menu_button_cb(int c)
       // Not yet implemented
       break;
     case MENU_IMPORT:
-      // Not yet implemented
+      ifilesel.show();
       break;
     case MENU_EXIT:
       exit();
@@ -426,6 +456,7 @@ void GtkDasherWindow::orientation( Opts::ScreenOrientations o )
 
 void GtkDasherWindow::reset()
 {
+  set_title("Dasher");
   dasher_pane.reset();
 }
 

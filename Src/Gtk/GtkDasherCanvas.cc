@@ -17,7 +17,7 @@
 #define MINFONTSIZE 8
 
 GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_interface )
-  : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height ), 
+  : DrawingArea(), CDasherScreen( _width, _height ), pmwidth( _width), pmheight( _height ), 
   interface( _interface ), fontname( "fixed" )
 { 
 
@@ -27,11 +27,11 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
 
   // Set the size of the drawing area
 
-  set_usize(width, height);
+  set_usize(pmwidth, pmheight);
 
   // Initialise the double buffer class
 
-  buffer = new GtkDoubleBuffer( width, height, 16 );
+  buffer = new GtkDoubleBuffer( pmwidth, pmheight, 16 );
 
   // Initialise the font list
 
@@ -136,8 +136,8 @@ void GtkDasherCanvas::clear()
   graphics_context.set_foreground(some_color);
     
 
-  buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, width, height );
-  buffer->get_fg()->draw_rectangle( graphics_context, true, 0, 0, width, height );
+  buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+  buffer->get_fg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
 
       }
 
@@ -152,7 +152,23 @@ GtkDasherCanvas::~GtkDasherCanvas()
 
 gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 {
-  get_window().draw_pixmap( this->get_style()->get_white_gc(), *(buffer->get_fg()), 0, 0, 0, 0, width, height );
+  if(( width() != pmwidth ) || ( height() != pmheight ))
+    {
+      cout << "Resizing canvas" << endl;
+
+      pmwidth = width();
+      pmheight = height();
+
+      delete( buffer );
+
+      buffer = new GtkDoubleBuffer( pmwidth, pmheight, 16 );
+
+      // Need to tell the interface that its dimensions have changed here.
+
+      interface->Redraw();
+    }
+
+  get_window().draw_pixmap( this->get_style()->get_white_gc(), *(buffer->get_fg()), 0, 0, 0, 0, pmwidth, pmheight );
 
   return( true );
 }
@@ -273,7 +289,7 @@ void GtkDasherCanvas::Blank() const
   graphics_context.set_foreground(some_color);
     
 
-  buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, width, height );
+  buffer->get_bg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
     }
  }
 

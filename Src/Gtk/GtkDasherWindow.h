@@ -73,6 +73,7 @@ protected:
   Gtk::FontSelectionDialog efontsel;
 
   Gtk::FileSelection ofilesel;
+  Gtk::FileSelection ifilesel;
 
   Gtk::Pixmap first_pixmap;
 
@@ -88,6 +89,9 @@ protected:
 
   void ofile_ok_sel();
   void ofile_cancel_sel();
+
+  void ifile_ok_sel();
+  void ifile_cancel_sel();
 
   void reset();
   void save();

@@ -35,8 +35,8 @@ protected:
 
   gint expose_event_impl(GdkEventExpose *event);
 
-  int width;
-  int height;
+  int pmwidth;
+  int pmheight;
 
   void build_fonts();
 

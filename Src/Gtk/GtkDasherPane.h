@@ -27,8 +27,9 @@ public:
 
   void reset();
   void save();
-  void save_as( string filename );
-  void open( string filename );
+  bool save_as( string filename );
+  bool open( string filename );
+  void import( string filename );
 
   void select_all();
   void cut();

@@ -160,7 +160,7 @@ bool GtkDasherEdit::Open( std::string filename )
 
       cout << rtext << endl;
 
-      insert ( efont, black, white, rtext, 1);
+      insert ( efont, black, white, rtext.c_str(), 1);
     }
 
   ifile.close();
