@@ -397,54 +397,90 @@
 	  <property name="position">1</property>
 
 	  <child>
-	    <widget class="GtkScrolledWindow" id="text_scrolled_window">
+	    <widget class="GtkScrolledWindow" id="scrolledwindow5">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
-	      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+	      <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	      <property name="vscrollbar_policy">GTK_POLICY_NEVER</property>
 	      <property name="shadow_type">GTK_SHADOW_NONE</property>
 	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 	      <child>
-		<widget class="GtkTextView" id="the_text_view">
+		<widget class="GtkViewport" id="viewport4">
 		  <property name="visible">True</property>
-		  <property name="can_default">True</property>
-		  <property name="can_focus">True</property>
-		  <property name="events">GDK_BUTTON_PRESS_MASK | GDK_KEY_PRESS_MASK</property>
-		  <property name="editable">True</property>
-		  <property name="justification">GTK_JUSTIFY_LEFT</property>
-		  <property name="wrap_mode">GTK_WRAP_WORD</property>
-		  <property name="cursor_visible">True</property>
-		  <property name="pixels_above_lines">0</property>
-		  <property name="pixels_below_lines">0</property>
-		  <property name="pixels_inside_wrap">0</property>
-		  <property name="left_margin">0</property>
-		  <property name="right_margin">0</property>
-		  <property name="indent">0</property>
-		  <property name="text" translatable="yes"></property>
-		  <signal name="button_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:01:59 GMT"/>
-		  <signal name="key_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:02:05 GMT"/>
+		  <property name="shadow_type">GTK_SHADOW_IN</property>
+
+		  <child>
+		    <widget class="GtkScrolledWindow" id="text_scrolled_window">
+		      <property name="visible">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+		      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+		      <property name="shadow_type">GTK_SHADOW_NONE</property>
+		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+		      <child>
+			<widget class="GtkTextView" id="the_text_view">
+			  <property name="visible">True</property>
+			  <property name="can_default">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="events">GDK_BUTTON_PRESS_MASK | GDK_KEY_PRESS_MASK</property>
+			  <property name="editable">True</property>
+			  <property name="justification">GTK_JUSTIFY_LEFT</property>
+			  <property name="wrap_mode">GTK_WRAP_WORD</property>
+			  <property name="cursor_visible">True</property>
+			  <property name="pixels_above_lines">0</property>
+			  <property name="pixels_below_lines">0</property>
+			  <property name="pixels_inside_wrap">0</property>
+			  <property name="left_margin">0</property>
+			  <property name="right_margin">0</property>
+			  <property name="indent">0</property>
+			  <property name="text" translatable="yes"></property>
+			  <signal name="button_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:01:59 GMT"/>
+			  <signal name="key_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:02:05 GMT"/>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
 		</widget>
 	      </child>
 	    </widget>
 	    <packing>
 	      <property name="shrink">True</property>
-	      <property name="resize">True</property>
+	      <property name="resize">False</property>
 	    </packing>
 	  </child>
 
 	  <child>
-	    <widget class="GtkDrawingArea" id="the_canvas">
+	    <widget class="GtkScrolledWindow" id="scrolledwindow4">
 	      <property name="visible">True</property>
-	      <property name="can_default">True</property>
-	      <property name="has_default">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="has_focus">True</property>
-	      <property name="events">GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK</property>
-	      <signal name="key_press_event" handler="key_press_event" last_modification_time="Thu, 25 Sep 2003 14:56:42 GMT"/>
-	      <signal name="button_press_event" handler="button_press_event" last_modification_time="Thu, 25 Sep 2003 14:56:52 GMT"/>
-	      <signal name="configure_event" handler="canvas_configure_event" last_modification_time="Thu, 25 Sep 2003 14:57:05 GMT"/>
-	      <signal name="expose_event" handler="canvas_expose_event" last_modification_time="Thu, 25 Sep 2003 15:00:12 GMT"/>
+	      <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
+	      <property name="vscrollbar_policy">GTK_POLICY_NEVER</property>
+	      <property name="shadow_type">GTK_SHADOW_NONE</property>
+	      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+	      <child>
+		<widget class="GtkViewport" id="viewport3">
+		  <property name="visible">True</property>
+		  <property name="shadow_type">GTK_SHADOW_IN</property>
+
+		  <child>
+		    <widget class="GtkDrawingArea" id="the_canvas">
+		      <property name="visible">True</property>
+		      <property name="can_default">True</property>
+		      <property name="has_default">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="has_focus">True</property>
+		      <property name="events">GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_KEY_PRESS_MASK | GDK_KEY_RELEASE_MASK</property>
+		      <signal name="key_press_event" handler="key_press_event" last_modification_time="Thu, 25 Sep 2003 14:56:42 GMT"/>
+		      <signal name="button_press_event" handler="button_press_event" last_modification_time="Thu, 25 Sep 2003 14:56:52 GMT"/>
+		      <signal name="configure_event" handler="canvas_configure_event" last_modification_time="Thu, 25 Sep 2003 14:57:05 GMT"/>
+		      <signal name="expose_event" handler="canvas_expose_event" last_modification_time="Thu, 25 Sep 2003 15:00:12 GMT"/>
+		    </widget>
+		  </child>
+		</widget>
+	      </child>
 	    </widget>
 	    <packing>
 	      <property name="shrink">True</property>
@@ -460,45 +496,56 @@
       </child>
 
       <child>
-	<widget class="GtkFrame" id="speed_frame">
+	<widget class="GtkAlignment" id="alignment11">
+	  <property name="border_width">4</property>
 	  <property name="visible">True</property>
-	  <property name="label_xalign">0</property>
-	  <property name="label_yalign">0.5</property>
-	  <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
-	  <signal name="key_press_event" handler="slider_key_press_event" last_modification_time="Mon, 22 Sep 2003 19:48:22 GMT"/>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xscale">1</property>
+	  <property name="yscale">1</property>
 
 	  <child>
-	    <widget class="GtkHScale" id="speed_hscale">
+	    <widget class="GtkFrame" id="speed_frame">
 	      <property name="visible">True</property>
-	      <property name="can_focus">True</property>
-	      <property name="draw_value">True</property>
-	      <property name="value_pos">GTK_POS_TOP</property>
-	      <property name="digits">1</property>
-	      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
-	      <property name="inverted">False</property>
-	      <property name="adjustment">0 0 8 0.1 0.1 1</property>
-	      <signal name="value_changed" handler="speed_changed" last_modification_time="Mon, 22 Sep 2003 19:54:31 GMT"/>
-	    </widget>
-	  </child>
+	      <property name="label_xalign">0</property>
+	      <property name="label_yalign">0.5</property>
+	      <property name="shadow_type">GTK_SHADOW_ETCHED_IN</property>
+	      <signal name="key_press_event" handler="slider_key_press_event" last_modification_time="Mon, 22 Sep 2003 19:48:22 GMT"/>
 
-	  <child>
-	    <widget class="GtkLabel" id="label1">
-	      <property name="height_request">14</property>
-	      <property name="visible">True</property>
-	      <property name="label" translatable="yes">Speed</property>
-	      <property name="use_underline">False</property>
-	      <property name="use_markup">False</property>
-	      <property name="justify">GTK_JUSTIFY_LEFT</property>
-	      <property name="wrap">False</property>
-	      <property name="selectable">False</property>
-	      <property name="xalign">0.5</property>
-	      <property name="yalign">0.5</property>
-	      <property name="xpad">0</property>
-	      <property name="ypad">0</property>
+	      <child>
+		<widget class="GtkHScale" id="speed_hscale">
+		  <property name="visible">True</property>
+		  <property name="can_focus">True</property>
+		  <property name="draw_value">True</property>
+		  <property name="value_pos">GTK_POS_TOP</property>
+		  <property name="digits">1</property>
+		  <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
+		  <property name="inverted">False</property>
+		  <property name="adjustment">0 0 8 0.1 0.1 1</property>
+		  <signal name="value_changed" handler="speed_changed" last_modification_time="Mon, 22 Sep 2003 19:54:31 GMT"/>
+		</widget>
+	      </child>
+
+	      <child>
+		<widget class="GtkLabel" id="label1">
+		  <property name="height_request">14</property>
+		  <property name="visible">True</property>
+		  <property name="label" translatable="yes">Speed</property>
+		  <property name="use_underline">False</property>
+		  <property name="use_markup">False</property>
+		  <property name="justify">GTK_JUSTIFY_LEFT</property>
+		  <property name="wrap">False</property>
+		  <property name="selectable">False</property>
+		  <property name="xalign">0.5</property>
+		  <property name="yalign">0.5</property>
+		  <property name="xpad">0</property>
+		  <property name="ypad">0</property>
+		</widget>
+		<packing>
+		  <property name="type">label_item</property>
+		</packing>
+	      </child>
 	    </widget>
-	    <packing>
-	      <property name="type">label_item</property>
-	    </packing>
 	  </child>
 	</widget>
 	<packing>
