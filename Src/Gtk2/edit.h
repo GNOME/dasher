@@ -41,4 +41,6 @@ void write_to_file();
 
 #ifdef GNOME_SPEECH
 void speak();
+void speak_last();
+void speak_buffer();
 #endif
