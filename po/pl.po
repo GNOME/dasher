@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-09 11:20+0200\n"
+"POT-Creation-Date: 2004-08-20 14:19+0200\n"
 "PO-Revision-Date: 2002-09-13 00:17+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnome.pl>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -156,7 +156,7 @@ msgid "Training Dasher, please wait"
 msgstr "Trenowanie programu Dasher, poczekaj chwilę"
 
 #: Src/Gtk2/dasher.cc:501 Src/Gtk2/dasher.cc:522 Src/Gtk2/dasher.cc:543
-#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:58
+#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "Wybór pliku"
@@ -341,199 +341,198 @@ msgstr "Wprowdż tekst do innych okien"
 msgid "Eyetracker mode"
 msgstr "Tryb śledzenia oka"
 
-#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:44
+#: Src/Gtk2/dasher.glade.h:43
 msgid ""
-"If this mode is selected, up and down will cycle backwards and forwards "
-"between coordinates and right will confirm the choice"
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
 msgstr ""
-"W tym trybie, góra i dół będą przechodziły wstecz i w przód pomiędzy "
-"współrzędnymi, natomiast prawo będzie potwierdzało wybór"
+"W tym trybie, góra i dół będą przechodziły \n"
+"wstecz i w przód pomiędzy współrzędnymi, natomiast prawo będzie potwierdzało "
+"wybór"
 
-#: Src/Gtk2/dasher.glade.h:44 Src/Gtk2/dashergpe.glade.h:45
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
 msgstr "Duża"
 
-#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:46
 msgid "Left to Right"
 msgstr "Od lewej do prawej"
 
-#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:47
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:47
 msgid "Left/2:"
 msgstr "Lewo/2:"
 
-#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:48
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
 msgstr "Nowy plik"
 
-#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:49
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:49
 msgid "Normal"
 msgstr "Wykła"
 
-#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:50
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
 msgstr "Liczba pikseli które powinny pokryć cały zakres y:"
 
-#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
 msgstr "Tryb jednowymiarowy"
 
-#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
 msgstr "Otwieranie pliku"
 
-#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:54
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:54
 msgid "Paste"
 msgstr "Wklej"
 
-#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:55
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:55
 msgid "Pause outside window"
 msgstr "Wstrzymanie poza oknem"
 
-#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "Od prawej do lewej"
 
-#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
 msgstr "Prawo/4:"
 
-#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
 msgstr "Zapis pliku"
 
-#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:59
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
 msgstr "Zapis pliku jako"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:61
 msgid "Select Font"
 msgstr "Wybór czcionki"
 
-#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
 msgstr "Wyświetlanie pozycji myszy"
 
-#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:63
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show speed slider"
 msgstr "Wyświetlanie suwaka szybkości"
 
-#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show toolbar"
 msgstr "Wyświetlanie paska narzędziowego"
 
-#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:65
 msgid "Speak on stop"
 msgstr "Mówienie po zatrzymaniu"
 
-#: Src/Gtk2/dasher.glade.h:64
+#: Src/Gtk2/dasher.glade.h:65
 msgid "Speed"
 msgstr "Szybkość"
 
-#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:66
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
 msgstr "Uruchomienie lewym przyciskiem myszy"
 
-#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on space bar"
 msgstr "Uruchomienie klawiszem spacji"
 
-#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start with mouse position"
 msgstr "Uruchomienie z położeniem myszy"
 
-#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
 msgstr "Datowanie nowych plików"
 
-#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:70
 msgid "Top to Bottom"
 msgstr "Z góry na dół"
 
-#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:71
 msgid "Training"
 msgstr "Trenowanie"
 
-#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:72
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training Dasher - please wait"
 msgstr "Czekaj - trenowanie Dashera"
 
-#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:73
 msgid "Up/1:"
 msgstr "Góra/1:"
 
-#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
+#: Src/Gtk2/dasher.glade.h:74
 msgid ""
-"Use this control to adjust the relative sizes of the letter boxes. Note that "
-"selecting high values will slow your writing speed."
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
 msgstr ""
-"Ustawienie względnych rozmiarów okien listów. Wybranie większych wartości "
-"zmniejszy szybkość pisania."
+"Ustawienie względnych rozmiarów okien listów. Wybranie \n"
+"większych wartości zmniejszy szybkość pisania."
 
-#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:75
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
 msgstr "Bardzo duża"
 
-#: Src/Gtk2/dasher.glade.h:75 Src/Gtk2/dashergpe.glade.h:76
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:76
 msgid "View"
 msgstr "Widok"
 
-#: Src/Gtk2/dasher.glade.h:76 Src/Gtk2/dashergpe.glade.h:77
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:77
 msgid "X:"
 msgstr "X:"
 
-#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:78
 msgid "Y:"
 msgstr "Y:"
 
-#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
 msgstr "O progr_amie"
 
-#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:80
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
 msgstr "Dod_aj do pliku"
 
-#: Src/Gtk2/dasher.glade.h:80
-msgid "_Contents"
-msgstr "_Zawartość"
-
-#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:81
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:81
 msgid "_Dasher Font"
 msgstr "_Czcionka"
 
-#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:82
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:82
 msgid "_Dasher Font Size"
 msgstr "Ro_zmiar czcionki"
 
-#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:83
+#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Edit"
 msgstr "_Edycja"
 
-#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:84
+#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Edit Font"
 msgstr "_Edycja czcionki"
 
-#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:85
+#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
 msgstr "_Plik"
 
-#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:86
+#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Help"
 msgstr "Pomo_c"
 
-#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:87
+#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
 msgstr "Za_importuj tekst treningowy"
 
-#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:88
+#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:88
 msgid "_Options"
 msgstr "_Opcje"
 
-#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:89
+#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:89
 msgid "_Reset fonts"
 msgstr "P_rzywrócenie czcionek"
 
-#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:90
+#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:90
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "aąbcćdeęfghi AĄBCĆDEĘFGHI"
 
@@ -541,9 +540,25 @@ msgstr "aąbcćdeęfghi AĄBCĆDEĘFGHI"
 msgid "<b>Speed</b>"
 msgstr "<b>Szybkość</b>"
 
+#: Src/Gtk2/dashergpe.glade.h:44
+msgid ""
+"If this mode is selected, up and down will cycle backwards and forwards "
+"between coordinates and right will confirm the choice"
+msgstr ""
+"W tym trybie, góra i dół będą przechodziły wstecz i w przód pomiędzy "
+"współrzędnymi, natomiast prawo będzie potwierdzało wybór"
+
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
 msgstr "Położenie"
+
+#: Src/Gtk2/dashergpe.glade.h:74
+msgid ""
+"Use this control to adjust the relative sizes of the letter boxes. Note that "
+"selecting high values will slow your writing speed."
+msgstr ""
+"Ustawienie względnych rozmiarów okien listów. Wybranie większych wartości "
+"zmniejszy szybkość pisania."
 
 #: Src/Gtk2/speech.cc:24
 #, c-format
@@ -563,6 +578,9 @@ msgstr "Uwaga: nie można ustawić parametrów mowy\n"
 #: Src/main.cc:104
 msgid "Dasher Text Entry"
 msgstr "Wejście tekstowe Dasher"
+
+#~ msgid "_Contents"
+#~ msgstr "_Zawartość"
 
 #~ msgid "Change color scheme automatically"
 #~ msgstr "Automatyczna zmiana motywu koloru"
