@@ -606,10 +606,8 @@ void CDasherInterface::DeleteAlphabet(const std::string& AlphID)
 void CDasherInterface::ChangeEdit()
 {
 	CreateDasherModel();
-	if (m_DasherModel!=0)
-		m_DasherModel->Start();
-	if (m_DasherView!=0)
-		m_DasherView->Render();
+	Start();
+	Redraw();
 }
 
 
