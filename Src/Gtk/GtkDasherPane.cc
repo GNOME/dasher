@@ -22,7 +22,7 @@
 #include <fstream.h>
 
 GtkDasherPane::GtkDasherPane()
-  : VBox( false, 0 ), paused( false )
+  : VBox( false, 0 ), paused( false ), started( false )
 { 
 
   store = new GtkDasherStore;
@@ -68,8 +68,7 @@ GtkDasherPane::GtkDasherPane()
 
   interface->ChangeAlphabet( alphabetlist[0] );
 
-  interface->ChangeEdit( text );
-  interface->ChangeScreen( canvas );
+ 
    // Load in training data here
 
   char training_file[ strlen( SystemDataDir) + 10 ];
@@ -109,8 +108,11 @@ GtkDasherPane::GtkDasherPane()
       cout << "done." << endl;
     }
 
+  // interface->Redraw();
+  //  interface->Start();
 
-  interface->Start();
+ interface->ChangeEdit( text );
+  interface->ChangeScreen( canvas );
 
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
 
@@ -133,12 +135,14 @@ GtkDasherPane::~GtkDasherPane()
 gint GtkDasherPane::timer_callback()
 {
 
-  if( !paused )
+  if( !paused && started )
     {
       int x;
       int y;
       
       gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
+
+      //      cout << "x: " << x << " y: " << y << endl;
       
       interface->TapOn(x,y,50);
       
@@ -149,19 +153,26 @@ gint GtkDasherPane::timer_callback()
 
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
-  if( !paused )
+  if( !started )
     {
-      int x;
-      int y;
-      
-      gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
-      interface->PauseAt(x,y);
+      interface->Start();
+      started = true;
     }
   else
-    interface->Unpause( 0 );  // FIXME - need to specify a time here
-  
-  paused = !paused;
-
+    {
+      if( !paused )
+	{
+	  int x;
+	  int y;
+	  
+	  gdk_window_get_pointer(canvas->get_window(), &x, &y, NULL);
+	  interface->PauseAt(x,y);
+	}
+      else
+	interface->Unpause( 0 );  // FIXME - need to specify a time here
+      
+      paused = !paused;
+    }
   return( true );
 }
 

@@ -8,16 +8,19 @@ GtkDasherStore::GtkDasherStore()
 bool GtkDasherStore::LoadSetting(const std::string& Key, bool* Value)
 {
   cout << "Load Setting " << Key <<  endl;
+  return( false );
 }
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, long* Value)
 {
   cout << "Load Setting " << Key << endl;
+  return( false );
 }
 
 bool GtkDasherStore::LoadSetting(const std::string& Key, std::string* Value)
 {
   cout << "Load Setting " << Key <<  endl;
+  return( false );
 }
 	
 void GtkDasherStore::SaveSetting(const std::string& Key, bool Value)
