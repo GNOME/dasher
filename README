@@ -9,11 +9,6 @@ where keyboard input is impractical (for instance, accessibility or PDAs). It
 is usable with highly limited amounts of physical input while still allowing
 high rates of text entry.
 
-In order to compile the Unix code with speech support, pass --with-speech to
-configure. In order to compile the Unix code with accessible menu support, pass
---with-a11y to configure. In order to compile the Unix code with Gnome support,
-pass --with-gnome to configure.
-
 For Linux PDAs:
 
 Pass --with-gpe to build a GPE version of Dasher. Pass --with-qte to build

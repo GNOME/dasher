@@ -1,3 +1,15 @@
+2004-05-31  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix configure.in so --with-gnome doesn't disable gnome support
+	
+2004-05-28  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Fix typo in dasher.glade, fixes spew from GTK on startup	
+	
+2004-04-20  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Bump version number, release 3.2.10 without changes
+	
 2004-04-19  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Build accessibility, gnome and speech by default

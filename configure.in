@@ -21,21 +21,25 @@ AC_PROG_CXX
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
+WITHGNOME=true;
+WITHSPEECH=true;
+WITHA11Y=true;
+
 AC_ARG_WITH([gnome],
-	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
-	[WITHGNOME=false],[WITHGNOME=true])
+	 AC_HELP_STRING([--without-gnome],[build without Gnome support (default is YES)]), 
+	[WITHGNOME=false])
 AC_ARG_WITH([qte],
 	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
 	[WITHQTE=true],[WITHQTE=false])
 
 AC_ARG_WITH([speech],
-	 AC_HELP_STRING([--with-speech],[build with speech support (default is YES)]), [WITHSPEECH=false],[WITHSPEECH=true])
+	 AC_HELP_STRING([--without-speech],[build without speech support (default is YES)]), [WITHSPEECH=false])
 
 AC_ARG_WITH([gpe],
 	 AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]), [WITHGPE=true],[WITHGPE=false])
 
 AC_ARG_WITH([a11y],
-	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library(default is YES)]), [WITHA11Y=false],[WITHA11Y=true])
+	 AC_HELP_STRING([--without-a11y],[build without support for the GNOME accessibility library(default is YES)]), [WITHA11Y=false])
 
 PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
 
