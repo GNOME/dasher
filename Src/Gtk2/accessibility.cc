@@ -455,6 +455,12 @@ ControlTree* buildwindowtree()
 
 	}
 	
+	if (tmptree->parent == NULL) {
+	  /* wnck didn't provide us with any windows */
+	  delete tmptree;
+	  return NULL;
+	}
+
 	tmptree->parent->next = NULL;
 	delete tmptree;
 	return firstchild;
