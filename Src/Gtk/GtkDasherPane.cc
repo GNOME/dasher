@@ -178,6 +178,11 @@ void GtkDasherPane::orientation( Opts::ScreenOrientations o )
   interface->ChangeOrientation( o );
 }
 
+void GtkDasherPane::encoding( Opts::FileEncodingFormats e )
+{
+  interface->SetFileEncoding( e );
+}
+
 GtkDasherPane::~GtkDasherPane()
 {
    delete( text );

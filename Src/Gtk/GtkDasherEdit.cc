@@ -253,6 +253,9 @@ void GtkDasherEdit::TimeStampNewFiles(bool Value)
 
 void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 {
+  file_encoding = Encoding;
+
+  cout << "File encoding is now " << Encoding << endl;
 }
 
 void GtkDasherEdit::SetFont(std::string Name, long Size)
@@ -302,8 +305,12 @@ bool GtkDasherEdit::SaveAs(std::string filename, bool a)
 
 bool GtkDasherEdit::Save(bool a)
 {
+  // Check that there is a filename set
+
   if( !filename_set )
     return( false );
+
+  // Then try to open the file, and return false if we fail
 
   std::ofstream ofile;
 
@@ -315,11 +322,76 @@ bool GtkDasherEdit::Save(bool a)
   if( ofile.bad() )
     return( false );
 
+  // Retrieve the contents of the edit box
+
   std::string contents;
 
   contents = text.get_chars(0, -1);
 
-  ofile << contents << std::endl;
+  // Now convert to the appropriate file encoding
+
+  std::string source_enc;
+  std::string dest_enc;
+  char nbr[16];
+
+  sprintf( nbr, "%d", enc ); 
+
+  source_enc = std::string("iso-8859-") + std::string(nbr);
+   
+  switch( file_encoding )
+    {
+    case UserDefault:
+      dest_enc = "";
+      break;
+    case AlphabetDefault:
+      dest_enc = "";
+      break;
+    case UTF8:
+      dest_enc = "UTF-8";
+      break;
+    case UTF16LE:
+      dest_enc = "UTF-16LE";
+      break;
+    case UTF16BE:
+      dest_enc = "UTF-16BE";
+      break;
+    }
+
+  iconv_t c;
+
+  c = iconv_open( dest_enc.c_str(), source_enc.c_str() );
+
+  char ipbuffer[ contents.size() + 1];
+
+  strcpy( ipbuffer, contents.c_str() );
+  
+  char *ipbufferptr( ipbuffer );
+
+  size_t ibl;
+
+  ibl = contents.size();
+
+  char opbuffer[1024];
+
+  char *opbufferptr;
+
+  while( ibl > 0 )
+    {
+      size_t obl( 1024 );
+      opbufferptr = opbuffer;
+      
+      iconv( c, &ipbufferptr, &ibl, &opbufferptr, &obl );
+
+      std::string tofile( opbuffer, 1024-obl );
+
+      ofile << tofile;
+    }
+
+  iconv_close( c );
+
+  // And finally write to the file
+
+  ofile << std::endl;
   ofile.close();
 
   dirty = false;
@@ -351,21 +423,79 @@ bool GtkDasherEdit::Open( std::string filename )
   Gdk_Color black("black");
   Gdk_Color white("white");
 
+
+  char nbr[16];
+
+  sprintf( nbr, "%d", enc );
+
+  std::string source_enc;
+  std::string dest_enc;
+
+  dest_enc = std::string("iso-8859-") + std::string(nbr);
+  
+  switch( file_encoding )
+    {
+    case UserDefault:
+      source_enc = "";
+      break;
+    case AlphabetDefault:
+      source_enc = "";
+      break;
+    case UTF8:
+      source_enc = "UTF-8";
+      break;
+    case UTF16LE:
+      source_enc = "UTF-16LE";
+      break;
+    case UTF16BE:
+      source_enc = "UTF-16BE";
+      break;
+    }
+
+  iconv_t c;
+
+  c = iconv_open( dest_enc.c_str(), source_enc.c_str() );
+
+  char ipbuffer[1024];
+  char opbuffer[1024];
+
+  char *ipbufferptr;
+  char *opbufferptr;
+
+  size_t ipb;
+  size_t opb;
+
+  ipb = 0;
+
   while( !ifile.eof() )
     {
     
       int fpos(0);
 
-      while( !ifile.eof() && (fpos < 1024) )
+      for( int i(0); i < ipb; ++i )
 	{
-	  fbuffer[fpos] = ifile.get();
-	  
-	  if( !ifile.eof() )
-	    ++fpos;
+	  ipbuffer[i] = ipbuffer[ 1024 - ipb + i ];
+	  ++fpos;
 	}
 
-      text.insert( efont, black, white, fbuffer, fpos);
+      while( !ifile.eof() && (fpos < 1024) )
+	{
+	  ipbuffer[fpos] = ifile.get();
+	  ++fpos;
+	  ++ipb;
+	}
+
+      ipbufferptr = ipbuffer;
+      opbufferptr = opbuffer;
+
+      opb = 1024;
+
+      iconv( c, &ipbufferptr, &ipb, &opbufferptr, &opb );
+
+      text.insert( efont, black, white, opbuffer, 1024 - opb);
     }
+
+  iconv_close( c );
 
   ifile.close();
   //  text.set_point( text.get_length() -1);

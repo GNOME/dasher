@@ -46,6 +46,7 @@ public:
   void copy_all();
 
   void orientation( Opts::ScreenOrientations o );
+  void encoding( Opts::FileEncodingFormats e );
   void set_settings_ui( Dasher::CDasherSettingsInterface *setingsif );
 
   void show_alphabet_box();

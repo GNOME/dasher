@@ -61,6 +61,12 @@
 #define MENU_DFONT 304
 #define MENU_RFONT 305
 
+#define MENU_EUDEFAULT 310
+#define MENU_EADEFAULT 311
+#define MENU_EUTF8 312
+#define MENU_EUTF16LE 313
+#define MENU_EUTF16BE 314
+
 #define MENU_ABOUT 400
 
 class GtkDasherWindow : public Gtk::Window, Dasher::CDasherSettingsInterface
@@ -87,7 +93,7 @@ public:
   void ChangeLanguageModel(unsigned int NewLanguageModelID) {}; // Not implemented
   void ChangeView(unsigned int NewViewID) {}; // Not implemented
   void ChangeOrientation(Opts::ScreenOrientations Orientation);
-  void SetFileEncoding(Opts::FileEncodingFormats Encoding) {}; // Not implemented
+  void SetFileEncoding(Opts::FileEncodingFormats Encoding);
   void SetScreenSize(long Width, long Height) {}; // Not implemented
 	
   void ShowToolbar(bool Value); 
@@ -108,7 +114,8 @@ protected:
   Gtk::Menu_Helpers::MenuList *list_opts;
   Gtk::Menu_Helpers::MenuList *list_view;
   Gtk::Menu_Helpers::MenuList *list_or;
- 
+  Gtk::Menu_Helpers::MenuList *list_enc;
+  
   gint about_delete_sel( GdkEventAny *e );
 
   GtkDasherPane dasher_pane;
@@ -134,6 +141,7 @@ protected:
   Gtk::Dialog aboutbox;
 
   Opts::ScreenOrientations current_or;
+  Opts::FileEncodingFormats current_enc;
 
   void toolbar_button_cb(int c);
   void menu_button_cb(int c);
@@ -176,6 +184,7 @@ protected:
   void open();
 
   void orientation( Opts::ScreenOrientations o );
+  void encoding( Opts::FileEncodingFormats e );
 
   void reset_fonts();
 

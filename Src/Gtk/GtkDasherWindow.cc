@@ -19,7 +19,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel(gettext("Dasher Font")), efontsel(gettext("Editing Font")), slider_shown( true ),toolbar_shown(true), ofilesel(gettext("Open")), afilesel(gettext("Append To File")), copy_all_on_pause( false ),ifilesel(gettext("Import Training Text")), button(gettext("Close")), label(gettext("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk")), fix_pane( false ), timestamp( false ), current_or( Alphabet )
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel(gettext("Dasher Font")), efontsel(gettext("Editing Font")), slider_shown( true ),toolbar_shown(true), ofilesel(gettext("Open")), afilesel(gettext("Append To File")), copy_all_on_pause( false ),ifilesel(gettext("Import Training Text")), button(gettext("Close")), label(gettext("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk")), fix_pane( false ), timestamp( false ), current_or( Alphabet ), current_enc( UserDefault )
 {
   set_title("Dasher");
 
@@ -113,9 +113,23 @@ GtkDasherWindow::GtkDasherWindow()
     static_cast<CheckMenuItem *>( (*list_view)[5] )->set_sensitive( false );
 
     Menu *menu_enc = new Menu();
-    MenuList &list_enc = menu_enc->items();
+    //MenuList &list_enc = menu_enc->items();
+    list_enc = &(menu_enc->items());
 
-    list_enc.push_back(MenuElem(gettext("Unicode UTF-8")));
+    //	enum FileEncodingFormats {UserDefault=-1, AlphabetDefault=-2, UTF8=65001, UTF16LE=1200, UTF16BE=1201};
+ RadioMenuItem_Helpers::Group egroup;
+    list_enc->push_back(RadioMenuElem(egroup,gettext("User Default"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_EUDEFAULT)));
+
+ list_enc->push_back(RadioMenuElem(egroup,gettext("Alphabet Default"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_EADEFAULT)));
+   list_enc->push_back(SeparatorElem());
+ list_enc->push_back(RadioMenuElem(egroup,gettext("Unicode UTF-8"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_EUTF8)));
+ list_enc->push_back(RadioMenuElem(egroup,gettext("Unicode UTF-16 (LE)"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_EUTF16LE)));
+ list_enc->push_back(RadioMenuElem(egroup,gettext("Unicode UTF-16 (BE)"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_EUTF16BE)));
 
     Menu *menu_opts = new Menu();
     list_opts = &menu_opts->items();
@@ -142,7 +156,7 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_RFONT)));
 
     //    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
-    static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
+    // static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
 
     //    static_cast<CheckMenuItem *>( list_opts[0] )->set_active( false );
     Menu *menu_help = new Menu();
@@ -525,6 +539,22 @@ void GtkDasherWindow::menu_button_cb(int c)
       reset_fonts();
       break;
 
+    case MENU_EUDEFAULT:
+      encoding( UserDefault );
+      break;
+    case MENU_EADEFAULT:
+      encoding( AlphabetDefault );
+      break; 
+    case MENU_EUTF8:
+      encoding( UTF8 );
+      break;
+    case MENU_EUTF16LE:
+      encoding( UTF16LE );
+      break;
+    case MENU_EUTF16BE:
+      encoding( UTF16BE );
+      break;
+
     case MENU_ABOUT:
       aboutbox.show();
       break;
@@ -579,6 +609,38 @@ void GtkDasherWindow::orientation( Opts::ScreenOrientations o )
   if( isSelection )
     dasher_pane.orientation(o);
 }
+
+void GtkDasherWindow::encoding( Opts::FileEncodingFormats e )
+{
+
+ bool isSelection( false );
+
+  switch(e)
+    {
+    case UserDefault:
+      isSelection = static_cast<RadioMenuItem *>( (*list_enc)[0] )->get_active();
+      break;
+    case AlphabetDefault:
+      isSelection = static_cast<RadioMenuItem *>( (*list_enc)[1] )->get_active();
+      break;
+    case UTF8:
+      isSelection = static_cast<RadioMenuItem *>( (*list_enc)[3] )->get_active();
+      break;
+    case UTF16LE:
+      isSelection = static_cast<RadioMenuItem *>( (*list_enc)[4] )->get_active();
+      break;
+    case UTF16BE:
+      isSelection = static_cast<RadioMenuItem *>( (*list_enc)[5] )->get_active();
+      break;
+    default:
+      std::cerr << "Something strange is happening here - we were asked to use an encoding that doesn't exist" << std::endl;
+      break;
+    }
+
+  if( isSelection )
+    dasher_pane.encoding( e );
+}
+
 
 void GtkDasherWindow::reset()
 {
@@ -761,6 +823,32 @@ void GtkDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation)
      }
 
 
+}
+
+void GtkDasherWindow::SetFileEncoding(Opts::FileEncodingFormats Encoding)
+{
+  if( current_enc != Encoding )
+     {
+       current_enc = Encoding;
+       switch( current_enc )
+ 	{
+ 	case UserDefault:
+ 	  static_cast<CheckMenuItem *>( (*list_enc)[0] )->set_active( true );
+ 	  break;
+ 	case AlphabetDefault:
+ 	  static_cast<CheckMenuItem *>( (*list_enc)[1] )->set_active( true );
+ 	  break;
+ 	case UTF8:
+ 	  static_cast<CheckMenuItem *>( (*list_enc)[3] )->set_active( true );
+ 	  break;
+ 	case UTF16LE:
+ 	  static_cast<CheckMenuItem *>( (*list_enc)[4] )->set_active( true );
+ 	  break;
+ 	case UTF16BE:
+ 	  static_cast<CheckMenuItem *>( (*list_enc)[5] )->set_active( true );
+ 	  break;
+ 	}
+     }
 }
 
 
