@@ -309,6 +309,30 @@ void CDasherWindow::StartOnSpace(bool Value)
 	m_pCanvas->StartOnSpace(Value);
 }
 
+void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
+{
+	using namespace Opts;
+
+	switch(fontsize) {
+	case Normal:
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+		break;
+	case Big:
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, true);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
+	break;
+	case VBig:
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
+		WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
+		break;
+	default:
+			assert(0);
+	}
+}
 
 
 void CDasherWindow::WindowPause(bool Value)
