@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-09 03:11+0100\n"
+"POT-Creation-Date: 2004-02-24 03:40+0100\n"
 "PO-Revision-Date: 2004-02-09 13:30+0100\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@nl.linux.org>\n"
@@ -48,9 +48,10 @@ msgstr "Bediening"
 msgid "Stop"
 msgstr "Stoppen"
 
+#. GRUT modified this item
 #: Src/Gtk2/accessibility.cc:174
 msgid "Pause"
-msgstr "Pauze"
+msgstr "Pauzeren"
 
 #: Src/Gtk2/accessibility.cc:181
 msgid "Move"
@@ -115,21 +116,21 @@ msgid "Training Dasher, please wait"
 msgstr "Dasher aan het trainen, een ogenblik geduld"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1757
 msgid "translator_credits"
 msgstr "Tino Meinen <a.t.meinen@chello.nl>"
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1759 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1762
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher is een toepassing voor tekstinvoer met voorspelling"
 
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2169
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d tekens uitvoer in %d seconden\n"
@@ -450,9 +451,10 @@ msgstr "X:"
 msgid "Y:"
 msgstr "Y:"
 
+#. GRUT modified this item
 #: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:82
 msgid "_About"
-msgstr "_Info"
+msgstr "In_fo"
 
 #: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
@@ -531,6 +533,7 @@ msgstr "Kon de stemmen niet initialiseren"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Waarschuwing: kon de spraakparameters niet instellen\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:98
 msgid "Dasher Text Entry"
 msgstr "Dasher tekstinvoer"
+
