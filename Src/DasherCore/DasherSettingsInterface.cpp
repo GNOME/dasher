@@ -61,6 +61,8 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->TimeStampNewFiles(Store->GetBoolOption(TIME_STAMP));
 	Store->SetBoolDefault(COPY_ALL_ON_STOP, false);
 	this->CopyAllOnStop(Store->GetBoolOption(COPY_ALL_ON_STOP));
+
+	Store->SetBoolDefault(DRAW_MOUSE, false);
 	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
 
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
@@ -104,9 +106,6 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
 	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
-
-	Store->SetBoolDefault(DRAW_MOUSE, false);
-	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
 
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));
