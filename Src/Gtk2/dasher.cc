@@ -2161,7 +2161,7 @@ void stop() {
       outputpipe();
     }
     if (timedata==TRUE) {
-      // Just a debugging thing
+      // Just a debugging thing, output to the console
       printf(_("%d characters output in %d seconds\n"),outputcharacters,
 	     time(NULL)-dasherstarttime);
       outputcharacters=0;
