@@ -14,6 +14,12 @@ For Linux PDAs:
 Pass --with-gpe to build a GPE version of Dasher. Pass --with-qte to build
 a QTopia version of Dasher.
 
+Dasher includes some alphabets which require fonts that you probably don't 
+have installed; for example, for the International Phonetic Alphabet, Korean
+and Hiragana (Japanese).  We aren't legally allowed to distribute a font for
+the IPA, but you can download one yourself from:  
+   <http://www.sil.org/computing/fonts/encore-ipa.html>.
+
 We'd appreciate any feedback / bug reports / patches - please send
 them to dasher@mrao.cam.ac.uk
 
