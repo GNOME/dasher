@@ -167,6 +167,7 @@ void CDasherInterface::GoTo(int MouseX, int MouseY)
 void CDasherInterface::DrawGoTo(int MouseX, int MouseY)
 {
 	if (m_DasherView!=0) {
+	        m_DasherView->Render();
 		m_DasherView->DrawGoTo(MouseX, MouseY);
 		m_DasherView->Display();
 	}
