@@ -37,6 +37,7 @@ void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface)
 			Tstring_to_UTF8string(find.cFileName, &filename);
 			Interface->AddAlphabetFilename(filename);
 		}
+		FindClose(handle);
 	}
 
 	handle=FindFirstFile(Colours.c_str(),&find);
@@ -47,6 +48,8 @@ void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface)
 			Tstring_to_UTF8string(find.cFileName, &filename);
 			Interface->AddColourFilename(filename);
 		}
+		FindClose(handle);
+
 	}
 }
 
