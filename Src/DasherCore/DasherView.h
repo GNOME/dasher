@@ -74,6 +74,9 @@ protected:
 	// Keyboard control is on
 	bool KeyControl;
 
+	// Orientation of Dasher Screen
+	Dasher::Opts::ScreenOrientations ScreenOrientation;
+
 private:
 	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
@@ -89,9 +92,6 @@ private:
 	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
 	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
 	
-	// Orientation of Dasher Screen
-	Dasher::Opts::ScreenOrientations ScreenOrientation;
-
 	// Advanced colour mode
 	bool ColourMode;
 

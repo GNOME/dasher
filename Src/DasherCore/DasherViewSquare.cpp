@@ -33,7 +33,7 @@ using std::max;
 
 
 CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation)
-	: CDasherView(DasherScreen, DasherModel, Orientation)
+  : CDasherView(DasherScreen, DasherModel, Orientation)
 {
 	ChangeScreen(DasherScreen);
 	
@@ -180,10 +180,34 @@ void CDasherViewSquare::CheckForNewRoot()
 void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time) 
 {
 	// convert mouse (screen) coords into dasher coords
+        int Swapper;
+
 	if (mousex>CanvasX)
 		mousex=CanvasX;
-	
+
 	UnMapScreen(&mousex, &mousey);
+
+	if (DasherModel().Dimensions()==true) {
+	  switch (ScreenOrientation) {
+	  case (LeftToRight):
+	    break;
+	  case (RightToLeft):
+	    mousex = Screen().GetWidth() - mousex;
+	    break;
+	  case (TopToBottom):
+	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  case (BottomToTop):
+	    // Note rotation by 90 degrees not reversible like others
+	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  }
+	}
+	
 	screen2dasher(&mousex,&mousey);
 	DasherModel().Tap_on_display(mousex,mousey, Time);
 	CheckForNewRoot();
@@ -229,9 +253,33 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
 
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {
-	screen2dasher(&mousex,&mousey);
-	mousex=dasherx2screen(mousex);
-	mousey=dashery2screen(mousey);
+        if (DasherModel.Dimensions==true) {
+  
+	  int Swapper;
+	
+	  screen2dasher(&mousex,&mousey);
+	  mousex=dasherx2screen(mousex);
+	  mousey=dashery2screen(mousey);
+	  switch (ScreenOrientation) {
+	  case (LeftToRight):
+	    break;
+	  case (RightToLeft):
+	    mousex = Screen().GetWidth() - mousex;
+	    break;
+	  case (TopToBottom):
+	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  case (BottomToTop):
+	    // Note rotation by 90 degrees not reversible like others
+	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+	    mousey = Swapper;
+	    break;
+	  }
+	}
+
 	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 0, Opts::ColorSchemes(Objects));
 }
 
