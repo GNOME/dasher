@@ -352,6 +352,15 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
   Accessible *child;
   ControlTree *childnode;
 
+  AccessibleStateSet *state_set;
+  state_set=Accessible_getStateSet(parent);
+
+  if (!Accessible_getRole(parent)==SPI_ROLE_APPLICATION) {
+    if (!AccessibleStateSet_contains(state_set,SPI_STATE_ENABLED)) {
+      return false;
+    }
+  }
+  
   // This is the node that will represent us if we're useful
   // We don't insert ourselves into the tree just yet, though
   ControlTree* NewNode = new ControlTree;
