@@ -1026,6 +1026,7 @@
 
 		      <child>
 			<widget class="GtkCheckButton" id="winpausebutton">
+			  <property name="border_width">2</property>
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Pause outside window</property>
