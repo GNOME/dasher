@@ -63,7 +63,11 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -148,7 +152,12 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				Optimization="2"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -190,7 +199,11 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				InlineFunctionExpansion="1"
+				GlobalOptimizations="TRUE"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="TRUE"
+				FavorSizeOrSpeed="1"
+				OptimizeForWindowsApplication="TRUE"
 				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
