@@ -1648,6 +1648,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
     
   // Yeah, should really do some Gnome documentation for it...
   gchar *documenters[] = {
+    "Chris Ball",
     "Matthew Garrett",
     NULL
   };

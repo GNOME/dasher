@@ -11,7 +11,11 @@
 #define __int64_h__
 
 #include "int.h"
+
+#ifdef _MSC_VER
 #include <limits>
+#endif
+
 #include "../assert.h"
 
 #ifdef _DEBUG

@@ -12,8 +12,10 @@
 
 #include "../assert.h"
 #include "int.h"
-#include <limits>
 
+#ifdef _MSC_VER
+#include <limits>
+#endif
 
 #ifdef _DEBUG 
 

@@ -6,10 +6,13 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../Common/Common.h"
 
 #include "Alphabet.h"
 #include "AlphabetMap.h"
+
+#ifdef _MSC_VER
+#include "../Common/Common.h"
+#endif
 
 //#include <iostream>
 //WinCE doesn't have iostream!

@@ -213,7 +213,7 @@ class dasher_screen : public CDasherScreen
 {
  public:
 
-  dasher_screen( screeint _width, screenint _height )
+  dasher_screen( screenint _width, screenint _height )
     : CDasherScreen( _width, _height )
     {
     };

@@ -6,9 +6,12 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../Common/Common.h"
 
 #include "LanguageModel.h"
+
+#ifdef _MSC_VER
+#include "../Common/Common.h"
+#endif
 
 using namespace Dasher;
 using namespace std;

@@ -6,9 +6,13 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../Common/Common.h"
 
 #include "DasherInterface.h"
+
+#ifdef _MSC_VER
+#include "../Common/Common.h"
+#endif
+
 //#include "EnglishAlphabet.h"
 #include "CustomAlphabet.h"
 #include "CustomColours.h"
