@@ -1,9 +1,9 @@
 //
-//  DasherEdit.m
+//  DasherEdit.mm
 //  Dasher
 //
 //  Created by Doug Dickinson on Fri May 30 2003.
-//  Copyright (c) 2003 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
 //
 
 #import "DasherEdit.h"
@@ -11,6 +11,7 @@
 #import "DasherUtil.h"
 #import "PreferencesController.h"
 #include "libdasher.h"
+#import "TextDocument.h"
 
 // TODO this is a no-no; see similar in DasherApp
 DasherEdit *XXXdasherEdit;
@@ -58,10 +59,21 @@ static void registerCallbacks()
   dasher_set_clipboard_callback( clipboard_callback );
 }
 
-
+static DasherEdit *dasherEdit = nil;
 
 
 @implementation DasherEdit
+
++ dasherEdit
+{
+  if (dasherEdit == nil)
+    {
+    dasherEdit = [[self alloc] init];  // retain for use as singleton
+
+    }
+
+  return dasherEdit;
+}
 
 - (void)textViewDidChangeSelection:(NSNotification *)aNotification
 {
@@ -76,6 +88,9 @@ static void registerCallbacks()
 {
   if (self = [super init]) {
     registerCallbacks();
+    XXXdasherEdit = self;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidChangeSelection:) name:NSTextViewDidChangeSelectionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textViewDidChangeSelection:) name:NSWindowDidBecomeMainNotification object:nil];
   }
 
   return self;
@@ -87,18 +102,21 @@ static void registerCallbacks()
 
   dasherIsModifyingText = YES;
 
-  XXXdasherEdit = self;
   
   // TODO this should actually happen on creating a new document
-  [dasherTextUI setFont:[NSFont fontWithName:[defaults stringForKey:EDIT_FONT] size:(float)[defaults integerForKey:EDIT_FONT_SIZE]]];
 
   dasherIsModifyingText = NO;
+}
+
+- (NSTextView *)currentTextUI
+{
+  return [[[NSDocumentController sharedDocumentController] currentDocument] textUI];
 }
 
 - (void)outputCallback:(NSString *)aString
 {
   dasherIsModifyingText = YES;
-  [dasherTextUI insertText:aString];
+  [[self currentTextUI] insertText:aString];
   dasherIsModifyingText = NO;
 }
 
@@ -108,7 +126,7 @@ static void registerCallbacks()
 
   if (aString != nil && ![aString isEqualToString:@""])
     {
-    [dasherTextUI insertText:aString];
+    [[self currentTextUI] insertText:aString];
     flushCount += [aString length];
     }
 
@@ -120,9 +138,16 @@ static void registerCallbacks()
   dasherIsModifyingText = YES;
 
   if (flushCount > 0) {
-    NSRange r = [dasherTextUI selectedRange];
+    NSRange r = [[self currentTextUI] selectedRange];
+    if (r.location <= flushCount) {
+      r.location = 0;
+    } else {
+      r.location -= flushCount;
+    }
 
-    [dasherTextUI replaceCharactersInRange:NSMakeRange(r.location - flushCount, r.length + flushCount) withString:@""];
+    r.length += flushCount;
+
+    [[self currentTextUI] replaceCharactersInRange:r withString:@""];
   }
 
   flushCount = 0;
@@ -132,21 +157,21 @@ static void registerCallbacks()
 
 - (void)deleteCallback
 {
-  NSRange r = [dasherTextUI selectedRange];
+  NSRange r = [[self currentTextUI] selectedRange];
   if (r.location <= 0) {
     return;
   }
 
   dasherIsModifyingText = YES;
-  [dasherTextUI replaceCharactersInRange:NSMakeRange(r.location - 1, 1) withString:@""];
+  [[self currentTextUI] replaceCharactersInRange:NSMakeRange(r.location - 1, 1) withString:@""];
   dasherIsModifyingText = NO;
 }
 
 
 - (NSString *)getNewContextCallback:(int)maxChars
 {
-  NSString *s = [dasherTextUI string];
-  NSRange r = [dasherTextUI selectedRange];
+  NSString *s = [[self currentTextUI] string];
+  NSRange r = [[self currentTextUI] selectedRange];
 
   unsigned int q = MIN(r.location, maxChars);
 
@@ -162,28 +187,32 @@ static void registerCallbacks()
 
 - clipboardCallbackWithAction:(clipboard_action)act
 {
+  NSRange r;
+  
   dasherIsModifyingText = YES;
 
   switch( act )
     {
     case CLIPBOARD_CUT:
-      [dasherTextUI cut:self];
+      [[self currentTextUI] cut:self];
       break;
     case CLIPBOARD_COPY:
-      [dasherTextUI copy:self];
+      [[self currentTextUI] copy:self];
       break;
     case CLIPBOARD_PASTE:
-      [dasherTextUI paste:self];
+      [[self currentTextUI] paste:self];
       break;
     case CLIPBOARD_COPYALL:
-      [dasherTextUI selectAll:self];
-      [dasherTextUI copy:self];
+      r = [[self currentTextUI] selectedRange];
+      [[self currentTextUI] selectAll:self];
+      [[self currentTextUI] copy:self];
+      [[self currentTextUI] setSelectedRange:r];
       break;
     case CLIPBOARD_SELECTALL:
-      [dasherTextUI selectAll:self];
+      [[self currentTextUI] selectAll:self];
       break;
     case CLIPBOARD_CLEAR:
-      [dasherTextUI setString:nil];
+      [[self currentTextUI] setString:nil];
       break;
     }
 

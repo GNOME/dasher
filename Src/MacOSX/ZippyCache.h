@@ -3,7 +3,7 @@
 //  RectAl
 //
 //  Created by Doug Dickinson on Mon May 26 2003.
-//  Copyright (c) 2003 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
 //
 
 #import <Foundation/NSObject.h>

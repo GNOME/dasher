@@ -1,6 +1,10 @@
-/*
- * Created by Doug Dickinson (dougd AT DressTheMonkey DOT plus DOT com), 20 April 2003
- */
+//
+//  DasherView.mm
+//  MacOSX
+//
+//  Created by Doug Dickinson on Fri Apr 18 2003.
+//  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
+//
 
 #import "DasherView.h"
 #import <AppKit/AppKit.h>
@@ -15,7 +19,7 @@
 #import "ZippyCache.h"
 #import "ZippyString.h"
 
-#define MAX_CACHE_COUNT 300
+#define MAX_CACHE_COUNT 500
 
 static DasherView *XXXdasherView;
 
@@ -184,6 +188,14 @@ static void registerCallbacks()
 
   dasher_resize_canvas((int)newRect.size.width, (int)newRect.size.height);
   dasher_redraw();
+
+  [self adjustTrackingRect];
+}
+
+- (void)adjustTrackingRect
+{
+  [self removeTrackingRect:trackingRectTag];
+  trackingRectTag = [self addTrackingRect:[self frame] owner:self userData:nil assumeInside:[self isDashing]];
 }
 
 - (BOOL)isFlipped
@@ -232,6 +244,8 @@ static void registerCallbacks()
 
   dasher_redraw();
 
+  [self adjustTrackingRect];
+
   isPaused = NO;
 }
 
@@ -265,6 +279,22 @@ static void registerCallbacks()
 
   [[NSColor blackColor] set];
   [[self polylineCache] stroke];
+}
+
+- (void)mouseEntered:(NSEvent *)theEvent
+{
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:WINDOW_PAUSE] && ![self isDashing])
+    {
+    [self startDashing];
+    }
+}
+
+- (void)mouseExited:(NSEvent *)theEvent
+{
+  if ([[NSUserDefaults standardUserDefaults] boolForKey:WINDOW_PAUSE] && [self isDashing])
+    {
+    [self stopDashing];
+    }
 }
 
 - (void)mouseDown:(NSEvent *)e

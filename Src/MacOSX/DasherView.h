@@ -1,6 +1,11 @@
-/*
- * Created by Doug Dickinson (dougd AT DressTheMonkey DOT plus DOT com), 20 April 2003
- */
+//
+//  DasherView.h
+//  MacOSX
+//
+//  Created by Doug Dickinson on Fri Apr 18 2003.
+//  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
+//
+
 
 
 #import <AppKit/NSView.h>
@@ -17,7 +22,7 @@ unsigned long int get_time();
 
 @interface DasherView : NSView {
   BOOL isPaused;
-
+  NSTrackingRectTag trackingRectTag;
   int rectCacheCount;
   NSRect *rectCache;
   NSColor **rectColorCache;

@@ -1,26 +1,17 @@
 TODO
 
-(MISSING - file handling)
-- file encoding pref - is that needed on MacOSX, or something different?  see ProjectBuilder Format->File Encodings! for example
-- timestamp files pref
-- new/open/save/saveas
-
 (MISSING)
 - i18n
 - help text
 - about box
 - keyboard control - pref is there, the actual kb handling (arrow keys) is not
+- file encoding pref - is that needed on MacOSX, or something different?  see ProjectBuilder Format->File Encodings! for example
 
 (NICE TO HAVE)
 - add pref to auto-read training file (and add text field to contain path of training file)
-- remember divider position in defaults - is that what EDIT_HEIGHT is about?
 - make an image with "paused" in it, display that when it is, yes, paused
-- option to make window transparent?
-- option to make window float over other windows?
 
 (BUGS)
-- getting Unhandled bool parameter: 12, value = 0 (stop when outside window, i think) - needs implementing
-- really should save/restore the divider location -- HOW?
 - should display displayName rather than fontName in font pref
 
 (ANNOYANCE)
@@ -29,6 +20,11 @@ TODO
 - suppose the timer is firing 20 times per second.  But the app is working slower than that, say 15 fps.  Well, the overall speed will be about 10-12 fps!  I think this is because of the overhead of all those extra timers.  Maybe the timer rate should be adjusted dynamically depending on the fps?  Would require being able to get the fps from the Core.  It doesn't really make sense to hard-code the timer firing rate in the app - it depends on how fast the machine is and how much other work it is doing.  I know Windows machines won't be doing much else, but Macs have a plethora of other, important work to be getting on with!
 
 DONE
+
+02-06-2003
+- dasher timestamp pref removed from panel - not sure what it does, but the NSDocument architecture already has quite sophisticated timestamping, so we'll trust that
+- implemented pause outside window functionality and preference
+- major changes.  Dasher is now a multi-document application.  The dasher panel sits above all windows, and can be used to input text into the current document.  Added DasherController and TextDocument and DasherMenu classes and TextDocument nib files.  MainMenu.nib is no longer used.  The only type of document currently supported is text (.txt or .text).
 
 01-06-2003
 - refactored all dasher related functionality into DasherView

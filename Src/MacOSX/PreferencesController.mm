@@ -1,10 +1,15 @@
-/*
- * Created by Doug Dickinson (dougd AT DressTheMonkey DOT plus DOT com), 20 April 2003
- */
+//
+//  PreferencesController.mm
+//  MacOSX
+//
+//  Created by Doug Dickinson on Fri Apr 18 2003.
+//  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
+//
 
 #import "PreferencesController.h"
 #import "DasherApp.h"
 #import "DasherUtil.h"
+#import "DasherController.h"
 
 #include "libdasher.h"
 
@@ -51,6 +56,9 @@ void parameter_bool_callback( bool_param p, bool value )
        break;
      case BOOL_KEYBOARDCONTROL:
        keyName = KEY_CONTROL;
+       break;
+     case BOOL_WINDOWPAUSE:
+       keyName = WINDOW_PAUSE;
        break;
      default:
        NSLog(@"Unhandled bool parameter: %d, value = %d", p, value);
@@ -241,6 +249,7 @@ static PreferencesController *preferencesController = nil;
     [[NSFont userFixedPitchFontOfSize:10.0] fontName], DASHER_FONT,
     [[NSFont userFontOfSize:12.0] fontName], EDIT_FONT,
     [NSNumber numberWithFloat:12.0], EDIT_FONT_SIZE,
+    [NSNumber numberWithFloat:1.0], DASHER_PANEL_OPACITY,
     nil
     ];
 
@@ -300,6 +309,7 @@ static PreferencesController *preferencesController = nil;
   [screenOrientationUI selectCellWithTag:[defaults integerForKey:SCREEN_ORIENTATION]];
   [dasherFontSizeUI selectCellWithTag:[defaults integerForKey:DASHER_FONTSIZE]];
   [keyControlUI setIntValue:[defaults boolForKey:KEY_CONTROL]];
+  [windowPauseUI setIntValue:[defaults boolForKey:WINDOW_PAUSE]];
   [copyAllOnStopUI setIntValue:[defaults boolForKey:COPY_ALL_ON_STOP]];
 
   [alphabetIDUI selectRow:[[self alphabetList] indexOfObject:[defaults stringForKey:ALPHABET_ID]] inColumn:0];
@@ -308,6 +318,7 @@ static PreferencesController *preferencesController = nil;
   [editFontUI setStringValue:[NSString stringWithFormat:@"%@ %d", [defaults stringForKey:EDIT_FONT], [defaults integerForKey:EDIT_FONT_SIZE]]];
 
   [maxBitRateUI setDoubleValue:(double)([defaults integerForKey:MAX_BITRATE_TIMES100] / 100.0)];
+  [dasherPanelOpacityUI setFloatValue:[defaults floatForKey:DASHER_PANEL_OPACITY]];
 }
 
 - (void)makeKeyAndOrderFront:(id)sender
@@ -342,6 +353,11 @@ static PreferencesController *preferencesController = nil;
   dasher_set_parameter_bool(BOOL_STARTONSPACE, [sender intValue] ? true : false);
 }
 
+- (IBAction)windowPauseAction:(id)sender
+{
+  dasher_set_parameter_bool(BOOL_WINDOWPAUSE, [sender intValue] ? true : false);
+}
+
 - (IBAction)screenOrientationAction:(id)sender
 {
   // N.B. the radio buttons MUST return tags corresponding to the values of Opts::ScreenOrientations
@@ -357,6 +373,14 @@ static PreferencesController *preferencesController = nil;
   dasher_set_parameter_double(DOUBLE_MAXBITRATE, d);
   [[NSUserDefaults standardUserDefaults] setInteger:(int)(d * 100) forKey:MAX_BITRATE_TIMES100];
 }
+
+- (IBAction)dasherPanelOpacityAction:(id)sender
+{
+  float f = [sender floatValue];
+  [[NSUserDefaults standardUserDefaults] setFloat:f forKey:DASHER_PANEL_OPACITY];
+  [[DasherController dasherController] setPanelAlphaValue:f];
+}
+
 
 - (IBAction)alphabetIDAction:(id)sender
 {

@@ -9,6 +9,8 @@
 			children = (
 				19C49619045029A40000000A,
 				19EEDB310450E75F0000000A,
+				19A33CC7048AAFB10000000A,
+				19A33CC8048AAFB10000000A,
 				1904CDA5048813400000000A,
 				1904CDA6048813400000000A,
 				196D8784048AA2750000000A,
@@ -17,6 +19,8 @@
 				199DCCD70450B94C0000000A,
 				19D4423C04546C410000000A,
 				19D4423D04546C410000000A,
+				19A33CB9048AA9570000000A,
+				19A33CBA048AA9570000000A,
 				1946CAB90481AD440000000A,
 				1946CABA0481AD440000000A,
 				1946CABB0481AD440000000A,
@@ -194,6 +198,27 @@
 			settings = {
 			};
 		};
+		195E6E89048BFC8F0000000A = {
+			children = (
+				195E6E8A048BFC8F0000000A,
+			);
+			isa = PBXVariantGroup;
+			name = Credits.rtf;
+			path = "";
+			refType = 4;
+		};
+		195E6E8A048BFC8F0000000A = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/Credits.rtf;
+			refType = 4;
+		};
+		195E6E8B048BFC8F0000000A = {
+			fileRef = 195E6E89048BFC8F0000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
 		196D8784048AA2750000000A = {
 			fileEncoding = 30;
 			isa = PBXFileReference;
@@ -226,6 +251,117 @@
 		};
 		199DCCD90450B94C0000000A = {
 			fileRef = 199DCCD70450B94C0000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CB6048AA9400000000A = {
+			children = (
+				19A33CB7048AA9400000000A,
+			);
+			isa = PBXVariantGroup;
+			name = TextDocument.nib;
+			path = "";
+			refType = 4;
+		};
+		19A33CB7048AA9400000000A = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/TextDocument.nib;
+			refType = 4;
+		};
+		19A33CB8048AA9400000000A = {
+			fileRef = 19A33CB6048AA9400000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CB9048AA9570000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = TextDocument.h;
+			refType = 4;
+		};
+		19A33CBA048AA9570000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = TextDocument.m;
+			refType = 4;
+		};
+		19A33CBB048AA9570000000A = {
+			fileRef = 19A33CB9048AA9570000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CBC048AA9570000000A = {
+			fileRef = 19A33CBA048AA9570000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CBD048AA9AE0000000A = {
+			children = (
+				19A33CBE048AA9AE0000000A,
+			);
+			isa = PBXVariantGroup;
+			name = DasherMenu.nib;
+			path = "";
+			refType = 4;
+		};
+		19A33CBE048AA9AE0000000A = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/DasherMenu.nib;
+			refType = 4;
+		};
+		19A33CBF048AA9AE0000000A = {
+			fileRef = 19A33CBD048AA9AE0000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CC4048AAEE20000000A = {
+			children = (
+				19A33CC5048AAEE20000000A,
+			);
+			isa = PBXVariantGroup;
+			name = DasherPanel.nib;
+			path = "";
+			refType = 4;
+		};
+		19A33CC5048AAEE20000000A = {
+			isa = PBXFileReference;
+			name = English;
+			path = English.lproj/DasherPanel.nib;
+			refType = 4;
+		};
+		19A33CC6048AAEE20000000A = {
+			fileRef = 19A33CC4048AAEE20000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CC7048AAFB10000000A = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = DasherController.h;
+			refType = 4;
+		};
+		19A33CC8048AAFB10000000A = {
+			fileEncoding = 4;
+			isa = PBXFileReference;
+			path = DasherController.mm;
+			refType = 4;
+		};
+		19A33CC9048AAFB10000000A = {
+			fileRef = 19A33CC7048AAFB10000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		19A33CCA048AAFB10000000A = {
+			fileRef = 19A33CC8048AAFB10000000A;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -536,6 +672,8 @@
 				1946CABF0481AD440000000A,
 				1904CDA7048813400000000A,
 				196D8786048AA2750000000A,
+				19A33CBB048AA9570000000A,
+				19A33CC9048AAFB10000000A,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -550,6 +688,10 @@
 				19D4423B0454667F0000000A,
 				191CE19D04595BBA0000000A,
 				191CE2BD045978C90000000A,
+				19A33CB8048AA9400000000A,
+				19A33CBF048AA9AE0000000A,
+				19A33CC6048AAEE20000000A,
+				195E6E8B048BFC8F0000000A,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -579,6 +721,8 @@
 				1946CAC00481AD440000000A,
 				1904CDA8048813400000000A,
 				196D8787048AA2750000000A,
+				19A33CBC048AA9570000000A,
+				19A33CCA048AAFB10000000A,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -630,7 +774,29 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDocumentTypes</key>
-	<array/>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>txt</string>
+				<string>text</string>
+			</array>
+			<key>CFBundleTypeMIMETypes</key>
+			<array>
+				<string>text/plain</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>NSStringPboardType</string>
+			<key>CFBundleTypeOSTypes</key>
+			<array>
+				<string>****</string>
+			</array>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>NSDocumentClass</key>
+			<string>TextDocument</string>
+		</dict>
+	</array>
 	<key>CFBundleExecutable</key>
 	<string>Dasher</string>
 	<key>CFBundleGetInfoString</key>
@@ -650,9 +816,9 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>0.0.1d1</string>
+	<string>3.0.2</string>
 	<key>NSMainNibFile</key>
-	<string>MainMenu</string>
+	<string>DasherMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 </dict>
@@ -1068,10 +1234,14 @@
 		};
 		29B97317FDCFA39411CA2CEA = {
 			children = (
+				195E6E89048BFC8F0000000A,
 				191CE19C04595BBA0000000A,
-				29B97318FDCFA39411CA2CEA,
 				089C165CFE840E0CC02AAC07,
+				19A33CBD048AA9AE0000000A,
+				19A33CC4048AAEE20000000A,
 				19D442390454667F0000000A,
+				19A33CB6048AA9400000000A,
+				29B97318FDCFA39411CA2CEA,
 			);
 			isa = PBXGroup;
 			name = Resources;

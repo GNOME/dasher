@@ -3,7 +3,7 @@
 //  MacOSX
 //
 //  Created by Doug Dickinson on Fri Apr 18 2003.
-//  Copyright (c) 2003 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
 //
 
 #import <Cocoa/Cocoa.h>

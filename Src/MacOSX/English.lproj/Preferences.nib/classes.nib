@@ -8,6 +8,7 @@
                 dasherDimensionsAction = id; 
                 dasherFontAction = id; 
                 dasherFontSizeAction = id; 
+                dasherPanelOpacityAction = id; 
                 drawMouseAction = id; 
                 editFontAction = id; 
                 keyControlAction = id; 
@@ -15,6 +16,7 @@
                 screenOrientationAction = id; 
                 startMouseAction = id; 
                 startSpaceAction = id; 
+                windowPauseAction = id; 
             }; 
             CLASS = PreferencesController; 
             LANGUAGE = ObjC; 
@@ -24,6 +26,7 @@
                 dasherDimensionsUI = NSButtonCell; 
                 dasherFontSizeUI = NSMatrix; 
                 dasherFontUI = NSTextField; 
+                dasherPanelOpacityUI = NSSlider; 
                 drawMouseUI = NSButtonCell; 
                 editFontUI = NSTextField; 
                 fileEncodingUI = NSMatrix; 
@@ -34,6 +37,7 @@
                 startMouseUI = NSButtonCell; 
                 startSpaceUI = NSButtonCell; 
                 timestampNewFilesUI = NSButtonCell; 
+                windowPauseUI = NSButtonCell; 
             }; 
             SUPERCLASS = NSObject; 
         }
