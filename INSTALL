@@ -1,3 +1,75 @@
+Installing Dasher
+=================
+
+Currently, 'make install' is incomplete and untested, so you're
+probably best off installing Dasher manually. Hopefully this will be
+fixed in the near future.
+
+Here's how to do it:
+
+1. Unpack the source tarball:
+
+> gunzip -c dasher-3.0.0-preview2.tar.gz | tar -x
+
+(or one of the many equivalent methods)
+
+2. Change into the source directory:
+
+> cd dasher-3.0.0-preview2
+
+3. Configure the installation:
+
+> ./configure
+
+See below for options you can give this. If configure generates any
+errors, it probably means that required additional packages aren't
+installed, so go and install them before running configure again.
+
+4. Compile the source code:
+
+> make
+
+(For the rest of the installation you need to be root, so use either
+sudo or su according to your preference. If you don't understand this,
+you probably shouldn't be doing it :-) - go and find someone who does.)
+
+5. Copy the dasher executable somewhere sensible, eg.
+
+> cp Src/dasher /usr/local/bin/
+
+6. Make a global configuration directory and copy the default
+configuration files into it:
+
+> mkdir /etc/dasher
+> cp Data/syste.rc/* /etc/dasher/
+
+Congratulation - you should now have a working Dasher installation. At
+this point, stop being root and type 'dasher' to see if it worked.
+
+If you want Dasher to save settings between sessions, you'll need to
+make a directory called '.dasher' in your home directory:
+
+> mkdir ~/.dasher
+
+If you don't do this, dasher will complain that it cannot read the
+configuration file.
+
+Please send any bugs / comments / patches / translations to:
+
+dasher@mrao.cam.ac.uk
+
+Our website is:
+
+http://www.inference.phy.cam.ac.uk/dasher/
+
+Enjoy Dasher!
+
+The Dasher team.
+
+--
+
+Here are the generic instructions that come with autoconf:
+
 Basic Installation
 ==================
 
