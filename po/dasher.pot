@@ -40,7 +40,7 @@ msgstr ""
 
 #: Src/Gtk/GtkDasherWindow.cc:22
 msgid ""
-"Dasher - Version 3.0.1\n"
+"Dasher - Version 3.0.2\n"
 "Web: http://www.inference.phy.cam.ac.uk/dasher/\n"
 "email: dasher@mrao.cam.ac.uk"
 msgstr ""
