@@ -10,7 +10,6 @@
 #ifndef __Menu_h__
 #define __Menu_h__
 
-#include "../../Common/MSVC_Unannoy.h"
 #include <map>
 
 #include "../WinHelper.h"
