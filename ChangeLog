@@ -1,3 +1,9 @@
+2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Remove the kludge that strips out some widgets - according to the
+	  ATK folks it's a bug in filechooser, and that's been sorted
+	  anyway now
+	
 2004-03-07  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Be somewhat more paranoid about what widgets we examine, since the

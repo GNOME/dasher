@@ -359,12 +359,9 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
 
   role=Accessible_getRole(parent);
 
-  if (role!=SPI_ROLE_APPLICATION && role!=SPI_ROLE_CHECK_MENU_ITEM && role!=SPI_ROLE_MENU_ITEM && role!=SPI_ROLE_MENU && role!=SPI_ROLE_PUSH_BUTTON && role!=SPI_ROLE_RADIO_BUTTON && role!=SPI_ROLE_TOGGLE_BUTTON && role!=SPI_ROLE_RADIO_MENU_ITEM) {
-    if (!AccessibleStateSet_contains(state_set,SPI_STATE_VISIBLE)) {
-      return false;
-    }
+  if (!AccessibleStateSet_contains(state_set,SPI_STATE_ENABLED)) {
+    return false;
   }
-  
 
   // This is the node that will represent us if we're useful
   // We don't insert ourselves into the tree just yet, though
