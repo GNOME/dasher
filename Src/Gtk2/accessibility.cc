@@ -12,6 +12,7 @@ ControlTree *widgettree;
 ControlTree *windowtree;
 ControlTree *stoptree;
 ControlTree *dummy; // This one is used to fake another control node
+extern ControlTree *controltree;
 #define _(x) gettext(x)
 
 extern gboolean textentry;
@@ -505,7 +506,8 @@ void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
       }
       focusedwindow=accessible;
       deletemenutree();
-      add_control_tree(gettree());
+      controltree=gettree();
+      add_control_tree(controltree);
       dasher_start();      
       set_textbox(textaccessible);
     }

@@ -64,6 +64,7 @@ char *user_data_dir;
 GtkWidget *train_dialog;
 GThread *trainthread;
 GAsyncQueue* trainqueue;
+ControlTree *controltree;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;
@@ -792,7 +793,7 @@ timer_callback(gpointer data)
 	//	deletemenutree();
 	// And making bonobo calls from another thread is likely to lead to
 	// pain as well. It'd be nice to do this while training, but.
-	//	add_control_tree(gettree());
+	add_control_tree(controltree);
 
 	dasher_redraw();
       }
