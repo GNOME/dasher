@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.1.2//EN" "http://www.oasis-open.org/docbook/xml/4.1.2/docbookx.dtd" [
-<!ENTITY version "3.2.3">
+<!ENTITY version SYSTEM "version.xml">
 ]>
 <!-- replace with actual application  version number-->
 <!-- =============Document Header ============================= -->

@@ -1739,6 +1739,13 @@ extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
   set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
 }
 
+extern "C" void show_help(GtkWidget *widget, gpointer user_data)
+{
+#ifdef GNOME_LIBS
+  gnome_help_display_desktop(NULL, "dasher", "dasher", NULL, NULL);
+#endif
+}
+
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
 {
 #ifdef GNOME_LIBS

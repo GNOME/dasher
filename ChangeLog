@@ -1,6 +1,7 @@
 2004-07-29  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* copy all on stop no longer causes the selection to change
+	* revamp the documentation build a little, make help actually work
 	
 2004-07-12  Pawan Chitrakar  <pawan@nplinux.org>
 
