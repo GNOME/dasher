@@ -71,7 +71,6 @@ void edit_output_callback(symbol Symbol)
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
   if (keyboardmodeon==true) {
-#ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
     Display *dpy = gdk_x11_get_default_xdisplay();
     int min, max;
@@ -113,6 +112,7 @@ void edit_output_callback(symbol Symbol)
       g_free(wideoutput);
     }
 #else
+#ifdef GNOME_A11Y
     SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
 #endif
@@ -281,7 +281,6 @@ void edit_delete_callback()
   }
 
   if (keyboardmodeon==true) {
-#ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
     Display *dpy;
     dpy = gdk_x11_get_default_xdisplay();
@@ -291,6 +290,7 @@ void edit_delete_callback()
     XTestFakeKeyEvent(dpy, code, False, 0);
     XFlush(dpy);
 #else
+#ifdef GNOME_A11Y
     SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
 #endif
 #endif
