@@ -62,7 +62,7 @@ public:
   
   void copy_all_on_pause( bool s );
   void handle_alphabet();
-
+  void handle_alphabet_cancel();
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;

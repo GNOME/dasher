@@ -15,6 +15,11 @@ GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
 
   text.set_editable( true );
   show_all();
+
+  // FIXME - need to call handle_cursor_move when the cursor position changes.
+
+  // text.button_release_event.connect_after(slot(this, &GtkDasherEdit::handle_cursor_move));
+
 }
 
 GtkDasherEdit::~GtkDasherEdit()
@@ -25,17 +30,38 @@ void GtkDasherEdit::write_to_file()
 {
 }
 
+void GtkDasherEdit::handle_cursor_move(GdkEventButton* e )
+{
+  //  cout << "Cursor has moved " << a << ", " << b << endl;
+
+  cout << "Foo" << endl;
+
+  text.set_point( 0 );
+
+  interface->Start();
+  interface->Redraw();
+}
+
 void GtkDasherEdit::get_new_context(std::string& str, int max)
 {
-  cout << "get_new_context called" << endl;
+  int start;
+  int end;
 
-  cout << "length is " << text.get_length() << endl;
+  end = text.get_point();
+  start = end - max;
+
+  if( start < 0 )
+    start = 0;
+
+  str = text.get_chars( start, end );
 }
 
 void GtkDasherEdit::unflush()
 {
   text.backward_delete( flush_count );
   flush_count = 0;
+
+  //  cout << "Point is " << text.get_point() << endl;
 }
 
 void GtkDasherEdit::output(symbol Symbol)
@@ -191,5 +217,11 @@ bool GtkDasherEdit::Open( std::string filename )
 
   text.thaw();
 
+  // Restart the interface with the new context
+
+  interface->Start();
+  interface->Redraw();
+
   return( true );
 }
+

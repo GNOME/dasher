@@ -5,6 +5,7 @@
 #include <gtk--/text.h>
 #include <gtk--/main.h>
 #include <gdk/gdk.h>
+#include <gtk--/frame.h>
 
 #include "GtkDasherPane.h"
 #include "GtkDasherCanvas.h"
@@ -81,6 +82,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
 
 
   abox.get_ok_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet));
+  abox.get_cancel_button()->clicked.connect(slot(this, &GtkDasherPane::handle_alphabet_cancel));
 }
 
 void GtkDasherPane::clear()
@@ -91,11 +93,12 @@ void GtkDasherPane::clear()
 
 void GtkDasherPane::reset()
 {
+  text->Clear();
   interface->Start();
   paused = true;
   started = false;
   clear();
-  text->Clear();
+  // text->Clear();
 }
 
 void GtkDasherPane::set_settings_ui( Dasher::CDasherSettingsInterface *settingsif )
@@ -293,4 +296,9 @@ void GtkDasherPane::handle_alphabet()
 
   
   interface->ChangeAlphabet( foo );
+}
+
+void GtkDasherPane::handle_alphabet_cancel()
+{
+  abox.hide();
 }

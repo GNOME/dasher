@@ -9,22 +9,32 @@
 #include <list>
 
 GtkDasherAlphabetBox::GtkDasherAlphabetBox()
-  : Dialog(), b_ok( "Ok" )
+  : Dialog(), b_ok( "Ok" ), b_cancel( "Cancel" ), f( "Select Alphabet" )
 {
+  //get_vbox()->set_border_width( 10 );
+  set_title( "Alphabet" );
+
   l.set_usize( 374, 256 );
   l.set_selection_mode( GTK_SELECTION_SINGLE );
 
-  get_vbox()->pack_start(l, true, true );
+  f.add( l );
+
+  get_vbox()->pack_start(f, true, true );
   get_vbox()->show_all();
 
   get_action_area()->pack_start( b_ok, false, false );
+  get_action_area()->pack_start( b_cancel, false, false );
   get_action_area()->show_all();
-  //  show();
 }
 
 Gtk::Button *GtkDasherAlphabetBox::get_ok_button()
 {
   return( &b_ok );
+}
+
+Gtk::Button *GtkDasherAlphabetBox::get_cancel_button()
+{
+  return( &b_cancel );
 }
 
 std::string GtkDasherAlphabetBox::get_selection()

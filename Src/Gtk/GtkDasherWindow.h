@@ -10,7 +10,7 @@
 #include <gtk--/image.h>
 #include <gtk--/dialog.h>
 #include <gtk--/fontselection.h>
-
+#include <gtk--/frame.h>
 
 //#include <gnome--/app.h>
 
