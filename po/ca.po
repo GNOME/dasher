@@ -7,129 +7,135 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-24 20:21+0100\n"
-"PO-Revision-Date: 2004-02-24 20:23+0100\n"
+"POT-Creation-Date: 2004-04-27 13:06+0200\n"
+"PO-Revision-Date: 2004-04-27 13:07+0200\n"
 "Last-Translator: Aleix Badia i Bosch <abadia@ica.es>\n"
 "Language-Team: catalan <tradgnome@softcatala.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:63
 msgid "Menus"
 msgstr "Menús"
 
-#: Src/Gtk2/accessibility.cc:65
+#: Src/Gtk2/accessibility.cc:70
 msgid "Windows"
 msgstr "Finestres"
 
-#: Src/Gtk2/accessibility.cc:70
+#: Src/Gtk2/accessibility.cc:75
 msgid "Application"
 msgstr "Aplicació"
 
-#: Src/Gtk2/accessibility.cc:77
+#: Src/Gtk2/accessibility.cc:82
 msgid "Buttons"
 msgstr "Botons"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Quadres"
 
-#: Src/Gtk2/accessibility.cc:90
+#: Src/Gtk2/accessibility.cc:95
 msgid "Text"
 msgstr "Text"
 
-#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:169 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Control"
 
-#: Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:174
 msgid "Stop"
 msgstr "Atura"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:180
 msgid "Pause"
 msgstr "Pausa"
 
-#: Src/Gtk2/accessibility.cc:181
+#: Src/Gtk2/accessibility.cc:187
 msgid "Move"
 msgstr "Mou"
 
-#: Src/Gtk2/accessibility.cc:188
+#: Src/Gtk2/accessibility.cc:194
 msgid "Delete"
 msgstr "Suprimeix"
 
-#: Src/Gtk2/accessibility.cc:197
+#: Src/Gtk2/accessibility.cc:203
 msgid "Speak"
 msgstr "Pronuncia"
 
-#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:290
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
+#: Src/Gtk2/accessibility.cc:227 Src/Gtk2/accessibility.cc:284
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:227
+#: Src/Gtk2/accessibility.cc:233
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:239
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:252
 msgid "Everything"
 msgstr "Tot"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:258
 msgid "New"
 msgstr "Nou"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:264
 msgid "Repeat"
 msgstr "Repeteix"
 
-#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
+#: Src/Gtk2/accessibility.cc:296 Src/Gtk2/accessibility.cc:319
 msgid "Character"
 msgstr "Caràcter"
 
-#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
+#: Src/Gtk2/accessibility.cc:307 Src/Gtk2/accessibility.cc:329
 msgid "Word"
 msgstr "Paraula"
 
-#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:312 Src/Gtk2/accessibility.cc:335
 msgid "Line"
 msgstr "Línia"
 
-#: Src/Gtk2/accessibility.cc:399
+#: Src/Gtk2/accessibility.cc:415
 msgid "Unknown"
 msgstr "Desconegut"
 
-#: Src/Gtk2/dasher.cc:183
+#: Src/Gtk2/dasher.cc:186
 msgid "Training Dasher, please wait"
 msgstr "El Dasher s'està entrenant, espereu"
 
+#: Src/Gtk2/dasher.cc:662 Src/Gtk2/dasher.cc:675 Src/Gtk2/dasher.cc:688
+#: Src/Gtk2/dasher.cc:701 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Selecciona el fitxer"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1757
+#: Src/Gtk2/dasher.cc:1747
 msgid "translator_credits"
 msgstr ""
 "Aleix Badia i Bosch <abadia@ica.es>\n"
 "Xavier Conde Rueda <xaviconde@eresmas.com>"
 
-#: Src/Gtk2/dasher.cc:1759 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1749 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "El Dasher"
 
-#: Src/Gtk2/dasher.cc:1762
+#: Src/Gtk2/dasher.cc:1752
 msgid "Dasher is a predictive text entry application"
 msgstr "El Dasher és una aplicació d'entrada de text predictiu"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2169
+#: Src/Gtk2/dasher.cc:2159
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d caràcters de sortida en %d segons\n"
@@ -162,7 +168,7 @@ msgstr "<b>Selecció de l'alfabet:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Configuració del control dels botons</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Selecció del color:</b>"
 
@@ -230,11 +236,11 @@ msgstr "Mode del botó"
 msgid "Button:"
 msgstr "Botó:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Canvia l'esquema de color automàticament"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Color"
 
@@ -269,6 +275,7 @@ msgstr "Preferències del Dasher"
 #: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
 msgstr ""
+"Distància des de la línia central per a l'inici en la posició del ratolí:"
 
 #: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -280,7 +287,7 @@ msgstr "Dibuixa els contorns de la caixa"
 
 #: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Dibuixa una línia entre els punters i el ratolí"
 
 #: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -300,6 +307,8 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
+"Si es selecciona aquest mode, amunt i avall commutaran enrere i endavant "
+"entre coordenades i dreta confirmarà la selecció"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
@@ -339,7 +348,7 @@ msgstr "Enganxa"
 
 #: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
-msgstr ""
+msgstr "Pausa fora de la finestra"
 
 #: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
@@ -356,10 +365,6 @@ msgstr "Desa"
 #: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
 msgid "Save file as"
 msgstr "Anomena i desa"
-
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Selecciona el fitxer"
 
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
@@ -491,36 +496,38 @@ msgstr "_Reinicia els tipus de lletra"
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Selecció del color:</b>"
-
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Velocitat</b>"
-
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Canvia l'esquema de color automàticament"
-
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Color"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Orientació"
 
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "No s'ha pogut inicialitzar el suport de pronunciació\n"
+
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "No s'ha pogut inicialitzar les veus"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:66
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Avís: No s'han pogut especificar els paràmetres de la pronunciació\n"
 
-#: Src/main.cc:98
+#: Src/main.cc:103
 msgid "Dasher Text Entry"
 msgstr "Entrada de text del Dasher"
+
+#~ msgid "Change color scheme automatically"
+#~ msgstr "Canvia l'esquema de color automàticament"
+
+#~ msgid "<b>Colour Selection:</b>"
+#~ msgstr "<b>Selecció del color:</b>"
+
+#~ msgid "Colour"
+#~ msgstr "Color"
