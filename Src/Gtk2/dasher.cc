@@ -20,6 +20,7 @@
 
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs.h>
 #endif
 
 #include "libdasher.h"
@@ -57,6 +58,11 @@ GtkWidget *preferences_window;
 GtkListStore *alph_list_store;
 GtkListStore *colour_list_store;
 GladeXML *widgets;
+GtkWidget *open_filesel;
+GtkWidget *save_filesel;
+GtkWidget *save_and_quit_filesel;
+GtkWidget *import_filesel;
+GtkWidget *append_filesel;
 std::string alphabet;
 std::string colourscheme;
 char *system_data_dir;
@@ -459,6 +465,21 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   }
 }
 
+#ifdef GNOME_LIBS
+void
+vfs_print_error(GnomeVFSResult *result)
+{
+  // Turns a Gnome VFS error into English
+  GtkWidget *error_dialog;
+  error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\"\n%s\n", filename,gnome_vfs_result_to_string (*result));
+  gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+  gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+  gtk_dialog_run(GTK_DIALOG(error_dialog));
+  gtk_widget_destroy(error_dialog);
+  return;
+}
+#endif
+
 extern "C" void 
 open_file (const char *myfilename)
 {
@@ -614,12 +635,12 @@ save_file_as (const char *filename, bool append)
 
   fwrite(outbuffer,1,bytes_written,fp);
   fclose (fp);
-
+  
   file_modified = FALSE;
   gtk_window_set_title(GTK_WINDOW(window), filename);
 }
 
- 
+#if GTK_CHECK_VERSION(2,3,0)
 extern "C" void
 select_open_file(GtkWidget *widget, gpointer user_data)
 {
@@ -671,6 +692,132 @@ select_import_file(GtkWidget *widget, gpointer user_data)
   }
   gtk_widget_destroy(filesel);
 }
+#else
+
+extern "C" void
+import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  load_training_file(filename);  
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+}
+
+extern "C" void               
+select_import_file(GtkWidget *widget, gpointer user_data)
+{
+  if (import_filesel==NULL) {
+    import_filesel = glade_xml_get_widget(widgets, "import_fileselector");
+    
+    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (import_filesel)->ok_button),
+                      "clicked", G_CALLBACK (import_file_from_filesel), (gpointer) import_filesel);
+  }
+  
+  gtk_window_set_transient_for(GTK_WINDOW(import_filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(import_filesel));
+}
+
+extern "C" void
+open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+  open_file (filename);
+}
+
+extern "C" void
+select_open_file(GtkWidget *widget, gpointer user_data)
+{
+  if (open_filesel==NULL) {
+    open_filesel = glade_xml_get_widget(widgets, "open_fileselector");
+    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (open_filesel)->ok_button),
+                      "clicked", G_CALLBACK (open_file_from_filesel), (gpointer) open_filesel);
+  }
+  gtk_window_set_transient_for(GTK_WINDOW(open_filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(open_filesel));
+}
+
+extern "C" void
+save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+  save_file_as(filename,FALSE);
+}
+
+extern "C" void
+save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  if (save_file_as(filename,FALSE)==false) {
+    return;
+  } else {
+    exiting=TRUE;
+    gtk_main_quit();
+  }
+}
+
+extern "C" void
+append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  
+  save_file_as(filename,TRUE);
+  
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+}
+
+extern "C" void
+select_save_file_as(GtkWidget *widget, gpointer user_data)
+{
+  if (save_filesel==NULL) {
+    save_filesel = glade_xml_get_widget(widgets, "save_fileselector");
+    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (save_filesel)->ok_button),
+                      "clicked", G_CALLBACK (save_file_from_filesel), (gpointer) save_filesel);
+  }
+  
+  if (filename!=NULL)
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(save_filesel), filename);
+  gtk_window_set_transient_for(GTK_WINDOW(save_filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(save_filesel));
+}
+
+extern "C" void
+select_save_file_as_and_quit(GtkWidget *widget, gpointer user_data)
+{
+  if (save_and_quit_filesel==NULL) {
+    save_and_quit_filesel = glade_xml_get_widget(widgets, "save_and_quit_fileselector");
+    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (save_and_quit_filesel)->ok_button),
+                      "clicked", G_CALLBACK (save_file_from_filesel_and_quit), (gpointer) save_and_quit_filesel);
+}
+  
+  if (filename!=NULL)
+    gtk_file_selection_set_filename (GTK_FILE_SELECTION(save_and_quit_filesel), filename);
+  gtk_window_set_transient_for(GTK_WINDOW(save_and_quit_filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(save_and_quit_filesel));
+}
+
+extern "C" void
+select_append_file(GtkWidget *widget, gpointer user_data)
+{
+  if (append_filesel==NULL) {
+    append_filesel = glade_xml_get_widget(widgets, "append_fileselector");
+    g_signal_connect (G_OBJECT (GTK_FILE_SELECTION (append_filesel)->ok_button),
+                      "clicked", G_CALLBACK (append_file_from_filesel), (gpointer) append_filesel);
+  }
+  
+  gtk_window_set_transient_for(GTK_WINDOW(append_filesel),GTK_WINDOW(window));
+  gtk_window_present (GTK_WINDOW(append_filesel));
+}
+
+extern "C" void
+filesel_hide(GtkWidget *widget, gpointer user_data)
+{
+  // FIXME - uh. Yes. This works, but is it in any way guaranteed to?
+  // Of course, if glade let us set user_data stuff properly, this would
+  // be a lot easier
+  gtk_widget_hide(gtk_widget_get_parent(gtk_widget_get_parent(gtk_widget_get_parent(widget))));
+}
+#endif
 
 extern "C" void
 save_file (GtkWidget *widget, gpointer user_data)
