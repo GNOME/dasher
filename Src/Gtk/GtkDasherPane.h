@@ -7,6 +7,7 @@
 #include "GtkDasherCanvas.h"
 #include "GtkDasherEdit.h"
 #include "GtkDasherStore.h"
+#include "GtkDasherSlider.h"
 
 #include "DasherInterface.h"
 #include "SettingsStore.h"
@@ -38,7 +39,8 @@ public:
 
   void set_dasher_font( string fontname );
   void set_edit_font( string fontname, long size );
-
+  
+  void show_slider( bool s );
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;
@@ -48,6 +50,8 @@ private:
 
   CDasherInterface *interface;
 
+  GtkDasherSlider *slider;
+
   gint timer_callback();
 
   int toggle_pause( GdkEventButton *e);
@@ -56,6 +60,8 @@ private:
 
   bool paused;
   bool started;
+
+
 };
 
 #endif

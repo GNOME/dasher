@@ -10,6 +10,7 @@
 #include "GtkDasherCanvas.h"
 #include "GtkDasherStore.h"
 #include "GtkDasherEdit.h"
+#include "GtkDasherSlider.h"
 
 #include "DasherInterface.h"
 #include "SettingsStore.h"
@@ -53,11 +54,14 @@ GtkDasherPane::GtkDasherPane()
   text = new GtkDasherEdit( interface );
   text->set_usize(128, 128);
   text->thaw();
- 
+
+  slider = new GtkDasherSlider( interface );
+  
   canvas = new GtkDasherCanvas( 480, 480, interface );
 
   pack_start( *text );
   pack_start( *canvas );
+  pack_start( *slider );
   show_all();
 
   interface->ChangeLanguageModel(0);
@@ -242,5 +246,11 @@ int GtkDasherPane::visibility_event_impl(GdkEventAny *event)
   return( true );
 }
 
-
+void GtkDasherPane::show_slider( bool s )
+{
+  if( s )
+    slider->show();
+  else
+    slider->hide();
+}
 

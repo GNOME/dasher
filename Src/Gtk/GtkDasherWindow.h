@@ -38,6 +38,8 @@
 #define MENU_COPYALL 103
 #define MENU_SELECTALL 104
 
+#define MENU_SLIDER 200
+
 #define MENU_ODEFAULT 210
 #define MENU_OLR 211
 #define MENU_ORL 212
@@ -46,6 +48,8 @@
 
 #define MENU_EFONT 303
 #define MENU_DFONT 304
+
+
 
 #define MENU_ABOUT 400
 
@@ -91,6 +95,9 @@ protected:
   void copy_all();
 
   void orientation( Opts::ScreenOrientations o );
+
+  bool slider_shown;
+  void toggle_slider();
 };
 
 #endif

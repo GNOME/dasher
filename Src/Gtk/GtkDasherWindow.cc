@@ -1,7 +1,6 @@
 #include "GtkDasherWindow.h"
 #include "GtkDasherPane.h"
 
-
 #include <glib.h>
 #include <gdk/gdk.h>
 #include <gtk/gtk.h>
@@ -12,7 +11,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Edit Font")
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Edit Font"), slider_shown( true )
 {  
   add(main_vbox);
 
@@ -92,7 +91,8 @@ GtkDasherWindow::GtkDasherWindow()
     list_view.push_back(MenuElem("Orientation", *menu_or ));
     list_view.push_back(SeparatorElem());
     list_view.push_back(MenuElem("Toolbar", *menu_tool));
-    list_view.push_back(MenuElem("Speed Slider"));
+    list_view.push_back(MenuElem("Speed Slider",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_SLIDER)));
     list_view.push_back(SeparatorElem());
     list_view.push_back(MenuElem("Fix Layout"));
 
@@ -364,6 +364,10 @@ void GtkDasherWindow::menu_button_cb(int c)
       select_all();
       break;
 
+    case MENU_SLIDER:
+      toggle_slider();
+      break;
+
     case MENU_ODEFAULT:
       orientation( Alphabet );
       break;
@@ -459,4 +463,12 @@ int GtkDasherWindow::delete_event_impl(GdkEventAny *event)
 {
   exit();
   return( false );
+}
+
+void GtkDasherWindow::toggle_slider()
+{
+  slider_shown = !slider_shown;
+  dasher_pane.show_slider( slider_shown );
+
+
 }
