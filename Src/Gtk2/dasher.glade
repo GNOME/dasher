@@ -656,7 +656,7 @@
 			  <property name="shadow_type">GTK_SHADOW_IN</property>
 
 			  <child>
-			    <widget class="GtkTreeView" id="ColourTree">
+			    <widget class="GtkTreeView" id="ColorTree">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="headers_visible">False</property>
