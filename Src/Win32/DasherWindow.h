@@ -93,6 +93,7 @@ public:
 	bool GetPaletteChange() {return palettechange;}
 	void SetYScale(int Value);
 	void SetMousePosDist(int Value);
+	void SetUniform(int Value);
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);

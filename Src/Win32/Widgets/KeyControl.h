@@ -28,14 +28,19 @@ protected:
 private:
 	HWND m_hwnd;
 	HWND CustomBox;
+	HWND slider;
+	HWND uniformbox;
 	CCanvas* m_pCanvas;
 	int keycoords[18];
 	int ypixels;
 	int mouseposdist;
+	double NewUniform;
 
 	// Some status flags:
 	bool Editing;
 	bool SelectionSet;
+
+	TCHAR* Buffer;
 
 	Dasher::CDasherSettingsInterface* m_pSettingsInterface;
 };

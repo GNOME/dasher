@@ -166,7 +166,7 @@ BEGIN
     POPUP "Options"
     BEGIN
         MENUITEM "Edit General Options...",     ID_OPTIONS_PREFS
-        MENUITEM "Edit Control Options...",     32814
+        MENUITEM "Edit Advanced Options...",    32814
         MENUITEM SEPARATOR
         MENUITEM "&Alphabet...",                ID_OPTIONS_ALPHABET
         MENUITEM "Colours...",                  ID_OPTIONS_COLOURS
@@ -500,13 +500,14 @@ BEGIN
     EDITTEXT        IDC_YPIX,12,12,30,12,ES_AUTOHSCROLL
     LTEXT           "Scale the Y input by this amount",IDC_STATIC,48,12,180,
                     8
-    CONTROL         "",IDC_SLIDER1,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,12,48,222,12
+    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,42,48,192,12
     LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",
                     IDC_STATIC,18,66,210,18
     EDITTEXT        IDC_MOUSEPOSDIST,12,30,30,12,ES_AUTOHSCROLL
     LTEXT           "Distance from centre line for ""Start on mouse position""",
                     IDC_STATIC,48,30,174,12
+    EDITTEXT        IDC_UNIFORMVAL,12,48,30,12,ES_AUTOHSCROLL | ES_READONLY
 END
 
 

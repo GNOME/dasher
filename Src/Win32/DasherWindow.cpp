@@ -361,6 +361,11 @@ void CDasherWindow::SetMousePosDist(int Value)
 	m_pCanvas->setmouseposdist(Value);
 }
 
+void CDasherWindow::SetUniform(int Value)
+{
+	m_pCanvas->setuniform(Value);
+}
+
 void CDasherWindow::KeyboardMode(bool Value)
 {
 	keyboardmode=Value;

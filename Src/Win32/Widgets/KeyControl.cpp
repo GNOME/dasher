@@ -72,15 +72,29 @@ void CKeyBox::PopulateWidgets()
 */	
 	HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
 	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-	itoa(ypixels,dummybuffer,10);
-	mbstowcs(widebuffer,dummybuffer,256);
-	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
+	Buffer = new TCHAR[10];
+	_stprintf(Buffer, TEXT("%d"), ypixels);
+	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
+	delete[] Buffer;
 
 	EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
 	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-	itoa(mouseposdist,dummybuffer,10);
-	mbstowcs(widebuffer,dummybuffer,256);
-	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
+	Buffer = new TCHAR[10];
+	_stprintf(Buffer, TEXT("%d"), mouseposdist);
+	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
+	delete[] Buffer;
+
+	slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
+	SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
+	SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
+	SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
+	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pCanvas->getuniform()/100);
+
+	uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
+	Buffer = new TCHAR[10];
+	_stprintf(Buffer, TEXT("%0.1f"), m_pCanvas->getuniform()/1000.0);
+	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
+	delete[] Buffer;
 
 /*	for (int i=0; i<18; i++) {
 		EditBox = GetDlgItem(m_hwnd, widgets[i]);
@@ -115,6 +129,21 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		return TRUE;
 		break;
 	}
+	case WM_HSCROLL:
+		if ((LOWORD(wParam)==SB_THUMBPOSITION) | (LOWORD(wParam)==SB_THUMBTRACK)) {
+			// Some messages give the new postion
+			NewUniform = HIWORD(wParam);
+		} else {
+			// Otherwise we have to ask for it
+			long Pos = SendMessage(slider,TBM_GETPOS,0,0);
+			NewUniform = Pos;
+		}
+		Buffer = new TCHAR[10];
+		_stprintf(Buffer, TEXT("%0.1f"), NewUniform/10);
+		SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
+		delete[] Buffer;
+		return TRUE;
+		break;
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) {
 		case (IDC_DISPLAY):
@@ -155,6 +184,8 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			m_pSettingsInterface->SetYScale(ypixels);
 			m_pCanvas->setmouseposdist(mouseposdist);
 			m_pSettingsInterface->SetMousePosDist(mouseposdist);
+			m_pCanvas->setuniform(NewUniform*100);
+			m_pSettingsInterface->SetUniform(NewUniform*100);
 			// Move forward on button press
 /*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pCanvas->setforward(true);

@@ -111,6 +111,7 @@
 #define IDC_RIGHTY                      1038
 #define IDC_DISPLAY                     1039
 #define IDC_EDIT2                       1040
+#define IDC_UNIFORMVAL                  1040
 #define IDC_TEXT                        1041
 #define IDOK_NEWALPH                    1042
 #define IDC_NEW_ALPH_STRING             1043
@@ -168,7 +169,7 @@
 #define IDC_COLOURSCHEME                1098
 #define IDC_COLOURS                     1099
 #define IDC_SLIDER1                     1100
-#define IDC_EDIT1                       1101
+#define IDC_UNIFORMSLIDER               1100
 #define IDC_MOUSEPOSDIST                1101
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
