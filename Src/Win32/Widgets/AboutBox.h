@@ -1,0 +1,17 @@
+#ifndef __AboutBox_h__
+#define __AboutBox_h__
+
+
+#include "../WinHelper.h"
+
+
+class CAboutbox
+{
+public:
+	CAboutbox(HWND Parent);
+private:
+	static LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+};
+
+
+#endif /* #ifndef __AboutBox_h__ */

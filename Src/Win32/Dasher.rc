@@ -1,0 +1,527 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#define APSTUDIO_HIDDEN_SYMBOLS
+#include "windows.h"
+#undef APSTUDIO_HIDDEN_SYMBOLS
+#include "resource.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// Neutral resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_NEU)
+#ifdef _WIN32
+LANGUAGE LANG_NEUTRAL, SUBLANG_NEUTRAL
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_COPY_ALL_SMALL_COLOR BITMAP  DISCARDABLE     "CopyAllSmall.bmp"
+IDB_COPY_ALL_LARGE_COLOR BITMAP  DISCARDABLE     "CopyAllLarge.bmp"
+#endif    // Neutral resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""windows.h""\r\n"
+    "#undef APSTUDIO_HIDDEN_SYMBOLS\r\n"
+    "#include ""resource.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.K.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENG)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_UK
+#pragma code_page(1252)
+#endif //_WIN32
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDI_DASHER              ICON    DISCARDABLE     "dasher.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDC_DASHER MENU DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN, GRAYED
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM "&Append to File...",          ID_FILE_APPEND, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "&Import Training Text",       ID_IMPORT_TRAINFILE, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       IDM_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Copy &All\tF5",               ID_EDIT_COPY_ALL
+        MENUITEM SEPARATOR
+        MENUITEM "Select A&ll\tCtrl+A",         ID_EDIT_SELECTALL
+    END
+    POPUP "&View"
+    BEGIN
+        POPUP "&Orientation"
+        BEGIN
+            MENUITEM "&Alphabet Default",           ID_ORIENT_ALPHABET
+            MENUITEM SEPARATOR
+            MENUITEM "&Left to Right",              ID_ORIENT_LR, CHECKED
+            MENUITEM "&Right to Left",              ID_ORIENT_RL
+            MENUITEM "&Top to Bottom",              ID_ORIENT_TB
+            MENUITEM "&Bottom to Top",              ID_ORIENT_BT
+        END
+        MENUITEM SEPARATOR
+        POPUP "Toolbar"
+        BEGIN
+            MENUITEM "&Visible",                    ID_TB_SHOW
+            MENUITEM SEPARATOR
+            MENUITEM "Show &Text",                  ID_TB_TEXT
+            MENUITEM "&Large Icons",                ID_TB_LARGE
+        END
+        MENUITEM "Speed &Slider",               ID_SHOW_SLIDE
+        MENUITEM SEPARATOR
+        MENUITEM "&Fix layout",                 ID_FIX_SPLITTER
+    END
+    POPUP "&Options"
+    BEGIN
+        MENUITEM "&Timestamp new files",        ID_TIMESTAMP
+        MENUITEM "Copy all on &Stop",           ID_COPY_ALL_ON_STOP
+        MENUITEM SEPARATOR
+        MENUITEM "&Alphabet...",                ID_OPTIONS_ALPHABET
+        POPUP "File &Encoding"
+        BEGIN
+            MENUITEM "Current Windows ANSI &Codepage", 
+                                                    ID_SAVE_AS_USER_CODEPAGE
+            , CHECKED
+            MENUITEM "Current &Alphabet Default Codepage", 
+                                                    ID_SAVE_AS_ALPHABET_CODEPAGE
+
+            MENUITEM SEPARATOR
+            MENUITEM "&Unicode (UTF-8)",            ID_SAVE_AS_UTF8
+            MENUITEM "U&nicode (UTF-16)",           ID_SAVE_AS_UTF16_LITTLE
+            MENUITEM "Unicode (UTF-16&BE)",         ID_SAVE_AS_UTF16_BIG
+        END
+        MENUITEM SEPARATOR
+        MENUITEM "&Editing Font...",            ID_OPTIONS_EDITFONT
+        MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
+        MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&Help Topics",                ID_HELP_CONTENTS
+        MENUITEM SEPARATOR
+        MENUITEM "&About Dasher",               IDM_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDC_DASHER ACCELERATORS MOVEABLE PURE 
+BEGIN
+    "/",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
+    "?",            IDM_ABOUT,              ASCII,  ALT, NOINVERT
+    "A",            ID_EDIT_SELECTALL,      VIRTKEY, CONTROL, NOINVERT
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL, NOINVERT
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL, NOINVERT
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL, NOINVERT
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL, NOINVERT
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL, NOINVERT
+    VK_F5,          ID_EDIT_COPY_ALL,       VIRTKEY, NOINVERT
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL, NOINVERT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 242, 151
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,185,130,50,14
+    ICON            IDI_DASHER,IDC_MYICON,23,18,20,20
+    LTEXT           "Dasher 3.0.0 (Pre Release - Still in Development)",
+                    IDC_STATIC,67,18,168,10,SS_NOPREFIX
+    LTEXT           "Copyright (C) 1998-2002 David Ward",IDC_STATIC,67,30,
+                    168,10
+    LTEXT           "dasher@mrao.cam.ac.uk",IDC_STATIC,67,63,168,10
+    LTEXT           "http://www.inference.phy.cam.ac.uk/dasher/",IDC_STATIC,
+                    67,53,168,10
+    LTEXT           "FAQ: http://www.metafaq.com/faq/dasher/",IDC_STATIC,67,
+                    86,168,10
+    CONTROL         "",IDC_STATIC,"Static",SS_BLACKFRAME | SS_SUNKEN,67,112,
+                    168,1
+END
+
+IDD_ALPHABET DIALOG DISCARDABLE  0, 0, 270, 158
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select Alphabet"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LISTBOX         IDC_ALPHABETS,7,18,201,101,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "OK",IDOK,213,137,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,159,137,50,14
+    PUSHBUTTON      "&New",IDC_ADD_ALPH,213,18,50,14
+    PUSHBUTTON      "&Delete",IDC_DEL_ALPH,213,35,50,14
+    PUSHBUTTON      "&Clone",IDC_CLONE,213,52,50,14
+    PUSHBUTTON      "&Edit",IDC_EDIT,213,69,50,14
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,8,130,255,1
+    LTEXT           "Alphabets available:",IDC_STATIC,7,7,198,8
+END
+
+IDD_CUSTOMALPHABET DIALOG DISCARDABLE  0, 0, 278, 258
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Customize Alphabet"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Al&phabet Description:",IDC_STATIC,7,7,123,8
+    EDITTEXT        IDC_DESCRIPTION,7,18,123,14,ES_AUTOHSCROLL
+    LTEXT           "&Training file:",IDC_STATIC,148,7,123,8
+    EDITTEXT        IDC_TRAIN,148,18,123,14,ES_AUTOHSCROLL
+    LTEXT           "Default Encoding T&ype:",IDC_STATIC,7,37,123,8
+    COMBOBOX        IDC_ENCODING,7,48,123,203,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "Default &Reading Order:",IDC_STATIC,148,37,123,8
+    COMBOBOX        IDC_RO,148,48,123,203,CBS_DROPDOWNLIST | WS_VSCROLL | 
+                    WS_TABSTOP
+    LTEXT           "&Groups:",IDC_STATIC,7,66,198,8
+    LISTBOX         IDC_GROUPS,7,76,207,49,LBS_NOINTEGRALHEIGHT | WS_VSCROLL | 
+                    WS_TABSTOP
+    CONTROL         "Spin1",IDC_MOVE_GROUP,"msctls_updown32",UDS_ARROWKEYS | 
+                    WS_TABSTOP,221,75,11,14
+    LTEXT           "Move",IDC_GROUP_BUDDY,239,75,32,14,SS_CENTERIMAGE
+    PUSHBUTTON      "&Add",IDC_ADD_GROUP,221,92,50,14
+    PUSHBUTTON      "D&elete",IDC_DELGROUP,221,110,50,14
+    LTEXT           "&Characters:",IDC_STATIC,7,132,93,8
+    LISTBOX         IDC_CHARS,7,142,207,67,LBS_NOINTEGRALHEIGHT | 
+                    LBS_MULTICOLUMN | WS_HSCROLL | WS_TABSTOP
+    CONTROL         "Spin1",IDC_MOVE_CHAR,"msctls_updown32",UDS_ARROWKEYS | 
+                    WS_TABSTOP,221,142,11,14
+    LTEXT           "Move",IDC_CHAR_BUDDY,239,142,32,14,SS_CENTERIMAGE
+    PUSHBUTTON      "A&dd",IDC_ADD_CHAR,221,160,50,14
+    PUSHBUTTON      "De&lete",IDC_DEL_CHAR,221,177,50,14
+    PUSHBUTTON      "Edi&t",IDC_EDIT_CHAR,221,195,50,14
+    CONTROL         "&Space Character",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,7,214,199,10
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,228,264,1
+    PUSHBUTTON      "Cancel",ID_CUSTOM_CANCEL,166,237,50,14
+    DEFPUSHBUTTON   "OK",IDOK_CUSTOMIZE,221,237,50,14
+END
+
+IDD_ADDLETTERS DIALOG DISCARDABLE  0, 0, 145, 79
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Add characters"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Display:",IDC_STATIC,7,7,59,8
+    EDITTEXT        IDC_DISPLAY,7,19,40,14,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,69,7,57,8
+    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,51,131,1
+    PUSHBUTTON      "Close",IDCANCEL,33,58,50,14
+    DEFPUSHBUTTON   "Add",IDOK_ADDCHAR,88,58,50,14
+END
+
+IDD_NEWALPHABET DIALOG DISCARDABLE  0, 0, 186, 69
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New Alphabet"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    EDITTEXT        IDC_NEW_ALPH_STRING,7,18,172,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK_NEWALPH,129,47,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,74,47,50,14
+    LTEXT           "Description:",IDC_STATIC,7,7,57,8
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,41,170,1
+END
+
+IDD_NEWGROUP DIALOG DISCARDABLE  0, 0, 186, 68
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "New Group"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    EDITTEXT        IDC_GROUP_TEXT,7,18,172,14,ES_AUTOHSCROLL
+    DEFPUSHBUTTON   "OK",IDOK_NEWGROUP,129,47,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,74,47,50,14
+    LTEXT           "Description:",IDC_STATIC,7,7,57,8
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,41,170,1
+END
+
+IDD_EDITLETTER DIALOG DISCARDABLE  0, 0, 145, 79
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Edit character"
+FONT 8, "MS Shell Dlg"
+BEGIN
+    LTEXT           "Display:",IDC_STATIC,7,7,59,8
+    EDITTEXT        IDC_DISPLAY,7,19,40,14,ES_AUTOHSCROLL
+    LTEXT           "Type:",IDC_STATIC,69,7,57,8
+    EDITTEXT        IDC_TEXT,69,17,40,23,ES_MULTILINE | ES_AUTOVSCROLL | 
+                    ES_AUTOHSCROLL | ES_WANTRETURN
+    CONTROL         "",IDC_STATIC,"Static",SS_ETCHEDHORZ,7,51,131,1
+    PUSHBUTTON      "Cancel",IDCANCEL,33,58,50,14
+    DEFPUSHBUTTON   "OK",IDOK_CHAR,88,58,50,14
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 235
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 144
+    END
+
+    IDD_ALPHABET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 263
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 151
+    END
+
+    IDD_CUSTOMALPHABET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 271
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 251
+    END
+
+    IDD_ADDLETTERS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 138
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+
+    IDD_NEWALPHABET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 62
+    END
+
+    IDD_NEWGROUP, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 179
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 61
+    END
+
+    IDD_EDITLETTER, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 138
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 72
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 3,0,0,0
+ PRODUCTVERSION 3,0,0,0
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x3L
+#else
+ FILEFLAGS 0x2L
+#endif
+ FILEOS 0x40004L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "080904b0"
+        BEGIN
+            VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL.\0"
+            VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge\0"
+            VALUE "FileDescription", "Dasher\0"
+            VALUE "FileVersion", "3, 0, 0, 0\0"
+            VALUE "InternalName", "Dasher\0"
+            VALUE "LegalCopyright", "Copyright © 1998-2002 David Ward\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "dasher.exe\0"
+            VALUE "PrivateBuild", "\0"
+            VALUE "ProductName", "Dasher\0"
+            VALUE "ProductVersion", "3, 0, 0, 0\0"
+            VALUE "SpecialBuild", "\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x809, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_APP_TITLE           "Dasher"
+    IDS_FILE_SAVE           "Save"
+    IDS_FILE_OPEN           "Open"
+    IDS_FILE_NEW            "New"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_EDIT_CUT            "Cut"
+    IDS_EDIT_COPY           "Copy"
+    IDS_EDIT_PASTE          "Paste"
+    IDS_MAX_SPEED           "Maximum Speed\n(bit rate)"
+    IDS_EDIT_COPY_ALL       "Copy All"
+    IDS_TYPE_Western        "Western"
+    IDS_TYPE_None           "None"
+    IDS_TYPE_Arabic         "Arabic"
+    IDS_TYPE_Baltic         "Baltic"
+    IDS_TYPE_CentralEurope  "Central Europe"
+    IDS_TYPE_ChineseSimplified "Simplified Chinese"
+    IDS_TYPE_ChineseTraditional "Traditional Chinese"
+    IDS_TYPE_Cyrillic       "Cyrillic"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_TYPE_Greek          "Greek"
+    IDS_TYPE_Hebrew         "Hebrew"
+    IDS_TYPE_Japanese       "Japanese"
+    IDS_TYPE_Korean         "Korean"
+    IDS_TYPE_Thai           "Thai"
+    IDS_TYPE_Turkish        "Turkish"
+    IDS_TYPE_VietNam        "Viet Nam"
+    IDS_ORIENT_LR           "Left to Right"
+    IDS_ORIENT_RL           "Right to Left"
+    IDS_ORIENT_TB           "Top to Bottom"
+    IDS_ORIENT_BT           "Bottom To Top"
+    IDS_ERR_ALPH_DESC       "Please provide a unique description for this alphabet."
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    IDS_QUERY_SAVE_CHANGES  "Would you like to save changes\nto the current file?"
+    IDS_UNTITLED_FILE       "Untitled"
+    IDS_UNSAVED_CHANGES     "Unsaved changes"
+END
+
+#endif    // English (U.K.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

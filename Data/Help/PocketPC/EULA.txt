@@ -1,0 +1,50 @@
+Dasher Copyright (C) 2002 David Ward (djw30@mrao.cam.ac.uk)
+
+This licence applies to the 'Software': Dasher binary distributions for Windows, Linux and Windows CE.
+
+The 'Author' refers to David Ward.
+
+You should read carefully the following terms and conditions before using this software, especially the sections on liability and warranty.
+
+By downloading and/or using this software you are acknowledging that you have read this licence agreement and disclaimers of warranty and liability, and agree to be bound by their terms and conditions.
+
+IF YOU DO NOT ACCEPT THESE TERMS AND CONDITIONS DO NOT OBTAIN OR USE THE PRODUCT.  
+
+----
+
+LICENCE AGREEMENT 
+
+The licence agreement grants you the following rights.
+
+Freeware. The software is Freeware. You may download and use this software free of charge.  
+
+Licence. The Software is licensed and not sold. You are granted the right to use the Software by this licence. The Author specifically retains the title to the Software.
+
+Use. You may install and use the Software on any number of computers. You may make any number of copies of the software.
+
+Distribution. You may make as many copies of the Software and any documentation as you wish and give exact copies of the Software to anyone. You may distribute exact copies of the Software and any documentation in its unmodified form via electronic means.
+
+Not for Resale. You may not resell, ask for donations for, or otherwise transfer for value the Software.
+
+Reverse Engineering. You may not reverse engineer, decompile, or disassemble the Software.  
+
+Separation of Components. The Software is licensed as a single product. Its component parts may not be separated.  
+
+Rental. You may not rent or lease the Software.
+
+Copyright. The Software is protected by United Kingdom copyright law and international copyright treaty provisions.
+
+Termination. Without prejudice to any other rights, the Author may terminate this Licence Agreement if you fail to comply with the terms and conditions of this Licence Agreement. In such event, you must
+destroy all copies of the Software and all of their component parts.
+
+GOVERNING LAW. This agreement shall be governed by the laws of the
+United Kingdom.
+
+DISCLAIMER OF LIABILITY. The Software is provided "as is" and is used as seen. No expression as to fitness of purpose is made.  The decision as to whether to use the Software is yours alone.  By choosing to use the Software, you accept full responsibility for any liability arising out of their use. You are liable for any damages whatsoever, including
+but not limited to, any damages arising under negligence, any consequential damages whether foreseeable or not, any economic loss, and any other liability and damages due to any cause arising from using or obtaining the Software. The Author accepts no responsibility whatsoever for any liability, arising out of you obtaining or using the Software. You assume the entire risk of obtaining and using the Software.
+
+IF YOU DO NOT ACCEPT THESE TERMS AND CONDITIONS DO NOT OBTAIN OR USE THE SOFTWARE.
+
+DISCLAIMER OF WARRANTY. The Software is made available free of charge and therefore no warranty as to performance of the product is offered. It is unreasonable to expect any warranty to be offered in these circumstances.  The Software and any accompanying files or documentation are made available "as is" and without warranties as to performance or any other warranties whether expressed or implied. Good data processing procedure dictates that any program be thoroughly
+tested with non-critical data before relying upon it. You assume the entire risk of using the Software.
+

@@ -1,0 +1,63 @@
+Microsoft Visual Studio Solution File, Format Version 7.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher.vcproj", "{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\Common\Expat\Expat.vcproj", "{C765540D-03CF-4628-AD7A-46F198678E13}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\DasherCore\DasherCore.vcproj", "{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}"
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		ConfigName.0 = Debug
+		ConfigName.1 = Release
+		ConfigName.2 = Unicode Debug
+		ConfigName.3 = Unicode Release
+		ConfigName.4 = Win95 compatible Debug
+		ConfigName.5 = Win95 compatible Release
+	EndGlobalSection
+	GlobalSection(ProjectDependencies) = postSolution
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.0 = {5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.1 = {C765540D-03CF-4628-AD7A-46F198678E13}
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Debug.ActiveCfg = Debug|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Debug.Build.0 = Debug|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Release.ActiveCfg = Release|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Release.Build.0 = Release|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Release.Build.0 = Unicode Release|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Debug.ActiveCfg = Debug|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Debug.Build.0 = Debug|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Release.ActiveCfg = Release|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Release.Build.0 = Release|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Release.Build.0 = Unicode Release|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Debug.ActiveCfg = Debug|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Debug.Build.0 = Debug|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Release.ActiveCfg = Release|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Release.Build.0 = Release|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Release.Build.0 = Unicode Release|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal

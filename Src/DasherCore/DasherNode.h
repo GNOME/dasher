@@ -1,0 +1,60 @@
+//////////////////////////////////////////////////////////////////////
+// DasherNode.h: interface for the CDasherNode class.
+// Copyright 2001-2002 David Ward
+//////////////////////////////////////////////////////////////////////
+
+#ifndef __DasherNode_h__
+#define __DasherNode_h__
+
+#include "../Common/NoClones.h"
+#include "DasherTypes.h"
+#include "LanguageModel.h"
+
+namespace Dasher {class CDasherNode;}
+class Dasher::CDasherNode : private NoClones
+{
+	// CDasherNode represents a rectangle and character 
+	// nodes have children, siblings and parents
+private:
+	const unsigned int m_iLbnd,m_iHbnd;// the cumulative lower and upper bound prob relative to parent
+	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
+	unsigned int m_iChars, m_iAge;
+	bool m_bAlive;                     // if true, then display node, else dont bother
+	//bool m_Cscheme;                  // color scheme for the node - alternates through relatives
+	Opts::ColorSchemes m_ColorScheme;
+	int m_iPhase;                      // index for coloring
+	
+	const symbol m_Symbol;             // the character to display
+	CLanguageModel *m_languagemodel;   // pointer to the language model - in future, could be different for each node	
+	CDasherNode **m_Children;          // pointer to array of children
+	CDasherNode *m_parent;             // pointer to parent - only needed to grab parent context
+	CLanguageModel::CNodeContext *m_context;
+public:
+	
+	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm);
+	~CDasherNode();
+	bool m_bForce;                     // flag to force a node to be drawn - shouldn't be public
+	
+	// return private data members - read only 
+	CDasherNode ** const Children() const {return m_Children;}
+	const unsigned int Lbnd() const {return m_iLbnd;}
+	const bool Alive() {return m_bAlive;}
+	void Kill()  {m_bAlive=0;m_iAge=0;}
+	const unsigned int Hbnd() const {return m_iHbnd;}
+	const unsigned int Group() const {return m_iGroup;}
+	const unsigned int Age() const {return m_iAge;}
+	const symbol Symbol() const {return m_Symbol;}
+	const unsigned int Chars() const {return m_iChars;}
+	const int Phase() const {return m_iPhase;}
+	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
+	
+	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
+	void Get_string_under(const int,const myint y1,const myint y2,const myint smousex,const myint smousey,std::vector<symbol>&) const; // get string under given co-ords
+	void Push_Node();                                      // give birth to children
+	void Push_Node(CLanguageModel::CNodeContext *context); // give birth to children with this context
+	void Delete_children();
+	void Dump_node() const;                                // diagnostic
+};
+
+
+#endif /* #ifndef __DasherNode_h__ */

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding = "Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.00"
+	Name="Expat"
+	ProjectGUID="{C765540D-03CF-4628-AD7A-46F198678E13}"
+	SccProjectName=""
+	SccLocalPath="">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Unicode Debug|Win32"
+			OutputDirectory=".\Target/Win32 Unicode Debug"
+			IntermediateDirectory=".\Target/Win32 Unicode Debug/Intermediate"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,COMPILED_FROM_DSP,_LIB"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Expat.pch"
+				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
+				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Unicode Debug/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile=".\Target/Win32 Unicode Debug\Expat.lib"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Win95 compatible Debug|Win32"
+			OutputDirectory=".\Target/Win32 Win95 compatible Release"
+			IntermediateDirectory=".\Target/Win32 Win95 compatible Release/Intermediate"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,COMPILED_FROM_DSP,_LIB"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Expat.pch"
+				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile=".\Target/Win32 Win95 compatible Release\Expat.lib"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Debug|Win32"
+			OutputDirectory=".\Target/Win32 Debug"
+			IntermediateDirectory=".\Target/Win32 Debug/Intermediate"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,COMPILED_FROM_DSP,_LIB"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/Expat.pch"
+				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
+				ObjectFile=".\Target/Win32 Debug/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Debug/Intermediate/"
+				BrowseInformation="1"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="4"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile=".\Target/Win32 Debug\Expat.lib"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="_DEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Unicode Release|Win32"
+			OutputDirectory=".\Target/Win32 Unicode Release"
+			IntermediateDirectory=".\Target/Win32 Unicode Release/Intermediate"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,COMPILED_FROM_DSP"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/Expat.pch"
+				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile=".\Target/Win32 Unicode Release\Expat.lib"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Release|Win32"
+			OutputDirectory=".\Target/Win32 Release"
+			IntermediateDirectory=".\Target/Win32 Release/Intermediate"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,COMPILED_FROM_DSP"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/Expat.pch"
+				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Release/Intermediate/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile=".\Target/Win32 Release\Expat.lib"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Win95 compatible Release|Win32"
+			OutputDirectory=".\Target/Win32 Win95 compatible Release"
+			IntermediateDirectory=".\Target/Win32 Win95 compatible Release/Intermediate"
+			ConfigurationType="4"
+			UseOfMFC="0"
+			ATLMinimizesCRunTimeLibraryUsage="FALSE"
+			CharacterSet="2">
+			<Tool
+				Name="VCCLCompilerTool"
+				InlineFunctionExpansion="1"
+				PreprocessorDefinitions="WIN32,_WINDOWS,NDEBUG,_LIB,COMPILED_FROM_DSP"
+				StringPooling="TRUE"
+				RuntimeLibrary="0"
+				EnableFunctionLevelLinking="TRUE"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Expat.pch"
+				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Release/Intermediate/"
+				WarningLevel="3"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLibrarianTool"
+				OutputFile=".\Target/Win32 Win95 compatible Release\Expat.lib"
+				SuppressStartupBanner="TRUE"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"
+				PreprocessorDefinitions="NDEBUG"
+				Culture="1033"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+		</Configuration>
+	</Configurations>
+	<Files>
+		<File
+			RelativePath=".\lib\ascii.h">
+		</File>
+		<File
+			RelativePath=".\lib\asciitab.h">
+		</File>
+		<File
+			RelativePath=".\lib\expat.h">
+		</File>
+		<File
+			RelativePath=".\lib\iasciitab.h">
+		</File>
+		<File
+			RelativePath=".\lib\latin1tab.h">
+		</File>
+		<File
+			RelativePath=".\lib\nametab.h">
+		</File>
+		<File
+			RelativePath=".\lib\utf8tab.h">
+		</File>
+		<File
+			RelativePath=".\lib\xmlparse.c">
+		</File>
+		<File
+			RelativePath=".\lib\xmlrole.c">
+		</File>
+		<File
+			RelativePath=".\lib\xmlrole.h">
+		</File>
+		<File
+			RelativePath=".\lib\xmltok.c">
+		</File>
+		<File
+			RelativePath=".\lib\xmltok.h">
+		</File>
+		<File
+			RelativePath=".\lib\xmltok_impl.h">
+		</File>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
