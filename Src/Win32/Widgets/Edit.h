@@ -127,9 +127,9 @@ private:
 #endif
 
 	ISpVoice * pVoice;
-	std::string speech;
-	std::string allspeech;
-	std::string lastspeech;
+	Tstring speech;
+	Tstring lastspeech;
+	Tstring newchar;
 
 	void InsertText(Tstring InsertText); // add symbol to edit control
 

@@ -16,12 +16,12 @@ Global
 		ConfigName.6 = Win95 compatible Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.0 = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.1 = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.0 = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.1 = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.ActiveCfg = Accessible Unicode Debug|Win32
-		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.Build.0 = Accessible Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.Build.0 = Unicode Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.ActiveCfg = Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.Build.0 = Debug|Win32
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Release.ActiveCfg = Release|Win32
