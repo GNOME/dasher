@@ -139,7 +139,7 @@ Always look inside the current letter for the next letter. For example, to write
       <!-- =========List=========================== -->
       <variablelist>
 	<varlistentry> <term><guimenu>File</guimenu></term>
-          <listitem><para> This menu contains the commands:
+          <listitem><para> This menu contains the following commands:
 	  <itemizedlist>
 	      <listitem><para><guimenuitem>New</guimenuitem></para></listitem>
 	      <listitem><para><guimenuitem>Open</guimenuitem></para></listitem>
@@ -184,7 +184,7 @@ Always look inside the current letter for the next letter. For example, to write
 	<varlistentry>
 	  <term><guimenu>Help</guimenu></term>
 	  <listitem><para>
-	      This menu contains commands
+	      This menu contains the following commands:
 	      <itemizedlist>
 		<listitem>
 		  <para><guimenuitem>About</guimenuitem>&mdash;shows basic information about
