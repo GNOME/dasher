@@ -9,11 +9,13 @@ AC_PROG_INTLTOOL([0.18])
 AM_DISABLE_STATIC
 AM_PROG_LIBTOOL
 
+AM_ICONV
+
 GETTEXT_PACKAGE=dasher
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
 ALL_LINGUAS="ar az be bn ca cs cy da de el en_CA en_GB es et fi fr ga hr hu it ja ko lt mn ms nl no pa pl pt pt_BR ro ru sk sq sr sr@Latn sv tr uk zh_CN zh_TW"
-AM_GNU_GETTEXT
+AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CXX
 
@@ -145,7 +147,7 @@ AC_SUBST(GTK2_LIBS)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-AC_OUTPUT([Makefile Src/Common/Makefile Src/Qt/Makefile Src/Gtk2/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Data/Help/Makefile Data/Help/Gnome/Makefile Data/Help/Gnome/C/Makefile Doc/Makefile intl/Makefile po/Makefile.in ],[])
+AC_OUTPUT([Makefile Src/Common/Makefile Src/Qt/Makefile Src/Gtk2/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Data/Help/Makefile Data/Help/Gnome/Makefile Data/Help/Gnome/C/Makefile Doc/Makefile po/Makefile.in ],[])
 
 if grep "^sys_lib_search_path_spec.*" libtool >/dev/null ; then
 AC_MSG_RESULT(patching libtool to fix HIDEOUS BREAKAGE)

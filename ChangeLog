@@ -5,6 +5,7 @@
 	  work
 	* Don't complain about filesel_hide on startup
 	* Fix crash on changing alphabets with control mode enabled
+	* Fix libintl stuff - just use the glib support
 	
 2004-04-15  Matthew Garrett  <mjg59@srcf.ucam.org>
 
