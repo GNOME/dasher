@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -17,7 +17,7 @@ using namespace std;
 
 CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused)
   : m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused), m_editbox(Editbox), m_languagemodel(LanguageModel), 
-    m_Root(0)
+    m_Root(0),m_iNormalization(1<<28)
 {
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	
@@ -171,7 +171,7 @@ void CDasherModel::Update(CDasherNode *node,CDasherNode *under_mouse,int iSafe)
 		CDasherNode **children=node->Children();
 		if (children) {
 			unsigned int i;
-			for (i=1;i<node->Chars();i++)
+			for (i=1;i<node->ChildCount();i++)
 				Update(children[i],under_mouse,iSafe);
 		}
 	}
@@ -206,7 +206,7 @@ void CDasherModel::Start()
 	
 	delete m_Root;
 	
-	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
+	m_Root=new CDasherNode(*this,0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
 
 	if (m_editbox) {

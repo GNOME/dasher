@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -50,7 +50,7 @@ public:
 	const myint DasherOX() const {return m_DasherOX;}
 	const myint DasherOY() const {return m_DasherOY;}
 	CDasherNode* Root() const {return m_Root;}
-	int Normalization() const {return m_languagemodel->normalization();}
+	int Normalization() const {return m_iNormalization;}
 	myint DasherY() const {return m_DasherY;}
 	bool Dimensions() const {return m_Dimensions;}
 	bool Eyetracker() const {return m_Eyetracker;}
@@ -123,6 +123,7 @@ private:
 	void Update(CDasherNode* node,CDasherNode* under,int safe);
 
 
+	int m_iNormalization; // The arithmetic interval for child nodes
 
 
 
