@@ -9,9 +9,8 @@
 #ifndef __PPMLanguageModel_h__
 #define __PPMLanguageModel_h__
 
-#include "../Common/NoClones.h"
-#include "../Common/MSVC_Unannoy.h"
 
+#include "../Common/NoClones.h"
 #include "LanguageModel.h"
 
 #include <vector>
@@ -67,8 +66,8 @@ private:
 		int order;
 	};
 
-	void AddSymbol(CPPMContext& context,int symbol);
-	void dumpSymbol(int symbol);
+	void AddSymbol(CPPMContext& context,int sym);
+	void dumpSymbol(int sym);
 	void dumpString( char *str, int pos, int len );
 	void dumpTrie( CPPMnode *t, int d );
 

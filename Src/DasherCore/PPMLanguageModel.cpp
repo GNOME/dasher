@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
+
 
 #include "PPMLanguageModel.h"
 
@@ -257,25 +259,25 @@ bool CPPMLanguageModel::GetProbs(const CContext *pContext,vector<unsigned int> &
 }
 
 
-void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int symbol)
+void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sym)
 	// add symbol to the context
 	// creates new nodes, updates counts
 	// and leaves 'context' at the new context
 {
 	// sanity check
-	if (symbol==0 || symbol>=GetNumberModelChars())
+	if (sym==0 || sym>=GetNumberModelChars())
 		return;
 	
 	CPPMnode *vineptr,*temp;
 	int updatecnt=1;
 	
 	temp=context.head->vine;
-	context.head=context.head->add_symbol_to_node(symbol,&updatecnt);
+	context.head=context.head->add_symbol_to_node(sym,&updatecnt);
 	vineptr=context.head;
 	context.order++;
 	
 	while (temp!=0) {
-		vineptr->vine=temp->add_symbol_to_node(symbol,&updatecnt);    
+		vineptr->vine=temp->add_symbol_to_node(sym,&updatecnt);    
 		vineptr=vineptr->vine;
 		temp=temp->vine;
 	}
@@ -322,12 +324,12 @@ void CPPMLanguageModel::LearnSymbol(CContext* Context, int Symbol)
 }
 
 
-void CPPMLanguageModel::dumpSymbol(int symbol)
+void CPPMLanguageModel::dumpSymbol(int sym)
 {
-	if ((symbol <= 32) || (symbol >= 127))
-		printf( "<%d>", symbol );
+	if ((sym <= 32) || (sym >= 127))
+		printf( "<%d>", sym );
 	else
-		printf( "%c", symbol );
+		printf( "%c", sym );
 }
 
 

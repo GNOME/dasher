@@ -12,7 +12,6 @@
 #define __SettingsStore_h__
 
 
-#include "../Common/MSVC_Unannoy.h"
 #include <string>
 #include <map>
 

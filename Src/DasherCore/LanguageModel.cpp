@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
+
 #include "LanguageModel.h"
 
 using namespace Dasher;
@@ -87,14 +89,14 @@ bool CLanguageModel::GetProbs(CContext* Context, vector<symbol> &NewSymbols,
 		}
 		GetProbs((CContext*) Context,Probs,nonuniform_norm);
 
-		for( unsigned int i(0); i < Probs.size(); ++i )
-		  if( isRealSymbol(NewSymbols[i] ) )
-		    Probs[i] += uniform_add;
+		for( int k=0; k < Probs.size(); ++k )
+		  if( isRealSymbol(NewSymbols[k] ) )
+		    Probs[k] += uniform_add;
 
 		    int tot(0);
 		    
-		    for (int i=0;i<s;i++) {
-		      tot += Probs[i];
+		    for (int l=0;l<s;l++) {
+		      tot += Probs[l];
 		    }
 		    
 		    //		    std::cout << tot << " " << nonuniform_norm << " " << norm << " " << uniform_add << " " << real_s << std::endl;

@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
+
 #include "DasherInterface.h"
 //#include "EnglishAlphabet.h"
 #include "CustomAlphabet.h"

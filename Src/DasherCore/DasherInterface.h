@@ -14,7 +14,6 @@
 // TODO - there is a list of things to be configurable in my notes
 // Check that everything that is not self-contained within the GUI is covered.
 
-#include "../Common/MSVC_Unannoy.h"
 #include "../Common/NoClones.h"
 
 #include "DasherWidgetInterface.h"
@@ -31,7 +30,6 @@
 #include "DashEdit.h"
 #include "DasherView.h"
 
-#include "../Common/MSVC_Unannoy.h"
 #include <map>
 
 namespace Dasher {class CDasherInterface;}

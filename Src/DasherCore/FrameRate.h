@@ -9,8 +9,6 @@
 #ifndef __FrameRate_h__
 #define __FrameRate_h__
 
-#include "../Common/MSVC_Unannoy.h"
-
 // keeps track of framerate
 // computes the Steps parameter
 // computes RXmax - which controls the maximum rate of zooming in
@@ -22,9 +20,9 @@ class CFrameRate {
 		CFrameRate() ;
 		~CFrameRate() {};
 		void Initialise();
-		const double Rxmax() const {return m_dRXmax;}
-		const int Steps() const {return m_iSteps;}
-		const double Framerate() const {return m_dFr;}
+		double Rxmax() const {return m_dRXmax;}
+		int Steps() const {return m_iSteps;}
+		double Framerate() const {return m_dFr;}
 		void Reset(unsigned long Time);
 		void NewFrame(unsigned long Time);
 		

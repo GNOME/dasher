@@ -9,7 +9,6 @@
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
 
-#include "../Common/MSVC_Unannoy.h"
 #include "../Common/NoClones.h"
 
 #include "DashEdit.h"

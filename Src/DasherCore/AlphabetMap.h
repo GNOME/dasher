@@ -49,12 +49,14 @@ IAM 08/2002
 #ifndef __AlphabetMap_h__
 #define __AlphabetMap_h__
 
-#include "../Common/MSVC_Unannoy.h"
+#ifndef DASHER_WIN32
 #include <sys/types.h>
-#include <vector>
-#include <string>
+#endif 
 
 #include "DasherTypes.h"
+
+#include <vector>
+#include <string>
 
 namespace Dasher {class alphabet_map;}
 class Dasher::alphabet_map

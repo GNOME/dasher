@@ -10,8 +10,6 @@
 #ifndef __CustomAlphabet_h__
 #define __CustomAlphabet_h__
 
-#include "../Common/MSVC_Unannoy.h"
-
 #include "Alphabet.h"
 #include "AlphIO.h"
 

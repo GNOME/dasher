@@ -14,7 +14,6 @@
 #ifndef __LanguageModel_h__
 #define __LanguageModel_h__
 
-#include "../Common/MSVC_Unannoy.h"
 #include <vector>
 #include <string>
 
