@@ -93,6 +93,8 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Reset Fonts", NULL, *GtkItemFactoryCallback(reset_fonts), 1, "<Item>" },
   { "/Options/One Dimensional", NULL, *GtkItemFactoryCallback(SetDimension), 1, "<CheckItem>" },
   { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
+  { "/Options/Start on Left Mouse", NULL, *GtkItemFactoryCallback(startonleft), 1, "<CheckItem>" },
+  { "/Options/Start on Space Bar", NULL, *GtkItemFactoryCallback(startonspace), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
  };
@@ -118,6 +120,8 @@ gboolean file_modified = FALSE;
 gboolean showtoolbar;
 gboolean showslider;
 gboolean timestamp;
+gboolean startleft;
+gboolean startspace;
 
 gint prev_pos_x;
 gint prev_pos_y;
@@ -571,6 +575,24 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 }
 
 void
+key_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
+{
+  if (event->type != GDK_KEY_PRESS)
+    return;
+
+  if (startspace == TRUE) {
+    if (paused == TRUE) {
+      dasher_unpause( get_time() );
+      paused = FALSE;
+    } else {
+      dasher_pause( (gint) event->x,(gint) event->y );    
+      paused = TRUE;
+    }
+  }
+  return;
+}
+
+void
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
@@ -589,15 +611,18 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 
   g_free(focusEvent);
 
-  if (paused == TRUE) {
-    dasher_unpause( get_time() );
-    paused = FALSE;
-  } else {
-    dasher_pause( (gint) event->x,(gint) event->y );    
-    paused = TRUE;
+  if (startleft == TRUE) {
+    if (paused == TRUE) {
+      dasher_unpause( get_time() );
+      paused = FALSE;
+    } else {
+      dasher_pause( (gint) event->x,(gint) event->y );    
+      paused = TRUE;
+    }
   }
   return;
 }
+
 
 gboolean
 button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
@@ -632,7 +657,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 52,
+				 54,
 				 entries,
 				 NULL );
 
@@ -684,6 +709,8 @@ void create_canvas() {
     gtk_signal_connect(GTK_OBJECT (the_canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) NULL);
     
     gtk_signal_connect(GTK_OBJECT (the_canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) NULL);
+
+    gtk_signal_connect(GTK_OBJECT (the_canvas), "key_press_event", GTK_SIGNAL_FUNC (key_press_event), (gpointer) NULL);
     
     gtk_widget_set_events(the_canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
     canvas_frame = gtk_frame_new (NULL);
@@ -911,6 +938,16 @@ void SetDimension(gpointer data, guint action, GtkWidget *widget )
   }
 }
 
+void startonleft(gpointer data, guint action, GtkWidget *widget )
+{
+  dasher_set_parameter_bool( BOOL_STARTONLEFT, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
+void startonspace(gpointer data, guint action, GtkWidget *widget )
+{
+  dasher_set_parameter_bool( BOOL_STARTONSPACE, GTK_CHECK_MENU_ITEM(widget)->active );
+}
+
 void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 {
   // FIXME - rewrite this sanely, ie:
@@ -1091,6 +1128,14 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_COPYALLONSTOP:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Copy All on Stop")), value);
+      break;
+    case BOOL_STARTONLEFT:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Left Mouse")), value);
+      startleft=value;
+      break;
+    case BOOL_STARTONSPACE:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Start on Space Bar")), value);
+      startspace=value;
       break;
     }
 }

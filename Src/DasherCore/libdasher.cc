@@ -315,8 +315,10 @@ void dasher_set_parameter_bool( bool_param p, bool value )
       interface->DrawMouse(value);
       break;
     case BOOL_STARTONSPACE:
+      interface->StartOnSpace(value);
       break;
     case BOOL_STARTONLEFT:
+      interface->StartOnLeft(value);
       break;
     }
 }
