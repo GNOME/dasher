@@ -27,7 +27,7 @@ namespace Dasher {class CDasherView;}
 class Dasher::CDasherView
 {
 public:
-	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
+	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	~CDasherView() {}		
 	
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);

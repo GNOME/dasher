@@ -61,6 +61,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	DasherInterface.SetSystemLocation(AppData2);
 	DasherInterface.SetUserLocation(UserData2);
 	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
+	DasherInterface.ColourMode(true);
 	CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
 	DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
 	DasherInterface.ChangeLanguageModel(0);

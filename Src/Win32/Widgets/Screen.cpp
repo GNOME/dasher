@@ -31,7 +31,7 @@ CScreen::CScreen(HWND mainwindow, int iWidth,int iHeight)
 	SelectObject(m_hDCBuffer,m_hbmBit);
 	
 	// create the brushes
-	Build_Colours();
+//	Build_Colours();
 	
 	CodePage = GetUserCodePage();
 	SetFont("");
@@ -116,27 +116,36 @@ FontSize CScreen::GetFontSize()
   return Fontsize;
 }
 
+void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
+{
+	m_Brushes.clear();
+	int numcolours=Colours->GetNumColours();
+	for (int i=0; i<numcolours; i++) {
+		m_Brushes.push_back(CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i))));
+	}
+}
+
 void CScreen::Build_Colours ()
 {
-	m_Brushes.resize(6);
+//	m_Brushes.resize(6);
 	
 	// Currently white and gray. Intended for use by a space character, placed last in alphabet
-	m_Brushes[Special1].push_back(CreateSolidBrush(RGB(240,240,240))); // making lighter for djcm
-	m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
+//	m_Brushes[Special1].push_back(CreateSolidBrush(RGB(240,240,240))); // making lighter for djcm
+//	m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
 	
-	m_Brushes[Objects].push_back(CreateSolidBrush(RGB(0,0,0)));
+//	m_Brushes[Objects].push_back(CreateSolidBrush(RGB(0,0,0)));
 
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
-	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
+//	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
+//	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
+//	m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
 	
-	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(180,245,180)));
-	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(160,200,160)));
-	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(0,255,255)));
+//	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(180,245,180)));
+//	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(160,200,160)));
+//	m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(0,255,255)));
 	
-	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,185,255)));
-	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(140,200,255)));
-	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,175,175)));
+//	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,185,255)));
+//	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(140,200,255)));
+//	m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,175,175)));
 }
 
 
@@ -144,10 +153,10 @@ void CScreen::Free_Colours ()
 {
 	// tidy up
 	while (m_Brushes.size()) {
-		while (m_Brushes.back().size()) {
-			DeleteObject(m_Brushes.back().back());
-			m_Brushes.back().pop_back();
-		}
+//		while (m_Brushes.back().size()) {
+//			DeleteObject(m_Brushes.back().back());
+//			m_Brushes.back().pop_back();
+//		}
 		m_Brushes.pop_back();
 	}
 }

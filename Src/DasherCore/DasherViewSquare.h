@@ -27,7 +27,7 @@ namespace Dasher {class CDasherViewSquare;}
 class Dasher::CDasherViewSquare : public Dasher::CDasherView
 {
 public:
-	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
+	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	void TapOnDisplay(int mousex,int mousey, unsigned long Time);
 	void GoTo(int mousex,int mousey);
 	

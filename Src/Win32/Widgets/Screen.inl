@@ -99,7 +99,8 @@ inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size
 
 inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {
-	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+//	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
+	HBRUSH brush = m_Brushes[Color];
 	RECT Rect;
 	Rect.left = x1;
 	Rect.top = y1;
@@ -126,7 +127,7 @@ inline void CScreen::DrawPolygon(point* Points, int Number, int Color, Dasher::O
 	HPEN pen=(HPEN)GetStockObject(NULL_PEN);
 	HGDIOBJ hold;
 	hold=SelectObject (m_hDCBuffer, pen);
-	SelectObject (m_hDCBuffer, m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()]);
+	SelectObject (m_hDCBuffer, m_Brushes[ColorScheme]);
 	POINT* WinPoints = new POINT[Number];
 	point2POINT(Points, WinPoints, Number);
 	::Polygon(m_hDCBuffer, WinPoints, Number);

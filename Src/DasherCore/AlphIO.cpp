@@ -250,7 +250,7 @@ void CAlphIO::CreateDefault()
 		Default.Groups[0].Characters[i].Text = Chars[i];
 		Default.Groups[0].Characters[i].Display = Chars[i];
 		char dummy[10];
-		snprintf(dummy,10,"%d",i+10);
+		sprintf(dummy,"%d",i+10);
 		Default.Groups[0].Characters[i].Colour = dummy;
 	}
 }

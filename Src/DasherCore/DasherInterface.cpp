@@ -296,6 +296,7 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 {
 	m_DasherScreen = NewScreen;
 	m_DasherScreen->SetFont(m_DasherFont);
+	m_DasherScreen->SetColourScheme(m_Colours);
 	m_DasherScreen->SetInterface(this);
 	ChangeScreen();
 	Redraw();
@@ -309,9 +310,9 @@ void CDasherInterface::ChangeView(unsigned int NewViewID)
 	if (m_DasherScreen!=0 && m_DasherModel!=0) {
 		delete m_DasherView;
 		if (m_Orientation==Opts::Alphabet)
-			m_DasherView = new CDasherViewSquare(m_DasherScreen, *m_DasherModel, GetAlphabetOrientation());
+			m_DasherView = new CDasherViewSquare(m_DasherScreen, *m_DasherModel, GetAlphabetOrientation(), m_ColourMode);
 		else
-			m_DasherView = new CDasherViewSquare(m_DasherScreen, *m_DasherModel, m_Orientation);
+			m_DasherView = new CDasherViewSquare(m_DasherScreen, *m_DasherModel, m_Orientation, m_ColourMode);
 	}
 }
 

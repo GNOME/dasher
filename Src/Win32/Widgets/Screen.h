@@ -32,7 +32,7 @@ public:
 	void SetFont(std::string Name);
 	void SetFontSize(Dasher::Opts::FontSize size);
 	Dasher::Opts::FontSize GetFontSize();
-	void SetColourScheme(Dasher::CCustomColours *) {;}
+	void SetColourScheme(Dasher::CCustomColours *);
 	inline void TextSize(Dasher::symbol Character, int* Width, int* Height, int Size) const;
 	inline void DrawText(Dasher::symbol Character, int x1, int y1, int Size) const;
 	inline void DrawText(std::string, int x1, int y1, int Size) const;
@@ -56,7 +56,7 @@ private:
 	HDC m_hDCBuffer,m_hDCText, RealHDC;
 	std::vector<HFONT> m_vhfFonts;
 	//vector<HBRUSH> m_vhbBrushes;
-	std::vector< std::vector<HBRUSH> > m_Brushes;
+	std::vector<HBRUSH> m_Brushes;
 	HBITMAP m_hbmBit,m_hbmText;
 	std::vector<Tstring> DisplayStrings;
 	UINT CodePage;

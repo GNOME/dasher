@@ -32,8 +32,8 @@ using std::max;
 #endif
 
 
-CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation)
-  : CDasherView(DasherScreen, DasherModel, Orientation)
+CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
+  : CDasherView(DasherScreen, DasherModel, Orientation, Colourmode)
 {
 	ChangeScreen(DasherScreen);
 	
