@@ -40,6 +40,25 @@ void setup_speech() {
   speaker = GNOME_Speech_SynthesisDriver_createSpeaker (rv,
                                                         &voices->_buffer[0],
                                                         &ev);
+
+  GNOME_Speech_ParameterList *list;
+  int i;
+  list = GNOME_Speech_Speaker_getSupportedParameters (speaker, &ev);
+  if (BONOBO_EX (&ev) || list->_length == 0)
+    {
+      if (!BONOBO_EX (&ev))
+	CORBA_free (list);
+      printf("Warning: unable to set speech parameters\n");
+      return;
+    }
+  for (i = 0; i < list->_length; i++)
+    {
+      GNOME_Speech_Parameter *p = &(list->_buffer[i]);
+      if (!strcmp (p->name, "rate")) {
+	GNOME_Speech_Speaker_setParameterValue (speaker, p->name, 100.0, &ev);
+      }
+    }
+  CORBA_free (list);
 }
 
 void teardown_speech() {
