@@ -120,12 +120,23 @@ preferences(gpointer data, guint action, GtkWidget *widget)
 {
   GtkTreeSelection *selection;
   GtkWidget *vbox;
+  GtkWidget *vbox_alphabet;
+  GtkWidget *vbox_lmodel;
+  GtkWidget *vbox_advanced;
   GtkTreeModel *model;
   GtkWidget *treeview;
   GtkWidget *sw;
   GtkListStore *list_store;
   GtkTreeIter iter;
   GtkWidget *ok;
+  GtkWidget *label_alphabet;
+  GtkWidget *label_lmodel;
+  GtkWidget *label_advanced;
+  GtkWidget *uniform_frame;
+
+
+  GtkWidget *nbook;
+  nbook = gtk_notebook_new();
   
   list_store = gtk_list_store_new(1,G_TYPE_STRING);
 
@@ -152,10 +163,16 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   vbox = gtk_vbox_new (FALSE,8);
   gtk_container_add(GTK_CONTAINER(preferences_window),vbox);
 
+  gtk_box_pack_start (GTK_BOX(vbox), nbook, TRUE, TRUE, 0);
+
+  vbox_alphabet = gtk_vbox_new (FALSE,8);
+  label_alphabet = gtk_label_new( "Alphabet" );
+  gtk_notebook_append_page( GTK_NOTEBOOK(nbook), vbox_alphabet, label_alphabet );
+
   sw=gtk_scrolled_window_new(NULL,NULL);
   gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(sw),GTK_SHADOW_ETCHED_IN);
   gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw),GTK_POLICY_AUTOMATIC,GTK_POLICY_AUTOMATIC);
-  gtk_box_pack_start (GTK_BOX(vbox), sw, TRUE, TRUE, 0);
+  gtk_box_pack_start (GTK_BOX(vbox_alphabet), sw, TRUE, TRUE, 0);
 
   treeview = gtk_tree_view_new_with_model (GTK_TREE_MODEL(list_store));  
   gtk_tree_view_set_rules_hint (GTK_TREE_VIEW (treeview), TRUE);
@@ -171,6 +188,25 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   gtk_window_set_default_size (GTK_WINDOW(preferences_window), 280, 250);
 
   g_signal_connect (selection, "changed", G_CALLBACK(alphabet_select), preferences_window);
+
+ vbox_lmodel = gtk_vbox_new (FALSE,8);
+  label_lmodel = gtk_label_new( "Prediction" );
+  gtk_notebook_append_page( GTK_NOTEBOOK(nbook), vbox_lmodel, label_lmodel );
+
+  uniform_frame = gtk_frame_new("Smoothing");
+
+  GtkObject *uniform_adjustment = gtk_adjustment_new( 5.0, 0.0, 100.0, 1.0, 10.0, 0.0 );
+  GtkWidget *uniform_scale = gtk_hscale_new( GTK_ADJUSTMENT(uniform_adjustment) );
+  gtk_range_set_update_policy(GTK_RANGE(uniform_scale), GTK_UPDATE_CONTINUOUS);
+
+  gtk_signal_connect (GTK_OBJECT (uniform_adjustment), "value_changed", GTK_SIGNAL_FUNC (uniform_changed), NULL);
+
+  gtk_container_add( GTK_CONTAINER(uniform_frame), uniform_scale);
+  gtk_box_pack_start( GTK_BOX(vbox_lmodel), uniform_frame, false, false, 0); 
+
+  vbox_advanced = gtk_vbox_new (FALSE,8);
+  label_advanced = gtk_label_new( "Advanced" );
+  gtk_notebook_append_page( GTK_NOTEBOOK(nbook), vbox_advanced, label_advanced );
 
   ok = gtk_button_new_from_stock(GTK_STOCK_CLOSE);
 
@@ -720,6 +756,13 @@ void speed_changed(GtkAdjustment *adj) {
 
   dasher_set_parameter_double( DOUBLE_MAXBITRATE, adj->value );
 }
+
+void uniform_changed(GtkAdjustment *adj) {
+
+
+  dasher_set_parameter_int( INT_UNIFORM, int(adj->value * 10) );
+}
+
 
 void interface_setup() {
   dasher_accel = gtk_accel_group_new();

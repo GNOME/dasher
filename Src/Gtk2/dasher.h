@@ -40,6 +40,7 @@ void save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *s
 void interface_setup();
 GtkWidget* open_window();
 void choose_filename();
+void uniform_changed(GtkAdjustment *adj);
 
 void parameter_string_callback( string_param p, const char *value );
 void parameter_double_callback( double_param p, double value );
