@@ -48,6 +48,8 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 	// Initialise speech support
 	speech="";
 	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+	if (hr!=S_OK)
+		pVoice=0;
 }
 
 
@@ -694,9 +696,11 @@ void CEdit::outputcontrol (void* pointer, int data)
 }
 
 void CEdit::speak() {
-	wchar_t* widespeech=new wchar_t[4096];
-	mbstowcs(widespeech,speech.c_str(),speech.length()+1);
-	pVoice->Speak(widespeech,SPF_ASYNC,NULL);
-	delete(widespeech);
-	speech="";
+	if (pVoice!=0) {
+		wchar_t* widespeech=new wchar_t[4096];
+		mbstowcs(widespeech,speech.c_str(),speech.length()+1);
+		pVoice->Speak(widespeech,SPF_ASYNC,NULL);
+		delete(widespeech);
+		speech="";
+	}
 }
