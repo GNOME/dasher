@@ -29,7 +29,7 @@ public:
 	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
 	
 	//! Write some buffered output to a file
-	void write_to_file()=0;
+	virtual void write_to_file()=0;
 	
 	//! Set the number of flushed characters
 	//
