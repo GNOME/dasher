@@ -902,6 +902,10 @@ void parameter_bool_callback( bool_param p, bool value )
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Draw Position")), value);
     case BOOL_DIMENSIONS:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/One Dimensional")), value);
+    case BOOL_TIMESTAMPNEWFILES:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Timestamp New Files")), value);
+    case BOOL_COPYALLONSTOP:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Copy All on Stop")), value);
     }
 }
 
