@@ -53,8 +53,8 @@ CFG=DasherCore - Win32 (WCE MIPS) Debug
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=clmips.exe
-# ADD BASE CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT)  /c
-# ADD CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT)  /c
+# ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT) /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -79,8 +79,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=clmips.exe
-# ADD BASE CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug)  /c
-# ADD CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug)  /c
+# ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "MIPS" /D "_MIPS_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -105,8 +105,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=shcl.exe
-# ADD BASE CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT)  /c
-# ADD CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT)  /c
+# ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT) /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "NDEBUG" /D "_LIB" /YX /Oxs /M$(CECrtMT) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -131,8 +131,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=shcl.exe
-# ADD BASE CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug)  /c
-# ADD CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug)  /c
+# ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "SHx" /D "SH3" /D "_SH3_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -157,8 +157,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=clarm.exe
-# ADD BASE CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "NDEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /Oxs /M$(CECrtMT)  /c
-# ADD CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "NDEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /Oxs /M$(CECrtMT)  /c
+# ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "NDEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /Oxs /M$(CECrtMT) /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "NDEBUG" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /Oxs /M$(CECrtMT) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -183,8 +183,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=clarm.exe
-# ADD BASE CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug)  /c
-# ADD CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug)  /c
+# ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "$(CePlatform)" /D "ARM" /D "_ARM_" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_LIB" /YX /M$(CECrtMTDebug) /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -209,8 +209,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=cl.exe
-# ADD BASE CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /D "_LIB" /YX /Oxs /Gz  /c
-# ADD CPP /nologo /W3 /GX- /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /D "_LIB" /YX /Oxs /Gz  /c
+# ADD BASE CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /D "_LIB" /YX /Oxs /Gz /c
+# ADD CPP /nologo /W3 /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "NDEBUG" /D "_LIB" /YX /Oxs /Gz /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -235,8 +235,8 @@ BSC32=bscmake.exe
 # PROP Platform_ID "{8A9A2F80-6887-11D3-842E-005004848CBA}"
 # PROP Target_Dir ""
 CPP=cl.exe
-# ADD BASE CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "_LIB" /YX /Gz  /c
-# ADD CPP /nologo /W3 /GX- /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "_LIB" /YX /Gz  /c
+# ADD BASE CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "_LIB" /YX /Gz /c
+# ADD CPP /nologo /W3 /Zi /Od /D "DEBUG" /D _WIN32_WCE=$(CEVersion) /D "WIN32" /D "STRICT" /D "_WIN32_WCE_EMULATION" /D "INTERNATIONAL" /D "USA" /D "INTLMSG_CODEPAGE" /D "$(CePlatform)" /D "i486" /D UNDER_CE=$(CEVersion) /D "UNICODE" /D "_UNICODE" /D "_X86_" /D "x86" /D "_LIB" /YX /Gz /c
 LIB32=link.exe -lib
 # ADD BASE LIB32 /nologo
 # ADD LIB32 /nologo
@@ -259,10 +259,1605 @@ BSC32=bscmake.exe
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
+# Begin Source File
+
+SOURCE=.\Alphabet.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_ALPHA=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\AlphabetMap.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_ALPHAB=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphabetMap.h"\
+	".\DasherTypes.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\AlphIO.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_ALPHI=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\AlphIO.h"\
+	".\DasherTypes.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\CustomAlphabet.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_CUSTO=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\CustomAlphabet.h"\
+	".\DasherTypes.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherInterface.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHE=\
+	"..\Common\Expat\lib\expat.h"\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\AlphIO.h"\
+	".\Context.h"\
+	".\CustomAlphabet.h"\
+	".\DashEdit.h"\
+	".\DasherAppInterface.h"\
+	".\DasherInterface.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\EnglishAlphabet.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	".\SettingsStore.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherModel.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHER=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherNode.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHERN=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherNode.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherSettingsInterface.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHERS=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\DasherSettingsInterface.h"\
+	".\DasherTypes.h"\
+	".\SettingsStore.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherView.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHERV=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherViewSquare.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_DASHERVI=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DashEdit.h"\
+	".\DasherModel.h"\
+	".\DasherNode.h"\
+	".\DasherScreen.h"\
+	".\DasherTypes.h"\
+	".\DasherView.h"\
+	".\DasherView.inl"\
+	".\DasherViewSquare.h"\
+	".\DasherViewSquare.inl"\
+	".\DasherWidgetInterface.h"\
+	".\LanguageModel.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\LanguageModel.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_LANGU=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\PPMLanguageModel.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_PPMLA=\
+	"..\Common\MSVC_Unannoy.h"\
+	"..\Common\NoClones.h"\
+	".\Alphabet.h"\
+	".\AlphabetMap.h"\
+	".\Context.h"\
+	".\DasherTypes.h"\
+	".\LanguageModel.h"\
+	".\PPMLanguageModel.h"\
+	
+
+!ENDIF 
+
+# End Source File
+# Begin Source File
+
+SOURCE=.\SettingsStore.cpp
+
+!IF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Release"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE MIPS) Debug"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Release"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE SH3) Debug"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Release"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE ARM) Debug"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Release"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ELSEIF  "$(CFG)" == "DasherCore - Win32 (WCE x86em) Debug"
+
+DEP_CPP_SETTI=\
+	"..\Common\MSVC_Unannoy.h"\
+	".\SettingsStore.h"\
+	
+
+!ENDIF 
+
+# End Source File
 # End Group
 # Begin Group "Header Files"
 
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
+# Begin Source File
+
+SOURCE=.\Alphabet.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\AlphabetMap.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\AlphIO.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\Context.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\CustomAlphabet.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DashEdit.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherAppInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherNode.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherScreen.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherSettingsInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherTypes.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherView.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherView.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherViewSquare.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherViewSquare.inl
+# End Source File
+# Begin Source File
+
+SOURCE=.\DasherWidgetInterface.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\EnglishAlphabet.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\LanguageModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\PPMLanguageModel.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\SettingsStore.h
+# End Source File
 # End Group
 # End Target
 # End Project
