@@ -9,131 +9,181 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-12 01:59+0100\n"
-"PO-Revision-Date: 2004-02-12 01:59+0100\n"
+"POT-Creation-Date: 2004-06-20 23:42+0200\n"
+"PO-Revision-Date: 2004-06-20 23:43+0200\n"
 "Last-Translator: Danilo Šegan <danilo@prevod.org>\n"
-"Language-Team: Serbian (sr) <serbiangnome-lista@nongnu.org>\n"
+"Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:63
 msgid "Menus"
 msgstr "Meniji"
 
-#: Src/Gtk2/accessibility.cc:65
+#: Src/Gtk2/accessibility.cc:70
 msgid "Windows"
 msgstr "Prozori"
 
-#: Src/Gtk2/accessibility.cc:70
+#: Src/Gtk2/accessibility.cc:75
 msgid "Application"
 msgstr "Program"
 
-#: Src/Gtk2/accessibility.cc:77
+#: Src/Gtk2/accessibility.cc:82
 msgid "Buttons"
 msgstr "Dugmad"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Paneli"
 
-#: Src/Gtk2/accessibility.cc:90
+#: Src/Gtk2/accessibility.cc:95
 msgid "Text"
 msgstr "Tekst"
 
-#: Src/Gtk2/accessibility.cc:163 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:170 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Upravljanje"
 
-#: Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:175
 msgid "Stop"
 msgstr "Stani"
 
-#: Src/Gtk2/accessibility.cc:174
+#: Src/Gtk2/accessibility.cc:181
 msgid "Pause"
 msgstr "Pauza"
 
-#: Src/Gtk2/accessibility.cc:181
+#: Src/Gtk2/accessibility.cc:188
 msgid "Move"
 msgstr "Premesti"
 
-#: Src/Gtk2/accessibility.cc:188
+#: Src/Gtk2/accessibility.cc:195
 msgid "Delete"
 msgstr "Obriši"
 
-#: Src/Gtk2/accessibility.cc:197
+#: Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Izgovori"
 
-#: Src/Gtk2/accessibility.cc:215 Src/Gtk2/accessibility.cc:284
+#: Src/Gtk2/accessibility.cc:212 Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Brzina"
+
+#: Src/Gtk2/accessibility.cc:229 Src/Gtk2/accessibility.cc:383
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:221 Src/Gtk2/accessibility.cc:278
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:377
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:227
+#: Src/Gtk2/accessibility.cc:241
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:233
+#: Src/Gtk2/accessibility.cc:247
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:260
 msgid "Everything"
 msgstr "Sve"
 
-#: Src/Gtk2/accessibility.cc:252
+#: Src/Gtk2/accessibility.cc:266
 msgid "New"
 msgstr "Novo"
 
-#: Src/Gtk2/accessibility.cc:258
+#: Src/Gtk2/accessibility.cc:272
 msgid "Repeat"
 msgstr "Ponovi"
 
-#: Src/Gtk2/accessibility.cc:290 Src/Gtk2/accessibility.cc:313
+#: Src/Gtk2/accessibility.cc:294
+msgid "1"
+msgstr "1"
+
+#: Src/Gtk2/accessibility.cc:301
+msgid "2"
+msgstr "2"
+
+#: Src/Gtk2/accessibility.cc:308
+msgid "3"
+msgstr "3"
+
+#: Src/Gtk2/accessibility.cc:315
+msgid "4"
+msgstr "4"
+
+#: Src/Gtk2/accessibility.cc:322
+msgid "5"
+msgstr "5"
+
+#: Src/Gtk2/accessibility.cc:329
+msgid "6"
+msgstr "6"
+
+#: Src/Gtk2/accessibility.cc:336
+msgid "7"
+msgstr "7"
+
+#: Src/Gtk2/accessibility.cc:343
+msgid "8"
+msgstr "8"
+
+#: Src/Gtk2/accessibility.cc:350
+msgid "9"
+msgstr "9"
+
+#: Src/Gtk2/accessibility.cc:357
+msgid "10"
+msgstr "10"
+
+#: Src/Gtk2/accessibility.cc:389 Src/Gtk2/accessibility.cc:412
 msgid "Character"
 msgstr "Znak"
 
-#: Src/Gtk2/accessibility.cc:301 Src/Gtk2/accessibility.cc:323
+#: Src/Gtk2/accessibility.cc:400 Src/Gtk2/accessibility.cc:422
 msgid "Word"
 msgstr "Reč"
 
-#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:329
+#: Src/Gtk2/accessibility.cc:405 Src/Gtk2/accessibility.cc:428
 msgid "Line"
 msgstr "Red"
 
-#: Src/Gtk2/accessibility.cc:399
+#: Src/Gtk2/accessibility.cc:508
 msgid "Unknown"
 msgstr "Nepoznato"
 
-#: Src/Gtk2/dasher.cc:183
+#: Src/Gtk2/dasher.cc:188
 msgid "Training Dasher, please wait"
 msgstr "Uvežbavam Jurišnika, sačekajte"
 
+#: Src/Gtk2/dasher.cc:664 Src/Gtk2/dasher.cc:677 Src/Gtk2/dasher.cc:690
+#: Src/Gtk2/dasher.cc:703 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Izaberi datoteku"
+
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1753
+#: Src/Gtk2/dasher.cc:1766
 msgid "translator_credits"
 msgstr ""
 "Danilo Šegan <danilo@prevod.org>\n"
 "\n"
 "Prevod.org — prevod na srpski jezik."
 
-#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1768 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Jurišnik"
 
-#: Src/Gtk2/dasher.cc:1758
+#: Src/Gtk2/dasher.cc:1771
 msgid "Dasher is a predictive text entry application"
 msgstr "Jurišnik je program za predvidivi unos teksta"
 
 # bug: plural-forms -- even debugging output might need ngettext()
-#. Just a debugging thing
-#: Src/Gtk2/dasher.cc:2165
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:2178
 #, c-format
 msgid "%d characters output in %d seconds\n"
 msgstr "%d znakova izlaza za %d sekundi\n"
@@ -166,7 +216,7 @@ msgstr "<b>Izbor pisma:</b>"
 msgid "<b>Button control setup</b>"
 msgstr "<b>Podešavanje upravljanja dugmadima</b>"
 
-#: Src/Gtk2/dasher.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Izbor boje:</b>"
 
@@ -235,11 +285,12 @@ msgstr "Režim dugmeta"
 msgid "Button:"
 msgstr "Dugme:"
 
-#: Src/Gtk2/dasher.glade.h:25
-msgid "Change color scheme automatically"
+# bug: American or British English?
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
 msgstr "Sam izmeni šemu boja"
 
-#: Src/Gtk2/dasher.glade.h:26
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Boja"
 
@@ -364,10 +415,6 @@ msgstr "Sačuvaj datoteku"
 msgid "Save file as"
 msgstr "Sačuvaj datoteku kao"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
-msgid "Select File"
-msgstr "Izaberi datoteku"
-
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
 msgid "Select Font"
 msgstr "Izaberi font"
@@ -387,10 +434,6 @@ msgstr "Prikaži traku alatki"
 #: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
 msgstr "Govori po zaustavljanju"
-
-#: Src/Gtk2/dasher.glade.h:65
-msgid "Speed"
-msgstr "Brzina"
 
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
@@ -498,37 +541,40 @@ msgstr "_Vrati fontove"
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abvgdđežzij ABVGDĐEŽZIJ"
 
-# bug: American English or British English?
-#: Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Colour Selection:</b>"
-msgstr "<b>Izbor boje:</b>"
-
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Brzina</b>"
-
-# bug: American or British English?
-#: Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Sam izmeni šemu boja"
-
-# bug: American or British English?
-#: Src/Gtk2/dashergpe.glade.h:27
-msgid "Colour"
-msgstr "Boja"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
 msgstr "Usmerenje"
 
-#: Src/Gtk2/speech.cc:45
+#: Src/Gtk2/speech.cc:24
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Ne mogu da podesim podršku za govor\n"
+
+#: Src/Gtk2/speech.cc:50
+#, c-format
 msgid "Unable to initialize voices"
 msgstr "Ne mogu da podesim glasove"
 
-#: Src/Gtk2/speech.cc:61
+#: Src/Gtk2/speech.cc:66
+#, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Upozorenje: ne mogu da postavim parametre govora\n"
 
-#: Src/main.cc:98
+#: Src/main.cc:103
 msgid "Dasher Text Entry"
 msgstr "Jurišnikov unos teksta"
+
+#~ msgid "Change color scheme automatically"
+#~ msgstr "Sam izmeni šemu boja"
+
+# bug: American English or British English?
+#~ msgid "<b>Colour Selection:</b>"
+#~ msgstr "<b>Izbor boje:</b>"
+
+# bug: American or British English?
+#~ msgid "Colour"
+#~ msgstr "Boja"
