@@ -124,17 +124,17 @@ ControlTree* builddeletetree(ControlTree *deletetree) {
 
   backwardchar->pointer=(void*)1;
   backwardchar->data=24;
-  backwardchar->children=backwardtree;
+  backwardchar->children=forwardtree;
   backwardchar->next=backwardword;
   backwardchar->text="Character";
   backwardword->pointer=(void*)1;
   backwardword->data=25;
-  backwardword->children=backwardtree;
+  backwardword->children=forwardtree;
   backwardword->next=backwardline;
   backwardword->text="Word";
   backwardline->pointer=(void*)1;
   backwardline->data=26;
-  backwardline->children=backwardtree;
+  backwardline->children=forwardtree;
   backwardline->next=NULL;
   backwardline->text="Line";
 
