@@ -19,7 +19,6 @@ namespace {
 using namespace Dasher;
 using namespace std;
 
-
 const string CDasherInterface::EmptyString = "";
 
 

@@ -1,5 +1,4 @@
 #include "accessibility.h"
-#include <iostream>
 
 ControlTree *menutree;
 

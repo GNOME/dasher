@@ -228,7 +228,7 @@ void dasher_finalise()
   delete( ded );
 }
 
-// Routines for the UI to request chnages to parameters
+// Routines for the UI to request changes to parameters
 
 void dasher_set_parameter_string( string_param p, const char *value )
 {
@@ -248,6 +248,7 @@ void dasher_set_parameter_string( string_param p, const char *value )
     case STRING_EDITFONT:
       break;
     case STRING_DASHERFONT:
+      interface->SetDasherFont( s );
       break;
     }
 }

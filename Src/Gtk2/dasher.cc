@@ -4,13 +4,10 @@
 #include <stdlib.h>
 #include <libintl.h>
 #include <locale.h>
-#include <iostream>
 #include <string>
 #include <vector>
 #include <stdio.h>
 #include <time.h>
-
-#include <iostream>
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -46,6 +43,7 @@ GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
+GtkFontSelectionDialog *dasherfontdialog;
 
 bool controlmodeon=false;
 
@@ -1111,6 +1109,24 @@ void about_dasher(gpointer data, guint action, GtkWidget *widget )
   gtk_widget_show (about);
 }
 
+void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
+{
+  char *font_name;
+  font_name=gtk_font_selection_dialog_get_font_name(dasherfontdialog);
+  if (font_name) {
+    dasher_set_parameter_string( STRING_DASHERFONT, font_name );
+    set_canvas_font(font_name);
+  }
+  gtk_widget_destroy (GTK_WIDGET(dasherfontdialog));
+}
+
+void set_dasher_font(gpointer data, guint action, GtkWidget *widget)
+{
+  dasherfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));
+  g_signal_connect (dasherfontdialog->cancel_button, "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT (dasherfontdialog));
+  g_signal_connect (dasherfontdialog->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasherfontdialog);
+  gtk_widget_show(GTK_WIDGET(dasherfontdialog));
+}
 
 void reset_fonts(gpointer data, guint action, GtkWidget *widget )
 {
@@ -1122,6 +1138,12 @@ void reset_fonts(gpointer data, guint action, GtkWidget *widget )
 
 void parameter_string_callback( string_param p, const char *value )
 {
+  switch(p)
+    {
+    case STRING_DASHERFONT:
+      set_canvas_font(value);
+      break;
+    }
 }
 
 void parameter_double_callback( double_param p, double value )

@@ -1,4 +1,3 @@
-#include <iostream>
 #include "speech.h"
 
 #ifdef GNOME_SPEECH

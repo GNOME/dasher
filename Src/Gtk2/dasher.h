@@ -68,6 +68,9 @@ extern GtkWidget *dasher_menu_bar;
 
 extern bool controlmodeon;
 
+void set_dasher_font(gpointer data, guint action, GtkWidget *widget);
+void get_font_from_dialog( GtkWidget *one, GtkWidget *two );
+
 #endif
 
 

@@ -1,12 +1,13 @@
 #include "canvas.h"
 
+#include <iostream>
+
 GtkWidget *the_canvas;
 GdkPixmap *offscreen_buffer;
 GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
 PangoFontDescription *font;
 PangoRectangle *ink,*logical;
-GtkFontSelectionDialog *dasherfontdialog;
 
 extern gboolean setup;
 
@@ -308,16 +309,13 @@ GdkFont *get_font(int size)
   return chosen_font;
 }
 
-void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
+void set_canvas_font(std::string fontname) 
 {
-  char *font_name;
-  font_name=gtk_font_selection_dialog_get_font_name(dasherfontdialog);
-  if (font_name) {
+  if(fontname!="") {
     pango_font_description_free(font);
-    font=pango_font_description_from_string(font_name);
+    font=pango_font_description_from_string(fontname.c_str());
     dasher_redraw();
   }
-  gtk_widget_destroy (GTK_WIDGET(dasherfontdialog));
 }
 
 void reset_dasher_font()
@@ -327,10 +325,3 @@ void reset_dasher_font()
   dasher_redraw();
 }
 
-void set_dasher_font(gpointer data, guint action, GtkWidget *widget)
-{
-  dasherfontdialog = GTK_FONT_SELECTION_DIALOG(gtk_font_selection_dialog_new("Choose Dasher Font"));
-  g_signal_connect (dasherfontdialog->cancel_button, "clicked", G_CALLBACK (gtk_widget_destroy), G_OBJECT (dasherfontdialog));
-  g_signal_connect (dasherfontdialog->ok_button, "clicked", G_CALLBACK (get_font_from_dialog), (gpointer) dasherfontdialog);
-  gtk_widget_show(GTK_WIDGET(dasherfontdialog));
-}

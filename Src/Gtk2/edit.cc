@@ -1,5 +1,4 @@
 #include "edit.h"
-#include <iostream>
 
 #ifdef GNOME_A11Y
 #include "accessibility.h"
@@ -214,3 +213,4 @@ void speak()
   say="";
 }
 #endif
+

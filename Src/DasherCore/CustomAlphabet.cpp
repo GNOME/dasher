@@ -9,8 +9,6 @@
 
 #include "CustomAlphabet.h"
 
-#include <iostream>
-
 using namespace Dasher;
 using namespace std;
 
