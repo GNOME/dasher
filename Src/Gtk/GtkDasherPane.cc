@@ -45,7 +45,6 @@ GtkDasherPane::GtkDasherPane()
   interface->SetSystemLocation(SystemDataDir);
   interface->SetUserLocation(UserDataDir);
 
-  // Load in training data here
 
 
   text = new GtkDasherEdit( interface );
@@ -68,7 +67,46 @@ GtkDasherPane::GtkDasherPane()
 
   interface->ChangeEdit( text );
   interface->ChangeScreen( canvas );
- 
+   // Load in training data here
+
+  char training_file[ strlen( SystemDataDir) + 10 ];
+
+  sprintf( training_file, "%strain.txt", SystemDataDir );
+
+  //  ifstream t( "/etc/dasher/train.txt" );
+
+  ifstream t( training_file );
+
+  if( !t.bad() )
+    {
+      cout << "Training ... " << flush;
+
+      char b[256];
+      
+      while( !t.eof() )
+      {
+      int i(0);
+
+      while( (i < 255) && ( !t.eof() ) )
+	{
+	  t.read( &b[i], 1 );
+	  ++i;
+	}
+
+      b[i] = 0;
+
+      string s( b );
+
+      if( !t.eof() )
+	interface->Train( &s, true );
+      else
+	interface->Train( &s, false );
+    }
+
+      cout << "done." << endl;
+    }
+
+
   interface->Start();
 
   Gtk::Main::timeout.connect(slot(this,&GtkDasherPane::timer_callback),50);
