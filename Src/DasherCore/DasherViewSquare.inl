@@ -58,7 +58,6 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		circlesize=DasherModel().DasherY()/2.5;
 
 		if (disty>circlesize && eyetracker==false) {
-			printf("1\n");
 			dashery=2*(dasherOX-circlesize)-dashery;
 			disty=dasherOX-(circlesize/2)-dashery;
 			if(disty<-(circlesize/2)) {
@@ -72,7 +71,6 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 			return;
 		}
 		else if (disty <-(circlesize) && eyetracker==false) {
-			printf("2\n");
 			dashery=2*(dasherOX+circlesize)-dashery;
 			disty=dasherOX+circlesize/2-dashery;			
 			if(disty>circlesize/2) {
