@@ -31,15 +31,15 @@ inline void Dasher::CDasherView::MapScreen(int* DrawX, int* DrawY)
 			*DrawX = m_Screen->GetWidth() - *DrawX;
 			break;
 		case (TopToBottom): {
-			int Swapper = static_cast<int>(*DrawX * XYScale);
-			*DrawX = static_cast<int>(*DrawY / XYScale);
+			int Swapper = ( *DrawX * m_Screen->GetHeight()) / m_Screen->GetWidth();
+			*DrawX = (*DrawY  * m_Screen->GetWidth()) / m_Screen->GetHeight();
 			*DrawY = Swapper;
 			break;
 			}
 		case (BottomToTop): {
 			// Note rotation by 90 degrees not reversible like others
-			int Swapper = m_Screen->GetHeight() - static_cast<int>(*DrawX * XYScale);
-			*DrawX = static_cast<int>(*DrawY / XYScale);
+			int Swapper = m_Screen->GetHeight() - ( *DrawX * m_Screen->GetHeight()) / m_Screen->GetWidth();
+			*DrawX = (*DrawY  * m_Screen->GetWidth()) / m_Screen->GetHeight();
 			*DrawY = Swapper;
 			break;
 			}
@@ -60,14 +60,14 @@ inline void Dasher::CDasherView::UnMapScreen(int* MouseX, int* MouseY)
 			*MouseX = m_Screen->GetWidth() - *MouseX;
 			break;
 		case (TopToBottom): {
-			int Swapper = static_cast<int>(*MouseX * XYScale);
-			*MouseX = static_cast<int>(*MouseY / XYScale);
+			int Swapper = (*MouseX * m_Screen->GetHeight()) / m_Screen->GetWidth();
+			*MouseX = (*MouseY *m_Screen->GetWidth()) / m_Screen->GetHeight();;
 			*MouseY = Swapper;
 			break;
 			}
 		case (BottomToTop): {
-			int Swapper = static_cast<int>(*MouseX * XYScale);
-			*MouseX = static_cast<int>((m_Screen->GetHeight() - *MouseY) / XYScale);
+			int Swapper = (*MouseX * m_Screen->GetHeight()) / m_Screen->GetWidth();
+			*MouseX = ((m_Screen->GetHeight() - *MouseY) * m_Screen->GetWidth()) / m_Screen->GetHeight();
 			*MouseY = Swapper;
 			break;
 			}

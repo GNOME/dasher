@@ -44,7 +44,9 @@ public:
 	virtual void ChangeScreen(CDasherScreen* NewScreen)
 	{
 		m_Screen=NewScreen;
-		XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
+		
+		// DJW - removed floating point stuff
+		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 	}
 	
 	// Return references to the model and the screen:
@@ -71,7 +73,9 @@ private:
 	
 	// Orientation of Dasher Screen
 	Dasher::Opts::ScreenOrientations ScreenOrientation;
-	double XYScale;
+
+	// DJW - removed floating point stuff
+	//double XYScale;
 };
 
 
