@@ -1,6 +1,7 @@
 2005-01-30  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Make autogen.sh do the right thing
+	* Add Bengali support
 	
 2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 
