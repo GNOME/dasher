@@ -171,7 +171,10 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_COLOURMODE, Value );
     };
-
+  void KeyboardMode(bool Value)
+    {
+      handle_parameter_bool( BOOL_KEYBOARDMODE, Value );
+    };
   void SetUniform(int Value)
     {
       handle_parameter_int( INT_UNIFORM, Value );

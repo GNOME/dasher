@@ -28,6 +28,7 @@ namespace Keys {
         const std::string WINDOW_PAUSE = "PauseOutsideWindow";
         const std::string CONTROL_MODE = "ControlMode";
         const std::string COLOUR_MODE = "ColourMode";
+        const std::string KEYBOARD_MODE = "KeyboardMode";
 
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -131,6 +132,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));
 	this->SetScreenSize(Store->GetLongOption(SCREEN_WIDTH), Store->GetLongOption(SCREEN_HEIGHT));
+
+	Store->SetBoolDefault(KEYBOARD_MODE, false);
+	this->KeyboardMode(Store->GetBoolOption(KEYBOARD_MODE));
 
 	Store->SetLongDefault(UNIFORM, 1000 );
 	this->SetUniform(Store->GetLongOption(UNIFORM));

@@ -366,6 +366,9 @@ void dasher_set_parameter_bool( bool_param p, bool value )
     case BOOL_COLOURMODE:
       interface->ColourMode(value);
       break;
+    case BOOL_KEYBOARDMODE:
+      interface->KeyboardMode(value);
+      break;
     }
 }
 

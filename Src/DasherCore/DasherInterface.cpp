@@ -473,6 +473,15 @@ void CDasherInterface::ControlMode(bool Value)
   }
 }
 
+void CDasherInterface::KeyboardMode(bool Value)
+{
+  m_KeyboardMode=Value;
+  if (m_SettingsUI!=0)
+    m_SettingsUI->KeyboardMode(Value);
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetBoolOption(Keys::KEYBOARD_MODE, Value);
+}
+
 void CDasherInterface::SetEditFont(string Name, long Size)
 {
 	m_EditFont = Name;

@@ -2,6 +2,7 @@
 #include "dasher.h"
 
 extern int paused;
+extern bool keyboardmodeon;
 
 #ifdef GNOME_A11Y
 #include "accessibility.h"
@@ -51,38 +52,39 @@ void edit_output_callback(symbol Symbol)
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
+  if (keyboardmodeon==true) {
 #ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
-  Display *dpy = gdk_x11_get_default_xdisplay();
-  int min, max, numcodes;
-  KeySym *keysym;
-  KeyCode code;
-  glong numoutput;
-
-  wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);
-  for (size_t i=0; i<numoutput; i++) {
-    // This gives us the magic X keysym
-    wideoutput[i]=wideoutput[i] | 0x01000000;
-
-    XDisplayKeycodes(dpy,&min,&max);
-    keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
-    keysym[(max-min-1)*numcodes]=wideoutput[i];
-    XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
-    XFree(keysym);
-    XSync(dpy,true);
-    code = XKeysymToKeycode(dpy,wideoutput[i]);    
-    if (code!=0) {
-      XTestFakeKeyEvent(dpy, code, True, 1);
-      XTestFakeKeyEvent(dpy, code, False, 1);
+    Display *dpy = gdk_x11_get_default_xdisplay();
+    int min, max, numcodes;
+    KeySym *keysym;
+    KeyCode code;
+    glong numoutput;
+    
+    wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);
+    for (size_t i=0; i<numoutput; i++) {
+      // This gives us the magic X keysym
+      wideoutput[i]=wideoutput[i] | 0x01000000;
+      
+      XDisplayKeycodes(dpy,&min,&max);
+      keysym = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
+      keysym[(max-min-1)*numcodes]=wideoutput[i];
+      XChangeKeyboardMapping(dpy,min,numcodes,keysym,(max-min));
+      XFree(keysym);
+      XSync(dpy,true);
+      code = XKeysymToKeycode(dpy,wideoutput[i]);    
+      if (code!=0) {
+	XTestFakeKeyEvent(dpy, code, True, 1);
+	XTestFakeKeyEvent(dpy, code, False, 1);
+      }
     }
-  }
-  XSync(dpy,true);
-  g_free(wideoutput);
+    XSync(dpy,true);
+    g_free(wideoutput);
 #else
-  SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
+    SPI_generateKeyboardEvent(0,(char*)label.c_str(),SPI_KEY_STRING);
 #endif
 #endif
-
+  }
   outputcharacters++;
 }
 
@@ -228,20 +230,21 @@ void edit_delete_callback()
     outputtext.resize(outputtext.length()-1);
   }
 
+  if (keyboardmodeon==true) {
 #ifdef GNOME_A11Y
 #ifdef X_HAVE_UTF8_STRING
-  Display *dpy;
-  dpy = gdk_x11_get_default_xdisplay();
-  KeyCode code;
-  code = XKeysymToKeycode(dpy,XK_BackSpace);
-  XTestFakeKeyEvent(dpy, code, True, 0);
-  XTestFakeKeyEvent(dpy, code, False, 0);
-  XFlush(dpy);
+    Display *dpy;
+    dpy = gdk_x11_get_default_xdisplay();
+    KeyCode code;
+    code = XKeysymToKeycode(dpy,XK_BackSpace);
+    XTestFakeKeyEvent(dpy, code, True, 0);
+    XTestFakeKeyEvent(dpy, code, False, 0);
+    XFlush(dpy);
 #else
-  SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
+    SPI_generateKeyboardEvent(XK_BackSpace,NULL,SPI_KEY_SYM);
 #endif
 #endif
-
+  }
   outputcharacters--;
 }
 

@@ -134,6 +134,7 @@ public:
 	void WindowPause(bool Value);
 	void ControlMode(bool Value);
 	void ColourMode(bool Value);
+	void KeyboardMode(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
@@ -173,6 +174,7 @@ private:
 	bool m_WindowPause;
 	bool m_ControlMode;
 	bool m_ColourMode;
+	bool m_KeyboardMode;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;

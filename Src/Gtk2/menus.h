@@ -60,6 +60,7 @@ GtkItemFactoryEntry entries[] = {
   { "/Options/Keyboard Control", NULL, *GtkItemFactoryCallback(keycontrol), 1, "<CheckItem>" },
   { "/Options/Pause outside Window", NULL, *GtkItemFactoryCallback(windowpause), 1, "<CheckItem>" },
   { "/Options/Control Mode", NULL, *GtkItemFactoryCallback(controlmode), 1, "<CheckItem>" },
+  { "/Options/Enter Text into Other Windows", NULL, *GtkItemFactoryCallback(keyboardmode), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, *GtkItemFactoryCallback(about_dasher), 0, "<Item>" }
  };

@@ -27,6 +27,7 @@ void startonspace(gpointer data, guint action, GtkWidget *widget );
 void keycontrol(gpointer data, guint action, GtkWidget *widget );
 void windowpause(gpointer data, guint action, GtkWidget *widget );
 void controlmode(gpointer data, guint action, GtkWidget *widget );
+void keyboardmode(gpointer data, guint action, GtkWidget *widget );
 void select_open_file(gpointer data, guint action, GtkWidget *widget);
 void select_new_file(gpointer data, guint action, GtkWidget *widget);
 void select_save_file_as();
@@ -73,6 +74,7 @@ extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
 
 extern bool controlmodeon;
+extern bool keyboardmodeon;
 
 void set_dasher_font(gpointer data, guint action, GtkWidget *widget);
 void get_font_from_dialog( GtkWidget *one, GtkWidget *two );

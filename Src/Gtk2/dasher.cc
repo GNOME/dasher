@@ -48,6 +48,7 @@ GtkFontSelectionDialog *dasherfontdialog;
 GtkFontSelectionDialog *editfontdialog;
 
 bool controlmodeon=false;
+bool keyboardmodeon=false;
 
 #define _(_x) gettext(_x)
 
@@ -783,7 +784,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 58,
+				 59,
 				 entries,
 				 NULL );
 
@@ -1124,6 +1125,12 @@ void controlmode(gpointer data, guint action, GtkWidget *widget )
   dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 
+void keyboardmode(gpointer data, guint action, GtkWidget *widget )
+{
+  printf("keyboard mode set to %d\n",GTK_CHECK_MENU_ITEM(widget)->active);
+  keyboardmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
+  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+}
 void DrawMouse(gpointer data, guint action, GtkWidget *widget )
 {
   // FIXME - rewrite this sanely, ie:
@@ -1375,6 +1382,8 @@ void parameter_bool_callback( bool_param p, bool value )
     case BOOL_CONTROLMODE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Control Mode")), value);
       break;
+    case BOOL_KEYBOARDMODE:
+            gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Enter Text into Other Windows")), value);
     }
 }
 
