@@ -30,12 +30,29 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 	symbol CurSymbol=0, TmpSymbol=0;
 	bool KeyIsPrefix;
 	int z= Input->size();
+	int extras;
+	unsigned int bit;
+
 	for (unsigned int i=0; i<Input->size(); i++) {
 
 		Tmp = (*Input)[i];
-		if ((*Input)[i] & 0x80) { // FIXME - this will only work with
-		  Tmp += (*Input)[++i];   // a subset of UTF-8. Needs to work
-		}                         // with >2 byte characters too
+
+		/* The string we've been given is in UTF-8. The symbols are
+		   also in UTF-8, so we need to pass the entire UTF-8 character
+		   which may be several bytes long. RFC 2279 describes this
+		   encoding */
+
+		if ((*Input)[i] & 0x80) { // Character is more than 1 byte long
+		  extras = 1;
+		  for (bit = 0x20; ((*Input)[i] & bit) != 0; bit >>= 1)
+		    extras++;
+		  if (extras > 5)
+		    cout << "Unexpectedly long symbol found\n";
+		  while (extras-->0) {
+		    Tmp += (*Input)[++i];
+		  }
+		}
+
 		CurSymbol = TextMap.Get(Tmp, &KeyIsPrefix);
 
 		if (KeyIsPrefix) {
