@@ -1,0 +1,5 @@
+Src/Gtk2/dasher.cc
+Src/Gtk2/accessibility.cc
+Src/Gtk2/dasher.glade
+Src/Gtk2/speech.cc
+Src/main.cc
