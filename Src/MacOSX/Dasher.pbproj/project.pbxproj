@@ -705,7 +705,6 @@
 				19A33CBF048AA9AE0000000A,
 				19A33CC6048AAEE20000000A,
 				195E6E8B048BFC8F0000000A,
-				19D3EEE80491289C0000000A,
 			);
 			isa = PBXResourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1140,12 +1139,6 @@
 			name = training_english_GB.txt;
 			path = ../../Data/system.rc/training_english_GB.txt;
 			refType = 4;
-		};
-		19D3EEE80491289C0000000A = {
-			fileRef = 19D3EEE70491289C0000000A;
-			isa = PBXBuildFile;
-			settings = {
-			};
 		};
 		19D442390454667F0000000A = {
 			children = (
