@@ -182,7 +182,10 @@ void CDasherModel::Start()
 	}
 	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
 	m_Root->Push_Node(therootcontext);
-	
+
+	// Get rid of the old root notes
+	oldroots.clear();
+
 	m_languagemodel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
 //	dump();
