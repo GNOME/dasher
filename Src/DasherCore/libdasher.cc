@@ -30,6 +30,8 @@ void (*edit_output_callback)(symbol) = NULL;
 void (*edit_flush_callback)(symbol) = NULL;
 void (*edit_unflush_callback)() = NULL;
 
+void (*clipboard_callback)( clipboard_action ) = NULL;
+
 void handle_parameter_string( string_param p, const string & value )
 {
   if( string_callback != NULL )
@@ -108,6 +110,12 @@ void handle_edit_unflush()
 {
   if( edit_unflush_callback != NULL )
     edit_unflush_callback();
+}
+
+void handle_clipboard( clipboard_action act )
+{
+  if( clipboard_callback != NULL )
+    clipboard_callback( act );
 }
 
 // Initialisation and finalisation routines
@@ -189,6 +197,7 @@ void dasher_set_parameter_double( double_param p, double value )
   switch( p )
     {
     case DOUBLE_MAXBITRATE:
+      interface->ChangeMaxBitRate(value);
       break;
     }
 }
@@ -334,6 +343,11 @@ void dasher_set_edit_unflush_callback( void (*_cb)() )
   edit_unflush_callback = _cb;
 }
 
+void dasher_set_clipboard_callback( void (*_cb)( clipboard_action ) )
+{
+  clipboard_callback = _cb;
+}
+
 void dasher_start()
 {
   interface->Start();
@@ -376,4 +390,29 @@ void dasher_resize_canvas( int _width, int _height )
   delete( dsc );
   dsc = new dasher_screen( _width, _height );
   interface->ChangeScreen( dsc );
+}
+
+void dasher_copy()
+{
+  ded->Copy();
+}
+
+void dasher_cut()
+{
+  ded->Cut();
+}
+
+void dasher_paste()
+{
+  ded->Paste();
+}
+
+void dasher_copy_all()
+{
+  ded->CopyAll();
+}
+
+void dasher_select_all()
+{
+  ded->SelectAll();
 }

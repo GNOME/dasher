@@ -79,6 +79,8 @@ void edit_output_callback(symbol Symbol);
 void edit_flush_callback(symbol Symbol);
 void edit_unflush_callback();
 
+void clipboard_callback( clipboard_action act );
+
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
   Gtk2DasherEdit *dasher_text;
@@ -171,7 +173,6 @@ GtkWidget *file_selector;
 static void 
 load_training_file (const gchar *filename)
 {
-  //  interface->TrainFile(filename);
   dasher_train_file( filename );
 }
 
@@ -584,13 +585,7 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 {
   Gtk2DasherCanvas *dasher_canvas = static_cast<Gtk2DasherCanvas*>(data);
 
-//   delete (dasher_canvas->wrapper);
-//   dasher_canvas->wrapper = new Gtk2DasherCanvas::Gtk2ScreenWrapper(dasher_canvas->canvas->allocation.width, dasher_canvas->canvas->allocation.height, dasher_canvas);
-
-//   //  dasher_canvas->interface->ChangeScreen(dasher_canvas->wrapper);
-
   dasher_canvas->CreateNewBuffer();  
-//   //  dasher_canvas->interface->Redraw();
 
   dasher_resize_canvas( dasher_canvas->canvas->allocation.width, dasher_canvas->canvas->allocation.height );
   dasher_redraw();
@@ -682,244 +677,10 @@ button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 }
 
 static void speed_changed(GtkAdjustment *adj, Gtk2DasherCanvas *dasher_canvas) {
-  //  dasher_canvas->interface->ChangeMaxBitRate(adj->value);
 
   dasher_set_parameter_double( DOUBLE_MAXBITRATE, adj->value );
 }
 
-class GtkDasherUI : Dasher::CDasherSettingsInterface
-{
-public:
-  
-  GtkDasherUI(Dasher::CDasherInterface *interface) {
-
-   //  char *system_data_dir;
-//     char *home_dir;
-//     char *user_data_dir;
-
-//     home_dir = getenv( "HOME" );
-//     user_data_dir = new char[ strlen( home_dir ) + 10 ];
-//     sprintf( user_data_dir, "%s/.dasher/", home_dir );
-    
-//     // CHANGE THIS!
-//     //system_data_dir = "/etc/dasher/";
-//     system_data_dir = user_data_dir;
-    
-//     //    interface->SetSystemLocation(system_data_dir);
-//     //    interface->SetSystemLocation(user_data_dir);
-
-//     dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
-//     dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
-
-//     // FIXME - need to reimplement settings store
-
-//     //    GtkDasherStore *store = new GtkDasherStore;
-//     //    interface->SetSettingsStore( store );
-//     //    interface->SetSettingsUI( this );
-
-    
-
-//     dasher_accel = gtk_accel_group_new();
-    
-//     dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
-// 				       "<DasherMenu>",
-// 				       dasher_accel);
-//     dasher_text_view = new Gtk2DasherEdit (interface);
-    
-//     gtk_item_factory_create_items( dasher_menu,
-// 				   54,
-// 				   entries,
-// 				   &dasher_text_view );
-    
-//     float initial_bitrate = 3.0;
-    
-//     dasher_canvas = new Gtk2DasherCanvas (360, 360, interface);
-//     dasher_pane = new Gtk2DasherPane (dasher_canvas, dasher_text_view);
-    
-//     ofilesel = gtk_file_selection_new("Open a file");
-//     afilesel = gtk_file_selection_new("Append to file");
-//     ifilesel = gtk_file_selection_new("Import Training Text");
-    
-//     home_dir = getenv( "HOME" );
-//     user_data_dir = new char[ strlen( home_dir ) + 10 ];
-//     sprintf( user_data_dir, "%s/.dasher/", home_dir );
-    
-//     // CHANGE THIS!
-//     //system_data_dir = "/etc/dasher/";
-//     system_data_dir = user_data_dir;
-    
-//     //    interface->SetSystemLocation(system_data_dir);
-//     // interface->SetSystemLocation(user_data_dir);
-
-    
-//     dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
-//     dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
-
-//     vbox = gtk_vbox_new (FALSE, 2);
-    
-//     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
-//     gtk_window_set_title (GTK_WINDOW(window), _("Dasher"));
-//     gtk_window_set_policy (GTK_WINDOW(window), FALSE, FALSE, FALSE);
-    
-//     gtk_window_add_accel_group( GTK_WINDOW(window), dasher_accel);
-//     dasher_menu_bar=gtk_item_factory_get_widget( dasher_menu, "<DasherMenu>");
-    
-//     toolbar = gtk_toolbar_new ();
-//     gtk_toolbar_set_orientation (GTK_TOOLBAR (toolbar), GTK_ORIENTATION_HORIZONTAL);
-//     gtk_toolbar_set_style (GTK_TOOLBAR (toolbar), GTK_TOOLBAR_ICONS);
-    
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_NEW, _("New"), _("New"), G_CALLBACK (select_new_file), NULL, -1);
-
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_OPEN, _("Open"), _("Open"), G_CALLBACK (select_open_file), NULL, -1);
-
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE, _("Save"), _("Save"), G_CALLBACK (save_file), NULL, -1);
-
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_SAVE_AS, _("Save As"), _("Save As"), G_CALLBACK (select_save_file_as), NULL, -1);
-
-//     gtk_toolbar_append_space (GTK_TOOLBAR (toolbar));
-
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_CUT, _("Cut"), _("Cut"), G_CALLBACK (clipboard_cut), NULL, -1);
-
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_COPY, _("Copy"), _("Copy"), G_CALLBACK (clipboard_copy), NULL, -1);
-
-//     gtk_toolbar_insert_stock (GTK_TOOLBAR (toolbar), GTK_STOCK_PASTE, _("Paste"), _("Paste"), G_CALLBACK (clipboard_paste), NULL, -1);
-
-//     gtk_signal_connect (GTK_OBJECT (window), "destroy", GTK_SIGNAL_FUNC (ask_save_before_exit), dasher_text_view);
-    
-//     gtk_box_pack_start (GTK_BOX (vbox), dasher_menu_bar, FALSE, FALSE, 0);
-//     gtk_box_pack_start (GTK_BOX (vbox), toolbar, FALSE, FALSE, 0);
-    
-//     text_scrolled_window = gtk_scrolled_window_new (NULL, NULL);
-//     gtk_scrolled_window_set_policy (GTK_SCROLLED_WINDOW (text_scrolled_window), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
-//     gtk_box_pack_start (GTK_BOX (vbox), text_scrolled_window, FALSE, FALSE, 0);
-    
-//     gtk_container_add (GTK_CONTAINER (text_scrolled_window), dasher_text_view->text_view);
-    
-//     GTK_WIDGET_SET_FLAGS (GTK_WIDGET (dasher_canvas->canvas), GTK_CAN_FOCUS);
-//     gtk_window_set_focus(GTK_WINDOW(window), GTK_WIDGET(dasher_canvas->canvas));
-    
-//     gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "expose_event", GTK_SIGNAL_FUNC (canvas_expose_event), (gpointer) dasher_canvas);
-    
-//     gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "configure_event", GTK_SIGNAL_FUNC (canvas_configure_event), (gpointer) dasher_canvas);
-    
-//     gtk_signal_connect(GTK_OBJECT (dasher_canvas->canvas), "button_press_event", GTK_SIGNAL_FUNC (button_press_event), (gpointer) dasher_pane);
-    
-//     //gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK | GDK_POINTER_MOTION_HINT_MASK);
-    
-//     gtk_widget_set_events(dasher_canvas->canvas, GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK );
-    
-//     gtk_signal_connect(GTK_OBJECT (dasher_text_view->text_view), "button_release_event", GTK_SIGNAL_FUNC (edit_button_release_event), (gpointer) dasher_text_view);
-    
-//     gtk_signal_connect(GTK_OBJECT (dasher_text_view->text_view), "key_release_event", GTK_SIGNAL_FUNC (edit_key_release_event), (gpointer) dasher_text_view);
-    
-//     gtk_widget_set_events(dasher_text_view->text_view, GDK_BUTTON_RELEASE_MASK | GDK_KEY_RELEASE_MASK);
-
-//     canvas_frame = gtk_frame_new (NULL);
-//     gtk_box_pack_start (GTK_BOX (vbox), canvas_frame, TRUE, TRUE, 0);
-//     gtk_container_add (GTK_CONTAINER (canvas_frame), dasher_canvas->canvas);
-    
-//     speed_frame = gtk_frame_new ("Speed");
-//     speed_slider = gtk_adjustment_new(initial_bitrate, 1.0, 8.0, 1.0, 1.0, 0.0);
-//     speed_hscale = gtk_hscale_new(GTK_ADJUSTMENT(speed_slider));
-//     gtk_range_set_update_policy(GTK_RANGE(speed_hscale), GTK_UPDATE_CONTINUOUS);
-    
-//     gtk_signal_connect (GTK_OBJECT (speed_slider), "value_changed", GTK_SIGNAL_FUNC (speed_changed), dasher_canvas);
-    
-//     gtk_box_pack_start (GTK_BOX (vbox), speed_frame, FALSE, FALSE, 0);
-//     gtk_container_add (GTK_CONTAINER (speed_frame), speed_hscale);
-    
-//     gtk_container_add (GTK_CONTAINER (window), vbox);
-//     gtk_widget_set_usize (GTK_WIDGET (window), window_x, window_y);
-    
-//     gtk_widget_realize (window);
-//     gtk_widget_realize (vbox);
-//     gtk_widget_realize (text_scrolled_window);
-//     gtk_widget_realize (dasher_text_view->text_view);
-//     gtk_widget_realize (toolbar);
-//     gtk_widget_realize (canvas_frame);
-//     gtk_widget_realize (dasher_canvas->canvas);
-//     gtk_widget_realize (speed_frame);
-//     gtk_widget_realize (speed_hscale);
-//     gtk_widget_realize (dasher_menu_bar);
-    
-//     gtk_widget_show (window);
-//     gtk_widget_show (vbox);
-//     gtk_widget_show (text_scrolled_window);
-//     gtk_widget_show (dasher_text_view->text_view);
-//     gtk_widget_show (toolbar);
-//     gtk_widget_show (canvas_frame);
-//     gtk_widget_show (dasher_canvas->canvas);
-//     gtk_widget_show (speed_frame);
-//     gtk_widget_show (speed_hscale);
-//     gtk_widget_show (dasher_menu_bar);
-
-//     // FIXME - need to implement this
-
-//     //    interface->SettingsDefaults( store );
-
-
-//     //    interface->ChangeLanguageModel(0);
-//     //interface->ChangeView(0);
-
-//     dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
-//     dasher_set_parameter_int( INT_VIEW, 0 );
-    
-//     //    std::vector< std::string > alphabetlist;
-//     // interface->GetAlphabets( &alphabetlist );
-
-//     const char *alphabet;
-
-//     dasher_get_alphabets( &alphabet, 1 );
-
-//     dasher_set_parameter_string( STRING_ALPHABET, alphabet );
-
-//     // FIXME - need to implement screen and edit classes in the library
-    
-//     //    interface->ChangeEdit(dasher_text_view);
-//     // interface->ChangeScreen(dasher_canvas->wrapper);
-
-
-//     //    interface->ChangeMaxBitRate(initial_bitrate);
-    
-//     dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
-    
-//     //    interface->Start();
-
-//     dasher_start();
-
-//     gtk_timeout_add(50, timer_callback, dasher_canvas);  
-    
-//     setup = TRUE;
-
-  };
-
-  void GtkDasherUI::ShowToolbar(bool Value) {
-//     if (toolbar==NULL) 
-//       return;
-
-//     if (Value==TRUE) {
-//       gtk_widget_show(toolbar);
-//     } else {
-//       gtk_widget_hide(toolbar);
-//     }
-
-//     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Show Toolbar")), Value);
-  };
-
-  void GtkDasherUI::ShowSpeedSlider(bool Value) {
-    if (speed_frame==NULL) 
-      return;
-
-    if (Value==TRUE) {
-      gtk_widget_show(speed_frame);
-    } else {
-      gtk_widget_hide(speed_frame);
-    }
-    
-    gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Speed Slider")), Value);
-  };
-
-};
 
 static void
 open_window() {
@@ -1142,6 +903,8 @@ main(int argc, char *argv[])
   dasher_set_edit_flush_callback( edit_flush_callback );
   dasher_set_edit_unflush_callback( edit_unflush_callback );
 
+  dasher_set_clipboard_callback( clipboard_callback );
+
   setlocale (LC_ALL, "");
 
   bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
@@ -1159,23 +922,50 @@ main(int argc, char *argv[])
 }
 
 void clipboard_copy(void) {
-  dasher_text_view->Copy();
+  //  dasher_text_view->Copy();
+  dasher_copy();
 }
 
 void clipboard_cut(void) {
-  dasher_text_view->Cut();
+  //  dasher_text_view->Cut();
+  dasher_cut();
 }
 
 void clipboard_paste(void) {
-  dasher_text_view->Paste();
+  //  dasher_text_view->Paste();
+  dasher_paste();
 }
 
 void clipboard_copy_all(void) {
-  dasher_text_view->CopyAll();
+  // dasher_text_view->CopyAll();
+  dasher_copy_all();
 }
 
 void clipboard_select_all(void) {
-  dasher_text_view->SelectAll();
+  //  dasher_text_view->SelectAll();
+  dasher_select_all();
+}
+
+void clipboard_callback( clipboard_action act )
+{
+  switch( act )
+    {
+    case CLIPBOARD_CUT:
+      dasher_text_view->Cut();
+      break;
+    case CLIPBOARD_COPY:
+      dasher_text_view->Copy();
+      break;
+    case CLIPBOARD_PASTE:
+      dasher_text_view->Paste();
+      break;
+    case CLIPBOARD_COPYALL:
+      dasher_text_view->CopyAll();
+      break;
+    case CLIPBOARD_SELECTALL:
+      dasher_text_view->SelectAll();
+      break;
+    }
 }
 
 void orientation(gpointer data, guint action, GtkWidget  *widget )

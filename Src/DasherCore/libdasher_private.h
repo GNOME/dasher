@@ -17,6 +17,8 @@ void handle_edit_output(symbol Character);
 void handle_edit_flush(symbol Character);
 void handle_edit_unflush();
 
+void handle_clipboard( clipboard_action act );
+
 class dasher_ui : public CDasherSettingsInterface
 {
  public:
@@ -225,5 +227,25 @@ class dasher_edit : public CDashEditbox
   void Clear() {};
   void SetEncoding(Opts::FileEncodingFormats Encoding) {};
   void SetFont(std::string Name, long Size) {};
+  void Cut()
+    {
+      handle_clipboard( CLIPBOARD_CUT );
+    };
+  void Copy() 
+    {
+      handle_clipboard( CLIPBOARD_COPY );
+    };
+  void Paste() 
+    {
+      handle_clipboard( CLIPBOARD_PASTE );
+    };
+  void CopyAll()
+    {
+      handle_clipboard( CLIPBOARD_COPYALL );
+    };
+  void SelectAll()
+    {
+      handle_clipboard( CLIPBOARD_SELECTALL );
+    };
 
 };

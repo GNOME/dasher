@@ -25,6 +25,12 @@ enum bool_param{ BOOL_DIMENSIONS,
 		 BOOL_STARTONSPACE, 
 		 BOOL_STARTONLEFT };
 
+enum clipboard_action { CLIPBOARD_CUT,
+			CLIPBOARD_COPY,
+			CLIPBOARD_PASTE,
+			CLIPBOARD_COPYALL,
+			CLIPBOARD_SELECTALL };
+
 void dasher_initialise( int _width, int _height );
 void dasher_finalise();
 
@@ -49,6 +55,8 @@ void dasher_set_edit_output_callback(void (*_cb)(symbol));
 void dasher_set_edit_flush_callback(void (*_cb)(symbol));
 void dasher_set_edit_unflush_callback( void (*_cb)() );
 
+void dasher_set_clipboard_callback( void (*_cb)( clipboard_action ) );
+
 void dasher_train_file( const char *filename );
 int dasher_get_alphabets( const char **alphabetlist, int s );
 
@@ -62,3 +70,9 @@ string dasher_get_display_text( symbol Character );
 string dasher_get_edit_text( symbol Character );
 
 void dasher_resize_canvas( int _width, int _height );
+
+void dasher_cut();
+void dasher_copy();
+void dasher_paste();
+void dasher_copy_all();
+void dasher_select_all();
