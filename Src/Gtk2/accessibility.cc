@@ -355,8 +355,8 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
   AccessibleStateSet *state_set;
   state_set=Accessible_getStateSet(parent);
 
-  if (!Accessible_getRole(parent)==SPI_ROLE_APPLICATION) {
-    if (!AccessibleStateSet_contains(state_set,SPI_STATE_ENABLED)) {
+  if (!Accessible_getRole(parent)==SPI_ROLE_APPLICATION && !Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM && !Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM && !Accessible_getRole(parent)==SPI_ROLE_MENU && !Accessible_getRole(parent)==SPI_ROLE_PUSH_BUTTON && !Accessible_getRole(parent)==SPI_ROLE_RADIO_BUTTON && !Accessible_getRole(parent)==SPI_ROLE_TOGGLE_BUTTON && !Accessible_getRole(parent)==SPI_ROLE_RADIO_MENU_ITEM) {
+    if (!AccessibleStateSet_contains(state_set,SPI_STATE_VISIBLE)) {
       return false;
     }
   }
@@ -383,7 +383,7 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
   } else {
     // We have no kids - check if we're a menu item
     if (Type==menus) {
-      if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM) {      
+      if (Accessible_getRole(parent)==SPI_ROLE_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_CHECK_MENU_ITEM||Accessible_getRole(parent)==SPI_ROLE_RADIO_MENU_ITEM) {      
 	NewNode->pointer=parent;
 	NewNode->data=1;
 	NewNode->children=menutree;
