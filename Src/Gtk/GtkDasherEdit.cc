@@ -96,18 +96,23 @@ void GtkDasherEdit::output(symbol Symbol)
 
 void GtkDasherEdit::flush(symbol Symbol)
 {
-  ++flush_count;
+  // We seem to be passed Symbol 0 (root node) sometimes, so ignore
+  // this
 
-  string label;
+  if( Symbol != 0 )
+    {
+      ++flush_count;
 
-  label = interface->GetEditText( Symbol );
-
-  Gdk_Color black("black");
-  // Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
-  Gdk_Color white("white");
-
-  text.delete_selection();
-  text.insert ( efont, black, white, label, 1);
+      string label;
+      
+      label = interface->GetEditText( Symbol );
+  
+      Gdk_Color black("black");
+      Gdk_Color white("white");
+      
+      text.delete_selection();
+      text.insert ( efont, black, white, label, 1);
+    }
 }
 
 void GtkDasherEdit::Cut()
