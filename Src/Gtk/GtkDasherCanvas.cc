@@ -244,8 +244,19 @@ void GtkDasherCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, O
   some_colormap.alloc(some_color);
   graphics_context.set_foreground(some_color);
 
+  //  cout << "Rectangle: " << x1 << ", " << y1 << " -> " << x2 << ", " << y2 << endl;
 
-  buffer->get_bg()->draw_rectangle( graphics_context, true, x1, y1, x2-x1, y2-y1 );
+
+  if( x2 > x1 )
+    if( y2 > y1 )
+      buffer->get_bg()->draw_rectangle( graphics_context, true, x1, y1, x2-x1, y2-y1 );
+    else
+      buffer->get_bg()->draw_rectangle( graphics_context, true, x1, y2, x2-x1, y1-y2 );
+  else
+    if( y2 > y1 )
+      buffer->get_bg()->draw_rectangle( graphics_context, true, x2, y1, x1-x2, y2-y1 );
+    else
+      buffer->get_bg()->draw_rectangle( graphics_context, true, x2, y2, x1-x2, y1-y2 );
     }
 }
 

@@ -10,6 +10,8 @@ int main( int argc, char **argv )
 {
   Gtk::Main gtk_main( argc, argv );
 
+
+
   GtkDasherWindow main_window;
   main_window.show();
 
