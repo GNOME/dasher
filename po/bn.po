@@ -1,0 +1,520 @@
+# Bengali Translation of Dasher
+# Copyright (C) 2004 Dasher's COPYRIGHT HOLDER
+# This file is distributed under the same license as the Dasher package.
+# Sayamindu Dasgupta <sayamindu@clai.net>, 2004
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Dasher HEAD\n"
+"Report-Msgid-Bugs-To: gnome-translation@bengalinux.org\n"
+"POT-Creation-Date: 2004-03-15 14:21+0100\n"
+"PO-Revision-Date: 2004-03-16 21:45 +530\n"
+"Last-Translator: Sayamindu Dasgupta <sayamindu@clai.net>\n"
+"Language-Team: Bengali <gnome-translation@bengalinux.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: Src/Gtk2/accessibility.cc:62
+msgid "Menus"
+msgstr "মেনু সমূহ"
+
+#: Src/Gtk2/accessibility.cc:69
+msgid "Windows"
+msgstr "উইণ্ডো সমূহ"
+
+#: Src/Gtk2/accessibility.cc:74
+msgid "Application"
+msgstr "অ্যাপ্লিকেশন"
+
+#: Src/Gtk2/accessibility.cc:81
+msgid "Buttons"
+msgstr "বোতাম"
+
+#: Src/Gtk2/accessibility.cc:87
+msgid "Panels"
+msgstr "প্যানেল"
+
+#: Src/Gtk2/accessibility.cc:94
+msgid "Text"
+msgstr "টেক্সট"
+
+#: Src/Gtk2/accessibility.cc:168 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/dashergpe.glade.h:28
+msgid "Control"
+msgstr "নিয়ন্ত্রণ"
+
+#: Src/Gtk2/accessibility.cc:173
+msgid "Stop"
+msgstr "থামো"
+
+#: Src/Gtk2/accessibility.cc:179
+msgid "Pause"
+msgstr "বিরতি নাও"
+
+#: Src/Gtk2/accessibility.cc:186
+msgid "Move"
+msgstr "সরো"
+
+#: Src/Gtk2/accessibility.cc:193
+msgid "Delete"
+msgstr "মুছে ফেলো"
+
+#: Src/Gtk2/accessibility.cc:202
+msgid "Speak"
+msgstr "কথা বলো"
+
+#: Src/Gtk2/accessibility.cc:220 Src/Gtk2/accessibility.cc:289
+msgid "<"
+msgstr "<"
+
+#: Src/Gtk2/accessibility.cc:226 Src/Gtk2/accessibility.cc:283
+msgid ">"
+msgstr ">"
+
+#: Src/Gtk2/accessibility.cc:232
+msgid "<<<"
+msgstr "<<<"
+
+#: Src/Gtk2/accessibility.cc:238
+msgid ">>>"
+msgstr ">>>"
+
+#: Src/Gtk2/accessibility.cc:251
+msgid "Everything"
+msgstr "সবকিছু"
+
+#: Src/Gtk2/accessibility.cc:257
+msgid "New"
+msgstr "নতুন"
+
+#: Src/Gtk2/accessibility.cc:263
+msgid "Repeat"
+msgstr "রিপিট"
+#FIXME
+
+#: Src/Gtk2/accessibility.cc:295 Src/Gtk2/accessibility.cc:318
+msgid "Character"
+msgstr "অক্ষর"
+
+#: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:328
+msgid "Word"
+msgstr "শব্দ"
+
+#: Src/Gtk2/accessibility.cc:311 Src/Gtk2/accessibility.cc:334
+msgid "Line"
+msgstr "লাইন"
+
+#: Src/Gtk2/accessibility.cc:414
+msgid "Unknown"
+msgstr "অজানা"
+
+#: Src/Gtk2/dasher.cc:178
+msgid "Training Dasher, please wait"
+msgstr "ড্যাশার-কে শেখানো হচ্ছে, অনুগ্রহ করে অপেক্ষা করুন"
+
+#: Src/Gtk2/dasher.cc:626 Src/Gtk2/dasher.cc:639 Src/Gtk2/dasher.cc:652
+#: Src/Gtk2/dasher.cc:665 Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "ফাইল নির্বাচন করুন"
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/dasher.cc:1585
+msgid "translator_credits"
+msgstr "সায়মিন্দু দাশগুপ্ত <unmadindu@bengalinux.org> \n (অঙ্কুর বাংলা প্রকল্পের তরফ থেকে)"
+
+#: Src/Gtk2/dasher.cc:1587 Src/Gtk2/dasher.glade.h:32
+#: Src/Gtk2/dashergpe.glade.h:35
+msgid "Dasher"
+msgstr "ড্যাশার"
+
+#: Src/Gtk2/dasher.cc:1590
+msgid "Dasher is a predictive text entry application"
+msgstr "ড্যাশার একটি প্রেডিকেটিভ টেক্সট এন্ট্রি অ্যাপ্লিকেশন"
+
+#. Just a debugging thing, output to the console
+#: Src/Gtk2/dasher.cc:1997
+#, c-format
+msgid "%d characters output in %d seconds\n"
+msgstr "%d সেকেন্ডে %d অক্ষর দেখানো হয়েছে\n"
+
+#: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
+msgid "5:"
+msgstr "৫:"
+
+#: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
+msgid "6:"
+msgstr "৬:"
+
+#: Src/Gtk2/dasher.glade.h:3 Src/Gtk2/dashergpe.glade.h:3
+msgid "7:"
+msgstr "৭:"
+
+#: Src/Gtk2/dasher.glade.h:4 Src/Gtk2/dashergpe.glade.h:4
+msgid "8:"
+msgstr "৮:"
+
+#: Src/Gtk2/dasher.glade.h:5 Src/Gtk2/dashergpe.glade.h:5
+msgid "9:"
+msgstr "৯:"
+
+#: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>অক্ষর নির্বাচন</b>"
+
+#: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
+msgid "<b>Button control setup</b>"
+msgstr "<b>বোতাম নিয়ন্ত্রণ সেটাপ:</b>"
+
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
+msgid "<b>Color Selection:</b>"
+msgstr "<b>রং নির্বাচন:</b>"
+
+#: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
+msgid "<b>Control Style:</b>"
+msgstr "<b>নিয়ন্ত্রণের ধরণ:</b>"
+
+#: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
+msgid "<b>Miscellaneous Options:</b>"
+msgstr "<b>অন্যান্য পছন্দ সমূহ:</b>"
+
+#: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
+msgid "<b>Orientation:</b>"
+msgstr "<b>দিশা:</b>"
+
+#: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
+msgid "<b>Smoothing:</b>"
+msgstr "<b>স্মুদিং:</b>"
+
+#: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>চালু করা হচ্ছে ও বন্ধ করা হচ্ছে:</b>"
+
+#: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<b>টগল বোতাম মোড:</b>"
+
+#: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
+msgid "<b>View Options:</b>"
+msgstr "<b>প্রদর্শন সম্বন্ধীয় পছন্দসমূহ:</b>"
+
+#: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<b>এক্স/ওয়াই অক্ষ:</b>"
+
+#: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
+msgid "<b>Y Axis Options:</b>"
+msgstr "<b>ওয়াই অক্ষ সম্বন্ধীয় পছন্দসমূহ:</b>"
+
+#: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
+msgid "Advanced"
+msgstr "অগ্রসর"
+
+#: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
+msgid "Alphabet"
+msgstr "অক্ষর"
+
+#: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
+msgid "Alphabet Default"
+msgstr "অক্ষর ডিফল্ট"
+##সায়মিন্দু কয়: এটা কি?
+
+
+#: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
+msgid "Bottom to Top"
+msgstr "নীচ থেকে উপর"
+
+#: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
+msgid "Button control setup"
+msgstr "বোতাম নিয়ন্ত্রণ সেটাপ"
+
+#: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
+msgid "Button mode"
+msgstr "বোতাম মোড"
+
+#: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
+msgid "Button:"
+msgstr "বোতাম:"
+
+#: Src/Gtk2/dasher.glade.h:25
+msgid "Change color scheme automatically"
+msgstr "স্বয়ংক্রীয় ভাবে রঙের স্কীম বদলাও"
+
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
+msgid "Color"
+msgstr "রং"
+
+#: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
+msgid "Control mode"
+msgstr "নিয়ন্ত্রণ মোড"
+
+#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:31
+msgid "Copy _All"
+msgstr "সমস্ত কিছু কপি কর (_স)"
+
+#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:32
+msgid "Copy all on stop"
+msgstr "থামার পরে সমস্ত কিছু কপি কর"
+
+#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:34
+msgid "Cyclical button mode"
+msgstr "সাইক্লিকাল বোতাম মোড"
+
+#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:36
+msgid "Dasher Preferences"
+msgstr "ড্যাশার সম্বন্ধীয় পছন্দসমূহ"
+
+#: Src/Gtk2/dasher.glade.h:34 Src/Gtk2/dashergpe.glade.h:37
+msgid "Distance from centreline for start on mouse position:"
+msgstr "মাউসের অবস্থানে শুরুর জন্যে মধ্যম রেখার থেকে দুরত্ব"
+
+#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:38
+msgid "Down/3:"
+msgstr "নীচে/৩:"
+
+#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:39
+msgid "Draw box outlines"
+msgstr "বাক্সের সীমা আঁকো"
+
+#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr "ক্রসহেয়ার ও মাউসের মধ্যে রেখা আঁকো"
+
+#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:41
+msgid "Edit Button-control options"
+msgstr "বোতাম নিয়ন্ত্রণ সম্বন্ধীয় পছন্দ সম্পাদন করুন"
+
+#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:42
+msgid "Enter text into other windows"
+msgstr "অন্য উইন্ডো-তে লেখো"
+
+#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:43
+msgid "Eyetracker mode"
+msgstr "আইট্র্যাকার মোড"
+
+#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:44
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+
+
+#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:46
+msgid "Large"
+msgstr "বড়"
+
+#: Src/Gtk2/dasher.glade.h:44 Src/Gtk2/dashergpe.glade.h:47
+msgid "Left to Right"
+msgstr "বাম থেকে ডানদিকে"
+
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:48
+msgid "Left/2:"
+msgstr "বাম/২"
+
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:50
+msgid "Normal"
+msgstr "সাধারণ"
+
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:51
+msgid "Number of pixels that should cover the entire y range:"
+msgstr "ওয়াই অংশটিকে যতগুলি পিক্সেল দিয়ে ঢাকা হবে"
+
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:52
+msgid "One dimensional mode"
+msgstr "এক মাত্রিক মোড"
+
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:56
+msgid "Pause outside window"
+msgstr "উইন্ডোর বাইরে সাময়িক বিরতি"
+
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:57
+msgid "Right to Left"
+msgstr "ডান থেকে বামদিকে"
+
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:58
+msgid "Right/4:"
+msgstr "ডান/৪"
+
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:62
+msgid "Select Font"
+msgstr "ফন্ট নির্বাচন করুন"
+
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:63
+msgid "Show mouse position"
+msgstr "মাউসের অবস্থান দেখাও"
+
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:64
+msgid "Show speed slider"
+msgstr "গতি নির্দেশক স্লাইডার দেখাও"
+
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:65
+msgid "Show toolbar"
+msgstr "টুলবার দেখাও"
+
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:66
+msgid "Speak on stop"
+msgstr "থামলে কথা বোলো"
+#সায়মিন্দু কয়: কে কথা বলবে ??
+
+#: Src/Gtk2/dasher.glade.h:57
+msgid "Speed"
+msgstr "গতি"
+
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:67
+msgid "Start on left mouse button"
+msgstr "বাম দিকের মাউস বোতাম ক্লিক্‌ করা হলে শুরু কোরো"
+
+#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:68
+msgid "Start on space bar"
+msgstr "স্পেস বার ব্যবহার করা হলে শুরু কোরো"
+
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:69
+msgid "Start with mouse position"
+msgstr "মাউসের অবস্থান বদল করা হলে শুরু কোরো"
+
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:70
+msgid "Timestamp new files"
+msgstr "নতুন ফাইল টাইমস্ট্যাম্প কোরো"
+
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:71
+msgid "Top to Bottom"
+msgstr "উপর থেকে নীচে"
+
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:72
+msgid "Training"
+msgstr "শিক্ষা চলছে"
+
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:73
+msgid "Training Dasher - please wait"
+msgstr "ড্যাশারকে শিক্ষা দেওয়া চলছে - অনুগ্রহ করে অপেক্ষা করুন"
+
+#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:74
+msgid "Up/1:"
+msgstr "উপরে/১:"
+
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:75
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:78
+msgid "Very Large"
+msgstr "খুব বড়"
+
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:79
+msgid "View"
+msgstr "দর্শন"
+
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:80
+msgid "X:"
+msgstr "এক্স:"
+
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:81
+msgid "Y:"
+msgstr "ওয়াই:"
+
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:82
+msgid "_About"
+msgstr "পরিচিতি (_প)"
+
+#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:83
+msgid "_Append to file"
+msgstr "ফাইলের শেষে গোঁজো (_গ)"
+
+#: Src/Gtk2/dasher.glade.h:75 Src/Gtk2/dashergpe.glade.h:84
+msgid "_Dasher Font"
+msgstr "ড্যাশার ফন্ট (_ড)"
+
+#: Src/Gtk2/dasher.glade.h:76 Src/Gtk2/dashergpe.glade.h:85
+msgid "_Dasher Font Size"
+msgstr "ড্যাশার ফন্ট আয়তন (_ড)"
+
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:86
+msgid "_Edit"
+msgstr "সম্পাদন (_ম)"
+
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:87
+msgid "_Edit Font"
+msgstr "ফন্ট সম্পাদন (_ম)"
+
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:88
+msgid "_File"
+msgstr "ফাইল (_ফ)"
+
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:89
+msgid "_Help"
+msgstr "সহায়িকা (_স)"
+
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:90
+msgid "_Import Training Text"
+msgstr "শিক্ষা টেক্সট ইমপোর্ট করো (_ই)"
+
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:91
+msgid "_Options"
+msgstr "পছন্দ সমূহ (_প)"
+
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:92
+msgid "_Reset fonts"
+msgstr "পুরোনো ফন্টে ফেরত যাও (_ফ)"
+
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:93
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "অআইঈউঊএঐ কখগঘঙ"
+#FIXME
+
+#: Src/Gtk2/dashergpe.glade.h:13
+msgid "<b>Speed</b>"
+msgstr "<b>গতি</b>"
+
+#: Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
+msgstr "স্বয়ংক্রীয় ভাবে রঙের স্কীম বদলাও"
+
+#: Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "কপি"
+
+#: Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "কাট"
+
+#: Src/Gtk2/dashergpe.glade.h:49
+msgid "New file"
+msgstr "নতুন ফাইল"
+
+#: Src/Gtk2/dashergpe.glade.h:53
+msgid "Open file"
+msgstr "ফাইল খোলো"
+
+#: Src/Gtk2/dashergpe.glade.h:54
+msgid "Orientation"
+msgstr "দিশা"
+
+#: Src/Gtk2/dashergpe.glade.h:55
+msgid "Paste"
+msgstr "পেস্ট"
+
+#: Src/Gtk2/dashergpe.glade.h:59
+msgid "Save file"
+msgstr "ফাইল সংরক্ষণ করো"
+
+#: Src/Gtk2/dashergpe.glade.h:60
+msgid "Save file as"
+msgstr "নতুন নামে ফাইল সংরক্ষণ"
+
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "স্বর (ভয়েস) চালু করা গেল না"
+
+#: Src/Gtk2/speech.cc:61
+#, c-format
+msgid "Warning: unable to set speech parameters\n"
+msgstr "সাবধান: কোনো (স্পীচ) প্যারামিটার নির্ধারণ করা যায়নি\n"
+
+#: Src/main.cc:102
+msgid "Dasher Text Entry"
+msgstr "ড্যাশার টেক্সট এন্ট্রি"
