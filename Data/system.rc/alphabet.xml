@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <train>training_english_GB.txt</train>
 <space d="_" t=" " b="9"/>
-<control d="Control" t="" b="9"/>
+<control d="Control" t="" b="8"/>
 <group name="Lower case Latin letters" b="0">
 <s d="a" t="a" b="10"/>
 <s d="b" t="b" b="11"/>

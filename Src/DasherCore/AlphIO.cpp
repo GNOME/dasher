@@ -239,7 +239,7 @@ void CAlphIO::CreateDefault()
 	Default.SpaceCharacter.Colour = "9";
 	Default.ControlCharacter.Display = "Control";
 	Default.ControlCharacter.Text = "";
-	Default.ControlCharacter.Colour = "9";
+	Default.ControlCharacter.Colour = "8";
 	Default.TrainingFile = "training_english_GB.txt";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);

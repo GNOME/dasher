@@ -69,6 +69,7 @@ namespace Dasher
 	  void* pointer;
 	  int data;
 	  int type;
+	  int colour;
 	  std::string text;
 	  ControlTree *parent;
 	  ControlTree *children;
