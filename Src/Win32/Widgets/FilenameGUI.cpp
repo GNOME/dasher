@@ -69,7 +69,7 @@ const Tstring& CFilenameGUI::New()
 		// It's not as if the following is even how I would write a date normally.
 		// The point is that this is a _filename_ - and filenames sort in the
 		// correct order iff you format the date with this ordering.
-		TCHAR Buffer[20];
+		TCHAR Buffer[32];
 		_stprintf(Buffer, TEXT("%04d-%02d-%02d_%02d-%02d-%02d.txt"),
 			SystemTime.wYear, SystemTime.wMonth, SystemTime.wDay,
 			SystemTime.wHour, SystemTime.wMinute, SystemTime.wSecond);
