@@ -72,7 +72,7 @@ private:
 	std::string m_CurrentAlphabet;
 	
 	HACCEL hAccelTable;
-	
+
 	// Fiddly Window initialisation
 	Tstring CreateMyClass();
 	

@@ -17,6 +17,7 @@
 using namespace Dasher;
 using namespace std;
 
+#define IDT_TIMER1 200
 
 CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI)
 	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), Splash(0),
@@ -44,7 +45,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	Splash = new CSplash(m_hwnd);
 #endif
 	*/
-	
+
 	// Create Widgets
 	m_pToolbar = new CToolbar(m_hwnd, false, false, false);
 	m_pEdit = new CEdit(m_hwnd);
@@ -57,6 +58,10 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	DasherAppInterface->TrainFile("Source.txt");
 	MyTime = GetTickCount() - MyTime;
 */
+
+	SetTimer(m_hwnd, IDT_TIMER1,               // timer identifier 
+    20,                     // 5-second interval 
+    (TIMERPROC) NULL); // timer callback
 }
 
 
@@ -88,7 +93,6 @@ void CDasherWindow::Show(int nCmdShow)
 	ShowWindow(m_hwnd, nCmdShow);
 	UpdateWindow(m_hwnd);
 }
-
 
 int CDasherWindow::MessageLoop()
 {
@@ -286,6 +290,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		break;
 	case WM_SETFOCUS:
 		SetFocus(m_pCanvas->getwindow());
+		break;
+	case WM_TIMER:
+		SendMessage( m_pCanvas->getwindow(), message, wParam, lParam);
 		break;
 	case WM_COMMAND:
 		{

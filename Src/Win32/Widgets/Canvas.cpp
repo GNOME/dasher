@@ -11,47 +11,32 @@
 #include "Canvas.h"
 using namespace Dasher;
 
-
-DWORD WINAPI Thread2 (PVOID pArg)
-{
-	// send MY_TIMER messages to the main thread
-	// the main thread responds by advancing Dasher one frame
-	do {
-		SendMessage(((ThreadParams *)pArg)->hw,((ThreadParams *)pArg)->cb,0,0);
-		Sleep(20); // Don't bother trying to get more than 50fps.
-	} while (true);
-	return 0x15;
-}
-
-
 CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI)
 	: dwThreadID(0), m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
 	imousex(0), imousey(0), Parent(Parent)
 {
-        MY_TIMER = RegisterWindowMessage( (LPCTSTR)"Custom timer callback" );
-  
-	m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("STATIC"), NULL,
+	WNDCLASSEX canvasclass;
+
+	canvasclass.cbSize = sizeof( WNDCLASSEX );
+
+	GetClassInfoEx(NULL,TEXT("STATIC"),&canvasclass);
+
+	canvasclass.lpszClassName=TEXT("CANVAS");
+	canvasclass.hCursor=LoadCursor(NULL,IDC_CROSS);
+
+	if (RegisterClassEx(&canvasclass)==0)
+		exit(0);
+
+	m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("CANVAS"), NULL,
 		WS_CHILD | WS_VISIBLE,
 		0,0,0,0, Parent, NULL, WinHelper::hInstApp, NULL );
-	
+ 	
 	WinWrapMap::add(m_hwnd, this);
 	SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
 	ShowWindow(m_hwnd,SW_SHOW);
 	
 	Screen = new CScreen(m_hwnd, 300, 300);
 	m_DasherAppInterface->ChangeScreen(Screen);
-
-	// Create a second thread to handle the callbacks
-
-	tp = new ThreadParams;
-
-	tp->hw = m_hwnd;
-	tp->cb = MY_TIMER;
-
-	hThreadl= CreateThread(NULL,0,Thread2,(PVOID)tp,0,&dwThreadID);
-	SetThreadPriority(hThreadl,THREAD_PRIORITY_BELOW_NORMAL);
-
-	SuspendThread( hThreadl );
 
 	running = 0;
 }
@@ -163,21 +148,17 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		m_DasherAppInterface->ChangeScreen(Screen);
 		InvalidateRect(Window, NULL, FALSE);
 		break;
-	default:
-	  if( message == MY_TIMER )
-	    {
+	case WM_TIMER:
+		if (running==0)
+			return 0;
 		if (imousey<0 || imousey>30000)
 			imousey=0;
 		if (imousex>30000)
 			imousex=0;
-		//HDC hdc = GetDC(Window);
-		//Screen->SetHDC(hdc);
 		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
-		//ReleaseDC(Window,hdc);
-		return 0;
-	    }
-	  break;
+		break;
+	default:
+		break;
 	}
-	
 	return DefWindowProc(Window, message, wParam, lParam);
 }
