@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-03-07 14:58+0200\n"
-"PO-Revision-Date: 2005-03-05 03:05+0200\n"
+"PO-Revision-Date: 2005-03-07 15:02+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -185,7 +185,7 @@ msgstr "Dasher on ennustava tekstinsyöttösovellus"
 #: ../Src/Gtk2/dasher.cc:2081
 #, c-format
 msgid "%d characters output in %ld seconds\n"
-msgstr "%f merkkiä tulostettu %ld sekunnissa\n"
+msgstr "%d merkkiä tulostettu %ld sekunnissa\n"
 
 #: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
