@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height, int Size) const
+inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height, int iSize) const
 {
 	// TODO This function could be improved. The height of an "o" is returned as the
 	// same as the height of an "O". Perhaps GetGlyphOutline could help.
@@ -17,7 +17,8 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 		return;
 	
 	Tstring OutputText = DisplayStrings[Character];
-	
+
+	/*
 	// Choose the closest font we have
 	if (Size <= 11) {
 		Size = 2;
@@ -28,8 +29,11 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 			Size = 0;
 	}
 
-	HFONT old = (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+	HFONT old = (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
 	
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+
+
 	// Get the dimensions of the text in pixels
 	SIZE OutSize;
 	GetTextExtentPoint32(m_hDCText, OutputText.c_str(), OutputText.size(), &OutSize);
@@ -39,7 +43,7 @@ inline void CScreen::TextSize(Dasher::symbol Character, int* Width, int* Height,
 }
 
 
-inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size) const
+inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int iSize) const
 {
 	if (m_DasherInterface==0)
 		return;
@@ -51,7 +55,8 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 	Rect.top = y1;
 	Rect.right = x1+50;
 	Rect.bottom = y1+50;
-	
+
+	/*
 	if (Size <= 11) {
 		Size = 2;
 	} else {
@@ -61,7 +66,10 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 			Size = 0;
 	}
 
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
+
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
@@ -70,7 +78,7 @@ inline void CScreen::DrawText(Dasher::symbol Character, int x1, int y1, int Size
 	SelectObject(m_hDCText, old);
 }
 
-inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size) const
+inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int iSize) const
 {
 	if (m_DasherInterface==0)
 		return;
@@ -85,6 +93,7 @@ inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size
 	Rect.right = x1+50;
 	Rect.bottom = y1+50;
 	
+	/*
 	if (Size <= 11) {
 		Size = 2;
 	} else {
@@ -95,6 +104,10 @@ inline void CScreen::DrawText(std::string OutputString, int x1, int y1, int Size
 	}
 
 	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+*/
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_ptrFontStore->GetFont(iSize));
+
+
 	// The Windows API dumps all its function names in the global namespace, ::
 	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
