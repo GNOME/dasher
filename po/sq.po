@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-05-08 20:13+0200\n"
+"POT-Creation-Date: 2004-06-23 14:07+0200\n"
 "PO-Revision-Date: 2004-05-08 20:14+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -22,9 +22,10 @@ msgstr "Menutë"
 msgid "Windows"
 msgstr "Dritaret"
 
+#. GRUT modified this item
 #: Src/Gtk2/accessibility.cc:75
 msgid "Application"
-msgstr "Programi"
+msgstr "Program"
 
 #: Src/Gtk2/accessibility.cc:82
 msgid "Buttons"
@@ -301,9 +302,10 @@ msgstr "Kopjo _Gjithçka"
 msgid "Copy all on stop"
 msgstr "Kopjo gjithçka kur ndalon"
 
+#. GRUT modified this item
 #: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
-msgstr "Prije"
+msgstr "Preje"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
@@ -521,9 +523,10 @@ msgstr "_Ndihmë"
 msgid "_Import Training Text"
 msgstr "_Importo tekstin udhëzues"
 
+#. GRUT modified this item
 #: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
-msgstr "_Opcionet"
+msgstr "_Opcione"
 
 #: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
