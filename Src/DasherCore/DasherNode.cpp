@@ -32,71 +32,7 @@ void CDasherNode::Dump_node () const
 	*/
 }
 
-/////////////////////////////////////////////////////////////////////////////
-// TODO: There is a lot of copy-and-pasted code shared between two Push_Node functions
-// need to rationalise.
-
-void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context) 
-// push a node copying the specified context
-{
-	if (m_Children) {
-		// if there are children just give them a poke
-		unsigned int i;
-		for (i=1;i<m_iChars;i++) {
-			m_Children[i]->m_iAge=0;
-			m_Children[i]->m_bAlive=true;
-		}
-		return;
-	}
-	
-	// if we haven't got a context then try to get a new one
-	m_context=m_languagemodel->CloneNodeContext(context);
-	// if it fails, be patient
-	if (!m_context)
-		return;
-	
-	m_iAge=0;
-	m_bAlive=true;
-	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and do not enter if already done
-		m_languagemodel->EnterNodeSymbol(m_context,m_Symbol);
-	
-	vector<symbol> newchars;   // place to put this list of characters
-	vector<unsigned int> cum,groups;   // for the probability list
-	m_languagemodel->GetNodeProbs(m_context,newchars,groups,cum,0.003);
-	m_iChars=newchars.size();
-	// work out cumulative probs
-	unsigned int i;
-	for (i=1;i<m_iChars;i++) 
-		cum[i]+=cum[i-1];
-	
-	// create an array of pointers to nodes
-	m_Children =new CDasherNode *[m_iChars];
-	
-	// create the children
-	ColorSchemes NormalScheme, SpecialScheme;
-	if ((m_ColorScheme==Nodes1) || (m_ColorScheme==Special1)) {
-		NormalScheme = Nodes2;
-		SpecialScheme = Special2;
-	} else {
-		NormalScheme = Nodes1;
-		SpecialScheme = Special1;
-	}
-	
-	ColorSchemes ChildScheme;
-	for (unsigned int sym=1;sym<m_iChars;sym++) {
-		if (newchars[sym]==this->m_languagemodel->GetSpaceSymbol())
-			ChildScheme = SpecialScheme;
-		else
-			ChildScheme = NormalScheme;
-		m_Children[sym]=new CDasherNode(this,newchars[sym],groups[sym],sym,ChildScheme,cum[sym-1],cum[sym],m_languagemodel);
-	}
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherNode::Push_Node() 
-{
-
+void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	if (m_Children) {
 		// if there are children just give them a poke
 		unsigned int i;
@@ -106,17 +42,6 @@ void CDasherNode::Push_Node()
 		}
 		return;
 	}
-
-	// if we haven't got a context then try to get a new one
-	if (m_parent) 
-		m_context=m_languagemodel->CloneNodeContext(m_parent->m_context);
-	else
-		m_context=m_languagemodel->GetRootNodeContext();
-	
-	// if it fails, be patient
-	if (!m_context)
-		return;
-
 	m_iAge=0;
 	m_bAlive=true;
 	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
@@ -152,7 +77,36 @@ void CDasherNode::Push_Node()
 			ChildScheme = NormalScheme;
 		m_Children[i]=new CDasherNode(this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel);
 	}
+}
 
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherNode::Push_Node(CLanguageModel::CNodeContext *context) 
+// push a node copying the specified context
+{
+	// if we haven't got a context then try to get a new one
+	m_context=m_languagemodel->CloneNodeContext(context);
+	// if it fails, be patient
+	if (!m_context)
+		return;
+	Generic_Push_Node(m_context);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherNode::Push_Node() 
+{
+
+	// if we haven't got a context then try to get a new one
+	if (m_parent) 
+		m_context=m_languagemodel->CloneNodeContext(m_parent->m_context);
+	else
+		m_context=m_languagemodel->GetRootNodeContext();
+	
+	// if it fails, be patient
+	if (!m_context)
+		return;
+	Generic_Push_Node(m_context);
 }
 
 /////////////////////////////////////////////////////////////////////////////

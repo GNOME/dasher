@@ -23,6 +23,7 @@ private:
 	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	unsigned int m_iChars, m_iAge;
 	bool m_bAlive;                     // if true, then display node, else dont bother
+	bool m_bControlNode;               // if true, node is a control node
 	bool m_bControlChild;              // if true, node is offspring of a control node
 	//bool m_Cscheme;                  // color scheme for the node - alternates through relatives
 	Opts::ColorSchemes m_ColorScheme;
@@ -55,6 +56,7 @@ public:
 	
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
 	void Get_string_under(const int,const myint y1,const myint y2,const myint smousex,const myint smousey,std::vector<symbol>&) const; // get string under given co-ords
+	void Generic_Push_Node(CLanguageModel::CNodeContext *context);
 	void Push_Node();                                      // give birth to children
 	void Push_Node(CLanguageModel::CNodeContext *context); // give birth to children with this context
 	void Delete_children();
