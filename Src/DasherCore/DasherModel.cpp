@@ -152,9 +152,15 @@ void CDasherModel::Start()
 	m_Rootmax=m_DasherY;
 
 	// Get rid of the old root nodes
-	if (oldroots.size()>0) { 
-		delete oldroots[0];
-		oldroots.clear();
+	//	if (oldroots.size()>0) { 
+	//		delete oldroots[0];
+	//		oldroots.clear();
+	//	}
+
+	while (oldroots.size()>0) {
+	  oldroots[0]->Delete_dead(oldroots[1]);
+	  delete oldroots[0];
+	  oldroots.pop_front();
 	}
 
 	//	if (m_Root) {
