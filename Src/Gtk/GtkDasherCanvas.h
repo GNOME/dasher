@@ -27,7 +27,9 @@ public:
   void Display();
 
   void clear();
-  Gdk_Font get_font( int size ) const;
+
+  //  Gdk_Font *get_font( int size ) const;
+
 protected:
   CDasherInterface *interface;
 
@@ -40,11 +42,13 @@ protected:
 
   GtkDoubleBuffer *buffer;
 
+  Gdk_Font *font_list;
+
   Gdk_Font f_large;
   Gdk_Font f_medium;
   Gdk_Font f_small;
 
-  //  Gdk_Font *get_font( int size );
+  const Gdk_Font *get_font( int size ) const;
 
   void swap_buffers(); 
 

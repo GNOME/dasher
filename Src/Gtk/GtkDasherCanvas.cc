@@ -13,6 +13,8 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height ), 
     interface( _interface )
 {
+  font_list = new Gdk_Font[17];
+
   set_events( GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK );
 
   set_usize(width, height);
@@ -24,19 +26,37 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   //bg_buffer = new Gdk_Pixmap(  width, height, -1 );
     buffer = new GtkDoubleBuffer( width, height, 16 );
 
-    f_small.create("-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*");
-    f_medium.create("-*-fixed-*-*-*-*-14-*-*-*-*-*-*-*");
-    f_large.create("-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*");
+      //    f_small.create("-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*");
+//          f_medium.create("-*-fixed-*-*-*-*-14-*-*-*-*-*-*-*");
+//          f_large.create("-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*");
+
+    // FIXME - Gah - this is so broken
+    // (a) Need to do something more sane than this (ie only creating the font objects as they are required)
+    // (b) Making sure that font objects for all sizes are drawable (I have no idea how to do this)
+
+    for( int i(0); i < 17; ++i )
+      {
+	char buffer[256];
+
+	sprintf( buffer, "-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*" );
+
+	font_list[i].create( buffer );
+
+	cout << font_list[i].char_width('A') << endl;
+
+	//	cout << buffer << endl;
+      }
 }
 
-Gdk_Font GtkDasherCanvas::get_font( int size ) const
+const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
 {
-  if( size < 12 )
-    return( f_small );
-  else if( size < 17 )
-    return( f_medium );
-  else
-    return( f_large );
+  //  if( size < 12 )
+  //    return( &f_small );
+  // else if( size < 17 )
+  //  return( &f_medium );
+  // else
+  //  return( &f_large );
+  return( &font_list[size-8] );
 }
 
 void GtkDasherCanvas::clear()
@@ -95,12 +115,12 @@ void GtkDasherCanvas::SetFont(std::string Name)
 
 void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const
 {
-  Gdk_Font chosen_font;
+  const Gdk_Font *chosen_font;
 
   chosen_font = get_font( Size );
 
-  *Width = chosen_font.char_width('A');
-  *Height = chosen_font.char_height('A');
+  *Width = chosen_font->char_width('A');
+  *Height = chosen_font->char_height('A');
 }
  
 void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
@@ -116,11 +136,11 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
       string symbol;
       symbol = interface->GetDisplayText(Character);
 
-      Gdk_Font chosen_font;
+      const Gdk_Font *chosen_font;
       
       chosen_font = get_font( Size );
       
-      buffer->get_bg()->draw_string(chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font.char_height('A'), symbol);
+      buffer->get_bg()->draw_string(*chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font->char_height('A'), symbol);
     }    
 }
   
