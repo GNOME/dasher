@@ -45,6 +45,8 @@ GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
 
+bool controlmodeon=false;
+
 GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
   { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<StockItem>", GTK_STOCK_NEW },
@@ -1041,6 +1043,7 @@ void windowpause(gpointer data, guint action, GtkWidget *widget )
 
 void controlmode(gpointer data, guint action, GtkWidget *widget )
 {
+  controlmodeon=GTK_CHECK_MENU_ITEM(widget)->active;
   dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
 }
 

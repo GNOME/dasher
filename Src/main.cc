@@ -45,7 +45,7 @@ GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *e
  
   if (xev->xany.type == ClientMessage &&
       (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom (
-							      gdk_atom_intern ("WM_TAKE_FOCUS", False)))
+							      gdk_atom_intern ("WM_TAKE_FOCUS", False)) && controlmodeon==true)
     {
       return GDK_FILTER_REMOVE;
     }

@@ -66,6 +66,7 @@ extern GtkItemFactory *dasher_menu;
 extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
 
+extern bool controlmodeon;
 
 #endif
 
