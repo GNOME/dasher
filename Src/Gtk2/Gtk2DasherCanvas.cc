@@ -60,6 +60,10 @@ GdkColor Gtk2DasherCanvas::get_color(int Color, Opts::ColorSchemes ColorScheme) 
     GdkColor foreground = { 0, 255*257, 255*257, 255*257 };
     return foreground;
   }
+  if (ColorScheme == Objects) {
+    GdkColor foreground = { 0, 0, 0, 0 };
+    return foreground;
+  }
   if (ColorScheme == Groups) {
     if (Color%3 == 0) {
       GdkColor foreground = { 0, 255*257, 255*257 ,0 };

@@ -44,7 +44,7 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 	m_dXmpc=0.9;
 	m_dXmpd=0.5;   // slow X movement when accelerating Y
 
-	double dY1=0.05;    // these are for the y non-linearity
+	double dY1=0.25;    // Amount of acceleration
 	double dY2=0.95;    // Accelerate Y movement below this point
 	double dY3=0.05;    // Accelerate Y movement above this point
 

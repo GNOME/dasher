@@ -49,6 +49,7 @@ static void show_toolbar(gpointer data, guint action, GtkWidget  *widget );
 static void show_slider(gpointer data, guint action, GtkWidget  *widget );
 static void timestamp_files(gpointer data, guint action, GtkWidget *widget );
 static void file_encoding(gpointer data, guint action, GtkWidget *widget );
+static void DrawMouse(gpointer data, guint action, GtkWidget *widget );
 
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
@@ -107,7 +108,7 @@ static GtkItemFactoryEntry entries[] = {
   { "/Options/Dasher Font...", NULL, NULL, 0, "<Item>" },
   { "/Options/Reset Fonts", NULL, NULL, 0, "<Item>" },
   { "/Options/One Dimensional", NULL, NULL, 0, "<CheckItem>" },
-  { "/Options/Draw Position", NULL, NULL, 0, "<CheckItem>" },
+  { "/Options/Draw Position", NULL, *GtkItemFactoryCallback(DrawMouse), 1, "<CheckItem>" },
   { "/Help", NULL, NULL, 0, "<Branch>" },
   { "/Help/About", NULL, NULL, 0, "<Item>" }
  };
@@ -729,7 +730,7 @@ public:
     
     interface->Start();
     
-    gtk_timeout_add(5, timer_callback, dasher_canvas);  
+    gtk_timeout_add(50, timer_callback, dasher_canvas);  
     
     setup = TRUE;
 
@@ -838,4 +839,13 @@ void file_encoding(gpointer data, guint action, GtkWidget *widget )
 {
   signed int realaction = action -3;
   interface->SetFileEncoding(Opts::FileEncodingFormats(realaction));
+}
+
+void DrawMouse(gpointer data, guint action, GtkWidget *widget )
+{
+  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+    interface->DrawMouse( TRUE );
+  } else {
+    interface->DrawMouse( FALSE );
+  }
 }
