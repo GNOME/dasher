@@ -283,20 +283,28 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
 
   gdk_draw_layout (offscreen_buffer,
 		   graphics_context,
-		   x1, y1-(ink->height/2.0), the_pangolayout);
+		   x1, y1, the_pangolayout);
 
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
-void text_size_callback(symbol Character, int* Width, int* Height, int Size)
+void text_size_callback(symbol Character, int* Width, int* Height, int size)
 {
-  // FIXME
-
   if (setup==false)
-    return;
+      return;
 
-  *Width = Size;
-  *Height = Size;
+  std::string symbol = dasher_get_display_text( Character );
+
+  pango_font_description_set_size( font,size*PANGO_SCALE);
+
+  pango_layout_set_font_description(the_pangolayout,font);
+
+  pango_layout_set_text(the_pangolayout,symbol.c_str(),-1);
+
+  pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
+
+  *Width =ink->width;
+  *Height=logical->height;
 }
 
 GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
