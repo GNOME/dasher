@@ -184,6 +184,10 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 
 	delete old; // only delete old alphabet after telling all other objects not to use it
 
+	if (m_ControlMode==true) {
+	  m_Alphabet->AddControlSymbol();
+	}
+
 	Start();
 
 	// We can only change the orientation after we have called
@@ -413,10 +417,14 @@ void CDasherInterface::ControlMode(bool Value)
     m_SettingsUI->ControlMode(Value);
   if (m_SettingsStore!=0)
     m_SettingsStore->SetBoolOption(Keys::CONTROL_MODE, Value);
-  if (Value==true) {
-    m_Alphabet->AddControlSymbol();
-  } else {
-    m_Alphabet->DelControlSymbol();
+  if (m_Alphabet!=0) {
+    if (Value==true) {
+      m_Alphabet->AddControlSymbol();
+    } else {
+      m_Alphabet->DelControlSymbol();
+    }
+    Start();
+    Redraw();
   }
 }
 
