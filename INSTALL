@@ -5,23 +5,21 @@ Here's how to do it:
 
 1. Unpack the source tarball:
 
-> gunzip -c dasher-3.0.2.tar.gz | tar -x
+> bunzip2 -c dasher-3.1.9.tar.bz2 | tar -x
 
 (or one of the many equivalent methods)
 
 2. Change into the source directory:
 
-> cd dasher-3.0.2
+> cd dasher-3.1.9
 
 3. Configure the installation:
 
 > ./configure
 
-or
+or, for accessibility or/and speech support:
 
-> ./configure --with-gtk2
-
-if you want to force building the GTK2 version.
+> ./configure --with-a11y --with-speech
 
 If configure generates any fatal errors, it probably means that required
 additional packages aren't installed, so go and install them before
@@ -41,14 +39,6 @@ you probably shouldn't be doing it :-) - go and find someone who does.)
 
 Congratulation - you should now have a working Dasher installation. At
 this point, stop being root and type 'dasher' to see if it worked.
-
-If you want Dasher to save settings between sessions, you'll need to
-make a directory called '.dasher' in your home directory:
-
-> mkdir ~/.dasher
-
-If you don't do this, dasher will complain that it cannot read the
-configuration file.
 
 Please send any bugs / comments / patches / translations to:
 
