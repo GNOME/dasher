@@ -12,6 +12,8 @@ GdkColor *colours;
 
 extern gboolean setup;
 extern gboolean paused;
+extern long mouseposstartdist;
+
 gboolean drawoutline=FALSE;
 
 void rebuild_buffer()
@@ -352,16 +354,14 @@ void draw_mouseposbox(int which) {
     color.red=255*257;
     color.green=0*257;
     color.blue=0*257;
-    top=0;
-    bottom=100;
+    top=the_canvas->allocation.height/2-mouseposstartdist-100;
     break;
   case 1:
     color.pixel=0;
     color.red=255*257;
     color.green=255*257;
     color.blue=0*257;
-    bottom=the_canvas->allocation.height;
-    top=bottom-100;
+    top=the_canvas->allocation.height/2+mouseposstartdist;
     break;
   }
 
@@ -375,7 +375,7 @@ void draw_mouseposbox(int which) {
   gdk_gc_get_values(graphics_context,&origvalues);
   gdk_color_alloc(colormap, &color);
   gdk_gc_set_foreground (graphics_context, &color);
-  gdk_draw_rectangle (onscreen_buffer, graphics_context, TRUE, 0, top, the_canvas->allocation.width, bottom);
+  gdk_draw_rectangle (onscreen_buffer, graphics_context, TRUE, 0, top, the_canvas->allocation.width, 100);
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 
   update_rect.x = 0;

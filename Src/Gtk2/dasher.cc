@@ -23,6 +23,7 @@
 #include "canvas.h"
 #include "edit.h"
 #include "accessibility.h"
+#include "settings_store.h"
 
 #include <X11/Xlib.h>
 #include <gdk/gdkx.h>
@@ -49,6 +50,8 @@ GtkWidget *filesel;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;
+bool onedmode=false;
+bool eyetrackermode=false;
 
 #define _(_x) gettext(_x)
 
@@ -74,6 +77,7 @@ gboolean secondbox=FALSE;
 gboolean speakonstop=FALSE;
 
 gint dasherwidth, dasherheight;
+long yscale, mouseposstartdist=0;
 
 extern gboolean timedata;
 extern gboolean drawoutline;
@@ -559,6 +563,13 @@ timer_callback(gpointer data)
       }
     }
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+    if (onedmode==true && yscale!=0) {
+      gdk_window_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+      float scalefactor=dasherheight/yscale;
+      y-=dasherheight/2;
+      y*=scalefactor;
+      y+=dasherheight/2;
+    } 
     dasher_tap_on( x, y, get_time() );
   }
 
@@ -570,7 +581,7 @@ timer_callback(gpointer data)
       firstbox=true;
       draw_mouseposbox(0);
     }
-    if (y>0 && y<100) {
+    if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist)) {
       if (starttime==0) {
 	starttime=time(NULL);
       } else {
@@ -580,7 +591,7 @@ timer_callback(gpointer data)
 	  firstbox=false;
 	}
       }
-    } else if (y<dasherheight && y>dasherheight-100 && secondbox==true) {      
+    } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
       if (starttime2==0) {
 	starttime2=time(NULL);
 	starttime=0;
@@ -634,7 +645,6 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
   force_dasher_redraw();
 
   if (setup==TRUE) {
-    int dasherwidth, dasherheight;
     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
     gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
     dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
@@ -812,6 +822,14 @@ void interface_setup(GladeXML *xml) {
   initialise_canvas(360,360);
   initialise_edit();
 
+  // interface specific preferences
+  if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
+  }
+  
+  if(get_long_option_callback("YScale",&yscale)!=false) {
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
+  }
 }
 
 void
@@ -1141,6 +1159,19 @@ extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data)
   force_dasher_redraw();
 }
 
+extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
+{
+  mouseposstartdist=widget->adjustment->value;
+  set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
+  force_dasher_redraw();
+}
+
+extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
+{
+  yscale=widget->adjustment->value;
+  set_long_option_callback("YScale",yscale);
+}
+
 // Callbacks to be notified of when something changes
 
 void parameter_string_callback( string_param p, const char *value )
@@ -1299,9 +1330,11 @@ void parameter_bool_callback( bool_param p, bool value )
       break;
     case BOOL_DIMENSIONS:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"onedbutton")), value);
+      onedmode=value;
       break;
     case BOOL_EYETRACKER:
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"eyetrackerbutton")), value);
+      eyetrackermode=value;
       break;
     case BOOL_TIMESTAMPNEWFILES:
       timestamp=value;

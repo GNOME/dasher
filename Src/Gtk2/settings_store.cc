@@ -29,8 +29,9 @@ bool get_long_option_callback(const std::string& Key, long *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  if (gconf_engine_get( gconfengine, keypath, NULL)==FALSE)
+  if (gconf_engine_get( gconfengine, keypath, NULL)==FALSE) {
     return (false);
+  }
 
   got_value = gconf_client_get_int( the_gconf_client, keypath, NULL);
 
