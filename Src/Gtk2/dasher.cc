@@ -539,7 +539,7 @@ select_new_file(GtkWidget *widget, gpointer user_data)
   dasher_pause(0,0);
 }
 
-extern "C" void 
+extern "C" bool 
 save_file_as (const char *filename, bool append)
 {
   int opened=1;
@@ -576,7 +576,7 @@ save_file_as (const char *filename, bool append)
     gnome_vfs_create (&handle,filename,GNOME_VFS_OPEN_WRITE,TRUE,0666);
   } else if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
-    return;
+    return false;
   }
 
 #else
@@ -601,7 +601,7 @@ save_file_as (const char *filename, bool append)
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
     gtk_dialog_run(GTK_DIALOG(error_dialog));
     gtk_widget_destroy(error_dialog);
-    return;
+    return false;
   }
 #endif
   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
@@ -643,7 +643,7 @@ save_file_as (const char *filename, bool append)
   result=gnome_vfs_write(handle,outbuffer,strlen(outbuffer),&vfs_bytes_written);
   if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
-    return;    
+    return false;    
   }
   
   gnome_vfs_close(handle);
@@ -670,9 +670,11 @@ save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *select
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
-  save_file_as(filename,FALSE);
-
-  gtk_main_quit();
+  if (save_file_as(filename,FALSE)==false) {
+    return;
+  } else {
+    gtk_main_quit();
+  }
 }
 
 extern "C" void
@@ -754,8 +756,11 @@ extern "C" void
 save_file_and_quit (GtkWidget *widget, gpointer user_data)
 {
   if (filename != NULL) {
-    save_file_as(filename,FALSE);
-    gtk_main_quit();
+    if (save_file_as(filename,FALSE)==true) {
+      gtk_main_quit();
+    } else {
+      return;
+    }
   }
   else {
     select_save_file_as_and_quit(NULL,NULL);
