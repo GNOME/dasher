@@ -538,6 +538,12 @@ open_file (const char *filename)
   if (size!=0) {
     // Don't attempt to insert new text if the file is empty as it makes
     // GTK cry
+    if (g_utf8_validate(buffer,size,NULL)==FALSE) {
+      // It's not UTF8, so we do the best we can...
+      gchar* buffer2=g_locale_to_utf8(buffer,size,NULL,NULL,NULL);
+      g_free(buffer);
+      buffer=buffer2;
+    }
     gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
     gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
   }
