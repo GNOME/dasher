@@ -93,6 +93,10 @@ main(int argc, char *argv[])
   XWMHints wm_hints;
   Atom wm_window_protocols[3];
 
+  bindtextdomain (PACKAGE, LOCALEDIR);
+  bind_textdomain_codeset (PACKAGE, "UTF-8");
+  textdomain (PACKAGE);
+
 #ifdef GNOME_LIBS
   GnomeProgram *program=0;
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
@@ -187,11 +191,6 @@ main(int argc, char *argv[])
   dasher_set_edit_delete_callback( edit_delete_callback );
   dasher_set_get_new_context_callback( get_new_context_callback );
   dasher_set_clipboard_callback( clipboard_callback );
-
-  setlocale (LC_ALL, "");
-
-  bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
-  textdomain (PACKAGE);
 
 #ifdef GNOME_A11Y
   SPI_init ();

@@ -1,5 +1,9 @@
 2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
+	* Make sure that gettext is initialised before the UI is built
+	
+2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
+
 	* Remove the kludge that strips out some widgets - according to the
 	  ATK folks it's a bug in filechooser, and that's been sorted
 	  anyway now
