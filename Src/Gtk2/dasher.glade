@@ -1291,6 +1291,7 @@
 		  <property name="label">gtk-close</property>
 		  <property name="use_stock">True</property>
 		  <property name="relief">GTK_RELIEF_NORMAL</property>
+		  <signal name="clicked" handler="preferences_hide" last_modification_time="Tue, 23 Sep 2003 20:29:33 GMT"/>
 		</widget>
 	      </child>
 	    </widget>
