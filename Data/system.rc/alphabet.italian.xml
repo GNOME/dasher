@@ -10,7 +10,7 @@
 <paragraph d="&#182;" b="9"/>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
-<group name="Lower case Latin letters">
+<group name="Lower case Latin letters" b="0">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
 <s d="b" t="b"/>
@@ -44,7 +44,7 @@
 <s d="y" t="y"/>
 <s d="z" t="z"/>
 </group>
-<group name="Upper case Latin letters">
+<group name="Upper case Latin letters" b="111">
 <s d="A" t="A"/>
 <s d="À" t="À"/>
 <s d="B" t="B"/>
@@ -78,7 +78,7 @@
 <s d="Y" t="Y"/>
 <s d="Z" t="Z"/>
 </group>
-<group name="Numbers">
+<group name="Numbers" b="113">
 <s d="1" t="1"/>
 <s d="2" t="2"/>
 <s d="3" t="3"/>
@@ -90,7 +90,7 @@
 <s d="9" t="9"/>
 <s d="0" t="0"/>
 </group>
-<group name="Punctuation">
+<group name="Punctuation" b="112">
 <s d="&amp;" t="&amp;"/>
 <s d="&quot;" t="&quot;"/>
 <s d="&apos;" t="&apos;"/>
@@ -110,7 +110,7 @@
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
 <paragraph d="&#182;" b="9"/>
-<group name="Lower case Latin letters">
+<group name="Lower case Latin letters" b="0">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
 <s d="b" t="b"/>
@@ -144,7 +144,7 @@
 <s d="y" t="y"/>
 <s d="z" t="z"/>
 </group>
-<group name="Upper case Latin letters">
+<group name="Upper case Latin letters" b="111">
 <s d="A" t="A"/>
 <s d="À" t="À"/>
 <s d="B" t="B"/>
@@ -179,7 +179,7 @@
 <s d="Z" t="Z"/>
 </group>
 
-<group name="Numbers">
+<group name="Numbers" b="113">
 <s d="1" t="1"/>
 <s d="2" t="2"/>
 <s d="3" t="3"/>
@@ -191,7 +191,7 @@
 <s d="9" t="9"/>
 <s d="0" t="0"/>
 </group>
-<group name="Punctuation">
+<group name="Punctuation" b="112">
 <s d="%" t="%"/>
 <s d="*" t="*"/>
 <s d="+" t="+"/>
