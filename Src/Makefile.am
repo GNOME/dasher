@@ -26,7 +26,10 @@ endif
 
 if DOQTE
 
-QTDIR=/usr/share/qte2
+QTDIR=/usr/share/qt3
+dasher_SOURCES = QMain.cc
+AM_CXXFLAGS = -O2 -fno-rtti -IDasherCore -I$(QTDIR)/include -DPROGDATA=\"$(pkgdatadir)/\" -lqt-mt -lqui
+LDADD = Qt/libdasherqt.a DasherCore/libdashercore.a
 
 SUBDIRS = DasherCore Qt
 
