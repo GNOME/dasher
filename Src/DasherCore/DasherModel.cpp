@@ -151,7 +151,11 @@ void CDasherModel::Start()
 	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
 
-	delete m_Root;
+	// Get rid of the old root nodes
+	if (oldroots.size()>0) { 
+		delete oldroots[0];
+		oldroots.clear();
+	}
 
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
 
@@ -169,12 +173,6 @@ void CDasherModel::Start()
 		LearnContext = m_languagemodel->CloneNodeContext(therootcontext);
 	}
 
-	// Get rid of the old root notes
-	if (oldroots.size()>1) {
-	  delete oldroots[1];
-	}
-	oldroots.clear();
-	
 	m_languagemodel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
 //	dump();
