@@ -51,7 +51,8 @@ public:
 	}
 
 	virtual void DrawMouse(int mousex, int mousey)=0;
-	
+	virtual void DrawKeyboard()=0;
+
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}
 	CDasherScreen& Screen() {return *m_Screen;}

@@ -32,6 +32,7 @@ public:
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
 	void DrawMouse(int mousex, int mousey);
+	void DrawKeyboard();
 private:
 	// the x and y non-linearities
 	inline const void screen2dasher(int *mousex, int *mousey);

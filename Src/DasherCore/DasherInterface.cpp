@@ -29,7 +29,7 @@ CDasherInterface::CDasherInterface()
 	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
 	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
 	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
-	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0)
+	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DrawKeyboard(false)
 {
 }
 
@@ -146,6 +146,9 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 		if (m_DrawMouse==true) {
 		  m_DasherView->DrawMouse(MouseX, MouseY);
 		}
+		if (m_DrawKeyboard==true) {
+		  m_DasherView->DrawKeyboard();
+		}
 		m_DasherView->Display();
 	}
 	if (m_DasherModel!=0)
@@ -205,6 +208,10 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 		m_SettingsUI->ChangeMaxBitRate(m_MaxBitRate);
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetLongOption(Keys::MAX_BITRATE_TIMES100, long(m_MaxBitRate*100) );
+
+	if (m_DrawKeyboard==true && m_DasherView!=NULL) {
+	  m_DasherView->DrawKeyboard();
+	}
 }
 
 

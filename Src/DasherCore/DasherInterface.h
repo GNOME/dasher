@@ -146,6 +146,7 @@ private:
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
 	bool m_DrawMouse;
+	bool m_DrawKeyboard;
 	bool m_StartSpace;
 	bool m_StartLeft;
 	bool m_KeyControl;

@@ -184,6 +184,31 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 0, Opts::ColorSchemes(Objects));
 }
 
+void CDasherViewSquare::DrawKeyboard()
+{
+  CDasherScreen::point line[2];
+  line[0].x = 200;
+  line[0].y = 0;
+  line[1].x = 200;
+  line[1].y = CanvasY/2;
+  
+  Screen().Polyline(line,2);
+
+  line[0].x = 200;
+  line[0].y = CanvasY/2;
+  line[1].x = 0;
+  line[1].y = CanvasY/2;
+
+  Screen().Polyline(line,2);
+
+  line[0].x = 200;
+  line[0].y = CanvasY/2;
+  line[1].x = 200;
+  line[1].y = CanvasY;
+
+  Screen().Polyline(line,2);
+}
+
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 {
 	CDasherView::ChangeScreen(NewScreen);
