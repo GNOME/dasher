@@ -800,6 +800,19 @@ open_window() {
 
     //    interface->SettingsDefaults( store );
 
+  // Focus the canvas
+  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
+  gboolean *returnType;
+  
+  focusEvent->type = GDK_FOCUS_CHANGE;
+  focusEvent->window = (GdkWindow *) the_canvas;
+  focusEvent->send_event = FALSE;
+  focusEvent->in = TRUE;
+
+  gtk_widget_grab_focus(GTK_WIDGET(the_canvas));  
+  gtk_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
+
+  g_free(focusEvent);
 
   dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
   dasher_set_parameter_int( INT_VIEW, 0 );
