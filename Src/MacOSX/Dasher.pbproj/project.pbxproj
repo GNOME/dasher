@@ -11,6 +11,8 @@
 				19EEDB310450E75F0000000A,
 				1904CDA5048813400000000A,
 				1904CDA6048813400000000A,
+				196D8784048AA2750000000A,
+				196D8785048AA2750000000A,
 				19C4961D045029D70000000A,
 				199DCCD70450B94C0000000A,
 				19D4423C04546C410000000A,
@@ -188,6 +190,30 @@
 		};
 		1946CAC00481AD440000000A = {
 			fileRef = 1946CABC0481AD440000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		196D8784048AA2750000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = DasherUtil.h;
+			refType = 4;
+		};
+		196D8785048AA2750000000A = {
+			fileEncoding = 30;
+			isa = PBXFileReference;
+			path = DasherUtil.mm;
+			refType = 4;
+		};
+		196D8786048AA2750000000A = {
+			fileRef = 196D8784048AA2750000000A;
+			isa = PBXBuildFile;
+			settings = {
+			};
+		};
+		196D8787048AA2750000000A = {
+			fileRef = 196D8785048AA2750000000A;
 			isa = PBXBuildFile;
 			settings = {
 			};
@@ -509,6 +535,7 @@
 				1946CABD0481AD440000000A,
 				1946CABF0481AD440000000A,
 				1904CDA7048813400000000A,
+				196D8786048AA2750000000A,
 			);
 			isa = PBXHeadersBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;
@@ -551,6 +578,7 @@
 				1946CABE0481AD440000000A,
 				1946CAC00481AD440000000A,
 				1904CDA8048813400000000A,
+				196D8787048AA2750000000A,
 			);
 			isa = PBXSourcesBuildPhase;
 			runOnlyForDeploymentPostprocessing = 0;

@@ -8,6 +8,7 @@
 
 #import "DasherEdit.h"
 #import "DasherApp.h"
+#import "DasherUtil.h"
 #import "PreferencesController.h"
 #include "libdasher.h"
 
@@ -38,7 +39,7 @@ void edit_delete_callback()
 void get_new_context_callback( std::string &str, int max )
 {
   NSString *s = [XXXdasherEdit getNewContextCallback:max];
-  str = (s == nil || [s length] == 0) ? new std::string() : new std::string([s UTF8String]);
+  str = StdStringFromNSString(s);
 }
 
 void clipboard_callback( clipboard_action act )
@@ -48,7 +49,6 @@ void clipboard_callback( clipboard_action act )
 
 static void registerCallbacks()
 {
-
   dasher_set_edit_output_callback( edit_output_callback );
   dasher_set_edit_flush_callback( edit_flush_callback );
   dasher_set_edit_unflush_callback( edit_unflush_callback );
@@ -56,7 +56,6 @@ static void registerCallbacks()
   dasher_set_get_new_context_callback( get_new_context_callback );
 
   dasher_set_clipboard_callback( clipboard_callback );
-
 }
 
 
@@ -89,7 +88,7 @@ static void registerCallbacks()
   dasherIsModifyingText = YES;
 
   XXXdasherEdit = self;
-
+  
   // TODO this should actually happen on creating a new document
   [dasherTextUI setFont:[NSFont fontWithName:[defaults stringForKey:EDIT_FONT] size:(float)[defaults integerForKey:EDIT_FONT_SIZE]]];
 
@@ -122,12 +121,12 @@ static void registerCallbacks()
 
   if (flushCount > 0) {
     NSRange r = [dasherTextUI selectedRange];
-    
+
     [dasherTextUI replaceCharactersInRange:NSMakeRange(r.location - flushCount, r.length + flushCount) withString:@""];
   }
 
   flushCount = 0;
-  
+
   dasherIsModifyingText = NO;
 }
 
@@ -137,7 +136,7 @@ static void registerCallbacks()
   if (r.location <= 0) {
     return;
   }
-  
+
   dasherIsModifyingText = YES;
   [dasherTextUI replaceCharactersInRange:NSMakeRange(r.location - 1, 1) withString:@""];
   dasherIsModifyingText = NO;
@@ -152,12 +151,12 @@ static void registerCallbacks()
   unsigned int q = MIN(r.location, maxChars);
 
   r = NSMakeRange(r.location - q, r.length + q);
-  
+
   dasherIsModifyingText = YES;
   dasherIsModifyingText = NO;
 
   flushCount = 0;
-  
+
   return r.length <= 0 ? nil : [s substringWithRange:r];
 }
 

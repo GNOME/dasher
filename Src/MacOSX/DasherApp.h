@@ -9,36 +9,13 @@
 
 #import <Foundation/NSObject.h>
 #import <AppKit/NSNibDeclarations.h>
-#include <string>
 
-@class DasherView;
-@class NSTimer, NSWindow, NSTextView, NSSplitView;
-
-NSString *NSStringFromStdString(const std::string& aString);
-
-unsigned long int get_time();
 
 @interface DasherApp : NSObject
 {
-    IBOutlet DasherView *dasherView;
-    IBOutlet NSWindow *dasherWindow;
-
-    NSTimer *_timer;
 }
 
-- (NSTimer *)timer;
-- (void)setTimer:(NSTimer *)newTimer;
-
-- (void)blankCallback;
-- (void)displayCallback;
-
 - (IBAction)importTrainingText:(id)sender;
-- (IBAction)changeSpeed:(id)sender;
-
 - (IBAction)showPreferences:(id)sender;
-
-- (void)startDashing;
-- (void)stopDashing;
-- (BOOL)isDashing;
 
 @end

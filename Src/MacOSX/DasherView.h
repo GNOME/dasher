@@ -4,9 +4,16 @@
 
 
 #import <AppKit/NSView.h>
-@class NSColor, nSString, NSMutableDictionary;
+#import <AppKit/NSNibDeclarations.h>
+
+#include <string>
+
+@class NSColor, NSTimer, NSString, NSMutableDictionary;
 @class NSBezierPath;
 @class ZippyCache, ZippyString;
+
+unsigned long int get_time();
+
 
 @interface DasherView : NSView {
   BOOL isPaused;
@@ -27,11 +34,17 @@
 
   NSMutableDictionary *_textAttributeCache;
 
-#if defined(TOY)
-  NSString *fontName;
-#endif
-  
+  NSTimer *_timer;
 }
+
+- (void)blankCallback;
+- (void)displayCallback;
+
+- (IBAction)changeSpeed:(id)sender;
+
+- (void)startDashing;
+- (void)stopDashing;
+- (BOOL)isDashing;
 
 
 - (NSSize)textSizeCallbackWithString:(NSString *)aString size:(int)aSize;
@@ -63,6 +76,10 @@
 
 - (NSMutableDictionary *)textAttributeCache;
 - (void)setTextAttributeCache:(NSMutableDictionary *)newTextAttributeCache;
+
+- (NSTimer *)timer;
+- (void)setTimer:(NSTimer *)newTimer;
+
 
 @end
 

@@ -4,6 +4,7 @@
 
 #import "PreferencesController.h"
 #import "DasherApp.h"
+#import "DasherUtil.h"
 
 #include "libdasher.h"
 

@@ -30,6 +30,10 @@ TODO
 
 DONE
 
+01-06-2003
+- refactored all dasher related functionality into DasherView
+- created DasherUtil for utility functions
+
 31-05-2003
 - separated edit functionality into DasherEdit; new context, delete, flush, unflush should all work correctly now (i hope?)
 
