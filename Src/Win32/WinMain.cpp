@@ -122,8 +122,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 		DasherInterface.AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
 		DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
 
+
 		iRet = DasherWindow.MessageLoop();
 	}
+
+	// Close the COM library on the current thread
+	CoUninitialize();
 
 	return iRet;
 }
