@@ -123,8 +123,8 @@ private:
 	CLanguageModel::CNodeContext* TrainContext;
 	
 	std::string AlphabetID;
-	unsigned int LanguageModelID;
-	unsigned int ViewID;
+	int LanguageModelID;
+	int ViewID;
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
 	Opts::ScreenOrientations m_Orientation;

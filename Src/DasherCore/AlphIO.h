@@ -18,6 +18,7 @@
 #include <map>
 #include <vector>
 #include <utility> // for std::pair
+#include <stdio.h> // for C style file IO
 
 namespace expat {
 	#include "../Common/Expat/lib/expat.h"
