@@ -57,7 +57,7 @@ namespace Dasher
 		// TODO: Possibly make colors long and add an RGB item to this {{{
 		// Would allow literal as well as semantic colors for
 		// greater flexibility. }}}
-		enum ColorSchemes {Nodes1=0, Nodes2=1, Special1=2, Special2=3, Groups=4};
+		enum ColorSchemes {Nodes1=0, Nodes2=1, Special1=2, Special2=3, Groups=4, Objects=5};
 		enum FontSize {Normal=1, Big=2, VBig=4};
 	}
 

@@ -71,6 +71,7 @@ protected:
   Gdk_GC groupsgc[3];
   Gdk_GC special1gc;
   Gdk_GC special2gc;
+  Gdk_GC objectsgc;
 
   std::string fontname;
 

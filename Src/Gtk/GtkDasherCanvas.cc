@@ -482,6 +482,16 @@ void GtkDasherCanvas::build_colours()
       groupsgc[i].set_foreground( col );
     }
 
+  {
+    objectsgc.create( get_window() );
+
+    Gdk_Color col;
+    col.set_rgb(0*256,0*256,0*256);
+    cm.alloc( col );
+
+    objectsgc.set_foreground( col );
+  }
+
 }
 
 const Gdk_GC *GtkDasherCanvas::get_color( int colour, Opts::ColorSchemes colour_scheme ) const
@@ -502,6 +512,9 @@ const Gdk_GC *GtkDasherCanvas::get_color( int colour, Opts::ColorSchemes colour_
       break;
     case Groups:
       return( &groupsgc[ colour % 3 ] );
+      break;
+    case Objects:
+      return( &objectsgc );
       break;
     }
 }
