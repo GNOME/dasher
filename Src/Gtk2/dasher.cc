@@ -68,8 +68,8 @@ GtkItemFactoryEntry entries[] = {
   { "/View/sepl", NULL, NULL, 0, "<Separator>" },
   { "/View/Show Toolbar", NULL, *GtkItemFactoryCallback(show_toolbar), 1, "<CheckItem>" },
   { "/View/Speed Slider", NULL, *GtkItemFactoryCallback(show_slider), 1, "<CheckItem>" },
-  { "/View/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/View/Fix Layout", NULL, NULL, 0, "<CheckItem>" },
+  //  { "/View/sepl", NULL, NULL, 0, "<Separator>" },
+  //  { "/View/Fix Layout", NULL, NULL, 0, "<CheckItem>" },
   { "/Options", NULL, NULL, 0, "<Branch>" },
   { "/Options/Timestamp New Files", NULL, *GtkItemFactoryCallback(timestamp_files), 1, "<CheckItem>" },
   { "/Options/Copy All on Stop", NULL, *GtkItemFactoryCallback(copy_all_on_stop), 1, "<CheckItem>" },
@@ -601,7 +601,7 @@ void interface_setup() {
 				     dasher_accel);
 
   gtk_item_factory_create_items( dasher_menu,
-				 54,
+				 52,
 				 entries,
 				 NULL );
 
