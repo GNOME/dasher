@@ -1,3 +1,7 @@
+2004-07-12  Pawan Chitrakar  <pawan@nplinux.org>
+
+	* configure.in: Added ne Nepali in ALL_LINGUAS
+
 2004-07-07  Gil Osher  <dolfin@rpg.org.il>
 
 	* configure.in: Added 'he' (Hebrew) to ALL_LINGUAS.
