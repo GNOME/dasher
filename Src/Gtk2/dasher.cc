@@ -38,7 +38,7 @@ GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 
-static GtkItemFactoryEntry entries[] = {
+GtkItemFactoryEntry entries[] = {
   { "/_File",         NULL,      NULL,         0, "<Branch>" },
   { "/File/_New",     "<CTRL>N", *GtkItemFactoryCallback(select_new_file),     1, "<Item>" },
   { "/File/_Open...", "<CTRL>O", *GtkItemFactoryCallback(select_open_file),    1, "<Item>" },
@@ -48,7 +48,7 @@ static GtkItemFactoryEntry entries[] = {
   { "/File/sep1",     NULL,      NULL,         0, "<Separator>" },
   { "/File/Import Training Text...", NULL, select_import_file, 0, "<Item>" },
   { "/File/sepl", NULL, NULL, 0, "<Separator>" },
-  { "/File/_Quit",    "<CTRL>Q", NULL, 0, "<StockItem>", GTK_STOCK_QUIT },
+  { "/File/_Quit",    "<CTRL>Q", *GtkItemFactoryCallback(ask_save_before_exit), 0, "<StockItem>", GTK_STOCK_QUIT },
   { "/Edit", NULL, NULL, 0, "<Branch>" },
   { "/Edit/Cut", NULL, clipboard_cut, 0, "<Item>" },
   { "/Edit/Copy", NULL, clipboard_copy, 0, "<Item>" },
@@ -122,7 +122,7 @@ const gchar *filename = NULL;
 GtkWidget *window;
 GtkWidget *file_selector;
 
-static void 
+void 
 load_training_file (const gchar *filename)
 {
   dasher_train_file( filename );
@@ -145,7 +145,7 @@ void alphabet_select(GtkTreeSelection *selection, gpointer data)
   }
 }
 
-static void 
+void 
 preferences(gpointer data, guint action, GtkWidget *widget)
 {
   GtkTreeSelection *selection;
@@ -211,7 +211,7 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_show_all(preferences_window);
 }
   
-static void 
+void 
 open_file (const char *filename)
 {
   struct stat file_stat;
@@ -241,7 +241,7 @@ open_file (const char *filename)
   dasher_redraw();
 }
 
-static void
+void
 open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
@@ -252,7 +252,7 @@ open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 }
 
 
-static void
+void
 select_open_file(gpointer data, guint action, GtkWidget *widget)
 {
 
@@ -269,7 +269,7 @@ select_open_file(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_show (filew);
 }
 
-static void
+void
 new_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
@@ -278,7 +278,7 @@ new_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 }
 
 
-static void
+void
 select_new_file(gpointer data, guint action, GtkWidget *widget)
 {
 
@@ -295,7 +295,7 @@ select_new_file(gpointer data, guint action, GtkWidget *widget)
   gtk_widget_show (filew);
 }
 
-static void 
+void 
 save_file_as (const char *filename, bool append)
 {
   FILE *fp;
@@ -327,7 +327,7 @@ save_file_as (const char *filename, bool append)
   
 }
 
-static void
+void
 save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
@@ -337,7 +337,7 @@ save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
   gtk_widget_destroy (GTK_WIDGET(selector));
 }
 
-static void
+void
 append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
@@ -347,7 +347,7 @@ append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
   gtk_widget_destroy (GTK_WIDGET(selector));
 }
 
-static void
+void
 select_save_file_as()
 {
 
@@ -364,7 +364,7 @@ select_save_file_as()
   gtk_widget_show (filew);
 }
 
-static void
+void
 import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
 
@@ -376,7 +376,7 @@ import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
   gtk_widget_destroy (GTK_WIDGET(selector));
 }
 
-static void
+void
 select_append_file()
 {
 
@@ -393,7 +393,7 @@ select_append_file()
   gtk_widget_show (filew);
 }
 
-static void
+void
 save_file ()
 {
   if (filename != NULL) {
@@ -404,7 +404,7 @@ save_file ()
   }
 }
 
-static void
+void
 select_import_file()
 {
 
@@ -422,12 +422,12 @@ select_import_file()
 }
 
 
-static void 
+void 
 toolbar_save(GtkWidget *widget, gpointer data)
 {
 }
 
-static void
+void
 ask_save_before_exit(GtkWidget *widget, gpointer data)
 {
   if (file_modified == TRUE) {
@@ -447,7 +447,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
   }
 }
 
-static void 
+void 
 toolbar_cut(GtkWidget *widget, gpointer data)
 {
   gtk_editable_cut_clipboard(GTK_EDITABLE(the_text_view));
@@ -455,7 +455,7 @@ toolbar_cut(GtkWidget *widget, gpointer data)
   return;
 }
 
-static void 
+void 
 toolbar_copy(GtkWidget *widget, gpointer data)
 {
   gtk_editable_copy_clipboard(GTK_EDITABLE(the_text_view));
@@ -463,7 +463,7 @@ toolbar_copy(GtkWidget *widget, gpointer data)
   return;
 }
 
-static void 
+void 
 toolbar_paste(GtkWidget *widget, gpointer data)
 {
   gtk_editable_paste_clipboard(GTK_EDITABLE(the_text_view));
@@ -486,7 +486,7 @@ long get_time() {
   return (s_now * 1000 + ms_now);
 }
 
-static gint
+gint
 timer_callback(gpointer data)
 {
   if (!paused) {
@@ -504,7 +504,7 @@ timer_callback(gpointer data)
   return 1;
 }
 
-static gint
+gint
 canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 {
   gdk_draw_pixmap(the_canvas->window,
@@ -517,7 +517,7 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
   return TRUE;
 }
 
-static gint
+gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
   rebuild_buffer();
@@ -528,7 +528,7 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
   return FALSE;
 }
 
-static void
+void
 edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   flush_count = 0;
@@ -537,7 +537,7 @@ edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer da
   dasher_redraw();
 }
 
-static void
+void
 edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   flush_count = 0;
@@ -546,7 +546,7 @@ edit_key_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   dasher_redraw();
 }
 
-static void
+void
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
@@ -575,7 +575,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   return;
 }
 
-static gboolean
+gboolean
 button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
   dasher_pause( (gint) event->x,(gint) event->y );
@@ -584,7 +584,7 @@ button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
   return FALSE;
 }
 
-static void speed_changed(GtkAdjustment *adj) {
+void speed_changed(GtkAdjustment *adj) {
 
   dasher_set_parameter_double( DOUBLE_MAXBITRATE, adj->value );
 }
