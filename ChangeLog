@@ -1,3 +1,7 @@
+2004-02-07  Takeshi AIHANA <aihana@gnome.gr.jp>
+
+	* configure.in: Added ja (Japanese) into ALL_LINGUAS.
+
 2004-02-06  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* don't crash if speech can't be set up
