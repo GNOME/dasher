@@ -52,7 +52,7 @@ QtDasherScreen::QtDasherScreen (int _width, int _height,
 		     
   QTimer *tmr = new QTimer(this);
   connect (tmr, SIGNAL(timeout()), SLOT(timer()));
-  tmr->start(200);
+  tmr->start(40);
 
 }
 
@@ -115,8 +115,10 @@ QColor QtDasherScreen::getColor(int Color, const Opts::ColorSchemes ColorScheme)
 void QtDasherScreen::DrawRectangle(int x1, int y1, int x2, int y2,
 				   int Color, Opts::ColorSchemes ColorScheme) const
 {
-  painter->setBrush (getColor (Color, ColorScheme));
-  painter->drawRect (x1, y1, x2-x1, y2-y1);
+  if (y2-y1>=5) {
+    painter->setBrush (getColor (Color, ColorScheme));
+    painter->drawRect (x1, y1, x2-x1, y2-y1);
+  }
 }
 
 static void Points_to_QPointArray(const Dasher::CDasherScreen::point* const points,

@@ -65,6 +65,7 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
 			 QString(interface->GetDisplayText(Character).c_str()));
     }
 
+  void DrawText(std::string String, int x1, int y1, int Size) const {};
   void DrawRectangle(int x1, int y1, int x2, int y2,
 		     int Color, Opts::ColorSchemes ColorScheme) const;
   void Polyline(point* Points, int Number) const;
