@@ -481,7 +481,7 @@ BEGIN
     IDS_EDIT_CUT            "Cut"
     IDS_EDIT_COPY           "Copy"
     IDS_EDIT_PASTE          "Paste"
-    IDS_MAX_SPEED           "Maximum Speed\n(bit rate)"
+    IDS_MAX_SPEED           "Maximum Speed"
     IDS_EDIT_COPY_ALL       "Copy All"
     IDS_TYPE_Western        "Western"
     IDS_TYPE_None           "None"
