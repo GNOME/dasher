@@ -147,6 +147,11 @@ void GtkDasherPane::save()
 {
 }
 
+void GtkDasherPane::open( std::string filename )
+{
+  text->Open(filename);
+}
+
 void GtkDasherPane::save_as( string filename )
 {
   //  cout << "In Save: " << filename << endl;
@@ -254,3 +259,7 @@ void GtkDasherPane::show_slider( bool s )
     slider->hide();
 }
 
+void GtkDasherPane::copy_all_on_pause( bool s )
+{
+  interface->CopyAllOnStop( s );
+}

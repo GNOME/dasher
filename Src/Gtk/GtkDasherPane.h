@@ -28,6 +28,7 @@ public:
   void reset();
   void save();
   void save_as( string filename );
+  void open( string filename );
 
   void select_all();
   void cut();
@@ -41,6 +42,8 @@ public:
   void set_edit_font( string fontname, long size );
   
   void show_slider( bool s );
+
+  void copy_all_on_pause( bool s );
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;
@@ -60,7 +63,6 @@ private:
 
   bool paused;
   bool started;
-
 
 };
 

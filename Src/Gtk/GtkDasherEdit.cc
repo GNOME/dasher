@@ -129,5 +129,43 @@ bool GtkDasherEdit::Save()
 
 bool GtkDasherEdit::Open( std::string filename )
 {
-  return( false );
+  cout << "Filename is " << filename << endl;
+
+  current_filename = filename;
+
+  ifstream ifile( filename.c_str() );
+  
+  if( ifile.bad() )
+    return( false );
+
+  freeze();
+
+  Clear();
+
+  char fbuffer[ 1024 ];
+
+  Gdk_Color black("black");
+  Gdk_Color white("white");
+
+  while( !ifile.eof() )
+    {
+      
+
+      ifile.read( fbuffer, 1023 );
+      fbuffer[1023] = 0;
+
+      string rtext( fbuffer );
+
+      ifile >> rtext;
+
+      cout << rtext << endl;
+
+      insert ( efont, black, white, rtext, 1);
+    }
+
+  ifile.close();
+
+  thaw();
+
+  return( true );
 }

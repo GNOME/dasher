@@ -11,7 +11,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Edit Font"), slider_shown( true )
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Edit Font"), slider_shown( true ), ofilesel(), copy_all_on_pause( false )
 {  
   add(main_vbox);
 
@@ -105,7 +105,8 @@ GtkDasherWindow::GtkDasherWindow()
     MenuList & list_opts = menu_opts->items();
     
     list_opts.push_back(MenuElem("Timestamp New Files"));
-    list_opts.push_back(MenuElem("Copy All on Stop"));
+    list_opts.push_back(MenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_CAOS)));
     list_opts.push_back(SeparatorElem());
     list_opts.push_back(MenuElem("Alphabet..."));
     list_opts.push_back(MenuElem("File Encoding", *menu_enc ));
@@ -174,6 +175,9 @@ GtkDasherWindow::GtkDasherWindow()
   dfontsel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_cancel_sel));
   efontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::efont_ok_sel));
   efontsel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::efont_cancel_sel));
+
+  ofilesel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_ok_sel));
+  ofilesel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::ofile_cancel_sel));
   show_all();
   
   dasher_pane.clear();
@@ -287,6 +291,17 @@ void GtkDasherWindow::efont_cancel_sel()
   efontsel.hide();
 }
 
+void GtkDasherWindow::ofile_ok_sel()
+{
+  dasher_pane.open(ofilesel.get_filename());
+  ofilesel.hide();
+}
+
+void GtkDasherWindow::ofile_cancel_sel()
+{
+  ofilesel.hide();
+}
+
 void GtkDasherWindow::toolbar_button_cb(int c)
 {
   switch( c )
@@ -295,7 +310,7 @@ void GtkDasherWindow::toolbar_button_cb(int c)
       reset();
       break;
     case TB_OPEN:
-      // Not yet implemented
+      open();
       break;
     case TB_SAVE:
       save_dialogue.show();
@@ -328,7 +343,7 @@ void GtkDasherWindow::menu_button_cb(int c)
       reset();
       break;
     case MENU_OPEN:
-      // Not yet implemented
+      open();
       break;
     case MENU_SAVE:
       save();
@@ -384,6 +399,9 @@ void GtkDasherWindow::menu_button_cb(int c)
       orientation( BottomToTop );
       break;
 
+    case MENU_CAOS:
+      toggle_copy_all();
+      break;
     case MENU_EFONT:
       efontsel.show();
       break;
@@ -419,6 +437,11 @@ void GtkDasherWindow::save()
 void GtkDasherWindow::save_as()
 {
   save_dialogue.show();
+}
+
+void GtkDasherWindow::open()
+{
+  ofilesel.show();
 }
 
 void GtkDasherWindow::exit()
@@ -471,4 +494,10 @@ void GtkDasherWindow::toggle_slider()
   dasher_pane.show_slider( slider_shown );
 
 
+}
+
+void GtkDasherWindow::toggle_copy_all()
+{
+  copy_all_on_pause = !copy_all_on_pause;
+  dasher_pane.copy_all_on_pause( copy_all_on_pause );
 }

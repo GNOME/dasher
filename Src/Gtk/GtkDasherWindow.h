@@ -46,6 +46,7 @@
 #define MENU_OTB 213
 #define MENU_OBT 214
 
+#define MENU_CAOS 302
 #define MENU_EFONT 303
 #define MENU_DFONT 304
 
@@ -71,6 +72,8 @@ protected:
   Gtk::FontSelectionDialog dfontsel;
   Gtk::FontSelectionDialog efontsel;
 
+  Gtk::FileSelection ofilesel;
+
   Gtk::Pixmap first_pixmap;
 
   Gtk::Dialog aboutbox;
@@ -83,6 +86,9 @@ protected:
   void efont_ok_sel();
   void efont_cancel_sel();
 
+  void ofile_ok_sel();
+  void ofile_cancel_sel();
+
   void reset();
   void save();
   void save_as();
@@ -94,10 +100,14 @@ protected:
   void paste();
   void copy_all();
 
+  void open();
+
   void orientation( Opts::ScreenOrientations o );
 
   bool slider_shown;
+  bool copy_all_on_pause;
   void toggle_slider();
+  void toggle_copy_all();
 };
 
 #endif
