@@ -15,6 +15,8 @@
 
 #include "../../Common/NoClones.h"
 #include "../../Common/MSVC_Unannoy.h"
+#include "../GDI/FontStore.h"
+
 #include <vector>
 #ifndef _WIN32_WCE
 #include <cmath>
@@ -73,7 +75,8 @@ private:
 //	HWND m_hwnd;
 	HDC m_hdc;
 	HDC m_hDCBuffer,m_hDCText;
-	std::vector<HFONT> m_vhfFonts;
+	std::auto_ptr<CFontStore> m_ptrFontStore;
+	//std::vector<HFONT> m_vhfFonts;
 	//vector<HBRUSH> m_vhbBrushes;
 	std::vector<HBRUSH> m_Brushes;
 	std::vector<HPEN> m_Pens;
