@@ -1,20 +1,25 @@
-//! Class definition for the Dasher screen
 // DasherScreen.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2004 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __DasherScreen_h_
 #define __DasherScreen_h_
 
-#include "DasherWidgetInterface.h"
 #include "DasherTypes.h"
-#include "CustomColours.h"
 
-namespace Dasher {class CDasherScreen;}
+namespace Dasher 
+{
+	class CDasherScreen;
+	class CDasherWidgetInterface;
+	class CCustomColours;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 class Dasher::CDasherScreen
 {
 public:
