@@ -17,7 +17,7 @@ std::string outputtext;
 gunichar* wideoutput;
 
 extern gint outputcharacters;
-
+extern bool file_modified;
 void initialise_edit()
 {
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
@@ -41,6 +41,7 @@ void edit_output_callback(symbol Symbol)
 #endif
 
   outputtext+=label;
+  file_modified=true;
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
