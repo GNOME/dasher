@@ -127,7 +127,11 @@ inline void CDasherViewSquare::Crosshair(myint sx)
 	
 	MapScreen(&crosshair[0].x, &crosshair[0].y);
 	MapScreen(&crosshair[1].x, &crosshair[1].y);
-	Screen().Polyline(crosshair,2);
+	if (ColourMode==true) {
+		Screen().Polyline(crosshair,2,5);
+	} else {
+		Screen().Polyline(crosshair,2);
+	}
 	
 	crosshair[0].x = dasherx2screen(12*sx/14);
 	crosshair[0].y = CanvasY/2;
@@ -136,7 +140,11 @@ inline void CDasherViewSquare::Crosshair(myint sx)
 	
 	MapScreen(&crosshair[0].x, &crosshair[0].y);
 	MapScreen(&crosshair[1].x, &crosshair[1].y);
-	Screen().Polyline(crosshair,2);
+	if (ColourMode==true) {
+		Screen().Polyline(crosshair,2,5);
+	} else {
+		Screen().Polyline(crosshair,2);
+	}
 }
 
 

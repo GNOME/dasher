@@ -165,7 +165,7 @@ void CDasherModel::Start()
 	//	  delete LearnContext;
 	//	}
 
-	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false);
+	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
 	CLanguageModel::CNodeContext* therootcontext=m_languagemodel->GetRootNodeContext();
 
 	if (m_editbox) {

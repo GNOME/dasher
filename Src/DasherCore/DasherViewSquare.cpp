@@ -341,21 +341,33 @@ void CDasherViewSquare::DrawKeyboard()
   line[1].x = 200;
   line[1].y = CanvasY/2;
   
-  Screen().Polyline(line,2);
+  if (ColourMode==true) {
+    Screen().Polyline(line,2,6);
+  } else {
+    Screen().Polyline(line,2);
+  }
 
   line[0].x = 200;
   line[0].y = CanvasY/2;
   line[1].x = 0;
   line[1].y = CanvasY/2;
 
-  Screen().Polyline(line,2);
+  if (ColourMode==true) {
+    Screen().Polyline(line,2,6);
+  } else {
+    Screen().Polyline(line,2);
+  }
 
   line[0].x = 200;
   line[0].y = CanvasY/2;
   line[1].x = 200;
   line[1].y = CanvasY;
 
-  Screen().Polyline(line,2);
+  if (ColourMode==true) {
+    Screen().Polyline(line,2,6);
+  } else {
+    Screen().Polyline(line,2);
+  }
 }
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
