@@ -213,7 +213,7 @@ class dasher_screen : public CDasherScreen
 {
  public:
 
-  dasher_screen( int _width, int _height )
+  dasher_screen( screeint _width, screenint _height )
     : CDasherScreen( _width, _height )
     {
     };
@@ -234,22 +234,22 @@ class dasher_screen : public CDasherScreen
 	return Dasher::Opts::FontSize(dasherfontsize);
     };
 
-  void TextSize(symbol Character, int* Width, int* Height, int Size) const
+  void TextSize(symbol Character, screenint* Width, screenint* Height, int Size) const
     {
       handle_text_size( Character, Width, Height, Size );
     };
 
-  void DrawText(symbol Character, int x1, int y1, int Size) const
+  void DrawText(symbol Character, screenint x1, screenint y1, int Size) const
     {
       handle_draw_text( Character, x1, y1, Size );
     };
 
-  void DrawText(std::string String, int x1, int y1, int Size) const
+  void DrawText(std::string String, screenint x1, screenint y1, int Size) const
     {
       handle_draw_text( String, x1, y1, Size );
     };
 
-  void DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme) const
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme) const
     {
       handle_draw_rectangle( x1, y1, x2, y2, Color, ColorScheme);
     };
