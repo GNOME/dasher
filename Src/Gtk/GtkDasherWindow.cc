@@ -570,7 +570,7 @@ void GtkDasherWindow::orientation( Opts::ScreenOrientations o )
       isSelection = static_cast<RadioMenuItem *>( (*list_or)[5] )->get_active();
       break;
     default:
-      cerr << "Something strange is happening here - we were asked to use an orientation that doesn't exist" << endl;
+      std::cerr << "Something strange is happening here - we were asked to use an orientation that doesn't exist" << std::endl;
       break;
     }
 
