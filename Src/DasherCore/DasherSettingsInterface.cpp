@@ -54,7 +54,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	using namespace Keys;
 	using namespace Opts;
 	
-	Store->SetLongDefault(MAX_BITRATE_TIMES100, 200);
+	Store->SetLongDefault(MAX_BITRATE_TIMES100, 150);
 	this->ChangeMaxBitRate(Store->GetLongOption(MAX_BITRATE_TIMES100)/100.0);
 	
 	Store->SetBoolDefault(TIME_STAMP, true);
