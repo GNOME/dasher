@@ -10,14 +10,15 @@ namespace Dasher {
 
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
-	double dashery=*mousey;
+	// Convert the Y mouse coordinate to one that's based on the canvas size
+	double dashery=double(*mousey*DasherModel().DasherY()/CanvasY);
 	
-	double x=1.0*(CanvasX-*mousex)/CanvasX;
-	myint dasherOX=DasherModel().DasherOX();
+	// Convert the X mouse coordinate to one that's based on the canvas size - we want this
+	// the opposite way round to the mouse coordinate system, hence the fudging. ixmap gives
+	// us the X nonlinearity.
+	double x=ixmap(1.0*(CanvasX-*mousex)/CanvasX)*DasherModel().DasherY();
 
-	dashery*=DasherModel().DasherY();
-	dashery/=CanvasY;
-
+	// If we're in standard mode, fudge things for the vertical acceleration
 	if (DasherModel().Dimensions()==false) {
 		if (dashery>m_Y2)
 			dashery= (dashery-m_Y2)*m_Y1 + m_Y2;
@@ -25,41 +26,47 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 			dashery= (dashery-m_Y3)*m_Y1+m_Y3;
 	}
 
-	x=ixmap(x)*DasherModel().DasherY();
-
+	// If we're in one-dimensional mode, we need to use the Y coordinate to generate a new
+	// and exciting X coordinate
 	if (DasherModel().Dimensions()==true) {
-		double distx, disty;	
+		double disty,circlesize;	
 		
-		distx=DasherModel().DasherOX()-x;
+		// The x coordinate of the crosshairs
+		myint dasherOX=DasherModel().DasherOX();
+		
+		// The distance between the Y coordinate and the centreline
 		disty=DasherModel().DasherY()/2-dashery;
 
-		if (disty>1500) {
-			dashery=(dasherOX-1500)+((dasherOX-1500)-dashery);
-			disty=(dasherOX-750)-dashery;
-			if(disty<-750) {
+		// This is the radius of the circle transcribed by the one-dimensional mapping
+		circlesize=DasherModel().DasherY()/2.5;
+
+		if (disty>circlesize) {
+			dashery=2*(dasherOX-circlesize)-dashery;
+			disty=dasherOX-(circlesize/2)-dashery;
+			if(disty<-(circlesize/2)) {
 				x=double(dasherOX);
 				dashery=double(DasherModel().DasherY()/2);
 			} else {
-				x=dasherOX+pow(pow(750,2)-pow(disty,2),0.5)*10;
+				x=dasherOX+pow(pow(circlesize/2,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
 			*mousey=int(dashery);
 			return;
 		}
-		else if (disty <-1500) {
-			dashery=dasherOX+1500+(dasherOX+1500-dashery);
-			disty=dasherOX+750-dashery;
-			if(disty>750) {
+		else if (disty <-(circlesize)) {
+			dashery=2*(dasherOX+circlesize)-dashery;
+			disty=dasherOX+circlesize/2-dashery;			
+			if(disty>circlesize/2) {
 				x=double(dasherOX);
 				dashery=double(DasherModel().DasherY()/2);
 			} else {
-				x=dasherOX+pow(pow(750,2)-pow(disty,2),0.5)*10;
+				x=dasherOX+pow(pow(circlesize/2,2)-pow(disty,2),0.5)*10;
 			}
 			*mousex=int(x);
 			*mousey=int(dashery);
 			return;
 		} else {
-			x=pow(pow(1500,2)-pow(disty,2),0.5);
+			x=pow(pow(circlesize,2)-pow(disty,2),0.5);
 		}
 		x=dasherOX-x;
 	}
@@ -71,7 +78,6 @@ inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 {
 	double x=1.0*sx/(DasherModel().DasherY());
 	x=xmap(x);
-//	return CanvasX-int(x*CanvasY);
 	return CanvasX-int(x*CanvasX);
 
 }
@@ -84,10 +90,8 @@ inline const int CDasherViewSquare::dashery2screen(myint y)
 	else if (y<m_Y3)
 		y= m_Y3+   (y-m_Y3 )/m_Y1;
 
-//	y*=CanvasY*Screen().GetFontSize();
 	y*=CanvasY;
 	y/=DasherModel().DasherY();
-//	y-=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
 	return int(y);
 }
 
