@@ -259,13 +259,16 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree) {
   }
   return useful;
 }
-
+#endif
 void deletemenutree() {  
+#ifdef GNOME_A11Y
   while (menuitems.size()>0) {
     int i=menuitems.size()-1;
     Accessible_unref(menuitems[i]);
     menuitems.pop_back();
   }
   Accessible_unref(desktop);
-}
+#else
+  return;
 #endif
+}
