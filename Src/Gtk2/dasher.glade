@@ -1810,7 +1810,7 @@ your writing speed.</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">True</property>
   <property name="show_fileops">True</property>
-  <signal name="delete_event" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
+  <signal name="delete_event" handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
 
   <child internal-child="cancel_button">
     <widget class="GtkButton" id="cancel_button1">
@@ -2922,7 +2922,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
   <property name="resizable">True</property>
   <property name="destroy_with_parent">True</property>
   <property name="show_fileops">True</property>
-  <signal name="delete_event" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
+  <signal name="delete_event" handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
 
   <child internal-child="cancel_button">
     <widget class="GtkButton" id="button14">
@@ -2953,7 +2953,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
   <property name="resizable">True</property>
   <property name="destroy_with_parent">True</property>
   <property name="show_fileops">True</property>
-  <signal name="delete_event" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
+  <signal name="delete_event" handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
 
   <child internal-child="cancel_button">
     <widget class="GtkButton" id="button16">
@@ -2984,7 +2984,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
   <property name="resizable">True</property>
   <property name="destroy_with_parent">True</property>
   <property name="show_fileops">True</property>
-  <signal name="delete_event" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
+  <signal name="delete_event" handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
 
   <child internal-child="cancel_button">
     <widget class="GtkButton" id="button18">
@@ -3015,7 +3015,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
   <property name="resizable">True</property>
   <property name="destroy_with_parent">True</property>
   <property name="show_fileops">True</property>
-  <signal name="delete_event" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
+  <signal name="delete_event" handler="gtk_widget_hide_on_delete" last_modification_time="Tue, 23 Sep 2003 13:19:39 GMT"/>
 
   <child internal-child="cancel_button">
     <widget class="GtkButton" id="button20">

@@ -468,7 +468,7 @@ open_file (const char *filename)
   stat (filename, &file_stat);
   fp = fopen (filename, "r");
 
-  if (fp==NULL) {
+  if (fp==NULL || S_ISDIR(file_stat.st_mode)) {
     error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not open the file \"%s\".\n", filename);
     gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
@@ -505,7 +505,7 @@ open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
   
-  filesel_hide(GTK_WIDGET(selector),NULL);
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
   
   open_file (filename);
 }
@@ -595,7 +595,6 @@ save_file_as (const char *filename, bool append)
   }
 
   if (!opened) {
-    printf("Opened is %d\n",opened);
     error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not save the file \"%s\".\n", filename);
     gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
     gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
@@ -660,7 +659,7 @@ save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
-  filesel_hide(GTK_WIDGET(selector),NULL);
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
   
   save_file_as(filename,FALSE);
 }
@@ -684,7 +683,7 @@ append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   save_file_as(filename,TRUE);
 
-  filesel_hide(GTK_WIDGET(selector),NULL);
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
 }
 
 extern "C" void
@@ -724,7 +723,7 @@ import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 
   load_training_file(filename);
 
-  filesel_hide(GTK_WIDGET(selector),NULL);
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
 }
 
 extern "C" void
@@ -784,7 +783,7 @@ select_import_file(GtkWidget *widget, gpointer user_data)
 extern "C" void
 filesel_hide(GtkWidget *widget, gpointer user_data)
 {
-  gtk_widget_hide (widget);
+  gtk_widget_hide(gtk_widget_get_parent(gtk_widget_get_parent(gtk_widget_get_parent(widget))));
 }
 
 extern "C" void 
