@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Dasher
+GenericName=Dasher Text Entry
+Exec=dasher
+Icon=dasher.png
+Terminal=false
+Type=Application
+StartupNotify=true
+Categories=Application;Accessibility
+Encoding=UTF-8
