@@ -165,8 +165,6 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
   
   if(( width() != pmwidth ) || ( height() != pmheight ))
     {
-      cout << "Resizing canvas" << endl;
-
       pmwidth = width();
       pmheight = height();
 
@@ -174,14 +172,10 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
       buffer = new GtkDoubleBuffer( pmwidth, pmheight, 16 );
 
-      // Need to tell the interface that its dimensions have changed here.
-
       delete( wrapper );
       wrapper = new GtkScreenWrapper( pmwidth, pmheight, this );
 
       interface->ChangeScreen( wrapper );
-
-      //      interface->Redraw();
     }
 
   get_window().draw_pixmap( this->get_style()->get_white_gc(), *(buffer->get_fg()), 0, 0, 0, 0, pmwidth, pmheight );

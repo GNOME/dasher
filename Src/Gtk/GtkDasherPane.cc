@@ -14,6 +14,7 @@
 
 #include "DasherInterface.h"
 #include "SettingsStore.h"
+#include "DasherSettingsInterface.h"
 
 #include <sys/time.h>
 #include <stdlib.h>
@@ -22,7 +23,7 @@
 #include <iostream.h>
 #include <fstream.h>
 
-GtkDasherPane::GtkDasherPane()
+GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   : VBox( false, 0 ), paused( true ), started( false )
 { 
 
@@ -46,6 +47,12 @@ GtkDasherPane::GtkDasherPane()
 
   interface = new CDasherInterface;
 
+  cout << "setif is " << setif << endl;
+
+  //  interface->SetSettingsUI( setif );
+
+  cout << "foo" << endl;
+
   interface->SetSystemLocation(SystemDataDir);
   interface->SetUserLocation(UserDataDir);
   interface->SetSettingsStore( store );
@@ -57,7 +64,7 @@ GtkDasherPane::GtkDasherPane()
 
   slider = new GtkDasherSlider( interface );
   
-  canvas = new GtkDasherCanvas( 480, 480, interface );
+  canvas = new GtkDasherCanvas( 360, 360, interface );
 
   pack_start( *text, false, false );
   pack_start( *canvas, true, true );
@@ -137,12 +144,16 @@ void GtkDasherPane::clear()
 
 void GtkDasherPane::reset()
 {
-  cout << "In Reset" << endl;
   interface->Start();
   paused = true;
   started = false;
   clear();
   text->Clear();
+}
+
+void GtkDasherPane::set_settings_ui( Dasher::CDasherSettingsInterface *settingsif )
+{
+  interface->SetSettingsUI( settingsif );
 }
 
 void GtkDasherPane::save()
@@ -237,8 +248,6 @@ void GtkDasherPane::set_edit_font( string fontname, long size )
 
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
-  cout << "In toggle_pause" << endl;
-
   if( !paused )
     {
       int x;
@@ -267,6 +276,11 @@ void GtkDasherPane::show_slider( bool s )
     slider->show();
   else
     slider->hide();
+}
+
+void GtkDasherPane::move_slider( double position )
+{
+  slider->move( position );
 }
 
 void GtkDasherPane::copy_all_on_pause( bool s )

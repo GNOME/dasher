@@ -11,6 +11,9 @@ class GtkDasherSlider : public Gtk::HBox
 {
  public:
   GtkDasherSlider(CDasherInterface *_interface );
+
+  void move( double position );
+
  private:
   Gtk::Label l;
   Gtk::HScale s;
@@ -18,6 +21,7 @@ class GtkDasherSlider : public Gtk::HBox
   void update_speed( Gtk::Adjustment *adj );
 
   CDasherInterface *interface;
+  Gtk::Adjustment *a;
 };
 
 #endif

@@ -8,7 +8,7 @@ GtkDasherSlider::GtkDasherSlider( CDasherInterface *_interface )
 {
   //  set_padding(8);
 
-  Gtk::Adjustment *a = manage( new Gtk::Adjustment( 2.0, 1.0, 8.0, 1.0, 1.0 ));
+  a = manage( new Gtk::Adjustment( 5.0, 1.0, 8.0, 1.0, 1.0 ));
   
   s.set_adjustment(a);
   s.set_update_policy(GTK_UPDATE_CONTINUOUS);
@@ -26,7 +26,14 @@ GtkDasherSlider::GtkDasherSlider( CDasherInterface *_interface )
 
 void GtkDasherSlider::update_speed( Gtk::Adjustment *adj )
 {
-  cout << "Update: " << adj->get_value() << endl;
-
   interface->ChangeMaxBitRate( adj->get_value() );
+}
+
+void GtkDasherSlider::move( double position )
+{
+  // Note - we should only move the slider if it isn't already in the
+  // right position - otherwise we risk humorous loops
+
+  if( a->get_value() != position )
+    a->set_value(position);
 }

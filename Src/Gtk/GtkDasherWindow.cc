@@ -12,8 +12,10 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text")
-{  
+  : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2")
+{
+  dasher_pane.set_settings_ui( this );
+  
   set_title( "Dasher" );
 
   add(main_vbox);
@@ -197,15 +199,19 @@ GtkDasherWindow::GtkDasherWindow()
   
   dasher_pane.clear();
 
-  Gtk::Button button("click me");
+  aboutbox.set_title("About Dasher");
+
+  //  Gtk::Button button("click me");
   Gtk::HBox *dialogHBox = aboutbox.get_action_area();
   dialogHBox->pack_start (button, true, true, 0);
   button.show();
 
-  Gtk::Label label("Dialogs are groovy");
+  //  Gtk::Label label("Dialogs are groovy");
   Gtk::VBox *vbox = aboutbox.get_vbox();
   vbox->pack_start (label, true, true, 0);
   label.show();
+
+  button.clicked.connect(slot(this, &GtkDasherWindow::about_close_sel));
 
 }
 
@@ -351,6 +357,11 @@ void GtkDasherWindow::ofile_ok_sel()
 void GtkDasherWindow::ofile_cancel_sel()
 {
   ofilesel.hide();
+}
+
+void GtkDasherWindow::about_close_sel()
+{
+  aboutbox.hide();
 }
 
 void GtkDasherWindow::toolbar_button_cb(int c)
@@ -556,6 +567,13 @@ void GtkDasherWindow::toggle_slider()
 {
   slider_shown = !slider_shown;
   dasher_pane.show_slider( slider_shown );
+}
+
+void GtkDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
+{
+  cout << "Notified of bitrate change to " << NewMaxBitRate << endl;
+
+  dasher_pane.move_slider( NewMaxBitRate );
 }
 
 void GtkDasherWindow::toggle_toolbar()

@@ -11,6 +11,7 @@
 
 #include "DasherInterface.h"
 #include "SettingsStore.h"
+#include "DasherSettingsInterface.h"
 
 #include <time.h>
 #include <string.h>
@@ -20,7 +21,7 @@ using namespace Dasher;
 class GtkDasherPane : public Gtk::VBox
 {
 public:
-  GtkDasherPane();
+  GtkDasherPane( Dasher::CDasherSettingsInterface *setif );
   ~GtkDasherPane();
 
   void clear();
@@ -39,11 +40,13 @@ public:
   void copy_all();
 
   void orientation( Opts::ScreenOrientations o );
+  void set_settings_ui( Dasher::CDasherSettingsInterface *setingsif );
 
   void set_dasher_font( string fontname );
   void set_edit_font( string fontname, long size );
   
   void show_slider( bool s );
+  void move_slider( double position );
 
   void copy_all_on_pause( bool s );
 private:

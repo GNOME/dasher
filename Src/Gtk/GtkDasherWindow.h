@@ -11,10 +11,13 @@
 #include <gtk--/dialog.h>
 #include <gtk--/fontselection.h>
 
+
 //#include <gnome--/app.h>
 
 #include "GtkDasherSave.h"
 #include "GtkDasherPane.h"
+
+#include "DasherSettingsInterface.h"
 
 #define TB_NEW 0
 #define TB_OPEN 1
@@ -56,7 +59,7 @@
 
 #define MENU_ABOUT 400
 
-class GtkDasherWindow : public Gtk::Window
+class GtkDasherWindow : public Gtk::Window, Dasher::CDasherSettingsInterface
 {
 public:
   GtkDasherWindow();
@@ -64,13 +67,18 @@ public:
   int destroy_event_impl(GdkEventAny *event);
   int delete_event_impl(GdkEventAny *event);
 
+  void ChangeMaxBitRate(double NewMaxBitRate);
+
 protected:
   GtkDasherPane dasher_pane;
   GtkDasherSave save_dialogue;
   Gtk::Toolbar toolbar;
   Gtk::VBox main_vbox; 
   Gtk::MenuBar menubar;
-  
+
+  Gtk::Button button;
+  Gtk::Label label;
+
   Gtk::FontSelectionDialog dfontsel;
   Gtk::FontSelectionDialog efontsel;
 
@@ -98,6 +106,8 @@ protected:
 
   void afile_ok_sel();
   void afile_cancel_sel();
+
+  void about_close_sel();
 
   void reset();
   void save();
