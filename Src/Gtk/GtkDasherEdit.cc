@@ -35,14 +35,19 @@ void GtkDasherEdit::write_to_file()
 
 gint GtkDasherEdit::handle_cursor_move( GdkEventButton *e )
 {
-  cout << text.get_selection_start_pos() << " " << text.get_selection_end_pos() << endl;
-  
-  text.set_point( text.get_position() );
+  if( text.get_selection_start_pos() < text.get_selection_end_pos() )
+    text.set_point( text.get_selection_start_pos() );
+  else
+    text.set_point( text.get_selection_end_pos() );
+
+  //  text.delete_selection();
 
   kill_flush();
 
   interface->Start();
   interface->Redraw();
+
+  return( true );
 }
 
 void GtkDasherEdit::kill_flush()
@@ -84,6 +89,8 @@ void GtkDasherEdit::output(symbol Symbol)
   //  Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
+
+  text.delete_selection();
   text.insert ( efont, black, white, label, 1);
 }
 
@@ -99,6 +106,7 @@ void GtkDasherEdit::flush(symbol Symbol)
   // Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
+  text.delete_selection();
   text.insert ( efont, black, white, label, 1);
 }
 
