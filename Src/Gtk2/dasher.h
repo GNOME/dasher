@@ -100,6 +100,7 @@ struct button {
 
 void scan_alphabet_files();
 void scan_colour_files();
+void update_colours();
 
 int alphabet_filter(const struct dirent *);
 int colour_filter(const struct dirent *);

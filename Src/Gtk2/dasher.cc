@@ -141,6 +141,9 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
       dasher_set_parameter_string( STRING_ALPHABET, alph );
       gtk_widget_hide(glade_xml_get_widget(widgets,"trainwindow"));
       alphabet=alph;
+
+      update_colours();
+
       dasher_redraw();
       deletemenutree();
       add_control_tree(gettree());
@@ -148,6 +151,20 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
     }
     g_free(alph);
   }
+}
+
+void update_colours()
+{
+  // Reset the colour selection as well
+  colourscheme=dasher_get_current_colours();;
+  const int colourlist_size=128;
+  const char *colourlist[ colourlist_size ];
+  int colour_count = dasher_get_colours( colourlist, colourlist_size );
+  for (int i=0; i<colour_count; i++) {
+    if (colourscheme==colourlist[i]) {
+      gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_indices(i,-1));
+    }
+  }   
 }
 
 extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
@@ -161,8 +178,11 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &colour, -1);
 
-    dasher_set_parameter_string( STRING_COLOUR, colour );
+    dasher_set_parameter_string( STRING_COLOUR, colour );    
+
+    // Reset the colour selection as well
     colourscheme=colour;
+
     dasher_redraw();
 
     g_free(colour);
@@ -171,7 +191,7 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
 
 extern "C" void 
 generate_preferences(GtkWidget *widget, gpointer user_data) { 
-  int alphabet_count,colour_count;
+  int alphabet_count, colour_count;
 
   const int alphabetlist_size = 128;
   const char *alphabetlist[ alphabetlist_size ];
