@@ -143,21 +143,7 @@ void GtkDasherCanvas::clear()
     // Wipe the two drawing areas:
     if( is_realized() )
       {
-   Gdk_GC graphics_context;
-  graphics_context.create(get_window());
 
-
-  // FIXME - This is very broked - we should set up the colour map in advance
-
-  Gdk_Color some_color;
-  Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
-  some_color.set_red(65535);
-  some_color.set_green(65535);
-  some_color.set_blue(65535);
-  some_colormap.alloc(some_color);
-  graphics_context.set_foreground(some_color);
-    
-  
   Gdk_GC gc2;
   
   //  cout << buffer->get_map_text() << " - a" << endl;
@@ -170,19 +156,14 @@ void GtkDasherCanvas::clear()
 
   Gdk_Color some_color2( clr );
   
-  gc2.set_foreground(some_color2);
-
-  gc2.set_fill( GDK_SOLID );
-
-  gc2.set_clip_mask();
 
   buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
   
   buffer->get_bg_text()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
 
   
-  buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
-  buffer->get_fg()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+  buffer->get_bg_squares()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
+  buffer->get_fg()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
 
       }
 
