@@ -38,8 +38,6 @@ GtkItemFactory *dasher_menu;
 GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 
-int flush_count;
-
 // typedef struct {
 //   Gtk2DasherCanvas *dasher_canvas;
 //   Gtk2DasherEdit *dasher_text;
@@ -863,49 +861,6 @@ void clipboard_copy_all(void) {
 
 void clipboard_select_all(void) {
   dasher_select_all();
-}
-
-void clipboard_callback( clipboard_action act )
-{
-  switch( act )
-    {
-    case CLIPBOARD_CUT: 
-      gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
-      break;
-    case CLIPBOARD_COPY:
-      gtk_text_buffer_copy_clipboard(the_text_buffer, the_text_clipboard);
-      break;
-    case CLIPBOARD_PASTE:
-      gtk_text_buffer_paste_clipboard(the_text_buffer, the_text_clipboard, NULL, TRUE);
-      break;
-    case CLIPBOARD_COPYALL:
-      select_all();
-      gtk_text_buffer_copy_clipboard(the_text_buffer, the_text_clipboard);
-      break;
-    case CLIPBOARD_SELECTALL:
-      select_all();
-      break;
-    case CLIPBOARD_CLEAR:
-      gtk_text_buffer_set_text (the_text_buffer,"",0);
-      break;
-    }
-}
-
-void select_all()
-{
-  GtkTextIter *start, *end;
-
-  start = new GtkTextIter;
-  end = new GtkTextIter;
-
-  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
-  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
-
-  GtkTextMark *selection = gtk_text_buffer_get_mark (the_text_buffer,"selection_bound");
-  GtkTextMark *cursor = gtk_text_buffer_get_mark(the_text_buffer,"insert");
-
-  gtk_text_buffer_move_mark(the_text_buffer,selection,start);
-  gtk_text_buffer_move_mark(the_text_buffer,cursor,end);
 }
 
 void orientation(gpointer data, guint action, GtkWidget  *widget )

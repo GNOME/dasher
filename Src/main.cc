@@ -9,6 +9,7 @@
 #include "dasher.h"
 #include "settings_store.h"
 #include "canvas.h"
+#include "edit.h"
 
 //extern GConfClient *the_gconf_client;
 

@@ -94,7 +94,7 @@ VERSION = 3.0.1
 LIBS =  -lexpat 
 
 noinst_LIBRARIES = libdashergtk.a
-libdashergtk_a_SOURCES = dasher.cc dasher.h global.h settings_store.cc settings_store.h canvas.cc canvas.h
+libdashergtk_a_SOURCES = dasher.cc dasher.h global.h settings_store.cc settings_store.h canvas.cc canvas.h edit.cc edit.h
 CXXFLAGS = $(GTK2_CFLAGS) $(GCONF_CFLAGS) -I../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl
 mkinstalldirs = $(SHELL) $(top_srcdir)/mkinstalldirs
 CONFIG_CLEAN_FILES = 
@@ -105,7 +105,7 @@ DEFS =  -DPACKAGE=\"dasher\" -DVERSION=\"3.0.1\" -DSTDC_HEADERS=1 -DHAVE_ALLOCA_
 CPPFLAGS = 
 LDFLAGS = 
 libdashergtk_a_LIBADD = 
-libdashergtk_a_OBJECTS =  dasher.o settings_store.o canvas.o
+libdashergtk_a_OBJECTS =  dasher.o settings_store.o canvas.o edit.o
 AR = ar
 CXXCOMPILE = $(CXX) $(DEFS) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(AM_CXXFLAGS) $(CXXFLAGS)
 CXXLD = $(CXX)
@@ -121,7 +121,8 @@ DISTFILES = $(DIST_COMMON) $(SOURCES) $(HEADERS) $(TEXINFOS) $(EXTRA_DIST)
 
 TAR = tar
 GZIP_ENV = --best
-DEP_FILES =  .deps/canvas.P .deps/dasher.P .deps/settings_store.P
+DEP_FILES =  .deps/canvas.P .deps/dasher.P .deps/edit.P \
+.deps/settings_store.P
 SOURCES = $(libdashergtk_a_SOURCES)
 OBJECTS = $(libdashergtk_a_OBJECTS)
 

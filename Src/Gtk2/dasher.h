@@ -23,19 +23,15 @@ static void save_file();
 static void select_import_file();
 void open_window();
 
-void select_all();
-
 void parameter_string_callback( string_param p, const char *value );
 void parameter_double_callback( double_param p, double value );
 void parameter_int_callback( int_param p, long int value );
 void parameter_bool_callback( bool_param p, bool value );
 
 
-void edit_output_callback(symbol Symbol);
-void edit_flush_callback(symbol Symbol);
-void edit_unflush_callback();
 
-void clipboard_callback( clipboard_action act );
+
+
 
 extern GtkWidget *vbox, *toolbar;
 extern GdkPixbuf *p;
@@ -58,7 +54,6 @@ extern GtkItemFactory *dasher_menu;
 extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
 
-extern int flush_count;
 
 #endif
 
