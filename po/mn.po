@@ -1,3 +1,4 @@
+# translation of dasher.HEAD.po to 
 # Mongolian translation of dasher.
 # Copyright (C) 2004
 # This file is distributed under the same license as the PACKAGE package.
@@ -5,106 +6,125 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher\n"
-"POT-Creation-Date: 2004-01-22 14:35+0100\n"
-"PO-Revision-Date: 2004-01-23 01:37+0800\n"
-"Last-Translator: Dulmandakh <netman@yahoo.com>\n"
-"Language-Team: Mongolian <openmn-gnome@lists.sf.net>\n"
+"Project-Id-Version: dasher.HEAD\n"
+"POT-Creation-Date: 2004-02-11 19:30+0100\n"
+"PO-Revision-Date: 2004-02-12 00:59+0100\n"
+"Last-Translator: \n"
+"Language-Team:  <mn@li.org>\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=utf-8\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.3\n"
 
-#: Src/Gtk2/accessibility.cc:51
+#: Src/Gtk2/accessibility.cc:58
 msgid "Menus"
 msgstr "Цэсүүд"
 
-#: Src/Gtk2/accessibility.cc:58
+#: Src/Gtk2/accessibility.cc:65
+msgid "Windows"
+msgstr "Виндовс"
+
+#: Src/Gtk2/accessibility.cc:70
+msgid "Application"
+msgstr "Програм"
+
+#: Src/Gtk2/accessibility.cc:77
 msgid "Buttons"
 msgstr "Товчууд"
 
-#: Src/Gtk2/accessibility.cc:64
+#: Src/Gtk2/accessibility.cc:83
 msgid "Panels"
 msgstr "Самбарууд"
 
-#: Src/Gtk2/accessibility.cc:135
+#: Src/Gtk2/accessibility.cc:90
+msgid "Text"
+msgstr "Тест"
+
+#: Src/Gtk2/accessibility.cc:163
 #: Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Удирдах"
 
-#: Src/Gtk2/accessibility.cc:140
+#: Src/Gtk2/accessibility.cc:168
 msgid "Stop"
 msgstr "Зогсоох"
 
-#: Src/Gtk2/accessibility.cc:146
+#: Src/Gtk2/accessibility.cc:174
 msgid "Pause"
 msgstr "Саатуулах"
 
-#: Src/Gtk2/accessibility.cc:153
+#: Src/Gtk2/accessibility.cc:181
 msgid "Move"
 msgstr "Зөөх"
 
-#: Src/Gtk2/accessibility.cc:160
+#: Src/Gtk2/accessibility.cc:188
 msgid "Delete"
 msgstr "Устгах"
 
-#: Src/Gtk2/accessibility.cc:169
+#: Src/Gtk2/accessibility.cc:197
 msgid "Speak"
 msgstr "Ярих"
 
-#: Src/Gtk2/accessibility.cc:187
-#: Src/Gtk2/accessibility.cc:256
+#: Src/Gtk2/accessibility.cc:215
+#: Src/Gtk2/accessibility.cc:284
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:193
-#: Src/Gtk2/accessibility.cc:250
+#: Src/Gtk2/accessibility.cc:221
+#: Src/Gtk2/accessibility.cc:278
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:199
+#: Src/Gtk2/accessibility.cc:227
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:205
+#: Src/Gtk2/accessibility.cc:233
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:218
+#: Src/Gtk2/accessibility.cc:246
 msgid "Everything"
 msgstr "Бүгд"
 
-#: Src/Gtk2/accessibility.cc:224
+#: Src/Gtk2/accessibility.cc:252
 msgid "New"
 msgstr "Шинэ"
 
-#: Src/Gtk2/accessibility.cc:230
+#: Src/Gtk2/accessibility.cc:258
 msgid "Repeat"
 msgstr "Дахих"
 
-#: Src/Gtk2/accessibility.cc:263
-#: Src/Gtk2/accessibility.cc:282
+#: Src/Gtk2/accessibility.cc:290
+#: Src/Gtk2/accessibility.cc:313
 msgid "Character"
 msgstr "Тэмдэгт"
 
-#: Src/Gtk2/accessibility.cc:270
-#: Src/Gtk2/accessibility.cc:288
+#: Src/Gtk2/accessibility.cc:301
+#: Src/Gtk2/accessibility.cc:323
 msgid "Word"
 msgstr "Үг"
 
-#: Src/Gtk2/accessibility.cc:275
-#: Src/Gtk2/accessibility.cc:294
+#: Src/Gtk2/accessibility.cc:306
+#: Src/Gtk2/accessibility.cc:329
 msgid "Line"
 msgstr "Мөр"
 
+#: Src/Gtk2/accessibility.cc:399
+msgid "Unknown"
+msgstr "Мэдэгдэхгүй"
+
 #: Src/Gtk2/dasher.cc:183
 msgid "Training Dasher, please wait"
-msgstr ""
+msgstr "Дашэр бэлтгэж байна, түр хүлээнэ үү"
 
 #. This gets pulled out via gettext
 #: Src/Gtk2/dasher.cc:1753
 msgid "translator_credits"
-msgstr "Сүлбаатарын Дөлмандах <sdulmandakh@yahoo.com>"
+msgstr ""
+"Сүлбаатарын Дөлмандах <sdulmandakh@yahoo.com>\n"
+"Санлигийн Бадрал <badral@openmn.org>"
 
 #: Src/Gtk2/dasher.cc:1755
 #: Src/Gtk2/dasher.glade.h:34
@@ -114,13 +134,13 @@ msgstr "Дашэр"
 
 #: Src/Gtk2/dasher.cc:1758
 msgid "Dasher is a predictive text entry application"
-msgstr ""
+msgstr "Дашэр бол текст оруулалтыг урьдчилан хэлдэг програм"
 
 #. Just a debugging thing
 #: Src/Gtk2/dasher.cc:2165
 #, c-format
 msgid "%d characters output in %d seconds\n"
-msgstr ""
+msgstr "%d тэмдэгт %d секундэд гарав\n"
 
 #: Src/Gtk2/dasher.glade.h:1
 #: Src/Gtk2/dashergpe.glade.h:1
@@ -189,27 +209,27 @@ msgstr "<b>Эхлүүлэх ба зогсоох:</b>"
 #: Src/Gtk2/dasher.glade.h:14
 #: Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
-msgstr ""
+msgstr "<b>Товчны горим:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15
 #: Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
-msgstr ""
+msgstr "<b>Харах сонголтууд:</b>"
 
 #: Src/Gtk2/dasher.glade.h:16
 #: Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
-msgstr ""
+msgstr "<b>X/Y координат:</b>"
 
 #: Src/Gtk2/dasher.glade.h:17
 #: Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
-msgstr ""
+msgstr "<b>Y тэнхлэгийн сонголт:</b>"
 
 #: Src/Gtk2/dasher.glade.h:18
 #: Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
-msgstr ""
+msgstr "Өргөтгөсөн"
 
 #: Src/Gtk2/dasher.glade.h:19
 #: Src/Gtk2/dashergpe.glade.h:20
@@ -229,7 +249,7 @@ msgstr "Доороос дээш"
 #: Src/Gtk2/dasher.glade.h:22
 #: Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
-msgstr ""
+msgstr "Товч удирдлагын тохируулга"
 
 #: Src/Gtk2/dasher.glade.h:23
 #: Src/Gtk2/dashergpe.glade.h:24
@@ -243,7 +263,7 @@ msgstr "Товч:"
 
 #: Src/Gtk2/dasher.glade.h:25
 msgid "Change color scheme automatically"
-msgstr ""
+msgstr "Өнгөний схем автоматаар өөрчилөгдөх"
 
 #: Src/Gtk2/dasher.glade.h:26
 msgid "Color"
@@ -277,17 +297,17 @@ msgstr "Хайчлах"
 #: Src/Gtk2/dasher.glade.h:33
 #: Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
-msgstr ""
+msgstr "Циклт товчны горим"
 
 #: Src/Gtk2/dasher.glade.h:35
 #: Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
-msgstr ""
+msgstr "Дашэрийг тохиргоо"
 
 #: Src/Gtk2/dasher.glade.h:36
 #: Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
+msgstr "Төв шугам ба хулганы заагч эхлэл хоорондын зай:"
 
 #: Src/Gtk2/dasher.glade.h:37
 #: Src/Gtk2/dashergpe.glade.h:38
@@ -302,22 +322,22 @@ msgstr "Хайрцагны хүрээг зурах"
 #: Src/Gtk2/dasher.glade.h:39
 #: Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Огтлолцол утас ба хулганы заагч хоёрын хоорондын шулуун"
 
 #: Src/Gtk2/dasher.glade.h:40
 #: Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
-msgstr ""
+msgstr "Товч-удирдлага тохиргоо засах"
 
 #: Src/Gtk2/dasher.glade.h:41
 #: Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
-msgstr ""
+msgstr "Бусад цонх руу текст оруулах"
 
 #: Src/Gtk2/dasher.glade.h:42
 #: Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
-msgstr ""
+msgstr "Eyetracker горим"
 
 #: Src/Gtk2/dasher.glade.h:43
 #: Src/Gtk2/dashergpe.glade.h:44
@@ -325,6 +345,8 @@ msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the choice"
 msgstr ""
+"Энэ горимд дээш доош координатыг\n"
+"сэлгэх ба баруун сонголтоор бататгана"
 
 #: Src/Gtk2/dasher.glade.h:45
 #: Src/Gtk2/dashergpe.glade.h:46
@@ -354,7 +376,7 @@ msgstr "Хэвийн"
 #: Src/Gtk2/dasher.glade.h:50
 #: Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr ""
+msgstr "Нийт У-мужыг хучих пикселийн тоо:"
 
 #: Src/Gtk2/dasher.glade.h:51
 #: Src/Gtk2/dashergpe.glade.h:52
@@ -374,7 +396,7 @@ msgstr "Буулгах"
 #: Src/Gtk2/dasher.glade.h:54
 #: Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
-msgstr ""
+msgstr "Цонхны гаднаас оруулахыг таслах"
 
 #: Src/Gtk2/dasher.glade.h:55
 #: Src/Gtk2/dashergpe.glade.h:57
@@ -414,17 +436,17 @@ msgstr "Хулганы байрлалыг харуул"
 #: Src/Gtk2/dasher.glade.h:62
 #: Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
-msgstr ""
+msgstr "Хурд зохицуулагчийг харуулах"
 
 #: Src/Gtk2/dasher.glade.h:63
 #: Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
-msgstr ""
+msgstr "Багаж самбар харуулах"
 
 #: Src/Gtk2/dasher.glade.h:64
 #: Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
-msgstr ""
+msgstr "Зогсолтод ярих"
 
 #: Src/Gtk2/dasher.glade.h:65
 msgid "Speed"
@@ -433,22 +455,22 @@ msgstr "Хурд"
 #: Src/Gtk2/dasher.glade.h:66
 #: Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
-msgstr ""
+msgstr "Хулганы зүүн товчоор эхлэх"
 
 #: Src/Gtk2/dasher.glade.h:67
 #: Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
-msgstr ""
+msgstr "space bar-р эхлэх"
 
 #: Src/Gtk2/dasher.glade.h:68
 #: Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
-msgstr ""
+msgstr "Хулганы байрлалтай эхлэх"
 
 #: Src/Gtk2/dasher.glade.h:69
 #: Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
-msgstr ""
+msgstr "Шинэ файлд цагийн тамга харуулах"
 
 #: Src/Gtk2/dasher.glade.h:70
 #: Src/Gtk2/dashergpe.glade.h:71
@@ -463,7 +485,7 @@ msgstr "Дасгалжуулалт"
 #: Src/Gtk2/dasher.glade.h:72
 #: Src/Gtk2/dashergpe.glade.h:73
 msgid "Training Dasher - please wait"
-msgstr ""
+msgstr "Дашэр бэлтгэж байна, түр хүлээнэ үү"
 
 #: Src/Gtk2/dasher.glade.h:73
 #: Src/Gtk2/dashergpe.glade.h:74
@@ -477,6 +499,9 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
+"Үүгээр та үсгийн талбарын харьцангүй хэмжээг\n"
+"тааруулна. Та урвуу хамааралтайг анхаарна уу\n"
+"Ө.х. их утганд бичилтын хурд багасна."
 
 #: Src/Gtk2/dasher.glade.h:77
 #: Src/Gtk2/dashergpe.glade.h:78
@@ -506,17 +531,17 @@ msgstr "_Тухай"
 #: Src/Gtk2/dasher.glade.h:82
 #: Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
-msgstr ""
+msgstr "Файлд _залгах"
 
 #: Src/Gtk2/dasher.glade.h:83
 #: Src/Gtk2/dashergpe.glade.h:84
 msgid "_Dasher Font"
-msgstr ""
+msgstr "_Дашэрийн бичиг"
 
 #: Src/Gtk2/dasher.glade.h:84
 #: Src/Gtk2/dashergpe.glade.h:85
 msgid "_Dasher Font Size"
-msgstr ""
+msgstr "_Дашэрийн бичгийн хэмжээ"
 
 #: Src/Gtk2/dasher.glade.h:85
 #: Src/Gtk2/dashergpe.glade.h:86
@@ -541,17 +566,17 @@ msgstr "_Тусламж"
 #: Src/Gtk2/dasher.glade.h:89
 #: Src/Gtk2/dashergpe.glade.h:90
 msgid "_Import Training Text"
-msgstr ""
+msgstr "_Бэлтгэх текст оруулах"
 
 #: Src/Gtk2/dasher.glade.h:90
 #: Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
-msgstr ""
+msgstr "_Тохируулга"
 
 #: Src/Gtk2/dasher.glade.h:91
 #: Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
-msgstr ""
+msgstr "Фонт ахин _тогтоох"
 
 #: Src/Gtk2/dasher.glade.h:92
 #: Src/Gtk2/dashergpe.glade.h:93
@@ -568,7 +593,7 @@ msgstr "<b>Хурд</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:26
 msgid "Change colour scheme automatically"
-msgstr ""
+msgstr "Өнгөний схем автоматаар өөрчилөх"
 
 #: Src/Gtk2/dashergpe.glade.h:27
 msgid "Colour"
@@ -578,12 +603,17 @@ msgstr "Өнгө"
 msgid "Orientation"
 msgstr "Хандлага"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "Дууг иницляцлах боломжгүй"
+
+#: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
-msgstr ""
+msgstr "Сануулга: Ярианы параметрийг тогтоох боломжгүй\n"
 
-#: Src/main.cc:97
+#: Src/main.cc:98
 msgid "Dasher Text Entry"
-msgstr ""
+msgstr "Дашэрийн текст бичлэг"
 
