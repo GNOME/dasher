@@ -86,7 +86,7 @@ void handle_display()
 
 void handle_colour_scheme(CCustomColours *Colours)
 {
-  if (colour_scheme_callback==NULL)
+  if (colour_scheme_callback==NULL || Colours==NULL)
     return;
 
   int numcolours=Colours->GetNumColours();
