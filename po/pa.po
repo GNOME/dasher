@@ -1,4 +1,3 @@
-# Punjabi translation of dasher.HEAD.
 # Copyright (C) 2004 THE dasher.HEAD'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dasher.HEAD package.
 # Amanpreet Singh Alam <amanlinux@netscape.net>, 2004.
@@ -10,12 +9,12 @@ msgstr ""
 "Project-Id-Version: dasher.HEAD VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-03-22 16:25+0530\n"
-"PO-Revision-Date: 2004-03-21 20:17+0530\n"
+"PO-Revision-Date: 2004-07-12 16:12+0530\n"
 "Last-Translator: Amanpreet Singh Alam <amanlinux@netscape.net>\n"
-"Language-Team: Punjabi\n"
+"Language-Team: Punjabi <punlinux-i18n@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #: Src/Gtk2/accessibility.cc:62
 msgid "Menus"
@@ -60,7 +59,7 @@ msgstr "ਭੇਜੋ"
 
 #: Src/Gtk2/accessibility.cc:193
 msgid "Delete"
-msgstr "ਹਟਾੳੁ"
+msgstr "ਹਟਾਉ"
 
 #: Src/Gtk2/accessibility.cc:202
 msgid "Speak"
@@ -84,15 +83,15 @@ msgstr ">>>"
 
 #: Src/Gtk2/accessibility.cc:251
 msgid "Everything"
-msgstr "ਹਰ ੲਿਕਾੲੀ"
+msgstr "ਹਰ ਇਕਾਈ"
 
 #: Src/Gtk2/accessibility.cc:257
 msgid "New"
-msgstr "ਨਵ੾"
+msgstr "ਨਵਾਂ"
 
 #: Src/Gtk2/accessibility.cc:263
 msgid "Repeat"
-msgstr "ਦੁਹਰਾੳੁ"
+msgstr "ਦੁਹਰਾਉ"
 
 #: Src/Gtk2/accessibility.cc:295 Src/Gtk2/accessibility.cc:318
 msgid "Character"
@@ -100,7 +99,7 @@ msgstr "ਅੱਖਰ"
 
 #: Src/Gtk2/accessibility.cc:306 Src/Gtk2/accessibility.cc:328
 msgid "Word"
-msgstr "ਸ਼ਬਦ"
+msgstr "ਸ਼ਬਦ"
 
 #: Src/Gtk2/accessibility.cc:311 Src/Gtk2/accessibility.cc:334
 msgid "Line"
@@ -112,32 +111,33 @@ msgstr "ਅਣਪਛਾਤਾ"
 
 #: Src/Gtk2/dasher.cc:178
 msgid "Training Dasher, please wait"
-msgstr "ਡੈਸ਼ਰ ਸਿੱਖ ਰਿਹਾ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ੳੁਡੀਕ ਕਰੋ"
+msgstr "ਡੈਸ਼ਰ ਸਿੱਖ ਰਿਹਾ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ"
 
 #: Src/Gtk2/dasher.cc:626 Src/Gtk2/dasher.cc:639 Src/Gtk2/dasher.cc:652
 #: Src/Gtk2/dasher.cc:665 Src/Gtk2/dashergpe.glade.h:61
 msgid "Select File"
-msgstr "ਫਾੲਿਲ ਚੁਣੋ"
+msgstr "ਫਾਇਲ ਚੁਣੋ"
 
+#  This gets pulled out via gettext
 #. This gets pulled out via gettext
 #: Src/Gtk2/dasher.cc:1585
 msgid "translator_credits"
-msgstr "ਅਮਨਪ੍ੀਤ ਸਿੰਘ ਅਾਲਮ (amanlinux@netscape.net)"
+msgstr "ਅਮਨਪ੍ਰੀਤ ਸਿੰਘ ਆਲਮ (amanlinux@netscape.net)"
 
 #: Src/Gtk2/dasher.cc:1587 Src/Gtk2/dasher.glade.h:32
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
-msgstr "ਡੈਸ਼ਰ"
+msgstr "ਡੈਸ਼ਰ"
 
 #: Src/Gtk2/dasher.cc:1590
 msgid "Dasher is a predictive text entry application"
-msgstr "ਡੈਸ਼ਰ ੲਿੱਕ ਨਿਰੂਪਕ ਪਾਠ ੲਿੰਦਰਾਜ਼ ਕਾਰਜ ਹੈ"
+msgstr "ਡੈਸ਼ਰ ਇੱਕ ਨਿਰੂਪਕ ਪਾਠ ਇੰਦਰਾਜ਼ ਕਾਰਜ ਹੈ"
 
 #. Just a debugging thing, output to the console
 #: Src/Gtk2/dasher.cc:1997
 #, c-format
 msgid "%d characters output in %d seconds\n"
-msgstr "%d ਅੱਖਰ ਅਾੳੁਟਪੁੱਟ %d ਸਕਿੰਟ੾ ਵਿੱਚ\n"
+msgstr "%d ਅੱਖਰ ਆਉਟਪੁੱਟ %d ਸਕਿੰਟਾਂ ਵਿੱਚ\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -161,7 +161,7 @@ msgstr "9:"
 
 #: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>ਲਿਪੀ ਚੋਣ:</b>"
+msgstr "<b>ਲਿੱਪੀ ਚੋਣ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
@@ -173,7 +173,7 @@ msgstr "<b>ਰੰਗ ਚੋਣ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
-msgstr "<b>ਕੰਟਰੋਲ ਸ਼ੈਲੀ:</b>"
+msgstr "<b>ਕੰਟਰੋਲ ਸ਼ੈਲੀ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
@@ -189,7 +189,7 @@ msgstr "<b>ਮੁਲਾਅਮ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>ਸ਼ੁਰੂ ਤੇ ਬੰਦ:</b>"
+msgstr "<b>ਸ਼ੁਰੂ ਤੇ ਬੰਦ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
@@ -197,7 +197,7 @@ msgstr "<b>ਬਟਨ ਮੋਡ ਤਬਦੀਲ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
-msgstr "<b>ਦਰਿਸ਼ ਚੋਣ:</b>"
+msgstr "<b>ਦਰਿਸ਼ ਚੋਣ:</b>"
 
 #: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
@@ -221,7 +221,7 @@ msgstr "ਮੂਲ ਲਿਪੀ"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
-msgstr "ਹੇਠੋ ੳੁਪੱਰ"
+msgstr "ਹੇਠੋ ਉਪੱਰ"
 
 #: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
@@ -261,11 +261,11 @@ msgstr "ਚੱਕਰੀ ਬਟਨ ਮੋਡ"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
-msgstr "ਡੈਸ਼ਰ ਪਸੰਦ"
+msgstr "ਡੈਸ਼ਰ ਪਸੰਦ"
 
 #: Src/Gtk2/dasher.glade.h:34 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr "ਕੇਦਰੀ-ਰੇਖਾ ਤੋ ਮਾੳੂਸ ਦੀ ਸਥਿਤੀ ਤੋ ਸ਼ੁਰੂ ਦੀ ਦੂਰੀਃ"
+msgstr "ਕੇਦਰੀ-ਰੇਖਾ ਤੋ ਮਾਊਸ ਦੀ ਸਥਿਤੀ ਤੋ ਸ਼ੁਰੂ ਦੀ ਦੂਰੀਃ"
 
 #: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -273,11 +273,11 @@ msgstr "ਹੇਠਾ/3:"
 
 #: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
-msgstr "ਡੱਬਾ ਦਾ ਹਾਸ਼ੀਅਾ ਖਿੱਚੋ"
+msgstr "ਡੱਬਾ ਦਾ ਹਾਸ਼ੀਆ ਖਿੱਚੋ"
 
 #: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr "ਕਰਾਸਹੇਅਰ ਤੇ ਮਾੳੂਸ ਵਿੱਚ ਰੇਖਾ ਖਿੱਚੋ"
+msgstr "ਕਰਾਸਹੇਅਰ ਤੇ ਮਾਊਸ ਵਿੱਚ ਰੇਖਾ ਖਿੱਚੋ"
 
 #: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -285,11 +285,11 @@ msgstr "ਬਟਨ-ਕੰਟਰੋਲ ਚੋਣ ਸੋਧ"
 
 #: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
-msgstr "ਹੋਰ ਝਰੋਖਿਅਾ ਵਿੱਚ ਪਾਠ ਦਿੳੁ"
+msgstr "ਹੋਰ ਝਰੋਖਿਆ ਵਿੱਚ ਪਾਠ ਦਿਉ"
 
 #: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
-msgstr "ਅਾੲੀਟਰੈਕਰ ਮੋਡ"
+msgstr "ਆਈਟਰੈਕਰ ਮੋਡ"
 
 #: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:44
 msgid ""
@@ -297,8 +297,8 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
-"ਜੇਕਰ ੲਿਹ ਮੋਡ ਨਿਰਧਾਰਿਤ ਕੀਤਾ ਗਿਅਾ ਤ੾ ੳੁਪੱਰ ਤੇ ਹੇਠ੾\n"
-"ਲਗਾਤਾਰ ਧੁਰਿਅਾ ਵਿੱਚ ਅੱਗੇ ਪਿੱਛੇ ਜਾਵੇਗਾ  ਅਤੇ ਸਹੀ ਚੋਣ ਦੀ ਤਸਦੀਕ ਕਰ ਦੇਵੇਗਾ ੤"
+"ਜੇਕਰ ਇਹ ਮੋਡ ਨਿਰਧਾਰਿਤ ਕੀਤਾ ਗਿਆ ਤਾਂ ਉਪੱਰ ਤੇ ਹੇਠਾਂ\n"
+"ਲਗਾਤਾਰ ਧੁਰਿਆ ਵਿੱਚ ਅੱਗੇ ਪਿੱਛੇ ਜਾਵੇਗਾ  ਅਤੇ ਸਹੀ ਚੋਣ ਦੀ ਤਸਦੀਕ ਕਰ ਦੇਵੇਗਾ ।"
 
 #: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:46
 msgid "Large"
@@ -318,15 +318,15 @@ msgstr "ਸਧਾਰਨ"
 
 #: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:51
 msgid "Number of pixels that should cover the entire y range:"
-msgstr "ਪਿਕਸਲ੾ ਦੀ ਗਿਣਤੀ ਜੋ ਕਿ ਪੂਰੀ y ਹੱਦ ਨੰੂ ਵਰਤ ਲਵੇ:"
+msgstr "ਪਿਕਸਲਾਂ ਦੀ ਗਿਣਤੀ ਜੋ ਕਿ ਪੂਰੀ y ਹੱਦ ਨੂੰ ਵਰਤ ਲਵੇ:"
 
 #: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:52
 msgid "One dimensional mode"
-msgstr "ੲਿੱਕ ਅਾਯਮ ਮੋਡ"
+msgstr "ਇੱਕ ਆਯਮ ਮੋਡ"
 
 #: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:56
 msgid "Pause outside window"
-msgstr "ਬਾਹਰੀ ਝਰੋਖਾ ਨੰੂ ਵਿਰਾਮ"
+msgstr "ਬਾਹਰੀ ਝਰੋਖਾ ਨੂੰ ਵਿਰਾਮ"
 
 #: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right to Left"
@@ -342,15 +342,15 @@ msgstr "ਫੋਟ ਚੁਣੋ"
 
 #: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show mouse position"
-msgstr "ਮਾੳੂਸ ਦੀ ਸਥਿਤੀ ਵੇਖਾੳੁ"
+msgstr "ਮਾਊਸ ਦੀ ਸਥਿਤੀ ਵੇਖਾਉ"
 
 #: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show speed slider"
-msgstr "ਗਤੀ ਸਲਾੲਿਡਰ ਵੇਖਾੳੁ"
+msgstr "ਗਤੀ ਸਲਾਇਡਰ ਵੇਖਾਉ"
 
 #: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:65
 msgid "Show toolbar"
-msgstr "ਸੰਦਖਾਨਾ ਵੇਖਾੳੁ"
+msgstr "ਸੰਦਖਾਨਾ ਵੇਖਾਉ"
 
 #: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:66
 msgid "Speak on stop"
@@ -362,23 +362,23 @@ msgstr "ਗਤੀ"
 
 #: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on left mouse button"
-msgstr "ਖੱਬੇ ਮਾੳੂਸ ਬਟਨ ਨਾਲ ਚਲਾੳੁ"
+msgstr "ਖੱਬੇ ਮਾਊਸ ਬਟਨ ਨਾਲ ਚਲਾਉ"
 
 #: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start on space bar"
-msgstr "ਸਪੇਸ-ਪੱਟੀ ਨਾਲ ਚਲਾੳੁ"
+msgstr "ਸਪੇਸ-ਪੱਟੀ ਨਾਲ ਚਲਾਉ"
 
 #: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:69
 msgid "Start with mouse position"
-msgstr "ਮਾੳੂਸ ਦੀ ਸਥਿਤੀ ਨਾਲ ਚਲਾੳੁ"
+msgstr "ਮਾਊਸ ਦੀ ਸਥਿਤੀ ਨਾਲ ਚਲਾਉ"
 
 #: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:70
 msgid "Timestamp new files"
-msgstr "ਨਵੀਅਾ ਫਾੲਿਲ੾ ਲੲੀ ਸਮ੾-ਅੰਤਰਾਲ"
+msgstr "ਨਵੀਆ ਫਾਇਲਾਂ ਲਈ ਸਮਾਂ-ਅੰਤਰਾਲ"
 
 #: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:71
 msgid "Top to Bottom"
-msgstr "ੳੁਪੱਰ ਤੋ ਹੇਠ੾"
+msgstr "ਉਪੱਰ ਤੋ ਹੇਠਾਂ"
 
 #: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training"
@@ -386,11 +386,11 @@ msgstr "ਸਿੱਖਣ ਰਿਹਾ ਹੈ"
 
 #: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:73
 msgid "Training Dasher - please wait"
-msgstr "ਡੈਸ਼ਰ ਸਿੱਖ ਰਿਹਾ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ੳੁਡੀਕ ਕਰੋ"
+msgstr "ਡੈਸ਼ਰ ਸਿੱਖ ਰਿਹਾ ਹੈ, ਕਿਰਪਾ ਕਰਕੇ ਉਡੀਕ ਕਰੋ"
 
 #: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:74
 msgid "Up/1:"
-msgstr "ੳੁਪੱਰ/1:"
+msgstr "ਉਪੱਰ/1:"
 
 #: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:75
 msgid ""
@@ -398,9 +398,9 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"ੲਿਸ ਕੰਟੋਰਲ ਨੰੂ ਲੇਟਰ ਬਾਕਸ੾ ਦਾ ਅਨੁਸਾਰੀ ਅਕਾਰ ਨਿਰਧਾਰਨ ਕਰ ਲੲੀ  \n"
-"ਵਰਤੋ ੤ ੲਿਹ ਯਾਦ ਰੱਖੋ ਕਿ ਵਧੇਰੇ ਜਿਅਾਦਾ ਮੁੱਲ ਤੁਹਾਡੀ ਲਿਖਣ ਦੀ \n"
-"ਗਤੀ ਘਟਾ ਦੇਵੇਗਾ ੤"
+"ਇਸ ਕੰਟੋਰਲ ਨੂੰ ਲੇਟਰ ਬਾਕਸਾਂ ਦਾ ਅਨੁਸਾਰੀ ਅਕਾਰ ਨਿਰਧਾਰਨ ਕਰ ਲਈ  \n"
+"ਵਰਤੋ । ਇਹ ਯਾਦ ਰੱਖੋ ਕਿ ਵਧੇਰੇ ਜਿਆਦਾ ਮੁੱਲ ਤੁਹਾਡੀ ਲਿਖਣ ਦੀ \n"
+"ਗਤੀ ਘਟਾ ਦੇਵੇਗਾ ।"
 
 #: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:78
 msgid "Very Large"
@@ -408,7 +408,7 @@ msgstr "ਬਹੁਤ ਵਧੇਰੇ"
 
 #: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:79
 msgid "View"
-msgstr "ਦਰਿਸ਼"
+msgstr "ਦਰਿਸ਼"
 
 #: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:80
 msgid "X:"
@@ -420,19 +420,19 @@ msgstr "Y:"
 
 #: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:82
 msgid "_About"
-msgstr "ੲਿਸ ਬਾਰੇ"
+msgstr "ਇਸ ਬਾਰੇ"
 
 #: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Append to file"
-msgstr "ਫਾੲਿਲ ਵਿੱਚ ਜੋੜੋ"
+msgstr "ਫਾਇਲ ਵਿੱਚ ਜੋਡ਼ੋ"
 
 #: Src/Gtk2/dasher.glade.h:75 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Dasher Font"
-msgstr "ਡੈਸ਼ਰ ਫੋਟ"
+msgstr "ਡੈਸ਼ਰ ਫੋਟ"
 
 #: Src/Gtk2/dasher.glade.h:76 Src/Gtk2/dashergpe.glade.h:85
 msgid "_Dasher Font Size"
-msgstr "ਡੈਸ਼ਰ ਫੋਟ ਅਕਾਰ"
+msgstr "ਡੈਸ਼ਰ ਫੋਟ ਅਕਾਰ"
 
 #: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Edit"
@@ -444,15 +444,15 @@ msgstr "ਫੋਟ ਸੋਧ"
 
 #: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:88
 msgid "_File"
-msgstr "ਫਾੲਿਲ"
+msgstr "ਫਾਇਲ"
 
 #: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:89
 msgid "_Help"
-msgstr "ਸਹਾੲਿਤਾ"
+msgstr "ਸਹਾਇਤਾ"
 
 #: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:90
 msgid "_Import Training Text"
-msgstr "ਸਿੱਖਣ ਲੲੀ ਪਾਠ ਲਿਅਾੳੁ"
+msgstr "ਸਿੱਖਣ ਲਈ ਪਾਠ ਲਿਆਉ"
 
 #: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
@@ -460,7 +460,7 @@ msgstr "ਚੋਣ"
 
 #: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:92
 msgid "_Reset fonts"
-msgstr "ਫੋਟ ਮੁੜ ਨਿਰਧਾਰਿਤ ਕਰੋ"
+msgstr "ਫੋਟ ਮੁਡ਼ ਨਿਰਧਾਰਿਤ ਕਰੋ"
 
 #: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:93
 msgid "abcdefghijk ABCDEFGHIJK"
@@ -484,11 +484,11 @@ msgstr "ਕੱਰੋ"
 
 #: Src/Gtk2/dashergpe.glade.h:49
 msgid "New file"
-msgstr "ਨਵੀ ਫਾੲਿਲ"
+msgstr "ਨਵੀ ਫਾਇਲ"
 
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Open file"
-msgstr "ਫਾੲਿਲ ਖੋਲੋ"
+msgstr "ਫਾਇਲ ਖੋਲੋ"
 
 #: Src/Gtk2/dashergpe.glade.h:54
 msgid "Orientation"
@@ -496,32 +496,33 @@ msgstr "ਸਥਿਤੀ"
 
 #: Src/Gtk2/dashergpe.glade.h:55
 msgid "Paste"
-msgstr "ਚਿਪਕਾੳੁ"
+msgstr "ਚਿਪਕਾਉ"
 
 #: Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file"
-msgstr "ਫਾੲਿਲ ਸੰਭਾਲੋ"
+msgstr "ਫਾਇਲ ਸੰਭਾਲੋ"
 
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Save file as"
-msgstr "ਫਾੲਿਲ ੲਿਸਤਰ੾ ਸੰਭਾਲੋ"
+msgstr "ਫਾਇਲ ਇਸਤਰਾਂ ਸੰਭਾਲੋ"
 
 #: Src/Gtk2/speech.cc:45
 #, c-format
 msgid "Unable to initialize voices"
-msgstr "ਅਾਵਾਜ਼ ਨੰੂ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+msgstr "ਆਵਾਜ਼ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
 
 #: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
-msgstr "ਚੇਤਵਾਨੀਃ ਅਾਵਾਜ਼ ਪੈਰਾਮੀਟਰ ਨਿਰਧਾਰਨ ਕਰਨ ਵਿੱਚ ਅਸਫਲ\n"
+msgstr "ਚੇਤਵਾਨੀਃ ਆਵਾਜ਼ ਪੈਰਾਮੀਟਰ ਨਿਰਧਾਰਨ ਕਰਨ ਵਿੱਚ ਅਸਫਲ\n"
 
 #: Src/main.cc:102
 msgid "Dasher Text Entry"
-msgstr "ਡੈਸ਼ਰ ਪਾਠ ੲਿੰਦਰਾਜ਼"
+msgstr "ਡੈਸ਼ਰ ਪਾਠ ਇੰਦਰਾਜ਼"
 
-#~ msgid "<b>Colour Selection:</b>"
-#~ msgstr "<b>ਰੰਗ ਚੋਣ:</b>"
+msgid "<b>Colour Selection:</b>"
+msgstr "<b>ਰੰਗ ਚੋਣ:</b>"
 
-#~ msgid "Colour"
-#~ msgstr "ਰੰਗ"
+msgid "Colour"
+msgstr "ਰੰਗ"
+
