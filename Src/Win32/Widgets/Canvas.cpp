@@ -305,7 +305,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			if (yscaling==0) {
 				scalefactor=2;
 			} else {
-				float scalefactor=m_pScreen->GetHeight()/yscaling;
+				scalefactor=m_pScreen->GetHeight()/yscaling;
 			}	
 			imousey-=m_pScreen->GetHeight()/2;
 			imousey*=scalefactor;
