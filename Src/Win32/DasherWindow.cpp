@@ -277,7 +277,7 @@ void CDasherWindow::StartOnSpace(bool Value)
 void CDasherWindow::WindowPause(bool Value)
 {
 	m_pCanvas->WindowPause(Value);
-	WinMenu.SetStatus(ID_OPTIONS_WINDOW_PAUSE, false, Value);
+	WinMenu.SetStatus(ID_OPTIONS_WINDOWPAUSE, false, Value);
 }
 
 void CDasherWindow::KeyControl(bool Value)

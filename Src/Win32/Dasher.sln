@@ -1,9 +1,9 @@
 Microsoft Visual Studio Solution File, Format Version 7.00
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher.vcproj", "{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\DasherCore\DasherCore.vcproj", "{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\Common\Expat\Expat.vcproj", "{C765540D-03CF-4628-AD7A-46F198678E13}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\Common\Expat\Expat.vcproj", "{14049A5A-4918-4F03-B274-EAB1D533A64B}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\DasherCore\DasherCore.vcproj", "{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher.vcproj", "{F4134963-22E8-4F52-9915-ACEB1DEFACFC}"
 EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
@@ -15,50 +15,46 @@ Global
 		ConfigName.5 = Win95 compatible Release
 	EndGlobalSection
 	GlobalSection(ProjectDependencies) = postSolution
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.0 = {C765540D-03CF-4628-AD7A-46F198678E13}
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.1 = {5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.0 = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.1 = {14049A5A-4918-4F03-B274-EAB1D533A64B}
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Debug.ActiveCfg = Debug|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Debug.Build.0 = Debug|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Release.ActiveCfg = Release|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Release.Build.0 = Release|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Debug.Build.0 = Unicode Debug|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Release.ActiveCfg = Unicode Release|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Unicode Release.Build.0 = Unicode Release|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
-		{3153D1A8-0C95-4412-BDEE-CC4D0DBF9D91}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Debug.ActiveCfg = Debug|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Debug.Build.0 = Debug|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Release.ActiveCfg = Release|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Release.Build.0 = Release|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Debug.Build.0 = Unicode Debug|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Release.ActiveCfg = Unicode Release|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Unicode Release.Build.0 = Unicode Release|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
-		{C765540D-03CF-4628-AD7A-46F198678E13}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Debug.ActiveCfg = Debug|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Debug.Build.0 = Debug|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Release.ActiveCfg = Release|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Release.Build.0 = Release|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Debug.Build.0 = Unicode Debug|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Release.ActiveCfg = Unicode Release|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Unicode Release.Build.0 = Unicode Release|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
-		{5C6090F2-2BA7-4D09-A08F-2C0302CE20B8}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
-	EndGlobalSection
-	GlobalSection(SolutionItems) = postSolution
-		Item:1 = ..\Common\MSVC_Unannoy.h
-		Item:2 = ..\Common\NoClones.h
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.ActiveCfg = Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Debug.Build.0 = Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Release.ActiveCfg = Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Release.Build.0 = Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Unicode Release.Build.0 = Unicode Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Debug.ActiveCfg = Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Debug.Build.0 = Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Release.ActiveCfg = Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Release.Build.0 = Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Unicode Release.Build.0 = Unicode Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{14049A5A-4918-4F03-B274-EAB1D533A64B}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Debug.ActiveCfg = Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Debug.Build.0 = Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Release.ActiveCfg = Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Release.Build.0 = Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Unicode Release.Build.0 = Unicode Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Debug.ActiveCfg = Win95 compatible Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Debug.Build.0 = Win95 compatible Debug|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Release.ActiveCfg = Win95 compatible Release|Win32
+		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

@@ -606,3 +606,14 @@ void CEdit::unflush()
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE,(LONG)out);
 	m_iFlushed=0;
 }
+
+void CEdit::deletetext()
+{
+	DWORD start,finish;
+	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start, (LONG)&finish);
+	start-=1;
+	SendMessage(m_hwnd, EM_SETSEL, (LONG)start, (LONG)finish);
+	TCHAR out [2];
+	wsprintf(out,TEXT(""));
+	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
+}

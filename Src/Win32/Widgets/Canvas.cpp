@@ -252,8 +252,16 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			return 0;
 
 		POINT mousepos;
-
+		
 		GetCursorPos(&mousepos);
+
+
+		if (windowpause==true) {
+			RECT windowrect;
+			GetWindowRect(m_hwnd, &windowrect);
+			if (mousepos.y>windowrect.bottom || mousepos.y<windowrect.top || mousepos.x >windowrect.right || mousepos.x < windowrect.left)
+				return 0;
+		}
 
 		ScreenToClient(Window,&mousepos);
 

@@ -368,10 +368,10 @@
 			Name="Win32"
 			Filter=".cpp">
 			<File
-				RelativePath="DasherWindow.cpp">
+				RelativePath=".\DasherWindow.cpp">
 			</File>
 			<File
-				RelativePath="DasherWindow.h">
+				RelativePath=".\DasherWindow.h">
 			</File>
 			<File
 				RelativePath=".\WinHelper.cpp">

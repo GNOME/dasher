@@ -146,6 +146,7 @@
 #define ID_OPTIONS_LEFTMOUSE            32812
 #define ID_OPTIONS_SPACE                32813
 #define ID_OPTIONS_KEYCONTROL           32814
+#define ID_OPTIONS_WINDOWPAUSE          32815
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -153,7 +154,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        156
-#define _APS_NEXT_COMMAND_VALUE         32815
+#define _APS_NEXT_COMMAND_VALUE         32816
 #define _APS_NEXT_CONTROL_VALUE         1055
 #define _APS_NEXT_SYMED_VALUE           110
 #endif

@@ -69,9 +69,15 @@ public:
 	// called when characters fall of the LHS of the screen
 	void output(Dasher::symbol Symbol);
 	
+	// called when outputting a control symbol
+	void outputcontrol (void* pointer, int data) {};
+
 	// flush text from Dasher display to edit control
 	void flush(Dasher::symbol Symbol);
 	
+	// remove the previous character
+	void deletetext();
+
 protected:
 	bool m_dirty;
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);

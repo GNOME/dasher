@@ -193,6 +193,7 @@ BEGIN
         MENUITEM "Mouse button starts/stops",   ID_OPTIONS_LEFTMOUSE
         MENUITEM "Space bar starts/stops",      ID_OPTIONS_SPACE
         MENUITEM "Keyboard Control",            ID_OPTIONS_KEYCONTROL
+        MENUITEM "Pause outside Window",        ID_OPTIONS_WINDOWPAUSE
     END
     POPUP "&Help"
     BEGIN
