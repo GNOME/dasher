@@ -150,8 +150,9 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
     return;
 
   GdkColor black = {0, 0, 0, 0};
-  GdkPoint gdk_points[Number];
+  GdkPoint **gdk_points;
 
+  gdk_points = (GdkPoint **) g_malloc(Number * sizeof(GdkPoint *));
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
 
@@ -159,11 +160,12 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   gdk_gc_set_foreground (graphics_context, &black);
 
   for (int i=0; i < Number; i++) {
-    gdk_points[i].x = Points[i].x;
-    gdk_points[i].y = Points[i].y;
+    gdk_points[i] = (GdkPoint *) g_malloc(sizeof(GdkPoint));
+    gdk_points[i]->x = Points[i].x;
+    gdk_points[i]->y = Points[i].y;
   }
 
-  gdk_draw_lines(offscreen_buffer, graphics_context, gdk_points, Number);
+  gdk_draw_lines(offscreen_buffer, graphics_context, *gdk_points, Number);
 }
 
 void draw_text_callback(symbol Character, int x1, int y1, int size)
