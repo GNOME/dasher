@@ -57,7 +57,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		// This is the radius of the circle transcribed by the one-dimensional mapping
 		circlesize=DasherModel().DasherY()/2.5;
 
-		if (disty>circlesize && eyetracker==false) {
+		if (disty>circlesize) {
 			dashery=2*(dasherOX-circlesize)-dashery;
 			disty=dasherOX-(circlesize/2)-dashery;
 			if(disty<-(circlesize/2)) {
@@ -70,7 +70,7 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 			*mousey=int(dashery);
 			return;
 		}
-		else if (disty <-(circlesize) && eyetracker==false) {
+		else if (disty <-(circlesize)) {
 			dashery=2*(dasherOX+circlesize)-dashery;
 			disty=dasherOX+circlesize/2-dashery;			
 			if(disty>circlesize/2) {

@@ -2865,7 +2865,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
   <property name="title" translatable="yes">Training</property>
   <property name="type">GTK_WINDOW_POPUP</property>
   <property name="window_position">GTK_WIN_POS_CENTER</property>
-  <property name="modal">True</property>
+  <property name="modal">False</property>
   <property name="resizable">True</property>
   <property name="destroy_with_parent">False</property>
   <property name="has_separator">False</property>

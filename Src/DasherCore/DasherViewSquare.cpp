@@ -256,7 +256,7 @@ void CDasherViewSquare::DrawGoTo(int mousex, int mousey)
 
 void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 {
-        if (DasherModel().Dimensions()==true) {
+        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
   
 	  int Swapper;
 	
@@ -292,7 +292,7 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 
 void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
 {
-        if (DasherModel().Dimensions()==true) {
+        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
   
 	  int Swapper;
 	
