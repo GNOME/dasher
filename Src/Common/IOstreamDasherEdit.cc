@@ -69,7 +69,7 @@ void IOstreamDasherEdit::output(symbol Symbol)
   size_t inb = label.length();
   
   size_t outb = 256;
-  iconv( cdesc, (char**)&inbuffer, &inb, &convbuffer, &outb );
+  iconv( cdesc, FUDGE &inbuffer, &inb, &convbuffer, &outb );
   
   std::string csymbol( cb, 256-outb );
   
@@ -102,7 +102,7 @@ void IOstreamDasherEdit::flush(symbol Symbol)
       size_t inb = label.length();
 
       size_t outb = 256;
-      iconv( cdesc, (char**)&inbuffer, &inb, &convbuffer, &outb );
+      iconv( cdesc, FUDGE &inbuffer, &inb, &convbuffer, &outb );
       
       std::string csymbol( cb, 256-outb );
 
