@@ -49,6 +49,8 @@ public:
 		// DJW - removed floating point stuff
 		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 	}
+
+	virtual void DrawMouse(int mousex, int mousey)=0;
 	
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}

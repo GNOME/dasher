@@ -171,13 +171,19 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 		mousex=CanvasX;
 	
 	UnMapScreen(&mousex, &mousey);
-	myint DasherMousey=screen2dashery(mousey);
-	myint DasherMousex=screen2dasherx(mousex,mousey);
-	
-	DasherModel().Tap_on_display(DasherMousex,DasherMousey, Time);
+	screen2dasher(&mousex,&mousey);
+	DasherModel().Tap_on_display(mousex,mousey, Time);
 	CheckForNewRoot();
 }
 
+void CDasherViewSquare::DrawMouse(int mousex, int mousey)
+{
+	screen2dasher(&mousex,&mousey);
+	mousex=dasherx2screen(mousex);
+	mousey=dashery2screen(mousey);
+	Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(0));
+	Screen().Display();
+}
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 {

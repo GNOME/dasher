@@ -31,10 +31,10 @@ public:
 	void TapOnDisplay(int mousex,int mousey, unsigned long Time);
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
+	void DrawMouse(int mousex, int mousey);
 private:
 	// the x and y non-linearities
-	inline const myint screen2dasherx(const int mousex,const int mousey);
-	inline const myint screen2dashery(int mousey);
+	inline const void screen2dasher(int *mousex, int *mousey);
 	inline const int dasherx2screen(const myint sx);
 	inline const int dashery2screen(myint sy);
 	

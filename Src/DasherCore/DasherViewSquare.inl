@@ -6,56 +6,42 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include <iostream>
+
 namespace Dasher {
 
-
-inline const myint CDasherViewSquare::screen2dasherx(const int mousex, const int screeny)
+inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
-	//	double x=1.0*(CanvasX-mousex)/CanvasY;
-		double x=1.0*(CanvasX-mousex)/CanvasX;
-	myint dashery=screen2dashery(screeny);
+	std::cout << "mouse x is " << *mousex << " mouse y is " << *mousey << std::endl;
+	int dashery=*mousey;
+	double x=1.0*(CanvasX-*mousex)/CanvasX;
+	if (DasherModel().Dimensions()==2) {
+		if (dashery>s_Y2)
+			dashery= (dashery-s_Y2)*m_Y1 + s_Y2;
+		else if (dashery<s_Y3)
+			dashery= (dashery-s_Y3)*m_Y1+s_Y3;
+	}
+	dashery*=DasherModel().DasherY();
+	dashery/=CanvasY;
 	x=ixmap(x)*DasherModel().DasherY();
-
 	if (DasherModel().Dimensions()==1) {
 		double distx, disty;	
 		
 		distx=2048-x;
-		disty=dashery-DasherModel().DasherY()/2;
+		disty=DasherModel().DasherY()/2-dashery;
 
-		if(disty>=1500 || disty<-1500) {
+		if (disty>1500 || disty <-1500) {
 			x=-(pow(pow(disty,2)-pow(1500,2),0.5));
+			dashery=2048;
 		} else {
 			x=pow(pow(1500,2)-pow(disty,2),0.5);
 		}
-		
-		return int(2048-x);
-	} else {
-		if (dashery>m_Y2) {	// Slow X expansion if Y is accelerated
-		}
-		else if (dashery<m_Y3) { // Ditto
-		}
+		x=2048-x;
 	}
-	return int (x);
+	*mousex=int(x);
+	*mousey=dashery;
+	std::cout << "New mouse x is " << *mousex << " mouse y is " << *mousey << std::endl;
 }
-
-
-inline const myint CDasherViewSquare::screen2dashery(int screeny) 
-{
-	if (DasherModel().Dimensions()==2) {
-		if (screeny>s_Y2)
-			screeny= (screeny-s_Y2)*m_Y1 + s_Y2;
-		else if (screeny<s_Y3)
-			screeny= (screeny-s_Y3)*m_Y1+s_Y3;
-	}
-	myint dashery=screeny;
-//	dashery+=(CanvasY*Screen().GetFontSize()-CanvasY)/2;
-	dashery*=DasherModel().DasherY();
-//	dashery/=CanvasY*Screen().GetFontSize();
-	dashery/=CanvasY;
-
-	return dashery;
-}
-
 
 inline const int CDasherViewSquare::dasherx2screen(const myint sx)
 {
