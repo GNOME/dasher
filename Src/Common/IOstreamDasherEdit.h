@@ -32,6 +32,7 @@ class IOstreamDasherEdit : public Dasher::CDashEditbox
   void unflush();
   void output(symbol Symbol);
   void flush(symbol Symbol);
+  void deletetext();
   void Clear();
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);

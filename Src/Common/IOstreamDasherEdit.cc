@@ -122,6 +122,10 @@ void IOstreamDasherEdit::TimeStampNewFiles(bool Value)
 {
 }
 
+void IOstreamDasherEdit::deletetext()
+{
+}
+
 void IOstreamDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 {
 }
