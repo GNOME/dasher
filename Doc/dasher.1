@@ -1,0 +1,149 @@
+.TH DASHER "1" "January 2003" "dasher 3.0.0" "User Commands"
+.SH NAME 
+dasher \- graphical predictive text entry system
+
+.SH DESCRIPTION
+.B dasher
+is an information-efficient text-entry interface, driven by
+natural continuous pointing gestures. Dasher is a competitive 
+text-entry system wherever a full-size keyboard cannot be used.
+
+.SH OPTIONS
+.B dasher
+takes no command line options.
+
+.SH USAGE
+After startup, Dasher will present the user with a window containing two major
+sections. The top portion is the edit box - text entered via Dasher will appear
+here, and the text may also be edited directly. The bottom portion is the main
+Dasher interface and will display a blank background with a column of letters
+on the right hand side. Clicking the mouse button will start the model, and the
+screen will zoom towards the point underneath the mouse pointer. To select a 
+letter, move the mouse pointer into it and watch how it zooms underneat the
+crosshair. Within the selected letter, a new column of letters will appear.
+Move the pointer over one of these letters to select it as the next letter. To
+correct mistakes, move the mouse pointer to the left of the crosshair and 
+Dasher will zoom out allowing you to select new letters.
+
+.SH MENUS
+
+.SS File
+
+.IP New
+Restore Dasher to the state it was in when started
+
+.IP Open
+Read a text file into the Dasher edit box for further editting
+
+.IP Save
+Save the contents of the Dasher edit box to a file
+
+.IP "Save as"
+Save the contents of the Dasher edit box to a file chosen by the user
+
+.IP "Append to file"
+Add the contents of the Dasher edit box to the end of a file chosen by the user
+
+.IP "Import training text"
+Use a file to further train Dasher (for instance, a training file containing
+scientific terms to add to the initial English training)
+
+.IP Exit
+Quit Dasher
+
+.SS Edit
+
+.IP Cut
+Remove the highlighted text from the edit box and copy it to the clipboard
+
+.IP Copy
+Copy the highlighted text from the edit box to the clipboard but don't remove 
+it
+
+.IP Paste
+Paste the contents of the clipboard into the edit box at the position of the
+cursor
+
+.IP "Copy all"
+Copy the entire contents of the edit box to the clipboard
+
+.IP "Select all"
+Highlight all of the text in the edit box
+
+.SS View
+
+.IP Orientation
+Change the relative position of the letters to the crosshairs
+
+.IP "Show toolbar"
+Toggle whether or not the row of buttons at the top of the window is displayed
+
+.IP "Show speed slider"
+Toggle whether or not the speed slider at the bottom of the window is displayed
+
+.IP "Fix layout"
+Toggle whether or not the relative size of the edit box and Dasher canvas is
+fixed or changeable (not currently implemented)
+
+.SS Options
+
+.IP "Timestamp new files"
+Include the time at which a file is saved in the filename
+
+.IP "Copy all on stop"
+Toggle whether the current text is automatically copied to the clipboard when
+Dasher is stopped
+
+.IP Alphabet
+Choose a different alphabet. Dasher will automatically retrain itself if the
+alphabet specified training file is present
+
+.IP "File encoding"
+Choose the encoding used in a saved file (not currently implemented)
+
+.IP "Editing font"
+Choose the font used in the edit box
+
+.IP "Dasher font"
+Choose the font used in the Dasher canvas
+
+.IP "Reset fonts"
+Reset the fonts back to the defaults
+
+.SS Help
+
+.IP "About Dasher"
+Display information about the current version of Dasher
+
+.SH FILES
+
+.I /etc/dasher/
+.RS
+System-wide configuration files
+.RE
+.I ~/.dasher
+.RS
+User configuration files
+.RE
+
+.B dasher
+will utilise data from both of these directories. Training texts from both will
+be used, allowing users to add their own training data to the system wide data
+
+.I dasherrc
+.RS
+The Dasher configuration details are stored here
+.RE
+.I alphabet.xml
+.RS
+The file defining the alphabets available to Dasher
+.RE
+.I train*txt
+.RS
+Files containing the training data used by Dasher. These are plain text and 
+should contain a representative sample of the relevant language.
+
+.SH AUTHOR
+
+The Dasher Project <dasher@mrao.phy.cam.ac.uk> - 
+http://www.inference.phy.cam.ac.uk/dasher/
