@@ -76,7 +76,7 @@ GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   pack_start( *slider, false, false );
   show_all();
 
-  interface->ChangeLanguageModel(0);
+  //  interface->ChangeLanguageModel(0); // The core seems to deal with this
   interface->ChangeView(0);
 
   std::vector< std::string > alphabetlist;
