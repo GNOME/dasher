@@ -211,7 +211,7 @@ void CDasherInterface::DrawGoTo(int MouseX, int MouseY)
 
 void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 {
-        if (AlphabetID != NewAlphabetID) { // Don't bother doing any of this if
+        if (AlphabetID != NewAlphabetID || NewAlphabetID=="") { // Don't bother doing any of this if
 	  AlphabetID = NewAlphabetID; // it's the same alphabet
 
 	  if (!m_AlphIO)
