@@ -33,11 +33,6 @@ AC_ARG_WITH([speech],
 AC_ARG_WITH([a11y],
 	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library(default is NO)]), [WITHA11Y=true],[WITHA11Y=false])
 
-if [[ x"$WITHGTK2" != xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
-then
-AM_PATH_GTKMM([1.2.3],[GTKMMVAR=true],[GTKMMVAR=false])
-fi
-
 PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
 
 PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
@@ -45,16 +40,16 @@ PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
 if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
 then
 	BUILDGTK2=true
-elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$GTKMMVAR" != xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
+elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
 then
 	BUILDGTK2=true
 else 
 	BUILDGTK2=false
 fi
 
-if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$GTKMMVAR" != xtrue ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
+if [[ x$BUILDGTK2 = xfalse ]] && [[ x"$WITHQTE" != xtrue ]] && [[ x"$WITHQTEPLUGIN" != xtrue ]]
 then
-	AC_ERROR("Unable to find GTK2 or GTKMM!")
+	AC_ERROR("Unable to find GTK2!")
 fi
 
 if [[ x"$WITHSPEECH" = xtrue ]]; then
@@ -83,7 +78,6 @@ AC_SUBST(glade_LIBS)
 AC_SUBST(glade_CFLAGS)
 
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
-AM_CONDITIONAL(DOGTKMM, test x$GTKMMVAR = xtrue)
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(DOQTEPLUGIN, test x$WITHQTEPLUGIN = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
@@ -94,7 +88,7 @@ AC_SUBST(GTK2_LIBS)
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-AC_OUTPUT([Makefile Src/Common/Makefile Src/Qt/Makefile Src/Gtk2/Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
+AC_OUTPUT([Makefile Src/Common/Makefile Src/Qt/Makefile Src/Gtk2/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile intl/Makefile po/Makefile.in],[sed -e "/POTFILES =/r po/POTFILES" po/Makefile.in > po/Makefile])
 
 if grep "^sys_lib_search_path_spec.*" libtool >/dev/null ; then
 AC_MSG_RESULT(patching libtool to fix HIDEOUS BREAKAGE)
