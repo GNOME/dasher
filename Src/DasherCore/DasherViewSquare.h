@@ -33,7 +33,7 @@ public:
 	void ChangeScreen(CDasherScreen* NewScreen);
 private:
 	// the x and y non-linearities
-	inline const myint screen2dasherx(const int mousex);
+	inline const myint screen2dasherx(const int mousex,const int mousey);
 	inline const myint screen2dashery(int mousey);
 	inline const int dasherx2screen(const myint sx);
 	inline const int dashery2screen(myint sy);

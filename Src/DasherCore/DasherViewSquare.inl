@@ -9,12 +9,21 @@
 namespace Dasher {
 
 
-inline const myint CDasherViewSquare::screen2dasherx(const int mousex)
+inline const myint CDasherViewSquare::screen2dasherx(const int mousex, const int screeny)
 {
 	//	double x=1.0*(CanvasX-mousex)/CanvasY;
 		double x=1.0*(CanvasX-mousex)/CanvasX;
-	x=ixmap(x);
-	return int ( x* DasherModel().DasherY()) ;
+	myint dashery=screeny;
+	dashery*=DasherModel().DasherY();
+	dashery/=CanvasY;
+
+	x=ixmap(x)*DasherModel().DasherY();
+	if (dashery>m_Y2) {	// Slow X expansion if Y is accelerated
+	}
+	else if (dashery<m_Y3) { // Ditto
+	}
+
+	return int (x);
 }
 
 

@@ -168,7 +168,7 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 	
 	UnMapScreen(&mousex, &mousey);
 	myint DasherMousey=screen2dashery(mousey);
-	myint DasherMousex=screen2dasherx(mousex);
+	myint DasherMousex=screen2dasherx(mousex,mousey);
 	
 	DasherModel().Tap_on_display(DasherMousex,DasherMousey, Time);
 	CheckForNewRoot();
