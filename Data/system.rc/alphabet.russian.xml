@@ -4,7 +4,7 @@
 <alphabets>
 <alphabet name="Russian with punctuation and numerals">
 <orientation type="LR"/>
-<encoding type="Western"/>
+<encoding type="Cyrillic"/>
 <control d="Control" t=""/>
 <palette>Default</palette>
 <train>training_russian_RU.txt</train>
@@ -17,7 +17,7 @@
 <s d="&#x0433;" t="&#x0433;" />
 <s d="&#x0434;" t="&#x0434;" />
 <s d="&#x0435;" t="&#x0435;" />
-<s d="&#x0450;" t="&#x0450;" />
+<s d="&#x0451;" t="&#x0451;" />
 <s d="&#x0436;" t="&#x0436;" />
 <s d="&#x0437;" t="&#x0437;" />
 <s d="&#x0438;" t="&#x0438;" />
@@ -52,7 +52,7 @@
 <s d="&#x0413;" t="&#x0413;" />
 <s d="&#x0414;" t="&#x0414;" />
 <s d="&#x0415;" t="&#x0415;" />
-<s d="&#x0400;" t="&#x0400;" />
+<s d="&#x0401;" t="&#x0401;" />
 <s d="&#x0416;" t="&#x0416;" />
 <s d="&#x0417;" t="&#x0417;" />
 <s d="&#x0418;" t="&#x0418;" />
