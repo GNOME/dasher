@@ -6,13 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include <iostream>
-
 namespace Dasher {
 
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
-	std::cout << "mouse x is " << *mousex << " mouse y is " << *mousey << std::endl;
 	int dashery=*mousey;
 	double x=1.0*(CanvasX-*mousex)/CanvasX;
 	if (DasherModel().Dimensions()==2) {
@@ -30,9 +27,31 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 		distx=2048-x;
 		disty=DasherModel().DasherY()/2-dashery;
 
-		if (disty>1500 || disty <-1500) {
-			x=-(pow(pow(disty,2)-pow(1500,2),0.5));
-			dashery=2048;
+		if (disty>1500) {
+			dashery=548+(548-dashery);
+			disty=1298-dashery;
+			if(disty<-750) {
+				x=2048;
+				dashery=2048;
+			} else {
+				x=2048+pow(pow(750,2)-pow(disty,2),0.5);
+			}
+			*mousex=int(x);
+			*mousey=dashery;
+			return;
+		}
+		else if (disty <-1500) {
+			dashery=3548+(3548-dashery);
+			disty=2798-dashery;
+			if(disty<-750) {
+				x=2048;
+				dashery=2048;
+			} else {
+				x=2048+pow(pow(750,2)-pow(disty,2),0.5);
+			}
+			*mousex=int(x);
+			*mousey=dashery;
+			return;
 		} else {
 			x=pow(pow(1500,2)-pow(disty,2),0.5);
 		}
@@ -40,7 +59,6 @@ inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 	}
 	*mousex=int(x);
 	*mousey=dashery;
-	std::cout << "New mouse x is " << *mousex << " mouse y is " << *mousey << std::endl;
 }
 
 inline const int CDasherViewSquare::dasherx2screen(const myint sx)
