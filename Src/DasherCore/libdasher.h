@@ -2,6 +2,8 @@
 #include "DasherView.h"
 #include "DasherTypes.h"
 
+using namespace Dasher;
+
 enum string_param{ STRING_ALPHABET, 
 		   STRING_EDITFONT, 
 		   STRING_DASHERFONT, 
@@ -44,7 +46,7 @@ void dasher_set_parameter_double( double_param p, double value );
 void dasher_set_parameter_int( int_param p, long int value );
 void dasher_set_parameter_bool( bool_param p, bool value );
 
-void dasher_set_orientation( Opts::ScreenOrientations or );
+void dasher_set_orientation( Opts::ScreenOrientations orient );
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) );
 void dasher_set_double_callback( void(*_cb)( double_param, double ) );
