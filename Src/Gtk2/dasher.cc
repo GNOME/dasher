@@ -589,58 +589,49 @@ static void speed_changed(GtkAdjustment *adj) {
   dasher_set_parameter_double( DOUBLE_MAXBITRATE, adj->value );
 }
 
+void interface_setup() {
+  dasher_accel = gtk_accel_group_new();
+  
+  initialise_canvas(360,360);
+  initialise_edit();
+
+  
+  dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
+				     "<DasherMenu>",
+				     dasher_accel);
+
+  gtk_item_factory_create_items( dasher_menu,
+				 54,
+				 entries,
+				 NULL );
+
+}
 
 void
 open_window() {
   char *system_data_dir;
-    char *home_dir;
-    char *user_data_dir;
+  char *home_dir;
+  char *user_data_dir;
+  
+  home_dir = getenv( "HOME" );
+  user_data_dir = new char[ strlen( home_dir ) + 10 ];
+  sprintf( user_data_dir, "%s/.dasher/", home_dir );
 
-    home_dir = getenv( "HOME" );
-    user_data_dir = new char[ strlen( home_dir ) + 10 ];
-    sprintf( user_data_dir, "%s/.dasher/", home_dir );
-    
-    // CHANGE THIS!
-    //system_data_dir = "/etc/dasher/";
-    system_data_dir = user_data_dir;
-    
-    dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
-    dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
+  // CHANGE THIS!
+  //system_data_dir = "/etc/dasher/";
+  system_data_dir = user_data_dir;
+  
+  dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
+  dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 
-    dasher_accel = gtk_accel_group_new();
-    
-    dasher_menu= gtk_item_factory_new( GTK_TYPE_MENU_BAR,
-				       "<DasherMenu>",
-				       dasher_accel);
 
-    initialise_edit();
 
-    gtk_item_factory_create_items( dasher_menu,
-				   54,
-				   entries,
-				   NULL );
-    
     float initial_bitrate = 3.0;
-    
-
-    initialise_canvas( 360, 360 );
     
     ofilesel = gtk_file_selection_new("Open a file");
     afilesel = gtk_file_selection_new("Append to file");
     ifilesel = gtk_file_selection_new("Import Training Text");
     
-    home_dir = getenv( "HOME" );
-    user_data_dir = new char[ strlen( home_dir ) + 10 ];
-    sprintf( user_data_dir, "%s/.dasher/", home_dir );
-    
-    // CHANGE THIS!
-    //system_data_dir = "/etc/dasher/";
-    system_data_dir = user_data_dir;
-    
-    
-    dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
-    dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
-
     vbox = gtk_vbox_new (FALSE, 2);
     
     window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
@@ -750,8 +741,6 @@ open_window() {
     dasher_get_alphabets( &alphabet, 1 );
 
     dasher_set_parameter_string( STRING_ALPHABET, alphabet );
-
-
 
     dasher_set_parameter_double( DOUBLE_MAXBITRATE, initial_bitrate );
     
@@ -885,6 +874,7 @@ void parameter_bool_callback( bool_param p, bool value )
   switch(p)
     {
     case BOOL_SHOWTOOLBAR:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Show Toolbar")), value);
 
       if (toolbar==NULL) 
 	break;
@@ -895,9 +885,10 @@ void parameter_bool_callback( bool_param p, bool value )
 	gtk_widget_hide(toolbar);
       }
 
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Show Toolbar")), value);
       break;
     case BOOL_SHOWSPEEDSLIDER:
+      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Speed Slider")), value);
+
       if (speed_frame==NULL) 
 	break;
 
@@ -907,7 +898,6 @@ void parameter_bool_callback( bool_param p, bool value )
 	gtk_widget_hide(speed_frame);
       }
     
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/View/Speed Slider")), value);
     case BOOL_DRAWMOUSE:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(gtk_item_factory_get_item (dasher_menu, "/Options/Draw Position")), value);
     case BOOL_DIMENSIONS:

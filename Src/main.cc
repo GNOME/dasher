@@ -32,8 +32,6 @@ main(int argc, char *argv[])
   dasher_set_set_long_option_callback( set_long_option_callback );
   dasher_set_set_string_option_callback( set_string_option_callback );
 
-  dasher_initialise( 360, 360 );
-
   dasher_set_string_callback( parameter_string_callback );
   dasher_set_double_callback( parameter_double_callback );
   dasher_set_int_callback( parameter_int_callback );
@@ -56,6 +54,10 @@ main(int argc, char *argv[])
 
   bindtextdomain (PACKAGE, PACKAGE_LOCALE_DIR);
   textdomain (PACKAGE);
+
+  interface_setup();
+
+  dasher_initialise( 360, 360 );
 
   open_window ();
 

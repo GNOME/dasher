@@ -21,6 +21,7 @@ static void select_save_file_as();
 static void select_append_file();
 static void save_file();
 static void select_import_file();
+void interface_setup();
 void open_window();
 
 void parameter_string_callback( string_param p, const char *value );
