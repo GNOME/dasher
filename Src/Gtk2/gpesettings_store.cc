@@ -2,13 +2,66 @@
 
 XSettingsClient *client;
 
+static GdkFilterReturn xsettings_event_filter (GdkXEvent *xevp, GdkEvent *ev, gpointer p)
+{
+  if (xsettings_client_process_event (client, (XEvent *)xevp))
+    return GDK_FILTER_REMOVE;
+ 
+  return GDK_FILTER_CONTINUE;
+}
+
+static void notify_func (const char *name, XSettingsAction action, 
+			 XSettingsSetting *setting, void *cb_data)
+{
+  size_t length;
+  char* settingname;
+  if (strncmp(name,"dasher/",7)==0) {
+    length = strlen(name);
+    settingname = (char *)malloc(length*sizeof(char));
+    for (size_t i=0; i<length; i++) {
+      settingname[i]=name[i+7];
+    }
+    free(settingname);
+  }
+}
+      
+static void
+watch_func (Window window,
+            Bool   is_start,
+            long   mask,
+            void  *cb_data)
+{
+  GdkWindow *gdkwin;
+
+  gdkwin = gdk_window_lookup (window);
+ 
+  if (is_start)
+    {
+      if (!gdkwin)
+        gdkwin = gdk_window_foreign_new (window);
+      else
+        g_object_ref (gdkwin);
+ 
+      gdk_window_add_filter (gdkwin, xsettings_event_filter, NULL);
+    }
+  else
+    {
+      g_object_unref (gdkwin);
+      gdk_window_remove_filter (gdkwin, xsettings_event_filter, NULL);
+    }
+}
+
+
+void init_xsettings()
+{
+  client=xsettings_client_new(GDK_DISPLAY(),DefaultScreen(GDK_DISPLAY()), notify_func, watch_func, NULL);
+}
+
 bool get_long_option_callback(const std::string& Key, long *value)
 {
   char keypath[1024];
 
   snprintf( keypath, 1024, "dasher/%s", Key.c_str() );
-
-  client=xsettings_client_new(GDK_DISPLAY(),DefaultScreen(GDK_DISPLAY()), NULL, NULL, NULL);
 
   XSettingsSetting *setting;
 
@@ -43,8 +96,6 @@ bool get_string_option_callback(const std::string& Key, std::string *value)
 
   snprintf( keypath, 1024, "dasher/%s", Key.c_str() );
 
-  client=xsettings_client_new(GDK_DISPLAY(),DefaultScreen(GDK_DISPLAY()), NULL, NULL, NULL);
-
   XSettingsSetting *setting;
 
   if (xsettings_client_get_setting (client,keypath, &setting) != XSETTINGS_SUCCESS) {
@@ -61,6 +112,7 @@ bool get_string_option_callback(const std::string& Key, std::string *value)
 void set_long_option_callback(const std::string& Key, long Value)
 {
   int realvalue=Value;
+  long currentvalue;
   Atom gpe_settings_update_atom = XInternAtom (GDK_DISPLAY(), "_GPE_SETTINGS_UPDATE", 0);
   Window manager = XGetSelectionOwner (GDK_DISPLAY(), gpe_settings_update_atom);
   XSettingsType type;
@@ -70,6 +122,11 @@ void set_long_option_callback(const std::string& Key, long Value)
   gboolean done = FALSE;
   Window win;
   char keypath[1024];
+
+  get_long_option_callback(Key,&currentvalue);
+
+  if (currentvalue==Value)
+    return;
 
   snprintf( keypath, 1024, "dasher/%s", Key.c_str() );
 
@@ -130,12 +187,17 @@ void set_string_option_callback(const std::string& Key, const std::string& Value
   Atom gpe_settings_update_atom = XInternAtom (GDK_DISPLAY(), "_GPE_SETTINGS_UPDATE", 0);
   Window manager = XGetSelectionOwner (GDK_DISPLAY(), gpe_settings_update_atom);
   XSettingsType type;
+  std::string currentvalue;
   size_t length, name_len;
   gchar *buffer;
   XClientMessageEvent ev;
   gboolean done = FALSE;
   Window win;
   char keypath[1024];
+
+  get_string_option_callback(Key,&currentvalue);
+  if (currentvalue==Value) 
+    return;
 
   snprintf( keypath, 1024, "dasher/%s", Key.c_str() );
 

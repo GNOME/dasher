@@ -12,6 +12,8 @@
 
 using namespace std;
 
+void init_xsettings();
+
 bool get_bool_option_callback(const std::string& Key, bool *value);
 bool get_long_option_callback(const std::string& Key, long *value);
 bool get_string_option_callback(const std::string& Key, std::string *value);

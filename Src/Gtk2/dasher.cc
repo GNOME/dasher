@@ -160,12 +160,16 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
     gtk_tree_model_get(model, &iter, 0, &alph, -1);    
     if (alph!=alphabet) {
       alphabet=alph;
+#ifndef WITH_GPE
       training=TRUE;
       trainqueue=g_async_queue_new();
       trainthread=g_thread_create(change_alphabet,alph,false,NULL);
       train_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
       gtk_window_set_resizable(GTK_WINDOW(train_dialog), FALSE);
       gtk_window_present(GTK_WINDOW(train_dialog));
+#else
+      dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
+#endif
     } else {
       g_free(alph);
     }

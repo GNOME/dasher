@@ -10,7 +10,7 @@ PangoFontDescription *font;
 PangoRectangle *ink,*logical;
 GdkColor *colours;
 
-extern gboolean setup;
+extern gboolean setup,preferences;
 extern long mouseposstartdist;
 extern gboolean firstbox, secondbox,paused;
 
@@ -40,7 +40,7 @@ void initialise_canvas( int width, int height )
 
 void blank_callback()
 {
-  if (setup==false) 
+  if (setup==false||preferences==true) 
     return;
 
   GdkGC *graphics_context;
@@ -72,7 +72,7 @@ void display_callback()
 { 
   GdkRectangle update_rect;
 
-  if (setup==false)
+  if (setup==false||preferences==true)
     return;
 
   GdkGC *graphics_context;
@@ -127,7 +127,7 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   GdkColormap *colormap;
   GdkGCValues origvalues;
 
-  if (setup==false)
+  if (setup==false||preferences==true)
     return;
 
   GdkColor outline = colours[3];
@@ -189,7 +189,7 @@ void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Num
   GdkRectangle update_rect;
   GdkGCValues origvalues;
 
-  if (setup==false)
+  if (setup==false||preferences==true)
     return;
 
   GdkColor colour = colours[Colour];
@@ -221,7 +221,7 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   GdkGCValues origvalues;
   std::string symbol;
 
-  if (setup==false)
+  if (setup==false||preferences==true)
     return;
 
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
@@ -260,7 +260,7 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
   GdkColormap *colormap;
   GdkGCValues origvalues;
 
-  if (setup==false)
+  if (setup==false||preferences==true)
     return;
 
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
@@ -290,7 +290,7 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
 
 void text_size_callback(symbol Character, int* Width, int* Height, int size)
 {
-  if (setup==false)
+  if (setup==false||preferences==true)
       return;
 
   std::string symbol = dasher_get_display_text( Character );
@@ -393,7 +393,7 @@ void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* b
 }
 
 void draw_mouseposbox(int which) {
-  if (setup==false)
+  if (setup==false||preferences==true)
     return;
 
   GdkGC *graphics_context;

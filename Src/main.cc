@@ -58,7 +58,8 @@ static const struct poptOption options [] =
 //extern GConfClient *the_gconf_client;
 
 GError *gconferror;
-gboolean timedata;
+gboolean timedata=FALSE;
+gboolean preferences=FALSE;
 extern gboolean setup,paused;
 
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
@@ -98,6 +99,7 @@ main(int argc, char *argv[])
 
 #ifdef WITH_GPE
   gpe_application_init (&argc, &argv);
+  init_xsettings();
 #else
   gtk_init (&argc, &argv);
   gconf_init( argc, argv, &gconferror );
@@ -127,7 +129,7 @@ main(int argc, char *argv[])
 #endif
 
   while (1) {
-    c=getopt( argc, argv, "w" );
+    c=getopt( argc, argv, "wp" );
 
     if (c == -1)
       break;
@@ -135,6 +137,9 @@ main(int argc, char *argv[])
     switch (c) {
     case 'w':
       timedata=TRUE;
+      break;
+    case 'p':
+      preferences=TRUE;
       break;
     }
   }
@@ -187,7 +192,12 @@ main(int argc, char *argv[])
 
   glade_xml_signal_autoconnect(xml);
   open_window(xml);
-  window = glade_xml_get_widget(xml, "window");
+
+  if (preferences==TRUE) {
+    window = glade_xml_get_widget(xml, "preferences");
+  } else {
+    window = glade_xml_get_widget(xml, "window");
+  }
 
   dasher_late_initialise(360,360);
 
@@ -199,7 +209,9 @@ main(int argc, char *argv[])
 
   gtk_widget_show(window);
 
-  setup=TRUE;
+  //  if (preferences!=TRUE) {
+    setup=TRUE;
+    //  }
 
   // We support advanced colour mode
   dasher_set_parameter_bool( BOOL_COLOURMODE, true);
