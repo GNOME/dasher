@@ -55,7 +55,7 @@ void setup_speech() {
     {
       GNOME_Speech_Parameter *p = &(list->_buffer[i]);
       if (!strcmp (p->name, "rate")) {
-	GNOME_Speech_Speaker_setParameterValue (speaker, p->name, 100.0, &ev);
+	GNOME_Speech_Speaker_setParameterValue (speaker, p->name, 200.0, &ev);
       }
     }
   CORBA_free (list);
