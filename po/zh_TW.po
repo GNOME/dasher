@@ -2,12 +2,13 @@
 # Copyright (C) 2004 Free Software Foundation, Inc.
 # Woodman Tuen <woodman@culturecom.com.hk>, 2004.
 # 
+# 
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher 3.2.11\n"
+"Project-Id-Version: dasher 3.2.7\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-09 06:48+0800\n"
-"PO-Revision-Date: 2004-09-09 06:48+0800\n"
+"POT-Creation-Date: 2004-09-11 18:36+0800\n"
+"PO-Revision-Date: 2004-09-10 08:14+0800\n"
 "Last-Translator: Woodman Tuen <woodman@culturecom.com.hk>\n"
 "Language-Team: Chinese (traditional) <zh-l10n@linux.org.tw>\n"
 "MIME-Version: 1.0\n"
@@ -93,48 +94,43 @@ msgstr "重複"
 
 #: Src/Gtk2/accessibility.cc:293
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: Src/Gtk2/accessibility.cc:300
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: Src/Gtk2/accessibility.cc:307
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: Src/Gtk2/accessibility.cc:314
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: Src/Gtk2/accessibility.cc:321
-#, fuzzy
 msgid "5"
-msgstr "5:"
+msgstr "5"
 
 #: Src/Gtk2/accessibility.cc:328
-#, fuzzy
 msgid "6"
-msgstr "6:"
+msgstr "6"
 
 #: Src/Gtk2/accessibility.cc:335
-#, fuzzy
 msgid "7"
-msgstr "7:"
+msgstr "7"
 
 #: Src/Gtk2/accessibility.cc:342
-#, fuzzy
 msgid "8"
-msgstr "8:"
+msgstr "8"
 
 #: Src/Gtk2/accessibility.cc:349
-#, fuzzy
 msgid "9"
-msgstr "9:"
+msgstr "9"
 
 #: Src/Gtk2/accessibility.cc:356
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: Src/Gtk2/accessibility.cc:388 Src/Gtk2/accessibility.cc:411
 msgid "Character"
@@ -182,9 +178,9 @@ msgstr "Dasher 是一個以預測方式來輸入文字的應用程式"
 
 #. Just a debugging thing, output to the console
 #: Src/Gtk2/dasher.cc:2065
-#, fuzzy, c-format
+#, c-format
 msgid "%d characters output in %ld seconds\n"
-msgstr "在 %2$d 秒中輸出了 %1$d 個字符\n"
+msgstr "在 %2$ld 秒中輸出了 %1$d 個字符\n"
 
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
@@ -248,7 +244,7 @@ msgstr "<b>顯示選項：</b>"
 
 #: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y坐標：</b>"
+msgstr "<b>X/Y 坐標：</b>"
 
 #: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
@@ -264,7 +260,7 @@ msgstr "字母"
 
 #: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
 msgid "Alphabet Default"
-msgstr "字母的預設"
+msgstr "預設的字母"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -352,7 +348,7 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
-"如果選取此模式，向上及向下移將會在坐標間循環地向後及向前移物。\n"
+"如果選取此模式，向上及向下移將會在坐標間循環地向後及向前移動。\n"
 "向右移則確定選擇"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
@@ -449,7 +445,7 @@ msgstr "滑鼠在新的位置開始"
 
 #: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
-msgstr "以時間標記作為新增檔案的名稱"
+msgstr "以時間標記作為新檔案的名稱"
 
 #: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:70
 msgid "Top to Bottom"
@@ -461,7 +457,7 @@ msgstr "訓練"
 
 #: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training Dasher - please wait"
-msgstr "正在調整 Dasher - 請稍等"
+msgstr "正在調整 Dasher 中 - 請稍等"
 
 #: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:73
 msgid "Up/1:"
@@ -474,7 +470,7 @@ msgid ""
 "your writing speed."
 msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
-"注意選擇高的數值會減慢你的書寫速度。"
+"注意選擇高數值將會減慢你的書寫速度。"
 
 #: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
@@ -538,19 +534,18 @@ msgstr "重置字型(_R)"
 
 #: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:90
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr "The following is Chinese: '中文測試'"
+msgstr "The following is Chinese: ‘中文測試’"
 
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>速度</b>"
 
 #: Src/Gtk2/dashergpe.glade.h:44
-#, fuzzy
 msgid ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
 msgstr ""
-"如果選取此模式，向上及向下移將會在坐標間循環地向後及向前移物。\n"
+"如果選取此模式，向上及向下移將會在坐標間循環地向後及向前移動。\n"
 "向右移則確定選擇"
 
 #: Src/Gtk2/dashergpe.glade.h:53
@@ -558,18 +553,17 @@ msgid "Orientation"
 msgstr "排列方向"
 
 #: Src/Gtk2/dashergpe.glade.h:74
-#, fuzzy
 msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
 msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
-"注意選擇高的數值會減慢你的書寫速度。"
+"注意選擇高數值將會減慢你的書寫速度。"
 
 #: Src/Gtk2/speech.cc:24
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to initialize speech support\n"
-msgstr "不能啟用語音"
+msgstr "不能啟動語音支援\n"
 
 #: Src/Gtk2/speech.cc:50
 #, c-format
