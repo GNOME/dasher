@@ -13,6 +13,8 @@ dasher_screen *dsc;
 CSettingsStore *dss;
 dasher_edit *ded;
 
+string default_string("");
+
 // Function pointers for the callbacks
 
 void (*string_callback)( string_param, const char * ) = NULL;
@@ -129,6 +131,67 @@ void handle_clipboard( clipboard_action act )
 {
   if( clipboard_callback != NULL )
     clipboard_callback( act );
+}
+
+
+bool handle_get_bool_option(const std::string& Key)
+{
+  if( get_bool_option_callback != NULL )
+    return( get_bool_option_callback( Key ) );
+  else
+    return( false );
+}
+
+long handle_get_long_option(const std::string& Key)
+{
+  if( get_long_option_callback != NULL )
+    return( get_long_option_callback( Key ) );
+  else
+    return(0);
+}
+
+std::string& handle_get_string_option(const std::string& Key)
+{
+  if( get_string_option_callback != NULL )
+    return( get_string_option_callback( Key ) );
+  else
+    return( default_string );
+}
+
+void handle_set_bool_option(const std::string& Key, bool Value)
+{
+  if( set_bool_option_callback != NULL )
+    set_bool_option_callback( Key, Value );
+}
+
+void handle_set_long_option(const std::string& Key, long Value)
+{
+  if( set_long_option_callback != NULL )
+    set_long_option_callback( Key, Value );
+}
+
+void handle_set_string_option(const std::string& Key, const std::string& Value)
+{
+  if( set_string_option_callback != NULL )
+    set_string_option_callback( Key, Value );
+}
+  
+void handle_set_bool_default(const std::string& Key, bool Value)
+{
+  if( set_bool_default_callback != NULL )
+    set_bool_default_callback( Key, Value );
+}
+
+void handle_set_long_default(const std::string& Key, long Value)
+{
+  if( set_long_default_callback != NULL )
+    set_long_default_callback( Key, Value );
+}
+
+void handle_set_string_default(const std::string& Key, const std::string& Value)
+{
+  if( set_string_default_callback != NULL )
+    set_string_default_callback( Key, Value );
 }
 
 // Initialisation and finalisation routines

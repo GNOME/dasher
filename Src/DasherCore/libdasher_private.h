@@ -22,6 +22,16 @@ void handle_edit_unflush();
 
 void handle_clipboard( clipboard_action act );
 
+bool handle_get_bool_option(const std::string& Key);
+long handle_get_long_option(const std::string& Key);
+std::string& handle_get_string_option(const std::string& Key);
+void handle_set_bool_option(const std::string& Key, bool Value);
+void handle_set_long_option(const std::string& Key, long Value);
+void handle_set_string_option(const std::string& Key, const std::string& Value);
+void handle_set_bool_default(const std::string& Key, bool Value);
+void handle_set_long_default(const std::string& Key, long Value);
+void handle_set_string_default(const std::string& Key, const std::string& Value);
+
 class dasher_ui : public CDasherSettingsInterface
 {
  public:
@@ -189,25 +199,50 @@ class dasher_screen : public CDasherScreen
 class dasher_settings_store : public CSettingsStore
 {
  public:
-  string a;
-
-  dasher_settings_store()
-    : a("Default")
+  bool GetBoolOption(const std::string& Key)
     {
-      // Stupid stupid stuff because GetStringOption returns a reference
+      return( handle_get_bool_option( Key ) );
     };
 
-  bool GetBoolOption(const std::string& Key){ return false; };
-  long GetLongOption(const std::string& Key){ return 0; };
-  std::string& GetStringOption(const std::string& Key){ return a; };
+  long GetLongOption(const std::string& Key)
+    {
+      return( handle_get_long_option( Key ) );
+    };
+
+  std::string& GetStringOption(const std::string& Key)
+    {
+      return( handle_get_string_option( Key ) );
+    };
   
-  void SetBoolOption(const std::string& Key, bool Value){};
-  void SetLongOption(const std::string& Key, long Value){};
-  void SetStringOption(const std::string& Key, const std::string& Value){};
+  void SetBoolOption(const std::string& Key, bool Value)
+    {
+      handle_set_bool_option( Key, Value );
+    };
+
+  void SetLongOption(const std::string& Key, long Value)
+    {
+      handle_set_long_option( Key, Value );
+    };
+
+  void SetStringOption(const std::string& Key, const std::string& Value)
+    {
+      handle_set_string_option( Key, Value );
+    };
   
-  void SetBoolDefault(const std::string& Key, bool Value){};
-  void SetLongDefault(const std::string& Key, long Value){};
-  void SetStringDefault(const std::string& Key, const std::string& Value){};
+  void SetBoolDefault(const std::string& Key, bool Value)
+    {
+      handle_set_bool_default( Key, Value );
+    };
+
+  void SetLongDefault(const std::string& Key, long Value)
+    {
+      handle_set_long_default( Key, Value );
+    };
+
+  void SetStringDefault(const std::string& Key, const std::string& Value)
+    {
+      handle_set_string_default( Key, Value );
+    };
 };
 
 class dasher_edit : public CDashEditbox

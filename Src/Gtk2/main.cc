@@ -82,6 +82,8 @@ void set_bool_default_callback(const std::string& Key, bool Value);
 void set_long_default_callback(const std::string& Key, long Value);
 void set_string_default_callback(const std::string& Key, const std::string& Value);
 
+std::string my_default_string( "" );
+
 // typedef struct {
 //   Gtk2DasherCanvas *dasher_canvas;
 //   Gtk2DasherEdit *dasher_text;
@@ -1547,14 +1549,17 @@ void initialise_edit()
 
 bool get_bool_option_callback(const std::string& Key)
 {
+  return( false );
 }
 
 long get_long_option_callback(const std::string& Key)
 {
+  return( 0 );
 }
 
 string& get_string_option_callback(const std::string& Key)
 {
+  return ( my_default_string );
 }
   
 void set_bool_option_callback(const std::string& Key, bool Value)
