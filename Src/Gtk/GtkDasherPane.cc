@@ -31,7 +31,6 @@
 GtkDasherPane::GtkDasherPane( Dasher::CDasherSettingsInterface *setif )
   : VBox( false, 0 ), paused( true ), started( false ), vp()
 { 
-
   store = new GtkDasherStore;
 
   char *HomeDir;

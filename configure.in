@@ -8,4 +8,4 @@ AC_PROG_MAKE_SET
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 AM_PATH_GTKMM(1.2.3,,AC_MSG_ERROR([Cannot find correct gtkmm version]))
 
-AC_OUTPUT([Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile])
+AC_OUTPUT([Makefile Src/Gtk/Makefile Src/DasherCore/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Doc/Makefile])
