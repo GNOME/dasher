@@ -504,6 +504,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		}
 		break;
 	case WM_DESTROY:
+		if (m_pEdit!=0) {
+			m_pEdit->write_to_file();
+		}
 		PostQuitMessage(0);
 		break;
 	case WM_GETMINMAXINFO:

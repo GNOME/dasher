@@ -484,7 +484,6 @@ void CEdit::SetInterface(CDasherWidgetInterface* DasherInterface)
 	}
 }
 
-
 void CEdit::write_to_file()
 {
 	const string& TrainFile = m_DasherInterface->GetTrainFile();
@@ -593,9 +592,6 @@ void CEdit::output(symbol Symbol)
 	m_Output += m_DasherInterface->GetEditText(Symbol);
 
 	speech+=m_DasherInterface->GetEditText(Symbol);
-
-	if (m_Output.size()>=1024)
-		write_to_file();
 }
 
 LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)

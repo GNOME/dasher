@@ -35,6 +35,9 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	using namespace WinUTF8;
 	hInstApp = hInstance;
 	
+	// We don't want to starve other interactive applications
+	SetThreadPriority(GetCurrentThreadId(),THREAD_PRIORITY_BELOW_NORMAL);
+
 	// Get folder names for system and user data.
 	Tstring UserData, AppData;
 	std::string UserData2, AppData2;
