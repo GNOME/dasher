@@ -28,7 +28,7 @@ class Dasher::CDasherView
 {
 public:
 	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
-	~CDasherView() {}
+	~CDasherView() {}		
 	
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 	
@@ -57,7 +57,10 @@ public:
 	CDasherModel& DasherModel() {return m_DasherModel;}
 	CDasherScreen& Screen() {return *m_Screen;}
 
-	void Display() {m_Screen->Display();};
+	void Display() {m_Screen->Display();}
+
+	// Toggle advanced colour mode
+	void SetColourMode(bool colourmode) {ColourMode=colourmode;}
 
 protected:
 	// Orientation of Dasher Screen
@@ -81,6 +84,9 @@ private:
 	
 	// Orientation of Dasher Screen
 	Dasher::Opts::ScreenOrientations ScreenOrientation;
+
+	// Advanced colour mode
+	bool ColourMode;
 
 	// DJW - removed floating point stuff
 	//double XYScale;

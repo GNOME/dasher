@@ -28,6 +28,7 @@ private:
 	//bool m_Cscheme;                  // color scheme for the node - alternates through relatives
 	Opts::ColorSchemes m_ColorScheme;
 	int m_iPhase;                      // index for coloring
+	int m_iColour;                     // for the advanced colour mode
 	
 	const symbol m_Symbol;             // the character to display
 	CLanguageModel *m_languagemodel;   // pointer to the language model - in future, could be different for each node	
@@ -36,7 +37,7 @@ private:
 	CLanguageModel::CNodeContext *m_context;
 public:
 	
-	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm);
+	CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, int Colour);
 	~CDasherNode();
 	bool m_bForce;                     // flag to force a node to be drawn - shouldn't be public
     
@@ -53,6 +54,7 @@ public:
 	unsigned int Chars() const {return m_iChars;}
 	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
+	int Colour() const {return m_iColour;}
 	
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
 	void Get_string_under(const int,const myint y1,const myint y2,const myint smousex,const myint smousey,std::vector<symbol>&) const; // get string under given co-ords
@@ -72,9 +74,9 @@ using namespace Opts;
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm)
+inline CDasherNode::CDasherNode(CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, int Colour=0)
 	: m_parent(parent),m_Symbol(Symbol),m_iGroup(igroup),m_iLbnd(ilbnd),m_iHbnd(ihbnd),m_languagemodel(lm),m_iPhase(iphase),
-  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(false)
+  m_context(0), m_iAge(0), m_bAlive(1), m_Children(0), m_bForce(false), m_iChars(0), m_ColorScheme(ColorScheme), m_bControlChild(false), m_iColour(Colour)
 {
 	/*
 	switch (ColorScheme) {

@@ -44,6 +44,7 @@ public:
 		{
 			std::string Display;
 			std::string Text;
+		        std::string Colour;
 		};
 		struct group
 		{

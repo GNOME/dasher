@@ -11,7 +11,7 @@ using namespace Dasher;
 
 
 CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation)
-	: m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation)
+  : m_Screen(DasherScreen), m_DasherModel(DasherModel), ScreenOrientation(Orientation), ColourMode(false)
 {
 //	XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
 }
@@ -32,9 +32,14 @@ void CDasherView::FlushAt(int mousex,int mousey)
 int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text)
 {
 	symbol CurChar = Render->Symbol();
-	
-	int Color= Render->Phase()%3;
-	
+	int Color;
+
+	if (ColourMode==true) {
+	  Color = Render->Colour();
+	} else {
+	  Color = Render->Phase()%3; 
+	}
+
 	if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text))
 		RenderGroups(Render, y1, y2, text);
 	else
