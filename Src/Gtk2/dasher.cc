@@ -697,8 +697,10 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
     if (keyboardcontrol == true) {
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
+      paused=false;
       dasher_go_to((int)(0.70*width), (int)(0.20*height));
       dasher_draw_go_to((int)(0.70*width), (int)(0.20*height));
+      paused=true;
       return TRUE;
     }
     break;
@@ -706,8 +708,10 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
     if (keyboardcontrol == true) {
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
+      paused=false;
       dasher_go_to((int)(0.70*width), (int)(0.80*height));
       dasher_draw_go_to((int)(0.70*width), (int)(0.80*height));
+      paused=true;
       return TRUE;
     }
     break;
@@ -715,8 +719,10 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
     if (keyboardcontrol == true) {
       width = the_canvas->allocation.width;
       height = the_canvas->allocation.height;
+      paused=false;
       dasher_go_to((int)(0.25*width), (int)(0.50*height));
       dasher_draw_go_to((int)(0.25*width), (int)(0.50*height));
+      paused=true;
       return TRUE;
     }
     break;
