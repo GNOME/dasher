@@ -12,6 +12,7 @@
 
 #include "../Common/MSVC_Unannoy.h"
 
+#define NOMINMAX
 #define WIN32_LEAN_AND_MEAN // Excludes rarely-used stuff from the Windows headers
 #include <windows.h>
 #include <winbase.h>
