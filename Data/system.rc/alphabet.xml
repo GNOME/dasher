@@ -7,6 +7,7 @@
 <encoding type="Western"/>
 <train>training_english_GB.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="b" t="b"/>
@@ -79,6 +80,7 @@
 <encoding type="Western"/>
 <train>training_english_GB.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="b" t="b"/>
@@ -188,6 +190,7 @@
 <encoding type="Western"/>
 <train>training_french_FR.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -280,6 +283,7 @@
 <encoding type="Western"/>
 <train>training_italian_IT.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -368,6 +372,7 @@
 <encoding type="Western"/>
 <train>training_portugese_BR.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="à" t="à"/>
@@ -468,6 +473,7 @@
 <encoding type="Western"/>
 <train>training_german_DE.txt</train>
 <space d="_" t=" "/>
+<control d="Control" t=""/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>
 <s d="ä" t="ä"/>
@@ -550,6 +556,7 @@
     <train>training_polish_PL.txt</train>
 
     <space t=" " d="_" />
+    <control d="Control" t=""/>
 
     <group name="Małe litery łacińskie">
       <s t="a" d="a" />
@@ -762,6 +769,7 @@
     <train>training_polish_PL.txt</train>
 
     <space t=" " d="_" />
+    <control d="Control" t=""/>
 
     <group name="Małe litery">
       <s t="a" d="a" />
