@@ -646,8 +646,8 @@ END
 //
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 3,0,2,0
- PRODUCTVERSION 3,0,2,0
+ FILEVERSION 3,2,0,0
+ PRODUCTVERSION 3,2,0,0
  FILEFLAGSMASK 0x3fL
 #ifdef _DEBUG
  FILEFLAGS 0x3L
@@ -665,9 +665,9 @@ BEGIN
             VALUE "Comments", "Dasher is an information efficient text-entry system controlled by a pointer. It is licensed under the GPL."
             VALUE "CompanyName", "Inference Group, Cavendish Laboratory, University of Cambridge"
             VALUE "FileDescription", "Dasher"
-            VALUE "FileVersion", "3, 2,0, 0"
+            VALUE "FileVersion", "3, 2, 0, 0"
             VALUE "InternalName", "Dasher"
-            VALUE "LegalCopyright", "Copyright © 1998-2003 The Dasher Project"
+            VALUE "LegalCopyright", "Copyright © 1998-2004 The Dasher Project"
             VALUE "OriginalFilename", "dasher.exe"
             VALUE "ProductName", "Dasher"
             VALUE "ProductVersion", "3, 2, 0, 0"
