@@ -13,6 +13,7 @@
 #include "../WinLocalisation.h"
 
 #include <utility> // for std::pair
+#include <sstream>
 
 using namespace Dasher;
 using namespace std;
@@ -40,8 +41,8 @@ std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
 void CKeyBox::PopulateWidgets()
 {
 //	int widgets[18];
-	char dummybuffer[256];
-	wchar_t widebuffer[256];
+//	char dummybuffer[256];
+//	wchar_t widebuffer[256];
 
 /*	widgets[0]=IDC_UPX;
 	widgets[1]=IDC_UPY;
@@ -72,17 +73,27 @@ void CKeyBox::PopulateWidgets()
 */	
 	HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
 	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-	Buffer = new TCHAR[10];
-	_stprintf(Buffer, TEXT("%d"), ypixels);
-	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-	delete[] Buffer;
+
+	// Perhaps a typedef for std::basic_ostringstream<TCHAR> would be useful
+
+	std::basic_ostringstream<TCHAR> strYPix;
+	strYPix << ypixels;
+//	Buffer = new TCHAR[10];
+//	_stprintf(Buffer, TEXT("%d"), ypixels);
+//
+//	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
+	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) strYPix.str().c_str() );
+//	delete[] Buffer;
 
 	EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
 	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-	Buffer = new TCHAR[10];
-	_stprintf(Buffer, TEXT("%d"), mouseposdist);
-	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-	delete[] Buffer;
+//	Buffer = new TCHAR[10];
+//	_stprintf(Buffer, TEXT("%d"), mouseposdist);
+	std::basic_ostringstream<TCHAR> strMousePosDist;
+	strMousePosDist << mouseposdist;
+
+	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) strMousePosDist.str().c_str() );
+//	delete[] Buffer;
 
 	slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
 	SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
@@ -91,10 +102,17 @@ void CKeyBox::PopulateWidgets()
 	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pCanvas->getuniform());
 
 	uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
-	Buffer = new TCHAR[10];
-	_stprintf(Buffer, TEXT("%0.1f"), m_pCanvas->getuniform()/10.0);
-	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-	delete[] Buffer;
+
+	std::basic_ostringstream<TCHAR> strUniform;
+	strUniform.setf(ios::fixed);
+	strUniform.precision(1);
+	strUniform << m_pCanvas->getuniform()/10.0;
+
+	//Buffer = new TCHAR[10];
+	//_stprintf(Buffer, TEXT("%0.1f"), m_pCanvas->getuniform()/10.0);
+
+	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) strUniform.str().c_str() );
+	//delete[] Buffer;
 
 /*	for (int i=0; i<18; i++) {
 		EditBox = GetDlgItem(m_hwnd, widgets[i]);
@@ -138,10 +156,16 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			long Pos = SendMessage(slider,TBM_GETPOS,0,0);
 			NewUniform = Pos;
 		}
-		Buffer = new TCHAR[10];
-		_stprintf(Buffer, TEXT("%0.1f"), NewUniform/10);
-		SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-		delete[] Buffer;
+		{
+		std::basic_ostringstream<TCHAR> strNewUniform;
+		strNewUniform.setf(ios::fixed);
+		strNewUniform.precision(1);
+		strNewUniform << NewUniform/10; 
+		//Buffer = new TCHAR[10];
+		//_stprintf(Buffer, TEXT("%0.1f"), NewUniform/10);
+		SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) strNewUniform.str().c_str() );
+		//delete[] Buffer;
+		}
 		return TRUE;
 		break;
 	case WM_COMMAND:
