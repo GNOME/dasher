@@ -19,7 +19,7 @@ QtDasherPlugin::QtDasherPlugin(QWidget* parent, const char* name, WFlags f) : QF
 {
   (new QHBoxLayout(this))->setAutoAdd(TRUE);
   interface = new CDasherInterface;
-  interface->SetSystemLocation("/usr/share/dasher/");
+  interface->SetSystemLocation("/opt/QtPalmtop/share/dasher/");
   interface->Unpause(0);
   interface->Start();  
   d = new QtDasherScreen(240,100,interface,this,this);
