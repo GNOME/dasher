@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-06 03:13+0100\n"
-"PO-Revision-Date: 2004-02-06 17:34+0100\n"
+"POT-Creation-Date: 2004-02-07 14:18+0100\n"
+"PO-Revision-Date: 2004-02-07 17:13+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -512,7 +512,12 @@ msgstr "Barva"
 msgid "Orientation"
 msgstr "Orientace"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "Nemohu inicializovat hlasy"
+
+#: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Varování: nemohu nastavit parametry řeči\n"
