@@ -28,7 +28,7 @@ class Dasher::CDasherModel : private NoClones
 {
 public:
 	
-	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel);
+	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions);
 	~CDasherModel();
 	
 	// framerate functions
@@ -52,7 +52,7 @@ public:
 	void Flush(const myint smousex,const myint smousey);            // flush to the edit control
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-        void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
+       void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
 	
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void Start();                                                   // initializes the data structure

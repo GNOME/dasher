@@ -16,8 +16,8 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel)
-: m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0)
+CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions)
+  : m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0), m_Dimensions(Dimensions)
 {
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	

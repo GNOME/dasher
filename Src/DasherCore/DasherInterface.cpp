@@ -87,7 +87,7 @@ void CDasherInterface::CreateDasherModel()
 {
 	if (m_DashEditbox!=0 && m_LanguageModel!=0) {
 		delete m_DasherModel;
-		m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel);
+		m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel, m_Dimensions);
 		if (m_MaxBitRate>=0)
 			m_DasherModel->SetMaxBitrate(m_MaxBitRate);
 		if (ViewID!=-1)
@@ -415,6 +415,7 @@ void CDasherInterface::SetDasherFontSize(FontSize fontsize)
 
 void CDasherInterface::SetDasherDimensions(bool Value)
 {
+        m_Dimensions=Value;
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetLongOption(Keys::DASHER_DIMENSIONS, Value);
 	if (m_DasherModel!=0) {

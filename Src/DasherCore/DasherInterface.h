@@ -147,6 +147,7 @@ private:
 	bool m_DrawMouse;
 	bool m_StartSpace;
 	bool m_StartLeft;
+	bool m_Dimensions;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;

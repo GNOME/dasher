@@ -91,6 +91,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetBoolDefault(START_SPACE, false);
 	this->StartOnSpace(Store->GetBoolOption(START_SPACE));
 
+	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
+	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
+
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"
 	// The user may have saved a preference for some of these options though:
@@ -103,9 +106,6 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->SetEditFont(Store->GetStringOption(EDIT_FONT), Store->GetLongOption(EDIT_FONT_SIZE));
 	this->SetDasherFont(Store->GetStringOption(DASHER_FONT));
 	this->SetDasherFontSize(Dasher::Opts::FontSize(Store->GetLongOption(DASHER_FONTSIZE)));
-
-	Store->SetBoolDefault(DASHER_DIMENSIONS, false);
-	this->SetDasherDimensions(Store->GetBoolOption(DASHER_DIMENSIONS));
 
 	// Window Geometry
 	this->SetEditHeight(Store->GetLongOption(EDIT_HEIGHT));

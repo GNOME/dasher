@@ -57,6 +57,6 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface); // Main Window
 	DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
 	DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
-	
+
 	return DasherWindow.MessageLoop();
 }
