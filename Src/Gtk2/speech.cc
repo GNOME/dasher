@@ -24,7 +24,6 @@ void setup_speech() {
       CORBA_exception_init (&ev);
 
       info = &servers->_buffer[i];
-      printf ("Atempting to activate %s.\n", info->iid);
 
       rv = bonobo_activation_activate_from_id (
 					       (const Bonobo_ActivationID) info->iid,
