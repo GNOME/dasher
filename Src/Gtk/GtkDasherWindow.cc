@@ -48,6 +48,7 @@ void GtkDasherWindow::toolbar_button_cb(char *c)
 int GtkDasherWindow::destroy_event_impl(GdkEventAny *event)
 {
   Gtk::Main::quit();
+  return( true );
 }
 
 int GtkDasherWindow::delete_event_impl(GdkEventAny *event)

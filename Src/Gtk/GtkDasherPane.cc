@@ -82,11 +82,15 @@ int GtkDasherPane::toggle_pause( GdkEventButton *e )
 
   //  interface->PauseAt(0,0);
   paused = !paused;
+
+  return( true );
 }
 
 int GtkDasherPane::visibility_event_impl(GdkEventAny *event)
 {
   cout << "In visibility event handler" << endl;
+
+  return( true );
 }
 
 

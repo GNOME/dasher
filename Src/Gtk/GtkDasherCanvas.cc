@@ -64,6 +64,8 @@ GtkDasherCanvas::~GtkDasherCanvas()
 gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 {
   get_window().draw_pixmap( this->get_style()->get_white_gc(), *(buffer->get_fg()), 0, 0, 0, 0, width, height );
+
+  return( true );
 }
 
 void GtkDasherCanvas::SetFont(std::string Name)
