@@ -46,7 +46,8 @@ Add the contents of the Dasher edit box to the end of a file chosen by the user
 
 .IP "Import training text"
 Use a file to further train Dasher (for instance, a training file containing
-scientific terms to add to the initial English training)
+scientific terms to add to the initial English training). Training files must
+be UTF-8 encoding.
 
 .IP Exit
 Quit Dasher
@@ -115,6 +116,18 @@ Reset the fonts back to the defaults
 .IP "About Dasher"
 Display information about the current version of Dasher
 
+.SH CONVERTING TRAINING FILES TO UTF-8
+
+Dasher requires that training files be in the UTF-8 format, whereas most text
+files are likely to be in ISO-8859 format. This doesn't matter for plain text,
+but accented characters are encoded differently. In order to convert them, use
+the 
+.BR iconv (1)
+program. For instance, if your training file is in ISO-8859-1 format (Western
+European), run
+
+.B iconv -f ISO-8859-1 -t UTF-8 trainingfile >newtrainingfile
+
 .SH FILES
 
 .I /usr/share/dasher/
@@ -140,8 +153,8 @@ The file defining the alphabets available to Dasher
 .RE
 .I train*txt
 .RS
-Files containing the training data used by Dasher. These are plain text and 
-should contain a representative sample of the relevant language.
+Files containing the training data used by Dasher. These are UTF-8 encoded 
+text and should contain a representative sample of the relevant language.
 
 .SH AUTHOR
 
