@@ -1641,6 +1641,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
     "Chris Ball",
     "Phil Cowens",
     "Matthew Garrett",
+    "David MacKay",
     "Iain Murray",
     "Hanna Wallach",
     "David Ward",
@@ -1651,6 +1652,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
   gchar *documenters[] = {
     "Chris Ball",
     "Matthew Garrett",
+    "David MacKay",
     NULL
   };
 
