@@ -1,6 +1,6 @@
 QTDIR=/usr/share/qte2
 
-CXXFLAGS = -O2 -fno-rtti -DQWS -I../DasherCore -I$(QTDIR)/include -DPROGDATA=\"$(pkgdatadir)/\"
+AM_CXXFLAGS = -O2 -fno-rtti -DQWS -I../DasherCore -I$(QTDIR)/include -DPROGDATA=\"$(pkgdatadir)/\"
 
 SOURCES = QtDasherScreen.cc moc_QtDasherScreen.cc QtDasherImpl.cc moc_QtDasherImpl.cc QtDasherPlugin.cc moc_QtDasherPlugin.cc
 
