@@ -34,6 +34,9 @@ void CDasherNode::Dump_node () const
 
 void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 
+	if (m_Symbol==m_languagemodel->GetControlSymbol())
+	  return;
+
 	m_iAge=0;
 	m_bAlive=true;
 	if (m_Symbol && !m_iChars)   // make sure it's a valid symbol and don't enter if already done
@@ -62,6 +65,7 @@ void CDasherNode::Generic_Push_Node(CLanguageModel::CNodeContext *context) {
 	}
 	
 	ColorSchemes ChildScheme;
+
 	for (i=1;i<m_iChars;i++) {
 		if (newchars[i]==this->m_languagemodel->GetSpaceSymbol())
 			ChildScheme = SpecialScheme;
