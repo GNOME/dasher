@@ -22,7 +22,7 @@ int scantree(Accessible *parent) {
       useful = scantree(child);
     else
       scantree(child);
-    if (Accessible_getRole(child)==SPI_ROLE_MENU_ITEM) {
+    if (Accessible_getRole(child)==SPI_ROLE_MENU_ITEM||Accessible_getRole(child)==SPI_ROLE_CHECK_MENU_ITEM) {
       useful=1;
     }
   }
@@ -48,7 +48,7 @@ GNode* buildtree(Accessible *parent, GNode *treeparent) {
     if (scantree(child)==1) {
       buildtree(child,me);
     }
-    if (Accessible_getRole(child)==SPI_ROLE_MENU_ITEM) {
+    if (Accessible_getRole(child)==SPI_ROLE_MENU_ITEM||Accessible_getRole(child)==SPI_ROLE_CHECK_MENU_ITEM) {
       g_node_append(me,g_node_new(child));
     }
   }
