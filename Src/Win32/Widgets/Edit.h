@@ -87,6 +87,9 @@ public:
 	// set the window that text should be entered into
 	void SetWindow(HWND window);
 
+	// toggle text entry mode
+	void TextEntry(bool Value) {textentry=Value;}
+
 	// speak text
 	void speak(int what);
 
@@ -122,6 +125,7 @@ private:
 
 	DWORD threadid;
 	HWND targetwindow;
+	bool textentry;
 #ifdef _UNICODE
 	INPUT fakekey[2];
 #endif

@@ -556,7 +556,7 @@ void CEdit::output(symbol Symbol)
 		return;
 	
 	InsertText(DisplayStrings[Symbol]);
-	if (targetwindow!=NULL) {
+	if (targetwindow!=NULL && textentry==true) {
 		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
 #ifdef UNICODE
 		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
@@ -662,7 +662,7 @@ void CEdit::deletetext()
 	TCHAR out [2];
 	wsprintf(out,TEXT(""));
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
-	if (targetwindow!=NULL) {
+	if (targetwindow!=NULL && textentry==true) {
 #ifdef _UNICODE
 		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
 		fakekey[0].ki.wVk=fakekey[1].ki.wVk=VK_BACK;
@@ -687,12 +687,12 @@ void CEdit::SetWindow(HWND window)
 	targetwindow=window;
 	if (threadid!=NULL) {
 		AttachThreadInput(GetCurrentThreadId(),threadid,FALSE);
-		SetFocus(Parent);
+//		SetFocus(Parent);
 	}
 	if (window!=NULL) {
 		threadid=GetWindowThreadProcessId(window,NULL);
 		AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(window,NULL),TRUE);
-		SetFocus(window);
+//		SetFocus(window);
 	}
 }
 

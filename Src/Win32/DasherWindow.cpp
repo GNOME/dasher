@@ -393,23 +393,24 @@ void CDasherWindow::ColourMode(bool Value)
 
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
+	HWND testwindow;
+	RECT windowsize;
 	switch (message)
 	{
 	case MY_LAYOUT:
 		Layout();
 		break;
 	case WM_SETFOCUS:
-
 		SetFocus(m_pCanvas->getwindow());
-
 		break;
-
 	case WM_TIMER:
-
+		// Ugh. Can't find a desperately nicer way of doing this, though
+		testwindow=GetForegroundWindow();
+		if (testwindow!=m_hwnd) {
+			m_pEdit->SetWindow(testwindow);
+		}
 		SendMessage( m_pCanvas->getwindow(), message, wParam, lParam);
-
 		break;
-
 	case WM_COMMAND:
 		{
 			const int wmId    = LOWORD(wParam);
@@ -426,15 +427,20 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			{
 
 			case ID_OPTIONS_ENTERTEXT:
-				{ CWinSel WinSel(m_hwnd,m_pEdit); }
-			break;
-
-			case ID_OPTIONS_CONTROLMODE:
-
-				DasherSettingsInterface->ControlMode(!WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
-
+				GetWindowRect(m_hwnd,&windowsize);
+				if (WinMenu.GetCheck(ID_OPTIONS_ENTERTEXT)) {
+					SetWindowPos(m_hwnd, HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right-windowsize.left), (windowsize.bottom-windowsize.top), NULL);
+					WinMenu.SetStatus(ID_OPTIONS_ENTERTEXT, false, true);
+					m_pEdit->TextEntry(true);
+				} else {
+					SetWindowPos(m_hwnd, HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right-windowsize.left), (windowsize.bottom-windowsize.top), NULL);
+					WinMenu.SetStatus(ID_OPTIONS_ENTERTEXT, false, false);
+					m_pEdit->TextEntry(false);
+				}
 				break;
-
+			case ID_OPTIONS_CONTROLMODE:
+				DasherSettingsInterface->ControlMode(!WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+				break;
 			case ID_OPTIONS_FONTSIZE_NORMAL: {
 			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
