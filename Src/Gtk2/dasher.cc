@@ -487,6 +487,17 @@ open_file (const char *filename)
   GnomeVFSResult result;
   GnomeVFSFileInfo info;
 
+  //Try to make the path roughly absolute
+  if (filename[0]!='/') {    
+    std::string realname;
+    char dirpath[PATH_MAX];
+    getcwd(dirpath,PATH_MAX);
+    realname+=dirpath;
+    realname+="/";
+    realname+=filename;
+    filename=realname.c_str();
+  }
+
   result=gnome_vfs_open(&handle, filename, GNOME_VFS_OPEN_READ);
   if (result!=GNOME_VFS_OK) {
     vfs_print_error(&result);
