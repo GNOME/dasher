@@ -59,8 +59,8 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
 void GtkDasherCanvas::realize_impl()
 {
   DrawingArea::realize_impl();
-  build_colours();
 
+  build_colours();
 }
 
 bool GtkDasherCanvas::build_fonts( int encoding )
@@ -162,13 +162,13 @@ void GtkDasherCanvas::clear()
   Gdk_Color some_color2( clr );
   
 
-  buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
+//   buffer->get_map_text()->draw_rectangle( gc2, true, 0, 0, pmwidth, pmheight );
   
-  buffer->get_bg_text()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
+//   buffer->get_bg_text()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
 
   
-  buffer->get_bg_squares()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
-  buffer->get_fg()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
+//   buffer->get_bg_squares()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
+//   buffer->get_fg()->draw_rectangle( this->get_style()->get_white_gc(), true, 0, 0, pmwidth, pmheight );
 
       }
 
@@ -201,7 +201,18 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
       interface->ChangeScreen( wrapper );
     }
 
-  get_window().draw_pixmap( this->get_style()->get_white_gc(), *(buffer->get_fg()), 0, 0, 0, 0, pmwidth, pmheight );
+  Gdk_GC gc3;
+  
+  gc3.create(*(buffer->get_bg_text()));
+  
+  Gdk_Color clr3;
+  
+  clr3.set_rgb( 65535,65535,65535);
+  
+  gc3.set_foreground(clr3);
+
+
+  get_window().draw_pixmap( gc3, *(buffer->get_fg()), 0, 0, 0, 0, pmwidth, pmheight );
 
   return( true );
 }
@@ -324,8 +335,19 @@ void GtkDasherCanvas::DrawText(symbol Character, int x1, int y1, int Size) const
       
       gc2.set_foreground(some_color2);
 
+      //      Gtk::Style st( gtk_widget_get_style( buffer->get_map_text()->gdkobj() ) );
 
-      buffer->get_bg_text()->draw_string(*chosen_font, this->get_style()->get_black_gc(), x1, y1+chosen_font->char_height('A'), csymbol);
+      Gdk_GC gc3;
+
+      gc3.create(*(buffer->get_bg_text()));
+
+      Gdk_Color clr3;
+
+      clr3.set_rgb( 0,0,0);
+
+      gc3.set_foreground(clr3);
+
+      buffer->get_bg_text()->draw_string(*chosen_font, gc3, x1, y1+chosen_font->char_height('A'), csymbol);
       buffer->get_map_text()->draw_string(*chosen_font, gc2, x1, y1+chosen_font->char_height('A'), csymbol);
 
     }    
@@ -339,7 +361,7 @@ void GtkDasherCanvas::build_colours()
 
   for( int i(0); i < 3; ++i )
     {
-      nodes1gc[i].create( get_window() );
+      nodes1gc[i].create(*(buffer->get_bg_squares())  );
 
       Gdk_Color col;
       switch(i)
@@ -475,19 +497,18 @@ void GtkDasherCanvas::Polyline(Dasher::CDasherScreen::point* Points, int Number)
 { 
   if( is_realized() )
     {
-  Gdk_GC graphics_context;
-  graphics_context.create(get_window()); 
+  Gdk_GC gc3;
 
-  Gdk_Color some_color;
-  Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
-  some_color.set_red(0);
-  some_color.set_green(0);
-  some_color.set_blue(0);
-  some_colormap.alloc(some_color);
-  graphics_context.set_foreground(some_color);
+      gc3.create(*(buffer->get_bg_squares()));
+
+      Gdk_Color clr3;
+
+      clr3.set_rgb( 0,0,0);
+
+      gc3.set_foreground(clr3);
 
   for( int i(0); i < Number - 1; ++i )
-    buffer->get_bg_squares()->draw_line( graphics_context, Points[i].x, Points[i].y, Points[i+1].x, Points[i+1].y );
+    buffer->get_bg_squares()->draw_line( gc3, Points[i].x, Points[i].y, Points[i+1].x, Points[i+1].y );
     }
 }
  
@@ -499,23 +520,46 @@ void GtkDasherCanvas::Blank() const
 {
   if( is_realized() )
     {
-     Gdk_GC graphics_context;
-     graphics_context.create(get_window());
+     // Gdk_GC graphics_context;
+//      graphics_context.create(get_window());
 
 
-     // FIXME - This is very broked - we should set up the colour map in advance
+//      // FIXME - This is very broked - we should set up the colour map in advance
 
-     Gdk_Color some_color;
-     Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
-     some_color.set_red(65535);
-     some_color.set_green(65535);
-     some_color.set_blue(65535);
-     some_colormap.alloc(some_color);
-     graphics_context.set_foreground(some_color);
-    
+//      Gdk_Color some_color;
+//      Gdk_Colormap some_colormap(Gdk_Colormap::get_system());
+//      some_color.set_red(65535);
+//      some_color.set_green(65535);
+//      some_color.set_blue(65535);
+//      some_colormap.alloc(some_color);
+//      graphics_context.set_foreground(some_color);
+  
 
-     buffer->get_bg_text()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
-     buffer->get_bg_squares()->draw_rectangle( graphics_context, true, 0, 0, pmwidth, pmheight );
+
+   Gdk_GC gc1;
+  
+     gc1.create(*(buffer->get_bg_text()));
+
+     Gdk_Color some_color1;
+     some_color1.set_rgb( 65535, 65535, 65535 );
+  
+     gc1.set_foreground(some_color1);
+
+
+
+  
+
+     buffer->get_bg_text()->draw_rectangle( gc1, true, 0, 0, pmwidth, pmheight );
+
+     Gdk_GC gc3;
+  
+     gc3.create(*(buffer->get_bg_squares()));
+
+     Gdk_Color some_color3;
+     some_color3.set_rgb( 65535, 65535, 65535 );
+  
+     gc3.set_foreground(some_color3);
+     buffer->get_bg_squares()->draw_rectangle( gc3, true, 0, 0, pmwidth, pmheight );
 
      Gdk_GC gc2;
   
