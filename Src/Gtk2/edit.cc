@@ -374,7 +374,7 @@ void edit_delete_backward_line()
 
   *start=*end;  
 
-  gtk_text_iter_backward_lines(start,1);
+  gtk_text_iter_backward_line(start);
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 

@@ -134,8 +134,8 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
     if (alph!=alphabet) {
       GtkWindow* trainwindow=GTK_WINDOW(glade_xml_get_widget(widgets,"trainwindow"));
       gtk_window_set_transient_for(trainwindow,GTK_WINDOW(preferences_window));
-      gtk_window_set_position (trainwindow,GTK_WIN_POS_CENTER_ON_PARENT);
-      gtk_widget_show(glade_xml_get_widget(widgets,"trainwindow"));
+      gtk_window_present(trainwindow);
+
       while (gtk_events_pending ()) {
 	gtk_main_iteration_do(false);
       }
