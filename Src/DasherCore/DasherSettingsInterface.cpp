@@ -99,7 +99,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	// The user may have saved a preference for some of these options though:
 	
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
-	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
+
+	// FIXME - need to work out why this breaks stuff
+	//	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
 	this->ChangeView(Store->GetLongOption(VIEW_ID));
 	
 	// Fonts

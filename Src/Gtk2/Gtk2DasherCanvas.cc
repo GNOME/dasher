@@ -20,14 +20,14 @@ Gtk2DasherCanvas::Gtk2ScreenWrapper::Gtk2ScreenWrapper (int width, int height, G
   this->owner = owner;
 }
 
-Gtk2DasherCanvas::Gtk2DasherCanvas(guint width, guint height, CDasherInterface *interface) : pmwidth (width), pmheight (height)
+Gtk2DasherCanvas::Gtk2DasherCanvas(guint width, guint height ) : pmwidth (width), pmheight (height)
 {
   // we've got a canvas being passed to us. 
   // apparently want to do stuff regarding fonts list...
 
   wrapper = new Gtk2ScreenWrapper(width, height, this);
 
-  this->interface = interface;
+  //  this->interface = interface;
   canvas = gtk_drawing_area_new ();
 
   buffer = new Gtk2DoubleBuffer(canvas->window, width, height, DefaultDepth(XOpenDisplay(NULL), DefaultScreen(XOpenDisplay(NULL))));
@@ -156,7 +156,9 @@ void Gtk2DasherCanvas::DrawText(symbol Character, int x1, int y1, int size) cons
   ink = new PangoRectangle;
   logical = new PangoRectangle;
 
-  symbol = interface->GetDisplayText(Character);
+  //  symbol = interface->GetDisplayText(Character);
+  symbol = string("foo");
+  // FIXME
 
   chosen_font = GetFont(size);
 

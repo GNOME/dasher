@@ -6,10 +6,10 @@
 
 #include "Gtk2DasherEdit.h"
 
-Gtk2DasherEdit::Gtk2DasherEdit(CDasherInterface *interface ) : Dasher::CDashEditbox()
+Gtk2DasherEdit::Gtk2DasherEdit() : Dasher::CDashEditbox()
 {
   flush_count = 0;
-  this->interface = interface;
+  //  this->interface = interface;
 
   text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   text_view = gtk_text_view_new ();
@@ -67,7 +67,9 @@ void Gtk2DasherEdit::unflush()
 void Gtk2DasherEdit::output(symbol Symbol)
 {
   std::string label;
-  label = interface->GetEditText( Symbol );
+  //  label = interface->GetEditText( Symbol );
+  label = string("foo");
+  //FIXME
 
   gtk_text_buffer_insert_at_cursor(text_buffer, label.c_str(), -1);
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(text_view),gtk_text_buffer_get_insert(text_buffer));
@@ -76,7 +78,9 @@ void Gtk2DasherEdit::output(symbol Symbol)
 void Gtk2DasherEdit::flush(symbol Symbol)
 {
   std::string label;
-  label = interface->GetEditText( Symbol );
+  //  label = interface->GetEditText( Symbol );
+  label = string("foo");
+  // FIXME
   gtk_text_buffer_insert_at_cursor(text_buffer, label.c_str(), -1);
 
   if (label!="") {
@@ -103,8 +107,10 @@ void Gtk2DasherEdit::SetFont(std::string Name, long Size)
 gboolean Gtk2DasherEdit::handle_cursor_move(GtkWidget *widget, GdkEventButton *event, gpointer this2 ) 
 {
   ((Gtk2DasherEdit*)this2)->flush_count=0;
-  ((Gtk2DasherEdit*)this2)->interface->Start();
-  ((Gtk2DasherEdit*)this2)->interface->Redraw();
+  //  ((Gtk2DasherEdit*)this2)->interface->Start();
+  //  ((Gtk2DasherEdit*)this2)->interface->Redraw();
+
+  // FIXME
 
   return( false );
 

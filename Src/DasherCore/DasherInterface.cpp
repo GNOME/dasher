@@ -85,14 +85,17 @@ void CDasherInterface::SetSystemLocation(std::string SystemLocation)
 
 void CDasherInterface::CreateDasherModel()
 {
-	if (m_DashEditbox!=0 && m_LanguageModel!=0) {
-		delete m_DasherModel;
-		m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel, m_Dimensions);
-		if (m_MaxBitRate>=0)
-			m_DasherModel->SetMaxBitrate(m_MaxBitRate);
-		if (ViewID!=-1)
-			ChangeView(ViewID);
-	}
+
+  if (m_DashEditbox!=0 && m_LanguageModel!=0) {
+    delete m_DasherModel;
+    m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel, m_Dimensions);
+    if (m_MaxBitRate>=0)
+      m_DasherModel->SetMaxBitrate(m_MaxBitRate);
+    if (ViewID!=-1)
+      ChangeView(ViewID);
+  }
+
+
 }
 
 
@@ -126,10 +129,12 @@ void CDasherInterface::Unpause(unsigned long Time)
 
 void CDasherInterface::Redraw()
 {
-	if (m_DasherView!=0) {
-		m_DasherView->Render();
-		m_DasherView->Display();
-	}
+
+  if (m_DasherView!=0) {
+    m_DasherView->Render();
+    m_DasherView->Display();
+  }
+
 }
 
 

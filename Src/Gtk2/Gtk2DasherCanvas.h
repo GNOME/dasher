@@ -20,7 +20,7 @@ class Gtk2DasherCanvas
  public: 
   class Gtk2ScreenWrapper;
 
-  Gtk2DasherCanvas(guint width, guint height, CDasherInterface *interface);
+  Gtk2DasherCanvas(guint width, guint height );
   ~Gtk2DasherCanvas();
   
   void SetFont(std::string Name);
@@ -39,7 +39,7 @@ class Gtk2DasherCanvas
 
   Gtk2DoubleBuffer *buffer;
   GtkWidget *canvas;
-  CDasherInterface *interface;
+  //  CDasherInterface *interface;
   Gtk2ScreenWrapper *wrapper;
   PangoLayout *pangolayout;
 

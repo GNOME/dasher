@@ -42,7 +42,7 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 	
 	CDasherNode** const Children=Render->Children();
 	if (!Children)
-		return 0;
+	  return 0;
 	int norm=DasherModel().Normalization();
 		for (unsigned int i=1; i<Render->Chars(); i++) {
 		if (Children[i]->Alive()) {
@@ -53,6 +53,8 @@ int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int most
 		}
 	}
 	return 1;
+
+
 }
 
 

@@ -12,7 +12,7 @@ using namespace Dasher;
 class Gtk2DasherEdit : public Dasher::CDashEditbox
 {
  public:
-  Gtk2DasherEdit(CDasherInterface *interface );
+  Gtk2DasherEdit();
   ~Gtk2DasherEdit();
 
   void write_to_file();
@@ -34,7 +34,7 @@ class Gtk2DasherEdit : public Dasher::CDashEditbox
   GtkWidget *text_view;  
   GtkTextBuffer *text_buffer;
   GtkClipboard *text_clipboard;
-  CDasherInterface *interface;
+  //  CDasherInterface *interface;
 
   static gboolean handle_cursor_move(GtkWidget *widget, GdkEventButton *event, gpointer callback_data);
   int flush_count;
