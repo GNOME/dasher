@@ -18,6 +18,10 @@
 #include <gnome-speech/gnome-speech.h>
 #endif
 
+#ifdef GNOME
+#include <libgnomeui/libgnomeui.h>
+#endif
+
 #include "libdasher.h"
 
 #include "dasher.h"
@@ -30,6 +34,7 @@
 #include <gdk/gdkx.h>
 
 GtkWidget *vbox, *toolbar;
+GtkWidget *about;
 GdkPixbuf *p;
 GtkWidget *pw;
 GtkWidget *text_view;
@@ -1472,7 +1477,39 @@ extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
 
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
 {
-  GtkWidget *about = NULL;
+#ifdef GNOME
+  GdkPixbuf* pixbuf = NULL;
+
+  gchar *authors[] = {
+    "Chris Ball",
+    "Phil Cowens",
+    "Matthew Garrett",
+    "Iain Murray",
+    "Hanna Wallach",
+    "David Ward",
+    NULL
+  };
+    
+  gchar *documenters[] = {
+    "Matthew Garrett",
+    NULL
+  };
+
+  gchar *translator_credits = _("translator_credits");
+  
+  about = gnome_about_new (_("Dasher"), 
+			   PACKAGE_VERSION, 
+			   "Copyright The Dasher Project\n",
+			   _("Dasher is a predictive text entry application"),
+			   (const char **)authors,
+			   (const char **)documenters,
+			   strcmp (translator_credits, "translator_credits") != 0 ? (const char *)translator_credits : NULL,
+			   NULL);
+  
+  gtk_window_set_transient_for (GTK_WINDOW(about), GTK_WINDOW (window));
+  //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
+  gtk_widget_show(about);
+#else
   GtkWidget *label, *button;
   char *tmp;
   
@@ -1501,6 +1538,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
 
 
   gtk_widget_show (about);
+#endif
 }
 
 extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )

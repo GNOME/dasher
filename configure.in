@@ -1,6 +1,7 @@
 AC_PREREQ(2.50)
 AC_INIT([dasher],[3.1.9],[dasher@mrao.cam.ac.uk])
 AM_INIT_AUTOMAKE
+AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
 AC_PROG_INTLTOOL([0.18])
@@ -16,9 +17,9 @@ AC_PROG_CXX
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
-AC_ARG_WITH([gtk2],
-	 AC_HELP_STRING([--with-gtk2],[build with GTK2 support (default is NO)]), 
-	[WITHGTK2=true],[WITHGTK2=false])
+AC_ARG_WITH([gnome],
+	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is NO)]), 
+	[WITHGNOME=true],[WITHGNOME=false])
 AC_ARG_WITH([qte],
 	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
 	[WITHQTE=true],[WITHQTE=false])
@@ -51,6 +52,11 @@ then
 	AC_ERROR("Unable to find GTK2!")
 fi
 
+if [[ x"$WITHGNOME" = xtrue ]]; then
+	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0)
+	AC_DEFINE([GNOME])
+fi
+
 if [[ x"$WITHSPEECH" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
 	AC_DEFINE([GNOME_SPEECH])
@@ -71,6 +77,9 @@ AC_SUBST([SPEECH_SOURCES])
 AC_SUBST(gnome_a11y_LIBS)
 AC_SUBST(gnome_a11y_CFLAGS)
 AC_SUBST([A11Y_SOURCES])
+
+AC_SUBST(gnome_LIBS)
+AC_SUBST(gnome_CFLAGS)
 
 AC_SUBST(glade_LIBS)
 AC_SUBST(glade_CFLAGS)

@@ -9,6 +9,17 @@
 #include <libbonobo.h>
 #endif
 
+#ifdef GNOME
+#include <libgnome/libgnome.h>
+#include <libgnomeui/libgnomeui.h>
+#include <libgnomevfs/gnome-vfs.h>
+
+static const struct poptOption options [] =
+{
+  {NULL, '\0', 0, NULL, 0}
+};
+#endif
+
 #define PREFIX "/usr/"
 #define SYSCONFDIR "/usr/share/dasher/"
 #define LIBDIR "/usr/lib/"
@@ -77,7 +88,14 @@ main(int argc, char *argv[])
       break;
     }
   }
-    
+
+#ifdef GNOME
+  GnomeProgram *program=0;
+  program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
+
+  gnome_vfs_init();
+
+#endif
 
   gtk_init (&argc, &argv);
 
