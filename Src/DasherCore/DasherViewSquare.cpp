@@ -61,14 +61,16 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
 	myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)
 {
+	// Is this square actually on the screen? Check top
 	int top = dashery2screen(y1);
 	if (top>CanvasY) {
 		return 0;
 	}
-	if (top<0) {
+	if (top<0) { // "highest" legal coordinate to draw is 0.
 		top=0;
 	}
 	
+	// Is this square actually on the screen? Check bottom
 	int bottom = dashery2screen(y2);
 	if (bottom<0) {
 		return 0;
@@ -84,8 +86,10 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	if (force || height>1) {
 		force=true;
 
+		// horizontal width of the square is controlled by the true size (y2-y1) in Dasher world
 		int left=dasherx2screen(y2-y1);
 		
+		// All squares are right-aligned.
 		int right=CanvasX;
 		
 		int newleft=left, newtop=top, newright=right, newbottom=bottom;
@@ -147,6 +151,10 @@ void CDasherViewSquare::CheckForNewRoot()
 	myint y1=DasherModel().Rootmin();
 	myint y2=DasherModel().Rootmax();
 	
+	// This says that the root node must enclose everything visible.
+	// Tiny probability characters near the bottom will cause a problem
+	// with forcing to reparent to the previous one.
+
 	if ((y1>0 || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0)) {
 	  DasherModel().Reparent_root(root->Lbnd(),root->Hbnd());
 	  return;
@@ -158,14 +166,20 @@ void CDasherViewSquare::CheckForNewRoot()
 	int alive=0;
 	int theone=0;
 	unsigned int i;
+
+	// Find whether there is exactly one alive child; if more, we don't care.
 	for (i=1;i<root->Chars();i++) {
 		if (children[i]->Alive()) {
 			alive++;
 			theone=i;
+            if(alive>1) break; 
 		}
 	}
 
 	if (alive==1) {	  
+	// We must have zoomed sufficiently that only one child of the root node 
+	// is still alive.  Let's make it the root.
+
 	  y1=DasherModel().Rootmin();
 	  y2=DasherModel().Rootmax();
 	  myint range=y2-y1;
