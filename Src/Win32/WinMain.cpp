@@ -109,7 +109,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	Alphabets=AppData;
 	Alphabets+=TEXT("alphabet*.xml");
 	Colours=AppData;
-	Colours+=TEXT("colours*.xml");
+	Colours+=TEXT("colour*.xml");
 	AddFiles(Alphabets,Colours,&DasherInterface);
 
 	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
