@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD.po\n"
+"Project-Id-Version: dasher.HEAD.sq\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-02-05 10:28+0100\n"
-"PO-Revision-Date: 2004-02-05 10:31+0100\n"
+"POT-Creation-Date: 2004-02-07 11:19+0100\n"
+"PO-Revision-Date: 2004-02-07 11:21+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -512,7 +512,12 @@ msgstr "Ngjyra"
 msgid "Orientation"
 msgstr "Orientimi"
 
-#: Src/Gtk2/speech.cc:55
+#: Src/Gtk2/speech.cc:45
+#, c-format
+msgid "Unable to initialize voices"
+msgstr "E pamundur nisja e zërave"
+
+#: Src/Gtk2/speech.cc:61
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Kujdes: i pamundur rregullimi i parametrave të shqiptimit\n"
