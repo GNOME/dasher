@@ -1014,4 +1014,61 @@
 <s d="→" t="ᅟᅠ"/>
 </group>
 </alphabet>
+<alphabet name="Japanese (Hiragana)">
+<orientation type="LR"/>
+<encoding type="Western"/>
+<train>training_hiragana_JP.txt</train>
+<group name="Hiragana vowels">
+<s d="あ" t="あ"/>
+<s d="い" t="い"/>
+<s d="う" t="う"/>
+<s d="え" t="え"/>
+<s d="お" t="お"/>
+</group>
+<group name="Hiragana consonents">
+<s d="か" t="か"/>
+<s d="き" t="き"/>
+<s d="く" t="く"/>
+<s d="け" t="け"/>
+<s d="こ" t="こ"/>
+<s d="さ" t="さ"/>
+<s d="し" t="し"/>
+<s d="す" t="す"/>
+<s d="せ" t="せ"/>
+<s d="そ" t="そ"/>
+<s d="た" t="た"/>
+<s d="ち" t="ち"/>
+<s d="つ" t="つ"/>
+<s d="て" t="て"/>
+<s d="と" t="と"/>
+<s d="な" t="な"/>
+<s d="に" t="に"/>
+<s d="ぬ" t="ぬ"/>
+<s d="ね" t="ね"/>
+<s d="の" t="の"/>
+<s d="は" t="は"/>
+<s d="ひ" t="ひ"/>
+<s d="ふ" t="ふ"/>
+<s d="へ" t="へ"/>
+<s d="ほ" t="ほ"/>
+<s d="ま" t="ま"/>
+<s d="み" t="み"/>
+<s d="む" t="む"/>
+<s d="め" t="め"/>
+<s d="も" t="も"/>
+<s d="や" t="や"/>
+<s d="ゆ" t="ゆ"/>
+<s d="よ" t="よ"/>
+<s d="ら" t="ら"/>
+<s d="り" t="り"/>
+<s d="る" t="る"/>
+<s d="れ" t="れ"/>
+<s d="ろ" t="ろ"/>
+<s d="わ" t="わ"/>
+<s d="ゐ" t="ゐ"/>
+<s d="ゑ" t="ゑ"/>
+<s d="を" t="を"/>
+<s d="ん" t="ん"/>
+</group>
+</alphabet>
 </alphabets>
