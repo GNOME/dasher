@@ -30,13 +30,14 @@ namespace Dasher
 	}}} */
 	#ifdef _MSC_VER
 		typedef __int64 myint;
+                #define LLONG_MAX 9223372036854775807
+	        #define LLONG_MIN (-LLONG_MAX - 1)
 	#else
 		typedef long long int myint;
+	        #define LLONG_MAX 9223372036854775807LL
+	        #define LLONG_MIN (-LLONG_MAX - 1LL)
 	#endif
 	
-	#define LLONG_MAX 9223372036854775807LL
-	#define LLONG_MIN (-LLONG_MAX - 1LL)
-
 	// Using a signed symbol type allows "Out of band" ie negative {{{
 	// values to be used to flag non-symbol data. For example commands
 	// in dasher nodes.
