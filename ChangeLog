@@ -1,3 +1,7 @@
+2004-09-11  Abel Cheung  <maddog@linux.org.hk>
+
+	* configure.in: Added "gu" to ALL_LINGUAS.
+
 2004-09-07  Gurban M. Tewekgeli  <gmtavakkoli@yahoo.com>
 
 	* po/tk.po: Added Turkmen translation.
