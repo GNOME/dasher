@@ -167,7 +167,7 @@ main(int argc, char *argv[])
 
   interface_late_setup();
 
-  gtk_widget_show_all(window);
+  gtk_widget_show(window);
 
   setup=TRUE;
 
