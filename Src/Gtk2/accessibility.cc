@@ -1,9 +1,9 @@
 #include "accessibility.h"
 
 ControlTree *menutree;
-std::vector<Accessible*> menuitems;
 
 #ifdef GNOME_A11Y
+std::vector<Accessible*> menuitems;
 Accessible *desktop;
 #endif
 
