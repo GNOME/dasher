@@ -80,7 +80,9 @@ bool cyclickeyboardmodeon=false;
 
 button buttons[10];
 
+#ifndef GNOME_SPEECH
 #define _(_x) gettext(_x)
+#endif
 
 #define NO_PREV_POS -1
 
@@ -166,8 +168,6 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
   GtkTreeIter iter;
   GtkTreeModel *model;
   gchar *alph;
-  GdkCursor *waitcursor, *arrowcursor;
-  GtkWidget *preferences_window = GTK_WIDGET(data);
 
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &alph, -1);    
@@ -228,8 +228,6 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
   GtkTreeIter iter;
   GtkTreeModel *model;
   gchar *colour;
-  GdkCursor *waitcursor, *arrowcursor;
-  GtkWidget *preferences_window = GTK_WIDGET(data);
 
   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &colour, -1);
@@ -471,6 +469,7 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
     buttons[9].y=value;
     set_long_option_callback("Button9Y",value);
   }
+  return FALSE;
 }
 
 #if GTK_CHECK_VERSION(2,3,0)
@@ -738,7 +737,7 @@ extern "C" bool
 ask_save_before_exit(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog = NULL;
-  quitting==TRUE;
+  quitting=TRUE;
 
   if (file_modified != FALSE) {
     // Ask whether to save the modified file, insert filename if it exists.
@@ -757,7 +756,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
       gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
-      quitting==FALSE;
+      quitting=FALSE;
       gtk_widget_destroy (GTK_WIDGET(dialog));
       return true;
       break;
@@ -774,6 +773,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
     exiting=TRUE;
     gtk_main_quit();
   }
+  return false;
 }
 
 long get_time() {
@@ -1014,12 +1014,13 @@ edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer da
     dasher_redraw();
     return FALSE;
   }
+  return FALSE;
 }
 
 extern "C" gint
 key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-  int i,width,height;
+  int width,height;
   if (event->type != GDK_KEY_PRESS)
     return FALSE;
 
@@ -1246,7 +1247,7 @@ void interface_setup(GladeXML *xml) {
 
   // What's this doing here? I'm sure we ought to just be using whatever
   // the core provides us with
-  float initial_bitrate = 3.0;
+  // float initial_bitrate = 3.0;
 
   the_canvas=glade_xml_get_widget(xml, "the_canvas");
 
@@ -1623,7 +1624,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
 {
 #ifdef GNOME_LIBS
   // Give them a lovely Gnome-style about box
-  GdkPixbuf* pixbuf = NULL;
+  //GdkPixbuf* pixbuf = NULL;
 
   // In alphabetical order
   gchar *authors[] = {
@@ -1797,6 +1798,8 @@ void parameter_string_callback( string_param p, const char *value )
 	editfont="Sans 10";
       }
       break;
+    default:
+      break;
     }
 }
 
@@ -1913,6 +1916,8 @@ void parameter_int_callback( int_param p, long int value )
 #endif
       dasher_redraw();
       break;
+    default:
+      break;
     }
 }
 
@@ -2020,6 +2025,8 @@ void parameter_bool_callback( bool_param p, bool value )
       gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speakbutton")), value);
       speakonstop=value;
       break;
+    default:
+      break;
     }
 }
 
@@ -2055,7 +2062,7 @@ void stop() {
     }
     if (timedata==TRUE) {
       // Just a debugging thing, output to the console
-      printf(_("%d characters output in %d seconds\n"),outputcharacters,
+      printf(_("%d characters output in %ld seconds\n"),outputcharacters,
 	     time(NULL)-dasherstarttime);
       outputcharacters=0;
     }
@@ -2075,7 +2082,7 @@ void scan_alphabet_files()
   alphabetglob=g_pattern_spec_new("alphabet*xml");
   directory = g_dir_open(system_data_dir,0,NULL);
 
-  while(filename=g_dir_read_name(directory)) {
+  while((filename=g_dir_read_name(directory))) {
     if (alphabet_filter(filename)) {
       add_alphabet_filename(filename);
     }
@@ -2083,7 +2090,7 @@ void scan_alphabet_files()
 
   directory = g_dir_open(user_data_dir,0,NULL);
 
-  while(filename=g_dir_read_name(directory)) {
+  while((filename=g_dir_read_name(directory))) {
     if (alphabet_filter(filename)) {
       add_alphabet_filename(filename);
     }
@@ -2097,7 +2104,7 @@ void scan_colour_files()
   colourglob=g_pattern_spec_new("colour*xml");
   directory = g_dir_open(system_data_dir,0,NULL);
 
-  while(filename=g_dir_read_name(directory)) {
+  while((filename=g_dir_read_name(directory))) {
     if (colour_filter(filename)) {
       add_colour_filename(filename);
     }
@@ -2105,7 +2112,7 @@ void scan_colour_files()
 
   directory = g_dir_open(user_data_dir,0,NULL);
 
-  while(filename=g_dir_read_name(directory)) {
+  while((filename=g_dir_read_name(directory))) {
     if (colour_filter(filename)) {
       add_colour_filename(filename);
     }

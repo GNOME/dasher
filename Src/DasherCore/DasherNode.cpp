@@ -211,7 +211,7 @@ void CDasherNode::Recursive_Push_Node(int depth) {
   if (depth>2)
     return;
 
-  for (int i=1; i<m_iChars; i++) {
+  for (unsigned int i=1; i<m_iChars; i++) {
     if (m_Children!=0 && m_Children[i]!=0) {
       m_Children[i]->Recursive_Push_Node(depth+1);
     }

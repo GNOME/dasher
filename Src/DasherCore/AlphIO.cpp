@@ -15,8 +15,7 @@ using namespace expat;
 
 
 CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector<string> Filenames)
-	: SystemLocation(SystemLocation), UserLocation(UserLocation),
-	  Filenames(Filenames), BlankInfo(), LoadMutable(false), CData("")
+	:  BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation), Filenames(Filenames), LoadMutable(false), CData("")
 {
 	CreateDefault();
 	
@@ -45,14 +44,14 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector<string> File
 	LoadMutable = false;
 	ParseFile(SystemLocation + "alphabet.xml");
 	if (Filenames.size()>0) {
-	  for (int i=0; i<Filenames.size(); i++) {
+	  for (unsigned int i=0; i<Filenames.size(); i++) {
 	    ParseFile(SystemLocation + Filenames[i]);
 	  }
 	}
 	LoadMutable = true;
 	ParseFile(UserLocation + "alphabet.xml");
 	if (Filenames.size()>0) {
-	  for (int i=0; i<Filenames.size(); i++) {
+	  for (unsigned int i=0; i<Filenames.size(); i++) {
 	    ParseFile(UserLocation + Filenames[i]);
 	  }
 	}
@@ -117,7 +116,6 @@ const CAlphIO::AlphInfo& CAlphIO::GetInfo(const std::string& AlphID)
   }  else {
     if (Alphabets.count(AlphID)!=0) {
       // if we have the alphabet they ask for, return it
-      AlphInfo& CurInfo = Alphabets[AlphID];
       Alphabets[AlphID].AlphID = AlphID; // Ensure consistency
       return Alphabets[AlphID];
     } else {

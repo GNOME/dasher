@@ -15,22 +15,22 @@ using namespace expat;
 
 
 CColourIO::CColourIO(string SystemLocation, string UserLocation, vector<string> Filenames)
-	: SystemLocation(SystemLocation), UserLocation(UserLocation),
-	  Filenames(Filenames), BlankInfo(), LoadMutable(false), CData("")
+	: BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation),
+	  Filenames(Filenames), LoadMutable(false), CData("")
 {
 	CreateDefault();
 	
 	LoadMutable = false;
 	ParseFile(SystemLocation + "colour.xml");
         if (Filenames.size()>0) {
-          for (int i=0; i<Filenames.size(); i++) {
+          for (unsigned int i=0; i<Filenames.size(); i++) {
             ParseFile(SystemLocation + Filenames[i]);
           }
         }
 	LoadMutable = true;
 	ParseFile(UserLocation + "colour.xml");
         if (Filenames.size()>0) {
-          for (int i=0; i<Filenames.size(); i++) {
+          for (unsigned int i=0; i<Filenames.size(); i++) {
             ParseFile(UserLocation + Filenames[i]);
           }
         }
@@ -88,7 +88,6 @@ const CColourIO::ColourInfo& CColourIO::GetInfo(const std::string& ColourID)
     return Colours["Default"];
   else {
     if (Colours.count(ColourID)!=0) {
-      ColourInfo& CurInfo = Colours[ColourID];
       Colours[ColourID].ColourID = ColourID; // Ensure consistency
       return Colours[ColourID];
     } else {

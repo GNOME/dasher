@@ -22,11 +22,35 @@ const string CDasherInterface::EmptyString = "";
 
 
 CDasherInterface::CDasherInterface()
-	: m_DashEditbox(0), m_DasherScreen(0), m_LanguageModel(0), TrainContext(0), m_Alphabet(0),
-	  m_DasherModel(0), m_DasherView(0), AlphabetID(""), LanguageModelID(-1), ViewID(-1),
-	  m_MaxBitRate(-1), m_Orientation(Opts::LeftToRight), m_SettingsStore(0), m_SettingsUI(0),
-	  m_UserLocation("usr_"), m_SystemLocation("sys_"), m_AlphIO(0), m_TrainFile(""),
-	  m_DasherFont(""), m_EditFont(""), m_EditFontSize(0), m_DasherFontSize(Opts::Normal), m_DrawKeyboard(false), m_Colours(0), m_ColourIO(0), m_ColourMode(0), m_Paused(0), m_PaletteChange(0)
+	: 
+m_Alphabet(0), 
+m_Colours(0), 
+m_LanguageModel(0), 
+m_DasherModel(0), 
+m_DashEditbox(0), 
+m_DasherScreen(0), 
+m_DasherView(0), 
+m_SettingsStore(0), 
+m_SettingsUI(0),
+m_AlphIO(0), 
+m_ColourIO(0), 
+TrainContext(0), 
+AlphabetID(""), 
+LanguageModelID(-1), 
+ViewID(-1),
+m_MaxBitRate(-1), 
+m_DrawKeyboard(false), 
+m_ColourMode(0), 
+m_Paused(0), 
+m_PaletteChange(0),
+m_Orientation(Opts::LeftToRight), 
+m_UserLocation("usr_"), 
+m_SystemLocation("sys_"), 
+m_TrainFile(""),
+m_DasherFont(""), 
+m_DasherFontSize(Opts::Normal), 
+m_EditFont(""), 
+m_EditFontSize(0)
 {
 }
 

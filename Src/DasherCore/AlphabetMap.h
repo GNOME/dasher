@@ -69,7 +69,7 @@ private:
 	{
 	public:
 		Entry(std::string Key, symbol Symbol, Entry* Next)
-			: Key(Key), Symbol(Symbol), Next(Next), KeyIsPrefix(false) {}
+			: Key(Key), KeyIsPrefix(false), Symbol(Symbol), Next(Next) {}
 		
 		std::string Key;
 		bool KeyIsPrefix;

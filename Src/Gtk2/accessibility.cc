@@ -36,10 +36,9 @@ static AccessibleEventListener* focusListener;
 
 void setupa11y() {
 #ifdef GNOME_A11Y
-  Accessible *tempaccessible;
   focusListener = SPI_createAccessibleEventListener(dasher_focus_listener,
 						    NULL);
-  gboolean success=SPI_registerGlobalEventListener (focusListener, "focus:");
+  SPI_registerGlobalEventListener (focusListener, "focus:");
 #endif
 }
 
@@ -52,8 +51,6 @@ ControlTree* gettree() {
   edittree = new ControlTree;
   widgettree = new ControlTree;
   windowtree = new ControlTree;
-  Accessible *child;
-  ControlTree *controltree;
   int numchildren;
   desktop = SPI_getDesktop(0);
   menutree->parent=widgettree;
@@ -126,7 +123,6 @@ ControlTree* gettree() {
 
 #ifdef GNOME_A11Y
 gboolean findpanels(Accessible *parent) {
-  Accessible *child;
   gboolean useful=FALSE;
 
   if (parent==NULL) {
@@ -156,7 +152,7 @@ ControlTree* buildcontroltree() {
   ControlTree *movetree=new ControlTree;
   ControlTree *deletetree=new ControlTree;
   ControlTree *speaktree=new ControlTree;
-  ControlTree *paneltree=new ControlTree;
+//  ControlTree *paneltree=new ControlTree;
   ControlTree *speedtree=new ControlTree;
 #ifndef GNOME_A11Y
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
@@ -445,7 +441,6 @@ bool buildmenutree(Accessible *parent,ControlTree *ctree,accessibletype Type) {
   // useful ourselves) then return false.
   bool useful=false;
   Accessible *child;
-  ControlTree *childnode;
 
   AccessibleStateSet *state_set;
   state_set=Accessible_getStateSet(parent);

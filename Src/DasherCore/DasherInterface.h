@@ -40,7 +40,7 @@ class Dasher::CDasherInterface : private NoClones,
 {
 public:
 	CDasherInterface();
-	~CDasherInterface();
+	virtual ~CDasherInterface();
 
 	//! Tell the core which CSettingsStore should be used
 	void SetSettingsStore(CSettingsStore* SettingsStore);

@@ -89,7 +89,7 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		}
 		GetProbs((CContext*) Context,Probs,nonuniform_norm);
 
-		for( int i(0); i < Probs.size(); ++i )
+		for( unsigned int i(0); i < Probs.size(); ++i )
 		  if( isRealSymbol(NewSymbols[i] ) )
 		    Probs[i] += uniform_add;
 

@@ -117,13 +117,12 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 	  *it = false;
 
 	vector<bool> valid( probs.size() );
-	for( int i(0); i < valid.size(); ++i )
+	for( unsigned int i(0); i < valid.size(); ++i )
 	  valid[i] = isRealSymbol( i );
 	
 	CPPMnode *temp,*s; 
 	//	int loop,total;
 	int sym; 
-	ulong spent=0; 
 	ulong size_of_slice;
 	ulong tospend=norm;
 	temp=ppmcontext->head;
@@ -132,7 +131,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 
 	while (temp!=0) {
 
-	  int controlcount;
+	  int controlcount=0;
 
 		total=0;
 		s=temp->child;
@@ -145,7 +144,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 		    else if( sym == GetSpaceSymbol() ) {
 		      total=total+s->count;
 		      
-		      controlcount = 0.4 * s->count; // FIXME - and here
+		      controlcount = int(0.4 * s->count); // FIXME - and here
 		      
 		      if( controlcount < 1 )
 			controlcount = 1;
@@ -291,7 +290,6 @@ void CPPMLanguageModel::EnterSymbol(CContext* Context, modelchar Symbol)
 	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	
 	CPPMnode *find;
-	CPPMnode *temp=context.head;
 	
 	while (context.head) {
 		find =context.head->find_symbol(Symbol);

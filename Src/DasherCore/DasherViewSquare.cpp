@@ -212,6 +212,8 @@ void CDasherViewSquare::TapOnDisplay(int mousex,int mousey, unsigned long Time)
 	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
 	    mousey = Swapper;
 	    break;
+	  default:
+	    break;
 	  }
 	}
 	
@@ -287,6 +289,8 @@ void CDasherViewSquare::DrawMouse(int mousex, int mousey)
 	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
 	    mousey = Swapper;
 	    break;
+	  default:
+	    break;
 	  }
 	}
 
@@ -322,6 +326,8 @@ void CDasherViewSquare::DrawMouseLine(int mousex, int mousey)
 	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
 	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
 	    mousey = Swapper;
+	    break;
+	  default:
 	    break;
 	  }
 	}

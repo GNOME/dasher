@@ -16,7 +16,7 @@
 
 #include "LanguageModel.h"
 
-static char dumpTrieStr[40000];
+//static char dumpTrieStr[40000];
 const int MAX_ORDER = 5;
 const int maxcont =200;
 

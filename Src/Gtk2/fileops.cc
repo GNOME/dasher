@@ -110,7 +110,6 @@ gboolean unix_vfs_open_file (const char* myfilename, gchar** buffer, unsigned lo
 
   struct stat file_stat;
   FILE *fp;
-  int pos = 0;
 
   stat (myfilename, &file_stat);
   fp = fopen (myfilename, "r");
@@ -247,13 +246,13 @@ gboolean unix_vfs_save_file(const char* myfilename, gchar* buffer, unsigned long
 
   fwrite(buffer,1,length,fp);
   fclose (fp);
+  return true;
 }
 
 #ifdef GNOME_LIBS
 gboolean gnome_vfs_save_file(const char* myfilename, gchar* buffer, unsigned long long length, bool append) {
   GnomeVFSHandle *write_handle;
   GnomeVFSResult result;
-  GnomeVFSFileInfo info;
   GnomeVFSFileSize bytes_written;
   GnomeVFSURI *uri;
 

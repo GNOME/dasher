@@ -23,7 +23,7 @@ namespace Dasher {class CDashEditbox;}
 class Dasher::CDashEditbox
 {
 public:
-	CDashEditbox() : m_DasherInterface(0), m_dirty(false) {}
+	CDashEditbox() : m_dirty(false), m_DasherInterface(0) {}
 
 	virtual ~CDashEditbox() {}
 

@@ -18,7 +18,7 @@ inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
 
     if(!DasherRunning==true) {
         CDasherView::yFilterTimescale = 20;
-        CDasherView::ySum += disty;
+        CDasherView::ySum += (int)disty;
         CDasherView::ySumCounter++;
 
         CDasherView::ySigBiasPercentage=50;
@@ -49,7 +49,7 @@ inline const void CDasherViewSquare::AutoCalibrate(int *mousex, int *mousey)
 inline const void CDasherViewSquare::screen2dasher(int *mousex, int *mousey)
 {
     bool eyetracker=DasherModel().Eyetracker();
-    bool DasherRunning = DasherModel().Paused();
+    // bool DasherRunning = DasherModel().Paused();
 	
 
 	*mousey += yAutoOffset;

@@ -120,7 +120,7 @@ void edit_output_callback(symbol Symbol)
       }
     } else {
       wideoutput=g_utf8_to_ucs4(label.c_str(),-1,NULL,&numoutput,NULL);    
-      for (size_t i=0; i<numoutput; i++) {
+      for (int i=0; i<numoutput; i++) {
 	modifiedkey=(modifiedkey+1)%10;
 	// This gives us the magic X keysym
 	wideoutput[i]=wideoutput[i] | 0x01000000;

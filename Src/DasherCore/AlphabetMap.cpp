@@ -12,7 +12,7 @@ using namespace Dasher;
 using namespace std;
 
 alphabet_map::alphabet_map(unsigned int InitialTableSize)
-	: Undefined(0), HashTable(InitialTableSize<<1)
+	: HashTable(InitialTableSize<<1), Undefined(0)
 {
 	Entries.reserve(InitialTableSize);
 }

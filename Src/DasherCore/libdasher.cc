@@ -231,8 +231,6 @@ void dasher_early_initialise()
 
 void dasher_late_initialise( int _width, int _height)
 {
-  const char *alphabet;
-
   dsc = new dasher_screen( _width, _height );
   interface->ChangeScreen( dsc );
 
@@ -334,6 +332,8 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_UNIFORM:
       interface->SetUniform(value);
       break;
+    default:
+      break;
     }
 }
 
@@ -404,6 +404,8 @@ void dasher_set_parameter_bool( bool_param p, bool value )
       break;
     case BOOL_PALETTECHANGE:
       interface->PaletteChange(value);
+      break;
+    default:
       break;
     }
 }

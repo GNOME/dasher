@@ -26,7 +26,7 @@ class Dasher::CAlphabet
 {
 public:
 	CAlphabet();
-	~CAlphabet() {}
+	virtual ~CAlphabet() {};
 	
 	int GetNumberSymbols() const { return m_Characters.size();}        // return size of alphabet
 	

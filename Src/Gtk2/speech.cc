@@ -15,7 +15,7 @@ void setup_speech() {
 
   Bonobo_ServerInfoList *servers;
   Bonobo_ServerInfo *info;
-  CORBA_Object rv;
+  CORBA_Object rv=NULL;
 
   servers = bonobo_activation_query ("repo_ids.has_one(['IDL:GNOME/Speech/SynthesisDriver:0.2','IDL:GNOME/Speech/SynthesisDriver:0.3'])", NULL, &ev);
 
@@ -26,7 +26,7 @@ void setup_speech() {
     return;
   }
 
-  for (int i=0; i<servers->_length; i++) 
+  for (unsigned int i=0; i<servers->_length; i++) 
     {
       CORBA_exception_init (&ev);
 
@@ -57,7 +57,6 @@ void setup_speech() {
                                                         &ev);
 
   GNOME_Speech_ParameterList *list;
-  int i;
   list = GNOME_Speech_Speaker_getSupportedParameters (speaker, &ev);
   if (BONOBO_EX (&ev) || list->_length == 0)
     {
@@ -66,7 +65,7 @@ void setup_speech() {
       printf(_("Warning: unable to set speech parameters\n"));
       return;
     }
-  for (i = 0; i < list->_length; i++)
+  for (unsigned i = 0; i < list->_length; i++)
     {
       GNOME_Speech_Parameter *p = &(list->_buffer[i]);
       if (!strcmp (p->name, "rate")) {

@@ -122,7 +122,6 @@ void display_callback()
 
 void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
 {
-  GdkRectangle update_rect;
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -186,7 +185,6 @@ void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Num
 { 
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkRectangle update_rect;
   GdkGCValues origvalues;
 
   if (setup==false||preferences==true)
@@ -217,7 +215,6 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 {
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkRectangle update_rect;
   GdkGCValues origvalues;
   std::string symbol;
 
@@ -255,7 +252,6 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
 
 void draw_text_string_callback(std::string String, int x1, int y1, int size)
 {
-  GdkRectangle update_rect;
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -369,6 +365,8 @@ GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
       return foreground;
     }
   }
+  GdkColor foreground = {0, 0, 0, 0 };
+  return foreground;
 }
 
 void set_canvas_font(std::string fontname) 
@@ -404,12 +402,11 @@ void draw_mouseposbox(int which) {
 
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkRectangle update_rect;
   GdkColor color;
   GdkGCValues origvalues;
   graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
   colormap = gdk_colormap_get_system();
-  int top, bottom;
+  int top=0;
 
   switch (which) {
   case 0:

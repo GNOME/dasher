@@ -16,7 +16,8 @@ using namespace std;
 //////////////////////////////////////////////////////////////////////
 
 CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused)
-  : m_editbox(Editbox), m_languagemodel(LanguageModel), m_Root(0), m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused)
+  : m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused), m_editbox(Editbox), m_languagemodel(LanguageModel), 
+    m_Root(0)
 {
 	LearnContext = m_languagemodel->GetRootNodeContext();
 	
@@ -234,9 +235,7 @@ void CDasherModel::Start()
 
 void CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
-	int cappedrate=0;
 	double dRx=1.0,dRxnew=1.0;
-	double dRxnew2;
 
 	int iSteps=m_fr.Steps();
 
@@ -282,8 +281,8 @@ void CDasherModel::Get_new_goto_coords(myint MouseX, myint MouseY)
   float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
 
   // Then zoom in appropriately
-  m_Rootmax+=zoomfactor*(m_Rootmax-m_DasherY/2);
-  m_Rootmin+=zoomfactor*(m_Rootmin-m_DasherY/2);
+  m_Rootmax+=int(zoomfactor*(m_Rootmax-m_DasherY/2));
+  m_Rootmin+=int(zoomfactor*(m_Rootmin-m_DasherY/2));
 
   // Afterwards, we need to take care of the vertical offset.
   myint up=(m_DasherY/2)-MouseY;
@@ -297,7 +296,7 @@ myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY)
   float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
   zoomfactor=pow(float(0.5),zoomfactor);
 
-  myint height=m_DasherY*zoomfactor/2;
+  myint height=int(m_DasherY*zoomfactor/2);
 
   return height;
 }
@@ -386,8 +385,6 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 	new_under_cross->Seen(true);
 
-	symbol t=new_under_cross->Symbol();
-
 	if (new_under_cross->Control()==true) {
 	  //		m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
 		OutputCharacters(new_under_cross);
@@ -430,8 +427,6 @@ void CDasherModel::GoTo(myint miMousex,myint miMousey)
 	  return;
 
 	new_under_cross->Seen(true);
-
-	symbol t=new_under_cross->Symbol();
 
 	OutputCharacters(new_under_cross);
 }
