@@ -17,9 +17,17 @@ NSString *NSStringFromStdString(const std::string& aString)
   return [NSString stringWithUTF8String:aString.c_str()];
 }
 
-std::string *StdStringFromNSString(NSString *aString)
+std::string StdStringFromNSString(NSString *aString)
 {
-  return aString && [aString length] ? new std::string([aString UTF8String]) : new std::string();
+  char *result = NULL;
+
+  if (aString && [aString length]) {
+    result = [aString UTF8String];
+  } else {
+    result = "";
+  }
+
+  return result;
 }
 
 void importTrainingFile(NSString *aFileName)

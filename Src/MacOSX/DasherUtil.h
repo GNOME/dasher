@@ -10,6 +10,6 @@
 #import <string>
 
 NSString *NSStringFromStdString(const std::string& aString);
-std::string *StdStringFromNSString(NSString *aString);
+std::string StdStringFromNSString(NSString *aString);
 
 void importTrainingFile(NSString *aFileName);
