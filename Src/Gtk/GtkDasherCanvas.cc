@@ -3,17 +3,27 @@
 #include <gtk--/pixmap.h>
 #include <gdk/gdk.h>
 #include <iostream.h>
+
 #include <string>
+
+
 
 #include "GtkDasherCanvas.h"
 
 #include "DasherScreen.h"
+
+#include <X11/Xlib.h>
+#include <gdk/gdkx.h>
 
 GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_interface )
   : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height ), 
     interface( _interface )
 {
   font_list = new Gdk_Font[17];
+  font_init = new bool[17];
+
+  for( int i(0); i < 17; ++i )
+    font_init[i] = false;
 
   set_events( GDK_EXPOSURE_MASK | GDK_BUTTON_PRESS_MASK );
 
@@ -24,16 +34,66 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   // (a) Need to do something more sane than this (ie only creating the font objects as they are required)
   // (b) Making sure that font objects for all sizes are drawable (I have no idea how to do this)
 
+
+  char **fontnames;
+  int nfonts;
+
+  fontnames = XListFonts( GDK_DISPLAY(), "-*-fixed-*-*-*-*-*-*-*-*-*-*-*-*", 1024, &nfonts );
+
+  cout << "Got " << nfonts << " fonts." << endl;
+
   char buffer[256];
-  
-  for( int i(0); i < 17; ++i )
+
+  for( int i(0); i < nfonts; ++i )
     {
+      int str_pos(0);
+      int field(0);
+
+      for( int a(0); a < strlen( fontnames[i] ); ++a )
+	{
+	  //	  cout << i << ", " << a << endl;
+
+	  if( fontnames[i][a] == '-' )
+	    ++field;
+	  else
+	    if( field == 7 )
+	      {
+		buffer[str_pos] = fontnames[i][a];
+		++str_pos;
+	      }
+	}
+
+      buffer[str_pos] = 0;
+
+      //      cout << "Size: " << buffer << endl;
+
+      int fsize;
+
+      fsize = atoi( buffer );
+
+      int idx;
+
+      idx = fsize - 8;
+
+      if(( idx > 0 ) && ( idx < 17 ))
+	if( !font_init[idx] )
+	  {
+	    font_init[idx] = true;
+	    font_list[idx].create( fontnames[i] );
+	  }
+
+    }
+
+  //  char buffer[256];
+  
+ //  for( int i(0); i < 17; ++i )
+//     {
 
       
-      sprintf( buffer, "-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*" );
+//       sprintf( buffer, "-*-fixed-*-*-*-*-20-*-*-*-*-*-*-*" );
       
-      font_list[i].create( buffer );
-    }
+//       font_list[i].create( buffer );
+//     }
 }
 
 const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
@@ -44,7 +104,28 @@ const Gdk_Font *GtkDasherCanvas::get_font( int size ) const
   //  return( &f_medium );
   // else
   //  return( &f_large );
-  return( &font_list[size-8] );
+  //  return( &font_list[size-8] );
+
+  int mindiff( 10000 );
+  int idx(0);
+
+  for( int i(0); i < 17; ++i )
+    {
+      //      cout << i << ": = " << i - size + 8 << endl;
+      //      cout << font_init[i] << endl;
+
+    if( font_init[i] && ( abs( i - size + 8 ) < mindiff ) )
+      {
+	mindiff =  abs(i - size + 8);
+	idx = i;
+      }
+    }
+
+  //  cout << "Requested: " << size << " got: " << idx + 8 << endl;
+
+  //  cout << idx << "foo" << endl;
+
+  return( &font_list[idx] );
 }
 
 void GtkDasherCanvas::clear()

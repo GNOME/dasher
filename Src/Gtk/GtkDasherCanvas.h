@@ -43,6 +43,7 @@ protected:
   GtkDoubleBuffer *buffer;
 
   Gdk_Font *font_list;
+  bool *font_init;
 
   Gdk_Font f_large;
   Gdk_Font f_medium;
