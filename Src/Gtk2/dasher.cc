@@ -767,7 +767,7 @@ open_window() {
   sprintf( user_data_dir, "%s/.dasher/", home_dir );
 
   // FIXME CHANGE THIS!
-  system_data_dir = "/usr/share/dasher/";
+  system_data_dir = PROGDATA"/";
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
