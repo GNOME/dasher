@@ -42,6 +42,7 @@ void initialise_edit()
 void cleanup_edit() {
 #ifdef X_HAVE_UTF8_STRING
   int min, max, numcodes;
+  numcodes = 0;
   Display *dpy = gdk_x11_get_default_xdisplay();
   XDisplayKeycodes(dpy,&min,&max);
   XChangeKeyboardMapping(dpy,min,numcodes,origkeymap,(max-min));
