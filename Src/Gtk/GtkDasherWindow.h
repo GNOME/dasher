@@ -61,6 +61,7 @@
 #define MENU_DFONT 304
 #define MENU_RFONT 305
 #define MENU_1D 306
+#define MENU_DRAWMOUSE 307
 
 #define MENU_EUDEFAULT 310
 #define MENU_EADEFAULT 311
@@ -108,6 +109,7 @@ public:
   void FixLayout(bool Value);
   void TimeStampNewFiles(bool Value);
   void CopyAllOnStop(bool Value);
+  void DrawMouse(bool Value);
   void SetEditFont(std::string Name, long Size) {}; // UI doesn't need to know
   void SetDasherFont(std::string Name) {}; // UI doesn't need to know
   void SetEditHeight(long Value) {}; // Not implemented
@@ -196,6 +198,7 @@ protected:
 
   bool slider_shown;
   bool copy_all_on_pause;
+  bool draw_mouse;
   bool toolbar_shown;
   bool fix_pane;
   bool timestamp;
@@ -206,6 +209,7 @@ protected:
   void toggle_fix();
   void toggle_timestamp();
   void toggle_1d();
+  void toggle_drawmouse();
 
   //  gint key_press_event_impl( GdkEventKey *e );
 };

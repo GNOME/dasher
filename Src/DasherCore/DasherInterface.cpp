@@ -137,7 +137,9 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 	if (m_DasherView!=0) {
 		m_DasherView->TapOnDisplay(MouseX, MouseY, Time);
 		m_DasherView->Render();
-		m_DasherView->DrawMouse(MouseX, MouseY);
+		if (m_DrawMouse==true) {
+		  m_DasherView->DrawMouse(MouseX, MouseY);
+		}
 	}
 	if (m_DasherModel!=0)
 		m_DasherModel->NewFrame(Time);
@@ -347,6 +349,14 @@ void CDasherInterface::CopyAllOnStop(bool Value)
 		m_SettingsStore->SetBoolOption(Keys::COPY_ALL_ON_STOP, Value);
 }
 
+void CDasherInterface::DrawMouse(bool Value)
+{
+        m_DrawMouse = Value;
+	if (m_SettingsUI!=0)
+                m_SettingsUI->DrawMouse(Value);
+	if (m_SettingsStore!=0)
+	        m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSE, Value);
+}
 
 void CDasherInterface::SetEditFont(string Name, long Size)
 {

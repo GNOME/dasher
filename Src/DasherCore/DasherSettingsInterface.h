@@ -73,6 +73,9 @@ public:
 	//! True if all text should be copied to clipboard when Dasher is stopped, false otherwise
 	virtual void CopyAllOnStop(bool Value) {};
 
+	//! True if a box should be drawn to represent the logical position of the mouse
+	virtual void DrawMouse(bool Value) {};
+
 	//! Set the editbox font 
 	virtual void SetEditFont(std::string Name, long Size) {};
 
@@ -101,6 +104,7 @@ namespace Keys
 	extern const std::string FIX_LAYOUT;
 	extern const std::string SHOW_SLIDER;
 	extern const std::string COPY_ALL_ON_STOP;
+	extern const std::string DRAW_MOUSE;
 	
 	// long options
 	extern const std::string FILE_ENCODING;

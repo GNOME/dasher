@@ -23,6 +23,7 @@ namespace Keys {
 	const std::string FIX_LAYOUT = "FixLayout";
 	const std::string SHOW_SLIDER = "ShowSpeedSlider";
 	const std::string COPY_ALL_ON_STOP = "CopyAllOnStop";
+        const std::string DRAW_MOUSE = "DrawMouse";
 	
 	// long options
 	const std::string FILE_ENCODING = "FileEncodingFormat";
@@ -58,7 +59,8 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	this->TimeStampNewFiles(Store->GetBoolOption(TIME_STAMP));
 	Store->SetBoolDefault(COPY_ALL_ON_STOP, false);
 	this->CopyAllOnStop(Store->GetBoolOption(COPY_ALL_ON_STOP));
-	
+	this->DrawMouse(Store->GetBoolOption(DRAW_MOUSE));
+
 	Store->SetLongDefault(FILE_ENCODING, AlphabetDefault);
 	this->SetFileEncoding((FileEncodingFormats) Store->GetLongOption(FILE_ENCODING));
 	

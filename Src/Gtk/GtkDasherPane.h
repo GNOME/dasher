@@ -72,6 +72,8 @@ public:
   void handle_alphabet_cancel();
   gint abox_close_sel( GdkEventAny *e );
 
+  void drawmouse( bool s );
+
   void change_alphabet( std::string _alphabet );
 
   void select_encoding();

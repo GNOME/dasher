@@ -116,6 +116,7 @@ public:
 	void FixLayout(bool Value);
 	void TimeStampNewFiles(bool Value);
 	void CopyAllOnStop(bool Value);
+	void DrawMouse(bool Value);
 	void SetEditFont(std::string Name, long Size);
 	void SetDasherFont(std::string Name);
 	void SetDasherFontSize(FontSize fontsize);
@@ -139,6 +140,7 @@ private:
 	int ViewID;
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
+	bool m_DrawMouse;
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;

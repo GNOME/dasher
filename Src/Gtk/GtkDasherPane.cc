@@ -332,6 +332,11 @@ void GtkDasherPane::handle_alphabet_cancel()
   abox.hide();
 }
 
+void GtkDasherPane::drawmouse( bool s )
+{
+  interface->DrawMouse( s );
+}
+
 void GtkDasherPane::select_encoding()
 {
   // Tries to guess an encoding based on the range of unicode

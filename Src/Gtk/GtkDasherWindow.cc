@@ -168,8 +168,10 @@ GtkDasherWindow::GtkDasherWindow()
 						      MENU_DFONT)));
     list_opts->push_back(MenuElem(gettext("Reset Fonts"), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_RFONT)));
-    list_opts->push_back(MenuElem(gettext("One Dimensional"), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts->push_back(CheckMenuElem(gettext("One Dimensional"), bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_1D)));
+    list_opts->push_back(CheckMenuElem(gettext("Draw Mouse"),bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_DRAWMOUSE)));
 
     //    static_cast<MenuItem *>( (*list_opts)[0] )->set_sensitive( false );
     // static_cast<MenuItem *>( (*list_opts)[4] )->set_sensitive( false );
@@ -542,6 +544,9 @@ void GtkDasherWindow::menu_button_cb(int c)
     case MENU_CAOS:
       toggle_copy_all();
       break;
+    case MENU_DRAWMOUSE:
+      toggle_drawmouse();
+      break;
     case MENU_ALPHABET:
       dasher_pane.show_alphabet_box();
       break;
@@ -891,6 +896,16 @@ void GtkDasherWindow::CopyAllOnStop(bool Value)
     }
 }
 
+void GtkDasherWindow::DrawMouse(bool Value)
+{
+  if( draw_mouse != Value )
+    {
+      draw_mouse = Value;
+
+      static_cast<CheckMenuItem *>( (*list_opts)[1] )->set_active( draw_mouse );
+    }
+}
+
 void GtkDasherWindow::toggle_toolbar()
 {
   dasher_pane.show_toolbar(static_cast<CheckMenuItem *>( (*list_view)[2] )->get_active());
@@ -911,7 +926,10 @@ void GtkDasherWindow::toggle_1d()
   dasher_pane.set_dasher_dimensions( static_cast<CheckMenuItem *>( (*list_opts)[10] )->get_active());
 }
 
-
+void GtkDasherWindow::toggle_drawmouse()
+{
+  dasher_pane.drawmouse( static_cast<CheckMenuItem *>( (*list_opts)[11] )->get_active());
+}
 
 void GtkDasherWindow::ChangeAlphabet(const std::string& NewAlphabetID)
 {
