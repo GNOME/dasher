@@ -332,7 +332,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	symbol t=new_under_cross->Symbol();
 
 	if (new_under_cross->Control()==true) {
-	  m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data);
+		m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
 	} else {
 	  OutputCharacters(new_under_cross);
 	}
@@ -385,7 +385,7 @@ void CDasherModel::OutputCharacters(CDasherNode *node) {
   if (t) {
     m_editbox->output(t);
   } else if (node->Control()==true) {
-    m_editbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data);
+	  m_editbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
   }
 }
 

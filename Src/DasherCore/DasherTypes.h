@@ -68,6 +68,7 @@ namespace Dasher
 	struct ControlTree {
 	  void* pointer;
 	  int data;
+	  int type;
 	  std::string text;
 	  ControlTree *parent;
 	  ControlTree *children;
