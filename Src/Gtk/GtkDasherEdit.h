@@ -70,7 +70,8 @@ class GtkDasherEdit : public Gtk::HBox, public Dasher::CDashEditbox
 
   int enc;
   char encstr[256];
-  
+  std::string fontname;
+  long fontsize;
 };
 
 #endif

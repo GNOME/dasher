@@ -258,6 +258,9 @@ void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 void GtkDasherEdit::SetFont(std::string Name, long Size)
 {
   char xfnbuffer[256];
+  
+  fontname=Name;
+  fontsize=Size;
 
   snprintf( xfnbuffer, 256, "-*-%s-*-*-*-*-%d-*-*-*-*-*-iso8859-%d", Name.c_str(), Size, enc );
 
@@ -272,7 +275,10 @@ void GtkDasherEdit::set_display_encoding( int _enc )
 
       snprintf( encstr, 255, "ISO-8859-%d", enc);
 
-      // Fixme - need to force a font update here too.
+      /* Call SetFont with the same name and size as currently used - we just
+	 want to force it to change the encoding */
+      SetFont(fontname,fontsize); 
+
     }
 }
 
