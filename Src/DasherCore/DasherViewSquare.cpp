@@ -141,6 +141,7 @@ void CDasherViewSquare::CheckForNewRoot()
 	
 	if ((y1>0 || y2 < DasherModel().DasherY() || dasherx2screen(y2-y1)>0)) {
 	  DasherModel().Reparent_root(root->Lbnd(),root->Hbnd());
+	  return;
 	}
 	    
 	if (children==0)
