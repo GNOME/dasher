@@ -50,6 +50,7 @@ IAM 08/2002
 #define __AlphabetMap_h__
 
 #include "../Common/MSVC_Unannoy.h"
+#include <sys/types.h>
 #include <vector>
 #include <string>
 
