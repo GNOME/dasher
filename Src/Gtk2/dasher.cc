@@ -408,12 +408,13 @@ extern "C" void
 save_file_as (const char *filename, bool append)
 {
   FILE *fp;
+  int opened;
   gint length;
   gchar *inbuffer,*outbuffer = NULL;
   gsize bytes_read, bytes_written;
   GError *error = NULL;
   GIConv cd;
-
+  GtkWidget *error_dialog;
   GtkTextIter *start, *end;
 
   start = new GtkTextIter;
@@ -421,43 +422,59 @@ save_file_as (const char *filename, bool append)
 
   if (append == true) {
     fp = fopen (filename, "a");
+    if (fp == NULL) {
+      opened = 0; 
+    }
   } else {
     fp = fopen (filename, "w");
+    if (fp == NULL) {
+      opened = 0;
+    }
   }
 
-  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
-  gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
+  if (!opened) {
+    error_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL,GTK_MESSAGE_ERROR,GTK_BUTTONS_OK, "Could not save the file \"%s\".\n", filename);
+    gtk_dialog_set_default_response(GTK_DIALOG (error_dialog), GTK_RESPONSE_OK);
+    gtk_window_set_resizable(GTK_WINDOW(error_dialog), FALSE);
+    gtk_dialog_run(GTK_DIALOG(error_dialog));
+    gtk_widget_destroy(error_dialog);
+  }
+  
+  if (opened) {
+    gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),start,0);
+    gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer),end,-1);
 
-  inbuffer = gtk_text_iter_get_slice (start,end);
+    inbuffer = gtk_text_iter_get_slice (start,end);
 
-  length = strlen(inbuffer);
+    length = strlen(inbuffer);
 
-  switch (fileencoding) {
-  case Opts::UserDefault:
-  case Opts::AlphabetDefault:
-    //FIXME - need to call GetAlphabetType and do appropriate stuff
-    //FIXME - error handling  
-    outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
-    break;
-  case Opts::UTF8:
-    outbuffer=inbuffer;
-    bytes_written=length;
-    break;
-  case Opts::UTF16LE:
-    cd=g_iconv_open("UTF16LE","UTF8");
-    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
-    break;
-  case Opts::UTF16BE:
-    cd=g_iconv_open("UTF16BE","UTF8");
-    outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
-    break;
-  }	       
+    switch (fileencoding) {
+    case Opts::UserDefault:
+    case Opts::AlphabetDefault:
+      //FIXME - need to call GetAlphabetType and do appropriate stuff
+      //FIXME - error handling  
+      outbuffer=g_locale_from_utf8(inbuffer,length,&bytes_read,&bytes_written,&error);
+      break;
+    case Opts::UTF8:
+      outbuffer=inbuffer;
+      bytes_written=length;
+      break;
+    case Opts::UTF16LE:
+      cd=g_iconv_open("UTF16LE","UTF8");
+      outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+      break;
+    case Opts::UTF16BE:
+      cd=g_iconv_open("UTF16BE","UTF8");
+      outbuffer=g_convert_with_iconv(inbuffer,length,cd,&bytes_read,&bytes_written,&error);
+      break;
+    }	       
 	       
-  fwrite(outbuffer,1,bytes_written,fp);
-  fclose (fp);
+    fwrite(outbuffer,1,bytes_written,fp);
+    fclose (fp);
 
-  file_modified = 0;
-  gtk_window_set_title(GTK_WINDOW(window), filename);
+    file_modified = 0;
+    gtk_window_set_title(GTK_WINDOW(window), filename);
+  }
 }
 
 extern "C" void
@@ -465,9 +482,9 @@ save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
 
-  save_file_as(filename,FALSE);
-
   filesel_hide(NULL,NULL);
+  
+  save_file_as(filename,FALSE);
 }
 
 extern "C" void
