@@ -192,8 +192,11 @@ void CToolbar::CreateToolbar()
 	buttons[2].fsStyle = TBSTYLE_BUTTON;
 	buttons[2].iString = 2;
 	
+	buttons[3].iBitmap = -1;
+	buttons[3].idCommand = 0;
 	buttons[3].fsState = TBSTATE_INDETERMINATE;
 	buttons[3].fsStyle = TBSTYLE_SEP;
+	buttons[3].iString = -1;
 	
 	buttons[4].iBitmap = STD_CUT;
 	buttons[4].idCommand = ID_EDIT_CUT;
