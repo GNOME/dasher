@@ -43,12 +43,19 @@ Gtk::Button *GtkDasherAlphabetBox::get_cancel_button()
 std::string GtkDasherAlphabetBox::get_selection()
 {
     Gtk::List::SelectionList &selection = l.selection();
-    Gtk::List::SelectionList::iterator i=selection.begin();
-    Gtk::ListItem *item = (*i);
-    Gtk::Label *label = dynamic_cast<Gtk::Label*>(item->get_child());
-    Gtk::string name=label->get();
-    
-    return( string( name ) );
+
+    if( selection.empty() )
+      {
+	return( "" );
+      }
+    else
+      {
+	Gtk::List::SelectionList::iterator i=selection.begin();
+	Gtk::ListItem *item = (*i);
+	Gtk::Label *label = dynamic_cast<Gtk::Label*>(item->get_child());
+	Gtk::string name=label->get();
+	return( string( name ) );
+      }
 }
 
 void GtkDasherAlphabetBox::AddAlphabet( std::vector< std::string > alphabetlist )

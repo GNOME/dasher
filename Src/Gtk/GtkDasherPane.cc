@@ -300,7 +300,7 @@ void GtkDasherPane::handle_alphabet()
 
   foo = abox.get_selection();
 
-  if( foo != string() )
+  if( foo != "" )
     {
       interface->ChangeAlphabet( foo );
 
