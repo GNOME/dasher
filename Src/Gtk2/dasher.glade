@@ -1678,7 +1678,7 @@ your writing speed.</property>
 		    <widget class="GtkButton" id="button13">
 		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Edit Button Control options</property>
+		      <property name="label" translatable="yes">Edit Button-control options</property>
 		      <property name="use_underline">True</property>
 		      <property name="relief">GTK_RELIEF_NORMAL</property>
 		      <signal name="clicked" handler="button_preferences_show" last_modification_time="Sat, 27 Sep 2003 13:29:59 GMT"/>
