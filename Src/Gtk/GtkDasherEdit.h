@@ -40,6 +40,8 @@ class GtkDasherEdit : public Gtk::Text, public Dasher::CDashEditbox
   CDasherInterface *interface;
   string current_filename;
   bool filename_set;
+
+  Gdk_Font efont;
   
 };
 

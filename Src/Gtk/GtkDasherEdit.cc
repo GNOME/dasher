@@ -6,7 +6,7 @@
 #include <fstream.h>
 
 GtkDasherEdit::GtkDasherEdit( CDasherInterface *_interface )
-  : Gtk::Text(), Dasher::CDashEditbox(), flush_count(0), interface( _interface ), filename_set( false )
+  : Gtk::Text(), Dasher::CDashEditbox(), flush_count(0), interface( _interface ), filename_set( false ), efont("-*-fixed-*-*-*-*-*-140-*-*-*-*-*-*")
 {
   set_editable( true );
 }
@@ -38,10 +38,10 @@ void GtkDasherEdit::output(symbol Symbol)
   label = interface->GetEditText( Symbol );
 
   Gdk_Color black("black");
-  Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+  //  Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
-  insert ( Gdk_Font(), black, white, label, 1);
+  insert ( efont, black, white, label, 1);
 }
 
 void GtkDasherEdit::flush(symbol Symbol)
@@ -53,10 +53,10 @@ void GtkDasherEdit::flush(symbol Symbol)
   label = interface->GetEditText( Symbol );
 
   Gdk_Color black("black");
-  Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
+  // Gdk_Font fixed_font("-misc-fixed-medium-r-*-*-*-140-*-*-*-*-*-*");
   Gdk_Color white("white");
 
-  insert ( Gdk_Font(), black, white, label, 1);
+  insert ( efont, black, white, label, 1);
 }
 
 void GtkDasherEdit::Cut()
@@ -96,6 +96,11 @@ void GtkDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 
 void GtkDasherEdit::SetFont(std::string Name, long Size)
 {
+  char xfnbuffer[256];
+
+  snprintf( xfnbuffer, 256, "-*-%s-*-*-*-*-%d-*-*-*-*-*-*-*", Name.c_str(), Size );
+
+  efont.create(xfnbuffer);
 }
 
 bool GtkDasherEdit::SaveAs(std::string filename)

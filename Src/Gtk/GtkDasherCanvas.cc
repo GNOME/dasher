@@ -18,7 +18,7 @@
 
 GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_interface )
   : DrawingArea(), CDasherScreen( _width, _height ), width( _width), height( _height ), 
-    interface( _interface )
+  interface( _interface ), fontname( "fixed" )
 { 
 
   // Tell the system we want to receive button press events
@@ -38,13 +38,23 @@ GtkDasherCanvas::GtkDasherCanvas( int _width, int _height, CDasherInterface *_in
   font_list = new Gdk_Font[17];
   font_init = new bool[17];
 
+  build_fonts();
+
+}
+
+void GtkDasherCanvas::build_fonts()
+{
   for( int i(0); i < 17; ++i )
     font_init[i] = false;
  
   char **fontnames;
   int nfonts;
 
-  fontnames = XListFonts( GDK_DISPLAY(), "-*-fixed-*-*-*-*-*-*-*-*-*-*-*-*", 1024, &nfonts );
+  char xfontstringbuffer[ 256 ];
+
+  snprintf( xfontstringbuffer, 256, "-*-%s-*-*-*-*-*-*-*-*-*-*-*-*", fontname.c_str() );
+
+  fontnames = XListFonts( GDK_DISPLAY(), xfontstringbuffer, 1024, &nfonts );
 
   char size_buffer[256];
 
@@ -157,6 +167,13 @@ gint GtkDasherCanvas::expose_event_impl(GdkEventExpose *event)
 
 void GtkDasherCanvas::SetFont(std::string Name)
 {
+  cout << "Setting font to " << Name << endl;
+
+  if( Name == "" )
+    fontname = "fixed";
+  else
+    fontname = Name;
+  build_fonts();
 }
 
 void GtkDasherCanvas::TextSize(symbol Character, int* Width, int* Height, int Size) const

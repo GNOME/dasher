@@ -9,6 +9,7 @@
 #include <gtk--/menu.h>
 #include <gtk--/image.h>
 #include <gtk--/dialog.h>
+#include <gtk--/fontselection.h>
 
 //#include <gnome--/app.h>
 
@@ -43,6 +44,9 @@
 #define MENU_OTB 213
 #define MENU_OBT 214
 
+#define MENU_EFONT 303
+#define MENU_DFONT 304
+
 #define MENU_ABOUT 400
 
 class GtkDasherWindow : public Gtk::Window
@@ -59,6 +63,9 @@ protected:
   Gtk::Toolbar toolbar;
   Gtk::VBox main_vbox; 
   Gtk::MenuBar menubar;
+  
+  Gtk::FontSelectionDialog dfontsel;
+  Gtk::FontSelectionDialog efontsel;
 
   Gtk::Pixmap first_pixmap;
 
@@ -67,6 +74,10 @@ protected:
   void toolbar_button_cb(int c);
   void menu_button_cb(int c);
   void file_ok_sel();
+  void dfont_ok_sel();
+  void dfont_cancel_sel();
+  void efont_ok_sel();
+  void efont_cancel_sel();
 
   void reset();
   void save();

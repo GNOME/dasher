@@ -206,6 +206,16 @@ gint GtkDasherPane::timer_callback()
   return( 1 );
 }
 
+void GtkDasherPane::set_dasher_font( string fontname )
+{
+  interface->SetDasherFont( fontname );
+}
+
+void GtkDasherPane::set_edit_font( string fontname, long size )
+{
+  interface->SetEditFont( fontname, size );
+}
+
 int GtkDasherPane::toggle_pause( GdkEventButton *e )
 {
   cout << "In toggle_pause" << endl;

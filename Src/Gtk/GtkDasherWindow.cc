@@ -12,7 +12,7 @@
 using namespace SigC;
 
 GtkDasherWindow::GtkDasherWindow()
-  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox()
+  : dasher_pane(), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Edit Font")
 {  
   add(main_vbox);
 
@@ -110,8 +110,10 @@ GtkDasherWindow::GtkDasherWindow()
     list_opts.push_back(MenuElem("Alphabet..."));
     list_opts.push_back(MenuElem("File Encoding", *menu_enc ));
     list_opts.push_back(SeparatorElem());
-    list_opts.push_back(MenuElem("Editing Font..."));
-    list_opts.push_back(MenuElem("Dasher Font..."));
+    list_opts.push_back(MenuElem("Editing Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_EFONT)));
+    list_opts.push_back(MenuElem("Dasher Font...",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+						      MENU_DFONT)));
     list_opts.push_back(MenuElem("Reset Fonts"));
 			
     Menu *menu_help = new Menu();
@@ -168,7 +170,10 @@ GtkDasherWindow::GtkDasherWindow()
   }
 
   save_dialogue.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::file_ok_sel));
-
+  dfontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_ok_sel));
+  dfontsel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::dfont_cancel_sel));
+  efontsel.get_ok_button()->clicked.connect(slot(this, &GtkDasherWindow::efont_ok_sel));
+  efontsel.get_cancel_button()->clicked.connect(slot(this, &GtkDasherWindow::efont_cancel_sel));
   show_all();
   
   dasher_pane.clear();
@@ -200,6 +205,86 @@ void GtkDasherWindow::file_ok_sel()
   //  cout << "foo" << endl;
   
   dasher_pane.save_as( save_dialogue.current_filename );
+}
+
+void GtkDasherWindow::dfont_ok_sel()
+{
+  dfontsel.hide();
+
+  nstring n( dfontsel.get_font_name() );
+
+  const char *fname( n.gc_str() );
+  
+  char fnbuffer[256];
+
+  int field(0);
+  int spos(0);
+
+  for( int i(0); i < strlen( fname ); ++i )
+    {
+      if( fname[i] == '-' )
+	++field;
+      else if(( field == 2 ) && ( spos < 255 ))
+	{
+	  fnbuffer[ spos ] = fname[i];
+	  ++spos;
+	}
+    }
+
+  fnbuffer[spos] = 0;
+
+  dasher_pane.set_dasher_font( string( fnbuffer ));
+}
+
+void GtkDasherWindow::dfont_cancel_sel()
+{
+  dfontsel.hide();
+}
+
+void GtkDasherWindow::efont_ok_sel()
+{
+  efontsel.hide();
+
+  nstring n( efontsel.get_font_name() );
+
+  const char *fname( n.gc_str() );
+  
+  char fnbuffer[256];
+  char fsbuffer[256];
+
+  int field(0);
+  int spos(0);
+  int spos2(0);
+
+  for( int i(0); i < strlen( fname ); ++i )
+    {
+      if( fname[i] == '-' )
+	++field;
+      else if(( field == 2 ) && ( spos < 255 ))
+	{
+	  fnbuffer[ spos ] = fname[i];
+	  ++spos;
+	}
+      else if(( field == 7 ) && ( spos2 < 255 ))
+	{
+	  fsbuffer[ spos2 ] = fname[i];
+	  ++spos2;
+	}
+    }
+
+  fnbuffer[spos] = 0;
+  fsbuffer[spos2] = 0;
+  
+  long size;
+
+  size = atol( fsbuffer );
+
+  dasher_pane.set_edit_font( string( fnbuffer ), size);
+}
+
+void GtkDasherWindow::efont_cancel_sel()
+{
+  efontsel.hide();
 }
 
 void GtkDasherWindow::toolbar_button_cb(int c)
@@ -293,6 +378,13 @@ void GtkDasherWindow::menu_button_cb(int c)
       break;
     case MENU_OBT:
       orientation( BottomToTop );
+      break;
+
+    case MENU_EFONT:
+      efontsel.show();
+      break;
+    case MENU_DFONT:
+      dfontsel.show();
       break;
 
     case MENU_ABOUT:

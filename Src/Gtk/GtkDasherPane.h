@@ -36,6 +36,9 @@ public:
 
   void orientation( Opts::ScreenOrientations o );
 
+  void set_dasher_font( string fontname );
+  void set_edit_font( string fontname, long size );
+
 private:
   GtkDasherEdit *text;
   GtkDasherCanvas *canvas;

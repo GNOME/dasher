@@ -38,6 +38,10 @@ protected:
   int width;
   int height;
 
+  void build_fonts();
+
+  string fontname;
+
   // Double buffers for the display
 
   GtkDoubleBuffer *buffer;
