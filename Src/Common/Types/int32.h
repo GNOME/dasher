@@ -30,7 +30,7 @@ class Cint64;
 		const int64  int64_0xffffffff80000000LL = 0xffffffff80000000i64;
 		const uint64 uint64_0xffffffff00000000ULL = 0xffffffff80000000ui64;
 #else
-		const int64  int64_ffffffff80000000LL = 0xffffffff80000000LL;
+		const int64  int64_0xffffffff80000000LL = 0xffffffff80000000LL;
 		const uint64 uint64_0xffffffff00000000ULL = 0xffffffff00000000ULL;
 #endif
 
@@ -338,6 +338,11 @@ inline	Cint32::Cint32(Cint64 i)
 	if ( (int64)i < int64(Cint32::Min()))
 		ASSERT(0);
 	m_i = int32(i);
+}
+
+inline Cint32 abs(Cint32 t)
+{
+	return Cint32 ( abs ( int32(t) ) );
 }
 
 #else
