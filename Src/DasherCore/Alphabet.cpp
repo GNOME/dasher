@@ -46,8 +46,8 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 		  extras = 1;
 		  for (bit = 0x20; ((*Input)[i] & bit) != 0; bit >>= 1)
 		    extras++;
-		  if (extras > 5)
-		    cout << "Unexpectedly long symbol found\n";
+		  if (extras > 5) {
+		  } // Malformed character
 		  while (extras-->0) {
 		    Tmp += (*Input)[++i];
 		  }
