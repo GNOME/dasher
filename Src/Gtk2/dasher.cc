@@ -563,9 +563,14 @@ timer_callback(gpointer data)
       }
     }
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
-    if (onedmode==true && yscale!=0) {
+    if (onedmode==true) {
+      float scalefactor;
       gdk_window_get_size(the_canvas->window, &dasherwidth, &dasherheight);
-      float scalefactor=dasherheight/yscale;
+      if (yscale==0) {
+	scalefactor=2;
+      } else {
+	float scalefactor=dasherheight/yscale;
+      }
       y-=dasherheight/2;
       y*=scalefactor;
       y+=dasherheight/2;
