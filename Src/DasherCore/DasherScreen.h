@@ -60,7 +60,7 @@ public:
 	
 	// Draw a filled rectangle - given position and color id
 	//! Draw a filled rectangle
-	//
+	//!
 	//! Draw a coloured rectangle on the screen
 	//! \param x1 top left of rectangle (x coordinate)
 	//! \param y1 top left corner of rectangle (y coordinate)
@@ -72,13 +72,15 @@ public:
 	
 	// Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
 	//! Draw a line between each of the points in the array
-	//
+	//!
+	//! \param Points an array of points
 	//! \param Number the number of points in the array
 	virtual void Polyline(point* Points, int Number) const=0;
 
 	// Draw a line of arbitrary colour.
 	//! Draw a line between each of the points in the array
-	//
+	//!
+	//! \param Points an array of points
 	//! \param Number the number of points in the array
 	//! \param Colour the colour to be drawn
 	virtual void Polyline(point* Points, int Number, int Colour) const=0;
@@ -88,11 +90,11 @@ public:
 	// useful in the future. Please implement unless it will be very difficult,
 	// in which case make this function call Polyline.
 	//! Draw a filled polygon
-	//
+	//!
 	//! \param Points array of points defining the edge of the polygon
 	//! \param Number number of points in the array
 	//! \param Color colour of the polygon (numeric)
-	//! \param Colorscheme Which colourscheme is to be used
+	//! \param ColorScheme Which colourscheme is to be used
 	virtual void DrawPolygon(point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const=0;
 	
 	// Signal the screen when a frame is started and finished
@@ -103,8 +105,8 @@ public:
 	virtual void Display()=0;
 
 	//! Set a colour scheme
-	//
-	//! \param A colour scheme that should be used
+	//!
+	//! \param ColourScheme A colour scheme that should be used
 	virtual void SetColourScheme(CCustomColours *ColourScheme)=0;
 
 protected:
