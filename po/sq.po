@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-06-23 14:07+0200\n"
+"POT-Creation-Date: 2004-07-28 03:01+0200\n"
 "PO-Revision-Date: 2004-05-08 20:14+0200\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
@@ -22,7 +22,6 @@ msgstr "Menutë"
 msgid "Windows"
 msgstr "Dritaret"
 
-#. GRUT modified this item
 #: Src/Gtk2/accessibility.cc:75
 msgid "Application"
 msgstr "Program"
@@ -250,9 +249,10 @@ msgstr "<b>Koordinatat X/Y:</b>"
 msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Opcionet e aksit Y:</b>"
 
+#. GRUT modified this item
 #: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
-msgstr "Të hollësishme"
+msgstr "Të detajuara"
 
 #: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
@@ -302,7 +302,6 @@ msgstr "Kopjo _Gjithçka"
 msgid "Copy all on stop"
 msgstr "Kopjo gjithçka kur ndalon"
 
-#. GRUT modified this item
 #: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
 msgstr "Preje"
@@ -523,7 +522,6 @@ msgstr "_Ndihmë"
 msgid "_Import Training Text"
 msgstr "_Importo tekstin udhëzues"
 
-#. GRUT modified this item
 #: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
 msgid "_Options"
 msgstr "_Opcione"
