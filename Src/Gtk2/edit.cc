@@ -322,10 +322,11 @@ void edit_move_end()
 
 void gtk2_edit_delete_callback(symbol Symbol)
 {
+
   if (Symbol==0) {
     return;
   }
-
+  
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;
   int length,displaylength;
@@ -347,18 +348,18 @@ void gtk2_edit_delete_callback(symbol Symbol)
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_SPEECH
-  if((say.length()-length)>=0) {
+  if(((signed int)say.length()-length)>=0) {
     say.resize(say.length()-length);
   }
 #endif
 
   if (stdoutpipe==true) {
-    if ((pipetext.length()-length)>=0) {
+    if (((signed int)pipetext.length()-length)>=0) {
       pipetext.resize(pipetext.length()-length);
     }
   }
 
-  if((outputtext.length()-length)>=0) {
+  if(((signed int)outputtext.length()-length)>=0) {
     outputtext.resize(outputtext.length()-length);
   }
 

@@ -6,6 +6,9 @@
 	* Make sure non-void functions return something (from 
 	  clahey@ximian.com)
 	* Check in /usr/X11R6/lib64 for libXtst (from clahey@ximian.com)
+	* Fix up string length checking - avoid crashes when "Speak on stop"
+	  switched on
+	* Version 3.2.13
 	
 2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 
