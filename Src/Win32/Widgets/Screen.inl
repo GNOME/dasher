@@ -107,6 +107,10 @@ inline void CScreen::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Da
 	Rect.right = x2;
 	Rect.bottom = y2;
 	FillRect(m_hDCBuffer, &Rect, brush);
+	if (drawoutlines==true) {
+		brush = CreateSolidBrush(RGB(0,0,0));
+		FrameRect(m_hDCBuffer, &Rect, brush);
+	}
 }
 
 

@@ -296,11 +296,14 @@ void CDasherWindow::CopyAllOnStop(bool Value)
 void CDasherWindow::Speech(bool Value)
 {
 	speech=Value;
+	m_pCanvas->SpeakOnStop(Value);
 }
 
 void CDasherWindow::OutlineBoxes(bool Value)
 {
 	outlines=Value;
+	m_pCanvas->DrawOutlines(Value);
+	DasherWidgetInterface->Redraw();
 }
 
 void CDasherWindow::MouseposStart(bool Value)

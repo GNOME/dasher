@@ -34,6 +34,7 @@ public:
 	Dasher::Opts::FontSize GetFontSize();
 	void SetColourScheme(Dasher::CCustomColours *);
 	void DrawMousePosBox(int which);
+	void DrawOutlines(bool Value) {drawoutlines=Value;}
 	inline void TextSize(Dasher::symbol Character, int* Width, int* Height, int Size) const;
 	inline void DrawText(Dasher::symbol Character, int x1, int y1, int Size) const;
 	inline void DrawText(std::string, int x1, int y1, int Size) const;
@@ -62,6 +63,7 @@ private:
 	std::vector<Tstring> DisplayStrings;
 	UINT CodePage;
 	Dasher::Opts::FontSize Fontsize;
+	bool drawoutlines;
 };
 
 

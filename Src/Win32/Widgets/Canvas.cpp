@@ -152,29 +152,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		if (startonleft==false) {
 			return 0;
 		}
-		if (running==0) {
-			// if dasher is idle			
-			// capture the mouse
-			SetCapture(Window);
-			
-			running=1;
-			m_DasherWidgetInterface->Unpause(GetTickCount());
-			
-			// update the mouse coords
-			imousex=LOWORD(lParam);
-			imousey=HIWORD(lParam);
-			
-			ResumeThread( hThreadl );
-			
-		} else {
-			// if dasher is running			
-			m_DasherWidgetInterface->PauseAt(imousex, imousey);
-			m_DasherEditBox->speak();
-			running=0;
-			ReleaseCapture();
-
-			SuspendThread( hThreadl );
-		}
+		StartStop();
 		return 0;
 		break;
 	case WM_MOUSEMOVE:
@@ -237,11 +215,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 						if (mousepostime==0) {
 							mousepostime=GetTickCount();
 						} else if ((GetTickCount()-mousepostime)>2000) {
-							firstwindow=false;
-							secondwindow=false;
-							SetCapture(Window);
-							running=1;
-							m_DasherWidgetInterface->Unpause(GetTickCount());
+							StartStop();
 						}
 					} else if (mousepostime>0) {
 						secondwindow=false;
@@ -285,16 +259,7 @@ void CCanvas::startspace()
 	if (startonspace == false) {
 		return;
 	} else {
-		if (running==0) {
-			SetCapture(m_hwnd);		
-			running=1;
-			m_DasherWidgetInterface->Unpause(GetTickCount());
-		} else {
-			m_DasherWidgetInterface->PauseAt(0,0);
-			running=0;
-			m_DasherEditBox->speak();
-			ReleaseCapture();
-		}
+		StartStop();
 	}
 }
 
@@ -312,4 +277,21 @@ void CCanvas::MousePosStart(bool Value) {
 		secondwindow=false;
 	}
 	mouseposstart=Value;
+}
+
+void CCanvas::StartStop() {
+	if (running==0) {
+		SetCapture(m_hwnd);		
+		running=1;
+		m_DasherWidgetInterface->Unpause(GetTickCount());
+		firstwindow=false;
+		secondwindow=false;
+	} else {
+		m_DasherWidgetInterface->PauseAt(0,0);
+		running=0;
+		if (speakonstop==true) {
+			m_DasherEditBox->speak();
+		}
+		ReleaseCapture();
+	}
 }

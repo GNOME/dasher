@@ -35,6 +35,7 @@ public:
 	void KeyControl(bool Value) {keycontrol = Value;}
 	void WindowPause(bool Value) {windowpause = Value;}
 	void MousePosStart(bool Value);
+	void SpeakOnStop(bool Value) {speakonstop = Value;}
 	void setkeycoords(int coords[18]) {for (int i=0; i<18; i++) {keycoords[i]=coords[i];};}
 	int* getkeycoords() {return keycoords;}
 	void setyscale(int y) {yscaling=y;}
@@ -47,6 +48,8 @@ public:
 	bool getselect() {return select;}
 	void startspace();
 	void centrecursor();
+	void StartStop();
+	void DrawOutlines(bool Value) {Screen->DrawOutlines(Value);}
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -69,6 +72,7 @@ private:
 	bool mouseposstart;
 	bool firstwindow;
 	bool secondwindow;
+	bool speakonstop;
 	DWORD mousepostime;
 	RECT coords;
 	ThreadParams *tp;
