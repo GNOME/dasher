@@ -1,6 +1,11 @@
 2004-02-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* make distcheck actually works now
+	* clean up nastiness in the accessibility code - we actually
+	  successfully default to using the accessibility interface if
+	  it's available, and shouldn't run into nasty race conditions
+	  and general brokenness
+	* bump version number to 3.2.4
 
 2004-02-25  Alessio Frusciante  <algol@firenze.linux.it>
 

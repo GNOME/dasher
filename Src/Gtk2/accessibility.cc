@@ -15,10 +15,12 @@ ControlTree *dummy; // This one is used to fake another control node
 
 extern gboolean textentry;
 extern gboolean training;
+extern gboolean quitting;
 extern GtkWidget *the_canvas;
 extern GtkWidget *window;
 
 gboolean panels;
+gboolean building=FALSE;
 
 #ifdef GNOME_A11Y
 std::vector<Accessible*> menuitems;
@@ -41,6 +43,7 @@ void setupa11y() {
 
 ControlTree* gettree() {
 #ifdef GNOME_A11Y
+  building=TRUE;
   menutree = new ControlTree;
   buttontree = new ControlTree;
   paneltree = new ControlTree;
@@ -111,6 +114,7 @@ ControlTree* gettree() {
 #else
   widgettree=buildcontroltree();
 #endif
+  building=FALSE;
   if (panels==TRUE) {
     return paneltree;
   } else {
@@ -455,13 +459,24 @@ void deletemenutree() {
 void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
 {
   char *name;
-  if (training==TRUE) {
+  // Don't do this if we're in the middle of doing something else - it'll
+  // just result in badness
+  if (training==TRUE || building==TRUE || quitting==TRUE) {
     return;
   }
   
+  building=TRUE;
+
   Accessible *tempaccessible;
+  Accessible *textaccessible=NULL;
   Accessible *accessible = event->source;
   while (dasher_check_window(Accessible_getRole(accessible))!=TRUE) {
+    if (Accessible_getRole(accessible)==SPI_ROLE_TEXT) {
+      AccessibleStateSet *state_set=Accessible_getStateSet(accessible);
+      if (AccessibleStateSet_contains(state_set,SPI_STATE_EDITABLE)) {
+	textaccessible=accessible;
+      }
+    }
     tempaccessible=Accessible_getParent(accessible);
     if (tempaccessible==NULL) {
       break;
@@ -480,11 +495,12 @@ void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
       focusedwindow=accessible;
       deletemenutree();
       add_control_tree(gettree());
-      dasher_start();
-      set_textbox(NULL);
+      dasher_start();      
+      set_textbox(textaccessible);
     }
   }
   SPI_freeString(name);
+  building=FALSE;
 }
 
 //FIXME - ripped straight from gok. The same qualms as they have apply.

@@ -90,6 +90,7 @@ gboolean paused = FALSE;
 gboolean firsttime = TRUE;
 gboolean indrag = FALSE;
 gboolean file_modified = FALSE;
+gboolean quitting = FALSE;
 gboolean showtoolbar;
 gboolean showslider;
 gboolean timestamp;
@@ -878,6 +879,7 @@ extern "C" bool
 ask_save_before_exit(GtkWidget *widget, gpointer data)
 {
   GtkWidget *dialog = NULL;
+  quitting==TRUE;
 
   if (file_modified != FALSE) {
     // Ask whether to save the modified file, insert filename if it exists.
@@ -896,6 +898,7 @@ ask_save_before_exit(GtkWidget *widget, gpointer data)
       gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
+      quitting==FALSE;
       gtk_widget_destroy (GTK_WIDGET(dialog));
       return true;
       break;
