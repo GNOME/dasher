@@ -20,7 +20,7 @@ using namespace std;
 
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherAppInterface* AI,
 	CDasherSettingsInterface* SI, const string& CurrentAlphabet)
-	: m_hwnd(0), m_AppInterface(AI), m_SettingsInterface(SI),
+	: m_AppInterface(AI), m_SettingsInterface(SI),
 	  m_CurrentAlphabet(CurrentAlphabet), Editing(false), Cloning(false),
 	  EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0)
 {

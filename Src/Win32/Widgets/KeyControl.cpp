@@ -20,8 +20,9 @@ using namespace std;
 
 
 CKeyBox::CKeyBox(HWND Parent, CCanvas* m_pCanvas, CDasherSettingsInterface* m_pSettingsInterface)
-	: m_hwnd(0), m_pCanvas(m_pCanvas), m_pSettingsInterface(m_pSettingsInterface), NewUniform(-1)
+	: m_pCanvas(m_pCanvas), m_pSettingsInterface(m_pSettingsInterface), NewUniform(-1)
 {
+	m_hwnd=0;
 	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_KEYCONTROL1, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 }
 

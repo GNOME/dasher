@@ -19,8 +19,9 @@ using namespace std;
 
 
 CPrefs::CPrefs(HWND Parent, CCanvas* m_pCanvas, CDasherWindow* m_pWindow, CDasherSettingsInterface* m_pSettings, CDasherWidgetInterface* m_pWidget)
-	: m_hwnd(0), m_pCanvas(m_pCanvas), m_pWindow(m_pWindow), m_pSettings(m_pSettings), m_pWidget(m_pWidget)
+	: m_pCanvas(m_pCanvas), m_pWindow(m_pWindow), m_pSettings(m_pSettings), m_pWidget(m_pWidget)
 {
+	m_hwnd=0;
 	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_PREFS, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
 }
 

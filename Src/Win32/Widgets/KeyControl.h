@@ -26,7 +26,6 @@ public:
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-	HWND m_hwnd;
 	HWND CustomBox;
 	HWND slider;
 	HWND uniformbox;

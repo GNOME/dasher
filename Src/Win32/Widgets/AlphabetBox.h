@@ -29,7 +29,6 @@ private:
 	Dasher::CDasherAppInterface* m_AppInterface;
 	Dasher::CDasherSettingsInterface* m_SettingsInterface;
 	
-	HWND m_hwnd;
 	HWND CustomBox;
 	
 	std::vector<std::string> AlphabetList;
