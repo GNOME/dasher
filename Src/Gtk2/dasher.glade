@@ -203,7 +203,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Normal</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">False</property>
+			      <property name="active">True</property>
 			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
 			  </child>
@@ -224,7 +224,7 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Very Large</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">False</property>
+			      <property name="active">True</property>
 			      <property name="group">fontsizenormal</property>
 			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
@@ -252,7 +252,7 @@
 		  <child>
 		    <widget class="GtkCheckMenuItem" id="keyboardmode">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">Text entry mode</property>
+		      <property name="label" translatable="yes">Enter text into other windows</property>
 		      <property name="use_underline">True</property>
 		      <property name="active">False</property>
 		      <signal name="activate" handler="keyboardmode" last_modification_time="Wed, 24 Sep 2003 12:44:11 GMT"/>
