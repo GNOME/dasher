@@ -19,14 +19,10 @@ using namespace SigC;
 GtkDasherWindow::GtkDasherWindow()
   : dasher_pane( this ), main_vbox(false, 0), toolbar(GTK_ORIENTATION_HORIZONTAL, GTK_TOOLBAR_BOTH ), menubar(), Window(), save_dialogue(), aboutbox(), dfontsel("Dasher Font"), efontsel("Editing Font"), slider_shown( true ),toolbar_shown(true), ofilesel("Open"), afilesel("Append To File"), copy_all_on_pause( false ),ifilesel("Import Training Text"), button("Close"), label("Dasher - Version 3.0.0 preview 2\nWeb: http://www.inference.phy.cam.ac.uk/dasher/\nemail: dasher@mrao.cam.ac.uk"), fix_pane( false ), timestamp( false ), current_or( Alphabet )
 {
-  //  dasher_pane.set_settings_ui( this );
-  
   set_title( "Dasher" );
 
   add(main_vbox);
 
-  //set_contents(main_vbox);
-  //  set_toolbar(toolbar);
   main_vbox.pack_start(menubar, false,false,0);
   main_vbox.pack_start(toolbar,false,false,0);
   main_vbox.pack_start(dasher_pane,true,true,0);
@@ -545,7 +541,41 @@ void GtkDasherWindow::reset_fonts()
 
 void GtkDasherWindow::orientation( Opts::ScreenOrientations o )
 {
-  dasher_pane.orientation(o);
+  // The orientation menu handler. You will never find a more wretched
+  // hive of scum and villainy. We must be cautious.
+
+  // Or... because gtk is broken, we receive *two* events from this
+  // menu for each click - one for the new selection (as it has been
+  // selected) and one from the old selection (because it has been
+  // deselected). We must only respond to the first of these, as we
+  // will otherwise end up getting into a loop.
+
+  bool isSelection( false );
+
+  switch(o)
+    {
+    case Alphabet:
+      isSelection = static_cast<RadioMenuItem *>( (*list_or)[0] )->get_active();
+      break;
+    case LeftToRight:
+      isSelection = static_cast<RadioMenuItem *>( (*list_or)[2] )->get_active();
+      break;
+    case RightToLeft:
+      isSelection = static_cast<RadioMenuItem *>( (*list_or)[3] )->get_active();
+      break;
+    case TopToBottom:
+      isSelection = static_cast<RadioMenuItem *>( (*list_or)[4] )->get_active();
+      break;
+    case BottomToTop:
+      isSelection = static_cast<RadioMenuItem *>( (*list_or)[5] )->get_active();
+      break;
+    default:
+      cerr << "Something strange is happening here - we were asked to use an orientation that doesn't exist" << endl;
+      break;
+    }
+
+  if( isSelection )
+    dasher_pane.orientation(o);
 }
 
 void GtkDasherWindow::reset()
@@ -705,28 +735,28 @@ void GtkDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
   // FIXME - the following commented out code is broken (and generates signal propagation loops)
 
-//    if( current_or != Orientation )
-//      {
-//        current_or = Orientation;
-//        switch( current_or )
-//  	{
-//  	case Alphabet:
-//  	  static_cast<CheckMenuItem *>( (*list_or)[0] )->set_active( true );
-//  	  break;
-//  	case LeftToRight:
-//  	  static_cast<CheckMenuItem *>( (*list_or)[2] )->set_active( true );
-//  	  break;
-//  	case RightToLeft:
-//  	  static_cast<CheckMenuItem *>( (*list_or)[3] )->set_active( true );
-//  	  break;
-//  	case TopToBottom:
-//  	  static_cast<CheckMenuItem *>( (*list_or)[4] )->set_active( true );
-//  	  break;
-//  	case BottomToTop:
-//  	  static_cast<CheckMenuItem *>( (*list_or)[5] )->set_active( true );
-//  	  break;
-//  	}
-//      }
+  if( current_or != Orientation )
+     {
+       current_or = Orientation;
+       switch( current_or )
+ 	{
+ 	case Alphabet:
+ 	  static_cast<CheckMenuItem *>( (*list_or)[0] )->set_active( true );
+ 	  break;
+ 	case LeftToRight:
+ 	  static_cast<CheckMenuItem *>( (*list_or)[2] )->set_active( true );
+ 	  break;
+ 	case RightToLeft:
+ 	  static_cast<CheckMenuItem *>( (*list_or)[3] )->set_active( true );
+ 	  break;
+ 	case TopToBottom:
+ 	  static_cast<CheckMenuItem *>( (*list_or)[4] )->set_active( true );
+ 	  break;
+ 	case BottomToTop:
+ 	  static_cast<CheckMenuItem *>( (*list_or)[5] )->set_active( true );
+ 	  break;
+ 	}
+     }
 
 
 }
@@ -798,9 +828,3 @@ gint GtkDasherWindow::afile_close_sel( GdkEventAny *e )
   return( true );
 };
 
-//gint GtkDasherWindow::key_press_event_impl( GdkEventKey *e )
-//{
- // cout << "Received keypress" << endl;
-//  
-//  return( true );
-//}
