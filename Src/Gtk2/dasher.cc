@@ -966,7 +966,6 @@ timer_callback(gpointer data)
         if (direction==FALSE) {
             dasher_set_parameter_int(INT_ONEBUTTON, -150); 
         }
-        cout << dasher_get_onebutton() << endl;
     }
     int x;
     int y;
