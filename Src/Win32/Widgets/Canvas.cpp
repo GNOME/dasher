@@ -45,6 +45,10 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	Screen = new CScreen(m_hwnd, 300, 300);
 	m_DasherAppInterface->ChangeScreen(Screen);
 
+	for (int i=0; i<18; i++) {
+		keycoords[i]=0;
+	}
+	yscaling=0;
 	running = 0;
 }
 
@@ -129,7 +133,6 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			return 0;
 			break;
 			}
-
 		case VK_SPACE:
 			startspace();
 			return 0;
@@ -147,9 +150,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 	case WM_LBUTTONDOWN:
 		SetFocus(Window);
 		if (startonleft==false) {
-
 			return 0;
-
 		}
 		if (running==0) {
 			// if dasher is idle
@@ -217,6 +218,13 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		ScreenToClient(Window,&mousepos);
 		imousey=mousepos.y;
 		imousex=mousepos.x;
+
+		if (yscaling!=0) {
+			float scalefactor=Screen->GetHeight()/yscaling;
+			imousey-=Screen->GetHeight()/2;
+			imousey*=scalefactor;
+			imousey+=Screen->GetHeight()/2;
+		}
 
 		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 		break;

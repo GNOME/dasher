@@ -134,16 +134,18 @@
 #define IDC_KCFORWARD                   1069
 #define IDC_KCBACK                      1070
 #define IDC_CHECK3                      1071
-#define IDC_5X                       1072
-#define IDC_5Y                       1073
-#define IDC_6X                       1074
-#define IDC_6Y                       1075
-#define IDC_7X                       1076
-#define IDC_7Y                       1077
-#define IDC_8X                       1078
-#define IDC_8Y                       1079
-#define IDC_9X                      1080
-#define IDC_9Y				1081
+#define IDC_5X                          1072
+#define IDC_5Y                          1073
+#define IDC_6X                          1074
+#define IDC_6Y                          1075
+#define IDC_7X                          1076
+#define IDC_7Y                          1077
+#define IDC_8X                          1078
+#define IDC_8Y                          1079
+#define IDC_9X                          1080
+#define IDC_9Y                          1081
+#define IDC_EDIT1                       1082
+#define IDC_YPIX                        1082
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -197,7 +199,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        167
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1081
+#define _APS_NEXT_CONTROL_VALUE         1083
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

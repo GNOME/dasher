@@ -29,6 +29,7 @@ private:
 	HWND CustomBox;
 	CCanvas* m_pCanvas;
 	int keycoords[18];
+	int ypixels;
 
 	// Some status flags:
 	bool Editing;

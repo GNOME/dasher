@@ -36,6 +36,8 @@ public:
 	void WindowPause(bool Value) {windowpause = Value;}
 	void setkeycoords(int coords[18]) {for (int i=0; i<18; i++) {keycoords[i]=coords[i];};}
 	int* getkeycoords() {return keycoords;}
+	void setyscale(int y) {yscaling=y;}
+	int getyscale() {return yscaling;}
 	void setforward(bool value) {forward=value;}
 	void setbackward(bool value) {backward=value;}
 	void setselect(bool value) {select=value;}
@@ -48,7 +50,7 @@ protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
 	HWND Parent;
-	int keycoords[18],buttonnum;
+	int keycoords[18],buttonnum,yscaling;
 	bool forward,backward,select;
 	CScreen* Screen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;

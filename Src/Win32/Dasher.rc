@@ -204,7 +204,7 @@ BEGIN
         MENUITEM "Pause outside Window",        ID_OPTIONS_WINDOWPAUSE
         MENUITEM SEPARATOR
         MENUITEM "Enter Text into Other Window...", ID_OPTIONS_ENTERTEXT
-        MENUITEM "Edit Keyboard Control...",    32814
+        MENUITEM "Edit Control Options...",     32814
     END
     POPUP "&Help"
     BEGIN
@@ -409,6 +409,8 @@ BEGIN
     EDITTEXT        IDC_8Y,80,120,42,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_9X,35,135,42,12,ES_AUTOHSCROLL
     EDITTEXT        IDC_9Y,80,135,42,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_YPIX,130,60,32,12,ES_AUTOHSCROLL
+    LTEXT           "Y pixels",IDC_STATIC,167,63,27,8
 END
 
 IDD_ADDKEYS DIALOG  0, 0, 145, 79

@@ -40,6 +40,9 @@ std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
 void CKeyBox::PopulateWidgets()
 {
 	int widgets[18];
+	char dummybuffer[256];
+	wchar_t widebuffer[256];
+
 	widgets[0]=IDC_UPX;
 	widgets[1]=IDC_UPY;
 	widgets[2]=IDC_DOWNX;
@@ -60,16 +63,22 @@ void CKeyBox::PopulateWidgets()
 	widgets[17]=IDC_9Y;
 
 	int* coords = m_pCanvas->getkeycoords();
+	ypixels = m_pCanvas->getyscale();
+
 	for (int i=0; i<18; i++) {
 			keycoords[i]=coords[i];
 	}
+	
+	HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
+	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
+	itoa(ypixels,dummybuffer,10);
+	mbstowcs(widebuffer,dummybuffer,256);
+	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) widebuffer);
+
 	for (int i=0; i<18; i++) {
-		HWND EditBox = GetDlgItem(m_hwnd, widgets[i]);
+		EditBox = GetDlgItem(m_hwnd, widgets[i]);
 		SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
 	
-		char dummybuffer[256];
-		wchar_t widebuffer[256];
-
 		itoa(keycoords[i],dummybuffer,10);
 		mbstowcs(widebuffer,dummybuffer,256);
 
@@ -131,8 +140,10 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			keycoords[15]=atoi(GetControlText(Window,IDC_8Y).c_str());
 			keycoords[16]=atoi(GetControlText(Window,IDC_9X).c_str());
 			keycoords[17]=atoi(GetControlText(Window,IDC_9Y).c_str());
+			ypixels=atoi(GetControlText(Window,IDC_YPIX).c_str());
 			EndDialog(Window, LOWORD(wParam));
 			m_pCanvas->setkeycoords(keycoords);
+			m_pCanvas->setyscale(ypixels);
 			// Move forward on button press
 			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pCanvas->setforward(true);
