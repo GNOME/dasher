@@ -60,12 +60,12 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 
 		int real_s;
 
-		if( GetControlSymbol() == -1 )
-		  real_s = s - 1;
-		else
-		  real_s = s - 2;
+//  		if( GetControlSymbol() == -1 )
+//  		  real_s = s - 1;
+//  		else
+//  		  real_s = s - 2;
 
-		//real_s = s-1;
+		real_s = s - 1;
 		
 		// Panic if we have no real symbols
 
@@ -73,10 +73,10 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		  return false;
 
 		int norm( normalization() );
-		int control( norm * 0.1 ); // FIXME - control node fration is decided here
+		//		int control( norm * 0.1 ); // FIXME - control node fration is decided here
 
-		if( GetControlSymbol() != -1 )
-		  norm -= control;
+		//		if( GetControlSymbol() != -1 )
+		//  norm -= control;
 
 		int uniform_add = ((norm / 1000 ) / real_s ) * m_uniform;
 		int nonuniform_norm = norm - real_s * uniform_add;
@@ -93,8 +93,8 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		  if( isRealSymbol( NewSymbols[i] ) )
 		    Probs[i] += uniform_add;
 
-		if( GetControlSymbol() != -1 )
-		  Probs[ GetControlSymbol() ] += control;
+		//		if( GetControlSymbol() != -1 )
+		//	  Probs[ GetControlSymbol() ] += control;
 
 		return true;
 	}
@@ -125,7 +125,7 @@ bool CLanguageModel::isRealSymbol( symbol _s ) {
   if( _s  == 0 )
     return false;
   else if( _s == GetControlSymbol() )
-    return false;
+    return true;
   else
     return true;
 }

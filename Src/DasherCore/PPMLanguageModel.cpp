@@ -105,23 +105,54 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 
 	while (temp!=0) {
 
+	  int controlcount;
+
 		total=0;
 		s=temp->child;
 		while (s) {
 		  sym=s->symbol; 
-		  if (!exclusions[sym] && valid[sym])
-		    total=total+s->count;
+		  if (!exclusions[sym] && valid[sym]) {
+		    if( sym == GetControlSymbol() ) {
+		      // Do nothing
+		    } 
+		    else if( sym == GetSpaceSymbol() ) {
+		      if( GetControlSymbol() != -1 )
+			total = total + 1.4 * s->count; // FIXME - adjust control node size here
+		      else
+			total=total+s->count;
+		      controlcount = 0.4 * s->count; // FIXME - and here
+		    }
+		    else {
+		      total=total+s->count;
+		    }
+		  }
 		  s=s->next;
 		}
 		if (total) {
 		  size_of_slice=tospend;
 		  s=temp->child;
 		  while (s) {
-		    if (!exclusions[s->symbol] && valid[sym]) {
-		      exclusions[s->symbol]=1;
-		      ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-		      probs[s->symbol]+=p;
-		      tospend-=p;		
+		    if (!exclusions[s->symbol] && valid[s->symbol]) {
+		      exclusions[s->symbol]=1; 
+		      if( s->symbol == GetControlSymbol() ) {
+			// Do nothing
+		      } 
+		      else if( s->symbol == GetSpaceSymbol() ) {
+			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+			probs[s->symbol]+=p;
+			tospend-=p;
+			if( GetControlSymbol() != -1 )
+			  if( !exclusions[GetControlSymbol()] ) {
+			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
+			    probs[GetControlSymbol()]+=p;
+			    tospend-=p;
+			  }
+		      }
+		      else {
+			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+			probs[s->symbol]+=p;
+			tospend-=p;	
+		      }
 		    }
 		    s=s->next;
 		  }
