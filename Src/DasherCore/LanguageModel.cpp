@@ -90,11 +90,18 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		GetProbs((CContext*) Context,Probs,nonuniform_norm);
 
 		for( int i(0); i < Probs.size(); ++i )
-		  if( isRealSymbol( NewSymbols[i] ) )
+		  if( isRealSymbol(NewSymbols[i] ) )
 		    Probs[i] += uniform_add;
 
-		//		if( GetControlSymbol() != -1 )
-		//	  Probs[ GetControlSymbol() ] += control;
+		    int tot(0);
+		    
+		    for (int i=0;i<s;i++) {
+		      tot += Probs[i];
+		    }
+		    
+		    //		    std::cout << tot << " " << nonuniform_norm << " " << norm << " " << uniform_add << " " << real_s << std::endl;
+		    //		if( GetControlSymbol() != -1 )
+		    //	  Probs[ GetControlSymbol() ] += control;
 
 		return true;
 	}

@@ -116,11 +116,16 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 		      // Do nothing
 		    } 
 		    else if( sym == GetSpaceSymbol() ) {
-		      if( GetControlSymbol() != -1 )
-			total = total + 1.4 * s->count; // FIXME - adjust control node size here
-		      else
-			total=total+s->count;
+		      total=total+s->count;
+		      
 		      controlcount = 0.4 * s->count; // FIXME - and here
+		      
+		      if( controlcount < 1 )
+			controlcount = 1;
+
+		      if( GetControlSymbol() != -1 )
+			total = total + controlcount;
+
 		    }
 		    else {
 		      total=total+s->count;
@@ -133,7 +138,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 		  s=temp->child;
 		  while (s) {
 		    if (!exclusions[s->symbol] && valid[s->symbol]) {
-		      exclusions[s->symbol]=1; 
+		      //		      exclusions[s->symbol]=1; 
 		      if( s->symbol == GetControlSymbol() ) {
 			// Do nothing
 		      } 
@@ -141,17 +146,20 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
 			probs[s->symbol]+=p;
 			tospend-=p;
+			exclusions[s->symbol]=1;
 			if( GetControlSymbol() != -1 )
 			  if( !exclusions[GetControlSymbol()] ) {
 			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
 			    probs[GetControlSymbol()]+=p;
 			    tospend-=p;
+			    exclusions[GetControlSymbol()]=1;
 			  }
 		      }
 		      else {
 			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
 			probs[s->symbol]+=p;
 			tospend-=p;	
+			exclusions[s->symbol]=1;
 		      }
 		    }
 		    s=s->next;
@@ -164,10 +172,10 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 	
 	size_of_slice=tospend;
 	int symbolsleft=0;
-	for (sym=1;sym<modelchars;sym++)
+	for (sym=0;sym<modelchars;sym++)
 	  if (!probs[sym] && valid[sym])
 	    symbolsleft++;
-	for (sym=1;sym<modelchars;sym++) 
+	for (sym=0;sym<modelchars;sym++) 
 	  if (!probs[sym] && valid[sym]) {
 	    ulong p=size_of_slice/symbolsleft;
 	    probs[sym]+=p;
@@ -203,7 +211,7 @@ bool CPPMLanguageModel::GetProbs(CContext *context,vector<unsigned int> &probs, 
 	    probs[i] +=p;
 	    --valid_char_count;
 	    tospend -=p;
-	}
+	  }
 //  			  {
 //  				ulong p=tospend/(modelchars-sym);
 //  				probs[sym]+=p;
