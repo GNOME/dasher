@@ -553,6 +553,16 @@ save_file_as (const char *filename, bool append)
   GnomeVFSResult result;
   GnomeVFSHandle *handle;
 
+  if (filename[0]!='/') {    
+    std::string realname;
+    char dirpath[PATH_MAX];
+    getcwd(dirpath,PATH_MAX);
+    realname+=dirpath;
+    realname+="/";
+    realname+=filename;
+    filename=realname.c_str();
+  }
+
   result=gnome_vfs_open(&handle,filename,GnomeVFSOpenMode(GNOME_VFS_OPEN_WRITE | GNOME_VFS_OPEN_RANDOM));
 
   sleep(10);

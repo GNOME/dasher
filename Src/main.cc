@@ -9,7 +9,7 @@
 #include <libbonobo.h>
 #endif
 
-#ifdef GNOME
+#ifdef GNOME_LIBS
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
@@ -76,7 +76,7 @@ main(int argc, char *argv[])
   XWMHints wm_hints;
   Atom wm_window_protocols[3];
 
-#ifdef GNOME
+#ifdef GNOME_LIBS
   GnomeProgram *program=0;
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
 
@@ -91,7 +91,9 @@ main(int argc, char *argv[])
   // We need thread support for updating the splash window while
   // training...
 
+#ifndef GNOME_LIBS
   g_thread_init(NULL);
+#endif
 
   xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
 
