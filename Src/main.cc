@@ -83,7 +83,7 @@ main(int argc, char *argv[])
 
   gconf_init( argc, argv, &gconferror );
 
-  xml = glade_xml_new("/usr/share/dasher/dasher.glade", NULL, NULL);
+  xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
 
   /* I am a bad man and I will go straight to hell.
 

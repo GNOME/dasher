@@ -69,6 +69,8 @@ if [[ x"$WITHA11Y" = xtrue ]]; then
 	A11Y_SOURCES='accessibility.$(OBJEXT)'
 fi
 
+PKG_CHECK_MODULES(glade, libglade-2.0)
+
 AC_SUBST(gnome_speech_LIBS)
 AC_SUBST(gnome_speech_CFLAGS)
 AC_SUBST([SPEECH_SOURCES])
@@ -76,6 +78,9 @@ AC_SUBST([SPEECH_SOURCES])
 AC_SUBST(gnome_a11y_LIBS)
 AC_SUBST(gnome_a11y_CFLAGS)
 AC_SUBST([A11Y_SOURCES])
+
+AC_SUBST(glade_LIBS)
+AC_SUBST(glade_CFLAGS)
 
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
 AM_CONDITIONAL(DOGTKMM, test x$GTKMMVAR = xtrue)
