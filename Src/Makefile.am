@@ -35,7 +35,7 @@ dasher_SOURCES = QMain.cc
 LDADD =  Qt/libdasherqt.a DasherCore/libdashercore.a Common/libdashermisc.a
 
 CXXFLAGS = -O2 -DQWS -fno-rtti -I./DasherCore -I../intl -I$(top_srcdir)/intl -I$(QTDIR)/include
-LDFLAGS = -lqte -ljpeg -lexpat
+LDFLAGS = -lqte -ljpeg -lexpat -lqpe
 
 endif
 
