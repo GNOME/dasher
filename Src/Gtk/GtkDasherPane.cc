@@ -300,15 +300,16 @@ void GtkDasherPane::handle_alphabet()
 
   foo = abox.get_selection();
 
-  cout << "Selection is " << foo << endl;
+  if( foo != string() )
+    {
+      interface->ChangeAlphabet( foo );
 
-  interface->ChangeAlphabet( foo );
-
-  // FIXME - the following should really happen in the notification
-  // callback
-
-  text->kill_flush();
-  select_encoding();
+      // FIXME - the following should really happen in the notification
+      // callback
+      
+      text->kill_flush();
+      select_encoding();
+    }
 }
 
 void GtkDasherPane::handle_alphabet_cancel()
