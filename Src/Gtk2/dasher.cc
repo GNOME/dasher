@@ -172,8 +172,6 @@ preferences(gpointer data, guint action, GtkWidget *widget)
   
   alphabet_count = dasher_get_alphabets( alphabetlist, alphabetlist_size );
 
-  printf("Got %d alphabets\n",alphabet_count);
-
   for (int i=0; i<alphabet_count; ++i) {
     gtk_list_store_append (list_store, &iter);
     gtk_list_store_set (list_store, &iter, 0, alphabetlist[i],-1);
