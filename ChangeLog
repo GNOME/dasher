@@ -1,3 +1,7 @@
+2004-09-17  Matthew Garrett  <mjg59@srcf.ucam.org>
+
+	* Src/Gtk2/speech.cc: Check that voices->_length isn't 0	
+	
 2004-09-11  Guntupalli Karunakar  <karunakar@freedomink.org>
 
 	* configure.in: Added "hi" (Hindi) to ALL_LINGUAS.
