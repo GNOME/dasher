@@ -107,7 +107,7 @@ GtkDasherWindow::GtkDasherWindow()
     MenuList & list_opts = menu_opts->items();
     
     list_opts.push_back(MenuElem("Timestamp New Files"));
-    list_opts.push_back(MenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
+    list_opts.push_back(CheckMenuElem("Copy All on Stop",bind<int>( slot(this,&GtkDasherWindow::menu_button_cb),
 						      MENU_CAOS)));
     list_opts.push_back(SeparatorElem());
     list_opts.push_back(MenuElem("Alphabet..."));
