@@ -29,6 +29,7 @@ class Gtk2DasherEdit : public Dasher::CDashEditbox
 
   void SetEncoding(Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
+  void TimeStampNewFiles(bool Value);
 
   GtkWidget *text_view;  
   GtkTextBuffer *text_buffer;
@@ -37,6 +38,8 @@ class Gtk2DasherEdit : public Dasher::CDashEditbox
 
   static gboolean handle_cursor_move(GtkWidget *widget, GdkEventButton *event, gpointer callback_data);
   int flush_count;
+  bool timestamp;
+  Opts::FileEncodingFormats file_encoding;
 };
 
 #endif

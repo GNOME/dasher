@@ -47,6 +47,8 @@ void load_training_file_from_filesel ();
 static void orientation(gpointer data, guint action, GtkWidget  *widget );
 static void show_toolbar(gpointer data, guint action, GtkWidget  *widget );
 static void show_slider(gpointer data, guint action, GtkWidget  *widget );
+static void timestamp_files(gpointer data, guint action, GtkWidget *widget );
+static void file_encoding(gpointer data, guint action, GtkWidget *widget );
 
 typedef struct {
   Gtk2DasherCanvas *dasher_canvas;
@@ -86,16 +88,16 @@ static GtkItemFactoryEntry entries[] = {
   { "/View/sepl", NULL, NULL, 0, "<Separator>" },
   { "/View/Fix Layout", NULL, NULL, 0, "<CheckItem>" },
   { "/Options", NULL, NULL, 0, "<Branch>" },
-  { "/Options/Timestamp New Files", NULL, NULL, 0, "<CheckItem>" },
+  { "/Options/Timestamp New Files", NULL, *GtkItemFactoryCallback(timestamp_files), 1, "<CheckItem>" },
   { "/Options/Copy All on Stop", NULL, NULL, 0, "<CheckItem>" },
   { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Options/Alphabet...", NULL, NULL, 0, "<Item>" },
   { "/Options/File Encoding", NULL, NULL, 0, "<Branch>" },
-  { "/Options/File Encoding/User Default", NULL, NULL, 0, "<RadioItem>" },
-  { "/Options/File Encoding/Alphabet Default", NULL, NULL, 0, "/Options/File Encoding/User Default" },
-  { "/Options/File Encoding/Unicode UTF8", NULL, NULL, 0, "/Options/File Encoding/User Default" },
-  { "/Options/File Encoding/Unicode UTF16 (LE)", NULL, NULL, 0, "/Options/File Encoding/User Default" },
-  { "/Options/File Encoding/Unicode UTF16 (BE)", NULL, NULL, 0, "/Options/File Encoding/User Default" },
+  { "/Options/File Encoding/User Default", NULL, *GtkItemFactoryCallback(file_encoding), 1, "<RadioItem>" },
+  { "/Options/File Encoding/Alphabet Default", NULL, *GtkItemFactoryCallback(file_encoding), 2, "/Options/File Encoding/User Default" },
+  { "/Options/File Encoding/Unicode UTF8", NULL, *GtkItemFactoryCallback(file_encoding), 65004, "/Options/File Encoding/User Default" },
+  { "/Options/File Encoding/Unicode UTF16 (LE)", NULL, *GtkItemFactoryCallback(file_encoding), 1203, "/Options/File Encoding/User Default" },
+  { "/Options/File Encoding/Unicode UTF16 (BE)", NULL, *GtkItemFactoryCallback(file_encoding), 1204, "/Options/File Encoding/User Default" },
   { "/Options/sepl", NULL, NULL, 0, "<Separator>" },
   { "/Options/Font Size", NULL, NULL, 0, "<Branch>" },
   { "/Options/Font Size/Default Fonts", NULL, NULL, 0, "<RadioItem>" },
@@ -818,3 +820,17 @@ void show_slider(gpointer data, guint action, GtkWidget  *widget )
   }
 }
 
+void timestamp_files(gpointer data, guint action, GtkWidget *widget )
+{
+  if(GTK_CHECK_MENU_ITEM(widget)->active) {
+    interface->TimeStampNewFiles( TRUE );
+  } else {
+    interface->TimeStampNewFiles( FALSE );
+  }
+}
+
+void file_encoding(gpointer data, guint action, GtkWidget *widget )
+{
+  signed int realaction = action -3;
+  interface->SetFileEncoding(Opts::FileEncodingFormats(realaction));
+}

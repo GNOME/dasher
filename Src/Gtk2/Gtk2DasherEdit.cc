@@ -1,3 +1,4 @@
+
 #include <iostream>
 #include <string>
 #include <gtk/gtk.h>
@@ -92,6 +93,7 @@ void Gtk2DasherEdit::Clear()
 
 void Gtk2DasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
 {
+  file_encoding = Encoding;
 }
 
 void Gtk2DasherEdit::SetFont(std::string Name, long Size)
@@ -131,4 +133,6 @@ void Gtk2DasherEdit::SelectAll()
 {
 }
 
-
+void Gtk2DasherEdit::TimeStampNewFiles(bool Value) {
+  timestamp = Value;
+}
