@@ -8,7 +8,7 @@ bool get_bool_option_callback(const std::string& Key, bool *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  GError *the_error;
+  GError *the_error=NULL;
 
   GConfValue* got_value = gconf_client_get_without_default( the_gconf_client, keypath, &the_error);
 
@@ -27,7 +27,7 @@ bool get_long_option_callback(const std::string& Key, long *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  GError *the_error;
+  GError *the_error=NULL;
 
   GConfValue* got_value = gconf_client_get_without_default( the_gconf_client, keypath, &the_error);
 
@@ -45,7 +45,7 @@ bool get_string_option_callback(const std::string& Key, std::string *value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  GError *the_error;
+  GError *the_error=NULL;
 
   GConfValue* got_value = gconf_client_get_without_default( the_gconf_client, keypath, &the_error);
 
@@ -63,7 +63,7 @@ void set_bool_option_callback(const std::string& Key, bool Value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  GError *the_error;
+  GError *the_error=NULL;
 
   gconf_client_set_bool( the_gconf_client, keypath, Value, &the_error );
 }
@@ -74,7 +74,7 @@ void set_long_option_callback(const std::string& Key, long Value)
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  GError *the_error;
+  GError *the_error=NULL;
 
   gconf_client_set_int( the_gconf_client, keypath, Value, &the_error );
 }
@@ -85,7 +85,7 @@ void set_string_option_callback(const std::string& Key, const std::string& Value
 
   snprintf( keypath, 1024, "/apps/dasher/%s", Key.c_str() );
 
-  GError *the_error;
+  GError *the_error=NULL;
 
   gconf_client_set_string( the_gconf_client, keypath, Value.c_str(), &the_error );
 }
