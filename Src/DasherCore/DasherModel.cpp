@@ -157,12 +157,8 @@ void CDasherModel::Start()
 		oldroots.clear();
 	}
 
-	if (m_Root) {
-	  delete m_Root;
-	}
-
-	//	if (LearnContext) {
-	//	  delete LearnContext;
+	//	if (m_Root) {
+	//	  delete m_Root;
 	//	}
 
 	m_Root=new CDasherNode(0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
