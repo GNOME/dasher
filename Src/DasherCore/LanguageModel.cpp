@@ -58,8 +58,8 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		
 		int norm( normalization() );
 
-		int uniform_add = ((norm / 1000 ) / s ) * m_uniform;
-		int nonuniform_norm = norm - s * uniform_add;
+		int uniform_add = ((norm / 1000 ) / (s-1) ) * m_uniform;
+		int nonuniform_norm = norm - (s-1) * uniform_add;
 
 		NewSymbols.resize(s);
 		Groups.resize(s);
@@ -69,8 +69,15 @@ bool CLanguageModel::GetNodeProbs(CNodeContext* Context, vector<symbol> &NewSymb
 		}
 		GetProbs((CContext*) Context,Probs,nonuniform_norm);
 
-		for( vector<unsigned int>::iterator it( Probs.begin() ); it != Probs.end(); ++it )
-		  (*it) += uniform_add;
+//  		for( int i(0); i < s; ++i )
+//  		  std::cout << "Probs: " << Probs[i] << " Symbol: " << NewSymbols[i] << std::endl;
+
+//  		for( vector<unsigned int>::iterator it( Probs.begin() ); it != Probs.end(); ++it )
+//  		  (*it) += uniform_add;
+
+		for( int i(0); i < Probs.size(); ++i )
+		  if( NewSymbols[i] != 0 )
+		    Probs[i] += uniform_add;
 
 		return true;
 	}
