@@ -2,7 +2,10 @@
 
 ControlTree *menutree;
 std::vector<Accessible*> menuitems;
+
+#ifdef GNOME_A11Y
 Accessible *desktop;
+#endif
 
 ControlTree* gettree() {
 #ifdef GNOME_A11Y
