@@ -12,7 +12,7 @@
     <space t=" " d="_" />
     <control d="Control" t=""/>
     <paragraph d="&#182;" b="9"/>
-    <group name="Małe litery">
+    <group name="Małe litery" b="0">
       <s t="a" d="a" />
 
       <s t="ą" d="ą" />
@@ -82,7 +82,7 @@
       <s t="z" d="z" />
     </group>
 
-    <group name="Duże litery">
+    <group name="Duże litery" b="111">
       <s t="A" d="A" />
 
       <s t="Ą" d="Ą" />
@@ -152,7 +152,7 @@
       <s t="Z" d="Z" />
     </group>
 
-    <group name="Liczby">
+    <group name="Liczby" b="113">
       <s t="0" d="0" />
 
       <s t="1" d="1" />
@@ -174,7 +174,7 @@
       <s t="9" d="9" />
     </group>
 
-    <group name="Interpunkcja">
+    <group name="Interpunkcja" b="112">
       <s t="," d="," />
 
       <s t="." d="." />
