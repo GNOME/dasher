@@ -1,3 +1,7 @@
+2004-01-20 Alastair McKinstry <mckinstry@computer.org>
+
+	* configure.in: Added "ga" to ALL_LINGUAS.
+
 2004-01-18  Francisco Javier F. Serrador  <serrador@cvs.gnome.org>
 
 	* configure.in: Added "es" to ALL_LINGUAS.
