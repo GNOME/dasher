@@ -1,0 +1,497 @@
+# Translation of dasher to Croatiann
+# Copyright (C) Croatiann team
+# Translators: Automatski Prijevod <>,Danijel Studen <dstuden@vuka.hr>,Ivan Jankovic <rbrrneck@gmx.net>,Nikola Planinac <>,
+msgid ""
+msgstr ""
+"Project-Id-Version: dasher 0\n"
+"POT-Creation-Date: 2004-02-01 16:49+0100\n"
+"PO-Revision-Date: 2004-02-01 16:49+CET\n"
+"Last-Translator: auto\n"
+"Language-Team: Croatian <lokalizacija@linux.hr>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: TransDict server\n"
+
+#: Src/Gtk2/accessibility.cc:51
+msgid "Menus"
+msgstr "Izbornici"
+
+#: Src/Gtk2/accessibility.cc:58
+msgid "Buttons"
+msgstr "Gumbi"
+
+#: Src/Gtk2/accessibility.cc:64
+msgid "Panels"
+msgstr "Ploče"
+
+#: Src/Gtk2/accessibility.cc:135 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/dashergpe.glade.h:28
+msgid "Control"
+msgstr "Control"
+
+#: Src/Gtk2/accessibility.cc:140
+msgid "Stop"
+msgstr "Zaustavi"
+
+#: Src/Gtk2/accessibility.cc:146
+msgid "Pause"
+msgstr "Pauza"
+
+#: Src/Gtk2/accessibility.cc:153
+msgid "Move"
+msgstr "Pomakni"
+
+#: Src/Gtk2/accessibility.cc:160
+msgid "Delete"
+msgstr "Obriši"
+
+#: Src/Gtk2/accessibility.cc:169
+msgid "Speak"
+msgstr ""
+
+#: Src/Gtk2/accessibility.cc:187 Src/Gtk2/accessibility.cc:256
+msgid "<"
+msgstr "<"
+
+#: Src/Gtk2/accessibility.cc:193 Src/Gtk2/accessibility.cc:250
+msgid ">"
+msgstr ">"
+
+#: Src/Gtk2/accessibility.cc:199
+msgid "<<<"
+msgstr "<<<"
+
+#: Src/Gtk2/accessibility.cc:205
+msgid ">>>"
+msgstr ">>>"
+
+#: Src/Gtk2/accessibility.cc:218
+msgid "Everything"
+msgstr "Sve"
+
+#: Src/Gtk2/accessibility.cc:224
+msgid "New"
+msgstr "Novi"
+
+#: Src/Gtk2/accessibility.cc:230
+msgid "Repeat"
+msgstr "Ponovi"
+
+#: Src/Gtk2/accessibility.cc:263 Src/Gtk2/accessibility.cc:282
+msgid "Character"
+msgstr "Znak"
+
+#: Src/Gtk2/accessibility.cc:270 Src/Gtk2/accessibility.cc:288
+msgid "Word"
+msgstr "Word"
+
+#: Src/Gtk2/accessibility.cc:275 Src/Gtk2/accessibility.cc:294
+msgid "Line"
+msgstr "Crta"
+
+#: Src/Gtk2/dasher.cc:183
+msgid "Training Dasher, please wait"
+msgstr ""
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/dasher.cc:1753
+msgid "translator_credits"
+msgstr "lokalizacija@linux.hr"
+
+#: Src/Gtk2/dasher.cc:1755 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dashergpe.glade.h:35
+msgid "Dasher"
+msgstr ""
+
+#: Src/Gtk2/dasher.cc:1758
+msgid "Dasher is a predictive text entry application"
+msgstr ""
+
+#. Just a debugging thing
+#: Src/Gtk2/dasher.cc:2165
+msgid "%d characters output in %d seconds\n"
+msgstr "%d izlaznih znakova u %d sekundi\n"
+
+#: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
+msgid "5:"
+msgstr "5:"
+
+#: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
+msgid "6:"
+msgstr "6:"
+
+#: Src/Gtk2/dasher.glade.h:3 Src/Gtk2/dashergpe.glade.h:3
+msgid "7:"
+msgstr "7:"
+
+#: Src/Gtk2/dasher.glade.h:4 Src/Gtk2/dashergpe.glade.h:4
+msgid "8:"
+msgstr "8:"
+
+#: Src/Gtk2/dasher.glade.h:5 Src/Gtk2/dashergpe.glade.h:5
+msgid "9:"
+msgstr "9:"
+
+#: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
+msgid "<b>Alphabet Selection:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
+msgid "<b>Button control setup</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:8
+msgid "<b>Color Selection:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
+msgid "<b>Control Style:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
+msgid "<b>Miscellaneous Options:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
+msgid "<b>Orientation:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
+msgid "<b>Smoothing:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
+msgid "<b>Starting And Stopping:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
+msgid "<b>Toggle button Mode:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
+msgid "<b>View Options:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
+msgid "<b>X/Y Coordinates:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
+msgid "<b>Y Axis Options:</b>"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
+msgid "Advanced"
+msgstr "&Napredno"
+
+#: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
+msgid "Alphabet"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
+msgid "Alphabet Default"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
+msgid "Bottom to Top"
+msgstr "Od dolje prema gore"
+
+#: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
+msgid "Button control setup"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
+msgid "Button mode"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
+msgid "Button:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:25
+msgid "Change color scheme automatically"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:26
+msgid "Color"
+msgstr "Boja"
+
+#: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
+msgid "Control mode"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "Kopiraj"
+
+#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:31
+msgid "Copy _All"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:32
+msgid "Copy all on stop"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "Izreži"
+
+#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
+msgid "Cyclical button mode"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
+msgid "Dasher Preferences"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
+msgid "Distance from centreline for start on mouse position:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
+msgid "Down/3:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
+msgid "Draw box outlines"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
+msgid "Draw line between crosshairs and mouse"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
+msgid "Edit Button-control options"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:42
+msgid "Enter text into other windows"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
+msgid "Eyetracker mode"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashergpe.glade.h:44
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:46
+msgid "Large"
+msgstr "Veliko"
+
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:47
+msgid "Left to Right"
+msgstr "S lijeva na desno"
+
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:48
+msgid "Left/2:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:49
+msgid "New file"
+msgstr "Nova datoteka"
+
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:50
+msgid "Normal"
+msgstr "Obično"
+
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:51
+msgid "Number of pixels that should cover the entire y range:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:52
+msgid "One dimensional mode"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:53
+msgid "Open file"
+msgstr "Otvori datoteku"
+
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:55
+msgid "Paste"
+msgstr "Umetni"
+
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:56
+msgid "Pause outside window"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:57
+msgid "Right to Left"
+msgstr "Zdesna na lijevo"
+
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:58
+msgid "Right/4:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:59
+msgid "Save file"
+msgstr "Sačuvaj datoteku"
+
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:60
+msgid "Save file as"
+msgstr "Spremi datoteku kao"
+
+#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:61
+msgid "Select File"
+msgstr "Odaberi Datoteku"
+
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:62
+msgid "Select Font"
+msgstr "Odaberi pismo"
+
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:63
+msgid "Show mouse position"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:64
+msgid "Show speed slider"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:65
+msgid "Show toolbar"
+msgstr "Pokaži alatnu traku"
+
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:66
+msgid "Speak on stop"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:65
+msgid "Speed"
+msgstr "Brzina"
+
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:67
+msgid "Start on left mouse button"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:68
+msgid "Start on space bar"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:69
+msgid "Start with mouse position"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:70
+msgid "Timestamp new files"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:71
+msgid "Top to Bottom"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:72
+msgid "Training"
+msgstr "Školovanje"
+
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:73
+msgid "Training Dasher - please wait"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:74
+msgid "Up/1:"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashergpe.glade.h:75
+msgid ""
+"Use this control to adjust the relative sizes of the \n"
+"letter boxes. Note that selecting high values will slow\n"
+"your writing speed."
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:78
+msgid "Very Large"
+msgstr "Velika"
+
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:79
+msgid "View"
+msgstr "Pogled"
+
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:80
+msgid "X:"
+msgstr "X:"
+
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:81
+msgid "Y:"
+msgstr "Y:"
+
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:82
+msgid "_About"
+msgstr "_O"
+
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:83
+msgid "_Append to file"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:84
+msgid "_Dasher Font"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:85
+msgid "_Dasher Font Size"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:86
+msgid "_Edit"
+msgstr "_Uredi"
+
+#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:87
+msgid "_Edit Font"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:88
+msgid "_File"
+msgstr "_Datoteka"
+
+#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:89
+msgid "_Help"
+msgstr "_Pomoć"
+
+#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:90
+msgid "_Import Training Text"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:91
+msgid "_Options"
+msgstr "_Odrednice"
+
+#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:92
+msgid "_Reset fonts"
+msgstr ""
+
+#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:93
+msgid "abcdefghijk ABCDEFGHIJK"
+msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: Src/Gtk2/dashergpe.glade.h:8
+msgid "<b>Colour Selection:</b>"
+msgstr ""
+
+#: Src/Gtk2/dashergpe.glade.h:13
+msgid "<b>Speed</b>"
+msgstr "<b>Brzina</b>"
+
+#: Src/Gtk2/dashergpe.glade.h:26
+msgid "Change colour scheme automatically"
+msgstr ""
+
+#: Src/Gtk2/dashergpe.glade.h:27
+msgid "Colour"
+msgstr "Boja"
+
+#: Src/Gtk2/dashergpe.glade.h:54
+msgid "Orientation"
+msgstr "Orijentacija"
+
+#: Src/Gtk2/speech.cc:55
+msgid "Warning: unable to set speech parameters\n"
+msgstr ""
+
+#: Src/main.cc:97
+msgid "Dasher Text Entry"
+msgstr ""
+
