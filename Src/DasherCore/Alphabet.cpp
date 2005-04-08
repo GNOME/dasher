@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2002 David Ward
+// Copyright (c) 2001-2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -14,6 +14,8 @@
 using namespace Dasher;
 using namespace std;
 
+/////////////////////////////////////////////////////////////////////////////
+
 
 CAlphabet::CAlphabet() : m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1), m_Groups(0)
 {
@@ -24,8 +26,9 @@ CAlphabet::CAlphabet() : m_DefaultEncoding(Opts::Western), m_Orientation(Opts::L
 	m_Group.push_back(0);
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
+void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore) const
 {
 	string Tmp;
 	symbol CurSymbol=0, TmpSymbol=0;
