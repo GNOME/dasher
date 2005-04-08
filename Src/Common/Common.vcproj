@@ -298,6 +298,16 @@
 				RelativePath="Types\int64.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Allocators"
+			Filter="">
+			<File
+				RelativePath="Allocators\PooledAlloc.h">
+			</File>
+			<File
+				RelativePath="Allocators\SimplePooledAlloc.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath="Common.h">
 		</File>
