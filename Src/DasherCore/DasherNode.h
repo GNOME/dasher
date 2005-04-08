@@ -11,7 +11,7 @@
 
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
-#include "LanguageModel.h"
+#include "LanguageModelling/LanguageModel.h"
 
 
 // CDasherNode represents a rectangle and character 
@@ -44,8 +44,8 @@ public:
 	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
 	int Colour() const {return m_iColour;}
-	int GroupColour(int group) const {return m_languagemodel->GetGroupColour(group);}
-	std::string GroupLabel(int group) const {return m_languagemodel->GetGroupLabel(group);}
+	int GroupColour(int group) const {return m_pLanguageModel->GetGroupColour(group);}
+	std::string GroupLabel(int group) const {return m_pLanguageModel->GetGroupLabel(group);}
 	CDasherNode* Parent() const {return m_pParent;}
 
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
@@ -58,7 +58,7 @@ public:
 	void Dump_node() const;                                // diagnostic
 
 	// Set/replace the context
-	void SetContext(CContext *pContext);
+	void SetContext(CLanguageModel::Context Context);
 
 private:
 
@@ -78,9 +78,12 @@ private:
 	int m_iColour;                     // for the advanced colour mode
 
 	const CDasherModel& m_DasherModel;
-	CLanguageModel *m_languagemodel;   // pointer to the language model - in future, could be different for each node	
+
+	// Language Modelling 
+	CLanguageModel* m_pLanguageModel;   // pointer to the language model - in future, could be different for each node	
+	CLanguageModel::Context m_Context;
+
 	CDasherNode *m_pParent;             // pointer to parent - only needed to grab parent context
-	CContext *m_pContext;
 	ControlTree *m_controltree;
 
 
@@ -96,7 +99,11 @@ using namespace Opts;
 /////////////////////////////////////////////////////////////////////////////
 
 inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pParent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=-1, ControlTree *controltree=0)
-	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_iGroup(igroup), m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), m_languagemodel(lm), m_Children(0), m_pParent(pParent), m_pContext(NULL), m_controltree(controltree),m_bForce(false)
+	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_iGroup(igroup), 
+	m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
+	m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), 
+	m_pLanguageModel(lm), m_Children(0), m_pParent(pParent), m_Context(NULL), 
+	m_controltree(controltree),m_bForce(false)
 {
 	/*
 	switch (ColorScheme) {
@@ -141,17 +148,17 @@ inline void CDasherNode::Delete_children()
 inline CDasherNode::~CDasherNode() 
 {
 	Delete_children();
-	if (m_pContext)
-		m_languagemodel->ReleaseContext(m_pContext);
+	if (m_Context)
+		m_pLanguageModel->ReleaseContext(m_Context);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CDasherNode::SetContext(CContext *pContext)
+inline void CDasherNode::SetContext(CLanguageModel::Context Context)
 {
-	if (m_pContext)
-		m_languagemodel->ReleaseContext(m_pContext);
-	m_pContext = pContext;
+	if (m_Context)
+		m_pLanguageModel->ReleaseContext(m_Context);
+	m_Context = Context;
 }
 
 /////////////////////////////////////////////////////////////////////////////

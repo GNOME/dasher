@@ -57,21 +57,21 @@ void CDasherNode::Push_Node()
 
 	// if we haven't got a context then derive it
 	
-	if (m_pContext==NULL)
+	if (! m_Context )
 	{
 		if (m_Symbol!=0)
 		{
 			DASHER_ASSERT (m_pParent !=NULL) ;
 			// Normal symbol - derive context from parent
-			m_pContext = m_languagemodel->CloneContext(m_pParent->m_pContext);
-			m_languagemodel->EnterSymbol(m_pContext,m_Symbol);
+			m_Context = m_pLanguageModel->CloneContext(m_pParent->m_Context);
+			m_pLanguageModel->EnterSymbol(m_Context,m_Symbol);
 		}
 		else
 		{
 			// For new "root" nodes (such as under control mode), we want to 
 			// mimic the root context
-			m_pContext=m_languagemodel->GetEmptyContext();
-			m_languagemodel->EnterText(m_pContext, ". ");
+			m_Context=m_pLanguageModel->CreateEmptyContext();
+			m_pLanguageModel->EnterText(m_Context, ". ");
 
 		}
 
@@ -79,7 +79,7 @@ void CDasherNode::Push_Node()
 
 	m_bAlive=true;
 
-	if (m_Symbol==m_languagemodel->GetControlSymbol() || m_bControlChild==true) {
+	if (m_Symbol==m_pLanguageModel->GetControlSymbol() || m_bControlChild==true) {
 		int i,quantum;
 		ControlTree *controltree;
 		if (m_controltree==NULL) { // Root of the tree 
@@ -121,14 +121,14 @@ void CDasherNode::Push_Node()
 			ChildScheme = Nodes1;
 		}
 
-		m_Children[1]=new CDasherNode(m_DasherModel,this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_languagemodel,false,240);
+		m_Children[1]=new CDasherNode(m_DasherModel,this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_pLanguageModel,false,240);
 
 		while(controltree!=NULL) {
 			i++;
 			if (controltree->colour!=-1) {
-				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,controltree->colour,controltree);
+				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_pLanguageModel,true,controltree->colour,controltree);
 			} else {
-				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_languagemodel,true,(i%99)+11,controltree);
+				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_pLanguageModel,true,(i%99)+11,controltree);
 			}
 			controltree=controltree->next;
 		}
@@ -137,7 +137,7 @@ void CDasherNode::Push_Node()
 
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
-	m_languagemodel->GetProbs(m_pContext,newchars,groups,cum,m_DasherModel.Normalization());
+	m_pLanguageModel->GetProbs(m_Context,newchars,groups,cum,m_DasherModel.Normalization());
 	m_iChildCount=newchars.size();
 	// work out cumulative probs
 	unsigned int i;
@@ -160,11 +160,11 @@ void CDasherNode::Push_Node()
 	ColorSchemes ChildScheme;
 
 	for (i=1;i<m_iChildCount;i++) {
-		if (newchars[i]==this->m_languagemodel->GetSpaceSymbol())
+		if (newchars[i]==this->m_pLanguageModel->GetSpaceSymbol())
 			ChildScheme = SpecialScheme;
 		else
 			ChildScheme = NormalScheme;
-		m_Children[i]=new CDasherNode(m_DasherModel,this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_languagemodel,false,m_languagemodel->GetColour(i));
+		m_Children[i]=new CDasherNode(m_DasherModel,this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_pLanguageModel,false,m_pLanguageModel->GetColour(i));
 	}
 }
 
@@ -174,7 +174,7 @@ void CDasherNode::Recursive_Push_Node(int depth) {
     return;
   }
 
-  if (m_Symbol==m_languagemodel->GetControlSymbol()) {
+  if (m_Symbol==m_pLanguageModel->GetControlSymbol()) {
     return;
   }
 

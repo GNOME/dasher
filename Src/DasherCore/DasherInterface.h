@@ -25,7 +25,7 @@
 #include "AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
-#include "LanguageModel.h"
+#include "LanguageModelling/LanguageModel.h"
 #include "DasherModel.h"
 #include "DashEdit.h"
 #include "DasherView.h"
@@ -178,7 +178,6 @@ public:
 private:
 	CAlphabet* m_Alphabet;
 	CCustomColours* m_Colours;
-	CLanguageModel* m_LanguageModel;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;
 	CDasherScreen* m_DasherScreen;
@@ -189,7 +188,9 @@ private:
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
-	CContext* TrainContext;
+
+	CLanguageModel* m_LanguageModel;
+	CLanguageModel::Context TrainContext;
 	
 	std::string AlphabetID;
 	std::string ColourID;
