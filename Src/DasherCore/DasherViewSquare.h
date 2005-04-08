@@ -12,7 +12,6 @@
 #include "DasherScreen.h"
 #include "DasherModel.h"
 #include "DasherView.h"
-#include "LanguageModel.h"
 
 // An implementation of the DasherView class
 //
