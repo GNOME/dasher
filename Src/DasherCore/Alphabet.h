@@ -57,7 +57,7 @@ public:
 	// defined as its own symbol. }}}
 	void GetSymbols(std::vector<symbol>* Symbols, std::string* Input, bool IsMore) const;
 	
-	void dump() const; // diagnostic
+	void Trace() const; // diagnostic
 	
 	virtual void AddControlSymbol()=0;
 	virtual void DelControlSymbol()=0;

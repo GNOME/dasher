@@ -8,6 +8,7 @@
 
 #include "../Common/Common.h"
 
+
 #include "Alphabet.h"
 #include "AlphabetMap.h"
 
@@ -125,20 +126,20 @@ void CAlphabet::StartNewGroup(int colour, std::string label)
 	m_Groups++;
 }
 
-
+/////////////////////////////////////////////////////////////////////////////
 // diagnostic dump of character set
-void CAlphabet::dump() const {
-// TODO
-/*
-	dchar deb[256];
+
+void CAlphabet::Trace() const 
+{
 	unsigned int i;
-	for (i=1;i<m_vtCharacters.size();i++) {
-		//wsprintf(deb,TEXT("%d %c %d\n"),i,m_vtCharacters[i],m_viGroup[i]); // Windows specific
-		Usprintf(deb,TEXT("%d %c %d\n"),i,m_vtCharacters[i],m_viGroup[i]);
-		DebugOutput(deb);
+	for (i=1;i<m_Characters.size();i++) 
+	{
+		DASHER_TRACEOUTPUT("Symbol %d Character:'%s' Display:'%s' Group %d\n",i,m_Characters[i].c_str(),m_Display[i].c_str(),m_Group[i]);
 	}
-*/
+
 }
+
+/////////////////////////////////////////////////////////////////////////////
 
 int CAlphabet::GetTextColour(symbol Symbol)
 {
