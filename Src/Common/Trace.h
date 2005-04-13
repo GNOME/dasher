@@ -14,7 +14,7 @@
 
 // To use Trace, define DASHER_TRACE in your build files, or uncomment the 
 // following line
-#define DASHER_TRACE
+// #define DASHER_TRACE
 
 // Use the DASHER_TRACEOUTPUT macro to format a message to trace
 // Syntax is identicaly to printf:
