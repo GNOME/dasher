@@ -1,6 +1,9 @@
 #include "WinMenus.h"
 
 #include <comutil.h>
+#include "../../Common/Allocators/SimplePooledAlloc.h"
+
+CSimplePooledAlloc<ControlTree> gControlAlloc(20);
 
 using namespace WinMenus;
 std::vector<HWND> windownames;
@@ -10,8 +13,8 @@ ControlTree *stoptree;
 
 ControlTree* WinMenus::GetWindowMenus()
 {
-	dummytree = new ControlTree;
-	stoptree = new ControlTree;
+	dummytree = gControlAlloc.Alloc();
+	stoptree = gControlAlloc.Alloc();
 	dummytree->pointer=NULL;
 	dummytree->data=0;
 	dummytree->type=1;
@@ -45,10 +48,10 @@ BOOL CALLBACK WinMenus::WindowProc(HWND hwnd, LPARAM lParam)
 
 ControlTree* WinMenus::buildcontroltree()
 {
-  ControlTree *pausetree=new ControlTree;
-  ControlTree *movetree=new ControlTree;
-  ControlTree *deletetree=new ControlTree;
-  ControlTree *speaktree=new ControlTree;
+  ControlTree *pausetree=gControlAlloc.Alloc();
+  ControlTree *movetree=gControlAlloc.Alloc();
+  ControlTree *deletetree=gControlAlloc.Alloc();
+  ControlTree *speaktree=gControlAlloc.Alloc();
   stoptree->pointer=(void*)1;
   stoptree->data=2;
   stoptree->children=menutree;
@@ -91,10 +94,10 @@ ControlTree* WinMenus::buildcontroltree()
 }
 
 ControlTree* WinMenus::buildmovetree(ControlTree *movetree) {
-  ControlTree *lefttree=new ControlTree;
-  ControlTree *righttree=new ControlTree;
-  ControlTree *beginningtree=new ControlTree;
-  ControlTree *endtree=new ControlTree;
+  ControlTree *lefttree=gControlAlloc.Alloc();
+  ControlTree *righttree=gControlAlloc.Alloc();
+  ControlTree *beginningtree=gControlAlloc.Alloc();
+  ControlTree *endtree=gControlAlloc.Alloc();
   lefttree->pointer=(void*)1;
   lefttree->data=11;
   lefttree->children=lefttree;
@@ -127,12 +130,12 @@ ControlTree* WinMenus::buildmovetree(ControlTree *movetree) {
 }
 
 ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
-  ControlTree *forwardtree = new ControlTree;
-  ControlTree *backwardtree = new ControlTree;
-  ControlTree *forwardchar = new ControlTree;
-  ControlTree *forwardword = new ControlTree;
-  ControlTree *backwardchar = new ControlTree;
-  ControlTree *backwardword = new ControlTree;
+  ControlTree *forwardtree = gControlAlloc.Alloc();
+  ControlTree *backwardtree = gControlAlloc.Alloc();
+  ControlTree *forwardchar = gControlAlloc.Alloc();
+  ControlTree *forwardword = gControlAlloc.Alloc();
+  ControlTree *backwardchar = gControlAlloc.Alloc();
+  ControlTree *backwardword = gControlAlloc.Alloc();
 
   forwardtree->pointer=NULL;
   forwardtree->data=0;
@@ -183,9 +186,9 @@ ControlTree* WinMenus::builddeletetree(ControlTree *deletetree) {
 }
 
 ControlTree* WinMenus::buildspeaktree(ControlTree *speaktree) {
-  ControlTree *everythingtree = new ControlTree;
-  ControlTree *newtree = new ControlTree;
-  ControlTree *repeattree = new ControlTree;
+  ControlTree *everythingtree = gControlAlloc.Alloc();
+  ControlTree *newtree = gControlAlloc.Alloc();
+  ControlTree *repeattree = gControlAlloc.Alloc();
 
   everythingtree->pointer=(void*)1;
   everythingtree->data=4;
@@ -222,7 +225,7 @@ ControlTree* WinMenus::ProcessWindows()
 	VariantInit(&AccessibleChild);
 	std::vector<IAccessible*> AccessibleWindows;
 	ControlTree* RootNode;
-	RootNode=new ControlTree;
+	RootNode=gControlAlloc.Alloc();
 	RootNode->parent=NULL;
 	RootNode->children=NULL;
 	RootNode->next=NULL;
@@ -266,7 +269,7 @@ bool WinMenus::AddObjectToTree(IAccessible* AccessibleObject, ControlTree* TreeP
 
 	// Check if we have any children
 
-	ControlTree* NewNode = new ControlTree;
+	ControlTree* NewNode = gControlAlloc.Alloc();
 	NewNode->parent=TreeParent;
 	NewNode->children=NULL;
 	NewNode->next=NULL;
