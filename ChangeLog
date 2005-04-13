@@ -1,3 +1,8 @@
+﻿2005-04-11  David Ward <djw30@mrao.cam.ac.uk>
+
+	* Add Trace mechanism for printf-like debugging (see Common/Trace.h)
+	* Customize for your platform if necessary
+
 2005-04-08  David Ward <djw30@mrao.cam.ac.uk>
 
 	* Replaced CContext class with Context handle

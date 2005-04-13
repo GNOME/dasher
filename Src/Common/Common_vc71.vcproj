@@ -25,7 +25,7 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
@@ -81,7 +81,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
@@ -363,7 +363,16 @@
 		<File
 			RelativePath=".\Platform.h">
 		</File>
+		<File
+			RelativePath=".\Trace.cpp">
+		</File>
+		<File
+			RelativePath=".\Trace.h">
+		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="DevPartner_IsInstrumented"
+			Value="1"/>
 	</Globals>
 </VisualStudioProject>

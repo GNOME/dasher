@@ -321,6 +321,12 @@
 			RelativePath="Platform.h">
 		</File>
 		<File
+			RelativePath="Trace.cpp">
+		</File>
+		<File
+			RelativePath="Trace.h">
+		</File>
+		<File
 			RelativePath="assert.h">
 		</File>
 	</Files>
