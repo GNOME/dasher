@@ -1,4 +1,9 @@
-﻿2005-04-11  David Ward <djw30@mrao.cam.ac.uk>
+﻿2005-04-14  David Ward <djw30@mrao.cam.ac.uk>
+
+	* Fix mem leak when switching alphabets
+	* DasherScreen interface now takes a const pointer to CustomColours
+
+2005-04-11  David Ward <djw30@mrao.cam.ac.uk>
 
 	* Add Trace mechanism for printf-like debugging (see Common/Trace.h)
 	* Customize for your platform if necessary
