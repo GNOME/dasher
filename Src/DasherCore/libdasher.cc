@@ -86,7 +86,7 @@ void handle_display()
     display_callback();
 }
 
-void handle_colour_scheme(CCustomColours *Colours)
+void handle_colour_scheme(const CCustomColours *Colours)
 {
   if (colour_scheme_callback==NULL || Colours==NULL)
     return;

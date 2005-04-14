@@ -112,7 +112,7 @@ public:
 	//! Set a colour scheme
 	//!
 	//! \param ColourScheme A colour scheme that should be used
-	virtual void SetColourScheme(CCustomColours *ColourScheme)=0;
+	virtual void SetColourScheme(const CCustomColours *ColourScheme)=0;
 
 protected:
 	//! Width and height of the screen

@@ -39,7 +39,7 @@ public:
 	void SetFont(std::string Name);
 	void SetFontSize(Dasher::Opts::FontSize size);
 	Dasher::Opts::FontSize GetFontSize() const;
-	void SetColourScheme(Dasher::CCustomColours *);
+	void SetColourScheme(const Dasher::CCustomColours* pColours);
 	void DrawMousePosBox(int which);
 	void SetMousePosDist(int y) {mouseposdist=y;}
 	int GetMousePosDist() {return mouseposdist;}
