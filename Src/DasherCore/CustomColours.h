@@ -19,10 +19,10 @@ class Dasher::CCustomColours
 {
 public:
 	CCustomColours(const CColourIO::ColourInfo& ColourInfo);
-	int GetNumColours() {return m_Red.size();}
-	int GetRed(int colour) {return m_Red[colour];}
-	int GetGreen(int colour) {return m_Green[colour];}
-	int GetBlue(int colour) {return m_Blue[colour];}
+	int GetNumColours() const {return m_Red.size();}
+	int GetRed(int colour) const {return m_Red[colour];}
+	int GetGreen(int colour) const {return m_Green[colour];}
+	int GetBlue(int colour) const {return m_Blue[colour];}
  private:
 	const CColourIO::ColourInfo* m_ColourInfo;
 	std::vector<int> m_Red;	
