@@ -27,7 +27,7 @@ const string CDasherInterface::EmptyString = "";
 CDasherInterface::CDasherInterface()
 	: 
 m_Alphabet(0), 
-m_Colours(0), 
+m_pColours(0), 
 m_LanguageModel(0), 
 m_DasherModel(0), 
 m_DashEditbox(0), 
@@ -68,7 +68,7 @@ CDasherInterface::~CDasherInterface()
 	delete m_DasherView;
 	delete m_ColourIO;
 	delete m_AlphIO;
-	delete m_Colours;
+	delete m_pColours;
 
 	// Do NOT delete Edit box or Screen. This class did not create them.
 }
@@ -323,7 +323,11 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	if (!m_ColourIO)
 		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);
 	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
-	m_Colours = new CCustomColours(m_ColourInfo);
+
+	// delete old colours on editing function
+	std::auto_ptr<CCustomColours> ptrColours(m_pColours);
+
+	m_pColours = new CCustomColours(m_ColourInfo);
 
 	ColourID=m_ColourInfo.ColourID;
 
@@ -333,7 +337,7 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
                 m_SettingsStore->SetStringOption(Keys::COLOUR_ID, ColourID);
 
 	if (m_DasherScreen!=0) {
-	  m_DasherScreen->SetColourScheme(m_Colours);
+	  m_DasherScreen->SetColourScheme(m_pColours);
 	}
 }
 
@@ -394,7 +398,7 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 	m_DasherScreen = NewScreen;
 	m_DasherScreen->SetFont(m_DasherFont);
 	m_DasherScreen->SetFontSize(m_DasherFontSize);
-	m_DasherScreen->SetColourScheme(m_Colours);
+	m_DasherScreen->SetColourScheme(m_pColours);
 	m_DasherScreen->SetInterface(this);
 	ChangeScreen();
 	Redraw();

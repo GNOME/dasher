@@ -177,7 +177,7 @@ public:
 
 private:
 	CAlphabet* m_Alphabet;
-	CCustomColours* m_Colours;
+	CCustomColours* m_pColours;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;
 	CDasherScreen* m_DasherScreen;
