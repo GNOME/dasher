@@ -1,3 +1,11 @@
+2005-04-15  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+
+	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
+	* Data/Translations/training_basque_EU.txt: Added Basque tranining
+	  file.
+	* Data/system.rc/alphabet.basque.xml: Added Basque language support.
+	
+
 ï»¿2005-04-14  David Ward <djw30@mrao.cam.ac.uk>
 
 	* Fix mem leak when switching alphabets
