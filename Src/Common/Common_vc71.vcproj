@@ -187,7 +187,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
