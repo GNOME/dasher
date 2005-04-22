@@ -10,6 +10,8 @@
 #include <time.h>
 #include <dirent.h>
 
+#include <iostream>
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
@@ -1489,6 +1491,18 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data)
   dasher_redraw();
 }
 
+extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data)
+{
+  if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
+    if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton6")) {
+      dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton7")) {
+      dasher_set_parameter_int( INT_LANGUAGEMODEL, 1 );
+    }
+  }
+  
+}
+
 extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
 {
   if (GTK_CHECK_MENU_ITEM(widget)->active==TRUE) {
@@ -1930,6 +1944,20 @@ void parameter_int_callback( int_param p, long int value )
 #endif
       dasher_redraw();
       break;
+
+    case INT_LANGUAGEMODEL: 
+      switch( value ) {
+      case 0:
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6")), TRUE);
+	break;
+      case 1:
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7")), TRUE);
+	break;
+      }
+      break;
+
     default:
       break;
     }

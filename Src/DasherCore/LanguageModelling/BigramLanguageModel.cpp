@@ -12,7 +12,7 @@
 using namespace Dasher;
 ///////////////////////////////////////////////////////////////////
 
-void CBigramLanguageModel::EnterSymbol(Context context, int Symbol) const
+void CBigramLanguageModel::EnterSymbol(Context context, int Symbol)
 {
 }
 

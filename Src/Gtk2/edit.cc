@@ -186,7 +186,7 @@ void gtk2_edit_outputcontrol_callback(void* pointer, int data)
     break;
   case 31:
 	  if (pointer!=NULL) {
-		  wnck_window_activate((WnckWindow *)pointer, gtk_get_current_event_time());
+	    //		  wnck_window_activate((WnckWindow *)pointer, gtk_get_current_event_time());
 	  }
 	  break;
 #endif

@@ -14,6 +14,10 @@
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 #include "LanguageModelling/PPMLanguageModel.h"
+#include "LanguageModelling/WordLanguageModel.h"
+#include "LanguageModelling/BigramLanguageModel.h"
+
+#include <iostream>
 
 namespace {
 	#include "stdio.h"
@@ -371,14 +375,32 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 		delete m_DasherModel; // Have to delete DasherModel, or removing its LanguageModel will confuse it
 		m_DasherModel = 0;
 		delete m_LanguageModel;
-		// TODO Use LanguageModelID to decide which model to use
-		m_LanguageModel = new CPPMLanguageModel(m_Alphabet);
+
+		switch( LanguageModelID ) {
+		case 0:
+		  m_LanguageModel = new CPPMLanguageModel(m_Alphabet);
+		  break;
+		case 1:
+		  m_LanguageModel = new CWordLanguageModel(m_Alphabet);
+		  break;
+		  //		case 2:
+		  // m_LanguageModel = new CBigramLanguageModel(m_Alphabet);
+		  //break;  - This doesn't seem to work yet
+		}
+
 		TrainContext = m_LanguageModel->CreateEmptyContext();
+
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);
 		TrainFile(m_UserLocation+T);
 		CreateDasherModel();
 	}
+
+	if (m_SettingsUI!=0)
+	  m_SettingsUI->ChangeLanguageModel(LanguageModelID);
+        if (m_SettingsStore!=0)
+	  m_SettingsStore->SetLongOption(Keys::LANGUAGE_MODEL_ID, LanguageModelID);	
+
 }
 
 

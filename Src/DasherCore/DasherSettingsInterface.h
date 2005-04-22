@@ -142,6 +142,9 @@ public:
 	//! How far from the centre line should mouse start position boxes be?
 	virtual void SetMousePosDist(int Value) {};
 
+	//! Language Model ID
+	virtual void SetLanguageModelID( int Value ) {};
+
 };
 
 

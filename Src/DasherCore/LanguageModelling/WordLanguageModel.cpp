@@ -1,4 +1,4 @@
-// PPMLanguageModel.h
+// WordLanguageModel.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -7,10 +7,11 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "../../Common/Common.h"
-#include "PPMLanguageModel.h"
+#include "WordLanguageModel.h"
 
 #include <math.h>
 #include <stack>
+#include <iostream>
 using namespace Dasher;
 using namespace std;
 
@@ -19,7 +20,7 @@ typedef unsigned long ulong;
 
 ///////////////////////////////////////////////////////////////////
 
-void CPPMLanguageModel::CPPMContext::dump() 
+void CWordLanguageModel::CWordContext::dump() 
 	// diagnostic output
 {
 	// TODO uncomment this when headers sorted out
@@ -30,16 +31,16 @@ void CPPMLanguageModel::CPPMContext::dump()
 
 
 ////////////////////////////////////////////////////////////////////////
-/// PPMnode definitions 
+/// Wordnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym) const
+CWordLanguageModel::CWordnode *CWordLanguageModel::CWordnode::find_symbol(int sym) const
 // see if symbol is a child of node
 {
 	//  printf("finding symbol %d at node %d\n",sym,node->id);
-	CPPMnode *found=child;
+	CWordnode *found=child;
 	while (found) {
-		if (found->symbol==sym)
+		if (found->sbl==sym)
 			return found;
 		found=found->next;
 	}
@@ -47,9 +48,9 @@ CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym) c
 }
 
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode, int sym,int *update)
+CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* pNode, symbol sym,int *update)
 {
-	CPPMnode *pReturn = pNode->find_symbol(sym);
+	CWordnode *pReturn = pNode->find_symbol(sym);
 	
 	if (pReturn!=NULL)
 	{
@@ -62,7 +63,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	}
 
 	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
-	pReturn->symbol = sym;  
+	pReturn->sbl = sym;  
 	pReturn->next= pNode->child;
 	pNode->child=pReturn;
 	return pReturn;		
@@ -71,32 +72,34 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 
 
 /////////////////////////////////////////////////////////////////////
-// CPPMLanguageModel defs
+// CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(const CAlphabet* pAlphabet)
-  : CLanguageModel(pAlphabet), max_order( 5 ), 
+CWordLanguageModel::CWordLanguageModel(const CAlphabet* pAlphabet)
+  : CLanguageModel(pAlphabet), max_order( 0 ), 
 	m_NodeAlloc(8192), m_ContextAlloc(1024)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
-	m_pRoot->symbol = -1;
-	m_rootcontext=new CPPMContext(m_pRoot,0);
+	m_pRoot->sbl = -1;
+	m_rootcontext=new CWordContext(m_pRoot,0);
+
+	nextid = 8192; // Start of indices for words - may need to increase this for *really* large alphabets
 }
 
 
-CPPMLanguageModel::~CPPMLanguageModel()
+CWordLanguageModel::~CWordLanguageModel()
 {
 
 	delete m_rootcontext;
 
 	// A non-recursive node deletion algorithm using a stack
-/*	std::stack<CPPMnode*> deletenodes;
+/*	std::stack<CWordnode*> deletenodes;
 	deletenodes.push(m_pRoot);
 	while (!deletenodes.empty())
 	{
-		CPPMnode* temp = deletenodes.top();
+		CWordnode* temp = deletenodes.top();
 		deletenodes.pop();
-		CPPMnode* next;
+		CWordnode* next;
 		do	
 		{
 			next = temp->next;
@@ -115,12 +118,23 @@ CPPMLanguageModel::~CPPMLanguageModel()
 
 }
 
+int CWordLanguageModel::lookup_word( const std::string &w ) {
+
+  if( dict[ w ] == 0 ) {
+    dict[ w ] = nextid;
+    ++nextid;
+  }
+
+  return dict[ w ];
+  
+}
+
 /////////////////////////////////////////////////////////////////////
 // get the probability distribution at the context
 
-bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
+bool CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
 {
-	const CPPMContext *ppmcontext= (const CPPMContext *)(context);
+	const CWordContext *ppmcontext= (const CWordContext *)(context);
 	
 	
 	int modelchars=GetNumberModelChars();
@@ -137,7 +151,7 @@ bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	for( unsigned int i(0); i < valid.size(); ++i )
 	  valid[i] = isRealSymbol( i );
 	
-	CPPMnode *temp,*s; 
+	CWordnode *temp,*s; 
 	//	int loop,total;
 	int sym; 
 	ulong size_of_slice;
@@ -153,7 +167,7 @@ bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		total=0;
 		s=temp->child;
 		while (s) {
-		  sym=s->symbol; 
+		  sym=s->sbl; 
 		  if (!exclusions[sym] && valid[sym]) {
 		    if( sym == GetControlSymbol() ) {
 		      // Do nothing
@@ -180,16 +194,16 @@ bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		  size_of_slice=tospend;
 		  s=temp->child;
 		  while (s) {
-		    if (!exclusions[s->symbol] && valid[s->symbol]) {
+		    if (!exclusions[s->sbl] && valid[s->sbl]) {
 		      //		      exclusions[s->symbol]=1; 
-		      if( s->symbol == GetControlSymbol() ) {
+		      if( s->sbl == GetControlSymbol() ) {
 			// Do nothing
 		      } 
-		      else if( s->symbol == GetSpaceSymbol() ) {
+		      else if( s->sbl == GetSpaceSymbol() ) {
 			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-			probs[s->symbol]+=p;
+			probs[s->sbl]+=p;
 			tospend-=p;
-			exclusions[s->symbol]=1;
+			exclusions[s->sbl]=1;
 			if( GetControlSymbol() != -1 )
 			  if( !exclusions[GetControlSymbol()] ) {
 			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
@@ -199,10 +213,13 @@ bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 			  }
 		      }
 		      else {
-			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-			probs[s->symbol]+=p;
+
+	ulong p=(((size_of_slice/2)*(2*s->count-1))/ulong(total)); // Changed to multiply before divide to avoid underflow problems when counts are really high - however, there's a chance this will cause overflow problems
+
+	//			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+			probs[s->sbl]+=p;
 			tospend-=p;	
-			exclusions[s->symbol]=1;
+			exclusions[s->sbl]=1;
 		      }
 		    }
 		    s=s->next;
@@ -271,20 +288,87 @@ bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 }
 
 
-void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sym)
+void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &context ) {
+
+  if( max_order == 0 ) {
+    // Don't need to worry about words now:
+
+    context.head = m_pRoot;
+    context.order = 0;
+  }
+ 
+	  context.head = context.word_head;
+	  context.order = context.word_order;
+
+	  CWordnode *new_head;
+
+	  int new_sbl( lookup_word( context.current_word ) );
+
+	  CWordnode *new_tmp;
+	  CWordnode *prev_tmp( NULL );
+
+	  CWordnode *tmp( context.head );
+	    
+	  while( tmp != NULL ) {
+	  
+	    new_tmp = tmp->find_symbol( new_sbl );
+	    
+	    if( new_tmp == NULL ) {
+	      new_tmp = m_NodeAlloc.Alloc();  // count is initialized to 1
+	      new_tmp->sbl = new_sbl;  
+	      new_tmp->next= tmp->child;
+	      tmp->child=new_tmp;
+	    }
+	    
+	    if( prev_tmp != NULL )
+	      prev_tmp->vine = new_tmp;
+	    else
+	      context.head = new_tmp;
+	    
+	    prev_tmp = new_tmp;
+	    tmp = tmp->vine;
+	  }
+
+	  prev_tmp->vine = m_pRoot;
+
+	  context.current_word = "";
+	  ++context.order;
+	  ++context.word_order;
+	  
+	  if (context.order>max_order){
+	    context.head=context.head->vine;
+	    context.order--;
+	    context.word_order--;
+	  }
+	  
+	  context.word_head = context.head;
+}
+
+void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,symbol sym)
 	// add symbol to the context
 	// creates new nodes, updates counts
 	// and leaves 'context' at the new context
+
 {
+
 	// sanity check
 	if (sym==0 || sym>=GetNumberModelChars())
 		return;
 	
-	CPPMnode *vineptr,*temp;
+	CWordnode *vineptr,*temp;
 	int updatecnt=1;
 	
 	temp=context.head->vine;
 	context.head= AddSymbolToNode(context.head,sym,&updatecnt);
+
+	// Add the new symbol to the string buffer
+
+	if( max_order > 0 ) {
+	  char sbuffer[5];
+	  snprintf( sbuffer, 5, "%04d", sym );
+	  context.current_word.append( sbuffer );
+	}
+
 	vineptr=context.head;
 	context.order++;
 	
@@ -293,22 +377,42 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 		vineptr=vineptr->vine;
 		temp=temp->vine;
 	}
-	vineptr->vine= m_pRoot;
-	if (context.order>max_order){
-		context.head=context.head->vine;
-		context.order--;
+	vineptr->vine= m_pRoot;	
+
+	// If we just added a space then reset the context.
+
+	if( sym == GetSpaceSymbol() ) {
+	  //	  context.order = 0;
+	  //	  context.head = m_pRoot;
+
+	  
+	  CollapseContext( context );
 	}
+
+
 }
 
 /////////////////////////////////////////////////////////////////////
 // update context with symbol 'Symbol'
 
-void CPPMLanguageModel::EnterSymbol(Context c, int Symbol)
+void CWordLanguageModel::EnterSymbol(Context c, int Symbol) // FIXME - lost const
 {
-	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
+	CWordLanguageModel::CWordContext& context = * (CWordContext *) (c);
 	
-	CPPMnode *find;
+	CWordnode *find;
+
+	if( max_order > 0 ) {
+	  char sbuffer[5];
+	  snprintf( sbuffer, 5, "%04d", Symbol );
+	  context.current_word.append( sbuffer );
+	}
+
+	if( Symbol == GetSpaceSymbol() ) {
+	  CollapseContext( context );
+	  return;
+	}
 	
+
 	while (context.head) {
 		find =context.head->find_symbol(Symbol);
 		if (find) {
@@ -331,14 +435,14 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol)
 
 /////////////////////////////////////////////////////////////////////
 
-void CPPMLanguageModel::LearnSymbol(Context c, int Symbol)
+void CWordLanguageModel::LearnSymbol(Context c, int Symbol)
 {
-	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
+	CWordLanguageModel::CWordContext& context = * (CWordContext *) (c);
 	AddSymbol(context, Symbol);
 }
 
 
-void CPPMLanguageModel::dumpSymbol(int sym)
+void CWordLanguageModel::dumpSymbol(symbol sym)
 {
 	if ((sym <= 32) || (sym >= 127))
 		printf( "<%d>", sym );
@@ -347,7 +451,7 @@ void CPPMLanguageModel::dumpSymbol(int sym)
 }
 
 
-void CPPMLanguageModel::dumpString( char *str, int pos, int len )
+void CWordLanguageModel::dumpString( char *str, int pos, int len )
 	// Dump the string STR starting at position POS
 {
 	char cc;
@@ -362,14 +466,14 @@ void CPPMLanguageModel::dumpString( char *str, int pos, int len )
 }
 
 
-void CPPMLanguageModel::dumpTrie( CPPMLanguageModel::CPPMnode *t, int d )
-	// diagnostic display of the PPM trie from node t and deeper
+void CWordLanguageModel::dumpTrie( CWordLanguageModel::CWordnode *t, int d )
+	// diagnostic display of the Word trie from node t and deeper
 {
 //TODO
 /*
 	dchar debug[256];
 	int sym;
-	CPPMnode *s;
+	CWordnode *s;
 	Usprintf( debug,TEXT("%5d %7x "), d, t );
 	//TODO: Uncomment this when headers sort out
 	//DebugOutput(debug);
@@ -399,8 +503,8 @@ void CPPMLanguageModel::dumpTrie( CPPMLanguageModel::CPPMnode *t, int d )
 }
 
 
-void CPPMLanguageModel::dump()
-	// diagnostic display of the whole PPM trie
+void CWordLanguageModel::dump()
+	// diagnostic display of the whole Word trie
 {
 // TODO:
 /*

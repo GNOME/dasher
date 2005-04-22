@@ -123,6 +123,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetBoolDefault(CONTROL_MODE, false);
 	this->ControlMode(Store->GetBoolOption(CONTROL_MODE));
 
+	Store->SetLongDefault(LANGUAGE_MODEL_ID, 0);
+	this->ChangeLanguageModel( Store->GetLongOption( LANGUAGE_MODEL_ID ) );
+
 	// The following standard options don't have sensible cross-platform or cross-language defaults.
 	// "" or 0 will have to mean "do something sensible for this user and platform"
 	// The user may have saved a preference for some of these options though:
@@ -130,8 +133,10 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	
 	this->ChangeAlphabet(Store->GetStringOption(ALPHABET_ID));
 
-	// FIXME - need to work out why this breaks stuff
-	//	this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
+	// FIXME - need to work out why this breaks stuff - it seems
+	//to work a few lines back, so perhaps it should be done
+	//before alphabet is set
+	//this->ChangeLanguageModel(Store->GetLongOption(LANGUAGE_MODEL_ID));
 	this->ChangeView(Store->GetLongOption(VIEW_ID));
 	
 	// Fonts

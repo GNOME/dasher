@@ -44,7 +44,7 @@ public:
 	////////////////////////////////////////////////////////////////////////////
 
 	// update context with a character:
-	virtual void EnterSymbol(Context context, symbol Symbol) const =0;
+	virtual void EnterSymbol(Context context, symbol Symbol) =0; // FIXME - lost const
 	
 	// add character to the language model:
 	virtual void LearnSymbol(Context context, symbol Symbol) =0;
@@ -69,6 +69,10 @@ public:
 	std::string GetGroupLabel(int group) const;
 
 	void SetUniform( int _uniform ) { m_uniform = _uniform; };
+
+	virtual const char *defaultContextString() const {
+	  return ". ";
+	};
 
 protected:
 	int GetNumberModelChars() const {return m_pcAlphabet->GetNumberSymbols();}

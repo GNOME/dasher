@@ -33,7 +33,7 @@ public:
 	void ReleaseContext(Context context);
 	Context CloneContext(Context context);
 	
-	void EnterSymbol(Context context, int Symbol) const;
+	void EnterSymbol(Context context, int Symbol);
 	void LearnSymbol(Context context, int Symbol);
 	
 	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);

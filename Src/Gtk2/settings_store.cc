@@ -1,5 +1,7 @@
 #include "settings_store.h"
 
+#include <iostream>
+
 GConfClient *the_gconf_client;
 extern bool training;
 

@@ -12,7 +12,7 @@ void handle_parameter_bool( bool_param p, bool value );
 
 void handle_blank();
 void handle_display();
-void handle_colour_scheme(CCustomColours *Colours);
+void handle_colour_scheme(const CCustomColours *Colours);
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme);
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number);

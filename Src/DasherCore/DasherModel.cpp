@@ -9,6 +9,8 @@
 #include "../Common/Common.h"
 #include "DasherModel.h"
 
+#include <iostream>
+
 using namespace Dasher;
 using namespace std;
 
@@ -231,7 +233,8 @@ void CDasherModel::Start()
 		if (ContextString.size()==0) {
 		  // If there is no root context, pretend that we've just
 		  // finished a sentence
-		  ContextString=". " + ContextString;
+
+		  ContextString=m_languagemodel->defaultContextString();
 		}
 		m_languagemodel->EnterText(therootcontext, ContextString);
 		m_languagemodel->ReleaseContext(LearnContext);
