@@ -401,6 +401,8 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
         if (m_SettingsStore!=0)
 	  m_SettingsStore->SetLongOption(Keys::LANGUAGE_MODEL_ID, LanguageModelID);	
 
+	Start();
+
 }
 
 
