@@ -105,7 +105,7 @@ inline	void CDelayedDraw::Draw(CDasherScreen& screen)
 		CTextString& draw = m_DrawTextString[i];
 		screen.DrawText( draw.m_String, draw.m_x, draw.m_y, draw.m_iSize);
 	}
-	m_DrawTextSymbol.clear();
+	m_DrawTextString.clear();
 
 }
 
