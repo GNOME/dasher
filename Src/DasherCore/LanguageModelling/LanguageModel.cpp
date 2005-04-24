@@ -17,8 +17,8 @@ using namespace std;
 
 ///////////////////////////////////////////////////////////////////
 
-CLanguageModel::CLanguageModel(const CAlphabet* pcAlphabet)
-	: m_pcAlphabet(pcAlphabet)
+CLanguageModel::CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params)
+  : m_pcAlphabet(pcAlphabet), params( _params )
 {
 	m_uniform = 50;
 }

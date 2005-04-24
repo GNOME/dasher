@@ -55,11 +55,12 @@ GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *vpane;
 GtkFontSelectionDialog *dasher_fontselector, *edit_fontselector;
-GtkTreeSelection *alphselection, *colourselection;
-GtkWidget *alphabettreeview, *colourtreeview;
+GtkTreeSelection *alphselection, *colourselection, *lmsettingsselection;
+GtkWidget *alphabettreeview, *colourtreeview, *lmsettingstreeview;
 GtkWidget *preferences_window;
 GtkListStore *alph_list_store;
 GtkListStore *colour_list_store;
+GtkListStore *lmsettings_list_store;
 GladeXML *widgets;
 GtkWidget *open_filesel;
 GtkWidget *save_filesel;
@@ -246,6 +247,61 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
   }
 }
 
+extern "C" void lmsettings_edited_callback(GtkCellRendererText *cell, gchar *path_string, gchar *new_text, gpointer user_data) {
+
+  GtkTreeModel *model;
+  model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+
+  GtkTreeIter iter;
+  gtk_tree_model_get_iter_from_string( model, &iter, path_string );
+
+  gchar *gv;
+  gtk_tree_model_get( model, &iter, 0, &gv, -1 );
+
+  if( strcmp( gv, "LMMaxOrder" ) == 0 )
+    dasher_set_parameter_int( INT_LM_MAXORDER, atoi( new_text ) );
+  else if( strcmp( gv, "LMBackoffConst" ) == 0 )
+    dasher_set_parameter_int( INT_LM_BACKOFFCONST, atoi( new_text ) );
+
+}
+
+extern "C" void
+generate_lm_options(GtkWidget *widget, gpointer user_data) {
+  GtkTreeViewColumn *column; 
+  GtkTreeIter lmsettingsiter;
+
+  lmsettingstreeview = glade_xml_get_widget(widgets,"lmsettingstree");  
+
+  gtk_widget_realize(lmsettingstreeview);
+
+  lmsettings_list_store = gtk_list_store_new(2,G_TYPE_STRING, G_TYPE_LONG);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(lmsettingstreeview), GTK_TREE_MODEL(lmsettings_list_store));
+  lmsettingsselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(lmsettingstreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(lmsettingsselection),GTK_SELECTION_BROWSE);
+  column = gtk_tree_view_column_new_with_attributes ("Lmsettings",gtk_cell_renderer_text_new(),"text",0,NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview),column);
+
+  GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+  g_object_set(renderer, "editable", TRUE, NULL);
+
+  
+  column = gtk_tree_view_column_new_with_attributes ("Lmsettingsvals",GTK_CELL_RENDERER(renderer),"text",1,NULL);
+
+  g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
+
+  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview),column);
+
+  // Clear the contents of the lmsettings list
+  gtk_list_store_clear( lmsettings_list_store );
+
+  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 5, -1 );
+
+  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
+ 
+}
+
 extern "C" void 
 generate_preferences(GtkWidget *widget, gpointer user_data) { 
   // We need to populate the lists of alphabets and colours
@@ -322,6 +378,9 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
     }
 
   }
+
+
+  
 
 }
 
@@ -1351,6 +1410,9 @@ void interface_setup(GladeXML *xml) {
   if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
     buttons[9].y=0;
   }
+
+  generate_lm_options(NULL, NULL);
+
 }
 
 void
@@ -1843,7 +1905,11 @@ void parameter_double_callback( double_param p, double value )
 }
 
 void parameter_int_callback( int_param p, long int value )
-{
+{ 
+
+  GtkTreeModel *model;
+  GtkTreeIter iter;
+
   switch(p)
     {
     case INT_ORIENTATION:
@@ -1956,6 +2022,20 @@ void parameter_int_callback( int_param p, long int value )
 	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7")), TRUE);
 	break;
       }
+      break;
+
+    case INT_LM_MAXORDER:
+      // FIXME - this seems a bit hacky
+      
+      model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+      gtk_tree_model_get_iter_from_string( model, &iter, "0" );
+      gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
+      break;
+
+    case INT_LM_BACKOFFCONST: 
+      model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+      gtk_tree_model_get_iter_from_string( model, &iter, "1" );
+      gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
       break;
 
     default:

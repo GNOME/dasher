@@ -23,7 +23,7 @@ namespace Dasher
 class CBigramLanguageModel : public CLanguageModel, private NoClones
 {
 public:
-	CBigramLanguageModel(const CAlphabet* pcAlphabet);
+	CBigramLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
 	virtual ~CBigramLanguageModel();
 
 	Context CreateEmptyContext();

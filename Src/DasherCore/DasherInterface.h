@@ -26,6 +26,7 @@
 #include "CustomColours.h"
 #include "ColourIO.h"
 #include "LanguageModelling/LanguageModel.h"
+#include "LanguageModelling/LanguageModelParams.h"
 #include "DasherModel.h"
 #include "DashEdit.h"
 #include "DasherView.h"
@@ -123,6 +124,7 @@ public:
 	std::string GetCurrentColours();
 	void ChangeMaxBitRate(double NewMaxBitRate);
 	void ChangeLanguageModel(unsigned int NewLanguageModelID);
+	void ChangeLMOption( const std::string &pname, long int Value );
 	void ChangeView(unsigned int NewViewID);
 	void ChangeOrientation(Opts::ScreenOrientations Orientation);
 	void SetFileEncoding(Opts::FileEncodingFormats Encoding);
@@ -177,6 +179,7 @@ public:
 
 private:
 	CAlphabet* m_Alphabet;
+	CLanguageModelParams *m_Params;
 	CCustomColours* m_pColours;
 	CDasherModel* m_DasherModel;
 	CDashEditbox* m_DashEditbox;

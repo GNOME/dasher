@@ -51,6 +51,11 @@ namespace Keys {
         const std::string UNIFORM = "UniformTimes1000";
 	const std::string YSCALE = "YScaling";
 	const std::string MOUSEPOSDIST = "MousePositionBoxDistance";
+  
+  // Language model options - to eventually be made more dynamic
+
+  const std::string LM_MAX_ORDER = "LMMaxOrder";
+  const std::string LM_BACKOFF_CONST = "LMBackoffConst";
 
 	// string options
 	const std::string ALPHABET_ID = "AlphabetID";
@@ -122,6 +127,12 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	// This has to be done before the alphabet is set
 	Store->SetBoolDefault(CONTROL_MODE, false);
 	this->ControlMode(Store->GetBoolOption(CONTROL_MODE));
+
+	Store->SetLongDefault(LM_MAX_ORDER, 5 );
+	this->ChangeLMOption( LM_MAX_ORDER, Store->GetLongOption( LM_MAX_ORDER ) );
+
+	Store->SetLongDefault(LM_BACKOFF_CONST, 100 );
+	this->ChangeLMOption( LM_BACKOFF_CONST, Store->GetLongOption( LM_BACKOFF_CONST ) );
 
 	Store->SetLongDefault(LANGUAGE_MODEL_ID, 0);
 	this->ChangeLanguageModel( Store->GetLongOption( LANGUAGE_MODEL_ID ) );

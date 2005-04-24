@@ -144,6 +144,9 @@ public:
 
 	//! Language Model ID
 	virtual void SetLanguageModelID( int Value ) {};
+	
+	//! Language Model Option
+	virtual void ChangeLMOption( const std::string &pname, long int Value ) {};
 
 };
 

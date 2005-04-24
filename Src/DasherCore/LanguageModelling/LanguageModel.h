@@ -9,6 +9,8 @@
 #ifndef __LanguageModelling_LanguageModel_h__
 #define __LanguageModelling_LanguageModel_h__
 
+#include "LanguageModelParams.h"
+
 #include <vector>
 #include <string>
 
@@ -23,11 +25,11 @@ class Dasher::CLanguageModel
 {
 public:
 
-	CLanguageModel(const CAlphabet* pcAlphabet);
+	CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
 	virtual ~CLanguageModel() {}
 
 	// Handle for a language model context
-	// NULL is reserved
+	// NULL is reserved --- FIXME - NULL is a pointer, not an int
 	typedef size_t Context;
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -70,7 +72,15 @@ public:
 
 	void SetUniform( int _uniform ) { m_uniform = _uniform; };
 
+	//	void HandleIntParameter( const std::string &pname, long int value ) {
+	//	  if( !SetIntParameter( pname, value ) ) {
+	//    // Handle global parametes here.
+	//  }
+	//	}
+
+
 	virtual const char *defaultContextString() const {
+	  // Default context string for new documents - replace this if your language model needs something different.
 	  return ". ";
 	};
 
@@ -79,9 +89,11 @@ protected:
 	
 	// diagnostic info:
 	virtual void dump() {}
+	CLanguageModelParams *params;
 	
 private:
 	const CAlphabet* m_pcAlphabet;
+
 	int m_uniform;     // Fraction to allocate to uniform dist. (*1000)
 };
 

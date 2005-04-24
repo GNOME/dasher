@@ -26,7 +26,7 @@ namespace Dasher
 class CPPMLanguageModel : public CLanguageModel, private NoClones
 {
 public:
-	CPPMLanguageModel(const CAlphabet* pAlphabet);
+	CPPMLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params);
 	virtual ~CPPMLanguageModel();
 	
 	Context CreateEmptyContext();
@@ -38,6 +38,7 @@ public:
 	
 	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
 	virtual bool GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const;
+
 	
 	void dump();
 	
@@ -77,6 +78,7 @@ private:
 	CPPMnode* m_pRoot;
 
 	int max_order;
+	double backoff_const;
 
 	mutable CSimplePooledAlloc<CPPMnode> m_NodeAlloc;
 	CPooledAlloc<CPPMContext> m_ContextAlloc;

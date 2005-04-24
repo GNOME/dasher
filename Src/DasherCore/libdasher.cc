@@ -332,6 +332,12 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_UNIFORM:
       interface->SetUniform(value);
       break;
+    case INT_LM_MAXORDER:
+      interface->ChangeLMOption( "LMMaxOrder", value ); // FIXME - repeated translation of references to parameters is silly
+      break;
+    case INT_LM_BACKOFFCONST:
+      interface->ChangeLMOption( "LMBackoffConst", value );
+      break;
     default:
       break;
     }
@@ -419,6 +425,10 @@ void dasher_set_encoding( Dasher::Opts::FileEncodingFormats encoding )
 {
   interface->SetFileEncoding( encoding );
 }
+
+//void dasher_set_lm_parameter( const char *pname, int value ) {
+//  interface->ChangeLMOption( pname, value );
+//}
 
 void dasher_train_file( const char *filename )
 {

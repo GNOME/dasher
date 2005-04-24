@@ -12,7 +12,7 @@ enum string_param{ STRING_ALPHABET,
 		   STRING_DASHERFONT, 
 		   STRING_USERDIR,
 		   STRING_SYSTEMDIR,
-		   STRING_COLOUR};
+		   STRING_COLOUR };
 
 enum double_param{ DOUBLE_MAXBITRATE };
 
@@ -26,7 +26,9 @@ enum int_param{ INT_LANGUAGEMODEL,
 		INT_ORIENTATION,
 		INT_ENCODING,
 		INT_UNIFORM,
-		INT_ONEBUTTON};
+		INT_ONEBUTTON,
+		INT_LM_MAXORDER,
+		INT_LM_BACKOFFCONST };
 
 enum bool_param{ BOOL_DIMENSIONS, 
 		 BOOL_EYETRACKER,
@@ -69,6 +71,8 @@ void dasher_set_parameter_bool( bool_param p, bool value );
 
 void dasher_set_orientation( Opts::ScreenOrientations orient );
 void dasher_set_encoding( Opts::FileEncodingFormats encoding );
+
+//void dasher_set_lm_parameter( const char *pname, int value );
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) );
 void dasher_set_double_callback( void(*_cb)( double_param, double ) );

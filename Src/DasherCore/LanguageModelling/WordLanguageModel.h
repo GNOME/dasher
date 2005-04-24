@@ -29,7 +29,7 @@ namespace Dasher
 class CWordLanguageModel : public CLanguageModel, private NoClones
 {
 public:
-	CWordLanguageModel(const CAlphabet* pAlphabet);
+	CWordLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params);
 	virtual ~CWordLanguageModel();
 	
 	Context CreateEmptyContext();
@@ -43,7 +43,6 @@ public:
 	
 	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
 	virtual bool GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const;
-	
 	void dump();
 	
 private:

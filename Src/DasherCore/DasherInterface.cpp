@@ -59,6 +59,7 @@ m_DasherFontSize(Opts::Normal),
 m_EditFont(""), 
 m_EditFontSize(0)
 {
+  m_Params = new CLanguageModelParams;
 }
 
 
@@ -68,6 +69,7 @@ CDasherInterface::~CDasherInterface()
 		m_LanguageModel->ReleaseContext(TrainContext);
 	delete m_DasherModel;   // The order of some of these deletions matters
 	delete m_LanguageModel; // eg DasherModel has a pointer to LanguageModel.
+	delete m_Params;
 	delete m_Alphabet;      // DM baulks if LM is deleted before it is.
 	delete m_DasherView;
 	delete m_ColourIO;
@@ -378,10 +380,10 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 
 		switch( LanguageModelID ) {
 		case 0:
-		  m_LanguageModel = new CPPMLanguageModel(m_Alphabet);
+		  m_LanguageModel = new CPPMLanguageModel(m_Alphabet, m_Params);
 		  break;
 		case 1:
-		  m_LanguageModel = new CWordLanguageModel(m_Alphabet);
+		  m_LanguageModel = new CWordLanguageModel(m_Alphabet, m_Params);
 		  break;
 		  //		case 2:
 		  // m_LanguageModel = new CBigramLanguageModel(m_Alphabet);
@@ -403,6 +405,17 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 
 	Start();
 
+}
+
+void CDasherInterface::ChangeLMOption( const std::string &pname, long int Value ) {
+  m_Params->SetValue( pname, Value );
+
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetLongOption( pname, Value);
+
+  if (m_SettingsUI!=0)
+    m_SettingsUI->ChangeLMOption( pname, Value );
+	
 }
 
 

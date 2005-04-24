@@ -74,9 +74,8 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 // CPPMLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(const CAlphabet* pAlphabet)
-  : CLanguageModel(pAlphabet), max_order( 5 ), 
-	m_NodeAlloc(8192), m_ContextAlloc(1024)
+CPPMLanguageModel::CPPMLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params)
+  : CLanguageModel(pAlphabet, _params), m_NodeAlloc(8192), m_ContextAlloc(1024)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->symbol = -1;
@@ -294,7 +293,10 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 		temp=temp->vine;
 	}
 	vineptr->vine= m_pRoot;
-	if (context.order>max_order){
+
+	max_order = params->GetValue( std::string( "LMMaxOrder" ) );
+
+	while (context.order>max_order){
 		context.head=context.head->vine;
 		context.order--;
 	}

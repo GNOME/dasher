@@ -60,6 +60,18 @@ class dasher_ui : public CDasherSettingsInterface
       handle_parameter_int( INT_LANGUAGEMODEL, NewLanguageModelID );
     };
 
+  void ChangeLMOption( const std::string &pname, long int Value )
+    {
+      // FIXME - all this should be much more flexible
+
+      if( pname == "LMMaxOrder" ) {
+	handle_parameter_int( INT_LM_MAXORDER, Value ); 
+      }
+      else if( pname == "LMBackoffConst" ) {
+	handle_parameter_int( INT_LM_BACKOFFCONST, Value );
+      }
+    };
+
   void ChangeView(unsigned int NewViewID)
     {
       handle_parameter_int( INT_VIEW, NewViewID );
