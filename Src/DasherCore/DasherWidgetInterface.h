@@ -34,13 +34,12 @@ public:
 	//! at the correct speed
 	virtual void TapOn(int MouseX, int MouseY, unsigned long Time)=0;
 
-	//! Draw the mouse position
-	//
-	//! Gives a coordinate that the mouse position should be shown at
-	//! \param MouseX The mouse X coordinate, in screen coordinates
-	//! \param MouseY The mouse Y coordinate, in screen coordinates
-	virtual void DrawMousePos(int MouseX, int MouseY)=0;
+
+	//! Draw the mouse position box
+	// \param iWhichBox 0 - no box, 1 - upper box, 2 - lower box
+	virtual void SetDrawMousePosBox(int iWhichBox)=0;
 	
+
 	//! Signal a location that should be jumped to
 	//
 	//! Signal a location that should be jumped to. Mostly useful for
@@ -72,8 +71,17 @@ public:
 	//! Signal that the core should redraw the screen
 	virtual void Redraw()=0;
 	
+
+	//! Signal that the core should redraw the screen
+	//! \param MouseX The mouse X coordinate, in screen coordinates
+	//! \param MouseY The mouse Y coordinate, in screen coordinates
+	//! Mouse co-ordinates are used to render mouse-dependent objects
+	virtual void Redraw(int MouseX, int MouseY)=0;
+
 	//! Signal that the core should rerender the screen without displaying it
 	virtual void Render()=0;
+
+
 
 	// The widgets need to tell the engine when they have been affected
 	// by external interaction
