@@ -45,6 +45,10 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 		AddChar(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 		SetSpaceSymbol();
 	}
+
+#ifdef DASHER_TRACE
+	Trace();
+#endif
 }
 
 void CCustomAlphabet::AddControlSymbol() {
