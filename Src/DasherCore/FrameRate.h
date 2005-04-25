@@ -98,11 +98,10 @@ inline void CFrameRate::NewFrame(unsigned long Time)
 		if (m_iSteps==0)
 			m_iSteps=1;
 
-	//	dchar debug[256];
-	//		_stprintf(debug,TEXT("fr %f Steps %d samples %d time2 %d rxmax %f\n"),fr,Steps,samples,time2,RXmax);
-	//	OutputDebugString(debug);
+		DASHER_TRACEOUTPUT("Fr %f Steps %d Samples %d Time2 %d rxmax %f\n",m_dFr,m_iSteps,m_iSamples,m_iTime2,m_dRXmax);
 	
 	}
+
 }
 
 inline void CFrameRate::Reset(unsigned long Time)
