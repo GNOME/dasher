@@ -10,21 +10,31 @@
 #include "BigramLanguageModel.h"
 
 using namespace Dasher;
+
+/////////////////////////////////////////////////////////////////////////////
+
+CBigramLanguageModel::CBigramLanguageModel(const CSymbolAlphabet& SymbolAlphabet)
+  : CLanguageModel(SymbolAlphabet), m_ContextAlloc(1024)
+{
+
+}
+
 ///////////////////////////////////////////////////////////////////
 
-void CBigramLanguageModel::EnterSymbol(Context context, int Symbol)
+void CBigramLanguageModel::EnterSymbol(Context context, int Symbol) const
 {
 }
+
+///////////////////////////////////////////////////////////////////
 
 void CBigramLanguageModel::LearnSymbol(Context context, int Symbol)
 {
 }
 
-bool CBigramLanguageModel::GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const
+///////////////////////////////////////////////////////////////////
+
+void CBigramLanguageModel::GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const
 {
-	return true;
 }
 
 ///////////////////////////////////////////////////////////////////
-
-CBigramLanguageModel blm(NULL);

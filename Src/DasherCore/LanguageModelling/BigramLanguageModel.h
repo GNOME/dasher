@@ -23,34 +23,32 @@ namespace Dasher
 class CBigramLanguageModel : public CLanguageModel, private NoClones
 {
 public:
-	CBigramLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
+	CBigramLanguageModel(const CSymbolAlphabet& Info);
+//=======
+//	CBigramLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
+//>>>>>>> 1.3
 	virtual ~CBigramLanguageModel();
 
 	Context CreateEmptyContext();
 	void ReleaseContext(Context context);
 	Context CloneContext(Context context);
 	
-	void EnterSymbol(Context context, int Symbol);
+	void EnterSymbol(Context context, int Symbol) const;
 	void LearnSymbol(Context context, int Symbol);
 	
-	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
-	virtual bool GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const;
+	virtual void GetProbs(Context context, std::vector<unsigned int> &Probs, int iSumProbs) const;
 
 private:
 
 	class CContext
 	{
-
+		int m_last;
 	};
 
 
 	CPooledAlloc<CContext> m_ContextAlloc;
 
 };
-
-////////////////////////////////////////////////////////////////////////
-// Inline functions 
-////////////////////////////////////////////////////////////////////////
 
 ///////////////////////////////////////////////////////////////////
 

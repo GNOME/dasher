@@ -9,13 +9,12 @@
 #ifndef __LanguageModelling_LanguageModel_h__
 #define __LanguageModelling_LanguageModel_h__
 
-#include "LanguageModelParams.h"
+// DJW_TODO - reintegrate PJC's changes
+// PJC_TODO - commit LanguageModelParams.h
+//#include "LanguageModelParams.h" 
 
+#include "SymbolAlphabet.h"
 #include <vector>
-#include <string>
-
-#include "../Alphabet.h"
-#include "../DasherTypes.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -24,12 +23,19 @@ namespace Dasher {class CLanguageModel;}
 class Dasher::CLanguageModel
 {
 public:
+	
+	/////////////////////////////////////////////////////////////////////////////
 
-	CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
+	CLanguageModel(const CSymbolAlphabet& Alphabet);
+
+//=======/
+//	CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
+//>>>>>>> 1.3
+
 	virtual ~CLanguageModel() {}
 
 	// Handle for a language model context
-	// NULL is reserved --- FIXME - NULL is a pointer, not an int
+	// 0 is reserved
 	typedef size_t Context;
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -45,61 +51,43 @@ public:
 	// Context modifiers
 	////////////////////////////////////////////////////////////////////////////
 
-	// update context with a character:
-	virtual void EnterSymbol(Context context, symbol Symbol) =0; // FIXME - lost const
+	// Update context with a character - only modifies context
+	virtual void EnterSymbol(Context context, int Symbol) const =0;
 	
-	// add character to the language model:
-	virtual void LearnSymbol(Context context, symbol Symbol) =0;
+	// Add character to the language model at the current context and update the context 
+	// - modifies both the context and the LanguageModel
+	virtual void LearnSymbol(Context context, int Symbol) =0;
 	
-	// get the probability distrubution at the given context:
-	virtual bool GetProbs(Context Context, std::vector<unsigned int> &Probs, int norm) const =0;
-	
-	void EnterText(Context Context, std::string TheText);
-	void LearnText(Context Context, std::string* TheText, bool IsMore);
+	/////////////////////////////////////////////////////////////////////////////
+	// Prediction
+	/////////////////////////////////////////////////////////////////////////////
 
-	bool GetProbs(Context Context, std::vector<symbol> &NewSymbols,
-		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, int iNorm) const;
-	
-	// Alphabet pass-through functions for widely needed information
-	symbol GetSpaceSymbol() const {return m_pcAlphabet->GetSpaceSymbol();}
-	symbol GetControlSymbol() const {return m_pcAlphabet->GetControlSymbol();}
-	
-	bool isRealSymbol( symbol _s ) const;
-
-	int GetColour(int character) const;
-	int GetGroupColour(int group) const;
-	std::string GetGroupLabel(int group) const;
-
-	void SetUniform( int _uniform ) { m_uniform = _uniform; };
-
-	//	void HandleIntParameter( const std::string &pname, long int value ) {
-	//	  if( !SetIntParameter( pname, value ) ) {
-	//    // Handle global parametes here.
-	//  }
-	//	}
-
-
-	virtual const char *defaultContextString() const {
-	  // Default context string for new documents - replace this if your language model needs something different.
-	  return ". ";
-	};
+	// Get symbol probability distribution
+	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const =0;
 
 protected:
-	int GetNumberModelChars() const {return m_pcAlphabet->GetNumberSymbols();}
+	int GetSize() const {return m_Alphabet.GetSize();}
+
+	const CSymbolAlphabet& SymbolAlphabet() const
+	{
+		return m_Alphabet;
+	}
+
+	// DJW - non-symbol code should be moved elsewhere - new CLanguageModel knows nothing about strings
+	//	virtual const char *defaultContextString() const {
+	//	  // Default context string for new documents - replace this if your language model needs something different.
+	//	  return ". ";
+	//	};
 	
-	// diagnostic info:
-	virtual void dump() {}
-	CLanguageModelParams *params;
+	//	CLanguageModelParams *params;
 	
 private:
-	const CAlphabet* m_pcAlphabet;
 
-	int m_uniform;     // Fraction to allocate to uniform dist. (*1000)
+	const CSymbolAlphabet m_Alphabet;
+
 };
 
 
 /////////////////////////////////////////////////////////////////////////////
 
-
-
-#endif /* #ifndef __LanguageModel_h__ */
+#endif // ndef __LanguageModelling_LanguageModel_h__
