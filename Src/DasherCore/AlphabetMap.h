@@ -65,7 +65,7 @@ class Dasher::alphabet_map
 public:
 	alphabet_map(unsigned int InitialTableSize=255);
 	void Add(const std::string& Key, symbol Value);
-	symbol Get(const std::string& Key, bool* KeyIsPrefix=0) const;
+	symbol Get(const std::string& Key, bool* KeyIsPrefix) const;
 	
 private:
 	class Entry
