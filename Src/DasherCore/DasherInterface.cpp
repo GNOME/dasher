@@ -13,11 +13,6 @@
 #include "CustomAlphabet.h"
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
-#include "LanguageModelling/PPMLanguageModel.h"
-#include "LanguageModelling/WordLanguageModel.h"
-#include "LanguageModelling/BigramLanguageModel.h"
-
-#include <iostream>
 
 namespace {
 	#include "stdio.h"
@@ -29,22 +24,20 @@ const string CDasherInterface::EmptyString = "";
 
 
 CDasherInterface::CDasherInterface()
-	: 
+: 
 m_Alphabet(0), 
 m_pColours(0), 
-m_LanguageModel(0), 
-m_DasherModel(0), 
+m_pDasherModel(0), 
 m_DashEditbox(0), 
 m_DasherScreen(0), 
-m_DasherView(0), 
+m_pDasherView(0), 
 m_SettingsStore(0), 
 m_SettingsUI(0),
 m_AlphIO(0), 
 m_ColourIO(0), 
-TrainContext(0), 
 AlphabetID(""), 
-LanguageModelID(-1), 
-ViewID(-1),
+m_LanguageModelID(-1), 
+m_ViewID(-1),
 m_MaxBitRate(-1), 
 m_DrawKeyboard(false), 
 m_ColourMode(0), 
@@ -58,23 +51,23 @@ m_DasherFont(""),
 m_DasherFontSize(Opts::Normal), 
 m_EditFont(""), 
 m_EditFontSize(0)
+
 {
-  m_Params = new CLanguageModelParams;
+	// DJW_TODO - fix this
+	//  m_Params = new CLanguageModelParams;
+
 }
 
 
 CDasherInterface::~CDasherInterface()
 {
-	if (m_LanguageModel)
-		m_LanguageModel->ReleaseContext(TrainContext);
-	delete m_DasherModel;   // The order of some of these deletions matters
-	delete m_LanguageModel; // eg DasherModel has a pointer to LanguageModel.
-	delete m_Params;
-	delete m_Alphabet;      // DM baulks if LM is deleted before it is.
-	delete m_DasherView;
+	delete m_pDasherModel;   // The order of some of these deletions matters
+	delete m_Alphabet;      
+	delete m_pDasherView;
 	delete m_ColourIO;
 	delete m_AlphIO;
 	delete m_pColours;
+	//	delete m_Params;
 
 	// Do NOT delete Edit box or Screen. This class did not create them.
 }
@@ -129,14 +122,22 @@ void CDasherInterface::AddColourFilename(std::string Filename)
 void CDasherInterface::CreateDasherModel()
 {
 
-  if (m_DashEditbox!=0 && m_LanguageModel!=0) {
-    delete m_DasherModel;
-    m_DasherModel = new CDasherModel(m_DashEditbox, m_LanguageModel, m_Dimensions, m_Eyetracker, m_Paused);
-    if (m_MaxBitRate>=0)
-      m_DasherModel->SetMaxBitrate(m_MaxBitRate);
-    if (ViewID!=-1)
-      ChangeView(ViewID);
-  }
+	if (m_DashEditbox!=0 && m_LanguageModelID!=-1) 
+	{
+		delete m_pDasherModel;
+		m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, CDasherModel::idPPM, m_Dimensions, m_Eyetracker, m_Paused);
+	
+		string T = m_Alphabet->GetTrainingFile();
+		TrainFile(m_SystemLocation+T);
+		TrainFile(m_UserLocation+T);
+	
+		if (m_MaxBitRate>=0)
+			m_pDasherModel->SetMaxBitrate(m_MaxBitRate);
+		if (m_ViewID!=-1)
+			ChangeView(m_ViewID);
+
+
+	}
 
 
 }
@@ -145,14 +146,14 @@ void CDasherInterface::CreateDasherModel()
 void CDasherInterface::Start()
 {
     m_Paused=false;
-	if (m_DasherModel!=0) {
-		m_DasherModel->Start();
-        m_DasherModel->Set_paused(m_Paused);
+	if (m_pDasherModel!=0) {
+		m_pDasherModel->Start();
+        m_pDasherModel->Set_paused(m_Paused);
 	}
-    if (m_DasherView!=0) {
-        m_DasherView->ResetSum();
-        m_DasherView->ResetSumCounter();
-        m_DasherView->ResetYAutoOffset();
+    if (m_pDasherView!=0) {
+        m_pDasherView->ResetSum();
+        m_pDasherView->ResetSumCounter();
+        m_pDasherView->ResetYAutoOffset();
     }
 }
 
@@ -165,36 +166,48 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
 			m_DashEditbox->CopyAll();
 	}	
 	m_Paused=true;
-    if (m_DasherModel!=0) {
-        m_DasherModel->Set_paused(m_Paused);
+    if (m_pDasherModel!=0) {
+        m_pDasherModel->Set_paused(m_Paused);
     }
 }
 
 void CDasherInterface::Halt()
 {
-  if (m_DasherModel!=0)
-    m_DasherModel->Halt();
+  if (m_pDasherModel!=0)
+    m_pDasherModel->Halt();
 }
 
 void CDasherInterface::Unpause(unsigned long Time)
 {
 	m_Paused=false;
-    if (m_DasherModel!=0) {
-		m_DasherModel->Reset_framerate(Time);
-        m_DasherModel->Set_paused(m_Paused);
+    if (m_pDasherModel!=0) {
+		m_pDasherModel->Reset_framerate(Time);
+        m_pDasherModel->Set_paused(m_Paused);
     }
-    if (m_DasherView!=0) {
-        m_DasherView->ResetSum();
-        m_DasherView->ResetSumCounter();
+    if (m_pDasherView!=0) {
+        m_pDasherView->ResetSum();
+        m_pDasherView->ResetSumCounter();
     }
 }
 
 
 void CDasherInterface::Redraw()
 {
-  if (m_DasherView!=0) {
-    m_DasherView->Render();
-    m_DasherView->Display();
+  if (m_pDasherView!=0) 
+  {
+	m_pDasherView->Render();
+    m_pDasherView->Display();
+  }
+
+}
+
+
+void CDasherInterface::Redraw(int iMouseX,int iMouseY)
+{
+  if (m_pDasherView!=0) 
+  {
+	m_pDasherView->Render(iMouseX,iMouseY);
+    m_pDasherView->Display();
   }
 
 }
@@ -202,60 +215,44 @@ void CDasherInterface::Redraw()
 
 void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 {
-	if (m_DasherView!=0) {
-		m_DasherView->TapOnDisplay(MouseX, MouseY, Time);
-		m_DasherView->Render();
-		if (m_DrawMouse==true) {
-		  m_DasherView->DrawMouse(MouseX, MouseY);
-		}
-		if (m_DrawMouseLine==true) {
-		  m_DasherView->DrawMouseLine(MouseX, MouseY);
-		}
-		if (m_DrawKeyboard==true) {
-		  m_DasherView->DrawKeyboard();
-		}
-		m_DasherView->Display();
+	if (m_pDasherView!=0) 
+	{
+		m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
+		m_pDasherView->Render(MouseX,MouseY);
+		m_pDasherView->Display();
 	}
-	if (m_DasherModel!=0)
-		m_DasherModel->NewFrame(Time);
+	
+	if (m_pDasherModel!=0)
+		m_pDasherModel->NewFrame(Time);
 }
 
-void CDasherInterface::DrawMousePos(int MouseX, int MouseY)
+void CDasherInterface::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox )
 {
-  m_DasherView->Render();
-  if (m_DrawMouse==true) {
-    m_DasherView->DrawMouse(MouseX, MouseY);
-  }
-  if (m_DrawMouseLine==true) {
-    m_DasherView->DrawMouseLine(MouseX, MouseY);
-  }
-  if (m_DrawKeyboard==true) {
-    m_DasherView->DrawKeyboard();
-  }
-  m_DasherView->Display();
+	m_pDasherView->Render();
+	//if (iWhichBox!=-1)
+	//m_pDasherView->DrawMousePosBox(iWhichBox, m_iMousePosDist);
+  
+	m_pDasherView->Display();
 }
+
 
 void CDasherInterface::GoTo(int MouseX, int MouseY)
 {
-	if (m_DasherView!=0) {
-		m_DasherView->GoTo(MouseX, MouseY);
-		m_DasherView->Render();
-		if (m_DrawMouse==true) {
-		  m_DasherView->DrawMouse(MouseX, MouseY);
-		}
-		if (m_DrawKeyboard==true) {
-		  m_DasherView->DrawKeyboard();
-		}
-		m_DasherView->Display();
+	if (m_pDasherView!=0) 
+	{
+		m_pDasherView->GoTo(MouseX, MouseY);
+		m_pDasherView->Render();
+		m_pDasherView->Display();
 	}
 }
 
 void CDasherInterface::DrawGoTo(int MouseX, int MouseY)
 {
-	if (m_DasherView!=0) {
-			m_DasherView->Render();
-		m_DasherView->DrawGoTo(MouseX, MouseY);
-		m_DasherView->Display();
+	if (m_pDasherView!=0) 
+	{
+//		m_pDasherView->Render(MouseY,MouseY);
+		m_pDasherView->DrawGoTo(MouseX, MouseY);
+		m_pDasherView->Display();
 	}
 }
 
@@ -271,7 +268,7 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  
 	  AlphabetID = m_AlphInfo.AlphID.c_str();
 
-	  CAlphabet* old = m_Alphabet;   // So we can delete the old alphabet later
+	  std::auto_ptr<CAlphabet> ptrOld(m_Alphabet);   // So we can delete the old alphabet later
 
 	  m_Alphabet = new CCustomAlphabet(m_AlphInfo);
 	
@@ -288,10 +285,11 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	    m_DashEditbox->SetInterface(this);
 	  if (m_DasherScreen!=0)
 	    m_DasherScreen->SetInterface(this);
-	  if (LanguageModelID!=-1 || m_LanguageModel)
-	    ChangeLanguageModel(LanguageModelID);
 	  
-	  delete old; // only delete old alphabet after telling all other objects not to use it
+	  delete m_pDasherModel;
+	  m_pDasherModel=0;
+	  CreateDasherModel();
+
 	  
 	  if (m_Alphabet->GetPalette()!= std::string("") && m_PaletteChange==true) {
 	    ChangeColours(m_Alphabet->GetPalette());
@@ -308,8 +306,8 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  
 	  //FIXME - this should really be done when the new view is generated
 	  //rather than fixing things up afterwards
-	  if (m_DasherView!=0) {
-	    m_DasherView->SetColourMode(m_ColourMode);
+	  if (m_pDasherView!=0) {
+	    m_pDasherView->SetColourMode(m_ColourMode);
 	  }
 	}
 
@@ -355,77 +353,41 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 {
 	m_MaxBitRate = NewMaxBitRate;
 	
-	if (m_DasherModel!=0)
-		m_DasherModel->SetMaxBitrate(m_MaxBitRate);
+	if (m_pDasherModel!=0)
+		m_pDasherModel->SetMaxBitrate(m_MaxBitRate);
 	if (m_SettingsUI!=0)
 		m_SettingsUI->ChangeMaxBitRate(m_MaxBitRate);
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetLongOption(Keys::MAX_BITRATE_TIMES100, long(m_MaxBitRate*100) );
 
-	if (m_DrawKeyboard==true && m_DasherView!=NULL) {
-	  m_DasherView->DrawKeyboard();
+	if (m_DrawKeyboard==true && m_pDasherView!=NULL) {
+	  m_pDasherView->DrawKeyboard();
 	}
 }
 
-void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
+void CDasherInterface::ChangeLanguageModel(int NewLanguageModelID)
 {
-	LanguageModelID = NewLanguageModelID;
+
+	m_LanguageModelID = NewLanguageModelID;
 	if (m_Alphabet!=0) {
-		if (m_LanguageModel)
-			m_LanguageModel->ReleaseContext(TrainContext);
-		TrainContext = 0;
-		delete m_DasherModel; // Have to delete DasherModel, or removing its LanguageModel will confuse it
-		m_DasherModel = 0;
-		delete m_LanguageModel;
 
-		switch( LanguageModelID ) {
-		case 0:
-		  m_LanguageModel = new CPPMLanguageModel(m_Alphabet, m_Params);
-		  break;
-		case 1:
-		  m_LanguageModel = new CWordLanguageModel(m_Alphabet, m_Params);
-		  break;
-		  //		case 2:
-		  // m_LanguageModel = new CBigramLanguageModel(m_Alphabet);
-		  //break;  - This doesn't seem to work yet
-		}
-
-		TrainContext = m_LanguageModel->CreateEmptyContext();
-
-		string T = m_Alphabet->GetTrainingFile();
-		TrainFile(m_SystemLocation+T);
-		TrainFile(m_UserLocation+T);
-		CreateDasherModel();
-	}
-
-	if (m_SettingsUI!=0)
-	  m_SettingsUI->ChangeLanguageModel(LanguageModelID);
-        if (m_SettingsStore!=0)
-	  m_SettingsStore->SetLongOption(Keys::LANGUAGE_MODEL_ID, LanguageModelID);	
-
-	Start();
-
-}
-
-void CDasherInterface::ChangeLMOption( const std::string &pname, long int Value ) {
-  m_Params->SetValue( pname, Value );
-
-  if (m_SettingsStore!=0)
-    m_SettingsStore->SetLongOption( pname, Value);
-
-  if (m_SettingsUI!=0)
-    m_SettingsUI->ChangeLMOption( pname, Value );
+		delete m_pDasherModel; // Have to delete DasherModel, or removing its LanguageModel will confuse it
+		m_pDasherModel = 0;
 	
+		CreateDasherModel();
+
+	
+	}
 }
 
 
 void CDasherInterface::ChangeScreen()
 {
-	if (m_DasherView!=0) {
-		m_DasherView->ChangeScreen(m_DasherScreen);
+	if (m_pDasherView!=0) {
+		m_pDasherView->ChangeScreen(m_DasherScreen);
 	} else {
-		if (ViewID!=-1)
-			ChangeView(ViewID);
+		if (m_ViewID!=-1)
+			ChangeView(m_ViewID);
 	}
 }
 
@@ -445,24 +407,27 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 void CDasherInterface::ChangeView(unsigned int NewViewID)
 {
 	//TODO Use DasherViewID
-	ViewID = NewViewID;
-	if (m_DasherScreen!=0 && m_DasherModel!=0) {
-		delete m_DasherView;
+	m_ViewID = NewViewID;
+	if (m_DasherScreen!=0 && m_pDasherModel!=0) {
+		delete m_pDasherView;
 		if (m_Orientation==Opts::Alphabet)
-			m_DasherView = new CDasherViewSquare(m_DasherScreen, *m_DasherModel, m_LanguageModel, GetAlphabetOrientation(), m_ColourMode);
+			m_pDasherView = new CDasherViewSquare(m_DasherScreen, *m_pDasherModel, GetAlphabetOrientation(), m_ColourMode);
 		else
-			m_DasherView = new CDasherViewSquare(m_DasherScreen, *m_DasherModel, m_LanguageModel, m_Orientation, m_ColourMode);
+			m_pDasherView = new CDasherViewSquare(m_DasherScreen, *m_pDasherModel, m_Orientation, m_ColourMode);
+		m_pDasherView->SetDrawMouse(m_DrawMouse);
+		m_pDasherView->SetDrawMouseLine(m_DrawMouseLine);
+
 	}
 }
 
 
 void CDasherInterface::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
-	if (m_DasherView!=0) {
+	if (m_pDasherView!=0) {
 		if (Orientation==Opts::Alphabet)
-			m_DasherView->ChangeOrientation(GetAlphabetOrientation());
+			m_pDasherView->ChangeOrientation(GetAlphabetOrientation());
 		else
-			m_DasherView->ChangeOrientation(Orientation);
+			m_pDasherView->ChangeOrientation(Orientation);
 	}
 
 	if (m_Orientation != Orientation) {
@@ -553,25 +518,30 @@ void CDasherInterface::CopyAllOnStop(bool Value)
 
 void CDasherInterface::DrawMouse(bool Value)
 {
-        m_DrawMouse = Value;
+	m_DrawMouse = Value;
+	if (m_pDasherView)
+		m_pDasherView->SetDrawMouse(Value);
+
 	if (m_SettingsUI!=0)
-                m_SettingsUI->DrawMouse(Value);
+		m_SettingsUI->DrawMouse(Value);
 	if (m_SettingsStore!=0)
-	        m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSE, Value);
+		m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSE, Value);
 }
 
 void CDasherInterface::DrawMouseLine(bool Value)
 {
-        m_DrawMouseLine = Value;
+    m_DrawMouseLine = Value;
+	if (m_pDasherView)
+		m_pDasherView->SetDrawMouseLine(Value);
 	if (m_SettingsUI!=0)
-                m_SettingsUI->DrawMouseLine(Value);
+        m_SettingsUI->DrawMouseLine(Value);
 	if (m_SettingsStore!=0)
-	        m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSELINE, Value);
+	    m_SettingsStore->SetBoolOption(Keys::DRAW_MOUSELINE, Value);
 }
 
 void CDasherInterface::StartOnSpace(bool Value)
 {
-        m_StartSpace = Value;
+    m_StartSpace = Value;
 	if (m_SettingsUI!=0)
 	  m_SettingsUI->StartOnSpace(Value);
 	if (m_SettingsStore!=0)
@@ -594,8 +564,8 @@ void CDasherInterface::KeyControl(bool Value)
 	  m_SettingsUI->KeyControl(Value);
 	if (m_SettingsStore!=0)
 	  m_SettingsStore->SetBoolOption(Keys::KEY_CONTROL, Value);
-	if (m_DasherView!=0)
-	  m_DasherView->SetKeyControl(Value);
+	if (m_pDasherView!=0)
+	  m_pDasherView->SetKeyControl(Value);
 }
 
 void CDasherInterface::WindowPause(bool Value)
@@ -635,13 +605,25 @@ void CDasherInterface::KeyboardMode(bool Value)
     m_SettingsStore->SetBoolOption(Keys::KEYBOARD_MODE, Value);
 }
 
+void CDasherInterface::SetDrawMousePosBox(int iWhich)
+{
+	m_iMousePosBox = iWhich;
+	if (m_pDasherView)
+		m_pDasherView->SetDrawMousePosBox(iWhich);
+	
+}
+
 void CDasherInterface::MouseposStart(bool Value)
 {
   m_MouseposStart=Value;
+  if (!Value && m_pDasherView)
+	  m_pDasherView->SetDrawMousePosBox(0);
+  
   if (m_SettingsUI!=0)
     m_SettingsUI->MouseposStart(Value);
   if (m_SettingsStore!=0)
     m_SettingsStore->SetBoolOption(Keys::MOUSEPOS_START, Value);
+
 }
 
 void CDasherInterface::OutlineBoxes(bool Value)
@@ -701,8 +683,8 @@ void CDasherInterface::SetEditFont(string Name, long Size)
 
 void CDasherInterface::SetUniform(int Value)
 {
-  if( m_LanguageModel != NULL )
-    m_LanguageModel->SetUniform(Value);
+  if( m_pDasherModel != NULL )
+    m_pDasherModel->SetUniform(Value);
   if (m_SettingsStore!=0) {
     m_SettingsStore->SetLongOption(Keys::UNIFORM, Value);
   }
@@ -717,9 +699,11 @@ void CDasherInterface::SetYScale(int Value)
 
 void CDasherInterface::SetMousePosDist(int Value)
 {
+	m_iMousePosDist = Value;
 	if (m_SettingsStore!=0) {
 		m_SettingsStore->SetLongOption(Keys::MOUSEPOSDIST, Value);
 	}
+
 }
 
 void CDasherInterface::SetDasherFont(string Name)
@@ -751,8 +735,8 @@ void CDasherInterface::SetDasherDimensions(bool Value)
         m_Dimensions=Value;
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetBoolOption(Keys::DASHER_DIMENSIONS, Value);
-	if (m_DasherModel!=0) {
-	         m_DasherModel->Set_dimensions(Value);
+	if (m_pDasherModel!=0) {
+	         m_pDasherModel->Set_dimensions(Value);
 	}
 	if (m_SettingsUI!=0) {
 	         m_SettingsUI->SetDasherDimensions(Value);
@@ -764,8 +748,8 @@ void CDasherInterface::SetDasherEyetracker(bool Value)
         m_Eyetracker=Value;
 	if (m_SettingsStore!=0)
 		m_SettingsStore->SetBoolOption(Keys::DASHER_EYETRACKER, Value);
-	if (m_DasherModel!=0) {
-	         m_DasherModel->Set_eyetracker(Value);
+	if (m_pDasherModel!=0) {
+	         m_pDasherModel->Set_eyetracker(Value);
 	}
 	if (m_SettingsUI!=0) {
 	         m_SettingsUI->SetDasherEyetracker(Value);
@@ -890,8 +874,8 @@ void CDasherInterface::ChangeEdit(CDashEditbox* NewEdit)
 
 void CDasherInterface::ColourMode(bool Value)
 {
-  if (m_DasherView!=0) {
-    m_DasherView->SetColourMode(Value);
+  if (m_pDasherView!=0) {
+    m_pDasherView->SetColourMode(Value);
   }
   m_ColourMode=Value;
   Start();
@@ -900,7 +884,7 @@ void CDasherInterface::ColourMode(bool Value)
 
 void CDasherInterface::Train(string* TrainString, bool IsMore)
 {
-	m_LanguageModel->LearnText(TrainContext, TrainString, IsMore);
+//	m_pDasherModel->LearnText(TrainContext, TrainString, IsMore);
 	return;
 }
 
@@ -925,16 +909,25 @@ void CDasherInterface::TrainFile(string Filename)
 	string StringBuffer;
 	int NumberRead;
 	
+	vector<symbol> Symbols;
+	
+	CDasherModel::CTrainer* pTrainer = m_pDasherModel->GetTrainer();
 	do {
 		NumberRead = fread(InputBuffer, 1, BufferSize-1, InputFile);
 		InputBuffer[NumberRead] = '\0';
 		StringBuffer += InputBuffer;
-		if (NumberRead == (BufferSize-1)) {
-		  m_LanguageModel->LearnText(TrainContext, &StringBuffer, true);
-		} else {
-		  m_LanguageModel->LearnText(TrainContext, &StringBuffer, false);
-		}
+		bool bIsMore = false;
+		if (NumberRead == (BufferSize-1)) 
+			bIsMore = true;
+
+		m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
+		
+		pTrainer->Train( Symbols );
+		
+		
 	} while (NumberRead==BufferSize-1);
+
+	delete pTrainer;
 
 	fclose(InputFile);
 }
@@ -968,33 +961,64 @@ double CDasherInterface::GetCurFPS()
 
 void CDasherInterface::AddControlTree(ControlTree *controltree)
 {
-  m_DasherModel->NewControlTree(controltree);
+  m_pDasherModel->NewControlTree(controltree);
 }
 
 void CDasherInterface::Render()
 {
-  if (m_DasherView!=0)
-    m_DasherView->Render();
+//  if (m_pDasherView!=0)
+ //   m_pDasherView->Render();
 }
 
 int CDasherInterface::GetOneButton() {
-  if (m_DasherView!=0) {
-    return m_DasherView->GetOneButton();
+  if (m_pDasherView!=0) {
+    return m_pDasherView->GetOneButton();
   }
   return -1;
 }
 
 int CDasherInterface::GetAutoOffset() {
-  if (m_DasherView!=0) {
-    return m_DasherView->GetAutoOffset();
+  if (m_pDasherView!=0) {
+    return m_pDasherView->GetAutoOffset();
   }
   return -1;
 }
 
 
 void CDasherInterface::SetOneButton(int Value) {
-  if (m_DasherView!=0) {
-    m_DasherView->SetOneButton(Value);
+  if (m_pDasherView!=0) {
+    m_pDasherView->SetOneButton(Value);
   }
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+double CDasherInterface::GetNats() const
+{
+	if( m_pDasherModel )
+		return m_pDasherModel->GetNats();
+	else
+		return 0.0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherInterface::ResetNats() 
+{
+	if( m_pDasherModel )
+		m_pDasherModel->ResetNats();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherInterface::ChangeLMOption( const std::string &pname, long int Value ) 
+{
+	// DJW_TODO -fix me
+//   m_Params->SetValue( pname, Value );
+
+  if (m_SettingsStore!=0)
+    m_SettingsStore->SetLongOption( pname, Value);
+
+  if (m_SettingsUI!=0)
+     m_SettingsUI->ChangeLMOption( pname, Value );
+}

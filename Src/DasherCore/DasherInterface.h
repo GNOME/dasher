@@ -25,9 +25,7 @@
 #include "AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
-#include "LanguageModelling/LanguageModel.h"
-#include "LanguageModelling/LanguageModelParams.h"
-#include "DasherModel.h"
+//#include "LanguageModelling/LanguageModelParams.h"
 #include "DashEdit.h"
 #include "DasherView.h"
 
@@ -63,6 +61,7 @@ public:
 	//! Add a colour filename
 	void AddColourFilename(std::string Filename);
 
+
 	// Widget Interface
 	// -----------------------------------------------------
 	void Start();
@@ -72,8 +71,9 @@ public:
 	void Halt();
 	void Unpause(unsigned long Time);                       // Dasher run at the
 	void Redraw();                                          // correct speed.
+	void Redraw(int iMouseX,int iMouseY);
 
-	void DrawMousePos(int MouseX, int MouseY);
+	void DrawMousePos(int MouseX, int MouseY, int iWhichBox);
 	void GoTo(int MouseX, int MouseY);
 	void DrawGoTo(int MouseX, int MouseY);
 	
@@ -115,15 +115,20 @@ public:
 
 	void GetColours(std::vector< std::string >* ColourList);
 	void AddControlTree(ControlTree *controltree);
-	// Settings Interface (options saved between sessions)
-	// -----------------------------------------------------
-	
+
+	/////////////////////////////////////////////////////////////////////////////
+	// Settings Interface (CDasherSettingsInterface) - options saved between sessions
+	/////////////////////////////////////////////////////////////////////////////
+
+	//! Should Dasher start based on the mouse position?
+	virtual void MouseposStart(bool Value);
+
 	void ChangeAlphabet(const std::string& NewAlphabetID);
 	std::string GetCurrentAlphabet();
 	void ChangeColours(const std::string& NewColourID);
 	std::string GetCurrentColours();
 	void ChangeMaxBitRate(double NewMaxBitRate);
-	void ChangeLanguageModel(unsigned int NewLanguageModelID);
+	void ChangeLanguageModel(int NewLanguageModelID);
 	void ChangeLMOption( const std::string &pname, long int Value );
 	void ChangeView(unsigned int NewViewID);
 	void ChangeOrientation(Opts::ScreenOrientations Orientation);
@@ -146,7 +151,8 @@ public:
 	void ControlMode(bool Value);
 	void ColourMode(bool Value);
 	void KeyboardMode(bool Value);
-	void MouseposStart(bool Value);
+
+
 	void Speech(bool Value);
 	void OutlineBoxes(bool Value);
 	void PaletteChange(bool Value);
@@ -160,45 +166,40 @@ public:
 	void SetUniform(int Value);
 	void SetYScale(int Value);
 	void SetMousePosDist(int Value);
-    int GetOneButton();
+   
+	// Which mouse position box should the View draw?
+	// 0 - no box, 1 - upper box, 2 - lower box
+	void SetDrawMousePosBox(int iWhich);
+	
+	int GetOneButton();
     void SetOneButton(int Value);
     int GetAutoOffset();
     void Render();
 
-    double GetNats() {
-      if( m_DasherModel )
-	return m_DasherModel->GetNats();
-      else
-	return 0.0;
-    }
 
-    void ResetNats() {
-       if( m_DasherModel )
-	m_DasherModel->ResetNats();
-    }
+    double GetNats() const;
+	
+    void ResetNats();
 
 private:
 	CAlphabet* m_Alphabet;
-	CLanguageModelParams *m_Params;
+	//CLanguageModelParams *m_Params;
 	CCustomColours* m_pColours;
-	CDasherModel* m_DasherModel;
+	CDasherModel* m_pDasherModel;
 	CDashEditbox* m_DashEditbox;
 	CDasherScreen* m_DasherScreen;
-	CDasherView* m_DasherView;
+	CDasherView* m_pDasherView;
 	CSettingsStore* m_SettingsStore;
 	CDasherSettingsInterface* m_SettingsUI;
 	CAlphIO* m_AlphIO;	
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
-
-	CLanguageModel* m_LanguageModel;
-	CLanguageModel::Context TrainContext;
 	
 	std::string AlphabetID;
 	std::string ColourID;
-	int LanguageModelID;
-	int ViewID;
+	int m_LanguageModelID;
+	int m_ViewID;
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
 	bool m_DrawMouse;
@@ -213,9 +214,15 @@ private:
 	bool m_ControlMode;
 	bool m_ColourMode;
 	bool m_KeyboardMode;
+	
 	bool m_MouseposStart;
+	int m_iMousePosDist;
+	int m_iMousePosBox;
+
 	bool m_Paused;
 	bool m_PaletteChange;
+
+
 	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
