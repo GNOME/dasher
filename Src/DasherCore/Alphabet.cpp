@@ -132,7 +132,7 @@ void CAlphabet::StartNewGroup(int colour, std::string label)
 void CAlphabet::Trace() const 
 {
 	unsigned int i;
-	for (i=1;i<m_Characters.size();i++) 
+	for (i=0;i<m_Characters.size();i++) 
 	{
 	  // FIXME - get this to work
 	  //		DASHER_TRACEOUTPUT("Symbol %d Character:'%s' Display:'%s' Group %d\n",i,m_Characters[i].c_str(),m_Display[i].c_str(),m_Group[i]);
