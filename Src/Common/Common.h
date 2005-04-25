@@ -18,7 +18,10 @@
 	#ifdef DASHER_WIN32
 		#include "MSVC_Unannoy.h"
 	#endif
-	
+
+
 #include "assert.h"
+
+#include "Trace.h"
 
 #endif // __include__
