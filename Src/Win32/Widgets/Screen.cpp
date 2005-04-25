@@ -29,11 +29,8 @@ CScreen::CScreen(HDC hdc, Dasher::screenint iWidth,Dasher::screenint iHeight)
 	// set up the off-screen buffers
 //	HDC hdc = GetDC(mainwindow);
 	m_hDCBuffer = CreateCompatibleDC(hdc);  // one for rectangles
-	m_hDCText = CreateCompatibleDC(hdc);    // the other for text
 	m_hbmBit = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
-	m_hbmText = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
 //	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
-	m_prevhbmText = SelectObject(m_hDCText,m_hbmText);
 	SetBkMode(m_hDCBuffer,TRANSPARENT);
 	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
 	
@@ -56,23 +53,13 @@ CScreen::~CScreen()
 	// tidy up
 
 	SelectObject(m_hDCBuffer,m_prevhbmBit);
-	SelectObject(m_hDCText,m_prevhbmText);
 
 	BOOL b = DeleteObject(m_hbmBit);
-	DASHER_ASSERT(b);
-	b = DeleteObject(m_hbmText);
 	DASHER_ASSERT(b);
 	
 	b = DeleteDC(m_hDCBuffer);
 	DASHER_ASSERT(b);
-	b = DeleteDC(m_hDCText);
-	DASHER_ASSERT(b);
-	
-/*	while (m_vhfFonts.size()) {
-		DeleteObject(m_vhfFonts.back());
-		m_vhfFonts.pop_back();
-	}*/
-	
+		
 	while (m_Brushes.size()!=0) {
 		DeleteObject(m_Brushes.back());
 		m_Brushes.pop_back();
@@ -83,10 +70,6 @@ CScreen::~CScreen()
 		m_Pens.pop_back();
 	}
 
-//	::ReleaseDC(m_hwnd,m_hDCScreen);
-//	TCHAR debug[256];
-//	_stprintf(debug, TEXT("ReleaseDC: hwnd %x hdc %x\n"), m_hwnd, m_hDCScreen);
-//	OutputDebugString(debug); 
 
 }
 
@@ -121,33 +104,6 @@ void CScreen::SetFont(string Name)
 	
 	m_ptrFontStore.reset( new CFontStore(FontName) );
 
-	/*
-	// Destroy old fonts
-	while (m_vhfFonts.size()!=0) {
-		DeleteObject(m_vhfFonts[m_vhfFonts.size()-1]);
-		m_vhfFonts.pop_back();
-	}
-	
-	if (Name=="") {
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-20.0*sqrt(GetFontSize()))));
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-14.0*sqrt(GetFontSize()))));
-		m_vhfFonts.push_back(GetCodePageFont(CodePage, LONG(-11.0*sqrt(GetFontSize()))));
-	} else {
-		HFONT Font;
-		Font = CreateFont(int(-20.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
-		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
-		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
-		m_vhfFonts.push_back(Font);
-		Font = CreateFont(int(-14.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
-		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
-		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
-		m_vhfFonts.push_back(Font);
-		Font = CreateFont(int(-11.0*sqrt(GetFontSize())), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET,
-		                  OUT_DEFAULT_PRECIS,CLIP_DEFAULT_PRECIS,DEFAULT_QUALITY,FF_DONTCARE,
-		                  FontName.c_str()); // DEFAULT_CHARSET => font made just from Size and FontName
-		m_vhfFonts.push_back(Font);
-	}
-	*/
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -225,22 +181,23 @@ void CScreen::SetColourScheme(const Dasher::CCustomColours* pColours)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::DrawMousePosBox(int which)
+void CScreen::DrawMousePosBox(int which, int iMousePosDist)
 {
+
 //	HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
 	RECT Rect;
 	HBRUSH brush;
 	switch (which) {
 		case 0:
 			Rect.left=0;
-			Rect.top=m_iHeight/2-mouseposdist-50;
+			Rect.top=m_iHeight/2-iMousePosDist-50;
 			Rect.right=m_iWidth;
 			Rect.bottom=Rect.top+100;
 			brush=CreateSolidBrush(RGB(255,0,0));
 			break;
 		case 1:
 			Rect.left=0;
-			Rect.bottom=m_iHeight/2+mouseposdist+50;
+			Rect.bottom=m_iHeight/2+iMousePosDist+50;
 			Rect.right=m_iWidth;
 			Rect.top=Rect.bottom-100;
 			brush=CreateSolidBrush(RGB(255,255,0));
@@ -248,7 +205,7 @@ void CScreen::DrawMousePosBox(int which)
 		default:
 			DASHER_ASSERT(0);
 	}
-	FillRect(m_hDCText, &Rect, brush);
+	FillRect(m_hDCBuffer, &Rect, brush);
 	DeleteObject(brush);
 	Display();
 }
@@ -266,22 +223,9 @@ void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int
 	Rect.right = x1+50;
 	Rect.bottom = y1+50;
 
-	/*
-	if (Size <= 11) {
-		Size = 2;
-	} else {
-		if (Size <= 14)
-			Size = 1;
-		else
-			Size = 0;
-	}
-
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
-
 	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 
 	// The Windows API dumps all its function names in the global namespace, ::
-	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 
 	// DJW - need to select the old object back into the DC
@@ -303,26 +247,61 @@ void CScreen::DrawText(std::string OutputString, Dasher::screenint x1, Dasher::s
 	Rect.right = x1+50;
 	Rect.bottom = y1+50;
 	
-	/*
-	if (Size <= 11) {
-		Size = 2;
-	} else {
-		if (Size <= 14)
-			Size = 1;
-		else
-			Size = 0;
-	}
-
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
-*/
 	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 
 
 	// The Windows API dumps all its function names in the global namespace, ::
-	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	
 	SelectObject(m_hDCBuffer,old);
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CScreen::TextSize(Dasher::symbol Character, screenint* Width, screenint* Height, int iSize) const
+{
+	CTextSizeInput in;
+	in.m_Character = Character;
+	in.m_iSize = iSize;
+
+	stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::const_iterator it;
+	it = m_mapTextSize.find(in);
+
+	if (it == m_mapTextSize.end())
+	{
+		CTextSizeOutput out;
+		TextSize_Impl(Character,&out.m_iWidth,&out.m_iHeight,iSize);
+		m_mapTextSize.insert( stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::value_type( in,out) );
+		*Width = out.m_iWidth;
+		*Height = out.m_iHeight;
+		return;
+	}
+
+	const CTextSizeOutput& out = it->second;
+	*Width = out.m_iWidth;
+	*Height = out.m_iHeight;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CScreen::TextSize_Impl(Dasher::symbol Character, screenint* Width, screenint* Height, int iSize) const
+{
+	// TODO This function could be improved. The height of an "o" is returned as the
+	// same as the height of an "O". Perhaps GetGlyphOutline could help.
+	// Remember if it gets complicted, the height of each symbol could be pre-calculated
+		
+	Tstring OutputText = DisplayStrings[Character];
+	
+	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
+
+
+	// Get the dimensions of the text in pixels
+	SIZE OutSize;
+	GetTextExtentPoint32(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &OutSize);
+	SelectObject(m_hDCBuffer,old);
+	*Width = OutSize.cx;
+	*Height = OutSize.cy;
+}
+
 
 /////////////////////////////////////////////////////////////////////////////

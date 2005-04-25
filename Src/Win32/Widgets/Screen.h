@@ -19,6 +19,8 @@
 #include "../GDI/FontStore.h"
 
 #include <vector>
+#include <hash_map>
+
 #ifndef _WIN32_WCE
 #include <cmath>
 #endif
@@ -40,9 +42,8 @@ public:
 	void SetFontSize(Dasher::Opts::FontSize size);
 	Dasher::Opts::FontSize GetFontSize() const;
 	void SetColourScheme(const Dasher::CCustomColours* pColours);
-	void DrawMousePosBox(int which);
-	void SetMousePosDist(int y) {mouseposdist=y;}
-	int GetMousePosDist() {return mouseposdist;}
+	
+	void DrawMousePosBox(int which,int iMousePosDist);   
 	void DrawOutlines(bool Value) {drawoutlines=Value;}
 	
 	void TextSize(Dasher::symbol Character, Dasher::screenint* Width, Dasher::screenint* Height, int Size) const;
@@ -71,24 +72,61 @@ private:
 	
 	const void point2POINT(const point* In, POINT* Out, int Number) const;
 	inline GetDisplayTstring(Dasher::symbol Symbol);
-	
+
+	void TextSize_Impl(Dasher::symbol Character, Dasher::screenint* Width, Dasher::screenint* Height,int Size) const;
+
 	std::string m_FontName;
 	
-//	HWND m_hwnd;
 	HDC m_hdc;
-	HDC m_hDCBuffer,m_hDCText;
+	HDC m_hDCBuffer;
 	std::auto_ptr<CFontStore> m_ptrFontStore;
-	//std::vector<HFONT> m_vhfFonts;
-	//vector<HBRUSH> m_vhbBrushes;
 	std::vector<HBRUSH> m_Brushes;
 	std::vector<HPEN> m_Pens;
-	HBITMAP m_hbmBit,m_hbmText;
-	HGDIOBJ m_prevhbmBit,m_prevhbmText;
+	HBITMAP m_hbmBit;
+	HGDIOBJ m_prevhbmBit;
 	std::vector<Tstring> DisplayStrings;
 	UINT CodePage;
 	Dasher::Opts::FontSize Fontsize;
 	bool drawoutlines;
 	int mouseposdist;
+
+	struct CTextSizeInput
+	{
+		Dasher::symbol m_Character;
+		int m_iSize;
+
+		bool operator!=(const CTextSizeInput& rhs) const 
+		{
+			return ( (m_Character != rhs.m_Character) || ( m_iSize != rhs.m_iSize) );
+		}
+
+	};
+	struct CTextSizeOutput
+	{
+		screenint m_iWidth;
+		screenint m_iHeight;
+	};
+
+	struct hash_textsize
+	{
+		enum
+		{ 
+			bucket_size = 4,	// 0 < bucket_size
+			min_buckets = 8		// min_buckets = 2 ^^ N, 0 < N
+		}; 
+
+		size_t operator()(const CTextSizeInput& x) const 
+		{ 
+			return x.m_Character ^ x.m_iSize;
+		}
+
+		bool operator()(const CTextSizeInput& x , const CTextSizeInput& y) const 
+		{ 
+			return (x!=y);
+		}
+
+	};
+	mutable stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize> m_mapTextSize;
 };
 
 
