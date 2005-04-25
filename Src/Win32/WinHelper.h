@@ -64,4 +64,5 @@ namespace WinHelper
 }
 
 
+
 #endif /* #ifndef __WinHelper_h__ */
