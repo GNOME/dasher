@@ -6,12 +6,11 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../../Common/Common.h"
 
-#include "../resource.h"
-#include "../WinUTF8.h"
-#include "../WinLocalisation.h"
 #include "Prefs.h"
 
+#include "../resource.h"
 #include <utility> // for std::pair
 
 using namespace Dasher;
