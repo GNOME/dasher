@@ -6,8 +6,15 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
+
 
 #include "WinHelper.h"
+
+#ifdef _DEBUG
+//#include "vld.h"
+#endif 
+
 #include "DasherWindow.h"
 #include "Widgets/WinOptions.h"
 #include "WinUTF8.h"
@@ -54,24 +61,25 @@ void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface)
 }
 
 /*
-	Entry point to program on Windows systems
-	
-	An interface to the Dasher library is created.
-	A GUI and settings manager are created and given to the Dasher interface.
-	Control is passed to the main GUI loop, and only returns when the main window closes.
+Entry point to program on Windows systems
+
+An interface to the Dasher library is created.
+A GUI and settings manager are created and given to the Dasher interface.
+Control is passed to the main GUI loop, and only returns when the main window closes.
 */
-int APIENTRY WinMain(HINSTANCE hInstance,
-                     HINSTANCE hPrevInstance,
-                     LPSTR     lpCmdLine,
-                     int       nCmdShow)
+int APIENTRY WinMain(HINSTANCE hInstance, 
+					 HINSTANCE hPrevInstance,
+					 LPSTR     lpCmdLine,
+					 int       nCmdShow)
 {
+
 	// String literals in this function are not in the resource file as they
 	// must NOT be translated.
-	
+
 	using namespace WinHelper;
 	using namespace WinUTF8;
 	hInstApp = hInstance;
-	
+
 	// We don't want to starve other interactive applications
 	SetThreadPriority(GetCurrentThread(),THREAD_PRIORITY_BELOW_NORMAL);
 
@@ -116,13 +124,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	DasherInterface.ColourMode(true);
 
 	{
-		DasherInterface.ChangeLanguageModel(0);
-		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions); // Main Window
-		DasherInterface.SetSettingsUI(&DasherWindow);         // The UI will be updated to reflect settings
-		DasherWindow.Show(nCmdShow);                          // Now set up. Kill splash screen and display main window
+   		DasherInterface.ChangeLanguageModel(0);
+		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions); 
 	
-
-
+		//The UI will be updated to reflect settings
+		DasherInterface.SetSettingsUI(&DasherWindow);         
+		DasherWindow.Show(nCmdShow);
 		iRet = DasherWindow.MessageLoop();
 	}
 
@@ -131,5 +138,3 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	return iRet;
 }
-
-
