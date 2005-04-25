@@ -34,13 +34,13 @@ private:
 	bool LoadSetting(const std::string& Key, bool* Value);
 	bool LoadSetting(const std::string& Key, long* Value);
 	bool LoadSetting(const std::string& Key, std::string* Value);
-	bool LoadSetting(const std::string& Key, Tstring* Value);
+	bool LoadSettingT(const std::string& Key, Tstring* Value);
 	
 	void SaveSetting(const std::string& Key, bool Value);
 	void SaveSetting(const std::string& Key, long Value);
 	void SaveSetting(const std::string& Key, const std::string& Value);
 	
-	void SaveSetting(const std::string& Key, const Tstring& TValue);
+	void SaveSettingT(const std::string& Key, const Tstring& TValue);
 
 	// Used to store settings in memory
 	std::map<std::string, bool> BoolMap;

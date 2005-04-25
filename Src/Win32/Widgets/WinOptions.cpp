@@ -97,7 +97,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, long* Value)
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CWinOptions::LoadSetting(const std::string& Key, Tstring* TValue)
+bool CWinOptions::LoadSettingT(const std::string& Key, Tstring* TValue)
 {
 	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
@@ -120,7 +120,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
 {
 
 	Tstring str;
-	if (LoadSetting(Key,&str))
+	if (LoadSettingT(Key,&str))
 	{
 		Tstring_to_UTF8string(str, Value);
 		return true;	
@@ -147,7 +147,7 @@ void CWinOptions::SaveSetting(const std::string& Key, const LPWINDOWPLACEMENT pw
 				pwp->rcNormalPosition.left, pwp->rcNormalPosition.top,pwp->rcNormalPosition.right, pwp->rcNormalPosition.bottom);
 
 	Tstring ts(t);
-	SaveSetting(Key, ts);
+	SaveSettingT(Key, ts);
 
 }
 
@@ -160,7 +160,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, LPWINDOWPLACEMENT pwp)
 
 	Tstring str;
 
-	if (!LoadSetting(Key, &str))
+	if (!LoadSettingT(Key, &str))
 		return false;
 
 	WINDOWPLACEMENT wp;
@@ -207,7 +207,7 @@ void CWinOptions::SaveSetting(const std::string& Key, long Value)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CWinOptions::SaveSetting(const std::string& Key, const Tstring& TValue)
+void CWinOptions::SaveSettingT(const std::string& Key, const Tstring& TValue)
 {
 	Tstring TKey;
 	UTF8string_to_Tstring(Key, &TKey);
@@ -233,7 +233,7 @@ void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
 	Tstring TValue;
 	UTF8string_to_Tstring(Value, &TValue);
 	
-	SaveSetting(Key,TValue);
+	SaveSettingT(Key,TValue);
 }
 
 
