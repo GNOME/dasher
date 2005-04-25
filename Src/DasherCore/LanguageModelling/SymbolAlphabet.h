@@ -17,7 +17,7 @@
 //
 // If future LanguageModels require more information about the alphabet, then CSymbolAlphabet 
 // could be extented
-// - Additions should be made such that no LanguageModel should have to interpret anything other
+// - Additions should be made such that no LanguageModel shouldn't have to interpret anything other
 // than GetSize()
 // - Also, no alphabet should have to set anything other than the size
 //
