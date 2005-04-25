@@ -77,7 +77,8 @@
 				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -281,6 +282,100 @@
 		</Configuration>
 	</Configurations>
 	<Files>
+		<Filter
+			Name="LanguageModelling"
+			Filter="">
+			<File
+				RelativePath="LanguageModelling\BigramLanguageModel.cpp">
+			</File>
+			<File
+				RelativePath="LanguageModelling\BigramLanguageModel.h">
+			</File>
+			<File
+				RelativePath="LanguageModelling\LanguageModel.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="LanguageModelling\LanguageModel.h">
+			</File>
+			<File
+				RelativePath="LanguageModelling\PPMLanguageModel.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="LanguageModelling\PPMLanguageModel.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\AlphIO.cpp">
 		</File>
@@ -304,9 +399,6 @@
 		</File>
 		<File
 			RelativePath="ColourIO.h">
-		</File>
-		<File
-			RelativePath=".\Context.h">
 		</File>
 		<File
 			RelativePath=".\CustomAlphabet.cpp">
@@ -379,18 +471,6 @@
 		</File>
 		<File
 			RelativePath="FrameRate.h">
-		</File>
-		<File
-			RelativePath=".\LanguageModel.cpp">
-		</File>
-		<File
-			RelativePath=".\LanguageModel.h">
-		</File>
-		<File
-			RelativePath=".\PPMLanguageModel.cpp">
-		</File>
-		<File
-			RelativePath=".\PPMLanguageModel.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
