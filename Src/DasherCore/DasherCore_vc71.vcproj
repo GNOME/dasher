@@ -81,7 +81,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
@@ -187,7 +187,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
+				DisableLanguageExtensions="FALSE"
 				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
@@ -333,6 +333,170 @@
 	<References>
 	</References>
 	<Files>
+		<Filter
+			Name="LanguageModelling"
+			Filter="">
+			<File
+				RelativePath=".\LanguageModelling\BigramLanguageModel.cpp">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\BigramLanguageModel.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\LanguageModel.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\LanguageModel.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\PPMLanguageModel.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\PPMLanguageModel.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\SymbolAlphabet.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\WordLanguageModel.cpp">
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32"
+					ExcludedFromBuild="TRUE">
+					<Tool
+						Name="VCCLCompilerTool"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\WordLanguageModel.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="View"
+			Filter="">
+			<File
+				RelativePath=".\DasherView.cpp">
+			</File>
+			<File
+				RelativePath=".\DasherView.h">
+			</File>
+			<File
+				RelativePath=".\DasherView.inl">
+			</File>
+			<File
+				RelativePath=".\DasherViewSquare.cpp">
+			</File>
+			<File
+				RelativePath=".\DasherViewSquare.h">
+			</File>
+			<File
+				RelativePath=".\DasherViewSquare.inl">
+			</File>
+			<File
+				RelativePath=".\View\DelayedDraw.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\Alphabet.cpp">
 		</File>
@@ -362,9 +526,6 @@
 		</File>
 		<File
 			RelativePath="ColourIO.h">
-		</File>
-		<File
-			RelativePath=".\Context.h">
 		</File>
 		<File
 			RelativePath=".\CustomAlphabet.cpp">
@@ -415,52 +576,10 @@
 			RelativePath=".\DasherTypes.h">
 		</File>
 		<File
-			RelativePath=".\DasherView.cpp">
-		</File>
-		<File
-			RelativePath=".\DasherView.h">
-		</File>
-		<File
-			RelativePath=".\DasherView.inl">
-		</File>
-		<File
-			RelativePath=".\DasherViewSquare.cpp">
-		</File>
-		<File
-			RelativePath=".\DasherViewSquare.h">
-		</File>
-		<File
-			RelativePath=".\DasherViewSquare.inl">
-		</File>
-		<File
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
 			RelativePath="FrameRate.h">
-		</File>
-		<File
-			RelativePath=".\LanguageModel.cpp">
-		</File>
-		<File
-			RelativePath=".\LanguageModel.h">
-		</File>
-		<File
-			RelativePath=".\PPMLanguageModel.cpp">
-			<FileConfiguration
-				Name="Unicode Release|Win32">
-				<Tool
-					Name="VCCLCompilerTool"
-					ShowIncludes="TRUE"/>
-			</FileConfiguration>
-			<FileConfiguration
-				Name="Unicode Debug|Win32">
-				<Tool
-					Name="VCCLCompilerTool"
-					ShowIncludes="FALSE"/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\PPMLanguageModel.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
@@ -470,5 +589,8 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="DevPartner_IsInstrumented"
+			Value="1"/>
 	</Globals>
 </VisualStudioProject>
