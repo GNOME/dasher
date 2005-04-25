@@ -1,7 +1,8 @@
+
 #include "WinMenus.h"
+#include "../Common/Allocators/SimplePooledAlloc.h"
 
 #include <comutil.h>
-#include "../../Common/Allocators/SimplePooledAlloc.h"
 
 CSimplePooledAlloc<ControlTree> gControlAlloc(20);
 
