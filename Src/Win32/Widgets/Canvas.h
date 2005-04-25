@@ -27,6 +27,9 @@ public:
 	~CCanvas();
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
+
+	void OnDestroy();
+
 	HWND getwindow() {return m_hwnd;}
 
 	void StartOnLeftClick(bool Value) {startonleft = Value;}
@@ -43,8 +46,8 @@ public:
 	int* getkeycoords() {return keycoords;}
 	void setyscale(int y) {yscaling=y;}
 	int getyscale() {return yscaling;}
-	void setmouseposdist(int y) {m_pScreen->SetMousePosDist(y);mouseposdist=y;}
-	int getmouseposdist() {return m_pScreen->GetMousePosDist();}
+	void setmouseposdist(int y) {m_iMousePosDist=y;}
+	int getmouseposdist() {return m_iMousePosDist;}
 	void setuniform(int y) {uniform=y;}
 	int getuniform() {return uniform;}
 	void onedimensional(bool value) {oned=value;}
@@ -67,7 +70,9 @@ private:
 
 	HWND Parent;
 	HDC m_hdc;
-	int keycoords[18],buttonnum,yscaling,mouseposdist,uniform;
+	int keycoords[18],buttonnum,yscaling;
+	int m_iMousePosDist;
+	int uniform;
 	bool forward,backward,select;
 	CScreen* m_pScreen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
@@ -84,7 +89,7 @@ private:
 
 	bool windowpause;
 
-	bool mouseposstart;
+	bool m_MousePosStart;
 
 	bool firstwindow;
 
@@ -114,6 +119,8 @@ private:
 
 	RECT coords;
 
+	// Message handler functions
+	int OnTimer(HWND Window);
 };
 
 

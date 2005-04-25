@@ -63,35 +63,35 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	direction=0;
 }
 
-
-CCanvas::~CCanvas()
+void CCanvas::OnDestroy()
 {
 	int iRC = ReleaseDC(m_hwnd,m_hdc);
 	if (!iRC)
 	{
 		LPVOID lpMsgBuf;
-FormatMessage( 
-    FORMAT_MESSAGE_ALLOCATE_BUFFER | 
-    FORMAT_MESSAGE_FROM_SYSTEM | 
-    FORMAT_MESSAGE_IGNORE_INSERTS,
-    NULL,
-    GetLastError(),
-    MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
-    (LPTSTR) &lpMsgBuf,
-    0,
-    NULL 
-);
-// Process any inserts in lpMsgBuf.
-// ...
-// Display the string.
-MessageBox( NULL, (LPCTSTR)lpMsgBuf, TEXT("Error"), MB_OK | MB_ICONINFORMATION );
-// Free the buffer.
-LocalFree( lpMsgBuf );
-
-
+		FormatMessage( 
+			FORMAT_MESSAGE_ALLOCATE_BUFFER | 
+			FORMAT_MESSAGE_FROM_SYSTEM | 
+			FORMAT_MESSAGE_IGNORE_INSERTS,
+			NULL,
+			GetLastError(),
+			MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT), // Default language
+			(LPTSTR) &lpMsgBuf,
+			0,
+			NULL 
+			);
+		// Process any inserts in lpMsgBuf.
+		// ...
+		// Display the string.
+		MessageBox( NULL, (LPCTSTR)lpMsgBuf, TEXT("Error"), MB_OK | MB_ICONINFORMATION );
+		// Free the buffer.
+		LocalFree( lpMsgBuf );
 	}
 
+}
 
+CCanvas::~CCanvas()
+{
 	delete m_pScreen;
 }
 
@@ -116,17 +116,21 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
     TCHAR tmpAutoOffset[25];
 	TCHAR tmpOneButton[25];
 
-	switch (message) {
 
+	//OutputDebugString(TEXT("Canvas WndProc\n"));
 
+	switch (message) 
+	{
+	case WM_TIMER:
+		 return OnTimer(Window);
 	case WM_COMMAND:
 		SendMessage(Parent, message, wParam, lParam);
 		return 0;
-		break;
-
 	case WM_KEYDOWN:
-		switch (wParam) {
-			if (keycontrol == true) {
+		switch (wParam) 
+		{
+			if (keycontrol == true) 
+			{
 		case VK_UP:
 			if (forward==true) {
 				buttonnum++;
@@ -143,62 +147,55 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			} else {
 				m_DasherWidgetInterface->GoTo(keycoords[0], keycoords[1]);
 			}
-			return 0;
-			break;
-		case VK_DOWN:	
-			if (backward==true) {
+		return 0;
+		break;
+	case VK_DOWN:	
+		if (backward==true) {
+			buttonnum--;
+			if (buttonnum==-1) {
+				buttonnum=8;
+			}
+			while (keycoords[buttonnum*2]==NULL) {
 				buttonnum--;
 				if (buttonnum==-1) {
 					buttonnum=8;
 				}
-				while (keycoords[buttonnum*2]==NULL) {
-					buttonnum--;
-					if (buttonnum==-1) {
-						buttonnum=8;
-					}
-				}
-				m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
-			} else {
-				m_DasherWidgetInterface->GoTo(keycoords[2], keycoords[3]);
 			}
-			return 0;
-			break;
-		case VK_LEFT:
-			if (select==true) {
-				m_DasherWidgetInterface->GoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
-				m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
-			} else {
-				m_DasherWidgetInterface->GoTo(keycoords[4],keycoords[5]);
-			}
-			return 0;
-			break;
-		case VK_RIGHT:
-			m_DasherWidgetInterface->GoTo(keycoords[6],keycoords[7]);
-			return 0;
-			break;
-			}
-		case VK_SPACE:
-			startspace();
-			return 0;
-			break;
-		case VK_F9:
-			wsprintf(tmpOneButton, TEXT("yOneButton: %d"), m_DasherAppInterface->GetOneButton());
-			MessageBox(Window, tmpOneButton, NULL, 1);
-			return 0;
-			break;
-		case VK_F11:
-			wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_DasherAppInterface->GetAutoOffset());
-			MessageBox(Window, tmpAutoOffset, NULL, 1);
-			return 0;
-			break;
-		case VK_F12:
-			centrecursor();
-			return 0;
-			break;
-		default:
-			return 0;
-			break;
+			m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+		} else {
+			m_DasherWidgetInterface->GoTo(keycoords[2], keycoords[3]);
 		}
+		return 0;
+	case VK_LEFT:
+		if (select==true) {
+			m_DasherWidgetInterface->GoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+			m_DasherWidgetInterface->DrawGoTo(keycoords[buttonnum*2],keycoords[buttonnum*2+1]);
+		} else {
+			m_DasherWidgetInterface->GoTo(keycoords[4],keycoords[5]);
+		}
+		return 0;
+	case VK_RIGHT:
+		m_DasherWidgetInterface->GoTo(keycoords[6],keycoords[7]);
+		return 0;
+		break;
+			}
+	case VK_SPACE:
+		startspace();
+		return 0;
+	case VK_F9:
+		wsprintf(tmpOneButton, TEXT("yOneButton: %d"), m_DasherAppInterface->GetOneButton());
+		MessageBox(Window, tmpOneButton, NULL, 1);
+		return 0;
+	case VK_F11:
+		wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_DasherAppInterface->GetAutoOffset());
+		MessageBox(Window, tmpAutoOffset, NULL, 1);
+		return 0;
+	case VK_F12:
+		centrecursor();
+		return 0;
+	default:
+		return 0;
+	}
 	case WM_LBUTTONDBLCLK:
 		// fall through
 	case WM_LBUTTONDOWN:
@@ -214,180 +211,218 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 		}
 		StartStop();
 		return 0;
-		break;
 	case WM_LBUTTONUP:
 		endturbo = GetTickCount();
 
 		if (endturbo-startturbo > 1) {
-			
+
 			TCHAR deb[80];
 			wsprintf(deb,TEXT("start: %d\nend: %d\nduration: %d"), startturbo, endturbo, endturbo-startturbo);
 			OutputDebugString(deb);
 		}
 		lbuttonheld=0;
 		return 0;
-		break;
 	case WM_MOUSEMOVE:
 		imousex=LOWORD(lParam);
 		imousey=HIWORD(lParam);
 		return 0;
-		break;
-	case WM_PAINT: {
+	case WM_PAINT: 
 		PAINTSTRUCT ps;
-		HDC hdc = BeginPaint(Window, &ps);
-	
-///		Screen->SetNextHDC(hdc);
-		m_DasherWidgetInterface->Redraw();
-		if (firstwindow==true) {
-			m_pScreen->DrawMousePosBox(0);
-		} else if (secondwindow==true) {
-			m_pScreen->DrawMousePosBox(1);
-		}
+		BeginPaint(Window, &ps);
+
+		///		Screen->SetNextHDC(hdc);
+		//m_DasherWidgetInterface->Redraw();
+		m_pScreen->Display();
+	//	if (firstwindow==true) 
+	//	{
+	//		m_pScreen->DrawMousePosBox(0,m_iMousePosDist);
+	//	} 
+	//	else if (secondwindow==true) 
+	//	{
+	//		m_pScreen->DrawMousePosBox(1,m_iMousePosDist);
+	//	}
 		EndPaint(Window, &ps);
-	
 		return 0;
-		break;
-	}
 	case WM_SIZE:
 		if (m_pScreen!=0)
 			delete m_pScreen;
 		m_pScreen = new CScreen(m_hdc, LOWORD(lParam), HIWORD(lParam));
 		m_DasherAppInterface->ChangeScreen(m_pScreen);
 		InvalidateRect(Window, NULL, FALSE);
-		break;
+		return 0;
+	
+	case WM_DESTROY:
+		OutputDebugString(TEXT("Canvas WM_DESTROY\n"));
+		OnDestroy();
+		return DefWindowProc(Window, message, wParam, lParam);
+	default:
+		return DefWindowProc(Window, message, wParam, lParam);
+	}
+	return 0;
+}
 
-	case WM_TIMER:
-		POINT mousepos;		
-		GetCursorPos(&mousepos);
 
-		if (running==0) {
-			ScreenToClient(Window,&mousepos);			
-			if (mouseposstart==true) { // configuration option
-				if (firstwindow!=true && secondwindow!=true) {			
-					m_DasherWidgetInterface->Redraw();
-					m_pScreen->DrawMousePosBox(0);
-					firstwindow=true;
+
+int CCanvas::OnTimer(HWND Window)
+{
+
+	POINT mousepos;		
+	GetCursorPos(&mousepos);
+
+	if (running==0) 
+	{
+		ScreenToClient(Window,&mousepos);			
+		if (m_MousePosStart==true) // configuration option
+		{ 
+			//			DASHER_TRACEOUTPUT("first:%d second:%d %d\n",firstwindow,secondwindow,m_iMousePosDist);
+			if (firstwindow!=true && secondwindow!=true) 
+			{			
+				m_DasherWidgetInterface->SetDrawMousePosBox(1);
+				firstwindow=true;
+			}
+			if (mousepos.y>m_pScreen->GetHeight()/2-m_iMousePosDist-50 && mousepos.y<m_pScreen->GetHeight()/2-m_iMousePosDist+50 && firstwindow==true) 
+			{
+				// Mouse is in the top box
+				if (mousepostime==0) 
+				{
+					mousepostime=GetTickCount();
+				} 
+				else if ((GetTickCount()-mousepostime)>2000) 
+				{
+					firstwindow=false;
+					secondwindow=true;
+					mousepostime=0;
+					m_DasherWidgetInterface->SetDrawMousePosBox(2);
 				}
-				if (mousepos.y>m_pScreen->GetHeight()/2-mouseposdist-50 && mousepos.y<m_pScreen->GetHeight()/2-mouseposdist+50 && firstwindow==true) {
-					// Mouse is in the top box
-					if (mousepostime==0) {
+			} 
+			else if (firstwindow==true) 
+			{
+				mousepostime=0;
+			}
+			if (secondwindow==true) 
+			{
+				if (mousepos.y< m_pScreen->GetHeight()/2+m_iMousePosDist+50 && mousepos.y>(m_pScreen->GetHeight()/2+m_iMousePosDist-50)) {
+					// In second window
+					if (mousepostime==0) 
+					{
 						mousepostime=GetTickCount();
-					} else if ((GetTickCount()-mousepostime)>2000) {
-						firstwindow=false;
-						secondwindow=true;
-						mousepostime=0;
-						m_DasherWidgetInterface->Redraw();
-						m_pScreen->DrawMousePosBox(1);
+					} 
+					else if ((GetTickCount()-mousepostime)>2000) 
+					{
+						m_DasherWidgetInterface->SetDrawMousePosBox(-1);
+						StartStop();
 					}
-				} else if (firstwindow==true) {
+				} else if (mousepostime>0) 
+				{
+					secondwindow=false;
+					firstwindow=true;
+					m_DasherWidgetInterface->SetDrawMousePosBox(1);
 					mousepostime=0;
 				}
-				if (secondwindow==true) {
-					if (mousepos.y< m_pScreen->GetHeight()/2+mouseposdist+50 && mousepos.y>(m_pScreen->GetHeight()/2+mouseposdist-50)) {
-						// In second window
-						if (mousepostime==0) {
-							mousepostime=GetTickCount();
-						} else if ((GetTickCount()-mousepostime)>2000) {
-							StartStop();
-						}
-					} else if (mousepostime>0) {
-						secondwindow=false;
-						firstwindow=true;
-						m_DasherWidgetInterface->Redraw();
-						m_pScreen->DrawMousePosBox(0);
-						mousepostime=0;
-					}
-				}
 			}
-			imousey=mousepos.y;
-
-			imousex=mousepos.x;
-
-			if (oned==true) {
-				double scalefactor;
-				if (yscaling==0) {
-					scalefactor=2.0;
-				} else {
-					scalefactor=m_pScreen->GetHeight()/yscaling;
-				}
-				imousey-=m_pScreen->GetHeight()/2;
-				imousey*=scalefactor;
-				imousey+=m_pScreen->GetHeight()/2;
-			}
-
-
-
-			if ((GetTickCount()-previoustime)>200) {
-				m_DasherWidgetInterface->DrawMousePos(imousex,imousey);
-				if (firstwindow==true) {
-					m_pScreen->DrawMousePosBox(0);
-				} else if (secondwindow==true) {
-					m_pScreen->DrawMousePosBox(1);
-				}
-				previoustime=GetTickCount();
-			}
-
-			return 0;
 		}
-
-		// One-button mode.
-        if (direction==TRUE) {
-			if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
-//				double BitRate = m_DasherAppInterface->GetMaxBitRate();
-			//	TCHAR deb[80];
-			//	wsprintf(deb,TEXT("bitrate: %d\n"), BitRate);
-			//	OutputDebugString(deb);
-				m_DasherAppInterface->SetOneButton(125);
-			}
-			else {
-				m_DasherAppInterface->SetOneButton(50);
-			}
-        }
-        if (direction==FALSE) {
-			if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
-				m_DasherAppInterface->SetOneButton(-125);
-			}
-			else {
-				m_DasherAppInterface->SetOneButton(-50);
-			}
-        }
-
-		if (windowpause==true) {
-			RECT windowrect;
-
-			GetWindowRect(m_hwnd, &windowrect);
-			if (mousepos.y>windowrect.bottom || mousepos.y<windowrect.top || mousepos.x >windowrect.right || mousepos.x < windowrect.left)
-				return 0;
-		}
-
-		ScreenToClient(Window,&mousepos);			
 		imousey=mousepos.y;
+
 		imousex=mousepos.x;
-	
-		if (oned==true) {
+
+		if (oned==true)
+		{
 			double scalefactor;
-			if (yscaling==0) {
-				scalefactor=2;
-			} else {
+			if (yscaling==0) 
+			{
+				scalefactor=2.0;
+			} 
+			else 
+			{
 				scalefactor=m_pScreen->GetHeight()/yscaling;
-			}	
+			}
 			imousey-=m_pScreen->GetHeight()/2;
 			imousey*=scalefactor;
 			imousey+=m_pScreen->GetHeight()/2;
 		}
-		m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
-		break;
-	default:
-		break;
-	}
-	return DefWindowProc(Window, message, wParam, lParam);
-}
 
+
+
+		if ((GetTickCount()-previoustime)>200) 
+		{
+			if (firstwindow==true) 
+			{
+				m_DasherWidgetInterface->SetDrawMousePosBox(1);
+			} else if (secondwindow==true) 
+			{
+				m_DasherWidgetInterface->SetDrawMousePosBox(2);
+			}
+
+			//			m_DasherWidgetInterface->SetMouse
+			m_DasherWidgetInterface->Redraw(imousex,imousey);
+			previoustime=GetTickCount();
+		}
+
+
+		return 0;
+	}
+	// One-button mode.
+	if (direction==TRUE) 
+	{
+		if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
+			//				double BitRate = m_DasherAppInterface->GetMaxBitRate();
+			//	TCHAR deb[80];
+			//	wsprintf(deb,TEXT("bitrate: %d\n"), BitRate);
+			//	OutputDebugString(deb);
+			m_DasherAppInterface->SetOneButton(125);
+		}
+		else {
+			m_DasherAppInterface->SetOneButton(50);
+		}
+	}
+	if (direction==FALSE) {
+		if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
+			m_DasherAppInterface->SetOneButton(-125);
+		}
+		else {
+			m_DasherAppInterface->SetOneButton(-50);
+		}
+	}
+
+	if (windowpause==true) {
+		RECT windowrect;
+
+		GetWindowRect(m_hwnd, &windowrect);
+		if (mousepos.y>windowrect.bottom || mousepos.y<windowrect.top || mousepos.x >windowrect.right || mousepos.x < windowrect.left)
+			return 0;
+	}
+
+	ScreenToClient(Window,&mousepos);			
+	imousey=mousepos.y;
+	imousex=mousepos.x;
+
+	if (oned==true) 
+	{
+		double scalefactor;
+		if (yscaling==0) 
+		{
+			scalefactor=2;
+		} 
+		else 
+		{
+			scalefactor=m_pScreen->GetHeight()/yscaling;
+		}	
+		imousey-=m_pScreen->GetHeight()/2;
+		imousey*=scalefactor;
+		imousey+=m_pScreen->GetHeight()/2;
+	}
+	m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
+	return 0;
+
+}
 void CCanvas::startspace()
 {
-	if (startonspace == false) {
+	if (startonspace == false) 
+	{
 		return;
-	} else {
+	} 
+	else 
+	{
 		StartStop();
 	}
 }
@@ -413,10 +448,12 @@ void CCanvas::MousePosStart(bool Value)
 		firstwindow=false;
 		secondwindow=false;
 	}
-	mouseposstart=Value;
+	m_MousePosStart=Value;
+	DASHER_TRACEOUTPUT("MousePosStart: %d",m_MousePosStart);
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
 
 void CCanvas::StartStop() {
 
