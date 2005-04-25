@@ -2,14 +2,14 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2004 David Ward
+// Copyright (c) 2001-2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
-#include "DasherModel.h"
 
-#include <iostream>
+#include "DasherModel.h"
+#include "LanguageModelling/PPMLanguageModel.h"
 
 using namespace Dasher;
 using namespace std;
@@ -18,11 +18,17 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused)
-  : m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused), m_editbox(Editbox), m_languagemodel(LanguageModel), 
-    m_Root(0),m_iNormalization(1<<16)
+CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, 
+						   bool Dimensions, bool Eyetracker, bool Paused)
+  : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
+	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
+	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL)
 {
-	LearnContext = m_languagemodel->CreateEmptyContext();
+
+	CSymbolAlphabet alphabet(pAlphabet->GetNumberSymbols());
+	m_pLanguageModel = new CPPMLanguageModel(alphabet);
+	
+	LearnContext = m_pLanguageModel->CreateEmptyContext();
 	
 	// various settings
 	int iShift = 12;
@@ -42,8 +48,6 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel,
 
 CDasherModel::~CDasherModel()
 {
-	m_languagemodel->ReleaseContext(LearnContext);
-
 
 	// DJW 20031106 - hope to get it right this time
 	
@@ -56,26 +60,8 @@ CDasherModel::~CDasherModel()
 	
 	delete m_Root;
 
-
-	/*
-	// This is yukky
-
-	while (oldroots.size()>1) {
-	  oldroots[0]->Delete_dead(oldroots[1]);
-	  delete oldroots[0];
-	  oldroots.pop_front();
-	}
-
-	// even more yukky
-	if (oldroots.size()==1)
-	{
-		 oldroots[0]->Delete_dead(m_Root);
-		delete oldroots[0];
-		oldroots.clear();
-	}
-
-	delete m_Root;  // which will also delete all the whole structure
-*/
+	m_pLanguageModel->ReleaseContext(LearnContext);
+	delete m_pLanguageModel;
 
 }
 
@@ -83,21 +69,10 @@ CDasherModel::~CDasherModel()
 void CDasherModel::Make_root(int whichchild)
  // find a new root node 
 {
-  /*	symbol t=m_Root->Symbol();
-
-	if (m_Root->Control()==true) {
-	  m_editbox->outputcontrol(m_Root->GetControlTree()->pointer,m_Root->GetControlTree()->data);
-	} else {
-	  if (t) {
-	    m_editbox->output(t);
-	    m_languagemodel->LearnNodeSymbol(LearnContext, t);
-	  }
-	}
-  */
 
   symbol t=m_Root->Symbol();
-  if (t) {
-    m_languagemodel->LearnSymbol(LearnContext, t);
+  if (t) {  // SYM0
+    m_pLanguageModel->LearnSymbol(LearnContext, t);
   }
 
 	CDasherNode * oldroot=m_Root;
@@ -224,27 +199,27 @@ void CDasherModel::Start()
 	
 	delete m_Root;
 	
-	m_Root=new CDasherNode(*this,0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
-	CLanguageModel::Context therootcontext=m_languagemodel->CreateEmptyContext();
+	m_Root=new CDasherNode(*this,0,0,0,0,Opts::Nodes1,0,Normalization(),m_pLanguageModel, false, 7);
+	CLanguageModel::Context therootcontext=m_pLanguageModel->CreateEmptyContext();
 
-	if (m_editbox) {
+	if (m_pEditbox) {
 		string ContextString;
-		m_editbox->get_new_context(ContextString,5);
+		m_pEditbox->get_new_context(ContextString,5);
 		if (ContextString.size()==0) {
 		  // If there is no root context, pretend that we've just
 		  // finished a sentence
-
-		  ContextString=m_languagemodel->defaultContextString();
+		  ContextString=". " + ContextString;
 		}
-		m_languagemodel->EnterText(therootcontext, ContextString);
-		m_languagemodel->ReleaseContext(LearnContext);
-		LearnContext = m_languagemodel->CloneContext(therootcontext);
+		EnterText(therootcontext, ContextString);
+	
+		m_pLanguageModel->ReleaseContext(LearnContext);
+		LearnContext = m_pLanguageModel->CloneContext(therootcontext);
 	}
 
 	m_Root->SetContext(therootcontext);    // node takes control of the context
 	m_Root->Recursive_Push_Node(0);
 	
-//	m_languagemodel->ReleaseNodeContext(therootcontext);
+//	m_pLanguageModel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
 //	dump();
 	
@@ -372,6 +347,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 	// push node under mouse
 	CDasherNode *under_mouse=Get_node_under_mouse(miMousex,miMousey);
+
 	under_mouse->Push_Node();
 
 	if (Framerate() > 4) {
@@ -442,7 +418,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	new_under_cross->Seen(true);
 
 	if (new_under_cross->Control()==true) {
-	  //		m_editbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
+	  //		m_pEditbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
 		OutputCharacters(new_under_cross);
 		SetBitrate(m_dMaxRate/3);
 	} else {
@@ -496,59 +472,74 @@ void CDasherModel::OutputCharacters(CDasherNode *node)
     OutputCharacters(node->Parent());
   }
   symbol t=node->Symbol();
-  if (t) 
+  if (t) // SYM0
   {
-    m_editbox->output(t);
+    m_pEditbox->output(t);
   } 
   else if (node->Control()==true) 
   {
-	  m_editbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
+	  m_pEditbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
   }
 }
 
-bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode) {
-  if (newnode==NULL||oldnode==NULL) {
-    return false;
-  }
-  // This deals with the trivial instance - we're reversing back over
-  // text that we've seen already
-  if (newnode->isSeen()==true) {
-    if (oldnode->Parent()==newnode) {
-      if (oldnode->Symbol()!=m_languagemodel->GetControlSymbol()&&oldnode->Control()==false&&oldnode->Symbol()!=0) {
-	m_editbox->deletetext(oldnode->Symbol());
-      }
-      oldnode->Seen(false);
-      return true;
-    }
-    if (DeleteCharacters(newnode,oldnode->Parent())==true) {
-      if (oldnode->Symbol()!=m_languagemodel->GetControlSymbol()&&oldnode->Control()==false&&oldnode->Symbol()!=0) {
-	m_editbox->deletetext(oldnode->Symbol());
-      }
-      oldnode->Seen(false);
-      return true;
-    }
-  } else {
-    // This one's more complicated - the user may have moved onto a new branch
-    // Find the last seen node on the new branch
-    CDasherNode *lastseen=newnode->Parent();
-    while (lastseen!=NULL && lastseen->isSeen()==false) {      
-      lastseen=lastseen->Parent();
-    };
-    // Delete back to last seen node
-    while (oldnode!=lastseen) {
-      oldnode->Seen(false);
-      if (oldnode->Control()==true||oldnode->Symbol()==m_languagemodel->GetControlSymbol() || oldnode->Symbol()==0) {
-	oldnode=oldnode->Parent();
-	continue;
-      }
-      m_editbox->deletetext(oldnode->Symbol());
-      oldnode=oldnode->Parent();
-      if (oldnode==NULL) {
+bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode) 
+{
+	// DJW cant see how either of these can ever be NULL
+	DASHER_ASSERT_VALIDPTR_RW(newnode);
+	DASHER_ASSERT_VALIDPTR_RW(oldnode);
+
+	if (newnode==NULL||oldnode==NULL)
+		return false;
+
+	// This deals with the trivial instance - we're reversing back over
+	// text that we've seen already
+	if (newnode->isSeen()==true) 
+	{
+		if (oldnode->Parent()==newnode) 
+		{
+			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->Control()==false && oldnode->Symbol()!=0)  // SYM0
+			{
+				m_pEditbox->deletetext(oldnode->Symbol());
+			}
+			oldnode->Seen(false);
+			return true;
+		}
+		if (DeleteCharacters(newnode,oldnode->Parent())==true)
+		{
+			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->Control()==false && oldnode->Symbol()!=0) // SYM0 
+			{
+				m_pEditbox->deletetext(oldnode->Symbol());
+			}
+			oldnode->Seen(false);
+			return true;
+		}
+	} 
+	else 
+	{
+		// This one's more complicated - the user may have moved onto a new branch
+		// Find the last seen node on the new branch
+		CDasherNode *lastseen=newnode->Parent();
+		while (lastseen!=NULL && lastseen->isSeen()==false) 
+		{      
+			lastseen=lastseen->Parent();
+		};
+		// Delete back to last seen node
+		while (oldnode!=lastseen) 
+		{
+			oldnode->Seen(false);
+			if (oldnode->Control()==true||oldnode->Symbol()== GetControlSymbol() || oldnode->Symbol()==0) 
+			{
+				oldnode=oldnode->Parent();
+				continue;
+			}
+			m_pEditbox->deletetext(oldnode->Symbol());
+			oldnode=oldnode->Parent();
+			if (oldnode==NULL) {
+				return false;
+			}
+		}
+	}
 	return false;
-      }
-    }
-  }
-  return false;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -561,4 +552,101 @@ void CDasherModel::Dump() const
 }
 
 
+///////////////////////////////////////////////////////////////////
 
+
+void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &NewSymbols,
+		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm) const
+{
+	int iSymbols = m_pcAlphabet->GetNumberSymbols();
+
+
+	int uniform_add = ((iNorm / 1000 ) / iSymbols ) * m_uniform;
+	int nonuniform_norm = iNorm - iSymbols * uniform_add;
+
+	NewSymbols.resize(iSymbols);
+	Groups.resize(iSymbols);
+	for (int i=0;i<iSymbols;i++) 
+	{
+		NewSymbols[i]=i; // This will be replaced by something that works out valid nodes for this context
+		Groups[i]=m_pcAlphabet->get_group(i);
+	}
+
+	m_pLanguageModel->GetProbs(context,Probs,nonuniform_norm);
+
+	for( int k=0; k < Probs.size(); ++k )
+		Probs[k] += uniform_add;
+
+#if _DEBUG
+	int iTotal = 0;
+	for( int k=0; k < Probs.size(); ++k )
+		iTotal += Probs[k];
+	DASHER_ASSERT(iTotal == iNorm);
+#endif
+
+
+}
+
+///////////////////////////////////////////////////////////////////
+
+void CDasherModel::SetUniform( int _uniform )
+{ 
+	m_uniform = _uniform; 
+}
+
+///////////////////////////////////////////////////////////////////
+
+void CDasherModel::LearnText(CLanguageModel::Context context, string* TheText, bool IsMore)
+{
+	vector<symbol> Symbols;
+	
+	m_pcAlphabet->GetSymbols(&Symbols, TheText, IsMore);
+	
+	for (unsigned int i=0; i<Symbols.size(); i++)
+		m_pLanguageModel->LearnSymbol( context,  Symbols[i]);
+}
+
+
+///////////////////////////////////////////////////////////////////
+
+void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const
+{
+	vector<symbol> Symbols;
+	m_pcAlphabet->GetSymbols(&Symbols, &TheText, false);
+	for (unsigned int i=0; i<Symbols.size(); i++)
+		m_pLanguageModel->EnterSymbol(context, Symbols[i]);
+}
+
+///////////////////////////////////////////////////////////////////
+
+
+CDasherModel::CTrainer::CTrainer(CDasherModel& DasherModel)
+: m_DasherModel(DasherModel)
+{
+	m_Context = m_DasherModel.m_pLanguageModel->CreateEmptyContext();
+}
+
+///////////////////////////////////////////////////////////////////
+
+void CDasherModel::CTrainer::Train(const std::vector<symbol>& vSymbols)
+{
+	for (int i=0; i<vSymbols.size() ; i++)
+		m_DasherModel.m_pLanguageModel->LearnSymbol(m_Context,vSymbols[i]);
+}
+
+///////////////////////////////////////////////////////////////////
+
+CDasherModel::CTrainer::~CTrainer()
+{
+	m_DasherModel.m_pLanguageModel->ReleaseContext(m_Context);
+
+}
+
+///////////////////////////////////////////////////////////////////
+
+CDasherModel::CTrainer* CDasherModel::GetTrainer()
+{
+	return new CDasherModel::CTrainer(*this);
+}
+
+///////////////////////////////////////////////////////////////////

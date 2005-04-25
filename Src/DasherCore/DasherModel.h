@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2004 David Ward
+// Copyright (c) 2001-2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -11,10 +11,11 @@
 
 #include "../Common/NoClones.h"
 
+#include "LanguageModelling/LanguageModel.h"
+
 #include "DashEdit.h"
 #include "DasherNode.h"
-#include "DasherScreen.h"
-#include "LanguageModelling/LanguageModel.h"
+#include "Alphabet.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -31,10 +32,35 @@ namespace Dasher {class CDasherModel;}
 class Dasher::CDasherModel : private NoClones
 {
 public:
-	
-	CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel, bool Dimensions, bool Eyetracker, bool Paused);
+
+	class CTrainer
+	{
+	public:
+		CTrainer(CDasherModel& DasherModel);
+
+		void Train(const std::vector<symbol>& vSymbols);
+
+		~CTrainer();
+
+	private:
+		CLanguageModel::Context m_Context;
+		CDasherModel& m_DasherModel;
+
+
+	};
+
+	typedef enum
+	{
+		idPPM =0,
+		idBigram =1
+	} LanguageModelID;
+
+
+	CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* Editbox, LanguageModelID idLM, bool Dimensions, bool Eyetracker, bool Paused);
 	~CDasherModel();
 	
+	CTrainer* GetTrainer();
+
 	// framerate functions
 	void NewFrame(unsigned long Time) {m_fr.NewFrame(Time);}    // called everytime we render a new frame
 	double Framerate () const {return m_fr.Framerate();}        // return the framerate
@@ -46,6 +72,11 @@ public:
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate
 	void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 	
+
+	std::string GroupLabel(int group) const {return m_pcAlphabet->GetGroupLabel(group);}
+	int GroupColour(int group) const {return m_pcAlphabet->GetGroupColour(group);}
+
+
 	// functions returning private data (read only access)
 	myint Rootmin() const {return m_Rootmin;}
 	myint Rootmax() const {return m_Rootmax;}
@@ -76,15 +107,19 @@ public:
 	void Make_root(int whichchild);                                 // find a new root node
 	void Reparent_root(int lower, int upper);                                 // change back to the previous root
 	
-	void ResetNats() {
+	void ResetNats() 
+	{
 	  total_nats = 0;
-	};
+	}
 	
-	double GetNats() {
+	double GetNats() 
+	{
 	  return total_nats;
-	};
+	}
 	
 	
+	void SetUniform( int _uniform );
+
 	myint PlotGoTo(myint MouseX, myint MouseY);
 
 	void NewControlTree(ControlTree *tree) { m_pControltree=tree; }
@@ -101,8 +136,34 @@ public:
 
 	void SetActive(const CRange& range) { m_Active = range;}
 
+	void EnterText(CLanguageModel::Context Context, std::string TheText) const;
+	void LearnText(CLanguageModel::Context Context, std::string* TheText, bool IsMore);
+
+	CLanguageModel::Context CreateEmptyContext() const;
+
+	// Alphabet pass-through functions for widely needed information
+	symbol GetSpaceSymbol() const {return m_pcAlphabet->GetSpaceSymbol();}
+	symbol GetControlSymbol() const {return m_pcAlphabet->GetControlSymbol();}
+
+
 private:
 
+	/////////////////////////////////////////////////////////////////////////////
+
+	// Interfaces
+	
+	CDashEditbox* m_pEditbox;           // pointer to the editbox
+	CLanguageModel* m_pLanguageModel;   // pointer to the language model
+	
+	const CAlphabet* m_pcAlphabet;             // pointer to the alphabet
+	
+	CLanguageModel::Context LearnContext;        // Used to add data to model as it is entered
+	
+	/////////////////////////////////////////////////////////////////////////////
+
+
+	CDasherNode* m_Root;
+	
 	// Old root notes
 	std::deque<CDasherNode*> oldroots;
 
@@ -132,17 +193,13 @@ private:
 
 	bool m_Paused;
 
-	CDashEditbox* m_editbox;           // pointer to the editbox
-	CLanguageModel* m_languagemodel;   // pointer to the language model
+    // Fraction to allocate to uniform dist. (*1000)
+	int m_uniform;
 	
-	//CAlphabet* m_alphabet;             // pointer to the alphabet
-	
-	CLanguageModel::Context LearnContext;        // Used to add data to model as it is entered
 	CFrameRate m_fr;                   // keep track of framerate
 
 	double total_nats; // Information entered so far
 	
-	// TODO - move somewhere
 	// the probability that gets added to every symbol
 	double m_dAddProb;             
 
@@ -150,18 +207,39 @@ private:
 	
 	CDasherNode* Get_node_under_mouse(myint smousex,myint smousey);
 	CDasherNode* Get_node_under_crosshair();
-	CDasherNode* m_Root;
 	double Get_new_root_coords(myint mousex,myint mousey);
 	void Get_new_goto_coords(double zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 	void Update(CDasherNode* node,CDasherNode* under,int safe);
 
+	void GetProbs(CLanguageModel::Context context, std::vector<symbol> &NewSymbols,
+		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, int iNorm) const;
+
+
+	int GetColour(symbol s) const;
 
 	int m_iNormalization; // The arithmetic interval for child nodes
 
 	ControlTree* m_pControltree;
 
 
+	friend CDasherNode;
 };
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline CLanguageModel::Context CDasherModel::CreateEmptyContext() const
+{
+	return m_pLanguageModel->CreateEmptyContext();
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline int CDasherModel::GetColour(symbol s) const
+{
+	return m_pcAlphabet->GetColour(s);
+}
+
+
 
 #endif /* #ifndef __DasherModel_h__ */

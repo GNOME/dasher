@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../Common/Common.h"
+
 #include "DasherNode.h"
 #include "../Common/assert.h"
 using namespace Dasher;
@@ -59,7 +61,7 @@ void CDasherNode::Push_Node()
 	
 	if (! m_Context )
 	{
-		if (m_Symbol!=0)
+		if (m_Symbol!=0) // SYM0
 		{
 			DASHER_ASSERT (m_pParent !=NULL) ;
 			// Normal symbol - derive context from parent
@@ -70,8 +72,8 @@ void CDasherNode::Push_Node()
 		{
 			// For new "root" nodes (such as under control mode), we want to 
 			// mimic the root context
-			m_Context=m_pLanguageModel->CreateEmptyContext();
-			m_pLanguageModel->EnterText(m_Context, ". ");
+			m_Context= m_DasherModel.CreateEmptyContext();
+			m_DasherModel.EnterText(m_Context, ". ");
 
 		}
 
@@ -79,7 +81,7 @@ void CDasherNode::Push_Node()
 
 	m_bAlive=true;
 
-	if (m_Symbol==m_pLanguageModel->GetControlSymbol() || m_bControlChild==true) {
+	if (m_Symbol==m_DasherModel.GetControlSymbol() || m_bControlChild==true) {
 		int i,quantum;
 		ControlTree *controltree;
 		if (m_controltree==NULL) { // Root of the tree 
@@ -137,7 +139,7 @@ void CDasherNode::Push_Node()
 
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum,groups;   // for the probability list
-	m_pLanguageModel->GetProbs(m_Context,newchars,groups,cum,m_DasherModel.Normalization());
+	m_DasherModel.GetProbs(m_Context,newchars,groups,cum,m_DasherModel.Normalization());
 	m_iChildCount=newchars.size();
 	// work out cumulative probs
 	unsigned int i;
@@ -160,11 +162,11 @@ void CDasherNode::Push_Node()
 	ColorSchemes ChildScheme;
 
 	for (i=1;i<m_iChildCount;i++) {
-		if (newchars[i]==this->m_pLanguageModel->GetSpaceSymbol())
+		if (newchars[i]== m_DasherModel.GetSpaceSymbol())
 			ChildScheme = SpecialScheme;
 		else
 			ChildScheme = NormalScheme;
-		m_Children[i]=new CDasherNode(m_DasherModel,this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_pLanguageModel,false,m_pLanguageModel->GetColour(i));
+		m_Children[i]=new CDasherNode(m_DasherModel,this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_pLanguageModel,false,m_DasherModel.GetColour(i));
 	}
 }
 
@@ -174,7 +176,7 @@ void CDasherNode::Recursive_Push_Node(int depth) {
     return;
   }
 
-  if (m_Symbol==m_pLanguageModel->GetControlSymbol()) {
+  if (m_Symbol== m_DasherModel.GetControlSymbol()) {
     return;
   }
 

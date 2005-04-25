@@ -23,8 +23,7 @@ public:
 	
 	CDasherNode(const CDasherModel& dashermodel, CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour, ControlTree *controltree);
 	~CDasherNode();
-	bool m_bForce;                     // flag to force a node to be drawn - shouldn't be public
-    
+	
 	// return private data members - read only 
 	CDasherNode ** const Children() const {return m_Children;}
 	
@@ -44,8 +43,6 @@ public:
 	int Phase() const {return m_iPhase;}
 	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
 	int Colour() const {return m_iColour;}
-	int GroupColour(int group) const {return m_pLanguageModel->GetGroupColour(group);}
-	std::string GroupLabel(int group) const {return m_pLanguageModel->GetGroupLabel(group);}
 	CDasherNode* Parent() const {return m_pParent;}
 
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
@@ -83,9 +80,13 @@ private:
 	CLanguageModel* m_pLanguageModel;   // pointer to the language model - in future, could be different for each node	
 	CLanguageModel::Context m_Context;
 
-	CDasherNode *m_pParent;             // pointer to parent - only needed to grab parent context
+	CDasherNode *m_pParent;             // pointer to parent
 	ControlTree *m_controltree;
 
+	enum {
+		typeRoot=0,
+		typeSymbol=1
+	};
 
 };
 
@@ -103,8 +104,9 @@ inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pP
 	m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
 	m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), 
 	m_pLanguageModel(lm), m_Children(0), m_pParent(pParent), m_Context(NULL), 
-	m_controltree(controltree),m_bForce(false)
+	m_controltree(controltree)
 {
+
 	/*
 	switch (ColorScheme) {
 		case Nodes1:
