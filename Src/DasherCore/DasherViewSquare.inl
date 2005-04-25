@@ -19,28 +19,28 @@ inline void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mouse
 
 
     if(!DasherRunning==true) {
-        CDasherView::yFilterTimescale = 20;
-        CDasherView::ySum += (int)disty;
-        CDasherView::ySumCounter++;
+        m_yFilterTimescale = 20;
+        m_ySum += (int)disty;
+        m_ySumCounter++;
 
-        CDasherView::ySigBiasPercentage=50;
-        CDasherView::ySigBiasPixels = CDasherView::ySigBiasPercentage * DasherModel().DasherY() / 100;
+        m_ySigBiasPercentage=50;
+        m_ySigBiasPixels = m_ySigBiasPercentage * DasherModel().DasherY() / 100;
 
         //cout << "yAutoOffset: " << CDasherView::yAutoOffset << endl;
 
-        if (CDasherView::ySumCounter > CDasherView::yFilterTimescale) {
-          CDasherView::ySumCounter = 0;
+        if (m_ySumCounter > m_yFilterTimescale) {
+          m_ySumCounter = 0;
 
           // 'Conditions A', as specified by DJCM.  Only make the auto-offset
           // change if we're past the significance boundary.
 
-          if (CDasherView::ySum > CDasherView::ySigBiasPixels || CDasherView::ySum < -CDasherView::ySigBiasPixels) {
-             if (CDasherView::ySum > CDasherView::yFilterTimescale)
-                 CDasherView::yAutoOffset--;
-             else if (CDasherView::ySum < -CDasherView::yFilterTimescale)
-                 CDasherView::yAutoOffset++;
+          if (m_ySum > m_ySigBiasPixels || m_ySum < -m_ySigBiasPixels) {
+             if (m_ySum > m_yFilterTimescale)
+                 m_yAutoOffset--;
+             else if (m_ySum < -m_yFilterTimescale)
+                 m_yAutoOffset++;
             
-             CDasherView::ySum = 0;
+             m_ySum = 0;
           }
         }
         
@@ -56,7 +56,7 @@ inline void CDasherViewSquare::screen2dasher(screenint imousex, screenint imouse
     // bool DasherRunning = DasherModel().Paused();
 	
 
-	imousey += int(yAutoOffset);
+	imousey += int(m_yAutoOffset);
 
     // Maybe this mousey tweak should take place earlier, elsewhere, and 
     // have a permanent effect on mousey rather than just local.
@@ -81,7 +81,7 @@ inline void CDasherViewSquare::screen2dasher(screenint imousex, screenint imouse
 	double dashery=double(imousey*DasherModel().DasherY()/CanvasY);
 	bool useonebutton=0;
 	if (useonebutton) {
-	    int onebutton = CDasherView::GetOneButton();
+		int onebutton = CDasherView::GetOneButton();
 	    dashery=onebutton;
 	}
     
@@ -265,6 +265,45 @@ inline int CDasherViewSquare::dasherx2screen(myint sx) const
 	return CanvasX-int(x*CanvasX);
 
 }
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline int CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const
+{
+	if (KeyControl==false) 
+	{
+		y1=m_ymap.map(y1);
+		y2=m_ymap.map(y2);
+	} 
+
+	if (y1>DasherModel().DasherY()) 
+	{
+		return 0;
+	}
+	if (y2 < 0)
+	{
+		return 0;
+	}
+
+	if (y1<0)  // "highest" legal coordinate to draw is 0.
+	{ 
+		s1=0;
+	}
+	
+	// Is this square actually on the screen? Check bottom
+	if (y2 > DasherModel().DasherY() )
+		s2=CanvasY;
+
+	int iSize = y2-y1;
+
+	s1= (y1 * CanvasY /DasherModel().DasherY() );
+	s2= (y2 * CanvasY /DasherModel().DasherY() );
+
+	return iSize;
+
+}
+
 
 /////////////////////////////////////////////////////////////////////////////
 

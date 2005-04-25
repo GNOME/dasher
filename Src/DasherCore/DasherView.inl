@@ -7,18 +7,6 @@
 /////////////////////////////////////////////////////////////////////////////
 
 
-inline void Dasher::CDasherView::Render()
-{
-	m_Screen->Blank();
-	
-	// Render nodes to screen object (should use off screen buffer)
-	if (m_DasherModel.Root()!=NULL) {
-		RecursiveRender(m_DasherModel.Root(), m_DasherModel.Rootmin(), m_DasherModel.Rootmax(), 2, false);
-		RecursiveRender(m_DasherModel.Root(), m_DasherModel.Rootmin(), m_DasherModel.Rootmax(), 2, true);
-		Crosshair(m_DasherModel.DasherOX()); // add crosshair
-	//	m_Screen->Display();                 // copy from buffer to screen
-	}
-}
 
 inline void Dasher::CDasherView::MapScreen(screenint* DrawX, screenint* DrawY)
 {
@@ -28,18 +16,18 @@ inline void Dasher::CDasherView::MapScreen(screenint* DrawX, screenint* DrawY)
 		case (LeftToRight):
 			break;
 		case (RightToLeft):
-			*DrawX = m_Screen->GetWidth() - *DrawX;
+			*DrawX = Screen().GetWidth() - *DrawX;
 			break;
 		case (TopToBottom): {
-			screenint Swapper = ( *DrawX * m_Screen->GetHeight()) / m_Screen->GetWidth();
-			*DrawX = (*DrawY  * m_Screen->GetWidth()) / m_Screen->GetHeight();
+			screenint Swapper = ( *DrawX * Screen().GetHeight()) / Screen().GetWidth();
+			*DrawX = (*DrawY  * Screen().GetWidth()) / Screen().GetHeight();
 			*DrawY = Swapper;
 			break;
 			}
 		case (BottomToTop): {
 			// Note rotation by 90 degrees not reversible like others
-			screenint Swapper = m_Screen->GetHeight() - ( *DrawX * m_Screen->GetHeight()) / m_Screen->GetWidth();
-			*DrawX = (*DrawY  * m_Screen->GetWidth()) / m_Screen->GetHeight();
+			screenint Swapper = Screen().GetHeight() - ( *DrawX * Screen().GetHeight()) / Screen().GetWidth();
+			*DrawX = (*DrawY  * Screen().GetWidth()) / Screen().GetHeight();
 			*DrawY = Swapper;
 			break;
 			}
@@ -57,17 +45,17 @@ inline void Dasher::CDasherView::UnMapScreen(screenint* MouseX, screenint* Mouse
 		case (LeftToRight):
 			break;
 		case (RightToLeft):
-			*MouseX = m_Screen->GetWidth() - *MouseX;
+			*MouseX = Screen().GetWidth() - *MouseX;
 			break;
 		case (TopToBottom): {
-			screenint Swapper = (*MouseX * m_Screen->GetHeight()) / m_Screen->GetWidth();
-			*MouseX = (*MouseY *m_Screen->GetWidth()) / m_Screen->GetHeight();;
+			screenint Swapper = (*MouseX * Screen().GetHeight()) / Screen().GetWidth();
+			*MouseX = (*MouseY *Screen().GetWidth()) / Screen().GetHeight();;
 			*MouseY = Swapper;
 			break;
 			}
 		case (BottomToTop): {
-			screenint Swapper = (*MouseX * m_Screen->GetHeight()) / m_Screen->GetWidth();
-			*MouseX = ((m_Screen->GetHeight() - *MouseY) * m_Screen->GetWidth()) / m_Screen->GetHeight();
+			screenint Swapper = (*MouseX * Screen().GetHeight()) / Screen().GetWidth();
+			*MouseX = ((Screen().GetHeight() - *MouseY) * Screen().GetWidth()) / Screen().GetHeight();
 			*MouseY = Swapper;
 			break;
 			}
@@ -75,3 +63,4 @@ inline void Dasher::CDasherView::UnMapScreen(screenint* MouseX, screenint* Mouse
 			break;
 	}
 }
+

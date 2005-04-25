@@ -12,6 +12,7 @@
 #include "DasherScreen.h"
 #include "DasherModel.h"
 #include "DasherView.h"
+#include "View/DelayedDraw.h"
 
 // An implementation of the DasherView class
 //
@@ -25,36 +26,38 @@ namespace Dasher {class CDasherViewSquare;}
 class Dasher::CDasherViewSquare : public Dasher::CDasherView
 {
 public:
-	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
+	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time);
 	void GoTo(screenint mousex,screenint mousey);
+	
+	virtual void RenderNodes();
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
 	void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey);
 	void DrawMouse(screenint mousex, screenint mousey);
 	void DrawMouseLine(screenint mousex, screenint mousey);
 	void DrawKeyboard();
-private:
-	// the x and y non-linearities
-	void screen2dasher(screenint mousex, screenint mousey, myint* dasherx, myint* dashery) const;
-	void AutoCalibrate(screenint *mousex, screenint *mousey);
-    int dasherx2screen(myint sx) const ;
-	int dashery2screen(myint sy) const ;
-	double eyetracker_get_x(double x, double y);
-	double eyetracker_get_y(double x, double y);
-	double xmax(double x, double y) const;
-    double xmap(double x) const;
-	double ixmap(double x) const;
+
 
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext);
+		myint y1, myint y2, int& mostleft, bool text, std::string displaytext);
 	
-	void CheckForNewRoot();
-	inline void Crosshair(myint sx);
-	double m_dXmpa,m_dXmpb,m_dXmpc,m_dXmpd;
-//	myint s_Y1,s_Y2,s_Y3;
-	int CanvasX,CanvasY,CanvasBorder;
+	// Responsible for all the Render_node calls
+	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);
 	
+	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
+	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
+	
+    int GetAutoOffset() const;
+
+	virtual void ResetSum();
+	virtual void ResetSumCounter();
+	virtual void ResetYAutoOffset();
+
+private:
+
+	// Class definitions
+
 	class Cymap
 	{
 	public:
@@ -70,9 +73,38 @@ private:
 	};
 
 
+
+	// the x and y non-linearities
+	void screen2dasher(screenint mousex, screenint mousey, myint* dasherx, myint* dashery) const;
+	void AutoCalibrate(screenint *mousex, screenint *mousey);
+    int dasherx2screen(myint sx) const ;
+	int dashery2screen(myint sy) const ;
+	int dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const ;
+
+	double eyetracker_get_x(double x, double y);
+	double eyetracker_get_y(double x, double y);
+	double xmax(double x, double y) const;
+    double xmap(double x) const;
+	double ixmap(double x) const;
+	
+	void CheckForNewRoot();
+	inline void Crosshair(myint sx);
+
+
+	// Data
+
+	CDelayedDraw m_DelayDraw;
+
+	double m_dXmpa,m_dXmpb,m_dXmpc,m_dXmpd;
+	int CanvasX,CanvasY,CanvasBorder;
+
+    int m_ySum, m_ySumCounter, m_yFilterTimescale, m_ySigBiasPixels, m_ySigBiasPercentage, m_yAutoOffset;
+
+
+
 	Cymap m_ymap;
 	
-    // Calibration.
+
 };
 
 #include "DasherViewSquare.inl"

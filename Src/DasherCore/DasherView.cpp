@@ -2,125 +2,108 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2004 David Ward
+// Copyright (c) 2001-2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
+
+#include "../Common/Common.h"
 
 #include "DasherView.h"
 using namespace Dasher;
 
+/////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Opts::ScreenOrientations Orientation, bool ColourMode)
-  : ScreenOrientation(Orientation), ColourMode(ColourMode), m_Screen(DasherScreen), m_DasherModel(DasherModel), m_LanguageModel(LanguageModel)
+CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation, bool ColourMode)
+  : ScreenOrientation(Orientation), ColourMode(ColourMode), m_pScreen(DasherScreen), m_DasherModel(DasherModel),
+  m_bDrawMouse(false),m_bDrawMouseLine(false),m_bDrawKeyboard(false),m_iDrawMousePosBox(0),
+  m_iMousePosDist(50)
 {
-//	XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
-
-// myint ySum, ySumCounter=0, yFilterTimescale=2, yAutoOffset=0, ySigBiasPixels=0, ySigBiasPercentage=0;   
+	// myint ySum, ySumCounter=0, yFilterTimescale=2, yAutoOffset=0, ySigBiasPixels=0, ySigBiasPercentage=0;   
 }
 
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherView::ChangeScreen(CDasherScreen* NewScreen)
+{
+	m_pScreen=NewScreen;
+}
+
+/////////////////////////////////////////////////////////////////////////////
 
 void CDasherView::ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation)
 {
 	ScreenOrientation = Orientation;
 }
 
+/////////////////////////////////////////////////////////////////////////////
 
-int CDasherView::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text)
+void CDasherView::SetDrawMouse(bool bMouse)
 {
-	int Color;
+	m_bDrawMouse = bMouse;
+}
 
-	if (ColourMode==true) {
-	  if (Render->Colour()!=-1) {
-	    Color = Render->Colour();
-	  } else {
-	    if (Render->Symbol()==m_LanguageModel->GetSpaceSymbol()) {
-	      Color = 9;
-	    } else if (Render->Symbol()==m_LanguageModel->GetControlSymbol()) {
-	      Color = 8;
-	    } else {
-	      Color = (Render->Symbol()%3)+10;
-	    }
-	  }
-	} else {
-	  Color = Render->Phase()%3; 
-	}
+/////////////////////////////////////////////////////////////////////////////
 
-	if ((Render->Cscheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
-	  Color+=130;                                // colours
-	}
+void CDasherView::SetDrawMouseLine(bool bMouseLine)
+{
+	m_bDrawMouseLine = bMouseLine;
+}
 
-	if (Render->GetControlTree()!=NULL) {
-	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,Render->GetControlTree()->text))
-	    RenderGroups(Render, y1, y2, text);
-	  else
-	    Render->Kill();
-	} else {
-	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, Render->m_bForce, text,""))
-	    RenderGroups(Render, y1, y2, text);
-	  else
-	    Render->Kill();
-	}
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherView::DrawMousePosBox()
+{
+	int iHeight = Screen().GetHeight();
+	int iWidth = Screen().GetWidth();
+
+//	DASHER_TRACEOUTPUT("which %d\n",iWhich);
+	switch (m_iDrawMousePosBox) 
+	{
 	
-	CDasherNode** const Children=Render->Children();
-	if (!Children)
-	  return 0;
-	int norm=DasherModel().Normalization();
-		for (unsigned int i=1; i<Render->ChildCount(); i++) {
-		if (Children[i]->Alive()) {
-			myint Range=y2-y1;
-			myint newy1=y1+(Range*Children[i]->Lbnd())/norm;
-			myint newy2=y1+(Range*Children[i]->Hbnd())/norm;
-			RecursiveRender(Children[i], newy1, newy2, mostleft, text);
-		}
+		case 1:
+			Screen().DrawRectangle(0,iHeight/2-m_iMousePosDist+50,iWidth,iHeight/2-m_iMousePosDist-50,119, Opts::Nodes1);
+			break;	
+		case 2:
+			Screen().DrawRectangle(0,iHeight/2+m_iMousePosDist+50,iWidth,iHeight/2+m_iMousePosDist-50,120, Opts::Nodes1);
+			break;
+		default:
+			DASHER_ASSERT(0);
 	}
-	return 1;
-
 
 }
 
-void CDasherView::ResetSum() { ySum=0; }
-void CDasherView::ResetSumCounter() { ySumCounter=0; }
-void CDasherView::ResetYAutoOffset() { yAutoOffset=0; }
+/////////////////////////////////////////////////////////////////////////////
 
-
-void CDasherView::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text)
+void CDasherView::Render(int iMouseX, int iMouseY)
 {
-	CDasherNode** Children = Render->Children();
-	if (!Children)
-		return;
-	int current=0;
-	int lower=0;
-	int upper=0;
-    std::string Label="";
+	RenderNodes();
 
-	myint range=y2-y1;
-	for (unsigned int i=1; i<Render->ChildCount(); i++) {
-		int g=Children[i]->Group();
-		if (g!=current) {
-			lower=upper;
-			upper=i;
-			
-			if (current!=0) {
-				myint lbnd=Children[lower]->Lbnd();
-				myint hbnd=Children[upper]->Lbnd();
-				myint newy1=y1+(range*lbnd)/m_DasherModel.Normalization();
-				myint newy2=y1+(range*hbnd)/m_DasherModel.Normalization();
-				int mostleft;
-				bool force;
-				if (ColourMode==true) {
-                  std::string Label = Render->GroupLabel(current);
-				  int Colour = Render->GroupColour(current);
-                  
-                  if (Colour!=-1) {
-					RenderNode(0,Render->GroupColour(current),Opts::Groups,newy1,newy2,mostleft,force,text,Label);
-				  } else {
-				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,force,text,Label);
-				  }
-				} else {
-					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,force,text,Label);
-				}
-			}
-			current=g;
-		}
-	}
+	if (m_bDrawMouse) 
+		DrawMouse(iMouseX, iMouseY);
+	if (m_bDrawMouseLine) 
+		DrawMouseLine(iMouseX, iMouseY);
+	if (m_bDrawKeyboard) 
+		DrawKeyboard();
+	if (m_iDrawMousePosBox !=0)
+		DrawMousePosBox();
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherView::Render()
+{
+	RenderNodes();
+
+	if (m_bDrawKeyboard) 
+		DrawKeyboard();
+	if (m_iDrawMousePosBox !=0)
+		DrawMousePosBox();
+}
+
+void CDasherView::SetDrawMousePosBox(int iWhich)
+{
+	m_iDrawMousePosBox = iWhich;
+
 }

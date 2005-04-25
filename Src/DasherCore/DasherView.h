@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2004 David Ward
+// Copyright (c) 2001-2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -12,48 +12,69 @@
 #include "DasherScreen.h"
 #include "DasherModel.h"
 
+/////////////////////////////////////////////////////////////////////////////
+
 // CDasherView is an abstract view class
-// The implentation must provide several functions - defined here as pure virtual functions
 // See the CDasherViewSquare class for an example
+
+// DJW 200504 - at the moment its quite hard work to plug in a new view
+
+/////////////////////////////////////////////////////////////////////////////
 
 namespace Dasher {class CDasherView;}
 class Dasher::CDasherView
 {
 public:
-	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, CLanguageModel* LanguageModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
+
+	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	virtual ~CDasherView() {}		
 	
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
+
+
+	void SetDrawMouse(bool bDrawMouse);
+	void SetDrawMouseLine(bool bDrawMouseLine);
+	void SetDrawKeyboard(bool bDrawKeyboard);
 	
-	// renders Dasher
-	inline void Render();
+	// 0 - no box, 1 - upper box, 2 - lower box
+	void SetDrawMousePosBox(int MousePosBox);
+
+
+	// Renders Dasher
+	virtual void Render();
+
+	// Renders Dasher with mouse-dependent items
+	virtual void Render(int iMouseX, int iMouseY);
+
+	// Renders the Dasher node structure
+	virtual void RenderNodes()=0;
 	
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.TapOnDisplay
 	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time)=0;
+	
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.GoTo
 	virtual void GoTo(screenint mousex, screenint mousey)=0;
 	
-	virtual void ChangeScreen(CDasherScreen* NewScreen)
-	{
-		m_Screen=NewScreen;
-		
-		// DJW - removed floating point stuff
-		//XYScale = (double)m_Screen->GetHeight() / m_Screen->GetWidth();
-	}
+	// Change the screen - must be called if the Screen is replaced or resized
+	virtual void ChangeScreen(CDasherScreen* NewScreen);
 
+	virtual int GetAutoOffset() const {return 0;}
 	virtual void DrawGoTo(screenint mousex, screenint mousey)=0;
 	virtual void DrawMouse(screenint mousex, screenint mousey)=0;
 	virtual void DrawMouseLine(screenint mousex, screenint mousey)=0;
 	virtual void DrawKeyboard()=0;
 
+	virtual void DrawMousePosBox();
+
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}
 	const CDasherModel& DasherModel() const {return m_DasherModel;}
-	CDasherScreen& Screen() {return *m_Screen;}
+	CDasherScreen& Screen() {return *m_pScreen;}
 
-	void Display() {m_Screen->Display();}
+	// Request the Screen to copy its buffer to the Display
+	void Display() {m_pScreen->Display();}
 
 	// Toggle advanced colour mode
 	void SetColourMode(bool colourmode) {ColourMode=colourmode;}
@@ -64,12 +85,10 @@ public:
     int GetOneButton() const;
     void SetOneButton(int Value);
     
-    int GetAutoOffset();
-    void ResetSum();
-    void ResetSumCounter();
-    void ResetYAutoOffset();
-    int CDasherView::onebutton;
-    bool AutoCalibrate;
+	virtual void ResetSum() {}
+	virtual void ResetSumCounter() {}
+	virtual void ResetYAutoOffset() {}
+    
 
 protected:
 	// Orientation of Dasher Screen
@@ -85,27 +104,23 @@ protected:
 	// Advanced colour mode
 	bool ColourMode;
 
-	// DJW20040818 - perhaps these are DasherSquare-specific ?
-    int ySum, ySumCounter, yFilterTimescale, ySigBiasPixels, ySigBiasPercentage, yAutoOffset;
+	int onebutton;
+    bool AutoCalibrate;
+
  
 private:
-	CDasherScreen* m_Screen;      // provides the graphics (text, lines, rectangles):
+	CDasherScreen* m_pScreen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
 
-	CLanguageModel* m_LanguageModel;
-	
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
-	virtual int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool& force, bool text, std::string displaytext)=0;
-	
-	// Responsible for all the Render_node calls
-	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);
-	
-	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
-	
- 
+
+	bool m_bDrawMouse;
+	bool m_bDrawMouseLine;
+	bool m_bDrawKeyboard;
+	int m_iDrawMousePosBox;
+	int m_iMousePosDist;
+
 };
 
 
