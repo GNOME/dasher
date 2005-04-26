@@ -1,4 +1,4 @@
-2005-04-25  David Ward <d.j.ward.94@gmail.com>
+﻿2005-04-25  David Ward <d.j.ward.94@gmail.com>
 
 	* New LanguageModel interface with more abstract interface
 		- removed dependency on Dasher-specific CAlphabet 
@@ -9,14 +9,14 @@
 		have been removed. See code comments.
 		
 	* Clean up DasherView classes - started implementing a push mechanism
-		that is view-driven rather than model-driven. Ditched to silly 'force' flag
+		that is view-driven rather than model-driven. Ditched the silly 'force' flag
 		on DasherNodes - this was created to stop small nodes initially flashing in 
-		and out of view. This has been solved another way
+		and out of view. This has been solved another way.
 		
 	* Win32 CDasherScreen now caches TextSize calls. This was previously taking
 		25% runtime, now its negligible	
 	
-2005-04-15  I�aki Larra�aga  <dooteo@euskalgnu.org>
+2005-04-15  Iaki Larra�aga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
 	* Data/Translations/training_basque_EU.txt: Added Basque tranining
@@ -298,7 +298,7 @@
 
 	* Added Finnish to ALL_LINGUAS
 
-2004-02-22  Mətin Əmirov  <metin@karegen.com>
+2004-02-22  M�ətin Əmirov  <metin@karegen.com>
                                                                                 
 	* configure.in: Added "az" to ALL_LINGUAS.
 
@@ -549,4 +549,4 @@ Added experimental GTK2 version
 
 3.0.0
 
-First full release
+First full release
