@@ -1,3 +1,21 @@
+2005-04-25  David Ward <d.j.ward.94@gmail.com>
+
+	* New LanguageModel interface with more abstract interface
+		- removed dependency on Dasher-specific CAlphabet 
+
+	* The rendering of the mouse, mouse line and mouse position box are
+		now handled by the view, rather than DasherInterface or Platform.		
+		A few changes to CDasherInterface have been made - some functions
+		have been removed. See code comments.
+		
+	* Clean up DasherView classes - started implementing a push mechanism
+		that is view-driven rather than model-driven. Ditched to silly 'force' flag
+		on DasherNodes - this was created to stop small nodes initially flashing in 
+		and out of view. This has been solved another way
+		
+	* Win32 CDasherScreen now caches TextSize calls. This was previously taking
+		25% runtime, now its negligible	
+	
 2005-04-15  Iñaki Larrañaga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
@@ -6,7 +24,7 @@
 	* Data/system.rc/alphabet.basque.xml: Added Basque language support.
 	
 
-ï»¿2005-04-14  David Ward <djw30@mrao.cam.ac.uk>
+2005-04-14  David Ward <djw30@mrao.cam.ac.uk>
 
 	* Fix mem leak when switching alphabets
 	* DasherScreen interface now takes a const pointer to CustomColours
