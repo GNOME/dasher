@@ -52,6 +52,77 @@ inline void CScreen::TextSize(Dasher::symbol Character, screenint* Width, screen
 }
 
 
+inline void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int iSize) const
+{
+	if (m_DasherInterface==0)
+		return;
+	
+	Tstring OutputText = DisplayStrings[Character];
+	
+	RECT Rect;
+	Rect.left = x1;
+	Rect.top = y1;
+	Rect.right = x1+50;
+	Rect.bottom = y1+50;
+
+	/*
+	if (Size <= 11) {
+		Size = 2;
+	} else {
+		if (Size <= 14)
+			Size = 1;
+		else
+			Size = 0;
+	}
+
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
+
+	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
+
+	// The Windows API dumps all its function names in the global namespace, ::
+	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+
+	// DJW - need to select the old object back into the DC
+	SelectObject(m_hDCBuffer, old);
+}
+
+inline void CScreen::DrawText(std::string OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) const
+{
+	if (m_DasherInterface==0)
+		return;
+	
+	Tstring OutputText;
+
+	WinUTF8::UTF8string_to_Tstring(OutputString,&OutputText);
+	
+	RECT Rect;
+	Rect.left = x1;
+	Rect.top = y1;
+	Rect.right = x1+50;
+	Rect.bottom = y1+50;
+	
+	/*
+	if (Size <= 11) {
+		Size = 2;
+	} else {
+		if (Size <= 14)
+			Size = 1;
+		else
+			Size = 0;
+	}
+
+	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
+*/
+	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
+
+
+	// The Windows API dumps all its function names in the global namespace, ::
+	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
+	
+	SelectObject(m_hDCBuffer,old);
+}
 
 inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const
 {

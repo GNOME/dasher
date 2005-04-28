@@ -1,3 +1,3 @@
-SUBDIRS = C eu
+SUBDIRS = C
 
 EXTRA_DIST = xmldocs.make omf.make

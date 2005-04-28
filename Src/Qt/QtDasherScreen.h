@@ -72,7 +72,7 @@ class QtDasherScreen : public QWidget, public Dasher::CDasherScreen
   void Polyline(point* Points, int Number, int Color) const {Polyline(Points, Number, Color);};
   void DrawPolygon(point* Points, int Number, int Color,
 		   Opts::ColorSchemes ColorScheme) const;
-  void SetColourScheme(const Dasher::CCustomColours *scheme) {};
+  void SetColourScheme(Dasher::CCustomColours *scheme) {};
 
   std::vector<int> FontSizes;
   std::vector<QFont> Fonts;

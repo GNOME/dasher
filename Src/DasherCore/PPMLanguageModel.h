@@ -10,8 +10,7 @@
 #define __PPMLanguageModel_h__
 
 
-#include "../../Common/NoClones.h"
-#include "../../Common/Allocators/PooledAlloc.h"
+#include "../Common/NoClones.h"
 #include "LanguageModel.h"
 
 #include <vector>
@@ -20,25 +19,26 @@
 //static char dumpTrieStr[40000];
 const int maxcont =200;
 
-namespace Dasher 
-{
-
-class CPPMLanguageModel : public CLanguageModel, private NoClones
+namespace Dasher {class CPPMLanguageModel;}
+class Dasher::CPPMLanguageModel : public Dasher::CLanguageModel, private NoClones
 {
 public:
-	CPPMLanguageModel(const CAlphabet* pAlphabet);
-	virtual ~CPPMLanguageModel();
+	CPPMLanguageModel(CAlphabet *_alphabet);
+	~CPPMLanguageModel();
 	
-	Context CreateEmptyContext();
-	void ReleaseContext(Context context);
-	Context CloneContext(Context context);
 	
-	void EnterSymbol(Context context, int Symbol) const;
-	void LearnSymbol(Context context, int Symbol);
+	void ReleaseContext(CContext*);
+	
+	CContext* GetEmptyContext() const;
+	
+	CContext* CloneContext(const CContext*);
+	
+	void EnterSymbol(CContext* pContext, int Symbol);
 	
 	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
-	virtual bool GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const;
+	virtual bool GetProbs(const CContext* pContext, std::vector<unsigned int> &Probs, int norm) const;
 	
+	void LearnSymbol(CContext* Context, int Symbol);
 	void dump();
 	
 private:
@@ -46,17 +46,16 @@ private:
 	class CPPMnode {
 	public:
 		CPPMnode* find_symbol(int sym) const;
+		CPPMnode* add_symbol_to_node(int sym,int *update);
 		CPPMnode* child;
 		CPPMnode* next;
 		CPPMnode* vine;
 		short int count;
-		short int symbol;
+		const short int symbol;
 		CPPMnode(int sym);
-		CPPMnode();
 	};
 	
-	class CPPMContext 
-	{
+	class CPPMContext : public CContext {
 	public:
 		CPPMContext(CPPMContext const &input) {head = input.head;	order= input.order;}
 		CPPMContext(CPPMnode* _head=0, int _order=0) : head(_head),order(_order) {};
@@ -66,20 +65,16 @@ private:
 		int order;
 	};
 
-	CPPMnode* AddSymbolToNode(CPPMnode* pNode, int sym,int *update);
-	
 	void AddSymbol(CPPMContext& context,int sym);
 	void dumpSymbol(int sym);
 	void dumpString( char *str, int pos, int len );
 	void dumpTrie( CPPMnode *t, int d );
 
 	CPPMContext *m_rootcontext;
-	CPPMnode* m_pRoot;
+	CPPMnode *root;
 
 	int max_order;
 
-	mutable CSimplePooledAlloc<CPPMnode> m_NodeAlloc;
-	CPooledAlloc<CPPMContext> m_ContextAlloc;
 };
 
 ////////////////////////////////////////////////////////////////////////
@@ -88,49 +83,43 @@ private:
 
 ////////////////////////////////////////////////////////////////////////
 
-inline Dasher::CPPMLanguageModel::CPPMnode::CPPMnode(int sym) : symbol(sym)
+inline CPPMLanguageModel::CPPMnode::CPPMnode(int sym) : symbol(sym)
 {
 	child=next=vine=0;
 	count=1;
 }
 
-////////////////////////////////////////////////////////////////////////
-
-inline CPPMLanguageModel::CPPMnode::CPPMnode()
-{
-	child=next=vine=0;
-	count=1;
-}
-
-
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CPPMLanguageModel::CreateEmptyContext()
+inline void CPPMLanguageModel::CPPMContext::dump() 
+	// diagnostic output
 {
-	CPPMContext* pCont = m_ContextAlloc.Alloc();
-	*pCont = *m_rootcontext;
-	return (Context)pCont;
+	// TODO uncomment this when headers sorted out
+	//dchar debug[128];
+	//Usprintf(debug,TEXT("head %x order %d\n"),head,order);
+	//DebugOutput(debug);
 }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CPPMLanguageModel::CloneContext(Context Copy)
+inline CContext* CPPMLanguageModel::GetEmptyContext() const
 {
-	CPPMContext* pCont = m_ContextAlloc.Alloc();
-	CPPMContext* pCopy = (CPPMContext*)Copy;
-	*pCont = *pCopy;
-	return (Context)pCont;	
+	return  static_cast<CContext *>(new CPPMLanguageModel::CPPMContext(*m_rootcontext));
 }
 
 ///////////////////////////////////////////////////////////////////
 
-inline void CPPMLanguageModel::ReleaseContext(Context release)
+inline CContext* CPPMLanguageModel::CloneContext(const CContext *pCopyThis)
 {
-	m_ContextAlloc.Free( (CPPMContext*) release );
+	const CPPMContext *pPPMcontext=static_cast<const CPPMContext *> (pCopyThis);
+	return  static_cast<CContext *> (new CPPMContext(*pPPMcontext));
 }
 
 ///////////////////////////////////////////////////////////////////
 
-} // end namespace Dasher
+inline void CPPMLanguageModel::ReleaseContext(CContext *release)
+{
+	delete release;
+}
 
 #endif /* #ifndef __PPMLanguageModel_H__ */

@@ -2,23 +2,25 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2005 David Ward
+// Copyright (c) 2001-2002 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "../Common/Common.h"
 
 #include "LanguageModel.h"
-
-/////////////////////////////////////////////////////////////////////////////
 
 using namespace Dasher;
 using namespace std;
 
+// I have removed the following as it doesn't seem to compile in gcc:
+
+// using CLanguageModel::CNodeContext;
+
 ///////////////////////////////////////////////////////////////////
 
-CLanguageModel::CLanguageModel(const CAlphabet* pcAlphabet)
-	: m_pcAlphabet(pcAlphabet)
+CLanguageModel::CLanguageModel(CAlphabet* Alphabet)
+	: m_Alphabet(Alphabet)
 {
 	m_uniform = 50;
 }
@@ -26,34 +28,34 @@ CLanguageModel::CLanguageModel(const CAlphabet* pcAlphabet)
 
 ///////////////////////////////////////////////////////////////////
 
-void CLanguageModel::EnterText(Context context, string TheText)
+void CLanguageModel::EnterText(CContext* pContext, string TheText)
 {
 	vector<symbol> Symbols;
-	m_pcAlphabet->GetSymbols(&Symbols, &TheText, false);
+	m_Alphabet->GetSymbols(&Symbols, &TheText, false);
 	for (unsigned int i=0; i<Symbols.size(); i++)
-		EnterSymbol(context, Symbols[i]);
+		EnterSymbol(pContext, Symbols[i]);
 }
 
 ///////////////////////////////////////////////////////////////////
 
-void CLanguageModel::LearnText(Context context, string* TheText, bool IsMore)
+void CLanguageModel::LearnText(CContext* Context, string* TheText, bool IsMore)
 {
 	vector<symbol> Symbols;
 	
-	m_pcAlphabet->GetSymbols(&Symbols, TheText, IsMore);
+	m_Alphabet->GetSymbols(&Symbols, TheText, IsMore);
 	
 	for (unsigned int i=0; i<Symbols.size(); i++)
-		LearnSymbol( context,  Symbols[i]);
+		LearnSymbol( Context,  Symbols[i]);
 }
 
 ///////////////////////////////////////////////////////////////////
 
-bool CLanguageModel::GetProbs(Context context, vector<symbol> &NewSymbols,
+bool CLanguageModel::GetProbs(CContext* Context, vector<symbol> &NewSymbols,
 		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm) const
 {
 	// make sure it is a valid context
-	if (context) {
-		int s = m_pcAlphabet->GetNumberSymbols();
+	if (Context) {
+		int s = m_Alphabet->GetNumberSymbols();
 
 		// Subtract some number of nodes to actually get the number of real symbols
 
@@ -83,9 +85,9 @@ bool CLanguageModel::GetProbs(Context context, vector<symbol> &NewSymbols,
 		Groups.resize(s);
 		for (int i=0;i<s;i++) {
 			NewSymbols[i]=i; // This will be replaced by something that works out valid nodes for this context
-			Groups[i]=m_pcAlphabet->get_group(i);
+			Groups[i]=m_Alphabet->get_group(i);
 		}
-		GetProbs(context,Probs,nonuniform_norm);
+		GetProbs((CContext*) Context,Probs,nonuniform_norm);
 
 		for( int k=0; k < Probs.size(); ++k )
 		  if( isRealSymbol(NewSymbols[k] ) )
@@ -106,25 +108,19 @@ bool CLanguageModel::GetProbs(Context context, vector<symbol> &NewSymbols,
 	return false;
 }
 
-///////////////////////////////////////////////////////////////////
-
 int CLanguageModel::GetColour(int character) const
 {
-  return m_pcAlphabet->GetColour(character);
+  return m_Alphabet->GetColour(character);
 }
-
-///////////////////////////////////////////////////////////////////
 
 int CLanguageModel::GetGroupColour(int group) const
 {
-	return m_pcAlphabet->GetGroupColour(group);
+	return m_Alphabet->GetGroupColour(group);
 }
-
-///////////////////////////////////////////////////////////////////
 
 std::string CLanguageModel::GetGroupLabel(int group) const
 {
-    return m_pcAlphabet->GetGroupLabel(group);
+    return m_Alphabet->GetGroupLabel(group);
 }
 
 ///////////////////////////////////////////////////////////////////

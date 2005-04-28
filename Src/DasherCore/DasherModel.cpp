@@ -20,7 +20,7 @@ CDasherModel::CDasherModel(CDashEditbox* Editbox, CLanguageModel* LanguageModel,
   : m_Dimensions(Dimensions), m_Eyetracker(Eyetracker), m_Paused(Paused), m_editbox(Editbox), m_languagemodel(LanguageModel), 
     m_Root(0),m_iNormalization(1<<16)
 {
-	LearnContext = m_languagemodel->CreateEmptyContext();
+	LearnContext = m_languagemodel->GetEmptyContext();
 	
 	// various settings
 	int iShift = 12;
@@ -223,7 +223,7 @@ void CDasherModel::Start()
 	delete m_Root;
 	
 	m_Root=new CDasherNode(*this,0,0,0,0,Opts::Nodes1,0,Normalization(),m_languagemodel, false, 7);
-	CLanguageModel::Context therootcontext=m_languagemodel->CreateEmptyContext();
+	CContext* therootcontext=m_languagemodel->GetEmptyContext();
 
 	if (m_editbox) {
 		string ContextString;

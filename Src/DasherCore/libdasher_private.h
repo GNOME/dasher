@@ -278,7 +278,7 @@ class dasher_screen : public CDasherScreen
       handle_display();
     };
 
-  void SetColourScheme(const CCustomColours *Colours)
+  void SetColourScheme(CCustomColours *Colours)
     {
       handle_colour_scheme(Colours);
     };

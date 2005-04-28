@@ -58,15 +58,11 @@ CScreen::~CScreen()
 	SelectObject(m_hDCBuffer,m_prevhbmBit);
 	SelectObject(m_hDCText,m_prevhbmText);
 
-	BOOL b = DeleteObject(m_hbmBit);
-	DASHER_ASSERT(b);
-	b = DeleteObject(m_hbmText);
-	DASHER_ASSERT(b);
-	
-	b = DeleteDC(m_hDCBuffer);
-	DASHER_ASSERT(b);
-	b = DeleteDC(m_hDCText);
-	DASHER_ASSERT(b);
+	DeleteObject(m_hbmBit);
+	DeleteObject(m_hbmText);
+
+	DeleteDC(m_hDCBuffer);
+	DeleteDC(m_hDCText);
 	
 /*	while (m_vhfFonts.size()) {
 		DeleteObject(m_vhfFonts.back());
@@ -94,8 +90,6 @@ CScreen::~CScreen()
 
 void CScreen::SetInterface(CDasherWidgetInterface* DasherInterface)
 {
-	DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
-
 	CDasherScreen::SetInterface(DasherInterface);
 	
 	CodePage = EncodingToCP(m_DasherInterface->GetAlphabetType());
@@ -161,7 +155,7 @@ void CScreen::SetFontSize(FontSize size)
 /////////////////////////////////////////////////////////////////////////////
 
 
-void CScreen::SetColourScheme(const Dasher::CCustomColours* pColours)
+void CScreen::SetColourScheme(Dasher::CCustomColours *Colours)
 {
 	// DJW - must delete brushes ala free_colours. Would be nice to encapsuted this into a Brush Container
 	while (m_Brushes.size()!=0) {
@@ -171,17 +165,17 @@ void CScreen::SetColourScheme(const Dasher::CCustomColours* pColours)
 		m_Pens.pop_back();
 	}
 
-	int numcolours=pColours->GetNumColours();
+	int numcolours=Colours->GetNumColours();
 	
 	DASHER_ASSERT(numcolours>0);
 
 	for (int i=0; i<numcolours; i++) 
 	{
 		// DJW 20031029 - something fishy is going on - i think calls to CreateSolidBrush start to fail
-		HBRUSH hb = CreateSolidBrush(RGB(pColours->GetRed(i),pColours->GetGreen(i),pColours->GetBlue(i)));
+		HBRUSH hb = CreateSolidBrush(RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
 		DASHER_ASSERT(hb!=0);
 		m_Brushes.push_back(hb);
-		HPEN hp = CreatePen(PS_SOLID, 1, RGB(pColours->GetRed(i),pColours->GetGreen(i),pColours->GetBlue(i)));
+		HPEN hp = CreatePen(PS_SOLID, 1, RGB(Colours->GetRed(i),Colours->GetGreen(i),Colours->GetBlue(i)));
 		DASHER_ASSERT(hp!=0);
 		m_Pens.push_back(hp);
 	}
@@ -251,78 +245,6 @@ void CScreen::DrawMousePosBox(int which)
 	FillRect(m_hDCText, &Rect, brush);
 	DeleteObject(brush);
 	Display();
-}
-
-void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int iSize) const
-{
-	if (m_DasherInterface==0)
-		return;
-	
-	Tstring OutputText = DisplayStrings[Character];
-	
-	RECT Rect;
-	Rect.left = x1;
-	Rect.top = y1;
-	Rect.right = x1+50;
-	Rect.bottom = y1+50;
-
-	/*
-	if (Size <= 11) {
-		Size = 2;
-	} else {
-		if (Size <= 14)
-			Size = 1;
-		else
-			Size = 0;
-	}
-
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);*/
-
-	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
-
-	// The Windows API dumps all its function names in the global namespace, ::
-	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-
-	// DJW - need to select the old object back into the DC
-	SelectObject(m_hDCBuffer, old);
-}
-
-void CScreen::DrawText(std::string OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) const
-{
-	if (m_DasherInterface==0)
-		return;
-	
-	Tstring OutputText;
-
-	WinUTF8::UTF8string_to_Tstring(OutputString,&OutputText);
-	
-	RECT Rect;
-	Rect.left = x1;
-	Rect.top = y1;
-	Rect.right = x1+50;
-	Rect.bottom = y1+50;
-	
-	/*
-	if (Size <= 11) {
-		Size = 2;
-	} else {
-		if (Size <= 14)
-			Size = 1;
-		else
-			Size = 0;
-	}
-
-	HFONT old= (HFONT) SelectObject(m_hDCText, m_vhfFonts[Size]);
-*/
-	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
-
-
-	// The Windows API dumps all its function names in the global namespace, ::
-	//::DrawText(m_hDCText, OutputText.c_str(), OutputText.size(), &Rect, DT_VCENTER | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-	
-	SelectObject(m_hDCBuffer,old);
 }
 
 /////////////////////////////////////////////////////////////////////////////

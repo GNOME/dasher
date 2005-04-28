@@ -11,6 +11,7 @@
 
 #include "DasherScreen.h"
 #include "DasherModel.h"
+#include "LanguageModel.h"
 
 // CDasherView is an abstract view class
 // The implentation must provide several functions - defined here as pure virtual functions

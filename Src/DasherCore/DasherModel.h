@@ -14,7 +14,7 @@
 #include "DashEdit.h"
 #include "DasherNode.h"
 #include "DasherScreen.h"
-#include "LanguageModelling/LanguageModel.h"
+#include "LanguageModel.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -137,7 +137,7 @@ private:
 	
 	//CAlphabet* m_alphabet;             // pointer to the alphabet
 	
-	CLanguageModel::Context LearnContext;        // Used to add data to model as it is entered
+	CContext* LearnContext;        // Used to add data to model as it is entered
 	CFrameRate m_fr;                   // keep track of framerate
 
 	double total_nats; // Information entered so far

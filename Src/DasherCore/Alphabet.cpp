@@ -2,20 +2,17 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2001-2005 David Ward
+// Copyright (c) 2001-2002 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
-
 
 #include "Alphabet.h"
 #include "AlphabetMap.h"
 
 using namespace Dasher;
 using namespace std;
-
-/////////////////////////////////////////////////////////////////////////////
 
 
 CAlphabet::CAlphabet() : m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1), m_Groups(0)
@@ -27,9 +24,8 @@ CAlphabet::CAlphabet() : m_DefaultEncoding(Opts::Western), m_Orientation(Opts::L
 	m_Group.push_back(0);
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
-void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore) const
+void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore)
 {
 	string Tmp;
 	symbol CurSymbol=0, TmpSymbol=0;
@@ -126,20 +122,20 @@ void CAlphabet::StartNewGroup(int colour, std::string label)
 	m_Groups++;
 }
 
-/////////////////////////////////////////////////////////////////////////////
+
 // diagnostic dump of character set
-
-void CAlphabet::Trace() const 
-{
+void CAlphabet::dump() const {
+// TODO
+/*
+	dchar deb[256];
 	unsigned int i;
-	for (i=1;i<m_Characters.size();i++) 
-	{
-		DASHER_TRACEOUTPUT("Symbol %d Character:'%s' Display:'%s' Group %d\n",i,m_Characters[i].c_str(),m_Display[i].c_str(),m_Group[i]);
+	for (i=1;i<m_vtCharacters.size();i++) {
+		//wsprintf(deb,TEXT("%d %c %d\n"),i,m_vtCharacters[i],m_viGroup[i]); // Windows specific
+		Usprintf(deb,TEXT("%d %c %d\n"),i,m_vtCharacters[i],m_viGroup[i]);
+		DebugOutput(deb);
 	}
-
+*/
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 int CAlphabet::GetTextColour(symbol Symbol)
 {

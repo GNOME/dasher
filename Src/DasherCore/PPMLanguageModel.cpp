@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "../Common/Common.h"
 #include "PPMLanguageModel.h"
 
 #include <math.h>
@@ -16,18 +16,6 @@ using namespace std;
 
 // static TCHAR debug[256];
 typedef unsigned long ulong;
-
-///////////////////////////////////////////////////////////////////
-
-void CPPMLanguageModel::CPPMContext::dump() 
-	// diagnostic output
-{
-	// TODO uncomment this when headers sorted out
-	//dchar debug[128];
-	//Usprintf(debug,TEXT("head %x order %d\n"),head,order);
-	//DebugOutput(debug);
-}
-
 
 ////////////////////////////////////////////////////////////////////////
 /// PPMnode definitions 
@@ -47,9 +35,9 @@ CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym) c
 }
 
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode, int sym,int *update)
+CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::add_symbol_to_node(int sym,int *update)
 {
-	CPPMnode *pReturn = pNode->find_symbol(sym);
+	CPPMnode *pReturn = find_symbol(sym);
 	
 	if (pReturn!=NULL)
 	{
@@ -61,10 +49,9 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 		return pReturn;
 	}
 
-	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
-	pReturn->symbol = sym;  
-	pReturn->next= pNode->child;
-	pNode->child=pReturn;
+	pReturn = new CPPMnode(sym);  // count is initialized to 1
+	pReturn->next=child;
+	child=pReturn;
 	return pReturn;		
 	
 }
@@ -74,13 +61,11 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 // CPPMLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(const CAlphabet* pAlphabet)
-  : CLanguageModel(pAlphabet), max_order( 5 ), 
-	m_NodeAlloc(8192), m_ContextAlloc(1024)
+CPPMLanguageModel::CPPMLanguageModel(CAlphabet *_alphabet)
+  : CLanguageModel(_alphabet), max_order( 10 )
 {
-	m_pRoot= m_NodeAlloc.Alloc();
-	m_pRoot->symbol = -1;
-	m_rootcontext=new CPPMContext(m_pRoot,0);
+	root=new CPPMnode(-1);
+	m_rootcontext=new CPPMContext(root,0);
 }
 
 
@@ -90,8 +75,8 @@ CPPMLanguageModel::~CPPMLanguageModel()
 	delete m_rootcontext;
 
 	// A non-recursive node deletion algorithm using a stack
-/*	std::stack<CPPMnode*> deletenodes;
-	deletenodes.push(m_pRoot);
+	std::stack<CPPMnode*> deletenodes;
+	deletenodes.push(root);
 	while (!deletenodes.empty())
 	{
 		CPPMnode* temp = deletenodes.top();
@@ -111,16 +96,16 @@ CPPMLanguageModel::~CPPMLanguageModel()
 			
 		} while (temp !=0); 
 
-	}*/
+	}
 
 }
 
-/////////////////////////////////////////////////////////////////////
-// get the probability distribution at the context
 
-bool CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
+bool CPPMLanguageModel::GetProbs(const CContext *pContext,vector<unsigned int> &probs, int norm) const
+	// get the probability distribution at the context
 {
-	const CPPMContext *ppmcontext= (const CPPMContext *)(context);
+	// seems like we have to have this hack for VC++
+	const CPPMContext *ppmcontext=static_cast<const CPPMContext *> (pContext);
 	
 	
 	int modelchars=GetNumberModelChars();
@@ -284,28 +269,27 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 	int updatecnt=1;
 	
 	temp=context.head->vine;
-	context.head= AddSymbolToNode(context.head,sym,&updatecnt);
+	context.head=context.head->add_symbol_to_node(sym,&updatecnt);
 	vineptr=context.head;
 	context.order++;
 	
 	while (temp!=0) {
-		vineptr->vine= AddSymbolToNode(temp,sym,&updatecnt);    
+		vineptr->vine=temp->add_symbol_to_node(sym,&updatecnt);    
 		vineptr=vineptr->vine;
 		temp=temp->vine;
 	}
-	vineptr->vine= m_pRoot;
+	vineptr->vine=root;
 	if (context.order>max_order){
 		context.head=context.head->vine;
 		context.order--;
 	}
 }
 
-/////////////////////////////////////////////////////////////////////
-// update context with symbol 'Symbol'
 
-void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
+// update context with symbol 'Symbol'
+void CPPMLanguageModel::EnterSymbol(CContext* Context, int Symbol)
 {
-	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
+	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	
 	CPPMnode *find;
 	
@@ -323,17 +307,16 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 	}
 	
 	if (context.head==0) {
-		context.head= m_pRoot;
+		context.head=root;
 		context.order=0;
 	}
 	
 }
 
-/////////////////////////////////////////////////////////////////////
 
-void CPPMLanguageModel::LearnSymbol(Context c, int Symbol)
+void CPPMLanguageModel::LearnSymbol(CContext* Context, int Symbol)
 {
-	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
+	CPPMLanguageModel::CPPMContext& context = * static_cast<CPPMContext *> (Context);
 	AddSymbol(context, Symbol);
 }
 

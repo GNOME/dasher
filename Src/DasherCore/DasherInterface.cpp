@@ -13,8 +13,7 @@
 #include "CustomAlphabet.h"
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
-#include "LanguageModelling/PPMLanguageModel.h"
-
+#include "PPMLanguageModel.h"
 namespace {
 	#include "stdio.h"
 }
@@ -27,7 +26,7 @@ const string CDasherInterface::EmptyString = "";
 CDasherInterface::CDasherInterface()
 	: 
 m_Alphabet(0), 
-m_pColours(0), 
+m_Colours(0), 
 m_LanguageModel(0), 
 m_DasherModel(0), 
 m_DashEditbox(0), 
@@ -68,7 +67,7 @@ CDasherInterface::~CDasherInterface()
 	delete m_DasherView;
 	delete m_ColourIO;
 	delete m_AlphIO;
-	delete m_pColours;
+	delete m_Colours;
 
 	// Do NOT delete Edit box or Screen. This class did not create them.
 }
@@ -323,11 +322,7 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	if (!m_ColourIO)
 		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);
 	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
-
-	// delete old colours on editing function
-	std::auto_ptr<CCustomColours> ptrColours(m_pColours);
-
-	m_pColours = new CCustomColours(m_ColourInfo);
+	m_Colours = new CCustomColours(m_ColourInfo);
 
 	ColourID=m_ColourInfo.ColourID;
 
@@ -337,7 +332,7 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
                 m_SettingsStore->SetStringOption(Keys::COLOUR_ID, ColourID);
 
 	if (m_DasherScreen!=0) {
-	  m_DasherScreen->SetColourScheme(m_pColours);
+	  m_DasherScreen->SetColourScheme(m_Colours);
 	}
 }
 
@@ -373,7 +368,7 @@ void CDasherInterface::ChangeLanguageModel(unsigned int NewLanguageModelID)
 		delete m_LanguageModel;
 		// TODO Use LanguageModelID to decide which model to use
 		m_LanguageModel = new CPPMLanguageModel(m_Alphabet);
-		TrainContext = m_LanguageModel->CreateEmptyContext();
+		TrainContext = m_LanguageModel->GetEmptyContext();
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);
 		TrainFile(m_UserLocation+T);
@@ -398,7 +393,7 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 	m_DasherScreen = NewScreen;
 	m_DasherScreen->SetFont(m_DasherFont);
 	m_DasherScreen->SetFontSize(m_DasherFontSize);
-	m_DasherScreen->SetColourScheme(m_pColours);
+	m_DasherScreen->SetColourScheme(m_Colours);
 	m_DasherScreen->SetInterface(this);
 	ChangeScreen();
 	Redraw();

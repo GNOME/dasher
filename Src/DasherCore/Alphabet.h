@@ -19,10 +19,8 @@
 #include "AlphabetMap.h"
 
 
-namespace Dasher
-{
-
-class CAlphabet
+namespace Dasher {class CAlphabet;}
+class Dasher::CAlphabet
 {
 public:
 	CAlphabet();
@@ -35,10 +33,9 @@ public:
 	std::string& GetTrainingFile() {return m_TrainingFile;}
 	std::string& GetPalette() {return m_DefaultPalette;}
 	
-	symbol GetParagraphSymbol() const;
-	symbol GetSpaceSymbol() const;
-	symbol GetControlSymbol() const;
-	
+	symbol GetParagraphSymbol() {return m_ParagraphSymbol;}
+	symbol GetSpaceSymbol() {return m_SpaceSymbol;}
+	symbol GetControlSymbol() {return m_ControlSymbol;}
 	const std::string& GetDisplayText(symbol i) const {return m_Display[i];} // return display string for i'th symbol
 	const std::string& GetText(symbol i) const {return m_Characters[i];}     // return string for i'th symbol
 	int GetColour(symbol i) const {return m_Colours[i];}     // return the colour for i'th symbol
@@ -55,9 +52,9 @@ public:
 	// continuation. If IsMore is false Input is assumed to be all the available
 	// text and so a symbol will be returned for a final "a" even if "ae" is
 	// defined as its own symbol. }}}
-	void GetSymbols(std::vector<symbol>* Symbols, std::string* Input, bool IsMore) const;
+	void GetSymbols(std::vector<symbol>* Symbols, std::string* Input, bool IsMore);
 	
-	void Trace() const; // diagnostic
+	void dump() const; // diagnostic
 	
 	virtual void AddControlSymbol()=0;
 	virtual void DelControlSymbol()=0;
@@ -100,31 +97,5 @@ private:
 	alphabet_map TextMap;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-
-
-inline symbol CAlphabet::GetParagraphSymbol() const 
-{
-	return m_ParagraphSymbol;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-inline symbol CAlphabet::GetSpaceSymbol() const 
-{
-	return m_SpaceSymbol;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-inline symbol CAlphabet::GetControlSymbol() const 
-{
-	return m_ControlSymbol;
-}
-
-
-} // end namespace dasher
-
-/////////////////////////////////////////////////////////////////////////////
 
 #endif // ifndef __DASHER_ALPHABET_H__
