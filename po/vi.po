@@ -494,7 +494,7 @@ msgstr "Y:"
 
 #:Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
-msgstr "_Về trình"
+msgstr "_Giới thiệu"
 
 #:Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
