@@ -9,10 +9,13 @@
 #include "../Common/Common.h"
 
 #include "DasherModel.h"
+
+#include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 
 using namespace Dasher;
 using namespace std;
+
 
 //////////////////////////////////////////////////////////////////////
 // CDasherModel
@@ -22,10 +25,11 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
 						   bool Dimensions, bool Eyetracker, bool Paused)
   : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
-	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL)
+	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
+	 m_bControlMode(false)
 {
 
-	CSymbolAlphabet alphabet(pAlphabet->GetNumberSymbols());
+	CSymbolAlphabet alphabet(pAlphabet->GetNumberTextSymbols());
 	m_pLanguageModel = new CPPMLanguageModel(alphabet);
 	
 	LearnContext = m_pLanguageModel->CreateEmptyContext();
@@ -45,13 +49,13 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
 
 }
 
+//////////////////////////////////////////////////////////////////////
 
 CDasherModel::~CDasherModel()
 {
-
-	// DJW 20031106 - hope to get it right this time
 	
-	if (oldroots.size()>0) { 
+	if (oldroots.size()>0) 
+	{ 
 		delete oldroots[0];
 		oldroots.clear();
 		// At this point we have also deleted the root - so better NULL pointer
@@ -65,29 +69,36 @@ CDasherModel::~CDasherModel()
 
 }
 
+//////////////////////////////////////////////////////////////////////
+
+void CDasherModel::SetControlMode(bool b)
+{
+	m_bControlMode = b;
+}
+
+//////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Make_root(int whichchild)
- // find a new root node 
+// find a new root node 
 {
 
-  symbol t=m_Root->Symbol();
-  if (t) {  // SYM0
-    m_pLanguageModel->LearnSymbol(LearnContext, t);
-  }
+	symbol t=m_Root->Symbol();
+	if (t) 
+	{  // SYM0
+		m_pLanguageModel->LearnSymbol(LearnContext, t);
+	}
 
-	CDasherNode * oldroot=m_Root;
-	
-	CDasherNode **children=m_Root->Children();
-	m_Root=children[whichchild];
-	//	oldroot->Children()[whichchild]=0;  // null the pointer so we don't delete the whole tree
-	//	delete oldroot;
-	
-	oldroots.push_back(oldroot);
+	m_Root->DeleteNephews(whichchild);
 
-	while (oldroots.size()>10) {
-	  oldroots[0]->Delete_dead(oldroots[1]);
-	  delete oldroots[0];
-	  oldroots.pop_front();
+	oldroots.push_back(m_Root);
+
+	m_Root = m_Root->Children()[whichchild];
+
+	while (oldroots.size()>10) 
+	{ 
+		oldroots[0]->OrphanChild( oldroots[1] );
+		delete oldroots[0];
+		oldroots.pop_front();
 	}
 
 	myint range=m_Rootmax-m_Rootmin;
@@ -146,28 +157,6 @@ void CDasherModel::Get_string_under_mouse(const myint Mousex,const myint Mousey,
 	return;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-
-void CDasherModel::Update(CDasherNode *node,CDasherNode *under_mouse,int iSafe)
-// go through the Dasher nodes, delete ones who have expired
-// decrease the time left for nodes which arent safe
-// safe nodes are those which are under the mouse or offspring of this node
-{
-  if (node==under_mouse) {
-		iSafe=1;
-  }
-    	
-	if (node->Alive()) {
-		CDasherNode **children=node->Children();
-		if (children) {
-			unsigned int i;
-			for (i=1;i<node->ChildCount();i++)
-				Update(children[i],under_mouse,iSafe);
-		}
-	}
-	return;
-}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -176,27 +165,14 @@ void CDasherModel::Start()
 	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
 
-	//	total_nats = 0.0;
 
-	
-	/*
-	// DJW 20031106 - this is unsafe - oldroots[1] is not valid when size == 1
-	while (oldroots.size()>0) {
-	  oldroots[0]->Delete_dead(oldroots[1]);
-	  delete oldroots[0];
-	  oldroots.pop_front();
-	}
-	*/
-
-	// DJW 20031106 - hope to get it right this time
-	
-	if (oldroots.size()>0) { 
+	if (oldroots.size()>0) 
+	{ 
 		delete oldroots[0];
 		oldroots.clear();
 		// At this point we have also deleted the root - so better NULL pointer
 		m_Root=NULL;
 	}
-	
 	delete m_Root;
 	
 	m_Root=new CDasherNode(*this,0,0,0,0,Opts::Nodes1,0,Normalization(),m_pLanguageModel, false, 7);
@@ -217,7 +193,7 @@ void CDasherModel::Start()
 	}
 
 	m_Root->SetContext(therootcontext);    // node takes control of the context
-	m_Root->Recursive_Push_Node(0);
+	Recursive_Push_Node(m_Root,0);
 	
 //	m_pLanguageModel->ReleaseNodeContext(therootcontext);
 //	ppmmodel->dump();
@@ -346,61 +322,55 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	// opens up new nodes
 
 	// push node under mouse
-	CDasherNode *under_mouse=Get_node_under_mouse(miMousex,miMousey);
+	CDasherNode* pUnderMouse = Get_node_under_mouse(miMousex,miMousey);
 
-	under_mouse->Push_Node();
+	Push_Node(pUnderMouse);
 
-	if (Framerate() > 4) {
+	if (Framerate() > 4) 
+	{
 		// push node under mouse but with x coord on RHS
-		CDasherNode *right=Get_node_under_mouse(50,miMousey);
-		right->Push_Node();
+		CDasherNode* pRight = Get_node_under_mouse(50,miMousey);
+		Push_Node(pRight);
 	}
 
-
-	if (Framerate() > 8) {
+	if (Framerate() > 8) 
+	{
 		// push node under the crosshair
-		CDasherNode* under_cross=Get_node_under_crosshair();
-		under_cross->Push_Node();
+		CDasherNode* pUnderCross = Get_node_under_crosshair();
+		Push_Node(pUnderCross);
 	}
 
-	int iRandom;
-#if defined(_WIN32_WCE)
-	iRandom=Random();
-#else
-	iRandom=rand();
-#endif
+	int iRandom = RandomInt();
+
 	if (Framerate() > 8) {
 		// add some noise and push another node
-		CDasherNode *right=Get_node_under_mouse(50,miMousey+iRandom%500-250);
-		right->Push_Node();
+		CDasherNode* pRight=Get_node_under_mouse(50,miMousey+iRandom%500-250);
+		Push_Node(pRight);
 	}
-#if defined(_WIN32_WCE)
-	iRandom=Random();
-#else
-	iRandom=rand();
-#endif
+
+	iRandom=RandomInt();
+
 	if (Framerate() > 15) {
 		// add some noise and push another node
-		CDasherNode *right=Get_node_under_mouse(50,miMousey+iRandom%500-250);
-		right->Push_Node();
+		CDasherNode *pRight=Get_node_under_mouse(50,miMousey+iRandom%500-250);
+		Push_Node(pRight);
 	}
 
 	// only do this is Dasher is flying
-	if (Framerate() > 30) {
-		for (int i=1;i<int(Framerate()-30)/3;i++) {
-#if defined(_WIN32_WCE)	
-		iRandom=Random();
-#else
-		iRandom=rand();
-#endif
-		// push at a random node on the RHS
-		CDasherNode *right=Get_node_under_mouse(50,miMousey+iRandom%1000-500);
-		right->Push_Node();
-	
+	if (Framerate() > 30) 
+	{
+		for (int i=1;i<int(Framerate()-30)/3;i++) 
+		{
+
+			iRandom=RandomInt();
+			// push at a random node on the RHS
+			CDasherNode* pRight=Get_node_under_mouse(50,miMousey+iRandom%1000-500);
+			Push_Node(pRight);
+
 		}
 	}
 
-	Update(m_Root,under_mouse,0);
+//	Update(m_Root,under_mouse,0);
 
 	CDasherNode* new_under_cross = Get_node_under_crosshair();
 
@@ -441,16 +411,16 @@ void CDasherModel::GoTo(double zoomfactor, myint miMousey)
 
 	CDasherNode* new_under_cross = Get_node_under_crosshair();
 
-	new_under_cross->Push_Node();
-
+	Push_Node(new_under_cross);
+	
 	// push node under goto point
 
 	// We don't have a mousex, so "emulating" one.
 	CDasherNode* node_under_goto = Get_node_under_mouse(50, miMousey);
 
-	node_under_goto->Push_Node();
-
-	Update(m_Root,new_under_cross,0);
+	Push_Node(node_under_goto);
+	
+//	Update(m_Root,new_under_cross,0);
 
 	if (new_under_cross!=old_under_cross) {
 	  DeleteCharacters(new_under_cross,old_under_cross);
@@ -544,11 +514,11 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherModel::Dump() const 
-	// diagnostic dump
+// Diagnostic trace
+void CDasherModel::Trace() const 
 {
-		// OutputDebugString(TEXT(" ptr   symbol   context Next  Child    pushme pushed cscheme   lbnd  hbnd \n"));
-		m_Root->Dump_node();
+	// OutputDebugString(TEXT(" ptr   symbol   context Next  Child    pushme pushed cscheme   lbnd  hbnd \n"));
+	m_Root->Trace();
 }
 
 
@@ -558,11 +528,14 @@ void CDasherModel::Dump() const
 void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &NewSymbols,
 		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm) const
 {
+	// Total number of symbols
 	int iSymbols = m_pcAlphabet->GetNumberSymbols();
 
+	// Number of text symbols, for which the language model gives the distribution
+	int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
 
-	int uniform_add = ((iNorm / 1000 ) / iSymbols ) * m_uniform;
-	int nonuniform_norm = iNorm - iSymbols * uniform_add;
+
+
 
 	NewSymbols.resize(iSymbols);
 	Groups.resize(iSymbols);
@@ -572,16 +545,28 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 		Groups[i]=m_pcAlphabet->get_group(i);
 	}
 
+	// TODO - sort out size of control node
+	int uniform_add = ((iNorm / 1000 ) / iSymbols ) * m_uniform;
+	int nonuniform_norm = iNorm - iSymbols * uniform_add;
+
 	m_pLanguageModel->GetProbs(context,Probs,nonuniform_norm);
+
+	Probs.push_back(0);
+#if _DEBUG
+	int iTotal = 0;
+	for( int k=0; k < Probs.size(); ++k )
+		iTotal += Probs[k];
+	DASHER_ASSERT(iTotal == nonuniform_norm);
+#endif
 
 	for( int k=0; k < Probs.size(); ++k )
 		Probs[k] += uniform_add;
 
 #if _DEBUG
-	int iTotal = 0;
+	iTotal = 0;
 	for( int k=0; k < Probs.size(); ++k )
 		iTotal += Probs[k];
-	DASHER_ASSERT(iTotal == iNorm);
+//	DASHER_ASSERT(iTotal == iNorm);
 #endif
 
 
@@ -649,4 +634,181 @@ CDasherModel::CTrainer* CDasherModel::GetTrainer()
 	return new CDasherModel::CTrainer(*this);
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherModel::Push_Node(CDasherNode* pNode) 
+{
+	if ( pNode->Children() )
+	{
+		// if there are children just give them a poke
+		unsigned int i;
+		for (i=0;i< pNode->ChildCount() ;i++)
+			pNode->Children()[i]->Alive(true);
+		return;
+	}
+
+//	DASHER_ASSERT(pNode->Symbol()!=0);
+
+	// if we haven't got a context then derive it
+	
+	if (! pNode->Context() )
+	{
+
+		CLanguageModel::Context cont;
+		// sym0
+		if ( pNode->Symbol() < m_pcAlphabet->GetNumberTextSymbols() && pNode->Symbol()>0) 
+		{
+			CDasherNode* pParent = pNode->Parent();
+			DASHER_ASSERT (pParent != NULL) ;
+			// Normal symbol - derive context from parent
+			cont =  m_pLanguageModel->CloneContext( pParent->Context() );
+			m_pLanguageModel->EnterSymbol( cont, pNode->Symbol() );
+		}
+		else
+		{
+			// For new "root" nodes (such as under control mode), we want to 
+			// mimic the root context
+			cont = CreateEmptyContext();
+			EnterText(cont, ". ");
+		}
+		pNode->SetContext(cont);
+
+	}
+
+	pNode->Alive(true);
+
+	if ( pNode->Symbol()== GetControlSymbol() || pNode->Control() ) 
+	{
+
+		ControlTree* pControlTreeChildren = pNode->GetControlTree();
+	
+		if ( pControlTreeChildren == NULL ) 
+		{ 
+			// Root of the tree 
+			pControlTreeChildren = GetControlTree();
+		}
+		else 
+		{ 
+			// some way down
+			pControlTreeChildren = pControlTreeChildren->children;
+		}
+
+		// Count total number of children
+
+		// Always 1 child for a root symbol
+		int iChildCount=1;
+
+		// Control children
+		ControlTree* pTemp = pControlTreeChildren;
+		while(pTemp != NULL)
+		{
+			iChildCount++;
+			pTemp = pTemp->next;
+		}
+		
+		// Now we go back and build the node tree	  
+		int quantum=int(Normalization()/iChildCount);
+
+		CDasherNode** ppChildren = new CDasherNode* [iChildCount];
+
+		ColorSchemes ChildScheme;
+		if (pNode->ColorScheme() == Nodes1)
+		{
+			ChildScheme = Nodes2;
+		} 
+		else 
+		{
+			ChildScheme = Nodes1;
+		}
+
+		int i=0;
+		// First a root node that takes up back to the text alphabet
+		ppChildren[i]=new CDasherNode(*this,pNode,0,0,0,Opts::Nodes1,0,int((i+1)*quantum),m_pLanguageModel,false,240);
+		i++;
+
+		// Now the control children
+		pTemp = pControlTreeChildren;
+		while( pTemp != NULL)
+		{
+			if (pTemp->colour != -1)
+			{
+				ppChildren[i]=new CDasherNode(*this,pNode,0,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
+			} 
+			else 
+			{
+				ppChildren[i]=new CDasherNode(*this,pNode,0,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
+			}
+			i++;
+			pTemp = pTemp->next;
+		}
+		pNode->SetChildren(ppChildren, iChildCount);
+		return;
+	}
+
+	vector<symbol> newchars;   // place to put this list of characters
+	vector<unsigned int> cum,groups;   // for the probability list
+
+	GetProbs(pNode->Context(),newchars,groups,cum,Normalization());
+	int iChildCount=newchars.size();
+
+	DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);
+	// work out cumulative probs in place
+	for (int i=1;i<iChildCount;i++)
+		cum[i]+=cum[i-1];
+
+	CDasherNode** ppChildren = new CDasherNode *[iChildCount];
+
+	// create the children
+	ColorSchemes NormalScheme, SpecialScheme;
+	if (( pNode->ColorScheme()==Nodes1 ) || (pNode->ColorScheme()==Special1 ))
+	{
+		NormalScheme = Nodes2;
+		SpecialScheme = Special2;
+	} 
+	else 
+	{
+		NormalScheme = Nodes1;
+		SpecialScheme = Special1;
+	}
+
+	ColorSchemes ChildScheme;
+
+	int iLbnd=0;
+	for (int i=0; i< iChildCount; i++)
+	{
+		if (newchars[i]== GetSpaceSymbol())
+			ChildScheme = SpecialScheme;
+		else
+			ChildScheme = NormalScheme;
+		ppChildren[i]=new CDasherNode(*this,pNode,newchars[i],groups[i],i,ChildScheme,iLbnd,cum[i],m_pLanguageModel,false,GetColour(i));
+		iLbnd = cum[i];
+	}
+	pNode->SetChildren(ppChildren,iChildCount);
+
+}
+
 ///////////////////////////////////////////////////////////////////
+
+void CDasherModel::Recursive_Push_Node(CDasherNode* pNode, int iDepth) 
+{
+
+	if ( pNode->Range() < 0.1* Normalization()  ) 
+	{
+		return;
+	}
+
+	if ( pNode->Symbol() == GetControlSymbol() ) 
+	{
+		return;
+	}
+
+	Push_Node(pNode);
+
+	if ( iDepth == 0 )
+		return;
+
+	for (int i=0; i< pNode->ChildCount(); i++) 
+	{
+		Recursive_Push_Node(pNode->Children()[i],iDepth-1);
+	}
+}

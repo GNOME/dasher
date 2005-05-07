@@ -72,6 +72,9 @@ public:
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate
 	void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 	
+	// Whether control mode is active - if true, DasherModel will create control nodes
+	//	- existing control modes will not be deleted, but will be inactive 
+	void SetControlMode(bool b);
 
 	std::string GroupLabel(int group) const {return m_pcAlphabet->GetGroupLabel(group);}
 	int GroupColour(int group) const {return m_pcAlphabet->GetGroupColour(group);}
@@ -94,7 +97,7 @@ public:
 
 	void OutputCharacters(CDasherNode *node);
 	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
-	void Dump() const;                                              // diagnostics
+	void Trace() const;                                              // diagnostics
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
     void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
@@ -144,7 +147,7 @@ public:
 	// Alphabet pass-through functions for widely needed information
 	symbol GetSpaceSymbol() const {return m_pcAlphabet->GetSpaceSymbol();}
 	symbol GetControlSymbol() const {return m_pcAlphabet->GetControlSymbol();}
-
+	const std::string& GetDisplayText(int iSymbol) const {return m_pcAlphabet->GetDisplayText(iSymbol);}
 
 private:
 
@@ -210,10 +213,12 @@ private:
 	double Get_new_root_coords(myint mousex,myint mousey);
 	void Get_new_goto_coords(double zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
-	void Update(CDasherNode* node,CDasherNode* under,int safe);
 
 	void GetProbs(CLanguageModel::Context context, std::vector<symbol> &NewSymbols,
 		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, int iNorm) const;
+
+	void Push_Node(CDasherNode* pNode);      // give birth to children
+	void Recursive_Push_Node(CDasherNode* pNode, int depth);
 
 
 	int GetColour(symbol s) const;
@@ -222,6 +227,7 @@ private:
 
 	ControlTree* m_pControltree;
 
+	bool m_bControlMode;
 
 	friend CDasherNode;
 };

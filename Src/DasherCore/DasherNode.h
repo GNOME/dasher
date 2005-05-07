@@ -21,41 +21,60 @@ class Dasher::CDasherNode : private NoClones
 {
 public:
 	
-	CDasherNode(const CDasherModel& dashermodel, CDasherNode *parent,symbol Symbol, unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour, ControlTree *controltree);
+	CDasherNode(const CDasherModel& dashermodel, CDasherNode *parent,symbol Symbol, 
+		unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,
+		int ilbnd,int ihbnd,
+		CLanguageModel *lm, bool ControlChild, int Colour, ControlTree *controltree);
+
 	~CDasherNode();
 	
-	// return private data members - read only 
-	CDasherNode ** const Children() const {return m_Children;}
+	// Node relationships
+	CDasherNode ** const Children() const;
+	unsigned int ChildCount() const {return m_iChildCount;}
+	CDasherNode* Parent() const {return m_pParent;}
+	bool NodeIsParent(CDasherNode *oldnode) const;
+	void SetChildren(CDasherNode** ppChildren, int iChildCount);
 	
-	int Lbnd() const {return m_iLbnd;}
-	int Hbnd() const {return m_iHbnd;}
+	// Orphan Child
+	void OrphanChild(CDasherNode* pChild);
 	
-	bool Alive() {return m_bAlive;}
-	bool Control() {return m_bControlChild;}
-	bool isSeen() {return m_bSeen;}
-	void Seen(bool seen) {m_bSeen=seen;}
-	bool NodeIsParent(CDasherNode *oldnode);
-	ControlTree* GetControlTree() {return m_controltree;}
+	void DeleteNephews(int iChild);
+
+	// Lower and higher bounds, and the range
+	int Lbnd() const;
+	int Hbnd() const;
+	int Range() const;
+	
+	// 'Alive' - this could do with an overhaul
+	bool Alive() const {return m_bAlive;}
+	void Alive(bool b) {m_bAlive = b;}
 	void Kill()  {m_bAlive=0;}
+
+	// 'Seen' - this could do with an overhaul
+	bool isSeen() const {return m_bSeen;}
+	void Seen(bool seen) {m_bSeen=seen;}
+	
+	// ControlNode-related
+	bool Control() const {return m_bControlChild;}
+	ControlTree* GetControlTree() {return m_controltree;}
+	
 	unsigned int Group() const {return m_iGroup;}
 	symbol Symbol() const {return m_Symbol;}
-	unsigned int ChildCount() const {return m_iChildCount;}
 	int Phase() const {return m_iPhase;}
-	Opts::ColorSchemes Cscheme() const {return m_ColorScheme;}
-	int Colour() const {return m_iColour;}
-	CDasherNode* Parent() const {return m_pParent;}
 
+	// DJW Sort out the colour scheme / phase confusion
+	Opts::ColorSchemes ColorScheme() const {return m_ColorScheme;}
+	int Colour() const {return m_iColour;}
+	
 	CDasherNode* const Get_node_under(int,myint y1,myint y2,myint smousex,myint smousey); // find node under given co-ords
 	void Get_string_under(const int,const myint y1,const myint y2,const myint smousex,const myint smousey,std::vector<symbol>&) const; // get string under given co-ords
 
-	void Push_Node();                                      // give birth to children
-	void Recursive_Push_Node(int depth);
 	void Delete_children();
-	void Delete_dead(CDasherNode* alive);
-	void Dump_node() const;                                // diagnostic
+	void Trace() const;                                // diagnostic
 
 	// Set/replace the context
 	void SetContext(CLanguageModel::Context Context);
+	CLanguageModel::Context Context() const;
 
 private:
 
@@ -63,7 +82,7 @@ private:
 	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	const symbol m_Symbol;             // the character to display
 	
-	CDasherNode **m_Children;          // pointer to array of children
+	CDasherNode** m_ppChildren;          // pointer to array of children
 	unsigned int m_iChildCount;		   // number of children
 	
 	bool m_bAlive;                     // if true, then display node, else dont bother
@@ -103,7 +122,7 @@ inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pP
 	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_iGroup(igroup), 
 	m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
 	m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), 
-	m_pLanguageModel(lm), m_Children(0), m_pParent(pParent), m_Context(NULL), 
+	m_pLanguageModel(lm), m_ppChildren(0), m_pParent(pParent), m_Context(NULL), 
 	m_controltree(controltree)
 {
 
@@ -128,22 +147,6 @@ inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pP
 	*/
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-inline void CDasherNode::Delete_children() 
-{
-	if (m_Children) {
-		unsigned int i; 
-		for (i=1;i<m_iChildCount;i++) {
-		        if (m_Children!=0 && m_Children[i]!=0) {
-			      m_Children[i]->Delete_children();
-			      delete m_Children[i];
-			}
-		}
-		delete [] m_Children;
-	}
-	m_Children=0;	
-}
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -161,6 +164,41 @@ inline void CDasherNode::SetContext(CLanguageModel::Context Context)
 	if (m_Context)
 		m_pLanguageModel->ReleaseContext(m_Context);
 	m_Context = Context;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline	int CDasherNode::Lbnd() const {return m_iLbnd;}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline	int CDasherNode::Hbnd() const {return m_iHbnd;}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline	int CDasherNode::Range() const {return m_iHbnd-m_iLbnd;}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline void CDasherNode::SetChildren(CDasherNode** ppChildren, int iChildCount)
+{
+	DASHER_ASSERT(m_ppChildren == NULL);
+	m_ppChildren = ppChildren;
+	m_iChildCount = iChildCount;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline CDasherNode** const CDasherNode::Children() const
+{
+	return m_ppChildren;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline CLanguageModel::Context CDasherNode::Context() const
+{
+	return m_Context;
 }
 
 /////////////////////////////////////////////////////////////////////////////

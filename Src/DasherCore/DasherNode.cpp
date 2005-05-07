@@ -16,7 +16,7 @@ using namespace std;
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherNode::Dump_node () const
+void CDasherNode::Trace () const
 { 	
 	/* TODO sort out
 	dchar out[256];
@@ -37,159 +37,13 @@ void CDasherNode::Dump_node () const
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CDasherNode::NodeIsParent(CDasherNode *oldnode) {
-  if (oldnode==m_pParent) {
-    return true;
-  } else {
-    return false;
-  }
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherNode::Push_Node() 
+bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const
 {
-	if (m_Children) {
-		// if there are children just give them a poke
-		unsigned int i;
-		for (i=1;i<m_iChildCount;i++)
-			m_Children[i]->m_bAlive=1;
-		return;
-	}
+  if (oldnode==m_pParent)
+	  return true;
+  else
+	  return false;
 
-	// if we haven't got a context then derive it
-	
-	if (! m_Context )
-	{
-		if (m_Symbol!=0) // SYM0
-		{
-			DASHER_ASSERT (m_pParent !=NULL) ;
-			// Normal symbol - derive context from parent
-			m_Context = m_pLanguageModel->CloneContext(m_pParent->m_Context);
-			m_pLanguageModel->EnterSymbol(m_Context,m_Symbol);
-		}
-		else
-		{
-			// For new "root" nodes (such as under control mode), we want to 
-			// mimic the root context
-			m_Context= m_DasherModel.CreateEmptyContext();
-			m_DasherModel.EnterText(m_Context, ". ");
-
-		}
-
-	}
-
-	m_bAlive=true;
-
-	if (m_Symbol==m_DasherModel.GetControlSymbol() || m_bControlChild==true) {
-		int i,quantum;
-		ControlTree *controltree;
-		if (m_controltree==NULL) { // Root of the tree 
-			controltree = m_DasherModel.GetControlTree();
-		}
-		else { // some way down
-			controltree = m_controltree->children;
-		}
-
-		m_iChildCount=1;
-
-		if (controltree!=NULL) {
-			m_iChildCount++;
-			while(controltree->next!=NULL) {
-				m_iChildCount++;
-				controltree=controltree->next;
-			}
-		}
-
-		// Now we go back and build the node tree	  
-		if (m_controltree==NULL) {
-			controltree=m_DasherModel.GetControlTree();
-		} else {
-			controltree=m_controltree->children; 
-		}
-
-		i=1;
-
-		quantum=int(m_DasherModel.Normalization()/m_iChildCount);
-
-		m_iChildCount++;
-
-		m_Children=new CDasherNode *[m_iChildCount];
-
-		ColorSchemes ChildScheme;
-		if (m_ColorScheme==Nodes1) {
-			ChildScheme = Nodes2;
-		} else {
-			ChildScheme = Nodes1;
-		}
-
-		m_Children[1]=new CDasherNode(m_DasherModel,this,0,0,0,Opts::Nodes1,0,int(i*quantum),m_pLanguageModel,false,240);
-
-		while(controltree!=NULL) {
-			i++;
-			if (controltree->colour!=-1) {
-				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_pLanguageModel,true,controltree->colour,controltree);
-			} else {
-				m_Children[i]=new CDasherNode(m_DasherModel,this,0,0,i,ChildScheme,int((i-1)*quantum),int(i*quantum),m_pLanguageModel,true,(i%99)+11,controltree);
-			}
-			controltree=controltree->next;
-		}
-		return;
-	}
-
-	vector<symbol> newchars;   // place to put this list of characters
-	vector<unsigned int> cum,groups;   // for the probability list
-	m_DasherModel.GetProbs(m_Context,newchars,groups,cum,m_DasherModel.Normalization());
-	m_iChildCount=newchars.size();
-	// work out cumulative probs
-	unsigned int i;
-	for (i=1;i<m_iChildCount;i++)
-		cum[i]+=cum[i-1];
-
-	DASHER_ASSERT(m_Children==0); // otherwise we have another memory leak
-	m_Children =new CDasherNode *[m_iChildCount];
-
-	// create the children
-	ColorSchemes NormalScheme, SpecialScheme;
-	if ((m_ColorScheme==Nodes1) || (m_ColorScheme==Special1)) {
-		NormalScheme = Nodes2;
-		SpecialScheme = Special2;
-	} else {
-		NormalScheme = Nodes1;
-		SpecialScheme = Special1;
-	}
-
-	ColorSchemes ChildScheme;
-
-	for (i=1;i<m_iChildCount;i++) {
-		if (newchars[i]== m_DasherModel.GetSpaceSymbol())
-			ChildScheme = SpecialScheme;
-		else
-			ChildScheme = NormalScheme;
-		m_Children[i]=new CDasherNode(m_DasherModel,this,newchars[i],groups[i],i,ChildScheme,cum[i-1],cum[i],m_pLanguageModel,false,m_DasherModel.GetColour(i));
-	}
-}
-
-void CDasherNode::Recursive_Push_Node(int depth) {
-
-  if ((m_iHbnd-m_iLbnd)<0.1*(m_DasherModel.Normalization())) {
-    return;
-  }
-
-  if (m_Symbol== m_DasherModel.GetControlSymbol()) {
-    return;
-  }
-
-  Push_Node();
-
-  if (depth>2)
-    return;
-
-  for (unsigned int i=1; i<m_iChildCount; i++) {
-    if (m_Children!=0 && m_Children[i]!=0) {
-      m_Children[i]->Recursive_Push_Node(depth+1);
-    }
-  }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -200,14 +54,17 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 	vString.push_back(m_Symbol);
 	
 	// look for children who might also be under the coords
-	if (m_Children) {
+	if (m_ppChildren)
+	{
 		myint miRange=miY2-miY1;
 		unsigned int i;
-		for (i=1;i<m_iChildCount;i++) {
-			myint miNewy1=miY1+(miRange*m_Children[i]->m_iLbnd)/iNormalization;
-			myint miNewy2=miY1+(miRange*m_Children[i]->m_iHbnd)/iNormalization;
-			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) {
-				m_Children[i]->Get_string_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey,vString);
+		for (i=1;i<m_iChildCount;i++) 
+		{
+			myint miNewy1=miY1+(miRange* Children()[i]->m_iLbnd)/iNormalization;
+			myint miNewy2=miY1+(miRange* Children()[i]->m_iHbnd)/iNormalization;
+			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
+			{
+				Children()[i]->Get_string_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey,vString);
 				return;
 			}
 		}
@@ -219,16 +76,17 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 
 CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,myint miY2,myint miMousex,myint miMousey) 
 {
-	if (m_Children) {
+	if ( Children() ) {
 		myint miRange=miY2-miY1;
 //		m_iAge=0;
 		m_bAlive=true;
 		unsigned int i;
-		for (i=1;i<m_iChildCount;i++) {
-			myint miNewy1=miY1+(miRange*m_Children[i]->m_iLbnd)/iNormalization;
-			myint miNewy2=miY1+(miRange*m_Children[i]->m_iHbnd)/iNormalization;
-		if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
-				return m_Children[i]->Get_node_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey);
+		for (i=0;i<m_iChildCount;i++) 
+		{
+			myint miNewy1=miY1+(miRange*Children()[i]->m_iLbnd)/iNormalization;
+			myint miNewy2=miY1+(miRange*Children()[i]->m_iHbnd)/iNormalization;
+			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
+				return Children()[i]->Get_node_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey);
 		}
 	}
 	return this;
@@ -236,17 +94,59 @@ CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,my
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherNode::Delete_dead(CDasherNode* alive) 
+void CDasherNode::OrphanChild(CDasherNode* pChild)
 {
-  if (m_Children) {
-		unsigned int i; 
-		for (i=1;i<m_iChildCount;i++) {
-		        if (m_Children[i]!=0 && m_Children[i]!=alive) {
-			      m_Children[i]->Delete_children();
-			      delete m_Children[i];
-			}
+	DASHER_ASSERT ( Children() ) ;
+
+	int i; 
+	for (i=0;i< ChildCount(); i++) 
+	{
+		if ( Children()[i] != pChild )
+		{
+			Children()[i]->Delete_children();
+			delete Children()[i];
 		}
-		delete [] m_Children;
+
 	}
-  m_Children=0;
+	delete [] m_ppChildren;
+	m_ppChildren=0;
+	m_iChildCount=0;
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+// Delete nephews
+void CDasherNode::DeleteNephews(int iChild)
+{
+	DASHER_ASSERT ( Children() ) ;
+
+	int i; 
+	for (i=0;i< ChildCount(); i++) 
+	{
+		if (i != iChild)
+		{
+			Children()[i]->Delete_children();
+		}
+
+	}
+}
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherNode::Delete_children() 
+{
+	if (m_ppChildren) 
+	{
+		for (int i=0;i<m_iChildCount;i++) 
+		{
+		     m_ppChildren[i]->Delete_children();
+		     delete m_ppChildren[i];
+		}
+		delete [] m_ppChildren;
+		m_ppChildren=0;	
+		m_iChildCount=0;
+	}
+}
+
+/////////////////////////////////////////////////////////////////////////////
