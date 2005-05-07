@@ -11,6 +11,11 @@
 
 #include "DasherTypes.h"
 
+// DJW20050505 - renamed DrawText to DrawString - windows defines DrawText as a macro and it's 
+// really hard to work around
+// Also make CDasher screen operate in UTF8 strings only
+// Eventually, I want abstract CDasherScreen even further from DasherCore
+
 namespace Dasher 
 {
 	class CDasherScreen;
@@ -53,14 +58,13 @@ public:
 	//! Return the Dasher font size
 	virtual Dasher::Opts::FontSize GetFontSize() const =0;
 
-	// DasherView asks for the width and height of the given symbol at a requested height,
-	// then it is able to sensibly specify the upper left corner in DrawText.
-	//! Set Width and Height to those of the character Character at size Size
-	virtual void TextSize(symbol Character, screenint* Width, screenint* Height, int Size) const=0;
-	//! Draw character Character of size Size positioned at x1 and y1
-	virtual void DrawText(symbol Character, screenint x1, screenint y1, int Size) const=0;
-	//! Draw string String of size Size positioned at x1 and y1
-	virtual void DrawText(std::string String, screenint x1, screenint y1, int Size) const=0;
+	// DasherView asks for the width and height of the given UTF8 string at a requested height,
+	// then it is able to sensibly specify the upper left corner in DrawString.
+	//! Set Width and Height to those of the string at size Size
+	virtual void TextSize(const std::string& String, screenint* Width, screenint* Height, int Size) const=0;
+
+	//! Draw UTF8-encoded string String of size Size positioned at x1 and y1
+	virtual void DrawString(const std::string& String, screenint x1, screenint y1, int Size) const=0;
 
 	
 	// Draw a filled rectangle - given position and color id
