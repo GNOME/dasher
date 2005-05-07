@@ -26,7 +26,7 @@ namespace Dasher
 		public:
 
 		//! DelayDraw character Character of size Size positioned at x1 and y1
-		void DelayDrawText(symbol Character, screenint x1, screenint y1, int Size);
+		//void DelayDrawText(symbol Character, screenint x1, screenint y1, int Size);
 	
 		//! DelayDraw string String of size Size positioned at x1 and y1
 		void DelayDrawText(const std::string& String, screenint x1, screenint y1, int Size);
@@ -70,11 +70,12 @@ namespace Dasher
 
 
 /////////////////////////////////////////////////////////////////////////////
-
+/*
 inline void CDelayedDraw::DelayDrawText(symbol Character, screenint x1, screenint y1, int Size)
 {
 	m_DrawTextSymbol.push_back( CTextSymbol( Character,x1,y1,Size) );
 }
+*/
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -88,7 +89,7 @@ inline void CDelayedDraw::DelayDrawText(const std::string& str, screenint x1, sc
 //! Draw all DelayDraw events
 inline	void CDelayedDraw::Draw(CDasherScreen& screen)
 {
-	int iSize=m_DrawTextSymbol.size();
+/*	int iSize=m_DrawTextSymbol.size();
 
 	for (int i=0; i<iSize ; i++)
 	{
@@ -96,14 +97,14 @@ inline	void CDelayedDraw::Draw(CDasherScreen& screen)
 		screen.DrawText( draw.m_Character, draw.m_x, draw.m_y, draw.m_iSize);
 	}
 
-	m_DrawTextSymbol.clear();
+	m_DrawTextSymbol.clear();*/
 
-	iSize=m_DrawTextString.size();
+	int iSize=m_DrawTextString.size();
 
 	for (int i=0; i<iSize ; i++)
 	{
 		CTextString& draw = m_DrawTextString[i];
-		screen.DrawText( draw.m_String, draw.m_x, draw.m_y, draw.m_iSize);
+		screen.DrawString( draw.m_String, draw.m_x, draw.m_y, draw.m_iSize);
 	}
 	m_DrawTextString.clear();
 
