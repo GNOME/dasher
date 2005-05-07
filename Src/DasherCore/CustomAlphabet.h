@@ -19,9 +19,8 @@ class Dasher::CCustomAlphabet : public Dasher::CAlphabet
 {
 public:
 	CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo);
-	void AddControlSymbol();
-	void DelControlSymbol();
- private:
+
+private:
 	const CAlphIO::AlphInfo* m_AlphInfo;
 };
 

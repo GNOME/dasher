@@ -46,21 +46,23 @@ CCustomAlphabet::CCustomAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 		SetSpaceSymbol();
 	}
 
+	// DJW - now the control symbol is always a part of the alphabet
+	// DasherModel knows whether or not to use it
+	if (m_AlphInfo->ControlCharacter.Display != std::string("") && GetControlSymbol()==-1) 
+	{
+		AddChar(m_AlphInfo->ControlCharacter.Text, m_AlphInfo->ControlCharacter.Display, m_AlphInfo->ControlCharacter.Colour, m_AlphInfo->ControlCharacter.Foreground);
+		SetControlSymbol();
+	}
+
 #ifdef DASHER_TRACE
 	Trace();
 #endif
 }
 
-void CCustomAlphabet::AddControlSymbol() {
-	if (m_AlphInfo->ControlCharacter.Display != std::string("") && GetControlSymbol()==-1) {
-		AddChar(m_AlphInfo->ControlCharacter.Text, m_AlphInfo->ControlCharacter.Display, m_AlphInfo->ControlCharacter.Colour, m_AlphInfo->ControlCharacter.Foreground);
-		SetControlSymbol();
-	}
-}
 
-void CCustomAlphabet::DelControlSymbol() {
-  if (GetControlSymbol()!=-1) {
-    DelChar(GetControlSymbol());
-    SetControlSymbol(-1);
-  }
-}
+//void CCustomAlphabet::DelControlSymbol() {
+ // if (GetControlSymbol()!=-1) {
+  //  DelChar(GetControlSymbol());
+  //  SetControlSymbol(-1);
+ // }
+//}

@@ -28,7 +28,11 @@ public:
 	CAlphabet();
 	virtual ~CAlphabet() {};
 	
+	// Return size of alphabet, including control symbols
 	int GetNumberSymbols() const { return m_Characters.size();}        // return size of alphabet
+	
+	// Return number of text symbols
+	int GetNumberTextSymbols() const { return m_Characters.size()-1;}   
 	
 	Opts::ScreenOrientations GetOrientation() {return m_Orientation;}
 	Opts::AlphabetTypes GetType() {return m_DefaultEncoding;}
@@ -59,9 +63,6 @@ public:
 	
 	void Trace() const; // diagnostic
 	
-	virtual void AddControlSymbol()=0;
-	virtual void DelControlSymbol()=0;
-
 protected:
 	// Add the characters that can appear in Nodes
 	void AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground); // add single char to the alphabet
