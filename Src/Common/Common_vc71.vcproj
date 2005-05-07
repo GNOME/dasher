@@ -355,6 +355,9 @@
 			RelativePath=".\Common.h">
 		</File>
 		<File
+			RelativePath=".\Hash.h">
+		</File>
+		<File
 			RelativePath=".\MSVC_Unannoy.h">
 		</File>
 		<File
@@ -362,6 +365,9 @@
 		</File>
 		<File
 			RelativePath=".\Platform.h">
+		</File>
+		<File
+			RelativePath=".\Random.h">
 		</File>
 		<File
 			RelativePath=".\Trace.cpp">

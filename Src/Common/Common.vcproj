@@ -286,9 +286,6 @@
 			Name="Types"
 			Filter="">
 			<File
-				RelativePath="Types\Range.h">
-			</File>
-			<File
 				RelativePath="Types\int.h">
 			</File>
 			<File
@@ -296,6 +293,9 @@
 			</File>
 			<File
 				RelativePath="Types\int64.h">
+			</File>
+			<File
+				RelativePath="Types\Range.h">
 			</File>
 		</Filter>
 		<Filter
@@ -309,7 +309,13 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="assert.h">
+		</File>
+		<File
 			RelativePath="Common.h">
+		</File>
+		<File
+			RelativePath="Hash.h">
 		</File>
 		<File
 			RelativePath="MSVC_Unannoy.h">
@@ -321,13 +327,13 @@
 			RelativePath="Platform.h">
 		</File>
 		<File
+			RelativePath="Random.h">
+		</File>
+		<File
 			RelativePath="Trace.cpp">
 		</File>
 		<File
 			RelativePath="Trace.h">
-		</File>
-		<File
-			RelativePath="assert.h">
 		</File>
 	</Files>
 	<Globals>
