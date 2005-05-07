@@ -107,3 +107,23 @@ void CDasherView::SetDrawMousePosBox(int iWhich)
 	m_iDrawMousePosBox = iWhich;
 
 }
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherView::GetOneButton() const 
+{
+     return onebutton;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherView::SetOneButton(int Value) 
+{
+       if (onebutton < -5000) 
+               onebutton=-5000;
+       if (onebutton > 7000)
+               onebutton=7000;
+ 
+       onebutton += Value;
+}

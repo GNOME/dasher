@@ -23,12 +23,11 @@ void CDasherViewSquare::RenderNodes()
 	
 	DASHER_ASSERT(DasherModel().Root()!=0);
 
-//	DASHER_TRACEOUTPUT("Render\n");
+//	DASHER_TRACEOUTPUT("RenderNodes\n");
 
 	// Render nodes to screen object (should use off screen buffer)
 
-	RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), 2, false);
-//	RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), 2, true);
+	RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), 2);
 
 	// DelayDraw the text nodes
 	m_DelayDraw.Draw(Screen());
@@ -40,7 +39,7 @@ void CDasherViewSquare::RenderNodes()
 
 /////////////////////////////////////////////////////////////////////////////
 
-int CDasherViewSquare::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text)
+int CDasherViewSquare::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft)
 {
 	int Color;
 
@@ -60,36 +59,38 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* Render, myint y1,myint y2,in
 	  Color = Render->Phase()%3; 
 	}
 
-	if ((Render->Cscheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
+	if ((Render->ColorScheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
 	  Color+=130;                                // colours
 	}
 
-	if (Render->GetControlTree()!=NULL) {
-	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, text,Render->GetControlTree()->text))
-	    RenderGroups(Render, y1, y2, text);
-	  else
-	    Render->Kill();
-	} 
-	else 
-	{
-	//	if (Render->Symbol()==1)
 	//	DASHER_TRACEOUTPUT("%x ",Render);
-	  if (RenderNode(Render->Symbol(), Color, Render->Cscheme(), y1, y2, mostleft, text,""))
-	    RenderGroups(Render, y1, y2, text);
-	  else
-		Render->Kill();
-	}
 	
-	CDasherNode** const Children=Render->Children();
-	if (!Children)
+	std::string display;
+	if (Render->GetControlTree()!=NULL) 
+		display = Render->GetControlTree()->text;
+
+	if (RenderNode(Render->Symbol(), Color, Render->ColorScheme(), y1, y2, mostleft, display))
+		RenderGroups(Render, y1, y2);
+	else
+	{
+		Render->Kill();
+		return 0;
+	}
+
+	int iChildCount = Render->ChildCount();
+	if (!iChildCount)
 	  return 0;
+
 	int norm=DasherModel().Normalization();
-		for (unsigned int i=1; i<Render->ChildCount(); i++) {
-		if (Children[i]->Alive()) {
+	for (int i=0; i< iChildCount; i++) 
+	{
+		CDasherNode* pChild = Render->Children()[i];
+		if ( pChild->Alive() ) 
+		{
 			myint Range=y2-y1;
-			myint newy1=y1+(Range*Children[i]->Lbnd())/norm;
-			myint newy2=y1+(Range*Children[i]->Hbnd())/norm;
-			RecursiveRender(Children[i], newy1, newy2, mostleft, text);
+			myint newy1=y1+(Range * pChild->Lbnd() )/norm;
+			myint newy2=y1+(Range * pChild->Hbnd() )/norm;
+			RecursiveRender(pChild, newy1, newy2, mostleft);
 		}
 	}
 	return 1;
@@ -99,7 +100,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* Render, myint y1,myint y2,in
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text)
+void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
 {
 	CDasherNode** Children = Render->Children();
 	if (!Children)
@@ -110,7 +111,7 @@ void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2, bo
     std::string Label="";
 
 	myint range=y2-y1;
-	for (unsigned int i=1; i<Render->ChildCount(); i++) {
+	for (int i=0; i<Render->ChildCount(); i++) {
 		int g=Children[i]->Group();
 		if (g!=current) {
 			lower=upper;
@@ -127,12 +128,12 @@ void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2, bo
 				  int Colour = DasherModel().GroupColour(current);
                   
                   if (Colour!=-1) {
-					RenderNode(0,DasherModel().GroupColour(current),Opts::Groups,newy1,newy2,mostleft,text,Label);
+					RenderNode(0,DasherModel().GroupColour(current),Opts::Groups,newy1,newy2,mostleft,Label);
 				  } else {
-				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,text,Label);
+				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,Label);
 				  }
 				} else {
-					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,text,Label);
+					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,Label);
 				}
 			}
 			current=g;
@@ -180,10 +181,10 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 /////////////////////////////////////////////////////////////////////////////
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, bool text, std::string displaytext)
+	myint y1, myint y2, int& mostleft, std::string displaytext)
 {
 
-	//		DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s Force:%d\n",Character,Color,ColorScheme,displaytext.c_str(),force);
+	//DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
 
 	// Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
 	screenint s1,s2;
@@ -227,7 +228,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	}
 
 	screenint TextWidth, TextHeight, OriginX=0, OriginY=0;
-	Screen().TextSize(Character, &TextWidth, &TextHeight, Size);
+	Screen().TextSize(DasherModel().GetDisplayText(Character), &TextWidth, &TextHeight, Size);
 	UnMapScreen(&TextWidth, &TextHeight);
 	UnMapScreen(&OriginX, &OriginY);		
 	screenint FontHeight = abs(TextHeight-OriginY);		
@@ -252,7 +253,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	{
 		m_DelayDraw.DelayDrawText(displaytext, iNewleft, iNewtop, Size);
 	} else {
-		m_DelayDraw.DelayDrawText(Character, iNewleft, iNewtop, Size);
+		m_DelayDraw.DelayDrawText(DasherModel().GetDisplayText(Character), iNewleft, iNewtop, Size);
 	}
 	return 1;
 }
@@ -565,22 +566,236 @@ int CDasherViewSquare::GetAutoOffset() const
 	 return m_yAutoOffset;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-int CDasherView::GetOneButton() const {
-     return onebutton;
-}
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::SetOneButton(int Value) {
-       if (onebutton < -5000) 
-               onebutton=-5000;
-       if (onebutton > 7000)
-               onebutton=7000;
+void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myint* idasherx, myint* idashery) const
+{
+    bool eyetracker=DasherModel().Eyetracker();
+    // bool DasherRunning = DasherModel().Paused();
+	
+
+	imousey += int(m_yAutoOffset);
+
+    // Maybe this mousey tweak should take place earlier, elsewhere, and 
+    // have a permanent effect on mousey rather than just local.
+
+    //SUMMARY OF  Y autocallibrate additions: 
+    // If autocallibrate  {
+    //    tweak mousey right now before anyone looks at it.
+    //    If dasher running {
+    //        Adjust our tweak estimate
+    //    }
+    // }
+    // end summary
+
+    // If autocallibrate  {
+    //    tweak mousey right now before anyone looks at it.
+    //           NOTE: yAutoOffset should be set to zero ONCE when Dasher 
+    //                 first started, then left alone. In principle, if 
+    //                 someone moves their Dasher window from one locn to another
+    //  then it might be reasonable to re-zero the offset. But don't.
+
+	// Convert the Y mouse coordinate to one that's based on the canvas size
+	double dashery=double(imousey*DasherModel().DasherY()/CanvasY);
+	bool useonebutton=0;
+	if (useonebutton) {
+		int onebutton = CDasherView::GetOneButton();
+	    dashery=onebutton;
+	}
+    
+	// Convert the X mouse coordinate to one that's based on the canvas size 
+	// - we want this the opposite way round to the mouse coordinate system, 
+	// hence the fudging. ixmap gives us the X nonlinearity.	
+	double x=ixmap(1.0*(CanvasX-imousex)/CanvasX)*DasherModel().DasherY();
+
+    // Disable one-button mode for now.
+       // if (eyetracker==true) { dashery=onebutton; }
+	
+    // If we're in standard mode, fudge things for the vertical acceleration
+	if (DasherModel().Dimensions()==false && KeyControl==false && eyetracker==false) {
+		dashery = m_ymap.unmap(dashery);
+		if (dashery>DasherModel().DasherY()) {
+			dashery=DasherModel().DasherY();
+		}
+		if (dashery<0) {
+			dashery=0;
+		}
+	}
+
+    // The X and Y origins.
+    myint dasherOX=DasherModel().DasherOX();
+    //cout << "dasherOX: " << dasherOX << endl;
+    myint dasherOY=DasherModel().DasherOY();
+    // For Y co-ordinate changes. 
+    // disty is the distance between y and centreline. 
+    double disty=double(dasherOY)-dashery;                  
+    //cout << "disty: " << disty << endl;
+
+	// If we're in one-dimensional mode, make new x,y
+	if (DasherModel().Dimensions()==true) {
+		//if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
+		//	*mousex=int(x);
+		//	*mousey=int(dashery);
+		//	return;
+		//}
+      
+		double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb;	
+
+		// The distance between the Y coordinate and the centreline in pixels
+		disty=dasherOY-dashery;
+        
+        //		double rel_dashery=dashery+1726;
+		//      double rel_dasherOY=dasherOY+1726;
+		//cout << "x: " << x << endl;
+		//cout << "dashery: " << rel_dashery << endl << endl;
+
+		// The radius of the circle transcribed by the one-dimensional mapping
+		circlesize=    DasherModel().DasherY()/2.5;
+		yforwardrange= DasherModel().DasherY()/1.6;
+		yfullrange=    yforwardrange*1.6;
+		ybackrange=    yfullrange-yforwardrange;
+		ellipse_eccentricity=6;
  
-       onebutton += Value;
+		if (disty>yforwardrange) {
+			// If the distance between y-coord and centreline is > radius,
+			// we should be going backwards, off the top.
+			yb=(disty-yforwardrange)/ybackrange;
+            
+			if (yb>1) {
+				x=0;
+				dashery=double(dasherOY);
+			}
+			else { 
+				angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
+				x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
+				dashery=-(1+cos(angle))*circlesize/2+dasherOY;
+			}
+		}
+		else if (disty <-(yforwardrange)) {
+			// Backwards, off the bottom.
+			yb=-(disty+yforwardrange)/ybackrange;
+
+			if (yb>1) {
+			x=0;
+				dashery=double(dasherOY);
+            }   
+			else {
+				angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
+
+				x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
+				dashery=(1+cos(angle))*circlesize/2+dasherOY;
+			}   
+		}
+
+        else {
+          angle=((disty*3.14159/2)/yforwardrange);
+          x=cos(angle)*circlesize;
+          dashery=-sin(angle)*circlesize+dasherOY;
+        }
+		x=dasherOX-x;
+    }
+    else if (eyetracker==true) {
+
+      myint dasherOX=DasherModel().DasherOX(); 
+      //cout << "dasherOX: " << dasherOX << endl; 
+      myint dasherOY=DasherModel().DasherOY(); 
+         
+      // X co-ordinate changes. 
+      double double_x = (x/dasherOX); 
+      double double_y = -((dashery-dasherOY)/(double)(dasherOY) ); 
+             
+      double xmax_y = xmax(double_x, double_y); 
+                 
+      if(double_x < xmax_y) { 
+        double_x = xmax_y; 
+      } 
+
+      x = dasherOX*double_x;                 
+
+      // Finished x-coord changes.
+
+      double repulsionparameter=0.5;
+      dashery = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
+    } 
+    /* 
+    // Finish the yautocallibrate
+    //    If dasher running, adjust our tweak estimate
+      if(!DasherRunning==true) {
+        CDasherView::yFilterTimescale = 60;
+        CDasherView::ySum += disty; 
+        CDasherView::ySumCounter++; 
+       
+        CDasherView::ySigBiasPercentage=50;
+        CDasherView::ySigBiasPixels = CDasherView::ySigBiasPercentage * DasherModel().DasherY() / 100;
+
+        // FIXME: screen2dasher appears to be being called thrice per frame.
+        // I don't know why.  
+        CDasherView::ySigBiasPixels*=3;
+
+        cout <<"ySum: " << CDasherView::ySum << " | ySigBiasPixels: " << CDasherView::ySigBiasPixels << " | disty: " << disty << " | yAutoOffset: " << CDasherView::yAutoOffset << endl;
+  
+        if (CDasherView::ySumCounter > CDasherView::yFilterTimescale) {
+          CDasherView::ySumCounter = 0;
+
+          // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+          // change if we're past the significance boundary.
+
+          if (CDasherView::ySum > CDasherView::ySigBiasPixels || CDasherView::ySum < -CDasherView::ySigBiasPixels) {
+             if (CDasherView::ySum > CDasherView::yFilterTimescale)
+              CDasherView::yAutoOffset--; 
+              else if (CDasherView::ySum < -CDasherView::yFilterTimescale)
+              CDasherView::yAutoOffset++;
+            CDasherView::ySum = 0;
+          }
+        }
+    }
+    */
+    *idasherx=myint(x);
+	*idashery=myint(dashery);
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey)
+{
+    double dashery=double(*mousey)*double(DasherModel().DasherY())/double(CanvasY);
+    myint dasherOY=DasherModel().DasherOY();
+    double disty=double(dasherOY)-dashery;
+    bool DasherRunning = DasherModel().Paused();
+
+
+    if(!DasherRunning==true) {
+        m_yFilterTimescale = 20;
+        m_ySum += (int)disty;
+        m_ySumCounter++;
+
+        m_ySigBiasPercentage=50;
+        m_ySigBiasPixels = m_ySigBiasPercentage * DasherModel().DasherY() / 100;
+
+        //cout << "yAutoOffset: " << CDasherView::yAutoOffset << endl;
+
+        if (m_ySumCounter > m_yFilterTimescale) {
+          m_ySumCounter = 0;
+
+          // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+          // change if we're past the significance boundary.
+
+          if (m_ySum > m_ySigBiasPixels || m_ySum < -m_ySigBiasPixels) {
+             if (m_ySum > m_yFilterTimescale)
+                 m_yAutoOffset--;
+             else if (m_ySum < -m_yFilterTimescale)
+                 m_yAutoOffset++;
+            
+             m_ySum = 0;
+          }
+        }
+        
+        //*mousey=int(dashery);
+    }
+}
+
+
 
 /////////////////////////////////////////////////////////////////////////////
 

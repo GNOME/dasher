@@ -40,13 +40,13 @@ public:
 
 
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, bool text, std::string displaytext);
+		myint y1, myint y2, int& mostleft, std::string displaytext);
 	
 	// Responsible for all the Render_node calls
-	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft, bool text);
+	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft);
 	
 	// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-	void RenderGroups(CDasherNode* Render, myint y1, myint y2, bool text);
+	void RenderGroups(CDasherNode* Render, myint y1, myint y2);
 	
     int GetAutoOffset() const;
 
