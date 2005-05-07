@@ -10,7 +10,7 @@
 #define __Toolbar_h__
 
 #include "../../Common/NoClones.h"
-#include "../WinHelper.h"
+
 
 
 class CToolbar : private NoClones

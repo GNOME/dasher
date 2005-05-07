@@ -11,7 +11,7 @@
 #ifndef __ColourBox_h__
 #define __ColourBox_h__
 
-#include "../WinWrap.h"
+
 #include "../resource.h"
 
 #include "../../DasherCore/DasherAppInterface.h"

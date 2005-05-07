@@ -15,7 +15,7 @@
 #ifndef __Slidebar_h__
 #define __Slidebar_h__
 
-#include "../WinWrap.h"
+
 #include "../../DasherCore/DasherSettingsInterface.h"
 #include "Canvas.h"
 

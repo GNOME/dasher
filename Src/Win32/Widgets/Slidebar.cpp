@@ -11,9 +11,10 @@
 	TODO YUCK. Sorry I do appreciate that this is a *total* mess.
 */
 
+#include "WinCommon.h"
+
 #include "Slidebar.h"
 #include "../resource.h"
-#include "../WinLocalisation.h"
 
 using namespace Dasher;
 

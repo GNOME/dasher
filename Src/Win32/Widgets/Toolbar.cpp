@@ -9,11 +9,10 @@
 // This is a very much hard-wired toolbar.
 // Code would need more logic and less copy and pasting to be more generally useful.
 
-#include "../../Common/Common.h"
+#include "WinCommon.h"
 
 #include "Toolbar.h"
 #include "../resource.h"
-#include "../WinLocalisation.h"
 
 CToolbar::CToolbar(HWND ParentWindow, bool Text, bool LargeIcons, bool Visible)
 : Text(Text), Visible(Visible), LargeIcons(LargeIcons), m_hwnd(0), ParentWindow(ParentWindow)

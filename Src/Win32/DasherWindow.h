@@ -11,8 +11,6 @@
 #define __DasherWindow_h__
 
 
-// Stuff to make the window work
-#include "WinWrap.h"
 #include "resource.h"
 
 

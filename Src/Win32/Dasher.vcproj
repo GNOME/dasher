@@ -21,10 +21,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Debug/Intermediate/"
@@ -82,11 +84,13 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -141,11 +145,13 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Release/Intermediate/"
@@ -196,10 +202,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
@@ -258,17 +266,20 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -278,6 +289,7 @@
 				OutputFile=".\Target/Win32 Unicode Release/Dasher.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
+				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Unicode Release/Dasher.pdb"
 				SubSystem="2"/>
 			<Tool
@@ -313,10 +325,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Debug/Intermediate/"
@@ -370,10 +384,12 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNICODE;_STATIC;_WIN32_WINNT=0x0500;ACCESSIBLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				PrecompiledHeaderFile=".\Target/Accessible Unicode Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Accessible Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Accessible Unicode Debug/Intermediate/"
@@ -421,7 +437,10 @@
 			IntermediateDirectory="foo"
 			ConfigurationType="1">
 			<Tool
-				Name="VCCLCompilerTool"/>
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories="WinCommon"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -482,10 +501,10 @@
 			Name="Widgets"
 			Filter=".cpp">
 			<File
-				RelativePath=".\Widgets\AboutBox.h">
+				RelativePath=".\Widgets\Aboutbox.cpp">
 			</File>
 			<File
-				RelativePath=".\Widgets\Aboutbox.cpp">
+				RelativePath=".\Widgets\AboutBox.h">
 			</File>
 			<File
 				RelativePath=".\Widgets\AlphabetBox.cpp">
@@ -504,12 +523,6 @@
 			</File>
 			<File
 				RelativePath="Widgets\ColourBox.h">
-			</File>
-			<File
-				RelativePath=".\Widgets\DasherEncodingToCP.cpp">
-			</File>
-			<File
-				RelativePath=".\Widgets\DasherEncodingToCP.h">
 			</File>
 			<File
 				RelativePath=".\Widgets\Edit.cpp">
@@ -575,16 +588,16 @@
 				RelativePath=".\Widgets\Toolbar.h">
 			</File>
 			<File
-				RelativePath=".\Widgets\WinOptions.cpp">
-			</File>
-			<File
-				RelativePath=".\Widgets\WinOptions.h">
-			</File>
-			<File
 				RelativePath=".\widgets\WindowSelect.cpp">
 			</File>
 			<File
 				RelativePath=".\widgets\WindowSelect.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\WinOptions.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\WinOptions.h">
 			</File>
 		</Filter>
 		<Filter
@@ -597,6 +610,337 @@
 				RelativePath="GDI\FontStore.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="WinCommon"
+			Filter="">
+			<File
+				RelativePath="WinCommon\DasherEncodingToCP.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Accessible Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="foo|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="WinCommon\DasherEncodingToCP.h">
+			</File>
+			<File
+				RelativePath="WinCommon\WinCommon.h">
+			</File>
+			<File
+				RelativePath="WinCommon\WinHelper.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Accessible Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="foo|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="WinCommon\WinHelper.h">
+			</File>
+			<File
+				RelativePath="WinCommon\WinLocalisation.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Accessible Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="foo|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="WinCommon\WinLocalisation.h">
+			</File>
+			<File
+				RelativePath="WinCommon\WinMenus.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Accessible Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="foo|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="WinCommon\WinMenus.h">
+			</File>
+			<File
+				RelativePath="WinCommon\WinUTF8.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Accessible Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="foo|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="WinCommon\WinUTF8.h">
+			</File>
+			<File
+				RelativePath="WinCommon\WinWrap.cpp">
+				<FileConfiguration
+					Name="Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Unicode Release|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Win95 compatible Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Accessible Unicode Debug|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="foo|Win32">
+					<Tool
+						Name="VCCLCompilerTool"
+						ObjectFile="$(IntDir)/$(InputName)1.obj"/>
+				</FileConfiguration>
+			</File>
+			<File
+				RelativePath="WinCommon\WinWrap.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\DasherWindow.cpp">
 		</File>
@@ -604,40 +948,10 @@
 			RelativePath=".\DasherWindow.h">
 		</File>
 		<File
-			RelativePath=".\WinHelper.cpp">
-		</File>
-		<File
-			RelativePath=".\WinHelper.h">
-		</File>
-		<File
-			RelativePath=".\WinLocalisation.cpp">
-		</File>
-		<File
-			RelativePath=".\WinLocalisation.h">
+			RelativePath=".\resource.h">
 		</File>
 		<File
 			RelativePath=".\WinMain.cpp">
-		</File>
-		<File
-			RelativePath="WinMenus.cpp">
-		</File>
-		<File
-			RelativePath="WinMenus.h">
-		</File>
-		<File
-			RelativePath=".\WinUTF8.cpp">
-		</File>
-		<File
-			RelativePath=".\WinUTF8.h">
-		</File>
-		<File
-			RelativePath=".\WinWrap.cpp">
-		</File>
-		<File
-			RelativePath=".\WinWrap.h">
-		</File>
-		<File
-			RelativePath=".\resource.h">
 		</File>
 	</Files>
 	<Globals>

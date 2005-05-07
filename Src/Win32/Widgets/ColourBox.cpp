@@ -6,12 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "WinCommon.h"
 
 #include "ColourBox.h"
 #include "../resource.h"
-#include "../WinUTF8.h"
-#include "../WinLocalisation.h"
 
 #include <utility> // for std::pair
 
@@ -40,7 +38,7 @@ void CColourBox::PopulateList()
 	bool SelectionSet=false;
 	for (unsigned int i=0; i<ColourList.size(); i++) {
 		Tstring Item;
-		WinUTF8::UTF8string_to_Tstring(ColourList[i], &Item, GetACP());
+		WinUTF8::UTF8string_to_wstring(ColourList[i], Item);
 		LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
 		SendMessage(ListBox, LB_SETITEMDATA, Index, (LPARAM) i);
 		if (ColourList[i]==m_CurrentColours) {

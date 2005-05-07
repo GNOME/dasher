@@ -10,7 +10,6 @@
 #ifndef __Splitter_h__
 #define __Splitter_h__
 
-#include "../WinWrap.h"
 #define MY_LAYOUT WM_USER+2
 
 

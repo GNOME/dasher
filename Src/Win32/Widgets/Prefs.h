@@ -11,7 +11,7 @@
 #ifndef __PrefsBox_h__
 #define __PrefsBox_h__
 
-#include "../WinWrap.h"
+
 #include "../resource.h"
 #include "../../DasherCore/DasherTypes.h"
 #include "../../DasherCore/DasherSettingsInterface.h"

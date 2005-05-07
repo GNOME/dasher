@@ -6,13 +6,12 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "WinCommon.h"
 
 #include "Screen.h"
 
-#include "../WinHelper.h"
-#include "DasherEncodingToCP.h"
-#include "../WinLocalisation.h"
+
+#include "../WinCommon/DasherEncodingToCP.h"
 #include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/CustomColours.h"
 using namespace WinLocalisation;
@@ -84,13 +83,7 @@ void CScreen::SetInterface(CDasherWidgetInterface* DasherInterface)
 	CodePage = EncodingToCP(m_DasherInterface->GetAlphabetType());
 	SetFont(m_FontName);
 	
-	unsigned int NumberSymbols = m_DasherInterface->GetNumberSymbols();
 	
-	DisplayStrings.resize(NumberSymbols);
-	
-	for (unsigned int i=0; i<NumberSymbols; i++) {
-		WinUTF8::UTF8string_to_Tstring(m_DasherInterface->GetDisplayText(i), &DisplayStrings[i], CodePage);
-	}
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -100,7 +93,7 @@ void CScreen::SetFont(string Name)
 	m_FontName = Name;
 	
 	Tstring FontName;
-	WinUTF8::UTF8string_to_Tstring(Name, &FontName);
+	WinUTF8::UTF8string_to_wstring(Name, FontName);
 	
 	m_ptrFontStore.reset( new CFontStore(FontName) );
 
@@ -210,6 +203,7 @@ void CScreen::DrawMousePosBox(int which, int iMousePosDist)
 	Display();
 }
 
+/*
 void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int iSize) const
 {
 	if (m_DasherInterface==0)
@@ -231,15 +225,14 @@ void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int
 	// DJW - need to select the old object back into the DC
 	SelectObject(m_hDCBuffer, old);
 }
+*/
 
-void CScreen::DrawText(std::string OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) const
+void CScreen::DrawString(const std::string& OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) const
 {
-	if (m_DasherInterface==0)
-		return;
 	
 	Tstring OutputText;
 
-	WinUTF8::UTF8string_to_Tstring(OutputString,&OutputText);
+	WinUTF8::UTF8string_to_wstring(OutputString,OutputText);
 	
 	RECT Rect;
 	Rect.left = x1;
@@ -258,10 +251,10 @@ void CScreen::DrawText(std::string OutputString, Dasher::screenint x1, Dasher::s
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::TextSize(Dasher::symbol Character, screenint* Width, screenint* Height, int iSize) const
+void CScreen::TextSize(const std::string& String, screenint* Width, screenint* Height, int iSize) const
 {
 	CTextSizeInput in;
-	in.m_Character = Character;
+	in.m_String = String;
 	in.m_iSize = iSize;
 
 	stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::const_iterator it;
@@ -270,7 +263,7 @@ void CScreen::TextSize(Dasher::symbol Character, screenint* Width, screenint* He
 	if (it == m_mapTextSize.end())
 	{
 		CTextSizeOutput out;
-		TextSize_Impl(Character,&out.m_iWidth,&out.m_iHeight,iSize);
+		TextSize_Impl(String,&out.m_iWidth,&out.m_iHeight,iSize);
 		m_mapTextSize.insert( stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::value_type( in,out) );
 		*Width = out.m_iWidth;
 		*Height = out.m_iHeight;
@@ -284,13 +277,14 @@ void CScreen::TextSize(Dasher::symbol Character, screenint* Width, screenint* He
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::TextSize_Impl(Dasher::symbol Character, screenint* Width, screenint* Height, int iSize) const
+void CScreen::TextSize_Impl(const std::string& String, screenint* Width, screenint* Height, int iSize) const
 {
 	// TODO This function could be improved. The height of an "o" is returned as the
 	// same as the height of an "O". Perhaps GetGlyphOutline could help.
 	// Remember if it gets complicted, the height of each symbol could be pre-calculated
 		
-	Tstring OutputText = DisplayStrings[Character];
+	wstring OutputText;
+	WinUTF8::UTF8string_to_wstring(String,OutputText);
 	
 	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 

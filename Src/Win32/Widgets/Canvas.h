@@ -10,7 +10,6 @@
 #ifndef __Canvas_h__
 #define __Canvas_h__
 
-#include "../WinWrap.h"
 #include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/DasherAppInterface.h"
 #include "../../DasherCore/DasherTypes.h"

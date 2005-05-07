@@ -9,9 +9,8 @@
 #ifndef __Screen_h__
 #define __Screen_h__
 
+#include "../../Common/Hash.h"
 
-#include "../WinHelper.h"
-#include "../WinUTF8.h"
 #include "../../DasherCore/DasherScreen.h"
 
 #include "../../Common/NoClones.h"
@@ -26,6 +25,7 @@
 #endif
 
 using namespace Dasher;
+
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -46,9 +46,11 @@ public:
 	void DrawMousePosBox(int which,int iMousePosDist);   
 	void DrawOutlines(bool Value) {drawoutlines=Value;}
 	
-	void TextSize(Dasher::symbol Character, Dasher::screenint* Width, Dasher::screenint* Height, int Size) const;
-	void DrawText(Dasher::symbol Character, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
-	void DrawText(std::string, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
+	void TextSize(const std::string& String, Dasher::screenint* Width, Dasher::screenint* Height, int Size) const;
+
+	//! Draw UTF8-encoded string String of size Size positioned at x1 and y1
+	void DrawString(const std::string& String, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
+
 	void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
 	
 	// Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
@@ -73,7 +75,7 @@ private:
 	const void point2POINT(const point* In, POINT* Out, int Number) const;
 	inline GetDisplayTstring(Dasher::symbol Symbol);
 
-	void TextSize_Impl(Dasher::symbol Character, Dasher::screenint* Width, Dasher::screenint* Height,int Size) const;
+	void TextSize_Impl(const std::string& String, Dasher::screenint* Width, Dasher::screenint* Height,int Size) const;
 
 	std::string m_FontName;
 	
@@ -84,7 +86,6 @@ private:
 	std::vector<HPEN> m_Pens;
 	HBITMAP m_hbmBit;
 	HGDIOBJ m_prevhbmBit;
-	std::vector<Tstring> DisplayStrings;
 	UINT CodePage;
 	Dasher::Opts::FontSize Fontsize;
 	bool drawoutlines;
@@ -92,12 +93,12 @@ private:
 
 	struct CTextSizeInput
 	{
-		Dasher::symbol m_Character;
+		std::string m_String;
 		int m_iSize;
 
 		bool operator!=(const CTextSizeInput& rhs) const 
 		{
-			return ( (m_Character != rhs.m_Character) || ( m_iSize != rhs.m_iSize) );
+			return ( ( m_iSize != rhs.m_iSize)  || (m_String != rhs.m_String) );
 		}
 
 	};
@@ -106,6 +107,9 @@ private:
 		screenint m_iWidth;
 		screenint m_iHeight;
 	};
+
+
+
 
 	struct hash_textsize
 	{
@@ -117,7 +121,7 @@ private:
 
 		size_t operator()(const CTextSizeInput& x) const 
 		{ 
-			return x.m_Character ^ x.m_iSize;
+			return hash_string(x.m_String.c_str() ) ^ x.m_iSize;
 		}
 
 		bool operator()(const CTextSizeInput& x , const CTextSizeInput& y) const 

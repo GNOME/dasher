@@ -12,19 +12,22 @@
 	would be unacceptable.
 */
 
-#define NOMINMAX
+
+#include "WinCommon.h"
+
+
 #include "Edit.h"
 #include "Canvas.h"
 #include <mbstring.h>
+#include "../resource.h"
+
+#include "../WinCommon/DasherEncodingToCP.h"
 
 using namespace Dasher;
 using namespace std;
 
-#include "DasherEncodingToCP.h"
-#include "../resource.h"
-#include "../WinLocalisation.h"
+
 using namespace WinLocalisation;
-#include "../WinUTF8.h"
 using namespace WinUTF8;
 
 
@@ -83,7 +86,7 @@ void CEdit::Move(int x, int y, int Width, int Height)
 void CEdit::New(const string& filename)
 {
 	Tstring newFilename;
-	UTF8string_to_Tstring(filename, &newFilename, GetACP());
+	UTF8string_to_wstring(filename, newFilename);
 	TNew(newFilename);
 }
 
@@ -91,7 +94,7 @@ void CEdit::New(const string& filename)
 bool CEdit::Open(const string& filename)
 {
 	Tstring openFilename;
-	UTF8string_to_Tstring(filename, &openFilename, GetACP());
+	UTF8string_to_wstring(filename, openFilename);
 	return TOpen(openFilename);
 }
 
@@ -99,7 +102,7 @@ bool CEdit::Open(const string& filename)
 bool CEdit::OpenAppendMode(const string& filename)
 {
 	Tstring openFilename;
-	UTF8string_to_Tstring(filename, &openFilename, GetACP());
+	UTF8string_to_wstring(filename, openFilename );
 	return TOpenAppendMode(openFilename);
 }
 
@@ -107,7 +110,7 @@ bool CEdit::OpenAppendMode(const string& filename)
 bool CEdit::SaveAs(const string& filename)
 {
 	Tstring saveFilename;
-	UTF8string_to_Tstring(filename, &saveFilename, GetACP());
+	UTF8string_to_wstring(filename, saveFilename);
 	return TSaveAs(saveFilename);
 }
 
@@ -168,7 +171,7 @@ bool CEdit::Save()
 		WriteFile(FileHandle, &BOM, 3, &NumberOfBytesWritten, NULL);
 		Tstring Tmp = EditText;
 		string Output;
-		Tstring_to_UTF8string(EditText, &Output, CodePage);
+		wstring_to_UTF8string(EditText, Output);
 		WriteFile(FileHandle, Output.c_str(), Output.size(), &NumberOfBytesWritten, NULL);
 		break;
 	}
@@ -284,8 +287,8 @@ void CEdit::SaveAs()
 
 std::string CEdit::Import()
 {
-        string filename;
-	Tstring_to_UTF8string(m_FilenameGUI->Open(),&filename,CodePage);
+    string filename;
+	wstring_to_UTF8string(m_FilenameGUI->Open(),filename);
 	return filename;
 }
 
@@ -347,7 +350,7 @@ bool CEdit::TOpen(const Tstring& filename)
 	string text;
 	text = text+filebuffer;
 	Tstring inserttext;
-	UTF8string_to_Tstring(text,&inserttext, GetACP());
+	UTF8string_to_wstring(text,inserttext);
 	InsertText(inserttext);
 
 	AppendMode = false;
@@ -460,7 +463,7 @@ void CEdit::SetFont(string Name, long Size)
 	m_FontSize = Size;
 	
 	Tstring FontName;
-	UTF8string_to_Tstring(Name, &FontName);
+	UTF8string_to_wstring(Name, FontName);
 	
 	if (Size==0)
 		Size=14;
@@ -491,13 +494,7 @@ void CEdit::SetInterface(CDasherWidgetInterface* DasherInterface)
 	CodePage = EncodingToCP(m_DasherInterface->GetAlphabetType());
 	SetFont(m_FontName, m_FontSize);
 	
-	unsigned int NumberSymbols = m_DasherInterface->GetNumberSymbols();
 	
-	DisplayStrings.resize(NumberSymbols);
-	
-	for (unsigned int i=0; i<NumberSymbols; i++) {
-		WinUTF8::UTF8string_to_Tstring(m_DasherInterface->GetEditText(i), &DisplayStrings[i], CodePage);
-	}
 }
 
 void CEdit::write_to_file()
@@ -506,7 +503,7 @@ void CEdit::write_to_file()
 	if (TrainFile=="")
 		return;
 	Tstring TTrainFile;
-	UTF8string_to_Tstring(TrainFile, &TTrainFile);
+	UTF8string_to_wstring(TrainFile, TTrainFile);
 	
 	HANDLE hFile = CreateFile(TTrainFile.c_str(),
 		GENERIC_WRITE, 0, NULL, OPEN_ALWAYS , FILE_ATTRIBUTE_NORMAL,0);
@@ -540,7 +537,7 @@ void CEdit::get_new_context(string& str, int max)
 	SendMessage(m_hwnd, WM_GETTEXT, (LONG)(iStart+1), (LONG)tString);
 	
 	string Wasteful;
-	Tstring_to_UTF8string(tString, &Wasteful, CodePage);
+	wstring_to_UTF8string(tString, Wasteful);
 	
 	if (Wasteful.size()>max)
 		str = Wasteful.substr(Wasteful.size()-max, max);
@@ -555,8 +552,12 @@ void CEdit::output(symbol Symbol)
 {
 	if (m_DasherInterface==0)
 		return;
-	
-	InsertText(DisplayStrings[Symbol]);
+
+	wstring String;
+	WinUTF8::UTF8string_to_wstring(m_DasherInterface->GetEditText(Symbol), String);
+
+	InsertText(String);
+
 	if (targetwindow!=NULL && textentry==true) {
 		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
 #ifdef UNICODE
@@ -590,7 +591,7 @@ void CEdit::output(symbol Symbol)
 			keybd_event(VK_RETURN,0,KEYEVENTF_KEYUP,NULL);
 		}
 		Tstring character;
-		WinUTF8::UTF8string_to_Tstring(DisplayText,&character,1252); 
+		WinUTF8::UTF8string_to_wstring(DisplayText,&character,1252); 
 		TCHAR test=character[0];
 		SHORT outputvk=VkKeyScan(char(character[0]));
 		SetFocus(targetwindow);
@@ -607,7 +608,7 @@ void CEdit::output(symbol Symbol)
 	}
 	m_Output += m_DasherInterface->GetEditText(Symbol);
 
-	UTF8string_to_Tstring(m_DasherInterface->GetEditText(Symbol), &newchar, GetACP());	
+	UTF8string_to_wstring(m_DasherInterface->GetEditText(Symbol), newchar);	
 	speech+=newchar;
 }
 
@@ -630,6 +631,9 @@ LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_COMMAND:
 		SendMessage(Parent, message, wParam, lParam);
+		break;
+	case WM_DESTROY:
+		OutputDebugString(TEXT("CEdit WM_DESTROY\n"));
 		break;
 	}
 	return result;
@@ -654,15 +658,25 @@ void CEdit::dumpedit(int i) const
 }
 */
 
+
 void CEdit::deletetext(Dasher::symbol)
+
 {
+
 	DWORD start,finish;
+
 	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start, (LONG)&finish);
+
 	start-=1;
+
 	SendMessage(m_hwnd, EM_SETSEL, (LONG)start, (LONG)finish);
+
 	TCHAR out [2];
+
 	wsprintf(out,TEXT(""));
+
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
+
 	if (targetwindow!=NULL && textentry==true) {
 #ifdef _UNICODE
 		fakekey[0].type=fakekey[1].type=INPUT_KEYBOARD;
@@ -678,30 +692,51 @@ void CEdit::deletetext(Dasher::symbol)
 		keybd_event(VK_BACK,0,KEYEVENTF_KEYUP,NULL);
 #endif
 	}
+
 	if (speech.length()>0) {
+
 		speech.resize(speech.length()-1);
+
 	}
+
 
         if (m_Output.length()>0) {
 		m_Output.resize(m_Output.length()-1);
 	}
 }
 
+
+
 void CEdit::SetWindow(HWND window)
+
 {
+
 	if (targetwindow!=window) {
+
 		targetwindow=window;
+
 		if (threadid!=NULL) {
+
 			AttachThreadInput(GetCurrentThreadId(),threadid,FALSE);
+
 			//		SetFocus(Parent);
+
 		}
+
 		if (window!=NULL) {
+
 			threadid=GetWindowThreadProcessId(window,NULL);
+
 			AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(window,NULL),TRUE);
+
 			//		SetFocus(window);
+
 		}
+
 	}
+
 }
+
 
 void CEdit::outputcontrol (void* pointer, int data, int type)
 {
@@ -728,7 +763,9 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 		  case 11:
 			  // move left
 		    SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+
 			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+
 			  break;
 		  case 12:
 			  // move right
@@ -738,21 +775,33 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 		  case 13:
 			// move to the start of the document
 			GetKeyboardState((LPBYTE) &pbKeyState);
+
 			pbKeyState[VK_CONTROL] |= 0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
+
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_HOME, NULL);
+
 			SendMessage(m_hwnd, WM_KEYUP, VK_HOME, NULL);
+
 			pbKeyState[VK_CONTROL] &= ~0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
 			  break;
 		  case 14:
 			  // go to end
 			GetKeyboardState((LPBYTE) &pbKeyState);
+
 			pbKeyState[VK_CONTROL] |= 0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
+
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_END, NULL);
+
 			SendMessage(m_hwnd, WM_KEYUP, VK_END, NULL);
+
 			pbKeyState[VK_CONTROL] &= ~0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
 			  break;
 		  case 21:
@@ -763,13 +812,21 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 		  case 22:
 			BYTE pbKeyState[256];
 			GetKeyboardState((LPBYTE) &pbKeyState);
+
 			pbKeyState[VK_CONTROL] |= 0x80;
+
 			pbKeyState[VK_SHIFT] |= 0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
+
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
+
 			SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
+
 			pbKeyState[VK_SHIFT] &= ~0x80;
+
 			pbKeyState[VK_CONTROL] &= ~0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
@@ -779,13 +836,21 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 			  break;
 		  case 25:
 			GetKeyboardState((LPBYTE) &pbKeyState);
+
 			pbKeyState[VK_CONTROL] |= 0x80;
+
 			pbKeyState[VK_SHIFT] |= 0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
+
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+
 			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+
 			pbKeyState[VK_SHIFT] &= ~0x80;
+
 			pbKeyState[VK_CONTROL] &= ~0x80;
+
 			SetKeyboardState((LPBYTE) &pbKeyState);
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);

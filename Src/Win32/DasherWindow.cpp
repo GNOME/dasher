@@ -6,8 +6,11 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "WinCommon.h"
 
 #include "DasherWindow.h"
+
+#include "WinCommon/WinMenus.h"
 
 #include "../DasherCore/DasherTypes.h"
 #include "Widgets/AboutBox.h"
@@ -16,9 +19,6 @@
 #include "Widgets/KeyControl.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/Prefs.h"
-#include "WinLocalisation.h"
-#include "WinUTF8.h"
-#include "WinMenus.h"
 #include "Widgets/Toolbar.h"
 #include "Widgets/Slidebar.h"
 #include "../DasherCore/DasherWidgetInterface.h"
@@ -60,6 +60,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 
 	// Create Widgets
 	m_pToolbar = new CToolbar(m_hwnd, false, false, false);
+	
 	m_pEdit = new CEdit(m_hwnd);
 	DasherAppInterface->ChangeEdit(m_pEdit);
 	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
@@ -75,7 +76,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	
 	SetTimer(m_hwnd, IDT_TIMER1,               // timer identifier 
 
-    20,                     // 5-second interval 
+	20,                     // interval 
 
     (TIMERPROC) NULL); // timer callback
 
@@ -457,12 +458,6 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 	RECT windowsize;
 	switch (message)
 	{
-	case MY_LAYOUT:
-		Layout();
-		break;
-	case WM_SETFOCUS:
-		SetFocus(m_pCanvas->getwindow());
-		break;
 	case WM_TIMER:
 		// Ugh. Can't find a desperately nicer way of doing this, though
 		testwindow=GetForegroundWindow();
@@ -470,6 +465,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			m_pEdit->SetWindow(testwindow);
 		}
 		SendMessage( m_pCanvas->getwindow(), message, wParam, lParam);
+		break;
+	case MY_LAYOUT:
+		Layout();
+		break;
+	case WM_SETFOCUS:
+		SetFocus(m_pCanvas->getwindow());
 		break;
 	case WM_COMMAND:
 		{
@@ -535,7 +536,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				Data.lpLogFont = &lf;
 				ChooseFont(&Data);
 				string FontName;
-				WinUTF8::Tstring_to_UTF8string(lf.lfFaceName, &FontName, GetACP());
+				WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
 				DasherSettingsInterface->SetEditFont(FontName, lf.lfHeight);
 				break;
 			}
@@ -550,7 +551,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				Data.lpLogFont = &lf;
 				ChooseFont(&Data);
 				string FontName;
-				WinUTF8::Tstring_to_UTF8string(lf.lfFaceName, &FontName, GetACP());
+				WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
 				DasherSettingsInterface->SetDasherFont(FontName);
 				break;
 			}
@@ -667,6 +668,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		}
 		break;
 	case WM_DESTROY:
+		OutputDebugString(TEXT("DasherWindow WM_DESTROY\n"));
+
 		if (m_pEdit!=0) {
 			m_pEdit->write_to_file();
 		}
@@ -674,9 +677,10 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		// Canvas needs to free its resources before its window is deleted
 		if (m_pCanvas!=0)
 		{
-			delete m_pCanvas;
-			m_pCanvas=0;
+		//	delete m_pCanvas;
+		//	m_pCanvas=0;
 		}		
+
 		PostQuitMessage(0);
 		break;
 	case WM_GETMINMAXINFO:

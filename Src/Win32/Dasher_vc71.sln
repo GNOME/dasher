@@ -17,8 +17,6 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\Common\Expat\Expat_vc71.vcproj", "{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
-	ProjectSection(ProjectDependencies) = postProject
-	EndProjectSection
 EndProject
 Global
 	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
@@ -92,6 +90,7 @@ Global
 		{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
+		..\..\ChangeLog = ..\..\ChangeLog
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection

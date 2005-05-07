@@ -6,11 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "WinCommon.h"
 
 #include "KeyControl.h"
 #include "../resource.h"
-#include "../WinUTF8.h"
-#include "../WinLocalisation.h"
 
 #include <utility> // for std::pair
 //#include <sstream>
@@ -34,7 +33,7 @@ std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
 	TCHAR* Buffer = new TCHAR[BufferLength];
 	SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM)Buffer);
 	string ItemName;
-	WinUTF8::Tstring_to_UTF8string(Buffer, &ItemName, GetACP());
+	WinUTF8::wstring_to_UTF8string(Buffer, ItemName);
 	delete[] Buffer;
 	return ItemName;
 }
@@ -207,9 +206,11 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			m_pSettingsInterface->SetYScale(ypixels);
 			m_pCanvas->setmouseposdist(mouseposdist);
 			m_pSettingsInterface->SetMousePosDist(mouseposdist);
-			if (NewUniform!=-1) {
-				m_pCanvas->setuniform(NewUniform);
-				m_pSettingsInterface->SetUniform(NewUniform);
+			if (NewUniform!=-1) 
+			{
+				// DJW - this looks a bit nasty
+				m_pCanvas->setuniform((int)NewUniform);
+				m_pSettingsInterface->SetUniform((int)NewUniform);
 			}
 			// Move forward on button press
 /*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {

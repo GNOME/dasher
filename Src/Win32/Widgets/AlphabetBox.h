@@ -11,7 +11,7 @@
 #ifndef __AlphabetBox_h__
 #define __AlphabetBox_h__
 
-#include "../WinWrap.h"
+
 #include "../resource.h"
 #include "../../DasherCore/AlphIO.h"
 

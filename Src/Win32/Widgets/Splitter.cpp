@@ -6,6 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "WinCommon.h"
 
 #include "Splitter.h"
 
@@ -104,6 +105,12 @@ LRESULT CSplitter::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
 			break;
 		}
 		break;
+	case WM_DESTROY:
+	{
+		OutputDebugString(TEXT("Splitter WM_DESTROY\n"));
+		return DefWindowProc(Window, message, wParam, lParam);
+	}
+	
 	default:
 		return DefWindowProc(Window, message, wParam, lParam);
 	}

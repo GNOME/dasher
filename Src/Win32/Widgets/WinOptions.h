@@ -10,11 +10,8 @@
 #ifndef __WinOptions_h__
 #define __WinOptions_h__
 
-#include "../../Common/NoClones.h"
 #include <string>
 #include <map>
-
-#include "../WinHelper.h"
 
 // Look for documenting comments here:
 #include "../../DasherCore/SettingsStore.h"

@@ -6,22 +6,20 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../Common/Common.h"
+#include "WinCommon.h"
 
+//#ifdef _DEBUG
+// #include "vld.h"
+//#endif 
 
 #include "WinHelper.h"
 
-#ifdef _DEBUG
-//#include "vld.h"
-#endif 
-
 #include "DasherWindow.h"
 #include "Widgets/WinOptions.h"
-#include "WinUTF8.h"
-#include "WinMenus.h"
 
 #include "../DasherCore/DasherInterface.h"
 using namespace Dasher;
+using namespace std;
 
 // DJW 20031029 - tip - don't use LPCWSTR explicitely
 // instead TCHAR (or our Tstring) is your friend - it type-defs to char or wchar depending whether or not you have UNICODE defined
@@ -38,10 +36,11 @@ void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface)
 
 	handle=FindFirstFile(Alphabets.c_str(),&find);
 	if (handle!=INVALID_HANDLE_VALUE) {
-		Tstring_to_UTF8string(find.cFileName, &filename);
+		wstring_to_UTF8string(wstring(find.cFileName), filename);
 		Interface->AddAlphabetFilename(filename);
-		while (FindNextFile(handle,&find)!=false) {
-			Tstring_to_UTF8string(find.cFileName, &filename);
+		while (FindNextFile(handle,&find)!=false) 
+		{
+			wstring_to_UTF8string(wstring(find.cFileName), filename);
 			Interface->AddAlphabetFilename(filename);
 		}
 		FindClose(handle);
@@ -49,10 +48,10 @@ void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface)
 
 	handle=FindFirstFile(Colours.c_str(),&find);
 	if (handle!=INVALID_HANDLE_VALUE) {
-		Tstring_to_UTF8string(find.cFileName, &filename);
+		wstring_to_UTF8string(find.cFileName, filename);
 		Interface->AddColourFilename(filename);
 		while (FindNextFile(handle,&find)!=false) {
-			Tstring_to_UTF8string(find.cFileName, &filename);
+			wstring_to_UTF8string(find.cFileName, filename);
 			Interface->AddColourFilename(filename);
 		}
 		FindClose(handle);
@@ -93,8 +92,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	AppData+=TEXT("system.rc\\");
 	CreateDirectory(UserData.c_str(), NULL); // Try and create folders. Doesn't seem
 	CreateDirectory(AppData.c_str(), NULL);  // to do any harm if they already exist.
-	Tstring_to_UTF8string(UserData, &UserData2); // TODO: I don't know if special characters will work.
-	Tstring_to_UTF8string(AppData, &AppData2);   // ASCII-only filenames are safest. Being English doesn't help debug this...
+	wstring_to_UTF8string(UserData, UserData2); // TODO: I don't know if special characters will work.
+	wstring_to_UTF8string(AppData, AppData2);   // ASCII-only filenames are safest. Being English doesn't help debug this...
 
 	// Set up COM for the accessibility stuff
 	CoInitialize(NULL);

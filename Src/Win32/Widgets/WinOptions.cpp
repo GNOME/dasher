@@ -6,12 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-#include "../../Common/Common.h"
+#include "WinCommon.h"
 
 #include "WinOptions.h"
 
-#include "../WinUTF8.h"
 using namespace WinUTF8;
 
 /* TODO: Consider using Template functions to make this neater. */
@@ -21,8 +19,8 @@ CWinOptions::CWinOptions(const std::string& Group, const std::string& Product)
 {
 	// Windows requires strings as Tstring
 	Tstring TGroup, TProduct;
-	UTF8string_to_Tstring(Group, &TGroup);
-	UTF8string_to_Tstring(Product, &TProduct);
+	UTF8string_to_wstring(Group, TGroup);
+	UTF8string_to_wstring(Product, TProduct);
 	
 	// Get hold of HKEY_CURRENT_USER\Software
 	HKEY SoftwareKey;
@@ -57,7 +55,7 @@ CWinOptions::~CWinOptions()
 bool CWinOptions::LoadSetting(const std::string& Key, bool* Value)
 {
 	Tstring TKey;
-	UTF8string_to_Tstring(Key, &TKey);
+	UTF8string_to_wstring(Key, TKey);
 	BYTE* Data=0;
 	
 	if (!GetlpByte(TKey, &Data)) {
@@ -80,7 +78,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, bool* Value)
 bool CWinOptions::LoadSetting(const std::string& Key, long* Value)
 {
 	Tstring TKey;
-	UTF8string_to_Tstring(Key, &TKey);
+	UTF8string_to_wstring(Key, TKey);
 	BYTE* Data=0;
 		
 	if (!GetlpByte(TKey, &Data)) {
@@ -100,7 +98,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, long* Value)
 bool CWinOptions::LoadSettingT(const std::string& Key, Tstring* TValue)
 {
 	Tstring TKey;
-	UTF8string_to_Tstring(Key, &TKey);
+	UTF8string_to_wstring(Key, TKey);
 	BYTE* Data=0;
 	
 	if (!GetlpByte(TKey, &Data)) {
@@ -122,7 +120,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
 	Tstring str;
 	if (LoadSettingT(Key,&str))
 	{
-		Tstring_to_UTF8string(str, Value);
+		wstring_to_UTF8string(str, *Value);
 		return true;	
 
 	}
@@ -195,7 +193,7 @@ void CWinOptions::SaveSetting(const std::string& Key, bool Value)
 void CWinOptions::SaveSetting(const std::string& Key, long Value)
 {
 	Tstring TKey;
-	UTF8string_to_Tstring(Key, &TKey);
+	UTF8string_to_wstring(Key, TKey);
 	// Evil casting. Registry stores DWORD's (unsigned longs)
 	// I'm forcing in signed longs and if I force them out again in the same
 	// way I should get a sensible result.
@@ -210,7 +208,7 @@ void CWinOptions::SaveSetting(const std::string& Key, long Value)
 void CWinOptions::SaveSettingT(const std::string& Key, const Tstring& TValue)
 {
 	Tstring TKey;
-	UTF8string_to_Tstring(Key, &TKey);
+	UTF8string_to_wstring(Key, TKey);
 
 
 	DWORD MemAllow = (TValue.size()+1) * sizeof(TCHAR);
@@ -231,7 +229,7 @@ void CWinOptions::SaveSetting(const std::string& Key, const std::string& Value)
 	
 	// DJW20031107 - i think Values should also be converted to Tstring
 	Tstring TValue;
-	UTF8string_to_Tstring(Value, &TValue);
+	UTF8string_to_wstring(Value, TValue);
 	
 	SaveSettingT(Key,TValue);
 }

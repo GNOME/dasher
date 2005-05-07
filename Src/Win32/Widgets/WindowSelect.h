@@ -1,7 +1,7 @@
 #ifndef __WinSel_h__
 #define __WinSel_h__
 
-#include "../WinWrap.h"
+
 #include "../resource.h"
 #include "../../DasherCore/DasherTypes.h"
 #include "Edit.h"
@@ -18,9 +18,13 @@ private:
 
 	long RefreshWindow (HWND hwndWindowToBeRefreshed);
 	long SearchWindow (HWND hwndDialog);
+
 	long DoMouseMove (HWND hwndDialog, UINT message, WPARAM wParam, LPARAM lParam);
+
 	long HighlightFoundWindow (HWND hwndDialog, HWND hwndFoundWindow);
+
 	long DoMouseUp(HWND hwndDialog, UINT message, WPARAM wParam, LPARAM lParam);
+
 	void SetFinderToolImage(HWND hwndDialog, BOOL full);
 
 	HPEN g_hRectanglePen;
@@ -32,6 +36,7 @@ private:
 	HCURSOR g_hCursorSearchWindow, g_hCursorPrevious;
 
 	HBITMAP g_hBitmapFinderToolFilled;
+
 	HBITMAP g_hBitmapFinderToolEmpty;
 
 };

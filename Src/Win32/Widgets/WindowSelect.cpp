@@ -1,8 +1,9 @@
+
+#include "WinCommon.h"
+
 #include "WindowSelect.h"
 
 #include "../resource.h"
-#include "../WinUTF8.h"
-#include "../WinLocalisation.h"
 
 #include <utility> // for std::pair
 

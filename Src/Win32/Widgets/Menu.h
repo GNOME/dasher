@@ -12,7 +12,7 @@
 
 #include <map>
 
-#include "../WinHelper.h"
+
 
 class CMenu
 {

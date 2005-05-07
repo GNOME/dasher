@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "WinCommon.h"
 
 #include "Canvas.h"
 
@@ -449,7 +449,7 @@ void CCanvas::MousePosStart(bool Value)
 		secondwindow=false;
 	}
 	m_MousePosStart=Value;
-	DASHER_TRACEOUTPUT("MousePosStart: %d",m_MousePosStart);
+	DASHER_TRACEOUTPUT("MousePosStart: %d\n",m_MousePosStart);
 }
 
 /////////////////////////////////////////////////////////////////////////////

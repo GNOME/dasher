@@ -29,9 +29,9 @@
 	IAM 08/02
 */
 
-#include ",,/../../../Common/Common.h"
+#include "WinCommon.h"
+
 #include "FilenameGUI.h"
-#include "../WinLocalisation.h"
 #include "../resource.h"
 
 

@@ -11,7 +11,7 @@
 #define __AboutBox_h__
 
 
-#include "../WinHelper.h"
+
 
 
 class CAboutbox

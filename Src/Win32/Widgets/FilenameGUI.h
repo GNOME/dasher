@@ -10,7 +10,7 @@
 #ifndef __FilenameGUI_h__
 #define __FilenameGUI_h__
 
-#include "../WinHelper.h"
+
 
 /*  CFilenameGUI Notes: {{{
 	

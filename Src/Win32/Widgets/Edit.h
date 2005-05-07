@@ -10,21 +10,26 @@
 #ifndef __Edit_h__
 #define __Edit_h__
 
+
 #include "../../Common/MSVC_Unannoy.h"
 #include <string>
 #include <vector>
 
 #define _ATL_APARTMENT_THREADED
-
 #include <atlbase.h>
+
 //You may derive a class from CComModule and use it if you want to override something, 
+
 //but do not change the name of _Module
+
 extern CComModule _Module;
+
 #include <atlcom.h>
+
 #include <sapi.h>
 
 #include "../../DasherCore/DashEdit.h"
-#include "../WinWrap.h"
+
 #include "FilenameGUI.h"
 #include <Oleacc.h>
 
@@ -81,10 +86,15 @@ public:
 	// called when outputting a control symbol
 	void outputcontrol (void* pointer, int data, int type);
 	
+
 	// remove the previous character
+
 	void deletetext(Dasher::symbol);
 
+
+
 	// set the window that text should be entered into
+
 	void SetWindow(HWND window);
 
 	// toggle text entry mode
@@ -122,7 +132,6 @@ private:
 	std::string m_Output; // UTF-8 to go to training file
 	UINT CodePage; // for font and possible for finding the encoding
 	Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
-	std::vector<Tstring> DisplayStrings;
 
 	DWORD threadid;
 	HWND targetwindow;

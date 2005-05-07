@@ -6,12 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "WinCommon.h"
 
 #include "AlphabetBox.h"
 #include "../resource.h"
-#include "../WinUTF8.h"
-#include "../WinLocalisation.h"
 #include "../../DasherCore/DasherAppInterface.h"
 #include "../../DasherCore/DasherSettingsInterface.h"
 
@@ -41,7 +39,7 @@ void CAlphabetBox::PopulateList()
 	bool SelectionSet=false;
 	for (unsigned int i=0; i<AlphabetList.size(); i++) {
 		Tstring Item;
-		WinUTF8::UTF8string_to_Tstring(AlphabetList[i], &Item, GetACP());
+		WinUTF8::UTF8string_to_wstring(AlphabetList[i], Item);
 		LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
 		SendMessage(ListBox, LB_SETITEMDATA, Index, (LPARAM) i);
 		if (AlphabetList[i]==m_CurrentAlphabet) {
@@ -68,9 +66,9 @@ void CAlphabetBox::InitCustomBox()
 	SendMessage(GetDlgItem(CustomBox, IDC_MOVE_CHAR), UDM_SETBUDDY, (WPARAM)GetDlgItem(CustomBox, IDC_CHAR_BUDDY), 0);
 	
 	Tstring Data;
-	WinUTF8::UTF8string_to_Tstring(CurrentInfo.AlphID, &Data, GetACP());
+	WinUTF8::UTF8string_to_wstring(CurrentInfo.AlphID, Data);
 	SendMessage(GetDlgItem(CustomBox, IDC_DESCRIPTION), WM_SETTEXT, 0, (LPARAM)Data.c_str());
-	WinUTF8::UTF8string_to_Tstring(CurrentInfo.TrainingFile, &Data, GetACP());
+	WinUTF8::UTF8string_to_wstring(CurrentInfo.TrainingFile, Data);
 	SendMessage(GetDlgItem(CustomBox, IDC_TRAIN), WM_SETTEXT, 0, (LPARAM)Data.c_str());
 	
 	// Load encodings list box from resource strings
@@ -142,7 +140,7 @@ std::string CAlphabetBox::GetControlText(HWND Dialog, int ControlID)
 	TCHAR* Buffer = new TCHAR[BufferLength];
 	SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM)Buffer);
 	string ItemName;
-	WinUTF8::Tstring_to_UTF8string(Buffer, &ItemName, GetACP());
+	WinUTF8::wstring_to_UTF8string(Buffer, ItemName);
 	delete[] Buffer;
 	return ItemName;
 }
@@ -152,7 +150,7 @@ void CAlphabetBox::NewGroup(std::string NewGroup)
 {
 	HWND ListBox = GetDlgItem(CustomBox, IDC_GROUPS);
 	Tstring Group;
-	WinUTF8::UTF8string_to_Tstring(NewGroup, &Group, GetACP());
+	WinUTF8::UTF8string_to_wstring(NewGroup, Group );
 	SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Group.c_str());
 	
 	CAlphIO::AlphInfo::group TmpGroup;
@@ -174,7 +172,7 @@ void CAlphabetBox::ShowGroups()
 	}
 	
 	for (unsigned int k=0; k<CurrentInfo.Groups.size(); k++) {
-		WinUTF8::UTF8string_to_Tstring(CurrentInfo.Groups[k].Description, &Data, GetACP());
+		WinUTF8::UTF8string_to_wstring(CurrentInfo.Groups[k].Description, Data);
 		SendMessage(Groups, LB_ADDSTRING, 0, (LPARAM)Data.c_str());
 	}
 	
@@ -198,7 +196,7 @@ void CAlphabetBox::ShowGroupChars()
 	
 	Tstring Data;
 	for (unsigned int j=0; j<CurrentInfo.Groups[CurrentGroup].Characters.size(); j++) {
-		WinUTF8::UTF8string_to_Tstring(CurrentInfo.Groups[CurrentGroup].Characters[j].Display, &Data, GetACP());
+		WinUTF8::UTF8string_to_wstring(CurrentInfo.Groups[CurrentGroup].Characters[j].Display, Data);
 		SendMessage(Chars, LB_ADDSTRING, 0, (LPARAM)Data.c_str());
 	}
 	SendMessage(Chars, LB_SETCURSEL, CurrentChar, 0);
