@@ -128,8 +128,12 @@ public:
 	void ChangeColours(const std::string& NewColourID);
 	std::string GetCurrentColours();
 	void ChangeMaxBitRate(double NewMaxBitRate);
+
+	// DJW - nasty thing about this is - we dont necessarily want the LM to rebuild every
+	// time a parameter is change - e.g. if we change 2 or 3 params in a row ???
 	void ChangeLanguageModel(int NewLanguageModelID);
 	void ChangeLMOption( const std::string &pname, long int Value );
+
 	void ChangeView(unsigned int NewViewID);
 	void ChangeOrientation(Opts::ScreenOrientations Orientation);
 	void SetFileEncoding(Opts::FileEncodingFormats Encoding);

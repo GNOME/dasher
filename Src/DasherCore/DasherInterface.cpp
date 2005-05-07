@@ -127,6 +127,8 @@ void CDasherInterface::CreateDasherModel()
 		delete m_pDasherModel;
 		m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, CDasherModel::idPPM, m_Dimensions, m_Eyetracker, m_Paused);
 	
+		m_pDasherModel->SetControlMode(m_ControlMode);
+
 		string T = m_Alphabet->GetTrainingFile();
 		TrainFile(m_SystemLocation+T);
 		TrainFile(m_UserLocation+T);
@@ -276,9 +278,10 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 
 	  m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
 
-          if (m_ControlMode==true) {
-            m_Alphabet->AddControlSymbol();
-          }
+	  // DJW_TODO - control mode
+       //   if (m_ControlMode==true) {
+         //   m_Alphabet->AddControlSymbol();
+        //  }
 	
 	  // Recreate widgets and language model
 	  if (m_DashEditbox!=0)
@@ -578,19 +581,25 @@ void CDasherInterface::WindowPause(bool Value)
 
 void CDasherInterface::ControlMode(bool Value)
 {
-  m_ControlMode=Value;
-  if (m_SettingsStore!=0)
-    m_SettingsStore->SetBoolOption(Keys::CONTROL_MODE, Value);
-  if (m_Alphabet!=0) {
-    if (Value==true) {
-      m_Alphabet->AddControlSymbol();
-    } else {
-      m_Alphabet->DelControlSymbol();
-    }
-  }
+	m_ControlMode=Value;
+	if (m_SettingsStore!=0)
+		m_SettingsStore->SetBoolOption(Keys::CONTROL_MODE, Value);
+	if (m_pDasherModel!=0) 
+	{
+		m_pDasherModel->SetControlMode(Value);
+		// DJW_TODO - control symbol
+//		if (Value==true) 
+//		{
+//			m_Alphabet->AddControlSymbol();
+//		} 
+//		else 
+//		{
+//			m_Alphabet->DelControlSymbol();
+//		}
+	}
 
-  if (m_SettingsUI!=0)
-    m_SettingsUI->ControlMode(Value);
+	if (m_SettingsUI!=0)
+		m_SettingsUI->ControlMode(Value);
 
   Start();
   Redraw();
