@@ -497,6 +497,25 @@
 				RelativePath=".\View\DelayedDraw.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Model"
+			Filter="">
+			<File
+				RelativePath=".\DasherModel.cpp">
+			</File>
+			<File
+				RelativePath=".\DasherModel.h">
+			</File>
+			<File
+				RelativePath=".\DasherNode.cpp">
+			</File>
+			<File
+				RelativePath=".\DasherNode.h">
+			</File>
+			<File
+				RelativePath="FrameRate.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\Alphabet.cpp">
 		</File>
@@ -552,18 +571,6 @@
 			RelativePath=".\DasherInterface.h">
 		</File>
 		<File
-			RelativePath=".\DasherModel.cpp">
-		</File>
-		<File
-			RelativePath=".\DasherModel.h">
-		</File>
-		<File
-			RelativePath=".\DasherNode.cpp">
-		</File>
-		<File
-			RelativePath=".\DasherNode.h">
-		</File>
-		<File
 			RelativePath=".\DasherScreen.h">
 		</File>
 		<File
@@ -577,9 +584,6 @@
 		</File>
 		<File
 			RelativePath=".\DasherWidgetInterface.h">
-		</File>
-		<File
-			RelativePath="FrameRate.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
