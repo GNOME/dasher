@@ -6,9 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "WinCommon.h"
+
 #include "FontStore.h"
 
-#include "../WinLocalisation.h"
 
 using namespace WinLocalisation;
 

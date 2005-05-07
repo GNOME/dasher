@@ -11,7 +11,10 @@
 // You specifiy the font name, and the container is built with a load of fonts of increasing size
 // The font can be retrieved with GetFont(iIndex)
 
-#include "../WinHelper.h"
+#ifndef __GDI_FontStore_h__
+#define __GDI_FontStore_h__
+
+
 #include "../../Common/NoClones.h"
 #include "../../Common/assert.h"
 #include <vector>
@@ -40,3 +43,6 @@ inline HFONT CFontStore::GetFont(int iSize) const
 		iSize = iMax;
 	return m_vhfFonts[iSize];
 }
+
+
+#endif
