@@ -1,4 +1,27 @@
-﻿2005-04-25  David Ward <d.j.ward.94@gmail.com>
+﻿2005-05-07	David Ward <d.j.ward.94@gmail.com>
+
+	* MAJOR changes to DasherCore
+		- Linux build temporarily broken - only minor fixes should be needed
+		- DasherCore relatively stable - hence this checkin 
+		
+	* CDasherScreen interface is now entirely UTF8, rather than part Symbol, part string
+		- renamed DrawText to DrawString because of Win32 macros
+
+	* Win32 - dropping support for non-unicode build
+		- major clean up
+		- use a precompiled header for all frequently used windows headers 		
+
+	* CDasherCore 
+		- simplify DasherNode children and clean up Push_Node
+		- children at index 0 are now valid children. So child-loops now look sensible i=0;i<ChildCount;i++
+	
+	* CAlphabet 
+		- used to be modified on the fly to add/remove the control symbol. Now the control symbol
+			always exists - DasherCore decides whether or not to use it
+		- potentially, we can now switch on/off control mode without restarting Dasher
+
+
+2005-04-25  David Ward <d.j.ward.94@gmail.com>
 
 	* New LanguageModel interface with more abstract interface
 		- removed dependency on Dasher-specific CAlphabet 
