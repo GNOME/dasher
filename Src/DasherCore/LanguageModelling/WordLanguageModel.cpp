@@ -75,8 +75,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 // CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CWordLanguageModel::CWordLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params)
-  : CLanguageModel(pAlphabet, _params), max_order( 0 ), 
+CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet)
+  : CLanguageModel(Alphabet), max_order( 0 ), 
 	m_NodeAlloc(8192), m_ContextAlloc(1024)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
@@ -132,159 +132,162 @@ int CWordLanguageModel::lookup_word( const std::string &w ) {
 /////////////////////////////////////////////////////////////////////
 // get the probability distribution at the context
 
-bool CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
+void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
 {
-	const CWordContext *ppmcontext= (const CWordContext *)(context);
+// 	const CWordContext *ppmcontext= (const CWordContext *)(context);
 	
 	
-	int modelchars=GetNumberModelChars();
-	//	int norm=CLanguageModel::normalization();
-	probs.resize( GetNumberModelChars() );
-	for( vector<unsigned int>::iterator it( probs.begin() ); it != probs.end(); ++it )
-	  *it = 0;
+// 	//	int modelchars=GetNumberModelChars();
 
-	vector<bool> exclusions( probs.size() );
-	for( vector<bool>::iterator it2( exclusions.begin() ); it2 != exclusions.end(); ++it2 )
-	  *it2 = false;
+// 	int modelchars=Alphabet.GetSize();
 
-	vector<bool> valid( probs.size() );
-	for( unsigned int i(0); i < valid.size(); ++i )
-	  valid[i] = isRealSymbol( i );
+// 	//	int norm=CLanguageModel::normalization();
+// 	probs.resize( modelchars );
+// 	for( vector<unsigned int>::iterator it( probs.begin() ); it != probs.end(); ++it )
+// 	  *it = 0;
+
+// 	vector<bool> exclusions( probs.size() );
+// 	for( vector<bool>::iterator it2( exclusions.begin() ); it2 != exclusions.end(); ++it2 )
+// 	  *it2 = false;
+
+// 	vector<bool> valid( probs.size() );
+// 	for( unsigned int i(0); i < valid.size(); ++i )
+// 	  valid[i] = isRealSymbol( i );
 	
-	CWordnode *temp,*s; 
-	//	int loop,total;
-	int sym; 
-	ulong size_of_slice;
-	ulong tospend=norm;
-	temp=ppmcontext->head;
+// 	CWordnode *temp,*s; 
+// 	//	int loop,total;
+// 	int sym; 
+// 	ulong size_of_slice;
+// 	ulong tospend=norm;
+// 	temp=ppmcontext->head;
 
-	int total;
+// 	int total;
 
-	while (temp!=0) {
+// 	while (temp!=0) {
 
-	  int controlcount=0;
+// 	  int controlcount=0;
 
-		total=0;
-		s=temp->child;
-		while (s) {
-		  sym=s->sbl; 
-		  if (!exclusions[sym] && valid[sym]) {
-		    if( sym == GetControlSymbol() ) {
-		      // Do nothing
-		    } 
-		    else if( sym == GetSpaceSymbol() ) {
-		      total=total+s->count;
+// 		total=0;
+// 		s=temp->child;
+// 		while (s) {
+// 		  sym=s->sbl; 
+// 		  if (!exclusions[sym] && valid[sym]) {
+// 		    if( sym == GetControlSymbol() ) {
+// 		      // Do nothing
+// 		    } 
+// 		    else if( sym == GetSpaceSymbol() ) {
+// 		      total=total+s->count;
 		      
-		      controlcount = int(0.4 * s->count); // FIXME - and here
+// 		      controlcount = int(0.4 * s->count); // FIXME - and here
 		      
-		      if( controlcount < 1 )
-			controlcount = 1;
+// 		      if( controlcount < 1 )
+// 			controlcount = 1;
 
-		      if( GetControlSymbol() != -1 )
-			total = total + controlcount;
+// 		      if( GetControlSymbol() != -1 )
+// 			total = total + controlcount;
 
-		    }
-		    else {
-		      total=total+s->count;
-		    }
-		  }
-		  s=s->next;
-		}
-		if (total) {
-		  size_of_slice=tospend;
-		  s=temp->child;
-		  while (s) {
-		    if (!exclusions[s->sbl] && valid[s->sbl]) {
-		      //		      exclusions[s->symbol]=1; 
-		      if( s->sbl == GetControlSymbol() ) {
-			// Do nothing
-		      } 
-		      else if( s->sbl == GetSpaceSymbol() ) {
-			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-			probs[s->sbl]+=p;
-			tospend-=p;
-			exclusions[s->sbl]=1;
-			if( GetControlSymbol() != -1 )
-			  if( !exclusions[GetControlSymbol()] ) {
-			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
-			    probs[GetControlSymbol()]+=p;
-			    tospend-=p;
-			    exclusions[GetControlSymbol()]=1;
-			  }
-		      }
-		      else {
+// 		    }
+// 		    else {
+// 		      total=total+s->count;
+// 		    }
+// 		  }
+// 		  s=s->next;
+// 		}
+// 		if (total) {
+// 		  size_of_slice=tospend;
+// 		  s=temp->child;
+// 		  while (s) {
+// 		    if (!exclusions[s->sbl] && valid[s->sbl]) {
+// 		      //		      exclusions[s->symbol]=1; 
+// 		      if( s->sbl == GetControlSymbol() ) {
+// 			// Do nothing
+// 		      } 
+// 		      else if( s->sbl == GetSpaceSymbol() ) {
+// 			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+// 			probs[s->sbl]+=p;
+// 			tospend-=p;
+// 			exclusions[s->sbl]=1;
+// 			if( GetControlSymbol() != -1 )
+// 			  if( !exclusions[GetControlSymbol()] ) {
+// 			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
+// 			    probs[GetControlSymbol()]+=p;
+// 			    tospend-=p;
+// 			    exclusions[GetControlSymbol()]=1;
+// 			  }
+// 		      }
+// 		      else {
 
-	ulong p=(((size_of_slice/2)*(2*s->count-1))/ulong(total)); // Changed to multiply before divide to avoid underflow problems when counts are really high - however, there's a chance this will cause overflow problems
+// 	ulong p=(((size_of_slice/2)*(2*s->count-1))/ulong(total)); // Changed to multiply before divide to avoid underflow problems when counts are really high - however, there's a chance this will cause overflow problems
 
-	//			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-			probs[s->sbl]+=p;
-			tospend-=p;	
-			exclusions[s->sbl]=1;
-		      }
-		    }
-		    s=s->next;
-		  }
-		}
-		temp = temp->vine;
-	}
-	//	Usprintf(debug,TEXT("Norm %u tospend %u\n"),Norm,tospend);
-	//	DebugOutput(debug);
+// 	//			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
+// 			probs[s->sbl]+=p;
+// 			tospend-=p;	
+// 			exclusions[s->sbl]=1;
+// 		      }
+// 		    }
+// 		    s=s->next;
+// 		  }
+// 		}
+// 		temp = temp->vine;
+// 	}
+// 	//	Usprintf(debug,TEXT("Norm %u tospend %u\n"),Norm,tospend);
+// 	//	DebugOutput(debug);
 	
-	size_of_slice=tospend;
-	int symbolsleft=0;
-	for (sym=0;sym<modelchars;sym++)
-	  if (!probs[sym] && valid[sym])
-	    symbolsleft++;
-	for (sym=0;sym<modelchars;sym++) 
-	  if (!probs[sym] && valid[sym]) {
-	    ulong p=size_of_slice/symbolsleft;
-	    probs[sym]+=p;
-	    tospend-=p;
-	  }
+// 	size_of_slice=tospend;
+// 	int symbolsleft=0;
+// 	for (sym=0;sym<modelchars;sym++)
+// 	  if (!probs[sym] && valid[sym])
+// 	    symbolsleft++;
+// 	for (sym=0;sym<modelchars;sym++) 
+// 	  if (!probs[sym] && valid[sym]) {
+// 	    ulong p=size_of_slice/symbolsleft;
+// 	    probs[sym]+=p;
+// 	    tospend-=p;
+// 	  }
 	
-			// distribute what's left evenly	
-		//tospend+=uniform;
+// 			// distribute what's left evenly	
+// 		//tospend+=uniform;
 
-//  	int current_symbol(0);
-//  	while( tospend > 0 )
-//  	  {
-//  	    if( valid[current_symbol] ) {
-//  		probs[current_symbol] += 1;
-//  		tospend -= 1;
-//  	    }
+// //  	int current_symbol(0);
+// //  	while( tospend > 0 )
+// //  	  {
+// //  	    if( valid[current_symbol] ) {
+// //  		probs[current_symbol] += 1;
+// //  		tospend -= 1;
+// //  	    }
 
-//  	    ++current_symbol;
-//  	    if( current_symbol == modelchars )
-//  	      current_symbol = 0;
-//  	  }
+// //  	    ++current_symbol;
+// //  	    if( current_symbol == modelchars )
+// //  	      current_symbol = 0;
+// //  	  }
 
-	int valid_char_count(0);
+// 	int valid_char_count(0);
 
-	for( int k(0); k < modelchars; ++k )
-	  if( valid[k] ) 
-	    ++valid_char_count;
+// 	for( int k(0); k < modelchars; ++k )
+// 	  if( valid[k] ) 
+// 	    ++valid_char_count;
 	  
 	
-	for (int j(0);j<modelchars;++j) 
-	  if( valid[j] ) {
-	    ulong p=tospend/(valid_char_count);
-	    probs[j] +=p;
-	    --valid_char_count;
-	    tospend -=p;
-	  }
-//  			  {
-//  				ulong p=tospend/(modelchars-sym);
-//  				probs[sym]+=p;
-//  				tospend-=p;
-//  			  }
-//  			}
-			//	Usprintf(debug,TEXT("finaltospend %u\n"),tospend);
-			//	DebugOutput(debug);
+// 	for (int j(0);j<modelchars;++j) 
+// 	  if( valid[j] ) {
+// 	    ulong p=tospend/(valid_char_count);
+// 	    probs[j] +=p;
+// 	    --valid_char_count;
+// 	    tospend -=p;
+// 	  }
+// //  			  {
+// //  				ulong p=tospend/(modelchars-sym);
+// //  				probs[sym]+=p;
+// //  				tospend-=p;
+// //  			  }
+// //  			}
+// 			//	Usprintf(debug,TEXT("finaltospend %u\n"),tospend);
+// 			//	DebugOutput(debug);
 			
-			// free(exclusions); // !!!
-			// !!! NB by IAM: p577 Stroustrup 3rd Edition: "Allocating an object using new and deleting it using free() is asking for trouble"
-	//		delete[] exclusions;
-			return true;
+// 			// free(exclusions); // !!!
+// 			// !!! NB by IAM: p577 Stroustrup 3rd Edition: "Allocating an object using new and deleting it using free() is asking for trouble"
+// 	//		delete[] exclusions;
+// 			return true;
 }
 
 
@@ -352,42 +355,42 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 {
 
 	// sanity check
-	if (sym==0 || sym>=GetNumberModelChars())
-		return;
+// 	if (sym==0 || sym>=GetNumberModelChars())
+// 		return;
 	
-	CWordnode *vineptr,*temp;
-	int updatecnt=1;
+// 	CWordnode *vineptr,*temp;
+// 	int updatecnt=1;
 	
-	temp=context.head->vine;
-	context.head= AddSymbolToNode(context.head,sym,&updatecnt);
+// 	temp=context.head->vine;
+// 	context.head= AddSymbolToNode(context.head,sym,&updatecnt);
 
-	// Add the new symbol to the string buffer
+// 	// Add the new symbol to the string buffer
 
-	if( max_order > 0 ) {
-	  char sbuffer[5];
-	  snprintf( sbuffer, 5, "%04d", sym );
-	  context.current_word.append( sbuffer );
-	}
+// 	if( max_order > 0 ) {
+// 	  char sbuffer[5];
+// 	  snprintf( sbuffer, 5, "%04d", sym );
+// 	  context.current_word.append( sbuffer );
+// 	}
 
-	vineptr=context.head;
-	context.order++;
+// 	vineptr=context.head;
+// 	context.order++;
 	
-	while (temp!=0) {
-		vineptr->vine= AddSymbolToNode(temp,sym,&updatecnt);    
-		vineptr=vineptr->vine;
-		temp=temp->vine;
-	}
-	vineptr->vine= m_pRoot;	
+// 	while (temp!=0) {
+// 		vineptr->vine= AddSymbolToNode(temp,sym,&updatecnt);    
+// 		vineptr=vineptr->vine;
+// 		temp=temp->vine;
+// 	}
+// 	vineptr->vine= m_pRoot;	
 
-	// If we just added a space then reset the context.
+// 	// If we just added a space then reset the context.
 
-	if( sym == GetSpaceSymbol() ) {
-	  //	  context.order = 0;
-	  //	  context.head = m_pRoot;
+// 	if( sym == GetSpaceSymbol() ) {
+// 	  //	  context.order = 0;
+// 	  //	  context.head = m_pRoot;
 
 	  
-	  CollapseContext( context );
-	}
+// 	  CollapseContext( context );
+// 	}
 
 
 }
@@ -397,39 +400,39 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 
 void CWordLanguageModel::EnterSymbol(Context c, int Symbol) // FIXME - lost const
 {
-	CWordLanguageModel::CWordContext& context = * (CWordContext *) (c);
+// 	CWordLanguageModel::CWordContext& context = * (CWordContext *) (c);
 	
-	CWordnode *find;
+// 	CWordnode *find;
 
-	if( max_order > 0 ) {
-	  char sbuffer[5];
-	  snprintf( sbuffer, 5, "%04d", Symbol );
-	  context.current_word.append( sbuffer );
-	}
+// 	if( max_order > 0 ) {
+// 	  char sbuffer[5];
+// 	  snprintf( sbuffer, 5, "%04d", Symbol );
+// 	  context.current_word.append( sbuffer );
+// 	}
 
-	if( Symbol == GetSpaceSymbol() ) {
-	  CollapseContext( context );
-	  return;
-	}
+// 	if( Symbol == GetSpaceSymbol() ) {
+// 	  CollapseContext( context );
+// 	  return;
+// 	}
 	
 
-	while (context.head) {
-		find =context.head->find_symbol(Symbol);
-		if (find) {
-			context.order++;
-			context.head=find;
-			//	Usprintf(debug,TEXT("found context %x order %d\n"),head,order);
-			//	DebugOutput(debug);
-			return;
-		}
-		context.order--;
-		context.head=context.head->vine;
-	}
+// 	while (context.head) {
+// 		find =context.head->find_symbol(Symbol);
+// 		if (find) {
+// 			context.order++;
+// 			context.head=find;
+// 			//	Usprintf(debug,TEXT("found context %x order %d\n"),head,order);
+// 			//	DebugOutput(debug);
+// 			return;
+// 		}
+// 		context.order--;
+// 		context.head=context.head->vine;
+// 	}
 	
-	if (context.head==0) {
-		context.head= m_pRoot;
-		context.order=0;
-	}
+// 	if (context.head==0) {
+// 		context.head= m_pRoot;
+// 		context.order=0;
+// 	}
 	
 }
 
