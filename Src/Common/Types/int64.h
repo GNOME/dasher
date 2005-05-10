@@ -319,6 +319,12 @@ inline Cint64 operator *(Cint64 lhs, Cint32 rhs)
 	return lhs;
 }
 
+inline Cint64 operator /(Cint64 lhs, Cint32 rhs)
+{
+	lhs/=Cint64(rhs);
+	return lhs;
+}
+
 inline Cint64 operator *(Cint32 lhs, Cint64 rhs)
 {
 	rhs*=Cint64(lhs);
