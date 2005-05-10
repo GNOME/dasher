@@ -10,10 +10,14 @@
 #ifndef __int_h__
 #define __int_h__
 
+#include "../Platform.h"
 
-#ifdef _MSC_VER
 
-	#include <limits>
+#ifdef DASHER_WIN32
+	#ifndef DASHER_WINCE
+		#include <limits>
+	#endif
+
 	typedef __int64 int64;
 	typedef unsigned __int64 uint64;
    	typedef int int32;

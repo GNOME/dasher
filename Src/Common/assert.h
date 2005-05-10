@@ -22,7 +22,8 @@
 
 	#ifdef DASHER_WINCE
 		#ifdef DEBUG
-			#define DASHER_ASSERT(x)   if (!(x)) DebugBreak()
+			void __cdecl __debugbreak(void);
+			#define DASHER_ASSERT(x)   if (!(x)) __debugbreak()
 		#else
 			#define DASHER_ASSERT(x)
 		#endif 
@@ -59,7 +60,7 @@ template<> struct CompileTimeError<true> {};
 // DASHER_ASSERT_VALIDPTR_RW(p) asserts that a pointer is valid for read and write
 // DASHER_ASSERT_VALIDPTR_R(p) asserts that a pointer is valid for read
 
-#ifdef DASHER_WIN32
+#if DASHER_WIN32 >= 1300
 	#define DASHER_ASSERT_VALIDPTR_RW(p)	DASHER_ASSERT(_CrtIsValidPointer(p, sizeof(p), 1))
 	#define DASHER_ASSERT_VALIDPTR_R(p)		DASHER_ASSERT(_CrtIsValidPointer(p, sizeof(p), 0))
 #else
