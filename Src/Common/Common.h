@@ -13,15 +13,32 @@
 //		- can be used for precompiled headers
 //		- also when order of headers is important
 
+/////////////////////////////////////////////////////////////////////////////
+
+// Deduce the platform, setting macros of the form DASHER_......
 #include "Platform.h"
 
-	#ifdef DASHER_WIN32
-		#include "MSVC_Unannoy.h"
-	#endif
+/////////////////////////////////////////////////////////////////////////////
+
+#ifdef DASHER_WIN32
+	#include "MSVC_Unannoy.h"
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+
+// Set up any platform deficiencies
+
+#if DASHER_WIN32 < 1300
+	#include "Platform/stdminmax.h"
+#endif
+
 
 
 #include "assert.h"
 
 #include "Trace.h"
+
+
+
 
 #endif // __include__
