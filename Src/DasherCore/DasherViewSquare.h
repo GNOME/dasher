@@ -77,9 +77,9 @@ private:
 	// the x and y non-linearities
 	void screen2dasher(screenint mousex, screenint mousey, myint* dasherx, myint* dashery) const;
 	void AutoCalibrate(screenint *mousex, screenint *mousey);
-    int dasherx2screen(myint sx) const ;
-	int dashery2screen(myint sy) const ;
-	int dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const ;
+    screenint dasherx2screen(myint sx) const ;
+	screenint dashery2screen(myint sy) const ;
+	Cint32 dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const ;
 
 	double eyetracker_get_x(double x, double y);
 	double eyetracker_get_y(double x, double y);
@@ -96,7 +96,7 @@ private:
 	CDelayedDraw m_DelayDraw;
 
 	double m_dXmpa,m_dXmpb,m_dXmpc,m_dXmpd;
-	int CanvasX,CanvasY,CanvasBorder;
+	screenint CanvasX,CanvasY,CanvasBorder;
 
     int m_ySum, m_ySumCounter, m_yFilterTimescale, m_ySigBiasPixels, m_ySigBiasPercentage, m_yAutoOffset;
 

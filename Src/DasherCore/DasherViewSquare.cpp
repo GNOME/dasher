@@ -19,11 +19,12 @@ using namespace Dasher;
 
 void CDasherViewSquare::RenderNodes()
 {
+
 	Screen().Blank();
 	
 	DASHER_ASSERT(DasherModel().Root()!=0);
 
-//	DASHER_TRACEOUTPUT("RenderNodes\n");
+	DASHER_TRACEOUTPUT("RenderNodes\n");
 
 	// Render nodes to screen object (should use off screen buffer)
 
@@ -43,7 +44,8 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* Render, myint y1,myint y2,in
 {
 	int Color;
 
-	if (ColourMode==true) {
+  	if (ColourMode==true) 
+	{
 	  if (Render->Colour()!=-1) {
 	    Color = Render->Colour();
 	  } else {
@@ -184,14 +186,15 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	myint y1, myint y2, int& mostleft, std::string displaytext)
 {
 
-	//DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
+//	DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
+//	DASHER_TRACEOUTPUT("RenderNode %I64 %I64",y1,y2);
 
 	// Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
 	screenint s1,s2;
-	int iSize = dashery2screen(y1,y2,s1,s2);
+	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
 
 	// Actual height in pixels
-	int iHeight = iSize * CanvasY/DasherModel().DasherY();
+	Cint32 iHeight = myint(iSize * CanvasY)/DasherModel().DasherY();
 
 	if (iHeight <=1)
 		return 0;
@@ -207,6 +210,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	// Do the rotation
 	MapScreen(&iNewleft, &iNewtop);
 	MapScreen(&iNewright, &iNewbottom);
+
+	DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
 
 	Screen().DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
 	

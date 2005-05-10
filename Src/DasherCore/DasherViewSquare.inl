@@ -30,7 +30,7 @@ inline double CDasherViewSquare::xmax(double x, double y) const
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline int CDasherViewSquare::dasherx2screen(myint sx) const 
+inline screenint CDasherViewSquare::dasherx2screen(myint sx) const 
 {
 	double x=double(sx)/double(DasherModel().DasherY());
 	x=xmap(x);
@@ -41,7 +41,7 @@ inline int CDasherViewSquare::dasherx2screen(myint sx) const
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline int CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const
+inline Cint32 CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const
 {
 	if (KeyControl==false) 
 	{
@@ -60,18 +60,20 @@ inline int CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s1, 
 
 	if (y1<0)  // "highest" legal coordinate to draw is 0.
 	{ 
-		s1=0;
+		y1=0;
 	}
 	
 	// Is this square actually on the screen? Check bottom
 	if (y2 > DasherModel().DasherY() )
-		s2=CanvasY;
+		y2=DasherModel().DasherY();
 
-	myint iSize = y2-y1;
+	Cint32 iSize = y2-y1;
+	DASHER_ASSERT(iSize>=0);
 
-	s1= screenint(y1 * CanvasY /DasherModel().DasherY() );
+ 	s1= screenint(y1 * CanvasY /DasherModel().DasherY() );
 	s2= screenint(y2 * CanvasY /DasherModel().DasherY() );
 
+	DASHER_ASSERT(s2>=s1);
 	return iSize;
 
 }
@@ -79,11 +81,13 @@ inline int CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s1, 
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline  int CDasherViewSquare::dashery2screen(myint y) const
+inline screenint CDasherViewSquare::dashery2screen(myint y) const
 {
-	if (KeyControl==false) {
+	if (KeyControl==false) 
+	{
 		y=m_ymap.map(y);
 	} 
+	
 	y= (y * CanvasY /DasherModel().DasherY() );
 
 	// Stop overflow when converting to screen coords
