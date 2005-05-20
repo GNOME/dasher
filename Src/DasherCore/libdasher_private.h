@@ -18,8 +18,8 @@ void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::Colo
 void handle_draw_polyline(Dasher::CDasherScreen::point* Points, int Number);
 void handle_draw_colour_polyline(Dasher::CDasherScreen::point* Points, int Number, int Colour);
 void handle_draw_text(symbol Character, int x1, int y1, int size);
-void handle_draw_text(std::string String, int x1, int y1, int size);
-void handle_text_size(symbol Character, int* Width, int* Height, int Size);
+void handle_draw_text(const std::string &String, int x1, int y1, int size);
+void handle_text_size(const std::string &String, int* Width, int* Height, int Size);
 void handle_edit_output(symbol Character);
 void handle_edit_outputcontrol(void* pointer, int data);
 void handle_edit_delete(symbol Character);
@@ -246,17 +246,19 @@ class dasher_screen : public CDasherScreen
 	return Dasher::Opts::FontSize(dasherfontsize);
     };
 
-  void TextSize(symbol Character, screenint* Width, screenint* Height, int Size) const
+  void TextSize(const std::string &String, screenint* Width, screenint* Height, int Size) const
     {
-      handle_text_size( Character, Width, Height, Size );
+      handle_text_size( String, Width, Height, Size );
     };
 
-  void DrawText(symbol Character, screenint x1, screenint y1, int Size) const
+  void DrawString(symbol Character, screenint x1, screenint y1, int Size) const
     {
+      // It's possible that this is no longer used...
+
       handle_draw_text( Character, x1, y1, Size );
     };
 
-  void DrawText(std::string String, screenint x1, screenint y1, int Size) const
+  void DrawString(const std::string &String, screenint x1, screenint y1, int Size) const
     {
       handle_draw_text( String, x1, y1, Size );
     };

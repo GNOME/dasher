@@ -9,8 +9,7 @@
 #ifndef __Platform_stdminmax__
 #define __Platform_stdminmax__
 
-
-#if DASHER_WIN32 < 1300
+#if ( defined DASHER_WIN32 ) && ( DASHER_WIN32 < 1300 )
 
 namespace std
 {

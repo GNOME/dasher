@@ -9,6 +9,8 @@
 #ifndef __FrameRate_h__
 #define __FrameRate_h__
 
+#include "../Common/Common.h"
+
 // keeps track of framerate
 // computes the Steps parameter
 // computes RXmax - which controls the maximum rate of zooming in

@@ -21,7 +21,7 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number);
 void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour);
 void draw_text_callback(symbol Character, int x1, int y1, int size);
 void draw_text_string_callback(std::string String, int x1, int y1, int size);
-void text_size_callback(symbol Character, int* Width, int* Height, int Size);
+void text_size_callback(const std::string &String, int* Width, int* Height, int Size);
 
 void draw_mouseposbox(int which);
 

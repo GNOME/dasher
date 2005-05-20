@@ -963,7 +963,7 @@ timer_callback(gpointer data)
       y=int(newy);
     } 
     
-    dasher_draw_mouse_position(x,y);
+    dasher_draw_mouse_position(x,y,0);
     
     if (mouseposstart==true) {
       // The user must hold the mouse pointer inside the red box, then the yellow box

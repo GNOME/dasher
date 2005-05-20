@@ -31,7 +31,7 @@ void (*draw_polyline_callback)(Dasher::CDasherScreen::point*, int) = NULL;
 void (*draw_colour_polyline_callback)(Dasher::CDasherScreen::point*, int, int) = NULL;
 void (*draw_text_callback)(symbol, int, int, int) = NULL;
 void (*draw_text_string_callback)(std::string, int, int, int) = NULL;
-void (*text_size_callback)(symbol, int*, int*, int) = NULL;
+void (*text_size_callback)(const std::string &String, int*, int*, int) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
 void (*edit_outputcontrol_callback)(void*, int) = NULL;
@@ -131,16 +131,16 @@ void handle_draw_text(symbol Character, int x1, int y1, int size)
     draw_text_callback( Character, x1, y1, size );
 }
 
-void handle_draw_text(std::string String, int x1, int y1, int size)
+void handle_draw_text(const std::string &String, int x1, int y1, int size)
 {
   if( draw_text_string_callback != NULL )
     draw_text_string_callback( String, x1, y1, size );
 }
 
-void handle_text_size(symbol Character, int* Width, int* Height, int Size)
+void handle_text_size(const std::string &String, int* Width, int* Height, int Size)
 {
   if( text_size_callback != NULL )
-    text_size_callback(Character, Width, Height, Size);
+    text_size_callback(String, Width, Height, Size);
 }
 
 void handle_edit_output(symbol Character)
@@ -546,7 +546,7 @@ void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int
   draw_text_string_callback = _cb;
 }
 
-void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int))
+void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, int))
 {
   text_size_callback = _cb;
 }
@@ -627,9 +627,9 @@ void dasher_tap_on( int x, int y, unsigned long int time )
   interface->TapOn( x, y, time );
 }
 
-void dasher_draw_mouse_position( int x, int y)
+void dasher_draw_mouse_position( int x, int y, int iWhich)
 {
-  interface->DrawMousePos( x, y );
+  interface->DrawMousePos( x, y, iWhich  );
 }
 
 void dasher_go_to( int x, int y )

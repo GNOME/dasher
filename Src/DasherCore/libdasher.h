@@ -87,7 +87,7 @@ void dasher_set_draw_polyline_callback( void (*_cb)(Dasher::CDasherScreen::point
 void dasher_set_draw_colour_polyline_callback( void (*_cb)(Dasher::CDasherScreen::point*, int, int) );
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int));
 void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int));
-void dasher_set_text_size_callback(void (*_cb)(symbol, int*, int*, int));
+void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, int));
 
 void dasher_set_edit_output_callback(void (*_cb)(symbol));
 void dasher_set_edit_outputcontrol_callback(void (*_cb)(void*, int));
@@ -114,7 +114,7 @@ void dasher_start();
 void dasher_redraw();
 void dasher_render();
 void dasher_tap_on( int x, int y, unsigned long int time );
-void dasher_draw_mouse_position( int x, int y );
+void dasher_draw_mouse_position( int x, int y,int iWhichBox );
 void dasher_go_to( int x, int y );
 void dasher_draw_go_to( int x, int y );
 void dasher_unpause( unsigned long int time );

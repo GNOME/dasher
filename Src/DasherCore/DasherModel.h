@@ -229,7 +229,7 @@ private:
 
 	bool m_bControlMode;
 
-	friend CDasherNode;
+	friend class CDasherNode;
 };
 
 /////////////////////////////////////////////////////////////////////////////

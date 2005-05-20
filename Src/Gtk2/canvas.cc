@@ -284,18 +284,20 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
-void text_size_callback(symbol Character, int* Width, int* Height, int size)
+void text_size_callback(const std::string &String, int* Width, int* Height, int size)
 {
   if (setup==false||preferences==true)
       return;
 
   std::string symbol;
 
-  if (Character!=0) {
-    symbol = dasher_get_display_text( Character );
-  } else {
+  // FIXME - horrible hack here
+
+//   if (Character!=0) {
+//     symbol = dasher_get_display_text( Character );
+//   } else {
     symbol = "I"; // Fudge to get some sort of approximate height
-  }
+    //  }
 
   pango_font_description_set_size( font,size*PANGO_SCALE);
 
