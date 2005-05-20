@@ -289,21 +289,11 @@ void text_size_callback(const std::string &String, int* Width, int* Height, int 
   if (setup==false||preferences==true)
       return;
 
-  std::string symbol;
-
-  // FIXME - horrible hack here
-
-//   if (Character!=0) {
-//     symbol = dasher_get_display_text( Character );
-//   } else {
-    symbol = "I"; // Fudge to get some sort of approximate height
-    //  }
-
   pango_font_description_set_size( font,size*PANGO_SCALE);
 
   pango_layout_set_font_description(the_pangolayout,font);
 
-  pango_layout_set_text(the_pangolayout,symbol.c_str(),-1);
+  pango_layout_set_text(the_pangolayout,String.c_str(),-1);
 
   pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
 
