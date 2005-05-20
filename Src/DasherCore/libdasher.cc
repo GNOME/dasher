@@ -3,6 +3,8 @@
 #include "DashEdit.h"
 #include "DasherTypes.h"
 
+#include <iostream>
+
 #include "libdasher.h"
 #include "libdasher_private.h"
 
@@ -234,11 +236,11 @@ void dasher_late_initialise( int _width, int _height)
   dsc = new dasher_screen( _width, _height );
   interface->ChangeScreen( dsc );
 
-  ded = new dasher_edit;
-  interface->ChangeEdit( ded );
-
   dss = new dasher_settings_store;
   interface->SetSettingsStore( dss );
+
+  ded = new dasher_edit;
+  interface->ChangeEdit( ded );
 
   dasher_start();
   dasher_redraw();
@@ -271,6 +273,7 @@ void dasher_set_parameter_string( string_param p, const char *value )
       interface->SetSystemLocation( s );
       break;
     case STRING_ALPHABET:
+      std::cout << "Changing alphabet to " << s << std::endl;
       interface->ChangeAlphabet( s );
       break;
     case STRING_COLOUR:

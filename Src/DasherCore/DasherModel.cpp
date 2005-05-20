@@ -10,6 +10,8 @@
 
 #include "DasherModel.h"
 
+#include <iostream>
+
 #include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 
@@ -28,8 +30,9 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
 	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
 	 m_bControlMode(false)
 {
-
+  
 	CSymbolAlphabet alphabet(pAlphabet->GetNumberTextSymbols());
+
 	m_pLanguageModel = new CPPMLanguageModel(alphabet);
 	
 	LearnContext = m_pLanguageModel->CreateEmptyContext();

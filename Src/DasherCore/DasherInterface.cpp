@@ -14,6 +14,8 @@
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 
+#include <iostream>
+
 namespace {
 	#include "stdio.h"
 }
@@ -122,7 +124,7 @@ void CDasherInterface::AddColourFilename(std::string Filename)
 void CDasherInterface::CreateDasherModel()
 {
 
-	if (m_DashEditbox!=0 && m_LanguageModelID!=-1) 
+ 	if (m_DashEditbox!=0 && m_LanguageModelID!=-1) 
 	{
 		delete m_pDasherModel;
 		m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, CDasherModel::idPPM, m_Dimensions, m_Eyetracker, m_Paused);
@@ -130,6 +132,9 @@ void CDasherInterface::CreateDasherModel()
 		m_pDasherModel->SetControlMode(m_ControlMode);
 
 		string T = m_Alphabet->GetTrainingFile();
+
+		std::cout << "*" << T << "*" << std::endl;
+
 		TrainFile(m_SystemLocation+T);
 		TrainFile(m_UserLocation+T);
 	
@@ -140,6 +145,7 @@ void CDasherInterface::CreateDasherModel()
 
 
 	}
+  
 
 
 }
@@ -906,6 +912,9 @@ void CDasherInterface::Train(string* TrainString, bool IsMore)
 */
 void CDasherInterface::TrainFile(string Filename)
 {
+
+  std::cout << "Training: " << Filename << std::endl;
+
 	if (Filename=="")
 		return;
 	
@@ -929,8 +938,12 @@ void CDasherInterface::TrainFile(string Filename)
 		if (NumberRead == (BufferSize-1)) 
 			bIsMore = true;
 
+		//	std::cout << "foo" << std::endl;
+
 		m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
 		
+		//		std::cout << "bar" << std::endl;
+
 		pTrainer->Train( Symbols );
 		
 		
@@ -939,6 +952,8 @@ void CDasherInterface::TrainFile(string Filename)
 	delete pTrainer;
 
 	fclose(InputFile);
+
+	std::cout << "Finished Training" << std::endl;
 }
 
 void CDasherInterface::GetFontSizes(std::vector<int> *FontSizes) const

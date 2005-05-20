@@ -39,7 +39,7 @@ namespace Dasher
 		CSymbolAlphabet::CSymbolAlphabet(int iSize)
 			: m_iSize(iSize)
 		{
-			DASHER_ASSERT(iSize>0);
+		  //			DASHER_ASSERT(iSize>0);
 		}
 		
 		int GetSize() const

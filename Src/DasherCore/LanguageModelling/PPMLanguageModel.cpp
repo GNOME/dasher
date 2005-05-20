@@ -12,6 +12,7 @@
 #include <math.h>
 #include <stack>
 #include <sstream>
+#include <iostream>
 
 using namespace Dasher;
 using namespace std;
@@ -182,6 +183,8 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
 	
 	CPPMnode *find;
+
+	std::cout << context.order << std::endl;
 	
 	while (context.head) {
 		find =context.head->find_symbol(Symbol);

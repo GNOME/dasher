@@ -182,7 +182,7 @@ inline	int CDasherNode::Range() const {return m_iHbnd-m_iLbnd;}
 
 inline void CDasherNode::SetChildren(CDasherNode** ppChildren, int iChildCount)
 {
-	DASHER_ASSERT(m_ppChildren == NULL);
+  //	DASHER_ASSERT(m_ppChildren == NULL);
 	m_ppChildren = ppChildren;
 	m_iChildCount = iChildCount;
 }
