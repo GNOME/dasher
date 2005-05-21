@@ -22,7 +22,7 @@ class Dasher::CDasherNode : private NoClones
 public:
 	
 	CDasherNode(const CDasherModel& dashermodel, CDasherNode *parent,symbol Symbol, 
-		unsigned int igroup, int iphase, Opts::ColorSchemes ColorScheme,
+		int iphase, Opts::ColorSchemes ColorScheme,
 		int ilbnd,int ihbnd,
 		CLanguageModel *lm, bool ControlChild, int Colour, ControlTree *controltree);
 
@@ -55,10 +55,10 @@ public:
 	void Seen(bool seen) {m_bSeen=seen;}
 	
 	// ControlNode-related
-	bool Control() const {return m_bControlChild;}
+	bool ControlChild() const {return m_bControlChild;}
 	ControlTree* GetControlTree() {return m_controltree;}
 	
-	unsigned int Group() const {return m_iGroup;}
+	//unsigned int Group() const {return m_iGroup;}
 	symbol Symbol() const {return m_Symbol;}
 	int Phase() const {return m_iPhase;}
 
@@ -79,14 +79,14 @@ public:
 private:
 
 	const int m_iLbnd,m_iHbnd;// the cumulative lower and upper bound prob relative to parent
-	const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
+	//const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	const symbol m_Symbol;             // the character to display
 	
 	CDasherNode** m_ppChildren;          // pointer to array of children
 	unsigned int m_iChildCount;		   // number of children
 	
 	bool m_bAlive;                     // if true, then display node, else dont bother
-	bool m_bControlNode;               // if true, node is a control node
+	//bool m_bControlNode;               // if true, node is a control node
 	bool m_bControlChild;              // if true, node is offspring of a control node
 	bool m_bSeen;                      // if true, node has been output already
 	Opts::ColorSchemes m_ColorScheme;
@@ -118,8 +118,8 @@ using namespace Opts;
 #include "DasherModel.h"
 /////////////////////////////////////////////////////////////////////////////
 
-inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pParent,symbol Symbol, unsigned int igroup, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=-1, ControlTree *controltree=0)
-	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_iGroup(igroup), 
+inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pParent,symbol Symbol, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=-1, ControlTree *controltree=0)
+	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), 
 	m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
 	m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), 
 	m_pLanguageModel(lm), m_ppChildren(0), m_pParent(pParent), m_Context(NULL), 
@@ -182,7 +182,8 @@ inline	int CDasherNode::Range() const {return m_iHbnd-m_iLbnd;}
 
 inline void CDasherNode::SetChildren(CDasherNode** ppChildren, int iChildCount)
 {
-  //	DASHER_ASSERT(m_ppChildren == NULL);
+	// DJW - please make sure DASHER_ASSERT is implemented on your platform
+	DASHER_ASSERT(m_ppChildren == NULL);
 	m_ppChildren = ppChildren;
 	m_iChildCount = iChildCount;
 }
