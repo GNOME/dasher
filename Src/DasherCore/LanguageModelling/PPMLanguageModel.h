@@ -24,10 +24,6 @@ namespace Dasher
 	public:
 		CPPMLanguageModel(const CSymbolAlphabet& alph, CLanguageModelParams *_params);
 
-		//	=======
-		//	CPPMLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params);
-		//>>>>>>> 1.3
-
 		virtual ~CPPMLanguageModel();
 
 		Context CreateEmptyContext();
