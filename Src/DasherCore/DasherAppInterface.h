@@ -9,7 +9,7 @@
 #ifndef __DasherAppInterface_h__
 #define __DasherAppInterface_h__
 
-#include "AlphIO.h"
+#include "Alphabet/AlphIO.h"
 #include <string>
 #include <vector>
 
