@@ -13,8 +13,8 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CBigramLanguageModel::CBigramLanguageModel(const CSymbolAlphabet& SymbolAlphabet)
-  : CLanguageModel(SymbolAlphabet), m_ContextAlloc(1024)
+CBigramLanguageModel::CBigramLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams* pParams)
+  : CLanguageModel(SymbolAlphabet,pParams), m_ContextAlloc(1024)
 {
 
 }

@@ -17,16 +17,18 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 
+
 namespace Dasher
 {
+
+	class CLanguageModelParams;
+
+
 
 class CBigramLanguageModel : public CLanguageModel, private NoClones
 {
 public:
-	CBigramLanguageModel(const CSymbolAlphabet& Info);
-//=======
-//	CBigramLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
-//>>>>>>> 1.3
+	CBigramLanguageModel(const CSymbolAlphabet& alph, CLanguageModelParams *_params);
 	virtual ~CBigramLanguageModel();
 
 	Context CreateEmptyContext();
