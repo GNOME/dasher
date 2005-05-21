@@ -130,7 +130,18 @@ void CDasherInterface::CreateDasherModel()
 	delete m_pDasherModel;
       }
 
-      m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, m_LanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
+      CDasherModel::LanguageModelID NewLanguageModelID;
+
+      switch( m_LanguageModelID ) {
+      case 0:
+	NewLanguageModelID = CDasherModel::idPPM;
+	break;
+      case 1:
+	NewLanguageModelID = CDasherModel::idWord;
+	break;
+      }
+
+      m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
       
       // Train the new language model
 

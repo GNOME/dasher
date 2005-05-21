@@ -52,11 +52,12 @@ public:
 	typedef enum
 	{
 		idPPM =0,
-		idBigram =1
+		idBigram =1,
+		idWord =2
 	} LanguageModelID;
 
 
-	CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* Editbox, int idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
+	CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* Editbox, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
 	~CDasherModel();
 	
 	CTrainer* GetTrainer();

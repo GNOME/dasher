@@ -25,7 +25,7 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, int idLM, CLanguageModelParams *_params,
+CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
 						   bool Dimensions, bool Eyetracker, bool Paused)
   : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
@@ -43,10 +43,10 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, i
   // FIXME - return to using enum here
 
   switch( idLM ) {
-  case 0:
+  case idPPM:
     m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
     break;
-  case 1:
+  case idWord:
     m_pLanguageModel = new CWordLanguageModel(alphabet, _params);
     break;
   }
@@ -563,13 +563,26 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 		Groups[i]=m_pcAlphabet->get_group(i);
 	}
 
-	// TODO - sort out size of control node
-	int uniform_add = ((iNorm / 1000 ) / iSymbols ) * m_uniform;
-	int nonuniform_norm = iNorm - iSymbols * uniform_add;
+	// TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
+
+	int uniform_add;
+	int nonuniform_norm;
+	int control_space;
+
+	if( !m_bControlMode ) {
+	  control_space = 0;
+	  uniform_add = ((iNorm / 1000 ) / (iSymbols-1) ) * m_uniform; // Subtract 1 from no symbols to lose control node
+	  nonuniform_norm = iNorm - (iSymbols-1) * uniform_add;
+	}
+	else {
+	  control_space = iNorm * 0.05;
+	  uniform_add = (((iNorm - control_space) / 1000 ) / (iSymbols-1) ) * m_uniform; // Subtract 1 from no symbols to lose control node
+	  nonuniform_norm = iNorm - control_space - (iSymbols-1) * uniform_add;
+	}
 
 	m_pLanguageModel->GetProbs(context,Probs,nonuniform_norm);
 
-	Probs.push_back(0);
+
 #if _DEBUG
 	int iTotal = 0;
 	for( int k=0; k < Probs.size(); ++k )
@@ -579,6 +592,8 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 
 	for( int k=0; k < Probs.size(); ++k )
 		Probs[k] += uniform_add;
+
+	Probs.push_back( control_space );
 
 #if _DEBUG
 	iTotal = 0;
