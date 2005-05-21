@@ -913,8 +913,6 @@ void CDasherInterface::Train(string* TrainString, bool IsMore)
 void CDasherInterface::TrainFile(string Filename)
 {
 
-  std::cout << "Training: " << Filename << std::endl;
-
 	if (Filename=="")
 		return;
 	
@@ -938,12 +936,9 @@ void CDasherInterface::TrainFile(string Filename)
 		if (NumberRead == (BufferSize-1)) 
 			bIsMore = true;
 
-		//	std::cout << "foo" << std::endl;
-
+		Symbols.clear();
 		m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
 		
-		//		std::cout << "bar" << std::endl;
-
 		pTrainer->Train( Symbols );
 		
 		
@@ -953,7 +948,6 @@ void CDasherInterface::TrainFile(string Filename)
 
 	fclose(InputFile);
 
-	std::cout << "Finished Training" << std::endl;
 }
 
 void CDasherInterface::GetFontSizes(std::vector<int> *FontSizes) const

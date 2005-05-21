@@ -184,8 +184,6 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 	
 	CPPMnode *find;
 
-	std::cout << context.order << std::endl;
-	
 	while (context.head) {
 		find =context.head->find_symbol(Symbol);
 		if (find) {
@@ -311,9 +309,11 @@ CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym) c
 {
 	//  printf("finding symbol %d at node %d\n",sym,node->id);
 	CPPMnode *found=child;
+
 	while (found) {
-		if (found->symbol==sym)
+	  if (found->symbol==sym) {
 			return found;
+	  }
 		found=found->next;
 	}
 	return 0;
@@ -324,8 +324,12 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 {
 	CPPMnode *pReturn = pNode->find_symbol(sym);
 	
+	//	std::cout << sym << ",";
+
 	if (pReturn!=NULL)
 	{
+	  //	  std::cout << "Using existing node" << std::endl;
+
 		if (*update) 
 		{   // perform update exclusions
 			pReturn->count++;
@@ -333,6 +337,8 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 		}
 		return pReturn;
 	}
+
+	//	 std::cout << "Creating new node" << std::endl;
 
 	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
 	pReturn->symbol = sym;  
