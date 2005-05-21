@@ -76,17 +76,20 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 
 CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,myint miY2,myint miMousex,myint miMousey) 
 {
-	if ( Children() ) {
+	if ( Children() ) 
+	{
 		myint miRange=miY2-miY1;
 //		m_iAge=0;
 		m_bAlive=true;
 		unsigned int i;
 		for (i=0;i<m_iChildCount;i++) 
 		{
-			myint miNewy1=miY1+(miRange*Children()[i]->m_iLbnd)/iNormalization;
-			myint miNewy2=miY1+(miRange*Children()[i]->m_iHbnd)/iNormalization;
+			CDasherNode* pChild = Children()[i];
+
+			myint miNewy1=miY1+(miRange*pChild->m_iLbnd)/iNormalization;
+			myint miNewy2=miY1+(miRange*pChild->m_iHbnd)/iNormalization;
 			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
-				return Children()[i]->Get_node_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey);
+				return pChild->Get_node_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey);
 		}
 	}
 	return this;
