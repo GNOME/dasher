@@ -18,13 +18,20 @@
 	#endif
 
 	#ifdef _WIN32_WCE
+		#define DASHER_WIN32 _MSC_VER
 		#define DASHER_WINCE 
 	#endif
-
+		
+	
 #else
 
 // Please set platform-defines here
 
 #endif
+
+
+
+
+
 
 #endif // __include__
