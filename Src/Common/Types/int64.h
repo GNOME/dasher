@@ -16,7 +16,7 @@
 #include <limits>
 #endif
 
-#include "../assert.h"
+#include "../myassert.h"
 
 #ifdef _DEBUG
 

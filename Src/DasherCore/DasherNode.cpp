@@ -9,7 +9,6 @@
 #include "../Common/Common.h"
 
 #include "DasherNode.h"
-#include "../Common/assert.h"
 using namespace Dasher;
 using namespace Opts;
 using namespace std;

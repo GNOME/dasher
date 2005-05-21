@@ -9,6 +9,7 @@
 #ifndef __DasherNode_h__
 #define __DasherNode_h__
 
+#include "../Common/Common.h"
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"

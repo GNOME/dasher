@@ -82,7 +82,7 @@ public:
 		void AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground);
 
 	private:
-		friend CAlphabet;
+		friend class CAlphabet;
 
 		CAlphabet& m_Alphabet;
 

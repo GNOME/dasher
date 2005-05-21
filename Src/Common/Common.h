@@ -33,8 +33,7 @@
 #endif
 
 
-
-#include "assert.h"
+#include "myassert.h"
 
 #include "Trace.h"
 

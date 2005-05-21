@@ -38,7 +38,7 @@
 #else
 
 	#include <cassert>
-	
+
 	// Please feel free to implement this differently on your platform
 	#define DASHER_ASSERT(expr) assert(expr)
 

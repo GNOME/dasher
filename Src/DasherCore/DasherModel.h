@@ -230,8 +230,8 @@ private:
 
 	bool m_bControlMode;
 
-	friend CDasherNode;
-	friend CTrainer;
+	//	friend CDasherNode;
+	friend class CTrainer;
 	friend class CDasherNode;
 
 };

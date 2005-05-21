@@ -114,7 +114,8 @@ void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
 
 	myint range=y2-y1;
 	for (int i=0; i<Render->ChildCount(); i++) {
-		int g=Children[i]->Group();
+	  //		int g=Children[i]->Group();
+	  int g = 0; // FIXME - hack to make it build
 		if (g!=current) {
 			lower=upper;
 			upper=i;

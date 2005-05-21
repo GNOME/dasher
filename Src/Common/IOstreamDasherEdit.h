@@ -6,6 +6,7 @@
 #ifndef IOSTREAM_DASHER_EDIT_H
 #define IOSTREAM_DASHER_EDIT_H
 
+#include "Common.h"
 #include "DashEdit.h"
 #include "DasherTypes.h"
 #include "DasherInterface.h"

@@ -682,7 +682,9 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 		return;
 	}
 
-//	DASHER_ASSERT(pNode->Symbol()!=0);
+	// This ASSERT seems to routinely fail
+	//DASHER_ASSERT(pNode->Symbol()!=0);
+
 
 	// if we haven't got a context then derive it
 	

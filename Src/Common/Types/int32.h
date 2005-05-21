@@ -10,7 +10,7 @@
 #ifndef __int32_h__
 #define __int32_h__
 
-#include "../assert.h"
+#include "../myassert.h"
 #include "int.h"
 
 
