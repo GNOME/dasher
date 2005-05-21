@@ -10,6 +10,8 @@
 
 #include "../../Common/Common.h"
 #include "../../DasherCore/LanguageModelling/PPMLanguageModel.h"
+#include "../../DasherCore/LanguageModelling/WordLanguageModel.h"
+#include "../../DasherCore/LanguageModelling/LanguageModelParams.h"
 
 #include "../../DasherCore/Alphabet/AlphIO.h"
 #include "../../DasherCore/Alphabet/Alphabet.h"
@@ -29,7 +31,8 @@ int main( int argc, char *argv[] )
 	// This is currently a bit awkward - we cant just pass in a filename, it has to be a directory
 	// and an list of filenames
 
-	string userlocation = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/";
+  //	string userlocation = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/";
+  string userlocation = "/usr/local/share/dasher/";
 
 	string filename = "alphabet.english.xml";
 	
@@ -49,7 +52,8 @@ int main( int argc, char *argv[] )
 	// Create the Alphabet that converts plain text to symbols
 	std::auto_ptr<CAlphabet> ptrAlphabet ( new CAlphabet(AlphInfo) );
 	
-	string strFileCompress = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/training_english_GB.txt";
+	//string strFileCompress = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/training_english_GB.txt";
+	string strFileCompress = userlocation + "training_english_GB.txt";
 
 	cout << "Input file " << strFileCompress <<endl;
 
@@ -70,9 +74,15 @@ int main( int argc, char *argv[] )
 
 	// DJW - add some functionality to CAlphabet to get the CSymbolAlphabet
 	CSymbolAlphabet alphabet( ptrAlphabet->GetNumberSymbols() );
-	
-	CLanguageModelParams p;
-	CPPMLanguageModel lm( alphabet, &p );
+	alphabet.SetSpaceSymbol( ptrAlphabet->GetSpaceSymbol() );
+
+	CLanguageModelParams settings;
+
+	settings.SetValue( "LMMaxOrder", 4 );
+
+	//	CWordLanguageModel lm( alphabet, &settings );
+	CPPMLanguageModel lm( alphabet, &settings );
+
 
 	CLanguageModel::Context context;
 	context = lm.CreateEmptyContext();
@@ -107,6 +117,7 @@ int main( int argc, char *argv[] )
 		lm.LearnSymbol(context, s);
 	}
 	cout << "Read " << sz << " bytes, " << vSymbols.size() << " symbols " << endl;
+	cout << "Compressed size: " << -dSumLogP/ log(2.0) << " bits" << endl;
 	cout << "Compression acheivable is " << -dSumLogP/ log(2.0)/ vSymbols.size() << " bits per symbol" << endl;
 	return 0;
 }
