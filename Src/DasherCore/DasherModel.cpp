@@ -193,7 +193,7 @@ void CDasherModel::Start()
 	}
 	delete m_Root;
 	
-	m_Root=new CDasherNode(*this,0,0,0,0,Opts::Nodes1,0,Normalization(),m_pLanguageModel, false, 7);
+	m_Root=new CDasherNode(*this,0,0,0,Opts::Nodes1,0,Normalization(),m_pLanguageModel, false, 7);
 	CLanguageModel::Context therootcontext=m_pLanguageModel->CreateEmptyContext();
 
 	if (m_pEditbox) {
@@ -397,7 +397,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	}
 
 	if (new_under_cross->isSeen()==true) {
-	  if (new_under_cross->Control()!=true) {
+	  if (new_under_cross->ControlChild()!=true) {
 	    SetBitrate(m_dMaxRate);
 	  }
 	  return;
@@ -405,7 +405,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 	new_under_cross->Seen(true);
 
-	if (new_under_cross->Control()==true) {
+	if (new_under_cross->ControlChild()==true) {
 	  //		m_pEditbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
 		OutputCharacters(new_under_cross);
 		SetBitrate(m_dMaxRate/3);
@@ -464,7 +464,7 @@ void CDasherModel::OutputCharacters(CDasherNode *node)
   {
     m_pEditbox->output(t);
   } 
-  else if (node->Control()==true) 
+  else if (node->ControlChild()==true) 
   {
 	  m_pEditbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
   }
@@ -485,7 +485,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 	{
 		if (oldnode->Parent()==newnode) 
 		{
-			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->Control()==false && oldnode->Symbol()!=0)  // SYM0
+			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0)  // SYM0
 			{
 				m_pEditbox->deletetext(oldnode->Symbol());
 			}
@@ -494,7 +494,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 		}
 		if (DeleteCharacters(newnode,oldnode->Parent())==true)
 		{
-			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->Control()==false && oldnode->Symbol()!=0) // SYM0 
+			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0) // SYM0 
 			{
 				m_pEditbox->deletetext(oldnode->Symbol());
 			}
@@ -515,7 +515,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 		while (oldnode!=lastseen) 
 		{
 			oldnode->Seen(false);
-			if (oldnode->Control()==true||oldnode->Symbol()== GetControlSymbol() || oldnode->Symbol()==0) 
+			if (oldnode->ControlChild()==true||oldnode->Symbol()== GetControlSymbol() || oldnode->Symbol()==0) 
 			{
 				oldnode=oldnode->Parent();
 				continue;
@@ -543,8 +543,8 @@ void CDasherModel::Trace() const
 ///////////////////////////////////////////////////////////////////
 
 
-void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &NewSymbols,
-		vector<unsigned int> &Groups, vector<unsigned int> &Probs, int iNorm) const
+void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &NewSymbols, 
+							vector<unsigned int> &Probs, int iNorm) const
 {
 	// Total number of symbols
 	int iSymbols = m_pcAlphabet->GetNumberSymbols();
@@ -556,11 +556,11 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 
 
 	NewSymbols.resize(iSymbols);
-	Groups.resize(iSymbols);
+//	Groups.resize(iSymbols);
 	for (int i=0;i<iSymbols;i++) 
 	{
 		NewSymbols[i]=i; // This will be replaced by something that works out valid nodes for this context
-		Groups[i]=m_pcAlphabet->get_group(i);
+	//	Groups[i]=m_pcAlphabet->get_group(i);
 	}
 
 	// TODO - sort out size of control node - for the timebeing I'll fix the control node at 5%
@@ -569,13 +569,15 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	int nonuniform_norm;
 	int control_space;
 
-	if( !m_bControlMode ) {
+	if( !m_bControlMode ) 
+	{
 	  control_space = 0;
 	  uniform_add = ((iNorm / 1000 ) / (iSymbols-1) ) * m_uniform; // Subtract 1 from no symbols to lose control node
 	  nonuniform_norm = iNorm - (iSymbols-1) * uniform_add;
 	}
-	else {
-	  control_space = iNorm * 0.05;
+	else 
+	{
+	  control_space = int(iNorm * 0.05);
 	  uniform_add = (((iNorm - control_space) / 1000 ) / (iSymbols-1) ) * m_uniform; // Subtract 1 from no symbols to lose control node
 	  nonuniform_norm = iNorm - control_space - (iSymbols-1) * uniform_add;
 	}
@@ -710,7 +712,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 
 	pNode->Alive(true);
 
-	if ( pNode->Symbol()== GetControlSymbol() || pNode->Control() ) 
+	if ( pNode->Symbol()== GetControlSymbol() || pNode->ControlChild() ) 
 	{
 
 		ControlTree* pControlTreeChildren = pNode->GetControlTree();
@@ -756,7 +758,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 
 		int i=0;
 		// First a root node that takes up back to the text alphabet
-		ppChildren[i]=new CDasherNode(*this,pNode,0,0,0,Opts::Nodes1,0,int((i+1)*quantum),m_pLanguageModel,false,240);
+		ppChildren[i]=new CDasherNode(*this,pNode,0,0,Opts::Nodes1,0,int((i+1)*quantum),m_pLanguageModel,false,240);
 		i++;
 
 		// Now the control children
@@ -765,11 +767,11 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 		{
 			if (pTemp->colour != -1)
 			{
-				ppChildren[i]=new CDasherNode(*this,pNode,0,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
+				ppChildren[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
 			} 
 			else 
 			{
-				ppChildren[i]=new CDasherNode(*this,pNode,0,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
+				ppChildren[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
 			}
 			i++;
 			pTemp = pTemp->next;
@@ -779,9 +781,9 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 	}
 
 	vector<symbol> newchars;   // place to put this list of characters
-	vector<unsigned int> cum,groups;   // for the probability list
+	vector<unsigned int> cum;   // for the probability list
 
-	GetProbs(pNode->Context(),newchars,groups,cum,Normalization());
+	GetProbs(pNode->Context(),newchars,cum,Normalization());
 	int iChildCount=newchars.size();
 
 	DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);
@@ -807,14 +809,14 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 	ColorSchemes ChildScheme;
 
 	int iLbnd=0;
-	for (int i=0; i< iChildCount; i++)
+	for (int j=0; j< iChildCount; j++)
 	{
-		if (newchars[i]== GetSpaceSymbol())
+		if (newchars[j]== GetSpaceSymbol())
 			ChildScheme = SpecialScheme;
 		else
 			ChildScheme = NormalScheme;
-		ppChildren[i]=new CDasherNode(*this,pNode,newchars[i],groups[i],i,ChildScheme,iLbnd,cum[i],m_pLanguageModel,false,GetColour(i));
-		iLbnd = cum[i];
+		ppChildren[j]=new CDasherNode(*this,pNode,newchars[j],j,ChildScheme,iLbnd,cum[j],m_pLanguageModel,false,GetColour(j));
+		iLbnd = cum[j];
 	}
 	pNode->SetChildren(ppChildren,iChildCount);
 

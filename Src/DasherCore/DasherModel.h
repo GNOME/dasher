@@ -15,7 +15,7 @@
 
 #include "DashEdit.h"
 #include "DasherNode.h"
-#include "Alphabet.h"
+#include "Alphabet/Alphabet.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -150,6 +150,7 @@ public:
 	symbol GetControlSymbol() const {return m_pcAlphabet->GetControlSymbol();}
 	const std::string& GetDisplayText(int iSymbol) const {return m_pcAlphabet->GetDisplayText(iSymbol);}
 
+	const CAlphabet& GetAlphabet() const {return *m_pcAlphabet;}
 private:
 
 	/////////////////////////////////////////////////////////////////////////////
@@ -215,8 +216,7 @@ private:
 	void Get_new_goto_coords(double zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 
-	void GetProbs(CLanguageModel::Context context, std::vector<symbol> &NewSymbols,
-		std::vector<unsigned int> &Groups, std::vector<unsigned int> &Probs, int iNorm) const;
+	void GetProbs(CLanguageModel::Context context, std::vector<symbol> &NewSymbols, std::vector<unsigned int> &Probs, int iNorm) const;
 
 	void Push_Node(CDasherNode* pNode);      // give birth to children
 	void Recursive_Push_Node(CDasherNode* pNode, int depth);
@@ -230,7 +230,10 @@ private:
 
 	bool m_bControlMode;
 
+	friend CDasherNode;
+	friend CTrainer;
 	friend class CDasherNode;
+
 };
 
 /////////////////////////////////////////////////////////////////////////////

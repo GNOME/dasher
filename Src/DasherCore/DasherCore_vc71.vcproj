@@ -385,6 +385,9 @@
 				RelativePath=".\LanguageModelling\LanguageModel.h">
 			</File>
 			<File
+				RelativePath=".\LanguageModelling\LanguageModelParams.h">
+			</File>
+			<File
 				RelativePath=".\LanguageModelling\PPMLanguageModel.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -432,38 +435,32 @@
 			<File
 				RelativePath=".\LanguageModelling\WordLanguageModel.cpp">
 				<FileConfiguration
-					Name="Debug|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Debug|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Unicode Release|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Unicode Release|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Win95 compatible Debug|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Win95 compatible Debug|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Release|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Release|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Win95 compatible Release|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Win95 compatible Release|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
 				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					ExcludedFromBuild="TRUE">
+					Name="Unicode Debug|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
@@ -516,41 +513,33 @@
 				RelativePath="FrameRate.h">
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\Alphabet.cpp">
-		</File>
-		<File
-			RelativePath=".\Alphabet.h">
-		</File>
-		<File
-			RelativePath=".\AlphabetMap.cpp">
-			<FileConfiguration
-				Name="Unicode Release|Win32">
-				<Tool
-					Name="VCCLCompilerTool"
-					ShowIncludes="TRUE"/>
-			</FileConfiguration>
-		</File>
-		<File
-			RelativePath=".\AlphabetMap.h">
-		</File>
-		<File
-			RelativePath=".\AlphIO.cpp">
-		</File>
-		<File
-			RelativePath=".\AlphIO.h">
-		</File>
+		<Filter
+			Name="Alphabet"
+			Filter="">
+			<File
+				RelativePath=".\Alphabet\Alphabet.cpp">
+			</File>
+			<File
+				RelativePath=".\Alphabet\Alphabet.h">
+			</File>
+			<File
+				RelativePath=".\Alphabet\AlphabetMap.cpp">
+			</File>
+			<File
+				RelativePath=".\Alphabet\AlphabetMap.h">
+			</File>
+			<File
+				RelativePath=".\Alphabet\AlphIO.cpp">
+			</File>
+			<File
+				RelativePath=".\Alphabet\AlphIO.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath="ColourIO.cpp">
 		</File>
 		<File
 			RelativePath="ColourIO.h">
-		</File>
-		<File
-			RelativePath=".\CustomAlphabet.cpp">
-		</File>
-		<File
-			RelativePath=".\CustomAlphabet.h">
 		</File>
 		<File
 			RelativePath="CustomColours.cpp">

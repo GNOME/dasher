@@ -10,7 +10,6 @@
 
 #include "DasherInterface.h"
 
-#include "CustomAlphabet.h"
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 
@@ -291,7 +290,7 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 
 	  std::auto_ptr<CAlphabet> ptrOld(m_Alphabet);   // So we can delete the old alphabet later
 
-	  m_Alphabet = new CCustomAlphabet(m_AlphInfo);
+	  m_Alphabet = new CAlphabet(m_AlphInfo);
 	
 	  // Apply options from alphabet
 
