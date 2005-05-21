@@ -22,10 +22,6 @@ using namespace std;
 CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams *_params)
   : CLanguageModel(SymbolAlphabet, _params), m_iMaxOrder( 5 ), 
 	m_NodeAlloc(8192), m_ContextAlloc(1024)
-//=======
-//CPPMLanguageModel::CPPMLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params)
- // : CLanguageModel(pAlphabet, _params), m_NodeAlloc(8192), m_ContextAlloc(1024)
-//>>>>>>> 1.3
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->symbol = -1;
@@ -179,6 +175,8 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 
 void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 {
+	DASHER_ASSERT(Symbol>=0 && Symbol< GetSize());
+
 	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
 	
 	CPPMnode *find;
@@ -207,6 +205,8 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 
 void CPPMLanguageModel::LearnSymbol(Context c, int Symbol)
 {
+	DASHER_ASSERT(Symbol>=0 && Symbol< GetSize());
+
 	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
 	AddSymbol(context, Symbol);
 }
