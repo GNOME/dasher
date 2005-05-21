@@ -21,8 +21,8 @@
 #include "DasherSettingsInterface.h"
 
 #include "DasherScreen.h"
-#include "Alphabet.h"
-#include "AlphIO.h"
+#include "Alphabet/Alphabet.h"
+#include "Alphabet/AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
 #include "LanguageModelling/LanguageModelParams.h"
