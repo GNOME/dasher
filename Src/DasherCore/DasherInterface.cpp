@@ -53,11 +53,8 @@ m_DasherFont(""),
 m_DasherFontSize(Opts::Normal), 
 m_EditFont(""), 
 m_EditFontSize(0)
-
 {
-	// DJW_TODO - fix this
-	//  m_Params = new CLanguageModelParams;
-
+  m_Params = new CLanguageModelParams;
 }
 
 
@@ -69,7 +66,7 @@ CDasherInterface::~CDasherInterface()
 	delete m_ColourIO;
 	delete m_AlphIO;
 	delete m_pColours;
-	//	delete m_Params;
+	delete m_Params;
 
 	// Do NOT delete Edit box or Screen. This class did not create them.
 }
@@ -127,7 +124,7 @@ void CDasherInterface::CreateDasherModel()
  	if (m_DashEditbox!=0 && m_LanguageModelID!=-1) 
 	{
 		delete m_pDasherModel;
-		m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, CDasherModel::idPPM, m_Dimensions, m_Eyetracker, m_Paused);
+		m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, CDasherModel::idPPM, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
 	
 		m_pDasherModel->SetControlMode(m_ControlMode);
 
@@ -1031,8 +1028,7 @@ void CDasherInterface::ResetNats()
 
 void CDasherInterface::ChangeLMOption( const std::string &pname, long int Value ) 
 {
-	// DJW_TODO -fix me
-//   m_Params->SetValue( pname, Value );
+  m_Params->SetValue( pname, Value );
 
   if (m_SettingsStore!=0)
     m_SettingsStore->SetLongOption( pname, Value);

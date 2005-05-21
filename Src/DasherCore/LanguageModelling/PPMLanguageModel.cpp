@@ -19,8 +19,8 @@ using namespace std;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet)
-  : CLanguageModel(SymbolAlphabet), m_iMaxOrder( 5 ), 
+CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams *_params)
+  : CLanguageModel(SymbolAlphabet, _params), m_iMaxOrder( 5 ), 
 	m_NodeAlloc(8192), m_ContextAlloc(1024)
 //=======
 //CPPMLanguageModel::CPPMLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params)
@@ -165,8 +165,7 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 	}
 	vineptr->vine= m_pRoot;
 
-// DJW - fix me
-//	max_order = params->GetValue( std::string( "LMMaxOrder" ) );
+	m_iMaxOrder = params->GetValue( std::string( "LMMaxOrder" ) );
 
 	while (context.order> m_iMaxOrder)
 	{

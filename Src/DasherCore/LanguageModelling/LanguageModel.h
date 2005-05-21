@@ -11,7 +11,7 @@
 
 // DJW_TODO - reintegrate PJC's changes
 // PJC_TODO - commit LanguageModelParams.h
-//#include "LanguageModelParams.h" 
+#include "LanguageModelParams.h" 
 
 #include "SymbolAlphabet.h"
 #include <vector>
@@ -26,7 +26,7 @@ public:
 	
 	/////////////////////////////////////////////////////////////////////////////
 
-	CLanguageModel(const CSymbolAlphabet& Alphabet);
+	CLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
 
 //=======/
 //	CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
@@ -79,7 +79,7 @@ protected:
 	//	  return ". ";
 	//	};
 	
-	//	CLanguageModelParams *params;
+	CLanguageModelParams *params;
 	
 private:
 

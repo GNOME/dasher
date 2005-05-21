@@ -25,7 +25,7 @@
 #include "AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
-//#include "LanguageModelling/LanguageModelParams.h"
+#include "LanguageModelling/LanguageModelParams.h"
 #include "DashEdit.h"
 #include "DasherView.h"
 
@@ -187,7 +187,7 @@ public:
 
 private:
 	CAlphabet* m_Alphabet;
-	//CLanguageModelParams *m_Params;
+	CLanguageModelParams *m_Params;
 	CCustomColours* m_pColours;
 	CDasherModel* m_pDasherModel;
 	CDashEditbox* m_DashEditbox;

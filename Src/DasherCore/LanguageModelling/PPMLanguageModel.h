@@ -22,7 +22,7 @@ namespace Dasher
 	class CPPMLanguageModel : public CLanguageModel, private NoClones
 	{
 	public:
-		CPPMLanguageModel(const CSymbolAlphabet& alph);
+		CPPMLanguageModel(const CSymbolAlphabet& alph, CLanguageModelParams *_params);
 
 		//	=======
 		//	CPPMLanguageModel(const CAlphabet* pAlphabet, CLanguageModelParams *_params);

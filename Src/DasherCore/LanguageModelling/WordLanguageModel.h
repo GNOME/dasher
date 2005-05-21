@@ -29,7 +29,7 @@ namespace Dasher
 class CWordLanguageModel : public CLanguageModel, private NoClones
 {
 public:
-	CWordLanguageModel(const CSymbolAlphabet& Alphabet);
+	CWordLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
 	
 	// FIXME - put params back at some point
 	

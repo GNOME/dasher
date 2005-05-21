@@ -23,7 +23,7 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, 
+CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
 						   bool Dimensions, bool Eyetracker, bool Paused)
   : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
@@ -33,7 +33,7 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   
 	CSymbolAlphabet alphabet(pAlphabet->GetNumberTextSymbols());
 
-	m_pLanguageModel = new CPPMLanguageModel(alphabet);
+	m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
 	
 	LearnContext = m_pLanguageModel->CreateEmptyContext();
 	
