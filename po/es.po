@@ -1,20 +1,21 @@
+# translation of es.po to 
 # translation of es.po to Spanish
 # This file is distributed under the same license as the Dasher package.
 # Copyright (C) 2004 THE GNOME FOUNDATION.
-# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004.
+# Francisco Javier F. Serrador <serrador@cvs.gnome.org>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher\n"
+"Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-01 15:25+0200\n"
-"PO-Revision-Date: 2005-05-01 15:26+0200\n"
-"Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
-"Language-Team: Spanish <traductores@es.gnome.org>\n"
+"POT-Creation-Date: 2005-05-21 15:05+0200\n"
+"PO-Revision-Date: 2005-05-21 15:06+0200\n"
+"Last-Translator: \n"
+"Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.3.1\n"
+"X-Generator: KBabel 1.9.1\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
 #. Paneltree
@@ -328,8 +329,7 @@ msgstr "Preferencias de Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
-"Distancia desde la línea central para el inicio de la posición del ratón:"
+msgstr "Distancia desde la línea central para el inicio de la posición del ratón:"
 
 #: ../Src/Gtk2/dasher.glade.h:39 ../Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -451,7 +451,7 @@ msgstr "Velocidad"
 
 #: ../Src/Gtk2/dasher.glade.h:69
 msgid "Standard letter-based PPM"
-msgstr ""
+msgstr "PPM basado en carta estándar"
 
 #: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
@@ -505,7 +505,7 @@ msgstr "Vista"
 
 #: ../Src/Gtk2/dasher.glade.h:83
 msgid "Word-based model"
-msgstr ""
+msgstr "Modelo basado en palabras"
 
 #: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:77
 msgid "X:"
@@ -606,14 +606,3 @@ msgstr "Advertencia: No se pueden establecer los parámetros de habla\n"
 msgid "Dasher Text Entry"
 msgstr "Entrada de texto Dasher"
 
-#~ msgid "_Contents"
-#~ msgstr "_Índice"
-
-#~ msgid "Change color scheme automatically"
-#~ msgstr "Cambiar esquema de colores automáticamente"
-
-#~ msgid "<b>Colour Selection:</b>"
-#~ msgstr "<b>Selección del color:</b>"
-
-#~ msgid "Colour"
-#~ msgstr "Color"
