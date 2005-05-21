@@ -11,8 +11,8 @@
 #include "../../Common/Common.h"
 #include "../../DasherCore/LanguageModelling/PPMLanguageModel.h"
 
-#include "../../DasherCore/AlphIO.h"
-#include "../../DasherCore/CustomAlphabet.h"
+#include "../../DasherCore/Alphabet/AlphIO.h"
+#include "../../DasherCore/Alphabet/Alphabet.h"
 
 #include <fstream>
 #include <iostream>
@@ -47,7 +47,7 @@ int main( int argc, char *argv[] )
 
 	
 	// Create the Alphabet that converts plain text to symbols
-	std::auto_ptr<CAlphabet> ptrAlphabet ( new CCustomAlphabet(AlphInfo) );
+	std::auto_ptr<CAlphabet> ptrAlphabet ( new CAlphabet(AlphInfo) );
 	
 	string strFileCompress = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/training_english_GB.txt";
 
@@ -70,7 +70,9 @@ int main( int argc, char *argv[] )
 
 	// DJW - add some functionality to CAlphabet to get the CSymbolAlphabet
 	CSymbolAlphabet alphabet( ptrAlphabet->GetNumberSymbols() );
-	CPPMLanguageModel lm( alphabet );
+	
+	CLanguageModelParams p;
+	CPPMLanguageModel lm( alphabet, &p );
 
 	CLanguageModel::Context context;
 	context = lm.CreateEmptyContext();
