@@ -18,6 +18,10 @@ using namespace std;
 // static TCHAR debug[256];
 typedef unsigned long ulong;
 
+#ifdef DASHER_WIN32
+#define snprintf _snprintf
+#endif
+
 ///////////////////////////////////////////////////////////////////
 
 void CWordLanguageModel::CWordContext::dump() 
@@ -414,7 +418,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 	  context.head = context.word_head;
 	  context.order = context.word_order;
 
-	  CWordnode *new_head;
+//	  CWordnode *new_head;
 
 	  int new_sbl( lookup_word_const( context.current_word ) );
 
