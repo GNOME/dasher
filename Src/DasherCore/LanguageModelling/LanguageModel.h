@@ -24,11 +24,7 @@ public:
 	
 	/////////////////////////////////////////////////////////////////////////////
 
-	CLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
-
-//=======/
-//	CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params);
-//>>>>>>> 1.3
+	CLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams* pParams);
 
 	virtual ~CLanguageModel() {}
 
