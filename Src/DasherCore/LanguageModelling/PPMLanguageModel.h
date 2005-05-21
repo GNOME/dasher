@@ -34,8 +34,8 @@ namespace Dasher
 		void ReleaseContext(Context context);
 		Context CloneContext(Context context);
 
-		void EnterSymbol(Context context, int Symbol) const;
-		void LearnSymbol(Context context, int Symbol);
+		virtual void EnterSymbol(Context context, int Symbol) const;
+		virtual void LearnSymbol(Context context, int Symbol);
 
 		virtual void GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const;
 
@@ -68,7 +68,7 @@ namespace Dasher
 
 		CPPMnode* AddSymbolToNode(CPPMnode* pNode, int sym,int *update);
 
-		void AddSymbol(CPPMContext& context,int sym);
+		virtual void AddSymbol(CPPMContext& context,int sym);
 		void dumpSymbol(int sym);
 		void dumpString( char *str, int pos, int len );
 		void dumpTrie( CPPMnode *t, int d );

@@ -121,30 +121,35 @@ void CDasherInterface::AddColourFilename(std::string Filename)
 void CDasherInterface::CreateDasherModel()
 {
 
- 	if (m_DashEditbox!=0 && m_LanguageModelID!=-1) 
-	{
-		delete m_pDasherModel;
-		m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, CDasherModel::idPPM, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
-	
-		m_pDasherModel->SetControlMode(m_ControlMode);
+  if (m_DashEditbox!=0 && m_LanguageModelID!=-1) 
+    {
 
-		string T = m_Alphabet->GetTrainingFile();
+      // Delete the old model and create a new one
 
-		std::cout << "*" << T << "*" << std::endl;
+      if( m_pDasherModel != NULL ) {
+	delete m_pDasherModel;
+      }
 
-		TrainFile(m_SystemLocation+T);
-		TrainFile(m_UserLocation+T);
-	
-		if (m_MaxBitRate>=0)
-			m_pDasherModel->SetMaxBitrate(m_MaxBitRate);
-		if (m_ViewID!=-1)
-			ChangeView(m_ViewID);
+      m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, m_LanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
+      
+      // Train the new language model
 
+      string T = m_Alphabet->GetTrainingFile();
+      
+      TrainFile(m_SystemLocation+T);
+      TrainFile(m_UserLocation+T);
 
-	}
+      // Set various parameters
+      
+      m_pDasherModel->SetControlMode(m_ControlMode);
+     
+      if (m_MaxBitRate>=0)
+	m_pDasherModel->SetMaxBitrate(m_MaxBitRate);
+      if (m_ViewID!=-1)
+	ChangeView(m_ViewID);
+      
+    }
   
-
-
 }
 
 
@@ -374,16 +379,16 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 void CDasherInterface::ChangeLanguageModel(int NewLanguageModelID)
 {
 
-	m_LanguageModelID = NewLanguageModelID;
-	if (m_Alphabet!=0) {
-
-		delete m_pDasherModel; // Have to delete DasherModel, or removing its LanguageModel will confuse it
-		m_pDasherModel = 0;
-	
-		CreateDasherModel();
-
-	
-	}
+  m_LanguageModelID = NewLanguageModelID;
+  if (m_Alphabet!=0) {
+    
+    CreateDasherModel();
+    
+    // We need to call start here so that the root is recreated, otherwise it will fail (this is probably something which needs to be fixed in a more integrated way)
+    
+    Start(); 
+    
+  }
 }
 
 

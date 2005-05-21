@@ -14,6 +14,8 @@
 
 #include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
+#include "LanguageModelling/WordLanguageModel.h"
+
 
 using namespace Dasher;
 using namespace std;
@@ -23,32 +25,45 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
+CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, int idLM, CLanguageModelParams *_params,
 						   bool Dimensions, bool Eyetracker, bool Paused)
   : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
 	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
 	 m_bControlMode(false)
 {
+
+  // Convert the full alphabet to a symbolic representation for use in the language model
   
-	CSymbolAlphabet alphabet(pAlphabet->GetNumberTextSymbols());
+  CSymbolAlphabet alphabet( pAlphabet->GetNumberTextSymbols() );
+  alphabet.SetSpaceSymbol( pAlphabet->GetSpaceSymbol() ); // FIXME - is this right, or do we have to do some kind of translation?
 
-	m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
+  // Create an appropriate language model;
+
+  // FIXME - return to using enum here
+
+  switch( idLM ) {
+  case 0:
+    m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
+    break;
+  case 1:
+    m_pLanguageModel = new CWordLanguageModel(alphabet, _params);
+    break;
+  }
 	
-	LearnContext = m_pLanguageModel->CreateEmptyContext();
-	
-	// various settings
-	int iShift = 12;
-	m_DasherY = 1<<iShift;
-	m_DasherOY = m_DasherY/2;
-	m_DasherOX = m_DasherY/2;
-	m_dAddProb = 0.003;
-
-	m_Active = CRange(0,m_DasherY);
-
-
-	m_Rootmin_min = int64_min/m_iNormalization/2;
-	m_Rootmax_max = int64_max/m_iNormalization/2;
+  LearnContext = m_pLanguageModel->CreateEmptyContext();
+  
+  // various settings
+  int iShift = 12;
+  m_DasherY = 1<<iShift;
+  m_DasherOY = m_DasherY/2;
+  m_DasherOX = m_DasherY/2;
+  m_dAddProb = 0.003;
+  
+  m_Active = CRange(0,m_DasherY);
+    
+  m_Rootmin_min = int64_min/m_iNormalization/2;
+  m_Rootmax_max = int64_max/m_iNormalization/2;
 
 }
 

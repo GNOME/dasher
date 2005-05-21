@@ -40,6 +40,8 @@ namespace Dasher
 			: m_iSize(iSize)
 		{
 		  //			DASHER_ASSERT(iSize>0);
+
+		  SetSpaceSymbol(-1); // Default (uniformative) value.
 		}
 		
 		int GetSize() const
@@ -47,8 +49,19 @@ namespace Dasher
 			return m_iSize;
 		}
 
+		void SetSpaceSymbol( int _SpaceSymbol ) {
+		  // Set the space symbol for the alphabet
+		  m_SpaceSymbol = _SpaceSymbol;
+		}
+
+		int GetSpaceSymbol() const {
+		  // Get the space symbol. -1 means that no symbol has been set.
+		  return m_SpaceSymbol;
+		}
+		
 	private:
 		int m_iSize;
+		int m_SpaceSymbol;
 	};
 
 }

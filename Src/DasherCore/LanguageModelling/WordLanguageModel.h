@@ -13,6 +13,7 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 #include "LanguageModel.h"
+#include "PPMLanguageModel.h"
 #include "../DasherTypes.h"
 
 #include <vector>
@@ -26,27 +27,20 @@
 namespace Dasher 
 {
 
-class CWordLanguageModel : public CLanguageModel, private NoClones
+class CWordLanguageModel : public CLanguageModel
 {
 public:
 	CWordLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
-	
-	// FIXME - put params back at some point
-	
 	virtual ~CWordLanguageModel();
 	
 	Context CreateEmptyContext();
 	void ReleaseContext(Context context);
 	Context CloneContext(Context context);
 
+	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const;
 
-	
-	void EnterSymbol(Context context, symbol Symbol); // FIXME - lost const
-	void LearnSymbol(Context context, symbol Symbol);
-	
-	//inline bool GetProbs(CContext*,std::vector<symbol> &newchars,std::vector<unsigned int> &groups,std::vector<unsigned int> &probs,double addprob);
-	virtual void GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const;
-	void dump();
+	virtual void EnterSymbol(Context context, int Symbol) const;
+	virtual void LearnSymbol(Context context, int Symbol);
 	
 private:
 
@@ -82,13 +76,11 @@ private:
 	CWordnode* AddSymbolToNode(CWordnode* pNode, symbol sym,int *update);
 	
 	void AddSymbol(CWordContext& context,symbol sym);
-	void dumpSymbol( symbol sym);
-	void dumpString( char *str, int pos, int len );
-	void dumpTrie( CWordnode *t, int d );
 
-	void CollapseContext(CWordContext &context);
+	void CollapseContext(CWordContext &context) const;
 
 	int lookup_word( const std::string &w );
+	int lookup_word_const( const std::string &w ) const; 
 
 	CWordContext *m_rootcontext;
 	CWordnode* m_pRoot;

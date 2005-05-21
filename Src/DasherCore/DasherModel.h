@@ -56,7 +56,7 @@ public:
 	} LanguageModelID;
 
 
-	CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* Editbox, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
+	CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* Editbox, int idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
 	~CDasherModel();
 	
 	CTrainer* GetTrainer();

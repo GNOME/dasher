@@ -9,8 +9,6 @@
 #ifndef __LanguageModelling_LanguageModel_h__
 #define __LanguageModelling_LanguageModel_h__
 
-// DJW_TODO - reintegrate PJC's changes
-// PJC_TODO - commit LanguageModelParams.h
 #include "LanguageModelParams.h" 
 
 #include "SymbolAlphabet.h"
@@ -80,9 +78,9 @@ protected:
 	//	};
 	
 	CLanguageModelParams *params;
-	
-private:
 
+ private:
+	
 	const CSymbolAlphabet m_Alphabet;
 
 };
