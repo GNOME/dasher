@@ -348,6 +348,23 @@
 				RelativePath=".\Types\Range.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Platform"
+			Filter="">
+			<File
+				RelativePath=".\Platform\stdminmax.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Allocators"
+			Filter="">
+			<File
+				RelativePath=".\Allocators\PooledAlloc.h">
+			</File>
+			<File
+				RelativePath=".\Allocators\SimplePooledAlloc.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\assert.h">
 		</File>
