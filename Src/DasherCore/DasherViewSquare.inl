@@ -67,7 +67,7 @@ inline Cint32 CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s
 	if (y2 > DasherModel().DasherY() )
 		y2=DasherModel().DasherY();
 
-	Cint32 iSize = y2-y1;
+	Cint32 iSize = Cint32(y2-y1);
 	DASHER_ASSERT(iSize>=0);
 
  	s1= screenint(y1 * CanvasY /DasherModel().DasherY() );

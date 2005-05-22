@@ -40,7 +40,7 @@ public:
 
 
 	int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-		myint y1, myint y2, int& mostleft, std::string displaytext);
+		myint y1, myint y2, int& mostleft, const std::string& displaytext);
 	
 	// Responsible for all the Render_node calls
 	int RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft);
