@@ -82,8 +82,7 @@ public:
 		void AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground);
 
 	private:
-		friend class CAlphabet;
-
+	
 		CAlphabet& m_Alphabet;
 
 	};
@@ -128,6 +127,8 @@ private:
 	std::vector<std::string> m_GroupLabel;
 
 	alphabet_map TextMap;
+
+	friend class CGroupAdder;
 };
 
 /////////////////////////////////////////////////////////////////////////////
