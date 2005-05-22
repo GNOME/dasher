@@ -13,7 +13,6 @@
 #include <stack>
 #include <sstream>
 #include <iostream>
-#include <climits>
 
 using namespace Dasher;
 using namespace std;
@@ -53,72 +52,55 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	std::vector<bool> exclusions(iNumSymbols);
 
 	int i;
-
-	// Note - iNumSymbols is one more than the alphabet 'size' due to zero symbol being added to represent the root node (?) Hack things to
-	// ensure zero probs for 0 symbol for now, but I thought that the idea of the new symbol alphabets was to prevent this sort of thing
-	// from being necessary
-
-	for( i=1 ; i < iNumSymbols; i++)
+	for( i=0 ; i < iNumSymbols; i++)
 	{
 		probs[i] = 0;
 		exclusions[i] = false;
 	}
 
-	bool doExclusion = (params->GetValue( std::string( "LMExclusion" ) ) == 1 );
-
 	unsigned int iToSpend = norm;
 
 	CPPMnode* pTemp=ppmcontext->head;
 
-
 	while (pTemp != 0) 
 	{
-	  int iTotal=0;
-	  
-	  CPPMnode* pSymbol = pTemp->child;
-	  while (pSymbol)
-	    {
-	      
-	      int sym = pSymbol->symbol; 
-	      if (!(doExclusion && exclusions[sym] ))
-		iTotal += pSymbol->count;
-	      pSymbol = pSymbol->next;
-	    }
-	  
-	  if (iTotal) 
-	    {
-	      unsigned int size_of_slice = iToSpend;
-	      pSymbol = pTemp->child;
-	      while (pSymbol) 
+		int iTotal=0;
+		
+		CPPMnode* pSymbol = pTemp->child;
+		while (pSymbol)
 		{
-		  if (!(doExclusion && exclusions[pSymbol->symbol])) 
-		    {
-		      exclusions[pSymbol->symbol]=1;
-		      
-		      // Cast to unsigned long long int here to
-		      // prevent overflow problems. We probably need
-		      // to double check that there are still no
-		      // issues if he have huge counts,
-		      
-		      unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(2*pSymbol->count - 1)/2/iTotal;
-		      probs[pSymbol->symbol]+=p;
-		      
-		      iToSpend-=p;		
-		    }
-		  //				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
-		  //				DebugOutput(debug);
-		  pSymbol = pSymbol->next;
+			int sym = pSymbol->symbol; 
+			if (!exclusions[sym])
+				iTotal += pSymbol->count;
+			pSymbol = pSymbol->next;
 		}
-	    }
-	  pTemp = pTemp->vine;
+
+		if (iTotal) 
+		{
+			unsigned int size_of_slice = iToSpend;
+			pSymbol = pTemp->child;
+			while (pSymbol) 
+			{
+				if (!exclusions[pSymbol->symbol]) 
+				{
+					exclusions[pSymbol->symbol]=1;
+					unsigned int p = size_of_slice*(2* pSymbol->count - 1)/2/iTotal;
+					probs[pSymbol->symbol]+=p;
+					iToSpend-=p;		
+				}
+				//				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
+				//				DebugOutput(debug);
+				pSymbol = pSymbol->next;
+			}
+		}
+		pTemp = pTemp->vine;
 	}
 	
 	unsigned int size_of_slice= iToSpend;
 	int symbolsleft=0;
 	
-
-	for (i=1; i < iNumSymbols ; i++)
-	  if ( !(doExclusion && exclusions[i]) )
+	for (i=0; i < iNumSymbols ; i++)
+	  if ( ! probs[i] )
 	    symbolsleft++;
 	
 //	std::ostringstream str;
@@ -133,27 +115,25 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 //	str2 << std::endl;
 //	DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
 
-	for (i=1;  i < iNumSymbols ; i++) 
+	for (i=0;  i < iNumSymbols ; i++) 
 	{
-	  if ( !(doExclusion && exclusions[i]) ) 
-	    {
-	      unsigned int p=size_of_slice/symbolsleft;
-	      probs[i]+=p;
-	      iToSpend -= p;
-	    }
+		if (!probs[i] ) 
+		{
+			unsigned int p=size_of_slice/symbolsleft;
+			probs[i]+=p;
+			iToSpend -= p;
+		}
 	}
 
+	int iLeft = iNumSymbols;
 
-	int iLeft = iNumSymbols - 1; // Subtract one because we're ignoreing the zero symbol
-
-	for (int j=1; j< iNumSymbols; ++j) 
+	for (int j=0; j< iNumSymbols; ++j) 
 	{
 		unsigned int p= iToSpend/iLeft;
 		probs[j] +=p;
 		--iLeft;
 		iToSpend -=p;
 	}
-
 
 	DASHER_ASSERT(iToSpend == 0);
 }
@@ -181,7 +161,7 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 	}
 	vineptr->vine= m_pRoot;
 
-	m_iMaxOrder = params->GetValue( std::string( "LMMaxOrder" ) );
+	m_iMaxOrder = LanguageModelParams()->GetValue( std::string( "LMMaxOrder" ) );
 
 	while (context.order> m_iMaxOrder)
 	{
@@ -343,20 +323,21 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 {
 	CPPMnode *pReturn = pNode->find_symbol(sym);
 	
+	//	std::cout << sym << ",";
+
 	if (pReturn!=NULL)
 	{
-		if(( params->GetValue( std::string( "LMUpdateExclusion" ) ) == 0 ) || *update ) 
+	  //	  std::cout << "Using existing node" << std::endl;
+
+		if (*update) 
 		{   // perform update exclusions
-
-		  if( pReturn->count < USHRT_MAX ) // Truncate counts at storage limit
-		    pReturn->count++;
-
-
+			pReturn->count++;
 			*update=0;
 		}
 		return pReturn;
 	}
 
+	//	 std::cout << "Creating new node" << std::endl;
 
 	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
 	pReturn->symbol = sym;  
