@@ -37,6 +37,10 @@ namespace Dasher
 
 		void dump();
 
+		virtual int GetMemory() {
+		  return NodesAllocated;
+		}
+
 	private:
 
 		class CPPMnode {
@@ -74,6 +78,8 @@ namespace Dasher
 
 		int m_iMaxOrder;
 		double m_dBackOffConstat;
+
+		int NodesAllocated;
 
 		mutable CSimplePooledAlloc<CPPMnode> m_NodeAlloc;
 		CPooledAlloc<CPPMContext> m_ContextAlloc;

@@ -58,9 +58,10 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 	
 	if (pReturn!=NULL)
 	{
-		if (*update) 
+		if (( LanguageModelParams()->GetValue( std::string( "LMUpdateExclusion" ) ) == 0 ) ||*update) 
 		{   // perform update exclusions
-			pReturn->count++;
+			 if( pReturn->count < USHRT_MAX ) // Truncate counts at storage limit
+			   pReturn->count++;
 			*update=0;
 		}
 		return pReturn;
@@ -70,6 +71,9 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 	pReturn->sbl = sym;  
 	pReturn->next= pNode->child;
 	pNode->child=pReturn;
+
+	++NodesAllocated;
+
 	return pReturn;		
 	
 }
@@ -81,7 +85,7 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 
 CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
   : CLanguageModel(Alphabet, _params), max_order( 0 ), 
-	m_NodeAlloc(8192), m_ContextAlloc(1024)
+    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->sbl = -1;
@@ -155,11 +159,13 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 	std::vector<bool> exclusions(iNumSymbols);
 
 	int i;
-	for( i=0 ; i < iNumSymbols; i++)
+	for( i=1 ; i < iNumSymbols; i++)
 	{
 		probs[i] = 0;
 		exclusions[i] = false;
 	}
+
+	bool doExclusion = (LanguageModelParams()->GetValue( std::string( "LMExclusion" ) ) == 1 );
 
 	unsigned int iToSpend = norm;
 
@@ -173,7 +179,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 		while (pSymbol)
 		{
 			int sym = pSymbol->sbl; 
-			if (!exclusions[sym])
+			if (!(doExclusion && exclusions[sym]))
 				iTotal += pSymbol->count;
 			pSymbol = pSymbol->next;
 		}
@@ -184,10 +190,12 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 			pSymbol = pTemp->child;
 			while (pSymbol) 
 			{
-				if (!exclusions[pSymbol->sbl]) 
+				if (!(doExclusion && exclusions[pSymbol->sbl])) 
 				{
 					exclusions[pSymbol->sbl]=1;
-					unsigned int p = size_of_slice*(2* pSymbol->count - 1)/2/iTotal;
+					
+
+					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(2* pSymbol->count - 1)/2/iTotal;
 					probs[pSymbol->sbl]+=p;
 					iToSpend-=p;		
 				}
@@ -203,7 +211,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 	int symbolsleft=0;
 	
 	for (i=0; i < iNumSymbols ; i++)
-	  if ( ! probs[i] )
+	  if ( !(doExclusion && exclusions[i]) )
 	    symbolsleft++;
 	
 //	std::ostringstream str;
@@ -220,7 +228,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 
 	for (i=0;  i < iNumSymbols ; i++) 
 	{
-		if (!probs[i] ) 
+		if (!(doExclusion && exclusions[i]) ) 
 		{
 			unsigned int p=size_of_slice/symbolsleft;
 			probs[i]+=p;
@@ -432,6 +440,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 	    new_tmp = tmp->find_symbol( new_sbl );
 	    
 	    if( new_tmp == NULL ) {
+
 	      new_tmp = m_NodeAlloc.Alloc();  // count is initialized to 1
 	      new_tmp->sbl = new_sbl;  
 	      new_tmp->next= tmp->child;
@@ -510,6 +519,12 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 	if( sym == SymbolAlphabet().GetSpaceSymbol() ) {
 	  CollapseContext( context );
 	}
+
+	while (context.order> LanguageModelParams()->GetValue( std::string( "LMMaxOrder" ) ))
+	{
+	  context.head=context.head->vine;
+	  context.order--;
+	}
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -521,6 +536,8 @@ void CWordLanguageModel::EnterSymbol(Context c, int Symbol) const
   CWordContext& context = * (CWordContext *) (c);
 	
   // Add the symbol to the current word string
+
+  //  cout << max_order << std::endl;
 
   if( max_order > 0 ) {
     char sbuffer[5];
@@ -543,20 +560,35 @@ void CWordLanguageModel::EnterSymbol(Context c, int Symbol) const
   CWordnode *find;
 
   while (context.head) {
+
+    if( context.order < LanguageModelParams()->GetValue( std::string( "LMMaxOrder" ))) {
     find =context.head->find_symbol(Symbol);
     if (find) {
       context.order++;
       context.head=find;
+
+      //      std::cout << context.order << std::endl;
       return;
     }
-    context.order--;
-    context.head=context.head->vine;
+
+    }
+    //    m_iMaxOrder = params->GetValue( std::string( "LMMaxOrder" ) );
+    
+    //    std::cout << "a" << std::endl;
+
+    //    while (context.order>  params->GetValue( std::string( "LMMaxOrder" )))
+    // {
+    //std::cout << "b" << std::endl;
+
+	context.order--;
+	context.head=context.head->vine;
+	// }
   }
   
   if (context.head==0) {
     context.head= m_pRoot;
     context.order=0;
   }
-  
+  //  std::cout << "(reduced) " << context.order << std::endl;
 }
 

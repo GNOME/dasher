@@ -40,7 +40,12 @@ public:
 	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const;
 
 	virtual void EnterSymbol(Context context, int Symbol) const;
-	virtual void LearnSymbol(Context context, int Symbol);
+	virtual void LearnSymbol(Context context, int Symbol);	
+
+	virtual int GetMemory() {
+	  return NodesAllocated;
+	}
+
 	
 private:
 
@@ -50,7 +55,7 @@ private:
 		CWordnode* child;
 		CWordnode* next;
 		CWordnode* vine;
-		short int count;
+		unsigned short int count;
 		int sbl;
 
 		CWordnode(int sym);
@@ -87,6 +92,8 @@ private:
 
 	std::map< std::string, int > dict; // Dictionary
 	int nextid;
+
+	int NodesAllocated;
 
 	int max_order;
 

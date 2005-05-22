@@ -59,6 +59,14 @@ public:
 	// Get symbol probability distribution
 	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const =0;
 
+	// Get some measure of the memory usage for diagnostic
+	// purposes. No need to implement this if you're not comparing
+	// language models. The exact meaning of the result will
+	// depend on the implementation (for example, could be the
+	// number of nodes in a trie, or the physical memory usage).
+
+	virtual int GetMemory() {};
+
 protected:
 	int GetSize() const {return m_Alphabet.GetSize();}
 

@@ -21,7 +21,7 @@ using namespace std;
 
 CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams *_params)
   : CLanguageModel(SymbolAlphabet, _params), m_iMaxOrder( 5 ), 
-	m_NodeAlloc(8192), m_ContextAlloc(1024)
+    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->symbol = -1;
@@ -58,6 +58,11 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		exclusions[i] = false;
 	}
 
+	bool doExclusion = (LanguageModelParams()->GetValue( std::string( "LMExclusion" ) ) == 1 );
+
+	int alpha = LanguageModelParams()->GetValue( std::string( "LMAlpha" ) );
+	int beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) );
+
 	unsigned int iToSpend = norm;
 
 	CPPMnode* pTemp=ppmcontext->head;
@@ -69,8 +74,8 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		CPPMnode* pSymbol = pTemp->child;
 		while (pSymbol)
 		{
-			int sym = pSymbol->symbol; 
-			if (!exclusions[sym])
+		  int sym = pSymbol->symbol; 
+			if (!(exclusions[sym] && doExclusion))
 				iTotal += pSymbol->count;
 			pSymbol = pSymbol->next;
 		}
@@ -81,10 +86,13 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 			pSymbol = pTemp->child;
 			while (pSymbol) 
 			{
-				if (!exclusions[pSymbol->symbol]) 
+				if (!(exclusions[pSymbol->symbol] && doExclusion)) 
 				{
 					exclusions[pSymbol->symbol]=1;
-					unsigned int p = size_of_slice*(2* pSymbol->count - 1)/2/iTotal;
+
+					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(100*pSymbol->count - beta)/(iTotal + alpha)/100;
+					
+
 					probs[pSymbol->symbol]+=p;
 					iToSpend-=p;		
 				}
@@ -182,14 +190,23 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 	CPPMnode *find;
 
 	while (context.head) {
+
+	  if( context.order < m_iMaxOrder ) { // Only try to extend the context if it's not going to make it too long
 		find =context.head->find_symbol(Symbol);
 		if (find) {
 			context.order++;
 			context.head=find;
 			//	Usprintf(debug,TEXT("found context %x order %d\n"),head,order);
 			//	DebugOutput(debug);
+
+			
+			//			std::cout << context.order << std::endl;
 			return;
 		}
+	  }
+
+		// If we can't extend the current context, follow vine pointer to shorten it and try again
+
 		context.order--;
 		context.head=context.head->vine;
 	}
@@ -198,6 +215,8 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
 		context.head= m_pRoot;
 		context.order=0;
 	}
+
+	//	std::cout << context.order << std::endl;
 	
 }
 
@@ -329,7 +348,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	{
 	  //	  std::cout << "Using existing node" << std::endl;
 
-		if (*update) 
+		if (*update || (LanguageModelParams()->GetValue("LMUpdateExcusion") == 0) ) 
 		{   // perform update exclusions
 			pReturn->count++;
 			*update=0;
@@ -343,6 +362,9 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	pReturn->symbol = sym;  
 	pReturn->next= pNode->child;
 	pNode->child=pReturn;
+
+	++NodesAllocated;
+
 	return pReturn;		
 	
 }
