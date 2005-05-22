@@ -24,7 +24,7 @@ void CDasherViewSquare::RenderNodes()
 	
 	DASHER_ASSERT(DasherModel().Root()!=0);
 
-	DASHER_TRACEOUTPUT("RenderNodes\n");
+	//DASHER_TRACEOUTPUT("RenderNodes\n");
 
 	// Render nodes to screen object (should use off screen buffer)
 
@@ -40,53 +40,59 @@ void CDasherViewSquare::RenderNodes()
 
 /////////////////////////////////////////////////////////////////////////////
 
-int CDasherViewSquare::RecursiveRender(CDasherNode* Render, myint y1,myint y2,int mostleft)
+int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,int mostleft)
 {
+	DASHER_ASSERT_VALIDPTR_RW(pRender);
+
 	int Color;
 
   	if (ColourMode==true) 
 	{
-	  if (Render->Colour()!=-1) {
-	    Color = Render->Colour();
+	  if (pRender->Colour()!=-1) {
+	    Color = pRender->Colour();
 	  } else {
-	    if (Render->Symbol()==DasherModel().GetSpaceSymbol()) {
+	    if (pRender->Symbol()==DasherModel().GetSpaceSymbol()) {
 	      Color = 9;
-	    } else if (Render->Symbol()==DasherModel().GetControlSymbol()) {
+	    } else if (pRender->Symbol()==DasherModel().GetControlSymbol()) {
 	      Color = 8;
 	    } else {
-	      Color = (Render->Symbol()%3)+10;
+	      Color = (pRender->Symbol()%3)+10;
 	    }
 	  }
 	} else {
-	  Color = Render->Phase()%3; 
+	  Color = pRender->Phase()%3; 
 	}
 
-	if ((Render->ColorScheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
+	if ((pRender->ColorScheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
 	  Color+=130;                                // colours
 	}
 
 	//	DASHER_TRACEOUTPUT("%x ",Render);
 	
 	std::string display;
-	if (Render->GetControlTree()!=NULL) 
-		display = Render->GetControlTree()->text;
+	if (pRender->GetControlTree()!=NULL) 
+		display = pRender->GetControlTree()->text;
 
-	if (RenderNode(Render->Symbol(), Color, Render->ColorScheme(), y1, y2, mostleft, display))
-		RenderGroups(Render, y1, y2);
+	if (RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display))
+	{
+		// yuk
+		if (!pRender->ControlChild() && pRender->Symbol() < DasherModel().GetAlphabet().GetNumberTextSymbols() )
+			RenderGroups(pRender, y1, y2);
+	}
 	else
 	{
-		Render->Kill();
+		pRender->Kill();
 		return 0;
 	}
 
-	int iChildCount = Render->ChildCount();
+	int iChildCount = pRender->ChildCount();
 	if (!iChildCount)
 	  return 0;
 
 	int norm=DasherModel().Normalization();
 	for (int i=0; i< iChildCount; i++) 
 	{
-		CDasherNode* pChild = Render->Children()[i];
+		CDasherNode* pChild = pRender->Children()[i];
 		if ( pChild->Alive() ) 
 		{
 			myint Range=y2-y1;
@@ -113,33 +119,36 @@ void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
     std::string Label="";
 
 	myint range=y2-y1;
-	for (int i=0; i<Render->ChildCount(); i++) {
-	  //		int g=Children[i]->Group();
-	  int g = 0; // FIXME - hack to make it build
-		if (g!=current) {
-			lower=upper;
-			upper=i;
-			
-			if (current!=0) {
-				myint lbnd=Children[lower]->Lbnd();
-				myint hbnd=Children[upper]->Lbnd();
-				myint newy1=y1+(range*lbnd)/DasherModel().Normalization();
-				myint newy2=y1+(range*hbnd)/DasherModel().Normalization();
-				int mostleft;
-				if (ColourMode==true) {
-					std::string Label = DasherModel().GroupLabel(current);
-				  int Colour = DasherModel().GroupColour(current);
+	
+	const CAlphabet& alphabet = DasherModel().GetAlphabet();
+
+	for (int iGroup=1; iGroup < alphabet.GetGroupCount();  iGroup++) 
+	{
+		int lower = alphabet.GetGroupStart(iGroup);
+		int upper = alphabet.GetGroupEnd(iGroup);
+	
+		myint lbnd=Children[lower]->Lbnd();
+		myint hbnd=Children[upper-1]->Hbnd();
+		myint newy1=y1+(range*lbnd)/DasherModel().Normalization();
+		myint newy2=y1+(range*hbnd)/DasherModel().Normalization();
+		int mostleft;
+		if (ColourMode==true) 
+		{
+			std::string Label = DasherModel().GroupLabel(iGroup);
+			int Colour = DasherModel().GroupColour(iGroup);
                   
-                  if (Colour!=-1) {
-					RenderNode(0,DasherModel().GroupColour(current),Opts::Groups,newy1,newy2,mostleft,Label);
-				  } else {
-				    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,Label);
-				  }
-				} else {
-					RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,Label);
-				}
+            if (Colour!=-1) 
+			{
+				RenderNode(0,DasherModel().GroupColour(iGroup),Opts::Groups,newy1,newy2,mostleft,Label);
+			} 
+			else 
+			{
+			    RenderNode(0,(current%3)+110,Opts::Groups,newy1,newy2,mostleft,Label);
 			}
-			current=g;
+		} 
+		else 
+		{
+			RenderNode(0,current-1,Opts::Groups,newy1,newy2,mostleft,Label);
 		}
 	}
 }
@@ -184,18 +193,19 @@ CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& 
 /////////////////////////////////////////////////////////////////////////////
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme,
-	myint y1, myint y2, int& mostleft, std::string displaytext)
+	myint y1, myint y2, int& mostleft, const std::string& displaytext)
 {
+	DASHER_ASSERT(y2>=y1);
 
 //	DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
-//	DASHER_TRACEOUTPUT("RenderNode %I64 %I64",y1,y2);
+	//DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
 
 	// Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
 	screenint s1,s2;
 	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
 
 	// Actual height in pixels
-	Cint32 iHeight = myint(iSize * CanvasY)/DasherModel().DasherY();
+	Cint32 iHeight = Cint32( (iSize * CanvasY)/DasherModel().DasherY() );
 
 	if (iHeight <=1)
 		return 0;
@@ -212,27 +222,23 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	MapScreen(&iNewleft, &iNewtop);
 	MapScreen(&iNewright, &iNewbottom);
 
-	DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
+//	DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
 
 	Screen().DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
 	
 	if (iLeft<mostleft)
 		iLeft=mostleft;
 
-	int Size;
-	if (iLeft*Screen().GetFontSize()<CanvasX*19/20) 
-	{
-		Size = 20*Screen().GetFontSize();
-	} 
-	else if (iLeft*Screen().GetFontSize()<CanvasX*159/160) 
-	{
-		Size = 14*Screen().GetFontSize();
-	} 
-	else 
-	{
-		Size = 11*Screen().GetFontSize();
-	}
-
+	// Compute font size based on position
+	int Size = Screen().GetFontSize();
+	screenint iLeftTimesFontSize = iLeft*Screen().GetFontSize();
+	if (iLeftTimesFontSize < CanvasX*19/20) 
+		Size *= 20;
+	else if (iLeftTimesFontSize < CanvasX*159/160) 
+		Size *= 14;
+	else
+		Size *= 11;
+	
 	screenint TextWidth, TextHeight, OriginX=0, OriginY=0;
 	Screen().TextSize(DasherModel().GetDisplayText(Character), &TextWidth, &TextHeight, Size);
 	UnMapScreen(&TextWidth, &TextHeight);
@@ -250,11 +256,6 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	iNewleft = std::min(newleft2, newright2);
 	iNewtop = std::min(newtop2, newbottom2);
 
-	//#ifdef DASHER_WIN32
-	//	#if defined DrawText
-	//	#undef DrawText
-	//	#endif
-	//#endif
 	if(displaytext!= std::string("") ) 
 	{
 		m_DelayDraw.DelayDrawText(displaytext, iNewleft, iNewtop, Size);
