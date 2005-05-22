@@ -366,9 +366,6 @@
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\assert.h">
-		</File>
-		<File
 			RelativePath=".\Common.h">
 		</File>
 		<File
@@ -376,6 +373,9 @@
 		</File>
 		<File
 			RelativePath=".\MSVC_Unannoy.h">
+		</File>
+		<File
+			RelativePath=".\myassert.h">
 		</File>
 		<File
 			RelativePath=".\NoClones.h">
