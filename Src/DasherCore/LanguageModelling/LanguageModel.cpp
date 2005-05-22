@@ -17,11 +17,7 @@ using namespace Dasher;
 ///////////////////////////////////////////////////////////////////
 
 CLanguageModel::CLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params)
-  : m_Alphabet(Alphabet), params( _params )
-//=======
-//CLanguageModel::CLanguageModel(const CAlphabet* pcAlphabet, CLanguageModelParams *_params)
-//  : m_pcAlphabet(pcAlphabet), params( _params )
-//>>>>>>> 1.2
+  : m_Alphabet(Alphabet), m_pParams( _params )
 {
 }
 

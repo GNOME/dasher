@@ -67,13 +67,8 @@ protected:
 		return m_Alphabet;
 	}
 
-	// DJW - non-symbol code should be moved elsewhere - new CLanguageModel knows nothing about strings
-	//	virtual const char *defaultContextString() const {
-	//	  // Default context string for new documents - replace this if your language model needs something different.
-	//	  return ". ";
-	//	};
 	
-	CLanguageModelParams *params;
+	CLanguageModelParams* m_pParams;
 
  private:
 	
