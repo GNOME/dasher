@@ -45,7 +45,7 @@ namespace Dasher
 			CPPMnode* child;
 			CPPMnode* next;
 			CPPMnode* vine;
-			short int count;
+			unsigned short int count;
 			short int symbol;
 			CPPMnode(int sym);
 			CPPMnode();

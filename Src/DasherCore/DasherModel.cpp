@@ -547,13 +547,10 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 							vector<unsigned int> &Probs, int iNorm) const
 {
 	// Total number of symbols
-	int iSymbols = m_pcAlphabet->GetNumberSymbols();
+  int iSymbols = m_pcAlphabet->GetNumberSymbols(); // note that this includes the control node and the root node
 
 	// Number of text symbols, for which the language model gives the distribution
 	int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
-
-
-
 
 	NewSymbols.resize(iSymbols);
 //	Groups.resize(iSymbols);
@@ -572,14 +569,14 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	if( !m_bControlMode ) 
 	{
 	  control_space = 0;
-	  uniform_add = ((iNorm / 1000 ) / (iSymbols-1) ) * m_uniform; // Subtract 1 from no symbols to lose control node
-	  nonuniform_norm = iNorm - (iSymbols-1) * uniform_add;
+	  uniform_add = ((iNorm / 1000 ) / (iSymbols-2) ) * m_uniform; // Subtract 2 from no symbols to lose control/root nodes
+	  nonuniform_norm = iNorm - (iSymbols-2) * uniform_add;
 	}
 	else 
 	{
 	  control_space = int(iNorm * 0.05);
-	  uniform_add = (((iNorm - control_space) / 1000 ) / (iSymbols-1) ) * m_uniform; // Subtract 1 from no symbols to lose control node
-	  nonuniform_norm = iNorm - control_space - (iSymbols-1) * uniform_add;
+	  uniform_add = (((iNorm - control_space) / 1000 ) / (iSymbols-2) ) * m_uniform; // Subtract 2 from no symbols to lose control/root nodes
+	  nonuniform_norm = iNorm - control_space - (iSymbols-2) * uniform_add;
 	}
 
 	m_pLanguageModel->GetProbs(context,Probs,nonuniform_norm);
@@ -592,7 +589,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	DASHER_ASSERT(iTotal == nonuniform_norm);
 #endif
 
-	for( int k=0; k < Probs.size(); ++k )
+	for( int k=1; k < Probs.size(); ++k )
 		Probs[k] += uniform_add;
 
 	Probs.push_back( control_space );

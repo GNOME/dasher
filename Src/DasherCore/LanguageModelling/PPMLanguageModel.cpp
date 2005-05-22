@@ -13,6 +13,7 @@
 #include <stack>
 #include <sstream>
 #include <iostream>
+#include <climits>
 
 using namespace Dasher;
 using namespace std;
@@ -52,7 +53,12 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	std::vector<bool> exclusions(iNumSymbols);
 
 	int i;
-	for( i=0 ; i < iNumSymbols; i++)
+
+	// Note - iNumSymbols is one more than the alphabet 'size' due to zero symbol being added to represent the root node (?) Hack things to
+	// ensure zero probs for 0 symbol for now, but I thought that the idea of the new symbol alphabets was to prevent this sort of thing
+	// from being necessary
+
+	for( i=1 ; i < iNumSymbols; i++)
 	{
 		probs[i] = 0;
 		exclusions[i] = false;
@@ -62,6 +68,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 
 	CPPMnode* pTemp=ppmcontext->head;
 
+
 	while (pTemp != 0) 
 	{
 		int iTotal=0;
@@ -69,6 +76,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		CPPMnode* pSymbol = pTemp->child;
 		while (pSymbol)
 		{
+
 			int sym = pSymbol->symbol; 
 			if (!exclusions[sym])
 				iTotal += pSymbol->count;
@@ -84,8 +92,18 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 				if (!exclusions[pSymbol->symbol]) 
 				{
 					exclusions[pSymbol->symbol]=1;
-					unsigned int p = size_of_slice*(2* pSymbol->count - 1)/2/iTotal;
+
+					// Cast to unsigned long long
+					// int here to prevent
+					// overflow problems. We
+					// probably need to double
+					// check that there are still
+					// no issues if he have huge
+					// counts,
+
+					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(2*pSymbol->count - 1)/2/iTotal;
 					probs[pSymbol->symbol]+=p;
+
 					iToSpend-=p;		
 				}
 				//				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
@@ -99,7 +117,8 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	unsigned int size_of_slice= iToSpend;
 	int symbolsleft=0;
 	
-	for (i=0; i < iNumSymbols ; i++)
+
+	for (i=1; i < iNumSymbols ; i++)
 	  if ( ! probs[i] )
 	    symbolsleft++;
 	
@@ -115,7 +134,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 //	str2 << std::endl;
 //	DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
 
-	for (i=0;  i < iNumSymbols ; i++) 
+	for (i=1;  i < iNumSymbols ; i++) 
 	{
 		if (!probs[i] ) 
 		{
@@ -125,15 +144,17 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		}
 	}
 
-	int iLeft = iNumSymbols;
 
-	for (int j=0; j< iNumSymbols; ++j) 
+	int iLeft = iNumSymbols - 1; // Subtract one because we're ignoreing the zero symbol
+
+	for (int j=1; j< iNumSymbols; ++j) 
 	{
 		unsigned int p= iToSpend/iLeft;
 		probs[j] +=p;
 		--iLeft;
 		iToSpend -=p;
 	}
+
 
 	DASHER_ASSERT(iToSpend == 0);
 }
@@ -323,21 +344,20 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 {
 	CPPMnode *pReturn = pNode->find_symbol(sym);
 	
-	//	std::cout << sym << ",";
-
 	if (pReturn!=NULL)
 	{
-	  //	  std::cout << "Using existing node" << std::endl;
-
 		if (*update) 
 		{   // perform update exclusions
-			pReturn->count++;
+
+		  if( pReturn->count < USHRT_MAX ) // Truncate counts at storage limit
+		    pReturn->count++;
+
+
 			*update=0;
 		}
 		return pReturn;
 	}
 
-	//	 std::cout << "Creating new node" << std::endl;
 
 	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
 	pReturn->symbol = sym;  
