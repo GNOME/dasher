@@ -1,4 +1,10 @@
-﻿2005-05-07	David Ward <d.j.ward.94@gmail.com>
+﻿2005-05-22	David Ward <d.j.ward.94@gmail.com>
+
+	* New Alphabet directory for all the alphabet classes
+		- CCustomAlphabet functionality moved to CAlphabet and deleted CCustomAlphabet
+		- Nicer CAlphabet interface
+	 	
+2005-05-07	David Ward <d.j.ward.94@gmail.com>
 
 	* MAJOR changes to DasherCore
 		- Linux build temporarily broken - only minor fixes should be needed
