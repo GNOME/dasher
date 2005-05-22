@@ -64,6 +64,8 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 		exclusions[i] = false;
 	}
 
+	bool doExclusion = (params->GetValue( std::string( "LMExclusion" ) ) == 1 );
+
 	unsigned int iToSpend = norm;
 
 	CPPMnode* pTemp=ppmcontext->head;
@@ -71,47 +73,44 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 
 	while (pTemp != 0) 
 	{
-		int iTotal=0;
-		
-		CPPMnode* pSymbol = pTemp->child;
-		while (pSymbol)
+	  int iTotal=0;
+	  
+	  CPPMnode* pSymbol = pTemp->child;
+	  while (pSymbol)
+	    {
+	      
+	      int sym = pSymbol->symbol; 
+	      if (!(doExclusion && exclusions[sym] ))
+		iTotal += pSymbol->count;
+	      pSymbol = pSymbol->next;
+	    }
+	  
+	  if (iTotal) 
+	    {
+	      unsigned int size_of_slice = iToSpend;
+	      pSymbol = pTemp->child;
+	      while (pSymbol) 
 		{
-
-			int sym = pSymbol->symbol; 
-			if (!exclusions[sym])
-				iTotal += pSymbol->count;
-			pSymbol = pSymbol->next;
+		  if (!(doExclusion && exclusions[pSymbol->symbol])) 
+		    {
+		      exclusions[pSymbol->symbol]=1;
+		      
+		      // Cast to unsigned long long int here to
+		      // prevent overflow problems. We probably need
+		      // to double check that there are still no
+		      // issues if he have huge counts,
+		      
+		      unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(2*pSymbol->count - 1)/2/iTotal;
+		      probs[pSymbol->symbol]+=p;
+		      
+		      iToSpend-=p;		
+		    }
+		  //				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
+		  //				DebugOutput(debug);
+		  pSymbol = pSymbol->next;
 		}
-
-		if (iTotal) 
-		{
-			unsigned int size_of_slice = iToSpend;
-			pSymbol = pTemp->child;
-			while (pSymbol) 
-			{
-				if (!exclusions[pSymbol->symbol]) 
-				{
-					exclusions[pSymbol->symbol]=1;
-
-					// Cast to unsigned long long
-					// int here to prevent
-					// overflow problems. We
-					// probably need to double
-					// check that there are still
-					// no issues if he have huge
-					// counts,
-
-					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(2*pSymbol->count - 1)/2/iTotal;
-					probs[pSymbol->symbol]+=p;
-
-					iToSpend-=p;		
-				}
-				//				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
-				//				DebugOutput(debug);
-				pSymbol = pSymbol->next;
-			}
-		}
-		pTemp = pTemp->vine;
+	    }
+	  pTemp = pTemp->vine;
 	}
 	
 	unsigned int size_of_slice= iToSpend;
@@ -119,7 +118,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	
 
 	for (i=1; i < iNumSymbols ; i++)
-	  if ( ! probs[i] )
+	  if ( !(doExclusion && exclusions[i]) )
 	    symbolsleft++;
 	
 //	std::ostringstream str;
@@ -136,12 +135,12 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 
 	for (i=1;  i < iNumSymbols ; i++) 
 	{
-		if (!probs[i] ) 
-		{
-			unsigned int p=size_of_slice/symbolsleft;
-			probs[i]+=p;
-			iToSpend -= p;
-		}
+	  if ( !(doExclusion && exclusions[i]) ) 
+	    {
+	      unsigned int p=size_of_slice/symbolsleft;
+	      probs[i]+=p;
+	      iToSpend -= p;
+	    }
 	}
 
 
@@ -346,7 +345,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	
 	if (pReturn!=NULL)
 	{
-		if (*update) 
+		if(( params->GetValue( std::string( "LMUpdateExclusion" ) ) == 0 ) || *update ) 
 		{   // perform update exclusions
 
 		  if( pReturn->count < USHRT_MAX ) // Truncate counts at storage limit
