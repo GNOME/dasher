@@ -67,12 +67,20 @@ protected:
 		return m_Alphabet;
 	}
 
-	
-	CLanguageModelParams* m_pParams;
+	// const?
+	CLanguageModelParams* LanguageModelParams() const
+	{
+		return m_pParams;
+	}
 
+	
+	
  private:
 	
 	const CSymbolAlphabet m_Alphabet;
+
+	// perhaps this should be const - or should we just take a copy?
+	CLanguageModelParams* m_pParams;
 
 };
 
