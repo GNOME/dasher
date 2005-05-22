@@ -140,7 +140,7 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetLongDefault(LM_BACKOFF_CONST, 100 );
 	this->ChangeLMOption( LM_BACKOFF_CONST, Store->GetLongOption( LM_BACKOFF_CONST ) );
 
-	Store->SetLongDefault(LM_EXCLUSION, 1 );
+	Store->SetLongDefault(LM_EXCLUSION, 0 );
 	this->ChangeLMOption( LM_EXCLUSION, Store->GetLongOption( LM_EXCLUSION ) );
 
 	Store->SetLongDefault(LM_UPDATE_EXCLUSION, 1 );
