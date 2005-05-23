@@ -65,7 +65,7 @@ public:
 	// depend on the implementation (for example, could be the
 	// number of nodes in a trie, or the physical memory usage).
 
-	virtual int GetMemory() {};
+	virtual int GetMemory() =0;
 
 protected:
 	int GetSize() const {return m_Alphabet.GetSize();}
