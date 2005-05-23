@@ -57,7 +57,6 @@ namespace Keys {
   // Language model options - to eventually be made more dynamic
 
   const std::string LM_MAX_ORDER = "LMMaxOrder";
-  const std::string LM_BACKOFF_CONST = "LMBackoffConst";
   const std::string LM_EXCLUSION = "LMExclusion";
   const std::string LM_UPDATE_EXCLUSION = "LMUpdateExclusion";
   const std::string LM_ALPHA = "LMAlpha";
@@ -136,9 +135,6 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetLongDefault(LM_MAX_ORDER, 5 );
 	this->ChangeLMOption( LM_MAX_ORDER, Store->GetLongOption( LM_MAX_ORDER ) );
-
-	Store->SetLongDefault(LM_BACKOFF_CONST, 100 );
-	this->ChangeLMOption( LM_BACKOFF_CONST, Store->GetLongOption( LM_BACKOFF_CONST ) );
 
 	Store->SetLongDefault(LM_EXCLUSION, 0 );
 	this->ChangeLMOption( LM_EXCLUSION, Store->GetLongOption( LM_EXCLUSION ) );

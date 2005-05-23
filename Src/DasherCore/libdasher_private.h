@@ -67,9 +67,20 @@ class dasher_ui : public CDasherSettingsInterface
       if( pname == "LMMaxOrder" ) {
 	handle_parameter_int( INT_LM_MAXORDER, Value ); 
       }
-      else if( pname == "LMBackoffConst" ) {
-	handle_parameter_int( INT_LM_BACKOFFCONST, Value );
+      else if( pname == "LMAlpha" ) {
+	handle_parameter_int( INT_LM_ALPHA, Value ); 
       }
+      else if( pname == "LMBeta" ) {
+	handle_parameter_int( INT_LM_BETA, Value ); 
+      }
+      else if( pname == "LMExclusion" ) {
+	handle_parameter_int( INT_LM_EXCLUSION, Value ); 
+      }
+      else if( pname == "LMUpdateExclusion" ) {
+	handle_parameter_int( INT_LM_UPDATE_EXCLUSION, Value ); 
+      }
+
+
     };
 
   void ChangeView(unsigned int NewViewID)

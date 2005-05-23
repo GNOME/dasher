@@ -260,8 +260,14 @@ extern "C" void lmsettings_edited_callback(GtkCellRendererText *cell, gchar *pat
 
   if( strcmp( gv, "LMMaxOrder" ) == 0 )
     dasher_set_parameter_int( INT_LM_MAXORDER, atoi( new_text ) );
-  else if( strcmp( gv, "LMBackoffConst" ) == 0 )
-    dasher_set_parameter_int( INT_LM_BACKOFFCONST, atoi( new_text ) );
+  else if( strcmp( gv, "LMAlpha" ) == 0 )
+    dasher_set_parameter_int( INT_LM_ALPHA, atoi( new_text ) );
+  else if( strcmp( gv, "LMBeta" ) == 0 )
+    dasher_set_parameter_int( INT_LM_BETA, atoi( new_text ) );
+  else if( strcmp( gv, "LMExclusion" ) == 0 )
+    dasher_set_parameter_int( INT_LM_EXCLUSION, atoi( new_text ) );
+  else if( strcmp( gv, "LMUpdateExclusion" ) == 0 )
+    dasher_set_parameter_int( INT_LM_UPDATE_EXCLUSION, atoi( new_text ) );
 
 }
 
@@ -295,10 +301,18 @@ generate_lm_options(GtkWidget *widget, gpointer user_data) {
   gtk_list_store_clear( lmsettings_list_store );
 
   gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 5, -1 );
-
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 0, -1 );
   gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMAlpha", 1, 0, -1 );
+  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBeta", 1, 0, -1 ); 
+  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1 );
+  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1 );
+
+  //gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  //gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
  
 }
 
@@ -2032,12 +2046,26 @@ void parameter_int_callback( int_param p, long int value )
       gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
       break;
 
-    case INT_LM_BACKOFFCONST: 
+    case INT_LM_ALPHA: 
       model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
       gtk_tree_model_get_iter_from_string( model, &iter, "1" );
       gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
       break;
-
+    case INT_LM_BETA: 
+      model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+      gtk_tree_model_get_iter_from_string( model, &iter, "2" );
+      gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
+      break;
+    case INT_LM_EXCLUSION: 
+      model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+      gtk_tree_model_get_iter_from_string( model, &iter, "3" );
+      gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
+      break;
+    case INT_LM_UPDATE_EXCLUSION: 
+      model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+      gtk_tree_model_get_iter_from_string( model, &iter, "4" );
+      gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
+      break;
     default:
       break;
     }

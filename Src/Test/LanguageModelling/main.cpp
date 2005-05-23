@@ -78,16 +78,14 @@ int main( int argc, char *argv[] )
 
 	CLanguageModelParams settings;
 
-// 	for( int order(0); order <= 10; ++order )
-// 	  for( int exclusion(0); exclusion < 2; ++exclusion )
-// 	    for( int update_exclusion(0); update_exclusion < 2; ++update_exclusion )
+ 	for( int order(0); order < 10; ++order )
+ 	  for( int exclusion(0); exclusion < 2; ++exclusion )
+ 	    for( int update_exclusion(0); update_exclusion < 2; ++update_exclusion )
 
-	int order(4);
-	int exclusion(1);
-	int update_exclusion(1);
 
-	double alpha(0.0);
-	double beta(0.5);
+	{
+	double alpha(0.77);
+	double beta(0.49);
 
 	int length( 5000 );
 	
@@ -143,10 +141,11 @@ int main( int argc, char *argv[] )
 		    
 		    lm.LearnSymbol(context, s);
 		  }
-			cout << "Read " << sz << " bytes, " << vSymbols.size() << " symbols " << endl;
-			cout << "Compressed size: " << -dSumLogP/ log(2.0) << " bits" << endl;
-			cout << "Compression acheivable is " << -dSumLogP/ log(2.0)/ vSymbols.size() << " bits per symbol" << endl;
-		//		cout << order << " " << exclusion << " " << update_exclusion << " " << -dSumLogP/ log(2.0)/ vSymbols.size() << endl;
+			//	cout << "Read " << sz << " bytes, " << vSymbols.size() << " symbols " << endl;
+			//	cout << "Compressed size: " << -dSumLogP/ log(2.0) << " bits" << endl;
+			//cout << "Compression acheivable is " << -dSumLogP/ log(2.0)/ vSymbols.size() << " bits per symbol" << endl;
+			cout << order << " " << exclusion << " " << update_exclusion << " " << -dSumLogP/ log(2.0)/ vSymbols.size() << endl;
+}
 			//		cout << skip << " " << -dSumLogP/ log(2.0)/ length << endl;
 
 		

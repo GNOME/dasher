@@ -338,9 +338,19 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_LM_MAXORDER:
       interface->ChangeLMOption( "LMMaxOrder", value ); // FIXME - repeated translation of references to parameters is silly
       break;
-    case INT_LM_BACKOFFCONST:
-      interface->ChangeLMOption( "LMBackoffConst", value );
+    case INT_LM_ALPHA:
+      interface->ChangeLMOption( "LMAlpha", value );
       break;
+    case INT_LM_BETA:
+      interface->ChangeLMOption( "LMBeta", value );
+      break;
+    case INT_LM_EXCLUSION:
+      interface->ChangeLMOption( "LMExclusion", value );
+      break;
+    case INT_LM_UPDATE_EXCLUSION:
+      interface->ChangeLMOption( "LMUpdateExclusion", value );
+      break;
+
     default:
       break;
     }

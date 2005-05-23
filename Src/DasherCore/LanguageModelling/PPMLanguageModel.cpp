@@ -90,7 +90,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 				{
 					exclusions[pSymbol->symbol]=1;
 
-					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(100*pSymbol->count - beta)/(iTotal + alpha)/100;
+					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
 					
 
 					probs[pSymbol->symbol]+=p;
@@ -108,7 +108,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	int symbolsleft=0;
 	
 	for (i=0; i < iNumSymbols ; i++)
-	  if ( ! probs[i] )
+	  if ( !(exclusions[i] && doExclusion))
 	    symbolsleft++;
 	
 //	std::ostringstream str;
@@ -125,7 +125,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 
 	for (i=0;  i < iNumSymbols ; i++) 
 	{
-		if (!probs[i] ) 
+		if (!(exclusions[i] && doExclusion)) 
 		{
 			unsigned int p=size_of_slice/symbolsleft;
 			probs[i]+=p;
@@ -348,7 +348,7 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	{
 	  //	  std::cout << "Using existing node" << std::endl;
 
-		if (*update || (LanguageModelParams()->GetValue("LMUpdateExcusion") == 0) ) 
+		if (*update || (LanguageModelParams()->GetValue("LMUpdateExclusion") == 0) ) 
 		{   // perform update exclusions
 			pReturn->count++;
 			*update=0;
