@@ -392,16 +392,23 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 void CDasherInterface::ChangeLanguageModel(int NewLanguageModelID)
 {
 
-  m_LanguageModelID = NewLanguageModelID;
-  if (m_Alphabet!=0) {
-    
-    CreateDasherModel();
-    
-    // We need to call start here so that the root is recreated, otherwise it will fail (this is probably something which needs to be fixed in a more integrated way)
-    
-    Start(); 
-    
+  if( NewLanguageModelID != m_LanguageModelID ) {
+    m_LanguageModelID = NewLanguageModelID;
+    if (m_Alphabet!=0) {
+      
+      CreateDasherModel();
+      
+      // We need to call start here so that the root is recreated, otherwise it will fail (this is probably something which needs to be fixed in a more integrated way)
+      
+      Start(); 
+      
+    }
+    if (m_SettingsUI!=0)
+      m_SettingsUI->ChangeLanguageModel(NewLanguageModelID);
+    if (m_SettingsStore!=0)
+      m_SettingsStore->SetLongOption(Keys::LANGUAGE_MODEL_ID,NewLanguageModelID);
   }
+  
 }
 
 

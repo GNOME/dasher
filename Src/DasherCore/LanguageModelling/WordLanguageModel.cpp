@@ -167,6 +167,9 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 
 	bool doExclusion = (LanguageModelParams()->GetValue( std::string( "LMExclusion" ) ) == 1 );
 
+	int alpha = LanguageModelParams()->GetValue( std::string( "LMAlpha" ) );
+	int beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) );
+
 	unsigned int iToSpend = norm;
 
 	CWordnode* pTemp=wordcontext->head;
@@ -194,8 +197,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 				{
 					exclusions[pSymbol->sbl]=1;
 					
-
-					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(2* pSymbol->count - 1)/2/iTotal;
+					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
 					probs[pSymbol->sbl]+=p;
 					iToSpend-=p;		
 				}
