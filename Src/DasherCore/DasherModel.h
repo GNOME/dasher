@@ -51,9 +51,10 @@ public:
 
 	typedef enum
 	{
-		idPPM =0,
-		idBigram =1,
-		idWord =2
+		idPPM = 0,
+		idBigram = 1,
+		idWord = 2,
+		idMixture = 3
 	} LanguageModelID;
 
 

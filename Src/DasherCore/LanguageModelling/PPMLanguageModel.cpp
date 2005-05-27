@@ -29,6 +29,8 @@ CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLan
 	m_pRootContext= m_ContextAlloc.Alloc();
 	m_pRootContext->head=m_pRoot;
 	m_pRootContext->order=0;
+
+
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -368,5 +370,4 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	return pReturn;		
 	
 }
-
 

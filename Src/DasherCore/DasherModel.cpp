@@ -15,7 +15,8 @@
 #include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
 #include "LanguageModelling/WordLanguageModel.h"
-
+#include "LanguageModelling/DictLanguageModel.h"
+#include "LanguageModelling/MixtureLanguageModel.h"
 
 using namespace Dasher;
 using namespace std;
@@ -37,6 +38,7 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   
   CSymbolAlphabet alphabet( pAlphabet->GetNumberTextSymbols() );
   alphabet.SetSpaceSymbol( pAlphabet->GetSpaceSymbol() ); // FIXME - is this right, or do we have to do some kind of translation?
+  alphabet.SetAlphabetPointer( pAlphabet ); // Horrible hack, but ignore for now.
 
   // Create an appropriate language model;
 
@@ -48,6 +50,9 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
     break;
   case idWord:
     m_pLanguageModel = new CWordLanguageModel(alphabet, _params);
+    break; 
+  case idMixture:
+    m_pLanguageModel = new CMixtureLanguageModel(alphabet, _params);
     break;
   }
 	

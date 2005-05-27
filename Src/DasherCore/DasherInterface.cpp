@@ -138,6 +138,9 @@ void CDasherInterface::CreateDasherModel()
       case 1:
 	NewLanguageModelID = CDasherModel::idWord;
 	break;
+      case 2:
+	NewLanguageModelID = CDasherModel::idMixture;
+	break;	
       }
 
       m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);

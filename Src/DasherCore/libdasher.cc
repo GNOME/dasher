@@ -350,7 +350,9 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_LM_UPDATE_EXCLUSION:
       interface->ChangeLMOption( "LMUpdateExclusion", value );
       break;
-
+    case INT_LM_MIXTURE:
+      interface->ChangeLMOption( "LMMixture", value );
+      break;
     default:
       break;
     }

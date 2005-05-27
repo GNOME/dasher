@@ -79,6 +79,9 @@ class dasher_ui : public CDasherSettingsInterface
       else if( pname == "LMUpdateExclusion" ) {
 	handle_parameter_int( INT_LM_UPDATE_EXCLUSION, Value ); 
       }
+      else if( pname == "LMMixture" ) {
+	handle_parameter_int( INT_LM_MIXTURE, Value ); 
+      }
 
 
     };

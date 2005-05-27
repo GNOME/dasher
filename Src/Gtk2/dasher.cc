@@ -267,7 +267,9 @@ extern "C" void lmsettings_edited_callback(GtkCellRendererText *cell, gchar *pat
   else if( strcmp( gv, "LMExclusion" ) == 0 )
     dasher_set_parameter_int( INT_LM_EXCLUSION, atoi( new_text ) );
   else if( strcmp( gv, "LMUpdateExclusion" ) == 0 )
-    dasher_set_parameter_int( INT_LM_UPDATE_EXCLUSION, atoi( new_text ) );
+    dasher_set_parameter_int( INT_LM_UPDATE_EXCLUSION, atoi( new_text ) );  
+  else if( strcmp( gv, "LMMixture" ) == 0 )
+  dasher_set_parameter_int( INT_LM_MIXTURE, atoi( new_text ) );
 
 }
 
@@ -310,6 +312,8 @@ generate_lm_options(GtkWidget *widget, gpointer user_data) {
   gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1 );
   gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
   gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1 );
+  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
+  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMMixture", 1, 0, -1 );
 
   //gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
   //gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
@@ -1574,6 +1578,8 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data)
       dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
     } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton7")) {
       dasher_set_parameter_int( INT_LANGUAGEMODEL, 1 );
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton8")) {
+      dasher_set_parameter_int( INT_LANGUAGEMODEL, 2 );
     }
   }
   
@@ -2035,6 +2041,10 @@ void parameter_int_callback( int_param p, long int value )
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7"))) != TRUE)
 	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7")), TRUE);
 	break;
+      case 2:
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8")), TRUE);
+	break;
       }
       break;
 
@@ -2064,6 +2074,11 @@ void parameter_int_callback( int_param p, long int value )
     case INT_LM_UPDATE_EXCLUSION: 
       model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
       gtk_tree_model_get_iter_from_string( model, &iter, "4" );
+      gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
+      break;
+    case INT_LM_MIXTURE: 
+      model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
+      gtk_tree_model_get_iter_from_string( model, &iter, "5" );
       gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
       break;
     default:

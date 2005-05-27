@@ -9,6 +9,8 @@
 #ifndef __LanguageModelling_SymbolAlphabet_h__
 #define __LanguageModelling_SymbolAlphabet_h__
 
+#include "../Alphabet/Alphabet.h"
+
 /////////////////////////////////////////////////////////////////////////////
 //
 // CSymbolAlphabet - represents the LanguageModel's alphabet
@@ -59,9 +61,28 @@ namespace Dasher
 		  return m_SpaceSymbol;
 		}
 		
+		void SetAlphabetPointer( const CAlphabet *_AlphabetPointer ) {
+
+		  // NOTE - you are VERY strongly discouraged from
+		  // using this function. It is only here as a hack
+		  // until I figure out a better solution.
+
+		  AlphabetPointer = _AlphabetPointer;
+		}
+
+		const CAlphabet *GetAlphabetPointer() const {
+
+		  // NOTE - you are VERY strongly discouraged from
+		  // using this function. It is only here as a hack
+		  // until I figure out a better solution.
+
+		  return AlphabetPointer;
+		}
+
 	private:
 		int m_iSize;
 		int m_SpaceSymbol;
+		const CAlphabet *AlphabetPointer;
 	};
 
 }
