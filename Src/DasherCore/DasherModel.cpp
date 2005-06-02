@@ -574,13 +574,13 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	if( !m_bControlMode ) 
 	{
 	  control_space = 0;
-	  uniform_add = ((iNorm / 1000 ) / (iSymbols-2) ) * m_uniform; // Subtract 2 from no symbols to lose control/root nodes
+	  uniform_add = ((iNorm * m_uniform) / 1000 ) / (iSymbols-2); // Subtract 2 from no symbols to lose control/root nodes
 	  nonuniform_norm = iNorm - (iSymbols-2) * uniform_add;
 	}
 	else 
 	{
 	  control_space = int(iNorm * 0.05);
-	  uniform_add = (((iNorm - control_space) / 1000 ) / (iSymbols-2) ) * m_uniform; // Subtract 2 from no symbols to lose control/root nodes
+	  uniform_add = (((iNorm - control_space) * m_uniform / 1000 ) / (iSymbols-2) ); // Subtract 2 from no symbols to lose control/root nodes
 	  nonuniform_norm = iNorm - control_space - (iSymbols-2) * uniform_add;
 	}
 
