@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-04 16:16+0300\n"
-"PO-Revision-Date: 2005-05-04 09:50+0300\n"
+"POT-Creation-Date: 2005-06-06 13:30+0300\n"
+"PO-Revision-Date: 2005-06-04 14:06+0300\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -170,7 +170,12 @@ msgstr "Избиране на Файл"
 #. This gets pulled out via gettext
 #: ../Src/Gtk2/dasher.cc:1661
 msgid "translator_credits"
-msgstr "Владимир Петков <vpetkov@i-space.org>"
+msgstr ""
+"Владимир Петков <vpetkov@i-space.org>\n"
+"\n"
+"Проектът за превод на GNOME има нужда от подкрепа.\n"
+"Научете повече за нас на http://gnome.cult.bg\n"
+"Докладвайте за грешки на http://gnome.cult.bg/bugs"
 
 #: ../Src/Gtk2/dasher.cc:1663 ../Src/Gtk2/dasher.glade.h:34
 #: ../Src/Gtk2/dashergpe.glade.h:35
@@ -593,6 +598,9 @@ msgstr "Текстов запис на Dasher"
 
 #~ msgid "Language Model"
 #~ msgstr "Модел за езика"
+
+#~ msgid "Mixture model (PPM/dictionary)"
+#~ msgstr "Смесен модел (PPM/dictionary)"
 
 #~ msgid "Standard letter-based PPM"
 #~ msgstr "Стандартен базиран на букви PPM"
