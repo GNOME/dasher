@@ -30,7 +30,7 @@ World co-ordinates are converted to Dasher co-ordinates by the notion of a root 
 
 \end{enumerate}
 
-In the following, co-ordinates will be assumed to be in Dasher co-ordinates unless explicitly given.
+In the following, co-ordinates will be assumed to be in Dasher co-ordinates unless explicitly stated.
 
 \section{Dynamics}
 
@@ -40,7 +40,7 @@ This is achieved by zooming about the point on the right-hand edge of the viewpo
 
 To calculate the scale factor at each time step, first of all the scale factor required to place the point under the pointer under the cross-hair is calculated. The number of steps over which this should be done is also found. The latter is dependent on a number of factors, including the speed of the machine and the user-specified maximum bit rate and is stored in {\tt iSteps}.
 
-Strictly speaking a geometric progression should be used to calculate a constant scale-factor for all steps in the series. In practice this is difficult to achieve using integer arithmetic, so an approximation is used in stead (in the present implementation a linear division of the overall scale-factor is used, although a Taylor expansion around $1$ could give more accurate results if needed).
+Strictly speaking a geometric progression should be used to calculate a constant scale-factor for all steps in the series. In practice this is difficult to achieve using integer arithmetic, so an approximation is used instead (in the present implementation a linear division of the overall scale-factor is used, although a Taylor expansion around $1$ could give more accurate results if needed).
 
 Having calculated the point about which to zoom, and the scale factor for the next time-step, it is straightforward to calculate the new values of {\tt m\_Rootmin} and {\tt m\_Rootmax} to reflect the enlargement of the root node.
 
