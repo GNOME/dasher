@@ -16,7 +16,7 @@
 
 
 #include "../../Common/NoClones.h"
-#include "../../Common/assert.h"
+#include "../../Common/myassert.h"
 #include <vector>
 
 class CFontStore : public NoClones

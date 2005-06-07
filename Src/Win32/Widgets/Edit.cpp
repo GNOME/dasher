@@ -21,7 +21,7 @@
 #include <mbstring.h>
 #include "../resource.h"
 
-#include "../WinCommon/DasherEncodingToCP.h"
+#include "../Common/DasherEncodingToCP.h"
 
 using namespace Dasher;
 using namespace std;

@@ -205,7 +205,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
 
 	// Actual height in pixels
-	Cint32 iHeight = Cint32( (iSize * CanvasY)/DasherModel().DasherY() );
+	Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
 
 	if (iHeight <=1)
 		return 0;

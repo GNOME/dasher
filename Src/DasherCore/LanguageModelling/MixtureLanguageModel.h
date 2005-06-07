@@ -110,7 +110,7 @@ public:
 	// depend on the implementation (for example, could be the
 	// number of nodes in a trie, or the physical memory usage).
 
-	virtual int GetMemory() {};
+	virtual int GetMemory() {return 0;};
 
  private:
 	CLanguageModel *lma;

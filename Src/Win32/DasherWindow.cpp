@@ -10,7 +10,7 @@
 
 #include "DasherWindow.h"
 
-#include "WinCommon/WinMenus.h"
+#include "Common/WinMenus.h"
 
 #include "../DasherCore/DasherTypes.h"
 #include "Widgets/AboutBox.h"

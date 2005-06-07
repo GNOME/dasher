@@ -13,7 +13,7 @@
 
 
 #include "../resource.h"
-#include "../../DasherCore/AlphIO.h"
+#include "../../DasherCore/Alphabet/AlphIO.h"
 
 namespace Dasher 
 {

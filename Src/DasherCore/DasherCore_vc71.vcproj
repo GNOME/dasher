@@ -343,6 +343,12 @@
 				RelativePath=".\LanguageModelling\BigramLanguageModel.h">
 			</File>
 			<File
+				RelativePath=".\LanguageModelling\DictLanguageModel.cpp">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\DictLanguageModel.h">
+			</File>
+			<File
 				RelativePath=".\LanguageModelling\LanguageModel.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -434,36 +440,6 @@
 			</File>
 			<File
 				RelativePath=".\LanguageModelling\WordLanguageModel.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Win95 compatible Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Win95 compatible Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\LanguageModelling\WordLanguageModel.h">

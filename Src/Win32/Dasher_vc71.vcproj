@@ -227,7 +227,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="D:\source\c\dasher\Src\Win32\Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -678,46 +678,46 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="WinCommon"
+			Name="Common"
 			Filter="">
 			<File
-				RelativePath=".\WinCommon\DasherEncodingToCP.cpp">
+				RelativePath=".\Common\DasherEncodingToCP.cpp">
 			</File>
 			<File
-				RelativePath=".\WinCommon\DasherEncodingToCP.h">
+				RelativePath=".\Common\DasherEncodingToCP.h">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinCommon.h">
+				RelativePath=".\Common\WinCommon.h">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinHelper.cpp">
+				RelativePath=".\Common\WinHelper.cpp">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinHelper.h">
+				RelativePath=".\Common\WinHelper.h">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinLocalisation.cpp">
+				RelativePath=".\Common\WinLocalisation.cpp">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinLocalisation.h">
+				RelativePath=".\Common\WinLocalisation.h">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinMenus.cpp">
+				RelativePath=".\Common\WinMenus.cpp">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinMenus.h">
+				RelativePath=".\Common\WinMenus.h">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinUTF8.cpp">
+				RelativePath=".\Common\WinUTF8.cpp">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinUTF8.h">
+				RelativePath=".\Common\WinUTF8.h">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinWrap.cpp">
+				RelativePath=".\Common\WinWrap.cpp">
 			</File>
 			<File
-				RelativePath=".\WinCommon\WinWrap.h">
+				RelativePath=".\Common\WinWrap.h">
 			</File>
 		</Filter>
 		<File
