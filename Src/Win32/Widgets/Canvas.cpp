@@ -121,8 +121,6 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
 	switch (message) 
 	{
-	case WM_TIMER:
-		 return OnTimer(Window);
 	case WM_COMMAND:
 		SendMessage(Parent, message, wParam, lParam);
 		return 0;
@@ -261,17 +259,14 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 	return 0;
 }
 
-
-
-int CCanvas::OnTimer(HWND Window)
+int CCanvas::OnTimer()
 {
-
 	POINT mousepos;		
 	GetCursorPos(&mousepos);
 
 	if (running==0) 
 	{
-		ScreenToClient(Window,&mousepos);			
+		ScreenToClient(m_hwnd,&mousepos);			
 		if (m_MousePosStart==true) // configuration option
 		{ 
 			//			DASHER_TRACEOUTPUT("first:%d second:%d %d\n",firstwindow,secondwindow,m_iMousePosDist);
@@ -392,7 +387,7 @@ int CCanvas::OnTimer(HWND Window)
 			return 0;
 	}
 
-	ScreenToClient(Window,&mousepos);			
+	ScreenToClient(m_hwnd,&mousepos);			
 	imousey=mousepos.y;
 	imousex=mousepos.x;
 

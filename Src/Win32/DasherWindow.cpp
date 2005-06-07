@@ -34,6 +34,9 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), 
 	m_CurrentAlphabet(""), m_CurrentColours("")
 {
+	m_workerThread			= NULL;
+	m_bWorkerShutdown		= false;
+
 	hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR)IDC_DASHER);
 	
 	// Get window title from resource script
@@ -73,18 +76,21 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	MyTime = GetTickCount() - MyTime;
 */
 
-	
-	SetTimer(m_hwnd, IDT_TIMER1,               // timer identifier 
-
-	20,                     // interval 
-
-    (TIMERPROC) NULL); // timer callback
+	// Start up our thread that will periodically handle user movement.  We pass in a pointer to ourselves
+	// since the thread function must be static but needs to act on the object that created it.
+	DWORD dwThreadId = 0;
+    m_workerThread = CreateThread(	NULL,							// default security attributes 
+									0,								// use default stack size  
+									CDasherWindow::WorkerThread,	// thread function 
+									this,							// argument to thread function 
+									0,								// use default creation flags 
+									&dwThreadId);					// returns the thread identifier 
 
 }
 
-
 CDasherWindow::~CDasherWindow()
 {
+	ShutdownWorkerThread();
 
 	delete Splash; // In case Show() was never called.
 	delete m_pToolbar;
@@ -454,18 +460,10 @@ void CDasherWindow::ColourMode(bool Value)
 
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 {
-	HWND testwindow;
+//	HWND testwindow;
 	RECT windowsize;
 	switch (message)
 	{
-	case WM_TIMER:
-		// Ugh. Can't find a desperately nicer way of doing this, though
-		testwindow=GetForegroundWindow();
-		if (testwindow!=m_hwnd) {
-			m_pEdit->SetWindow(testwindow);
-		}
-		SendMessage( m_pCanvas->getwindow(), message, wParam, lParam);
-		break;
 	case MY_LAYOUT:
 		Layout();
 		break;
@@ -788,3 +786,69 @@ void CDasherWindow::Layout()
 	m_pCanvas->Move(0, CurY, Width, CanvasHeight);
 
 }
+
+// Handle periodically poking the canvas to check for user activity.  This use to be done with a SetTimer() call,
+// but this horked up the Visual Studio debugger.
+DWORD CDasherWindow::WorkerThread(LPVOID lpParam) 
+{ 
+	CDasherWindow*		parent = (CDasherWindow*) lpParam;
+
+	if (parent == NULL)
+	{
+		return -1;
+	}
+
+	HWND testwindow = NULL;
+
+	while (!parent->m_bWorkerShutdown)
+	{
+		::Sleep(20);
+
+		// Ugh. Can't find a desperately nicer way of doing this, though
+		testwindow = GetForegroundWindow();
+		if (testwindow != parent->m_hwnd) 
+		{
+			parent->m_pEdit->SetWindow(testwindow);
+		}
+		parent->m_pCanvas->OnTimer();
+
+	}
+
+	return 0; 
+} 
+
+// Called when we want to get the worker thread to stop.
+void CDasherWindow::ShutdownWorkerThread()
+{
+	const int CHECK_EVERY_MS			= 100;			// Time between successive attempts to gracefully shutdown
+	const int MAX_BEFORE_HARD_KILL		= 2000;			// Maximum time to try for a gracefull thread shutdown
+
+	m_bWorkerShutdown = true;
+
+	if (m_workerThread != NULL)
+	{
+		// Give the thread some time to shut itself down gracefully
+		int		elapsed		= 0;
+		DWORD	dwResult	= WAIT_TIMEOUT;
+
+		while (dwResult == WAIT_TIMEOUT)
+		{
+			dwResult = WaitForSingleObject(m_workerThread, 100);
+
+			if (dwResult == WAIT_TIMEOUT)
+			{
+				elapsed += CHECK_EVERY_MS;
+				::Sleep(CHECK_EVERY_MS);
+			}
+		}
+
+		// If all else fails, we'll hard kill the thread
+		if (dwResult == WAIT_TIMEOUT)
+			TerminateThread(m_workerThread, 0);
+
+		CloseHandle(m_workerThread);
+		m_workerThread = NULL;
+	}
+}
+
+

@@ -118,6 +118,7 @@ public:
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+
 private:
 	Dasher::CDasherSettingsInterface* DasherSettingsInterface;
 	Dasher::CDasherWidgetInterface* DasherWidgetInterface;
@@ -166,10 +167,20 @@ private:
 	bool mouseposstart;
 	bool speech;
 	bool palettechange;
+	
 
 	// Misc window handling
 	void SetMenuCheck(UINT MenuItem, bool Value);
 	void Layout();
+
+	HANDLE   m_workerThread;    // Handle to our worker thread that periodically 
+	                            // checks on user's activities
+	bool     m_bWorkerShutdown;	// Set to true when the worker should terminate
+	
+	static DWORD  WINAPIWorkerThread(LPVOID lpParam);   // Function where the 
+	                                            // worker thread spins around
+	void ShutdownWorkerThread();// Called when we want the worker thread to stop
+
 };
 
 

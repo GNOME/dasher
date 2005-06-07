@@ -62,7 +62,9 @@ public:
 	void DrawOutlines(bool Value) {m_pScreen->DrawOutlines(Value);}
 	void Pause() {running=0;}
 	bool Running() {return running;}
-	void SetScreenInterface(Dasher::CDasherWidgetInterface* widgetinterface){m_pScreen->SetInterface(widgetinterface);}
+	void SetScreenInterface(Dasher::CDasherWidgetInterface* widgetinterface){m_pScreen->SetInterface(widgetinterface);}	
+	int	OnTimer();
+
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -117,9 +119,6 @@ private:
 	DWORD previoustime;
 
 	RECT coords;
-
-	// Message handler functions
-	int OnTimer(HWND Window);
 };
 
 

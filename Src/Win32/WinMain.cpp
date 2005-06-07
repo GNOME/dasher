@@ -6,13 +6,13 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "WinCommon.h"
+#include "Common/WinCommon.h"
 
 //#ifdef _DEBUG
 // #include "vld.h"
 //#endif 
 
-#include "WinHelper.h"
+#include "Common/WinHelper.h"
 
 #include "DasherWindow.h"
 #include "Widgets/WinOptions.h"
