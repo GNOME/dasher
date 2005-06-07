@@ -228,78 +228,148 @@ void CDasherModel::Start()
 
 double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
-	double dRx=1.0*m_DasherOX/Mousex;
-	
-	double dRxnew;
 
-	// URGH - floating point
+  // ******
+  // CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
+  // 
+  // Calculate the new co-ordinates for the root node after a single update step
+  // 
+  // Mousex - x mouse co-ordinate measured right to left
+  // Mousey - y mouse co-ordinate measured top to bottom.
+  // ******
 
-	int iSteps=m_fr.Steps();
+  // FIXME - get rid of floating point here.
 
-	DASHER_ASSERT(iSteps>0);
+  // I *think* all co-ordinates are in the dasher co-ordinate system
 
-	if (Mousex<m_DasherOX) {
+  // Comments refer to the code immedialtely before them
 
-		if (Mousex<=0)
-			Mousex=1;
+  double dRx=1.0*m_DasherOX/Mousex;
+  
+  // m_DasherOX - x co-ordinate of cross-hair, so this is the scale
+  // factor needed to put the dasher point under the mouse under the
+  // cross hair.
+  
+  double dRxnew;
+  
+  int iSteps=m_fr.Steps();
+  
+  DASHER_ASSERT(iSteps>0);
+  
+  // iSteps is the number of update steps we need to get the point
+  // under the cursor over to the cross hair. Calculated in order to
+  // keep a constant bit-rate.
 
-		//dRxnew=pow(dRx,1.0/iSteps);  // or exp(log(rx)/steps) - i think the replacement is faster   
-		dRxnew=1+(dRx-1)/iSteps;
-		
-		const double dRxmax=m_fr.Rxmax();
-		if (dRxnew>dRxmax)
-		 dRxnew=dRxmax;
+  if (Mousex<m_DasherOX) {
+    
+    // We're in the 'move forward' side of the canvas.
 
-	} 
-	else 
-	{
-		dRxnew=1+(dRx-1)/iSteps;
+    if (Mousex<=0)
+      Mousex=1;
+    
+    // Avoid the very right-hand edge, as this will cause infinities -
+    // note that this seems utterly pointless, as we've already
+    // calculated dRx by this point and don't use Mousex again in this
+    // function, so maybe we should move this to the start?
+    
 
-		// Stop zooming out when no parents
-		if (m_Rootmax<m_DasherY && m_Rootmin> myint(0) ) 
-			return(1.0);
-	} 
+    dRxnew=1+(dRx-1)/iSteps;
+    
+    // Calculate the required single step zoom to achieve dRx in
+    // iSteps steps. Note that this should be:
+    //
+    // dRxnew=pow(dRx,1.0/iSteps)
+    //
+    // But we make an approximation in order to avoid the need for
+    // floating point arithmetic.
 
-	// dRxnew is the scale factor (treat the above as a definition)
+    const double dRxmax=m_fr.Rxmax();
 
-	myint above=(Mousey-m_Rootmin);//*(1-rxnew)/(1-rx);
-	myint below=(m_Rootmax-Mousey);//*(1-rxnew)/(1-rx);
+    if (dRxnew>dRxmax)
+      dRxnew=dRxmax;
 
-	// Distances above and below the mouse cursor of the top and bottom of the canvas
+    // Check we're not going faster than the speed slider setting
+    // allows.
 
-	// The below is horrible - fix it sometime
+  } 
+  else 
+    {
+      // We're in the 'move backwards' section of the canvas
 
-	myint miDistance=m_DasherY/2-Mousey;
+      dRxnew=1+(dRx-1)/iSteps;
 
+      // See above  - (not entirely sure why we need to treat this as a special case...)
 
-	if (Mousex!=m_DasherOX)
-		miDistance=myint(miDistance*(dRxnew-1)/(dRx-1));
-	else
-		miDistance = miDistance/iSteps;
+      if (m_Rootmax<m_DasherY && m_Rootmin> myint(0) ) 
+	return(1.0);
 
-	myint miNewrootzoom=Mousey+miDistance;
+      // m_DasherY is the bottom of the visible canvas, so make sure
+      // that the root entirely fits on the screen (this seems
+      // contrary to what David just said...)
 
-	myint newRootmax=miNewrootzoom+myint(below*dRxnew);
-	myint newRootmin=miNewrootzoom-myint(above*dRxnew);
+    } 
 
-	if (newRootmin>=m_DasherY/2)  
-		newRootmin= m_DasherY/2-1;
-	if (newRootmax<=m_DasherY/2)  
-		newRootmax= m_DasherY/2+1;
+  // Now we've figured out what to scale, do the scaling. Remember,
+  // dRxnew is the scale factor.
 
-	// Need to check whether we've expanded beyond limit
-	if (newRootmax<m_Rootmax_max && newRootmin > m_Rootmin_min)    
-	{
-		m_Rootmax=newRootmax;
-		m_Rootmin=newRootmin;
-	} 
-	else
-	{
-		// TODO - force a new root to be chosen
-	}
+  myint above=(Mousey-m_Rootmin);//*(1-rxnew)/(1-rx);
+  myint below=(m_Rootmax-Mousey);//*(1-rxnew)/(1-rx);
+  
+  // Distances above and below the mouse cursor to the edges of the
+  // root node.
 
-	return log( dRxnew );
+  myint miDistance=m_DasherY/2-Mousey;
+  
+  // miDistance - y distance of mouse cursor above the mid point of the canvas
 
+  if (Mousex!=m_DasherOX)
+    miDistance=myint(miDistance*(dRxnew-1)/(dRx-1));
+  else
+    miDistance = miDistance/iSteps;
+
+  // Work out what the new y distance of mouse above midpoint should
+  // be after the update. Who knows why we have two cases here. Also,
+  // note that for the approximation used above, (dRxnew-1)/(dRx-1) is
+  // eual to 1/iSteps, so in this case the two branches do exactly the
+  // same thing. This wouldn't be the case if we used teh exact update
+  // rule.
+
+  myint miNewrootzoom=Mousey+miDistance;
+
+  // New centre point of the root note
+
+  myint newRootmax=miNewrootzoom+myint(below*dRxnew);
+  myint newRootmin=miNewrootzoom-myint(above*dRxnew);
+
+  // Calculate the new bounaries by scaling above and below
+
+  if (newRootmin>=m_DasherY/2)  
+    newRootmin= m_DasherY/2-1;
+  if (newRootmax<=m_DasherY/2)  
+    newRootmax= m_DasherY/2+1;
+
+  // Check that we haven't drifted too far. The rule is that we're not
+  // allowed to let the root max and min cross the midpoint of the
+  // screen.
+
+  if (newRootmax<m_Rootmax_max && newRootmin > m_Rootmin_min)    
+    {
+      // Only update if we're not making things big enough to risk
+      // overflow. In theory we should have reparented the root well
+      // before getting this far.
+
+      m_Rootmax=newRootmax;
+      m_Rootmin=newRootmin;
+    } 
+  else
+    {
+      // TODO - force a new root to be chosen, so that we get better
+      // behaviour than just having Dasher stop at this point.
+    }
+  
+   return log( dRxnew );
+
+   // Return value is the zoom factor so we can keep track of bitrate.
 }
 
 void CDasherModel::Get_new_goto_coords(double zoomfactor, myint MouseY) 
