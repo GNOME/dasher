@@ -244,6 +244,8 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
   // Comments refer to the code immedialtely before them
 
+  std::cout << Mousex << " " << Mousey << std::endl;
+
   if (Mousex<=0) {
     Mousex=1;
   }
@@ -315,6 +317,10 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
       // Only update if we're not making things big enough to risk
       // overflow. In theory we should have reparented the root well
       // before getting this far.
+      //
+      // Also don't allow the update if it will result in making the
+      // root too small. Again, we should have re-generated a deeper
+      // root in most cases, but the original root is an exception.
 
       m_Rootmax=newRootmax;
       m_Rootmin=newRootmin;
