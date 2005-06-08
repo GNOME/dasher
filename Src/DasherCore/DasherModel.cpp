@@ -229,7 +229,8 @@ void CDasherModel::Start()
 ///
 /// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
 /// 
-/// Calculate the new co-ordinates for the root node after a single update step
+/// Calculate the new co-ordinates for the root node after a single
+/// update step. For further information, see Doc/geometry.tex.
 /// 
 /// \param Mousex x mouse co-ordinate measured right to left.
 /// \param Mousey y mouse co-ordinate measured top to bottom.
@@ -240,31 +241,20 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
   // FIXME - get rid of floating point here.
 
-  // I *think* all co-ordinates are in the dasher co-ordinate system
-
   // Comments refer to the code immedialtely before them
-
-  std::cout << Mousex << " " << Mousey << std::endl;
 
   if (Mousex<=0) {
     Mousex=1;
   }
-  
-  // Avoid the very right-hand edge, as this will cause infinities
 
-  if( Mousex == m_DasherOX ) {
-    Mousex = m_DasherOX - 1;
-  }
-    
-  // Also avoid the crosshair, as this causes singularities
+  // Avoid Mousex=0, as this corresponds to infinite zoom
 
-  double dRx=m_DasherOX/static_cast<double>(Mousex);
-  
-  // m_DasherOX - x co-ordinate of cross-hair, so this is the scale
-  // factor needed to put the point under the mouse under the
-  // cross hair.
-  
-  double dRxnew;
+  int iTargetMin( Mousey - (m_DasherY*Mousex)/(2*m_DasherOX) );
+  int iTargetMax( Mousey + (m_DasherY*Mousex)/(2*m_DasherOX) );
+
+  // Calculate what the extremes of the viewport will be when the
+  // point under the cursor is at the cross-hair. This is where 
+  // we want to be in iSteps updates
   
   int iSteps=m_fr.Steps();
   
@@ -274,39 +264,57 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
   // under the cursor over to the cross hair. Calculated in order to
   // keep a constant bit-rate.
 
-  dRxnew=1+(dRx-1)/iSteps;
-    
-  // Calculate the required single step zoom to achieve dRx in
-  // iSteps steps. Note that this should be:
-  //
-  // dRxnew=pow(dRx,1.0/iSteps)
-  //
-  // But we make an approximation in order to avoid the need for
-  // floating point arithmetic.
+  int iNewTargetMin;
+  int iNewTargetMax;
+
+  //  iNewTargetMin = iTargetMin * m_DasherY/( (iSteps - 1)*(iTargetMax - iTargetMin) + m_DasherY );
+  // iNewTargetMax = m_DasherY - ( m_DasherY - iTargetMax ) * m_DasherY/( (iSteps - 1)*(iTargetMax - iTargetMin) + m_DasherY );
+
+  iNewTargetMin = ( iTargetMin * m_DasherY / ( m_DasherY + ( iSteps - 1 ) * ( iTargetMax - iTargetMin ) ));
   
+  iNewTargetMax = ( (iTargetMax * iSteps - iTargetMin * ( iSteps - 1 )) * m_DasherY ) / ( m_DasherY + ( iSteps - 1 ) * ( iTargetMax - iTargetMin ));
+
+  iTargetMin = iNewTargetMin;
+  iTargetMax = iNewTargetMax; 
+
+  // Calculate the new values of iTargetMin and iTargetMax required to
+  // perform a single update step. Note that the slightly awkward
+  // expressions are in order to reproduce the behaviour of the old
+  // algorithm
+
   const double dRxmax=m_fr.Rxmax();
-  
-  if (dRxnew>dRxmax)
-    dRxnew=dRxmax;
-  
+
+  myint iMinSize( static_cast<myint>(m_DasherY / dRxmax) );
+
+  // Calculate the minimum size of the viewport corresponding to the
+  // maximum zoom (todo: make this fully integer).
+
+  if( (iTargetMax - iTargetMin ) < iMinSize ) {
+
+    //    iNewTargetMin = (iTargetMin + iTargetMax - iMinSize ) / 2;
+    //iNewTargetMax = (iTargetMin + iTargetMax + iMinSize ) / 2;
+
+    iNewTargetMin = iTargetMin * ( m_DasherY - iMinSize ) / ( m_DasherY - ( iTargetMax - iTargetMin ) );
+    iNewTargetMax = iNewTargetMin + iMinSize;
+
+    iTargetMin = iNewTargetMin;
+    iTargetMax = iNewTargetMax; 
+
+  }
+
   // Check we're not going faster than the speed slider setting
-  // allows.
+  // allows, and adjust if necessary.
 
-  myint zoom_centre( m_DasherY/2 - ((m_DasherY/2 - Mousey) * (m_DasherOX)/(m_DasherOX - Mousex)));
+  myint newRootmin( ( ( m_Rootmin - iTargetMin ) * m_DasherY ) / ( iTargetMax - iTargetMin ) );
+  myint newRootmax( ( ( m_Rootmax - iTargetMax ) * m_DasherY ) / ( iTargetMax - iTargetMin ) + m_DasherY );
 
-  // Calculte the point about which we're zooming by projecting from
-  // the crosshair through the mouse pointer to the right hand edge.
+  // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
 
-  myint newRootmin=zoom_centre - dRxnew * ( zoom_centre - m_Rootmin );
-  myint newRootmax=zoom_centre + dRxnew * ( m_Rootmax - zoom_centre );
-
-  // Scale the root about those edges
-
-  if (newRootmin>=m_DasherY/2)  
-    newRootmin= m_DasherY/2-1;
-
-  if (newRootmax<=m_DasherY/2)  
-    newRootmax= m_DasherY/2+1;
+  if( newRootmin > m_DasherY/2 )
+    newRootmin = m_DasherY/2;
+  
+  if( newRootmax < m_DasherY/2 )
+    newRootmax = m_DasherY/2;
 
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
@@ -331,11 +339,112 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
       // behaviour than just having Dasher stop at this point.
     }
   
-   return log( dRxnew );
-   
-  
+   return log( (iTargetMax - iTargetMin)/static_cast<double>(m_DasherY) );
+     
    // Return value is the zoom factor so we can keep track of bitrate.
 }
+
+// double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
+// {
+//   // FIXME - get rid of floating point here.
+
+//   // I *think* all co-ordinates are in the dasher co-ordinate system
+
+//   // Comments refer to the code immedialtely before them
+
+//   std::cout << Mousex << " " << Mousey << std::endl;
+
+//   if (Mousex<=0) {
+//     Mousex=1;
+//   }
+  
+//   // Avoid the very right-hand edge, as this will cause infinities
+
+//   if( Mousex == m_DasherOX ) {
+//     Mousex = m_DasherOX - 1;
+//   }
+    
+//   // Also avoid the crosshair, as this causes singularities
+
+//   double dRx=m_DasherOX/static_cast<double>(Mousex);
+  
+//   // m_DasherOX - x co-ordinate of cross-hair, so this is the scale
+//   // factor needed to put the point under the mouse under the
+//   // cross hair.
+  
+//   double dRxnew;
+  
+//   int iSteps=m_fr.Steps();
+  
+//   DASHER_ASSERT(iSteps>0);
+  
+//   // iSteps is the number of update steps we need to get the point
+//   // under the cursor over to the cross hair. Calculated in order to
+//   // keep a constant bit-rate.
+
+//   dRxnew=1+(dRx-1)/iSteps;
+    
+//   // Calculate the required single step zoom to achieve dRx in
+//   // iSteps steps. Note that this should be:
+//   //
+//   // dRxnew=pow(dRx,1.0/iSteps)
+//   //
+//   // But we make an approximation in order to avoid the need for
+//   // floating point arithmetic.
+  
+//   const double dRxmax=m_fr.Rxmax();
+  
+//   if (dRxnew>dRxmax)
+//     dRxnew=dRxmax;
+  
+//   // Check we're not going faster than the speed slider setting
+//   // allows.
+
+//   myint zoom_centre( m_DasherY/2 - ((m_DasherY/2 - Mousey) * (m_DasherOX)/(m_DasherOX - Mousex)));
+
+//   // Calculte the point about which we're zooming by projecting from
+//   // the crosshair through the mouse pointer to the right hand edge.
+
+//   myint newRootmin=zoom_centre - dRxnew * ( zoom_centre - m_Rootmin );
+//   myint newRootmax=zoom_centre + dRxnew * ( m_Rootmax - zoom_centre );
+
+//   // Scale the root about those edges
+
+//   if (newRootmin>=m_DasherY/2)  
+//     newRootmin= m_DasherY/2-1;
+
+//   if (newRootmax<=m_DasherY/2)  
+//     newRootmax= m_DasherY/2+1;
+
+//   // Check that we haven't drifted too far. The rule is that we're not
+//   // allowed to let the root max and min cross the midpoint of the
+//   // screen.
+
+//   if (newRootmax<m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > m_DasherY/4 )    
+//     {
+//       // Only update if we're not making things big enough to risk
+//       // overflow. In theory we should have reparented the root well
+//       // before getting this far.
+//       //
+//       // Also don't allow the update if it will result in making the
+//       // root too small. Again, we should have re-generated a deeper
+//       // root in most cases, but the original root is an exception.
+
+//       m_Rootmax=newRootmax;
+//       m_Rootmin=newRootmin;
+//     } 
+//   else
+//     {
+//       // TODO - force a new root to be chosen, so that we get better
+//       // behaviour than just having Dasher stop at this point.
+//     }
+  
+//    return log( dRxnew );
+   
+  
+//    // Return value is the zoom factor so we can keep track of bitrate.
+// }
+
 
 // double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 // {

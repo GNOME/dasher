@@ -34,7 +34,7 @@ In the following, co-ordinates will be assumed to be in Dasher co-ordinates unle
 
 \section{Dynamics}
 
-Dasher makes discrete updates to the display in order to zoom in on a chosen string. The underlying idea is that if the mouse is not moved, the point in the Dasher world directly under the mouse cursor should move so that after a specific time it under the cross-hair. 
+Dasher makes discrete updates to the display in order to zoom in on a chosen string. The underlying idea is that if the mouse is not further moved, the point in the Dasher world directly under the mouse cursor should move so that after a specific time it is under the cross-hair. 
 
 This is achieved by zooming about the point on the right-hand edge of the viewport found by extending a line which passes through the cross-hair and the mouse cursor. The $y$ co-ordinate of this point is stored in {\tt zoom\_centre} (see Figure \ref{geometry_fig}).
 
