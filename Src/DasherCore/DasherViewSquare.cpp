@@ -455,7 +455,11 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
 
 void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
 {
-        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+      if (DasherModel().Eyetracker()==true) {
+		  UnMapScreen(&mousex, &mousey);
+	  }
+	
+	  if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
   
 	  screenint Swapper;
 	
@@ -463,26 +467,7 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
 	  screen2dasher(mousex,mousey,&dasherx,&dashery);
 	  mousex=dasherx2screen(dasherx);
 	  mousey=dashery2screen(dashery);
-	  switch (ScreenOrientation) {
-	  case (LeftToRight):
-	    break;
-	  case (RightToLeft):
-	    mousex = Screen().GetWidth() - mousex;
-	    break;
-	  case (TopToBottom):
-	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
-	    mousey = Swapper;
-	    break;
-	  case (BottomToTop):
-	    // Note rotation by 90 degrees not reversible like others
-	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
-	    mousey = Swapper;
-	    break;
-	  default:
-	    break;
-	  }
+	  MapScreen(&mousex, &mousey);
 	}
 
 	CDasherScreen::point mouseline[2];
@@ -492,6 +477,10 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
 	mouseline[1].x=mousex;
 	mouseline[1].y=mousey;	  	
 
+    // Brian W. 7/6/05 - Ensuring line starts at crosshair origin 
+    MapScreen(&mouseline[0].x, &mouseline[0].y); 
+ 
+ 
 	if (ColourMode==true) {
 	  Screen().Polyline(mouseline,2,1);
 	} else {
