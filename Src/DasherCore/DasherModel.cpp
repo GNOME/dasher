@@ -241,6 +241,8 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
   // Comments refer to the code immedialtely before them
 
+
+
   if (Mousex<=0) {
     Mousex=1;
   }
@@ -291,6 +293,8 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
     iTargetMax = iNewTargetMax; 
 
   }
+
+  //  std::cout << Mousey << " " << iTargetMin << " " << iTargetMax << std::endl;
 
   // Check we're not going faster than the speed slider setting
   // allows, and adjust if necessary. Note that if we re-size the

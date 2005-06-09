@@ -11,6 +11,7 @@
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 
+#include <iostream>
 #include <algorithm>
 
 using namespace Dasher;
@@ -362,8 +363,11 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
     if (autocalibrate) {
         AutoCalibrate(&mousex, &mousey);
     }
+
+    
 	myint idasherx,idashery;
 	screen2dasher(mousex,mousey,&idasherx,&idashery);
+
 	DasherModel().Tap_on_display(idasherx,idashery, Time);
 	CheckForNewRoot();
 }
@@ -569,9 +573,11 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 {
     bool eyetracker=DasherModel().Eyetracker();
     // bool DasherRunning = DasherModel().Paused();
-	
 
-	imousey += int(m_yAutoOffset);
+    // Add the eyetracker autocalibration offset if necessary
+
+    if( eyetracker )
+      imousey += int(m_yAutoOffset);
 
     // Maybe this mousey tweak should take place earlier, elsewhere, and 
     // have a permanent effect on mousey rather than just local.
@@ -778,10 +784,11 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey)
           // change if we're past the significance boundary.
 
           if (m_ySum > m_ySigBiasPixels || m_ySum < -m_ySigBiasPixels) {
-             if (m_ySum > m_yFilterTimescale)
+	    if (m_ySum > m_yFilterTimescale) {
                  m_yAutoOffset--;
-             else if (m_ySum < -m_yFilterTimescale)
-                 m_yAutoOffset++;
+	    }
+	    else if (m_ySum < -m_yFilterTimescale)
+	      m_yAutoOffset++;
             
              m_ySum = 0;
           }
