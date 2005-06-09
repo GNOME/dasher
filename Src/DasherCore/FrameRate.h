@@ -23,6 +23,15 @@ class CFrameRate {
 		~CFrameRate() {};
 		void Initialise();
 		double Rxmax() const {return m_dRXmax;}
+
+		/// Get the minimum size of the target viewport
+		///
+		/// TODO: Eventually fix this so that it uses integer maths internally.
+
+		myint MinSize( myint t ) const {
+		  return t / m_dRXmax;
+		};
+
 		int Steps() const {return m_iSteps;}
 		double Framerate() const {return m_dFr;}
 		void Reset(unsigned long Time);

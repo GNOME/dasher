@@ -239,8 +239,6 @@ void CDasherModel::Start()
 
 double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 {
-  // FIXME - get rid of floating point here.
-
   // Comments refer to the code immedialtely before them
 
   if (Mousex<=0) {
@@ -267,9 +265,6 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
   int iNewTargetMin;
   int iNewTargetMax;
 
-  //  iNewTargetMin = iTargetMin * m_DasherY/( (iSteps - 1)*(iTargetMax - iTargetMin) + m_DasherY );
-  // iNewTargetMax = m_DasherY - ( m_DasherY - iTargetMax ) * m_DasherY/( (iSteps - 1)*(iTargetMax - iTargetMin) + m_DasherY );
-
   iNewTargetMin = ( iTargetMin * m_DasherY / ( m_DasherY + ( iSteps - 1 ) * ( iTargetMax - iTargetMin ) ));
   
   iNewTargetMax = ( (iTargetMax * iSteps - iTargetMin * ( iSteps - 1 )) * m_DasherY ) / ( m_DasherY + ( iSteps - 1 ) * ( iTargetMax - iTargetMin ));
@@ -282,17 +277,12 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
   // expressions are in order to reproduce the behaviour of the old
   // algorithm
 
-  const double dRxmax=m_fr.Rxmax();
-
-  myint iMinSize( static_cast<myint>(m_DasherY / dRxmax) );
+  myint iMinSize( m_fr.MinSize( m_DasherY ) );
 
   // Calculate the minimum size of the viewport corresponding to the
-  // maximum zoom (todo: make this fully integer).
+  // maximum zoom.
 
   if( (iTargetMax - iTargetMin ) < iMinSize ) {
-
-    //    iNewTargetMin = (iTargetMin + iTargetMax - iMinSize ) / 2;
-    //iNewTargetMax = (iTargetMin + iTargetMax + iMinSize ) / 2;
 
     iNewTargetMin = iTargetMin * ( m_DasherY - iMinSize ) / ( m_DasherY - ( iTargetMax - iTargetMin ) );
     iNewTargetMax = iNewTargetMin + iMinSize;
@@ -303,7 +293,23 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
   }
 
   // Check we're not going faster than the speed slider setting
-  // allows, and adjust if necessary.
+  // allows, and adjust if necessary. Note that if we re-size the
+  // target we need to be careful about where we centre the new range
+  // (hence the slightly complicated expression above)
+
+  DoZoom( iTargetMin, iTargetMax );
+
+  // Actually do the zooming
+  
+  return log( (iTargetMax - iTargetMin)/static_cast<double>(m_DasherY) );
+     
+  // Return value is the zoom factor so we can keep track of bitrate.
+}
+
+/// Zoom the display so that [iTargetMin,iTargetMax] (in current
+/// Dasher co-ordinates) are the new extremes of the viewport.
+
+void CDasherModel::DoZoom( myint iTargetMin, myint iTargetMax ) {
 
   myint newRootmin( ( ( m_Rootmin - iTargetMin ) * m_DasherY ) / ( iTargetMax - iTargetMin ) );
   myint newRootmax( ( ( m_Rootmax - iTargetMax ) * m_DasherY ) / ( iTargetMax - iTargetMin ) + m_DasherY );
@@ -338,10 +344,6 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
       // TODO - force a new root to be chosen, so that we get better
       // behaviour than just having Dasher stop at this point.
     }
-  
-   return log( (iTargetMax - iTargetMin)/static_cast<double>(m_DasherY) );
-     
-   // Return value is the zoom factor so we can keep track of bitrate.
 }
 
 // double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)

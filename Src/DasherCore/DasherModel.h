@@ -214,6 +214,9 @@ private:
 	CDasherNode* Get_node_under_mouse(myint smousex,myint smousey);
 	CDasherNode* Get_node_under_crosshair();
 	double Get_new_root_coords(myint mousex,myint mousey);
+
+	void DoZoom( myint iTargetMin, myint iTargetMax );
+
 	void Get_new_goto_coords(double zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 
