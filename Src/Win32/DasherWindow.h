@@ -177,8 +177,8 @@ private:
 	                            // checks on user's activities
 	bool     m_bWorkerShutdown;	// Set to true when the worker should terminate
 	
-	static DWORD  WINAPIWorkerThread(LPVOID lpParam);   // Function where the 
-	                                            // worker thread spins around
+	static DWORD  WINAPI WorkerThread(LPVOID lpParam);   // Function where the 
+	                                             // worker thread spins around
 	void ShutdownWorkerThread();// Called when we want the worker thread to stop
 
 };
