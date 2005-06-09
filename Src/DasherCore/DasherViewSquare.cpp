@@ -294,15 +294,18 @@ void CDasherViewSquare::CheckForNewRoot()
 	unsigned int i;
 
 	// Find whether there is exactly one alive child; if more, we don't care.
-	for (i=1;i<root->ChildCount();i++) {
-		if (children[i]->Alive()) {
+	for (i=0;i<root->ChildCount();i++) 
+	{
+		if (children[i]->Alive()) 
+		{
 			alive++;
 			theone=i;
             if(alive>1) break; 
 		}
 	}
 
-	if (alive==1) {	  
+	if (alive==1) 
+	{	  
 	// We must have zoomed sufficiently that only one child of the root node 
 	// is still alive.  Let's make it the root.
 
