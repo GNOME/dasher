@@ -10,7 +10,7 @@
 
 #include "DasherModel.h"
 
-#include <iostream>
+//#include <iostream>
 
 #include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
@@ -106,8 +106,9 @@ void CDasherModel::Make_root(int whichchild)
 {
 
 	symbol t=m_Root->Symbol();
-	if (t) 
-	{  // SYM0
+	if (t < m_pcAlphabet->GetNumberTextSymbols() ) 
+	{  
+		// SYM0
 		m_pLanguageModel->LearnSymbol(LearnContext, t);
 	}
 
