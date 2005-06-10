@@ -325,54 +325,281 @@ void CDasherViewSquare::CheckForNewRoot()
 	}
 }
 
+/// Convert screen co-ordinates to dasher co-ordinates. This doesn't
+/// include the nonlinear mapping for eyetracking mode etc - it is
+/// just the inverse of the mapping used to calculate the screen
+/// positions of boxes etc.
+
+void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY ) {
+
+  // Things we're likely to need:
+
+  myint iDasherWidth = DasherModel().DasherY();
+  myint iDasherHeight = DasherModel().DasherY();
+
+  myint iCanvasWidth = CanvasX;
+  myint iCanvasHeight = CanvasY;
+
+  screenint iScreenWidth = Screen().GetWidth();
+  screenint iScreenHeight = Screen().GetHeight();
+  
+  // Calculate the bounding box of the Dasher canvas in screen
+  // co-ordinates (this will depend on the orientation due to the
+  // margin)
+  //
+  // FIXME - there's some horrible stuff here due to CanvasX and
+  // CanvasY having no sane relationship with the actual width and
+  // height of the canvas
+  
+  screenint iScreenCanvasMinX;
+  screenint iScreenCanvasMaxX;
+  screenint iScreenCanvasMinY;
+  screenint iScreenCanvasMaxY;
+
+ switch (ScreenOrientation) {
+ case (Dasher::Opts::LeftToRight):
+   iScreenCanvasMinX = 0;
+   iScreenCanvasMaxX = iCanvasWidth;
+   iScreenCanvasMinY = 0;
+   iScreenCanvasMaxY = iCanvasHeight;
+   break;
+ case (Dasher::Opts::RightToLeft):
+   iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
+   iScreenCanvasMaxX = iScreenWidth;
+   iScreenCanvasMinY = 0;
+   iScreenCanvasMaxY = iCanvasHeight;
+   break;
+ case (Dasher::Opts::TopToBottom):
+   iScreenCanvasMinX = 0;
+   iScreenCanvasMaxX = iScreenWidth;
+   iScreenCanvasMinY = 0;
+   iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth; // URGH
+   break;
+ case (Dasher::Opts::BottomToTop):
+   iScreenCanvasMinX = 0;
+   iScreenCanvasMaxX = iScreenWidth;
+   iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth; // Still URGH
+   iScreenCanvasMaxY = iScreenHeight;
+   break;
+ default:
+   break;
+ }
+
+ // Now we've got the bouding box, use the input positions relative to
+ // the box to get the actual Dasher co-ordinates
+ 
+ switch (ScreenOrientation) {
+ case (Dasher::Opts::LeftToRight):
+   iDasherX = (iScreenCanvasMaxX - iInputX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
+   iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
+   break;
+ case (Dasher::Opts::RightToLeft):
+   iDasherX = (iInputX - iScreenCanvasMinX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
+   iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
+   break;
+ case (Dasher::Opts::TopToBottom):
+   iDasherX = (iScreenCanvasMaxY - iInputY) * iDasherWidth / (iScreenCanvasMaxY - iScreenCanvasMinY);
+   iDasherY = (iInputX - iScreenCanvasMinX) * iDasherHeight / (iScreenCanvasMaxX - iScreenCanvasMinX);
+   break;
+ case (Dasher::Opts::BottomToTop):
+   iDasherX = (iInputY - iScreenCanvasMinY) * iDasherWidth / (iScreenCanvasMaxY - iScreenCanvasMinY);
+   iDasherY = (iInputX - iScreenCanvasMinX) * iDasherHeight / (iScreenCanvasMaxX - iScreenCanvasMinX);
+   break;
+ default:
+   break;
+ }
+}
+
+/// Convert raw Dasher co-ordinates to the equivalent 1D mode position
+
+void CDasherViewSquare::Dasher2OneD( myint &iDasherX, myint &iDasherY ) {
+
+    double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
+    
+    // The distance between the Y coordinate and the centreline in pixels
+    disty=DasherModel().DasherOY()-iDasherY;
+        
+    circlesize=    DasherModel().DasherY()/2.5;
+    yforwardrange= DasherModel().DasherY()/1.6;
+    yfullrange=    yforwardrange*1.6;
+    ybackrange=    yfullrange-yforwardrange;
+    ellipse_eccentricity=6;
+ 
+    if (disty>yforwardrange) {
+      // If the distance between y-coord and centreline is > radius,
+      // we should be going backwards, off the top.
+      yb=(disty-yforwardrange)/ybackrange;
+      
+      if (yb>1) {
+	x=0;
+	iDasherY=double(DasherModel().DasherOY());
+      }
+      else { 
+	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
+	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
+	iDasherY=-(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
+      }
+    }
+    else if (disty <-(yforwardrange)) {
+      // Backwards, off the bottom.
+      yb=-(disty+yforwardrange)/ybackrange;
+      
+      if (yb>1) {
+	x=0;
+	iDasherY=double(DasherModel().DasherOY());
+      }   
+      else {
+	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
+	
+	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
+	iDasherY=(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
+      }   
+    }
+    
+    else {
+      angle=((disty*3.14159/2)/yforwardrange);
+      x=cos(angle)*circlesize;
+      iDasherY=-sin(angle)*circlesize+DasherModel().DasherOY();
+    }
+    x=DasherModel().DasherOX()-x;
+
+    iDasherX = x;
+}
+
+/// Convert raw Dasher co-ordinates to eyetracker position
+
+void CDasherViewSquare::Dasher2Eyetracker( myint &iDasherX, myint &iDasherY ) {
+
+  double disty=DasherModel().DasherOY()-iDasherY;
+
+  myint x( iDasherX );
+
+  myint dasherOX=DasherModel().DasherOX(); 
+      //cout << "dasherOX: " << dasherOX << endl; 
+      myint dasherOY=DasherModel().DasherOY(); 
+         
+      // X co-ordinate changes. 
+      double double_x = (x/dasherOX); 
+      double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); 
+             
+      double xmax_y = xmax(double_x, double_y); 
+                 
+      if(double_x < xmax_y) { 
+        double_x = xmax_y; 
+      } 
+
+      x = dasherOX*double_x;                 
+
+      // Finished x-coord changes.
+
+      double repulsionparameter=0.5;
+      iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
+      iDasherX = x;
+
+}
+
+/// Convert abstract 'input coordinates', which may or may not
+/// correspond to actual screen positions, depending on the settings,
+/// into dasher co-ordinates. Modes are:
+///
+/// 0 = Direct (ie mouse)
+/// 1 = 1D
+/// 2 = Eyetracker
+///
+/// This should be done once initially, then we work in Dasher
+/// co-ordinates for everything else. Input co-ordinates will be
+/// assumed to range over the extent of the screen.
+///
+/// TODO: Abstract out modes into an enum
+
+void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int mode ) {
+
+  // FIXME - need to incorporate one-button mode?
+
+  switch( mode ) {
+  case 0: // Direct mode
+    // Simply get the dasher co-ordinate under the mouse cursor
+    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
+    
+    // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
+    if( iDasherY > DasherModel().DasherY() )
+      iDasherY = DasherModel().DasherY();
+    if( iDasherY < 0 )
+      iDasherY = 0;
+
+    break;
+  case 1: // 1D mode
+    // Ignore orientation - iInputY maps directly to the single dimension in this case
+    iDasherY = iInputY * DasherModel().DasherY() / Screen().GetHeight();
+    
+    // Apply non-linear mapping
+    Dasher2OneD( iDasherX, iDasherY );
+
+    break;
+  case 2: // Eyetracker mode
+    // First apply the autocalibration offset
+    iInputY += int(m_yAutoOffset); // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
+
+    // Then find the dasher co-ordinate under the offset mouse position
+    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
+
+    // Finally apply the non-linear transformation
+    Dasher2Eyetracker( iDasherX, iDasherY );
+
+    break;
+  default:
+    // Oops!
+    break;
+  }
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 // work out the next viewpoint
 // move the rectangles accordingly
 void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time) 
 {
-	// convert mouse (screen) coords into dasher coords
-        int Swapper;
 
-	if (mousex>CanvasX)
-		mousex=CanvasX;
+  // FIXME - Actually turn autocalibration on and off!
+  // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
+  // FIXME - Have I broken this by moving it before the offset is applied?
 
-	UnMapScreen(&mousex, &mousey);
+  bool autocalibrate=1;
+  if (autocalibrate) {
+    AutoCalibrate(&mousex, &mousey);
+  }
 
-	if (DasherModel().Dimensions()==true) {
-	  switch (ScreenOrientation) {
-	  case (LeftToRight):
-	    break;
-	  case (RightToLeft):
-	    mousex = Screen().GetWidth() - mousex;
-	    break;
-	  case (TopToBottom):
-	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
-	    mousey = Swapper;
-	    break;
-	  case (BottomToTop):
-	    // Note rotation by 90 degrees not reversible like others
-	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
-	    mousey = Swapper;
-	    break;
-	  default:
-	    break;
-	  }
-	}
-	
-    bool autocalibrate=1;
-    if (autocalibrate) {
-        AutoCalibrate(&mousex, &mousey);
-    }
+  // FIXME - Add a 'get mode' method to CDasherModel (actually, should
+  // the model be responsible for keeping track of the mode? It seems
+  // that everything mode related should happen before the model gets
+  // involved)
 
-    
-	myint idasherx,idashery;
-	screen2dasher(mousex,mousey,&idasherx,&idashery);
+  int mode;
 
-	DasherModel().Tap_on_display(idasherx,idashery, Time);
-	CheckForNewRoot();
+  if( DasherModel().Dimensions() )
+    mode = 1;
+  else if( DasherModel().Eyetracker() )
+    mode = 2;
+  else
+    mode = 0;
+
+  myint iDasherX;
+  myint iDasherY;
+
+  // Convert the input co-ordinates to dasher co-ordinates
+
+  Input2Dasher( mousex, mousey, iDasherX, iDasherY, mode );
+
+  // Request an update at the calculated co-ordinates
+
+  DasherModel().Tap_on_display(iDasherX,iDasherY, Time);
+  CheckForNewRoot();
+
+  // Cache the Dasher Co-ordinates, so we can use them later for things like drawing the mouse position
+
+  m_iDasherXCache = iDasherX;
+  m_iDasherYCache = iDasherY;
+
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -572,6 +799,12 @@ int CDasherViewSquare::GetAutoOffset() const
 
 /////////////////////////////////////////////////////////////////////////////
 
+/// Convert screen co-ordinates to dasher co-ordinates, possibly
+/// involving a non-linear transformation for 1D mode, eyetracking
+/// mode etc.
+///
+/// FIXME - lots of floating point arithmetic here
+
 void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myint* idasherx, myint* idashery) const
 {
     bool eyetracker=DasherModel().Eyetracker();
@@ -757,6 +990,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
     }
     */
     *idasherx=myint(x);
+
 	*idashery=myint(dashery);
 }
 

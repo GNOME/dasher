@@ -56,6 +56,14 @@ public:
 
 private:
 
+	void Input2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int mode );
+	void Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY );
+	void Dasher2OneD( myint &iDasherX, myint &iDasherY );
+	void Dasher2Eyetracker( myint &iDasherX, myint &iDasherY );
+
+	myint m_iDasherXCache;
+	myint m_iDasherYCache;
+
 	// Class definitions
 
 	class Cymap
