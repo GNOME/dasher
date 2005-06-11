@@ -100,35 +100,40 @@ inline screenint CDasherViewSquare::dashery2screen(myint y) const
 
 /////////////////////////////////////////////////////////////////////////////
 
+/// Draw the crosshair
+
 inline void CDasherViewSquare::Crosshair(myint sx)
 {
-	CDasherScreen::point crosshair[2];
+  myint x[2];
+  myint y[2];
+
+  // Vertical bar of crosshair
+
+  x[0] = sx;
+  y[0] = DasherVisibleMinY();
+
+  x[1] = sx;
+  y[1] = DasherVisibleMaxY();
+
+  if (ColourMode==true) {
+    DasherPolyline(x,y,2,5);
+  } else {
+    DasherPolyline(x,y,2,-1);
+  }
 	
-	crosshair[0].x = dasherx2screen(sx);
-	crosshair[0].y = 0;
-	crosshair[1].x = crosshair[0].x;
-	crosshair[1].y = CanvasY;
-	
-	MapScreen(&crosshair[0].x, &crosshair[0].y);
-	MapScreen(&crosshair[1].x, &crosshair[1].y);
-	if (ColourMode==true) {
-		Screen().Polyline(crosshair,2,5);
-	} else {
-		Screen().Polyline(crosshair,2);
-	}
-	
-	crosshair[0].x = dasherx2screen(12*sx/14);
-	crosshair[0].y = CanvasY/2;
-	crosshair[1].x = dasherx2screen(17*sx/14);
-	crosshair[1].y = CanvasY/2;
-	
-	MapScreen(&crosshair[0].x, &crosshair[0].y);
-	MapScreen(&crosshair[1].x, &crosshair[1].y);
-	if (ColourMode==true) {
-		Screen().Polyline(crosshair,2,5);
-	} else {
-		Screen().Polyline(crosshair,2);
-	}
+  // Horizontal bar of crosshair
+
+  x[0] = 12 * sx / 14;
+  y[0] = DasherModel().DasherY() / 2;
+
+  x[1] = 17 * sx / 14;
+  y[1] =  DasherModel().DasherY() / 2;
+
+  if (ColourMode==true) {
+    DasherPolyline(x,y,2,5);
+  } else {
+    DasherPolyline(x,y,2,-1);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////

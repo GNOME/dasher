@@ -58,8 +58,21 @@ private:
 
 	void Input2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int mode );
 	void Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY );
+	void Dasher2Screen( myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY );
 	void Dasher2OneD( myint &iDasherX, myint &iDasherY );
 	void Dasher2Eyetracker( myint &iDasherX, myint &iDasherY );
+
+	void TruncateToScreen( screenint &iX, screenint &iY );
+
+	void DasherPolyline( myint *x, myint *y, int n, int iColour );
+	void DasherDrawRectangle( myint iLeft, myint iTop, myint iRight, myint iBottom,
+				  const int Color, Opts::ColorSchemes ColorScheme );
+	void DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft );
+
+	myint DasherVisibleMinY();
+	myint DasherVisibleMaxY();
+
+	myint DasherVisibleMaxX();
 
 	myint m_iDasherXCache;
 	myint m_iDasherYCache;

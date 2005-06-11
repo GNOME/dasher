@@ -1,11 +1,14 @@
 #include "canvas.h"
 
 #include <iostream>
+#include <sstream>
 
 GtkWidget *the_canvas;
 GdkPixmap *offscreen_buffer;
 GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
+std::map< std::string, PangoLayout * > oPangoCache;
+
 PangoFontDescription *font;
 PangoRectangle *ink,*logical;
 GdkColor *colours;
@@ -16,6 +19,8 @@ extern gboolean firstbox, secondbox,paused;
 
 gboolean drawoutline=FALSE;
 
+/// Regenerate the on- and off- screen rendering buffers
+
 void rebuild_buffer()
 {
   g_free(offscreen_buffer);
@@ -25,18 +30,27 @@ void rebuild_buffer()
   onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
 }
 
+/// Initialise the canvas - create rendering buffers and initialise
+/// font rendering.
+
 void initialise_canvas( int width, int height )
 {
+  // Create new pixmaps
+
   offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
-   onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
+  onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
+
+  // Pango font rendering stuff
+
   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
   font = pango_font_description_new();
-
   pango_font_description_set_family( font,"Serif");
 
   ink = new PangoRectangle;
   logical = new PangoRectangle;
 }
+
+/// Blank the offscreen buffer
 
 void blank_callback()
 {
@@ -89,6 +103,8 @@ void display_callback()
   gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &background);
 
+  // Draw the target areas for 'dwell' start mode if necessary
+
   if (paused==true) {
     if (firstbox==true) {
       draw_mouseposbox(0);
@@ -97,26 +113,35 @@ void display_callback()
     }
   }
 
-  gdk_draw_drawable(onscreen_buffer,
-  		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-  		  offscreen_buffer,
-  		  0, 0, 0,0,
-  		      the_canvas->allocation.width,
-  		      the_canvas->allocation.height);
+  // Copy the offscreen buffer into the onscreen buffer
+  
+  gdk_draw_drawable( onscreen_buffer,
+		     the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+		     offscreen_buffer,
+		     0, 0, 0,0,
+		     the_canvas->allocation.width,
+		     the_canvas->allocation.height);
 
-  gdk_draw_rectangle ( offscreen_buffer,
-		       graphics_context,
+  // Blank the offscreen buffer (?)
+
+  gdk_draw_rectangle( offscreen_buffer,
+		      graphics_context,
                       TRUE,
                       0, 0,
 		      the_canvas->allocation.width,
 		      the_canvas->allocation.height);
   
+  // Invalidate the full canvas to force it to be redrawn on-screen
+
   update_rect.x = 0;
   update_rect.y = 0;
   update_rect.width = the_canvas->allocation.width;
   update_rect.height = the_canvas->allocation.height;
 
   gdk_window_invalidate_rect(the_canvas->window,&update_rect,FALSE);
+
+  // Restore original graphics context (?)
+
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
@@ -235,19 +260,42 @@ void draw_text_callback(symbol Character, int x1, int y1, int size)
   gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &foreground);
   
-  pango_font_description_set_size( font,size*PANGO_SCALE);
+  PangoLayout *pLayout( get_pango_layout( symbol, size ) );
 
-  pango_layout_set_font_description(the_pangolayout,font);
-
-  pango_layout_set_text(the_pangolayout,symbol.c_str(),-1);
-
-  pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
+  pango_layout_get_pixel_extents(pLayout,ink,logical);
 
   gdk_draw_layout (offscreen_buffer,
 		   graphics_context,
-		   x1, y1-ink->height/2, the_pangolayout);
+		   x1, y1-ink->height/2, pLayout);
 
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+}
+
+PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
+  
+  // Calculate the name of the pango layout in the cache - this
+  // includes the display text and the size.
+
+  std::stringstream sCacheName;
+  sCacheName << iSize << "_" << sDisplayText;
+
+  // If we haven't got a cached pango layout for this string/size yet,
+  // create a new one
+
+  if( oPangoCache[ sCacheName.str() ] == NULL ) {
+
+    PangoLayout *pNewPangoLayout( gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "") );
+
+    pango_font_description_set_size( font, iSize*PANGO_SCALE );
+    pango_layout_set_font_description( pNewPangoLayout,font );
+    pango_layout_set_text( pNewPangoLayout,sDisplayText.c_str(),-1 );
+
+    oPangoCache[ sCacheName.str() ] = pNewPangoLayout;
+  }
+
+  // Return the value from the cache.
+
+  return oPangoCache[ sCacheName.str() ];
 }
 
 void draw_text_string_callback(std::string String, int x1, int y1, int size)
@@ -269,17 +317,13 @@ void draw_text_string_callback(std::string String, int x1, int y1, int size)
   gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
   gdk_gc_set_foreground (graphics_context, &foreground);
 
-  pango_font_description_set_size( font,size*PANGO_SCALE);
+  PangoLayout *pLayout( get_pango_layout( String, size ) );
 
-  pango_layout_set_font_description(the_pangolayout,font);
-
-  pango_layout_set_text(the_pangolayout,String.c_str(),-1);
-
-  pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
+  pango_layout_get_pixel_extents(pLayout,ink,logical);
 
   gdk_draw_layout (offscreen_buffer,
 		   graphics_context,
-		   x1, y1-ink->height/2, the_pangolayout);
+		   x1, y1-ink->height/2, pLayout);
 
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
@@ -289,13 +333,11 @@ void text_size_callback(const std::string &String, int* Width, int* Height, int 
   if (setup==false||preferences==true)
       return;
 
-  pango_font_description_set_size( font,size*PANGO_SCALE);
+  // Get a pango layout from the cache.
 
-  pango_layout_set_font_description(the_pangolayout,font);
+  PangoLayout *pLayout( get_pango_layout( String, size ) );
 
-  pango_layout_set_text(the_pangolayout,String.c_str(),-1);
-
-  pango_layout_get_pixel_extents(the_pangolayout,ink,logical);
+  pango_layout_get_pixel_extents( pLayout,ink,logical);
 
   *Width =ink->width;
   *Height=ink->height;

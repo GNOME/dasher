@@ -29,7 +29,7 @@ void CDasherViewSquare::RenderNodes()
 
 	// Render nodes to screen object (should use off screen buffer)
 
-	RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), 2);
+	RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), DasherVisibleMaxX());
 
 	// DelayDraw the text nodes
 	m_DelayDraw.Draw(Screen());
@@ -44,6 +44,8 @@ void CDasherViewSquare::RenderNodes()
 int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,int mostleft)
 {
 	DASHER_ASSERT_VALIDPTR_RW(pRender);
+
+	// Decide which colour to use when rendering the child
 
 	int Color;
 
@@ -198,71 +200,67 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 {
 	DASHER_ASSERT(y2>=y1);
 
-//	DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
-	//DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
+// //	DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
+// 	//DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
 
-	// Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
-	screenint s1,s2;
-	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
+// 	// Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
+// 	screenint s1,s2;
+// 	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
 
-	// Actual height in pixels
-	Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
+// 	// Actual height in pixels
+// 	Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
 
-	if (iHeight <=1)
-		return 0;
+// 	if (iHeight <=1)
+// 		return 0;
 
-	// horizontal width of the square is controlled by the true size (y2-y1) in Dasher world
-	screenint iLeft=dasherx2screen(y2-y1);
+// 	// horizontal width of the square is controlled by the true size (y2-y1) in Dasher world
+
 		
-	// All squares are right-aligned.
-	screenint iRight=CanvasX;
+// 	// All squares are right-aligned.
+// 	screenint iRight=CanvasX;
 		
-	screenint iNewleft=iLeft, iNewtop=s1, iNewright=iRight, iNewbottom=s2;
+// 	screenint iNewleft=iLeft, iNewtop=s1, iNewright=iRight, iNewbottom=s2;
 
-	// Do the rotation
-	MapScreen(&iNewleft, &iNewtop);
-	MapScreen(&iNewright, &iNewbottom);
+// 	// Do the rotation
+// 	MapScreen(&iNewleft, &iNewtop);
+// 	MapScreen(&iNewright, &iNewbottom);
 
 //	DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
 
-	Screen().DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
-	
-	if (iLeft<mostleft)
-		iLeft=mostleft;
+	//Screen().DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
 
-	// Compute font size based on position
-	int Size = Screen().GetFontSize();
-	screenint iLeftTimesFontSize = iLeft*Screen().GetFontSize();
-	if (iLeftTimesFontSize < CanvasX*19/20) 
-		Size *= 20;
-	else if (iLeftTimesFontSize < CanvasX*159/160) 
-		Size *= 14;
+
+	// FIXME - Get sensibel limits here (to allow for non-linearities)
+
+ 	screenint s1,s2;
+ 	Cint32 iSize = dashery2screen(y1,y2,s1,s2);
+
+ 	// Actual height in pixels
+ 	Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
+
+	if( iHeight <= 1 )
+	  return 0; // We're too small to render
+
+	if(( y1 > DasherVisibleMaxY() ) || ( y2 < DasherVisibleMinY() ))
+	  return 0; // We're entirely off screen, so don't render.
+
+	myint iDasherSize( y2 - y1 );
+	
+	DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
+	
+	myint iDasherAnchorX( iDasherSize );
+
+	myint iDasherAnchorY( (std::min(y2 , DasherVisibleMaxY()) + std::max(y1, DasherVisibleMinY()))/2 );
+	
+	std::string sDisplayText;
+	
+	if( displaytext != std::string("") )
+	  sDisplayText = displaytext;
 	else
-		Size *= 11;
+	  sDisplayText = DasherModel().GetDisplayText(Character);
 	
-	screenint TextWidth, TextHeight, OriginX=0, OriginY=0;
-	Screen().TextSize(DasherModel().GetDisplayText(Character), &TextWidth, &TextHeight, Size);
-	UnMapScreen(&TextWidth, &TextHeight);
-	UnMapScreen(&OriginX, &OriginY);		
-	screenint FontHeight = abs(TextHeight-OriginY);		
-	screenint FontWidth = abs(TextWidth-OriginX);
-	mostleft = iLeft + FontWidth;
-
-	screenint newleft2 = iLeft;
-	screenint newtop2 = (iHeight-FontHeight)/2 + s1;
-	screenint newright2 = iLeft + FontWidth;
-	screenint newbottom2 = (iHeight+FontHeight)/2 + s1;
-	MapScreen(&newleft2, &newtop2);
-	MapScreen(&newright2, &newbottom2);
-	iNewleft = std::min(newleft2, newright2);
-	iNewtop = std::min(newtop2, newbottom2);
-
-	if(displaytext!= std::string("") ) 
-	{
-		m_DelayDraw.DelayDrawText(displaytext, iNewleft, iNewtop, Size);
-	} else {
-		m_DelayDraw.DelayDrawText(DasherModel().GetDisplayText(Character), iNewleft, iNewtop, Size);
-	}
+	DasherDrawText( iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft );
+	
 	return 1;
 }
 
@@ -343,6 +341,7 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
   
+
   // Calculate the bounding box of the Dasher canvas in screen
   // co-ordinates (this will depend on the orientation due to the
   // margin)
@@ -362,28 +361,42 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
    iScreenCanvasMaxX = iCanvasWidth;
    iScreenCanvasMinY = 0;
    iScreenCanvasMaxY = iCanvasHeight;
+
+   // Chose iDasherWidth so that the cross hair is in the centre of the screen, even though we have a margin down one side
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+
    break;
  case (Dasher::Opts::RightToLeft):
    iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
    iScreenCanvasMaxX = iScreenWidth;
    iScreenCanvasMinY = 0;
    iScreenCanvasMaxY = iCanvasHeight;
+
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+   
    break;
  case (Dasher::Opts::TopToBottom):
    iScreenCanvasMinX = 0;
    iScreenCanvasMaxX = iScreenWidth;
    iScreenCanvasMinY = 0;
    iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth; // URGH
+
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+
    break;
  case (Dasher::Opts::BottomToTop):
    iScreenCanvasMinX = 0;
    iScreenCanvasMaxX = iScreenWidth;
    iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth; // Still URGH
-   iScreenCanvasMaxY = iScreenHeight;
+   iScreenCanvasMaxY = iScreenHeight; 
+
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
    break;
  default:
    break;
  }
+
+ // FIXME - everything above this line should be cached, as it only changes very rarely
 
  // Now we've got the bouding box, use the input positions relative to
  // the box to get the actual Dasher co-ordinates
@@ -408,6 +421,126 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
  default:
    break;
  }
+
+ iDasherX = ixmap( iDasherX / static_cast<double>( DasherModel().DasherY() ) ) * DasherModel().DasherY();
+ iDasherY = m_ymap.unmap( iDasherY );
+
+}
+
+/// Convert dasher co-ordinates to screen co-ordinates
+
+void CDasherViewSquare::Dasher2Screen( myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY ) {
+
+  // Apply the nonlinearities
+
+  iDasherX = xmap( iDasherX / static_cast<double>( DasherModel().DasherY() ) ) * DasherModel().DasherY();
+  iDasherY = m_ymap.map( iDasherY );
+
+  // Things we're likely to need:
+
+  myint iDasherWidth = DasherModel().DasherY();
+  myint iDasherHeight = DasherModel().DasherY();
+
+  myint iCanvasWidth = CanvasX;
+  myint iCanvasHeight = CanvasY;
+
+  screenint iScreenWidth = Screen().GetWidth();
+  screenint iScreenHeight = Screen().GetHeight();
+  
+  // Calculate the bounding box of the Dasher canvas in screen
+  // co-ordinates (this will depend on the orientation due to the
+  // margin)
+  //
+  // FIXME - there's some horrible stuff here due to CanvasX and
+  // CanvasY having no sane relationship with the actual width and
+  // height of the canvas
+  
+  screenint iScreenCanvasMinX;
+  screenint iScreenCanvasMaxX;
+  screenint iScreenCanvasMinY;
+  screenint iScreenCanvasMaxY;
+
+ switch (ScreenOrientation) {
+ case (Dasher::Opts::LeftToRight):
+   iScreenCanvasMinX = 0;
+   iScreenCanvasMaxX = iCanvasWidth;
+   iScreenCanvasMinY = 0;
+   iScreenCanvasMaxY = iCanvasHeight;
+
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+
+   break;
+ case (Dasher::Opts::RightToLeft):
+   iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
+   iScreenCanvasMaxX = iScreenWidth;
+   iScreenCanvasMinY = 0;
+   iScreenCanvasMaxY = iCanvasHeight;
+
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+   break;
+ case (Dasher::Opts::TopToBottom):
+   iScreenCanvasMinX = 0;
+   iScreenCanvasMaxX = iScreenWidth;
+   iScreenCanvasMinY = 0;
+   iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth; // URGH 
+
+   //  iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+   break;
+ case (Dasher::Opts::BottomToTop):
+   iScreenCanvasMinX = 0;
+   iScreenCanvasMaxX = iScreenWidth;
+   iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth; // Still URGH
+   iScreenCanvasMaxY = iScreenHeight;
+
+   //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+   break;
+ default:
+   break;
+ }
+
+ // FIXME - everything above this line should be cached, as it only changes very rarely
+
+ // Now we've got the bouding box, use the input positions relative to
+ // the box to get the actual Dasher co-ordinates
+ 
+ switch (ScreenOrientation) {
+ case (Dasher::Opts::LeftToRight):
+   iScreenX = iScreenCanvasMaxX - iDasherX * ( iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
+   iScreenY = iDasherY  * ( iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
+   break;
+ case (Dasher::Opts::RightToLeft):
+   iScreenX = iScreenCanvasMinX + iDasherX * ( iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
+   iScreenY = iDasherY  * ( iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
+   break;
+ case (Dasher::Opts::TopToBottom):
+   iScreenX = iDasherY  * ( iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherHeight + iScreenCanvasMinX;
+   iScreenY = iScreenCanvasMaxY - iDasherX * ( iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherWidth;
+   break;
+ case (Dasher::Opts::BottomToTop):
+   iScreenX = iDasherY  * ( iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherHeight + iScreenCanvasMinX;
+   iScreenY = iScreenCanvasMinY + iDasherX * ( iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherWidth;
+   break;
+ default:
+   break;
+ }
+}
+
+/// The minimum Dasher Y co-ordinate which will be visible
+
+myint CDasherViewSquare::DasherVisibleMinY() {
+  return m_ymap.unmap( 0 );
+}
+
+/// The maximum Dasher Y co-ordinate which will be visible
+
+myint CDasherViewSquare::DasherVisibleMaxY() {
+  return m_ymap.unmap( DasherModel().DasherY() );
+}
+
+/// The maximum Dasher X co-ordinate which will be visible
+
+myint CDasherViewSquare::DasherVisibleMaxX() {
+  return ixmap( 1.0 ) * DasherModel().DasherY();
 }
 
 /// Convert raw Dasher co-ordinates to the equivalent 1D mode position
@@ -436,6 +569,7 @@ void CDasherViewSquare::Dasher2OneD( myint &iDasherX, myint &iDasherY ) {
       }
       else { 
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
+
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
 	iDasherY=-(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
       }
@@ -475,6 +609,9 @@ void CDasherViewSquare::Dasher2Eyetracker( myint &iDasherX, myint &iDasherY ) {
   myint x( iDasherX );
 
   myint dasherOX=DasherModel().DasherOX(); 
+
+  if( iDasherX < dasherOX ) {
+
       //cout << "dasherOX: " << dasherOX << endl; 
       myint dasherOY=DasherModel().DasherOY(); 
          
@@ -495,7 +632,7 @@ void CDasherViewSquare::Dasher2Eyetracker( myint &iDasherX, myint &iDasherY ) {
       double repulsionparameter=0.5;
       iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
       iDasherX = x;
-
+  }
 }
 
 /// Convert abstract 'input coordinates', which may or may not
@@ -553,6 +690,157 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
   }
 }
 
+/// Draw a polyline specified in Dasher co-ordinates
+
+void CDasherViewSquare::DasherPolyline( myint *x, myint *y, int n, int iColour ) {
+
+  CDasherScreen::point ScreenPoints[n];
+
+  for( int i(0); i < n; ++i )
+    Dasher2Screen( x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y );
+  
+  if( iColour != -1 ) {
+    Screen().Polyline(ScreenPoints,n,iColour);
+  } else {
+    Screen().Polyline(ScreenPoints,n);
+  }
+}
+
+// Draw a box specified in Dasher co-ordinates
+
+void CDasherViewSquare::DasherDrawRectangle( myint iLeft, myint iTop, myint iRight, myint iBottom,
+					     const int Color, Opts::ColorSchemes ColorScheme ) {
+  
+  screenint iScreenLeft;
+  screenint iScreenTop;
+  screenint iScreenRight;
+  screenint iScreenBottom;
+
+  Dasher2Screen( iLeft, iTop, iScreenLeft, iScreenTop );
+  Dasher2Screen( iRight, iBottom, iScreenRight, iScreenBottom );
+
+  Screen().DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme);
+}
+
+/// Draw text specified in Dasher co-ordinates. The position is
+/// specified as two co-ordinates, intended to the be the corners of
+/// the leading edge of the containing box.
+
+void CDasherViewSquare::DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft ) {
+
+  // Don't draw text which will overlap with text in an ancestor.
+
+  if (iAnchorX1 > mostleft)
+    iAnchorX1 = mostleft;
+
+  if (iAnchorX2 > mostleft)
+    iAnchorX2 = mostleft;
+  
+  screenint iScreenAnchorX1;
+  screenint iScreenAnchorY1; 
+  screenint iScreenAnchorX2;
+  screenint iScreenAnchorY2;
+
+  Dasher2Screen( iAnchorX1, iAnchorY1, iScreenAnchorX1, iScreenAnchorY1 );
+  Dasher2Screen( iAnchorX2, iAnchorY2, iScreenAnchorX2, iScreenAnchorY2 );
+
+  // Truncate the ends of the anchor line to be on the screen - this
+  // prevents us from loosing characters off the top and bottom of the
+  // screen
+
+  TruncateToScreen( iScreenAnchorX1, iScreenAnchorY1 );
+  TruncateToScreen( iScreenAnchorX2, iScreenAnchorY2 );
+
+  // Actual anchor point is the midpoint of the anchor line
+
+  screenint iScreenAnchorX( (iScreenAnchorX1 + iScreenAnchorX2)/2 );
+  screenint iScreenAnchorY( (iScreenAnchorY1 + iScreenAnchorY2)/2 );
+
+  // Compute font size based on position
+  int Size = Screen().GetFontSize();
+  screenint iLeftTimesFontSize = (iAnchorX1+iAnchorX2)*Screen().GetFontSize()/2;
+  if (iLeftTimesFontSize > DasherModel().DasherY()*1/20) 
+    Size *= 20;
+  else if (iLeftTimesFontSize > DasherModel().DasherY()*1/160) 
+    Size *= 14;
+  else
+    Size *= 11;
+	
+  screenint TextWidth, TextHeight, OriginX=0, OriginY=0;
+  
+  Screen().TextSize(sDisplayText, &TextWidth, &TextHeight, Size);
+
+  // Poistion of text box relative to anchor depends on orientation
+
+  screenint newleft2;
+  screenint newtop2;
+  screenint newright2;
+  screenint newbottom2;
+
+  switch (ScreenOrientation) {
+  case (Dasher::Opts::LeftToRight):
+    newleft2 = iScreenAnchorX;
+    newtop2 = iScreenAnchorY - TextHeight/2;
+    newright2 = iScreenAnchorX + TextWidth;
+    newbottom2 = iScreenAnchorY + TextHeight/2;
+    break;
+  case (Dasher::Opts::RightToLeft):
+    newleft2 = iScreenAnchorX - TextWidth;
+    newtop2 = iScreenAnchorY - TextHeight/2;
+    newright2 = iScreenAnchorX;
+    newbottom2 = iScreenAnchorY + TextHeight/2;
+   break;
+ case (Dasher::Opts::TopToBottom):
+   newleft2 = iScreenAnchorX - TextWidth/2;
+   newtop2 = iScreenAnchorY;
+   newright2 = iScreenAnchorX + TextWidth/2;
+   newbottom2 = iScreenAnchorY + TextHeight;
+   break;
+ case (Dasher::Opts::BottomToTop):
+   newleft2 = iScreenAnchorX - TextWidth/2;
+   newtop2 = iScreenAnchorY - TextHeight;
+   newright2 = iScreenAnchorX + TextWidth/2;
+   newbottom2 = iScreenAnchorY;
+   break;
+ default:
+   break;
+ }
+
+
+  // Update the value of mostleft to take into account the new text
+
+  myint iDasherNewLeft;
+  myint iDasherNewTop;
+  myint iDasherNewRight;
+  myint iDasherNewBottom;
+
+  Screen2Dasher( newleft2, newtop2, iDasherNewLeft, iDasherNewTop );
+  Screen2Dasher( newright2, newbottom2, iDasherNewRight, iDasherNewBottom );
+
+  mostleft = std::min(iDasherNewRight,iDasherNewLeft);
+
+  // Actually draw the text. We use DelayDrawText as the text should
+  // be overlayed once all of the boxes have been drawn.
+
+  m_DelayDraw.DelayDrawText(sDisplayText, newleft2, newtop2, Size);
+
+}
+
+/// Truncate a set of co-ordinates so that they are on the screen
+
+void CDasherViewSquare::TruncateToScreen( screenint &iX, screenint &iY ) {
+  if( iX < 0 )
+    iX = 0;
+  if( iX > Screen().GetWidth() )
+    iX = Screen().GetWidth();
+
+  if( iY < 0 )
+    iY = 0;
+  if( iY > Screen().GetHeight() )
+    iY = Screen().GetHeight(); 
+}
+
+
 /////////////////////////////////////////////////////////////////////////////
 
 // work out the next viewpoint
@@ -563,32 +851,23 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
   // FIXME - Actually turn autocalibration on and off!
   // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
   // FIXME - Have I broken this by moving it before the offset is applied?
+  // FIXME - put ymap stuff back in 
 
   bool autocalibrate=1;
   if (autocalibrate) {
     AutoCalibrate(&mousex, &mousey);
   }
 
-  // FIXME - Add a 'get mode' method to CDasherModel (actually, should
-  // the model be responsible for keeping track of the mode? It seems
-  // that everything mode related should happen before the model gets
-  // involved)
-
-  int mode;
-
-  if( DasherModel().Dimensions() )
-    mode = 1;
-  else if( DasherModel().Eyetracker() )
-    mode = 2;
-  else
-    mode = 0;
-
   myint iDasherX;
   myint iDasherY;
 
   // Convert the input co-ordinates to dasher co-ordinates
 
-  Input2Dasher( mousex, mousey, iDasherX, iDasherY, mode );
+  Input2Dasher( mousex, mousey, iDasherX, iDasherY, DasherModel().GetMode() );
+
+  m_iDasherXCache = iDasherX;
+  m_iDasherYCache = iDasherY;
+
 
   // Request an update at the calculated co-ordinates
 
@@ -597,8 +876,6 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
 
   // Cache the Dasher Co-ordinates, so we can use them later for things like drawing the mouse position
 
-  m_iDasherXCache = iDasherX;
-  m_iDasherYCache = iDasherY;
 
 }
 
@@ -687,39 +964,31 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
 
 /////////////////////////////////////////////////////////////////////////////
 
+/// Draw a line from the crosshair to the mouse position
+
 void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
 {
-      if (DasherModel().Eyetracker()==true) {
-		  UnMapScreen(&mousex, &mousey);
-	  }
-	
-	  if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+  myint x[2];
+  myint y[2];
+
+  // Start of line is the crosshair location
+
+  x[0] = DasherModel().DasherOX();
+  y[0] = DasherModel().DasherOY();
+
+  // End of line is the mouse cursor location - note that we should
+  // probably be using a chached value rather than computing this
+  // separately to TapOn
+
+  Input2Dasher( mousex, mousey, x[1], y[1], DasherModel().GetMode() );
   
-	  screenint Swapper;
-	
-	  myint dasherx,dashery;
-	  screen2dasher(mousex,mousey,&dasherx,&dashery);
-	  mousex=dasherx2screen(dasherx);
-	  mousey=dashery2screen(dashery);
-	  MapScreen(&mousex, &mousey);
-	}
+  // Actually plot the line
 
-	CDasherScreen::point mouseline[2];
-
-	mouseline[0].x=dasherx2screen(DasherModel().DasherOX());
-	mouseline[0].y=CanvasY/2;
-	mouseline[1].x=mousex;
-	mouseline[1].y=mousey;	  	
-
-    // Brian W. 7/6/05 - Ensuring line starts at crosshair origin 
-    MapScreen(&mouseline[0].x, &mouseline[0].y); 
- 
- 
-	if (ColourMode==true) {
-	  Screen().Polyline(mouseline,2,1);
-	} else {
-	  Screen().Polyline(mouseline,2);
-	}
+  if (ColourMode==true) {
+    DasherPolyline(x,y,2,1);
+  } else {
+    DasherPolyline(x,y,2,-1);
+  }
 }
 
 /////////////////////////////////////////////////////////////////////////////

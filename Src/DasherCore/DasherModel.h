@@ -111,6 +111,19 @@ public:
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node
 	void Reparent_root(int lower, int upper);                                 // change back to the previous root
+
+	int GetMode() {
+	  int mode;
+	  
+	  if( Dimensions() )
+	    mode = 1;
+	  else if( Eyetracker() )
+	    mode = 2;
+	  else
+	    mode = 0;
+	  
+	  return mode;
+	}
 	
 	void ResetNats() 
 	{

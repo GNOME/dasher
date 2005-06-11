@@ -2,6 +2,9 @@
 #include <gdk/gdk.h>
 #include <X11/Xlib.h>
 
+#include <map>
+#include <string>
+
 #include "libdasher.h"
 #include "dasher.h"
 
@@ -9,6 +12,8 @@ extern GtkWidget *the_canvas;
 extern GdkPixmap *offscreen_buffer;
 extern GdkPixmap *onscreen_buffer;
 extern PangoLayout *the_pangolayout;
+
+extern std::map< std::string, PangoLayout * > oPangoCache;
 
 void rebuild_buffer();
 void initialise_canvas( int width, int height );
@@ -22,6 +27,8 @@ void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Num
 void draw_text_callback(symbol Character, int x1, int y1, int size);
 void draw_text_string_callback(std::string String, int x1, int y1, int size);
 void text_size_callback(const std::string &String, int* Width, int* Height, int Size);
+
+PangoLayout *get_pango_layout( std::string sDisplayText, int iSize );
 
 void draw_mouseposbox(int which);
 
