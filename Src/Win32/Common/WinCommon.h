@@ -10,7 +10,7 @@
 #ifndef __WinCommon_h__
 #define __WinCommon_h__
 
-
+#pragma message("Compiling WinCommon.h.........................")
 
 #define NOMINMAX
 #define WIN32_LEAN_AND_MEAN // Excludes rarely-used stuff from the Windows headers
@@ -21,6 +21,7 @@
 // Use common controls
 #include <commctrl.h>
 
+#include "../../Common/Common.h"
 
 // windows.h provides the "generic" character type TCHAR.
 #include "tchar.h" // this adds some useful macros
@@ -29,6 +30,7 @@
 #include <string>
 typedef std::basic_string<TCHAR> Tstring;
 
+
 #include "../../Common/NoClones.h"
 
 #include "WinUTF8.h"
@@ -36,7 +38,6 @@ typedef std::basic_string<TCHAR> Tstring;
 #include "WinWrap.h"
 #include "WinLocalisation.h"
 
-#include "../../Common/Common.h"
 
 #if DASHER_WIN32 <= 1300
 	namespace stdext = std;
