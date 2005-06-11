@@ -77,24 +77,41 @@ void CDasherView::DrawMousePosBox()
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay)
+bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay)
 {
+
+  bool bDidSomething(false); // Have we actually done any drawing - no
+			     // point updating the display if we
+			     // didn't
 
   if( bRedrawDisplay ) {
     Screen().SendMarker(0); // Start of 'dasher field'
     RenderNodes();
+    bDidSomething = true;
   }
 
   Screen().SendMarker(1); // Start of 'decoration'
   
-  if (m_bDrawMouse) 
+  if (m_bDrawMouse) {
     DrawMouse(iMouseX, iMouseY);
-  if (m_bDrawMouseLine) 
+    bDidSomething = true;
+  }
+  if (m_bDrawMouseLine) {
     DrawMouseLine(iMouseX, iMouseY);
-  if (m_bDrawKeyboard) 
+    bDidSomething = true;
+  }
+  if (m_bDrawKeyboard) {
     DrawKeyboard();
-  if (m_iDrawMousePosBox !=0)
+    bDidSomething = true;
+
+  }
+  if (m_iDrawMousePosBox !=0) {
     DrawMousePosBox();
+    bDidSomething = true;
+  }
+
+  return bDidSomething;
+
 }
 
 

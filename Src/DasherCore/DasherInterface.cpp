@@ -230,8 +230,8 @@ void CDasherInterface::Redraw(int iMouseX,int iMouseY)
  
   if (m_pDasherView!=0) 
   {
-    m_pDasherView->Render(iMouseX,iMouseY,false);
-    m_pDasherView->Display();
+    if( m_pDasherView->Render(iMouseX,iMouseY,false) ) // Only call display if something changed
+      m_pDasherView->Display();
   }
 
 }
