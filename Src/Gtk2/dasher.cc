@@ -146,6 +146,9 @@ GtkWidget *file_selector;
 std::string dasherfont="DASHERFONT";
 std::string editfont="Sans 10";
 
+int oldx;
+int oldy;
+
 double bitrate;
 
 void 
@@ -980,8 +983,12 @@ timer_callback(gpointer data)
       newy+=dasherheight/2;
       y=int(newy);
     } 
-    
-    dasher_draw_mouse_position(x,y,0);
+
+    if(( x != oldx ) || ( y != oldy )) // Only redraw if the mouse has actually moved
+      dasher_draw_mouse_position(x,y,0);
+
+    oldx = x;
+    oldy = y;
     
     if (mouseposstart==true) {
       // The user must hold the mouse pointer inside the red box, then the yellow box

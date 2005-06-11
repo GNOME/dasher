@@ -31,6 +31,11 @@ CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLan
 	m_pRootContext->order=0;
 
 
+	// Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
+
+	bUpdateExclusion = LanguageModelParams()->GetValue("LMUpdateExclusion");
+
+
 }
 
 /////////////////////////////////////////////////////////////////////
@@ -350,7 +355,8 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode
 	{
 	  //	  std::cout << "Using existing node" << std::endl;
 
-		if (*update || (LanguageModelParams()->GetValue("LMUpdateExclusion") == 0) ) 
+	  //		if (*update || (LanguageModelParams()->GetValue("LMUpdateExclusion") == 0) ) 
+	  if(*update || !bUpdateExclusion )
 		{   // perform update exclusions
 			pReturn->count++;
 			*update=0;

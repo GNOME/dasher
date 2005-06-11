@@ -8,6 +8,8 @@
 
 #include "../Common/Common.h"
 
+#include <iostream>
+
 #include "DasherView.h"
 using namespace Dasher;
 
@@ -75,18 +77,24 @@ void CDasherView::DrawMousePosBox()
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::Render(int iMouseX, int iMouseY)
+void CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay)
 {
-	RenderNodes();
 
-	if (m_bDrawMouse) 
-		DrawMouse(iMouseX, iMouseY);
-	if (m_bDrawMouseLine) 
-		DrawMouseLine(iMouseX, iMouseY);
-	if (m_bDrawKeyboard) 
-		DrawKeyboard();
-	if (m_iDrawMousePosBox !=0)
-		DrawMousePosBox();
+  if( bRedrawDisplay ) {
+    Screen().SendMarker(0); // Start of 'dasher field'
+    RenderNodes();
+  }
+
+  Screen().SendMarker(1); // Start of 'decoration'
+  
+  if (m_bDrawMouse) 
+    DrawMouse(iMouseX, iMouseY);
+  if (m_bDrawMouseLine) 
+    DrawMouseLine(iMouseX, iMouseY);
+  if (m_bDrawKeyboard) 
+    DrawKeyboard();
+  if (m_iDrawMousePosBox !=0)
+    DrawMousePosBox();
 }
 
 
@@ -94,12 +102,16 @@ void CDasherView::Render(int iMouseX, int iMouseY)
 
 void CDasherView::Render()
 {
-	RenderNodes();
+  Screen().SendMarker(0);
 
-	if (m_bDrawKeyboard) 
-		DrawKeyboard();
-	if (m_iDrawMousePosBox !=0)
-		DrawMousePosBox();
+  RenderNodes();
+  
+  Screen().SendMarker(1);
+  
+  if (m_bDrawKeyboard) 
+    DrawKeyboard();
+  if (m_iDrawMousePosBox !=0)
+    DrawMousePosBox();
 }
 
 void CDasherView::SetDrawMousePosBox(int iWhich)

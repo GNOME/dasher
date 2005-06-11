@@ -92,6 +92,7 @@ void dasher_set_draw_colour_polyline_callback( void (*_cb)(Dasher::CDasherScreen
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int));
 void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int));
 void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, int));
+void dasher_set_send_marker_callback( void (*_cb)( int ) );
 
 void dasher_set_edit_output_callback(void (*_cb)(symbol));
 void dasher_set_edit_outputcontrol_callback(void (*_cb)(void*, int));

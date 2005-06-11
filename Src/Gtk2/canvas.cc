@@ -4,6 +4,8 @@
 #include <sstream>
 
 GtkWidget *the_canvas;
+GdkPixmap *offscreen_display_buffer;
+GdkPixmap *offscreen_decoration_buffer;
 GdkPixmap *offscreen_buffer;
 GdkPixmap *onscreen_buffer;
 PangoLayout *the_pangolayout;
@@ -23,11 +25,15 @@ gboolean drawoutline=FALSE;
 
 void rebuild_buffer()
 {
-  g_free(offscreen_buffer);
+  g_free(offscreen_display_buffer);
+  g_free(offscreen_decoration_buffer);
   g_free(onscreen_buffer);
 
-  offscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
+  offscreen_display_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1); 
+  offscreen_decoration_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
   onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
+
+  offscreen_buffer = offscreen_display_buffer;
 }
 
 /// Initialise the canvas - create rendering buffers and initialise
@@ -37,8 +43,11 @@ void initialise_canvas( int width, int height )
 {
   // Create new pixmaps
 
-  offscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
+  offscreen_display_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
+  offscreen_decoration_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
   onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
+
+  offscreen_buffer = offscreen_display_buffer;
 
   // Pango font rendering stuff
 
@@ -341,6 +350,29 @@ void text_size_callback(const std::string &String, int* Width, int* Height, int 
 
   *Width =ink->width;
   *Height=ink->height;
+}
+
+void send_marker_callback( int iMarker ) {
+  switch( iMarker ) {
+  case 0:
+    // Starting a new frame, so clear the background buffer
+
+
+    offscreen_buffer = offscreen_display_buffer;
+    break;
+  case 1:
+
+    gdk_draw_drawable( offscreen_decoration_buffer,
+		       the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+		       offscreen_display_buffer,
+		       0, 0, 0,0,
+		       the_canvas->allocation.width,
+		       the_canvas->allocation.height);
+    
+    offscreen_buffer = offscreen_decoration_buffer;
+
+    break;
+  }
 }
 
 GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)

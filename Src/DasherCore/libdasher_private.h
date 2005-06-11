@@ -24,6 +24,7 @@ void handle_edit_output(symbol Character);
 void handle_edit_outputcontrol(void* pointer, int data);
 void handle_edit_delete(symbol Character);
 void handle_get_new_context( std::string &str, int max );
+void handle_send_marker( int iMarker );
 
 void handle_clipboard( clipboard_action act );
 
@@ -281,6 +282,10 @@ class dasher_screen : public CDasherScreen
     {
       handle_draw_rectangle( x1, y1, x2, y2, Color, ColorScheme);
     };
+
+  void SendMarker( int iMarker ) const {
+    handle_send_marker( iMarker );
+  };
 	
   void Polyline(point* Points, int Number) const
     {

@@ -81,6 +81,8 @@ namespace Dasher
 
 		int NodesAllocated;
 
+		bool bUpdateExclusion;
+
 		mutable CSimplePooledAlloc<CPPMnode> m_NodeAlloc;
 		CPooledAlloc<CPPMContext> m_ContextAlloc;
 	};

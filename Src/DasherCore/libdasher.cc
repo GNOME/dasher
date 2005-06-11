@@ -34,6 +34,7 @@ void (*draw_colour_polyline_callback)(Dasher::CDasherScreen::point*, int, int) =
 void (*draw_text_callback)(symbol, int, int, int) = NULL;
 void (*draw_text_string_callback)(std::string, int, int, int) = NULL;
 void (*text_size_callback)(const std::string &String, int*, int*, int) = NULL;
+void (*send_marker_callback)( int iMarker ) = NULL;
 
 void (*edit_output_callback)(symbol) = NULL;
 void (*edit_outputcontrol_callback)(void*, int) = NULL;
@@ -137,6 +138,12 @@ void handle_draw_text(const std::string &String, int x1, int y1, int size)
 {
   if( draw_text_string_callback != NULL )
     draw_text_string_callback( String, x1, y1, size );
+}
+
+void handle_send_marker( int iMarker ) {
+
+  if( send_marker_callback != NULL )
+    send_marker_callback( iMarker );
 }
 
 void handle_text_size(const std::string &String, int* Width, int* Height, int Size)
@@ -559,6 +566,11 @@ void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int))
 void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int))
 {
   draw_text_string_callback = _cb;
+}
+
+void dasher_set_send_marker_callback( void (*_cb)( int ) )
+{
+  send_marker_callback = _cb;
 }
 
 void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, int))

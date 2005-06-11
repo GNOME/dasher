@@ -68,6 +68,8 @@ extern int optind;
 extern ControlTree *controltree;
 extern const gchar* filename;
 
+extern int oldx, oldy;
+
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
   XEvent *xev = (XEvent *)xevent;
@@ -186,13 +188,18 @@ main(int argc, char *argv[])
   dasher_set_draw_text_callback( draw_text_callback );
   dasher_set_draw_text_string_callback( draw_text_string_callback );
   dasher_set_text_size_callback( text_size_callback );
-  
+  dasher_set_send_marker_callback( send_marker_callback );
+
+
   dasher_set_edit_output_callback( gtk2_edit_output_callback );
   dasher_set_edit_outputcontrol_callback( gtk2_edit_outputcontrol_callback );
 
   dasher_set_edit_delete_callback( gtk2_edit_delete_callback );
   dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
   dasher_set_clipboard_callback( gtk2_clipboard_callback );
+
+  oldx = -1;
+  oldy = -1;
 
 #ifdef GNOME_A11Y
   SPI_init ();

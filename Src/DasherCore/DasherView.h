@@ -44,7 +44,7 @@ public:
 	virtual void Render();
 
 	// Renders Dasher with mouse-dependent items
-	virtual void Render(int iMouseX, int iMouseY);
+	virtual void Render(int iMouseX, int iMouseY, bool bRedrawDisplay);
 
 	// Renders the Dasher node structure
 	virtual void RenderNodes()=0;

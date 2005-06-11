@@ -218,7 +218,7 @@ void CDasherInterface::Redraw()
 {
   if (m_pDasherView!=0) 
   {
-	m_pDasherView->Render();
+    m_pDasherView->Render();
     m_pDasherView->Display();
   }
 
@@ -227,9 +227,10 @@ void CDasherInterface::Redraw()
 
 void CDasherInterface::Redraw(int iMouseX,int iMouseY)
 {
+ 
   if (m_pDasherView!=0) 
   {
-	m_pDasherView->Render(iMouseX,iMouseY);
+    m_pDasherView->Render(iMouseX,iMouseY,false);
     m_pDasherView->Display();
   }
 
@@ -238,10 +239,13 @@ void CDasherInterface::Redraw(int iMouseX,int iMouseY)
 
 void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 {
+
+  //  std::cout << "Tap On" << std::endl;
+
 	if (m_pDasherView!=0) 
 	{
 		m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
-		m_pDasherView->Render(MouseX,MouseY);
+		m_pDasherView->Render(MouseX,MouseY,true);
 		m_pDasherView->Display();
 	}
 	
@@ -251,7 +255,7 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 
 void CDasherInterface::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox )
 {
-	m_pDasherView->Render();
+	m_pDasherView->Render( iMouseX, iMouseY,false );
 	//if (iWhichBox!=-1)
 	//m_pDasherView->DrawMousePosBox(iWhichBox, m_iMousePosDist);
   

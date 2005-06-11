@@ -66,6 +66,10 @@ public:
 	//! Draw UTF8-encoded string String of size Size positioned at x1 and y1
 	virtual void DrawString(const std::string& String, screenint x1, screenint y1, int Size) const=0;
 
+
+	// Send a marker to indicate 'phases' of drawing. 
+
+	virtual void SendMarker( int iMarker ) const {};
 	
 	// Draw a filled rectangle - given position and color id
 	//! Draw a filled rectangle
