@@ -694,16 +694,17 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
 
 void CDasherViewSquare::DasherPolyline( myint *x, myint *y, int n, int iColour ) {
 
-  CDasherScreen::point ScreenPoints[n];
+	CDasherScreen::point* ScreenPoints = new CDasherScreen::point[n];
 
-  for( int i(0); i < n; ++i )
-    Dasher2Screen( x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y );
-  
-  if( iColour != -1 ) {
-    Screen().Polyline(ScreenPoints,n,iColour);
-  } else {
-    Screen().Polyline(ScreenPoints,n);
-  }
+	for( int i(0); i < n; ++i )
+		Dasher2Screen( x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y );
+
+	if( iColour != -1 ) {
+		Screen().Polyline(ScreenPoints,n,iColour);
+	} else {
+		Screen().Polyline(ScreenPoints,n);
+	}
+	delete [] ScreenPoints;
 }
 
 // Draw a box specified in Dasher co-ordinates
