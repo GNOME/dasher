@@ -16,27 +16,30 @@
 
 using namespace Dasher;
 
+// FIXME - quite a lot of the code here probably should be moved to
+// the parent class (DasherView). I think we really should make the
+// parent class less general - we're probably not going to implement
+// anything which uses radically different co-ordinate transforms, and
+// we can always override if necessary.
+
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::RenderNodes()
 {
+  Screen().Blank();
+  
+  DASHER_ASSERT(DasherModel().Root()!=0);
+  
+  //DASHER_TRACEOUTPUT("RenderNodes\n");
+  
+  // Render nodes to screen object (should use off screen buffer)
+  
+  RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), DasherVisibleMaxX());
+  
+  // DelayDraw the text nodes
+  m_DelayDraw.Draw(Screen());
 
-	Screen().Blank();
-	
-	DASHER_ASSERT(DasherModel().Root()!=0);
-
-	//DASHER_TRACEOUTPUT("RenderNodes\n");
-
-	// Render nodes to screen object (should use off screen buffer)
-
-	RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), DasherVisibleMaxX());
-
-	// DelayDraw the text nodes
-	m_DelayDraw.Draw(Screen());
-
-
-	Crosshair(DasherModel().DasherOX()); // add crosshair
-
+  Crosshair(DasherModel().DasherOX()); // add crosshair
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -604,35 +607,73 @@ void CDasherViewSquare::Dasher2OneD( myint &iDasherX, myint &iDasherY ) {
 
 void CDasherViewSquare::Dasher2Eyetracker( myint &iDasherX, myint &iDasherY ) {
 
-  double disty=DasherModel().DasherOY()-iDasherY;
+//   double disty=DasherModel().DasherOY()-iDasherY;
 
-  myint x( iDasherX );
+//   myint x( iDasherX );
 
-  myint dasherOX=DasherModel().DasherOX(); 
+//   myint dasherOX=DasherModel().DasherOX(); 
 
-  if( iDasherX < dasherOX ) {
+//   if( iDasherX < dasherOX ) {
 
-      //cout << "dasherOX: " << dasherOX << endl; 
-      myint dasherOY=DasherModel().DasherOY(); 
+//       //cout << "dasherOX: " << dasherOX << endl; 
+//       myint dasherOY=DasherModel().DasherOY(); 
          
-      // X co-ordinate changes. 
-      double double_x = (x/dasherOX); 
-      double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); 
+//       // X co-ordinate changes. 
+//       double double_x = (x/dasherOX);  // Fraction of way over to crosshair
+//       double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
              
-      double xmax_y = xmax(double_x, double_y); 
+//       // FIXME - I have *no* idea how this is supposed to work - someone else fix it and comment the code please!
+
+//       double xmax_y = xmax(double_x, double_y); 
                  
-      if(double_x < xmax_y) { 
-        double_x = xmax_y; 
-      } 
+//       if(double_x < xmax_y) { 
+//         double_x = xmax_y; 
+//       } 
 
-      x = dasherOX*double_x;                 
+//       x = dasherOX*double_x;                 
 
-      // Finished x-coord changes.
+//       // Finished x-coord changes.
 
-      double repulsionparameter=0.5;
-      iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
-      iDasherX = x;
+//       double repulsionparameter=0.5;
+//       iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
+//       iDasherX = x;
+//   }
+
+  int iDasherOX( DasherModel().DasherOX() );
+  int iDasherOY( DasherModel().DasherOY() );
+
+  int iDasherMaxY( DasherModel().DasherY() );
+
+  // Add some gain to the Y value
+
+  double dYGain( 1.1 );
+
+  iDasherY = (iDasherY - iDasherOY) * dYGain + iDasherOY;
+
+  // Truncate the Y range, as behaviour isn't well defined outside of these limits
+
+  if( iDasherY < 0 )
+    iDasherY = 0;
+  
+  if( iDasherY > iDasherMaxY )
+    iDasherY = iDasherMaxY;
+
+  if( iDasherX > iDasherOX )
+    return; // Don't do anything else if we're to the left of the crosshair
+
+  int iDasherMinX; // Minimum X value to allow for the circle
+
+  if( iDasherY < iDasherOY ) {
+    iDasherMinX = (1 - sqrt( 1 - pow(((iDasherOY - iDasherY) / static_cast<double>(iDasherOY)), 2.0 ) )) * iDasherOX;
   }
+  else {
+    iDasherMinX = (1 - sqrt( 1 - pow(((iDasherY - iDasherOY) / static_cast<double>(iDasherMaxY - iDasherOY)), 2.0 ) )) * iDasherOX;
+  }
+  
+  // If X is outside of the circle, bring it in.
+
+  if( iDasherX < iDasherMinX )
+    iDasherX = iDasherMinX;
 }
 
 /// Convert abstract 'input coordinates', which may or may not
