@@ -248,8 +248,107 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  return 0; // We're entirely off screen, so don't render.
 
 	myint iDasherSize( y2 - y1 );
-	
-	DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
+
+	if( false ) { // Regular squares
+	  DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
+	}
+	else {
+	  int iDasherY( DasherModel().DasherY() );
+
+	  int iSpacing( iDasherY / 128 ); // FIXME - assuming that this is an integer below
+
+	  int iLowerMin( (y1 / iSpacing)*iSpacing );
+	  int iLowerMax( ((y1 + y2 ) / ( 2 * iSpacing ))*iSpacing );
+
+	  int iUpperMin( ((y1 + y2 ) / ( 2 * iSpacing ))*iSpacing );
+	  int iUpperMax( (y2 / iSpacing)*iSpacing );
+
+	  if( iLowerMin < 0 )
+	    iLowerMin = 0;
+	  
+	  if( iLowerMax < 0 )
+	    iLowerMax = 0;
+
+	  if( iUpperMin < 0 )
+	    iUpperMin = 0;
+	  
+	  if( iUpperMax < 0 )
+	    iUpperMax = 0;
+	  
+
+	  if( iLowerMin > iDasherY )
+	    iLowerMin = iDasherY;
+	  
+	  if( iLowerMax > iDasherY )
+	    iLowerMax = iDasherY;
+
+	  if( iUpperMin > iDasherY )
+	    iUpperMin = iDasherY;
+	  
+	  if( iUpperMax > iDasherY )
+	    iUpperMax = iDasherY;
+
+	  while( iLowerMin < y1 ) 
+	    iLowerMin += iSpacing;
+
+
+	   while( iLowerMax > (y1+y2)/2 )
+
+	    iLowerMax -= iSpacing;
+	  
+	   
+	  while( iUpperMin < (y1+y2)/2 )
+	    iUpperMin += iSpacing;
+
+	  while( iUpperMax > y2 )
+	    iUpperMax -= iSpacing;
+
+
+	  int iLowerCount( (iLowerMax - iLowerMin) / iSpacing + 1 );
+	  int iUpperCount( (iUpperMax - iUpperMin) / iSpacing + 1 );
+
+	  if( iLowerCount < 0 )
+	    iLowerCount = 0;
+	  
+	  if( iUpperCount < 0 )
+	    iUpperCount = 0;
+
+	  int iTotalCount( iLowerCount + iUpperCount + 6 );
+
+	  myint x[iTotalCount];
+	  myint y[iTotalCount];
+
+	  // Weird duplication here is to make truncated squares possible too
+
+	  x[0] = 0;
+	  y[0] = y1;
+	  x[1] = 0;
+	  y[1] = y1;
+
+	  x[iLowerCount + 2] = iDasherSize;
+	  y[iLowerCount + 2] = (y1 + y2) / 2;
+	  x[iLowerCount + 3] = iDasherSize;
+	  y[iLowerCount + 3] = (y1 + y2) / 2;
+
+	  x[iTotalCount - 2] = 0;
+	  y[iTotalCount - 2] = y2;
+	  x[iTotalCount - 1] = 0;
+	  y[iTotalCount - 1] = y2;
+
+	  for( int i(0); i < iLowerCount; ++i ) {
+	    x[i+2] = (iLowerMin + i * iSpacing - y1) * 2 * iDasherSize / (y2 - y1);
+	    y[i+2] = iLowerMin + i * iSpacing;
+	  }
+
+	  for( int i(0); i < iUpperCount; ++i ) {
+	    x[i+iLowerCount + 4] = (y2 - (iUpperMin + i * iSpacing)) * 2 * iDasherSize / (y2 - y1);
+	    y[i+iLowerCount + 4] = iUpperMin + i * iSpacing;
+	  }
+
+	  
+	  DasherPolyline( x, y, iTotalCount, 1 );
+
+	}
 	
 	myint iDasherAnchorX( iDasherSize );
 

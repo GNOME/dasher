@@ -124,6 +124,7 @@ main(int argc, char *argv[])
   g_thread_init(NULL);
 #endif
 
+  
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
