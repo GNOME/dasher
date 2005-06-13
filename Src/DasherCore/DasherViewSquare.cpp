@@ -249,7 +249,10 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 	myint iDasherSize( y2 - y1 );
 
-	if( false ) { // Regular squares
+	int iTruncation(50); // Trucation farction times 100;
+	int iTruncationType(1);
+
+	if( iTruncation == 0 ) { // Regular squares
 	  DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
 	}
 	else {
@@ -257,10 +260,31 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 	  int iSpacing( iDasherY / 128 ); // FIXME - assuming that this is an integer below
 
-	  int iLowerMin( (y1 / iSpacing)*iSpacing );
-	  int iLowerMax( ((y1 + y2 ) / ( 2 * iSpacing ))*iSpacing );
 
-	  int iUpperMin( ((y1 + y2 ) / ( 2 * iSpacing ))*iSpacing );
+	  int iXStart;
+	  
+	  switch( iTruncationType ) {
+	  case 0:
+	    iXStart = 0;
+	    break;
+	  case 1:
+	    iXStart = iSize - iSize * iTruncation / 200;
+	    break;
+	  case 2:
+	    iXStart = iSize - iSize * iTruncation / 100;
+	    break;
+	  }
+
+
+	  int iTipMin( (y2 - y1) * iTruncation / (200) + y1 );
+	  int iTipMax( y2 - (y2 - y1) * iTruncation / (200) );
+	  
+	  
+
+	  int iLowerMin( (y1 / iSpacing)*iSpacing );
+	  int iLowerMax( (iTipMin / iSpacing )*iSpacing );
+
+	  int iUpperMin( (iTipMax / iSpacing )*iSpacing );
 	  int iUpperMax( (y2 / iSpacing)*iSpacing );
 
 	  if( iLowerMin < 0 )
@@ -291,13 +315,10 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  while( iLowerMin < y1 ) 
 	    iLowerMin += iSpacing;
 
-
-	   while( iLowerMax > (y1+y2)/2 )
-
+	  while( iLowerMax > iTipMin)
 	    iLowerMax -= iSpacing;
-	  
 	   
-	  while( iUpperMin < (y1+y2)/2 )
+	  while( iUpperMin < iTipMax )
 	    iUpperMin += iSpacing;
 
 	  while( iUpperMax > y2 )
@@ -322,29 +343,28 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 	  x[0] = 0;
 	  y[0] = y1;
-	  x[1] = 0;
+	  x[1] = iXStart;
 	  y[1] = y1;
 
 	  x[iLowerCount + 2] = iDasherSize;
-	  y[iLowerCount + 2] = (y1 + y2) / 2;
+	  y[iLowerCount + 2] = iTipMin;
 	  x[iLowerCount + 3] = iDasherSize;
-	  y[iLowerCount + 3] = (y1 + y2) / 2;
+	  y[iLowerCount + 3] = iTipMax;
 
-	  x[iTotalCount - 2] = 0;
+	  x[iTotalCount - 2] = iXStart;
 	  y[iTotalCount - 2] = y2;
 	  x[iTotalCount - 1] = 0;
 	  y[iTotalCount - 1] = y2;
 
 	  for( int i(0); i < iLowerCount; ++i ) {
-	    x[i+2] = (iLowerMin + i * iSpacing - y1) * 2 * iDasherSize / (y2 - y1);
+	    x[i+2] = (iLowerMin + i * iSpacing - y1) * (iDasherSize - iXStart) / (iTipMin - y1) + iXStart;
 	    y[i+2] = iLowerMin + i * iSpacing;
 	  }
 
 	  for( int i(0); i < iUpperCount; ++i ) {
-	    x[i+iLowerCount + 4] = (y2 - (iUpperMin + i * iSpacing)) * 2 * iDasherSize / (y2 - y1);
+	    x[i+iLowerCount + 4] = (y2 - (iUpperMin + i * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
 	    y[i+iLowerCount + 4] = iUpperMin + i * iSpacing;
 	  }
-
 	  
 	  DasherPolyline( x, y, iTotalCount, 1 );
 
