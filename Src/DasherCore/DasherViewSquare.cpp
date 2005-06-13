@@ -368,7 +368,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	    y[i+iLowerCount + 4] = iUpperMin + i * iSpacing;
 	  }
 	  
-	  DasherPolygon( x, y, iTotalCount, 1 );
+	  DasherPolygon( x, y, iTotalCount, Color );
 
 	}
 	
