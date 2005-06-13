@@ -107,8 +107,7 @@ public:
 	//! \param Points array of points defining the edge of the polygon
 	//! \param Number number of points in the array
 	//! \param Color colour of the polygon (numeric)
-	//! \param ColorScheme Which colourscheme is to be used
-	virtual void DrawPolygon(point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const=0;
+	virtual void Polygon(point* Points, int Number, int Color) const=0;
 	
 	// Signal the screen when a frame is started and finished
 	//! Signal that a frame is being started

@@ -215,6 +215,37 @@ void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
   draw_colour_polyline_callback(Points, Number, 0);
 }
 
+void draw_colour_polygon_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
+{
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
+  GdkGCValues origvalues;
+
+  if (setup==false||preferences==true)
+    return;
+
+  GdkColor colour = colours[Colour];
+  GdkPoint *gdk_points;
+
+  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
+  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+  gdk_gc_get_values(graphics_context,&origvalues);
+  colormap = gdk_colormap_get_system();
+
+  gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
+  gdk_gc_set_foreground (graphics_context, &colour);
+
+  for (int i=0; i < Number; i++) {
+    gdk_points[i].x = Points[i].x;
+    gdk_points[i].y = Points[i].y;
+  }
+
+  gdk_draw_polygon(offscreen_buffer, graphics_context, TRUE, gdk_points, Number);
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+  g_free(gdk_points);
+}
+
+
 void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
 { 
   GdkGC *graphics_context;

@@ -89,6 +89,7 @@ void dasher_set_colour_scheme_callback( void (*_cb)(int, int*, int*, int*) );
 void dasher_set_draw_rectangle_callback( void (*_cb)(int, int, int, int, int, Opts::ColorSchemes) );
 void dasher_set_draw_polyline_callback( void (*_cb)(Dasher::CDasherScreen::point*, int) );
 void dasher_set_draw_colour_polyline_callback( void (*_cb)(Dasher::CDasherScreen::point*, int, int) );
+void dasher_set_draw_colour_polygon_callback( void (*_cb)(Dasher::CDasherScreen::point*, int, int) );
 void dasher_set_draw_text_callback(void (*_cb)(symbol, int, int, int));
 void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int));
 void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, int));

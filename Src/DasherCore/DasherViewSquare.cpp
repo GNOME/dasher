@@ -177,6 +177,8 @@ CDasherViewSquare::Cymap::Cymap(myint iScale)
 CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
   : CDasherView(DasherScreen, DasherModel, Orientation, Colourmode)
 {
+  // FIXME - HERE
+
 	ChangeScreen(DasherScreen);
 	
 	// tweak these if you know what you are doing
@@ -366,7 +368,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	    y[i+iLowerCount + 4] = iUpperMin + i * iSpacing;
 	  }
 	  
-	  DasherPolyline( x, y, iTotalCount, 1 );
+	  DasherPolygon( x, y, iTotalCount, 1 );
 
 	}
 	
@@ -865,6 +867,19 @@ void CDasherViewSquare::DasherPolyline( myint *x, myint *y, int n, int iColour )
 		Screen().Polyline(ScreenPoints,n);
 	}
 	delete [] ScreenPoints;
+}
+
+// Draw a filled polygon specified in Dasher co-ordinates
+
+void CDasherViewSquare::DasherPolygon( myint *x, myint *y, int n, int iColour ) {
+
+        CDasherScreen::point* ScreenPoints = new CDasherScreen::point[n];
+
+        for( int i(0); i < n; ++i )
+                Dasher2Screen( x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y );
+
+        Screen().Polygon(ScreenPoints,n,iColour);
+        delete [] ScreenPoints;
 }
 
 // Draw a box specified in Dasher co-ordinates

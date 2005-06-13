@@ -441,6 +441,8 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 
 void CDasherInterface::ChangeView(unsigned int NewViewID)
 {
+  // FIXME - here
+
 	//TODO Use DasherViewID
 	m_ViewID = NewViewID;
 	if (m_DasherScreen!=0 && m_pDasherModel!=0) {

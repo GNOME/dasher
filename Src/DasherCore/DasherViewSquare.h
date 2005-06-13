@@ -65,6 +65,7 @@ private:
 	void TruncateToScreen( screenint &iX, screenint &iY );
 
 	void DasherPolyline( myint *x, myint *y, int n, int iColour );
+	void DasherPolygon( myint *x, myint *y, int n, int iColour );
 	void DasherDrawRectangle( myint iLeft, myint iTop, myint iRight, myint iBottom,
 				  const int Color, Opts::ColorSchemes ColorScheme );
 	void DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft );
