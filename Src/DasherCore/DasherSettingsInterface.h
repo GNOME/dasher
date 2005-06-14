@@ -148,6 +148,10 @@ public:
 	//! Language Model Option
 	virtual void ChangeLMOption( const std::string &pname, long int Value ) {};
 
+	//! Truncation
+
+	virtual void SetTruncation( int Value ) {};
+	virtual void SetTruncationType( int Value ) {};
 };
 
 

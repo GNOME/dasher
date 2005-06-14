@@ -441,11 +441,15 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 
 void CDasherInterface::ChangeView(unsigned int NewViewID)
 {
-  // FIXME - here
+
+  //  std::cout << "In ChangeView" << std::endl;
 
 	//TODO Use DasherViewID
 	m_ViewID = NewViewID;
 	if (m_DasherScreen!=0 && m_pDasherModel!=0) {
+
+	  //  std::cout << "Changed" << std::endl;
+
 		delete m_pDasherView;
 		if (m_Orientation==Opts::Alphabet)
 			m_pDasherView = new CDasherViewSquare(m_DasherScreen, *m_pDasherModel, GetAlphabetOrientation(), m_ColourMode);
@@ -799,6 +803,20 @@ void CDasherInterface::SetDasherEyetracker(bool Value)
 	}	  
 }
 
+void CDasherInterface::SetTruncation( int Value ) {
+
+  //  std::cout << "In SetTruncation: " << m_pDasherView << std::endl;
+
+  if( m_pDasherView ) {
+    m_pDasherView->SetTruncation( Value );
+  }
+}
+
+void CDasherInterface::SetTruncationType( int Value ) {
+  if( m_pDasherView ) {
+    m_pDasherView->SetTruncationType( Value );
+  }
+}
 
 unsigned int CDasherInterface::GetNumberSymbols()
 {

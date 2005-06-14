@@ -90,6 +90,14 @@ public:
 	virtual void ResetYAutoOffset() {}
     
 
+	void SetTruncation( int iTruncation ) {
+	  m_iTruncation = iTruncation;
+	}
+
+	void SetTruncationType( int iTruncationType ) {
+	  m_iTruncationType = iTruncationType;
+	}
+
 protected:
 	// Orientation of Dasher Screen
 	inline void MapScreen(screenint* DrawX, screenint* DrawY);
@@ -106,7 +114,8 @@ protected:
 
 	int onebutton;
     bool AutoCalibrate;
-
+	int m_iTruncation;
+	int m_iTruncationType;
  
 private:
 	CDasherScreen* m_pScreen;      // provides the graphics (text, lines, rectangles):
@@ -121,6 +130,7 @@ private:
 	int m_iDrawMousePosBox;
 	int m_iMousePosDist;
 
+	
 };
 
 

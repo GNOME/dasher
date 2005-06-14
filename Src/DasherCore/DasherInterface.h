@@ -170,7 +170,8 @@ public:
 	void SetUniform(int Value);
 	void SetYScale(int Value);
 	void SetMousePosDist(int Value);
-   
+	void SetTruncation( int Value );
+	void SetTruncationType( int Value );
 	// Which mouse position box should the View draw?
 	// 0 - no box, 1 - upper box, 2 - lower box
 	void SetDrawMousePosBox(int iWhich);

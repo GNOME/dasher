@@ -53,6 +53,8 @@ namespace Keys {
         const std::string UNIFORM = "UniformTimes1000";
 	const std::string YSCALE = "YScaling";
 	const std::string MOUSEPOSDIST = "MousePositionBoxDistance";
+  const std::string TRUNCATION = "Truncation";
+  const std::string TRUNCATIONTYPE = "TruncationType";
   
   // Language model options - to eventually be made more dynamic
 
@@ -77,6 +79,8 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	using namespace Dasher;
 	using namespace Keys;
 	using namespace Opts;
+
+	// FIXME - why all the 'this' pointers here?
 	
 	Store->SetLongDefault(MAX_BITRATE_TIMES100, 150);
 	this->ChangeMaxBitRate(Store->GetLongOption(MAX_BITRATE_TIMES100)/100.0);
@@ -204,6 +208,14 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 	Store->SetBoolDefault(SPEECH_MODE, false);
 	this->Speech(Store->GetBoolOption(SPEECH_MODE));
+
+	Store->SetLongDefault(TRUNCATION, 0);
+	this->SetTruncation(Store->GetLongOption(TRUNCATION));
+
+	Store->SetLongDefault(TRUNCATIONTYPE, 0);
+	this->SetTruncationType(Store->GetLongOption(TRUNCATIONTYPE));
+
+
 }
 
 

@@ -31,7 +31,7 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
 	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
-	 m_bControlMode(false)
+    m_bControlMode(false), m_bAdaptive(true)
 {
 
   // Convert the full alphabet to a symbolic representation for use in the language model
@@ -108,8 +108,11 @@ void CDasherModel::Make_root(int whichchild)
 	symbol t=m_Root->Symbol();
 	if (t < m_pcAlphabet->GetNumberTextSymbols() ) 
 	{  
-		// SYM0
-		m_pLanguageModel->LearnSymbol(LearnContext, t);
+	  // Only learn if we have adaptive behaviour enabled
+
+	  if( m_bAdaptive )
+	    // SYM0
+	    m_pLanguageModel->LearnSymbol(LearnContext, t);
 	}
 
 	m_Root->DeleteNephews(whichchild);
@@ -908,7 +911,7 @@ void CDasherModel::SetUniform( int _uniform )
 
 void CDasherModel::LearnText(CLanguageModel::Context context, string* TheText, bool IsMore)
 {
-	vector<symbol> Symbols;
+  	vector<symbol> Symbols;
 	
 	m_pcAlphabet->GetSymbols(&Symbols, TheText, IsMore);
 	

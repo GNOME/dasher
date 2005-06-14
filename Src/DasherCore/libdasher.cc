@@ -367,6 +367,12 @@ void dasher_set_parameter_int( int_param p, long int value )
     case INT_LM_MIXTURE:
       interface->ChangeLMOption( "LMMixture", value );
       break;
+    case INT_TRUNCATION:
+      interface->SetTruncation( value );
+      break;
+    case INT_TRUNCATIONTYPE:
+      interface->SetTruncationType( value );
+      break;
     default:
       break;
     }

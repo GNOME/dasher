@@ -234,6 +234,12 @@ class dasher_ui : public CDasherSettingsInterface
     {
       handle_parameter_bool( BOOL_PALETTECHANGE, Value );
     }
+  void SetTruncation( int Value ) {
+    handle_parameter_int( INT_TRUNCATION, Value );
+  }
+  void SetTruncationType( int Value ) {
+    handle_parameter_int( INT_TRUNCATION, Value );
+  }
 };
 
 

@@ -177,8 +177,6 @@ CDasherViewSquare::Cymap::Cymap(myint iScale)
 CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
   : CDasherView(DasherScreen, DasherModel, Orientation, Colourmode)
 {
-  // FIXME - HERE
-
 	ChangeScreen(DasherScreen);
 	
 	// tweak these if you know what you are doing
@@ -250,9 +248,11 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  return 0; // We're entirely off screen, so don't render.
 
 	myint iDasherSize( y2 - y1 );
+#
+	// FIXME - get rid of pointless assignment below
 
-	int iTruncation(50); // Trucation farction times 100;
-	int iTruncationType(1);
+	int iTruncation( m_iTruncation ); // Trucation farction times 100;
+	int iTruncationType( m_iTruncationType);
 
 	if( iTruncation == 0 ) { // Regular squares
 	  DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
@@ -898,6 +898,19 @@ void CDasherViewSquare::DasherDrawRectangle( myint iLeft, myint iTop, myint iRig
   Screen().DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme);
 }
 
+/// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
+
+void CDasherViewSquare::DasherDrawCentredRectangle( myint iDasherX, myint iDasherY, screenint iSize,
+						    const int Color, Opts::ColorSchemes ColorScheme ) {
+  
+  screenint iScreenX;
+  screenint iScreenY;
+
+  Dasher2Screen( iDasherX, iDasherY, iScreenX, iScreenY );
+
+  Screen().DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, ColorScheme);
+}
+
 /// Draw text specified in Dasher co-ordinates. The position is
 /// specified as two co-ordinates, intended to the be the corners of
 /// the leading edge of the containing box.
@@ -1101,41 +1114,52 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey)
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
 {
-        if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
-  
-	  int Swapper;
-	
-	  myint dasherx,dashery;
-	  screen2dasher(mousex,mousey,&dasherx,&dashery);
-	  mousex=dasherx2screen(dasherx);
-	  mousey=dashery2screen(dashery);
-	  switch (ScreenOrientation) {
-	  case (LeftToRight):
-	    break;
-	  case (RightToLeft):
-	    mousex = Screen().GetWidth() - mousex;
-	    break;
-	  case (TopToBottom):
-	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
-	    mousey = Swapper;
-	    break;
-	  case (BottomToTop):
-	    // Note rotation by 90 degrees not reversible like others
-	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
-	    mousey = Swapper;
-	    break;
-	  default:
-	    break;
-	  }
-	}
+  myint iDasherX;
+  myint iDasherY;
 
-	if (ColourMode==true) {
-	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
-	} else {
-	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
-	}
+  Input2Dasher( mousex, mousey, iDasherX, iDasherY, DasherModel().GetMode() );
+
+  if (ColourMode==true) {
+    DasherDrawCentredRectangle( iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects));
+  } else {
+    DasherDrawCentredRectangle( iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects));
+  }
+
+    //     if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+  
+// 	  int Swapper;
+	
+// 	  myint dasherx,dashery;
+// 	  screen2dasher(mousex,mousey,&dasherx,&dashery);
+// 	  mousex=dasherx2screen(dasherx);
+// 	  mousey=dashery2screen(dashery);
+// 	  switch (ScreenOrientation) {
+// 	  case (LeftToRight):
+// 	    break;
+// 	  case (RightToLeft):
+// 	    mousex = Screen().GetWidth() - mousex;
+// 	    break;
+// 	  case (TopToBottom):
+// 	    Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+// 	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+// 	    mousey = Swapper;
+// 	    break;
+// 	  case (BottomToTop):
+// 	    // Note rotation by 90 degrees not reversible like others
+// 	    Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
+// 	    mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+// 	    mousey = Swapper;
+// 	    break;
+// 	  default:
+// 	    break;
+// 	  }
+// 	}
+
+// 	if (ColourMode==true) {
+// 	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
+// 	} else {
+// 	  Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+// 	}
 }
 
 /////////////////////////////////////////////////////////////////////////////

@@ -78,6 +78,10 @@ public:
 	//	- existing control modes will not be deleted, but will be inactive 
 	void SetControlMode(bool b);
 
+	void SetAdaptive( bool b ) {
+	  m_bAdaptive = b;
+	}
+
 	std::string GroupLabel(int group) const {return m_pcAlphabet->GetGroupLabel(group);}
 	int GroupColour(int group) const {return m_pcAlphabet->GetGroupColour(group);}
 
@@ -211,6 +215,8 @@ private:
 	bool m_Eyetracker;
 
 	bool m_Paused;
+
+	bool m_bAdaptive;
 
     // Fraction to allocate to uniform dist. (*1000)
 	int m_uniform;
