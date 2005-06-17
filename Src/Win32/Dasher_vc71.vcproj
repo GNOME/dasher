@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -93,7 +93,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -162,7 +162,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -302,7 +302,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -368,7 +368,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -435,7 +435,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNICODE;_STATIC;_WIN32_WINNT=0x0500;ACCESSIBLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -495,7 +495,7 @@
 			ConfigurationType="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Include;./vld;WinCommon"
+				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"/>
 			<Tool
