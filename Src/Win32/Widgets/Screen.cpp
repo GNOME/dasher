@@ -95,7 +95,9 @@ void CScreen::SetFont(string Name)
 	Tstring FontName;
 	WinUTF8::UTF8string_to_wstring(Name, FontName);
 	
-	m_ptrFontStore.reset( new CFontStore(FontName) );
+	// damn EVC4 doesn't have a reset
+	std::auto_ptr<CFontStore> ptrNewStore( new CFontStore(FontName) );
+	m_ptrFontStore = ptrNewStore;
 
 }
 
@@ -257,14 +259,16 @@ void CScreen::TextSize(const std::string& String, screenint* Width, screenint* H
 	in.m_String = String;
 	in.m_iSize = iSize;
 
-	stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::const_iterator it;
+//	stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::const_iterator it;
+	std::map< CTextSizeInput, CTextSizeOutput>::const_iterator it;
 	it = m_mapTextSize.find(in);
 
 	if (it == m_mapTextSize.end())
 	{
 		CTextSizeOutput out;
 		TextSize_Impl(String,&out.m_iWidth,&out.m_iHeight,iSize);
-		m_mapTextSize.insert( stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::value_type( in,out) );
+//		m_mapTextSize.insert( stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize>::value_type( in,out) );
+		m_mapTextSize.insert( std::map< CTextSizeInput, CTextSizeOutput>::value_type( in,out) );
 		*Width = out.m_iWidth;
 		*Height = out.m_iHeight;
 		return;
@@ -297,5 +301,18 @@ void CScreen::TextSize_Impl(const std::string& String, screenint* Width, screeni
 	*Height = OutSize.cy;
 }
 
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CScreen::Polygon(point* Points, int Number, int iColour) const
+{
+	HGDIOBJ hpOld;
+	hpOld = (HPEN)SelectObject(m_hDCBuffer, (HPEN)m_Pens[iColour]);
+	POINT* WinPoints = new POINT[Number];
+	point2POINT(Points, WinPoints, Number);
+	::Polygon(m_hDCBuffer, WinPoints, Number);
+	delete[] WinPoints;
+	SelectObject(m_hDCBuffer, hpOld);
+}
 
 /////////////////////////////////////////////////////////////////////////////

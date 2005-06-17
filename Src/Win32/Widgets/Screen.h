@@ -18,7 +18,7 @@
 #include "../GDI/FontStore.h"
 
 #include <vector>
-#include <hash_map>
+#include <map>
 
 #ifndef _WIN32_WCE
 #include <cmath>
@@ -66,6 +66,18 @@ public:
 	//! \param Colour the colour to be drawn
 	void Polyline(point* Points, int Number, int Colour) const;
 	
+	// Draw a filled polygon - given vertices and color id
+	// This is not (currently) used in standard Dasher. However, it could be very
+	// useful in the future. Please implement unless it will be very difficult,
+	// in which case make this function call Polyline.
+	//! Draw a filled polygon
+	//!
+	//! \param Points array of points defining the edge of the polygon
+	//! \param Number number of points in the array
+	//! \param Color colour of the polygon (numeric)
+	virtual void Polygon(point* Points, int Number, int Color) const;
+
+
 	void DrawPolygon(point* Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
 	void Blank() const;
 	void Display();
@@ -95,6 +107,15 @@ private:
 	{
 		std::string m_String;
 		int m_iSize;
+
+		bool operator<(const CTextSizeInput& rhs) const 
+		{
+			if (m_iSize < rhs.m_iSize)
+				return true;
+			if (m_iSize > rhs.m_iSize)
+				return false;
+			return m_String < rhs.m_String;
+		}
 
 		bool operator!=(const CTextSizeInput& rhs) const 
 		{
@@ -130,7 +151,10 @@ private:
 		}
 
 	};
-	mutable stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize> m_mapTextSize;
+
+
+//	mutable stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize> m_mapTextSize;
+	mutable std::map< CTextSizeInput, CTextSizeOutput> m_mapTextSize;
 };
 
 
