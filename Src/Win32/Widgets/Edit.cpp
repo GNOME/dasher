@@ -673,23 +673,36 @@ void CEdit::dumpedit(int i) const
 */
 
 
-void CEdit::deletetext(Dasher::symbol)
+/// Delete text from the editbox
 
+void CEdit::deletetext(Dasher::symbol Symbol)
 {
+	// Lookup the unicode string that we need to delete - we only actually 
+	// need the length of the string, but this is important eg for newline
+	// characters which are actually two symbols
+
+	wstring String;
+	WinUTF8::UTF8string_to_wstring(m_DasherInterface->GetEditText(Symbol), String);
+
+	int iLength( String.size() );
+
+	// Get the start and end of the current selection, and decrement the start
+	// by the number of characters to be deleted
 
 	DWORD start,finish;
-
 	SendMessage(m_hwnd, EM_GETSEL, (LONG)&start, (LONG)&finish);
-
-	start-=1;
-
+	start-=iLength;
 	SendMessage(m_hwnd, EM_SETSEL, (LONG)start, (LONG)finish);
 
+	// Replace the selection with a null string
+
 	TCHAR out [2];
-
 	wsprintf(out,TEXT(""));
-
 	SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG)out);
+
+	// FIXME - I *think* we still only want to send one keyboard event to delete a 
+	// newline pair, but we're now assuming we'll never have two real characters for
+	// a single symbol
 
 	if (targetwindow!=NULL && textentry==true) {
 #ifdef _UNICODE
@@ -707,15 +720,14 @@ void CEdit::deletetext(Dasher::symbol)
 #endif
 	}
 
-	if (speech.length()>0) {
-
-		speech.resize(speech.length()-1);
-
+	// Shorten the speech buffer (?)
+	if (speech.length()>=iLength) {
+		speech.resize(speech.length()-iLength);
 	}
-
-
-        if (m_Output.length()>0) {
-		m_Output.resize(m_Output.length()-1);
+	
+	// And the output buffer (?)
+	if (m_Output.length()>=iLength) {
+		m_Output.resize(m_Output.length()-iLength);
 	}
 }
 

@@ -197,7 +197,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 				{
 					exclusions[pSymbol->sbl]=1;
 					
-					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
+					unsigned int p = static_cast<unsigned __int64 >(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
 					probs[pSymbol->sbl]+=p;
 					iToSpend-=p;		
 				}

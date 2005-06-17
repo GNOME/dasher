@@ -247,6 +247,11 @@ inline Cint64 operator +(Cint32 lhs, Cint64 rhs)
 	return rhs;
 }
 
+inline Cint64 operator +(Cint64 lhs, Cint32 rhs)
+{
+	lhs+=Cint64(rhs);
+	return lhs;
+}
 
 inline Cint64 operator +(int lhs, Cint64 rhs)
 {
@@ -395,7 +400,10 @@ inline bool operator <(int lhs, Cint64 rhs)
 	return Cint64(lhs) < rhs;
 }
 
-
+inline bool operator >(int lhs, Cint64 rhs)
+{
+	return Cint64(lhs) > rhs;
+}
 
 #else
 

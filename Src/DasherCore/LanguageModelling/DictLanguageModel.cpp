@@ -228,7 +228,7 @@ void CDictLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 
 					// Note - no discounting in this model, as there is no backoff
 
-					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(pSymbol->count)/iTotal;
+					unsigned int p = static_cast<unsigned __int64>(size_of_slice)*(pSymbol->count)/iTotal;
 					probs[pSymbol->sbl]+=p;
 					iToSpend-=p;		
 				}

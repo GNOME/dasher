@@ -338,8 +338,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 	  int iTotalCount( iLowerCount + iUpperCount + 6 );
 
-	  myint x[iTotalCount];
-	  myint y[iTotalCount];
+	  myint *x( new myint[iTotalCount] );
+	  myint *y( new myint[iTotalCount] );
 
 	  // Weird duplication here is to make truncated squares possible too
 
@@ -369,6 +369,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  }
 	  
 	  DasherPolygon( x, y, iTotalCount, Color );
+
+	delete x;
+	delete y;
 
 	}
 	

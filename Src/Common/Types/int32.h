@@ -181,6 +181,8 @@ public:
 	{
 		return m_i > rhs.m_i;
 	}
+
+	
 	bool operator<= (Cint32 rhs) const
 	{
 		return m_i <= rhs.m_i;
@@ -343,6 +345,12 @@ inline	Cint32::Cint32(Cint64 i)
 		DASHER_ASSERT(0);
 	m_i = int32(i);
 }
+
+inline bool operator> (Cint32 lhs, Cint64 rhs)
+	{
+		return lhs > (Cint32(rhs));
+	}
+
 
 inline Cint32 abs(Cint32 t)
 {
