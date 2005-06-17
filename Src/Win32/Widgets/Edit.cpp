@@ -18,7 +18,7 @@
 
 #include "Edit.h"
 #include "Canvas.h"
-#include <mbstring.h>
+//#include <mbstring.h>
 #include "../resource.h"
 
 #include "../Common/DasherEncodingToCP.h"
@@ -33,7 +33,11 @@ using namespace WinUTF8;
 
 
 CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
-	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0), pVoice(0), textentry(false)
+	FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0), 
+#ifndef DASHER_WINCE
+	pVoice(0), 
+#endif
+	textentry(false)
 {
 	Tstring WindowTitle;
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
@@ -52,25 +56,31 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 
 	// Initialise speech support
 	speech.resize(0);
+
+#ifndef DASHER_WINCE
 	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
 	if (hr!=S_OK)
 		pVoice=0;
 	if (pVoice!=0) {
 		pVoice->Speak(L"",SPF_ASYNC,NULL);
 	}
+#endif
 }
 
 
 CEdit::~CEdit()
 {
 	DeleteObject(m_Font);
-	
+
+#ifndef DASHER_WINCE	
 	// Release the voice object created by constructor
 	if (pVoice!=NULL)
 	{	
 		pVoice->Release();
 		pVoice=NULL;
 	}
+#endif
+
 	delete m_FilenameGUI;
 	if (FileHandle!=INVALID_HANDLE_VALUE)
 		CloseHandle(FileHandle);
@@ -480,7 +490,7 @@ void CEdit::SetFont(string Name, long Size)
 #else 
 	// not implemented
 	#pragma message ( "CEdit::SetFot not implemented on WinCE")
-	assert(0);
+	DASHER_ASSERT(0);
 #endif
 
 
@@ -576,7 +586,11 @@ void CEdit::output(symbol Symbol)
 
 		for (int j=0; j<i; j++) {
 			fakekey[0].type=INPUT_KEYBOARD;
+#ifdef DASHER_WINCE
+			fakekey[0].ki.dwFlags=KEYEVENTF_KEYUP;
+#else
 			fakekey[0].ki.dwFlags=KEYEVENTF_UNICODE;
+#endif
 			fakekey[0].ki.wVk=0;
 			fakekey[0].ki.time=NULL;
 			fakekey[0].ki.wScan=outputstring[j];
@@ -711,6 +725,8 @@ void CEdit::SetWindow(HWND window)
 
 {
 
+#ifndef DASHER_WINCE
+
 	if (targetwindow!=window) {
 
 		targetwindow=window;
@@ -734,6 +750,8 @@ void CEdit::SetWindow(HWND window)
 		}
 
 	}
+
+#endif
 
 }
 
@@ -774,35 +792,36 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 			  break;
 		  case 13:
 			// move to the start of the document
+
+#ifndef DASHER_WINCE
 			GetKeyboardState((LPBYTE) &pbKeyState);
-
 			pbKeyState[VK_CONTROL] |= 0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
-
+#endif
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_HOME, NULL);
-
 			SendMessage(m_hwnd, WM_KEYUP, VK_HOME, NULL);
 
+#ifndef DASHER_WINCE
 			pbKeyState[VK_CONTROL] &= ~0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
-			  break;
+#endif
+			break;
 		  case 14:
 			  // go to end
+
+#ifndef DASHER_WINCE
 			GetKeyboardState((LPBYTE) &pbKeyState);
-
 			pbKeyState[VK_CONTROL] |= 0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
+#endif
 
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_END, NULL);
-
 			SendMessage(m_hwnd, WM_KEYUP, VK_END, NULL);
 
+#ifndef DASHER_WINCE
 			pbKeyState[VK_CONTROL] &= ~0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
+#endif
 			  break;
 		  case 21:
 				//delete next character
@@ -810,48 +829,44 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
 		  case 22:
+
+#ifndef DASHER_WINCE
 			BYTE pbKeyState[256];
 			GetKeyboardState((LPBYTE) &pbKeyState);
-
 			pbKeyState[VK_CONTROL] |= 0x80;
-
 			pbKeyState[VK_SHIFT] |= 0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
-
+#endif
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
-
 			SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
 
+#ifndef DASHER_WINCE
 			pbKeyState[VK_SHIFT] &= ~0x80;
-
 			pbKeyState[VK_CONTROL] &= ~0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
-			  break;
+#endif
+			break;
 		  case 24:
 			  deletetext(1);
 			  break;
 		  case 25:
+#ifndef DASHER_WINCE
 			GetKeyboardState((LPBYTE) &pbKeyState);
-
 			pbKeyState[VK_CONTROL] |= 0x80;
-
 			pbKeyState[VK_SHIFT] |= 0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
+#endif
 
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
-
 			SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
 
+#ifndef DASHER_WINCE
 			pbKeyState[VK_SHIFT] &= ~0x80;
-
 			pbKeyState[VK_CONTROL] &= ~0x80;
-
 			SetKeyboardState((LPBYTE) &pbKeyState);
+#endif
 			SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
 			SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
 			  break;
@@ -874,7 +889,11 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 	VariantClear(&AccessibleVariant);
 }
 
-void CEdit::speak(int what) {
+void CEdit::speak(int what) 
+{
+
+#ifndef DASHER_WINCE
+
 	if (pVoice!=0) {
 		if (what==1) {
 			int speechlength=GetWindowTextLength(m_hwnd);
@@ -913,4 +932,6 @@ void CEdit::speak(int what) {
 #endif
 		}	
 	}
+
+#endif
 }

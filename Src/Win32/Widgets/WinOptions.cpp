@@ -133,6 +133,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, std::string* Value)
 static TCHAR FormatWindowPlacement[] = TEXT("%u,%u,%d,%d,%d,%d,%d,%d,%d,%d");
 
 /////////////////////////////////////////////////////////////////////////////
+#ifndef DASHER_WINCE
 
 void CWinOptions::SaveSetting(const std::string& Key, const LPWINDOWPLACEMENT pwp)
 {
@@ -178,6 +179,7 @@ bool CWinOptions::LoadSetting(const std::string& Key, LPWINDOWPLACEMENT pwp)
 
 }
 
+#endif
 /////////////////////////////////////////////////////////////////////////////
 
 void CWinOptions::SaveSetting(const std::string& Key, bool Value)

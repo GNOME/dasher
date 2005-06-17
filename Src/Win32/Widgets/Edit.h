@@ -26,7 +26,9 @@ extern CComModule _Module;
 
 #include <atlcom.h>
 
+#ifndef DASHER_WINCE
 #include <sapi.h>
+#endif 
 
 #include "../../DasherCore/DashEdit.h"
 
@@ -140,7 +142,9 @@ private:
 	INPUT fakekey[2];
 #endif
 
+#ifndef DASHER_WINCE
 	ISpVoice * pVoice;
+#endif
 	Tstring speech;
 	Tstring lastspeech;
 	Tstring newchar;
