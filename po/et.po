@@ -173,7 +173,7 @@ msgstr "Faili valimine"
 #: Src/Gtk2/dasher.cc:1663
 msgid "translator_credits"
 msgstr ""
-"Priit Laes <amd@tt.ee>, 2004.\n"
+"Priit Laes <amd@store20.com>, 2004, 2005.\n"
 "Ivar Smolin <okul@linux.ee>, 2005."
 
 #: Src/Gtk2/dasher.cc:1665 Src/Gtk2/dasher.glade.h:34
@@ -245,7 +245,7 @@ msgstr "<b>Käivitamine ja seiskamine:</b>"
 
 #: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Nupuresiimi sisse/väljalülitamine</b>"
+msgstr "<b>Nupurežiimi sisse/väljalülitamine</b>"
 
 #: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
@@ -281,7 +281,7 @@ msgstr "Nupu juhtimise sätted"
 
 #: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
 msgid "Button mode"
-msgstr "Nupu resiim"
+msgstr "Nupu režiim"
 
 #: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
@@ -297,7 +297,7 @@ msgstr "Värv"
 
 #: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
-msgstr "Juhtimisresiim"
+msgstr "Juhtimisrežiim"
 
 #: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:30
 msgid "Copy"
@@ -317,7 +317,7 @@ msgstr "Lõikamine"
 
 #: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
-msgstr "Tsükliline nupuresiim"
+msgstr "Tsükliline nupurežiim"
 
 #: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
@@ -349,7 +349,7 @@ msgstr "Sisesta teksti teistesse akendesse"
 
 #: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
-msgstr "Silmajälgimise resiim"
+msgstr "Silmajälgimise režiim"
 
 #: Src/Gtk2/dasher.glade.h:43
 msgid ""
@@ -357,7 +357,7 @@ msgid ""
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
-"Kui see resiim on valitud, siis üles ja alla\n"
+"Kui see režiim on valitud, siis üles ja alla\n"
 "vahetavad koordinaatide edasi-tagasi suunda ning parem kinnitab valikut"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
@@ -386,7 +386,7 @@ msgstr "Pikslite arv, mis peab katma kogu Y vahemiku:"
 
 #: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
-msgstr "Ühemõõtmeline resiim"
+msgstr "Ühemõõtmeline režiim"
 
 #: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
@@ -555,8 +555,8 @@ msgid ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
 msgstr ""
-"Kui see resiim on valitud, siis üles ja alla vahetavad koordinaatide "
-"edasi-tagasi suunda ning parem kinnitab valikut"
+"Kui see režiim on valitud, siis üles ja alla vahetavad koordinaatide edasi-"
+"tagasi suunda ning parem kinnitab valikut"
 
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -567,6 +567,8 @@ msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
 msgstr ""
+"Seda väärtust kasutatakse tähekastide suhtelise suuruse määramiseks. "
+"Suuremate väärtuste seadmine alandab sinu kirjutamiskiirust."
 
 #: Src/Gtk2/speech.cc:24
 #, c-format
