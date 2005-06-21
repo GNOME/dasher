@@ -470,6 +470,10 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 	case WM_SETFOCUS:
 		SetFocus(m_pCanvas->getwindow());
 		break;
+    case WM_DASHER_TIMER:
+        // Message sent by our worker thread
+        OnTimer();
+        break;
 	case WM_COMMAND:
 		{
 			const int wmId    = LOWORD(wParam);
@@ -787,68 +791,75 @@ void CDasherWindow::Layout()
 
 }
 
-// Handle periodically poking the canvas to check for user activity.  This use to be done with a SetTimer() call,
-// but this horked up the Visual Studio debugger.
+// Handle periodically poking the canvas to check for user activity.  
+// This use to be done with a SetTimer() call, but this horked up 
+// the Visual Studio debugger.  Now we send a user specified message
+// to the pump and use this to drive the updates.
 DWORD CDasherWindow::WorkerThread(LPVOID lpParam) 
 { 
-	CDasherWindow*		parent = (CDasherWindow*) lpParam;
+    CDasherWindow* parent = (CDasherWindow*) lpParam;
 
-	if (parent == NULL)
-	{
-		return -1;
-	}
+    if (parent == NULL)
+    {
+        return -1;
+    }
 
-	HWND testwindow = NULL;
+    while (!parent->m_bWorkerShutdown)
+    {
+        ::Sleep(20);
+        SendMessage(parent->m_hwnd, WM_DASHER_TIMER, NULL, NULL);
+    }
 
-	while (!parent->m_bWorkerShutdown)
-	{
-		::Sleep(20);
-
-		// Ugh. Can't find a desperately nicer way of doing this, though
-		testwindow = GetForegroundWindow();
-		if (testwindow != parent->m_hwnd) 
-		{
-			parent->m_pEdit->SetWindow(testwindow);
-		}
-		parent->m_pCanvas->OnTimer();
-
-	}
-
-	return 0; 
+    return 0; 
 } 
 
 // Called when we want to get the worker thread to stop.
 void CDasherWindow::ShutdownWorkerThread()
 {
-	const int CHECK_EVERY_MS			= 100;			// Time between successive attempts to gracefully shutdown
-	const int MAX_BEFORE_HARD_KILL		= 2000;			// Maximum time to try for a gracefull thread shutdown
+    const int CHECK_EVERY_MS        = 100;      // Time between successive attempts to gracefully shutdown
+    const int MAX_BEFORE_HARD_KILL  = 2000;     // Maximum time to try for a gracefull thread shutdown
 
-	m_bWorkerShutdown = true;
+    m_bWorkerShutdown = true;
 
-	if (m_workerThread != NULL)
-	{
-		// Give the thread some time to shut itself down gracefully
-		int		elapsed		= 0;
-		DWORD	dwResult	= WAIT_TIMEOUT;
+    if (m_workerThread != NULL)
+    {
+        // Give the thread some time to shut itself down gracefully
+        int     elapsed     = 0;
+        DWORD   dwResult    = WAIT_TIMEOUT;
 
-		while (dwResult == WAIT_TIMEOUT)
-		{
-			dwResult = WaitForSingleObject(m_workerThread, 100);
+        while ((dwResult == WAIT_TIMEOUT) && (elapsed < MAX_BEFORE_HARD_KILL))
+        {
+            dwResult = WaitForSingleObject(m_workerThread, 100);
 
-			if (dwResult == WAIT_TIMEOUT)
-			{
-				elapsed += CHECK_EVERY_MS;
-				::Sleep(CHECK_EVERY_MS);
-			}
-		}
+            if (dwResult == WAIT_TIMEOUT)
+            {
+                elapsed += CHECK_EVERY_MS;
+                ::Sleep(CHECK_EVERY_MS);
+            }
+        }
 
-		// If all else fails, we'll hard kill the thread
-		if (dwResult == WAIT_TIMEOUT)
-			TerminateThread(m_workerThread, 0);
+        // If all else fails, we'll hard kill the thread
+        if (dwResult == WAIT_TIMEOUT)
+            TerminateThread(m_workerThread, 0);
 
-		CloseHandle(m_workerThread);
-		m_workerThread = NULL;
-	}
+        CloseHandle(m_workerThread);
+        m_workerThread = NULL;
+    }
 }
 
+// Handles the work we need to do periodically on a timer event
+void CDasherWindow::OnTimer()
+{
+    HWND testwindow = NULL;
 
+    // Ugh. Can't find a desperately nicer way of doing this, though
+    testwindow = GetForegroundWindow();
+    if (testwindow != m_hwnd) 
+    {
+        if (m_pEdit != NULL)
+            m_pEdit->SetWindow(testwindow);
+    }
+
+    if (m_pCanvas != NULL)
+        m_pCanvas->OnTimer();
+}

@@ -31,6 +31,9 @@ namespace Dasher
 // Abstract interfaces to the Dasher engine
 #include "../DasherCore/DasherSettingsInterface.h"
 
+// Used to signal our message loop to do our periodic work, the value
+// shouldn't collide with anything else in our code.
+#define WM_DASHER_TIMER WM_USER + 128
 
 class CDasherWindow : public CWinWrap, public CSplitterOwner,
 	public Dasher::CDasherSettingsInterface
@@ -173,13 +176,12 @@ private:
 	void SetMenuCheck(UINT MenuItem, bool Value);
 	void Layout();
 
-	HANDLE   m_workerThread;    // Handle to our worker thread that periodically 
-	                            // checks on user's activities
-	bool     m_bWorkerShutdown;	// Set to true when the worker should terminate
-	
-	static DWORD  WINAPI WorkerThread(LPVOID lpParam);   // Function where the 
-	                                             // worker thread spins around
-	void ShutdownWorkerThread();// Called when we want the worker thread to stop
+    HANDLE          m_workerThread;    // Handle to our worker thread that periodically checks on user's activities
+    bool            m_bWorkerShutdown; // Set to true when the worker should terminate
+
+    static DWORD  WINAPI    WorkerThread(LPVOID lpParam);   // Spins around and sends WM_DASHER_TIMER message
+    void                    ShutdownWorkerThread();         // Called when we want the worker thread to stop
+    void                    OnTimer();                      // Does the periodic work
 
 };
 
