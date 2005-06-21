@@ -46,11 +46,13 @@ public:
 	}
 
 	Cint64(int i) : m_i(i) {}
+    Cint64(unsigned int i) : m_i(i) {}
 
 	operator double() const {return double(m_i);}
 	operator int64() const {return m_i;}
 
 	operator int32() const;
+    operator uint32() const;
 
 	Cint64& operator+=(Cint64 rhs)
 	{
@@ -221,6 +223,11 @@ inline Cint64::operator int32() const
 		DASHER_ASSERT(0);
 
 	return (int32)m_i;
+}
+
+inline Cint64::operator uint32() const
+{
+	return (uint32)m_i;
 }
 
 
