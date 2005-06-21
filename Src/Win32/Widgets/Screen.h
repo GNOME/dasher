@@ -82,6 +82,8 @@ public:
 	void Blank() const;
 	void Display();
 	
+	void SendMarker( int iMarker );
+
 private:
 	
 	const void point2POINT(const point* In, POINT* Out, int Number) const;
@@ -93,11 +95,15 @@ private:
 	
 	HDC m_hdc;
 	HDC m_hDCBuffer;
+	HDC m_hDCBufferBackground;
+	HDC m_hDCBufferDecorations;
 	std::auto_ptr<CFontStore> m_ptrFontStore;
 	std::vector<HBRUSH> m_Brushes;
 	std::vector<HPEN> m_Pens;
-	HBITMAP m_hbmBit;
-	HGDIOBJ m_prevhbmBit;
+	HBITMAP m_hbmBitBackground; // Offscreen buffer for background
+	HBITMAP m_hbmBitDecorations; // Offscreen buffer for decorations
+	HGDIOBJ m_prevhbmBitBackground;
+	HGDIOBJ m_prevhbmBitDecorations;	
 	UINT CodePage;
 	Dasher::Opts::FontSize Fontsize;
 	bool drawoutlines;

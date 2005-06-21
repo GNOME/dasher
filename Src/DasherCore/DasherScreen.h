@@ -69,7 +69,7 @@ public:
 
 	// Send a marker to indicate 'phases' of drawing. 
 
-	virtual void SendMarker( int iMarker ) const {};
+	virtual void SendMarker( int iMarker ) {};
 	
 	// Draw a filled rectangle - given position and color id
 	//! Draw a filled rectangle

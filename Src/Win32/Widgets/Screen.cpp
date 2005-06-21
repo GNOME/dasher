@@ -27,12 +27,22 @@ CScreen::CScreen(HDC hdc, Dasher::screenint iWidth,Dasher::screenint iHeight)
 {
 	// set up the off-screen buffers
 //	HDC hdc = GetDC(mainwindow);
-	m_hDCBuffer = CreateCompatibleDC(hdc);  // one for rectangles
-	m_hbmBit = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
-//	::ReleaseDC(mainwindow, hdc); // Wasn't here before. Should be needed? (IAM)
-	SetBkMode(m_hDCBuffer,TRANSPARENT);
-	m_prevhbmBit = SelectObject(m_hDCBuffer,m_hbmBit);
-	
+
+	// Create a memory device context compatible with the screen
+	m_hDCBufferBackground = CreateCompatibleDC(hdc);  // one for rectangles
+	m_hbmBitBackground = CreateCompatibleBitmap(hdc,m_iWidth,m_iHeight);
+	SetBkMode(m_hDCBufferBackground,TRANSPARENT);
+	m_prevhbmBitBackground = SelectObject(m_hDCBufferBackground,m_hbmBitBackground);
+
+	m_hDCBufferDecorations = CreateCompatibleDC(hdc);
+	m_hbmBitDecorations = CreateCompatibleBitmap(hdc,m_iWidth, m_iHeight );
+    SetBkMode(m_hDCBufferDecorations,TRANSPARENT);
+	m_prevhbmBitDecorations = SelectObject(m_hDCBufferDecorations,m_hbmBitDecorations);
+
+	// FIXME - I'm assuming it's okay just to copy handles like this, can someone do something about this if I'm wrong
+
+	m_hDCBuffer = m_hDCBufferBackground;
+
 	// create the brushes
 //	Build_Colours();
 	
@@ -51,12 +61,26 @@ CScreen::~CScreen()
 {
 	// tidy up
 
-	SelectObject(m_hDCBuffer,m_prevhbmBit);
+	// Select the old bitmaps back into the device contexts (is this really
+	// necessary? we're just about to release them?)
 
-	BOOL b = DeleteObject(m_hbmBit);
+	SelectObject(m_hDCBufferDecorations,m_prevhbmBitDecorations);
+	SelectObject(m_hDCBufferBackground,m_prevhbmBitBackground);
+
+	// Delete the offscreen bitmaps and device contexts.
+
+	BOOL b;
+
+	b = DeleteObject(m_hbmBitBackground);
 	DASHER_ASSERT(b);
 	
-	b = DeleteDC(m_hDCBuffer);
+	b = DeleteObject(m_hbmBitDecorations);
+	DASHER_ASSERT(b);
+	
+	b = DeleteDC(m_hDCBufferBackground);
+	DASHER_ASSERT(b);
+
+	b = DeleteDC(m_hDCBufferDecorations);
 	DASHER_ASSERT(b);
 		
 	while (m_Brushes.size()!=0) {
@@ -68,8 +92,6 @@ CScreen::~CScreen()
 		DeleteObject(m_Pens.back());
 		m_Pens.pop_back();
 	}
-
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -175,6 +197,21 @@ void CScreen::SetColourScheme(const Dasher::CCustomColours* pColours)
 //}
 
 /////////////////////////////////////////////////////////////////////////////
+
+
+/// Handler for redraw markers;
+
+void CScreen::SendMarker( int iMarker ) {
+	switch( iMarker ) {
+case 0:
+	m_hDCBuffer = m_hDCBufferBackground;
+	break;
+case 1:
+	BitBlt(m_hDCBufferDecorations, 0, 0, m_iWidth,m_iHeight, m_hDCBufferBackground, 0, 0, SRCCOPY);
+	m_hDCBuffer = m_hDCBufferDecorations;
+	break;
+	}
+}
 
 void CScreen::DrawMousePosBox(int which, int iMousePosDist)
 {
