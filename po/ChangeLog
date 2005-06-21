@@ -1,6 +1,10 @@
+2005-06-21  Funda Wang  <fundawang@linux.net.cn>
+
+	* zh_CN.po: Updated Simplified Chinese translation.
+
 2005-06-20  Kjartan Maraas  <kmaraas@gnome.org>
 
-	* nb.po: Updated Norwegian bokmål translation.
+	* nb.po: Updated Norwegian bokml translation.
 	* no.po: Same.
 
 2005-06-18  Priit Laes  <plaes@cvs.gnome.org>
@@ -82,7 +86,7 @@
 
 	* es.po: Updated Spanish translation.
 
-2005-05-21  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+2005-05-21  Iaki Larraaga  <dooteo@euskalgnu.org>
 
 	* eu.po:  Updated Basque translation.
 
@@ -146,7 +150,7 @@
 
 	* vi.po: Updated Vietnamese translation.
 
-2005-04-05  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+2005-04-05  Iaki Larraaga  <dooteo@euskalgnu.org>
 
 	*eu.po : Updated Basque translation.
 
@@ -154,7 +158,7 @@
 
 	* uk.po: Updated Ukrainian translation.
 
-2005-04-04  Iñaki Larrañaga  <dooteo@euskalgnu.org>
+2005-04-04  Iaki Larraaga  <dooteo@euskalgnu.org>
 
 	* eu.po: Added Basque translation.
 
