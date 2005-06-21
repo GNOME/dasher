@@ -97,7 +97,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 				{
 					exclusions[pSymbol->symbol]=1;
 
-					unsigned int p = static_cast<unsigned long long int>(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
+					unsigned int p = static_cast<myint>(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
 					
 
 					probs[pSymbol->symbol]+=p;
