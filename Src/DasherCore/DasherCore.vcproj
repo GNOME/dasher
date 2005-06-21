@@ -292,6 +292,12 @@
 				RelativePath="LanguageModelling\BigramLanguageModel.h">
 			</File>
 			<File
+				RelativePath="LanguageModelling\DictLanguageModel.cpp">
+			</File>
+			<File
+				RelativePath="LanguageModelling\DictLanguageModel.h">
+			</File>
+			<File
 				RelativePath="LanguageModelling\LanguageModel.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
@@ -375,36 +381,36 @@
 			<File
 				RelativePath="LanguageModelling\PPMLanguageModel.h">
 			</File>
+			<File
+				RelativePath="LanguageModelling\WordLanguageModel.cpp">
+			</File>
+			<File
+				RelativePath="LanguageModelling\WordLanguageModel.h">
+			</File>
 		</Filter>
 		<File
-			RelativePath=".\AlphIO.cpp">
+			RelativePath="Alphabet\AlphIO.cpp">
 		</File>
 		<File
-			RelativePath=".\AlphIO.h">
+			RelativePath="Alphabet\AlphIO.h">
 		</File>
 		<File
-			RelativePath=".\Alphabet.cpp">
+			RelativePath="Alphabet\Alphabet.cpp">
 		</File>
 		<File
-			RelativePath=".\Alphabet.h">
+			RelativePath="Alphabet\Alphabet.h">
 		</File>
 		<File
-			RelativePath=".\AlphabetMap.cpp">
+			RelativePath="Alphabet\AlphabetMap.cpp">
 		</File>
 		<File
-			RelativePath=".\AlphabetMap.h">
+			RelativePath="Alphabet\AlphabetMap.h">
 		</File>
 		<File
 			RelativePath="ColourIO.cpp">
 		</File>
 		<File
 			RelativePath="ColourIO.h">
-		</File>
-		<File
-			RelativePath=".\CustomAlphabet.cpp">
-		</File>
-		<File
-			RelativePath=".\CustomAlphabet.h">
 		</File>
 		<File
 			RelativePath="CustomColours.cpp">
