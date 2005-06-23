@@ -148,7 +148,6 @@ void handle_draw_text(const std::string &String, int x1, int y1, int size)
 }
 
 void handle_send_marker( int iMarker ) {
-
   if( send_marker_callback != NULL )
     send_marker_callback( iMarker );
 }

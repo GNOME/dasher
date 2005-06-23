@@ -38,22 +38,25 @@ void CWordLanguageModel::CWordContext::dump()
 /// Wordnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
+/// Return the child of a node with a given symbol, or NULL if there is no child with that symbol yet
+
 CWordLanguageModel::CWordnode *CWordLanguageModel::CWordnode::find_symbol(int sym) const
-// see if symbol is a child of node
 {
-	//  printf("finding symbol %d at node %d\n",sym,node->id);
-	CWordnode *found=child;
-	while (found) {
-		if (found->sbl==sym)
-			return found;
-		found=found->next;
-	}
-	return 0;
+  CWordnode *found=child;
+  while (found) {
+    if (found->sbl==sym)
+      return found;
+    found=found->next;
+  }
+  return 0;
 }
 
 
-CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* pNode, symbol sym,int *update)
+CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* pNode, symbol sym, int *update, bool bLearn )
 {
+
+  // FIXME - need to implement bLearn
+
 	CWordnode *pReturn = pNode->find_symbol(sym);
 	
 	if (pReturn!=NULL)
@@ -66,7 +69,6 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 		}
 		return pReturn;
 	}
-
 	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
 	pReturn->sbl = sym;  
 	pReturn->next= pNode->child;
@@ -150,270 +152,103 @@ int CWordLanguageModel::lookup_word_const( const std::string &w ) const {
 void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
 {
 
-	const CWordLanguageModel::CWordContext *wordcontext= (const CWordContext *)(context);
+  const CWordLanguageModel::CWordContext *wordcontext=(const CWordContext *)(context);
+
+  // Make sure that the probability vector has the right length
 		
-	int iNumSymbols = GetSize();
+  int iNumSymbols = GetSize();
+  probs.resize( iNumSymbols );
 
-	probs.resize( iNumSymbols );
-	
-	std::vector<bool> exclusions(iNumSymbols);
+  // For the prototype work with double precision to make things easier to normalise
 
-	int i;
-	for( i=1 ; i < iNumSymbols; i++)
+  std::vector< double > dProbs;
+
+  for( std::vector< double >::iterator it( dProbs.begin() ); it != dProbs.end(); ++it )
+    *it = 0.0;
+
+  double alpha = LanguageModelParams()->GetValue( std::string( "LMAlpha" ) )/100.0;
+  double beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) )/100.0;
+
+  double dToSpend(1.0);
+  double dRemaining;
+
+  CWordnode* pTmp=wordcontext->head;
+  CWordnode* pTmpWord = wordcontext->word_head;
+
+  // We'll assume that these stay in sync for now - maybe do something more robust later.
+
+  while(pTmp)
+    {
+      // Get the total count from the word node
+
+      int iTotal( pTmpWord->count );
+      
+      if (iTotal) 
 	{
-		probs[i] = 0;
-		exclusions[i] = false;
+	  dRemaining = dToSpend;
+
+	  CWordnode *pTmpChild( pTmp->child );
+
+	  while (pTmpChild) 
+	    {
+	      double dP = dRemaining * (pTmpChild->count - beta)/static_cast<double>(iTotal + alpha);
+	      dProbs[pTmpChild->sbl]+=dP;
+	      dToSpend -= dP;		
+	  
+	      pTmpChild = pTmpChild->next;
+	    }
 	}
+      pTmp = pTmp->vine;
+      pTmpWord = pTmpWord->vine;
+    }
 
-	bool doExclusion = (LanguageModelParams()->GetValue( std::string( "LMExclusion" ) ) == 1 );
 
-	int alpha = LanguageModelParams()->GetValue( std::string( "LMAlpha" ) );
-	int beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) );
+  // Escape to a uniform model. In actuality, this should be a letter
+  // only model for spelling unseen words, but this hasn't yet been
+  // implemented
 
-	unsigned int iToSpend = norm;
+  dRemaining = dToSpend;
 
-	CWordnode* pTemp=wordcontext->head;
+  for(int i(0); i < iNumSymbols; ++i) {
+    double dP( dRemaining / static_cast<double>( iNumSymbols ) );
+    dProbs[i] += dP;
+    dToSpend -= dP;
+  }
 
-	while (pTemp != 0) 
-	{
-		int iTotal=0;
-		
-		CWordnode* pSymbol = pTemp->child;
-		while (pSymbol)
-		{
-			int sym = pSymbol->sbl; 
-			if (!(doExclusion && exclusions[sym]))
-				iTotal += pSymbol->count;
-			pSymbol = pSymbol->next;
-		}
+  // Convert floating point to integer probabilities
 
-		if (iTotal) 
-		{
-			unsigned int size_of_slice = iToSpend;
-			pSymbol = pTemp->child;
-			while (pSymbol) 
-			{
-				if (!(doExclusion && exclusions[pSymbol->sbl])) 
-				{
-					exclusions[pSymbol->sbl]=1;
-					
-					unsigned int p = static_cast<unsigned __int64 >(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
-					probs[pSymbol->sbl]+=p;
-					iToSpend-=p;		
-				}
-				//				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
-				//				DebugOutput(debug);
-				pSymbol = pSymbol->next;
-			}
-		}
-		pTemp = pTemp->vine;
-	}
-	
-	unsigned int size_of_slice= iToSpend;
-	int symbolsleft=0;
-	
-	for (i=0; i < iNumSymbols ; i++)
-	  if ( !(doExclusion && exclusions[i]) )
-	    symbolsleft++;
-	
-//	std::ostringstream str;
-//	for (sym=0;sym<modelchars;sym++)
-//		str << probs[sym] << " ";
-//	str << std::endl;
-//	DASHER_TRACEOUTPUT("probs %s",str.str().c_str());
+  int iToSpend( norm );
 
-//	std::ostringstream str2;
-//	for (sym=0;sym<modelchars;sym++)
-//		str2 << valid[sym] << " ";
-//	str2 << std::endl;
-//	DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
+  for(int i(0); i < iNumSymbols; ++i) {
+    probs[i] = norm * dProbs[i];
 
-	for (i=0;  i < iNumSymbols ; i++) 
-	{
-		if (!(doExclusion && exclusions[i]) ) 
-		{
-			unsigned int p=size_of_slice/symbolsleft;
-			probs[i]+=p;
-			iToSpend -= p;
-		}
-	}
+    iToSpend -= probs[i];
+  }
 
-	int iLeft = iNumSymbols;
+  // Check that we haven't got anything left over due to rounding errors:
 
-	for (int j=0; j< iNumSymbols; ++j) 
-	{
-		unsigned int p= iToSpend/iLeft;
-		probs[j] +=p;
-		--iLeft;
-		iToSpend -=p;
-	}
-
-	DASHER_ASSERT(iToSpend == 0);
+  int iLeft = iNumSymbols;
+  
+  for (int j=0; j< iNumSymbols; ++j) 
+    {
+      unsigned int p= iToSpend/iLeft;
+      probs[j] +=p;
+      --iLeft;
+      iToSpend -=p;
+    }
+  
+  DASHER_ASSERT(iToSpend == 0);
 }
 
 
+/// Collapse the context. This also has the effect of entering a count
+/// for the word into the word part of the model
 
+void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &context, bool bLearn ) {
 
-// void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
-// {
-// // 	const CWordContext *ppmcontext= (const CWordContext *)(context);
-	
-	
-// // 	//	int modelchars=GetNumberModelChars();
+  // Letters appear at the end of the trie:
+  // 
 
-// // 	int modelchars=Alphabet.GetSize();
-
-// // 	//	int norm=CLanguageModel::normalization();
-// // 	probs.resize( modelchars );
-// // 	for( vector<unsigned int>::iterator it( probs.begin() ); it != probs.end(); ++it )
-// // 	  *it = 0;
-
-// // 	vector<bool> exclusions( probs.size() );
-// // 	for( vector<bool>::iterator it2( exclusions.begin() ); it2 != exclusions.end(); ++it2 )
-// // 	  *it2 = false;
-
-// // 	vector<bool> valid( probs.size() );
-// // 	for( unsigned int i(0); i < valid.size(); ++i )
-// // 	  valid[i] = isRealSymbol( i );
-	
-// // 	CWordnode *temp,*s; 
-// // 	//	int loop,total;
-// // 	int sym; 
-// // 	ulong size_of_slice;
-// // 	ulong tospend=norm;
-// // 	temp=ppmcontext->head;
-
-// // 	int total;
-
-// // 	while (temp!=0) {
-
-// // 	  int controlcount=0;
-
-// // 		total=0;
-// // 		s=temp->child;
-// // 		while (s) {
-// // 		  sym=s->sbl; 
-// // 		  if (!exclusions[sym] && valid[sym]) {
-// // 		    if( sym == GetControlSymbol() ) {
-// // 		      // Do nothing
-// // 		    } 
-// // 		    else if( sym == GetSpaceSymbol() ) {
-// // 		      total=total+s->count;
-		      
-// // 		      controlcount = int(0.4 * s->count); // FIXME - and here
-		      
-// // 		      if( controlcount < 1 )
-// // 			controlcount = 1;
-
-// // 		      if( GetControlSymbol() != -1 )
-// // 			total = total + controlcount;
-
-// // 		    }
-// // 		    else {
-// // 		      total=total+s->count;
-// // 		    }
-// // 		  }
-// // 		  s=s->next;
-// // 		}
-// // 		if (total) {
-// // 		  size_of_slice=tospend;
-// // 		  s=temp->child;
-// // 		  while (s) {
-// // 		    if (!exclusions[s->sbl] && valid[s->sbl]) {
-// // 		      //		      exclusions[s->symbol]=1; 
-// // 		      if( s->sbl == GetControlSymbol() ) {
-// // 			// Do nothing
-// // 		      } 
-// // 		      else if( s->sbl == GetSpaceSymbol() ) {
-// // 			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-// // 			probs[s->sbl]+=p;
-// // 			tospend-=p;
-// // 			exclusions[s->sbl]=1;
-// // 			if( GetControlSymbol() != -1 )
-// // 			  if( !exclusions[GetControlSymbol()] ) {
-// // 			    ulong p=((size_of_slice/2)/ulong(total))*(2*controlcount-1);
-// // 			    probs[GetControlSymbol()]+=p;
-// // 			    tospend-=p;
-// // 			    exclusions[GetControlSymbol()]=1;
-// // 			  }
-// // 		      }
-// // 		      else {
-
-// // 	ulong p=(((size_of_slice/2)*(2*s->count-1))/ulong(total)); // Changed to multiply before divide to avoid underflow problems when counts are really high - however, there's a chance this will cause overflow problems
-
-// // 	//			ulong p=((size_of_slice/2)/ulong(total))*(2*s->count-1);
-// // 			probs[s->sbl]+=p;
-// // 			tospend-=p;	
-// // 			exclusions[s->sbl]=1;
-// // 		      }
-// // 		    }
-// // 		    s=s->next;
-// // 		  }
-// // 		}
-// // 		temp = temp->vine;
-// // 	}
-// // 	//	Usprintf(debug,TEXT("Norm %u tospend %u\n"),Norm,tospend);
-// // 	//	DebugOutput(debug);
-	
-// // 	size_of_slice=tospend;
-// // 	int symbolsleft=0;
-// // 	for (sym=0;sym<modelchars;sym++)
-// // 	  if (!probs[sym] && valid[sym])
-// // 	    symbolsleft++;
-// // 	for (sym=0;sym<modelchars;sym++) 
-// // 	  if (!probs[sym] && valid[sym]) {
-// // 	    ulong p=size_of_slice/symbolsleft;
-// // 	    probs[sym]+=p;
-// // 	    tospend-=p;
-// // 	  }
-	
-// // 			// distribute what's left evenly	
-// // 		//tospend+=uniform;
-
-// // //  	int current_symbol(0);
-// // //  	while( tospend > 0 )
-// // //  	  {
-// // //  	    if( valid[current_symbol] ) {
-// // //  		probs[current_symbol] += 1;
-// // //  		tospend -= 1;
-// // //  	    }
-
-// // //  	    ++current_symbol;
-// // //  	    if( current_symbol == modelchars )
-// // //  	      current_symbol = 0;
-// // //  	  }
-
-// // 	int valid_char_count(0);
-
-// // 	for( int k(0); k < modelchars; ++k )
-// // 	  if( valid[k] ) 
-// // 	    ++valid_char_count;
-	  
-	
-// // 	for (int j(0);j<modelchars;++j) 
-// // 	  if( valid[j] ) {
-// // 	    ulong p=tospend/(valid_char_count);
-// // 	    probs[j] +=p;
-// // 	    --valid_char_count;
-// // 	    tospend -=p;
-// // 	  }
-// // //  			  {
-// // //  				ulong p=tospend/(modelchars-sym);
-// // //  				probs[sym]+=p;
-// // //  				tospend-=p;
-// // //  			  }
-// // //  			}
-// // 			//	Usprintf(debug,TEXT("finaltospend %u\n"),tospend);
-// // 			//	DebugOutput(debug);
-			
-// // 			// free(exclusions); // !!!
-// // 			// !!! NB by IAM: p577 Stroustrup 3rd Edition: "Allocating an object using new and deleting it using free() is asking for trouble"
-// // 	//		delete[] exclusions;
-// // 			return true;
-// }
-
-
-void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &context ) const {
 
   if( max_order == 0 ) {
     // If max_order = 0 then we are not keeping track of previous
@@ -422,175 +257,183 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 
     context.head = m_pRoot;
     context.order = 0;
+ 
   }
   else {
- 
-	  context.head = context.word_head;
-	  context.order = context.word_order;
 
-//	  CWordnode *new_head;
+    if( bLearn ) { // Only do this if we are learning
+      // We need to increment all substrings - start at the current context striped back to the word level
+      
+      bool bUpdateExclusion( false ); // Whether to keep going or not
+      
+      CWordnode *pCurrent( context.word_head );
+      
+      // Keep track of pointers to all child nodes
+      
+      std::vector< std::vector< CWordnode* >* > oNodeCache;
+      
+      // FIXME - remember to delete member vectors when we're done
+      
+      std::vector<symbol> oSymbols;
+      
+      // FIXME broken SymbolAlphabet().GetAlphabetPointer()->GetSymbols( &oSymbols, &(context.current_word), false );
 
-	  int new_sbl( lookup_word_const( context.current_word ) );
-
-	  CWordnode *new_tmp;
-	  CWordnode *prev_tmp( NULL );
-
-	  CWordnode *tmp( context.head );
-	    
-	  while( tmp != NULL ) {
+      // We're not storing the actual string - just a list of symbol IDs
+      
+      while( (pCurrent != NULL) && !bUpdateExclusion ) {
+	
+	std::vector< CWordnode* > *pCurrentCache( new std::vector< CWordnode* > );
+	
+	CWordnode *pTmp( pCurrent );
+	
+	for( std::vector<symbol>::iterator it( oSymbols.begin() ); it != oSymbols.end(); ++it ) {
+	  int iSymbol( *it );
 	  
-	    new_tmp = tmp->find_symbol( new_sbl );
+	  CWordnode *pTmpChild( pTmp->find_symbol( iSymbol ) );
+	  
+	  if( pTmpChild == NULL ) {
+	    // We don't already have this child, so add a new node
 	    
-	    if( new_tmp == NULL ) {
-
-	      new_tmp = m_NodeAlloc.Alloc();  // count is initialized to 1
-	      new_tmp->sbl = new_sbl;  
-	      new_tmp->next= tmp->child;
-	      tmp->child=new_tmp;
-	    }
+	    pTmpChild = m_NodeAlloc.Alloc();
+	    pTmpChild->sbl = iSymbol;
+	    pTmpChild->next = pTmp->child;
+	    pTmp->child = pTmpChild;
 	    
-	    if( prev_tmp != NULL )
-	      prev_tmp->vine = new_tmp;
-	    else
-	      context.head = new_tmp;
+	    // Newly allocated child already has a count of one, so no need to increment it explicitly
 	    
-	    prev_tmp = new_tmp;
-	    tmp = tmp->vine;
 	  }
-
-	  prev_tmp->vine = m_pRoot;
-
-	  context.current_word = "";
-	  ++context.order;
-	  ++context.word_order;
-	  
-	  if (context.order>max_order){
-	    context.head=context.head->vine;
-	    context.order--;
-	    context.word_order--;
+	  else {
+	    bUpdateExclusion = true;
+	    ++pTmpChild->count;
 	  }
 	  
-	  context.word_head = context.head;
+	  pCurrentCache->push_back( pTmpChild );
+	  
+	  pTmp = pTmpChild;
+	  
+	}
+	
+	pCurrent = pCurrent->vine;
+	
+	oNodeCache.push_back( pCurrentCache );
+      }
+      
+      // Now we need to go through and fix up the vine pointers
+      
+      for( std::vector< std::vector< CWordnode* >* >::iterator it( oNodeCache.begin() ); it != oNodeCache.end(); ++it ) {
+	
+	CWordnode *pPreviousNode( NULL ); // Start with a NULL pointer
+	
+	for( std::vector< CWordnode * >::reverse_iterator it2( (*it)->rbegin() ); it2 != (*it)->rend(); ++it2 ) {
+	  (*it2)->vine = pPreviousNode;
+	  pPreviousNode = (*it2);
+	}
+	
+      }
+    }
+
+    // Collapse down word part regardless of whether we're learning or not
+
+    int iNewSymbol( lookup_word_const( context.current_word ) );
+
+    CWordnode *pTmp( context.word_head );
+    CWordnode *pTmpChild;
+
+    while( pTmp != NULL ) {
+
+      int foo(1);
+
+      AddSymbolToNode( pTmp, iNewSymbol, &foo, true ); // FIXME - might have added a new node here, so fix up vine pointers.
+      pTmp = pTmp->vine;
+
+    }
+
+    // FIXME - add symbol if it doesn't already exist
+
+
+ // Finally get rid of the letter part of the context
+    
+    context.head = context.word_head;
+    context.order = context.word_order;    
   }
 }
 
 void CWordLanguageModel::LearnSymbol(Context c, int Symbol)
 {
   CWordContext& context = * (CWordContext *) (c);
-  AddSymbol(context, Symbol);
+  AddSymbol(context, Symbol, true);
 }
 
-void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,symbol sym)
-	// add symbol to the context
-	// creates new nodes, updates counts
-	// and leaves 'context' at the new context
+/// add symbol to the context creates new nodes, updates counts and
+/// leaves 'context' at the new context
 
+void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,symbol sym, bool bLearn)
 {
-	DASHER_ASSERT(sym>=0 && sym< GetSize());
+  DASHER_ASSERT(sym>=0 && sym< GetSize());
 
-	// Update the context with the new symbol
+  // Add the symbol to the letter part of the context. Note that we don't do any learning at this stage
 
-	CWordnode *vineptr,*temp;
-	int updatecnt=1;
-	
-	temp=context.head->vine;
-	context.head= AddSymbolToNode(context.head,sym,&updatecnt);
+  CWordnode *pTmp( context.head ); // Current node
+  CWordnode *pTmpVine; // Child created last time around (for vine pointers)
 
-	// Add the new symbol to the string representation of the current word too
+  // Context head is a special case so that we can increment order etc.
 
- 	if( max_order > 0 ) {
- 	  char sbuffer[5];
- 	  snprintf( sbuffer, 5, "%04d", sym );
- 	  context.current_word.append( sbuffer );
- 	}
+  int foo2(1);
 
-	// Propagate down the vine pointers
+  pTmpVine =  AddSymbolToNode( pTmp, sym, &foo2, false ); // Last parameter is whether to learn or not
 
-	vineptr=context.head;
-	context.order++;
-	
-	while (temp!=0) {
-		vineptr->vine= AddSymbolToNode(temp,sym,&updatecnt);    
-		vineptr=vineptr->vine;
-		temp=temp->vine;
-	}
-	vineptr->vine= m_pRoot;
+  context.head = pTmpVine;
+  ++context.order;
 
-	// Collapse the context if we have started a new word
+  pTmp = pTmp->vine;
 
-	if( sym == SymbolAlphabet().GetSpaceSymbol() ) {
-	  CollapseContext( context );
-	}
+  while( pTmp != NULL ) {
+    CWordnode *pTmpNew; // Child created this time around
+    
+    int foo(1);
 
-	while (context.order> LanguageModelParams()->GetValue( std::string( "LMMaxOrder" ) ))
-	{
-	  context.head=context.head->vine;
-	  context.order--;
-	}
+    pTmpNew = AddSymbolToNode( pTmp, sym, &foo, false );
+
+    // Connect up vine pointers if necessary
+
+    if( pTmpVine ) {
+      pTmpVine->vine = pTmpNew;
+    }
+
+    pTmpVine = pTmpNew;
+
+    // Follow vine pointers
+
+    pTmp = pTmp->vine;
+
+  }
+
+  pTmpVine->vine = NULL; // (not sure if this is needed)
+
+  // Add the new symbol to the string representation too - note that
+  // string is actually a series of integers, not the actual symbols -
+  // doesn't matter as long as we're consistent and unique.
+
+  char sbuffer[5];
+  snprintf( sbuffer, 5, "%04d", sym );
+  context.current_word.append( sbuffer );
+
+  // Collapse the context (with learning) if we've just entered a space
+  // FIXME - we need to generalise this for more languages.
+
+  if( sym == SymbolAlphabet().GetSpaceSymbol() ) {
+    CollapseContext( context, bLearn );
+  }
 }
 
 /////////////////////////////////////////////////////////////////////
 // update context with symbol 'Symbol'
 
-void CWordLanguageModel::EnterSymbol(Context c, int Symbol) const
+void CWordLanguageModel::EnterSymbol(Context c, int Symbol)
 {	
+  // Same as AddSymbol but without learning in CollapseContext 
 
   CWordContext& context = * (CWordContext *) (c);
-	
-  // Add the symbol to the current word string
-
-  //  cout << max_order << std::endl;
-
-  if( max_order > 0 ) {
-    char sbuffer[5];
-    snprintf( sbuffer, 5, "%04d", Symbol );
-    context.current_word.append( sbuffer );
-  }
-
-  // Collapse context if necessary - note that there's no point in
-  // traversing the trie for the new symbol if we're just going to
-  // collapse the context - the information required to update the
-  // word part of the context is stored in the string.
-
-  if( Symbol == SymbolAlphabet().GetSpaceSymbol() ) {
-    CollapseContext( context );
-    return;
-  }
-
-  // Traverse the trie if we don't have a space symbol
-
-  CWordnode *find;
-
-  while (context.head) {
-
-    if( context.order < LanguageModelParams()->GetValue( std::string( "LMMaxOrder" ))) {
-    find =context.head->find_symbol(Symbol);
-    if (find) {
-      context.order++;
-      context.head=find;
-
-      //      std::cout << context.order << std::endl;
-      return;
-    }
-
-    }
-    //    m_iMaxOrder = params->GetValue( std::string( "LMMaxOrder" ) );
-    
-    //    std::cout << "a" << std::endl;
-
-    //    while (context.order>  params->GetValue( std::string( "LMMaxOrder" )))
-    // {
-    //std::cout << "b" << std::endl;
-
-	context.order--;
-	context.head=context.head->vine;
-	// }
-  }
-  
-  if (context.head==0) {
-    context.head= m_pRoot;
-    context.order=0;
-  }
-  //  std::cout << "(reduced) " << context.order << std::endl;
+  AddSymbol(context, Symbol, false);
 }
 

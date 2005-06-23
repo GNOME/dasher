@@ -290,7 +290,7 @@ class dasher_screen : public CDasherScreen
       handle_draw_rectangle( x1, y1, x2, y2, Color, ColorScheme);
     };
 
-  void SendMarker( int iMarker ) const {
+  void SendMarker( int iMarker ) {
     handle_send_marker( iMarker );
   };
 	

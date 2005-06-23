@@ -39,7 +39,7 @@ public:
 
 	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const;
 
-	virtual void EnterSymbol(Context context, int Symbol) const;
+	virtual void EnterSymbol(Context context, int Symbol);
 	virtual void LearnSymbol(Context context, int Symbol) {
 	  EnterSymbol( context, Symbol );
 	}; // Never learn in this model

@@ -64,7 +64,7 @@ public:
 	////////////////////////////////////////////////////////////////////////////
 
 	// Update context with a character - only modifies context
-	virtual void EnterSymbol(CLanguageModel::Context context, int Symbol) const {
+	virtual void EnterSymbol(CLanguageModel::Context context, int Symbol) {
 	  lma->EnterSymbol( ContextMap.find( context )->second->GetContextA(), Symbol );
 	  lmb->EnterSymbol( ContextMap.find( context )->second->GetContextB(), Symbol );
 	};

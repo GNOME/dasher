@@ -3,6 +3,7 @@
 #include <iostream>
 #include <sstream>
 
+
 GtkWidget *the_canvas;
 GdkPixmap *offscreen_display_buffer;
 GdkPixmap *offscreen_decoration_buffer;
@@ -63,6 +64,7 @@ void initialise_canvas( int width, int height )
 
 void blank_callback()
 {
+
   if (setup==false||preferences==true) 
     return;
 
@@ -134,11 +136,11 @@ void display_callback()
   // Blank the offscreen buffer (?)
 
   gdk_draw_rectangle( offscreen_buffer,
-		      graphics_context,
-                      TRUE,
-                      0, 0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
+ 		      graphics_context,
+		      TRUE,
+		      0, 0,
+ 		      the_canvas->allocation.width,
+ 		      the_canvas->allocation.height);
   
   // Invalidate the full canvas to force it to be redrawn on-screen
 
@@ -316,26 +318,33 @@ PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
   // Calculate the name of the pango layout in the cache - this
   // includes the display text and the size.
 
-  std::stringstream sCacheName;
-  sCacheName << iSize << "_" << sDisplayText;
+  char buffer[128]; // FIXME - what if we exceed this?
+
+  snprintf( buffer, 128, "%d_%s", iSize, sDisplayText.c_str() );
+
+  //  std::stringstream sCacheName;
+  //sCacheName << iSize << "_" << sDisplayText;
+
+  std::string sCacheName( buffer );
 
   // If we haven't got a cached pango layout for this string/size yet,
   // create a new one
 
-  if( oPangoCache[ sCacheName.str() ] == NULL ) {
+  std::map< std::string, PangoLayout * >::iterator it( oPangoCache.find( sCacheName ) );
 
+  if( it != oPangoCache.end() )
+    return it->second;
+  else {
     PangoLayout *pNewPangoLayout( gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "") );
 
     pango_font_description_set_size( font, iSize*PANGO_SCALE );
     pango_layout_set_font_description( pNewPangoLayout,font );
     pango_layout_set_text( pNewPangoLayout,sDisplayText.c_str(),-1 );
 
-    oPangoCache[ sCacheName.str() ] = pNewPangoLayout;
+    oPangoCache[ sCacheName ] = pNewPangoLayout;
+
+    return pNewPangoLayout;
   }
-
-  // Return the value from the cache.
-
-  return oPangoCache[ sCacheName.str() ];
 }
 
 void draw_text_string_callback(std::string String, int x1, int y1, int size)
@@ -390,6 +399,7 @@ void send_marker_callback( int iMarker ) {
 
 
     offscreen_buffer = offscreen_display_buffer;
+
     break;
   case 1:
 

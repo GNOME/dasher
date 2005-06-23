@@ -39,7 +39,7 @@ public:
 
 	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const;
 
-	virtual void EnterSymbol(Context context, int Symbol) const;
+	virtual void EnterSymbol(Context context, int Symbol);
 	virtual void LearnSymbol(Context context, int Symbol);	
 
 	virtual int GetMemory() {
@@ -78,11 +78,11 @@ private:
 		
 	};
 
-	CWordnode* AddSymbolToNode(CWordnode* pNode, symbol sym,int *update);
+	CWordnode* AddSymbolToNode(CWordnode* pNode, symbol sym,int *update, bool bLearn);
 	
-	void AddSymbol(CWordContext& context,symbol sym);
+	void AddSymbol(CWordContext& context,symbol sym, bool bLearn);
 
-	void CollapseContext(CWordContext &context) const;
+	void CollapseContext(CWordContext &context, bool bLearn);
 
 	int lookup_word( const std::string &w );
 	int lookup_word_const( const std::string &w ) const; 

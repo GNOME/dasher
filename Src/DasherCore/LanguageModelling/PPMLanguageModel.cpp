@@ -188,7 +188,7 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sy
 /////////////////////////////////////////////////////////////////////
 // Update context with symbol 'Symbol'
 
-void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) const
+void CPPMLanguageModel::EnterSymbol(Context c, int Symbol)
 {
 	DASHER_ASSERT(Symbol>=0 && Symbol< GetSize());
 

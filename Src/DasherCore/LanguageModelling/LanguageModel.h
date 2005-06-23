@@ -46,7 +46,7 @@ public:
 	////////////////////////////////////////////////////////////////////////////
 
 	// Update context with a character - only modifies context
-	virtual void EnterSymbol(Context context, int Symbol) const =0;
+	virtual void EnterSymbol(Context context, int Symbol)=0;
 	
 	// Add character to the language model at the current context and update the context 
 	// - modifies both the context and the LanguageModel
