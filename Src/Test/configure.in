@@ -1,0 +1,12 @@
+AC_INIT(LanguageModelling/pjc51_main.cpp)
+AM_INIT_AUTOMAKE(dasher_test, 0.0.1)
+
+
+AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
+AC_CHECK_LIB(gslcblas,main)
+AC_CHECK_LIB(gsl,main)
+
+AC_PROG_CXX
+
+AC_OUTPUT([Makefile LanguageModelling/Makefile])
+
