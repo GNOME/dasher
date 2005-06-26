@@ -6,8 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-// EVERYTHING HERE IS COMMENTED OUT TO PREVENT CHECKING IN GSL DEPENCENCIES
-
 // LanguageModel test application
 
 #include "../../Common/Common.h"
@@ -23,204 +21,209 @@
 #include <iostream>
 #include <cmath>
 
-// #include <gsl/gsl_multimin.h>
-// #include <gsl/gsl_vector.h>
+#include "lib_expt.h"
+
+#include <gsl/gsl_vector.h>
+#include <gsl/gsl_multimin.h>
 
 using namespace Dasher;
 using namespace std;
 
-// double f( const gsl_vector *x, void *p );
+double f( const gsl_vector *x, void *params );
 
-// struct params {
-//   CLanguageModelParams *settings;
-//   CSymbolAlphabet *alphabet;
-//   std::vector<symbol> *vSymbols;
-// };
-
+class cCompressionExperiment : public cExperiment {
+public:
+  cCompressionExperiment( const std::string &oPrefix ) : cExperiment( oPrefix ) {};
+  double Execute();
+};
 
 int main( int argc, char *argv[] )
 {
+  int iNumDimensions(3);
 
-// 	/////////////////////////////////////////////////////////////////////////////
-// 	// Load the alphabet 
+  gsl_multimin_function oMinFunction;
 
-// 	// This is currently a bit awkward - we cant just pass in a filename, it has to be a directory
-// 	// and an list of filenames
+  oMinFunction.f = f;
+  oMinFunction.n = iNumDimensions;
+  oMinFunction.params = NULL;
 
-//   //	string userlocation = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/";
-//   string userlocation = "/usr/local/share/dasher/";
-  
-  
-// 	string filename = "alphabet.english.xml";
-	
-// 	vector<string> vFileNames;
-// 	vFileNames.push_back(filename);
+  gsl_vector *pXInit( gsl_vector_alloc( iNumDimensions ) );
+  gsl_vector_set_zero( pXInit );
 
-// 	// Set up the CAlphIO
-// 	std::auto_ptr<CAlphIO> ptrAlphIO ( new CAlphIO( "", userlocation, vFileNames) );
+  gsl_vector *pXStep( gsl_vector_alloc( iNumDimensions ) );
+  gsl_vector_set_all( pXStep, 1.0 );
 
-// 	// string strID = "Default";
-// 	string strID = "English alphabet with lots of punctuation";
-// 	const CAlphIO::AlphInfo& AlphInfo = ptrAlphIO->GetInfo(strID);
-
-// 	//cout << "Alphabet " << filename << ":" << strID <<endl;
-
-	
-// 	// Create the Alphabet that converts plain text to symbols
-// 	std::auto_ptr<CAlphabet> ptrAlphabet ( new CAlphabet(AlphInfo) );
-	
-// 	//string strFileCompress = "C:/Documents and Settings/dward/My Documents/dasher/Data/system.rc/training_english_GB.txt";
-// 	string strFileCompress = userlocation + "training_english_GB.txt";
-
-// 	//	cout << "Input file " << strFileCompress <<endl;
+  gsl_multimin_fminimizer *pMinimizer( gsl_multimin_fminimizer_alloc( gsl_multimin_fminimizer_nmsimplex, iNumDimensions ));
+  gsl_multimin_fminimizer_set( pMinimizer, &oMinFunction, pXInit, pXStep );
 
 
-// 	ifstream ifs(strFileCompress.c_str(), ios::in | ios::ate);
-// 	if (!ifs)
-// 		return 1;
-// 	streampos sz = ifs.tellg();
-// 	ifs.seekg(0, ios::beg);
-// 	string strCompress( sz, '0');
-// 	ifs.read(&strCompress[0], sz);
+  std::ofstream oMinOutputFile( "fmin.op" );
 
-// 	std::vector<symbol> vSymbols;
-// 	ptrAlphabet->GetSymbols(&vSymbols, &strCompress, false /*IsMore*/ );
+  int iNumIterations( 100 );
 
+  for( int i(0); i < iNumIterations; ++i ) {
+    gsl_multimin_fminimizer_iterate( pMinimizer );
 
-// 	// Set up the language model for compression test
+    gsl_vector *pXCurrent( gsl_multimin_fminimizer_x( pMinimizer ));
+    double dMin( gsl_multimin_fminimizer_minimum( pMinimizer ));
+    
+    for( int j(0); j < iNumDimensions; ++j ) {
+      oMinOutputFile << gsl_vector_get( pXCurrent, j ) << " ";
+    }
 
-// 	// DJW - add some functionality to CAlphabet to get the CSymbolAlphabet
-// 	CSymbolAlphabet alphabet( ptrAlphabet->GetNumberSymbols() );
-// 	alphabet.SetSpaceSymbol( ptrAlphabet->GetSpaceSymbol() );
-// 	alphabet.SetAlphabetPointer( &*ptrAlphabet );
+     oMinOutputFile << dMin << std::endl;
+    
+  }
 
-// 	CLanguageModelParams settings;
-
-// 	gsl_multimin_fminimizer *min;
-// 	gsl_vector *x;
-// 	gsl_vector *xmin;
-// 	gsl_vector *xstep;
-	
-// 	double minval;
-	
-// 	x = gsl_vector_alloc( 1 );
-	
-// 	gsl_vector_set( x, 0, 0 );
-	
-// // 	xstep = gsl_vector_alloc( 1 );
-	
-// // 	gsl_vector_set( xstep, 0, 1.0 );
-	
-// 	params p;
-
-// 	p.settings = &settings;
-// 	p.alphabet = &alphabet;
-// 	p.vSymbols = &vSymbols;
-
-
-// 	for( int i(0); i <= 100; ++i ) {
-// 	  gsl_vector_set( x, 0, i );
-// 	  std::cout << i << " " << f( x, &p ) << std::endl;
-// 	}
-
-// // 	gsl_multimin_function minf;
-	
-// // 	minf.f = f;
-// // 	minf.n = 1;
-// // 	minf.params = &p;
-	
-// // 	min = gsl_multimin_fminimizer_alloc( gsl_multimin_fminimizer_nmsimplex , 1);
-// // 	gsl_multimin_fminimizer_set( min, &minf, x, xstep );
-
-// // 	for( int i(0); i < 1000; ++i ) {
-// // 	  gsl_multimin_fminimizer_iterate( min );
-	  
-// // 	  xmin = gsl_multimin_fminimizer_x( min );
-// // 	  minval = gsl_multimin_fminimizer_minimum( min );
-	  
-// // 	  std::cout << gsl_vector_get( xmin, 0 ) << " "  << minval << std::endl;
-// //     }
-
-// //     gsl_multimin_fminimizer_free( min );
-//     gsl_vector_free( x );
-// //     gsl_vector_free( xstep );
-
-
-// 	return 0;
+  return 0;
 }
 
+double f( const gsl_vector *x, void *params )
+{
+  cCompressionExperiment oExpt( "Foo" );
 
-// double f( const gsl_vector *x, void *p )
-// {
+  oExpt.SetParameterInt( "LMAlpha", exp( gsl_vector_get( x, 0 ) ) * 100 );
+  oExpt.SetParameterInt( "LMBeta", (tanh( gsl_vector_get( x, 1 ) ) + 1 ) * 50 );
+  oExpt.SetParameterInt( "LMWordAlpha", exp( gsl_vector_get( x, 2 ) ) * 100 );
 
-//   params *prm( static_cast< params * >( p ) );
+  return oExpt.Run();
+}
 
-//   CLanguageModelParams *settings( prm -> settings );
-//   CSymbolAlphabet *alphabet( prm -> alphabet );
-//   std::vector<symbol> *vSymbols( prm -> vSymbols );
+double cCompressionExperiment::Execute() {
 
-//   //  std::cout << alphabet->GetAlphabetPointer() << std::endl;
-  
-//   int order(4);
-//   int exclusion(0);
-//   int update_exclusion(1);
-  
-//   //  double alpha( exp( gsl_vector_get( x, 0 ) ) ); // max 0.431 - 0.434
-//   //  double mix( tanh( gsl_vector_get( x, 0 )) * 0.5 + 0.5 ); //0.338 - 0.337
-//   double mix(gsl_vector_get( x, 0 ));
-  
-//   settings->SetValue( "LMMixture", mix );
 
-//   settings->SetValue( "LMMaxOrder", order );
+  std::cerr << "Setting up language model ... " << std::flush;
+
+  string userlocation = "/usr/local/share/dasher/";
+  string filename = "alphabet.english.xml";
+	
+  vector<string> vFileNames;
+  vFileNames.push_back(filename);
   
-//   settings->SetValue( "LMExclusion", exclusion );
-//   settings->SetValue( "LMUpdateExclusion", update_exclusion );
+  // Set up the CAlphIO
+  std::auto_ptr<CAlphIO> ptrAlphIO ( new CAlphIO( "", userlocation, vFileNames) );
+
+  string strID = "English alphabet with lots of punctuation";
+  const CAlphIO::AlphInfo& AlphInfo = ptrAlphIO->GetInfo(strID);
+
+  // Create the Alphabet that converts plain text to symbols
+  std::auto_ptr<CAlphabet> ptrAlphabet ( new CAlphabet(AlphInfo) );
+	
+    string strFileCompress = userlocation + "training_english_GB.txt";
+  // string strFileCompress = "testfile.txt";
+
+  std::cerr << "done." << std::endl;
+
+  std::cerr << "Loading data file ... " << std::flush;
+
+  ifstream ifs(strFileCompress.c_str(), ios::in | ios::ate);
+
+  if (!ifs)
+    return 0.0;
+  streampos sz = ifs.tellg();
+  ifs.seekg(0, ios::beg);
+  string strCompress( sz, '0');
+  ifs.read(&strCompress[0], sz);
+
+  std::cerr << "done." << std::endl;
+
+  std::cerr << "Converting to symbols ... " << std::flush;
+
+  std::vector<symbol> vSymbols;
+  ptrAlphabet->GetSymbols(&vSymbols, &strCompress, false /*IsMore*/ );
+
+  std::cerr << "done." << std::endl;
+
+  // Set up the language model for compression test
+
+  CSymbolAlphabet alphabet( ptrAlphabet->GetNumberSymbols() );
+  alphabet.SetSpaceSymbol( ptrAlphabet->GetSpaceSymbol() );
+  alphabet.SetAlphabetPointer( &*ptrAlphabet );
+
+
+  int order(200);
+  int exclusion(0);
+  int update_exclusion(1);
   
-//   settings->SetValue( "LMAlpha", 49 );
-//   settings->SetValue( "LMBeta", 77 );
-    
-//   //CWordLanguageModel lm( alphabet, &settings );
-//   CPPMLanguageModel lm( *alphabet, settings );
+  
+  CLanguageModelParams settings;
+
+  settings.SetValue( "LMMaxOrder", order );
+  
+  settings.SetValue( "LMExclusion", exclusion );
+  settings.SetValue( "LMUpdateExclusion", update_exclusion );
+  
+  settings.SetValue( "LMAlpha", GetParameterInt( "LMAlpha" ) ); // 49
+  settings.SetValue( "LMBeta", GetParameterInt( "LMBeta" ) ); // 77
+
+  settings.SetValue( "LMWordAlpha", GetParameterInt( "LMWordAlpha" ) );
+  
+  settings.SetValue( "LMDictionary", 1 );
+
+  CWordLanguageModel lm( alphabet, &settings );
+  
+  //  CPPMLanguageModel lm( alphabet, &settings );
 		
   
-//   CLanguageModel::Context context;
-//   context = lm.CreateEmptyContext();
+  std::cerr << "Calculating compression ... " << std::flush;
+
+   CLanguageModel::Context context;
+   context = lm.CreateEmptyContext();
   
-//   std::vector<unsigned int> Probs;
-//   int iNormTot = 1<<16;
-//   int iNorm = (iNormTot/100)*mix;
+   std::vector<unsigned int> Probs;
+   int iNormTot = 1<<16;
+   int iNorm = iNormTot;
   
 
-//   int iASize = alphabet->GetSize();
+   int iASize = alphabet.GetSize();
 
-//   int iExtra = (iNormTot - iNorm) /( iASize-1);
-//   double dSumLogP=0;
+   int iExtra = (iNormTot - iNorm) /( iASize-1);
+   double dSumLogP=0;
   
-//   // Loop over symbols
+   // Loop over symbols
   
-//   for (int i=1;i< vSymbols->size(); i++)
-//     {
-//       lm.GetProbs(context, Probs, iNorm);
+   int iPcOld( -1 );
+
+   for (int i=0;i< vSymbols.size(); i++)
+     {
+
+       int iPc( i*100 / vSymbols.size() );
+
+       if( iPc > iPcOld )
+	 std::cerr << iPc << "% " << dSumLogP << std::endl;
+
+       iPcOld = iPc;
+
+       lm.GetProbs(context, Probs, iNorm);
       
-//       symbol s = (*vSymbols)[i];
+       symbol s = vSymbols[i];
       
-//       int j = Probs[s];
+       int j = Probs[s];
+
+       //       std::cout <<j << std::endl;
       
 //       // DJW
 //       // Add one to p since PPMLanguageModel is returning 0 for some symbols because of integer 
 //       // round-down
 //       // Maybe we insist that p!=0 for all symbols and fix the language models
       
-//       double p = double(j+iExtra) / double (iNormTot+iASize-1);
-//       DASHER_ASSERT(p!=0);
+
+
+       double p = double(j+1) / double (iNormTot+iASize-1);
+       
+       DASHER_ASSERT(p!=0);
       
       
-//       dSumLogP+= log(p);
+      dSumLogP+= log(p);
       
     
       
-//       lm.LearnSymbol(context, s);
-//     }
-  
-//   return -dSumLogP/ log(2.0)/ vSymbols->size();
-// }
+       lm.LearnSymbol(context, s);
+     }
+
+   std::cerr << "done." << std::endl;
+ 
+   std::cout <<  -dSumLogP/ log(2.0)/ vSymbols.size() << std::endl;
+
+   return  -dSumLogP/ log(2.0)/ vSymbols.size();
+}

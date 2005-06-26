@@ -20,6 +20,7 @@
 #include <map>
 #include <string>
 #include <stdio.h>
+#include <fstream>
 
 //static char dumpTrieStr[40000];
 //const int maxcont =200;
@@ -60,6 +61,9 @@ private:
 
 		CWordnode(int sym);
 		CWordnode();
+
+
+		void RecursiveDump( std::ofstream &file );
 	};
 	
 	class CWordContext 
@@ -75,6 +79,11 @@ private:
 		std::string current_word;
 		CWordnode* word_head;
 		int word_order;
+
+		std::vector< unsigned int > oSpellingProbs;
+		int m_iSpellingNorm;
+		double m_dSpellingFactor;
+
 		
 	};
 
@@ -92,10 +101,17 @@ private:
 
 	std::map< std::string, int > dict; // Dictionary
 	int nextid;
+	int iWordStart;
+
+	int wordidx;
 
 	int NodesAllocated;
 
 	int max_order;
+
+	CPPMLanguageModel *pSpellingModel; // Use this to predict the spellings of new words
+	CPPMLanguageModel::Context oSpellingContext;
+
 
 	mutable CSimplePooledAlloc<CWordnode> m_NodeAlloc;
 	CPooledAlloc<CWordContext> m_ContextAlloc;

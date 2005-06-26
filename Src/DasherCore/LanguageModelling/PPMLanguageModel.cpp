@@ -51,7 +51,7 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 {
 	const CPPMContext *ppmcontext= (const CPPMContext *)(context);
 	
-	
+
 	int iNumSymbols = GetSize();
 
 	probs.resize( iNumSymbols );
