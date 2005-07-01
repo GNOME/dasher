@@ -1,6 +1,7 @@
 #ifndef __eventhandler_h__
 #define __eventhandler_h__
 
+#include "Event.h"
 #include "DasherComponent.h"
 
 #include <vector>
@@ -15,38 +16,21 @@ class Dasher::CEventHandler {
   CEventHandler() {};
   ~CEventHandler() {};
 
-  // Classes representing different event types.
-
-  class CEvent {
-  public:
-    int m_iEventType;
-  };
-
-  class CParameterNotificationEvent : public CEvent {
-  public:
-    CParameterNotificationEvent( int iParameter ) {
-      m_iEventType = 1;
-      m_iParameter = iParameter;
-    };
-
-    int m_iParameter;
-  };
-
   // Insert an event, which will be propagated to all listeners.
 
-  void InsertEvent( CEvent *pEvent );
+  void InsertEvent( Dasher::CEvent *pEvent );
 
   // (Un)register a listener with the event handler.
 
-  void RegisterListener( CDasherComponent *pListener );
-  void UnregisterListener( CDasherComponent *pListener );
+  void RegisterListener( Dasher::CDasherComponent *pListener );
+  void UnregisterListener( Dasher::CDasherComponent *pListener );
 
  protected:
 
   // Vector containing all currently registered listeners.
 
-  std::vector< CDasherComponent * > m_vListeners;
+  std::vector< Dasher::CDasherComponent * > m_vListeners;
 
-}
+};
 
 #endif
