@@ -389,7 +389,9 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
       
       //      std::vector< std::vector< CWordnode* >* > oNodeCache;
 
-      std::vector< CWordnode* > *apNodeCache[ oSymbols.size() ];
+      std::vector< CWordnode* > **apNodeCache;
+		  
+	  apNodeCache = new std::vector< CWordnode * > *[ oSymbols.size() ];
 
       for( int i(0); i < oSymbols.size(); ++i )
 	apNodeCache[i] = new std::vector< CWordnode* >;
@@ -471,6 +473,8 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 	delete apNodeCache[i];
 	
       }
+	delete apNodeCache;
+
     }
 
     // Collapse down word part regardless of whether we're learning or not

@@ -19,6 +19,7 @@
 #include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
+#include "DasherMouseInput.h"
 
 class CToolbar;
 class CSlidebar;
@@ -143,6 +144,8 @@ private:
 	CWinOptions& WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;
+
+	
 
 	HICON m_hIconSm;
 

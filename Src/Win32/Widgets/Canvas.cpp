@@ -55,6 +55,9 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	//ReleaseDC(m_hwnd,m_hDC);
 	m_DasherAppInterface->ChangeScreen(m_pScreen);
 
+	m_pInput = new CDasherMouseInput;	
+	m_DasherAppInterface->SetInput(m_pInput);
+
 	for (int i=0; i<18; i++) {
 		keycoords[i]=0;
 	}
@@ -93,6 +96,7 @@ void CCanvas::OnDestroy()
 CCanvas::~CCanvas()
 {
 	delete m_pScreen;
+	delete m_pInput;
 }
 
 
@@ -261,6 +265,13 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
 int CCanvas::OnTimer()
 {
+	POINT mousepos2;		
+	GetCursorPos(&mousepos2);
+
+ScreenToClient(m_hwnd,&mousepos2);	
+
+m_pInput->SetCoordinates(mousepos2.x,mousepos2.y);
+
 	POINT mousepos;		
 	GetCursorPos(&mousepos);
 
@@ -349,7 +360,7 @@ int CCanvas::OnTimer()
 			}
 
 			//			m_DasherWidgetInterface->SetMouse
-			m_DasherWidgetInterface->Redraw(imousex,imousey);
+
 			previoustime=GetTickCount();
 		}
 
@@ -406,6 +417,10 @@ int CCanvas::OnTimer()
 		imousey*=scalefactor;
 		imousey+=m_pScreen->GetHeight()/2;
 	}
+
+	
+	
+
 	m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 	return 0;
 

@@ -721,6 +721,12 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\DasherMouseInput.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherMouseInput.h">
+		</File>
+		<File
 			RelativePath=".\DasherWindow.cpp">
 		</File>
 		<File

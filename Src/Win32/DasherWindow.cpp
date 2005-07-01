@@ -23,6 +23,7 @@
 #include "Widgets/Slidebar.h"
 #include "../DasherCore/DasherWidgetInterface.h"
 #include "../DasherCore/DasherAppInterface.h"
+#include "DasherMouseInput.h"
 using namespace Dasher;
 using namespace std;
 
@@ -70,6 +71,10 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	m_pEdit->SetEditCanvas(m_pCanvas);
 	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
 	m_pSplitter = new CSplitter(m_hwnd, 100, this);
+
+	
+
+
 /*
 	DWORD MyTime = GetTickCount();
 	DasherAppInterface->TrainFile("Source.txt");
@@ -99,6 +104,8 @@ CDasherWindow::~CDasherWindow()
 	delete m_pSlidebar;
 	delete m_pSplitter;
 	
+	
+
 	DestroyIcon(m_hIconSm);
 
 //	SendMessage(m_hwnd, WM_CLOSE, 0, 0);

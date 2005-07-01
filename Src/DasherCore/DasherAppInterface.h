@@ -10,6 +10,7 @@
 #define __DasherAppInterface_h__
 
 #include "Alphabet/AlphIO.h"
+#include "DasherInput.h"
 #include <string>
 #include <vector>
 
@@ -80,6 +81,8 @@ public:
     virtual int GetOneButton()=0;
     virtual int GetAutoOffset()=0;
     virtual void SetOneButton(int Value)=0;
+
+	virtual void SetInput( CDasherInput *_pInput ) = 0;
 };
 
 

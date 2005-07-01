@@ -530,6 +530,9 @@
 			RelativePath=".\DasherAppInterface.h">
 		</File>
 		<File
+			RelativePath=".\DasherInput.h">
+		</File>
+		<File
 			RelativePath=".\DasherInterface.cpp">
 		</File>
 		<File

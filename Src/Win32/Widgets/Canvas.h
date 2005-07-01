@@ -14,6 +14,7 @@
 #include "../../DasherCore/DasherAppInterface.h"
 #include "../../DasherCore/DasherTypes.h"
 
+#include "../DasherMouseInput.h"
 
 #include "Screen.h"
 
@@ -78,6 +79,11 @@ private:
 	CScreen* m_pScreen;
 	Dasher::CDasherWidgetInterface* m_DasherWidgetInterface;
 	Dasher::CDasherAppInterface* m_DasherAppInterface;
+
+	// Mouse Input Abstraction
+
+	Dasher::CDasherMouseInput* m_pInput;
+
 	CEdit* m_DasherEditBox;
 	Dasher::screenint imousex,imousey;
 	UINT MY_TIMER;
