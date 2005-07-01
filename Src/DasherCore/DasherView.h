@@ -11,6 +11,7 @@
 
 #include "DasherScreen.h"
 #include "DasherModel.h"
+#include "DasherInput.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -24,7 +25,7 @@
 namespace Dasher {class CDasherView;}
 class Dasher::CDasherView
 {
-public:
+ public:
 
 	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
 	virtual ~CDasherView() {}		
@@ -82,14 +83,13 @@ public:
 	// Toggle keyboard control mode
 	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
 
-    int GetOneButton() const;
-    void SetOneButton(int Value);
-    
+	int GetOneButton() const;
+	void SetOneButton(int Value);
+	
 	virtual void ResetSum() {}
 	virtual void ResetSumCounter() {}
 	virtual void ResetYAutoOffset() {}
     
-
 	void SetTruncation( int iTruncation ) {
 	  m_iTruncation = iTruncation;
 	}
@@ -97,6 +97,40 @@ public:
 	void SetTruncationType( int iTruncationType ) {
 	  m_iTruncationType = iTruncationType;
 	}
+
+	void SetInput( CDasherInput *_pInput ) {
+
+	  // Delete the old class if we have one
+	  
+	  if( m_pInput )
+	    delete m_pInput;
+
+	  m_pInput = _pInput;
+
+	  // Tell the new object about maximum values
+
+	  myint iMaxCoordinates[2];
+
+	  iMaxCoordinates[0] = m_DasherModel.DasherY();
+	  iMaxCoordinates[1] = m_DasherModel.DasherY();
+
+	  m_pInput->SetMaxCoordinates( 2, iMaxCoordinates );
+
+	}
+
+	int GetCoordinates( int iN, myint *pCoordinates ) {
+	  if( m_pInput )
+	    return m_pInput->GetCoordinates( iN, pCoordinates );
+  
+	  return 0;
+	}
+
+	int GetCoordinateCount() {
+	  if( m_pInput )
+	    return m_pInput->GetCoordinateCount();
+	 
+	  return 0;
+	} 
 
 protected:
 	// Orientation of Dasher Screen
@@ -120,6 +154,8 @@ protected:
 private:
 	CDasherScreen* m_pScreen;      // provides the graphics (text, lines, rectangles):
 	CDasherModel& m_DasherModel; // Model view represents
+
+	CDasherInput *m_pInput; // Input device abstraction
 
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration

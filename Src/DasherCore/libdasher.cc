@@ -784,3 +784,8 @@ void add_colour_filename(const char* filename)
 {
   interface->AddColourFilename(filename);
 }
+
+void dasher_set_input( CDasherInput *_pInput ) {
+
+  interface->SetInput( _pInput );
+}

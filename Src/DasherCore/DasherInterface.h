@@ -28,6 +28,7 @@
 #include "LanguageModelling/LanguageModelParams.h"
 #include "DashEdit.h"
 #include "DasherView.h"
+#include "DasherInput.h"
 
 #include <map>
 
@@ -177,14 +178,16 @@ public:
 	void SetDrawMousePosBox(int iWhich);
 	
 	int GetOneButton();
-    void SetOneButton(int Value);
-    int GetAutoOffset();
-    void Render();
-
-
-    double GetNats() const;
+	void SetOneButton(int Value);
+	int GetAutoOffset();
+	void Render();
 	
-    void ResetNats();
+	void SetInput( CDasherInput *_pInput );
+	
+	
+	double GetNats() const;
+	
+	void ResetNats();
 
 private:
 	CAlphabet* m_Alphabet;

@@ -5,6 +5,7 @@ AM_INIT_AUTOMAKE(dasher_test, 0.0.1)
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 AC_CHECK_LIB(gslcblas,main)
 AC_CHECK_LIB(gsl,main)
+AC_CHECK_LIB(lemur,main,,AC_MSG_ERROR([LEMUR library not found.]))
 
 AC_PROG_CXX
 

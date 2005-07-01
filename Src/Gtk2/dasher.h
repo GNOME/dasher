@@ -4,6 +4,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
 #include "libdasher.h"
+#include "mouse_input.h"
 
 extern "C" void open_file (const char *filename);
 extern "C" void clipboard_copy(void);
@@ -87,6 +88,8 @@ extern GtkStyle *style;
 //CDasherInterface *interface;
 extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
+
+extern CDasher1DMouseInput *pMouseInput;
 
 extern bool controlmodeon;
 extern bool keyboardmodeon;

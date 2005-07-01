@@ -56,7 +56,7 @@ private:
 		CWordnode* child;
 		CWordnode* next;
 		CWordnode* vine;
-		unsigned short int count;
+		unsigned int count;
 		int sbl;
 
 		CWordnode(int sym);

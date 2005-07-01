@@ -20,11 +20,15 @@
 #include <fstream>
 #include <iostream>
 #include <cmath>
+#include <sstream>
 
 #include "lib_expt.h"
 
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_multimin.h>
+
+#include <TextHandler.hpp>
+#include <TrecParser.hpp>
 
 using namespace Dasher;
 using namespace std;
@@ -37,6 +41,32 @@ public:
   double Execute();
 };
 
+class dummy_handler : public TextHandler {
+
+  // A dummy text handler to allow us to use the trec parser
+public:
+
+  dummy_handler( std::stringstream *_ss ) {
+    ss = _ss;
+  };
+
+  virtual char * handleWord(char * word, const char * original,
+                            PropertyList * list) {
+    (*ss) << word << " ";
+    return word;
+  };
+
+  virtual char * handleEndDoc(char * token, const char * original,
+                              PropertyList * list) {
+    return token;
+  };
+
+protected:
+  std::stringstream *ss;
+};
+
+
+
 int main( int argc, char *argv[] )
 {
   int iNumDimensions(3);
@@ -48,43 +78,52 @@ int main( int argc, char *argv[] )
   oMinFunction.params = NULL;
 
   gsl_vector *pXInit( gsl_vector_alloc( iNumDimensions ) );
-  gsl_vector_set_zero( pXInit );
+
+  gsl_vector_set( pXInit, 0, -0.56636 );
+  gsl_vector_set( pXInit, 1, 0.60203 );
+  gsl_vector_set( pXInit, 2, 3.89152 );
 
   gsl_vector *pXStep( gsl_vector_alloc( iNumDimensions ) );
   gsl_vector_set_all( pXStep, 1.0 );
 
-  gsl_multimin_fminimizer *pMinimizer( gsl_multimin_fminimizer_alloc( gsl_multimin_fminimizer_nmsimplex, iNumDimensions ));
-  gsl_multimin_fminimizer_set( pMinimizer, &oMinFunction, pXInit, pXStep );
+  f( pXInit, NULL );
+  
+//    gsl_multimin_fminimizer *pMinimizer( gsl_multimin_fminimizer_alloc( gsl_multimin_fminimizer_nmsimplex, iNumDimensions ));
+//    gsl_multimin_fminimizer_set( pMinimizer, &oMinFunction, pXInit, pXStep );
 
+//    std::ofstream oMinOutputFile( "fmin.op" );
 
-  std::ofstream oMinOutputFile( "fmin.op" );
+//    int iNumIterations( 100 );
+//    for( int i(0); i < iNumIterations; ++i ) {
+//      gsl_multimin_fminimizer_iterate( pMinimizer );
 
-  int iNumIterations( 100 );
-
-  for( int i(0); i < iNumIterations; ++i ) {
-    gsl_multimin_fminimizer_iterate( pMinimizer );
-
-    gsl_vector *pXCurrent( gsl_multimin_fminimizer_x( pMinimizer ));
-    double dMin( gsl_multimin_fminimizer_minimum( pMinimizer ));
+//      gsl_vector *pXCurrent( gsl_multimin_fminimizer_x( pMinimizer ));
+//      double dMin( gsl_multimin_fminimizer_minimum( pMinimizer ));
     
-    for( int j(0); j < iNumDimensions; ++j ) {
-      oMinOutputFile << gsl_vector_get( pXCurrent, j ) << " ";
-    }
+//      for( int j(0); j < iNumDimensions; ++j ) {
+//        oMinOutputFile << gsl_vector_get( pXCurrent, j ) << " ";
+//      }
 
-     oMinOutputFile << dMin << std::endl;
-    
-  }
+//       oMinOutputFile << dMin << std::endl;
+  
+//    }
 
   return 0;
 }
 
 double f( const gsl_vector *x, void *params )
 {
-  cCompressionExperiment oExpt( "Foo" );
+  cCompressionExperiment oExpt( "Experiment5" );
 
   oExpt.SetParameterInt( "LMAlpha", exp( gsl_vector_get( x, 0 ) ) * 100 );
   oExpt.SetParameterInt( "LMBeta", (tanh( gsl_vector_get( x, 1 ) ) + 1 ) * 50 );
   oExpt.SetParameterInt( "LMWordAlpha", exp( gsl_vector_get( x, 2 ) ) * 100 );
+
+  oExpt.SetParameterInt( "LetterOrder", 200 );
+
+  oExpt.SetParameterInt( "ModelType", 1 );
+  oExpt.SetParameterInt( "Dictionary", 1 );
+  oExpt.SetParameterInt( "LetterExclusion", 1 );
 
   return oExpt.Run();
 }
@@ -116,21 +155,35 @@ double cCompressionExperiment::Execute() {
 
   std::cerr << "Loading data file ... " << std::flush;
 
-  ifstream ifs(strFileCompress.c_str(), ios::in | ios::ate);
+  //
 
-  if (!ifs)
-    return 0.0;
-  streampos sz = ifs.tellg();
-  ifs.seekg(0, ios::beg);
-  string strCompress( sz, '0');
-  ifs.read(&strCompress[0], sz);
+  std::stringstream strCompress;
+
+  TrecParser tp;
+  dummy_handler dh( &strCompress );
+
+  tp.setTextHandler( &dh );
+  
+  //  tp.parseFile( "/mnt/data2/pjc51/enron/enron_short_trec.txt" );
+  
+ tp.parseFile( "/data/tiree2/pjc51/enron/enron_short_trec.txt" );
+
+  //
 
   std::cerr << "done." << std::endl;
 
   std::cerr << "Converting to symbols ... " << std::flush;
 
+  int iLength( strCompress.str().size() );
+  int iTestSize( 10000 );
+
   std::vector<symbol> vSymbols;
-  ptrAlphabet->GetSymbols(&vSymbols, &strCompress, false /*IsMore*/ );
+  ptrAlphabet->GetSymbols(&vSymbols, &(strCompress.str().substr(0, iLength-iTestSize )), false /*IsMore*/ );
+
+  std::vector<symbol> vSymbolsTest;
+  ptrAlphabet->GetSymbols(&vSymbolsTest, &(strCompress.str().substr(iLength-iTestSize, iTestSize )), false /*IsMore*/ );
+
+  std::cerr << "(" << vSymbolsTest.size() << " test symbols) ";
 
   std::cerr << "done." << std::endl;
 
@@ -145,11 +198,10 @@ double cCompressionExperiment::Execute() {
   int exclusion(0);
   int update_exclusion(1);
   
-  
   CLanguageModelParams settings;
 
-  settings.SetValue( "LMMaxOrder", order );
-  
+  settings.SetValue( "LMMaxOrder", GetParameterInt( "LetterOrder" ) );
+
   settings.SetValue( "LMExclusion", exclusion );
   settings.SetValue( "LMUpdateExclusion", update_exclusion );
   
@@ -157,18 +209,26 @@ double cCompressionExperiment::Execute() {
   settings.SetValue( "LMBeta", GetParameterInt( "LMBeta" ) ); // 77
 
   settings.SetValue( "LMWordAlpha", GetParameterInt( "LMWordAlpha" ) );
-  
-  settings.SetValue( "LMDictionary", 1 );
+  settings.SetValue( "LMDictionary", GetParameterInt( "Dictionary" ) );
 
-  CWordLanguageModel lm( alphabet, &settings );
+  settings.SetValue( "LMLetterExclusion", GetParameterInt( "LetterExclusion" ) );
   
-  //  CPPMLanguageModel lm( alphabet, &settings );
-		
-  
+
+  CLanguageModel *lm;
+
+  switch( GetParameterInt( "ModelType" ) ) {
+  case 0:
+    lm = new CPPMLanguageModel( alphabet, &settings );
+    break;
+  case 1:
+    lm = new CWordLanguageModel( alphabet, &settings );
+    break;
+  }
+    
   std::cerr << "Calculating compression ... " << std::flush;
 
-   CLanguageModel::Context context;
-   context = lm.CreateEmptyContext();
+  CLanguageModel::Context context;
+  context = lm->CreateEmptyContext();
   
    std::vector<unsigned int> Probs;
    int iNormTot = 1<<16;
@@ -189,41 +249,70 @@ double cCompressionExperiment::Execute() {
 
        int iPc( i*100 / vSymbols.size() );
 
-       if( iPc > iPcOld )
-	 std::cerr << iPc << "% " << dSumLogP << std::endl;
+       if( iPc > iPcOld ) {
+
+	 // Do a test...
+
+	 CLanguageModel::Context oTestContext;
+	 oTestContext = lm->CreateEmptyContext();
+
+	 double dSumLogPTest(0.0);
+
+	 int iTestCount(0);
+
+	 for( int k(0); k < vSymbolsTest.size(); ++k ) {
+	 
+	 lm->GetProbs( oTestContext, Probs, iNorm);
+      
+	 ++iTestCount;
+
+	 symbol s = vSymbolsTest[k];
+
+	 //	 std::cerr << s << std::endl;
+
+	 int j = Probs[s];
+
+	 double p = static_cast<double>(j+1) / static_cast<double>(iNormTot+iASize-1);
+
+ 	 int iTot(0);
+
+ 	 for( int l(1); l < iASize; ++l ) {
+
+	   double dPTemp( static_cast<double>(Probs[l]+1) / static_cast<double>(iNormTot+iASize-1) );
+
+ 	   iTot += Probs[l];
+
+	   if(( dPTemp <= 0.0 ) || ( dPTemp >= 1.0 ))
+	     std::cout << "warning - prob of " << dPTemp << std::endl;
+
+ 	 }
+	 if( iTot > iNorm )
+	   std::cout << "Total: " << iTot << ", " << iNorm << std::endl;
+       
+	 DASHER_ASSERT(p!=0);
+   
+	 // std::cout << "p: " << p << std::endl;
+      
+	 dSumLogPTest+= log(p);
+      
+	 lm->EnterSymbol(oTestContext, s);
+
+	 }
+	 std::cerr << iPc << " " << iTestCount << "% " << dSumLogPTest << " " << i << " " << -dSumLogPTest / log(2.0) / static_cast<double>(vSymbolsTest.size()) << std::endl;
+       }
 
        iPcOld = iPc;
 
-       lm.GetProbs(context, Probs, iNorm);
-      
-       symbol s = vSymbols[i];
-      
-       int j = Probs[s];
+       lm->GetProbs(context, Probs, iNorm);
+            
+       symbol sbl = vSymbols[i];
 
-       //       std::cout <<j << std::endl;
-      
-//       // DJW
-//       // Add one to p since PPMLanguageModel is returning 0 for some symbols because of integer 
-//       // round-down
-//       // Maybe we insist that p!=0 for all symbols and fix the language models
-      
-
-
-       double p = double(j+1) / double (iNormTot+iASize-1);
-       
-       DASHER_ASSERT(p!=0);
-      
-      
-      dSumLogP+= log(p);
-      
-    
-      
-       lm.LearnSymbol(context, s);
+       lm->LearnSymbol(context, sbl);
      }
 
    std::cerr << "done." << std::endl;
  
-   std::cout <<  -dSumLogP/ log(2.0)/ vSymbols.size() << std::endl;
+   delete lm;
 
    return  -dSumLogP/ log(2.0)/ vSymbols.size();
 }

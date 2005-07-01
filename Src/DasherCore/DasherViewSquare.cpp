@@ -814,14 +814,39 @@ void CDasherViewSquare::Dasher2Eyetracker( myint &iDasherX, myint &iDasherY ) {
 ///
 /// TODO: Abstract out modes into an enum
 
-void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int mode ) {
+void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int iType, int iMode ) {
 
   // FIXME - need to incorporate one-button mode?
 
-  switch( mode ) {
+  // First convert the supplied co-ordinates to 'linear' Dasher co-ordinates
+
+  switch( iType ) {
+  case 0:
+    // Raw secreen coordinates
+    if( iMode == 2 ) {
+      // First apply the autocalibration offset
+      iInputY += int(m_yAutoOffset); // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
+    }
+
+    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
+    break;
+  case 1:
+    // Raw dasher coordinates
+
+    iDasherX = iInputX;
+    iDasherY = iInputY;
+    break;
+  default:
+    // ERROR
+    break;
+  }
+
+  // Then apply any non-linearity
+
+  switch( iMode ) {
   case 0: // Direct mode
     // Simply get the dasher co-ordinate under the mouse cursor
-    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
+    //    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
     
     // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
     if( iDasherY > DasherModel().DasherY() )
@@ -832,19 +857,16 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
     break;
   case 1: // 1D mode
     // Ignore orientation - iInputY maps directly to the single dimension in this case
-    iDasherY = iInputY * DasherModel().DasherY() / Screen().GetHeight();
+    //    iDasherY = iInputY * DasherModel().DasherY() / Screen().GetHeight();
     
     // Apply non-linear mapping
     Dasher2OneD( iDasherX, iDasherY );
 
     break;
   case 2: // Eyetracker mode
-    // First apply the autocalibration offset
-    iInputY += int(m_yAutoOffset); // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
 
     // Then find the dasher co-ordinate under the offset mouse position
-    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
-
+  
     // Finally apply the non-linear transformation
     Dasher2Eyetracker( iDasherX, iDasherY );
 
@@ -1040,10 +1062,32 @@ void CDasherViewSquare::TruncateToScreen( screenint &iX, screenint &iY ) {
 void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time) 
 {
 
+  // NOTE - we now ignore the values which are actually passed to the display
+
   // FIXME - Actually turn autocalibration on and off!
   // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
   // FIXME - Have I broken this by moving it before the offset is applied?
   // FIXME - put ymap stuff back in 
+
+
+  // FIXME - optimise this
+
+  int iCoordinateCount( GetCoordinateCount() );
+
+  myint *pCoordinates( new myint[ iCoordinateCount ] );
+
+  int iType( GetCoordinates( iCoordinateCount, pCoordinates ));
+
+  if( iCoordinateCount == 1 ) {
+    mousex = 0;
+    mousey = pCoordinates[ 0 ];
+  }
+  else {
+    mousex = pCoordinates[ 0 ];
+    mousey = pCoordinates[ 1 ];
+  }
+
+  delete pCoordinates;
 
   bool autocalibrate=1;
   if (autocalibrate) {
@@ -1055,7 +1099,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
 
   // Convert the input co-ordinates to dasher co-ordinates
 
-  Input2Dasher( mousex, mousey, iDasherX, iDasherY, DasherModel().GetMode() );
+  Input2Dasher( mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode() );
 
   m_iDasherXCache = iDasherX;
   m_iDasherYCache = iDasherY;
@@ -1116,11 +1160,28 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey)
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
-{
+{  
+
+  int iCoordinateCount( GetCoordinateCount() );
+
+  myint *pCoordinates( new myint[ iCoordinateCount ] );
+
+  int iType( GetCoordinates( iCoordinateCount, pCoordinates ) );
+
+  if( iCoordinateCount == 1 ) {
+    mousex = 0;
+    mousey = pCoordinates[ 0 ];
+  }
+  else {
+    mousex = pCoordinates[ 0 ];
+    mousey = pCoordinates[ 1 ];
+  }
+
+  delete pCoordinates;  
   myint iDasherX;
   myint iDasherY;
 
-  Input2Dasher( mousex, mousey, iDasherX, iDasherY, DasherModel().GetMode() );
+  Input2Dasher( mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode() );
 
   if (ColourMode==true) {
     DasherDrawCentredRectangle( iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects));
@@ -1171,6 +1232,24 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
 
 void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
 {
+
+  int iCoordinateCount( GetCoordinateCount() );
+
+  myint *pCoordinates( new myint[ iCoordinateCount ] );
+
+  int iType( GetCoordinates( iCoordinateCount, pCoordinates ) );
+
+  if( iCoordinateCount == 1 ) {
+    mousex = 0;
+    mousey = pCoordinates[ 0 ];
+  }
+  else {
+    mousex = pCoordinates[ 0 ];
+    mousey = pCoordinates[ 1 ];
+  }
+
+  delete pCoordinates;  
+
   myint x[2];
   myint y[2];
 
@@ -1183,7 +1262,7 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
   // probably be using a chached value rather than computing this
   // separately to TapOn
 
-  Input2Dasher( mousex, mousey, x[1], y[1], DasherModel().GetMode() );
+  Input2Dasher( mousex, mousey, x[1], y[1], iType, DasherModel().GetMode() );
   
   // Actually plot the line
 

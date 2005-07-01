@@ -111,6 +111,8 @@ void dasher_set_set_bool_option_callback( void (*_cb)(const std::string&, bool) 
 void dasher_set_set_long_option_callback( void (*_cb)(const std::string&, long) );
 void dasher_set_set_string_option_callback( void (*_cb)(const std::string&, const std::string&) );
 
+void dasher_set_input( CDasherInput *_pInput );
+
 void dasher_train_file( const char *filename );
 int dasher_get_alphabets( const char **alphabetlist, int s );
 const char* dasher_get_current_alphabet();

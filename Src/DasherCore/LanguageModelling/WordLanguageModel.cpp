@@ -81,7 +81,11 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
     {
       if (*update) 
 	{   
-	  if( (pReturn->count < USHRT_MAX) && bLearn ) // Truncate counts at storage limit
+
+	  //	  std::cout << "USHRT_MAX: " << USHRT_MAX << " " << bLearn << std::endl;
+
+	  //	  if( (pReturn->count < USHRT_MAX) && bLearn ) // Truncate counts at storage limit
+	  if( bLearn ) // Truncate counts at storage limit
 	    pReturn->count++;
 	  *update=0;
 	}
@@ -99,6 +103,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 			// okay for now
   }
   
+  //  std::cout << pReturn->count << std::endl;
+
   ++NodesAllocated;
   
   return pReturn;		
@@ -475,7 +481,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 
     // Insert into the spelling model if this is a new word
 
-         if( nextid > oldnextid ) { // FIXME - there must be a better way of doing this!
+    if( (nextid > oldnextid) || (LanguageModelParams()->GetValue( std::string( "LMLetterExclusion" ) )==0) ) { // FIXME - there must be a better way of doing this!
       //
       pSpellingModel->ReleaseContext( oSpellingContext );
       oSpellingContext = pSpellingModel->CreateEmptyContext();
@@ -484,7 +490,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 	pSpellingModel->LearnSymbol( oSpellingContext, *it );
       }
 
-        }
+    }
 
     
 

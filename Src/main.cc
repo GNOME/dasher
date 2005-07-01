@@ -55,6 +55,7 @@ static const struct poptOption options [] =
 #endif
 
 #include "accessibility.h"
+#include "mouse_input.h"
 
 //extern GConfClient *the_gconf_client;
 
@@ -167,6 +168,8 @@ main(int argc, char *argv[])
     }
   }
 
+  
+
   dasher_set_get_bool_option_callback( get_bool_option_callback );
   dasher_set_get_long_option_callback( get_long_option_callback );
   dasher_set_get_string_option_callback( get_string_option_callback );
@@ -200,6 +203,7 @@ main(int argc, char *argv[])
   dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
   dasher_set_clipboard_callback( gtk2_clipboard_callback );
 
+
   oldx = -1;
   oldy = -1;
 
@@ -227,6 +231,11 @@ main(int argc, char *argv[])
   dasher_late_initialise(360,360);
 
   interface_late_setup();
+
+  pMouseInput = new CDasher1DMouseInput;
+
+  dasher_set_input( pMouseInput );
+
 
 #ifdef WITH_GPE
   gtk_window_set_decorated(GTK_WINDOW(window),false);

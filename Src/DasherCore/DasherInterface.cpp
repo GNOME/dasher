@@ -236,6 +236,11 @@ void CDasherInterface::Redraw(int iMouseX,int iMouseY)
 
 }
 
+void CDasherInterface::SetInput( CDasherInput *_pInput ) {
+  if (m_pDasherView!=0) 
+    m_pDasherView->SetInput( _pInput );
+}
+
 
 void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 {

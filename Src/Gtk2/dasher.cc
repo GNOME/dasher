@@ -25,6 +25,8 @@
 #include <libgnome/libgnome.h>
 #endif
 
+#include "mouse_input.h"
+
 #include "libdasher.h"
 
 #include "dasher.h"
@@ -75,6 +77,8 @@ GtkWidget *train_dialog;
 GThread *trainthread;
 GAsyncQueue* trainqueue;
 ControlTree *controltree;
+
+CDasher1DMouseInput *pMouseInput;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;
@@ -960,7 +964,10 @@ timer_callback(gpointer data)
     } 
     // And then provide the mouse position to the core. Of course, the core may then
     // do its own fudging.
-    dasher_tap_on( x, y, get_time() );
+
+    pMouseInput->SetCoordinates( x, y );
+
+    dasher_tap_on( 0, 0, get_time() );
   }
   
   else {
@@ -968,6 +975,8 @@ timer_callback(gpointer data)
     // reasons - start on mouse position, and to update the on-screen representation
     int x,y;
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
+
+     pMouseInput->SetCoordinates( x, y );
     
     if (onedmode==true) {
       float scalefactor;
