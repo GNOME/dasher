@@ -15,13 +15,43 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation, bool ColourMode)
-  : ScreenOrientation(Orientation), ColourMode(ColourMode), m_pScreen(DasherScreen), m_DasherModel(DasherModel),
-  m_bDrawMouse(false),m_bDrawMouseLine(false),m_bDrawKeyboard(false),m_iDrawMousePosBox(0),
+CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation)
+  : CDasherComponent( pEventHandler, pSettingsStore ), ScreenOrientation(Orientation), ColourMode(ColourMode), m_pScreen(DasherScreen), m_DasherModel(DasherModel),
+  m_bDrawKeyboard(false),m_iDrawMousePosBox(0),
     m_iMousePosDist(50), m_iTruncation(0), m_iTruncationType(2), m_pInput(0)
 {
+
+ // Initialise cached parameters from the settings store
+
+m_bDrawMouseLine = GetBoolParameter( BP_DRAW_MOUSE_LINE );
+m_bDrawMouse = GetBoolParameter( BP_DRAW_MOUSE );
+ColourMode = GetBoolParameter( BP_COLOUR_MODE );
 	// myint ySum, ySumCounter=0, yFilterTimescale=2, yAutoOffset=0, ySigBiasPixels=0, ySigBiasPercentage=0;   
 }
+
+
+
+void CDasherView::HandleEvent( Dasher::CEvent *pEvent ) {
+
+		if(	pEvent->m_iEventType	== 1 ) {
+			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+
+			switch(	pEvt->m_iParameter ) {
+				case BP_DRAW_MOUSE:
+					m_bDrawMouse = GetBoolParameter( BP_DRAW_MOUSE );
+					break;
+				case BP_DRAW_MOUSE_LINE:	// Mouse Line
+					m_bDrawMouseLine = GetBoolParameter( BP_DRAW_MOUSE_LINE );
+					break;
+				case BP_COLOUR_MODE:
+					ColourMode = GetBoolParameter( BP_COLOUR_MODE );
+					break;
+				default:
+					break;
+			}
+		}
+
+	};
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -37,22 +67,6 @@ void CDasherView::ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation
 {
 	ScreenOrientation = Orientation;
 }
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherView::SetDrawMouse(bool bMouse)
-{
-	m_bDrawMouse = bMouse;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherView::SetDrawMouseLine(bool bMouseLine)
-{
-	m_bDrawMouseLine = bMouseLine;
-}
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherView::DrawMousePosBox()
 {

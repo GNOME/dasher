@@ -15,7 +15,7 @@ using namespace WinUTF8;
 /* TODO: Consider using Template functions to make this neater. */
 
 
-CWinOptions::CWinOptions(const std::string& Group, const std::string& Product)
+CWinOptions::CWinOptions(const std::string& Group, const std::string& Product, Dasher::CEventHandler *pEventHandler ) : CSettingsStore( pEventHandler )
 {
 	// Windows requires strings as Tstring
 	Tstring TGroup, TProduct;

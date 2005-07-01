@@ -660,12 +660,6 @@
 			<File
 				RelativePath=".\widgets\WindowSelect.h">
 			</File>
-			<File
-				RelativePath=".\Widgets\WinOptions.cpp">
-			</File>
-			<File
-				RelativePath=".\Widgets\WinOptions.h">
-			</File>
 		</Filter>
 		<Filter
 			Name="GDI"

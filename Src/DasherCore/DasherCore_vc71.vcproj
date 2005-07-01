@@ -511,6 +511,49 @@
 				RelativePath=".\Alphabet\AlphIO.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Win32"
+			Filter="">
+			<File
+				RelativePath=".\Win32\DasherInterface.cpp">
+			</File>
+			<File
+				RelativePath=".\Win32\DasherInterface.h">
+			</File>
+			<File
+				RelativePath=".\Win32\WinCommon.h">
+			</File>
+			<File
+				RelativePath=".\Win32\WinHelper.cpp">
+			</File>
+			<File
+				RelativePath=".\Win32\WinHelper.h">
+			</File>
+			<File
+				RelativePath=".\Win32\WinLocalisation.cpp">
+			</File>
+			<File
+				RelativePath=".\Win32\WinLocalisation.h">
+			</File>
+			<File
+				RelativePath=".\Win32\WinOptions.cpp">
+			</File>
+			<File
+				RelativePath=".\Win32\WinOptions.h">
+			</File>
+			<File
+				RelativePath=".\Win32\WinUTF8.cpp">
+			</File>
+			<File
+				RelativePath=".\Win32\WinUTF8.h">
+			</File>
+			<File
+				RelativePath=".\Win32\WinWrap.cpp">
+			</File>
+			<File
+				RelativePath=".\Win32\WinWrap.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath="ColourIO.cpp">
 		</File>
@@ -530,13 +573,16 @@
 			RelativePath=".\DasherAppInterface.h">
 		</File>
 		<File
+			RelativePath=".\DasherComponent.h">
+		</File>
+		<File
 			RelativePath=".\DasherInput.h">
 		</File>
 		<File
-			RelativePath=".\DasherInterface.cpp">
+			RelativePath=".\DasherInterfaceBase.cpp">
 		</File>
 		<File
-			RelativePath=".\DasherInterface.h">
+			RelativePath=".\DasherInterfaceBase.h">
 		</File>
 		<File
 			RelativePath=".\DasherScreen.h">
@@ -552,6 +598,18 @@
 		</File>
 		<File
 			RelativePath=".\DasherWidgetInterface.h">
+		</File>
+		<File
+			RelativePath=".\Event.h">
+		</File>
+		<File
+			RelativePath=".\EventHandler.cpp">
+		</File>
+		<File
+			RelativePath=".\EventHandler.h">
+		</File>
+		<File
+			RelativePath=".\Parameters.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">

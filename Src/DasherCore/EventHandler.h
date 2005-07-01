@@ -2,18 +2,20 @@
 #define __eventhandler_h__
 
 #include "Event.h"
-#include "DasherComponent.h"
 
 #include <vector>
 
 namespace Dasher {
   class CEventHandler;
+  class CDasherComponent;
+  class CDasherInterfaceBase;
 }
+
 
 class Dasher::CEventHandler {
  public:
 
-  CEventHandler() {};
+	 CEventHandler( Dasher::CDasherInterfaceBase *pInterface ) : m_pInterface( pInterface ) {};
   ~CEventHandler() {};
 
   // Insert an event, which will be propagated to all listeners.
@@ -30,6 +32,8 @@ class Dasher::CEventHandler {
   // Vector containing all currently registered listeners.
 
   std::vector< Dasher::CDasherComponent * > m_vListeners;
+
+  Dasher::CDasherInterfaceBase *m_pInterface;
 
 };
 

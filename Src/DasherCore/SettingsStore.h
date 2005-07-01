@@ -15,6 +15,8 @@
 #include <string>
 #include <map>
 
+#include "EventHandler.h"
+#include "Parameters.h"
 
 /*
 	The public interface uses UTF-8 strings. All Keys should be
@@ -27,7 +29,18 @@ class CSettingsStore
 {
 public:
 
-	virtual ~CSettingsStore() {}
+	CSettingsStore( Dasher::CEventHandler *pEventHandler ) : m_pEventHandler( pEventHandler ) {};
+	virtual ~CSettingsStore() {};
+	
+	// New functions for event driven interface
+
+	void SetBoolParameter( int iParameter, bool bValue );
+	void SetLongParameter( int iParameter, long lValue );
+	void SetStringParameter( int iParameter, const std::string &sValue );
+
+	bool GetBoolParameter( int iParameter );
+
+	// ---
 
 	bool GetBoolOption(const std::string& Key);
 	long GetLongOption(const std::string& Key);
@@ -88,6 +101,12 @@ private:
 	std::map<std::string, bool> BoolMap;
 	std::map<std::string, long> LongMap;
 	std::map<std::string, std::string> StringMap;
+
+	std::map<int, bool> m_oBoolParameterMap;
+
+protected:
+	Dasher::CEventHandler *m_pEventHandler;
+		
 };
 
 

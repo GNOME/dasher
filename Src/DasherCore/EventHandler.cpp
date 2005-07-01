@@ -1,4 +1,6 @@
 #include "EventHandler.h"
+#include "DasherComponent.h"
+#include "DasherInterfaceBase.h"
 
 #include <algorithm>
 
@@ -6,6 +8,8 @@ using namespace Dasher;
 
 void CEventHandler::InsertEvent( CEvent *pEvent ) {
 
+	m_pInterface->ExternalEventHandler( pEvent );
+	
   for( std::vector< CDasherComponent * >::iterator iCurrent( m_vListeners.begin() ); iCurrent != m_vListeners.end(); ++iCurrent) {
     (*iCurrent)->HandleEvent( pEvent );
   }

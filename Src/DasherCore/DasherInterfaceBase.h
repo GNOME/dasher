@@ -1,4 +1,4 @@
-// DasherInterface.h
+// DasherInterfaceBase.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -8,8 +8,8 @@
 
 
 
-#ifndef __DasherInterface_h__
-#define __DasherInterface_h__
+#ifndef __DasherInterfaceBase_h__
+#define __DasherInterfaceBase_h__
 
 // TODO - there is a list of things to be configurable in my notes
 // Check that everything that is not self-contained within the GUI is covered.
@@ -30,18 +30,39 @@
 #include "DasherView.h"
 #include "DasherInput.h"
 
+#include "EventHandler.h"
+#include "Event.h"
+
 #include <map>
 
-namespace Dasher {class CDasherInterface;}
-class Dasher::CDasherInterface : private NoClones,
+namespace Dasher {class CDasherInterfaceBase;}
+class Dasher::CDasherInterfaceBase : private NoClones,
 	public CDasherWidgetInterface, public CDasherAppInterface, public CDasherSettingsInterface
 {
 public:
-	CDasherInterface();
-	virtual ~CDasherInterface();
+	CDasherInterfaceBase();
+	virtual ~CDasherInterfaceBase();
+
+	// New externally visible interface
+
+	void SetBoolParameter( int iParameter, bool bValue ) {
+		m_SettingsStore->SetBoolParameter( iParameter, bValue );
+	};
+
+	void SetLongParameter( int iParameter, long lValue ) {
+		m_SettingsStore->SetLongParameter( iParameter, lValue );
+	};
+
+	void SetStringParameter( int iParameter, const std::string &sValue ) {
+		m_SettingsStore->SetStringParameter( iParameter, sValue );
+	};
+
+	void ExternalEventHandler( Dasher::CEvent *pEvent );
+
+	// ---
 
 	//! Tell the core which CSettingsStore should be used
-	void SetSettingsStore(CSettingsStore* SettingsStore);
+	//void SetSettingsStore(CSettingsStore* SettingsStore);
 
 	//! Tell the core which CDasherSettingsInterface should be used
 	//
@@ -197,30 +218,32 @@ private:
 	CDashEditbox* m_DashEditbox;
 	CDasherScreen* m_DasherScreen;
 	CDasherView* m_pDasherView;
-	CSettingsStore* m_SettingsStore;
+	
 	CDasherSettingsInterface* m_SettingsUI;
 	CAlphIO* m_AlphIO;	
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
 	
+	
+
 	std::string AlphabetID;
 	std::string ColourID;
 	int m_LanguageModelID;
 	int m_ViewID;
 	double m_MaxBitRate;
 	bool m_CopyAllOnStop;
-	bool m_DrawMouse;
-	bool m_DrawMouseLine;
+	//bool m_DrawMouse; - DONE
+	//bool m_DrawMouseLine; - DONE
 	bool m_DrawKeyboard;
-	bool m_StartSpace;
+	bool m_StartSpace; // Currently only used as loop through
 	bool m_StartLeft;
 	bool m_KeyControl;
 	bool m_Dimensions;
 	bool m_Eyetracker;
 	bool m_WindowPause;
 	bool m_ControlMode;
-	bool m_ColourMode;
+	//bool m_ColourMode; - DONE, but no registry entry or UI callback
 	bool m_KeyboardMode;
 	
 	bool m_MouseposStart;
@@ -246,7 +269,11 @@ private:
 	static const std::string EmptyString;
 	
 	void CreateDasherModel();
+
+	protected:
+		CEventHandler *m_pEventHandler;
+		CSettingsStore* m_SettingsStore;
 };
 
 
-#endif /* #ifndef __DasherInterface_h__ */
+#endif /* #ifndef __DasherInterfaceBase_h__ */

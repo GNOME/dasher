@@ -10,11 +10,58 @@
 #include "../Common/Common.h"
 
 #include "SettingsStore.h"
+#include "DasherSettingsInterface.h"
+#include "Event.h"
 
 using namespace std;
 
 /* TODO: Consider using Template functions to make this neater. */
 
+
+// FIXME - tie in the two parallel stores more neatly
+
+void CSettingsStore::SetBoolParameter( int iParameter, bool bValue ) {
+
+	m_oBoolParameterMap[ iParameter ] = bValue;
+
+	// FIXME - neaten this up
+	
+	switch( iParameter ) {
+		case BP_DRAW_MOUSE:
+			SetBoolOption(Dasher::Keys::DRAW_MOUSE, bValue);
+			break;
+		case BP_DRAW_MOUSE_LINE:
+			SetBoolOption(Dasher::Keys::DRAW_MOUSELINE, bValue);
+			break;
+		default:
+			break;
+	}
+
+	// ---
+
+	Dasher::CParameterNotificationEvent oEvent( iParameter );
+	m_pEventHandler->InsertEvent( &oEvent );
+};
+
+void CSettingsStore::SetLongParameter( int iParameter, long lValue ) {
+	
+	// Actually update the parameter here
+
+	Dasher::CParameterNotificationEvent oEvent( iParameter );
+	m_pEventHandler->InsertEvent( &oEvent );
+};
+
+void CSettingsStore::SetStringParameter( int iParameter, const std::string &sValue ) {
+
+	// Actually update the parameter here
+
+	Dasher::CParameterNotificationEvent oEvent( iParameter );
+	m_pEventHandler->InsertEvent( &oEvent );
+};
+
+bool CSettingsStore::GetBoolParameter( int iParameter ) {
+	return m_oBoolParameterMap[ iParameter ];
+};
 
 bool CSettingsStore::GetBoolOption(const string& Key)
 {

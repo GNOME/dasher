@@ -12,6 +12,7 @@
 #include "DasherScreen.h"
 #include "DasherModel.h"
 #include "DasherInput.h"
+#include "DasherComponent.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -23,18 +24,17 @@
 /////////////////////////////////////////////////////////////////////////////
 
 namespace Dasher {class CDasherView;}
-class Dasher::CDasherView
+class Dasher::CDasherView : public CDasherComponent
 {
- public:
+public:
 
-	CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
-	virtual ~CDasherView() {}		
-	
+	CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
+	virtual	~CDasherView() {}		
+
+	virtual	void HandleEvent( Dasher::CEvent *pEvent );
+
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
-
-	void SetDrawMouse(bool bDrawMouse);
-	void SetDrawMouseLine(bool bDrawMouseLine);
 	void SetDrawKeyboard(bool bDrawKeyboard);
 	
 	// 0 - no box, 1 - upper box, 2 - lower box
@@ -78,7 +78,7 @@ class Dasher::CDasherView
 	void Display() {m_pScreen->Display();}
 
 	// Toggle advanced colour mode
-	void SetColourMode(bool colourmode) {ColourMode=colourmode;}
+	//void SetColourMode(bool colourmode) {ColourMode=colourmode;}
 
 	// Toggle keyboard control mode
 	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}

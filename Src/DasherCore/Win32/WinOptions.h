@@ -12,15 +12,18 @@
 
 #include <string>
 #include <map>
+#include <windows.h>
+
 
 // Look for documenting comments here:
-#include "../../DasherCore/SettingsStore.h"
-
+#include "../SettingsStore.h"
+#include "../EventHandler.h"
+#include "WinHelper.h"
 
 class CWinOptions : public CSettingsStore, private NoClones
 {
 public:
-	CWinOptions(const std::string& Group, const std::string& Product);
+	CWinOptions(const std::string& Group, const std::string& Product, Dasher::CEventHandler *pEventHandler);
 	~CWinOptions();
 
 #ifndef DASHER_WINCE

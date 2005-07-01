@@ -15,9 +15,8 @@
 #include "Common/WinHelper.h"
 
 #include "DasherWindow.h"
-#include "Widgets/WinOptions.h"
 
-#include "../DasherCore/DasherInterface.h"
+#include "../DasherCore/Win32/DasherInterface.h"
 using namespace Dasher;
 using namespace std;
 
@@ -99,7 +98,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	CoInitialize(NULL);
 
 	// Set up the registry
-	CWinOptions WinOptions("Inference_Group", "Dasher3"); // Settings storage using Windows Registry.
+//	CWinOptions WinOptions("Inference_Group", "Dasher3"); // Settings storage using Windows Registry.
 
 	int iRet=0;
 
@@ -119,12 +118,12 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	Colours+=TEXT("colour*.xml");
 	AddFiles(Alphabets,Colours,&DasherInterface);
 
-	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
+//	DasherInterface.SetSettingsStore(&WinOptions);        // which will now use Windows Registry
 	DasherInterface.ColourMode(true);
 
 	{
    		DasherInterface.ChangeLanguageModel(0);
-		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions); 
+		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, DasherInterface.GetSettingsStore()); 
 	
 		//The UI will be updated to reflect settings
 		DasherInterface.SetSettingsUI(&DasherWindow);         

@@ -15,11 +15,12 @@
 
 
 #include "Widgets/Splitter.h"
-#include "Widgets/WinOptions.h"
 #include "Widgets/Menu.h"
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
+
+#include "../../DasherCore/Win32/WinOptions.h"
 
 class CToolbar;
 class CSlidebar;
@@ -42,7 +43,8 @@ class CDasherWindow : public CWinWrap, public CSplitterOwner,
 public:
 	CDasherWindow(Dasher::CDasherSettingsInterface* SI,
                   Dasher::CDasherWidgetInterface* WI,
-				  Dasher::CDasherAppInterface* AI, CWinOptions& WO);
+				  Dasher::CDasherAppInterface* AI,
+				  CWinOptions* pWinOptions);
 	~CDasherWindow();
 	
 	void Show(int nCmdShow);
@@ -141,11 +143,11 @@ private:
 	CCanvas* m_pCanvas;
 	CSlidebar* m_pSlidebar;
 	CSplitter* m_pSplitter;
-	CWinOptions& WinOptions;
+	//CWinOptions& WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;
 
-	
+	CWinOptions *m_pOptions;	
 
 	HICON m_hIconSm;
 

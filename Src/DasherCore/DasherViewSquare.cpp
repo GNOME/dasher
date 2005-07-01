@@ -42,6 +42,21 @@ void CDasherViewSquare::RenderNodes()
   Crosshair(DasherModel().DasherOX()); // add crosshair
 }
 
+void CDasherViewSquare::HandleEvent( Dasher::CEvent *pEvent ) {
+	// Let the parent class do its stuff
+	CDasherView::HandleEvent( pEvent );
+
+	// And then interpret events for ourself
+	if(	pEvent->m_iEventType == 1 ) {
+		Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+		switch(	pEvt->m_iParameter ) {
+
+			default:
+				break;
+		}
+	}
+}
+
 /////////////////////////////////////////////////////////////////////////////
 
 int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,int mostleft)
@@ -174,8 +189,8 @@ CDasherViewSquare::Cymap::Cymap(myint iScale)
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
-  : CDasherView(DasherScreen, DasherModel, Orientation, Colourmode)
+CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation)
+  : CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel, Orientation)
 {
 	ChangeScreen(DasherScreen);
 	

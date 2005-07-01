@@ -30,10 +30,10 @@ using namespace std;
 
 #define IDT_TIMER1 200
 
-CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI, CWinOptions& WO)
-	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), WinOptions(WO), Splash(0), 
+CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI, CWinOptions *pWinOptions )
+	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), Splash(0), 
 	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), 
-	m_CurrentAlphabet(""), m_CurrentColours("")
+	m_CurrentAlphabet(""), m_CurrentColours(""), m_pOptions( pWinOptions )
 {
 	m_workerThread			= NULL;
 	m_bWorkerShutdown		= false;
@@ -429,19 +429,29 @@ void CDasherWindow::SaveWindowState() const
 {
 	WINDOWPLACEMENT wp;
 	wp.length = sizeof (WINDOWPLACEMENT);
-	GetWindowPlacement(m_hwnd,&wp);
-	WinOptions.SaveSetting("Placement",&wp);
+
+//FIXME - replicate
+
+//	GetWindowPlacement(m_hwnd,&wp);
+//	WinOptions.SaveSetting("Placement",&wp);
 }
 
 bool CDasherWindow::LoadWindowState()
 {
-	WINDOWPLACEMENT wp;
-	if (WinOptions.LoadSetting("Placement",&wp))
-	{
-		SetWindowPlacement(m_hwnd,&wp);
-		return true;
-	}
+
 	return false;
+
+	// FIXME - replicate
+
+	//WINDOWPLACEMENT wp;
+
+	//if (m_pWinOptions->LoadSetting("Placement",&wp))
+	//{
+	//	SetWindowPlacement(m_hwnd,&wp);
+	//	return true;
+	//}
+	//return false;
+
 }
 
 
