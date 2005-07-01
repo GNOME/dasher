@@ -55,7 +55,7 @@ CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDashe
 	//ReleaseDC(m_hwnd,m_hDC);
 	m_DasherAppInterface->ChangeScreen(m_pScreen);
 
-	m_pInput = new CDasherMouseInput;	
+	m_pInput = new CDasherMouseInput( m_hwnd );	
 	m_DasherAppInterface->SetInput(m_pInput);
 
 	for (int i=0; i<18; i++) {
@@ -269,8 +269,6 @@ int CCanvas::OnTimer()
 	GetCursorPos(&mousepos2);
 
 ScreenToClient(m_hwnd,&mousepos2);	
-
-m_pInput->SetCoordinates(mousepos2.x,mousepos2.y);
 
 	POINT mousepos;		
 	GetCursorPos(&mousepos);
