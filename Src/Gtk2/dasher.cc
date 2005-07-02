@@ -78,7 +78,7 @@ GThread *trainthread;
 GAsyncQueue* trainqueue;
 ControlTree *controltree;
 
-CDasher1DMouseInput *pMouseInput;
+CDasherMouseInput *pMouseInput;
 
 bool controlmodeon=false;
 bool keyboardmodeon=false;

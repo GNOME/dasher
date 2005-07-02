@@ -232,7 +232,7 @@ main(int argc, char *argv[])
 
   interface_late_setup();
 
-  pMouseInput = new CDasher1DMouseInput;
+  pMouseInput = new CDasherMouseInput;
 
   dasher_set_input( pMouseInput );
 
