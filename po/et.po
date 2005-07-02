@@ -4,7 +4,7 @@
 # Copyright (C) 2003, 2005 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 #
-# Priit Laes <amd@tt.ee>, 2003, 2005.
+# Priit Laes <amd@store20.com>, 2003, 2005.
 # Ivar Smolin <okul@linux.ee>, 2005.
 #
 msgid ""
@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-06-18 05:09+0000\n"
-"PO-Revision-Date: 2005-06-18 12:06+0300\n"
+"PO-Revision-Date: 2005-07-01 15:01+0300\n"
 "Last-Translator: Priit Laes <amd@store20.com>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -394,7 +394,7 @@ msgstr "Vasakule/2:"
 
 #: ../Src/Gtk2/dasher.glade.h:53
 msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+msgstr "Segatud mudel (PPM/sõnastik)"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
@@ -466,7 +466,7 @@ msgstr "Kiirus"
 
 #: ../Src/Gtk2/dasher.glade.h:72
 msgid "Standard letter-based PPM"
-msgstr ""
+msgstr "Standardne tähepõhine PPM"
 
 #: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
