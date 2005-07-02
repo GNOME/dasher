@@ -27,16 +27,16 @@ public:
 	
 	/////////////////////////////////////////////////////////////////////////////
 
-	CMixtureLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams* pParams) :
-	  CLanguageModel( Alphabet, pParams ) {
+	CMixtureLanguageModel(  Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams* pParams) :
+	  CLanguageModel( pEventHandler, pSettingsStore, Alphabet, pParams ) {
 
 
 	  //	  std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
 
 	  NextContext = 0;
 
-	  lma = new CPPMLanguageModel( Alphabet, pParams );
-	  lmb = new CDictLanguageModel( Alphabet, pParams );
+	  lma = new CPPMLanguageModel( m_pEventHandler, m_pSettingsStore, Alphabet, pParams );
+	  lmb = new CDictLanguageModel( m_pEventHandler, m_pSettingsStore, Alphabet, pParams );
 
 	};
 

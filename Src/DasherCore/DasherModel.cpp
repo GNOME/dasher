@@ -26,9 +26,9 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
 						   bool Dimensions, bool Eyetracker, bool Paused)
-  : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
+  : CDasherComponent( pEventHandler, pSettingsStore), m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
 	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
     m_bControlMode(false), m_bAdaptive(true)
@@ -46,13 +46,13 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
 
   switch( idLM ) {
   case idPPM:
-    m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
+    m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break;
   case idWord:
-    m_pLanguageModel = new CWordLanguageModel(alphabet, _params);
+    m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break; 
   case idMixture:
-    m_pLanguageModel = new CMixtureLanguageModel(alphabet, _params);
+    m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break;
   }
 	
@@ -90,6 +90,20 @@ CDasherModel::~CDasherModel()
 	m_pLanguageModel->ReleaseContext(LearnContext);
 	delete m_pLanguageModel;
 
+}
+
+void CDasherModel::HandleEvent( Dasher::CEvent *pEvent ) {
+
+		if(	pEvent->m_iEventType	== 1 ) {
+			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+
+			switch(	pEvt->m_iParameter ) {
+				default:
+					break;
+			}
+		}
+
+	
 }
 
 //////////////////////////////////////////////////////////////////////

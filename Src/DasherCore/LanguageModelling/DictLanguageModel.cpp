@@ -84,8 +84,8 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode* p
 // CDictLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CDictLanguageModel::CDictLanguageModel(const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
-  : CLanguageModel(Alphabet, _params), max_order( 0 ), 
+CDictLanguageModel::CDictLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
+  : CLanguageModel( pEventHandler, pSettingsStore, Alphabet, _params), max_order( 0 ), 
     m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
 {
 	m_pRoot= m_NodeAlloc.Alloc();

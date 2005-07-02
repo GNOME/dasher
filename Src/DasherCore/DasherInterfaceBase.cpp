@@ -84,6 +84,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase()
 void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
 
 	// Eventually this will just pass the events to an external listener, but for now use the old notification mechanisms
+	// Here we also check for messasges which require action by the interface (eg forcing a redraw of the screen)
 
 	if(	pEvent->m_iEventType == 1 ) {
 			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
@@ -176,7 +177,7 @@ void CDasherInterfaceBase::CreateDasherModel()
 	break;	
       }
 
-      m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
+      m_pDasherModel = new CDasherModel( m_pEventHandler, m_SettingsStore, m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
       
       // Train the new language model
 

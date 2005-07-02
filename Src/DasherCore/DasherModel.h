@@ -15,6 +15,7 @@
 
 #include "DashEdit.h"
 #include "DasherNode.h"
+#include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"
 #include <math.h>
 #include "DasherTypes.h"
@@ -29,7 +30,7 @@
 
 namespace Dasher {class CDasherModel;}
 
-class Dasher::CDasherModel : private NoClones
+class Dasher::CDasherModel : public Dasher::CDasherComponent, private NoClones
 {
 public:
 
@@ -58,8 +59,10 @@ public:
 	} LanguageModelID;
 
 
-	CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* Editbox, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
+	CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, CDashEditbox* Editbox, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
 	~CDasherModel();
+
+	void HandleEvent( Dasher::CEvent *pEvent );
 	
 	CTrainer* GetTrainer();
 

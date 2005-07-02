@@ -115,8 +115,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 // CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
-  : CLanguageModel(Alphabet, _params), max_order( 2 ), 
+CWordLanguageModel::CWordLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
+  : CLanguageModel( pEventHandler, pSettingsStore, Alphabet, _params), max_order( 2 ), 
     m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
@@ -129,7 +129,7 @@ CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet, CLanguag
 
 	nextid = iWordStart; // Start of indices for words - may need to increase this for *really* large alphabets
 
-	pSpellingModel = new CPPMLanguageModel( Alphabet, _params );
+	pSpellingModel = new CPPMLanguageModel( m_pEventHandler, m_pSettingsStore, Alphabet, _params );
 
 	if( LanguageModelParams()->GetValue( std::string( "LMDictionary" ) ) ) {
 

@@ -12,21 +12,24 @@
 #include "LanguageModelParams.h" 
 
 #include "SymbolAlphabet.h"
+#include "../DasherComponent.h"
 #include <vector>
 
 /////////////////////////////////////////////////////////////////////////////
 
 namespace Dasher {class CLanguageModel;}
 
-class Dasher::CLanguageModel
+class Dasher::CLanguageModel : public Dasher::CDasherComponent
 {
 public:
 	
 	/////////////////////////////////////////////////////////////////////////////
 
-	CLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams* pParams);
+	CLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams* pParams);
 
 	virtual ~CLanguageModel() {}
+
+	virtual	void HandleEvent( Dasher::CEvent *pEvent );	
 
 	// Handle for a language model context
 	// 0 is reserved

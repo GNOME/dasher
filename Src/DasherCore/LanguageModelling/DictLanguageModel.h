@@ -30,7 +30,7 @@ namespace Dasher
 class CDictLanguageModel : public CLanguageModel
 {
 public:
-	CDictLanguageModel(const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
+	CDictLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
 	virtual ~CDictLanguageModel();
 	
 	Context CreateEmptyContext();

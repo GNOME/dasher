@@ -394,6 +394,9 @@
 				RelativePath=".\LanguageModelling\LanguageModelParams.h">
 			</File>
 			<File
+				RelativePath=".\LanguageModelling\MixtureLanguageModel.h">
+			</File>
+			<File
 				RelativePath=".\LanguageModelling\PPMLanguageModel.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
