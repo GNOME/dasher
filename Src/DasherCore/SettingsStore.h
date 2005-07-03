@@ -39,6 +39,7 @@ public:
 	void SetStringParameter( int iParameter, const std::string &sValue );
 
 	bool GetBoolParameter( int iParameter );
+	long GetLongParameter( int iParameter );
 
 	// ---
 
@@ -102,7 +103,10 @@ private:
 	std::map<std::string, long> LongMap;
 	std::map<std::string, std::string> StringMap;
 
+	// New maps
+
 	std::map<int, bool> m_oBoolParameterMap;
+	std::map<int, long> m_oLongParameterMap;
 
 protected:
 	Dasher::CEventHandler *m_pEventHandler;

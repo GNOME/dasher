@@ -8,11 +8,15 @@ using namespace Dasher;
 
 void CEventHandler::InsertEvent( CEvent *pEvent ) {
 
-	m_pInterface->ExternalEventHandler( pEvent );
+  // Loop through components and notify them of the event
 	
   for( std::vector< CDasherComponent * >::iterator iCurrent( m_vListeners.begin() ); iCurrent != m_vListeners.end(); ++iCurrent) {
     (*iCurrent)->HandleEvent( pEvent );
   }
+
+  // Call external handler last, to make sure that internal components are fully up to date before external events happen
+  m_pInterface->InterfaceEventHandler( pEvent );	  
+  m_pInterface->ExternalEventHandler( pEvent );	
 }
 
 void CEventHandler::RegisterListener( CDasherComponent *pListener ) {

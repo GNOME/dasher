@@ -15,8 +15,8 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation)
-  : CDasherComponent( pEventHandler, pSettingsStore ), ScreenOrientation(Orientation), ColourMode(ColourMode), m_pScreen(DasherScreen), m_DasherModel(DasherModel),
+CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel)
+  : CDasherComponent( pEventHandler, pSettingsStore ), m_pScreen(DasherScreen), m_DasherModel(DasherModel),
   m_bDrawKeyboard(false),m_iDrawMousePosBox(0),
     m_iMousePosDist(50), m_iTruncation(0), m_iTruncationType(2), m_pInput(0)
 {
@@ -26,6 +26,8 @@ CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettings
 m_bDrawMouseLine = GetBoolParameter( BP_DRAW_MOUSE_LINE );
 m_bDrawMouse = GetBoolParameter( BP_DRAW_MOUSE );
 ColourMode = GetBoolParameter( BP_COLOUR_MODE );
+
+ScreenOrientation = static_cast<Dasher::Opts::ScreenOrientations>(GetLongParameter( LP_ORIENTATION ));
 	// myint ySum, ySumCounter=0, yFilterTimescale=2, yAutoOffset=0, ySigBiasPixels=0, ySigBiasPercentage=0;   
 }
 
@@ -46,6 +48,9 @@ void CDasherView::HandleEvent( Dasher::CEvent *pEvent ) {
 				case BP_COLOUR_MODE:
 					ColourMode = GetBoolParameter( BP_COLOUR_MODE );
 					break;
+				case LP_ORIENTATION:
+					ScreenOrientation = static_cast<Dasher::Opts::ScreenOrientations>(GetLongParameter( LP_ORIENTATION ));
+					break;
 				default:
 					break;
 			}
@@ -63,10 +68,10 @@ void CDasherView::ChangeScreen(CDasherScreen* NewScreen)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation)
-{
-	ScreenOrientation = Orientation;
-}
+//void CDasherView::ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation)
+//{
+//	ScreenOrientation = Orientation;
+//}
 
 void CDasherView::DrawMousePosBox()
 {

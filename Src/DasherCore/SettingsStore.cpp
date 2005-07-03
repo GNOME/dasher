@@ -45,6 +45,19 @@ void CSettingsStore::SetBoolParameter( int iParameter, bool bValue ) {
 
 void CSettingsStore::SetLongParameter( int iParameter, long lValue ) {
 	
+	m_oLongParameterMap[ iParameter ] = lValue;
+
+	switch( iParameter ) {
+		case LP_ORIENTATION:
+			SetLongOption(Dasher::Keys::SCREEN_ORIENTATION, lValue);
+			break;
+		case LP_MAX_BITRATE:
+			SetLongOption(Dasher::Keys::MAX_BITRATE_TIMES100, lValue );
+			break;
+		default:
+			break;
+	}
+
 	// Actually update the parameter here
 
 	Dasher::CParameterNotificationEvent oEvent( iParameter );
@@ -61,6 +74,10 @@ void CSettingsStore::SetStringParameter( int iParameter, const std::string &sVal
 
 bool CSettingsStore::GetBoolParameter( int iParameter ) {
 	return m_oBoolParameterMap[ iParameter ];
+};
+
+long CSettingsStore::GetLongParameter( int iParameter ) {
+	return m_oLongParameterMap[ iParameter ];
 };
 
 bool CSettingsStore::GetBoolOption(const string& Key)

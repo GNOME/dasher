@@ -188,8 +188,8 @@ CDasherViewSquare::Cymap::Cymap(myint iScale)
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation)
-  : CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel, Orientation)
+CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel )
+  : CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel )
 {
 	ChangeScreen(DasherScreen);
 	

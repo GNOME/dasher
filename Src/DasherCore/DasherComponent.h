@@ -27,6 +27,10 @@ public:
   bool GetBoolParameter( int iParameter ) {
 	  return m_pSettingsStore->GetBoolParameter( iParameter );
   }
+
+  long GetLongParameter( int iParameter ) {
+	  return m_pSettingsStore->GetLongParameter( iParameter );
+  }
 protected:
 	Dasher::CEventHandler *m_pEventHandler;
 	CSettingsStore *m_pSettingsStore;

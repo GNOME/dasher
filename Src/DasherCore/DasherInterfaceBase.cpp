@@ -84,7 +84,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase()
 void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
 
 	// Eventually this will just pass the events to an external listener, but for now use the old notification mechanisms
-	// Here we also check for messasges which require action by the interface (eg forcing a redraw of the screen)
 
 	if(	pEvent->m_iEventType == 1 ) {
 			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
@@ -100,8 +99,36 @@ void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
 				if (m_SettingsUI!=0)
 					m_SettingsUI->DrawMouseLine(m_SettingsStore->GetBoolParameter( BP_DRAW_MOUSE_LINE ));
 				break;
+	
+			case LP_ORIENTATION:
+				if (m_SettingsUI!=0)
+					m_SettingsUI->ChangeOrientation(static_cast<Dasher::Opts::ScreenOrientations>(m_SettingsStore->GetLongParameter( LP_ORIENTATION )));
+				break;
+
+			case LP_MAX_BITRATE:
+				if (m_SettingsUI!=0)
+					m_SettingsUI->ChangeMaxBitRate(m_SettingsStore->GetLongParameter( LP_MAX_BITRATE )/100.0);
+				break;
+
+			default:
+				break;
+			}
+		}
+}
+
+void CDasherInterfaceBase::InterfaceEventHandler( Dasher::CEvent *pEvent ) {
+
+	if(	pEvent->m_iEventType == 1 ) {
+			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+
+			switch(	pEvt->m_iParameter ) {
 
 			case BP_COLOUR_MODE: // Forces us to redraw the display
+				Start();
+				Redraw();
+				break;
+	
+			case LP_ORIENTATION:
 				Start();
 				Redraw();
 				break;
@@ -190,8 +217,6 @@ void CDasherInterfaceBase::CreateDasherModel()
       
       m_pDasherModel->SetControlMode(m_ControlMode);
      
-      if (m_MaxBitRate>=0)
-	m_pDasherModel->SetMaxBitrate(m_MaxBitRate);
       if (m_ViewID!=-1)
 	ChangeView(m_ViewID);
       
@@ -364,12 +389,7 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string& NewAlphabetID)
 	  
 	  Start();
 	  
-	  // We can only change the orientation after we have called
-	  // Start, as this will prompt a redraw, which will fail if the
-	  // model hasn't been updated for the new alphabet
-	  
-	  if (m_Orientation==Opts::Alphabet)
-	    ChangeOrientation(Opts::Alphabet);
+	 
 
 
       // FIXME - I don't see why the code below was here - there's no reason why m_ColourMode should have changed
@@ -422,14 +442,13 @@ std::string CDasherInterfaceBase::GetCurrentColours() {
 
 void CDasherInterfaceBase::ChangeMaxBitRate(double NewMaxBitRate)
 {
-	m_MaxBitRate = NewMaxBitRate;
-	
-	if (m_pDasherModel!=0)
-		m_pDasherModel->SetMaxBitrate(m_MaxBitRate);
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ChangeMaxBitRate(m_MaxBitRate);
-	if (m_SettingsStore!=0)
-		m_SettingsStore->SetLongOption(Keys::MAX_BITRATE_TIMES100, long(m_MaxBitRate*100) );
+
+	// FIXME - make this function integer
+
+	SetLongParameter( LP_MAX_BITRATE, NewMaxBitRate*100 );
+
+
+	// FIXME - get rid of the below somewhere
 
 	if (m_DrawKeyboard==true && m_pDasherView!=NULL) {
 	  m_pDasherView->DrawKeyboard();
@@ -490,36 +509,27 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID)
 	//TODO Use DasherViewID
 	m_ViewID = NewViewID;
 	if (m_DasherScreen!=0 && m_pDasherModel!=0) {
-
-	  //  std::cout << "Changed" << std::endl;
-
 		delete m_pDasherView;
-		if (m_Orientation==Opts::Alphabet)
-			m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_SettingsStore, m_DasherScreen, *m_pDasherModel, GetAlphabetOrientation());
-		else
-			m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_SettingsStore, m_DasherScreen, *m_pDasherModel, m_Orientation);
-
-
+		m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_SettingsStore, m_DasherScreen, *m_pDasherModel );
 	}
 }
 
 
 void CDasherInterfaceBase::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
-	if (m_pDasherView!=0) {
-		if (Orientation==Opts::Alphabet)
-			m_pDasherView->ChangeOrientation(GetAlphabetOrientation());
-		else
-			m_pDasherView->ChangeOrientation(Orientation);
-	}
+	// FIXME - make alphabet orientation another parameter (non-stored), and make view read this itself
 
-	if (m_Orientation != Orientation) {
-	  m_Orientation = Orientation;
-	  if (m_SettingsUI!=0)
-	    m_SettingsUI->ChangeOrientation(Orientation);
-	  if (m_SettingsStore!=0)
-	    m_SettingsStore->SetLongOption(Keys::SCREEN_ORIENTATION, Orientation);
-	}
+	if (Orientation==Opts::Alphabet)
+		SetLongParameter( LP_ORIENTATION, GetAlphabetOrientation() );
+	else
+		SetLongParameter( LP_ORIENTATION, Orientation );
+
+//
+
+
+
+	   
+	
 }
 
 

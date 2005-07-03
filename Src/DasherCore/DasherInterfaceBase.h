@@ -58,6 +58,8 @@ public:
 	};
 
 	void ExternalEventHandler( Dasher::CEvent *pEvent );
+  void InterfaceEventHandler( Dasher::CEvent *pEvent );
+
 
 	// ---
 

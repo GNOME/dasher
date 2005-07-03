@@ -28,12 +28,12 @@ class Dasher::CDasherView : public CDasherComponent
 {
 public:
 
-	CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight);
+	CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel );
 	virtual	~CDasherView() {}		
 
 	virtual	void HandleEvent( Dasher::CEvent *pEvent );
 
-	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
+	//void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
 	void SetDrawKeyboard(bool bDrawKeyboard);
 	

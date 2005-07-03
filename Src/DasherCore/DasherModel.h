@@ -75,7 +75,7 @@ public:
 	
 	// User control of speed
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate
-	void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
+	//void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 	
 	// Whether control mode is active - if true, DasherModel will create control nodes
 	//	- existing control modes will not be deleted, but will be inactive 

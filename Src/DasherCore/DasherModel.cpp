@@ -34,6 +34,9 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
     m_bControlMode(false), m_bAdaptive(true)
 {
 
+  m_dMaxRate=GetLongParameter( LP_MAX_BITRATE )/100.0;
+  m_fr.SetMaxBitrate(m_dMaxRate);	
+
   // Convert the full alphabet to a symbolic representation for use in the language model
   
   CSymbolAlphabet alphabet( pAlphabet->GetNumberTextSymbols() );
@@ -94,10 +97,14 @@ CDasherModel::~CDasherModel()
 
 void CDasherModel::HandleEvent( Dasher::CEvent *pEvent ) {
 
-		if(	pEvent->m_iEventType	== 1 ) {
+		if(	pEvent->m_iEventType == 1 ) {
 			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
 
 			switch(	pEvt->m_iParameter ) {
+				case LP_MAX_BITRATE:
+					m_dMaxRate=GetLongParameter( LP_MAX_BITRATE )/100.0;
+					m_fr.SetMaxBitrate(m_dMaxRate);
+					break;
 				default:
 					break;
 			}
