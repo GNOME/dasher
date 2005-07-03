@@ -11,7 +11,6 @@
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 
-#include <iostream>
 #include <algorithm>
 
 using namespace Dasher;
@@ -353,8 +352,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 	  int iTotalCount( iLowerCount + iUpperCount + 6 );
 
-	  myint *x( new myint[iTotalCount] );
-	  myint *y( new myint[iTotalCount] );
+	  myint *x =  new myint[iTotalCount] ;
+	  myint *y =  new myint[iTotalCount] ;
 
 	  // Weird duplication here is to make truncated squares possible too
 
@@ -378,9 +377,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	    y[i+2] = iLowerMin + i * iSpacing;
 	  }
 
-	  for( int i(0); i < iUpperCount; ++i ) {
-	    x[i+iLowerCount + 4] = (y2 - (iUpperMin + i * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
-	    y[i+iLowerCount + 4] = iUpperMin + i * iSpacing;
+	  for( int j(0); j < iUpperCount; ++j ) {
+	    x[j+iLowerCount + 4] = (y2 - (iUpperMin + j * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
+	    y[j+iLowerCount + 4] = iUpperMin + j * iSpacing;
 	  }
 	  
 	  DasherPolygon( x, y, iTotalCount, Color );
