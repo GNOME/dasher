@@ -249,8 +249,8 @@ void dasher_late_initialise( int _width, int _height)
   dsc = new dasher_screen( _width, _height );
   interface->ChangeScreen( dsc );
 
-  dss = new dasher_settings_store;
-  interface->SetSettingsStore( dss );
+  //  dss = new dasher_settings_store;
+  //interface->SetSettingsStore( dss );
 
   ded = new dasher_edit;
   interface->ChangeEdit( ded );
