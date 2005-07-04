@@ -91,6 +91,10 @@ void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
       if (m_SettingsUI!=0)
         m_SettingsUI->HandleParameterNotification( pEvt->m_iParameter );
 		}
+  else if(( pEvent->m_iEventType == 2 ) || ( pEvent->m_iEventType == 3 )) {
+    if( m_DashEditbox != NULL ) 
+      m_DashEditbox->HandleEvent( pEvent );
+  }
 }
 
 void CDasherInterfaceBase::InterfaceEventHandler( Dasher::CEvent *pEvent ) {

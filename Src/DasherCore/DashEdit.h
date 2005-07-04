@@ -18,6 +18,7 @@ e.g. - output characters to the edit control
 #define __DashEdit_h__
 
 #include "DasherTypes.h"
+#include "Event.h"
 #include <string>
 
 namespace Dasher 
@@ -42,8 +43,25 @@ public:
 	virtual void write_to_file()=0;
 
 	virtual void HandleEvent( Dasher::CEvent *pEvent ) {
-	  switch( pEvent
-	};
+    if( pEvent->m_iEventType  == 2) {
+      Dasher::CEditEvent *pEvt( static_cast< Dasher::CEditEvent * >( pEvent ) );
+
+      switch( pEvt->m_iEditType ) {
+      case 1:
+        output( pEvt->m_iSymbol );
+        break;
+      case 2:
+        deletetext( pEvt->m_iSymbol );
+        break;
+      }
+    }
+    else if( pEvent->m_iEventType == 3 ) {
+      Dasher::CEditContextEvent *pEvt( static_cast< Dasher::CEditContextEvent * >( pEvent ) );
+
+      // FIXME - need to implement this
+
+    }
+  };
 	
 	//! Provide context from the editbox for the core
 	//

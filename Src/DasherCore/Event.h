@@ -4,10 +4,13 @@
 // Classes representing different event types.
 
 #include <string>
+#include "DasherTypes.h"
 
 namespace Dasher{
   class CEvent;
   class CParameterNotificationEvent;
+  class CEditEvent;
+  class CEditContextEvent;
 }
 
 class Dasher::CEvent {
@@ -27,14 +30,14 @@ class Dasher::CParameterNotificationEvent : public Dasher::CEvent {
 
 class Dasher::CEditEvent : public Dasher::CEvent {
  public:
-  CEditEvent( int iEditType, const std::string &sText ) {
+  CEditEvent( int iEditType, symbol iSymbol ) {
     m_iEventType = 2;
     m_iEditType = iEditType;
-    m_sText = sText;
+    m_iSymbol = iSymbol;
   };
 
   int m_iEditType;
-  std::string m_sText;
+  symbol m_iSymbol;
 };
 
 class Dasher::CEditContextEvent : public Dasher::CEvent {

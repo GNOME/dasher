@@ -9,6 +9,7 @@
 #include "../Common/Common.h"
 
 #include "DasherModel.h"
+#include "Event.h"
 
 //#include <iostream>
 
@@ -215,7 +216,15 @@ void CDasherModel::Start()
 
   // FIXME - re-evaluate this function and SetContext...
 
-		m_pEditbox->get_new_context(ContextString,5);
+//		m_pEditbox->get_new_context(ContextString,5);
+
+
+
+  SetContext( std::string("") ); // FIXME - REALLY REALLY broken!
+
+CEditContextEvent oEvent( 5 );
+
+InsertEvent( &oEvent );
 
 		// FIXME - what if we don't get a reply?
 	
@@ -251,7 +260,6 @@ void CDasherModel::SetContext( std::string &sNewContext ) {
 	
 	m_pLanguageModel->ReleaseContext(LearnContext);
 	LearnContext = m_pLanguageModel->CloneContext(therootcontext);
-	}
 
 	m_Root->SetContext(therootcontext);    // node takes control of the context
 	Recursive_Push_Node(m_Root,0);
@@ -787,11 +795,14 @@ void CDasherModel::OutputCharacters(CDasherNode *node)
   symbol t=node->Symbol();
   if (t) // SYM0
   {
-    m_pEditbox->output(t);
+    Dasher::CEditEvent oEvent( 1, t );
+    InsertEvent( &oEvent );
   } 
   else if (node->ControlChild()==true) 
   {
-	  m_pEditbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
+
+    // FIXME - control events currently not implemented
+//	  m_pEditbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
   }
 }
 
@@ -812,7 +823,8 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 		{
 			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0)  // SYM0
 			{
-				m_pEditbox->deletetext(oldnode->Symbol());
+        Dasher::CEditEvent oEvent( 2, oldnode->Symbol() );
+        InsertEvent( &oEvent );
 			}
 			oldnode->Seen(false);
 			return true;
@@ -821,7 +833,8 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 		{
 			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0) // SYM0 
 			{
-				m_pEditbox->deletetext(oldnode->Symbol());
+				Dasher::CEditEvent oEvent( 2, oldnode->Symbol() );
+        InsertEvent( &oEvent );
 			}
 			oldnode->Seen(false);
 			return true;
@@ -845,7 +858,9 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 				oldnode=oldnode->Parent();
 				continue;
 			}
-			m_pEditbox->deletetext(oldnode->Symbol());
+
+      Dasher::CEditEvent oEvent( 2, oldnode->Symbol() );
+        InsertEvent( &oEvent );
 			oldnode=oldnode->Parent();
 			if (oldnode==NULL) {
 				return false;

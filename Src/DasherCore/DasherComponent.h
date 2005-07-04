@@ -22,6 +22,10 @@ public:
 		m_pEventHandler->UnregisterListener( this );
 	};
 
+  void InsertEvent( Dasher::CEvent *pEvent ) {
+    m_pEventHandler->InsertEvent( pEvent );
+  };
+
   virtual void HandleEvent( Dasher::CEvent *pEvent ) = 0;
 
   bool GetBoolParameter( int iParameter ) {
