@@ -31,7 +31,7 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
 	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
-    m_bControlMode(false), m_bAdaptive(true)
+     m_bControlMode(false), m_bAdaptive(true), total_nats(0)
 {
 
   // Convert the full alphabet to a symbolic representation for use in the language model
@@ -309,7 +309,7 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
 
   // Actually do the zooming
   
-  return log( (iTargetMax - iTargetMin)/static_cast<double>(m_DasherY) );
+  return -1.0 * log( (iTargetMax - iTargetMin)/static_cast<double>(m_DasherY) );
      
   // Return value is the zoom factor so we can keep track of bitrate.
 }
@@ -624,9 +624,14 @@ myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long Time) 
+void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded, int* numDeleted) 
 	// work out the next viewpoint, opens some new nodes
 {
+    if (vectorAdded != NULL)
+	    vectorAdded->clear();
+    if (numDeleted != NULL)
+	    *numDeleted = 0;
+
         // Find out the current node under the crosshair
         CDasherNode *old_under_cross=Get_node_under_crosshair();	
 	
@@ -689,7 +694,7 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 	CDasherNode* new_under_cross = Get_node_under_crosshair();
 
 	if (new_under_cross!=old_under_cross) {
-	  DeleteCharacters(new_under_cross,old_under_cross);
+	  DeleteCharacters(new_under_cross, old_under_cross, numDeleted);
 	}
 
 	if (new_under_cross->isSeen()==true) {
@@ -703,10 +708,10 @@ void CDasherModel::Tap_on_display(myint miMousex,myint miMousey, unsigned long T
 
 	if (new_under_cross->ControlChild()==true) {
 	  //		m_pEditbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
-		OutputCharacters(new_under_cross);
+		OutputCharacters(new_under_cross, vectorAdded);
 		SetBitrate(m_dMaxRate/3);
 	} else {
-	  OutputCharacters(new_under_cross);
+	  OutputCharacters(new_under_cross, vectorAdded);
 	  SetBitrate(m_dMaxRate);
 	}
 	//	m_Root->Recursive_Push_Node(0);
@@ -737,7 +742,8 @@ void CDasherModel::GoTo(double zoomfactor, myint miMousey)
 //	Update(m_Root,new_under_cross,0);
 
 	if (new_under_cross!=old_under_cross) {
-	  DeleteCharacters(new_under_cross,old_under_cross);
+      int numDeleted = 0;
+	  DeleteCharacters(new_under_cross,old_under_cross, &numDeleted);
 	}
 
 	if (new_under_cross->isSeen()==true)
@@ -748,16 +754,28 @@ void CDasherModel::GoTo(double zoomfactor, myint miMousey)
 	OutputCharacters(new_under_cross);
 }
 
-void CDasherModel::OutputCharacters(CDasherNode *node) 
+void CDasherModel::OutputCharacters(CDasherNode *node, Dasher::VECTOR_SYMBOL_PROB* vectorAdded) 
 {
+	if (vectorAdded != NULL)
+		vectorAdded->clear();
+
   if (node->Parent()!=NULL && node->Parent()->isSeen()!=true) 
   {
     node->Parent()->Seen(true);
-    OutputCharacters(node->Parent());
+    OutputCharacters(node->Parent(), vectorAdded);
   }
   symbol t=node->Symbol();
   if (t) // SYM0
   {
+		if (vectorAdded != NULL)
+        {
+            Dasher::SymbolProb item;
+            item.sym    = t;
+            item.prob   = node->GetProb();
+
+			vectorAdded->push_back(item);
+        }
+
     m_pEditbox->output(t);
   } 
   else if (node->ControlChild()==true) 
@@ -766,7 +784,7 @@ void CDasherModel::OutputCharacters(CDasherNode *node)
   }
 }
 
-bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode) 
+bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode, int* numDeleted) 
 {
 	// DJW cant see how either of these can ever be NULL
 	DASHER_ASSERT_VALIDPTR_RW(newnode);
@@ -784,15 +802,20 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0)  // SYM0
 			{
 				m_pEditbox->deletetext(oldnode->Symbol());
+				if (numDeleted != NULL)
+					(*numDeleted)++;
+
 			}
 			oldnode->Seen(false);
 			return true;
 		}
-		if (DeleteCharacters(newnode,oldnode->Parent())==true)
+		if (DeleteCharacters(newnode,oldnode->Parent(), numDeleted)==true)
 		{
 			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0) // SYM0 
 			{
 				m_pEditbox->deletetext(oldnode->Symbol());
+				if (numDeleted != NULL)
+					(*numDeleted)++;
 			}
 			oldnode->Seen(false);
 			return true;
@@ -817,6 +840,8 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 				continue;
 			}
 			m_pEditbox->deletetext(oldnode->Symbol());
+			if (numDeleted != NULL)
+				(*numDeleted)++;
 			oldnode=oldnode->Parent();
 			if (oldnode==NULL) {
 				return false;

@@ -76,6 +76,7 @@ public:
 	// Set/replace the context
 	void SetContext(CLanguageModel::Context Context);
 	CLanguageModel::Context Context() const;
+    double GetProb();
 
 private:
 

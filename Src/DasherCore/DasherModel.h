@@ -22,6 +22,10 @@
 #include <vector>
 #include <deque>
 
+#include "FileLogger.h"
+extern CFileLogger* gLogger;
+
+
 // The DasherModel represents the current state of Dasher
 // It contains a tree of DasherNodes
 //		knows the current viewpoint
@@ -101,8 +105,9 @@ public:
     bool Paused() const {return m_Paused; }
 
 
-	void OutputCharacters(CDasherNode *node);
-	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
+	void OutputCharacters(CDasherNode *node, Dasher::VECTOR_SYMBOL_PROB* vectorAdded = NULL);
+	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* numDeleted = NULL);
+
 	void Trace() const;                                              // diagnostics
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
@@ -110,7 +115,8 @@ public:
     void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
     void Set_paused(bool paused)         {m_Paused=paused;}
 	
-	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
+	void Tap_on_display(myint,myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL);  // evolves the current viewpoint
+
 	void GoTo(double,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node

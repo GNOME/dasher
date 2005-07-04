@@ -152,3 +152,9 @@ void CDasherNode::Delete_children()
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+double CDasherNode::GetProb()
+{    
+    return (double) (m_iHbnd - m_iLbnd) / (double) m_DasherModel.Normalization();
+}
+

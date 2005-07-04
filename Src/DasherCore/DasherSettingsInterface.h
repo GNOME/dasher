@@ -152,6 +152,8 @@ public:
 
 	virtual void SetTruncation( int Value ) {};
 	virtual void SetTruncationType( int Value ) {};
+
+    virtual void SetUserLogLevelMask(int Value) {};    
 };
 
 

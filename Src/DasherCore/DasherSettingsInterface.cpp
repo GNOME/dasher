@@ -55,7 +55,8 @@ namespace Keys {
 	const std::string MOUSEPOSDIST = "MousePositionBoxDistance";
   const std::string TRUNCATION = "Truncation";
   const std::string TRUNCATIONTYPE = "TruncationType";
-  
+    const std::string USER_LOG_LEVEL_MASK = "UserLogLevelMask";
+
   // Language model options - to eventually be made more dynamic
 
   const std::string LM_MAX_ORDER = "LMMaxOrder";
@@ -215,6 +216,8 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 	Store->SetLongDefault(TRUNCATIONTYPE, 0);
 	this->SetTruncationType(Store->GetLongOption(TRUNCATIONTYPE));
 
+    Store->SetLongDefault(USER_LOG_LEVEL_MASK, 1);
+    this->SetUserLogLevelMask(Store->GetLongOption(USER_LOG_LEVEL_MASK));
 
 }
 

@@ -83,6 +83,9 @@ public:
     virtual void SetOneButton(int Value)=0;
 
 	virtual void SetInput( CDasherInput *_pInput ) = 0;
+	
+	virtual double  GetNats() const = 0;
+    virtual void    ResetNats() = 0;
 };
 
 

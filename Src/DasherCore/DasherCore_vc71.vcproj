@@ -511,6 +511,58 @@
 				RelativePath=".\Alphabet\AlphIO.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Logging"
+			Filter="">
+			<File
+				RelativePath=".\FileLogger.cpp">
+			</File>
+			<File
+				RelativePath=".\FileLogger.h">
+			</File>
+			<File
+				RelativePath=".\MemoryLeak.cpp">
+			</File>
+			<File
+				RelativePath=".\MemoryLeak.h">
+			</File>
+			<File
+				RelativePath=".\SimpleTimer.cpp">
+			</File>
+			<File
+				RelativePath=".\SimpleTimer.h">
+			</File>
+			<File
+				RelativePath=".\TimeSpan.cpp">
+			</File>
+			<File
+				RelativePath=".\TimeSpan.h">
+			</File>
+			<File
+				RelativePath=".\UserLocation.cpp">
+			</File>
+			<File
+				RelativePath=".\UserLocation.h">
+			</File>
+			<File
+				RelativePath=".\UserLog.cpp">
+			</File>
+			<File
+				RelativePath=".\UserLog.h">
+			</File>
+			<File
+				RelativePath=".\UserLogParam.cpp">
+			</File>
+			<File
+				RelativePath=".\UserLogParam.h">
+			</File>
+			<File
+				RelativePath=".\UserLogTrial.cpp">
+			</File>
+			<File
+				RelativePath=".\UserLogTrial.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath="ColourIO.cpp">
 		</File>

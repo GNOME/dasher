@@ -18,6 +18,30 @@
 #include "Widgets/WinOptions.h"
 
 #include "../DasherCore/DasherInterface.h"
+#include "../DasherCore/UserLog.h"
+#include "../DasherCore/MemoryLeak.h"
+
+// Declare our global file logging object
+#include "../Dashercore/FileLogger.h"
+#ifdef _DEBUG
+	const eLogLevel gLogLevel   = logDEBUG;
+    const int       gLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;    
+#else
+	const eLogLevel gLogLevel = logNORMAL;
+    const int       gLogOptions = logTimeStamp | logDateStamp;
+#endif
+CFileLogger* gLogger = NULL;
+
+#ifdef _WIN32
+// In order to track leaks to line number, we need this at the top of every file
+#include "../DasherCore/MemoryLeak.h"
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+#endif
+
 using namespace Dasher;
 using namespace std;
 
@@ -72,6 +96,22 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 					 int       nCmdShow)
 {
 
+#ifdef _WIN32
+#ifdef _DEBUG
+    // Windows debug build memory leak detection
+	EnableLeakDetection();
+#endif
+#endif
+
+    int iRet=0;
+
+    // Global logging object we can use from anywhere
+	gLogger = new CFileLogger("Dasher.log",
+								gLogLevel,		
+                                gLogOptions);
+
+	{ // memory leak scoping
+
 	// String literals in this function are not in the resource file as they
 	// must NOT be translated.
 
@@ -123,17 +163,49 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	DasherInterface.ColourMode(true);
 
 	{
-   		DasherInterface.ChangeLanguageModel(0);
-		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions); 
+        // Check to see what level of user logging we are suppose to do (if any)
+        CUserLog* pUserLog = NULL;
+        
+        if (DasherInterface.GetUserLogLevelMask() > 0)
+		    pUserLog = new CUserLog(DasherInterface.GetUserLogLevelMask(), DasherInterface.GetAlphabetPtr());
+
+        // DasherInterface and DasherWindow also need pointers to the UserLog object
+        DasherInterface.SetUserLogPtr(pUserLog);
+
+        DasherInterface.ChangeLanguageModel(0);
+		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions, pUserLog); 
 	
 		//The UI will be updated to reflect settings
 		DasherInterface.SetSettingsUI(&DasherWindow);         
 		DasherWindow.Show(nCmdShow);
+
+        // Let the user log know that any future parameter changes should be logged
+        if (pUserLog != NULL)
+            pUserLog->InitIsDone();
+
 		iRet = DasherWindow.MessageLoop();
-	}
+
+        // Output the any detailed user log file and free up the object
+        if (pUserLog != NULL)
+	    {
+            pUserLog->OutputFile();
+		    delete pUserLog;
+		    pUserLog = NULL;
+	    }
+
+    }
+
 
 	// Close the COM library on the current thread
 	CoUninitialize();
+    
+    } // end memory leak scoping
+
+    if (gLogger != NULL)
+	{
+		delete gLogger;
+		gLogger  = NULL;
+	}
 
 	return iRet;
 }

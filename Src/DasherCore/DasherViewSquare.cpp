@@ -1059,7 +1059,7 @@ void CDasherViewSquare::TruncateToScreen( screenint &iX, screenint &iY ) {
 
 // work out the next viewpoint
 // move the rectangles accordingly
-void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time) 
+void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded, int* numDeleted) 
 {
 
   // NOTE - we now ignore the values which are actually passed to the display
@@ -1107,7 +1107,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
 
   // Request an update at the calculated co-ordinates
 
-  DasherModel().Tap_on_display(iDasherX,iDasherY, Time);
+  DasherModel().Tap_on_display(iDasherX,iDasherY, Time, vectorAdded, numDeleted);
   CheckForNewRoot();
 
   // Cache the Dasher Co-ordinates, so we can use them later for things like drawing the mouse position

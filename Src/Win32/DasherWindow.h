@@ -20,6 +20,7 @@
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
+#include "../DasherCore/UserLog.h"
 
 class CToolbar;
 class CSlidebar;
@@ -42,7 +43,9 @@ class CDasherWindow : public CWinWrap, public CSplitterOwner,
 public:
 	CDasherWindow(Dasher::CDasherSettingsInterface* SI,
                   Dasher::CDasherWidgetInterface* WI,
-				  Dasher::CDasherAppInterface* AI, CWinOptions& WO);
+				  Dasher::CDasherAppInterface* AI, CWinOptions& WO, 
+                  CUserLog* pUserLog);
+
 	~CDasherWindow();
 	
 	void Show(int nCmdShow);
@@ -119,6 +122,7 @@ public:
 	void SetYScale(int Value);
 	void SetMousePosDist(int Value);
 	void SetUniform(int Value);
+    void SetUserLogLevelMask(int Value);    
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -173,7 +177,9 @@ private:
 	bool mouseposstart;
 	bool speech;
 	bool palettechange;
-	
+    int  m_userLogLevelMask;
+
+	CUserLog*       m_pUserLog;
 
 	// Misc window handling
 	void SetMenuCheck(UINT MenuItem, bool Value);
@@ -185,6 +191,9 @@ private:
     static DWORD  WINAPI    WorkerThread(LPVOID lpParam);   // Spins around and sends WM_DASHER_TIMER message
     void                    ShutdownWorkerThread();         // Called when we want the worker thread to stop
     void                    OnTimer();                      // Does the periodic work
+
+    void                    GetCanvasSize(int* top, int* left, int* bottom, int* right);
+    void                    GetWindowSize(int* top, int* left, int* bottom, int* right);
 
 };
 

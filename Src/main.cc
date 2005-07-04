@@ -71,6 +71,17 @@ extern const gchar* filename;
 
 extern int oldx, oldy;
 
+// Declare our global file logging object
+#include "DasherCore/FileLogger.h"
+#ifdef _DEBUG
+	const eLogLevel gLogLevel   = logDEBUG;
+    const int       gLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;    
+#else
+	const eLogLevel gLogLevel = logNORMAL;
+    const int       gLogOptions = logTimeStamp | logDateStamp;
+#endif
+CFileLogger* gLogger = NULL;
+
 GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
 {
   XEvent *xev = (XEvent *)xevent;
@@ -93,6 +104,11 @@ main(int argc, char *argv[])
 {
   GladeXML *xml;
   GtkWidget *window;
+
+  // Global logging object we can use from anywhere
+  gLogger = new CFileLogger("Dasher.log",
+							gLogLevel,		
+                            gLogOptions);
 
   int c;
   XWMHints wm_hints;
@@ -129,7 +145,7 @@ main(int argc, char *argv[])
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
-  xml = glade_xml_new(PROGDATA"/dasher/dasher.glade", NULL, NULL);
+  xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
   the_gconf_client = gconf_client_get_default();
 #endif
 
@@ -310,6 +326,12 @@ main(int argc, char *argv[])
 #endif
 
   dasher_finalise();
+  
+  if (gLogger != NULL)
+  {
+    delete gLogger;
+	gLogger  = NULL;
+  }
 
   return 0;
 }

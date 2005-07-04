@@ -14,6 +14,7 @@
 #include "../Common/Types/int32.h"
 #include "../Common/Types/int64.h"
 #include <string>
+#include <vector>
 
 namespace Dasher
 {
@@ -54,6 +55,29 @@ namespace Dasher
 	  ControlTree *children;
 	  ControlTree *next;
 	};
+
+    // Types added so model can report back what it has done for
+    // user logging purposes.
+    struct SymbolProb
+    {
+        symbol          sym;
+        double          prob;
+    };
+
+    // Keeps track of the display text and prob of a past symbol.
+    // We need to store this as the alphabet could change in the
+    // middle of a trial and we won't be able to convert symbols
+    // to text once it does.
+    struct SymbolProbDisplay
+    {
+        symbol          sym;
+        std::string     strDisplay;
+        double          prob;
+    };
+
+    typedef std::vector<SymbolProb>         VECTOR_SYMBOL_PROB;
+    typedef std::vector<SymbolProbDisplay>  VECTOR_SYMBOL_PROB_DISPLAY;
+
 }
 
 #endif /* #ifndef __DasherTypes_h__ */

@@ -30,13 +30,14 @@ using namespace std;
 
 #define IDT_TIMER1 200
 
-CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI, CWinOptions& WO)
+CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI, CWinOptions& WO, CUserLog* pUserLog)
 	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), WinOptions(WO), Splash(0), 
 	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), 
-	m_CurrentAlphabet(""), m_CurrentColours("")
+	m_CurrentAlphabet(""), m_CurrentColours(""), m_pUserLog(pUserLog)
 {
 	m_workerThread			= NULL;
 	m_bWorkerShutdown		= false;
+    m_userLogLevelMask      = 0;
 
 	hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR)IDC_DASHER);
 	
@@ -67,7 +68,7 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	
 	m_pEdit = new CEdit(m_hwnd);
 	DasherAppInterface->ChangeEdit(m_pEdit);
-	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
+	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit, m_pUserLog);
 	m_pEdit->SetEditCanvas(m_pCanvas);
 	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
 	m_pSplitter = new CSplitter(m_hwnd, 100, this);
@@ -153,16 +154,32 @@ void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
 {
 	m_CurrentAlphabet = NewAlphabetID;
 	DasherAppInterface->AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
+
+    if (m_pUserLog != NULL)
+		m_pUserLog->AddParam("Alphabet", NewAlphabetID, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::ChangeColours(const string& NewColourID)
 {
 	m_CurrentColours = NewColourID;
+
+    if (m_pUserLog != NULL)
+		m_pUserLog->AddParam("Colours", NewColourID, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
 {
 	m_pSlidebar->SetValue(NewMaxBitRate);
+
+	if (m_pUserLog != NULL)
+		m_pUserLog->AddParam("MaxBitRate", 
+                                NewMaxBitRate, 
+                                userLogParamOutputToSimple | 
+                                userLogParamTrackMultiple | 
+                                userLogParamTrackInTrial |
+                                userLogParamForceInTrial |
+                                userLogParamShortInCycle
+                                );
 }
 
 
@@ -316,6 +333,9 @@ void CDasherWindow::SetDasherDimensions(bool Value)
 {
 	oned=Value;
 	m_pCanvas->onedimensional(Value);
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("Dimensions", Value, userLogParamOutputToSimple);
 }
 
 
@@ -408,6 +428,9 @@ void CDasherWindow::MouseposStart(bool Value)
 void CDasherWindow::SetYScale(int Value)
 {
 	m_pCanvas->setyscale(Value);
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("YScale", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::SetMousePosDist(int Value)
@@ -418,6 +441,9 @@ void CDasherWindow::SetMousePosDist(int Value)
 void CDasherWindow::SetUniform(int Value)
 {
 	m_pCanvas->setuniform(Value);
+
+    if (m_pUserLog != NULL)
+    	m_pUserLog->AddParam("Uniform", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::KeyboardMode(bool Value)
@@ -453,16 +479,27 @@ void CDasherWindow::ControlMode(bool Value)
 
 	// The edit control caches the symbols so we need to refresh
 	m_pEdit->SetInterface(DasherWidgetInterface);
+
+    if (m_pUserLog != NULL)
+		m_pUserLog->AddParam("ControlMode", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::SetDasherEyetracker(bool Value)
 {
 	eyetracker=Value;
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("Eyetracker", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::ColourMode(bool Value)
 {
 	// Do nothing - colour mode is fixed
+}
+
+void CDasherWindow::SetUserLogLevelMask(int Value)
+{
+    m_userLogLevelMask = Value;
 }
 
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -615,6 +652,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				break;
 			case ID_FILE_NEW:
 				m_pEdit->New();
+				// Let the user logging object know that a new doc has been asked for.
+				// This indicates a new trial using normal Dasher.
+				if (m_pUserLog != NULL)
+					m_pUserLog->NewTrial();
+                if (DasherWidgetInterface != NULL)
+                    DasherWidgetInterface->ResetNats();
 				break;
 			case ID_FILE_OPEN:
 				m_pEdit->Open();
@@ -796,6 +839,22 @@ void CDasherWindow::Layout()
 	
 	m_pCanvas->Move(0, CurY, Width, CanvasHeight);
 
+    // Update the screen and canvas side inside our logging object
+    if (m_pUserLog != NULL)
+    {
+        int     top     = 0;
+        int     left    = 0;
+        int     bottom  = 0;
+        int     right   = 0;
+
+        GetCanvasSize(&top, &left, &bottom, &right);
+        m_pUserLog->AddCanvasSize(top, left, bottom, right);
+
+        // Also update the size of the window in the UserLogTrial object
+        GetWindowSize(&top, &left, &bottom, &right);
+        m_pUserLog->AddWindowSize(top, left, bottom, right);
+    }
+
 }
 
 // Handle periodically poking the canvas to check for user activity.  
@@ -869,4 +928,46 @@ void CDasherWindow::OnTimer()
 
     if (m_pCanvas != NULL)
         m_pCanvas->OnTimer();
+
+	// We'll use this timer event to periodically log the user's mouse position
+	if (m_pUserLog != NULL)
+	{
+        // Get the mouse x and y coordinates
+        POINT mousePos;
+        GetCursorPos(&mousePos);
+
+        // We'll store a normalized version so if the user changes the window
+        // size during a trial, it won't effect our coordinates.  The 
+        // normalization is with respect to the canvas and not the main 
+        // window.
+        
+        m_pUserLog->AddMouseLocationNormalized(mousePos.x, 
+                                                mousePos.y, 
+                                                true,
+                                                (float) DasherAppInterface->GetNats());
+
+    }
+
 }
+
+void CDasherWindow::GetCanvasSize(int* top, int* left, int* bottom, int* right)
+{
+    if (m_pCanvas != NULL)
+        m_pCanvas->GetCanvasSize(top, left, bottom, right);
+}
+
+// Gets the size of the window in screen coordinates.  
+void CDasherWindow::GetWindowSize(int* top, int* left, int* bottom, int* right)
+{
+	if ((top == NULL) || (left == NULL) || (bottom == NULL) || (right == NULL))
+		return;
+
+	RECT windowRect;
+	GetWindowRect(m_hwnd, &windowRect);
+
+    *top    = windowRect.top;
+    *left   = windowRect.left;
+    *bottom = windowRect.bottom;
+    *right  = windowRect.right;
+}
+

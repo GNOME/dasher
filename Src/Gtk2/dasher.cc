@@ -727,7 +727,7 @@ save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *select
     exiting=TRUE;
     gtk_main_quit();
   }
-  return true;
+  return;
 }
 
 extern "C" void

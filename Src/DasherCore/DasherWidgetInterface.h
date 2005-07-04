@@ -32,7 +32,8 @@ public:
 	//! \param MouseY The mouse Y coordinate, in screen coordinates
 	//! \param Time Time in milliseconds, required to keep Dasher running
 	//! at the correct speed
-	virtual void TapOn(int MouseX, int MouseY, unsigned long Time)=0;
+	// Changed to return any outputted symbol resulting from the navigation.
+	virtual void TapOn(int MouseX, int MouseY, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL)=0;
 
 
 	//! Draw the mouse position box
@@ -125,6 +126,10 @@ public:
 	//! Provides a fully qualified path to the training file for the alphabet
 	virtual const std::string& GetTrainFile()=0; // Returns a fully-qualified path to file:
 	                                             // UserLocation + TrainFile
+
+    virtual double  GetNats() const = 0;
+    virtual void    ResetNats() = 0;
+
 };
 
 #endif /* #ifndef __DasherWidgetInterface_h__ */

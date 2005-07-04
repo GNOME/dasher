@@ -29,8 +29,10 @@
 #include "DashEdit.h"
 #include "DasherView.h"
 #include "DasherInput.h"
+#include "UserLog.h"
 
 #include <map>
+#include <memory>
 
 namespace Dasher {class CDasherInterface;}
 class Dasher::CDasherInterface : private NoClones,
@@ -66,9 +68,9 @@ public:
 	// Widget Interface
 	// -----------------------------------------------------
 	void Start();
-	
-	void TapOn(int MouseX, int MouseY, unsigned long Time); // Times in milliseconds
-	void PauseAt(int MouseX, int MouseY);                   // are required to make
+    void TapOn(int MouseX, int MouseY, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL);// Times in milliseconds
+
+    void PauseAt(int MouseX, int MouseY);                   // are required to make
 	void Halt();
 	void Unpause(unsigned long Time);                       // Dasher run at the
 	void Redraw();                                          // correct speed.
@@ -177,6 +179,9 @@ public:
 	// 0 - no box, 1 - upper box, 2 - lower box
 	void SetDrawMousePosBox(int iWhich);
 	
+    void    SetUserLogLevelMask(int Value);
+    int     GetUserLogLevelMask();
+
 	int GetOneButton();
 	void SetOneButton(int Value);
 	int GetAutoOffset();
@@ -187,7 +192,10 @@ public:
 	
 	double GetNats() const;
 	
-	void ResetNats();
+    void ResetNats();
+
+    CAlphabet*      GetAlphabetPtr();
+	void            SetUserLogPtr(CUserLog* pUserLog);
 
 private:
 	CAlphabet* m_Alphabet;
@@ -222,7 +230,8 @@ private:
 	bool m_ControlMode;
 	bool m_ColourMode;
 	bool m_KeyboardMode;
-	
+	int  m_userLogLevelMask;
+
 	bool m_MouseposStart;
 	int m_iMousePosDist;
 	int m_iMousePosBox;
@@ -245,6 +254,8 @@ private:
 	int m_EditFontSize;
 	static const std::string EmptyString;
 	
+	CUserLog*       m_pUserLog;
+
 	void CreateDasherModel();
 };
 

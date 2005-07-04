@@ -52,8 +52,8 @@ class Dasher::CDasherView
 	
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.TapOnDisplay
-	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time)=0;
-	
+	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL)=0;
+
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.GoTo
 	virtual void GoTo(screenint mousex, screenint mousey)=0;

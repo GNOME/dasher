@@ -18,6 +18,8 @@
 
 #include <fstream>
 #include <iostream>
+#include <memory>
+#include <math.h>
 
 using namespace Dasher;
 using namespace std;

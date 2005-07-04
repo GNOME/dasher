@@ -27,7 +27,8 @@ class Dasher::CDasherViewSquare : public Dasher::CDasherView
 {
 public:
 	CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation=Dasher::Opts::LeftToRight, bool ColourMode=0);
-	void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time);
+	void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL);
+
 	void GoTo(screenint mousex,screenint mousey);
 	
 	virtual void RenderNodes();

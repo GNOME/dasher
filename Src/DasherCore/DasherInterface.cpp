@@ -51,7 +51,9 @@ m_TrainFile(""),
 m_DasherFont(""), 
 m_DasherFontSize(Opts::Normal), 
 m_EditFont(""), 
-m_EditFontSize(0)
+m_EditFontSize(0),
+m_pUserLog(NULL),
+m_userLogLevelMask(0)
 {
   m_Params = new CLanguageModelParams;
 }
@@ -242,14 +244,14 @@ void CDasherInterface::SetInput( CDasherInput *_pInput ) {
 }
 
 
-void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
+void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time, VECTOR_SYMBOL_PROB* vectorAdded, int* numDeleted)
 {
 
   //  std::cout << "Tap On" << std::endl;
 
 	if (m_pDasherView!=0) 
 	{
-		m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
+		m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, vectorAdded, numDeleted);
 		m_pDasherView->Render(MouseX,MouseY,true);
 		m_pDasherView->Display();
 	}
@@ -348,6 +350,11 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  m_SettingsUI->ChangeAlphabet(AlphabetID);
         if (m_SettingsStore!=0)
 	  m_SettingsStore->SetStringOption(Keys::ALPHABET_ID, AlphabetID);
+
+    // UserLog needs alphabet in order to convert symbols to display text.
+    if (m_pUserLog != NULL)
+        m_pUserLog->SetAlphabetPtr(m_Alphabet);
+
 }
 
 std::string CDasherInterface::GetCurrentAlphabet()
@@ -1090,3 +1097,27 @@ void CDasherInterface::ChangeLMOption( const std::string &pname, long int Value 
   if (m_SettingsUI!=0)
      m_SettingsUI->ChangeLMOption( pname, Value );
 }
+
+// Added to allow WinMain to get the alphabet pointer to send into the UserLog object
+CAlphabet* CDasherInterface::GetAlphabetPtr()
+{
+	return m_Alphabet;
+}
+
+// We need to be able to get at the UserLog object, set in WinMain.
+void CDasherInterface::SetUserLogPtr(CUserLog* pUserLog)
+{
+	m_pUserLog = pUserLog;
+}
+    
+// Set the mask value that controls what level of user logging we do
+void CDasherInterface::SetUserLogLevelMask(int Value)
+{
+    m_userLogLevelMask = Value;
+}
+
+int CDasherInterface::GetUserLogLevelMask()
+{
+    return m_userLogLevelMask;
+}
+

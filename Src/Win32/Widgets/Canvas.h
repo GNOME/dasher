@@ -13,7 +13,7 @@
 #include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/DasherAppInterface.h"
 #include "../../DasherCore/DasherTypes.h"
-
+#include "../../DasherCore/UserLog.h"
 #include "../DasherMouseInput.h"
 
 #include "Screen.h"
@@ -23,7 +23,7 @@ class CEdit;
 class CCanvas : public CWinWrap
 {
 public:
-	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB);
+	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB, CUserLog* pUserLog);
 	~CCanvas();
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
@@ -65,6 +65,7 @@ public:
 	bool Running() {return running;}
 	void SetScreenInterface(Dasher::CDasherWidgetInterface* widgetinterface){m_pScreen->SetInterface(widgetinterface);}	
 	int	OnTimer();
+	void GetCanvasSize(int* top, int* left, int* bottom, int* right);
 
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -125,6 +126,8 @@ private:
 	DWORD previoustime;
 
 	RECT coords;
+
+    CUserLog*       m_pUserLog;
 };
 
 
