@@ -2,40 +2,44 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2003 David Ward
+// Copyright (c) 2003-2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
-// A very simple application framework - based on
-// A Lightweight Window Wrapper - Steve Hanov, C++ User's Journalaugst 2002
+#ifndef __Framework_Window_h__
+#define __Framework_Window_h__
 
 #include <windows.h>
 
 #pragma warning(disable:4311)
 #pragma warning(disable:4312)
 
-class CWindow
+/////////////////////////////////////////////////////////////////////////////
+
+// To wrap a non-dialog window class, derive from CWindow
+// CreateWindow/CreateWindowEx should be passed (void*)this as its last parameter
+// The result should be set into the protected m_hwnd
+
+// All messages then get passed to the virtual WndProc function
+// The bProcessed is not set to true, then DefWindowProc will be called for you
+
+class CWindow 
 {
 
 public:
     CWindow();
-    HWND Create(int x, int y, int nWidth, int nHeight,
-            HWND hParent, HMENU hMenu, HINSTANCE hInstance);
+	virtual ~CWindow() {}
 
-    HWND m_hwnd;
 
 protected:
-    static LRESULT CALLBACK BaseWndProc(HWND hwnd, UINT msg,
+
+   	HWND m_hwnd;
+
+	static LRESULT CALLBACK BaseWndProc(HWND hwnd, UINT msg,
         WPARAM wParam, LPARAM lParam);
     
-    virtual LRESULT WindowProc(HWND hwnd, UINT msg,
-        WPARAM wParam, LPARAM lParam, PBOOL pbProcessed);
-
-    WNDCLASSEX m_WndClass;
-    DWORD m_dwExtendedStyle;
-    DWORD m_dwStyle;
-    TCHAR* m_pszClassName;
-    TCHAR* m_pszTitle;
+    virtual LRESULT WndProc(HWND hwnd, UINT msg,
+        WPARAM wParam, LPARAM lParam, bool& bProcessed);
 };  
 
 
@@ -46,11 +50,8 @@ inline LRESULT CALLBACK CWindow::BaseWndProc(HWND hwnd, UINT msg,
     WPARAM wParam, LPARAM lParam)
 {
     //A pointer to the object is passed in the CREATESTRUCT
-    if(msg == WM_NCCREATE)
-        SetWindowLong(hwnd, GWL_USERDATA,
-        (LONG)((LPCREATESTRUCT)lParam)->lpCreateParams);
-    
-    BOOL bProcessed = FALSE;
+     
+    bool bProcessed = false;
     LRESULT lResult;
     
     //Retrieve the pointer
@@ -59,25 +60,42 @@ inline LRESULT CALLBACK CWindow::BaseWndProc(HWND hwnd, UINT msg,
 
     //Filter message through child classes
     if(pObj)
-        lResult = pObj->WindowProc(hwnd, msg, wParam, lParam,
-            &bProcessed);
+        lResult = pObj->WndProc(hwnd, msg, wParam, lParam,
+            bProcessed);
+#ifdef DASHER_WINCE
+	else if(msg == WM_CREATE)
+#else
+	else if(msg == WM_NCCREATE)
+#endif
+	{
+		void *p = ((LPCREATESTRUCT)lParam)->lpCreateParams;
+		SetWindowLong(hwnd, GWL_USERDATA, (LONG)p);
+		pObj = (CWindow *)p;
+		lResult = pObj->WndProc(hwnd, msg, wParam, lParam,
+            bProcessed);
+	}
 
     if(bProcessed)
         return lResult;
-    else
-    {
-        //If message was unprocessed, send it back to Windows.
-        return DefWindowProc(hwnd, msg, wParam, lParam);
-    }
+
+	//If message was unprocessed, send it back to Windows.
+    return DefWindowProc(hwnd, msg, wParam, lParam);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline LRESULT CWindow::WindowProc(HWND hwnd, UINT msg, WPARAM wParam,
-    LPARAM lParam, PBOOL pbProcessed)
+inline LRESULT CWindow::WndProc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, bool& bProcessed)
 {
     //This may be overridden to process messages.
-    *pbProcessed = FALSE;
+    bProcessed = false;
     return NULL;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+inline CWindow::CWindow() : m_hwnd(0)
+{
+
+}
+
+#endif
