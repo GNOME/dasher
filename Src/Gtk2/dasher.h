@@ -89,7 +89,7 @@ extern GtkStyle *style;
 extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
 
-extern CDasher1DMouseInput *pMouseInput;
+extern CDasherMouseInput *pMouseInput;
 
 extern bool controlmodeon;
 extern bool keyboardmodeon;
