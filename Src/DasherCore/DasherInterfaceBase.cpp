@@ -83,36 +83,13 @@ CDasherInterfaceBase::~CDasherInterfaceBase()
 
 void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
 
-	// Eventually this will just pass the events to an external listener, but for now use the old notification mechanisms
+  // Pass events outside
 
 	if(	pEvent->m_iEventType == 1 ) {
 			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
 
-			switch(	pEvt->m_iParameter ) {
-
-			case BP_DRAW_MOUSE:	
-				if (m_SettingsUI!=0)
-					m_SettingsUI->DrawMouse(m_SettingsStore->GetBoolParameter( BP_DRAW_MOUSE ));
-				break;
-
-			case BP_DRAW_MOUSE_LINE:	// Mouse Line
-				if (m_SettingsUI!=0)
-					m_SettingsUI->DrawMouseLine(m_SettingsStore->GetBoolParameter( BP_DRAW_MOUSE_LINE ));
-				break;
-	
-			case LP_ORIENTATION:
-				if (m_SettingsUI!=0)
-					m_SettingsUI->ChangeOrientation(static_cast<Dasher::Opts::ScreenOrientations>(m_SettingsStore->GetLongParameter( LP_ORIENTATION )));
-				break;
-
-			case LP_MAX_BITRATE:
-				if (m_SettingsUI!=0)
-					m_SettingsUI->ChangeMaxBitRate(m_SettingsStore->GetLongParameter( LP_MAX_BITRATE )/100.0);
-				break;
-
-			default:
-				break;
-			}
+      if (m_SettingsUI!=0)
+        m_SettingsUI->HandleParameterNotification( pEvt->m_iParameter );
 		}
 }
 
@@ -145,6 +122,7 @@ void CDasherInterfaceBase::SetSettingsUI(CDasherSettingsInterface* SettingsUI)
 	delete m_SettingsUI;
 	m_SettingsUI = SettingsUI;
 	//this->SettingsDefaults(m_SettingsStore);
+  m_SettingsUI->SetInterface( this );
 	m_SettingsUI->SettingsDefaults(m_SettingsStore);
 }
 

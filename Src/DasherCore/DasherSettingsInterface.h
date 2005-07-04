@@ -12,13 +12,23 @@
 
 #include "DasherTypes.h"
 #include "SettingsStore.h"
+//#include "DasherInterfaceBase.h"
 
-namespace Dasher {class CDasherSettingsInterface;}
+
+
+namespace Dasher {class CDasherSettingsInterface;
+class CDasherInterfaceBase;}
 class Dasher::CDasherSettingsInterface
 {
 public:
 	void SettingsDefaults(CSettingsStore* Store);
 	
+  virtual void HandleParameterNotification( int iParameter );
+
+ void SetInterface( Dasher::CDasherInterfaceBase *pInterface ) {
+    m_pInterface = pInterface;
+  };
+
 	// These actually affect the way Dasher works
 	//! Change the alphabet in use to NewAlphabetID
 	virtual void ChangeAlphabet(const std::string& NewAlphabetID) {};
@@ -152,6 +162,10 @@ public:
 
 	virtual void SetTruncation( int Value ) {};
 	virtual void SetTruncationType( int Value ) {};
+
+private:
+  Dasher::CDasherInterfaceBase *m_pInterface;
+
 };
 
 

@@ -9,6 +9,8 @@
 #include "../Common/Common.h"
 
 #include "DasherSettingsInterface.h"
+#include "DasherInterfaceBase.h"
+#include "Parameters.h"
 
 namespace Dasher{
 namespace Keys {
@@ -218,5 +220,28 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 }
 
+void Dasher::CDasherSettingsInterface::HandleParameterNotification( int iParameter ) {
+ 	switch( iParameter ) {
+
+			case BP_DRAW_MOUSE:	
+				DrawMouse(m_pInterface->GetBoolParameter( BP_DRAW_MOUSE ));
+				break;
+
+			case BP_DRAW_MOUSE_LINE:	
+				DrawMouseLine(m_pInterface->GetBoolParameter( BP_DRAW_MOUSE_LINE ));
+				break;
+	
+			case LP_ORIENTATION:
+			  ChangeOrientation(static_cast<Dasher::Opts::ScreenOrientations>(m_pInterface->GetLongParameter( LP_ORIENTATION )));
+				break;
+
+			case LP_MAX_BITRATE:
+				ChangeMaxBitRate(m_pInterface->GetLongParameter( LP_MAX_BITRATE )/100.0);
+				break;
+
+			default:
+				break;
+			}
+}
 
 

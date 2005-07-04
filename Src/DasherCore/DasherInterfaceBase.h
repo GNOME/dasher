@@ -45,6 +45,8 @@ public:
 
 	// New externally visible interface
 
+ 
+
 	void SetBoolParameter( int iParameter, bool bValue ) {
 		m_SettingsStore->SetBoolParameter( iParameter, bValue );
 	};
@@ -56,6 +58,21 @@ public:
 	void SetStringParameter( int iParameter, const std::string &sValue ) {
 		m_SettingsStore->SetStringParameter( iParameter, sValue );
 	};
+
+  bool GetBoolParameter( int iParameter ) {
+    return m_SettingsStore->GetBoolParameter( iParameter );
+  }
+
+  long GetLongParameter( int iParameter ) {
+    return m_SettingsStore->GetLongParameter( iParameter );
+  }
+
+  std::string GetStringParameter( int iParameter ) {
+   // FIXME - not yet implemented
+
+   // return m_SettingsStore->GetStringParameter( iParameter );
+    return std::string("");
+  }
 
 	void ExternalEventHandler( Dasher::CEvent *pEvent );
   void InterfaceEventHandler( Dasher::CEvent *pEvent );
