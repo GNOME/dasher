@@ -42,7 +42,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	// String literals in this function are not in the resource file as they
 	// must NOT be translated.
 
-//  hInstApp = hInstance;
+	WinHelper::hInstApp = hInstance; // DJW - put this back in as this global is needed in various placed
+
 	// We don't want to starve other interactive applications
 	SetThreadPriority(GetCurrentThread(),THREAD_PRIORITY_BELOW_NORMAL);
 
