@@ -182,7 +182,7 @@ void CDasherInterfaceBase::CreateDasherModel()
 	break;	
       }
 
-      m_pDasherModel = new CDasherModel( m_pEventHandler, m_SettingsStore, m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
+      m_pDasherModel = new CDasherModel( m_pEventHandler, m_SettingsStore, m_Alphabet, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
       
       // Train the new language model
 

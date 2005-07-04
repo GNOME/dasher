@@ -26,9 +26,9 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, LanguageModelID idLM, CLanguageModelParams *_params,
 						   bool Dimensions, bool Eyetracker, bool Paused)
-  : CDasherComponent( pEventHandler, pSettingsStore), m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
+  : CDasherComponent( pEventHandler, pSettingsStore), m_pcAlphabet(pAlphabet), 
 	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
 	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
     m_bControlMode(false), m_bAdaptive(true)
@@ -210,7 +210,23 @@ void CDasherModel::Get_string_under_mouse(const myint Mousex,const myint Mousey,
 
 void CDasherModel::Start()
 {
-	m_Rootmin=0;
+
+
+
+  // FIXME - re-evaluate this function and SetContext...
+
+		m_pEditbox->get_new_context(ContextString,5);
+
+		// FIXME - what if we don't get a reply?
+	
+//	m_pLanguageModel->ReleaseNodeContext(therootcontext);
+//	ppmmodel->dump();
+//	dump();
+	
+}
+
+void CDasherModel::SetContext( std::string &sNewContext ) {
+  	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
 
 
@@ -226,27 +242,19 @@ void CDasherModel::Start()
 	m_Root=new CDasherNode(*this,0,0,0,Opts::Nodes1,0,Normalization(),m_pLanguageModel, false, 7);
 	CLanguageModel::Context therootcontext=m_pLanguageModel->CreateEmptyContext();
 
-	if (m_pEditbox) {
-		string ContextString;
-		m_pEditbox->get_new_context(ContextString,5);
-		if (ContextString.size()==0) {
+	if (sNewContext.size()==0) {
 		  // If there is no root context, pretend that we've just
 		  // finished a sentence
-		  ContextString=". " + ContextString;
-		}
-		EnterText(therootcontext, ContextString);
+	  sNewContext=". ";
+	}
+	EnterText(therootcontext, sNewContext);
 	
-		m_pLanguageModel->ReleaseContext(LearnContext);
-		LearnContext = m_pLanguageModel->CloneContext(therootcontext);
+	m_pLanguageModel->ReleaseContext(LearnContext);
+	LearnContext = m_pLanguageModel->CloneContext(therootcontext);
 	}
 
 	m_Root->SetContext(therootcontext);    // node takes control of the context
 	Recursive_Push_Node(m_Root,0);
-	
-//	m_pLanguageModel->ReleaseNodeContext(therootcontext);
-//	ppmmodel->dump();
-//	dump();
-	
 }
 
 /////////////////////////////////////////////////////////////////////////////

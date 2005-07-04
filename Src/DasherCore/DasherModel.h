@@ -59,7 +59,7 @@ public:
 	} LanguageModelID;
 
 
-	CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, CDashEditbox* Editbox, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
+	CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
 	~CDasherModel();
 
 	void HandleEvent( Dasher::CEvent *pEvent );
@@ -178,7 +178,6 @@ private:
 
 	// Interfaces
 	
-	CDashEditbox* m_pEditbox;           // pointer to the editbox
 	CLanguageModel* m_pLanguageModel;   // pointer to the language model
 	
 	const CAlphabet* m_pcAlphabet;             // pointer to the alphabet

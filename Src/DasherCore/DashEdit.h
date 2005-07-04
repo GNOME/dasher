@@ -40,6 +40,10 @@ public:
 	
 	//! Write some buffered output to a file
 	virtual void write_to_file()=0;
+
+	virtual void HandleEvent( Dasher::CEvent *pEvent ) {
+	  switch( pEvent
+	};
 	
 	//! Provide context from the editbox for the core
 	//
