@@ -12,11 +12,13 @@
 
 #include "Edit.h"
 
+#define WM_DASHER_TIMER WM_USER + 128 // FIXME - shouldn't define this twice
+
 using namespace Dasher;
 
-CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB)
+CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI )
 	: m_DasherWidgetInterface(WI), m_DasherAppInterface(AI),
-	m_DasherEditBox(EB), imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0)
+	imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0)
 {
 
 #ifndef _WIN32_WCE
@@ -125,6 +127,10 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
 	switch (message) 
 	{
+  case WM_DASHER_TIMER:
+    OnTimer();
+    return 0;
+
 	case WM_COMMAND:
 		SendMessage(Parent, message, wParam, lParam);
 		return 0;
@@ -476,9 +482,9 @@ void CCanvas::StartStop() {
 	} else {
 		m_DasherWidgetInterface->PauseAt(0,0);
 		running=0;
-		if (speakonstop==true) {
-			m_DasherEditBox->speak(2);
-		}
+//		if (speakonstop==true) { // FIXME - reimplement this
+//			m_DasherEditBox->speak(2);
+//		}
 		ReleaseCapture();
 	}
 }

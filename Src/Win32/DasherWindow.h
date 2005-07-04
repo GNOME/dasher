@@ -28,23 +28,18 @@ namespace Dasher
 {
 	class CDasherWidgetInterface;
 	class CDasherAppInterface;
+  class CDasher;
 };
 
 // Abstract interfaces to the Dasher engine
 #include "../DasherCore/DasherSettingsInterface.h"
 
-// Used to signal our message loop to do our periodic work, the value
-// shouldn't collide with anything else in our code.
-#define WM_DASHER_TIMER WM_USER + 128
 
 class CDasherWindow : public CWinWrap, public CSplitterOwner,
 	public Dasher::CDasherSettingsInterface
 {
 public:
-	CDasherWindow(Dasher::CDasherSettingsInterface* SI,
-                  Dasher::CDasherWidgetInterface* WI,
-				  Dasher::CDasherAppInterface* AI,
-				  CWinOptions* pWinOptions);
+	CDasherWindow();
 	~CDasherWindow();
 	
 	void Show(int nCmdShow);
@@ -129,7 +124,10 @@ private:
 	Dasher::CDasherSettingsInterface* DasherSettingsInterface;
 	Dasher::CDasherWidgetInterface* DasherWidgetInterface;
 	Dasher::CDasherAppInterface* DasherAppInterface;
-	std::string m_CurrentAlphabet;
+
+  Dasher::CDasher *m_pDasher;
+  
+  std::string m_CurrentAlphabet;
 	std::string m_CurrentColours;
 	
 	HACCEL hAccelTable;
@@ -140,7 +138,7 @@ private:
 	// Widgets:
 	CToolbar* m_pToolbar;
 	CEdit* m_pEdit;
-	CCanvas* m_pCanvas;
+	CCanvas *m_pCanvas;
 	CSlidebar* m_pSlidebar;
 	CSplitter* m_pSplitter;
 	//CWinOptions& WinOptions;
@@ -181,13 +179,7 @@ private:
 	void SetMenuCheck(UINT MenuItem, bool Value);
 	void Layout();
 
-    HANDLE          m_workerThread;    // Handle to our worker thread that periodically checks on user's activities
-    bool            m_bWorkerShutdown; // Set to true when the worker should terminate
-
-    static DWORD  WINAPI    WorkerThread(LPVOID lpParam);   // Spins around and sends WM_DASHER_TIMER message
-    void                    ShutdownWorkerThread();         // Called when we want the worker thread to stop
-    void                    OnTimer();                      // Does the periodic work
-
+  
 };
 
 

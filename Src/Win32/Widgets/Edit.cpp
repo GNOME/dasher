@@ -58,12 +58,15 @@ CEdit::CEdit(HWND Parent) : Parent(Parent), m_FontSize(0), m_FontName(""),
 	speech.resize(0);
 
 #ifndef DASHER_WINCE
-	HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
-	if (hr!=S_OK)
-		pVoice=0;
-	if (pVoice!=0) {
-		pVoice->Speak(L"",SPF_ASYNC,NULL);
-	}
+
+  // FIXME - for some reason I seem to have broken speech support :-(
+
+	//HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+	//if (hr!=S_OK)
+	//	pVoice=0;
+	//if (pVoice!=0) {
+	//	pVoice->Speak(L"",SPF_ASYNC,NULL);
+	//}
 #endif
 }
 
@@ -73,12 +76,12 @@ CEdit::~CEdit()
 	DeleteObject(m_Font);
 
 #ifndef DASHER_WINCE	
-	// Release the voice object created by constructor
-	if (pVoice!=NULL)
-	{	
-		pVoice->Release();
-		pVoice=NULL;
-	}
+	//// Release the voice object created by constructor
+	//if (pVoice!=NULL)
+	//{	
+	//	pVoice->Release();
+	//	pVoice=NULL;
+	//}
 #endif
 
 	delete m_FilenameGUI;
@@ -638,9 +641,9 @@ LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 		break;
 	case WM_KEYUP:
 		// if we enter text or move around the edit control, update the Dasher display
-		if (Canvas->Running()==false) {
-			m_DasherInterface->ChangeEdit();
-		}
+		//if (Canvas->Running()==false) {   // FIXME - reimplement this
+		//	m_DasherInterface->ChangeEdit();
+		//}
 		InvalidateRect (Window, NULL, FALSE);
 		break;
 	case WM_COMMAND:
@@ -775,11 +778,11 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 		switch (data) {
 		  case 2:
 			  // stop
-			  Canvas->StartStop();
+			  //Canvas->StartStop(); // FIXME - reimplement this
 			  break;
 		  case 3:
 			  //	pause
-			  Canvas->Pause();
+			  //Canvas->Pause(); // FIXME - reimplement this
 			  break;
 		  case 4:
 			  speak(1);

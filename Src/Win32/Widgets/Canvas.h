@@ -23,7 +23,7 @@ class CEdit;
 class CCanvas : public CWinWrap
 {
 public:
-	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB);
+	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI);
 	~CCanvas();
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
@@ -84,8 +84,7 @@ private:
 
 	Dasher::CDasherMouseInput* m_pInput;
 
-	CEdit* m_DasherEditBox;
-	Dasher::screenint imousex,imousey;
+		Dasher::screenint imousex,imousey;
 	UINT MY_TIMER;
 	bool running;
 	bool startonleft;

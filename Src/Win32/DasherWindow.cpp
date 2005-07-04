@@ -24,19 +24,24 @@
 #include "../DasherCore/DasherWidgetInterface.h"
 #include "../DasherCore/DasherAppInterface.h"
 #include "DasherMouseInput.h"
+#include "Dasher.h"
 using namespace Dasher;
 using namespace std;
 
 
 #define IDT_TIMER1 200
 
-CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterface* WI, CDasherAppInterface* AI, CWinOptions *pWinOptions )
-	: DasherSettingsInterface(SI), DasherWidgetInterface(WI), DasherAppInterface(AI), Splash(0), 
-	m_pToolbar(0), m_pEdit(0), m_pCanvas(0), m_pSlidebar(0), m_pSplitter(0), 
-	m_CurrentAlphabet(""), m_CurrentColours(""), m_pOptions( pWinOptions )
+CDasherWindow::CDasherWindow()
+	: Splash(0), 
+	m_pToolbar(0), m_pEdit(0),  m_pSlidebar(0), m_pSplitter(0), 
+	m_CurrentAlphabet(""), m_CurrentColours("")
 {
-	m_workerThread			= NULL;
-	m_bWorkerShutdown		= false;
+
+
+ 
+
+//	m_workerThread			= NULL;
+//	m_bWorkerShutdown		= false;
 
 	hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR)IDC_DASHER);
 	
@@ -51,7 +56,8 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	WinWrapMap::add(m_hwnd, this);
 	
 
-
+  
+ 
 	// Splash screen (turned off for debugging when it gets in the way)
 	// It is deleted when Show() is called.
 	/*
@@ -63,17 +69,31 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	*/
 
 	// Create Widgets
-	m_pToolbar = new CToolbar(m_hwnd, false, false, false);
+ m_pToolbar = new CToolbar(m_hwnd, false, false, false);
 	
-	m_pEdit = new CEdit(m_hwnd);
-	DasherAppInterface->ChangeEdit(m_pEdit);
-	m_pCanvas = new CCanvas(m_hwnd, DasherWidgetInterface, DasherAppInterface, m_pEdit);
-	m_pEdit->SetEditCanvas(m_pCanvas);
-	m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
-	m_pSplitter = new CSplitter(m_hwnd, 100, this);
+ m_pEdit = new CEdit(m_hwnd);
+	
+	
+	//m_pEdit->SetEditCanvas(m_pCanvas);
+
+ m_pDasher = new CDasher( m_hwnd, m_pEdit );
+
+ DasherSettingsInterface = m_pDasher->GetInterface();
+ DasherWidgetInterface = m_pDasher->GetInterface();
+ DasherAppInterface = m_pDasher->GetInterface();
+
+
+  
+ m_pOptions = m_pDasher->GetInterface()->GetSettingsStore(); // FIXME - get rid of this eventually
+
+
+ m_pCanvas = m_pDasher->GetCanvas();
+
+ m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
+ m_pSplitter = new CSplitter(m_hwnd, 100, this);
 
 	
-
+m_pDasher->GetInterface()->SetSettingsUI( this );
 
 /*
 	DWORD MyTime = GetTickCount();
@@ -81,30 +101,21 @@ CDasherWindow::CDasherWindow(CDasherSettingsInterface* SI, CDasherWidgetInterfac
 	MyTime = GetTickCount() - MyTime;
 */
 
-	// Start up our thread that will periodically handle user movement.  We pass in a pointer to ourselves
-	// since the thread function must be static but needs to act on the object that created it.
-	DWORD dwThreadId = 0;
-    m_workerThread = CreateThread(	NULL,							// default security attributes 
-									0,								// use default stack size  
-									CDasherWindow::WorkerThread,	// thread function 
-									this,							// argument to thread function 
-									0,								// use default creation flags 
-									&dwThreadId);					// returns the thread identifier 
+
 
 }
 
 CDasherWindow::~CDasherWindow()
 {
-	ShutdownWorkerThread();
+	
 
 	delete Splash; // In case Show() was never called.
 	delete m_pToolbar;
 	delete m_pEdit;
-	delete m_pCanvas;
-	delete m_pSlidebar;
+		delete m_pSlidebar;
 	delete m_pSplitter;
 	
-	
+	delete m_pDasher;
 
 	DestroyIcon(m_hIconSm);
 
@@ -315,7 +326,7 @@ void CDasherWindow::DrawMouseLine(bool Value)
 void CDasherWindow::SetDasherDimensions(bool Value)
 {
 	oned=Value;
-	m_pCanvas->onedimensional(Value);
+	//m_pCanvas->onedimensional(Value); FIXME
 }
 
 
@@ -323,7 +334,7 @@ void CDasherWindow::SetDasherDimensions(bool Value)
 void CDasherWindow::StartOnLeft(bool Value)
 {
 	startonleft=Value;
-	m_pCanvas->StartOnLeftClick(Value);
+	//m_pCanvas->StartOnLeftClick(Value); FIXME
 }
 
 
@@ -331,7 +342,7 @@ void CDasherWindow::StartOnLeft(bool Value)
 void CDasherWindow::StartOnSpace(bool Value)
 {
 	startonspace=Value;
-	m_pCanvas->StartOnSpace(Value);
+	// m_pCanvas->StartOnSpace(Value); FIXME
 }
 
 void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
@@ -364,7 +375,7 @@ void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
 void CDasherWindow::WindowPause(bool Value)
 {
 	windowpause=Value;
-	m_pCanvas->WindowPause(Value);
+	//m_pCanvas->WindowPause(Value); FIXME
 }
 
 
@@ -372,7 +383,7 @@ void CDasherWindow::WindowPause(bool Value)
 void CDasherWindow::KeyControl(bool Value)
 {
 	keycontrol=Value;
-	m_pCanvas->KeyControl(Value);
+	//m_pCanvas->KeyControl(Value); FIXME
 }
 
 
@@ -384,7 +395,7 @@ void CDasherWindow::CopyAllOnStop(bool Value)
 void CDasherWindow::Speech(bool Value)
 {
 	speech=Value;
-	m_pCanvas->SpeakOnStop(Value);
+	//m_pCanvas->SpeakOnStop(Value); FIXME
 }
 
 void CDasherWindow::PaletteChange(bool Value)
@@ -395,29 +406,29 @@ void CDasherWindow::PaletteChange(bool Value)
 void CDasherWindow::OutlineBoxes(bool Value)
 {
 	outlines=Value;
-	m_pCanvas->DrawOutlines(Value);
+	//m_pCanvas->DrawOutlines(Value); FIXME
 	DasherWidgetInterface->Redraw();
 }
 
 void CDasherWindow::MouseposStart(bool Value)
 {
 	mouseposstart=Value;
-	m_pCanvas->MousePosStart(Value);
+	//m_pCanvas->MousePosStart(Value); FIXME
 }
 
 void CDasherWindow::SetYScale(int Value)
 {
-	m_pCanvas->setyscale(Value);
+	//m_pCanvas->setyscale(Value); FIXME
 }
 
 void CDasherWindow::SetMousePosDist(int Value)
 {
-	m_pCanvas->setmouseposdist(Value);
+	//m_pCanvas->setmouseposdist(Value); FIXME
 }
 
 void CDasherWindow::SetUniform(int Value)
 {
-	m_pCanvas->setuniform(Value);
+	// m_pCanvas->setuniform(Value); FIXME
 }
 
 void CDasherWindow::KeyboardMode(bool Value)
@@ -459,10 +470,10 @@ void CDasherWindow::ControlMode(bool Value)
 {
 	controlmode=Value;
 	WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, Value);
-	m_pCanvas->SetScreenInterface(DasherWidgetInterface);
+	//m_pCanvas->SetScreenInterface(DasherWidgetInterface); FIXME
 
 	// The edit control caches the symbols so we need to refresh
-	m_pEdit->SetInterface(DasherWidgetInterface);
+	//m_pEdit->SetInterface(DasherWidgetInterface); FIXME
 }
 
 void CDasherWindow::SetDasherEyetracker(bool Value)
@@ -484,13 +495,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 	case MY_LAYOUT:
 		Layout();
 		break;
-	case WM_SETFOCUS:
-		SetFocus(m_pCanvas->getwindow());
-		break;
-    case WM_DASHER_TIMER:
-        // Message sent by our worker thread
-        OnTimer();
-        break;
+	//case WM_SETFOCUS: FIXME
+		//SetFocus(m_pCanvas->getwindow());
+		//break;
+//    case WM_DASHER_TIMER: // FIXME
+//        // Message sent by our worker thread
+//       OnTimer();
+//        break;
 	case WM_COMMAND:
 		{
 			const int wmId    = LOWORD(wParam);
@@ -581,18 +592,18 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case IDM_ABOUT:
 				{ CAboutbox Aboutbox(m_hwnd); }
 				break;
-			case ID_OPTIONS_EDITKEYS:
-				{ CKeyBox KeyBox(m_hwnd,m_pCanvas, DasherSettingsInterface); }
-				break;
+	//		case ID_OPTIONS_EDITKEYS:  FIXME
+	//			{ CKeyBox KeyBox(m_hwnd,m_pCanvas, DasherSettingsInterface); }
+	//			break;
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
 				break;
 			case ID_OPTIONS_COLOURS:
 				{ CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentColours); }
 				break;
-			case ID_OPTIONS_PREFS:
-				{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
-				break;
+	//		case ID_OPTIONS_PREFS:
+	//			{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
+	//			break;
 			case ID_HELP_CONTENTS:
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);
 				break;
@@ -694,11 +705,11 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 		}
 		
 		// Canvas needs to free its resources before its window is deleted
-		if (m_pCanvas!=0)
-		{
+//		if (m_pCanvas!=0)
+	//	{
 		//	delete m_pCanvas;
 		//	m_pCanvas=0;
-		}		
+	//	}		
 
 		PostQuitMessage(0);
 		break;
@@ -808,75 +819,7 @@ void CDasherWindow::Layout()
 
 }
 
-// Handle periodically poking the canvas to check for user activity.  
-// This use to be done with a SetTimer() call, but this horked up 
-// the Visual Studio debugger.  Now we send a user specified message
-// to the pump and use this to drive the updates.
-DWORD CDasherWindow::WorkerThread(LPVOID lpParam) 
-{ 
-    CDasherWindow* parent = (CDasherWindow*) lpParam;
 
-    if (parent == NULL)
-    {
-        return -1;
-    }
 
-    while (!parent->m_bWorkerShutdown)
-    {
-        ::Sleep(20);
-        SendMessage(parent->m_hwnd, WM_DASHER_TIMER, NULL, NULL);
-    }
 
-    return 0; 
-} 
 
-// Called when we want to get the worker thread to stop.
-void CDasherWindow::ShutdownWorkerThread()
-{
-    const int CHECK_EVERY_MS        = 100;      // Time between successive attempts to gracefully shutdown
-    const int MAX_BEFORE_HARD_KILL  = 2000;     // Maximum time to try for a gracefull thread shutdown
-
-    m_bWorkerShutdown = true;
-
-    if (m_workerThread != NULL)
-    {
-        // Give the thread some time to shut itself down gracefully
-        int     elapsed     = 0;
-        DWORD   dwResult    = WAIT_TIMEOUT;
-
-        while ((dwResult == WAIT_TIMEOUT) && (elapsed < MAX_BEFORE_HARD_KILL))
-        {
-            dwResult = WaitForSingleObject(m_workerThread, 100);
-
-            if (dwResult == WAIT_TIMEOUT)
-            {
-                elapsed += CHECK_EVERY_MS;
-                ::Sleep(CHECK_EVERY_MS);
-            }
-        }
-
-        // If all else fails, we'll hard kill the thread
-        if (dwResult == WAIT_TIMEOUT)
-            TerminateThread(m_workerThread, 0);
-
-        CloseHandle(m_workerThread);
-        m_workerThread = NULL;
-    }
-}
-
-// Handles the work we need to do periodically on a timer event
-void CDasherWindow::OnTimer()
-{
-    HWND testwindow = NULL;
-
-    // Ugh. Can't find a desperately nicer way of doing this, though
-    testwindow = GetForegroundWindow();
-    if (testwindow != m_hwnd) 
-    {
-        if (m_pEdit != NULL)
-            m_pEdit->SetWindow(testwindow);
-    }
-
-    if (m_pCanvas != NULL)
-        m_pCanvas->OnTimer();
-}

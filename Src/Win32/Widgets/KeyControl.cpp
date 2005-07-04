@@ -108,6 +108,8 @@ void CKeyBox::PopulateWidgets()
 //	strUniform.precision(1);
 //	strUniform << m_pCanvas->getuniform()/10.0;
 
+// FIXME - why do we store things like 'uniform' here - surely they should be stored in the interface?
+
 	_sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pCanvas->getuniform()/10.0);
 
 	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer );

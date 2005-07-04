@@ -107,7 +107,7 @@ public:
 	void speak(int what);
 
 	// set canvas
-	void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
+	//void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
 
 protected:
 	bool m_dirty;
@@ -151,7 +151,7 @@ private:
 
 	void InsertText(Tstring InsertText); // add symbol to edit control
 
-	CCanvas* Canvas;
+//	CCanvas* Canvas;
 };
 
 

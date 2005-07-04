@@ -714,6 +714,16 @@
 				RelativePath=".\Common\WinWrap.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="DasherControl"
+			Filter="">
+			<File
+				RelativePath=".\Dasher.cpp">
+			</File>
+			<File
+				RelativePath=".\Dasher.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\DasherMouseInput.cpp">
 		</File>

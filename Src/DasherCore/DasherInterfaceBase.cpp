@@ -105,12 +105,10 @@ void CDasherInterfaceBase::InterfaceEventHandler( Dasher::CEvent *pEvent ) {
 			switch(	pEvt->m_iParameter ) {
 
 			case BP_COLOUR_MODE: // Forces us to redraw the display
-				Start();
 				Redraw();
 				break;
 	
 			case LP_ORIENTATION:
-				Start();
 				Redraw();
 				break;
 

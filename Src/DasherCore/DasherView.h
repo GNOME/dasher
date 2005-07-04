@@ -119,7 +119,8 @@ public:
 	}
 
 	int GetCoordinates( int iN, myint *pCoordinates ) {
-	  if( m_pInput )
+	  
+    if( m_pInput )
 	    return m_pInput->GetCoordinates( iN, pCoordinates );
   
 	  return 0;
