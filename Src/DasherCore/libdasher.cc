@@ -237,11 +237,9 @@ void handle_set_string_option(const std::string& Key, const std::string& Value)
 
 using namespace std;
 
-void dasher_early_initialise()
+void dasher_early_initialise( int argc, char **argv )
 {
-  interface = new CDasherInterface;
-  
-  
+  interface = new CDasherInterface( argc, argv );
 }
 
 void dasher_late_initialise( int _width, int _height)

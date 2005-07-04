@@ -42,6 +42,8 @@ class dasher_ui : public CDasherSettingsInterface
 {
  public:
 
+  
+
   void ChangeAlphabet(const string& NewAlphabetID) 
     { 
       handle_parameter_string( STRING_ALPHABET, NewAlphabetID ); 

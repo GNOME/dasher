@@ -46,8 +46,6 @@ static const struct poptOption options [] =
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
-#else
-#include "settings_store.h"
 #endif
 
 #ifdef GNOME_SPEECH
@@ -59,7 +57,7 @@ static const struct poptOption options [] =
 
 //extern GConfClient *the_gconf_client;
 
-GError *gconferror;
+
 gboolean timedata=FALSE;
 gboolean preferences=FALSE;
 gboolean textentry=FALSE;
@@ -115,7 +113,7 @@ main(int argc, char *argv[])
   init_xsettings();
 #else
   gtk_init (&argc, &argv);
-  gconf_init( argc, argv, &gconferror );
+  
 #endif
 
   // We need thread support for updating the splash window while
@@ -130,7 +128,7 @@ main(int argc, char *argv[])
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
   xml = glade_xml_new(PROGDATA"/dasher/dasher.glade", NULL, NULL);
-  the_gconf_client = gconf_client_get_default();
+ 
 #endif
 
 
@@ -169,15 +167,6 @@ main(int argc, char *argv[])
   }
 
   
-
-  dasher_set_get_bool_option_callback( get_bool_option_callback );
-  dasher_set_get_long_option_callback( get_long_option_callback );
-  dasher_set_get_string_option_callback( get_string_option_callback );
-
-  dasher_set_set_bool_option_callback( set_bool_option_callback );
-  dasher_set_set_long_option_callback( set_long_option_callback );
-  dasher_set_set_string_option_callback( set_string_option_callback );
-
   dasher_set_string_callback( parameter_string_callback );
   dasher_set_double_callback( parameter_double_callback );
   dasher_set_int_callback( parameter_int_callback );
@@ -214,7 +203,7 @@ main(int argc, char *argv[])
 
   interface_setup(xml);
 
-  dasher_early_initialise();
+  dasher_early_initialise( argc, argv );
 
   paused=true;
 
@@ -291,10 +280,6 @@ main(int argc, char *argv[])
   gtk_main ();
 
   interface_cleanup();
-
-#ifndef WITH_GPE
-  g_object_unref(the_gconf_client);
-#endif
 
 #ifdef GNOME_SPEECH
   teardown_speech();

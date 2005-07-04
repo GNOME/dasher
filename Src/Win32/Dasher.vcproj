@@ -588,12 +588,6 @@
 				RelativePath=".\Widgets\Toolbar.h">
 			</File>
 			<File
-				RelativePath=".\Widgets\WinOptions.cpp">
-			</File>
-			<File
-				RelativePath=".\Widgets\WinOptions.h">
-			</File>
-			<File
 				RelativePath=".\widgets\WindowSelect.cpp">
 			</File>
 			<File
@@ -653,6 +647,12 @@
 				RelativePath="Common\WinWrap.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath="DasherMouseInput.cpp">
+		</File>
+		<File
+			RelativePath="DasherMouseInput.h">
+		</File>
 		<File
 			RelativePath=".\DasherWindow.cpp">
 		</File>

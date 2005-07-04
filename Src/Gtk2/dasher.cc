@@ -37,8 +37,6 @@
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
-#else
-#include "settings_store.h"
 #endif
 
 #include <X11/Xlib.h>
@@ -497,64 +495,66 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   gtk_spin_button_update(spinbutton);
   coordcalled=false;
   value=int(gtk_spin_button_get_value(spinbutton));
+
+  // FIXME - registry stuff is broken now - this probably shouldn't be in the UI anyway - put in the core
   
   // FIXME
   // See previous comment about enums
   // (Mind you, the whole of this is a mess anyway...)
   if (widget==glade_xml_get_widget(widgets,"spinbutton1")) {
     buttons[1].x=value;
-    set_long_option_callback("Button1X",value);
+    //    set_long_option_callback("Button1X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton2")) {
     buttons[2].x=value;
-    set_long_option_callback("Button2X",value);
+    //  set_long_option_callback("Button2X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton3")) {
     buttons[3].x=value;
-    set_long_option_callback("Button3X",value);
+    //  set_long_option_callback("Button3X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton4")) {
     buttons[4].x=value;
-    set_long_option_callback("Button4X",value);
+    //  set_long_option_callback("Button4X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton5")) {
     buttons[5].x=value;
-    set_long_option_callback("Button5X",value);
+    //  set_long_option_callback("Button5X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton6")) {
     buttons[6].x=value;
-    set_long_option_callback("Button6X",value);
+    //  set_long_option_callback("Button6X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton7")) {
     buttons[7].x=value;
-    set_long_option_callback("Button7X",value);
+    // set_long_option_callback("Button7X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton8")) {
     buttons[8].x=value;
-    set_long_option_callback("Button8X",value);
+    // set_long_option_callback("Button8X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton9")) {
     buttons[9].x=value;
-    set_long_option_callback("Button9X",value);
+    // set_long_option_callback("Button9X",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton10")) {
     buttons[1].y=value;
-    set_long_option_callback("Button1Y",value);
+    // set_long_option_callback("Button1Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton11")) {
     buttons[2].y=value;
-    set_long_option_callback("Button2Y",value);
+    // set_long_option_callback("Button2Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton12")) {
     buttons[3].y=value;
-    set_long_option_callback("Button3Y",value);
+    // set_long_option_callback("Button3Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton13")) {
     buttons[4].y=value;
-    set_long_option_callback("Button4Y",value);
+    //set_long_option_callback("Button4Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton14")) {
     buttons[5].y=value;
-    set_long_option_callback("Button5Y",value);
+    // set_long_option_callback("Button5Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton15")) {
     buttons[6].y=value;
-    set_long_option_callback("Button6Y",value);
+    //set_long_option_callback("Button6Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton16")) {
     buttons[7].y=value;
-    set_long_option_callback("Button7Y",value);
+    //set_long_option_callback("Button7Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton17")) {
     buttons[8].y=value;
-    set_long_option_callback("Button8Y",value);
+    //set_long_option_callback("Button8Y",value);
   } else if (widget==glade_xml_get_widget(widgets,"spinbutton18")) {
     buttons[9].y=value;
-    set_long_option_callback("Button9Y",value);
+    //set_long_option_callback("Button9Y",value);
   }
   return FALSE;
 }
@@ -1376,74 +1376,78 @@ void interface_setup(GladeXML *xml) {
   initialise_canvas(360,360);
   initialise_edit();
 
-  // interface specific preferences
-  if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
-    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
-  }
+
+  // FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
+
+
+//   // interface specific preferences
+//   if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
+//     gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
+//   }
   
-  if(get_long_option_callback("YScale",&yscale)!=false) {
-    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
-  }
+//   if(get_long_option_callback("YScale",&yscale)!=false) {
+//     gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
+//   }
 
-  if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
-  }
+//   if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
+//     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
+//   }
 
-  // Configure the buttons. FIXME - more enums?
-  if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
-    buttons[1].x=0;
-  }
-  if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
-    buttons[2].x=0;
-  }
-  if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
-    buttons[3].x=0;
-  }
-  if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
-    buttons[4].x=0;
-  }
-  if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
-    buttons[5].x=0;
-  }
-  if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
-    buttons[6].x=0;
-  }
-  if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
-    buttons[7].x=0;
-  }
-  if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
-    buttons[8].x=0;
-  }
-  if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
-    buttons[9].x=0;
-  }
-  if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
-    buttons[1].y=0;
-  }
-  if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
-    buttons[2].y=0;
-  }
-  if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
-    buttons[3].y=0;
-  }
-  if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
-    buttons[4].y=0;
-  }
-  if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
-    buttons[5].y=0;
-  }
-  if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
-    buttons[6].y=0;
-  }
-  if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
-    buttons[7].y=0;
-  }
-  if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
-    buttons[8].y=0;
-  }
-  if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
-    buttons[9].y=0;
-  }
+//   // Configure the buttons. FIXME - more enums?
+//   if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
+//     buttons[1].x=0;
+//   }
+//   if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
+//     buttons[2].x=0;
+//   }
+//   if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
+//     buttons[3].x=0;
+//   }
+//   if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
+//     buttons[4].x=0;
+//   }
+//   if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
+//     buttons[5].x=0;
+//   }
+//   if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
+//     buttons[6].x=0;
+//   }
+//   if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
+//     buttons[7].x=0;
+//   }
+//   if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
+//     buttons[8].x=0;
+//   }
+//   if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
+//     buttons[9].x=0;
+//   }
+//   if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
+//     buttons[1].y=0;
+//   }
+//   if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
+//     buttons[2].y=0;
+//   }
+//   if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
+//     buttons[3].y=0;
+//   }
+//   if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
+//     buttons[4].y=0;
+//   }
+//   if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
+//     buttons[5].y=0;
+//   }
+//   if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
+//     buttons[6].y=0;
+//   }
+//   if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
+//     buttons[7].y=0;
+//   }
+//   if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
+//     buttons[8].y=0;
+//   }
+//   if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
+//     buttons[9].y=0;
+//   }
 
   generate_lm_options(NULL, NULL);
 
@@ -1733,7 +1737,8 @@ extern "C" void DrawMouseLine(GtkWidget *widget, gpointer user_data)
 extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
 {
   cyclickeyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
-  set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
+  // FIXME - no longer have access to registry here
+  //  set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
 }
 
 extern "C" void show_help(GtkWidget *widget, gpointer user_data)
@@ -1893,7 +1898,10 @@ extern "C" void palettechange(GtkWidget *widget, gpointer user_data)
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 {
   mouseposstartdist=int(widget->adjustment->value);
-  set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
+
+  // FIXME - no longer have access to registry here
+
+  //  set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
   // Need to redraw the boxes
   dasher_redraw();
 }
@@ -1901,7 +1909,10 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
 extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
 {
   yscale=int(widget->adjustment->value);
-  set_long_option_callback("YScale",yscale);
+
+  // FIXME - no longer have access to registry here
+
+  //  set_long_option_callback("YScale",yscale);
 }
 
 // Callbacks to be notified of when something changes
