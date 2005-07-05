@@ -86,13 +86,12 @@ CDasherWindow::CDasherWindow()
 
   m_pEdit->SetInterface( m_pDasher->GetInterface() );
   
-  m_pOptions = m_pDasher->GetInterface()->GetSettingsStore(); // FIXME - get rid of this eventually
+//  m_pOptions = m_pDasher->GetInterface()->GetSettingsStore(); // FIXME - get rid of this eventually
 
   // FIXME - we shouldn't need to know about these outside of CDasher
     
   m_pCanvas = m_pDasher->GetCanvas();
   m_pSlidebar = m_pDasher->GetSlidebar();
-
 
   m_pSplitter = new CSplitter(m_hwnd, 100, this);
 	
@@ -309,10 +308,10 @@ void CDasherWindow::DrawMouse(bool Value)
 }
 
 
-void CDasherWindow::DrawMouseLine(bool Value)
-{
-	drawmouseline=Value;
-}
+//void CDasherWindow::DrawMouseLine(bool Value)
+//{
+//	drawmouseline=Value;
+//}
 
 
 
@@ -585,18 +584,20 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case IDM_ABOUT:
 				{ CAboutbox Aboutbox(m_hwnd); }
 				break;
-	//		case ID_OPTIONS_EDITKEYS:  FIXME
-	//			{ CKeyBox KeyBox(m_hwnd,m_pCanvas, DasherSettingsInterface); }
-	//			break;
+		case ID_OPTIONS_EDITKEYS: 
+			{ CKeyBox KeyBox(m_hwnd, m_pDasher ); }
+			break;
 			case ID_OPTIONS_ALPHABET:
 				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
 				break;
 			case ID_OPTIONS_COLOURS:
 				{ CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentColours); }
 				break;
-	//		case ID_OPTIONS_PREFS:
-	//			{ CPrefs Prefs(m_hwnd,m_pCanvas,this,DasherSettingsInterface,DasherWidgetInterface); }
-	//			break;
+			case ID_OPTIONS_PREFS:
+				{ 
+          CPrefs Prefs( m_hwnd, m_pDasher );
+        }
+				break;
 			case ID_HELP_CONTENTS:
 				WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);
 				break;

@@ -73,10 +73,6 @@ public:
 
 	bool GetDrawMouse() {return drawmouse;}
 
-	void DrawMouseLine(bool Value);
-
-	bool GetDrawMouseLine() {return drawmouseline;}
-
 	void SetDasherDimensions(bool Value);
 
 	bool GetDasherDimensions() {return oned;}
@@ -145,7 +141,7 @@ private:
 	CMenu WinMenu;
 	CSplash* Splash;
 
-	CWinOptions *m_pOptions;	
+//	CWinOptions *m_pOptions;	
 
 	HICON m_hIconSm;
 
@@ -159,7 +155,7 @@ private:
 
 	bool timestampnewfiles;
 	bool drawmouse;
-	bool drawmouseline;
+	//bool drawmouseline;
 	bool oned;
 	bool windowpause;
 	bool keycontrol;

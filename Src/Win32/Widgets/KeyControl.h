@@ -14,22 +14,22 @@
 
 #include "../resource.h"
 
-#include "../../DasherCore/DasherSettingsInterface.h"
-#include "Canvas.h"
+#include "../Dasher.h"
 
 class CKeyBox : public CWinWrap
 {
 public:
-	CKeyBox(HWND Parent, CCanvas* m_pCanvas, Dasher::CDasherSettingsInterface *Interface);
+	CKeyBox(HWND Parent, CDasher *pDasher );
 	void PopulateWidgets();
 	std::string GetControlText(HWND Dialog, int ControlID);
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-	HWND CustomBox;
+  CDasher *m_pDasher;
+  
+  HWND CustomBox;
 	HWND slider;
 	HWND uniformbox;
-	CCanvas* m_pCanvas;
 	int keycoords[18];
 	int ypixels;
 	int mouseposdist;
@@ -40,8 +40,7 @@ private:
 	bool SelectionSet;
 
 	TCHAR m_tcBuffer[1000];
-	
-	Dasher::CDasherSettingsInterface* m_pSettingsInterface;
+
 };
 
 

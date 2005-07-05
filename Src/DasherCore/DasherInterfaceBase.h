@@ -45,8 +45,6 @@ public:
 
 	// New externally visible interface
 
- 
-
 	void SetBoolParameter( int iParameter, bool bValue ) {
 		m_SettingsStore->SetBoolParameter( iParameter, bValue );
 	};
@@ -68,9 +66,7 @@ public:
   }
 
   std::string GetStringParameter( int iParameter ) {
-   // FIXME - not yet implemented
-
-   // return m_SettingsStore->GetStringParameter( iParameter );
+    // Not yet implemented
     return std::string("");
   }
 

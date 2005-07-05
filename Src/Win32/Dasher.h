@@ -21,6 +21,32 @@ public:
     return m_pInterface;
   }
 
+	void SetBoolParameter( int iParameter, bool bValue ) {
+		m_pInterface->SetBoolParameter( iParameter, bValue );
+	};
+
+	void SetLongParameter( int iParameter, long lValue ) {
+		m_pInterface->SetLongParameter( iParameter, lValue );
+	};
+
+	void SetStringParameter( int iParameter, const std::string &sValue ) {
+		m_pInterface->SetStringParameter( iParameter, sValue );
+	};
+
+  bool GetBoolParameter( int iParameter ) {
+    return m_pInterface->GetBoolParameter( iParameter );
+  }
+
+  long GetLongParameter( int iParameter ) {
+    return m_pInterface->GetLongParameter( iParameter );
+  }
+
+  std::string GetStringParameter( int iParameter ) {
+    return m_pInterface->GetStringParameter( iParameter );  
+  }
+
+  // The following functions will not be part of the final interface
+
   CCanvas *GetCanvas() {
     return m_pCanvas;
   }

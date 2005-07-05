@@ -29,7 +29,9 @@ class CSettingsStore
 {
 public:
 
-	CSettingsStore( Dasher::CEventHandler *pEventHandler ) : m_pEventHandler( pEventHandler ) {};
+	CSettingsStore( Dasher::CEventHandler *pEventHandler ) : m_pEventHandler( pEventHandler ) 
+    {
+    };
 	virtual ~CSettingsStore() {};
 	
 	// New functions for event driven interface
@@ -40,8 +42,11 @@ public:
 
 	bool GetBoolParameter( int iParameter );
 	long GetLongParameter( int iParameter );
+    std::string GetStringParameter( int iParameter );
 
-	// ---
+	// --- Deprecated functions below
+    // although string functionality might be good for
+    // reading/writing from permanent storage (string based)
 
 	bool GetBoolOption(const std::string& Key);
 	long GetLongOption(const std::string& Key);
@@ -103,14 +108,16 @@ private:
 	std::map<std::string, long> LongMap;
 	std::map<std::string, std::string> StringMap;
 
-	// New maps
-
-	std::map<int, bool> m_oBoolParameterMap;
-	std::map<int, long> m_oLongParameterMap;
-
 protected:
 	Dasher::CEventHandler *m_pEventHandler;
-		
+
+    // This is where the settings are, should only be one in existance
+    // derived classes should share this reference
+
+    // FIXME - this used to be static, but for some reason it wouldn't link 
+    // like that
+
+    Dasher::CParamTables m_oParamTables;		
 };
 
 

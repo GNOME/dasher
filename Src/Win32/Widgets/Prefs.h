@@ -6,31 +6,24 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-
 #ifndef __PrefsBox_h__
 #define __PrefsBox_h__
 
-
 #include "../resource.h"
 #include "../../DasherCore/DasherTypes.h"
-#include "../../DasherCore/DasherSettingsInterface.h"
-#include "Canvas.h"
-#include "../DasherWindow.h"
+
+#include "../Dasher.h"
 
 class CPrefs : public CWinWrap
 {
 public:
-	CPrefs(HWND Parent, CCanvas* m_pCanvas, CDasherWindow* m_pWindow, Dasher::CDasherSettingsInterface* m_pSettings, Dasher::CDasherWidgetInterface* m_pWidget);
+	CPrefs(HWND hParent, CDasher *pDasher );
 	void PopulateWidgets();
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-	HWND CustomBox;
-	CCanvas* m_pCanvas;
-	CDasherWindow* m_pWindow;
-	Dasher::CDasherSettingsInterface* m_pSettings;
-	Dasher::CDasherWidgetInterface* m_pWidget;
+	HWND m_hCustomBox;
+  CDasher *m_pDasher;
 };
 
 
