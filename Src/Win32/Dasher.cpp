@@ -1,3 +1,6 @@
+
+#include "WinCommon.h" // must include pch first
+
 #include ".\dasher.h"
 
 using namespace std;

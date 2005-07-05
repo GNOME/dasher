@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../DasherCore/Win32/DasherInterface.h"
-#include "WinCommon.h"
 #include "Common/WinHelper.h"
 #include "DasherWindow.h"
 #include "Widgets/Canvas.h"
