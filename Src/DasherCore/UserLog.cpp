@@ -11,35 +11,12 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+using namespace expat;
+
 CUserLog::CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet)
 {
-    m_strFilename           = "";
-    m_pApplicationSpan      = NULL;
-    m_lastMouseUpdate       = 0.0;
-    m_bSimple               = false;
-    m_bDetailed             = false;
-    m_pSimpleLogger         = NULL;    
+    InitMemberVars();
     m_pAlphabet             = pAlphabet;
-    m_bIsWriting            = false;
-    m_bInitIsDone           = false;
-    m_bNeedToWriteCanvas    = false;
-
-    m_pCycleTimer           = NULL;
-    m_cycleNumDeletes       = 0;
-    m_cycleMouseCount       = 0;
-    m_cycleMouseNormXSum    = 0.0;
-    m_cycleMouseNormYSum    = 0.0;
-    m_cycleNats             = 0.0;
-
-    m_canvasCoordinates.bottom  = 0;
-    m_canvasCoordinates.top     = 0;
-    m_canvasCoordinates.right   = 0;
-    m_canvasCoordinates.left    = 0;
-
-    m_windowCoordinates.bottom  = 0;
-    m_windowCoordinates.top     = 0;
-    m_windowCoordinates.right   = 0;
-    m_windowCoordinates.left    = 0;
 
     if (logTypeMask & userLogSimple)
     {
@@ -106,6 +83,12 @@ CUserLog::~CUserLog()
     {
         delete m_pSimpleLogger;
         m_pSimpleLogger = NULL;
+    }
+
+    if (m_pCycleTimer != NULL)
+    {
+        delete m_pCycleTimer;
+        m_pCycleTimer = NULL;
     }
 }
 
@@ -548,7 +531,73 @@ void CUserLog::SetAlphabetPtr(Dasher::CAlphabet* pAlphabet)
     m_pAlphabet = pAlphabet;
 }
 
+// Sets our output filename based on the current date and time.
+// Or if a parameter is passed in, use that as the output name.
+void CUserLog::SetOuputFilename(const string& strFilename)
+{
+    if (strFilename.length() > 0)
+    {
+        m_strFilename = strFilename;
+    }
+    else
+    {
+        m_strFilename = USER_LOG_DETAILED_PREFIX;
+
+        struct timeb timebuffer;
+        char* timeline = NULL;
+
+        ftime( &timebuffer );
+
+        timeline = ctime( & ( timebuffer.time ) );
+
+        if ((timeline != NULL) && (strlen(timeline) > 18))
+        {
+            for (int i = 4; i < 19; i++)
+            {
+                if (timeline[i] == ' ')
+                    m_strFilename += "_";
+                else if (timeline[i] != ':')
+                    m_strFilename += timeline[i];
+            }
+        }
+
+        m_strFilename += ".xml";
+    }
+}
+
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////
+
+// Just inits all our member variables, called by the constructors
+void CUserLog::InitMemberVars()
+{
+    m_strFilename           = "";
+    m_pApplicationSpan      = NULL;
+    m_lastMouseUpdate       = 0.0;
+    m_bSimple               = false;
+    m_bDetailed             = false;
+    m_pSimpleLogger         = NULL;    
+    m_pAlphabet             = NULL;
+    m_bIsWriting            = false;
+    m_bInitIsDone           = false;
+    m_bNeedToWriteCanvas    = false;
+
+    m_pCycleTimer           = NULL;
+    m_cycleNumDeletes       = 0;
+    m_cycleMouseCount       = 0;
+    m_cycleMouseNormXSum    = 0.0;
+    m_cycleMouseNormYSum    = 0.0;
+    m_cycleNats             = 0.0;
+
+    m_canvasCoordinates.bottom  = 0;
+    m_canvasCoordinates.top     = 0;
+    m_canvasCoordinates.right   = 0;
+    m_canvasCoordinates.left    = 0;
+
+    m_windowCoordinates.bottom  = 0;
+    m_windowCoordinates.top     = 0;
+    m_windowCoordinates.right   = 0;
+    m_windowCoordinates.left    = 0;
+}
 
 // Write this objects XML out  
 bool CUserLog::WriteXML()
@@ -584,7 +633,7 @@ string CUserLog::GetXML()
     strResult += GetParamsXML();
     strResult += "\t</Params>\n";
 
-    strResult += "\t\t<Trials>\n";
+    strResult += "\t<Trials>\n";
     for (unsigned int i = 0; i < m_vectorTrials.size(); i++)
     {
         CUserLogTrial* trial = (CUserLogTrial*) m_vectorTrials[i];
@@ -600,33 +649,6 @@ string CUserLog::GetXML()
     strResult += "</UserLog>\n";
 
     return strResult;
-}
-
-// Sets our output filename based on the current date and time
-void CUserLog::SetOuputFilename()
-{
-    m_strFilename = USER_LOG_DETAILED_PREFIX;
-
-    struct timeb timebuffer;
-    char* timeline = NULL;
-
-    ftime( &timebuffer );
-
-    timeline = ctime( & ( timebuffer.time ) );
-
-    if ((timeline != NULL) && (strlen(timeline) > 18))
-    {
-        for (int i = 4; i < 19; i++)
-        {
-            if (timeline[i] == ' ')
-                m_strFilename += "_";
-            else if (timeline[i] != ':')
-                m_strFilename += timeline[i];
-        }
-    }
-
-    m_strFilename += ".xml";
-
 }
 
 // Returns pointer to the current user trial, NULL if we don't have one yet
@@ -897,69 +919,37 @@ string CUserLog::GetVersionInfo()
 #ifdef USER_LOG_TOOL
 
 // Load the object from an XML file
-CUserLog::CUserLog(string strXMLFilename)
+CUserLog::CUserLog(string strXMLFilename) 
 {
-    FILE* fpIn = NULL;
-    if ((fpIn = fopen (strXMLFilename.c_str(), "r")) == NULL) 
+    InitMemberVars();
+
+    // We are representing detailed logging when we create from XML
+    m_bDetailed = true;
+
+    VECTOR_STRING vectorTrials;
+
+    // First split up various parts of the XML
+    string strXML           = XMLUtil::LoadFile(strXMLFilename);        
+    string strApp           = XMLUtil::GetElementString("Application", strXML, true);    
+    string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
+    string strTrials        = XMLUtil::GetElementString("Trials", strXML, true);
+    vectorTrials            = XMLUtil::GetElementStrings("Trial", strTrials, true);
+
+//gLogger->Log("trials:\n%s", logDEBUG, strTrials.c_str());
+
+    m_pApplicationSpan      = new CTimeSpan("Application", strApp);
+    m_vectorParams          = CUserLogTrial::ParseParamsXML(strParams);
+
+    // Now construct each of the Trial objects based on its section of XML
+    for (VECTOR_STRING_ITER iter = vectorTrials.begin(); iter < vectorTrials.end(); iter++)
     {
-        gLogger->Log("CUserLog::CUserLog, failed to open '%s' for input!", logNORMAL, strXMLFilename.c_str());
-        return;
-    }
+        if (iter != NULL)
+        {
+            CUserLogTrial* trial = new CUserLogTrial(*iter);
 
-    XML_Parser parser = XML_ParserCreate(NULL);
-
-    // Members passed as callbacks must be static, so don't have a "this" pointer.
-    // We give them one through horrible casting so they can effect changes.
-    XML_SetUserData(parser, this);
-
-    XML_SetElementHandler(parser, XML_StartElement, XML_EndElement);
-    XML_SetCharacterDataHandler(parser, XML_CharacterData);
-
-    const unsigned int bufferSize = 1024;
-    char buffer[bufferSize];
-    int done = 0;
-    do 
-    {
-        size_t len = fread(buffer, 1, sizeof(buffer), fpIn);
-        Done = len < sizeof(Buffer);
-        if (XML_Parse(parser, buffer, len, done) == XML_STATUS_ERROR) 
-            break;
-    } while (!done);
-
-    XML_ParserFree(parser);
-    fclose(fpIn);
-
-}
-
-void CUserLog::XML_StartElement(void* userData, const expat::XML_Char* name, const expat::XML_Char** atts)
-{
-    CUserLog* parent = (CUserLog*) userData;
-    if (parent == NULL)
-    {
-        gLogger->Log("CUserLog::XML_StartElement, parent was NULL!", logNORMAL);
-        return;
-    }
-
-}
-
-void CUserLog::XML_EndElement(void* userData, const expat::XML_Char* name)
-{
-    CUserLog* parent = (CUserLog*) userData;
-    if (parent == NULL)
-    {
-        gLogger->Log("CUserLog::XML_EndElement, parent was NULL!", logNORMAL);
-        return;
-    }
-
-}
-
-void CUserLog::XML_CharacterData(void* userData, const expat::XML_Char* s, int len)
-{
-    CUserLog* parent = (CUserLog*) userData;
-    if (parent == NULL)
-    {
-        gLogger->Log("CUserLog::XML_CharacterData, parent was NULL!", logNORMAL);
-        return;
+            if (trial != NULL)
+                m_vectorTrials.push_back(trial);
+        }
     }
 
 }

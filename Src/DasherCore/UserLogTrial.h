@@ -19,7 +19,9 @@
 #include "UserLogParam.h"
 #include <algorithm>
 
-using namespace std;
+#ifdef USER_LOG_TOOL
+    #include "XMLUtil.h"
+#endif
 
 extern CFileLogger* gLogger;
 
@@ -34,7 +36,7 @@ typedef vector<CUserLogTrial*>              VECTOR_USER_LOG_TRIAL_PTR;
 // Dasher.
 enum eUserLogEventType
 {
-    userLogEventMouse       = 1     // Normal mouse navigation
+    userLogEventMouse       = 0     // Normal mouse navigation
 };
 
 // Keeps track of a single instance of AddSymbols() or 
@@ -70,11 +72,17 @@ struct NavCycle
 
 typedef vector<NavCycle*>       VECTOR_NAV_CYCLE_PTR;
 
+using namespace std;
+
 class CUserLogTrial
 {
 public:
     CUserLogTrial();
     ~CUserLogTrial();
+
+#ifdef USER_LOG_TOOL
+    CUserLogTrial(const string& strXML);
+#endif
 
     bool                        HasWritingOccured();
     void                        StartWriting();
@@ -92,6 +100,11 @@ public:
 
     static string               GetParamXML(CUserLogParam* param, const string& strPrefix = "");
 
+#ifdef USER_LOG_TOOL
+    static VECTOR_USER_LOG_PARAM_PTR    ParseParamsXML(const string& strXML);
+    static WindowSize                   ParseWindowXML(const string& strXML);
+#endif
+
 protected:
     CTimeSpan*                          m_pSpan;
     bool                                m_bWritingStart;
@@ -106,6 +119,7 @@ protected:
     string                      GetHistoryDisplay();
     double                      GetHistoryAvgBits();
     void                        StopPreviousTimer();
+    void                        InitMemberVars();
 
     NavCycle*                   GetCurrentNavCycle();
     NavCycle*                   AddNavCycle();
@@ -119,6 +133,10 @@ protected:
     string                      GetWindowCanvasXML(const string& prefix);
     string                      GetParamsXML(const string& prefix);
     string                      GetNavCyclesXML(const string& prefix);
+
+#ifdef USER_LOG_TOOL
+
+#endif
 
 };
 

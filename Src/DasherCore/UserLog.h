@@ -40,9 +40,7 @@
 // We'll only compile in some bits if we are the tool that reads in UserLog files
 // and can operate on them in some way.
 #ifdef USER_LOG_TOOL
-namespace expat {
-	#include "../../Common/Expat/lib/expat.h"
-}
+    #include "XMLUtil.h"
 #endif
 
 using namespace std;
@@ -74,6 +72,7 @@ class CUserLog
 public:
     CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet);
     ~CUserLog();
+
 #ifdef USER_LOG_TOOL
     CUserLog(string strXMLFilename);
 #endif
@@ -97,6 +96,7 @@ public:
     void                        OutputFile();
 	void					    SetAlphabetPtr(Dasher::CAlphabet* pAlphabet);
     void                        InitIsDone();
+    void                        SetOuputFilename(const string& strFilename = "");
 
 protected:
     CTimeSpan*                  m_pApplicationSpan;     // How long the application has been up
@@ -116,7 +116,6 @@ protected:
 
     CUserLogTrial*              AddTrial();
     CUserLogTrial*              GetCurrentTrial();
-    void                        SetOuputFilename();
     string                      GetXML();
     bool                        WriteXML();
     bool                        UpdateMouseLocation();
@@ -124,6 +123,7 @@ protected:
     void                        PrepareNewTrial();
     string                      GetCycleParamStats();
     string                      GetVersionInfo();
+    void                        InitMemberVars();
 
     // Things that support simple stats of a single Start/Stop cycle:
     Dasher::VECTOR_SYMBOL_PROB  m_vectorCycleHistory;   // Tracks just the most recent Start/Stop cycle, used for simple logging
@@ -138,14 +138,6 @@ protected:
     double                      GetCycleBits();
     void                        ComputeSimpleMousePos(int x, int y);
     void                        ResetCycle();
-
-#ifdef USER_LOG_TOOL
-	// Callback functions. These involve the normal dodgy casting to a pointer
-	// to an instance to get a C++ class to work with a plain C library.
-	static void XML_StartElement(void* userData, const expat::XML_Char* name, const expat::XML_Char** atts);
-	static void XML_EndElement(void* userData, const expat::XML_Char* name);
-	static void XML_CharacterData(void* userData, const expat::XML_Char* s, int len);
-#endif
 
 };
 

@@ -17,6 +17,10 @@
 #include "TimeSpan.h"
 #include <math.h>
 
+#ifdef USER_LOG_TOOL
+    #include "XMLUtil.h"
+#endif
+
 using namespace std;
 
 extern CFileLogger* gLogger;
@@ -35,6 +39,11 @@ public:
     CUserLocation(int x, int y, int top, int left, int bottom, int right, bool bStoreIntegerRep, float nats);
     ~CUserLocation();
 
+#ifdef USER_LOG_TOOL
+    CUserLocation(const string& strXML);
+#endif
+
+
     string              GetXML(const string& prefix = "");
     static double       ComputeNormalizedX(int x, int left, int right);
     static double       ComputeNormalizedY(int y, int top, int bottom);
@@ -48,6 +57,8 @@ private:
     bool                m_bHasNormalized;           // Are we storing a normalized representation?
     bool                m_bHasInteger;              // Are we storing an integer representation?
     float               m_nats;
+
+    void                InitMemeberVars();
 };
 
 #endif

@@ -13,19 +13,7 @@ static char THIS_FILE[] = __FILE__;
 
 CUserLogTrial::CUserLogTrial()
 {
-    m_bWritingStart                 = false;
-    m_pSpan                         = NULL;
-    m_strCurrentTrial               = "";
-    
-    m_windowCoordinates.bottom      = 0;
-    m_windowCoordinates.top         = 0;
-    m_windowCoordinates.left        = 0;
-    m_windowCoordinates.right       = 0;
-
-    m_canvasCoordinates.bottom      = 0;
-    m_canvasCoordinates.top         = 0;
-    m_canvasCoordinates.left        = 0;
-    m_canvasCoordinates.right       = 0;
+    InitMemberVars();
 }
 
 CUserLogTrial::~CUserLogTrial()
@@ -163,7 +151,7 @@ void CUserLogTrial::StartWriting()
 
     // Start the task timer if we haven't already done so
     if (m_pSpan == NULL)
-        m_pSpan = new CTimeSpan("Time");
+        m_pSpan = new CTimeSpan("Time", false);
 
     m_bWritingStart = true;
 
@@ -273,7 +261,7 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbolProbs,
     location                = new NavLocation;
 
     location->strHistory    = GetHistoryDisplay();
-    location->span          = new CTimeSpan("Time");
+    location->span          = new CTimeSpan("Time", false);
     location->avgBits       = GetHistoryAvgBits();
     location->event         = event;
     location->numDeleted    = 0;
@@ -307,7 +295,7 @@ void CUserLogTrial::DeleteSymbols(int numToDelete, eUserLogEventType event)
     location                = new NavLocation;
 
     location->strHistory    = GetHistoryDisplay();
-    location->span          = new CTimeSpan("Time");
+    location->span          = new CTimeSpan("Time", false);
     location->avgBits       = GetHistoryAvgBits();
     location->event         = event;
     location->numDeleted    = numToDelete;
@@ -419,6 +407,23 @@ bool CUserLogTrial::IsWriting()
 
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////
 
+void CUserLogTrial::InitMemberVars()
+{
+    m_bWritingStart                 = false;
+    m_pSpan                         = NULL;
+    m_strCurrentTrial               = "";
+    
+    m_windowCoordinates.bottom      = 0;
+    m_windowCoordinates.top         = 0;
+    m_windowCoordinates.left        = 0;
+    m_windowCoordinates.right       = 0;
+
+    m_canvasCoordinates.bottom      = 0;
+    m_canvasCoordinates.top         = 0;
+    m_canvasCoordinates.left        = 0;
+    m_canvasCoordinates.right       = 0;
+}
+
 // Obtain information that is being passed in from the UserTrial standalone application.
 // This information tell us what the user is actually trying to enter.
 void CUserLogTrial::GetUserTrialInfo()
@@ -429,20 +434,23 @@ void CUserLogTrial::GetUserTrialInfo()
     {
 
         fstream fin("CurrentTrial.xml", ios::in);       // We want ios::nocreate, but not available in .NET 2003, arrgh
-        char str[1024];
-        while(!fin.eof()) 
+        
+        // Make sure we successfully opened before we start reading it
+        if (fin.is_open())
         {
-            fin.getline(str, 1024);
-            if (strlen(str) > 0)
+            char str[1024];
+            while(!fin.eof()) 
             {
-                m_strCurrentTrial += "\t\t\t";
-                m_strCurrentTrial += str;
-                m_strCurrentTrial += "\n";
-            }        
-            else
-                break;  // This happens if the file wasn't opened successfully
+                fin.getline(str, 1024);
+                if (strlen(str) > 0)
+                {
+                    m_strCurrentTrial += "\t\t\t";
+                    m_strCurrentTrial += str;
+                    m_strCurrentTrial += "\n";
+                }        
+            }
+            fin.close();
         }
-        fin.close();
     } catch (...)
     {
         // The application might not be running in which case the read will fail.
@@ -527,7 +535,7 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
     if (location->event != userLogEventMouse)
     {
         strResult += prefix;
-        strResult += "\t\t\t<Event>";
+        strResult += "\t\t<Event>";
         sprintf(strNum, "%d", (int) location->event);
         strResult += strNum;
         strResult += "</Event>\n";                
@@ -875,7 +883,7 @@ NavLocation* CUserLogTrial::GetCurrentNavLocation()
 NavCycle* CUserLogTrial::AddNavCycle()
 {
     NavCycle* newCycle = new NavCycle;
-    newCycle->pSpan = new CTimeSpan("Time");
+    newCycle->pSpan = new CTimeSpan("Time", false);
 
     m_vectorNavCycles.push_back(newCycle);
     return newCycle;
@@ -960,5 +968,181 @@ string CUserLogTrial::GetNavCyclesXML(const string& strPrefix)
     return strResult;
 }
 
+#ifdef USER_LOG_TOOL
+
+// Construct based on some XML
+CUserLogTrial::CUserLogTrial(const string& strXML)
+{
+    InitMemberVars();
+    VECTOR_STRING vectorNavs;
+
+    string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
+    string strWindow        = XMLUtil::GetElementString("WindowCoordinates", strXML, true);           
+    string strCanvas        = XMLUtil::GetElementString("CanvasCoordinates", strXML, true);           
+    string strNavs          = XMLUtil::GetElementString("Navs", strXML, true);           
+    string strSummary       = XMLUtil::GetElementString("Summary", strXML, true);
+    string strSummaryTime   = XMLUtil::GetElementString("Time", strSummary, true);
+    vectorNavs              = XMLUtil::GetElementStrings("Nav", strNavs, true);
+
+    m_vectorParams          = ParseParamsXML(strParams);
+    m_windowCoordinates     = ParseWindowXML(strWindow);
+    m_canvasCoordinates     = ParseWindowXML(strCanvas);
+
+    m_pSpan                 = new CTimeSpan("Time", strSummaryTime);
+
+    // Process each <Nav> tag
+    string strTime              = "";
+    string strLocations         = "";
+    string strMousePositions    = "";
+
+    VECTOR_STRING vectorLocations;
+    VECTOR_STRING vectorMousePositions;
+    VECTOR_STRING vectorAdded;
+
+    for (VECTOR_STRING_ITER iter = vectorNavs.begin(); iter < vectorNavs.end(); iter++)
+    {
+        strTime              = "";
+        strLocations         = "";
+        strMousePositions    = "";
+        vectorLocations.erase(vectorLocations.begin(), vectorLocations.end());
+        vectorMousePositions.erase(vectorMousePositions.begin(), vectorMousePositions.end());
+
+        if (iter != NULL)
+        {
+            strTime             = XMLUtil::GetElementString("Time", *iter, true);
+            strLocations        = XMLUtil::GetElementString("Locations", *iter, true);
+            strMousePositions   = XMLUtil::GetElementString("MousePositions", *iter, true);
+        }
+
+        NavCycle* cycle = new NavCycle();
+        cycle->pSpan = NULL;
+
+        if (strTime.length() > 0)
+        {
+            cycle->pSpan = new CTimeSpan("Time", strTime);
+        }
+        if (strLocations.length() > 0)
+        {
+            vectorLocations = XMLUtil::GetElementStrings("Location", strLocations, true);
+
+            for (VECTOR_STRING_ITER iter2 = vectorLocations.begin(); iter2 < vectorLocations.end(); iter2++)
+            {
+                vectorAdded.erase(vectorAdded.begin(), vectorAdded.end());
+
+                NavLocation* location = new NavLocation();
+
+                location->strHistory    = XMLUtil::GetElementString("History", *iter2);
+                location->avgBits       = (double) XMLUtil::GetElementFloat("AvgBits", *iter2);
+                location->event         = (eUserLogEventType) XMLUtil::GetElementInt("Event", *iter2);
+                location->numDeleted    = XMLUtil::GetElementInt("NumDeleted", *iter2);
+
+                location->span          = NULL;
+                string strTime          = XMLUtil::GetElementString("Time", *iter2);
+                location->span          = new CTimeSpan("Time", strTime);
+
+                // Handle the multiple <Add> tags that might exist
+                vectorAdded             = XMLUtil::GetElementStrings("Add", *iter2);                
+                location->pVectorAdded  = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
+                
+                for (VECTOR_STRING_ITER iter3 = vectorAdded.begin(); iter3 < vectorAdded.end(); iter3++)
+                {
+                    Dasher::SymbolProbDisplay add;
+
+                    add.prob           = XMLUtil::GetElementFloat("Prob", *iter3);
+                    add.strDisplay     = XMLUtil::GetElementString("Text", *iter3);
+                    add.sym            = 0;    // We don't have the original integer symbol index
+
+                    if (location->pVectorAdded != NULL)
+                        location->pVectorAdded->push_back(add);
+
+                    // Also track it in one complete vector of all the adds
+                    m_vectorHistory.push_back(add);        
+                }
+
+                // If this was a deleted event, then we need to erase some stuff from the running history
+                for (int i = 0; i < location->numDeleted; i++)
+                    m_vectorHistory.pop_back();
+
+                cycle->vectorNavLocations.push_back(location);
+            }
+        }
+        
+        if (strMousePositions.length() > 0)
+        {
+            vectorMousePositions = XMLUtil::GetElementStrings("Pos", strMousePositions, true);
+            for (VECTOR_STRING_ITER iter2 = vectorMousePositions.begin(); iter2 < vectorMousePositions.end(); iter2++)
+            {
+                if (iter2 != NULL)
+                {
+                    CUserLocation* location = new CUserLocation(*iter2);
+                    cycle->vectorMouseLocations.push_back(location);
+                }
+            }
+
+        }
+
+        m_vectorNavCycles.push_back(cycle);
+    }
+
+}
+
+// Helper that parses parameters out of the XML block, used by UserLog 
+// and by UserLogTrial to do the same thing.
+VECTOR_USER_LOG_PARAM_PTR CUserLogTrial::ParseParamsXML(const string& strXML)
+{
+    VECTOR_USER_LOG_PARAM_PTR   vectorResult;
+    VECTOR_NAME_VALUE_PAIR      vectorParams;
+
+    vectorParams = XMLUtil::GetNameValuePairs(strXML, true);
+
+    // Handle adding all the name/value parameter pairs.  XML looks like:
+    //      <Eyetracker>0</Eyetracker>
+    //      <MaxBitRate>
+	//	    	<Value>7.0100</Value>
+    //			<Time>15:48:53.140</Time>
+	//  	</MaxBitRate>
+    for (VECTOR_NAME_VALUE_PAIR_ITER iter = vectorParams.begin(); iter < vectorParams.end(); iter++)
+    {
+        CUserLogParam* param = new CUserLogParam();
+        
+        if ((param != NULL) && (iter != NULL))
+        {
+            param->strName      = iter->strName;
+        
+            // See if we have a type that has a timestamp
+            string strValue     = XMLUtil::GetElementString("Value", iter->strValue, true);
+            string strTime      = XMLUtil::GetElementString("Time", iter->strValue, true);
+
+            if ((strValue.length() > 0)  || (strTime.length() > 0))
+            {
+                param->strValue     = strValue;
+                param->strTimeStamp = strTime;
+            }
+            else
+                param->strValue     = iter->strValue;
+            
+            param->options = 0;
+
+            vectorResult.push_back(param);
+        }
+    }
+
+    return vectorResult;
+}
+
+// Parse our window or canvas coorindates from XML
+WindowSize CUserLogTrial::ParseWindowXML(const string& strXML)
+{
+    WindowSize result;
+
+    result.top      = XMLUtil::GetElementInt("Top", strXML);
+    result.bottom   = XMLUtil::GetElementInt("Bottom", strXML);
+    result.left     = XMLUtil::GetElementInt("Left", strXML);
+    result.right    = XMLUtil::GetElementInt("Right", strXML);
+
+    return result;
+}
+
+#endif
 
 

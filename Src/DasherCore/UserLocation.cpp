@@ -15,12 +15,11 @@ static char THIS_FILE[] = __FILE__;
 // This version only stores the integer coordinate data.
 CUserLocation::CUserLocation(int x, int y, float nats)
 {
+    InitMemeberVars();
+
     m_strTime               = CTimeSpan::GetTimeStamp();
     m_locationX             = x;
     m_locationY             = y;
-    m_normalizedLocationX   = 0.0;
-    m_normalizedLocationY   = 0.0;
-    m_bHasNormalized        = false;
     m_bHasInteger           = true;
     m_nats                  = nats;
 }
@@ -28,13 +27,12 @@ CUserLocation::CUserLocation(int x, int y, float nats)
 // Stores only the normalized floating point data.
 CUserLocation::CUserLocation(float x, float y, float nats)
 {
+    InitMemeberVars();
+
     m_strTime               = CTimeSpan::GetTimeStamp();
-    m_locationX             = 0;
-    m_locationY             = 0;
     m_normalizedLocationX   = x;
     m_normalizedLocationY   = y;
     m_bHasNormalized        = true;
-    m_bHasInteger           = false;
     m_nats                  = nats;
 }
 
@@ -42,9 +40,9 @@ CUserLocation::CUserLocation(float x, float y, float nats)
 // This version calculates the normalization itself.
 CUserLocation::CUserLocation(int x, int y, int top, int left, int bottom, int right, bool bStoreIntegerRep, float nats)
 {
+    InitMemeberVars();
+
     m_strTime               = CTimeSpan::GetTimeStamp();
-    m_locationX             = 0;
-    m_locationY             = 0;
     m_normalizedLocationX   = (float) ComputeNormalizedX(x, left, right);
     m_normalizedLocationY   = (float) ComputeNormalizedY(y, top, bottom);
     m_bHasNormalized        = true;
@@ -63,6 +61,8 @@ CUserLocation::CUserLocation(int x, int y, int top, int left, int bottom, int ri
 // We want both the integer representation and the normalized.
 CUserLocation::CUserLocation(int x1, int y1, float x2, float y2, float nats)
 {
+    InitMemeberVars();
+
     m_strTime               = CTimeSpan::GetTimeStamp();
     m_locationX             = x1;
     m_locationY             = y1;
@@ -142,4 +142,69 @@ double CUserLocation::ComputeNormalizedY(int y, int top, int bottom)
 {
     return (double) (y - top) / (double) abs(bottom - top);
 }
+
+void CUserLocation::InitMemeberVars()
+{
+    m_strTime               = "";
+    m_locationX             = 0;
+    m_locationY             = 0;
+    m_normalizedLocationX   = 0.0;
+    m_normalizedLocationY   = 0.0;
+    m_bHasNormalized        = false;
+    m_bHasInteger           = false;
+    m_nats                  = 0.0;
+}
+
+#ifdef USER_LOG_TOOL
+// Construct based on some XML like:
+//  <Pos>
+//  	<Time>15:49:10.203</Time>
+//  	<X>807</X>
+//  	<Y>382</Y>
+//  	<XNorm>0.7274</XNorm>
+//  	<YNorm>0.1853</YNorm>
+//  	<Bits>0.555</Bits>
+//  </Pos>
+CUserLocation::CUserLocation(const string& strXML)
+{
+    InitMemeberVars();
+
+    bool bFoundNormX        = false;
+    bool bFoundNormY        = false;
+    bool bFoundX            = false;
+    bool bFoundY            = false;
+
+    m_strTime               = XMLUtil::GetElementString("Time", strXML, true);    
+    m_locationX             = XMLUtil::GetElementInt("X", strXML, &bFoundX);
+    m_locationY             = XMLUtil::GetElementInt("Y", strXML, &bFoundY);
+    m_normalizedLocationX   = (float) XMLUtil::GetElementFloat("XNorm", strXML, &bFoundNormX);
+    m_normalizedLocationY   = (float) XMLUtil::GetElementFloat("YNorm", strXML, &bFoundNormY);
+    
+    // Convert the bits back to nats
+    m_nats                  = (float) XMLUtil::GetElementFloat("Bits", strXML) * (float) log(2.0);
+
+    // If there weren't X, Y elements, we want them set to 0 and mark
+    // ourselves as not having them.
+    if ((!bFoundX) && (!bFoundY))
+    {
+        m_locationX     = 0;
+        m_locationY     = 0;
+        m_bHasInteger   = false;
+    }
+    else
+        m_bHasInteger   = true;
+    
+    // Require that we find both XNorm and YNorm in order to count
+    if ((!bFoundNormX) || (!bFoundNormY))
+    {
+        m_normalizedLocationX   = 0.0;
+        m_normalizedLocationY   = 0.0;
+        m_bHasNormalized        = false;
+    }
+    else
+        m_bHasNormalized        = true;
+
+}
+#endif
+
 
