@@ -17,6 +17,10 @@
 #include <time.h>
 #include <vector>
 
+#ifdef USER_LOG_TOOL
+    #include "XMLUtil.h"
+#endif
+
 using namespace std;
 
 extern CFileLogger* gLogger;
@@ -29,7 +33,12 @@ typedef vector<CTimeSpan*>   VECTOR_TIME_SPAN_PTR;
 class CTimeSpan
 {
 public:
-    CTimeSpan(const string& strName, bool bAddDate = false);
+    CTimeSpan(const string& strName, bool bAddDate);
+
+#ifdef USER_LOG_TOOL
+    CTimeSpan(const string& strName, const string& strXML);
+#endif
+
     ~CTimeSpan();
 
     void                Stop();
@@ -49,6 +58,8 @@ private:
     double              m_elapsed;
     CSimpleTimer*       m_pTimer;
     string              m_strStartDate;
+
+    void                InitMemberVars();
 
 };
 

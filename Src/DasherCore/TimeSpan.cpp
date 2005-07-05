@@ -13,7 +13,7 @@ static char THIS_FILE[] = __FILE__;
 
 CTimeSpan::CTimeSpan(const string& strName, bool bAddDate)
 {
-    m_pTimer        = NULL;
+    InitMemberVars();
 
     m_strName       = strName;
     m_strStartTime  = GetTimeStamp();
@@ -127,10 +127,14 @@ string CTimeSpan::GetTimeStamp()
 
 void CTimeSpan::Stop()
 {
-    m_strEndTime = GetTimeStamp();
-
+    // Only do this if we actually have a timer, if we were
+    // created from XML then we don't want to change what 
+    // we read from the file.
     if (m_pTimer != NULL)
-        m_elapsed = m_pTimer->GetElapsed();
+    {
+        m_strEndTime    = GetTimeStamp();
+        m_elapsed       = m_pTimer->GetElapsed();
+    }
 }
 
 // We allow a time span to continue to erase the 
@@ -178,3 +182,35 @@ string CTimeSpan::GetDateStamp()
 
     return strDateStamp;
 }
+
+void CTimeSpan::InitMemberVars()
+{
+    m_pTimer        = NULL;
+    m_strName       = "";
+    m_strStartTime  = "";
+    m_elapsed       = 0.0;
+    m_strEndTime    = "";
+    m_strStartDate  = "";
+}
+
+#ifdef USER_LOG_TOOL
+
+// Construct based on some yummy XML like:
+// 		<Elapsed>12.062</Elapsed>
+//		<Date>Jul 04 2005</Date>
+//		<Start>15:48:52.625</Start>
+//		<End>15:49:04.687</End>
+CTimeSpan::CTimeSpan(const string& strName, const string& strXML)
+{
+    InitMemberVars();
+
+    m_elapsed       = (double) XMLUtil::GetElementFloat("Elapsed", strXML);    
+
+    m_strStartDate  = XMLUtil::GetElementString("Date", strXML);
+    m_strStartTime  = XMLUtil::GetElementString("Start", strXML);
+    m_strEndTime    = XMLUtil::GetElementString("End", strXML);
+    
+    m_strName       = strName;
+}
+
+#endif
