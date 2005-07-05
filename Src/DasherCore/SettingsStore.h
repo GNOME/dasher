@@ -114,10 +114,7 @@ protected:
     // This is where the settings are, should only be one in existance
     // derived classes should share this reference
 
-    // FIXME - this used to be static, but for some reason it wouldn't link 
-    // like that
-
-    Dasher::CParamTables m_oParamTables;		
+    static Dasher::CParamTables s_oParamTables;		
 };
 
 
