@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "UserLog", "UserLog_vc71.vcproj", "{ADD57262-9572-4E6D-A5AC-3050984F5F40}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Accessible Unicode Debug = Accessible Unicode Debug
+		Debug = Debug
+		Release = Release
+		Unicode Debug = Unicode Debug
+		Unicode Release = Unicode Release
+		Win95 compatible Debug = Win95 compatible Debug
+		Win95 compatible Release = Win95 compatible Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Accessible Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Accessible Unicode Debug.Build.0 = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Debug.ActiveCfg = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Debug.Build.0 = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Release.ActiveCfg = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Release.Build.0 = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Debug.ActiveCfg = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Debug.Build.0 = Unicode Debug|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Release.ActiveCfg = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Unicode Release.Build.0 = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Win95 compatible Debug.ActiveCfg = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Win95 compatible Debug.Build.0 = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Win95 compatible Release.ActiveCfg = Unicode Release|Win32
+		{ADD57262-9572-4E6D-A5AC-3050984F5F40}.Win95 compatible Release.Build.0 = Unicode Release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
