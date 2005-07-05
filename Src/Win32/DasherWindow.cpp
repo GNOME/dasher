@@ -69,40 +69,34 @@ CDasherWindow::CDasherWindow()
 	*/
 
 	// Create Widgets
- m_pToolbar = new CToolbar(m_hwnd, false, false, false);
-	
- m_pEdit = new CEdit(m_hwnd);
-	
-	
-	//m_pEdit->SetEditCanvas(m_pCanvas);
+  m_pToolbar = new CToolbar(m_hwnd, false, false, false);
+  m_pEdit = new CEdit(m_hwnd);
+  m_pDasher = new CDasher( m_hwnd );
 
- m_pDasher = new CDasher( m_hwnd, m_pEdit );
+  // Set an object to handle edit events
 
- DasherSettingsInterface = m_pDasher->GetInterface();
- DasherWidgetInterface = m_pDasher->GetInterface();
- DasherAppInterface = m_pDasher->GetInterface();
+  m_pDasher->SetEdit( m_pEdit );
 
+  DasherSettingsInterface = m_pDasher->GetInterface();
+  DasherWidgetInterface = m_pDasher->GetInterface();
+  DasherAppInterface = m_pDasher->GetInterface();
 
+  // FIXME - the edit box really shouldn't need access to the interface, 
+  // but at the moment it does, for training, blanking the display etc
+
+  m_pEdit->SetInterface( m_pDasher->GetInterface() );
   
- m_pOptions = m_pDasher->GetInterface()->GetSettingsStore(); // FIXME - get rid of this eventually
+  m_pOptions = m_pDasher->GetInterface()->GetSettingsStore(); // FIXME - get rid of this eventually
+
+  // FIXME - we shouldn't need to know about these outside of CDasher
+    
+  m_pCanvas = m_pDasher->GetCanvas();
+  m_pSlidebar = m_pDasher->GetSlidebar();
 
 
- m_pCanvas = m_pDasher->GetCanvas();
-
- m_pSlidebar = new CSlidebar(m_hwnd, DasherSettingsInterface, 1.99, false, m_pCanvas);
- m_pSplitter = new CSplitter(m_hwnd, 100, this);
-
+  m_pSplitter = new CSplitter(m_hwnd, 100, this);
 	
-m_pDasher->GetInterface()->SetSettingsUI( this );
-
-/*
-	DWORD MyTime = GetTickCount();
-	DasherAppInterface->TrainFile("Source.txt");
-	MyTime = GetTickCount() - MyTime;
-*/
-
-
-
+  m_pDasher->GetInterface()->SetSettingsUI( this );
 }
 
 CDasherWindow::~CDasherWindow()
@@ -112,7 +106,6 @@ CDasherWindow::~CDasherWindow()
 	delete Splash; // In case Show() was never called.
 	delete m_pToolbar;
 	delete m_pEdit;
-		delete m_pSlidebar;
 	delete m_pSplitter;
 	
 	delete m_pDasher;

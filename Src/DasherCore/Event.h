@@ -30,14 +30,14 @@ class Dasher::CParameterNotificationEvent : public Dasher::CEvent {
 
 class Dasher::CEditEvent : public Dasher::CEvent {
  public:
-  CEditEvent( int iEditType, symbol iSymbol ) {
+   CEditEvent( int iEditType, const std::string &sText ) {
     m_iEventType = 2;
     m_iEditType = iEditType;
-    m_iSymbol = iSymbol;
+    m_sText = sText;
   };
 
   int m_iEditType;
-  symbol m_iSymbol;
+  std::string m_sText;
 };
 
 class Dasher::CEditContextEvent : public Dasher::CEvent {

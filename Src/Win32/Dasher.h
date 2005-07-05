@@ -4,6 +4,8 @@
 #include "Common/WinHelper.h"
 #include "DasherWindow.h"
 #include "Widgets/Canvas.h"
+#include "Widgets/Slidebar.h"
+#include "EditWrapper.h"
 
 namespace Dasher {
   class CDasher;
@@ -12,7 +14,7 @@ namespace Dasher {
 class Dasher::CDasher
 {
 public:
-  CDasher( HWND Parent, CEdit *pEdit );
+  CDasher( HWND Parent );
   ~CDasher(void);
 
   CDasherInterface *GetInterface() {
@@ -23,12 +25,22 @@ public:
     return m_pCanvas;
   }
 
+  CSlidebar *GetSlidebar() {
+    return m_pSlidebar;
+  }
+
+  void SetEdit( CDashEditbox *pEdit ) {
+    m_pEditWrapper->SetEventHandler( pEdit );
+  }
+
 private:
 
   void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface);
 
   CDasherInterface *m_pInterface;
   CCanvas* m_pCanvas; 
+	CSlidebar* m_pSlidebar;
+  CEditWrapper *m_pEditWrapper;
 
   HANDLE          m_workerThread;    // Handle to our worker thread that periodically checks on user's activities
     bool            m_bWorkerShutdown; // Set to true when the worker should terminate

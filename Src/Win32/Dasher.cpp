@@ -2,6 +2,7 @@
 #include "WinCommon.h" // must include pch first
 
 #include ".\dasher.h"
+#include "EditWrapper.h"
 
 using namespace std;
 using namespace Dasher;
@@ -46,7 +47,7 @@ void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Int
 }
 
 
-CDasher::CDasher( HWND Parent, CEdit *pEdit ) : m_hParent( Parent )
+CDasher::CDasher( HWND Parent ) : m_hParent( Parent )
 {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
   
@@ -100,9 +101,12 @@ m_bWorkerShutdown = false;
 
 // FIXME - we should create our own edit object (as a wrapper to pass stuff outside), rather than relying on being passed one
 
-  m_pInterface->ChangeEdit(pEdit); 
+  m_pEditWrapper = new CEditWrapper;
+
+  m_pInterface->ChangeEdit(m_pEditWrapper); 
 
   m_pCanvas = new CCanvas(m_hParent, m_pInterface, m_pInterface );
+  m_pSlidebar = new CSlidebar(m_hParent, m_pInterface, 1.99, false, m_pCanvas);
 
 	// Start up our thread that will periodically handle user movement.  We pass in a pointer to ourselves
 	// since the thread function must be static but needs to act on the object that created it.
@@ -120,8 +124,10 @@ CDasher::~CDasher(void)
 {
   ShutdownWorkerThread();
 
-  delete m_pInterface;
   delete m_pCanvas;
+	delete m_pSlidebar;
+  delete m_pEditWrapper;
+  delete m_pInterface;
 }
 
 // Handle periodically poking the canvas to check for user activity.  

@@ -561,18 +561,15 @@ void CEdit::get_new_context(string& str, int max)
 }
 
 
-void CEdit::output(symbol Symbol)
+void CEdit::output( const std::string &sText )
 {
-	if (m_DasherInterface==0)
-		return;
-
 	wstring String;
-	WinUTF8::UTF8string_to_wstring(m_DasherInterface->GetEditText(Symbol), String);
+	WinUTF8::UTF8string_to_wstring( sText, String);
 
 	InsertText(String);
 
 	if (targetwindow!=NULL && textentry==true) {
-		const char* DisplayText=m_DasherInterface->GetEditText(Symbol).c_str();
+		const char* DisplayText=sText.c_str();
 #ifdef UNICODE
 		if( DisplayText[0]==0xd && DisplayText[1]==0xa) {
 			// Newline, so we want to fake an enter
@@ -623,9 +620,9 @@ void CEdit::output(symbol Symbol)
 		}
 #endif
 	}
-	m_Output += m_DasherInterface->GetEditText(Symbol);
+	m_Output += sText;
 
-	UTF8string_to_wstring(m_DasherInterface->GetEditText(Symbol), newchar);	
+	UTF8string_to_wstring(sText, newchar);	
 	speech+=newchar;
 }
 
@@ -678,14 +675,14 @@ void CEdit::dumpedit(int i) const
 
 /// Delete text from the editbox
 
-void CEdit::deletetext(Dasher::symbol Symbol)
+void CEdit::deletetext( const std::string &sText )
 {
 	// Lookup the unicode string that we need to delete - we only actually 
 	// need the length of the string, but this is important eg for newline
 	// characters which are actually two symbols
 
 	wstring String;
-	WinUTF8::UTF8string_to_wstring(m_DasherInterface->GetEditText(Symbol), String);
+	WinUTF8::UTF8string_to_wstring( sText, String);
 
 	int iLength( String.size() );
 
@@ -864,7 +861,7 @@ void CEdit::outputcontrol (void* pointer, int data, int type)
 #endif
 			break;
 		  case 24:
-			  deletetext(1);
+        deletetext(std::string(" ")); // FIXME - need an actual string here
 			  break;
 		  case 25:
 #ifndef DASHER_WINCE

@@ -723,6 +723,12 @@
 			<File
 				RelativePath=".\Dasher.h">
 			</File>
+			<File
+				RelativePath=".\EditWrapper.cpp">
+			</File>
+			<File
+				RelativePath=".\EditWrapper.h">
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\DasherMouseInput.cpp">

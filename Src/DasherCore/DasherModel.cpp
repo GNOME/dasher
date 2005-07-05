@@ -795,7 +795,7 @@ void CDasherModel::OutputCharacters(CDasherNode *node)
   symbol t=node->Symbol();
   if (t) // SYM0
   {
-    Dasher::CEditEvent oEvent( 1, t );
+    Dasher::CEditEvent oEvent( 1, GetAlphabet().GetText( t ) );
     InsertEvent( &oEvent );
   } 
   else if (node->ControlChild()==true) 
@@ -823,7 +823,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 		{
 			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0)  // SYM0
 			{
-        Dasher::CEditEvent oEvent( 2, oldnode->Symbol() );
+        Dasher::CEditEvent oEvent( 2, GetAlphabet().GetText( oldnode->Symbol() ) );
         InsertEvent( &oEvent );
 			}
 			oldnode->Seen(false);
@@ -833,7 +833,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 		{
 			if (oldnode->Symbol()!= GetControlSymbol() && oldnode->ControlChild()==false && oldnode->Symbol()!=0) // SYM0 
 			{
-				Dasher::CEditEvent oEvent( 2, oldnode->Symbol() );
+				Dasher::CEditEvent oEvent( 2, GetAlphabet().GetText( oldnode->Symbol() ));
         InsertEvent( &oEvent );
 			}
 			oldnode->Seen(false);
@@ -859,7 +859,7 @@ bool CDasherModel::DeleteCharacters (CDasherNode *newnode, CDasherNode *oldnode)
 				continue;
 			}
 
-      Dasher::CEditEvent oEvent( 2, oldnode->Symbol() );
+      Dasher::CEditEvent oEvent( 2, GetAlphabet().GetText( oldnode->Symbol() ) );
         InsertEvent( &oEvent );
 			oldnode=oldnode->Parent();
 			if (oldnode==NULL) {

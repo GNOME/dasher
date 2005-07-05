@@ -139,8 +139,8 @@ private:
 	CToolbar* m_pToolbar;
 	CEdit* m_pEdit;
 	CCanvas *m_pCanvas;
-	CSlidebar* m_pSlidebar;
 	CSplitter* m_pSplitter;
+  CSlidebar* m_pSlidebar;
 	//CWinOptions& WinOptions;
 	CMenu WinMenu;
 	CSplash* Splash;

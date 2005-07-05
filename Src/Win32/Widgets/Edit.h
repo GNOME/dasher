@@ -83,7 +83,7 @@ public:
 	void get_new_context(std::string& str, int max);
 		
 	// called when characters fall of the LHS of the screen
-	void output(Dasher::symbol Symbol);
+  void output( const std::string &sText );
 	
 	// called when outputting a control symbol
 	void outputcontrol (void* pointer, int data, int type);
@@ -91,7 +91,7 @@ public:
 
 	// remove the previous character
 
-	void deletetext(Dasher::symbol);
+  void deletetext( const std::string &sText );
 
 
 

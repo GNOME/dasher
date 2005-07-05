@@ -48,10 +48,10 @@ public:
 
       switch( pEvt->m_iEditType ) {
       case 1:
-        output( pEvt->m_iSymbol );
+        output( pEvt->m_sText );
         break;
       case 2:
-        deletetext( pEvt->m_iSymbol );
+        deletetext( pEvt->m_sText );
         break;
       }
     }
@@ -71,13 +71,13 @@ public:
 	virtual void get_new_context(std::string& str, int max)=0;
 	
 	//! Enter a the character Symbol into the text box
-	virtual void output(symbol Symbol)=0;
+  virtual void output( const std::string &sText )=0;
 
 	//! Send a control command
 	virtual void outputcontrol(void* pointer, int data, int type)=0;
 
 	//! Delete the previous symbol from the text box
-	virtual void deletetext(symbol Symbol)=0;
+  virtual void deletetext( const std::string &sText )=0;
 	
 	// File I/O (optional)
 
