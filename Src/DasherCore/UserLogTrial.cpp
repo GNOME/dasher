@@ -976,6 +976,8 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
     InitMemberVars();
     VECTOR_STRING vectorNavs;
 
+    gLogger->Log("trials XML:\n%s", logDEBUG, strXML.c_str());
+
     string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
     string strWindow        = XMLUtil::GetElementString("WindowCoordinates", strXML, true);           
     string strCanvas        = XMLUtil::GetElementString("CanvasCoordinates", strXML, true);           
@@ -983,6 +985,17 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
     string strSummary       = XMLUtil::GetElementString("Summary", strXML, true);
     string strSummaryTime   = XMLUtil::GetElementString("Time", strSummary, true);
     vectorNavs              = XMLUtil::GetElementStrings("Nav", strNavs, true);
+    
+    string strCurrentTrial  = XMLUtil::GetElementString("CurrentTrial", strXML, false);
+    if (strCurrentTrial.length() > 0)
+    {
+        // We copied the XML string directly into the member variable
+        // including the start/end tag, so we need to reproduce the
+        // tags ourselves.
+        m_strCurrentTrial       =  "\t\t\t<CurrentTrial>\n";
+        m_strCurrentTrial       += strCurrentTrial;
+        m_strCurrentTrial       += "</CurrentTrial>\n";
+    }
 
     m_vectorParams          = ParseParamsXML(strParams);
     m_windowCoordinates     = ParseWindowXML(strWindow);

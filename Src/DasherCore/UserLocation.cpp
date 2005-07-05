@@ -181,7 +181,7 @@ CUserLocation::CUserLocation(const string& strXML)
     m_normalizedLocationY   = (float) XMLUtil::GetElementFloat("YNorm", strXML, &bFoundNormY);
     
     // Convert the bits back to nats
-    m_nats                  = (float) XMLUtil::GetElementFloat("Bits", strXML) * (float) log(2.0);
+    m_nats                  = (float) ((double) XMLUtil::GetElementFloat("Bits", strXML) * (double) log(2.0));
 
     // If there weren't X, Y elements, we want them set to 0 and mark
     // ourselves as not having them.
