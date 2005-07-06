@@ -24,6 +24,8 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
+/* render everything between rootmin and rootmax */
+
 void CDasherViewSquare::RenderNodes()
 {
   Screen().Blank();
@@ -879,6 +881,9 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
 
 /// Draw a polyline specified in Dasher co-ordinates
 
+/* in this case, a "polyline" is a square
+ */
+
 void CDasherViewSquare::DasherPolyline( myint *x, myint *y, int n, int iColour ) {
 
 	CDasherScreen::point* ScreenPoints = new CDasherScreen::point[n];
@@ -896,6 +901,8 @@ void CDasherViewSquare::DasherPolyline( myint *x, myint *y, int n, int iColour )
 
 // Draw a filled polygon specified in Dasher co-ordinates
 
+/* XXX not used */
+
 void CDasherViewSquare::DasherPolygon( myint *x, myint *y, int n, int iColour ) {
 
         CDasherScreen::point* ScreenPoints = new CDasherScreen::point[n];
@@ -908,6 +915,8 @@ void CDasherViewSquare::DasherPolygon( myint *x, myint *y, int n, int iColour ) 
 }
 
 // Draw a box specified in Dasher co-ordinates
+
+/* XXX called more commonly than polyline? */
 
 void CDasherViewSquare::DasherDrawRectangle( myint iLeft, myint iTop, myint iRight, myint iBottom,
 					     const int Color, Opts::ColorSchemes ColorScheme ) {
@@ -925,6 +934,8 @@ void CDasherViewSquare::DasherDrawRectangle( myint iLeft, myint iTop, myint iRig
 
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
 
+/* XXX when called? */
+
 void CDasherViewSquare::DasherDrawCentredRectangle( myint iDasherX, myint iDasherY, screenint iSize,
 						    const int Color, Opts::ColorSchemes ColorScheme ) {
   
@@ -939,6 +950,8 @@ void CDasherViewSquare::DasherDrawCentredRectangle( myint iDasherX, myint iDashe
 /// Draw text specified in Dasher co-ordinates. The position is
 /// specified as two co-ordinates, intended to the be the corners of
 /// the leading edge of the containing box.
+
+/* XXX what are the dasher coordinates defined as */
 
 void CDasherViewSquare::DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft ) {
 
@@ -1057,6 +1070,12 @@ void CDasherViewSquare::TruncateToScreen( screenint &iX, screenint &iY ) {
 
 /////////////////////////////////////////////////////////////////////////////
 
+/* called periodically to move the view
+arguments are position of mouse
+converts this to coordinates in core representation and then calls 
+DasherModel().Tap_on_display
+*/
+
 // work out the next viewpoint
 // move the rectangles accordingly
 void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded, int* numDeleted) 
@@ -1118,6 +1137,10 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
 /////////////////////////////////////////////////////////////////////////////
 // move to the specified point
 
+/* used in button mode, perform a smooth animated zoom in a number of
+   steps which takes the specified point to the crosshair
+*/
+
 void CDasherViewSquare::GoTo(screenint mousex,screenint mousey) 
 {
 	// convert mouse (screen) coords into dasher coords
@@ -1130,6 +1153,10 @@ void CDasherViewSquare::GoTo(screenint mousex,screenint mousey)
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+/* draw hints which indicate what will happen when a user clicks in
+   button mode
+ */
 
 void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey)
 {
@@ -1158,6 +1185,11 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey)
 }
   
 /////////////////////////////////////////////////////////////////////////////
+
+/*
+put a black blob where current mouse position is, used for people with
+bad eyesight
+*/
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
 {  
@@ -1275,6 +1307,10 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
 
 /////////////////////////////////////////////////////////////////////////////
 
+/* deprecated
+shouldn't be actually called
+*/
+
 void CDasherViewSquare::DrawKeyboard()
 {
   CDasherScreen::point line[2];
@@ -1312,6 +1348,8 @@ void CDasherViewSquare::DrawKeyboard()
   }
 }
 
+/* XXX from old version of button mode */
+
 void CDasherViewSquare::ResetSum() 
 { 
 	m_ySum=0; 
@@ -1330,6 +1368,8 @@ void CDasherViewSquare::ResetYAutoOffset()
 
 /////////////////////////////////////////////////////////////////////////////
 
+/* XXX chris doesn't know */
+
 void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 {
 	CDasherView::ChangeScreen(NewScreen);
@@ -1341,6 +1381,8 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen* NewScreen)
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+/* for automatic eyetracker calibration */
 
 int CDasherViewSquare::GetAutoOffset() const
 {
@@ -1546,6 +1588,10 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+/* transformations for eyetracker autocalibration 
+(it's here because it needs to look at where pointer is relative to crosshair)
+*/
 
 void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey)
 {
