@@ -13,6 +13,6 @@ public:
 // Functions below here are depreciated
 
 	CWinOptions *GetSettingsStore() {
-		return reinterpret_cast<CWinOptions *>(m_SettingsStore);
+		return reinterpret_cast<CWinOptions *>(m_pSettingsStore);
 	}
 };

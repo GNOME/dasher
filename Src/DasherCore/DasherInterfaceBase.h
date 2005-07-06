@@ -44,34 +44,32 @@ public:
 	virtual ~CDasherInterfaceBase();
 
 	// New externally visible interface
+    void SetBoolParameter( int iParameter, bool bValue ) {
+	    m_pSettingsStore->SetBoolParameter( iParameter, bValue );
+    };
 
-	void SetBoolParameter( int iParameter, bool bValue ) {
-		m_SettingsStore->SetBoolParameter( iParameter, bValue );
-	};
+    void SetLongParameter( int iParameter, long lValue ) {
+	    m_pSettingsStore->SetLongParameter( iParameter, lValue );
+    };
 
-	void SetLongParameter( int iParameter, long lValue ) {
-		m_SettingsStore->SetLongParameter( iParameter, lValue );
-	};
+    void SetStringParameter( int iParameter, const std::string &sValue ) {
+	    m_pSettingsStore->SetStringParameter( iParameter, sValue );
+    };
 
-	void SetStringParameter( int iParameter, const std::string &sValue ) {
-		m_SettingsStore->SetStringParameter( iParameter, sValue );
-	};
+    bool GetBoolParameter( int iParameter ) {
+        return m_pSettingsStore->GetBoolParameter( iParameter );
+    }
 
-  bool GetBoolParameter( int iParameter ) {
-    return m_SettingsStore->GetBoolParameter( iParameter );
-  }
+    long GetLongParameter( int iParameter ) {
+        return m_pSettingsStore->GetLongParameter( iParameter );
+    }
 
-  long GetLongParameter( int iParameter ) {
-    return m_SettingsStore->GetLongParameter( iParameter );
-  }
+    std::string GetStringParameter( int iParameter ) {
+        return m_pSettingsStore->GetStringParameter( iParameter );
+    }
 
-  std::string GetStringParameter( int iParameter ) {
-    // Not yet implemented
-    return std::string("");
-  }
-
-	void ExternalEventHandler( Dasher::CEvent *pEvent );
-  void InterfaceEventHandler( Dasher::CEvent *pEvent );
+    void ExternalEventHandler( Dasher::CEvent *pEvent );
+    void InterfaceEventHandler( Dasher::CEvent *pEvent );
 
 
 	// ---
@@ -240,54 +238,22 @@ private:
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
 	
-	
-
-	std::string AlphabetID;
-	std::string ColourID;
-	int m_LanguageModelID;
-	int m_ViewID;
-	double m_MaxBitRate;
-	bool m_CopyAllOnStop;
-	//bool m_DrawMouse; - DONE
-	//bool m_DrawMouseLine; - DONE
-	bool m_DrawKeyboard;
-	bool m_StartSpace; // Currently only used as loop through
-	bool m_StartLeft;
-	bool m_KeyControl;
-	bool m_Dimensions;
-	bool m_Eyetracker;
-	bool m_WindowPause;
-	bool m_ControlMode;
-	//bool m_ColourMode; - DONE, but no registry entry or UI callback
-	bool m_KeyboardMode;
-	
-	bool m_MouseposStart;
-	int m_iMousePosDist;
-	int m_iMousePosBox;
-
 	bool m_Paused;
-	bool m_PaletteChange;
-
-
-	Opts::ScreenOrientations m_Orientation;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
 	std::string m_TrainFile;
+	int m_iMousePosBox;
 
-	std::string m_DasherFont;
-	Opts::FontSize m_DasherFontSize;
-
-	std::string m_EditFont;
 	std::vector<std::string> m_AlphabetFilenames;
 	std::vector<std::string> m_ColourFilenames;
-	int m_EditFontSize;
+
 	static const std::string EmptyString;
 	
 	void CreateDasherModel();
 
-	protected:
-		CEventHandler *m_pEventHandler;
-		CSettingsStore* m_SettingsStore;
+protected:
+	CEventHandler *m_pEventHandler;
+	CSettingsStore* m_pSettingsStore;
 };
 
 

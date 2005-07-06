@@ -2,8 +2,8 @@
 #include "WinOptions.h"
 
 CDasherInterface::CDasherInterface(void) {
-	m_SettingsStore = new CWinOptions( "Inference Group", "Dasher3", m_pEventHandler );
-	SettingsDefaults( m_SettingsStore );
+	m_pSettingsStore = new CWinOptions( "Inference Group", "Dasher3", m_pEventHandler );
+	SettingsDefaults( m_pSettingsStore );
 }
 
 CDasherInterface::~CDasherInterface(void)

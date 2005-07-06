@@ -604,6 +604,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			case IDM_EXIT:
 				SendMessage(m_hwnd, WM_CLOSE, 0, 0);
 				break;
+
+      // FIXME - These options shouldn't pass through the interface
+
 			case ID_TB_SHOW:
 				DasherSettingsInterface->ShowToolbar(!WinMenu.GetCheck(ID_TB_SHOW));
 				break;
@@ -642,35 +645,47 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				m_pEdit->SaveAs();
 				break;
 			case ID_IMPORT_TRAINFILE:
-			        DasherAppInterface->TrainFile(m_pEdit->Import());
+			  DasherAppInterface->TrainFile(m_pEdit->Import());
 				break;
+
+      // FIXME - This options shouldn't passs through the interface
+
 			case ID_FIX_SPLITTER:
 				DasherSettingsInterface->FixLayout(!WinMenu.GetCheck(ID_FIX_SPLITTER));
 				break;
 			case ID_SHOW_SLIDE:
 				DasherSettingsInterface->ShowSpeedSlider(!WinMenu.GetCheck(ID_SHOW_SLIDE));
 				break;
+
+      // FIXME - These options shouldn't pass through the interface
+
 			case ID_TIMESTAMP:
 				DasherSettingsInterface->TimeStampNewFiles(!WinMenu.GetCheck(ID_TIMESTAMP));
 				break;
 			case ID_COPY_ALL_ON_STOP:
 				DasherSettingsInterface->CopyAllOnStop(!WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
 				break;
+
+      // Orientation options
+
 			case ID_ORIENT_ALPHABET:
-				DasherSettingsInterface->ChangeOrientation(Opts::Alphabet);
+				m_pDasher->SetLongParameter( LP_ORIENTATION, Opts::Alphabet );
 				break;
 			case ID_ORIENT_LR:
-				DasherSettingsInterface->ChangeOrientation(Opts::LeftToRight);
+		    m_pDasher->SetLongParameter( LP_ORIENTATION, Opts::LeftToRight );
 				break;
 			case ID_ORIENT_RL:
-				DasherSettingsInterface->ChangeOrientation(Opts::RightToLeft);
+				m_pDasher->SetLongParameter( LP_ORIENTATION, Opts::RightToLeft );
 				break;
 			case ID_ORIENT_TB:
-				DasherSettingsInterface->ChangeOrientation(Opts::TopToBottom);
+				m_pDasher->SetLongParameter( LP_ORIENTATION, Opts::TopToBottom );
 				break;
 			case ID_ORIENT_BT:
-				DasherSettingsInterface->ChangeOrientation(Opts::BottomToTop);
+				m_pDasher->SetLongParameter( LP_ORIENTATION, Opts::BottomToTop );
 				break;
+
+      // FIXME - These options shouldn't pass through the interface
+
 			case ID_SAVE_AS_USER_CODEPAGE:
 				DasherSettingsInterface->SetFileEncoding(Opts::UserDefault);
 				break;

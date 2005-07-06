@@ -27,51 +27,60 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher )
 
 void CPrefs::PopulateWidgets()
 {	
-// FIXME - all of these need to get their data from the new parameter functions
+  // Populate the controls in the dialogue box based on the relevent parameters
+  // in m_pDasher
 
-	//if (m_pWindow->GetStartOnLeft()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_LEFT), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetStartOnSpace()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_SPACE), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetWindowPause()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_WINDOWPAUSE), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetMouseposStart()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetDasherDimensions()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_1D), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetDasherEyetracker()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_EYETRACKER), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetKeyControl()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_BUTTON), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//if (m_pWindow->GetOutlines()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_OUTLINE), BM_SETCHECK, BST_CHECKED, 0);
-	//}
+	if ( m_pDasher->GetBoolParameter( BP_START_MOUSE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_LEFT), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if ( m_pDasher->GetBoolParameter( BP_START_SPACE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_SPACE), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if ( m_pDasher->GetBoolParameter( BP_WINDOW_PAUSE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_WINDOWPAUSE), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if( m_pDasher->GetBoolParameter( BP_MOUSEPOS_MODE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if ( m_pDasher->GetBoolParameter( BP_NUMBER_DIMENSIONS )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_1D), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if ( m_pDasher->GetBoolParameter( BP_EYETRACKER_MODE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_EYETRACKER), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if ( m_pDasher->GetBoolParameter( BP_KEY_CONTROL )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_BUTTON), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if ( m_pDasher->GetBoolParameter( BP_OUTLINE_MODE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_OUTLINE), BM_SETCHECK, BST_CHECKED, 0);
+	}
+  
+  // FIXME - These shouldn't be handled through the interface
+
 	//if (m_pWindow->GetTimeStamp()==true) {
 	//	SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
 	//}
 	//if (m_pWindow->GetCopyAll()==true) {
 	//	SendMessage(GetDlgItem(m_hwnd, IDC_COPYALLONSTOP), BM_SETCHECK, BST_CHECKED, 0);
 	//}
-	//if (m_pWindow->GetDrawMouse()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSE), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	if (m_pDasher->GetBoolParameter( BP_DRAW_MOUSE_LINE )) {
+	
+  if( m_pDasher->GetBoolParameter( BP_DRAW_MOUSE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSE), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	if(m_pDasher->GetBoolParameter( BP_DRAW_MOUSE_LINE )) {
 		SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSELINE), BM_SETCHECK, BST_CHECKED, 0);
 	}
+
+  // FIXME - This shouldn't be handled through the interface
+
 	//if (m_pWindow->GetSpeech()==true) {
 	//	SendMessage(GetDlgItem(m_hwnd, IDC_SPEECH), BM_SETCHECK, BST_CHECKED, 0);
 	//}
-	//if (m_pWindow->GetPaletteChange()==true) {
-	//	SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_SETCHECK, BST_CHECKED, 0);
-	//}
-	//m_pWidget->Redraw();
+
+	if (m_pDasher->GetBoolParameter( BP_PALETTE_CHANGE )) {
+		SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_SETCHECK, BST_CHECKED, 0);
+	}
+	
 }
 
 LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -104,51 +113,64 @@ LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 
       // FIXME - these also need to use the new system
 
-			//if (SendMessage(GetDlgItem(Window,IDC_LEFT), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->StartOnLeft(true);
-			//} else {
-			//	m_pSettings->StartOnLeft(false);
-			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_SPACE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->StartOnSpace(true);
-			//} else {
-			//	m_pSettings->StartOnSpace(false);
-			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_WINDOWPAUSE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->WindowPause(true);
-			//} else {
-			//	m_pSettings->WindowPause(false);
-			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_MOUSEPOS), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->MouseposStart(true);
-			//} else {
-			//	m_pSettings->MouseposStart(false);
-			//}
+			if (SendMessage(GetDlgItem(Window,IDC_LEFT), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_START_MOUSE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_START_MOUSE, false );
+			}
+			
+      if (SendMessage(GetDlgItem(Window,IDC_SPACE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_START_SPACE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_START_SPACE, false );
+			}
+			
+			if (SendMessage(GetDlgItem(Window,IDC_WINDOWPAUSE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_WINDOW_PAUSE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_WINDOW_PAUSE, false );
+			}
+			
+			if (SendMessage(GetDlgItem(Window,IDC_MOUSEPOS), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_MOUSEPOS_MODE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_MOUSEPOS_MODE, false );
+			}
+			
+      // FIXME - This shouldn't go through the interface
+
 			//if (SendMessage(GetDlgItem(Window,IDC_SPEECH), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 			//	m_pSettings->Speech(true);
 			//} else {
 			//	m_pSettings->Speech(false);
 			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_1D), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->SetDasherDimensions(true);
-			//} else {
-			//	m_pSettings->SetDasherDimensions(false);
-			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_EYETRACKER), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->SetDasherEyetracker(true);
-			//} else {
-			//	m_pSettings->SetDasherEyetracker(false);
-			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_BUTTON), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->KeyControl(true);
-			//} else {
-			//	m_pSettings->KeyControl(false);
-			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_OUTLINE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->OutlineBoxes(true);
-			//} else {
-			//	m_pSettings->OutlineBoxes(false);
-			//}
+
+			if (SendMessage(GetDlgItem(Window,IDC_1D), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_NUMBER_DIMENSIONS, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_NUMBER_DIMENSIONS, false );
+			}
+			
+			if (SendMessage(GetDlgItem(Window,IDC_EYETRACKER), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_EYETRACKER_MODE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_EYETRACKER_MODE, false );
+			}
+			
+			if (SendMessage(GetDlgItem(Window,IDC_BUTTON), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_KEY_CONTROL, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_KEY_CONTROL, false );
+			}
+			
+			if (SendMessage(GetDlgItem(Window,IDC_OUTLINE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_OUTLINE_MODE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_OUTLINE_MODE, false );
+			}
+			
+      // FIXME - These shouldn't go through the interface
+
 			//if (SendMessage(GetDlgItem(Window,IDC_TIMESTAMP), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 			//	m_pSettings->TimeStampNewFiles(true);
 			//} else {
@@ -159,24 +181,25 @@ LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
 			//} else {
 			//	m_pSettings->CopyAllOnStop(false);
 			//}
-			//if (SendMessage(GetDlgItem(Window,IDC_DRAWMOUSE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->DrawMouse(true);
-			//} else {
-			//	m_pSettings->DrawMouse(false);
-			//}
+
+			if (SendMessage(GetDlgItem(Window,IDC_DRAWMOUSE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_DRAW_MOUSE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_DRAW_MOUSE, false );
+			}
+			
 			if (SendMessage(GetDlgItem(Window,IDC_DRAWMOUSELINE), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pDasher->SetBoolParameter( BP_DRAW_MOUSE_LINE, true );
 			} else {
 				m_pDasher->SetBoolParameter( BP_DRAW_MOUSE_LINE, false );
 			}
 
-			//if (SendMessage(GetDlgItem(Window,IDC_COLOURSCHEME), BM_GETCHECK, 0, 0)==BST_CHECKED) {
-			//	m_pSettings->PaletteChange(true);
-			//} else {
-			//	m_pSettings->PaletteChange(false);
-			//}
-
-
+			if (SendMessage(GetDlgItem(Window,IDC_COLOURSCHEME), BM_GETCHECK, 0, 0)==BST_CHECKED) {
+				m_pDasher->SetBoolParameter( BP_PALETTE_CHANGE, true );
+			} else {
+				m_pDasher->SetBoolParameter( BP_PALETTE_CHANGE, false );
+			}
+			
 			EndDialog(Window, LOWORD(wParam));
 			return TRUE;
 			break;

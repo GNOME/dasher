@@ -67,8 +67,8 @@ void CKeyBox::PopulateWidgets()
 	widgets[17]=IDC_9Y;
 
 	int* coords = m_pCanvas->getkeycoords(); */
-//F	ypixels = m_pCanvas->getyscale();
-//F	mouseposdist = m_pCanvas->getmouseposdist();
+  ypixels = m_pDasher->GetLongParameter( LP_YSCALE );
+  mouseposdist = m_pDasher->GetLongParameter( LP_MOUSEPOSDIST );
 
 /*	for (int i=0; i<18; i++) {
 			keycoords[i]=coords[i];
@@ -101,7 +101,7 @@ void CKeyBox::PopulateWidgets()
 	SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
 	SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
 	SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
-//F	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pCanvas->getuniform());
+	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pDasher->GetLongParameter( LP_UNIFORM ));
 
 	uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
 
@@ -112,9 +112,9 @@ void CKeyBox::PopulateWidgets()
 
 // FIXME - why do we store things like 'uniform' here - surely they should be stored in the interface?
 
-//F	_sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pCanvas->getuniform()/10.0);
+	_sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pDasher->GetLongParameter( LP_UNIFORM )/10.0);
 
-//F	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer );
+	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer );
 
 
 
@@ -206,15 +206,14 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			mouseposdist=atoi(GetControlText(Window,IDC_MOUSEPOSDIST).c_str());
 			EndDialog(Window, LOWORD(wParam));
 		//	m_pCanvas->setkeycoords(keycoords);
-//F			m_pCanvas->setyscale(ypixels);
-//F			m_pSettingsInterface->SetYScale(ypixels);
-//F			m_pCanvas->setmouseposdist(mouseposdist);
-//F			m_pSettingsInterface->SetMousePosDist(mouseposdist);
+			m_pDasher->SetLongParameter( LP_YSCALE, ypixels );
+		
+		m_pDasher->SetLongParameter( LP_MOUSEPOSDIST, mouseposdist );
 			if (NewUniform!=-1) 
 			{
 				// DJW - this looks a bit nasty
-//F				m_pCanvas->setuniform((int)NewUniform);
-//F				m_pSettingsInterface->SetUniform((int)NewUniform);
+         m_pDasher->SetLongParameter( LP_UNIFORM, static_cast<long>(NewUniform) );
+
 			}
 			// Move forward on button press
 /*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
