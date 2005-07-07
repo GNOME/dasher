@@ -33,12 +33,12 @@ public:
 
 	virtual	void HandleEvent( Dasher::CEvent *pEvent );
 
-	//void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
+	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
-	void SetDrawKeyboard(bool bDrawKeyboard);
+	//void SetDrawKeyboard(bool bDrawKeyboard);
 	
 	// 0 - no box, 1 - upper box, 2 - lower box
-	void SetDrawMousePosBox(int MousePosBox);
+	//void SetDrawMousePosBox(int MousePosBox);
 
 
 	// Renders Dasher
@@ -81,22 +81,19 @@ public:
 	//void SetColourMode(bool colourmode) {ColourMode=colourmode;}
 
 	// Toggle keyboard control mode
-	void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
+	//void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
 
-	int GetOneButton() const;
-	void SetOneButton(int Value);
-	
 	virtual void ResetSum() {}
 	virtual void ResetSumCounter() {}
 	virtual void ResetYAutoOffset() {}
     
-	void SetTruncation( int iTruncation ) {
-	  m_iTruncation = iTruncation;
-	}
+	//void SetTruncation( int iTruncation ) {
+	//  m_iTruncation = iTruncation;
+	//}
 
-	void SetTruncationType( int iTruncationType ) {
-	  m_iTruncationType = iTruncationType;
-	}
+	//void SetTruncationType( int iTruncationType ) {
+	//  m_iTruncationType = iTruncationType;
+	//}
 
 	void SetInput( CDasherInput *_pInput ) {
 
@@ -139,18 +136,15 @@ protected:
 	inline void UnMapScreen(screenint* DrawX, screenint* DrawY);
 
 	// Keyboard control is on
-	bool KeyControl;
+	//bool KeyControl;
 
 	// Orientation of Dasher Screen
 	Dasher::Opts::ScreenOrientations ScreenOrientation;
-
 	// Advanced colour mode
-	bool ColourMode;
-
-	int onebutton;
-    bool AutoCalibrate;
-	int m_iTruncation;
-	int m_iTruncationType;
+	//bool ColourMode;
+    //bool AutoCalibrate;
+	//int m_iTruncation;
+	//int m_iTruncationType;
  
 private:
 	CDasherScreen* m_pScreen;      // provides the graphics (text, lines, rectangles):
@@ -161,11 +155,11 @@ private:
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
 
-	bool m_bDrawMouse;
-	bool m_bDrawMouseLine;
-	bool m_bDrawKeyboard;
-	int m_iDrawMousePosBox;
-	int m_iMousePosDist;
+	//bool m_bDrawMouse;
+	//bool m_bDrawMouseLine;
+	//bool m_bDrawKeyboard;
+	//int m_iDrawMousePosBox;
+	//int m_iMousePosDist;
 
 	
 };

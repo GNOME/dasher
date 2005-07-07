@@ -8,6 +8,7 @@
 
 #include "../Common/Common.h"
 
+#include "DasherInterfaceBase.h"
 #include "DasherModel.h"
 #include "Event.h"
 
@@ -27,19 +28,17 @@ using namespace std;
 // CDasherModel
 //////////////////////////////////////////////////////////////////////
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, LanguageModelID idLM, CLanguageModelParams *_params,
-						   bool Dimensions, bool Eyetracker, bool Paused)
-  : CDasherComponent( pEventHandler, pSettingsStore), m_pcAlphabet(pAlphabet), 
-	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
-	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
-    m_bControlMode(false), m_bAdaptive(true)
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase* pDashIface)
+  : CDasherComponent( pEventHandler, pSettingsStore), m_Root(0), 
+    m_pDasherInterface(pDashIface)
 {
 
+  // Set max bitrate in the FrameRate class
   m_dMaxRate=GetLongParameter( LP_MAX_BITRATE )/100.0;
-  m_fr.SetMaxBitrate(m_dMaxRate);	
+  m_fr.SetMaxBitrate(m_dMaxRate);
 
   // Convert the full alphabet to a symbolic representation for use in the language model
-  
+  CAlphabet* pAlphabet = m_pDasherInterface->GetAlphabet();
   CSymbolAlphabet alphabet( pAlphabet->GetNumberTextSymbols() );
   alphabet.SetSpaceSymbol( pAlphabet->GetSpaceSymbol() ); // FIXME - is this right, or do we have to do some kind of translation?
   alphabet.SetAlphabetPointer( pAlphabet ); // Horrible hack, but ignore for now.
@@ -47,8 +46,9 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   // Create an appropriate language model;
 
   // FIXME - return to using enum here
+  CLanguageModelParams* _params = m_pDasherInterface->GetLMParams();
 
-  switch( idLM ) {
+  switch( GetLongParameter(LP_LANGUAGE_MODEL_ID) ) {
   case idPPM:
     m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break;
@@ -70,9 +70,10 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   m_dAddProb = 0.003;
   
   m_Active = CRange(0,m_DasherY);
-    
-  m_Rootmin_min = int64_min/m_iNormalization/2;
-  m_Rootmax_max = int64_max/m_iNormalization/2;
+  
+  int iNormalization = GetLongParameter(LP_NORMALIZATION);
+  m_Rootmin_min = int64_min/iNormalization/2;
+  m_Rootmax_max = int64_max/iNormalization/2;
 
 }
 
@@ -116,10 +117,10 @@ void CDasherModel::HandleEvent( Dasher::CEvent *pEvent ) {
 
 //////////////////////////////////////////////////////////////////////
 
-void CDasherModel::SetControlMode(bool b)
-{
-	m_bControlMode = b;
-}
+//void CDasherModel::SetControlMode(bool b)
+//{
+//	m_bControlMode = b;
+//}
 
 //////////////////////////////////////////////////////////////////////
 
@@ -128,11 +129,12 @@ void CDasherModel::Make_root(int whichchild)
 {
 
 	symbol t=m_Root->Symbol();
-	if (t < m_pcAlphabet->GetNumberTextSymbols() ) 
+	if (t < m_pDasherInterface->GetAlphabet()->GetNumberTextSymbols() ) 
 	{  
 	  // Only learn if we have adaptive behaviour enabled
 
-	  if( m_bAdaptive )
+        // This was m_bAdaptive, which should be a setting for all dasher?
+	  if( true )
 	    // SYM0
 	    m_pLanguageModel->LearnSymbol(LearnContext, t);
 	}
@@ -151,8 +153,8 @@ void CDasherModel::Make_root(int whichchild)
 	}
 
 	myint range=m_Rootmax-m_Rootmin;
-	m_Rootmax = m_Rootmin + (range*m_Root->Hbnd())/Normalization();
-	m_Rootmin = m_Rootmin+ (range*m_Root->Lbnd())/Normalization();
+	m_Rootmax = m_Rootmin + (range*m_Root->Hbnd())/(int)GetLongParameter(LP_NORMALIZATION);
+	m_Rootmin = m_Rootmin+ (range*m_Root->Lbnd())/(int)GetLongParameter(LP_NORMALIZATION);
 }
 
 void CDasherModel::Reparent_root(int lower, int upper)
@@ -175,7 +177,7 @@ void CDasherModel::Reparent_root(int lower, int upper)
   oldroots.pop_back();
   
 
-  m_Rootmax = m_Rootmax+ ( myint((Normalization()-upper))*iRootWidth / iWidth );
+  m_Rootmax = m_Rootmax+ ( myint((GetLongParameter(LP_NORMALIZATION)-upper))*iRootWidth / iWidth );
  
   
   m_Rootmin = m_Rootmin - ( myint(lower) * iRootWidth/ iWidth );
@@ -186,7 +188,7 @@ void CDasherModel::Reparent_root(int lower, int upper)
 
 CDasherNode * CDasherModel::Get_node_under_crosshair()
 {
-	return m_Root->Get_node_under(Normalization(),m_Rootmin,m_Rootmax,m_DasherOX,m_DasherOY);
+	return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION),m_Rootmin,m_Rootmax,m_DasherOX,m_DasherOY);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -194,7 +196,7 @@ CDasherNode * CDasherModel::Get_node_under_crosshair()
 
 CDasherNode * CDasherModel::Get_node_under_mouse(myint Mousex,myint Mousey)
 {
-	return m_Root->Get_node_under(Normalization(),m_Rootmin,m_Rootmax,Mousex,Mousey);
+	return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION),m_Rootmin,m_Rootmax,Mousex,Mousey);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -202,7 +204,7 @@ CDasherNode * CDasherModel::Get_node_under_mouse(myint Mousex,myint Mousey)
 
 void CDasherModel::Get_string_under_mouse(const myint Mousex,const myint Mousey, vector<symbol> &str)
 {
-	m_Root->Get_string_under(Normalization(),m_Rootmin,m_Rootmax,Mousex,Mousey,str);
+	m_Root->Get_string_under(GetLongParameter(LP_NORMALIZATION),m_Rootmin,m_Rootmax,Mousex,Mousey,str);
 	return;
 }
 
@@ -220,11 +222,11 @@ void CDasherModel::Start()
 
 
 
-  SetContext( std::string("") ); // FIXME - REALLY REALLY broken!
+    SetContext( std::string("") ); // FIXME - REALLY REALLY broken!
 
-CEditContextEvent oEvent( 5 );
+    CEditContextEvent oEvent( 5 );
 
-InsertEvent( &oEvent );
+    InsertEvent( &oEvent );
 
 		// FIXME - what if we don't get a reply?
 	
@@ -248,7 +250,7 @@ void CDasherModel::SetContext( std::string &sNewContext ) {
 	}
 	delete m_Root;
 	
-	m_Root=new CDasherNode(*this,0,0,0,Opts::Nodes1,0,Normalization(),m_pLanguageModel, false, 7);
+	m_Root=new CDasherNode(*this,0,0,0,Opts::Nodes1,0,GetLongParameter(LP_NORMALIZATION),m_pLanguageModel, false, 7);
 	CLanguageModel::Context therootcontext=m_pLanguageModel->CreateEmptyContext();
 
 	if (sNewContext.size()==0) {
@@ -905,17 +907,18 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	int uniform_add;
 	int nonuniform_norm;
 	int control_space;
+    int uniform = GetLongParameter(LP_UNIFORM);
 
-	if( !m_bControlMode ) 
+	if( ! GetBoolParameter(BP_CONTROL_MODE) ) 
 	{
 	  control_space = 0;
-	  uniform_add = ((iNorm * m_uniform) / 1000 ) / (iSymbols-2); // Subtract 2 from no symbols to lose control/root nodes
+	  uniform_add = ((iNorm * uniform) / 1000 ) / (iSymbols-2); // Subtract 2 from no symbols to lose control/root nodes
 	  nonuniform_norm = iNorm - (iSymbols-2) * uniform_add;
 	}
 	else 
 	{
 	  control_space = int(iNorm * 0.05);
-	  uniform_add = (((iNorm - control_space) * m_uniform / 1000 ) / (iSymbols-2) ); // Subtract 2 from no symbols to lose control/root nodes
+	  uniform_add = (((iNorm - control_space) * uniform / 1000 ) / (iSymbols-2) ); // Subtract 2 from no symbols to lose control/root nodes
 	  nonuniform_norm = iNorm - control_space - (iSymbols-2) * uniform_add;
 	}
 
@@ -946,10 +949,10 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 
 ///////////////////////////////////////////////////////////////////
 
-void CDasherModel::SetUniform( int _uniform )
-{ 
-	m_uniform = _uniform; 
-}
+//void CDasherModel::SetUniform( int _uniform )
+//{ 
+//	m_uniform = _uniform; 
+//}
 
 ///////////////////////////////////////////////////////////////////
 
@@ -1081,7 +1084,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 		}
 		
 		// Now we go back and build the node tree	  
-		int quantum=int(Normalization()/iChildCount);
+		int quantum=int(GetLongParameter(LP_NORMALIZATION)/iChildCount);
 
 		CDasherNode** ppChildren = new CDasherNode* [iChildCount];
 
@@ -1122,7 +1125,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum;   // for the probability list
 
-	GetProbs(pNode->Context(),newchars,cum,Normalization());
+	GetProbs(pNode->Context(),newchars,cum,GetLongParameter(LP_NORMALIZATION));
 	int iChildCount=newchars.size();
 
 	DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);
@@ -1166,7 +1169,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 void CDasherModel::Recursive_Push_Node(CDasherNode* pNode, int iDepth) 
 {
 
-	if ( pNode->Range() < 0.1* Normalization()  ) 
+	if ( pNode->Range() < 0.1* GetLongParameter(LP_NORMALIZATION)  ) 
 	{
 		return;
 	}

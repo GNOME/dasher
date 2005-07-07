@@ -66,7 +66,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,i
 
 	int Color;
 
-  	if (ColourMode==true) 
+  	if (GetBoolParameter(BP_COLOUR_MODE)==true) 
 	{
 	  if (pRender->Colour()!=-1) {
 	    Color = pRender->Colour();
@@ -83,7 +83,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,i
 	  Color = pRender->Phase()%3; 
 	}
 
-	if ((pRender->ColorScheme()%2)==1 && Color<130 && ColourMode==true) { // We don't loop on high
+	if ((pRender->ColorScheme()%2)==1 && Color<130 && GetBoolParameter(BP_COLOUR_MODE)==true) { // We don't loop on high
 	  Color+=130;                                // colours
 	}
 
@@ -109,7 +109,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,i
 	if (!iChildCount)
 	  return 0;
 
-	int norm=DasherModel().Normalization();
+	int norm=GetLongParameter(LP_NORMALIZATION);
 	for (int i=0; i< iChildCount; i++) 
 	{
 		CDasherNode* pChild = pRender->Children()[i];
@@ -149,10 +149,10 @@ void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
 	
 		myint lbnd=Children[lower]->Lbnd();
 		myint hbnd=Children[upper-1]->Hbnd();
-		myint newy1=y1+(range*lbnd)/DasherModel().Normalization();
-		myint newy2=y1+(range*hbnd)/DasherModel().Normalization();
+		myint newy1=y1+(range*lbnd)/(int)GetLongParameter(LP_NORMALIZATION);
+		myint newy2=y1+(range*hbnd)/(int)GetLongParameter(LP_NORMALIZATION);
 		int mostleft;
-		if (ColourMode==true) 
+		if (GetBoolParameter(BP_COLOUR_MODE)==true) 
 		{
 			std::string Label = DasherModel().GroupLabel(iGroup);
 			int Colour = DasherModel().GroupColour(iGroup);
@@ -200,9 +200,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 	m_dXmpd=0.5;   // slow X movement when accelerating Y
 
 
-	KeyControl=false;
-
-	onebutton=-2000;
+	//KeyControl=false;
 
 	m_ymap = Cymap(DasherModel.DasherY());
 
@@ -265,8 +263,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 #
 	// FIXME - get rid of pointless assignment below
 
-	int iTruncation( m_iTruncation ); // Trucation farction times 100;
-	int iTruncationType( m_iTruncationType);
+	int iTruncation( GetLongParameter(LP_TRUNCATION) ); // Trucation farction times 100;
+	int iTruncationType( GetLongParameter(LP_TRUNCATIONTYPE) );
 
 	if( iTruncation == 0 ) { // Regular squares
 	  DasherDrawRectangle( iDasherSize, y2, 0, y1, Color, ColorScheme );
@@ -452,8 +450,8 @@ void CDasherViewSquare::CheckForNewRoot()
 	  y2=DasherModel().Rootmax();
 	  myint range=y2-y1;
 
-	  myint newy1=y1+(range*children[theone]->Lbnd())/DasherModel().Normalization();
-	  myint newy2=y1+(range*children[theone]->Hbnd())/DasherModel().Normalization();
+	  myint newy1=y1+(range*children[theone]->Lbnd())/(int)GetLongParameter(LP_NORMALIZATION);
+	  myint newy2=y1+(range*children[theone]->Hbnd())/(int)GetLongParameter(LP_NORMALIZATION);
 	  if (newy1<myint(0) && newy2> DasherModel().DasherY()) {
 	    myint left=dasherx2screen(newy2-newy1);
 	    if (left<myint(0)) {
@@ -1197,7 +1195,7 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
 
   Input2Dasher( mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode() );
 
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)==true) {
     DasherDrawCentredRectangle( iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects));
   } else {
     DasherDrawCentredRectangle( iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects));
@@ -1280,7 +1278,7 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
   
   // Actually plot the line
 
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)) {
     DasherPolyline(x,y,2,1);
   } else {
     DasherPolyline(x,y,2,-1);
@@ -1297,7 +1295,7 @@ void CDasherViewSquare::DrawKeyboard()
   line[1].x = 200;
   line[1].y = CanvasY/2;
   
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)) {
     Screen().Polyline(line,2,6);
   } else {
     Screen().Polyline(line,2);
@@ -1308,7 +1306,7 @@ void CDasherViewSquare::DrawKeyboard()
   line[1].x = 0;
   line[1].y = CanvasY/2;
 
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)) {
     Screen().Polyline(line,2,6);
   } else {
     Screen().Polyline(line,2);
@@ -1319,7 +1317,7 @@ void CDasherViewSquare::DrawKeyboard()
   line[1].x = 200;
   line[1].y = CanvasY;
 
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)) {
     Screen().Polyline(line,2,6);
   } else {
     Screen().Polyline(line,2);
@@ -1372,7 +1370,7 @@ int CDasherViewSquare::GetAutoOffset() const
 
 void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myint* idasherx, myint* idashery) const
 {
-    bool eyetracker=DasherModel().Eyetracker();
+    bool eyetracker=GetBoolParameter(BP_EYETRACKER_MODE);
     // bool DasherRunning = DasherModel().Paused();
 
     // Add the eyetracker autocalibration offset if necessary
@@ -1401,11 +1399,6 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 
 	// Convert the Y mouse coordinate to one that's based on the canvas size
 	double dashery=double(imousey*DasherModel().DasherY()/CanvasY);
-	bool useonebutton=0;
-	if (useonebutton) {
-		int onebutton = CDasherView::GetOneButton();
-	    dashery=onebutton;
-	}
     
 	// Convert the X mouse coordinate to one that's based on the canvas size 
 	// - we want this the opposite way round to the mouse coordinate system, 
@@ -1416,7 +1409,8 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
        // if (eyetracker==true) { dashery=onebutton; }
 	
     // If we're in standard mode, fudge things for the vertical acceleration
-	if (DasherModel().Dimensions()==false && KeyControl==false && eyetracker==false) {
+	if (GetBoolParameter(BP_NUMBER_DIMENSIONS)==false && GetBoolParameter(BP_KEYBOARD_MODE)==false 
+                && GetBoolParameter(BP_EYETRACKER_MODE)==false) {
 		dashery = m_ymap.unmap(dashery);
 		if (dashery>DasherModel().DasherY()) {
 			dashery=DasherModel().DasherY();
@@ -1436,7 +1430,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
     //cout << "disty: " << disty << endl;
 
 	// If we're in one-dimensional mode, make new x,y
-	if (DasherModel().Dimensions()==true) {
+	if (GetBoolParameter(BP_NUMBER_DIMENSIONS)==true) {
 		//if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
 		//	*mousex=int(x);
 		//	*mousey=int(dashery);
@@ -1566,7 +1560,7 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey)
     double dashery=double(*mousey)*double(DasherModel().DasherY())/double(CanvasY);
     myint dasherOY=DasherModel().DasherOY();
     double disty=double(dasherOY)-dashery;
-    bool DasherRunning = DasherModel().Paused();
+    bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
 
 
     if(!DasherRunning==true) {

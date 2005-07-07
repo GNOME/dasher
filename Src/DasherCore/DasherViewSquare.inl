@@ -43,7 +43,7 @@ inline screenint CDasherViewSquare::dasherx2screen(myint sx) const
 
 inline Cint32 CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s1, screenint& s2) const
 {
-	if (KeyControl==false) 
+	if (GetBoolParameter(BP_KEYBOARD_MODE)==false) 
 	{
 		y1=m_ymap.map(y1);
 		y2=m_ymap.map(y2);
@@ -83,7 +83,7 @@ inline Cint32 CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint& s
 
 inline screenint CDasherViewSquare::dashery2screen(myint y) const
 {
-	if (KeyControl==false) 
+	if (GetBoolParameter(BP_KEYBOARD_MODE)==false) 
 	{
 		y=m_ymap.map(y);
 	} 
@@ -115,7 +115,7 @@ inline void CDasherViewSquare::Crosshair(myint sx)
   x[1] = sx;
   y[1] = DasherVisibleMaxY();
 
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)==true) {
     DasherPolyline(x,y,2,5);
   } else {
     DasherPolyline(x,y,2,-1);
@@ -129,7 +129,7 @@ inline void CDasherViewSquare::Crosshair(myint sx)
   x[1] = 17 * sx / 14;
   y[1] =  DasherModel().DasherY() / 2;
 
-  if (ColourMode==true) {
+  if (GetBoolParameter(BP_COLOUR_MODE)==true) {
     DasherPolyline(x,y,2,5);
   } else {
     DasherPolyline(x,y,2,-1);
@@ -141,7 +141,7 @@ inline void CDasherViewSquare::Crosshair(myint sx)
 inline double CDasherViewSquare::ixmap(double x) const
 // invert x non-linearity
 {
-	if (KeyControl==false) {
+	if (GetBoolParameter(BP_KEYBOARD_MODE)==false) {
 		if (x<m_dXmpb*m_dXmpc)	
 			return x/m_dXmpc;
 		else	
@@ -156,7 +156,7 @@ inline double CDasherViewSquare::ixmap(double x) const
 inline double CDasherViewSquare::xmap(double x) const
 // x non-linearity
 {
-	if (KeyControl==false) {
+	if (GetBoolParameter(BP_KEYBOARD_MODE)==false) {
 		if (x<m_dXmpb)
 			return m_dXmpc*x;
 		else

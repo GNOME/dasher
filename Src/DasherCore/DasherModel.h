@@ -59,7 +59,7 @@ public:
 	} LanguageModelID;
 
 
-	CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CAlphabet* pAlphabet, LanguageModelID idLM, CLanguageModelParams *_parans, bool Dimensions, bool Eyetracker, bool Paused);
+	CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase* pDashIface);
 	~CDasherModel();
 
 	void HandleEvent( Dasher::CEvent *pEvent );
@@ -79,11 +79,11 @@ public:
 	
 	// Whether control mode is active - if true, DasherModel will create control nodes
 	//	- existing control modes will not be deleted, but will be inactive 
-	void SetControlMode(bool b);
+	//void SetControlMode(bool b);
 
-	void SetAdaptive( bool b ) {
-	  m_bAdaptive = b;
-	}
+	//void SetAdaptive( bool b ) {
+	//  m_bAdaptive = b;
+	//}
 
 	std::string GroupLabel(int group) const {return m_pcAlphabet->GetGroupLabel(group);}
 	int GroupColour(int group) const {return m_pcAlphabet->GetGroupColour(group);}
@@ -97,12 +97,12 @@ public:
 	myint DasherOY() const {return m_DasherOY;}
 	
 	CDasherNode* Root() const {return m_Root;}
-	int Normalization() const {return m_iNormalization;}
+	//int Normalization() const {return m_iNormalization;}
 	myint DasherY() const {return m_DasherY;}
 	
-	bool Dimensions() const {return m_Dimensions;}
-	bool Eyetracker() const {return m_Eyetracker;}
-    bool Paused() const {return m_Paused; }
+	//bool Dimensions() const {return m_Dimensions;}
+	//bool Eyetracker() const {return m_Eyetracker;}
+    //bool Paused() const {return m_Paused; }
 
 
 	void OutputCharacters(CDasherNode *node);
@@ -110,9 +110,9 @@ public:
 	void Trace() const;                                              // diagnostics
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-    void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
-    void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
-    void Set_paused(bool paused)         {m_Paused=paused;}
+//    void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
+//    void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
+    //void Set_paused(bool paused)         {m_Paused=paused;}
 	
 	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void GoTo(double,myint);                                         // jumps to a new viewpoint
@@ -123,9 +123,9 @@ public:
 	int GetMode() {
 	  int mode;
 	  
-	  if( Dimensions() )
+	  if( GetBoolParameter(BP_NUMBER_DIMENSIONS) )
 	    mode = 1;
-	  else if( Eyetracker() )
+	  else if( GetBoolParameter(BP_EYETRACKER_MODE) )
 	    mode = 2;
 	  else
 	    mode = 0;
@@ -144,7 +144,7 @@ public:
 	}
 	
 	
-	void SetUniform( int _uniform );
+	//void SetUniform( int _uniform );
 
 	myint PlotGoTo(myint MouseX, myint MouseY);
 
@@ -174,6 +174,8 @@ public:
 
 	const CAlphabet& GetAlphabet() const {return *m_pcAlphabet;}
 private:
+
+    CDasherInterfaceBase* m_pDasherInterface;
 
 	/////////////////////////////////////////////////////////////////////////////
 
@@ -212,17 +214,17 @@ private:
 	CRange m_Active;
 
 	// Number of input dimensions
-	bool m_Dimensions;
+	//bool m_Dimensions;
 
 	// Eyetracker mode
-	bool m_Eyetracker;
+	//bool m_Eyetracker;
 
-	bool m_Paused;
+	//bool m_Paused;
 
-	bool m_bAdaptive;
+	//bool m_bAdaptive;
 
     // Fraction to allocate to uniform dist. (*1000)
-	int m_uniform;
+	//int m_uniform;
 	
 	CFrameRate m_fr;                   // keep track of framerate
 
@@ -250,11 +252,11 @@ private:
 
 	int GetColour(symbol s) const;
 
-	int m_iNormalization; // The arithmetic interval for child nodes
+	//int m_iNormalization; // The arithmetic interval for child nodes
 
 	ControlTree* m_pControltree;
 
-	bool m_bControlMode;
+	//bool m_bControlMode;
 
 	//	friend CDasherNode;
 	friend class CTrainer;
