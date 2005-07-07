@@ -9,7 +9,7 @@ enum {BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR,
         BP_START_SPACE, BP_KEY_CONTROL, BP_WINDOW_PAUSE,
         BP_CONTROL_MODE, BP_COLOUR_MODE, BP_KEYBOARD_MODE, BP_MOUSEPOS_MODE,
         BP_SPEECH_MODE, BP_OUTLINE_MODE, BP_PALETTE_CHANGE, BP_NUMBER_DIMENSIONS, 
-        BP_EYETRACKER_MODE, END_OF_BPS};
+        BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED, END_OF_BPS};
 
 enum {LP_ORIENTATION=END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING, 
         LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_EDIT_FONT_SIZE, LP_EDIT_HEIGHT,
@@ -17,10 +17,10 @@ enum {LP_ORIENTATION=END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
         LP_DASHER_DIMENSIONS, LP_DASHER_EYETRACKER, LP_UNIFORM, LP_YSCALE,
         LP_MOUSEPOSDIST, LP_TRUNCATION, LP_TRUNCATIONTYPE, LP_LM_MAX_ORDER,
         LP_LM_EXCLUSION, LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
-        LP_LM_MIXTURE, END_OF_LPS};
+        LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, END_OF_LPS};
 
 enum {SP_ALPHABET_ID=END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
-        SP_EDIT_FONT, END_OF_SPS};
+        SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, END_OF_SPS};
 
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,
@@ -45,28 +45,30 @@ struct sp_table {int key; char* regName; bool persistent; char* defaultValue; ch
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = 
 {
-    {BP_DRAW_MOUSE_LINE,    "DrawMouse",        true,   true,   "Draw Mouse"},
-    {BP_DRAW_MOUSE,         "DrawMouseLine",    true,   true,   "Draw Mouse Line"},
-    {BP_TIME_STAMP,         "TimeStampNewFiles",       true,   true,   "TimeStampNewFiles"},
-    {BP_SHOW_TOOLBAR,       "ViewToolbar",       true,   true,   "ViewToolbar"},
-    {BP_SHOW_TOOLBAR_TEXT,  "ShowToolbarText",       true,   true,   "ShowToolbarText"},
-    {BP_SHOW_LARGE_ICONS,   "ShowLargeIcons",       true,   true,   "ShowLargeIcons"},
-    {BP_FIX_LAYOUT,         "FixLayout",       true,   true,   "FixLayout"},
-    {BP_SHOW_SLIDER,        "ShowSpeedSlider",       true,   true,   "ShowSpeedSlider"},
+    {BP_DRAW_MOUSE_LINE,    "DrawMouse",           true,   true,   "Draw Mouse"},
+    {BP_DRAW_MOUSE,         "DrawMouseLine",       true,   true,   "Draw Mouse Line"},
+    {BP_TIME_STAMP,         "TimeStampNewFiles",   true,   true,   "TimeStampNewFiles"},
+    {BP_SHOW_TOOLBAR,       "ViewToolbar",         true,   true,   "ViewToolbar"},
+    {BP_SHOW_TOOLBAR_TEXT,  "ShowToolbarText",     true,   true,   "ShowToolbarText"},
+    {BP_SHOW_LARGE_ICONS,   "ShowLargeIcons",      true,   true,   "ShowLargeIcons"},
+    {BP_FIX_LAYOUT,         "FixLayout",           true,   true,   "FixLayout"},
+    {BP_SHOW_SLIDER,        "ShowSpeedSlider",     true,   true,   "ShowSpeedSlider"},
     {BP_COPY_ALL_ON_STOP,   "CopyAllOnStop",       true,   true,   "CopyAllOnStop"},
-    {BP_START_MOUSE,        "StartOnLeft",       true,   true,   "StartOnLeft"},
-    {BP_START_SPACE,        "StartOnSpace",       true,   true,   "StartOnSpace"},
-    {BP_KEY_CONTROL,        "KeyControl",       true,   true,   "KeyControl"},
-    {BP_WINDOW_PAUSE,       "PauseOutsideWindow",       true,   true,   "PauseOutsideWindow"},
-    {BP_CONTROL_MODE,       "ControlMode",       true,   true,   "ControlMode"},
-    {BP_COLOUR_MODE,        "ColourMode",       true,   true,   "ColourMode"},
-    {BP_KEYBOARD_MODE,      "KeyboardMode",       true,   true,   "KeyboardMode"},
-    {BP_MOUSEPOS_MODE,      "StartOnMousePosition",       true,   true,   "StartOnMousePosition"},
+    {BP_START_MOUSE,        "StartOnLeft",         true,   true,   "StartOnLeft"},
+    {BP_START_SPACE,        "StartOnSpace",        true,   true,   "StartOnSpace"},
+    {BP_KEY_CONTROL,        "KeyControl",          true,   true,   "KeyControl"},
+    {BP_WINDOW_PAUSE,       "PauseOutsideWindow",  true,   true,   "PauseOutsideWindow"},
+    {BP_CONTROL_MODE,       "ControlMode",         true,   true,   "ControlMode"},
+    {BP_COLOUR_MODE,        "ColourMode",          true,   true,   "ColourMode"},
+    {BP_KEYBOARD_MODE,      "KeyboardMode",        true,   true,   "KeyboardMode"},
+    {BP_MOUSEPOS_MODE,      "StartOnMousePosition",true,   true,   "StartOnMousePosition"},
     {BP_SPEECH_MODE,        "SpeechEnabled",       true,   true,   "SpeechEnabled"},
-    {BP_OUTLINE_MODE,       "OutlineBoxes",       true,   true,   "OutlineBoxes"},
+    {BP_OUTLINE_MODE,       "OutlineBoxes",        true,   true,   "OutlineBoxes"},
     {BP_PALETTE_CHANGE,     "PaletteChange",       true,   true,   "PaletteChange"},
     {BP_NUMBER_DIMENSIONS,  "NumberDimensions",    true,   true,   "NumberDimensions"},
-    {BP_EYETRACKER_MODE,    "EyetrackerMode",      true,   false,   "EyetrackerMode"}
+    {BP_EYETRACKER_MODE,    "EyetrackerMode",      true,   false,   "EyetrackerMode"},
+    {BP_AUTOCALIBRATE,      "Autocalibrate",       true,   false,   "Autocalibrate"},
+    {BP_DASHER_PAUSED,      "DasherPaused",        false,  false,   "Dasher Paused"}
 };
 
 static lp_table longparamtable[] =
@@ -93,14 +95,18 @@ static lp_table longparamtable[] =
     {LP_LM_UPDATE_EXCLUSION,"LMUpdateExclusion",    true,   1,    "LMUpdateExclusion"},
     {LP_LM_ALPHA,           "LMAlpha",              true,   100,  "LMAlpha"},
     {LP_LM_BETA,            "LMBeta",               true,   100,  "LMBeta"},
-    {LP_LM_MIXTURE,         "LMMixture",            true,   50,   "LMMixture"}
+    {LP_LM_MIXTURE,         "LMMixture",            true,   50,   "LMMixture"},
+    {LP_MOUSE_POS_BOX,      "MousePosBox",          false,  -1,   "Mouse Position Box Indicator"},
+    {LP_NORMALIZATION,      "Normalization",        false,  1<<16, "Interval for child nodes"}
 };
 static sp_table stringparamtable[] =
 {
     {SP_ALPHABET_ID, "AlphabetID", true, "", "AlphabetID"},
     {SP_COLOUR_ID, "ColourID", true, "", "ColourID"},
     {SP_DASHER_FONT, "DasherFont", true, "", "DasherFont"},
-    {SP_EDIT_FONT, "EditFont", true, "", "EditFont"}
+    {SP_EDIT_FONT, "EditFont", true, "", "EditFont"},
+    {SP_SYSTEM_LOC, "SystemLocation", false, "", "System Directory"},
+    {SP_USER_LOC,   "UserLocation", false, "", "User Directory"}
 };
     
 
