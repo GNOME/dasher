@@ -120,7 +120,6 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 {
 	
     TCHAR tmpAutoOffset[25];
-	TCHAR tmpOneButton[25];
 
 
 	//OutputDebugString(TEXT("Canvas WndProc\n"));
@@ -189,10 +188,6 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			}
 	case VK_SPACE:
 		startspace();
-		return 0;
-	case VK_F9:
-		wsprintf(tmpOneButton, TEXT("yOneButton: %d"), m_DasherAppInterface->GetOneButton());
-		MessageBox(Window, tmpOneButton, NULL, 1);
 		return 0;
 	case VK_F11:
 		wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_DasherAppInterface->GetAutoOffset());
@@ -370,28 +365,6 @@ ScreenToClient(m_hwnd,&mousepos2);
 
 
 		return 0;
-	}
-	// One-button mode.
-	if (direction==TRUE) 
-	{
-		if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
-			//				double BitRate = m_DasherAppInterface->GetMaxBitRate();
-			//	TCHAR deb[80];
-			//	wsprintf(deb,TEXT("bitrate: %d\n"), BitRate);
-			//	OutputDebugString(deb);
-			m_DasherAppInterface->SetOneButton(125);
-		}
-		else {
-			m_DasherAppInterface->SetOneButton(50);
-		}
-	}
-	if (direction==FALSE) {
-		if (lbuttonheld && (GetTickCount()-lastlbutton) > 250) {
-			m_DasherAppInterface->SetOneButton(-125);
-		}
-		else {
-			m_DasherAppInterface->SetOneButton(-50);
-		}
 	}
 
 	if (windowpause==true) {
