@@ -1,5 +1,5 @@
 #pragma once
-#include "c:\documents and settings\philip cowans\my documents\dasher\src\dashercore\dasherinterfacebase.h"
+#include "../dasherinterfacebase.h"
 
 #include "WinOptions.h"
 
