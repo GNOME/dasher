@@ -35,7 +35,6 @@ m_pDasherView(0),
 m_SettingsUI(0),
 m_AlphIO(0), 
 m_ColourIO(0), 
-m_Paused(0), 
 m_UserLocation("usr_"), 
 m_SystemLocation("sys_"), 
 m_TrainFile("")
@@ -173,7 +172,7 @@ void CDasherInterfaceBase::CreateDasherModel()
             break;	
         }
 
-        m_pDasherModel = new CDasherModel( m_pEventHandler, m_pSettingsStore, m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params,  m_Paused);
+        m_pDasherModel = new CDasherModel( m_pEventHandler, m_pSettingsStore, this);
       
         // Train the new language model
 
@@ -194,10 +193,11 @@ void CDasherInterfaceBase::CreateDasherModel()
 
 void CDasherInterfaceBase::Start()
 {
-    m_Paused=false;
+    //m_Paused=false;
+    SetBoolParameter(BP_DASHER_PAUSED, false);
 	if (m_pDasherModel!=0) {
 		m_pDasherModel->Start();
-        m_pDasherModel->Set_paused(m_Paused);
+    //    m_pDasherModel->Set_paused(m_Paused);
 	}
     if (m_pDasherView!=0) {
         m_pDasherView->ResetSum();
@@ -215,10 +215,11 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY)
 		if (GetBoolParameter(BP_COPY_ALL_ON_STOP))
 			m_DashEditbox->CopyAll();
 	}	
-	m_Paused=true;
-    if (m_pDasherModel!=0) {
-        m_pDasherModel->Set_paused(m_Paused);
-    }
+    SetBoolParameter(BP_DASHER_PAUSED, true);
+	//m_Paused=true;
+    //if (m_pDasherModel!=0) {
+    //    m_pDasherModel->Set_paused(m_Paused);
+    //}
 }
 
 void CDasherInterfaceBase::Halt()
@@ -229,10 +230,11 @@ void CDasherInterfaceBase::Halt()
 
 void CDasherInterfaceBase::Unpause(unsigned long Time)
 {
-	m_Paused=false;
+	//m_Paused=false;
+    SetBoolParameter(BP_DASHER_PAUSED, false);
     if (m_pDasherModel!=0) {
 		m_pDasherModel->Reset_framerate(Time);
-        m_pDasherModel->Set_paused(m_Paused);
+        //m_pDasherModel->Set_paused(m_Paused);
     }
     if (m_pDasherView!=0) {
         m_pDasherView->ResetSum();
@@ -442,7 +444,7 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen* NewScreen)
 {
 	m_DasherScreen = NewScreen;
 	m_DasherScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
-	m_DasherScreen->SetFontSize(GetLongParameter(LP_DASHER_FONTSIZE));
+	m_DasherScreen->SetFontSize(static_cast<Dasher::Opts::FontSize> (GetLongParameter(LP_DASHER_FONTSIZE)));
 	m_DasherScreen->SetColourScheme(m_pColours);
 	m_DasherScreen->SetInterface(this);
 	ChangeScreen();
@@ -591,8 +593,8 @@ void CDasherInterfaceBase::KeyControl(bool Value)
 	  m_SettingsUI->KeyControl(Value);
 	if (m_pSettingsStore!=0)
 	  SetBoolParameter(BP_KEY_CONTROL, Value);
-	if (m_pDasherView!=0)
-	  m_pDasherView->SetKeyControl(Value);
+	//if (m_pDasherView!=0)
+	//  m_pDasherView->SetKeyControl(Value);
 }
 
 void CDasherInterfaceBase::WindowPause(bool Value)
@@ -609,15 +611,15 @@ void CDasherInterfaceBase::ControlMode(bool Value)
 		SetBoolParameter(BP_CONTROL_MODE, Value);
 	if (m_pDasherModel!=0) 
 	{
-		m_pDasherModel->SetControlMode(Value);
+	//	m_pDasherModel->SetControlMode(Value);
     // DJW_TODO - control symbol
 		if (Value==true) 
 		{
-			m_Alphabet->AddControlSymbol();
+			//m_Alphabet->AddControlSymbol();
 		} 
 		else 
 		{
-			m_Alphabet->DelControlSymbol();
+			//m_Alphabet->DelControlSymbol();
 		}
 	}
 
@@ -639,9 +641,9 @@ void CDasherInterfaceBase::KeyboardMode(bool Value)
 
 void CDasherInterfaceBase::SetDrawMousePosBox(int iWhich)
 {
-	m_iMousePosBox = iWhich;
-	if (m_pDasherView)
-		m_pDasherView->SetDrawMousePosBox(iWhich);
+	SetLongParameter(LP_MOUSE_POS_BOX, iWhich);
+	//if (m_pDasherView)
+	//	m_pDasherView->SetDrawMousePosBox(iWhich);
 	
 }
 
@@ -695,8 +697,8 @@ void CDasherInterfaceBase::SetEditFont(string Name, long Size)
 
 void CDasherInterfaceBase::SetUniform(int Value)
 {
-  if( m_pDasherModel != NULL )
-    m_pDasherModel->SetUniform(Value);
+  //if( m_pDasherModel != NULL )
+  //  m_pDasherModel->SetUniform(Value);
   if (m_pSettingsStore!=0) {
     SetLongParameter(LP_UNIFORM, Value);
   }
@@ -744,9 +746,9 @@ void CDasherInterfaceBase::SetDasherDimensions(bool Value)
     // WHY IS THIS A LONG PARAMETER?
 	if (m_pSettingsStore!=0)
 		SetLongParameter(LP_DASHER_DIMENSIONS, Value);
-	if (m_pDasherModel!=0) {
-	         m_pDasherModel->Set_dimensions(Value);
-	}
+	//if (m_pDasherModel!=0) {
+	//         m_pDasherModel->Set_dimensions(Value);
+	//}
 	if (m_SettingsUI!=0) {
 	         m_SettingsUI->SetDasherDimensions(Value);
 	}	  
@@ -756,9 +758,9 @@ void CDasherInterfaceBase::SetDasherEyetracker(bool Value)
 {
 	if (m_pSettingsStore!=0)
 		SetLongParameter(LP_DASHER_EYETRACKER, Value);
-	if (m_pDasherModel!=0) {
-	         m_pDasherModel->Set_eyetracker(Value);
-	}
+	//if (m_pDasherModel!=0) {
+	//         m_pDasherModel->Set_eyetracker(Value);
+	//}
 	if (m_SettingsUI!=0) {
 	         m_SettingsUI->SetDasherEyetracker(Value);
 	}	  
@@ -768,15 +770,15 @@ void CDasherInterfaceBase::SetTruncation( int Value ) {
 
   //  std::cout << "In SetTruncation: " << m_pDasherView << std::endl;
 
-  if( m_pDasherView ) {
-    m_pDasherView->SetTruncation( Value );
-  }
+  //if( m_pDasherView ) {
+  //  m_pDasherView->SetTruncation( Value );
+  //}
 }
 
 void CDasherInterfaceBase::SetTruncationType( int Value ) {
-  if( m_pDasherView ) {
-    m_pDasherView->SetTruncationType( Value );
-  }
+  //if( m_pDasherView ) {
+  //  m_pDasherView->SetTruncationType( Value );
+  //}
 }
 
 unsigned int CDasherInterfaceBase::GetNumberSymbols()
@@ -994,13 +996,6 @@ void CDasherInterfaceBase::Render()
  //   m_pDasherView->Render();
 }
 
-int CDasherInterfaceBase::GetOneButton() {
-  if (m_pDasherView!=0) {
-    return m_pDasherView->GetOneButton();
-  }
-  return -1;
-}
-
 int CDasherInterfaceBase::GetAutoOffset() {
   if (m_pDasherView!=0) {
     return m_pDasherView->GetAutoOffset();
@@ -1008,12 +1003,6 @@ int CDasherInterfaceBase::GetAutoOffset() {
   return -1;
 }
 
-
-void CDasherInterfaceBase::SetOneButton(int Value) {
-  if (m_pDasherView!=0) {
-    m_pDasherView->SetOneButton(Value);
-  }
-}
 
 /////////////////////////////////////////////////////////////////////////////
 

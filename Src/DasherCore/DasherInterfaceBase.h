@@ -211,8 +211,6 @@ public:
 	// 0 - no box, 1 - upper box, 2 - lower box
 	void SetDrawMousePosBox(int iWhich);
 	
-	int GetOneButton();
-	void SetOneButton(int Value);
 	int GetAutoOffset();
 	void Render();
 	
@@ -222,6 +220,9 @@ public:
 	double GetNats() const;
 	
 	void ResetNats();
+
+    CAlphabet* GetAlphabet() { return m_Alphabet; }
+    CLanguageModelParams* GetLMParams() { return m_Params; }
 
 private:
 	CAlphabet* m_Alphabet;
@@ -238,7 +239,7 @@ private:
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
 	
-	bool m_Paused;
+	//bool m_Paused;
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
 	std::string m_TrainFile;
