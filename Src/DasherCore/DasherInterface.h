@@ -248,6 +248,8 @@ private:
 	std::string m_DasherFont;
 	Opts::FontSize m_DasherFontSize;
 
+	CDasherInput *m_pInput;
+
 	std::string m_EditFont;
 	std::vector<std::string> m_AlphabetFilenames;
 	std::vector<std::string> m_ColourFilenames;

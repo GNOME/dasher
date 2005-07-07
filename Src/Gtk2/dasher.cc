@@ -1478,7 +1478,7 @@ open_window(GladeXML *xml) {
   mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH );
 
   // PROGDATA is provided by the makefile
-  system_data_dir = PROGDATA"/";
+  system_data_dir = PROGDATA"/dasher/";
   
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );

@@ -53,7 +53,8 @@ m_DasherFontSize(Opts::Normal),
 m_EditFont(""), 
 m_EditFontSize(0),
 m_pUserLog(NULL),
-m_userLogLevelMask(0)
+m_userLogLevelMask(0),
+m_pInput( NULL )
 {
   m_Params = new CLanguageModelParams;
 }
@@ -270,6 +271,9 @@ void CDasherInterface::Redraw(int iMouseX,int iMouseY)
 }
 
 void CDasherInterface::SetInput( CDasherInput *_pInput ) {
+
+  m_pInput = _pInput;
+
   if (m_pDasherView!=0) 
     m_pDasherView->SetInput( _pInput );
 }
@@ -518,6 +522,9 @@ void CDasherInterface::ChangeView(unsigned int NewViewID)
 			m_pDasherView = new CDasherViewSquare(m_DasherScreen, *m_pDasherModel, m_Orientation, m_ColourMode);
 		m_pDasherView->SetDrawMouse(m_DrawMouse);
 		m_pDasherView->SetDrawMouseLine(m_DrawMouseLine);
+
+		if( m_pInput != NULL )
+		  m_pDasherView->SetInput( m_pInput );
 
 	}
 }
