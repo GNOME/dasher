@@ -18,7 +18,6 @@
 #include "Widgets/WinOptions.h"
 
 #include "../DasherCore/DasherInterface.h"
-#include "../DasherCore/UserLog.h"
 #include "../DasherCore/MemoryLeak.h"
 
 // Declare our global file logging object
@@ -163,36 +162,14 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	DasherInterface.ColourMode(true);
 
 	{
-        // Check to see what level of user logging we are suppose to do (if any)
-        CUserLog* pUserLog = NULL;
-        
-        if (DasherInterface.GetUserLogLevelMask() > 0)
-		    pUserLog = new CUserLog(DasherInterface.GetUserLogLevelMask(), DasherInterface.GetAlphabetPtr());
-
-        // DasherInterface and DasherWindow also need pointers to the UserLog object
-        DasherInterface.SetUserLogPtr(pUserLog);
-
         DasherInterface.ChangeLanguageModel(0);
-		CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions, pUserLog); 
+        CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions, DasherInterface.GetUserLogPtr()); 
 	
 		//The UI will be updated to reflect settings
 		DasherInterface.SetSettingsUI(&DasherWindow);         
 		DasherWindow.Show(nCmdShow);
 
-        // Let the user log know that any future parameter changes should be logged
-        if (pUserLog != NULL)
-            pUserLog->InitIsDone();
-
 		iRet = DasherWindow.MessageLoop();
-
-        // Output the any detailed user log file and free up the object
-        if (pUserLog != NULL)
-	    {
-            pUserLog->OutputFile();
-		    delete pUserLog;
-		    pUserLog = NULL;
-	    }
-
     }
 
 

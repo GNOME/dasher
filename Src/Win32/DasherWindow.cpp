@@ -154,32 +154,16 @@ void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
 {
 	m_CurrentAlphabet = NewAlphabetID;
 	DasherAppInterface->AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
-
-    if (m_pUserLog != NULL)
-		m_pUserLog->AddParam("Alphabet", NewAlphabetID, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::ChangeColours(const string& NewColourID)
 {
 	m_CurrentColours = NewColourID;
-
-    if (m_pUserLog != NULL)
-		m_pUserLog->AddParam("Colours", NewColourID, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
 {
 	m_pSlidebar->SetValue(NewMaxBitRate);
-
-	if (m_pUserLog != NULL)
-		m_pUserLog->AddParam("MaxBitRate", 
-                                NewMaxBitRate, 
-                                userLogParamOutputToSimple | 
-                                userLogParamTrackMultiple | 
-                                userLogParamTrackInTrial |
-                                userLogParamForceInTrial |
-                                userLogParamShortInCycle
-                                );
 }
 
 
@@ -333,9 +317,6 @@ void CDasherWindow::SetDasherDimensions(bool Value)
 {
 	oned=Value;
 	m_pCanvas->onedimensional(Value);
-
-    if (m_pUserLog != NULL)
-	    m_pUserLog->AddParam("Dimensions", Value, userLogParamOutputToSimple);
 }
 
 
@@ -428,9 +409,6 @@ void CDasherWindow::MouseposStart(bool Value)
 void CDasherWindow::SetYScale(int Value)
 {
 	m_pCanvas->setyscale(Value);
-
-    if (m_pUserLog != NULL)
-	    m_pUserLog->AddParam("YScale", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::SetMousePosDist(int Value)
@@ -441,9 +419,6 @@ void CDasherWindow::SetMousePosDist(int Value)
 void CDasherWindow::SetUniform(int Value)
 {
 	m_pCanvas->setuniform(Value);
-
-    if (m_pUserLog != NULL)
-    	m_pUserLog->AddParam("Uniform", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::KeyboardMode(bool Value)
@@ -479,17 +454,11 @@ void CDasherWindow::ControlMode(bool Value)
 
 	// The edit control caches the symbols so we need to refresh
 	m_pEdit->SetInterface(DasherWidgetInterface);
-
-    if (m_pUserLog != NULL)
-		m_pUserLog->AddParam("ControlMode", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::SetDasherEyetracker(bool Value)
 {
 	eyetracker=Value;
-
-    if (m_pUserLog != NULL)
-	    m_pUserLog->AddParam("Eyetracker", Value, userLogParamOutputToSimple);
 }
 
 void CDasherWindow::ColourMode(bool Value)
