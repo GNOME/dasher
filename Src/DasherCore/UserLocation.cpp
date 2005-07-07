@@ -205,6 +205,33 @@ CUserLocation::CUserLocation(const string& strXML)
         m_bHasNormalized        = true;
 
 }
+
+// Returns a tab delimited version of this location's X & Y coordinate
+string CUserLocation::GetTabMouseXY(bool bReturnNormalized)
+{
+    string strResult = "";
+    char strNum[256];
+
+    if (bReturnNormalized)
+        sprintf(strNum, "%0.4f\t%0.4f\n", m_normalizedLocationX, m_normalizedLocationY);
+    else
+        sprintf(strNum, "%0.4f\t%0.4f\n", m_locationX, m_locationY);
+
+    strResult += strNum;
+
+    return strResult;
+}
+
+// Figure out what grid location this normalized mouse coordinate should go.
+void CUserLocation::GetMouseGridLocation(int gridSize, int* i, int* j)
+{
+    if ((i == NULL) || (j == NULL))
+        return;
+
+    *i = (int) (m_normalizedLocationX * (double) gridSize);
+    *j = (int) (m_normalizedLocationY * (double) gridSize);
+}
+
 #endif
 
 

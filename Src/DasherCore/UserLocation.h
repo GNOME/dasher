@@ -27,8 +27,10 @@ extern CFileLogger* gLogger;
 
 class CUserLocation;
 
-typedef vector<CUserLocation>    VECTOR_USER_LOCATION;
-typedef vector<CUserLocation*>   VECTOR_USER_LOCATION_PTR;
+typedef vector<CUserLocation>               VECTOR_USER_LOCATION;
+typedef vector<CUserLocation>::iterator     VECTOR_USER_LOCATION_ITER;
+typedef vector<CUserLocation*>              VECTOR_USER_LOCATION_PTR;
+typedef vector<CUserLocation*>::iterator    VECTOR_USER_LOCATION_PTR_ITER;
 
 class CUserLocation
 {
@@ -41,6 +43,8 @@ public:
 
 #ifdef USER_LOG_TOOL
     CUserLocation(const string& strXML);
+    string              GetTabMouseXY(bool bReturnNormalized);
+    void                GetMouseGridLocation(int gridSize, int* i, int* j);
 #endif
 
 

@@ -45,22 +45,22 @@ string XMLUtil::LoadFile(const string& filename, unsigned int sizeHint)
 {
 	string strResult = "";
 
-#ifdef _WIN32
-	struct __stat64 buf;
-	int result;		
-	result = _stat64(filename.c_str(), &buf);
-	strResult.reserve((unsigned long) buf.st_size + 256);
-#else
-	// On unix, we default to 128,000 bytes or whatever the caller passed in as a hint
-	strResult.reserve(sizeHint);
-#endif
-
 	char strBuffer[XML_UTIL_READ_BUFFER_SIZE];
 	FILE* fp = NULL;
 	fp = fopen(filename.c_str(), "r");
 	if (fp != NULL)
 	{
-		while (!feof(fp))
+#ifdef _WIN32
+	    struct __stat64 buf;
+	    int result;		
+	    result = _stat64(filename.c_str(), &buf);
+	    strResult.reserve((unsigned long) buf.st_size + 256);
+#else
+	    // On unix, we default to 128,000 bytes or whatever the caller passed in as a hint
+	    strResult.reserve(sizeHint);
+#endif
+
+        while (!feof(fp))
 		{
 			memset(strBuffer, 0, XML_UTIL_READ_BUFFER_SIZE);
 			fread(strBuffer, 1, XML_UTIL_READ_BUFFER_SIZE - 1, fp);
@@ -234,19 +234,45 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
 	strEnd += strTag;
 	strEnd += ">";
 
-	int posStart = strXML.find(strStart);
-	int posEnd = strXML.find(strEnd);
+	int posStart        = strXML.find(strStart);
+	int posEnd          = strXML.find(strEnd);
 
-	while ((posStart != -1) && (posEnd != -1))
+	while ((posStart != string.npos) && (posEnd != string.npos))
 	{
-		strResult = strXML.substr(posStart + strStart.length(), posEnd - (posStart + strStart.length()));
+        // We want to be able to handle having the same tag emedded in itself.
+        // So between the start tag and the first instance of the end tag,
+        // we'll count any other instances of the start tag.  If we find some
+        // then we require that we continue until we get that number more of
+        // close tags.
+        int currentStart    = posStart + strStart.length();
+        int emedCount       = 0;
+        while ((currentStart != string.npos) && (currentStart < posEnd))
+        {
+            currentStart = strXML.find(strStart, currentStart);
+            if ((currentStart != string.npos) && (currentStart < posEnd))
+            {
+                emedCount++;
+                currentStart += strStart.length();
+            }
+        }
+        // Now look for end tag to balance the start tags
+        for (int i = 0; i < emedCount; i++)
+        {
+            posEnd = strXML.find(strEnd, posEnd  + strEnd.length());
+            
+            // Check to make sure we're still matching tags
+            if (posEnd == string.npos)
+                break;
+        }
+
+        strResult = strXML.substr(posStart + strStart.length(), posEnd - (posStart + strStart.length()));
 	
 		if (bStripWhiteSpace)
 			strResult = StripWhiteSpace(strResult);
 
 		posStart = strXML.find(strStart, posEnd + strEnd.length());
 
-		if (posStart != -1)
+		if (posStart != string.npos)
 			posEnd = strXML.find(strEnd, posStart);
 
 		vectorResult.push_back(strResult);

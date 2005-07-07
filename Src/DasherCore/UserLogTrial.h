@@ -21,6 +21,16 @@
 
 #ifdef USER_LOG_TOOL
     #include "XMLUtil.h"
+
+    // Types used to return two dimensional grid of double values
+    typedef double**                                        DENSITY_GRID;
+    typedef vector<DENSITY_GRID>                            VECTOR_DENSITY_GRIDS;
+    typedef vector<DENSITY_GRID>::iterator                  VECTOR_DENSITY_GRIDS_ITER;
+    typedef vector<VECTOR_DENSITY_GRIDS>                    VECTOR_VECTOR_DENSITY_GRIDS;
+    typedef vector<VECTOR_DENSITY_GRIDS>::iterator          VECTOR_VECTOR_DENSITY_GRIDS_ITER;
+    typedef vector<VECTOR_VECTOR_DENSITY_GRIDS>             VECTOR_VECTOR_VECTOR_DENSITY_GRIDS;
+    typedef vector<VECTOR_VECTOR_DENSITY_GRIDS>::iterator   VECTOR_VECTOR_VECTOR_DENSITY_GRIDS_ITER;
+
 #endif
 
 extern CFileLogger* gLogger;
@@ -28,7 +38,9 @@ extern CFileLogger* gLogger;
 class CUserLogTrial;
 
 typedef vector<CUserLogTrial>               VECTOR_USER_LOG_TRIAL;
+typedef vector<CUserLogTrial>::iterator     VECTOR_USER_LOG_TRIAL_ITER;
 typedef vector<CUserLogTrial*>              VECTOR_USER_LOG_TRIAL_PTR;
+typedef vector<CUserLogTrial*>::iterator    VECTOR_USER_LOG_TRIAL_PTR_ITER;
 
 // Used to indicate what type of event caused symbols to
 // be added or deleted by Dasher.  This could for example
@@ -70,7 +82,8 @@ struct NavCycle
     VECTOR_USER_LOCATION_PTR    vectorMouseLocations;     // Stores mouse locations and time stamps    
 };
 
-typedef vector<NavCycle*>       VECTOR_NAV_CYCLE_PTR;
+typedef vector<NavCycle*>               VECTOR_NAV_CYCLE_PTR;
+typedef vector<NavCycle*>::iterator     VECTOR_NAV_CYCLE_PTR_ITER;
 
 using namespace std;
 
@@ -79,10 +92,6 @@ class CUserLogTrial
 public:
     CUserLogTrial();
     ~CUserLogTrial();
-
-#ifdef USER_LOG_TOOL
-    CUserLogTrial(const string& strXML);
-#endif
 
     bool                        HasWritingOccured();
     void                        StartWriting();
@@ -97,12 +106,15 @@ public:
     void                        AddMouseLocationNormalized(int x, int y, bool bStoreIntegerRep, float nats);
     bool                        IsWriting();
     void                        AddParam(const string& strName, const string& strValue, int optionMask = 0);
-
     static string               GetParamXML(CUserLogParam* param, const string& strPrefix = "");
 
 #ifdef USER_LOG_TOOL
+    CUserLogTrial(const string& strXML);
     static VECTOR_USER_LOG_PARAM_PTR    ParseParamsXML(const string& strXML);
     static WindowSize                   ParseWindowXML(const string& strXML);
+    VECTOR_STRING                       GetTabMouseXY(bool bReturnNormalized);
+    VECTOR_DENSITY_GRIDS                GetMouseDensity(int gridSize);
+    static DENSITY_GRID                 MergeGrids(int gridSize, DENSITY_GRID pGridA, DENSITY_GRID pGridB);
 #endif
 
 protected:
@@ -133,10 +145,6 @@ protected:
     string                      GetWindowCanvasXML(const string& prefix);
     string                      GetParamsXML(const string& prefix);
     string                      GetNavCyclesXML(const string& prefix);
-
-#ifdef USER_LOG_TOOL
-
-#endif
 
 };
 

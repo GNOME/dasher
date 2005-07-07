@@ -61,10 +61,16 @@ enum eUserLogLevel
 };
 
 #ifndef VECTOR_STRING
-typedef vector<string>              VECTOR_STRING;
+typedef vector<string>                      VECTOR_STRING;
 #endif
 #ifndef VECTOR_STRING_ITER
-typedef vector<string>::iterator    VECTOR_STRING_ITER;
+typedef vector<string>::iterator            VECTOR_STRING_ITER;
+#endif
+#ifndef VECTOR_VECTOR_STRING
+typedef vector<VECTOR_STRING>               VECTOR_VECTOR_STRING;
+#endif
+#ifndef VECTOR_VECTOR_STRING_ITER
+typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 #endif
 
 class CUserLog 
@@ -72,10 +78,6 @@ class CUserLog
 public:
     CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet);
     ~CUserLog();
-
-#ifdef USER_LOG_TOOL
-    CUserLog(string strXMLFilename);
-#endif
 
     // Methods called whenever our user interface gets a relevant event, this
     // object will decide how to put it into its representation.
@@ -97,6 +99,12 @@ public:
 	void					    SetAlphabetPtr(Dasher::CAlphabet* pAlphabet);
     void                        InitIsDone();
     void                        SetOuputFilename(const string& strFilename = "");
+
+#ifdef USER_LOG_TOOL
+    CUserLog(string strXMLFilename);
+    VECTOR_VECTOR_STRING        GetTabMouseXY(bool bReturnNormalized);
+    VECTOR_VECTOR_DENSITY_GRIDS GetMouseDensity(int gridSize);
+#endif
 
 protected:
     CTimeSpan*                  m_pApplicationSpan;     // How long the application has been up

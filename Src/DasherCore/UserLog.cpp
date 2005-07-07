@@ -954,5 +954,44 @@ CUserLog::CUserLog(string strXMLFilename)
 
 }
 
+// Returns a vector that contains vectors of strings which each 
+// contain a tab delimited list of mouse coordinates for each
+// navigation cycle.
+VECTOR_VECTOR_STRING CUserLog::GetTabMouseXY(bool bReturnNormalized)
+{
+    VECTOR_VECTOR_STRING vectorResult;
+
+    for (VECTOR_USER_LOG_TRIAL_PTR_ITER iter = m_vectorTrials.begin();
+         iter < m_vectorTrials.end();
+         iter++)
+    {
+        if ((iter != NULL) && (*iter != NULL))
+        {
+            VECTOR_STRING vectorTrial = (*iter)->GetTabMouseXY(bReturnNormalized);
+            vectorResult.push_back(vectorTrial);
+        }
+    }
+
+    return vectorResult;
+}
+
+// Returns a vector that contains a vector of density grids.
+VECTOR_VECTOR_DENSITY_GRIDS CUserLog::GetMouseDensity(int gridSize)
+{
+    VECTOR_VECTOR_DENSITY_GRIDS vectorResult;
+    for (VECTOR_USER_LOG_TRIAL_PTR_ITER iter = m_vectorTrials.begin();
+         iter < m_vectorTrials.end();
+         iter++)
+    {
+        if ((iter != NULL) && (*iter != NULL))
+        {
+            VECTOR_DENSITY_GRIDS vectorTrial = (*iter)->GetMouseDensity(gridSize);
+            vectorResult.push_back(vectorTrial);
+        }
+    }
+
+    return vectorResult;
+}
+
 #endif
 

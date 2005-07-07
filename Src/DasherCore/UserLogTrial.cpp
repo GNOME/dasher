@@ -976,7 +976,7 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
     InitMemberVars();
     VECTOR_STRING vectorNavs;
 
-    gLogger->Log("trials XML:\n%s", logDEBUG, strXML.c_str());
+//    gLogger->Log("trials XML:\n%s", logDEBUG, strXML.c_str());
 
     string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
     string strWindow        = XMLUtil::GetElementString("WindowCoordinates", strXML, true);           
@@ -1152,6 +1152,182 @@ WindowSize CUserLogTrial::ParseWindowXML(const string& strXML)
     result.bottom   = XMLUtil::GetElementInt("Bottom", strXML);
     result.left     = XMLUtil::GetElementInt("Left", strXML);
     result.right    = XMLUtil::GetElementInt("Right", strXML);
+
+    return result;
+}
+
+// Returns a vector that contains the tab delimited mouse
+// coordinates for each of our navigation cycles.
+VECTOR_STRING CUserLogTrial::GetTabMouseXY(bool bReturnNormalized)
+{
+    VECTOR_STRING vectorResult;
+    for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vectorNavCycles.begin(); iter < m_vectorNavCycles.end(); iter++)
+    {
+        string strResult = "";
+
+        if ((iter!= NULL) && (*iter != NULL))
+        {
+            for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
+                 iter2 < (*iter)->vectorMouseLocations.end();
+                 iter2++)
+            {
+                if ((iter2 != NULL) && (*iter2 != NULL))
+                {
+                    strResult += (*iter2)->GetTabMouseXY(bReturnNormalized);
+                }
+            }
+        }
+
+        vectorResult.push_back(strResult);
+    }
+
+    return vectorResult;
+}
+
+// Calculates the mouse density with a given grid size number of buckets.
+// Each element of the vector is a 2D array of double values from 0.0 - 1.0.
+//
+// NOTE: We allocate the memory here for the double**, our caller must 
+// handle freeing it!
+VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
+{
+    VECTOR_DENSITY_GRIDS vectorResult;
+
+    for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vectorNavCycles.begin(); iter < m_vectorNavCycles.end(); iter++)
+    {
+        if ((iter!= NULL) && (*iter != NULL))
+        {
+            DENSITY_GRID grid;
+
+            // Init the grid with all 0.0 values
+            grid = new double*[gridSize];
+            for (int i = 0; i < gridSize; i++)
+                grid[i] = new double[gridSize];
+
+            for (int i = 0; i < gridSize; i++)
+                for (int j = 0; j < gridSize; j++)
+                    grid[i][j] = 0.0;
+
+            unsigned int count = 0;
+
+            // Assign each mouse to location to one of the buckets and increment 
+            // the count on that bucket.
+            for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
+                 iter2 < (*iter)->vectorMouseLocations.end();
+                 iter2++)
+            {
+                if ((iter2 != NULL) && (*iter2 != NULL))
+                {
+                    int i = 0;
+                    int j = 0;
+                    (*iter2)->GetMouseGridLocation(gridSize, &i, &j);
+//gLogger->Log("i = %d, j = %d", logDEBUG, i, j);
+                    // Increment the count on this location, we'll throw away points
+                    // that were outside the canvas grid.
+                    if ((i < gridSize) && (j < gridSize) && (i >= 0) && (j >= 0))
+                    {
+                        // We reverse j and i to get x to increase left top right
+                        // and y from top to bottom
+                        grid[j][i] = grid[j][i] + 1.0;
+//gLogger->Log("%0.4f", logDEBUG, (double) ((VECTOR_DOUBLE) grid[i])[j]);
+                        count++;
+                    }
+                }
+            }
+            // Now normalize everything so each grid location is a 
+            // percentage of the time we spent in that location.
+            for (int i = 0; i < gridSize; i++)
+            {
+                {
+                    for (int j = 0; j < gridSize; j++)
+                    {
+                        grid[i][j] = grid[i][j] / (double) count;
+//gLogger->Log("%0.4f", logDEBUG, (double) ((VECTOR_DOUBLE) grid[i])[j]);
+                    }
+                }
+            }
+
+            vectorResult.push_back(grid);
+        }
+    }
+
+    return vectorResult;
+}
+
+// Merge the density of two grids together.  This is done but adding their values
+// and dividing by two.  If either pointer is NULL, then we return the other grid
+// values intact.  We free the memory in our parameter grids.
+DENSITY_GRID CUserLogTrial::MergeGrids(int gridSize, DENSITY_GRID gridA, DENSITY_GRID gridB)
+{
+    DENSITY_GRID result;
+    result = new double*[gridSize];
+    for (int i = 0; i < gridSize; i++)
+        result[i] = new double[gridSize];
+
+    for (int i = 0; i < gridSize; i++)
+        for (int j = 0; j < gridSize; j++)
+            result[i][j] = 0.0;
+    
+    // Both NULL, then return grid of all 0.0's
+    if ((gridA == NULL) && (gridB == NULL))
+        return result;
+
+    if (gridA == NULL)
+    {
+        // grid A is NULL, return copy of grid B
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+                result[i][j] = gridB[i][j];
+        }    
+    }    
+    else if (gridB == NULL)
+    {
+        // grid B is NULL, return copy of grid A
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+                result[i][j] = gridA[i][j];
+        }
+
+    }
+    else
+    {
+        // Normal case, merge the two density grids
+        for (int i = 0; i < gridSize; i++)
+        {
+            for (int j = 0; j < gridSize; j++)
+                result[i][j] = (gridA[i][j] + gridB[i][j]) / 2.0;
+        }
+    }
+
+    if (gridA != NULL)
+    {
+        for (int i = 0; i < gridSize; i++)
+        {
+            if (gridA[i] != NULL)
+            {
+                delete gridA[i];
+                gridA[i] = NULL;
+            }
+        }
+        delete gridA;
+        gridA = NULL;
+
+    }
+    if (gridB != NULL)
+    {
+        for (int i = 0; i < gridSize; i++)
+        {
+            if (gridB[i] != NULL)
+            {
+                delete gridB[i];
+                gridB[i] = NULL;
+            }
+        }
+        delete gridB;
+        gridB = NULL;
+    }
 
     return result;
 }

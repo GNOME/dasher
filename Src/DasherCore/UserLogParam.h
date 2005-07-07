@@ -21,7 +21,7 @@ enum eUserLogParam
     userLogParamOutputToSimple  = 2,    // Does this parameter get sent to the simple log file?
     userLogParamTrackInTrial    = 4,    // Do we also store a copy of the parameter value within a trial?
     userLogParamForceInTrial    = 8,    // Do we always log the value of this parameter when a new trial is created?
-    userLogParamShortInCycle    = 16     // In short logging, does the value get added to the end of a cycle stats line?
+    userLogParamShortInCycle    = 16    // In short logging, does the value get added to the end of a cycle stats line?
 };
 
 class CUserLogParam;
