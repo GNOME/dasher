@@ -72,26 +72,29 @@
 		</Configuration>
 		<Configuration
 			Name="Unicode Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			OutputDirectory=".\Target/Win32 Unicode Release"
+			IntermediateDirectory=".\Target/Win32 Unicode Release/Intermediate"
 			ConfigurationType="1"
-			CharacterSet="2"
-			ManagedExtensions="TRUE">
+			CharacterSet="1"
+			ManagedExtensions="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
-				PreprocessorDefinitions="WIN32;NDEBUG"
+				AdditionalIncludeDirectories=".;../../Dashercore"
+				PreprocessorDefinitions="WIN32;NDEBUG;_UNICODE,USER_LOG_TOOL"
 				MinimalRebuild="FALSE"
 				RuntimeLibrary="0"
-				UsePrecompiledHeader="3"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
 				WarningLevel="3"
 				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLinkerTool"
-				OutputFile="$(OutDir)\$(ProjectName).exe"
-				LinkIncremental="1"
-				GenerateDebugInformation="TRUE"/>
+				OutputFile=".\Target/Win32 Unicode Release/UserLog.exe"
+				LinkIncremental="2"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Unicode Release/UserLog.pdb"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -174,6 +177,9 @@
 			</File>
 			<File
 				RelativePath="..\..\DasherCore\UserLogTrial.h">
+			</File>
+			<File
+				RelativePath=".\Utils.h">
 			</File>
 			<File
 				RelativePath="..\..\DasherCore\XMLUtil.cpp">
