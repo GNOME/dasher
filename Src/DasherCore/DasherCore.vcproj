@@ -388,6 +388,49 @@
 				RelativePath="LanguageModelling\WordLanguageModel.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Win32"
+			Filter="">
+			<File
+				RelativePath="Win32\DasherInterface.cpp">
+			</File>
+			<File
+				RelativePath="Win32\DasherInterface.h">
+			</File>
+			<File
+				RelativePath="Win32\WinCommon.h">
+			</File>
+			<File
+				RelativePath="Win32\WinHelper.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinHelper.h">
+			</File>
+			<File
+				RelativePath="Win32\WinLocalisation.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinLocalisation.h">
+			</File>
+			<File
+				RelativePath="Win32\WinOptions.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinOptions.h">
+			</File>
+			<File
+				RelativePath="Win32\WinUTF8.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinUTF8.h">
+			</File>
+			<File
+				RelativePath="Win32\WinWrap.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinWrap.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath="Alphabet\AlphIO.cpp">
 		</File>
@@ -425,10 +468,16 @@
 			RelativePath=".\DasherAppInterface.h">
 		</File>
 		<File
-			RelativePath=".\DasherInterface.cpp">
+			RelativePath="DasherComponent.h">
 		</File>
 		<File
-			RelativePath=".\DasherInterface.h">
+			RelativePath="DasherInput.h">
+		</File>
+		<File
+			RelativePath="DasherInterfaceBase.cpp">
+		</File>
+		<File
+			RelativePath="DasherInterfaceBase.h">
 		</File>
 		<File
 			RelativePath=".\DasherModel.cpp">
@@ -446,10 +495,10 @@
 			RelativePath=".\DasherScreen.h">
 		</File>
 		<File
-			RelativePath=".\DasherSettingsInterface.cpp">
+			RelativePath="DasherSettingsInterface.cpp">
 		</File>
 		<File
-			RelativePath=".\DasherSettingsInterface.h">
+			RelativePath="DasherSettingsInterface.h">
 		</File>
 		<File
 			RelativePath=".\DasherTypes.h">
@@ -476,7 +525,19 @@
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
+			RelativePath="Event.h">
+		</File>
+		<File
+			RelativePath="EventHandler.cpp">
+		</File>
+		<File
+			RelativePath="EventHandler.h">
+		</File>
+		<File
 			RelativePath="FrameRate.h">
+		</File>
+		<File
+			RelativePath="Parameters.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
