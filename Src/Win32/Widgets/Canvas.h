@@ -13,7 +13,6 @@
 #include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/DasherAppInterface.h"
 #include "../../DasherCore/DasherTypes.h"
-#include "../../DasherCore/UserLog.h"
 #include "../DasherMouseInput.h"
 
 #include "Screen.h"
@@ -23,7 +22,7 @@ class CEdit;
 class CCanvas : public CWinWrap
 {
 public:
-	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB, CUserLog* pUserLog);
+	CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB);
 	~CCanvas();
 	void Move(int x, int y, int Width, int Height);
 	void Paint();
@@ -127,7 +126,6 @@ private:
 
 	RECT coords;
 
-    CUserLog*       m_pUserLog;
 };
 
 

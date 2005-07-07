@@ -14,8 +14,8 @@
 
 using namespace Dasher;
 
-CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB, CUserLog* pUserLog)
-	: m_DasherWidgetInterface(WI), m_DasherAppInterface(AI), m_pUserLog(pUserLog),
+CCanvas::CCanvas(HWND Parent, Dasher::CDasherWidgetInterface* WI, Dasher::CDasherAppInterface* AI, CEdit* EB)
+	: m_DasherWidgetInterface(WI), m_DasherAppInterface(AI), 
 	m_DasherEditBox(EB), imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0)
 {
 
@@ -104,12 +104,6 @@ void CCanvas::Move(int x, int y, int Width, int Height)
 {
 	MoveWindow(m_hwnd, x, y, Width, 
 		Height, TRUE);
-
-	if (m_pUserLog != NULL)
-	{
-		m_pUserLog->AddParam("CanvasWidth", Width);
-		m_pUserLog->AddParam("CanvasHeight", Height);
-	}
 }
 
 
@@ -422,22 +416,7 @@ ScreenToClient(m_hwnd,&mousepos2);
 		imousey+=m_pScreen->GetHeight()/2;
 	}
 
-    if (m_pUserLog != NULL)
-    {
-        Dasher::VECTOR_SYMBOL_PROB     vectorAdded;
-	    int numDeleted = 0;
-	    m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount(), &vectorAdded, &numDeleted);
-
-        if (numDeleted > 0)
-            m_pUserLog->DeleteSymbols(numDeleted);
-        if (vectorAdded.size() > 0)
-            m_pUserLog->AddSymbols(&vectorAdded);
-    }
-    else
-    {
-        // If there is no user logging going on, we don't need to track the symbols added or deleted.
-        m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
-    }
+    m_DasherWidgetInterface->TapOn(imousex, imousey, GetTickCount());
 
 	return 0;
 
@@ -492,10 +471,6 @@ void CCanvas::StartStop() {
 		secondwindow=false;
 		mousepostime=0;
 
-        // Let the logging object know about the starting or stopping of navigation
-		if (m_pUserLog != NULL)
-			m_pUserLog->StartWriting();
-
 	} else {
 		m_DasherWidgetInterface->PauseAt(0,0);
 		running=0;
@@ -504,9 +479,6 @@ void CCanvas::StartStop() {
 		}
 		ReleaseCapture();
 
-		// Let the logging object know about the starting or stopping of navigation
-		if (m_pUserLog != NULL)
-			m_pUserLog->StopWriting(m_DasherWidgetInterface->GetNats());
 		m_DasherWidgetInterface->ResetNats();
 
 	}

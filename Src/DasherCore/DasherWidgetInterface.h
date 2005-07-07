@@ -33,7 +33,7 @@ public:
 	//! \param Time Time in milliseconds, required to keep Dasher running
 	//! at the correct speed
 	// Changed to return any outputted symbol resulting from the navigation.
-	virtual void TapOn(int MouseX, int MouseY, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL)=0;
+	virtual void TapOn(int MouseX, int MouseY, unsigned long Time)=0;
 
 
 	//! Draw the mouse position box

@@ -154,29 +154,35 @@ void CUserLog::StartWriting()
 // elapsed.
 void CUserLog::StopWriting(float nats)
 {
-    m_cycleNats = (double) nats;
-    StopWriting();
+    if (m_bIsWriting)
+    {
+        m_cycleNats = (double) nats;
+        StopWriting();
+    }
 }
 
 void CUserLog::StopWriting()
 {
-    m_bIsWriting = false;
-
-    // In simple logging mode, we'll output the stats for this navigation cycle
-    if ((m_bSimple) && (m_pSimpleLogger != NULL))
-        m_pSimpleLogger->Log("%s", logDEBUG, GetStartStopCycleStats().c_str());
-
-    if (m_bDetailed)
+    if (m_bIsWriting)
     {
-        CUserLogTrial* trial = GetCurrentTrial();
+        m_bIsWriting = false;
 
-        if (trial == NULL)
+        // In simple logging mode, we'll output the stats for this navigation cycle
+        if ((m_bSimple) && (m_pSimpleLogger != NULL))
+            m_pSimpleLogger->Log("%s", logDEBUG, GetStartStopCycleStats().c_str());
+
+        if (m_bDetailed)
         {
-            gLogger->Log("CUserLog::StopWriting, trial was NULL!", logNORMAL);
-            return;
-        }
+            CUserLogTrial* trial = GetCurrentTrial();
 
-        trial->StopWriting();
+            if (trial == NULL)
+            {
+                gLogger->Log("CUserLog::StopWriting, trial was NULL!", logNORMAL);
+                return;
+            }
+
+            trial->StopWriting();
+        }
     }
 }
 
@@ -341,50 +347,46 @@ void CUserLog::AddParam(const string& strName, const string& strValue, int optio
         m_pSimpleLogger->Log("%s = %s", logDEBUG, strName.c_str(), strValue.c_str());
     }
 
-    if (m_bDetailed)
+    // See if this matches an existing parameter value that we may want to 
+    // overwrite.  But only if we aren't suppose to keep track of multiple changes.
+    if (!bTrackMultiple)
     {
-        // See if this matches an existing parameter value that we may want to 
-        // overwrite.  But only if we aren't suppose to keep track of multiple changes.
-        if (!bTrackMultiple)
+        for (unsigned int i = 0; i < m_vectorParams.size(); i++)
         {
-            for (unsigned int i = 0; i < m_vectorParams.size(); i++)
-            {
-                CUserLogParam* param = (CUserLogParam*) m_vectorParams[i];
+            CUserLogParam* param = (CUserLogParam*) m_vectorParams[i];
 
-                if (param != NULL)
+            if (param != NULL)
+            {
+                if (param->strName.compare(strName) == 0)
                 {
-                    if (param->strName.compare(strName) == 0)
-                    {
-                        param->strValue = strValue;
-                        return;
-                    }
+                    param->strValue = strValue;
+                    return;
                 }
             }
         }
+    }
 
-        // We need to add a new param
-        CUserLogParam* newParam      = new CUserLogParam;
+    // We need to add a new param
+    CUserLogParam* newParam      = new CUserLogParam;
 
-        newParam->strName           = strName;
-        newParam->strValue          = strValue;
-        newParam->strTimeStamp      = "";
-        newParam->options           = optionMask;
+    newParam->strName           = strName;
+    newParam->strValue          = strValue;
+    newParam->strTimeStamp      = "";
+    newParam->options           = optionMask;
 
-        // Parameters that can have multiple values logged will also log when they were changed
-        if (bTrackMultiple)
-            newParam->strTimeStamp  = CTimeSpan::GetTimeStamp();
+    // Parameters that can have multiple values logged will also log when they were changed
+    if (bTrackMultiple)
+        newParam->strTimeStamp  = CTimeSpan::GetTimeStamp();
 
-        m_vectorParams.push_back(newParam);
+    m_vectorParams.push_back(newParam);
 
+    if ((bTrackInTrial) && (m_bDetailed))
+    {
         // See if we need to pass the parameter onto the current trial object
-        if ((bTrackInTrial) && (m_bDetailed))
-        {
-            CUserLogTrial* trial = GetCurrentTrial();
+        CUserLogTrial* trial = GetCurrentTrial();
 
-            if (trial != NULL)
-                trial->AddParam(strName, strValue, optionMask);
-        }
-
+        if (trial != NULL)
+            trial->AddParam(strName, strValue, optionMask);
     }
 }
 
@@ -867,6 +869,9 @@ string CUserLog::GetCycleParamStats()
 {
     string strResult = "";
     VECTOR_STRING vectorFound;
+
+    if (m_vectorParams.size() <= 0)
+        return strResult;
 
     // We may have more than one parameter that needs to be added and we want
     // the stats line to be invariant to the order in which AddParam() was 

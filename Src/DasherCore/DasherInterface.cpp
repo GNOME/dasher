@@ -226,6 +226,9 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
     if (m_pDasherModel!=0) {
         m_pDasherModel->Set_paused(m_Paused);
     }
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->StopWriting(GetNats());
 }
 
 void CDasherInterface::Halt()
@@ -245,6 +248,9 @@ void CDasherInterface::Unpause(unsigned long Time)
         m_pDasherView->ResetSum();
         m_pDasherView->ResetSumCounter();
     }
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->StartWriting();
 }
 
 
@@ -279,20 +285,38 @@ void CDasherInterface::SetInput( CDasherInput *_pInput ) {
 }
 
 
-void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time, VECTOR_SYMBOL_PROB* vectorAdded, int* numDeleted)
+void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 {
-
   //  std::cout << "Tap On" << std::endl;
-
 	if (m_pDasherView!=0) 
 	{
-		m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, vectorAdded, numDeleted);
+
+        if (m_pUserLog != NULL)
+        {
+            Dasher::VECTOR_SYMBOL_PROB     vectorAdded;
+	        int numDeleted = 0;
+            m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, &vectorAdded, &numDeleted);
+
+            if (numDeleted > 0)
+                m_pUserLog->DeleteSymbols(numDeleted);
+            if (vectorAdded.size() > 0)
+                m_pUserLog->AddSymbols(&vectorAdded);
+        }
+        else
+        {
+            // If there is no user logging going on, we don't need to track the symbols added or deleted.
+            m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
+        }
+
 		m_pDasherView->Render(MouseX,MouseY,true);
 		m_pDasherView->Display();
 	}
 	
 	if (m_pDasherModel!=0)
 		m_pDasherModel->NewFrame(Time);
+
+gLogger->Log("CDasherInterface::TapOn, x = %d, y = %d", logDEBUG, MouseX, MouseY);
+
 }
 
 void CDasherInterface::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox )

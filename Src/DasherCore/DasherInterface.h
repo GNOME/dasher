@@ -68,7 +68,7 @@ public:
 	// Widget Interface
 	// -----------------------------------------------------
 	void Start();
-    void TapOn(int MouseX, int MouseY, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* vectorAdded = NULL, int* numDeleted = NULL);// Times in milliseconds
+    void TapOn(int MouseX, int MouseY, unsigned long Time);// Times in milliseconds
 
     void PauseAt(int MouseX, int MouseY);                   // are required to make
 	void Halt();
