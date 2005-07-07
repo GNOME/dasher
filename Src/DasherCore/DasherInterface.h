@@ -195,7 +195,7 @@ public:
     void ResetNats();
 
     CAlphabet*      GetAlphabetPtr();
-	void            SetUserLogPtr(CUserLog* pUserLog);
+	CUserLog*       GetUserLogPtr();
 
 private:
 	CAlphabet* m_Alphabet;

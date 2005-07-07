@@ -13,6 +13,12 @@
 #include "DasherTypes.h"
 #include "SettingsStore.h"
 
+// We need to check the user log level settings before we initialize the defaults
+// so the object can make note of the parameters.  This requires DasherInterface
+// to check this parameter before SettingsDefaults() is called which actually
+// sets the parameter "properly".  We use the following #define to do that, ick.
+#define USER_LOG_LEVEL_MASK_STR "UserLogLevelMask"
+
 namespace Dasher {class CDasherSettingsInterface;}
 class Dasher::CDasherSettingsInterface
 {

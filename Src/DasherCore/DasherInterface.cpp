@@ -70,6 +70,13 @@ CDasherInterface::~CDasherInterface()
 	delete m_Params;
 
 	// Do NOT delete Edit box or Screen. This class did not create them.
+
+    if (m_pUserLog != NULL)
+    {
+        m_pUserLog->OutputFile();
+        delete m_pUserLog;
+        m_pUserLog = NULL;
+    }
 }
 
 
@@ -77,7 +84,31 @@ void CDasherInterface::SetSettingsStore(CSettingsStore* SettingsStore)
 {
 	delete m_SettingsStore;
 	m_SettingsStore = SettingsStore;
+
+    if (m_SettingsStore != NULL)
+    {
+        // Check to see what level of user logging we are suppose to do (if any), we
+        // need to sneak a peak at this before SettingsDefaults() is called since we
+        // want the UserLog object to be informed of the default values which end
+        // up calling back to DasherInterface.
+        long userLogLevel = m_SettingsStore->GetLongOption(USER_LOG_LEVEL_MASK_STR);
+        if (m_pUserLog != NULL)
+        {
+            m_pUserLog->OutputFile();
+            delete m_pUserLog;
+            m_pUserLog = NULL;
+        }
+
+        if (userLogLevel > 0)
+		    m_pUserLog = new CUserLog(userLogLevel, m_Alphabet);
+    }
+
 	this->SettingsDefaults(m_SettingsStore);
+
+    // Let the user log know that any future parameter changes should be logged
+    if (m_pUserLog != NULL)
+        m_pUserLog->InitIsDone();
+
 }
 
 
@@ -353,7 +384,10 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 
     // UserLog needs alphabet in order to convert symbols to display text.
     if (m_pUserLog != NULL)
-        m_pUserLog->SetAlphabetPtr(m_Alphabet);
+    {
+	    m_pUserLog->AddParam("Alphabet", NewAlphabetID, userLogParamOutputToSimple);    
+        m_pUserLog->SetAlphabetPtr(m_Alphabet);	
+    }
 
 }
 
@@ -383,6 +417,10 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	if (m_DasherScreen!=0) {
 	  m_DasherScreen->SetColourScheme(m_pColours);
 	}
+
+    if (m_pUserLog != NULL)
+		m_pUserLog->AddParam("Colours", NewColourID, userLogParamOutputToSimple);
+
 }
 
 std::string CDasherInterface::GetCurrentColours() {
@@ -403,6 +441,17 @@ void CDasherInterface::ChangeMaxBitRate(double NewMaxBitRate)
 	if (m_DrawKeyboard==true && m_pDasherView!=NULL) {
 	  m_pDasherView->DrawKeyboard();
 	}
+
+    if (m_pUserLog != NULL)
+		m_pUserLog->AddParam("MaxBitRate", 
+                                NewMaxBitRate, 
+                                userLogParamOutputToSimple | 
+                                userLogParamTrackMultiple | 
+                                userLogParamTrackInTrial |
+                                userLogParamForceInTrial |
+                                userLogParamShortInCycle
+                                );
+
 }
 
 void CDasherInterface::ChangeLanguageModel(int NewLanguageModelID)
@@ -653,6 +702,9 @@ void CDasherInterface::ControlMode(bool Value)
 
   Start();
   Redraw();
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("ControlMode", Value, userLogParamOutputToSimple);
 }
 
 void CDasherInterface::KeyboardMode(bool Value)
@@ -742,11 +794,13 @@ void CDasherInterface::SetEditFont(string Name, long Size)
 
 void CDasherInterface::SetUniform(int Value)
 {
-  if( m_pDasherModel != NULL )
-    m_pDasherModel->SetUniform(Value);
-  if (m_SettingsStore!=0) {
-    m_SettingsStore->SetLongOption(Keys::UNIFORM, Value);
-  }
+    if( m_pDasherModel != NULL )
+        m_pDasherModel->SetUniform(Value);
+    if (m_SettingsStore!=0) {
+        m_SettingsStore->SetLongOption(Keys::UNIFORM, Value);
+    }
+    if (m_pUserLog != NULL)
+        m_pUserLog->AddParam("Uniform", Value, userLogParamOutputToSimple);
 }
 
 void CDasherInterface::SetYScale(int Value)
@@ -754,6 +808,8 @@ void CDasherInterface::SetYScale(int Value)
 	if (m_SettingsStore!=0) {
 		m_SettingsStore->SetLongOption(Keys::YSCALE, Value);
 	}
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("YScale", Value, userLogParamOutputToSimple);
 }
 
 void CDasherInterface::SetMousePosDist(int Value)
@@ -800,6 +856,9 @@ void CDasherInterface::SetDasherDimensions(bool Value)
 	if (m_SettingsUI!=0) {
 	         m_SettingsUI->SetDasherDimensions(Value);
 	}	  
+
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("Dimensions", Value, userLogParamOutputToSimple);
 }
 
 void CDasherInterface::SetDasherEyetracker(bool Value)
@@ -813,6 +872,8 @@ void CDasherInterface::SetDasherEyetracker(bool Value)
 	if (m_SettingsUI!=0) {
 	         m_SettingsUI->SetDasherEyetracker(Value);
 	}	  
+    if (m_pUserLog != NULL)
+	    m_pUserLog->AddParam("Eyetracker", Value, userLogParamOutputToSimple);
 }
 
 void CDasherInterface::SetTruncation( int Value ) {
@@ -1104,10 +1165,10 @@ CAlphabet* CDasherInterface::GetAlphabetPtr()
 	return m_Alphabet;
 }
 
-// We need to be able to get at the UserLog object, set in WinMain.
-void CDasherInterface::SetUserLogPtr(CUserLog* pUserLog)
+// We need to be able to get at the UserLog object from outside the interface
+CUserLog* CDasherInterface::GetUserLogPtr()
 {
-	m_pUserLog = pUserLog;
+	return m_pUserLog;
 }
     
 // Set the mask value that controls what level of user logging we do
