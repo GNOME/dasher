@@ -64,7 +64,6 @@ void initialise_canvas( int width, int height )
 
 void blank_callback()
 {
-
   if (setup==false||preferences==true) 
     return;
 

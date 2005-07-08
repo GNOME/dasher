@@ -228,7 +228,7 @@ void CDasherInterface::PauseAt(int MouseX, int MouseY)
     }
 
     if (m_pUserLog != NULL)
-	    m_pUserLog->StopWriting(GetNats());
+	    m_pUserLog->StopWriting((float) GetNats());
 }
 
 void CDasherInterface::Halt()
@@ -314,16 +314,11 @@ void CDasherInterface::TapOn(int MouseX, int MouseY, unsigned long Time)
 	
 	if (m_pDasherModel!=0)
 		m_pDasherModel->NewFrame(Time);
-
-gLogger->Log("CDasherInterface::TapOn, x = %d, y = %d", logDEBUG, MouseX, MouseY);
-
 }
 
-void CDasherInterface::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox )
+void CDasherInterface::DrawMousePos(int iMouseX, int iMouseY)
 {
 	m_pDasherView->Render( iMouseX, iMouseY,false );
-	//if (iWhichBox!=-1)
-	//m_pDasherView->DrawMousePosBox(iWhichBox, m_iMousePosDist);
   
 	m_pDasherView->Display();
 }
@@ -525,6 +520,8 @@ void CDasherInterface::ChangeScreen(CDasherScreen* NewScreen)
 	m_DasherScreen->SetInterface(this);
 	ChangeScreen();
 	Redraw();
+
+    
 }
 
 

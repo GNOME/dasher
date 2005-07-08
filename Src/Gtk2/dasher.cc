@@ -883,6 +883,21 @@ long get_time() {
 gint
 timer_callback(gpointer data)
 {
+    // Update our UserLog object about the current mouse position
+    CUserLog* pUserLog = dasher_get_user_log_ptr();
+    if (pUserLog != NULL)
+    {  
+        // We want current canvas and window coordinates so normalization
+        // is done properly with respect to the canvas.
+        update_canvas_window_size();
+
+        int mouseX = 0;
+        int mouseY = 0;  
+        gdk_window_get_pointer(NULL, &mouseX, &mouseY, NULL);
+
+        pUserLog->AddMouseLocationNormalized(mouseX, mouseY, true, dasher_get_nats());
+    }
+
   if (exiting==TRUE)
     {
       // Exit if we're called when Dasher is exiting
@@ -927,12 +942,12 @@ timer_callback(gpointer data)
     }
     int x;
     int y;
-    
+
     if (leavewindowpause==true) {
       gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
       
       gdk_window_get_pointer(GTK_WIDGET(window)->window, &x, &y, NULL);
-      
+
       if (x>dasherwidth || x<0 || y>dasherheight || y<0) {
 	// Don't do anything with the mouse position if we're outside the window. There's a
 	// minor issue with this - if the user moves the cursor back in, Dasher will think
@@ -994,7 +1009,7 @@ timer_callback(gpointer data)
     } 
 
     if(( x != oldx ) || ( y != oldy )) // Only redraw if the mouse has actually moved
-      dasher_draw_mouse_position(x,y,0);
+      dasher_draw_mouse_position(x,y);
 
     oldx = x;
     oldy = y;
@@ -1083,7 +1098,7 @@ canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
 
 extern "C" gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
-{
+{    
   // If the canvas is resized, we need to regenerate all of the buffers
   rebuild_buffer();
 
@@ -1098,6 +1113,9 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
     dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
     dasher_set_parameter_int(INT_SCREENWIDTH, dasherwidth);
   }
+
+  // Let our UserLog know about the change of canvas size
+  update_canvas_window_size();
 
   return FALSE;
 }
@@ -2309,3 +2327,33 @@ int colour_filter(const gchar* filename)
 {
   return int(g_pattern_match_string(colourglob,filename));
 }
+
+// Updates the UserLog object about the current canvas
+// and window size in screen coordinates.
+void update_canvas_window_size()
+{
+    CUserLog* pUserLog = NULL;
+
+    pUserLog = dasher_get_user_log_ptr();
+    if (pUserLog != NULL)
+    {
+        GdkRectangle windowRect;
+        GdkRectangle canvasRect;
+
+        gdk_window_get_frame_extents(GTK_WIDGET(window)->window, &windowRect);
+        gdk_window_get_frame_extents(the_canvas->window, &canvasRect);
+
+        pUserLog->AddWindowSize(windowRect.y, 
+                                windowRect.x, 
+                                windowRect.y + windowRect.height, 
+                                windowRect.x + windowRect.width);
+
+        pUserLog->AddCanvasSize(canvasRect.y, 
+                                canvasRect.x, 
+                                canvasRect.y + canvasRect.height, 
+                                canvasRect.x + canvasRect.width);
+                                
+    }
+}
+
+

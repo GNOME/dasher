@@ -6,6 +6,8 @@
 #include "libdasher.h"
 #include "mouse_input.h"
 
+#include "../DasherCore/UserLog.h"
+
 extern "C" void open_file (const char *filename);
 extern "C" void clipboard_copy(void);
 extern "C" void clipboard_cut(void);
@@ -119,6 +121,9 @@ int colour_filter(const gchar* filename);
 #else
 #define DASHERFONT "Serif 12"
 #endif
+
+void update_canvas_window_size();
+
 
 #endif
 

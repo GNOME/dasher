@@ -76,7 +76,7 @@ public:
 	void Redraw();                                          // correct speed.
 	void Redraw(int iMouseX,int iMouseY);
 
-	void DrawMousePos(int MouseX, int MouseY, int iWhichBox);
+	void DrawMousePos(int MouseX, int MouseY);
 	void GoTo(int MouseX, int MouseY);
 	void DrawGoTo(int MouseX, int MouseY);
 	

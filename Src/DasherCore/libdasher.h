@@ -4,6 +4,7 @@
 #include "DasherScreen.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
+#include "UserLog.h"
 
 using namespace Dasher;
 
@@ -124,7 +125,7 @@ void dasher_start();
 void dasher_redraw();
 void dasher_render();
 void dasher_tap_on( int x, int y, unsigned long int time );
-void dasher_draw_mouse_position( int x, int y,int iWhichBox );
+void dasher_draw_mouse_position( int x, int y );
 void dasher_go_to( int x, int y );
 void dasher_draw_go_to( int x, int y );
 void dasher_unpause( unsigned long int time );
@@ -152,5 +153,7 @@ void add_control_tree(ControlTree *controltree);
 
 void add_alphabet_filename(const char* filename);
 void add_colour_filename(const char* filename);
+
+CUserLog* dasher_get_user_log_ptr();
 
 #endif

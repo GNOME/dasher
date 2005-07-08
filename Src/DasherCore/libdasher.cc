@@ -671,9 +671,9 @@ void dasher_tap_on( int x, int y, unsigned long int time )
   interface->TapOn( x, y, time );
 }
 
-void dasher_draw_mouse_position( int x, int y, int iWhich)
+void dasher_draw_mouse_position( int x, int y)
 {
-  interface->DrawMousePos( x, y, iWhich  );
+  interface->DrawMousePos( x, y );
 }
 
 void dasher_go_to( int x, int y )
@@ -788,4 +788,11 @@ void add_colour_filename(const char* filename)
 void dasher_set_input( CDasherInput *_pInput ) {
 
   interface->SetInput( _pInput );
+}
+
+CUserLog* dasher_get_user_log_ptr()
+{
+    if (interface != NULL)
+        return interface->GetUserLogPtr();
+    return NULL;
 }
