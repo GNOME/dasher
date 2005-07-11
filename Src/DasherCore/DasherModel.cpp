@@ -275,6 +275,16 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
   
   iNewTargetMax = ( (iTargetMax * iSteps - iTargetMin * ( iSteps - 1 )) * m_DasherY ) / ( m_DasherY + ( iSteps - 1 ) * ( iTargetMax - iTargetMin ));
 
+//   int iZoomCentre;
+
+//   iZoomCentre = m_DasherY * iTargetMin / (m_DasherY + iTargetMin - iTargetMax );
+//   double dScale;
+
+//   dScale = ( m_DasherY / static_cast<double>(iTargetMax - iTargetMin) - 1 ) / static_cast<double>( iSteps ) + 1;
+
+
+//   std::cout << iZoomCentre << ", " << dScale << ": " << iTargetMin << " - " << iTargetMax << " => " << iNewTargetMin << " - " << iNewTargetMax << std::endl;
+
   iTargetMin = iNewTargetMin;
   iTargetMax = iNewTargetMax; 
 

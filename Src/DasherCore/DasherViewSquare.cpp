@@ -457,7 +457,7 @@ void CDasherViewSquare::CheckForNewRoot()
 /// just the inverse of the mapping used to calculate the screen
 /// positions of boxes etc.
 
-void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY ) {
+void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool bNonlinearity ) {
 
   // Things we're likely to need:
 
@@ -551,8 +551,10 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
    break;
  }
 
- iDasherX = ixmap( iDasherX / static_cast<double>( DasherModel().DasherY() ) ) * DasherModel().DasherY();
- iDasherY = m_ymap.unmap( iDasherY );
+ if( bNonlinearity ) {
+   iDasherX = ixmap( iDasherX / static_cast<double>( DasherModel().DasherY() ) ) * DasherModel().DasherY();
+   iDasherY = m_ymap.unmap( iDasherY );
+ }
 
 }
 
@@ -682,7 +684,7 @@ void CDasherViewSquare::Dasher2OneD( myint &iDasherX, myint &iDasherY ) {
     disty=DasherModel().DasherOY()-iDasherY;
         
     circlesize=    DasherModel().DasherY()/2.5;
-    yforwardrange= DasherModel().DasherY()/1.6;
+    yforwardrange= DasherModel().DasherY()/3.2; // Was 1.6
     yfullrange=    yforwardrange*1.6;
     ybackrange=    yfullrange-yforwardrange;
     ellipse_eccentricity=6;
@@ -733,73 +735,76 @@ void CDasherViewSquare::Dasher2OneD( myint &iDasherX, myint &iDasherY ) {
 
 void CDasherViewSquare::Dasher2Eyetracker( myint &iDasherX, myint &iDasherY ) {
 
-//   double disty=DasherModel().DasherOY()-iDasherY;
+  double disty=DasherModel().DasherOY()-iDasherY;
 
-//   myint x( iDasherX );
+  myint x( iDasherX );
 
-//   myint dasherOX=DasherModel().DasherOX(); 
+  myint dasherOX=DasherModel().DasherOX(); 
 
-//   if( iDasherX < dasherOX ) {
+  //  if( iDasherX < dasherOX ) {
 
-//       //cout << "dasherOX: " << dasherOX << endl; 
-//       myint dasherOY=DasherModel().DasherOY(); 
+      //cout << "dasherOX: " << dasherOX << endl; 
+      myint dasherOY=DasherModel().DasherOY(); 
          
-//       // X co-ordinate changes. 
-//       double double_x = (x/dasherOX);  // Fraction of way over to crosshair
-//       double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
+      // X co-ordinate changes. 
+      double double_x = (x/dasherOX);  // Fraction of way over to crosshair
+      double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
              
-//       // FIXME - I have *no* idea how this is supposed to work - someone else fix it and comment the code please!
+      // FIXME - I have *no* idea how this is supposed to work - someone else fix it and comment the code please!
 
-//       double xmax_y = xmax(double_x, double_y); 
+      double xmax_y = xmax(double_x, double_y); 
                  
-//       if(double_x < xmax_y) { 
-//         double_x = xmax_y; 
-//       } 
+      if(double_x < xmax_y) { 
+        double_x = xmax_y; 
+      } 
 
-//       x = dasherOX*double_x;                 
+      x = dasherOX*double_x;                 
 
-//       // Finished x-coord changes.
+      // Finished x-coord changes.
 
-//       double repulsionparameter=0.5;
-//       iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
-//       iDasherX = x;
+      double repulsionparameter=0.5;
+      iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
+
+
+      if( iDasherX < x )
+      iDasherX = x;
+      // }
+
+//   int iDasherOX( DasherModel().DasherOX() );
+//   int iDasherOY( DasherModel().DasherOY() );
+
+//   int iDasherMaxY( DasherModel().DasherY() );
+
+//   // Add some gain to the Y value
+
+//   double dYGain( 1.1 );
+
+//   iDasherY = (iDasherY - iDasherOY) * dYGain + iDasherOY;
+
+//   // Truncate the Y range, as behaviour isn't well defined outside of these limits
+
+//   if( iDasherY < 0 )
+//     iDasherY = 0;
+  
+//   if( iDasherY > iDasherMaxY )
+//     iDasherY = iDasherMaxY;
+
+//   if( iDasherX > iDasherOX )
+//     return; // Don't do anything else if we're to the left of the crosshair
+
+//   int iDasherMinX; // Minimum X value to allow for the circle
+
+//   if( iDasherY < iDasherOY ) {
+//     iDasherMinX = (1 - sqrt( 1 - pow(((iDasherOY - iDasherY) / static_cast<double>(iDasherOY)), 2.0 ) )) * iDasherOX;
 //   }
-
-  int iDasherOX( DasherModel().DasherOX() );
-  int iDasherOY( DasherModel().DasherOY() );
-
-  int iDasherMaxY( DasherModel().DasherY() );
-
-  // Add some gain to the Y value
-
-  double dYGain( 1.1 );
-
-  iDasherY = (iDasherY - iDasherOY) * dYGain + iDasherOY;
-
-  // Truncate the Y range, as behaviour isn't well defined outside of these limits
-
-  if( iDasherY < 0 )
-    iDasherY = 0;
+//   else {
+//     iDasherMinX = (1 - sqrt( 1 - pow(((iDasherY - iDasherOY) / static_cast<double>(iDasherMaxY - iDasherOY)), 2.0 ) )) * iDasherOX;
+//   }
   
-  if( iDasherY > iDasherMaxY )
-    iDasherY = iDasherMaxY;
+//   // If X is outside of the circle, bring it in.
 
-  if( iDasherX > iDasherOX )
-    return; // Don't do anything else if we're to the left of the crosshair
-
-  int iDasherMinX; // Minimum X value to allow for the circle
-
-  if( iDasherY < iDasherOY ) {
-    iDasherMinX = (1 - sqrt( 1 - pow(((iDasherOY - iDasherY) / static_cast<double>(iDasherOY)), 2.0 ) )) * iDasherOX;
-  }
-  else {
-    iDasherMinX = (1 - sqrt( 1 - pow(((iDasherY - iDasherOY) / static_cast<double>(iDasherMaxY - iDasherOY)), 2.0 ) )) * iDasherOX;
-  }
-  
-  // If X is outside of the circle, bring it in.
-
-  if( iDasherX < iDasherMinX )
-    iDasherX = iDasherMinX;
+//   if( iDasherX < iDasherMinX )
+//     iDasherX = iDasherMinX;
 }
 
 /// Convert abstract 'input coordinates', which may or may not
@@ -830,7 +835,10 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
       iInputY += int(m_yAutoOffset); // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
     }
 
-    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
+    if( iMode == 0 )
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, true );
+    else
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false );
     break;
   case 1:
     // Raw dasher coordinates
@@ -850,11 +858,6 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
     // Simply get the dasher co-ordinate under the mouse cursor
     //    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
     
-    // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
-    if( iDasherY > DasherModel().DasherY() )
-      iDasherY = DasherModel().DasherY();
-    if( iDasherY < 0 )
-      iDasherY = 0;
 
     break;
   case 1: // 1D mode
@@ -1041,8 +1044,8 @@ void CDasherViewSquare::DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint 
   myint iDasherNewRight;
   myint iDasherNewBottom;
 
-  Screen2Dasher( newleft2, newtop2, iDasherNewLeft, iDasherNewTop );
-  Screen2Dasher( newright2, newbottom2, iDasherNewRight, iDasherNewBottom );
+  Screen2Dasher( newleft2, newtop2, iDasherNewLeft, iDasherNewTop, true );
+  Screen2Dasher( newright2, newbottom2, iDasherNewRight, iDasherNewBottom, true );
 
   mostleft = std::min(iDasherNewRight,iDasherNewLeft);
 
@@ -1119,6 +1122,12 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
   // Convert the input co-ordinates to dasher co-ordinates
 
   Input2Dasher( mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode() );
+
+  // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
+  if( iDasherY > DasherModel().DasherY() )
+    iDasherY = DasherModel().DasherY();
+  if( iDasherY < 0 )
+    iDasherY = 0;
 
   m_iDasherXCache = iDasherX;
   m_iDasherYCache = iDasherY;
