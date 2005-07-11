@@ -99,7 +99,7 @@ LRESULT CColourBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPa
 			break;
 		case (IDOK):
 			if (m_CurrentColours!= std::string("") ) {
-				m_SettingsInterface->ChangeColours(m_CurrentColours);
+				m_SettingsInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
 			}
 			// deliberate fall through
 		case (IDCANCEL):

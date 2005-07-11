@@ -506,7 +506,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			break;
 		case (IDOK):
 			if (m_CurrentAlphabet!=std::string("")) {
-				m_SettingsInterface->ChangeAlphabet(m_CurrentAlphabet);
+				m_SettingsInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
 			}
 			// deliberate fall through
 		case (IDCANCEL):
