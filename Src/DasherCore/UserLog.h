@@ -47,7 +47,7 @@ using namespace std;
 
 extern CFileLogger* gLogger;
 
-const int DEFAULT_SIZE_USER_LOG_TRAIL_XML   = 65536;    // How big we think the XML string representing a single trial will be
+const int USER_LOG_DEFAULT_SIZE_TRIAL_XML   = 65536;    // How big we think the XML string representing a single trial will be
 const int LOG_MOUSE_EVERY_MS                = 200;      // How often to log the mouse position (-1 for never), the frequency is also depends on how often the WM_TIMER event fires in dasher
 
 static const string    USER_LOG_SIMPLE_FILENAME = "dasher_usage.log";      // Filename of the short text log file

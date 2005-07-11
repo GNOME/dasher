@@ -623,7 +623,7 @@ bool CUserLog::WriteXML()
 string CUserLog::GetXML()
 {
     string strResult = "";
-    strResult.reserve(DEFAULT_SIZE_USER_LOG_TRAIL_XML * (m_vectorTrials.size() + 1));
+    strResult.reserve(USER_LOG_DEFAULT_SIZE_TRIAL_XML * (m_vectorTrials.size() + 1));
 
     strResult += "<?xml version=\"1.0\"?>\n";
 
