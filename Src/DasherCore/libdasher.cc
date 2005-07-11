@@ -802,3 +802,12 @@ void dasher_user_log_init_is_done()
     if (interface != NULL)
         interface->UserLogInitIsDone();
 }
+
+// Pass on a message to the UserLog object that a new trial is starting.
+// Done on file->new or might also be triggered by an experimenter 
+// hitting a key.
+void dasher_user_log_new_trial()
+{
+    if (interface != NULL)
+        interface->UserLogNewTrial();
+}

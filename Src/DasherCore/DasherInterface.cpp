@@ -1212,6 +1212,13 @@ void CDasherInterface::UserLogInitIsDone()
         m_pUserLog->InitIsDone();    
 }
 
+// Called when we need to indicate a new trial is starting (like on file->new)
+void CDasherInterface::UserLogNewTrial()
+{
+    if (m_pUserLog != NULL)
+        m_pUserLog->NewTrial();    
+}
+
 
 
 

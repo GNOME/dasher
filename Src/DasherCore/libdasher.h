@@ -156,5 +156,6 @@ void add_colour_filename(const char* filename);
 
 CUserLog*   dasher_get_user_log_ptr();
 void        dasher_user_log_init_is_done();
+void        dasher_user_log_new_trial();
 
 #endif

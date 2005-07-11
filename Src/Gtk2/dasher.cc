@@ -580,6 +580,8 @@ select_new_file(GtkWidget *widget, gpointer user_data)
   dasher_start();
   dasher_redraw();
   dasher_pause(0,0);
+
+  dasher_user_log_new_trial();
 }
 
 extern "C" void

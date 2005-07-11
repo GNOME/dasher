@@ -197,6 +197,7 @@ public:
     CAlphabet*      GetAlphabetPtr();
 	CUserLog*       GetUserLogPtr();
     void            UserLogInitIsDone();
+    void            UserLogNewTrial();
 
 private:
 	CAlphabet* m_Alphabet;
