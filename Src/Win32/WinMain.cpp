@@ -105,7 +105,7 @@ int APIENTRY WinMain(HINSTANCE hInstance,
     int iRet=0;
 
     // Global logging object we can use from anywhere
-	gLogger = new CFileLogger("Dasher.log",
+	gLogger = new CFileLogger("dasher.log",
 								gLogLevel,		
                                 gLogOptions);
 
@@ -163,6 +163,10 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 
 	{
         DasherInterface.ChangeLanguageModel(0);
+
+        // Let the UserLog object know it needs to log all future parameter changes.
+        DasherInterface.UserLogInitIsDone();
+
         CDasherWindow DasherWindow(&DasherInterface, &DasherInterface, &DasherInterface, WinOptions, DasherInterface.GetUserLogPtr()); 
 	
 		//The UI will be updated to reflect settings

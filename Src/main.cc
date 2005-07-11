@@ -106,7 +106,7 @@ main(int argc, char *argv[])
   GtkWidget *window;
 
   // Global logging object we can use from anywhere
-  gLogger = new CFileLogger("Dasher.log",
+  gLogger = new CFileLogger("dasher.log",
 							gLogLevel,		
                             gLogOptions);
 
@@ -303,6 +303,8 @@ main(int argc, char *argv[])
   } else {
     choose_filename();
   }
+
+  dasher_user_log_init_is_done();
 
   gtk_main ();
 

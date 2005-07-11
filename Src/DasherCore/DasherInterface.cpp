@@ -105,11 +105,6 @@ void CDasherInterface::SetSettingsStore(CSettingsStore* SettingsStore)
     }
 
 	this->SettingsDefaults(m_SettingsStore);
-
-    // Let the user log know that any future parameter changes should be logged
-    if (m_pUserLog != NULL)
-        m_pUserLog->InitIsDone();
-
 }
 
 
@@ -1209,4 +1204,14 @@ int CDasherInterface::GetUserLogLevelMask()
 {
     return m_userLogLevelMask;
 }
+
+// Let the user log know that any future parameter changes should be logged.
+void CDasherInterface::UserLogInitIsDone()
+{
+    if (m_pUserLog != NULL)
+        m_pUserLog->InitIsDone();    
+}
+
+
+
 

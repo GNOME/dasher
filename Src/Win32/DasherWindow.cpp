@@ -904,6 +904,21 @@ void CDasherWindow::OnTimer()
         // Get the mouse x and y coordinates
         POINT mousePos;
         GetCursorPos(&mousePos);
+        
+        // Since the everything is in screen relative coordinates, we'll
+        // make sure we have the right coordinates for our canvas and
+        // screen since the user may have move the window around.
+        int     top     = 0;
+        int     left    = 0;
+        int     bottom  = 0;
+        int     right   = 0;
+
+        GetCanvasSize(&top, &left, &bottom, &right);
+        m_pUserLog->AddCanvasSize(top, left, bottom, right);
+
+        // Also update the size of the window in the UserLogTrial object
+        GetWindowSize(&top, &left, &bottom, &right);
+        m_pUserLog->AddWindowSize(top, left, bottom, right);
 
         // We'll store a normalized version so if the user changes the window
         // size during a trial, it won't effect our coordinates.  The 

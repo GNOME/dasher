@@ -239,9 +239,7 @@ using namespace std;
 
 void dasher_early_initialise()
 {
-  interface = new CDasherInterface;
-  
-  
+  interface = new CDasherInterface; 
 }
 
 void dasher_late_initialise( int _width, int _height)
@@ -795,4 +793,12 @@ CUserLog* dasher_get_user_log_ptr()
     if (interface != NULL)
         return interface->GetUserLogPtr();
     return NULL;
+}
+
+// Pass on a message to tell the UserLog object that future parameter
+// changes indicate a changed parameter and not a startup condition.
+void dasher_user_log_init_is_done()
+{
+    if (interface != NULL)
+        interface->UserLogInitIsDone();
 }
