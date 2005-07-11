@@ -474,8 +474,6 @@ add_move_binding (GtkBindingSet  *binding_set,
 static void
 dasher_gtk_text_view_class_init (DasherGtkTextViewClass *klass)
 {
-  fprintf(stderr,"In dasher_dtk_text_view_class_init\n");
-
   GObjectClass *gobject_class = G_OBJECT_CLASS (klass);
   GtkObjectClass *object_class = GTK_OBJECT_CLASS (klass);
   GtkWidgetClass *widget_class = GTK_WIDGET_CLASS (klass);
@@ -1043,8 +1041,6 @@ static void
 dasher_gtk_text_view_init (DasherGtkTextView *text_view)
 {
   GtkWidget *widget;
-
-  fprintf(stderr,"In dasher_dtk_text_view_init\n");
 
   widget = GTK_WIDGET (text_view);
 

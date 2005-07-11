@@ -1501,7 +1501,6 @@ open_window(GladeXML *xml) {
 
   // PROGDATA is provided by the makefile
   system_data_dir = PROGDATA"/dasher/";
-  
   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 

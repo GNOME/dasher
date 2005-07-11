@@ -461,7 +461,7 @@ ControlTree* buildwindowtree()
 	  return NULL;
 	}
 
-	tmptree->parent->next = NULL;
+	//tmptree->parent->next = NULL;
 	delete tmptree;
 	return firstchild;
 }
