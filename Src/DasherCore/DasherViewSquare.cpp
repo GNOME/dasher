@@ -1597,4 +1597,20 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey)
 
 
 /////////////////////////////////////////////////////////////////////////////
+void CDasherViewSquare::DrawGameModePointer()
+{
+    myint loc = DasherModel().GetGameModePointerLoc();
 
+    if (loc == myint(loc.Min()))
+        return;
+    
+    if (loc > DasherModel().DasherY() )
+        DasherDrawCentredRectangle( -50, DasherModel().DasherY(), 5, 135, Opts::ColorSchemes(5) );
+
+    else if(loc < 0)
+        DasherDrawCentredRectangle( -50, 0, 5, 135, Opts::ColorSchemes(5) );
+
+    else
+        DasherDrawCentredRectangle( -50, loc, 7, 135, Opts::ColorSchemes(5) );
+
+}

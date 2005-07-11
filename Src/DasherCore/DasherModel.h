@@ -12,7 +12,6 @@
 #include "../Common/NoClones.h"
 
 #include "LanguageModelling/LanguageModel.h"
-
 #include "DashEdit.h"
 #include "DasherNode.h"
 #include "DasherComponent.h"
@@ -49,6 +48,37 @@ public:
 
 
 	};
+
+
+    class CDasherGameMode : public Dasher::CDasherComponent, private NoClones
+    {
+    public:
+        CDasherGameMode(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, 
+            CDasherInterfaceBase* pDashIface, CDasherModel* model);
+
+        // Returns Dasher Coordinate of the target string
+        // myint.Max() reserved for "off the screen to the bottom"
+        // myint.Min()+1 reserved for "off the screen to the top"
+        // myint.Min() reserved for "nothing to draw" (string finished or error)
+        myint GetDasherCoordOfTarget();
+
+        void HandleEvent(Dasher::CEvent *) { return; }
+
+    private:
+        // loads .txt file with strings for current alphabet
+        myint InitializeTargetFile();
+
+        // sets CurrentTarget to a new string from the vector of choices
+        myint GetNextTargetString();
+
+        // clears vector of choices and sets currenttarget to an empty string
+        void Reset();
+
+        CDasherModel* m_model;
+        std::vector<std::string> TargetStrings;
+        CDasherInterfaceBase* m_DasherInterface;
+        std::string CurrentTarget;
+    };
 
 	typedef enum
 	{
@@ -173,6 +203,10 @@ public:
 	const std::string& GetDisplayText(int iSymbol) const {return m_pcAlphabet->GetDisplayText(iSymbol);}
 
 	const CAlphabet& GetAlphabet() const {return *m_pcAlphabet;}
+	CDasherNode* Get_node_under_crosshair(); // Needed for Game Mode
+    myint GetGameModePointerLoc() {
+        return m_pGameMode->GetDasherCoordOfTarget();
+    }
 private:
 
     CDasherInterfaceBase* m_pDasherInterface;
@@ -189,6 +223,8 @@ private:
 	
 	/////////////////////////////////////////////////////////////////////////////
 
+
+    CDasherGameMode* m_pGameMode;
 
 	CDasherNode* m_Root;
 	
@@ -236,7 +272,7 @@ private:
 	double m_dMaxRate;
 	
 	CDasherNode* Get_node_under_mouse(myint smousex,myint smousey);
-	CDasherNode* Get_node_under_crosshair();
+
 	double Get_new_root_coords(myint mousex,myint mousey);
 
 	void DoZoom( myint iTargetMin, myint iTargetMax );
@@ -259,6 +295,7 @@ private:
 	//bool m_bControlMode;
 
 	//	friend CDasherNode;
+    friend class CDasherGameMode;
 	friend class CTrainer;
 	friend class CDasherNode;
 

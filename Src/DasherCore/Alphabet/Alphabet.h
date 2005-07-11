@@ -104,6 +104,8 @@ public:
 	void SetTrainingFile(std::string TrainingFile) {m_TrainingFile=TrainingFile;}
 	void SetPalette(std::string Palette) {m_DefaultPalette=Palette;}
 
+    const alphabet_map GetAlphabetMap() const { return TextMap; }
+
 private:
 
 	Opts::AlphabetTypes m_DefaultEncoding;

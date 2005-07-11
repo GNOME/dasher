@@ -10,24 +10,34 @@
 #ifndef __DasherSettingsInterface_h__
 #define __DasherSettingsInterface_h__
 
+
 #include "DasherTypes.h"
 #include "SettingsStore.h"
-//#include "DasherInterfaceBase.h"
 
+namespace Dasher {
+    class CDasherSettingsInterface;
+    class CDasherInterfaceBase;
+}
 
-
-namespace Dasher {class CDasherSettingsInterface;
-class CDasherInterfaceBase;}
 class Dasher::CDasherSettingsInterface
 {
 public:
 	void SettingsDefaults(CSettingsStore* Store);
 	
-  virtual void HandleParameterNotification( int iParameter );
+    virtual void HandleParameterNotification( int iParameter );
 
- void SetInterface( Dasher::CDasherInterfaceBase *pInterface ) {
-    m_pInterface = pInterface;
-  };
+    void SetInterface( Dasher::CDasherInterfaceBase *pInterface ) {
+        m_pInterface = pInterface;
+    };
+
+	// New externally visible interface
+    void SetBoolParameter( int iParameter, bool bValue );
+    void SetLongParameter( int iParameter, long lValue );
+    void SetStringParameter( int iParameter, const std::string &sValue );
+
+    bool GetBoolParameter( int iParameter );
+    long GetLongParameter( int iParameter );
+    std::string GetStringParameter( int iParameter );
 
 	// These actually affect the way Dasher works
 	//! Change the alphabet in use to NewAlphabetID

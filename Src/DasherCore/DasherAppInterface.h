@@ -78,9 +78,7 @@ public:
 	//! Add a control node of some description
 	virtual void AddControlTree(ControlTree *controltree)=0;
 
-    virtual int GetOneButton()=0;
     virtual int GetAutoOffset()=0;
-    virtual void SetOneButton(int Value)=0;
 
 	virtual void SetInput( CDasherInput *_pInput ) = 0;
 };

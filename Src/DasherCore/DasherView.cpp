@@ -114,6 +114,11 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay)
     bDidSomething = true;
   }
 
+  if (GetBoolParameter(BP_GAME_MODE) != 0) {
+    DrawGameModePointer();
+    bDidSomething = true;
+  }
+
   return bDidSomething;
 
 }

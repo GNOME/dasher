@@ -9,7 +9,8 @@ enum {BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR,
         BP_START_SPACE, BP_KEY_CONTROL, BP_WINDOW_PAUSE,
         BP_CONTROL_MODE, BP_COLOUR_MODE, BP_KEYBOARD_MODE, BP_MOUSEPOS_MODE,
         BP_SPEECH_MODE, BP_OUTLINE_MODE, BP_PALETTE_CHANGE, BP_NUMBER_DIMENSIONS, 
-        BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED, END_OF_BPS};
+        BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED, 
+        BP_GAME_MODE, END_OF_BPS};
 
 enum {LP_ORIENTATION=END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING, 
         LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_EDIT_FONT_SIZE, LP_EDIT_HEIGHT,
@@ -20,7 +21,7 @@ enum {LP_ORIENTATION=END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
         LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, END_OF_LPS};
 
 enum {SP_ALPHABET_ID=END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
-        SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, END_OF_SPS};
+        SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE, END_OF_SPS};
 
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,
@@ -68,7 +69,8 @@ static bp_table boolparamtable[] =
     {BP_NUMBER_DIMENSIONS,  "NumberDimensions",    true,   true,   "NumberDimensions"},
     {BP_EYETRACKER_MODE,    "EyetrackerMode",      true,   false,   "EyetrackerMode"},
     {BP_AUTOCALIBRATE,      "Autocalibrate",       true,   false,   "Autocalibrate"},
-    {BP_DASHER_PAUSED,      "DasherPaused",        false,  false,   "Dasher Paused"}
+    {BP_DASHER_PAUSED,      "DasherPaused",        false,  false,   "Dasher Paused"},
+    {BP_GAME_MODE,          "GameMode",            false,  true,    "Dasher Game Mode"}
 };
 
 static lp_table longparamtable[] =
@@ -106,7 +108,8 @@ static sp_table stringparamtable[] =
     {SP_DASHER_FONT, "DasherFont", true, "", "DasherFont"},
     {SP_EDIT_FONT, "EditFont", true, "", "EditFont"},
     {SP_SYSTEM_LOC, "SystemLocation", false, "", "System Directory"},
-    {SP_USER_LOC,   "UserLocation", false, "", "User Directory"}
+    {SP_USER_LOC,   "UserLocation", false, "", "User Directory"},
+    {SP_GAME_TEXT_FILE, "GameTextFile", false, "", "File with strings to practice writing"}
 };
     
 

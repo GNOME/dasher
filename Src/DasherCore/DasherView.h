@@ -68,6 +68,8 @@ public:
 	virtual void DrawKeyboard()=0;
 
 	virtual void DrawMousePosBox();
+    virtual void DrawGameModePointer()=0;
+
 
 	// Return references to the model and the screen:
 	CDasherModel& DasherModel() {return m_DasherModel;}

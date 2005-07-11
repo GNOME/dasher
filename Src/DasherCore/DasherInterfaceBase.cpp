@@ -486,8 +486,8 @@ void CDasherInterfaceBase::ChangeOrientation(Opts::ScreenOrientations Orientatio
 
 void CDasherInterfaceBase::SetFileEncoding(Opts::FileEncodingFormats Encoding)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->SetFileEncoding(Encoding);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->SetFileEncoding(Encoding);
 	if (m_pSettingsStore!=0)
 		SetLongParameter(LP_FILE_ENCODING, Encoding);
 	if (m_DashEditbox)
@@ -497,8 +497,8 @@ void CDasherInterfaceBase::SetFileEncoding(Opts::FileEncodingFormats Encoding)
 
 void CDasherInterfaceBase::ShowToolbar(bool Value)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ShowToolbar(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->ShowToolbar(Value);
 	if (m_pSettingsStore!=0)
 		SetBoolParameter(BP_SHOW_TOOLBAR, Value);
 }
@@ -506,8 +506,8 @@ void CDasherInterfaceBase::ShowToolbar(bool Value)
 
 void CDasherInterfaceBase::ShowToolbarText(bool Value)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ShowToolbarText(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->ShowToolbarText(Value);
 	if (m_pSettingsStore!=0)
 		SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, Value);
 }
@@ -515,8 +515,8 @@ void CDasherInterfaceBase::ShowToolbarText(bool Value)
 
 void CDasherInterfaceBase::ShowToolbarLargeIcons(bool Value)
 {
-    if (m_SettingsUI!=0)
-	    m_SettingsUI->ShowToolbarLargeIcons(Value);
+    //if (m_SettingsUI!=0)
+	//    m_SettingsUI->ShowToolbarLargeIcons(Value);
 	//if (m_SettingsStore!=0)
 		SetBoolParameter(BP_SHOW_LARGE_ICONS, Value);
 }
@@ -524,8 +524,8 @@ void CDasherInterfaceBase::ShowToolbarLargeIcons(bool Value)
 
 void CDasherInterfaceBase::ShowSpeedSlider(bool Value)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ShowSpeedSlider(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->ShowSpeedSlider(Value);
 	//if (m_SettingsStore!=0)
 		SetBoolParameter(BP_SHOW_SLIDER, Value);
 }
@@ -533,8 +533,8 @@ void CDasherInterfaceBase::ShowSpeedSlider(bool Value)
 
 void CDasherInterfaceBase::FixLayout(bool Value)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->FixLayout(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->FixLayout(Value);
 	//if (m_SettingsStore!=0)
 		SetBoolParameter(BP_FIX_LAYOUT, Value);
 }
@@ -542,8 +542,8 @@ void CDasherInterfaceBase::FixLayout(bool Value)
 
 void CDasherInterfaceBase::TimeStampNewFiles(bool Value)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->TimeStampNewFiles(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->TimeStampNewFiles(Value);
 	if (m_pSettingsStore!=0)
 		SetBoolParameter(BP_TIME_STAMP, Value);
 	if (m_DashEditbox!=0)
@@ -553,8 +553,8 @@ void CDasherInterfaceBase::TimeStampNewFiles(bool Value)
 
 void CDasherInterfaceBase::CopyAllOnStop(bool Value)
 {
-	if (m_SettingsUI!=0)
-		m_SettingsUI->CopyAllOnStop(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->CopyAllOnStop(Value);
 	if (m_pSettingsStore!=0)
 		SetBoolParameter(BP_COPY_ALL_ON_STOP, Value);
 }
@@ -573,24 +573,24 @@ void CDasherInterfaceBase::DrawMouseLine(bool Value)
 
 void CDasherInterfaceBase::StartOnSpace(bool Value)
 {
-	if (m_SettingsUI!=0)
-	  m_SettingsUI->StartOnSpace(Value);
+	//if (m_SettingsUI!=0)
+	//  m_SettingsUI->StartOnSpace(Value);
 	if (m_pSettingsStore!=0)
 	  SetBoolParameter(BP_START_SPACE, Value);
 }
 
 void CDasherInterfaceBase::StartOnLeft(bool Value)
 {
-	if (m_SettingsUI!=0)
-	  m_SettingsUI->StartOnLeft(Value);
+	//if (m_SettingsUI!=0)
+	//  m_SettingsUI->StartOnLeft(Value);
 	if (m_pSettingsStore!=0)
 	  SetBoolParameter(BP_START_MOUSE, Value);
 }
 
 void CDasherInterfaceBase::KeyControl(bool Value)
 {
-	if (m_SettingsUI!=0)
-	  m_SettingsUI->KeyControl(Value);
+	//if (m_SettingsUI!=0)
+	//  m_SettingsUI->KeyControl(Value);
 	if (m_pSettingsStore!=0)
 	  SetBoolParameter(BP_KEY_CONTROL, Value);
 	//if (m_pDasherView!=0)
@@ -599,8 +599,8 @@ void CDasherInterfaceBase::KeyControl(bool Value)
 
 void CDasherInterfaceBase::WindowPause(bool Value)
 {
-	if (m_SettingsUI!=0)
-	  m_SettingsUI->WindowPause(Value);
+	//if (m_SettingsUI!=0)
+	//  m_SettingsUI->WindowPause(Value);
 	if (m_pSettingsStore!=0)
 	  SetBoolParameter(BP_WINDOW_PAUSE, Value);
 }
@@ -623,8 +623,8 @@ void CDasherInterfaceBase::ControlMode(bool Value)
 		}
 	}
 
-	if (m_SettingsUI!=0)
-		m_SettingsUI->ControlMode(Value);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->ControlMode(Value);
 
 
   Start();
@@ -633,8 +633,8 @@ void CDasherInterfaceBase::ControlMode(bool Value)
 
 void CDasherInterfaceBase::KeyboardMode(bool Value)
 {
-  if (m_SettingsUI!=0)
-    m_SettingsUI->KeyboardMode(Value);
+ // if (m_SettingsUI!=0)
+ //   m_SettingsUI->KeyboardMode(Value);
   if (m_pSettingsStore!=0)
     SetBoolParameter(BP_KEYBOARD_MODE, Value);
 }
@@ -687,8 +687,8 @@ void CDasherInterfaceBase::SetEditFont(string Name, long Size)
 {
 	if (m_DashEditbox)
 		m_DashEditbox->SetFont(Name, Size);
-	if (m_SettingsUI!=0)
-		m_SettingsUI->SetEditFont(Name, Size);
+	//if (m_SettingsUI!=0)
+	//	m_SettingsUI->SetEditFont(Name, Size);
 	if (m_pSettingsStore!=0) {
 		SetStringParameter(SP_EDIT_FONT, Name);
 		SetLongParameter(LP_EDIT_FONT_SIZE, Size);
@@ -735,9 +735,9 @@ void CDasherInterfaceBase::SetDasherFontSize(FontSize fontsize)
 	if (m_DasherScreen!=0) {
 	         m_DasherScreen->SetFontSize(fontsize);
 	}
-	if (m_SettingsUI!=0) {
-	  m_SettingsUI->SetDasherFontSize(fontsize);
-	}
+	//if (m_SettingsUI!=0) {
+	//  m_SettingsUI->SetDasherFontSize(fontsize);
+	//}
 	Redraw();
 }
 
@@ -749,9 +749,9 @@ void CDasherInterfaceBase::SetDasherDimensions(bool Value)
 	//if (m_pDasherModel!=0) {
 	//         m_pDasherModel->Set_dimensions(Value);
 	//}
-	if (m_SettingsUI!=0) {
-	         m_SettingsUI->SetDasherDimensions(Value);
-	}	  
+	//if (m_SettingsUI!=0) {
+	//         m_SettingsUI->SetDasherDimensions(Value);
+	//}	  
 }
 
 void CDasherInterfaceBase::SetDasherEyetracker(bool Value)
@@ -761,9 +761,9 @@ void CDasherInterfaceBase::SetDasherEyetracker(bool Value)
 	//if (m_pDasherModel!=0) {
 	//         m_pDasherModel->Set_eyetracker(Value);
 	//}
-	if (m_SettingsUI!=0) {
-	         m_SettingsUI->SetDasherEyetracker(Value);
-	}	  
+	//if (m_SettingsUI!=0) {
+	//         m_SettingsUI->SetDasherEyetracker(Value);
+	//}	  
 }
 
 void CDasherInterfaceBase::SetTruncation( int Value ) {
@@ -1031,6 +1031,6 @@ void CDasherInterfaceBase::ChangeLMOption( const std::string &pname, long int Va
   if (m_pSettingsStore!=0)
     m_pSettingsStore->SetLongOption( pname, Value);
 
-  if (m_SettingsUI!=0)
-     m_SettingsUI->ChangeLMOption( pname, Value );
+  //if (m_SettingsUI!=0)
+  //   m_SettingsUI->ChangeLMOption( pname, Value );
 }

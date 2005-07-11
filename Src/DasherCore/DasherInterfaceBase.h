@@ -218,11 +218,12 @@ public:
 	
 	
 	double GetNats() const;
-	
+
 	void ResetNats();
 
     CAlphabet* GetAlphabet() { return m_Alphabet; }
     CLanguageModelParams* GetLMParams() { return m_Params; }
+    CDashEditbox* GetEditbox() { return m_DashEditbox; }
 
 private:
 	CAlphabet* m_Alphabet;
@@ -238,8 +239,7 @@ private:
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
-	
-	//bool m_Paused;
+
 	std::string m_UserLocation;
 	std::string m_SystemLocation;
 	std::string m_TrainFile;

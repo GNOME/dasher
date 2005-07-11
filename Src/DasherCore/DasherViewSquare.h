@@ -37,6 +37,7 @@ public:
 	void DrawMouse(screenint mousex, screenint mousey);
 	void DrawMouseLine(screenint mousex, screenint mousey);
 	void DrawKeyboard();
+    void DrawGameModePointer();
 
 	virtual	void HandleEvent( Dasher::CEvent *pEvent );	
 
