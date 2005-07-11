@@ -2,145 +2,145 @@
 
 1. Naming conventions
 
-1.1	All class member variables start with m_
+1.1 All class member variables start with m_
 
 1.2 All global variables start with g_
 
 1.3 Variables names (local and member) should capitalize each new word, don't use underscores.  Prefix name by the following version of hungarian notation:
 
-	i		- integer types (do we want to distinguish between short, int, long, long long, signed/unsigned?)
-	c		- char
-	str		- STL string
-	sz		- char* string
-	b		- boolean
-	p		- pointer
-	pp		- pointer to a pointer (etc)
-	v		- STL vector
-	map		- STL map
-	f		- float (do we we want to distinguish between double?)
-	s		- structure (???)
-	e		- enumerated type (???)
-			
+    i       - integer types (do we want to distinguish between short, int, long, long long, signed/unsigned?)
+    c       - char
+    str     - STL string
+    sz      - char* string
+    b       - boolean
+    p       - pointer
+    pp      - pointer to a pointer (etc)
+    v       - STL vector
+    map     - STL map
+    f       - float (do we we want to distinguish between double?)
+    s       - structure (???)
+    e       - enumerated type (???)
+
 1.4 Class names start with letter "C" with all new words capitalized:
-	
-	class CUserLog 
-	{
-		...
-	};
-	
+
+    class CUserLog 
+    {
+        ...
+    };
+
 1.5 Class methods start with a capital letter and each new word is capitalized.  Don't use underscores.
 
-	void                        StopWriting(float fNats);	
+    void      StopWriting(float fNats); 
 
 1.5 #define's and global constants should be in all caps with underscores to separate words.  Where a constant is intended for use only by a certain class, name should start with class name (makes it immediately clear who owns the constant).
 
-	#define LLONG_MAX 9223372036854775807
-	
-	const int USER_LOG_DEFAULT_SIZE_TRIAL_XML   = 65536;    // How big we think the XML string representing a single trial will be
+    #define LLONG_MAX 9223372036854775807
+    
+    const int USER_LOG_DEFAULT_SIZE_TRIAL_XML = 65536; // How big we think the XML string representing a single trial will be
 
-1.6 STL leads to data types that are very long and ugly.  Declare typedefs for things you are putting into vectors, maps, etc.  Name is all caps with underscores for spaces.  Declare an iterator with a postfix of _ITER:
+1.6 STL leads to data types that are very long and ugly.  Declare typedefs for things you are putting into vectors, maps, etc. Name is all caps with underscores for spaces.  Declare an iterator with a postfix of _ITER:
 
-	typedef std::vector<std::string>				VECTOR_STRING;
-	typedef std::vector<std::string>::iterator		VECTOR_STRING_ITER;
-	
+    typedef std::vector<std::string>                VECTOR_STRING;
+    typedef std::vector<std::string>::iterator      VECTOR_STRING_ITER;
+     
 1.7 Structures should be named with a leading "S", fields should following hungarian rules.  
 
-	struct SNavLocation
-	{
-		string                                  strHistory;     // Display symbol history after the adds or deletes are carried out
-		CTimeSpan*                              pSpan;          // Track the time between this update and the one that comes next
-		EUserLogEventType                       eEvent;         // What triggered the adding or deleting of symbols
-		int                                     iDeleted;		// How many symbols deleted (0 if it is an AddSymbols() call)
-		Dasher::VECTOR_SYMBOL_PROB_DISPLAY*     vpAdded;		// Info on all added symbols   
-		double                                  fAvgBits;       // Average bits required to write this history (assuming no errors)		
-	}
+    struct SNavLocation
+    {
+    string                                  strHistory;     // Display symbol history after the adds or deletes are carried out
+    CTimeSpan*                              pSpan;          // Track the time between this update and the one that comes next
+    EUserLogEventType                       eEvent;         // What triggered the adding or deleting of symbols
+    int                                     iDeleted;       // How many symbols deleted (0 if it is an AddSymbols() call)
+    Dasher::VECTOR_SYMBOL_PROB_DISPLAY*     vpAdded;        // Info on all added symbols   
+    double                                  fAvgBits;       // Average bits required to write this history (assuming no errors)  
+    }
 
-1.8	Enumerated types should be named with a leading "E".  
+1.8 Enumerated types should be named with a leading "E".
 
-	enum EUserLogLevel
-	{
-		UserLogSimple           = 1,    // Simple running log file
-		UserLogDetailed         = 2     // Detailed per session user trial style
-	};
+    enum EUserLogLevel
+    {
+        UserLogSimple       = 1, // Simple running log file
+        UserLogDetailed     = 2  // Detailed per session user trial style
+    };
 
-	
+ 
 _______________________________________________
-	
-2.	Whitespace
+ 
+2. Whitespace
 
-2.1	Declarations and setting of local variables should (where feasible) tab align data type, variable name, and assignment:
-    
-    bool	bOutputToSimple		= false;
-    bool	bTrackMultiple		= false;
-    string  strResult			= "";
-   
-2.2	C++ header files should align method return types and method names:
-    
-    string              GetXML(const string& strPrefix = "");
-    static double       ComputeNormalizedX(int iX, int iLeft, int iRight);
+2.1 Declarations and setting of local variables should (where feasible) tab align data type, variable name, and assignment:
 
-2.3	C++ header files should align member variable types and variables names.  While you're at it, explain what the member variables does on the right-hand side.
-    
-    Dasher::VECTOR_SYMBOL_PROB_DISPLAY  m_vHistory;			// Tracks all the symbols, probs, display text entererd during this trial
-    VECTOR_P_USER_LOG_PARAM				m_vpParams;			// Stores general parameters we want stored in each trial tag in the XML
+    bool    bOutputToSimple     = false;
+    bool    bTrackMultiple      = false;
+    string  strResult           = "";
 
-2.4	Align math formulas, etc:
-    
+2.2 C++ header files should align method return types and method names:
+
+    string          GetXML(const string& strPrefix = "");
+    static double   ComputeNormalizedX(int iX, int iLeft, int iRight);
+
+2.3 C++ header files should align member variable types and variables names.  While you're at it, explain what the member variables does on the right-hand side.
+
+    Dasher::VECTOR_SYMBOL_PROB_DISPLAY      m_vHistory;   // Tracks all the symbols, probs, display text entererd during this trial
+    VECTOR_P_USER_LOG_PARAM                 m_vpParams;   // Stores general parameters we want stored in each trial tag in the XML
+
+2.4 Align math formulas, etc:
+
     double fWPM  = (double) iWords / (m_pSpan->GetElapsed() / 60.0);
     double fCPM  = (double) iChars / (m_pSpan->GetElapsed() / 60.0);
 
-2.5	White space for method parameter lists: 
+2.5 White space for method parameter lists: 
 
-	ComputeNormalizedX( iX, iLeft, iRight ) 
-		versus 
-	ComputeNormalizedX(iX, iLeft, iRight)?
+    ComputeNormalizedX( iX, iLeft, iRight ) 
+    versus 
+    ComputeNormalizedX(iX, iLeft, iRight)?
 
-2.6	Separate variables from their assignment and comparison operators by a space:
-	
-	for (i = 0; i < iNumSymbols; i++) 
+2.6 Separate variables from their assignment and comparison operators by a space:
+
+    for (i = 0; i < iNumSymbols; i++) 
 
 2.7 Long parameter lists, constructor initializations, and if conditions should have each parameter, initialization, or condition on a separate line:
 
     if ((m_iCanvasCoordinates.bottom == 0) &&
-        (m_iCanvasCoordinates.left == 0) &&
-        (m_iCanvasCoordinates.right == 0) &&
-        (m_iCanvasCoordinates.top == 0))
+    (m_iCanvasCoordinates.left == 0) &&
+    (m_iCanvasCoordinates.right == 0) &&
+    (m_iCanvasCoordinates.top == 0))
 
     pTrial->AddCanvasSize(m_iCanvasCoordinates.top, 
                           m_iCanvasCoordinates.left, 
                           m_iCanvasCoordinates.bottom, 
                           m_iCanvasCoordinates.right);
-	
+ 
 2.8 Do we want to standardize the opening of code blocks?
-	
-	if (blah) {
-		do_this();
-	}
-	
-	versus
-	
-	if (blah)
-	{
-		do_this();
-	}
+ 
+    if (blah) {
+        do_this();
+    }
+     
+    versus
+     
+    if (blah)
+    {
+        do_this();
+    }
 
-2.9	Variables that are of pointer types should have the * with the data type, not the name:
-	
-	CUserLog*	pUserLog		= NULL;	
+2.9 Variables that are of pointer types should have the * with the data type, not the name:
 
-2.10	Tabs should not be used.  4 spaces is the standard indentation unit (or is 2 spaces superior?).
+    CUserLog* pUserLog  = NULL; 
 
-2.11	Line break executable code content or multi-line comments that exceed a width of 80 (too short?) characters.  Comments on the right hand side of code are allowed to be longer (encourages inline explaining of what variable do etc, interested readers can scroll to the right).
+2.10 Tabs should not be used.  4 spaces is the standard indentation unit (or is 2 spaces superior?).
+
+2.11 Line break executable code content or multi-line comments that exceed a width of 80 (too short?) characters.  Comments on the right hand side of code are allowed to be longer (encourages inline explaining of what variable do etc, interested readers can scroll to the right).
 
 _______________________________________________
 
 3 Class structure
 
-3.1	One .h and .cpp per class.  No fair putting related classes together in one file, this makes it hard to find the CDasherNode class if you don't know it lives in CDasherModel.h.
+3.1 One .h and .cpp per class. No fair putting related classes together in one file, this makes it hard to find the CDasherNode class if you don't know it lives in CDasherModel.h.
 
-3.2	No implementation in .h files.  This makes it hard to know where to find a method's implementation and encourages lazy people to expand single line .h implementations into large ones.  Efficiency issues?
+3.2 No implementation in .h files. This makes it hard to know where to find a method's implementation and encourages lazy people to expand single line .h implementations into large ones.  Efficiency issues?
 
-3.3	Only one instance of "public:", "private:" or "protected:" in a class header.  Group methods at top of section and member variables at bottom.
+3.3 Only one instance of "public:", "private:" or "protected:" in a class header.  Group methods at top of section and member variables at bottom.
 
 _______________________________________________
 
@@ -154,19 +154,19 @@ _______________________________________________
 
 5 Defensive strategies
 
-5.1	Having hundreds of warning messages makes it easy to miss new ones that are relevant.  If it is really okay for a double to get implicitly cast as an int, then put in the cast to eliminate the warning message once and for all.
+5.1 Having hundreds of warning messages makes it easy to miss new ones that are relevant.  If it is really okay for a double to get implicitly cast as an int, then put in the cast to eliminate the warning message once and for all.
 
-5.2	In debug windows build, enable memory leak detection to the line responsible by putting this code at top of every .cpp file:
+5.2 In debug windows build, enable memory leak detection to the line responsible by putting this code at top of every .cpp file:
 
-	#ifdef _WIN32
-	// In order to track leaks to line number, we need this at the top of every file
-	#include "MemoryLeak.h"
-	#ifdef _DEBUG
-	#define new DEBUG_NEW
-	#undef THIS_FILE
-	static char THIS_FILE[] = __FILE__;
-	#endif
-	#endif
+    #ifdef _WIN32
+    // In order to track leaks to line number, we need this at the top of every file
+    #include "MemoryLeak.h"
+    #ifdef _DEBUG
+    #define new DEBUG_NEW
+    #undef THIS_FILE
+    static char THIS_FILE[] = __FILE__;
+    #endif
+    #endif
 
 5.3 Don't fail silently, if something truly shouldn't happen and you plan to carry on execution, at least log an error message.  This makes it easier to diagnose bugs and is self-documenting since it forces the programmer to explain the problem in plain English:
 
