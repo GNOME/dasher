@@ -44,7 +44,7 @@ void initialise_edit()
   Display *dpy = gdk_x11_get_default_xdisplay();
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   the_primary_selection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-  the_text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (the_text_view));
+  the_text_buffer = dasher_gtk_text_view_get_buffer (DASHER_GTK_TEXT_VIEW (the_text_view));
 #ifdef X_HAVE_UTF8_STRING
   XDisplayKeycodes(dpy,&min,&max);
   origkeymap = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
@@ -62,7 +62,7 @@ void cleanup_edit() {
 #endif
 }
 
-void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data)
+void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data)
 {
   // Let the core get new context and redraw it if the cursor is moved
   dasher_start();
@@ -86,7 +86,7 @@ void gtk2_edit_output_callback(symbol Symbol)
   file_modified=TRUE;
 
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
   if (textbox!=NULL) {
@@ -264,7 +264,7 @@ void edit_move_forward()
 
   gtk_text_buffer_place_cursor(the_text_buffer,pos);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
     int position=AccessibleText_getCaretOffset(textbox);
@@ -284,7 +284,7 @@ void edit_move_back()
 
   gtk_text_buffer_place_cursor(the_text_buffer,pos);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
     int position=AccessibleText_getCaretOffset(textbox);
@@ -304,7 +304,7 @@ void edit_move_start()
 
   gtk_text_buffer_place_cursor(the_text_buffer,pos);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void edit_move_end()
@@ -317,7 +317,7 @@ void edit_move_end()
 
   gtk_text_buffer_place_cursor(the_text_buffer,pos);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void gtk2_edit_delete_callback(symbol Symbol)
@@ -345,7 +345,7 @@ void gtk2_edit_delete_callback(symbol Symbol)
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_SPEECH
   if(((signed int)say.length()-length)>=0) {
@@ -416,7 +416,7 @@ void edit_delete_forward_character()
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
   if (textbox!=NULL) {
@@ -443,7 +443,7 @@ void edit_delete_forward_word()
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void edit_delete_forward_line()
@@ -459,7 +459,7 @@ void edit_delete_forward_line()
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void edit_delete_backward_word()
@@ -475,7 +475,7 @@ void edit_delete_backward_word()
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void edit_delete_backward_line()
@@ -491,7 +491,7 @@ void edit_delete_backward_line()
 
   gtk_text_buffer_delete(the_text_buffer,start,end);
 
-  gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
+  dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
 void gtk2_clipboard_callback( clipboard_action act )

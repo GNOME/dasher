@@ -39,7 +39,7 @@ open_file (const char *myfilename)
       buffer=buffer2;
     }
     gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER (the_text_buffer), buffer, size);
-    gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
+    dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW (the_text_view),gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
   }
 
   gtk_window_set_title(GTK_WINDOW(window), myfilename);

@@ -1380,7 +1380,9 @@ void interface_setup(GladeXML *xml) {
 
   text_scrolled_window=glade_xml_get_widget(xml, "text_scrolled_window");
   the_text_view=glade_xml_get_widget(xml, "the_text_view");
+  g_assert(the_text_view != NULL); // these assertions should probably be everywhere?
   toolbar=glade_xml_get_widget(xml, "toolbar");
+  g_assert(toolbar != NULL);
 
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
