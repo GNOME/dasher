@@ -648,6 +648,12 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="Dasher.cpp">
+		</File>
+		<File
+			RelativePath="Dasher.h">
+		</File>
+		<File
 			RelativePath="DasherMouseInput.cpp">
 		</File>
 		<File
@@ -658,6 +664,12 @@
 		</File>
 		<File
 			RelativePath=".\DasherWindow.h">
+		</File>
+		<File
+			RelativePath="EditWrapper.cpp">
+		</File>
+		<File
+			RelativePath="EditWrapper.h">
 		</File>
 		<File
 			RelativePath=".\WinMain.cpp">
