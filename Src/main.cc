@@ -141,7 +141,7 @@ main(int argc, char *argv[])
   g_thread_init(NULL);
 #endif
 
-  
+  g_type_class_ref(dasher_gtk_text_view_get_type());
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
