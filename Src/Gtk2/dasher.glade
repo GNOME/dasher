@@ -1951,6 +1951,7 @@
 
 			  <child>
 			    <widget class="GtkScrolledWindow" id="scrolledwindow6">
+			      <property name="height_request">96</property>
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
@@ -1981,7 +1982,7 @@
 		      <child>
 			<widget class="GtkLabel" id="label50">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">&lt;b&gt;Adaption:&lt;/b&gt;</property>
+			  <property name="label" translatable="yes">&lt;b&gt;Adaptation:&lt;/b&gt;</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">True</property>
 			  <property name="justify">GTK_JUSTIFY_LEFT</property>

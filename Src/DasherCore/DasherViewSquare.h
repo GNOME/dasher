@@ -58,7 +58,7 @@ public:
 private:
 
 	void Input2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int iType, int iMode );
-	void Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool bNonlinearity );
+	void Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool b1D, bool bNonlinearity );
 	void Dasher2Screen( myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY );
 	void Dasher2OneD( myint &iDasherX, myint &iDasherY );
 	void Dasher2Eyetracker( myint &iDasherX, myint &iDasherY );

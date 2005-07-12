@@ -457,7 +457,7 @@ void CDasherViewSquare::CheckForNewRoot()
 /// just the inverse of the mapping used to calculate the screen
 /// positions of boxes etc.
 
-void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool bNonlinearity ) {
+void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool b1D, bool bNonlinearity ) {
 
   // Things we're likely to need:
 
@@ -470,6 +470,12 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
   
+
+  if( b1D ) { // Special case for 1D mode...
+    iDasherX = iInputX * iDasherWidth / iScreenWidth;
+    iDasherY = iInputY * iDasherHeight / iScreenHeight;
+    return;
+  }
 
   // Calculate the bounding box of the Dasher canvas in screen
   // co-ordinates (this will depend on the orientation due to the
@@ -836,10 +842,14 @@ void CDasherViewSquare::Input2Dasher( screenint iInputX, screenint iInputY, myin
     }
 
     if( iMode == 0 )
-      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, true );
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
+    else if( iMode == 1 )
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, true, false );
     else
-      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false );
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, false );
     break;
+  
+
   case 1:
     // Raw dasher coordinates
 
@@ -1044,8 +1054,8 @@ void CDasherViewSquare::DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint 
   myint iDasherNewRight;
   myint iDasherNewBottom;
 
-  Screen2Dasher( newleft2, newtop2, iDasherNewLeft, iDasherNewTop, true );
-  Screen2Dasher( newright2, newbottom2, iDasherNewRight, iDasherNewBottom, true );
+  Screen2Dasher( newleft2, newtop2, iDasherNewLeft, iDasherNewTop, false, true );
+  Screen2Dasher( newright2, newbottom2, iDasherNewRight, iDasherNewBottom, false, true );
 
   mostleft = std::min(iDasherNewRight,iDasherNewLeft);
 

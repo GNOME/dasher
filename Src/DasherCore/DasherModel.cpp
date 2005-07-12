@@ -904,7 +904,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	int nonuniform_norm;
 	int control_space;
 
-	if( !m_bControlMode ) 
+	if( !m_bControlMode )
 	{
 	  control_space = 0;
 	  uniform_add = ((iNorm * m_uniform) / 1000 ) / (iSymbols-2); // Subtract 2 from no symbols to lose control/root nodes
