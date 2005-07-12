@@ -179,6 +179,7 @@ CDasherViewSquare::Cymap::Cymap(myint iScale)
 CDasherViewSquare::CDasherViewSquare(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Dasher::Opts::ScreenOrientations Orientation, bool Colourmode)
   : CDasherView(DasherScreen, DasherModel, Orientation, Colourmode)
 {
+
 	ChangeScreen(DasherScreen);
 	
 	// tweak these if you know what you are doing
@@ -934,6 +935,7 @@ void CDasherViewSquare::DasherPolygon( myint *x, myint *y, int n, int iColour ) 
 void CDasherViewSquare::DasherDrawRectangle( myint iLeft, myint iTop, myint iRight, myint iBottom,
 					     const int Color, Opts::ColorSchemes ColorScheme ) {
   
+
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;

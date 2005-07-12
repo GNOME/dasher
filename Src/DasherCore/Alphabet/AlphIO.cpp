@@ -369,6 +369,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 	CAlphIO* Me = (CAlphIO*) userData;
 	
 	Me->CData = "";
+
+	//	std::cout << name << std::endl;
 	
 	if (strcmp(name, "alphabet")==0) {
 		AlphInfo NewInfo;
@@ -386,17 +388,21 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			atts += 2;
 		}
 		return;
+
 	}
 	
 	if (strcmp(name, "orientation")==0) {
 		while (*atts!=0) {
-			if (strcmp(*atts, "type")) {
+
+
+			if (strcmp(*atts, "type")==0) {
 				atts++;
-				if (strcmp(*atts, "RL")) {
-					Me->InputInfo.Orientation = Opts::LeftToRight;
-				} else if (strcmp(*atts, "TB")) {
+			
+				if (!strcmp(*atts, "RL")) {
+					Me->InputInfo.Orientation = Opts::RightToLeft;
+				} else if (!strcmp(*atts, "TB")) {
 					Me->InputInfo.Orientation = Opts::TopToBottom;
-				} else if (strcmp(*atts, "BT")) {
+				} else if (!strcmp(*atts, "BT")) {
 					Me->InputInfo.Orientation = Opts::BottomToTop;
 				} else
 					Me->InputInfo.Orientation = Opts::LeftToRight;
@@ -404,6 +410,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 			}
 			atts += 2;
 		}
+
 		return;
 	}
 	
