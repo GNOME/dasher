@@ -11,8 +11,6 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-using namespace expat;
-
 CUserLog::CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet)
 {
     InitMemberVars();
