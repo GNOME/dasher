@@ -54,9 +54,16 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   case idMixture:
     m_pLanguageModel = new CMixtureLanguageModel(alphabet, _params);
     break;
+  default:
+    std::cout << "Oops - hit default case" << std::endl;
+    break;
   }
+
+  //  std::cout << m_pLanguageModel << " " << idLM << std::endl;
 	
   LearnContext = m_pLanguageModel->CreateEmptyContext();
+
+  //  std::cout << "Learn context is " << LearnContext << std::endl;
   
   // various settings
   int iShift = 12;

@@ -589,9 +589,15 @@ void CWordLanguageModel::LearnSymbol(Context c, int Symbol)
 
 void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,symbol sym, bool bLearn)
 {
+
+
   DASHER_ASSERT(sym>=0 && sym< GetSize());
 
-  context.m_dSpellingFactor *= context.oSpellingProbs[sym]/static_cast<double>(context.m_iSpellingNorm);
+
+
+  if( context.oSpellingProbs.size() != 0 )
+    context.m_dSpellingFactor *= context.oSpellingProbs[sym]/static_cast<double>(context.m_iSpellingNorm);
+
 
   // Update the context for the spelling model;
 
@@ -607,6 +613,7 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
   int foo2(1);
 
   //  std::cout << "aa: " << pTmp << " " << m_pRoot << std::endl;
+
 
   pTmpVine =  AddSymbolToNode( pTmp, sym, &foo2, false ); // Last parameter is whether to learn or not
 

@@ -21,6 +21,7 @@
 #include <string>
 #include <stdio.h>
 #include <fstream>
+#include <iostream>
 
 //static char dumpTrieStr[40000];
 //const int maxcont =200;
@@ -151,6 +152,9 @@ inline CLanguageModel::Context CWordLanguageModel::CreateEmptyContext()
 
 inline CLanguageModel::Context CWordLanguageModel::CloneContext(Context Copy)
 {
+
+  //  std::cout << "Cloning context" << std::endl;
+
 	CWordContext* pCont = m_ContextAlloc.Alloc();
 	CWordContext* pCopy = (CWordContext*)Copy;
 	*pCont = *pCopy;
