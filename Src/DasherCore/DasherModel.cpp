@@ -1367,7 +1367,7 @@ myint CDasherModel::CDasherGameMode::InitializeTargetFile()
     char buf[128];
     
     // Put together path to the game text file from settings (read in from AlphIO)
-    TargetFile == GetStringParameter(SP_SYSTEM_LOC) + GetStringParameter(SP_GAME_TEXT_FILE);
+    TargetFile = GetStringParameter(SP_SYSTEM_LOC) + GetStringParameter(SP_GAME_TEXT_FILE);
 
     // Open file
 	if ((Input = fopen (TargetFile.c_str(), "r")) == (FILE*)0) {
@@ -1389,6 +1389,9 @@ myint CDasherModel::CDasherGameMode::InitializeTargetFile()
 // Returns the next string to write
 myint CDasherModel::CDasherGameMode::GetNextTargetString()
 {
+    if(TargetStrings.size()==0)
+        return 0;
+
     int r = rand();
 
     r *= TargetStrings.size();

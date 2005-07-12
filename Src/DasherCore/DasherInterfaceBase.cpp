@@ -34,10 +34,7 @@ m_DasherScreen(0),
 m_pDasherView(0),  
 m_SettingsUI(0),
 m_AlphIO(0), 
-m_ColourIO(0), 
-m_UserLocation("usr_"), 
-m_SystemLocation("sys_"), 
-m_TrainFile("")
+m_ColourIO(0)
 {
   m_Params = new CLanguageModelParams;
 
@@ -122,9 +119,12 @@ void CDasherInterfaceBase::SetUserLocation(std::string UserLocation)
 	// Nothing clever updates. (At the moment) it is assumed that
 	// this is set before anything much happens and that it does
 	// not require changing.
-	m_UserLocation = UserLocation;
-	if (m_Alphabet!=0)
-		m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
+	//m_UserLocation = UserLocation;
+    SetStringParameter(SP_USER_LOC, UserLocation);
+
+    // BW - COMMENTED OUT - TRAIN_FILE should be FILE NAME only, leave DIR in USER_LOC
+	//if (m_Alphabet!=0)
+	//	SetStringParameter(SP_TRAIN_FILE, UserLocation + m_Alphabet->GetTrainingFile());
 }
 
 
@@ -133,7 +133,8 @@ void CDasherInterfaceBase::SetSystemLocation(std::string SystemLocation)
 	// Nothing clever updates. (At the moment) it is assumed that
 	// this is set before anything much happens and that it does
 	// not require changing.
-	m_SystemLocation = SystemLocation;
+	//m_SystemLocation = SystemLocation;
+    SetStringParameter(SP_SYSTEM_LOC, SystemLocation);    
 }
 
 void CDasherInterfaceBase::AddAlphabetFilename(std::string Filename)
@@ -178,8 +179,8 @@ void CDasherInterfaceBase::CreateDasherModel()
 
         string T = m_Alphabet->GetTrainingFile();
 
-        TrainFile(m_SystemLocation+T);
-        TrainFile(m_UserLocation+T);
+        TrainFile(GetStringParameter(SP_SYSTEM_LOC)+T);
+        TrainFile(GetStringParameter(SP_USER_LOC)+T);
 
         // Set various parameters
 
@@ -325,7 +326,8 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string& NewAlphabetID)
         SetStringParameter(SP_ALPHABET_ID, NewAlphabetID); 
 
 	    if (!m_AlphIO)
-	        m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
+	        m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), 
+                            GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
 
 	    m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
     	  
@@ -337,7 +339,8 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string& NewAlphabetID)
     	
 	    // Apply options from alphabet
 
-	    m_TrainFile = m_UserLocation + m_Alphabet->GetTrainingFile();
+	    SetStringParameter(SP_TRAIN_FILE, m_Alphabet->GetTrainingFile());
+        SetStringParameter(SP_GAME_TEXT_FILE, m_Alphabet->GetGameModeFile());
 
 	    // DJW_TODO - control mode
         //   if (m_ControlMode==true) {
@@ -372,7 +375,8 @@ std::string CDasherInterfaceBase::GetCurrentAlphabet()
 void CDasherInterfaceBase::ChangeColours(const std::string& NewColourID)
 {
 	if (!m_ColourIO)
-		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);
+		m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), 
+                            GetStringParameter(SP_USER_LOC), m_ColourFilenames);
 	m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
 
 	// delete old colours on editing function
@@ -828,16 +832,17 @@ Opts::AlphabetTypes CDasherInterfaceBase::GetAlphabetType()
 }
 
 
-const std::string& CDasherInterfaceBase::GetTrainFile()
+const std::string CDasherInterfaceBase::GetTrainFile()
 {
-	return m_TrainFile;
+	return GetStringParameter(SP_TRAIN_FILE);
 }
 
 
 void CDasherInterfaceBase::GetAlphabets(std::vector< std::string >* AlphabetList)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);	
+		m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), 
+                             GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);	
 	m_AlphIO->GetAlphabets(AlphabetList);
 }
 
@@ -845,7 +850,8 @@ void CDasherInterfaceBase::GetAlphabets(std::vector< std::string >* AlphabetList
 const CAlphIO::AlphInfo& CDasherInterfaceBase::GetInfo(const std::string& AlphID)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
+		m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), 
+                            GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
 	
 	return m_AlphIO->GetInfo(AlphID);
 }
@@ -854,7 +860,8 @@ const CAlphIO::AlphInfo& CDasherInterfaceBase::GetInfo(const std::string& AlphID
 void CDasherInterfaceBase::SetInfo(const CAlphIO::AlphInfo& NewInfo)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
+		m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC),
+                         GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
 	
 	m_AlphIO->SetInfo(NewInfo);
 }
@@ -863,7 +870,8 @@ void CDasherInterfaceBase::SetInfo(const CAlphIO::AlphInfo& NewInfo)
 void CDasherInterfaceBase::DeleteAlphabet(const std::string& AlphID)
 {
 	if (!m_AlphIO)
-		m_AlphIO = new CAlphIO(m_SystemLocation, m_UserLocation, m_AlphabetFilenames);
+		m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC),
+                         GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
 	
 	m_AlphIO->Delete(AlphID);
 }
@@ -871,7 +879,8 @@ void CDasherInterfaceBase::DeleteAlphabet(const std::string& AlphID)
 void CDasherInterfaceBase::GetColours(std::vector< std::string >* ColourList)
 {
 	if (!m_ColourIO)
-		m_ColourIO = new CColourIO(m_SystemLocation, m_UserLocation, m_ColourFilenames);	
+		m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), 
+                    GetStringParameter(SP_USER_LOC), m_ColourFilenames);	
 	m_ColourIO->GetColours(ColourList);
 }
 

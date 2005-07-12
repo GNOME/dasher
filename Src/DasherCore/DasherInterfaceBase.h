@@ -121,7 +121,7 @@ public:
 	int GetTextColour(symbol Symbol);    // the foreground colour of the text
 	Opts::ScreenOrientations GetAlphabetOrientation();
 	Opts::AlphabetTypes GetAlphabetType();
-	const std::string& GetTrainFile();
+	const std::string GetTrainFile();
 	
 	// App Interface
 	// -----------------------------------------------------
@@ -239,11 +239,6 @@ private:
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
-
-	std::string m_UserLocation;
-	std::string m_SystemLocation;
-	std::string m_TrainFile;
-	int m_iMousePosBox;
 
 	std::vector<std::string> m_AlphabetFilenames;
 	std::vector<std::string> m_ColourFilenames;

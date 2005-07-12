@@ -52,7 +52,7 @@ void CSettingsStore::SetLongParameter( int iParameter, long lValue ) {
     SaveSetting(s_oParamTables.LongParamTable[iParameter-FIRST_LP].regName, lValue);
 };
 
-void CSettingsStore::SetStringParameter( int iParameter, const std::string &sValue ) {
+void CSettingsStore::SetStringParameter( int iParameter, const std::string sValue ) {
 
     // Check that the parameter is in fact in the right spot in the table
     DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter-FIRST_SP].key);

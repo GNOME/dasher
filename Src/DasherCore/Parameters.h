@@ -21,7 +21,8 @@ enum {LP_ORIENTATION=END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
         LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, END_OF_LPS};
 
 enum {SP_ALPHABET_ID=END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
-        SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE, END_OF_SPS};
+        SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE, 
+        SP_TRAIN_FILE, END_OF_SPS};
 
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,
@@ -107,9 +108,10 @@ static sp_table stringparamtable[] =
     {SP_COLOUR_ID, "ColourID", true, "", "ColourID"},
     {SP_DASHER_FONT, "DasherFont", true, "", "DasherFont"},
     {SP_EDIT_FONT, "EditFont", true, "", "EditFont"},
-    {SP_SYSTEM_LOC, "SystemLocation", false, "", "System Directory"},
-    {SP_USER_LOC,   "UserLocation", false, "", "User Directory"},
-    {SP_GAME_TEXT_FILE, "GameTextFile", false, "", "File with strings to practice writing"}
+    {SP_SYSTEM_LOC, "SystemLocation", false, "sys_", "System Directory"},
+    {SP_USER_LOC,   "UserLocation", false, "usr_", "User Directory"},
+    {SP_GAME_TEXT_FILE, "GameTextFile", false, "", "File with strings to practice writing"},
+    {SP_TRAIN_FILE,   "TrainingFile", false, "", "Training text for alphabet"}
 };
     
 

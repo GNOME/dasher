@@ -123,7 +123,7 @@ public:
 	virtual Opts::AlphabetTypes GetAlphabetType()=0;
 
 	//! Provides a fully qualified path to the training file for the alphabet
-	virtual const std::string& GetTrainFile()=0; // Returns a fully-qualified path to file:
+	virtual const std::string GetTrainFile()=0; // Returns a fully-qualified path to file:
 	                                             // UserLocation + TrainFile
 };
 

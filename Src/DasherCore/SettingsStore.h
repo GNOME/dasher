@@ -38,7 +38,7 @@ public:
 
 	void SetBoolParameter( int iParameter, bool bValue );
 	void SetLongParameter( int iParameter, long lValue );
-	void SetStringParameter( int iParameter, const std::string &sValue );
+	void SetStringParameter( int iParameter, const std::string sValue );
 
 	bool GetBoolParameter( int iParameter );
 	long GetLongParameter( int iParameter );
