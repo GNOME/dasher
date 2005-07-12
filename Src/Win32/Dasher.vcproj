@@ -588,9 +588,6 @@
 				RelativePath=".\Widgets\Toolbar.h">
 			</File>
 			<File
-				RelativePath=".\widgets\WindowSelect.cpp">
-			</File>
-			<File
 				RelativePath=".\widgets\WindowSelect.h">
 			</File>
 		</Filter>
@@ -645,6 +642,9 @@
 			</File>
 			<File
 				RelativePath="Common\WinWrap.h">
+			</File>
+			<File
+				RelativePath=".\widgets\WindowSelect.cpp">
 			</File>
 		</Filter>
 		<File
