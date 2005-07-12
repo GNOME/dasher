@@ -245,7 +245,7 @@ private:
 	void Get_new_goto_coords(double zoomfactor,myint mousey);
 	void Get_string_under_mouse(const myint smousex,const myint smousey,std::vector<symbol> &str);
 
-	void GetProbs(CLanguageModel::Context context, std::vector<symbol> &NewSymbols, std::vector<unsigned int> &Probs, int iNorm) const;
+	void GetProbs(CLanguageModel::Context context, std::vector<symbol> &NewSymbols, std::vector<unsigned int> &Probs, int iNorm, bool bLargeControl ) const;
 
 	void Push_Node(CDasherNode* pNode);      // give birth to children
 	void Recursive_Push_Node(CDasherNode* pNode, int depth);

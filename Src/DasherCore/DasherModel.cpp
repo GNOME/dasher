@@ -882,7 +882,7 @@ void CDasherModel::Trace() const
 
 
 void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &NewSymbols, 
-							vector<unsigned int> &Probs, int iNorm) const
+							vector<unsigned int> &Probs, int iNorm, bool bLargeControl ) const
 {
 	// Total number of symbols
   int iSymbols = m_pcAlphabet->GetNumberSymbols(); // note that this includes the control node and the root node
@@ -912,7 +912,11 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 	}
 	else 
 	{
-	  control_space = int(iNorm * 0.05);
+	  if( bLargeControl )
+	    control_space = int(iNorm * 0.1); // FIXME - constants here to be made parameters
+	  else
+	    control_space = int(iNorm * 0.01);
+
 	  uniform_add = (((iNorm - control_space) * m_uniform / 1000 ) / (iSymbols-2) ); // Subtract 2 from no symbols to lose control/root nodes
 	  nonuniform_norm = iNorm - control_space - (iSymbols-2) * uniform_add;
 	}
@@ -1120,7 +1124,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 	vector<symbol> newchars;   // place to put this list of characters
 	vector<unsigned int> cum;   // for the probability list
 
-	GetProbs(pNode->Context(),newchars,cum,Normalization());
+	GetProbs(pNode->Context(),newchars,cum,Normalization(),m_pcAlphabet->GetSpaceSymbol() == pNode->Symbol());
 	int iChildCount=newchars.size();
 
 	DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);

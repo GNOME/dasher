@@ -70,20 +70,37 @@ private:
 	class CWordContext 
 	{
 	public:
-		CWordContext(CWordContext const &input) {head = input.head; word_head = input.word_head; current_word = input.current_word; order= input.order; word_order = input.word_order; }
-		CWordContext(CWordnode* _head=0, int _order=0) : head(_head),order(_order),word_head(_head),word_order(0) {}; // FIXME - doesn't work if we're trying to create a non-empty context
+		CWordContext(CWordContext const &input) {
+		  head = input.head; 
+		  word_head = input.word_head; 
+		  current_word = input.current_word; 
+		  order= input.order; 
+		  word_order = input.word_order;
+		}
+
+		CWordContext(CWordnode* _head=0, int _order=0) : 
+		  head(_head),order(_order),word_head(_head),word_order(0) {
+
+		  std::cout << "oops - badness" << std::endl;
+
+		}; // FIXME - doesn't work if we're trying to create a non-empty context
+
 		~CWordContext() {};
 		void dump();
-		CWordnode* head;
-		int order;
 
-		std::string current_word;
-		CWordnode* word_head;
-		int word_order;
+		CWordnode* head; // Overall order for context
+		int order;       // 
 
-		std::vector< unsigned int > oSpellingProbs;
-		int m_iSpellingNorm;
-		double m_dSpellingFactor;
+		std::string current_word; // String representation of the current word
+		CWordnode* word_head;     // The head of the word part of the context
+		int word_order;           // Order of word-based part of context
+
+		std::vector< unsigned int > oSpellingProbs; // Cached probabilities from the spelling model
+		
+		int m_iSpellingNorm; // Normalisation for spelling probabilities
+		double m_dSpellingFactor; // 
+
+		CPPMLanguageModel::Context oSpellingContext; // Context to use when making spelling predictions
 
 		
 	};
@@ -111,7 +128,7 @@ private:
 	int max_order;
 
 	CPPMLanguageModel *pSpellingModel; // Use this to predict the spellings of new words
-	CPPMLanguageModel::Context oSpellingContext;
+
 
 
 	mutable CSimplePooledAlloc<CWordnode> m_NodeAlloc;
@@ -145,6 +162,9 @@ inline CLanguageModel::Context CWordLanguageModel::CreateEmptyContext()
 {
 	CWordContext* pCont = m_ContextAlloc.Alloc();
 	*pCont = *m_rootcontext;
+
+	pCont->oSpellingContext = pSpellingModel->CreateEmptyContext();
+
 	return (Context)pCont;
 }
 
@@ -165,7 +185,9 @@ inline CLanguageModel::Context CWordLanguageModel::CloneContext(Context Copy)
 
 inline void CWordLanguageModel::ReleaseContext(Context release)
 {
-	m_ContextAlloc.Free( (CWordContext*) release );
+  pSpellingModel->ReleaseContext( ((CWordContext *)release)->oSpellingContext );
+
+  m_ContextAlloc.Free( (CWordContext*) release );
 }
 
 ///////////////////////////////////////////////////////////////////

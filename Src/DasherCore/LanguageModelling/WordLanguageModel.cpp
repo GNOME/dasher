@@ -121,6 +121,9 @@ CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet, CLanguag
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->sbl = -1;
+
+	std::cout << "foo" << std::endl;
+
 	m_rootcontext=new CWordContext(m_pRoot,0);
 
 	m_pRoot->count = 0;
@@ -165,7 +168,7 @@ CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet, CLanguag
 
 	}
 
-	oSpellingContext = pSpellingModel->CreateEmptyContext();
+	//	oSpellingContext = pSpellingModel->CreateEmptyContext();
 
 	wordidx = 0;
 
@@ -310,7 +313,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
 
   int iSpellingNorm( wordcontext->m_iSpellingNorm );
 
-  pSpellingModel->GetProbs( oSpellingContext, wordcontext->oSpellingProbs, iSpellingNorm );
+  pSpellingModel->GetProbs( wordcontext->oSpellingContext, wordcontext->oSpellingProbs, iSpellingNorm );
 
   double dNorm(0.0);
 
@@ -487,11 +490,11 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 
     if( (nextid > oldnextid) || (LanguageModelParams()->GetValue( std::string( "LMLetterExclusion" ) )==0) ) { // FIXME - there must be a better way of doing this!
       //
-      pSpellingModel->ReleaseContext( oSpellingContext );
-      oSpellingContext = pSpellingModel->CreateEmptyContext();
+      pSpellingModel->ReleaseContext( context.oSpellingContext );
+      context.oSpellingContext = pSpellingModel->CreateEmptyContext();
       
       for( std::vector<int>::iterator it( oSymbols.begin() ); it != oSymbols.end(); ++it ) {
-	pSpellingModel->LearnSymbol( oSpellingContext, *it );
+	pSpellingModel->LearnSymbol( context.oSpellingContext, *it );
       }
 
     }
@@ -553,8 +556,8 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
     context.order = context.word_order;    
     context.current_word = "";
      
-      pSpellingModel->ReleaseContext( oSpellingContext );
-      oSpellingContext = pSpellingModel->CreateEmptyContext();
+      pSpellingModel->ReleaseContext( context.oSpellingContext );
+      context.oSpellingContext = pSpellingModel->CreateEmptyContext();
       
  
   }
@@ -601,7 +604,7 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 
   // Update the context for the spelling model;
 
-  pSpellingModel->EnterSymbol( oSpellingContext, sym );
+  pSpellingModel->EnterSymbol( context.oSpellingContext, sym );
 
   // Add the symbol to the letter part of the context. Note that we don't do any learning at this stage
 
