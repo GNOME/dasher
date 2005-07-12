@@ -957,28 +957,32 @@ timer_callback(gpointer data)
 	return 1;
       }
     }
+
     gdk_window_get_pointer(the_canvas->window, &x, &y, NULL);
-    if (onedmode==true) {
-      // In one dimensional mode, we want to scale the vertical component so that it's possible
-      // for the amount of input to cover the entire canvas
-      float scalefactor;
-      float newy=y;
-      gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
-      if (yscale==0) {
-	// For the magic value 0, we want the canvas size to reflect a full Y deflection
-	// otherwise the user can't access the entire range. 2 is actually a slight
-	// overestimate, but doing it properly would require thought and the benefit
-	// is probably insufficient.
-	scalefactor=2;
-      } else {
-	scalefactor=float(dasherheight)/float(yscale);
-      }
-      // Transform the real Y coordinate into a fudged Y coordinate
-      newy-=dasherheight/2;
-      newy=newy*scalefactor;
-      newy+=dasherheight/2;
-      y=int(newy);
-    } 
+
+    // I *think* this code is obsolete with the new dynamics - check what is supposed to happen
+
+//     if (onedmode==true) {
+//       // In one dimensional mode, we want to scale the vertical component so that it's possible
+//       // for the amount of input to cover the entire canvas
+//       float scalefactor;
+//       float newy=y;
+//       gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+//       if (yscale==0) {
+// 	// For the magic value 0, we want the canvas size to reflect a full Y deflection
+// 	// otherwise the user can't access the entire range. 2 is actually a slight
+// 	// overestimate, but doing it properly would require thought and the benefit
+// 	// is probably insufficient.
+// 	scalefactor=2;
+//       } else {
+// 	scalefactor=float(dasherheight)/float(yscale);
+//       }
+//       // Transform the real Y coordinate into a fudged Y coordinate
+//       newy-=dasherheight/2;
+//       newy=newy*scalefactor;
+//       newy+=dasherheight/2;
+//       y=int(newy);
+//     } 
     // And then provide the mouse position to the core. Of course, the core may then
     // do its own fudging.
 
@@ -995,20 +999,20 @@ timer_callback(gpointer data)
 
      pMouseInput->SetCoordinates( x, y );
     
-    if (onedmode==true) {
-      float scalefactor;
-      float newy=y;
-      gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
-      if (yscale==0) {
-	scalefactor=2;
-      } else {
-	scalefactor=float(dasherheight)/float(yscale);
-      }
-      newy-=dasherheight/2;
-      newy=newy*scalefactor;
-      newy+=dasherheight/2;
-      y=int(newy);
-    } 
+//     if (onedmode==true) {
+//       float scalefactor;
+//       float newy=y;
+//       gdk_drawable_get_size(the_canvas->window, &dasherwidth, &dasherheight);
+//       if (yscale==0) {
+// 	scalefactor=2;
+//       } else {
+// 	scalefactor=float(dasherheight)/float(yscale);
+//       }
+//       newy-=dasherheight/2;
+//       newy=newy*scalefactor;
+//       newy+=dasherheight/2;
+//       y=int(newy);
+//     } 
 
     if(( x != oldx ) || ( y != oldy )) // Only redraw if the mouse has actually moved
       dasher_draw_mouse_position(x,y);

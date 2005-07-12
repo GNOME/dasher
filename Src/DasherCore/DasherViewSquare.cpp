@@ -1124,10 +1124,13 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
   Input2Dasher( mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode() );
 
   // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
-  if( iDasherY > DasherModel().DasherY() )
-    iDasherY = DasherModel().DasherY();
-  if( iDasherY < 0 )
-    iDasherY = 0;
+
+  if( DasherModel().GetMode() == 0 ) {
+    if( iDasherY > DasherModel().DasherY() )
+      iDasherY = DasherModel().DasherY();
+    if( iDasherY < 0 )
+      iDasherY = 0;
+  }
 
   m_iDasherXCache = iDasherX;
   m_iDasherYCache = iDasherY;
