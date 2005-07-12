@@ -92,8 +92,8 @@ void CDasherInterface::SetSettingsStore(CSettingsStore* SettingsStore)
         // need to sneak a peak at this before SettingsDefaults() is called since we
         // want the UserLog object to be informed of the default values which end
         // up calling back to DasherInterface.
-        m_SettingsStore->SetLongDefault(USER_LOG_LEVEL_MASK_STR, 1);
-        long userLogLevel = m_SettingsStore->GetLongOption(USER_LOG_LEVEL_MASK_STR);
+        m_SettingsStore->SetLongDefault(Keys::USER_LOG_LEVEL_MASK, 1);
+        long userLogLevel = m_SettingsStore->GetLongOption(Keys::USER_LOG_LEVEL_MASK);
         if (m_pUserLog != NULL)
         {
             m_pUserLog->OutputFile();
@@ -1199,6 +1199,9 @@ CUserLog* CDasherInterface::GetUserLogPtr()
 void CDasherInterface::SetUserLogLevelMask(int Value)
 {
     m_userLogLevelMask = Value;
+
+    if (m_SettingsStore!=0) 
+        m_SettingsStore->SetLongOption(Keys::USER_LOG_LEVEL_MASK, Value);
 }
 
 int CDasherInterface::GetUserLogLevelMask()

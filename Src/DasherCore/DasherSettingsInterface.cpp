@@ -55,7 +55,7 @@ namespace Keys {
 	const std::string MOUSEPOSDIST = "MousePositionBoxDistance";
   const std::string TRUNCATION = "Truncation";
   const std::string TRUNCATIONTYPE = "TruncationType";
-    const std::string USER_LOG_LEVEL_MASK = USER_LOG_LEVEL_MASK_STR;
+    const std::string USER_LOG_LEVEL_MASK = "UserLogLevelMask";
 
   // Language model options - to eventually be made more dynamic
 

@@ -976,8 +976,6 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
     InitMemberVars();
     VECTOR_STRING vectorNavs;
 
-//    gLogger->Log("trials XML:\n%s", logDEBUG, strXML.c_str());
-
     string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
     string strWindow        = XMLUtil::GetElementString("WindowCoordinates", strXML, true);           
     string strCanvas        = XMLUtil::GetElementString("CanvasCoordinates", strXML, true);           
@@ -1221,7 +1219,6 @@ VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
                     int i = 0;
                     int j = 0;
                     (*iter2)->GetMouseGridLocation(gridSize, &i, &j);
-//gLogger->Log("i = %d, j = %d", logDEBUG, i, j);
                     // Increment the count on this location, we'll throw away points
                     // that were outside the canvas grid.
                     if ((i < gridSize) && (j < gridSize) && (i >= 0) && (j >= 0))
@@ -1229,7 +1226,6 @@ VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
                         // We reverse j and i to get x to increase left top right
                         // and y from top to bottom
                         grid[j][i] = grid[j][i] + 1.0;
-//gLogger->Log("%0.4f", logDEBUG, (double) ((VECTOR_DOUBLE) grid[i])[j]);
                         count++;
                     }
                 }
@@ -1242,7 +1238,6 @@ VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
                     for (int j = 0; j < gridSize; j++)
                     {
                         grid[i][j] = grid[i][j] / (double) count;
-//gLogger->Log("%0.4f", logDEBUG, (double) ((VECTOR_DOUBLE) grid[i])[j]);
                     }
                 }
             }

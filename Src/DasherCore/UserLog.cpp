@@ -14,31 +14,14 @@ static char THIS_FILE[] = __FILE__;
 CUserLog::CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet)
 {
     InitMemberVars();
-    m_pAlphabet             = pAlphabet;
+    
+    m_pAlphabet     = pAlphabet;
+    m_levelMask     = logTypeMask;
 
-    if (logTypeMask & userLogSimple)
-    {
-        // First we check to see if the file exists, if it does not
-        // then we want to force all parameter values to be sent to
-        // the log file even before InitIsDone() is called.
-        FILE* fp = fopen(USER_LOG_SIMPLE_FILENAME.c_str(), "r");
-        if (fp == NULL)
-        {
-            m_bInitIsDone = true;
-        }
-        else
-        {
-            fclose(fp);
-            fp = NULL;
-        }
+    InitUsingMask(logTypeMask);
 
-        m_bSimple       = true;
-        m_pSimpleLogger = new CFileLogger(USER_LOG_SIMPLE_FILENAME, logDEBUG, logTimeStamp | logDateStamp);
+    if ((m_bSimple) && (m_pSimpleLogger != NULL))
         m_pSimpleLogger->Log("start, %s", logDEBUG, GetVersionInfo().c_str());
-    }
-
-    if (logTypeMask & userLogDetailed)
-        m_bDetailed = true;        
 
     SetOuputFilename();
     m_pApplicationSpan = new CTimeSpan("Application", true);
@@ -88,6 +71,38 @@ CUserLog::~CUserLog()
         delete m_pCycleTimer;
         m_pCycleTimer = NULL;
     }
+}
+
+// Do initialization of member variables based on the user log level mask
+void CUserLog::InitUsingMask(int logLevelMask)
+{
+    m_bInitIsDone = false;
+
+    if (logLevelMask & userLogSimple)
+    {
+        // First we check to see if the file exists, if it does not
+        // then we want to force all parameter values to be sent to
+        // the log file even before InitIsDone() is called.
+        FILE* fp = fopen(USER_LOG_SIMPLE_FILENAME.c_str(), "r");
+        if (fp == NULL)
+        {
+            m_bInitIsDone = true;
+        }
+        else
+        {
+            fclose(fp);
+            fp = NULL;
+        }
+
+        m_bSimple       = true;
+
+        if (m_pSimpleLogger == NULL)
+            m_pSimpleLogger = new CFileLogger(USER_LOG_SIMPLE_FILENAME, logDEBUG, logTimeStamp | logDateStamp);
+    }
+
+    if (logLevelMask & userLogDetailed)
+        m_bDetailed = true;        
+
 }
 
 // Called when we want to output the log file (usually on exit of dasher)
@@ -565,6 +580,12 @@ void CUserLog::SetOuputFilename(const string& strFilename)
     }
 }
 
+// Find out what level mask this object was created with
+int CUserLog::GetLogLevelMask()
+{
+    return m_levelMask;
+}
+
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////
 
 // Just inits all our member variables, called by the constructors
@@ -702,24 +723,6 @@ bool CUserLog::UpdateMouseLocation()
 // Calculate how many bits entered in the last Start/Stop cycle
 double CUserLog::GetCycleBits()
 {
-/*
-    double result = 0.0;
-
-    if (m_vectorCycleHistory.size() > 0)
-    {
-        for (unsigned int i = 0; i < m_vectorCycleHistory.size(); i++)
-        {
-            Dasher::SymbolProb item = (Dasher::SymbolProb) m_vectorCycleHistory[i];
-
-            result += log(item.prob);
-        }
-        result = result * -1.0;
-        result = result / log(2.0);
-    }
-
-    return result;
-*/
-
     return m_cycleNats / log(2.0);
 }
 
@@ -745,8 +748,8 @@ string CUserLog::GetStartStopCycleStats()
     //  avg normalized x mouse coordinate, avg normalized y mouse
     //  coordinate, (any parameters marked to be put in cycle stats)
     //
-    // tsbdxy stands for: time symbols bits deletes x y 
-    sprintf(strNum, "tsbdxy:\t%0.3f\t%d\t%0.6f\t%d\t%0.3f\t%0.3f%s", 
+    // tsbdxym stands for: time symbols bits deletes x y maxbitrate
+    sprintf(strNum, "tsbdxym:\t%0.3f\t%d\t%0.6f\t%d\t%0.3f\t%0.3f%s", 
                 m_pCycleTimer->GetElapsed(), 
                 m_vectorCycleHistory.size(), 
                 GetCycleBits(), 
@@ -829,17 +832,20 @@ void CUserLog::PrepareNewTrial()
         // do this by going backwards through the parameter vector and only
         // pushing through the first value of a given parameter name.
         VECTOR_STRING vectorFound;
-        for (VECTOR_USER_LOG_PARAM_PTR_ITER iter = m_vectorParams.end() - 1; iter >= m_vectorParams.begin(); iter--)
+        if (m_vectorParams.size() > 0)
         {
-            if (((*iter) != NULL) && ((*iter)->options & userLogParamForceInTrial))
+            for (VECTOR_USER_LOG_PARAM_PTR_ITER iter = m_vectorParams.end() - 1; iter >= m_vectorParams.begin(); iter--)
             {
-                // Make sure we haven't output this one already
-                VECTOR_STRING_ITER strIter;
-                strIter = find(vectorFound.begin(), vectorFound.end(), (*iter)->strName);
-                if (strIter == vectorFound.end())
+                if (((*iter) != NULL) && ((*iter)->options & userLogParamForceInTrial))
                 {
-                    trial->AddParam((*iter)->strName, (*iter)->strValue, (*iter)->options);
-                    vectorFound.push_back((*iter)->strName);
+                    // Make sure we haven't output this one already
+                    VECTOR_STRING_ITER strIter;
+                    strIter = find(vectorFound.begin(), vectorFound.end(), (*iter)->strName);
+                    if (strIter == vectorFound.end())
+                    {
+                        trial->AddParam((*iter)->strName, (*iter)->strValue, (*iter)->options);
+                        vectorFound.push_back((*iter)->strName);
+                    }
                 }
             }
         }
@@ -937,8 +943,6 @@ CUserLog::CUserLog(string strXMLFilename)
     string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
     string strTrials        = XMLUtil::GetElementString("Trials", strXML, true);
     vectorTrials            = XMLUtil::GetElementStrings("Trial", strTrials, true);
-
-//gLogger->Log("trials:\n%s", logDEBUG, strTrials.c_str());
 
     m_pApplicationSpan      = new CTimeSpan("Application", strApp);
     m_vectorParams          = CUserLogTrial::ParseParamsXML(strParams);

@@ -90,7 +90,7 @@ public:
     void                        AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbolProbs, eUserLogEventType = userLogEventMouse);
     void                        DeleteSymbols(int numToDelete, eUserLogEventType event = userLogEventMouse);    
     void                        NewTrial();
-    
+
     void                        AddWindowSize(int top, int left, int bottom, int right);
     void                        AddCanvasSize(int top, int left, int bottom, int right);
     void                        AddMouseLocation(int x, int y, float nats);
@@ -99,6 +99,7 @@ public:
 	void					    SetAlphabetPtr(Dasher::CAlphabet* pAlphabet);
     void                        InitIsDone();
     void                        SetOuputFilename(const string& strFilename = "");
+    int                         GetLogLevelMask();
 
 #ifdef USER_LOG_TOOL
     CUserLog(string strXMLFilename);
@@ -121,6 +122,7 @@ protected:
     WindowSize                  m_canvasCoordinates;    // The size of our canvas from the last call to AddCanvasSize()
     WindowSize                  m_windowCoordinates;    // Records the window coordinates at the start of navigation
     bool                        m_bNeedToWriteCanvas;   // Do we need to write new canvas coordinates on the next navigation?
+    int                         m_levelMask;            // What log level mask we were created with.
 
     CUserLogTrial*              AddTrial();
     CUserLogTrial*              GetCurrentTrial();
@@ -146,6 +148,7 @@ protected:
     double                      GetCycleBits();
     void                        ComputeSimpleMousePos(int x, int y);
     void                        ResetCycle();
+    void                        InitUsingMask(int logLevelMask);
 
 };
 
