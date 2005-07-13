@@ -257,7 +257,6 @@ double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
   // Comments refer to the code immedialtely before them
 
 
-
   if (Mousex<=0) {
     Mousex=1;
   }
@@ -372,6 +371,7 @@ void CDasherModel::DoZoom( myint iTargetMin, myint iTargetMax ) {
     {
       // TODO - force a new root to be chosen, so that we get better
       // behaviour than just having Dasher stop at this point.
+
     }
 }
 
@@ -1013,6 +1013,9 @@ CDasherModel::CTrainer* CDasherModel::GetTrainer()
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+/* gets probabilities and creates children for a node
+ */
 
 void CDasherModel::Push_Node(CDasherNode* pNode) 
 {
