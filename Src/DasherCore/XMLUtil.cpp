@@ -237,7 +237,7 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
 	int posStart        = strXML.find(strStart);
 	int posEnd          = strXML.find(strEnd);
 
-	while ((posStart != string.npos) && (posEnd != string.npos))
+    while ((posStart != string::npos) && (posEnd != string::npos))
 	{
         // We want to be able to handle having the same tag emedded in itself.
         // So between the start tag and the first instance of the end tag,
@@ -246,10 +246,10 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
         // close tags.
         int currentStart    = posStart + strStart.length();
         int emedCount       = 0;
-        while ((currentStart != string.npos) && (currentStart < posEnd))
+        while ((currentStart != string::npos) && (currentStart < posEnd))
         {
             currentStart = strXML.find(strStart, currentStart);
-            if ((currentStart != string.npos) && (currentStart < posEnd))
+            if ((currentStart != string::npos) && (currentStart < posEnd))
             {
                 emedCount++;
                 currentStart += strStart.length();
@@ -261,7 +261,7 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
             posEnd = strXML.find(strEnd, posEnd  + strEnd.length());
             
             // Check to make sure we're still matching tags
-            if (posEnd == string.npos)
+            if (posEnd == string::npos)
                 break;
         }
 
@@ -272,7 +272,7 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
 
 		posStart = strXML.find(strStart, posEnd + strEnd.length());
 
-		if (posStart != string.npos)
+		if (posStart != string::npos)
 			posEnd = strXML.find(strEnd, posStart);
 
 		vectorResult.push_back(strResult);
