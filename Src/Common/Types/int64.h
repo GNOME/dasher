@@ -18,6 +18,10 @@
 
 #include "../myassert.h"
 
+#define INT64_MAX std::numeric_limits<int64>::max()
+#define INT64_MIN std::numeric_limits<int64>::min()
+
+
 #ifdef _DEBUG
 
 class Cint32;
