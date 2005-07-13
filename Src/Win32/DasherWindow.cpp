@@ -33,8 +33,7 @@ using namespace std;
 
 CDasherWindow::CDasherWindow()
 	: Splash(0), 
-	m_pToolbar(0), m_pEdit(0),  m_pSlidebar(0), m_pSplitter(0), 
-	m_CurrentAlphabet(""), m_CurrentColours("")
+	m_pToolbar(0), m_pEdit(0),  m_pSlidebar(0), m_pSplitter(0)
 {
 
 
@@ -154,30 +153,8 @@ void CDasherWindow::Show(int nCmdShow)
 
 void CDasherWindow::ChangeAlphabet(const string& NewAlphabetID)
 {
-	m_CurrentAlphabet = NewAlphabetID;
 	DasherAppInterface->AddControlTree(WinMenus::GetWindowMenus()); // Build control tree
 }
-
-void CDasherWindow::ChangeColours(const string& NewColourID)
-{
-	m_CurrentColours = NewColourID;
-}
-
-void CDasherWindow::ChangeMaxBitRate(double NewMaxBitRate)
-{
-	m_pSlidebar->SetValue(NewMaxBitRate);
-}
-
-
-void CDasherWindow::ChangeLanguageModel(unsigned int NewLanguageModelID)
-{
-}
-
-
-void CDasherWindow::ChangeView(unsigned int NewViewID)
-{
-}
-
 
 void CDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation)
 {
@@ -295,48 +272,6 @@ void CDasherWindow::FixLayout(bool Value)
 	WinMenu.SetStatus(ID_FIX_SPLITTER, false, Value);
 }
 
-
-void CDasherWindow::TimeStampNewFiles(bool Value)
-{
-	timestampnewfiles=Value;
-}
-
-
-void CDasherWindow::DrawMouse(bool Value)
-{
-	drawmouse=Value;
-}
-
-
-//void CDasherWindow::DrawMouseLine(bool Value)
-//{
-//	drawmouseline=Value;
-//}
-
-
-
-void CDasherWindow::SetDasherDimensions(bool Value)
-{
-	oned=Value;
-	//m_pCanvas->onedimensional(Value); FIXME
-}
-
-
-
-void CDasherWindow::StartOnLeft(bool Value)
-{
-	startonleft=Value;
-	//m_pCanvas->StartOnLeftClick(Value); FIXME
-}
-
-
-
-void CDasherWindow::StartOnSpace(bool Value)
-{
-	startonspace=Value;
-	// m_pCanvas->StartOnSpace(Value); FIXME
-}
-
 void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
 {
 	using namespace Opts;
@@ -361,71 +296,6 @@ void CDasherWindow::SetDasherFontSize(Opts::FontSize fontsize)
 			break;
 			//assert(0);
 	}
-}
-
-
-void CDasherWindow::WindowPause(bool Value)
-{
-	windowpause=Value;
-	//m_pCanvas->WindowPause(Value); FIXME
-}
-
-
-
-void CDasherWindow::KeyControl(bool Value)
-{
-	keycontrol=Value;
-	//m_pCanvas->KeyControl(Value); FIXME
-}
-
-
-void CDasherWindow::CopyAllOnStop(bool Value)
-{
-	copyallonstop=Value;
-}
-
-void CDasherWindow::Speech(bool Value)
-{
-	speech=Value;
-	//m_pCanvas->SpeakOnStop(Value); FIXME
-}
-
-void CDasherWindow::PaletteChange(bool Value)
-{
-	palettechange=Value;
-}
-
-void CDasherWindow::OutlineBoxes(bool Value)
-{
-	outlines=Value;
-	//m_pCanvas->DrawOutlines(Value); FIXME
-	DasherWidgetInterface->Redraw();
-}
-
-void CDasherWindow::MouseposStart(bool Value)
-{
-	mouseposstart=Value;
-	//m_pCanvas->MousePosStart(Value); FIXME
-}
-
-void CDasherWindow::SetYScale(int Value)
-{
-	//m_pCanvas->setyscale(Value); FIXME
-}
-
-void CDasherWindow::SetMousePosDist(int Value)
-{
-	//m_pCanvas->setmouseposdist(Value); FIXME
-}
-
-void CDasherWindow::SetUniform(int Value)
-{
-	// m_pCanvas->setuniform(Value); FIXME
-}
-
-void CDasherWindow::KeyboardMode(bool Value)
-{
-	keyboardmode=Value;
 }
 
 void CDasherWindow::SaveWindowState() const
@@ -460,22 +330,11 @@ bool CDasherWindow::LoadWindowState()
 
 void CDasherWindow::ControlMode(bool Value)
 {
-	controlmode=Value;
 	WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, Value);
 	//m_pCanvas->SetScreenInterface(DasherWidgetInterface); FIXME
 
 	// The edit control caches the symbols so we need to refresh
 	//m_pEdit->SetInterface(DasherWidgetInterface); FIXME
-}
-
-void CDasherWindow::SetDasherEyetracker(bool Value)
-{
-	eyetracker=Value;
-}
-
-void CDasherWindow::ColourMode(bool Value)
-{
-	// Do nothing - colour mode is fixed
 }
 
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
@@ -591,10 +450,10 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 			{ CKeyBox KeyBox(m_hwnd, m_pDasher ); }
 			break;
 			case ID_OPTIONS_ALPHABET:
-				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentAlphabet); }
+				{ CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface); }
 				break;
 			case ID_OPTIONS_COLOURS:
-				{ CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface, m_CurrentColours); }
+				{ CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface); }
 				break;
 			case ID_OPTIONS_PREFS:
 				{ 

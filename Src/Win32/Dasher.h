@@ -65,7 +65,7 @@ private:
 
   CDasherInterface *m_pInterface;
   CCanvas* m_pCanvas; 
-	CSlidebar* m_pSlidebar;
+  CSlidebar* m_pSlidebar;
   CEditWrapper *m_pEditWrapper;
 
   HANDLE          m_workerThread;    // Handle to our worker thread that periodically checks on user's activities
