@@ -38,7 +38,7 @@ public:
     bool GetBoolParameter( int iParameter );
     long GetLongParameter( int iParameter );
     std::string GetStringParameter( int iParameter );
-
+/*
 	// These actually affect the way Dasher works
 	//! Change the alphabet in use to NewAlphabetID
 	virtual void ChangeAlphabet(const std::string& NewAlphabetID) {};
@@ -172,7 +172,7 @@ public:
 
 	virtual void SetTruncation( int Value ) {};
 	virtual void SetTruncationType( int Value ) {};
-
+*/
 private:
   Dasher::CDasherInterfaceBase *m_pInterface;
 
@@ -180,7 +180,7 @@ private:
 
 
 #include <string>
-
+/*
 namespace Dasher
 {
 namespace Keys
@@ -233,7 +233,7 @@ namespace Keys
 	extern const std::string EDIT_FONT;
 }
 } // namespace Dasher
-
+*/
 
 #endif /* #ifndef __DasherSettingsInterface_h__ */
 

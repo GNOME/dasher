@@ -11,7 +11,7 @@
 #include "DasherSettingsInterface.h"
 #include "DasherInterfaceBase.h"
 #include "Parameters.h"
-
+/*
 namespace Dasher{
 namespace Keys {
 	// Standard Option strings. You are encouraged to use these constants.
@@ -219,9 +219,9 @@ void Dasher::CDasherSettingsInterface::SettingsDefaults(CSettingsStore* Store)
 
 
 }
-
+*/
 void Dasher::CDasherSettingsInterface::HandleParameterNotification( int iParameter ) {
- 	switch( iParameter ) {
+ 	/*switch( iParameter ) {
 
 			case BP_DRAW_MOUSE:	
 				DrawMouse(m_pInterface->GetBoolParameter( BP_DRAW_MOUSE ));
@@ -241,7 +241,7 @@ void Dasher::CDasherSettingsInterface::HandleParameterNotification( int iParamet
 
 			default:
 				break;
-			}
+			}*/
 }
 
 void Dasher::CDasherSettingsInterface::SetBoolParameter( int iParameter, bool bValue ) {
