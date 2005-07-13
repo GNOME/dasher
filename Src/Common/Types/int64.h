@@ -49,8 +49,8 @@ public:
 		m_i = int64(d);
 	}
 
-	Cint64(int i) : m_i(i) {}
-    Cint64(unsigned int i) : m_i(i) {}
+	Cint64(int32 i) : m_i(i) {}
+    Cint64(uint32 i) : m_i(i) {}
 
 	operator double() const {return double(m_i);}
 	operator int64() const {return m_i;}
@@ -181,20 +181,20 @@ public:
         return m_i == rhs.m_i;
     }    
 
-	bool operator<= (int rhs) const
+	bool operator<= (int32 rhs) const
 	{
 		return m_i <= rhs;
 	}
-	bool operator>= (int rhs) const
+	bool operator>= (int32 rhs) const
 	{
 		return m_i >= rhs;
 	}
 
-	bool operator< (int rhs) const
+	bool operator< (int32 rhs) const
 	{
 		return m_i < rhs;
 	}
-	bool operator> (int rhs) const
+	bool operator> (int32 rhs) const
 	{
 		return m_i > rhs;
 	}
@@ -246,7 +246,7 @@ inline Cint64 operator +(Cint64 lhs, Cint64 rhs)
 	return lhs;
 }
 
-inline Cint64 operator +(Cint64 lhs, int rhs)
+inline Cint64 operator +(Cint64 lhs, int32 rhs)
 {
 	lhs+=Cint64(rhs);
 	return lhs;
@@ -269,7 +269,7 @@ inline Cint64 operator +(Cint64 lhs, Cint32 rhs)
 	return lhs;
 }
 
-inline Cint64 operator +(int lhs, Cint64 rhs)
+inline Cint64 operator +(int32 lhs, Cint64 rhs)
 {
 	Cint64 temp = lhs;
 	temp+=rhs;
@@ -302,26 +302,26 @@ inline double operator -(Cint64 lhs, double rhs)
 }
 
 
-inline Cint64 operator -(Cint64 lhs, int rhs)
+inline Cint64 operator -(Cint64 lhs, int32 rhs)
 {
 	lhs-=Cint64(rhs);
 	return lhs;
 }
 
-inline Cint64 operator -(int lhs, Cint64 rhs)
+inline Cint64 operator -(int32 lhs, Cint64 rhs)
 {
 	Cint64 temp = lhs;
 	temp-=rhs;
 	return temp;
 }
 
-inline Cint64 operator *(Cint64 lhs, int rhs)
+inline Cint64 operator *(Cint64 lhs, int32 rhs)
 {
 	lhs*=Cint64(rhs);
 	return lhs;
 }
 
-inline Cint64 operator *(int lhs, Cint64 rhs)
+inline Cint64 operator *(int32 lhs, Cint64 rhs)
 {
 	Cint64 temp = lhs;
 	temp*=rhs;
@@ -352,7 +352,7 @@ inline Cint64 operator *(Cint32 lhs, Cint64 rhs)
 	return rhs;
 }
 
-/*inline Cint64 operator *(int lhs, Cint64 rhs)
+/*inline Cint64 operator *(int32 lhs, Cint64 rhs)
 {
 	rhs*=Cint64(lhs);
 	return rhs;
@@ -369,7 +369,7 @@ inline double operator *(Cint64 lhs, double rhs)
 	return rhs * double(lhs);
 }
 
-inline Cint64 operator /(Cint64 lhs, int rhs)
+inline Cint64 operator /(Cint64 lhs, int32 rhs)
 {
 	lhs/=Cint64(rhs);
 	return lhs;
@@ -389,7 +389,7 @@ inline Cint64 operator /(Cint64 lhs, Cint64 rhs)
 	return lhs;
 }
 
-inline Cint64 operator /(int lhs, Cint64 rhs)
+inline Cint64 operator /(int32 lhs, Cint64 rhs)
 {
 	Cint64 temp(lhs);
 	temp/=rhs;
@@ -411,12 +411,12 @@ inline bool operator >(double lhs, Cint64 rhs)
 	return lhs > double(rhs);
 }
 
-inline bool operator <(int lhs, Cint64 rhs)
+inline bool operator <(int32 lhs, Cint64 rhs)
 {
 	return Cint64(lhs) < rhs;
 }
 
-inline bool operator >(int lhs, Cint64 rhs)
+inline bool operator >(int32 lhs, Cint64 rhs)
 {
 	return Cint64(lhs) > rhs;
 }
