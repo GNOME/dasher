@@ -1621,6 +1621,8 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data)
       dasher_set_parameter_int( INT_LANGUAGEMODEL, 1 );
     } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton8")) {
       dasher_set_parameter_int( INT_LANGUAGEMODEL, 2 );
+    } else if (GTK_WIDGET(widget)==glade_xml_get_widget(widgets,"radiobutton9")) {
+      dasher_set_parameter_int( INT_LANGUAGEMODEL, 3 );
     }
   }
   
@@ -2085,6 +2087,10 @@ void parameter_int_callback( int_param p, long int value )
       case 2:
 	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8"))) != TRUE)
 	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8")), TRUE);
+	break;
+      case 3:
+	if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton9"))) != TRUE)
+	  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton9")), TRUE);
 	break;
       }
       break;

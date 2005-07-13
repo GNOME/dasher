@@ -54,6 +54,10 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   case idMixture:
     m_pLanguageModel = new CMixtureLanguageModel(alphabet, _params);
     break;
+  case idJapanese:
+  	std::cout << "Japanese Language Model" << endl;
+    m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
+    break;
   default:
     std::cout << "Oops - hit default case" << std::endl;
     break;
