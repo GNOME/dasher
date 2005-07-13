@@ -17,13 +17,13 @@
     const int       gLogOptions = logTimeStamp | logDateStamp;
 #endif
 CFileLogger* gLogger = NULL;
-#ifdef _WIN32
 
 #include <iostream>
 
 #include "UserLog.h"
 #include "Utils.h"
 
+#ifdef _WIN32
 // In order to track leaks to line number, we need this at the top of every file
 #include "MemoryLeak.h"
 #ifdef _DEBUG
