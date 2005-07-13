@@ -434,7 +434,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 	    pTmpChild->next = pTmp->child;
 	    pTmp->child = pTmpChild;
 	    
-	    bUpdateExclusion == false;
+	    bUpdateExclusion = false;
 
 	    // Newly allocated child already has a count of one, so no need to increment it explicitly
 	    
