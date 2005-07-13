@@ -42,6 +42,11 @@ typedef vector<VECTOR_VECTOR_STRING>            VECTOR_VECTOR_VECTOR_STRING;
 typedef vector<VECTOR_VECTOR_STRING>::iterator  VECTOR_VECTOR_VECTOR_STRING_ITER;
 #endif
 
+string GetOutputName(const string& strBase, int numFile, int numTrial, int numNav);
+void OutputToFile(const string& strData, const string& strBase, int numFile, int numTrial, int numNav);
+void OutputToFile(DENSITY_GRID data, int gridSize, const string& strBase, int numFile, int numTrial, int numNav);
+void OutputData(const string& strBase, VECTOR_VECTOR_VECTOR_STRING* vectorData, int numFile, int numTrial, int numNav);
+
 // Create the output filename based on the current counts
 string GetOutputName(const string& strBase, int numFile, int numTrial, int numNav)
 {
@@ -422,21 +427,18 @@ int main(int argc, char* argv[])
 
         for (VECTOR_STRING_ITER iter = vectorInputFiles.begin(); iter < vectorInputFiles.end(); iter++)
         {
-            if (iter != NULL)
+            string strFile = (string) *iter;
+
+            CUserLog objUserLog(strFile);
+
+            if (bNormMouse)
             {
-                string strFile = (string) *iter;
-
-                CUserLog objUserLog(strFile);
-
-                if (bNormMouse)
-                {
-                    VECTOR_VECTOR_STRING vectorMouse = objUserLog.GetTabMouseXY(true);
-                    vectorStrResult.push_back(vectorMouse);
-                } else if (bDensityMouse)
-                {
-                    VECTOR_VECTOR_DENSITY_GRIDS vectorGrid = objUserLog.GetMouseDensity(gridSize);
-                    vectorGridResult.push_back(vectorGrid);
-                }
+                VECTOR_VECTOR_STRING vectorMouse = objUserLog.GetTabMouseXY(true);
+                vectorStrResult.push_back(vectorMouse);
+            } else if (bDensityMouse)
+            {
+                VECTOR_VECTOR_DENSITY_GRIDS vectorGrid = objUserLog.GetMouseDensity(gridSize);
+                vectorGridResult.push_back(vectorGrid);
             }
         }        
 
