@@ -18,9 +18,9 @@ using namespace std;
 
 
 CColourBox::CColourBox(HWND Parent, CDasherAppInterface* AI,
-	CDasherSettingsInterface* SI, const string& CurrentColour)
+	CDasherSettingsInterface* SI)
 	: m_AppInterface(AI), m_SettingsInterface(SI),
-	  m_CurrentColours(CurrentColour)
+	  m_CurrentColours(SI->GetStringParameter(SP_COLOUR_ID))
 {
 	m_hwnd=0;
 	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_COLOUR, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);

@@ -23,7 +23,7 @@ class CColourBox : public CWinWrap
 {
 public:
 	CColourBox(HWND Parent, Dasher::CDasherAppInterface* AI,
-		Dasher::CDasherSettingsInterface* SI, const std::string& CurrentAlphabet);
+		Dasher::CDasherSettingsInterface* SI);
 protected:
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

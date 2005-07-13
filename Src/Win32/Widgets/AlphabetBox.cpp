@@ -18,9 +18,9 @@ using namespace std;
 
 
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherAppInterface* AI,
-	CDasherSettingsInterface* SI, const string& CurrentAlphabet)
+	CDasherSettingsInterface* SI)
 	: m_AppInterface(AI), m_SettingsInterface(SI),
-	  m_CurrentAlphabet(CurrentAlphabet), Editing(false), Cloning(false),
+	  m_CurrentAlphabet(SI->GetStringParameter(SP_ALPHABET_ID)), Editing(false), Cloning(false),
 	  EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0)
 {
 	m_hwnd=0;
