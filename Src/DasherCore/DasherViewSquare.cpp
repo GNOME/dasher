@@ -295,11 +295,11 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  
 	  
 
-	  int iLowerMin( (y1 / iSpacing)*iSpacing );
-	  int iLowerMax( (iTipMin / iSpacing )*iSpacing );
+	  int iLowerMin( ((y1+1) / iSpacing)*iSpacing );
+	  int iLowerMax( ((iTipMin-1) / iSpacing )*iSpacing );
 
-	  int iUpperMin( (iTipMax / iSpacing )*iSpacing );
-	  int iUpperMax( (y2 / iSpacing)*iSpacing );
+	  int iUpperMin( ((iTipMax+1) / iSpacing )*iSpacing );
+	  int iUpperMax( ((y2-1) / iSpacing)*iSpacing );
 
 	  if( iLowerMin < 0 )
 	    iLowerMin = 0;
@@ -376,7 +376,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  }
 
 	  for( int j(0); j < iUpperCount; ++j ) {
-	    x[j+iLowerCount + 4] = (y2 - (iUpperMin + j * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
+ 	    x[j+iLowerCount + 4] = (y2 - (iUpperMin + j * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
 	    y[j+iLowerCount + 4] = iUpperMin + j * iSpacing;
 	  }
 	  

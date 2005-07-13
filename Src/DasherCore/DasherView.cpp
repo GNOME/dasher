@@ -105,7 +105,7 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay)
     bDidSomething = true;
 
   }
-  if (GetLongParameter(LP_MOUSE_POS_BOX) !=0) {
+  if (GetLongParameter(LP_MOUSE_POS_BOX) !=-1) {
     DrawMousePosBox();
     bDidSomething = true;
   }

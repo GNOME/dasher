@@ -40,6 +40,8 @@ m_ColourIO(0)
 
   m_pEventHandler = new CEventHandler( this );
 
+
+
 // This should be created in the derived class (as it is platform dependent)
  // m_pSettingsStore = new CSettingsStore( m_pEventHandler );
 }
@@ -186,8 +188,8 @@ void CDasherInterfaceBase::CreateDasherModel()
 
         //m_pDasherModel->SetControlMode(m_ControlMode);
 
-       // if (m_ViewID!=-1)
-        //    ChangeView(m_ViewID);
+        if(GetLongParameter( LP_VIEW_ID ) !=-1)
+              ChangeView( GetLongParameter( LP_VIEW_ID) );
     }
 }
 
@@ -321,9 +323,9 @@ void CDasherInterfaceBase::DrawGoTo(int MouseX, int MouseY)
 void CDasherInterfaceBase::ChangeAlphabet(const std::string& NewAlphabetID)
 {
       // Don't bother doing any of this if it's the same alphabet
-      if (GetStringParameter(SP_ALPHABET_ID) != NewAlphabetID) { 
+    //  if (GetStringParameter(SP_ALPHABET_ID) != NewAlphabetID) { 
 	        
-        SetStringParameter(SP_ALPHABET_ID, NewAlphabetID); 
+   //     SetStringParameter(SP_ALPHABET_ID, NewAlphabetID); 
 
 	    if (!m_AlphIO)
 	        m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), 
@@ -364,7 +366,7 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string& NewAlphabetID)
     	  
 	    Start();
 
-	}
+	//}
 }
 
 std::string CDasherInterfaceBase::GetCurrentAlphabet()
@@ -438,8 +440,9 @@ void CDasherInterfaceBase::ChangeScreen()
 	if (m_pDasherView!=0) {
 		m_pDasherView->ChangeScreen(m_DasherScreen);
 	} else {
-		//if (m_ViewID!=-1)
-		//	ChangeView(m_ViewID);
+      if(GetLongParameter( LP_VIEW_ID ) !=-1)
+               ChangeView( GetLongParameter( LP_VIEW_ID) );
+		
 	}
 }
 
