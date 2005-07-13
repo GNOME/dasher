@@ -172,6 +172,11 @@ public:
 		return m_i != rhs.m_i;
 	}
 
+    bool operator==(Cint64 rhs) const
+    {
+        return m_i == rhs.m_i;
+    }    
+
 	bool operator<= (int rhs) const
 	{
 		return m_i <= rhs;
