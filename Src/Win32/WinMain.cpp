@@ -147,6 +147,8 @@ int APIENTRY WinMain(HINSTANCE hInstance,
 	DasherInterface.SetSystemLocation(AppData2);
 	DasherInterface.SetUserLocation(UserData2);
 
+    DasherInterface.ResetNats();
+
 	Alphabets=UserData;
 	Alphabets+=TEXT("alphabet*.xml");
 	Colours=UserData;
