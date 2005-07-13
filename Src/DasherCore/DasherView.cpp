@@ -20,8 +20,6 @@ CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettings
     m_pInput(0)
 {
 
-    ScreenOrientation = static_cast<Dasher::Opts::ScreenOrientations>(GetLongParameter( LP_ORIENTATION ));
- 
 }
 
 
@@ -32,9 +30,7 @@ void CDasherView::HandleEvent( Dasher::CEvent *pEvent ) {
 			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
 
 			switch(	pEvt->m_iParameter ) {
-				case LP_ORIENTATION:
-					ScreenOrientation = static_cast<Dasher::Opts::ScreenOrientations>(GetLongParameter( LP_ORIENTATION ));
-					break;
+
 				default:
 					break;
 			}

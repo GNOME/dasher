@@ -137,33 +137,13 @@ protected:
 	inline void MapScreen(screenint* DrawX, screenint* DrawY);
 	inline void UnMapScreen(screenint* DrawX, screenint* DrawY);
 
-	// Keyboard control is on
-	//bool KeyControl;
-
-	// Orientation of Dasher Screen
-	Dasher::Opts::ScreenOrientations ScreenOrientation;
-	// Advanced colour mode
-	//bool ColourMode;
-    //bool AutoCalibrate;
-	//int m_iTruncation;
-	//int m_iTruncationType;
- 
 private:
-	CDasherScreen* m_pScreen;      // provides the graphics (text, lines, rectangles):
-	CDasherModel& m_DasherModel; // Model view represents
-
-	CDasherInput *m_pInput; // Input device abstraction
+	CDasherScreen* m_pScreen;     // provides the graphics (text, lines, rectangles):
+	CDasherModel&  m_DasherModel; // Model view represents
+	CDasherInput  *m_pInput;      // Input device abstraction
 
 	// Pure virtuals to implement
 	virtual void Crosshair(myint sx)=0; // Tells m_Screen to draw a crosshair - or other static decoration
-
-	//bool m_bDrawMouse;
-	//bool m_bDrawMouseLine;
-	//bool m_bDrawKeyboard;
-	//int m_iDrawMousePosBox;
-	//int m_iMousePosDist;
-
-	
 };
 
 

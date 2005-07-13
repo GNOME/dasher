@@ -834,6 +834,7 @@ Opts::AlphabetTypes CDasherInterfaceBase::GetAlphabetType()
 
 const std::string CDasherInterfaceBase::GetTrainFile()
 {
+    // DOES NOT RETURN FULLY QUALIFIED PATH - SEPARATE SETTING FOR PATH
 	return GetStringParameter(SP_TRAIN_FILE);
 }
 

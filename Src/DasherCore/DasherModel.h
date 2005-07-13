@@ -107,18 +107,10 @@ public:
 	void SetBitrate(double TargetRate) {m_fr.SetBitrate(TargetRate);} // Use or start at this bitrate
 	//void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 	
-	// Whether control mode is active - if true, DasherModel will create control nodes
-	//	- existing control modes will not be deleted, but will be inactive 
-	//void SetControlMode(bool b);
-
-	//void SetAdaptive( bool b ) {
-	//  m_bAdaptive = b;
-	//}
-
 	std::string GroupLabel(int group) const {return m_pcAlphabet->GetGroupLabel(group);}
 	int GroupColour(int group) const {return m_pcAlphabet->GetGroupColour(group);}
 
-  void SetContext( std::string &sNewContext );
+    void SetContext( std::string &sNewContext );
 
 	// functions returning private data (read only access)
 	myint Rootmin() const {return m_Rootmin;}
@@ -127,24 +119,14 @@ public:
 	myint DasherOY() const {return m_DasherOY;}
 	
 	CDasherNode* Root() const {return m_Root;}
-	//int Normalization() const {return m_iNormalization;}
 	myint DasherY() const {return m_DasherY;}
 	
-	//bool Dimensions() const {return m_Dimensions;}
-	//bool Eyetracker() const {return m_Eyetracker;}
-    //bool Paused() const {return m_Paused; }
-
-
 	void OutputCharacters(CDasherNode *node);
 	bool DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode);
 	void Trace() const;                                              // diagnostics
 	//void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-//    void Set_dimensions(bool dimensions) {m_Dimensions=dimensions;}
-//    void Set_eyetracker(bool eyetracker) {m_Eyetracker=eyetracker;}
-    //void Set_paused(bool paused)         {m_Paused=paused;}
-	
-	void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
+    void Tap_on_display(myint,myint, unsigned long Time);           // evolves the current viewpoint
 	void GoTo(double,myint);                                         // jumps to a new viewpoint
 	void Start();                                                   // initializes the data structure
 	void Make_root(int whichchild);                                 // find a new root node
@@ -173,9 +155,6 @@ public:
 	  return total_nats;
 	}
 	
-	
-	//void SetUniform( int _uniform );
-
 	myint PlotGoTo(myint MouseX, myint MouseY);
 
 	void NewControlTree(ControlTree *tree) { m_pControltree=tree; }
@@ -249,19 +228,6 @@ private:
 	// The active interval over which Dasher nodes are maintained - this is most likely bigger than (0,DasherY)
 	CRange m_Active;
 
-	// Number of input dimensions
-	//bool m_Dimensions;
-
-	// Eyetracker mode
-	//bool m_Eyetracker;
-
-	//bool m_Paused;
-
-	//bool m_bAdaptive;
-
-    // Fraction to allocate to uniform dist. (*1000)
-	//int m_uniform;
-	
 	CFrameRate m_fr;                   // keep track of framerate
 
 	double total_nats; // Information entered so far
@@ -288,13 +254,9 @@ private:
 
 	int GetColour(symbol s) const;
 
-	//int m_iNormalization; // The arithmetic interval for child nodes
-
 	ControlTree* m_pControltree;
 
-	//bool m_bControlMode;
 
-	//	friend CDasherNode;
     friend class CDasherGameMode;
 	friend class CTrainer;
 	friend class CDasherNode;

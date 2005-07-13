@@ -494,7 +494,7 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
   screenint iScreenCanvasMinY;
   screenint iScreenCanvasMaxY;
 
- switch (ScreenOrientation) {
+ switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
  case (Dasher::Opts::LeftToRight):
    iScreenCanvasMinX = 0;
    iScreenCanvasMaxX = iCanvasWidth;
@@ -540,7 +540,7 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
  // Now we've got the bouding box, use the input positions relative to
  // the box to get the actual Dasher co-ordinates
  
- switch (ScreenOrientation) {
+ switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
  case (Dasher::Opts::LeftToRight):
    iDasherX = (iScreenCanvasMaxX - iInputX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
    iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
@@ -599,7 +599,7 @@ void CDasherViewSquare::Dasher2Screen( myint iDasherX, myint iDasherY, screenint
   screenint iScreenCanvasMinY;
   screenint iScreenCanvasMaxY;
 
- switch (ScreenOrientation) {
+ switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
  case (Dasher::Opts::LeftToRight):
    iScreenCanvasMinX = 0;
    iScreenCanvasMaxX = iCanvasWidth;
@@ -642,7 +642,7 @@ void CDasherViewSquare::Dasher2Screen( myint iDasherX, myint iDasherY, screenint
  // Now we've got the bouding box, use the input positions relative to
  // the box to get the actual Dasher co-ordinates
  
- switch (ScreenOrientation) {
+ switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
  case (Dasher::Opts::LeftToRight):
    iScreenX = iScreenCanvasMaxX - iDasherX * ( iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
    iScreenY = iDasherY  * ( iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
@@ -1003,7 +1003,7 @@ void CDasherViewSquare::DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint 
   screenint newright2;
   screenint newbottom2;
 
-  switch (ScreenOrientation) {
+  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
   case (Dasher::Opts::LeftToRight):
     newleft2 = iScreenAnchorX;
     newtop2 = iScreenAnchorY - TextHeight/2;

@@ -38,10 +38,10 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   m_fr.SetMaxBitrate(m_dMaxRate);
 
   // Convert the full alphabet to a symbolic representation for use in the language model
-  CAlphabet* pAlphabet = m_pDasherInterface->GetAlphabet();
-  CSymbolAlphabet alphabet( pAlphabet->GetNumberTextSymbols() );
-  alphabet.SetSpaceSymbol( pAlphabet->GetSpaceSymbol() ); // FIXME - is this right, or do we have to do some kind of translation?
-  alphabet.SetAlphabetPointer( pAlphabet ); // Horrible hack, but ignore for now.
+  m_pcAlphabet = m_pDasherInterface->GetAlphabet();
+  CSymbolAlphabet alphabet( m_pcAlphabet->GetNumberTextSymbols() );
+  alphabet.SetSpaceSymbol( m_pcAlphabet->GetSpaceSymbol() ); // FIXME - is this right, or do we have to do some kind of translation?
+  alphabet.SetAlphabetPointer( m_pcAlphabet ); // Horrible hack, but ignore for now.
 
   // Create an appropriate language model;
 

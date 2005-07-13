@@ -12,7 +12,7 @@ inline void Dasher::CDasherView::MapScreen(screenint* DrawX, screenint* DrawY)
 {
 	using namespace Dasher::Opts;
 	
-	switch (ScreenOrientation) {
+	switch (ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
 		case (LeftToRight):
 			break;
 		case (RightToLeft):
@@ -41,7 +41,7 @@ inline void Dasher::CDasherView::UnMapScreen(screenint* MouseX, screenint* Mouse
 {
 	using namespace Dasher::Opts;
 	
-	switch (ScreenOrientation) {
+	switch (ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
 		case (LeftToRight):
 			break;
 		case (RightToLeft):
