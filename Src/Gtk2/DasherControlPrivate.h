@@ -27,4 +27,6 @@ extern int oldy;
 extern time_t dasherstarttime;
 extern CDasherMouseInput *pMouseInput;
 
+// Classes - to eventually be split into separate files
+
 #endif
