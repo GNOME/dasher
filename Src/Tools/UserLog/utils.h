@@ -285,6 +285,7 @@ static string getFullPath(const string& filename)
 
 }
 
+#ifdef _WIN32
 static void UTF8string_to_wstring(const std::string& UTF8string, std::wstring& Output)
 {
 	// Optimization - use the stack for small strings
@@ -315,8 +316,8 @@ static void UTF8string_to_wstring(const std::string& UTF8string, std::wstring& O
 	if (bNewed)
 		delete[] pBuffer;
 	return;
-
 }
+#endif
 
 #endif
 
