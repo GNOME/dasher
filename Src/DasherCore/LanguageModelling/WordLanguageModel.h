@@ -81,7 +81,7 @@ private:
 		CWordContext(CWordnode* _head=0, int _order=0) : 
 		  head(_head),order(_order),word_head(_head),word_order(0) {
 
-		  std::cout << "oops - badness" << std::endl;
+		  //		  std::cout << "oops - badness" << std::endl;
 
 		}; // FIXME - doesn't work if we're trying to create a non-empty context
 

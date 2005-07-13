@@ -146,6 +146,7 @@ main(int argc, char *argv[])
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
   xml = glade_xml_new("/home/kaburagi/dasher/Src/Gtk2/dasher.glade", NULL, NULL);
+
   the_gconf_client = gconf_client_get_default();
 #endif
 

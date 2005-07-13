@@ -162,6 +162,9 @@ void CDasherInterface::CreateDasherModel()
       CDasherModel::LanguageModelID NewLanguageModelID;
 
       switch( m_LanguageModelID ) {
+
+	// Boggle!
+
       case 0:
 	NewLanguageModelID = CDasherModel::idPPM;
 	break;
@@ -171,6 +174,8 @@ void CDasherInterface::CreateDasherModel()
       case 2:
 	NewLanguageModelID = CDasherModel::idMixture;
 	break;	
+      case 3:
+	NewLanguageModelID = CDasherModel::idJapanese;
       }
 
       m_pDasherModel = new CDasherModel(m_Alphabet, m_DashEditbox, NewLanguageModelID, m_Params, m_Dimensions, m_Eyetracker, m_Paused);
