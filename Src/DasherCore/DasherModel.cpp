@@ -1200,12 +1200,12 @@ CDasherModel::CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSe
 {
     if(InitializeTargetFile() == myint(-1))
     { 
-        DASHER_ASSERT(0);   // OOPS Can't open file with target text
+        //DASHER_ASSERT(0);   // OOPS Can't open file with target text
     } 
 
     if(GetNextTargetString() == myint(-1))
     { 
-        DASHER_ASSERT(0);   // OOPS can't get a string to write
+        //DASHER_ASSERT(0);   // OOPS can't get a string to write
     } 
 }
 
@@ -1215,7 +1215,6 @@ CDasherModel::CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSe
 // myint.Max()   is RESERVED for a signal to DRAW INFINITELY DOWN (in L to R mode)
 myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
 {
-    myint retVal; // What we'll return to the View for where to draw something
     bool KeyIsPrefix = false; // For alphabet call
     std::string Context;
 
@@ -1233,7 +1232,7 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
         {
             // FINISHED WRITING CORRECTLY!
             // should choose new target and reset Dasher at this point?
-            return retVal.Min();
+            return INT64_MIN;
         }
     }
 
@@ -1258,9 +1257,9 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
     {
         if( alphabetmap.Get(CurrentTarget.substr(posOfFirstDifference,1), &KeyIsPrefix) < 
                 alphabetmap.Get(Context.substr(posOfFirstDifference,1), &KeyIsPrefix) )
-            return retVal.Min()+1;
+            return INT64_MIN+1;
         else
-            return retVal.Max();
+            return INT64_MAX;
     }
 
 
@@ -1274,7 +1273,7 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
     CDasherNode *currNode = m_model->Root();
 
     if(!currNode)
-        return retVal.Min();
+        return INT64_MIN;
 
     myint norm = GetLongParameter(LP_NORMALIZATION);
     // These represent the scaled range of dasher coordinates
@@ -1294,9 +1293,9 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
         {
             if( alphabetmap.Get(CurrentTarget.substr(posOfFirstDifference,1), &KeyIsPrefix) < 
                     alphabetmap.Get(Context.substr(posOfFirstDifference,1), &KeyIsPrefix) )
-                return retVal.Min()+1;
+                return INT64_MIN+1;
             else
-                return retVal.Max();
+                return INT64_MAX;
         }
 
         myint nodeupper, nodelower, noderange;
@@ -1352,9 +1351,7 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
             break;
     }
 
-    retVal = (currDasherMax - currDasherRange/2);
-
-    return retVal; // THIS IS WHERE WE SHOULD BE GOING!
+    return (currDasherMax - currDasherRange/2);
 }
 
 

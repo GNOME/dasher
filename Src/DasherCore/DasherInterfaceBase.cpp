@@ -109,8 +109,8 @@ void CDasherInterfaceBase::SetSettingsUI(CDasherSettingsInterface* SettingsUI)
 	delete m_SettingsUI;
 	m_SettingsUI = SettingsUI;
 	//this->SettingsDefaults(m_SettingsStore);
-  m_SettingsUI->SetInterface( this );
-	m_SettingsUI->SettingsDefaults(m_pSettingsStore);
+    m_SettingsUI->SetInterface( this );
+	//m_SettingsUI->SettingsDefaults(m_pSettingsStore);
 }
 
 

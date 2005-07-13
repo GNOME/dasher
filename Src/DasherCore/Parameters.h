@@ -36,6 +36,8 @@ enum {SP_ALPHABET_ID=END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
 #define NUM_OF_LPS (END_OF_LPS - END_OF_BPS)
 #define NUM_OF_SPS (END_OF_SPS - END_OF_LPS)
 
+#define PERS true
+
 // First level structures with only basic data types because you
 // cannot initialize struct tables with objects
 // These will be turned into std::strings in the ParamTables() object 
@@ -47,71 +49,71 @@ struct sp_table {int key; char* regName; bool persistent; char* defaultValue; ch
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = 
 {
-    {BP_DRAW_MOUSE_LINE,    "DrawMouse",           true,   true,   "Draw Mouse"},
-    {BP_DRAW_MOUSE,         "DrawMouseLine",       true,   true,   "Draw Mouse Line"},
-    {BP_TIME_STAMP,         "TimeStampNewFiles",   true,   true,   "TimeStampNewFiles"},
-    {BP_SHOW_TOOLBAR,       "ViewToolbar",         true,   true,   "ViewToolbar"},
-    {BP_SHOW_TOOLBAR_TEXT,  "ShowToolbarText",     true,   true,   "ShowToolbarText"},
-    {BP_SHOW_LARGE_ICONS,   "ShowLargeIcons",      true,   true,   "ShowLargeIcons"},
-    {BP_FIX_LAYOUT,         "FixLayout",           true,   true,   "FixLayout"},
-    {BP_SHOW_SLIDER,        "ShowSpeedSlider",     true,   true,   "ShowSpeedSlider"},
-    {BP_COPY_ALL_ON_STOP,   "CopyAllOnStop",       true,   true,   "CopyAllOnStop"},
-    {BP_START_MOUSE,        "StartOnLeft",         true,   true,   "StartOnLeft"},
-    {BP_START_SPACE,        "StartOnSpace",        true,   true,   "StartOnSpace"},
-    {BP_KEY_CONTROL,        "KeyControl",          true,   true,   "KeyControl"},
-    {BP_WINDOW_PAUSE,       "PauseOutsideWindow",  true,   true,   "PauseOutsideWindow"},
-    {BP_CONTROL_MODE,       "ControlMode",         true,   true,   "ControlMode"},
-    {BP_COLOUR_MODE,        "ColourMode",          true,   true,   "ColourMode"},
-    {BP_KEYBOARD_MODE,      "KeyboardMode",        true,   true,   "KeyboardMode"},
-    {BP_MOUSEPOS_MODE,      "StartOnMousePosition",true,   true,   "StartOnMousePosition"},
-    {BP_SPEECH_MODE,        "SpeechEnabled",       true,   true,   "SpeechEnabled"},
-    {BP_OUTLINE_MODE,       "OutlineBoxes",        true,   true,   "OutlineBoxes"},
-    {BP_PALETTE_CHANGE,     "PaletteChange",       true,   true,   "PaletteChange"},
-    {BP_NUMBER_DIMENSIONS,  "NumberDimensions",    true,   true,   "NumberDimensions"},
-    {BP_EYETRACKER_MODE,    "EyetrackerMode",      true,   false,   "EyetrackerMode"},
-    {BP_AUTOCALIBRATE,      "Autocalibrate",       true,   false,   "Autocalibrate"},
-    {BP_DASHER_PAUSED,      "DasherPaused",        false,  false,   "Dasher Paused"},
-    {BP_GAME_MODE,          "GameMode",            false,  true,    "Dasher Game Mode"}
+    {BP_DRAW_MOUSE_LINE,    "DrawMouse",           PERS,   false,   "Draw Mouse"},
+    {BP_DRAW_MOUSE,         "DrawMouseLine",       PERS,   true,   "Draw Mouse Line"},
+    {BP_TIME_STAMP,         "TimeStampNewFiles",   PERS,   true,   "TimeStampNewFiles"},
+    {BP_SHOW_TOOLBAR,       "ViewToolbar",         PERS,   true,   "ViewToolbar"},
+    {BP_SHOW_TOOLBAR_TEXT,  "ShowToolbarText",     PERS,   true,   "ShowToolbarText"},
+    {BP_SHOW_LARGE_ICONS,   "ShowLargeIcons",      PERS,   true,   "ShowLargeIcons"},
+    {BP_FIX_LAYOUT,         "FixLayout",           PERS,   false,   "FixLayout"},
+    {BP_SHOW_SLIDER,        "ShowSpeedSlider",     PERS,   true,   "ShowSpeedSlider"},
+    {BP_COPY_ALL_ON_STOP,   "CopyAllOnStop",       PERS,   false,   "CopyAllOnStop"},
+    {BP_START_MOUSE,        "StartOnLeft",         PERS,   true,   "StartOnLeft"},
+    {BP_START_SPACE,        "StartOnSpace",        PERS,   false,   "StartOnSpace"},
+    {BP_KEY_CONTROL,        "KeyControl",          PERS,   false,   "KeyControl"},
+    {BP_WINDOW_PAUSE,       "PauseOutsideWindow",  PERS,   false,   "PauseOutsideWindow"},
+    {BP_CONTROL_MODE,       "ControlMode",         PERS,   false,   "ControlMode"},
+    {BP_COLOUR_MODE,        "ColourMode",          PERS,   true,   "ColourMode"},
+    {BP_KEYBOARD_MODE,      "KeyboardMode",        PERS,   false,   "KeyboardMode"},
+    {BP_MOUSEPOS_MODE,      "StartOnMousePosition",PERS,   false,   "StartOnMousePosition"},
+    {BP_SPEECH_MODE,        "SpeechEnabled",       PERS,   false,   "SpeechEnabled"},
+    {BP_OUTLINE_MODE,       "OutlineBoxes",        PERS,   true,   "OutlineBoxes"},
+    {BP_PALETTE_CHANGE,     "PaletteChange",       PERS,   true,   "PaletteChange"},
+    {BP_NUMBER_DIMENSIONS,  "NumberDimensions",    PERS,   false,   "NumberDimensions"},
+    {BP_EYETRACKER_MODE,    "EyetrackerMode",      PERS,   false,   "EyetrackerMode"},
+    {BP_AUTOCALIBRATE,      "Autocalibrate",       PERS,   false,   "Autocalibrate"},
+    {BP_DASHER_PAUSED,      "DasherPaused",        !PERS,  false,   "Dasher Paused"},
+    {BP_GAME_MODE,          "GameMode",            PERS,   false,   "Dasher Game Mode"}
 };
 
 static lp_table longparamtable[] =
 {
-    {LP_ORIENTATION,        "ScreenOrientation",    true,   1,      "Screen Orientation"},
-    {LP_MAX_BITRATE,        "MaxBitRateTimes100",   true,   150,    "Max Bit Rate Times 100"},
-    {LP_FILE_ENCODING,      "FileEncodingFormat",   true,   1,    "FileEncodingFormat"},
-    {LP_VIEW_ID,            "ViewID",               true,   1,    "ViewID"},
-    {LP_LANGUAGE_MODEL_ID,  "LanguageModelID",      true,   1,    "LanguageModelID"},
-    {LP_EDIT_FONT_SIZE,     "EditFontSize",         true,   1,    "EditFontSize"},
-    {LP_EDIT_HEIGHT,        "EditHeight",           true,   1,    "EditHeight0"},
-    {LP_SCREEN_WIDTH,       "ScreenWidth",          true,   1,    "ScreenWidth"},
-    {LP_SCREEN_HEIGHT,      "ScreenHeight",         true,   1,    "ScreenHeight"},
-    {LP_DASHER_FONTSIZE,    "DasherFontSize",       true,   1,    "DasherFontSize"},
-    {LP_DASHER_DIMENSIONS,  "NumberDimensions",     true,   1,    "NumberDimensions"},
-    {LP_DASHER_EYETRACKER,  "EyetrackerMode",       true,   1,    "EyetrackerMode"},
-    {LP_UNIFORM,            "UniformTimes1000",     true,   1,    "UniformTimes1000"},
-    {LP_YSCALE,             "YScaling",             true,   1,    "YScaling"},
-    {LP_MOUSEPOSDIST,       "MousePositionBoxDistance",   true,   1,    "MousePositionBoxDistance"},
-    {LP_TRUNCATION,         "Truncation",           true,   1,    "Truncation"},
-    {LP_TRUNCATIONTYPE,     "TruncationType",       true,   1,    "TruncationType"},
-    {LP_LM_MAX_ORDER,       "LMMaxOrder",          true,   5,    "LMMaxOrder"},
-    {LP_LM_EXCLUSION,       "LMExclusion",          true,   0,    "LMExclusion"},
-    {LP_LM_UPDATE_EXCLUSION,"LMUpdateExclusion",    true,   1,    "LMUpdateExclusion"},
-    {LP_LM_ALPHA,           "LMAlpha",              true,   100,  "LMAlpha"},
-    {LP_LM_BETA,            "LMBeta",               true,   100,  "LMBeta"},
-    {LP_LM_MIXTURE,         "LMMixture",            true,   50,   "LMMixture"},
-    {LP_MOUSE_POS_BOX,      "MousePosBox",          false,  -1,   "Mouse Position Box Indicator"},
-    {LP_NORMALIZATION,      "Normalization",        false,  1<<16, "Interval for child nodes"}
+    {LP_ORIENTATION,        "ScreenOrientation",    PERS,   0,      "Screen Orientation"},
+    {LP_MAX_BITRATE,        "MaxBitRateTimes100",   PERS,   150,    "Max Bit Rate Times 100"},
+    {LP_FILE_ENCODING,      "FileEncodingFormat",   PERS,   -2,    "FileEncodingFormat"},
+    {LP_VIEW_ID,            "ViewID",               PERS,   1,    "ViewID"},
+    {LP_LANGUAGE_MODEL_ID,  "LanguageModelID",      PERS,   1,    "LanguageModelID"},
+    {LP_EDIT_FONT_SIZE,     "EditFontSize",         PERS,   1,    "EditFontSize"},
+    {LP_EDIT_HEIGHT,        "EditHeight",           PERS,   75,    "EditHeight0"},
+    {LP_SCREEN_WIDTH,       "ScreenWidth",          PERS,   400,    "ScreenWidth"},
+    {LP_SCREEN_HEIGHT,      "ScreenHeight",         PERS,   500,    "ScreenHeight"},
+    {LP_DASHER_FONTSIZE,    "DasherFontSize",       PERS,   1,    "DasherFontSize"},
+    {LP_DASHER_DIMENSIONS,  "NumberDimensions",     PERS,   1,    "NumberDimensions"},
+    {LP_DASHER_EYETRACKER,  "EyetrackerMode",       PERS,   1,    "EyetrackerMode"},
+    {LP_UNIFORM,            "UniformTimes1000",     PERS,   50,    "UniformTimes1000"},
+    {LP_YSCALE,             "YScaling",             PERS,   0,    "YScaling"},
+    {LP_MOUSEPOSDIST,       "MousePositionBoxDistance",   PERS,   50,    "MousePositionBoxDistance"},
+    {LP_TRUNCATION,         "Truncation",           PERS,   0,    "Truncation"},
+    {LP_TRUNCATIONTYPE,     "TruncationType",       PERS,   0,    "TruncationType"},
+    {LP_LM_MAX_ORDER,       "LMMaxOrder",           PERS,   5,    "LMMaxOrder"},
+    {LP_LM_EXCLUSION,       "LMExclusion",          PERS,   0,    "LMExclusion"},
+    {LP_LM_UPDATE_EXCLUSION,"LMUpdateExclusion",    PERS,   1,    "LMUpdateExclusion"},
+    {LP_LM_ALPHA,           "LMAlpha",              PERS,   100,  "LMAlpha"},
+    {LP_LM_BETA,            "LMBeta",               PERS,   100,  "LMBeta"},
+    {LP_LM_MIXTURE,         "LMMixture",            PERS,   50,   "LMMixture"},
+    {LP_MOUSE_POS_BOX,      "MousePosBox",          !PERS,  -1,   "Mouse Position Box Indicator"},
+    {LP_NORMALIZATION,      "Normalization",        !PERS,  1<<16, "Interval for child nodes"}
 };
 static sp_table stringparamtable[] =
 {
-    {SP_ALPHABET_ID, "AlphabetID", true, "", "AlphabetID"},
-    {SP_COLOUR_ID, "ColourID", true, "", "ColourID"},
-    {SP_DASHER_FONT, "DasherFont", true, "", "DasherFont"},
-    {SP_EDIT_FONT, "EditFont", true, "", "EditFont"},
-    {SP_SYSTEM_LOC, "SystemLocation", false, "sys_", "System Directory"},
-    {SP_USER_LOC,   "UserLocation", false, "usr_", "User Directory"},
-    {SP_GAME_TEXT_FILE, "GameTextFile", false, "", "File with strings to practice writing"},
-    {SP_TRAIN_FILE,   "TrainingFile", false, "", "Training text for alphabet"}
+    {SP_ALPHABET_ID,    "AlphabetID",       PERS, "", "AlphabetID"},
+    {SP_COLOUR_ID,      "ColourID",         PERS, "", "ColourID"},
+    {SP_DASHER_FONT,    "DasherFont",       PERS, "", "DasherFont"},
+    {SP_EDIT_FONT,      "EditFont",         PERS, "", "EditFont"},
+    {SP_SYSTEM_LOC,     "SystemLocation",   !PERS, "sys_", "System Directory"},
+    {SP_USER_LOC,       "UserLocation",     !PERS, "usr_", "User Directory"},
+    {SP_GAME_TEXT_FILE, "GameTextFile",     !PERS, "", "File with strings to practice writing"},
+    {SP_TRAIN_FILE,     "TrainingFile",     !PERS, "", "Training text for alphabet"}
 };
     
 
