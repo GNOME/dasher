@@ -950,13 +950,10 @@ CUserLog::CUserLog(string strXMLFilename)
     // Now construct each of the Trial objects based on its section of XML
     for (VECTOR_STRING_ITER iter = vectorTrials.begin(); iter < vectorTrials.end(); iter++)
     {
-        if (iter != NULL)
-        {
-            CUserLogTrial* trial = new CUserLogTrial(*iter);
+        CUserLogTrial* trial = new CUserLogTrial(*iter);
 
-            if (trial != NULL)
-                m_vectorTrials.push_back(trial);
-        }
+        if (trial != NULL)
+            m_vectorTrials.push_back(trial);
     }
 
 }
@@ -972,7 +969,7 @@ VECTOR_VECTOR_STRING CUserLog::GetTabMouseXY(bool bReturnNormalized)
          iter < m_vectorTrials.end();
          iter++)
     {
-        if ((iter != NULL) && (*iter != NULL))
+        if (*iter != NULL)
         {
             VECTOR_STRING vectorTrial = (*iter)->GetTabMouseXY(bReturnNormalized);
             vectorResult.push_back(vectorTrial);
@@ -990,7 +987,7 @@ VECTOR_VECTOR_DENSITY_GRIDS CUserLog::GetMouseDensity(int gridSize)
          iter < m_vectorTrials.end();
          iter++)
     {
-        if ((iter != NULL) && (*iter != NULL))
+        if (*iter != NULL)
         {
             VECTOR_DENSITY_GRIDS vectorTrial = (*iter)->GetMouseDensity(gridSize);
             vectorResult.push_back(vectorTrial);

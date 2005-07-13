@@ -1018,12 +1018,9 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
         vectorLocations.erase(vectorLocations.begin(), vectorLocations.end());
         vectorMousePositions.erase(vectorMousePositions.begin(), vectorMousePositions.end());
 
-        if (iter != NULL)
-        {
-            strTime             = XMLUtil::GetElementString("Time", *iter, true);
-            strLocations        = XMLUtil::GetElementString("Locations", *iter, true);
-            strMousePositions   = XMLUtil::GetElementString("MousePositions", *iter, true);
-        }
+        strTime             = XMLUtil::GetElementString("Time", *iter, true);
+        strLocations        = XMLUtil::GetElementString("Locations", *iter, true);
+        strMousePositions   = XMLUtil::GetElementString("MousePositions", *iter, true);
 
         NavCycle* cycle = new NavCycle();
         cycle->pSpan = NULL;
@@ -1116,7 +1113,7 @@ VECTOR_USER_LOG_PARAM_PTR CUserLogTrial::ParseParamsXML(const string& strXML)
     {
         CUserLogParam* param = new CUserLogParam();
         
-        if ((param != NULL) && (iter != NULL))
+        if (param != NULL) 
         {
             param->strName      = iter->strName;
         
@@ -1163,7 +1160,7 @@ VECTOR_STRING CUserLogTrial::GetTabMouseXY(bool bReturnNormalized)
     {
         string strResult = "";
 
-        if ((iter!= NULL) && (*iter != NULL))
+        if (*iter != NULL)
         {
             for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
                  iter2 < (*iter)->vectorMouseLocations.end();
@@ -1193,7 +1190,7 @@ VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
 
     for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vectorNavCycles.begin(); iter < m_vectorNavCycles.end(); iter++)
     {
-        if ((iter!= NULL) && (*iter != NULL))
+        if (*iter != NULL)
         {
             DENSITY_GRID grid;
 
