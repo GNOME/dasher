@@ -58,6 +58,7 @@ public:
 
 	// Get symbol probability distribution
 	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const =0;
+	//virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm);
 
 	// Get some measure of the memory usage for diagnostic
 	// purposes. No need to implement this if you're not comparing

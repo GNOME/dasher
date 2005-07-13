@@ -59,6 +59,10 @@ public:
 	    character ParagraphCharacter; // display and edit text of paragraph character. Use ("", "") if no paragraph character.
 		character SpaceCharacter; // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.
 		character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
+		
+		// Added for Kanji Conversion by T.Kaburagi 13 July 2005
+		character StartConvertCharacter;
+		character EndConvertCharacter;
 	};
 	
 	CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector<std::string> Filenames);

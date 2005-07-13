@@ -16,10 +16,10 @@ namespace Dasher {class CKanjiConversion;}
 class CKanjiConversion
 {
 	public:
-		CKanjiConversion();
-		~CKanjiConversion();
-		
-		virtual int ConvertKanji( std::string );
+		CKanjiConversion() { };
+		~CKanjiConversion() { IsInit =0; };
+				
+		virtual int ConvertKanji( std::string ) =0;
 		//int context_id;
 		
 		class CPhrase{

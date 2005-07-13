@@ -18,6 +18,11 @@
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
 
+#ifdef HAVE_LIBCANNA
+#include "LanguageModelling/JapneseLanguageModel.h"
+#endif
+
+
 using namespace Dasher;
 using namespace std;
 
@@ -55,8 +60,12 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
     m_pLanguageModel = new CMixtureLanguageModel(alphabet, _params);
     break;
   case idJapanese:
-  	std::cout << "Japanese Language Model" << endl;
+#ifdef HAVE_LIBCANNA
+    m_pLanguageModel = new CJapaneseLanguageModel(alphabet, _params);
+#else
+  	std::cout << "Japanese Language Model: No Canna Support" << endl;
     m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
+#endif
     break;
   default:
     std::cout << "Oops - hit default case" << std::endl;

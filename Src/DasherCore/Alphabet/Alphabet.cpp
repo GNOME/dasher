@@ -68,6 +68,13 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 
 	if (AlphInfo.SpaceCharacter.Text != empty ) 
 		AddSpaceSymbol(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi START
+	if (AlphInfo.StartConvertCharacter.Text != empty ) 
+		AddStartConversionSymbol(AlphInfo.StartConvertCharacter.Text, AlphInfo.StartConvertCharacter.Display, AlphInfo.StartConvertCharacter.Colour, AlphInfo.StartConvertCharacter.Foreground);
+
+	if (AlphInfo.EndConvertCharacter.Text != empty ) 
+		AddEndConversionSymbol(AlphInfo.EndConvertCharacter.Text, AlphInfo.EndConvertCharacter.Display, AlphInfo.EndConvertCharacter.Colour, AlphInfo.EndConvertCharacter.Foreground);
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi END
 
 	// DJW - now the control symbol is always a part of the alphabet
 	// DasherModel knows whether or not to use it
@@ -186,6 +193,21 @@ void CAlphabet::AddControlSymbol(const string NewCharacter, const string Display
 	m_ControlSymbol = GetNumberSymbols()-1;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+void CAlphabet::AddStartConversionSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground)
+{
+	AddChar(NewCharacter,Display,Colour,Foreground);
+	m_StartConversionSymbol = GetNumberSymbols()-1;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CAlphabet::AddEndConversionSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground)
+{
+	AddChar(NewCharacter,Display,Colour,Foreground);
+	m_EndConversionSymbol = GetNumberSymbols()-1;
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // diagnostic dump of character set

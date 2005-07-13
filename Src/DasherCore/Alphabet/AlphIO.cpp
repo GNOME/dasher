@@ -452,6 +452,62 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 		}
 		return;
 	}
+	
+	//-- Added for Kanji Conversion by T.Kaburagi 13 July 2005 START
+	if (strcmp(name, "convert")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Me->InputInfo.StartConvertCharacter.Text = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.StartConvertCharacter.Display = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.StartConvertCharacter.Colour = atoi(*atts);
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.StartConvertCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	if (strcmp(name, "protect")==0) {
+		while (*atts!=0) {
+			if (strcmp(*atts, "t")==0) {
+				atts++;
+				Me->InputInfo.EndConvertCharacter.Text = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "d")==0) {
+				atts++;
+				Me->InputInfo.EndConvertCharacter.Display = *atts;
+				atts--;
+			}
+			if (strcmp(*atts, "b")==0) {
+			  atts++;
+			  Me->InputInfo.EndConvertCharacter.Colour = atoi(*atts);
+			  atts--;
+			}
+			if (strcmp(*atts, "f")==0) {
+			  atts++;
+			  Me->InputInfo.EndConvertCharacter.Foreground = *atts;
+			  atts--;
+			}
+			atts += 2;
+		}
+		return;
+	}
+	//-- Added for Kanji Conversion by T.Kaburagi 13 July 2005 END
+	
 	if (strcmp(name, "paragraph")==0) {
 		while (*atts!=0) {
 			if (strcmp(*atts, "d")==0) {
