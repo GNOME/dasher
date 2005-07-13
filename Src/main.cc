@@ -138,13 +138,11 @@ main(int argc, char *argv[])
   g_thread_init(NULL);
 #endif
 
-  
+
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
-  //  xml = glade_xml_new(PROGDATA"/dasher/dasher.glade", NULL, NULL);
-  xml = glade_xml_new("/home/pjc51/files/work/projects/hci/dasher/dasher/Src/Gtk2/dasher_pjc.glade", NULL, NULL);
- 
+  xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
 #endif
 
 
