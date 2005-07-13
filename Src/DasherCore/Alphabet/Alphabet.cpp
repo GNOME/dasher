@@ -44,6 +44,7 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	SetOrientation(AlphInfo.Orientation);
 	SetLanguage(AlphInfo.Type);
 	SetTrainingFile(AlphInfo.TrainingFile);
+    SetGameModeFile(AlphInfo.GameModeFile);
 	SetPalette(AlphInfo.PreferredColours);
 	
 //	m_AlphInfo=&AlphInfo;

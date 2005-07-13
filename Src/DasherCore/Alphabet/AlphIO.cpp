@@ -210,6 +210,11 @@ void CAlphIO::Save(const std::string& AlphID)
 		fwrite(Info.TrainingFile.c_str(), sizeof(char), Info.TrainingFile.size(), Output);
 		fwrite("</train>\n", sizeof(char), 9, Output);
 
+		fwrite("<gamemode>", sizeof(char), 10, Output);
+		XML_Escape(&Info.GameModeFile, false);
+		fwrite(Info.GameModeFile.c_str(), sizeof(char), Info.GameModeFile.size(), Output);
+		fwrite("</gamemode>\n", sizeof(char), 12, Output);
+
 		// Write out the space character
 		fwrite("<space d=\"", sizeof(char), 10, Output);
 		XML_Escape(&Info.SpaceCharacter.Display, true);
@@ -309,6 +314,7 @@ void CAlphIO::CreateDefault()
 	Default.ControlCharacter.Text = "";
 	Default.ControlCharacter.Colour = 8;
 	Default.TrainingFile = "training_english_GB.txt";
+    Default.GameModeFile = "gamemode_english_GB.txt";
 	Default.PreferredColours = "Default";
 	string Chars = "abcdefghijklmnopqrstuvwxyz";
 	Default.Groups.resize(1);
@@ -570,6 +576,11 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name)
 		Me->InputInfo.TrainingFile = Me->CData;
 		return;
 	}
+
+    if (strcmp(name, "gamemode")==0) {
+        Me->InputInfo.GameModeFile = Me->CData;
+        return;
+    }
 
 	if (strcmp(name, "palette")==0) {
 	  Me->InputInfo.PreferredColours = Me->CData;

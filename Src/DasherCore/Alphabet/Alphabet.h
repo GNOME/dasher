@@ -42,6 +42,7 @@ public:
 	Opts::ScreenOrientations GetOrientation() {return m_Orientation;}
 	Opts::AlphabetTypes GetType() {return m_DefaultEncoding;}
 	std::string& GetTrainingFile() {return m_TrainingFile;}
+    std::string GetGameModeFile()  { return m_GameModeFile;}
 	std::string& GetPalette() {return m_DefaultPalette;}
 	
 	symbol GetParagraphSymbol() const;
@@ -102,6 +103,7 @@ public:
 	void SetOrientation(Opts::ScreenOrientations Orientation) {m_Orientation=Orientation;}
 	void SetLanguage(Opts::AlphabetTypes Group) {m_DefaultEncoding=Group;}
 	void SetTrainingFile(std::string TrainingFile) {m_TrainingFile=TrainingFile;}
+    void SetGameModeFile(std::string GameModeFile) {m_GameModeFile=GameModeFile;}
 	void SetPalette(std::string Palette) {m_DefaultPalette=Palette;}
 
     const alphabet_map GetAlphabetMap() const { return TextMap; }
@@ -114,6 +116,7 @@ private:
 	symbol m_SpaceSymbol;
 	symbol m_ControlSymbol;
 	std::string m_TrainingFile;
+    std::string m_GameModeFile;
 	std::string m_DefaultPalette;
 
 	std::vector<std::string> m_Characters; // stores the characters

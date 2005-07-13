@@ -37,7 +37,8 @@ public:
 		
 		// Complete description of the alphabet:
 		std::string TrainingFile;
-	        std::string PreferredColours;
+        std::string GameModeFile;
+	    std::string PreferredColours;
 		Opts::AlphabetTypes Encoding;
 		Opts::AlphabetTypes Type;
 		Opts::ScreenOrientations Orientation;
