@@ -16,11 +16,11 @@
 class CGnomeSettingsStore : public CSettingsStore
 {
  public:
-  CGnomeSettingsStore( Dasher::CEventHandler *pEventHandler, int argc, char **argv ) : CSettingsStore( pEventHandler ) {
+  CGnomeSettingsStore( Dasher::CEventHandler *pEventHandler ) : CSettingsStore( pEventHandler ) {
 
     GError *gconferror;
     
-    gconf_init( argc, argv, &gconferror );
+    //    gconf_init( argc, argv, &gconferror );
     the_gconf_client = gconf_client_get_default();
 
   };

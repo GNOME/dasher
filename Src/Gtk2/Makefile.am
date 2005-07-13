@@ -15,7 +15,7 @@ endif
 
 EXTRA_DIST = $(non_settings_store)
 
-libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h fileops.cc fileops.h dasher.glade dashergpe.glade $(settings_store)
+libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h fileops.cc fileops.h dasher.glade dashergpe.glade DasherControl.cpp Timer.cpp Menu.cc Menu.h Preferences.cpp FontDialogues.cpp $(settings_store)
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@

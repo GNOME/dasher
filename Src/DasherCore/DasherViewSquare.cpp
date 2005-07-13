@@ -11,7 +11,11 @@
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 
+#include "DasherTypes.h"
+
+
 #include <algorithm>
+#include <limits>
 
 using namespace Dasher;
 
@@ -1601,7 +1605,7 @@ void CDasherViewSquare::DrawGameModePointer()
 {
     myint loc = DasherModel().GetGameModePointerLoc();
 
-    if (loc == myint(loc.Min()))
+    if (loc == myint(INT64_MIN))
         return;
     
     if (loc > DasherModel().DasherY() )

@@ -1,6 +1,7 @@
 #include "DasherInterface.h"
 #include "DasherSettingsInterface.h"
 #include "CustomColours.h"
+#include "Event.h"
 
 using namespace Dasher;
 using namespace std;
@@ -21,9 +22,9 @@ void handle_draw_colour_polygon(Dasher::CDasherScreen::point* Points, int Number
 void handle_draw_text(symbol Character, int x1, int y1, int size);
 void handle_draw_text(const std::string &String, int x1, int y1, int size);
 void handle_text_size(const std::string &String, int* Width, int* Height, int Size);
-void handle_edit_output(symbol Character);
+void handle_edit_output(const std::string &strText);
 void handle_edit_outputcontrol(void* pointer, int data);
-void handle_edit_delete(symbol Character);
+void handle_edit_delete(const std::string &strText);
 void handle_get_new_context( std::string &str, int max );
 void handle_send_marker( int iMarker );
 
@@ -35,6 +36,9 @@ bool handle_get_string_option(const std::string& Key, std::string *Value);
 void handle_set_bool_option(const std::string& Key, bool Value);
 void handle_set_long_option(const std::string& Key, long Value);
 void handle_set_string_option(const std::string& Key, const std::string& Value);
+
+void handle_parameter_notification( int iParameter );
+void handle_event( CEvent *pEvent );
 
 int dasherfontsize=0;
 
@@ -242,6 +246,11 @@ class dasher_ui : public CDasherSettingsInterface
   void SetTruncationType( int Value ) {
     handle_parameter_int( INT_TRUNCATION, Value );
   }
+
+  void HandleParameterNotification( int iParameter ) {
+    handle_parameter_notification( iParameter );
+  }
+
 };
 
 
@@ -370,22 +379,27 @@ class dasher_screen : public CDasherScreen
 class dasher_edit : public CDashEditbox
 {
  public:
+
+  void HandleEvent( CEvent *pEvent ) {
+    handle_event( pEvent );
+  }
+
   void write_to_file() {};
   void get_new_context(std::string& str, int max)
     {
       handle_get_new_context( str, max );
     }
-  void output(symbol Symbol) 
+  void output( const std::string &strText ) 
     {
-      handle_edit_output(Symbol);
+      handle_edit_output( strText );
     };
   void outputcontrol(void* pointer, int data, int type)
     {
       handle_edit_outputcontrol(pointer, data);
     };
-  void deletetext(symbol Symbol)
+  void deletetext( const std::string &strText )
     {
-      handle_edit_delete(Symbol);
+      handle_edit_delete( strText );
     };
   void Clear()
     {

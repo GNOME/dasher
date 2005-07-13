@@ -1,15 +1,16 @@
 #include "edit.h"
 #include "dasher.h"
 #include "accessibility.h"
-#include "canvas.h"
+//#include "canvas.h"
+#include "DasherControl.h"
 #include <iostream>
 #include <libwnck/libwnck.h>
 
-extern int paused;
-extern bool keyboardmodeon;
-extern bool mouseposstart;
-extern bool onedmode;
-extern gboolean stdoutpipe;
+ extern int paused;
+ extern bool keyboardmodeon;
+// extern bool mouseposstart;
+ extern bool onedmode;
+ extern gboolean stdoutpipe;
 
 #include <gdk/gdkx.h>
 
@@ -34,17 +35,87 @@ AccessibleText* textbox=NULL;
 AccessibleEditableText* edittextbox=NULL;
 #endif
 
+GtkWidget *text_view;
+GtkWidget *text_scrolled_window;
+
 gunichar* wideoutput;
 
 extern gint outputcharacters;
 extern gboolean file_modified;
-void initialise_edit()
+
+
+
+
+
+
+extern "C" void choose_filename() {
+  if (timestamp==TRUE) {
+    // Build a filename based on the current time and date
+    tm *t_struct;
+    time_t ctime;
+    char *cwd;
+    char *tbuffer;
+
+    cwd=(char *)malloc(1024*sizeof(char));
+    tbuffer=(char *)malloc(1024*sizeof(char));
+    
+    ctime = time( NULL );
+    
+    t_struct= localtime( &ctime );
+    
+    
+    snprintf( tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year+1900), (t_struct->tm_mon+1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+    
+    if (filename) {
+      g_free((void *)filename);
+    }
+    getcwd(cwd,1024);
+    filename = g_build_path("/",cwd,tbuffer,NULL);
+    gtk_window_set_title(GTK_WINDOW(window), filename);
+  } else {
+    gtk_window_set_title(GTK_WINDOW(window), "Dasher");
+    if (filename) {
+      g_free((void *)filename);
+    }
+    filename = NULL;
+  }
+}
+
+
+
+
+extern "C" gboolean
+edit_button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
+
+  // FIXME - REIMPLEMENT
+
+//   if (paused==true) {
+//     // Dasher needs to update based on the context
+//     dasher_start();
+//     dasher_redraw();
+//     return FALSE;
+//   }
+  return FALSE;
+}
+
+void initialise_edit( GladeXML *pGladeXML )
+{
+  text_scrolled_window=glade_xml_get_widget( pGladeXML, "text_scrolled_window");
+  the_text_view=glade_xml_get_widget( pGladeXML, "the_text_view");
+
+
   int min, max;
   Display *dpy = gdk_x11_get_default_xdisplay();
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   the_primary_selection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   the_text_buffer = gtk_text_view_get_buffer (GTK_TEXT_VIEW (the_text_view));
+
+  // We need to monitor the text buffer for mark_set in order to get
+  // signals when the cursor is moved
+  g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
+
+
 #ifdef X_HAVE_UTF8_STRING
   XDisplayKeycodes(dpy,&min,&max);
   origkeymap = XGetKeyboardMapping(dpy,min,max-min+1,&numcodes);
@@ -69,10 +140,10 @@ void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, 
   dasher_redraw();
 }
 
-void gtk2_edit_output_callback(symbol Symbol)
+void gtk2_edit_output_callback( const std::string &strText )
 {
   std::string label;
-  label = dasher_get_edit_text( Symbol );
+  label = strText;
 
 #ifdef GNOME_SPEECH
   say+=label;
@@ -98,7 +169,7 @@ void gtk2_edit_output_callback(symbol Symbol)
   }
 #endif
 
-  if (keyboardmodeon==true) {
+  if ( keyboardmodeon ) {
 #ifdef X_HAVE_UTF8_STRING
     // FIXME
     // We should really check this at runtime rather than compile time
@@ -159,13 +230,15 @@ void gtk2_edit_output_callback(symbol Symbol)
 
 void write_to_file()
 {
+  // FIXME - REIMPLEMENT
+
   // Add the text from the edit box to the user training file so we
   // can learn from them
-  std::string filename=dasher_get_training_file();
-  int fd=open(filename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
-  write(fd,outputtext.c_str(),outputtext.length());
-  close(fd);
-  outputtext="";
+//   std::string filename=dasher_get_training_file();
+//   int fd=open(filename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
+//   write(fd,outputtext.c_str(),outputtext.length());
+//   close(fd);
+//   outputtext="";
 }
 
 void gtk2_edit_outputcontrol_callback(void* pointer, int data)
@@ -192,18 +265,23 @@ void gtk2_edit_outputcontrol_callback(void* pointer, int data)
 #endif
   case 2:
     // stop
-    stop();
+    dasher_control_toggle_pause();
     break;
   case 3:
+
+    // FIXME - REIMPLEMENT
     //	pause
-    dasher_pause(0,0);
-    if (onedmode==true) {
-      dasher_halt();
-    }
-    paused=true;
-    if (mouseposstart==true)
-      draw_mouseposbox(0);
-    break;
+//     dasher_pause(0,0);
+//     if (onedmode==true) {
+//       dasher_halt();
+//     }
+//     paused=true;
+
+
+
+//     if (mouseposstart==true)
+//       draw_mouseposbox(0);
+     break;
   case 4:
 #ifdef GNOME_SPEECH
     speak_buffer();
@@ -243,7 +321,7 @@ void gtk2_edit_outputcontrol_callback(void* pointer, int data)
     edit_delete_forward_line();
     break;
   case 24:
-    gtk2_edit_delete_callback(-1);
+    gtk2_edit_delete_callback(std::string(""));
     break;
   case 25:
     edit_delete_backward_word();
@@ -320,22 +398,20 @@ void edit_move_end()
   gtk_text_view_scroll_mark_onscreen (GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
-void gtk2_edit_delete_callback(symbol Symbol)
+void gtk2_edit_delete_callback( const std::string &strText )
 {
 
-  if (Symbol==0) {
+  if (strText.size() == 0) {
     return;
   }
   
   GtkTextIter *start = new GtkTextIter;
   GtkTextIter *end = new GtkTextIter;
   int length,displaylength;
-  if (Symbol!=-1) {
-    length = dasher_get_edit_text(Symbol).length();
-    displaylength = g_utf8_strlen(dasher_get_edit_text(Symbol).c_str(),-1);
-  } else {
-    displaylength=length=1;
-  }
+
+  length = strText.size();
+  displaylength = g_utf8_strlen( strText.c_str(),-1);
+
 
   gtk_text_buffer_get_iter_at_mark(the_text_buffer,end,gtk_text_buffer_get_insert(the_text_buffer));
 
@@ -378,7 +454,7 @@ void gtk2_edit_delete_callback(symbol Symbol)
   }
 #endif
 
-  if (keyboardmodeon==true) {
+  if ( keyboardmodeon ) {
 #ifdef X_HAVE_UTF8_STRING
     Display *dpy;
     dpy = gdk_x11_get_default_xdisplay();
@@ -687,3 +763,5 @@ gboolean a11y_text_entry() {
 #endif
   return FALSE;
 }
+
+

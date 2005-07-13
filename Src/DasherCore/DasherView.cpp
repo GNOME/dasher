@@ -61,6 +61,9 @@ void CDasherView::DrawMousePosBox()
 //	DASHER_TRACEOUTPUT("which %d\n",iWhich);
 	int iMousePosDist = GetLongParameter(LP_MOUSEPOSDIST);
     int iDrawMousePosBox = GetLongParameter(LP_MOUSE_POS_BOX);
+
+    std::cout << "iDrawMousePosBox: " << iDrawMousePosBox << std::endl;
+
 	switch (iDrawMousePosBox) 
 	{
 		case 1:
@@ -132,6 +135,6 @@ void CDasherView::Render()
   
   if (GetBoolParameter(BP_KEYBOARD_MODE)) 
     DrawKeyboard();
-  if (GetLongParameter(LP_MOUSE_POS_BOX) !=0)
+  if (GetLongParameter(LP_MOUSE_POS_BOX) !=-1)
     DrawMousePosBox();
 }

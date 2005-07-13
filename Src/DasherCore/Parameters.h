@@ -1,6 +1,8 @@
 #ifndef __parameters_h__
 #define __parameters_h__
 
+#include <string>
+
 // All parameters go into the enums here
 // They are unique across the different types
 enum {BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR, 

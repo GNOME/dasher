@@ -12,7 +12,7 @@
 #include "DasherModel.h"
 #include "Event.h"
 
-//#include <iostream>
+#include <iostream>
 
 #include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
@@ -224,8 +224,9 @@ void CDasherModel::Start()
 //		m_pEditbox->get_new_context(ContextString,5);
 
 
+  std::string strNewContext( "" );
 
-    SetContext( std::string("") ); // FIXME - REALLY REALLY broken!
+  SetContext( strNewContext ); // FIXME - REALLY REALLY broken!
 
     CEditContextEvent oEvent( 5 );
 
@@ -240,6 +241,10 @@ void CDasherModel::Start()
 }
 
 void CDasherModel::SetContext( std::string &sNewContext ) {
+
+
+  //  std::cout << "Setting context to " << sNewContext << std::endl;
+
   	m_Rootmin=0;
 	m_Rootmax=m_DasherY;
 

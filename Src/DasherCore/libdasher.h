@@ -4,6 +4,8 @@
 #include "DasherScreen.h"
 #include "DasherView.h"
 #include "DasherTypes.h"
+#include "DasherInterfaceBase.h"
+#include "Event.h"
 
 using namespace Dasher;
 
@@ -66,7 +68,7 @@ enum clipboard_action { CLIPBOARD_CUT,
 			CLIPBOARD_SELECTALL,
 			CLIPBOARD_CLEAR };
 
-void dasher_early_initialise( int argc, char **argv );
+void dasher_early_initialise();
 void dasher_late_initialise( int _width, int _height );
 void dasher_finalise();
 
@@ -79,6 +81,9 @@ void dasher_set_orientation( Opts::ScreenOrientations orient );
 void dasher_set_encoding( Opts::FileEncodingFormats encoding );
 
 //void dasher_set_lm_parameter( const char *pname, int value );
+
+void dasher_set_parameter_callback( void (*_cb )( int ) );
+void dasher_set_event_callback( void (*_cb )( CEvent * ) );
 
 void dasher_set_string_callback( void(*_cb)( string_param, const char * ) );
 void dasher_set_double_callback( void(*_cb)( double_param, double ) );
@@ -97,9 +102,9 @@ void dasher_set_draw_text_string_callback(void (*_cb)(std::string, int, int, int
 void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, int));
 void dasher_set_send_marker_callback( void (*_cb)( int ) );
 
-void dasher_set_edit_output_callback(void (*_cb)(symbol));
+void dasher_set_edit_output_callback(void (*_cb)(const std::string &));
 void dasher_set_edit_outputcontrol_callback(void (*_cb)(void*, int));
-void dasher_set_edit_delete_callback(void (*_cb)(symbol));
+void dasher_set_edit_delete_callback(void (*_cb)(const std::string &));
 void dasher_set_get_new_context_callback( void (*_cb)( std::string &, int ) );
 
 void dasher_set_clipboard_callback( void (*_cb)( clipboard_action ) );
@@ -152,5 +157,7 @@ void add_control_tree(ControlTree *controltree);
 
 void add_alphabet_filename(const char* filename);
 void add_colour_filename(const char* filename);
+
+CDasherInterfaceBase *dasher_get_interface();
 
 #endif

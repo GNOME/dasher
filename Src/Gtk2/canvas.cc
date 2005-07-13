@@ -1,5 +1,7 @@
 #include "canvas.h"
 
+#include "DasherControlPrivate.h"
+
 #include <iostream>
 #include <sstream>
 
@@ -19,6 +21,12 @@ GdkColor *colours;
 extern gboolean setup,preferences;
 extern long mouseposstartdist;
 extern gboolean firstbox, secondbox,paused;
+
+gboolean firsttime = TRUE;
+
+extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
+extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
+
 
 gboolean drawoutline=FALSE;
 
@@ -48,6 +56,10 @@ void initialise_canvas( int width, int height )
   offscreen_decoration_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
   onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
 
+  std::cout << offscreen_display_buffer << " " << offscreen_decoration_buffer << " " << onscreen_buffer << std::endl;
+
+  std::cout << GTK_WIDGET_DRAWABLE( onscreen_buffer ) << std::endl;
+
   offscreen_buffer = offscreen_display_buffer;
 
   // Pango font rendering stuff
@@ -58,6 +70,13 @@ void initialise_canvas( int width, int height )
 
   ink = new PangoRectangle;
   logical = new PangoRectangle;
+
+  g_signal_connect( the_canvas, "expose_event", G_CALLBACK(canvas_expose_event), NULL );
+  g_signal_connect( the_canvas, "configure_event", G_CALLBACK(canvas_configure_event), NULL );
+
+  gtk_widget_add_events (the_canvas, GDK_EXPOSURE_MASK );
+  gtk_widget_add_events (the_canvas, GDK_BUTTON_PRESS_MASK);
+  gtk_widget_add_events (the_canvas, GDK_BUTTON_RELEASE_MASK);
 }
 
 /// Blank the offscreen buffer
@@ -95,6 +114,8 @@ void blank_callback()
 
 void display_callback()
 { 
+
+
   GdkRectangle update_rect;
 
   if (setup==false||preferences==true)
@@ -508,6 +529,7 @@ void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* b
 }
 
 void draw_mouseposbox(int which) {
+
   if (setup==false||preferences==true)
     return;
 
@@ -543,6 +565,52 @@ void draw_mouseposbox(int which) {
   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
+// GTK event handlers for the canvas
 
+extern "C" gint
+canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
+{
+
+  gdk_draw_drawable(the_canvas->window,
+		  the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+		  onscreen_buffer,
+		  event->area.x, event->area.y,
+		  event->area.x, event->area.y,
+		  event->area.width, event->area.height);
+
+  if (firsttime==TRUE) {
+    // canvas_expose_event() is the easiest function to catch
+    // if we want to know when everything is set up and displayed
+    paused=true;
+    firsttime=false;
+  }
+
+  return TRUE;
+}
+
+extern "C" gint
+canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
+{
+
+  // If the canvas is resized, we need to regenerate all of the buffers
+  rebuild_buffer();
+
+  dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
+
+  dasher_redraw();
+
+  if (setup==TRUE) {
+    // If we're set up and resized, then save those settings
+
+    // FIXME - Reimplement this
+
+//     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
+//     gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
+//     dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
+//     dasher_set_parameter_int(INT_SCREENWIDTH, dasherwidth);
+  }
+
+  return FALSE;
+}
 
 

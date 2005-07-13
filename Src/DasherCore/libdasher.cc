@@ -37,9 +37,9 @@ void (*draw_text_string_callback)(std::string, int, int, int) = NULL;
 void (*text_size_callback)(const std::string &String, int*, int*, int) = NULL;
 void (*send_marker_callback)( int iMarker ) = NULL;
 
-void (*edit_output_callback)(symbol) = NULL;
+void (*edit_output_callback)( const std::string &) = NULL;
 void (*edit_outputcontrol_callback)(void*, int) = NULL;
-void (*edit_delete_callback)(symbol) = NULL;
+void (*edit_delete_callback)( const std::string &) = NULL;
 void (*get_new_context_callback)(std::string &, int ) = NULL;
 
 void (*clipboard_callback)( clipboard_action ) = NULL;
@@ -51,6 +51,31 @@ bool (*get_string_option_callback)(const std::string&, std::string *) = NULL;
 void (*set_bool_option_callback)(const std::string&, bool) = NULL;
 void (*set_long_option_callback)(const std::string&, long) = NULL;
 void (*set_string_option_callback)(const std::string&, const std::string&) = NULL;
+
+void (*parameter_callback)(int) = NULL;
+void (*event_callback)( CEvent * ) = NULL;
+
+void handle_parameter_notification( int iParameter ) {
+  if( parameter_callback != NULL ) {
+    parameter_callback( iParameter );
+  }
+}
+
+void handle_event( CEvent *pEvent ) {
+  if( event_callback != NULL ) {
+    event_callback( pEvent );
+  }
+}
+
+
+void dasher_set_parameter_callback( void (*_cb )( int ) ) {
+  parameter_callback = _cb;
+}
+
+void dasher_set_event_callback( void (*_cb )( CEvent * ) ) {
+  event_callback = _cb;
+}
+
 
 void handle_parameter_string( string_param p, const string & value )
 {
@@ -92,6 +117,9 @@ void handle_display()
 
 void handle_colour_scheme(const CCustomColours *Colours)
 {
+
+  std::cout << "In handle_colour_scheme" << std::endl;
+
   if (colour_scheme_callback==NULL || Colours==NULL)
     return;
 
@@ -158,10 +186,10 @@ void handle_text_size(const std::string &String, int* Width, int* Height, int Si
     text_size_callback(String, Width, Height, Size);
 }
 
-void handle_edit_output(symbol Character)
+void handle_edit_output( const std::string &strText )
 {
   if( edit_output_callback != NULL )
-    edit_output_callback( Character );
+    edit_output_callback( strText );
 }
 
 void handle_edit_outputcontrol(void* pointer, int data)
@@ -170,10 +198,10 @@ void handle_edit_outputcontrol(void* pointer, int data)
     edit_outputcontrol_callback( pointer, data );
 }
 
-void handle_edit_delete(symbol Character)
+void handle_edit_delete( const std::string &strText )
 {
   if( edit_delete_callback != NULL )
-    edit_delete_callback(Character);
+    edit_delete_callback( strText );
 }
 
 void handle_get_new_context( std::string &str, int max )
@@ -237,9 +265,9 @@ void handle_set_string_option(const std::string& Key, const std::string& Value)
 
 using namespace std;
 
-void dasher_early_initialise( int argc, char **argv )
+void dasher_early_initialise()
 {
-  interface = new CDasherInterface( argc, argv );
+  interface = new CDasherInterface();
 }
 
 void dasher_late_initialise( int _width, int _height)
@@ -318,7 +346,8 @@ void dasher_set_parameter_int( int_param p, long int value )
       interface->ChangeLanguageModel( value );
       break;
     case INT_ONEBUTTON:
-      interface->SetOneButton( value );
+      // FIXME - REIMPLEMENT?
+      //      interface->SetOneButton( value );
       break;
     case INT_VIEW:
       interface->ChangeView( value );
@@ -593,7 +622,7 @@ void dasher_set_text_size_callback(void (*_cb)(const std::string &, int*, int*, 
   text_size_callback = _cb;
 }
 
-void dasher_set_edit_output_callback( void (*_cb )(symbol))
+void dasher_set_edit_output_callback( void (*_cb )( const std::string &))
 {
   edit_output_callback = _cb;
 }
@@ -603,7 +632,7 @@ void dasher_set_edit_outputcontrol_callback( void (*_cb )(void*, int))
   edit_outputcontrol_callback = _cb;
 }
 
-void dasher_set_edit_delete_callback( void (*_cb )(symbol))
+void dasher_set_edit_delete_callback( void (*_cb )( const std::string &))
 {
   edit_delete_callback = _cb;
 }
@@ -728,7 +757,9 @@ int dasher_get_text_colour( symbol Character )
 
 int dasher_get_onebutton(void)
 {
-  return(interface->GetOneButton());
+  // FIXME - Reimplement
+  //  return(interface->GetOneButton());
+  return false;
 }
 
 void dasher_resize_canvas( int _width, int _height )
@@ -786,4 +817,8 @@ void add_colour_filename(const char* filename)
 void dasher_set_input( CDasherInput *_pInput ) {
 
   interface->SetInput( _pInput );
+}
+
+CDasherInterfaceBase *dasher_get_interface() {
+  return interface;
 }

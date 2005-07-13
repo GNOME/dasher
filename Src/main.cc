@@ -2,6 +2,8 @@
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
 
+#include <gconf/gconf.h>
+
 #ifndef WITH_GPE
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
@@ -39,10 +41,10 @@ static const struct poptOption options [] =
 #include <stdlib.h>
 //#include <getopt.h>
 
-#include "libdasher.h"
 #include "dasher.h"
-#include "canvas.h"
 #include "edit.h"
+#include "DasherControl.h"
+#include "Menu.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
@@ -53,7 +55,6 @@ static const struct poptOption options [] =
 #endif
 
 #include "accessibility.h"
-#include "mouse_input.h"
 
 //extern GConfClient *the_gconf_client;
 
@@ -90,7 +91,6 @@ int
 main(int argc, char *argv[])
 {
   GladeXML *xml;
-  GtkWidget *window;
 
   int c;
   XWMHints wm_hints;
@@ -100,13 +100,28 @@ main(int argc, char *argv[])
   bind_textdomain_codeset (PACKAGE, "UTF-8");
   textdomain (PACKAGE);
 
+
+
 #ifdef GNOME_LIBS
   GnomeProgram *program=0;
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
 
   gnome_vfs_init();
-
 #endif
+
+  // Set up the app GConf client
+
+  GError *pGConfError;
+  
+  if( !gconf_init( argc, argv, &pGConfError ) ) {
+    std::cerr << "Failed to initialise gconf: " << pGConfError->message << std::endl;
+    exit(1);
+  }
+
+  g_pGConfClient = gconf_client_get_default();
+
+  // ---
+
 
 #ifdef WITH_GPE
   gpe_application_init (&argc, &argv);
@@ -127,7 +142,8 @@ main(int argc, char *argv[])
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
 #else
-  xml = glade_xml_new(PROGDATA"/dasher/dasher.glade", NULL, NULL);
+  //  xml = glade_xml_new(PROGDATA"/dasher/dasher.glade", NULL, NULL);
+  xml = glade_xml_new("/home/pjc51/files/work/projects/hci/dasher/dasher/Src/Gtk2/dasher_pjc.glade", NULL, NULL);
  
 #endif
 
@@ -167,30 +183,19 @@ main(int argc, char *argv[])
   }
 
   
-  dasher_set_string_callback( parameter_string_callback );
-  dasher_set_double_callback( parameter_double_callback );
-  dasher_set_int_callback( parameter_int_callback );
-  dasher_set_bool_callback( parameter_bool_callback );
-
-  dasher_set_blank_callback( blank_callback );
-  dasher_set_display_callback( display_callback );
-  dasher_set_colour_scheme_callback( receive_colour_scheme_callback );
-  dasher_set_draw_rectangle_callback( draw_rectangle_callback );
-  dasher_set_draw_polyline_callback( draw_polyline_callback );
-  dasher_set_draw_colour_polyline_callback( draw_colour_polyline_callback );
-  dasher_set_draw_colour_polygon_callback( draw_colour_polygon_callback );
-  dasher_set_draw_text_callback( draw_text_callback );
-  dasher_set_draw_text_string_callback( draw_text_string_callback );
-  dasher_set_text_size_callback( text_size_callback );
-  dasher_set_send_marker_callback( send_marker_callback );
+//   dasher_set_string_callback( parameter_string_callback );
+//   dasher_set_double_callback( parameter_double_callback );
+//   dasher_set_int_callback( parameter_int_callback );
+//   dasher_set_bool_callback( parameter_bool_callback );
 
 
-  dasher_set_edit_output_callback( gtk2_edit_output_callback );
-  dasher_set_edit_outputcontrol_callback( gtk2_edit_outputcontrol_callback );
 
-  dasher_set_edit_delete_callback( gtk2_edit_delete_callback );
-  dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
-  dasher_set_clipboard_callback( gtk2_clipboard_callback );
+//   dasher_set_edit_output_callback( gtk2_edit_output_callback );
+//   dasher_set_edit_outputcontrol_callback( gtk2_edit_outputcontrol_callback );
+
+//   dasher_set_edit_delete_callback( gtk2_edit_delete_callback );
+//   dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
+//   dasher_set_clipboard_callback( gtk2_clipboard_callback );
 
 
   oldx = -1;
@@ -201,11 +206,6 @@ main(int argc, char *argv[])
 #endif
 
 
-  interface_setup(xml);
-
-  dasher_early_initialise( argc, argv );
-
-  paused=true;
 
   glade_xml_signal_autoconnect(xml);
 
@@ -215,16 +215,9 @@ main(int argc, char *argv[])
     window = glade_xml_get_widget(xml, "window");
   }
 
-  open_window(xml);
+  // Initialise the main window and show it
 
-  dasher_late_initialise(360,360);
-
-  interface_late_setup();
-
-  pMouseInput = new CDasherMouseInput;
-
-  dasher_set_input( pMouseInput );
-
+  InitialiseMainWindow( argc, argv, xml );
 
 #ifdef WITH_GPE
   gtk_window_set_decorated(GTK_WINDOW(window),false);
@@ -232,12 +225,13 @@ main(int argc, char *argv[])
 
   gtk_widget_show(window);
 
+
+
+
   //  if (preferences!=TRUE) {
     setup=TRUE;
     //  }
 
-  // We support advanced colour mode
-  dasher_set_parameter_bool( BOOL_COLOURMODE, true);
 
   
   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
@@ -251,7 +245,6 @@ main(int argc, char *argv[])
   XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
   gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
   
-  dasher_pause(0,0); // we start paused
 
 #ifdef GNOME_SPEECH
   setup_speech();
@@ -259,9 +252,10 @@ main(int argc, char *argv[])
 
   setupa11y();
 
-  controltree=gettree();
-  add_control_tree(controltree);
-
+  // FIXME - REIMPLEMENT
+//   controltree=gettree();
+//   add_control_tree(controltree);
+ 
   if (optind<argc) {
     if (!g_path_is_absolute(argv[optind])) {
       char *cwd;
@@ -277,7 +271,7 @@ main(int argc, char *argv[])
     choose_filename();
   }
 
-  gtk_main ();
+  gtk_main();
 
   interface_cleanup();
 
@@ -294,7 +288,15 @@ main(int argc, char *argv[])
   SPI_exit();
 #endif
 
-  dasher_finalise();
+  dasher_control_delete();
+
+  // Take down GConf client
+
+  g_object_unref( g_pGConfClient );
+
+  // ---
+
+
 
   return 0;
 }

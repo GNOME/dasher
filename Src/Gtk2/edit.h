@@ -1,4 +1,4 @@
-#include "libdasher.h"
+//#include "libdasher.h"
 #include <gtk/gtk.h>
 #include <X11/keysym.h>
 #include <sys/types.h>
@@ -16,11 +16,24 @@
 #include <cspi/spi.h>
 #endif
 
-void initialise_edit();
+#include <string>
+
+#include <glade/glade.h>
+
+typedef enum {
+  CLIPBOARD_CUT,
+  CLIPBOARD_COPY,
+  CLIPBOARD_PASTE,
+  CLIPBOARD_COPYALL,
+  CLIPBOARD_SELECTALL,
+  CLIPBOARD_CLEAR,
+} clipboard_action;
+
+void initialise_edit( GladeXML *pGladeXML );
 void cleanup_edit();
-void gtk2_edit_output_callback(symbol Symbol);
+void gtk2_edit_output_callback( const std::string &strText );
 void gtk2_edit_outputcontrol_callback(void* pointer, int data);
-void gtk2_edit_delete_callback(symbol Symbol);
+void gtk2_edit_delete_callback( const std::string &strText );
 void edit_move_back();
 void edit_move_forward();
 void edit_move_start();
@@ -34,9 +47,9 @@ void gtk2_clipboard_callback( clipboard_action act );
 void select_all();
 void clear_edit();
 
-extern GtkWidget *the_text_view;  
-extern GtkTextBuffer *the_text_buffer;
-extern GtkClipboard *the_text_clipboard;
+extern GtkWidget *the_text_view; 
+extern GtkTextBuffer *the_text_buffer; 
+extern GtkClipboard *the_text_clipboard; 
 
 void set_editbox_font(std::string FontName);
 void reset_edit_font();

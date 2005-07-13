@@ -7,7 +7,7 @@
 
 
 #include "libdasher.h"
-#include "dasher.h"
+//#include "dasher.h"
 
 extern GtkWidget *the_canvas;
 extern GdkPixmap *offscreen_display_buffer;

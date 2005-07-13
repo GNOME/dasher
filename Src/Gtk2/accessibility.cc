@@ -1,5 +1,5 @@
 #include "accessibility.h"
-#include "libdasher.h"
+//#include "libdasher.h"
 #include "edit.h"
 #include <libintl.h>
 #include <iostream>
@@ -634,8 +634,11 @@ void dasher_focus_listener (const AccessibleEvent *event, void *user_data)
       focusedwindow=accessible;
       deletemenutree();
       controltree=gettree();
-      add_control_tree(controltree);
-      dasher_start();      
+
+      // FIXME - REIMPLEMENT
+
+//       add_control_tree(controltree);
+//       dasher_start();      
       set_textbox(textaccessible);
     }
   }

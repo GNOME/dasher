@@ -3,6 +3,7 @@
 #include "fileops.h"
 #include "dasher.h"
 #include "edit.h"
+#include "../DasherCore/DasherTypes.h"
 
 extern gboolean file_modified;
 extern const gchar* filename;
@@ -158,8 +159,8 @@ save_file_as (const char *myfilename, bool append)
   outbuffer=NULL;
 
   switch (fileencoding) {
-  case Opts::UserDefault:
-  case Opts::AlphabetDefault:
+  case Dasher::Opts::UserDefault:
+  case Dasher::Opts::AlphabetDefault:
     //FIXME - need to call GetAlphabetType and do appropriate stuff regarding 
     //the character set. Arguably we should always be saving in either UTF-8 or
     //the user's locale (which may, of course, be UTF-8) because otherwise 
@@ -174,7 +175,7 @@ save_file_as (const char *myfilename, bool append)
       outbuffer=inbuffer;
       bytes_written=length;
     }
-  case Opts::UTF8:
+  case Dasher::Opts::UTF8:
     outbuffer=inbuffer;
     bytes_written=length;
     break;
@@ -182,11 +183,11 @@ save_file_as (const char *myfilename, bool append)
   // (in any case, my opinions regarding encouragement of data formats with
   // endianness damage are almost certainly unprintable)
 
-  case Opts::UTF16LE:
+  case Dasher::Opts::UTF16LE:
     cd=g_iconv_open("UTF16LE","UTF8");
     outbuffer=g_convert_with_iconv(inbuffer,-1,cd,&bytes_read,&bytes_written,&error);
     break;
-  case Opts::UTF16BE:
+  case Dasher::Opts::UTF16BE:
     cd=g_iconv_open("UTF16BE","UTF8");
     outbuffer=g_convert_with_iconv(inbuffer,-1,cd,&bytes_read,&bytes_written,&error);
     break;

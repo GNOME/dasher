@@ -110,6 +110,7 @@ public:
 	std::string GroupLabel(int group) const {return m_pcAlphabet->GetGroupLabel(group);}
 	int GroupColour(int group) const {return m_pcAlphabet->GetGroupColour(group);}
 
+
     void SetContext( std::string &sNewContext );
 
 	// functions returning private data (read only access)

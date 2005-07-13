@@ -216,6 +216,11 @@ public:
 	
 	void SetInput( CDasherInput *_pInput );
 	
+	void SetContext( std::string strNewContext ) {
+	  if( m_pDasherModel != NULL )
+	    m_pDasherModel->SetContext( strNewContext );
+	}
+	
 	
 	double GetNats() const;
 
