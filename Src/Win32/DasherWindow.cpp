@@ -522,17 +522,17 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				}
 				break;
 			case ID_OPTIONS_CONTROLMODE:
-				DasherSettingsInterface->ControlMode(!WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+				DasherSettingsInterface->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
 				break;
 			case ID_OPTIONS_FONTSIZE_NORMAL: {
-			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(1));
+			        DasherSettingsInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
 				break;
 			}
 			case ID_OPTIONS_FONTSIZE_LARGE: {
-			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(2));
+			        DasherSettingsInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, true);
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
@@ -540,7 +540,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				break;
 			}
 			case ID_OPTIONS_FONTSIZE_VERYLARGE: {
-			        DasherSettingsInterface->SetDasherFontSize(Dasher::Opts::FontSize(4));
+			        DasherSettingsInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
 				WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
@@ -559,8 +559,10 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				ChooseFont(&Data);
 				string FontName;
 				WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-				DasherSettingsInterface->SetEditFont(FontName, lf.lfHeight);
-				break;
+				//DasherSettingsInterface->SetEditFont(FontName, lf.lfHeight);
+                DasherSettingsInterface->SetLongParameter(LP_EDIT_FONT_SIZE, lf.lfHeight);
+                DasherSettingsInterface->SetStringParameter(SP_EDIT_FONT, FontName);
+                break;
 			}
 			case ID_OPTIONS_DASHERFONT: {
 				CHOOSEFONT Data;
@@ -574,12 +576,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 				ChooseFont(&Data);
 				string FontName;
 				WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-				DasherSettingsInterface->SetDasherFont(FontName);
+				DasherSettingsInterface->SetStringParameter(SP_DASHER_FONT, FontName);
 				break;
 			}
 			case ID_OPTIONS_RESETFONT:
-				DasherSettingsInterface->SetEditFont("",0);
-				DasherSettingsInterface->SetDasherFont("");
+                DasherSettingsInterface->SetLongParameter(LP_EDIT_FONT_SIZE, 0);
+                DasherSettingsInterface->SetStringParameter(SP_EDIT_FONT, "");
+				DasherSettingsInterface->SetStringParameter(SP_DASHER_FONT, "");
 				break;
 			case IDM_ABOUT:
 				{ CAboutbox Aboutbox(m_hwnd); }
@@ -608,13 +611,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       // FIXME - These options shouldn't pass through the interface
 
 			case ID_TB_SHOW:
-				DasherSettingsInterface->ShowToolbar(!WinMenu.GetCheck(ID_TB_SHOW));
+				DasherSettingsInterface->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
 				break;
 			case ID_TB_TEXT:
-				DasherSettingsInterface->ShowToolbarText(!WinMenu.GetCheck(ID_TB_TEXT));
+				DasherSettingsInterface->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
 				break;
 			case ID_TB_LARGE:
-				DasherSettingsInterface->ShowToolbarLargeIcons(!WinMenu.GetCheck(ID_TB_LARGE));
+				DasherSettingsInterface->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
 				break;
 			case ID_EDIT_SELECTALL:
 				m_pEdit->SelectAll();
@@ -651,19 +654,19 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       // FIXME - This options shouldn't passs through the interface
 
 			case ID_FIX_SPLITTER:
-				DasherSettingsInterface->FixLayout(!WinMenu.GetCheck(ID_FIX_SPLITTER));
+				DasherSettingsInterface->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
 				break;
 			case ID_SHOW_SLIDE:
-				DasherSettingsInterface->ShowSpeedSlider(!WinMenu.GetCheck(ID_SHOW_SLIDE));
+				DasherSettingsInterface->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
 				break;
 
       // FIXME - These options shouldn't pass through the interface
 
 			case ID_TIMESTAMP:
-				DasherSettingsInterface->TimeStampNewFiles(!WinMenu.GetCheck(ID_TIMESTAMP));
+				DasherSettingsInterface->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
 				break;
 			case ID_COPY_ALL_ON_STOP:
-				DasherSettingsInterface->CopyAllOnStop(!WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
+				DasherSettingsInterface->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
 				break;
 
       // Orientation options
@@ -687,19 +690,19 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       // FIXME - These options shouldn't pass through the interface
 
 			case ID_SAVE_AS_USER_CODEPAGE:
-				DasherSettingsInterface->SetFileEncoding(Opts::UserDefault);
+				DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
 				break;
 			case ID_SAVE_AS_ALPHABET_CODEPAGE:
-				DasherSettingsInterface->SetFileEncoding(Opts::AlphabetDefault);
+				DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
 				break;
 			case ID_SAVE_AS_UTF8:
-				DasherSettingsInterface->SetFileEncoding(Opts::UTF8);
+				DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
 				break;
 			case ID_SAVE_AS_UTF16_LITTLE:
-				DasherSettingsInterface->SetFileEncoding(Opts::UTF16LE);
+				DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
 				break;
 			case ID_SAVE_AS_UTF16_BIG:
-				DasherSettingsInterface->SetFileEncoding(Opts::UTF16BE);
+				DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
 				break;
 			default:
 				return DefWindowProc(m_hwnd, message, wParam, lParam);
@@ -739,7 +742,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 	case WM_SIZE:
 		if (wParam==SIZE_MINIMIZED)
 			break;
-		DasherSettingsInterface->SetScreenSize(LOWORD(lParam),HIWORD(lParam));
+        DasherSettingsInterface->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
+        DasherSettingsInterface->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
 		Layout();
 		break;
 	default:
