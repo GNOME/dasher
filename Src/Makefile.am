@@ -15,7 +15,7 @@ endif
 
 if DOGTK2
 
-SUBDIRS = DasherCore Gtk2 Common GnomeApplet
+SUBDIRS = DasherCore Gtk2 Common #GnomeApplet
 dasher_SOURCES = main.cc
 
 AM_CXXFLAGS = -O2 $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(gthread_CFLAGS) $(wnck_CFLAGS) -I$(srcdir)/Gtk2/ -I$(srcdir)/DasherCore/ -I$(srcdir)/../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\" -DPROGDATA=\"$(pkgdatadir)\"
