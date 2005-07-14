@@ -13,7 +13,7 @@
 #include "Event.h"
 
 #include <iostream>
-#include <limits>
+#include <inttypes>
 
 #include "../Common/Random.h"
 #include "LanguageModelling/PPMLanguageModel.h"
