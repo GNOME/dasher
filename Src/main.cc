@@ -39,6 +39,7 @@ static const struct poptOption options [] =
 #include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <iostream>
 //#include <getopt.h>
 
 #include "dasher.h"
