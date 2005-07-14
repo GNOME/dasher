@@ -14,7 +14,7 @@
 #include "DasherViewSquare.h"
 
 #include <iostream>
-
+#include <memory>
 namespace {
 	#include "stdio.h"
 }
