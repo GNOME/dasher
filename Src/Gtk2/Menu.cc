@@ -4,14 +4,28 @@
 #include "edit.h"
 #include "DasherTypes.h"
 #include "Parameters.h"
+#include "fileops.h"
 
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
 #include <libgnome/libgnome.h>
 #endif
 
+extern GladeXML *widgets;
+    
+extern GtkWidget *open_filesel;
+extern GtkWidget *save_filesel;
+extern GtkWidget *save_and_quit_filesel;
+extern GtkWidget *import_filesel;
+extern GtkWidget *append_filesel;
+extern GtkWidget *window;
+extern GtkWidget *file_selector;
+
+
 extern "C" void
 select_save_file_as(GtkWidget *widget, gpointer user_data);
+
+extern "C" void load_training_file (const gchar *filename);
 
 // 'File' Menu
 
@@ -58,6 +72,23 @@ select_open_file(GtkWidget *widget, gpointer user_data)
 }
 
 #else
+
+extern "C" void
+filesel_hide(GtkWidget *widget, gpointer user_data)
+{
+  // FIXME - uh. Yes. This works, but is it in any way guaranteed to?
+  // Of course, if glade let us set user_data stuff properly, this would
+  // be a lot easier
+  gtk_widget_hide(gtk_widget_get_parent(gtk_widget_get_parent(gtk_widget_get_parent(widget))));
+}
+
+extern "C" void
+open_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+  open_file (filename);
+}
 
 extern "C" void
 select_open_file(GtkWidget *widget, gpointer user_data)
@@ -115,6 +146,30 @@ select_save_file_as(GtkWidget *widget, gpointer user_data)
 
 #else
 
+
+extern "C" void
+save_file_from_filesel_and_quit ( GtkWidget *selector2, GtkFileSelection *selector )
+{ 
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  if (save_file_as(filename,FALSE)==false) {
+    return;
+  } else {
+    exiting=TRUE;
+    gtk_main_quit();
+  } 
+  return;
+} 
+
+
+extern "C" void
+save_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+  save_file_as(filename,FALSE);
+}
+
+
 extern "C" void
 select_save_file_as(GtkWidget *widget, gpointer user_data)
 {
@@ -159,6 +214,16 @@ select_append_file(GtkWidget *widget, gpointer user_data)
 #else
 
 extern "C" void
+append_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{   
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  
+  save_file_as(filename,TRUE);
+  
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+}   
+
+extern "C" void
 select_append_file(GtkWidget *widget, gpointer user_data)
 {
   if (append_filesel==NULL) {
@@ -197,6 +262,14 @@ select_import_file(GtkWidget *widget, gpointer user_data)
 }
 
 #else
+
+extern "C" void
+import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
+{   
+  filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
+  load_training_file(filename);
+  filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
+}
 
 extern "C" void               
 select_import_file(GtkWidget *widget, gpointer user_data)
