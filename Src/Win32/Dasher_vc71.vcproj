@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Dasher"
-	ProjectGUID="{752501D3-5B04-4F3C-A141-DE426E354D23}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -22,14 +21,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon;Common"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Debug/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Debug/Intermediate/"
@@ -46,7 +44,6 @@
 				OutputFile=".\Target/Win32 Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386;./vld/vc71"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Debug/Dasher.pdb"
 				SubSystem="2"/>
@@ -93,15 +90,14 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -116,7 +112,6 @@
 				OutputFile=".\Target/Win32 Win95 compatible Release/Dasher.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386"
 				ProgramDatabaseFile=".\Target/Win32 Win95 compatible Release/Dasher.pdb"
 				SubSystem="2"/>
 			<Tool
@@ -162,15 +157,14 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,NDEBUG,_WINDOWS,_STATIC"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Release/Intermediate/"
@@ -185,7 +179,6 @@
 				OutputFile=".\Target/Win32 Release/Dasher.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386"
 				ProgramDatabaseFile=".\Target/Win32 Release/Dasher.pdb"
 				SubSystem="2"/>
 			<Tool
@@ -227,14 +220,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon;Common"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				BufferSecurityCheck="TRUE"
-				DisableLanguageExtensions="FALSE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Debug/Intermediate/"
@@ -251,11 +243,8 @@
 				OutputFile=".\Target/Win32 Unicode Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386;./vld/vc71"
-				IgnoreDefaultLibraryNames=""
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Unicode Debug/Dasher.pdb"
-				GenerateMapFile="TRUE"
 				SubSystem="2"/>
 			<Tool
 				Name="VCMIDLTool"
@@ -296,26 +285,25 @@
 			WholeProgramOptimization="FALSE">
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
 				GlobalOptimizations="TRUE"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -325,8 +313,7 @@
 				OutputFile=".\Target/Win32 Unicode Release/Dasher.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386"
-				IgnoreDefaultLibraryNames="kernel32.lib advapi32.lib user32.lib gdi32.lib shell32.lib comdlg32.lib version.lib mpr.lib rasapi32.lib winmm.lib winspool.lib vfw32.lib secur32.lib oleacc.lib oledlg.lib sensapi.lib"
+				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Unicode Release/Dasher.pdb"
 				SubSystem="2"/>
 			<Tool
@@ -368,14 +355,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,OriginalWin95"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Debug/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Debug/Intermediate/"
@@ -392,7 +378,6 @@
 				OutputFile=".\Target/Win32 Win95 compatible Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Win95 compatible Debug/Dasher.pdb"
 				SubSystem="2"/>
@@ -435,12 +420,13 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;UNICODE;_STATIC;_WIN32_WINNT=0x0500;ACCESSIBLE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"
+				PrecompiledHeaderFile=".\Target/Accessible Unicode Debug/Intermediate/Dasher.pch"
 				AssemblerListingLocation=".\Target/Accessible Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Accessible Unicode Debug/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Accessible Unicode Debug/Intermediate/"
@@ -453,11 +439,10 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib Oleacc.lib comsupp.lib"
 				OutputFile=".\Target/Accessible Unicode Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Accessible Unicode Debug/Dasher.pdb"
 				SubSystem="2"/>
@@ -495,15 +480,13 @@
 			ConfigurationType="1">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;./vld"
+				AdditionalIncludeDirectories="WinCommon"
 				UsePrecompiledHeader="2"
 				PrecompiledHeaderThrough="WinCommon.h"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
-				Name="VCLinkerTool"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
-				AdditionalLibraryDirectories="C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386"/>
+				Name="VCLinkerTool"/>
 			<Tool
 				Name="VCMIDLTool"/>
 			<Tool
@@ -655,9 +638,6 @@
 				RelativePath=".\Widgets\Toolbar.h">
 			</File>
 			<File
-				RelativePath=".\widgets\WindowSelect.cpp">
-			</File>
-			<File
 				RelativePath=".\widgets\WindowSelect.h">
 			</File>
 		</Filter>
@@ -672,75 +652,74 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Common"
+			Name="WinCommon"
 			Filter="">
 			<File
-				RelativePath=".\Common\DasherEncodingToCP.cpp">
+				RelativePath="Common\DasherEncodingToCP.cpp">
 			</File>
 			<File
-				RelativePath=".\Common\DasherEncodingToCP.h">
+				RelativePath="Common\DasherEncodingToCP.h">
 			</File>
 			<File
-				RelativePath=".\Common\WinCommon.h">
+				RelativePath="Common\WinCommon.h">
 			</File>
 			<File
-				RelativePath=".\Common\WinHelper.cpp">
+				RelativePath=".\widgets\WindowSelect.cpp">
 			</File>
 			<File
-				RelativePath=".\Common\WinHelper.h">
+				RelativePath="Common\WinHelper.cpp">
 			</File>
 			<File
-				RelativePath=".\Common\WinLocalisation.cpp">
+				RelativePath="Common\WinHelper.h">
 			</File>
 			<File
-				RelativePath=".\Common\WinLocalisation.h">
+				RelativePath="Common\WinLocalisation.cpp">
 			</File>
 			<File
-				RelativePath=".\Common\WinMenus.cpp">
+				RelativePath="Common\WinLocalisation.h">
 			</File>
 			<File
-				RelativePath=".\Common\WinMenus.h">
+				RelativePath="Common\WinMenus.cpp">
 			</File>
 			<File
-				RelativePath=".\Common\WinUTF8.cpp">
+				RelativePath="Common\WinMenus.h">
 			</File>
 			<File
-				RelativePath=".\Common\WinUTF8.h">
+				RelativePath="Common\WinUTF8.cpp">
 			</File>
 			<File
-				RelativePath=".\Common\WinWrap.cpp">
+				RelativePath="Common\WinUTF8.h">
 			</File>
 			<File
-				RelativePath=".\Common\WinWrap.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="DasherControl"
-			Filter="">
-			<File
-				RelativePath=".\Dasher.cpp">
+				RelativePath="Common\WinWrap.cpp">
 			</File>
 			<File
-				RelativePath=".\Dasher.h">
-			</File>
-			<File
-				RelativePath=".\EditWrapper.cpp">
-			</File>
-			<File
-				RelativePath=".\EditWrapper.h">
+				RelativePath="Common\WinWrap.h">
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\DasherMouseInput.cpp">
+			RelativePath="Dasher.cpp">
 		</File>
 		<File
-			RelativePath=".\DasherMouseInput.h">
+			RelativePath="Dasher.h">
+		</File>
+		<File
+			RelativePath="DasherMouseInput.cpp">
+		</File>
+		<File
+			RelativePath="DasherMouseInput.h">
 		</File>
 		<File
 			RelativePath=".\DasherWindow.cpp">
 		</File>
 		<File
 			RelativePath=".\DasherWindow.h">
+		</File>
+		<File
+			RelativePath="EditWrapper.cpp">
+		</File>
+		<File
+			RelativePath="EditWrapper.h">
 		</File>
 		<File
 			RelativePath=".\resource.h">
@@ -750,8 +729,5 @@
 		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="DevPartner_IsInstrumented"
-			Value="1"/>
 	</Globals>
 </VisualStudioProject>

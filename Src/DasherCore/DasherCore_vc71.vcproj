@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="DasherCore"
-	ProjectGUID="{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -25,8 +24,6 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Debug/Intermediate/"
@@ -81,14 +78,13 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
 				WarningLevel="3"
-				SuppressStartupBanner="TRUE"/>
+				SuppressStartupBanner="TRUE"
+				DebugInformationFormat="3"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
@@ -130,8 +126,6 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -187,8 +181,6 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Release/Intermediate/"
@@ -241,8 +233,6 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -290,10 +280,7 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB,_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				BufferSecurityCheck="TRUE"
-				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/DasherCore.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
@@ -337,19 +324,19 @@
 			Name="LanguageModelling"
 			Filter="">
 			<File
-				RelativePath=".\LanguageModelling\BigramLanguageModel.cpp">
+				RelativePath="LanguageModelling\BigramLanguageModel.cpp">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\BigramLanguageModel.h">
+				RelativePath="LanguageModelling\BigramLanguageModel.h">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\DictLanguageModel.cpp">
+				RelativePath="LanguageModelling\DictLanguageModel.cpp">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\DictLanguageModel.h">
+				RelativePath="LanguageModelling\DictLanguageModel.h">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\LanguageModel.cpp">
+				RelativePath="LanguageModelling\LanguageModel.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -388,16 +375,10 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\LanguageModel.h">
+				RelativePath="LanguageModelling\LanguageModel.h">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\LanguageModelParams.h">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\MixtureLanguageModel.h">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\PPMLanguageModel.cpp">
+				RelativePath="LanguageModelling\PPMLanguageModel.cpp">
 				<FileConfiguration
 					Name="Debug|Win32">
 					<Tool
@@ -436,127 +417,76 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\PPMLanguageModel.h">
+				RelativePath="LanguageModelling\PPMLanguageModel.h">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\SymbolAlphabet.h">
+				RelativePath="LanguageModelling\WordLanguageModel.cpp">
 			</File>
 			<File
-				RelativePath=".\LanguageModelling\WordLanguageModel.cpp">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\WordLanguageModel.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="View"
-			Filter="">
-			<File
-				RelativePath=".\DasherView.cpp">
-			</File>
-			<File
-				RelativePath=".\DasherView.h">
-			</File>
-			<File
-				RelativePath=".\DasherView.inl">
-			</File>
-			<File
-				RelativePath=".\DasherViewSquare.cpp">
-			</File>
-			<File
-				RelativePath=".\DasherViewSquare.h">
-			</File>
-			<File
-				RelativePath=".\DasherViewSquare.inl">
-			</File>
-			<File
-				RelativePath=".\View\DelayedDraw.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Model"
-			Filter="">
-			<File
-				RelativePath=".\DasherModel.cpp">
-			</File>
-			<File
-				RelativePath=".\DasherModel.h">
-			</File>
-			<File
-				RelativePath=".\DasherNode.cpp">
-			</File>
-			<File
-				RelativePath=".\DasherNode.h">
-			</File>
-			<File
-				RelativePath="FrameRate.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Alphabet"
-			Filter="">
-			<File
-				RelativePath=".\Alphabet\Alphabet.cpp">
-			</File>
-			<File
-				RelativePath=".\Alphabet\Alphabet.h">
-			</File>
-			<File
-				RelativePath=".\Alphabet\AlphabetMap.cpp">
-			</File>
-			<File
-				RelativePath=".\Alphabet\AlphabetMap.h">
-			</File>
-			<File
-				RelativePath=".\Alphabet\AlphIO.cpp">
-			</File>
-			<File
-				RelativePath=".\Alphabet\AlphIO.h">
+				RelativePath="LanguageModelling\WordLanguageModel.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Win32"
 			Filter="">
 			<File
-				RelativePath=".\Win32\DasherInterface.cpp">
+				RelativePath="Win32\DasherInterface.cpp">
 			</File>
 			<File
-				RelativePath=".\Win32\DasherInterface.h">
+				RelativePath="Win32\DasherInterface.h">
 			</File>
 			<File
-				RelativePath=".\Win32\WinCommon.h">
+				RelativePath="Win32\WinCommon.h">
 			</File>
 			<File
-				RelativePath=".\Win32\WinHelper.cpp">
+				RelativePath="Win32\WinHelper.cpp">
 			</File>
 			<File
-				RelativePath=".\Win32\WinHelper.h">
+				RelativePath="Win32\WinHelper.h">
 			</File>
 			<File
-				RelativePath=".\Win32\WinLocalisation.cpp">
+				RelativePath="Win32\WinLocalisation.cpp">
 			</File>
 			<File
-				RelativePath=".\Win32\WinLocalisation.h">
+				RelativePath="Win32\WinLocalisation.h">
 			</File>
 			<File
-				RelativePath=".\Win32\WinOptions.cpp">
+				RelativePath="Win32\WinOptions.cpp">
 			</File>
 			<File
-				RelativePath=".\Win32\WinOptions.h">
+				RelativePath="Win32\WinOptions.h">
 			</File>
 			<File
-				RelativePath=".\Win32\WinUTF8.cpp">
+				RelativePath="Win32\WinUTF8.cpp">
 			</File>
 			<File
-				RelativePath=".\Win32\WinUTF8.h">
+				RelativePath="Win32\WinUTF8.h">
 			</File>
 			<File
-				RelativePath=".\Win32\WinWrap.cpp">
+				RelativePath="Win32\WinWrap.cpp">
 			</File>
 			<File
-				RelativePath=".\Win32\WinWrap.h">
+				RelativePath="Win32\WinWrap.h">
 			</File>
 		</Filter>
+		<File
+			RelativePath="Alphabet\Alphabet.cpp">
+		</File>
+		<File
+			RelativePath="Alphabet\Alphabet.h">
+		</File>
+		<File
+			RelativePath="Alphabet\AlphabetMap.cpp">
+		</File>
+		<File
+			RelativePath="Alphabet\AlphabetMap.h">
+		</File>
+		<File
+			RelativePath="Alphabet\AlphIO.cpp">
+		</File>
+		<File
+			RelativePath="Alphabet\AlphIO.h">
+		</File>
 		<File
 			RelativePath="ColourIO.cpp">
 		</File>
@@ -576,43 +506,76 @@
 			RelativePath=".\DasherAppInterface.h">
 		</File>
 		<File
-			RelativePath=".\DasherComponent.h">
+			RelativePath="DasherComponent.h">
 		</File>
 		<File
-			RelativePath=".\DasherInput.h">
+			RelativePath="DasherInput.h">
 		</File>
 		<File
-			RelativePath=".\DasherInterfaceBase.cpp">
+			RelativePath="DasherInterfaceBase.cpp">
 		</File>
 		<File
-			RelativePath=".\DasherInterfaceBase.h">
+			RelativePath="DasherInterfaceBase.h">
+		</File>
+		<File
+			RelativePath=".\DasherModel.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherModel.h">
+		</File>
+		<File
+			RelativePath=".\DasherNode.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherNode.h">
 		</File>
 		<File
 			RelativePath=".\DasherScreen.h">
 		</File>
 		<File
-			RelativePath=".\DasherSettingsInterface.cpp">
+			RelativePath="DasherSettingsInterface.cpp">
 		</File>
 		<File
-			RelativePath=".\DasherSettingsInterface.h">
+			RelativePath="DasherSettingsInterface.h">
 		</File>
 		<File
 			RelativePath=".\DasherTypes.h">
 		</File>
 		<File
+			RelativePath=".\DasherView.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherView.h">
+		</File>
+		<File
+			RelativePath=".\DasherView.inl">
+		</File>
+		<File
+			RelativePath=".\DasherViewSquare.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherViewSquare.h">
+		</File>
+		<File
+			RelativePath=".\DasherViewSquare.inl">
+		</File>
+		<File
 			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
-			RelativePath=".\Event.h">
+			RelativePath="Event.h">
 		</File>
 		<File
-			RelativePath=".\EventHandler.cpp">
+			RelativePath="EventHandler.cpp">
 		</File>
 		<File
-			RelativePath=".\EventHandler.h">
+			RelativePath="EventHandler.h">
 		</File>
 		<File
-			RelativePath=".\Parameters.h">
+			RelativePath="FrameRate.h">
+		</File>
+		<File
+			RelativePath="Parameters.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
@@ -622,8 +585,5 @@
 		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="DevPartner_IsInstrumented"
-			Value="1"/>
 	</Globals>
 </VisualStudioProject>

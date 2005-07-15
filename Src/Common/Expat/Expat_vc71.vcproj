@@ -3,7 +3,6 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Expat"
-	ProjectGUID="{0BCE9A66-5ECF-416A-AE25-29E8FDB65A05}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -25,8 +24,6 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,COMPILED_FROM_DSP,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Expat.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
@@ -76,8 +73,6 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,COMPILED_FROM_DSP,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Expat.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -127,8 +122,6 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,COMPILED_FROM_DSP,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/Expat.pch"
 				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Debug/Intermediate/"
@@ -179,8 +172,6 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/Expat.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
@@ -229,8 +220,6 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/Expat.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Release/Intermediate/"
@@ -279,8 +268,6 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
 				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Expat.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -408,8 +395,5 @@
 		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="DevPartner_IsInstrumented"
-			Value="0"/>
 	</Globals>
 </VisualStudioProject>
