@@ -48,6 +48,9 @@ public:
 	symbol GetParagraphSymbol() const;
 	symbol GetSpaceSymbol() const;
 	symbol GetControlSymbol() const;
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi
+	symbol GetStartConversionSymbol() const;
+	symbol GetEndConversionSymbol() const;
 	
 	const std::string& GetDisplayText(symbol i) const {return m_Display[i];} // return display string for i'th symbol
 	const std::string& GetText(symbol i) const {return m_Characters[i];}     // return string for i'th symbol
@@ -99,6 +102,9 @@ public:
 	void AddParagraphSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
 	void AddSpaceSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);  
 	void AddControlSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi
+	void AddStartConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
+	void AddEndConversionSymbol(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);
 	
 	void SetOrientation(Opts::ScreenOrientations Orientation) {m_Orientation=Orientation;}
 	void SetLanguage(Opts::AlphabetTypes Group) {m_DefaultEncoding=Group;}
@@ -115,6 +121,10 @@ private:
 	symbol m_ParagraphSymbol;
 	symbol m_SpaceSymbol;
 	symbol m_ControlSymbol;
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi
+	symbol m_StartConversionSymbol;
+	symbol m_EndConversionSymbol;
+	
 	std::string m_TrainingFile;
     std::string m_GameModeFile;
 	std::string m_DefaultPalette;
@@ -158,6 +168,19 @@ inline symbol CAlphabet::GetControlSymbol() const
  	return m_ControlSymbol;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+inline symbol CAlphabet::GetStartConversionSymbol() const
+{
+	return m_StartConversionSymbol;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+inline symbol CAlphabet::GetEndConversionSymbol() const
+{
+	return m_EndConversionSymbol;
+}
 
 } // end namespace dasher
 

@@ -75,6 +75,14 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo& AlphInfo)
 	if (AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol()==-1) 
 		AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
 
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi START
+	if (AlphInfo.StartConvertCharacter.Text != empty )
+		AddStartConversionSymbol(AlphInfo.StartConvertCharacter.Text, AlphInfo.StartConvertCharacter.Display, AlphInfo.StartConvertCharacter.Colour, AlphInfo.StartConvertCharacter.Foreground);
+
+	if (AlphInfo.EndConvertCharacter.Text != empty )
+		AddEndConversionSymbol(AlphInfo.EndConvertCharacter.Text, AlphInfo.EndConvertCharacter.Display, AlphInfo.EndConvertCharacter.Colour, AlphInfo.EndConvertCharacter.Foreground);
+	//-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi END
+
 #ifdef DASHER_TRACE
 	Trace();
 #endif
@@ -187,6 +195,21 @@ void CAlphabet::AddControlSymbol(const string NewCharacter, const string Display
 	m_ControlSymbol = GetNumberSymbols()-1;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+void CAlphabet::AddStartConversionSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground)
+{
+	AddChar(NewCharacter,Display,Colour,Foreground);
+	m_StartConversionSymbol = GetNumberSymbols()-1;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CAlphabet::AddEndConversionSymbol(const string NewCharacter, const string Display, int Colour, const string Foreground)
+{
+	AddChar(NewCharacter,Display,Colour,Foreground);
+	m_EndConversionSymbol = GetNumberSymbols()-1;
+}
 
 /////////////////////////////////////////////////////////////////////////////
 // diagnostic dump of character set
