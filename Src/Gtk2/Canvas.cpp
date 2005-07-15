@@ -7,13 +7,15 @@
 // functions belong in CDasherView.
 
 #include "Canvas.h"
-#include "canvas.h"
+#include "DasherControl.h"
 
 #include "../DasherCore/DasherTypes.h"
 
 #include <iostream>
 
 using namespace Dasher;
+
+extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
 
 CCanvas::CCanvas( GtkWidget *pCanvas, CPangoCache *pPangoCache ) 
   : CDasherScreen( pCanvas->allocation.width, pCanvas->allocation.height ) {
@@ -536,3 +538,10 @@ void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
 //   gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 // }
 
+extern "C" gint
+canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data)
+{
+  ((CCanvas *)data)->ExposeEvent( event );
+
+  return TRUE;
+}

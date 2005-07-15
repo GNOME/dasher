@@ -26,7 +26,9 @@ open_file (const char *myfilename)
   }
 #endif
 
-  dasher_clear();
+
+  // FIXME - REIMPLEMENT (shouldn't happen through core)
+  //  dasher_clear();
   
   file_modified = TRUE;
 
@@ -50,8 +52,9 @@ open_file (const char *myfilename)
     filename = g_strdup(myfilename);
   }
 
-  dasher_start();
-  dasher_redraw();
+  // FIXME - Reimplement
+//   dasher_start();
+//   dasher_redraw();
 }
 
 #ifdef GNOME_LIBS

@@ -135,9 +135,12 @@ void cleanup_edit() {
 
 void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data)
 {
+
+  // FIXME - REIMPLEMENT
+
   // Let the core get new context and redraw it if the cursor is moved
-  dasher_start();
-  dasher_redraw();
+//   dasher_start();
+//   dasher_redraw();
 }
 
 void gtk2_edit_output_callback( const std::string &strText )

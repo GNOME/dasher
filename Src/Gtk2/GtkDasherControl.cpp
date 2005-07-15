@@ -1,5 +1,5 @@
 #include "GtkDasherControl.h"
-#include "DasherControlPrivate.h"
+#include "DasherControl.h"
 
 #include <iostream>
 

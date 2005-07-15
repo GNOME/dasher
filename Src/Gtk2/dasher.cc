@@ -149,7 +149,6 @@ void InitialiseAppParameters();
 /// dasher_control method directly
 
 void load_training_file (const gchar *filename) {
-
   // FIXME - Reimplement
 
 //   dasher_control_train_file( filename );

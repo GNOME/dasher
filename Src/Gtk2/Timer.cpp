@@ -1,7 +1,5 @@
 #include "Timer.h"
 #include "DasherControl.h"
-#include "DasherControlPrivate.h"
-#include "canvas.h"
 
 #include <sys/time.h>
 

@@ -1,13 +1,7 @@
-
 #include "DasherControl.h"
-#include "DasherControlPrivate.h"
+#include "Timer.h"
 
 #include "../DasherCore/DasherInterface.h"
-
-#include "Timer.h"
-#include "canvas.h"
-
-#include "../DasherCore/libdasher.h"
 #include "../DasherCore/Event.h"
 
 #include <gtk/gtk.h>
@@ -23,6 +17,7 @@ void control_handle_event( CEvent *pEvent );
 extern "C" gboolean button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data);
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
 extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
+extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 
 // 'Private' member variable
 
@@ -151,8 +146,6 @@ CDasherControl::CDasherControl( GtkVBox *pVBox ) {
 }
 
 CDasherControl::~CDasherControl() {
-
-  dasher_finalise(); //...
 
   // Delete the interface
 
@@ -363,7 +356,7 @@ int CDasherControl::TimerEvent() {
     // FIXME - Reimmplement properly
     //    pMouseInput->SetCoordinates( x, y );
 
-    dasher_tap_on( 0, 0, get_time() );
+    //    dasher_tap_on( 0, 0, get_time() );
   }
   
   else {
@@ -422,7 +415,8 @@ int CDasherControl::TimerEvent() {
 	    starttime=time(NULL);
 	    secondbox=true;
 	    firstbox=false;
-	    dasher_redraw();
+	    // FIXME
+	    //	    dasher_redraw();
 	  }
 	}
       } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
@@ -450,7 +444,8 @@ int CDasherControl::TimerEvent() {
 	  firstbox=true;
 	  starttime2=0;
 	  starttime=0;
-	  dasher_redraw();
+	  // FIXME
+	  //	  dasher_redraw();
 	} else if (firstbox==true) {
 	  // Start counting again if the mouse is outside the red box and the yellow
 	  // box isn't being displayed
@@ -548,7 +543,9 @@ void CDasherControl::scan_alphabet_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (alphabet_filter(filename, alphabetglob)) {
-      add_alphabet_filename(filename);
+
+      // FIXME - REIMPLEMENT
+      //    add_alphabet_filename(filename);
     }
  }
 
@@ -556,7 +553,8 @@ void CDasherControl::scan_alphabet_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (alphabet_filter(filename, alphabetglob)) {
-      add_alphabet_filename(filename);
+       // FIXME - REIMPLEMENT
+      // add_alphabet_filename(filename);
     }
   }
 
@@ -576,7 +574,8 @@ void CDasherControl::scan_colour_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (colour_filter(filename, colourglob)) {
-      add_colour_filename(filename);
+      // FIXME - REIMPLEMENT
+      // add_colour_filename(filename);
     }
   }
 
@@ -584,7 +583,8 @@ void CDasherControl::scan_colour_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (colour_filter(filename, colourglob)) {
-      add_colour_filename(filename);
+      // FIXME - REIMPLEMENT
+      //  add_colour_filename(filename);
     }
   }
 
@@ -656,7 +656,8 @@ change_alphabet(gpointer alph)
 {
   // This is launched as a separate thread in order to let the main thread
   // carry on updating the training window
-  dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
+  // FIXME - REIMPLEMENT
+  //dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
   //  g_free(alph);
   g_async_queue_push(trainqueue,(void *)1);
   g_thread_exit(NULL);
@@ -666,8 +667,9 @@ change_alphabet(gpointer alph)
 extern "C" gboolean
 button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-
-  dasher_pause( (gint) event->x,(gint) event->y );
+  
+  // FIXME - REIMPLEMENT
+  //dasher_pause( (gint) event->x,(gint) event->y ); 
   paused = TRUE;
 
   return FALSE;
@@ -917,5 +919,33 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 //   default:
 //     return FALSE;
 //   }  
+  return FALSE;
+}
+
+extern "C" gint
+canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
+{
+  ((CDasherControl *)data)->CanvasConfigureEvent();
+
+  // Fixme - reimplement sanely
+
+//   // If the canvas is resized, we need to regenerate all of the buffers
+//   rebuild_buffer();
+
+//   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
+
+//   dasher_redraw();
+
+//   if (setup==TRUE) {
+//     // If we're set up and resized, then save those settings
+
+//     // FIXME - Reimplement this
+
+// //     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
+// //     gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
+// //     dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
+// //     dasher_set_parameter_int(INT_SCREENWIDTH, dasherwidth);
+//   }
+
   return FALSE;
 }

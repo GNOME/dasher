@@ -1,15 +1,15 @@
 #ifndef __canvas_h__
 #define __canvas_h__
 
+#include "PangoCache.h"
+
 #include "../DasherCore/DasherScreen.h"
 #include "../DasherCore/DasherTypes.h"
-
 #include "../DasherCore/CustomColours.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
-#include "PangoCache.h"
 
 using namespace Dasher;
 
