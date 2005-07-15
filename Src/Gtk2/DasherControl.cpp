@@ -6,6 +6,7 @@
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#include <gdk/gdkkeysyms.h>
 
 #include <sys/stat.h>
 
@@ -18,6 +19,7 @@ extern "C" gboolean button_press_event (GtkWidget *widget, GdkEventButton *event
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
 extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
 extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
+extern "C" gint key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data);
 
 // 'Private' member variable
 
@@ -93,9 +95,10 @@ CDasherControl::CDasherControl( GtkVBox *pVBox ) {
   // Callback for the canvas being realised
 
   g_signal_connect_after( m_pCanvas, "realize", G_CALLBACK(realize_canvas), this );
-  g_signal_connect( m_pCanvas , "configure_event", G_CALLBACK(canvas_configure_event), this );
-
-  // FIXME - need callbacks for the slider, keyboard events and so on
+  g_signal_connect( m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this );
+  g_signal_connect( m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this );    
+  
+  GTK_WIDGET_SET_FLAGS( m_pCanvas, GTK_CAN_FOCUS );
 
   paused=true; // FIXME - read directly from interface
 
@@ -463,8 +466,19 @@ int CDasherControl::TimerEvent() {
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 
+  // Take the focus if we click on the canvas
+
   GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
+
+  focusEvent->type = GDK_FOCUS_CHANGE;
+  focusEvent->window = (GdkWindow *) m_pCanvas;
+  focusEvent->send_event = FALSE;
+  focusEvent->in = TRUE;
+
+  gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
+  g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
+
 
 #ifdef WITH_GPE
   // GPE version requires the button to be held down rather than clicked
@@ -475,16 +489,6 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
     return FALSE;
 #endif
 
-  //FIXME - REIMPLEMENT
-
-//   focusEvent->type = GDK_FOCUS_CHANGE;
-
-//   focusEvent->window = (GdkWindow *) m_pCanvas;
-//   focusEvent->send_event = FALSE;
-//   focusEvent->in = TRUE;
-
-//   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
-//   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
 
   // FIXME - This shouldn't be in the control
 
@@ -499,28 +503,34 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
   // One-button mode; change direction on mouse click.
   //  direction=!direction;
 
-  //  if (startleft == TRUE) {
-
-//   if( dasher_control_get_parameter_bool( BP_START_MOUSE ) )
-//     dasher_control_toggle_pause();
-
-  std::cout << "Start on mouse: " <<  m_pInterface->GetBoolParameter( BP_START_MOUSE ) << std::endl;
-
   if( m_pInterface->GetBoolParameter( BP_START_MOUSE ) ) {
-
-    std::cout << "Registered click " <<  m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) << std::endl;
-
     if( m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) ) 
       m_pInterface->Unpause( get_time() );
     else
       m_pInterface->PauseAt(0,0);
-
   }
 
   return false;
 
 }
 
+
+gint CDasherControl::KeyPressEvent( GdkEventKey *event ) {
+
+  switch( event->keyval ) {
+  case GDK_space:
+    // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
+
+    if( m_pInterface->GetBoolParameter( BP_START_SPACE ) ) {
+      if( m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) ) 
+	m_pInterface->Unpause( get_time() );
+      else
+	m_pInterface->PauseAt(0,0);
+    }
+    break;
+  }
+
+}
 
 // Method definitions
 
@@ -709,7 +719,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 extern "C" gint
 key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 {
-
+  return static_cast< CDasherControl* >(data)->KeyPressEvent( event );
   // FIXME - REIMPLEMENT all of this (where not obsolete)
 
 //   int width,height;
@@ -888,7 +898,7 @@ key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 //   default:
 //     return FALSE;
 //   }  
-  return FALSE;
+//  return FALSE;
 }
 
 extern "C" gint
@@ -925,6 +935,9 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 extern "C" gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
+
+  std::cout << "canvas_configure_event: " << data << std::endl;
+
   ((CDasherControl *)data)->CanvasConfigureEvent();
 
   // Fixme - reimplement sanely

@@ -23,9 +23,9 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   void RealizeCanvas();
   int TimerEvent();
   gboolean ButtonPressEvent(GdkEventButton *event);
-  void CDasherControl::CanvasConfigureEvent();
-  void CDasherControl::SliderEvent();
-
+  void CanvasConfigureEvent();
+  void SliderEvent();
+  gint KeyPressEvent( GdkEventKey *event );
 
   void scan_alphabet_files();
   void scan_colour_files();
