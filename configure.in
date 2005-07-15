@@ -25,6 +25,7 @@ WITHA11Y=true;
 WITHGTK2=true;
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
+AC_CHECK_LIB(canna, RkBgnBun,, AC_MSG_ERROR([Canna library not found.]))
 
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--without-gnome],[build without Gnome support (default is YES)]), 
