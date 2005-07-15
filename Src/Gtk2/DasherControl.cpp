@@ -2,6 +2,8 @@
 #include "DasherControl.h"
 #include "DasherControlPrivate.h"
 
+#include "../DasherCore/DasherInterface.h"
+
 #include "Timer.h"
 #include "canvas.h"
 
@@ -15,14 +17,12 @@
 
 // 'Private' methods
 
-void scan_alphabet_files();
-void scan_colour_files();
-int alphabet_filter(const gchar* filename);
-int colour_filter(const gchar* filename);
 void handle_parameter( int iParameter );
 void control_handle_event( CEvent *pEvent );
 
 extern "C" gboolean button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data);
+extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
+extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
 
 // 'Private' member variable
 
@@ -35,7 +35,7 @@ void (*fpEventCallback)(CEvent *) = NULL;
 
 char *system_data_dir;
 char *user_data_dir;
-GPatternSpec *alphabetglob, *colourglob;
+
 
 // 'Public' member variables
 
@@ -57,89 +57,54 @@ gboolean secondbox=FALSE;
 time_t starttime=0;
 time_t starttime2=0;
 time_t dasherstarttime;
-CDasherMouseInput *pMouseInput;
 
 
 int oldx;
 int oldy;
 
-GtkScale *m_pSpeedHScale;
-GtkFrame *m_pSpeedFrame;
-
-// Method definitions
-
-extern "C"
-void realize_canvas(GtkWidget *widget, gpointer user_data) {
 
 
 
-  initialise_canvas(360,360);
+// CDasherControl class definitions
 
-  dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
-  rebuild_buffer();
+CDasherControl::CDasherControl( GtkVBox *pVBox ) {
 
-  dasher_redraw();
+  m_pInterface = new CDasherInterface; // FIXME - doing this will probably trigger drawing events, but we haven't created the canvas yet (delay setting screen until it's initialised?)
 
-  // Now start the timer loops as everything is set up
 
-  // Aim for 20 frames per second
-  g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,50, timer_callback, NULL,NULL); 
+  // Set up the GTK widgets
 
-}
+  m_pVBox = GTK_WIDGET(pVBox);
+  m_pCanvas = gtk_drawing_area_new();
+  m_pSpeedFrame = gtk_frame_new( "Speed:" );
+  m_pSpeedHScale = gtk_hscale_new_with_range( 0.1, 8.0, 0.1 );
 
-GtkWidget *dasher_control_new() {
-  // FIXME - The Dasher control should really create its own widgets, but for now they get created externally and passed here
-
-  GtkVBox *pVBox;
-
-  pVBox = GTK_VBOX( gtk_vbox_new( false, 0 ) );
+  gtk_container_add( GTK_CONTAINER( m_pSpeedFrame ), m_pSpeedHScale );
   
-  the_canvas = gtk_drawing_area_new();
-
-
-  m_pSpeedFrame = GTK_FRAME( gtk_frame_new( "Speed:" ) );
-  m_pSpeedHScale = GTK_SCALE( gtk_hscale_new_with_range( 0.1, 8.0, 0.1 ) );
-
-  gtk_container_add( GTK_CONTAINER( m_pSpeedFrame ), GTK_WIDGET(m_pSpeedHScale) );
+  gtk_box_pack_start( GTK_BOX( m_pVBox ), m_pCanvas, TRUE, TRUE, 0 );
+  gtk_box_pack_start( GTK_BOX( m_pVBox ), m_pSpeedFrame, FALSE, FALSE, 0 );
   
-  gtk_box_pack_start( GTK_BOX( pVBox ), GTK_WIDGET( the_canvas ), TRUE, TRUE, 0 );
-  gtk_box_pack_start( GTK_BOX( pVBox ), GTK_WIDGET( m_pSpeedFrame ), FALSE, FALSE, 0 );
+  gtk_widget_show_all( GTK_WIDGET( m_pVBox ) );
 
+  // Connect callbacks - note that we need to implement the callbacks
+  // as "C" style functions and pass this as user data so they can
+  // call the object
   
+  // Callback for the button presses to the canvas
 
+  g_signal_connect( m_pCanvas, "button_press_event", G_CALLBACK(button_press_event), this );
+  g_signal_connect( m_pSpeedHScale, "value-changed", G_CALLBACK(speed_changed), this );
 
-//   gtk_widget_show( GTK_WIDGET( the_canvas ) );
-//   gtk_widget_show( GTK_WIDGET( the_canvas ) );
-//   gtk_widget_show( GTK_WIDGET( m_pSpeedFrame ) );
-//   gtk_widget_show( GTK_WIDGET( m_pSpeedHScale ) );
-  gtk_widget_show_all( GTK_WIDGET( pVBox ) );
+  // Callback for the canvas being realised
 
-  g_signal_connect( the_canvas, "button_press_event", G_CALLBACK(button_press_event), NULL );
+  g_signal_connect_after( m_pCanvas, "realize", G_CALLBACK(realize_canvas), this );
+  g_signal_connect( m_pCanvas , "configure_event", G_CALLBACK(canvas_configure_event), this );
 
-  //  gtk_widget_add_events( the_canvas, GDK_REALIZE );
-  g_signal_connect_after( the_canvas, "realize", G_CALLBACK(realize_canvas), NULL );
+  // FIXME - need callbacks for the slider, keyboard events and so on
 
+  paused=true; // FIXME - read directly from interface
 
-  paused=true;
-
-//   the_canvas = pCanvas;
-
-//   m_pSpeedHScale = pSpeedHScale;
-//   m_pSpeedFrame = pSpeedFrame;
-
-  dasher_set_blank_callback( blank_callback );
-  dasher_set_display_callback( display_callback );
-  dasher_set_colour_scheme_callback( receive_colour_scheme_callback );
-  dasher_set_draw_rectangle_callback( draw_rectangle_callback );
-  dasher_set_draw_polyline_callback( draw_polyline_callback );
-  dasher_set_draw_colour_polyline_callback( draw_colour_polyline_callback );
-  dasher_set_draw_colour_polygon_callback( draw_colour_polygon_callback );
-  dasher_set_draw_text_callback( draw_text_callback );
-  dasher_set_draw_text_string_callback( draw_text_string_callback );
-  dasher_set_text_size_callback( text_size_callback );
-  dasher_set_send_marker_callback( send_marker_callback );
-
-  dasher_early_initialise();
+  // Set up directory locations and so on.
 
   char *home_dir;
 
@@ -152,89 +117,465 @@ GtkWidget *dasher_control_new() {
 
   // PROGDATA is provided by the makefile
   system_data_dir = PROGDATA"/";
+
+  // FIXME - Reimplement properly
   
-  dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
-  dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
+//   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
+//   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
 
-  // Add all available alphabets and colour schemes to the core
-  scan_alphabet_files();
-  scan_colour_files();
+//   // Add all available alphabets and colour schemes to the core
+//   scan_alphabet_files();
+//   scan_colour_files();
 
-  dasher_set_parameter_int( INT_LANGUAGEMODEL, 0 );
-  dasher_set_parameter_int( INT_VIEW, 0 );
-  
-  dasher_start();
-  dasher_redraw();
+  // Start the dasher model
 
-  dasher_late_initialise( 360, 360 ); // FIXME - shouldn't have fixed constants
+  m_pInterface->PauseAt(0,0); // FIXME - pause should be implicit (ie in core)?
+  m_pInterface->Start(); // FIXME - should we hold off on this until later?
 
-  pMouseInput = new CDasherMouseInput;
+  // Tell the core that we handle edit events etc.
 
-  dasher_set_input( pMouseInput );
+  m_pInterface->ChangeEdit( this );
+  m_pInterface->SetSettingsUI( this );
 
+  // Create an input device object - FIXME - should make this more flexible
 
+  m_pMouseInput = new CDasherMouseInput;
+  m_pInterface->SetInput( m_pMouseInput );
 
+  // Create a pango cache
 
+  m_pPangoCache = new CPangoCache;
 
-  // Realize the canvas now so that it can set up the buffers correctly
-  //  gtk_widget_realize(the_canvas);
-
-
-
-  // We support advanced colour mode
-  dasher_set_parameter_bool( BOOL_COLOURMODE, true);
-
-  dasher_set_parameter_callback( handle_parameter );
-  dasher_set_event_callback( control_handle_event );
-
-  // Initialise the model, and force a screen redraw.
-
-  dasher_start();
-  dasher_pause(0,0); // we start paused
-  // dasher_redraw(); // Redrawing here will fail due to widget not being realized
-
-  return GTK_WIDGET( pVBox );
+  m_pScreen = NULL;
 
 }
 
-void dasher_control_delete() {
-  dasher_finalise();
+CDasherControl::~CDasherControl() {
+
+  dasher_finalise(); //...
+
+  // Delete the interface
+
+  if( m_pInterface != NULL ) {
+    delete m_pInterface;
+    m_pInterface = NULL;
+  }
+
+  // Delete the input device
+
+  if( m_pMouseInput != NULL ) {
+    delete m_pMouseInput;
+    m_pMouseInput = NULL;
+  }
+
+}
+
+void CDasherControl::RealizeCanvas() {
+
+  // FIXME - reimplement
+
+  //  initialise_canvas(360,360);
+  
+  // FIXME - I think we need a way of resizing the canvas without
+  // having to rebuild the screen object (although I guess we rebuild
+  // the buffers anyay, so maybe it's okay)
+
+  // In any case, we shouldn't create with one size then immediately resize
+
+  // dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
+
+  //  rebuild_buffer();
+
+
+ if( m_pScreen != NULL )
+    delete m_pScreen;
+
+  m_pScreen = new CCanvas( m_pCanvas, m_pPangoCache );
+  m_pInterface->ChangeScreen( m_pScreen );
+
+  m_pInterface->Redraw();
+
+  // Now start the timer loops as everything is set up
+
+  // Aim for 20 frames per second
+  g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,50, timer_callback, this,NULL); 
+
+}
+
+void CDasherControl::CanvasConfigureEvent() {
+
+  std::cout << "Canvas configure event" << std::endl;
+
+  if( m_pScreen != NULL )
+    delete m_pScreen;
+
+  m_pScreen = new CCanvas( m_pCanvas, m_pPangoCache );
+  m_pInterface->ChangeScreen( m_pScreen );
+
+  
+  
+  m_pInterface->Redraw();
+}
+
+void CDasherControl::HandleParameterNotification( int iParameter ) {
+
+  if( iParameter == SP_DASHER_FONT ) {
+
+    // FIXME - reimplement
+
+    //    dasherfont=dasher_control_get_parameter_string( SP_DASHER_FONT );
+    //    set_canvas_font( dasher_control_get_parameter_string( SP_DASHER_FONT ) );
+    //  if (dasherfont=="")
+    //  dasherfont="DASHERFONT";
+  }
+  else if( iParameter == LP_MAX_BITRATE ) {
+     gtk_range_set_value(GTK_RANGE( m_pSpeedHScale ), m_pInterface->GetLongParameter( LP_MAX_BITRATE )/100.0 );
+  }
+  else if( iParameter == BP_SHOW_SLIDER ) {
+    if (m_pSpeedFrame != NULL) {
+      if ( m_pInterface->GetBoolParameter( BP_SHOW_SLIDER )) {
+	gtk_widget_show( GTK_WIDGET( m_pSpeedFrame ) );
+	gtk_range_set_value( GTK_RANGE( m_pSpeedHScale ),  m_pInterface->GetLongParameter( LP_MAX_BITRATE )/100.0);
+      } else {
+	gtk_widget_hide( GTK_WIDGET( m_pSpeedFrame ) );
+      }
+    }
+  }
+
+  // Check whether anything outside of the control wants to be notified.
+
+//   if( fpParameterCallback != NULL )
+//     fpParameterCallback( iParameter );
 }
 
 
-void scan_alphabet_files()
+int CDasherControl::TimerEvent() {
+
+  int x,y;
+
+  gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+  m_pMouseInput->SetCoordinates( x, y );
+
+  // FIXME - it would be much nicer if we just called a single
+  // interface function here, rather than haing all of the stuff below
+  // in this file
+
+  if( m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) ) {
+    m_pInterface->DrawMousePos(x,y,0); 
+  }
+  else {
+    m_pInterface->TapOn( 0, 0, get_time() );
+  }
+  
+  return 1;
+
+  // FIXME - REIMPLEMENT
+
+//   if (exiting==TRUE)
+//     {
+//       // Exit if we're called when Dasher is exiting
+//       return 0;
+//     }
+
+  if (training==TRUE)
+    {
+      // Check if we're still training, and if so just return non-0 in order to get
+      // called again
+      if (g_async_queue_try_pop(trainqueue)==NULL) {
+	return 1;
+      } else {
+	// Otherwise, we've just finished training - make everything work again
+	training=FALSE;
+	// Get rid of the training dialog and thread
+	g_async_queue_unref(trainqueue);
+	gtk_widget_hide(train_dialog);
+
+	// FIXME - REIMPLEMENT
+
+// 	// We need to do this again to get the configuration saved, as we
+// 	// can't do gconf stuff from the other thread
+// 	dasher_set_parameter_string( STRING_ALPHABET, alphabet.c_str() );
+	
+// 	// And call update_colours again now that we can do something useful
+// 	update_colours();
+// 	//	deletemenutree();
+// 	// And making bonobo calls from another thread is likely to lead to
+// 	// pain as well. It'd be nice to do this while training, but.
+// 	add_control_tree(controltree);
+
+// 	dasher_redraw();
+      }
+    }
+  
+    if (!paused) {
+    
+     if (eyetrackermode) {
+
+       // FIXME - REIMPLEMENT
+
+//         if (direction==TRUE) {
+//             dasher_set_parameter_int(INT_ONEBUTTON, 150);
+//         }
+//         if (direction==FALSE) {
+//             dasher_set_parameter_int(INT_ONEBUTTON, -150); 
+//         }
+    }
+
+    // FIXME - REIMPLEMENT (shouldn't happen inside DasherControl??)
+    
+//     if (leavewindowpause==true) {
+//       gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
+      
+//       gdk_window_get_pointer(GTK_WIDGET(window)->window, &x, &y, NULL);
+      
+//       if (x>dasherwidth || x<0 || y>dasherheight || y<0) {
+// 	// Don't do anything with the mouse position if we're outside the window. There's a
+// 	// minor issue with this - if the user moves the cursor back in, Dasher will think
+// 	// that lots of time has passed and jerk forwards until it recalculates the framerate
+// 	return 1;
+//       }
+//     }
+    gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+    if (onedmode==true) {
+      // In one dimensional mode, we want to scale the vertical component so that it's possible
+      // for the amount of input to cover the entire canvas
+      float scalefactor;
+      float newy=y;
+      gdk_drawable_get_size(m_pCanvas->window, &dasherwidth, &dasherheight);
+      if (yscale==0) {
+	// For the magic value 0, we want the canvas size to reflect a full Y deflection
+	// otherwise the user can't access the entire range. 2 is actually a slight
+	// overestimate, but doing it properly would require thought and the benefit
+	// is probably insufficient.
+	scalefactor=2;
+      } else {
+	scalefactor=float(dasherheight)/float(yscale);
+      }
+      // Transform the real Y coordinate into a fudged Y coordinate
+      newy-=dasherheight/2;
+      newy=newy*scalefactor;
+      newy+=dasherheight/2;
+      y=int(newy);
+    } 
+    // And then provide the mouse position to the core. Of course, the core may then
+    // do its own fudging.
+
+    // FIXME - Reimmplement properly
+    //    pMouseInput->SetCoordinates( x, y );
+
+    dasher_tap_on( 0, 0, get_time() );
+  }
+  
+  else {
+    // If we're paused, then we still need to work out where the mouse is for two
+    // reasons - start on mouse position, and to update the on-screen representation
+
+    gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+
+    // FIXME - Reimplement properly
+    //     pMouseInput->SetCoordinates( x, y );
+    
+    if (onedmode==true) {
+      float scalefactor;
+      float newy=y;
+      gdk_drawable_get_size(m_pCanvas->window, &dasherwidth, &dasherheight);
+      if (yscale==0) {
+	scalefactor=2;
+      } else {
+	scalefactor=float(dasherheight)/float(yscale);
+      }
+      newy-=dasherheight/2;
+      newy=newy*scalefactor;
+      newy+=dasherheight/2;
+      y=int(newy);
+    } 
+
+    if(( x != oldx ) || ( y != oldy )) // Only redraw if the mouse has actually moved
+      m_pInterface->DrawMousePos(x,y,0);
+
+    oldx = x;
+    oldy = y;
+    
+    if (mouseposstart==true) {
+      // The user must hold the mouse pointer inside the red box, then the yellow box
+      // If the user fails to move to the yellow box, display the red box again and
+      // start over
+      dasherheight=m_pCanvas->allocation.height;
+      gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+
+      // FIXME - REIMPLEMENT
+      
+//       if (firsttime==firstbox==secondbox==false) { // special case for Dasher 
+// 	firstbox=true;                             // startup
+// 	dasher_redraw();
+//       }
+      
+      if (y>(dasherheight/2-mouseposstartdist-100) && y<(dasherheight/2-mouseposstartdist) && firstbox==true) {
+	// The pointer is inside the red box
+	if (starttime==0) {
+	  // for the first time
+	  starttime=time(NULL);
+	} else {
+	  // for some period of time
+	  if ((time(NULL)-starttime)>2) {
+	    // for long enough to trigger the yellow box
+	    starttime=time(NULL);
+	    secondbox=true;
+	    firstbox=false;
+	    dasher_redraw();
+	  }
+	}
+      } else if (y<(dasherheight/2+mouseposstartdist+100) && y>(dasherheight/2+mouseposstartdist) && secondbox==true) {      
+	// inside the yellow box, and the yellow box has been displayed
+	if (starttime2==0) {
+	  // for the first time
+	  starttime2=time(NULL);
+	  starttime=0;
+	} else {
+	  // for some period of time
+	  if ((time(NULL)-starttime2)>2) {
+	    // for long enough to trigger starting Dasher
+	    secondbox=false;
+
+	    // FIXME - REIMPLEMENT
+
+	    //	    dasher_control_toggle_pause(); // Yes, confusingly named
+	  }
+	}
+      } else {
+	if (secondbox==true && (starttime2>0 || (time(NULL)-starttime)>3)) {
+	  // remove the yellow box if the user moves the pointer outside it
+	  // or fails to select it sufficiently quickly
+	  secondbox=false;
+	  firstbox=true;
+	  starttime2=0;
+	  starttime=0;
+	  dasher_redraw();
+	} else if (firstbox==true) {
+	  // Start counting again if the mouse is outside the red box and the yellow
+	  // box isn't being displayed
+	  starttime=0;
+	}
+      }
+    }
+  }
+
+    return 1;
+
+}
+
+
+
+gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
+
+  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
+  gboolean *returnType;
+
+#ifdef WITH_GPE
+  // GPE version requires the button to be held down rather than clicked
+  if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
+    return FALSE;
+#else
+  if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_2BUTTON_PRESS))
+    return FALSE;
+#endif
+
+  //FIXME - REIMPLEMENT
+
+//   focusEvent->type = GDK_FOCUS_CHANGE;
+
+//   focusEvent->window = (GdkWindow *) m_pCanvas;
+//   focusEvent->send_event = FALSE;
+//   focusEvent->in = TRUE;
+
+//   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
+//   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
+
+  // FIXME - This shouldn't be in the control
+
+  // CJB,  2003-08.  If we have a selection, replace it with the new input.
+  // This code is duplicated in key_press_event.
+  // if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
+  //  gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
+
+  // FIXME - This should be moved into CDasherInterface
+
+  // CJB.  2004-07.
+  // One-button mode; change direction on mouse click.
+  //  direction=!direction;
+
+  //  if (startleft == TRUE) {
+
+//   if( dasher_control_get_parameter_bool( BP_START_MOUSE ) )
+//     dasher_control_toggle_pause();
+
+  std::cout << "Start on mouse: " <<  m_pInterface->GetBoolParameter( BP_START_MOUSE ) << std::endl;
+
+  if( m_pInterface->GetBoolParameter( BP_START_MOUSE ) ) {
+
+    std::cout << "Registered click " <<  m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) << std::endl;
+
+    if( m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) ) 
+      m_pInterface->Unpause( get_time() );
+    else
+      m_pInterface->PauseAt(0,0);
+
+  }
+
+  return false;
+
+}
+
+
+// Method definitions
+
+extern "C"
+void realize_canvas(GtkWidget *widget, gpointer user_data) {
+  // Just call the apropriate method in the object we are given
+  static_cast< CDasherControl* >(user_data)->RealizeCanvas();
+}
+
+
+void CDasherControl::scan_alphabet_files()
 {
   // Hurrah for glib making this a nice easy thing to do
   // rather than the WORLD OF PAIN it would otherwise be
   GDir* directory;
   G_CONST_RETURN gchar* filename;
+  GPatternSpec *alphabetglob;
   alphabetglob=g_pattern_spec_new("alphabet*xml");
   directory = g_dir_open(system_data_dir,0,NULL);
 
   while((filename=g_dir_read_name(directory))) {
-    if (alphabet_filter(filename)) {
+    if (alphabet_filter(filename, alphabetglob)) {
       add_alphabet_filename(filename);
     }
-  }
+ }
 
   directory = g_dir_open(user_data_dir,0,NULL);
 
   while((filename=g_dir_read_name(directory))) {
-    if (alphabet_filter(filename)) {
+    if (alphabet_filter(filename, alphabetglob)) {
       add_alphabet_filename(filename);
     }
   }
+
+  // FIXME - need to delete glob?
+
 }
 
-void scan_colour_files()
+void CDasherControl::scan_colour_files()
 {
   GDir* directory;
   G_CONST_RETURN gchar* filename;
+  
+  GPatternSpec *colourglob;
   colourglob=g_pattern_spec_new("colour*xml");
+
   directory = g_dir_open(system_data_dir,0,NULL);
 
   while((filename=g_dir_read_name(directory))) {
-    if (colour_filter(filename)) {
+    if (colour_filter(filename, colourglob)) {
       add_colour_filename(filename);
     }
   }
@@ -242,110 +583,73 @@ void scan_colour_files()
   directory = g_dir_open(user_data_dir,0,NULL);
 
   while((filename=g_dir_read_name(directory))) {
-    if (colour_filter(filename)) {
+    if (colour_filter(filename, colourglob)) {
       add_colour_filename(filename);
     }
   }
+
+  // FIXME - need to delete glob?
 }
 
-int alphabet_filter(const gchar* filename)
+void CDasherControl::SliderEvent() {
+ m_pInterface->SetLongParameter( LP_MAX_BITRATE, GTK_RANGE( m_pSpeedHScale )->adjustment->value * 100 );
+}
+
+
+int CDasherControl::alphabet_filter(const gchar* filename, GPatternSpec *alphabetglob )
 {
   return int(g_pattern_match_string(alphabetglob,filename));
 }
 
-int colour_filter(const gchar* filename)
+int CDasherControl::colour_filter(const gchar* filename, GPatternSpec *colourglob )
 {
   return int(g_pattern_match_string(colourglob,filename));
 }
 
-void dasher_control_toggle_pause() {
-  // Actually starts Dasher if we're already stopped. I'd rename it,
-  // but I derive perverse satisfaction from this.
-  if (paused == TRUE) {
-    dasher_unpause( get_time() );
-    paused = FALSE;
-    starttime=starttime2=0;
-    dasherstarttime=time(NULL);
-  } else {
-    // should really be the current position, but that's not necessarily anywhere near the canvas
-    // and it doesn't seem to actually matter in any case
-    dasher_pause(0,0);    
-    if (onedmode==true) {
-      // Don't immediately jump back to full speed if started in one-dimensional mode
-      // (I wonder how many of our heuristics violate the principle of least surprise?)
-      dasher_halt();
-    }
-    paused = TRUE;
-
-    // FIXME - REIMPLEMENT outside of control
-
-// #ifdef GNOME_SPEECH
-//     if (speakonstop==true)
-//       speak();
-// #endif
-//     if (stdoutpipe==true) {
-//       outputpipe();
+// void dasher_control_toggle_pause() {
+//   // Actually starts Dasher if we're already stopped. I'd rename it,
+//   // but I derive perverse satisfaction from this.
+//   if (paused == TRUE) {
+//     dasher_unpause( get_time() );
+//     paused = FALSE;
+//     starttime=starttime2=0;
+//     dasherstarttime=time(NULL);
+//   } else {
+//     // should really be the current position, but that's not necessarily anywhere near the canvas
+//     // and it doesn't seem to actually matter in any case
+//     dasher_pause(0,0);    
+//     if (onedmode==true) {
+//       // Don't immediately jump back to full speed if started in one-dimensional mode
+//       // (I wonder how many of our heuristics violate the principle of least surprise?)
+//       dasher_halt();
 //     }
+//     paused = TRUE;
 
-    // FIXME - SUPERCEDED by Keith's logging stuff?
+//     // FIXME - REIMPLEMENT outside of control
 
-//     if (timedata==TRUE) {
-//       // Just a debugging thing, output to the console
-//       printf(_("%d characters output in %ld seconds\n"),outputcharacters,
-// 	     time(NULL)-dasherstarttime);
-//       outputcharacters=0;
+// // #ifdef GNOME_SPEECH
+// //     if (speakonstop==true)
+// //       speak();
+// // #endif
+// //     if (stdoutpipe==true) {
+// //       outputpipe();
+// //     }
+
+//     // FIXME - SUPERCEDED by Keith's logging stuff?
+
+// //     if (timedata==TRUE) {
+// //       // Just a debugging thing, output to the console
+// //       printf(_("%d characters output in %ld seconds\n"),outputcharacters,
+// // 	     time(NULL)-dasherstarttime);
+// //       outputcharacters=0;
+// //     }
+//     if (mouseposstart==true) {
+//       firstbox=true;
+//       dasher_redraw();
 //     }
-    if (mouseposstart==true) {
-      firstbox=true;
-      dasher_redraw();
-    }
-  }
-}
+//   }
+// }
 
-void dasher_control_set_parameter_bool( int iParameter, bool bValue ) {
-  dasher_get_interface()->SetBoolParameter( iParameter, bValue );
-}
-
-void dasher_control_set_parameter_long( int iParameter, long lValue ) {
- dasher_get_interface()->SetLongParameter( iParameter, lValue );
-}
-
-void dasher_control_set_parameter_string( int iParameter, const std::string &strValue ) { 
-  dasher_get_interface()->SetStringParameter( iParameter, strValue );
-}
-
-bool dasher_control_get_parameter_bool( int iParameter ) {
-  return dasher_get_interface()->GetBoolParameter( iParameter );
-}
-
-long dasher_control_get_parameter_long( int iParameter ) {
-  return dasher_get_interface()->GetLongParameter( iParameter );
-}
-
-std::string dasher_control_get_parameter_string( int iParameter ) { 
-  return dasher_get_interface()->GetStringParameter( iParameter );
-}
-
-/// Get the allowed values for a string parameter
-
-int dasher_control_get_allowed_values( int iParameter, const char **list, int s ) {
-
-  switch( iParameter ) {
-  case SP_ALPHABET_ID:
-    return dasher_get_alphabets( list, s );
-    break;
-  case SP_COLOUR_ID:
-    return dasher_get_colours( list, s );
-    break;
-  default:
-    return -1;
-    break;
-  }
-}
-
-void dasher_control_train_file( const char *cstrFilename ) {
-  dasher_train_file( cstrFilename );
-}
 
 gpointer
 change_alphabet(gpointer alph)
@@ -371,7 +675,7 @@ button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 
 
 extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data) {
-  dasher_set_parameter_double( DOUBLE_MAXBITRATE, GTK_RANGE(hscale)->adjustment->value );
+  static_cast< CDasherControl* >(user_data)->SliderEvent();
 }
 
 void dasher_control_set_parameter_callback( void (*_fpParameterCallback)(int) ) {
@@ -382,33 +686,6 @@ void dasher_control_set_event_callback( void (*_fpEventCallback)( CEvent * ) ) {
   fpEventCallback = _fpEventCallback;
 }
 
-void handle_parameter( int iParameter ) {
-
-  if( iParameter == SP_DASHER_FONT ) {
-    //    dasherfont=dasher_control_get_parameter_string( SP_DASHER_FONT );
-    set_canvas_font( dasher_control_get_parameter_string( SP_DASHER_FONT ) );
-    //  if (dasherfont=="")
-    //  dasherfont="DASHERFONT";
-  }
-  else if( iParameter == LP_MAX_BITRATE ) {
-     gtk_range_set_value(GTK_RANGE( m_pSpeedHScale ), dasher_control_get_parameter_long( LP_MAX_BITRATE )/100.0 );
-  }
-  else if( iParameter == BP_SHOW_SLIDER ) {
-    if (m_pSpeedFrame != NULL) {
-      if ( dasher_control_get_parameter_bool( BP_SHOW_SLIDER ) ) {
-	gtk_widget_show( GTK_WIDGET( m_pSpeedFrame ) );
-	gtk_range_set_value( GTK_RANGE( m_pSpeedHScale ),  dasher_control_get_parameter_long( LP_MAX_BITRATE )/100.0);
-      } else {
-	gtk_widget_hide( GTK_WIDGET( m_pSpeedFrame ) );
-      }
-    }
-  }
-
-  // Check whether anything outside of the control wants to be notified.
-
-  if( fpParameterCallback != NULL )
-    fpParameterCallback( iParameter );
-}
 
 void control_handle_event( CEvent *pEvent ) {
   if( fpEventCallback != NULL )
@@ -418,46 +695,12 @@ void control_handle_event( CEvent *pEvent ) {
 extern "C" gboolean
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
-  gboolean *returnType;
+  // FIXME - probably want to pass some data about which button etc.
 
-#ifdef WITH_GPE
-  // GPE version requires the button to be held down rather than clicked
-  if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
-    return FALSE;
-#else
-  if ((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_2BUTTON_PRESS))
-    return FALSE;
-#endif
+  std::cout << "In button press event - data is " << data << std::endl;
 
-  focusEvent->type = GDK_FOCUS_CHANGE;
+ return  static_cast< CDasherControl* >(data)->ButtonPressEvent( event );
 
-  focusEvent->window = (GdkWindow *) the_canvas;
-  focusEvent->send_event = FALSE;
-  focusEvent->in = TRUE;
-
-  gtk_widget_grab_focus(GTK_WIDGET(the_canvas));
-  g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
-
-  // FIXME - This shouldn't be in the control
-
-  // CJB,  2003-08.  If we have a selection, replace it with the new input.
-  // This code is duplicated in key_press_event.
-  // if (gtk_text_buffer_get_selection_bounds (the_text_buffer, NULL, NULL))
-  //  gtk_text_buffer_cut_clipboard(the_text_buffer, the_text_clipboard, TRUE);
-
-  // FIXME - This should be moved into CDasherInterface
-
-  // CJB.  2004-07.
-  // One-button mode; change direction on mouse click.
-  //  direction=!direction;
-
-  //  if (startleft == TRUE) {
-
-  if( dasher_control_get_parameter_bool( BP_START_MOUSE ) )
-    dasher_control_toggle_pause();
-
-  return FALSE;
 }
 
 

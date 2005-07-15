@@ -74,7 +74,7 @@ static bp_table boolparamtable[] =
     {BP_NUMBER_DIMENSIONS,  "NumberDimensions",    PERS,   false,   "NumberDimensions"},
     {BP_EYETRACKER_MODE,    "EyetrackerMode",      PERS,   false,   "EyetrackerMode"},
     {BP_AUTOCALIBRATE,      "Autocalibrate",       PERS,   false,   "Autocalibrate"},
-    {BP_DASHER_PAUSED,      "DasherPaused",        !PERS,  false,   "Dasher Paused"},
+    {BP_DASHER_PAUSED,      "DasherPaused",        !PERS,  true,   "Dasher Paused"},
     {BP_GAME_MODE,          "GameMode",            PERS,   false,   "Dasher Game Mode"}
 };
 

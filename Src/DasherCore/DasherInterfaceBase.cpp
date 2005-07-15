@@ -34,7 +34,8 @@ m_DasherScreen(0),
 m_pDasherView(0),  
 m_SettingsUI(0),
 m_AlphIO(0), 
-m_ColourIO(0)
+m_ColourIO(0),
+m_pInput(0)
 {
   m_Params = new CLanguageModelParams;
 
@@ -152,6 +153,9 @@ void CDasherInterfaceBase::AddColourFilename(std::string Filename)
 void CDasherInterfaceBase::CreateDasherModel()
 {
     int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
+
+    std::cout << "Creating model - LM id is " << lmID << std::endl;
+
     if (m_DashEditbox!=0 && lmID != -1) 
     {
 
@@ -161,19 +165,6 @@ void CDasherInterfaceBase::CreateDasherModel()
 	        delete m_pDasherModel;
         }
 
-        CDasherModel::LanguageModelID NewLanguageModelID;
-
-        switch( lmID ) {
-            case 0:
-            NewLanguageModelID = CDasherModel::idPPM;
-            break;
-                case 1:
-            NewLanguageModelID = CDasherModel::idWord;
-            break;
-                case 2:
-            NewLanguageModelID = CDasherModel::idMixture;
-            break;	
-        }
 
         m_pDasherModel = new CDasherModel( m_pEventHandler, m_pSettingsStore, this);
       
@@ -269,6 +260,9 @@ void CDasherInterfaceBase::Redraw(int iMouseX,int iMouseY)
 }
 
 void CDasherInterfaceBase::SetInput( CDasherInput *_pInput ) {
+
+  m_pInput = _pInput;
+
   if (m_pDasherView!=0) 
     m_pDasherView->SetInput( _pInput );
 }
@@ -276,9 +270,6 @@ void CDasherInterfaceBase::SetInput( CDasherInput *_pInput ) {
 
 void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time)
 {
-
-  //  std::cout << "Tap On" << std::endl;
-
 	if (m_pDasherView!=0) 
 	{
 		m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
@@ -467,8 +458,9 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID)
 	//TODO Use DasherViewID
 	SetLongParameter(LP_VIEW_ID, NewViewID);
 	if (m_DasherScreen!=0 && m_pDasherModel!=0) {
-		delete m_pDasherView;
-		m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, *m_pDasherModel );
+	  delete m_pDasherView;
+	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, *m_pDasherModel );
+	  m_pDasherView->SetInput( m_pInput );
 	}
 }
 

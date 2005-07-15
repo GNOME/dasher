@@ -265,7 +265,10 @@ void gtk2_edit_outputcontrol_callback(void* pointer, int data)
 #endif
   case 2:
     // stop
-    dasher_control_toggle_pause();
+
+    // FIXME - Reimplement
+
+    //    dasher_control_toggle_pause();
     break;
   case 3:
 

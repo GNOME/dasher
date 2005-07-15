@@ -288,7 +288,6 @@ main(int argc, char *argv[])
   SPI_exit();
 #endif
 
-  dasher_control_delete();
 
   // Take down GConf client
 

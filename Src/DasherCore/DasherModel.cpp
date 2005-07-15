@@ -48,17 +48,23 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   // FIXME - return to using enum here
   CLanguageModelParams* _params = m_pDasherInterface->GetLMParams();
 
-  switch( GetLongParameter(LP_LANGUAGE_MODEL_ID) ) {
-  case idPPM:
-    m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
-    break;
-  case idWord:
-    m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
-    break; 
-  case idMixture:
-    m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
-    break;
-  }
+
+  // FIXME - temporarily broken just to get the thing to work
+
+//   switch( GetLongParameter(LP_LANGUAGE_MODEL_ID) ) {
+//   case 0: 
+//     m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+//     break;
+//   case 1:
+//     m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+//     break; 
+//   case 2:
+//     m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+//     break;
+//   }
+
+  m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+
 	
   LearnContext = m_pLanguageModel->CreateEmptyContext();
   

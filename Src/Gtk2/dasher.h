@@ -95,6 +95,7 @@ extern GtkWidget *dasher_menu_bar;
 extern const gchar *filename;
 extern gboolean quitting;
 extern gboolean file_modified;
+extern GtkWidget *pDasherWidget;
 
 extern GtkWidget *window;
 

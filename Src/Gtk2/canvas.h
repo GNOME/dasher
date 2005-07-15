@@ -18,6 +18,9 @@ extern PangoLayout *the_pangolayout;
 
 extern std::map< std::string, PangoLayout * > oPangoCache;
 
+extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
+extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
+
 void rebuild_buffer();
 void initialise_canvas( int width, int height );
 

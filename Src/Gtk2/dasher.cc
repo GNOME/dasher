@@ -45,10 +45,16 @@
 #include "edit.h"
 #include "accessibility.h"
 #include "fileops.h"
-#include "DasherControl.h"
+
 #include "Preferences.h"
 #include "FontDialogues.h"
 #include "../DasherCore/Parameters.h"
+
+// We shouldn't need this - the functions which reference it are obsolete
+#include "../DasherCore/Event.h"
+
+
+#include "GtkDasherControl.h"
 
 
 // Pointers to various GTK widgets
@@ -70,6 +76,7 @@ GtkWidget *append_filesel;
 GThread *trainthread;
 GtkWidget *window;
 GtkWidget *file_selector;
+GtkWidget *pDasherWidget;
 
 // GConf client
 
@@ -142,7 +149,10 @@ void InitialiseAppParameters();
 /// dasher_control method directly
 
 void load_training_file (const gchar *filename) {
-  dasher_control_train_file( filename );
+
+  // FIXME - Reimplement
+
+//   dasher_control_train_file( filename );
 }
 
 /// Initialise the main window and child components 
@@ -171,8 +181,9 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   //GtkScale *pSpeedHScale( GTK_SCALE(glade_xml_get_widget( pGladeXML, "speed_hscale")) );
 
   GtkWidget *pContainer( glade_xml_get_widget( pGladeXML, "vpaned1" ) );
-  GtkWidget *pDasherWidget( dasher_control_new());
-
+  //  GtkWidget *pDasherWidget( dasher_control_new());
+  
+  pDasherWidget = gtk_dasher_control_new();
 
 
   std::cout << pContainer << " " << pDasherWidget << std::endl;
@@ -190,8 +201,8 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   initialise_preferences_dialogue( pGladeXML );
   InitialiseFontDialogues( pGladeXML );
 
-  dasher_control_set_parameter_callback( parameter_notification );
-  dasher_control_set_event_callback( EventHandler );
+//   dasher_control_set_parameter_callback( parameter_notification );
+//   dasher_control_set_event_callback( EventHandler );
 
   LoadWindowState();
 
@@ -224,7 +235,7 @@ void interface_cleanup() {
 void parameter_notification( int iParameter ) {  
 
   if( iParameter == LP_DASHER_FONTSIZE ) {
-    switch( dasher_control_get_parameter_long( LP_DASHER_FONTSIZE ) ) {
+    switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_DASHER_FONTSIZE ) ) {
     case Opts::Normal:
       gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
       break;
@@ -237,10 +248,10 @@ void parameter_notification( int iParameter ) {
     }
   }
   else if( iParameter == LP_UNIFORM ) {
-    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), dasher_control_get_parameter_long( LP_UNIFORM)/10.0);
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM)/10.0);
   }
   else if( iParameter == LP_LANGUAGE_MODEL_ID ) {
-    switch( dasher_control_get_parameter_long( LP_LANGUAGE_MODEL_ID ) ) {
+    switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_LANGUAGE_MODEL_ID ) ) {
     case 0:
       if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6"))) != TRUE)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6")), TRUE);
@@ -256,7 +267,7 @@ void parameter_notification( int iParameter ) {
     }
   }
   else if( iParameter == LP_ORIENTATION ) {
-    switch( dasher_control_get_parameter_long( LP_ORIENTATION ) ) {
+    switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_ORIENTATION ) ) {
     case Opts::Alphabet:
       if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1"))) != TRUE)
 	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1")), TRUE);
@@ -280,43 +291,43 @@ void parameter_notification( int iParameter ) {
     }
   }
   else if( iParameter == BP_SHOW_SLIDER ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speedsliderbutton")), dasher_control_get_parameter_bool( BP_SHOW_SLIDER ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speedsliderbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_SHOW_SLIDER ) );
   }
   else if( iParameter == BP_DRAW_MOUSE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmousebutton")), dasher_control_get_parameter_bool( BP_DRAW_MOUSE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmousebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_DRAW_MOUSE ) );
   }
   else if( iParameter == BP_DRAW_MOUSE_LINE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmouselinebutton")), dasher_control_get_parameter_bool( BP_DRAW_MOUSE_LINE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmouselinebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_DRAW_MOUSE_LINE ) );
   }
   else if( iParameter == BP_NUMBER_DIMENSIONS ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"onedbutton")), dasher_control_get_parameter_bool( BP_NUMBER_DIMENSIONS ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"onedbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_NUMBER_DIMENSIONS ) );
   }
   else if( iParameter == BP_EYETRACKER_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"eyetrackerbutton")), dasher_control_get_parameter_bool( BP_EYETRACKER_MODE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"eyetrackerbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_EYETRACKER_MODE ) );
   }
   else if( iParameter == BP_START_MOUSE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"leftbutton")), dasher_control_get_parameter_bool( BP_START_MOUSE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"leftbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_START_MOUSE ) );
   }
   else if( iParameter == BP_START_SPACE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"spacebutton")), dasher_control_get_parameter_bool( BP_START_SPACE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"spacebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_START_SPACE ) );
   }
   else if( iParameter == BP_MOUSEPOS_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"mouseposbutton")), dasher_control_get_parameter_bool( BP_MOUSEPOS_MODE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"mouseposbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_MOUSEPOS_MODE ) );
   }
   else if( iParameter == BP_KEY_CONTROL ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), dasher_control_get_parameter_bool( BP_KEY_CONTROL ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_KEY_CONTROL ) );
   }
   else if( iParameter == BP_CONTROL_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), dasher_control_get_parameter_bool( BP_KEY_CONTROL ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_KEY_CONTROL ) );
   }
   else if( iParameter == BP_OUTLINE_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), dasher_control_get_parameter_bool( BP_OUTLINE_MODE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_OUTLINE_MODE ) );
   }
   else if( iParameter == BP_KEYBOARD_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), dasher_control_get_parameter_bool( BP_KEYBOARD_MODE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_KEYBOARD_MODE ) );
   }
   else if( iParameter == BP_PALETTE_CHANGE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"palettebutton")), dasher_control_get_parameter_bool( BP_PALETTE_CHANGE ) );
+    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"palettebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_PALETTE_CHANGE ) );
   }
 }
 

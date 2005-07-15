@@ -17,6 +17,8 @@
 #include <algorithm>
 #include <limits>
 
+#include <iostream>
+
 using namespace Dasher;
 
 // FIXME - quite a lot of the code here probably should be moved to

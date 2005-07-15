@@ -6,6 +6,9 @@
 #include "Parameters.h"
 #include "fileops.h"
 
+#include "GtkDasherControl.h"
+
+
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
 #include <libgnome/libgnome.h>
@@ -416,11 +419,11 @@ extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data)
 {
   if (GTK_CHECK_MENU_ITEM(widget)->active==TRUE) {
     if ( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "fontsizenormal" )) {
-      dasher_control_set_parameter_long( LP_DASHER_FONTSIZE, Dasher::Opts::Normal);
+      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE, Dasher::Opts::Normal);
     } else if ( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "fontsizelarge")) {
-      dasher_control_set_parameter_long( LP_DASHER_FONTSIZE, Dasher::Opts::Big);
+      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE, Dasher::Opts::Big);
     } else if ( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "fontsizevlarge")) {
-      dasher_control_set_parameter_long( LP_DASHER_FONTSIZE, Dasher::Opts::VBig);
+      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE, Dasher::Opts::VBig);
     }
   }
 }

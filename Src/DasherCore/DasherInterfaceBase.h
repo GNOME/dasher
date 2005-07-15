@@ -34,6 +34,7 @@
 #include "Event.h"
 
 #include <map>
+#include <iostream>
 
 namespace Dasher {class CDasherInterfaceBase;}
 class Dasher::CDasherInterfaceBase : private NoClones,
@@ -45,6 +46,9 @@ public:
 
 	// New externally visible interface
     void SetBoolParameter( int iParameter, bool bValue ) {
+
+      std::cout << m_pSettingsStore << std::endl;
+
 	    m_pSettingsStore->SetBoolParameter( iParameter, bValue );
     };
 
@@ -238,6 +242,8 @@ private:
 	CDashEditbox* m_DashEditbox;
 	CDasherScreen* m_DasherScreen;
 	CDasherView* m_pDasherView;
+
+	CDasherInput * m_pInput;
 	
 	CDasherSettingsInterface* m_SettingsUI;
 	CAlphIO* m_AlphIO;	
