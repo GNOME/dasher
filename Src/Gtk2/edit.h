@@ -1,4 +1,5 @@
 //#include "libdasher.h"
+#include "GtkDasherControl.h"
 #include <gtk/gtk.h>
 #include "dashergtktextview.h"
 #include <X11/keysym.h>
@@ -32,9 +33,19 @@ typedef enum {
 
 void initialise_edit( GladeXML *pGladeXML );
 void cleanup_edit();
-void gtk2_edit_output_callback( const std::string &strText );
+
+
+
+extern "C" void gtk2_edit_output_callback( GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data );
+
+
+
 void gtk2_edit_outputcontrol_callback(void* pointer, int data);
-void gtk2_edit_delete_callback( const std::string &strText );
+
+
+extern "C" void gtk2_edit_delete_callback( GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data );
+
+
 void edit_move_back();
 void edit_move_forward();
 void edit_move_start();

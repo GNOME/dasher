@@ -42,7 +42,6 @@ m_pInput(0)
   m_pEventHandler = new CEventHandler( this );
 
 
-
 // This should be created in the derived class (as it is platform dependent)
  // m_pSettingsStore = new CSettingsStore( m_pEventHandler );
 }
@@ -75,12 +74,17 @@ void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
 
   // Pass events outside
 
-	if(	pEvent->m_iEventType == 1 ) {
-			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+  if(pEvent->m_iEventType == 1 ) {
+    Dasher::CParameterNotificationEvent	*pEvt( static_cast<Dasher::CParameterNotificationEvent* >( pEvent));
+    
+    if (m_SettingsUI!=0)
+      m_SettingsUI->HandleParameterNotification( pEvt->m_iParameter );
+  } 
+  else if(( pEvent->m_iEventType >= 2) && ( pEvent->m_iEventType <= 5 )) {
+    if( m_DashEditbox != NULL )
+      m_DashEditbox -> HandleEvent( pEvent );
+  }
 
-      if (m_SettingsUI!=0)
-        m_SettingsUI->HandleParameterNotification( pEvt->m_iParameter );
-		}
 }
 
 void CDasherInterfaceBase::InterfaceEventHandler( Dasher::CEvent *pEvent ) {
@@ -203,17 +207,23 @@ void CDasherInterfaceBase::Start()
 
 void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY)
 {
-	if (m_DashEditbox!=0) 
+  if (m_DashEditbox!=0) 
     {
-		m_DashEditbox->write_to_file();
-		if (GetBoolParameter(BP_COPY_ALL_ON_STOP))
-			m_DashEditbox->CopyAll();
-	}	
-    SetBoolParameter(BP_DASHER_PAUSED, true);
+      m_DashEditbox->write_to_file();
+      if (GetBoolParameter(BP_COPY_ALL_ON_STOP))
+	m_DashEditbox->CopyAll();
+    }	
+  
+  SetBoolParameter(BP_DASHER_PAUSED, true);
 	//m_Paused=true;
     //if (m_pDasherModel!=0) {
     //    m_pDasherModel->Set_paused(m_Paused);
     //}
+
+  std::cout << "In PauseAt" << std::endl;
+
+  Dasher::CStopEvent oEvent;
+  m_pEventHandler->InsertEvent( &oEvent );
 }
 
 void CDasherInterfaceBase::Halt()
@@ -224,16 +234,19 @@ void CDasherInterfaceBase::Halt()
 
 void CDasherInterfaceBase::Unpause(unsigned long Time)
 {
-	//m_Paused=false;
     SetBoolParameter(BP_DASHER_PAUSED, false);
+
     if (m_pDasherModel!=0) {
-		m_pDasherModel->Reset_framerate(Time);
-        //m_pDasherModel->Set_paused(m_Paused);
+      m_pDasherModel->Reset_framerate(Time);
+      //m_pDasherModel->Set_paused(m_Paused);
     }
     if (m_pDasherView!=0) {
-        m_pDasherView->ResetSum();
-        m_pDasherView->ResetSumCounter();
+      m_pDasherView->ResetSum();
+      m_pDasherView->ResetSumCounter();
     }
+
+    Dasher::CStartEvent oEvent;
+    m_pEventHandler->InsertEvent( &oEvent );
 }
 
 
@@ -317,6 +330,11 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string& NewAlphabetID)
     //  if (GetStringParameter(SP_ALPHABET_ID) != NewAlphabetID) { 
 	        
    //     SetStringParameter(SP_ALPHABET_ID, NewAlphabetID); 
+
+  // FIXME - we shouldn't rely on the first call to ChangeAlphabet to
+  // construct the list of filenames - we may need to populate a list
+  // dialogue before this happens - also, what happens if the list of
+  // alphabet files changes at runtime?
 
 	    if (!m_AlphIO)
 	        m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), 

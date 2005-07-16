@@ -143,10 +143,13 @@ void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint 
 //   dasher_redraw();
 }
 
-void gtk2_edit_output_callback( const std::string &strText )
+extern "C"
+void gtk2_edit_output_callback( GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data )
 {
-  std::string label;
-  label = strText;
+
+  std::cout << "*" << (void*)szText << "*" << szText << "*" << std::endl;
+
+  std::string label( szText );
 
 #ifdef GNOME_SPEECH
   say+=label;
@@ -327,7 +330,8 @@ void gtk2_edit_outputcontrol_callback(void* pointer, int data)
     edit_delete_forward_line();
     break;
   case 24:
-    gtk2_edit_delete_callback(std::string(""));
+    // FIXME - reimplement
+    //    gtk2_edit_delete_callback(std::string(""));
     break;
   case 25:
     edit_delete_backward_word();
@@ -404,8 +408,11 @@ void edit_move_end()
   dasher_gtk_text_view_scroll_mark_onscreen (DASHER_GTK_TEXT_VIEW(the_text_view),gtk_text_buffer_get_insert(the_text_buffer));
 }
 
-void gtk2_edit_delete_callback( const std::string &strText )
+extern "C"
+void gtk2_edit_delete_callback( GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data )
 {
+
+  std::string strText( szText );
 
   if (strText.size() == 0) {
     return;

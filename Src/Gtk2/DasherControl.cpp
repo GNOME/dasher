@@ -12,9 +12,6 @@
 
 // 'Private' methods
 
-void handle_parameter( int iParameter );
-void control_handle_event( CEvent *pEvent );
-
 extern "C" gboolean button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data);
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
 extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
@@ -24,9 +21,6 @@ extern "C" gint key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer
 // 'Private' member variable
 
 // Callbacks for parameter notification and event handling
-
-void (*fpParameterCallback)(int) = NULL;
-void (*fpEventCallback)(CEvent *) = NULL;
 
 // FIXME - I'm sure a lot of these can be made local
 
@@ -64,7 +58,9 @@ int oldy;
 
 // CDasherControl class definitions
 
-CDasherControl::CDasherControl( GtkVBox *pVBox ) {
+CDasherControl::CDasherControl( GtkVBox *pVBox, GtkDasherControl *pDasherControl ) {
+
+  m_pDasherControl = pDasherControl;
 
   m_pInterface = new CDasherInterface; // FIXME - doing this will probably trigger drawing events, but we haven't created the canvas yet (delay setting screen until it's initialised?)
 
@@ -96,11 +92,14 @@ CDasherControl::CDasherControl( GtkVBox *pVBox ) {
 
   g_signal_connect_after( m_pCanvas, "realize", G_CALLBACK(realize_canvas), this );
   g_signal_connect( m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this );
+
+  // We'll use the same call back for keyboard events from the canvas
+  // and slider - maybe this isn't the right thing to do long term
+
   g_signal_connect( m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this );    
+  g_signal_connect( m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this );    
   
   GTK_WIDGET_SET_FLAGS( m_pCanvas, GTK_CAN_FOCUS );
-
-  paused=true; // FIXME - read directly from interface
 
   // Set up directory locations and so on.
 
@@ -116,14 +115,12 @@ CDasherControl::CDasherControl( GtkVBox *pVBox ) {
   // PROGDATA is provided by the makefile
   system_data_dir = PROGDATA"/";
 
-  // FIXME - Reimplement properly
-  
-//   dasher_set_parameter_string( STRING_SYSTEMDIR, system_data_dir );
-//   dasher_set_parameter_string( STRING_USERDIR, user_data_dir );
+  m_pInterface->SetStringParameter( SP_SYSTEM_LOC, system_data_dir );
+  m_pInterface->SetStringParameter( SP_USER_LOC, user_data_dir );
 
-//   // Add all available alphabets and colour schemes to the core
-//   scan_alphabet_files();
-//   scan_colour_files();
+  // Add all available alphabets and colour schemes to the core
+  scan_alphabet_files();
+  scan_colour_files();
 
   // Start the dasher model
 
@@ -167,48 +164,19 @@ CDasherControl::~CDasherControl() {
 }
 
 void CDasherControl::RealizeCanvas() {
-
-  // FIXME - reimplement
-
-  //  initialise_canvas(360,360);
-  
-  // FIXME - I think we need a way of resizing the canvas without
-  // having to rebuild the screen object (although I guess we rebuild
-  // the buffers anyay, so maybe it's okay)
-
-  // In any case, we shouldn't create with one size then immediately resize
-
-  // dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
-
-  //  rebuild_buffer();
-
-
- if( m_pScreen != NULL )
-    delete m_pScreen;
-
-  m_pScreen = new CCanvas( m_pCanvas, m_pPangoCache );
-  m_pInterface->ChangeScreen( m_pScreen );
-
-  m_pInterface->Redraw();
-
-  // Now start the timer loops as everything is set up
-
+  // Start the timer loops as everything is set up
   // Aim for 20 frames per second
-  g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,50, timer_callback, this,NULL); 
 
+  g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE,50, timer_callback, this,NULL); 
 }
 
 void CDasherControl::CanvasConfigureEvent() {
-
-  std::cout << "Canvas configure event" << std::endl;
 
   if( m_pScreen != NULL )
     delete m_pScreen;
 
   m_pScreen = new CCanvas( m_pCanvas, m_pPangoCache );
   m_pInterface->ChangeScreen( m_pScreen );
-
-  
   
   m_pInterface->Redraw();
 }
@@ -462,6 +430,26 @@ int CDasherControl::TimerEvent() {
 
 }
 
+void CDasherControl::HandleEvent( CEvent *pEvent ) {
+  if( pEvent->m_iEventType == 2 ) {
+    CEditEvent *pEditEvent( static_cast< CEditEvent* >( pEvent ));
+
+    if( pEditEvent->m_iEditType == 1 ) {
+      // Insert event
+      g_signal_emit_by_name( GTK_OBJECT( m_pDasherControl ), "dasher_edit_insert",  pEditEvent->m_sText.c_str() );
+    }
+    else if( pEditEvent->m_iEditType == 2 ) {
+      // Delete event
+      g_signal_emit_by_name( GTK_OBJECT( m_pDasherControl ), "dasher_edit_delete", pEditEvent->m_sText.c_str() );
+    }
+  }
+  else if( pEvent->m_iEventType == 4 ) {
+    g_signal_emit_by_name( GTK_OBJECT( m_pDasherControl ), "dasher_start" );
+  }
+  else if( pEvent->m_iEventType == 5 ) {
+    g_signal_emit_by_name( GTK_OBJECT( m_pDasherControl ), "dasher_stop" );
+  }
+};
 
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
@@ -543,6 +531,10 @@ void realize_canvas(GtkWidget *widget, gpointer user_data) {
 
 void CDasherControl::scan_alphabet_files()
 {
+
+
+  // FIXME - this shouldn't be here - the interface should do this itself upon construction
+
   // Hurrah for glib making this a nice easy thing to do
   // rather than the WORLD OF PAIN it would otherwise be
   GDir* directory;
@@ -551,11 +543,16 @@ void CDasherControl::scan_alphabet_files()
   alphabetglob=g_pattern_spec_new("alphabet*xml");
   directory = g_dir_open(system_data_dir,0,NULL);
 
+  std::cout << "looking for alphabet files in: " << system_data_dir << std::endl;
+
   while((filename=g_dir_read_name(directory))) {
+    std::cout << "Filename is: " << filename << std::endl;
+
     if (alphabet_filter(filename, alphabetglob)) {
 
-      // FIXME - REIMPLEMENT
-      //    add_alphabet_filename(filename);
+      std::cout << "adding" << std::endl;
+
+      m_pInterface->AddAlphabetFilename(filename);
     }
  }
 
@@ -563,8 +560,7 @@ void CDasherControl::scan_alphabet_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (alphabet_filter(filename, alphabetglob)) {
-       // FIXME - REIMPLEMENT
-      // add_alphabet_filename(filename);
+      m_pInterface->AddAlphabetFilename(filename);
     }
   }
 
@@ -584,8 +580,7 @@ void CDasherControl::scan_colour_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (colour_filter(filename, colourglob)) {
-      // FIXME - REIMPLEMENT
-      // add_colour_filename(filename);
+      m_pInterface->AddColourFilename(filename);
     }
   }
 
@@ -593,8 +588,7 @@ void CDasherControl::scan_colour_files()
 
   while((filename=g_dir_read_name(directory))) {
     if (colour_filter(filename, colourglob)) {
-      // FIXME - REIMPLEMENT
-      //  add_colour_filename(filename);
+      m_pInterface->AddColourFilename(filename);
     }
   }
 
@@ -606,6 +600,8 @@ void CDasherControl::SliderEvent() {
 }
 
 
+// FIXME - these two methods seem a bit pointless!
+
 int CDasherControl::alphabet_filter(const gchar* filename, GPatternSpec *alphabetglob )
 {
   return int(g_pattern_match_string(alphabetglob,filename));
@@ -614,6 +610,35 @@ int CDasherControl::alphabet_filter(const gchar* filename, GPatternSpec *alphabe
 int CDasherControl::colour_filter(const gchar* filename, GPatternSpec *colourglob )
 {
   return int(g_pattern_match_string(colourglob,filename));
+}
+
+
+GArray *CDasherControl::GetAllowedValues( int iParameter ) {
+ GArray *pRetVal( g_array_new( false, false, sizeof( gchar* )));
+
+  std::vector< std::string > vList;
+
+  switch( iParameter ) {
+  case SP_ALPHABET_ID:
+    m_pInterface->GetAlphabets( &vList );
+    break;
+  case SP_COLOUR_ID:
+    m_pInterface->GetColours( &vList );
+   break;
+  }
+
+  for( std::vector<std::string>::iterator it( vList.begin() ); it != vList.end(); ++it ) {
+    // For internal glib reasons we need to make a variable and then
+    // pass - we can use the iterator directly
+    const char *pTemp(  it->c_str() );
+
+    std::cout << "pTemp is " << pTemp << std::endl;
+
+    g_array_append_val( pRetVal, pTemp );
+  }
+
+  return pRetVal;
+
 }
 
 // void dasher_control_toggle_pause() {
@@ -660,7 +685,6 @@ int CDasherControl::colour_filter(const gchar* filename, GPatternSpec *colourglo
 //   }
 // }
 
-
 gpointer
 change_alphabet(gpointer alph)
 {
@@ -674,51 +698,38 @@ change_alphabet(gpointer alph)
   return NULL;
 }
 
-extern "C" gboolean
-button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
-{
+// FIXME - this is part of the edit box, so deal with it outside of the control
+
+// extern "C" gboolean
+// button_release_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
+// {
   
-  // FIXME - REIMPLEMENT
-  //dasher_pause( (gint) event->x,(gint) event->y ); 
-  paused = TRUE;
+//   // FIXME - REIMPLEMENT
+//   //dasher_pause( (gint) event->x,(gint) event->y ); 
+//   paused = TRUE;
 
-  return FALSE;
-}
+//   return FALSE;
+//}
 
 
-extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data) {
+// "C" style callbacks - these are here just because it's not possible
+// (or at least not easy) to connect a callback directly to a C++
+// method, so we pass a pointer to th object in the user_data field
+// and use a wrapper function. Please do not put any functional code
+// here.
+
+extern "C" void 
+speed_changed(GtkHScale *hscale, gpointer user_data) {
   static_cast< CDasherControl* >(user_data)->SliderEvent();
 }
 
-void dasher_control_set_parameter_callback( void (*_fpParameterCallback)(int) ) {
-  fpParameterCallback = _fpParameterCallback;
-}
-
-void dasher_control_set_event_callback( void (*_fpEventCallback)( CEvent * ) ) {
-  fpEventCallback = _fpEventCallback;
-}
-
-
-void control_handle_event( CEvent *pEvent ) {
-  if( fpEventCallback != NULL )
-    fpEventCallback( pEvent );
-}
-
 extern "C" gboolean
-button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
-{
-  // FIXME - probably want to pass some data about which button etc.
-
-  std::cout << "In button press event - data is " << data << std::endl;
-
- return  static_cast< CDasherControl* >(data)->ButtonPressEvent( event );
-
+button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data) {
+ return static_cast< CDasherControl* >(data)->ButtonPressEvent( event );
 }
-
 
 extern "C" gint
-key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
-{
+key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data) {
   return static_cast< CDasherControl* >(data)->KeyPressEvent( event );
   // FIXME - REIMPLEMENT all of this (where not obsolete)
 
@@ -962,3 +973,4 @@ canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer dat
 
   return FALSE;
 }
+

@@ -11,6 +11,8 @@ namespace Dasher{
   class CParameterNotificationEvent;
   class CEditEvent;
   class CEditContextEvent;
+  class CStartEvent;
+  class CStopEvent;
 }
 
 class Dasher::CEvent {
@@ -49,5 +51,20 @@ class Dasher::CEditContextEvent : public Dasher::CEvent {
 
   int m_iMaxLength;
 };
+
+class Dasher::CStartEvent : public Dasher::CEvent {
+ public:
+  CStartEvent() {
+    m_iEventType = 4;
+  };
+};
+
+class Dasher::CStopEvent : public Dasher::CEvent {
+ public:
+  CStopEvent() {
+    m_iEventType = 5;
+  };
+};
+
 
 #endif

@@ -158,28 +158,29 @@ void generate_preferences( GladeXML *pGladeWidgets ) {
   // Clear the contents of the alphabet list
   gtk_list_store_clear( alph_list_store );
 
-  // FIXME - reimplement
+  GArray *pAlphabetArray;
 
-//   // And repopulate it with an up to date list
-//   alphabet_count = dasher_control_get_allowed_values( SP_ALPHABET_ID, alphabetlist, alphabetlist_size );
+  pAlphabetArray = gtk_dasher_control_get_allowed_values( GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID );
 
-//   // Connect up a signal so we can select a new alphabet
-//   g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
+  for( int i(0); i < pAlphabetArray->len; ++i ) {
+    
+    const gchar* pCurrentAlphabet( g_array_index( pAlphabetArray, gchar*, i) );
 
-//   // Do the actual list population
-//   for (int i=0; i<alphabet_count; ++i) {
-//     gtk_list_store_append (alph_list_store, &alphiter);
-//     gtk_list_store_set (alph_list_store, &alphiter, 0, alphabetlist[i],-1);
+    gtk_list_store_append (alph_list_store, &alphiter);
+    gtk_list_store_set (alph_list_store, &alphiter, 0, pCurrentAlphabet,-1);
 
-//     // FIXME - REIMPLEMENT
+    if( !strcmp( pCurrentAlphabet, gtk_dasher_control_get_parameter_string( GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID ))) {
+      gchar ugly_path_hack[100];
+      sprintf(ugly_path_hack,"%d",i);
+      gtk_tree_selection_select_iter(alphselection, &alphiter);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+    }
+  }
 
-//  //    if (alphabetlist[i]==alphabet) {
-// //       gchar ugly_path_hack[100];
-// //       sprintf(ugly_path_hack,"%d",i);
-// //       gtk_tree_selection_select_iter(alphselection, &alphiter);
-// //       gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
-// //     }
-//   }
+  g_array_free( pAlphabetArray, true );
+
+  // Connect up a signal so we can select a new alphabet
+  g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
   
   // Do the same for colours
   colourtreeview = glade_xml_get_widget( pGladeWidgets, "ColorTree");  
@@ -198,32 +199,30 @@ void generate_preferences( GladeXML *pGladeWidgets ) {
   // Clear the contents of the colour list
   gtk_list_store_clear( colour_list_store );
 
-  // FIXME - REIMPLEMENT
 
-//   // And repopulate it with an up to date list
-//   colour_count = dasher_control_get_allowed_values( SP_COLOUR_ID, colourlist, colourlist_size );
+  GArray *pColourArray;
 
-//   // Connect up a signal so we can select a new colour scheme
-//   g_signal_connect_after(G_OBJECT(colourselection),"changed",GTK_SIGNAL_FUNC(colour_select),NULL);
+  pColourArray = gtk_dasher_control_get_allowed_values( GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID );
 
-//   for (int i=0; i<colour_count; ++i) {
-//     gtk_list_store_append (colour_list_store, &colouriter);
-//     gtk_list_store_set (colour_list_store, &colouriter, 0, colourlist[i],-1);
+  for( int i(0); i < pColourArray->len; ++i ) {
+    
+    const gchar* pCurrentColour( g_array_index( pColourArray, gchar*, i) );
 
-//     // FIXME - REIMPLEMENT
+    gtk_list_store_append (colour_list_store, &colouriter);
+    gtk_list_store_set (colour_list_store, &colouriter, 0, pCurrentColour,-1);
 
-// //     if (colourlist[i]==colourscheme) {
-// //       gchar ugly_path_hack[100];
-// //       sprintf(ugly_path_hack,"%d",i);
-// //       gtk_tree_selection_select_iter(colourselection, &colouriter);
-// //       gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
-// //     }
+    if( !strcmp( pCurrentColour, gtk_dasher_control_get_parameter_string( GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID ))) {
+      gchar ugly_path_hack[100];
+      sprintf(ugly_path_hack,"%d",i);
+      gtk_tree_selection_select_iter(colourselection, &colouriter);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+    }
+  }
 
-//   }
+  g_array_free( pColourArray, true );
 
-
-  
-
+  // Connect up a signal so we can select a new colour scheme
+   g_signal_connect_after(G_OBJECT(colourselection),"changed",GTK_SIGNAL_FUNC(colour_select),NULL);
 }
 
 void update_colours()

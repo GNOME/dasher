@@ -144,15 +144,8 @@ void EventHandler( Dasher::CEvent *pEvent );
 void LoadWindowState();
 void InitialiseAppParameters();
 
-/// Load a file to train the Dasher language model
-/// This function seems pretty pointless - should really just call the
-/// dasher_control method directly
-
-void load_training_file (const gchar *filename) {
-  // FIXME - Reimplement
-
-//   dasher_control_train_file( filename );
-}
+extern "C" void handle_start_event( GtkDasherControl *pDasherControl, gpointer data);
+extern "C" void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data);
 
 /// Initialise the main window and child components 
 /// This is actually closer to 'initialise application', so name
@@ -174,20 +167,15 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   dasher_menu_bar=glade_xml_get_widget( pGladeXML, "dasher_menu_bar");
 
   // Construct a Dasher control
-
-  //  GtkWidget *pCanvas( glade_xml_get_widget( pGladeXML, "the_canvas") );
-  // GtkWidget *pSpeedFrame( glade_xml_get_widget( pGladeXML, "speed_frame") );
-  //GtkScale *pSpeedHScale( GTK_SCALE(glade_xml_get_widget( pGladeXML, "speed_hscale")) );
-
-  GtkWidget *pContainer( glade_xml_get_widget( pGladeXML, "vpaned1" ) );
-  //  GtkWidget *pDasherWidget( dasher_control_new());
   
   pDasherWidget = gtk_dasher_control_new();
 
+  g_signal_connect( pDasherWidget, "dasher_start", G_CALLBACK(handle_start_event), NULL );
+  g_signal_connect( pDasherWidget, "dasher_stop", G_CALLBACK(handle_stop_event), NULL );
+  g_signal_connect( pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL );
+  g_signal_connect( pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL );
 
-  std::cout << pContainer << " " << pDasherWidget << std::endl;
-
-  gtk_paned_add2( GTK_PANED( pContainer ), pDasherWidget );
+  gtk_paned_add2( GTK_PANED( vpane ), pDasherWidget );
 
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
@@ -230,6 +218,8 @@ void interface_cleanup() {
 }
 
 /// Notification callbacks for parameters having changed
+
+// FIXME - this is currently not connected to anything - need to make a new signal for it
 
 void parameter_notification( int iParameter ) {  
 
@@ -383,29 +373,41 @@ void SaveWindowState() {
 
 void EventHandler( Dasher::CEvent *pEvent ) {
 
-  // Editing events
+  // Obsolete
 
-  if( pEvent->m_iEventType == 2) {
-    Dasher::CEditEvent *pEvt( static_cast< Dasher::CEditEvent * >( pEvent ) );
+//   // Editing events
+
+//   if( pEvent->m_iEventType == 2) {
+//     Dasher::CEditEvent *pEvt( static_cast< Dasher::CEditEvent * >( pEvent ) );
     
-    switch( pEvt->m_iEditType ) {
-    case 1: // Output text
-      gtk2_edit_output_callback( pEvt->m_sText ); // FIXME - change name
-      break;
-    case 2: // Delete text
-      gtk2_edit_delete_callback( pEvt->m_sText );
-      break;
-    }
-  }
-  else if( pEvent->m_iEventType == 3 ) {
-    Dasher::CEditContextEvent *pEvt( static_cast< Dasher::CEditContextEvent * >( pEvent ) );
+//     switch( pEvt->m_iEditType ) {
+//     case 1: // Output text
+//       gtk2_edit_output_callback( pEvt->m_sText ); // FIXME - change name
+//       break;
+//     case 2: // Delete text
+//       gtk2_edit_delete_callback( pEvt->m_sText );
+//       break;
+//     }
+//   }
+//   else if( pEvent->m_iEventType == 3 ) {
+//     Dasher::CEditContextEvent *pEvt( static_cast< Dasher::CEditContextEvent * >( pEvent ) );
     
-    // FIXME - need to implement this
+//     // FIXME - need to implement this
     
-  }
+//   }
 }
 
 
+
+extern "C"
+void handle_start_event( GtkDasherControl *pDasherControl, gpointer data) {
+  std::cout << "Got start event" << std::endl;
+}
+
+extern "C"
+void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data) {
+  std::cout << "Got stop event" << std::endl;
+}
 
 
 // -------------
@@ -612,7 +614,11 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
   return FALSE;
 }
 
+
+
+
 //void interface_setup(GladeXML *xml) {
+
 
   
 

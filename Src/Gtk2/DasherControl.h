@@ -5,6 +5,8 @@
 #include "Canvas.h"
 #include "mouse_input.h"
 
+#include "GtkDasherControl.h"
+
 #include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DashEdit.h"
 #include "../DasherCore/DasherInterface.h"
@@ -12,7 +14,7 @@
 class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
 
  public:
-  CDasherControl( GtkVBox *pVbox );
+  CDasherControl( GtkVBox *pVbox, GtkDasherControl *pDasherControl );
   ~CDasherControl();
 
   // Event handlers
@@ -32,6 +34,11 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   int alphabet_filter(const gchar* filename, GPatternSpec *alphabet);
   int colour_filter(const gchar* filename, GPatternSpec *colourglob);
   
+  GArray *GetAllowedValues( int iParameter );
+
+  void Train( const gchar *filename ) {
+    m_pInterface->TrainFile( filename );
+  };
 
   CDasherInterface* GetInterface() {
     return m_pInterface;
@@ -43,7 +50,7 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
 
   // CDashEditbox methods
 
-  void HandleEvent( CEvent *pEvent ) {};
+  void HandleEvent( CEvent *pEvent );
 
   // The following functions are obsolete and will soon be deleted from the interface
 
@@ -74,6 +81,8 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   CPangoCache *m_pPangoCache;
 
   CCanvas *m_pScreen;
+
+  GtkDasherControl *m_pDasherControl;
 
 };
 

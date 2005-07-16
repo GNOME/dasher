@@ -4,7 +4,9 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
-extern "C" {
+#include <glib.h>
+
+G_BEGIN_DECLS
 
 #define TYPE_GTK_DASHER_CONTROL         (gtk_dasher_control_get_type())
 #define GTK_DASHER_CONTROL(obj)         (GTK_CHECK_CAST((obj), TYPE_GTK_DASHER_CONTROL, GtkDasherControl ))
@@ -22,10 +24,19 @@ extern "C" {
   
   struct _GtkDasherControlClass {
     GtkVBoxClass  parent_class;
+
+    // Signal handlers
+
+    // FIXME - need to check that user data is working properly
+
+    void (*dasher_start) (GtkDasherControl *pDasherControl, gpointer data);
+    void (*dasher_stop) (GtkDasherControl *pDasherControl, gpointer data);
+    void (*dasher_edit_insert) (GtkDasherControl *pDasherControl, const gchar *szText, gpointer data);
+    void (*dasher_edit_delete) (GtkDasherControl *pDasherControl, const gchar *szText, gpointer data);
   };
 
   GtkWidget *gtk_dasher_control_new();
-  guint gtk_dasher_control_get_type();
+  GType gtk_dasher_control_get_type();
 
   void gtk_dasher_control_set_parameter_bool( GtkDasherControl *pControl, int iParameter, bool bValue );
   void gtk_dasher_control_set_parameter_long(  GtkDasherControl *pControl, int iParameter, long lValue );
@@ -33,8 +44,12 @@ extern "C" {
   
   bool gtk_dasher_control_get_parameter_bool(  GtkDasherControl *pControl, int iParameter );
   long gtk_dasher_control_get_parameter_long(  GtkDasherControl *pControl, int iParameter );
-  const char *gtk_dasher_control_get_parameter_string( GtkDasherControl *pControl,  int iParameter );
+const char *gtk_dasher_control_get_parameter_string( GtkDasherControl *pControl,  int iParameter );
 
-}
+GArray *gtk_dasher_control_get_allowed_values( GtkDasherControl *pControl, int iParameter );
+
+void gtk_dasher_control_train( GtkDasherControl *pControl, const gchar *szFilename );
+
+G_END_DECLS
 
 #endif

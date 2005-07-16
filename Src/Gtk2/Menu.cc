@@ -28,8 +28,6 @@ extern GtkWidget *file_selector;
 extern "C" void
 select_save_file_as(GtkWidget *widget, gpointer user_data);
 
-extern "C" void load_training_file (const gchar *filename);
-
 // 'File' Menu
 
 #if GTK_CHECK_VERSION(2,3,0)
@@ -258,9 +256,12 @@ select_import_file(GtkWidget *widget, gpointer user_data)
 #else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 #endif
-    //    load_training_file(filename); // FIXME - REIMPLEMENT
+    
+    gtk_dasher_control_train( GTK_DASHER_CONTROL( pDasherWidget ), filename );
+
     g_free(filename);
   }
+
   gtk_widget_destroy(filesel);
 }
 
@@ -270,7 +271,7 @@ extern "C" void
 import_file_from_filesel ( GtkWidget *selector2, GtkFileSelection *selector )
 {   
   filename = gtk_file_selection_get_filename (GTK_FILE_SELECTION(selector));
-  load_training_file(filename);
+  gtk_dasher_control_train( GTK_DASHER_CONTROL( pDasherWidget ), filename );
   filesel_hide(GTK_WIDGET(selector->ok_button),NULL);
 }
 
