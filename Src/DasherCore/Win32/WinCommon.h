@@ -10,6 +10,8 @@
 #ifndef __WinCommon_h__
 #define __WinCommon_h__
 
+// This file is designed to be used as a precompiled header, and if set up correctly
+// you will only see this message once per project
 #pragma message("Compiling WinCommon.h.........................")
 
 #define NOMINMAX
