@@ -1,6 +1,8 @@
 #ifndef DASHER_H
 #define DASHER_H
 
+#include <gtk/gtk.h>
+
 #include <gdk/gdkkeysyms.h>
 #include <glade/glade.h>
 //#include "libdasher.h"

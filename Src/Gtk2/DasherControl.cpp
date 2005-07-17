@@ -184,13 +184,8 @@ void CDasherControl::CanvasConfigureEvent() {
 void CDasherControl::HandleParameterNotification( int iParameter ) {
 
   if( iParameter == SP_DASHER_FONT ) {
-
-    // FIXME - reimplement
-
-    //    dasherfont=dasher_control_get_parameter_string( SP_DASHER_FONT );
-    //    set_canvas_font( dasher_control_get_parameter_string( SP_DASHER_FONT ) );
-    //  if (dasherfont=="")
-    //  dasherfont="DASHERFONT";
+    m_pPangoCache->ChangeFont( m_pInterface->GetStringParameter( SP_DASHER_FONT ));
+    m_pInterface->Redraw();
   }
   else if( iParameter == LP_MAX_BITRATE ) {
      gtk_range_set_value(GTK_RANGE( m_pSpeedHScale ), m_pInterface->GetLongParameter( LP_MAX_BITRATE )/100.0 );

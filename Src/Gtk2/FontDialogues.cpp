@@ -1,4 +1,7 @@
+#include "dasher.h"
 #include "FontDialogues.h"
+#include "GtkDasherControl.h"
+#include "../DasherCore/Parameters.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -27,9 +30,7 @@ extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two )
   char *font_name;
   font_name=gtk_font_selection_dialog_get_font_name(dasher_fontselector);
   if (font_name) {
-    // FIXME - REIMPLEMENT
-    // dasher_set_parameter_string( STRING_DASHERFONT, font_name );
-    // set_canvas_font(font_name);
+    gtk_dasher_control_set_parameter_string( GTK_DASHER_CONTROL( pDasherWidget ), SP_DASHER_FONT, font_name );
   }
   fontsel_hide(NULL,NULL);
   //  dasher_redraw();
