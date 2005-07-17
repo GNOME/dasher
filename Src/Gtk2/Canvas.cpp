@@ -1,10 +1,6 @@
-// Canvas.cpp
-//
-// Method definitions for CCanvas, implementing the CDasherScreen
-// interface.  Please think very carefully before implementing new
-// functionality in this class. Anything which isn't a 'drawing
-// primitive' should really not be here - higher level drawing
-// functions belong in CDasherView.
+/* \file Canvas.cpp
+   \breif Class definitions for CCanvas
+*/
 
 #include "Canvas.h"
 #include "DasherControl.h"

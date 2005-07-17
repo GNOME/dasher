@@ -38,6 +38,7 @@ public:
 	void DrawMouseLine(screenint mousex, screenint mousey);
 	void DrawKeyboard();
     void DrawGameModePointer();
+    virtual bool HandleStartOnMouse( int iTime );
 
 	virtual	void HandleEvent( Dasher::CEvent *pEvent );	
 
@@ -119,6 +120,11 @@ private:
 
 
 	// Data
+
+
+	bool bInBox; // Whether we're in the mouseposstart box
+	int iBoxStart; // Time that the current box was drawn
+	int iBoxEntered; // Time when the user enttered the current box
 
 	CDelayedDraw m_DelayDraw;
 

@@ -207,21 +207,20 @@ void CDasherInterfaceBase::Start()
 
 void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY)
 {
-  if (m_DashEditbox!=0) 
-    {
-      m_DashEditbox->write_to_file();
-      if (GetBoolParameter(BP_COPY_ALL_ON_STOP))
-	m_DashEditbox->CopyAll();
-    }	
+
+  //   if (m_DashEditbox!=0) 
+  //     {
+  //       m_DashEditbox->write_to_file();
+  //       if (GetBoolParameter(BP_COPY_ALL_ON_STOP))
+  // 	m_DashEditbox->CopyAll();
+  //     }	
   
   SetBoolParameter(BP_DASHER_PAUSED, true);
-	//m_Paused=true;
-    //if (m_pDasherModel!=0) {
-    //    m_pDasherModel->Set_paused(m_Paused);
-    //}
 
-  std::cout << "In PauseAt" << std::endl;
-
+  if( GetBoolParameter( BP_MOUSEPOS_MODE )) {
+    SetLongParameter( LP_MOUSE_POS_BOX, 1 );
+  }
+  
   Dasher::CStopEvent oEvent;
   m_pEventHandler->InsertEvent( &oEvent );
 }
@@ -280,6 +279,31 @@ void CDasherInterfaceBase::SetInput( CDasherInput *_pInput ) {
     m_pDasherView->SetInput( _pInput );
 }
 
+void CDasherInterfaceBase::NewFrame( unsigned long iTime ) {
+  
+  if( GetBoolParameter( BP_DASHER_PAUSED ) ) {
+    DrawMousePos(0,0,0); 
+  }
+  else {
+    TapOn( 0, 0, iTime );
+  }
+
+  // Deal with start on mouse position
+
+  if( GetBoolParameter( BP_MOUSEPOS_MODE )) {
+    if( m_pDasherView )
+      if( m_pDasherView->HandleStartOnMouse( iTime ) )
+	Unpause( iTime );
+  }
+
+  //
+  // Things which used to be here, but aren't any more:
+  //
+  //  - finalisation of training thread (needs to be back in UI code)
+  //  - mouse gain (needs to be in view/input device)
+  //  - start on mouse pos (implement in core, but in a second function)
+  //
+}
 
 void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time)
 {

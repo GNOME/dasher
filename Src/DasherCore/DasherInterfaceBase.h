@@ -37,84 +37,219 @@
 #include <iostream>
 
 namespace Dasher {class CDasherInterfaceBase;}
+
+///
+/// The central class in the core of Dasher. Ties together the rest of
+/// the platform independent stuff and provides a single interface for
+/// the UI to use.
+///
+
+
 class Dasher::CDasherInterfaceBase : private NoClones,
 	public CDasherWidgetInterface, public CDasherAppInterface, public CDasherSettingsInterface
 {
 public:
-	CDasherInterfaceBase();
-	virtual ~CDasherInterfaceBase();
+  CDasherInterfaceBase();
+  virtual ~CDasherInterfaceBase();
 
-	// New externally visible interface
-    void SetBoolParameter( int iParameter, bool bValue ) {
+  ///
+  /// Set a boolean parameter.
+  /// \param iParameter The parameter to set.
+  /// \param bValue The new value.
+  ///
+  
+  void SetBoolParameter( int iParameter, bool bValue ) {
+    m_pSettingsStore->SetBoolParameter( iParameter, bValue );
+  };
 
-      std::cout << m_pSettingsStore << std::endl;
+  ///
+  /// Set a long integer parameter.
+  /// \param iParameter The parameter to set.
+  /// \param lValue The new value.
+  ///
 
-	    m_pSettingsStore->SetBoolParameter( iParameter, bValue );
-    };
+  void SetLongParameter( int iParameter, long lValue ) {
+    m_pSettingsStore->SetLongParameter( iParameter, lValue );
+  };
 
-    void SetLongParameter( int iParameter, long lValue ) {
-	    m_pSettingsStore->SetLongParameter( iParameter, lValue );
-    };
+  ///
+  /// Set a string parameter.
+  /// \param iParameter The parameter to set.
+  /// \param sValue The new value.
+  ///
 
-    void SetStringParameter( int iParameter, const std::string &sValue ) {
-	    m_pSettingsStore->SetStringParameter( iParameter, sValue );
-    };
+  void SetStringParameter( int iParameter, const std::string &sValue ) {
+    m_pSettingsStore->SetStringParameter( iParameter, sValue );
+  };
 
-    bool GetBoolParameter( int iParameter ) {
-        return m_pSettingsStore->GetBoolParameter( iParameter );
-    }
+  ///
+  /// Get a boolean parameter
+  /// \param iParameter The parameter to get.
+  /// \retval The current value.
+  ///
 
-    long GetLongParameter( int iParameter ) {
-        return m_pSettingsStore->GetLongParameter( iParameter );
-    }
+  bool GetBoolParameter( int iParameter ) {
+    return m_pSettingsStore->GetBoolParameter( iParameter );
+  }
 
-    std::string GetStringParameter( int iParameter ) {
-        return m_pSettingsStore->GetStringParameter( iParameter );
-    }
+  ///
+  /// Get a long integer parameter
+  /// \param iParameter The parameter to get.
+  /// \retval The current value.
+  ///
 
-    void ExternalEventHandler( Dasher::CEvent *pEvent );
-    void InterfaceEventHandler( Dasher::CEvent *pEvent );
+  long GetLongParameter( int iParameter ) {
+    return m_pSettingsStore->GetLongParameter( iParameter );
+  }
 
+  ///
+  /// Get a string parameter
+  /// \param iParameter The parameter to get.
+  /// \retval The current value.
+  ///
 
-	// ---
+  std::string GetStringParameter( int iParameter ) {
+    return m_pSettingsStore->GetStringParameter( iParameter );
+  }
 
-	//! Tell the core which CSettingsStore should be used
-	//void SetSettingsStore(CSettingsStore* SettingsStore);
+  ///
+  /// Forward events to listeners in the SettingsUI and Editbox.
+  /// \param pEvent The event to forward.
+  /// \todo Should be protected.
+  ///
 
-	//! Tell the core which CDasherSettingsInterface should be used
-	//
-	//! Provide a pointer to an instance of CDasherSettingsInterface in 
-	//! order to allow for platform dependent configuration of certain 
-	//! options
-	void SetSettingsUI(CDasherSettingsInterface* SettingsUI);
+  void ExternalEventHandler( Dasher::CEvent *pEvent );
+
+  ///
+  /// Interface level event handler. For example, responsible for
+  /// restarting the Dasher model whenever parameter changes make it
+  /// invalid.
+  /// \param pEvent The event.
+  /// \todo Should be protected.
+  ///
+
+  void InterfaceEventHandler( Dasher::CEvent *pEvent );
+
+  ///
+  /// Tell the core which CDasherSettingsInterface should be used
+  ///
+  /// Provide a pointer to an instance of CDasherSettingsInterface in 
+  /// order to allow for platform dependent configuration of certain 
+  /// options
+  /// \param SettingsUI Pointer to the CDasherSettingsInterface.
+  ///
+  
+  void SetSettingsUI(CDasherSettingsInterface* SettingsUI);
 	
-	//! Set the path for user specific configuration and files
-	void SetUserLocation(std::string UserLocation);
+  ///
+  /// Set the path for user specific configuration and files
+  /// \param UserLocation The new path.
+  /// \todo This is unlikely to change, so should probably be supplied directly to the constructor.
+  ///
 
-	//! Set the path for system-wide configuration and files
-	void SetSystemLocation(std::string SystemLocation);
+  void SetUserLocation(std::string UserLocation);
+  
+  ///
+  /// Set the path for system-wide configuration and files
+  /// \param SystemLocation The new path.
+  /// \todo This is unlikely to change, so should probably be supplied directly to the constructor.
+  ///
+
+  void SetSystemLocation(std::string SystemLocation);
+  
+  ///
+  /// Add an alphabet filename
+  /// \param Filename The filename to add
+  ///
+  
+  void AddAlphabetFilename(std::string Filename);
+
+  ///
+  /// Add a colour filename
+  /// \param Filename The filename to add
+  ///
+  
+  void AddColourFilename(std::string Filename);
+
+  // Widget Interface
+  // -----------------------------------------------------
+  
+  ///
+  /// Resets the Dasher model. Doesn't actually unpause Dasher.
+  ///
+
+  void Start();
 	
-	//! Add an alphabet filename
-	void AddAlphabetFilename(std::string Filename);
+  ///
+  /// Draw a new Dasher frame, regardless of whether we're paused etc.
+  /// \param iTime Current time in ms.
+  /// \todo See comments in cpp file for some functionality which needs to be re-implemented
+  ///  
 
-	//! Add a colour filename
-	void AddColourFilename(std::string Filename);
+  void NewFrame( unsigned long iTime );
+  
+  ///
+  /// Prompts Dasher to draw a new frame
+  /// \param Time The current time (in ms). Used to ensure a constant frame rate.
+  /// \todo MouseX and MouseY are currently ignored - remove from the definition.
+  /// \deprecated Use NewFrame instead.
+  ///
+  
+  void TapOn(int MouseX, int MouseY, unsigned long Time); // Times in milliseconds
 
+  ///
+  /// Pause Dasher
+  /// \todo Parameters are ignored (?) - remove from definition.
+  ///
 
-	// Widget Interface
-	// -----------------------------------------------------
-	void Start();
-	
-	void TapOn(int MouseX, int MouseY, unsigned long Time); // Times in milliseconds
-	void PauseAt(int MouseX, int MouseY);                   // are required to make
-	void Halt();
-	void Unpause(unsigned long Time);                       // Dasher run at the
-	void Redraw();                                          // correct speed.
-	void Redraw(int iMouseX,int iMouseY);
+  void PauseAt(int MouseX, int MouseY);                   // are required to make
 
-	void DrawMousePos(int MouseX, int MouseY, int iWhichBox);
-	void GoTo(int MouseX, int MouseY);
-	void DrawGoTo(int MouseX, int MouseY);
+  ///
+  /// Halt Dasher. This simply freezes Dasher but does not emit a stop event, so does not result in speech etc.
+  ///
+  
+  void Halt();
+
+  ///
+  /// Unpause Dasher
+  /// \param Time Time in ms, used to keep a constant frame rate
+  ///
+
+  void Unpause(unsigned long Time);                       // Dasher run at the
+
+  ///
+  /// Force a redraw of the Dasher display
+  /// \todo I don't really see the need to call this externally. In
+  /// Linux drawing is always done to an offscreen buffer, so it's not
+  /// needed during canvas exposure events.
+  ///
+
+  void Redraw();                                          // correct speed.
+
+  ///
+  /// \todo Sort out difference between Redraw functions
+  ///
+
+  void Redraw(int iMouseX,int iMouseY);
+
+  ///
+  /// Draw the boxes for start on mouse position
+  /// \todo Shouldn't be called externally
+  ///
+
+  void DrawMousePos(int MouseX, int MouseY, int iWhichBox);
+  
+  ///
+  /// \todo Document this
+  ///
+
+  void GoTo(int MouseX, int MouseY);
+
+  ///
+  /// \todo Document this
+  ///
+
+  void DrawGoTo(int MouseX, int MouseY);
 	
 	void ChangeScreen(); // The widgets need to tell the engine when they have been
 	void ChangeEdit();   // affected by external interaction

@@ -14,6 +14,7 @@ typedef struct _GtkDasherControlPrivate GtkDasherControlPrivate;
   // Signals that this control can emit
 
 enum {
+  DASHER_CHANGED,
   DASHER_START,
   DASHER_STOP,
   DASHER_EDIT_INSERT,
@@ -62,6 +63,17 @@ static void gtk_dasher_control_class_init( GtkDasherControlClass *pClass ) {
 
   pObjectClass->destroy = gtk_dasher_control_destroy;
 
+  gtk_dasher_control_signals[DASHER_CHANGED] =
+    g_signal_new ( "dasher_changed", 
+		   G_TYPE_FROM_CLASS( pClass ),
+		   static_cast<GSignalFlags>( G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION ),
+		   G_STRUCT_OFFSET( GtkDasherControlClass, dasher_changed ),
+		   NULL, NULL,
+		   g_cclosure_marshal_VOID__INT,
+		   G_TYPE_NONE,
+		   1,
+		   G_TYPE_INT );
+
   gtk_dasher_control_signals[DASHER_START] =
     g_signal_new ( "dasher_start", 
 		   G_TYPE_FROM_CLASS( pClass ),
@@ -103,7 +115,8 @@ static void gtk_dasher_control_class_init( GtkDasherControlClass *pClass ) {
 		   G_TYPE_NONE,
 		   1,
 		   G_TYPE_STRING );
-
+		   
+  pClass->dasher_changed = NULL;
   pClass->dasher_start = NULL;
   pClass->dasher_stop = NULL;
   pClass->dasher_edit_insert = NULL;
@@ -142,29 +155,29 @@ void gtk_dasher_control_destroy( GtkObject* pObject) {
 }
   
   
-  void gtk_dasher_control_set_parameter_bool( GtkDasherControl *pControl, int iParameter, bool bValue ) {
-    ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetBoolParameter( iParameter, bValue );
-  }
-  
-  void gtk_dasher_control_set_parameter_long(  GtkDasherControl *pControl, int iParameter, long lValue ) { 
-    ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetLongParameter( iParameter, lValue );
-  }
+void gtk_dasher_control_set_parameter_bool( GtkDasherControl *pControl, int iParameter, bool bValue ) {
+  ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetBoolParameter( iParameter, bValue );
+}
 
-  void gtk_dasher_control_set_parameter_string(  GtkDasherControl *pControl, int iParameter, const char *szValue ) { 
-    ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetStringParameter( iParameter, szValue );
-  }
-  
-  bool gtk_dasher_control_get_parameter_bool(  GtkDasherControl *pControl, int iParameter ) {
-    return ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetBoolParameter( iParameter );
-  }
+void gtk_dasher_control_set_parameter_long(  GtkDasherControl *pControl, int iParameter, long lValue ) { 
+  ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetLongParameter( iParameter, lValue );
+}
 
-  long gtk_dasher_control_get_parameter_long(  GtkDasherControl *pControl, int iParameter ) {
-    return ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetLongParameter( iParameter );
-  }
+void gtk_dasher_control_set_parameter_string(  GtkDasherControl *pControl, int iParameter, const char *szValue ) { 
+  ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetStringParameter( iParameter, szValue );
+}
 
-  const char *gtk_dasher_control_get_parameter_string( GtkDasherControl *pControl,  int iParameter ) {
-    return (((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetStringParameter( iParameter )).c_str();
-  }
+bool gtk_dasher_control_get_parameter_bool(  GtkDasherControl *pControl, int iParameter ) {
+  return ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetBoolParameter( iParameter );
+}
+
+long gtk_dasher_control_get_parameter_long(  GtkDasherControl *pControl, int iParameter ) {
+  return ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetLongParameter( iParameter );
+}
+
+const char *gtk_dasher_control_get_parameter_string( GtkDasherControl *pControl,  int iParameter ) {
+  return (((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetStringParameter( iParameter )).c_str();
+}
 
 GArray *gtk_dasher_control_get_allowed_values( GtkDasherControl *pControl, int iParameter ) {
   return (((GtkDasherControlPrivate *)(pControl->private_data))->pControl->GetAllowedValues( iParameter ));

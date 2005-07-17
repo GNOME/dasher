@@ -27,8 +27,7 @@ G_BEGIN_DECLS
 
     // Signal handlers
 
-    // FIXME - need to check that user data is working properly
-
+    void (*dasher_changed) (GtkDasherControl *pDasherControl, gint iParameter, gpointer data );
     void (*dasher_start) (GtkDasherControl *pDasherControl, gpointer data);
     void (*dasher_stop) (GtkDasherControl *pDasherControl, gpointer data);
     void (*dasher_edit_insert) (GtkDasherControl *pDasherControl, const gchar *szText, gpointer data);

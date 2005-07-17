@@ -1,3 +1,9 @@
+/*! \file dasher.cc 
+  \brief The core of the Dasher application
+
+  Core routines for the Dasher application
+*/
+
 // System headers
 
 #include <sys/types.h>
@@ -128,35 +134,30 @@ double bitrate;
 
 gint buttonnum=0;
 
-gint prev_pos_x;
-gint prev_pos_y;
-
-
-
 gint outputcharacters;
 
 time_t lastdirection=0;
 
 // 'Private' methods
 
-void parameter_notification( int iParameter );
-void EventHandler( Dasher::CEvent *pEvent );
 void LoadWindowState();
 void InitialiseAppParameters();
 
 extern "C" void handle_start_event( GtkDasherControl *pDasherControl, gpointer data);
 extern "C" void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data);
+extern "C" void parameter_notification( GtkDasherControl *pDasherControl, gint iParameter, gpointer data );
 
+///
 /// Initialise the main window and child components 
 /// This is actually closer to 'initialise application', so name
 /// should really be changed to reflect this
+///
 
 void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
 
   dasher_accel = gtk_accel_group_new(); //?
   
   widgets=pGladeXML; // obsolete?
-
   // Grab some pointers to important GTK widgets from the Glade XML
   // FIXME - do we actually need all of these?
 
@@ -170,11 +171,12 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   
   pDasherWidget = gtk_dasher_control_new();
 
+  g_signal_connect( pDasherWidget, "dasher_changed", G_CALLBACK(parameter_notification), NULL );
   g_signal_connect( pDasherWidget, "dasher_start", G_CALLBACK(handle_start_event), NULL );
   g_signal_connect( pDasherWidget, "dasher_stop", G_CALLBACK(handle_stop_event), NULL );
   g_signal_connect( pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL );
   g_signal_connect( pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL );
-
+  
   gtk_paned_add2( GTK_PANED( vpane ), pDasherWidget );
 
 #ifndef GNOME_SPEECH
@@ -187,9 +189,6 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   initialise_edit( pGladeXML );
   initialise_preferences_dialogue( pGladeXML );
   InitialiseFontDialogues( pGladeXML );
-
-//   dasher_control_set_parameter_callback( parameter_notification );
-//   dasher_control_set_event_callback( EventHandler );
 
   LoadWindowState();
 
@@ -204,25 +203,29 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   InitialiseAppParameters();
 }
 
+///
 /// Initialise the application parameters from GConf - not currently
 /// implemented.
+///
 
 void InitialiseAppParameters() {
 }
 
+///
 /// Functions that need to be called as we're shutting down
 /// This gets called after the Gtk loop has exited, so the widgets will no longer exist
+///
 
 void interface_cleanup() {
   cleanup_edit();
 }
 
+///
 /// Notification callbacks for parameters having changed
+///
 
-// FIXME - this is currently not connected to anything - need to make a new signal for it
-
-void parameter_notification( int iParameter ) {  
-
+extern "C" void
+parameter_notification( GtkDasherControl *pDasherControl, gint iParameter, gpointer data ) {  
   if( iParameter == LP_DASHER_FONTSIZE ) {
     switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_DASHER_FONTSIZE ) ) {
     case Opts::Normal:
@@ -320,7 +323,9 @@ void parameter_notification( int iParameter ) {
   }
 }
 
+///
 /// Load the window state (dimensions etc.) from GConf
+///
 
 void LoadWindowState() {
 
@@ -349,7 +354,9 @@ void LoadWindowState() {
 
 }
 
+///
 /// Save the window state to GConf
+///
 
 void SaveWindowState() {
 
@@ -369,44 +376,24 @@ void SaveWindowState() {
   gconf_client_set_int( g_pGConfClient, "/apps/dasher/EditHeight",  iEditHeight, &pGConfError);
 }
 
-/// Event handler for non-parameter events.
-
-void EventHandler( Dasher::CEvent *pEvent ) {
-
-  // Obsolete
-
-//   // Editing events
-
-//   if( pEvent->m_iEventType == 2) {
-//     Dasher::CEditEvent *pEvt( static_cast< Dasher::CEditEvent * >( pEvent ) );
-    
-//     switch( pEvt->m_iEditType ) {
-//     case 1: // Output text
-//       gtk2_edit_output_callback( pEvt->m_sText ); // FIXME - change name
-//       break;
-//     case 2: // Delete text
-//       gtk2_edit_delete_callback( pEvt->m_sText );
-//       break;
-//     }
-//   }
-//   else if( pEvent->m_iEventType == 3 ) {
-//     Dasher::CEditContextEvent *pEvt( static_cast< Dasher::CEditContextEvent * >( pEvent ) );
-    
-//     // FIXME - need to implement this
-    
-//   }
-}
-
-
+///
+/// Signal handler for "dasher_start" events - emitted whenever Dasher is started
+///
 
 extern "C"
 void handle_start_event( GtkDasherControl *pDasherControl, gpointer data) {
-  std::cout << "Got start event" << std::endl;
+  // Not implemented (do we even have anything to go here?)
 }
+
+///
+/// Signal handler for "dasher_stop" events - emitted whenever Dasher
+/// is stopped. This is the place to deal with things like speak on
+/// stop, copy all on stop etc.
+///
 
 extern "C"
 void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data) {
-  std::cout << "Got stop event" << std::endl;
+  // Not implemented
 }
 
 

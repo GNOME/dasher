@@ -197,6 +197,9 @@ CDasherViewSquare::Cymap::Cymap(myint iScale)
 CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel )
   : CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel )
 {
+
+  bInBox = false;
+
 	ChangeScreen(DasherScreen);
 	
 	// tweak these if you know what you are doing
@@ -1618,5 +1621,82 @@ void CDasherViewSquare::DrawGameModePointer()
 
     else
         DasherDrawCentredRectangle( -50, loc, 7, 135, Opts::ColorSchemes(5) );
+
+}
+
+bool CDasherViewSquare::HandleStartOnMouse( int iTime ) {
+
+  screenint mousex, mousey;
+
+  int iCoordinateCount( GetCoordinateCount() );
+
+  myint *pCoordinates( new myint[ iCoordinateCount ] );
+
+  int iType( GetCoordinates( iCoordinateCount, pCoordinates ));
+
+  if( iCoordinateCount == 1 ) {
+    mousex = 0;
+    mousey = pCoordinates[ 0 ];
+  }
+  else {
+    mousex = pCoordinates[ 0 ];
+    mousey = pCoordinates[ 1 ];
+  }
+
+  delete pCoordinates;
+
+  bool autocalibrate=1;
+  if (autocalibrate) {
+    AutoCalibrate(&mousex, &mousey);
+  }
+
+  myint iDasherX;
+  myint iDasherY;
+
+  // Convert the input co-ordinates to dasher co-ordinates
+
+  Input2Dasher( mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode() );
+
+  int iBoxMax(-1);
+  int iBoxMin(0);
+
+  // FIXME - box is probably drawn in terms of screen coordinates, so this is broken
+
+  if( GetLongParameter( LP_MOUSE_POS_BOX ) == 1 ) {
+    iBoxMax = DasherModel().DasherY()/2 - GetLongParameter( LP_MOUSEPOSDIST );
+    iBoxMin = iBoxMax - 100;
+  }
+  else  if( GetLongParameter( LP_MOUSE_POS_BOX ) == 2 ) {
+    iBoxMin = DasherModel().DasherY()/2 + GetLongParameter( LP_MOUSEPOSDIST );
+    iBoxMax = iBoxMin + 100;
+  }
+
+  if(( iDasherY >= iBoxMin ) && ( iDasherY <= iBoxMax )) {
+    if( !bInBox ) 
+      iBoxEntered = iTime;
+    else {
+      if( iTime - iBoxEntered > 2000 ) {
+
+	iBoxStart = iTime;
+
+	if( GetLongParameter( LP_MOUSE_POS_BOX ) == 1 )
+	  SetLongParameter( LP_MOUSE_POS_BOX, 2 );
+	else if( GetLongParameter( LP_MOUSE_POS_BOX ) == 2 ) {
+	  SetLongParameter( LP_MOUSE_POS_BOX, -1 );
+	  return true;
+	}
+      }
+    }
+
+    bInBox = true;
+  }
+  else {
+    if(( GetLongParameter( LP_MOUSE_POS_BOX ) == 2 ) && (iTime - iBoxStart > 2000 ))
+      SetLongParameter( LP_MOUSE_POS_BOX, 1 );
+    
+    bInBox = false;
+  }
+
+  return false;
 
 }

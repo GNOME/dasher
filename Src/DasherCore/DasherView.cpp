@@ -25,25 +25,21 @@ CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettings
 
 
 void CDasherView::HandleEvent( Dasher::CEvent *pEvent ) {
-
-		if(	pEvent->m_iEventType	== 1 ) {
-			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
-
-			switch(	pEvt->m_iParameter ) {
-
-				default:
-					break;
-			}
-		}
-
-	};
+  if( pEvent->m_iEventType == 1 ) {
+    Dasher::CParameterNotificationEvent	*pEvt( static_cast< Dasher::CParameterNotificationEvent* >( pEvent ));
+    switch( pEvt->m_iParameter ) {
+    default:
+      break;
+    }
+  }
+};
 
 
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherView::ChangeScreen(CDasherScreen* NewScreen)
 {
-	m_pScreen=NewScreen;
+  m_pScreen=NewScreen;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -55,27 +51,27 @@ void CDasherView::ChangeScreen(CDasherScreen* NewScreen)
 
 void CDasherView::DrawMousePosBox()
 {
-	int iHeight = Screen().GetHeight();
-	int iWidth = Screen().GetWidth();
-
-//	DASHER_TRACEOUTPUT("which %d\n",iWhich);
-	int iMousePosDist = GetLongParameter(LP_MOUSEPOSDIST);
-    int iDrawMousePosBox = GetLongParameter(LP_MOUSE_POS_BOX);
-
-    std::cout << "iDrawMousePosBox: " << iDrawMousePosBox << std::endl;
-
-	switch (iDrawMousePosBox) 
-	{
-		case 1:
-			Screen().DrawRectangle(0,iHeight/2-iMousePosDist+50,iWidth,iHeight/2-iMousePosDist-50,119, Opts::Nodes1);
-			break;	
-		case 2:
-			Screen().DrawRectangle(0,iHeight/2+iMousePosDist+50,iWidth,iHeight/2+iMousePosDist-50,120, Opts::Nodes1);
-			break;
-		default:
-			DASHER_ASSERT(0);
-	}
-
+  int iHeight = Screen().GetHeight();
+  int iWidth = Screen().GetWidth();
+  
+  //	DASHER_TRACEOUTPUT("which %d\n",iWhich);
+  int iMousePosDist = GetLongParameter(LP_MOUSEPOSDIST);
+  int iDrawMousePosBox = GetLongParameter(LP_MOUSE_POS_BOX);
+  
+  std::cout << "iDrawMousePosBox: " << iDrawMousePosBox << std::endl;
+  
+  switch (iDrawMousePosBox) 
+    {
+    case 1:
+      Screen().DrawRectangle(0,iHeight/2-iMousePosDist+50,iWidth,iHeight/2-iMousePosDist-50,119, Opts::Nodes1);
+      break;	
+    case 2:
+      Screen().DrawRectangle(0,iHeight/2+iMousePosDist+50,iWidth,iHeight/2+iMousePosDist-50,120, Opts::Nodes1);
+      break;
+    default:
+      //      DASHER_ASSERT(0);
+      break;
+    }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -127,6 +123,9 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay)
 
 void CDasherView::Render()
 {
+
+  // FIXME - when does this get called?
+
   Screen().SendMarker(0);
 
   RenderNodes();
@@ -138,3 +137,4 @@ void CDasherView::Render()
   if (GetLongParameter(LP_MOUSE_POS_BOX) !=-1)
     DrawMousePosBox();
 }
+

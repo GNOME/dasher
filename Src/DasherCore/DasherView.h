@@ -55,6 +55,9 @@ public:
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.TapOnDisplay
 	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time)=0;
+
+
+	virtual bool HandleStartOnMouse( int iTime ) = 0;
 	
 	// translates the screen coordinates to Dasher coordinates and calls
 	// dashermodel.GoTo
