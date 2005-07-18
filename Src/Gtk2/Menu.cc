@@ -14,7 +14,7 @@
 #include <libgnome/libgnome.h>
 #endif
 
-extern GladeXML *widgets;
+chrisbreakextern GladeXML *widgets;
     
 extern GtkWidget *open_filesel;
 extern GtkWidget *save_filesel;
