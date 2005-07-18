@@ -34,6 +34,7 @@ public:
 	// Handle for a language model context
 	// 0 is reserved
 	typedef size_t Context;
+        static const size_t nullContext = 0;
 
 	/////////////////////////////////////////////////////////////////////////////
 	// Context creation/destruction
