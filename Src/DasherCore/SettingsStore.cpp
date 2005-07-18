@@ -25,20 +25,23 @@ void CSettingsStore::LoadPersistant() {
 
   for( int i(0); i < NUM_OF_BPS; ++i ) {
     bool bValue;
-    if( LoadSetting( s_oParamTables.BoolParamTable[i].regName, &bValue ) )
-      s_oParamTables.BoolParamTable[i].value = bValue;
+    if(s_oParamTables.BoolParamTable[i].persistent)
+      if( LoadSetting( s_oParamTables.BoolParamTable[i].regName, &bValue ) )
+	s_oParamTables.BoolParamTable[i].value = bValue;
   }
 
   for( int i(0); i < NUM_OF_LPS; ++i ) {
     long lValue;
-    if( LoadSetting( s_oParamTables.LongParamTable[i].regName, &lValue ) )
-      s_oParamTables.LongParamTable[i].value = lValue;
+    if(s_oParamTables.LongParamTable[i].persistent)
+      if( LoadSetting( s_oParamTables.LongParamTable[i].regName, &lValue ) )
+	s_oParamTables.LongParamTable[i].value = lValue;
   }
 
   for( int i(0); i < NUM_OF_SPS; ++i ) {
     std::string strValue;
-    if( LoadSetting( s_oParamTables.StringParamTable[i].regName, &strValue ) )
-      s_oParamTables.StringParamTable[i].value = strValue;
+    if(s_oParamTables.StringParamTable[i].persistent)
+      if( LoadSetting( s_oParamTables.StringParamTable[i].regName, &strValue ) )
+	s_oParamTables.StringParamTable[i].value = strValue;
   }
 }
 

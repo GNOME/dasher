@@ -26,14 +26,38 @@
 /////////////////////////////////////////////////////////////////////////////
 
 namespace Dasher {class CDasherView;}
+
+
+///
+/// \brief View base class.
+///
+/// Dasher views represent the visualisation of a Dasher model on the screen.
+///
+
 class Dasher::CDasherView : public CDasherComponent
 {
 public:
 
+  /// 
+  /// \param pEventHandler Pointer to the event handler
+  /// \param pSettingsStore Pointer to the settings store
+  /// \param DasherScreen Pointer to the CDasherScreen object used to do rendering
+  /// \param DasherModel Reference to the CDasherModel which is to be represented
+  ///
+
 	CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen* DasherScreen, CDasherModel& DasherModel );
 	virtual	~CDasherView() {}		
 
+	///
+	/// Event handler
+	/// \param pEvent Pointer to incoming event
+	///
+
 	virtual	void HandleEvent( Dasher::CEvent *pEvent );
+
+	///
+	/// \deprecated Use parameter interface instead
+	///
 
 	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
@@ -42,46 +66,123 @@ public:
 	// 0 - no box, 1 - upper box, 2 - lower box
 	//void SetDrawMousePosBox(int MousePosBox);
 
+	///
+	/// Render the display
+	///
 
-	// Renders Dasher
 	virtual void Render();
 
-	// Renders Dasher with mouse-dependent items
+	///
+	/// Renders Dasher with mouse-dependent items
+	/// \todo Clarify relationship between Render functions and probably only expose one
+	///
+
 	virtual bool Render(int iMouseX, int iMouseY, bool bRedrawDisplay);
 
-	// Renders the Dasher node structure
+	///
+	/// Renders the Dasher node structure
+	/// \todo Shouldn't be public?
+	///
+
 	virtual void RenderNodes()=0;
 	
-	// translates the screen coordinates to Dasher coordinates and calls
-	// dashermodel.TapOnDisplay
+	///
+	/// Translates the screen coordinates to Dasher coordinates and calls
+	/// dashermodel.TapOnDisplay
+	///
+
 	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time)=0;
 
+	///
+	/// Handles start-on-mouse behaviour - check whether we are in the box, and change box or start on timer,.
+	/// \param iTime Current time in ms.
+	///
 
 	virtual bool HandleStartOnMouse( int iTime ) = 0;
 	
-	// translates the screen coordinates to Dasher coordinates and calls
-	// dashermodel.GoTo
+	///
+	/// translates the screen coordinates to Dasher coordinates and calls
+	/// dashermodel.GoTo
+	///
+
 	virtual void GoTo(screenint mousex, screenint mousey)=0;
 	
-	// Change the screen - must be called if the Screen is replaced or resized
+	///
+	/// Change the screen - must be called if the Screen is replaced or resized
+	/// \param NewScreen Pointer to the new CDasherScreen.
+	///
+
 	virtual void ChangeScreen(CDasherScreen* NewScreen);
 
+	///
+	/// Get autocallibration offset
+	/// \retval Current offset
+	///
+
 	virtual int GetAutoOffset() const {return 0;}
+
+	///
+	/// \todo Document this
+	///
+
 	virtual void DrawGoTo(screenint mousex, screenint mousey)=0;
+
+	///
+	/// Draw the mouse cursor
+	/// \todo Probably shouldn't be public
+	///
+
 	virtual void DrawMouse(screenint mousex, screenint mousey)=0;
+
+	///
+	/// Draw the mouse line
+	/// \todo Probably shouldn't be public
+	///
+
 	virtual void DrawMouseLine(screenint mousex, screenint mousey)=0;
+
+	///
+	/// \todo Document this
+	///
+
 	virtual void DrawKeyboard()=0;
 
+	///
+	/// \todo Document this
+	///
+
 	virtual void DrawMousePosBox();
-    virtual void DrawGameModePointer()=0;
+	
+	///
+	/// Draw the game mode pointer
+	///
+
+	virtual void DrawGameModePointer()=0;
 
 
-	// Return references to the model and the screen:
+	/// 
+	/// Return a reference to the model
+	///
+
 	CDasherModel& DasherModel() {return m_DasherModel;}
+
+	///
+	/// \todo Erm...
+	///
+
 	const CDasherModel& DasherModel() const {return m_DasherModel;}
+
+	///
+	/// Return a reference to the screen
+	///
+
 	CDasherScreen& Screen() {return *m_pScreen;}
 
-	// Request the Screen to copy its buffer to the Display
+	///
+	/// Request the Screen to copy its buffer to the Display
+	/// \todo Shouldn't be public?
+	///
+
 	void Display() {m_pScreen->Display();}
 
 	// Toggle advanced colour mode
@@ -90,8 +191,22 @@ public:
 	// Toggle keyboard control mode
 	//void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
 
+	///
+	/// \todo Document this
+	///
+
 	virtual void ResetSum() {}
+
+	///
+	/// \todo Document this
+	///
+
 	virtual void ResetSumCounter() {}
+	
+	///
+	/// \todo Document this
+	///
+
 	virtual void ResetYAutoOffset() {}
     
 	//void SetTruncation( int iTruncation ) {
@@ -101,6 +216,12 @@ public:
 	//void SetTruncationType( int iTruncationType ) {
 	//  m_iTruncationType = iTruncationType;
 	//}
+
+
+	///
+	/// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
+	/// \param _pInput Pointer to the new CDasherInput.
+	///
 
 	void SetInput( CDasherInput *_pInput ) {
 
@@ -122,6 +243,11 @@ public:
 
 	}
 
+	///
+	/// Get the co-ordinates from the input device
+	/// \todo This shouldn't be public?
+	///
+
 	int GetCoordinates( int iN, myint *pCoordinates ) {
 	  
 	  if( m_pInput )
@@ -129,6 +255,10 @@ public:
 	  
 	  return 0;
 	}
+
+	///
+	/// Get the co-ordinate count from the input device
+	///
 
 	int GetCoordinateCount() {
 	  if( m_pInput )
