@@ -51,7 +51,7 @@ public:
 
 	bool GetBoolOption(const std::string& Key);
 	long GetLongOption(const std::string& Key);
-	std::string& GetStringOption(const std::string& Key);
+	std::string GetStringOption(const std::string& Key);
 
 	void SetBoolOption(const std::string& Key, bool Value);
 	void SetLongOption(const std::string& Key, long Value);

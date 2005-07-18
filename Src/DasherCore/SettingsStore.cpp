@@ -157,7 +157,7 @@ long CSettingsStore::GetLongOption(const string& Key)
 }
 
 
-string& CSettingsStore::GetStringOption(const string& Key)
+string CSettingsStore::GetStringOption(const string& Key)
 {
     // Also make the call to the newer implementation
     for(int ii = 0; ii<NUM_OF_SPS; ii++)
