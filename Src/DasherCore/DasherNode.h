@@ -14,20 +14,6 @@
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"
 
-#ifdef DASHER_WIN32 
-
-#include <hash_map>
-using namespace stdext;
-
-#else
-
-#include <ext/hash_map>
-
-using namespace __gnu_cxx;
-
-#endif
-
-
 // CDasherNode represents a rectangle and character 
 
 namespace Dasher {class CDasherNode;class CDasherModel;}
@@ -43,7 +29,7 @@ public:
 	~CDasherNode();
 	
 	// Node relationships
-        typedef hash_map<symbol,CDasherNode*> ChildMap;
+    typedef HASH_MAP<symbol,CDasherNode*> ChildMap;
 	ChildMap& Children();
 	const ChildMap& GetChildren() const;
         // replaced by Children()
@@ -207,7 +193,7 @@ inline	int CDasherNode::Range() const {return m_iHbnd-m_iLbnd;}
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline hash_map<symbol,CDasherNode*>& CDasherNode::Children()
+inline HASH_MAP<symbol,CDasherNode*>& CDasherNode::Children()
 {
   /*	// DJW - please make sure DASHER_ASSERT is implemented on your platform
 	DASHER_ASSERT(m_mChildren.size()==0);
@@ -217,7 +203,7 @@ inline hash_map<symbol,CDasherNode*>& CDasherNode::Children()
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline const hash_map<symbol,CDasherNode*>& CDasherNode::GetChildren() const
+inline const HASH_MAP<symbol,CDasherNode*>& CDasherNode::GetChildren() const
 {
   return m_mChildren;
 }

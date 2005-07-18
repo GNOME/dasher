@@ -1033,11 +1033,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 	{
 		DASHER_ASSERT(pNode->Children().size()>0);
 		// if there are children just give them a poke
-#ifdef DASHER_WIN32
-		stdext::hash_map<symbol,CDasherNode*>::iterator i;
-#else
-		hash_map<symbol,CDasherNode*>::iterator i;
-#endif
+		HASH_MAP<symbol,CDasherNode*>::iterator i;
 		for (i=pNode->Children().begin();i!=pNode->Children().end() ;i++)
 			(*i).second->Alive(true);
 		return;
