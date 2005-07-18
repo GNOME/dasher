@@ -278,10 +278,6 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 
   // FIXME - This should be moved into CDasherInterface
 
-  // CJB.  2004-07.
-  // One-button mode; change direction on mouse click.
-  //  direction=!direction;
-
   if( m_pInterface->GetBoolParameter( BP_START_MOUSE ) ) {
     if( m_pInterface->GetBoolParameter( BP_DASHER_PAUSED ) ) 
       m_pInterface->Unpause( get_time() );
