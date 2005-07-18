@@ -24,7 +24,7 @@ enum {
 
 static void gtk_dasher_control_class_init( GtkDasherControlClass* pClass );
 static void gtk_dasher_control_init( GtkDasherControl *pControl );
-static void gtk_dasher_control_destroy( GtkObject *pObject );
+static void gtk_dasher_control_destroy( GObject *pObject );
 
 static guint gtk_dasher_control_signals[SIGNAL_NUM] = { 0,0,0,0 };
 
@@ -59,9 +59,11 @@ GType gtk_dasher_control_get_type() {
 
 static void gtk_dasher_control_class_init( GtkDasherControlClass *pClass ) {
 
-  GtkObjectClass *pObjectClass = (GtkObjectClass*) pClass;
+  GObjectClass *pObjectClass = (GObjectClass*) pClass;
+  
+  pObjectClass->finalize = gtk_dasher_control_destroy;
 
-  pObjectClass->destroy = gtk_dasher_control_destroy;
+  //  pObjectClass->destroy = gtk_dasher_control_destroy;
 
   gtk_dasher_control_signals[DASHER_CHANGED] =
     g_signal_new ( "dasher_changed", 
@@ -134,6 +136,17 @@ static void gtk_dasher_control_init( GtkDasherControl *pDasherControl ) {
   pPrivateData->pControl = new CDasherControl( &(pDasherControl->box), pDasherControl );
 }
 
+static void gtk_dasher_control_destroy( GObject *pObject ) {
+  GtkDasherControl *pDasherControl = GTK_DASHER_CONTROL( pObject );
+  
+  delete static_cast<GtkDasherControlPrivate*>(pDasherControl->private_data)->pControl;
+  g_free( pDasherControl->private_data );
+
+  // FIXME - I think we need to chain up through the finalize methods
+  // of the parent classes here...
+
+}
+
 GtkWidget* gtk_dasher_control_new() {
   GtkDasherControl *pDasherControl;
 
@@ -141,19 +154,6 @@ GtkWidget* gtk_dasher_control_new() {
   
   return GTK_WIDGET( pDasherControl );
 }
-
-void gtk_dasher_control_destroy( GtkObject* pObject) {
-  GtkDasherControl* pDasherControl;
-  
-  g_return_if_fail( pObject );
-  g_return_if_fail( IS_GTK_DASHER_CONTROL( pObject ));
-  
-  pDasherControl = GTK_DASHER_CONTROL( pObject );
-  
-  delete ((GtkDasherControlPrivate *)(pDasherControl->private_data))->pControl;
-  g_free( pDasherControl->private_data );
-}
-  
   
 void gtk_dasher_control_set_parameter_bool( GtkDasherControl *pControl, int iParameter, bool bValue ) {
   ((GtkDasherControlPrivate *)(pControl->private_data))->pControl->SetBoolParameter( iParameter, bValue );

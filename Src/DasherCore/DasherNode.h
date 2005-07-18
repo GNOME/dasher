@@ -13,9 +13,20 @@
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"
-#include <hash_map>
 
+#ifdef DASHER_WIN32 
+
+#include <hash_map>
 using namespace stdext;
+
+#else
+
+#include <ext/hash_map>
+
+using namespace __gnu_cxx;
+
+#endif
+
 
 // CDasherNode represents a rectangle and character 
 

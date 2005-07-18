@@ -164,7 +164,8 @@ string CSettingsStore::GetStringOption(const string& Key)
     {
         if(s_oParamTables.StringParamTable[ii].regName == Key)
         {
-            return GetStringParameter(s_oParamTables.StringParamTable[ii].key);
+
+	  return GetStringParameter(s_oParamTables.StringParamTable[ii].key);
         }
     }
 
