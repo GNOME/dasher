@@ -15,6 +15,8 @@ namespace Dasher{
   class CStopEvent;
 }
 
+enum { EV_PARAM_NOTIFY=1, EV_EDIT, EV_EDIT_CONTEXT, EV_START, EV_STOP };
+
 class Dasher::CEvent {
  public:
   int m_iEventType;
@@ -23,7 +25,7 @@ class Dasher::CEvent {
 class Dasher::CParameterNotificationEvent : public Dasher::CEvent {
  public:
   CParameterNotificationEvent( int iParameter ) {
-    m_iEventType = 1;
+    m_iEventType = EV_PARAM_NOTIFY;
     m_iParameter = iParameter;
   };
   
@@ -33,7 +35,7 @@ class Dasher::CParameterNotificationEvent : public Dasher::CEvent {
 class Dasher::CEditEvent : public Dasher::CEvent {
  public:
    CEditEvent( int iEditType, const std::string &sText ) {
-    m_iEventType = 2;
+    m_iEventType = EV_EDIT;
     m_iEditType = iEditType;
     m_sText = sText;
   };
@@ -45,7 +47,7 @@ class Dasher::CEditEvent : public Dasher::CEvent {
 class Dasher::CEditContextEvent : public Dasher::CEvent {
  public:
   CEditContextEvent( int iMaxLength ) {
-    m_iEventType = 3;
+    m_iEventType = EV_EDIT_CONTEXT;
     m_iMaxLength = iMaxLength;
   };
 
@@ -55,14 +57,14 @@ class Dasher::CEditContextEvent : public Dasher::CEvent {
 class Dasher::CStartEvent : public Dasher::CEvent {
  public:
   CStartEvent() {
-    m_iEventType = 4;
+    m_iEventType = EV_START;
   };
 };
 
 class Dasher::CStopEvent : public Dasher::CEvent {
  public:
   CStopEvent() {
-    m_iEventType = 5;
+    m_iEventType = EV_STOP;
   };
 };
 
