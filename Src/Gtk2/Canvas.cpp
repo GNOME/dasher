@@ -1,5 +1,5 @@
 /* \file Canvas.cpp
-   \breif Class definitions for CCanvas
+   \brief Class definitions for CCanvas
 */
 
 #include "Canvas.h"
