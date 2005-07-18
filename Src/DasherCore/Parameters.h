@@ -119,9 +119,9 @@ static sp_table stringparamtable[] =
 
 // This is the structure of each table that the settings will access
 // Everything is const except the current value of the setting
-struct bp_info {int key; std::string regName; bool persistent; bool value; std::string humanReadable; };
-struct lp_info {int key; std::string regName; bool persistent; long value; std::string humanReadable; };
-struct sp_info {int key; std::string regName; bool persistent; std::string value; std::string humanReadable; };
+struct bp_info {int key; std::string regName; bool persistent; bool value; bool defaultVal; std::string humanReadable; };
+struct lp_info {int key; std::string regName; bool persistent; long value; long defaultVal; std::string humanReadable; };
+struct sp_info {int key; std::string regName; bool persistent; std::string value; std::string defaultVal; std::string humanReadable; };
 
 namespace Dasher {
   class CParamTables;
@@ -145,6 +145,7 @@ public:
         {
             BoolParamTable[ii].key = boolparamtable[ii].key;
             BoolParamTable[ii].value = boolparamtable[ii].defaultValue;
+            BoolParamTable[ii].defaultVal = boolparamtable[ii].defaultValue;
             BoolParamTable[ii].humanReadable = boolparamtable[ii].humanReadable;
             BoolParamTable[ii].persistent = boolparamtable[ii].persistent;
             BoolParamTable[ii].regName = boolparamtable[ii].regName;
@@ -154,6 +155,7 @@ public:
         {
             LongParamTable[ii].key = longparamtable[ii].key;
             LongParamTable[ii].value = longparamtable[ii].defaultValue;
+            LongParamTable[ii].defaultVal = longparamtable[ii].defaultValue;
             LongParamTable[ii].humanReadable = longparamtable[ii].humanReadable;
             LongParamTable[ii].persistent = longparamtable[ii].persistent;
             LongParamTable[ii].regName = longparamtable[ii].regName;
@@ -163,6 +165,7 @@ public:
         {
             StringParamTable[ii].key = stringparamtable[ii].key;
             StringParamTable[ii].value = stringparamtable[ii].defaultValue;
+            StringParamTable[ii].defaultVal = stringparamtable[ii].defaultValue;
             StringParamTable[ii].humanReadable = stringparamtable[ii].humanReadable;
             StringParamTable[ii].persistent = stringparamtable[ii].persistent;
             StringParamTable[ii].regName = stringparamtable[ii].regName;
