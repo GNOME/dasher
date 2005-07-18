@@ -30,7 +30,7 @@ using namespace std;
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase* pDashIface)
   : CDasherComponent( pEventHandler, pSettingsStore), m_Root(0), 
-    m_pDasherInterface(pDashIface)
+    m_pDasherInterface(pDashIface), total_nats(0.0)
 {
 
   // Set max bitrate in the FrameRate class
@@ -1125,16 +1125,16 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 
 		// Now the control children
 		pTemp = pControlTreeChildren;
-		while( pTemp != NULL)
-		{
-			if (pTemp->colour != -1)
-			{
-				pNode->Children()[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
-			} 
-			else 
-			{
-				pNode->Children()[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
+		while( pTemp != NULL) {
+			int colour;
+			if (pTemp->colour != -1) {
+				colour = pTemp->colour;
+			} else {
+				colour = (i%99)+11;
 			}
+			pNode->Children()[i] = new CDasherNode(*this,pNode,0,i,
+				ChildScheme,int(i*quantum),int((i+1)*quantum),
+				m_pLanguageModel,true, colour, pTemp);
 			i++;
 			pTemp = pTemp->next;
 		}

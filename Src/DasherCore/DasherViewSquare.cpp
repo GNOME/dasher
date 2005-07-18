@@ -1106,7 +1106,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
     mousey = pCoordinates[ 1 ];
   }
 
-  delete pCoordinates;
+  delete[] pCoordinates;
 
   bool autocalibrate=1;
   if (autocalibrate) {
@@ -1196,7 +1196,7 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
     mousey = pCoordinates[ 1 ];
   }
 
-  delete pCoordinates;  
+  delete[] pCoordinates;  
   myint iDasherX;
   myint iDasherY;
 

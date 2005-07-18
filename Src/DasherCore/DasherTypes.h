@@ -53,6 +53,9 @@ namespace Dasher
 	  ControlTree *parent;
 	  ControlTree *children;
 	  ControlTree *next;
+          ControlTree() : next(NULL), children(NULL), 
+            parent(NULL), pointer(NULL), 
+            data(0), type(0), colour(0), text("") {};
 	};
 }
 
