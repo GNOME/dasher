@@ -33,6 +33,29 @@ namespace Dasher {class CDasherView;}
 ///
 /// Dasher views represent the visualisation of a Dasher model on the screen.
 ///
+/// Note that we really should aim to avoid having to try and keep
+/// multiple pointers to the same object (model etc.) up-to-date at
+/// once. We should be able to avoid the need for this just by being
+/// sane about passing pointers as arguments to the relevant
+/// functions, for example we could pass a pointer to the canvas every
+/// time we call the render routine, rather than worrying about
+/// notifying this object every time it changes. The same logic can be
+/// applied in several other places.
+/// 
+/// We should also attempt to try and remove the need for this class
+/// to know about the model. When we call render we should just pass a
+/// pointer to the root node, which we can obtain elsewhere, and make
+/// sure that the data structure contains all the info we need to do
+/// the rendering (eg make sure it contains strings as well as symbol
+/// IDs).
+///
+/// There are really three roles played by CDasherView: providing high
+/// level drawing functions, providing a mapping between Dasher
+/// co-ordinates and screen co-ordinates and providing a mapping
+/// between true and effective Dasher co-ordinates (eg for eyetracking
+/// mode). We should probably consider creating separate classes for
+/// these.
+///
 
 class Dasher::CDasherView : public CDasherComponent
 {

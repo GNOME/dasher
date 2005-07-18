@@ -19,6 +19,12 @@
 
 namespace Dasher {class CLanguageModel;}
 
+///
+/// \brief Language model base class
+///
+/// Base class for all language model components
+///
+
 class Dasher::CLanguageModel : public Dasher::CDasherComponent
 {
 public:

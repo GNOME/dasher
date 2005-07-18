@@ -47,9 +47,9 @@ CPPMLanguageModel::~CPPMLanguageModel()
 /////////////////////////////////////////////////////////////////////
 // Get the probability distribution at the context
 
-void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
-{
-	const CPPMContext *ppmcontext= (const CPPMContext *)(context);
+void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const {
+  
+  const CPPMContext *ppmcontext= (const CPPMContext *)(context);
 	
 
 	int iNumSymbols = GetSize();
@@ -59,10 +59,9 @@ void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, i
 	std::vector<bool> exclusions(iNumSymbols);
 
 	int i;
-	for( i=0 ; i < iNumSymbols; i++)
-	{
-		probs[i] = 0;
-		exclusions[i] = false;
+	for( i=0 ; i < iNumSymbols; i++) {
+	  probs[i] = 0;
+	  exclusions[i] = false;
 	}
 
 	bool doExclusion = (LanguageModelParams()->GetValue( std::string( "LMExclusion" ) ) == 1 );

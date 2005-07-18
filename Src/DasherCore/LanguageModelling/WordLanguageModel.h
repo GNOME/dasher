@@ -28,6 +28,10 @@
 namespace Dasher 
 {
 
+  ///
+  /// Language model using words
+  ///
+
 class CWordLanguageModel : public CLanguageModel
 {
 public:

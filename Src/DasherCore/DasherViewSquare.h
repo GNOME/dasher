@@ -14,15 +14,18 @@
 #include "DasherView.h"
 #include "View/DelayedDraw.h"
 
-// An implementation of the DasherView class
-//
-// This class renders Dasher in the vanilla style,
-// but with horizontal and vertical mappings
-//
-// Horizontal mapping - linear and log
-// Vertical mapping - linear with different gradient
-
 namespace Dasher {class CDasherViewSquare;}
+
+///
+/// An implementation of the DasherView class
+///
+/// This class renders Dasher in the vanilla style,
+/// but with horizontal and vertical mappings
+///
+/// Horizontal mapping - linear and log
+/// Vertical mapping - linear with different gradient
+///
+
 class Dasher::CDasherViewSquare : public Dasher::CDasherView
 {
 public:

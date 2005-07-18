@@ -4,9 +4,14 @@
 #include <map>
 #include <string>
 
-// Persistant storage so that parameters survive the language model being regenerated.
 
 namespace Dasher {
+
+///
+/// Persistant storage so that parameters survive the language model being regenerated.
+/// \deprecated Obsolete class - functionality is now provided by parameter architecture.
+///
+
   class CLanguageModelParams{
   public:
 

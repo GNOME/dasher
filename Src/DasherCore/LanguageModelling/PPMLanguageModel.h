@@ -19,6 +19,10 @@
 namespace Dasher 
 {
 
+  ///
+  /// PPM language model
+  ///
+
 	class CPPMLanguageModel : public CLanguageModel, private NoClones
 	{
 	public:
