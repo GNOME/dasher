@@ -13,14 +13,39 @@
 #include "DasherSettingsInterface.h"
 #include "Event.h"
 
+#include <iostream>
+
 using namespace std;
 
 Dasher::CParamTables CSettingsStore::s_oParamTables;
 
+CSettingsStore::CSettingsStore( Dasher::CEventHandler *pEventHandler ) : m_pEventHandler( pEventHandler ) {};
+
+void CSettingsStore::LoadPersistant() {
+
+  for( int i(0); i < NUM_OF_BPS; ++i ) {
+    bool bValue;
+    if( LoadSetting( s_oParamTables.BoolParamTable[i].regName, &bValue ) )
+      s_oParamTables.BoolParamTable[i].value = bValue;
+  }
+
+  for( int i(0); i < NUM_OF_LPS; ++i ) {
+    long lValue;
+    if( LoadSetting( s_oParamTables.LongParamTable[i].regName, &lValue ) )
+      s_oParamTables.LongParamTable[i].value = lValue;
+  }
+
+  for( int i(0); i < NUM_OF_SPS; ++i ) {
+    std::string strValue;
+    if( LoadSetting( s_oParamTables.StringParamTable[i].regName, &strValue ) )
+      s_oParamTables.StringParamTable[i].value = strValue;
+  }
+}
 
 /* TODO: Consider using Template functions to make this neater. */
 
 void CSettingsStore::SetBoolParameter( int iParameter, bool bValue ) {
+
 
     // Check that the parameter is in fact in the right spot in the table
     DASHER_ASSERT(iParameter == s_oParamTables.BoolParamTable[iParameter-FIRST_BP].key);
@@ -40,6 +65,8 @@ void CSettingsStore::SetLongParameter( int iParameter, long lValue ) {
 	
     // Check that the parameter is in fact in the right spot in the table
     DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter-FIRST_LP].key);
+
+    std::cout << "Setting long parameter: " << s_oParamTables.LongParamTable[iParameter-FIRST_LP].regName << " " << lValue << std::endl;
 
     // Set the value
     s_oParamTables.LongParamTable[iParameter-FIRST_LP].value = lValue;

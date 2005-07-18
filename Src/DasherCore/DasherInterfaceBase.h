@@ -250,124 +250,495 @@ public:
   ///
 
   void DrawGoTo(int MouseX, int MouseY);
-	
-	void ChangeScreen(); // The widgets need to tell the engine when they have been
-	void ChangeEdit();   // affected by external interaction
-	
-	unsigned int GetNumberSymbols();           // These are needed so widgets know
-	const std::string& GetDisplayText(symbol Symbol); // how to render the alphabet. All
-	const std::string& GetEditText(symbol Symbol);    // strings are encoded in UTF-8
-	int GetTextColour(symbol Symbol);    // the foreground colour of the text
-	Opts::ScreenOrientations GetAlphabetOrientation();
-	Opts::AlphabetTypes GetAlphabetType();
-	const std::string GetTrainFile();
-	
-	// App Interface
-	// -----------------------------------------------------
-	
-	// std::map<int, std::string>& GetAlphabets(); // map<key, value> int is a UID string can change. Store UID in preferences. Display string to user.
-	// std::vector<std::string>& GetAlphabets();
-	// std::vector<std::string>& GetLangModels();
-	// std::vector<std::string>& GetViews();
-	
-	void ChangeScreen(CDasherScreen* NewScreen); // We may change the widgets Dasher uses
-	void ChangeEdit(CDashEditbox* NewEdit);      // at run time.
-	
-	void Train(std::string* TrainString, bool IsMore); // Training by string segments or file
-	void TrainFile(std::string Filename);              // all training data must be in UTF-8.
 
-	void GetFontSizes(std::vector<int> *FontSizes) const;
+  ///
+  /// Force an update of the CScreen object without changing the pointer
+  /// \todo When is this needed?
+  ///
 	
-	double GetCurCPM(); // App may want to display characters per minute
-	double GetCurFPS(); // or frames per second.
+  void ChangeScreen(); // The widgets need to tell the engine when they have been
+
+  /// 
+  /// Force an update of the CEditbox object without changing the pointer
+  /// \todo When is this needed?
+  ///
+
+  void ChangeEdit();   // affected by external interaction
 	
-	// Customize alphabet
-	void GetAlphabets(std::vector< std::string >* AlphabetList);
-	const CAlphIO::AlphInfo& GetInfo(const std::string& AlphID);
-	void SetInfo(const CAlphIO::AlphInfo& NewInfo);
-	void DeleteAlphabet(const std::string& AlphID);
+  ///
+  /// Returns the number of symbols in the alphabet
+  /// \retval the number of symbols.
+  ///
+  
+  unsigned int GetNumberSymbols();           // These are needed so widgets know
 
-	void GetColours(std::vector< std::string >* ColourList);
-	void AddControlTree(ControlTree *controltree);
+  ///
+  /// Get the display string for a symbol
+  /// \param Symbol The symbol ID to look up.
+  /// \retval UTF-8 string to be displayed
+  ///
 
-	/////////////////////////////////////////////////////////////////////////////
-	// Settings Interface (CDasherSettingsInterface) - options saved between sessions
-	/////////////////////////////////////////////////////////////////////////////
+  const std::string& GetDisplayText(symbol Symbol); // how to render the alphabet. All
 
-	//! Should Dasher start based on the mouse position?
-	virtual void MouseposStart(bool Value);
+  ///
+  /// Get the edit string for a symbol
+  /// \param Symbol The symbol ID to look up.
+  /// \retval UTF-8 string to be displayed
+  ///
 
-	void ChangeAlphabet(const std::string& NewAlphabetID);
-	std::string GetCurrentAlphabet();
-	void ChangeColours(const std::string& NewColourID);
-	std::string GetCurrentColours();
-	void ChangeMaxBitRate(double NewMaxBitRate);
+  const std::string& GetEditText(symbol Symbol);    // strings are encoded in UTF-8
 
-	// DJW - nasty thing about this is - we dont necessarily want the LM to rebuild every
-	// time a parameter is change - e.g. if we change 2 or 3 params in a row ???
-	void ChangeLanguageModel(int NewLanguageModelID);
-	void ChangeLMOption( const std::string &pname, long int Value );
+  ///
+  /// \todo Document this
+  ///
 
-	void ChangeView(unsigned int NewViewID);
-	void ChangeOrientation(Opts::ScreenOrientations Orientation);
-	void SetFileEncoding(Opts::FileEncodingFormats Encoding);
-	// TODO Color customization.
+  int GetTextColour(symbol Symbol);    // the foreground colour of the text
+
+  /// 
+  /// \todo Document this
+  ///
+
+  Opts::ScreenOrientations GetAlphabetOrientation();
+
+  /// 
+  /// \todo Document this
+  ///
+
+  Opts::AlphabetTypes GetAlphabetType();
+  
+  ///
+  /// \todo Document this
+  ///
+
+  const std::string GetTrainFile();
 	
-	void ShowToolbar(bool Value);
-	void ShowToolbarText(bool Value);
-	void ShowToolbarLargeIcons(bool Value);
-	void ShowSpeedSlider(bool Value);
-	void FixLayout(bool Value);
-	void TimeStampNewFiles(bool Value);
-	void CopyAllOnStop(bool Value);
-	void DrawMouse(bool Value);
-	void DrawMouseLine(bool Value);
-	void StartOnSpace(bool Value);
-	void StartOnLeft(bool Value);
-	void KeyControl(bool Value);
-	void WindowPause(bool Value);
-	void ControlMode(bool Value);
-	void ColourMode(bool Value);
-	void KeyboardMode(bool Value);
+  // App Interface
+  // -----------------------------------------------------
+  
+  // std::map<int, std::string>& GetAlphabets(); // map<key, value> int is a UID string can change. Store UID in preferences. Display string to user.
+  // std::vector<std::string>& GetAlphabets();
+  // std::vector<std::string>& GetLangModels();
+  // std::vector<std::string>& GetViews();
+  
+  ///
+  /// Supply a new CDasherScreen object to do the rendering.
+  /// \param NewScreen Pointer to the new CDasherScreen.
+  ///
+  
+  void ChangeScreen(CDasherScreen* NewScreen); // We may change the widgets Dasher uses
 
+  ///
+  /// Supply a new CDashEditbox to receive output events
+  /// \param NewEdit Pointer to the new CDashEditbox.
+  ///
 
-	void Speech(bool Value);
-	void OutlineBoxes(bool Value);
-	void PaletteChange(bool Value);
-	void SetScreenSize(long Width, long Height);
-	void SetEditHeight(long Value);
-	void SetEditFont(std::string Name, long Size);
-	void SetDasherFont(std::string Name);
-	void SetDasherFontSize(FontSize fontsize);
-	void SetDasherDimensions(bool Value);
-	void SetDasherEyetracker(bool Value);
-	void SetUniform(int Value);
-	void SetYScale(int Value);
-	void SetMousePosDist(int Value);
-	void SetTruncation( int Value );
-	void SetTruncationType( int Value );
-	// Which mouse position box should the View draw?
-	// 0 - no box, 1 - upper box, 2 - lower box
-	void SetDrawMousePosBox(int iWhich);
+  void ChangeEdit(CDashEditbox* NewEdit);      // at run time.
 	
-	int GetAutoOffset();
-	void Render();
-	
-	void SetInput( CDasherInput *_pInput );
-	
-	void SetContext( std::string strNewContext ) {
-	  if( m_pDasherModel != NULL )
-	    m_pDasherModel->SetContext( strNewContext );
-	}
-	
-	
-	double GetNats() const;
+  ///
+  /// Train Dasher using a UTF-8 string
+  /// \param TrainString The training string.
+  /// \param IsMore Whether to keep state (affects how incomplete UTF-8 characters are handled at the end)
+  ///
 
-	void ResetNats();
+  void Train(std::string* TrainString, bool IsMore); // Training by string segments or file
+  
+  ///
+  /// Train Dasher from a file
+  /// \param Filename File to load.
+  ///
 
-    CAlphabet* GetAlphabet() { return m_Alphabet; }
-    CLanguageModelParams* GetLMParams() { return m_Params; }
-    CDashEditbox* GetEditbox() { return m_DashEditbox; }
+  void TrainFile(std::string Filename);              // all training data must be in UTF-8.
+
+  ///
+  /// \todo Document this
+  ///
+
+  void GetFontSizes(std::vector<int> *FontSizes) const;
+	
+  ///
+  /// Get the current rate of text entry.
+  /// \retval The rate in characters per minute.
+  ///
+
+  double GetCurCPM(); // App may want to display characters per minute
+
+  ///
+  /// Get current refresh rate.
+  /// \retval The rate in frames per second
+  ///
+
+  double GetCurFPS(); // or frames per second.
+  
+  // Customize alphabet
+
+  ///
+  /// \todo Document this
+  ///
+
+  void GetAlphabets(std::vector< std::string >* AlphabetList);
+
+  ///
+  /// \todo Document this
+  ///
+
+  const CAlphIO::AlphInfo& GetInfo(const std::string& AlphID);
+	
+  ///
+  /// \todo Document this
+  ///
+  
+  void SetInfo(const CAlphIO::AlphInfo& NewInfo);
+
+  ///
+  /// \todo Document this
+  ///
+    
+  void DeleteAlphabet(const std::string& AlphID);
+
+  ///
+  /// \todo Document this
+  ///
+  
+  void GetColours(std::vector< std::string >* ColourList);
+	
+  ///
+  /// \todo Document this
+  ///
+  
+  void AddControlTree(ControlTree *controltree);
+
+  /////////////////////////////////////////////////////////////////////////////
+  // Settings Interface (CDasherSettingsInterface) - options saved between sessions
+  /////////////////////////////////////////////////////////////////////////////
+  
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+	
+  virtual void MouseposStart(bool Value);
+  
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeAlphabet(const std::string& NewAlphabetID);
+	
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  std::string GetCurrentAlphabet();
+	
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeColours(const std::string& NewColourID);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  std::string GetCurrentColours();
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeMaxBitRate(double NewMaxBitRate);
+
+  // DJW - nasty thing about this is - we dont necessarily want the LM to rebuild every
+  // time a parameter is change - e.g. if we change 2 or 3 params in a row ???
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeLanguageModel(int NewLanguageModelID);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeLMOption( const std::string &pname, long int Value );
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeView(unsigned int NewViewID);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ChangeOrientation(Opts::ScreenOrientations Orientation);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetFileEncoding(Opts::FileEncodingFormats Encoding);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+  
+  void ShowToolbar(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void ShowToolbarText(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+  
+  void ShowToolbarLargeIcons(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ShowSpeedSlider(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void FixLayout(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void TimeStampNewFiles(bool Value);
+  
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void CopyAllOnStop(bool Value);
+
+ 
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void DrawMouse(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+  
+  void DrawMouseLine(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+  
+  void StartOnSpace(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void StartOnLeft(bool Value);
+
+  ///
+  /// \deprecated Document this
+  ///
+
+  void KeyControl(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void WindowPause(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+  
+  void ControlMode(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void ColourMode(bool Value);
+  
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void KeyboardMode(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+	
+  void Speech(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void OutlineBoxes(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+  
+  void PaletteChange(bool Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void SetScreenSize(long Width, long Height);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+
+  void SetEditHeight(long Value);
+
+  ///
+  /// \deprecated Not part of Dasher control
+  ///
+  
+  void SetEditFont(std::string Name, long Size);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetDasherFont(std::string Name);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetDasherFontSize(FontSize fontsize);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetDasherDimensions(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+  
+  void SetDasherEyetracker(bool Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetUniform(int Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetYScale(int Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetMousePosDist(int Value);
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetTruncation( int Value );
+  
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetTruncationType( int Value );
+	
+  // Which mouse position box should the View draw?
+  // 0 - no box, 1 - upper box, 2 - lower box
+
+  ///
+  /// \deprecated Use parameter interface instead
+  ///
+
+  void SetDrawMousePosBox(int iWhich);
+	
+  ///
+  /// Get the current autocalibration offset
+  /// \retval The offset.
+  ///
+  
+  int GetAutoOffset();
+
+  ///
+  /// \todo Document this
+  ///
+
+  void Render();
+	
+  ///
+  /// Provide a new CDasherInput input device object.
+  /// \param _pInput Pointer to the new object
+  ///
+
+  void SetInput( CDasherInput *_pInput );
+	
+  ///
+  /// Set the context in which Dasher makes predictions
+  /// \param strNewContext The new context (UTF-8)
+  ///
+
+  void SetContext( std::string strNewContext ) {
+    if( m_pDasherModel != NULL )
+      m_pDasherModel->SetContext( strNewContext );
+  }
+	
+  ///
+  /// Get the total number of nats (base-e bits) entered.
+  /// \retval The current total
+  /// \todo Obsolete since new logging code?
+  ///
+	
+  double GetNats() const;
+
+  ///
+  /// Reset the count of nats entered.
+  /// \todo Obsolete since new logging code?
+  ///
+
+  void ResetNats();
+
+  ///
+  /// Get a pointer to the current alphabet object
+  ///
+
+  CAlphabet* GetAlphabet() { return m_Alphabet; }
+
+  ///
+  /// Get a pointer to the language model options object
+  /// \todo This will soon be incorporated into the new parameter system
+  ///
+
+  CLanguageModelParams* GetLMParams() { return m_Params; }
+
+  ///
+  /// Get a pointer to the CDashEditbox
+  ///
+
+  CDashEditbox* GetEditbox() { return m_DashEditbox; }
 
 private:
 	CAlphabet* m_Alphabet;

@@ -12,6 +12,8 @@
 #include "../DasherCore/DasherInterface.h"
 
 ///
+/// \brief C++ core of the Dasher GTK UI component.
+///
 /// Class representing the Dasher UI component (ie the canvas and speed slider)
 /// \todo It would really be more sensible for CDasherControl to inheret from CDasherInterface rather than contain a pointer to it
 ///

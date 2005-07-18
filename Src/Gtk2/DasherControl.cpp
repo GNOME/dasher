@@ -124,7 +124,6 @@ CDasherControl::CDasherControl( GtkVBox *pVBox, GtkDasherControl *pDasherControl
 
   // Start the dasher model
 
-  m_pInterface->PauseAt(0,0); // FIXME - pause should be implicit (ie in core)?
   m_pInterface->Start(); // FIXME - should we hold off on this until later?
 
   // Tell the core that we handle edit events etc.
@@ -738,30 +737,9 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 extern "C" gint
 canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data)
 {
-
-  std::cout << "canvas_configure_event: " << data << std::endl;
-
   ((CDasherControl *)data)->CanvasConfigureEvent();
 
-  // Fixme - reimplement sanely
-
-//   // If the canvas is resized, we need to regenerate all of the buffers
-//   rebuild_buffer();
-
-//   dasher_resize_canvas( the_canvas->allocation.width, the_canvas->allocation.height );
-
-//   dasher_redraw();
-
-//   if (setup==TRUE) {
-//     // If we're set up and resized, then save those settings
-
-//     // FIXME - Reimplement this
-
-// //     dasher_set_parameter_int(INT_EDITHEIGHT,gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1"))));
-// //     gtk_window_get_size(GTK_WINDOW(window), &dasherwidth, &dasherheight);
-// //     dasher_set_parameter_int(INT_SCREENHEIGHT, dasherheight);
-// //     dasher_set_parameter_int(INT_SCREENWIDTH, dasherwidth);
-//   }
+  // TODO - implement code in UI (ie not here) to save window dimensions on resize
 
   return FALSE;
 }

@@ -58,7 +58,7 @@ void CDasherView::DrawMousePosBox()
   int iMousePosDist = GetLongParameter(LP_MOUSEPOSDIST);
   int iDrawMousePosBox = GetLongParameter(LP_MOUSE_POS_BOX);
   
-  std::cout << "iDrawMousePosBox: " << iDrawMousePosBox << std::endl;
+  //  std::cout << "iDrawMousePosBox: " << iDrawMousePosBox << std::endl;
   
   switch (iDrawMousePosBox) 
     {

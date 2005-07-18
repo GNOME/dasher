@@ -29,10 +29,9 @@ class CSettingsStore
 {
 public:
 
-	CSettingsStore( Dasher::CEventHandler *pEventHandler ) : m_pEventHandler( pEventHandler ) 
-    {
-    };
-	virtual ~CSettingsStore() {};
+  CSettingsStore( Dasher::CEventHandler *pEventHandler );
+
+  virtual ~CSettingsStore() {};
 	
 	// New functions for event driven interface
 
@@ -43,6 +42,8 @@ public:
 	bool GetBoolParameter( int iParameter );
 	long GetLongParameter( int iParameter );
     std::string GetStringParameter( int iParameter );
+
+    void LoadPersistant();
 
 	// --- Deprecated functions below
     // although string functionality might be good for
@@ -59,6 +60,9 @@ public:
 	void SetBoolDefault(const std::string& Key, bool Value);
 	void SetLongDefault(const std::string& Key, long Value);
 	void SetStringDefault(const std::string& Key, const std::string& Value);	
+
+
+
 private:
 	// Platform Specific settings file management
 

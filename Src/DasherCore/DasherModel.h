@@ -22,12 +22,16 @@
 #include <vector>
 #include <deque>
 
-// The DasherModel represents the current state of Dasher
-// It contains a tree of DasherNodes
-//		knows the current viewpoint
-//		knows how to evolve the viewpoint
-
 namespace Dasher {class CDasherModel;}
+
+///
+/// \brief Dasher 'world' data structures and dynamics.
+///
+/// The DasherModel represents the current state of Dasher
+/// It contains a tree of DasherNodes
+///		knows the current viewpoint
+///		knows how to evolve the viewpoint
+///
 
 class Dasher::CDasherModel : public Dasher::CDasherComponent, private NoClones
 {

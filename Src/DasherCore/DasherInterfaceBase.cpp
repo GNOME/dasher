@@ -192,9 +192,12 @@ void CDasherInterfaceBase::CreateDasherModel()
 void CDasherInterfaceBase::Start()
 {
     //m_Paused=false;
-    SetBoolParameter(BP_DASHER_PAUSED, false);
-	if (m_pDasherModel!=0) {
-		m_pDasherModel->Start();
+  //    SetBoolParameter(BP_DASHER_PAUSED, true);
+
+  PauseAt(0,0);
+
+    if (m_pDasherModel!=0) {
+      m_pDasherModel->Start();
     //    m_pDasherModel->Set_paused(m_Paused);
 	}
     if (m_pDasherView!=0) {
@@ -215,6 +218,7 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY)
   // 	m_DashEditbox->CopyAll();
   //     }	
   
+
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
   if( GetBoolParameter( BP_MOUSEPOS_MODE )) {
@@ -243,6 +247,8 @@ void CDasherInterfaceBase::Unpause(unsigned long Time)
       m_pDasherView->ResetSum();
       m_pDasherView->ResetSumCounter();
     }
+
+    SetLongParameter( LP_MOUSE_POS_BOX, -1 );
 
     Dasher::CStartEvent oEvent;
     m_pEventHandler->InsertEvent( &oEvent );
@@ -682,6 +688,9 @@ void CDasherInterfaceBase::KeyboardMode(bool Value)
 
 void CDasherInterfaceBase::SetDrawMousePosBox(int iWhich)
 {
+
+  std::cout << "In SetDrawMouePosBox" << std::endl;
+
 	SetLongParameter(LP_MOUSE_POS_BOX, iWhich);
 	//if (m_pDasherView)
 	//	m_pDasherView->SetDrawMousePosBox(iWhich);
@@ -785,8 +794,8 @@ void CDasherInterfaceBase::SetDasherFontSize(FontSize fontsize)
 void CDasherInterfaceBase::SetDasherDimensions(bool Value)
 {
     // WHY IS THIS A LONG PARAMETER?
-	if (m_pSettingsStore!=0)
-		SetLongParameter(LP_DASHER_DIMENSIONS, Value);
+  if (m_pSettingsStore!=0)
+    SetLongParameter(BP_NUMBER_DIMENSIONS, Value);
 	//if (m_pDasherModel!=0) {
 	//         m_pDasherModel->Set_dimensions(Value);
 	//}
@@ -797,8 +806,8 @@ void CDasherInterfaceBase::SetDasherDimensions(bool Value)
 
 void CDasherInterfaceBase::SetDasherEyetracker(bool Value)
 {
-	if (m_pSettingsStore!=0)
-		SetLongParameter(LP_DASHER_EYETRACKER, Value);
+  if (m_pSettingsStore!=0)
+    SetLongParameter(BP_EYETRACKER_MODE, Value);
 	//if (m_pDasherModel!=0) {
 	//         m_pDasherModel->Set_eyetracker(Value);
 	//}

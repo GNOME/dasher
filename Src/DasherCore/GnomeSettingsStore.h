@@ -23,6 +23,8 @@ class CGnomeSettingsStore : public CSettingsStore
     //    gconf_init( argc, argv, &gconferror );
     the_gconf_client = gconf_client_get_default();
 
+    LoadPersistant();
+
   };
 
   ~CGnomeSettingsStore() {
