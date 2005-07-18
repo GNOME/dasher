@@ -1027,14 +1027,19 @@ CDasherModel::CTrainer* CDasherModel::GetTrainer()
 
 void CDasherModel::Push_Node(CDasherNode* pNode) 
 {
-	if ( pNode->Children() )
+  //	cerr << "In Push_Node, ChildCount is " << pNode->ChildCount() << ", HasAllChildren is " << pNode->HasAllChildren() << endl;
+
+	if ( pNode->HasAllChildren() )
 	{
+		DASHER_ASSERT(pNode->Children().size()>0);
 		// if there are children just give them a poke
-		unsigned int i;
-		for (i=0;i< pNode->ChildCount() ;i++)
-			pNode->Children()[i]->Alive(true);
+		hash_map<symbol,CDasherNode*>::iterator i;
+		for (i=pNode->Children().begin();i!=pNode->Children().end() ;i++)
+			(*i).second->Alive(true);
 		return;
 	}
+
+        pNode->Delete_children();
 
 	// This ASSERT seems to routinely fail
 	//DASHER_ASSERT(pNode->Symbol()!=0);
@@ -1070,7 +1075,6 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 
 	if ( pNode->Symbol()== GetControlSymbol() || pNode->ControlChild() ) 
 	{
-
 		ControlTree* pControlTreeChildren = pNode->GetControlTree();
 	
 		if ( pControlTreeChildren == NULL ) 
@@ -1100,8 +1104,6 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 		// Now we go back and build the node tree	  
 		int quantum=int(GetLongParameter(LP_NORMALIZATION)/iChildCount);
 
-		CDasherNode** ppChildren = new CDasherNode* [iChildCount];
-
 		ColorSchemes ChildScheme;
 		if (pNode->ColorScheme() == Nodes1)
 		{
@@ -1114,7 +1116,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 
 		int i=0;
 		// First a root node that takes up back to the text alphabet
-		ppChildren[i]=new CDasherNode(*this,pNode,0,0,Opts::Nodes1,0,int((i+1)*quantum),m_pLanguageModel,false,240);
+		pNode->Children()[i]=new CDasherNode(*this,pNode,0,0,Opts::Nodes1,0,int((i+1)*quantum),m_pLanguageModel,false,240);
 		i++;
 
 		// Now the control children
@@ -1123,59 +1125,55 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 		{
 			if (pTemp->colour != -1)
 			{
-				ppChildren[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
+				pNode->Children()[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,pTemp->colour, pTemp);
 			} 
 			else 
 			{
-				ppChildren[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
+				pNode->Children()[i]=new CDasherNode(*this,pNode,0,i,ChildScheme,int(i*quantum),int((i+1)*quantum),m_pLanguageModel,true,(i%99)+11, pTemp);
 			}
 			i++;
 			pTemp = pTemp->next;
 		}
-		pNode->SetChildren(ppChildren, iChildCount);
-		return;
+	} else {
+		// FIXME: this has to change for history stuff and Japanese dasher
+		vector<symbol> newchars;   // place to put this list of characters
+		vector<unsigned int> cum;   // for the probability list
+
+		GetProbs(pNode->Context(),newchars,cum,GetLongParameter(LP_NORMALIZATION));
+		int iChildCount=newchars.size();
+
+		DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);
+		// work out cumulative probs in place
+		for (int i=1;i<iChildCount;i++)
+			cum[i]+=cum[i-1];
+
+		// create the children
+		ColorSchemes NormalScheme, SpecialScheme;
+		if (( pNode->ColorScheme()==Nodes1 ) || (pNode->ColorScheme()==Special1 ))
+		{
+			NormalScheme = Nodes2;
+			SpecialScheme = Special2;
+		} 
+		else 
+		{
+			NormalScheme = Nodes1;
+			SpecialScheme = Special1;
+		}
+
+		ColorSchemes ChildScheme;
+
+		int iLbnd=0;
+		for (int j=0; j< iChildCount; j++)
+		{
+			if (newchars[j]== GetSpaceSymbol())
+				ChildScheme = SpecialScheme;
+			else
+				ChildScheme = NormalScheme;
+			pNode->Children()[j]=new CDasherNode(*this,pNode,newchars[j],j,ChildScheme,iLbnd,cum[j],m_pLanguageModel,false,GetColour(j));
+			iLbnd = cum[j];
+		}
 	}
-
-	vector<symbol> newchars;   // place to put this list of characters
-	vector<unsigned int> cum;   // for the probability list
-
-	GetProbs(pNode->Context(),newchars,cum,GetLongParameter(LP_NORMALIZATION));
-	int iChildCount=newchars.size();
-
-	DASHER_TRACEOUTPUT("ChildCount %d\n",iChildCount);
-	// work out cumulative probs in place
-	for (int i=1;i<iChildCount;i++)
-		cum[i]+=cum[i-1];
-
-	CDasherNode** ppChildren = new CDasherNode *[iChildCount];
-
-	// create the children
-	ColorSchemes NormalScheme, SpecialScheme;
-	if (( pNode->ColorScheme()==Nodes1 ) || (pNode->ColorScheme()==Special1 ))
-	{
-		NormalScheme = Nodes2;
-		SpecialScheme = Special2;
-	} 
-	else 
-	{
-		NormalScheme = Nodes1;
-		SpecialScheme = Special1;
-	}
-
-	ColorSchemes ChildScheme;
-
-	int iLbnd=0;
-	for (int j=0; j< iChildCount; j++)
-	{
-		if (newchars[j]== GetSpaceSymbol())
-			ChildScheme = SpecialScheme;
-		else
-			ChildScheme = NormalScheme;
-		ppChildren[j]=new CDasherNode(*this,pNode,newchars[j],j,ChildScheme,iLbnd,cum[j],m_pLanguageModel,false,GetColour(j));
-		iLbnd = cum[j];
-	}
-	pNode->SetChildren(ppChildren,iChildCount);
-
+	pNode->SetHasAllChildren(true);
 }
 
 ///////////////////////////////////////////////////////////////////
@@ -1340,8 +1338,8 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
          
         if(childrencount > 0)
         {
-            CDasherNode **children = currNode->Children();
-            for(int ii = 0; ii<childrencount; ii++)
+            hash_map<symbol,CDasherNode*> &children = currNode->Children();
+            for(int ii = 0; ii<childrencount; ii++) // XXX should be based on alphabet size
             {
                 int symbol = m_model->GetAlphabet().GetAlphabetMap().Get(CurrentTarget.substr(currLocation,1), &KeyIsPrefix);
                 if(children[ii]->Symbol() == symbol)

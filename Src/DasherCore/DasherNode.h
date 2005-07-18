@@ -13,7 +13,9 @@
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"
+#include <ext/hash_map>
 
+using namespace __gnu_cxx;
 
 // CDasherNode represents a rectangle and character 
 
@@ -30,11 +32,14 @@ public:
 	~CDasherNode();
 	
 	// Node relationships
-	CDasherNode ** const Children() const;
-	unsigned int ChildCount() const {return m_iChildCount;}
+        typedef hash_map<symbol,CDasherNode*> ChildMap;
+	ChildMap& Children();
+	const ChildMap& GetChildren() const;
+        // replaced by Children()
+//        void SetChildren(const hash_map<symbol,CDasherNode*> &mChildren);
+	unsigned int ChildCount() const {return m_mChildren.size();}
 	CDasherNode* Parent() const {return m_pParent;}
 	bool NodeIsParent(CDasherNode *oldnode) const;
-	void SetChildren(CDasherNode** ppChildren, int iChildCount);
 	
 	// Orphan Child
 	void OrphanChild(CDasherNode* pChild);
@@ -77,15 +82,24 @@ public:
 	void SetContext(CLanguageModel::Context Context);
 	CLanguageModel::Context Context() const;
 
+        bool HasAllChildren() const { return m_bHasAllChildren; };
+        bool SetHasAllChildren(bool val) { m_bHasAllChildren = val; };
+
 private:
 
 	const int m_iLbnd,m_iHbnd;// the cumulative lower and upper bound prob relative to parent
 	//const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
 	const symbol m_Symbol;             // the character to display
 	
-	CDasherNode** m_ppChildren;          // pointer to array of children
-	unsigned int m_iChildCount;		   // number of children
+//	CDasherNode** m_ppChildren;          // pointer to array of children
+//	unsigned int m_iChildCount;		   // number of children
 	
+        ChildMap m_mChildren; // pointer to array of children
+        bool m_bHasAllChildren;            // true if we haven't deleted any children after instantiating them
+
+        bool m_bIsActive;                  // true if descendent of a root node
+        int m_iRefCount;                   // reference count if ancestor of (or equal to) root node
+
 	bool m_bAlive;                     // if true, then display node, else dont bother
 	//bool m_bControlNode;               // if true, node is a control node
 	bool m_bControlChild;              // if true, node is offspring of a control node
@@ -121,10 +135,11 @@ using namespace Opts;
 
 inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pParent,symbol Symbol, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=-1, ControlTree *controltree=0)
 	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), 
-	m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
+	m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
 	m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), 
-	m_pLanguageModel(lm), m_ppChildren(0), m_pParent(pParent), m_Context(NULL), 
-	m_controltree(controltree)
+	m_pLanguageModel(lm), m_pParent(pParent), m_Context(CLanguageModel::nullContext), 
+        m_controltree(controltree), m_iRefCount(0), m_bIsActive(true),
+        m_mChildren(), m_bHasAllChildren(false)
 {
 
 	/*
@@ -181,19 +196,19 @@ inline	int CDasherNode::Range() const {return m_iHbnd-m_iLbnd;}
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CDasherNode::SetChildren(CDasherNode** ppChildren, int iChildCount)
+inline hash_map<symbol,CDasherNode*>& CDasherNode::Children()
 {
-	// DJW - please make sure DASHER_ASSERT is implemented on your platform
-	DASHER_ASSERT(m_ppChildren == NULL);
-	m_ppChildren = ppChildren;
-	m_iChildCount = iChildCount;
+  /*	// DJW - please make sure DASHER_ASSERT is implemented on your platform
+	DASHER_ASSERT(m_mChildren.size()==0);
+	m_mChildren = mChildren;*/
+  return m_mChildren;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline CDasherNode** const CDasherNode::Children() const
+inline const hash_map<symbol,CDasherNode*>& CDasherNode::GetChildren() const
 {
-	return m_ppChildren;
+  return m_mChildren;
 }
 
 /////////////////////////////////////////////////////////////////////////////

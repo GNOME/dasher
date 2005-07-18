@@ -111,14 +111,14 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,i
 		return 0;
 	}
 
-	int iChildCount = pRender->ChildCount();
-	if (!iChildCount)
+	if (pRender->ChildCount() == 0)
 	  return 0;
 
 	int norm=GetLongParameter(LP_NORMALIZATION);
-	for (int i=0; i< iChildCount; i++) 
+	CDasherNode::ChildMap::const_iterator i; 
+	for (i=pRender->GetChildren().begin();i!=pRender->GetChildren().end();i++)
 	{
-		CDasherNode* pChild = pRender->Children()[i];
+                CDasherNode* pChild = i->second;
 		if ( pChild->Alive() ) 
 		{
 			myint Range=y2-y1;
@@ -128,21 +128,19 @@ int CDasherViewSquare::RecursiveRender(CDasherNode* pRender, myint y1,myint y2,i
 		}
 	}
 	return 1;
-
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
 {
-	CDasherNode** Children = Render->Children();
-	if (!Children)
+	CDasherNode::ChildMap &Children = Render->Children();
+	if (Children.size()==0)
 		return;
 	int current=0;
 	int lower=0;
 	int upper=0;
-    std::string Label="";
+        std::string Label="";
 
 	myint range=y2-y1;
 	
@@ -417,7 +415,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 void CDasherViewSquare::CheckForNewRoot()
 {
 	CDasherNode * const root=DasherModel().Root();
-	CDasherNode ** const children=root->Children();
+	CDasherNode::ChildMap& children=root->Children();
 
 
 	myint y1=DasherModel().Rootmin();
@@ -432,20 +430,20 @@ void CDasherViewSquare::CheckForNewRoot()
 		return;
 	}
 
-	if (children==0)
+	if (children.size()==0)
 		return;
 
 	int alive=0;
-	int theone=0;
-	unsigned int i;
+	symbol theone=0;
 
 	// Find whether there is exactly one alive child; if more, we don't care.
-	for (i=0;i<root->ChildCount();i++) 
+	CDasherNode::ChildMap::iterator i;
+	for (i=children.begin();i!=children.end();i++)
 	{
-		if (children[i]->Alive()) 
+		if (i->second->Alive()) 
 		{
 			alive++;
-			theone=i;
+			theone=i->first;
             if(alive>1) break; 
 		}
 	}

@@ -53,21 +53,19 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 	vString.push_back(m_Symbol);
 	
 	// look for children who might also be under the coords
-	if (m_ppChildren)
-	{
-		myint miRange=miY2-miY1;
-		unsigned int i;
-		for (i=1;i<m_iChildCount;i++) 
-		{
-			myint miNewy1=miY1+(miRange* Children()[i]->m_iLbnd)/iNormalization;
-			myint miNewy2=miY1+(miRange* Children()[i]->m_iHbnd)/iNormalization;
-			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
-			{
-				Children()[i]->Get_string_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey,vString);
-				return;
-			}
-		}
-	}
+	// FIXME what if not all children are instantiated?
+        myint miRange=miY2-miY1;
+        ChildMap::const_iterator i; 
+        for (i=GetChildren().begin();i!=GetChildren().end();i++) 
+        {
+                myint miNewy1=miY1+(miRange* i->second->m_iLbnd)/iNormalization;
+                myint miNewy2=miY1+(miRange* i->second->m_iHbnd)/iNormalization;
+                if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
+                {
+                        i->second->Get_string_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey,vString);
+                        return;
+                }
+        }
 	return;
 }
 
@@ -75,59 +73,58 @@ void CDasherNode::Get_string_under(const int iNormalization,const myint miY1,con
 
 CDasherNode * const CDasherNode::Get_node_under(int iNormalization,myint miY1,myint miY2,myint miMousex,myint miMousey) 
 {
-	if ( Children() ) 
-	{
-		myint miRange=miY2-miY1;
+        myint miRange=miY2-miY1;
 //		m_iAge=0;
-		m_bAlive=true;
-		unsigned int i;
-		for (i=0;i<m_iChildCount;i++) 
-		{
-			CDasherNode* pChild = Children()[i];
+        m_bAlive=true;
+        ChildMap::const_iterator i; 
+        for (i=GetChildren().begin();i!=GetChildren().end();i++) 
+        {
+                CDasherNode* pChild = i->second;
 
-			myint miNewy1=miY1+(miRange*pChild->m_iLbnd)/iNormalization;
-			myint miNewy2=miY1+(miRange*pChild->m_iHbnd)/iNormalization;
-			if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
-				return pChild->Get_node_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey);
-		}
-	}
+                myint miNewy1=miY1+(miRange*pChild->m_iLbnd)/iNormalization;
+                myint miNewy2=miY1+(miRange*pChild->m_iHbnd)/iNormalization;
+                if (miMousey<miNewy2 && miMousey>miNewy1 && miMousex<miNewy2-miNewy1) 
+                        return pChild->Get_node_under(iNormalization,miNewy1,miNewy2,miMousex,miMousey);
+        }
 	return this;
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
+// kill ourselves and all other children except for the specified
+// child
+// FIXME this probably shouldn't be called after history stuff is working
 void CDasherNode::OrphanChild(CDasherNode* pChild)
 {
-	DASHER_ASSERT ( Children() ) ;
+	DASHER_ASSERT ( ChildCount()>0 ) ;
 
-	int i; 
-	for (i=0;i< ChildCount(); i++) 
+	ChildMap::const_iterator i; 
+	for (i=GetChildren().begin();i!=GetChildren().end();i++)
 	{
-		if ( Children()[i] != pChild )
+		if ( i->second != pChild )
 		{
-			Children()[i]->Delete_children();
-			delete Children()[i];
+			i->second->Delete_children();
+			delete i->second;
 		}
 
 	}
-	delete [] m_ppChildren;
-	m_ppChildren=0;
-	m_iChildCount=0;
+        Children().clear();
+        SetHasAllChildren(false);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-// Delete nephews
-void CDasherNode::DeleteNephews(int iChild)
+// Delete nephews of the child which has the specified symbol
+void CDasherNode::DeleteNephews(int iSym)
 {
-	DASHER_ASSERT ( Children() ) ;
+	DASHER_ASSERT ( Children().size() > 0 ) ;
 
-	int i; 
-	for (i=0;i< ChildCount(); i++) 
+	ChildMap::iterator i; 
+	for (i=Children().begin();i!=Children().end(); i++) 
 	{
-		if (i != iChild)
+		if (i->first != iSym)
 		{
-			Children()[i]->Delete_children();
+			i->second->Delete_children();
 		}
 
 	}
@@ -138,17 +135,14 @@ void CDasherNode::DeleteNephews(int iChild)
 
 void CDasherNode::Delete_children() 
 {
-	if (m_ppChildren) 
-	{
-		for (int i=0;i<m_iChildCount;i++) 
-		{
-		     m_ppChildren[i]->Delete_children();
-		     delete m_ppChildren[i];
-		}
-		delete [] m_ppChildren;
-		m_ppChildren=0;	
-		m_iChildCount=0;
-	}
+  ChildMap::iterator i; 
+  for (i=Children().begin();i!=Children().end(); i++) 
+    {
+      // i->second->Delete_children(); (gets called by destructor)
+      delete i->second;
+    }
+  Children().clear();
+  SetHasAllChildren(false);
 }
 
 /////////////////////////////////////////////////////////////////////////////
