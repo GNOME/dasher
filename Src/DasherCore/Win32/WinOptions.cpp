@@ -38,6 +38,8 @@ CWinOptions::CWinOptions(const std::string& Group, const std::string& Product, D
 	// Then HKEY_CURRENT_USER\Software\<Group>\<Product>
 	if (GetOrCreate(GroupKey, TProduct.c_str(), KEY_ALL_ACCESS, &ProductKey)!=0) {exit(1);}
 	RegCloseKey(GroupKey);
+
+    LoadPersistent();
 }
 
 
