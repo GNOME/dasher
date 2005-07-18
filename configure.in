@@ -20,7 +20,7 @@ AM_GLIB_GNU_GETTEXT
 AC_PROG_CXX
 
 WITHGNOME=true;
-WITHSPEECH=true;
+WITHSPEECH=false;
 WITHA11Y=true;
 WITHGTK2=true;
 
@@ -35,7 +35,7 @@ AC_ARG_WITH([qte],
 	[WITHQTE=true],[WITHQTE=false])
 
 AC_ARG_WITH([speech],
-	 AC_HELP_STRING([--without-speech],[build without speech support (default is YES)]), [WITHSPEECH=false])
+	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]), [WITHSPEECH=true])
 
 AC_ARG_WITH([gpe],
 	 AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]), [WITHGPE=true],[WITHGPE=false])
