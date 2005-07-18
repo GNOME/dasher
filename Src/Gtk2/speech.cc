@@ -10,12 +10,13 @@
 GNOME_Speech_Speaker speaker;
 GNOME_Speech_VoiceInfoList *voices;
 CORBA_Environment ev;
+CORBA_Object rv=NULL;
 
 void setup_speech() {
 
   Bonobo_ServerInfoList *servers;
   Bonobo_ServerInfo *info;
-  CORBA_Object rv=NULL;
+
 
   servers = bonobo_activation_query ("repo_ids.has_one(['IDL:GNOME/Speech/SynthesisDriver:0.2','IDL:GNOME/Speech/SynthesisDriver:0.3'])", NULL, &ev);
 
@@ -79,6 +80,7 @@ void teardown_speech() {
 
   bonobo_object_release_unref (speaker, NULL);
   CORBA_free (voices);
+  GNOME_Speech_SynthesisDriver_unref( rv, &ev );
   CORBA_exception_free (&ev);
 
 }
