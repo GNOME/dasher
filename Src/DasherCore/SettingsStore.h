@@ -43,7 +43,7 @@ public:
 	long GetLongParameter( int iParameter );
     std::string GetStringParameter( int iParameter );
 
-    void LoadPersistant();
+    void LoadPersistent();
 
 	// --- Deprecated functions below
     // although string functionality might be good for

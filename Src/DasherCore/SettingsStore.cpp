@@ -21,7 +21,7 @@ Dasher::CParamTables CSettingsStore::s_oParamTables;
 
 CSettingsStore::CSettingsStore( Dasher::CEventHandler *pEventHandler ) : m_pEventHandler( pEventHandler ) {};
 
-void CSettingsStore::LoadPersistant() {
+void CSettingsStore::LoadPersistent() {
 
   for( int i(0); i < NUM_OF_BPS; ++i ) {
     bool bValue;
