@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+find . -type f "$@" | grep '\.[^/]\+$' | grep -v '\.\(o\|gmo\|png\|gif\|b2p\|bmp\|HLP\|cnt\|ico\|hpj\|exe\|dsp\|dsw\|iss\|icns\|a\|dll\|nib\|cur\|strings\)$'
