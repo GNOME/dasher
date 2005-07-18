@@ -13,9 +13,9 @@
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"
-#include <ext/hash_map>
+#include <hash_map>
 
-using namespace __gnu_cxx;
+using namespace stdext;
 
 // CDasherNode represents a rectangle and character 
 
@@ -83,7 +83,7 @@ public:
 	CLanguageModel::Context Context() const;
 
         bool HasAllChildren() const { return m_bHasAllChildren; };
-        bool SetHasAllChildren(bool val) { m_bHasAllChildren = val; };
+        void SetHasAllChildren(bool val) { m_bHasAllChildren = val; };
 
 private:
 

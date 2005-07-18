@@ -1033,7 +1033,7 @@ void CDasherModel::Push_Node(CDasherNode* pNode)
 	{
 		DASHER_ASSERT(pNode->Children().size()>0);
 		// if there are children just give them a poke
-		hash_map<symbol,CDasherNode*>::iterator i;
+		stdext::hash_map<symbol,CDasherNode*>::iterator i;
 		for (i=pNode->Children().begin();i!=pNode->Children().end() ;i++)
 			(*i).second->Alive(true);
 		return;
@@ -1338,7 +1338,7 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
          
         if(childrencount > 0)
         {
-            hash_map<symbol,CDasherNode*> &children = currNode->Children();
+            stdext::hash_map<symbol,CDasherNode*> &children = currNode->Children();
             for(int ii = 0; ii<childrencount; ii++) // XXX should be based on alphabet size
             {
                 int symbol = m_model->GetAlphabet().GetAlphabetMap().Get(CurrentTarget.substr(currLocation,1), &KeyIsPrefix);
