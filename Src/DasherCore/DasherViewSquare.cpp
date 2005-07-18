@@ -1661,11 +1661,11 @@ bool CDasherViewSquare::HandleStartOnMouse( int iTime ) {
   // FIXME - box is probably drawn in terms of screen coordinates, so this is broken
 
   if( GetLongParameter( LP_MOUSE_POS_BOX ) == 1 ) {
-    iBoxMax = DasherModel().DasherY()/2 - GetLongParameter( LP_MOUSEPOSDIST );
+    iBoxMax = DasherModel().DasherY()/2 - (int)GetLongParameter( LP_MOUSEPOSDIST );
     iBoxMin = iBoxMax - 100;
   }
   else  if( GetLongParameter( LP_MOUSE_POS_BOX ) == 2 ) {
-    iBoxMin = DasherModel().DasherY()/2 + GetLongParameter( LP_MOUSEPOSDIST );
+    iBoxMin = DasherModel().DasherY()/2 + (int)GetLongParameter( LP_MOUSEPOSDIST );
     iBoxMax = iBoxMin + 100;
   }
 

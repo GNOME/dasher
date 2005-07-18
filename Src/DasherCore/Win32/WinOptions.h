@@ -44,11 +44,6 @@ private:
 	
 	void SaveSettingT(const std::string& Key, const Tstring& TValue);
 
-	// Used to store settings in memory
-	std::map<std::string, bool> BoolMap;
-	std::map<std::string, long> LongMap;
-	std::map<std::string, std::string> StringMap;
-	
 	// Platform Specific helpers
 	HKEY ProductKey;
 	int GetOrCreate(HKEY hKey, LPCTSTR lpSubKey, REGSAM samDesired, HKEY* lpNewKey);

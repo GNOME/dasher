@@ -1,30 +1,33 @@
-Microsoft Visual Studio Solution File, Format Version 7.00
+Microsoft Visual Studio Solution File, Format Version 8.00
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherCore", "..\DasherCore\DasherCore.vcproj", "{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Expat", "..\Common\Expat\Expat.vcproj", "{14049A5A-4918-4F03-B274-EAB1D533A64B}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Dasher", "Dasher.vcproj", "{F4134963-22E8-4F52-9915-ACEB1DEFACFC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14049A5A-4918-4F03-B274-EAB1D533A64B} = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974} = {60F116EE-E9C5-4297-BB5A-FA3DD03E1974}
+		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9} = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "..\Common\Common.vcproj", "{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
 EndProject
 Global
-	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
-		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
-		ConfigName.0 = Accessible Unicode Debug
-		ConfigName.1 = Debug
-		ConfigName.2 = foo
-		ConfigName.3 = Release
-		ConfigName.4 = Unicode Debug
-		ConfigName.5 = Unicode Release
-		ConfigName.6 = Win95 compatible Debug
-		ConfigName.7 = Win95 compatible Release
-	EndGlobalSection
-	GlobalSection(ProjectDependencies) = postSolution
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.0 = {27CD5EA5-BE56-4009-B4B1-F9054990B9F9}
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.1 = {60F116EE-E9C5-4297-BB5A-FA3DD03E1974}
-		{F4134963-22E8-4F52-9915-ACEB1DEFACFC}.2 = {14049A5A-4918-4F03-B274-EAB1D533A64B}
+		Accessible Unicode Debug = Accessible Unicode Debug
+		Debug = Debug
+		foo = foo
+		Release = Release
+		Unicode Debug = Unicode Debug
+		Unicode Release = Unicode Release
+		Win95 compatible Debug = Win95 compatible Debug
+		Win95 compatible Release = Win95 compatible Release
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
 		{27CD5EA5-BE56-4009-B4B1-F9054990B9F9}.Accessible Unicode Debug.ActiveCfg = Unicode Debug|Win32
@@ -93,13 +96,16 @@ Global
 		{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}.Win95 compatible Release.Build.0 = Win95 compatible Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
-		Item:1 = ..\..\ChangeLog
-		Item:2 = ..\Common\MSVC_Unannoy.h
-		Item:3 = ..\Common\NoClones.h
+		..\..\ChangeLog = ..\..\ChangeLog
+		..\Common\MSVC_Unannoy.h = ..\Common\MSVC_Unannoy.h
+		..\Common\NoClones.h = ..\Common\NoClones.h
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
 	EndGlobalSection
 	GlobalSection(DevPartner) = postSolution
 	EndGlobalSection

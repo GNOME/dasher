@@ -58,7 +58,8 @@ void CSettingsStore::SetBoolParameter( int iParameter, bool bValue ) {
 	m_pEventHandler->InsertEvent( &oEvent );
 
     // Write out to permanent storage
-    SaveSetting(s_oParamTables.BoolParamTable[iParameter-FIRST_BP].regName, bValue);
+    if(s_oParamTables.BoolParamTable[iParameter-FIRST_BP].persistent)
+        SaveSetting(s_oParamTables.BoolParamTable[iParameter-FIRST_BP].regName, bValue);
 };
 
 void CSettingsStore::SetLongParameter( int iParameter, long lValue ) {
@@ -76,7 +77,8 @@ void CSettingsStore::SetLongParameter( int iParameter, long lValue ) {
 	m_pEventHandler->InsertEvent( &oEvent );
 
     // Write out to permanent storage
-    SaveSetting(s_oParamTables.LongParamTable[iParameter-FIRST_LP].regName, lValue);
+    if(s_oParamTables.LongParamTable[iParameter-FIRST_LP].persistent)
+        SaveSetting(s_oParamTables.LongParamTable[iParameter-FIRST_LP].regName, lValue);
 };
 
 void CSettingsStore::SetStringParameter( int iParameter, const std::string sValue ) {
@@ -92,7 +94,8 @@ void CSettingsStore::SetStringParameter( int iParameter, const std::string sValu
 	m_pEventHandler->InsertEvent( &oEvent );
 
     // Write out to permanent storage
-    SaveSetting(s_oParamTables.StringParamTable[iParameter-FIRST_SP].regName, sValue);
+    if(s_oParamTables.StringParamTable[iParameter-FIRST_SP].persistent)
+        SaveSetting(s_oParamTables.StringParamTable[iParameter-FIRST_SP].regName, sValue);
 };
 
 bool CSettingsStore::GetBoolParameter( int iParameter ) {
@@ -126,45 +129,52 @@ std::string CSettingsStore::GetStringParameter( int iParameter ) {
 
 bool CSettingsStore::GetBoolOption(const string& Key)
 {
-	if (BoolMap.find(Key)==BoolMap.end()) {
-		bool Value = false;
-		LoadSetting(Key, &Value);
-		BoolMap[Key] = Value;
-	}
-	
-	return BoolMap[Key];
+    // Also make the call to the newer implementation
+    for(int ii = 0; ii<NUM_OF_BPS; ii++)
+    {
+        if(s_oParamTables.BoolParamTable[ii].regName == Key)
+        {
+            return GetBoolParameter(s_oParamTables.BoolParamTable[ii].key);
+        }
+    }
+
+    // This means the key passed in a string was not found in the new table
+    DASHER_ASSERT(0);
 }
 
 
 long CSettingsStore::GetLongOption(const string& Key)
 {
-	if (LongMap.find(Key)==LongMap.end()) {
-		long Value = 0l;
-		LoadSetting(Key, &Value);
-		LongMap[Key] = Value;
-	}
-	
-	return LongMap[Key];
+    for(int ii = 0; ii<NUM_OF_LPS; ii++)
+    {
+        if(s_oParamTables.LongParamTable[ii].regName == Key)
+        {
+            return GetLongParameter(s_oParamTables.LongParamTable[ii].key);
+        }
+    }
+    // This means the key passed in a string was not found in the new table
+    DASHER_ASSERT(0);
 }
 
 
 string& CSettingsStore::GetStringOption(const string& Key)
 {
-	if (StringMap.find(Key)==StringMap.end()) {
-		string Value = "";
-		LoadSetting(Key, &Value);
-		StringMap[Key] = Value;
-	}
-	
-	return StringMap[Key];
+    // Also make the call to the newer implementation
+    for(int ii = 0; ii<NUM_OF_SPS; ii++)
+    {
+        if(s_oParamTables.StringParamTable[ii].regName == Key)
+        {
+            return GetStringParameter(s_oParamTables.StringParamTable[ii].key);
+        }
+    }
+
+    // This means the key passed in a string was not found in the new table
+    DASHER_ASSERT(0);
 }
 
 
 void CSettingsStore::SetBoolOption(const string& Key, bool Value)
 {
-	BoolMap[Key] = Value;
-	SaveSetting(Key, Value);
-
     // Also make the call to the newer implementation
     for(int ii = 0; ii<NUM_OF_BPS; ii++)
     {
@@ -182,9 +192,6 @@ void CSettingsStore::SetBoolOption(const string& Key, bool Value)
 
 void CSettingsStore::SetLongOption(const string& Key, long Value)
 {
-	LongMap[Key] = Value;
-	SaveSetting(Key, Value);
-
     // Also make the call to the newer implementation
     for(int ii = 0; ii<NUM_OF_LPS; ii++)
     {
@@ -202,9 +209,6 @@ void CSettingsStore::SetLongOption(const string& Key, long Value)
 
 void CSettingsStore::SetStringOption(const string& Key, const string& Value)
 {
-	StringMap[Key] = Value;
-	SaveSetting(Key, Value);
-
     // Also make the call to the newer implementation
     for(int ii = 0; ii<NUM_OF_SPS; ii++)
     {
@@ -218,31 +222,6 @@ void CSettingsStore::SetStringOption(const string& Key, const string& Value)
     // This means the key passed in a string was not found in the new table
     DASHER_ASSERT(0);
 }
-
-
-void CSettingsStore::SetBoolDefault(const string& Key, bool Value)
-{
-	bool TmpValue;
-	if ( (BoolMap.find(Key)==BoolMap.end()) && (!LoadSetting(Key, &TmpValue)) )
-		SetBoolOption(Key, Value);
-}
-
-
-void CSettingsStore::SetLongDefault(const string& Key, long Value)
-{
-	long TmpValue;
-	if ( (LongMap.find(Key)==LongMap.end()) && (!LoadSetting(Key, &TmpValue)) )
-		SetLongOption(Key, Value);
-}
-
-
-void CSettingsStore::SetStringDefault(const string& Key, const string& Value)
-{
-	string TmpValue;
-	if ( (StringMap.find(Key)==StringMap.end()) && (!LoadSetting(Key, &TmpValue)) )
-		SetStringOption(Key, Value);
-}
-
 
 /* Private functions -- Settings are not saved between sessions unless these
 functions are over-ridden.

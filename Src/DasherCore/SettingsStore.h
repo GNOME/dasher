@@ -56,11 +56,6 @@ public:
 	void SetBoolOption(const std::string& Key, bool Value);
 	void SetLongOption(const std::string& Key, long Value);
 	void SetStringOption(const std::string& Key, const std::string& Value);
-	
-	void SetBoolDefault(const std::string& Key, bool Value);
-	void SetLongDefault(const std::string& Key, long Value);
-	void SetStringDefault(const std::string& Key, const std::string& Value);	
-
 
 
 private:
@@ -106,11 +101,6 @@ private:
 	//! \param Key Name of the setting
 	//! \param Value Value of the setting, UTF8 encoded
 	virtual void SaveSetting(const std::string& Key, const std::string& Value);
-	
-	// Used to store settings in memory
-	std::map<std::string, bool> BoolMap;
-	std::map<std::string, long> LongMap;
-	std::map<std::string, std::string> StringMap;
 
 protected:
 	Dasher::CEventHandler *m_pEventHandler;

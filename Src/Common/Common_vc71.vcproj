@@ -3,7 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="Common"
-	ProjectGUID="{4A4CEB83-FBC8-4E93-831E-009875E54794}"
+	ProjectGUID="{60F116EE-E9C5-4297-BB5A-FA3DD03E1974}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
@@ -25,9 +25,7 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
-				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/DasherCore.pch"
+				PrecompiledHeaderFile=".\Target/Win32 Debug/Intermediate/Common.pch"
 				AssemblerListingLocation=".\Target/Win32 Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Debug/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Debug/Intermediate/"
@@ -39,7 +37,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Target/Win32 Debug\DasherCore.lib"
+				OutputFile=".\Target/Win32 Debug\Common.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -81,9 +79,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
-				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/DasherCore.pch"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Release/Intermediate/Common.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
@@ -130,9 +126,7 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/DasherCore.pch"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Common.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -144,7 +138,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Target/Win32 Win95 compatible Release\DasherCore.lib"
+				OutputFile=".\Target/Win32 Win95 compatible Release\Common.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -187,9 +181,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
-				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/DasherCore.pch"
+				PrecompiledHeaderFile=".\Target/Win32 Release/Intermediate/Common.pch"
 				AssemblerListingLocation=".\Target/Win32 Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Release/Intermediate/"
@@ -199,7 +191,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Target/Win32 Release\DasherCore.lib"
+				OutputFile=".\Target/Win32 Release\Common.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -241,9 +233,7 @@
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
 				EnableFunctionLevelLinking="TRUE"
-				DisableLanguageExtensions="TRUE"
-				ForceConformanceInForLoopScope="TRUE"
-				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/DasherCore.pch"
+				PrecompiledHeaderFile=".\Target/Win32 Win95 compatible Release/Intermediate/Common.pch"
 				AssemblerListingLocation=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ObjectFile=".\Target/Win32 Win95 compatible Release/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Win95 compatible Release/Intermediate/"
@@ -253,7 +243,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Target/Win32 Win95 compatible Release\DasherCore.lib"
+				OutputFile=".\Target/Win32 Win95 compatible Release\Common.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -290,10 +280,8 @@
 				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB,_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
-				DisableLanguageExtensions="FALSE"
 				TreatWChar_tAsBuiltInType="FALSE"
-				ForceConformanceInForLoopScope="TRUE"
-				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/DasherCore.pch"
+				PrecompiledHeaderFile=".\Target/Win32 Unicode Debug/Intermediate/Common.pch"
 				AssemblerListingLocation=".\Target/Win32 Unicode Debug/Intermediate/"
 				ObjectFile=".\Target/Win32 Unicode Debug/Intermediate/"
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Debug/Intermediate/"
@@ -305,7 +293,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Target/Win32 Unicode Debug\DasherCore.lib"
+				OutputFile=".\Target/Win32 Unicode Debug\Common.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
 				Name="VCMIDLTool"/>
@@ -336,66 +324,56 @@
 			Name="Types"
 			Filter="">
 			<File
-				RelativePath=".\Types\int.h">
+				RelativePath="Types\int.h">
 			</File>
 			<File
-				RelativePath=".\Types\int32.h">
+				RelativePath="Types\int32.h">
 			</File>
 			<File
-				RelativePath=".\Types\int64.h">
+				RelativePath="Types\int64.h">
 			</File>
 			<File
-				RelativePath=".\Types\Range.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="Platform"
-			Filter="">
-			<File
-				RelativePath=".\Platform\stdminmax.h">
+				RelativePath="Types\Range.h">
 			</File>
 		</Filter>
 		<Filter
 			Name="Allocators"
 			Filter="">
 			<File
-				RelativePath=".\Allocators\PooledAlloc.h">
+				RelativePath="Allocators\PooledAlloc.h">
 			</File>
 			<File
-				RelativePath=".\Allocators\SimplePooledAlloc.h">
+				RelativePath="Allocators\SimplePooledAlloc.h">
 			</File>
 		</Filter>
 		<File
-			RelativePath=".\Common.h">
+			RelativePath="assert.h">
 		</File>
 		<File
-			RelativePath=".\Hash.h">
+			RelativePath="Common.h">
 		</File>
 		<File
-			RelativePath=".\MSVC_Unannoy.h">
+			RelativePath="Hash.h">
 		</File>
 		<File
-			RelativePath=".\myassert.h">
+			RelativePath="MSVC_Unannoy.h">
 		</File>
 		<File
-			RelativePath=".\NoClones.h">
+			RelativePath="NoClones.h">
 		</File>
 		<File
-			RelativePath=".\Platform.h">
+			RelativePath="Platform.h">
 		</File>
 		<File
-			RelativePath=".\Random.h">
+			RelativePath="Random.h">
 		</File>
 		<File
-			RelativePath=".\Trace.cpp">
+			RelativePath="Trace.cpp">
 		</File>
 		<File
-			RelativePath=".\Trace.h">
+			RelativePath="Trace.h">
 		</File>
 	</Files>
 	<Globals>
-		<Global
-			Name="DevPartner_IsInstrumented"
-			Value="1"/>
 	</Globals>
 </VisualStudioProject>
