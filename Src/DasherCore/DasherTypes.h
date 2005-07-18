@@ -15,6 +15,15 @@
 #include "../Common/Types/int64.h"
 #include <string>
 
+// Definition for hash_map, platform dependent, not part of STL
+#ifdef DASHER_WIN32 
+#include <hash_map>
+#define HASH_MAP stdext::hash_map
+#else
+#include <ext/hash_map>
+#define HASH_MAP __gnu_cxx::hash_map
+#endif
+
 namespace Dasher
 {
 	// DasherModel co-ordinates are of type myint
@@ -22,6 +31,9 @@ namespace Dasher
 	
 	// All screen co-ordinates are of type screenint
 	typedef Cint32 screenint;
+
+
+
 
 	// Using a signed symbol type allows "Out of band" ie negative {{{
 	// values to be used to flag non-symbol data. For example commands

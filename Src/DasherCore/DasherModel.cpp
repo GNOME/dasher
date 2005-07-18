@@ -1338,11 +1338,7 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget()
          
         if(childrencount > 0)
         {
-#ifdef DASHER_WIN32
-	  stdext::hash_map<symbol,CDasherNode*> &children = currNode->Children();
-#else
-	  hash_map<symbol,CDasherNode*> &children = currNode->Children();
-#endif
+	        HASH_MAP<symbol,CDasherNode*> &children = currNode->Children();
             for(int ii = 0; ii<childrencount; ii++) // XXX should be based on alphabet size
             {
                 int symbol = m_model->GetAlphabet().GetAlphabetMap().Get(CurrentTarget.substr(currLocation,1), &KeyIsPrefix);

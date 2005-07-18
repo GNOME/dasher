@@ -33,7 +33,7 @@ public:
 	ChildMap& Children();
 	const ChildMap& GetChildren() const;
         // replaced by Children()
-//        void SetChildren(const hash_map<symbol,CDasherNode*> &mChildren);
+//        void SetChildren(const HASH_MAP<symbol,CDasherNode*> &mChildren);
 	unsigned int ChildCount() const {return m_mChildren.size();}
 	CDasherNode* Parent() const {return m_pParent;}
 	bool NodeIsParent(CDasherNode *oldnode) const;
