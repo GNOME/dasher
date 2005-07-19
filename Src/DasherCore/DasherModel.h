@@ -82,7 +82,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     idPPM = 0,
     idBigram = 1,
     idWord = 2,
-    idMixture = 3
+    idMixture = 3,
+    idJapanese = 4
   } LanguageModelID;
 
   CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface);

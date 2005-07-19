@@ -19,6 +19,7 @@
 #include "LanguageModelling/WordLanguageModel.h"
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
+#include "LanguageModelling/JapaneseLanguageModel.h"
 
 using namespace Dasher;
 using namespace std;
@@ -51,11 +52,14 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   case 0:
     m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break;
-  case 1:
+  case 2:
     m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break;
-  case 2:
+  case 3:
     m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    break;  
+  case 4:
+    m_pLanguageModel = new CJapaneseLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
     break;
   }
 

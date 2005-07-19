@@ -508,15 +508,15 @@ extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data) {
 // 'Langauge Model' Page
 
 extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
-  if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
-    if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton6")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 0);
-    }
-    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton7")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 1);
-    }
-    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton8")) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 2);
+  if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
+    if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton6" ) ) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget),  LP_LANGUAGE_MODEL_ID, 0 );
+    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton7" )) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget),  LP_LANGUAGE_MODEL_ID, 2 );
+    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton8" )) {
+      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 3 );
+    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton9" )) {
+      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 4 );
     }
   }
 }
