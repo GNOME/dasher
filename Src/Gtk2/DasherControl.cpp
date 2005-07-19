@@ -63,12 +63,17 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   m_pVBox = GTK_WIDGET(pVBox);
   m_pCanvas = gtk_drawing_area_new();
+
+  GtkWidget *pFrame = gtk_frame_new(NULL);
+  gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
+  
   m_pSpeedFrame = gtk_frame_new("Speed:");
   m_pSpeedHScale = gtk_hscale_new_with_range(0.1, 8.0, 0.1);
 
   gtk_container_add(GTK_CONTAINER(m_pSpeedFrame), m_pSpeedHScale);
+  gtk_container_add(GTK_CONTAINER(pFrame), m_pCanvas);
 
-  gtk_box_pack_start(GTK_BOX(m_pVBox), m_pCanvas, TRUE, TRUE, 0);
+  gtk_box_pack_start(GTK_BOX(m_pVBox), pFrame, TRUE, TRUE, 0);
   gtk_box_pack_start(GTK_BOX(m_pVBox), m_pSpeedFrame, FALSE, FALSE, 0);
 
   gtk_widget_show_all(GTK_WIDGET(m_pVBox));
