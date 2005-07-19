@@ -79,7 +79,6 @@ GtkWidget *save_filesel;
 GtkWidget *save_and_quit_filesel;
 GtkWidget *import_filesel;
 GtkWidget *append_filesel;
-GThread *trainthread;
 GtkWidget *window;
 GtkWidget *file_selector;
 GtkWidget *pDasherWidget;

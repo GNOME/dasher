@@ -38,12 +38,15 @@ m_ColourIO(0),
 m_pInput(0)
 {
   m_Params = new CLanguageModelParams;
-
   m_pEventHandler = new CEventHandler( this );
-
 
 // This should be created in the derived class (as it is platform dependent)
  // m_pSettingsStore = new CSettingsStore( m_pEventHandler );
+}
+
+void CDasherInterfaceBase::Realize() {
+  ChangeColours( GetStringParameter(SP_COLOUR_ID) );
+  ChangeAlphabet( GetStringParameter(SP_ALPHABET_ID) );
 }
 
 
@@ -89,25 +92,28 @@ void CDasherInterfaceBase::ExternalEventHandler( Dasher::CEvent *pEvent ) {
 
 void CDasherInterfaceBase::InterfaceEventHandler( Dasher::CEvent *pEvent ) {
 
-	if(	pEvent->m_iEventType == 1 ) {
-			Dasher::CParameterNotificationEvent	*pEvt( static_cast<	Dasher::CParameterNotificationEvent	* >( pEvent	));
+  if( pEvent->m_iEventType == 1 ) {
+    Dasher::CParameterNotificationEvent	*pEvt( static_cast<Dasher::CParameterNotificationEvent* >( pEvent ));
 
-			switch(	pEvt->m_iParameter ) {
+    switch( pEvt->m_iParameter ) {
 
-			case BP_COLOUR_MODE: // Forces us to redraw the display
-				Start();
-				Redraw();
-				break;
-	
-			case LP_ORIENTATION:
-				Start();
-				Redraw();
-				break;
-
-			default:
-				break;
-			}
-		}
+    case BP_COLOUR_MODE: // Forces us to redraw the display
+      Start();
+      Redraw();
+      break;
+    case LP_ORIENTATION:
+      Start();
+      Redraw();
+      break;
+    case SP_ALPHABET_ID:
+      ChangeAlphabet( GetStringParameter( SP_ALPHABET_ID ) );
+      Start();
+      Redraw();
+      break;
+    default:
+      break;
+    }
+  }
 }
 
 
@@ -427,7 +433,7 @@ void CDasherInterfaceBase::ChangeColours(const std::string& NewColourID)
 
 	//ColourID=m_ColourInfo.ColourID;
 
-    SetStringParameter(SP_COLOUR_ID, NewColourID);
+	//    SetStringParameter(SP_COLOUR_ID, NewColourID);
 
 	if (m_DasherScreen!=0) {
 	  m_DasherScreen->SetColourScheme(m_pColours);

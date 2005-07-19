@@ -53,6 +53,21 @@ public:
   virtual ~CDasherInterfaceBase();
 
   ///
+  /// Allocate resources, create alphabets etc. This is a separate
+  /// routine to the constructor to give us a chance to set up
+  /// parameters before things are created.
+  ///
+  
+  void Realize();
+  
+  /// 
+  /// Create a settings store - to be implemented by the
+  /// platform-dependent derived class
+  ///
+
+  virtual CSettingsStore *CreateSettingsStore() = 0;
+
+  ///
   /// Set a boolean parameter.
   /// \param iParameter The parameter to set.
   /// \param bValue The new value.

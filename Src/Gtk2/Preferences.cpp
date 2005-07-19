@@ -28,6 +28,12 @@ GtkListStore *colour_list_store;
 GtkWidget *preferences_window;
 
 
+// Stuff to do with training threads
+
+GThread *trainthread;
+
+
+
 // This file contains callbacks for the controls in the preferences
 // dialogue. Please keep the callbacks in the same order that they
 // appear in the dialogue box
@@ -276,44 +282,68 @@ preferences_hide(GtkWidget *widget, gpointer user_data)
 
 // 'Alphabet' Page
 
+// FIXME - maybe have a separate 'training thread' file
+
+gpointer
+change_alphabet(gpointer alph)
+{
+  // This is launched as a separate thread in order to let the main thread
+  // carry on updating the training window
+  // FIXME - REIMPLEMENT
+
+  std::cout << "Starting training thread: " << alph << " " << (gchar*)alph << std::endl;
+
+  gtk_dasher_control_set_parameter_string( GTK_DASHER_CONTROL( pDasherWidget), SP_ALPHABET_ID, (gchar*)alph );
+  g_free(alph);
+  //  g_async_queue_push(trainqueue,(void *)1);
+
+  std::cout << "Ending training thread" << std::endl;
+
+  g_thread_exit(NULL);
+  return NULL;
+}
 
 extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
 {
 
   // FIXME - REIMPLEMENT
 
-//   GtkTreeIter iter;
-//   GtkTreeModel *model;
-//   gchar *alph;
+  GtkTreeIter iter;
+  GtkTreeModel *model;
+  gchar *alph;
 
-//   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-//     gtk_tree_model_get(model, &iter, 0, &alph, -1);    
-//     // There's no point in training if the alphabet is already selected
-//     if (alph!=alphabet) {
-//       alphabet=alph;
-// #ifndef WITH_GPE
-//       // Don't let them select another alphabet while we're training the first one
-//       if (training==true) {
-// 	return;
-//       }
+  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, 0, &alph, -1);    
+    // There's no point in training if the alphabet is already selected
+    //   if (alph!=alphabet) {
+    //     alphabet=alph;
+#ifndef WITH_GPE
+      // Don't let them select another alphabet while we're training the first one
+    //  if (training==true) {
+    //	return;
+    //  }
 
-//       // Note that we're training - this is needed in order to avoid
-//       // doing anything that would conflict with the other thread
-//       training=TRUE;
-//       trainqueue=g_async_queue_new();
-//       trainthread=g_thread_create(change_alphabet,alph,false,NULL);
-//       train_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
-//       gtk_window_set_resizable(GTK_WINDOW(train_dialog), FALSE);
-//       gtk_window_present(GTK_WINDOW(train_dialog));
-// #else
-//       // For GPE, we're not so fussed at the moment
-//       dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
-// #endif
-//       g_free(alph);
-//     } else {
+      // Note that we're training - this is needed in order to avoid
+      // doing anything that would conflict with the other thread
+    //  training=TRUE;
+    //      trainqueue=g_async_queue_new();
+
+    std::cout << "Alphabet is: " << (void*)alph << " " << alph << std::endl;
+
+      trainthread=g_thread_create(change_alphabet,alph,false,NULL);
+      //      train_dialog = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
+      //      gtk_window_set_resizable(GTK_WINDOW(train_dialog), FALSE);
+      //      gtk_window_present(GTK_WINDOW(train_dialog));
+#else
+      // For GPE, we're not so fussed at the moment
+      //      dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
+      gtk_dasher_control_set_parameter_string( GTK_DASHER_CONTROL( pDasherWidget), SP_ALPHABET_ID, alph );
+#endif
+      //      g_free(alph);
+   //  } else {
 //       g_free(alph);
 //     }
-//   }
+  }
 }
 
 

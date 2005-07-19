@@ -11,10 +11,11 @@ namespace Dasher {
 class Dasher::CDasherInterface : public CDasherInterfaceBase {
  public:
   CDasherInterface() {
-    m_pSettingsStore = new CGnomeSettingsStore( m_pEventHandler );
-    //    SettingsDefaults( m_pSettingsStore );
+    m_pSettingsStore = CreateSettingsStore();
+  };
 
-    ChangeAlphabet( GetStringParameter(SP_ALPHABET_ID) );
+  virtual CSettingsStore *CreateSettingsStore() {
+    return new CGnomeSettingsStore( m_pEventHandler );
   };
 
 };

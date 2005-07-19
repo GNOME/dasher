@@ -122,6 +122,8 @@ CDasherControl::CDasherControl( GtkVBox *pVBox, GtkDasherControl *pDasherControl
   scan_alphabet_files();
   scan_colour_files();
 
+  m_pInterface->Realize();
+
   // Start the dasher model
 
   m_pInterface->Start(); // FIXME - should we hold off on this until later?
@@ -472,18 +474,6 @@ GArray *CDasherControl::GetAllowedValues( int iParameter ) {
 //   }
 // }
 
-gpointer
-change_alphabet(gpointer alph)
-{
-  // This is launched as a separate thread in order to let the main thread
-  // carry on updating the training window
-  // FIXME - REIMPLEMENT
-  //dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
-  //  g_free(alph);
-  g_async_queue_push(trainqueue,(void *)1);
-  g_thread_exit(NULL);
-  return NULL;
-}
 
 // FIXME - this is part of the edit box, so deal with it outside of the control
 
