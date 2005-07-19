@@ -13,28 +13,24 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CBigramLanguageModel::CBigramLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams* pParams)
-  : CLanguageModel( pEventHandler, pSettingsStore, SymbolAlphabet,pParams), m_ContextAlloc(1024)
-{
+CBigramLanguageModel::CBigramLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet, CLanguageModelParams *pParams)
+:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet, pParams), m_ContextAlloc(1024) {
 
 }
 
 ///////////////////////////////////////////////////////////////////
 
-void CBigramLanguageModel::EnterSymbol(Context context, int Symbol) const
-{
+void CBigramLanguageModel::EnterSymbol(Context context, int Symbol) const {
 }
 
 ///////////////////////////////////////////////////////////////////
 
-void CBigramLanguageModel::LearnSymbol(Context context, int Symbol)
-{
+void CBigramLanguageModel::LearnSymbol(Context context, int Symbol) {
 }
 
 ///////////////////////////////////////////////////////////////////
 
-void CBigramLanguageModel::GetProbs(Context context, std::vector<unsigned int> &Probs, int norm) const
-{
+void CBigramLanguageModel::GetProbs(Context context, std::vector <unsigned int >&Probs, int norm) const {
 }
 
 ///////////////////////////////////////////////////////////////////

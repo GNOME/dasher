@@ -6,19 +6,17 @@
 //  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
 //
 
-
 #import <Cocoa/Cocoa.h>
 
-@interface TextDocument : NSDocument
-{
+@ interface TextDocument:NSDocument {
   IBOutlet NSTextView *textUI;
 
   NSData *_fileContents;
 }
 
-- (NSData *)fileContents;
-- (void)setFileContents:(NSData *)newFileContents;
+-(NSData *) fileContents;
+-(void)setFileContents:(NSData *) newFileContents;
 
-- (NSTextView *)textUI;
+-(NSTextView *) textUI;
 
 @end

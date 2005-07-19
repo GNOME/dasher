@@ -3,6 +3,6 @@
 
 #include <glade/glade.h>
 
-void InitialiseFontDialogues( GladeXML *pGladeWidgets );
+void InitialiseFontDialogues(GladeXML * pGladeWidgets);
 
 #endif

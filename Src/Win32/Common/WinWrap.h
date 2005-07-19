@@ -6,8 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-
 /*
 TODO: explain the WindowClass stuff
 
@@ -53,33 +51,26 @@ Iain Murray August 2002
 #ifndef __WinWrap_h__
 #define __WinWrap_h__
 
-
 #include <map>
 
-
-namespace WinWrapMap {LRESULT CALLBACK WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);}
-
-
-class CWinWrap : private NoClones
-{
+namespace WinWrapMap {
+  LRESULT CALLBACK WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+} class CWinWrap:private NoClones {
 public:
-	virtual ~CWinWrap();
+  virtual ~ CWinWrap();
 protected:
-	virtual LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {return 0;};
-	
-	HWND m_hwnd;
+  virtual LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+    return 0;
+  };
+
+  HWND m_hwnd;
 private:
-	friend LRESULT CALLBACK WinWrapMap::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+  friend LRESULT CALLBACK WinWrapMap::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-
-namespace WinWrapMap
-{
-	void add(HWND Win, CWinWrap* WinObject);
-	void remove(HWND Win);
-	bool Register(TCHAR* WndClassName);
+namespace WinWrapMap {
+  void add(HWND Win, CWinWrap * WinObject);
+  void remove(HWND Win);
+  bool Register(TCHAR * WndClassName);
 }
-
-
-#endif /* #ifndef __WinWrap_h__ */
-
+#endif                          /* #ifndef __WinWrap_h__ */

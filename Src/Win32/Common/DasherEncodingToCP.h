@@ -6,7 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __DasherEncodingToCP_h__
 #define __DasherEncodingToCP_h__
 
@@ -15,5 +14,4 @@
 
 UINT EncodingToCP(Dasher::Opts::AlphabetTypes Encoding);
 
-
-#endif /* #ifndef __DasherEncodingToCP_h__ */
+#endif  /* #ifndef __DasherEncodingToCP_h__ */

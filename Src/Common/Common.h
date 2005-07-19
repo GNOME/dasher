@@ -10,8 +10,8 @@
 #define __Common_h__
 
 // Place common includes here - to be include by every .cpp file before its header 
-//		- can be used for precompiled headers
-//		- also when order of headers is important
+//              - can be used for precompiled headers
+//              - also when order of headers is important
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -21,7 +21,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #ifdef DASHER_WIN32
-	#include "MSVC_Unannoy.h"
+#include "MSVC_Unannoy.h"
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
@@ -29,15 +29,11 @@
 // Set up any platform deficiencies
 
 #if DASHER_WIN32 < 1300
-	#include "Platform/stdminmax.h"
+#include "Platform/stdminmax.h"
 #endif
-
 
 #include "myassert.h"
 
 #include "Trace.h"
-
-
-
 
 #endif // __include__

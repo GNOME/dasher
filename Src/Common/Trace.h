@@ -31,30 +31,28 @@
 #include <stdarg.h>
 #include <stdio.h>
 
-void DasherTraceOutput(const char* pszFormat, ... );
-void DasherTraceOutputImpl( const char* pszFormat, va_list vargs );
+void DasherTraceOutput(const char *pszFormat, ...);
+void DasherTraceOutputImpl(const char *pszFormat, va_list vargs);
 
-inline void DasherTraceOutput( const char* pszFormat, ... )
-{
-	va_list v;
-	va_start( v, pszFormat );
-	DasherTraceOutputImpl( pszFormat, v );
-	va_end( v );
+inline void DasherTraceOutput(const char *pszFormat, ...) {
+  va_list v;
+  va_start(v, pszFormat);
+  DasherTraceOutputImpl(pszFormat, v);
+  va_end(v);
 }
 
 // Define main Trace macro
 
 #ifdef DASHER_TRACE
 
-	// Active
-	#define DASHER_TRACEOUTPUT \
+        // Active
+#define DASHER_TRACEOUTPUT \
         DasherTraceOutput
 #else
 
-	// Inactive - function should never get called
-	#define DASHER_TRACEOUTPUT 1 ? (void) 0 : DasherTraceOutput
+        // Inactive - function should never get called
+#define DASHER_TRACEOUTPUT 1 ? (void) 0 : DasherTraceOutput
 
 #endif // DASHER_TRACE
-
 
 #endif

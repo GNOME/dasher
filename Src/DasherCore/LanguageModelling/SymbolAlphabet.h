@@ -27,65 +27,50 @@
 // A class hierarchy could be useful if this class gets a lot more complicated
 /////////////////////////////////////////////////////////////////////////////
 
-namespace Dasher
-{
-	
-	class CSymbolAlphabet
-	{
-	public:
+namespace Dasher {
 
-		/////////////////////////////////////////////////////////////////////////////
-		// iSize is the number of Symbols - please dont change the constructor
-		// Add functions to set customizable behaviour
+  class CSymbolAlphabet {
+  public:
 
-		CSymbolAlphabet::CSymbolAlphabet(int iSize)
-			: m_iSize(iSize)
-		{
-		  //			DASHER_ASSERT(iSize>0);
+    /////////////////////////////////////////////////////////////////////////////
+    // iSize is the number of Symbols - please dont change the constructor
+    // Add functions to set customizable behaviour
 
-		  SetSpaceSymbol(-1); // Default (uniformative) value.
-		}
-		
-		int GetSize() const
-		{
-			return m_iSize;
-		}
+    CSymbolAlphabet::CSymbolAlphabet(int iSize)
+    : m_iSize(iSize) {
+      //                    DASHER_ASSERT(iSize>0);
 
-		void SetSpaceSymbol( int _SpaceSymbol ) {
-		  // Set the space symbol for the alphabet
-		  m_SpaceSymbol = _SpaceSymbol;
-		}
+      SetSpaceSymbol(-1);       // Default (uniformative) value.
+    } int GetSize() const {
+      return m_iSize;
+    } void SetSpaceSymbol(int _SpaceSymbol) {
+      // Set the space symbol for the alphabet
+      m_SpaceSymbol = _SpaceSymbol;
+    } int GetSpaceSymbol() const {
+      // Get the space symbol. -1 means that no symbol has been set.
+      return m_SpaceSymbol;
+    } void SetAlphabetPointer(const CAlphabet * _AlphabetPointer) {
 
-		int GetSpaceSymbol() const {
-		  // Get the space symbol. -1 means that no symbol has been set.
-		  return m_SpaceSymbol;
-		}
-		
-		void SetAlphabetPointer( const CAlphabet *_AlphabetPointer ) {
+      // NOTE - you are VERY strongly discouraged from
+      // using this function. It is only here as a hack
+      // until I figure out a better solution.
 
-		  // NOTE - you are VERY strongly discouraged from
-		  // using this function. It is only here as a hack
-		  // until I figure out a better solution.
+      AlphabetPointer = _AlphabetPointer;
+    }
 
-		  AlphabetPointer = _AlphabetPointer;
-		}
+    const CAlphabet *GetAlphabetPointer() const {
 
-		const CAlphabet *GetAlphabetPointer() const {
+      // NOTE - you are VERY strongly discouraged from
+      // using this function. It is only here as a hack
+      // until I figure out a better solution.
 
-		  // NOTE - you are VERY strongly discouraged from
-		  // using this function. It is only here as a hack
-		  // until I figure out a better solution.
-
-		  return AlphabetPointer;
-		}
-
-	private:
-		int m_iSize;
-		int m_SpaceSymbol;
-		const CAlphabet *AlphabetPointer;
-	};
+      return AlphabetPointer;
+  } private:
+    int m_iSize;
+    int m_SpaceSymbol;
+    const CAlphabet *AlphabetPointer;
+  };
 
 }
 
-#endif // ndef __LanguageModelling_SymbolAlphabet_h__ 
-
+#endif // ndef __LanguageModelling_SymbolAlphabet_h__

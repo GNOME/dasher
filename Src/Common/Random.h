@@ -20,21 +20,18 @@
 
 #ifdef DASHER_WINCE
 
-inline int RandomInt()
-{
-	return Random();
+inline int RandomInt() {
+  return Random();
 }
 
 #else
 
-inline int RandomInt()
-{
-	return rand();
+inline int RandomInt() {
+  return rand();
 }
 
 #endif
 
 /////////////////////////////////////////////////////////////////////////////
-
 
 #endif // __include__

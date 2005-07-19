@@ -6,21 +6,14 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __AboutBox_h__
 #define __AboutBox_h__
 
-
-
-
-
-class CAboutbox
-{
+class CAboutbox {
 public:
-	CAboutbox(HWND Parent);
+  CAboutbox(HWND Parent);
 private:
-	static LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+  static LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
-
-#endif /* #ifndef __AboutBox_h__ */
+#endif  /* #ifndef __AboutBox_h__ */

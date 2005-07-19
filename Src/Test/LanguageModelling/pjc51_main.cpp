@@ -33,42 +33,38 @@
 using namespace Dasher;
 using namespace std;
 
-double f( const gsl_vector *x, void *params );
+double f(const gsl_vector * x, void *params);
 
-class cCompressionExperiment : public cExperiment {
+class cCompressionExperiment:public cExperiment {
 public:
-  cCompressionExperiment( const std::string &oPrefix ) : cExperiment( oPrefix ) {};
+  cCompressionExperiment(const std::string & oPrefix):cExperiment(oPrefix) {
+  };
   double Execute();
 };
 
-class dummy_handler : public TextHandler {
+class dummy_handler:public TextHandler {
 
   // A dummy text handler to allow us to use the trec parser
 public:
 
-  dummy_handler( std::stringstream *_ss ) {
+  dummy_handler(std::stringstream * _ss) {
     ss = _ss;
   };
 
-  virtual char * handleWord(char * word, const char * original,
-                            PropertyList * list) {
+  virtual char *handleWord(char *word, const char *original, PropertyList * list) {
     (*ss) << word << " ";
     return word;
   };
 
-  virtual char * handleEndDoc(char * token, const char * original,
-                              PropertyList * list) {
+  virtual char *handleEndDoc(char *token, const char *original, PropertyList * list) {
     return token;
   };
 
 protected:
-  std::stringstream *ss;
+  std::stringstream * ss;
 };
 
-
-
-int main( int argc, char *argv[] )
-{
+int main(int argc, char *argv[]) {
   int iNumDimensions(3);
 
   gsl_multimin_function oMinFunction;
@@ -77,17 +73,17 @@ int main( int argc, char *argv[] )
   oMinFunction.n = iNumDimensions;
   oMinFunction.params = NULL;
 
-  gsl_vector *pXInit( gsl_vector_alloc( iNumDimensions ) );
+  gsl_vector *pXInit(gsl_vector_alloc(iNumDimensions));
 
-  gsl_vector_set( pXInit, 0, -0.56636 );
-  gsl_vector_set( pXInit, 1, 0.60203 );
-  gsl_vector_set( pXInit, 2, 3.89152 );
+  gsl_vector_set(pXInit, 0, -0.56636);
+  gsl_vector_set(pXInit, 1, 0.60203);
+  gsl_vector_set(pXInit, 2, 3.89152);
 
-  gsl_vector *pXStep( gsl_vector_alloc( iNumDimensions ) );
-  gsl_vector_set_all( pXStep, 1.0 );
+  gsl_vector *pXStep(gsl_vector_alloc(iNumDimensions));
+  gsl_vector_set_all(pXStep, 1.0);
 
-  f( pXInit, NULL );
-  
+  f(pXInit, NULL);
+
 //    gsl_multimin_fminimizer *pMinimizer( gsl_multimin_fminimizer_alloc( gsl_multimin_fminimizer_nmsimplex, iNumDimensions ));
 //    gsl_multimin_fminimizer_set( pMinimizer, &oMinFunction, pXInit, pXStep );
 
@@ -99,56 +95,54 @@ int main( int argc, char *argv[] )
 
 //      gsl_vector *pXCurrent( gsl_multimin_fminimizer_x( pMinimizer ));
 //      double dMin( gsl_multimin_fminimizer_minimum( pMinimizer ));
-    
+
 //      for( int j(0); j < iNumDimensions; ++j ) {
 //        oMinOutputFile << gsl_vector_get( pXCurrent, j ) << " ";
 //      }
 
 //       oMinOutputFile << dMin << std::endl;
-  
+
 //    }
 
   return 0;
 }
 
-double f( const gsl_vector *x, void *params )
-{
-  cCompressionExperiment oExpt( "Experiment5" );
+double f(const gsl_vector *x, void *params) {
+  cCompressionExperiment oExpt("Experiment5");
 
-  oExpt.SetParameterInt( "LMAlpha", exp( gsl_vector_get( x, 0 ) ) * 100 );
-  oExpt.SetParameterInt( "LMBeta", (tanh( gsl_vector_get( x, 1 ) ) + 1 ) * 50 );
-  oExpt.SetParameterInt( "LMWordAlpha", exp( gsl_vector_get( x, 2 ) ) * 100 );
+  oExpt.SetParameterInt("LMAlpha", exp(gsl_vector_get(x, 0)) * 100);
+  oExpt.SetParameterInt("LMBeta", (tanh(gsl_vector_get(x, 1)) + 1) * 50);
+  oExpt.SetParameterInt("LMWordAlpha", exp(gsl_vector_get(x, 2)) * 100);
 
-  oExpt.SetParameterInt( "LetterOrder", 200 );
+  oExpt.SetParameterInt("LetterOrder", 200);
 
-  oExpt.SetParameterInt( "ModelType", 1 );
-  oExpt.SetParameterInt( "Dictionary", 1 );
-  oExpt.SetParameterInt( "LetterExclusion", 1 );
+  oExpt.SetParameterInt("ModelType", 1);
+  oExpt.SetParameterInt("Dictionary", 1);
+  oExpt.SetParameterInt("LetterExclusion", 1);
 
   return oExpt.Run();
 }
 
 double cCompressionExperiment::Execute() {
 
-
   std::cerr << "Setting up language model ... " << std::flush;
 
   string userlocation = "/usr/local/share/dasher/";
   string filename = "alphabet.english.xml";
-	
-  vector<string> vFileNames;
+
+  vector < string > vFileNames;
   vFileNames.push_back(filename);
-  
+
   // Set up the CAlphIO
-  std::auto_ptr<CAlphIO> ptrAlphIO ( new CAlphIO( "", userlocation, vFileNames) );
+  std::auto_ptr < CAlphIO > ptrAlphIO(new CAlphIO("", userlocation, vFileNames));
 
   string strID = "English alphabet with lots of punctuation";
-  const CAlphIO::AlphInfo& AlphInfo = ptrAlphIO->GetInfo(strID);
+  const CAlphIO::AlphInfo & AlphInfo = ptrAlphIO->GetInfo(strID);
 
   // Create the Alphabet that converts plain text to symbols
-  std::auto_ptr<CAlphabet> ptrAlphabet ( new CAlphabet(AlphInfo) );
-	
-    string strFileCompress = userlocation + "training_english_GB.txt";
+  std::auto_ptr < CAlphabet > ptrAlphabet(new CAlphabet(AlphInfo));
+
+  string strFileCompress = userlocation + "training_english_GB.txt";
   // string strFileCompress = "testfile.txt";
 
   std::cerr << "done." << std::endl;
@@ -160,13 +154,13 @@ double cCompressionExperiment::Execute() {
   std::stringstream strCompress;
 
   TrecParser tp;
-  dummy_handler dh( &strCompress );
+  dummy_handler dh(&strCompress);
 
-  tp.setTextHandler( &dh );
-  
+  tp.setTextHandler(&dh);
+
   //  tp.parseFile( "/mnt/data2/pjc51/enron/enron_short_trec.txt" );
-  
- tp.parseFile( "/data/tiree2/pjc51/enron/enron_short_trec.txt" );
+
+  tp.parseFile("/data/tiree2/pjc51/enron/enron_short_trec.txt");
 
   //
 
@@ -174,14 +168,14 @@ double cCompressionExperiment::Execute() {
 
   std::cerr << "Converting to symbols ... " << std::flush;
 
-  int iLength( strCompress.str().size() );
-  int iTestSize( 10000 );
+  int iLength(strCompress.str().size());
+  int iTestSize(10000);
 
-  std::vector<symbol> vSymbols;
-  ptrAlphabet->GetSymbols(&vSymbols, &(strCompress.str().substr(0, iLength-iTestSize )), false /*IsMore*/ );
+  std::vector < symbol > vSymbols;
+  ptrAlphabet->GetSymbols(&vSymbols, &(strCompress.str().substr(0, iLength - iTestSize)), false /*IsMore */ );
 
-  std::vector<symbol> vSymbolsTest;
-  ptrAlphabet->GetSymbols(&vSymbolsTest, &(strCompress.str().substr(iLength-iTestSize, iTestSize )), false /*IsMore*/ );
+  std::vector < symbol > vSymbolsTest;
+  ptrAlphabet->GetSymbols(&vSymbolsTest, &(strCompress.str().substr(iLength - iTestSize, iTestSize)), false /*IsMore */ );
 
   std::cerr << "(" << vSymbolsTest.size() << " test symbols) ";
 
@@ -189,130 +183,126 @@ double cCompressionExperiment::Execute() {
 
   // Set up the language model for compression test
 
-  CSymbolAlphabet alphabet( ptrAlphabet->GetNumberSymbols() );
-  alphabet.SetSpaceSymbol( ptrAlphabet->GetSpaceSymbol() );
-  alphabet.SetAlphabetPointer( &*ptrAlphabet );
-
+  CSymbolAlphabet alphabet(ptrAlphabet->GetNumberSymbols());
+  alphabet.SetSpaceSymbol(ptrAlphabet->GetSpaceSymbol());
+  alphabet.SetAlphabetPointer(&*ptrAlphabet);
 
   int order(200);
   int exclusion(0);
   int update_exclusion(1);
-  
+
   CLanguageModelParams settings;
 
-  settings.SetValue( "LMMaxOrder", GetParameterInt( "LetterOrder" ) );
+  settings.SetValue("LMMaxOrder", GetParameterInt("LetterOrder"));
 
-  settings.SetValue( "LMExclusion", exclusion );
-  settings.SetValue( "LMUpdateExclusion", update_exclusion );
-  
-  settings.SetValue( "LMAlpha", GetParameterInt( "LMAlpha" ) ); // 49
-  settings.SetValue( "LMBeta", GetParameterInt( "LMBeta" ) ); // 77
+  settings.SetValue("LMExclusion", exclusion);
+  settings.SetValue("LMUpdateExclusion", update_exclusion);
 
-  settings.SetValue( "LMWordAlpha", GetParameterInt( "LMWordAlpha" ) );
-  settings.SetValue( "LMDictionary", GetParameterInt( "Dictionary" ) );
+  settings.SetValue("LMAlpha", GetParameterInt("LMAlpha"));     // 49
+  settings.SetValue("LMBeta", GetParameterInt("LMBeta"));       // 77
 
-  settings.SetValue( "LMLetterExclusion", GetParameterInt( "LetterExclusion" ) );
-  
+  settings.SetValue("LMWordAlpha", GetParameterInt("LMWordAlpha"));
+  settings.SetValue("LMDictionary", GetParameterInt("Dictionary"));
+
+  settings.SetValue("LMLetterExclusion", GetParameterInt("LetterExclusion"));
 
   CLanguageModel *lm;
 
-  switch( GetParameterInt( "ModelType" ) ) {
+  switch (GetParameterInt("ModelType")) {
   case 0:
-    lm = new CPPMLanguageModel( alphabet, &settings );
+    lm = new CPPMLanguageModel(alphabet, &settings);
     break;
   case 1:
-    lm = new CWordLanguageModel( alphabet, &settings );
+    lm = new CWordLanguageModel(alphabet, &settings);
     break;
   }
-    
+
   std::cerr << "Calculating compression ... " << std::flush;
 
   CLanguageModel::Context context;
   context = lm->CreateEmptyContext();
-  
-   std::vector<unsigned int> Probs;
-   int iNormTot = 1<<16;
-   int iNorm = iNormTot;
-  
 
-   int iASize = alphabet.GetSize();
+  std::vector < unsigned int >Probs;
+  int iNormTot = 1 << 16;
+  int iNorm = iNormTot;
 
-   int iExtra = (iNormTot - iNorm) /( iASize-1);
-   double dSumLogP=0;
-  
-   // Loop over symbols
-  
-   int iPcOld( -1 );
+  int iASize = alphabet.GetSize();
 
-   for (int i=0;i< vSymbols.size(); i++)
-     {
+  int iExtra = (iNormTot - iNorm) / (iASize - 1);
+  double dSumLogP = 0;
 
-       int iPc( i*100 / vSymbols.size() );
+  // Loop over symbols
 
-       if( iPc > iPcOld ) {
+  int iPcOld(-1);
 
-	 // Do a test...
+  for(int i = 0; i < vSymbols.size(); i++) {
 
-	 CLanguageModel::Context oTestContext;
-	 oTestContext = lm->CreateEmptyContext();
+    int iPc(i * 100 / vSymbols.size());
 
-	 double dSumLogPTest(0.0);
+    if(iPc > iPcOld) {
 
-	 int iTestCount(0);
+      // Do a test...
 
-	 for( int k(0); k < vSymbolsTest.size(); ++k ) {
-	 
-	 lm->GetProbs( oTestContext, Probs, iNorm);
-      
-	 ++iTestCount;
+      CLanguageModel::Context oTestContext;
+      oTestContext = lm->CreateEmptyContext();
 
-	 symbol s = vSymbolsTest[k];
+      double dSumLogPTest(0.0);
 
-	 //	 std::cerr << s << std::endl;
+      int iTestCount(0);
 
-	 int j = Probs[s];
+      for(int k(0); k < vSymbolsTest.size(); ++k) {
 
-	 double p = static_cast<double>(j+1) / static_cast<double>(iNormTot+iASize-1);
+        lm->GetProbs(oTestContext, Probs, iNorm);
 
- 	 int iTot(0);
+        ++iTestCount;
 
- 	 for( int l(1); l < iASize; ++l ) {
+        symbol s = vSymbolsTest[k];
 
-	   double dPTemp( static_cast<double>(Probs[l]+1) / static_cast<double>(iNormTot+iASize-1) );
+        //      std::cerr << s << std::endl;
 
- 	   iTot += Probs[l];
+        int j = Probs[s];
 
-	   if(( dPTemp <= 0.0 ) || ( dPTemp >= 1.0 ))
-	     std::cout << "warning - prob of " << dPTemp << std::endl;
+        double p = static_cast < double >(j + 1) / static_cast < double >(iNormTot + iASize - 1);
 
- 	 }
-	 if( iTot > iNorm )
-	   std::cout << "Total: " << iTot << ", " << iNorm << std::endl;
-       
-	 DASHER_ASSERT(p!=0);
-   
-	 // std::cout << "p: " << p << std::endl;
-      
-	 dSumLogPTest+= log(p);
-      
-	 lm->EnterSymbol(oTestContext, s);
+        int iTot(0);
 
-	 }
-	 std::cerr << iPc << " " << iTestCount << "% " << dSumLogPTest << " " << i << " " << -dSumLogPTest / log(2.0) / static_cast<double>(vSymbolsTest.size()) << std::endl;
-       }
+        for(int l(1); l < iASize; ++l) {
 
-       iPcOld = iPc;
+          double dPTemp(static_cast < double >(Probs[l] + 1) / static_cast < double >(iNormTot + iASize - 1));
 
-       lm->GetProbs(context, Probs, iNorm);
-            
-       symbol sbl = vSymbols[i];
+          iTot += Probs[l];
 
-       lm->LearnSymbol(context, sbl);
-     }
+          if((dPTemp <= 0.0) || (dPTemp >= 1.0))
+            std::cout << "warning - prob of " << dPTemp << std::endl;
 
-   std::cerr << "done." << std::endl;
- 
-   delete lm;
+        }
+        if(iTot > iNorm)
+          std::cout << "Total: " << iTot << ", " << iNorm << std::endl;
 
-   return  -dSumLogP/ log(2.0)/ vSymbols.size();
+        DASHER_ASSERT(p != 0);
+
+        // std::cout << "p: " << p << std::endl;
+
+        dSumLogPTest += log(p);
+
+        lm->EnterSymbol(oTestContext, s);
+
+      }
+      std::cerr << iPc << " " << iTestCount << "% " << dSumLogPTest << " " << i << " " << -dSumLogPTest / log(2.0) / static_cast < double >(vSymbolsTest.size()) << std::endl;
+    }
+
+    iPcOld = iPc;
+
+    lm->GetProbs(context, Probs, iNorm);
+
+    symbol sbl = vSymbols[i];
+
+    lm->LearnSymbol(context, sbl);
+  }
+
+  std::cerr << "done." << std::endl;
+
+  delete lm;
+
+  return -dSumLogP / log(2.0) / vSymbols.size();
 }

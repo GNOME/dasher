@@ -4,41 +4,40 @@
 #include "DasherInterface.h"
 #include "DashEdit.h"
 
-class QtDasherPlugin : public QFrame, public CDashEditbox
-{
-  Q_OBJECT
-public:
-  QtDasherPlugin(QWidget* parent=0, const char* name=0, WFlags f=0);
-  ~QtDasherPlugin();
+class QtDasherPlugin:public QFrame, public CDashEditbox {
+Q_OBJECT public:
+  QtDasherPlugin(QWidget * parent = 0, const char *name = 0, WFlags f = 0);
+   ~QtDasherPlugin();
 
   void resetState();
   QSize sizeHint() const;
 
-  void write_to_file() {};
-  void get_new_context(std::string&, int) {};
+  void write_to_file() {
+  };
+  void get_new_context(std::string &, int) {
+  };
   void unflush();
   void output(int);
-  void outputcontrol(void* pointer, int data, int) {};
+  void outputcontrol(void *pointer, int data, int) {
+  };
   void deletetext();
-  void deletetext(int) {deletetext();};
+  void deletetext(int) {
+    deletetext();
+  };
   void flush(int);
-  void Clear() {};
-  void SetEncoding(Dasher::Opts::FileEncodingFormats) {};
-  void SetFont(std::string Name, long Size) {};
+  void Clear() {
+  };
+  void SetEncoding(Dasher::Opts::FileEncodingFormats) {
+  };
+  void SetFont(std::string Name, long Size) {
+  };
 
- signals:
-  void key( ushort, ushort, ushort, bool, bool);
+signals:
+  void key(ushort, ushort, ushort, bool, bool);
 
- private:
-  QtDasherScreen *d;
+private:
+  QtDasherScreen * d;
   CDasherInterface *interface;
   int flushcount;
   QUtf8Codec *utf8_codec;
 };
-
-
-
-
-
-
-

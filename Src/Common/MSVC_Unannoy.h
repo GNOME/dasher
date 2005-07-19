@@ -13,5 +13,4 @@
 #pragma warning(disable:4018)
 #endif
 
-
 #endif /* #ifndef __MSVC_Unannoy_h__ */

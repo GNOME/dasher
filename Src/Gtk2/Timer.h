@@ -7,5 +7,4 @@
 gint timer_callback(gpointer data);
 long get_time();
 
-
 #endif

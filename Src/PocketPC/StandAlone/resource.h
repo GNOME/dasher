@@ -148,13 +148,6 @@
 #define ID_SAVE_AS_ALPHABET_CODEPAGE    32806
 #define IDC_STATIC                      -1
 
-
-
-
-
-
-
-
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED

@@ -4,7 +4,6 @@
 #include <map>
 #include <string>
 
-
 namespace Dasher {
 
 ///
@@ -12,18 +11,18 @@ namespace Dasher {
 /// \deprecated Obsolete class - functionality is now provided by parameter architecture.
 ///
 
-  class CLanguageModelParams{
+  class CLanguageModelParams {
   public:
 
-    int GetValue( std::string pname ) {
-      return pmap[ pname ];
+    int GetValue(std::string pname) {
+      return pmap[pname];
     };
 
-    void SetValue( std::string pname, int value ) {
-      pmap[ pname ] = value;
+    void SetValue(std::string pname, int value) {
+      pmap[pname] = value;
     };
 
-    std::map< std::string, int > pmap;
+    std::map < std::string, int >pmap;
   };
 }
 

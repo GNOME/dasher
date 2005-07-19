@@ -24,8 +24,7 @@
 #include <libgnomevfs/gnome-vfs.h>
 #include <popt.h>
 
-static const struct poptOption options [] =
-{
+static const struct poptOption options[] = {
   {NULL, '\0', 0, NULL, 0}
 };
 #endif
@@ -59,52 +58,41 @@ static const struct poptOption options [] =
 
 //extern GConfClient *the_gconf_client;
 
-
-gboolean timedata=FALSE;
-gboolean preferences=FALSE;
-gboolean textentry=FALSE;
-gboolean stdoutpipe=FALSE;
-extern gboolean setup,paused;
+gboolean timedata = FALSE;
+gboolean preferences = FALSE;
+gboolean textentry = FALSE;
+gboolean stdoutpipe = FALSE;
+extern gboolean setup, paused;
 extern int optind;
 extern ControlTree *controltree;
-extern const gchar* filename;
+extern const gchar *filename;
 
 extern int oldx, oldy;
 
-GdkFilterReturn dasher_discard_take_focus_filter (GdkXEvent *xevent, GdkEvent *event, gpointer data)
-{
-  XEvent *xev = (XEvent *)xevent;
- 
-  if (xev->xany.type == ClientMessage &&
-      (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom (
-							      gdk_atom_intern ("WM_TAKE_FOCUS", False)) && keyboardmodeon==true)
-    {
-      return GDK_FILTER_REMOVE;
-    }
-  else
-    {
-      return GDK_FILTER_CONTINUE;
-    }
+GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
+  XEvent *xev = (XEvent *) xevent;
+
+  if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False)) && keyboardmodeon == true) {
+    return GDK_FILTER_REMOVE;
+  }
+  else {
+    return GDK_FILTER_CONTINUE;
+  }
 }
 
-
-int
-main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
   GladeXML *xml;
 
   int c;
   XWMHints wm_hints;
   Atom wm_window_protocols[3];
 
-  bindtextdomain (PACKAGE, LOCALEDIR);
-  bind_textdomain_codeset (PACKAGE, "UTF-8");
-  textdomain (PACKAGE);
-
-
+  bindtextdomain(PACKAGE, LOCALEDIR);
+  bind_textdomain_codeset(PACKAGE, "UTF-8");
+  textdomain(PACKAGE);
 
 #ifdef GNOME_LIBS
-  GnomeProgram *program=0;
+  GnomeProgram *program = 0;
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
 
   gnome_vfs_init();
@@ -113,8 +101,8 @@ main(int argc, char *argv[])
   // Set up the app GConf client
 
   GError *pGConfError;
-  
-  if( !gconf_init( argc, argv, &pGConfError ) ) {
+
+  if(!gconf_init(argc, argv, &pGConfError)) {
     std::cerr << "Failed to initialise gconf: " << pGConfError->message << std::endl;
     exit(1);
   }
@@ -123,13 +111,12 @@ main(int argc, char *argv[])
 
   // ---
 
-
 #ifdef WITH_GPE
-  gpe_application_init (&argc, &argv);
+  gpe_application_init(&argc, &argv);
   init_xsettings();
 #else
-  gtk_init (&argc, &argv);
-  
+  gtk_init(&argc, &argv);
+
 #endif
 
   // We need thread support for updating the splash window while
@@ -140,55 +127,50 @@ main(int argc, char *argv[])
 #endif
 
   g_type_class_ref(dasher_gtk_text_view_get_type());
-  
-#ifdef WITH_GPE
-  xml = glade_xml_new(PROGDATA"/dashergpe.glade", NULL, NULL);
-#else
-  xml = glade_xml_new(PROGDATA"/dasher.glade", NULL, NULL);
-#endif
 
+#ifdef WITH_GPE
+  xml = glade_xml_new(PROGDATA "/dashergpe.glade", NULL, NULL);
+#else
+  xml = glade_xml_new(PROGDATA "/dasher.glade", NULL, NULL);
+#endif
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
-    if (!bonobo_init (&argc, argv))
-      {
-        g_error ("Can't initialize Bonobo...\n");
-      }
-    bonobo_activate();
+  if(!bonobo_init(&argc, argv)) {
+    g_error("Can't initialize Bonobo...\n");
+  }
+  bonobo_activate();
 #endif
 
-  while (1) {
-    c=getopt( argc, argv, "wpos" );
+  while(1) {
+    c = getopt(argc, argv, "wpos");
 
-    if (c == -1)
+    if(c == -1)
       break;
 
     switch (c) {
     case 'w':
       // Print number of characters produced per second
-      timedata=TRUE;
+      timedata = TRUE;
       break;
     case 'p':
       // Only show the preferences window
-      preferences=TRUE;
+      preferences = TRUE;
       break;
     case 'o':
       // Onscreen text entry mode
-      textentry=TRUE;
+      textentry = TRUE;
       break;
     case 's':
       // Pipe stuff to stdout
-      stdoutpipe=TRUE;
+      stdoutpipe = TRUE;
       break;
     }
   }
 
-  
 //   dasher_set_string_callback( parameter_string_callback );
 //   dasher_set_double_callback( parameter_double_callback );
 //   dasher_set_int_callback( parameter_int_callback );
 //   dasher_set_bool_callback( parameter_bool_callback );
-
-
 
 //   dasher_set_edit_output_callback( gtk2_edit_output_callback );
 //   dasher_set_edit_outputcontrol_callback( gtk2_edit_outputcontrol_callback );
@@ -197,54 +179,46 @@ main(int argc, char *argv[])
 //   dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
 //   dasher_set_clipboard_callback( gtk2_clipboard_callback );
 
-
   oldx = -1;
   oldy = -1;
 
 #ifdef GNOME_A11Y
-  SPI_init ();
+  SPI_init();
 #endif
-
-
 
   glade_xml_signal_autoconnect(xml);
 
-  if (preferences==TRUE) {
+  if(preferences == TRUE) {
     window = glade_xml_get_widget(xml, "preferences");
-  } else {
+  }
+  else {
     window = glade_xml_get_widget(xml, "window");
   }
 
   // Initialise the main window and show it
 
-  InitialiseMainWindow( argc, argv, xml );
+  InitialiseMainWindow(argc, argv, xml);
 
 #ifdef WITH_GPE
-  gtk_window_set_decorated(GTK_WINDOW(window),false);
+  gtk_window_set_decorated(GTK_WINDOW(window), false);
 #endif
 
   gtk_widget_show(window);
 
-
-
-
   //  if (preferences!=TRUE) {
-    setup=TRUE;
-    //  }
+  setup = TRUE;
+  //  }
 
-
-  
   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
   wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
   wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
-  
+
   wm_hints.flags = InputHint;
   wm_hints.input = False;
 
-  XSetWMHints (GDK_WINDOW_XDISPLAY (window->window), GDK_WINDOW_XWINDOW (window->window), &wm_hints);
-  XSetWMProtocols (GDK_WINDOW_XDISPLAY (window->window),GDK_WINDOW_XWINDOW (window->window), wm_window_protocols, 3);
-  gdk_window_add_filter (window->window, dasher_discard_take_focus_filter, NULL);
-  
+  XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
+  XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
+  gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
 
 #ifdef GNOME_SPEECH
   setup_speech();
@@ -255,19 +229,21 @@ main(int argc, char *argv[])
   // FIXME - REIMPLEMENT
 //   controltree=gettree();
 //   add_control_tree(controltree);
- 
-  if (optind<argc) {
-    if (!g_path_is_absolute(argv[optind])) {
+
+  if(optind < argc) {
+    if(!g_path_is_absolute(argv[optind])) {
       char *cwd;
-      cwd=(char *)malloc(1024*sizeof(char));
-      getcwd(cwd,1024);
-      filename=g_build_path("/",cwd,argv[optind],NULL);
-      open_file(filename);
-    } else {
-      filename=argv[optind];
+      cwd = (char *)malloc(1024 * sizeof(char));
+      getcwd(cwd, 1024);
+      filename = g_build_path("/", cwd, argv[optind], NULL);
       open_file(filename);
     }
-  } else {
+    else {
+      filename = argv[optind];
+      open_file(filename);
+    }
+  }
+  else {
     choose_filename();
   }
 
@@ -282,22 +258,17 @@ main(int argc, char *argv[])
 #ifdef GNOME_LIBS
   gnome_vfs_shutdown();
 #endif
-  
+
 #ifdef GNOME_A11Y
   deletemenutree();
   SPI_exit();
 #endif
 
-
   // Take down GConf client
 
-  g_object_unref( g_pGConfClient );
+  g_object_unref(g_pGConfClient);
 
   // ---
 
-
-
   return 0;
 }
-
-

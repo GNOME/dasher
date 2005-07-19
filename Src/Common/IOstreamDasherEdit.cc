@@ -10,151 +10,132 @@
 
 #include <iconv.h>
 
-IOstreamDasherEdit::IOstreamDasherEdit( CDasherInterface *_interface, std::ostream* os )
-  : Dasher::CDashEditbox(), outstream(os), flush_count(0), interface( _interface )
-{
+IOstreamDasherEdit::IOstreamDasherEdit(CDasherInterface *_interface, std::ostream *os)
+:Dasher::CDashEditbox(), outstream(os), flush_count(0), interface(_interface) {
   enc = 1;
-  snprintf( encstr, 255, "ISO-8859-%d", enc);
+  snprintf(encstr, 255, "ISO-8859-%d", enc);
 
   *outstream << "Dasher starting\n";
 }
 
-IOstreamDasherEdit::~IOstreamDasherEdit( )
-{
+IOstreamDasherEdit::~IOstreamDasherEdit() {
 }
 
-void IOstreamDasherEdit::write_to_file()
-{
+void IOstreamDasherEdit::write_to_file() {
 }
 
-void IOstreamDasherEdit::kill_flush()
-{
+void IOstreamDasherEdit::kill_flush() {
   flush_count = 0;
 }
 
-void IOstreamDasherEdit::get_new_context(std::string& str, int max)
-{
+void IOstreamDasherEdit::get_new_context(std::string &str, int max) {
   str = std::string();
 }
 
-void IOstreamDasherEdit::unflush()
-{
-  if (flush_count == 0)
+void IOstreamDasherEdit::unflush() {
+  if(flush_count == 0)
     return;
 
-  for (;flush_count>0;flush_count--)
+  for(; flush_count > 0; flush_count--)
     *outstream << "\b";
 }
 
-void IOstreamDasherEdit::output(symbol Symbol)
-{
+void IOstreamDasherEdit::output(symbol Symbol) {
   // FIXME - again, label is utf-8 encoded, and insert is probably not
   // expecting this to be the case
 
   std::string label;
-  label = interface->GetEditText( Symbol );
+  label = interface->GetEditText(Symbol);
 
-  label = interface->GetEditText( Symbol );
-  
-  iconv_t cdesc=iconv_open(encstr,"UTF-8");
-      
+  label = interface->GetEditText(Symbol);
+
+  iconv_t cdesc = iconv_open(encstr, "UTF-8");
+
   char *convbuffer = new char[256];
   char *inbuffer = new char[256];
-  
-  char *cb( convbuffer );
-  char *ib( inbuffer );
-  
-  strncpy( inbuffer, label.c_str(), 255 );
-  
+
+  char *cb(convbuffer);
+  char *ib(inbuffer);
+
+  strncpy(inbuffer, label.c_str(), 255);
+
   size_t inb = label.length();
-  
+
   size_t outb = 256;
-  iconv( cdesc, (ICONV_CONST char **)&inbuffer, &inb, &convbuffer, &outb );
-  
-  std::string csymbol( cb, 256-outb );
-  
+  iconv(cdesc, (ICONV_CONST char **)&inbuffer, &inb, &convbuffer, &outb);
+
+  std::string csymbol(cb, 256 - outb);
+
   *outstream << csymbol;
 }
 
-void IOstreamDasherEdit::flush(symbol Symbol)
-{
+void IOstreamDasherEdit::flush(symbol Symbol) {
   // We seem to be passed Symbol 0 (root node) sometimes, so ignore
   // this
 
-  if( Symbol != 0 )
-    {
-      ++flush_count;
+  if(Symbol != 0) {
+    ++flush_count;
 
-      std::string label;
+    std::string label;
 
-      label = interface->GetEditText( Symbol );
-  
-      iconv_t cdesc=iconv_open(encstr,"UTF-8");
-      
-      char *convbuffer = new char[256];
-      char *inbuffer = new char[256];
+    label = interface->GetEditText(Symbol);
 
-      char *cb( convbuffer );
-      char *ib( inbuffer );
+    iconv_t cdesc = iconv_open(encstr, "UTF-8");
 
-      strncpy( inbuffer, label.c_str(), 255 );
+    char *convbuffer = new char[256];
+    char *inbuffer = new char[256];
 
-      size_t inb = label.length();
+    char *cb(convbuffer);
+    char *ib(inbuffer);
 
-      size_t outb = 256;
-      iconv( cdesc, (ICONV_CONST char**)&inbuffer, &inb, &convbuffer, &outb );
-      
-      std::string csymbol( cb, 256-outb );
+    strncpy(inbuffer, label.c_str(), 255);
 
-      delete cb;
-      delete ib;
+    size_t inb = label.length();
 
-      *outstream << csymbol;
-      outstream->flush();
-    }
+    size_t outb = 256;
+    iconv(cdesc, (ICONV_CONST char **)&inbuffer, &inb, &convbuffer, &outb);
+
+    std::string csymbol(cb, 256 - outb);
+
+    delete cb;
+    delete ib;
+
+    *outstream << csymbol;
+    outstream->flush();
+  }
 }
 
-void IOstreamDasherEdit::Clear()
-{
+void IOstreamDasherEdit::Clear() {
 }
 
-void IOstreamDasherEdit::TimeStampNewFiles(bool Value)
-{
+void IOstreamDasherEdit::TimeStampNewFiles(bool Value) {
 }
 
-void IOstreamDasherEdit::deletetext()
-{
+void IOstreamDasherEdit::deletetext() {
 }
 
-void IOstreamDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding)
-{
+void IOstreamDasherEdit::SetEncoding(Opts::FileEncodingFormats Encoding) {
 }
 
-void IOstreamDasherEdit::SetFont(std::string Name, long Size)
-{
+void IOstreamDasherEdit::SetFont(std::string Name, long Size) {
 }
 
-void IOstreamDasherEdit::set_display_encoding( int _enc )
-{
-  if( _enc != enc )
-    {
-      enc = _enc;
+void IOstreamDasherEdit::set_display_encoding(int _enc) {
+  if(_enc != enc) {
+    enc = _enc;
 
-      snprintf( encstr, 255, "ISO-8859-%d", enc);
-    }
+    snprintf(encstr, 255, "ISO-8859-%d", enc);
+  }
 }
 
-bool IOstreamDasherEdit::SaveAs(std::string filename, bool a)
-{
-  return( true );
+bool IOstreamDasherEdit::SaveAs(std::string filename, bool a) {
+  return (true);
 }
 
-bool IOstreamDasherEdit::Save(bool a)
-{
-  return( true );
+bool IOstreamDasherEdit::Save(bool a) {
+  return (true);
 }
 
-bool IOstreamDasherEdit::Open( std::string filename )
-{
-  return( true );
+bool IOstreamDasherEdit::Open(std::string filename) {
+  return (true);
 }

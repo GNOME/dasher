@@ -6,17 +6,14 @@
 //  Copyright (c) 2003 Doug Dickinson (dasher@DressTheMonkey.plus.com). All rights reserved.
 //
 
-
 #import <Foundation/NSObject.h>
 #import <AppKit/NSNibDeclarations.h>
 
-
-@interface DasherApp : NSObject
-{
+@ interface DasherApp:NSObject {
 }
 
-- (IBAction)importTrainingText:(id)sender;
-- (IBAction)showPreferences:(id)sender;
-- (IBAction)showDasherPanel:(id)sender;
+-(IBAction) importTrainingText:(id) sender;
+-(IBAction) showPreferences:(id) sender;
+-(IBAction) showDasherPanel:(id) sender;
 
 @end

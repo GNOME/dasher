@@ -26,15 +26,14 @@ typedef unsigned long ulong;
 
 ///////////////////////////////////////////////////////////////////
 
-void CWordLanguageModel::CWordContext::dump() 
-	// diagnostic output
+void CWordLanguageModel::CWordContext::dump()
+        // diagnostic output
 {
-	// TODO uncomment this when headers sorted out
-	//dchar debug[128];
-	//Usprintf(debug,TEXT("head %x order %d\n"),head,order);
-	//DebugOutput(debug);
+  // TODO uncomment this when headers sorted out
+  //dchar debug[128];
+  //Usprintf(debug,TEXT("head %x order %d\n"),head,order);
+  //DebugOutput(debug);
 }
-
 
 ////////////////////////////////////////////////////////////////////////
 /// Wordnode definitions 
@@ -42,143 +41,127 @@ void CWordLanguageModel::CWordContext::dump()
 
 /// Return the child of a node with a given symbol, or NULL if there is no child with that symbol yet
 
-CWordLanguageModel::CWordnode *CWordLanguageModel::CWordnode::find_symbol(int sym) const
-{
-  CWordnode *found=child;
-  while (found) {
-    if (found->sbl==sym)
+CWordLanguageModel::CWordnode* CWordLanguageModel::CWordnode::find_symbol(int sym) const {
+  CWordnode *found = child;
+  while(found) {
+    if(found->sbl == sym)
       return found;
-    found=found->next;
+    found = found->next;
   }
   return 0;
 }
 
-void CWordLanguageModel::CWordnode::RecursiveDump( std::ofstream &file ) {
+void CWordLanguageModel::CWordnode::RecursiveDump(std::ofstream &file) {
 
-
-  CWordnode *pCurrentChild( child );
-
+  CWordnode *pCurrentChild(child);
 
   file << "\"" << this << "\" [label=\"" << this->sbl << "\\n" << this->count << "\"]" << std::endl;
 
-   file << "\"" << this << "\" -> \"" << vine << "\" [style=dashed]" << std::endl;
+  file << "\"" << this << "\" -> \"" << vine << "\" [style=dashed]" << std::endl;
 
-  while( pCurrentChild ) {
+  while(pCurrentChild) {
     file << "\"" << this << "\" -> \"" << pCurrentChild << "\"" << std::endl;
-    pCurrentChild->RecursiveDump( file );
+    pCurrentChild->RecursiveDump(file);
     pCurrentChild = pCurrentChild->next;
   }
 }
 
-CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* pNode, symbol sym, int *update, bool bLearn )
-{
+CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *pNode, symbol sym, int *update, bool bLearn) {
 
   // FIXME - need to implement bLearn
 
   CWordnode *pReturn = pNode->find_symbol(sym);
-	
-  if (pReturn!=NULL)
-    {
-      if (*update) 
-	{   
 
-	  //	  std::cout << "USHRT_MAX: " << USHRT_MAX << " " << bLearn << std::endl;
+  if(pReturn != NULL) {
+    if(*update) {
 
-	  //	  if( (pReturn->count < USHRT_MAX) && bLearn ) // Truncate counts at storage limit
-	  if( bLearn ) // Truncate counts at storage limit
-	    pReturn->count++;
-	  *update=0;
-	}
-      return pReturn;
+      //      std::cout << "USHRT_MAX: " << USHRT_MAX << " " << bLearn << std::endl;
+
+      //      if( (pReturn->count < USHRT_MAX) && bLearn ) // Truncate counts at storage limit
+      if(bLearn)                // Truncate counts at storage limit
+        pReturn->count++;
+      *update = 0;
     }
-
-  pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
-  pReturn->sbl = sym;  
-  pReturn->next= pNode->child;
-  pNode->child=pReturn;
-
-  if( !bLearn ) {
-    --(pReturn->count); // FIXME - in the long term, don't allocate
-			// nodes if we're not learning, but should be
-			// okay for now
+    return pReturn;
   }
-  
+
+  pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1
+  pReturn->sbl = sym;
+  pReturn->next = pNode->child;
+  pNode->child = pReturn;
+
+  if(!bLearn) {
+    --(pReturn->count);         // FIXME - in the long term, don't allocate
+    // nodes if we're not learning, but should be
+    // okay for now
+  }
+
   //  std::cout << pReturn->count << std::endl;
 
   ++NodesAllocated;
-  
-  return pReturn;		
-}
 
+  return pReturn;
+}
 
 /////////////////////////////////////////////////////////////////////
 // CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CWordLanguageModel::CWordLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
-  : CLanguageModel( pEventHandler, pSettingsStore, Alphabet, _params), max_order( 2 ), 
-    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
-{
-	m_pRoot= m_NodeAlloc.Alloc();
-	m_pRoot->sbl = -1;
-	m_rootcontext=new CWordContext(m_pRoot,0);
+CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
+:CLanguageModel(pEventHandler, pSettingsStore, Alphabet, _params), max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+  m_pRoot = m_NodeAlloc.Alloc();
+  m_pRoot->sbl = -1;
+  m_rootcontext = new CWordContext(m_pRoot, 0);
 
-	m_pRoot->count = 0;
+  m_pRoot->count = 0;
 
-	iWordStart = 8192;
+  iWordStart = 8192;
 
-	nextid = iWordStart; // Start of indices for words - may need to increase this for *really* large alphabets
+  nextid = iWordStart;          // Start of indices for words - may need to increase this for *really* large alphabets
 
-	pSpellingModel = new CPPMLanguageModel( m_pEventHandler, m_pSettingsStore, Alphabet, _params );
+  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet, _params);
 
-	if( LanguageModelParams()->GetValue( std::string( "LMDictionary" ) ) ) {
+  if(LanguageModelParams()->GetValue(std::string("LMDictionary"))) {
 
-	std::ifstream DictFile( "/usr/share/dict/words" ); // FIXME - hardcoded paths == bad
+    std::ifstream DictFile("/usr/share/dict/words");    // FIXME - hardcoded paths == bad
 
-	std::string CurrentWord;
+    std::string CurrentWord;
 
-	
+    while(!DictFile.eof()) {
+      DictFile >> CurrentWord;
 
-	while( !DictFile.eof() ){
-	  DictFile >> CurrentWord;
+      CurrentWord = CurrentWord + " ";
 
-	  CurrentWord = CurrentWord + " ";
+      //      std::cout << CurrentWord << std::endl;
 
-	  //	  std::cout << CurrentWord << std::endl;
+      CPPMLanguageModel::Context TempContext(pSpellingModel->CreateEmptyContext());
 
-	  CPPMLanguageModel::Context TempContext( pSpellingModel->CreateEmptyContext() );
+      //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
 
-	  //	  std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
+      std::vector < symbol > Symbols;
+      SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&Symbols, &CurrentWord, false);
 
-	  std::vector<symbol> Symbols;
-	  SymbolAlphabet().GetAlphabetPointer()->GetSymbols( &Symbols, &CurrentWord, false );
+      for(std::vector < symbol >::iterator it(Symbols.begin()); it != Symbols.end(); ++it) {
+        pSpellingModel->LearnSymbol(TempContext, *it);
+      }
 
+      pSpellingModel->ReleaseContext(TempContext);
+    }
 
-	  for( std::vector<symbol>::iterator it( Symbols.begin() ); it != Symbols.end(); ++it ) {
-	    pSpellingModel->LearnSymbol( TempContext, *it );
-	  }
+  }
 
-	  
-	  pSpellingModel->ReleaseContext( TempContext );
-	}
+  oSpellingContext = pSpellingModel->CreateEmptyContext();
 
-
-	}
-
-	oSpellingContext = pSpellingModel->CreateEmptyContext();
-
-	wordidx = 0;
+  wordidx = 0;
 
 }
 
+CWordLanguageModel::~CWordLanguageModel() {
 
-CWordLanguageModel::~CWordLanguageModel()
-{
+  delete m_rootcontext;
+  delete pSpellingModel;
 
-	delete m_rootcontext;
-	delete pSpellingModel;
-
-	// A non-recursive node deletion algorithm using a stack
+  // A non-recursive node deletion algorithm using a stack
 /*	std::stack<CWordnode*> deletenodes;
 	deletenodes.push(m_pRoot);
 	while (!deletenodes.empty())
@@ -204,159 +187,138 @@ CWordLanguageModel::~CWordLanguageModel()
 
 }
 
-int CWordLanguageModel::lookup_word( const std::string &w ) {
-
-  if( dict[ w ] == 0 ) {
-    dict[ w ] = nextid;
+int CWordLanguageModel::lookup_word(const std::string &w) {
+  if(dict[w] == 0) {
+    dict[w] = nextid;
     ++nextid;
   }
 
-  return dict[ w ];
-  
+  return dict[w];
 }
 
-int CWordLanguageModel::lookup_word_const( const std::string &w ) const {
- 
+int CWordLanguageModel::lookup_word_const(const std::string &w) const {
   std::cout << "Looking up (const) " << w << std::endl;
 
-  return dict.find( w )->second;
-  
+  return dict.find(w)->second;
 }
 
 /////////////////////////////////////////////////////////////////////
 // get the probability distribution at the context
 
-
-void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const
-{
-
+void CWordLanguageModel::GetProbs(Context context, vector <unsigned int >&probs, int norm) const {
   // Got rid of const below
 
-  CWordLanguageModel::CWordContext *wordcontext=(CWordContext *)(context);
+  CWordLanguageModel::CWordContext * wordcontext = (CWordContext *) (context);
 
   // Make sure that the probability vector has the right length
-		
+
   int iNumSymbols = GetSize();
-  probs.resize( iNumSymbols );
-
-
-
+  probs.resize(iNumSymbols);
 
   // For the prototype work with double precision to make things easier to normalise
 
-  std::vector< double > dProbs( iNumSymbols );
+  std::vector < double >dProbs(iNumSymbols);
 
-  for( std::vector< double >::iterator it( dProbs.begin() ); it != dProbs.end(); ++it )
+  for(std::vector < double >::iterator it(dProbs.begin()); it != dProbs.end(); ++it)
     *it = 0.0;
 
-  double alpha = LanguageModelParams()->GetValue( std::string( "LMWordAlpha" ) )/100.0;
+  double alpha = LanguageModelParams()->GetValue(std::string("LMWordAlpha")) / 100.0;
   //  double beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) )/100.0;
 
   // Ignore beta for now - we'll need to know how many different words have been seen, not just the total count.
 
   double dToSpend(1.0);
 
-  CWordnode* pTmp=wordcontext->head;
-  CWordnode* pTmpWord = wordcontext->word_head;
+  CWordnode *pTmp = wordcontext->head;
+  CWordnode *pTmpWord = wordcontext->word_head;
 
   // We'll assume that these stay in sync for now - maybe do something more robust later.
 
-  while(pTmp)
-    {
+  while(pTmp) {
 
-      // Get the total count from the word node
+    // Get the total count from the word node
 
-      int iTotal( pTmpWord->count );
+    int iTotal(pTmpWord->count);
 
-      if (iTotal) 
-	{
+    if(iTotal) {
 
-	  CWordnode *pTmpChild( pTmp->child );
+      CWordnode *pTmpChild(pTmp->child);
 
-	  while (pTmpChild) 
-	    {
-	      // make sure we only get child nodes which correspond
-	      // to symbols (not words).
-	      
+      while(pTmpChild) {
+        // make sure we only get child nodes which correspond
+        // to symbols (not words).
 
-	      if( pTmpChild->sbl < iWordStart ) {
+        if(pTmpChild->sbl < iWordStart) {
 
-		
-		double dP;
-		
-		if( pTmpChild->count > 0 )
-		  dP = dToSpend * (pTmpChild->count)/static_cast<double>(iTotal + alpha);
-		else
-		  dP = 0.0;
-		
-		dProbs[pTmpChild->sbl]+=dP;
-	      }
+          double dP;
 
-	      pTmpChild = pTmpChild->next;
-	    }
+          if(pTmpChild->count > 0)
+            dP = dToSpend * (pTmpChild->count) / static_cast < double >(iTotal + alpha);
+          else
+          dP = 0.0;
 
-	}
-      
-      dToSpend *= alpha / static_cast<double>(iTotal + alpha);
-      
-      pTmp = pTmp->vine;
-      pTmpWord = pTmpWord->vine;
+          dProbs[pTmpChild->sbl] += dP;
+        }
+
+        pTmpChild = pTmpChild->next;
+      }
 
     }
 
+    dToSpend *= alpha / static_cast < double >(iTotal + alpha);
+
+    pTmp = pTmp->vine;
+    pTmpWord = pTmpWord->vine;
+
+  }
+
   // Get probabilities from the spelling model (note we cache these for later)
-  
+
   wordcontext->m_iSpellingNorm = norm;
 
-  int iSpellingNorm( wordcontext->m_iSpellingNorm );
+  int iSpellingNorm(wordcontext->m_iSpellingNorm);
 
-  pSpellingModel->GetProbs( oSpellingContext, wordcontext->oSpellingProbs, iSpellingNorm );
+  pSpellingModel->GetProbs(oSpellingContext, wordcontext->oSpellingProbs, iSpellingNorm);
 
   double dNorm(0.0);
 
   for(int i(0); i < iNumSymbols; ++i) {
-    dProbs[i] += wordcontext->m_dSpellingFactor * wordcontext->oSpellingProbs[i] / static_cast<double>( wordcontext->m_iSpellingNorm );
+    dProbs[i] += wordcontext->m_dSpellingFactor * wordcontext->oSpellingProbs[i] / static_cast < double >(wordcontext->m_iSpellingNorm);
     dNorm += dProbs[i];
-  }  
+  }
 
   // Convert back to integer representation
 
-  int iToSpend( norm );
-  
+  int iToSpend(norm);
+
   for(int i(0); i < iNumSymbols; ++i) {
-    probs[i] = norm * dProbs[i]/dNorm;
+    probs[i] = norm * dProbs[i] / dNorm;
     iToSpend -= probs[i];
   }
 
   // Check that we haven't got anything left over due to rounding errors:
 
-   int iLeft = iNumSymbols;
-  
-   for (int j=0; j< iNumSymbols; ++j) 
-     {
-       unsigned int p= iToSpend/iLeft;
-       probs[j] +=p;
-       --iLeft;
-       iToSpend -=p;
-     }
-  
-  
+  int iLeft = iNumSymbols;
+
+  for(int j = 0; j < iNumSymbols; ++j) {
+    unsigned int p = iToSpend / iLeft;
+    probs[j] += p;
+    --iLeft;
+    iToSpend -= p;
+  }
+
   DASHER_ASSERT(iToSpend == 0);
 }
-
 
 /// Collapse the context. This also has the effect of entering a count
 /// for the word into the word part of the model
 
-void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &context, bool bLearn ) {
+void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &context, bool bLearn) {
 
   // Letters appear at the end of the trie:
   // 
 
-  
-
-
-  if( max_order == 0 ) {
+  if(max_order == 0) {
     // If max_order = 0 then we are not keeping track of previous
     // words, so we just collapse the letter part of the context and
     // return
@@ -366,151 +328,144 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 
     context.head = m_pRoot;
     context.order = 0;
- 
+
   }
   else {
 
-      std::vector<symbol> oSymbols;
+    std::vector < symbol > oSymbols;
 
-      for( std::string::iterator it( context.current_word.begin() ); it != context.current_word.end(); it += 4 ) {
-	std::string fragment( it, it + 4 );
-	oSymbols.push_back( atoi( fragment.c_str() ));
-      }
+    for(std::string::iterator it(context.current_word.begin()); it != context.current_word.end(); it += 4) {
+      std::string fragment(it, it + 4);
+      oSymbols.push_back(atoi(fragment.c_str()));
+    }
 
-
-    if( bLearn ) { // Only do this if we are learning
+    if(bLearn) {                // Only do this if we are learning
       // We need to increment all substrings - start at the current context striped back to the word level
-      
-      bool bUpdateExclusion( false ); // Whether to keep going or not
-      
-      CWordnode *pCurrent( context.word_head );
-      
+
+      bool bUpdateExclusion(false);     // Whether to keep going or not
+
+      CWordnode *pCurrent(context.word_head);
+
       // Keep track of pointers to all child nodes
-      
+
       //      std::vector< std::vector< CWordnode* >* > oNodeCache;
 
-      std::vector< CWordnode* > **apNodeCache;
-		  
-	  apNodeCache = new std::vector< CWordnode * > *[ oSymbols.size() ];
+      std::vector < CWordnode * >**apNodeCache;
 
-      for( int i(0); i < oSymbols.size(); ++i )
-	apNodeCache[i] = new std::vector< CWordnode* >;
-      
+      apNodeCache = new std::vector < CWordnode * >*[oSymbols.size()];
+
+      for(int i(0); i < oSymbols.size(); ++i)
+        apNodeCache[i] = new std::vector < CWordnode * >;
+
       // FIXME - remember to delete member vectors when we're done
-      
-      
+
       // FIXME broken SymbolAlphabet().GetAlphabetPointer()->GetSymbols( &oSymbols, &(context.current_word), false );
 
       // We're not storing the actual string - just a list of symbol IDs
-      
-      while( (pCurrent != NULL) && !bUpdateExclusion ) {
 
-	//	std::cout << "Incrementing" << std::endl;
+      while((pCurrent != NULL) && !bUpdateExclusion) {
 
-	++(pCurrent->count);
-	
-	int i(0);
+        //      std::cout << "Incrementing" << std::endl;
 
-	//	std::vector< CWordnode* > *pCurrentCache( new std::vector< CWordnode* > );
-	
-	CWordnode *pTmp( pCurrent );
+        ++(pCurrent->count);
 
-	bUpdateExclusion = true;
-	
-	for( std::vector<symbol>::iterator it( oSymbols.begin() ); it != oSymbols.end(); ++it ) {
-	  int iSymbol( *it );
-	  
-	  //	  std::cout << "Symbol " << iSymbol << std::endl;
+        int i(0);
 
-	  CWordnode *pTmpChild( pTmp->find_symbol( iSymbol ) );
-	
-	  //	  std::cout << "pTmpChild: " << pTmpChild << std::endl;
-  
-	  if( pTmpChild == NULL ) {
-	    // We don't already have this child, so add a new node
-	    
-	    pTmpChild = m_NodeAlloc.Alloc();
-	    pTmpChild->sbl = iSymbol;
-	    pTmpChild->next = pTmp->child;
-	    pTmp->child = pTmpChild;
-	    
-	    bUpdateExclusion = false;
+        //      std::vector< CWordnode* > *pCurrentCache( new std::vector< CWordnode* > );
 
-	    // Newly allocated child already has a count of one, so no need to increment it explicitly
-	    
-	  }
-	  else {
-	    if( pTmpChild->count == 0 )
-	      bUpdateExclusion = false;
-	    ++(pTmpChild->count);
-	  }
+        CWordnode *pTmp(pCurrent);
 
-	  apNodeCache[i]->push_back( pTmpChild );
-	  ++i;
-	  pTmp = pTmpChild;
-	  
-	}
-	
-	pCurrent = pCurrent->vine;
-	
-	//	std::cout << "foo: " << pCurrent << " " << bUpdateExclusion << std::endl;
+        bUpdateExclusion = true;
 
+        for(std::vector < symbol >::iterator it(oSymbols.begin()); it != oSymbols.end(); ++it) {
+          int iSymbol(*it);
+
+          //      std::cout << "Symbol " << iSymbol << std::endl;
+
+          CWordnode *pTmpChild(pTmp->find_symbol(iSymbol));
+
+          //      std::cout << "pTmpChild: " << pTmpChild << std::endl;
+
+          if(pTmpChild == NULL) {
+            // We don't already have this child, so add a new node
+
+            pTmpChild = m_NodeAlloc.Alloc();
+            pTmpChild->sbl = iSymbol;
+            pTmpChild->next = pTmp->child;
+            pTmp->child = pTmpChild;
+
+            bUpdateExclusion = false;
+
+            // Newly allocated child already has a count of one, so no need to increment it explicitly
+
+          }
+          else {
+            if(pTmpChild->count == 0)
+              bUpdateExclusion = false;
+            ++(pTmpChild->count);
+          }
+
+          apNodeCache[i]->push_back(pTmpChild);
+          ++i;
+          pTmp = pTmpChild;
+
+        }
+
+        pCurrent = pCurrent->vine;
+
+        //      std::cout << "foo: " << pCurrent << " " << bUpdateExclusion << std::endl;
 
       }
-      
+
       // Now we need to go through and fix up the vine pointers
-      
-      //      for( std::vector< std::vector< CWordnode* >* >::iterator it( oNodeCache.begin() ); it != oNodeCache.end(); ++it ) {
-      for( int i(0); i < oSymbols.size(); ++i ) {
-	
-	CWordnode *pPreviousNode( NULL ); // Start with a NULL pointer
-	
-	for( std::vector< CWordnode * >::reverse_iterator it2( apNodeCache[i]->rbegin() ); it2 != apNodeCache[i]->rend(); ++it2 ) {
-	  (*it2)->vine = pPreviousNode;
-	  pPreviousNode = (*it2);
-	}
 
-	delete apNodeCache[i];
-	
+      //      for( std::vector< std::vector< CWordnode* >* >::iterator it( oNodeCache.begin() ); it != oNodeCache.end(); ++it ) {
+      for(int i(0); i < oSymbols.size(); ++i) {
+
+        CWordnode *pPreviousNode(NULL); // Start with a NULL pointer
+
+        for(std::vector < CWordnode * >::reverse_iterator it2(apNodeCache[i]->rbegin()); it2 != apNodeCache[i]->rend(); ++it2) {
+          (*it2)->vine = pPreviousNode;
+          pPreviousNode = (*it2);
+        }
+
+        delete apNodeCache[i];
+
       }
-	delete apNodeCache;
+      delete apNodeCache;
 
     }
 
     // Collapse down word part regardless of whether we're learning or not
 
-    int oldnextid( nextid );
+    int oldnextid(nextid);
 
-    int iNewSymbol( lookup_word( context.current_word ) );
+    int iNewSymbol(lookup_word(context.current_word));
 
     // Insert into the spelling model if this is a new word
 
-    if( (nextid > oldnextid) || (LanguageModelParams()->GetValue( std::string( "LMLetterExclusion" ) )==0) ) { // FIXME - there must be a better way of doing this!
+    if((nextid > oldnextid) || (LanguageModelParams()->GetValue(std::string("LMLetterExclusion")) == 0)) {      // FIXME - there must be a better way of doing this!
       //
-      pSpellingModel->ReleaseContext( oSpellingContext );
+      pSpellingModel->ReleaseContext(oSpellingContext);
       oSpellingContext = pSpellingModel->CreateEmptyContext();
-      
-      for( std::vector<int>::iterator it( oSymbols.begin() ); it != oSymbols.end(); ++it ) {
-	pSpellingModel->LearnSymbol( oSpellingContext, *it );
+
+      for(std::vector < int >::iterator it(oSymbols.begin()); it != oSymbols.end(); ++it) {
+        pSpellingModel->LearnSymbol(oSpellingContext, *it);
       }
 
     }
 
-    
-
-    CWordnode *pTmp( context.word_head );
+    CWordnode *pTmp(context.word_head);
     CWordnode *pTmpChild;
     CWordnode *pTmpVine(NULL);
-    
 
     //    std::cout << "pTmp is " << pTmp << std::endl;
 
-    int iUpdateExclusion( 1 );
+    int iUpdateExclusion(1);
 
     {
 
-
-      pTmpChild = AddSymbolToNode( pTmp, iNewSymbol, &iUpdateExclusion, false ); // FIXME - might have added a new node here, so fix up vine pointers.
+      pTmpChild = AddSymbolToNode(pTmp, iNewSymbol, &iUpdateExclusion, false);  // FIXME - might have added a new node here, so fix up vine pointers.
 
       //      std::cout << "New node: " << pTmpChild << std::endl;
 
@@ -520,17 +475,16 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
       pTmp = pTmp->vine;
     }
 
-    while( pTmp != NULL ) {
+    while(pTmp != NULL) {
 
       //      std::cout << "pTmp is " << pTmp << std::endl;
 
+      pTmpChild = AddSymbolToNode(pTmp, iNewSymbol, &iUpdateExclusion, false);  // FIXME - might have added a new node here, so fix up vine pointers.
 
-      pTmpChild = AddSymbolToNode( pTmp, iNewSymbol, &iUpdateExclusion, false ); // FIXME - might have added a new node here, so fix up vine pointers.
-      
       //      std::cout << "New node: " << pTmpChild << std::endl;
 
-      if( pTmpVine )
-	pTmpVine->vine = pTmpChild;
+      if(pTmpVine)
+        pTmpVine->vine = pTmpChild;
 
       pTmpVine = pTmpChild;
       pTmp = pTmp->vine;
@@ -538,25 +492,23 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 
     pTmpVine->vine = m_pRoot;
 
-
     // Finally get rid of the letter part of the context
 
     //    std::cout << "Changed head to " << context.word_head << std::endl;
 
-    while( context.word_order > 2 ) {
+    while(context.word_order > 2) {
       context.word_head = context.word_head->vine;
       //      std::cout << " * Followed vine to head to " << context.word_head << std::endl;
       --(context.word_order);
     }
 
     context.head = context.word_head;
-    context.order = context.word_order;    
+    context.order = context.word_order;
     context.current_word = "";
-     
-      pSpellingModel->ReleaseContext( oSpellingContext );
-      oSpellingContext = pSpellingModel->CreateEmptyContext();
-      
- 
+
+    pSpellingModel->ReleaseContext(oSpellingContext);
+    oSpellingContext = pSpellingModel->CreateEmptyContext();
+
   }
 
 //   if( wordidx == 1 ) {
@@ -572,35 +524,32 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 
 //      exit(0);
 //    }
-  
 
   ++wordidx;
 
 }
 
-void CWordLanguageModel::LearnSymbol(Context c, int Symbol)
-{
-  CWordContext& context = * (CWordContext *) (c);
+void CWordLanguageModel::LearnSymbol(Context c, int Symbol) {
+  CWordContext & context = *(CWordContext *) (c);
   AddSymbol(context, Symbol, true);
 }
 
 /// add symbol to the context creates new nodes, updates counts and
 /// leaves 'context' at the new context
 
-void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,symbol sym, bool bLearn)
-{
-  DASHER_ASSERT(sym>=0 && sym< GetSize());
+void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context, symbol sym, bool bLearn) {
+  DASHER_ASSERT(sym >= 0 && sym < GetSize());
 
-  context.m_dSpellingFactor *= context.oSpellingProbs[sym]/static_cast<double>(context.m_iSpellingNorm);
+  context.m_dSpellingFactor *= context.oSpellingProbs[sym] / static_cast < double >(context.m_iSpellingNorm);
 
   // Update the context for the spelling model;
 
-  pSpellingModel->EnterSymbol( oSpellingContext, sym );
+  pSpellingModel->EnterSymbol(oSpellingContext, sym);
 
   // Add the symbol to the letter part of the context. Note that we don't do any learning at this stage
 
-  CWordnode *pTmp( context.head ); // Current node
-  CWordnode *pTmpVine; // Child created last time around (for vine pointers)
+  CWordnode *pTmp(context.head);        // Current node
+  CWordnode *pTmpVine;          // Child created last time around (for vine pointers)
 
   // Context head is a special case so that we can increment order etc.
 
@@ -608,23 +557,23 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 
   //  std::cout << "aa: " << pTmp << " " << m_pRoot << std::endl;
 
-  pTmpVine =  AddSymbolToNode( pTmp, sym, &foo2, false ); // Last parameter is whether to learn or not
+  pTmpVine = AddSymbolToNode(pTmp, sym, &foo2, false);  // Last parameter is whether to learn or not
 
   context.head = pTmpVine;
   ++context.order;
 
   pTmp = pTmp->vine;
-  CWordnode *pTmpNew; // Child created this time around
+  CWordnode *pTmpNew;           // Child created this time around
 
-  while( pTmp != NULL ) {
-       
+  while(pTmp != NULL) {
+
     int foo(1);
 
-    pTmpNew = AddSymbolToNode( pTmp, sym, &foo, false );
+    pTmpNew = AddSymbolToNode(pTmp, sym, &foo, false);
 
     // Connect up vine pointers if necessary
 
-    if( pTmpVine ) {
+    if(pTmpVine) {
       pTmpVine->vine = pTmpNew;
     }
 
@@ -636,21 +585,21 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 
   }
 
-  pTmpVine->vine = NULL; // (not sure if this is needed)
+  pTmpVine->vine = NULL;        // (not sure if this is needed)
 
   // Add the new symbol to the string representation too - note that
   // string is actually a series of integers, not the actual symbols -
   // doesn't matter as long as we're consistent and unique.
 
   char sbuffer[5];
-  snprintf( sbuffer, 5, "%04d", sym );
-  context.current_word.append( sbuffer );
+  snprintf(sbuffer, 5, "%04d", sym);
+  context.current_word.append(sbuffer);
 
   // Collapse the context (with learning) if we've just entered a space
   // FIXME - we need to generalise this for more languages.
 
-  if( sym == SymbolAlphabet().GetSpaceSymbol() ) {
-    CollapseContext( context, bLearn );
+  if(sym == SymbolAlphabet().GetSpaceSymbol()) {
+    CollapseContext(context, bLearn);
     context.m_dSpellingFactor = 1.0;
   }
 
@@ -659,11 +608,9 @@ void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context,sym
 /////////////////////////////////////////////////////////////////////
 // update context with symbol 'Symbol'
 
-void CWordLanguageModel::EnterSymbol(Context c, int Symbol)
-{	
+void CWordLanguageModel::EnterSymbol(Context c, int Symbol) {
   // Same as AddSymbol but without learning in CollapseContext 
 
-  CWordContext& context = * (CWordContext *) (c);
+  CWordContext & context = *(CWordContext *) (c);
   AddSymbol(context, Symbol, false);
 }
-

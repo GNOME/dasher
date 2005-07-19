@@ -10,7 +10,7 @@
 
 // acts as the delegate and controller of the TextView in the dasher window
 
-@interface DasherEdit : NSObject {
+@ interface DasherEdit:NSObject {
   int flushCount;
   IBOutlet NSTextView *dasherTextUI;
 

@@ -16,12 +16,11 @@ using namespace Dasher;
 
 ///////////////////////////////////////////////////////////////////
 
-CLanguageModel::CLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params)
-  : CDasherComponent( pEventHandler, pSettingsStore ), m_Alphabet(Alphabet), m_pParams( _params )
-{
+CLanguageModel::CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
+:CDasherComponent(pEventHandler, pSettingsStore), m_Alphabet(Alphabet), m_pParams(_params) {
 }
 
-void CLanguageModel::HandleEvent( Dasher::CEvent *pEvent ) {
+void CLanguageModel::HandleEvent(Dasher::CEvent *pEvent) {
 }
 
 ///////////////////////////////////////////////////////////////////

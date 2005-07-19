@@ -9,14 +9,14 @@
 
 #include <cstring>
 
-void generate_lm_options( GladeXML *pGladeWidgets );
-void generate_preferences( GladeXML *pGladeWidgets );
-void PopulateControlPage( GladeXML *pGladeWidgets );
-void PopulateViewPage( GladeXML *pGladeWidgets );
+void generate_lm_options(GladeXML * pGladeWidgets);
+void generate_preferences(GladeXML * pGladeWidgets);
+void PopulateControlPage(GladeXML * pGladeWidgets);
+void PopulateViewPage(GladeXML * pGladeWidgets);
 
-extern "C" void lmsettings_edited_callback(GtkCellRendererText *cell, gchar *path_string, gchar *new_text, gpointer user_data);
-extern "C" void colour_select(GtkTreeSelection *selection, gpointer data);
-extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data);
+extern "C" void lmsettings_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
+extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
+extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
 
 GtkTreeSelection *lmsettingsselection;
 GtkWidget *lmsettingstreeview;
@@ -40,7 +40,6 @@ struct TrainingThreadData {
   gchar *szAlphabet;
 };
 
-
 // This file contains callbacks for the controls in the preferences
 // dialogue. Please keep the callbacks in the same order that they
 // appear in the dialogue box
@@ -48,198 +47,195 @@ struct TrainingThreadData {
 // TODO: In theory a lot of these could be replaced by a single
 // function by using user_data to store the key.
 
-void initialise_preferences_dialogue( GladeXML *pGladeWidgets ) {
-  preferences_window=glade_xml_get_widget(pGladeWidgets, "preferences");
+void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
+  preferences_window = glade_xml_get_widget(pGladeWidgets, "preferences");
 
-  generate_preferences( pGladeWidgets );
-  PopulateControlPage( pGladeWidgets );
-  PopulateViewPage( pGladeWidgets );
-  generate_lm_options( pGladeWidgets );
+  generate_preferences(pGladeWidgets);
+  PopulateControlPage(pGladeWidgets);
+  PopulateViewPage(pGladeWidgets);
+  generate_lm_options(pGladeWidgets);
 }
 
-void PopulateControlPage( GladeXML *pGladeWidgets ) {
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"onedbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"eyetrackerbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"leftbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"spacebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"mouseposbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE ) );
+void PopulateControlPage(GladeXML *pGladeWidgets) {
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
 }
 
-void PopulateViewPage( GladeXML *pGladeWidgets ) { 
-  
-  switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION ) ) {
+void PopulateViewPage(GladeXML *pGladeWidgets) {
+
+  switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION)) {
   case Dasher::Opts::Alphabet:
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1"))) != TRUE)
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE);
     break;
   case Dasher::Opts::LeftToRight:
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2"))) != TRUE)
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2")), TRUE);
-    break;	  
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2")), TRUE);
+    break;
   case Dasher::Opts::RightToLeft:
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3"))) != TRUE)
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3")), TRUE);
     break;
   case Dasher::Opts::TopToBottom:
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4"))) != TRUE)
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4")), TRUE);
     break;
   case Dasher::Opts::BottomToTop:
-    if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5"))) != TRUE)
-      gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5")), TRUE);
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5")), TRUE);
     break;
   }
 
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"speedsliderbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"showmousebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"showmouselinebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE ) );
-  gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets,"palettebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE ) );
-  
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
+
 }
 
-void PopulateAdvancedPage( GladeXML *pGladeWidgets ) {
+void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   // FIXME - To Implement
 }
 
-void generate_lm_options( GladeXML *pGladeWidgets ) {
-  GtkTreeViewColumn *column; 
+void generate_lm_options(GladeXML *pGladeWidgets) {
+  GtkTreeViewColumn *column;
   GtkTreeIter lmsettingsiter;
 
-  lmsettingstreeview = glade_xml_get_widget( pGladeWidgets,"lmsettingstree" );  
+  lmsettingstreeview = glade_xml_get_widget(pGladeWidgets, "lmsettingstree");
 
   gtk_widget_realize(lmsettingstreeview);
 
-  lmsettings_list_store = gtk_list_store_new(2,G_TYPE_STRING, G_TYPE_LONG);
+  lmsettings_list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_LONG);
   gtk_tree_view_set_model(GTK_TREE_VIEW(lmsettingstreeview), GTK_TREE_MODEL(lmsettings_list_store));
-  lmsettingsselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(lmsettingstreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(lmsettingsselection),GTK_SELECTION_BROWSE);
-  column = gtk_tree_view_column_new_with_attributes ("Lmsettings",gtk_cell_renderer_text_new(),"text",0,NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview),column);
+  lmsettingsselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(lmsettingstreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(lmsettingsselection), GTK_SELECTION_BROWSE);
+  column = gtk_tree_view_column_new_with_attributes("Lmsettings", gtk_cell_renderer_text_new(), "text", 0, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
 
   GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
   g_object_set(renderer, "editable", TRUE, NULL);
 
-  
-  column = gtk_tree_view_column_new_with_attributes ("Lmsettingsvals",GTK_CELL_RENDERER(renderer),"text",1,NULL);
+  column = gtk_tree_view_column_new_with_attributes("Lmsettingsvals", GTK_CELL_RENDERER(renderer), "text", 1, NULL);
 
   g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
 
-  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview),column);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
 
   // Clear the contents of the lmsettings list
-  gtk_list_store_clear( lmsettings_list_store );
+  gtk_list_store_clear(lmsettings_list_store);
 
-  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 0, -1 );
-  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMAlpha", 1, 0, -1 );
-  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBeta", 1, 0, -1 ); 
-  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1 );
-  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1 );
-  gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMMixture", 1, 0, -1 );
+  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 0, -1);
+  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMAlpha", 1, 0, -1);
+  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMBeta", 1, 0, -1);
+  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1);
+  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1);
+  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMixture", 1, 0, -1);
 
   //gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
   //gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
- 
+
 }
 
-void generate_preferences( GladeXML *pGladeWidgets ) { 
+void generate_preferences(GladeXML *pGladeWidgets) {
   // We need to populate the lists of alphabets and colours
 
   int alphabet_count, colour_count;
 
   const int alphabetlist_size = 512;
-  const char *alphabetlist[ alphabetlist_size ];
-  const int colourlist_size=512;
-  const char *colourlist[ colourlist_size ];
+  const char *alphabetlist[alphabetlist_size];
+  const int colourlist_size = 512;
+  const char *colourlist[colourlist_size];
   GtkTreeIter alphiter, colouriter;
 
   // Build the alphabet tree - this is nasty
-  alphabettreeview = glade_xml_get_widget( pGladeWidgets, "AlphabetTree");  
-  alph_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  alphabettreeview = glade_xml_get_widget(pGladeWidgets, "AlphabetTree");
+  alph_list_store = gtk_list_store_new(1, G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
-  alphselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(alphabettreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection),GTK_SELECTION_BROWSE);
-  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes ("Alphabet",gtk_cell_renderer_text_new(),"text",0,NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview),column);
+  alphselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(alphabettreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection), GTK_SELECTION_BROWSE);
+  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes("Alphabet", gtk_cell_renderer_text_new(), "text", 0, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview), column);
 
   // Clear the contents of the alphabet list
-  gtk_list_store_clear( alph_list_store );
+  gtk_list_store_clear(alph_list_store);
 
   GArray *pAlphabetArray;
 
-  pAlphabetArray = gtk_dasher_control_get_allowed_values( GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID );
+  pAlphabetArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID);
 
-  for( int i(0); i < pAlphabetArray->len; ++i ) {
-    
-    const gchar* pCurrentAlphabet( g_array_index( pAlphabetArray, gchar*, i) );
+  for(int i(0); i < pAlphabetArray->len; ++i) {
 
-    gtk_list_store_append (alph_list_store, &alphiter);
-    gtk_list_store_set (alph_list_store, &alphiter, 0, pCurrentAlphabet,-1);
+    const gchar *pCurrentAlphabet(g_array_index(pAlphabetArray, gchar *, i));
 
-    if( !strcmp( pCurrentAlphabet, gtk_dasher_control_get_parameter_string( GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID ))) {
+    gtk_list_store_append(alph_list_store, &alphiter);
+    gtk_list_store_set(alph_list_store, &alphiter, 0, pCurrentAlphabet, -1);
+
+    if(!strcmp(pCurrentAlphabet, gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID))) {
       gchar ugly_path_hack[100];
-      sprintf(ugly_path_hack,"%d",i);
+      sprintf(ugly_path_hack, "%d", i);
       gtk_tree_selection_select_iter(alphselection, &alphiter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview), gtk_tree_path_new_from_string(ugly_path_hack), NULL, false);
     }
   }
 
-  g_array_free( pAlphabetArray, true );
+  g_array_free(pAlphabetArray, true);
 
   // Connect up a signal so we can select a new alphabet
-  g_signal_connect_after(G_OBJECT(alphselection),"changed",GTK_SIGNAL_FUNC(alphabet_select),NULL);
-  
+  g_signal_connect_after(G_OBJECT(alphselection), "changed", GTK_SIGNAL_FUNC(alphabet_select), NULL);
+
   // Do the same for colours
-  colourtreeview = glade_xml_get_widget( pGladeWidgets, "ColorTree");  
+  colourtreeview = glade_xml_get_widget(pGladeWidgets, "ColorTree");
 
   // Make sure that the colour tree is realized now as we'll need to do
   // stuff with it before it's actually displayed
   gtk_widget_realize(colourtreeview);
 
-  colour_list_store = gtk_list_store_new(1,G_TYPE_STRING);
+  colour_list_store = gtk_list_store_new(1, G_TYPE_STRING);
   gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
-  colourselection = gtk_tree_view_get_selection (GTK_TREE_VIEW(colourtreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection),GTK_SELECTION_BROWSE);
-  column = gtk_tree_view_column_new_with_attributes ("Colour",gtk_cell_renderer_text_new(),"text",0,NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview),column);
+  colourselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(colourtreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection), GTK_SELECTION_BROWSE);
+  column = gtk_tree_view_column_new_with_attributes("Colour", gtk_cell_renderer_text_new(), "text", 0, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview), column);
 
   // Clear the contents of the colour list
-  gtk_list_store_clear( colour_list_store );
-
+  gtk_list_store_clear(colour_list_store);
 
   GArray *pColourArray;
 
-  pColourArray = gtk_dasher_control_get_allowed_values( GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID );
+  pColourArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID);
 
-  for( int i(0); i < pColourArray->len; ++i ) {
-    
-    const gchar* pCurrentColour( g_array_index( pColourArray, gchar*, i) );
+  for(int i(0); i < pColourArray->len; ++i) {
 
-    gtk_list_store_append (colour_list_store, &colouriter);
-    gtk_list_store_set (colour_list_store, &colouriter, 0, pCurrentColour,-1);
+    const gchar *pCurrentColour(g_array_index(pColourArray, gchar *, i));
 
-    if( !strcmp( pCurrentColour, gtk_dasher_control_get_parameter_string( GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID ))) {
+    gtk_list_store_append(colour_list_store, &colouriter);
+    gtk_list_store_set(colour_list_store, &colouriter, 0, pCurrentColour, -1);
+
+    if(!strcmp(pCurrentColour, gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID))) {
       gchar ugly_path_hack[100];
-      sprintf(ugly_path_hack,"%d",i);
+      sprintf(ugly_path_hack, "%d", i);
       gtk_tree_selection_select_iter(colourselection, &colouriter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview), gtk_tree_path_new_from_string(ugly_path_hack), NULL, false);
     }
   }
 
-  g_array_free( pColourArray, true );
+  g_array_free(pColourArray, true);
 
   // Connect up a signal so we can select a new colour scheme
-   g_signal_connect_after(G_OBJECT(colourselection),"changed",GTK_SIGNAL_FUNC(colour_select),NULL);
+  g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
 }
 
-void update_colours()
-{
+void update_colours() {
 
   // FIXME - REIMPLEMENT
 
@@ -265,9 +261,7 @@ void update_colours()
 //   }
 }
 
-extern "C" void
-preferences_display(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void preferences_display(GtkWidget *widget, gpointer user_data) {
 
   // FIXME - REIMPLEMENT
 
@@ -279,32 +273,27 @@ preferences_display(GtkWidget *widget, gpointer user_data)
 
 // General Callbacks
 
-extern "C" gboolean
-preferences_hide(GtkWidget *widget, gpointer user_data)
-{
+extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
   gtk_widget_hide(preferences_window);
   return TRUE;
 }
-
 
 // 'Alphabet' Page
 
 // FIXME - maybe have a separate 'training thread' file
 
-gpointer
-change_alphabet(gpointer alph)
-{
+gpointer change_alphabet(gpointer alph) {
   // This is launched as a separate thread in order to let the main thread
   // carry on updating the training window
   // FIXME - REIMPLEMENT  
 
-  struct TrainingThreadData *pThreadData( (struct TrainingThreadData *)alph );
+  struct TrainingThreadData *pThreadData((struct TrainingThreadData *)alph);
 
-  gtk_dasher_control_set_parameter_string( GTK_DASHER_CONTROL( pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet );
+  gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet);
 
-  gtk_widget_destroy( pThreadData->pTrainingDialogue );
+  gtk_widget_destroy(pThreadData->pTrainingDialogue);
 
-  g_free( pThreadData->szAlphabet );
+  g_free(pThreadData->szAlphabet);
 
   delete pThreadData;
 
@@ -312,8 +301,7 @@ change_alphabet(gpointer alph)
   return NULL;
 }
 
-extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
-{
+extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
 
   // FIXME - REIMPLEMENT
 
@@ -321,59 +309,51 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data)
   GtkTreeModel *model;
   gchar *alph;
 
-  if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, 0, &alph, -1);    
+  if(gtk_tree_selection_get_selected(selection, &model, &iter)) {
+    gtk_tree_model_get(model, &iter, 0, &alph, -1);
     // There's no point in training if the alphabet is already selected
     //   if (alph!=alphabet) {
     //     alphabet=alph;
 #ifndef WITH_GPE
-      // Don't let them select another alphabet while we're training the first one
+    // Don't let them select another alphabet while we're training the first one
     //  if (training==true) {
-    //	return;
+    //  return;
     //  }
 
-      // Note that we're training - this is needed in order to avoid
-      // doing anything that would conflict with the other thread
+    // Note that we're training - this is needed in order to avoid
+    // doing anything that would conflict with the other thread
     //  training=TRUE;
     //      trainqueue=g_async_queue_new();
 
-    std::cout << "Alphabet is: " << (void*)alph << " " << alph << std::endl;
+    std::cout << "Alphabet is: " << (void *)alph << " " << alph << std::endl;
 
+    struct TrainingThreadData *pThreadData(new struct TrainingThreadData);
 
-    struct TrainingThreadData *pThreadData( new struct TrainingThreadData );
-    
-    train_dialogue = gtk_message_dialog_new(GTK_WINDOW(window),GTK_DIALOG_MODAL, GTK_MESSAGE_INFO,GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
+    train_dialogue = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
     gtk_window_set_resizable(GTK_WINDOW(train_dialogue), FALSE);
     gtk_window_present(GTK_WINDOW(train_dialogue));
-
-
 
     pThreadData->szAlphabet = alph;
     pThreadData->pTrainingDialogue = train_dialogue;
     pThreadData->pDasherControl = pDasherWidget;
 
-    trainthread=g_thread_create(change_alphabet, pThreadData,false,NULL);
-
+    trainthread = g_thread_create(change_alphabet, pThreadData, false, NULL);
 
 #else
-      // For GPE, we're not so fussed at the moment
-      //      dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
-      gtk_dasher_control_set_parameter_string( GTK_DASHER_CONTROL( pDasherWidget), SP_ALPHABET_ID, alph );
+    // For GPE, we're not so fussed at the moment
+    //      dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
+    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, alph);
 #endif
-      //      g_free(alph);
-   //  } else {
+    //      g_free(alph);
+    //  } else {
 //       g_free(alph);
 //     }
   }
 }
 
-
-
-
 // 'Color' Page
 
-extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
-{
+extern "C" void colour_select(GtkTreeSelection *selection, gpointer data) {
 
   // FIXME - REIMPLEMENT
 
@@ -398,23 +378,23 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data)
 // 'Control' Page
 
 extern "C" void SetDimension(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS, GTK_TOGGLE_BUTTON(widget)->active);
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void SetEyetracker(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE, GTK_TOGGLE_BUTTON(widget)->active);
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void startonleft(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE, GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void startonspace(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE, GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
@@ -428,45 +408,44 @@ extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
 //   }
 }
 
-extern "C" void windowpause(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
   // FIXME - REIMPLEMENT
 
   //  dasher_set_parameter_bool( BOOL_WINDOWPAUSE, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
-
-extern "C" void speak(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void speak(GtkWidget *widget, gpointer user_data) {
   // FIXME _ REIMPLEMENT
 
 //   speakonstop=GTK_TOGGLE_BUTTON(widget)->active;
 //   dasher_set_parameter_bool( BOOL_SPEECHMODE, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
-
 // 'View' Page
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 
   // Again, this could be neater.
-  if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
-    if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton1" ) ) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::Alphabet);
-    } else if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton2" ) ) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::LeftToRight);
-    } else if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton3" ) ) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::RightToLeft);
-    } else if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton4" ) ) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::TopToBottom);
-    } else if( !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton5" ) ) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::BottomToTop);
+  if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
+    if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton1")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::Alphabet);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton2")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::LeftToRight);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton3")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::RightToLeft);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton4")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::TopToBottom);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton5")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::BottomToTop);
     }
   }
 }
 
-extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data) {
 
   // FIXME - REIMPLEMENT
 
@@ -478,30 +457,29 @@ extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data)
 }
 
 extern "C" void show_slider(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER,  GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE,  GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void DrawMouseLine(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE,  GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data) {
   // drawoutline=GTK_TOGGLE_BUTTON(widget)->active; // FIXME - REIMPLEMENT
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE, GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void palettechange(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, GTK_TOGGLE_BUTTON(widget)->active );
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 // 'Advanced' Page
 
-extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data )
-{
+extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data) {
 
   // FIXME - REIMPLEMENT
 
@@ -512,8 +490,7 @@ extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data )
 //   }
 }
 
-extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
-{
+extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
 
   // FIXME - REIMPLEMENT
 
@@ -521,8 +498,7 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data)
   //  set_long_option_callback("Mouseposstartdistance",mouseposstartdist);
 }
 
-extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
-{
+extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data) {
   // FIXME - REIMPLEMENT
 
   //  yscale=int(widget->adjustment->value);
@@ -531,15 +507,16 @@ extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data)
 
 // 'Langauge Model' Page
 
-extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data)
-{
-  if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
-    if(  !strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton6" ) ) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget),  LP_LANGUAGE_MODEL_ID, 0 );
-    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton7" )) {
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget),  LP_LANGUAGE_MODEL_ID, 1 );
-    } else if (!strcmp( gtk_widget_get_name( GTK_WIDGET(widget) ), "radiobutton8" )) {
-      gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 2 );
+extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
+  if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
+    if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton6")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 0);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton7")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 1);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton8")) {
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID, 2);
     }
   }
 }
@@ -576,7 +553,6 @@ extern "C" void Adaptive(GtkWidget *widget, gpointer user_data) {
   // FIXME - Not yet implemented
 }
 
-
 extern "C" void uniform_changed(GtkHScale *hscale) {
-  gtk_dasher_control_set_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM, int(GTK_RANGE(hscale)->adjustment->value*10));
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
 }

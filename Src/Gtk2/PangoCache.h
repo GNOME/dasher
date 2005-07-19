@@ -8,13 +8,13 @@
 #include <map>
 
 class CPangoCache {
- public:
+public:
   CPangoCache();
-  void ChangeFont( const std::string &strFontName );
-  PangoLayout *GetLayout( GtkWidget *pCanvas, std::string sDisplayText, int iSize );
+  void ChangeFont(const std::string & strFontName);
+  PangoLayout *GetLayout(GtkWidget * pCanvas, std::string sDisplayText, int iSize);
 
- private:
-  std::map< std::string, PangoLayout * > oPangoCache;
+private:
+    std::map < std::string, PangoLayout * >oPangoCache;
   PangoFontDescription *font;
 };
 

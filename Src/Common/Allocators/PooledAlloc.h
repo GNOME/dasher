@@ -19,67 +19,55 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-template<typename T>
-class CPooledAlloc
-{
+template < typename T > class CPooledAlloc {
 
 public:
-	
-	// Construct with given block size
-	CPooledAlloc(size_t iBlockSize);
-	~CPooledAlloc();
 
-	// Return an uninitialized object
-	T* Alloc();
+  // Construct with given block size
+  CPooledAlloc(size_t iBlockSize);
+  ~CPooledAlloc();
 
-	// Return an object to the pool
-	void Free(T* pFree);
+  // Return an uninitialized object
+  T *Alloc();
+
+  // Return an object to the pool
+  void Free(T * pFree);
 
 private:
-	
-	// Use simple pooled alloc for the blocked allocation
-	CSimplePooledAlloc<T> m_Alloc;
 
-	// The free list
-	std::vector<T*> m_vpFree;
+  // Use simple pooled alloc for the blocked allocation
+  CSimplePooledAlloc < T > m_Alloc;
+
+  // The free list
+  std::vector < T * >m_vpFree;
 
 };
 
 /////////////////////////////////////////////////////////////////////////////
 
-template<typename T>
-CPooledAlloc<T>::CPooledAlloc(size_t iSize) : m_Alloc(iSize)
-{
+template < typename T > CPooledAlloc < T >::CPooledAlloc(size_t iSize):m_Alloc(iSize) {
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-template<typename T>
-CPooledAlloc<T>::~CPooledAlloc()
-{
+template < typename T > CPooledAlloc < T >::~CPooledAlloc() {
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-template<typename T>
-T* CPooledAlloc<T>::Alloc()
-{
-	if (m_vpFree.size()>0)
-	{
-		T* pLast = m_vpFree.back();
-		m_vpFree.pop_back();
-		return pLast;
-	}
-	return m_Alloc.Alloc();
+template < typename T > T * CPooledAlloc < T >::Alloc() {
+  if(m_vpFree.size() > 0) {
+    T *pLast = m_vpFree.back();
+    m_vpFree.pop_back();
+    return pLast;
+  }
+  return m_Alloc.Alloc();
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
-template<typename T>
-void CPooledAlloc<T>::Free(T* pFree)
-{
-	m_vpFree.push_back(pFree);
+template < typename T > void CPooledAlloc < T >::Free(T *pFree) {
+  m_vpFree.push_back(pFree);
 }
-
 
 #endif // __include__

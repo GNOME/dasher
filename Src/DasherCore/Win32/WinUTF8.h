@@ -3,14 +3,11 @@
 /////////////////////////////////////////////////////////////////////////////
 //
 // Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
-//			 (c) 2005 David Ward - unicode only now
+//                       (c) 2005 David Ward - unicode only now
 /////////////////////////////////////////////////////////////////////////////
-
-
 
 #ifndef __WinUTF8_h__
 #define __WinUTF8_h__
-
 
 /* Description {{{
 	Functions in this namespace convert between wstring and UTF-8 formats.
@@ -24,12 +21,8 @@
 
 #include <string>
 
-
-namespace WinUTF8
-{
-	void UTF8string_to_wstring(const std::string& UTF8string, std::wstring& Output);
-	void wstring_to_UTF8string(const std::wstring& Input, std::string& Output);
+namespace WinUTF8 {
+  void UTF8string_to_wstring(const std::string & UTF8string, std::wstring & Output);
+  void wstring_to_UTF8string(const std::wstring & Input, std::string & Output);
 }
-
-
-#endif /* #ifndef __WinUTF8_h__ */
+#endif                          /* #ifndef __WinUTF8_h__ */

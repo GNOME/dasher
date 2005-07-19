@@ -9,7 +9,6 @@
 #ifndef __WordLanguageModel_h__
 #define __WordLanguageModel_h__
 
-
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 #include "LanguageModel.h"
@@ -25,101 +24,99 @@
 //static char dumpTrieStr[40000];
 //const int maxcont =200;
 
-namespace Dasher 
-{
+namespace Dasher {
 
   ///
   /// Language model using words
   ///
 
-class CWordLanguageModel : public CLanguageModel
-{
-public:
-	CWordLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
-	virtual ~CWordLanguageModel();
-	
-	Context CreateEmptyContext();
-	void ReleaseContext(Context context);
-	Context CloneContext(Context context);
+  class CWordLanguageModel:public CLanguageModel {
+  public:
+    CWordLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * _params);
+      virtual ~ CWordLanguageModel();
 
-	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const;
+    Context CreateEmptyContext();
+    void ReleaseContext(Context context);
+    Context CloneContext(Context context);
 
-	virtual void EnterSymbol(Context context, int Symbol);
-	virtual void LearnSymbol(Context context, int Symbol);	
+    virtual void GetProbs(Context Context, std::vector < unsigned int >&Probs, int iNorm) const;
 
-	virtual int GetMemory() {
-	  return NodesAllocated;
-	}
+    virtual void EnterSymbol(Context context, int Symbol);
+    virtual void LearnSymbol(Context context, int Symbol);
 
-	
-private:
+    virtual int GetMemory() {
+      return NodesAllocated;
+  } private:
 
-	class CWordnode {
-	public:
-		CWordnode* find_symbol(int sym) const;
-		CWordnode* child;
-		CWordnode* next;
-		CWordnode* vine;
-		unsigned int count;
-		int sbl;
+      class CWordnode {
+    public:
+      CWordnode * find_symbol(int sym)const;
+      CWordnode *child;
+      CWordnode *next;
+      CWordnode *vine;
+      unsigned int count;
+      int sbl;
 
-		CWordnode(int sym);
-		CWordnode();
+        CWordnode(int sym);
+        CWordnode();
 
+      void RecursiveDump(std::ofstream & file);
+    };
 
-		void RecursiveDump( std::ofstream &file );
-	};
-	
-	class CWordContext 
-	{
-	public:
-		CWordContext(CWordContext const &input) {head = input.head; word_head = input.word_head; current_word = input.current_word; order= input.order; word_order = input.word_order; }
-		CWordContext(CWordnode* _head=0, int _order=0) : head(_head),order(_order),word_head(_head),word_order(0) {}; // FIXME - doesn't work if we're trying to create a non-empty context
-		~CWordContext() {};
-		void dump();
-		CWordnode* head;
-		int order;
+    class CWordContext {
+    public:
+      CWordContext(CWordContext const &input) {
+        head = input.head;
+        word_head = input.word_head;
+        current_word = input.current_word;
+        order = input.order;
+        word_order = input.word_order;
+    } CWordContext(CWordnode * _head = 0, int _order = 0):head(_head), order(_order), word_head(_head), word_order(0) {
+      };                        // FIXME - doesn't work if we're trying to create a non-empty context
+      ~CWordContext() {
+      };
+      void dump();
+      CWordnode *head;
+      int order;
 
-		std::string current_word;
-		CWordnode* word_head;
-		int word_order;
+      std::string current_word;
+      CWordnode *word_head;
+      int word_order;
 
-		std::vector< unsigned int > oSpellingProbs;
-		int m_iSpellingNorm;
-		double m_dSpellingFactor;
+      std::vector < unsigned int >oSpellingProbs;
+      int m_iSpellingNorm;
+      double m_dSpellingFactor;
 
-		
-	};
+    };
 
-	CWordnode* AddSymbolToNode(CWordnode* pNode, symbol sym,int *update, bool bLearn);
-	
-	void AddSymbol(CWordContext& context,symbol sym, bool bLearn);
+    CWordnode *AddSymbolToNode(CWordnode * pNode, symbol sym, int *update, bool bLearn);
 
-	void CollapseContext(CWordContext &context, bool bLearn);
+    void AddSymbol(CWordContext & context, symbol sym, bool bLearn);
 
-	int lookup_word( const std::string &w );
-	int lookup_word_const( const std::string &w ) const; 
+    void CollapseContext(CWordContext & context, bool bLearn);
 
-	CWordContext *m_rootcontext;
-	CWordnode* m_pRoot;
+    int lookup_word(const std::string & w);
+    int lookup_word_const(const std::string & w) const;
 
-	std::map< std::string, int > dict; // Dictionary
-	int nextid;
-	int iWordStart;
+    CWordContext *m_rootcontext;
+    CWordnode *m_pRoot;
 
-	int wordidx;
+    std::map < std::string, int >dict;  // Dictionary
+    int nextid;
+    int iWordStart;
 
-	int NodesAllocated;
+    int wordidx;
 
-	int max_order;
+    int NodesAllocated;
 
-	CPPMLanguageModel *pSpellingModel; // Use this to predict the spellings of new words
-	CPPMLanguageModel::Context oSpellingContext;
+    int max_order;
 
+    CPPMLanguageModel *pSpellingModel;  // Use this to predict the spellings of new words
+    CPPMLanguageModel::Context oSpellingContext;
 
-	mutable CSimplePooledAlloc<CWordnode> m_NodeAlloc;
-	CPooledAlloc<CWordContext> m_ContextAlloc;
-};
+    mutable CSimplePooledAlloc < CWordnode > m_NodeAlloc;
+    CPooledAlloc < CWordContext > m_ContextAlloc;
+  };
 
 ////////////////////////////////////////////////////////////////////////
 // Inline functions 
@@ -127,49 +124,43 @@ private:
 
 ////////////////////////////////////////////////////////////////////////
 
-inline Dasher::CWordLanguageModel::CWordnode::CWordnode(symbol sym) : sbl(sym)
-{
-	child=next=vine=0;
-	count=1;
-}
+  inline Dasher::CWordLanguageModel::CWordnode::CWordnode(symbol sym):sbl(sym) {
+    child = next = vine = 0;
+    count = 1;
+  }
 
 ////////////////////////////////////////////////////////////////////////
 
-inline CWordLanguageModel::CWordnode::CWordnode()
-{
-	child=next=vine=0;
-	count=1;
-}
-
+  inline CWordLanguageModel::CWordnode::CWordnode() {
+    child = next = vine = 0;
+    count = 1;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CWordLanguageModel::CreateEmptyContext()
-{
-	CWordContext* pCont = m_ContextAlloc.Alloc();
-	*pCont = *m_rootcontext;
-	return (Context)pCont;
-}
+  inline CLanguageModel::Context CWordLanguageModel::CreateEmptyContext() {
+    CWordContext *pCont = m_ContextAlloc.Alloc();
+    *pCont = *m_rootcontext;
+    return (Context) pCont;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CWordLanguageModel::CloneContext(Context Copy)
-{
-	CWordContext* pCont = m_ContextAlloc.Alloc();
-	CWordContext* pCopy = (CWordContext*)Copy;
-	*pCont = *pCopy;
-	return (Context)pCont;	
-}
+  inline CLanguageModel::Context CWordLanguageModel::CloneContext(Context Copy) {
+    CWordContext *pCont = m_ContextAlloc.Alloc();
+    CWordContext *pCopy = (CWordContext *) Copy;
+    *pCont = *pCopy;
+    return (Context) pCont;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline void CWordLanguageModel::ReleaseContext(Context release)
-{
-	m_ContextAlloc.Free( (CWordContext*) release );
-}
+  inline void CWordLanguageModel::ReleaseContext(Context release) {
+    m_ContextAlloc.Free((CWordContext *) release);
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-} // end namespace Dasher
+}                               // end namespace Dasher
 
 #endif /* #ifndef __WordLanguageModel_H__ */

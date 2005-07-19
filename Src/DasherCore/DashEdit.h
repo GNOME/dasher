@@ -21,160 +21,175 @@ e.g. - output characters to the edit control
 #include "Event.h"
 #include <string>
 
-namespace Dasher 
-{
-	class CDashEditbox;
-	class CDasherWidgetInterface;
-}
-
-/////////////////////////////////////////////////////////////////////////////
+namespace Dasher {
+  class CDashEditbox;
+  class CDasherWidgetInterface;
+};
 
 class Dasher::CDashEditbox
 {
 public:
-	CDashEditbox() : m_dirty(false), m_DasherInterface(0) {}
+  CDashEditbox():m_dirty(false), m_DasherInterface(0) {}
 
-	virtual ~CDashEditbox() {}
+  virtual ~ CDashEditbox() {}
 
-	//! Provide the Editbox with a widget interface
-	virtual void SetInterface(CDasherWidgetInterface* DasherInterface) {m_DasherInterface = DasherInterface;}
-	
-	//! Write some buffered output to a file
-	virtual void write_to_file()=0;
+  //! Provide the Editbox with a widget interface
+  virtual void SetInterface(CDasherWidgetInterface * DasherInterface) {
+    m_DasherInterface = DasherInterface;
+  }
 
-	virtual void HandleEvent( Dasher::CEvent *pEvent ) {
-    if( pEvent->m_iEventType  == 2) {
-      Dasher::CEditEvent *pEvt( static_cast< Dasher::CEditEvent * >( pEvent ) );
+  //! Write some buffered output to a file
+  virtual void write_to_file() = 0;
 
-      switch( pEvt->m_iEditType ) {
+  virtual void HandleEvent(Dasher::CEvent * pEvent) {
+    if(pEvent->m_iEventType == 2) {
+      Dasher::CEditEvent * pEvt(static_cast < Dasher::CEditEvent * >(pEvent));
+
+      switch (pEvt->m_iEditType) {
       case 1:
-        output( pEvt->m_sText );
+        output(pEvt->m_sText);
         break;
       case 2:
-        deletetext( pEvt->m_sText );
+        deletetext(pEvt->m_sText);
         break;
       }
     }
-    else if( pEvent->m_iEventType == 3 ) {
-      Dasher::CEditContextEvent *pEvt( static_cast< Dasher::CEditContextEvent * >( pEvent ) );
+    else if(pEvent->m_iEventType == 3) {
+      Dasher::CEditContextEvent * pEvt(static_cast < Dasher::CEditContextEvent * >(pEvent));
 
       // FIXME - need to implement this
 
     }
   };
-	
-	//! Provide context from the editbox for the core
-	//
-	//! Provide the context at the current position within the editbox to 
-	//! the core. Set str to up to max characters before 
-	//! the cursor position within the editbox.
-	virtual void get_new_context(std::string& str, int max)=0;
-	
-	//! Enter a the character Symbol into the text box
-  virtual void output( const std::string &sText )=0;
 
-	//! Send a control command
-	virtual void outputcontrol(void* pointer, int data, int type)=0;
+  //! Provide context from the editbox for the core
+  //
+  //! Provide the context at the current position within the editbox to 
+  //! the core. Set str to up to max characters before 
+  //! the cursor position within the editbox.
+  virtual void get_new_context(std::string & str, int max) = 0;
 
-	//! Delete the previous symbol from the text box
-  virtual void deletetext( const std::string &sText )=0;
-	
-	// File I/O (optional)
+  //! Enter a the character Symbol into the text box
+  virtual void output(const std::string & sText) = 0;
 
-	//! If Value is true, timestamp all new files (optional)
-	//
-	//! If switched on, all new files should be timestamped, either in the
-	//! filename or in file metadata
-	virtual void TimeStampNewFiles(bool Value) {}
+  //! Send a control command
+  virtual void outputcontrol(void *pointer, int data, int type) = 0;
 
-	//! Return true if any text has been modified since the last save (optional)
-	bool IsDirty() {return m_dirty;}
+  //! Delete the previous symbol from the text box
+  virtual void deletetext(const std::string & sText) = 0;
 
-	//! Generate a new file (optional)
-	//
-	//! New file - provide a file save dialogue and return the filename in
-	//! filename, or provide a blank filename and present a file 
-	//! save dialogue when Save() is called
-	virtual void New(const std::string& filename) {}; // filename can be "", but you cannot call Save() without having set a filename.
-	
-	//! Open a file (optional)
-	//
-	//! Provide a file open dialogue and set filename to the 
-	//! filename. Return true if a file is chosen and opened successfully,
-	//! false otherwise
-	virtual bool Open(const std::string& filename) {return false;};
+  // File I/O (optional)
 
-	//! Open a file and append to it (optional)
-	// 
-	//! Provide a file open dialogue and set filename to the 
-	//! filename. The file will then have any new text appended to it. 
-	//! Return true if a file is chosen and opened successfully, false 
-	//! otherwise
-	virtual bool OpenAppendMode(const std::string& filename) {return false;};
-	//! Save a file as a provided filename (optional)
-	// 
-	//! Provide a file save dialogue and set filename to the 
-	//! filename. Return true if a file is chosen and saved successfully,
-	//! false otherwise
-	virtual bool SaveAs(const std::string& filename) {return false;};
+  //! If Value is true, timestamp all new files (optional)
+  //
+  //! If switched on, all new files should be timestamped, either in the
+  //! filename or in file metadata
+  virtual void TimeStampNewFiles(bool Value) {
+  }
 
-	//! Save the current file (optional)
-	//
-	//! Save file to the current filename. If there is no current filename,
-	//! or if saving fails, return false
-	virtual bool Save() {return false;}; // returns false if there is no filename set, or if saving fails
-	
-	// Clipboard (optional)
-	//! Cut selected text (optional)
-	//
-	//! Copy the selected text to the clipboard and remove it from the
-	//! editbox
-	virtual void Cut() {};
+  //! Return true if any text has been modified since the last save (optional)
+  bool IsDirty() {
+    return m_dirty;
+  }
 
-	//! Copy selected text (optional)
-	//
-	//! Copy the selected text to the clipboard
-	virtual void Copy() {};
+  //! Generate a new file (optional)
+  //
+  //! New file - provide a file save dialogue and return the filename in
+  //! filename, or provide a blank filename and present a file 
+  //! save dialogue when Save() is called
+  virtual void New(const std::string & filename) {
+  };                            // filename can be "", but you cannot call Save() without having set a filename.
 
-	//! Copy all text (optional)
-	//
-	//! Copy all text in the editbox to the clipboard
-	virtual void CopyAll() {};
+  //! Open a file (optional)
+  //
+  //! Provide a file open dialogue and set filename to the 
+  //! filename. Return true if a file is chosen and opened successfully,
+  //! false otherwise
+  virtual bool Open(const std::string & filename) {
+    return false;
+  };
 
-	//! Paste text from clipboard (optional)
-	//
-	//! Paste text from the clipboard into the editbox at the current
-	//! position
-	virtual void Paste() {};
+  //! Open a file and append to it (optional)
+  // 
+  //! Provide a file open dialogue and set filename to the 
+  //! filename. The file will then have any new text appended to it. 
+  //! Return true if a file is chosen and opened successfully, false 
+  //! otherwise
+  virtual bool OpenAppendMode(const std::string & filename) {
+    return false;
+  };
+  //! Save a file as a provided filename (optional)
+  // 
+  //! Provide a file save dialogue and set filename to the 
+  //! filename. Return true if a file is chosen and saved successfully,
+  //! false otherwise
+  virtual bool SaveAs(const std::string & filename) {
+    return false;
+  };
 
-	//! Select all text in the editbox (optional)
-	virtual void SelectAll() {};
+  //! Save the current file (optional)
+  //
+  //! Save file to the current filename. If there is no current filename,
+  //! or if saving fails, return false
+  virtual bool Save() {
+    return false;
+  };                            // returns false if there is no filename set, or if saving fails
 
-	//! Clear all text from the editbox (REQUIRED)
-	virtual void Clear()=0; // Must at least be able to clear edit box
+  // Clipboard (optional)
+  //! Cut selected text (optional)
+  //
+  //! Copy the selected text to the clipboard and remove it from the
+  //! editbox
+  virtual void Cut() {
+  };
 
-	//! Set the file encoding
-	//
-	//! Set the file encoding to the provided encoding Encoding. 
-	//! The editbox is responsible for saving the file in the encoding 
-	//! desired by the user. As Dasher is internally UTF8, it may well be 
-	//! necessary to save in an alternative format based on locale and OS.
-	virtual void SetEncoding(Opts::FileEncodingFormats Encoding)=0;
+  //! Copy selected text (optional)
+  //
+  //! Copy the selected text to the clipboard
+  virtual void Copy() {
+  };
 
-	//! Set the font used in the editbox
-	//
-	//! Set the font used in the editbox to Name and size 
-	//! Size (in points)
-	virtual void SetFont(std::string Name, long Size)=0;
-	
+  //! Copy all text (optional)
+  //
+  //! Copy all text in the editbox to the clipboard
+  virtual void CopyAll() {
+  };
+
+  //! Paste text from clipboard (optional)
+  //
+  //! Paste text from the clipboard into the editbox at the current
+  //! position
+  virtual void Paste() {
+  };
+
+  //! Select all text in the editbox (optional)
+  virtual void SelectAll() {
+  };
+
+  //! Clear all text from the editbox (REQUIRED)
+  virtual void Clear() = 0;     // Must at least be able to clear edit box
+
+  //! Set the file encoding
+  //
+  //! Set the file encoding to the provided encoding Encoding. 
+  //! The editbox is responsible for saving the file in the encoding 
+  //! desired by the user. As Dasher is internally UTF8, it may well be 
+  //! necessary to save in an alternative format based on locale and OS.
+  virtual void SetEncoding(Opts::FileEncodingFormats Encoding) = 0;
+
+  //! Set the font used in the editbox
+  //
+  //! Set the font used in the editbox to Name and size 
+  //! Size (in points)
+  virtual void SetFont(std::string Name, long Size) = 0;
+
 // TODO sort relationship between CDashEditbox and derived classes
 protected:
-	//! Have the contents of the editbox been altered since the last save?
-	bool m_dirty;
+  //! Have the contents of the editbox been altered since the last save?
+  bool m_dirty;
 
-	//! Pointer to a DasherWidgetInterface for communication with the core
-	CDasherWidgetInterface* m_DasherInterface;
+  //! Pointer to a DasherWidgetInterface for communication with the core
+  CDasherWidgetInterface *m_DasherInterface;
 };
-
 
 #endif /* #ifndef __DashEdit_h__ */

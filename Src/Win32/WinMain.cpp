@@ -24,8 +24,6 @@ using namespace std;
 // DJW 20031029 - tip - don't use LPCWSTR explicitely
 // instead TCHAR (or our Tstring) is your friend - it type-defs to char or wchar depending whether or not you have UNICODE defined
 
-
-
 /*
 Entry point to program on Windows systems
 
@@ -33,32 +31,27 @@ An interface to the Dasher library is created.
 A GUI and settings manager are created and given to the Dasher interface.
 Control is passed to the main GUI loop, and only returns when the main window closes.
 */
-int APIENTRY WinMain(HINSTANCE hInstance, 
-					 HINSTANCE hPrevInstance,
-					 LPSTR     lpCmdLine,
-					 int       nCmdShow)
-{
+int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
-	// String literals in this function are not in the resource file as they
-	// must NOT be translated.
+  // String literals in this function are not in the resource file as they
+  // must NOT be translated.
 
-	WinHelper::hInstApp = hInstance; // DJW - put this back in as this global is needed in various placed
+  WinHelper::hInstApp = hInstance;      // DJW - put this back in as this global is needed in various placed
 
-	// We don't want to starve other interactive applications
-	SetThreadPriority(GetCurrentThread(),THREAD_PRIORITY_BELOW_NORMAL);
+  // We don't want to starve other interactive applications
+  SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
 
-  int iRet=0;
+  int iRet = 0;
 
- 
-	CDasherWindow DasherWindow;
-	
-		//The UI will be updated to reflect settings
+  CDasherWindow DasherWindow;
 
-		DasherWindow.Show(nCmdShow);
-		iRet = DasherWindow.MessageLoop();
+  //The UI will be updated to reflect settings
+
+  DasherWindow.Show(nCmdShow);
+  iRet = DasherWindow.MessageLoop();
 
 // Close the COM library on the current thread
-	CoUninitialize();
+  CoUninitialize();
 
-	return iRet;
+  return iRet;
 }

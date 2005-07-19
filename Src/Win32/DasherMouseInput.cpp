@@ -2,23 +2,21 @@
 
 using namespace Dasher;
 
-CDasherMouseInput::CDasherMouseInput( HWND _hwnd ) : m_hwnd( _hwnd )
-{
+CDasherMouseInput::CDasherMouseInput(HWND _hwnd):m_hwnd(_hwnd) {
 }
 
-CDasherMouseInput::~CDasherMouseInput(void)
-{
+CDasherMouseInput::~CDasherMouseInput(void) {
 }
 
-int CDasherMouseInput::GetCoordinates( int iN, myint *pCoordinates ) { 
-		
-	POINT mousepos;		
-	GetCursorPos(&mousepos);
+int CDasherMouseInput::GetCoordinates(int iN, myint *pCoordinates) {
 
-	ScreenToClient(m_hwnd,&mousepos);	
+  POINT mousepos;
+  GetCursorPos(&mousepos);
 
-	pCoordinates[0] = mousepos.x;
-    pCoordinates[1] = mousepos.y;
+  ScreenToClient(m_hwnd, &mousepos);
 
-	return 0; 
+  pCoordinates[0] = mousepos.x;
+  pCoordinates[1] = mousepos.y;
+
+  return 0;
 }

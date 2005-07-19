@@ -14,17 +14,15 @@
 
 #include "../Dasher.h"
 
-class CPrefs : public CWinWrap
-{
+class CPrefs:public CWinWrap {
 public:
-	CPrefs(HWND hParent, CDasher *pDasher );
-	void PopulateWidgets();
+  CPrefs(HWND hParent, CDasher * pDasher);
+  void PopulateWidgets();
 protected:
-	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+    LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-	HWND m_hCustomBox;
+    HWND m_hCustomBox;
   CDasher *m_pDasher;
 };
 
-
-#endif /* #ifndef __PrefsBox_h__ */
+#endif  /* #ifndef __PrefsBox_h__ */

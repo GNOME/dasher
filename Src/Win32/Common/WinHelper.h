@@ -6,13 +6,11 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __WinHelper_h__
 #define __WinHelper_h__
 
-
 #define NOMINMAX
-#define WIN32_LEAN_AND_MEAN // Excludes rarely-used stuff from the Windows headers
+#define WIN32_LEAN_AND_MEAN     // Excludes rarely-used stuff from the Windows headers
 #include <windows.h>
 #include <winbase.h>
 #include <Commdlg.h>
@@ -42,27 +40,22 @@
 #endif
 
 #ifdef OriginalWin95
-#undef CP_UTF8 // as we can't use it
+#undef CP_UTF8                  // as we can't use it
 #endif
 
 // windows.h provides the "generic" character type TCHAR.
-#include "tchar.h" // this adds some useful macros
+#include "tchar.h"              // this adds some useful macros
 // Sometimes it is much easier to use strings, for which we now have Tstring.
 #include <string>
-typedef std::basic_string<TCHAR> Tstring;
-
+typedef std::basic_string < TCHAR > Tstring;
 
 // Some global helpers. In all my applications there is just one instance,
 // or one important one, and WinHelper::hInstApp saves passing it around endlessly
-namespace WinHelper
-{
-	extern HINSTANCE hInstApp;
-	void LastWindowsError();
-	void InitCommonControlLib();
-	void GetUserDirectory(Tstring* Output); // Both thof these will always
-	void GetAppDirectory(Tstring* Output);  // return a trailing "\"
+namespace WinHelper {
+  extern HINSTANCE hInstApp;
+  void LastWindowsError();
+  void InitCommonControlLib();
+  void GetUserDirectory(Tstring * Output);      // Both thof these will always
+  void GetAppDirectory(Tstring * Output);       // return a trailing "\"
 }
-
-
-
-#endif /* #ifndef __WinHelper_h__ */
+#endif                          /* #ifndef __WinHelper_h__ */

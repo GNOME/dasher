@@ -11,19 +11,19 @@
 
 #include "DasherTypes.h"
 
-namespace Dasher {class CDasherInput;}
+namespace Dasher {
+  class CDasherInput;
+} class Dasher::CDasherInput {
+public:
 
-class Dasher::CDasherInput
-{
- public:
-
-  virtual void SetMaxCoordinates( int iN, myint *iDasherMax ) {};
+  virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {
+  };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
   // values were in screen coordinates or 1 if the values were in
   // Dasher coordinates.
 
-  virtual int GetCoordinates( int iN, myint *pCoordinates ) = 0;
+  virtual int GetCoordinates(int iN, myint * pCoordinates) = 0;
 
   // Get the number of co-ordinates that this device supplies
 

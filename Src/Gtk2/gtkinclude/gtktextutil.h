@@ -27,28 +27,19 @@
 #ifndef __GTK_TEXT_UTIL_H__
 #define __GTK_TEXT_UTIL_H__
 
-
 #include <gtk/gtkwidget.h>
 #include <gtk/gtkmenushell.h>
 
-
 #ifdef __cplusplus
 extern "C" {
-#endif /* __cplusplus */
-
+#endif                          /* __cplusplus */
 
 /* This is a private uninstalled header shared between GtkTextView and GtkEntry */
-typedef void (* GtkTextUtilCharChosenFunc) (const char *text,
-                                            gpointer    data);
+  typedef void (*GtkTextUtilCharChosenFunc) (const char *text, gpointer data);
 
-void _gtk_text_util_append_special_char_menuitems (GtkMenuShell              *menushell,
-                                                   GtkTextUtilCharChosenFunc  func,
-                                                   gpointer                   data);
-
+  void _gtk_text_util_append_special_char_menuitems(GtkMenuShell * menushell, GtkTextUtilCharChosenFunc func, gpointer data);
 
 #ifdef __cplusplus
 }
-#endif /* __cplusplus */
-
-
-#endif /* __GTK_TEXT_UTIL_H__ */
+#endif                          /* __cplusplus */
+#endif                          /* __GTK_TEXT_UTIL_H__ */

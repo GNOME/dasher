@@ -14,35 +14,31 @@
 #ifndef __GDI_FontStore_h__
 #define __GDI_FontStore_h__
 
-
 #include "../../Common/NoClones.h"
 #include "../../Common/myassert.h"
 #include <vector>
 
-class CFontStore : public NoClones
-{
+class CFontStore:public NoClones {
 public:
-	CFontStore(Tstring FontName);
-	~CFontStore();
+  CFontStore(Tstring FontName);
+  ~CFontStore();
 
-	HFONT GetFont(int iSize) const;
+  HFONT GetFont(int iSize) const;
 
 private:
 
-	std::vector<HFONT> m_vhfFonts;
+    std::vector < HFONT > m_vhfFonts;
 
 };
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline HFONT CFontStore::GetFont(int iSize) const
-{
-	DASHER_ASSERT(iSize>=0);
-	int iMax =m_vhfFonts.size()-1;
-	if (iSize>=iMax)
-		iSize = iMax;
-	return m_vhfFonts[iSize];
+inline HFONT CFontStore::GetFont(int iSize) const {
+  DASHER_ASSERT(iSize >= 0);
+  int iMax = m_vhfFonts.size() - 1;
+  if(iSize >= iMax)
+    iSize = iMax;
+  return m_vhfFonts[iSize];
 }
-
 
 #endif

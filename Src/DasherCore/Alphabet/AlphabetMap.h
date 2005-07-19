@@ -6,7 +6,6 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
 /*
 If I were just using GCC, which comes with the CGI "STL" implementation, I would
 use hash_map (which isn't part of the ANSI/ISO standard C++ STL, but hey it's nice).
@@ -34,7 +33,6 @@ then "as" is checked then "asd" is checked. I shouldn't need to keep
 rehashing the leading characters. I plan to fix that here. Doing so with
 a standard hash_map would be hard.
 
-
 Usage:
 alphabet_map MyMap(NumberOfEntriesWeExpect); // Can omit NumberOfEntriesWeExpect
 MyMap.add("asdf", 15);
@@ -51,65 +49,60 @@ IAM 08/2002
 
 #ifndef DASHER_WIN32
 #include <sys/types.h>
-#endif 
+#endif
 
 #include "../DasherTypes.h"
 
 #include <vector>
 #include <string>
 
-namespace Dasher {class alphabet_map;}
-class Dasher::alphabet_map
-{
+namespace Dasher {
+  class alphabet_map;
+} class Dasher::alphabet_map {
 
 public:
-	alphabet_map(unsigned int InitialTableSize=255);
-	void Add(const std::string& Key, symbol Value);
-	symbol Get(const std::string& Key, bool* KeyIsPrefix) const;
-	
+  alphabet_map(unsigned int InitialTableSize = 255);
+  void Add(const std::string & Key, symbol Value);
+  symbol Get(const std::string & Key, bool * KeyIsPrefix) const;
+
 private:
-	class Entry
-	{
-	public:
-		Entry(std::string Key, symbol Symbol, Entry* Next)
-			: Key(Key), KeyIsPrefix(false), Symbol(Symbol), Next(Next) {}
-		
-		std::string Key;
-		bool KeyIsPrefix;
-		symbol Symbol;
-		Entry* Next;
-	};
-	
-	void RecursiveAdd(const std::string& Key, symbol Value, bool PrefixFlag);
-	
-	// A standard hash -- could try and research something specific.
-	inline unsigned int Hash(const std::string& Input) const {
-		unsigned int Result = 0;
-	
-		typedef std::string::const_iterator CI;
-		CI Cur = Input.begin();
-		CI end = Input.end();
-		
-		while (Cur!=end) Result = (Result<<1)^*Cur++;
-		Result %= HashTable.size();
-		
-		return Result;
-		/*
-		if (Input.size()==1) // Speedup for ASCII text
-			return Input[0];
-		
-		for (int i=0; i<Input.size(); i++)
-			Result = (Result<<1)^Input[i];
+  class Entry {
+  public:
+    Entry(std::string Key, symbol Symbol, Entry * Next)
+  :  Key(Key), KeyIsPrefix(false), Symbol(Symbol), Next(Next) {
+    } std::string Key;
+    bool KeyIsPrefix;
+    symbol Symbol;
+    Entry *Next;
+  };
 
-		
-		return Result%HashTable.size();
-		*/
-	}
-	
-	std::vector<Entry> Entries;
-	std::vector<Entry*> HashTable;
-	const symbol Undefined;
+  void RecursiveAdd(const std::string & Key, symbol Value, bool PrefixFlag);
+
+  // A standard hash -- could try and research something specific.
+  inline unsigned int Hash(const std::string & Input) const {
+    unsigned int Result = 0;
+
+    typedef std::string::const_iterator CI;
+    CI Cur = Input.begin();
+    CI end = Input.end();
+
+    while(Cur != end)
+      Result = (Result << 1) ^ *Cur++;
+    Result %= HashTable.size();
+
+    return Result;
+    /*
+       if (Input.size()==1) // Speedup for ASCII text
+       return Input[0];
+
+       for (int i=0; i<Input.size(); i++)
+       Result = (Result<<1)^Input[i];
+
+       return Result%HashTable.size();
+     */
+  } std::vector < Entry > Entries;
+  std::vector < Entry * >HashTable;
+  const symbol Undefined;
 };
-
 
 #endif /* #ifndef __AlphabetMap_h__ */

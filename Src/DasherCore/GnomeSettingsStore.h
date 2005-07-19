@@ -11,22 +11,21 @@
 
 #include <stdio.h>
 
-class CGnomeSettingsStore : public CSettingsStore
-{
- public:
-  CGnomeSettingsStore( Dasher::CEventHandler *pEventHandler );
+class CGnomeSettingsStore:public CSettingsStore {
+public:
+  CGnomeSettingsStore(Dasher::CEventHandler * pEventHandler);
   ~CGnomeSettingsStore();
-  
-  void NotificationCallback( GConfClient *pClient, guint iCNXN_ID, GConfEntry *pEntry );
 
- private:
-  bool LoadSetting(const std::string& Key, bool* Value);
-  bool LoadSetting(const std::string& Key, long* Value);
-  bool LoadSetting(const std::string& Key, std::string* Value);
+  void NotificationCallback(GConfClient * pClient, guint iCNXN_ID, GConfEntry * pEntry);
 
-  void SaveSetting(const std::string& Key, bool Value);
-  void SaveSetting(const std::string& Key, long Value);
-  void SaveSetting(const std::string& Key, const std::string& Value);
+private:
+    bool LoadSetting(const std::string & Key, bool * Value);
+  bool LoadSetting(const std::string & Key, long *Value);
+  bool LoadSetting(const std::string & Key, std::string * Value);
+
+  void SaveSetting(const std::string & Key, bool Value);
+  void SaveSetting(const std::string & Key, long Value);
+  void SaveSetting(const std::string & Key, const std::string & Value);
 
   GConfClient *the_gconf_client;
   GConfEngine *gconfengine;

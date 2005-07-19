@@ -8,21 +8,16 @@ namespace Dasher {
   class CDasherInterface;
 }
 
-class Dasher::CDasherInterface : public CDasherInterfaceBase {
- public:
+class Dasher::CDasherInterface:public CDasherInterfaceBase {
+public:
   CDasherInterface() {
     m_pSettingsStore = CreateSettingsStore();
   };
 
   virtual CSettingsStore *CreateSettingsStore() {
-    return new CGnomeSettingsStore( m_pEventHandler );
+    return new CGnomeSettingsStore(m_pEventHandler);
   };
 
 };
 
 #endif
-
-
-
-
-

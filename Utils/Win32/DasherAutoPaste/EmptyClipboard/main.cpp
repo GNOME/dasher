@@ -5,14 +5,12 @@
 	IAM 09/2002
 */
 
-
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 
-int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
-{
-	OpenClipboard(NULL);
-	EmptyClipboard();
-	CloseClipboard();
-	return 0;
+int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
+  OpenClipboard(NULL);
+  EmptyClipboard();
+  CloseClipboard();
+  return 0;
 }

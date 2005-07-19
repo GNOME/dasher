@@ -12,7 +12,7 @@
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-enum-types.h>
 
-extern "C" void open_file (const char *filename);
+extern "C" void open_file(const char *filename);
 /* //extern "C" void clipboard_copy(void); */
 /* extern "C" void clipboard_cut(void); */
 /* extern "C" void clipboard_paste(void); */
@@ -58,22 +58,21 @@ extern "C" void open_file (const char *filename);
 /* extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data); */
 /* extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data); */
 
-void interface_setup(GladeXML *xml);
+void interface_setup(GladeXML * xml);
 void interface_late_setup();
-void open_window(GladeXML *xml);
+void open_window(GladeXML * xml);
 void interface_cleanup();
 void dasher_clear();
 void dasher_start();
 void dasher_redraw();
 
 extern "C" void choose_filename();
-extern "C" void uniform_changed(GtkHScale *hscale);
+extern "C" void uniform_changed(GtkHScale * hscale);
 
 /* void parameter_string_callback( string_param p, const char *value ); */
 /* void parameter_double_callback( double_param p, double value ); */
 /* void parameter_int_callback( int_param p, long int value ); */
 /* void parameter_bool_callback( bool_param p, bool value ); */
-
 
 extern GtkWidget *vbox, *toolbar;
 extern GdkPixbuf *p;
@@ -101,17 +100,15 @@ extern GtkWidget *pDasherWidget;
 
 extern GtkWidget *window;
 
-
 extern bool controlmodeon;
 extern bool keyboardmodeon;
 
 extern gboolean exiting;
 
-
-extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data);
-extern "C" void get_font_from_dialog( GtkWidget *one, GtkWidget *two );
-extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data);
-extern "C" void get_edit_font_from_dialog( GtkWidget *one, GtkWidget *two );
+extern "C" void set_dasher_font(GtkWidget * widget, gpointer user_data);
+extern "C" void get_font_from_dialog(GtkWidget * one, GtkWidget * two);
+extern "C" void set_edit_font(GtkWidget * widget, gpointer user_data);
+extern "C" void get_edit_font_from_dialog(GtkWidget * one, GtkWidget * two);
 
 void stop();
 
@@ -125,12 +122,11 @@ void update_alphabets();
 
 extern gboolean timestamp;
 
-
 // New Stuff
 
-extern GConfClient *g_pGConfClient; // GConf client for use by the app.
+extern GConfClient *g_pGConfClient;     // GConf client for use by the app.
 
-void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML );
+void InitialiseMainWindow(int argc, char **argv, GladeXML * pGladeXML);
 void SaveWindowState();
 
 // ---
@@ -142,7 +138,3 @@ void SaveWindowState();
 #endif
 
 #endif
-
-
-
-

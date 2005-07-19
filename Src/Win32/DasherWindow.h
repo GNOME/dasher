@@ -6,13 +6,10 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
 #ifndef __DasherWindow_h__
 #define __DasherWindow_h__
 
-
 #include "resource.h"
-
 
 #include "Widgets/Splitter.h"
 #include "Widgets/Menu.h"
@@ -24,82 +21,75 @@
 
 class CToolbar;
 class CSlidebar;
-namespace Dasher 
-{
-	class CDasherWidgetInterface;
-	class CDasherAppInterface;
+namespace Dasher {
+  class CDasherWidgetInterface;
+  class CDasherAppInterface;
   class CDasher;
 };
 
 // Abstract interfaces to the Dasher engine
 #include "../DasherCore/DasherSettingsInterface.h"
 
-
-class CDasherWindow : public CWinWrap, public CSplitterOwner,
-	public Dasher::CDasherSettingsInterface
-{
+class CDasherWindow:public CWinWrap, public CSplitterOwner, public Dasher::CDasherSettingsInterface {
 public:
-	CDasherWindow();
-	~CDasherWindow();
-	
-	void Show(int nCmdShow);
-	int MessageLoop();
-	
-	// Settings Interface members
-	void ChangeAlphabet(const std::string& NewAlphabetID);
-	void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
-	void SetFileEncoding(Dasher::Opts::FileEncodingFormats Encoding);
-	
-	void SaveWindowState() const;
-	bool LoadWindowState();
+  CDasherWindow();
+  ~CDasherWindow();
 
-	void ShowToolbar(bool Value);
-	void ShowToolbarText(bool Value);
-	void ShowToolbarLargeIcons(bool Value);
-	void ShowSpeedSlider(bool Value);
+  void Show(int nCmdShow);
+  int MessageLoop();
 
-    void SetDasherFontSize(Dasher::Opts::FontSize fontsize);
+  // Settings Interface members
+  void ChangeAlphabet(const std::string & NewAlphabetID);
+  void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
+  void SetFileEncoding(Dasher::Opts::FileEncodingFormats Encoding);
 
-	void FixLayout(bool Value);
-	void ControlMode(bool Value);
+  void SaveWindowState() const;
+  bool LoadWindowState();
+
+  void ShowToolbar(bool Value);
+  void ShowToolbarText(bool Value);
+  void ShowToolbarLargeIcons(bool Value);
+  void ShowSpeedSlider(bool Value);
+
+  void SetDasherFontSize(Dasher::Opts::FontSize fontsize);
+
+  void FixLayout(bool Value);
+  void ControlMode(bool Value);
 
 protected:
-	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-	Dasher::CDasherSettingsInterface* DasherSettingsInterface;
-	Dasher::CDasherWidgetInterface* DasherWidgetInterface;
-	Dasher::CDasherAppInterface* DasherAppInterface;
+  Dasher::CDasherSettingsInterface * DasherSettingsInterface;
+  Dasher::CDasherWidgetInterface * DasherWidgetInterface;
+  Dasher::CDasherAppInterface * DasherAppInterface;
 
-    Dasher::CDasher *m_pDasher;
-	
-	HACCEL hAccelTable;
+  Dasher::CDasher * m_pDasher;
 
-	// Fiddly Window initialisation
-	Tstring CreateMyClass();
-	
-	// Widgets:
-	CToolbar* m_pToolbar;
-	CEdit* m_pEdit;
-	CCanvas *m_pCanvas;
-	CSplitter* m_pSplitter;
-    CSlidebar* m_pSlidebar;
-    CMenu WinMenu;
-	CSplash* Splash;
+  HACCEL hAccelTable;
 
-	HICON m_hIconSm;
+  // Fiddly Window initialisation
+  Tstring CreateMyClass();
 
-	LPCWSTR AutoOffset;
-	LPCWSTR DialogCaption;
-	char tmpAutoOffset[25];
+  // Widgets:
+  CToolbar *m_pToolbar;
+  CEdit *m_pEdit;
+  CCanvas *m_pCanvas;
+  CSplitter *m_pSplitter;
+  CSlidebar *m_pSlidebar;
+  CMenu WinMenu;
+  CSplash *Splash;
 
-	// Misc window handling
-	void SetMenuCheck(UINT MenuItem, bool Value);
-	void Layout();
+  HICON m_hIconSm;
 
-  
+  LPCWSTR AutoOffset;
+  LPCWSTR DialogCaption;
+  char tmpAutoOffset[25];
+
+  // Misc window handling
+  void SetMenuCheck(UINT MenuItem, bool Value);
+  void Layout();
+
 };
-
-
 
 #endif /* #ifdef __MainWindow_h__ */

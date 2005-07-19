@@ -10,7 +10,6 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
-
 using namespace Dasher;
 
 /// CCanvas
@@ -21,23 +20,23 @@ using namespace Dasher;
 /// primitive' should really not be here - higher level drawing
 /// functions belong in CDasherView.
 
-class CCanvas : public Dasher::CDasherScreen {
+class CCanvas:public Dasher::CDasherScreen {
 
- public:
+public:
 
   /// 
   /// \param pCanvas The GTK drawing area used by the canvas
   /// \param pPangoCache A cache for precomputed Pango layouts
   ///
 
-  CCanvas( GtkWidget *pCanvas, CPangoCache *pPangoCache );
+  CCanvas(GtkWidget * pCanvas, CPangoCache * pPangoCache);
   ~CCanvas();
 
   ///
   /// GTK signal handler for exposure of the canvas - cause a redraw to the screen from the buffer.
   ///
 
-  void ExposeEvent( GdkEventExpose *pEvent );
+  void ExposeEvent(GdkEventExpose * pEvent);
 
   // CDasherScreen methods
 
@@ -47,7 +46,8 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \todo This needs to be reimplemented for 4.0
   ///  
 
-  void SetFont(std::string Name) {};
+  void SetFont(std::string Name) {
+  };
 
   ///
   /// Set the font size for rendering
@@ -55,7 +55,8 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \todo This needs to be reimplemented for 4.0
   ///
 
-  void SetFontSize(Dasher::Opts::FontSize fontsize) {};
+  void SetFontSize(Dasher::Opts::FontSize fontsize) {
+  };
 
   ///
   /// Get the current font size
@@ -63,7 +64,9 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \todo We should not be relying on locally cached variables - check to see whether this is still used or not
   ///
 
-  Dasher::Opts::FontSize GetFontSize() const { return Dasher::Opts::FontSize(1); };
+  Dasher::Opts::FontSize GetFontSize()const {
+    return Dasher::Opts::FontSize(1);
+  };
 
   ///
   /// Return the physical extent of a given string being rendered at a given size.
@@ -73,7 +76,7 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \param Size Size at which the string will be rendered (units?)
   ///
 
-  void TextSize(const std::string &String, screenint* Width, screenint* Height, int Size) const;
+  void TextSize(const std::string & String, screenint * Width, screenint * Height, int Size) const;
 
   ///
   /// \deprecated To be removed before 4.0 release
@@ -90,7 +93,7 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \param Size The size at which to render the rectangle (units?)
   ///
 
-  void DrawString(const std::string &String, screenint x1, screenint y1, int Size) const;
+  void DrawString(const std::string & String, screenint x1, screenint y1, int Size) const;
 
   ///
   /// Draw a rectangle
@@ -115,7 +118,7 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \param iMarker ID of the marker being sent.
   ///
 
-  void SendMarker( int iMarker );
+  void SendMarker(int iMarker);
 
   /// 
   /// Draw a polyline
@@ -124,7 +127,7 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \bug This seems dumb - surely we can just call the coloured version with the colour set to black?
   ///
 
-  void Polyline(point* Points, int Number) const;
+  void Polyline(point * Points, int Number) const;
 
   /// 
   /// Draw a coloured polyline
@@ -133,21 +136,21 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \param Colour Colour with which to draw the line
   ///
 
-  void Polyline(point* Points, int Number, int Colour) const;
+  void Polyline(point * Points, int Number, int Colour) const;
 
   /// 
   /// Like polyline, but fill the shape
   /// \todo See comments for DrawPolygon
   ///
 
-  void Polygon(point* Points, int Number, int Colour) const;
+  void Polygon(point * Points, int Number, int Colour) const;
 
   ///
   /// \todo Not implemented
   /// \todo One of these two routines must be redundant - find out which and kill the other
   ///
-  
-  void DrawPolygon(point* Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const { 
+
+  void DrawPolygon(point * Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const {
     // FIXME - not implemented 
   };
 
@@ -168,15 +171,15 @@ class CCanvas : public Dasher::CDasherScreen {
   /// \param Colours New colours to use
   ///
 
-  void SetColourScheme(const CCustomColours *Colours);
+  void SetColourScheme(const CCustomColours * Colours);
 
- private:
-  
+private:
+
   ///
   /// The GTK drawing area for the canvas
   ///
 
-  GtkWidget *m_pCanvas;
+  GtkWidget * m_pCanvas;
 
   ///
   /// The offscreen buffer containing the 'background'
@@ -197,13 +200,13 @@ class CCanvas : public Dasher::CDasherScreen {
   ///
 
   GdkPixmap *m_pOnscreenBuffer;
-  
+
   ///
   /// Pointer to which of the offscreen buffers is currently active.
   ///
 
   GdkPixmap *m_pOffscreenBuffer;
-  
+
   /// 
   /// The Pango cache - used to store pre-computed pango layouts as
   /// they are costly to regenerate every time they are needed.
@@ -216,7 +219,7 @@ class CCanvas : public Dasher::CDasherScreen {
   ///
 
   GdkColor *colours;
-  
+
   /// 
   /// Canvas width
   ///

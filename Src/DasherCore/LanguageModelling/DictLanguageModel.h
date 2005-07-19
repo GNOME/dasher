@@ -9,7 +9,6 @@
 #ifndef __DictLanguageModel_h__
 #define __DictLanguageModel_h__
 
-
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 #include "LanguageModel.h"
@@ -24,86 +23,87 @@
 //static char dumpTrieStr[40000];
 //const int maxcont =200;
 
-namespace Dasher 
-{
+namespace Dasher {
 
-class CDictLanguageModel : public CLanguageModel
-{
-public:
-	CDictLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams *_params);
-	virtual ~CDictLanguageModel();
-	
-	Context CreateEmptyContext();
-	void ReleaseContext(Context context);
-	Context CloneContext(Context context);
+  class CDictLanguageModel:public CLanguageModel {
+  public:
+    CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * _params);
+      virtual ~ CDictLanguageModel();
 
-	virtual void GetProbs(Context Context, std::vector<unsigned int> &Probs, int iNorm) const;
+    Context CreateEmptyContext();
+    void ReleaseContext(Context context);
+    Context CloneContext(Context context);
 
-	virtual void EnterSymbol(Context context, int Symbol);
-	virtual void LearnSymbol(Context context, int Symbol) {
-	  EnterSymbol( context, Symbol );
-	}; // Never learn in this model
+    virtual void GetProbs(Context Context, std::vector < unsigned int >&Probs, int iNorm) const;
 
-	virtual int GetMemory() {
-	  return NodesAllocated;
-	}
+    virtual void EnterSymbol(Context context, int Symbol);
+    virtual void LearnSymbol(Context context, int Symbol) {
+      EnterSymbol(context, Symbol);
+    };                          // Never learn in this model
 
-	
-private:
+    virtual int GetMemory() {
+      return NodesAllocated;
+  } private:
 
-	void MyLearnSymbol(Context context, int Symbol);
+    void MyLearnSymbol(Context context, int Symbol);
 
-	class CDictnode {
-	public:
-		CDictnode* find_symbol(int sym) const;
-		CDictnode* child;
-		CDictnode* next;
-		CDictnode* vine;
-		unsigned short int count;
-		int sbl;
+    class CDictnode {
+    public:
+      CDictnode * find_symbol(int sym) const;
+      CDictnode *child;
+      CDictnode *next;
+      CDictnode *vine;
+      unsigned short int count;
+      int sbl;
 
-		CDictnode(int sym);
-		CDictnode();
-	};
-	
-	class CDictContext 
-	{
-	public:
-		CDictContext(CDictContext const &input) {head = input.head; word_head = input.word_head; current_word = input.current_word; order= input.order; word_order = input.word_order; }
-		CDictContext(CDictnode* _head=0, int _order=0) : head(_head),order(_order),word_head(_head),word_order(0) {}; // FIXME - doesn't work if we're trying to create a non-empty context
-		~CDictContext() {};
-		void dump();
-		CDictnode* head;
-		int order;
+        CDictnode(int sym);
+        CDictnode();
+    };
 
-		std::string current_word;
-		CDictnode* word_head;
-		int word_order;
-		
-	};
+    class CDictContext {
+    public:
+      CDictContext(CDictContext const &input) {
+        head = input.head;
+        word_head = input.word_head;
+        current_word = input.current_word;
+        order = input.order;
+        word_order = input.word_order;
+    } CDictContext(CDictnode * _head = 0, int _order = 0):head(_head), order(_order), word_head(_head), word_order(0) {
+      };                        // FIXME - doesn't work if we're trying to create a non-empty context
+      ~CDictContext() {
+      };
+      void dump();
+      CDictnode *head;
+      int order;
 
-	CDictnode* AddSymbolToNode(CDictnode* pNode, symbol sym,int *update);
-	
-	void AddSymbol(CDictContext& context,symbol sym);
+      std::string current_word;
+      CDictnode *word_head;
+      int word_order;
 
-	void CollapseContext(CDictContext &context) const;
+    };
 
-	int lookup_word( const std::string &w );
-	int lookup_word_const( const std::string &w ) const; 
+    CDictnode *AddSymbolToNode(CDictnode * pNode, symbol sym, int *update);
 
-	CDictContext *m_rootcontext;
-	CDictnode* m_pRoot;
+    void AddSymbol(CDictContext & context, symbol sym);
 
-	std::map< std::string, int > dict; // Dictionary
-	int nextid;
+    void CollapseContext(CDictContext & context) const;
 
-	int NodesAllocated;
+    int lookup_word(const std::string & w);
+    int lookup_word_const(const std::string & w) const;
 
-	int max_order;
+    CDictContext *m_rootcontext;
+    CDictnode *m_pRoot;
 
-	mutable CSimplePooledAlloc<CDictnode> m_NodeAlloc;
-	CPooledAlloc<CDictContext> m_ContextAlloc;
-};
+    std::map < std::string, int >dict;  // Dictionary
+    int nextid;
+
+    int NodesAllocated;
+
+    int max_order;
+
+    mutable CSimplePooledAlloc < CDictnode > m_NodeAlloc;
+    CPooledAlloc < CDictContext > m_ContextAlloc;
+  };
 
 ////////////////////////////////////////////////////////////////////////
 // Inline functions 
@@ -111,49 +111,43 @@ private:
 
 ////////////////////////////////////////////////////////////////////////
 
-inline Dasher::CDictLanguageModel::CDictnode::CDictnode(symbol sym) : sbl(sym)
-{
-	child=next=vine=0;
-	count=1;
-}
+  inline Dasher::CDictLanguageModel::CDictnode::CDictnode(symbol sym):sbl(sym) {
+    child = next = vine = 0;
+    count = 1;
+  }
 
 ////////////////////////////////////////////////////////////////////////
 
-inline CDictLanguageModel::CDictnode::CDictnode()
-{
-	child=next=vine=0;
-	count=1;
-}
-
+  inline CDictLanguageModel::CDictnode::CDictnode() {
+    child = next = vine = 0;
+    count = 1;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CDictLanguageModel::CreateEmptyContext()
-{
-	CDictContext* pCont = m_ContextAlloc.Alloc();
-	*pCont = *m_rootcontext;
-	return (Context)pCont;
-}
+  inline CLanguageModel::Context CDictLanguageModel::CreateEmptyContext() {
+    CDictContext *pCont = m_ContextAlloc.Alloc();
+    *pCont = *m_rootcontext;
+    return (Context) pCont;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CDictLanguageModel::CloneContext(Context Copy)
-{
-	CDictContext* pCont = m_ContextAlloc.Alloc();
-	CDictContext* pCopy = (CDictContext*)Copy;
-	*pCont = *pCopy;
-	return (Context)pCont;	
-}
+  inline CLanguageModel::Context CDictLanguageModel::CloneContext(Context Copy) {
+    CDictContext *pCont = m_ContextAlloc.Alloc();
+    CDictContext *pCopy = (CDictContext *) Copy;
+    *pCont = *pCopy;
+    return (Context) pCont;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline void CDictLanguageModel::ReleaseContext(Context release)
-{
-	m_ContextAlloc.Free( (CDictContext*) release );
-}
+  inline void CDictLanguageModel::ReleaseContext(Context release) {
+    m_ContextAlloc.Free((CDictContext *) release);
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-} // end namespace Dasher
+}                               // end namespace Dasher
 
 #endif /* #ifndef __DictLanguageModel_H__ */

@@ -9,31 +9,30 @@ namespace Dasher {
   class CEventHandler;
   class CDasherComponent;
   class CDasherInterfaceBase;
-}
+} class Dasher::CEventHandler {
+public:
 
-
-class Dasher::CEventHandler {
- public:
-
-	 CEventHandler( Dasher::CDasherInterfaceBase *pInterface ) : m_pInterface( pInterface ) {};
-  ~CEventHandler() {};
+  CEventHandler(Dasher::CDasherInterfaceBase * pInterface):m_pInterface(pInterface) {
+  };
+  ~CEventHandler() {
+  };
 
   // Insert an event, which will be propagated to all listeners.
 
-  void InsertEvent( Dasher::CEvent *pEvent );
+  void InsertEvent(Dasher::CEvent * pEvent);
 
   // (Un)register a listener with the event handler.
 
-  void RegisterListener( Dasher::CDasherComponent *pListener );
-  void UnregisterListener( Dasher::CDasherComponent *pListener );
+  void RegisterListener(Dasher::CDasherComponent * pListener);
+  void UnregisterListener(Dasher::CDasherComponent * pListener);
 
- protected:
+protected:
 
   // Vector containing all currently registered listeners.
 
-  std::vector< Dasher::CDasherComponent * > m_vListeners;
+  std::vector < Dasher::CDasherComponent * >m_vListeners;
 
-  Dasher::CDasherInterfaceBase *m_pInterface;
+  Dasher::CDasherInterfaceBase * m_pInterface;
 
 };
 

@@ -6,42 +6,37 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-
-
 #ifndef __KeyBox_h__
 #define __KeyBox_h__
-
 
 #include "../resource.h"
 
 #include "../Dasher.h"
 
-class CKeyBox : public CWinWrap
-{
+class CKeyBox:public CWinWrap {
 public:
-	CKeyBox(HWND Parent, CDasher *pDasher );
-	void PopulateWidgets();
-	std::string GetControlText(HWND Dialog, int ControlID);
+  CKeyBox(HWND Parent, CDasher * pDasher);
+  void PopulateWidgets();
+    std::string GetControlText(HWND Dialog, int ControlID);
 protected:
-	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+    LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasher *m_pDasher;
-  
+    CDasher * m_pDasher;
+
   HWND CustomBox;
-	HWND slider;
-	HWND uniformbox;
-	int keycoords[18];
-	int ypixels;
-	int mouseposdist;
-	double NewUniform;
+  HWND slider;
+  HWND uniformbox;
+  int keycoords[18];
+  int ypixels;
+  int mouseposdist;
+  double NewUniform;
 
-	// Some status flags:
-	bool Editing;
-	bool SelectionSet;
+  // Some status flags:
+  bool Editing;
+  bool SelectionSet;
 
-	TCHAR m_tcBuffer[1000];
+  TCHAR m_tcBuffer[1000];
 
 };
 
-
-#endif /* #ifndef __AlphabetBox_h__ */
+#endif  /* #ifndef __AlphabetBox_h__ */

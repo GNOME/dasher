@@ -12,7 +12,7 @@ extern "C" {
    long.  charset will be empty if the default charset should be used.
 */
 
-void getXMLCharset(const char *buf, char *charset);
+  void getXMLCharset(const char *buf, char *charset);
 
 #ifdef __cplusplus
 }

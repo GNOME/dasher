@@ -11,7 +11,7 @@
 #include "KeyControl.h"
 #include "../resource.h"
 
-#include <utility> // for std::pair
+#include <utility>              // for std::pair
 //#include <sstream>
 
 using namespace Dasher;
@@ -19,33 +19,28 @@ using namespace std;
 
 // FIXME - lines marked //F need to be reimplemented using the new scheme
 
-
-CKeyBox::CKeyBox(HWND Parent, CDasher *pDasher )
-	: m_pDasher( pDasher ), NewUniform(-1)
-{
-//	m_sBuffer.resize(1000);
-	m_hwnd=0;
-	DialogBoxParam(WinHelper::hInstApp, (LPCTSTR)IDD_KEYCONTROL1, Parent, (DLGPROC)WinWrapMap::WndProc, (LPARAM)this);
+CKeyBox::CKeyBox(HWND Parent, CDasher *pDasher)
+:m_pDasher(pDasher), NewUniform(-1) {
+//      m_sBuffer.resize(1000);
+  m_hwnd = 0;
+  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_KEYCONTROL1, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
 }
 
-std::string CKeyBox::GetControlText(HWND Dialog, int ControlID)
-{
-	HWND Control = GetDlgItem(Dialog, ControlID);
-	LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1; // +1 to allow for terminator
-	TCHAR* Buffer = new TCHAR[BufferLength];
-	SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM)Buffer);
-	string ItemName;
-	WinUTF8::wstring_to_UTF8string(Buffer, ItemName);
-	delete[] Buffer;
-	return ItemName;
+std::string CKeyBox::GetControlText(HWND Dialog, int ControlID) {
+  HWND Control = GetDlgItem(Dialog, ControlID);
+  LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;      // +1 to allow for terminator
+  TCHAR *Buffer = new TCHAR[BufferLength];
+  SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
+  string ItemName;
+  WinUTF8::wstring_to_UTF8string(Buffer, ItemName);
+  delete[]Buffer;
+  return ItemName;
 }
 
-
-void CKeyBox::PopulateWidgets()
-{
-//	int widgets[18];
-//	char dummybuffer[256];
-//	wchar_t widebuffer[256];
+void CKeyBox::PopulateWidgets() {
+//      int widgets[18];
+//      char dummybuffer[256];
+//      wchar_t widebuffer[256];
 
 /*	widgets[0]=IDC_UPX;
 	widgets[1]=IDC_UPY;
@@ -67,56 +62,54 @@ void CKeyBox::PopulateWidgets()
 	widgets[17]=IDC_9Y;
 
 	int* coords = m_pCanvas->getkeycoords(); */
-  ypixels = m_pDasher->GetLongParameter( LP_YSCALE );
-  mouseposdist = m_pDasher->GetLongParameter( LP_MOUSEPOSDIST );
+  ypixels = m_pDasher->GetLongParameter(LP_YSCALE);
+  mouseposdist = m_pDasher->GetLongParameter(LP_MOUSEPOSDIST);
 
 /*	for (int i=0; i<18; i++) {
 			keycoords[i]=coords[i];
 	}
-*/	
-	HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
-	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
+*/
+  HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
+  SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
 
-	// Perhaps a typedef for std::basic_ostringstream<TCHAR> would be useful
-//	std::basic_ostringstream<TCHAR> strYPix;
-//	strYPix << ypixels;
+  // Perhaps a typedef for std::basic_ostringstream<TCHAR> would be useful
+//      std::basic_ostringstream<TCHAR> strYPix;
+//      strYPix << ypixels;
 
-	_sntprintf(m_tcBuffer, 100, TEXT("%d"), ypixels);
+  _sntprintf(m_tcBuffer, 100, TEXT("%d"), ypixels);
 //
-//	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-	SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer );
-//	delete[] Buffer;
+//      SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
+  SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+//      delete[] Buffer;
 
-	EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
-	SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
+  EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
+  SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
 
-	_sntprintf(m_tcBuffer, 100, TEXT("%d"), mouseposdist);
-//	std::basic_ostringstream<TCHAR> strMousePosDist;
-//	strMousePosDist << mouseposdist;
+  _sntprintf(m_tcBuffer, 100, TEXT("%d"), mouseposdist);
+//      std::basic_ostringstream<TCHAR> strMousePosDist;
+//      strMousePosDist << mouseposdist;
 
-	SendMessage(EditBox, WM_SETTEXT, 0,(LPARAM)m_tcBuffer  );
-//	delete[] Buffer;
+  SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+//      delete[] Buffer;
 
-	slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
-	SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
-	SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
-	SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
-	SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pDasher->GetLongParameter( LP_UNIFORM ));
+  slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
+  SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
+  SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
+  SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
+  SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pDasher->GetLongParameter(LP_UNIFORM));
 
-	uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
+  uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
 
-//	std::basic_ostringstream<TCHAR> strUniform;
-//	strUniform.setf(ios::fixed);
-//	strUniform.precision(1);
-//	strUniform << m_pCanvas->getuniform()/10.0;
+//      std::basic_ostringstream<TCHAR> strUniform;
+//      strUniform.setf(ios::fixed);
+//      strUniform.precision(1);
+//      strUniform << m_pCanvas->getuniform()/10.0;
 
 // FIXME - why do we store things like 'uniform' here - surely they should be stored in the interface?
 
-	_sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pDasher->GetLongParameter( LP_UNIFORM )/10.0);
+  _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pDasher->GetLongParameter(LP_UNIFORM) / 10.0);
 
-	SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM)m_tcBuffer );
-
-
+  SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
 
 /*	for (int i=0; i<18; i++) {
 		EditBox = GetDlgItem(m_hwnd, widgets[i]);
@@ -138,52 +131,51 @@ void CKeyBox::PopulateWidgets()
 	} */
 }
 
-LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	switch (message)
-	{
-	case WM_INITDIALOG: 
-	{
-		if (!m_hwnd) { // If this is the initial dialog for the first time
-			m_hwnd = Window;
-			PopulateWidgets();
-		}
-		return TRUE;
-		break;
-	}
-	case WM_HSCROLL:
-		if ((LOWORD(wParam)==SB_THUMBPOSITION) | (LOWORD(wParam)==SB_THUMBTRACK)) {
-			// Some messages give the new postion
-			NewUniform = HIWORD(wParam);
-		} else {
-			// Otherwise we have to ask for it
-			long Pos = SendMessage(slider,TBM_GETPOS,0,0);
-			NewUniform = Pos;
-		}
-		{
-	//	std::basic_ostringstream<TCHAR> strNewUniform;
-	//	strNewUniform.setf(ios::fixed);
-	//	strNewUniform.precision(1);
-	//	strNewUniform << NewUniform/10; 
-		_sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), NewUniform/10);
-		SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer );
-		}
-		return TRUE;
-		break;
-	case WM_COMMAND:
-		switch (LOWORD(wParam)) {
-		case (IDC_DISPLAY):
-			if (HIWORD(wParam)==EN_CHANGE) {
-				HWND Control = GetDlgItem(Window, IDC_DISPLAY);
-				LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1; // +1 to allow for terminator
-				TCHAR* Buffer = new TCHAR[BufferLength];
-				SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM)Buffer);
-				string ItemName;
-				SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM)Buffer);
-				delete[] Buffer;
-			}
-			break;
-		case (IDOK_KEYCONT):
+LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  switch (message) {
+  case WM_INITDIALOG:
+    {
+      if(!m_hwnd) {             // If this is the initial dialog for the first time
+        m_hwnd = Window;
+        PopulateWidgets();
+      }
+      return TRUE;
+      break;
+    }
+  case WM_HSCROLL:
+    if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
+      // Some messages give the new postion
+      NewUniform = HIWORD(wParam);
+    }
+    else {
+      // Otherwise we have to ask for it
+      long Pos = SendMessage(slider, TBM_GETPOS, 0, 0);
+      NewUniform = Pos;
+    }
+    {
+      //      std::basic_ostringstream<TCHAR> strNewUniform;
+      //      strNewUniform.setf(ios::fixed);
+      //      strNewUniform.precision(1);
+      //      strNewUniform << NewUniform/10; 
+      _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), NewUniform / 10);
+      SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+    }
+    return TRUE;
+    break;
+  case WM_COMMAND:
+    switch (LOWORD(wParam)) {
+    case (IDC_DISPLAY):
+      if(HIWORD(wParam) == EN_CHANGE) {
+        HWND Control = GetDlgItem(Window, IDC_DISPLAY);
+        LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;        // +1 to allow for terminator
+        TCHAR *Buffer = new TCHAR[BufferLength];
+        SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
+        string ItemName;
+        SendMessage(GetDlgItem(Window, IDC_TEXT), WM_SETTEXT, 0, (LPARAM) Buffer);
+        delete[]Buffer;
+      }
+      break;
+    case (IDOK_KEYCONT):
 /*			keycoords[0]=atoi(GetControlText(Window,IDC_UPX).c_str());
 			keycoords[1]=atoi(GetControlText(Window,IDC_UPY).c_str());
 			keycoords[2]=atoi(GetControlText(Window,IDC_DOWNX).c_str());
@@ -202,20 +194,19 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			keycoords[15]=atoi(GetControlText(Window,IDC_8Y).c_str());
 			keycoords[16]=atoi(GetControlText(Window,IDC_9X).c_str());
 			keycoords[17]=atoi(GetControlText(Window,IDC_9Y).c_str()); */
-			ypixels=atoi(GetControlText(Window,IDC_YPIX).c_str());
-			mouseposdist=atoi(GetControlText(Window,IDC_MOUSEPOSDIST).c_str());
-			EndDialog(Window, LOWORD(wParam));
-		//	m_pCanvas->setkeycoords(keycoords);
-			m_pDasher->SetLongParameter( LP_YSCALE, ypixels );
-		
-		m_pDasher->SetLongParameter( LP_MOUSEPOSDIST, mouseposdist );
-			if (NewUniform!=-1) 
-			{
-				// DJW - this looks a bit nasty
-         m_pDasher->SetLongParameter( LP_UNIFORM, static_cast<long>(NewUniform) );
+      ypixels = atoi(GetControlText(Window, IDC_YPIX).c_str());
+      mouseposdist = atoi(GetControlText(Window, IDC_MOUSEPOSDIST).c_str());
+      EndDialog(Window, LOWORD(wParam));
+      //      m_pCanvas->setkeycoords(keycoords);
+      m_pDasher->SetLongParameter(LP_YSCALE, ypixels);
 
-			}
-			// Move forward on button press
+      m_pDasher->SetLongParameter(LP_MOUSEPOSDIST, mouseposdist);
+      if(NewUniform != -1) {
+        // DJW - this looks a bit nasty
+        m_pDasher->SetLongParameter(LP_UNIFORM, static_cast < long >(NewUniform));
+
+      }
+      // Move forward on button press
 /*			if (SendMessage(GetDlgItem(Window,IDC_KCFORWARD), BM_GETCHECK, 0, 0)==BST_CHECKED) {
 				m_pCanvas->setforward(true);
 			} else {
@@ -233,19 +224,19 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			} else {
 				m_pCanvas->setselect(false);
 			} */
-			return TRUE;
-			break;
-		case (IDCANCEL):
-		{
-			EndDialog(Window, LOWORD(wParam));
-			return TRUE;
-		}
-		case ID_CANCEL_KEYCONT:
-			EndDialog(Window, LOWORD(wParam));
-			return TRUE;
-		break;
-		}
-	default:
-	return FALSE;
-	}
+      return TRUE;
+      break;
+    case (IDCANCEL):
+      {
+        EndDialog(Window, LOWORD(wParam));
+        return TRUE;
+      }
+    case ID_CANCEL_KEYCONT:
+      EndDialog(Window, LOWORD(wParam));
+      return TRUE;
+      break;
+    }
+  default:
+    return FALSE;
+  }
 }

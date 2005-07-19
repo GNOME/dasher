@@ -13,15 +13,13 @@
 
 // String hash function
 
-inline size_t hash_string(const char* s)
-{
-	register size_t i;
-	for (i=0; *s; s++)
-	{
-		i*=16777619;
-		i^= *s;
-	}
-	return i;
+inline size_t hash_string(const char *s) {
+  register size_t i;
+  for(i = 0; *s; s++) {
+    i *= 16777619;
+    i ^= *s;
+  }
+  return i;
 
 }
 

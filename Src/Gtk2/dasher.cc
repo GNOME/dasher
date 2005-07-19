@@ -59,16 +59,14 @@
 // We shouldn't need this - the functions which reference it are obsolete
 #include "../DasherCore/Event.h"
 
-
 #include "GtkDasherControl.h"
-
 
 // Pointers to various GTK widgets
 
 GladeXML *widgets;
 
 GtkWidget *vbox, *toolbar;
-GdkPixbuf *p; // Hmm... descriptive names
+GdkPixbuf *p;                   // Hmm... descriptive names
 GtkWidget *pw;
 GtkStyle *style;
 GtkAccelGroup *dasher_accel;
@@ -89,17 +87,17 @@ GConfClient *g_pGConfClient;
 
 // Boolean application parameters - note that we shouldn't be specifying default values here - see InitialiseAppParameters() instead
 
-bool keyboardmodeon=false; // I *think* this is whether to 
-gboolean timestamp; // Whether to automatically construct new filenames based on timestamp
-gboolean showtoolbar; // Whether to show the toolbar or not
-gboolean keyboardcontrol; // ?
-bool cyclickeyboardmodeon=false; // ? (obsolete?)
-gboolean leavewindowpause; // Whether to pause Dasher when we leave the window
-gboolean speakonstop=FALSE; // Whether to speak when Dasher is stopped
-extern gboolean timedata; // Whether to output logging data (obsolete?)
+bool keyboardmodeon = false;    // I *think* this is whether to 
+gboolean timestamp;             // Whether to automatically construct new filenames based on timestamp
+gboolean showtoolbar;           // Whether to show the toolbar or not
+gboolean keyboardcontrol;       // ?
+bool cyclickeyboardmodeon = false;      // ? (obsolete?)
+gboolean leavewindowpause;      // Whether to pause Dasher when we leave the window
+gboolean speakonstop = FALSE;   // Whether to speak when Dasher is stopped
+extern gboolean timedata;       // Whether to output logging data (obsolete?)
 //extern gboolean drawoutline;
-extern gboolean textentry; // Keyboard emulation for entering text into other applications
-extern gboolean stdoutpipe; // Whether to output text to stdout
+extern gboolean textentry;      // Keyboard emulation for entering text into other applications
+extern gboolean stdoutpipe;     // Whether to output text to stdout
 
 // Interger applications parameters
 
@@ -107,15 +105,15 @@ gint fileencoding;
 
 // String application parameters
 
-const gchar *filename = NULL; // Filename of file currently being edited
-std::string editfont="Sans 10"; // Font to use in edit box
+const gchar *filename = NULL;   // Filename of file currently being edited
+std::string editfont = "Sans 10";       // Font to use in edit box
 
 // Boolean application status flags
 
-gboolean setup = FALSE; // Has setup been completed (?)
-gboolean indrag = FALSE; // ?
+gboolean setup = FALSE;         // Has setup been completed (?)
+gboolean indrag = FALSE;        // ?
 gboolean file_modified = FALSE; // Have unsaved changes been made to the current file
-gboolean quitting = FALSE; // Are we in the process of shutting down Dasher 
+gboolean quitting = FALSE;      // Are we in the process of shutting down Dasher 
 
 // Possibly obsolete global stuff
 
@@ -131,20 +129,20 @@ gboolean coordcalled;
 
 double bitrate;
 
-gint buttonnum=0;
+gint buttonnum = 0;
 
 gint outputcharacters;
 
-time_t lastdirection=0;
+time_t lastdirection = 0;
 
 // 'Private' methods
 
 void LoadWindowState();
 void InitialiseAppParameters();
 
-extern "C" void handle_start_event( GtkDasherControl *pDasherControl, gpointer data);
-extern "C" void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data);
-extern "C" void parameter_notification( GtkDasherControl *pDasherControl, gint iParameter, gpointer data );
+extern "C" void handle_start_event(GtkDasherControl * pDasherControl, gpointer data);
+extern "C" void handle_stop_event(GtkDasherControl * pDasherControl, gpointer data);
+extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
 
 ///
 /// Initialise the main window and child components 
@@ -152,42 +150,42 @@ extern "C" void parameter_notification( GtkDasherControl *pDasherControl, gint i
 /// should really be changed to reflect this
 ///
 
-void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
+void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
   dasher_accel = gtk_accel_group_new(); //?
-  
-  widgets=pGladeXML; // obsolete?
+
+  widgets = pGladeXML;          // obsolete?
   // Grab some pointers to important GTK widgets from the Glade XML
   // FIXME - do we actually need all of these?
 
-  toolbar=glade_xml_get_widget( pGladeXML, "toolbar");
-  window=glade_xml_get_widget( pGladeXML, "window");
-  vbox=glade_xml_get_widget( pGladeXML, "vbox1");
-  vpane=glade_xml_get_widget( pGladeXML, "vpaned1");
-  dasher_menu_bar=glade_xml_get_widget( pGladeXML, "dasher_menu_bar");
+  toolbar = glade_xml_get_widget(pGladeXML, "toolbar");
+  window = glade_xml_get_widget(pGladeXML, "window");
+  vbox = glade_xml_get_widget(pGladeXML, "vbox1");
+  vpane = glade_xml_get_widget(pGladeXML, "vpaned1");
+  dasher_menu_bar = glade_xml_get_widget(pGladeXML, "dasher_menu_bar");
 
   // Construct a Dasher control
-  
+
   pDasherWidget = gtk_dasher_control_new();
 
-  g_signal_connect( pDasherWidget, "dasher_changed", G_CALLBACK(parameter_notification), NULL );
-  g_signal_connect( pDasherWidget, "dasher_start", G_CALLBACK(handle_start_event), NULL );
-  g_signal_connect( pDasherWidget, "dasher_stop", G_CALLBACK(handle_stop_event), NULL );
-  g_signal_connect( pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL );
-  g_signal_connect( pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL );
-  
-  gtk_paned_add2( GTK_PANED( vpane ), pDasherWidget );
+  g_signal_connect(pDasherWidget, "dasher_changed", G_CALLBACK(parameter_notification), NULL);
+  g_signal_connect(pDasherWidget, "dasher_start", G_CALLBACK(handle_start_event), NULL);
+  g_signal_connect(pDasherWidget, "dasher_stop", G_CALLBACK(handle_stop_event), NULL);
+  g_signal_connect(pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL);
+  g_signal_connect(pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL);
+
+  gtk_paned_add2(GTK_PANED(vpane), pDasherWidget);
 
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
-  gtk_widget_set_sensitive(glade_xml_get_widget( pGladeXML,"speakbutton"),false);
+  gtk_widget_set_sensitive(glade_xml_get_widget(pGladeXML, "speakbutton"), false);
 #endif
 
   // Initialise the various components
 
-  initialise_edit( pGladeXML );
-  initialise_preferences_dialogue( pGladeXML );
-  InitialiseFontDialogues( pGladeXML );
+  initialise_edit(pGladeXML);
+  initialise_preferences_dialogue(pGladeXML);
+  InitialiseFontDialogues(pGladeXML);
 
   LoadWindowState();
 
@@ -196,7 +194,7 @@ void InitialiseMainWindow( int argc, char **argv, GladeXML *pGladeXML ) {
   // Well, I suppose you could give it to kids, or impress primitive tribes,
   // or convince members of the appropriate sex that you're somehow deeply cool,
   // but they're not really our design goals.
-  dasher_set_parameter_bool( BOOL_KEYBOARDMODE, true );
+  dasher_set_parameter_bool(BOOL_KEYBOARDMODE, true);
 #endif
 
   InitialiseAppParameters();
@@ -223,102 +221,101 @@ void interface_cleanup() {
 /// Notification callbacks for parameters having changed
 ///
 
-extern "C" void
-parameter_notification( GtkDasherControl *pDasherControl, gint iParameter, gpointer data ) {  
-  if( iParameter == LP_DASHER_FONTSIZE ) {
-    switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_DASHER_FONTSIZE ) ) {
+extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data) {
+  if(iParameter == LP_DASHER_FONTSIZE) {
+    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE)) {
     case Opts::Normal:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizenormal")), TRUE);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets, "fontsizenormal")), TRUE);
       break;
     case Opts::Big:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizelarge")), TRUE);
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets, "fontsizelarge")), TRUE);
       break;
     case Opts::VBig:
-      gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"fontsizevlarge")), TRUE);
- 	  break;
+      gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets, "fontsizevlarge")), TRUE);
+      break;
     }
   }
-  else if( iParameter == LP_UNIFORM ) {
-    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"uniformhscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM)/10.0);
+  else if(iParameter == LP_UNIFORM) {
+    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets, "uniformhscale")), gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM) / 10.0);
   }
-  else if( iParameter == LP_LANGUAGE_MODEL_ID ) {
-    switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_LANGUAGE_MODEL_ID ) ) {
+  else if(iParameter == LP_LANGUAGE_MODEL_ID) {
+    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID)) {
     case 0:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6")), TRUE);
       break;
     case 1:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7")), TRUE);
       break;
     case 2:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8")), TRUE);
       break;
     }
   }
-  else if( iParameter == LP_ORIENTATION ) {
-    switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_ORIENTATION ) ) {
+  else if(iParameter == LP_ORIENTATION) {
+    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION)) {
     case Opts::Alphabet:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1")), TRUE);
       break;
     case Opts::LeftToRight:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2")), TRUE);
-      break;	  
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2")), TRUE);
+      break;
     case Opts::RightToLeft:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3")), TRUE);
       break;
     case Opts::TopToBottom:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4")), TRUE);
       break;
     case Opts::BottomToTop:
-      if (gtk_toggle_button_get_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5"))) != TRUE)
-	gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5")), TRUE);
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5"))) != TRUE)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5")), TRUE);
       break;
     }
   }
-  else if( iParameter == BP_SHOW_SLIDER ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"speedsliderbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_SHOW_SLIDER ) );
+  else if(iParameter == BP_SHOW_SLIDER) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
   }
-  else if( iParameter == BP_DRAW_MOUSE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmousebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_DRAW_MOUSE ) );
+  else if(iParameter == BP_DRAW_MOUSE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
   }
-  else if( iParameter == BP_DRAW_MOUSE_LINE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"showmouselinebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_DRAW_MOUSE_LINE ) );
+  else if(iParameter == BP_DRAW_MOUSE_LINE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
   }
-  else if( iParameter == BP_NUMBER_DIMENSIONS ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"onedbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_NUMBER_DIMENSIONS ) );
+  else if(iParameter == BP_NUMBER_DIMENSIONS) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "onedbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS));
   }
-  else if( iParameter == BP_EYETRACKER_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"eyetrackerbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_EYETRACKER_MODE ) );
+  else if(iParameter == BP_EYETRACKER_MODE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "eyetrackerbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE));
   }
-  else if( iParameter == BP_START_MOUSE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"leftbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_START_MOUSE ) );
+  else if(iParameter == BP_START_MOUSE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "leftbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE));
   }
-  else if( iParameter == BP_START_SPACE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"spacebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_START_SPACE ) );
+  else if(iParameter == BP_START_SPACE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "spacebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE));
   }
-  else if( iParameter == BP_MOUSEPOS_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"mouseposbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_MOUSEPOS_MODE ) );
+  else if(iParameter == BP_MOUSEPOS_MODE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
   }
-  else if( iParameter == BP_KEY_CONTROL ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_KEY_CONTROL ) );
+  else if(iParameter == BP_KEY_CONTROL) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEY_CONTROL));
   }
-  else if( iParameter == BP_CONTROL_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_KEY_CONTROL ) );
+  else if(iParameter == BP_CONTROL_MODE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEY_CONTROL));
   }
-  else if( iParameter == BP_OUTLINE_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"outlinebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_OUTLINE_MODE ) );
+  else if(iParameter == BP_OUTLINE_MODE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "outlinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE));
   }
-  else if( iParameter == BP_KEYBOARD_MODE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"keyboardbutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_KEYBOARD_MODE ) );
+  else if(iParameter == BP_KEYBOARD_MODE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
   }
-  else if( iParameter == BP_PALETTE_CHANGE ) {
-    gtk_toggle_button_set_active (GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"palettebutton")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget ), BP_PALETTE_CHANGE ) );
+  else if(iParameter == BP_PALETTE_CHANGE) {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
   }
 }
 
@@ -333,23 +330,23 @@ void LoadWindowState() {
   int iEditHeight;
 
   GError *pGConfError = NULL;
-  GConfValue* pGConfValue;
+  GConfValue *pGConfValue;
 
-  pGConfValue = gconf_client_get_without_default( g_pGConfClient, "/apps/dasher/ScreenWidth",  &pGConfError);
-  iWindowWidth = gconf_value_get_int( pGConfValue );
-  gconf_value_free( pGConfValue );
+  pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenWidth", &pGConfError);
+  iWindowWidth = gconf_value_get_int(pGConfValue);
+  gconf_value_free(pGConfValue);
 
-  pGConfValue = gconf_client_get_without_default( g_pGConfClient, "/apps/dasher/ScreenHeight",  &pGConfError);
-  iWindowHeight = gconf_value_get_int( pGConfValue );
-  gconf_value_free( pGConfValue );
+  pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenHeight", &pGConfError);
+  iWindowHeight = gconf_value_get_int(pGConfValue);
+  gconf_value_free(pGConfValue);
 
-  gtk_window_set_default_size (GTK_WINDOW(window), iWindowWidth, iWindowHeight );
+  gtk_window_set_default_size(GTK_WINDOW(window), iWindowWidth, iWindowHeight);
 
-  pGConfValue = gconf_client_get_without_default( g_pGConfClient, "/apps/dasher/EditHeight",  &pGConfError);
-  iEditHeight = gconf_value_get_int( pGConfValue );
-  gconf_value_free( pGConfValue );
+  pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/EditHeight", &pGConfError);
+  iEditHeight = gconf_value_get_int(pGConfValue);
+  gconf_value_free(pGConfValue);
 
-  gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")), iEditHeight );
+  gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets, "vpaned1")), iEditHeight);
 
 }
 
@@ -365,22 +362,21 @@ void SaveWindowState() {
 
   GError *pGConfError = NULL;
 
-  gtk_window_get_size (GTK_WINDOW(window), &iWindowWidth, &iWindowHeight );
+  gtk_window_get_size(GTK_WINDOW(window), &iWindowWidth, &iWindowHeight);
 
-  gconf_client_set_int( g_pGConfClient, "/apps/dasher/ScreenWidth", iWindowWidth, &pGConfError);
-  gconf_client_set_int( g_pGConfClient, "/apps/dasher/ScreenHeight", iWindowHeight, &pGConfError);
+  gconf_client_set_int(g_pGConfClient, "/apps/dasher/ScreenWidth", iWindowWidth, &pGConfError);
+  gconf_client_set_int(g_pGConfClient, "/apps/dasher/ScreenHeight", iWindowHeight, &pGConfError);
 
-  iEditHeight = gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets,"vpaned1")) );
+  iEditHeight = gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets, "vpaned1")));
 
-  gconf_client_set_int( g_pGConfClient, "/apps/dasher/EditHeight",  iEditHeight, &pGConfError);
+  gconf_client_set_int(g_pGConfClient, "/apps/dasher/EditHeight", iEditHeight, &pGConfError);
 }
 
 ///
 /// Signal handler for "dasher_start" events - emitted whenever Dasher is started
 ///
 
-extern "C"
-void handle_start_event( GtkDasherControl *pDasherControl, gpointer data) {
+extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data) {
   // Not implemented (do we even have anything to go here?)
 }
 
@@ -390,11 +386,9 @@ void handle_start_event( GtkDasherControl *pDasherControl, gpointer data) {
 /// stop, copy all on stop etc.
 ///
 
-extern "C"
-void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data) {
+extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
   // Not implemented
 }
-
 
 // -------------
 // Everything below here is either obsolete, or should definitely be moved to a new home
@@ -404,15 +398,11 @@ void handle_stop_event( GtkDasherControl *pDasherControl, gpointer data) {
 
 /* Fudge to avoid Glade complaining about being unable to find this signal 
    handler */
-extern "C" void
-filesel_hide(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void filesel_hide(GtkWidget *widget, gpointer user_data) {
   return;
 }
 
 #endif
-
-
 
 // Some markers for stuff which is no longer handled by the core
 
@@ -422,15 +412,15 @@ filesel_hide(GtkWidget *widget, gpointer user_data)
 //       showtoolbar=value;
 
 //       if (toolbar==NULL) 
-// 	break;
+//      break;
 
 // #ifndef WITH_GPE // Don't show the toolbar if running under GPE
 //       if (value) {
-// 	if (textentry==FALSE) {
-// 	  gtk_widget_show(toolbar);
-// 	}
+//      if (textentry==FALSE) {
+//        gtk_widget_show(toolbar);
+//      }
 //       } else {
-// 	gtk_widget_hide(toolbar);
+//      gtk_widget_hide(toolbar);
 //       }
 // #endif
 
@@ -439,10 +429,8 @@ filesel_hide(GtkWidget *widget, gpointer user_data)
 //     case BOOL_WINDOWPAUSE: // Not in core
 //     case BOOL_SPEECHMODE: // Not in core
 
-
-extern "C" void file_encoding(GtkWidget *widget, gpointer user_data)
-{
-    //  signed int realaction = action -3;
+extern "C" void file_encoding(GtkWidget *widget, gpointer user_data) {
+  //  signed int realaction = action -3;
   //  if( GTK_TOGGLE_BUTTON(widget)->active) {
   //    dasher_set_encoding( Dasher::Opts::FileEncodingFormats(realaction) );
   //  }
@@ -454,159 +442,151 @@ extern "C" void file_encoding(GtkWidget *widget, gpointer user_data)
   //based on the user locale and just forget about it.
 }
 
-
-
-
-extern "C" void keycontrol(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void keycontrol(GtkWidget *widget, gpointer user_data) {
   // FIXME - REIMPLEMENT
   //  dasher_set_parameter_bool( BOOL_KEYBOARDCONTROL, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
-
-
-
-
-
 // Probably obsolete button preferences code
 
-extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data)
-{
-  cyclickeyboardmodeon=GTK_TOGGLE_BUTTON(widget)->active;
+extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data) {
+  cyclickeyboardmodeon = GTK_TOGGLE_BUTTON(widget)->active;
   // FIXME - no longer have access to registry here
   //  set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
 }
 
-
-
-extern "C" gboolean
-button_preferences_show(GtkWidget *widget, gpointer user_data)
-{
+extern "C" gboolean button_preferences_show(GtkWidget *widget, gpointer user_data) {
   // FIXME
   // Ugly, ugly, ugly, ugly. Hmm, could this be done with an enum instead?
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton1")),buttons[1].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton2")),buttons[2].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton3")),buttons[3].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton4")),buttons[4].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton5")),buttons[5].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton6")),buttons[6].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton7")),buttons[7].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton8")),buttons[8].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton9")),buttons[9].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton10")),buttons[1].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton11")),buttons[2].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton12")),buttons[3].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton13")),buttons[4].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton14")),buttons[5].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton15")),buttons[6].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton16")),buttons[7].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton17")),buttons[8].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets,"spinbutton18")),buttons[9].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton1")), buttons[1].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton2")), buttons[2].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton3")), buttons[3].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton4")), buttons[4].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton5")), buttons[5].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton6")), buttons[6].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton7")), buttons[7].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton8")), buttons[8].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton9")), buttons[9].x);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton10")), buttons[1].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton11")), buttons[2].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton12")), buttons[3].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton13")), buttons[4].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton14")), buttons[5].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton15")), buttons[6].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton16")), buttons[7].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton17")), buttons[8].y);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton18")), buttons[9].y);
   // FIXME - REIMPLEMENT
   //  gtk_window_set_transient_for(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")),GTK_WINDOW(preferences_window));
-  gtk_window_present(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")));
+  gtk_window_present(GTK_WINDOW(glade_xml_get_widget(widgets, "buttonprefs")));
   return FALSE;
 }
 
-extern "C" gboolean
-button_preferences_hide(GtkWidget *widget, gpointer user_data)
-{
-  gtk_widget_hide(glade_xml_get_widget(widgets,"buttonprefs"));
+extern "C" gboolean button_preferences_hide(GtkWidget *widget, gpointer user_data) {
+  gtk_widget_hide(glade_xml_get_widget(widgets, "buttonprefs"));
   return FALSE;
 }
 
-
-
-extern "C" gboolean
-button_coordinates_changed(GtkWidget *widget, gpointer user_data)
-{
-  GtkSpinButton *spinbutton=GTK_SPIN_BUTTON(widget);
-  int value=int(gtk_spin_button_get_value(spinbutton));
+extern "C" gboolean button_coordinates_changed(GtkWidget *widget, gpointer user_data) {
+  GtkSpinButton *spinbutton = GTK_SPIN_BUTTON(widget);
+  int value = int (gtk_spin_button_get_value(spinbutton));
 
   // Really dreadfully hacky stuff to avoid recursion
   //
   // The recursion only seems to happen if the value ends up as 0, so
   // if we read a 0 twice in a row from the same widget then just break
   // out and assume that it really is a 0
-  if (coordcalled==true && value==0) {
+  if(coordcalled == true && value == 0) {
     return true;
-  } else if (value==0) {
-    coordcalled=true;
+  }
+  else if(value == 0) {
+    coordcalled = true;
   }
   gtk_spin_button_update(spinbutton);
-  coordcalled=false;
-  value=int(gtk_spin_button_get_value(spinbutton));
+  coordcalled = false;
+  value = int (gtk_spin_button_get_value(spinbutton));
 
   // FIXME - registry stuff is broken now - this probably shouldn't be in the UI anyway - put in the core
-  
+
   // FIXME
   // See previous comment about enums
   // (Mind you, the whole of this is a mess anyway...)
-  if (widget==glade_xml_get_widget(widgets,"spinbutton1")) {
-    buttons[1].x=value;
+  if(widget == glade_xml_get_widget(widgets, "spinbutton1")) {
+    buttons[1].x = value;
     //    set_long_option_callback("Button1X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton2")) {
-    buttons[2].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton2")) {
+    buttons[2].x = value;
     //  set_long_option_callback("Button2X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton3")) {
-    buttons[3].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton3")) {
+    buttons[3].x = value;
     //  set_long_option_callback("Button3X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton4")) {
-    buttons[4].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton4")) {
+    buttons[4].x = value;
     //  set_long_option_callback("Button4X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton5")) {
-    buttons[5].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton5")) {
+    buttons[5].x = value;
     //  set_long_option_callback("Button5X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton6")) {
-    buttons[6].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton6")) {
+    buttons[6].x = value;
     //  set_long_option_callback("Button6X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton7")) {
-    buttons[7].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton7")) {
+    buttons[7].x = value;
     // set_long_option_callback("Button7X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton8")) {
-    buttons[8].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton8")) {
+    buttons[8].x = value;
     // set_long_option_callback("Button8X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton9")) {
-    buttons[9].x=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton9")) {
+    buttons[9].x = value;
     // set_long_option_callback("Button9X",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton10")) {
-    buttons[1].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton10")) {
+    buttons[1].y = value;
     // set_long_option_callback("Button1Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton11")) {
-    buttons[2].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton11")) {
+    buttons[2].y = value;
     // set_long_option_callback("Button2Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton12")) {
-    buttons[3].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton12")) {
+    buttons[3].y = value;
     // set_long_option_callback("Button3Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton13")) {
-    buttons[4].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton13")) {
+    buttons[4].y = value;
     //set_long_option_callback("Button4Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton14")) {
-    buttons[5].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton14")) {
+    buttons[5].y = value;
     // set_long_option_callback("Button5Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton15")) {
-    buttons[6].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton15")) {
+    buttons[6].y = value;
     //set_long_option_callback("Button6Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton16")) {
-    buttons[7].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton16")) {
+    buttons[7].y = value;
     //set_long_option_callback("Button7Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton17")) {
-    buttons[8].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton17")) {
+    buttons[8].y = value;
     //set_long_option_callback("Button8Y",value);
-  } else if (widget==glade_xml_get_widget(widgets,"spinbutton18")) {
-    buttons[9].y=value;
+  }
+  else if(widget == glade_xml_get_widget(widgets, "spinbutton18")) {
+    buttons[9].y = value;
     //set_long_option_callback("Button9Y",value);
   }
   return FALSE;
 }
 
-
-
-
 //void interface_setup(GladeXML *xml) {
-
-
-  
 
   // What's this doing here? I'm sure we ought to just be using whatever
   // the core provides us with
@@ -614,22 +594,15 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
 
   //  the_canvas=glade_xml_get_widget(xml, "the_canvas");
 
-
-
-
   // Needed so we can make it visible or not as we wish
 
-
-
-
   // FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
-
 
 //   // interface specific preferences
 //   if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
 //     gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
 //   }
-  
+
 //   if(get_long_option_callback("YScale",&yscale)!=false) {
 //     gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
 //   }
@@ -694,7 +667,6 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
 //     buttons[9].y=0;
 //   }
 
-
 //}
 
 //void
@@ -705,22 +677,14 @@ button_coordinates_changed(GtkWidget *widget, gpointer user_data)
 //   alphabet=dasher_get_current_alphabet();
 //   colourscheme=dasher_get_current_colours();
 
-
 //}
-
-
-
 
 //void
 //open_window(GladeXML *xml) {
-
-
 
   // I have no idea why we need to do this when Glade has theoretically done
   // so already, but...
 
   // FIXME - REIMPLEMENT
-
-  
 
 //}

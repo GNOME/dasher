@@ -18,9 +18,9 @@
 /// \todo It would really be more sensible for CDasherControl to inheret from CDasherInterface rather than contain a pointer to it
 ///
 
-class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
+class CDasherControl:public CDasherSettingsInterface, public CDashEditbox {
 
- public:
+public:
 
   ///
   /// \param pVBox GTK VBox to populate with the DasherControl
@@ -31,7 +31,7 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// needed so that we can emit signals from the GObject.
   ///
 
-  CDasherControl( GtkVBox *pVbox, GtkDasherControl *pDasherControl );
+  CDasherControl(GtkVBox * pVbox, GtkDasherControl * pDasherControl);
   ~CDasherControl();
 
   // Event handlers
@@ -56,7 +56,7 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// Mouse button pressed on the canvas
   ///
 
-  gboolean ButtonPressEvent(GdkEventButton *event);
+  gboolean ButtonPressEvent(GdkEventButton * event);
 
   ///
   /// Called when the canvas has been resized, prompts the (re)creation of the CCanvas object.
@@ -77,7 +77,7 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// \todo There's quite a bit of functionality which used to be here in 3.2 but which has now been removed. Some of this is obsolete button Dasher code, but some of it performs useful functions such as recalibration, so this needs to be re-implemented.
   ///
 
-  gint KeyPressEvent( GdkEventKey *event );
+  gint KeyPressEvent(GdkEventKey * event);
 
   ///
   /// Scan for alphabet XML files in the system and user directories
@@ -99,36 +99,36 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// \todo Pointless one-line function, bring in to scan_alphabet_files.
   ///
 
-  int alphabet_filter(const gchar* filename, GPatternSpec *alphabet);
+  int alphabet_filter(const gchar * filename, GPatternSpec * alphabet);
 
   ///
   /// \todo Pointless one-line function, bring in to scan_colour_files.
   ///
 
-  int colour_filter(const gchar* filename, GPatternSpec *colourglob);
-  
+  int colour_filter(const gchar * filename, GPatternSpec * colourglob);
+
   ///
   /// Return an array of allowed values for a string parameter.
   /// \param iParameter The parameter to query.
   /// \return A GArray of gchar* pointers to strings containing permitted values
   ///
 
-  GArray *GetAllowedValues( int iParameter );
+  GArray *GetAllowedValues(int iParameter);
 
   /// 
   /// Load a file and use to train the language model
   /// \param filename The file to load.
   ///
 
-  void Train( const gchar *filename ) {
-    m_pInterface->TrainFile( filename );
+  void Train(const gchar * filename) {
+    m_pInterface->TrainFile(filename);
   };
 
   ///
   /// Returns a pointer the CDasherInterface object.
   ///
 
-  CDasherInterface* GetInterface() {
+  CDasherInterface *GetInterface() {
     return m_pInterface;
   };
 
@@ -140,7 +140,7 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// \todo Currently this is not connected to anything. We need to create a new GTK event and trigger a signal from here.
   ///
 
-  virtual void HandleParameterNotification( int iParameter );
+  virtual void HandleParameterNotification(int iParameter);
 
   // CDashEditbox methods
 
@@ -149,7 +149,7 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// \param pEvent Pointer to the event.
   ///
 
-  void HandleEvent( CEvent *pEvent );
+  void HandleEvent(CEvent * pEvent);
 
   // The following functions are obsolete and will soon be deleted from the interface
 
@@ -157,87 +157,100 @@ class CDasherControl : public CDasherSettingsInterface, public CDashEditbox {
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void write_to_file() {};
+  void write_to_file() {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void get_new_context(std::string& str, int max) {};
+  void get_new_context(std::string & str, int max) {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void output( const std::string &strText ) {};
+  void output(const std::string & strText) {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void outputcontrol(void* pointer, int data, int type) {};
+  void outputcontrol(void *pointer, int data, int type) {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void deletetext( const std::string &strText ) {};
+  void deletetext(const std::string & strText) {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void Clear() {};
+  void Clear() {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void SetEncoding(Opts::FileEncodingFormats Encoding) {};
+  void SetEncoding(Opts::FileEncodingFormats Encoding) {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void SetFont(std::string Name, long Size) {};
+  void SetFont(std::string Name, long Size) {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void Cut() {};
+  void Cut() {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void Copy() {};
+  void Copy() {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void Paste() {};
+  void Paste() {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void CopyAll() {};
+  void CopyAll() {
+  };
 
   ///
   /// \deprecated Obsolete, soon to be removed from interface
   ///
 
-  void SelectAll() {};
+  void SelectAll() {
+  };
 
- private:
+private:
 
   ///
   /// The CDasherInterface wrapped in the control
   ///
 
-  CDasherInterface *m_pInterface;
+  CDasherInterface * m_pInterface;
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;

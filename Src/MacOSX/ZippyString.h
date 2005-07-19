@@ -9,9 +9,9 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSGeometry.h>
 
-@class NSImage, NSString, NSDictionary;
+@ class NSImage, NSString, NSDictionary;
 
-@interface ZippyString : NSObject {
+@interface ZippyString:NSObject {
 
   NSSize _size;
   NSImage *_image;
@@ -19,20 +19,21 @@
   NSDictionary *_attributes;
 }
 
++(id) zippyStringWithString:(NSString *)
+     aString attributes:(NSDictionary *) someAttributes;
 
-+ (id)zippyStringWithString:(NSString *)aString attributes:(NSDictionary *)someAttributes;
+-(id) initWithString:(NSString *)
+     aString attributes:(NSDictionary *) someAttributes;
 
-- (id)initWithString:(NSString *)aString attributes:(NSDictionary *)someAttributes;
+-(void)drawAtPoint:(NSPoint) aPoint;
 
-- (void)drawAtPoint:(NSPoint)aPoint;
-  
-- (NSSize)size;
-- (void)setSize:(NSSize)newSize;
-- (NSImage *)image;
-- (void)setImage:(NSImage *)newImage;
-- (NSString *)string;
-- (void)setString:(NSString *)newString;
-- (NSDictionary *)attributes;
-- (void)setAttributes:(NSDictionary *)newAttributes;
+-(NSSize) size;
+-(void)setSize:(NSSize) newSize;
+-(NSImage *)image;
+-(void)setImage:(NSImage *)newImage;
+-(NSString *)string;
+-(void)setString:(NSString *)newString;
+-(NSDictionary *)attributes;
+-(void)setAttributes:(NSDictionary *)newAttributes;
 
 @end

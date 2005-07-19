@@ -7,16 +7,16 @@
 //
 
 #import <Cocoa/Cocoa.h>
-@class DasherView;
+@ class DasherView;
 
-@interface DasherController : NSObject {
+@interface DasherController:NSObject {
   IBOutlet NSPanel *panelUI;
   IBOutlet DasherView *dasherViewUI;
 }
 
-+ (id)dasherController;
++(id) dasherController;
 
-- (void)makeKeyAndOrderFront:(id)sender;
-- (void)setPanelAlphaValue:(float)anAlphaValue;
+-(void)makeKeyAndOrderFront:(id) sender;
+-(void)setPanelAlphaValue:(float)anAlphaValue;
 
 @end

@@ -13,25 +13,19 @@
 
 #ifdef _MSC_VER
 
-	#ifdef WIN32
-		#define DASHER_WIN32 _MSC_VER
-	#endif
+#ifdef WIN32
+#define DASHER_WIN32 _MSC_VER
+#endif
 
-	#ifdef _WIN32_WCE
-		#define DASHER_WIN32 _MSC_VER
-		#define DASHER_WINCE 
-	#endif
-		
-	
+#ifdef _WIN32_WCE
+#define DASHER_WIN32 _MSC_VER
+#define DASHER_WINCE
+#endif
+
 #else
 
 // Please set platform-defines here
 
 #endif
-
-
-
-
-
 
 #endif // __include__

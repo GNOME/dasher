@@ -17,68 +17,57 @@
 #include "../../Common/NoClones.h"
 #include "../../Common/Allocators/PooledAlloc.h"
 
+namespace Dasher {
 
-namespace Dasher
-{
+  class CLanguageModelParams;
 
-	class CLanguageModelParams;
+  class CBigramLanguageModel:public CLanguageModel, private NoClones {
+  public:
+    CBigramLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph, CLanguageModelParams * _params);
+      virtual ~ CBigramLanguageModel();
 
+    Context CreateEmptyContext();
+    void ReleaseContext(Context context);
+    Context CloneContext(Context context);
 
+    void EnterSymbol(Context context, int Symbol) const;
+    void LearnSymbol(Context context, int Symbol);
 
-class CBigramLanguageModel : public CLanguageModel, private NoClones
-{
-public:
-	CBigramLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& alph, CLanguageModelParams *_params);
-	virtual ~CBigramLanguageModel();
+    virtual void GetProbs(Context context, std::vector < unsigned int >&Probs, int iSumProbs) const;
 
-	Context CreateEmptyContext();
-	void ReleaseContext(Context context);
-	Context CloneContext(Context context);
-	
-	void EnterSymbol(Context context, int Symbol) const;
-	void LearnSymbol(Context context, int Symbol);
-	
-	virtual void GetProbs(Context context, std::vector<unsigned int> &Probs, int iSumProbs) const;
+  private:
 
-private:
+      class CContext {
+      int m_last;
+    };
 
-	class CContext
-	{
-		int m_last;
-	};
+      CPooledAlloc < CContext > m_ContextAlloc;
 
-
-	CPooledAlloc<CContext> m_ContextAlloc;
-
-};
+  };
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CBigramLanguageModel::CreateEmptyContext()
-{
-	CContext* pCont = m_ContextAlloc.Alloc();
-//	*pCont = *m_Rootontext;
-	return (Context)pCont;
-}
+  inline CLanguageModel::Context CBigramLanguageModel::CreateEmptyContext() {
+    CContext *pCont = m_ContextAlloc.Alloc();
+//      *pCont = *m_Rootontext;
+    return (Context) pCont;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CBigramLanguageModel::CloneContext(Context Copy)
-{
-	CContext* pCont = m_ContextAlloc.Alloc();
-	CContext* pCopy = (CContext*)Copy;
-	*pCont = *pCopy;
-	return (Context)pCont;	
-}
+  inline CLanguageModel::Context CBigramLanguageModel::CloneContext(Context Copy) {
+    CContext *pCont = m_ContextAlloc.Alloc();
+    CContext *pCopy = (CContext *) Copy;
+    *pCont = *pCopy;
+    return (Context) pCont;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline void CBigramLanguageModel::ReleaseContext(Context release)
-{
-	m_ContextAlloc.Free( (CContext*) release );
-}
+  inline void CBigramLanguageModel::ReleaseContext(Context release) {
+    m_ContextAlloc.Free((CContext *) release);
+  }
 
+}                               // end namespace Dasher
 
-} // end namespace Dasher
-
-#endif // ndef 
+#endif // ndef

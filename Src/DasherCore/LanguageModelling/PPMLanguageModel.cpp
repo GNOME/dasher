@@ -19,250 +19,225 @@ using namespace std;
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMLanguageModel( Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams *_params)
-  : CLanguageModel( pEventHandler, pSettingsStore, SymbolAlphabet, _params), m_iMaxOrder( 5 ), 
-    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
-{
-	m_pRoot= m_NodeAlloc.Alloc();
-	m_pRoot->symbol = -1;
+CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet, CLanguageModelParams *_params)
+:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet, _params), m_iMaxOrder(5), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+  m_pRoot = m_NodeAlloc.Alloc();
+  m_pRoot->symbol = -1;
 
-	m_pRootContext= m_ContextAlloc.Alloc();
-	m_pRootContext->head=m_pRoot;
-	m_pRootContext->order=0;
+  m_pRootContext = m_ContextAlloc.Alloc();
+  m_pRootContext->head = m_pRoot;
+  m_pRootContext->order = 0;
 
+  // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
-	// Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
-
-	bUpdateExclusion = LanguageModelParams()->GetValue("LMUpdateExclusion");
-
+  bUpdateExclusion = LanguageModelParams()->GetValue("LMUpdateExclusion");
 
 }
 
 /////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::~CPPMLanguageModel()
-{
+CPPMLanguageModel::~CPPMLanguageModel() {
 }
 
 /////////////////////////////////////////////////////////////////////
 // Get the probability distribution at the context
 
-void CPPMLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, int norm) const {
-  
-  const CPPMContext *ppmcontext= (const CPPMContext *)(context);
-	
+void CPPMLanguageModel::GetProbs(Context context, vector<unsigned int> &probs, int norm) const {
+  const CPPMContext *ppmcontext = (const CPPMContext *)(context);
 
-	int iNumSymbols = GetSize();
+  int iNumSymbols = GetSize();
 
-	probs.resize( iNumSymbols );
-	
-	std::vector<bool> exclusions(iNumSymbols);
+  probs.resize(iNumSymbols);
 
-	int i;
-	for( i=0 ; i < iNumSymbols; i++) {
-	  probs[i] = 0;
-	  exclusions[i] = false;
-	}
+  std::vector < bool > exclusions(iNumSymbols);
 
-	bool doExclusion = (LanguageModelParams()->GetValue( std::string( "LMExclusion" ) ) == 1 );
+  int i;
+  for(i = 0; i < iNumSymbols; i++) {
+    probs[i] = 0;
+    exclusions[i] = false;
+  }
 
-	int alpha = LanguageModelParams()->GetValue( std::string( "LMAlpha" ) );
-	int beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) );
+  bool doExclusion = (LanguageModelParams()->GetValue(std::string("LMExclusion")) == 1);
 
-	unsigned int iToSpend = norm;
+  int alpha = LanguageModelParams()->GetValue(std::string("LMAlpha"));
+  int beta = LanguageModelParams()->GetValue(std::string("LMBeta"));
 
-	CPPMnode* pTemp=ppmcontext->head;
+  unsigned int iToSpend = norm;
 
-	while (pTemp != 0) 
-	{
-		int iTotal=0;
-		
-		CPPMnode* pSymbol = pTemp->child;
-		while (pSymbol)
-		{
-		  int sym = pSymbol->symbol; 
-			if (!(exclusions[sym] && doExclusion))
-				iTotal += pSymbol->count;
-			pSymbol = pSymbol->next;
-		}
+  CPPMnode *pTemp = ppmcontext->head;
 
-		if (iTotal) 
-		{
-			unsigned int size_of_slice = iToSpend;
-			pSymbol = pTemp->child;
-			while (pSymbol) 
-			{
-				if (!(exclusions[pSymbol->symbol] && doExclusion)) 
-				{
-					exclusions[pSymbol->symbol]=1;
+  while(pTemp != 0) {
+    int iTotal = 0;
 
-					unsigned int p = static_cast<myint>(size_of_slice)*(100*pSymbol->count - beta)/(100*iTotal + alpha);
-					
+    CPPMnode *pSymbol = pTemp->child;
+    while(pSymbol) {
+      int sym = pSymbol->symbol;
+      if(!(exclusions[sym] && doExclusion))
+        iTotal += pSymbol->count;
+      pSymbol = pSymbol->next;
+    }
 
-					probs[pSymbol->symbol]+=p;
-					iToSpend-=p;		
-				}
-				//				Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);	 
-				//				DebugOutput(debug);
-				pSymbol = pSymbol->next;
-			}
-		}
-		pTemp = pTemp->vine;
-	}
-	
-	unsigned int size_of_slice= iToSpend;
-	int symbolsleft=0;
-	
-	for (i=0; i < iNumSymbols ; i++)
-	  if ( !(exclusions[i] && doExclusion))
-	    symbolsleft++;
-	
-//	std::ostringstream str;
-//	for (sym=0;sym<modelchars;sym++)
-//		str << probs[sym] << " ";
-//	str << std::endl;
-//	DASHER_TRACEOUTPUT("probs %s",str.str().c_str());
+    if(iTotal) {
+      unsigned int size_of_slice = iToSpend;
+      pSymbol = pTemp->child;
+      while(pSymbol) {
+        if(!(exclusions[pSymbol->symbol] && doExclusion)) {
+          exclusions[pSymbol->symbol] = 1;
 
-//	std::ostringstream str2;
-//	for (sym=0;sym<modelchars;sym++)
-//		str2 << valid[sym] << " ";
-//	str2 << std::endl;
-//	DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
+          unsigned int p = static_cast < myint > (size_of_slice) * (100 * pSymbol->count - beta) / (100 * iTotal + alpha);
 
-	for (i=0;  i < iNumSymbols ; i++) 
-	{
-		if (!(exclusions[i] && doExclusion)) 
-		{
-			unsigned int p=size_of_slice/symbolsleft;
-			probs[i]+=p;
-			iToSpend -= p;
-		}
-	}
+          probs[pSymbol->symbol] += p;
+          iToSpend -= p;
+        }
+        //                              Usprintf(debug,TEXT("sym %u counts %d p %u tospend %u \n"),sym,s->count,p,tospend);      
+        //                              DebugOutput(debug);
+        pSymbol = pSymbol->next;
+      }
+    }
+    pTemp = pTemp->vine;
+  }
 
-	int iLeft = iNumSymbols;
+  unsigned int size_of_slice = iToSpend;
+  int symbolsleft = 0;
 
-	for (int j=0; j< iNumSymbols; ++j) 
-	{
-		unsigned int p= iToSpend/iLeft;
-		probs[j] +=p;
-		--iLeft;
-		iToSpend -=p;
-	}
+  for(i = 0; i < iNumSymbols; i++)
+    if(!(exclusions[i] && doExclusion))
+      symbolsleft++;
 
-	DASHER_ASSERT(iToSpend == 0);
+//      std::ostringstream str;
+//      for (sym=0;sym<modelchars;sym++)
+//              str << probs[sym] << " ";
+//      str << std::endl;
+//      DASHER_TRACEOUTPUT("probs %s",str.str().c_str());
+
+//      std::ostringstream str2;
+//      for (sym=0;sym<modelchars;sym++)
+//              str2 << valid[sym] << " ";
+//      str2 << std::endl;
+//      DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
+
+  for(i = 0; i < iNumSymbols; i++) {
+    if(!(exclusions[i] && doExclusion)) {
+      unsigned int p = size_of_slice / symbolsleft;
+      probs[i] += p;
+      iToSpend -= p;
+    }
+  }
+
+  int iLeft = iNumSymbols;
+
+  for(int j = 0; j < iNumSymbols; ++j) {
+    unsigned int p = iToSpend / iLeft;
+    probs[j] += p;
+    --iLeft;
+    iToSpend -= p;
+  }
+
+  DASHER_ASSERT(iToSpend == 0);
 }
 
-
-void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context,int sym)
-	// add symbol to the context
-	// creates new nodes, updates counts
-	// and leaves 'context' at the new context
+void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context, int sym)
+        // add symbol to the context
+        // creates new nodes, updates counts
+        // and leaves 'context' at the new context
 {
-	DASHER_ASSERT(sym>=0 && sym< GetSize());
+  DASHER_ASSERT(sym >= 0 && sym < GetSize());
 
-	CPPMnode *vineptr,*temp;
-	int updatecnt=1;
-	
-	temp=context.head->vine;
-	context.head= AddSymbolToNode(context.head,sym,&updatecnt);
-	vineptr=context.head;
-	context.order++;
-	
-	while (temp!=0) {
-		vineptr->vine= AddSymbolToNode(temp,sym,&updatecnt);    
-		vineptr=vineptr->vine;
-		temp=temp->vine;
-	}
-	vineptr->vine= m_pRoot;
+  CPPMnode *vineptr, *temp;
+  int updatecnt = 1;
 
-	m_iMaxOrder = LanguageModelParams()->GetValue( std::string( "LMMaxOrder" ) );
+  temp = context.head->vine;
+  context.head = AddSymbolToNode(context.head, sym, &updatecnt);
+  vineptr = context.head;
+  context.order++;
 
-	while (context.order> m_iMaxOrder)
-	{
-		context.head=context.head->vine;
-		context.order--;
-	}
+  while(temp != 0) {
+    vineptr->vine = AddSymbolToNode(temp, sym, &updatecnt);
+    vineptr = vineptr->vine;
+    temp = temp->vine;
+  }
+  vineptr->vine = m_pRoot;
+
+  m_iMaxOrder = LanguageModelParams()->GetValue(std::string("LMMaxOrder"));
+
+  while(context.order > m_iMaxOrder) {
+    context.head = context.head->vine;
+    context.order--;
+  }
 }
 
 /////////////////////////////////////////////////////////////////////
 // Update context with symbol 'Symbol'
 
-void CPPMLanguageModel::EnterSymbol(Context c, int Symbol)
-{
-	DASHER_ASSERT(Symbol>=0 && Symbol< GetSize());
+void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
+  DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
 
-	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
-	
-	CPPMnode *find;
+  CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
 
-	while (context.head) {
+  CPPMnode *find;
 
-	  if( context.order < m_iMaxOrder ) { // Only try to extend the context if it's not going to make it too long
-		find =context.head->find_symbol(Symbol);
-		if (find) {
-			context.order++;
-			context.head=find;
-			//	Usprintf(debug,TEXT("found context %x order %d\n"),head,order);
-			//	DebugOutput(debug);
+  while(context.head) {
 
-			
-			//			std::cout << context.order << std::endl;
-			return;
-		}
-	  }
+    if(context.order < m_iMaxOrder) {   // Only try to extend the context if it's not going to make it too long
+      find = context.head->find_symbol(Symbol);
+      if(find) {
+        context.order++;
+        context.head = find;
+        //      Usprintf(debug,TEXT("found context %x order %d\n"),head,order);
+        //      DebugOutput(debug);
 
-		// If we can't extend the current context, follow vine pointer to shorten it and try again
+        //                      std::cout << context.order << std::endl;
+        return;
+      }
+    }
 
-		context.order--;
-		context.head=context.head->vine;
-	}
-	
-	if (context.head==0) {
-		context.head= m_pRoot;
-		context.order=0;
-	}
+    // If we can't extend the current context, follow vine pointer to shorten it and try again
 
-	//	std::cout << context.order << std::endl;
-	
+    context.order--;
+    context.head = context.head->vine;
+  }
+
+  if(context.head == 0) {
+    context.head = m_pRoot;
+    context.order = 0;
+  }
+
+  //      std::cout << context.order << std::endl;
+
 }
 
 /////////////////////////////////////////////////////////////////////
 
-void CPPMLanguageModel::LearnSymbol(Context c, int Symbol)
-{
-	DASHER_ASSERT(Symbol>=0 && Symbol< GetSize());
+void CPPMLanguageModel::LearnSymbol(Context c, int Symbol) {
+  DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
 
-	CPPMLanguageModel::CPPMContext& context = * (CPPMContext *) (c);
-	AddSymbol(context, Symbol);
+  CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
+  AddSymbol(context, Symbol);
 }
 
-
-void CPPMLanguageModel::dumpSymbol(int sym)
-{
-	if ((sym <= 32) || (sym >= 127))
-		printf( "<%d>", sym );
-	else
-		printf( "%c", sym );
+void CPPMLanguageModel::dumpSymbol(int sym) {
+  if((sym <= 32) || (sym >= 127))
+    printf("<%d>", sym);
+  else
+    printf("%c", sym);
 }
 
-
-void CPPMLanguageModel::dumpString( char *str, int pos, int len )
-	// Dump the string STR starting at position POS
+void CPPMLanguageModel::dumpString(char *str, int pos, int len)
+        // Dump the string STR starting at position POS
 {
-	char cc;
-	int p;
-	for (p = pos; p<pos+len; p++) {
-		cc = str [p];
-		if ((cc <= 31) || (cc >= 127))
-			printf( "<%d>", cc );
-		else
-			printf( "%c", cc );
-	}
+  char cc;
+  int p;
+  for(p = pos; p < pos + len; p++) {
+    cc = str[p];
+    if((cc <= 31) || (cc >= 127))
+      printf("<%d>", cc);
+    else
+      printf("%c", cc);
+  }
 }
 
-
-void CPPMLanguageModel::dumpTrie( CPPMLanguageModel::CPPMnode *t, int d )
-	// diagnostic display of the PPM trie from node t and deeper
+void CPPMLanguageModel::dumpTrie(CPPMLanguageModel::CPPMnode *t, int d)
+        // diagnostic display of the PPM trie from node t and deeper
 {
 //TODO
 /*
@@ -297,9 +272,8 @@ void CPPMLanguageModel::dumpTrie( CPPMLanguageModel::CPPMnode *t, int d )
 */
 }
 
-
 void CPPMLanguageModel::dump()
-	// diagnostic display of the whole PPM trie
+        // diagnostic display of the whole PPM trie
 {
 // TODO:
 /*
@@ -323,56 +297,50 @@ void CPPMLanguageModel::dump()
 */
 }
 
-
 ////////////////////////////////////////////////////////////////////////
 /// PPMnode definitions 
 ////////////////////////////////////////////////////////////////////////
 
-CPPMLanguageModel::CPPMnode *CPPMLanguageModel::CPPMnode::find_symbol(int sym) const
+CPPMLanguageModel::CPPMnode * CPPMLanguageModel::CPPMnode::find_symbol(int sym) const
 // see if symbol is a child of node
 {
-	//  printf("finding symbol %d at node %d\n",sym,node->id);
-	CPPMnode *found=child;
+  //  printf("finding symbol %d at node %d\n",sym,node->id);
+  CPPMnode *found = child;
 
-	while (found) {
-	  if (found->symbol==sym) {
-			return found;
-	  }
-		found=found->next;
-	}
-	return 0;
+  while(found) {
+    if(found->symbol == sym) {
+      return found;
+    }
+    found = found->next;
+  }
+  return 0;
 }
 
+CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode, int sym, int *update) {
+  CPPMnode *pReturn = pNode->find_symbol(sym);
 
-CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode* pNode, int sym,int *update)
-{
-	CPPMnode *pReturn = pNode->find_symbol(sym);
-	
-	//	std::cout << sym << ",";
+  //      std::cout << sym << ",";
 
-	if (pReturn!=NULL)
-	{
-	  //	  std::cout << "Using existing node" << std::endl;
+  if(pReturn != NULL) {
+    //      std::cout << "Using existing node" << std::endl;
 
-	  //		if (*update || (LanguageModelParams()->GetValue("LMUpdateExclusion") == 0) ) 
-	  if(*update || !bUpdateExclusion )
-		{   // perform update exclusions
-			pReturn->count++;
-			*update=0;
-		}
-		return pReturn;
-	}
+    //            if (*update || (LanguageModelParams()->GetValue("LMUpdateExclusion") == 0) ) 
+    if(*update || !bUpdateExclusion) {  // perform update exclusions
+      pReturn->count++;
+      *update = 0;
+    }
+    return pReturn;
+  }
 
-	//	 std::cout << "Creating new node" << std::endl;
+  //       std::cout << "Creating new node" << std::endl;
 
-	pReturn = m_NodeAlloc.Alloc();  // count is initialized to 1
-	pReturn->symbol = sym;  
-	pReturn->next= pNode->child;
-	pNode->child=pReturn;
+  pReturn = m_NodeAlloc.Alloc();        // count is initialized to 1
+  pReturn->symbol = sym;
+  pReturn->next = pNode->child;
+  pNode->child = pReturn;
 
-	++NodesAllocated;
+  ++NodesAllocated;
 
-	return pReturn;		
-	
+  return pReturn;
+
 }
-

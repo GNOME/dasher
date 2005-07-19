@@ -16,24 +16,23 @@
 
 using namespace Dasher;
 
-enum accessibletype { menus=1, toolbars=2, pushbuttons=3, focusables=4, textenter=5 };
+enum accessibletype { menus = 1, toolbars = 2, pushbuttons = 3, focusables = 4, textenter = 5 };
 
 void setupa11y();
 void cleanupa11y();
 
-ControlTree* gettree();
-ControlTree* buildcontroltree();
-ControlTree* buildmovetree(ControlTree* movetree);
-ControlTree* builddeletetree(ControlTree* movetree);
-ControlTree* buildspeaktree(ControlTree* speaktree);
-ControlTree* buildspeedtree(ControlTree* speedtree);
-ControlTree* buildwindowtree();
+ControlTree *gettree();
+ControlTree *buildcontroltree();
+ControlTree *buildmovetree(ControlTree * movetree);
+ControlTree *builddeletetree(ControlTree * movetree);
+ControlTree *buildspeaktree(ControlTree * speaktree);
+ControlTree *buildspeedtree(ControlTree * speedtree);
+ControlTree *buildwindowtree();
 void deletemenutree();
 #ifdef GNOME_A11Y
-bool buildmenutree(Accessible *parent, ControlTree *ctree, accessibletype Type);
-ControlTree* getmenutree();
+bool buildmenutree(Accessible * parent, ControlTree * ctree, accessibletype Type);
+ControlTree *getmenutree();
 gboolean dasher_check_window(AccessibleRole role);
-gboolean findpanels(Accessible *parent);
+gboolean findpanels(Accessible * parent);
 #endif
 #endif
-

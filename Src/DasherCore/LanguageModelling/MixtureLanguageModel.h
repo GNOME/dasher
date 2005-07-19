@@ -19,174 +19,163 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-namespace Dasher {class CMixtureLanguageModel;
+namespace Dasher {
+  class CMixtureLanguageModel;
 
-class Dasher::CMixtureLanguageModel : public CLanguageModel
-{
-public:
-	
-	/////////////////////////////////////////////////////////////////////////////
+  class Dasher::CMixtureLanguageModel:public CLanguageModel {
+  public:
 
-	CMixtureLanguageModel(  Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet& Alphabet, CLanguageModelParams* pParams) :
-	  CLanguageModel( pEventHandler, pSettingsStore, Alphabet, pParams ) {
+    /////////////////////////////////////////////////////////////////////////////
 
+    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * pParams):CLanguageModel(pEventHandler, pSettingsStore, Alphabet, pParams) {
 
-	  //	  std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
+      //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
 
-	  NextContext = 0;
+      NextContext = 0;
 
-	  lma = new CPPMLanguageModel( m_pEventHandler, m_pSettingsStore, Alphabet, pParams );
-	  lmb = new CDictLanguageModel( m_pEventHandler, m_pSettingsStore, Alphabet, pParams );
+      lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet, pParams);
+      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet, pParams);
 
-	};
+    };
 
-	virtual ~CMixtureLanguageModel() {
-	  delete lma;
-	  delete lmb;
-	};
+      virtual ~ CMixtureLanguageModel() {
+      delete lma;
+      delete lmb;
+    };
 
+    /////////////////////////////////////////////////////////////////////////////
+    // Context creation/destruction
+    ////////////////////////////////////////////////////////////////////////////
 
+    // FIXME - need to work out how to do this
 
-	/////////////////////////////////////////////////////////////////////////////
-	// Context creation/destruction
-	////////////////////////////////////////////////////////////////////////////
+    // Create a context (empty)
+    virtual CLanguageModel::Context CreateEmptyContext();
+    virtual CLanguageModel::Context CloneContext(CLanguageModel::Context Context);
+    virtual void ReleaseContext(CLanguageModel::Context Context);
 
-	// FIXME - need to work out how to do this
+    /////////////////////////////////////////////////////////////////////////////
+    // Context modifiers
+    ////////////////////////////////////////////////////////////////////////////
 
+    // Update context with a character - only modifies context
+    virtual void EnterSymbol(CLanguageModel::Context context, int Symbol) {
+      lma->EnterSymbol(ContextMap.find(context)->second->GetContextA(), Symbol);
+      lmb->EnterSymbol(ContextMap.find(context)->second->GetContextB(), Symbol);
+    };
 
-	// Create a context (empty)
-	virtual CLanguageModel::Context CreateEmptyContext();
-	virtual CLanguageModel::Context CloneContext(CLanguageModel::Context Context);
-	virtual void ReleaseContext(CLanguageModel::Context Context);
+    // Add character to the language model at the current context and update the context 
+    // - modifies both the context and the LanguageModel
+    virtual void LearnSymbol(CLanguageModel::Context context, int Symbol) {
+      lma->LearnSymbol(ContextMap[context]->GetContextA(), Symbol);
+      lmb->LearnSymbol(ContextMap[context]->GetContextB(), Symbol);
+    };
 
-	/////////////////////////////////////////////////////////////////////////////
-	// Context modifiers
-	////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////
+    // Prediction
+    /////////////////////////////////////////////////////////////////////////////
 
-	// Update context with a character - only modifies context
-	virtual void EnterSymbol(CLanguageModel::Context context, int Symbol) {
-	  lma->EnterSymbol( ContextMap.find( context )->second->GetContextA(), Symbol );
-	  lmb->EnterSymbol( ContextMap.find( context )->second->GetContextB(), Symbol );
-	};
-	
-	// Add character to the language model at the current context and update the context 
-	// - modifies both the context and the LanguageModel
-	virtual void LearnSymbol(CLanguageModel::Context context, int Symbol) {
-	  lma->LearnSymbol( ContextMap[ context ]->GetContextA(), Symbol );
-	  lmb->LearnSymbol( ContextMap[ context ]->GetContextB(), Symbol );
-	};
-	
-	/////////////////////////////////////////////////////////////////////////////
-	// Prediction
-	/////////////////////////////////////////////////////////////////////////////
+    // Get symbol probability distribution
+    virtual void GetProbs(CLanguageModel::Context context, std::vector < unsigned int >&Probs, int iNorm) const {
 
-	// Get symbol probability distribution
-	virtual void GetProbs(CLanguageModel::Context context, std::vector<unsigned int> &Probs, int iNorm) const {
+      int iNumSymbols = GetSize();
 
-	  int iNumSymbols = GetSize();
+        Probs.resize(iNumSymbols);
 
+        std::vector < unsigned int >ProbsA(iNumSymbols);
+        std::vector < unsigned int >ProbsB(iNumSymbols);
 
-	  Probs.resize( iNumSymbols );
+      int iNormA(iNorm * LanguageModelParams()->GetValue("LMMixture") / 100);
+      int iNormB(iNorm - iNormA);
 
-	  std::vector<unsigned int> ProbsA(iNumSymbols);
-	  std::vector<unsigned int> ProbsB(iNumSymbols);
+        lma->GetProbs(ContextMap.find(context)->second->GetContextA(), ProbsA, iNormA);
+        lmb->GetProbs(ContextMap.find(context)->second->GetContextB(), ProbsB, iNormB);
 
-	  int iNormA( iNorm * LanguageModelParams()->GetValue("LMMixture") / 100 );
-	  int iNormB( iNorm - iNormA );
+      for(int i(1); i < iNumSymbols; i++) {
+        Probs[i] = ProbsA[i] + ProbsB[i];
+    }};
 
-	  lma->GetProbs( ContextMap.find( context )->second->GetContextA(), ProbsA, iNormA );
-	  lmb->GetProbs( ContextMap.find( context )->second->GetContextB(), ProbsB, iNormB );
+    // Get some measure of the memory usage for diagnostic
+    // purposes. No need to implement this if you're not comparing
+    // language models. The exact meaning of the result will
+    // depend on the implementation (for example, could be the
+    // number of nodes in a trie, or the physical memory usage).
 
-	  for( int i(1) ; i < iNumSymbols; i++)
-	    {
-	      Probs[i] = ProbsA[i] + ProbsB[i];
-	    }
-  
-	};
+    virtual int GetMemory() {
+      return 0;
+    };
 
-	// Get some measure of the memory usage for diagnostic
-	// purposes. No need to implement this if you're not comparing
-	// language models. The exact meaning of the result will
-	// depend on the implementation (for example, could be the
-	// number of nodes in a trie, or the physical memory usage).
+  private:
+    CLanguageModel * lma;
+    CLanguageModel *lmb;
 
-	virtual int GetMemory() {return 0;};
+    class CMixtureContext {
+    public:
+      CMixtureContext(CLanguageModel * _lma, CLanguageModel * _lmb):lma(_lma), lmb(_lmb) {
+        ca = lma->CreateEmptyContext();
+        cb = lmb->CreateEmptyContext();
+      };
 
- private:
-	CLanguageModel *lma;
-	CLanguageModel *lmb;	
+    CMixtureContext(CLanguageModel * _lma, CLanguageModel * _lmb, CLanguageModel::Context _ca, CLanguageModel::Context _cb):lma(_lma), lmb(_lmb), ca(_ca), cb(_cb) {
+      };
 
-	class CMixtureContext 
-	  {
-	  public:
-	    CMixtureContext( CLanguageModel *_lma, CLanguageModel *_lmb ) : lma( _lma ), lmb( _lmb ) {
-	      ca = lma->CreateEmptyContext();
-	      cb = lmb->CreateEmptyContext();
-	    };
+      ~CMixtureContext() {
+        lma->ReleaseContext(ca);
+        lmb->ReleaseContext(cb);
+      };
 
-	    CMixtureContext( CLanguageModel *_lma, CLanguageModel *_lmb, CLanguageModel::Context _ca, CLanguageModel::Context _cb ) : lma( _lma ), lmb( _lmb ), ca( _ca ), cb( _cb ) {
-	    };
+      CLanguageModel::Context GetContextA() {
+        return ca;
+      }
 
-	    ~CMixtureContext() {
-	      lma->ReleaseContext( ca );
-	      lmb->ReleaseContext( cb );
-	    };
+      CLanguageModel::Context GetContextB() {
+        return cb;
+      }
 
-	    CLanguageModel::Context GetContextA() {
-	      return ca;
-	    }
+    private:
+      CLanguageModel * lma;
+      CLanguageModel *lmb;
 
-	    CLanguageModel::Context GetContextB() {
-	      return cb;
-	    }
+      CLanguageModel::Context ca;
+      CLanguageModel::Context cb;
+    };
 
-	  private:
-	    CLanguageModel *lma;
-	    CLanguageModel *lmb;
+    int NextContext;
 
-	    CLanguageModel::Context ca;
-	    CLanguageModel::Context cb;
-	  };
-	
-	int NextContext;
+    std::map < int, CMixtureContext * >ContextMap;
 
-	std::map< int, CMixtureContext * > ContextMap;
-
-};
+  };
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CMixtureLanguageModel::CreateEmptyContext()
-{
-  CMixtureContext* pCont = new CMixtureContext( lma, lmb );
-  ContextMap[ NextContext ] = pCont;
-  ++NextContext;
-  return NextContext - 1;
-}
+  inline CLanguageModel::Context CMixtureLanguageModel::CreateEmptyContext() {
+    CMixtureContext *pCont = new CMixtureContext(lma, lmb);
+    ContextMap[NextContext] = pCont;
+    ++NextContext;
+    return NextContext - 1;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline CLanguageModel::Context CMixtureLanguageModel::CloneContext(CLanguageModel::Context Copy)
-{
-  CMixtureContext* pCopy = ContextMap[ Copy ];
-  CMixtureContext* pCont = new CMixtureContext( lma, lmb, lma->CloneContext(pCopy->GetContextA()), lmb->CloneContext(pCopy->GetContextB()) );
+  inline CLanguageModel::Context CMixtureLanguageModel::CloneContext(CLanguageModel::Context Copy) {
+    CMixtureContext *pCopy = ContextMap[Copy];
+    CMixtureContext *pCont = new CMixtureContext(lma, lmb, lma->CloneContext(pCopy->GetContextA()), lmb->CloneContext(pCopy->GetContextB()));
 
-  ContextMap[ NextContext ] = pCont;
-  ++NextContext;
-  return NextContext - 1;
-}
+    ContextMap[NextContext] = pCont;
+    ++NextContext;
+    return NextContext - 1;
+  }
 
 ///////////////////////////////////////////////////////////////////
 
-inline void CMixtureLanguageModel::ReleaseContext(CLanguageModel::Context release)
-{
-  // m_ContextAlloc.Free( (CMixtureContext*) release );
-  delete ContextMap[ release ];
-  ContextMap[ release ] = NULL;
+  inline void CMixtureLanguageModel::ReleaseContext(CLanguageModel::Context release) {
+    // m_ContextAlloc.Free( (CMixtureContext*) release );
+    delete ContextMap[release];
+    ContextMap[release] = NULL;
+  }
 }
-}
-///////////////////////////////////////////////////////////////////
 
+///////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////
 

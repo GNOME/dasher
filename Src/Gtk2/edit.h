@@ -31,20 +31,14 @@ typedef enum {
   CLIPBOARD_CLEAR,
 } clipboard_action;
 
-void initialise_edit( GladeXML *pGladeXML );
+void initialise_edit(GladeXML * pGladeXML);
 void cleanup_edit();
 
+extern "C" void gtk2_edit_output_callback(GtkDasherControl * pDasherControl, const gchar * szText, gpointer user_data);
 
+void gtk2_edit_outputcontrol_callback(void *pointer, int data);
 
-extern "C" void gtk2_edit_output_callback( GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data );
-
-
-
-void gtk2_edit_outputcontrol_callback(void* pointer, int data);
-
-
-extern "C" void gtk2_edit_delete_callback( GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data );
-
+extern "C" void gtk2_edit_delete_callback(GtkDasherControl * pDasherControl, const gchar * szText, gpointer user_data);
 
 void edit_move_back();
 void edit_move_forward();
@@ -55,18 +49,18 @@ void edit_delete_forward_line();
 void edit_delete_forward_word();
 void edit_delete_backward_line();
 void edit_delete_backward_word();
-void gtk2_clipboard_callback( clipboard_action act );
+void gtk2_clipboard_callback(clipboard_action act);
 void select_all();
 void clear_edit();
 
-extern GtkWidget *the_text_view; 
-extern GtkTextBuffer *the_text_buffer; 
-extern GtkClipboard *the_text_clipboard; 
+extern GtkWidget *the_text_view;
+extern GtkTextBuffer *the_text_buffer;
+extern GtkClipboard *the_text_clipboard;
 
 void set_editbox_font(std::string FontName);
 void reset_edit_font();
-void gtk2_get_new_context_callback( std::string &str, int max );
-void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
+void gtk2_get_new_context_callback(std::string & str, int max);
+void handle_cursor_move(DasherGtkTextView * textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
 void write_to_file();
 void outputpipe();
 
@@ -77,7 +71,7 @@ void speak_buffer();
 #endif
 
 #ifdef GNOME_A11Y
-void set_textbox(Accessible *textbox);
+void set_textbox(Accessible * textbox);
 #endif
 
 gboolean a11y_text_entry();

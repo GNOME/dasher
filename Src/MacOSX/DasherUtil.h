@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <string>
 
-NSString *NSStringFromStdString(const std::string& aString);
-std::string StdStringFromNSString(NSString *aString);
+NSString *NSStringFromStdString(const std::string & aString);
+std::string StdStringFromNSString(NSString * aString);
 
-void importTrainingFile(NSString *aFileName);
+void importTrainingFile(NSString * aFileName);

@@ -9,24 +9,25 @@
 #import <Foundation/NSObject.h>
 #import <Foundation/NSGeometry.h>
 
-@class ZippyString;
+@ class ZippyString;
 @class NSMutableDictionary, NSString, NSDictionary, NSNumber;
 
-@interface ZippyCache : NSObject {
+@interface ZippyCache:NSObject {
   NSMutableDictionary *_cache;
   NSString *latestString;
   int latestSize;
   ZippyString *latestZippyString;
 }
 
-+ zippyCache;
++zippyCache;
 
-- (ZippyString *)zippyStringWithString:(NSString *)aString size:(int)aSize attributes:(NSDictionary *)someAttributes;
+-(ZippyString *) zippyStringWithString:(NSString *)
+     aString size:(int)
+     aSize attributes:(NSDictionary *) someAttributes;
 
-- (NSNumber *)sizeKeyForSize:(int)aSize;
+-(NSNumber *)sizeKeyForSize:(int)aSize;
 
-
-- (NSMutableDictionary *)cache;
-- (void)setCache:(NSMutableDictionary *)newCache;
+-(NSMutableDictionary *)cache;
+-(void)setCache:(NSMutableDictionary *)newCache;
 
 @end
