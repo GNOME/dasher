@@ -50,20 +50,18 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 
 
   // FIXME - temporarily broken just to get the thing to work
-
-//   switch( GetLongParameter(LP_LANGUAGE_MODEL_ID) ) {
-//   case 0: 
-//     m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
-//     break;
-//   case 1:
-//     m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
-//     break; 
-//   case 2:
-//     m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
-//     break;
-//   }
-
-  m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+  
+  switch( GetLongParameter(LP_LANGUAGE_MODEL_ID) ) {
+  case 0: 
+    m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    break;
+  case 1:
+    m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    break; 
+  case 2:
+    m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    break;
+  }
 
 	
   LearnContext = m_pLanguageModel->CreateEmptyContext();
