@@ -51,8 +51,8 @@ struct sp_table {int key; char* regName; bool persistent; char* defaultValue; ch
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = 
 {
-    {BP_DRAW_MOUSE_LINE,    "DrawMouse",           PERS,   false,   "Draw Mouse"},
-    {BP_DRAW_MOUSE,         "DrawMouseLine",       PERS,   true,   "Draw Mouse Line"},
+    {BP_DRAW_MOUSE_LINE,    "DrawMouseLine",           PERS,   false,   "Draw Mouse Line"},
+    {BP_DRAW_MOUSE,         "DrawMouse",       PERS,   true,   "Draw Mouse Position"},
     {BP_TIME_STAMP,         "TimeStampNewFiles",   PERS,   true,   "TimeStampNewFiles"},
     {BP_SHOW_TOOLBAR,       "ViewToolbar",         PERS,   true,   "ViewToolbar"},
     {BP_SHOW_TOOLBAR_TEXT,  "ShowToolbarText",     PERS,   true,   "ShowToolbarText"},
