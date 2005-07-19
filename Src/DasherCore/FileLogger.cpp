@@ -369,7 +369,7 @@ void CFileLogger::SetFilenamePath(const std::string& strFilenamePath)
 
 #else
     // Non-windows code
-    m_strFilenamePath = str;
+    m_strFilenamePath = strFilenamePath;
 
 #endif
 
