@@ -1,0 +1,3 @@
+#!/bin/zsh
+
+find . -type f "$@" -name \*.h -o -name \*.cpp -o -name \*.cc -o -name \*.inl -o -name \*.h
