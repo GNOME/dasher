@@ -664,9 +664,6 @@
 				RelativePath="Common\WinCommon.h">
 			</File>
 			<File
-				RelativePath=".\widgets\WindowSelect.cpp">
-			</File>
-			<File
 				RelativePath="Common\WinHelper.cpp">
 			</File>
 			<File
