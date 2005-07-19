@@ -63,7 +63,7 @@ void CAlphabetBox::InitCustomBox() {
   SendMessage(GetDlgItem(CustomBox, IDC_TRAIN), WM_SETTEXT, 0, (LPARAM) Data.c_str());
 
   // Load encodings list box from resource strings
-  vector < pair < int, int >>Encodings;
+  vector < pair < int, int > >Encodings;
   Encodings.push_back(pair < int, int >(IDS_TYPE_None, Opts::MyNone));
   Encodings.push_back(pair < int, int >(IDS_TYPE_Arabic, Opts::Arabic));
   Encodings.push_back(pair < int, int >(IDS_TYPE_Baltic, Opts::Baltic));
@@ -90,7 +90,7 @@ void CAlphabetBox::InitCustomBox() {
   }
 
   // Orientations list box
-  vector < pair < int, int >>Orientations;
+  vector < pair < int, int > >Orientations;
   Orientations.push_back(pair < int, int >(IDS_ORIENT_LR, Opts::LeftToRight));
   Orientations.push_back(pair < int, int >(IDS_ORIENT_RL, Opts::RightToLeft));
   Orientations.push_back(pair < int, int >(IDS_ORIENT_TB, Opts::TopToBottom));
