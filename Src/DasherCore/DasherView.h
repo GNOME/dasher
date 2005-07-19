@@ -248,7 +248,9 @@ public:
 
 	void SetInput( CDasherInput *_pInput ) {
 
-	  // Delete the old class if we have one
+		DASHER_ASSERT_VALIDPTR_RW(_pInput);
+
+		// Delete the old class if we have one
 	  
 	  if( m_pInput )
 	    delete m_pInput;
