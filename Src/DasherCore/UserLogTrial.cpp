@@ -551,29 +551,31 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
 
         Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = location->pVectorAdded;
 
-        // Output the details of each add
-        for (unsigned int j = 0; j < pVectorAdded->size(); j++)
-        {            
-            Dasher::SymbolProbDisplay item = (Dasher::SymbolProbDisplay) (*pVectorAdded)[j];
+        if (pVectorAdded != NULL)
+        {
+            // Output the details of each add
+            for (unsigned int j = 0; j < pVectorAdded->size(); j++)
+            {            
+                Dasher::SymbolProbDisplay item = (Dasher::SymbolProbDisplay) (*pVectorAdded)[j];
 
-            strResult += prefix;
-            strResult += "\t<Add>\n";
-            
-            strResult += prefix;
-            strResult += "\t\t<Text>";
-            strResult += item.strDisplay;
-            strResult += "</Text>\n";
+                strResult += prefix;
+                strResult += "\t<Add>\n";
+                
+                strResult += prefix;
+                strResult += "\t\t<Text>";
+                strResult += item.strDisplay;
+                strResult += "</Text>\n";
 
-            strResult += prefix;
-            strResult += "\t\t<Prob>";
-            sprintf(strNum, "%0.6f", item.prob);
-            strResult += strNum;
-            strResult += "</Prob>\n";
+                strResult += prefix;
+                strResult += "\t\t<Prob>";
+                sprintf(strNum, "%0.6f", item.prob);
+                strResult += strNum;
+                strResult += "</Prob>\n";
 
-            strResult += prefix;
-            strResult += "\t</Add>\n";
+                strResult += prefix;
+                strResult += "\t</Add>\n";
+            }
         }
-
     }
 
     if (location->numDeleted > 0)
@@ -585,10 +587,13 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
         strResult += "</NumDeleted>\n";
     }
 
-    string strPrefixTabTabTab = prefix;
-    strPrefixTabTabTab += "\t";
+    if (location->span != NULL)
+    {
+        string strPrefixTabTabTab = prefix;
+        strPrefixTabTabTab += "\t";
 
-    strResult += location->span->GetXML(strPrefixTabTabTab);
+        strResult += location->span->GetXML(strPrefixTabTabTab);
+    }
 
     strResult += prefix;
     strResult += "</Location>\n";
@@ -746,11 +751,11 @@ string CUserLogTrial::GetParamsXML(const string& prefix)
 {
     string strResult = "";
 
-    // Make parameters with the same name appear near each other in the results
-    sort(m_vectorParams.begin(), m_vectorParams.end(), CUserLogParam::ComparePtr);    
-
     if (m_vectorParams.size() > 0)
     {
+        // Make parameters with the same name appear near each other in the results
+        sort(m_vectorParams.begin(), m_vectorParams.end(), CUserLogParam::ComparePtr);    
+
         strResult += prefix;
         strResult += "\t<Params>\n";
 
@@ -1080,11 +1085,8 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
             vectorMousePositions = XMLUtil::GetElementStrings("Pos", strMousePositions, true);
             for (VECTOR_STRING_ITER iter2 = vectorMousePositions.begin(); iter2 < vectorMousePositions.end(); iter2++)
             {
-                if (iter2 != NULL)
-                {
-                    CUserLocation* location = new CUserLocation(*iter2);
-                    cycle->vectorMouseLocations.push_back(location);
-                }
+                CUserLocation* location = new CUserLocation(*iter2);
+                cycle->vectorMouseLocations.push_back(location);
             }
 
         }
@@ -1166,10 +1168,8 @@ VECTOR_STRING CUserLogTrial::GetTabMouseXY(bool bReturnNormalized)
                  iter2 < (*iter)->vectorMouseLocations.end();
                  iter2++)
             {
-                if ((iter2 != NULL) && (*iter2 != NULL))
-                {
+                if (*iter2 != NULL)
                     strResult += (*iter2)->GetTabMouseXY(bReturnNormalized);
-                }
             }
         }
 
@@ -1211,7 +1211,7 @@ VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
                  iter2 < (*iter)->vectorMouseLocations.end();
                  iter2++)
             {
-                if ((iter2 != NULL) && (*iter2 != NULL))
+                if (*iter2 != NULL)
                 {
                     int i = 0;
                     int j = 0;

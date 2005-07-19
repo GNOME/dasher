@@ -105,6 +105,7 @@ private:
 
     std::string     GetIndentedString(const std::string& str);
     std::string     GetTimeDateStamp();
+    void            SetFilenamePath(const std::string& strFilenamePath);
 
 #ifdef WIN32
     MAP_STRING_INT64    m_mapFunctionTicks;     // Keeps track of how many ticks spent in each of our functions (who create a CFunctionLogger object)
