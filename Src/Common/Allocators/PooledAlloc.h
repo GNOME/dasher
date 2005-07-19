@@ -1,25 +1,19 @@
 // PooledAlloc.h
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2005 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #ifndef __PooledAlloc_h__
 #define __PooledAlloc_h__
 
-/////////////////////////////////////////////////////////////////////////////
 // CPooledAlloc allocates objects T in fixed-size blocks (specified in the constructor) 
 // Alloc returns an uninitialized T*
 // Free returns an object to the pool
-/////////////////////////////////////////////////////////////////////////////
 
 #include "SimplePooledAlloc.h"
 
 /////////////////////////////////////////////////////////////////////////////
 
-template < typename T > class CPooledAlloc {
+template<typename T> class CPooledAlloc {
 
 public:
 
@@ -43,19 +37,11 @@ private:
 
 };
 
-/////////////////////////////////////////////////////////////////////////////
+template<typename T> CPooledAlloc<T>::CPooledAlloc(size_t iSize):m_Alloc(iSize) {}
 
-template < typename T > CPooledAlloc < T >::CPooledAlloc(size_t iSize):m_Alloc(iSize) {
-}
+template<typename T> CPooledAlloc<T>::~CPooledAlloc() {}
 
-/////////////////////////////////////////////////////////////////////////////
-
-template < typename T > CPooledAlloc < T >::~CPooledAlloc() {
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-template < typename T > T * CPooledAlloc < T >::Alloc() {
+template<typename T> T * CPooledAlloc < T >::Alloc() {
   if(m_vpFree.size() > 0) {
     T *pLast = m_vpFree.back();
     m_vpFree.pop_back();
@@ -64,9 +50,7 @@ template < typename T > T * CPooledAlloc < T >::Alloc() {
   return m_Alloc.Alloc();
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-template < typename T > void CPooledAlloc < T >::Free(T *pFree) {
+template<typename T> void CPooledAlloc<T>::Free(T *pFree) {
   m_vpFree.push_back(pFree);
 }
 

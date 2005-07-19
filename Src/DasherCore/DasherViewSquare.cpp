@@ -1,10 +1,6 @@
 // DasherViewSquare.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2001-2004 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
 
@@ -25,8 +21,6 @@ using namespace Dasher;
 // parent class less general - we're probably not going to implement
 // anything which uses radically different co-ordinate transforms, and
 // we can always override if necessary.
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::RenderNodes() {
   Screen().Blank();
@@ -59,8 +53,6 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
     }
   }
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
@@ -126,8 +118,6 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   return 1;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2) {
   CDasherNode::ChildMap & Children = Render->Children();
   if(Children.size() == 0)
@@ -167,8 +157,6 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2) {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 CDasherViewSquare::Cymap::Cymap(myint iScale) {
   double dY1 = 0.25;            // Amount of acceleration
   double dY2 = 0.95;            // Accelerate Y movement below this point
@@ -178,8 +166,6 @@ CDasherViewSquare::Cymap::Cymap(myint iScale) {
   m_Y3 = myint(dY3 * iScale);
   m_Y1 = myint(1.0 / dY1);
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel &DasherModel)
 :CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel) {
@@ -201,8 +187,6 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel.DasherY()));
   DasherModel.SetActive(rActive);
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext) {
   DASHER_ASSERT(y2 >= y1);
@@ -386,8 +370,6 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
   return 1;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::CheckForNewRoot() {
   CDasherNode *const root = DasherModel().Root();
@@ -1043,8 +1025,6 @@ void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
     iY = Screen().GetHeight();
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 // work out the next viewpoint
 // move the rectangles accordingly
 void CDasherViewSquare::TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time) {
@@ -1099,7 +1079,6 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex, screenint mousey, unsigne
 
 }
 
-/////////////////////////////////////////////////////////////////////////////
 // move to the specified point
 
 void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
@@ -1111,8 +1090,6 @@ void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
   DasherModel().GoTo(idasherx, idashery);
   CheckForNewRoot();
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
   // Draw a box surrounding the area of the screen that will be zoomed into
@@ -1138,8 +1115,6 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
   Screen().DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, Opts::ColorSchemes(Objects));
   Screen().DrawRectangle(left, bottom + 5, right, bottom - 5, 1, Opts::ColorSchemes(Objects));
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
 
@@ -1208,8 +1183,6 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
 //      }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 /// Draw a line from the crosshair to the mouse position
 
 void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey) {
@@ -1229,7 +1202,7 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey) {
     mousey = pCoordinates[1];
   }
 
-  delete pCoordinates;
+  delete[] pCoordinates;
 
   myint x[2];
   myint y[2];
@@ -1254,8 +1227,6 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey) {
     DasherPolyline(x, y, 2, -1);
   }
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherViewSquare::DrawKeyboard() {
   CDasherScreen::point line[2];
@@ -1308,8 +1279,6 @@ void CDasherViewSquare::ResetYAutoOffset() {
   m_yAutoOffset = 0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CDasherView::ChangeScreen(NewScreen);
   screenint Width = Screen().GetWidth();
@@ -1319,13 +1288,9 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CanvasY = Height;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 int CDasherViewSquare::GetAutoOffset() const {
   return m_yAutoOffset;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 /// Convert screen co-ordinates to dasher co-ordinates, possibly
 /// involving a non-linear transformation for 1D mode, eyetracking
@@ -1516,8 +1481,6 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   *idashery = myint(dashery);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
   double dashery = double (*mousey) * double (DasherModel().DasherY()) / double (CanvasY);
   myint dasherOY = DasherModel().DasherOY();
@@ -1555,7 +1518,6 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////
 void CDasherViewSquare::DrawGameModePointer() {
   myint loc = DasherModel().GetGameModePointerLoc();
 

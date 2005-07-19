@@ -1,10 +1,6 @@
 // DasherModel.h
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2001-2005 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
 
@@ -24,9 +20,7 @@
 using namespace Dasher;
 using namespace std;
 
-//////////////////////////////////////////////////////////////////////
 // CDasherModel
-//////////////////////////////////////////////////////////////////////
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface)
 :CDasherComponent(pEventHandler, pSettingsStore), m_Root(0), m_pDasherInterface(pDashIface), total_nats(0.0) {
@@ -82,8 +76,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   m_pGameMode = new CDasherGameMode(pEventHandler, pSettingsStore, m_pDasherInterface, this);
 }
 
-//////////////////////////////////////////////////////////////////////
-
 CDasherModel::~CDasherModel() {
 
   if(oldroots.size() > 0) {
@@ -116,15 +108,6 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
   }
 
 }
-
-//////////////////////////////////////////////////////////////////////
-
-//void CDasherModel::SetControlMode(bool b)
-//{
-//      m_bControlMode = b;
-//}
-
-//////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Make_root(int whichchild)
 // find a new root node 
@@ -377,241 +360,6 @@ void CDasherModel::DoZoom(myint iTargetMin, myint iTargetMax) {
   }
 }
 
-// double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
-// {
-//   // FIXME - get rid of floating point here.
-
-//   // I *think* all co-ordinates are in the dasher co-ordinate system
-
-//   // Comments refer to the code immedialtely before them
-
-//   std::cout << Mousex << " " << Mousey << std::endl;
-
-//   if (Mousex<=0) {
-//     Mousex=1;
-//   }
-
-//   // Avoid the very right-hand edge, as this will cause infinities
-
-//   if( Mousex == m_DasherOX ) {
-//     Mousex = m_DasherOX - 1;
-//   }
-
-//   // Also avoid the crosshair, as this causes singularities
-
-//   double dRx=m_DasherOX/static_cast<double>(Mousex);
-
-//   // m_DasherOX - x co-ordinate of cross-hair, so this is the scale
-//   // factor needed to put the point under the mouse under the
-//   // cross hair.
-
-//   double dRxnew;
-
-//   int iSteps=m_fr.Steps();
-
-//   DASHER_ASSERT(iSteps>0);
-
-//   // iSteps is the number of update steps we need to get the point
-//   // under the cursor over to the cross hair. Calculated in order to
-//   // keep a constant bit-rate.
-
-//   dRxnew=1+(dRx-1)/iSteps;
-
-//   // Calculate the required single step zoom to achieve dRx in
-//   // iSteps steps. Note that this should be:
-//   //
-//   // dRxnew=pow(dRx,1.0/iSteps)
-//   //
-//   // But we make an approximation in order to avoid the need for
-//   // floating point arithmetic.
-
-//   const double dRxmax=m_fr.Rxmax();
-
-//   if (dRxnew>dRxmax)
-//     dRxnew=dRxmax;
-
-//   // Check we're not going faster than the speed slider setting
-//   // allows.
-
-//   myint zoom_centre( m_DasherY/2 - ((m_DasherY/2 - Mousey) * (m_DasherOX)/(m_DasherOX - Mousex)));
-
-//   // Calculte the point about which we're zooming by projecting from
-//   // the crosshair through the mouse pointer to the right hand edge.
-
-//   myint newRootmin=zoom_centre - dRxnew * ( zoom_centre - m_Rootmin );
-//   myint newRootmax=zoom_centre + dRxnew * ( m_Rootmax - zoom_centre );
-
-//   // Scale the root about those edges
-
-//   if (newRootmin>=m_DasherY/2)  
-//     newRootmin= m_DasherY/2-1;
-
-//   if (newRootmax<=m_DasherY/2)  
-//     newRootmax= m_DasherY/2+1;
-
-//   // Check that we haven't drifted too far. The rule is that we're not
-//   // allowed to let the root max and min cross the midpoint of the
-//   // screen.
-
-//   if (newRootmax<m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > m_DasherY/4 )    
-//     {
-//       // Only update if we're not making things big enough to risk
-//       // overflow. In theory we should have reparented the root well
-//       // before getting this far.
-//       //
-//       // Also don't allow the update if it will result in making the
-//       // root too small. Again, we should have re-generated a deeper
-//       // root in most cases, but the original root is an exception.
-
-//       m_Rootmax=newRootmax;
-//       m_Rootmin=newRootmin;
-//     } 
-//   else
-//     {
-//       // TODO - force a new root to be chosen, so that we get better
-//       // behaviour than just having Dasher stop at this point.
-//     }
-
-//    return log( dRxnew );
-
-//    // Return value is the zoom factor so we can keep track of bitrate.
-// }
-
-// double CDasherModel::Get_new_root_coords(myint Mousex,myint Mousey)
-// {
-//   // FIXME - get rid of floating point here.
-
-//   // I *think* all co-ordinates are in the dasher co-ordinate system
-
-//   // Comments refer to the code immedialtely before them
-
-//   double dRx=1.0*m_DasherOX/Mousex;
-
-//   // m_DasherOX - x co-ordinate of cross-hair, so this is the scale
-//   // factor needed to put the dasher point under the mouse under the
-//   // cross hair.
-
-//   double dRxnew;
-
-//   int iSteps=m_fr.Steps();
-
-//   DASHER_ASSERT(iSteps>0);
-
-//   // iSteps is the number of update steps we need to get the point
-//   // under the cursor over to the cross hair. Calculated in order to
-//   // keep a constant bit-rate.
-
-//   if (Mousex<m_DasherOX) {
-
-//     // We're in the 'move forward' side of the canvas.
-
-//     if (Mousex<=0)
-//       Mousex=1;
-
-//     // Avoid the very right-hand edge, as this will cause infinities -
-//     // note that this seems utterly pointless, as we've already
-//     // calculated dRx by this point and don't use Mousex again in this
-//     // function, so maybe we should move this to the start?
-
-//     dRxnew=1+(dRx-1)/iSteps;
-
-//     // Calculate the required single step zoom to achieve dRx in
-//     // iSteps steps. Note that this should be:
-//     //
-//     // dRxnew=pow(dRx,1.0/iSteps)
-//     //
-//     // But we make an approximation in order to avoid the need for
-//     // floating point arithmetic.
-
-//     const double dRxmax=m_fr.Rxmax();
-
-//     if (dRxnew>dRxmax)
-//       dRxnew=dRxmax;
-
-//     // Check we're not going faster than the speed slider setting
-//     // allows.
-
-//   } 
-//   else 
-//     {
-//       // We're in the 'move backwards' section of the canvas
-
-//       dRxnew=1+(dRx-1)/iSteps;
-
-//       // See above  - (not entirely sure why we need to treat this as a special case...)
-
-//       if (m_Rootmax<m_DasherY && m_Rootmin> myint(0) ) 
-//      return(1.0);
-
-//       // m_DasherY is the bottom of the visible canvas, so make sure
-//       // that the root entirely fits on the screen (this seems
-//       // contrary to what David just said...)
-
-//     } 
-
-//   // Now we've figured out what to scale, do the scaling. Remember,
-//   // dRxnew is the scale factor.
-
-//   myint above=(Mousey-m_Rootmin);//*(1-rxnew)/(1-rx);
-//   myint below=(m_Rootmax-Mousey);//*(1-rxnew)/(1-rx);
-
-//   // Distances above and below the mouse cursor to the edges of the
-//   // root node.
-
-//   myint miDistance=m_DasherY/2-Mousey;
-
-//   // miDistance - y distance of mouse cursor above the mid point of the canvas
-
-//   if (Mousex!=m_DasherOX)
-//     miDistance=myint(miDistance*(dRxnew-1)/(dRx-1));
-//   else
-//     miDistance = miDistance/iSteps;
-
-//   // Work out what the new y distance of mouse above midpoint should
-//   // be after the update. Who knows why we have two cases here. Also,
-//   // note that for the approximation used above, (dRxnew-1)/(dRx-1) is
-//   // eual to 1/iSteps, so in this case the two branches do exactly the
-//   // same thing. This wouldn't be the case if we used teh exact update
-//   // rule.
-
-//   myint miNewrootzoom=Mousey+miDistance;
-
-//   // New centre point of the root note
-
-//   myint newRootmax=miNewrootzoom+myint(below*dRxnew);
-//   myint newRootmin=miNewrootzoom-myint(above*dRxnew);
-
-//   // Calculate the new bounaries by scaling above and below
-
-//   if (newRootmin>=m_DasherY/2)  
-//     newRootmin= m_DasherY/2-1;
-//   if (newRootmax<=m_DasherY/2)  
-//     newRootmax= m_DasherY/2+1;
-
-//   // Check that we haven't drifted too far. The rule is that we're not
-//   // allowed to let the root max and min cross the midpoint of the
-//   // screen.
-
-//   if (newRootmax<m_Rootmax_max && newRootmin > m_Rootmin_min)    
-//     {
-//       // Only update if we're not making things big enough to risk
-//       // overflow. In theory we should have reparented the root well
-//       // before getting this far.
-
-//       m_Rootmax=newRootmax;
-//       m_Rootmin=newRootmin;
-//     } 
-//   else
-//     {
-//       // TODO - force a new root to be chosen, so that we get better
-//       // behaviour than just having Dasher stop at this point.
-//     }
-
-//    return log( dRxnew );
-
-//    // Return value is the zoom factor so we can keep track of bitrate.
-// }
-
 void CDasherModel::Get_new_goto_coords(double zoomfactor, myint MouseY)
                                        // this was mousex.
 {
@@ -637,8 +385,6 @@ myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY) {
 
   return height;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long Time)
         // work out the next viewpoint, opens some new nodes
@@ -900,15 +646,6 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&Ne
 
 }
 
-///////////////////////////////////////////////////////////////////
-
-//void CDasherModel::SetUniform( int _uniform )
-//{ 
-//      m_uniform = _uniform; 
-//}
-
-///////////////////////////////////////////////////////////////////
-
 void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, bool IsMore) {
   vector < symbol > Symbols;
 
@@ -918,8 +655,6 @@ void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, b
     m_pLanguageModel->LearnSymbol(context, Symbols[i]);
 }
 
-///////////////////////////////////////////////////////////////////
-
 void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const {
   vector < symbol > Symbols;
   m_pcAlphabet->GetSymbols(&Symbols, &TheText, false);
@@ -927,34 +662,24 @@ void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) co
     m_pLanguageModel->EnterSymbol(context, Symbols[i]);
 }
 
-///////////////////////////////////////////////////////////////////
-
 CDasherModel::CTrainer::CTrainer(CDasherModel &DasherModel)
 :m_DasherModel(DasherModel) {
   m_Context = m_DasherModel.m_pLanguageModel->CreateEmptyContext();
 }
-
-///////////////////////////////////////////////////////////////////
 
 void CDasherModel::CTrainer::Train(const std::vector <symbol >&vSymbols) {
   for(int i = 0; i < vSymbols.size(); i++)
     m_DasherModel.m_pLanguageModel->LearnSymbol(m_Context, vSymbols[i]);
 }
 
-///////////////////////////////////////////////////////////////////
-
 CDasherModel::CTrainer::~CTrainer() {
   m_DasherModel.m_pLanguageModel->ReleaseContext(m_Context);
 
 }
 
-///////////////////////////////////////////////////////////////////
-
 CDasherModel::CTrainer * CDasherModel::GetTrainer() {
   return new CDasherModel::CTrainer(*this);
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
   //    cerr << "In Push_Node, ChildCount is " << pNode->ChildCount() << ", HasAllChildren is " << pNode->HasAllChildren() << endl;
@@ -1000,6 +725,9 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
   if(pNode->Symbol() == GetControlSymbol() || pNode->ControlChild()) {
     ControlTree *pControlTreeChildren = pNode->GetControlTree();
+
+    ControlTree *test = new ControlTree;
+    test->parent = test->next;
 
     if(pControlTreeChildren == NULL) {
       // Root of the tree 
@@ -1092,8 +820,6 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   pNode->SetHasAllChildren(true);
 }
 
-///////////////////////////////////////////////////////////////////
-
 void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
 
   if(pNode->Range() < 0.1 * GetLongParameter(LP_NORMALIZATION)) {
@@ -1113,8 +839,6 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
     Recursive_Push_Node(pNode->Children()[i], iDepth - 1);
   }
 }
-
-/////////////////////////////////////////////////////////
 
 CDasherModel::CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CDasherModel *model)
 :CDasherComponent(pEventHandler, pSettingsStore), m_DasherInterface(pDashIface), m_model(model) {

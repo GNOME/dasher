@@ -1,10 +1,6 @@
 // DasherNode.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2001-2004 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
 
@@ -12,8 +8,6 @@
 using namespace Dasher;
 using namespace Opts;
 using namespace std;
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherNode::Trace() const {
   /* TODO sort out
@@ -33,8 +27,6 @@ void CDasherNode::Trace() const {
    */
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
   if(oldnode == m_pParent)
     return true;
@@ -42,8 +34,6 @@ bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
     return false;
 
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherNode::Get_string_under(const int iNormalization, const myint miY1, const myint miY2, const myint miMousex, const myint miMousey, vector <symbol >&vString) const {
   // we are over (*this) node so add it to the string 
@@ -64,8 +54,6 @@ void CDasherNode::Get_string_under(const int iNormalization, const myint miY1, c
   return;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, myint miY2, myint miMousex, myint miMousey) {
   myint miRange = miY2 - miY1;
 //              m_iAge=0;
@@ -81,8 +69,6 @@ CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, m
   }
   return this;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 // kill ourselves and all other children except for the specified
 // child
@@ -102,8 +88,6 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
   SetHasAllChildren(false);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 // Delete nephews of the child which has the specified symbol
 void CDasherNode::DeleteNephews(int iSym) {
   DASHER_ASSERT(Children().size() > 0);
@@ -117,8 +101,6 @@ void CDasherNode::DeleteNephews(int iSym) {
   }
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 void CDasherNode::Delete_children() {
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
@@ -129,4 +111,3 @@ void CDasherNode::Delete_children() {
   SetHasAllChildren(false);
 }
 
-/////////////////////////////////////////////////////////////////////////////

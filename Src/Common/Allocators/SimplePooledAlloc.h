@@ -1,28 +1,19 @@
 // SimplePooledAlloc.h
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2005 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #ifndef __SimplePooledAlloc_h__
 #define __SimplePooledAlloc_h__
 
-/////////////////////////////////////////////////////////////////////////////
 // CSimplePooledAlloc allocates objects T in fixed-size blocks (specified) 
 // Alloc returns a default-constructed T*
 // Memory is only freed on destruction of the allocator
-/////////////////////////////////////////////////////////////////////////////
 
 #include <vector>
 
-/////////////////////////////////////////////////////////////////////////////
-
-template < typename T > class CSimplePooledAlloc {
-
+template<typename T>
+class CSimplePooledAlloc {
 public:
-
   // Construct with given block size
   CSimplePooledAlloc(size_t iBlockSize);
 
@@ -32,7 +23,6 @@ public:
   T *Alloc();
 
 private:
-
   class CPool {
   public:
   CPool(size_t iSize):m_iCurrent(0), m_iSize(iSize) {
@@ -57,20 +47,14 @@ private:
   int m_iCurrent;
 };
 
-/////////////////////////////////////////////////////////////////////////////
-
 template < typename T > CSimplePooledAlloc < T >::CSimplePooledAlloc(size_t iSize):m_iBlockSize(iSize), m_iCurrent(0) {
   m_vPool.push_back(new CPool(m_iBlockSize));
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 template < typename T > CSimplePooledAlloc < T >::~CSimplePooledAlloc() {
   for(size_t i = 0; i < m_vPool.size(); i++)
     delete m_vPool[i];
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 template < typename T > T * CSimplePooledAlloc < T >::Alloc() {
   T *p = m_vPool[m_iCurrent]->Alloc();

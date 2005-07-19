@@ -1,10 +1,6 @@
 // DasherInterfaceBase.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2002 Iain Murray
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
 
@@ -51,17 +47,8 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   // Do NOT delete Edit box or Screen. This class did not create them.
 }
 
-//void CDasherInterfaceBase::SetSettingsStore(CSettingsStore* SettingsStore)
-//{
-//      delete m_SettingsStore;
-//      m_SettingsStore = SettingsStore;
-//      this->SettingsDefaults(m_SettingsStore);
-//}
-
 void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
-
   // Pass events outside
-
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
@@ -186,14 +173,6 @@ void CDasherInterfaceBase::Start() {
 }
 
 void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
-
-  //   if (m_DashEditbox!=0) 
-  //     {
-  //       m_DashEditbox->write_to_file();
-  //       if (GetBoolParameter(BP_COPY_ALL_ON_STOP))
-  //    m_DashEditbox->CopyAll();
-  //     }      
-
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
   if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
@@ -236,16 +215,13 @@ void CDasherInterfaceBase::Redraw() {
 }
 
 void CDasherInterfaceBase::Redraw(int iMouseX, int iMouseY) {
-
   if(m_pDasherView != 0) {
     if(m_pDasherView->Render(iMouseX, iMouseY, false))  // Only call display if something changed
       m_pDasherView->Display();
   }
-
 }
 
 void CDasherInterfaceBase::SetInput(CDasherInput *_pInput) {
-
   m_pInput = _pInput;
 
   if(m_pDasherView != 0)
@@ -253,7 +229,6 @@ void CDasherInterfaceBase::SetInput(CDasherInput *_pInput) {
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
-
   if(GetBoolParameter(BP_DASHER_PAUSED)) {
     DrawMousePos(0, 0, 0);
   }
@@ -426,11 +401,9 @@ void CDasherInterfaceBase::ChangeLanguageModel(int NewLanguageModelID) {
 void CDasherInterfaceBase::ChangeScreen() {
   if(m_pDasherView != 0) {
     m_pDasherView->ChangeScreen(m_DasherScreen);
-  }
-  else {
+  } else {
     if(GetLongParameter(LP_VIEW_ID) != -1)
       ChangeView(GetLongParameter(LP_VIEW_ID));
-
   }
 }
 
@@ -464,9 +437,6 @@ void CDasherInterfaceBase::ChangeOrientation(Opts::ScreenOrientations Orientatio
     SetLongParameter(LP_ORIENTATION, GetAlphabetOrientation());
   else
     SetLongParameter(LP_ORIENTATION, Orientation);
-
-//
-
 }
 
 void CDasherInterfaceBase::SetFileEncoding(Opts::FileEncodingFormats Encoding) {
@@ -911,8 +881,6 @@ int CDasherInterfaceBase::GetAutoOffset() {
   return -1;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 double CDasherInterfaceBase::GetNats() const {
   if(m_pDasherModel)
     return m_pDasherModel->GetNats();
@@ -920,14 +888,10 @@ double CDasherInterfaceBase::GetNats() const {
     return 0.0;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 void CDasherInterfaceBase::ResetNats() {
   if(m_pDasherModel)
     m_pDasherModel->ResetNats();
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherInterfaceBase::ChangeLMOption(const std::string &pname, long int Value) {
   m_Params->SetValue(pname, Value);

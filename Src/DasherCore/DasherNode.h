@@ -1,10 +1,6 @@
 // DasherNode.h
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2001-2004 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #ifndef __DasherNode_h__
 #define __DasherNode_h__
@@ -154,7 +150,6 @@ class Dasher::CDasherNode:private NoClones {
 using namespace Dasher;
 using namespace Opts;
 #include "DasherModel.h"
-/////////////////////////////////////////////////////////////////////////////
 
 inline CDasherNode::CDasherNode(const CDasherModel &dashermodel, CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, bool ControlChild, int Colour =-1, ControlTree *controltree =0)
 :m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), m_pLanguageModel(lm), m_pParent(pParent), m_Context(CLanguageModel::nullContext), m_controltree(controltree), m_iRefCount(0), m_bIsActive(true), m_mChildren(), m_bHasAllChildren(false) {
@@ -180,15 +175,11 @@ inline CDasherNode::CDasherNode(const CDasherModel &dashermodel, CDasherNode *pP
    */
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 inline CDasherNode::~CDasherNode() {
   Delete_children();
   if(m_Context)
     m_pLanguageModel->ReleaseContext(m_Context);
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 inline void CDasherNode::SetContext(CLanguageModel::Context Context) {
   if(m_Context)
@@ -196,25 +187,17 @@ inline void CDasherNode::SetContext(CLanguageModel::Context Context) {
   m_Context = Context;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 inline int CDasherNode::Lbnd() const {
   return m_iLbnd;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 inline int CDasherNode::Hbnd() const {
   return m_iHbnd;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 inline int CDasherNode::Range() const {
   return m_iHbnd - m_iLbnd;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 inline HASH_MAP < symbol, CDasherNode * >&CDasherNode::Children() {
   /*    // DJW - please make sure DASHER_ASSERT is implemented on your platform
@@ -223,18 +206,12 @@ inline HASH_MAP < symbol, CDasherNode * >&CDasherNode::Children() {
   return m_mChildren;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 inline const HASH_MAP < symbol, CDasherNode * >&CDasherNode::GetChildren() const {
   return m_mChildren;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
 inline CLanguageModel::Context CDasherNode::Context() const {
   return m_Context;
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 #endif /* #ifndef __DasherNode_h__ */

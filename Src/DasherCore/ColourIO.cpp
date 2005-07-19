@@ -1,10 +1,6 @@
 // ColourIO.cpp
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2002 Iain Murray
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #include "../Common/Common.h"
 
@@ -118,86 +114,6 @@ void CColourIO::Save(const std::string &ColourID) {
   fwrite("<!DOCTYPE alphabets SYSTEM \"colours.dtd\">\n", sizeof(char), 43, Output);
   fwrite("<?xml-stylesheet type=\"text/xsl\" href=\"colours.xsl\"?>\n", sizeof(char), 55, Output);
   fwrite("<colours>\n", sizeof(char), 12, Output);
-
-  //      typedef std::map<std::string, AlphInfo>::const_iterator CI;
-  //      CI End = Alphabets.end();
-  //      for (CI Cur=Alphabets.begin(); Cur!=End; Cur++) {
-  //              AlphInfo Info = (*Cur).second; // Take a copy so that special characters can be escaped
-  //              
-  //              if (Info.Mutable==false) // this is a system alphabet, not one we write
-  //                      continue;
-  //              
-  //              fwrite("<alphabet name=\"", sizeof(char), 16, Output);
-  //              XML_Escape(&Info.AlphID, true);
-  //              fwrite(Info.AlphID.c_str(), sizeof(char), Info.AlphID.size(), Output);
-  //              fwrite("\">\n", sizeof(char), 3, Output);
-
-  //              fwrite("<orientation type=\"", sizeof(char), 19, Output);
-  //              switch (Info.Orientation) {
-  //              case Opts::RightToLeft:
-  //                      fwrite("RL", sizeof(char), 2, Output);
-  //                      break;
-  //              case Opts::TopToBottom:
-  //                      fwrite("TB", sizeof(char), 2, Output);
-  //                      break;
-  //              case Opts::BottomToTop:
-  //                      fwrite("BT", sizeof(char), 2, Output);
-  //                      break;
-  //              case Opts::LeftToRight:
-  //                      // deliberate fall through
-  //              default:
-  //                      fwrite("LR", sizeof(char), 2, Output);
-  //                      break;
-  //              }
-  //              fwrite("\"/>\n", sizeof(char), 4, Output);
-  //              
-  //              // TODO Encoding properly
-  //              fwrite("<encoding type=\"", sizeof(char), 16, Output);
-  //              fwrite(TtoS[Info.Type].c_str(), sizeof(char), TtoS[Info.Type].size(), Output);
-  //              fwrite("\"/>\n", sizeof(char), 4, Output);
-  //              
-  //              fwrite("<train>", sizeof(char), 7, Output);
-  //              XML_Escape(&Info.TrainingFile, false);
-  //              fwrite(Info.TrainingFile.c_str(), sizeof(char), Info.TrainingFile.size(), Output);
-  //              fwrite("</train>\n", sizeof(char), 9, Output);
-  //              
-  //              fwrite("<space d=\"", sizeof(char), 10, Output);
-  //              XML_Escape(&Info.SpaceCharacter.Display, true);
-  //              fwrite(Info.SpaceCharacter.Display.c_str(), sizeof(char), Info.SpaceCharacter.Display.size(), Output);
-  //              fwrite("\" t=\"", sizeof(char), 5, Output);
-  //              XML_Escape(&Info.SpaceCharacter.Text, true);
-  //fwrite(Info.SpaceCharacter.Text.c_str(), sizeof(char), Info.SpaceCharacter.Text.size(), Output);
-  //              fwrite("\"/>\n", sizeof(char), 4, Output);
-  //              
-  //              typedef vector<AlphInfo::group>::iterator gi;
-  //              gi LG = Info.Groups.end();
-  //              for (gi CG = Info.Groups.begin(); CG!=LG; CG++) {
-  //                      fwrite("<group name=\"", sizeof(char), 13, Output);
-  //                      XML_Escape(&CG->Description, true);
-  //                      fwrite(CG->Description.c_str(), sizeof(char), CG->Description.size(), Output);
-  //                      fwrite("\">\n", sizeof(char), 3, Output);
-  //                      
-  //                      // Iterate over CG->Characters
-  //      typedef vector<AlphInfo::character>::iterator ci;
-  //                      ci LC = CG->Characters.end();
-  //                      for (ci CC=CG->Characters.begin(); CC!=LC; CC++) {
-  //                              fwrite("<s d=\"", sizeof(char), 6, Output);
-  //                              XML_Escape(&CC->Display, true);
-  //                              fwrite(CC->Display.c_str(), sizeof(char), CC->Display.size(), Output);
-  //                              fwrite("\" t=\"", sizeof(char), 5, Output);
-  //                              XML_Escape(&CC->Text, true);
-  //                              fwrite(CC->Text.c_str(), sizeof(char), CC->Text.size(), Output);
-  //                              fwrite("\"/>\n", sizeof(char), 4, Output);
-  //                      }
-  //                      
-  //                      fwrite("</group>\n", sizeof(char), 9, Output);
-  //              }
-  //              
-  //              fwrite("</alphabet>\n", sizeof(char), 12, Output);
-  //      }
-  //      
-  //      fwrite("</alphabets>\n", sizeof(char), 13, Output);
-  //      
   fclose(Output);
 }
 

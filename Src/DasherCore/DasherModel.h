@@ -1,10 +1,6 @@
 // DasherModel.h
 //
-/////////////////////////////////////////////////////////////////////////////
-//
 // Copyright (c) 2001-2005 David Ward
-//
-/////////////////////////////////////////////////////////////////////////////
 
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
@@ -294,8 +290,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 inline CLanguageModel::Context CDasherModel::CreateEmptyContext() const {
   return m_pLanguageModel->CreateEmptyContext();
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 inline int CDasherModel::GetColour(symbol s) const {
   return m_pcAlphabet->GetColour(s);
