@@ -153,6 +153,12 @@ void CUserLogTrial::StartWriting()
     if (m_pSpan == NULL)
         m_pSpan = new CTimeSpan("Time", false);
 
+    if (m_pSpan == NULL) 
+    {
+        gLogger->Log("CUserLogTrial::StartWriting, m_pSpan was NULL!", logNORMAL);
+        return;
+    }
+
     m_bWritingStart = true;
 
     // If we have already done some navigation, then the previous NavStop() would have stopped
@@ -233,6 +239,12 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbolProbs,
     Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = NULL;
     pVectorAdded = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
 
+    if (pVectorAdded == NULL)
+    {
+        gLogger->Log("CUserLogTrial::AddSymbols, failed to create pVectorAdded!", logNORMAL);
+        return;
+    }
+
     for (unsigned int i = 0; i < vectorNewSymbolProbs->size(); i++)
     {
         Dasher::SymbolProb newSymbolProb = (Dasher::SymbolProb) (*vectorNewSymbolProbs)[i];
@@ -259,6 +271,11 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbolProbs,
     NavLocation* location = NULL;
 
     location                = new NavLocation;
+    if (location == NULL)
+    {
+        gLogger->Log("CUserLogTrial::AddSymbols, failed to create location!", logNORMAL);
+        return;
+    }
 
     location->strHistory    = GetHistoryDisplay();
     location->span          = new CTimeSpan("Time", false);
@@ -293,6 +310,11 @@ void CUserLogTrial::DeleteSymbols(int numToDelete, eUserLogEventType event)
     NavLocation* location = NULL;
 
     location                = new NavLocation;
+    if (location == NULL)
+    {
+        gLogger->Log("CUserLogTrial::DeleteSymbols, failed to create location!", logNORMAL);
+        return;
+    }
 
     location->strHistory    = GetHistoryDisplay();
     location->span          = new CTimeSpan("Time", false);
@@ -438,14 +460,13 @@ void CUserLogTrial::GetUserTrialInfo()
         // Make sure we successfully opened before we start reading it
         if (fin.is_open())
         {
-            char str[1024];
             while(!fin.eof()) 
             {
-                fin.getline(str, 1024);
-                if (strlen(str) > 0)
+                fin.getline(m_strTempBuffer, 1024);
+                if (strlen(m_strTempBuffer) > 0)
                 {
                     m_strCurrentTrial += "\t\t\t";
-                    m_strCurrentTrial += str;
+                    m_strCurrentTrial += m_strTempBuffer;
                     m_strCurrentTrial += "\n";
                 }        
             }
@@ -515,8 +536,6 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
         return strResult;
     }
 
-    char strNum[256];
-
     strResult += prefix;
     strResult += "<Location>\n";
 
@@ -527,8 +546,8 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
 
     strResult += prefix;
     strResult += "\t<AvgBits>";
-    sprintf(strNum, "%0.6f", location->avgBits);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "%0.6f", location->avgBits);
+    strResult += m_strTempBuffer;
     strResult += "</AvgBits>\n";
 
     // Only output the event if it is interesting type, not normal mouse navigation
@@ -536,8 +555,8 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
     {
         strResult += prefix;
         strResult += "\t\t<Event>";
-        sprintf(strNum, "%d", (int) location->event);
-        strResult += strNum;
+        sprintf(m_strTempBuffer, "%d", (int) location->event);
+        strResult += m_strTempBuffer;
         strResult += "</Event>\n";                
     }
 
@@ -545,8 +564,8 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
     {
         strResult += prefix;
         strResult += "\t<NumAdded>";
-        sprintf(strNum, "%d", location->pVectorAdded->size());
-        strResult += strNum;
+        sprintf(m_strTempBuffer, "%d", location->pVectorAdded->size());
+        strResult += m_strTempBuffer;
         strResult += "</NumAdded>\n";
 
         Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = location->pVectorAdded;
@@ -568,8 +587,8 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
 
                 strResult += prefix;
                 strResult += "\t\t<Prob>";
-                sprintf(strNum, "%0.6f", item.prob);
-                strResult += strNum;
+                sprintf(m_strTempBuffer, "%0.6f", item.prob);
+                strResult += m_strTempBuffer;
                 strResult += "</Prob>\n";
 
                 strResult += prefix;
@@ -582,8 +601,8 @@ string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix
     {
         strResult += prefix;
         strResult += "\t<NumDeleted>";
-        sprintf(strNum, "%d", location->numDeleted);
-        strResult += strNum;
+        sprintf(m_strTempBuffer, "%d", location->numDeleted);
+        strResult += m_strTempBuffer;
         strResult += "</NumDeleted>\n";
     }
 
@@ -632,7 +651,6 @@ string CUserLogTrial::GetSummaryXML(const string& prefix)
 string CUserLogTrial::GetStatsXML(const string& prefix, const string& strText, CTimeSpan* pSpan, double avgBits)
 {
     string strResult = "";
-    char strNum[256];
 
     if (pSpan == NULL)
     {
@@ -648,8 +666,8 @@ string CUserLogTrial::GetStatsXML(const string& prefix, const string& strText, C
     // Average number of bits along the path to the final string
     strResult += prefix;
     strResult += "\t\t<AvgBits>";
-    sprintf(strNum, "%0.6f", avgBits);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "%0.6f", avgBits);
+    strResult += m_strTempBuffer;
     strResult += "</AvgBits>\n";
 
     // Calculate the number of words and characters
@@ -659,36 +677,43 @@ string CUserLogTrial::GetStatsXML(const string& prefix, const string& strText, C
     // We want the number of symbols which might differ
     // from the actual length of the text history.
     int numChars = m_vectorHistory.size();
-    sprintf(strNum, "%d", numChars);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "%d", numChars);
+    strResult += m_strTempBuffer;
     strResult += "</Chars>\n";
 
     strResult += prefix;
     strResult += "\t\t<Words>";
     double numWords = (double) numChars / (double) 5;
-    sprintf(strNum, "%0.2f", numWords);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "%0.2f", numWords);
+    strResult += m_strTempBuffer;
     strResult += "</Words>\n";
 
-    double wpm  = (double) numWords / (m_pSpan->GetElapsed() / 60.0);
-    double cpm  = (double) numChars / (m_pSpan->GetElapsed() / 60.0);
+    double wpm = 0.0;
+    double cpm = 0.0;
 
+    if (m_pSpan != NULL)
+    {
+        wpm  = (double) numWords / (m_pSpan->GetElapsed() / 60.0);
+        cpm  = (double) numChars / (m_pSpan->GetElapsed() / 60.0);    
+    }
+    
     strResult += prefix;
     strResult += "\t\t<WPM>";
-    sprintf(strNum, "%0.3f", wpm);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "%0.3f", wpm);
+    strResult += m_strTempBuffer;
     strResult += "</WPM>\n";
 
     strResult += prefix;
     strResult += "\t\t<CPM>";
-    sprintf(strNum, "%0.3f", cpm);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "%0.3f", cpm);
+    strResult += m_strTempBuffer;
     strResult += "</CPM>\n";
 
     string strPrefixTabTab = prefix;
     strPrefixTabTab += "\t\t";
 
-    strResult += m_pSpan->GetXML(strPrefixTabTab);
+    if (m_pSpan != NULL)
+        strResult += m_pSpan->GetXML(strPrefixTabTab);
 
     return strResult;
 }
@@ -696,27 +721,26 @@ string CUserLogTrial::GetStatsXML(const string& prefix, const string& strText, C
 string CUserLogTrial::GetWindowCanvasXML(const string& prefix)
 {
     string strResult = "";
-    char strNum[256];
 
     // Log the window location and size that was last used during this trial
     strResult += prefix;
     strResult += "\t<WindowCoordinates>\n";
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Top>%d</Top>\n", m_windowCoordinates.top);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Top>%d</Top>\n", m_windowCoordinates.top);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Bottom>%d</Bottom>\n", m_windowCoordinates.bottom);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Bottom>%d</Bottom>\n", m_windowCoordinates.bottom);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Left>%d</Left>\n", m_windowCoordinates.left);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Left>%d</Left>\n", m_windowCoordinates.left);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Right>%d</Right>\n", m_windowCoordinates.right);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Right>%d</Right>\n", m_windowCoordinates.right);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
     strResult += "\t</WindowCoordinates>\n";
@@ -726,20 +750,20 @@ string CUserLogTrial::GetWindowCanvasXML(const string& prefix)
     strResult += "\t<CanvasCoordinates>\n";
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Top>%d</Top>\n", m_canvasCoordinates.top);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Top>%d</Top>\n", m_canvasCoordinates.top);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Bottom>%d</Bottom>\n", m_canvasCoordinates.bottom);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Bottom>%d</Bottom>\n", m_canvasCoordinates.bottom);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Left>%d</Left>\n", m_canvasCoordinates.left);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Left>%d</Left>\n", m_canvasCoordinates.left);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
-    sprintf(strNum, "\t\t<Right>%d</Right>\n", m_canvasCoordinates.right);
-    strResult += strNum;
+    sprintf(m_strTempBuffer, "\t\t<Right>%d</Right>\n", m_canvasCoordinates.right);
+    strResult += m_strTempBuffer;
 
     strResult += prefix;
     strResult += "\t</CanvasCoordinates>\n";
@@ -807,6 +831,11 @@ void CUserLogTrial::AddParam(const string& strName, const string& strValue, int 
     }
     // We need to add a new param
     CUserLogParam* newParam      = new CUserLogParam;
+    if (newParam == NULL)
+    {
+        gLogger->Log("CUserLogTrial::AddParam, newParam was NULL!", logNORMAL);
+        return;
+    }
 
     newParam->strName           = strName;
     newParam->strValue          = strValue;
@@ -888,6 +917,12 @@ NavLocation* CUserLogTrial::GetCurrentNavLocation()
 NavCycle* CUserLogTrial::AddNavCycle()
 {
     NavCycle* newCycle = new NavCycle;
+    if (newCycle == NULL)
+    {
+        gLogger->Log("CUserLogTrial::AddNavCycle, failed to create NavCycle!", logNORMAL);
+        return NULL;
+    }
+
     newCycle->pSpan = new CTimeSpan("Time", false);
 
     m_vectorNavCycles.push_back(newCycle);
@@ -1028,6 +1063,12 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
         strMousePositions   = XMLUtil::GetElementString("MousePositions", *iter, true);
 
         NavCycle* cycle = new NavCycle();
+        if (cycle == NULL)
+        {
+            gLogger->Log("CUserLogTrial::CUserLogTrial, failed to create NavCycle!", logNORMAL);
+            return;
+        }
+
         cycle->pSpan = NULL;
 
         if (strTime.length() > 0)
@@ -1043,6 +1084,11 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
                 vectorAdded.erase(vectorAdded.begin(), vectorAdded.end());
 
                 NavLocation* location = new NavLocation();
+                if (location == NULL)
+                {
+                    gLogger->Log("CUserLogTrial::CUserLogTrial, failed to create NavLocation!", logNORMAL);
+                    return;
+                }                
 
                 location->strHistory    = XMLUtil::GetElementString("History", *iter2);
                 location->avgBits       = (double) XMLUtil::GetElementFloat("AvgBits", *iter2);

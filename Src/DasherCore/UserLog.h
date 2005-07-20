@@ -124,6 +124,10 @@ protected:
     bool                        m_bNeedToWriteCanvas;   // Do we need to write new canvas coordinates on the next navigation?
     int                         m_levelMask;            // What log level mask we were created with.
 
+    // Used whenever we need a temporary char* buffer
+    static const int            TEMP_BUFFER_SIZE = 4096;
+    char                        m_strTempBuffer[TEMP_BUFFER_SIZE];  
+
     CUserLogTrial*              AddTrial();
     CUserLogTrial*              GetCurrentTrial();
     string                      GetXML();
@@ -149,7 +153,7 @@ protected:
     void                        ComputeSimpleMousePos(int x, int y);
     void                        ResetCycle();
     void                        InitUsingMask(int logLevelMask);
-
+    
 };
 
 #endif

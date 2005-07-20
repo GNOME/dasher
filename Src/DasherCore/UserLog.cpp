@@ -25,6 +25,9 @@ CUserLog::CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet)
 
     SetOuputFilename();
     m_pApplicationSpan = new CTimeSpan("Application", true);
+
+    if (m_pApplicationSpan == NULL)
+        gLogger->Log("CUserLog::CUserLog, failed to create m_pApplicationSpan!", logNORMAL);
 }
 
 CUserLog::~CUserLog()
@@ -131,7 +134,7 @@ void CUserLog::StartWriting()
     {
         // The canvas size changes multiple times as a user resizes it.  We just want to write
         // one short log entry for the final position the next time they start writing.
-        if (m_bNeedToWriteCanvas)
+        if ((m_bNeedToWriteCanvas) && (m_pSimpleLogger != NULL))
         {
             m_pSimpleLogger->Log("canvas:\t%d\t%d\t%d\t%d", 
                                   logDEBUG, 
@@ -154,8 +157,11 @@ void CUserLog::StartWriting()
         // This could be the first use in this trial, create a new one if needed
         if (trial == NULL)
             trial = AddTrial();
-
-        trial->StartWriting();
+        
+        if (trial != NULL)
+            trial->StartWriting();
+        else
+            gLogger->Log("CUserLog::StartWriting, failed to create new trial!", logNORMAL);
     }
 
     m_bIsWriting = true;
@@ -208,6 +214,12 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbols, eUserLog
         StartWriting();
     }
 
+    if (vectorNewSymbols == NULL)
+    {
+        gLogger->Log("CUserLog::AddSymbols, vectorNewSymbols was NULL!", logNORMAL);
+        return;
+    }
+
     if (m_bSimple)
     {
         // Also store a copy in a vector that gets cleared 
@@ -223,12 +235,6 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbols, eUserLog
     if (m_bDetailed)
     {
         CUserLogTrial* trial = GetCurrentTrial();
-
-        if (vectorNewSymbols == NULL)
-        {
-            gLogger->Log("CUserLog::AddSymbols, vectorNewSymbols was NULL!", logNORMAL);
-            return;
-        }
 
         // We should have a trial object since StartWriting() should have been called before us
         if (trial == NULL)
@@ -312,17 +318,15 @@ void CUserLog::NewTrial()
 // Overloaded version that converts a double to a string
 void CUserLog::AddParam(const string& strName, double value, int optionMask)
 {
-    char strNum[256];
-    sprintf(strNum, "%0.4f", value);
-    AddParam(strName, strNum, optionMask);
+    sprintf(m_strTempBuffer, "%0.4f", value);
+    AddParam(strName, m_strTempBuffer, optionMask);
 }
 
 // Overloaded version that converts a int to a string
 void CUserLog::AddParam(const string& strName, int value, int optionMask)
 {
-    char strNum[256];
-    sprintf(strNum, "%d", value);
-    AddParam(strName, strNum, optionMask);
+    sprintf(m_strTempBuffer, "%d", value);
+    AddParam(strName, m_strTempBuffer, optionMask);
 }
 
 // Adds a general parameter to our XML.  This lets various Dasher components 
@@ -381,6 +385,12 @@ void CUserLog::AddParam(const string& strName, const string& strValue, int optio
 
     // We need to add a new param
     CUserLogParam* newParam      = new CUserLogParam;
+
+    if (newParam == NULL)
+    {
+        gLogger->Log("CUserLog::AddParam, failed to create CUserLogParam object!", logNORMAL);
+        return;
+    }
 
     newParam->strName           = strName;
     newParam->strValue          = strValue;
@@ -732,9 +742,6 @@ string CUserLog::GetStartStopCycleStats()
 {
     string strResult = "";
 
-
-    char strNum[1024];
-
     double normX = 0.0;
     double normY = 0.0;
     if (m_cycleMouseCount > 0)
@@ -743,13 +750,19 @@ string CUserLog::GetStartStopCycleStats()
         normY = m_cycleMouseNormYSum / (double) m_cycleMouseCount;
     }
     
+    if (m_pCycleTimer == NULL)
+    {
+        gLogger->Log("CUserLog::GetStartStopCycleStats, cycle timer was NULL!", logNORMAL);
+        return "";
+    }
+
     // Tab delimited fields are:
     //  elapsed time, symbols written, bits written, symbols deleted, 
     //  avg normalized x mouse coordinate, avg normalized y mouse
     //  coordinate, (any parameters marked to be put in cycle stats)
     //
     // tsbdxym stands for: time symbols bits deletes x y maxbitrate
-    sprintf(strNum, "tsbdxym:\t%0.3f\t%d\t%0.6f\t%d\t%0.3f\t%0.3f%s", 
+    sprintf(m_strTempBuffer, "tsbdxym:\t%0.3f\t%d\t%0.6f\t%d\t%0.3f\t%0.3f%s", 
                 m_pCycleTimer->GetElapsed(), 
                 m_vectorCycleHistory.size(), 
                 GetCycleBits(), 
@@ -757,7 +770,7 @@ string CUserLog::GetStartStopCycleStats()
                 normX,
                 normY, 
                 GetCycleParamStats().c_str());
-    strResult = strNum;
+    strResult = m_strTempBuffer;
 
     return strResult;
 }

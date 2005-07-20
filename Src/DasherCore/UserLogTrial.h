@@ -126,7 +126,11 @@ protected:
     Dasher::VECTOR_SYMBOL_PROB_DISPLAY  m_vectorHistory;            // Tracks all the symbols, probs, display text entererd during this trial
     VECTOR_USER_LOG_PARAM_PTR           m_vectorParams;             // Stores general parameters we want stored in each trial tag in the XML
     VECTOR_NAV_CYCLE_PTR                m_vectorNavCycles;
-
+    
+    // Used whenever we need a temporary char* buffer
+    static const int                    TEMP_BUFFER_SIZE = 4096;
+    char                                m_strTempBuffer[TEMP_BUFFER_SIZE];  
+    
     void                        GetUserTrialInfo();
     string                      GetHistoryDisplay();
     double                      GetHistoryAvgBits();
