@@ -96,7 +96,7 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent) {
 
   m_pInterface->ChangeEdit(m_pEditWrapper);
 
-  m_pCanvas = new CCanvas(m_hParent, m_pInterface, m_pInterface);
+  m_pCanvas = new CCanvas(m_hParent, m_pInterface);
   m_pSlidebar = new CSlidebar(m_hParent, m_pInterface, 1.99, false, m_pCanvas);
 
   // Start up our thread that will periodically handle user movement.  We pass in a pointer to ourselves

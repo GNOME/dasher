@@ -20,13 +20,10 @@ using namespace std;
 const string CDasherInterfaceBase::EmptyString = "";
 
 CDasherInterfaceBase::CDasherInterfaceBase()
-:
-m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0), m_pDasherView(0), m_SettingsUI(0), m_AlphIO(0), m_ColourIO(0), m_pInput(0) {
+                  :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
+                  m_pDasherView(0), m_SettingsUI(0), m_AlphIO(0), m_ColourIO(0), m_pInput(0) {
   m_Params = new CLanguageModelParams;
   m_pEventHandler = new CEventHandler(this);
-
-// This should be created in the derived class (as it is platform dependent)
-  // m_pSettingsStore = new CSettingsStore( m_pEventHandler );
 }
 
 void CDasherInterfaceBase::Realize() {

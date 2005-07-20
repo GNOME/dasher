@@ -9,8 +9,7 @@
 #ifndef __Canvas_h__
 #define __Canvas_h__
 
-#include "../../DasherCore/DasherWidgetInterface.h"
-#include "../../DasherCore/DasherAppInterface.h"
+#include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/DasherTypes.h"
 
 #include "../DasherMouseInput.h"
@@ -21,7 +20,7 @@ class CEdit;
 
 class CCanvas:public CWinWrap {
 public:
-  CCanvas(HWND Parent, Dasher::CDasherWidgetInterface * WI, Dasher::CDasherAppInterface * AI);
+  CCanvas(HWND Parent, CDasherInterface * DI);
   ~CCanvas();
   void Move(int x, int y, int Width, int Height);
   void Paint();
@@ -30,26 +29,13 @@ public:
 
   HWND getwindow() {
     return m_hwnd;
-  } void StartOnLeftClick(bool Value) {
+  } 
+  void StartOnLeftClick(bool Value) {
     startonleft = Value;
   }
 
-  void StartOnSpace(bool Value) {
-    startonspace = Value;
-  }
-
-  void KeyControl(bool Value) {
-    keycontrol = Value;
-  }
-
-  void WindowPause(bool Value) {
-    windowpause = Value;
-  }
 
   void MousePosStart(bool Value);
-  void SpeakOnStop(bool Value) {
-    speakonstop = Value;
-  }
   void setkeycoords(int coords[18]) {
     for(int i = 0; i < 18; i++) {
       keycoords[i] = coords[i];
@@ -58,27 +44,7 @@ public:
   int *getkeycoords() {
     return keycoords;
   }
-  void setyscale(int y) {
-    yscaling = y;
-  }
-  int getyscale() {
-    return yscaling;
-  }
-  void setmouseposdist(int y) {
-    m_iMousePosDist = y;
-  }
-  int getmouseposdist() {
-    return m_iMousePosDist;
-  }
-  void setuniform(int y) {
-    uniform = y;
-  }
-  int getuniform() {
-    return uniform;
-  }
-  void onedimensional(bool value) {
-    oned = value;
-  }
+
   void setforward(bool value) {
     forward = value;
   }
@@ -121,12 +87,9 @@ private:
   HWND Parent;
   HDC m_hdc;
   int keycoords[18], buttonnum, yscaling;
-  int m_iMousePosDist;
-  int uniform;
   bool forward, backward, select;
   CScreen *m_pScreen;
-  Dasher::CDasherWidgetInterface * m_DasherWidgetInterface;
-  Dasher::CDasherAppInterface * m_DasherAppInterface;
+  CDasherInterface * m_pDasherInterface;
 
   // Mouse Input Abstraction
 
@@ -134,43 +97,19 @@ private:
 
   Dasher::screenint imousex, imousey;
   UINT MY_TIMER;
-  bool running;
   bool startonleft;
-
-  bool startonspace;
-
-  bool keycontrol;
-
-  bool windowpause;
-
-  bool m_MousePosStart;
-
-  bool firstwindow;
-
-  bool secondwindow;
-
-  bool speakonstop;
-
-  bool oned;
-
   bool direction;
-
+  bool running;
+  bool firstwindow;
+  bool secondwindow;
   bool lbuttonheld;
-
   bool inturbo;
-
   bool enabletime;
-
   DWORD startturbo;
-
   DWORD endturbo;
-
   DWORD lastlbutton;
-
   DWORD mousepostime;
-
   DWORD previoustime;
-
   RECT coords;
 };
 

@@ -153,7 +153,7 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     }
     SetEditBox(NewBitrate);
     if(LOWORD(wParam) == TB_ENDTRACK)
-      DasherInterface->SetLongParameter(LP_MAX_BITRATE, NewBitrate);
+      DasherInterface->SetLongParameter(LP_MAX_BITRATE, (long)NewBitrate);
     break;
   }
   return result;
