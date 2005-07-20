@@ -50,9 +50,10 @@ extern CFileLogger* gLogger;
 const int USER_LOG_DEFAULT_SIZE_TRIAL_XML   = 65536;    // How big we think the XML string representing a single trial will be
 const int LOG_MOUSE_EVERY_MS                = 200;      // How often to log the mouse position (-1 for never), the frequency is also depends on how often the WM_TIMER event fires in dasher
 
-static const string    USER_LOG_SIMPLE_FILENAME = "dasher_usage.log";      // Filename of the short text log file
-static const string    USER_LOG_DETAILED_PREFIX = "dasher_";               // Prefix of the detailed XML log files
-static const bool      USER_LOG_DUMP_AFTER_TRIAL = true;                   // Do we want to dump the XML after each trial is complete?
+static const string    USER_LOG_SIMPLE_FILENAME         = "dasher_usage.log";      // Filename of the short text log file
+static const string    USER_LOG_DETAILED_PREFIX         = "dasher_";               // Prefix of the detailed XML log files
+static const bool      USER_LOG_DUMP_AFTER_TRIAL        = true;                    // Do we want to dump the XML after each trial is complete?
+static const string    USER_LOG_CURRENT_TRIAL_FILENAME  = "CurrentTrial.xml";      // Filename we look for information on what the subject is doing
 
 enum eUserLogLevel
 {
@@ -108,21 +109,22 @@ public:
 #endif
 
 protected:
-    CTimeSpan*                  m_pApplicationSpan;     // How long the application has been up
-    string                      m_strFilename;          // Name we output our XML file to
-    VECTOR_USER_LOG_TRIAL_PTR   m_vectorTrials;         // Holds object for each trial in this session
-    VECTOR_USER_LOG_PARAM_PTR   m_vectorParams;         // Stores general parameters we want in the XML
-    double                      m_lastMouseUpdate;      // When the last mouse update was pushed
-    bool                        m_bSimple;              // Are we outputting the simple running log file?
-    bool                        m_bDetailed;            // Are we outputting per session detailed logs?
-    CFileLogger*                m_pSimpleLogger;        // Used to log the simple running log file
-	Dasher::CAlphabet*			m_pAlphabet;		    // Pointer to Dasher alphabet object
-    bool                        m_bIsWriting;           // Has StartWriting() been called but not StopWriting()?
-    bool                        m_bInitIsDone;          // Set to true once the initialization of default values is done
-    WindowSize                  m_canvasCoordinates;    // The size of our canvas from the last call to AddCanvasSize()
-    WindowSize                  m_windowCoordinates;    // Records the window coordinates at the start of navigation
-    bool                        m_bNeedToWriteCanvas;   // Do we need to write new canvas coordinates on the next navigation?
-    int                         m_levelMask;            // What log level mask we were created with.
+    CTimeSpan*                  m_pApplicationSpan;         // How long the application has been up
+    string                      m_strFilename;              // Name we output our XML file to
+    VECTOR_USER_LOG_TRIAL_PTR   m_vectorTrials;             // Holds object for each trial in this session
+    VECTOR_USER_LOG_PARAM_PTR   m_vectorParams;             // Stores general parameters we want in the XML
+    double                      m_lastMouseUpdate;          // When the last mouse update was pushed
+    bool                        m_bSimple;                  // Are we outputting the simple running log file?
+    bool                        m_bDetailed;                // Are we outputting per session detailed logs?
+    CFileLogger*                m_pSimpleLogger;            // Used to log the simple running log file
+	Dasher::CAlphabet*			m_pAlphabet;		        // Pointer to Dasher alphabet object
+    bool                        m_bIsWriting;               // Has StartWriting() been called but not StopWriting()?
+    bool                        m_bInitIsDone;              // Set to true once the initialization of default values is done
+    WindowSize                  m_canvasCoordinates;        // The size of our canvas from the last call to AddCanvasSize()
+    WindowSize                  m_windowCoordinates;        // Records the window coordinates at the start of navigation
+    bool                        m_bNeedToWriteCanvas;       // Do we need to write new canvas coordinates on the next navigation?
+    int                         m_levelMask;                // What log level mask we were created with.
+    string                      m_strCurrentTrialFilename;  // Where info about the current subject's trial is stored
 
     // Used whenever we need a temporary char* buffer
     static const int            TEMP_BUFFER_SIZE = 4096;

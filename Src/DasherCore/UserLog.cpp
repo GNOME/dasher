@@ -588,6 +588,11 @@ void CUserLog::SetOuputFilename(const string& strFilename)
 
         m_strFilename += ".xml";
     }
+
+    // Make sure we store a fully qualified form, to prevent movent
+    // if the working directory changes
+    m_strFilename = CFileLogger::GetFullFilenamePath(m_strFilename);
+
 }
 
 // Find out what level mask this object was created with
@@ -628,6 +633,12 @@ void CUserLog::InitMemberVars()
     m_windowCoordinates.top     = 0;
     m_windowCoordinates.right   = 0;
     m_windowCoordinates.left    = 0;
+
+    // We want to use a fully qualified path so that we always
+    // look in the same spot, regardless of if the working
+    // directory has moved during runtime.
+    m_strCurrentTrialFilename   = CFileLogger::GetFullFilenamePath(USER_LOG_CURRENT_TRIAL_FILENAME);
+
 }
 
 // Write this objects XML out  
@@ -702,7 +713,7 @@ CUserLogTrial* CUserLog::AddTrial()
             trial->Done();
     }
 
-    CUserLogTrial* trial = new CUserLogTrial();
+    CUserLogTrial* trial = new CUserLogTrial(m_strCurrentTrialFilename);
     if (trial != NULL)
     {
         m_vectorTrials.push_back(trial);

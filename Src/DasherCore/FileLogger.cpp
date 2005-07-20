@@ -15,7 +15,7 @@ static char THIS_FILE[] = __FILE__;
 
 CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel logLevel, int optionsMask)
 {
-    m_strFilenamePath       = strFilenamePath;
+    m_strFilenamePath       = "";
     m_logLevel              = logLevel;
     m_functionIndentLevel   = 0;
 
@@ -40,8 +40,11 @@ CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel logLevel,
     if (optionsMask & logOutputScreen)
         m_bOutputScreen = true;
 
-    // Make sure our filename and path is converted to fully qualified form
-    SetFilenamePath(strFilenamePath);
+    // On windows anyway if somebody can open up a file with CreateFile() in a different 
+    // directory and cause the working directory to change.  We don't want our log file
+    // moving around, so we'll find a absolute path when we are created and stick to
+    // that for the remainder of our life.
+    m_strFilenamePath = GetFullFilenamePath(strFilenamePath);
 
     // See if we should get rid of any existing filename with our given name.  This prevents having
     // to remember to delete the file before every new debugging run.
@@ -200,6 +203,60 @@ bool CFileLogger::GetFunctionTiming()
     return m_bFunctionTiming;
 }
 
+// Utility method that converts a filename into a fully qualified
+// path and filename on Windows.  This can be used to make sure
+// a relative filename stays pointed at the same location despite
+// changes in the working directory.
+std::string CFileLogger::GetFullFilenamePath(std::string strFilename)
+{
+#ifdef _WIN32    
+    
+    // Windows code
+    const int   MAX_PATH_LENGTH = 1024;
+
+#ifdef _UNICODE
+
+    // In Unicode, we need the parameters to GetFullPathName() in wide characters
+    wchar_t     szPath[MAX_PATH_LENGTH];
+    wchar_t*    pszFilePart = NULL;
+    wchar_t     wstrFilenamePath[MAX_PATH_LENGTH];
+    char        strResult[MAX_PATH_LENGTH];
+
+    unsigned int i = 0;
+    for (i = 0; i < strFilename.length(); i++)
+        wstrFilenamePath[i] = (wchar_t) strFilename[i];
+    wstrFilenamePath[i] = '\0';
+
+    ::GetFullPathName(wstrFilenamePath, MAX_PATH_LENGTH, szPath, &pszFilePart);
+    i = 0;
+    while (szPath[i] != '\0')
+    {
+        strResult[i] = (char) szPath[i];
+        i++;
+    }
+    strResult[i] = '\0';
+
+    return strResult;
+
+#else
+    // Using normal non-unicode strings
+    char        szPath[MAX_PATH_LENGTH];
+    char*       pszFilePart = NULL;
+    char        strResult[MAX_PATH_LENGTH];
+
+    ::GetFullPathName(strFilename.c_str(), MAX_PATH_LENGTH, szPath, &pszFilePart);
+    
+    return szPath;
+
+#endif
+
+#else
+    // Non-windows code
+    return strFilename;
+
+#endif
+}
+
 /////////////////////////////////////// CFunctionLogger /////////////////////////////////////////////////////////////
 
 CFunctionLogger::CFunctionLogger(const std::string& strFunctionName, CFileLogger* logger) 
@@ -318,60 +375,3 @@ std::string CFileLogger::GetTimeDateStamp()
 
     return strTimeStamp;
 }
-
-// Sets the member variable of the filename/path of our log file.
-// This method handles making sure we save a fully qualified path
-// by converting it if neccesary.
-void CFileLogger::SetFilenamePath(const std::string& strFilenamePath)
-{
-    // On windows anyway if somebody can open up a file with CreateFile() in a different 
-    // directory and cause the working directory to change.  We don't want our log file
-    // moving around, so we'll find a absolute path when we are created and stick to
-    // that for the remainder of our life.
-#ifdef _WIN32    
-    
-    // Windows code
-    const int   MAX_PATH_LENGTH = 1024;
-
-#ifdef _UNICODE
-
-    // In Unicode, we need the parameters to GetFullPathName() in wide characters
-    wchar_t     szPath[MAX_PATH_LENGTH];
-    wchar_t*    pszFilePart = NULL;
-    wchar_t     wstrFilenamePath[MAX_PATH_LENGTH];
-    char        strResult[MAX_PATH_LENGTH];
-
-    unsigned int i = 0;
-    for (i = 0; i < strFilenamePath.length(); i++)
-        wstrFilenamePath[i] = (wchar_t) strFilenamePath[i];
-    wstrFilenamePath[i] = '\0';
-
-    ::GetFullPathName(wstrFilenamePath, MAX_PATH_LENGTH, szPath, &pszFilePart);
-    i = 0;
-    while (szPath[i] != '\0')
-    {
-        strResult[i] = (char) szPath[i];
-        i++;
-    }
-    strResult[i] = '\0';
-
-    m_strFilenamePath = strResult;
-#else
-    // Using normal non-unicode strings
-    char        szPath[MAX_PATH_LENGTH];
-    char*       pszFilePart = NULL;
-    char        strResult[MAX_PATH_LENGTH];
-
-    ::GetFullPathName(strFilenamePath.c_str(), MAX_PATH_LENGTH, szPath, &pszFilePart);
-    
-    m_strFilenamePath = szPath;
-#endif
-
-#else
-    // Non-windows code
-    m_strFilenamePath = strFilenamePath;
-
-#endif
-
-}
-

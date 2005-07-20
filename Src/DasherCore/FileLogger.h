@@ -91,6 +91,8 @@ public:
     void LogFunctionTicks(const std::string& strFunctionName, __int64 ticks);   // Used by FunctionLogger to log how long was spent in a function
 #endif
     bool GetFunctionTiming();
+    
+    static std::string GetFullFilenamePath(std::string strFilename);
 
 private:
     std::string     m_strFilenamePath;          // Filename and path of our output file	
@@ -105,7 +107,6 @@ private:
 
     std::string     GetIndentedString(const std::string& str);
     std::string     GetTimeDateStamp();
-    void            SetFilenamePath(const std::string& strFilenamePath);
 
 #ifdef WIN32
     MAP_STRING_INT64    m_mapFunctionTicks;     // Keeps track of how many ticks spent in each of our functions (who create a CFunctionLogger object)

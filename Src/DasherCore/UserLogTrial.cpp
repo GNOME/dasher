@@ -11,9 +11,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CUserLogTrial::CUserLogTrial()
+CUserLogTrial::CUserLogTrial(string strCurrentTrialFilename)
 {
     InitMemberVars();
+
+    m_strCurrentTrialFilename = strCurrentTrialFilename;
 }
 
 CUserLogTrial::~CUserLogTrial()
@@ -454,23 +456,25 @@ void CUserLogTrial::GetUserTrialInfo()
 
     try
     {
-
-        fstream fin("CurrentTrial.xml", ios::in);       // We want ios::nocreate, but not available in .NET 2003, arrgh
-        
-        // Make sure we successfully opened before we start reading it
-        if (fin.is_open())
+        if (m_strCurrentTrialFilename.length() > 0)
         {
-            while(!fin.eof()) 
+            fstream fin(m_strCurrentTrialFilename.c_str(), ios::in);       // We want ios::nocreate, but not available in .NET 2003, arrgh
+            
+            // Make sure we successfully opened before we start reading it
+            if (fin.is_open())
             {
-                fin.getline(m_strTempBuffer, 1024);
-                if (strlen(m_strTempBuffer) > 0)
+                while(!fin.eof()) 
                 {
-                    m_strCurrentTrial += "\t\t\t";
-                    m_strCurrentTrial += m_strTempBuffer;
-                    m_strCurrentTrial += "\n";
-                }        
+                    fin.getline(m_strTempBuffer, TEMP_BUFFER_SIZE);
+                    if (strlen(m_strTempBuffer) > 0)
+                    {
+                        m_strCurrentTrial += "\t\t\t";
+                        m_strCurrentTrial += m_strTempBuffer;
+                        m_strCurrentTrial += "\n";
+                    }        
+                }
+                fin.close();
             }
-            fin.close();
         }
     } catch (...)
     {
