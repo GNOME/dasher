@@ -13,6 +13,8 @@
 #include "KanjiConversion.h"
 #ifdef HAVE_LIBCANNA
 #include "KanjiConversionCanna.h"
+#elif WIN32
+#include "KanjiConversionIME.h"
 #endif
 
 #include <math.h>
@@ -96,6 +98,10 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
       //TODO: Write a conversion code here
 #ifdef HAVE_LIBCANNA
       CKanjiConversionCanna canna;
+#elif WIN32
+      CKanjiConversionIME canna;
+#else
+      CKanjiConversion canna;
 #endif
       //CKanjiConversion canna;
       std::vector < std::string > cand_list;
@@ -302,7 +308,7 @@ void CJapaneseLanguageModel::AddSymbol(CJapaneseLanguageModel::CPPMContext &cont
         // creates new nodes, updates counts
         // and leaves 'context' at the new context
 {
-  DASHER_ASSERT(sym >= 0 && sym < GetSize());
+  DASHER_ASSERT(sym >= 0 && sym <= GetSize());
 
   CPPMnode *vineptr, *temp;
   int updatecnt = 1;
@@ -332,7 +338,7 @@ void CJapaneseLanguageModel::AddSymbol(CJapaneseLanguageModel::CPPMContext &cont
 // Update context with symbol 'Symbol'
 
 void CJapaneseLanguageModel::EnterSymbol(Context c, int Symbol) {
-  DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
+  DASHER_ASSERT(Symbol >= 0 && Symbol <= GetSize());
 
   CJapaneseLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
 
@@ -376,7 +382,7 @@ void CJapaneseLanguageModel::EnterSymbol(Context c, int Symbol) {
 /////////////////////////////////////////////////////////////////////
 
 void CJapaneseLanguageModel::LearnSymbol(Context c, int Symbol) {
-  DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
+  DASHER_ASSERT(Symbol >= 0 && Symbol <= GetSize());
 
   CJapaneseLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
   AddSymbol(context, Symbol);
