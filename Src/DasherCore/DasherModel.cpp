@@ -632,6 +632,8 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&Ne
   DASHER_ASSERT(iTotal == nonuniform_norm);
 #endif
 
+  Probs.insert(Probs.begin(), 0);
+
   for(int k = 1; k < Probs.size(); ++k)
     Probs[k] += uniform_add;
 
@@ -652,14 +654,14 @@ void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, b
   m_pcAlphabet->GetSymbols(&Symbols, TheText, IsMore);
 
   for(unsigned int i = 0; i < Symbols.size(); i++)
-    m_pLanguageModel->LearnSymbol(context, Symbols[i]);
+    m_pLanguageModel->LearnSymbol(context, Symbols[i]-1); // FIXME - conversion to symbol alphabet
 }
 
 void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const {
   vector < symbol > Symbols;
   m_pcAlphabet->GetSymbols(&Symbols, &TheText, false);
   for(unsigned int i = 0; i < Symbols.size(); i++)
-    m_pLanguageModel->EnterSymbol(context, Symbols[i]);
+    m_pLanguageModel->EnterSymbol(context, Symbols[i]-1); // FIXME - conversion to symbol alphabet
 }
 
 CDasherModel::CTrainer::CTrainer(CDasherModel &DasherModel)
