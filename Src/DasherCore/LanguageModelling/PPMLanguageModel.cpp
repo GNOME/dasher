@@ -30,7 +30,9 @@ CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSett
 
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
-  bUpdateExclusion = (bool)(LanguageModelParams()->GetValue("LMUpdateExclusion"));
+  // FIXME - this should be a boolean parameter
+
+  bUpdateExclusion = GetLongParameter(LP_LM_UPDATE_EXCLUSION);
 
 }
 
