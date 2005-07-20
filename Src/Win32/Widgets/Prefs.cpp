@@ -26,7 +26,6 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
 void CPrefs::PopulateWidgets() {
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasher
-
   if(m_pDasher->GetBoolParameter(BP_START_MOUSE)) {
     SendMessage(GetDlgItem(m_hwnd, IDC_LEFT), BM_SETCHECK, BST_CHECKED, 0);
   }
@@ -51,33 +50,25 @@ void CPrefs::PopulateWidgets() {
   if(m_pDasher->GetBoolParameter(BP_OUTLINE_MODE)) {
     SendMessage(GetDlgItem(m_hwnd, IDC_OUTLINE), BM_SETCHECK, BST_CHECKED, 0);
   }
-
-  // FIXME - These shouldn't be handled through the interface
-
-  //if (m_pWindow->GetTimeStamp()==true) {
-  //      SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
-  //}
-  //if (m_pWindow->GetCopyAll()==true) {
-  //      SendMessage(GetDlgItem(m_hwnd, IDC_COPYALLONSTOP), BM_SETCHECK, BST_CHECKED, 0);
-  //}
-
   if(m_pDasher->GetBoolParameter(BP_DRAW_MOUSE)) {
     SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSE), BM_SETCHECK, BST_CHECKED, 0);
   }
   if(m_pDasher->GetBoolParameter(BP_DRAW_MOUSE_LINE)) {
     SendMessage(GetDlgItem(m_hwnd, IDC_DRAWMOUSELINE), BM_SETCHECK, BST_CHECKED, 0);
   }
-
-  // FIXME - This shouldn't be handled through the interface
-
-  //if (m_pWindow->GetSpeech()==true) {
-  //      SendMessage(GetDlgItem(m_hwnd, IDC_SPEECH), BM_SETCHECK, BST_CHECKED, 0);
-  //}
-
   if(m_pDasher->GetBoolParameter(BP_PALETTE_CHANGE)) {
     SendMessage(GetDlgItem(m_hwnd, IDC_COLOURSCHEME), BM_SETCHECK, BST_CHECKED, 0);
   }
-
+  // FIXME - The below shouldn't be handled through the interface
+  if(m_pDasher->GetBoolParameter(BP_TIME_STAMP)) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
+  }
+  if(m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP)) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_COPYALLONSTOP), BM_SETCHECK, BST_CHECKED, 0);
+  }
+  if(m_pDasher->GetBoolParameter(BP_SPEECH_MODE)) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_SPEECH), BM_SETCHECK, BST_CHECKED, 0);
+  }
 }
 
 LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {

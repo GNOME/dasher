@@ -11,7 +11,6 @@
 #include "Screen.h"
 
 #include "../Common/DasherEncodingToCP.h"
-#include "../../DasherCore/DasherWidgetInterface.h"
 #include "../../DasherCore/CustomColours.h"
 using namespace WinLocalisation;
 using namespace Dasher;
@@ -92,12 +91,12 @@ CScreen::~CScreen() {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::SetInterface(CDasherWidgetInterface *DasherInterface) {
+void CScreen::SetInterface(CDasherInterface *DasherInterface) {
   DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
 
   CDasherScreen::SetInterface(DasherInterface);
 
-  CodePage = EncodingToCP(m_DasherInterface->GetAlphabetType());
+  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
   SetFont(m_FontName);
 
 }

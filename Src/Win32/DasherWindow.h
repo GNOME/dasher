@@ -22,8 +22,6 @@
 class CToolbar;
 class CSlidebar;
 namespace Dasher {
-  class CDasherWidgetInterface;
-  class CDasherAppInterface;
   class CDasher;
 };
 

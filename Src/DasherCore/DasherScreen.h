@@ -14,7 +14,7 @@
 
 namespace Dasher {
   class CDasherScreen;
-  class CDasherWidgetInterface;
+  class CDasherInterfaceBase;
   class CCustomColours;
 }
 
@@ -29,8 +29,8 @@ public:
   }
 
   //! Set the widget interface used for communication with the core
-  virtual void SetInterface(CDasherWidgetInterface * DasherInterface) {
-    m_DasherInterface = DasherInterface;
+  virtual void SetInterface(CDasherInterfaceBase * DasherInterface) {
+    m_pDasherInterface = DasherInterface;
   }
 
   //! Return the width of the screen
@@ -126,7 +126,7 @@ protected:
   const screenint m_iWidth, m_iHeight;
 
   //! Pointer to a widget interface for communication with the core
-  CDasherWidgetInterface *m_DasherInterface;
+  CDasherInterfaceBase *m_pDasherInterface;
 };
 
 #endif /* #ifndef __DasherScreen_h_ */

@@ -11,26 +11,21 @@
 
 #include "../resource.h"
 #include "../../DasherCore/Alphabet/AlphIO.h"
-
-namespace Dasher {
-  class CDasherSettingsInterface;
-  class CDasherAppInterface;
-};
+#include "../../DasherCore/Win32/DasherInterface.h"
 
 class CAlphabetBox:public CWinWrap {
 public:
-  CAlphabetBox(HWND Parent, Dasher::CDasherAppInterface * AI, Dasher::CDasherSettingsInterface * SI);
+  CAlphabetBox(HWND Parent, CDasherInterface *DI);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  Dasher::CDasherAppInterface * m_AppInterface;
-  Dasher::CDasherSettingsInterface * m_SettingsInterface;
+  CDasherInterface * m_pDasherInterface;
 
   HWND CustomBox;
 
-    std::vector < std::string > AlphabetList;
-    std::string m_CurrentAlphabet;
-    Dasher::CAlphIO::AlphInfo CurrentInfo;
+  std::vector < std::string > AlphabetList;
+  std::string m_CurrentAlphabet;
+  Dasher::CAlphIO::AlphInfo CurrentInfo;
   // Some status flags:
   bool Editing;
   bool EditChar;
@@ -40,7 +35,7 @@ private:
 
   void PopulateList();
   void InitCustomBox();
-    std::string GetControlText(HWND Dialog, int ControlID);
+  std::string GetControlText(HWND Dialog, int ControlID);
   void NewGroup(std::string NewGroup);
   void ShowGroups();
   void ShowGroupChars();

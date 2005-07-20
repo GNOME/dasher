@@ -12,7 +12,7 @@
 #include "../../Common/Hash.h"
 
 #include "../../DasherCore/DasherScreen.h"
-
+#include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../Common/NoClones.h"
 
 #include "../GDI/FontStore.h"
@@ -34,7 +34,7 @@ public:
   CScreen(HDC hdc, Dasher::screenint width, Dasher::screenint height);
   ~CScreen();
 
-  void SetInterface(Dasher::CDasherWidgetInterface * DasherInterface);
+  void SetInterface(CDasherInterface * DasherInterface);
 
   void SetFont(std::string Name);
   void SetFontSize(Dasher::Opts::FontSize size);

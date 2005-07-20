@@ -10,14 +10,12 @@
 
 #include "AlphabetBox.h"
 #include "../resource.h"
-#include "../../DasherCore/DasherAppInterface.h"
-#include "../../DasherCore/DasherSettingsInterface.h"
 
 using namespace Dasher;
 using namespace std;
 
-CAlphabetBox::CAlphabetBox(HWND Parent, CDasherAppInterface *AI, CDasherSettingsInterface *SI)
-:m_AppInterface(AI), m_SettingsInterface(SI), m_CurrentAlphabet(SI->GetStringParameter(SP_ALPHABET_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
+CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
+:m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
   DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_ALPHABET, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
 }
@@ -26,7 +24,7 @@ void CAlphabetBox::PopulateList() {
   HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
   SendMessage(ListBox, LB_RESETCONTENT, 0, 0);
 
-  m_AppInterface->GetAlphabets(&AlphabetList);
+  m_pDasherInterface->GetAlphabets(&AlphabetList);
 
   // Add each string to list box and index each one
   bool SelectionSet = false;
@@ -369,7 +367,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
         LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
         m_CurrentAlphabet = AlphabetList[CurrentIndex];
-        CurrentInfo = m_AppInterface->GetInfo(m_CurrentAlphabet);
+        CurrentInfo = m_pDasherInterface->GetInfo(m_CurrentAlphabet);
         if(CurrentInfo.Mutable) {
           EnableWindow(GetDlgItem(m_hwnd, IDC_DEL_ALPH), TRUE);
           EnableWindow(GetDlgItem(m_hwnd, IDC_EDIT), TRUE);
@@ -452,7 +450,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       break;
     case (IDOK_CUSTOMIZE):
       if(UpdateInfo()) {
-        m_AppInterface->SetInfo(CurrentInfo);
+        m_pDasherInterface->SetInfo(CurrentInfo);
         EndDialog(Window, LOWORD(wParam));
         PopulateList();
       }
@@ -462,7 +460,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
         LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
         if(CurrentIndex >= 0 && (unsigned int)CurrentIndex < AlphabetList.size()) {
-          m_AppInterface->DeleteAlphabet(AlphabetList[CurrentIndex]);
+          m_pDasherInterface->DeleteAlphabet(AlphabetList[CurrentIndex]);
           PopulateList();
         }
         break;
@@ -492,7 +490,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       break;
     case (IDOK):
       if(m_CurrentAlphabet != std::string("")) {
-        m_SettingsInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
+        m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
       }
       // deliberate fall through
     case (IDCANCEL):

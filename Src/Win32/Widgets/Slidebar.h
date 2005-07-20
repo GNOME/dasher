@@ -15,12 +15,12 @@
 #ifndef __Slidebar_h__
 #define __Slidebar_h__
 
-#include "../../DasherCore/DasherSettingsInterface.h"
+#include "../../DasherCore/Win32/DasherInterface.h"
 #include "Canvas.h"
 
 class CSlidebar:public CWinWrap {
 public:
-  CSlidebar(HWND ParentWindow, Dasher::CDasherSettingsInterface * NewDasherInterface, double StartValue = 2.51, bool Visible = true, CCanvas * NewDasherCanvas = 0);
+  CSlidebar(HWND ParentWindow, CDasherInterface * DasherInterface, double StartValue = 2.51, bool Visible = true, CCanvas * NewDasherCanvas = 0);
 
   // Base is the desired position of the bottom of the slidebar.
   // The height of the slide bar is returned.
@@ -65,8 +65,8 @@ private:
   int m_NormalHeight;
 
   // The model to poke
-  Dasher::CDasherSettingsInterface * DasherInterface;
-  CCanvas *DasherCanvas;
+  CDasherInterface * m_pDasherInterface;
+  CCanvas *m_pDasherCanvas;
 };
 
 #endif  /* #ifndef __Slidebar_h__ */

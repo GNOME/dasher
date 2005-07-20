@@ -25,13 +25,13 @@ namespace Dasher {
 class Dasher::CDashEditbox
 {
 public:
-  CDashEditbox():m_dirty(false), m_DasherInterface(0) {}
+  CDashEditbox():m_dirty(false), m_pDasherInterface(0) {}
 
   virtual ~ CDashEditbox() {}
 
   //! Provide the Editbox with a widget interface
   virtual void SetInterface(CDasherWidgetInterface * DasherInterface) {
-    m_DasherInterface = DasherInterface;
+    m_pDasherInterface = DasherInterface;
   }
 
   //! Write some buffered output to a file
@@ -185,7 +185,7 @@ protected:
   bool m_dirty;
 
   //! Pointer to a DasherWidgetInterface for communication with the core
-  CDasherWidgetInterface *m_DasherInterface;
+  CDasherWidgetInterface *m_pDasherInterface;
 };
 
 #endif /* #ifndef __DashEdit_h__ */

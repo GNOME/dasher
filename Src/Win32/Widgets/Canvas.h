@@ -75,8 +75,8 @@ public:
   bool Running() {
     return running;
   }
-  void SetScreenInterface(Dasher::CDasherWidgetInterface * widgetinterface) {
-    m_pScreen->SetInterface(widgetinterface);
+  void SetScreenInterface(CDasherInterface * dasherinterface) {
+    m_pScreen->SetInterface(dasherinterface);
   }
   int OnTimer();
 

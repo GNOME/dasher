@@ -21,8 +21,6 @@
 #include "Widgets/Prefs.h"
 #include "Widgets/Toolbar.h"
 #include "Widgets/Slidebar.h"
-#include "../DasherCore/DasherWidgetInterface.h"
-#include "../DasherCore/DasherAppInterface.h"
 #include "DasherMouseInput.h"
 #include "Dasher.h"
 using namespace Dasher;
@@ -409,12 +407,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         break;
       case ID_OPTIONS_ALPHABET:
         {
-          CAlphabetBox AlphabetBox(m_hwnd, m_pDasherInterface, m_pDasherInterface);
+          CAlphabetBox AlphabetBox(m_hwnd, m_pDasherInterface);
         }
         break;
       case ID_OPTIONS_COLOURS:
         {
-          CColourBox ColourBox(m_hwnd, m_pDasherInterface, m_pDasherInterface);
+          CColourBox ColourBox(m_hwnd, m_pDasherInterface);
         }
         break;
       case ID_OPTIONS_PREFS:

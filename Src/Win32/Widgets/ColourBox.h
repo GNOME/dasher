@@ -11,26 +11,23 @@
 
 #include "../resource.h"
 
-#include "../../DasherCore/DasherAppInterface.h"
-#include "../../DasherCore/DasherSettingsInterface.h"
+#include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
 
 class CColourBox:public CWinWrap {
 public:
-  CColourBox(HWND Parent, Dasher::CDasherAppInterface * AI, Dasher::CDasherSettingsInterface * SI);
+  CColourBox(HWND Parent, CDasherInterface * DI);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  Dasher::CDasherAppInterface * m_AppInterface;
-  Dasher::CDasherSettingsInterface * m_SettingsInterface;
-
+  CDasherInterface * m_pDasherInterface;
   HWND CustomBox;
 
-    std::vector < std::string > ColourList;
-    std::string m_CurrentColours;
-    Dasher::CColourIO::ColourInfo CurrentInfo;
-  // Some status flags:
+  std::vector < std::string > ColourList;
+  std::string m_CurrentColours;
+  Dasher::CColourIO::ColourInfo CurrentInfo;
 
+  // Some status flags:
   void PopulateList();
   void InitCustomBox();
   bool UpdateInfo();

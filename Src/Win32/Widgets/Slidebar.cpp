@@ -51,12 +51,12 @@ void CSlidebar::CreateEdit() {
   return;
 }
 
-CSlidebar::CSlidebar(HWND ParentWindow, CDasherSettingsInterface *NewDasherInterface, double StartValue, bool Visible, CCanvas *NewDasherCanvas)
+CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, double StartValue, bool Visible, CCanvas *NewDasherCanvas)
 :Visible(Visible) {
   m_Height = 200;
 
-  DasherInterface = NewDasherInterface;
-  DasherCanvas = NewDasherCanvas;
+  m_pDasherInterface = NewDasherInterface;
+  m_pDasherCanvas = NewDasherCanvas;
 
   // A nicer font than SYSTEM. Generally useful to have around.
   HGDIOBJ hGuiFont;
@@ -122,11 +122,11 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
   if(message == WM_KEYDOWN) {
     switch (wParam) {
     case VK_SPACE:
-      DasherCanvas->startspace();
+      m_pDasherCanvas->startspace();
       return 0;
       break;
     case VK_F12:
-      DasherCanvas->centrecursor();
+      m_pDasherCanvas->centrecursor();
       return 0;
       break;
     }
@@ -153,7 +153,7 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     }
     SetEditBox(NewBitrate);
     if(LOWORD(wParam) == TB_ENDTRACK)
-      DasherInterface->SetLongParameter(LP_MAX_BITRATE, (long)NewBitrate);
+      m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, (long)NewBitrate);
     break;
   }
   return result;
