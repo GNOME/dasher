@@ -62,7 +62,7 @@ private:
 
   void TruncateToScreen(screenint & iX, screenint & iY);
 
-  void DasherPolyline(myint * x, myint * y, int n, int iColour);
+  void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
   void DasherPolygon(myint * x, myint * y, int n, int iColour);
   void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme,bool bDrawOutline);
   void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);

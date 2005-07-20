@@ -186,7 +186,7 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
   g_free(gdk_points);
 }
 
-void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int Colour) const {
+void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWidth, int Colour) const {
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -202,6 +202,8 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int Col
   gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
   gdk_gc_set_foreground(graphics_context, &colour);
 
+  gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
+
   for(int i = 0; i < Number; i++) {
     gdk_points[i].x = Points[i].x;
     gdk_points[i].y = Points[i].y;
@@ -209,6 +211,7 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int Col
 
   gdk_draw_lines(m_pOffscreenBuffer, graphics_context, gdk_points, Number);
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_LINE_WIDTH);
   g_free(gdk_points);
 }
 

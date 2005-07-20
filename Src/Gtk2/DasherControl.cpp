@@ -8,13 +8,14 @@
 #include <gdk/gdkkeysyms.h>
 #include <sys/stat.h>
 
-// 'Private' methods
+// 'Private' methods (only used in this file)
 
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
 extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
 extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
+extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 
 // Global variables - Make as many of these local or clas members as possible.
 
@@ -81,6 +82,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   g_signal_connect(m_pSpeedHScale, "value-changed", G_CALLBACK(speed_changed), this);
   g_signal_connect_after(m_pCanvas, "realize", G_CALLBACK(realize_canvas), this);
   g_signal_connect(m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this);
+  g_signal_connect(m_pCanvas, "destroy", G_CALLBACK(canvas_destroy_event), this);
 
   // We'll use the same call back for keyboard events from the canvas
   // and slider - maybe this isn't the right thing to do long term
@@ -149,13 +151,6 @@ CDasherControl::~CDasherControl() {
   if(m_pMouseInput != NULL) {
     delete m_pMouseInput;
     m_pMouseInput = NULL;
-  }
-
-  // Delete the screen
-
-  if(m_pScreen != NULL) {
-    delete m_pScreen;
-    m_pScreen = NULL;
   }
 }
 
@@ -323,6 +318,16 @@ void CDasherControl::SliderEvent() {
   m_pInterface->SetLongParameter(LP_MAX_BITRATE, GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100);
 }
 
+void CDasherControl::CanvasDestroyEvent() {
+  // Delete the screen
+
+  if(m_pScreen != NULL) {
+    delete m_pScreen;
+    m_pScreen = NULL;
+  }
+ 
+}
+
 void CDasherControl::scan_alphabet_files() {
   // Hurrah for glib making this a nice easy thing to do
   // rather than the WORLD OF PAIN it would otherwise be
@@ -413,4 +418,8 @@ extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *eve
   // TODO - implement code in UI (ie not here) to save window dimensions on resize
 
   return FALSE;
+}
+
+extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData) {
+  static_cast<CDasherControl*>(pUserData)->CanvasDestroyEvent();
 }

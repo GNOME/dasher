@@ -21,7 +21,7 @@ enum { LP_ORIENTATION = END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
   LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_TRUNCATION,
   LP_TRUNCATIONTYPE, LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
-  LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, END_OF_LPS
+  LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, END_OF_LPS
 };
 
 enum { SP_ALPHABET_ID = END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
@@ -123,7 +123,8 @@ static lp_table longparamtable[] = {
   {LP_LM_BETA, "LMBeta", PERS, 100, "LMBeta"},
   {LP_LM_MIXTURE, "LMMixture", PERS, 50, "LMMixture"},
   {LP_MOUSE_POS_BOX, "MousePosBox", !PERS, -1, "Mouse Position Box Indicator"},
-  {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"}
+  {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
+  {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"}
 };
 static sp_table stringparamtable[] = {
   {SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},

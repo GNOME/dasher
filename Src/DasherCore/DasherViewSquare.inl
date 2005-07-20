@@ -89,10 +89,10 @@ namespace Dasher {
     y[1] = DasherVisibleMaxY();
 
     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      DasherPolyline(x, y, 2, 5);
+      DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 5);
     }
     else {
-      DasherPolyline(x, y, 2, -1);
+      DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), -1);
     }
 
     // Horizontal bar of crosshair
@@ -104,10 +104,10 @@ namespace Dasher {
     y[1] = DasherModel().DasherY() / 2;
 
     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      DasherPolyline(x, y, 2, 5);
+      DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 5);
     }
     else {
-      DasherPolyline(x, y, 2, -1);
+      DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), -1);
     }
   }
 

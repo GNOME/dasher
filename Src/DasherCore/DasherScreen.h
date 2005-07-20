@@ -92,8 +92,8 @@ public:
   //! \param Number the number of points in the array
   //! \todo This is dumb - why does this need to be a separate function to the coloured version?
 
-  virtual void Polyline(point * Points, int Number) const {
-    Polyline(Points, Number, 0);
+  virtual void Polyline(point * Points, int Number, int iWidth) const {
+    Polyline(Points, Number, iWidth, 0);
   };
 
   // Draw a line of arbitrary colour.
@@ -101,8 +101,10 @@ public:
   //!
   //! \param Points an array of points
   //! \param Number the number of points in the array
+  //! \param iWidth Width of the line
   //! \param Colour the colour to be drawn
-  virtual void Polyline(point * Points, int Number, int Colour) const = 0;
+
+  virtual void Polyline(point * Points, int Number, int iWidth, int Colour) const = 0;
 
   // Draw a filled polygon - given vertices and color id
   // This is not (currently) used in standard Dasher. However, it could be very

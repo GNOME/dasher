@@ -10,6 +10,8 @@
 
 #include "AlphabetMap.h"
 
+#include <iostream>
+
 using namespace Dasher;
 using namespace std;
 
@@ -67,6 +69,7 @@ void alphabet_map::RecursiveAdd(const string &Key, symbol Value, bool PrefixFlag
 }
 
 symbol alphabet_map::Get(const string &Key, bool *KeyIsPrefix) const {
+
   DASHER_ASSERT_VALIDPTR_RW(KeyIsPrefix);
 
   // Loop through Entries with the correct Hash value.

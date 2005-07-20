@@ -120,7 +120,7 @@ public:
   /// \param Colour Colour with which to draw the line
   ///
 
-  void Polyline(point * Points, int Number, int Colour) const;
+  void Polyline(point * Points, int Number, int iWidth, int Colour) const;
 
   /// 
   /// Like polyline, but fill the shape

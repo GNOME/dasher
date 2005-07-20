@@ -858,7 +858,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
 
 /// Draw a polyline specified in Dasher co-ordinates
 
-void CDasherViewSquare::DasherPolyline(myint *x, myint *y, int n, int iColour) {
+void CDasherViewSquare::DasherPolyline(myint *x, myint *y, int n, int iWidth, int iColour) {
 
   CDasherScreen::point * ScreenPoints = new CDasherScreen::point[n];
 
@@ -866,10 +866,10 @@ void CDasherViewSquare::DasherPolyline(myint *x, myint *y, int n, int iColour) {
     Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
 
   if(iColour != -1) {
-    Screen().Polyline(ScreenPoints, n, iColour);
+    Screen().Polyline(ScreenPoints, n, iWidth, iColour);
   }
   else {
-    Screen().Polyline(ScreenPoints, n);
+    Screen().Polyline(ScreenPoints, n, iWidth);
   }
   delete[]ScreenPoints;
 }
@@ -1227,10 +1227,10 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey) {
   // Actually plot the line
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    DasherPolyline(x, y, 2, 1);
+    DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
   }
   else {
-    DasherPolyline(x, y, 2, -1);
+    DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), -1);
   }
 }
 
@@ -1242,10 +1242,10 @@ void CDasherViewSquare::DrawKeyboard() {
   line[1].y = CanvasY / 2;
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    Screen().Polyline(line, 2, 6);
+    Screen().Polyline(line, 2, 1, 6);
   }
   else {
-    Screen().Polyline(line, 2);
+    Screen().Polyline(line, 2, 1);
   }
 
   line[0].x = 200;
@@ -1254,10 +1254,10 @@ void CDasherViewSquare::DrawKeyboard() {
   line[1].y = CanvasY / 2;
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    Screen().Polyline(line, 2, 6);
+    Screen().Polyline(line, 2, 1, 6);
   }
   else {
-    Screen().Polyline(line, 2);
+    Screen().Polyline(line, 2, 1);
   }
 
   line[0].x = 200;
@@ -1266,10 +1266,10 @@ void CDasherViewSquare::DrawKeyboard() {
   line[1].y = CanvasY;
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    Screen().Polyline(line, 2, 6);
+    Screen().Polyline(line, 2, 1, 6);
   }
   else {
-    Screen().Polyline(line, 2);
+    Screen().Polyline(line, 2, 1);
   }
 }
 

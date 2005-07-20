@@ -88,6 +88,14 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       Start();
       RequestFullRedraw();
       break;
+    case LP_LANGUAGE_MODEL_ID:
+      CreateDasherModel();
+      Start();
+      RequestFullRedraw();
+      break;
+    case LP_LINE_WIDTH:
+      RequestFullRedraw();
+      break;
     default:
       break;
     }
@@ -243,9 +251,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 
 
   if(GetBoolParameter(BP_REDRAW)) {
-
-    std::cout << "In NewFrame " << iTime << std::endl;
-
     Redraw();
     SetBoolParameter(BP_REDRAW, false);
   }

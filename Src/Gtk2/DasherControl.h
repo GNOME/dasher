@@ -71,6 +71,12 @@ public:
   void SliderEvent();
 
   ///
+  /// Called when the canvas GTK widget is destroyed, so we can free any references to it.
+  ///
+
+  void CanvasDestroyEvent();
+  
+  ///
   /// Key press event on the canvas or the speed slider. This is
   /// currently a single handler for the two objects, but it may be
   /// sensible to at least partially split it in the future.
