@@ -12,7 +12,7 @@ enum { BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR,
   BP_CONTROL_MODE, BP_COLOUR_MODE, BP_KEYBOARD_MODE, BP_MOUSEPOS_MODE,
   BP_SPEECH_MODE, BP_OUTLINE_MODE, BP_PALETTE_CHANGE, BP_NUMBER_DIMENSIONS,
   BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
-  BP_GAME_MODE, END_OF_BPS
+  BP_GAME_MODE, BP_TRAINING, BP_REDRAW, END_OF_BPS
 };
 
 enum { LP_ORIENTATION = END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
@@ -95,7 +95,9 @@ static bp_table boolparamtable[] = {
   {BP_EYETRACKER_MODE, "EyetrackerMode", PERS, false, "EyetrackerMode"},
   {BP_AUTOCALIBRATE, "Autocalibrate", PERS, false, "Autocalibrate"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
-  {BP_GAME_MODE, "GameMode", PERS, false, "Dasher Game Mode"}
+  {BP_GAME_MODE, "GameMode", PERS, false, "Dasher Game Mode"},
+  {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
+  {BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"}
 };
 
 static lp_table longparamtable[] = {

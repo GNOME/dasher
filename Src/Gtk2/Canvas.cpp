@@ -28,28 +28,16 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   m_pDecorationBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
   m_pOnscreenBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
-  std::cout << m_pDisplayBuffer << " " << m_pDecorationBuffer << " " << m_pOnscreenBuffer << std::endl;
-
   // Set the display buffer to be current
 
   m_pOffscreenBuffer = m_pDisplayBuffer;
-
-//   FIXME - pango cache stuff - implement in another object
-
-//   the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
-//   font = pango_font_description_new();
-//   pango_font_description_set_family( font,"Serif");
 
   m_pPangoInk = new PangoRectangle;
   m_pPangoLogical = new PangoRectangle;
 
 //   FIXME - signal connectors - implement out of class
 
-  std::cout << "Connecting: " << this << std::endl;
-
   lSignalHandler = g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
-
-  std::cout << "Signal handler: " << lSignalHandler << std::endl;
 
   gtk_widget_add_events(m_pCanvas, GDK_EXPOSURE_MASK);
   gtk_widget_add_events(m_pCanvas, GDK_BUTTON_PRESS_MASK);
@@ -63,8 +51,6 @@ CCanvas::~CCanvas() {
   g_free(m_pDisplayBuffer);
   g_free(m_pDecorationBuffer);
   g_free(m_pOnscreenBuffer);
-
-  std::cout << "Disconnecting: " << lSignalHandler << std::endl;
 
   g_signal_handler_disconnect(m_pCanvas, lSignalHandler);
 

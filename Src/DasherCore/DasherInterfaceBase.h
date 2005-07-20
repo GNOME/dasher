@@ -198,6 +198,10 @@ public:
 
   void Redraw();                // correct speed.
 
+  /// Request a full redraw at the next timer event.
+
+  void RequestFullRedraw();
+
   /// \todo Sort out difference between Redraw functions
 
   void Redraw(int iMouseX, int iMouseY);

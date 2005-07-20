@@ -283,27 +283,30 @@ extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
 // FIXME - maybe have a separate 'training thread' file
 
 gpointer change_alphabet(gpointer alph) {
-  // This is launched as a separate thread in order to let the main thread
-  // carry on updating the training window
-  // FIXME - REIMPLEMENT  
+
+   std::cout << "Starting training thread" << std::endl;
 
   struct TrainingThreadData *pThreadData((struct TrainingThreadData *)alph);
 
   gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet);
 
+  std::cout << "Finished training" << std::endl;
+
   gtk_widget_destroy(pThreadData->pTrainingDialogue);
 
   g_free(pThreadData->szAlphabet);
-
   delete pThreadData;
 
+  std::cout << "Finished training thread" << std::endl;
+
   g_thread_exit(NULL);
+
   return NULL;
 }
 
 extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
 
-  // FIXME - REIMPLEMENT
+  std::cout << "Thread status: " << g_thread_supported() << std::endl;
 
   GtkTreeIter iter;
   GtkTreeModel *model;
@@ -311,6 +314,9 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
 
   if(gtk_tree_selection_get_selected(selection, &model, &iter)) {
     gtk_tree_model_get(model, &iter, 0, &alph, -1);
+
+    // FIXME - Reimplement this check
+
     // There's no point in training if the alphabet is already selected
     //   if (alph!=alphabet) {
     //     alphabet=alph;
@@ -325,8 +331,6 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
     //  training=TRUE;
     //      trainqueue=g_async_queue_new();
 
-    std::cout << "Alphabet is: " << (void *)alph << " " << alph << std::endl;
-
     struct TrainingThreadData *pThreadData(new struct TrainingThreadData);
 
     train_dialogue = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
@@ -337,7 +341,15 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
     pThreadData->pTrainingDialogue = train_dialogue;
     pThreadData->pDasherControl = pDasherWidget;
 
-    trainthread = g_thread_create(change_alphabet, pThreadData, false, NULL);
+    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet);
+ 
+    gtk_widget_hide(pThreadData->pTrainingDialogue);
+    gtk_widget_destroy(pThreadData->pTrainingDialogue);
+    
+    g_free(pThreadData->szAlphabet);
+    delete pThreadData;
+
+    //    trainthread = g_thread_create(change_alphabet, pThreadData, false, NULL);
 
 #else
     // For GPE, we're not so fussed at the moment

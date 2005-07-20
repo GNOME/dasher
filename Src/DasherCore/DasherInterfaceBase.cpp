@@ -71,21 +71,34 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
     case BP_COLOUR_MODE:       // Forces us to redraw the display
       Start();
-      Redraw();
+      RequestFullRedraw();
       break;
     case LP_ORIENTATION:
       Start();
-      Redraw();
+      RequestFullRedraw();
       break;
     case SP_ALPHABET_ID:
+
+      // I was having problems with X errors when calling a redraw
+      // here - remember that this is called from the training thread,
+      // which leads me to believe that pango is not thread safe, so
+      // instead of actually calling a redraw we just flag for a full
+      // redraw to be performed at the next timer callback. This might
+      // not be a bad thing to do elsewhere too, as it will prevent
+      // multiple redraws.
+
       ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
       Start();
-      Redraw();
+      RequestFullRedraw();
       break;
     default:
       break;
     }
   }
+}
+
+void CDasherInterfaceBase::RequestFullRedraw() {
+  SetBoolParameter( BP_REDRAW, true );
 }
 
 void CDasherInterfaceBase::SetSettingsUI(CDasherSettingsInterface *SettingsUI) {
@@ -229,7 +242,18 @@ void CDasherInterfaceBase::SetInput(CDasherInput *_pInput) {
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
-  if(GetBoolParameter(BP_DASHER_PAUSED)) {
+
+
+
+  if(GetBoolParameter(BP_REDRAW)) {
+
+    std::cout << "In NewFrame " << iTime << std::endl;
+
+    Redraw();
+    SetBoolParameter(BP_REDRAW, false);
+  }
+
+  if(GetBoolParameter(BP_DASHER_PAUSED) || GetBoolParameter(BP_TRAINING)) {
     DrawMousePos(0, 0, 0);
   }
   else {
@@ -299,6 +323,10 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   // dialogue before this happens - also, what happens if the list of
   // alphabet files changes at runtime?
 
+  SetBoolParameter( BP_TRAINING, true );
+
+  std::cout << "In ChangeAlphabet" << std::endl;
+
   if(!m_AlphIO)
     m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
 
@@ -333,6 +361,8 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   if(m_Alphabet->GetPalette() != std::string("") && GetBoolParameter(BP_PALETTE_CHANGE)) {
     ChangeColours(m_Alphabet->GetPalette());
   }
+
+  SetBoolParameter( BP_TRAINING, false );
 
   Start();
 
