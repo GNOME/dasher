@@ -632,7 +632,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&Ne
   DASHER_ASSERT(iTotal == nonuniform_norm);
 #endif
 
-  Probs.insert(Probs.begin(), 0);
+  //  Probs.insert(Probs.begin(), 0);
 
   for(int k = 1; k < Probs.size(); ++k)
     Probs[k] += uniform_add;

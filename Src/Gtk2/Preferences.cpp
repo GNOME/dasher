@@ -9,7 +9,7 @@
 
 #include <cstring>
 
-void generate_lm_options(GladeXML * pGladeWidgets);
+void PopulateLMPage(GladeXML * pGladeWidgets);
 void generate_preferences(GladeXML * pGladeWidgets);
 void PopulateControlPage(GladeXML * pGladeWidgets);
 void PopulateViewPage(GladeXML * pGladeWidgets);
@@ -53,7 +53,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   generate_preferences(pGladeWidgets);
   PopulateControlPage(pGladeWidgets);
   PopulateViewPage(pGladeWidgets);
-  generate_lm_options(pGladeWidgets);
+  PopulateLMPage(pGladeWidgets);
 }
 
 void PopulateControlPage(GladeXML *pGladeWidgets) {
@@ -101,45 +101,72 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   // FIXME - To Implement
 }
 
-void generate_lm_options(GladeXML *pGladeWidgets) {
-  GtkTreeViewColumn *column;
-  GtkTreeIter lmsettingsiter;
+void PopulateLMPage(GladeXML *pGladeWidgets) {
 
-  lmsettingstreeview = glade_xml_get_widget(pGladeWidgets, "lmsettingstree");
+  switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID )) {
+  case 0:
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton6"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton6")), TRUE);
+    break;
+  case 2: 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton7"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton7")), TRUE);
+    break;
+  case 3:
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton8"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton8")), TRUE);
+    break;
+  case 4:
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton9"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton9")), TRUE);
+    break;
+  default:
+    break;
+  }
+  
 
-  gtk_widget_realize(lmsettingstreeview);
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_UNIFORM));
+	  
+  // LM parameters are now obsolete - will eventually be part of the 'advanced' page
 
-  lmsettings_list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_LONG);
-  gtk_tree_view_set_model(GTK_TREE_VIEW(lmsettingstreeview), GTK_TREE_MODEL(lmsettings_list_store));
-  lmsettingsselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(lmsettingstreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(lmsettingsselection), GTK_SELECTION_BROWSE);
-  column = gtk_tree_view_column_new_with_attributes("Lmsettings", gtk_cell_renderer_text_new(), "text", 0, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
+//   GtkTreeViewColumn *column;
+//   GtkTreeIter lmsettingsiter;
 
-  GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-  g_object_set(renderer, "editable", TRUE, NULL);
+//   lmsettingstreeview = glade_xml_get_widget(pGladeWidgets, "lmsettingstree");
 
-  column = gtk_tree_view_column_new_with_attributes("Lmsettingsvals", GTK_CELL_RENDERER(renderer), "text", 1, NULL);
+//   gtk_widget_realize(lmsettingstreeview);
 
-  g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
+//   lmsettings_list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_LONG);
+//   gtk_tree_view_set_model(GTK_TREE_VIEW(lmsettingstreeview), GTK_TREE_MODEL(lmsettings_list_store));
+//   lmsettingsselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(lmsettingstreeview));
+//   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(lmsettingsselection), GTK_SELECTION_BROWSE);
+//   column = gtk_tree_view_column_new_with_attributes("Lmsettings", gtk_cell_renderer_text_new(), "text", 0, NULL);
+//   gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
 
-  gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
+//   GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+//   g_object_set(renderer, "editable", TRUE, NULL);
 
-  // Clear the contents of the lmsettings list
-  gtk_list_store_clear(lmsettings_list_store);
+//   column = gtk_tree_view_column_new_with_attributes("Lmsettingsvals", GTK_CELL_RENDERER(renderer), "text", 1, NULL);
 
-  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 0, -1);
-  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMAlpha", 1, 0, -1);
-  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMBeta", 1, 0, -1);
-  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1);
-  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1);
-  gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-  gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMixture", 1, 0, -1);
+//   g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
+
+//   gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
+
+//   // Clear the contents of the lmsettings list
+//   gtk_list_store_clear(lmsettings_list_store);
+
+//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 0, -1);
+//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMAlpha", 1, 0, -1);
+//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMBeta", 1, 0, -1);
+//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1);
+//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1);
+//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
+//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMixture", 1, 0, -1);
 
   //gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
   //gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
