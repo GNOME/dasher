@@ -597,7 +597,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&Ne
 
   // Number of text symbols, for which the language model gives the distribution
   int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
-
+  
   NewSymbols.resize(iSymbols);
 //      Groups.resize(iSymbols);
   for(int i = 0; i < iSymbols; i++) {

@@ -55,7 +55,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
 
   int iNumSymbols = GetSize();
 
-  probs.resize(iNumSymbols);
+    probs.resize(iNumSymbols);
 
   std::vector < bool > exclusions(iNumSymbols);
 

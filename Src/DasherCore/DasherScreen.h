@@ -81,14 +81,20 @@ public:
   //! \param y2 bottom right of rectangle (y coordinate)
   //! \param Color the colour to be used (numeric)
   //! \param ColorScheme Which colourscheme is to be used
-  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme) const = 0;
+  //! \param bDrawOutline Wheter to draw an outline or not
+
+  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) const = 0;
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
   //!
   //! \param Points an array of points
   //! \param Number the number of points in the array
-  virtual void Polyline(point * Points, int Number) const = 0;
+  //! \todo This is dumb - why does this need to be a separate function to the coloured version?
+
+  virtual void Polyline(point * Points, int Number) const {
+    Polyline(Points, Number, 0);
+  };
 
   // Draw a line of arbitrary colour.
   //! Draw a line between each of the points in the array

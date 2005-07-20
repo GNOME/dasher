@@ -44,7 +44,7 @@ public:
   int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft);
 
   // Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-  void RenderGroups(CDasherNode * Render, myint y1, myint y2);
+  void RenderGroups(CDasherNode * Render, myint y1, myint y2, int mostleft);
 
   int GetAutoOffset() const;
 
@@ -64,8 +64,8 @@ private:
 
   void DasherPolyline(myint * x, myint * y, int n, int iColour);
   void DasherPolygon(myint * x, myint * y, int n, int iColour);
-  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme);
-  void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme);
+  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme,bool bDrawOutline);
+  void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
   void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft);
 
   myint DasherVisibleMinY();

@@ -1,14 +1,13 @@
 #ifndef __canvas_h__
 #define __canvas_h__
 
-#include "PangoCache.h"
-
 #include "../DasherCore/DasherScreen.h"
 #include "../DasherCore/DasherTypes.h"
 #include "../DasherCore/CustomColours.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+#include "PangoCache.h"
 
 using namespace Dasher;
 
@@ -36,7 +35,7 @@ public:
   /// GTK signal handler for exposure of the canvas - cause a redraw to the screen from the buffer.
   ///
 
-  void ExposeEvent(GdkEventExpose * pEvent);
+  bool ExposeEvent( GtkWidget *pWidget, GdkEventExpose *pEvent);
 
   // CDasherScreen methods
 
@@ -76,14 +75,7 @@ public:
   /// \param Size Size at which the string will be rendered (units?)
   ///
 
-  void TextSize(const std::string & String, screenint * Width, screenint * Height, int Size) const;
-
-  ///
-  /// \deprecated To be removed before 4.0 release
-  /// \bug There should be no reference to symbol data types in CCanvs
-  ///
-
-  void DrawString(symbol Character, screenint x1, screenint y1, int Size) const;
+  void TextSize(const std::string &String, screenint *Width, screenint *Height, int Size) const;
 
   ///
   /// Draw a text string
@@ -93,7 +85,7 @@ public:
   /// \param Size The size at which to render the rectangle (units?)
   ///
 
-  void DrawString(const std::string & String, screenint x1, screenint y1, int Size) const;
+  void DrawString(const std::string &String, screenint x1, screenint y1, int Size) const;
 
   ///
   /// Draw a rectangle
@@ -103,9 +95,10 @@ public:
   /// \param y2 y coordiate of the bottom right corner
   /// \param Color Colour to draw the rectangle
   /// \param ColorScheme Which of the alternating colour schemes to use (be more precise)
+  /// \param bDrawOutline Whether or not to draw outlines for the boxes
   ///
 
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme) const;
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutine) const;
 
   ///
   /// Send a marker to indicate phases of the redraw process. This is
@@ -121,15 +114,6 @@ public:
   void SendMarker(int iMarker);
 
   /// 
-  /// Draw a polyline
-  /// \param Points Array of vertices
-  /// \param Number Size of 'Points' array
-  /// \bug This seems dumb - surely we can just call the coloured version with the colour set to black?
-  ///
-
-  void Polyline(point * Points, int Number) const;
-
-  /// 
   /// Draw a coloured polyline
   /// \param Points Array of vertices
   /// \param Number Size of 'Points' array
@@ -143,15 +127,15 @@ public:
   /// \todo See comments for DrawPolygon
   ///
 
-  void Polygon(point * Points, int Number, int Colour) const;
+  void Polygon(point *Points, int Number, int Colour) const;
 
   ///
   /// \todo Not implemented
   /// \todo One of these two routines must be redundant - find out which and kill the other
   ///
 
-  void DrawPolygon(point * Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const {
-    // FIXME - not implemented 
+  void DrawPolygon(point *Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const {
+    // not implemented 
   };
 
   /// 
@@ -171,7 +155,7 @@ public:
   /// \param Colours New colours to use
   ///
 
-  void SetColourScheme(const CCustomColours * Colours);
+  void SetColourScheme(const CCustomColours *Colours);
 
 private:
 
@@ -179,7 +163,7 @@ private:
   /// The GTK drawing area for the canvas
   ///
 
-  GtkWidget * m_pCanvas;
+  GtkWidget *m_pCanvas;
 
   ///
   /// The offscreen buffer containing the 'background'
@@ -232,8 +216,11 @@ private:
 
   int m_iHeight;
 
+  ///
+  /// Holder for Pango layout extents.
+  ///
+
   PangoRectangle *m_pPangoInk;
-  PangoRectangle *m_pPangoLogical;
 
   ///
   /// The signal handler ID for the expose callback - stored so it can
@@ -242,7 +229,6 @@ private:
   ///
 
   gulong lSignalHandler;
-
 };
 
 #endif

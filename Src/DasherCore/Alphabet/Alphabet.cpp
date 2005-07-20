@@ -62,11 +62,6 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   if(AlphInfo.SpaceCharacter.Text != empty)
     AddSpaceSymbol(AlphInfo.SpaceCharacter.Text, AlphInfo.SpaceCharacter.Display, AlphInfo.SpaceCharacter.Colour, AlphInfo.SpaceCharacter.Foreground);
 
-  // DJW - now the control symbol is always a part of the alphabet
-  // DasherModel knows whether or not to use it
-  if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
-    AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
-
   //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi START
   if(AlphInfo.StartConvertCharacter.Text != empty)
     AddStartConversionSymbol(AlphInfo.StartConvertCharacter.Text, AlphInfo.StartConvertCharacter.Display, AlphInfo.StartConvertCharacter.Colour, AlphInfo.StartConvertCharacter.Foreground);
@@ -74,6 +69,14 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   if(AlphInfo.EndConvertCharacter.Text != empty)
     AddEndConversionSymbol(AlphInfo.EndConvertCharacter.Text, AlphInfo.EndConvertCharacter.Display, AlphInfo.EndConvertCharacter.Colour, AlphInfo.EndConvertCharacter.Foreground);
   //-- Added for Kanji Conversion 13 July 2005 by T.Kaburagi END
+
+  // DJW - now the control symbol is always a part of the alphabet
+  // DasherModel knows whether or not to use it
+
+  // FIXME - We really need to ensure that the control symbol is last in the alphabet with the current logic.
+
+  if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
+    AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
 
 #ifdef DASHER_TRACE
   Trace();

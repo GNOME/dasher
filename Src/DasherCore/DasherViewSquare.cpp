@@ -94,7 +94,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   if(RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display)) {
     // yuk
     if(!pRender->ControlChild() && pRender->Symbol() < DasherModel().GetAlphabet().GetNumberTextSymbols())
-      RenderGroups(pRender, y1, y2);
+      RenderGroups(pRender, y1, y2, mostleft);
   }
   else {
     pRender->Kill();
@@ -118,7 +118,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   return 1;
 }
 
-void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2) {
+void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, int mostleft) {
   CDasherNode::ChildMap & Children = Render->Children();
   if(Children.size() == 0)
     return;
@@ -139,7 +139,7 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2) {
     myint hbnd = Children[upper - 1]->Hbnd();
     myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-    int mostleft;
+
     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
       std::string Label = DasherModel().GroupLabel(iGroup);
       int Colour = DasherModel().GroupColour(iGroup);
@@ -189,7 +189,11 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 }
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext) {
+
   DASHER_ASSERT(y2 >= y1);
+
+
+  // FIXME - taking symbol name and string here is stupid - should just take a string argument
 
 // //   DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
 //      //DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
@@ -241,7 +245,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(iDasherSize, y2, 0, y1, Color, ColorScheme);
+    DasherDrawRectangle(iDasherSize, y2, 0, y1, Color, ColorScheme, GetBoolParameter(BP_OUTLINE_MODE));
   }
   else {
     int iDasherY(DasherModel().DasherY());
@@ -366,7 +370,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   else
     sDisplayText = DasherModel().GetDisplayText(Character);
 
-  DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft);
+
+  if( sDisplayText.size() > 0 )
+    DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft);
 
   return 1;
 }
@@ -883,7 +889,7 @@ void CDasherViewSquare::DasherPolygon(myint *x, myint *y, int n, int iColour) {
 
 // Draw a box specified in Dasher co-ordinates
 
-void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme) {
+void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
 
   screenint iScreenLeft;
   screenint iScreenTop;
@@ -893,19 +899,19 @@ void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRigh
   Dasher2Screen(iLeft, iTop, iScreenLeft, iScreenTop);
   Dasher2Screen(iRight, iBottom, iScreenRight, iScreenBottom);
 
-  Screen().DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme);
+  Screen().DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme, bDrawOutline);
 }
 
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
 
-void CDasherViewSquare::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme) {
+void CDasherViewSquare::DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
 
   screenint iScreenX;
   screenint iScreenY;
 
   Dasher2Screen(iDasherX, iDasherY, iScreenX, iScreenY);
 
-  Screen().DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, ColorScheme);
+  Screen().DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, ColorScheme, bDrawOutline);
 }
 
 /// Draw text specified in Dasher co-ordinates. The position is
@@ -1111,9 +1117,9 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
   right = dasherx2screen(right);
 
   // Draw the lines
-  Screen().DrawRectangle(left, top + 5, right, top - 5, 1, Opts::ColorSchemes(Objects));
-  Screen().DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, Opts::ColorSchemes(Objects));
-  Screen().DrawRectangle(left, bottom + 5, right, bottom - 5, 1, Opts::ColorSchemes(Objects));
+  Screen().DrawRectangle(left, top + 5, right, top - 5, 1, Opts::ColorSchemes(Objects), false);
+  Screen().DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
+  Screen().DrawRectangle(left, bottom + 5, right, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
 }
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
@@ -1140,10 +1146,10 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
   Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode());
 
   if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-    DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects));
+    DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects), false);
   }
   else {
-    DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects));
+    DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects), false);
   }
 
   //     if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
@@ -1525,13 +1531,13 @@ void CDasherViewSquare::DrawGameModePointer() {
     return;
 
   if(loc > DasherModel().DasherY())
-    DasherDrawCentredRectangle(-50, DasherModel().DasherY(), 5, 135, Opts::ColorSchemes(5));
+    DasherDrawCentredRectangle(-50, DasherModel().DasherY(), 5, 135, Opts::ColorSchemes(5), false);
 
   else if(loc < 0)
-    DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(5));
+    DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(5), false);
 
   else
-    DasherDrawCentredRectangle(-50, loc, 7, 135, Opts::ColorSchemes(5));
+    DasherDrawCentredRectangle(-50, loc, 7, 135, Opts::ColorSchemes(5), false);
 
 }
 
