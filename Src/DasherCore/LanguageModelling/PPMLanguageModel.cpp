@@ -57,10 +57,11 @@ void CPPMLanguageModel::GetProbs(Context context, vector<unsigned int> &probs, i
     exclusions[i] = false;
   }
 
-  bool doExclusion = (LanguageModelParams()->GetValue(std::string("LMExclusion")) == 1);
+  //  bool doExclusion = GetLongParameter( LP_LM_ALPHA );
+  bool doExclusion = 0; //FIXME
 
-  int alpha = LanguageModelParams()->GetValue(std::string("LMAlpha"));
-  int beta = LanguageModelParams()->GetValue(std::string("LMBeta"));
+  int alpha = GetLongParameter( LP_LM_ALPHA );
+  int beta = GetLongParameter( LP_LM_BETA );
 
   unsigned int iToSpend = norm;
 
@@ -158,7 +159,8 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context, int s
   }
   vineptr->vine = m_pRoot;
 
-  m_iMaxOrder = LanguageModelParams()->GetValue(std::string("LMMaxOrder"));
+  //m_iMaxOrder = LanguageModelParams()->GetValue(std::string("LMMaxOrder"));
+  m_iMaxOrder = GetLongParameter( LP_LM_MAX_ORDER );
 
   while(context.order > m_iMaxOrder) {
     context.head = context.head->vine;
