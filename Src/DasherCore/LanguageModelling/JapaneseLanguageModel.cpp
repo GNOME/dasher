@@ -38,7 +38,7 @@ CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHand
 
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
-  bUpdateExclusion = LanguageModelParams()->GetValue("LMUpdateExclusion");
+  bUpdateExclusion = (bool)LanguageModelParams()->GetValue("LMUpdateExclusion");
 
 }
 
@@ -197,7 +197,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
              }
              cout << endl; */
 
-          ulong p = (ulong) ((double)iToSpend / ((candidate_rank + 15) * (candidate_rank + 16)));       // a large probability
+          uint32 p = (uint32) ((double)iToSpend / ((candidate_rank + 15) * (candidate_rank + 16)));       // a large probability
           probs[candidate[i][kanji_pos]] += p;
           iToSpend -= p;
           exclusions[candidate[i][kanji_pos]] = 1;
@@ -216,7 +216,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
         for(int i = 0; i < probs.size(); i++) {
           if(probs[i]) {
             //cout << GetText(i) << "       " << probs[i] << " -> ";
-            probs[i] = (ulong) (((double)norm / (double)total) * (double)probs[i]);
+            probs[i] = (uint32) (((double)norm / (double)total) * (double)probs[i]);
             iToSpend -= probs[i];
             //cout << probs[i] << endl;
           }

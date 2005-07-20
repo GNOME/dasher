@@ -32,10 +32,10 @@ int CKanjiConversionIME::ConvertKanji(string str) {
   hKL = GetKeyboardLayout(0);
 	char *pQuery = (char *)str.c_str();
 	while( strlen(pQuery) ){
-		dwSize = ImmGetConversionList(hKL, hIMC, p, NULL, 0, GCL_CONVERSION);
+		dwSize = ImmGetConversionList(hKL, hIMC, (LPCWSTR)pQuery, NULL, 0, GCL_CONVERSION);
 		lpCand = (LPCANDIDATELIST)HeapAlloc(GetProcessHeap(), HEAP_ZERO_MEMORY, dwSize);
-		dwSize = ImmGetConversionList(hKL, hIMC, pQuery, lpCand, dwSize, GCL_CONVERSION);
-		int MaxLen = 0;
+		dwSize = ImmGetConversionList(hKL, hIMC, (LPCWSTR)pQuery, lpCand, dwSize, GCL_CONVERSION);
+		size_t MaxLen = 0;
 		CPhrase new_phrase;
 		//	For all candidates
 		for (unsigned int i = 0; i< lpCand->dwCount; i++)
@@ -50,5 +50,5 @@ int CKanjiConversionIME::ConvertKanji(string str) {
 		HeapFree(GetProcessHeap(), 0, lpCand);
 		pQuery += MaxLen;
 	}
-
+  return 0;
 }

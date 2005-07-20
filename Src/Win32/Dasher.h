@@ -16,7 +16,9 @@ public:
 
   CDasherInterface *GetInterface() {
     return m_pInterface;
-  } void SetBoolParameter(int iParameter, bool bValue) {
+  } 
+  
+  void SetBoolParameter(int iParameter, bool bValue) {
     m_pInterface->SetBoolParameter(iParameter, bValue);
   };
 

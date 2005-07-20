@@ -293,6 +293,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="imm32.lib"
 				OutputFile=".\Target/Win32 Unicode Debug\DasherCore.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
@@ -334,6 +335,21 @@
 			</File>
 			<File
 				RelativePath="LanguageModelling\DictLanguageModel.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\JapaneseLanguageModel.cpp">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\JapaneseLanguageModel.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\KanjiConversion.h">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\KanjiConversionIME.cpp">
+			</File>
+			<File
+				RelativePath=".\LanguageModelling\KanjiConversionIME.h">
 			</File>
 			<File
 				RelativePath="LanguageModelling\LanguageModel.cpp">

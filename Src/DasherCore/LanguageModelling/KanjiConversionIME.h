@@ -10,6 +10,7 @@
 #define __KanjiConversionIME_h__
 
 // For Kanji support
+#include <windows.h>
 #include <imm.h>
 
 #include "KanjiConversion.h"
