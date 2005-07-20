@@ -8,13 +8,37 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-06-17 01:11-0400\n"
-"PO-Revision-Date: 2005-06-17 16:49-0500\n"
+"POT-Creation-Date: 2005-07-20 00:36-0400\n"
+"PO-Revision-Date: 2005-07-20 16:49-0500\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: Src/Gtk2/Menu.cc:50 Src/Gtk2/Menu.cc:106 Src/Gtk2/Menu.cc:161
+#: Src/Gtk2/Menu.cc:204 Src/Gtk2/dasher.glade.h:66
+#: Src/Gtk2/dashergpe.glade.h:60
+msgid "Select File"
+msgstr "Select File"
+
+#. This gets pulled out via gettext
+#: Src/Gtk2/Menu.cc:433
+msgid "translator_credits"
+msgstr "Maintainer: Adam Weinberger <adamw@gnome.org>"
+
+#: Src/Gtk2/Menu.cc:435 Src/Gtk2/dasher.glade.h:37
+#: Src/Gtk2/dashergpe.glade.h:35
+msgid "Dasher"
+msgstr "Dasher"
+
+#: Src/Gtk2/Menu.cc:435
+msgid "Dasher is a predictive text entry application"
+msgstr "Dasher is a predictive text entry application"
+
+#: Src/Gtk2/Preferences.cpp:332
+msgid "Training Dasher, please wait"
+msgstr "Training Dasher... please wait"
 
 #. Paneltree
 #. |         /-menutree
@@ -22,169 +46,226 @@ msgstr ""
 #. \-edittree
 #.
 #. Tree, parent, children, next, pointer, data, string, colour
-#: Src/Gtk2/accessibility.cc:82
+#: Src/Gtk2/accessibility.cc:77
 msgid "Panels"
 msgstr "Panels"
 
-#: Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:78
 msgid "Application"
 msgstr "Application"
 
-#: Src/Gtk2/accessibility.cc:85
+#: Src/Gtk2/accessibility.cc:79
 msgid "Menus"
 msgstr "Menus"
 
-#: Src/Gtk2/accessibility.cc:86
+#: Src/Gtk2/accessibility.cc:80
 msgid "Buttons"
 msgstr "Buttons"
 
-#: Src/Gtk2/accessibility.cc:87
+#: Src/Gtk2/accessibility.cc:81
 msgid "Text"
 msgstr "Text"
 
-#: Src/Gtk2/accessibility.cc:162 Src/Gtk2/dasher.glade.h:30
+#: Src/Gtk2/accessibility.cc:158 Src/Gtk2/dasher.glade.h:30
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Control"
 
-#: Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:164
 msgid "Windows"
 msgstr "Windows"
 
-#: Src/Gtk2/accessibility.cc:175
+#: Src/Gtk2/accessibility.cc:171
 msgid "Stop"
 msgstr "Stop"
 
-#: Src/Gtk2/accessibility.cc:182
+#: Src/Gtk2/accessibility.cc:178
 msgid "Pause"
 msgstr "Pause"
 
-#: Src/Gtk2/accessibility.cc:189
+#: Src/Gtk2/accessibility.cc:185
 msgid "Move"
 msgstr "Move"
 
-#: Src/Gtk2/accessibility.cc:196
+#: Src/Gtk2/accessibility.cc:192
 msgid "Delete"
 msgstr "Delete"
 
-#: Src/Gtk2/accessibility.cc:206
+#: Src/Gtk2/accessibility.cc:202
 msgid "Speak"
 msgstr "Speak"
 
-#: Src/Gtk2/accessibility.cc:233 Src/Gtk2/accessibility.cc:387
+#: Src/Gtk2/accessibility.cc:230 Src/Gtk2/accessibility.cc:384
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:239 Src/Gtk2/accessibility.cc:381
+#: Src/Gtk2/accessibility.cc:236 Src/Gtk2/accessibility.cc:378
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:245
+#: Src/Gtk2/accessibility.cc:242
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:251
+#: Src/Gtk2/accessibility.cc:248
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:264
+#: Src/Gtk2/accessibility.cc:261
 msgid "Everything"
 msgstr "Everything"
 
-#: Src/Gtk2/accessibility.cc:270
+#: Src/Gtk2/accessibility.cc:267
 msgid "New"
 msgstr "New"
 
-#: Src/Gtk2/accessibility.cc:276
+#: Src/Gtk2/accessibility.cc:273
 msgid "Repeat"
 msgstr "Repeat"
 
-#: Src/Gtk2/accessibility.cc:298
+#: Src/Gtk2/accessibility.cc:295
 msgid "1"
 msgstr "1"
 
-#: Src/Gtk2/accessibility.cc:305
+#: Src/Gtk2/accessibility.cc:302
 msgid "2"
 msgstr "2"
 
-#: Src/Gtk2/accessibility.cc:312
+#: Src/Gtk2/accessibility.cc:309
 msgid "3"
 msgstr "3"
 
-#: Src/Gtk2/accessibility.cc:319
+#: Src/Gtk2/accessibility.cc:316
 msgid "4"
 msgstr "4"
 
-#: Src/Gtk2/accessibility.cc:326
+#: Src/Gtk2/accessibility.cc:323
 msgid "5"
 msgstr "5"
 
-#: Src/Gtk2/accessibility.cc:333
+#: Src/Gtk2/accessibility.cc:330
 msgid "6"
 msgstr "6"
 
-#: Src/Gtk2/accessibility.cc:340
+#: Src/Gtk2/accessibility.cc:337
 msgid "7"
 msgstr "7"
 
-#: Src/Gtk2/accessibility.cc:347
+#: Src/Gtk2/accessibility.cc:344
 msgid "8"
 msgstr "8"
 
-#: Src/Gtk2/accessibility.cc:354
+#: Src/Gtk2/accessibility.cc:351
 msgid "9"
 msgstr "9"
 
-#: Src/Gtk2/accessibility.cc:361
+#: Src/Gtk2/accessibility.cc:358
 msgid "10"
 msgstr "10"
 
-#: Src/Gtk2/accessibility.cc:393 Src/Gtk2/accessibility.cc:416
+#: Src/Gtk2/accessibility.cc:390 Src/Gtk2/accessibility.cc:414
 msgid "Character"
 msgstr "Character"
 
-#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:426
+#: Src/Gtk2/accessibility.cc:402 Src/Gtk2/accessibility.cc:425
 msgid "Word"
 msgstr "Word"
 
-#: Src/Gtk2/accessibility.cc:409 Src/Gtk2/accessibility.cc:432
+#: Src/Gtk2/accessibility.cc:407 Src/Gtk2/accessibility.cc:431
 msgid "Line"
 msgstr "Line"
 
-#: Src/Gtk2/accessibility.cc:542
+#: Src/Gtk2/accessibility.cc:543
 msgid "Unknown"
 msgstr "Unknown"
 
-#: Src/Gtk2/dasher.cc:195
-msgid "Training Dasher, please wait"
-msgstr "Training Dasher... please wait"
-
-#: Src/Gtk2/dasher.cc:584 Src/Gtk2/dasher.cc:605 Src/Gtk2/dasher.cc:626
-#: Src/Gtk2/dasher.cc:647 Src/Gtk2/dasher.glade.h:65
-#: Src/Gtk2/dashergpe.glade.h:60
-msgid "Select File"
-msgstr "Select File"
-
-#. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1764
-msgid "translator_credits"
-msgstr "Maintainer: Adam Weinberger <adamw@gnome.org>"
-
-#: Src/Gtk2/dasher.cc:1766 Src/Gtk2/dasher.glade.h:37
-#: Src/Gtk2/dashergpe.glade.h:35
-msgid "Dasher"
-msgstr "Dasher"
-
-#: Src/Gtk2/dasher.cc:1769
-msgid "Dasher is a predictive text entry application"
-msgstr "Dasher is a predictive text entry application"
-
-#. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2237
-#, c-format
-msgid "%d characters output in %ld seconds\n"
-msgstr "%d characters output in %ld seconds\n"
-
+#. void interface_setup(GladeXML *xml) {
+#. What's this doing here? I'm sure we ought to just be using whatever
+#. the core provides us with
+#. float initial_bitrate = 3.0;
+#. the_canvas=glade_xml_get_widget(xml, "the_canvas");
+#. Needed so we can make it visible or not as we wish
+#. FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
+#. // interface specific preferences
+#. if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
+#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
+#. }
+#. if(get_long_option_callback("YScale",&yscale)!=false) {
+#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
+#. }
+#. if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
+#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
+#. }
+#. // Configure the buttons. FIXME - more enums?
+#. if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
+#. buttons[1].x=0;
+#. }
+#. if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
+#. buttons[2].x=0;
+#. }
+#. if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
+#. buttons[3].x=0;
+#. }
+#. if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
+#. buttons[4].x=0;
+#. }
+#. if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
+#. buttons[5].x=0;
+#. }
+#. if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
+#. buttons[6].x=0;
+#. }
+#. if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
+#. buttons[7].x=0;
+#. }
+#. if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
+#. buttons[8].x=0;
+#. }
+#. if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
+#. buttons[9].x=0;
+#. }
+#. if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
+#. buttons[1].y=0;
+#. }
+#. if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
+#. buttons[2].y=0;
+#. }
+#. if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
+#. buttons[3].y=0;
+#. }
+#. if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
+#. buttons[4].y=0;
+#. }
+#. if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
+#. buttons[5].y=0;
+#. }
+#. if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
+#. buttons[6].y=0;
+#. }
+#. if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
+#. buttons[7].y=0;
+#. }
+#. if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
+#. buttons[8].y=0;
+#. }
+#. if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
+#. buttons[9].y=0;
+#. }
+#. }
+#. void
+#. interface_late_setup() {
+#. Stuff that needs to be done after the core has
+#. set itself up
+#. dasher_set_parameter_int(INT_ONEBUTTON, 0);
+#. alphabet=dasher_get_current_alphabet();
+#. colourscheme=dasher_get_current_colours();
+#. }
+#. void
+#. open_window(GladeXML *xml) {
+#. I have no idea why we need to do this when Glade has theoretically done
+#. so already, but...
+#. FIXME - REIMPLEMENT
+#. }
 #: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
 msgstr "5:"
@@ -368,96 +449,96 @@ msgstr ""
 "choice"
 
 #: Src/Gtk2/dasher.glade.h:48
+msgid "Japanese"
+msgstr "Japanese"
+
+#: Src/Gtk2/dasher.glade.h:49
 msgid "Language Model"
 msgstr "Language Model"
 
-#: Src/Gtk2/dasher.glade.h:49
+#: Src/Gtk2/dasher.glade.h:50
 msgid "Language model adapts as you write."
 msgstr "Language model adapts as you write."
 
-#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:45
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
 msgstr "Large"
 
-#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:46
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:46
 msgid "Left to Right"
 msgstr "Left to Right"
 
-#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:47
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:47
 msgid "Left/2:"
 msgstr "Left/2:"
 
-#: Src/Gtk2/dasher.glade.h:53
+#: Src/Gtk2/dasher.glade.h:54
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Mixture model (PPM/dictionary)"
 
-#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:48
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
 msgstr "New file"
 
-#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:49
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:49
 msgid "Normal"
 msgstr "Normal"
 
-#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:50
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
 msgstr "Number of pixels that should cover the entire y range:"
 
-#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
 msgstr "One dimensional mode"
 
-#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
 msgstr "Open file"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:54
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:54
 msgid "Paste"
 msgstr "Paste"
 
-#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:55
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:55
 msgid "Pause outside window"
 msgstr "Pause outside window"
 
-#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:56
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "Right to Left"
 
-#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
 msgstr "Right/4:"
 
-#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
 msgstr "Save file"
 
-#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:59
+#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
 msgstr "Save file as"
 
-#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:61
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:61
 msgid "Select Font"
 msgstr "Select Font"
 
-#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:62
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
 msgstr "Show mouse position"
 
-#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:63
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show speed slider"
 msgstr "Show speed slider"
 
-#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:64
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show toolbar"
 msgstr "Show toolbar"
 
-#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:65
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:65
 msgid "Speak on stop"
 msgstr "Speak on stop"
-
-#: Src/Gtk2/dasher.glade.h:71
-msgid "Speed"
-msgstr "Speed"
 
 #: Src/Gtk2/dasher.glade.h:72
 msgid "Standard letter-based PPM"
@@ -602,16 +683,16 @@ msgstr ""
 msgid "Unable to initialize speech support\n"
 msgstr "Unable to initialize speech support\n"
 
-#: Src/Gtk2/speech.cc:50
+#: Src/Gtk2/speech.cc:47
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "Unable to initialize voices"
 
-#: Src/Gtk2/speech.cc:65
+#: Src/Gtk2/speech.cc:59
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Warning: unable to set speech parameters\n"
 
-#: Src/main.cc:106
+#: Src/main.cc:96
 msgid "Dasher Text Entry"
 msgstr "Dasher Text Entry"
