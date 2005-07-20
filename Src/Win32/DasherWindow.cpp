@@ -33,9 +33,6 @@ using namespace std;
 CDasherWindow::CDasherWindow()
 :Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0) {
 
-//      m_workerThread                  = NULL;
-//      m_bWorkerShutdown               = false;
-
   hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR) IDC_DASHER);
 
   // Get window title from resource script
@@ -66,14 +63,12 @@ CDasherWindow::CDasherWindow()
 
   m_pDasher->SetEdit(m_pEdit);
 
-  DasherSettingsInterface = m_pDasher->GetInterface();
-  DasherWidgetInterface = m_pDasher->GetInterface();
-  DasherAppInterface = m_pDasher->GetInterface();
+  m_pDasherInterface = m_pDasher->GetInterface();
 
   // FIXME - the edit box really shouldn't need access to the interface, 
   // but at the moment it does, for training, blanking the display etc
 
-  m_pEdit->SetInterface(m_pDasher->GetInterface());
+   m_pEdit->SetInterface(m_pDasher->GetInterface());
 
 //  m_pOptions = m_pDasher->GetInterface()->GetSettingsStore(); // FIXME - get rid of this eventually
 
@@ -84,7 +79,7 @@ CDasherWindow::CDasherWindow()
 
   m_pSplitter = new CSplitter(m_hwnd, 100, this);
 
-  m_pDasher->GetInterface()->SetSettingsUI(this);
+  //m_pDasher->GetInterface()->SetSettingsUI(this);
 }
 
 CDasherWindow::~CDasherWindow() {
@@ -118,7 +113,7 @@ int CDasherWindow::MessageLoop() {
 
 void CDasherWindow::Show(int nCmdShow) {
   // Make sure Dasher has started up.
-  DasherWidgetInterface->Start();
+  m_pDasherInterface->Start();
 
   // Clear SplashScreen
   delete Splash;
@@ -132,7 +127,7 @@ void CDasherWindow::Show(int nCmdShow) {
 }
 
 void CDasherWindow::ChangeAlphabet(const string &NewAlphabetID) {
-  DasherAppInterface->AddControlTree(WinMenus::GetWindowMenus());       // Build control tree
+  m_pDasherInterface->AddControlTree(WinMenus::GetWindowMenus());       // Build control tree
 }
 
 void CDasherWindow::ChangeOrientation(Opts::ScreenOrientations Orientation) {
@@ -340,17 +335,17 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         }
         break;
       case ID_OPTIONS_CONTROLMODE:
-        DasherSettingsInterface->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+        m_pDasherInterface->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
         break;
       case ID_OPTIONS_FONTSIZE_NORMAL:{
-          DasherSettingsInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
+          m_pDasherInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, true);
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
           break;
         }
       case ID_OPTIONS_FONTSIZE_LARGE:{
-          DasherSettingsInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
+          m_pDasherInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, true);
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, false);
@@ -358,7 +353,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
           break;
         }
       case ID_OPTIONS_FONTSIZE_VERYLARGE:{
-          DasherSettingsInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
+          m_pDasherInterface->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, false);
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, false);
           WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, true);
@@ -377,9 +372,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
           ChooseFont(&Data);
           string FontName;
           WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-          //DasherSettingsInterface->SetEditFont(FontName, lf.lfHeight);
-          DasherSettingsInterface->SetLongParameter(LP_EDIT_FONT_SIZE, lf.lfHeight);
-          DasherSettingsInterface->SetStringParameter(SP_EDIT_FONT, FontName);
+          //m_pDasherInterface->SetEditFont(FontName, lf.lfHeight);
+          m_pDasherInterface->SetLongParameter(LP_EDIT_FONT_SIZE, lf.lfHeight);
+          m_pDasherInterface->SetStringParameter(SP_EDIT_FONT, FontName);
           break;
         }
       case ID_OPTIONS_DASHERFONT:{
@@ -394,13 +389,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
           ChooseFont(&Data);
           string FontName;
           WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-          DasherSettingsInterface->SetStringParameter(SP_DASHER_FONT, FontName);
+          m_pDasherInterface->SetStringParameter(SP_DASHER_FONT, FontName);
           break;
         }
       case ID_OPTIONS_RESETFONT:
-        DasherSettingsInterface->SetLongParameter(LP_EDIT_FONT_SIZE, 0);
-        DasherSettingsInterface->SetStringParameter(SP_EDIT_FONT, "");
-        DasherSettingsInterface->SetStringParameter(SP_DASHER_FONT, "");
+        m_pDasherInterface->SetLongParameter(LP_EDIT_FONT_SIZE, 0);
+        m_pDasherInterface->SetStringParameter(SP_EDIT_FONT, "");
+        m_pDasherInterface->SetStringParameter(SP_DASHER_FONT, "");
         break;
       case IDM_ABOUT:
         {
@@ -414,12 +409,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         break;
       case ID_OPTIONS_ALPHABET:
         {
-          CAlphabetBox AlphabetBox(m_hwnd, DasherAppInterface, DasherSettingsInterface);
+          CAlphabetBox AlphabetBox(m_hwnd, m_pDasherInterface, m_pDasherInterface);
         }
         break;
       case ID_OPTIONS_COLOURS:
         {
-          CColourBox ColourBox(m_hwnd, DasherAppInterface, DasherSettingsInterface);
+          CColourBox ColourBox(m_hwnd, m_pDasherInterface, m_pDasherInterface);
         }
         break;
       case ID_OPTIONS_PREFS:
@@ -437,13 +432,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         // FIXME - These options shouldn't pass through the interface
 
       case ID_TB_SHOW:
-        DasherSettingsInterface->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
+        m_pDasherInterface->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
         break;
       case ID_TB_TEXT:
-        DasherSettingsInterface->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
+        m_pDasherInterface->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
         break;
       case ID_TB_LARGE:
-        DasherSettingsInterface->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
+        m_pDasherInterface->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
         break;
       case ID_EDIT_SELECTALL:
         m_pEdit->SelectAll();
@@ -474,25 +469,25 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         m_pEdit->SaveAs();
         break;
       case ID_IMPORT_TRAINFILE:
-        DasherAppInterface->TrainFile(m_pEdit->Import());
+        m_pDasherInterface->TrainFile(m_pEdit->Import());
         break;
 
         // FIXME - This options shouldn't passs through the interface
 
       case ID_FIX_SPLITTER:
-        DasherSettingsInterface->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
+        m_pDasherInterface->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
         break;
       case ID_SHOW_SLIDE:
-        DasherSettingsInterface->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
+        m_pDasherInterface->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
         break;
 
         // FIXME - These options shouldn't pass through the interface
 
       case ID_TIMESTAMP:
-        DasherSettingsInterface->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
+        m_pDasherInterface->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
         break;
       case ID_COPY_ALL_ON_STOP:
-        DasherSettingsInterface->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
+        m_pDasherInterface->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
         break;
 
         // Orientation options
@@ -516,19 +511,19 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         // FIXME - These options shouldn't pass through the interface
 
       case ID_SAVE_AS_USER_CODEPAGE:
-        DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
+        m_pDasherInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
         break;
       case ID_SAVE_AS_ALPHABET_CODEPAGE:
-        DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
+        m_pDasherInterface->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
         break;
       case ID_SAVE_AS_UTF8:
-        DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
+        m_pDasherInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
         break;
       case ID_SAVE_AS_UTF16_LITTLE:
-        DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
+        m_pDasherInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
         break;
       case ID_SAVE_AS_UTF16_BIG:
-        DasherSettingsInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
+        m_pDasherInterface->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
         break;
       default:
         return DefWindowProc(m_hwnd, message, wParam, lParam);
@@ -568,8 +563,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
   case WM_SIZE:
     if(wParam == SIZE_MINIMIZED)
       break;
-    DasherSettingsInterface->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
-    DasherSettingsInterface->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
+    m_pDasherInterface->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
+    m_pDasherInterface->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
     Layout();
     break;
   default:

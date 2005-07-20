@@ -28,9 +28,9 @@ namespace Dasher {
 };
 
 // Abstract interfaces to the Dasher engine
-#include "../DasherCore/DasherSettingsInterface.h"
+#include "../DasherCore/Win32/DasherInterface.h"
 
-class CDasherWindow:public CWinWrap, public CSplitterOwner, public Dasher::CDasherSettingsInterface {
+class CDasherWindow:public CWinWrap, public CSplitterOwner {
 public:
   CDasherWindow();
   ~CDasherWindow();
@@ -60,11 +60,9 @@ protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
 private:
-  Dasher::CDasherSettingsInterface * DasherSettingsInterface;
-  Dasher::CDasherWidgetInterface * DasherWidgetInterface;
-  Dasher::CDasherAppInterface * DasherAppInterface;
+  CDasherInterface *m_pDasherInterface;
 
-  Dasher::CDasher * m_pDasher;
+  Dasher::CDasher *m_pDasher;
 
   HACCEL hAccelTable;
 
