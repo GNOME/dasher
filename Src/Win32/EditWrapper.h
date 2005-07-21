@@ -9,7 +9,9 @@ public:
 
   void SetEventHandler(Dasher::CDashEditbox * pEventHandler) {
     m_pEventHandler = pEventHandler;
-  } virtual void HandleEvent(Dasher::CEvent * pEvent);
+  } 
+
+  virtual void HandleEvent(Dasher::CEvent * pEvent);
 
   // Obsolete functions (should no longer be called)
 

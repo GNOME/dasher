@@ -15,10 +15,8 @@
 #define MAKEPOINTS(l)   (*((POINTS FAR *) & (l)))
 #endif
 
-CSplitter::CSplitter(HWND Parent, int Pos, CSplitterOwner *NewOwner, bool Visible)
-:SplitStatus(None), m_Pos(Pos), Parent(Parent), Owner(NewOwner), Visible(Visible) {
-  m_Height = GetSystemMetrics(SM_CYSIZEFRAME);
-
+CSplitter::CSplitter(HWND Parent, CDasherInterface *DI, int Pos, CSplitterOwner *NewOwner)
+              :SplitStatus(None), m_pDasherInterface(DI), m_Pos(Pos), Parent(Parent), Owner(NewOwner) {
   Tstring WndClassName = CreateMyClass();
 
   m_hwnd = CreateWindowEx(0, WndClassName.c_str(), NULL, WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
@@ -28,15 +26,7 @@ CSplitter::CSplitter(HWND Parent, int Pos, CSplitterOwner *NewOwner, bool Visibl
 
 void CSplitter::Move(int Pos, int Width) {
   m_Pos = Pos;
-  MoveWindow(m_hwnd, 0, Pos, Width, m_Height, TRUE);
-}
-
-void CSplitter::SetVisible(bool Value) {
-  Visible = Value;
-  if(Visible)
-    m_Height = GetSystemMetrics(SM_CYSIZEFRAME);
-  else
-    m_Height = 0;
+  MoveWindow(m_hwnd, 0, Pos, Width, GetSystemMetrics(SM_CYSIZEFRAME), TRUE);
 }
 
 Tstring CSplitter::CreateMyClass() {
@@ -85,7 +75,7 @@ LRESULT CSplitter::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
         RECT ParentRect, MyRect;
         GetWindowRect(Parent, &ParentRect);
         GetWindowRect(m_hwnd, &MyRect);
-        m_Pos = MousePos.y - m_Height / 2;
+        m_Pos = MousePos.y - GetSystemMetrics(SM_CYSIZEFRAME) / 2;
         // Layout();
         Owner->Layout();
       }

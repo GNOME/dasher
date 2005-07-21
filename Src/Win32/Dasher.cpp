@@ -68,36 +68,32 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent) {
   // Set up COM for the accessibility stuff
   CoInitialize(NULL);
 
-  // Set up the registry
-//      CWinOptions WinOptions("Inference_Group", "Dasher3"); // Settings storage using Windows Registry.
-
   // Set up Dasher
-  m_pInterface = new CDasherInterface;
-  m_pInterface->SetSystemLocation(AppData2);
-  m_pInterface->SetUserLocation(UserData2);
+  SetStringParameter(SP_SYSTEM_LOC, AppData2);
+  SetStringParameter(SP_USER_LOC, UserData2);
 
   Alphabets = UserData;
   Alphabets += TEXT("alphabet*.xml");
   Colours = UserData;
   Colours += TEXT("colour*.xml");
-  AddFiles(Alphabets, Colours, m_pInterface);
+  AddFiles(Alphabets, Colours, this);
   Alphabets = AppData;
   Alphabets += TEXT("alphabet*.xml");
   Colours = AppData;
   Colours += TEXT("colour*.xml");
-  AddFiles(Alphabets, Colours, m_pInterface);
+  AddFiles(Alphabets, Colours, this);
 
-  m_pInterface->ColourMode(true);
-  m_pInterface->ChangeLanguageModel(0);
+  SetBoolParameter(BP_COLOUR_MODE, true);
+  ChangeLanguageModel(0);
 
 // FIXME - we should create our own edit object (as a wrapper to pass stuff outside), rather than relying on being passed one
 
   m_pEditWrapper = new CEditWrapper;
 
-  m_pInterface->ChangeEdit(m_pEditWrapper);
+  ChangeEdit(m_pEditWrapper);
 
-  m_pCanvas = new CCanvas(m_hParent, m_pInterface);
-  m_pSlidebar = new CSlidebar(m_hParent, m_pInterface, 1.99, false, m_pCanvas);
+  m_pCanvas = new CCanvas(m_hParent, this);
+  m_pSlidebar = new CSlidebar(m_hParent, this, ((double)GetLongParameter(LP_MAX_BITRATE))/100.0, m_pCanvas);
 
   // Start up our thread that will periodically handle user movement.  We pass in a pointer to ourselves
   // since the thread function must be static but needs to act on the object that created it.
@@ -117,7 +113,6 @@ CDasher::~CDasher(void) {
   delete m_pCanvas;
   delete m_pSlidebar;
   delete m_pEditWrapper;
-  delete m_pInterface;
 }
 
 // Handle periodically poking the canvas to check for user activity.  
@@ -183,4 +178,9 @@ void CDasher::OnTimer() {
 
   // if (m_pCanvas != NULL) // FIXME
   //     m_pCanvas->OnTimer();
+}
+
+
+void Dasher::CDasher::HandleParameterNotification(int iParameter) {
+  // Here we send SendMessage calls to the DasherWindow class
 }

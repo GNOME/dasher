@@ -133,6 +133,7 @@ void CScreen::SetColourScheme(const Dasher::CCustomColours *pColours) {
     m_Pens.pop_back();
   }
 
+  DASHER_ASSERT(pColours);
   int numcolours = pColours->GetNumColours();
 
   DASHER_ASSERT(numcolours > 0);

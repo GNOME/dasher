@@ -153,10 +153,6 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
       NewUniform = Pos;
     }
     {
-      //      std::basic_ostringstream<TCHAR> strNewUniform;
-      //      strNewUniform.setf(ios::fixed);
-      //      strNewUniform.precision(1);
-      //      strNewUniform << NewUniform/10; 
       _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), NewUniform / 10);
       SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
     }

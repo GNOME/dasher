@@ -255,7 +255,7 @@ int CCanvas::OnTimer() {
     {
       //                      DASHER_TRACEOUTPUT("first:%d second:%d %d\n",firstwindow,secondwindow,m_iMousePosDist);
       if(firstwindow != true && secondwindow != true) {
-        m_pDasherInterface->SetDrawMousePosBox(1);
+        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
         firstwindow = true;
       }
       int mouseDist = m_pDasherInterface->GetLongParameter(LP_MOUSEPOSDIST);
@@ -268,7 +268,7 @@ int CCanvas::OnTimer() {
           firstwindow = false;
           secondwindow = true;
           mousepostime = 0;
-          m_pDasherInterface->SetDrawMousePosBox(2);
+          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
         }
       }
       else if(firstwindow == true) {
@@ -281,14 +281,14 @@ int CCanvas::OnTimer() {
             mousepostime = GetTickCount();
           }
           else if((GetTickCount() - mousepostime) > 2000) {
-            m_pDasherInterface->SetDrawMousePosBox(-1);
+            m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, -1);
             StartStop();
           }
         }
         else if(mousepostime > 0) {
           secondwindow = false;
           firstwindow = true;
-          m_pDasherInterface->SetDrawMousePosBox(1);
+          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
           mousepostime = 0;
         }
       }
@@ -312,10 +312,10 @@ int CCanvas::OnTimer() {
 
     if((GetTickCount() - previoustime) > 200) {
       if(firstwindow == true) {
-        m_pDasherInterface->SetDrawMousePosBox(1);
+        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
       }
       else if(secondwindow == true) {
-        m_pDasherInterface->SetDrawMousePosBox(2);
+        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
       }
 
       previoustime = GetTickCount();

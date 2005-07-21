@@ -9,38 +9,12 @@
 
 namespace Dasher {
   class CDasher;
-} class Dasher::CDasher {
+} 
+
+class Dasher::CDasher : public CDasherInterface {
 public:
   CDasher(HWND Parent);
   ~CDasher(void);
-
-  CDasherInterface *GetInterface() {
-    return m_pInterface;
-  } 
-  
-  void SetBoolParameter(int iParameter, bool bValue) {
-    m_pInterface->SetBoolParameter(iParameter, bValue);
-  };
-
-  void SetLongParameter(int iParameter, long lValue) {
-    m_pInterface->SetLongParameter(iParameter, lValue);
-  };
-
-  void SetStringParameter(int iParameter, const std::string & sValue) {
-    m_pInterface->SetStringParameter(iParameter, sValue);
-  };
-
-  bool GetBoolParameter(int iParameter) {
-    return m_pInterface->GetBoolParameter(iParameter);
-  }
-
-  long GetLongParameter(int iParameter) {
-    return m_pInterface->GetLongParameter(iParameter);
-  }
-
-  std::string GetStringParameter(int iParameter) {
-    return m_pInterface->GetStringParameter(iParameter);
-  }
 
   // The following functions will not be part of the final interface
 
@@ -56,11 +30,12 @@ public:
     m_pEditWrapper->SetEventHandler(pEdit);
   }
 
+  void HandleParameterNotification(int iParameter);
+
 private:
 
   void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface * Interface);
 
-  CDasherInterface *m_pInterface;
   CCanvas *m_pCanvas;
   CSlidebar *m_pSlidebar;
   CEditWrapper *m_pEditWrapper;

@@ -435,7 +435,7 @@ void CEdit::SetFont(string Name, long Size) {
 
 }
 
-void CEdit::SetInterface(Dasher::CDasherWidgetInterface *DasherInterface) {
+void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   CDashEditbox::SetInterface(DasherInterface);
 
   CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());

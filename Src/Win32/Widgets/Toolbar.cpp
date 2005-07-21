@@ -14,8 +14,8 @@
 #include "Toolbar.h"
 #include "../resource.h"
 
-CToolbar::CToolbar(HWND ParentWindow, bool Text, bool LargeIcons, bool Visible)
-:Text(Text), Visible(Visible), LargeIcons(LargeIcons), m_hwnd(0), ParentWindow(ParentWindow) {
+CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI, bool Visible)
+:Visible(Visible), m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
   if(Visible)
     CreateToolbar();
 }
@@ -43,14 +43,6 @@ bool CToolbar::SetVisible(action Cmd) {
     this->DestroyToolbar();
 
   return Visible;
-}
-
-bool CToolbar::ShowText(action Cmd) {
-  return DoAction(&Text, Cmd);
-}
-
-bool CToolbar::SetLargeIcons(action Cmd) {
-  return DoAction(&LargeIcons, Cmd);
 }
 
 bool CToolbar::DoAction(bool *Property, action Cmd) {
@@ -112,7 +104,7 @@ void CToolbar::CreateToolbar() {
   // Get Standard toolbar bitmaps.
   TBADDBITMAP bitmaps;
   bitmaps.hInst = HINST_COMMCTRL;
-  if(LargeIcons == 0) {
+  if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
     bitmaps.nID = IDB_STD_SMALL_COLOR;
   }
   else {
@@ -122,7 +114,7 @@ void CToolbar::CreateToolbar() {
 
   // Get Non-standard Copy-All bitmap
   bitmaps.hInst = WinHelper::hInstApp;
-  if(LargeIcons == 0) {
+  if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
     bitmaps.nID = IDB_COPY_ALL_SMALL_COLOR;
   }
   else {
@@ -137,7 +129,7 @@ void CToolbar::CreateToolbar() {
 
   TBBUTTON buttons[tbnum];
 
-  if(Text) {
+  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT)) {
     // Load strings from resource file (this could be more elegant)
     Tstring AllButtons;
     Tstring CurButton;

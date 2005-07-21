@@ -71,7 +71,7 @@ public:
   void SetEncoding(Dasher::Opts::FileEncodingFormats Encoding);
   void SetFont(std::string Name, long Size);
 
-  void SetInterface(Dasher::CDasherWidgetInterface * DasherInterface);
+  void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
 
   // write some buffered output to file
   void write_to_file();

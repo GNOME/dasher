@@ -10,10 +10,11 @@
 #define __Toolbar_h__
 
 #include "../../Common/NoClones.h"
+#include "../../DasherCore/Win32/DasherInterface.h"
 
 class CToolbar:private NoClones {
 public:
-  CToolbar(HWND ParentWindow, bool Text = false, bool LargeIcons = false, bool Visible = true);
+  CToolbar(HWND ParentWindow, CDasherInterface *DI, bool Visible = true);
 
   enum action { SetFalse, SetTrue, Toggle, Query };
   bool SetVisible(action Cmd);
@@ -21,8 +22,8 @@ public:
   bool SetLargeIcons(action Cmd);
   int Resize();
 private:
-    bool Visible, Text;
-  bool LargeIcons;
+  CDasherInterface *m_pDasher;
+  bool Visible;
   HWND m_hwnd, ParentWindow;
 
   bool DoAction(bool * Property, action Cmd);

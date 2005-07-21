@@ -727,5 +727,8 @@
 		</File>
 	</Files>
 	<Globals>
+		<Global
+			Name="RESOURCE_FILE"
+			Value="Dasher.rc"/>
 	</Globals>
 </VisualStudioProject>

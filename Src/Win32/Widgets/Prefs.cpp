@@ -40,11 +40,10 @@ static menuentry menutable[] = {
   {BP_OUTLINE_MODE, IDC_OUTLINE},
   {BP_DRAW_MOUSE, IDC_DRAWMOUSE},
   {BP_DRAW_MOUSE_LINE, IDC_DRAWMOUSELINE},
-  {BP_PALETTE_CHANGE, IDC_COLOURSCHEME}//,
-  //{BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
-  //{BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP}, // Same
-  //{BP_SPEECH_MODE, IDC_SPEECH},     // Same
-  
+  {BP_PALETTE_CHANGE, IDC_COLOURSCHEME},
+  {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
+  {BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP}, // Same
+  {BP_SPEECH_MODE, IDC_SPEECH}     // Same
 };
 
 void CPrefs::PopulateWidgets() {

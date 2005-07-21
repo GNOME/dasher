@@ -51,8 +51,7 @@ void CSlidebar::CreateEdit() {
   return;
 }
 
-CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, double StartValue, bool Visible, CCanvas *NewDasherCanvas)
-:Visible(Visible) {
+CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, double StartValue, CCanvas *NewDasherCanvas) {
   m_Height = 200;
 
   m_pDasherInterface = NewDasherInterface;
@@ -93,7 +92,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, do
 }
 
 int CSlidebar::Resize(int Width, int Base) {
-  if(Visible)
+  if(m_pDasherInterface->GetBoolParameter(BP_SHOW_SLIDER))
     m_Height = m_NormalHeight;
   else
     m_Height = 0;
@@ -153,23 +152,15 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     }
     SetEditBox(NewBitrate);
     if(LOWORD(wParam) == TB_ENDTRACK)
-      m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, (long)NewBitrate);
+      m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, (long)(NewBitrate*100.0));
     break;
   }
   return result;
 }
 
-void CSlidebar::SetValue(double NewSlideVal)  {
-  SlideVal = NewSlideVal;
-  SetSlideBar(SlideVal);
-  SetEditBox(SlideVal);
-} double CSlidebar::GetValue()  {
-
-  return SlideVal;
-}
-void CSlidebar::SetSlideBar(double value)  {
-  SendMessage(SB_slider, TBM_SETPOS, (WPARAM) TRUE, (LPARAM) (value * 100));
-}
+void CSlidebar::SetValue(double NewSlideVal) {  SlideVal = NewSlideVal;  SetSlideBar(SlideVal);  SetEditBox(SlideVal);} double CSlidebar::GetValue() {
+  return SlideVal;}
+void CSlidebar::SetSlideBar(double value) {  SendMessage(SB_slider, TBM_SETPOS, (WPARAM) TRUE, (LPARAM) (value * 100));}
 
 void CSlidebar::SetEditBox(double value) {
   //Tstring s = double2string(value); // see below for this travesty
@@ -179,36 +170,4 @@ void CSlidebar::SetEditBox(double value) {
   SendMessage(SB_edit, WM_SETTEXT, 0, (LPARAM) (LPCSTR) Buffer);
 
   delete[]Buffer;
-}
-
-/*
-// Just for humor value, this is what happened when I tried to
-// use C++ string manipulation instead of "evil" C buffers. You
-// would need all of these libaries too:
-//#include <iostream.h>
-//#include <sstream>
-//#include <string>
-//                                                  IAM 08/2002
-Tstring CSlidebar::double2string(double number)
-{
-	typedef std::basic_ostringstream<TCHAR> Tostringstream;
-	Tostringstream output;
-#ifdef DECENT_COMPILER
-	// VC++ 6.0 on my computer doesn't seem to follow the standard.
-	// Seems to be very confused about fixed and scientific.
-	// Annoying as it is ugly when the display jumps from 1 to 1.01
-	output.setf(ios::fixed, ios::floatfield);
-	output.precision(2);
-#endif
-	
-	if (output << number) {
-		return output.str();
-	} else {
-		return TEXT("0.00");
-	}
-}
-*/
-
-void CSlidebar::SetVisible(bool Value) {
-  Visible = Value;
 }
