@@ -512,7 +512,7 @@ double CDasherViewSquare::GetScaleFactor( int eOrientation ) {
 
   myint iDasherMargin( 300 ); // Make this a parameter
 
-  myint iMinX( -iDasherMargin );
+  myint iMinX( 0-iDasherMargin );
   myint iMaxX( iDasherWidth + iDasherMargin );
   myint iMinY( 0 );
   myint iMaxY( iDasherHeight );
@@ -974,6 +974,8 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   screenint iScreenAnchorY1;
   screenint iScreenAnchorX2;
   screenint iScreenAnchorY2;
+
+  // FIXME - Truncate here before converting - otherwise we risk integer overflow in screen coordinates
 
   Dasher2Screen(iAnchorX1, iAnchorY1, iScreenAnchorX1, iScreenAnchorY1);
   Dasher2Screen(iAnchorX2, iAnchorY2, iScreenAnchorX2, iScreenAnchorY2);
