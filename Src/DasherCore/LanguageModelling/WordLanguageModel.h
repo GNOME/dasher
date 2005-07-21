@@ -32,7 +32,7 @@ namespace Dasher {
 
   class CWordLanguageModel:public CLanguageModel {
   public:
-    CWordLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * _params);
+    CWordLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet);
       virtual ~ CWordLanguageModel();
 
     Context CreateEmptyContext();

@@ -22,7 +22,6 @@ const string CDasherInterfaceBase::EmptyString = "";
 CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
                   m_pDasherView(0), m_SettingsUI(0), m_AlphIO(0), m_ColourIO(0), m_pInput(0) {
-  m_Params = new CLanguageModelParams;
   m_pEventHandler = new CEventHandler(this);
 }
 
@@ -38,7 +37,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pColours;
-  delete m_Params;
   delete m_pEventHandler;
 
   // Do NOT delete Edit box or Screen. This class did not create them.
@@ -925,12 +923,3 @@ void CDasherInterfaceBase::ResetNats() {
     m_pDasherModel->ResetNats();
 }
 
-void CDasherInterfaceBase::ChangeLMOption(const std::string &pname, long int Value) {
-  m_Params->SetValue(pname, Value);
-
-  if(m_pSettingsStore != 0)
-    m_pSettingsStore->SetLongOption(pname, Value);
-
-  //if (m_SettingsUI!=0)
-  //   m_SettingsUI->ChangeLMOption( pname, Value );
-}

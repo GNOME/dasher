@@ -23,7 +23,7 @@ namespace Dasher {
 
   class CBigramLanguageModel:public CLanguageModel, private NoClones {
   public:
-    CBigramLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph, CLanguageModelParams * _params);
+    CBigramLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & alph);
       virtual ~ CBigramLanguageModel();
 
     Context CreateEmptyContext();

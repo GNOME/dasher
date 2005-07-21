@@ -28,10 +28,11 @@ public:
 
   /////////////////////////////////////////////////////////////////////////////
 
-  CLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * pParams);
+  CLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet);
 
-  virtual ~ CLanguageModel() {
-  } virtual void HandleEvent(Dasher::CEvent * pEvent);
+  virtual ~CLanguageModel() {};
+
+  virtual void HandleEvent(Dasher::CEvent * pEvent);
 
   // Handle for a language model context
   // 0 is reserved
@@ -73,21 +74,25 @@ public:
 
   virtual int GetMemory() = 0;
 
-protected:
+ protected:
   int GetSize() const {
     return m_Alphabet.GetSize();
-  } const CSymbolAlphabet & SymbolAlphabet() const {
+  }
+
+  const CSymbolAlphabet &SymbolAlphabet() const {
     return m_Alphabet;
   }
   // const? 
-  CLanguageModelParams *LanguageModelParams() const {
-    return m_pParams;
-  } private:
+/*   CLanguageModelParams *LanguageModelParams() const { */
+/*     return m_pParams; */
+//  } 
+
+ private:
 
   const CSymbolAlphabet m_Alphabet;
 
   // perhaps this should be const - or should we just take a copy?
-  CLanguageModelParams *m_pParams;
+  //  CLanguageModelParams *m_pParams;
 
 };
 

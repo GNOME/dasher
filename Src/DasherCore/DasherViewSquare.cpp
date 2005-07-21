@@ -448,93 +448,160 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
 
-  // Calculate the bounding box of the Dasher canvas in screen
-  // co-ordinates (this will depend on the orientation due to the
-  // margin)
-  //
-  // FIXME - there's some horrible stuff here due to CanvasX and
-  // CanvasY having no sane relationship with the actual width and
-  // height of the canvas
+  int eOrientation(GetLongParameter(LP_ORIENTATION));
 
-  screenint iScreenCanvasMinX;
-  screenint iScreenCanvasMaxX;
-  screenint iScreenCanvasMinY;
-  screenint iScreenCanvasMaxY;
+  double dScaleFactor(GetScaleFactor( eOrientation ));
 
-  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
-  case (Dasher::Opts::LeftToRight):
-    iScreenCanvasMinX = 0;
-    iScreenCanvasMaxX = iCanvasWidth;
-    iScreenCanvasMinY = 0;
-    iScreenCanvasMaxY = iCanvasHeight;
-
-    // Chose iDasherWidth so that the cross hair is in the centre of the screen, even though we have a margin down one side
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
-
+  switch(eOrientation) {
+  case Dasher::Opts::LeftToRight:
+    iDasherX = iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
+    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
     break;
-  case (Dasher::Opts::RightToLeft):
-    iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
-    iScreenCanvasMaxX = iScreenWidth;
-    iScreenCanvasMinY = 0;
-    iScreenCanvasMaxY = iCanvasHeight;
-
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
-
+  case Dasher::Opts::RightToLeft:
+    iDasherX = iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
+    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
     break;
-  case (Dasher::Opts::TopToBottom):
-    iScreenCanvasMinX = 0;
-    iScreenCanvasMaxX = iScreenWidth;
-    iScreenCanvasMinY = 0;
-    iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth;    // URGH
-
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
-
+  case Dasher::Opts::TopToBottom:
+    iDasherX = iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
+    iDasherY = iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
     break;
-  case (Dasher::Opts::BottomToTop):
-    iScreenCanvasMinX = 0;
-    iScreenCanvasMaxX = iScreenWidth;
-    iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth;    // Still URGH
-    iScreenCanvasMaxY = iScreenHeight;
-
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
-    break;
-  default:
+  case Dasher::Opts::BottomToTop:
+    iDasherX = iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
+    iDasherY = iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
     break;
   }
 
-  // FIXME - everything above this line should be cached, as it only changes very rarely
+//   // Calculate the bounding box of the Dasher canvas in screen
+//   // co-ordinates (this will depend on the orientation due to the
+//   // margin)
+//   //
+//   // FIXME - there's some horrible stuff here due to CanvasX and
+//   // CanvasY having no sane relationship with the actual width and
+//   // height of the canvas
 
-  // Now we've got the bouding box, use the input positions relative to
-  // the box to get the actual Dasher co-ordinates
+//   screenint iScreenCanvasMinX;
+//   screenint iScreenCanvasMaxX;
+//   screenint iScreenCanvasMinY;
+//   screenint iScreenCanvasMaxY;
 
-  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
-  case (Dasher::Opts::LeftToRight):
-    iDasherX = (iScreenCanvasMaxX - iInputX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
-    iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
-    break;
-  case (Dasher::Opts::RightToLeft):
-    iDasherX = (iInputX - iScreenCanvasMinX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
-    iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
-    break;
-  case (Dasher::Opts::TopToBottom):
-    iDasherX = (iScreenCanvasMaxY - iInputY) * iDasherWidth / (iScreenCanvasMaxY - iScreenCanvasMinY);
-    iDasherY = (iInputX - iScreenCanvasMinX) * iDasherHeight / (iScreenCanvasMaxX - iScreenCanvasMinX);
-    break;
-  case (Dasher::Opts::BottomToTop):
-    iDasherX = (iInputY - iScreenCanvasMinY) * iDasherWidth / (iScreenCanvasMaxY - iScreenCanvasMinY);
-    iDasherY = (iInputX - iScreenCanvasMinX) * iDasherHeight / (iScreenCanvasMaxX - iScreenCanvasMinX);
-    break;
-  default:
-    break;
-  }
+//   switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
+//   case (Dasher::Opts::LeftToRight):
+//     iScreenCanvasMinX = 0;
+//     iScreenCanvasMaxX = iCanvasWidth;
+//     iScreenCanvasMinY = 0;
+//     iScreenCanvasMaxY = iCanvasHeight;
+
+//     // Chose iDasherWidth so that the cross hair is in the centre of the screen, even though we have a margin down one side
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+
+//     break;
+//   case (Dasher::Opts::RightToLeft):
+//     iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
+//     iScreenCanvasMaxX = iScreenWidth;
+//     iScreenCanvasMinY = 0;
+//     iScreenCanvasMaxY = iCanvasHeight;
+
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+
+//     break;
+//   case (Dasher::Opts::TopToBottom):
+//     iScreenCanvasMinX = 0;
+//     iScreenCanvasMaxX = iScreenWidth;
+//     iScreenCanvasMinY = 0;
+//     iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth;    // URGH
+
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+
+//     break;
+//   case (Dasher::Opts::BottomToTop):
+//     iScreenCanvasMinX = 0;
+//     iScreenCanvasMaxX = iScreenWidth;
+//     iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth;    // Still URGH
+//     iScreenCanvasMaxY = iScreenHeight;
+
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+//     break;
+//   default:
+//     break;
+//   }
+
+//   // FIXME - everything above this line should be cached, as it only changes very rarely
+
+//   // Now we've got the bouding box, use the input positions relative to
+//   // the box to get the actual Dasher co-ordinates
+
+//   switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
+//   case (Dasher::Opts::LeftToRight):
+//     iDasherX = (iScreenCanvasMaxX - iInputX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
+//     iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
+//     break;
+//   case (Dasher::Opts::RightToLeft):
+//     iDasherX = (iInputX - iScreenCanvasMinX) * iDasherWidth / (iScreenCanvasMaxX - iScreenCanvasMinX);
+//     iDasherY = (iInputY - iScreenCanvasMinY) * iDasherHeight / (iScreenCanvasMaxY - iScreenCanvasMinY);
+//     break;
+//   case (Dasher::Opts::TopToBottom):
+//     iDasherX = (iScreenCanvasMaxY - iInputY) * iDasherWidth / (iScreenCanvasMaxY - iScreenCanvasMinY);
+//     iDasherY = (iInputX - iScreenCanvasMinX) * iDasherHeight / (iScreenCanvasMaxX - iScreenCanvasMinX);
+//     break;
+//   case (Dasher::Opts::BottomToTop):
+//     iDasherX = (iInputY - iScreenCanvasMinY) * iDasherWidth / (iScreenCanvasMaxY - iScreenCanvasMinY);
+//     iDasherY = (iInputX - iScreenCanvasMinX) * iDasherHeight / (iScreenCanvasMaxX - iScreenCanvasMinX);
+//     break;
+//   default:
+//     break;
+//   }
 
   iDasherX = ixmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY();
   iDasherY = m_ymap.unmap(iDasherY);
 
 }
 
-/// Convert dasher co-ordinates to screen co-ordinates
 
+double CDasherViewSquare::GetScaleFactor( int eOrientation ) {
+
+  // Things we're likely to need:
+
+  myint iDasherWidth = DasherModel().DasherY();
+  myint iDasherHeight = DasherModel().DasherY();
+
+  screenint iScreenWidth = Screen().GetWidth();
+  screenint iScreenHeight = Screen().GetHeight();
+
+  // Try doing this a different way:
+
+  myint iDasherMargin( 300 ); // Make this a parameter
+
+  myint iMinX( -iDasherMargin );
+  myint iMaxX( iDasherWidth + iDasherMargin );
+  myint iMinY( 0 );
+  myint iMaxY( iDasherHeight );
+
+
+  double dHScaleFactor;
+  double dVScaleFactor;
+
+  if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft )) {
+    dHScaleFactor = iScreenWidth / static_cast<double>( iMaxX - iMinX );
+    dVScaleFactor = iScreenHeight / static_cast<double>( iMaxY - iMinY );
+  }
+  else {
+    dHScaleFactor = iScreenWidth / static_cast<double>( iMaxY - iMinY );
+    dVScaleFactor = iScreenHeight / static_cast<double>( iMaxX - iMinX );
+  }
+    
+  double dScaleFactor;
+
+  if( dHScaleFactor < dVScaleFactor )
+    dScaleFactor = dHScaleFactor;
+  else
+    dScaleFactor = dVScaleFactor;
+
+  return dScaleFactor;
+
+}
+
+/// Convert dasher co-ordinates to screen co-ordinates
+  
 void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY) {
 
   // Apply the nonlinearities
@@ -547,106 +614,195 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   myint iDasherWidth = DasherModel().DasherY();
   myint iDasherHeight = DasherModel().DasherY();
 
-  myint iCanvasWidth = CanvasX;
-  myint iCanvasHeight = CanvasY;
-
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
 
-  // Calculate the bounding box of the Dasher canvas in screen
-  // co-ordinates (this will depend on the orientation due to the
-  // margin)
-  //
-  // FIXME - there's some horrible stuff here due to CanvasX and
-  // CanvasY having no sane relationship with the actual width and
-  // height of the canvas
+  int eOrientation( GetLongParameter(LP_ORIENTATION) );
 
-  screenint iScreenCanvasMinX;
-  screenint iScreenCanvasMaxX;
-  screenint iScreenCanvasMinY;
-  screenint iScreenCanvasMaxY;
+  double dScaleFactor( GetScaleFactor( eOrientation ) );
 
-  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
-  case (Dasher::Opts::LeftToRight):
-    iScreenCanvasMinX = 0;
-    iScreenCanvasMaxX = iCanvasWidth;
-    iScreenCanvasMinY = 0;
-    iScreenCanvasMaxY = iCanvasHeight;
-
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
-
+  switch( eOrientation ) {
+  case Dasher::Opts::LeftToRight:
+    iScreenX = iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
+    iScreenY = iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
     break;
-  case (Dasher::Opts::RightToLeft):
-    iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
-    iScreenCanvasMaxX = iScreenWidth;
-    iScreenCanvasMinY = 0;
-    iScreenCanvasMaxY = iCanvasHeight;
-
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+  case Dasher::Opts::RightToLeft:
+    iScreenX = iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
+    iScreenY = iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
     break;
-  case (Dasher::Opts::TopToBottom):
-    iScreenCanvasMinX = 0;
-    iScreenCanvasMaxX = iScreenWidth;
-    iScreenCanvasMinY = 0;
-    iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth;    // URGH 
-
-    //  iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+  case Dasher::Opts::TopToBottom:
+    iScreenX = iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
+    iScreenY = iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
     break;
-  case (Dasher::Opts::BottomToTop):
-    iScreenCanvasMinX = 0;
-    iScreenCanvasMaxX = iScreenWidth;
-    iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth;    // Still URGH
-    iScreenCanvasMaxY = iScreenHeight;
-
-    //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
-    break;
-  default:
+  case Dasher::Opts::BottomToTop:
+    iScreenX = iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
+    iScreenY = iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
     break;
   }
 
-  // FIXME - everything above this line should be cached, as it only changes very rarely
+  return;
 
-  // Now we've got the bouding box, use the input positions relative to
-  // the box to get the actual Dasher co-ordinates
+//   // Calculate the bounding box of the Dasher canvas in screen
+//   // co-ordinates (this will depend on the orientation due to the
+//   // margin)
+//   //
+//   // FIXME - there's some horrible stuff here due to CanvasX and
+//   // CanvasY having no sane relationship with the actual width and
+//   // height of the canvas
 
-  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
-  case (Dasher::Opts::LeftToRight):
-    iScreenX = iScreenCanvasMaxX - iDasherX * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
-    iScreenY = iDasherY * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
-    break;
-  case (Dasher::Opts::RightToLeft):
-    iScreenX = iScreenCanvasMinX + iDasherX * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
-    iScreenY = iDasherY * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
-    break;
-  case (Dasher::Opts::TopToBottom):
-    iScreenX = iDasherY * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherHeight + iScreenCanvasMinX;
-    iScreenY = iScreenCanvasMaxY - iDasherX * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherWidth;
-    break;
-  case (Dasher::Opts::BottomToTop):
-    iScreenX = iDasherY * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherHeight + iScreenCanvasMinX;
-    iScreenY = iScreenCanvasMinY + iDasherX * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherWidth;
-    break;
-  default:
-    break;
-  }
+//   screenint iScreenCanvasMinX;
+//   screenint iScreenCanvasMaxX;
+//   screenint iScreenCanvasMinY;
+//   screenint iScreenCanvasMaxY;
+
+//   switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
+//   case (Dasher::Opts::LeftToRight):
+//     iScreenCanvasMinX = 0;
+//     iScreenCanvasMaxX = iCanvasWidth;
+//     iScreenCanvasMinY = 0;
+//     iScreenCanvasMaxY = iCanvasHeight;
+
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+
+//     break;
+//   case (Dasher::Opts::RightToLeft):
+//     iScreenCanvasMinX = iScreenWidth - iCanvasWidth;
+//     iScreenCanvasMaxX = iScreenWidth;
+//     iScreenCanvasMinY = 0;
+//     iScreenCanvasMaxY = iCanvasHeight;
+
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxX - iScreenCanvasMinX)) / (2*(iScreenCanvasMaxX - iScreenCanvasMinX) - iScreenWidth);
+//     break;
+//   case (Dasher::Opts::TopToBottom):
+//     iScreenCanvasMinX = 0;
+//     iScreenCanvasMaxX = iScreenWidth;
+//     iScreenCanvasMinY = 0;
+//     iScreenCanvasMaxY = iScreenHeight * iCanvasWidth / iScreenWidth;    // URGH 
+
+//     //  iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+//     break;
+//   case (Dasher::Opts::BottomToTop):
+//     iScreenCanvasMinX = 0;
+//     iScreenCanvasMaxX = iScreenWidth;
+//     iScreenCanvasMinY = iScreenHeight - iScreenHeight * iCanvasWidth / iScreenWidth;    // Still URGH
+//     iScreenCanvasMaxY = iScreenHeight;
+
+//     //   iDasherWidth = (iDasherHeight * (iScreenCanvasMaxY - iScreenCanvasMinY)) / (2*(iScreenCanvasMaxY - iScreenCanvasMinY) - iScreenHeight);
+//     break;
+//   default:
+//     break;
+//   }
+
+//   // FIXME - everything above this line should be cached, as it only changes very rarely
+
+//   // Now we've got the bouding box, use the input positions relative to
+//   // the box to get the actual Dasher co-ordinates
+
+//   switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
+//   case (Dasher::Opts::LeftToRight):
+//     iScreenX = iScreenCanvasMaxX - iDasherX * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
+//     iScreenY = iDasherY * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
+//     break;
+//   case (Dasher::Opts::RightToLeft):
+//     iScreenX = iScreenCanvasMinX + iDasherX * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherWidth;
+//     iScreenY = iDasherY * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherHeight + iScreenCanvasMinY;
+//     break;
+//   case (Dasher::Opts::TopToBottom):
+//     iScreenX = iDasherY * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherHeight + iScreenCanvasMinX;
+//     iScreenY = iScreenCanvasMaxY - iDasherX * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherWidth;
+//     break;
+//   case (Dasher::Opts::BottomToTop):
+//     iScreenX = iDasherY * (iScreenCanvasMaxX - iScreenCanvasMinX) / iDasherHeight + iScreenCanvasMinX;
+//     iScreenY = iScreenCanvasMinY + iDasherX * (iScreenCanvasMaxY - iScreenCanvasMinY) / iDasherWidth;
+//     break;
+//   default:
+//     break;
+//   }
 }
 
 /// The minimum Dasher Y co-ordinate which will be visible
 
 myint CDasherViewSquare::DasherVisibleMinY() {
-  return m_ymap.unmap(0);
+
+  // Todo - convert all these to a single 'get visible extent' function
+
+  myint iDasherX;
+  myint iDasherY;
+
+  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+
+  switch( eOrientation ) {
+  case Dasher::Opts::LeftToRight:
+    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::RightToLeft:
+    Screen2Dasher(0,0,iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::TopToBottom:
+    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::BottomToTop:
+    Screen2Dasher(0,0,iDasherX,iDasherY);
+    break;
+  }
+
+  return iDasherY;
 }
 
 /// The maximum Dasher Y co-ordinate which will be visible
 
 myint CDasherViewSquare::DasherVisibleMaxY() {
-  return m_ymap.unmap(DasherModel().DasherY());
-}
+  // Todo - convert all these to a single 'get visible extent' function
+
+  myint iDasherX;
+  myint iDasherY;
+
+  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+
+  switch( eOrientation ) {
+  case Dasher::Opts::LeftToRight:
+    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::RightToLeft:
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::TopToBottom:
+    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::BottomToTop:
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  }
+
+  return iDasherY;
+ }
 
 /// The maximum Dasher X co-ordinate which will be visible
 
 myint CDasherViewSquare::DasherVisibleMaxX() {
-  return ixmap(1.0) * DasherModel().DasherY();
+   // Todo - convert all these to a single 'get visible extent' function
+
+  myint iDasherX;
+  myint iDasherY;
+
+  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+
+  switch( eOrientation ) {
+  case Dasher::Opts::LeftToRight:
+    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::RightToLeft:
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::TopToBottom:
+    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY);
+    break;
+  case Dasher::Opts::BottomToTop:
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    break;
+  }
+
+  return iDasherX;
 }
 
 /// Convert raw Dasher co-ordinates to the equivalent 1D mode position

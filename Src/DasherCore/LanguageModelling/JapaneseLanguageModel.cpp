@@ -27,8 +27,8 @@ using namespace std;
 
 /////////////////////////////////////////////////////////////////////
 
-CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet, CLanguageModelParams *_params)
-:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet, _params), m_iMaxOrder(5), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
+:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(5), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
 
@@ -38,8 +38,8 @@ CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHand
 
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
-  bUpdateExclusion = (bool)LanguageModelParams()->GetValue("LMUpdateExclusion");
-
+  bUpdateExclusion = GetLongParameter(LP_LM_UPDATE_EXCLUSION);
+  
 }
 
 /////////////////////////////////////////////////////////////////////

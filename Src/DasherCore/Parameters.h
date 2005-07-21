@@ -5,26 +5,31 @@
 
 // All parameters go into the enums here
 // They are unique across the different types
-enum { BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR,
+enum { 
+  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR,
   BP_SHOW_TOOLBAR_TEXT, BP_SHOW_LARGE_ICONS, BP_FIX_LAYOUT,
   BP_SHOW_SLIDER, BP_COPY_ALL_ON_STOP, BP_START_MOUSE,
   BP_START_SPACE, BP_KEY_CONTROL, BP_WINDOW_PAUSE,
   BP_CONTROL_MODE, BP_COLOUR_MODE, BP_KEYBOARD_MODE, BP_MOUSEPOS_MODE,
   BP_SPEECH_MODE, BP_OUTLINE_MODE, BP_PALETTE_CHANGE, BP_NUMBER_DIMENSIONS,
   BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
-  BP_GAME_MODE, BP_TRAINING, BP_REDRAW, END_OF_BPS
+  BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
+  BP_LM_LETTER_EXCLUSION, END_OF_BPS
 };
 
-enum { LP_ORIENTATION = END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
+enum { 
+  LP_ORIENTATION = END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
   LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_EDIT_FONT_SIZE, LP_EDIT_HEIGHT,
   LP_SCREEN_WIDTH, LP_SCREEN_HEIGHT, LP_DASHER_FONTSIZE,
   LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_TRUNCATION,
   LP_TRUNCATIONTYPE, LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
-  LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, END_OF_LPS
+  LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
+  LP_LM_WORD_ALPHA, END_OF_LPS
 };
 
-enum { SP_ALPHABET_ID = END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
+enum {
+  SP_ALPHABET_ID = END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
   SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
   SP_TRAIN_FILE, END_OF_SPS
 };
@@ -97,7 +102,9 @@ static bp_table boolparamtable[] = {
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
   {BP_GAME_MODE, "GameMode", PERS, false, "Dasher Game Mode"},
   {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
-  {BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"}
+  {BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"},
+  {BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
+  {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, false, "Whether to do letter exclusion in the word-based model"}
 };
 
 static lp_table longparamtable[] = {
@@ -124,7 +131,8 @@ static lp_table longparamtable[] = {
   {LP_LM_MIXTURE, "LMMixture", PERS, 50, "LMMixture"},
   {LP_MOUSE_POS_BOX, "MousePosBox", !PERS, -1, "Mouse Position Box Indicator"},
   {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
-  {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"}
+  {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
+  {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"}
 };
 static sp_table stringparamtable[] = {
   {SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},

@@ -38,22 +38,20 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   // Create an appropriate language model;
 
   // FIXME - return to using enum here
-  CLanguageModelParams *_params = m_pDasherInterface->GetLMParams();
 
-  // FIXME - temporarily broken just to get the thing to work
 
   switch (GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
   case 0:
-    m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;
   case 2:
-    m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    m_pLanguageModel = new CWordLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;
   case 3:
-    m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;  
   case 4:
-    m_pLanguageModel = new CJapaneseLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet, _params);
+    m_pLanguageModel = new CJapaneseLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;
   }
 

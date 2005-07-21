@@ -27,14 +27,14 @@ namespace Dasher {
 
     /////////////////////////////////////////////////////////////////////////////
 
-    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * pParams):CLanguageModel(pEventHandler, pSettingsStore, Alphabet, pParams) {
+    CMixtureLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet):CLanguageModel(pEventHandler, pSettingsStore, Alphabet) {
 
       //      std::cout << SymbolAlphabet().GetAlphabetPointer() << std::endl;
 
       NextContext = 0;
 
-      lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet, pParams);
-      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet, pParams);
+      lma = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
+      lmb = new CDictLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
 
     };
 
@@ -85,7 +85,7 @@ namespace Dasher {
         std::vector < unsigned int >ProbsA(iNumSymbols);
         std::vector < unsigned int >ProbsB(iNumSymbols);
 
-      int iNormA(iNorm * LanguageModelParams()->GetValue("LMMixture") / 100);
+      int iNormA(iNorm * GetLongParameter(LP_LM_MIXTURE) / 100);
       int iNormB(iNorm - iNormA);
 
         lma->GetProbs(ContextMap.find(context)->second->GetContextA(), ProbsA, iNormA);

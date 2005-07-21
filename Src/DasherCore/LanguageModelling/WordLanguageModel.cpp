@@ -107,8 +107,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 // CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
-:CLanguageModel(pEventHandler, pSettingsStore, Alphabet, _params), max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet)
+:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CWordContext(m_pRoot, 0);
@@ -119,9 +119,9 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
   nextid = iWordStart;          // Start of indices for words - may need to increase this for *really* large alphabets
 
-  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet, _params);
+  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
 
-  if(LanguageModelParams()->GetValue(std::string("LMDictionary"))) {
+  if(GetBoolParameter(BP_LM_DICTIONARY)) {
 
     std::ifstream DictFile("/usr/share/dict/words");    // FIXME - hardcoded paths == bad
 
@@ -222,7 +222,7 @@ void CWordLanguageModel::GetProbs(Context context, vector <unsigned int >&probs,
   for(std::vector < double >::iterator it(dProbs.begin()); it != dProbs.end(); ++it)
     *it = 0.0;
 
-  double alpha = LanguageModelParams()->GetValue(std::string("LMWordAlpha")) / 100.0;
+  double alpha = GetLongParameter(LP_LM_WORD_ALPHA) / 100.0;
   //  double beta = LanguageModelParams()->GetValue( std::string( "LMBeta" ) )/100.0;
 
   // Ignore beta for now - we'll need to know how many different words have been seen, not just the total count.
@@ -444,7 +444,7 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
 
     // Insert into the spelling model if this is a new word
 
-    if((nextid > oldnextid) || (LanguageModelParams()->GetValue(std::string("LMLetterExclusion")) == 0)) {      // FIXME - there must be a better way of doing this!
+    if((nextid > oldnextid) || (GetBoolParameter(BP_LM_LETTER_EXCLUSION))) {
       //
       pSpellingModel->ReleaseContext(oSpellingContext);
       oSpellingContext = pSpellingModel->CreateEmptyContext();

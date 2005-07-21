@@ -27,8 +27,8 @@ namespace Dasher {
 
   class CDictLanguageModel:public CLanguageModel {
   public:
-    CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet, CLanguageModelParams * _params);
-      virtual ~ CDictLanguageModel();
+    CDictLanguageModel(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, const CSymbolAlphabet & Alphabet);
+    virtual ~CDictLanguageModel();
 
     Context CreateEmptyContext();
     void ReleaseContext(Context context);

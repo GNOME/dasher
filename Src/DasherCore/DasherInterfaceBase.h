@@ -19,7 +19,6 @@
 #include "Alphabet/AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
-#include "LanguageModelling/LanguageModelParams.h"
 #include "DashEdit.h"
 #include "DasherView.h"
 #include "DasherInput.h"
@@ -33,7 +32,7 @@
 namespace Dasher {
   class CDasherInterfaceBase;
 }
-////// The central class in the core of Dasher. Ties together the rest of
+/// The central class in the core of Dasher. Ties together the rest of
 /// the platform independent stuff and provides a single interface for
 /// the UI to use.
 
@@ -368,10 +367,6 @@ public:
 
   /// \deprecated Use parameter interface instead
 
-  void ChangeLMOption(const std::string & pname, long int Value);
-
-  /// \deprecated Use parameter interface instead
-
   void ChangeView(unsigned int NewViewID);
 
   /// \deprecated Use parameter interface instead
@@ -553,13 +548,6 @@ public:
     return m_Alphabet;
   }
 
-  /// Get a pointer to the language model options object
-  /// \todo This will soon be incorporated into the new parameter system
-
-  CLanguageModelParams *GetLMParams() {
-    return m_Params;
-  }
-
   /// Get a pointer to the CDashEditbox
 
   CDashEditbox *GetEditbox() {
@@ -568,7 +556,6 @@ public:
 
 private:
   CAlphabet * m_Alphabet;
-  CLanguageModelParams *m_Params;
   CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
   CDashEditbox *m_DashEditbox;

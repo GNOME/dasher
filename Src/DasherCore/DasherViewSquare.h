@@ -13,67 +13,246 @@
 namespace Dasher {
   class CDasherViewSquare;
 }
-////// An implementation of the DasherView class
-////// This class renders Dasher in the vanilla style,
+
+/// An implementation of the DasherView class
+///
+/// This class renders Dasher in the vanilla style,
 /// but with horizontal and vertical mappings
-////// Horizontal mapping - linear and log
+///
+/// Horizontal mapping - linear and log
 /// Vertical mapping - linear with different gradient
 
 class Dasher::CDasherViewSquare:public Dasher::CDasherView
 {
 public:
-  CDasherViewSquare(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen, CDasherModel & DasherModel);
+
+  /// \param pEventHandler Event handler.
+  /// \param pSettingsStore Settings store.
+  /// \param DasherScreen Pointer to creen to which the view will render.
+  /// \param DasherModel The model which will be rendered.
+  /// \todo Don't cache screen and model locally - screen can be
+  /// passed as parameter to the drawing functions, and data structure
+  /// can be extracted from the model and passed too.
+
+  CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel &DasherModel);
+
+  ///
+  /// Convert input coordinates to dasher coordinates and evolve the model
+  ///
+
   void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time);
+  
+  ///
+  /// \todo Document this
+  ///
+  
   void GoTo(screenint mousex, screenint mousey);
+
+  ///
+  /// \todo Document this
+  ///
+
+  void DrawGoTo(screenint mousex, screenint mousey);
+
+  ///
+  /// Render the current state of the model.
+  ///
 
   virtual void RenderNodes();
 
+  /// 
+  /// Supply a new screen to draw to
+  ///
+
   void ChangeScreen(CDasherScreen * NewScreen);
-  void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey);
+
+  /// 
+  /// Draw the mouse pointer
+  ///
+
   void DrawMouse(screenint mousex, screenint mousey);
+
+  ///
+  /// Draw the mouse line
+  ///
+
   void DrawMouseLine(screenint mousex, screenint mousey);
+
+  ///
+  /// \todo Document this
+  ///
+
   void DrawKeyboard();
+
+  ///
+  /// Draw the game mode pointer
+  ///
+
   void DrawGameModePointer();
+
+  /// Get the scale factor for conversion between Dasher co-ordinates
+  /// and screen co-ordinates
+
+  double GetScaleFactor( int eOrientation );
+
+  /// Checks for start on mouse behaviour and updates which boxes are
+  /// displayed, triggers starts etc.
+
   virtual bool HandleStartOnMouse(int iTime);
+
+  ///
+  /// Event handler
+  ///
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
+  /// Render a single node
+  /// \param Character Symbol ID to be drawn
+  /// \param Color The colour to draw it
+  /// \param ColorScheme Which of the alternating colour schemes to use
+  /// \param y1 Upper extent.
+  /// \param y2 Lower extent
+  /// \param mostleft The left most position in which the text (l->r)
+  /// can be displayed in order to avoid overlap. This is updated by
+  /// the function to allow for the new text
+  /// \param displaytext Text to display.
+  /// \todo Character and displaytext are redundant. We shouldn't need
+  /// to know about alphabets here, so only use the latterr
+
   int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string & displaytext);
 
-  // Responsible for all the Render_node calls
+  ///
+  /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
+  ///
+
   int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft);
 
-  // Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
+  ///
+  /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
+  ///
+  
   void RenderGroups(CDasherNode * Render, myint y1, myint y2, int mostleft);
+
+  /// 
+  /// Get the automatic calibration offset
+  ///
 
   int GetAutoOffset() const;
 
+  ///
+  /// \todo Document this
+  ///
+
   virtual void ResetSum();
+
+  ///
+  /// \todo Document this
+  ///
+
   virtual void ResetSumCounter();
+
+  ///
+  /// Reset the automatic calibration offset
+  ///
+
   virtual void ResetYAutoOffset();
 
 private:
 
+  ///
+  /// Convert input device position to Dasher co-ordinates
+  ///
+
   void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY, int iType, int iMode);
+
+  /// 
+  /// Convert a screen co-ordinate to Dasher co-ordinates
+  ///
+
   void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY);
+
+  ///
+  /// Convert Dasher co-ordinates to screen co-ordinates
+  ///
+
   void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY);
+
+  ///
+  /// Applies the 1D mode transformation
+  ///
+
   void Dasher2OneD(myint & iDasherX, myint & iDasherY);
+
+  ///
+  /// Applies the eyetracker mode transformation
+  ///
+
   void Dasher2Eyetracker(myint & iDasherX, myint & iDasherY);
+
+  ///
+  /// Trunates co-ordinates to fit on screen
+  ///
 
   void TruncateToScreen(screenint & iX, screenint & iY);
 
+  ///
+  /// Draw a polyline specified in Dasher co-ordinates
+  ///
+
   void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
+
+  ///
+  /// Draw a polygon specified in Dasher co-ordinates
+  ///
+
   void DasherPolygon(myint * x, myint * y, int n, int iColour);
+
+  ///
+  /// Draw a rectangle specified in Dasher co-ordinates
+  ///
+
   void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme,bool bDrawOutline);
+
+  ///
+  /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)
+  ///
+
   void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
+
+  ///
+  /// Draw text specified in Dasher co-ordinates
+  ///
+
   void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft);
 
+  ///
+  /// Get minimum visible Dasher Y co-ordinate
+  ///
+
   myint DasherVisibleMinY();
+
+  ///
+  /// Get maximum visible Dasher Y co-ordinate
+  ///
+
   myint DasherVisibleMaxY();
+
+  ///
+  /// Get maximum visible Dasher X co-ordinate
+  ///
 
   myint DasherVisibleMaxX();
 
+  ///
+  /// Unused
+  ///
+
   myint m_iDasherXCache;
+
+  ///
+  /// Unused
+  ///
+
   myint m_iDasherYCache;
 
   // Class definitions
@@ -89,10 +268,30 @@ private:
   };
 
   // the x and y non-linearities
+
+  ///
+  /// \deprecated See Screen2Dasher
+  ///
+
   void screen2dasher(screenint mousex, screenint mousey, myint * dasherx, myint * dashery) const;
   void AutoCalibrate(screenint * mousex, screenint * mousey);
+
+  ///
+  /// \deprecated See Dasher2Screen
+  ///
+
   screenint dasherx2screen(myint sx) const;
+
+  ///
+  /// \deprecated See Dasher2Screen
+  ///
+
   screenint dashery2screen(myint sy) const;
+
+  ///
+  /// \deprecated See Dasher2Screen
+  ///
+
   Cint32 dashery2screen(myint y1, myint y2, screenint & s1, screenint & s2) const;
 
   double eyetracker_get_x(double x, double y);
