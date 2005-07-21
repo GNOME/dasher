@@ -227,21 +227,30 @@ private:
 
   ///
   /// Get minimum visible Dasher Y co-ordinate
+  /// \deprecated Use VisibleRegion.
   ///
 
   myint DasherVisibleMinY();
 
   ///
   /// Get maximum visible Dasher Y co-ordinate
+  /// \deprecated Use VisibleRegion.
   ///
 
   myint DasherVisibleMaxY();
 
   ///
   /// Get maximum visible Dasher X co-ordinate
+  /// \deprecated Use VisibleRegion.
   ///
 
   myint DasherVisibleMaxX();
+
+  ///
+  /// Get the bounding box of the visible region.
+  ///
+
+  void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
 
   ///
   /// Unused
