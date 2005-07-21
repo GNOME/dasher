@@ -219,7 +219,11 @@ inline Cint64 operator +(Cint64 lhs, int32 rhs) {
 }
 
 inline double operator +(double lhs, Cint64 rhs) {
-  return lhs + double (rhs);
+  return lhs + double(rhs);
+}
+
+inline double operator +(Cint64 lhs, double rhs) {
+  return double(lhs) + rhs;
 }
 
 inline Cint64 operator +(Cint32 lhs, Cint64 rhs) {

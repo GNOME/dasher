@@ -186,6 +186,10 @@ inline double operator +(double lhs, Cint32 rhs) {
   return lhs + double (rhs);
 }
 
+inline double operator +(Cint32 lhs, double rhs) {
+  return double (lhs) + rhs;
+}
+
 inline Cint32 operator +(int lhs, Cint32 rhs) {
   rhs += Cint32(lhs);
   return rhs;
