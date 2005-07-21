@@ -9,11 +9,6 @@
 // Check that everything that is not self-contained within the GUI is covered.
 
 #include "../Common/NoClones.h"
-
-#include "DasherWidgetInterface.h"
-#include "DasherAppInterface.h"
-#include "DasherSettingsInterface.h"
-
 #include "DasherScreen.h"
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
@@ -36,7 +31,7 @@ namespace Dasher {
 /// the platform independent stuff and provides a single interface for
 /// the UI to use.
 
-class Dasher::CDasherInterfaceBase:private NoClones, public CDasherWidgetInterface, public CDasherAppInterface, public CDasherSettingsInterface
+class Dasher::CDasherInterfaceBase:private NoClones
 {
 public:
   CDasherInterfaceBase();
@@ -132,19 +127,19 @@ public:
   /// options
   /// \param SettingsUI Pointer to the CDasherSettingsInterface.
 
-  void SetSettingsUI(CDasherSettingsInterface * SettingsUI);
+  //void SetSettingsUI(CDasherSettingsInterface * SettingsUI);
 
   /// Set the path for user specific configuration and files
   /// \param UserLocation The new path.
   /// \todo This is unlikely to change, so should probably be supplied directly to the constructor.
 
-  void SetUserLocation(std::string UserLocation);
+  //void SetUserLocation(std::string UserLocation);
 
   /// Set the path for system-wide configuration and files
   /// \param SystemLocation The new path.
   /// \todo This is unlikely to change, so should probably be supplied directly to the constructor.
 
-  void SetSystemLocation(std::string SystemLocation);
+ // void SetSystemLocation(std::string SystemLocation);
 
   /// Add an alphabet filename
   /// \param Filename The filename to add
@@ -336,7 +331,7 @@ public:
 
   /// \deprecated Use parameter interface instead
 
-  virtual void MouseposStart(bool Value);
+  //virtual void MouseposStart(bool Value);
 
   /// \deprecated Use parameter interface instead
 
@@ -387,72 +382,68 @@ public:
 
   /// \deprecated Not part of Dasher control
 
-  void ShowToolbarLargeIcons(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  void ShowSpeedSlider(bool Value);
+  //void ShowToolbarLargeIcons(bool Value);
 
   /// \deprecated Not part of Dasher control
 
-  void FixLayout(bool Value);
+  //void FixLayout(bool Value);
 
   /// \deprecated Not part of Dasher control
 
-  void TimeStampNewFiles(bool Value);
+  //void TimeStampNewFiles(bool Value);
 
   /// \deprecated Not part of Dasher control
 
-  void CopyAllOnStop(bool Value);
+  //void CopyAllOnStop(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void DrawMouse(bool Value);
+  //void DrawMouse(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void DrawMouseLine(bool Value);
+  //void DrawMouseLine(bool Value);
 
   ///
   /// \deprecated Use parameter interface instead
 
-  void StartOnSpace(bool Value);
+  //void StartOnSpace(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void StartOnLeft(bool Value);
+  //void StartOnLeft(bool Value);
 
   /// \deprecated Document this
 
-  void KeyControl(bool Value);
+  //void KeyControl(bool Value);
 
   /// \deprecated Not part of Dasher control
 
-  void WindowPause(bool Value);
+  //void WindowPause(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void ControlMode(bool Value);
+  //void ControlMode(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void ColourMode(bool Value);
+  //void ColourMode(bool Value);
 
   /// \deprecated Not part of Dasher control
 
-  void KeyboardMode(bool Value);
+  //void KeyboardMode(bool Value);
 
   /// \deprecated Not part of Dasher control
 
-  void Speech(bool Value);
+  //void Speech(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void OutlineBoxes(bool Value);
+  //void OutlineBoxes(bool Value);
 
   /// \deprecated Use parameter interface instead
 
-  void PaletteChange(bool Value);
+  //void PaletteChange(bool Value);
 
   /// \deprecated Not part of Dasher control
 
@@ -507,7 +498,7 @@ public:
 
   /// \deprecated Use parameter interface instead
 
-  void SetDrawMousePosBox(int iWhich);
+  //void SetDrawMousePosBox(int iWhich);
 
   /// Get the current autocalibration offset
   /// \retval The offset.
@@ -564,7 +555,6 @@ private:
 
   CDasherInput *m_pInput;
 
-  CDasherSettingsInterface *m_SettingsUI;
   CAlphIO *m_AlphIO;
   CAlphIO::AlphInfo m_AlphInfo;
   CColourIO *m_ColourIO;

@@ -519,9 +519,6 @@
 			RelativePath=".\DashEdit.h">
 		</File>
 		<File
-			RelativePath=".\DasherAppInterface.h">
-		</File>
-		<File
 			RelativePath="DasherComponent.h">
 		</File>
 		<File
@@ -549,12 +546,6 @@
 			RelativePath=".\DasherScreen.h">
 		</File>
 		<File
-			RelativePath="DasherSettingsInterface.cpp">
-		</File>
-		<File
-			RelativePath="DasherSettingsInterface.h">
-		</File>
-		<File
 			RelativePath=".\DasherTypes.h">
 		</File>
 		<File
@@ -574,9 +565,6 @@
 		</File>
 		<File
 			RelativePath=".\DasherViewSquare.inl">
-		</File>
-		<File
-			RelativePath=".\DasherWidgetInterface.h">
 		</File>
 		<File
 			RelativePath="Event.h">

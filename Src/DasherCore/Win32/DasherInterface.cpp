@@ -3,9 +3,8 @@
 
 CDasherInterface::CDasherInterface(void) {
   m_pSettingsStore = new CWinOptions( "Inference Group", "Dasher3", m_pEventHandler );
-  CDasherSettingsInterface::SetInterface(this);
 
-  ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
+  Realize();
 
 }
 

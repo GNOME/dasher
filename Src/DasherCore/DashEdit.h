@@ -19,7 +19,7 @@ e.g. - output characters to the edit control
 
 namespace Dasher {
   class CDashEditbox;
-  class CDasherWidgetInterface;
+  class CDasherInterfaceBase;
 };
 
 class Dasher::CDashEditbox
@@ -30,7 +30,7 @@ public:
   virtual ~ CDashEditbox() {}
 
   //! Provide the Editbox with a widget interface
-  virtual void SetInterface(CDasherWidgetInterface * DasherInterface) {
+  virtual void SetInterface(CDasherInterfaceBase * DasherInterface) {
     m_pDasherInterface = DasherInterface;
   }
 
@@ -184,8 +184,8 @@ protected:
   //! Have the contents of the editbox been altered since the last save?
   bool m_dirty;
 
-  //! Pointer to a DasherWidgetInterface for communication with the core
-  CDasherWidgetInterface *m_pDasherInterface;
+  //! Pointer to a DasherInterface for communication with the core
+  CDasherInterfaceBase *m_pDasherInterface;
 };
 
 #endif /* #ifndef __DashEdit_h__ */

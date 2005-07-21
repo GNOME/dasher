@@ -9,7 +9,6 @@
 #include "../Common/Common.h"
 
 #include "SettingsStore.h"
-#include "DasherSettingsInterface.h"
 #include "Event.h"
 
 #include <iostream>

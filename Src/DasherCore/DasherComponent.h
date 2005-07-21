@@ -48,7 +48,7 @@ class Dasher::CDasherComponent {
   }
 
  protected:
-  Dasher::CEventHandler * m_pEventHandler;
+  Dasher::CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
 };
 
