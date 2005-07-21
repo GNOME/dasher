@@ -49,20 +49,20 @@ public:
   //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
   void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
 
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines) const;
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
-  void Polyline(point * Points, int Number) const;
+  void Polyline(point * Points, int Number, int iWidth) const;
 
   // Draw a line of arbitrary colour.
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
   //! \param Colour the colour to be drawn
-  void Polyline(point * Points, int Number, int Colour) const;
+  void Polyline(point * Points, int Number, int iWidth, int Colour) const;
 
   // Draw a filled polygon - given vertices and color id
   // This is not (currently) used in standard Dasher. However, it could be very

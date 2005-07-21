@@ -220,7 +220,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="WinCommon;Common"
+				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -243,6 +243,7 @@
 				OutputFile=".\Target/Win32 Unicode Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
+				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Unicode Debug/Dasher.pdb"
 				SubSystem="2"/>

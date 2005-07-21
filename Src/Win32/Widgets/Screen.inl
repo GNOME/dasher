@@ -12,7 +12,7 @@ inline Dasher::Opts::FontSize CScreen::GetFontSize() const {
   return Fontsize;
 }
 
-inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme) const {
+inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines) const {
 //      HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
   HBRUSH brush = m_Brushes[Color];
   RECT Rect;
@@ -23,14 +23,14 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
   FillRect(m_hDCBuffer, &Rect, brush);
 
 #ifndef DASHER_WINCE
-  if(drawoutlines == true) {
+  if(bDrawOutlines) {
     FrameRect(m_hDCBuffer, &Rect, m_Brushes[3]);
   }
 #endif
 
 }
 
-inline void CScreen::Polyline(point *Points, int Number, int iColour) const {
+inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour) const {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, (HPEN) m_Pens[iColour]);
   POINT *WinPoints = new POINT[Number];
@@ -40,8 +40,8 @@ inline void CScreen::Polyline(point *Points, int Number, int iColour) const {
   SelectObject(m_hDCBuffer, hpOld);
 }
 
-inline void CScreen::Polyline(point *Points, int Number) const {
-  Polyline(Points, Number, 0);
+inline void CScreen::Polyline(point *Points, int Number, int iWidth) const {
+  Polyline(Points, Number, iWidth, 0);
 }
 
 inline void CScreen::DrawPolygon(point *Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const {
