@@ -1,22 +1,21 @@
-# Vietnamese translation for dasher.
-# Copyright © 2005 Gnome i18n Project for Vietnamese.
+# Vietnamese translation of dasher.
+# Copyright © 2005 THE dasher'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the dasher package.
 # pclouds <pclouds@vnlinux.org>
 # Clytie Siddall <clytie@riverland.net.au>, 2005.
-# 
+#
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher HEAD\n"
+"Project-Id-Version: dasher Gnome 2.10\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-20 05:21+0000\n"
-"PO-Revision-Date: 2005-07-20 17:27+0930\n"
+"POT-Creation-Date: 2005-07-21 05:23+0000\n"
+"PO-Revision-Date: 2005-05-01 20:09+0930\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: LocFactoryEditor 1.2.2\n"
 
 #: ../Src/Gtk2/Menu.cc:50 ../Src/Gtk2/Menu.cc:106 ../Src/Gtk2/Menu.cc:161
 #: ../Src/Gtk2/Menu.cc:204 ../Src/Gtk2/dasher.glade.h:66
@@ -38,7 +37,7 @@ msgstr "Dasher"
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher là một ứng dụng nhập văn ban đoán trước"
 
-#: ../Src/Gtk2/Preferences.cpp:332
+#: ../Src/Gtk2/Preferences.cpp:363
 msgid "Training Dasher, please wait"
 msgstr "Đang huấn luyện Dasher, vui lòng chờ"
 
@@ -289,8 +288,9 @@ msgid "9:"
 msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
+#, fuzzy
 msgid "<b>Adaption:</b>"
-msgstr "<b>Thích ứng:</b>"
+msgstr "<b>Hướng:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
@@ -309,12 +309,14 @@ msgid "<b>Control Style:</b>"
 msgstr "<b>Kiểu điều khiển:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11
+#, fuzzy
 msgid "<b>Language Model Settings:</b>"
-msgstr "<b>Thiết lập mẫu ngôn ngữ:</b>"
+msgstr "<b>Khởi động và dừng:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
+#, fuzzy
 msgid "<b>Language Model:</b>"
-msgstr "<b>Mẫu ngôn ngữ:</b>"
+msgstr "<b>Chế độ nút bập bênh:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
@@ -390,15 +392,15 @@ msgstr "Chế độ điều khiển"
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashergpe.glade.h:30
 msgid "Copy"
-msgstr "Sao chép"
+msgstr "Chép"
 
 #: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:31
 msgid "Copy _All"
-msgstr "Sao chép _tất cả"
+msgstr "Chép _tất cả"
 
 #: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:32
 msgid "Copy all on stop"
-msgstr "Sao chép tất cả khi đừng"
+msgstr "Chép tất cả khi đừng"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
@@ -519,11 +521,11 @@ msgstr "Lưu tập tin"
 
 #: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
-msgstr "Lưu tập tin là"
+msgstr "Lưu tập tin mới"
 
 #: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:61
 msgid "Select Font"
-msgstr "Chọn phông chữ"
+msgstr "Chọn phông"
 
 #: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
@@ -617,11 +619,11 @@ msgstr "_Phụ thêm vào tập tin"
 
 #: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:81
 msgid "_Dasher Font"
-msgstr "_Phông chữ Dasher"
+msgstr "_Phông Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:82
 msgid "_Dasher Font Size"
-msgstr "_Cỡ phông chữ Dasher"
+msgstr "_Cỡ phông Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:83
 msgid "_Edit"
@@ -629,7 +631,7 @@ msgstr "_Hiệu chỉnh"
 
 #: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:84
 msgid "_Edit Font"
-msgstr "_Hiệu chỉnh phông chữ"
+msgstr "_Hiệu chỉnh phông"
 
 #: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
@@ -649,7 +651,7 @@ msgstr "_Tùy chọn"
 
 #: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:89
 msgid "_Reset fonts"
-msgstr "Đặt _lại phông chữ"
+msgstr "Đặt _lại phông"
 
 #: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:90
 msgid "abcdefghijk ABCDEFGHIJK"
@@ -698,8 +700,8 @@ msgstr "Cảnh báo: không thể lập tham số nói tiếng\n"
 msgid "Dasher Text Entry"
 msgstr "Nhập chữ Dasher"
 
-#~ msgid "%d characters output in %ld seconds\n"
-#~ msgstr "xuất %d ký tự được %ld giây\n"
+msgid "%d characters output in %ld seconds\n"
+msgstr "xuất %d ký tự được %ld giây\n"
 
-#~ msgid "Speed"
-#~ msgstr "Tốc độ"
+msgid "Speed"
+msgstr "Tốc độ"
