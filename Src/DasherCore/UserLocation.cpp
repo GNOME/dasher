@@ -15,6 +15,8 @@ static char THIS_FILE[] = __FILE__;
 // This version only stores the integer coordinate data.
 CUserLocation::CUserLocation(int x, int y, float nats)
 {
+    //CFunctionLogger f1("CUserLocation::CUserLocation(1)", gLogger);
+
     InitMemeberVars();
 
     m_strTime               = CTimeSpan::GetTimeStamp();
@@ -27,6 +29,8 @@ CUserLocation::CUserLocation(int x, int y, float nats)
 // Stores only the normalized floating point data.
 CUserLocation::CUserLocation(float x, float y, float nats)
 {
+    //CFunctionLogger f1("CUserLocation::CUserLocation(2)", gLogger);
+
     InitMemeberVars();
 
     m_strTime               = CTimeSpan::GetTimeStamp();
@@ -40,6 +44,8 @@ CUserLocation::CUserLocation(float x, float y, float nats)
 // This version calculates the normalization itself.
 CUserLocation::CUserLocation(int x, int y, int top, int left, int bottom, int right, bool bStoreIntegerRep, float nats)
 {
+    //CFunctionLogger f1("CUserLocation::CUserLocation(3)", gLogger);
+
     InitMemeberVars();
 
     m_strTime               = CTimeSpan::GetTimeStamp();
@@ -61,6 +67,8 @@ CUserLocation::CUserLocation(int x, int y, int top, int left, int bottom, int ri
 // We want both the integer representation and the normalized.
 CUserLocation::CUserLocation(int x1, int y1, float x2, float y2, float nats)
 {
+    //CFunctionLogger f1("CUserLocation::CUserLocation(4)", gLogger);
+
     InitMemeberVars();
 
     m_strTime               = CTimeSpan::GetTimeStamp();
@@ -75,10 +83,13 @@ CUserLocation::CUserLocation(int x1, int y1, float x2, float y2, float nats)
 
 CUserLocation::~CUserLocation()
 {
+    //CFunctionLogger f1("CUserLocation::~CUserLocation", gLogger);
 }
 
 string CUserLocation::GetXML(const string& prefix)
 {
+    //CFunctionLogger f1("CUserLocation::GetXML", gLogger);
+
     string strResult = "";
 
     strResult += prefix;
@@ -134,17 +145,23 @@ string CUserLocation::GetXML(const string& prefix)
 // Static helper method for computing normalized X coordinate
 double CUserLocation::ComputeNormalizedX(int x, int left, int right)
 {
+    //CFunctionLogger f1("CUserLocation::ComputeNormalizedX", gLogger);
+
     return (double) (x - left) / (double) abs(right - left);
 }
 
 // Static helper method for computing normalized Y coordinate
 double CUserLocation::ComputeNormalizedY(int y, int top, int bottom)
 {
+    //CFunctionLogger f1("CUserLocation::ComputeNormalizedY", gLogger);
+
     return (double) (y - top) / (double) abs(bottom - top);
 }
 
 void CUserLocation::InitMemeberVars()
 {
+    //CFunctionLogger f1("CUserLocation::InitMemeberVars", gLogger);
+
     m_strTime               = "";
     m_locationX             = 0;
     m_locationY             = 0;
@@ -167,6 +184,8 @@ void CUserLocation::InitMemeberVars()
 //  </Pos>
 CUserLocation::CUserLocation(const string& strXML)
 {
+    //CFunctionLogger f1("CUserLocation::CUserLocation(XML)", gLogger);
+
     InitMemeberVars();
 
     bool bFoundNormX        = false;
@@ -209,6 +228,8 @@ CUserLocation::CUserLocation(const string& strXML)
 // Returns a tab delimited version of this location's X & Y coordinate
 string CUserLocation::GetTabMouseXY(bool bReturnNormalized)
 {
+    //CFunctionLogger f1("CUserLocation::GetTabMouseXY", gLogger);
+
     string strResult = "";
     char strNum[256];
 
@@ -225,6 +246,8 @@ string CUserLocation::GetTabMouseXY(bool bReturnNormalized)
 // Figure out what grid location this normalized mouse coordinate should go.
 void CUserLocation::GetMouseGridLocation(int gridSize, int* i, int* j)
 {
+    //CFunctionLogger f1("CUserLocation::GetMouseGridLocation", gLogger);
+
     if ((i == NULL) || (j == NULL))
         return;
 

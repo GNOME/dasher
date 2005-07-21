@@ -13,6 +13,8 @@ static char THIS_FILE[] = __FILE__;
 
 CUserLog::CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet)
 {
+    //CFunctionLogger f1("CUserLog::CUserLog", gLogger);
+
     InitMemberVars();
     
     m_pAlphabet     = pAlphabet;
@@ -32,6 +34,8 @@ CUserLog::CUserLog(int logTypeMask, Dasher::CAlphabet* pAlphabet)
 
 CUserLog::~CUserLog()
 {
+    //CFunctionLogger f1("CUserLog::~CUserLog", gLogger);
+
     if ((m_bSimple) && (m_pSimpleLogger != NULL))
         m_pSimpleLogger->Log("stop", logDEBUG);
 
@@ -79,6 +83,8 @@ CUserLog::~CUserLog()
 // Do initialization of member variables based on the user log level mask
 void CUserLog::InitUsingMask(int logLevelMask)
 {
+    //CFunctionLogger f1("CUserLog::InitUsingMask", gLogger);
+
     m_bInitIsDone = false;
 
     if (logLevelMask & userLogSimple)
@@ -111,6 +117,8 @@ void CUserLog::InitUsingMask(int logLevelMask)
 // Called when we want to output the log file (usually on exit of dasher)
 void CUserLog::OutputFile()
 {
+    //CFunctionLogger f1("CUserLog::OutputFile", gLogger);
+
     if (m_bDetailed)
     {
         // Let the last trial object know we are done with it, this lets it do
@@ -130,6 +138,8 @@ void CUserLog::OutputFile()
 
 void CUserLog::StartWriting()
 {
+    //CFunctionLogger f1("CUserLog::StartWriting", gLogger);
+
     if (m_bSimple)
     {
         // The canvas size changes multiple times as a user resizes it.  We just want to write
@@ -173,6 +183,8 @@ void CUserLog::StartWriting()
 // elapsed.
 void CUserLog::StopWriting(float nats)
 {
+    //CFunctionLogger f1("CUserLog::StopWriting", gLogger);
+
     if (m_bIsWriting)
     {
         m_cycleNats = (double) nats;
@@ -182,6 +194,8 @@ void CUserLog::StopWriting(float nats)
 
 void CUserLog::StopWriting()
 {
+    //CFunctionLogger f1("CUserLog::StopWriting", gLogger);
+
     if (m_bIsWriting)
     {
         m_bIsWriting = false;
@@ -207,6 +221,8 @@ void CUserLog::StopWriting()
 
 void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbols, eUserLogEventType event)
 {
+    //CFunctionLogger f1("CUserLog::AddSymbols", gLogger);
+
     if (!m_bIsWriting)
     {
         // StartWriting() wasn't called, so we'll do it implicitly now
@@ -231,7 +247,7 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbols, eUserLog
             m_vectorCycleHistory.push_back(newSymbolProb);
         }
     }
-    
+
     if (m_bDetailed)
     {
         CUserLogTrial* trial = GetCurrentTrial();
@@ -242,13 +258,14 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbols, eUserLog
             gLogger->Log("CUserLog::AddSymbols, trial was NULL!", logNORMAL);
             return;
         }
-
         trial->AddSymbols(vectorNewSymbols, event, m_pAlphabet);
     }
 }
 
 void CUserLog::DeleteSymbols(int numToDelete, eUserLogEventType event)
 {
+    //CFunctionLogger f1("CUserLog::DeleteSymbols", gLogger);
+
     if (numToDelete <= 0)
         return;
 
@@ -263,7 +280,10 @@ void CUserLog::DeleteSymbols(int numToDelete, eUserLogEventType event)
     {
         m_cycleNumDeletes += numToDelete;
 
-        for (int i = 0; i < numToDelete; i++)
+        // Be careful not to pop more things than we have (this will hork the
+        // memory up on linux but not windows).
+        int actualNumToDelete = min((int) m_vectorCycleHistory.size(), numToDelete);
+        for (int i = 0; i < actualNumToDelete; i++)
             m_vectorCycleHistory.pop_back();
     }   
 
@@ -284,6 +304,8 @@ void CUserLog::DeleteSymbols(int numToDelete, eUserLogEventType event)
 
 void CUserLog::NewTrial()
 {
+    //CFunctionLogger f1("CUserLog::NewTrial", gLogger);
+
     if (m_bIsWriting)
     {
         // We should have called StopWriting(), but we'll do it here implicitly
@@ -335,6 +357,8 @@ void CUserLog::AddParam(const string& strName, int value, int optionMask)
 // log file when the parameter is set.
 void CUserLog::AddParam(const string& strName, const string& strValue, int optionMask)
 {
+    //CFunctionLogger f1("CUserLog::AddParam", gLogger);
+
     bool bOutputToSimple    = false;
     bool bTrackMultiple     = false;
     bool bTrackInTrial      = false;
@@ -417,6 +441,8 @@ void CUserLog::AddParam(const string& strName, const string& strValue, int optio
 // Adds a new point in our tracking of mouse locations
 void CUserLog::AddMouseLocation(int x, int y, float nats)
 {
+    //CFunctionLogger f1("CUserLog::AddMouseLocation", gLogger);
+
     // Check to see if it is time to actually push a mouse location update
     if (UpdateMouseLocation())
     {
@@ -444,6 +470,8 @@ void CUserLog::AddMouseLocation(int x, int y, float nats)
 // Adds the size of the current window
 void CUserLog::AddWindowSize(int top, int left, int bottom, int right)
 {
+    //CFunctionLogger f1("CUserLog::AddWindowSize", gLogger);
+
     m_windowCoordinates.top     = top;
     m_windowCoordinates.left    = left;
     m_windowCoordinates.bottom  = bottom;
@@ -468,6 +496,8 @@ void CUserLog::AddWindowSize(int top, int left, int bottom, int right)
 // size.
 void CUserLog::AddCanvasSize(int top, int left, int bottom, int right)
 {
+    //CFunctionLogger f1("CUserLog::AddCanvasSize", gLogger);
+
     // Only log to simple log object if the coordinates are different from 
     // what we had prior to now.
     if ((m_bSimple) && 
@@ -502,6 +532,8 @@ void CUserLog::AddCanvasSize(int top, int left, int bottom, int right)
 // The caller must send us both the x, y coordinates and the current window size.
 void CUserLog::AddMouseLocationNormalized(int x, int y, bool bStoreIntegerRep, float nats)
 {
+    //CFunctionLogger f1("CUserLog::AddMouseLocationNormalized", gLogger);
+
     // Check to see if it is time to actually push a mouse location update
     if (UpdateMouseLocation())
     {
@@ -545,6 +577,8 @@ void CUserLog::AddMouseLocationNormalized(int x, int y, bool bStoreIntegerRep, f
 // created by setting m_bInitIsDone to true in the constructor). 
 void CUserLog::InitIsDone()
 {
+    //CFunctionLogger f1("CUserLog::InitIsDone", gLogger);
+
     m_bInitIsDone = true;
 }
 
@@ -553,6 +587,8 @@ void CUserLog::InitIsDone()
 // that we put in the log file.
 void CUserLog::SetAlphabetPtr(Dasher::CAlphabet* pAlphabet)
 {
+    //CFunctionLogger f1("CUserLog::SetAlphabetPtr", gLogger);
+
     m_pAlphabet = pAlphabet;
 }
 
@@ -560,6 +596,8 @@ void CUserLog::SetAlphabetPtr(Dasher::CAlphabet* pAlphabet)
 // Or if a parameter is passed in, use that as the output name.
 void CUserLog::SetOuputFilename(const string& strFilename)
 {
+    //CFunctionLogger f1("CUserLog::SetOuputFilename", gLogger);
+
     if (strFilename.length() > 0)
     {
         m_strFilename = strFilename;
@@ -598,6 +636,8 @@ void CUserLog::SetOuputFilename(const string& strFilename)
 // Find out what level mask this object was created with
 int CUserLog::GetLogLevelMask()
 {
+    //CFunctionLogger f1("CUserLog::GetLogLevelMask", gLogger);
+
     return m_levelMask;
 }
 
@@ -606,6 +646,8 @@ int CUserLog::GetLogLevelMask()
 // Just inits all our member variables, called by the constructors
 void CUserLog::InitMemberVars()
 {
+    //CFunctionLogger f1("CUserLog::InitMemberVars", gLogger);
+
     m_strFilename           = "";
     m_pApplicationSpan      = NULL;
     m_lastMouseUpdate       = 0.0;
@@ -644,6 +686,8 @@ void CUserLog::InitMemberVars()
 // Write this objects XML out  
 bool CUserLog::WriteXML()
 {
+    //CFunctionLogger f1("CUserLog::WriteXML", gLogger);
+
     try
     {
         fstream fout(m_strFilename.c_str(), ios::trunc | ios::out);
@@ -662,6 +706,8 @@ bool CUserLog::WriteXML()
 // Serializes our data to XML
 string CUserLog::GetXML()
 {
+    //CFunctionLogger f1("CUserLog::GetXML", gLogger);
+
     string strResult = "";
     strResult.reserve(USER_LOG_DEFAULT_SIZE_TRIAL_XML * (m_vectorTrials.size() + 1));
 
@@ -696,6 +742,8 @@ string CUserLog::GetXML()
 // Returns pointer to the current user trial, NULL if we don't have one yet
 CUserLogTrial* CUserLog::GetCurrentTrial()
 {
+    //CFunctionLogger f1("CUserLog::GetCurrentTrial", gLogger);
+
     if (m_vectorTrials.size() <= 0)
         return NULL;
     return m_vectorTrials[m_vectorTrials.size() - 1];
@@ -704,6 +752,8 @@ CUserLogTrial* CUserLog::GetCurrentTrial()
 // Creates a new trial, adds to our vector and returns the pointer
 CUserLogTrial* CUserLog::AddTrial()
 {
+    //CFunctionLogger f1("CUserLog::AddTrial", gLogger);
+
     // Let the last trial object know we are done with it
     if (m_vectorTrials.size() > 0)
     {
@@ -728,6 +778,8 @@ CUserLogTrial* CUserLog::AddTrial()
 // See if the specified number of milliseconds has elapsed since the last mouse location update
 bool CUserLog::UpdateMouseLocation()
 {
+    //CFunctionLogger f1("CUserLog::UpdateMouseLocation", gLogger);
+
     struct timeb timebuffer;
     ftime( &timebuffer );
 
@@ -744,6 +796,8 @@ bool CUserLog::UpdateMouseLocation()
 // Calculate how many bits entered in the last Start/Stop cycle
 double CUserLog::GetCycleBits()
 {
+    //CFunctionLogger f1("CUserLog::GetCycleBits", gLogger);
+
     return m_cycleNats / log(2.0);
 }
 
@@ -751,6 +805,8 @@ double CUserLog::GetCycleBits()
 // stats for what happened between start and stop
 string CUserLog::GetStartStopCycleStats()
 {
+    //CFunctionLogger f1("CUserLog::GetStartStopCycleStats", gLogger);
+
     string strResult = "";
 
     double normX = 0.0;
@@ -790,6 +846,8 @@ string CUserLog::GetStartStopCycleStats()
 // position tracking member variables.
 void CUserLog::ComputeSimpleMousePos(int x, int y)
 {
+    //CFunctionLogger f1("CUserLog::ComputeSimpleMousePos", gLogger);
+
     if ((m_bSimple) && (m_bIsWriting))
     {
         // We keep a running sum of normalized X, Y coordinates
@@ -808,6 +866,8 @@ void CUserLog::ComputeSimpleMousePos(int x, int y)
 // Resets member variables that track a cycle for simple logging
 void CUserLog::ResetCycle()
 {
+    //CFunctionLogger f1("CUserLog::ResetCycle", gLogger);
+
     m_vectorCycleHistory.clear();
     m_cycleNumDeletes       = 0;
     m_cycleMouseCount       = 0;
@@ -826,6 +886,8 @@ void CUserLog::ResetCycle()
 // Gets the XML that goes in the <Params> tag, but not the tags themselves.
 string CUserLog::GetParamsXML()
 {
+    //CFunctionLogger f1("CUserLog::GetParamsXML", gLogger);
+
     string strResult = "";
 
     // Make parameters with the same name appear near each other in the results
@@ -847,6 +909,8 @@ string CUserLog::GetParamsXML()
 // these and push into the current Trial object.
 void CUserLog::PrepareNewTrial()
 {
+    //CFunctionLogger f1("CUserLog::PrepareNewTrial", gLogger);
+
     CUserLogTrial* trial = GetCurrentTrial();
 
     if (trial != NULL)
@@ -895,6 +959,8 @@ void CUserLog::PrepareNewTrial()
 // values.
 string CUserLog::GetCycleParamStats()
 {
+    //CFunctionLogger f1("CUserLog::GetCycleParamStats", gLogger);
+
     string strResult = "";
     VECTOR_STRING vectorFound;
 
@@ -931,6 +997,8 @@ string CUserLog::GetCycleParamStats()
 // Return a string with the operating system and product version
 string CUserLog::GetVersionInfo()
 {
+    //CFunctionLogger f1("CUserLog::GetVersionInfo", gLogger);
+
     string strResult = "";
 #ifdef _WIN32
     strResult += "win ";
@@ -954,6 +1022,8 @@ string CUserLog::GetVersionInfo()
 // Load the object from an XML file
 CUserLog::CUserLog(string strXMLFilename) 
 {
+    //CFunctionLogger f1("CUserLog::CUserLog(XML)", gLogger);
+
     InitMemberVars();
 
     // We are representing detailed logging when we create from XML
@@ -987,6 +1057,8 @@ CUserLog::CUserLog(string strXMLFilename)
 // navigation cycle.
 VECTOR_VECTOR_STRING CUserLog::GetTabMouseXY(bool bReturnNormalized)
 {
+    //CFunctionLogger f1("CUserLog::GetTabMouseXY", gLogger);
+
     VECTOR_VECTOR_STRING vectorResult;
 
     for (VECTOR_USER_LOG_TRIAL_PTR_ITER iter = m_vectorTrials.begin();
@@ -1006,6 +1078,8 @@ VECTOR_VECTOR_STRING CUserLog::GetTabMouseXY(bool bReturnNormalized)
 // Returns a vector that contains a vector of density grids.
 VECTOR_VECTOR_DENSITY_GRIDS CUserLog::GetMouseDensity(int gridSize)
 {
+    //CFunctionLogger f1("CUserLog::GetMouseDensity", gLogger);
+
     VECTOR_VECTOR_DENSITY_GRIDS vectorResult;
     for (VECTOR_USER_LOG_TRIAL_PTR_ITER iter = m_vectorTrials.begin();
          iter < m_vectorTrials.end();

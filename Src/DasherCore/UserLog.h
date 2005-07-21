@@ -155,7 +155,7 @@ protected:
     void                        ComputeSimpleMousePos(int x, int y);
     void                        ResetCycle();
     void                        InitUsingMask(int logLevelMask);
-    
+
 };
 
 #endif
