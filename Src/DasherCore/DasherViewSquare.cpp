@@ -970,6 +970,16 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   if(iAnchorX2 > mostleft)
     iAnchorX2 = mostleft;
 
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
+  iAnchorY1 = std::min( iDasherMaxY, std::max( iDasherMinY, iAnchorY1 ) );
+  iAnchorY2 = std::min( iDasherMaxY, std::max( iDasherMinY, iAnchorY2 ) );
+
   screenint iScreenAnchorX1;
   screenint iScreenAnchorY1;
   screenint iScreenAnchorX2;
@@ -984,8 +994,8 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   // prevents us from loosing characters off the top and bottom of the
   // screen
 
-  TruncateToScreen(iScreenAnchorX1, iScreenAnchorY1);
-  TruncateToScreen(iScreenAnchorX2, iScreenAnchorY2);
+  // TruncateToScreen(iScreenAnchorX1, iScreenAnchorY1);
+  // TruncateToScreen(iScreenAnchorX2, iScreenAnchorY2);
 
   // Actual anchor point is the midpoint of the anchor line
 
@@ -1064,6 +1074,9 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
 /// Truncate a set of co-ordinates so that they are on the screen
 
 void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
+
+  // I think that this function is now obsolete
+
   if(iX < 0)
     iX = 0;
   if(iX > Screen().GetWidth())

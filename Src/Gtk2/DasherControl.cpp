@@ -193,6 +193,18 @@ void CDasherControl::CanvasConfigureEvent() {
   Redraw();
 }
 
+void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
+  // Pass events outside
+  if(pEvent->m_iEventType == 1) {
+    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+    HandleParameterNotification(pEvt->m_iParameter);
+  }
+  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 5)) {
+    HandleEvent(pEvent);
+  }
+
+}
+
 void CDasherControl::HandleParameterNotification(int iParameter) {
 
   if(iParameter == SP_DASHER_FONT) {

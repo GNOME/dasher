@@ -130,17 +130,18 @@ public:
     TrainFile(filename);
   };
 
-  // CDasherSettingsInterface methods
+  ///
+  /// Pass events coming from the core to the appropriate handler.
+  ///
+
+  virtual void ExternalEventHandler(Dasher::CEvent *pEvent);
 
   ///
   /// Notification from CDasherInterface that a parameter has changed
   /// \param iParameter The parameter which has changed
-  /// \todo Currently this is not connected to anything. We need to create a new GTK event and trigger a signal from here.
   ///
 
   virtual void HandleParameterNotification(int iParameter);
-
-  // CDashEditbox methods
 
   ///
   /// Notification of events other than parameters having changed.

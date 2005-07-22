@@ -110,7 +110,7 @@ public:
   /// \param pEvent The event to forward.
   /// \todo Should be protected.
 
-  void ExternalEventHandler(Dasher::CEvent * pEvent);
+  virtual void ExternalEventHandler(Dasher::CEvent * pEvent);
 
   /// Interface level event handler. For example, responsible for
   /// restarting the Dasher model whenever parameter changes make it
