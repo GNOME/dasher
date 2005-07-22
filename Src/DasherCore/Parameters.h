@@ -18,7 +18,7 @@ enum {
 };
 
 enum { 
-  LP_ORIENTATION = END_OF_BPS, LP_MAX_BITRATE, LP_FILE_ENCODING,
+  LP_ORIENTATION = END_OF_BPS, LP_REAL_ORIENTATION, LP_MAX_BITRATE, LP_FILE_ENCODING,
   LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_EDIT_FONT_SIZE, LP_EDIT_HEIGHT,
   LP_SCREEN_WIDTH, LP_SCREEN_HEIGHT, LP_DASHER_FONTSIZE,
   LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_TRUNCATION,
@@ -109,6 +109,7 @@ static bp_table boolparamtable[] = {
 
 static lp_table longparamtable[] = {
   {LP_ORIENTATION, "ScreenOrientation", PERS, 0, "Screen Orientation"},
+  {LP_REAL_ORIENTATION, "RealOrientation", !PERS, 0, "Actual screen orientation (allowing for alphabet default)"},
   {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 150, "Max Bit Rate Times 100"},
   {LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},

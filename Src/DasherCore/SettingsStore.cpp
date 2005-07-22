@@ -68,8 +68,6 @@ void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
   // Check that the parameter is in fact in the right spot in the table
   DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter - FIRST_LP].key);
 
-  std::cout << "Setting long parameter: " << s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName << " " << lValue << std::endl;
-
   // Set the value
   s_oParamTables.LongParamTable[iParameter - FIRST_LP].value = lValue;
 

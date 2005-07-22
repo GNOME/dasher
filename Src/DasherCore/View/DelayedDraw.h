@@ -90,8 +90,6 @@ inline void CDelayedDraw::DelayDrawText(symbol Character, screenint x1, screenin
 
     int iSize = m_DrawTextString.size();
 
-    std::cout << "Delay draw: " << iSize << " objects" << std::endl;
-
     for(int i = 0; i < iSize; i++) {
       CTextString & draw = m_DrawTextString[i];
       screen.DrawString(draw.m_String, draw.m_x, draw.m_y, draw.m_iSize);

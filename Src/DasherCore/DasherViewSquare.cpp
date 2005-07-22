@@ -14,8 +14,6 @@
 
 #include <iostream>
 
-#include <sys/time.h>
-
 using namespace Dasher;
 
 // FIXME - quite a lot of the code here probably should be moved to
@@ -25,26 +23,6 @@ using namespace Dasher;
 // we can always override if necessary.
 
 void CDasherViewSquare::RenderNodes() {
-
-  // Timimg code
-
-  long iStartTime;
-
-  long s_now;
-  long ms_now;
-
-  struct timeval tv;
-  struct timezone tz;
-
-  gettimeofday(&tv, &tz);
-
-  s_now = tv.tv_sec;
-  ms_now = tv.tv_usec / 1000;
-
-  iStartTime = s_now * 1000 + ms_now;
-  
-  // ---
-
   
   Screen().Blank();
 
@@ -63,39 +41,11 @@ void CDasherViewSquare::RenderNodes() {
 
   RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), iDasherMaxX);
 
-  // Timing code
-
-  gettimeofday(&tv, &tz);
-
-  s_now = tv.tv_sec;
-  ms_now = tv.tv_usec / 1000;
-
-  long iTotalTime;
-
-  iTotalTime = s_now * 1000 + ms_now - iStartTime;
-
-  // ---
-
-  std::cout << "Time for redraw so far: " << iTotalTime << std::endl;
 
   // DelayDraw the text nodes
   m_DelayDraw.Draw(Screen());
 
   Crosshair(DasherModel().DasherOX());  // add crosshair
-
-
-  // Timing code
-
-  gettimeofday(&tv, &tz);
-
-  s_now = tv.tv_sec;
-  ms_now = tv.tv_usec / 1000;
-
-   iTotalTime = s_now * 1000 + ms_now - iStartTime;
-
-  // ---
-
-  std::cout << "Time for redraw: " << iTotalTime << std::endl;
 
 }
 
@@ -528,7 +478,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     return;
   }
 
-  int eOrientation(GetLongParameter(LP_ORIENTATION));
+  int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
 
   double dScaleFactor(GetScaleFactor( eOrientation ));
 
@@ -619,7 +569,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
 
-  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
 
   double dScaleFactor( GetScaleFactor( eOrientation ) );
 
@@ -645,7 +595,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
-  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
   
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
@@ -676,7 +626,7 @@ myint CDasherViewSquare::DasherVisibleMinY() {
   myint iDasherX;
   myint iDasherY;
 
-  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
@@ -704,7 +654,7 @@ myint CDasherViewSquare::DasherVisibleMaxY() {
   myint iDasherX;
   myint iDasherY;
 
-  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
@@ -732,7 +682,7 @@ myint CDasherViewSquare::DasherVisibleMaxX() {
   myint iDasherX;
   myint iDasherY;
 
-  int eOrientation( GetLongParameter(LP_ORIENTATION) );
+  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
@@ -1055,7 +1005,7 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   screenint newright2;
   screenint newbottom2;
 
-  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_ORIENTATION))) {
+  switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION))) {
   case (Dasher::Opts::LeftToRight):
     newleft2 = iScreenAnchorX;
     newtop2 = iScreenAnchorY - TextHeight / 2;
@@ -1123,8 +1073,6 @@ void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
 // work out the next viewpoint
 // move the rectangles accordingly
 void CDasherViewSquare::TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time) {
-
-  std::cout << "Tap on event" << std::endl;
 
   // NOTE - we now ignore the values which are actually passed to the display
 

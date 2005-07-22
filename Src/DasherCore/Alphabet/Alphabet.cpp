@@ -11,6 +11,8 @@
 #include "Alphabet.h"
 #include "AlphabetMap.h"
 
+#include <iostream>
+
 using namespace Dasher;
 using namespace std;
 
@@ -34,6 +36,7 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   m_Foreground.push_back("");
 
   // Set miscellaneous options
+
   SetOrientation(AlphInfo.Orientation);
   SetLanguage(AlphInfo.Type);
   SetTrainingFile(AlphInfo.TrainingFile);

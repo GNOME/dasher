@@ -28,6 +28,11 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 void CDasherInterfaceBase::Realize() {
   ChangeColours(GetStringParameter(SP_COLOUR_ID));
   ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
+
+  if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+    SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+  else
+    SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
@@ -69,6 +74,10 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       RequestFullRedraw();
       break;
     case LP_ORIENTATION:
+      if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+      else
+	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
       Start();
       RequestFullRedraw();
       break;
@@ -82,7 +91,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       // not be a bad thing to do elsewhere too, as it will prevent
       // multiple redraws.
 
-      ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
+      ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID)); 
+      if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
       Start();
       RequestFullRedraw();
       break;
@@ -114,8 +125,6 @@ void CDasherInterfaceBase::AddColourFilename(std::string Filename) {
 
 void CDasherInterfaceBase::CreateDasherModel() {
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
-
-  std::cout << "Creating model - LM id is " << lmID << std::endl;
 
   //  if(m_DashEditbox != 0 && lmID != -1) { We don't need an edit box any more
   if( lmID != -1 ) {
@@ -297,8 +306,6 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   // alphabet files changes at runtime?
 
   SetBoolParameter( BP_TRAINING, true );
-
-  std::cout << "In ChangeAlphabet" << std::endl;
 
   if(!m_AlphIO)
     m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);

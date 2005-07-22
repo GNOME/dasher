@@ -91,7 +91,7 @@ void CCanvas::Display() {
   // Copy the offscreen buffer into the onscreen buffer
 
   gdk_draw_drawable(m_pOnscreenBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pOffscreenBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
-
+  
   // Blank the offscreen buffer (?)
 
   gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, m_iWidth, m_iHeight);

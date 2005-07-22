@@ -44,7 +44,7 @@ void setup_speech() {
   voices = GNOME_Speech_SynthesisDriver_getAllVoices(rv, &ev);
 
   if(voices == NULL || BONOBO_EX(&ev) || voices->_length == 0) {
-    printf(_("Unable to initialize voices"));
+    printf(_("Unable to initialize voices\n"));
     speaker = NULL;
     return;
   }
@@ -83,7 +83,7 @@ void SPEAK_DAMN_YOU(std::string *speech) {
   }
 }
 
-#else
+#else 
 void setup_speech() {
 };
 void teardown_speech() {

@@ -132,8 +132,6 @@ void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint 
 
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
 
-  std::cout << "*" << (void *)szText << "*" << szText << "*" << std::endl;
-
   std::string label(szText);
 
 #ifdef GNOME_SPEECH

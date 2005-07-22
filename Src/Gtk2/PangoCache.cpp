@@ -1,7 +1,5 @@
 #include "PangoCache.h"
 
-#include <iostream>
-
 // FIXME - take font name at creation time
 
 CPangoCache::CPangoCache() {
@@ -39,9 +37,6 @@ PangoLayout *CPangoCache::GetLayout(GtkWidget *pCanvas, std::string sDisplayText
   if(it != oPangoCache.end())
     return it->second;
   else {
-
-    std::cout << "Generating new pango layout: " << sCacheName << std::endl;
-
     PangoLayout *pNewPangoLayout(gtk_widget_create_pango_layout(pCanvas, ""));
 
     pango_font_description_set_size(font, iSize * PANGO_SCALE);
