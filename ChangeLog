@@ -1,4 +1,4 @@
-﻿2005-06-12  David Ward <d.j.ward.94@gmail.com>
+2005-06-12  David Ward <d.j.ward.94@gmail.com>
 
 	* remove non-standard C++ 
 		- gcc extension allows dynamic arrays, suggest this is switched off
