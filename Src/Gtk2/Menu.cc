@@ -1,9 +1,7 @@
 #include "Menu.h"
-#include "DasherControl.h"
 #include "dasher.h"
 #include "edit.h"
 #include "DasherTypes.h"
-#include "Parameters.h"
 #include "fileops.h"
 
 #include "GtkDasherControl.h"
@@ -32,14 +30,9 @@ extern "C" void select_save_file_as(GtkWidget * widget, gpointer user_data);
 extern "C" void select_new_file(GtkWidget *widget, gpointer user_data) {
   //FIXME - confirm this. We should check whether the user wants to lose their work.
 
-  // FIXME - REIMPLEMENT 
-
-//   choose_filename();
-
-//   clear_edit();
-//   dasher_start();
-//   dasher_redraw();
-//   dasher_pause(0,0);
+  choose_filename();
+  clear_edit();
+  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pDasherWidget), "");
 }
 
 #endif

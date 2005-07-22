@@ -140,3 +140,7 @@ GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl *pControl, int iP
 void gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilename) {
   return (((GtkDasherControlPrivate *) (pControl->private_data))->pControl->Train(szFilename));
 };
+
+void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetContext(szContext);
+}

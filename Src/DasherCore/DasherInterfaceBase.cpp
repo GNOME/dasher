@@ -177,6 +177,9 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
     SetLongParameter(LP_MOUSE_POS_BOX, 1);
   }
 
+  // Request a full redraw at the next time step.
+  SetBoolParameter(BP_REDRAW, true);
+
   Dasher::CStopEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
 }

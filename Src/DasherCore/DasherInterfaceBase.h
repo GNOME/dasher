@@ -520,6 +520,8 @@ public:
   void SetContext(std::string strNewContext) {
     if(m_pDasherModel != NULL)
       m_pDasherModel->SetContext(strNewContext);
+
+    PauseAt(0,0);
   }
 
   /// Get the total number of nats (base-e bits) entered.

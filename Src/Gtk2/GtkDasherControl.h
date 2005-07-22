@@ -1,6 +1,8 @@
 #ifndef __gtkdashercontrol_h__
 #define __gtkdashercontrol_h__
 
+#include "Parameters.h"
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 
@@ -46,6 +48,8 @@ const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl,
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
+
+void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext);
 
 G_END_DECLS
 #endif
