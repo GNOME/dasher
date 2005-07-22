@@ -117,7 +117,8 @@ void CDasherInterfaceBase::CreateDasherModel() {
 
   std::cout << "Creating model - LM id is " << lmID << std::endl;
 
-  if(m_DashEditbox != 0 && lmID != -1) {
+  //  if(m_DashEditbox != 0 && lmID != -1) { We don't need an edit box any more
+  if( lmID != -1 ) {
 
     // Delete the old model and create a new one
 
@@ -401,14 +402,15 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
 }
 
 void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
-
-  //  std::cout << "In ChangeView" << std::endl;
-
   //TODO Use DasherViewID
+
+  // FIXME - this shouldn't be here
   SetLongParameter(LP_VIEW_ID, NewViewID);
+
   if(m_DasherScreen != 0 && m_pDasherModel != 0) {
     delete m_pDasherView;
     m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, *m_pDasherModel);
+
     m_pDasherView->SetInput(m_pInput);
   }
 }

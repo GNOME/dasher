@@ -51,7 +51,6 @@ int oldy;
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
 
   m_pDasherControl = pDasherControl;
-  m_pInterface = new CDasherInterface;
 
   // Set up the GTK widgets
 
@@ -103,29 +102,29 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   // PROGDATA is provided by the makefile
   system_data_dir = PROGDATA "/";
 
-  m_pInterface->SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
-  m_pInterface->SetStringParameter(SP_USER_LOC, user_data_dir);
+  SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
+  SetStringParameter(SP_USER_LOC, user_data_dir);
 
   // Add all available alphabets and colour schemes to the core
 
   scan_alphabet_files();
   scan_colour_files();
 
-  m_pInterface->Realize();
+  Realize();
 
   // Start the dasher model
 
-  m_pInterface->Start();        // FIXME - should we hold off on this until later?
+  Start();        // FIXME - should we hold off on this until later?
 
   // Tell the core that we handle edit events etc.
 
-  m_pInterface->ChangeEdit(this);
-  m_pInterface->SetSettingsUI(this);
+//   m_pInterface->ChangeEdit(this);
+//   m_pInterface->SetSettingsUI(this);
 
   // Create an input device object - FIXME - should make this more flexible
 
   m_pMouseInput = new CDasherMouseInput;
-  m_pInterface->SetInput(m_pMouseInput);
+  SetInput(m_pMouseInput);
 
   // Create a pango cache
 
@@ -138,13 +137,6 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 }
 
 CDasherControl::~CDasherControl() {
-
-  // Delete the interface
-
-  if(m_pInterface != NULL) {
-    delete m_pInterface;
-    m_pInterface = NULL;
-  }
 
   // Delete the input device
 
@@ -166,10 +158,10 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
 
   switch (iParameter) {
   case SP_ALPHABET_ID:
-    m_pInterface->GetAlphabets(&vList);
+    GetAlphabets(&vList);
     break;
   case SP_COLOUR_ID:
-    m_pInterface->GetColours(&vList);
+    GetColours(&vList);
     break;
   }
 
@@ -196,25 +188,25 @@ void CDasherControl::CanvasConfigureEvent() {
     delete m_pScreen;
 
   m_pScreen = new CCanvas(m_pCanvas, m_pPangoCache);
-  m_pInterface->ChangeScreen(m_pScreen);
+  ChangeScreen(m_pScreen);
 
-  m_pInterface->Redraw();
+  Redraw();
 }
 
 void CDasherControl::HandleParameterNotification(int iParameter) {
 
   if(iParameter == SP_DASHER_FONT) {
-    m_pPangoCache->ChangeFont(m_pInterface->GetStringParameter(SP_DASHER_FONT));
-    m_pInterface->Redraw();
+    m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
+    Redraw();
   }
   else if(iParameter == LP_MAX_BITRATE) {
-    gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), m_pInterface->GetLongParameter(LP_MAX_BITRATE) / 100.0);
+    gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), GetLongParameter(LP_MAX_BITRATE) / 100.0);
   }
   else if(iParameter == BP_SHOW_SLIDER) {
     if(m_pSpeedFrame != NULL) {
-      if(m_pInterface->GetBoolParameter(BP_SHOW_SLIDER)) {
+      if(GetBoolParameter(BP_SHOW_SLIDER)) {
         gtk_widget_show(GTK_WIDGET(m_pSpeedFrame));
-        gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), m_pInterface->GetLongParameter(LP_MAX_BITRATE) / 100.0);
+        gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), GetLongParameter(LP_MAX_BITRATE) / 100.0);
       }
       else {
         gtk_widget_hide(GTK_WIDGET(m_pSpeedFrame));
@@ -255,7 +247,7 @@ int CDasherControl::TimerEvent() {
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
   m_pMouseInput->SetCoordinates(x, y);
 
-  m_pInterface->NewFrame(get_time());
+  NewFrame(get_time());
 
   return 1;
 
@@ -288,11 +280,11 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
  
   // FIXME - This should be moved into a toggle pause routime in CDasherInterface
   
-  if(m_pInterface->GetBoolParameter(BP_START_MOUSE)) {
-    if(m_pInterface->GetBoolParameter(BP_DASHER_PAUSED))
-      m_pInterface->Unpause(get_time());
+  if(GetBoolParameter(BP_START_MOUSE)) {
+    if(GetBoolParameter(BP_DASHER_PAUSED))
+      Unpause(get_time());
     else
-      m_pInterface->PauseAt(0, 0);
+      PauseAt(0, 0);
   }
 
   return false;
@@ -304,18 +296,18 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
   case GDK_space:
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
 
-    if(m_pInterface->GetBoolParameter(BP_START_SPACE)) {
-      if(m_pInterface->GetBoolParameter(BP_DASHER_PAUSED))
-        m_pInterface->Unpause(get_time());
+    if(GetBoolParameter(BP_START_SPACE)) {
+      if(GetBoolParameter(BP_DASHER_PAUSED))
+        Unpause(get_time());
       else
-        m_pInterface->PauseAt(0, 0);
+        PauseAt(0, 0);
     }
     break;
   }
 }
 
 void CDasherControl::SliderEvent() {
-  m_pInterface->SetLongParameter(LP_MAX_BITRATE, GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100);
+  SetLongParameter(LP_MAX_BITRATE, GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100);
 }
 
 void CDasherControl::CanvasDestroyEvent() {
@@ -339,7 +331,7 @@ void CDasherControl::scan_alphabet_files() {
 
   while((filename = g_dir_read_name(directory))) {
     if(alphabet_filter(filename, alphabetglob)) {
-      m_pInterface->AddAlphabetFilename(filename);
+      AddAlphabetFilename(filename);
     }
   }
 
@@ -347,7 +339,7 @@ void CDasherControl::scan_alphabet_files() {
 
   while((filename = g_dir_read_name(directory))) {
     if(alphabet_filter(filename, alphabetglob)) {
-      m_pInterface->AddAlphabetFilename(filename);
+      AddAlphabetFilename(filename);
     }
   }
 
@@ -365,7 +357,7 @@ void CDasherControl::scan_colour_files() {
 
   while((filename = g_dir_read_name(directory))) {
     if(colour_filter(filename, colourglob)) {
-      m_pInterface->AddColourFilename(filename);
+      AddColourFilename(filename);
     }
   }
 
@@ -373,7 +365,7 @@ void CDasherControl::scan_colour_files() {
 
   while((filename = g_dir_read_name(directory))) {
     if(colour_filter(filename, colourglob)) {
-      m_pInterface->AddColourFilename(filename);
+      AddColourFilename(filename);
     }
   }
 

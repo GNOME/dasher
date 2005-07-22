@@ -18,7 +18,7 @@
 /// \todo It would really be more sensible for CDasherControl to inheret from CDasherInterface rather than contain a pointer to it
 ///
 
-class CDasherControl:public CDasherSettingsInterface, public CDashEditbox {
+class CDasherControl : public CDasherInterface {
 
 public:
 
@@ -127,15 +127,7 @@ public:
   ///
 
   void Train(const gchar * filename) {
-    m_pInterface->TrainFile(filename);
-  };
-
-  ///
-  /// Returns a pointer the CDasherInterface object.
-  ///
-
-  CDasherInterface *GetInterface() {
-    return m_pInterface;
+    TrainFile(filename);
   };
 
   // CDasherSettingsInterface methods
@@ -251,12 +243,6 @@ public:
   };
 
 private:
-
-  ///
-  /// The CDasherInterface wrapped in the control
-  ///
-
-  CDasherInterface * m_pInterface;
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;
