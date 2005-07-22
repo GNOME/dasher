@@ -4,3 +4,6 @@ Makefile.in
 *.lo
 .deps
 .libs
+dasher-eu.omf.out
+omf_timestamp
+version.xml
