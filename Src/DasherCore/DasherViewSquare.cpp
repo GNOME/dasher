@@ -14,6 +14,8 @@
 
 #include <iostream>
 
+#include <sys/time.h>
+
 using namespace Dasher;
 
 // FIXME - quite a lot of the code here probably should be moved to
@@ -23,6 +25,27 @@ using namespace Dasher;
 // we can always override if necessary.
 
 void CDasherViewSquare::RenderNodes() {
+
+  // Timimg code
+
+  long iStartTime;
+
+  long s_now;
+  long ms_now;
+
+  struct timeval tv;
+  struct timezone tz;
+
+  gettimeofday(&tv, &tz);
+
+  s_now = tv.tv_sec;
+  ms_now = tv.tv_usec / 1000;
+
+  iStartTime = s_now * 1000 + ms_now;
+  
+  // ---
+
+  
   Screen().Blank();
 
   DASHER_ASSERT(DasherModel().Root() != 0);
@@ -40,10 +63,40 @@ void CDasherViewSquare::RenderNodes() {
 
   RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), iDasherMaxX);
 
+  // Timing code
+
+  gettimeofday(&tv, &tz);
+
+  s_now = tv.tv_sec;
+  ms_now = tv.tv_usec / 1000;
+
+  long iTotalTime;
+
+  iTotalTime = s_now * 1000 + ms_now - iStartTime;
+
+  // ---
+
+  std::cout << "Time for redraw so far: " << iTotalTime << std::endl;
+
   // DelayDraw the text nodes
   m_DelayDraw.Draw(Screen());
 
   Crosshair(DasherModel().DasherOX());  // add crosshair
+
+
+  // Timing code
+
+  gettimeofday(&tv, &tz);
+
+  s_now = tv.tv_sec;
+  ms_now = tv.tv_usec / 1000;
+
+   iTotalTime = s_now * 1000 + ms_now - iStartTime;
+
+  // ---
+
+  std::cout << "Time for redraw: " << iTotalTime << std::endl;
+
 }
 
 void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
@@ -456,7 +509,7 @@ void CDasherViewSquare::CheckForNewRoot() {
 /// just the inverse of the mapping used to calculate the screen
 /// positions of boxes etc.
 
-void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY) {
+void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, bool b1D, bool bNonlinearity) {
 
   // Things we're likely to need:
 
@@ -468,6 +521,12 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
+
+  if( b1D ) { // Special case for 1D mode...
+    iDasherX = iInputX * iDasherWidth / iScreenWidth;
+    iDasherY = iInputY * iDasherHeight / iScreenHeight;
+    return;
+  }
 
   int eOrientation(GetLongParameter(LP_ORIENTATION));
 
@@ -492,8 +551,10 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     break;
   }
 
+  if( bNonlinearity ) {
   iDasherX = ixmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY();
   iDasherY = m_ymap.unmap(iDasherY);
+  }
 
 }
 
@@ -588,20 +649,20 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
   
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherMinX,iDasherMinY);
-    Screen2Dasher(0,Screen().GetHeight(),iDasherMaxX,iDasherMaxY);
+    Screen2Dasher(Screen().GetWidth(),0,iDasherMinX,iDasherMinY,false,true);
+    Screen2Dasher(0,Screen().GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
-    Screen2Dasher(0,0,iDasherMinX,iDasherMinY);
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY);
+    Screen2Dasher(0,0,iDasherMinX,iDasherMinY,false,true);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherMinX,iDasherMinY);
-    Screen2Dasher(Screen().GetWidth(),0,iDasherMaxX,iDasherMaxY);
+    Screen2Dasher(0,Screen().GetHeight(),iDasherMinX,iDasherMinY,false,true);
+    Screen2Dasher(Screen().GetWidth(),0,iDasherMaxX,iDasherMaxY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
-    Screen2Dasher(0,0,iDasherMinX,iDasherMinY);
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY);
+    Screen2Dasher(0,0,iDasherMinX,iDasherMinY,false,true);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
     break;
   }
 }
@@ -619,16 +680,16 @@ myint CDasherViewSquare::DasherVisibleMinY() {
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
-    Screen2Dasher(0,0,iDasherX,iDasherY);
+    Screen2Dasher(0,0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
-    Screen2Dasher(0,0,iDasherX,iDasherY);
+    Screen2Dasher(0,0,iDasherX,iDasherY,false,true);
     break;
   }
 
@@ -647,16 +708,16 @@ myint CDasherViewSquare::DasherVisibleMaxY() {
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   }
 
@@ -675,16 +736,16 @@ myint CDasherViewSquare::DasherVisibleMaxX() {
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
     break;
   }
 
@@ -694,131 +755,96 @@ myint CDasherViewSquare::DasherVisibleMaxX() {
 /// Convert raw Dasher co-ordinates to the equivalent 1D mode position
 
 void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
+  
+    double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
+    
+    // The distance between the Y coordinate and the centreline in pixels
+    disty=DasherModel().DasherOY()-iDasherY;
+        
+    circlesize=    DasherModel().DasherY()/2.5;
+    yforwardrange= DasherModel().DasherY()/3.2; // Was 1.6
+    yfullrange=    yforwardrange*1.6;
+    ybackrange=    yfullrange-yforwardrange;
+    ellipse_eccentricity=6;
+ 
+    if (disty>yforwardrange) {
+      // If the distance between y-coord and centreline is > radius,
+      // we should be going backwards, off the top.
+      yb=(disty-yforwardrange)/ybackrange;
+      
+      if (yb>1) {
+	x=0;
+	iDasherY=double(DasherModel().DasherOY());
+      }
+      else { 
+	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 
-  double disty, circlesize, yfullrange, yforwardrange, angle, ellipse_eccentricity, ybackrange, yb, x;
-
-  // The distance between the Y coordinate and the centreline in pixels
-  disty = DasherModel().DasherOY() - iDasherY;
-
-  circlesize = DasherModel().DasherY() / 2.5;
-  yforwardrange = DasherModel().DasherY() / 1.6;
-  yfullrange = yforwardrange * 1.6;
-  ybackrange = yfullrange - yforwardrange;
-  ellipse_eccentricity = 6;
-
-  if(disty > yforwardrange) {
-    // If the distance between y-coord and centreline is > radius,
-    // we should be going backwards, off the top.
-    yb = (disty - yforwardrange) / ybackrange;
-
-    if(yb > 1) {
-      x = 0;
-      iDasherY = double (DasherModel().DasherOY());
+	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
+	iDasherY=-(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
+      }
     }
+    else if (disty <-(yforwardrange)) {
+      // Backwards, off the bottom.
+      yb=-(disty+yforwardrange)/ybackrange;
+      
+      if (yb>1) {
+	x=0;
+	iDasherY=double(DasherModel().DasherOY());
+      }   
+      else {
+	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
+	
+	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
+	iDasherY=(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
+      }   
+    }
+    
     else {
-      angle = (yb * 3.14159) * (yb + (1 - yb) * (ybackrange / yforwardrange / ellipse_eccentricity));
-
-      x = (-sin(angle) * circlesize / 2) * ellipse_eccentricity;
-      iDasherY = -(1 + cos(angle)) * circlesize / 2 + DasherModel().DasherOY();
+      angle=((disty*3.14159/2)/yforwardrange);
+      x=cos(angle)*circlesize;
+      iDasherY=-sin(angle)*circlesize+DasherModel().DasherOY();
     }
-  }
-  else if(disty < -(yforwardrange)) {
-    // Backwards, off the bottom.
-    yb = -(disty + yforwardrange) / ybackrange;
+    x=DasherModel().DasherOX()-x;
 
-    if(yb > 1) {
-      x = 0;
-      iDasherY = double (DasherModel().DasherOY());
-    }
-    else {
-      angle = (yb * 3.14159) * (yb + (1 - yb) * (ybackrange / yforwardrange / ellipse_eccentricity));
-
-      x = (-sin(angle) * circlesize / 2) * ellipse_eccentricity;
-      iDasherY = (1 + cos(angle)) * circlesize / 2 + DasherModel().DasherOY();
-    }
-  }
-
-  else {
-    angle = ((disty * 3.14159 / 2) / yforwardrange);
-    x = cos(angle) * circlesize;
-    iDasherY = -sin(angle) * circlesize + DasherModel().DasherOY();
-  }
-  x = DasherModel().DasherOX() - x;
-
-  iDasherX = x;
+    iDasherX = x;
 }
 
 /// Convert raw Dasher co-ordinates to eyetracker position
 
 void CDasherViewSquare::Dasher2Eyetracker(myint &iDasherX, myint &iDasherY) {
+  double disty=DasherModel().DasherOY()-iDasherY;
 
-//   double disty=DasherModel().DasherOY()-iDasherY;
+  myint x( iDasherX );
 
-//   myint x( iDasherX );
+  myint dasherOX=DasherModel().DasherOX(); 
 
-//   myint dasherOX=DasherModel().DasherOX(); 
+  //  if( iDasherX < dasherOX ) {
 
-//   if( iDasherX < dasherOX ) {
+      //cout << "dasherOX: " << dasherOX << endl; 
+      myint dasherOY=DasherModel().DasherOY(); 
+         
+      // X co-ordinate changes. 
+      double double_x = (x/dasherOX);  // Fraction of way over to crosshair
+      double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
+             
+      // FIXME - I have *no* idea how this is supposed to work - someone else fix it and comment the code please!
 
-//       //cout << "dasherOX: " << dasherOX << endl; 
-//       myint dasherOY=DasherModel().DasherOY(); 
+      double xmax_y = xmax(double_x, double_y); 
+                 
+      if(double_x < xmax_y) { 
+        double_x = xmax_y; 
+      } 
 
-//       // X co-ordinate changes. 
-//       double double_x = (x/dasherOX);  // Fraction of way over to crosshair
-//       double double_y = -((iDasherY-dasherOY)/(double)(dasherOY) ); // Fraction above the crosshair
+      x = dasherOX*double_x;                 
 
-//       // FIXME - I have *no* idea how this is supposed to work - someone else fix it and comment the code please!
+      // Finished x-coord changes.
 
-//       double xmax_y = xmax(double_x, double_y); 
+      double repulsionparameter=0.5;
+      iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
 
-//       if(double_x < xmax_y) { 
-//         double_x = xmax_y; 
-//       } 
 
-//       x = dasherOX*double_x;                 
-
-//       // Finished x-coord changes.
-
-//       double repulsionparameter=0.5;
-//       iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
-//       iDasherX = x;
-//   }
-
-  int iDasherOX(DasherModel().DasherOX());
-  int iDasherOY(DasherModel().DasherOY());
-
-  int iDasherMaxY(DasherModel().DasherY());
-
-  // Add some gain to the Y value
-
-  double dYGain(1.1);
-
-  iDasherY = (iDasherY - iDasherOY) * dYGain + iDasherOY;
-
-  // Truncate the Y range, as behaviour isn't well defined outside of these limits
-
-  if(iDasherY < 0)
-    iDasherY = 0;
-
-  if(iDasherY > iDasherMaxY)
-    iDasherY = iDasherMaxY;
-
-  if(iDasherX > iDasherOX)
-    return;                     // Don't do anything else if we're to the left of the crosshair
-
-  int iDasherMinX;              // Minimum X value to allow for the circle
-
-  if(iDasherY < iDasherOY) {
-    iDasherMinX = (1 - sqrt(1 - pow(((iDasherOY - iDasherY) / static_cast < double >(iDasherOY)), 2.0))) * iDasherOX;
-  }
-  else {
-    iDasherMinX = (1 - sqrt(1 - pow(((iDasherY - iDasherOY) / static_cast < double >(iDasherMaxY - iDasherOY)), 2.0))) * iDasherOX;
-  }
-
-  // If X is outside of the circle, bring it in.
-
-  if(iDasherX < iDasherMinX)
-    iDasherX = iDasherMinX;
+      if( iDasherX < x )
+      iDasherX = x;
 }
 
 /// Convert abstract 'input coordinates', which may or may not
@@ -849,7 +875,13 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
       iInputY += int (m_yAutoOffset);   // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
     }
 
-    Screen2Dasher(iInputX, iInputY, iDasherX, iDasherY);
+
+    if( iMode == 0 )
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
+    else if( iMode == 1 )
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, true, false );
+    else
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, false );
     break;
   case 1:
     // Raw dasher coordinates
@@ -870,10 +902,10 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     //    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
 
     // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
-    if(iDasherY > DasherModel().DasherY())
-      iDasherY = DasherModel().DasherY();
-    if(iDasherY < 0)
-      iDasherY = 0;
+//     if(iDasherY > DasherModel().DasherY())
+//       iDasherY = DasherModel().DasherY();
+//     if(iDasherY < 0)
+//       iDasherY = 0;
 
     break;
   case 1:                      // 1D mode
@@ -1059,8 +1091,8 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   myint iDasherNewRight;
   myint iDasherNewBottom;
 
-  Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop);
-  Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom);
+  Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop,false,true);
+  Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom,false,true);
 
   mostleft = std::min(iDasherNewRight, iDasherNewLeft);
 
@@ -1091,6 +1123,8 @@ void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
 // work out the next viewpoint
 // move the rectangles accordingly
 void CDasherViewSquare::TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time) {
+
+  std::cout << "Tap on event" << std::endl;
 
   // NOTE - we now ignore the values which are actually passed to the display
 

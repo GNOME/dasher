@@ -231,9 +231,8 @@ void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) co
   gdk_gc_set_foreground(graphics_context, &foreground);
 
   PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
-
   pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
-
+  
   gdk_draw_layout(m_pOffscreenBuffer, graphics_context, x1, y1 - m_pPangoInk->height / 2, pLayout);
 
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);

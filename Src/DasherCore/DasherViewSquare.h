@@ -169,7 +169,7 @@ private:
   /// Convert a screen co-ordinate to Dasher co-ordinates
   ///
 
-  void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY);
+  void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY,bool b1D, bool bNonlinearity);
 
   ///
   /// Convert Dasher co-ordinates to screen co-ordinates

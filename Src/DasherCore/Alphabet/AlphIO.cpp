@@ -377,15 +377,15 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
   if(strcmp(name, "orientation") == 0) {
     while(*atts != 0) {
-      if(strcmp(*atts, "type")) {
+      if(!strcmp(*atts, "type")) {
         atts++;
-        if(strcmp(*atts, "RL")) {
-          Me->InputInfo.Orientation = Opts::LeftToRight;
+        if(!strcmp(*atts, "RL")) {
+          Me->InputInfo.Orientation = Opts::RightToLeft;
         }
-        else if(strcmp(*atts, "TB")) {
+        else if(!strcmp(*atts, "TB")) {
           Me->InputInfo.Orientation = Opts::TopToBottom;
         }
-        else if(strcmp(*atts, "BT")) {
+        else if(!strcmp(*atts, "BT")) {
           Me->InputInfo.Orientation = Opts::BottomToTop;
         }
         else

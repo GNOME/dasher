@@ -12,6 +12,8 @@
 #include "../DasherScreen.h"
 #include "../DasherTypes.h"
 
+#include <iostream>
+
 /////////////////////////////////////////////////////////////////////////////
 
 // Class for delayed draw events
@@ -87,6 +89,8 @@ inline void CDelayedDraw::DelayDrawText(symbol Character, screenint x1, screenin
 	m_DrawTextSymbol.clear();*/
 
     int iSize = m_DrawTextString.size();
+
+    std::cout << "Delay draw: " << iSize << " objects" << std::endl;
 
     for(int i = 0; i < iSize; i++) {
       CTextString & draw = m_DrawTextString[i];
