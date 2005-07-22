@@ -2,8 +2,6 @@ ChangeLog
 INSTALL
 aclocal.m4
 autom4te.cache
-fribidi.pc
-fribidi.spec
 config.guess
 config.h
 config.h.in
