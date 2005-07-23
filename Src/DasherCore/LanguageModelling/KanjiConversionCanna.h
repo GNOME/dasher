@@ -22,7 +22,7 @@ namespace Dasher {
   class CKanjiConversionCanna:public CKanjiConversion {
   public:
     CKanjiConversionCanna();
-    ~CKanjiConversionCanna();
+    virtual ~ CKanjiConversionCanna();
 
     int ConvertKanji(std::string);
     int context_id;

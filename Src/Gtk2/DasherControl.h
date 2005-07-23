@@ -80,7 +80,10 @@ public:
   /// Key press event on the canvas or the speed slider. This is
   /// currently a single handler for the two objects, but it may be
   /// sensible to at least partially split it in the future.
-  /// \todo There's quite a bit of functionality which used to be here in 3.2 but which has now been removed. Some of this is obsolete button Dasher code, but some of it performs useful functions such as recalibration, so this needs to be re-implemented.
+  /// \todo There's quite a bit of functionality which used to be here in 3.2
+  /// but which has now been removed. Some of this is obsolete button Dasher
+  /// code, but some of it performs useful functions such as recalibration,
+  /// so this needs to be re-implemented.
   ///
 
   gint KeyPressEvent(GdkEventKey * event);

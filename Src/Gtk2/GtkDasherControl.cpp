@@ -28,8 +28,6 @@ static void gtk_dasher_control_destroy(GObject * pObject);
 
 static guint gtk_dasher_control_signals[SIGNAL_NUM] = { 0, 0, 0, 0 };
 
-static GtkVBoxClass *pParentClass = NULL;
-
 GType gtk_dasher_control_get_type() {
 
   static GType gtk_dasher_control_type = 0;

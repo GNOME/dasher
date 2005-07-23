@@ -22,7 +22,7 @@
 namespace Dasher {
   class CMixtureLanguageModel;
 
-  class Dasher::CMixtureLanguageModel:public CLanguageModel {
+  class CMixtureLanguageModel:public CLanguageModel {
   public:
 
     /////////////////////////////////////////////////////////////////////////////

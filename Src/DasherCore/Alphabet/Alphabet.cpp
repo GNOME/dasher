@@ -205,12 +205,12 @@ void CAlphabet::AddEndConversionSymbol(const string NewCharacter, const string D
 // diagnostic dump of character set
 
 void CAlphabet::Trace() const {
-  unsigned int i;
+  int i;
   DASHER_TRACEOUTPUT("GetNumberSymbols() %d\n", GetNumberSymbols());
   DASHER_TRACEOUTPUT("GetNumberTextSymbols() %d\n", GetNumberTextSymbols());
 
   int iGroup = 0;
-  for(i = 0; i < m_Characters.size(); i++) {
+  for(i = 0; i < (int) m_Characters.size(); i++) {
     if(iGroup < m_iGroups && i == m_GroupStart[iGroup]) {
       DASHER_TRACEOUTPUT("Group %d '%s'\n", iGroup, m_GroupLabel[iGroup].c_str());
     }

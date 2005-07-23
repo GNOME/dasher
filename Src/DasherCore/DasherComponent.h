@@ -18,7 +18,7 @@ class Dasher::CDasherComponent {
 
   };
 
-  ~CDasherComponent() {
+  virtual ~CDasherComponent() {
     m_pEventHandler->UnregisterListener(this);
   };
 

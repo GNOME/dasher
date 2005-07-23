@@ -20,7 +20,7 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////
 
 CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(5), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(5), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
 

@@ -1,6 +1,8 @@
-AC_INIT(LanguageModelling/pjc51_main.cpp)
-AM_INIT_AUTOMAKE(dasher_test, 0.0.1)
-
+AC_PREREQ(2.56)
+AC_INIT([dasher_test],[0.0.1],[dasher@mrao.cam.ac.uk])
+AC_REVISION([$Id: configure.in,v])
+AC_CONFIG_SRCDIR(LanguageModelling/pjc51_main.cpp)
+AM_INIT_AUTOMAKE([foreign])
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 AC_CHECK_LIB(gslcblas,main)

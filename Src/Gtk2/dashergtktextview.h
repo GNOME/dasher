@@ -24,8 +24,8 @@
  * GTK+ at ftp://ftp.gtk.org/pub/gtk/.
  */
 
-#ifndef __GTK_TEXT_VIEW_H__
-#define __GTK_TEXT_VIEW_H__
+#ifndef __DASHER_GTK_TEXT_VIEW_H__
+#define __DASHER_GTK_TEXT_VIEW_H__
 
 #include <gtk/gtkcontainer.h>
 #include <gtk/gtkimcontext.h>
@@ -271,4 +271,4 @@ GType dasher_gtk_text_view_get_type(void) G_GNUC_CONST;
      GtkTextAttributes *dasher_gtk_text_view_get_default_attributes(DasherGtkTextView *text_view);
 
 G_END_DECLS
-#endif /* __GTK_TEXT_VIEW_H__ */
+#endif /* __DASHER_GTK_TEXT_VIEW_H__ */

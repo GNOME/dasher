@@ -28,7 +28,7 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////
 
 CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &SymbolAlphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(5), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+:CLanguageModel(pEventHandler, pSettingsStore, SymbolAlphabet), m_iMaxOrder(5), NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->symbol = -1;
 
@@ -60,6 +60,8 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
   std::vector < bool > exclusions(iNumSymbols);
 
   int i;
+  unsigned int ui;
+
   for(i = 0; i < iNumSymbols; i++) {
     probs[i] = 0;
     exclusions[i] = false;
@@ -78,21 +80,21 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
   bool has_convert_symbol = 0;  // Flag to show if a conversion symbol appears in the history
   std::vector < symbol > hiragana;      // Hiragana sequence to be converted
   std::vector < std::vector < symbol > >candidate;      // Temp list for candidates
-  int kanji_pos = 0;
+  unsigned int kanji_pos = 0;
 
   // Initialize all probabilities to 0
-  for(i = 0; i < probs.size(); i++) {
-    probs[i] = 0;
+  for(ui = 0; ui < probs.size(); ui++) {
+    probs[ui] = 0;
   }
 
   // Look for a "Start Conversion" character in history
-  for(i = 0; i < ppmcontext->history.size(); i++) {
-    if(ppmcontext->history[i] == GetEndConversionSymbol()) {
+  for(ui = 0; ui < ppmcontext->history.size(); ui++) {
+    if(ppmcontext->history[ui] == GetEndConversionSymbol()) {
       // If "End Conversion" character was found, clear the history
       ppmcontext->history.clear();
       break;
     }
-    else if(ppmcontext->history[i] == GetStartConversionSymbol()) {
+    else if(ppmcontext->history[ui] == GetStartConversionSymbol()) {
       // We found the "Start Conversion" symbol!
 
       //TODO: Write a conversion code here
@@ -108,7 +110,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
 
       // convert symbols to string
       string str;
-      for(int j = 0; j < hiragana.size(); j++) {
+      for(unsigned int j(0); j < hiragana.size(); j++) {
         str += GetText(hiragana[j]);
       }
 
@@ -116,12 +118,12 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
       canna.ConvertKanji(str);
 
       // create candidate list
-      for(int j = 0; j < canna.phrase.size(); j++) {
+      for(unsigned int j(0); j < canna.phrase.size(); j++) {
         std::vector < std::string > tmp_cand_list;
         tmp_cand_list = cand_list;
         int nCandList = tmp_cand_list.size();
         cand_list.clear();
-        for(int k = 0; k < canna.phrase[j].candidate_list.size(); k++) {
+        for(unsigned int k(0); k < canna.phrase[j].candidate_list.size(); k++) {
           //CandidateString(canna.phrase[j].candidate_list[k]);
           //cout << "RAW:" << canna.phrase[j].candidate_list[k] << endl;
           if(k >= 30)
@@ -139,7 +141,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
       }
 
       // convert strings to symbols
-      for(int j = 0; j < cand_list.size(); j++) {
+      for(unsigned int j(0); j < cand_list.size(); j++) {
         //cout << "[" << j << "]" << cand_list[j] << endl;
         std::vector < symbol > new_cand;
         //SetCandidateString(cand_list[j]);
@@ -155,10 +157,10 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
     }
     else if(has_convert_symbol && candidate.size()) {
       // disable the candidate if the symbol does not match the present symbol
-      for(int j = 0; j < candidate.size(); j++) {
+      for(unsigned int j(0); j < candidate.size(); j++) {
         if(kanji_pos < candidate[j].size()) {
           if(ppmcontext->history[i] != candidate[j][kanji_pos]) {
-            for(int k = 0; k < candidate[j].size(); k++) {
+            for(unsigned int k(0); k < candidate[j].size(); k++) {
               candidate[j][k] = GetStartConversionSymbol();
             }
           }
@@ -169,38 +171,38 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
       //cout << "Kanji Pos:" << kanji_pos << endl;
     }
     else {
-      hiragana.push_back(ppmcontext->history[i]);
+      hiragana.push_back(ppmcontext->history[ui]);
     }
 
   }
 
   //== Kanji Candidates
   if(has_convert_symbol && candidate.size()) {
-    for(i = 0; i < probs.size(); i++)
-      exclusions[i] = 0;
+    for(ui = 0; ui < probs.size(); ui++)
+      exclusions[ui] = 0;
 
     // assign a large probability for the candidate
     int candidate_rank = 1;
-    for(i = 0; i < candidate.size(); i++) {
-      /*cout << "Cand" << i << ":";
-         for( int j=0;  j<candidate[i].size(); j++ ){
-         cout << GetText( candidate[i][j] );
+    for(ui = 0; ui < candidate.size(); ui++) {
+      /*cout << "Cand" << ui << ":";
+         for( int j=0;  j<candidate[ui].size(); j++ ){
+         cout << GetText( candidate[ui][j] );
          }
          cout << endl; */
 
-      if(kanji_pos < candidate[i].size()) {     // check if kanji_pos is valid in present candidate
-        //cout << candidate_rank << ":" << GetText(candidate[i][kanji_pos]) << "[" << kanji_pos << "]" << endl;
-        if(candidate[i][kanji_pos] != GetStartConversionSymbol() && !exclusions[candidate[i][kanji_pos]]) {     // check if present candidate is enabled
+      if(kanji_pos < candidate[ui].size()) {     // check if kanji_pos is valid in present candidate
+        //cout << candidate_rank << ":" << GetText(candidate[ui][kanji_pos]) << "[" << kanji_pos << "]" << endl;
+        if(candidate[ui][kanji_pos] != GetStartConversionSymbol() && !exclusions[candidate[ui][kanji_pos]]) {     // check if present candidate is enabled
           /*cout << "Selected:";
-             for( int hoge = 0; hoge<candidate[i].size(); hoge++ ){
-             cout << GetText(candidate[i][hoge]) << "(" << candidate[i][hoge] << ")";
+             for( int hoge = 0; hoge<candidate[ui].size(); hoge++ ){
+             cout << GetText(candidate[ui][hoge]) << "(" << candidate[ui][hoge] << ")";
              }
              cout << endl; */
 
           uint32 p = (uint32) ((double)iToSpend / ((candidate_rank + 15) * (candidate_rank + 16)));       // a large probability
-          probs[candidate[i][kanji_pos]] += p;
+          probs[candidate[ui][kanji_pos]] += p;
           iToSpend -= p;
-          exclusions[candidate[i][kanji_pos]] = 1;
+          exclusions[candidate[ui][kanji_pos]] = 1;
           candidate_rank++;
         }
       }
@@ -208,17 +210,17 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
 
     if(candidate_rank > 1) {
       unsigned int total = 0;
-      for(i = 0; i < probs.size(); i++) {
-        total += probs[i];
+      for(ui = 0; ui < probs.size(); ui++) {
+        total += probs[ui];
       }
       if(total) {
         iToSpend = norm;
-        for(int i = 0; i < probs.size(); i++) {
-          if(probs[i]) {
-            //cout << GetText(i) << "       " << probs[i] << " -> ";
-            probs[i] = (uint32) (((double)norm / (double)total) * (double)probs[i]);
-            iToSpend -= probs[i];
-            //cout << probs[i] << endl;
+        for(unsigned int ui(0); ui < probs.size(); ui++) {
+          if(probs[ui]) {
+            //cout << GetText(ui) << "       " << probs[ui] << " -> ";
+            probs[ui] = (uint32) (((double)norm / (double)total) * (double)probs[ui]);
+            iToSpend -= probs[ui];
+            //cout << probs[ui] << endl;
           }
         }
       }

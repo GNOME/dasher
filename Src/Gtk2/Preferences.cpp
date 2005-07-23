@@ -176,12 +176,6 @@ void PopulateLMPage(GladeXML *pGladeWidgets) {
 void generate_preferences(GladeXML *pGladeWidgets) {
   // We need to populate the lists of alphabets and colours
 
-  int alphabet_count, colour_count;
-
-  const int alphabetlist_size = 512;
-  const char *alphabetlist[alphabetlist_size];
-  const int colourlist_size = 512;
-  const char *colourlist[colourlist_size];
   GtkTreeIter alphiter, colouriter;
 
   // Build the alphabet tree - this is nasty
@@ -200,7 +194,7 @@ void generate_preferences(GladeXML *pGladeWidgets) {
 
   pAlphabetArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID);
 
-  for(int i(0); i < pAlphabetArray->len; ++i) {
+  for(unsigned int i(0); i < pAlphabetArray->len; ++i) {
 
     const gchar *pCurrentAlphabet(g_array_index(pAlphabetArray, gchar *, i));
 
@@ -241,7 +235,7 @@ void generate_preferences(GladeXML *pGladeWidgets) {
 
   pColourArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID);
 
-  for(int i(0); i < pColourArray->len; ++i) {
+  for(unsigned int i(0); i < pColourArray->len; ++i) {
 
     const gchar *pCurrentColour(g_array_index(pColourArray, gchar *, i));
 

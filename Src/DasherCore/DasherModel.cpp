@@ -23,7 +23,7 @@ using namespace std;
 // CDasherModel
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface)
-:CDasherComponent(pEventHandler, pSettingsStore), m_Root(0), m_pDasherInterface(pDashIface), total_nats(0.0) {
+:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0) {
 
   // Set max bitrate in the FrameRate class
   m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
@@ -594,7 +594,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&Ne
   int iSymbols = m_pcAlphabet->GetNumberSymbols();      // note that this includes the control node and the root node
 
   // Number of text symbols, for which the language model gives the distribution
-  int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
+  // int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
   
   NewSymbols.resize(iSymbols);
 //      Groups.resize(iSymbols);
@@ -632,7 +632,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&Ne
 
   //  Probs.insert(Probs.begin(), 0);
 
-  for(int k = 1; k < Probs.size(); ++k)
+  for(unsigned int k(1); k < Probs.size(); ++k)
     Probs[k] += uniform_add;
 
   Probs.push_back(control_space);
@@ -668,7 +668,7 @@ CDasherModel::CTrainer::CTrainer(CDasherModel &DasherModel)
 }
 
 void CDasherModel::CTrainer::Train(const std::vector <symbol >&vSymbols) {
-  for(int i = 0; i < vSymbols.size(); i++)
+  for(unsigned int i(0); i < vSymbols.size(); i++)
     m_DasherModel.m_pLanguageModel->LearnSymbol(m_Context, vSymbols[i]);
 }
 
@@ -835,13 +835,13 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
   if(iDepth == 0)
     return;
 
-  for(int i = 0; i < pNode->ChildCount(); i++) {
+  for(unsigned int i(0); i < pNode->ChildCount(); i++) {
     Recursive_Push_Node(pNode->Children()[i], iDepth - 1);
   }
 }
 
 CDasherModel::CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CDasherModel *model)
-:CDasherComponent(pEventHandler, pSettingsStore), m_DasherInterface(pDashIface), m_model(model) {
+:CDasherComponent(pEventHandler, pSettingsStore), m_model(model), m_DasherInterface(pDashIface) {
   if(InitializeTargetFile() == myint(-1)) {
     //DASHER_ASSERT(0);   // OOPS Can't open file with target text
   }
@@ -867,7 +867,7 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget() {
   // First, see how many characters they have written correctly so far
   while(alphabetmap.Get(CurrentTarget.substr(posOfFirstDifference, 1), &KeyIsPrefix) == alphabetmap.Get(Context.substr(posOfFirstDifference, 1), &KeyIsPrefix)) {
     posOfFirstDifference++;
-    if(posOfFirstDifference == CurrentTarget.length()) {
+    if(posOfFirstDifference == (int) CurrentTarget.length()) {
       // FINISHED WRITING CORRECTLY!
       // should choose new target and reset Dasher at this point?
       return INT64_MIN;
@@ -875,7 +875,6 @@ myint CDasherModel::CDasherGameMode::GetDasherCoordOfTarget() {
   }
 
   int contextLength = Context.length();
-  int targetLength = CurrentTarget.length();
 
   int symbolsAfterRoot = 0;
 

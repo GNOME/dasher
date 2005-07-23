@@ -10,7 +10,6 @@ else
 gladefile = dasher.glade
 settings_store = 
 non_settings_store = gpesettings_store.cc gpesettings_store.h
-SETTINGS_CFLAGS=$(GCONF_CFLAGS)
 endif
 
 EXTRA_DIST = $(non_settings_store)

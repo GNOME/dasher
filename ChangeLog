@@ -1,7 +1,86 @@
+2005-07-21  Behdad Esfahbod  <behdad@behdad.org>
+	* AUTHORS, README: Minor wording changes.
+
+	* ChangeLog: Lots of linebreaking and whitespaces fixes.
+
+	* Makefile.am: Cleanup and added MAINTAINERCLEANFILES.
+
+	* configure.in: Updated to the preferred new syntax.  Fixed misc
+	stuff.  And removed the old hack to patch libtool.  It was from
+	2003 and should be fixed now.  If not, it really should be reported
+	as a libtool bug. Depend on Gtk+ >= 2.6.0.
+
+	* Src/Test/configure.in: Updated to the preffered new syntax.  Passing
+	`foreign' to automake, to not nag about missing NEWS and other files.
+	This was breaking jhbuild builds in tinderbox.
+
+	* Src/Makefile.am, Src/Gtk2/Makefile.am: We set SETTINGS_* in
+	configure now, no need to do here.
+
+	* Src/main.cc: Remove duplicate #include <gconf/gconf.h>.
+
+	* Src/Gtk2/Menu.cc: #include <glib/g18n.h> for the `_' macro.
+
+	* Src/Common/IOstreamDasherEdit.cc: Free allocated memory.
+
+	* Src/Gtk2/DasherControl.cpp: Comment out m_pInterface->SetSettingsUI
+	call that is not defined anymore.
+
+	* Src/Common/IOstreamDasherEdit.cc, Src/DasherCore/DasherModel.cpp, 
+	Src/DasherCore/DasherInterfaceBase.cpp,
+	Src/DasherCore/GnomeSettingsStore.cpp,
+	Src/DasherCore,DasherViewSquare.cpp, Src/Gtk2/Preferences.cpp:
+	Comment out unused variable.
+
+	* Src/DasherCore/DasherViewSquare.cpp, Src/Gtk2/DasherControl.cpp:
+	Explicitly cast between double, int, long, myint, and screenint.
+	Shuts up gcc warning.
+
+	* Src/DasherCore/DasherViewSquare.cpp: Initialize variables that gcc
+	thinks might be used uninitialized.  Shuts up gcc warning.
+
+	* Src/DasherCore/DasherViewSquare.cpp, Src/DasherCore/DasherModel.cpp,
+	Src/Gtk2/GtkDasherControl.cpp: Removed unused variables.
+
+	* Src/Gtk2/accessibility.cc: #ifdef GNOME_SPEECH a variable that is
+	only used in that case.  Shuts up gcc warning.
+
+	* Src/Gtk2/dashergtktextview.h: Changed __GTK_TEXT_VIEW_H__ symbol to
+	__DASHER_GTK_TEXT_VIEW_H__.
+
+	* Src/DasherCore/LanguageModelling/KanjiConversion.h,
+	Src/DasherCore/LanguageModelling/KanjiConversionCanna.h,
+	Src/DasherCore/DasherComponent.h: Make destructor virtual. Shuts up
+	gcc warning.
+
+	* Src/DasherCore/LanguageModelling/MixtureLanguageModel.h: Remove
+	excess namespace qualifier.
+
+	* Src/DasherCore/LanguageModelling/KanjiConversionCanna.cpp,
+	* Src/Gtk2/DasherControl.cpp: Return 0 at the end of function with
+	non-void return type. Shuts up gcc warning.
+
+	* Src/DasherCore/DasherModel.cpp, Src/DasherCore/Alphabet/Alphabet.cpp,
+	Src/DasherCore/LanguageModelling/JapaneseLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/WordLanguageModel.cpp,
+	Src/Gtk2/Preferences.cpp: Avoid comparison between signed and unsigned
+	integers.  Shuts up gcc warning.
+
+	* Src/DasherCore/LanguageModelling/DictLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/JapaneseLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/PPMLanguageModel.cpp,
+	Src/DasherCore/LanguageModelling/WordLanguageModel.cpp,
+	Src/Common/IOstreamDasherEdit.cc, Src/DasherCore/DasherModel.cpp, 
+	Src/DasherCore/DasherInterfaceBase.cpp, Src/DasherCore/DasherNode.h,
+	Src/DasherCore/DasherTypes.h: Reorder member variables in
+	initialization to follow the order in the class definition.  Shuts up
+	gcc warnings about initialization order.
+
 2005-06-12  David Ward <d.j.ward.94@gmail.com>
 
 	* remove non-standard C++ 
-		- gcc extension allows dynamic arrays, suggest this is switched off
+		- gcc extension allows dynamic arrays, suggest this is
+		  switched off
 
 2005-06-11  David Ward <d.j.ward.94@gmail.com>
 
@@ -15,30 +94,37 @@
 2005-05-22	David Ward <d.j.ward.94@gmail.com>
 
 	* New Alphabet directory for all the alphabet classes
-		- CCustomAlphabet functionality moved to CAlphabet and deleted CCustomAlphabet
+		- CCustomAlphabet functionality moved to CAlphabet and
+		  deleted CCustomAlphabet
 		- Nicer CAlphabet interface
-	 	
+
 2005-05-07	David Ward <d.j.ward.94@gmail.com>
 
 	* MAJOR changes to DasherCore
-		- Linux build temporarily broken - only minor fixes should be needed
+		- Linux build temporarily broken - only minor fixes should
+		  be needed
 		- DasherCore relatively stable - hence this checkin 
 		
-	* CDasherScreen interface is now entirely UTF8, rather than part Symbol, part string
+	* CDasherScreen interface is now entirely UTF8, rather than part
+	  Symbol, part string
 		- renamed DrawText to DrawString because of Win32 macros
 
 	* Win32 - dropping support for non-unicode build
 		- major clean up
-		- use a precompiled header for all frequently used windows headers 		
+		- use a precompiled header for all frequently used windows
+		  headers 		
 
 	* CDasherCore 
 		- simplify DasherNode children and clean up Push_Node
-		- children at index 0 are now valid children. So child-loops now look sensible i=0;i<ChildCount;i++
+		- children at index 0 are now valid children. So child-loops
+		  now look sensible i=0;i<ChildCount;i++
 	
 	* CAlphabet 
-		- used to be modified on the fly to add/remove the control symbol. Now the control symbol
-			always exists - DasherCore decides whether or not to use it
-		- potentially, we can now switch on/off control mode without restarting Dasher
+		- used to be modified on the fly to add/remove the control
+		  symbol. Now the control symbol always exists - DasherCore
+		  decides whether or not to use it
+		- potentially, we can now switch on/off control mode without
+		  restarting Dasher
 
 
 2005-04-25  David Ward <d.j.ward.94@gmail.com>
@@ -47,25 +133,25 @@
 		- removed dependency on Dasher-specific CAlphabet 
 
 	* The rendering of the mouse, mouse line and mouse position box are
-		now handled by the view, rather than DasherInterface or Platform.		
-		A few changes to CDasherInterface have been made - some functions
-		have been removed. See code comments.
+	  now handled by the view, rather than DasherInterface or Platform.
+	  A few changes to CDasherInterface have been made - some functions
+	  have been removed. See code comments.
 		
 	* Clean up DasherView classes - started implementing a push mechanism
-		that is view-driven rather than model-driven. Ditched the silly 'force' flag
-		on DasherNodes - this was created to stop small nodes initially flashing in 
-		and out of view. This has been solved another way.
+	  that is view-driven rather than model-driven. Ditched the silly
+	  'force' flag on DasherNodes - this was created to stop small nodes
+	  initially flashing in and out of view. This has been solved another
+	  way.
 		
-	* Win32 CDasherScreen now caches TextSize calls. This was previously taking
-		25% runtime, now its negligible	
-	
+	* Win32 CDasherScreen now caches TextSize calls. This was previously
+	  taking 25% runtime, now its negligible.
+
 2005-04-15  Iaki Larra�aga  <dooteo@euskalgnu.org>
 
 	* configure.in: Added "eu" (Basque) to ALL_LINGUAS.
 	* Data/Translations/training_basque_EU.txt: Added Basque tranining
 	  file.
 	* Data/system.rc/alphabet.basque.xml: Added Basque language support.
-	
 
 2005-04-14  David Ward <djw30@mrao.cam.ac.uk>
 
@@ -83,7 +169,7 @@
 	* Moved language model files to LanguageModelling directory
 	* Created CBigramLanguageModel
 	* Introduced pooled allocators for faster and more compact allocation
-		PPM language model now uses them for nodes and contexts
+	  PPM language model now uses them for nodes and contexts
 
 2005-04-04  Christian Rose  <menthos@menthos.com>
 
@@ -91,7 +177,7 @@
 
 2005-03-31  Steve Murphy  <murf@e-tools.com>
 
-        * configure.in: Added "rw" to ALL_LINGUAS.
+	* configure.in: Added "rw" to ALL_LINGUAS.
 
 2005-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
@@ -100,7 +186,7 @@
 	* Version 3.2.14
 	* Brown paper bag - wnck API has changed. Fixed.
 	* Version 3.2.15
-	
+
 2005-01-30  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Make autogen.sh do the right thing
@@ -112,19 +198,19 @@
 	* Fix up string length checking - avoid crashes when "Speak on stop"
 	  switched on
 	* Version 3.2.13
-	
+
 2005-01-25  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix a couple of crash bugs in the window-focus handling
 	* Make window choice available on non-accessible builds
-	
+
 2005-01-12  Matthew Garrett  <mjg59@srcf.ucam.org>
 	
 	* Make the build system work after autotools make my life miserable
 	  again.
 	* Add support for focusing windows from within Dasher
 	* Bump version to 3.2.12
-	
+
 2004-10-01  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Added "mk" to ALL_LINGUAS.
@@ -158,12 +244,13 @@
 2004-08-20  Jayaradha  <njaya@redhat.com>
 
 	* configure.in: Added "ta" to ALL_LINGUAS
-2004-08-19  Chris Ball      <cjb@mrao.cam.ac.uk>
 
-    * Src/Gtk2/dasher.glade: Revert dasher.glade to a last-known-good
-      version, since new versions of glade-2 create code that's not
-      backwards-compatible with older versions of libglade.
-                
+2004-08-19  Chris Ball  <cjb@mrao.cam.ac.uk>
+
+	* Src/Gtk2/dasher.glade: Revert dasher.glade to a last-known-good
+	version, since new versions of glade-2 create code that's not
+	backwards-compatible with older versions of libglade.
+
 2004-08-16  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "bs" to ALL_LINGUAS.
@@ -181,14 +268,14 @@
 	* Switch to using gnome-vfs
 	* Add support for non-local files
 	* Clean up compiler warnings
-	
+
 2004-07-29  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* copy all on stop no longer causes the selection to change
 	* revamp the documentation build a little, make help actually work
 	* switch to the gnome-common autogen script
 	* fix a couple of stray linebreaks in glade files
-	
+
 2004-07-12  Pawan Chitrakar  <pawan@nplinux.org>
 
 	* configure.in: Added ne Nepali in ALL_LINGUAS
@@ -200,12 +287,13 @@
 2004-06-28  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix the configure script so that it doesn't drop out unnecessarily
-	
+
 2004-06-18  Mohammad DAMT  <mdamt@bisnisweb.com>
- 
-        * po/id.po: Added Indonesian translation by Ahmad Riza H Nst <rizahnst@eriagempita.co.id>
-        * configure.in (ALL_LINGUAS): Added "id" for Indonesian
- 
+
+	* po/id.po: Added Indonesian translation by
+	Ahmad Riza H Nst <rizahnst@eriagempita.co.id>
+	* configure.in (ALL_LINGUAS): Added "id" for Indonesian
+
 2004-06-09  Stanislav Brabec  <sbrabec@suse.cz>
 
 	* Data/system.rc/alphabet.czech.xml: Added support for Czech
@@ -227,7 +315,7 @@
 2004-05-31  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix configure.in so --with-gnome doesn't disable gnome support
-	
+
 2004-04-16  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix linking issue - should work with multiple versions of automake
@@ -236,28 +324,28 @@
 	* Don't complain about filesel_hide on startup
 	* Fix crash on changing alphabets with control mode enabled
 	* Fix libintl stuff - just use the glib support
-	
+
 2004-04-15  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Fix build on Solaris 10
 	* bump version number
-	
+
 2004-03-24  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Use older Gnome Speech if necessary
-	
+
 2004-03-23  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Readded pre-2.4 compatibility code
-	
+
 2004-03-22  Guntupalli Karunakar  <karunakar@freedomink.org>
 
-        * configure.in: Added "pa" (Punjabi) to ALL_LINGUAS.
+	* configure.in: Added "pa" (Punjabi) to ALL_LINGUAS.
 
 2004-03-22  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* bump version number
-	
+
 2004-03-21  Mugurel Tudor  <mugurelu@go.ro>
 
 	* configure.in: Added "ro" to ALL_LINGUAS
@@ -267,8 +355,8 @@
 	* configure.in: Added "ru" "tr" "zh_CN" "zh_TW" to ALL_LINGUAS.
 
 2004-03-20  Evandro Fernandes Giovanini  <evandrofg@ig.com.br>
- 
-        * configure.in(ALL_LINGUAS): Added "pt_BR"
+
+	* configure.in(ALL_LINGUAS): Added "pt_BR"
 	(Brazilian Portuguese).
 
 2004-03-16  Sayamindu Dasgupta <sayamindu@clai.net>
@@ -280,7 +368,7 @@
 	* Fix the panel finding code - applications don't have 
 	  SPI_STATE_ENABLED
 	* Bump version number to 3.2.7
-	
+
 2004-03-12  Dafydd Harries  <daf@muse.19inch.net>
 
 	* configure.in: Added "cy" (Welsh) to ALL_LINGUAS.
@@ -293,14 +381,14 @@
 
 	* Make sure that gettext is initialised before the UI is built
 	* Bump version number to 3.2.6 for a brown paper bag release
-	
+
 2004-03-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Remove the kludge that strips out some widgets - according to the
 	  ATK folks it's a bug in filechooser, and that's been sorted
 	  anyway now
 	* Fix a couple of minor translation bugs
-	
+
 2004-03-07  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Be somewhat more paranoid about what widgets we examine, since the
@@ -309,12 +397,12 @@
 	  fix a crasher bug that was hidden by that	
 	* Use gtkfilechooser
 	* Bumped version number to 3.2.5
-	
+
 2004-03-06  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Check CORBA return sanely, so no crash if we're unable to find
 	  a voice
-	
+
 2004-02-26  Sanlig Badral  <badral@openmn.org>
 
 	* /Data/Translation: Added Mongolian alphabet schema.
@@ -342,7 +430,7 @@
 	* Added Finnish to ALL_LINGUAS
 
 2004-02-22  M�ətin Əmirov  <metin@karegen.com>
-                                                                                
+
 	* configure.in: Added "az" to ALL_LINGUAS.
 
 2004-02-21 Hasbullah Bin Pit <sebol@my-penguin.org>
@@ -352,7 +440,7 @@
 2004-02-21  Matthew Garrett  <mjg59@srcf.ucam.og>
 
 	* Sort out strange visuals stuff - should work on kdrive now
-	
+
 2004-02-21  Christian Rose  <menthos@menthos.com>
 
 	* configure.in: Added "en_CA" to ALL_LINGUAS.
@@ -366,18 +454,18 @@
 	* Don't generate bogus colour numbers if not in advanced colour mode
 
 2004-02-11  Arafat Medini  <lumina@silverpen.de>
-                                                                                
-        * configure.in: Added Arabic locale "ar" to ALL_LINGUAS.
+
+	* configure.in: Added Arabic locale "ar" to ALL_LINGUAS.
 
 2004-02-11  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Don't assume that symbols are all one character long when deleting
 	text
-	
+
 2004-02-09  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* Don't include popt.h except when needed
-	
+
 2004-02-08  Matthew Garrett  <mjg59@srcf.ucam.org>
 
 	* updated the documentation system 
@@ -402,10 +490,10 @@
 
 	* fix up entering text into arbitrary text widgets via the
 	accessibility interface
-	
+
 2004-02-01  Robert Sedak  <robert.sedak@sk.htnet.hr>
 
-        * configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
+	* configure.in: Added "hr" (Croatian) to ALL_LINGUAS.
 
 2004-02-01  Marcel Telka  <marcel@telka.sk>
 
@@ -459,7 +547,7 @@
 	* Remove weird focusing behaviour that broke stuff
 	* Don't attempt to get accessibility information if we've focused 
 	ourselves
-	
+
 2004-04-14  Matthew Garrett <mjg59@srcf.ucam.org>
 
 	* 3.2.2 - "It's got LASER POWERED FLYING LETTERS that ATTACK
@@ -478,7 +566,7 @@
 	* Significantly saner locale handling
 	* Initialise speech properly
 	* CONFORM TO THE SPELLING PREFERENCES OF OUR US OVERLORDS
-	
+
 2004-01-11  Kostas Papadimas <pkst@gnome.org>
 
 	* configure.in: Added "el" (Greek) to ALL_LINGUAS.

@@ -8,7 +8,7 @@ extern "C" void ListenerCallback(GConfClient * pClient, guint iCNXN_ID, GConfEnt
 
 CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):CSettingsStore(pEventHandler) {
 
-  GError *gconferror;
+  // GError *gconferror;
 
   //    gconf_init( argc, argv, &gconferror );
   the_gconf_client = gconf_client_get_default();

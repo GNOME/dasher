@@ -51,10 +51,10 @@ public:
       }
     }
     else if(pEvent->m_iEventType == 3) {
-      Dasher::CEditContextEvent * pEvt(static_cast < Dasher::CEditContextEvent * >(pEvent));
-
       // FIXME - need to implement this
-
+      /*
+      Dasher::CEditContextEvent * pEvt(static_cast < Dasher::CEditContextEvent * >(pEvent));
+      */
     }
   };
 

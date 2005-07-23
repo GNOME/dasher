@@ -116,4 +116,5 @@ int CKanjiConversionCanna::ConvertKanji(string str) {
   iconv_close(cd);
   free(buf);
   free(str_utf8);
+  return 0;
 }

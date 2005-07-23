@@ -2,8 +2,6 @@
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
 
-#include <gconf/gconf.h>
-
 #ifndef WITH_GPE
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>

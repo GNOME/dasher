@@ -6,6 +6,7 @@
 
 #include "GtkDasherControl.h"
 
+#include <glib/gi18n.h>
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
 #include <libgnome/libgnome.h>

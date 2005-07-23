@@ -79,7 +79,7 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode *p
 /////////////////////////////////////////////////////////////////////
 
 CDictLanguageModel::CDictLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), NodesAllocated(0), max_order(0), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CDictContext(m_pRoot, 0);

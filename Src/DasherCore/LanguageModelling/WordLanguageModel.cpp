@@ -108,7 +108,7 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 /////////////////////////////////////////////////////////////////////
 
 CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0) {
+:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), NodesAllocated(0), max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
   m_rootcontext = new CWordContext(m_pRoot, 0);
@@ -292,7 +292,7 @@ void CWordLanguageModel::GetProbs(Context context, vector <unsigned int >&probs,
   int iToSpend(norm);
 
   for(int i(0); i < iNumSymbols; ++i) {
-    probs[i] = norm * dProbs[i] / dNorm;
+    probs[i] = (unsigned int) (norm * dProbs[i] / dNorm);
     iToSpend -= probs[i];
   }
 
@@ -354,7 +354,7 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
 
       apNodeCache = new std::vector < CWordnode * >*[oSymbols.size()];
 
-      for(int i(0); i < oSymbols.size(); ++i)
+      for(unsigned int i(0); i < oSymbols.size(); ++i)
         apNodeCache[i] = new std::vector < CWordnode * >;
 
       // FIXME - remember to delete member vectors when we're done
@@ -420,7 +420,7 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
       // Now we need to go through and fix up the vine pointers
 
       //      for( std::vector< std::vector< CWordnode* >* >::iterator it( oNodeCache.begin() ); it != oNodeCache.end(); ++it ) {
-      for(int i(0); i < oSymbols.size(); ++i) {
+      for(unsigned int i(0); i < oSymbols.size(); ++i) {
 
         CWordnode *pPreviousNode(NULL); // Start with a NULL pointer
 

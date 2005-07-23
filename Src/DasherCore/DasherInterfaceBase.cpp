@@ -21,7 +21,7 @@ const string CDasherInterfaceBase::EmptyString = "";
 
 CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
-                  m_pDasherView(0), m_AlphIO(0), m_ColourIO(0), m_pInput(0) {
+                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0) {
   m_pEventHandler = new CEventHandler(this);
 }
 
@@ -50,7 +50,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
   // Pass events outside
   if(pEvent->m_iEventType == 1) {
-    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+    //Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     //if(m_SettingsUI != 0)
     // m_SettingsUI->HandleParameterNotification(pEvt->m_iParameter);

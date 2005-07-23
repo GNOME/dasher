@@ -133,8 +133,6 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
   if(Children.size() == 0)
     return;
   int current = 0;
-  int lower = 0;
-  int upper = 0;
   std::string Label = "";
 
   myint range = y2 - y1;
@@ -270,12 +268,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
     int iSpacing(iDasherY / 128);       // FIXME - assuming that this is an integer below
 
-    int iXStart;
+    int iXStart = 0;
 
     switch (iTruncationType) {
-    case 0:
-      iXStart = 0;
-      break;
     case 1:
       iXStart = iSize - iSize * iTruncation / 200;
       break;
@@ -379,7 +374,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
   myint iDasherAnchorX(iDasherSize);
 
-  myint iDasherAnchorY((std::min(y2, iDasherMaxY) + std::max(y1, iDasherMinY)) / 2);
+  // myint iDasherAnchorY((std::min(y2, iDasherMaxY) + std::max(y1, iDasherMinY)) / 2);
 
   std::string sDisplayText;
 
@@ -466,8 +461,8 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
   myint iDasherWidth = DasherModel().DasherY();
   myint iDasherHeight = DasherModel().DasherY();
 
-  myint iCanvasWidth = CanvasX;
-  myint iCanvasHeight = CanvasY;
+  // myint iCanvasWidth = CanvasX;
+  // myint iCanvasHeight = CanvasY;
 
   screenint iScreenWidth = Screen().GetWidth();
   screenint iScreenHeight = Screen().GetHeight();
@@ -484,25 +479,25 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   switch(eOrientation) {
   case Dasher::Opts::LeftToRight:
-    iDasherX = iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
-    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
+    iDasherX = myint(iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
     break;
   case Dasher::Opts::RightToLeft:
-    iDasherX = iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
-    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
+    iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
     break;
   case Dasher::Opts::TopToBottom:
-    iDasherX = iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
-    iDasherY = iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
+    iDasherX = myint(iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
     break;
   case Dasher::Opts::BottomToTop:
-    iDasherX = iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor;
-    iDasherY = iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor;
+    iDasherX = myint(iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
     break;
   }
 
   if( bNonlinearity ) {
-  iDasherX = ixmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY();
+  iDasherX = myint(ixmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY());
   iDasherY = m_ymap.unmap(iDasherY);
   }
 
@@ -558,7 +553,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   // Apply the nonlinearities
 
-  iDasherX = xmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY();
+  iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY());
   iDasherY = m_ymap.map(iDasherY);
 
   // Things we're likely to need:
@@ -575,20 +570,20 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    iScreenX = iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
-    iScreenY = iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
+    iScreenX = screenint(iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
     break;
   case Dasher::Opts::RightToLeft:
-    iScreenX = iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
-    iScreenY = iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
     break;
   case Dasher::Opts::TopToBottom:
-    iScreenX = iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
-    iScreenY = iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
+    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
     break;
   case Dasher::Opts::BottomToTop:
-    iScreenX = iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor;
-    iScreenY = iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor;
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
     break;
   }
 }
@@ -724,13 +719,13 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
       
       if (yb>1) {
 	x=0;
-	iDasherY=double(DasherModel().DasherOY());
+	iDasherY=myint(DasherModel().DasherOY());
       }
       else { 
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
-	iDasherY=-(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
+	iDasherY=myint(-(1+cos(angle))*circlesize/2+DasherModel().DasherOY());
       }
     }
     else if (disty <-(yforwardrange)) {
@@ -739,24 +734,24 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
       
       if (yb>1) {
 	x=0;
-	iDasherY=double(DasherModel().DasherOY());
+	iDasherY=myint(DasherModel().DasherOY());
       }   
       else {
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 	
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
-	iDasherY=(1+cos(angle))*circlesize/2+DasherModel().DasherOY();
+	iDasherY=myint((1+cos(angle))*circlesize/2+DasherModel().DasherOY());
       }   
     }
     
     else {
       angle=((disty*3.14159/2)/yforwardrange);
       x=cos(angle)*circlesize;
-      iDasherY=-sin(angle)*circlesize+DasherModel().DasherOY();
+      iDasherY=myint(-sin(angle)*circlesize+DasherModel().DasherOY());
     }
     x=DasherModel().DasherOX()-x;
 
-    iDasherX = x;
+    iDasherX = myint(x);
 }
 
 /// Convert raw Dasher co-ordinates to eyetracker position
@@ -994,16 +989,16 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   else
     Size *= 11;
 
-  screenint TextWidth, TextHeight, OriginX = 0, OriginY = 0;
+  screenint TextWidth, TextHeight;
 
   Screen().TextSize(sDisplayText, &TextWidth, &TextHeight, Size);
 
   // Poistion of text box relative to anchor depends on orientation
 
-  screenint newleft2;
-  screenint newtop2;
-  screenint newright2;
-  screenint newbottom2;
+  screenint newleft2 = 0;
+  screenint newtop2 = 0;
+  screenint newright2 = 0;
+  screenint newbottom2 = 0;
 
   switch (Dasher::Opts::ScreenOrientations(GetLongParameter(LP_REAL_ORIENTATION))) {
   case (Dasher::Opts::LeftToRight):
@@ -1384,7 +1379,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 
   // If we're in standard mode, fudge things for the vertical acceleration
   if(GetBoolParameter(BP_NUMBER_DIMENSIONS) == false && GetBoolParameter(BP_KEYBOARD_MODE) == false && GetBoolParameter(BP_EYETRACKER_MODE) == false) {
-    dashery = m_ymap.unmap(dashery);
+    dashery = m_ymap.unmap(myint(dashery));
     if(dashery > DasherModel().DasherY()) {
       dashery = DasherModel().DasherY();
     }
@@ -1439,7 +1434,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
       else {
         angle = (yb * 3.14159) * (yb + (1 - yb) * (ybackrange / yforwardrange / ellipse_eccentricity));
         x = (-sin(angle) * circlesize / 2) * ellipse_eccentricity;
-        dashery = -(1 + cos(angle)) * circlesize / 2 + dasherOY;
+        dashery = myint(-(1 + cos(angle)) * circlesize / 2 + dasherOY);
       }
     }
     else if(disty < -(yforwardrange)) {
@@ -1454,14 +1449,14 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
         angle = (yb * 3.14159) * (yb + (1 - yb) * (ybackrange / yforwardrange / ellipse_eccentricity));
 
         x = (-sin(angle) * circlesize / 2) * ellipse_eccentricity;
-        dashery = (1 + cos(angle)) * circlesize / 2 + dasherOY;
+        dashery = myint((1 + cos(angle)) * circlesize / 2 + dasherOY);
       }
     }
 
     else {
       angle = ((disty * 3.14159 / 2) / yforwardrange);
       x = cos(angle) * circlesize;
-      dashery = -sin(angle) * circlesize + dasherOY;
+      dashery = myint(-sin(angle) * circlesize + dasherOY);
     }
     x = dasherOX - x;
   }

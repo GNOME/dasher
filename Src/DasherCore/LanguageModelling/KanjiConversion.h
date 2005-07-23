@@ -16,7 +16,7 @@ namespace Dasher {
   class CKanjiConversion {
   public:
     CKanjiConversion();
-     ~CKanjiConversion();
+    virtual ~ CKanjiConversion();
 
     virtual int ConvertKanji(std::string);
 

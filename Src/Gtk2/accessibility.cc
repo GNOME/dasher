@@ -143,7 +143,9 @@ ControlTree *buildcontroltree() {
   ControlTree *pausetree = new ControlTree;
   ControlTree *movetree = new ControlTree;
   ControlTree *deletetree = new ControlTree;
+#ifdef GNOME_SPEECH
   ControlTree *speaktree = new ControlTree;
+#endif
 //  ControlTree *paneltree=new ControlTree;
 //  ControlTree *speedtree=new ControlTree;
 #ifndef GNOME_A11Y
