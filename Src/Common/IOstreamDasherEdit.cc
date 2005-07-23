@@ -11,7 +11,7 @@
 #include <iconv.h>
 
 IOstreamDasherEdit::IOstreamDasherEdit(CDasherInterface *_interface, std::ostream *os)
-:Dasher::CDashEditbox(), flush_count(0), outstream(os), interface(_interface) {
+:Dasher::CDashEditbox(), flush_count(0), interface(_interface), outstream(os) {
   enc = 1;
   snprintf(encstr, 255, "ISO-8859-%d", enc);
 

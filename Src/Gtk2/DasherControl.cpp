@@ -316,6 +316,8 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
     }
     break;
   }
+  
+  return 0;
 }
 
 void CDasherControl::SliderEvent() {
@@ -329,7 +331,6 @@ void CDasherControl::CanvasDestroyEvent() {
     delete m_pScreen;
     m_pScreen = NULL;
   }
- 
 }
 
 void CDasherControl::scan_alphabet_files() {

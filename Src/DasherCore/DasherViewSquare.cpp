@@ -780,12 +780,12 @@ void CDasherViewSquare::Dasher2Eyetracker(myint &iDasherX, myint &iDasherY) {
         double_x = xmax_y; 
       } 
 
-      x = dasherOX*double_x;                 
+      x = myint(dasherOX*double_x);
 
       // Finished x-coord changes.
 
       double repulsionparameter=0.5;
-      iDasherY = dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty ;
+      iDasherY = myint(dasherOY - (1.0+ double_y*double_y* repulsionparameter ) * disty);
 
 
       if( iDasherX < x )
