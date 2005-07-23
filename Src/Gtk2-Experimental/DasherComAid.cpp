@@ -1,7 +1,11 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
+
+#ifdef GNOME_LIBS
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
+#endif
+
 #include <pango/pango.h>
 
 #include <string.h>
@@ -13,7 +17,9 @@ extern "C" void delete_callback( GtkDasherControl *pDasherControl, const gchar *
 
 int main( int argc, char **argv ) {
 
+#ifdef GNOME_LIBS
   gnome_program_init("Dasher", "0.1", LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_NONE );
+#endif
   gtk_init( &argc, &argv );
   
   GtkWidget *pWindow = gtk_window_new( GTK_WINDOW_TOPLEVEL );
