@@ -32,4 +32,4 @@ MAINTAINERCLEANFILES = \
 		$(srcdir)/ltmain.sh \
 		$(srcdir)/missing \
 		$(srcdir)/mkinstalldirs \
-		`find "$(srcdir)" -type f -name Makefile.in -print`
+		`find "$(srcdir)" -regex '.*/Src/Common/Expat' -prune -o -type f -name Makefile.in -print`
