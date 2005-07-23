@@ -100,8 +100,7 @@ void CDasherNode::OrphanChild(CDasherNode* pChild)
 {
 	DASHER_ASSERT ( Children() ) ;
 
-	int i; 
-	for (i=0;i< ChildCount(); i++) 
+	for (unsigned int i(0);i< ChildCount(); i++) 
 	{
 		if ( Children()[i] != pChild )
 		{
@@ -122,10 +121,9 @@ void CDasherNode::DeleteNephews(int iChild)
 {
 	DASHER_ASSERT ( Children() ) ;
 
-	int i; 
-	for (i=0;i< ChildCount(); i++) 
+	for (unsigned int i(0);i< ChildCount(); i++) 
 	{
-		if (i != iChild)
+		if (i != (unsigned int)iChild)
 		{
 			Children()[i]->Delete_children();
 		}
@@ -140,7 +138,7 @@ void CDasherNode::Delete_children()
 {
 	if (m_ppChildren) 
 	{
-		for (int i=0;i<m_iChildCount;i++) 
+		for (unsigned int i(0);i<m_iChildCount;i++) 
 		{
 		     m_ppChildren[i]->Delete_children();
 		     delete m_ppChildren[i];

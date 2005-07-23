@@ -29,7 +29,7 @@ class CFrameRate {
 		/// TODO: Eventually fix this so that it uses integer maths internally.
 
 		myint MinSize( myint t ) const {
-		  return t / m_dRXmax;
+		  return myint(t / m_dRXmax);
 		};
 
 		int Steps() const {return m_iSteps;}

@@ -120,10 +120,21 @@ using namespace Opts;
 /////////////////////////////////////////////////////////////////////////////
 
 inline CDasherNode::CDasherNode(const CDasherModel& dashermodel, CDasherNode* pParent,symbol Symbol, int iphase, ColorSchemes ColorScheme,int ilbnd,int ihbnd,CLanguageModel *lm, bool ControlChild, int Colour=-1, ControlTree *controltree=0)
-	:  m_DasherModel(dashermodel), m_iLbnd(ilbnd), m_iHbnd(ihbnd), 
-	m_iChildCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), 
-	m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_Symbol(Symbol), 
-	m_pLanguageModel(lm), m_ppChildren(0), m_pParent(pParent), m_Context(NULL), 
+	:
+	m_iLbnd(ilbnd), m_iHbnd(ihbnd), 
+	m_Symbol(Symbol), 
+	m_ppChildren(NULL),
+	m_iChildCount(0),
+	m_bAlive(true),
+	m_bControlChild(ControlChild),
+	m_bSeen(false), 
+	m_ColorScheme(ColorScheme),
+	m_iPhase(iphase),
+	m_iColour(Colour),
+	m_DasherModel(dashermodel),
+	m_pLanguageModel(lm),
+	m_Context(0), 
+	m_pParent(pParent),
 	m_controltree(controltree)
 {
 

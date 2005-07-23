@@ -1,6 +1,8 @@
-AC_PREREQ(2.50)
+AC_PREREQ(2.56)
 AC_INIT([dasher],[3.2.15],[dasher@mrao.cam.ac.uk])
-AM_INIT_AUTOMAKE
+AC_REVISION([$Id: configure.in,v])
+AC_CONFIG_SRCDIR([Src/main.cc])
+AM_INIT_AUTOMAKE([gnu check-news])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
@@ -19,28 +21,34 @@ AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CXX
 
-WITHGNOME=true;
-WITHSPEECH=true;
-WITHA11Y=true;
-WITHGTK2=true;
-
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
+WITHGNOME=true
+WITHSPEECH=true
+WITHQTE=false
+WITHGPE=false
+WITHA11Y=true
+WITHGTK2=true
+
 AC_ARG_WITH([gnome],
-	 AC_HELP_STRING([--without-gnome],[build without Gnome support (default is YES)]), 
-	[WITHGNOME=false])
-AC_ARG_WITH([qte],
-	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
-	[WITHQTE=true],[WITHQTE=false])
+	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
+	[WITHGNOME=true],[WITHGNOME=false])
 
 AC_ARG_WITH([speech],
-	 AC_HELP_STRING([--without-speech],[build without speech support (default is YES)]), [WITHSPEECH=false])
+	AC_HELP_STRING([--with-speech],[build with speech support (default is YES)]),
+	[WITHSPEECH=true],[WITHSPEECH=false])
+
+AC_ARG_WITH([qte],
+	AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
+	[WITHQTE=true],[WITHQTE=false])
 
 AC_ARG_WITH([gpe],
-	 AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]), [WITHGPE=true],[WITHGPE=false])
+	AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]),
+	[WITHGPE=true],[WITHGPE=false])
 
 AC_ARG_WITH([a11y],
-	 AC_HELP_STRING([--without-a11y],[build without support for the GNOME accessibility library(default is YES)]), [WITHA11Y=false])
+	AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library (default is YES)]),
+	[WITHA11Y=true], [WITHA11Y=false])
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
@@ -157,19 +165,35 @@ AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
+
 AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
-AC_OUTPUT([Makefile Src/Common/Makefile Src/Qt/Makefile Src/Gtk2/Makefile Src/DasherCore/Makefile Src/DasherCore/Alphabet/Makefile Src/DasherCore/LanguageModelling/Makefile Src/Makefile Data/Makefile Data/Translations/Makefile Data/system.rc/Makefile Data/Help/Makefile Data/Help/Gnome/Makefile Data/Help/Gnome/C/Makefile Data/Help/Gnome/eu/Makefile Doc/Makefile po/Makefile.in ],[])
-
-if grep "^sys_lib_search_path_spec.*" libtool >/dev/null ; then
-AC_MSG_RESULT(patching libtool to fix HIDEOUS BREAKAGE)
-    test -f libtool.old || (mv libtool libtool.old && cp libtool.old libtool)
-    sed -e s/^hardcode_direct.*$/hardcode_direct=yes/g libtool | \
-    sed -e s/^hardcode_minus_L.*$/hardcode_minus_L=yes/g | \
-    sed -e s/^hardcode_shlibpath_var.*$/hardcode_shlibpath_var=no/g >libtool.new
-    mv libtool.new libtool
+if [[ x"$WITHGPE" = xtrue ]]; then
+	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
+else
+	SETTINGS_CFLAGS=$GCONF_CFLAGS
+	SETTINGS_LIBS=$GCONF_LIBS
 fi
+AC_SUBST(SETTINGS_CFLAGS)
+AC_SUBST(SETTINGS_LIBS)
 
 
-
+AC_CONFIG_FILES([Makefile
+		 Src/Makefile
+		 Src/Common/Makefile
+		 Src/DasherCore/Makefile
+		 Src/DasherCore/Alphabet/Makefile
+		 Src/DasherCore/LanguageModelling/Makefile
+		 Src/Gtk2/Makefile
+		 Src/Qt/Makefile
+		 Data/Makefile
+		 Data/Translations/Makefile
+		 Data/system.rc/Makefile
+		 Data/Help/Makefile
+		 Data/Help/Gnome/Makefile
+		 Data/Help/Gnome/C/Makefile
+		 Data/Help/Gnome/eu/Makefile
+		 Doc/Makefile
+		 po/Makefile.in])
+AC_OUTPUT

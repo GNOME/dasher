@@ -10,7 +10,6 @@ else
 gladefile = dasher.glade
 settings_store = settings_store.cc settings_store.h
 EXTRA_DIST = gpesettings_store.cc gpesettings_store.h
-SETTINGS_CFLAGS=$(GCONF_CFLAGS)
 endif
 
 libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h fileops.cc fileops.h dasher.glade dashergpe.glade $(settings_store)

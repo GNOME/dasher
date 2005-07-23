@@ -16,9 +16,19 @@ using namespace Dasher;
 /////////////////////////////////////////////////////////////////////////////
 
 CDasherView::CDasherView(CDasherScreen* DasherScreen, CDasherModel& DasherModel, Opts::ScreenOrientations Orientation, bool ColourMode)
-  : ScreenOrientation(Orientation), ColourMode(ColourMode), m_pScreen(DasherScreen), m_DasherModel(DasherModel),
-  m_bDrawMouse(false),m_bDrawMouseLine(false),m_bDrawKeyboard(false),m_iDrawMousePosBox(0),
-    m_iMousePosDist(50), m_iTruncation(0), m_iTruncationType(2), m_pInput(0)
+  :
+  ScreenOrientation(Orientation),
+  ColourMode(ColourMode),
+  m_iTruncation(0),
+  m_iTruncationType(2),
+  m_pScreen(DasherScreen),
+  m_DasherModel(DasherModel),
+  m_pInput(0),
+  m_bDrawMouse(false),
+  m_bDrawMouseLine(false),
+  m_bDrawKeyboard(false),
+  m_iDrawMousePosBox(0),
+  m_iMousePosDist(50)
 {
 	// myint ySum, ySumCounter=0, yFilterTimescale=2, yAutoOffset=0, ySigBiasPixels=0, ySigBiasPercentage=0;   
 }

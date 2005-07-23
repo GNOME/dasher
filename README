@@ -1,8 +1,7 @@
-Dasher version 3.2.4
---------------------
+Dasher
+------
 
-This is the full release of Dasher 3.2.4. Documentation may be found
-in Doc/
+This is the full release of Dasher 3.2. Documentation may be found in Doc/
 
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It
@@ -18,14 +17,18 @@ Dasher includes some alphabets which require fonts that you probably don't
 have installed; for example, for the International Phonetic Alphabet, Korean
 and Hiragana (Japanese).  We aren't legally allowed to distribute a font for
 the IPA, but you can download one yourself from:  
-   <http://www.sil.org/computing/fonts/encore-ipa.html>.
 
-We'd appreciate any feedback / bug reports / patches - please send
+  http://www.sil.org/computing/fonts/encore-ipa.html
+
+We would appreciate any feedback / bug reports / patches - please send
 them to dasher@mrao.cam.ac.uk
 
-You can find the Dasher website at http://www.inference.phy.cam.ac.uk/dasher
+You can find the Dasher website at:
 
-Yours,
+  http://www.inference.phy.cam.ac.uk/dasher
+
+
+Regards,
 
 The Dasher Team
 

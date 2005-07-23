@@ -21,7 +21,7 @@ using namespace std;
 
 CPPMLanguageModel::CPPMLanguageModel(const CSymbolAlphabet& SymbolAlphabet, CLanguageModelParams *_params)
   : CLanguageModel(SymbolAlphabet, _params), m_iMaxOrder( 5 ), 
-    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
+    NodesAllocated(0), m_NodeAlloc(8192), m_ContextAlloc(1024)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->symbol = -1;

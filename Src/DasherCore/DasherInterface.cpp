@@ -129,7 +129,7 @@ void CDasherInterface::CreateDasherModel()
 	delete m_pDasherModel;
       }
 
-      CDasherModel::LanguageModelID NewLanguageModelID;
+      CDasherModel::LanguageModelID NewLanguageModelID = CDasherModel::idPPM;
 
       switch( m_LanguageModelID ) {
       case 0:

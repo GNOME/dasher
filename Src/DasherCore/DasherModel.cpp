@@ -28,10 +28,18 @@ using namespace std;
 
 CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, LanguageModelID idLM, CLanguageModelParams *_params,
 						   bool Dimensions, bool Eyetracker, bool Paused)
-  : m_pcAlphabet(pAlphabet), m_pEditbox(pEditbox) ,
-	 m_Dimensions(Dimensions),  m_Eyetracker(Eyetracker),  m_Paused(Paused), 
-	 m_Root(0), m_iNormalization(1<<16),	m_uniform(50) , m_pLanguageModel(NULL),
-    m_bControlMode(false), m_bAdaptive(true)
+  :
+  m_pEditbox(pEditbox) ,
+  m_pLanguageModel(NULL),
+  m_pcAlphabet(pAlphabet),
+  m_Root(0),
+  m_Dimensions(Dimensions),
+  m_Eyetracker(Eyetracker),
+  m_Paused(Paused), 
+  m_bAdaptive(true),
+  m_uniform(50),
+  m_iNormalization(1<<16),
+  m_bControlMode(false)
 {
 
   // Convert the full alphabet to a symbolic representation for use in the language model
@@ -47,6 +55,9 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   switch( idLM ) {
   case idPPM:
     m_pLanguageModel = new CPPMLanguageModel(alphabet, _params);
+    break;
+  case idBigram:
+    m_pLanguageModel = NULL; // FIXME
     break;
   case idWord:
     m_pLanguageModel = new CWordLanguageModel(alphabet, _params);
@@ -846,7 +857,7 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
   int iSymbols = m_pcAlphabet->GetNumberSymbols(); // note that this includes the control node and the root node
 
 	// Number of text symbols, for which the language model gives the distribution
-	int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
+  // int iTextSymbols = m_pcAlphabet->GetNumberTextSymbols();
 
 	NewSymbols.resize(iSymbols);
 //	Groups.resize(iSymbols);
@@ -880,19 +891,19 @@ void CDasherModel::GetProbs(CLanguageModel::Context context, vector<symbol> &New
 
 #if _DEBUG
 	int iTotal = 0;
-	for( int k=0; k < Probs.size(); ++k )
+	for(unsigned int k(0); k < Probs.size(); ++k)
 		iTotal += Probs[k];
 	DASHER_ASSERT(iTotal == nonuniform_norm);
 #endif
 
-	for( int k=1; k < Probs.size(); ++k )
+	for(unsigned int k(1); k < Probs.size(); ++k)
 		Probs[k] += uniform_add;
 
 	Probs.push_back( control_space );
 
 #if _DEBUG
 	iTotal = 0;
-	for( int k=0; k < Probs.size(); ++k )
+	for(unsigned int k(0); k < Probs.size(); ++k)
 		iTotal += Probs[k];
 //	DASHER_ASSERT(iTotal == iNorm);
 #endif
@@ -943,7 +954,7 @@ CDasherModel::CTrainer::CTrainer(CDasherModel& DasherModel)
 
 void CDasherModel::CTrainer::Train(const std::vector<symbol>& vSymbols)
 {
-	for (int i=0; i<vSymbols.size() ; i++)
+	for (unsigned int i=0; i<vSymbols.size() ; i++)
 		m_DasherModel.m_pLanguageModel->LearnSymbol(m_Context,vSymbols[i]);
 }
 
@@ -1137,7 +1148,7 @@ void CDasherModel::Recursive_Push_Node(CDasherNode* pNode, int iDepth)
 	if ( iDepth == 0 )
 		return;
 
-	for (int i=0; i< pNode->ChildCount(); i++) 
+	for (unsigned int i=0; i< pNode->ChildCount(); i++) 
 	{
 		Recursive_Push_Node(pNode->Children()[i],iDepth-1);
 	}

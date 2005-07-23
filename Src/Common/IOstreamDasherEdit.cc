@@ -11,7 +11,11 @@
 #include <iconv.h>
 
 IOstreamDasherEdit::IOstreamDasherEdit( CDasherInterface *_interface, std::ostream* os )
-  : Dasher::CDashEditbox(), outstream(os), flush_count(0), interface( _interface )
+  :
+  Dasher::CDashEditbox(),
+  flush_count(0),
+  interface(_interface),
+  outstream(os)
 {
   enc = 1;
   snprintf( encstr, 255, "ISO-8859-%d", enc);
@@ -73,6 +77,9 @@ void IOstreamDasherEdit::output(symbol Symbol)
   
   std::string csymbol( cb, 256-outb );
   
+  delete cb;
+  delete ib;
+
   *outstream << csymbol;
 }
 

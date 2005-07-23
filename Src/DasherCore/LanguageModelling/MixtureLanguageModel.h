@@ -19,9 +19,11 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-namespace Dasher {class CMixtureLanguageModel;
+namespace Dasher {
 
-class Dasher::CMixtureLanguageModel : public CLanguageModel
+class CMixtureLanguageModel;
+
+class CMixtureLanguageModel : public CLanguageModel
 {
 public:
 	

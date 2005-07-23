@@ -116,8 +116,8 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode* p
 /////////////////////////////////////////////////////////////////////
 
 CWordLanguageModel::CWordLanguageModel(const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
-  : CLanguageModel(Alphabet, _params), max_order( 2 ), 
-    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
+  : CLanguageModel(Alphabet, _params), NodesAllocated(0), max_order( 2 ), 
+    m_NodeAlloc(8192), m_ContextAlloc(1024)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->sbl = -1;
@@ -324,7 +324,7 @@ void CWordLanguageModel::GetProbs( Context context,vector<unsigned int> &probs, 
   int iToSpend( norm );
   
   for(int i(0); i < iNumSymbols; ++i) {
-    probs[i] = norm * dProbs[i]/dNorm;
+    probs[i] = (unsigned int)(norm * dProbs[i]/dNorm);
     iToSpend -= probs[i];
   }
 
@@ -393,7 +393,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 		  
 	  apNodeCache = new std::vector< CWordnode * > *[ oSymbols.size() ];
 
-      for( int i(0); i < oSymbols.size(); ++i )
+      for(unsigned int i(0); i < oSymbols.size(); ++i )
 	apNodeCache[i] = new std::vector< CWordnode* >;
       
       // FIXME - remember to delete member vectors when we're done
@@ -434,7 +434,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
 	    pTmpChild->next = pTmp->child;
 	    pTmp->child = pTmpChild;
 	    
-	    bUpdateExclusion == false;
+	    bUpdateExclusion = false;
 
 	    // Newly allocated child already has a count of one, so no need to increment it explicitly
 	    
@@ -461,7 +461,7 @@ void CWordLanguageModel::CollapseContext( CWordLanguageModel::CWordContext &cont
       // Now we need to go through and fix up the vine pointers
       
       //      for( std::vector< std::vector< CWordnode* >* >::iterator it( oNodeCache.begin() ); it != oNodeCache.end(); ++it ) {
-      for( int i(0); i < oSymbols.size(); ++i ) {
+      for(unsigned int i(0); i < oSymbols.size(); ++i ) {
 	
 	CWordnode *pPreviousNode( NULL ); // Start with a NULL pointer
 	

@@ -85,8 +85,8 @@ CDictLanguageModel::CDictnode * CDictLanguageModel::AddSymbolToNode(CDictnode* p
 /////////////////////////////////////////////////////////////////////
 
 CDictLanguageModel::CDictLanguageModel(const CSymbolAlphabet &Alphabet, CLanguageModelParams *_params)
-  : CLanguageModel(Alphabet, _params), max_order( 0 ), 
-    m_NodeAlloc(8192), m_ContextAlloc(1024), NodesAllocated(0)
+  : CLanguageModel(Alphabet, _params), NodesAllocated(0), max_order( 0 ), 
+    m_NodeAlloc(8192), m_ContextAlloc(1024)
 {
 	m_pRoot= m_NodeAlloc.Alloc();
 	m_pRoot->sbl = -1;
