@@ -214,7 +214,6 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
 
 void CPPMLanguageModel::LearnSymbol(Context c, int Symbol) {
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
-
   CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
   AddSymbol(context, Symbol);
 }

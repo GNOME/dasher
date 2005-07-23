@@ -543,7 +543,6 @@ void CDasherInterfaceBase::Train(string *TrainString, bool IsMore) {
 	negligible compared to huge requirements elsewhere.
 */
 void CDasherInterfaceBase::TrainFile(string Filename) {
-
   if(Filename == "")
     return;
 

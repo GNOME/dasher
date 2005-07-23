@@ -206,9 +206,6 @@ void CDasherModel::Start() {
 }
 
 void CDasherModel::SetContext(std::string &sNewContext) {
-
-  //  std::cout << "Setting context to " << sNewContext << std::endl;
-
   m_Rootmin = 0;
   m_Rootmax = m_DasherY;
 
@@ -652,14 +649,14 @@ void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, b
   m_pcAlphabet->GetSymbols(&Symbols, TheText, IsMore);
 
   for(unsigned int i = 0; i < Symbols.size(); i++)
-    m_pLanguageModel->LearnSymbol(context, Symbols[i]-1); // FIXME - conversion to symbol alphabet
+    m_pLanguageModel->LearnSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
 }
 
 void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) const {
   vector < symbol > Symbols;
   m_pcAlphabet->GetSymbols(&Symbols, &TheText, false);
   for(unsigned int i = 0; i < Symbols.size(); i++)
-    m_pLanguageModel->EnterSymbol(context, Symbols[i]-1); // FIXME - conversion to symbol alphabet
+    m_pLanguageModel->EnterSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
 }
 
 CDasherModel::CTrainer::CTrainer(CDasherModel &DasherModel)

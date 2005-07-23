@@ -23,6 +23,7 @@
 
 #include <map>
 #include <iostream>
+#include <algorithm>
 
 namespace Dasher {
   class CDasherInterfaceBase;
@@ -526,14 +527,11 @@ public:
     // to back off indefinitely. For now though we'll keep it in a
     // separate string.
 
-    bool bNewContext;
+    int iContextLength( 6 ); // The 'important' context length - should really get from language model
 
-    if( strNewContext.size() > strCurrentContext.size() )
-      bNewContext = (strNewContext.substr( strNewContext.size() - strCurrentContext.size()) != strCurrentContext);
-    else
-      bNewContext = (strCurrentContext.substr( strCurrentContext.size() - strNewContext.size()) != strNewContext);
+    // FIXME - use unicode lengths
 
-    if( bNewContext ) {
+    if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
       if(m_pDasherModel != NULL)
 	m_pDasherModel->SetContext(strNewContext);
       PauseAt(0,0);
