@@ -216,7 +216,8 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
 }
 
 void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) const {
-  GdkGC *graphics_context;
+
+   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
 

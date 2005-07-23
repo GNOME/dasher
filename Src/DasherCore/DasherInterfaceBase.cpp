@@ -103,10 +103,27 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       RequestFullRedraw();
       break;
     case LP_LINE_WIDTH:
-      RequestFullRedraw();
+      RequestFullRedraw(); // TODO - make this accessible everywhere
       break;
+
+    case LP_DASHER_FONTSIZE:
+      // TODO - make screen a CDasherComponent child?
+      m_DasherScreen->SetFontSize(static_cast < Dasher::Opts::FontSize > (GetLongParameter(LP_DASHER_FONTSIZE)));
+      RequestFullRedraw();
     default:
       break;
+    }
+  }
+  else if(pEvent->m_iEventType == 2) {
+    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
+    
+    if(pEditEvent->m_iEditType == 1) {
+      strCurrentContext += pEditEvent->m_sText;
+      if( strCurrentContext.size() > 20 )
+	strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
+    }
+    else if(pEditEvent->m_iEditType == 2) {
+      strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
     }
   }
 }

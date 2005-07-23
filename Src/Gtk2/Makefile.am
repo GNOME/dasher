@@ -1,6 +1,6 @@
 LIBS = @INTLLIBS@ @LIBS@
 
-noinst_LIBRARIES = libdashergtk.a
+noinst_LIBRARIES = libdashergtk.a libdashercontrol.a
 
 if WITH_GPE
 gladefile = dashergpe.glade
@@ -22,5 +22,9 @@ libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 
 
 AM_CFLAGS = $(GTK2_CFLAGS)
+
+libdashercontrol_a_SOURCES = Timer.cpp Canvas.cpp GtkDasherControl.cpp PangoCache.cpp DasherControl.cpp
+#libdashercontrol_a_LIBADD = ../DasherCore/libdashercore.a ../DasherCore/LanguageModelling/libdasherlm.a ../DasherCore/Alphabet/libdasheralphabet.a
+#libdashercontrol_a_LDFLAGS = -L../DasherCore -L../DasherCore/LanguageModelling -L../DasherCore/Alphabet -ldashercore -ldasherlm -ldasheralphabet
 
 pkgdata_DATA = $(gladefile) 

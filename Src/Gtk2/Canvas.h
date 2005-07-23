@@ -9,6 +9,8 @@
 #include <gdk/gdk.h>
 #include "PangoCache.h"
 
+#include <iostream>
+
 using namespace Dasher;
 
 /// CCanvas
@@ -43,6 +45,7 @@ public:
   /// Set the font used to render the Dasher display
   /// \param Name The name of the font.
   /// \todo This needs to be reimplemented for 4.0
+  /// \deprecated In Linux - now handled by the pango cache, but need to think how this fits in with Windows
   ///  
 
   void SetFont(std::string Name) {
@@ -51,10 +54,11 @@ public:
   ///
   /// Set the font size for rendering
   /// \param fontsize The font size to use
-  /// \todo This needs to be reimplemented for 4.0
+  /// \deprecated Obsolete
   ///
 
   void SetFontSize(Dasher::Opts::FontSize fontsize) {
+
   };
 
   ///

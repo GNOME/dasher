@@ -43,6 +43,9 @@ gunichar *wideoutput;
 extern gint outputcharacters;
 extern gboolean file_modified;
 
+
+// Old stuff (but quite probably still needed)
+
 extern "C" void choose_filename() {
   if(timestamp == TRUE) {
     // Build a filename based on the current time and date
@@ -78,14 +81,24 @@ extern "C" void choose_filename() {
 
 extern "C" gboolean edit_button_release_event(GtkWidget *widget, GdkEventButton *event, gpointer data) {
 
-  // FIXME - REIMPLEMENT
+  // FIXME - this probably gets called a little too often...  (not a
+  // problem as we ignore requests which don't actually change the
+  // context, but probably should be fixed for efficientcy reasons).
 
-//   if (paused==true) {
-//     // Dasher needs to update based on the context
-//     dasher_start();
-//     dasher_redraw();
-//     return FALSE;
-//   }
+  GtkTextIter start;
+  GtkTextIter end; // Refers to end of context, which is start of selection!
+
+  gtk_text_buffer_get_selection_bounds( the_text_buffer, &end, NULL );
+  start = end;
+
+  gtk_text_iter_backward_chars( &start, 10 );
+
+  gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
+
+  gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
+
+  g_free( szContext );
+
   return FALSE;
 }
 
@@ -131,6 +144,10 @@ void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint 
 }
 
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
+
+  // If we have a selection, clear it:
+  
+  gtk_text_buffer_delete_selection( the_text_buffer, false, true );
 
   std::string label(szText);
 

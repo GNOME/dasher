@@ -980,8 +980,8 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   screenint iScreenAnchorY((iScreenAnchorY1 + iScreenAnchorY2) / 2);
 
   // Compute font size based on position
-  int Size = Screen().GetFontSize();
-  screenint iLeftTimesFontSize = (iAnchorX1 + iAnchorX2) * Screen().GetFontSize() / 2;
+  int Size = GetLongParameter( LP_DASHER_FONTSIZE );
+  screenint iLeftTimesFontSize = (iAnchorX1 + iAnchorX2) * Size / 2;
   if(iLeftTimesFontSize > DasherModel().DasherY() * 1 / 20)
     Size *= 20;
   else if(iLeftTimesFontSize > DasherModel().DasherY() * 1 / 160)

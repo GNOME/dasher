@@ -518,10 +518,28 @@ public:
   /// \param strNewContext The new context (UTF-8)
 
   void SetContext(std::string strNewContext) {
-    if(m_pDasherModel != NULL)
-      m_pDasherModel->SetContext(strNewContext);
+    
+    // We keep track of an internal context and compare that to what
+    // we are given - don't restart Dasher if nothing has changed.
+    // This should really be integrated with DasherModel, which
+    // probably will be the case when we start to deal with being able
+    // to back off indefinitely. For now though we'll keep it in a
+    // separate string.
 
-    PauseAt(0,0);
+    bool bNewContext;
+
+    if( strNewContext.size() > strCurrentContext.size() )
+      bNewContext = (strNewContext.substr( strNewContext.size() - strCurrentContext.size()) != strCurrentContext);
+    else
+      bNewContext = (strCurrentContext.substr( strCurrentContext.size() - strNewContext.size()) != strNewContext);
+
+    if( bNewContext ) {
+      if(m_pDasherModel != NULL)
+	m_pDasherModel->SetContext(strNewContext);
+      PauseAt(0,0);
+      
+      strCurrentContext = strNewContext;
+    }
   }
 
   /// Get the total number of nats (base-e bits) entered.
@@ -568,6 +586,8 @@ private:
   static const std::string EmptyString;
 
   void CreateDasherModel();
+
+  std::string strCurrentContext;
 
 protected:
   CEventHandler * m_pEventHandler;
