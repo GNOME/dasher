@@ -19,7 +19,7 @@ extern PangoLayout *the_pangolayout;
 extern std::map< std::string, PangoLayout * > oPangoCache;
 
 void rebuild_buffer();
-void initialise_canvas( int width, int height );
+void initialise_canvas( void );
 
 void blank_callback();
 void display_callback();

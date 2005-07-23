@@ -1,7 +1,8 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[3.2.15],[dasher@mrao.cam.ac.uk])
+AC_INIT([dasher],[3.2.16pre],[dasher@mrao.cam.ac.uk])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
+AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([gnu check-news])
 AM_MAINTAINER_MODE
 
@@ -10,6 +11,18 @@ AC_PROG_INTLTOOL([0.18])
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
+changequote(,)dnl
+if test "x$GCC" = "xyes"; then
+  case " $CXXFLAGS " in
+  *[\ \	]-Wall[\ \	]*) ;;
+  *) CFLAGS="$CXXFLAGS -Wall" ;;
+  esac
+  case " $CXXFLAGS " in
+  *[\ \	]-O*[\ \	]*) ;;
+  *) CFLAGS="$CXXFLAGS -O2" ;;
+  esac
+fi
+changequote([,])dnl
 
 AM_ICONV
 
@@ -20,7 +33,6 @@ ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB es et eu fi fr ga g
 AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CXX
-
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
 WITHGNOME=true
@@ -29,6 +41,7 @@ WITHQTE=false
 WITHGPE=false
 WITHA11Y=true
 WITHGTK2=true
+WITHCAIRO=false
 
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
@@ -49,6 +62,10 @@ AC_ARG_WITH([gpe],
 AC_ARG_WITH([a11y],
 	AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library (default is YES)]),
 	[WITHA11Y=true], [WITHA11Y=false])
+
+AC_ARG_WITH([cairo],
+	AC_HELP_STRING([--with-cairo],[build with cairo support (default is NO)]),
+	[WITHCAIRO=true], [WITHCAIRO=false])
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
@@ -72,6 +89,10 @@ then
 	AC_ERROR("Unable to find GTK2 or another necessary library. See the previous line for more useful data.")
 fi
 
+
+
+
+AC_PATH_XTRA
 if [[ x"$WITHQTE" != xtrue ]]
 then
 dnl test for X libraries
@@ -104,58 +125,43 @@ dnl path to Xtst
 	    AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])
 	  fi
 	fi
-
-AC_SUBST(X_LIBS)
 fi
 
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
-	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0)
-	AC_DEFINE([GNOME_LIBS])
+	PKG_CHECK_MODULES(gnome, libgnome-2.0 libgnomeui-2.0 gnome-vfs-2.0)
+	AC_DEFINE([GNOME_LIBS], 1, [libgnome-2, libgnomeui-2, and gnome-vfs-2 are present])
 fi
 
 if [[ x"$WITHSPEECH" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
-	AC_DEFINE([GNOME_SPEECH])
+	AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
 	SPEECH_SOURCES='speech.$(OBJEXT)'
 fi
 
 if [[ x"$WITHA11Y" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0)
-	AC_DEFINE([GNOME_A11Y])
+	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
 
 if [[ x"$WITHGPE" = xtrue ]]; then
-	AC_DEFINE([WITH_GPE])
+	AC_DEFINE([WITH_GPE], 1, [gpe is present])
+fi
+
+if [[ x"$WITHCAIRO" = xtrue ]]; then
+	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.7.0)
+	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.7.0)])
 fi
 
 if [[ x"$BUILDGTK2" = xtrue ]]; then 
 	PKG_CHECK_MODULES(glade, libglade-2.0)
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 	PKG_CHECK_MODULES(wnck, libwnck-1.0)
+	PKG_CHECK_MODULES(GTK2, gtk+-2.0,[GTK2HERE=true],[GTK2HERE=false]) 
 fi
 
-AC_SUBST(gnome_speech_LIBS)
-AC_SUBST(gnome_speech_CFLAGS)
 AC_SUBST([SPEECH_SOURCES])
-
-AC_SUBST(gnome_a11y_LIBS)
-AC_SUBST(gnome_a11y_CFLAGS)
 AC_SUBST([A11Y_SOURCES])
-
-AC_SUBST(gnome_LIBS)
-AC_SUBST(gnome_CFLAGS)
-
-AC_SUBST(glade_LIBS)
-AC_SUBST(glade_CFLAGS)
-
-AC_SUBST(gthread_LIBS)
-AC_SUBST(gthread_CFLAGS)
-
-AC_SUBST(wnck_LIBS)
-AC_SUBST(wnck_CFLAGS)
-
-AC_SUBST(GETTEXT_PACKAGE)
 
 AM_CONDITIONAL(DOGTK2, test x$BUILDGTK2 = xtrue)	
 AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
@@ -163,21 +169,19 @@ AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 
-AC_SUBST(GTK2_CFLAGS)
-AC_SUBST(GTK2_LIBS)
-
-AC_SUBST(GCONF_CFLAGS)
-AC_SUBST(GCONF_LIBS)
-
 if [[ x"$WITHGPE" = xtrue ]]; then
+	SETTINGS_CFLAGS=
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 else
 	SETTINGS_CFLAGS=$GCONF_CFLAGS
 	SETTINGS_LIBS=$GCONF_LIBS
 fi
-AC_SUBST(SETTINGS_CFLAGS)
-AC_SUBST(SETTINGS_LIBS)
 
+GTK2BUILD_CFLAGS="$GTK2_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $glade_CFLAGS $gnome_CFLAGS $wnck_CFLAGS -DWNCK_I_KNOW_THIS_IS_UNSTABLE"
+GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS"
+
+AC_SUBST(GTK2BUILD_CFLAGS)
+AC_SUBST(GTK2BUILD_LIBS)
 
 AC_CONFIG_FILES([Makefile
 		 Src/Makefile

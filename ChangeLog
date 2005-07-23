@@ -1,3 +1,32 @@
+2005-07-23  Behdad Esfahbod  <behdad@behdad.org>
+
+	* configure.in: Stepped up version to 3.2.16pre.
+	
+	* configure.in, Src/Common/Common.h: Use a config.h file now.  It is
+	included in Common.h conditionally.
+	
+	* configure.in, */Makefile.am: Add -Wall and -O2 flags if g++ is the
+	compiler in configure, so Makefiles don't need to do that.
+	
+	--with-cairo
+	option added.
+
+	* configure.in, Src/Makefile.am, Src/Gtk2/Makefile.am:  Summarize
+	all CXXFLAGS and LIBS in configure and use in both Makefiles.
+
+	* Src/DasherCore/Makefile.am, Src/DasherCore/Alphabet/Makefile.am:
+	Cleanup after files that were moved into Alphabet.
+
+	* Src/Gtk2/canvas.cc: Cleaned up quite a bit, should be faster.
+	Added Cairo support.  So the code will use Cairo or Gdk based on
+	WITH_CAIRO.
+
+	* Src/Gtk2/canvas.cc, Src/Gtk2/canvas.h, Src/Gtk2/dasher.cc: Removed
+	unnecessary width and height parameters from initialise_canvas().
+
+	* Src/Gtk2/dasher.cc: Comment out code about lmsettings tab that was
+	removed from dasher.glade.  Shuts up Gtk+ runtime warnings.
+
 2005-07-22  Behdad Esfahbod  <behdad@behdad.org>
 
 	* Src/main.cc: Exit if glade file not found.

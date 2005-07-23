@@ -280,6 +280,7 @@ extern "C" void lmsettings_edited_callback(GtkCellRendererText *cell, gchar *pat
 
 }
 
+/* lmsettings has been disappeared from the glade interface!  --behdad
 extern "C" void
 generate_lm_options(GtkWidget *widget, gpointer user_data) {
   GtkTreeViewColumn *column; 
@@ -326,6 +327,7 @@ generate_lm_options(GtkWidget *widget, gpointer user_data) {
   //gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
  
 }
+*/
 
 extern "C" void 
 generate_preferences(GtkWidget *widget, gpointer user_data) { 
@@ -1373,7 +1375,7 @@ void interface_setup(GladeXML *xml) {
   speed_frame=glade_xml_get_widget(xml, "speed_frame");
   speed_hscale=GTK_SCALE(glade_xml_get_widget(xml, "speed_hscale"));
 
-  initialise_canvas(360,360);
+  initialise_canvas();
   initialise_edit();
 
   // interface specific preferences
@@ -1445,7 +1447,8 @@ void interface_setup(GladeXML *xml) {
     buttons[9].y=0;
   }
 
-  generate_lm_options(NULL, NULL);
+// lmsettings has been disappeared from the glade interface!  --behdad
+// generate_lm_options(NULL, NULL);
 
 }
 
@@ -1943,9 +1946,6 @@ void parameter_double_callback( double_param p, double value )
 void parameter_int_callback( int_param p, long int value )
 { 
 
-  GtkTreeModel *model;
-  GtkTreeIter iter;
-
   switch(p)
     {
     case INT_ORIENTATION:
@@ -2047,6 +2047,7 @@ void parameter_int_callback( int_param p, long int value )
       dasher_redraw();
       break;
 
+/* lmsettings has been disappeared from the glade interface!  --behdad
     case INT_LANGUAGEMODEL: 
       switch( value ) {
       case 0:
@@ -2063,6 +2064,9 @@ void parameter_int_callback( int_param p, long int value )
 	break;
       }
       break;
+
+    GtkTreeModel *model;
+    GtkTreeIter iter;
 
     case INT_LM_MAXORDER:
       // FIXME - this seems a bit hacky
@@ -2097,6 +2101,7 @@ void parameter_int_callback( int_param p, long int value )
       gtk_tree_model_get_iter_from_string( model, &iter, "5" );
       gtk_list_store_set( lmsettings_list_store, &iter, 1, value, -1 );
       break;
+*/
     default:
       break;
     }

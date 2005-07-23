@@ -14,7 +14,6 @@ std::map< std::string, PangoLayout * > oPangoCache;
 
 PangoFontDescription *font;
 PangoRectangle *ink,*logical;
-GdkColor *colours;
 
 extern gboolean setup,preferences;
 extern long mouseposstartdist;
@@ -22,126 +21,347 @@ extern gboolean firstbox, secondbox,paused;
 
 gboolean drawoutline=FALSE;
 
-/// Regenerate the on- and off- screen rendering buffers
+static PangoLayout * create_pango_layout ();
 
-void rebuild_buffer()
-{
-  g_free(offscreen_display_buffer);
-  g_free(offscreen_decoration_buffer);
-  g_free(onscreen_buffer);
+#if WITH_CAIRO
 
-  offscreen_display_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1); 
-  offscreen_decoration_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
-  onscreen_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
+/* Cairo drawing backend */
+#include <gdk/gdkcairo.h>
 
-  offscreen_buffer = offscreen_display_buffer;
-}
+cairo_t *display_cr;
+cairo_t *decoration_cr;
+cairo_t *cr;
+typedef struct {
+  double r, g, b;
+} my_cairo_colour_t;
+my_cairo_colour_t *cairo_colours = NULL;
+
+#define BEGIN_DRAWING_BACKEND				\
+  cairo_save(cr)
+
+#define END_DRAWING_BACKEND				\
+  cairo_restore(cr)
+
+#define SET_COLOR_BACKEND(c)				\
+  do {							\
+    my_cairo_colour_t _c = cairo_colours[(c)];		\
+    cairo_set_source_rgb(cr, _c.r, _c.g, _c.b);	\
+  } while (0)
+
+#else /* WITHOUT_CAIRO */
+
+GdkColormap *colormap;
+GdkGC *gc;
+GdkColor *colours = NULL;
+
+/* Gdk drawing backend */
+
+#define BEGIN_DRAWING_BACKEND				\
+  GdkGCValues origvalues;				\
+  gdk_gc_get_values(gc,&origvalues)
+
+#define END_DRAWING_BACKEND				\
+  gdk_gc_set_values(gc,&origvalues,GDK_GC_FOREGROUND)
+
+#define SET_COLOR_BACKEND(c)				\
+  do {							\
+    GdkColor _c = colours[(c)];				\
+    gdk_colormap_alloc_color(colormap, &_c, FALSE, TRUE);	\
+    gdk_gc_set_foreground (gc, &_c);	\
+  } while (0)
+
+#endif /* WITH_CAIRO */
+
+
+
+
+
+/* Initialization routines */
+
 
 /// Initialise the canvas - create rendering buffers and initialise
 /// font rendering.
 
-void initialise_canvas( int width, int height )
+
+static void allocate_buffers( void )
 {
-  // Create new pixmaps
-
-  offscreen_display_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
-  offscreen_decoration_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
-  onscreen_buffer = gdk_pixmap_new(the_canvas->window, width, height, -1);
-
+  offscreen_display_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1); 
+  offscreen_decoration_buffer = gdk_pixmap_new(the_canvas->window, the_canvas->allocation.width, the_canvas->allocation.height, -1);
   offscreen_buffer = offscreen_display_buffer;
+  onscreen_buffer = offscreen_decoration_buffer;
+#if WITH_CAIRO
 
-  // Pango font rendering stuff
+  // The lines between origin and pointer is draw here
+  decoration_cr = gdk_cairo_create(offscreen_decoration_buffer);
+  cr = decoration_cr;
+//  cairo_translate(cr, -0.5, -0.5);
+  cairo_set_line_width(cr, 1.0);
 
-  the_pangolayout = gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "");
-  font = pango_font_description_new();
-  pango_font_description_set_family( font,"Serif");
+  // Base stuff are drawn here
+  display_cr = gdk_cairo_create(offscreen_display_buffer);
+  cr = display_cr;
+//  cairo_translate(cr, -0.5, -0.5);
+  cairo_set_line_width(cr, 1.0);
+#endif
+}
 
-  ink = new PangoRectangle;
-  logical = new PangoRectangle;
+static void free_buffers( void )
+{
+#if WITH_CAIRO
+  cr = NULL;
+  cairo_destroy(display_cr);
+  cairo_destroy(decoration_cr);
+#endif
+  offscreen_buffer = onscreen_buffer = NULL;
+  g_object_unref(offscreen_display_buffer);
+  g_object_unref(offscreen_decoration_buffer);
+}
+
+static void init_backend( void )
+{
+#if WITH_CAIRO
+#else
+  colormap = gdk_colormap_get_system();
+  gc = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
+#endif
+}
+
+void send_marker_callback( int iMarker ) {
+  switch( iMarker ) {
+  case 0:
+    // Starting a new frame, so clear the background buffer
+
+    offscreen_buffer = offscreen_display_buffer;
+#if WITH_CAIRO
+    cr = display_cr;
+#endif
+
+    break;
+  case 1:
+
+    onscreen_buffer = offscreen_display_buffer;
+    gdk_draw_drawable( offscreen_decoration_buffer,
+		       the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+		       offscreen_display_buffer,
+		       0, 0, 0,0,
+		       the_canvas->allocation.width,
+		       the_canvas->allocation.height);
+    onscreen_buffer = offscreen_buffer = offscreen_decoration_buffer;
+#if WITH_CAIRO
+    cr = decoration_cr;
+#endif
+
+    break;
+  }
+}
+
+
+
+
+
+
+/* Drawing primitives */
+
+#define BEGIN_DRAWING					\
+  if (setup==false||preferences==true)			\
+    return;						\
+  BEGIN_DRAWING_BACKEND
+
+#define END_DRAWING					\
+  END_DRAWING_BACKEND
+
+#define SET_COLOR(c)					\
+  SET_COLOR_BACKEND(c)
+
+void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
+{
+  int i;
+  if( x2 < x1)
+    i = x2, x2 = x1, x1 = i;
+  if( y2 < y1)
+    i = y2, y2 = y1, y1 = i;
+  
+  BEGIN_DRAWING;
+  SET_COLOR(Color);
+#if WITH_CAIRO
+  cairo_rectangle(cr, x1, y1, x2-x1, y2-y1);
+  if (drawoutline==TRUE)
+    cairo_fill_preserve(cr);
+  else
+    cairo_fill(cr);
+#else
+  gdk_draw_rectangle (offscreen_buffer, gc, TRUE, x1, y1, x2-x1, y2-y1);
+#endif
+
+  if (drawoutline==TRUE) {
+    SET_COLOR(3);
+#if WITH_CAIRO
+    cairo_stroke(cr);
+#else
+    gdk_draw_rectangle (offscreen_buffer, gc, FALSE, x1, y1, x2-x1, y2-y1);
+#endif
+  }
+  END_DRAWING;
 }
 
 /// Blank the offscreen buffer
-
 void blank_callback()
 {
-
-  if (setup==false||preferences==true) 
-    return;
-
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
-
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  gdk_gc_get_values(graphics_context,&origvalues);
-
-  GdkColor background = colours[0];
-
-  gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &background);
-  
+  BEGIN_DRAWING;
+  SET_COLOR(0);
+#if WITH_CAIRO
+  cairo_rectangle(cr, 0,
+		      0,
+		      the_canvas->allocation.width,
+		      the_canvas->allocation.height);
+  cairo_fill(cr);
+#else
   gdk_draw_rectangle (offscreen_buffer,		      
-		      graphics_context,
+		      gc,
                       TRUE,
                       0, 0,
 		      the_canvas->allocation.width,
 		      the_canvas->allocation.height);
+#endif
+  END_DRAWING;
+}
 
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+void draw_colour_polygon_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
+{
+  BEGIN_DRAWING;
+  SET_COLOR(Colour);
+#if WITH_CAIRO
+  cairo_move_to(cr, Points[0].x, Points[0].y);
+  for (int i=1; i < Number; i++)
+    cairo_line_to(cr, Points[i].x, Points[i].y);
+  cairo_close_path(cr);
+  cairo_fill(cr);
+#else
+  GdkPoint *gdk_points;
+  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
+
+
+  for (int i=0; i < Number; i++) {
+    gdk_points[i].x = Points[i].x;
+    gdk_points[i].y = Points[i].y;
+  }
+
+  gdk_draw_polygon(offscreen_buffer, gc, TRUE, gdk_points, Number);
+  g_free(gdk_points);
+#endif
+  END_DRAWING;
 }
 
 
-void display_callback()
+void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
 { 
-  GdkRectangle update_rect;
+  BEGIN_DRAWING;
+  SET_COLOR(Colour);
+#if WITH_CAIRO
+  cairo_move_to(cr, Points[0].x, Points[0].y);
+  for (int i=1; i < Number; i++)
+    cairo_line_to(cr, Points[i].x, Points[i].y);
+  cairo_stroke(cr);
+#else
+  GdkPoint *gdk_points;
+  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
 
-  if (setup==false||preferences==true)
-    return;
-
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
-
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  gdk_gc_get_values(graphics_context,&origvalues);
-
-  GdkColor background = colours[0];
-
-  gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &background);
-
-  // Draw the target areas for 'dwell' start mode if necessary
-
-  if (paused==true) {
-    if (firstbox==true) {
-      draw_mouseposbox(0);
-    } else if (secondbox==true) {
-      draw_mouseposbox(1);
-    }
+  for (int i=0; i < Number; i++) {
+    gdk_points[i].x = Points[i].x;
+    gdk_points[i].y = Points[i].y;
   }
 
-  // Copy the offscreen buffer into the onscreen buffer
-  
-  gdk_draw_drawable( onscreen_buffer,
-		     the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-		     offscreen_buffer,
-		     0, 0, 0,0,
-		     the_canvas->allocation.width,
-		     the_canvas->allocation.height);
+  gdk_draw_lines(offscreen_buffer, gc, gdk_points, Number);
+  g_free(gdk_points);
+#endif
+  END_DRAWING;
+}
 
-  // Blank the offscreen buffer (?)
+void draw_mouseposbox(int which) {
+  BEGIN_DRAWING;
 
-  gdk_draw_rectangle( offscreen_buffer,
- 		      graphics_context,
-		      TRUE,
-		      0, 0,
- 		      the_canvas->allocation.width,
- 		      the_canvas->allocation.height);
-  
+  GdkColor color;
+  int top=0;
+
+  switch (which) {
+  case 0:
+    color.pixel=0;
+    color.red=255*257;
+    color.green=0*257;
+    color.blue=0*257;
+    top=the_canvas->allocation.height/2-mouseposstartdist-100;
+    break;
+  case 1:
+    color.pixel=0;
+    color.red=255*257;
+    color.green=255*257;
+    color.blue=0*257;
+    top=the_canvas->allocation.height/2+mouseposstartdist;
+    break;
+  }
+
+#if WITH_CAIRO
+  gdk_cairo_set_source_color(cr, &color);
+  cairo_rectangle(cr, 0, top, (the_canvas->allocation.width-1), 100);
+  cairo_fill(cr);
+#else
+  gdk_colormap_alloc_color(colormap, &color,FALSE, TRUE);
+  gdk_gc_set_foreground (gc, &color);
+  gdk_draw_rectangle (offscreen_buffer, gc, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
+#endif
+
+  END_DRAWING;
+}
+
+void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* blue)
+{
+#if WITH_CAIRO
+  if (cairo_colours)
+    delete cairo_colours;
+  cairo_colours = new my_cairo_colour_t[numcolours];
+#else
+  if (colours)
+    delete colours;
+  colours = new GdkColor[numcolours];
+#endif
+
+  for (int i=0; i<numcolours; i++) {
+#if WITH_CAIRO
+    cairo_colours[i].r = red[i] / 255.0;
+    cairo_colours[i].g = green[i] / 255.0;
+    cairo_colours[i].b = blue[i] / 255.0;
+#else
+    colours[i].pixel=0;
+    colours[i].red=red[i]*257;
+    colours[i].green=green[i]*257;
+    colours[i].blue=blue[i]*257;
+#endif
+  }
+}
+
+
+
+
+
+
+
+
+/* Almost-backend-independent stuff */
+
+void display_callback()
+{ 
+  BEGIN_DRAWING;
+
+  GdkRectangle update_rect;
+
+  if (offscreen_buffer != onscreen_buffer)
+    gdk_draw_drawable( onscreen_buffer,
+		       the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
+		       offscreen_buffer,
+		       0, 0, 0,0,
+		       the_canvas->allocation.width,
+		       the_canvas->allocation.height);
+
   // Invalidate the full canvas to force it to be redrawn on-screen
 
   update_rect.x = 0;
@@ -151,167 +371,67 @@ void display_callback()
 
   gdk_window_invalidate_rect(the_canvas->window,&update_rect,FALSE);
 
-  // Restore original graphics context (?)
-
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+  END_DRAWING;
 }
 
-void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)
+
+
+
+
+
+
+
+
+/* Backend-dependent Pango stuff */
+
+static
+void draw_colour_text_string(std::string String, int Colour, int x1, int y1, int size)
 {
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
+  BEGIN_DRAWING;
+  SET_COLOR(Colour);
 
-  if (setup==false||preferences==true)
-    return;
-
-  GdkColor outline = colours[3];
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  gdk_gc_get_values(graphics_context,&origvalues);
-
-  GdkColor foreground = colours[Color];
-
-  gdk_colormap_alloc_color(colormap, &foreground,FALSE,TRUE);
-  gdk_colormap_alloc_color(colormap, &outline,FALSE,TRUE);
-  gdk_gc_set_foreground (graphics_context, &foreground);
-  
-  if( x2 > x1 ) {
-    if( y2 > y1 ) {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y1, x2-x1, y2-y1);
-      if (drawoutline==TRUE) {
-	gdk_gc_set_foreground (graphics_context, &outline);
-	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y1, x2-x1, y2-y1);
-      }
-    }
-    else {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x1, y2, x2-x1, y1-y2);
-      if (drawoutline==TRUE) {
-	gdk_gc_set_foreground (graphics_context, &outline);
-	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x1, y2, x2-x1, y1-y2);
-      }
-    }
-  }
-  else {
-    if( y2 > y1 ) {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y1, x1-x2, y2-y1);
-      if (drawoutline==TRUE) {
-	gdk_gc_set_foreground (graphics_context, &outline);
-	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y1, x1-x2, y2-y1);
-      }
-    }
-    else {
-      gdk_draw_rectangle (offscreen_buffer, graphics_context, TRUE, x2, y2, x1-x2, y1-y2);
-      if (drawoutline==TRUE) {
-	gdk_gc_set_foreground (graphics_context, &outline);
-	gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, x2, y2, x1-x2, y1-y2);
-      }
-    }
-  }
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
-}
-
-void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
-{
-  draw_colour_polyline_callback(Points, Number, 0);
-}
-
-void draw_colour_polygon_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
-{
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
-
-  if (setup==false||preferences==true)
-    return;
-
-  GdkColor colour = colours[Colour];
-  GdkPoint *gdk_points;
-
-  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  gdk_gc_get_values(graphics_context,&origvalues);
-  colormap = gdk_colormap_get_system();
-
-  gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &colour);
-
-  for (int i=0; i < Number; i++) {
-    gdk_points[i].x = Points[i].x;
-    gdk_points[i].y = Points[i].y;
-  }
-
-  gdk_draw_polygon(offscreen_buffer, graphics_context, TRUE, gdk_points, Number);
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
-  g_free(gdk_points);
-}
-
-
-void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Number, int Colour)
-{ 
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
-
-  if (setup==false||preferences==true)
-    return;
-
-  GdkColor colour = colours[Colour];
-  GdkPoint *gdk_points;
-
-  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  gdk_gc_get_values(graphics_context,&origvalues);
-  colormap = gdk_colormap_get_system();
-
-  gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &colour);
-
-  for (int i=0; i < Number; i++) {
-    gdk_points[i].x = Points[i].x;
-    gdk_points[i].y = Points[i].y;
-  }
-
-  gdk_draw_lines(offscreen_buffer, graphics_context, gdk_points, Number);
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
-  g_free(gdk_points);
-}
-
-void draw_text_callback(symbol Character, int x1, int y1, int size)
-{
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
-  std::string symbol;
-
-  if (setup==false||preferences==true)
-    return;
-
-  symbol = dasher_get_display_text( Character );
-
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  gdk_gc_get_values(graphics_context,&origvalues);
-
-  int colour=dasher_get_text_colour(Character);
-
-  GdkColor foreground = colours[colour];
-
-  gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &foreground);
-  
-  PangoLayout *pLayout( get_pango_layout( symbol, size ) );
+  PangoLayout *pLayout( get_pango_layout( String, size ) );
 
   pango_layout_get_pixel_extents(pLayout,ink,logical);
 
-  gdk_draw_layout (offscreen_buffer,
-		   graphics_context,
-		   x1, y1-ink->height/2, pLayout);
-
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+#if WITH_CAIRO
+  cairo_translate(cr, x1, y1-ink->height/2);
+  pango_cairo_show_layout(cr, pLayout);
+#else
+  gdk_draw_layout(offscreen_buffer,
+		  gc,
+		  x1, y1-ink->height/2, pLayout);
+#endif
+  END_DRAWING;
 }
+
+
+static PangoLayout *
+create_pango_layout ()
+{
+#if WITH_CAIRO
+  return pango_cairo_create_layout(cr);
+#else
+  return gtk_widget_create_pango_layout(GTK_WIDGET(the_canvas), "");
+#endif
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Backend-independent stuff */
 
 PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
   
@@ -335,7 +455,7 @@ PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
   if( it != oPangoCache.end() )
     return it->second;
   else {
-    PangoLayout *pNewPangoLayout( gtk_widget_create_pango_layout (GTK_WIDGET(the_canvas), "") );
+    PangoLayout *pNewPangoLayout( create_pango_layout() );
 
     pango_font_description_set_size( font, iSize*PANGO_SCALE );
     pango_layout_set_font_description( pNewPangoLayout,font );
@@ -345,36 +465,6 @@ PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
 
     return pNewPangoLayout;
   }
-}
-
-void draw_text_string_callback(std::string String, int x1, int y1, int size)
-{
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkGCValues origvalues;
-
-  if (setup==false||preferences==true)
-    return;
-
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-
-  gdk_gc_get_values(graphics_context,&origvalues);
-
-  GdkColor foreground = colours[4];
-
-  gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &foreground);
-
-  PangoLayout *pLayout( get_pango_layout( String, size ) );
-
-  pango_layout_get_pixel_extents(pLayout,ink,logical);
-
-  gdk_draw_layout (offscreen_buffer,
-		   graphics_context,
-		   x1, y1-ink->height/2, pLayout);
-
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
 }
 
 void text_size_callback(const std::string &String, int* Width, int* Height, int size)
@@ -392,90 +482,6 @@ void text_size_callback(const std::string &String, int* Width, int* Height, int 
   *Height=ink->height;
 }
 
-void send_marker_callback( int iMarker ) {
-  switch( iMarker ) {
-  case 0:
-    // Starting a new frame, so clear the background buffer
-
-
-    offscreen_buffer = offscreen_display_buffer;
-
-    break;
-  case 1:
-
-    gdk_draw_drawable( offscreen_decoration_buffer,
-		       the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
-		       offscreen_display_buffer,
-		       0, 0, 0,0,
-		       the_canvas->allocation.width,
-		       the_canvas->allocation.height);
-    
-    offscreen_buffer = offscreen_decoration_buffer;
-
-    break;
-  }
-}
-
-GdkColor get_color(int Color, Opts::ColorSchemes ColorScheme)
-{
-  if (ColorScheme == Special1) {
-    GdkColor foreground = { 0, 240*257, 240*257, 240*257 };
-    return foreground;
-  }
-  if (ColorScheme == Special2) {
-    GdkColor foreground = { 0, 255*257, 255*257, 255*257 };
-    return foreground;
-  }
-  if (ColorScheme == Objects) {
-    GdkColor foreground = { 0, 0, 0, 0 };
-    return foreground;
-  }
-  if (ColorScheme == Groups) {
-    if (Color%3 == 0) {
-      GdkColor foreground = { 0, 255*257, 255*257 ,0 };
-      return foreground;
-    }
-    if (Color%3 == 1) {
-      GdkColor foreground = { 0, 255*257 ,100*257, 100*257 };
-      return foreground;
-    }
-    if (Color %3 == 2) {
-      GdkColor foreground = { 0, 0, 255*257 ,0 };
-      return foreground;
-    }
-  }
-  if (ColorScheme == Nodes1) {
-    if (Color%3 == 0) {
-      GdkColor foreground = { 0, 180*257 ,245*257 ,180*257 };
-      return foreground;
-    }
-    if (Color%3 == 1) {
-      GdkColor foreground = { 0, 160*257 ,200*257 ,160*257 };
-      return foreground;
-    }
-    if (Color %3 == 2) {
-      GdkColor foreground = { 0, 0, 255*257, 255*257 };
-      return foreground;
-    }
-  }
-  if (ColorScheme == Nodes2) {
-    if (Color%3 == 0) {
-      GdkColor foreground = { 0, 255*257, 185*257, 255*257 };
-      return foreground;
-    }
-    if (Color%3 == 1) {
-      GdkColor foreground = { 0, 140*257, 200*257, 255*257 };
-      return foreground;
-    }
-    if (Color %3 == 2) {
-      GdkColor foreground = { 0, 255*257, 175*257, 175*257 };
-      return foreground;
-    }
-  }
-  GdkColor foreground = {0, 0, 0, 0 };
-  return foreground;
-}
-
 void set_canvas_font(std::string fontname) 
 {
   if(fontname!="") {
@@ -483,10 +489,6 @@ void set_canvas_font(std::string fontname)
     font=pango_font_description_from_string(fontname.c_str());
     dasher_redraw();
   }
-  //  {
-  //  GdkColor foreground = { 0, 255*257, 185*257, 255*257 };
-  //  return foreground;
-  // }
 }
 
 void reset_dasher_font()
@@ -496,53 +498,42 @@ void reset_dasher_font()
   dasher_redraw();
 }
 
-void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* blue)
+void initialise_canvas( void )
 {
-  colours = new GdkColor[numcolours];
-  for (int i=0; i<numcolours; i++) {
-    colours[i].pixel=0;
-    colours[i].red=red[i]*257;
-    colours[i].green=green[i]*257;
-    colours[i].blue=blue[i]*257;
-  }
+  allocate_buffers();
+
+  init_backend();
+
+  // Pango font rendering stuff
+  the_pangolayout = create_pango_layout ();
+
+  font = pango_font_description_new();
+  pango_font_description_set_family( font,"Serif");
+
+  ink = new PangoRectangle;
+  logical = new PangoRectangle;
 }
 
-void draw_mouseposbox(int which) {
-  if (setup==false||preferences==true)
-    return;
-
-  GdkGC *graphics_context;
-  GdkColormap *colormap;
-  GdkColor color;
-  GdkGCValues origvalues;
-  graphics_context = the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)];
-  colormap = gdk_colormap_get_system();
-  int top=0;
-
-  switch (which) {
-  case 0:
-    color.pixel=0;
-    color.red=255*257;
-    color.green=0*257;
-    color.blue=0*257;
-    top=the_canvas->allocation.height/2-mouseposstartdist-100;
-    break;
-  case 1:
-    color.pixel=0;
-    color.red=255*257;
-    color.green=255*257;
-    color.blue=0*257;
-    top=the_canvas->allocation.height/2+mouseposstartdist;
-    break;
-  }
-
-  gdk_gc_get_values(graphics_context,&origvalues);
-  gdk_colormap_alloc_color(colormap, &color,FALSE, TRUE);
-  gdk_gc_set_foreground (graphics_context, &color);
-  gdk_draw_rectangle (offscreen_buffer, graphics_context, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
-  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND);
+void draw_text_callback(symbol Character, int x1, int y1, int size)
+{
+  std::string String = dasher_get_display_text( Character );
+  int colour = dasher_get_text_colour(Character);
+  draw_colour_text_string(String, colour, x1, y1, size);
 }
 
+void draw_text_string_callback(std::string String, int x1, int y1, int size)
+{
+  draw_colour_text_string(String, 4, x1, y1, size);
+}
 
+void draw_polyline_callback(Dasher::CDasherScreen::point* Points, int Number)
+{
+  draw_colour_polyline_callback(Points, Number, 0);
+}
 
+void rebuild_buffer()
+{
+  free_buffers();
+  allocate_buffers();
+}
 
