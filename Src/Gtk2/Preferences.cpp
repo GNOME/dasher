@@ -2,6 +2,7 @@
 #include "Parameters.h"
 #include "dasher.h"
 #include "GtkDasherControl.h"
+#include "AppSettings.h"
 
 #include "DasherControl.h"
 
@@ -89,6 +90,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     break;
   }
 
+ gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), get_app_parameter_bool( APP_BP_SHOW_TOOLBAR) );
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
@@ -479,14 +481,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 }
 
 extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data) {
-
-  // FIXME - REIMPLEMENT
-
-//   if(GTK_TOGGLE_BUTTON(widget)->active) {
-//     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, true );
-//   } else {
-//     dasher_set_parameter_bool( BOOL_SHOWTOOLBAR, false );
-//   }
+  set_app_parameter_bool( APP_BP_SHOW_TOOLBAR, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
 extern "C" void show_slider(GtkWidget *widget, gpointer user_data) {

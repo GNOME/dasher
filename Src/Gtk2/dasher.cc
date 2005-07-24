@@ -54,6 +54,7 @@
 
 #include "Preferences.h"
 #include "FontDialogues.h"
+#include "AppSettings.h"
 #include "../DasherCore/Parameters.h"
 
 // We shouldn't need this - the functions which reference it are obsolete
@@ -163,6 +164,10 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
   vpane = glade_xml_get_widget(pGladeXML, "vpaned1");
   dasher_menu_bar = glade_xml_get_widget(pGladeXML, "dasher_menu_bar");
+
+  if( get_app_parameter_bool( APP_BP_SHOW_TOOLBAR ) ) {
+    gtk_widget_show( toolbar );
+  }
 
   // Construct a Dasher control
 
