@@ -95,12 +95,14 @@ static void allocate_buffers( void )
   decoration_cr = gdk_cairo_create(offscreen_decoration_buffer);
   cr = decoration_cr;
 //  cairo_translate(cr, -0.5, -0.5);
+  cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
 
   // Base stuff are drawn here
   display_cr = gdk_cairo_create(offscreen_display_buffer);
   cr = display_cr;
 //  cairo_translate(cr, -0.5, -0.5);
+  cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
 #endif
 }
@@ -184,13 +186,15 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   BEGIN_DRAWING;
   SET_COLOR(Color);
 #if WITH_CAIRO
-  cairo_rectangle(cr, x1, y1, x2-x1, y2-y1);
-  if (drawoutline==TRUE)
+  if (drawoutline==TRUE) {
+    cairo_rectangle(cr, x1+.5, y1+.5, x2-x1, y2-y1);
     cairo_fill_preserve(cr);
-  else
+  } else {
+    cairo_rectangle(cr, x1, y1, x2-x1+1.0, y2-y1+1.0);
     cairo_fill(cr);
+  }
 #else
-  gdk_draw_rectangle (offscreen_buffer, gc, TRUE, x1, y1, x2-x1, y2-y1);
+  gdk_draw_rectangle (offscreen_buffer, gc, TRUE, x1, y1, x2-x1+1, y2-y1+1);
 #endif
 
   if (drawoutline==TRUE) {
@@ -258,9 +262,9 @@ void draw_colour_polyline_callback(Dasher::CDasherScreen::point* Points, int Num
   BEGIN_DRAWING;
   SET_COLOR(Colour);
 #if WITH_CAIRO
-  cairo_move_to(cr, Points[0].x, Points[0].y);
+  cairo_move_to(cr, Points[0].x+.5, Points[0].y+.5);
   for (int i=1; i < Number; i++)
-    cairo_line_to(cr, Points[i].x, Points[i].y);
+    cairo_line_to(cr, Points[i].x+.5, Points[i].y+.5);
   cairo_stroke(cr);
 #else
   GdkPoint *gdk_points;
@@ -395,12 +399,12 @@ void draw_colour_text_string(std::string String, int Colour, int x1, int y1, int
   pango_layout_get_pixel_extents(pLayout,ink,logical);
 
 #if WITH_CAIRO
-  cairo_translate(cr, x1, y1-ink->height/2);
+  cairo_translate(cr, x1, y1-(int)ink->height/2);
   pango_cairo_show_layout(cr, pLayout);
 #else
   gdk_draw_layout(offscreen_buffer,
 		  gc,
-		  x1, y1-ink->height/2, pLayout);
+		  x1, y1-ink->(int)height/2, pLayout);
 #endif
   END_DRAWING;
 }
