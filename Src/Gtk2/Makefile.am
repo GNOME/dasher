@@ -12,7 +12,23 @@ settings_store = settings_store.cc settings_store.h
 EXTRA_DIST = gpesettings_store.cc gpesettings_store.h
 endif
 
-libdashergtk_a_SOURCES = dasher.cc dasher.h canvas.cc canvas.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h fileops.cc fileops.h dasher.glade dashergpe.glade $(settings_store)
+libdashergtk_a_SOURCES = \
+		accessibility.cc \
+		accessibility.h \
+		canvas.cc \
+		canvas.h \
+		dasher.cc \
+		dasher.h \
+		dasher.glade \
+		dashergpe.glade \
+		edit.cc \
+		edit.h \
+		fileops.cc \
+		fileops.h \
+		mouse_input.h \
+		speech.cc \
+		speech.h \
+		$(settings_store)
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@

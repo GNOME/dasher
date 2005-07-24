@@ -3,33 +3,35 @@ SUBDIRS = LanguageModelling Alphabet
 noinst_LIBRARIES = libdashercore.a
 libdashercore_a_SOURCES = \
 		ColourIO.cpp \
+		ColourIO.h \
 		CustomColours.cpp \
 		CustomColours.h \
-		DasherInterface.cpp \
-		DasherSettingsInterface.cpp \
-		DasherViewSquare.h \
-		SettingsStore.cpp \
-		ColourIO.h \
-		DasherInterface.h \
-		DasherScreen.h \
-		DasherSettingsInterface.h \
-		DasherViewSquare.inl \
-		SettingsStore.h \
-		DasherModel.cpp \
-		DasherTypes.h \
-		DasherWidgetInterface.h \
-		FrameRate.h \
 		DashEdit.h \
-		DasherModel.h \
-		DasherView.cpp \
 		DasherAppInterface.h \
+		DasherInput.h \
+		DasherInterface.cpp \
+		DasherInterface.h \
+		DasherModel.cpp \
+		DasherModel.h \
 		DasherNode.cpp \
-		DasherView.h \
 		DasherNode.h \
+		DasherScreen.h \
+		DasherSettingsInterface.cpp \
+		DasherSettingsInterface.h \
+		DasherTypes.h \
+		DasherView.cpp \
+		DasherView.h \
 		DasherView.inl \
 		DasherViewSquare.cpp \
+		DasherViewSquare.h \
+		DasherViewSquare.inl \
+		DasherWidgetInterface.h \
+		FrameRate.h \
 		libdasher.cc \
 		libdasher.h \
-		libdasher_private.h
+		libdasher_private.h \
+		SettingsStore.cpp \
+		SettingsStore.h \
+		View/DelayedDraw.h
 
-AM_CXXFLAGS =
+AM_CXXFLAGS = -I$(srcdir)/../Common
