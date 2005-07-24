@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ta\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-05-12 13:11+0000\n"
+"POT-Creation-Date: 2005-07-23 19:18-0400\n"
 "PO-Revision-Date: 2005-05-12 20:40-0700\n"
 "Last-Translator: Jayaradha <njayaradha@yahoo.com>\n"
 "Language-Team: Tamil <zhakanini@yahoogroups.com>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"\n"
 "\n"
 "\n"
 
@@ -26,338 +27,330 @@ msgstr ""
 #. \-edittree
 #.
 #. Tree, parent, children, next, pointer, data, string, colour
-#: ../Src/Gtk2/accessibility.cc:82
+#: Src/Gtk2/accessibility.cc:82
 msgid "Panels"
 msgstr "பலகங்கள்"
 
-#: ../Src/Gtk2/accessibility.cc:83
+#: Src/Gtk2/accessibility.cc:83
 msgid "Application"
 msgstr "பயன்பாடுகள்"
 
-#: ../Src/Gtk2/accessibility.cc:85
+#: Src/Gtk2/accessibility.cc:85
 msgid "Menus"
 msgstr "மெனு"
 
-#: ../Src/Gtk2/accessibility.cc:86
+#: Src/Gtk2/accessibility.cc:86
 msgid "Buttons"
 msgstr "பட்டன்கள்"
 
-#: ../Src/Gtk2/accessibility.cc:87
+#: Src/Gtk2/accessibility.cc:87
 msgid "Text"
 msgstr "உரை"
 
-#: ../Src/Gtk2/accessibility.cc:162 ../Src/Gtk2/dasher.glade.h:29
-#: ../Src/Gtk2/dashergpe.glade.h:28
+#: Src/Gtk2/accessibility.cc:164 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "கட்டுப்பாடு"
 
-#: ../Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:170
 msgid "Windows"
 msgstr "சாளரங்கள்"
 
-#: ../Src/Gtk2/accessibility.cc:175
+#: Src/Gtk2/accessibility.cc:177
 msgid "Stop"
 msgstr "நிறுத்து"
 
-#: ../Src/Gtk2/accessibility.cc:182
+#: Src/Gtk2/accessibility.cc:184
 msgid "Pause"
 msgstr "இடை நிறுத்தம்"
 
-#: ../Src/Gtk2/accessibility.cc:189
+#: Src/Gtk2/accessibility.cc:191
 msgid "Move"
 msgstr "நகர்த்து"
 
-#: ../Src/Gtk2/accessibility.cc:196
+#: Src/Gtk2/accessibility.cc:198
 msgid "Delete"
 msgstr "நீக்கு"
 
-#: ../Src/Gtk2/accessibility.cc:206
+#: Src/Gtk2/accessibility.cc:208
 msgid "Speak"
 msgstr "பேசு"
 
-#: ../Src/Gtk2/accessibility.cc:233 ../Src/Gtk2/accessibility.cc:387
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:389
 msgid "<"
 msgstr "<"
 
-#: ../Src/Gtk2/accessibility.cc:239 ../Src/Gtk2/accessibility.cc:381
+#: Src/Gtk2/accessibility.cc:241 Src/Gtk2/accessibility.cc:383
 msgid ">"
 msgstr ">"
 
-#: ../Src/Gtk2/accessibility.cc:245
+#: Src/Gtk2/accessibility.cc:247
 msgid "<<<"
 msgstr "<<<"
 
-#: ../Src/Gtk2/accessibility.cc:251
+#: Src/Gtk2/accessibility.cc:253
 msgid ">>>"
 msgstr ">>>"
 
-#: ../Src/Gtk2/accessibility.cc:264
+#: Src/Gtk2/accessibility.cc:266
 msgid "Everything"
 msgstr "எல்லாம்"
 
-#: ../Src/Gtk2/accessibility.cc:270
+#: Src/Gtk2/accessibility.cc:272
 msgid "New"
 msgstr "புதிய"
 
-#: ../Src/Gtk2/accessibility.cc:276
+#: Src/Gtk2/accessibility.cc:278
 msgid "Repeat"
 msgstr "மீண்டும்"
 
-#: ../Src/Gtk2/accessibility.cc:298
+#: Src/Gtk2/accessibility.cc:300
 msgid "1"
 msgstr "1"
 
-#: ../Src/Gtk2/accessibility.cc:305
+#: Src/Gtk2/accessibility.cc:307
 msgid "2"
 msgstr "2"
 
-#: ../Src/Gtk2/accessibility.cc:312
+#: Src/Gtk2/accessibility.cc:314
 msgid "3"
 msgstr "3"
 
-#: ../Src/Gtk2/accessibility.cc:319
+#: Src/Gtk2/accessibility.cc:321
 msgid "4"
 msgstr "4"
 
-#: ../Src/Gtk2/accessibility.cc:326
+#: Src/Gtk2/accessibility.cc:328
 msgid "5"
 msgstr "5"
 
-#: ../Src/Gtk2/accessibility.cc:333
+#: Src/Gtk2/accessibility.cc:335
 msgid "6"
 msgstr "6"
 
-#: ../Src/Gtk2/accessibility.cc:340
+#: Src/Gtk2/accessibility.cc:342
 msgid "7"
 msgstr "7"
 
-#: ../Src/Gtk2/accessibility.cc:347
+#: Src/Gtk2/accessibility.cc:349
 msgid "8"
 msgstr "8"
 
-#: ../Src/Gtk2/accessibility.cc:354
+#: Src/Gtk2/accessibility.cc:356
 msgid "9"
 msgstr "9"
 
-#: ../Src/Gtk2/accessibility.cc:361
+#: Src/Gtk2/accessibility.cc:363
 msgid "10"
 msgstr "10"
 
-#: ../Src/Gtk2/accessibility.cc:393 ../Src/Gtk2/accessibility.cc:416
+#: Src/Gtk2/accessibility.cc:395 Src/Gtk2/accessibility.cc:418
 msgid "Character"
 msgstr "எழுத்துரு"
 
-#: ../Src/Gtk2/accessibility.cc:404 ../Src/Gtk2/accessibility.cc:426
+#: Src/Gtk2/accessibility.cc:406 Src/Gtk2/accessibility.cc:428
 msgid "Word"
 msgstr "வார்த்தை"
 
-#: ../Src/Gtk2/accessibility.cc:409 ../Src/Gtk2/accessibility.cc:432
+#: Src/Gtk2/accessibility.cc:411 Src/Gtk2/accessibility.cc:434
 msgid "Line"
 msgstr "வரி"
 
-#: ../Src/Gtk2/accessibility.cc:542
+#: Src/Gtk2/accessibility.cc:544
 msgid "Unknown"
 msgstr "தெரியாத"
 
-#: ../Src/Gtk2/dasher.cc:192
+#: Src/Gtk2/dasher.cc:199
 msgid "Training Dasher, please wait"
 msgstr "டேஷர் பயிற்சி, காத்திருக்கவும்"
 
-#: ../Src/Gtk2/dasher.cc:563 ../Src/Gtk2/dasher.cc:584
-#: ../Src/Gtk2/dasher.cc:605 ../Src/Gtk2/dasher.cc:626
-#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:60
+#: Src/Gtk2/dasher.cc:590 Src/Gtk2/dasher.cc:611 Src/Gtk2/dasher.cc:632
+#: Src/Gtk2/dasher.cc:653 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "கோப்பை தேர்வு செய்யவும்"
 
 #. This gets pulled out via gettext
-#: ../Src/Gtk2/dasher.cc:1737
+#: Src/Gtk2/dasher.cc:1776
 msgid "translator_credits"
 msgstr "Jayaradha N (ஜெயராதா) http://www.zhakanini.org "
 
-#: ../Src/Gtk2/dasher.cc:1739 ../Src/Gtk2/dasher.glade.h:36
-#: ../Src/Gtk2/dashergpe.glade.h:35
+#: Src/Gtk2/dasher.cc:1778 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "டேஷர்"
 
-#: ../Src/Gtk2/dasher.cc:1742
+#: Src/Gtk2/dasher.cc:1781
 msgid "Dasher is a predictive text entry application"
 msgstr "டேஷர் உரை உள்ளீட்டு பயன்பாடு"
 
 #. Just a debugging thing, output to the console
-#: ../Src/Gtk2/dasher.cc:2187
+#: Src/Gtk2/dasher.cc:2251
 #, c-format
 msgid "%d characters output in %ld seconds\n"
 msgstr "%d எழுத்துக்கள் %ld நொடிகளில் உள்ளிடப்பட்டது\n"
 
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
+#: Src/Gtk2/dasher.glade.h:1 Src/Gtk2/dashergpe.glade.h:1
 msgid "5:"
 msgstr "5:"
 
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashergpe.glade.h:2
+#: Src/Gtk2/dasher.glade.h:2 Src/Gtk2/dashergpe.glade.h:2
 msgid "6:"
 msgstr "6:"
 
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:3
+#: Src/Gtk2/dasher.glade.h:3 Src/Gtk2/dashergpe.glade.h:3
 msgid "7:"
 msgstr "7:"
 
-#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashergpe.glade.h:4
+#: Src/Gtk2/dasher.glade.h:4 Src/Gtk2/dashergpe.glade.h:4
 msgid "8:"
 msgstr "8:"
 
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashergpe.glade.h:5
+#: Src/Gtk2/dasher.glade.h:5 Src/Gtk2/dashergpe.glade.h:5
 msgid "9:"
 msgstr "9:"
 
-#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashergpe.glade.h:6
+#: Src/Gtk2/dasher.glade.h:6 Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>எழுத்துக்கள் தேர்வு:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:7
+#: Src/Gtk2/dasher.glade.h:7 Src/Gtk2/dashergpe.glade.h:7
 msgid "<b>Button control setup</b>"
 msgstr "<b>பட்டன் கட்டுப்பாட்டு அமைப்பு</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:8
+#: Src/Gtk2/dasher.glade.h:8 Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>நிறத் தேர்வு:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:9
+#: Src/Gtk2/dasher.glade.h:9 Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
 msgstr "<b>கட்டுப்பாட்டு பாணி:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10
-msgid "<b>Language Model Settings:</b>"
-msgstr "<b>மொழி மாதிரி அமைப்பு:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11
-msgid "<b>Language Model:</b>"
-msgstr "<b>மொழி மாதிரி:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashergpe.glade.h:10
+#: Src/Gtk2/dasher.glade.h:10 Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>இதர தேர்வுகள்:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:11
+#: Src/Gtk2/dasher.glade.h:11 Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
 msgstr "<b>நிலை அமைப்பு:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14 ../Src/Gtk2/dashergpe.glade.h:12
+#: Src/Gtk2/dasher.glade.h:12 Src/Gtk2/dashergpe.glade.h:12
 msgid "<b>Smoothing:</b>"
 msgstr "<b>மழுமழுப்பாக்கல்:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashergpe.glade.h:14
+#: Src/Gtk2/dasher.glade.h:13 Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>துவக்குதல் மற்றும் நிறுத்துதல்:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:15
+#: Src/Gtk2/dasher.glade.h:14 Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
 msgstr "<b>இருநிலை மாற்றி பட்டன் பாங்கு:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:16
+#: Src/Gtk2/dasher.glade.h:15 Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
 msgstr "<b>பார் தேர்வு:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashergpe.glade.h:17
+#: Src/Gtk2/dasher.glade.h:16 Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
 msgstr "<b>X/Y அச்சுகள்:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:18
+#: Src/Gtk2/dasher.glade.h:17 Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Y அச்சு தேர்வுகள்:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:19
+#: Src/Gtk2/dasher.glade.h:18 Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
 msgstr "மேம்பட்ட"
 
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:20
+#: Src/Gtk2/dasher.glade.h:19 Src/Gtk2/dashergpe.glade.h:20
 msgid "Alphabet"
 msgstr "எழுத்துக்கள்"
 
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:21
+#: Src/Gtk2/dasher.glade.h:20 Src/Gtk2/dashergpe.glade.h:21
 msgid "Alphabet Default"
 msgstr "இயல்பான எழுத்துக்கள்"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:22
+#: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
 msgstr "கீழிருந்து மேல்"
 
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:23
+#: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
 msgstr "பட்டன் கட்டுப்பாட்டு அமைப்பு"
 
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:24
+#: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:24
 msgid "Button mode"
 msgstr "பட்டன் பாங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:25
+#: Src/Gtk2/dasher.glade.h:24 Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
 msgstr "பட்டன்:"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:26
+#: Src/Gtk2/dasher.glade.h:25 Src/Gtk2/dashergpe.glade.h:26
 msgid "Change colour scheme automatically"
 msgstr "நிற தேர்வை தானாக மாற்று"
 
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:27
+#: Src/Gtk2/dasher.glade.h:26 Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "நிறம்"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:29
+#: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
 msgstr "கட்டுப்பாடு பாங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashergpe.glade.h:30
+#: Src/Gtk2/dasher.glade.h:29 Src/Gtk2/dashergpe.glade.h:30
 msgid "Copy"
 msgstr "படியெடு"
 
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashergpe.glade.h:31
+#: Src/Gtk2/dasher.glade.h:30 Src/Gtk2/dashergpe.glade.h:31
 msgid "Copy _All"
 msgstr "(_A)அனைத்தையும் படியெடு"
 
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:32
+#: Src/Gtk2/dasher.glade.h:31 Src/Gtk2/dashergpe.glade.h:32
 msgid "Copy all on stop"
 msgstr "நிறுத்தும் போது அனைத்தையும் படியெடு"
 
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:33
+#: Src/Gtk2/dasher.glade.h:32 Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
 msgstr "வெட்டு"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:34
+#: Src/Gtk2/dasher.glade.h:33 Src/Gtk2/dashergpe.glade.h:34
 msgid "Cyclical button mode"
 msgstr "சுழற்று பட்டன் பாங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:36
+#: Src/Gtk2/dasher.glade.h:35 Src/Gtk2/dashergpe.glade.h:36
 msgid "Dasher Preferences"
 msgstr "டேஷர் விருப்பங்கள்"
 
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:37
+#: Src/Gtk2/dasher.glade.h:36 Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
 msgstr "சுட்டி நிலையை தேர்வு செய்ய மைய வரியிலிருந்து தூரம்"
 
-#: ../Src/Gtk2/dasher.glade.h:39 ../Src/Gtk2/dashergpe.glade.h:38
+#: Src/Gtk2/dasher.glade.h:37 Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
 msgstr "கீழ்/3:"
 
-#: ../Src/Gtk2/dasher.glade.h:40 ../Src/Gtk2/dashergpe.glade.h:39
+#: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
 msgstr "பெட்டியில் வெளிக்கோட்டை வரை"
 
-#: ../Src/Gtk2/dasher.glade.h:41 ../Src/Gtk2/dashergpe.glade.h:40
+#: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "குறிக்கும் சுட்டிக்கும் இடையே கோடு வரை"
 
-#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:41
+#: Src/Gtk2/dasher.glade.h:40 Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
 msgstr "பட்டன்-கட்டுப்படுத்தி தேர்வு திருத்தம்"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:42
+#: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:42
 msgid "Enter text into other windows"
 msgstr "உரையை மற்ற சாளரத்தில் உள்ளிடவும்"
 
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:43
+#: Src/Gtk2/dasher.glade.h:42 Src/Gtk2/dashergpe.glade.h:43
 msgid "Eyetracker mode"
 msgstr "தடம்பார்க்கும் பாங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:45
+#: Src/Gtk2/dasher.glade.h:43
 msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
@@ -366,127 +359,119 @@ msgstr ""
 "இந்த பாங்கு தேர்வு செய்யப்பட்டால் மேல் மற்றும் கீழ் அச்சில் முன்னும் பின்னுமாக சுற்றும் மேலும் "
 "வலது சரியான தேர்வை உறுதி செய்யும்."
 
-#: ../Src/Gtk2/dasher.glade.h:47
-msgid "Language Model"
-msgstr "மொழி மாதிரி"
-
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:45
+#: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
 msgstr "பெரிய"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:46
+#: Src/Gtk2/dasher.glade.h:46 Src/Gtk2/dashergpe.glade.h:46
 msgid "Left to Right"
 msgstr "இடமிருந்து வலம்"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:47
+#: Src/Gtk2/dasher.glade.h:47 Src/Gtk2/dashergpe.glade.h:47
 msgid "Left/2:"
 msgstr "இடது/2:"
 
-#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:48
+#: Src/Gtk2/dasher.glade.h:48 Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
 msgstr "புதிய கோப்பு"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:49
+#: Src/Gtk2/dasher.glade.h:49 Src/Gtk2/dashergpe.glade.h:49
 msgid "Normal"
 msgstr "இயல்பான"
 
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:50
+#: Src/Gtk2/dasher.glade.h:50 Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
 msgstr "y வரம்பை சூழ்ந்திருக்க வேண்டிய பிக்செல்களின் எண்ணிக்கை"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:51 Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
 msgstr "ஒரு பரிமாண பாங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:52 Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
 msgstr "கோப்பைத் திற"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:54
+#: Src/Gtk2/dasher.glade.h:53 Src/Gtk2/dashergpe.glade.h:54
 msgid "Paste"
 msgstr "ஒட்டு"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:55
+#: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashergpe.glade.h:55
 msgid "Pause outside window"
 msgstr "சாளரத்திற்கு வெளியே ஒட்டு"
 
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:56
+#: Src/Gtk2/dasher.glade.h:55 Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "வலமிருந்து இடம்"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:56 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
 msgstr "வலம்/4:"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
 msgstr "கோப்பைச் சேமி"
 
-#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashergpe.glade.h:59
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
 msgstr "கோப்பை இப்படி சேமி"
 
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:61
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:61
 msgid "Select Font"
 msgstr "எழுத்துருவைத் தேர்வு செய்"
 
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:62
+#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
 msgstr "சுட்டியின் நிலையை காட்டு"
 
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashergpe.glade.h:63
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:63
 msgid "Show speed slider"
 msgstr "சருக்கியின் வேகத்தைக் காட்டு"
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:64
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:64
 msgid "Show toolbar"
 msgstr "கருவிப்பட்டியைக் காட்டு"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:65
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:65
 msgid "Speak on stop"
 msgstr "நிறுத்தும் போது சொல்"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: Src/Gtk2/dasher.glade.h:65
 msgid "Speed"
 msgstr "வேகம்"
 
-#: ../Src/Gtk2/dasher.glade.h:69
-msgid "Standard letter-based PPM"
-msgstr "நிலையான எழுத்து சார்ந்த PPM"
-
-#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashergpe.glade.h:66
+#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
 msgstr "இடது சுட்டி பட்டனில் துவங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:67
+#: Src/Gtk2/dasher.glade.h:67 Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on space bar"
 msgstr "இடைவெளி பட்டியில் துவங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:68
+#: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:68
 msgid "Start with mouse position"
 msgstr "சுட்டி நிலையில் துவங்கு"
 
-#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashergpe.glade.h:69
+#: Src/Gtk2/dasher.glade.h:69 Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
 msgstr "புதிய கோப்பின் நேரம் காட்டி"
 
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashergpe.glade.h:70
+#: Src/Gtk2/dasher.glade.h:70 Src/Gtk2/dashergpe.glade.h:70
 msgid "Top to Bottom"
 msgstr "மேலிருந்து கீழ்"
 
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:71
+#: Src/Gtk2/dasher.glade.h:71 Src/Gtk2/dashergpe.glade.h:71
 msgid "Training"
 msgstr "பயிற்சி"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:72
+#: Src/Gtk2/dasher.glade.h:72 Src/Gtk2/dashergpe.glade.h:72
 msgid "Training Dasher - please wait"
 msgstr "டேஷருக்கு பயிற்சி தருகிறது - தயவு செய்து காத்திருக்கவும்"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:73
+#: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:73
 msgid "Up/1:"
 msgstr "மேல்/1:"
 
-#: ../Src/Gtk2/dasher.glade.h:78
+#: Src/Gtk2/dasher.glade.h:74
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -496,79 +481,75 @@ msgstr ""
 "அதிக மதிப்பை தேர்வு செய்தால் உங்கள் எழுதும் வேகம்\n"
 "குறையும்"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:75
+#: Src/Gtk2/dasher.glade.h:77 Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
 msgstr "மிக அதிகம்"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:76
+#: Src/Gtk2/dasher.glade.h:78 Src/Gtk2/dashergpe.glade.h:76
 msgid "View"
 msgstr "பார்"
 
-#: ../Src/Gtk2/dasher.glade.h:83
-msgid "Word-based model"
-msgstr "எழுத்து-சார்ந்த மாதிரி"
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:77
+#: Src/Gtk2/dasher.glade.h:79 Src/Gtk2/dashergpe.glade.h:77
 msgid "X:"
 msgstr "X:"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:78
+#: Src/Gtk2/dasher.glade.h:80 Src/Gtk2/dashergpe.glade.h:78
 msgid "Y:"
 msgstr "Y:"
 
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashergpe.glade.h:79
+#: Src/Gtk2/dasher.glade.h:81 Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
 msgstr "(_A)பற்றி"
 
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:80
+#: Src/Gtk2/dasher.glade.h:82 Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
 msgstr "(_A)கோப்பை சேர்"
 
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:81
+#: Src/Gtk2/dasher.glade.h:83 Src/Gtk2/dashergpe.glade.h:81
 msgid "_Dasher Font"
 msgstr "(_D)டேஷர் எழுத்துரு"
 
-#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashergpe.glade.h:82
+#: Src/Gtk2/dasher.glade.h:84 Src/Gtk2/dashergpe.glade.h:82
 msgid "_Dasher Font Size"
 msgstr "(_D)டேஷர் எழுத்துரு அளவு"
 
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:83
+#: Src/Gtk2/dasher.glade.h:85 Src/Gtk2/dashergpe.glade.h:83
 msgid "_Edit"
 msgstr "(_E)திருத்து"
 
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:84
+#: Src/Gtk2/dasher.glade.h:86 Src/Gtk2/dashergpe.glade.h:84
 msgid "_Edit Font"
 msgstr "(_E)எழுத்துருவைத் திருத்து"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:85
+#: Src/Gtk2/dasher.glade.h:87 Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
 msgstr "(_F)கோப்பு"
 
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:86
+#: Src/Gtk2/dasher.glade.h:88 Src/Gtk2/dashergpe.glade.h:86
 msgid "_Help"
 msgstr "(_H)உதவி"
 
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:87
+#: Src/Gtk2/dasher.glade.h:89 Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
 msgstr "(_I)பயிற்சி உரையை இறக்குமதி செய்"
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:88
+#: Src/Gtk2/dasher.glade.h:90 Src/Gtk2/dashergpe.glade.h:88
 msgid "_Options"
 msgstr "(_O)தேர்வுகள்"
 
-#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashergpe.glade.h:89
+#: Src/Gtk2/dasher.glade.h:91 Src/Gtk2/dashergpe.glade.h:89
 msgid "_Reset fonts"
 msgstr "(_R)எழுத்துருவை மீட்டமை"
 
-#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:90
+#: Src/Gtk2/dasher.glade.h:92 Src/Gtk2/dashergpe.glade.h:90
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: ../Src/Gtk2/dashergpe.glade.h:13
+#: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>வேகம்</b>"
 
-#: ../Src/Gtk2/dashergpe.glade.h:44
+#: Src/Gtk2/dashergpe.glade.h:44
 msgid ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
@@ -576,11 +557,11 @@ msgstr ""
 "இந்த பாங்கு தேர்வு செய்யப்பட்டால் மேல் மற்றும் கீழ் அச்சின் முன்னும் பின்னுமாக சுற்றும் மேலும் "
 "வலது சரியான தேர்வை உறுதி செய்யும் மேல் மற்றும் கீழ் மனம னுன்ாக ச்ன்"
 
-#: ../Src/Gtk2/dashergpe.glade.h:53
+#: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
 msgstr "நிலையமைப்பு"
 
-#: ../Src/Gtk2/dashergpe.glade.h:74
+#: Src/Gtk2/dashergpe.glade.h:74
 msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
@@ -588,22 +569,36 @@ msgstr ""
 "கடிதப்பெட்டியில் அளவை மாற்ற இந்த பெட்டியை பயன்படுத்தவும். அதிக மதிப்பு நீங்கள் எழுதும் "
 "வேகத்தை குறிக்கும்"
 
-#: ../Src/Gtk2/speech.cc:24
+#: Src/Gtk2/speech.cc:24
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "பேச்சு ஆதரவை துவக்க முடியவில்லை\n"
 
-#: ../Src/Gtk2/speech.cc:50
+#: Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices"
 msgstr "ஓசையை துவக்க முடியவில்லை"
 
-#: ../Src/Gtk2/speech.cc:65
+#: Src/Gtk2/speech.cc:65
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "எச்சரிக்கை: பேச்சு அளவுருக்களை அமைக்க முடியவில்லை\n"
 
-#: ../Src/main.cc:104
+#: Src/main.cc:107
 msgid "Dasher Text Entry"
 msgstr "டேஷர் உரை உள்ளீடு"
 
+#~ msgid "<b>Language Model Settings:</b>"
+#~ msgstr "<b>மொழி மாதிரி அமைப்பு:</b>"
+
+#~ msgid "<b>Language Model:</b>"
+#~ msgstr "<b>மொழி மாதிரி:</b>"
+
+#~ msgid "Language Model"
+#~ msgstr "மொழி மாதிரி"
+
+#~ msgid "Standard letter-based PPM"
+#~ msgstr "நிலையான எழுத்து சார்ந்த PPM"
+
+#~ msgid "Word-based model"
+#~ msgstr "எழுத்து-சார்ந்த மாதிரி"

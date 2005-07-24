@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.2.11\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-08-22 03:54+0900\n"
+"POT-Creation-Date: 2005-07-23 19:18-0400\n"
 "PO-Revision-Date: 2004-08-22 03:55+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
@@ -14,165 +14,171 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: Src/Gtk2/accessibility.cc:60
-msgid "Menus"
-msgstr "메뉴"
-
-#: Src/Gtk2/accessibility.cc:67
-msgid "Windows"
-msgstr "창"
-
-#: Src/Gtk2/accessibility.cc:72
-msgid "Application"
-msgstr "프로그램"
-
-#: Src/Gtk2/accessibility.cc:79
-msgid "Buttons"
-msgstr "단추"
-
-#: Src/Gtk2/accessibility.cc:85
+#. Paneltree
+#. |         /-menutree
+#. Widgettree------buttontree
+#. \-edittree
+#.
+#. Tree, parent, children, next, pointer, data, string, colour
+#: Src/Gtk2/accessibility.cc:82
 msgid "Panels"
 msgstr "패널"
 
-#: Src/Gtk2/accessibility.cc:92
+#: Src/Gtk2/accessibility.cc:83
+msgid "Application"
+msgstr "프로그램"
+
+#: Src/Gtk2/accessibility.cc:85
+msgid "Menus"
+msgstr "메뉴"
+
+#: Src/Gtk2/accessibility.cc:86
+msgid "Buttons"
+msgstr "단추"
+
+#: Src/Gtk2/accessibility.cc:87
 msgid "Text"
 msgstr "텍스트"
 
-#: Src/Gtk2/accessibility.cc:166 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:164 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "컨트롤"
 
-#: Src/Gtk2/accessibility.cc:171
+#: Src/Gtk2/accessibility.cc:170
+msgid "Windows"
+msgstr "창"
+
+#: Src/Gtk2/accessibility.cc:177
 msgid "Stop"
 msgstr "중지"
 
-#: Src/Gtk2/accessibility.cc:177
+#: Src/Gtk2/accessibility.cc:184
 msgid "Pause"
 msgstr "일시 중지"
 
-#: Src/Gtk2/accessibility.cc:184
+#: Src/Gtk2/accessibility.cc:191
 msgid "Move"
 msgstr "이동"
 
-#: Src/Gtk2/accessibility.cc:191
+#: Src/Gtk2/accessibility.cc:198
 msgid "Delete"
 msgstr "지우기"
 
-#: Src/Gtk2/accessibility.cc:201
+#: Src/Gtk2/accessibility.cc:208
 msgid "Speak"
 msgstr "음성"
 
-#: Src/Gtk2/accessibility.cc:228 Src/Gtk2/accessibility.cc:382
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:389
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:234 Src/Gtk2/accessibility.cc:376
+#: Src/Gtk2/accessibility.cc:241 Src/Gtk2/accessibility.cc:383
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:240
+#: Src/Gtk2/accessibility.cc:247
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:253
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:259
+#: Src/Gtk2/accessibility.cc:266
 msgid "Everything"
 msgstr "모두"
 
-#: Src/Gtk2/accessibility.cc:265
+#: Src/Gtk2/accessibility.cc:272
 msgid "New"
 msgstr "새로 만들기"
 
-#: Src/Gtk2/accessibility.cc:271
+#: Src/Gtk2/accessibility.cc:278
 msgid "Repeat"
 msgstr "반복"
 
-#: Src/Gtk2/accessibility.cc:293
+#: Src/Gtk2/accessibility.cc:300
 msgid "1"
 msgstr "1"
 
-#: Src/Gtk2/accessibility.cc:300
+#: Src/Gtk2/accessibility.cc:307
 msgid "2"
 msgstr "2"
 
-#: Src/Gtk2/accessibility.cc:307
+#: Src/Gtk2/accessibility.cc:314
 msgid "3"
 msgstr "3"
 
-#: Src/Gtk2/accessibility.cc:314
+#: Src/Gtk2/accessibility.cc:321
 msgid "4"
 msgstr "4"
 
-#: Src/Gtk2/accessibility.cc:321
+#: Src/Gtk2/accessibility.cc:328
 msgid "5"
 msgstr "5"
 
-#: Src/Gtk2/accessibility.cc:328
+#: Src/Gtk2/accessibility.cc:335
 msgid "6"
 msgstr "6"
 
-#: Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:342
 msgid "7"
 msgstr "7"
 
-#: Src/Gtk2/accessibility.cc:342
+#: Src/Gtk2/accessibility.cc:349
 msgid "8"
 msgstr "8"
 
-#: Src/Gtk2/accessibility.cc:349
+#: Src/Gtk2/accessibility.cc:356
 msgid "9"
 msgstr "9"
 
-#: Src/Gtk2/accessibility.cc:356
+#: Src/Gtk2/accessibility.cc:363
 msgid "10"
 msgstr "10"
 
-#: Src/Gtk2/accessibility.cc:388 Src/Gtk2/accessibility.cc:411
+#: Src/Gtk2/accessibility.cc:395 Src/Gtk2/accessibility.cc:418
 msgid "Character"
 msgstr "문자"
 
-#: Src/Gtk2/accessibility.cc:399 Src/Gtk2/accessibility.cc:421
+#: Src/Gtk2/accessibility.cc:406 Src/Gtk2/accessibility.cc:428
 msgid "Word"
 msgstr "단어"
 
-#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:427
+#: Src/Gtk2/accessibility.cc:411 Src/Gtk2/accessibility.cc:434
 msgid "Line"
 msgstr "행"
 
-#: Src/Gtk2/accessibility.cc:506
+#: Src/Gtk2/accessibility.cc:544
 msgid "Unknown"
 msgstr "알 수 없음"
 
-#: Src/Gtk2/dasher.cc:188
+#: Src/Gtk2/dasher.cc:199
 msgid "Training Dasher, please wait"
 msgstr "Dasher 훈련중입니다, 기다리십시오"
 
-#: Src/Gtk2/dasher.cc:501 Src/Gtk2/dasher.cc:522 Src/Gtk2/dasher.cc:543
-#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:590 Src/Gtk2/dasher.cc:611 Src/Gtk2/dasher.cc:632
+#: Src/Gtk2/dasher.cc:653 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "파일을 선택하십시오"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1647
+#: Src/Gtk2/dasher.cc:1776
 msgid "translator_credits"
 msgstr "류창우 <cwryu@debian.org>"
 
-#: Src/Gtk2/dasher.cc:1649 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1778 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1652
+#: Src/Gtk2/dasher.cc:1781
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher는 입력 예측 기능을 갖춘 텍스트 엔트리 입력 프로그램입니다"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2065
+#: Src/Gtk2/dasher.cc:2251
 #, c-format
 msgid "%d characters output in %ld seconds\n"
 msgstr "%2$ld초에 %1$d개 문자 출력\n"
@@ -344,7 +350,8 @@ msgid ""
 "choice"
 msgstr ""
 "이 모드를 선택하면, 위와 아래 화살표 키를 누르면\n"
-"좌표상에서 뒤와 앞으로 주기적으로 반복하게 되고  오른쪽 화살표 키를 누르면 최종 선택합니다"
+"좌표상에서 뒤와 앞으로 주기적으로 반복하게 되고  오른쪽 화살표 키를 누르면 최"
+"종 선택합니다"
 
 #: Src/Gtk2/dasher.glade.h:45 Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
@@ -571,7 +578,7 @@ msgstr "음성을 초기화할 수 없습니다"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "경고: 음성 인자를 설정할 수 없습니다\n"
 
-#: Src/main.cc:104
+#: Src/main.cc:107
 msgid "Dasher Text Entry"
 msgstr "Dasher 텍스트 엔트리"
 

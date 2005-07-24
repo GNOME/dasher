@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-03-07 04:46+0100\n"
+"POT-Creation-Date: 2005-07-23 19:18-0400\n"
 "PO-Revision-Date: 2005-03-07 09:29+0530\n"
 "Last-Translator: Ankit Patel <ankit@redhat.com>\n"
 "Language-Team: Gujarati <gu@li.org>\n"
@@ -16,7 +16,8 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -47,145 +48,145 @@ msgstr "બટનો"
 msgid "Text"
 msgstr "લખાણ"
 
-#: Src/Gtk2/accessibility.cc:162 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:164 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "નિયંત્રણ"
 
-#: Src/Gtk2/accessibility.cc:168
+#: Src/Gtk2/accessibility.cc:170
 msgid "Windows"
 msgstr "વિન્ડોઝ"
 
-#: Src/Gtk2/accessibility.cc:175
+#: Src/Gtk2/accessibility.cc:177
 msgid "Stop"
 msgstr "બંધ કરો"
 
-#: Src/Gtk2/accessibility.cc:182
+#: Src/Gtk2/accessibility.cc:184
 msgid "Pause"
 msgstr "અટકાવો"
 
-#: Src/Gtk2/accessibility.cc:189
+#: Src/Gtk2/accessibility.cc:191
 msgid "Move"
 msgstr "ખસેડો"
 
-#: Src/Gtk2/accessibility.cc:196
+#: Src/Gtk2/accessibility.cc:198
 msgid "Delete"
 msgstr "કાઢી નાંખો"
 
-#: Src/Gtk2/accessibility.cc:206
+#: Src/Gtk2/accessibility.cc:208
 msgid "Speak"
 msgstr "બોલો"
 
-#: Src/Gtk2/accessibility.cc:233 Src/Gtk2/accessibility.cc:387
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:389
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:239 Src/Gtk2/accessibility.cc:381
+#: Src/Gtk2/accessibility.cc:241 Src/Gtk2/accessibility.cc:383
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:245
+#: Src/Gtk2/accessibility.cc:247
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:251
+#: Src/Gtk2/accessibility.cc:253
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:264
+#: Src/Gtk2/accessibility.cc:266
 msgid "Everything"
 msgstr "બધું"
 
-#: Src/Gtk2/accessibility.cc:270
+#: Src/Gtk2/accessibility.cc:272
 msgid "New"
 msgstr "નવું"
 
-#: Src/Gtk2/accessibility.cc:276
+#: Src/Gtk2/accessibility.cc:278
 msgid "Repeat"
 msgstr "પુનરાવર્તન"
 
-#: Src/Gtk2/accessibility.cc:298
+#: Src/Gtk2/accessibility.cc:300
 msgid "1"
 msgstr "૧"
 
-#: Src/Gtk2/accessibility.cc:305
+#: Src/Gtk2/accessibility.cc:307
 msgid "2"
 msgstr "૨"
 
-#: Src/Gtk2/accessibility.cc:312
+#: Src/Gtk2/accessibility.cc:314
 msgid "3"
 msgstr "૩"
 
-#: Src/Gtk2/accessibility.cc:319
+#: Src/Gtk2/accessibility.cc:321
 msgid "4"
 msgstr "૪"
 
-#: Src/Gtk2/accessibility.cc:326
+#: Src/Gtk2/accessibility.cc:328
 msgid "5"
 msgstr "૫"
 
-#: Src/Gtk2/accessibility.cc:333
+#: Src/Gtk2/accessibility.cc:335
 msgid "6"
 msgstr "૬"
 
-#: Src/Gtk2/accessibility.cc:340
+#: Src/Gtk2/accessibility.cc:342
 msgid "7"
 msgstr "૭"
 
-#: Src/Gtk2/accessibility.cc:347
+#: Src/Gtk2/accessibility.cc:349
 msgid "8"
 msgstr "૮"
 
-#: Src/Gtk2/accessibility.cc:354
+#: Src/Gtk2/accessibility.cc:356
 msgid "9"
 msgstr "૯"
 
-#: Src/Gtk2/accessibility.cc:361
+#: Src/Gtk2/accessibility.cc:363
 msgid "10"
 msgstr "૧૦"
 
-#: Src/Gtk2/accessibility.cc:393 Src/Gtk2/accessibility.cc:416
+#: Src/Gtk2/accessibility.cc:395 Src/Gtk2/accessibility.cc:418
 msgid "Character"
 msgstr "અક્ષર"
 
-#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:426
+#: Src/Gtk2/accessibility.cc:406 Src/Gtk2/accessibility.cc:428
 msgid "Word"
 msgstr "શબ્દ"
 
-#: Src/Gtk2/accessibility.cc:409 Src/Gtk2/accessibility.cc:432
+#: Src/Gtk2/accessibility.cc:411 Src/Gtk2/accessibility.cc:434
 msgid "Line"
 msgstr "લીટી"
 
-#: Src/Gtk2/accessibility.cc:536
+#: Src/Gtk2/accessibility.cc:544
 msgid "Unknown"
 msgstr "અજ્ઞાત"
 
-#: Src/Gtk2/dasher.cc:189
+#: Src/Gtk2/dasher.cc:199
 msgid "Training Dasher, please wait"
 msgstr "ડેશરની તાલીમ, મહેરબાની કરીને રાહ જુઓ"
 
-#: Src/Gtk2/dasher.cc:502 Src/Gtk2/dasher.cc:523 Src/Gtk2/dasher.cc:544
-#: Src/Gtk2/dasher.cc:565 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:590 Src/Gtk2/dasher.cc:611 Src/Gtk2/dasher.cc:632
+#: Src/Gtk2/dasher.cc:653 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "ફાઈલ પસંદ કરો"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1663
+#: Src/Gtk2/dasher.cc:1776
 msgid "translator_credits"
 msgstr "અંકિત પટેલ <ankit@redhat.com>"
 
-#: Src/Gtk2/dasher.cc:1665 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1778 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "ડેશર"
 
-#: Src/Gtk2/dasher.cc:1668
+#: Src/Gtk2/dasher.cc:1781
 msgid "Dasher is a predictive text entry application"
 msgstr "ડેશર એ લખાણ પ્રવેશ કાર્યક્રમ છે"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2081
+#: Src/Gtk2/dasher.cc:2251
 #, c-format
 msgid "%d characters output in %ld seconds\n"
 msgstr "%d અક્ષરોનું આઉટપુટ %ld સેકન્ડોમાં\n"
@@ -584,7 +585,6 @@ msgstr "અવાજોનો પ્રારંભ કરવા સમર્થ
 msgid "Warning: unable to set speech parameters\n"
 msgstr "ચેતવણી: બોલીના પરિમાણો સુયોજિત કરવા સમર્થ નથી\n"
 
-#: Src/main.cc:104
+#: Src/main.cc:107
 msgid "Dasher Text Entry"
 msgstr "ડેશર લખાણ પ્રવેશ"
-

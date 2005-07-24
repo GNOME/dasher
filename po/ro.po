@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2004-09-04 11:04+0200\n"
+"POT-Creation-Date: 2005-07-23 19:18-0400\n"
 "PO-Revision-Date: 2004-09-04 16:58+0300\n"
 "Last-Translator: Mişu Moldovan <dumol@go.ro>;\n"
 "Language-Team: Romanian <gnomero-list@lists.sourceforge.net>;\n"
@@ -13,165 +13,171 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: Src/Gtk2/accessibility.cc:60
-msgid "Menus"
-msgstr "Meniuri"
-
-#: Src/Gtk2/accessibility.cc:67
-msgid "Windows"
-msgstr "Ferestre"
-
-#: Src/Gtk2/accessibility.cc:72
-msgid "Application"
-msgstr "Aplicaţie"
-
-#: Src/Gtk2/accessibility.cc:79
-msgid "Buttons"
-msgstr "Butoane"
-
-#: Src/Gtk2/accessibility.cc:85
+#. Paneltree
+#. |         /-menutree
+#. Widgettree------buttontree
+#. \-edittree
+#.
+#. Tree, parent, children, next, pointer, data, string, colour
+#: Src/Gtk2/accessibility.cc:82
 msgid "Panels"
 msgstr "Panouri"
 
-#: Src/Gtk2/accessibility.cc:92
+#: Src/Gtk2/accessibility.cc:83
+msgid "Application"
+msgstr "Aplicaţie"
+
+#: Src/Gtk2/accessibility.cc:85
+msgid "Menus"
+msgstr "Meniuri"
+
+#: Src/Gtk2/accessibility.cc:86
+msgid "Buttons"
+msgstr "Butoane"
+
+#: Src/Gtk2/accessibility.cc:87
 msgid "Text"
 msgstr "Text"
 
-#: Src/Gtk2/accessibility.cc:166 Src/Gtk2/dasher.glade.h:27
+#: Src/Gtk2/accessibility.cc:164 Src/Gtk2/dasher.glade.h:27
 #: Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Control"
 
-#: Src/Gtk2/accessibility.cc:171
+#: Src/Gtk2/accessibility.cc:170
+msgid "Windows"
+msgstr "Ferestre"
+
+#: Src/Gtk2/accessibility.cc:177
 msgid "Stop"
 msgstr "Oprire"
 
-#: Src/Gtk2/accessibility.cc:177
+#: Src/Gtk2/accessibility.cc:184
 msgid "Pause"
 msgstr "Pauză"
 
-#: Src/Gtk2/accessibility.cc:184
+#: Src/Gtk2/accessibility.cc:191
 msgid "Move"
 msgstr "Mută"
 
-#: Src/Gtk2/accessibility.cc:191
+#: Src/Gtk2/accessibility.cc:198
 msgid "Delete"
 msgstr "Şterge"
 
-#: Src/Gtk2/accessibility.cc:201
+#: Src/Gtk2/accessibility.cc:208
 msgid "Speak"
 msgstr "Vorbeşte"
 
-#: Src/Gtk2/accessibility.cc:228 Src/Gtk2/accessibility.cc:382
+#: Src/Gtk2/accessibility.cc:235 Src/Gtk2/accessibility.cc:389
 msgid "<"
 msgstr "<"
 
-#: Src/Gtk2/accessibility.cc:234 Src/Gtk2/accessibility.cc:376
+#: Src/Gtk2/accessibility.cc:241 Src/Gtk2/accessibility.cc:383
 msgid ">"
 msgstr ">"
 
-#: Src/Gtk2/accessibility.cc:240
+#: Src/Gtk2/accessibility.cc:247
 msgid "<<<"
 msgstr "<<<"
 
-#: Src/Gtk2/accessibility.cc:246
+#: Src/Gtk2/accessibility.cc:253
 msgid ">>>"
 msgstr ">>>"
 
-#: Src/Gtk2/accessibility.cc:259
+#: Src/Gtk2/accessibility.cc:266
 msgid "Everything"
 msgstr "Totul"
 
-#: Src/Gtk2/accessibility.cc:265
+#: Src/Gtk2/accessibility.cc:272
 msgid "New"
 msgstr "Nou"
 
-#: Src/Gtk2/accessibility.cc:271
+#: Src/Gtk2/accessibility.cc:278
 msgid "Repeat"
 msgstr "Repetă"
 
-#: Src/Gtk2/accessibility.cc:293
+#: Src/Gtk2/accessibility.cc:300
 msgid "1"
 msgstr "1"
 
-#: Src/Gtk2/accessibility.cc:300
+#: Src/Gtk2/accessibility.cc:307
 msgid "2"
 msgstr "2"
 
-#: Src/Gtk2/accessibility.cc:307
+#: Src/Gtk2/accessibility.cc:314
 msgid "3"
 msgstr "3"
 
-#: Src/Gtk2/accessibility.cc:314
+#: Src/Gtk2/accessibility.cc:321
 msgid "4"
 msgstr "4"
 
-#: Src/Gtk2/accessibility.cc:321
+#: Src/Gtk2/accessibility.cc:328
 msgid "5"
 msgstr "5"
 
-#: Src/Gtk2/accessibility.cc:328
+#: Src/Gtk2/accessibility.cc:335
 msgid "6"
 msgstr "6"
 
-#: Src/Gtk2/accessibility.cc:335
+#: Src/Gtk2/accessibility.cc:342
 msgid "7"
 msgstr "7"
 
-#: Src/Gtk2/accessibility.cc:342
+#: Src/Gtk2/accessibility.cc:349
 msgid "8"
 msgstr "8"
 
-#: Src/Gtk2/accessibility.cc:349
+#: Src/Gtk2/accessibility.cc:356
 msgid "9"
 msgstr "9"
 
-#: Src/Gtk2/accessibility.cc:356
+#: Src/Gtk2/accessibility.cc:363
 msgid "10"
 msgstr "10"
 
-#: Src/Gtk2/accessibility.cc:388 Src/Gtk2/accessibility.cc:411
+#: Src/Gtk2/accessibility.cc:395 Src/Gtk2/accessibility.cc:418
 msgid "Character"
 msgstr "Caracter"
 
-#: Src/Gtk2/accessibility.cc:399 Src/Gtk2/accessibility.cc:421
+#: Src/Gtk2/accessibility.cc:406 Src/Gtk2/accessibility.cc:428
 msgid "Word"
 msgstr "Cuvânt"
 
-#: Src/Gtk2/accessibility.cc:404 Src/Gtk2/accessibility.cc:427
+#: Src/Gtk2/accessibility.cc:411 Src/Gtk2/accessibility.cc:434
 msgid "Line"
 msgstr "Linie"
 
-#: Src/Gtk2/accessibility.cc:506
+#: Src/Gtk2/accessibility.cc:544
 msgid "Unknown"
 msgstr "Necunoscut"
 
-#: Src/Gtk2/dasher.cc:188
+#: Src/Gtk2/dasher.cc:199
 msgid "Training Dasher, please wait"
 msgstr "Dasher învaţă, aşteptaţi..."
 
-#: Src/Gtk2/dasher.cc:501 Src/Gtk2/dasher.cc:522 Src/Gtk2/dasher.cc:543
-#: Src/Gtk2/dasher.cc:564 Src/Gtk2/dasher.glade.h:59
+#: Src/Gtk2/dasher.cc:590 Src/Gtk2/dasher.cc:611 Src/Gtk2/dasher.cc:632
+#: Src/Gtk2/dasher.cc:653 Src/Gtk2/dasher.glade.h:59
 #: Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "Selectaţi fişier"
 
 #. This gets pulled out via gettext
-#: Src/Gtk2/dasher.cc:1647
+#: Src/Gtk2/dasher.cc:1776
 msgid "translator_credits"
 msgstr "Mişu Moldovan <dumol@go.ro>"
 
-#: Src/Gtk2/dasher.cc:1649 Src/Gtk2/dasher.glade.h:34
+#: Src/Gtk2/dasher.cc:1778 Src/Gtk2/dasher.glade.h:34
 #: Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: Src/Gtk2/dasher.cc:1652
+#: Src/Gtk2/dasher.cc:1781
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher este o aplicaţie pentru editare de text predictivă"
 
 #. Just a debugging thing, output to the console
-#: Src/Gtk2/dasher.cc:2065
+#: Src/Gtk2/dasher.cc:2251
 #, c-format
 msgid "%d characters output in %ld seconds\n"
 msgstr "%d caractere ieşite în %ld secunde\n"
@@ -570,7 +576,7 @@ msgstr "Nu pot iniţializa vocile"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Atenţie: no pot seta parametri pentru vorbire\n"
 
-#: Src/main.cc:104
+#: Src/main.cc:107
 msgid "Dasher Text Entry"
 msgstr "Intrare text Dasher"
 
