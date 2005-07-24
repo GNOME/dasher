@@ -120,7 +120,7 @@ static lp_table longparamtable[] = {
   {LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, "ScreenHeight"},
   {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 1, "DasherFontSize"},
   {LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
-  {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
+  {LP_YSCALE, "YScaling", PERS, 300, "YScaling"},
   {LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
   {LP_TRUNCATION, "Truncation", PERS, 0, "Truncation"},
   {LP_TRUNCATIONTYPE, "TruncationType", PERS, 0, "TruncationType"},

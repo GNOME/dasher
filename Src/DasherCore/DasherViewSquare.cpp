@@ -839,6 +839,21 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     break;
   }
 
+  // Apply y scaling
+
+  // FIXME - better to specify scale factor directly?
+
+  double dYScale;
+
+  int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
+
+  if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft ))
+    dYScale = Screen().GetHeight() / static_cast<double>(GetLongParameter(LP_YSCALE));
+  else
+    dYScale = Screen().GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
+  
+  iDasherY = (iDasherY - DasherModel().DasherY()/2) * dYScale + DasherModel().DasherY()/2;
+
   // Then apply any non-linearity
 
   switch (iMode) {

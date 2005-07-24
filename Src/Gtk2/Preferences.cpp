@@ -103,6 +103,11 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
 
 void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "timestampbutton")), get_app_parameter_bool( APP_BP_TIME_STAMP ) );
+  
+  std::cout << "Setting range to: " << gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_YSCALE) << std::endl;
+
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "yaxisscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_YSCALE));
+
 }
 
 void PopulateLMPage(GladeXML *pGladeWidgets) {
@@ -522,10 +527,8 @@ extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
 }
 
 extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data) {
-  // FIXME - REIMPLEMENT
-
-  //  yscale=int(widget->adjustment->value);
-  //  set_long_option_callback("YScale",yscale);
+  int yscale=int(widget->adjustment->value);
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_YSCALE, yscale);
 }
 
 // 'Langauge Model' Page
