@@ -189,7 +189,7 @@ void CDasherModel::Start() {
 
 //              m_pEditbox->get_new_context(ContextString,5);
 
-  std::string strNewContext("");
+  std::string strNewContext(". ");
 
   SetContext(strNewContext);    // FIXME - REALLY REALLY broken!
 

@@ -23,6 +23,7 @@ CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
                   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0) {
   m_pEventHandler = new CEventHandler(this);
+  strCurrentContext = ". ";
 }
 
 void CDasherInterfaceBase::Realize() {
@@ -105,10 +106,8 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case LP_LINE_WIDTH:
       RequestFullRedraw(); // TODO - make this accessible everywhere
       break;
-
     case LP_DASHER_FONTSIZE:
       // TODO - make screen a CDasherComponent child?
-      m_DasherScreen->SetFontSize(static_cast < Dasher::Opts::FontSize > (GetLongParameter(LP_DASHER_FONTSIZE)));
       RequestFullRedraw();
     default:
       break;

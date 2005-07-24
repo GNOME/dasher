@@ -96,7 +96,25 @@ extern "C" gboolean edit_button_release_event(GtkWidget *widget, GdkEventButton 
 
   gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
 
-  gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
+  if( gtk_text_iter_is_start( &start )) {
+
+    // Urgh - I hate C style strings
+
+    gchar *szContextNew = new gchar[strlen( szContext ) + 3];
+
+    strcpy( szContextNew, ". " );
+    strcat( szContextNew, szContext );
+
+    gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContextNew );
+    
+    delete[] szContextNew;
+    
+  }
+  else {
+    gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
+  }
+  
+
 
   g_free( szContext );
 

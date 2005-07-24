@@ -54,6 +54,7 @@
 
 #include "Preferences.h"
 #include "FontDialogues.h"
+#include "Menu.h"
 #include "AppSettings.h"
 #include "../DasherCore/Parameters.h"
 
@@ -189,8 +190,10 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   // Initialise the various components
 
   initialise_edit(pGladeXML);
+  PopulateMenus(pGladeXML);
   initialise_preferences_dialogue(pGladeXML);
   InitialiseFontDialogues(pGladeXML);
+
 
   LoadWindowState();
 

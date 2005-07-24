@@ -5,12 +5,15 @@
 #include "fileops.h"
 
 #include "GtkDasherControl.h"
+#include "AppSettings.h"
 
 #include <glib/gi18n.h>
 #ifdef GNOME_LIBS
 #include <libgnomeui/libgnomeui.h>
 #include <libgnome/libgnome.h>
 #endif
+
+#include <iostream>
 
 extern GladeXML *widgets;
 
@@ -21,6 +24,24 @@ extern GtkWidget *import_filesel;
 extern GtkWidget *append_filesel;
 extern GtkWidget *window;
 extern GtkWidget *file_selector;
+
+void PopulateMenus(GladeXML *pGladeWidgets) {
+
+  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "controlmode")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_CONTROL_MODE));
+  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "keyboardmode")), get_app_parameter_bool(APP_BP_KEYBOARD_MODE));
+
+  switch(gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE)) {
+  case 1:
+    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), true);
+    break;
+  case 2:
+    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), true);
+    break;
+  case 4:
+    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), true);
+    break;
+  }
+}
 
 extern "C" void select_save_file_as(GtkWidget * widget, gpointer user_data);
 
@@ -382,13 +403,13 @@ extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data) {
 //   if (textentry==TRUE) {
 //     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), true);
 //   } else {
-//        dasher_set_parameter_bool( BOOL_KEYBOARDMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+  set_app_parameter_bool( APP_BP_KEYBOARD_MODE, GTK_CHECK_MENU_ITEM(widget)->active );
 //   }
 }
 
 extern "C" void controlmode(GtkWidget *widget, gpointer user_data) {
   // FIXME - REIMPLEMENT
-  //  dasher_set_parameter_bool( BOOL_CONTROLMODE, GTK_CHECK_MENU_ITEM(widget)->active );
+  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget), BP_CONTROL_MODE, GTK_CHECK_MENU_ITEM(widget)->active );
   //  dasher_start();
   //  dasher_redraw();
 }

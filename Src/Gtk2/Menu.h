@@ -7,5 +7,7 @@
 
 extern "C" void clipboard_copy(void);
 extern "C" void about_dasher(GtkWidget * widget, gpointer user_data);
+void PopulateMenus(GladeXML *pGladeWidgets);
+
 
 #endif
