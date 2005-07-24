@@ -147,7 +147,7 @@ GPatternSpec *alphabetglob, *colourglob;
 GtkWidget *window;
 GtkWidget *file_selector;
 
-std::string dasherfont="DASHERFONT";
+std::string dasherfont=DASHERFONT;
 std::string editfont="Sans 10";
 
 int oldx;
@@ -1867,10 +1867,10 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data)
 {
   reset_edit_font();
   reset_dasher_font();
-  dasher_set_parameter_string( STRING_DASHERFONT, "DASHERFONT" );
+  dasher_set_parameter_string( STRING_DASHERFONT, DASHERFONT );
   dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
   editfont="Sans 10";
-  dasherfont="DASHERFONT";
+  dasherfont=DASHERFONT;
 }
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data)
@@ -1917,7 +1917,7 @@ void parameter_string_callback( string_param p, const char *value )
       set_canvas_font(value);
       dasherfont=value;
       if (dasherfont=="") {
-	dasherfont="DASHERFONT";
+	dasherfont=DASHERFONT;
       }
       break;
     case STRING_EDITFONT:

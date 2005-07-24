@@ -1,3 +1,9 @@
+2005-07-24  Behdad Esfahbod  <behdad@behdad.org>
+
+	* Src/Gtk2/dasher.cc, Src/Gtk2/canvas.cc: Use DASHERFONT instead of
+	"DASHERFONT" which is a useless string literal!
+
+
 2005-07-23  Behdad Esfahbod  <behdad@behdad.org>
 
 	* configure.in: Stepped up version to 3.2.16pre.

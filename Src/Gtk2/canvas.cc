@@ -50,11 +50,11 @@ my_cairo_colour_t *cairo_colours = NULL;
 
 #else /* WITHOUT_CAIRO */
 
+/* Gdk drawing backend */
+
 GdkColormap *colormap;
 GdkGC *gc;
 GdkColor *colours = NULL;
-
-/* Gdk drawing backend */
 
 #define BEGIN_DRAWING_BACKEND				\
   GdkGCValues origvalues;				\
@@ -494,7 +494,7 @@ void set_canvas_font(std::string fontname)
 void reset_dasher_font()
 {
   pango_font_description_free(font);
-  font=pango_font_description_from_string("DASHERFONT");
+  font=pango_font_description_from_string(DASHERFONT);
   dasher_redraw();
 }
 
@@ -508,7 +508,7 @@ void initialise_canvas( void )
   the_pangolayout = create_pango_layout ();
 
   font = pango_font_description_new();
-  pango_font_description_set_family( font,"Serif");
+  pango_font_description_set_family(font ,"Serif");
 
   ink = new PangoRectangle;
   logical = new PangoRectangle;
