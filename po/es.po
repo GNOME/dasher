@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-23 21:42+0200\n"
-"PO-Revision-Date: 2005-07-23 21:43+0200\n"
+"POT-Creation-Date: 2005-07-24 18:37+0200\n"
+"PO-Revision-Date: 2005-07-24 18:37+0200\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Dasher"
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher es una aplicación de entrada de texto predictivo"
 
-#: ../Src/Gtk2/Preferences.cpp:357
+#: ../Src/Gtk2/Preferences.cpp:366
 msgid "Training Dasher, please wait"
 msgstr "Entrenando a Dasher, por favor espere"
 
@@ -453,7 +453,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:48
 msgid "Japanese"
-msgstr ""
+msgstr "Japonés"
 
 #: ../Src/Gtk2/dasher.glade.h:49
 msgid "Language Model"
