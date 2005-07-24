@@ -14,6 +14,7 @@ void PopulateLMPage(GladeXML * pGladeWidgets);
 void generate_preferences(GladeXML * pGladeWidgets);
 void PopulateControlPage(GladeXML * pGladeWidgets);
 void PopulateViewPage(GladeXML * pGladeWidgets);
+void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 
 extern "C" void lmsettings_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
@@ -55,6 +56,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   PopulateControlPage(pGladeWidgets);
   PopulateViewPage(pGladeWidgets);
   PopulateLMPage(pGladeWidgets);
+  PopulateAdvancedPage(pGladeWidgets);
 }
 
 void PopulateControlPage(GladeXML *pGladeWidgets) {
@@ -90,7 +92,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     break;
   }
 
- gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), get_app_parameter_bool( APP_BP_SHOW_TOOLBAR) );
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), get_app_parameter_bool( APP_BP_SHOW_TOOLBAR) );
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
@@ -100,7 +102,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
 }
 
 void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
-  // FIXME - To Implement
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "timestampbutton")), get_app_parameter_bool( APP_BP_TIME_STAMP ) );
 }
 
 void PopulateLMPage(GladeXML *pGladeWidgets) {
@@ -508,14 +510,7 @@ extern "C" void palettechange(GtkWidget *widget, gpointer user_data) {
 // 'Advanced' Page
 
 extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data) {
-
-  // FIXME - REIMPLEMENT
-
-//   if(GTK_TOGGLE_BUTTON(widget)->active) {
-//     dasher_set_parameter_bool( BOOL_TIMESTAMPNEWFILES, true );
-//   } else {
-//     dasher_set_parameter_bool( BOOL_TIMESTAMPNEWFILES, false );
-//   }
+  set_app_parameter_bool( APP_BP_TIME_STAMP, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {

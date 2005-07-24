@@ -3,6 +3,7 @@
 #include "accessibility.h"
 //#include "canvas.h"
 #include "DasherControl.h"
+#include "AppSettings.h"
 #include <iostream>
 #include <libwnck/libwnck.h>
 
@@ -47,7 +48,7 @@ extern gboolean file_modified;
 // Old stuff (but quite probably still needed)
 
 extern "C" void choose_filename() {
-  if(timestamp == TRUE) {
+  if( get_app_parameter_bool( APP_BP_TIME_STAMP )) {
     // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
@@ -61,7 +62,7 @@ extern "C" void choose_filename() {
 
     t_struct = localtime(&ctime);
 
-    snprintf(tbuffer, 256, "dasher-%d%d%d-%d%d.txt", (t_struct->tm_year + 1900), (t_struct->tm_mon + 1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+    snprintf(tbuffer, 256, "dasher-%04d%02d%02d-%02d%02d.txt", (t_struct->tm_year + 1900), (t_struct->tm_mon + 1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
 
     if(filename) {
       g_free((void *)filename);
