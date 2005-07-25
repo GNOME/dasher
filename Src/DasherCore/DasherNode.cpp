@@ -5,6 +5,7 @@
 #include "../Common/Common.h"
 
 #include "DasherNode.h"
+
 using namespace Dasher;
 using namespace Opts;
 using namespace std;

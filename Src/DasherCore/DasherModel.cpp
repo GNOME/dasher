@@ -80,6 +80,8 @@ m_Active(0, 0) {
 
   // Initialize Game Mode object
   m_pGameMode = new CDasherGameMode(pEventHandler, pSettingsStore, m_pDasherInterface, this);
+
+  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel);
 }
 
 CDasherModel::~CDasherModel() {
@@ -93,6 +95,7 @@ CDasherModel::~CDasherModel() {
 
   delete m_Root;
 
+  delete m_pAlphabetManagerFactory;
   m_pLanguageModel->ReleaseContext(LearnContext);
   delete m_pLanguageModel;
 
@@ -225,7 +228,7 @@ void CDasherModel::SetContext(std::string &sNewContext) {
   }
   delete m_Root;
 
-  m_Root = new CDasherNode(*this, 0, 0, 0, Opts::Nodes1, 0, GetLongParameter(LP_NORMALIZATION), m_pLanguageModel, false, 7);
+  m_Root = m_pAlphabetManagerFactory->GetRoot();
   CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
 
   if(sNewContext.size() == 0) {
@@ -779,40 +782,9 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
       i++;
       pTemp = pTemp->next;
     }
-  } else {
-    // FIXME: this has to change for history stuff and Japanese dasher
-    vector<symbol> newchars; // place to put this list of characters
-    vector<unsigned int> cum; // for the probability list
-
-    GetProbs(pNode->Context(), newchars, cum, GetLongParameter(LP_NORMALIZATION));
-    int iChildCount = newchars.size();
-
-    DASHER_TRACEOUTPUT("ChildCount %d\n", iChildCount);
-    // work out cumulative probs in place
-    for(int i = 1; i < iChildCount; i++)
-      cum[i] += cum[i - 1];
-
-    // create the children
-    ColorSchemes NormalScheme, SpecialScheme;
-    if((pNode->ColorScheme() == Nodes1) || (pNode->ColorScheme() == Special1)) {
-      NormalScheme = Nodes2;
-      SpecialScheme = Special2;
-    } else {
-      NormalScheme = Nodes1;
-      SpecialScheme = Special1;
-    }
-
-    ColorSchemes ChildScheme;
-
-    int iLbnd = 0;
-    for(int j = 0; j < iChildCount; j++) {
-      if(newchars[j] == GetSpaceSymbol())
-        ChildScheme = SpecialScheme;
-      else
-        ChildScheme = NormalScheme;
-      pNode->Children()[j] = new CDasherNode(*this, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, GetColour(j));
-      iLbnd = cum[j];
-    }
+  }
+  else {
+    pNode->m_pNodeManager->PopulateChildren(pNode);
   }
   pNode->SetHasAllChildren(true);
 }

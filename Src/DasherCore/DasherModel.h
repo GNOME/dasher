@@ -12,6 +12,7 @@
 #include "DasherNode.h"
 #include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"
+#include "AlphabetManagerFactory.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -21,8 +22,10 @@
 namespace Dasher {
   class CDasherModel;
 }
-////// \brief Dasher 'world' data structures and dynamics.
-////// The DasherModel represents the current state of Dasher
+///
+/// \brief Dasher 'world' data structures and dynamics.
+///
+/// The DasherModel represents the current state of Dasher
 /// It contains a tree of DasherNodes
 ///             knows the current viewpoint
 ///             knows how to evolve the viewpoint
@@ -212,6 +215,12 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   myint GetGameModePointerLoc() {
     return m_pGameMode->GetDasherCoordOfTarget();
   }
+
+
+  // FIXME - only public temporarily
+  void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
+  int GetColour(symbol s) const;
+
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;
@@ -270,14 +279,15 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void Get_new_goto_coords(double zoomfactor, myint mousey);
   void Get_string_under_mouse(const myint smousex, const myint smousey, std::vector < symbol > &str);
 
-  void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
+  
 
   void Push_Node(CDasherNode * pNode);  // give birth to children
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 
-  int GetColour(symbol s) const;
 
   ControlTree *m_pControltree;
+
+  CAlphabetManagerFactory *m_pAlphabetManagerFactory;
 
   friend class CDasherGameMode;
   friend class CTrainer;

@@ -9,6 +9,7 @@
 #include "../Common/NoClones.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"
+#include "NodeManager.h"
 
 // CDasherNode represents a rectangle and character 
 
@@ -104,6 +105,8 @@ class Dasher::CDasherNode:private NoClones {
   void SetHasAllChildren(bool val) {
     m_bHasAllChildren = val;
   };
+
+  CNodeManager *m_pNodeManager;
 
  private:
 
