@@ -57,6 +57,7 @@
 #include "Menu.h"
 #include "AppSettings.h"
 #include "../DasherCore/Parameters.h"
+#include "speech.h"
 
 // We shouldn't need this - the functions which reference it are obsolete
 #include "../DasherCore/Event.h"
@@ -395,7 +396,8 @@ extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer da
 ///
 
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
-  std::cout << "New text: " << get_new_text() << std::endl;
+  if(get_app_parameter_bool(APP_BP_SPEECH_MODE))
+    SPEAK_DAMN_YOU(get_new_text());
 }
 
 // -------------

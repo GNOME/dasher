@@ -65,6 +65,7 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
 }
 
 void PopulateViewPage(GladeXML *pGladeWidgets) {
@@ -454,10 +455,7 @@ extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data) {
-  // FIXME _ REIMPLEMENT
-
-//   speakonstop=GTK_TOGGLE_BUTTON(widget)->active;
-//   dasher_set_parameter_bool( BOOL_SPEECHMODE, GTK_TOGGLE_BUTTON(widget)->active );
+  set_app_parameter_bool(APP_BP_SPEECH_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 // 'View' Page

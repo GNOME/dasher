@@ -77,9 +77,9 @@ void teardown_speech() {
 
 }
 
-void SPEAK_DAMN_YOU(std::string *speech) {
+void SPEAK_DAMN_YOU(const gchar *speech) {
   if(speaker != NULL) {
-    GNOME_Speech_Speaker_say(speaker, speech->c_str(), &ev);
+    GNOME_Speech_Speaker_say(speaker, speech, &ev);
   }
 }
 
@@ -88,6 +88,6 @@ void setup_speech() {
 };
 void teardown_speech() {
 };
-void SPEAK_DAMN_YOU(std::string *speech) {
+void SPEAK_DAMN_YOU(const gchar *speech) {
 };
 #endif

@@ -718,7 +718,7 @@ void speak() {
     while(say.find("\"") != std::string::npos) {
       say.replace(say.find("\""), 1, "");
     }
-    SPEAK_DAMN_YOU(&say);
+    SPEAK_DAMN_YOU(say.c_str());
     last_said = say;
   }
   say = "";
@@ -731,7 +731,7 @@ void speak_last() {
     while(last_said.find("\"") != std::string::npos) {
       last_said.replace(last_said.find("\""), 1, "");
     }
-    SPEAK_DAMN_YOU(&last_said);
+    SPEAK_DAMN_YOU(last_said.c_str());
   }
 }
 
@@ -751,7 +751,7 @@ void speak_buffer() {
     while(buffer.find("\"") != std::string::npos) {
       buffer.replace(buffer.find("\""), 1, "");
     }
-    SPEAK_DAMN_YOU(&buffer);
+    SPEAK_DAMN_YOU(buffer.c_str());
     last_said = buffer;
   }
 }
