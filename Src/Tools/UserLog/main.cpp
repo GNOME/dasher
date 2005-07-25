@@ -21,7 +21,9 @@ CFileLogger* gLogger = NULL;
 #include <iostream>
 
 #include "UserLog.h"
-#include "Utils.h"
+
+// Can't add Utils.h back to CVS so I'm relative linking to another fricken directory
+#include "../UserLogLoadTest/Utils.h"
 
 #ifdef _WIN32
 // In order to track leaks to line number, we need this at the top of every file
