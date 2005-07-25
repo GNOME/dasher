@@ -150,27 +150,27 @@ static sp_table stringparamtable[] = {
 // Everything is const except the current value of the setting
 struct bp_info {
   int key;
-    std::string regName;
+  std::string regName;
   bool persistent;
   bool value;
   bool defaultVal;
-    std::string humanReadable;
+  std::string humanReadable;
 };
 struct lp_info {
   int key;
-    std::string regName;
+  std::string regName;
   bool persistent;
   long value;
   long defaultVal;
-    std::string humanReadable;
+  std::string humanReadable;
 };
 struct sp_info {
   int key;
-    std::string regName;
+  std::string regName;
   bool persistent;
-    std::string value;
-    std::string defaultVal;
-    std::string humanReadable;
+  std::string value;
+  std::string defaultVal;
+  std::string humanReadable;
 };
 
 namespace Dasher {
@@ -194,7 +194,9 @@ public:
       BoolParamTable[ii].humanReadable = boolparamtable[ii].humanReadable;
       BoolParamTable[ii].persistent = boolparamtable[ii].persistent;
       BoolParamTable[ii].regName = boolparamtable[ii].regName;
-    } for(int ii = 0; ii < NUM_OF_LPS; ii++) {
+    } 
+    
+    for(int ii = 0; ii < NUM_OF_LPS; ii++) {
       LongParamTable[ii].key = longparamtable[ii].key;
       LongParamTable[ii].value = longparamtable[ii].defaultValue;
       LongParamTable[ii].defaultVal = longparamtable[ii].defaultValue;

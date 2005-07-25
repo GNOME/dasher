@@ -419,8 +419,6 @@ void CDasherInterfaceBase::ChangeScreen() {
 
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   m_DasherScreen = NewScreen;
-  m_DasherScreen->SetFont(GetStringParameter(SP_DASHER_FONT));
-  m_DasherScreen->SetFontSize(static_cast < Dasher::Opts::FontSize > (GetLongParameter(LP_DASHER_FONTSIZE)));
   m_DasherScreen->SetColourScheme(m_pColours);
   m_DasherScreen->SetInterface(this);
   ChangeScreen();
