@@ -66,9 +66,7 @@ public:
   void startspace();
   void centrecursor();
   void StartStop();
-  void DrawOutlines(bool Value) {
-    m_pScreen->DrawOutlines(Value);
-  }
+
   void Pause() {
     running = 0;
   }

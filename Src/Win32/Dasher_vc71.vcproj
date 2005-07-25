@@ -291,7 +291,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;"
+				AdditionalIncludeDirectories="WinCommon"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
@@ -314,7 +314,6 @@
 				OutputFile=".\Target/Win32 Unicode Release/Dasher.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="TRUE"
-				AdditionalLibraryDirectories="&quot;C:\Program Files\Microsoft Speech SDK 5.1\Lib\i386&quot;"
 				GenerateDebugInformation="TRUE"
 				ProgramDatabaseFile=".\Target/Win32 Unicode Release/Dasher.pdb"
 				SubSystem="2"/>
@@ -641,16 +640,6 @@
 			</File>
 			<File
 				RelativePath=".\widgets\WindowSelect.h">
-			</File>
-		</Filter>
-		<Filter
-			Name="GDI"
-			Filter="">
-			<File
-				RelativePath="GDI\FontStore.cpp">
-			</File>
-			<File
-				RelativePath="GDI\FontStore.h">
 			</File>
 		</Filter>
 		<Filter

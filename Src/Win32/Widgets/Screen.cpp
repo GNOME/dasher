@@ -20,9 +20,9 @@ using namespace std;
 /////////////////////////////////////////////////////////////////////////////
 
 CScreen::CScreen(HDC hdc, Dasher::screenint iWidth, Dasher::screenint iHeight)
-:CDasherScreen(iWidth, iHeight), m_hdc(hdc), m_FontName(""), Fontsize(Dasher::Opts::FontSize(1)), m_ptrFontStore(new CFontStore(TEXT(""))) {
+:CDasherScreen(iWidth, iHeight), m_hdc(hdc) {
   // set up the off-screen buffers
-//      HDC hdc = GetDC(mainwindow);
+  // HDC hdc = GetDC(mainwindow);
 
   // Create a memory device context compatible with the screen
   m_hDCBufferBackground = CreateCompatibleDC(hdc);      // one for rectangles
@@ -39,11 +39,7 @@ CScreen::CScreen(HDC hdc, Dasher::screenint iWidth, Dasher::screenint iHeight)
 
   m_hDCBuffer = m_hDCBufferBackground;
 
-  // create the brushes
-//      Build_Colours();
-
   CodePage = GetUserCodePage();
-  SetFont("");
 
 //      m_hDCScreen = ::GetDC(m_hwnd);
 //      TCHAR debug[256];
@@ -77,16 +73,6 @@ CScreen::~CScreen() {
 
   b = DeleteDC(m_hDCBufferDecorations);
   DASHER_ASSERT(b);
-
-  while(m_Brushes.size() != 0) {
-    DeleteObject(m_Brushes.back());
-    m_Brushes.pop_back();
-  }
-
-  while(m_Pens.size() != 0) {
-    DeleteObject(m_Pens.back());
-    m_Pens.pop_back();
-  }
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -97,97 +83,15 @@ void CScreen::SetInterface(CDasherInterface *DasherInterface) {
   CDasherScreen::SetInterface(DasherInterface);
 
   CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
-  SetFont(m_FontName);
-
 }
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CScreen::SetFont(string Name) {
-  m_FontName = Name;
-
-  Tstring FontName;
-  WinUTF8::UTF8string_to_wstring(Name, FontName);
-
-  // damn EVC4 doesn't have a reset
-  std::auto_ptr < CFontStore > ptrNewStore(new CFontStore(FontName));
-  m_ptrFontStore = ptrNewStore;
-
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CScreen::SetFontSize(FontSize size) {
-  Fontsize = size;
-  SetFont(m_FontName);
-}
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CScreen::SetColourScheme(const Dasher::CCustomColours *pColours) {
-  // DJW - must delete brushes ala free_colours. Would be nice to encapsuted this into a Brush Container
-  while(m_Brushes.size() != 0) {
-    DeleteObject(m_Brushes.back());
-    DeleteObject(m_Pens.back());
-    m_Brushes.pop_back();
-    m_Pens.pop_back();
-  }
-
-  DASHER_ASSERT(pColours);
-  int numcolours = pColours->GetNumColours();
-
-  DASHER_ASSERT(numcolours > 0);
-
-  for(int i = 0; i < numcolours; i++) {
-    // DJW 20031029 - something fishy is going on - i think calls to CreateSolidBrush start to fail
-    HBRUSH hb = CreateSolidBrush(RGB(pColours->GetRed(i), pColours->GetGreen(i), pColours->GetBlue(i)));
-    DASHER_ASSERT(hb != 0);
-    m_Brushes.push_back(hb);
-    HPEN hp = CreatePen(PS_SOLID, 1, RGB(pColours->GetRed(i), pColours->GetGreen(i), pColours->GetBlue(i)));
-    DASHER_ASSERT(hp != 0);
-    m_Pens.push_back(hp);
-  }
+  m_cPens.clear();
+  m_pColours = pColours;
 }
 
-//void CScreen::Build_Colours ()
-//{
-//      m_Brushes.resize(6);
 
-        // Currently white and gray. Intended for use by a space character, placed last in alphabet
-//      m_Brushes[Special1].push_back(CreateSolidBrush(RGB(240,240,240))); // making lighter for djcm
-//      m_Brushes[Special2].push_back(CreateSolidBrush(RGB(255,255,255)));
-
-//      m_Brushes[Objects].push_back(CreateSolidBrush(RGB(0,0,0)));
-
-//      m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,255,0)));
-//      m_Brushes[Groups].push_back(CreateSolidBrush(RGB(0,255,0)));
-//      m_Brushes[Groups].push_back(CreateSolidBrush(RGB(255,100,100)));
-
-//      m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(180,245,180)));
-//      m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(160,200,160)));
-//      m_Brushes[Nodes1].push_back(CreateSolidBrush(RGB(0,255,255)));
-
-//      m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,185,255)));
-//      m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(140,200,255)));
-//      m_Brushes[Nodes2].push_back(CreateSolidBrush(RGB(255,175,175)));
-//}
-
-//void CScreen::Free_Colours ()
-//{
-        // tidy up
-//      while (m_Brushes.size()) {
-//              while (m_Brushes.back().size()) {
-//                      DeleteObject(m_Brushes.back().back());
-//                      m_Brushes.back().pop_back();
-//              }
-//              m_Brushes.pop_back();
-//      }
-//}
-
-/////////////////////////////////////////////////////////////////////////////
-
-/// Handler for redraw markers;
-
+// Handler for redraw markers;
 void CScreen::SendMarker(int iMarker) {
   switch (iMarker) {
   case 0:
@@ -201,8 +105,6 @@ void CScreen::SendMarker(int iMarker) {
 }
 
 void CScreen::DrawMousePosBox(int which, int iMousePosDist) {
-
-//      HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
   RECT Rect;
   HBRUSH brush;
   switch (which) {
@@ -228,31 +130,7 @@ void CScreen::DrawMousePosBox(int which, int iMousePosDist) {
   Display();
 }
 
-/*
-void CScreen::DrawText(Dasher::symbol Character, screenint x1, screenint y1, int iSize) const
-{
-	if (m_DasherInterface==0)
-		return;
-	
-	Tstring OutputText = DisplayStrings[Character];
-	
-	RECT Rect;
-	Rect.left = x1;
-	Rect.top = y1;
-	Rect.right = x1+50;
-	Rect.bottom = y1+50;
-
-	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
-
-	// The Windows API dumps all its function names in the global namespace, ::
-	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
-
-	// DJW - need to select the old object back into the DC
-	SelectObject(m_hDCBuffer, old);
-}
-*/
-
-void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) const {
+void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, Dasher::screenint y1, int iSize) {
 
   Tstring OutputText;
 
@@ -264,7 +142,7 @@ void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, 
   Rect.right = x1 + 50;
   Rect.bottom = y1 + 50;
 
-  HFONT old = (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
+  HFONT old = (HFONT) SelectObject(m_hDCBuffer, CScreen::GetFont(iSize));
 
   // The Windows API dumps all its function names in the global namespace, ::
   ::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE);
@@ -272,9 +150,7 @@ void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, 
   SelectObject(m_hDCBuffer, old);
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-void CScreen::TextSize(const std::string &String, screenint *Width, screenint *Height, int iSize) const {
+void CScreen::TextSize(const std::string &String, screenint *Width, screenint *Height, int iSize) {
   CTextSizeInput in;
   in.m_String = String;
   in.m_iSize = iSize;
@@ -300,7 +176,7 @@ void CScreen::TextSize(const std::string &String, screenint *Width, screenint *H
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screenint *Height, int iSize) const {
+void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screenint *Height, int iSize) {
   // TODO This function could be improved. The height of an "o" is returned as the
   // same as the height of an "O". Perhaps GetGlyphOutline could help.
   // Remember if it gets complicted, the height of each symbol could be pre-calculated
@@ -308,7 +184,7 @@ void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screeni
   wstring OutputText;
   WinUTF8::UTF8string_to_wstring(String, OutputText);
 
-  HFONT old = (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
+  HFONT old = (HFONT) SelectObject(m_hDCBuffer, CScreen::GetFont(iSize));
 
   // Get the dimensions of the text in pixels
   SIZE OutSize;
@@ -320,9 +196,13 @@ void CScreen::TextSize_Impl(const std::string &String, screenint *Width, screeni
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::Polygon(point *Points, int Number, int iColour) const {
+void CScreen::Polygon(point *Points, int Number, int iColour) {
+  CScreen::Polygon( Points, Number, iColour, 1);
+}
+
+void CScreen::Polygon(point *Points, int Number, int iColour, int iWidth) {
   HGDIOBJ hpOld;
-  hpOld = (HPEN) SelectObject(m_hDCBuffer, (HPEN) m_Pens[iColour]);
+  hpOld = (HPEN) SelectObject(m_hDCBuffer, CScreen::GetPen(iColour, iWidth));
   POINT *WinPoints = new POINT[Number];
   point2POINT(Points, WinPoints, Number);
   ::Polygon(m_hDCBuffer, WinPoints, Number);

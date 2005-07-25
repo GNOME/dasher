@@ -36,33 +36,29 @@ public:
 
   void SetInterface(CDasherInterface * DasherInterface);
 
-  void SetFont(std::string Name);
-  void SetFontSize(Dasher::Opts::FontSize size);
-  Dasher::Opts::FontSize GetFontSize() const;
   void SetColourScheme(const Dasher::CCustomColours * pColours);
 
   void DrawMousePosBox(int which, int iMousePosDist);
-  void DrawOutlines(bool Value) {
-    drawoutlines = Value;
-  } void TextSize(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size) const;
+
+  void TextSize(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
 
   //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
-  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size) const;
+  void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size);
 
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines) const;
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines);
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
-  void Polyline(point * Points, int Number, int iWidth) const;
+  void Polyline(point * Points, int Number, int iWidth);
 
   // Draw a line of arbitrary colour.
   //! Draw a line between each of the points in the array
   //
   //! \param Number the number of points in the array
   //! \param Colour the colour to be drawn
-  void Polyline(point * Points, int Number, int iWidth, int Colour) const;
+  void Polyline(point * Points, int Number, int iWidth, int Colour);
 
   // Draw a filled polygon - given vertices and color id
   // This is not (currently) used in standard Dasher. However, it could be very
@@ -73,38 +69,41 @@ public:
   //! \param Points array of points defining the edge of the polygon
   //! \param Number number of points in the array
   //! \param Color colour of the polygon (numeric)
-  virtual void Polygon(point * Points, int Number, int Color) const;
+  virtual void Polygon(point * Points, int Number, int Color);
+  virtual void Polygon(point * Points, int Number, int Color, int iWidth);
 
-  void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme) const;
-  void Blank() const;
+  void DrawPolygon(point * Points, int Number, int Color, Dasher::Opts::ColorSchemes ColorScheme);
+  void Blank();
   void Display();
 
   void SendMarker(int iMarker);
 
 private:
-
-  const void point2POINT(const point * In, POINT * Out, int Number) const;
+  const void point2POINT(const point * In, POINT * Out, int Number);
   inline GetDisplayTstring(Dasher::symbol Symbol);
 
-  void TextSize_Impl(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size) const;
-
-  std::string m_FontName;
+  void TextSize_Impl(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
 
   HDC m_hdc;
   HDC m_hDCBuffer;
   HDC m_hDCBufferBackground;
   HDC m_hDCBufferDecorations;
-  std::auto_ptr < CFontStore > m_ptrFontStore;
-  std::vector < HBRUSH > m_Brushes;
-  std::vector < HPEN > m_Pens;
   HBITMAP m_hbmBitBackground;   // Offscreen buffer for background
   HBITMAP m_hbmBitDecorations;  // Offscreen buffer for decorations
   HGDIOBJ m_prevhbmBitBackground;
   HGDIOBJ m_prevhbmBitDecorations;
   UINT CodePage;
-  Dasher::Opts::FontSize Fontsize;
-  bool drawoutlines;
-  int mouseposdist;
+
+  const Dasher::CCustomColours *m_pColours;
+
+  // USE GET() FUNCTIONS AS THEY CACHE TO AVOID RECREATION OF PENS/BRUSHES/FONT SIZES
+  HPEN& GetPen(int iColor, int iWidth);
+  HBRUSH& GetBrush(int iColor);
+  HFONT& GetFont(int iSize);
+  HASH_MAP <int, HPEN> m_cPens;  // Holds cached pens
+  HASH_MAP <int, HBRUSH> m_cBrushes; // Holds cached brushes
+  HASH_MAP <int, HFONT> m_cFonts;  // Holds cached font sizes for current font
+  std::string FontName; // Shouldn't need to cache, should work on events to reset font cache
 
   struct CTextSizeInput {
     std::string m_String;
@@ -136,7 +135,6 @@ private:
       return (x != y);
   }};
 
-//      mutable stdext::hash_map< CTextSizeInput, CTextSizeOutput, hash_textsize> m_mapTextSize;
   mutable std::map < CTextSizeInput, CTextSizeOutput > m_mapTextSize;
 };
 
