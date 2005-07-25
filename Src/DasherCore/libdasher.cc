@@ -105,9 +105,9 @@ void handle_colour_scheme(const CCustomColours *Colours)
     blues[i]=Colours->GetBlue(i);
   }
   colour_scheme_callback(numcolours,reds,greens,blues);
-  delete reds;
-  delete greens;
-  delete blues;
+  delete[] reds;
+  delete[] greens;
+  delete[] blues;
 }
 
 void handle_draw_rectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme)

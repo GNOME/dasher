@@ -593,7 +593,9 @@ void gtk2_get_new_context_callback( std::string &str, int max )
 
   gtk_text_iter_backward_chars(start, max);
 
-  str = std::string( gtk_text_buffer_get_text( the_text_buffer, start, end, FALSE ) );
+  char *s = gtk_text_buffer_get_text( the_text_buffer, start, end, FALSE );
+  str = std::string(s);
+  g_free (s);
 
   delete start;
   delete end;  

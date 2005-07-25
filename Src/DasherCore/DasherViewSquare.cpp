@@ -368,8 +368,8 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 	  
 	  DasherPolygon( x, y, iTotalCount, Color );
 
-	delete x;
-	delete y;
+	  delete[] x;
+	  delete[] y;
 
 	}
 	
@@ -1073,7 +1073,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,screenint mousey, unsigned
     mousey = pCoordinates[ 1 ];
   }
 
-  delete pCoordinates;
+  delete[] pCoordinates;
 
   bool autocalibrate=1;
   if (autocalibrate) {
@@ -1163,7 +1163,7 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey)
     mousey = pCoordinates[ 1 ];
   }
 
-  delete pCoordinates;  
+  delete[] pCoordinates;  
   myint iDasherX;
   myint iDasherY;
 
@@ -1234,7 +1234,7 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey)
     mousey = pCoordinates[ 1 ];
   }
 
-  delete pCoordinates;  
+  delete[] pCoordinates;  
 
   myint x[2];
   myint y[2];

@@ -1,3 +1,12 @@
+2005-07-25  Behdad Esfahbod  <behdad@behdad.org>
+
+	* Src/DasherCore/DasherViewSquare.cpp, Src/DasherCore/libdasher.cc,
+	Src/Gtk2/canvas.cc: Use delete[] instead of delete, for new[]'ed
+	memory.
+
+	* Src/Gtk2/dasher.cc: Cleanup memory after ourselves, mostly glib
+	and gtk+ related structures.
+
 2005-07-24  Behdad Esfahbod  <behdad@behdad.org>
 
 	* Src/Gtk2/dasher.cc, Src/Gtk2/canvas.cc: Use DASHERFONT instead of

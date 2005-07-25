@@ -317,11 +317,11 @@ void receive_colour_scheme_callback(int numcolours, int* red, int* green, int* b
 {
 #if WITH_CAIRO
   if (cairo_colours)
-    delete cairo_colours;
+    delete[] cairo_colours;
   cairo_colours = new my_cairo_colour_t[numcolours];
 #else
   if (colours)
-    delete colours;
+    delete[] colours;
   colours = new GdkColor[numcolours];
 #endif
 

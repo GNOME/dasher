@@ -367,7 +367,9 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
       gchar ugly_path_hack[100];
       sprintf(ugly_path_hack,"%d",i);
       gtk_tree_selection_select_iter(alphselection, &alphiter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+      GtkTreePath *path = gtk_tree_path_new_from_string(ugly_path_hack);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview),path,NULL,false);
+      gtk_tree_path_free(path);
     }
   }
   
@@ -1541,6 +1543,9 @@ extern "C" void choose_filename() {
     getcwd(cwd,1024);
     filename = g_build_path("/",cwd,tbuffer,NULL);
     gtk_window_set_title(GTK_WINDOW(window), filename);
+
+    free(tbuffer);
+    free(cwd);
   } else {
     gtk_window_set_title(GTK_WINDOW(window), "Dasher");
     if (filename) {
@@ -2274,6 +2279,7 @@ void scan_alphabet_files()
     }
   }
 
+  g_dir_close(directory);
   directory = g_dir_open(user_data_dir,0,NULL);
 
   while((filename=g_dir_read_name(directory))) {
@@ -2281,6 +2287,8 @@ void scan_alphabet_files()
       add_alphabet_filename(filename);
     }
   }
+
+  g_dir_close(directory);
 }
 
 void scan_colour_files()
@@ -2296,6 +2304,7 @@ void scan_colour_files()
     }
   }
 
+  g_dir_close(directory);
   directory = g_dir_open(user_data_dir,0,NULL);
 
   while((filename=g_dir_read_name(directory))) {
@@ -2303,6 +2312,8 @@ void scan_colour_files()
       add_colour_filename(filename);
     }
   }
+
+  g_dir_close(directory);
 }
 
 int alphabet_filter(const gchar* filename)
