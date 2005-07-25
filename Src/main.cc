@@ -121,7 +121,8 @@ int main(int argc, char *argv[]) {
   // training...
 
 #ifndef GNOME_LIBS
-  g_thread_init(NULL);
+  if (!g_thread_supported()) 
+    g_thread_init(NULL);
 #endif
 
   g_type_class_ref(dasher_gtk_text_view_get_type());
