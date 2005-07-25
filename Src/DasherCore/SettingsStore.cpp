@@ -22,18 +22,25 @@ CSettingsStore::CSettingsStore(Dasher::CEventHandler *pEventHandler):m_pEventHan
 
 void CSettingsStore::LoadPersistent() {
 
+  // Load each of the persistent parameters.  If we fail loading for the store, then 
+  // we'll save the settings with the default value that comes from Parameters.h
+
   for(int i(0); i < NUM_OF_BPS; ++i) {
     bool bValue;
     if(s_oParamTables.BoolParamTable[i].persistent)
       if(LoadSetting(s_oParamTables.BoolParamTable[i].regName, &bValue))
         s_oParamTables.BoolParamTable[i].value = bValue;
+      else
+        SaveSetting(s_oParamTables.BoolParamTable[i].regName, s_oParamTables.BoolParamTable[i].value);            
   }
 
   for(int i(0); i < NUM_OF_LPS; ++i) {
     long lValue;
     if(s_oParamTables.LongParamTable[i].persistent)
-      if(LoadSetting(s_oParamTables.LongParamTable[i].regName, &lValue))
+      if(LoadSetting(s_oParamTables.LongParamTable[i].regName, &lValue)) 
         s_oParamTables.LongParamTable[i].value = lValue;
+      else
+        SaveSetting(s_oParamTables.LongParamTable[i].regName, s_oParamTables.LongParamTable[i].value);            
   }
 
   for(int i(0); i < NUM_OF_SPS; ++i) {
@@ -41,6 +48,8 @@ void CSettingsStore::LoadPersistent() {
     if(s_oParamTables.StringParamTable[i].persistent)
       if(LoadSetting(s_oParamTables.StringParamTable[i].regName, &strValue))
         s_oParamTables.StringParamTable[i].value = strValue;
+      else
+        SaveSetting(s_oParamTables.StringParamTable[i].regName, s_oParamTables.StringParamTable[i].value);            
   }
 }
 
@@ -135,6 +144,7 @@ bool CSettingsStore::GetBoolOption(const string &Key) {
 
   // This means the key passed in a string was not found in the new table
   DASHER_ASSERT(0);
+  return false;
 }
 
 long CSettingsStore::GetLongOption(const string &Key) {
@@ -145,6 +155,7 @@ long CSettingsStore::GetLongOption(const string &Key) {
   }
   // This means the key passed in a string was not found in the new table
   DASHER_ASSERT(0);
+  return false;
 }
 
 string CSettingsStore::GetStringOption(const string &Key) {
@@ -158,6 +169,7 @@ string CSettingsStore::GetStringOption(const string &Key) {
 
   // This means the key passed in a string was not found in the new table
   DASHER_ASSERT(0);
+  return false;
 }
 
 void CSettingsStore::SetBoolOption(const string &Key, bool Value) {
