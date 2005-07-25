@@ -385,7 +385,7 @@ void SaveWindowState() {
 ///
 
 extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data) {
-  // Not implemented (do we even have anything to go here?)
+  set_mark();
 }
 
 ///
@@ -395,7 +395,7 @@ extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer da
 ///
 
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
-  // Not implemented
+  std::cout << "New text: " << get_new_text() << std::endl;
 }
 
 // -------------

@@ -53,6 +53,9 @@ void gtk2_clipboard_callback(clipboard_action act);
 void select_all();
 void clear_edit();
 
+void set_mark();
+gchar *get_new_text();
+
 extern GtkWidget *the_text_view;
 extern GtkTextBuffer *the_text_buffer;
 extern GtkClipboard *the_text_clipboard;

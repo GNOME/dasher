@@ -153,6 +153,25 @@ void cleanup_edit() {
 #endif
 }
 
+void set_mark() {
+  GtkTextIter oBufferEnd;
+  GtkTextIter oBufferStart;
+  gtk_text_buffer_get_bounds( the_text_buffer, &oBufferStart, &oBufferEnd);
+  gtk_text_buffer_create_mark(the_text_buffer, "new_start", &oBufferEnd, true);
+}
+
+gchar *get_new_text() {
+  GtkTextIter oNewStart;
+  GtkTextIter oNewEnd;
+  GtkTextIter oDummy;
+
+  gtk_text_buffer_get_bounds( the_text_buffer, &oDummy, &oNewEnd);
+  gtk_text_buffer_get_iter_at_mark( the_text_buffer, &oNewStart, gtk_text_buffer_get_mark(the_text_buffer, "new_start"));
+
+  return gtk_text_buffer_get_text( the_text_buffer, &oNewStart, &oNewEnd, false );
+  
+}
+
 void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data) {
 
   // FIXME - REIMPLEMENT
