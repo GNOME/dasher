@@ -23,7 +23,10 @@ using namespace std;
 // CDasherModel
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0) {
+:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0), 
+m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_pGameMode(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
+m_Rootmax_max(0), m_DasherY(0), m_DasherOX(0), m_DasherOY(0), m_dAddProb(0.0), m_dMaxRate(0.0), m_pControltree(NULL),
+m_Active(0, 0) {
 
   // Set max bitrate in the FrameRate class
   m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
@@ -52,6 +55,11 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
     break;  
   case 4:
     m_pLanguageModel = new CJapaneseLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
+    break;
+  default:
+    // If there is a bogus value for the language model ID, we'll default
+    // to our trusty old PPM language model.
+    m_pLanguageModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);    
     break;
   }
 
