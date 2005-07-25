@@ -57,7 +57,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {
-
+    
     default:
       break;
     }
