@@ -253,6 +253,12 @@ inline Cint64 operator -(Cint32 lhs, Cint64 rhs) {
   return temp;
 }
 
+inline Cint64 operator -(Cint64 rhs) {
+  Cint64 temp = 0;
+  temp -= rhs;
+  return temp;
+}
+
 inline double operator -(double lhs, Cint64 rhs) {
   return lhs - double (rhs);
 }
