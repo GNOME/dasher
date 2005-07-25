@@ -89,6 +89,7 @@
 				Name="VCCustomBuildTool"/>
 			<Tool
 				Name="VCLibrarianTool"
+				AdditionalDependencies="imm32.lib"
 				OutputFile=".\Target/Win32 Unicode Release\DasherCore.lib"
 				SuppressStartupBanner="TRUE"/>
 			<Tool
