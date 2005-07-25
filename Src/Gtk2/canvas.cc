@@ -186,13 +186,8 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   BEGIN_DRAWING;
   SET_COLOR(Color);
 #if WITH_CAIRO
-  if (drawoutline==TRUE) {
-    cairo_rectangle(cr, x1+.5, y1+.5, x2-x1, y2-y1);
-    cairo_fill_preserve(cr);
-  } else {
-    cairo_rectangle(cr, x1, y1, x2-x1+1.0, y2-y1+1.0);
-    cairo_fill(cr);
-  }
+  cairo_rectangle(cr, x1, y1, x2-x1+1.0, y2-y1+1.0);
+  cairo_fill(cr);
 #else
   gdk_draw_rectangle (offscreen_buffer, gc, TRUE, x1, y1, x2-x1+1, y2-y1+1);
 #endif
@@ -200,6 +195,7 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
   if (drawoutline==TRUE) {
     SET_COLOR(3);
 #if WITH_CAIRO
+    cairo_rectangle(cr, x1+.5, y1+.5, x2-x1, y2-y1);
     cairo_stroke(cr);
 #else
     gdk_draw_rectangle (offscreen_buffer, gc, FALSE, x1, y1, x2-x1, y2-y1);
