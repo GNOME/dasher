@@ -132,7 +132,7 @@ void PopulateLMPage(GladeXML *pGladeWidgets) {
   }
   
 
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_UNIFORM));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_UNIFORM)/10.0);
 	  
   // LM parameters are now obsolete - will eventually be part of the 'advanced' page
 
