@@ -47,7 +47,7 @@ CCanvas::~CCanvas() {
   delete m_pPangoInk;
 }
 
-void CCanvas::Blank() const {
+void CCanvas::Blank() {
 
   GdkGC *graphics_context;
   GdkColormap *colormap;
@@ -110,7 +110,7 @@ void CCanvas::Display() {
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
 }
 
-void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) const {
+void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -160,7 +160,7 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::Col
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
 }
 
-void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour) const {
+void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -176,6 +176,8 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
   gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
   gdk_gc_set_foreground(graphics_context, &colour);
 
+  gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
+ 
   for(int i = 0; i < Number; i++) {
     gdk_points[i].x = Points[i].x;
     gdk_points[i].y = Points[i].y;
@@ -183,10 +185,11 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
 
   gdk_draw_polygon(m_pOffscreenBuffer, graphics_context, TRUE, gdk_points, Number);
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_LINE_WIDTH);
   g_free(gdk_points);
 }
 
-void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWidth, int Colour) const {
+void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWidth, int Colour) {
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -215,7 +218,7 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   g_free(gdk_points);
 }
 
-void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) const {
+void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
 
    GdkGC *graphics_context;
   GdkColormap *colormap;
@@ -239,7 +242,7 @@ void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) co
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
 }
 
-void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int size) const {
+void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int size) {
   PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
 
   pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);

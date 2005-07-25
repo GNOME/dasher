@@ -106,7 +106,10 @@ public:
   //! \param Points array of points defining the edge of the polygon
   //! \param Number number of points in the array
   //! \param Color colour of the polygon (numeric)
-  virtual void Polygon(point * Points, int Number, int Color) = 0;
+  virtual void Polygon(point * Points, int Number, int Color) {
+    Polygon(Points, Number, Color, 1);
+  };
+
   virtual void Polygon(point * Points, int Number, int Color, int iWidth) = 0;
 
   // Signal the screen when a frame is started and finished

@@ -67,7 +67,7 @@ public:
   /// \todo We should not be relying on locally cached variables - check to see whether this is still used or not
   ///
 
-  Dasher::Opts::FontSize GetFontSize()const {
+  Dasher::Opts::FontSize GetFontSize() {
     return Dasher::Opts::FontSize(1);
   };
 
@@ -79,7 +79,7 @@ public:
   /// \param Size Size at which the string will be rendered (units?)
   ///
 
-  void TextSize(const std::string &String, screenint *Width, screenint *Height, int Size) const;
+  void TextSize(const std::string &String, screenint *Width, screenint *Height, int Size);
 
   ///
   /// Draw a text string
@@ -89,7 +89,7 @@ public:
   /// \param Size The size at which to render the rectangle (units?)
   ///
 
-  void DrawString(const std::string &String, screenint x1, screenint y1, int Size) const;
+  void DrawString(const std::string &String, screenint x1, screenint y1, int Size);
 
   ///
   /// Draw a rectangle
@@ -102,7 +102,7 @@ public:
   /// \param bDrawOutline Whether or not to draw outlines for the boxes
   ///
 
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutine) const;
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutine);
 
   ///
   /// Send a marker to indicate phases of the redraw process. This is
@@ -124,21 +124,21 @@ public:
   /// \param Colour Colour with which to draw the line
   ///
 
-  void Polyline(point * Points, int Number, int iWidth, int Colour) const;
+  void Polyline(point * Points, int Number, int iWidth, int Colour);
 
   /// 
   /// Like polyline, but fill the shape
   /// \todo See comments for DrawPolygon
   ///
 
-  void Polygon(point *Points, int Number, int Colour) const;
+  void Polygon(point *Points, int Number, int Colour, int iWidth);
 
   ///
   /// \todo Not implemented
   /// \todo One of these two routines must be redundant - find out which and kill the other
   ///
 
-  void DrawPolygon(point *Points, int Number, int Color, Opts::ColorSchemes ColorScheme) const {
+  void DrawPolygon(point *Points, int Number, int Color, Opts::ColorSchemes ColorScheme) {
     // not implemented 
   };
 
@@ -146,7 +146,7 @@ public:
   /// Blank the diplay
   ///
 
-  void Blank() const;
+  void Blank();
 
   /// 
   /// Marks the end of the display process - at this point the offscreen buffer is copied onscreen.
