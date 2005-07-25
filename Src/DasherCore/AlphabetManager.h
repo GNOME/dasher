@@ -33,7 +33,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot();
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
 
     ///
     /// Provide children for the supplied node
@@ -46,6 +46,9 @@ namespace Dasher {
     ///
 
     virtual void ClearNode( CDasherNode *pNode );
+
+    virtual void Output( CDasherNode *pNode );
+    virtual void Undo( CDasherNode *pNode );
 
   private:
     CLanguageModel *m_pLanguageModel;

@@ -13,6 +13,7 @@
 #include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"
 #include "AlphabetManagerFactory.h"
+#include "ControlManagerFactory.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -217,9 +218,18 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   }
 
 
+  CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper ) {
+    if( iType == 0 )
+      return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper);
+    else
+      return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper);
+  };
+  
   // FIXME - only public temporarily
   void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
   int GetColour(symbol s) const;
+
+  
 
  private:
 
@@ -288,6 +298,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ControlTree *m_pControltree;
 
   CAlphabetManagerFactory *m_pAlphabetManagerFactory;
+  CControlManagerFactory *m_pControlManagerFactory;
 
   friend class CDasherGameMode;
   friend class CTrainer;

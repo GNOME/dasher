@@ -8,7 +8,7 @@ namespace Dasher {
 
 class CNodeManagerFactory {
  public:
-  virtual CDasherNode *GetRoot() = 0;
+  virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper) = 0;
 };
 
 }

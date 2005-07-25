@@ -82,6 +82,7 @@ m_Active(0, 0) {
   m_pGameMode = new CDasherGameMode(pEventHandler, pSettingsStore, m_pDasherInterface, this);
 
   m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel);
+  m_pControlManagerFactory = new CControlManagerFactory(this, m_pLanguageModel);
 }
 
 CDasherModel::~CDasherModel() {
@@ -96,6 +97,8 @@ CDasherModel::~CDasherModel() {
   delete m_Root;
 
   delete m_pAlphabetManagerFactory;
+  delete m_pControlManagerFactory;
+
   m_pLanguageModel->ReleaseContext(LearnContext);
   delete m_pLanguageModel;
 
@@ -228,7 +231,7 @@ void CDasherModel::SetContext(std::string &sNewContext) {
   }
   delete m_Root;
 
-  m_Root = m_pAlphabetManagerFactory->GetRoot();
+  m_Root = m_pAlphabetManagerFactory->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION));
   CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
 
   if(sNewContext.size() == 0) {
@@ -452,28 +455,36 @@ void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long 
 
   CDasherNode *new_under_cross = Get_node_under_crosshair();
 
+  // FIXME - Reimplement
+
   if(new_under_cross != old_under_cross) {
     DeleteCharacters(new_under_cross, old_under_cross);
   }
 
   if(new_under_cross->isSeen() == true) {
-    if(new_under_cross->ControlChild() != true) {
-      SetBitrate(m_dMaxRate);
-    }
-    return;
-  }
+//     if(new_under_cross->ControlChild() != true) {
+//       SetBitrate(m_dMaxRate);
+//     }
+     return;
+   }
 
   new_under_cross->Seen(true);
 
-  if(new_under_cross->ControlChild() == true) {
-    //            m_pEditbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
-    OutputCharacters(new_under_cross);
-    SetBitrate(m_dMaxRate / 3);
-  }
-  else {
-    OutputCharacters(new_under_cross);
-    SetBitrate(m_dMaxRate);
-  }
+  // FIXME - Need to recurse up possibly unseen parents
+
+  new_under_cross->m_pNodeManager->Output(new_under_cross);
+
+  // FIXME - Reimplement
+
+//   if(new_under_cross->ControlChild() == true) {
+//     //            m_pEditbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
+//     OutputCharacters(new_under_cross);
+//     SetBitrate(m_dMaxRate / 3);
+//   }
+//   else {
+//     OutputCharacters(new_under_cross);
+//     SetBitrate(m_dMaxRate);
+//   }
   //      m_Root->Recursive_Push_Node(0);
 }
 
@@ -543,20 +554,12 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode) 
   // text that we've seen already
   if(newnode->isSeen() == true) {
     if(oldnode->Parent() == newnode) {
-      if(oldnode->Symbol() != GetControlSymbol() && oldnode->ControlChild() == false && oldnode->Symbol() != 0) // SYM0
-      {
-        Dasher::CEditEvent oEvent(2, GetAlphabet().GetText(oldnode->Symbol()));
-        InsertEvent(&oEvent);
-      }
+      oldnode->m_pNodeManager->Undo(oldnode);
       oldnode->Seen(false);
       return true;
     }
     if(DeleteCharacters(newnode, oldnode->Parent()) == true) {
-      if(oldnode->Symbol() != GetControlSymbol() && oldnode->ControlChild() == false && oldnode->Symbol() != 0) // SYM0 
-      {
-        Dasher::CEditEvent oEvent(2, GetAlphabet().GetText(oldnode->Symbol()));
-        InsertEvent(&oEvent);
-      }
+      oldnode->m_pNodeManager->Undo(oldnode);
       oldnode->Seen(false);
       return true;
     }
@@ -576,8 +579,7 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode) 
         continue;
       }
 
-      Dasher::CEditEvent oEvent(2, GetAlphabet().GetText(oldnode->Symbol()));
-      InsertEvent(&oEvent);
+      oldnode->m_pNodeManager->Undo(oldnode);
       oldnode = oldnode->Parent();
       if(oldnode == NULL) {
         return false;
@@ -728,64 +730,64 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
 
   pNode->Alive(true);
 
-  if(pNode->Symbol() == GetControlSymbol() || pNode->ControlChild()) {
-    ControlTree *pControlTreeChildren = pNode->GetControlTree();
+ //  if(pNode->Symbol() == GetControlSymbol() || pNode->ControlChild()) {
+//     ControlTree *pControlTreeChildren = pNode->GetControlTree();
 
-    ControlTree *test = new ControlTree;
-    test->parent = test->next;
+//     ControlTree *test = new ControlTree;
+//     test->parent = test->next;
 
-    if(pControlTreeChildren == NULL) {
-      // Root of the tree 
-      pControlTreeChildren = GetControlTree();
-    } else {
-      // some way down
-      pControlTreeChildren = pControlTreeChildren->children;
-    }
+//     if(pControlTreeChildren == NULL) {
+//       // Root of the tree 
+//       pControlTreeChildren = GetControlTree();
+//     } else {
+//       // some way down
+//       pControlTreeChildren = pControlTreeChildren->children;
+//     }
 
-    // Count total number of children
+//     // Count total number of children
 
-    // Always 1 child for a root symbol
-    int iChildCount = 1;
+//     // Always 1 child for a root symbol
+//     int iChildCount = 1;
 
-    // Control children
-    ControlTree *pTemp = pControlTreeChildren;
-    while(pTemp != NULL) {
-      iChildCount++;
-      pTemp = pTemp->next;
-    }
+//     // Control children
+//     ControlTree *pTemp = pControlTreeChildren;
+//     while(pTemp != NULL) {
+//       iChildCount++;
+//       pTemp = pTemp->next;
+//     }
 
-    // Now we go back and build the node tree         
-    int quantum = int (GetLongParameter(LP_NORMALIZATION) / iChildCount);
+//     // Now we go back and build the node tree         
+//     int quantum = int (GetLongParameter(LP_NORMALIZATION) / iChildCount);
 
-    ColorSchemes ChildScheme;
-    if(pNode->ColorScheme() == Nodes1) {
-      ChildScheme = Nodes2;
-    } else {
-      ChildScheme = Nodes1;
-    }
+//     ColorSchemes ChildScheme;
+//     if(pNode->ColorScheme() == Nodes1) {
+//       ChildScheme = Nodes2;
+//     } else {
+//       ChildScheme = Nodes1;
+//     }
 
-    int i = 0;
-    // First a root node that takes up back to the text alphabet
-    pNode->Children()[i] = new CDasherNode(*this, pNode, 0, 0, Opts::Nodes1, 0, int ((i + 1) * quantum), m_pLanguageModel, false, 240);
-    i++;
+//     int i = 0;
+//     // First a root node that takes up back to the text alphabet
+//     pNode->Children()[i] = new CDasherNode(*this, pNode, 0, 0, Opts::Nodes1, 0, int ((i + 1) * quantum), m_pLanguageModel, false, 240);
+//     i++;
 
-    // Now the control children
-    pTemp = pControlTreeChildren;
-    while(pTemp != NULL) {
-      int colour;
-      if(pTemp->colour != -1) {
-        colour = pTemp->colour;
-      } else {
-        colour = (i % 99) + 11;
-      }
-      pNode->Children()[i] = new CDasherNode(*this, pNode, 0, i, ChildScheme, int (i * quantum), int ((i + 1) * quantum), m_pLanguageModel, true, colour, pTemp);
-      i++;
-      pTemp = pTemp->next;
-    }
-  }
-  else {
+//     // Now the control children
+//     pTemp = pControlTreeChildren;
+//     while(pTemp != NULL) {
+//       int colour;
+//       if(pTemp->colour != -1) {
+//         colour = pTemp->colour;
+//       } else {
+//         colour = (i % 99) + 11;
+//       }
+//       pNode->Children()[i] = new CDasherNode(*this, pNode, 0, i, ChildScheme, int (i * quantum), int ((i + 1) * quantum), m_pLanguageModel, true, colour, pTemp);
+//       i++;
+//       pTemp = pTemp->next;
+//     }
+//   }
+//   else {
     pNode->m_pNodeManager->PopulateChildren(pNode);
-  }
+    //  }
   pNode->SetHasAllChildren(true);
 }
 

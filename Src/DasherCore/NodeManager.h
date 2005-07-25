@@ -26,7 +26,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot() = 0;
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper) = 0;
 
     ///
     /// Provide children for the supplied node
@@ -40,6 +40,13 @@ namespace Dasher {
 
     virtual void ClearNode( CDasherNode *pNode ) = 0;
 
+    ///
+    /// Called whenever a node belonging to this manager first 
+    /// moves under the crosshair
+    ///
+
+    virtual void Output( CDasherNode *pNode ) {};
+    virtual void Undo( CDasherNode *pNode ) {};
   };
 
 }

@@ -3,6 +3,7 @@
 
 #include "ControlManager.h"
 #include "NodeManagerFactory.h"
+#include "LanguageModelling/LanguageModel.h"
 
 namespace Dasher {
 
@@ -10,10 +11,10 @@ namespace Dasher {
   
   class CControlManagerFactory : public CNodeManagerFactory {
   public:
-    CControlManagerFactory(CDasherModel *pModel);
+    CControlManagerFactory(CDasherModel *pModel, CLanguageModel *pLanguageModel);
     ~CControlManagerFactory();
     
-    virtual CDasherNode *GetRoot();
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
     
   private:
     CControlManager *m_pControlManager;

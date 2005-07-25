@@ -107,6 +107,7 @@ class Dasher::CDasherNode:private NoClones {
   };
 
   CNodeManager *m_pNodeManager;
+  void *m_pUserData; // Pointer for the node manager to do with as it sees fit :-) Remember to make sure that the node manager deletes anything it puts here before the node is destroyed.
 
  private:
 

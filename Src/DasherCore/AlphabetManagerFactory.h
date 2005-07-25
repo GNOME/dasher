@@ -14,7 +14,7 @@ namespace Dasher {
     CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel );
     ~CAlphabetManagerFactory();
     
-    virtual CDasherNode *GetRoot();
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
     
   private:
     CAlphabetManager *m_pAlphabetManager;

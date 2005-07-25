@@ -10,6 +10,6 @@ CAlphabetManagerFactory::~CAlphabetManagerFactory() {
   delete m_pAlphabetManager;
 }
 
-CDasherNode *CAlphabetManagerFactory::GetRoot() {
-  return m_pAlphabetManager->GetRoot();
+CDasherNode *CAlphabetManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper) {
+  return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper);
 }

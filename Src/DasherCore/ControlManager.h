@@ -2,6 +2,9 @@
 #define __controlmanager_h__
 
 #include "NodeManager.h"
+#include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
+
+#include <vector>
 
 namespace Dasher {
 
@@ -14,16 +17,23 @@ namespace Dasher {
   class CControlManager : public CNodeManager {
   public:
 
-    CControlManager(CDasherModel *pModel);
+    class CControlNode {
+    public: // Worry about encapsulation later
+      std::vector<CControlNode *> vChildren;
+      std::string strLabel;
+      int iID;
+    };
+
+    CControlManager(CDasherModel *pModel, CLanguageModel *pLanguageModel );
 
     ///
-    /// Does nothing - alphabet manager isn't reference counted.
+    /// Does nothing - control manager isn't reference counted.
     ///
 
     virtual void Ref() {};
     
     ///
-    /// Does nothing - alphabet manager isn't reference counted.
+    /// Does nothing - control manager isn't reference counted.
     ///
     
     virtual void Unref() {};
@@ -32,7 +42,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot();
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
 
     ///
     /// Provide children for the supplied node
@@ -45,10 +55,15 @@ namespace Dasher {
     ///
 
     virtual void ClearNode( CDasherNode *pNode );
+    
+    virtual void Output( CDasherNode *pNode );
+    virtual void Undo( CDasherNode *pNode );
 
   private:
     CDasherModel *m_pModel;
+    CLanguageModel *m_pLanguageModel;
 
+    CControlNode *m_pControlRoot;
   };
 
 }

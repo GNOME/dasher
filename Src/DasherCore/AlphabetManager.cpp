@@ -3,6 +3,7 @@
 #include "DasherNode.h"
 
 #include <vector>
+#include <iostream>
 
 using namespace Dasher;
 
@@ -10,12 +11,15 @@ CAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLangu
   : m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
 }
 
-CDasherNode *CAlphabetManager::GetRoot() {
+CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper) {
   CDasherNode *pNewNode;
 
   // FIXME - Make this a CDasherComponent
 
-  pNewNode = new CDasherNode(*m_pModel, 0, 0, 0, Opts::Nodes1, 0, m_pModel->GetLongParameter(LP_NORMALIZATION), m_pLanguageModel, false, 7);
+  pNewNode = new CDasherNode(*m_pModel, pParent, 0, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, false, 7);
+  
+  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
+
   pNewNode->m_pNodeManager = this;
 
   return pNewNode;
@@ -57,8 +61,14 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
       else
         ChildScheme = NormalScheme;
       CDasherNode *pNewNode;
-      pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(j));
-      pNewNode->m_pNodeManager = this;
+
+      if( newchars[j] == m_pModel->GetControlSymbol() )
+	pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j]);
+      else {
+	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(j));
+	pNewNode->m_pNodeManager = this;
+      }
+
       pNode->Children()[j] = pNewNode;
       iLbnd = cum[j];
     }
@@ -67,4 +77,20 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
 
 void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
   // Should this be responsible for actually doing the deletion
+}
+
+void CAlphabetManager::Output( CDasherNode *pNode ) {
+ symbol t = pNode->Symbol();
+ if(t) { // Ignore symbol 0 (root node)
+   Dasher::CEditEvent oEvent(1, m_pModel->GetAlphabet().GetText(t));
+   m_pModel->InsertEvent(&oEvent);
+ }
+}
+
+void CAlphabetManager::Undo( CDasherNode *pNode ) {
+  symbol t = pNode->Symbol();
+  if(t) { // Ignore symbol 0 (root node)
+    Dasher::CEditEvent oEvent(2, m_pModel->GetAlphabet().GetText(t));
+    m_pModel->InsertEvent(&oEvent);
+  }
 }
