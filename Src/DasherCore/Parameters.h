@@ -113,7 +113,7 @@ static lp_table longparamtable[] = {
   {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 150, "Max Bit Rate Times 100"},
   {LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
-  {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 1, "LanguageModelID"},
+  {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
   {LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
   {LP_EDIT_HEIGHT, "EditHeight", PERS, 75, "EditHeight0"},
   {LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, "ScreenWidth"},
