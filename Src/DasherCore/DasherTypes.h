@@ -5,6 +5,33 @@
 #ifndef __DasherTypes_h__
 #define __DasherTypes_h__
 
+// We use our own version of hungarian notation to indicate
+// the type of variables:
+//
+//    i       - integer and enumerated types 
+//    c       - char
+//    str     - STL string
+//    sz      - char* string
+//    b       - boolean
+//    p       - pointer (to a primative type or to an object)
+//    pp      - pointer to a pointer (and so on)
+//    v       - STL vector
+//    map     - STL map
+//    d       - float or double
+//    s       - structure 
+//    o       - object
+//
+// Class member variables and global variables should 
+// have the additional prefixes:
+//
+//    m_      - member variables 
+//    g_      - global variablse
+//    s_      - static member variables
+//
+// Variables names (local and member) should capitalize each 
+// new word and don't use underscores (except as above).
+//
+
 //#include "../Common/Types/int.h"
 #include "../Common/Types/int32.h"
 #include "../Common/Types/int64.h"
@@ -56,6 +83,29 @@ namespace Dasher {
     ControlTree():pointer(NULL), data(0), type(0), colour(0), text(""), parent(NULL), children(NULL), next(NULL) {
     };
   };
+
+  // Types added so model can report back what it has done for
+  // user logging purposes.
+  struct SymbolProb
+  {
+    symbol          sym;
+    double          prob;
+  };
+
+  // Keeps track of the display text and prob of a past symbol.
+  // We need to store this as the alphabet could change in the
+  // middle of a trial and we won't be able to convert symbols
+  // to text once it does.
+  struct SymbolProbDisplay
+  {
+    symbol          sym;
+    std::string     strDisplay;
+    double          prob;
+  };
+
+  typedef std::vector<SymbolProb>         VECTOR_SYMBOL_PROB;
+  typedef std::vector<SymbolProbDisplay>  VECTOR_SYMBOL_PROB_DISPLAY;
+
 }
 
 #endif /* #ifndef __DasherTypes_h__ */
