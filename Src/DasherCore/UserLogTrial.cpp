@@ -13,342 +13,345 @@ static char THIS_FILE[] = __FILE__;
 
 CUserLogTrial::CUserLogTrial(string strCurrentTrialFilename)
 {
-    //CFunctionLogger f1("CUserLogTrial::CUserLogTrial", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::CUserLogTrial", g_pLogger);
 
-    InitMemberVars();
+  InitMemberVars();
 
-    m_strCurrentTrialFilename = strCurrentTrialFilename;
+  m_strCurrentTrialFilename = strCurrentTrialFilename;
 }
 
 CUserLogTrial::~CUserLogTrial()
 {
-    //CFunctionLogger f1("CUserLogTrial::~CUserLogTrial", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::~CUserLogTrial", g_pLogger);
 
-    for (unsigned int i = 0; i < m_vectorParams.size(); i++)
+  for (unsigned int i = 0; i < m_vpParams.size(); i++)
+  {
+    CUserLogParam* pParam = (CUserLogParam*) m_vpParams[i];
+
+    if (pParam != NULL)
     {
-        CUserLogParam* param = (CUserLogParam*) m_vectorParams[i];
+      delete pParam;
+      pParam = NULL;
+    }
+  }
 
-        if (param != NULL)
+  for (unsigned int i = 0; i < m_vpNavCycles.size(); i++)
+  {
+    NavCycle* pCycle = (NavCycle*) m_vpNavCycles[i];
+
+    if (pCycle != NULL)
+    {
+      if (pCycle->pSpan != NULL)
+      {
+        delete pCycle->pSpan;
+        pCycle->pSpan = NULL;
+      }
+
+      for (unsigned int i = 0; i < pCycle->vectorMouseLocations.size(); i++)
+      {
+        CUserLocation* pLocation = (CUserLocation*) pCycle->vectorMouseLocations[i];
+
+        if (pLocation != NULL)
         {
-            delete param;
-            param = NULL;
+          delete pLocation;
+          pLocation = NULL;
         }
-    }
+      }
 
-    for (unsigned int i = 0; i < m_vectorNavCycles.size(); i++)
-    {
-        NavCycle* cycle = (NavCycle*) m_vectorNavCycles[i];
-
-        if (cycle != NULL)
+      for (unsigned int i = 0; i < pCycle->vectorNavLocations.size(); i++)
+      {
+        NavLocation* pLocation = (NavLocation*) pCycle->vectorNavLocations[i];
+        if (pLocation != NULL)
         {
-            if (cycle->pSpan != NULL)
-            {
-                delete cycle->pSpan;
-                cycle->pSpan = NULL;
-            }
+          CTimeSpan* pSpan = pLocation->span;
 
-            for (unsigned int i = 0; i < cycle->vectorMouseLocations.size(); i++)
-            {
-                CUserLocation* location = (CUserLocation*) cycle->vectorMouseLocations[i];
+          if (pSpan != NULL)
+          {
+            delete pSpan;
+            pSpan = NULL;
+          }
 
-                if (location != NULL)
-                {
-                    delete location;
-                    location = NULL;
-                }
-            }
+          Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = pLocation->pVectorAdded;
+          if (pVectorAdded != NULL)
+          {
+            delete pVectorAdded;
+            pVectorAdded = NULL;
+          }
 
-            for (unsigned int i = 0; i < cycle->vectorNavLocations.size(); i++)
-            {
-                NavLocation* location = (NavLocation*) cycle->vectorNavLocations[i];
-                if (location != NULL)
-                {
-                    CTimeSpan* span = location->span;
-
-                    if (span != NULL)
-                    {
-                        delete span;
-                        span = NULL;
-                    }
-
-                    Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = location->pVectorAdded;
-                    if (pVectorAdded != NULL)
-                    {
-                        delete pVectorAdded;
-                        pVectorAdded = NULL;
-                    }
-
-                    delete location;
-                    location = NULL;
-                }
-            }
-
-            delete cycle;
-            cycle = NULL;
+          delete pLocation;
+          pLocation = NULL;
         }
+      }
 
-
+      delete pCycle;
+      pCycle = NULL;
     }
 
-    if (m_pSpan!= NULL)
-    {
-        delete m_pSpan;
-        m_pSpan = NULL;
-    }
+
+  }
+
+  if (m_pSpan!= NULL)
+  {
+    delete m_pSpan;
+    m_pSpan = NULL;
+  }
 
 }
 
 // Returns an XML version of all our information
-string CUserLogTrial::GetXML(const string& prefix)
+string CUserLogTrial::GetXML(const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    string strPrefixTab = prefix;
-    strPrefixTab += "\t";
+  string strPrefixTab = strPrefix;
+  strPrefixTab += "\t";
 
-    string strPrefixTabTab = strPrefixTab;
-    strPrefixTabTab += "\t";
+  string strPrefixTabTab = strPrefixTab;
+  strPrefixTabTab += "\t";
 
-    strResult += prefix;
-    strResult += "<Trial>\n";
+  strResult += strPrefix;
+  strResult += "<Trial>\n";
 
-    // Summarize what happened at the beginning of the block
-    strResult += GetSummaryXML(prefix);
+  // Summarize what happened at the beginning of the block
+  strResult += GetSummaryXML(strPrefix);
 
-    // Parameters that we want tracked on a per trial basis
-    strResult += GetParamsXML(prefix);
-    
-    // Size of the window and the canvas in screen coordniates
-    strResult += GetWindowCanvasXML(prefix);
+  // Parameters that we want tracked on a per trial basis
+  strResult += GetParamsXML(strPrefix);
 
-    strResult += m_strCurrentTrial;
+  // Size of the window and the canvas in screen coordniates
+  strResult += GetWindowCanvasXML(strPrefix);
 
-    // All the start and stop navigation events
-    strResult += GetNavCyclesXML(prefix);
+  strResult += m_strCurrentTrial;
 
-    strResult += prefix;
-    strResult += "</Trial>\n";
+  // All the start and stop navigation events
+  strResult += GetNavCyclesXML(strPrefix);
 
-    return strResult;
+  strResult += strPrefix;
+  strResult += "</Trial>\n";
+
+  return strResult;
 }
 
 // See if any navigation has occured during this trial yet
 bool CUserLogTrial::HasWritingOccured()
 {
-    //CFunctionLogger f1("CUserLogTrial::HasWritingOccured", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::HasWritingOccured", g_pLogger);
 
-    if (m_vectorNavCycles.size() > 0) 
-        return true;
-    return false;
+  if (m_vpNavCycles.size() > 0) 
+    return true;
+  return false;
 }
 
 
 
 void CUserLogTrial::StartWriting()
 {
-    //CFunctionLogger f1("CUserLogTrial::StartWriting", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::StartWriting", g_pLogger);
 
-    if (m_bWritingStart)
-    {
-        gLogger->Log("CUserLogTrial::StartWriting, nav already marked as started!", logNORMAL);
-        return;
-    }
+  if (m_bWritingStart)
+  {
+    g_pLogger->Log("CUserLogTrial::StartWriting, nav already marked as started!", logNORMAL);
+    return;
+  }
 
-    // Make sure our trial time span is running
-    if (m_pSpan != NULL) 
-        m_pSpan->Continue();
+  // Make sure our trial time span is running
+  if (m_pSpan != NULL) 
+    m_pSpan->Continue();
 
-    // Start the task timer if we haven't already done so
-    if (m_pSpan == NULL)
-        m_pSpan = new CTimeSpan("Time", false);
+  // Start the task timer if we haven't already done so
+  if (m_pSpan == NULL)
+    m_pSpan = new CTimeSpan("Time", false);
 
-    if (m_pSpan == NULL) 
-    {
-        gLogger->Log("CUserLogTrial::StartWriting, m_pSpan was NULL!", logNORMAL);
-        return;
-    }
+  if (m_pSpan == NULL) 
+  {
+    g_pLogger->Log("CUserLogTrial::StartWriting, m_pSpan was NULL!", logNORMAL);
+    return;
+  }
 
-    m_bWritingStart = true;
+  m_bWritingStart = true;
 
-    // If we have already done some navigation, then the previous NavStop() would have stopped
-    // the timer in the last NavLocation object.  We want to tell it to continue since the 
-    // trial is not in fact over.
-    if (m_vectorNavCycles.size() > 0)
-    {
-        NavLocation* lastLocation = GetCurrentNavLocation();
-        if ((lastLocation != NULL) && (lastLocation->span != NULL))
-            lastLocation->span->Continue();
-    }
+  // If we have already done some navigation, then the previous NavStop() would have stopped
+  // the timer in the last NavLocation object.  We want to tell it to continue since the 
+  // trial is not in fact over.
+  if (m_vpNavCycles.size() > 0)
+  {
+    NavLocation* pLastLocation = GetCurrentNavLocation();
+    if ((pLastLocation != NULL) && (pLastLocation->span != NULL))
+      pLastLocation->span->Continue();
+  }
 
-    NavCycle* newCycle = AddNavCycle();
+  NavCycle* pNewCycle = AddNavCycle();
 
 }
 
 void CUserLogTrial::StopWriting()
 {
-    //CFunctionLogger f1("CUserLogTrial::StopWriting", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::StopWriting", g_pLogger);
 
-    if (!m_bWritingStart)
-    {
-        gLogger->Log("CUserLogTrial::StopWriting, nav already marked as stopped!", logNORMAL);
-        return;
-    }
+  if (!m_bWritingStart)
+  {
+    g_pLogger->Log("CUserLogTrial::StopWriting, nav already marked as stopped!", logNORMAL);
+    return;
+  }
 
-    if (m_vectorNavCycles.size() <= 0)
-    {
-        gLogger->Log("CUserLogTrial::StopWriting, vector was empty!", logNORMAL);
-        return;
-    }
+  if (m_vpNavCycles.size() <= 0)
+  {
+    g_pLogger->Log("CUserLogTrial::StopWriting, vector was empty!", logNORMAL);
+    return;
+  }
 
-    NavCycle* cycle = GetCurrentNavCycle();
-    if (cycle == NULL)
-    {
-        gLogger->Log("CUserLogTrial::StopWriting, current cycle was NULL!", logNORMAL);
-        return;
-    }
+  NavCycle* pCycle = GetCurrentNavCycle();
+  if (pCycle == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::StopWriting, current cycle was NULL!", logNORMAL);
+    return;
+  }
 
-    CTimeSpan* span = (CTimeSpan*) cycle->pSpan;   
-    if (span == NULL)
-    {
-        gLogger->Log("CUserLogTrial::StopWriting, span was NULL!", logNORMAL);
-        return;
-    }
-    span->Stop();
+  CTimeSpan* pSpan = (CTimeSpan*) pCycle->pSpan;   
+  if (pSpan == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::StopWriting, span was NULL!", logNORMAL);
+    return;
+  }
+  pSpan->Stop();
 
-    m_bWritingStart = false;
+  m_bWritingStart = false;
 
-    // Make sure the last location timer is stopped since this could be the end of the trial and
-    // we want the timestamps in the location elements to match the total trial time.
-    NavLocation* lastLocation = GetCurrentNavLocation();
-    if ((lastLocation != NULL) && (lastLocation->span != NULL))
-        lastLocation->span->Continue();
+  // Make sure the last location timer is stopped since this could be the end of the trial and
+  // we want the timestamps in the location elements to match the total trial time.
+  NavLocation* pLastLocation = GetCurrentNavLocation();
+  if ((pLastLocation != NULL) && (pLastLocation->span != NULL))
+    pLastLocation->span->Continue();
 
-    // Could be the last event of the trial
-    if (m_pSpan != NULL) 
-        m_pSpan->Stop();
+  // Could be the last event of the trial
+  if (m_pSpan != NULL) 
+    m_pSpan->Stop();
 
-    // We want to use the UserTrial info from the navigation period in Dasher.  We'll update
-    // this everytime the user stops, this should make sure we get the right bit.
-    GetUserTrialInfo();
+  // We want to use the UserTrial info from the navigation period in Dasher.  We'll update
+  // this everytime the user stops, this should make sure we get the right bit.
+  GetUserTrialInfo();
 }
 
 // The user has entered one or more new symbols.  UserLog object will
 // pass us the pointer to the current alphabet that is being used.
-void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vectorNewSymbolProbs, eUserLogEventType event, Dasher::CAlphabet* pCurrentAlphabet)
+void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs, 
+                               eUserLogEventType iEvent, 
+                               Dasher::CAlphabet* pCurrentAlphabet)
 {
-    //CFunctionLogger f1("CUserLogTrial::AddSymbols", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddSymbols", g_pLogger);
 
-    if (pCurrentAlphabet == NULL)
-    {
-        gLogger->Log("CUserLogTrial::AddSymbols, pCurrentAlphabet was NULL!", logNORMAL);
-        return;
-    }
-    if (vectorNewSymbolProbs == NULL)
-    {
-        gLogger->Log("CUserLogTrial::AddSymbols, vectorNewSymbolProbs was NULL!", logNORMAL);
-        return;
-    }
+  if (pCurrentAlphabet == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::AddSymbols, pCurrentAlphabet was NULL!", logNORMAL);
+    return;
+  }
+  if (vpNewSymbolProbs == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::AddSymbols, vectorNewSymbolProbs was NULL!", logNORMAL);
+    return;
+  }
 
-    Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = NULL;
-    pVectorAdded = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
+  Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = NULL;
+  pVectorAdded = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
 
-    if (pVectorAdded == NULL)
-    {
-        gLogger->Log("CUserLogTrial::AddSymbols, failed to create pVectorAdded!", logNORMAL);
-        return;
-    }
+  if (pVectorAdded == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::AddSymbols, failed to create pVectorAdded!", logNORMAL);
+    return;
+  }
 
-    for (unsigned int i = 0; i < vectorNewSymbolProbs->size(); i++)
-    {
-        Dasher::SymbolProb newSymbolProb = (Dasher::SymbolProb) (*vectorNewSymbolProbs)[i];
+  for (unsigned int i = 0; i < vpNewSymbolProbs->size(); i++)
+  {
+    Dasher::SymbolProb sNewSymbolProb   = (Dasher::SymbolProb) (*vpNewSymbolProbs)[i];
 
-        Dasher::SymbolProbDisplay newSymbolProbDisplay;
-        newSymbolProbDisplay.sym        = newSymbolProb.sym;
-        newSymbolProbDisplay.prob       = newSymbolProb.prob;
-        newSymbolProbDisplay.strDisplay = pCurrentAlphabet->GetDisplayText(newSymbolProb.sym);
+    Dasher::SymbolProbDisplay sNewSymbolProbDisplay;
 
-        pVectorAdded->push_back(newSymbolProbDisplay);
+    sNewSymbolProbDisplay.sym           = sNewSymbolProb.sym;
+    sNewSymbolProbDisplay.prob          = sNewSymbolProb.prob;
+    sNewSymbolProbDisplay.strDisplay    = pCurrentAlphabet->GetDisplayText(sNewSymbolProb.sym);
 
-        // Add this symbol to our running total of symbols.  
-        // We track the symbols and not the display text
-        // since we may need to delete symbols later and 
-        // a given symbol might take up multiple chars.
-        // We also keep the probability around so we can
-        // calculate the average bits of the history.
-        m_vectorHistory.push_back(newSymbolProbDisplay);        
-    }
+    pVectorAdded->push_back(sNewSymbolProbDisplay);
 
-    StopPreviousTimer();
+    // Add this symbol to our running total of symbols.  
+    // We track the symbols and not the display text
+    // since we may need to delete symbols later and 
+    // a given symbol might take up multiple chars.
+    // We also keep the probability around so we can
+    // calculate the average bits of the history.
+    m_vHistory.push_back(sNewSymbolProbDisplay);        
+  }
 
-    // Create the new NavLocation struct that record the data about this addition
-    NavLocation* location = NULL;
+  StopPreviousTimer();
 
-    location                = new NavLocation;
-    if (location == NULL)
-    {
-        gLogger->Log("CUserLogTrial::AddSymbols, failed to create location!", logNORMAL);
-        return;
-    }
+  // Create the new NavLocation struct that record the data about this addition
+  NavLocation* pLocation  = NULL;
+  pLocation               = new NavLocation;
 
-    location->strHistory    = GetHistoryDisplay();
-    location->span          = new CTimeSpan("Time", false);
-    location->avgBits       = GetHistoryAvgBits();
-    location->event         = event;
-    location->numDeleted    = 0;
-    location->pVectorAdded  = pVectorAdded;
+  if (pLocation == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::AddSymbols, failed to create location!", logNORMAL);
+    return;
+  }
 
-    NavCycle* cycle = GetCurrentNavCycle();
-    if (cycle != NULL)
-        cycle->vectorNavLocations.push_back(location);
-    else
-        gLogger->Log("CUserLogTrial::AddSymbols, cycle was NULL!", logNORMAL);
+  pLocation->strHistory    = GetHistoryDisplay();
+  pLocation->span          = new CTimeSpan("Time", false);
+  pLocation->avgBits       = GetHistoryAvgBits();
+  pLocation->event         = iEvent;
+  pLocation->numDeleted    = 0;
+  pLocation->pVectorAdded  = pVectorAdded;
+
+  NavCycle* pCycle = GetCurrentNavCycle();
+  if (pCycle != NULL)
+    pCycle->vectorNavLocations.push_back(pLocation);
+  else
+    g_pLogger->Log("CUserLogTrial::AddSymbols, cycle was NULL!", logNORMAL);
 
 }
 
-void CUserLogTrial::DeleteSymbols(int numToDelete, eUserLogEventType event)
+void CUserLogTrial::DeleteSymbols(int iNumToDelete, eUserLogEventType iEvent)
 {
-    //CFunctionLogger f1("CUserLogTrial::DeleteSymbols", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::DeleteSymbols", g_pLogger);
 
-    if (numToDelete <= 0)
-        return;
+  if (iNumToDelete <= 0)
+    return;
 
-    // Be careful not to pop more things than we have (this will hork the
-    // memory up on linux but not windows).
-    int actualNumToDelete = min((int) m_vectorHistory.size(), numToDelete);
+  // Be careful not to pop more things than we have (this will hork the
+  // memory up on linux but not windows).
+  int iActualNumToDelete = min((int) m_vHistory.size(), iNumToDelete);
 
-    for (int i = 0; i < actualNumToDelete; i++)
-    {
-        // Remove the request number of symbols from our
-        // ongoing list.
-        m_vectorHistory.pop_back();
-    }
+  for (int i = 0; i < iActualNumToDelete; i++)
+  {
+    // Remove the request number of symbols from our
+    // ongoing list.
+    m_vHistory.pop_back();
+  }
 
-    StopPreviousTimer();
+  StopPreviousTimer();
 
-    // Create the new NavLocation struct that record the data about this addition
-    NavLocation* location = NULL;
+  // Create the new NavLocation struct that record the data about this addition
+  NavLocation* pLocation   = NULL;
+  pLocation                = new NavLocation;
 
-    location                = new NavLocation;
-    if (location == NULL)
-    {
-        gLogger->Log("CUserLogTrial::DeleteSymbols, failed to create location!", logNORMAL);
-        return;
-    }
+  if (pLocation == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::DeleteSymbols, failed to create location!", logNORMAL);
+    return;
+  }
 
-    location->strHistory    = GetHistoryDisplay();
-    location->span          = new CTimeSpan("Time", false);
-    location->avgBits       = GetHistoryAvgBits();
-    location->event         = event;
-    location->numDeleted    = numToDelete;
-    location->pVectorAdded  = NULL;
+  pLocation->strHistory    = GetHistoryDisplay();
+  pLocation->span          = new CTimeSpan("Time", false);
+  pLocation->avgBits       = GetHistoryAvgBits();
+  pLocation->event         = iEvent;
+  pLocation->numDeleted    = iNumToDelete;
+  pLocation->pVectorAdded  = NULL;
 
-    NavCycle* cycle = GetCurrentNavCycle();
-    if (cycle != NULL)
-        cycle->vectorNavLocations.push_back(location);
-    else
-        gLogger->Log("CUserLogTrial::DeleteSymbols, cycle was NULL!", logNORMAL);
+  NavCycle* pCycle = GetCurrentNavCycle();
+  if (pCycle != NULL)
+    pCycle->vectorNavLocations.push_back(pLocation);
+  else
+    g_pLogger->Log("CUserLogTrial::DeleteSymbols, cycle was NULL!", logNORMAL);
 
 }
 
@@ -357,162 +360,162 @@ void CUserLogTrial::DeleteSymbols(int numToDelete, eUserLogEventType event)
 // our trial object finalize any timers.
 void CUserLogTrial::Done()
 {
-    //CFunctionLogger f1("CUserLogTrial::Done", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::Done", g_pLogger);
 
-    StopPreviousTimer();
+  StopPreviousTimer();
 
-    // Stop the time span that tracks the total trial time (if not already stopped)
-   if ((m_pSpan != NULL) && (!m_pSpan->IsStopped()))
-        m_pSpan->Stop();
+  // Stop the time span that tracks the total trial time (if not already stopped)
+  if ((m_pSpan != NULL) && (!m_pSpan->IsStopped()))
+    m_pSpan->Stop();
 
 }
 
 
-void CUserLogTrial::AddMouseLocation(int x, int y, float nats)
+void CUserLogTrial::AddMouseLocation(int iX, int iY, float dNats)
 {
-    //CFunctionLogger f1("CUserLogTrial::AddMouseLocation", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddMouseLocation", g_pLogger);
 
-    CUserLocation* location = NULL;
+  CUserLocation* pLocation = NULL;
 
-    location = new CUserLocation(x, y, nats);
+  pLocation = new CUserLocation(iX, iY, dNats);
 
-    if (location != NULL)
-    {
-        // m_vectorMouseLocations.push_back(location);
+  if (pLocation != NULL)
+  {
+    // m_vectorMouseLocations.push_back(location);
 
-        NavCycle* cycle = GetCurrentNavCycle();
+    NavCycle* pCycle = GetCurrentNavCycle();
 
-        if (cycle != NULL)
-            cycle->vectorMouseLocations.push_back(location);
-        else
-            gLogger->Log("CUserLogTrial::AddLocation, cycle was NULL!", logNORMAL);
-    }
+    if (pCycle != NULL)
+      pCycle->vectorMouseLocations.push_back(pLocation);
     else
-        gLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);
+      g_pLogger->Log("CUserLogTrial::AddLocation, cycle was NULL!", logNORMAL);
+  }
+  else
+    g_pLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);
 
 }
 
 // Adds a normalized version of our mouse coordinates based on the size
 // of the window.  Can optionally be told to store both representations.
-void CUserLogTrial::AddMouseLocationNormalized(int x, int y, bool bStoreIntegerRep, float nats)
+void CUserLogTrial::AddMouseLocationNormalized(int iX, int iY, bool bStoreIntegerRep, float dNats)
 {
-    //CFunctionLogger f1("CUserLogTrial::AddMouseLocationNormalized", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddMouseLocationNormalized", g_pLogger);
 
-    CUserLocation* location = NULL;
+  CUserLocation* pLocation = NULL;
 
-    if ((m_canvasCoordinates.bottom == 0) &&
-        (m_canvasCoordinates.left == 0) &&
-        (m_canvasCoordinates.right == 0) &&
-        (m_canvasCoordinates.top == 0))
-        gLogger->Log("CUserLogTrial::AddMouseLocationNormalized, called before AddCanvasSize()?", logNORMAL);
+  if ((m_sCanvasCoordinates.bottom == 0) &&
+    (m_sCanvasCoordinates.left == 0) &&
+    (m_sCanvasCoordinates.right == 0) &&
+    (m_sCanvasCoordinates.top == 0))
+    g_pLogger->Log("CUserLogTrial::AddMouseLocationNormalized, called before AddCanvasSize()?", logNORMAL);
 
-    location = new CUserLocation(x, 
-                                 y, 
-                                 m_canvasCoordinates.top, 
-                                 m_canvasCoordinates.left, 
-                                 m_canvasCoordinates.bottom, 
-                                 m_canvasCoordinates.right, 
-                                 bStoreIntegerRep, 
-                                 nats);
+  pLocation = new CUserLocation(iX, 
+                                iY, 
+                                m_sCanvasCoordinates.top, 
+                                m_sCanvasCoordinates.left, 
+                                m_sCanvasCoordinates.bottom, 
+                                m_sCanvasCoordinates.right, 
+                                bStoreIntegerRep, 
+                                dNats);
 
-    if (location != NULL)
-    {
-        // m_vectorMouseLocations.push_back(location);
-        NavCycle* cycle = GetCurrentNavCycle();
+  if (pLocation != NULL)
+  {
+    // m_vectorMouseLocations.push_back(location);
+    NavCycle* pCycle = GetCurrentNavCycle();
 
-        if (cycle != NULL)
-            cycle->vectorMouseLocations.push_back(location);
-        else
-            gLogger->Log("CUserLogTrial::AddMouseLocationNormalized, cycle was NULL!", logNORMAL);
-    }
+    if (pCycle != NULL)
+      pCycle->vectorMouseLocations.push_back(pLocation);
     else
-        gLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);    
+      g_pLogger->Log("CUserLogTrial::AddMouseLocationNormalized, cycle was NULL!", logNORMAL);
+  }
+  else
+    g_pLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);    
 }
 
 // Sets the current window size, this includes area for the menu bar, 
 // sliders, canvas, etc.
-void CUserLogTrial::AddWindowSize(int top, int left, int bottom, int right)
+void CUserLogTrial::AddWindowSize(int iTop, int iLeft, int iBottom, int iRight)
 {
-    //CFunctionLogger f1("CUserLogTrial::AddWindowSize", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddWindowSize", g_pLogger);
 
-    m_windowCoordinates.top     = top;
-    m_windowCoordinates.left    = left;
-    m_windowCoordinates.bottom  = bottom;
-    m_windowCoordinates.right   = right;
+  m_sWindowCoordinates.top     = iTop;
+  m_sWindowCoordinates.left    = iLeft;
+  m_sWindowCoordinates.bottom  = iBottom;
+  m_sWindowCoordinates.right   = iRight;
 }
 
 // Sets the current canvas size
-void CUserLogTrial::AddCanvasSize(int top, int left, int bottom, int right)
+void CUserLogTrial::AddCanvasSize(int iTop, int iLeft, int iBottom, int iRight)
 {
-    //CFunctionLogger f1("CUserLogTrial::AddCanvasSize", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddCanvasSize", g_pLogger);
 
-    m_canvasCoordinates.top     = top;
-    m_canvasCoordinates.left    = left;
-    m_canvasCoordinates.bottom  = bottom;
-    m_canvasCoordinates.right   = right;
+  m_sCanvasCoordinates.top     = iTop;
+  m_sCanvasCoordinates.left    = iLeft;
+  m_sCanvasCoordinates.bottom  = iBottom;
+  m_sCanvasCoordinates.right   = iRight;
 }
 
 // Are we currently navigating?
 bool CUserLogTrial::IsWriting()
 {
-    return m_bWritingStart;
+  return m_bWritingStart;
 }
 
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////
 
 void CUserLogTrial::InitMemberVars()
 {
-    //CFunctionLogger f1("CUserLogTrial::InitMemberVars", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::InitMemberVars", g_pLogger);
 
-    m_bWritingStart                 = false;
-    m_pSpan                         = NULL;
-    m_strCurrentTrial               = "";
-    
-    m_windowCoordinates.bottom      = 0;
-    m_windowCoordinates.top         = 0;
-    m_windowCoordinates.left        = 0;
-    m_windowCoordinates.right       = 0;
+  m_bWritingStart                 = false;
+  m_pSpan                         = NULL;
+  m_strCurrentTrial               = "";
 
-    m_canvasCoordinates.bottom      = 0;
-    m_canvasCoordinates.top         = 0;
-    m_canvasCoordinates.left        = 0;
-    m_canvasCoordinates.right       = 0;
+  m_sWindowCoordinates.bottom      = 0;
+  m_sWindowCoordinates.top         = 0;
+  m_sWindowCoordinates.left        = 0;
+  m_sWindowCoordinates.right       = 0;
+
+  m_sCanvasCoordinates.bottom      = 0;
+  m_sCanvasCoordinates.top         = 0;
+  m_sCanvasCoordinates.left        = 0;
+  m_sCanvasCoordinates.right       = 0;
 }
 
 // Obtain information that is being passed in from the UserTrial standalone application.
 // This information tell us what the user is actually trying to enter.
 void CUserLogTrial::GetUserTrialInfo()
 {
-    //CFunctionLogger f1("CUserLogTrial::GetUserTrialInfo", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetUserTrialInfo", g_pLogger);
 
-    m_strCurrentTrial = "";
+  m_strCurrentTrial = "";
 
-    try
+  try
+  {
+    if (m_strCurrentTrialFilename.length() > 0)
     {
-        if (m_strCurrentTrialFilename.length() > 0)
+      fstream fin(m_strCurrentTrialFilename.c_str(), ios::in);       // We want ios::nocreate, but not available in .NET 2003, arrgh
+
+      // Make sure we successfully opened before we start reading it
+      if (fin.is_open())
+      {
+        while(!fin.eof()) 
         {
-            fstream fin(m_strCurrentTrialFilename.c_str(), ios::in);       // We want ios::nocreate, but not available in .NET 2003, arrgh
-            
-            // Make sure we successfully opened before we start reading it
-            if (fin.is_open())
-            {
-                while(!fin.eof()) 
-                {
-                    fin.getline(m_strTempBuffer, TEMP_BUFFER_SIZE);
-                    if (strlen(m_strTempBuffer) > 0)
-                    {
-                        m_strCurrentTrial += "\t\t\t";
-                        m_strCurrentTrial += m_strTempBuffer;
-                        m_strCurrentTrial += "\n";
-                    }        
-                }
-                fin.close();
-            }
+          fin.getline(m_szTempBuffer, TEMP_BUFFER_SIZE);
+          if (strlen(m_szTempBuffer) > 0)
+          {
+            m_strCurrentTrial += "\t\t\t";
+            m_strCurrentTrial += m_szTempBuffer;
+            m_strCurrentTrial += "\n";
+          }        
         }
-    } catch (...)
-    {
-        // The application might not be running in which case the read will fail.
+        fin.close();
+      }
     }
+  } catch (...)
+  {
+    // The application might not be running in which case the read will fail.
+  }
 }
 
 // Returns the concatenation of all our symbol history using
@@ -520,557 +523,557 @@ void CUserLogTrial::GetUserTrialInfo()
 // symbol being added gave us.  
 string CUserLogTrial::GetHistoryDisplay()
 {
-    //CFunctionLogger f1("CUserLogTrial::GetHistoryDisplay", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetHistoryDisplay", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    for (unsigned int i = 0; i < m_vectorHistory.size(); i++)
-    {
-        Dasher::SymbolProbDisplay item = (Dasher::SymbolProbDisplay) m_vectorHistory[i];
-        strResult += item.strDisplay;
-    }
+  for (unsigned int i = 0; i < m_vHistory.size(); i++)
+  {
+    Dasher::SymbolProbDisplay sItem = (Dasher::SymbolProbDisplay) m_vHistory[i];
+    strResult += sItem.strDisplay;
+  }
 
-    return strResult;
+  return strResult;
 }
 
 double CUserLogTrial::GetHistoryAvgBits()
 {
-    //CFunctionLogger f1("CUserLogTrial::GetHistoryAvgBits", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetHistoryAvgBits", g_pLogger);
 
-    double result = 0.0;
+  double dResult = 0.0;
 
-    if (m_vectorHistory.size() > 0)
+  if (m_vHistory.size() > 0)
+  {
+    for (unsigned int i = 0; i < m_vHistory.size(); i++)
     {
-        for (unsigned int i = 0; i < m_vectorHistory.size(); i++)
-        {
-            Dasher::SymbolProbDisplay item = (Dasher::SymbolProbDisplay) m_vectorHistory[i];
+      Dasher::SymbolProbDisplay sItem = (Dasher::SymbolProbDisplay) m_vHistory[i];
 
-            result += log(item.prob);
-        }
-        result = result * -1.0;
-        result = result / log(2.0);
-        result = result / m_vectorHistory.size();
+      dResult += log(sItem.prob);
     }
+    dResult = dResult * -1.0;
+    dResult = dResult / log(2.0);
+    dResult = dResult / m_vHistory.size();
+  }
 
-    return result;
+  return dResult;
 }
 
 void CUserLogTrial::StopPreviousTimer()
 {
-    //CFunctionLogger f1("CUserLogTrial::StopPreviousTimer", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::StopPreviousTimer", g_pLogger);
 
-    // Make sure the previous time span (if any) has had its timer stopped
-    if (m_vectorNavCycles.size() > 0)
-    {
-        NavLocation* lastLocation = GetCurrentNavLocation();
-        if ((lastLocation != NULL) && (lastLocation->span != NULL))
-            lastLocation->span->Stop();
-    }
+  // Make sure the previous time span (if any) has had its timer stopped
+  if (m_vpNavCycles.size() > 0)
+  {
+    NavLocation* pLastLocation = GetCurrentNavLocation();
+    if ((pLastLocation != NULL) && (pLastLocation->span != NULL))
+      pLastLocation->span->Stop();
+  }
 
 }
 
 // Gets XML string for a given NavLocation struct
-string CUserLogTrial::GetLocationXML(NavLocation* location, const string& prefix)
+string CUserLogTrial::GetLocationXML(NavLocation* pLocation, const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetLocationXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetLocationXML", g_pLogger);
 
-    string strResult = "";
-    if (location == NULL)
-    {
-        gLogger->Log("CUserLogTrial::GetLocationXML, location was NULL!", logNORMAL);
-        return strResult;
-    }
-
-    strResult += prefix;
-    strResult += "<Location>\n";
-
-    strResult += prefix;
-    strResult += "\t<History>";
-    strResult += location->strHistory;
-    strResult += "</History>\n";
-
-    strResult += prefix;
-    strResult += "\t<AvgBits>";
-    sprintf(m_strTempBuffer, "%0.6f", location->avgBits);
-    strResult += m_strTempBuffer;
-    strResult += "</AvgBits>\n";
-
-    // Only output the event if it is interesting type, not normal mouse navigation
-    if (location->event != userLogEventMouse)
-    {
-        strResult += prefix;
-        strResult += "\t\t<Event>";
-        sprintf(m_strTempBuffer, "%d", (int) location->event);
-        strResult += m_strTempBuffer;
-        strResult += "</Event>\n";                
-    }
-
-    if ((location->pVectorAdded != NULL) && (location->pVectorAdded->size() > 0))
-    {
-        strResult += prefix;
-        strResult += "\t<NumAdded>";
-        sprintf(m_strTempBuffer, "%d", location->pVectorAdded->size());
-        strResult += m_strTempBuffer;
-        strResult += "</NumAdded>\n";
-
-        Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = location->pVectorAdded;
-
-        if (pVectorAdded != NULL)
-        {
-            // Output the details of each add
-            for (unsigned int j = 0; j < pVectorAdded->size(); j++)
-            {            
-                Dasher::SymbolProbDisplay item = (Dasher::SymbolProbDisplay) (*pVectorAdded)[j];
-
-                strResult += prefix;
-                strResult += "\t<Add>\n";
-                
-                strResult += prefix;
-                strResult += "\t\t<Text>";
-                strResult += item.strDisplay;
-                strResult += "</Text>\n";
-
-                strResult += prefix;
-                strResult += "\t\t<Prob>";
-                sprintf(m_strTempBuffer, "%0.6f", item.prob);
-                strResult += m_strTempBuffer;
-                strResult += "</Prob>\n";
-
-                strResult += prefix;
-                strResult += "\t</Add>\n";
-            }
-        }
-    }
-
-    if (location->numDeleted > 0)
-    {
-        strResult += prefix;
-        strResult += "\t<NumDeleted>";
-        sprintf(m_strTempBuffer, "%d", location->numDeleted);
-        strResult += m_strTempBuffer;
-        strResult += "</NumDeleted>\n";
-    }
-
-    if (location->span != NULL)
-    {
-        string strPrefixTabTabTab = prefix;
-        strPrefixTabTabTab += "\t";
-
-        strResult += location->span->GetXML(strPrefixTabTabTab);
-    }
-
-    strResult += prefix;
-    strResult += "</Location>\n";
-
+  string strResult = "";
+  if (pLocation == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::GetLocationXML, location was NULL!", logNORMAL);
     return strResult;
+  }
+
+  strResult += strPrefix;
+  strResult += "<Location>\n";
+
+  strResult += strPrefix;
+  strResult += "\t<History>";
+  strResult += pLocation->strHistory;
+  strResult += "</History>\n";
+
+  strResult += strPrefix;
+  strResult += "\t<AvgBits>";
+  sprintf(m_szTempBuffer, "%0.6f", pLocation->avgBits);
+  strResult += m_szTempBuffer;
+  strResult += "</AvgBits>\n";
+
+  // Only output the event if it is interesting type, not normal mouse navigation
+  if (pLocation->event != userLogEventMouse)
+  {
+    strResult += strPrefix;
+    strResult += "\t\t<Event>";
+    sprintf(m_szTempBuffer, "%d", (int) pLocation->event);
+    strResult += m_szTempBuffer;
+    strResult += "</Event>\n";                
+  }
+
+  if ((pLocation->pVectorAdded != NULL) && (pLocation->pVectorAdded->size() > 0))
+  {
+    strResult += strPrefix;
+    strResult += "\t<NumAdded>";
+    sprintf(m_szTempBuffer, "%d", pLocation->pVectorAdded->size());
+    strResult += m_szTempBuffer;
+    strResult += "</NumAdded>\n";
+
+    Dasher::VECTOR_SYMBOL_PROB_DISPLAY* pVectorAdded = pLocation->pVectorAdded;
+
+    if (pVectorAdded != NULL)
+    {
+      // Output the details of each add
+      for (unsigned int j = 0; j < pVectorAdded->size(); j++)
+      {            
+        Dasher::SymbolProbDisplay sItem = (Dasher::SymbolProbDisplay) (*pVectorAdded)[j];
+
+        strResult += strPrefix;
+        strResult += "\t<Add>\n";
+
+        strResult += strPrefix;
+        strResult += "\t\t<Text>";
+        strResult += sItem.strDisplay;
+        strResult += "</Text>\n";
+
+        strResult += strPrefix;
+        strResult += "\t\t<Prob>";
+        sprintf(m_szTempBuffer, "%0.6f", sItem.prob);
+        strResult += m_szTempBuffer;
+        strResult += "</Prob>\n";
+
+        strResult += strPrefix;
+        strResult += "\t</Add>\n";
+      }
+    }
+  }
+
+  if (pLocation->numDeleted > 0)
+  {
+    strResult += strPrefix;
+    strResult += "\t<NumDeleted>";
+    sprintf(m_szTempBuffer, "%d", pLocation->numDeleted);
+    strResult += m_szTempBuffer;
+    strResult += "</NumDeleted>\n";
+  }
+
+  if (pLocation->span != NULL)
+  {
+    string strPrefixTabTabTab = strPrefix;
+    strPrefixTabTabTab += "\t";
+
+    strResult += pLocation->span->GetXML(strPrefixTabTabTab);
+  }
+
+  strResult += strPrefix;
+  strResult += "</Location>\n";
+
+  return strResult;
 }
 
 // Output the XML for the summary section of XML
-string CUserLogTrial::GetSummaryXML(const string& prefix)
+string CUserLogTrial::GetSummaryXML(const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetSummaryXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetSummaryXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    strResult += prefix;
-    strResult += "\t<Summary>\n";
+  strResult += strPrefix;
+  strResult += "\t<Summary>\n";
 
-    // Figure out what the user ended up writing and how fast they did it
-    string strText = "";
-    double avgBits = 0.0;
+  // Figure out what the user ended up writing and how fast they did it
+  string strText = "";
+  double dAvgBits = 0.0;
 
-    NavLocation* location = GetCurrentNavLocation();
-    if (location != NULL)
-    {
-        strText = GetHistoryDisplay();
-        avgBits = location->avgBits;
-    }
+  NavLocation* pLocation = GetCurrentNavLocation();
+  if (pLocation != NULL)
+  {
+    strText = GetHistoryDisplay();
+    dAvgBits = pLocation->avgBits;
+  }
 
-    strResult += GetStatsXML(prefix, strText, m_pSpan, avgBits);
+  strResult += GetStatsXML(strPrefix, strText, m_pSpan, dAvgBits);
 
-    strResult += prefix;
-    strResult += "\t</Summary>\n";
+  strResult += strPrefix;
+  strResult += "\t</Summary>\n";
 
-    return strResult;
+  return strResult;
 }
 
 // Calculates the various summary stats we output
-string CUserLogTrial::GetStatsXML(const string& prefix, const string& strText, CTimeSpan* pSpan, double avgBits)
+string CUserLogTrial::GetStatsXML(const string& strPrefix, const string& strText, CTimeSpan* pSpan, double dAvgBits)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetStatsXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetStatsXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    if (pSpan == NULL)
-    {
-        gLogger->Log("CUserLogTrial::GetStatsXML, pSpan = NULL!", logNORMAL);
-        return strResult;
-    }
-
-    strResult += prefix;
-    strResult += "\t\t<Text>";
-    strResult += strText;
-    strResult += "</Text>\n";
-
-    // Average number of bits along the path to the final string
-    strResult += prefix;
-    strResult += "\t\t<AvgBits>";
-    sprintf(m_strTempBuffer, "%0.6f", avgBits);
-    strResult += m_strTempBuffer;
-    strResult += "</AvgBits>\n";
-
-    // Calculate the number of words and characters
-    strResult += prefix;
-    strResult += "\t\t<Chars>";
-    
-    // We want the number of symbols which might differ
-    // from the actual length of the text history.
-    int numChars = m_vectorHistory.size();
-    sprintf(m_strTempBuffer, "%d", numChars);
-    strResult += m_strTempBuffer;
-    strResult += "</Chars>\n";
-
-    strResult += prefix;
-    strResult += "\t\t<Words>";
-    double numWords = (double) numChars / (double) 5;
-    sprintf(m_strTempBuffer, "%0.2f", numWords);
-    strResult += m_strTempBuffer;
-    strResult += "</Words>\n";
-
-    double wpm = 0.0;
-    double cpm = 0.0;
-
-    if (m_pSpan != NULL)
-    {
-        wpm  = (double) numWords / (m_pSpan->GetElapsed() / 60.0);
-        cpm  = (double) numChars / (m_pSpan->GetElapsed() / 60.0);    
-    }
-    
-    strResult += prefix;
-    strResult += "\t\t<WPM>";
-    sprintf(m_strTempBuffer, "%0.3f", wpm);
-    strResult += m_strTempBuffer;
-    strResult += "</WPM>\n";
-
-    strResult += prefix;
-    strResult += "\t\t<CPM>";
-    sprintf(m_strTempBuffer, "%0.3f", cpm);
-    strResult += m_strTempBuffer;
-    strResult += "</CPM>\n";
-
-    string strPrefixTabTab = prefix;
-    strPrefixTabTab += "\t\t";
-
-    if (m_pSpan != NULL)
-        strResult += m_pSpan->GetXML(strPrefixTabTab);
-
+  if (pSpan == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::GetStatsXML, pSpan = NULL!", logNORMAL);
     return strResult;
+  }
+
+  strResult += strPrefix;
+  strResult += "\t\t<Text>";
+  strResult += strText;
+  strResult += "</Text>\n";
+
+  // Average number of bits along the path to the final string
+  strResult += strPrefix;
+  strResult += "\t\t<AvgBits>";
+  sprintf(m_szTempBuffer, "%0.6f", dAvgBits);
+  strResult += m_szTempBuffer;
+  strResult += "</AvgBits>\n";
+
+  // Calculate the number of words and characters
+  strResult += strPrefix;
+  strResult += "\t\t<Chars>";
+
+  // We want the number of symbols which might differ
+  // from the actual length of the text history.
+  int iNumChars = m_vHistory.size();
+  sprintf(m_szTempBuffer, "%d", iNumChars);
+  strResult += m_szTempBuffer;
+  strResult += "</Chars>\n";
+
+  strResult += strPrefix;
+  strResult += "\t\t<Words>";
+  double dNumWords = (double) iNumChars / (double) 5;
+  sprintf(m_szTempBuffer, "%0.2f", dNumWords);
+  strResult += m_szTempBuffer;
+  strResult += "</Words>\n";
+
+  double dWPM = 0.0;
+  double dCPM = 0.0;
+
+  if (m_pSpan != NULL)
+  {
+    dWPM  = (double) dNumWords / (m_pSpan->GetElapsed() / 60.0);
+    dCPM  = (double) iNumChars / (m_pSpan->GetElapsed() / 60.0);    
+  }
+
+  strResult += strPrefix;
+  strResult += "\t\t<WPM>";
+  sprintf(m_szTempBuffer, "%0.3f", dWPM);
+  strResult += m_szTempBuffer;
+  strResult += "</WPM>\n";
+
+  strResult += strPrefix;
+  strResult += "\t\t<CPM>";
+  sprintf(m_szTempBuffer, "%0.3f", dCPM);
+  strResult += m_szTempBuffer;
+  strResult += "</CPM>\n";
+
+  string strPrefixTabTab = strPrefix;
+  strPrefixTabTab += "\t\t";
+
+  if (m_pSpan != NULL)
+    strResult += m_pSpan->GetXML(strPrefixTabTab);
+
+  return strResult;
 }
 
-string CUserLogTrial::GetWindowCanvasXML(const string& prefix)
+string CUserLogTrial::GetWindowCanvasXML(const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetWindowCanvasXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetWindowCanvasXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    // Log the window location and size that was last used during this trial
-    strResult += prefix;
-    strResult += "\t<WindowCoordinates>\n";
+  // Log the window location and size that was last used during this trial
+  strResult += strPrefix;
+  strResult += "\t<WindowCoordinates>\n";
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Top>%d</Top>\n", m_windowCoordinates.top);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Top>%d</Top>\n", m_sWindowCoordinates.top);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Bottom>%d</Bottom>\n", m_windowCoordinates.bottom);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Bottom>%d</Bottom>\n", m_sWindowCoordinates.bottom);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Left>%d</Left>\n", m_windowCoordinates.left);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Left>%d</Left>\n", m_sWindowCoordinates.left);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Right>%d</Right>\n", m_windowCoordinates.right);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Right>%d</Right>\n", m_sWindowCoordinates.right);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    strResult += "\t</WindowCoordinates>\n";
+  strResult += strPrefix;
+  strResult += "\t</WindowCoordinates>\n";
 
-    // Log the canvas location and size that was last used during this trial
-    strResult += prefix;
-    strResult += "\t<CanvasCoordinates>\n";
+  // Log the canvas location and size that was last used during this trial
+  strResult += strPrefix;
+  strResult += "\t<CanvasCoordinates>\n";
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Top>%d</Top>\n", m_canvasCoordinates.top);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Top>%d</Top>\n", m_sCanvasCoordinates.top);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Bottom>%d</Bottom>\n", m_canvasCoordinates.bottom);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Bottom>%d</Bottom>\n", m_sCanvasCoordinates.bottom);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Left>%d</Left>\n", m_canvasCoordinates.left);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Left>%d</Left>\n", m_sCanvasCoordinates.left);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    sprintf(m_strTempBuffer, "\t\t<Right>%d</Right>\n", m_canvasCoordinates.right);
-    strResult += m_strTempBuffer;
+  strResult += strPrefix;
+  sprintf(m_szTempBuffer, "\t\t<Right>%d</Right>\n", m_sCanvasCoordinates.right);
+  strResult += m_szTempBuffer;
 
-    strResult += prefix;
-    strResult += "\t</CanvasCoordinates>\n";
+  strResult += strPrefix;
+  strResult += "\t</CanvasCoordinates>\n";
 
-    return strResult;
+  return strResult;
 }
 
-string CUserLogTrial::GetParamsXML(const string& prefix)
+string CUserLogTrial::GetParamsXML(const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetParamsXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetParamsXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    if (m_vectorParams.size() > 0)
+  if (m_vpParams.size() > 0)
+  {
+    // Make parameters with the same name appear near each other in the results
+    sort(m_vpParams.begin(), m_vpParams.end(), CUserLogParam::ComparePtr);    
+
+    strResult += strPrefix;
+    strResult += "\t<Params>\n";
+
+    string strPrefixPlusTabTab = strPrefix;
+    strPrefixPlusTabTab += "\t\t";
+
+    for (unsigned int i = 0; i < m_vpParams.size(); i++)
     {
-        // Make parameters with the same name appear near each other in the results
-        sort(m_vectorParams.begin(), m_vectorParams.end(), CUserLogParam::ComparePtr);    
+      CUserLogParam* pParam = (CUserLogParam*) m_vpParams[i];
 
-        strResult += prefix;
-        strResult += "\t<Params>\n";
-
-        string strPrefixPlusTabTab = prefix;
-        strPrefixPlusTabTab += "\t\t";
-
-        for (unsigned int i = 0; i < m_vectorParams.size(); i++)
-        {
-            CUserLogParam* param = (CUserLogParam*) m_vectorParams[i];
-
-            strResult += GetParamXML(param, strPrefixPlusTabTab);
-        }
-
-        strResult += prefix;
-        strResult += "\t</Params>\n";
+      strResult += GetParamXML(pParam, strPrefixPlusTabTab);
     }
 
-    return strResult;
+    strResult += strPrefix;
+    strResult += "\t</Params>\n";
+  }
+
+  return strResult;
 
 }
 
 // Parameters can optionally be specified to be added to the Trial objects.
 // This allows us to easily see what a certain parameter value was used
 // in a given trial.  
-void CUserLogTrial::AddParam(const string& strName, const string& strValue, int optionMask)
+void CUserLogTrial::AddParam(const string& strName, const string& strValue, int iOptionMask)
 {
-    //CFunctionLogger f1("CUserLogTrial::AddParam", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddParam", g_pLogger);
 
-    bool bTrackMultiple     = false;
+  bool bTrackMultiple     = false;
 
-    if (optionMask & userLogParamTrackMultiple)
-        bTrackMultiple = true;
+  if (iOptionMask & userLogParamTrackMultiple)
+    bTrackMultiple = true;
 
-    // See if this matches an existing parameter value that we may want to 
-    // overwrite.  But only if we aren't suppose to keep track of multiple changes.
-    if (!bTrackMultiple)
+  // See if this matches an existing parameter value that we may want to 
+  // overwrite.  But only if we aren't suppose to keep track of multiple changes.
+  if (!bTrackMultiple)
+  {
+    for (unsigned int i = 0; i < m_vpParams.size(); i++)
     {
-        for (unsigned int i = 0; i < m_vectorParams.size(); i++)
+      CUserLogParam* pParam = (CUserLogParam*) m_vpParams[i];
+
+      if (pParam != NULL)
+      {
+        if (pParam->strName.compare(strName) == 0)
         {
-            CUserLogParam* param = (CUserLogParam*) m_vectorParams[i];
-
-            if (param != NULL)
-            {
-                if (param->strName.compare(strName) == 0)
-                {
-                    param->strValue = strValue;
-                    return;
-                }
-            }
+          pParam->strValue = strValue;
+          return;
         }
+      }
     }
-    // We need to add a new param
-    CUserLogParam* newParam      = new CUserLogParam;
-    if (newParam == NULL)
-    {
-        gLogger->Log("CUserLogTrial::AddParam, newParam was NULL!", logNORMAL);
-        return;
-    }
+  }
+  // We need to add a new param
+  CUserLogParam* pNewParam = new CUserLogParam;
+  if (pNewParam == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::AddParam, newParam was NULL!", logNORMAL);
+    return;
+  }
 
-    newParam->strName           = strName;
-    newParam->strValue          = strValue;
-    newParam->strTimeStamp      = "";
+  pNewParam->strName           = strName;
+  pNewParam->strValue          = strValue;
+  pNewParam->strTimeStamp      = "";
 
-    // Parameters that can have multiple values logged will also log when they were changed
-    if (bTrackMultiple)
-        newParam->strTimeStamp  = CTimeSpan::GetTimeStamp();
+  // Parameters that can have multiple values logged will also log when they were changed
+  if (bTrackMultiple)
+    pNewParam->strTimeStamp  = CTimeSpan::GetTimeStamp();
 
-    m_vectorParams.push_back(newParam);
+  m_vpParams.push_back(pNewParam);
 }
 
 // Static method that generates the XML representation of a 
 // single param name value set.  Used both to output params
 // for a trial and for the parent UserLog object.
-string CUserLogTrial::GetParamXML(CUserLogParam* param, const string& strPrefix)
+string CUserLogTrial::GetParamXML(CUserLogParam* pParam, const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetParamXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetParamXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    if (param != NULL)
+  if (pParam != NULL)
+  {
+    strResult += strPrefix;
+    strResult += "<";
+    strResult += pParam->strName;
+    strResult += ">";
+
+    if (pParam->strTimeStamp.length() > 0)
     {
-        strResult += strPrefix;
-        strResult += "<";
-        strResult += param->strName;
-        strResult += ">";
+      strResult += "\n";
+      strResult += strPrefix;
+      strResult += "\t<Value>";
+      strResult += pParam->strValue;
+      strResult += "</Value>\n";
 
-        if (param->strTimeStamp.length() > 0)
-        {
-            strResult += "\n";
-            strResult += strPrefix;
-            strResult += "\t<Value>";
-            strResult += param->strValue;
-            strResult += "</Value>\n";
+      strResult += strPrefix;
+      strResult += "\t<Time>";
+      strResult += pParam->strTimeStamp;
+      strResult += "</Time>\n";
 
-            strResult += strPrefix;
-            strResult += "\t<Time>";
-            strResult += param->strTimeStamp;
-            strResult += "</Time>\n";
-
-            strResult += strPrefix;
-        }
-        else 
-        {
-            strResult += param->strValue;
-        }
-
-        strResult += "</";
-        strResult += param->strName;
-        strResult += ">\n";
+      strResult += strPrefix;
+    }
+    else 
+    {
+      strResult += pParam->strValue;
     }
 
-    return strResult;
+    strResult += "</";
+    strResult += pParam->strName;
+    strResult += ">\n";
+  }
+
+  return strResult;
 }
 
 // Returns a pointer to the currently active navigation cycle
 NavCycle* CUserLogTrial::GetCurrentNavCycle()
 {
-    //CFunctionLogger f1("CUserLogTrial::GetCurrentNavCycle", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetCurrentNavCycle", g_pLogger);
 
-    if (m_vectorNavCycles.size() <= 0)
-        return NULL;
-    return m_vectorNavCycles[m_vectorNavCycles.size() - 1];
+  if (m_vpNavCycles.size() <= 0)
+    return NULL;
+  return m_vpNavCycles[m_vpNavCycles.size() - 1];
 }
 
 // Gets a pointer to the last NavLocation object
 // in the current navication cycle.
 NavLocation* CUserLogTrial::GetCurrentNavLocation()
 {
-    //CFunctionLogger f1("CUserLogTrial::GetCurrentNavLocation", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetCurrentNavLocation", g_pLogger);
 
-    NavCycle* cycle = GetCurrentNavCycle();
+  NavCycle* pCycle = GetCurrentNavCycle();
 
-    if (cycle == NULL)
-        return NULL;
+  if (pCycle == NULL)
+    return NULL;
 
-    if (cycle->vectorNavLocations.size() <= 0)
-        return NULL;
+  if (pCycle->vectorNavLocations.size() <= 0)
+    return NULL;
 
-    return (NavLocation*) cycle->vectorNavLocations[cycle->vectorNavLocations.size() - 1];
+  return (NavLocation*) pCycle->vectorNavLocations[pCycle->vectorNavLocations.size() - 1];
 }
 
 // Adds a new navgiation cycle to our collection
 NavCycle* CUserLogTrial::AddNavCycle()
 {
-    //CFunctionLogger f1("CUserLogTrial::AddNavCycle", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::AddNavCycle", g_pLogger);
 
-    NavCycle* newCycle = new NavCycle;
-    if (newCycle == NULL)
-    {
-        gLogger->Log("CUserLogTrial::AddNavCycle, failed to create NavCycle!", logNORMAL);
-        return NULL;
-    }
+  NavCycle* pNewCycle = new NavCycle;
+  if (pNewCycle == NULL)
+  {
+    g_pLogger->Log("CUserLogTrial::AddNavCycle, failed to create NavCycle!", logNORMAL);
+    return NULL;
+  }
 
-    newCycle->pSpan = new CTimeSpan("Time", false);
+  pNewCycle->pSpan = new CTimeSpan("Time", false);
 
-    m_vectorNavCycles.push_back(newCycle);
-    return newCycle;
+  m_vpNavCycles.push_back(pNewCycle);
+  return pNewCycle;
 }
 
 string CUserLogTrial::GetNavCyclesXML(const string& strPrefix)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetNavCyclesXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetNavCyclesXML", g_pLogger);
 
-    string strResult = "";
+  string strResult = "";
 
-    string strPrefixTab = strPrefix;
-    strPrefixTab += "\t";
+  string strPrefixTab = strPrefix;
+  strPrefixTab += "\t";
 
-    string strPrefixTabTab = strPrefixTab;
-    strPrefixTabTab += "\t";
+  string strPrefixTabTab = strPrefixTab;
+  strPrefixTabTab += "\t";
 
-    string strPrefixTabTabTab = strPrefixTabTab;
-    strPrefixTabTabTab += "\t";
+  string strPrefixTabTabTab = strPrefixTabTab;
+  strPrefixTabTabTab += "\t";
 
-    string strPrefixTabTabTabTab = strPrefixTabTabTab;
-    strPrefixTabTabTabTab += "\t";
+  string strPrefixTabTabTabTab = strPrefixTabTabTab;
+  strPrefixTabTabTabTab += "\t";
 
-    strResult += strPrefixTab;
-    strResult += "<Navs>\n";
+  strResult += strPrefixTab;
+  strResult += "<Navs>\n";
 
-    for (unsigned int i = 0; i < m_vectorNavCycles.size(); i++)
+  for (unsigned int i = 0; i < m_vpNavCycles.size(); i++)
+  {
+    NavCycle* pCycle = (NavCycle*) m_vpNavCycles[i];
+
+    if (pCycle != NULL)
     {
-        NavCycle* cycle = (NavCycle*) m_vectorNavCycles[i];
+      strResult += strPrefixTabTab;
+      strResult += "<Nav>\n";
 
-        if (cycle != NULL)
+      if (pCycle->pSpan != NULL)
+        strResult += pCycle->pSpan->GetXML(strPrefixTabTabTab);
+
+      if (pCycle->vectorNavLocations.size() > 0)
+      {
+        strResult += strPrefixTabTabTab;
+        strResult += "<Locations>\n";
+
+        for (unsigned int i = 0; i < pCycle->vectorNavLocations.size(); i++)
         {
-            strResult += strPrefixTabTab;
-            strResult += "<Nav>\n";
+          NavLocation* pLocation = (NavLocation*) pCycle->vectorNavLocations[i];
 
-            if (cycle->pSpan != NULL)
-                strResult += cycle->pSpan->GetXML(strPrefixTabTabTab);
-
-            if (cycle->vectorNavLocations.size() > 0)
-            {
-                strResult += strPrefixTabTabTab;
-                strResult += "<Locations>\n";
-
-                for (unsigned int i = 0; i < cycle->vectorNavLocations.size(); i++)
-                {
-                    NavLocation* location = (NavLocation*) cycle->vectorNavLocations[i];
-
-                    if (location != NULL)
-                        strResult += GetLocationXML(location, strPrefixTabTabTabTab);
-                }
-                strResult += strPrefixTabTabTab;
-                strResult += "</Locations>\n";
-            }
-
-            if (cycle->vectorMouseLocations.size() > 0)
-            {
-                strResult += strPrefixTabTabTab;
-                strResult += "<MousePositions>\n";
-
-                for (unsigned int i = 0; i < cycle->vectorMouseLocations.size(); i++)
-                {
-                    CUserLocation* location = (CUserLocation*) cycle->vectorMouseLocations[i];
-
-                    if (location != NULL)
-                    {
-                        strResult += location->GetXML(strPrefixTabTabTabTab);
-                    }
-                }
-
-                strResult += strPrefixTabTabTab;
-                strResult += "</MousePositions>\n";
-            }
-
-
-            strResult += strPrefixTabTab;
-            strResult += "</Nav>\n";
-
+          if (pLocation != NULL)
+            strResult += GetLocationXML(pLocation, strPrefixTabTabTabTab);
         }
+        strResult += strPrefixTabTabTab;
+        strResult += "</Locations>\n";
+      }
+
+      if (pCycle->vectorMouseLocations.size() > 0)
+      {
+        strResult += strPrefixTabTabTab;
+        strResult += "<MousePositions>\n";
+
+        for (unsigned int i = 0; i < pCycle->vectorMouseLocations.size(); i++)
+        {
+          CUserLocation* pLocation = (CUserLocation*) pCycle->vectorMouseLocations[i];
+
+          if (pLocation != NULL)
+          {
+            strResult += pLocation->GetXML(strPrefixTabTabTabTab);
+          }
+        }
+
+        strResult += strPrefixTabTabTab;
+        strResult += "</MousePositions>\n";
+      }
+
+
+      strResult += strPrefixTabTab;
+      strResult += "</Nav>\n";
+
     }
+  }
 
-    strResult += strPrefixTab;
-    strResult += "</Navs>\n";
+  strResult += strPrefixTab;
+  strResult += "</Navs>\n";
 
-    return strResult;
+  return strResult;
 }
 
 #ifdef USER_LOG_TOOL
@@ -1078,137 +1081,136 @@ string CUserLogTrial::GetNavCyclesXML(const string& strPrefix)
 // Construct based on some XML
 CUserLogTrial::CUserLogTrial(const string& strXML)
 {
-    //CFunctionLogger f1("CUserLogTrial::CUserLogTrial(XML)", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::CUserLogTrial(XML)", g_pLogger);
 
-    InitMemberVars();
-    VECTOR_STRING vectorNavs;
+  InitMemberVars();
+  VECTOR_STRING vNavs;
 
-    string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
-    string strWindow        = XMLUtil::GetElementString("WindowCoordinates", strXML, true);           
-    string strCanvas        = XMLUtil::GetElementString("CanvasCoordinates", strXML, true);           
-    string strNavs          = XMLUtil::GetElementString("Navs", strXML, true);           
-    string strSummary       = XMLUtil::GetElementString("Summary", strXML, true);
-    string strSummaryTime   = XMLUtil::GetElementString("Time", strSummary, true);
-    vectorNavs              = XMLUtil::GetElementStrings("Nav", strNavs, true);
-    
-    string strCurrentTrial  = XMLUtil::GetElementString("CurrentTrial", strXML, false);
-    if (strCurrentTrial.length() > 0)
+  string strParams        = XMLUtil::GetElementString("Params", strXML, true);           
+  string strWindow        = XMLUtil::GetElementString("WindowCoordinates", strXML, true);           
+  string strCanvas        = XMLUtil::GetElementString("CanvasCoordinates", strXML, true);           
+  string strNavs          = XMLUtil::GetElementString("Navs", strXML, true);           
+  string strSummary       = XMLUtil::GetElementString("Summary", strXML, true);
+  string strSummaryTime   = XMLUtil::GetElementString("Time", strSummary, true);
+  vNavs                   = XMLUtil::GetElementStrings("Nav", strNavs, true);
+
+  string strCurrentTrial  = XMLUtil::GetElementString("CurrentTrial", strXML, false);
+  if (strCurrentTrial.length() > 0)
+  {
+    // We copied the XML string directly into the member variable
+    // including the start/end tag, so we need to reproduce the
+    // tags ourselves.
+    m_strCurrentTrial       =  "\t\t\t<CurrentTrial>\n";
+    m_strCurrentTrial       += strCurrentTrial;
+    m_strCurrentTrial       += "</CurrentTrial>\n";
+  }
+
+  m_vpParams                = ParseParamsXML(strParams);
+  m_sWindowCoordinates      = ParseWindowXML(strWindow);
+  m_sCanvasCoordinates      = ParseWindowXML(strCanvas);
+  m_pSpan                   = new CTimeSpan("Time", strSummaryTime);
+
+  // Process each <Nav> tag
+  string strTime              = "";
+  string strLocations         = "";
+  string strMousePositions    = "";
+
+  VECTOR_STRING vLocations;
+  VECTOR_STRING vMousePositions;
+  VECTOR_STRING vAdded;
+
+  for (VECTOR_STRING_ITER iter = vectorNavs.begin(); iter < vectorNavs.end(); iter++)
+  {
+    strTime              = "";
+    strLocations         = "";
+    strMousePositions    = "";
+    vectorLocations.erase(vLocations.begin(), vLocations.end());
+    vectorMousePositions.erase(vMousePositions.begin(), vMousePositions.end());
+
+    strTime             = XMLUtil::GetElementString("Time", *iter, true);
+    strLocations        = XMLUtil::GetElementString("Locations", *iter, true);
+    strMousePositions   = XMLUtil::GetElementString("MousePositions", *iter, true);
+
+    NavCycle* pCycle = new NavCycle();
+    if (pCycle == NULL)
     {
-        // We copied the XML string directly into the member variable
-        // including the start/end tag, so we need to reproduce the
-        // tags ourselves.
-        m_strCurrentTrial       =  "\t\t\t<CurrentTrial>\n";
-        m_strCurrentTrial       += strCurrentTrial;
-        m_strCurrentTrial       += "</CurrentTrial>\n";
+      g_pLogger->Log("CUserLogTrial::CUserLogTrial, failed to create NavCycle!", logNORMAL);
+      return;
     }
 
-    m_vectorParams          = ParseParamsXML(strParams);
-    m_windowCoordinates     = ParseWindowXML(strWindow);
-    m_canvasCoordinates     = ParseWindowXML(strCanvas);
+    pCycle->pSpan = NULL;
 
-    m_pSpan                 = new CTimeSpan("Time", strSummaryTime);
-
-    // Process each <Nav> tag
-    string strTime              = "";
-    string strLocations         = "";
-    string strMousePositions    = "";
-
-    VECTOR_STRING vectorLocations;
-    VECTOR_STRING vectorMousePositions;
-    VECTOR_STRING vectorAdded;
-
-    for (VECTOR_STRING_ITER iter = vectorNavs.begin(); iter < vectorNavs.end(); iter++)
+    if (strTime.length() > 0)
     {
-        strTime              = "";
-        strLocations         = "";
-        strMousePositions    = "";
-        vectorLocations.erase(vectorLocations.begin(), vectorLocations.end());
-        vectorMousePositions.erase(vectorMousePositions.begin(), vectorMousePositions.end());
-
-        strTime             = XMLUtil::GetElementString("Time", *iter, true);
-        strLocations        = XMLUtil::GetElementString("Locations", *iter, true);
-        strMousePositions   = XMLUtil::GetElementString("MousePositions", *iter, true);
-
-        NavCycle* cycle = new NavCycle();
-        if (cycle == NULL)
-        {
-            gLogger->Log("CUserLogTrial::CUserLogTrial, failed to create NavCycle!", logNORMAL);
-            return;
-        }
-
-        cycle->pSpan = NULL;
-
-        if (strTime.length() > 0)
-        {
-            cycle->pSpan = new CTimeSpan("Time", strTime);
-        }
-        if (strLocations.length() > 0)
-        {
-            vectorLocations = XMLUtil::GetElementStrings("Location", strLocations, true);
-
-            for (VECTOR_STRING_ITER iter2 = vectorLocations.begin(); iter2 < vectorLocations.end(); iter2++)
-            {
-                vectorAdded.erase(vectorAdded.begin(), vectorAdded.end());
-
-                NavLocation* location = new NavLocation();
-                if (location == NULL)
-                {
-                    gLogger->Log("CUserLogTrial::CUserLogTrial, failed to create NavLocation!", logNORMAL);
-                    return;
-                }                
-
-                location->strHistory    = XMLUtil::GetElementString("History", *iter2);
-                location->avgBits       = (double) XMLUtil::GetElementFloat("AvgBits", *iter2);
-                location->event         = (eUserLogEventType) XMLUtil::GetElementInt("Event", *iter2);
-                location->numDeleted    = XMLUtil::GetElementInt("NumDeleted", *iter2);
-
-                location->span          = NULL;
-                string strTime          = XMLUtil::GetElementString("Time", *iter2);
-                location->span          = new CTimeSpan("Time", strTime);
-
-                // Handle the multiple <Add> tags that might exist
-                vectorAdded             = XMLUtil::GetElementStrings("Add", *iter2);                
-                location->pVectorAdded  = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
-                
-                for (VECTOR_STRING_ITER iter3 = vectorAdded.begin(); iter3 < vectorAdded.end(); iter3++)
-                {
-                    Dasher::SymbolProbDisplay add;
-
-                    add.prob           = XMLUtil::GetElementFloat("Prob", *iter3);
-                    add.strDisplay     = XMLUtil::GetElementString("Text", *iter3);
-                    add.sym            = 0;    // We don't have the original integer symbol index
-
-                    if (location->pVectorAdded != NULL)
-                        location->pVectorAdded->push_back(add);
-
-                    // Also track it in one complete vector of all the adds
-                    m_vectorHistory.push_back(add);        
-                }
-
-                // If this was a deleted event, then we need to erase some stuff from the running history
-                // Be careful not to pop more things than we have (this will hork the
-                // memory up on linux but not windows).
-                int actualNumToDelete = min((int) m_vectorHistory.size(), location->numToDelete);
-                for (int i = 0; i < actualNumToDelete; i++)
-                    m_vectorHistory.pop_back();
-
-                cycle->vectorNavLocations.push_back(location);
-            }
-        }
-        
-        if (strMousePositions.length() > 0)
-        {
-            vectorMousePositions = XMLUtil::GetElementStrings("Pos", strMousePositions, true);
-            for (VECTOR_STRING_ITER iter2 = vectorMousePositions.begin(); iter2 < vectorMousePositions.end(); iter2++)
-            {
-                CUserLocation* location = new CUserLocation(*iter2);
-                cycle->vectorMouseLocations.push_back(location);
-            }
-
-        }
-
-        m_vectorNavCycles.push_back(cycle);
+      pCycle->pSpan = new CTimeSpan("Time", strTime);
     }
+    if (strLocations.length() > 0)
+    {
+      vLocations = XMLUtil::GetElementStrings("Location", strLocations, true);
+
+      for (VECTOR_STRING_ITER iter2 = vLocations.begin(); iter2 < vLocations.end(); iter2++)
+      {
+        vAdded.erase(vAdded.begin(), vAdded.end());
+
+        NavLocation* pLocation = new NavLocation();
+        if (pLocation == NULL)
+        {
+          g_pLogger->Log("CUserLogTrial::CUserLogTrial, failed to create NavLocation!", logNORMAL);
+          return;
+        }                
+
+        pLocation->strHistory     = XMLUtil::GetElementString("History", *iter2);
+        pLocation->avgBits        = (double) XMLUtil::GetElementFloat("AvgBits", *iter2);
+        pLocation->event          = (eUserLogEventType) XMLUtil::GetElementInt("Event", *iter2);
+        pLocation->numDeleted     = XMLUtil::GetElementInt("NumDeleted", *iter2);
+
+        pLocation->span           = NULL;
+        string strTime            = XMLUtil::GetElementString("Time", *iter2);
+        pLocation->span           = new CTimeSpan("Time", strTime);
+
+        // Handle the multiple <Add> tags that might exist
+        vAdded                    = XMLUtil::GetElementStrings("Add", *iter2);                
+        pLocation->pVectorAdded   = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
+
+        for (VECTOR_STRING_ITER iter3 = vectorAdded.begin(); iter3 < vectorAdded.end(); iter3++)
+        {
+          Dasher::SymbolProbDisplay sAdd;
+
+          sAdd.prob           = XMLUtil::GetElementFloat("Prob", *iter3);
+          sAdd.strDisplay     = XMLUtil::GetElementString("Text", *iter3);
+          sAdd.sym            = 0;    // We don't have the original integer symbol index
+
+          if (pLocation->pVectorAdded != NULL)
+            pLocation->pVectorAdded->push_back(sAdd);
+
+          // Also track it in one complete vector of all the adds
+          m_vHistory.push_back(sAdd);        
+        }
+
+        // If this was a deleted event, then we need to erase some stuff from the running history
+        // Be careful not to pop more things than we have (this will hork the
+        // memory up on linux but not windows).
+        int iActualNumToDelete = min((int) m_vHistory.size(), location->numToDelete);
+        for (int i = 0; i < iActualNumToDelete; i++)
+          m_vHistory.pop_back();
+
+        pCycle->vectorNavLocations.push_back(pLocation);
+      }
+    }
+
+    if (strMousePositions.length() > 0)
+    {
+      vectorMousePositions = XMLUtil::GetElementStrings("Pos", strMousePositions, true);
+      for (VECTOR_STRING_ITER iter2 = vectorMousePositions.begin(); iter2 < vectorMousePositions.end(); iter2++)
+      {
+        CUserLocation* pLocation = new CUserLocation(*iter2);
+        pCycle->vectorMouseLocations.push_back(pLocation);
+      }
+
+    }
+
+    m_vpNavCycles.push_back(cycle);
+  }
 
 }
 
@@ -1216,89 +1218,89 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
 // and by UserLogTrial to do the same thing.
 VECTOR_USER_LOG_PARAM_PTR CUserLogTrial::ParseParamsXML(const string& strXML)
 {
-    //CFunctionLogger f1("CUserLogTrial::ParseParamsXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::ParseParamsXML", g_pLogger);
 
-    VECTOR_USER_LOG_PARAM_PTR   vectorResult;
-    VECTOR_NAME_VALUE_PAIR      vectorParams;
+  VECTOR_USER_LOG_PARAM_PTR   vResult;
+  VECTOR_NAME_VALUE_PAIR      vParams;
 
-    vectorParams = XMLUtil::GetNameValuePairs(strXML, true);
+  vParams = XMLUtil::GetNameValuePairs(strXML, true);
 
-    // Handle adding all the name/value parameter pairs.  XML looks like:
-    //      <Eyetracker>0</Eyetracker>
-    //      <MaxBitRate>
-	//	    	<Value>7.0100</Value>
-    //			<Time>15:48:53.140</Time>
-	//  	</MaxBitRate>
-    for (VECTOR_NAME_VALUE_PAIR_ITER iter = vectorParams.begin(); iter < vectorParams.end(); iter++)
+  // Handle adding all the name/value parameter pairs.  XML looks like:
+  //      <Eyetracker>0</Eyetracker>
+  //      <MaxBitRate>
+  //	    	<Value>7.0100</Value>
+  //			<Time>15:48:53.140</Time>
+  //  	</MaxBitRate>
+  for (VECTOR_NAME_VALUE_PAIR_ITER iter = vParams.begin(); iter < vParams.end(); iter++)
+  {
+    CUserLogParam* pParam = new CUserLogParam();
+
+    if (pParam != NULL) 
     {
-        CUserLogParam* param = new CUserLogParam();
-        
-        if (param != NULL) 
-        {
-            param->strName      = iter->strName;
-        
-            // See if we have a type that has a timestamp
-            string strValue     = XMLUtil::GetElementString("Value", iter->strValue, true);
-            string strTime      = XMLUtil::GetElementString("Time", iter->strValue, true);
+      pParam->strName      = iter->strName;
 
-            if ((strValue.length() > 0)  || (strTime.length() > 0))
-            {
-                param->strValue     = strValue;
-                param->strTimeStamp = strTime;
-            }
-            else
-                param->strValue     = iter->strValue;
-            
-            param->options = 0;
+      // See if we have a type that has a timestamp
+      string strValue     = XMLUtil::GetElementString("Value", iter->strValue, true);
+      string strTime      = XMLUtil::GetElementString("Time", iter->strValue, true);
 
-            vectorResult.push_back(param);
-        }
+      if ((strValue.length() > 0)  || (strTime.length() > 0))
+      {
+        pParam->strValue     = strValue;
+        pParam->strTimeStamp = strTime;
+      }
+      else
+        pParam->strValue     = iter->strValue;
+
+      pParam->options = 0;
+
+      vResult.push_back(param);
     }
+  }
 
-    return vectorResult;
+  return vResult;
 }
 
 // Parse our window or canvas coorindates from XML
 WindowSize CUserLogTrial::ParseWindowXML(const string& strXML)
 {
-    //CFunctionLogger f1("CUserLogTrial::ParseWindowXML", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::ParseWindowXML", g_pLogger);
 
-    WindowSize result;
+  WindowSize sResult;
 
-    result.top      = XMLUtil::GetElementInt("Top", strXML);
-    result.bottom   = XMLUtil::GetElementInt("Bottom", strXML);
-    result.left     = XMLUtil::GetElementInt("Left", strXML);
-    result.right    = XMLUtil::GetElementInt("Right", strXML);
+  sResult.top      = XMLUtil::GetElementInt("Top", strXML);
+  sResult.bottom   = XMLUtil::GetElementInt("Bottom", strXML);
+  sResult.left     = XMLUtil::GetElementInt("Left", strXML);
+  sResult.right    = XMLUtil::GetElementInt("Right", strXML);
 
-    return result;
+  return sResult;
 }
 
 // Returns a vector that contains the tab delimited mouse
 // coordinates for each of our navigation cycles.
 VECTOR_STRING CUserLogTrial::GetTabMouseXY(bool bReturnNormalized)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetTabMouseXY", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetTabMouseXY", g_pLogger);
 
-    VECTOR_STRING vectorResult;
-    for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vectorNavCycles.begin(); iter < m_vectorNavCycles.end(); iter++)
+  VECTOR_STRING vResult;
+  for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vpNavCycles.begin(); iter < m_vpNavCycles.end(); iter++)
+  {
+    string strResult = "";
+
+    if (*iter != NULL)
     {
-        string strResult = "";
-
-        if (*iter != NULL)
-        {
-            for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
-                 iter2 < (*iter)->vectorMouseLocations.end();
-                 iter2++)
-            {
-                if (*iter2 != NULL)
-                    strResult += (*iter2)->GetTabMouseXY(bReturnNormalized);
-            }
-        }
-
-        vectorResult.push_back(strResult);
+      for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
+        iter2 < (*iter)->vectorMouseLocations.end();
+        iter2++)
+      {
+        if (*iter2 != NULL)
+          strResult += (*iter2)->GetTabMouseXY(bReturnNormalized);
+      }
     }
 
-    return vectorResult;
+    vResult.push_back(strResult);
+  }
+
+  return vResult;
 }
 
 // Calculates the mouse density with a given grid size number of buckets.
@@ -1306,148 +1308,148 @@ VECTOR_STRING CUserLogTrial::GetTabMouseXY(bool bReturnNormalized)
 //
 // NOTE: We allocate the memory here for the double**, our caller must 
 // handle freeing it!
-VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int gridSize)
+VECTOR_DENSITY_GRIDS CUserLogTrial::GetMouseDensity(int iGridSize)
 {
-    //CFunctionLogger f1("CUserLogTrial::GetMouseDensity", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::GetMouseDensity", g_pLogger);
 
-    VECTOR_DENSITY_GRIDS vectorResult;
+  VECTOR_DENSITY_GRIDS vResult;
 
-    for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vectorNavCycles.begin(); iter < m_vectorNavCycles.end(); iter++)
+  for (VECTOR_NAV_CYCLE_PTR_ITER iter = m_vpNavCycles.begin(); iter < m_vpNavCycles.end(); iter++)
+  {
+    if (*iter != NULL)
     {
-        if (*iter != NULL)
+      DENSITY_GRID ppGrid;
+
+      // Init the grid with all 0.0 values
+      ppGrid = new double*[iGridSize];
+      for (int i = 0; i < iGridSize; i++)
+        ppGrid[i] = new double[iGridSize];
+
+      for (int i = 0; i < iGridSize; i++)
+        for (int j = 0; j < iGridSize; j++)
+          ppGrid[i][j] = 0.0;
+
+      unsigned int iCount = 0;
+
+      // Assign each mouse to location to one of the buckets and increment 
+      // the count on that bucket.
+      for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
+        iter2 < (*iter)->vectorMouseLocations.end();
+        iter2++)
+      {
+        if (*iter2 != NULL)
         {
-            DENSITY_GRID grid;
-
-            // Init the grid with all 0.0 values
-            grid = new double*[gridSize];
-            for (int i = 0; i < gridSize; i++)
-                grid[i] = new double[gridSize];
-
-            for (int i = 0; i < gridSize; i++)
-                for (int j = 0; j < gridSize; j++)
-                    grid[i][j] = 0.0;
-
-            unsigned int count = 0;
-
-            // Assign each mouse to location to one of the buckets and increment 
-            // the count on that bucket.
-            for (VECTOR_USER_LOCATION_PTR_ITER iter2 = (*iter)->vectorMouseLocations.begin(); 
-                 iter2 < (*iter)->vectorMouseLocations.end();
-                 iter2++)
-            {
-                if (*iter2 != NULL)
-                {
-                    int i = 0;
-                    int j = 0;
-                    (*iter2)->GetMouseGridLocation(gridSize, &i, &j);
-                    // Increment the count on this location, we'll throw away points
-                    // that were outside the canvas grid.
-                    if ((i < gridSize) && (j < gridSize) && (i >= 0) && (j >= 0))
-                    {
-                        // We reverse j and i to get x to increase left top right
-                        // and y from top to bottom
-                        grid[j][i] = grid[j][i] + 1.0;
-                        count++;
-                    }
-                }
-            }
-            // Now normalize everything so each grid location is a 
-            // percentage of the time we spent in that location.
-            for (int i = 0; i < gridSize; i++)
-            {
-                {
-                    for (int j = 0; j < gridSize; j++)
-                    {
-                        grid[i][j] = grid[i][j] / (double) count;
-                    }
-                }
-            }
-
-            vectorResult.push_back(grid);
+          int i = 0;
+          int j = 0;
+          (*iter2)->GetMouseGridLocation(iGridSize, &i, &j);
+          // Increment the count on this location, we'll throw away points
+          // that were outside the canvas grid.
+          if ((i < iGridSize) && (j < iGridSize) && (i >= 0) && (j >= 0))
+          {
+            // We reverse j and i to get x to increase left top right
+            // and y from top to bottom
+            ppGrid[j][i] = ppGrid[j][i] + 1.0;
+            iCount++;
+          }
         }
-    }
+      }
+      // Now normalize everything so each grid location is a 
+      // percentage of the time we spent in that location.
+      for (int i = 0; i < iGridSize; i++)
+      {
+        {
+          for (int j = 0; j < iGridSize; j++)
+          {
+            ppGrid[i][j] = ppGrid[i][j] / (double) iCount;
+          }
+        }
+      }
 
-    return vectorResult;
+      vResult.push_back(ppGrid);
+    }
+  }
+
+  return vResult;
 }
 
 // Merge the density of two grids together.  This is done but adding their values
 // and dividing by two.  If either pointer is NULL, then we return the other grid
 // values intact.  We free the memory in our parameter grids.
-DENSITY_GRID CUserLogTrial::MergeGrids(int gridSize, DENSITY_GRID gridA, DENSITY_GRID gridB)
+DENSITY_GRID CUserLogTrial::MergeGrids(int iGridSize, DENSITY_GRID ppGridA, DENSITY_GRID ppGridB)
 {
-    //CFunctionLogger f1("CUserLogTrial::MergeGrids", gLogger);
+  //CFunctionLogger f1("CUserLogTrial::MergeGrids", g_pLogger);
 
-    DENSITY_GRID result;
-    result = new double*[gridSize];
-    for (int i = 0; i < gridSize; i++)
-        result[i] = new double[gridSize];
+  DENSITY_GRID ppResult;
+  ppResult = new double*[iGridSize];
+  for (int i = 0; i < iGridSize; i++)
+    ppResult[i] = new double[iGridSize];
 
-    for (int i = 0; i < gridSize; i++)
-        for (int j = 0; j < gridSize; j++)
-            result[i][j] = 0.0;
-    
-    // Both NULL, then return grid of all 0.0's
-    if ((gridA == NULL) && (gridB == NULL))
-        return result;
+  for (int i = 0; i < iGridSize; i++)
+    for (int j = 0; j < iGridSize; j++)
+      ppResult[i][j] = 0.0;
 
-    if (gridA == NULL)
+  // Both NULL, then return grid of all 0.0's
+  if ((ppGridA == NULL) && (ppGridB == NULL))
+    return ppResult;
+
+  if (ppGridA == NULL)
+  {
+    // grid A is NULL, return copy of grid B
+    for (int i = 0; i < iGridSize; i++)
     {
-        // grid A is NULL, return copy of grid B
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-                result[i][j] = gridB[i][j];
-        }    
+      for (int j = 0; j < iGridSize; j++)
+        ppResult[i][j] = ppGridB[i][j];
     }    
-    else if (gridB == NULL)
+  }    
+  else if (ppGridB == NULL)
+  {
+    // grid B is NULL, return copy of grid A
+    for (int i = 0; i < iGridSize; i++)
     {
-        // grid B is NULL, return copy of grid A
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-                result[i][j] = gridA[i][j];
-        }
-
-    }
-    else
-    {
-        // Normal case, merge the two density grids
-        for (int i = 0; i < gridSize; i++)
-        {
-            for (int j = 0; j < gridSize; j++)
-                result[i][j] = (gridA[i][j] + gridB[i][j]) / 2.0;
-        }
+      for (int j = 0; j < iGridSize; j++)
+        ppResult[i][j] = ppGridA[i][j];
     }
 
-    if (gridA != NULL)
+  }
+  else
+  {
+    // Normal case, merge the two density grids
+    for (int i = 0; i < iGridSize; i++)
     {
-        for (int i = 0; i < gridSize; i++)
-        {
-            if (gridA[i] != NULL)
-            {
-                delete gridA[i];
-                gridA[i] = NULL;
-            }
-        }
-        delete gridA;
-        gridA = NULL;
-
+      for (int j = 0; j < iGridSize; j++)
+        ppResult[i][j] = (ppGridA[i][j] + ppGridB[i][j]) / 2.0;
     }
-    if (gridB != NULL)
+  }
+
+  if (ppGridA != NULL)
+  {
+    for (int i = 0; i < iGridSize; i++)
     {
-        for (int i = 0; i < gridSize; i++)
-        {
-            if (gridB[i] != NULL)
-            {
-                delete gridB[i];
-                gridB[i] = NULL;
-            }
-        }
-        delete gridB;
-        gridB = NULL;
+      if (ppGridA[i] != NULL)
+      {
+        delete ppGridA[i];
+        ppGridA[i] = NULL;
+      }
     }
+    delete ppGridA;
+    ppGridA = NULL;
 
-    return result;
+  }
+  if (ppGridB != NULL)
+  {
+    for (int i = 0; i < iGridSize; i++)
+    {
+      if (ppGridB[i] != NULL)
+      {
+        delete ppGridB[i];
+        ppGridB[i] = NULL;
+      }
+    }
+    delete ppGridB;
+    ppGridB = NULL;
+  }
+
+  return ppResult;
 }
 
 #endif

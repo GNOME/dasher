@@ -34,31 +34,32 @@ typedef vector<string>::iterator VECTOR_STRING_ITER;
 //  </Params>
 struct NameValuePair
 {
-    string  strName;
-    string  strValue;
+  string  strName;
+  string  strValue;
 };
+
 typedef vector<NameValuePair>               VECTOR_NAME_VALUE_PAIR;
 typedef vector<NameValuePair>::iterator     VECTOR_NAME_VALUE_PAIR_ITER;
 
-const int XML_UTIL_READ_BUFFER_SIZE = 4096;
-const int XML_UTIL_DEFAULT_VECTOR_SIZE = 128;
+const int XML_UTIL_READ_BUFFER_SIZE     = 4096;
+const int XML_UTIL_DEFAULT_VECTOR_SIZE  = 128;
 
 class XMLUtil
 {
-	public:
-		XMLUtil();
+public:
+  XMLUtil();
 
-		static string			        LoadFile(const string& filename, unsigned int sizeHint = 128000);
-		static string			        GetElementString(const string& strTag, const string& strXML, bool bStripWhiteSpace = true);
-		static int				        GetElementInt(const string& strTag, const string& strXML, bool* bFound = NULL);
-		static long long		        GetElementLongLong(const string& strTag, const string& strXML, bool* bFound = NULL);
-		static float			        GetElementFloat(const string& strTag, const string& strXML, bool* bFound = NULL);
-		static VECTOR_STRING	        GetElementStrings(const string& strTag, const string& strXML, bool bStripWhiteSpace = true);
-        static VECTOR_NAME_VALUE_PAIR   GetNameValuePairs(const string& strXML, bool bStripWhiteSpace = true);
+  static string			              LoadFile(const string& filename, unsigned int iSizeHint = 128000);
+  static string			              GetElementString(const string& strTag, const string& strXML, bool bStripWhiteSpace = true);
+  static int				              GetElementInt(const string& strTag, const string& strXML, bool* pFound = NULL);
+  static long long		            GetElementLongLong(const string& strTag, const string& strXML, bool* pFound = NULL);
+  static float			              GetElementFloat(const string& strTag, const string& strXML, bool* pFound = NULL);
+  static VECTOR_STRING	          GetElementStrings(const string& strTag, const string& strXML, bool bStripWhiteSpace = true);
+  static VECTOR_NAME_VALUE_PAIR   GetNameValuePairs(const string& strXML, bool bStripWhiteSpace = true);
 
-		static bool				        IsWhiteSpace(char ch);
-		static string			        StripWhiteSpace(const string& str);
-		static bool				        IsDigit(char ch);
+  static bool				        IsWhiteSpace(char cLetter);
+  static string			        StripWhiteSpace(const string& strText);
+  static bool				        IsDigit(char cLetter);
 
 };
 

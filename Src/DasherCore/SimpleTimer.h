@@ -12,14 +12,14 @@
 class CSimpleTimer
 {
 public:
-    CSimpleTimer();
-    ~CSimpleTimer();
+  CSimpleTimer();
+  ~CSimpleTimer();
 
-    double GetElapsed();
+  double GetElapsed();
 
 private:
-    int     m_startSecond;
-    int     m_startMs;
+  int     m_iStartSecond;
+  int     m_iStartMs;
 
 };
 

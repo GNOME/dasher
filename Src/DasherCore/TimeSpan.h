@@ -18,12 +18,12 @@
 #include <vector>
 
 #ifdef USER_LOG_TOOL
-    #include "XMLUtil.h"
+#include "XMLUtil.h"
 #endif
 
 using namespace std;
 
-extern CFileLogger* gLogger;
+extern CFileLogger* g_pLogger;
 
 class CTimeSpan;
 
@@ -33,33 +33,33 @@ typedef vector<CTimeSpan*>   VECTOR_TIME_SPAN_PTR;
 class CTimeSpan
 {
 public:
-    CTimeSpan(const string& strName, bool bAddDate);
+  CTimeSpan(const string& strName, bool bAddDate);
 
 #ifdef USER_LOG_TOOL
-    CTimeSpan(const string& strName, const string& strXML);
+  CTimeSpan(const string& strName, const string& strXML);
 #endif
 
-    ~CTimeSpan();
+  ~CTimeSpan();
 
-    void                Stop();
-    string              GetXML(const string& prefix = "", bool bSinglePointInTime = false);
-    
-    void                Continue();
-    bool                IsStopped();
-    double              GetElapsed();
-    
-    static string       GetTimeStamp();
-    static string       GetDateStamp();
+  void                Stop();
+  string              GetXML(const string& strPrefix = "", bool bSinglePointInTime = false);
+
+  void                Continue();
+  bool                IsStopped();
+  double              GetElapsed();
+
+  static string       GetTimeStamp();
+  static string       GetDateStamp();
 
 private:
-    string              m_strName;
-    string              m_strStartTime;
-    string              m_strEndTime;
-    double              m_elapsed;
-    CSimpleTimer*       m_pTimer;
-    string              m_strStartDate;
+  string              m_strName;
+  string              m_strStartTime;
+  string              m_strEndTime;
+  double              m_dElapsed;
+  CSimpleTimer*       m_pTimer;
+  string              m_strStartDate;
 
-    void                InitMemberVars();
+  void                InitMemberVars();
 
 };
 

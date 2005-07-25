@@ -6,7 +6,7 @@
 void EnableLeakDetection( void )
 {
 #ifdef _DEBUG
-    _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
+  _CrtSetDbgFlag( _CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF );
 #endif
 }
 
@@ -14,23 +14,23 @@ void EnableLeakDetection( void )
 void SetOutputLeaksToFile()
 {
 #ifdef _DEBUG
-		HANDLE hLogFile;
+  HANDLE hLogFile;
 
 #ifdef _UNICODE
-		hLogFile = CreateFile(L"memory_leak.log", 
+  hLogFile = CreateFile(L"memory_leak.log", 
 #else
-        hLogFile = CreateFile(TEXT("memory_leak.log"), 
+  hLogFile = CreateFile(TEXT("memory_leak.log"), 
 #endif
-                                GENERIC_WRITE, 
-                                FILE_SHARE_WRITE, 
-			                    NULL, 
-                                CREATE_ALWAYS, 
-                                FILE_ATTRIBUTE_NORMAL, 
-                                NULL);
+    GENERIC_WRITE, 
+    FILE_SHARE_WRITE, 
+    NULL, 
+    CREATE_ALWAYS, 
+    FILE_ATTRIBUTE_NORMAL, 
+    NULL);
 
-		_CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
-		_CrtSetReportFile(_CRT_WARN, hLogFile);
-		_RPT0(_CRT_WARN,"file message\n");
+  _CrtSetReportMode(_CRT_WARN, _CRTDBG_MODE_FILE);
+  _CrtSetReportFile(_CRT_WARN, hLogFile);
+  _RPT0(_CRT_WARN,"file message\n");
 
 #endif
 }

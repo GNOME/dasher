@@ -23,7 +23,7 @@
 #define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
 #endif
 
-void EnableLeakDetection( void );
+void EnableLeakDetection(void);
 void SetOutputLeaksToFile();
 
 #endif

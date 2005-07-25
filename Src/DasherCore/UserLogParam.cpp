@@ -12,21 +12,21 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 // Needed so we can sort() vectors of parameters
-bool CUserLogParam::ComparePtr(CUserLogParam* a, CUserLogParam* b)
+bool CUserLogParam::ComparePtr(CUserLogParam* pA, CUserLogParam* pB)
 {
-    if ((a == NULL) || (b == NULL))
-        return false;
-    int result = a->strName.compare(b->strName);
-
-    if (result < 0)
-        return true;
-    else if (result == 0)
-    {
-        if (a->strTimeStamp.compare(b->strTimeStamp) < 0)
-            return true;
-    }
-
+  if ((pA == NULL) || (pB == NULL))
     return false;
+  int iResult = pA->strName.compare(pB->strName);
+
+  if (iResult < 0)
+    return true;
+  else if (iResult == 0)
+  {
+    if (pA->strTimeStamp.compare(pB->strTimeStamp) < 0)
+      return true;
+  }
+
+  return false;
 }
 
 

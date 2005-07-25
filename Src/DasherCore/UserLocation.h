@@ -18,12 +18,12 @@
 #include <math.h>
 
 #ifdef USER_LOG_TOOL
-    #include "XMLUtil.h"
+#include "XMLUtil.h"
 #endif
 
 using namespace std;
 
-extern CFileLogger* gLogger;
+extern CFileLogger* g_pLogger;
 
 class CUserLocation;
 
@@ -35,34 +35,34 @@ typedef vector<CUserLocation*>::iterator    VECTOR_USER_LOCATION_PTR_ITER;
 class CUserLocation
 {
 public:
-    CUserLocation(int x, int y, float nats);
-    CUserLocation(float x, float y, float nats);
-    CUserLocation(int x1, int y1, float x2, float y2, float nats);
-    CUserLocation(int x, int y, int top, int left, int bottom, int right, bool bStoreIntegerRep, float nats);
-    ~CUserLocation();
+  CUserLocation(int iX, int iY, float dNats);
+  CUserLocation(float iX, float iY, float dNats);
+  CUserLocation(int iX1, int iY1, float iX2, float iY2, float dNats);
+  CUserLocation(int iX, int iY, int iTop, int iLeft, int iBottom, int iRight, bool bStoreIntegerRep, float dNats);
+  ~CUserLocation();
 
 #ifdef USER_LOG_TOOL
-    CUserLocation(const string& strXML);
-    string              GetTabMouseXY(bool bReturnNormalized);
-    void                GetMouseGridLocation(int gridSize, int* i, int* j);
+  CUserLocation(const string& strXML);
+  string              GetTabMouseXY(bool bReturnNormalized);
+  void                GetMouseGridLocation(int iGridSize, int* pRow, int* pCol);
 #endif
 
 
-    string              GetXML(const string& prefix = "");
-    static double       ComputeNormalizedX(int x, int left, int right);
-    static double       ComputeNormalizedY(int y, int top, int bottom);
+  string              GetXML(const string& strPrefix = "");
+  static double       ComputeNormalizedX(int iX, int iLeft, int iRight);
+  static double       ComputeNormalizedY(int iY, int iTop, int iBottom);
 
 private:
-    string              m_strTime;
-    int                 m_locationX;
-    int                 m_locationY;
-    float               m_normalizedLocationX;
-    float               m_normalizedLocationY;
-    bool                m_bHasNormalized;           // Are we storing a normalized representation?
-    bool                m_bHasInteger;              // Are we storing an integer representation?
-    float               m_nats;
+  string              m_strTime;
+  int                 m_iLocationX;
+  int                 m_iLocationY;
+  float               m_dNormalizedLocationX;
+  float               m_dNormalizedLocationY;
+  bool                m_bHasNormalized;           // Are we storing a normalized representation?
+  bool                m_bHasInteger;              // Are we storing an integer representation?
+  float               m_dNats;
 
-    void                InitMemeberVars();
+  void                InitMemeberVars();
 };
 
 #endif

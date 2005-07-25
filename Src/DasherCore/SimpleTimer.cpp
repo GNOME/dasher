@@ -12,12 +12,12 @@ static char THIS_FILE[] = __FILE__;
 
 CSimpleTimer::CSimpleTimer()
 {
-    struct timeb timebuffer;
+  struct timeb sTimeBuffer;
 
-    ftime(&timebuffer);
+  ftime(&sTimeBuffer);
 
-    m_startMs       = timebuffer.millitm;
-    m_startSecond   = timebuffer.time;
+  m_iStartMs       = sTimeBuffer.millitm;
+  m_iStartSecond   = sTimeBuffer.time;
 }
 
 CSimpleTimer::~CSimpleTimer()
@@ -26,15 +26,15 @@ CSimpleTimer::~CSimpleTimer()
 
 double CSimpleTimer::GetElapsed()
 {
-    struct timeb timebuffer;
+  struct timeb sTimeBuffer;
 
-    ftime(&timebuffer);
+  ftime(&sTimeBuffer);
 
-    int     endMs       = timebuffer.millitm;
-    int     endSecond   = timebuffer.time;
+  int     iEndMs       = sTimeBuffer.millitm;
+  int     iEndSecond   = sTimeBuffer.time;
 
-    return  ((double) endMs     / 1000.0 + (double) endSecond) - 
-            ((double) m_startMs / 1000.0 + (double) m_startSecond);
+  return  ((double) iEndMs     / 1000.0 + (double) iEndSecond) - 
+          ((double) m_iStartMs / 1000.0 + (double) m_iStartSecond);
 
 }
 
