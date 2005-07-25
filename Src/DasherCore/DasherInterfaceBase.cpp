@@ -21,7 +21,7 @@ const string CDasherInterfaceBase::EmptyString = "";
 
 CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
-                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0) {
+                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL) {
   m_pEventHandler = new CEventHandler(this);
   strCurrentContext = ". ";
 }
@@ -46,6 +46,15 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_pEventHandler;
 
   // Do NOT delete Edit box or Screen. This class did not create them.
+
+  // When we destruct on shutdown, we'll output any detailed log file
+  if (m_pUserLog != NULL)
+  {
+    m_pUserLog->OutputFile();
+    delete m_pUserLog;
+    m_pUserLog = NULL;
+  }
+
 }
 
 void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {

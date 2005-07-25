@@ -20,6 +20,7 @@
 
 #include "EventHandler.h"
 #include "Event.h"
+#include "UserLog.h"
 
 #include <map>
 #include <iostream>
@@ -586,6 +587,8 @@ private:
   void CreateDasherModel();
 
   std::string strCurrentContext;
+	  
+  CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
 
 protected:
   CEventHandler * m_pEventHandler;

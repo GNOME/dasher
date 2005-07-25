@@ -20,6 +20,7 @@
 //    d       - float or double
 //    s       - structure 
 //    o       - object
+//    h       - HANDLE type in Windows
 //
 // Class member variables and global variables should 
 // have the additional prefixes:
