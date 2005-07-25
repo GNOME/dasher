@@ -680,11 +680,10 @@ CDasherModel::CTrainer * CDasherModel::GetTrainer() {
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
   //    cerr << "In Push_Node, ChildCount is " << pNode->ChildCount() << ", HasAllChildren is " << pNode->HasAllChildren() << endl;
-
   if(pNode->HasAllChildren()) {
     DASHER_ASSERT(pNode->Children().size() > 0);
     // if there are children just give them a poke
-    HASH_MAP < symbol, CDasherNode * >::iterator i;
+    HASH_MAP<symbol, CDasherNode *>::iterator i;
     for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
       (*i).second->Alive(true);
     return;
@@ -698,7 +697,6 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   // if we haven't got a context then derive it
 
   if(!pNode->Context()) {
-
     CLanguageModel::Context cont;
     // sym0
     if(pNode->Symbol() < m_pcAlphabet->GetNumberTextSymbols() && pNode->Symbol() > 0) {
@@ -707,8 +705,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
       // Normal symbol - derive context from parent
       cont = m_pLanguageModel->CloneContext(pParent->Context());
       m_pLanguageModel->EnterSymbol(cont, pNode->Symbol());
-    }
-    else {
+    } else {
       // For new "root" nodes (such as under control mode), we want to 
       // mimic the root context
       cont = CreateEmptyContext();
@@ -729,8 +726,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
     if(pControlTreeChildren == NULL) {
       // Root of the tree 
       pControlTreeChildren = GetControlTree();
-    }
-    else {
+    } else {
       // some way down
       pControlTreeChildren = pControlTreeChildren->children;
     }
@@ -753,8 +749,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
     ColorSchemes ChildScheme;
     if(pNode->ColorScheme() == Nodes1) {
       ChildScheme = Nodes2;
-    }
-    else {
+    } else {
       ChildScheme = Nodes1;
     }
 
@@ -769,19 +764,17 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
       int colour;
       if(pTemp->colour != -1) {
         colour = pTemp->colour;
-      }
-      else {
+      } else {
         colour = (i % 99) + 11;
       }
       pNode->Children()[i] = new CDasherNode(*this, pNode, 0, i, ChildScheme, int (i * quantum), int ((i + 1) * quantum), m_pLanguageModel, true, colour, pTemp);
       i++;
       pTemp = pTemp->next;
     }
-  }
-  else {
+  } else {
     // FIXME: this has to change for history stuff and Japanese dasher
-    vector < symbol > newchars; // place to put this list of characters
-    vector < unsigned int >cum; // for the probability list
+    vector<symbol> newchars; // place to put this list of characters
+    vector<unsigned int> cum; // for the probability list
 
     GetProbs(pNode->Context(), newchars, cum, GetLongParameter(LP_NORMALIZATION));
     int iChildCount = newchars.size();
@@ -796,8 +789,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
     if((pNode->ColorScheme() == Nodes1) || (pNode->ColorScheme() == Special1)) {
       NormalScheme = Nodes2;
       SpecialScheme = Special2;
-    }
-    else {
+    } else {
       NormalScheme = Nodes1;
       SpecialScheme = Special1;
     }
