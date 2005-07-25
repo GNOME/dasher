@@ -12,30 +12,30 @@ UserLog:	main.o $(HOBJS)
 	g++ main.o $(HOBJS) $(hobj) $(LDFLAGS)
 	mv a.out UserLog
 
-FileLogger.o: FileLogger.cpp
+FileLogger.o: ../../DasherCore/FileLogger.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/FileLogger.cpp -o FileLogger.o
 
-MemoryLeak.o: MemoryLeak.cpp
+MemoryLeak.o: ../../DasherCore/MemoryLeak.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/MemoryLeak.cpp -o MemoryLeak.o
-	
-SimpleTimer.o: SimpleTimer.cpp
+
+SimpleTimer.o: ../../DasherCore/SimpleTimer.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/SimpleTimer.cpp -o SimpleTimer.o
-	
-TimeSpan.o: TimeSpan.cpp
+
+TimeSpan.o: ../../DasherCore/TimeSpan.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/TimeSpan.cpp -o TimeSpan.o
-	
-UserLocation.o: UserLocation.cpp
+
+UserLocation.o: ../../DasherCore/UserLocation.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/UserLocation.cpp -o UserLocation.o
-	
-UserLog.o: UserLog.cpp
+
+UserLog.o: ../../DasherCore/UserLog.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/UserLog.cpp -o UserLog.o
-	
-UserLogParam.o: UserLogParam.cpp
+
+UserLogParam.o: ../../DasherCore/UserLogParam.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/UserLogParam.cpp -o UserLogParam.o
-	
-UserLogTrial.o: UserLogTrial.cpp
+
+UserLogTrial.o: ../../DasherCore/UserLogTrial.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/UserLogTrial.cpp -o UserLogTrial.o
-	
-XMLUtil.o: XMLUtil.cpp
+
+XMLUtil.o: ../../DasherCore/XMLUtil.cpp
 	g++ $(CFLAGS) $(inc) -c ../../DasherCore/XMLUtil.cpp -o XMLUtil.o
-	
+
