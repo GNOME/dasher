@@ -1626,23 +1626,27 @@ bool CDasherViewSquare::HandleStartOnMouse(int iTime) {
 
   Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode());
 
+  screenint iNewScreenX;
+  screenint iNewScreenY;
+
+  Dasher2Screen( iDasherX, iDasherY, iNewScreenX, iNewScreenY );
+
   int iBoxMax(-1);
   int iBoxMin(0);
 
-  // FIXME - box is probably drawn in terms of screen coordinates, so this is broken
-
   if(GetLongParameter(LP_MOUSE_POS_BOX) == 1) {
-    iBoxMax = DasherModel().DasherY() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST);
+    iBoxMax = Screen().GetHeight() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST) + 50;
     iBoxMin = iBoxMax - 100;
   }
   else if(GetLongParameter(LP_MOUSE_POS_BOX) == 2) {
-    iBoxMin = DasherModel().DasherY() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST);
+    iBoxMin = Screen().GetHeight() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST) - 50;
     iBoxMax = iBoxMin + 100;
   }
 
-  if((iDasherY >= iBoxMin) && (iDasherY <= iBoxMax)) {
-    if(!bInBox)
+  if((iNewScreenY >= iBoxMin) && (iNewScreenY <= iBoxMax)) {
+    if(!bInBox) {
       iBoxEntered = iTime;
+    }
     else {
       if(iTime - iBoxEntered > 2000) {
 
