@@ -156,6 +156,10 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
     }
   }
+  else if(pEvent->m_iEventType == EV_CONTROL) {
+    CControlEvent *pControlEvent(static_cast <CControlEvent*>(pEvent));
+    std::cout << "Received control event: " << pControlEvent->m_iID << std::endl;
+  }
 }
 
 void CDasherInterfaceBase::RequestFullRedraw() {

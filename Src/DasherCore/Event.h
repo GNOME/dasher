@@ -13,7 +13,12 @@ namespace Dasher {
   class CEditContextEvent;
   class CStartEvent;
   class CStopEvent;
-} enum { EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_START, EV_STOP };
+  class CControlEvent;
+}
+
+enum {
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_START, EV_STOP, EV_CONTROL
+};
 
 class Dasher::CEvent {
 public:
@@ -65,5 +70,16 @@ public:
     m_iEventType = EV_STOP;
   };
 };
+
+class Dasher::CControlEvent:public Dasher::CEvent {
+public:
+  CControlEvent(int iID) {
+    m_iEventType = EV_CONTROL;
+    m_iID = iID;
+  };
+  
+  int m_iID;
+};
+
 
 #endif

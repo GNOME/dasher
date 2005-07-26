@@ -106,8 +106,25 @@ class Dasher::CDasherNode:private NoClones {
     m_bHasAllChildren = val;
   };
 
+  // New stuff
+
   CNodeManager *m_pNodeManager;
-  void *m_pUserData; // Pointer for the node manager to do with as it sees fit :-) Remember to make sure that the node manager deletes anything it puts here before the node is destroyed.
+
+  /// Pointer for the node manager to do with as it sees fit :-)
+  /// Remember to make sure that the node manager deletes anything it
+  /// puts here before the node is destroyed.
+  ///
+  /// Please put everything in here which isn't required to simply
+  /// render the node - basically the only exceptions should be the
+  /// node size, colour and display text.
+  
+  void *m_pUserData;
+
+  ///
+  /// Text to display with the node (UTF-8)
+  ///
+
+  std::string m_strDisplayText;
 
  private:
 

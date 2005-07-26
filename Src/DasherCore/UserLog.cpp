@@ -11,6 +11,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+
 CUserLog::CUserLog(int iLogTypeMask, Dasher::CAlphabet* pAlphabet)
 {
   //CFunctionLogger f1("CUserLog::CUserLog", g_pLogger);

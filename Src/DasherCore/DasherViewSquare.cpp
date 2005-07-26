@@ -98,8 +98,11 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   //      DASHER_TRACEOUTPUT("%x ",Render);
 
   std::string display;
-  if(pRender->GetControlTree() != NULL)
-    display = pRender->GetControlTree()->text;
+//   if(pRender->GetControlTree() != NULL)
+//     display = pRender->GetControlTree()->text;
+
+
+  display = pRender->m_strDisplayText;
 
   if(RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display)) {
     // yuk

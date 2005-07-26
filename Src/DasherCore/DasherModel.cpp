@@ -468,11 +468,8 @@ void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long 
      return;
    }
 
-  new_under_cross->Seen(true);
 
-  // FIXME - Need to recurse up possibly unseen parents
-
-  new_under_cross->m_pNodeManager->Output(new_under_cross);
+  RecursiveOutput(new_under_cross);
 
   // FIXME - Reimplement
 
@@ -487,6 +484,16 @@ void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long 
 //   }
   //      m_Root->Recursive_Push_Node(0);
 }
+
+
+void CDasherModel::RecursiveOutput(CDasherNode *pNode) {
+  if(pNode->Parent() && (!pNode->Parent()->isSeen()))
+    RecursiveOutput(pNode->Parent());
+
+  pNode->Seen(true);
+  pNode->m_pNodeManager->Output(pNode);
+}
+
 
 void CDasherModel::GoTo(double zoomfactor, myint miMousey)
         // work out the next viewpoint, opens some new nodes

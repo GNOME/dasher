@@ -108,6 +108,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     m_fr.Initialise();
   }
 
+  void RecursiveOutput(CDasherNode *pNode);
+
   // User control of speed
   void SetBitrate(double TargetRate) {
     m_fr.SetBitrate(TargetRate);
