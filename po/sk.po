@@ -9,35 +9,35 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-20 19:32+0200\n"
-"PO-Revision-Date: 2005-07-20 19:33+0200\n"
+"POT-Creation-Date: 2005-07-26 06:29+0200\n"
+"PO-Revision-Date: 2005-07-26 06:30+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../Src/Gtk2/Menu.cc:50 ../Src/Gtk2/Menu.cc:106 ../Src/Gtk2/Menu.cc:161
-#: ../Src/Gtk2/Menu.cc:204 ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/Menu.cc:65 ../Src/Gtk2/Menu.cc:121 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:66
 #: ../Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
 msgstr "Vybrať súbor"
 
 #. This gets pulled out via gettext
-#: ../Src/Gtk2/Menu.cc:433
+#: ../Src/Gtk2/Menu.cc:448
 msgid "translator_credits"
 msgstr "Marcel Telka <marcel@telka.sk>"
 
-#: ../Src/Gtk2/Menu.cc:435 ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/Menu.cc:450 ../Src/Gtk2/dasher.glade.h:37
 #: ../Src/Gtk2/dashergpe.glade.h:35
 msgid "Dasher"
 msgstr "Dasher"
 
-#: ../Src/Gtk2/Menu.cc:435
+#: ../Src/Gtk2/Menu.cc:450
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je aplikácia na prediktívne zadávanie textu"
 
-#: ../Src/Gtk2/Preferences.cpp:363
+#: ../Src/Gtk2/Preferences.cpp:364
 msgid "Training Dasher, please wait"
 msgstr "Dasher sa učí, prosím čakajte"
 
@@ -67,116 +67,116 @@ msgstr "Tlačidlá"
 msgid "Text"
 msgstr "Text"
 
-#: ../Src/Gtk2/accessibility.cc:158 ../Src/Gtk2/dasher.glade.h:30
+#: ../Src/Gtk2/accessibility.cc:160 ../Src/Gtk2/dasher.glade.h:30
 #: ../Src/Gtk2/dashergpe.glade.h:28
 msgid "Control"
 msgstr "Ovládanie"
 
-#: ../Src/Gtk2/accessibility.cc:164
+#: ../Src/Gtk2/accessibility.cc:166
 msgid "Windows"
 msgstr "Okná"
 
-#: ../Src/Gtk2/accessibility.cc:171
+#: ../Src/Gtk2/accessibility.cc:173
 msgid "Stop"
 msgstr "Zastaviť"
 
-#: ../Src/Gtk2/accessibility.cc:178
+#: ../Src/Gtk2/accessibility.cc:180
 msgid "Pause"
 msgstr "Prerušiť"
 
-#: ../Src/Gtk2/accessibility.cc:185
+#: ../Src/Gtk2/accessibility.cc:187
 msgid "Move"
 msgstr "Presunúť"
 
-#: ../Src/Gtk2/accessibility.cc:192
+#: ../Src/Gtk2/accessibility.cc:194
 msgid "Delete"
 msgstr "Odstrániť"
 
-#: ../Src/Gtk2/accessibility.cc:202
+#: ../Src/Gtk2/accessibility.cc:204
 msgid "Speak"
 msgstr "Hovoriť"
 
-#: ../Src/Gtk2/accessibility.cc:230 ../Src/Gtk2/accessibility.cc:384
+#: ../Src/Gtk2/accessibility.cc:232 ../Src/Gtk2/accessibility.cc:386
 msgid "<"
 msgstr "<"
 
-#: ../Src/Gtk2/accessibility.cc:236 ../Src/Gtk2/accessibility.cc:378
+#: ../Src/Gtk2/accessibility.cc:238 ../Src/Gtk2/accessibility.cc:380
 msgid ">"
 msgstr ">"
 
-#: ../Src/Gtk2/accessibility.cc:242
+#: ../Src/Gtk2/accessibility.cc:244
 msgid "<<<"
 msgstr "<<<"
 
-#: ../Src/Gtk2/accessibility.cc:248
+#: ../Src/Gtk2/accessibility.cc:250
 msgid ">>>"
 msgstr ">>>"
 
-#: ../Src/Gtk2/accessibility.cc:261
+#: ../Src/Gtk2/accessibility.cc:263
 msgid "Everything"
 msgstr "Všetko"
 
-#: ../Src/Gtk2/accessibility.cc:267
+#: ../Src/Gtk2/accessibility.cc:269
 msgid "New"
 msgstr "Nový"
 
-#: ../Src/Gtk2/accessibility.cc:273
+#: ../Src/Gtk2/accessibility.cc:275
 msgid "Repeat"
 msgstr "Opakovať"
 
-#: ../Src/Gtk2/accessibility.cc:295
+#: ../Src/Gtk2/accessibility.cc:297
 msgid "1"
 msgstr "1"
 
-#: ../Src/Gtk2/accessibility.cc:302
+#: ../Src/Gtk2/accessibility.cc:304
 msgid "2"
 msgstr "2"
 
-#: ../Src/Gtk2/accessibility.cc:309
+#: ../Src/Gtk2/accessibility.cc:311
 msgid "3"
 msgstr "3"
 
-#: ../Src/Gtk2/accessibility.cc:316
+#: ../Src/Gtk2/accessibility.cc:318
 msgid "4"
 msgstr "4"
 
-#: ../Src/Gtk2/accessibility.cc:323
+#: ../Src/Gtk2/accessibility.cc:325
 msgid "5"
 msgstr "5"
 
-#: ../Src/Gtk2/accessibility.cc:330
+#: ../Src/Gtk2/accessibility.cc:332
 msgid "6"
 msgstr "6"
 
-#: ../Src/Gtk2/accessibility.cc:337
+#: ../Src/Gtk2/accessibility.cc:339
 msgid "7"
 msgstr "7"
 
-#: ../Src/Gtk2/accessibility.cc:344
+#: ../Src/Gtk2/accessibility.cc:346
 msgid "8"
 msgstr "8"
 
-#: ../Src/Gtk2/accessibility.cc:351
+#: ../Src/Gtk2/accessibility.cc:353
 msgid "9"
 msgstr "9"
 
-#: ../Src/Gtk2/accessibility.cc:358
+#: ../Src/Gtk2/accessibility.cc:360
 msgid "10"
 msgstr "10"
 
-#: ../Src/Gtk2/accessibility.cc:390 ../Src/Gtk2/accessibility.cc:414
+#: ../Src/Gtk2/accessibility.cc:392 ../Src/Gtk2/accessibility.cc:416
 msgid "Character"
 msgstr "Znak"
 
-#: ../Src/Gtk2/accessibility.cc:402 ../Src/Gtk2/accessibility.cc:425
+#: ../Src/Gtk2/accessibility.cc:404 ../Src/Gtk2/accessibility.cc:427
 msgid "Word"
 msgstr "Slovo"
 
-#: ../Src/Gtk2/accessibility.cc:407 ../Src/Gtk2/accessibility.cc:431
+#: ../Src/Gtk2/accessibility.cc:409 ../Src/Gtk2/accessibility.cc:433
 msgid "Line"
 msgstr "Riadok"
 
-#: ../Src/Gtk2/accessibility.cc:543
+#: ../Src/Gtk2/accessibility.cc:545
 msgid "Unknown"
 msgstr "Neznámy"
 
@@ -685,14 +685,14 @@ msgstr "Nepodarilo sa inicializovať hlasovú podporu\n"
 
 #: ../Src/Gtk2/speech.cc:47
 #, c-format
-msgid "Unable to initialize voices"
-msgstr "Nepodarilo sa inizializovať hlasy"
+msgid "Unable to initialize voices\n"
+msgstr "Nepodarilo sa inizializovať hlasy\n"
 
 #: ../Src/Gtk2/speech.cc:59
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Upozornenie: nepodarilo sa nastaviť parametre reči\n"
 
-#: ../Src/main.cc:96
+#: ../Src/main.cc:94
 msgid "Dasher Text Entry"
 msgstr "Textový vstup pre Dasher"
