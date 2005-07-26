@@ -14,6 +14,18 @@
 namespace {
 #include "stdio.h"
 }
+
+// Declare our global file logging object
+#include "../Dashercore/FileLogger.h"
+#ifdef _DEBUG
+const eLogLevel g_iLogLevel   = logDEBUG;
+const int       g_iLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;    
+#else
+const eLogLevel g_iLogLevel   = logNORMAL;
+const int       g_iLogOptions = logTimeStamp | logDateStamp;
+#endif
+CFileLogger* g_pLogger = NULL;
+
 using namespace Dasher;
 using namespace std;
 
@@ -24,6 +36,12 @@ CDasherInterfaceBase::CDasherInterfaceBase()
                   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL) {
   m_pEventHandler = new CEventHandler(this);
   strCurrentContext = ". ";
+
+  // Global logging object we can use from anywhere
+  g_pLogger = new CFileLogger("dasher.log",
+                              g_iLogLevel,
+                              g_iLogOptions);
+
 }
 
 void CDasherInterfaceBase::Realize() {
@@ -53,6 +71,11 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
     m_pUserLog->OutputFile();
     delete m_pUserLog;
     m_pUserLog = NULL;
+  }
+
+  if (g_pLogger != NULL) {
+    delete g_pLogger;
+    g_pLogger = NULL;
   }
 
 }

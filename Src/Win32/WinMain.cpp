@@ -18,6 +18,17 @@
 
 #include "../DasherCore/Win32/DasherInterface.h"
 #include "Dasher.h"
+
+#ifdef _WIN32
+// In order to track leaks to line number, we need this at the top of every file
+#include "../DasherCore/MemoryLeak.h"
+#ifdef _DEBUG
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+#endif
+
 using namespace Dasher;
 using namespace std;
 
@@ -43,15 +54,19 @@ int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLi
 
   int iRet = 0;
 
-  CDasherWindow DasherWindow;
+  { // memory leak scoping
 
-  //The UI will be updated to reflect settings
+    CDasherWindow DasherWindow;
 
-  DasherWindow.Show(nCmdShow);
-  iRet = DasherWindow.MessageLoop();
+    //The UI will be updated to reflect settings
 
-// Close the COM library on the current thread
-  CoUninitialize();
+    DasherWindow.Show(nCmdShow);
+    iRet = DasherWindow.MessageLoop();
+
+    // Close the COM library on the current thread
+    CoUninitialize();
+
+  } // end memory leak scoping
 
   return iRet;
 }
