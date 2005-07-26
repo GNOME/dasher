@@ -40,16 +40,14 @@ GType gtk_dasher_control_get_type();
 void gtk_dasher_control_set_parameter_bool(GtkDasherControl * pControl, int iParameter, bool bValue);
 void gtk_dasher_control_set_parameter_long(GtkDasherControl * pControl, int iParameter, long lValue);
 void gtk_dasher_control_set_parameter_string(GtkDasherControl * pControl, int iParameter, const char *szValue);
-
 bool gtk_dasher_control_get_parameter_bool(GtkDasherControl * pControl, int iParameter);
 long gtk_dasher_control_get_parameter_long(GtkDasherControl * pControl, int iParameter);
 const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl, int iParameter);
-
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
-
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
-
 void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext);
+void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour);
+void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter);
 
 G_END_DECLS
 #endif

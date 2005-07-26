@@ -15,6 +15,17 @@ namespace Dasher {
     ~CControlManagerFactory();
     
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
+
+  
+    // Control mode stuff
+    
+    void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
+      m_pControlManager->RegisterNode(iID, strLabel, iColour);
+    }
+    
+    void ConnectNode(int iChild, int iParent, int iAfter) {
+      m_pControlManager->ConnectNode(iChild, iParent, iAfter);
+    }
     
   private:
     CControlManager *m_pControlManager;

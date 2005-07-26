@@ -564,6 +564,18 @@ public:
     return m_DashEditbox;
   }
 
+
+  // Control mode stuff
+  
+  void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
+    m_pDasherModel->RegisterNode(iID, strLabel, iColour);
+  }
+  
+  void ConnectNode(int iChild, int iParent, int iAfter) {
+    m_pDasherModel->ConnectNode(iChild, iParent, iAfter);
+  }
+    
+
 private:
   CAlphabet * m_Alphabet;
   CCustomColours *m_pColours;

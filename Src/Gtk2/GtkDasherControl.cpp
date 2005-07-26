@@ -142,3 +142,10 @@ void gtk_dasher_control_train(GtkDasherControl *pControl, const gchar *szFilenam
 void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szContext) {
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetContext(szContext);
 }
+void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->RegisterNode(iID, szLabel, iColour);
+}
+
+void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ConnectNode(iChild, iParent, iAfter);
+}

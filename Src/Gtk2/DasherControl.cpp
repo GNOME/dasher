@@ -199,7 +199,7 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     HandleParameterNotification(pEvt->m_iParameter);
   }
-  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 5)) {
+  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 6)) {
     HandleEvent(pEvent);
   }
 
@@ -249,6 +249,9 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
   }
   else if(pEvent->m_iEventType == 5) {
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
+  }
+  else if(pEvent->m_iEventType == 6) {
+    // Control mode
   }
 };
 

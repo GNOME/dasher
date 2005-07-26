@@ -8,6 +8,7 @@
 
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
+#include "ControlManager.h"
 
 #include <iostream>
 #include <memory>
@@ -80,6 +81,9 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 }
 
 void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
+  
+  // Obsolete (overwritten by child)
+
   // Pass events outside
   if(pEvent->m_iEventType == 1) {
     //Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
@@ -158,7 +162,16 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
   }
   else if(pEvent->m_iEventType == EV_CONTROL) {
     CControlEvent *pControlEvent(static_cast <CControlEvent*>(pEvent));
-    std::cout << "Received control event: " << pControlEvent->m_iID << std::endl;
+
+    switch(pControlEvent->m_iID) {
+    case CControlManager::CTL_STOP:
+      PauseAt(0,0);
+      break;
+    case CControlManager::CTL_PAUSE:
+      Halt();
+      break;
+    }
+
   }
 }
 

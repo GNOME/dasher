@@ -232,6 +232,15 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   int GetColour(symbol s) const;
 
   
+  // Control mode stuff
+
+  void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
+    m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
+  }
+  
+  void ConnectNode(int iChild, int iParent, int iAfter) {
+     m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
+  }
 
  private:
 
