@@ -325,7 +325,8 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
 }
 
 void CDasherControl::SliderEvent() {
-  SetLongParameter(LP_MAX_BITRATE, long(GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100));
+  if(GetLongParameter(LP_MAX_BITRATE) != long(GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100))
+    SetLongParameter(LP_MAX_BITRATE, long(GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100));
 }
 
 void CDasherControl::CanvasDestroyEvent() {

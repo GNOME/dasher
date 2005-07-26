@@ -197,6 +197,12 @@ inline CDasherNode::CDasherNode(const CDasherModel &dashermodel, CDasherNode *pP
 }
 
 inline CDasherNode::~CDasherNode() {
+
+  // Release any storage that the node manager has allocated,
+  // unreference ref counted stuff etc.
+
+  m_pNodeManager->ClearNode( this );
+
   Delete_children();
   if(m_Context)
     m_pLanguageModel->ReleaseContext(m_Context);
