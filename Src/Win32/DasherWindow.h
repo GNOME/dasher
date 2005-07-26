@@ -51,6 +51,9 @@ private:
   // Fiddly Window initialisation
   Tstring CreateMyClass();
 
+  // Method to set values of all settings in the menu
+  void PopulateSettings();
+
   // Widgets:
   CToolbar *m_pToolbar;
   CEdit *m_pEdit;

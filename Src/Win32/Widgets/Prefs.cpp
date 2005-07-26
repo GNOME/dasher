@@ -21,6 +21,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
 :m_pDasher(pDasher) {
   m_hwnd = 0;
   DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_PREFS, hParent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
+  PopulateWidgets();
 }
 
 struct menuentry {
@@ -53,6 +54,9 @@ void CPrefs::PopulateWidgets() {
   {
     if(m_pDasher->GetBoolParameter(menutable[ii].paramNum)) {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
+    }
+    else  {
+      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
   }
 }

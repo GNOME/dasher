@@ -349,7 +349,7 @@ int CCanvas::OnTimer() {
     imousey += m_pScreen->GetHeight() / 2;
   }
 
-  m_pDasherInterface->TapOn(imousex, imousey, GetTickCount());
+  m_pDasherInterface->NewFrame(GetTickCount());//TapOn(imousex, imousey, GetTickCount());
   return 0;
 
 }

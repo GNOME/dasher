@@ -14,67 +14,17 @@
 #include "Toolbar.h"
 #include "../resource.h"
 
-CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI, bool Visible)
-:Visible(Visible), m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
-  if(Visible)
+CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI)
+:m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
+  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR))
     CreateToolbar();
-}
-
-bool CToolbar::SetVisible(action Cmd) {
-  switch (Cmd) {
-  case SetFalse:
-    Visible = false;
-    break;
-  case SetTrue:
-    Visible = true;
-    break;
-  case Toggle:
-    Visible = !(Visible);
-    break;
-  case Query:
-    // deliberate fall through
-  default:
-    return Visible;
-  }
-
-  if(Visible)
-    this->CreateToolbar();
-  else
-    this->DestroyToolbar();
-
-  return Visible;
-}
-
-bool CToolbar::DoAction(bool *Property, action Cmd) {
-  switch (Cmd) {
-  case SetFalse:
-    *Property = false;
-    break;
-  case SetTrue:
-    *Property = true;
-    break;
-  case Toggle:
-    *Property = !(*Property);
-    break;
-  case Query:
-    // deliberate fall through
-  default:
-    return *Property;
-  }
-
-  if(Visible) {
-    this->DestroyToolbar();
-    this->CreateToolbar();
-  }
-
-  return *Property;
 }
 
 int CToolbar::Resize() {
   // Makes the toolbar fit the buttons and fill the width of the window
   // Return height of toolbar for information
 
-  if(Visible) {
+  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR)) {
     SendMessage(m_hwnd, TB_AUTOSIZE, 0, 0);
     RECT TB_rect;
     GetWindowRect(m_hwnd, &TB_rect);
@@ -85,9 +35,14 @@ int CToolbar::Resize() {
   }
 }
 
-void CToolbar::CreateToolbar() {
-  Visible = true;
+void CToolbar::ShowToolbar(bool bValue) {
+ if(m_hwnd!=0)
+    DestroyToolbar();
+ if(bValue)
+    CreateToolbar();
+}
 
+void CToolbar::CreateToolbar() {
   WinHelper::InitCommonControlLib();
 
   // Create Toolbar
@@ -211,7 +166,6 @@ void CToolbar::CreateToolbar() {
 }
 
 void CToolbar::DestroyToolbar() {
-  Visible = false;              // Just to make sure
-
   DestroyWindow(m_hwnd);
+  m_hwnd=0;
 }

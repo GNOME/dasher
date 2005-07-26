@@ -101,7 +101,7 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
 
 inline HFONT& CScreen::GetFont(int iSize) {
   if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {
-    FontName == m_pDasherInterface->GetStringParameter(SP_DASHER_FONT);
+    FontName = m_pDasherInterface->GetStringParameter(SP_DASHER_FONT);
     m_cFonts.clear();
   }
 

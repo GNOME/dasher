@@ -55,7 +55,9 @@ Iain Murray August 2002
 
 namespace WinWrapMap {
   LRESULT CALLBACK WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
-} class CWinWrap:private NoClones {
+} 
+
+class CWinWrap:private NoClones {
 public:
   virtual ~ CWinWrap();
 protected:

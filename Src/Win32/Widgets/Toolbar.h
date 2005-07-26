@@ -14,19 +14,13 @@
 
 class CToolbar:private NoClones {
 public:
-  CToolbar(HWND ParentWindow, CDasherInterface *DI, bool Visible = true);
-
-  enum action { SetFalse, SetTrue, Toggle, Query };
-  bool SetVisible(action Cmd);
-  bool ShowText(action Cmd);
-  bool SetLargeIcons(action Cmd);
+  CToolbar(HWND ParentWindow, CDasherInterface *DI);
   int Resize();
+  void ShowToolbar(bool bValue);
 private:
   CDasherInterface *m_pDasher;
-  bool Visible;
   HWND m_hwnd, ParentWindow;
 
-  bool DoAction(bool * Property, action Cmd);
   void CreateToolbar();
   void DestroyToolbar();
 };
