@@ -99,8 +99,8 @@ int main(int argc, char *argv[]) {
 
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
-							              g_iLogLevel,		
-                            g_iLogOptions);
+                              g_iLogLevel,
+                              g_iLogOptions);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -288,7 +288,7 @@ int main(int argc, char *argv[]) {
 
   if (g_pLogger != NULL) {
     delete g_pLogger;
-	  g_pLogger = NULL;
+    g_pLogger = NULL;
   }
 
   return 0;
