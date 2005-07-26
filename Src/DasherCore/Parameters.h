@@ -134,7 +134,7 @@ static lp_table longparamtable[] = {
   {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
   {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
   {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
-  {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 2, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"}
+  {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"}
 };
 static sp_table stringparamtable[] = {
   {SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},

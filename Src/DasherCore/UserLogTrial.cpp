@@ -270,7 +270,7 @@ void CUserLogTrial::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs,
 
     sNewSymbolProbDisplay.sym           = sNewSymbolProb.sym;
     sNewSymbolProbDisplay.prob          = sNewSymbolProb.prob;
-    sNewSymbolProbDisplay.strDisplay    = pCurrentAlphabet->GetDisplayText(sNewSymbolProb.sym);
+    sNewSymbolProbDisplay.strDisplay    = pCurrentAlphabet->GetText(sNewSymbolProb.sym);
 
     pVectorAdded->push_back(sNewSymbolProbDisplay);
 

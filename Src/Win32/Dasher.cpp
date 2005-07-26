@@ -129,6 +129,9 @@ DWORD CDasher::WorkerThread(LPVOID lpParam) {
   while(!parent->m_bWorkerShutdown) {
     ::Sleep(20);
     SendMessage(parent->GetCanvas()->getwindow(), WM_DASHER_TIMER, NULL, NULL); // FIXME
+
+    // Do any periodic work that this object handles
+    parent->OnTimer();
   }
 
   return 0;
@@ -178,9 +181,71 @@ void CDasher::OnTimer() {
 
   // if (m_pCanvas != NULL) // FIXME
   //     m_pCanvas->OnTimer();
+
+
+  CUserLog* pUserLog = GetUserLogPtr();
+
+	// We'll use this timer event to periodically log the user's mouse position
+	if ((pUserLog != NULL) && (m_pCanvas != NULL)) {
+        // Get the mouse x and y coordinates
+        POINT sMousePos;
+        GetCursorPos(&sMousePos);
+        
+        // Since the everything is in screen relative coordinates, we'll
+        // make sure we have the right coordinates for our canvas and
+        // screen since the user may have move the window around.
+        int     iTop     = 0;
+        int     iLeft    = 0;
+        int     iBottom  = 0;
+        int     iRight   = 0;
+
+        if (m_pCanvas->GetCanvasSize(&iTop, &iLeft, &iBottom, &iRight))
+          pUserLog->AddCanvasSize(iTop, iLeft, iBottom, iRight);
+
+        // Also update the size of the window in the UserLogTrial object
+        if (GetWindowSize(&iTop, &iLeft, &iBottom, &iRight))
+          pUserLog->AddWindowSize(iTop, iLeft, iBottom, iRight);
+
+        // We'll store a normalized version so if the user changes the window
+        // size during a trial, it won't effect our coordinates.  The 
+        // normalization is with respect to the canvas and not the main 
+        // window.        
+        pUserLog->AddMouseLocationNormalized(sMousePos.x, 
+                                             sMousePos.y, 
+                                             true,
+                                             (float) GetNats());
+    }
+
 }
+
 
 
 void Dasher::CDasher::HandleParameterNotification(int iParameter) {
   // Here we send SendMessage calls to the DasherWindow class
 }
+
+// Get the pointer to our user logging object
+CUserLog* Dasher::CDasher::GetUserLogPtr()
+{
+  return m_pUserLog;
+}
+
+// Gets the size of the window in screen coordinates.  
+bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight)
+{
+	if ((pTop == NULL) || (pLeft == NULL) || (pBottom == NULL) || (pRight == NULL))
+		return false;
+
+	RECT sWindowRect;
+	if (GetWindowRect(m_hParent, &sWindowRect))
+  {
+    *pTop    = sWindowRect.top;
+    *pLeft   = sWindowRect.left;
+    *pBottom = sWindowRect.bottom;
+    *pRight  = sWindowRect.right;
+    return true;
+  }
+  else
+    return false;
+}
+

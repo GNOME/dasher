@@ -405,3 +405,25 @@ void CCanvas::StartStop() {
 }
 
 /////////////////////////////////////////////////////////////////////////////
+
+// Gets the size of the canvas in screen coordinates.  Need if we
+// want to log mouse positions normalized by the size of the
+// canvas.
+bool CCanvas::GetCanvasSize(int* pTop, int* pLeft, int* pBottom, int* pRight)
+{
+	if ((pTop == NULL) || (pLeft == NULL) || (pBottom == NULL) || (pRight == NULL))
+		return false;
+
+	RECT sWindowRect;
+  
+	if (GetWindowRect(m_hwnd, &sWindowRect))
+  {
+    *pTop    = sWindowRect.top;
+    *pLeft   = sWindowRect.left;
+    *pBottom = sWindowRect.bottom;
+    *pRight  = sWindowRect.right;
+    return true;
+  }
+  else
+    return false;
+}

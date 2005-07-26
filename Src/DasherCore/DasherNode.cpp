@@ -112,3 +112,8 @@ void CDasherNode::Delete_children() {
   SetHasAllChildren(false);
 }
 
+// Gets the probability of this node 
+double CDasherNode::GetProb(int iNormalization) {    
+  return (double) (m_iHbnd - m_iLbnd) / (double) iNormalization;
+}
+

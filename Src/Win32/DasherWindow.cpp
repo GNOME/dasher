@@ -260,6 +260,14 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         break;
       case ID_FILE_NEW:
         m_pEdit->New();
+        
+        // Selecting file->new indicates a new trial to our user logging object
+        if (m_pDasher != NULL) {
+          CUserLog* pUserLog = m_pDasher->GetUserLogPtr();
+          if (pUserLog != NULL)
+            pUserLog->NewTrial();
+        }
+
         break;
       case ID_FILE_OPEN:
         m_pEdit->Open();
@@ -346,7 +354,6 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
     if(m_pEdit != 0) {
       m_pEdit->write_to_file();
     }
-
     PostQuitMessage(0);
     break;
   case WM_GETMINMAXINFO:
@@ -439,7 +446,6 @@ void CDasherWindow::Layout() {
   int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
 
   m_pCanvas->Move(0, CurY, Width, CanvasHeight);
-
 }
 
 void CDasherWindow::PopulateSettings() {

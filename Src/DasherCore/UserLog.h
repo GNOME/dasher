@@ -77,7 +77,7 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 class CUserLog 
 {
 public:
-  CUserLog(int iLogTypeMask, Dasher::CAlphabet* pAlphabet);
+  CUserLog(int iLogTypeMask, Dasher::CAlphabet* pAlphabet = NULL);
   ~CUserLog();
 
   // Methods called whenever our user interface gets a relevant event, this

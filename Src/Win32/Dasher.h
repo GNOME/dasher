@@ -6,6 +6,7 @@
 #include "Widgets/Canvas.h"
 #include "Widgets/Slidebar.h"
 #include "EditWrapper.h"
+#include "../DasherCore/UserLog.h"
 
 namespace Dasher {
   class CDasher;
@@ -31,10 +32,15 @@ public:
   }
 
   void HandleParameterNotification(int iParameter);
+  CUserLog*     GetUserLogPtr();
 
 private:
 
-  void AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface * Interface);
+  void                    AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface * Interface);
+  bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
+  static DWORD WINAPI     WorkerThread(LPVOID lpParam);     // Spins around and sends WM_DASHER_TIMER message
+  void                    ShutdownWorkerThread();           // Called when we want the worker thread to stop
+  void                    OnTimer();                        // Does the periodic work
 
   CCanvas *m_pCanvas;
   CSlidebar *m_pSlidebar;
@@ -42,11 +48,7 @@ private:
 
   HANDLE m_workerThread;        // Handle to our worker thread that periodically checks on user's activities
   bool m_bWorkerShutdown;       // Set to true when the worker should terminate
-
-  static DWORD WINAPI WorkerThread(LPVOID lpParam);     // Spins around and sends WM_DASHER_TIMER message
-  void ShutdownWorkerThread();  // Called when we want the worker thread to stop
-  void OnTimer();               // Does the periodic work
-
+    
   HWND m_hParent;
 
 };

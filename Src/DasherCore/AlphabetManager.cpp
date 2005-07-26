@@ -79,12 +79,21 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
   // Should this be responsible for actually doing the deletion
 }
 
-void CAlphabetManager::Output( CDasherNode *pNode ) {
- symbol t = pNode->Symbol();
- if(t) { // Ignore symbol 0 (root node)
-   Dasher::CEditEvent oEvent(1, m_pModel->GetAlphabet().GetText(t));
-   m_pModel->InsertEvent(&oEvent);
- }
+void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+  symbol t = pNode->Symbol();
+  if(t) { // Ignore symbol 0 (root node)
+    Dasher::CEditEvent oEvent(1, m_pModel->GetAlphabet().GetText(t));
+    m_pModel->InsertEvent(&oEvent);
+
+    // Track this symbol and its probability for logging purposes
+    if (pAdded != NULL) {
+      Dasher::SymbolProb sItem;
+      sItem.sym    = t;
+      sItem.prob   = pNode->GetProb(iNormalization);
+
+      pAdded->push_back(sItem);
+    }
+  }
 }
 
 void CAlphabetManager::Undo( CDasherNode *pNode ) {

@@ -108,7 +108,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     m_fr.Initialise();
   }
 
-  void RecursiveOutput(CDasherNode *pNode);
+  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
 
   // User control of speed
   void SetBitrate(double TargetRate) {
@@ -144,11 +144,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return m_DasherY;
   }
   void OutputCharacters(CDasherNode * node);
-  bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode);
+	bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
+
   void Trace() const;           // diagnostics
   //void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-  void Tap_on_display(myint, myint, unsigned long Time);        // evolves the current viewpoint
+	void Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
+
   void GoTo(double, myint);     // jumps to a new viewpoint
   void Start();                 // initializes the data structure
   void Make_root(int whichchild);       // find a new root node

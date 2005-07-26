@@ -41,7 +41,8 @@ public:
   ///
 
   void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time);
-  
+  void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
+
   ///
   /// \todo Document this
   ///

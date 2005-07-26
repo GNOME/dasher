@@ -1,6 +1,8 @@
 #ifndef __nodemanager_h__
 #define __nodemanager_h__
 
+#include "DasherTypes.h"
+
 namespace Dasher {
   class CDasherNode; // Forward declaration
 
@@ -44,8 +46,7 @@ namespace Dasher {
     /// Called whenever a node belonging to this manager first 
     /// moves under the crosshair
     ///
-
-    virtual void Output( CDasherNode *pNode ) {};
+    virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {};
     virtual void Undo( CDasherNode *pNode ) {};
   };
 

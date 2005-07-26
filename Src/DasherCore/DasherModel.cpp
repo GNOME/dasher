@@ -261,7 +261,7 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 /// 
 /// \param Mousex x mouse co-ordinate measured right to left.
 /// \param Mousey y mouse co-ordinate measured top to bottom.
-/// \return Log of the scale factor, equivalent to the number of nats entered
+/// \return Returns the number of nats entered
 ///
 
 double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
@@ -329,7 +329,7 @@ double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
 
   // Actually do the zooming
 
-  return log((iTargetMax - iTargetMin) / static_cast < double >(m_DasherY));
+  return -1.0 * log((iTargetMax - iTargetMin) / static_cast < double >(m_DasherY));
 
   // Return value is the zoom factor so we can keep track of bitrate.
 }
@@ -398,9 +398,20 @@ myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY) {
   return height;
 }
 
-void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long Time)
+void CDasherModel::Tap_on_display(myint miMousex,
+                                  myint miMousey, 
+                                  unsigned long Time, 
+                                  Dasher::VECTOR_SYMBOL_PROB* pAdded, 
+                                  int* pNumDeleted) 
         // work out the next viewpoint, opens some new nodes
 {
+
+  // Clear out parameters that might get passed in to track user activity
+  if (pAdded != NULL)
+	  pAdded->clear();
+  if (pNumDeleted != NULL)
+	  *pNumDeleted = 0;
+
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross = Get_node_under_crosshair();
 
@@ -461,7 +472,7 @@ void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long 
   // FIXME - Reimplement
 
   if(new_under_cross != old_under_cross) {
-    DeleteCharacters(new_under_cross, old_under_cross);
+    DeleteCharacters(new_under_cross, old_under_cross, pNumDeleted);
   }
 
   if(new_under_cross->isSeen() == true) {
@@ -472,7 +483,9 @@ void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long 
    }
 
 
-  RecursiveOutput(new_under_cross);
+  // FIXME - Need to recurse up possibly unseen parents
+
+  RecursiveOutput(new_under_cross, pAdded);
 
   // FIXME - Reimplement
 
@@ -489,12 +502,12 @@ void CDasherModel::Tap_on_display(myint miMousex, myint miMousey, unsigned long 
 }
 
 
-void CDasherModel::RecursiveOutput(CDasherNode *pNode) {
+void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
   if(pNode->Parent() && (!pNode->Parent()->isSeen()))
-    RecursiveOutput(pNode->Parent());
+    RecursiveOutput(pNode->Parent(), pAdded);
 
   pNode->Seen(true);
-  pNode->m_pNodeManager->Output(pNode);
+  pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
 }
 
 
@@ -552,7 +565,8 @@ void CDasherModel::OutputCharacters(CDasherNode *node) {
   }
 }
 
-bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode) {
+bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
+
   // DJW cant see how either of these can ever be NULL
   DASHER_ASSERT_VALIDPTR_RW(newnode);
   DASHER_ASSERT_VALIDPTR_RW(oldnode);
@@ -565,11 +579,15 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode) 
   if(newnode->isSeen() == true) {
     if(oldnode->Parent() == newnode) {
       oldnode->m_pNodeManager->Undo(oldnode);
+      if (pNumDeleted != NULL)
+				(*pNumDeleted)++;
       oldnode->Seen(false);
       return true;
     }
-    if(DeleteCharacters(newnode, oldnode->Parent()) == true) {
+    if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
       oldnode->m_pNodeManager->Undo(oldnode);
+      if (pNumDeleted != NULL)
+				(*pNumDeleted)++;
       oldnode->Seen(false);
       return true;
     }
@@ -590,6 +608,8 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode) 
       }
 
       oldnode->m_pNodeManager->Undo(oldnode);
+      if (pNumDeleted != NULL)
+				(*pNumDeleted)++;
       oldnode = oldnode->Parent();
       if(oldnode == NULL) {
         return false;

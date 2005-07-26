@@ -106,8 +106,10 @@ class Dasher::CDasherNode:private NoClones {
     m_bHasAllChildren = val;
   };
 
-  // New stuff
+  // Get the probability of this node
+  double GetProb(int iNormalization);
 
+  // New stuff
   CNodeManager *m_pNodeManager;
 
   /// Pointer for the node manager to do with as it sees fit :-)

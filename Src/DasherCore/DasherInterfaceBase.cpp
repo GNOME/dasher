@@ -42,9 +42,18 @@ CDasherInterfaceBase::CDasherInterfaceBase()
   g_pLogger = new CFileLogger("dasher.log",
                               g_iLogLevel,
                               g_iLogOptions);
+
 }
 
 void CDasherInterfaceBase::Realize() {
+
+  // Create the user logging object if we are suppose to.  We wait
+  // until now so we have the real value of the parameter and not
+  // just the default.
+  int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
+  if (iUserLogLevel > 0) 
+    m_pUserLog = new CUserLog(iUserLogLevel);  
+
   ChangeColours(GetStringParameter(SP_COLOUR_ID));
   ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
 
@@ -246,6 +255,9 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 
   Dasher::CStopEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
+
+  if (m_pUserLog != NULL)
+	  m_pUserLog->StopWriting((float) GetNats());
 }
 
 void CDasherInterfaceBase::Halt() {
@@ -269,6 +281,10 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
   Dasher::CStartEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
+
+  ResetNats();
+  if (m_pUserLog != NULL)
+	  m_pUserLog->StartWriting();
 }
 
 void CDasherInterfaceBase::Redraw() {
@@ -328,7 +344,25 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 
 void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
   if(m_pDasherView != 0) {
-    m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
+
+    if (m_pUserLog != NULL) {
+      
+      Dasher::VECTOR_SYMBOL_PROB vAdded;
+      int iNumDeleted = 0;
+
+      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, &vAdded, &iNumDeleted);
+
+      if (iNumDeleted > 0)
+        m_pUserLog->DeleteSymbols(iNumDeleted);
+      if (vAdded.size() > 0)
+        m_pUserLog->AddSymbols(&vAdded);
+
+    }
+    else {
+      // If there is no user logging going on, we don't need to track the symbols added or deleted.
+      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
+    }
+
     m_pDasherView->Render(MouseX, MouseY, true);
     m_pDasherView->Display();
   }
@@ -384,6 +418,11 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   std::auto_ptr < CAlphabet > ptrOld(m_Alphabet);       // So we can delete the old alphabet later
 
   m_Alphabet = new CAlphabet(m_AlphInfo);
+
+  // Let our user log object know about the new alphabet since
+  // it needs to convert symbols into text for the log file.
+  if (m_pUserLog != NULL)
+    m_pUserLog->SetAlphabetPtr(m_Alphabet);
 
   // Apply options from alphabet
 

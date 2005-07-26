@@ -600,11 +600,11 @@ private:
 
   std::string strCurrentContext;
 	  
-  CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
-
 protected:
   CEventHandler * m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
+  CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
+
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

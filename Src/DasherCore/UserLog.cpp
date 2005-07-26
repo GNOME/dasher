@@ -259,6 +259,13 @@ void CUserLog::AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbols, eUserLogEven
       g_pLogger->Log("CUserLog::AddSymbols, pTrial was NULL!", logNORMAL);
       return;
     }
+
+    if (m_pAlphabet == NULL)
+    {
+      g_pLogger->Log("CUserLog::AddSymbols, can't do detailed logging of symbols without an alphabet!", logNORMAL);
+      return;
+    }
+
     pTrial->AddSymbols(vpNewSymbols, iEvent, m_pAlphabet);
   }
 }

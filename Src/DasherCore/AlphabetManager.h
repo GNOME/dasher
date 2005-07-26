@@ -4,6 +4,8 @@
 #include "NodeManager.h"
 #include "LanguageModelling/LanguageModel.h"
 
+#include "Parameters.h"
+
 namespace Dasher {
 
   class CDasherModel;
@@ -47,7 +49,7 @@ namespace Dasher {
 
     virtual void ClearNode( CDasherNode *pNode );
 
-    virtual void Output( CDasherNode *pNode );
+    virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
     virtual void Undo( CDasherNode *pNode );
 
   private:
