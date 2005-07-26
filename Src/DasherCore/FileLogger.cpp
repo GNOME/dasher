@@ -121,11 +121,48 @@ void CFileLogger::SetFilename(const std::string& strFilename)
 // constructor.  Accepts printf style formatting in the first string which must be 
 // filled with the variable parameter list at the end.
 // NOTE: Currently not thread safe!
-void CFileLogger::Log(const std::string& strText, eLogLevel iLogLevel, ...)
+void CFileLogger::Log(const char* szText, eLogLevel iLogLevel, ...)
 {
   va_list       args;  
 
-  if ((m_strFilenamePath.length() > 0) && (m_iLogLevel <= iLogLevel))
+  if ((m_strFilenamePath.length() > 0) && 
+      (m_iLogLevel <= iLogLevel) && 
+      (szText != NULL))
+  {
+    FILE* fp = NULL;
+    fp = fopen(m_strFilenamePath.c_str(), "a");
+
+    std::string strTimeStamp = GetTimeDateStamp();
+
+    if (fp != NULL)
+    {
+      std::string strIndented = strTimeStamp + GetIndentedString(szText) + "\n";
+
+      va_start(args, iLogLevel);
+      vfprintf(fp, strIndented.c_str(), args);
+      va_end(args);
+
+      // Optionally we can output message to stdout
+      if (m_bOutputScreen)
+      {
+        va_start(args, iLogLevel);
+        vprintf(strIndented.c_str(), args);
+        va_end(args);
+      }
+
+      fclose(fp);
+      fp = NULL;
+    }
+  }
+}
+
+// Overloaded version that takes a non-const STL::string
+void CFileLogger::Log(std::string strText, eLogLevel iLogLevel, ...)
+{
+  va_list       args;  
+
+  if ((m_strFilenamePath.length() > 0) && 
+      (m_iLogLevel <= iLogLevel))
   {
     FILE* fp = NULL;
     fp = fopen(m_strFilenamePath.c_str(), "a");
@@ -154,15 +191,54 @@ void CFileLogger::Log(const std::string& strText, eLogLevel iLogLevel, ...)
   }
 }
 
-
 // Version that assume log level is logDEBUG
-void CFileLogger::LogDebug(const std::string& strText, ...)
+void CFileLogger::LogDebug(const char* szText, ...)
 {
   // Note: it would be nice not to duplicate code, but the variable
   // parameter list makes this problematic.
   va_list       args;  
 
-  if ((m_strFilenamePath.length() > 0) && (m_iLogLevel == logDEBUG))
+  if ((m_strFilenamePath.length() > 0) && 
+      (m_iLogLevel == logDEBUG) &&
+      (szText != NULL))
+  {
+    FILE* fp = NULL;
+    fp = fopen(m_strFilenamePath.c_str(), "a");
+
+    std::string strTimeStamp = GetTimeDateStamp();
+
+    if (fp != NULL)
+    {
+      std::string strIndented = strTimeStamp + GetIndentedString(szText) + "\n";
+
+      va_start(args, szText);
+      vfprintf(fp, strIndented.c_str(), args);
+      va_end(args);
+
+      // Optionally we can output message to stdout
+      if (m_bOutputScreen)
+      {
+        va_start(args, szText);
+        vprintf(strIndented.c_str(), args);
+        va_end(args);
+      }
+
+      fclose(fp);
+      fp = NULL;
+    }
+  }
+}
+
+// Overloaded version that takes a non-const STL::string
+// Version that assume log level is logDEBUG
+void CFileLogger::LogDebug(std::string strText, ...)
+{
+  // Note: it would be nice not to duplicate code, but the variable
+  // parameter list makes this problematic.
+  va_list       args;  
+
+  if ((m_strFilenamePath.length() > 0) && 
+      (m_iLogLevel == logDEBUG))
   {
     FILE* fp = NULL;
     fp = fopen(m_strFilenamePath.c_str(), "a");
@@ -192,13 +268,52 @@ void CFileLogger::LogDebug(const std::string& strText, ...)
 }
 
 // Version that assume log level is logNormal
-void CFileLogger::LogNormal(const std::string& strText, ...)
+void CFileLogger::LogNormal(const char* szText, ...)
 {
   // Note: it would be nice not to duplicate code, but the variable
   // parameter list makes this problematic.
   va_list       args;  
 
-  if ((m_strFilenamePath.length() > 0) && (m_iLogLevel <= logNORMAL))
+  if ((m_strFilenamePath.length() > 0) && 
+      (m_iLogLevel <= logNORMAL) &&
+      (szText != NULL))
+  {
+    FILE* fp = NULL;
+    fp = fopen(m_strFilenamePath.c_str(), "a");
+
+    std::string strTimeStamp = GetTimeDateStamp();
+
+    if (fp != NULL)
+    {
+      std::string strIndented = strTimeStamp + GetIndentedString(szText) + "\n";
+
+      va_start(args, szText);
+      vfprintf(fp, strIndented.c_str(), args);
+      va_end(args);
+
+      // Optionally we can output message to stdout
+      if (m_bOutputScreen)
+      {
+        va_start(args, szText);
+        vprintf(strIndented.c_str(), args);
+        va_end(args);
+      }
+
+      fclose(fp);
+      fp = NULL;
+    }
+  }
+}
+
+// Overloaded version that takes a non-const STL::string
+void CFileLogger::LogNormal(std::string strText, ...)
+{
+  // Note: it would be nice not to duplicate code, but the variable
+  // parameter list makes this problematic.
+  va_list       args;  
+
+  if ((m_strFilenamePath.length() > 0) && 
+      (m_iLogLevel <= logNORMAL))
   {
     FILE* fp = NULL;
     fp = fopen(m_strFilenamePath.c_str(), "a");
@@ -228,7 +343,45 @@ void CFileLogger::LogNormal(const std::string& strText, ...)
 }
 
 // Version that assume log level is logCRITICAL
-void CFileLogger::LogCritical(const std::string& strText, ...)
+void CFileLogger::LogCritical(const char* szText, ...)
+{
+  // Note: it would be nice not to duplicate code, but the variable
+  // parameter list makes this problematic.
+  va_list       args;  
+
+  // Always log critical messages
+  if ((m_strFilenamePath.length() > 0) &&
+      (szText != NULL))
+  {
+    FILE* fp = NULL;
+    fp = fopen(m_strFilenamePath.c_str(), "a");
+
+    std::string strTimeStamp = GetTimeDateStamp();
+
+    if (fp != NULL)
+    {
+      std::string strIndented = strTimeStamp + GetIndentedString(szText) + "\n";
+
+      va_start(args, szText);
+      vfprintf(fp, strIndented.c_str(), args);
+      va_end(args);
+
+      // Optionally we can output message to stdout
+      if (m_bOutputScreen)
+      {
+        va_start(args, szText);
+        vprintf(strIndented.c_str(), args);
+        va_end(args);
+      }
+
+      fclose(fp);
+      fp = NULL;
+    }
+  }
+}
+
+// Overloaded version that takes a non-const STL::string
+void CFileLogger::LogCritical(std::string strText, ...)
 {
   // Note: it would be nice not to duplicate code, but the variable
   // parameter list makes this problematic.
@@ -270,7 +423,9 @@ void CFileLogger::LogFunctionEntry(const std::string& strFunctionName)
 {
   if (m_bFunctionLogging)
   {
-    Log("start: " + strFunctionName);
+    std::string strStart = "start: ";
+    strStart += strFunctionName;
+    Log(strStart.c_str());
     m_iFunctionIndentLevel++;
   }
 }
@@ -281,7 +436,9 @@ void CFileLogger::LogFunctionExit(const std::string& strFunctionName)
   if (m_bFunctionLogging)
   {
     m_iFunctionIndentLevel--;
-    Log("end: " + strFunctionName);
+    std::string strEnd = "end: ";
+    strEnd += strFunctionName;
+    Log(strEnd.c_str());
   }
 }
 

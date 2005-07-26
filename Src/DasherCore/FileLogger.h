@@ -45,16 +45,11 @@
   if (g_pLogger != NULL)\
     g_pLogger->Log s ;
 
-// Debug only logging macro, can be compiled out to nothing if DEBUG_ONLY_LOGGING 
-// is defined. Usage:
+// Debug only logging macro.  Usage:
 //    LOG(("my favorite number is %d!", 42))
-#ifdef DEBUG_ONLY_LOGGING
 #define LOG_DEBUG( s )\
   if (g_pLogger != NULL)\
     g_pLogger->LogDebug s ;
-#else
-#define LOG_DEBUG( s )
-#endif
 
 // Normal error message macro.  Usage:
 //    LOG(("errors number %d!", 42))
@@ -117,10 +112,16 @@ public:
     ~CFileLogger();
 
 
-    void Log(const std::string& strText, eLogLevel iLogLevel = logNORMAL, ...); // Logs a string to our file if it meets our exceeds our logging level
-    void LogDebug(const std::string& strText, ...);                             // Logs debug level messages
-    void LogNormal(const std::string& strText, ...);                            // Logs normal level messages
-    void LogCritical(const std::string& strText, ...);                          // Logs critical level messages
+    void Log(const char* szText, eLogLevel iLogLevel = logNORMAL, ...);         // Logs a string to our file if it meets our exceeds our logging level
+    void LogDebug(const char* szText, ...);                                     // Logs debug level messages
+    void LogNormal(const char* szText, ...);                                    // Logs normal level messages    
+    void LogCritical(const char* szText, ...);                                  // Logs critical level messages
+
+    // Versions that exist just so we can pass in STL strings
+    void Log(std::string strText, eLogLevel iLogLevel = logNORMAL, ...);        // Logs a string to our file if it meets our exceeds our logging level
+    void LogDebug(std::string strText, ...);                                    // Logs debug level messages
+    void LogNormal(std::string strText, ...);                                   // Logs normal level messages
+    void LogCritical(std::string strText, ...);                                 // Logs critical level messages
     
     void SetFilename(const std::string& strFilename);
     void SetLogLevel(const eLogLevel newLevel);
