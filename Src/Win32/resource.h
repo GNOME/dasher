@@ -175,6 +175,8 @@
 #define IDC_CONTROLCHAR                 1103
 #define IDC_EDIT1                       1104
 #define IDC_COLOUR                      1104
+#define IDC_TAB1                        1105
+#define IDC_TAB2                        1106
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -228,7 +230,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        172
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1105
+#define _APS_NEXT_CONTROL_VALUE         1107
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

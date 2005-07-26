@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "WinCommon.h"
+#include "Prsht.h"
 
 #include "Prefs.h"
 #include "../../DasherCore/Parameters.h"
@@ -20,7 +21,45 @@ using namespace std;
 CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
 :m_pDasher(pDasher) {
   m_hwnd = 0;
-  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_PREFS, hParent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
+
+    PROPSHEETPAGE psp[2];
+    PROPSHEETHEADER psh;
+    psp[0].dwSize = sizeof(PROPSHEETPAGE);
+    psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[0].hInstance = WinHelper::hInstApp;
+    psp[0].pszTemplate = MAKEINTRESOURCE(IDD_PREFS);
+    psp[0].pszIcon = NULL;
+    psp[0].pfnDlgProc = NULL;
+    psp[0].pszTitle = (LPCWSTR) "Hello";
+    psp[0].lParam = 0;
+    psp[0].pfnCallback = NULL;
+
+psp[1].dwSize = sizeof(PROPSHEETPAGE);
+    psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[1].hInstance = WinHelper::hInstApp;
+    psp[1].pszTemplate = MAKEINTRESOURCE(IDD_KEYCONTROL1);
+    psp[1].pszIcon = NULL;
+    psp[1].pfnDlgProc = NULL;
+    psp[1].pszTitle = (LPCWSTR) "Hello";
+    psp[1].lParam = 0;
+    psp[1].pfnCallback = NULL;
+    
+    psh.dwSize = sizeof(PROPSHEETHEADER);
+    psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
+    psh.hwndParent = hParent;
+    psh.hInstance = WinHelper::hInstApp;
+    psh.pszIcon = NULL;
+    psh.pszCaption = (LPCWSTR) "Cell Properties";
+    psh.nPages = sizeof(psp) /
+       sizeof(PROPSHEETPAGE);
+    psh.nStartPage = 0;
+    psh.ppsp = (LPCPROPSHEETPAGE) &psp;
+    psh.pfnCallback = NULL;
+    PropertySheet(&psh);
+//    return;
+
+
+ // DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_PREFS, hParent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
   PopulateWidgets();
 }
 
