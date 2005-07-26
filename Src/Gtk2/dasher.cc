@@ -228,8 +228,10 @@ void update_colours()
       // want to support 2.0
       gchar ugly_path_hack[100];
       sprintf(ugly_path_hack,"%d",i);
-      gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_string(ugly_path_hack));
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+      GtkTreePath *path = gtk_tree_path_new_from_string(ugly_path_hack);
+      gtk_tree_selection_select_path(colourselection,path);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),path,NULL,false);
+      gtk_tree_path_free(path);
     }
   }
 }
@@ -403,7 +405,9 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
       gchar ugly_path_hack[100];
       sprintf(ugly_path_hack,"%d",i);
       gtk_tree_selection_select_iter(colourselection, &colouriter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
+      GtkTreePath *path = gtk_tree_path_new_from_string(ugly_path_hack);
+      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),path,NULL,false);
+      gtk_tree_path_free(path);
     }
 
   }
