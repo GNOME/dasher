@@ -844,7 +844,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
 
   // Apply y scaling
 
-  // FIXME - better to specify scale factor directly?
+  if( GetLongParameter(LP_YSCALE) > 0 ) {
 
   double dYScale;
 
@@ -856,6 +856,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     dYScale = Screen().GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
   
   iDasherY = (iDasherY - DasherModel().DasherY()/2) * dYScale + DasherModel().DasherY()/2;
+  }
 
   // Then apply any non-linearity
 
