@@ -16,7 +16,7 @@
 
 void DasherTraceOutputImpl(const char *pszFormat, va_list vargs) {
   char buffer[2048];
-  vsprintf(buffer, pszFormat, vargs);
+  _vsnprintf(buffer, 2048,pszFormat, vargs);
   OutputDebugStringA(buffer);
 }
 
