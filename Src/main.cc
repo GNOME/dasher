@@ -67,6 +67,17 @@ extern const gchar *filename;
 
 extern int oldx, oldy;
 
+// Declare our global file logging object
+#include "../Dashercore/FileLogger.h"
+#ifdef _DEBUG
+const eLogLevel g_iLogLevel   = logDEBUG;
+const int       g_iLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;    
+#else
+const eLogLevel g_iLogLevel   = logNORMAL;
+const int       g_iLogOptions = logTimeStamp | logDateStamp;
+#endif
+CFileLogger* g_pLogger = NULL;
+
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
 
@@ -84,6 +95,12 @@ int main(int argc, char *argv[]) {
   int c;
   XWMHints wm_hints;
   Atom wm_window_protocols[3];
+
+
+  // Global logging object we can use from anywhere
+  g_pLogger = new CFileLogger("dasher.log",
+							              g_iLogLevel,		
+                            g_iLogOptions);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -268,6 +285,11 @@ int main(int argc, char *argv[]) {
   g_object_unref(g_pGConfClient);
 
   // ---
+
+  if (g_pLogger != NULL) {
+    delete g_pLogger;
+	  g_pLogger = NULL;
+  }
 
   return 0;
 }
