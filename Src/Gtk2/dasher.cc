@@ -145,6 +145,7 @@ void InitialiseAppParameters();
 
 extern "C" void handle_start_event(GtkDasherControl * pDasherControl, gpointer data);
 extern "C" void handle_stop_event(GtkDasherControl * pDasherControl, gpointer data);
+extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
 extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
 
 ///
@@ -175,9 +176,33 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
   pDasherWidget = gtk_dasher_control_new();
 
+  // Add UI control node stuff (might be better elsewhere)
+
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, "Speak", -1 );
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+1, "All", -1 );
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+2, "New", -1 );
+  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+3, "Repeat", -1 );
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, Dasher::CControlManager::CTL_ROOT, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+1, Dasher::CControlManager::CTL_USER, -2);
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+2, Dasher::CControlManager::CTL_USER, -2);
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+3, Dasher::CControlManager::CTL_USER, -2);
+ 
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER+1, -2);
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+1, -2);
+  
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER+2, -2);
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+2, -2);
+
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER+3, -2);
+  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
+  // ---
+
   g_signal_connect(pDasherWidget, "dasher_changed", G_CALLBACK(parameter_notification), NULL);
   g_signal_connect(pDasherWidget, "dasher_start", G_CALLBACK(handle_start_event), NULL);
   g_signal_connect(pDasherWidget, "dasher_stop", G_CALLBACK(handle_stop_event), NULL);
+  g_signal_connect(pDasherWidget, "dasher_control", G_CALLBACK(handle_control_event), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL);
 
@@ -398,6 +423,62 @@ extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer da
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
   if(get_app_parameter_bool(APP_BP_SPEECH_MODE))
     SPEAK_DAMN_YOU(get_new_text());
+}
+
+///
+/// Signal handler for control nodes
+///
+
+extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
+  switch( iEvent ) {
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR:
+    edit_move_forward();
+    break;
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_WORD:
+    break;
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_LINE:
+    break;
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_FILE:
+    edit_move_end();
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR:
+    edit_move_back();
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD:
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE:
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE:
+    edit_move_start();
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR:
+    edit_delete_forward_character();
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_WORD:
+    edit_delete_forward_word();
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_LINE:
+     edit_delete_forward_line();
+     break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_FILE:
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR:
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD:
+    edit_delete_backward_word();
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE:
+    edit_delete_backward_line();
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE:
+    break;
+  case Dasher::CControlManager::CTL_USER+1: // Speak all
+    break;
+  case Dasher::CControlManager::CTL_USER+2: // Speak new
+    break;
+  case Dasher::CControlManager::CTL_USER+3: // Repeat speech
+    break;
+  }
 }
 
 // -------------

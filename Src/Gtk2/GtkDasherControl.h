@@ -2,6 +2,7 @@
 #define __gtkdashercontrol_h__
 
 #include "Parameters.h"
+#include "ControlManager.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
@@ -32,6 +33,7 @@ struct _GtkDasherControlClass {
   void (*dasher_stop) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_edit_insert) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
   void (*dasher_edit_delete) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
+  void (*dasher_control) (GtkDasherControl * pDasherControl, gint iEvent, gpointer data);
 };
 
 GtkWidget *gtk_dasher_control_new();

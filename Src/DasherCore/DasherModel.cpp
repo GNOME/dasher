@@ -20,6 +20,9 @@
 using namespace Dasher;
 using namespace std;
 
+
+// FIXME - need to get node deletion working properly and implement reference counting
+
 // CDasherModel
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface)

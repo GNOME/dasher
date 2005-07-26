@@ -251,7 +251,8 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
   }
   else if(pEvent->m_iEventType == 6) {
-    // Control mode
+    CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
   }
 };
 

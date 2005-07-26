@@ -19,6 +19,7 @@ enum {
   DASHER_STOP,
   DASHER_EDIT_INSERT,
   DASHER_EDIT_DELETE,
+  DASHER_CONTROL,
   SIGNAL_NUM
 };
 
@@ -70,11 +71,14 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
   gtk_dasher_control_signals[DASHER_EDIT_DELETE] = g_signal_new("dasher_edit_delete", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_edit_delete), NULL, NULL, g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
+  gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("dasher_control", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_control), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
+
   pClass->dasher_changed = NULL;
   pClass->dasher_start = NULL;
   pClass->dasher_stop = NULL;
   pClass->dasher_edit_insert = NULL;
   pClass->dasher_edit_delete = NULL;
+  pClass->dasher_control = NULL;
 
 }
 
