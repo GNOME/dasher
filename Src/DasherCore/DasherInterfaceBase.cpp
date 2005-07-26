@@ -16,7 +16,7 @@ namespace {
 }
 
 // Declare our global file logging object
-#include "../Dashercore/FileLogger.h"
+#include "../DasherCore/FileLogger.h"
 #ifdef _DEBUG
 const eLogLevel g_iLogLevel   = logDEBUG;
 const int       g_iLogOptions = logTimeStamp | logDateStamp | logDeleteOldFile;    
