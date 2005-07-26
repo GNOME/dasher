@@ -153,6 +153,13 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case LP_DASHER_FONTSIZE:
       // TODO - make screen a CDasherComponent child?
       RequestFullRedraw();
+    case BP_MOUSEPOS_MODE:
+      if(GetBoolParameter(BP_DASHER_PAUSED))
+	if(GetBoolParameter(BP_MOUSEPOS_MODE))
+	  SetLongParameter(LP_MOUSE_POS_BOX, 1);
+	else
+	  SetLongParameter(LP_MOUSE_POS_BOX, -1); 
+      RequestFullRedraw();
     default:
       break;
     }
