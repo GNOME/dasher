@@ -28,6 +28,46 @@
 #define DEBUG_ONLY( s )
 #endif
 
+// Macros that can be used to call a globally declared logging object.  These
+// would need to be modified if the global variable is named differently.  By
+// using these macros you are protected from using the logger if it hasn't
+// yet been created (it should be intialized to NULL).  Also has versions that
+// automatically indicate the log level without sending a parameter.
+//
+// Note: to use these you must use double open and close paranethesis, this
+// is due to the variable parameter list that logging can take to do printf
+// style output.
+//
+// General purpose version, a log level must be sent in prior to any variable
+// length parameter list.  Usage:
+//    LOG(("my favorite number is %d!", logDEBUG, 42))
+#define LOG( s )\
+  if (g_pLogger != NULL)\
+    g_pLogger->Log s ;
+
+// Debug only logging macro, can be compiled out to nothing if DEBUG_ONLY_LOGGING 
+// is defined. Usage:
+//    LOG(("my favorite number is %d!", 42))
+#ifdef DEBUG_ONLY_LOGGING
+#define LOG_DEBUG( s )\
+  if (g_pLogger != NULL)\
+    g_pLogger->LogDebug s ;
+#else
+#define LOG_DEBUG( s )
+#endif
+
+// Normal error message macro.  Usage:
+//    LOG(("errors number %d!", 42))
+#define LOG_ERROR( s )\
+  if (g_pLogger != NULL)\
+    g_pLogger->LogNormal s ;
+
+// Normal error message macro.  Usage:
+//    LOG(("plane %d crashed into plane %d!", 42, 24))
+#define LOG_CRITICAL( s )\
+  if (g_pLogger != NULL)\
+    g_pLogger->LogCritical s ;
+
 #ifdef WIN32
 // Types required by our high resolution WIN32 timing routines
 
@@ -77,7 +117,11 @@ public:
     ~CFileLogger();
 
 
-    void Log(const std::string& strText, eLogLevel level = logNORMAL, ...);     // Logs a string to our file if it meets our exceeds our logging level
+    void Log(const std::string& strText, eLogLevel iLogLevel = logNORMAL, ...); // Logs a string to our file if it meets our exceeds our logging level
+    void LogDebug(const std::string& strText, ...);                             // Logs debug level messages
+    void LogNormal(const std::string& strText, ...);                            // Logs normal level messages
+    void LogCritical(const std::string& strText, ...);                          // Logs critical level messages
+    
     void SetFilename(const std::string& strFilename);
     void SetLogLevel(const eLogLevel newLevel);
     void SetFunctionLogging(bool functionLogging);

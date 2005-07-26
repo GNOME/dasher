@@ -41,7 +41,6 @@ CDasherInterfaceBase::CDasherInterfaceBase()
   g_pLogger = new CFileLogger("dasher.log",
                               g_iLogLevel,
                               g_iLogOptions);
-
 }
 
 void CDasherInterfaceBase::Realize() {
