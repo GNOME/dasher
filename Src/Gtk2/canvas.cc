@@ -210,11 +210,7 @@ void blank_callback()
   BEGIN_DRAWING;
   SET_COLOR(0);
 #if WITH_CAIRO
-  cairo_rectangle(cr, 0,
-		      0,
-		      the_canvas->allocation.width,
-		      the_canvas->allocation.height);
-  cairo_fill(cr);
+  cairo_paint(cr);
 #else
   gdk_draw_rectangle (offscreen_buffer,		      
 		      gc,
