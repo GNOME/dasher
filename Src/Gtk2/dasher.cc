@@ -423,6 +423,10 @@ extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer da
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
   if(get_app_parameter_bool(APP_BP_SPEECH_MODE))
     SPEAK_DAMN_YOU(get_new_text());
+
+  if(get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP))
+    gtk2_clipboard_callback(CLIPBOARD_COPYALL);
+
 }
 
 ///

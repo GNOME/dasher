@@ -65,6 +65,7 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
 }
 
@@ -438,14 +439,7 @@ extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
-
-  // FIXME - REIMPLEMENT
-
-//   if(GTK_TOGGLE_BUTTON(widget)->active) {
-//     dasher_set_parameter_bool( BOOL_COPYALLONSTOP, true );
-//   } else {
-//     dasher_set_parameter_bool( BOOL_COPYALLONSTOP, false );
-//   }
+ set_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
