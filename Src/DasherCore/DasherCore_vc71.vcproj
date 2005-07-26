@@ -551,6 +551,18 @@
 			RelativePath="Alphabet\Alphabet.h">
 		</File>
 		<File
+			RelativePath=".\AlphabetManager.cpp">
+		</File>
+		<File
+			RelativePath=".\AlphabetManager.h">
+		</File>
+		<File
+			RelativePath=".\AlphabetManagerFactory.cpp">
+		</File>
+		<File
+			RelativePath=".\AlphabetManagerFactory.h">
+		</File>
+		<File
 			RelativePath="Alphabet\AlphabetMap.cpp">
 		</File>
 		<File
@@ -567,6 +579,18 @@
 		</File>
 		<File
 			RelativePath="ColourIO.h">
+		</File>
+		<File
+			RelativePath=".\ControlManager.cpp">
+		</File>
+		<File
+			RelativePath=".\ControlManager.h">
+		</File>
+		<File
+			RelativePath=".\ControlManagerFactory.cpp">
+		</File>
+		<File
+			RelativePath=".\ControlManagerFactory.h">
 		</File>
 		<File
 			RelativePath="CustomColours.cpp">
