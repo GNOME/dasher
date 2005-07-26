@@ -36,8 +36,9 @@
 //
 // Note: to use these you must use double open and close paranethesis, this
 // is due to the variable parameter list that logging can take to do printf
-// style output.
+// style output.  GCC supports variadic macros, but Visual Studio doesn't yet.
 //
+
 // General purpose version, a log level must be sent in prior to any variable
 // length parameter list.  Usage:
 //    LOG(("my favorite number is %d!", logDEBUG, 42))
@@ -117,11 +118,8 @@ public:
     void LogNormal(const char* szText, ...);                                    // Logs normal level messages    
     void LogCritical(const char* szText, ...);                                  // Logs critical level messages
 
-    // Versions that exist just so we can pass in STL strings
-    void Log(std::string strText, eLogLevel iLogLevel = logNORMAL, ...);        // Logs a string to our file if it meets our exceeds our logging level
-    void LogDebug(std::string strText, ...);                                    // Logs debug level messages
-    void LogNormal(std::string strText, ...);                                   // Logs normal level messages
-    void LogCritical(std::string strText, ...);                                 // Logs critical level messages
+    // Versions that exists so we can pass in STL strings
+    void Log(const std::string strText, eLogLevel iLogLevel = logNORMAL, ...);        // Logs a string to our file if it meets our exceeds our logging level
     
     void SetFilename(const std::string& strFilename);
     void SetLogLevel(const eLogLevel newLevel);
