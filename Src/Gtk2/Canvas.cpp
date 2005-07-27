@@ -161,6 +161,10 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::Col
 }
 
 void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
+
+  if(iWidth == 1) // This is to make it work propely on Windows
+    iWidth = 0; 
+
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
@@ -190,6 +194,10 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
 }
 
 void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWidth, int Colour) {
+
+  if(iWidth == 1) // This is to make it work propely on Windows
+    iWidth = 0; 
+  
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;

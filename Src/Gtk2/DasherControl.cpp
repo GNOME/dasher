@@ -63,7 +63,9 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
   
   m_pSpeedFrame = gtk_frame_new("Speed:");
+
   m_pSpeedHScale = gtk_hscale_new_with_range(0.1, 8.0, 0.1);
+  gtk_scale_set_digits( GTK_SCALE(m_pSpeedHScale), 1 );
 
   gtk_container_add(GTK_CONTAINER(m_pSpeedFrame), m_pSpeedHScale);
   gtk_container_add(GTK_CONTAINER(pFrame), m_pCanvas);
@@ -218,6 +220,7 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
     if(m_pSpeedFrame != NULL) {
       if(GetBoolParameter(BP_SHOW_SLIDER)) {
         gtk_widget_show(GTK_WIDGET(m_pSpeedFrame));
+
         gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), GetLongParameter(LP_MAX_BITRATE) / 100.0);
       }
       else {
@@ -251,6 +254,7 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
   }
   else if(pEvent->m_iEventType == 6) {
+
     CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
   }
@@ -325,8 +329,10 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
 }
 
 void CDasherControl::SliderEvent() {
-  if(GetLongParameter(LP_MAX_BITRATE) != long(GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100))
-    SetLongParameter(LP_MAX_BITRATE, long(GTK_RANGE(m_pSpeedHScale)->adjustment->value * 100));
+  int iNewValue( static_cast<int>(round(gtk_range_get_value(GTK_RANGE(m_pSpeedHScale)) * 100)));
+
+  if(GetLongParameter(LP_MAX_BITRATE) != iNewValue)
+    SetLongParameter(LP_MAX_BITRATE, iNewValue);
 }
 
 void CDasherControl::CanvasDestroyEvent() {

@@ -518,6 +518,7 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
 
 void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
+
   if(pNode->Parent() && (!pNode->Parent()->isSeen()))
     RecursiveOutput(pNode->Parent(), pAdded);
 

@@ -434,6 +434,7 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
 ///
 
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
+
   switch( iEvent ) {
   case Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR:
     edit_move_forward();

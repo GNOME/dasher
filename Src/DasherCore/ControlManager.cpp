@@ -247,7 +247,8 @@ void CControlManager::ClearNode( CDasherNode *pNode ) {
   // Should this be responsible for actually doing the deletion
 }
 
-void CControlManager::Output( CDasherNode *pNode ) {
+void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization ) {
+
   CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
   CControlEvent oEvent(pControlNode->iID);
   m_pModel->InsertEvent(&oEvent);
