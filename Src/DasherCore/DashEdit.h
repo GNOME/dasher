@@ -24,7 +24,7 @@ namespace Dasher {
 };
 
 class Dasher::CEvent;
-class CEditEvent;
+class Dasher::CEditEvent;
 
 class Dasher::CDashEditbox
 {
