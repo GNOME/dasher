@@ -7,6 +7,16 @@
 using namespace std;
 using namespace Dasher;
 
+// Track memory leaks on Windows to the line that new'd the memory
+#ifdef _WIN32
+#ifdef _DEBUG
+#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+#endif
+
 // Used to signal our message loop to do our periodic work, the value
 // shouldn't collide with anything else in our code.
 #define WM_DASHER_TIMER WM_USER + 128

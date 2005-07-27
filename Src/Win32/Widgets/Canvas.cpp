@@ -16,6 +16,16 @@
 
 using namespace Dasher;
 
+// Track memory leaks on Windows to the line that new'd the memory
+#ifdef _WIN32
+#ifdef _DEBUG
+#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+#endif
+
 CCanvas::CCanvas(HWND Parent, CDasherInterface *DI)
 :m_pDasherInterface(DI), imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0) {
 

@@ -1,10 +1,10 @@
 
 #include "FileLogger.h"
 
+// Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
-// In order to track leaks to line number, we need this at the top of every file
-#include "MemoryLeak.h"
 #ifdef _DEBUG
+#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
 #define new DEBUG_NEW
 #undef THIS_FILE
 static char THIS_FILE[] = __FILE__;
@@ -12,6 +12,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 #include "../Win32/Common/WinUTF8.h"
+#ifdef _WIN32
+#include <windows.h>
+#endif
 
 CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel iLogLevel, int iOptionsMask)
 {

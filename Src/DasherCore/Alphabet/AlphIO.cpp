@@ -15,6 +15,16 @@ using namespace Dasher;
 using namespace std;
 using namespace expat;
 
+// Track memory leaks on Windows to the line that new'd the memory
+#ifdef _WIN32
+#ifdef _DEBUG
+#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+#endif
+
 CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector <string >Filenames)
 :BlankInfo(), SystemLocation(SystemLocation), UserLocation(UserLocation), Filenames(Filenames), LoadMutable(false), CData("") {
   CreateDefault();

@@ -14,6 +14,16 @@
 #include "Toolbar.h"
 #include "../resource.h"
 
+// Track memory leaks on Windows to the line that new'd the memory
+#ifdef _WIN32
+#ifdef _DEBUG
+#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
+#define new DEBUG_NEW
+#undef THIS_FILE
+static char THIS_FILE[] = __FILE__;
+#endif
+#endif
+
 CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI)
 :m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
   if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR))
