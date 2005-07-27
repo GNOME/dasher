@@ -6,8 +6,11 @@
 
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
-
+#include "DasherView.h"
 #include "DasherTypes.h"
+#include "Event.h"
+#include "EventHandler.h"
+#include "View/DelayedDraw.h"
 
 #include <algorithm>
 #include <limits>
@@ -34,9 +37,9 @@ static char THIS_FILE[] = __FILE__;
 
 void CDasherViewSquare::RenderNodes() {
   
-  Screen().Blank();
+  Screen()->Blank();
 
-  DASHER_ASSERT(DasherModel().Root() != 0);
+  DASHER_ASSERT(DasherModel()->Root() != 0);
 
   //DASHER_TRACEOUTPUT("RenderNodes\n");
 
@@ -49,13 +52,13 @@ void CDasherViewSquare::RenderNodes() {
 
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
-  RecursiveRender(DasherModel().Root(), DasherModel().Rootmin(), DasherModel().Rootmax(), iDasherMaxX);
+  RecursiveRender(DasherModel()->Root(), DasherModel()->Rootmin(), DasherModel()->Rootmax(), iDasherMaxX);
 
 
   // DelayDraw the text nodes
-  m_DelayDraw.Draw(Screen());
+  m_pDelayDraw->Draw(Screen());
 
-  Crosshair(DasherModel().DasherOX());  // add crosshair
+  Crosshair(DasherModel()->DasherOX());  // add crosshair
 
 }
 
@@ -86,10 +89,10 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
       Color = pRender->Colour();
     }
     else {
-      if(pRender->Symbol() == DasherModel().GetSpaceSymbol()) {
+      if(pRender->Symbol() == DasherModel()->GetSpaceSymbol()) {
         Color = 9;
       }
-      else if(pRender->Symbol() == DasherModel().GetControlSymbol()) {
+      else if(pRender->Symbol() == DasherModel()->GetControlSymbol()) {
         Color = 8;
       }
       else {
@@ -116,7 +119,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
   if(RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display)) {
     // yuk
-    if(!pRender->ControlChild() && pRender->Symbol() < DasherModel().GetAlphabet().GetNumberTextSymbols())
+    if(!pRender->ControlChild() && pRender->Symbol() < DasherModel()->GetAlphabet().GetNumberTextSymbols())
       RenderGroups(pRender, y1, y2, mostleft);
   }
   else {
@@ -150,7 +153,7 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
 
   myint range = y2 - y1;
 
-  const CAlphabet & alphabet = DasherModel().GetAlphabet();
+  const CAlphabet & alphabet = DasherModel()->GetAlphabet();
 
   for(int iGroup = 1; iGroup < alphabet.GetGroupCount(); iGroup++) {
     int lower = alphabet.GetGroupStart(iGroup);
@@ -162,11 +165,11 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
 
     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      std::string Label = DasherModel().GroupLabel(iGroup);
-      int Colour = DasherModel().GroupColour(iGroup);
+      std::string Label = DasherModel()->GroupLabel(iGroup);
+      int Colour = DasherModel()->GroupColour(iGroup);
 
       if(Colour != -1) {
-        RenderNode(0, DasherModel().GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label);
+        RenderNode(0, DasherModel()->GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label);
       }
       else {
         RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label);
@@ -188,11 +191,11 @@ CDasherViewSquare::Cymap::Cymap(myint iScale) {
   m_Y1 = myint(1.0 / dY1);
 }
 
-CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel &DasherModel)
+CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel)
 :CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel) {
 
   bInBox = false;
-
+  m_pDelayDraw = new CDelayedDraw();
   ChangeScreen(DasherScreen);
 
   // tweak these if you know what you are doing
@@ -201,12 +204,10 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   m_dXmpc = 0.9;
   m_dXmpd = 0.5;                // slow X movement when accelerating Y
 
-  //KeyControl=false;
+  m_ymap = Cymap(DasherModel->DasherY());
 
-  m_ymap = Cymap(DasherModel.DasherY());
-
-  CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel.DasherY()));
-  DasherModel.SetActive(rActive);
+  CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel->DasherY()));
+  DasherModel->SetActive(rActive);
 }
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext) {
@@ -219,12 +220,12 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 // //   DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
 //      //DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
 
-//      // Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel.DasherY
+//      // Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel()->DasherY
 //      screenint s1,s2;
 //      Cint32 iSize = dashery2screen(y1,y2,s1,s2);
 
 //      // Actual height in pixels
-//      Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel().DasherY() );
+//      Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel()->DasherY() );
 
 //      if (iHeight <=1)
 //              return 0;
@@ -242,7 +243,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 //      DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
 
-  //Screen().DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
+  //Screen()->DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
 
   // FIXME - Get sensibel limits here (to allow for non-linearities)
 
@@ -258,7 +259,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   Cint32 iSize = dashery2screen(y1, y2, s1, s2);
 
   // Actual height in pixels
-  Cint32 iHeight = Cint32((Cint32) (iSize * CanvasY) / (Cint32) DasherModel().DasherY());
+  Cint32 iHeight = Cint32((Cint32) (iSize * CanvasY) / (Cint32) DasherModel()->DasherY());
 
   if(iHeight <= 1)
     return 0;                   // We're too small to render
@@ -277,7 +278,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
     DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, ColorScheme, GetBoolParameter(BP_OUTLINE_MODE));
   }
   else {
-    int iDasherY(DasherModel().DasherY());
+    int iDasherY(DasherModel()->DasherY());
 
     int iSpacing(iDasherY / 128);       // FIXME - assuming that this is an integer below
 
@@ -394,7 +395,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   if(displaytext != std::string(""))
     sDisplayText = displaytext;
   else
-    sDisplayText = DasherModel().GetDisplayText(Character);
+    sDisplayText = DasherModel()->GetDisplayText(Character);
 
 
   if( sDisplayText.size() > 0 )
@@ -404,11 +405,11 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 }
 
 void CDasherViewSquare::CheckForNewRoot() {
-  CDasherNode *const root = DasherModel().Root();
+  CDasherNode *const root = DasherModel()->Root();
   CDasherNode::ChildMap & children = root->Children();
 
-  myint y1 = DasherModel().Rootmin();
-  myint y2 = DasherModel().Rootmax();
+  myint y1 = DasherModel()->Rootmin();
+  myint y2 = DasherModel()->Rootmax();
 
   // This says that the root node must enclose everything visible.
   // Tiny probability characters near the bottom will cause a problem
@@ -422,7 +423,7 @@ void CDasherViewSquare::CheckForNewRoot() {
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
   if((y1 > iDasherMinY) || (y2 < iDasherMaxY ) || (y2-y1 < iDasherMaxX)) {
-    DasherModel().Reparent_root(root->Lbnd(), root->Hbnd());
+    DasherModel()->Reparent_root(root->Lbnd(), root->Hbnd());
     return;
   }
 
@@ -448,15 +449,15 @@ void CDasherViewSquare::CheckForNewRoot() {
     // We must have zoomed sufficiently that only one child of the root node 
     // is still alive.  Let's make it the root.
 
-    y1 = DasherModel().Rootmin();
-    y2 = DasherModel().Rootmax();
+    y1 = DasherModel()->Rootmin();
+    y2 = DasherModel()->Rootmax();
     myint range = y2 - y1;
     
     myint newy1 = y1 + (range * children[theone]->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
     myint newy2 = y1 + (range * children[theone]->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
     if(newy1 < iDasherMinY && newy2 > iDasherMaxY)
       if( (newy2 - newy1) > iDasherMaxX ) {
-        DasherModel().Make_root(theone);
+        DasherModel()->Make_root(theone);
         return;
     }
   }
@@ -471,14 +472,14 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   // Things we're likely to need:
 
-  myint iDasherWidth = DasherModel().DasherY();
-  myint iDasherHeight = DasherModel().DasherY();
+  myint iDasherWidth = DasherModel()->DasherY();
+  myint iDasherHeight = DasherModel()->DasherY();
 
   // myint iCanvasWidth = CanvasX;
   // myint iCanvasHeight = CanvasY;
 
-  screenint iScreenWidth = Screen().GetWidth();
-  screenint iScreenHeight = Screen().GetHeight();
+  screenint iScreenWidth = Screen()->GetWidth();
+  screenint iScreenHeight = Screen()->GetHeight();
 
   if( b1D ) { // Special case for 1D mode...
     iDasherX = iInputX * iDasherWidth / iScreenWidth;
@@ -510,7 +511,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
   }
 
   if( bNonlinearity ) {
-  iDasherX = myint(ixmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY());
+  iDasherX = myint(ixmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
   iDasherY = m_ymap.unmap(iDasherY);
   }
 
@@ -521,11 +522,11 @@ double CDasherViewSquare::GetScaleFactor( int eOrientation ) {
 
   // Things we're likely to need:
 
-  myint iDasherWidth = DasherModel().DasherY();
-  myint iDasherHeight = DasherModel().DasherY();
+  myint iDasherWidth = DasherModel()->DasherY();
+  myint iDasherHeight = DasherModel()->DasherY();
 
-  screenint iScreenWidth = Screen().GetWidth();
-  screenint iScreenHeight = Screen().GetHeight();
+  screenint iScreenWidth = Screen()->GetWidth();
+  screenint iScreenHeight = Screen()->GetHeight();
 
   // Try doing this a different way:
 
@@ -566,16 +567,16 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   // Apply the nonlinearities
 
-  iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel().DasherY())) * DasherModel().DasherY());
+  iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
   iDasherY = m_ymap.map(iDasherY);
 
   // Things we're likely to need:
 
-  myint iDasherWidth = DasherModel().DasherY();
-  myint iDasherHeight = DasherModel().DasherY();
+  myint iDasherWidth = DasherModel()->DasherY();
+  myint iDasherHeight = DasherModel()->DasherY();
 
-  screenint iScreenWidth = Screen().GetWidth();
-  screenint iScreenHeight = Screen().GetHeight();
+  screenint iScreenWidth = Screen()->GetWidth();
+  screenint iScreenHeight = Screen()->GetHeight();
 
   int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
 
@@ -607,20 +608,20 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
   
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(0,Screen().GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),0,iDasherMinX,iDasherMinY,false,true);
+    Screen2Dasher(0,Screen()->GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
     Screen2Dasher(0,0,iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(Screen().GetWidth(),0,iDasherMaxX,iDasherMaxY,false,true);
+    Screen2Dasher(0,Screen()->GetHeight(),iDasherMinX,iDasherMinY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),0,iDasherMaxX,iDasherMaxY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
     Screen2Dasher(0,0,iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
     break;
   }
 }
@@ -638,13 +639,13 @@ myint CDasherViewSquare::DasherVisibleMinY() {
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
     Screen2Dasher(0,0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(0,Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
     Screen2Dasher(0,0,iDasherX,iDasherY,false,true);
@@ -666,16 +667,16 @@ myint CDasherViewSquare::DasherVisibleMaxY() {
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(0,Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   }
 
@@ -694,16 +695,16 @@ myint CDasherViewSquare::DasherVisibleMaxX() {
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    Screen2Dasher(0,Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(0,Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::RightToLeft:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::TopToBottom:
-    Screen2Dasher(Screen().GetWidth(),0,iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),0,iDasherX,iDasherY,false,true);
     break;
   case Dasher::Opts::BottomToTop:
-    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherX,iDasherY,false,true);
+    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
     break;
   }
 
@@ -717,10 +718,10 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
     double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
     
     // The distance between the Y coordinate and the centreline in pixels
-    disty=DasherModel().DasherOY()-iDasherY;
+    disty=DasherModel()->DasherOY()-iDasherY;
         
-    circlesize=    DasherModel().DasherY()/2.5;
-    yforwardrange= DasherModel().DasherY()/3.2; // Was 1.6
+    circlesize=    DasherModel()->DasherY()/2.5;
+    yforwardrange= DasherModel()->DasherY()/3.2; // Was 1.6
     yfullrange=    yforwardrange*1.6;
     ybackrange=    yfullrange-yforwardrange;
     ellipse_eccentricity=6;
@@ -732,13 +733,13 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
       
       if (yb>1) {
 	x=0;
-	iDasherY=myint(DasherModel().DasherOY());
+	iDasherY=myint(DasherModel()->DasherOY());
       }
       else { 
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
-	iDasherY=myint(-(1+cos(angle))*circlesize/2+DasherModel().DasherOY());
+	iDasherY=myint(-(1+cos(angle))*circlesize/2+DasherModel()->DasherOY());
       }
     }
     else if (disty <-(yforwardrange)) {
@@ -747,22 +748,22 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
       
       if (yb>1) {
 	x=0;
-	iDasherY=myint(DasherModel().DasherOY());
+	iDasherY=myint(DasherModel()->DasherOY());
       }   
       else {
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 	
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
-	iDasherY=myint((1+cos(angle))*circlesize/2+DasherModel().DasherOY());
+	iDasherY=myint((1+cos(angle))*circlesize/2+DasherModel()->DasherOY());
       }   
     }
     
     else {
       angle=((disty*3.14159/2)/yforwardrange);
       x=cos(angle)*circlesize;
-      iDasherY=myint(-sin(angle)*circlesize+DasherModel().DasherOY());
+      iDasherY=myint(-sin(angle)*circlesize+DasherModel()->DasherOY());
     }
-    x=DasherModel().DasherOX()-x;
+    x=DasherModel()->DasherOX()-x;
 
     iDasherX = myint(x);
 }
@@ -770,16 +771,16 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
 /// Convert raw Dasher co-ordinates to eyetracker position
 
 void CDasherViewSquare::Dasher2Eyetracker(myint &iDasherX, myint &iDasherY) {
-  double disty=DasherModel().DasherOY()-iDasherY;
+  double disty=DasherModel()->DasherOY()-iDasherY;
 
   myint x( iDasherX );
 
-  myint dasherOX=DasherModel().DasherOX(); 
+  myint dasherOX=DasherModel()->DasherOX(); 
 
   //  if( iDasherX < dasherOX ) {
 
       //cout << "dasherOX: " << dasherOX << endl; 
-      myint dasherOY=DasherModel().DasherOY(); 
+      myint dasherOY=DasherModel()->DasherOY(); 
          
       // X co-ordinate changes. 
       double double_x = (x/dasherOX);  // Fraction of way over to crosshair
@@ -861,11 +862,11 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
   int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
 
   if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft ))
-    dYScale = Screen().GetHeight() / static_cast<double>(GetLongParameter(LP_YSCALE));
+    dYScale = Screen()->GetHeight() / static_cast<double>(GetLongParameter(LP_YSCALE));
   else
-    dYScale = Screen().GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
+    dYScale = Screen()->GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
   
-  iDasherY = (iDasherY - DasherModel().DasherY()/2) * dYScale + DasherModel().DasherY()/2;
+  iDasherY = (iDasherY - DasherModel()->DasherY()/2) * dYScale + DasherModel()->DasherY()/2;
   }
 
   // Then apply any non-linearity
@@ -876,15 +877,15 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     //    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
 
     // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
-//     if(iDasherY > DasherModel().DasherY())
-//       iDasherY = DasherModel().DasherY();
+//     if(iDasherY > DasherModel()->DasherY())
+//       iDasherY = DasherModel()->DasherY();
 //     if(iDasherY < 0)
 //       iDasherY = 0;
 
     break;
   case 1:                      // 1D mode
     // Ignore orientation - iInputY maps directly to the single dimension in this case
-    //    iDasherY = iInputY * DasherModel().DasherY() / Screen().GetHeight();
+    //    iDasherY = iInputY * DasherModel()->DasherY() / Screen()->GetHeight();
 
     // Apply non-linear mapping
     Dasher2OneD(iDasherX, iDasherY);
@@ -914,10 +915,10 @@ void CDasherViewSquare::DasherPolyline(myint *x, myint *y, int n, int iWidth, in
     Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
 
   if(iColour != -1) {
-    Screen().Polyline(ScreenPoints, n, iWidth, iColour);
+    Screen()->Polyline(ScreenPoints, n, iWidth, iColour);
   }
   else {
-    Screen().Polyline(ScreenPoints, n, iWidth);
+    Screen()->Polyline(ScreenPoints, n, iWidth);
   }
   delete[]ScreenPoints;
 }
@@ -931,7 +932,7 @@ void CDasherViewSquare::DasherPolygon(myint *x, myint *y, int n, int iColour) {
   for(int i(0); i < n; ++i)
     Dasher2Screen(x[i], y[i], ScreenPoints[i].x, ScreenPoints[i].y);
 
-  Screen().Polygon(ScreenPoints, n, iColour);
+  Screen()->Polygon(ScreenPoints, n, iColour);
   delete[]ScreenPoints;
 }
 
@@ -947,7 +948,7 @@ void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRigh
   Dasher2Screen(iLeft, iTop, iScreenLeft, iScreenTop);
   Dasher2Screen(iRight, iBottom, iScreenRight, iScreenBottom);
 
-  Screen().DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme, bDrawOutline);
+  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme, bDrawOutline);
 }
 
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
@@ -959,7 +960,7 @@ void CDasherViewSquare::DasherDrawCentredRectangle(myint iDasherX, myint iDasher
 
   Dasher2Screen(iDasherX, iDasherY, iScreenX, iScreenY);
 
-  Screen().DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, ColorScheme, bDrawOutline);
+  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, ColorScheme, bDrawOutline);
 }
 
 /// Draw text specified in Dasher co-ordinates. The position is
@@ -1011,16 +1012,16 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   // Compute font size based on position
   int Size = GetLongParameter( LP_DASHER_FONTSIZE );
   screenint iLeftTimesFontSize = (iAnchorX1 + iAnchorX2) * Size / 2;
-  if(iLeftTimesFontSize > DasherModel().DasherY() * 1 / 20)
+  if(iLeftTimesFontSize > DasherModel()->DasherY() * 1 / 20)
     Size *= 20;
-  else if(iLeftTimesFontSize > DasherModel().DasherY() * 1 / 160)
+  else if(iLeftTimesFontSize > DasherModel()->DasherY() * 1 / 160)
     Size *= 14;
   else
     Size *= 11;
 
   screenint TextWidth, TextHeight;
 
-  Screen().TextSize(sDisplayText, &TextWidth, &TextHeight, Size);
+  Screen()->TextSize(sDisplayText, &TextWidth, &TextHeight, Size);
 
   // Poistion of text box relative to anchor depends on orientation
 
@@ -1073,7 +1074,7 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   // Actually draw the text. We use DelayDrawText as the text should
   // be overlayed once all of the boxes have been drawn.
 
-  m_DelayDraw.DelayDrawText(sDisplayText, newleft2, newtop2, Size);
+  m_pDelayDraw->DelayDrawText(sDisplayText, newleft2, newtop2, Size);
 
 }
 
@@ -1085,13 +1086,13 @@ void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
 
   if(iX < 0)
     iX = 0;
-  if(iX > Screen().GetWidth())
-    iX = Screen().GetWidth();
+  if(iX > Screen()->GetWidth())
+    iX = Screen()->GetWidth();
 
   if(iY < 0)
     iY = 0;
-  if(iY > Screen().GetHeight())
-    iY = Screen().GetHeight();
+  if(iY > Screen()->GetHeight())
+    iY = Screen()->GetHeight();
 }
 
 // work out the next viewpoint
@@ -1138,14 +1139,14 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
   // Convert the input co-ordinates to dasher co-ordinates
 
-  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode());
+  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel()->GetMode());
 
   m_iDasherXCache = iDasherX;
   m_iDasherYCache = iDasherY;
 
   // Request an update at the calculated co-ordinates
 
-  DasherModel().Tap_on_display(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
+  DasherModel()->Tap_on_display(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
 
   CheckForNewRoot();
 
@@ -1161,7 +1162,7 @@ void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
   UnMapScreen(&mousex, &mousey);
   myint idasherx, idashery;
   screen2dasher(mousex, mousey, &idasherx, &idashery);
-  DasherModel().GoTo(idasherx, idashery);
+  DasherModel()->GoTo(idasherx, idashery);
   CheckForNewRoot();
 }
 
@@ -1171,7 +1172,7 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
   myint idasherx, idashery;
   screen2dasher(mousex, mousey, &idasherx, &idashery);
   // So, we have a set of coordinates. We need a bunch of points back.
-  myint height = DasherModel().PlotGoTo(idasherx, idashery);
+  myint height = DasherModel()->PlotGoTo(idasherx, idashery);
   myint top, bottom, left, right;
 
   // Convert back to screen coordinates?
@@ -1185,9 +1186,9 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
   right = dasherx2screen(right);
 
   // Draw the lines
-  Screen().DrawRectangle(left, top + 5, right, top - 5, 1, Opts::ColorSchemes(Objects), false);
-  Screen().DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
-  Screen().DrawRectangle(left, bottom + 5, right, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
+  Screen()->DrawRectangle(left, top + 5, right, top - 5, 1, Opts::ColorSchemes(Objects), false);
+  Screen()->DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
+  Screen()->DrawRectangle(left, bottom + 5, right, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
 }
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
@@ -1211,7 +1212,7 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
   myint iDasherX;
   myint iDasherY;
 
-  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode());
+  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel()->GetMode());
 
   if(GetBoolParameter(BP_COLOUR_MODE) == true) {
     DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects), false);
@@ -1220,7 +1221,7 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
     DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects), false);
   }
 
-  //     if (DasherModel().Dimensions()==true || DasherModel().Eyetracker()==true) {
+  //     if (DasherModel()->Dimensions()==true || DasherModel()->Eyetracker()==true) {
 
 //        int Swapper;
 
@@ -1232,17 +1233,17 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
 //        case (LeftToRight):
 //          break;
 //        case (RightToLeft):
-//          mousex = Screen().GetWidth() - mousex;
+//          mousex = Screen()->GetWidth() - mousex;
 //          break;
 //        case (TopToBottom):
-//          Swapper = ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-//          mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+//          Swapper = ( mousex * Screen()->GetHeight()) / Screen()->GetWidth();
+//          mousex = (mousey  * Screen()->GetWidth()) / Screen()->GetHeight();
 //          mousey = Swapper;
 //          break;
 //        case (BottomToTop):
 //          // Note rotation by 90 degrees not reversible like others
-//          Swapper = Screen().GetHeight() - ( mousex * Screen().GetHeight()) / Screen().GetWidth();
-//          mousex = (mousey  * Screen().GetWidth()) / Screen().GetHeight();
+//          Swapper = Screen()->GetHeight() - ( mousex * Screen()->GetHeight()) / Screen()->GetWidth();
+//          mousex = (mousey  * Screen()->GetWidth()) / Screen()->GetHeight();
 //          mousey = Swapper;
 //          break;
 //        default:
@@ -1251,9 +1252,9 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
 //      }
 
 //      if (ColourMode==true) {
-//        Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
+//        Screen()->DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
 //      } else {
-//        Screen().DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
+//        Screen()->DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
 //      }
 }
 
@@ -1283,14 +1284,14 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey) {
 
   // Start of line is the crosshair location
 
-  x[0] = DasherModel().DasherOX();
-  y[0] = DasherModel().DasherOY();
+  x[0] = DasherModel()->DasherOX();
+  y[0] = DasherModel()->DasherOY();
 
   // End of line is the mouse cursor location - note that we should
   // probably be using a chached value rather than computing this
   // separately to TapOn
 
-  Input2Dasher(mousex, mousey, x[1], y[1], iType, DasherModel().GetMode());
+  Input2Dasher(mousex, mousey, x[1], y[1], iType, DasherModel()->GetMode());
 
   // Actually plot the line
 
@@ -1310,10 +1311,10 @@ void CDasherViewSquare::DrawKeyboard() {
   line[1].y = CanvasY / 2;
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    Screen().Polyline(line, 2, 1, 6);
+    Screen()->Polyline(line, 2, 1, 6);
   }
   else {
-    Screen().Polyline(line, 2, 1);
+    Screen()->Polyline(line, 2, 1);
   }
 
   line[0].x = 200;
@@ -1322,10 +1323,10 @@ void CDasherViewSquare::DrawKeyboard() {
   line[1].y = CanvasY / 2;
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    Screen().Polyline(line, 2, 1, 6);
+    Screen()->Polyline(line, 2, 1, 6);
   }
   else {
-    Screen().Polyline(line, 2, 1);
+    Screen()->Polyline(line, 2, 1);
   }
 
   line[0].x = 200;
@@ -1334,10 +1335,10 @@ void CDasherViewSquare::DrawKeyboard() {
   line[1].y = CanvasY;
 
   if(GetBoolParameter(BP_COLOUR_MODE)) {
-    Screen().Polyline(line, 2, 1, 6);
+    Screen()->Polyline(line, 2, 1, 6);
   }
   else {
-    Screen().Polyline(line, 2, 1);
+    Screen()->Polyline(line, 2, 1);
   }
 }
 
@@ -1355,8 +1356,8 @@ void CDasherViewSquare::ResetYAutoOffset() {
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CDasherView::ChangeScreen(NewScreen);
-  screenint Width = Screen().GetWidth();
-  screenint Height = Screen().GetHeight();
+  screenint Width = Screen()->GetWidth();
+  screenint Height = Screen()->GetHeight();
   CanvasX = 9 * Width / 10;
   CanvasBorder = Width - CanvasX;
   CanvasY = Height;
@@ -1374,7 +1375,7 @@ int CDasherViewSquare::GetAutoOffset() const {
 
 void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myint *idasherx, myint *idashery) const {
   bool eyetracker = GetBoolParameter(BP_EYETRACKER_MODE);
-  // bool DasherRunning = DasherModel().Paused();
+  // bool DasherRunning = DasherModel()->Paused();
 
   // Add the eyetracker autocalibration offset if necessary
 
@@ -1401,12 +1402,12 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   //  then it might be reasonable to re-zero the offset. But don't.
 
   // Convert the Y mouse coordinate to one that's based on the canvas size
-  double dashery = double (imousey * DasherModel().DasherY() / CanvasY);
+  double dashery = double (imousey * DasherModel()->DasherY() / CanvasY);
 
   // Convert the X mouse coordinate to one that's based on the canvas size 
   // - we want this the opposite way round to the mouse coordinate system, 
   // hence the fudging. ixmap gives us the X nonlinearity.        
-  double x = ixmap(1.0 * (CanvasX - imousex) / CanvasX) * DasherModel().DasherY();
+  double x = ixmap(1.0 * (CanvasX - imousex) / CanvasX) * DasherModel()->DasherY();
 
   // Disable one-button mode for now.
   // if (eyetracker==true) { dashery=onebutton; }
@@ -1414,8 +1415,8 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   // If we're in standard mode, fudge things for the vertical acceleration
   if(GetBoolParameter(BP_NUMBER_DIMENSIONS) == false && GetBoolParameter(BP_KEYBOARD_MODE) == false && GetBoolParameter(BP_EYETRACKER_MODE) == false) {
     dashery = m_ymap.unmap(myint(dashery));
-    if(dashery > DasherModel().DasherY()) {
-      dashery = DasherModel().DasherY();
+    if(dashery > DasherModel()->DasherY()) {
+      dashery = DasherModel()->DasherY();
     }
     if(dashery < 0) {
       dashery = 0;
@@ -1423,9 +1424,9 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   }
 
   // The X and Y origins.
-  myint dasherOX = DasherModel().DasherOX();
+  myint dasherOX = DasherModel()->DasherOX();
   //cout << "dasherOX: " << dasherOX << endl;
-  myint dasherOY = DasherModel().DasherOY();
+  myint dasherOY = DasherModel()->DasherOY();
   // For Y co-ordinate changes. 
   // disty is the distance between y and centreline. 
   double disty = double (dasherOY) - dashery;
@@ -1433,7 +1434,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 
   // If we're in one-dimensional mode, make new x,y
   if(GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
-    //if (eyetracker==true && !(x<DasherModel().DasherOX() && pow(pow(DasherModel().DasherY()/2-dashery,2)+pow(x-DasherModel().DasherOX(),2),0.5)>DasherModel().DasherY()/2.5)) {
+    //if (eyetracker==true && !(x<DasherModel()->DasherOX() && pow(pow(DasherModel()->DasherY()/2-dashery,2)+pow(x-DasherModel()->DasherOX(),2),0.5)>DasherModel()->DasherY()/2.5)) {
     //      *mousex=int(x);
     //      *mousey=int(dashery);
     //      return;
@@ -1450,8 +1451,8 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
     //cout << "dashery: " << rel_dashery << endl << endl;
 
     // The radius of the circle transcribed by the one-dimensional mapping
-    circlesize = DasherModel().DasherY() / 2.5;
-    yforwardrange = DasherModel().DasherY() / 1.6;
+    circlesize = DasherModel()->DasherY() / 2.5;
+    yforwardrange = DasherModel()->DasherY() / 1.6;
     yfullrange = yforwardrange * 1.6;
     ybackrange = yfullrange - yforwardrange;
     ellipse_eccentricity = 6;
@@ -1496,9 +1497,9 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   }
   else if(eyetracker == true) {
 
-    myint dasherOX = DasherModel().DasherOX();
+    myint dasherOX = DasherModel()->DasherOX();
     //cout << "dasherOX: " << dasherOX << endl; 
-    myint dasherOY = DasherModel().DasherOY();
+    myint dasherOY = DasherModel()->DasherOY();
 
     // X co-ordinate changes. 
     double double_x = (x / dasherOX);
@@ -1526,7 +1527,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
      CDasherView::ySumCounter++; 
 
      CDasherView::ySigBiasPercentage=50;
-     CDasherView::ySigBiasPixels = CDasherView::ySigBiasPercentage * DasherModel().DasherY() / 100;
+     CDasherView::ySigBiasPixels = CDasherView::ySigBiasPercentage * DasherModel()->DasherY() / 100;
 
      // FIXME: screen2dasher appears to be being called thrice per frame.
      // I don't know why.  
@@ -1556,8 +1557,8 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 }
 
 void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
-  double dashery = double (*mousey) * double (DasherModel().DasherY()) / double (CanvasY);
-  myint dasherOY = DasherModel().DasherOY();
+  double dashery = double (*mousey) * double (DasherModel()->DasherY()) / double (CanvasY);
+  myint dasherOY = DasherModel()->DasherOY();
   double disty = double (dasherOY) - dashery;
   bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
 
@@ -1567,7 +1568,7 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
     m_ySumCounter++;
 
     m_ySigBiasPercentage = 50;
-    m_ySigBiasPixels = m_ySigBiasPercentage * DasherModel().DasherY() / 100;
+    m_ySigBiasPixels = m_ySigBiasPercentage * DasherModel()->DasherY() / 100;
 
     //cout << "yAutoOffset: " << CDasherView::yAutoOffset << endl;
 
@@ -1593,13 +1594,13 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
 }
 
 void CDasherViewSquare::DrawGameModePointer() {
-  myint loc = DasherModel().GetGameModePointerLoc();
+  myint loc = DasherModel()->GetGameModePointerLoc();
 
   if(loc == myint(INT64_MIN))
     return;
 
-  if(loc > DasherModel().DasherY())
-    DasherDrawCentredRectangle(-50, DasherModel().DasherY(), 5, 135, Opts::ColorSchemes(5), false);
+  if(loc > DasherModel()->DasherY())
+    DasherDrawCentredRectangle(-50, DasherModel()->DasherY(), 5, 135, Opts::ColorSchemes(5), false);
 
   else if(loc < 0)
     DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(5), false);
@@ -1640,7 +1641,7 @@ bool CDasherViewSquare::HandleStartOnMouse(int iTime) {
 
   // Convert the input co-ordinates to dasher co-ordinates
 
-  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel().GetMode());
+  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel()->GetMode());
 
   screenint iNewScreenX;
   screenint iNewScreenY;
@@ -1651,11 +1652,11 @@ bool CDasherViewSquare::HandleStartOnMouse(int iTime) {
   int iBoxMin(0);
 
   if(GetLongParameter(LP_MOUSE_POS_BOX) == 1) {
-    iBoxMax = Screen().GetHeight() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST) + 50;
+    iBoxMax = Screen()->GetHeight() / 2 - (int)GetLongParameter(LP_MOUSEPOSDIST) + 50;
     iBoxMin = iBoxMax - 100;
   }
   else if(GetLongParameter(LP_MOUSE_POS_BOX) == 2) {
-    iBoxMin = Screen().GetHeight() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST) - 50;
+    iBoxMin = Screen()->GetHeight() / 2 + (int)GetLongParameter(LP_MOUSEPOSDIST) - 50;
     iBoxMax = iBoxMin + 100;
   }
 

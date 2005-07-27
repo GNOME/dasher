@@ -9,11 +9,19 @@
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 #include "ControlManager.h"
+#include "DashEdit.h"
+#include "DasherScreen.h"
+#include "DasherView.h"
+#include "DasherInput.h"
+#include "DasherModel.h"
+#include "EventHandler.h"
+#include "Event.h"
+#include "UserLog.h"
 
 #include <iostream>
 #include <memory>
 namespace {
-#include "stdio.h"
+  #include "stdio.h"
 }
 
 // Declare our global file logging object
@@ -534,7 +542,7 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
 
   if(m_DasherScreen != 0 && m_pDasherModel != 0) {
     delete m_pDasherView;
-    m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, *m_pDasherModel);
+    m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, m_pDasherModel);
 
     m_pDasherView->SetInput(m_pInput);
   }
@@ -727,3 +735,59 @@ void CDasherInterfaceBase::ResetNats() {
     m_pDasherModel->ResetNats();
 }
 
+
+void CDasherInterfaceBase::SetContext(std::string strNewContext) {
+  
+  // We keep track of an internal context and compare that to what
+  // we are given - don't restart Dasher if nothing has changed.
+  // This should really be integrated with DasherModel, which
+  // probably will be the case when we start to deal with being able
+  // to back off indefinitely. For now though we'll keep it in a
+  // separate string.
+
+  int iContextLength( 6 ); // The 'important' context length - should really get from language model
+
+  // FIXME - use unicode lengths
+
+  if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
+    if(m_pDasherModel != NULL)
+      m_pDasherModel->SetContext(strNewContext);
+    PauseAt(0,0);
+    
+    strCurrentContext = strNewContext;
+  }
+}
+
+// Control mode stuff
+
+void CDasherInterfaceBase::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
+  m_pDasherModel->RegisterNode(iID, strLabel, iColour);
+}
+
+void CDasherInterfaceBase::ConnectNode(int iChild, int iParent, int iAfter) {
+  m_pDasherModel->ConnectNode(iChild, iParent, iAfter);
+}
+
+void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
+  m_pSettingsStore->SetBoolParameter(iParameter, bValue);
+};
+
+void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) {
+  m_pSettingsStore->SetLongParameter(iParameter, lValue);
+};
+
+void CDasherInterfaceBase::SetStringParameter(int iParameter, const std::string & sValue) {
+  m_pSettingsStore->SetStringParameter(iParameter, sValue);
+};
+
+bool CDasherInterfaceBase::GetBoolParameter(int iParameter) {
+  return m_pSettingsStore->GetBoolParameter(iParameter);
+}
+
+long CDasherInterfaceBase::GetLongParameter(int iParameter) {
+  return m_pSettingsStore->GetLongParameter(iParameter);
+}
+
+std::string CDasherInterfaceBase::GetStringParameter(int iParameter) {
+  return m_pSettingsStore->GetStringParameter(iParameter);
+}

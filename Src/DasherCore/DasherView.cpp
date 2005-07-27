@@ -11,6 +11,11 @@
 #include <iostream>
 
 #include "DasherView.h"
+#include "Event.h"
+#include "EventHandler.h"
+#include "DasherModel.h"
+#include "DasherInput.h"
+
 using namespace Dasher;
 
 // Track memory leaks on Windows to the line that new'd the memory
@@ -25,8 +30,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel &DasherModel)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_DasherModel(DasherModel), m_pInput(0) {
+CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel)
+:CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pDasherModel(DasherModel), m_pInput(0) {
 
 }
 
@@ -54,8 +59,8 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 //}
 
 void CDasherView::DrawMousePosBox() {
-  int iHeight = Screen().GetHeight();
-  int iWidth = Screen().GetWidth();
+  int iHeight = Screen()->GetHeight();
+  int iWidth = Screen()->GetWidth();
 
   //    DASHER_TRACEOUTPUT("which %d\n",iWhich);
   int iMousePosDist = GetLongParameter(LP_MOUSEPOSDIST);
@@ -65,10 +70,10 @@ void CDasherView::DrawMousePosBox() {
 
   switch (iDrawMousePosBox) {
   case 1:
-    Screen().DrawRectangle(0, iHeight / 2 - iMousePosDist + 50, iWidth, iHeight / 2 - iMousePosDist - 50, 119, Opts::Nodes1,false);
+    Screen()->DrawRectangle(0, iHeight / 2 - iMousePosDist + 50, iWidth, iHeight / 2 - iMousePosDist - 50, 119, Opts::Nodes1,false);
     break;
   case 2:
-    Screen().DrawRectangle(0, iHeight / 2 + iMousePosDist + 50, iWidth, iHeight / 2 + iMousePosDist - 50, 120, Opts::Nodes1,false);
+    Screen()->DrawRectangle(0, iHeight / 2 + iMousePosDist + 50, iWidth, iHeight / 2 + iMousePosDist - 50, 120, Opts::Nodes1,false);
     break;
   default:
     //      DASHER_ASSERT(0);
@@ -85,12 +90,12 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay) {
   // didn't
 
   if(bRedrawDisplay) {
-    Screen().SendMarker(0);     // Start of 'dasher field'
+    Screen()->SendMarker(0);     // Start of 'dasher field'
     RenderNodes();
     bDidSomething = true;
   }
 
-  Screen().SendMarker(1);       // Start of 'decoration'
+  Screen()->SendMarker(1);       // Start of 'decoration'
 
   if(GetBoolParameter(BP_DRAW_MOUSE)) {
     DrawMouse(iMouseX, iMouseY);
@@ -125,14 +130,55 @@ void CDasherView::Render() {
 
   // FIXME - when does this get called?
 
-  Screen().SendMarker(0);
+  Screen()->SendMarker(0);
 
   RenderNodes();
 
-  Screen().SendMarker(1);
+  Screen()->SendMarker(1);
 
   if(GetBoolParameter(BP_KEYBOARD_MODE))
     DrawKeyboard();
   if(GetLongParameter(LP_MOUSE_POS_BOX) != -1)
     DrawMousePosBox();
+}
+
+  int CDasherView::GetCoordinateCount() {
+    if(m_pInput)
+      return m_pInput->GetCoordinateCount();
+
+    return 0;
+  }
+
+int CDasherView::GetCoordinates(int iN, myint * pCoordinates) {
+
+  if(m_pInput)
+    return m_pInput->GetCoordinates(iN, pCoordinates);
+
+  return 0;
+}
+
+void CDasherView::SetInput(CDasherInput * _pInput) {
+
+  DASHER_ASSERT_VALIDPTR_RW(_pInput);
+
+  // Delete the old class if we have one
+
+  if(m_pInput)
+    delete m_pInput;
+
+  m_pInput = _pInput;
+
+  // Tell the new object about maximum values
+
+  myint iMaxCoordinates[2];
+
+  iMaxCoordinates[0] = m_pDasherModel->DasherY();
+  iMaxCoordinates[1] = m_pDasherModel->DasherY();
+
+  m_pInput->SetMaxCoordinates(2, iMaxCoordinates);
+
+}
+
+void CDasherView::Display() {
+  m_pScreen->Display();
 }

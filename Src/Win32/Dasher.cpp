@@ -2,6 +2,7 @@
 #include "WinCommon.h"          // must include pch first
 
 #include ".\dasher.h"
+#include "../DasherCore/Event.h"
 #include "EditWrapper.h"
 
 using namespace std;

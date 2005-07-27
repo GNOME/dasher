@@ -14,49 +14,32 @@ e.g. - output characters to the edit control
 #define __DashEdit_h__
 
 #include "DasherTypes.h"
-#include "Event.h"
 #include <string>
 
 namespace Dasher {
   class CDashEditbox;
   class CDasherInterfaceBase;
+  class CEvent;
+  class CEditEvent;
 };
+
+class Dasher::CEvent;
+class CEditEvent;
 
 class Dasher::CDashEditbox
 {
 public:
-  CDashEditbox():m_dirty(false), m_pDasherInterface(0) {}
+  CDashEditbox();
 
-  virtual ~ CDashEditbox() {}
+  virtual ~CDashEditbox();
 
   //! Provide the Editbox with a widget interface
-  virtual void SetInterface(CDasherInterfaceBase * DasherInterface) {
-    m_pDasherInterface = DasherInterface;
-  }
+  virtual void SetInterface(CDasherInterfaceBase * DasherInterface);
 
   //! Write some buffered output to a file
   virtual void write_to_file() = 0;
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent) {
-    if(pEvent->m_iEventType == 2) {
-      Dasher::CEditEvent * pEvt(static_cast < Dasher::CEditEvent * >(pEvent));
-
-      switch (pEvt->m_iEditType) {
-      case 1:
-        output(pEvt->m_sText);
-        break;
-      case 2:
-        deletetext(pEvt->m_sText);
-        break;
-      }
-    }
-    else if(pEvent->m_iEventType == 3) {
-      // FIXME - need to implement this
-      /*
-      Dasher::CEditContextEvent * pEvt(static_cast < Dasher::CEditContextEvent * >(pEvent));
-      */
-    }
-  };
+  virtual void HandleEvent(CEvent * pEvent);
 
   //! Provide context from the editbox for the core
   //

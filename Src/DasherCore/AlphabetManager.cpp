@@ -1,6 +1,8 @@
 #include "AlphabetManager.h"
 #include "DasherModel.h"
 #include "DasherNode.h"
+#include "Event.h"
+#include "EventHandler.h"
 
 #include <vector>
 #include <iostream>

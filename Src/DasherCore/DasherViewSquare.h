@@ -5,14 +5,20 @@
 #ifndef __DasherViewSquare_h__
 #define __DasherViewSquare_h__
 
-#include "DasherScreen.h"
-#include "DasherModel.h"
 #include "DasherView.h"
-#include "View/DelayedDraw.h"
 
 namespace Dasher {
   class CDasherViewSquare;
+  class CDasherView;
+  class CDasherModel;
+  class CDelayedDraw;
+  class CDasherNode;
 }
+
+class Dasher::CDasherViewSquare;
+class Dasher::CDasherModel;
+class Dasher::CDelayedDraw;
+class Dasher::CDasherNode;
 
 /// An implementation of the DasherView class
 ///
@@ -34,7 +40,7 @@ public:
   /// passed as parameter to the drawing functions, and data structure
   /// can be extracted from the model and passed too.
 
-  CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel &DasherModel);
+  CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel);
 
   ///
   /// Convert input coordinates to dasher coordinates and evolve the model
@@ -319,7 +325,7 @@ private:
   int iBoxStart;                // Time that the current box was drawn
   int iBoxEntered;              // Time when the user enttered the current box
 
-  CDelayedDraw m_DelayDraw;
+  CDelayedDraw *m_pDelayDraw;
 
   double m_dXmpa, m_dXmpb, m_dXmpc, m_dXmpd;
   screenint CanvasX, CanvasY, CanvasBorder;

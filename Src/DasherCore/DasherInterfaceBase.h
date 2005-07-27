@@ -9,18 +9,30 @@
 // Check that everything that is not self-contained within the GUI is covered.
 
 #include "../Common/NoClones.h"
-#include "DasherScreen.h"
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
-#include "DashEdit.h"
-#include "DasherView.h"
-#include "DasherInput.h"
 
-#include "EventHandler.h"
-#include "Event.h"
-#include "UserLog.h"
+namespace Dasher {
+  class CDashEditbox;
+  class CDasherScreen;
+  class CDasherView;
+  class CDasherInput;
+  class CDasherModel;
+  class CEventHandler;
+  class CEvent;
+}
+
+class Dasher::CDashEditbox;
+class Dasher::CDasherScreen;
+class Dasher::CDasherView;
+class Dasher::CDasherInput;
+class Dasher::CDasherModel;
+class Dasher::CEventHandler;
+class Dasher::CEvent;
+class CSettingsStore;
+class CUserLog;
 
 #include <map>
 #include <iostream>
@@ -60,9 +72,7 @@ public:
   /// \param bValue The new value.
   ///
 
-  void SetBoolParameter(int iParameter, bool bValue) {
-    m_pSettingsStore->SetBoolParameter(iParameter, bValue);
-  };
+  void SetBoolParameter(int iParameter, bool bValue);
 
   ///
   /// Set a long integer parameter.
@@ -70,9 +80,7 @@ public:
   /// \param lValue The new value.
   ///
 
-  void SetLongParameter(int iParameter, long lValue) {
-    m_pSettingsStore->SetLongParameter(iParameter, lValue);
-  };
+  void SetLongParameter(int iParameter, long lValue);
 
   ///
   /// Set a string parameter.
@@ -80,33 +88,25 @@ public:
   /// \param sValue The new value.
   ///
 
-  void SetStringParameter(int iParameter, const std::string & sValue) {
-    m_pSettingsStore->SetStringParameter(iParameter, sValue);
-  };
+  void SetStringParameter(int iParameter, const std::string & sValue);
 
   /// Get a boolean parameter
   /// \param iParameter The parameter to get.
   /// \retval The current value.
 
-  bool GetBoolParameter(int iParameter) {
-    return m_pSettingsStore->GetBoolParameter(iParameter);
-  }
+  bool GetBoolParameter(int iParameter);
 
   /// Get a long integer parameter
   /// \param iParameter The parameter to get.
   /// \retval The current value.
 
-  long GetLongParameter(int iParameter) {
-    return m_pSettingsStore->GetLongParameter(iParameter);
-  }
+  long GetLongParameter(int iParameter);
 
   /// Get a string parameter
   /// \param iParameter The parameter to get.
   /// \retval The current value.
 
-  std::string GetStringParameter(int iParameter) {
-    return m_pSettingsStore->GetStringParameter(iParameter);
-  }
+  std::string GetStringParameter(int iParameter);
 
   /// Forward events to listeners in the SettingsUI and Editbox.
   /// \param pEvent The event to forward.
@@ -312,10 +312,6 @@ public:
 
   /// \deprecated Use parameter interface instead
 
-  //virtual void MouseposStart(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
   void ChangeAlphabet(const std::string & NewAlphabetID);
 
   /// \deprecated Use parameter interface instead
@@ -363,71 +359,6 @@ public:
 
   /// \deprecated Not part of Dasher control
 
-  //void ShowToolbarLargeIcons(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
-  //void FixLayout(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
-  //void TimeStampNewFiles(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
-  //void CopyAllOnStop(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void DrawMouse(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void DrawMouseLine(bool Value);
-
-  ///
-  /// \deprecated Use parameter interface instead
-
-  //void StartOnSpace(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void StartOnLeft(bool Value);
-
-  /// \deprecated Document this
-
-  //void KeyControl(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
-  //void WindowPause(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void ControlMode(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void ColourMode(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
-  //void KeyboardMode(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
-  //void Speech(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void OutlineBoxes(bool Value);
-
-  /// \deprecated Use parameter interface instead
-
-  //void PaletteChange(bool Value);
-
-  /// \deprecated Not part of Dasher control
-
   void SetScreenSize(long Width, long Height);
 
   /// \deprecated Not part of Dasher control
@@ -444,7 +375,7 @@ public:
 
   /// \deprecated Use parameter interface instead
 
-  void SetDasherFontSize(FontSize fontsize);
+  void SetDasherFontSize(Dasher::Opts::FontSize fontsize);
 
   /// \deprecated Use parameter interface instead
 
@@ -474,13 +405,6 @@ public:
 
   void SetTruncationType(int Value);
 
-  // Which mouse position box should the View draw?
-  // 0 - no box, 1 - upper box, 2 - lower box
-
-  /// \deprecated Use parameter interface instead
-
-  //void SetDrawMousePosBox(int iWhich);
-
   /// Get the current autocalibration offset
   /// \retval The offset.
 
@@ -498,27 +422,7 @@ public:
   /// Set the context in which Dasher makes predictions
   /// \param strNewContext The new context (UTF-8)
 
-  void SetContext(std::string strNewContext) {
-    
-    // We keep track of an internal context and compare that to what
-    // we are given - don't restart Dasher if nothing has changed.
-    // This should really be integrated with DasherModel, which
-    // probably will be the case when we start to deal with being able
-    // to back off indefinitely. For now though we'll keep it in a
-    // separate string.
-
-    int iContextLength( 6 ); // The 'important' context length - should really get from language model
-
-    // FIXME - use unicode lengths
-
-    if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
-      if(m_pDasherModel != NULL)
-	m_pDasherModel->SetContext(strNewContext);
-      PauseAt(0,0);
-      
-      strCurrentContext = strNewContext;
-    }
-  }
+  void SetContext(std::string strNewContext);
 
   /// Get the total number of nats (base-e bits) entered.
   /// \retval The current total
@@ -546,17 +450,13 @@ public:
 
   // Control mode stuff
   
-  void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-    m_pDasherModel->RegisterNode(iID, strLabel, iColour);
-  }
+  void RegisterNode( int iID, const std::string &strLabel, int iColour );
   
-  void ConnectNode(int iChild, int iParent, int iAfter) {
-    m_pDasherModel->ConnectNode(iChild, iParent, iAfter);
-  }
+  void ConnectNode(int iChild, int iParent, int iAfter);
     
 
 protected:
-  CAlphabet * m_Alphabet;
+  CAlphabet *m_Alphabet;
   CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
   CDashEditbox *m_DashEditbox;

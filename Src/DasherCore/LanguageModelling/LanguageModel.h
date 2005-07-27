@@ -9,8 +9,6 @@
 #ifndef __LanguageModelling_LanguageModel_h__
 #define __LanguageModelling_LanguageModel_h__
 
-#include "LanguageModelParams.h"
-
 #include "SymbolAlphabet.h"
 #include "../DasherComponent.h"
 #include <vector>
@@ -82,17 +80,10 @@ public:
   const CSymbolAlphabet &SymbolAlphabet() const {
     return m_Alphabet;
   }
-  // const? 
-/*   CLanguageModelParams *LanguageModelParams() const { */
-/*     return m_pParams; */
-//  } 
 
  private:
 
   const CSymbolAlphabet m_Alphabet;
-
-  // perhaps this should be const - or should we just take a copy?
-  //  CLanguageModelParams *m_pParams;
 
 };
 

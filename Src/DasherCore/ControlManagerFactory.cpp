@@ -1,4 +1,5 @@
 #include "ControlManagerFactory.h"
+#include "ControlManager.h"
 
 using namespace Dasher;
 
@@ -22,4 +23,12 @@ CControlManagerFactory::~CControlManagerFactory() {
 
 CDasherNode *CControlManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper) {
   return m_pControlManager->GetRoot(pParent, iLower, iUpper);
+}
+
+void CControlManagerFactory::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
+  m_pControlManager->RegisterNode(iID, strLabel, iColour);
+}
+
+void CControlManagerFactory::ConnectNode(int iChild, int iParent, int iAfter) {
+  m_pControlManager->ConnectNode(iChild, iParent, iAfter);
 }

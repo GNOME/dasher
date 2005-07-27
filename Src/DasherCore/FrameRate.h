@@ -15,6 +15,8 @@
 // computes the Steps parameter
 // computes RXmax - which controls the maximum rate of zooming in
 
+using namespace Dasher;
+
 const double LN2 = log(2.0);
 
 class CFrameRate {

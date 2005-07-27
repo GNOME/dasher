@@ -11,9 +11,15 @@
 
 #include <string>
 #include <map>
-
-#include "EventHandler.h"
 #include "Parameters.h"
+
+namespace Dasher {
+  class CEventHandler;
+  class CParameterNotificationEvent;
+}
+
+class Dasher::CEventHandler;
+class Dasher::CParameterNotificationEvent;
 
 /*
 	The public interface uses UTF-8 strings. All Keys should be

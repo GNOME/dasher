@@ -1,9 +1,13 @@
 #pragma once
+
 #include "../DasherInterfaceBase.h"
+
+class CSettingsStore;
+class CWinOptions;
 
 #include "WinOptions.h"
 
-class CDasherInterface:public CDasherInterfaceBase {
+class CDasherInterface:public Dasher::CDasherInterfaceBase {
 public:
   CDasherInterface(void);
   ~CDasherInterface(void);

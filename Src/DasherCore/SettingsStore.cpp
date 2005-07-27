@@ -10,6 +10,7 @@
 
 #include "SettingsStore.h"
 #include "Event.h"
+#include "EventHandler.h"
 
 #include <iostream>
 
@@ -74,8 +75,9 @@ void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {
   s_oParamTables.BoolParamTable[iParameter - FIRST_BP].value = bValue;
 
   // Initiate events for changed parameter
-  Dasher::CParameterNotificationEvent oEvent(iParameter);
-  m_pEventHandler->InsertEvent(&oEvent);
+  Dasher::CParameterNotificationEvent* oEvent = new Dasher::CParameterNotificationEvent(iParameter);
+  m_pEventHandler->InsertEvent(oEvent);
+  delete oEvent;
 
   // Write out to permanent storage
   if(s_oParamTables.BoolParamTable[iParameter - FIRST_BP].persistent)

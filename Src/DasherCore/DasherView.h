@@ -5,9 +5,15 @@
 #ifndef __DasherView_h_
 #define __DasherView_h_
 
-#include "DasherScreen.h"
-#include "DasherModel.h"
-#include "DasherInput.h"
+namespace Dasher {
+  class CDasherScreen;
+  class CDasherModel;
+  class CDasherInput;
+  class CDasherComponent;
+  class CDasherView;
+}
+
+#include "DasherTypes.h"
 #include "DasherComponent.h"
 
 #include <iostream>
@@ -17,9 +23,6 @@
 
 // DJW 200504 - at the moment its quite hard work to plug in a new view
 
-namespace Dasher {
-  class CDasherView;
-}
 ////// \brief View base class.
 ////// Dasher views represent the visualisation of a Dasher model on the screen.
 ////// Note that we really should aim to avoid having to try and keep
@@ -54,7 +57,7 @@ public:
   /// \param DasherScreen Pointer to the CDasherScreen object used to do rendering
   /// \param DasherModel Reference to the CDasherModel which is to be represented
 
-  CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen, CDasherModel & DasherModel);
+  CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen, CDasherModel * DasherModel);
   virtual ~ CDasherView() {
   }
   ////// Event handler
@@ -138,33 +141,25 @@ public:
   /// 
   /// Return a reference to the model
 
-  CDasherModel & DasherModel() {
-    return m_DasherModel;
+  CDasherModel * DasherModel() {
+    return m_pDasherModel;
   }
 
   /// \todo Erm...
 
-  const CDasherModel & DasherModel() const {
-    return m_DasherModel;
+  const CDasherModel * DasherModel() const {
+    return m_pDasherModel;
   }
   ////// Return a reference to the screen
   
-  CDasherScreen & Screen() {
-    return *m_pScreen;
+  CDasherScreen * Screen() {
+    return m_pScreen;
   }
 
   /// Request the Screen to copy its buffer to the Display
   /// \todo Shouldn't be public?
 
-  void Display() {
-    m_pScreen->Display();
-  }
-
-  // Toggle advanced colour mode
-  //void SetColourMode(bool colourmode) {ColourMode=colourmode;}
-
-  // Toggle keyboard control mode
-  //void SetKeyControl(bool keyboardcontrol) {KeyControl=keyboardcontrol;}
+  void Display();
 
   /// \todo Document this
 
@@ -181,58 +176,19 @@ public:
   virtual void ResetYAutoOffset() {
   }
 
-  //void SetTruncation( int iTruncation ) {
-  //  m_iTruncation = iTruncation;
-  //}
-
-  //void SetTruncationType( int iTruncationType ) {
-  //  m_iTruncationType = iTruncationType;
-  //}
-
   /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
   /// \param _pInput Pointer to the new CDasherInput.
 
-  void SetInput(CDasherInput * _pInput) {
-
-    DASHER_ASSERT_VALIDPTR_RW(_pInput);
-
-    // Delete the old class if we have one
-
-    if(m_pInput)
-      delete m_pInput;
-
-    m_pInput = _pInput;
-
-    // Tell the new object about maximum values
-
-    myint iMaxCoordinates[2];
-
-    iMaxCoordinates[0] = m_DasherModel.DasherY();
-    iMaxCoordinates[1] = m_DasherModel.DasherY();
-
-    m_pInput->SetMaxCoordinates(2, iMaxCoordinates);
-
-  }
+  void SetInput(CDasherInput * _pInput);
 
   /// Get the co-ordinates from the input device
   /// \todo This shouldn't be public?
 
-  int GetCoordinates(int iN, myint * pCoordinates) {
-
-    if(m_pInput)
-      return m_pInput->GetCoordinates(iN, pCoordinates);
-
-    return 0;
-  }
+  int GetCoordinates(int iN, myint * pCoordinates);
 
   /// Get the co-ordinate count from the input device
 
-  int GetCoordinateCount() {
-    if(m_pInput)
-      return m_pInput->GetCoordinateCount();
-
-    return 0;
-  }
+  int GetCoordinateCount();
 
 protected:
   // Orientation of Dasher Screen
@@ -241,7 +197,7 @@ protected:
 
 private:
   CDasherScreen * m_pScreen;    // provides the graphics (text, lines, rectangles):
-  CDasherModel & m_DasherModel; // Model view represents
+  CDasherModel * m_pDasherModel; // Model view represents
   CDasherInput *m_pInput;       // Input device abstraction
 
   // Pure virtuals to implement

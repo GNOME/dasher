@@ -1,51 +1,34 @@
 #ifndef __dashercomponent_h__
 #define __dashercomponent_h__
 
-#include "Event.h"
-#include "EventHandler.h"
-#include "SettingsStore.h"
-
 namespace Dasher {
   class CDasherComponent;
+  class CEvent;
+  class CEventHandler;
 }
+
+class Dasher::CEvent;
+class Dasher::CEventHandler;
+#include "SettingsStore.h"
+
+
 
 class Dasher::CDasherComponent {
  public:
-  CDasherComponent(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
-    :m_pEventHandler(pEventHandler), m_pSettingsStore(pSettingsStore) {
+  CDasherComponent(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
 
-    m_pEventHandler->RegisterListener(this);
+  virtual ~CDasherComponent();
 
-  };
-
-  virtual ~CDasherComponent() {
-    m_pEventHandler->UnregisterListener(this);
-  };
-
-  void InsertEvent(Dasher::CEvent * pEvent) {
-    m_pEventHandler->InsertEvent(pEvent);
-  };
+  void InsertEvent(Dasher::CEvent * pEvent);
 
   virtual void HandleEvent(Dasher::CEvent * pEvent) = 0;
 
-  bool GetBoolParameter(int iParameter) const {
-    return m_pSettingsStore->GetBoolParameter(iParameter);
-  }
-  long GetLongParameter(int iParameter) const {
-    return m_pSettingsStore->GetLongParameter(iParameter);
-  }
-  std::string GetStringParameter(int iParameter)const {
-    return m_pSettingsStore->GetStringParameter(iParameter);
-  }
-  void SetBoolParameter(int iParameter, bool bValue) const {
-    m_pSettingsStore->SetBoolParameter(iParameter, bValue);
-  }
-  void SetLongParameter(int iParameter, long lValue) const {
-    m_pSettingsStore->SetLongParameter(iParameter, lValue);
-  }
-  void SetStringParameter(int iParameter, std::string & sValue) const {
-    m_pSettingsStore->SetStringParameter(iParameter, sValue);
-  }
+  bool GetBoolParameter(int iParameter) const;
+  long GetLongParameter(int iParameter) const;
+  std::string GetStringParameter(int iParameter) const;
+  void SetBoolParameter(int iParameter, bool bValue) const;
+  void SetLongParameter(int iParameter, long lValue) const;
+  void SetStringParameter(int iParameter, std::string & sValue) const;
 
  protected:
   Dasher::CEventHandler *m_pEventHandler;

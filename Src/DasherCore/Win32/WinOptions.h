@@ -15,8 +15,10 @@
 
 // Look for documenting comments here:
 #include "../SettingsStore.h"
-#include "../EventHandler.h"
+#include "../../Common/NoClones.h"
 #include "WinHelper.h"
+
+class Dasher::CEventHandler;
 
 class CWinOptions:public CSettingsStore, private NoClones {
 public:

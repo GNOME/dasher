@@ -1,15 +1,16 @@
 #ifndef __eventhandler_h__
 #define __eventhandler_h__
 
-#include "Event.h"
-
 #include <vector>
 
 namespace Dasher {
   class CEventHandler;
   class CDasherComponent;
   class CDasherInterfaceBase;
-} class Dasher::CEventHandler {
+  class CEvent;
+}
+
+class Dasher::CEventHandler {
 public:
 
   CEventHandler(Dasher::CDasherInterfaceBase * pInterface):m_pInterface(pInterface) {

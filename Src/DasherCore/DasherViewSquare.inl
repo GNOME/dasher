@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "DasherModel.h"
+
 namespace Dasher {
   inline double CDasherViewSquare::xmax(double x, double y) const {
     // DJCM -- define a function xmax(y) thus:
@@ -25,7 +27,7 @@ namespace Dasher {
   }
 
   inline screenint CDasherViewSquare::dasherx2screen(myint sx) const {
-    double x = double (sx) / double (DasherModel().DasherY());
+    double x = double (sx) / double (DasherModel()->DasherY());
     x = xmap(x);
     return CanvasX - int (x * CanvasX);
 
@@ -35,7 +37,7 @@ namespace Dasher {
     if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       y1 = m_ymap.map(y1);
       y2 = m_ymap.map(y2);
-    } if(y1 > DasherModel().DasherY()) {
+    } if(y1 > DasherModel()->DasherY()) {
       return 0;
     } if(y2 < 0) {
       return 0;
@@ -47,14 +49,14 @@ namespace Dasher {
       }
 
     // Is this square actually on the screen? Check bottom
-    if(y2 > DasherModel().DasherY())
-      y2 = DasherModel().DasherY();
+    if(y2 > DasherModel()->DasherY())
+      y2 = DasherModel()->DasherY();
 
     Cint32 iSize = Cint32(y2 - y1);
     DASHER_ASSERT(iSize >= 0);
 
-    s1 = screenint(y1 * CanvasY / DasherModel().DasherY());
-    s2 = screenint(y2 * CanvasY / DasherModel().DasherY());
+    s1 = screenint(y1 * CanvasY / DasherModel()->DasherY());
+    s2 = screenint(y2 * CanvasY / DasherModel()->DasherY());
 
     DASHER_ASSERT(s2 >= s1);
     return iSize;
@@ -64,7 +66,7 @@ namespace Dasher {
   inline screenint CDasherViewSquare::dashery2screen(myint y) const {
     if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       y = m_ymap.map(y);
-    } y = (y * CanvasY / DasherModel().DasherY());
+    } y = (y * CanvasY / DasherModel()->DasherY());
 
     // Stop overflow when converting to screen coords
     if(y > myint(INT_MAX))
@@ -98,10 +100,10 @@ namespace Dasher {
     // Horizontal bar of crosshair
 
     x[0] = 12 * sx / 14;
-    y[0] = DasherModel().DasherY() / 2;
+    y[0] = DasherModel()->DasherY() / 2;
 
     x[1] = 17 * sx / 14;
-    y[1] = DasherModel().DasherY() / 2;
+    y[1] = DasherModel()->DasherY() / 2;
 
     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
       DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 5);
