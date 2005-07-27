@@ -19,7 +19,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-chrisfooCAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel ) 
+CAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel ) 
   : m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
 }
 
