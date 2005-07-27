@@ -218,10 +218,18 @@ void CDasher::OnTimer() {
 
 }
 
-
-
-void Dasher::CDasher::HandleParameterNotification(int iParameter) {
+void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
   // Here we send SendMessage calls to the DasherWindow class
+  if( pEvent->m_iEventType == 1 ) {
+    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+    if( pEvt->m_iParameter == BP_DASHER_PAUSED)
+      if( GetBoolParameter(BP_DASHER_PAUSED) )
+        SendMessage(m_hParent, WM_COMMAND, ID_EDIT_COPY_ALL, 0);
+  }
+  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 5)) {
+    if(m_DashEditbox != NULL)
+      m_DashEditbox->HandleEvent(pEvent);
+  }
 }
 
 // Get the pointer to our user logging object
@@ -248,4 +256,3 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
   else
     return false;
 }
-

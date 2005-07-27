@@ -95,10 +95,7 @@ void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
 
   // Pass events outside
   if(pEvent->m_iEventType == 1) {
-    //Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
-
-    //if(m_SettingsUI != 0)
-    // m_SettingsUI->HandleParameterNotification(pEvt->m_iParameter);
+    //HandleParameterNotification(pEvent->m_iEventType);
   }
   else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 5)) {
     if(m_DashEditbox != NULL)
@@ -120,9 +117,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+	      SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
       else
-	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
+	      SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
       Start();
       RequestFullRedraw();
       break;
@@ -138,7 +135,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
       ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID)); 
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+	      SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
       Start();
       RequestFullRedraw();
       break;

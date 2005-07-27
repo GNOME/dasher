@@ -31,7 +31,7 @@ public:
     m_pEditWrapper->SetEventHandler(pEdit);
   }
 
-  void HandleParameterNotification(int iParameter);
+  void ExternalEventHandler(Dasher::CEvent *pEvent);
   CUserLog*     GetUserLogPtr();
 
 private:

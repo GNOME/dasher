@@ -122,27 +122,6 @@ public:
 
   void InterfaceEventHandler(Dasher::CEvent * pEvent);
 
-  /// Tell the core which CDasherSettingsInterface should be used
-  ///
-  /// Provide a pointer to an instance of CDasherSettingsInterface in 
-  /// order to allow for platform dependent configuration of certain 
-  /// options
-  /// \param SettingsUI Pointer to the CDasherSettingsInterface.
-
-  //void SetSettingsUI(CDasherSettingsInterface * SettingsUI);
-
-  /// Set the path for user specific configuration and files
-  /// \param UserLocation The new path.
-  /// \todo This is unlikely to change, so should probably be supplied directly to the constructor.
-
-  //void SetUserLocation(std::string UserLocation);
-
-  /// Set the path for system-wide configuration and files
-  /// \param SystemLocation The new path.
-  /// \todo This is unlikely to change, so should probably be supplied directly to the constructor.
-
- // void SetSystemLocation(std::string SystemLocation);
-
   /// Add an alphabet filename
   /// \param Filename The filename to add
 
@@ -576,7 +555,7 @@ public:
   }
     
 
-private:
+protected:
   CAlphabet * m_Alphabet;
   CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
@@ -599,8 +578,7 @@ private:
   void CreateDasherModel();
 
   std::string strCurrentContext;
-	  
-protected:
+
   CEventHandler * m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
   CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity

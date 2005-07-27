@@ -29,7 +29,7 @@ using namespace std;
 #define IDT_TIMER1 200
 
 CDasherWindow::CDasherWindow()
-:Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0) {
+:Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0), m_pDasher(0), m_pCanvas(0) {
 
   hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR) IDC_DASHER);
 
@@ -133,7 +133,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       const int wmEvent = HIWORD(wParam);
 
       // Tell edit box if it has changed. It should know itself really, but this is easier
-      if(((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
+      if( m_pEdit && ((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
         m_pEdit->SetDirty();
         break;
       }
@@ -244,40 +244,47 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
         break;
       case ID_EDIT_SELECTALL:
-        m_pEdit->SelectAll();
+        if(m_pEdit)
+          m_pEdit->SelectAll();
         break;
       case ID_EDIT_CUT:
-        m_pEdit->Cut();
+        if(m_pEdit)
+          m_pEdit->Cut();
         break;
       case ID_EDIT_COPY:
-        m_pEdit->Copy();
+        if(m_pEdit)
+          m_pEdit->Copy();
         break;
       case ID_EDIT_COPY_ALL:
-        m_pEdit->CopyAll();
+        if(m_pEdit)
+          m_pEdit->CopyAll();
         break;
       case ID_EDIT_PASTE:
-        m_pEdit->Paste();
+        if(m_pEdit)
+          m_pEdit->Paste();
         break;
       case ID_FILE_NEW:
-        m_pEdit->New();
-        
+        if(m_pEdit)
+          m_pEdit->New();
         // Selecting file->new indicates a new trial to our user logging object
         if (m_pDasher != NULL) {
           CUserLog* pUserLog = m_pDasher->GetUserLogPtr();
           if (pUserLog != NULL)
             pUserLog->NewTrial();
         }
-
         break;
       case ID_FILE_OPEN:
-        m_pEdit->Open();
+        if(m_pEdit)
+          m_pEdit->Open();
         break;
       case ID_FILE_SAVE:
-        if(!m_pEdit->Save())
-          m_pEdit->SaveAs();
+        if(m_pEdit)
+          if(!m_pEdit->Save())
+            m_pEdit->SaveAs();
         break;
       case ID_FILE_SAVE_AS:
-        m_pEdit->SaveAs();
+        if(m_pEdit)
+          m_pEdit->SaveAs();
         break;
       case ID_IMPORT_TRAINFILE:
         m_pDasher->TrainFile(m_pEdit->Import());
@@ -434,46 +441,52 @@ void CDasherWindow::Layout() {
     SlidebarHeight = 0;
   int MaxCanvas = Height - SlidebarHeight;
 
-  int SplitterPos = m_pSplitter->GetPos();
-  int SplitterHeight = m_pSplitter->GetHeight();
-  SplitterPos = max(CurY + 2 * SplitterHeight, SplitterPos);
-  SplitterPos = min(SplitterPos, MaxCanvas - 3 * SplitterHeight);
-  m_pSplitter->Move(SplitterPos, Width);
+  if(m_pSplitter) {
+    int SplitterPos = m_pSplitter->GetPos();
+    int SplitterHeight = m_pSplitter->GetHeight();
+    SplitterPos = max(CurY + 2 * SplitterHeight, SplitterPos);
+    SplitterPos = min(SplitterPos, MaxCanvas - 3 * SplitterHeight);
+    m_pSplitter->Move(SplitterPos, Width);
 
-  m_pEdit->Move(0, CurY, Width, SplitterPos - CurY);
+    if(m_pEdit)
+      m_pEdit->Move(0, CurY, Width, SplitterPos - CurY);
 
-  CurY = SplitterPos + SplitterHeight;
-  int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
-
-  m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+    CurY = SplitterPos + SplitterHeight;
+    int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
+ 
+    if(m_pCanvas)
+      m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+  }
 }
 
 void CDasherWindow::PopulateSettings() {
-  WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==1);
-  WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==2);
-  WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
+  if(m_pDasher) {
+    WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==1);
+    WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==2);
+    WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
 
-  WinMenu.SetStatus(ID_TB_SHOW, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-  WinMenu.SetStatus(ID_TB_TEXT, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-  WinMenu.SetStatus(ID_TB_LARGE, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
+    WinMenu.SetStatus(ID_TB_SHOW, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+    WinMenu.SetStatus(ID_TB_TEXT, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
+    WinMenu.SetStatus(ID_TB_LARGE, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
 
-  WinMenu.SetStatus(ID_TB_TEXT, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-  WinMenu.SetStatus(ID_TB_LARGE, false, m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
-  WinMenu.SetStatus(ID_FIX_SPLITTER, false, m_pDasher->GetBoolParameter(BP_FIX_LAYOUT));
-  WinMenu.SetStatus(ID_SHOW_SLIDE, false, m_pDasher->GetBoolParameter(BP_SHOW_SLIDER));
-  WinMenu.SetStatus(ID_TIMESTAMP, false, m_pDasher->GetBoolParameter(BP_TIME_STAMP));
-  WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP));
-  WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, m_pDasher->GetBoolParameter(BP_CONTROL_MODE));
+    WinMenu.SetStatus(ID_TB_TEXT, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
+    WinMenu.SetStatus(ID_TB_LARGE, false, m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
+    WinMenu.SetStatus(ID_FIX_SPLITTER, false, m_pDasher->GetBoolParameter(BP_FIX_LAYOUT));
+    WinMenu.SetStatus(ID_SHOW_SLIDE, false, m_pDasher->GetBoolParameter(BP_SHOW_SLIDER));
+    WinMenu.SetStatus(ID_TIMESTAMP, false, m_pDasher->GetBoolParameter(BP_TIME_STAMP));
+    WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP));
+    WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, m_pDasher->GetBoolParameter(BP_CONTROL_MODE));
 
-  WinMenu.SetStatus(ID_ORIENT_ALPHABET, false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::Alphabet);
-  WinMenu.SetStatus(ID_ORIENT_LR,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::LeftToRight);
-  WinMenu.SetStatus(ID_ORIENT_RL,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::RightToLeft);
-  WinMenu.SetStatus(ID_ORIENT_TB,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::TopToBottom);
-  WinMenu.SetStatus(ID_ORIENT_BT,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::BottomToTop);
+    WinMenu.SetStatus(ID_ORIENT_ALPHABET, false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::Alphabet);
+    WinMenu.SetStatus(ID_ORIENT_LR,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::LeftToRight);
+    WinMenu.SetStatus(ID_ORIENT_RL,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::RightToLeft);
+    WinMenu.SetStatus(ID_ORIENT_TB,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::TopToBottom);
+    WinMenu.SetStatus(ID_ORIENT_BT,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::BottomToTop);
 
-  WinMenu.SetStatus(ID_SAVE_AS_USER_CODEPAGE,     false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UserDefault);
-  WinMenu.SetStatus(ID_SAVE_AS_ALPHABET_CODEPAGE, false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::AlphabetDefault);
-  WinMenu.SetStatus(ID_SAVE_AS_UTF8,              false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF8);
-  WinMenu.SetStatus(ID_SAVE_AS_UTF16_LITTLE,      false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16LE);
-  WinMenu.SetStatus(ID_SAVE_AS_UTF16_BIG,         false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16BE);
+    WinMenu.SetStatus(ID_SAVE_AS_USER_CODEPAGE,     false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UserDefault);
+    WinMenu.SetStatus(ID_SAVE_AS_ALPHABET_CODEPAGE, false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::AlphabetDefault);
+    WinMenu.SetStatus(ID_SAVE_AS_UTF8,              false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF8);
+    WinMenu.SetStatus(ID_SAVE_AS_UTF16_LITTLE,      false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16LE);
+    WinMenu.SetStatus(ID_SAVE_AS_UTF16_BIG,         false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16BE);
+  }
 }

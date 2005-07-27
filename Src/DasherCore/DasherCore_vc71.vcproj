@@ -193,49 +193,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Win32"
-			Filter="">
-			<File
-				RelativePath="Win32\DasherInterface.cpp">
-			</File>
-			<File
-				RelativePath="Win32\DasherInterface.h">
-			</File>
-			<File
-				RelativePath="Win32\WinCommon.h">
-			</File>
-			<File
-				RelativePath="Win32\WinHelper.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinHelper.h">
-			</File>
-			<File
-				RelativePath="Win32\WinLocalisation.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinLocalisation.h">
-			</File>
-			<File
-				RelativePath="Win32\WinOptions.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinOptions.h">
-			</File>
-			<File
-				RelativePath="Win32\WinUTF8.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinUTF8.h">
-			</File>
-			<File
-				RelativePath="Win32\WinWrap.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinWrap.h">
-			</File>
-		</Filter>
-		<Filter
 			Name="Logging"
 			Filter="">
 			<File
@@ -291,6 +248,49 @@
 			</File>
 			<File
 				RelativePath=".\XMLUtil.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Win32"
+			Filter="">
+			<File
+				RelativePath="Win32\DasherInterface.cpp">
+			</File>
+			<File
+				RelativePath="Win32\DasherInterface.h">
+			</File>
+			<File
+				RelativePath="Win32\WinCommon.h">
+			</File>
+			<File
+				RelativePath="Win32\WinHelper.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinHelper.h">
+			</File>
+			<File
+				RelativePath="Win32\WinLocalisation.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinLocalisation.h">
+			</File>
+			<File
+				RelativePath="Win32\WinOptions.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinOptions.h">
+			</File>
+			<File
+				RelativePath="Win32\WinUTF8.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinUTF8.h">
+			</File>
+			<File
+				RelativePath="Win32\WinWrap.cpp">
+			</File>
+			<File
+				RelativePath="Win32\WinWrap.h">
 			</File>
 		</Filter>
 		<File
