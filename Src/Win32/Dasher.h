@@ -27,11 +27,10 @@ public:
     return m_pSlidebar;
   }
 
-  void SetEdit(CDashEditbox * pEdit) {
-    m_pEditWrapper->SetEventHandler(pEdit);
-  }
+  void SetEdit(CDashEditbox * pEdit);
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
+
   CUserLog*     GetUserLogPtr();
 
 private:

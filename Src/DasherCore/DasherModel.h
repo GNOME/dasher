@@ -25,6 +25,8 @@ namespace Dasher {
   class CDasherModel;
   class CDasherInterfaceBase;
 }
+
+class Dasher::CDasherInterfaceBase;
 ///
 /// \brief Dasher 'world' data structures and dynamics.
 ///

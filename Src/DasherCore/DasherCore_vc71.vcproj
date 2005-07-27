@@ -411,7 +411,7 @@
 			RelativePath=".\DasherViewSquare.inl">
 		</File>
 		<File
-			RelativePath=".\View\DelayedDraw.cpp">
+			RelativePath=".\DelayedDraw.cpp">
 		</File>
 		<File
 			RelativePath=".\View\DelayedDraw.h">

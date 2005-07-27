@@ -267,3 +267,7 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
   else
     return false;
 }
+
+void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
+  m_pEditWrapper->SetEventHandler(pEdit);
+}
