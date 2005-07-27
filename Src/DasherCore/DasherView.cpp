@@ -182,3 +182,4 @@ void CDasherView::SetInput(CDasherInput * _pInput) {
 void CDasherView::Display() {
   m_pScreen->Display();
 }
+

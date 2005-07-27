@@ -1136,7 +1136,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
   delete[]pCoordinates;
 
-  bool autocalibrate = 1;
+  bool autocalibrate = 0;
   if(autocalibrate) {
     AutoCalibrate(&mousex, &mousey);
   }
@@ -1638,7 +1638,7 @@ bool CDasherViewSquare::HandleStartOnMouse(int iTime) {
 
   delete pCoordinates;
 
-  bool autocalibrate = 1;
+  bool autocalibrate = 0;
   if(autocalibrate) {
     AutoCalibrate(&mousex, &mousey);
   }
@@ -1697,3 +1697,4 @@ bool CDasherViewSquare::HandleStartOnMouse(int iTime) {
   return false;
 
 }
+

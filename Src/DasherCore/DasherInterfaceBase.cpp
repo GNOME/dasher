@@ -797,3 +797,4 @@ long CDasherInterfaceBase::GetLongParameter(int iParameter) {
 std::string CDasherInterfaceBase::GetStringParameter(int iParameter) {
   return m_pSettingsStore->GetStringParameter(iParameter);
 }
+
