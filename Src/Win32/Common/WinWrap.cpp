@@ -7,6 +7,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "WinCommon.h"
+#include "Prsht.h"
 
 #include "WinWrap.h"
 
@@ -17,9 +18,11 @@ CWinWrap::~CWinWrap() {
 
 namespace WinWrapMap {
   WNDPROC GetWndProc(HWND Win);
-    std::map < HWND, CWinWrap * >WinMap;
-    std::map < Tstring, short >ClassRegistered;
-} LRESULT CALLBACK WinWrapMap::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  std::map < HWND, CWinWrap * >WinMap;
+  std::map < Tstring, short >ClassRegistered;
+} 
+
+LRESULT CALLBACK WinWrapMap::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
   CWinWrap *WinWrap = WinMap[Window];
 
   /* A WinWrap object may be deleted before the Window has stopped processing
@@ -45,6 +48,34 @@ namespace WinWrapMap {
 
   return 0;
 }
+
+LRESULT CALLBACK WinWrapMap::PSWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  CWinWrap *WinWrap = WinMap[Window];
+
+  /* A WinWrap object may be deleted before the Window has stopped processing
+     messages. Also DialogBox() does not return, so we didn't get a change to add
+     a dialog to the map. Therefore, we check that the object still exists first. */
+  if(WinWrap != 0)
+    return WinWrap->WndProc(Window, message, wParam, lParam);
+  else {
+    if(message == WM_INITDIALOG) {
+      // Objects representing dialogs should pass a pointer to themselves by using DialogBoxParam
+      if(lParam) {
+        WinWrapMap::add(Window, (CWinWrap *)( ((PROPSHEETPAGE *)lParam)->lParam ));   // Ugly casting
+        WinWrap = WinMap[Window];
+        return WinWrap->WndProc(Window, message, wParam, lParam);
+      }
+      else
+        return FALSE;
+    }
+    else {
+      return DefWindowProc(Window, message, wParam, lParam);
+    }
+  }
+
+  return 0;
+}
+
 
 void WinWrapMap::add(HWND Win, CWinWrap *WinObject) {
   WinMap[Win] = WinObject;

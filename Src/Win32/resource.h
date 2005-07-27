@@ -42,17 +42,24 @@
 #define IDS_ORIENT_RL                   138
 #define IDS_ORIENT_TB                   139
 #define IDD_DIALOG1                     140
+#define IDS_PREFS_TITLE                 140
 #define IDD_ALPHABET                    141
+#define IDS_PREFS_CONTROL               141
 #define IDS_ORIENT_BT                   142
 #define IDS_ERR_ALPH_DESC               143
 #define IDD_ABOUTBOX_OLD                144
+#define IDS_PREFS_VIEW                  144
 #define IDS_QUERY_SAVE_CHANGES          145
 #define IDB_COPY_ALL_SMALL_COLOR        146
+#define IDS_PREFS_ALPHABET              146
 #define IDS_UNTITLED_FILE               147
 #define IDB_COPY_ALL_LARGE_COLOR        148
+#define IDS_PREFS_COLOUR                148
 #define IDS_UNSAVED_CHANGES             149
 #define IDD_CUSTOMALPHABET              150
+#define IDS_PREFS_ADVANCED              150
 #define IDD_CUSTOMLETTER                151
+#define IDS_PREFS_LM                    151
 #define IDD_ADDLETTERS                  152
 #define IDD_NEWALPHABET                 153
 #define IDD_NEWGROUP                    154
@@ -76,6 +83,8 @@
 #define ID_OPTIONS_CONTROLMODE          170
 #define IDD_KEYCONTROL1                 170
 #define ID_OPTIONS_COLOURS              171
+#define IDD_DIALOG3                     173
+#define IDD_DIALOG4                     174
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -175,8 +184,13 @@
 #define IDC_CONTROLCHAR                 1103
 #define IDC_EDIT1                       1104
 #define IDC_COLOUR                      1104
-#define IDC_TAB1                        1105
-#define IDC_TAB2                        1106
+#define IDC_RADIO1                      1107
+#define IDC_RADIO2                      1108
+#define IDC_RADIO3                      1109
+#define IDC_RADIO4                      1110
+#define IDC_RADIO5                      1111
+#define IDC_CHECK1                      1112
+#define IDC_CHECK2                      1113
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -228,9 +242,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        172
+#define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1107
+#define _APS_NEXT_CONTROL_VALUE         1114
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

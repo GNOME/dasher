@@ -55,6 +55,10 @@ Iain Murray August 2002
 
 namespace WinWrapMap {
   LRESULT CALLBACK WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+
+  // You need to use a slightly different version for property sheets
+
+  LRESULT CALLBACK PSWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam); 
 } 
 
 class CWinWrap:private NoClones {
@@ -68,6 +72,7 @@ protected:
   HWND m_hwnd;
 private:
   friend LRESULT CALLBACK WinWrapMap::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+  friend LRESULT CALLBACK WinWrapMap::PSWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 };
 
 namespace WinWrapMap {
