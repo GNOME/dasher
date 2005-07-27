@@ -873,7 +873,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
   else
     dYScale = Screen()->GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
   
-  iDasherY = (iDasherY - DasherModel()->DasherY()/2) * dYScale + DasherModel()->DasherY()/2;
+  iDasherY = myint((iDasherY - DasherModel()->DasherY()/2) * dYScale + DasherModel()->DasherY()/2);
   }
 
   // Then apply any non-linearity
