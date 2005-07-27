@@ -1,6 +1,6 @@
-#include "DelayedDraw.h"
-#include "../DasherScreen.h"
-#include "../DasherTypes.h"
+#include "View/DelayedDraw.h"
+#include "DasherScreen.h"
+#include "DasherTypes.h"
 
 #include <iostream>
 
