@@ -660,8 +660,6 @@ void CUserLog::HandleEvent(Dasher::CEvent* pEvent)
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent* pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
-g_pLogger->Log("CUserLog::HandleEvent, parameter = %d", logDEBUG, pEvt->m_iParameter);
-
     int i = 0;
 
     // Go through each of the parameters in our lookup table from UserLogParam.h.
@@ -1093,7 +1091,7 @@ void CUserLog::UpdateParam(int iParameter, int iOptionMask)
     }
   case (ParamLong):
     {
-      AddParam(strParamName, GetLongParameter(iParameter), iOptionMask);
+      AddParam(strParamName, (int) GetLongParameter(iParameter), iOptionMask);
       return;
       break;
     }
