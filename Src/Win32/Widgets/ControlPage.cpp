@@ -35,6 +35,8 @@ void CControlPage::PopulateList() {
 }
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  NMHDR *pNMHDR;
+  
   switch (message) {
   case WM_INITDIALOG:
     if(!m_hwnd) {               // If this is the initial dialog for the first time
@@ -48,6 +50,18 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     case (IDC_DISPLAY):
       break;
     }
+  case WM_NOTIFY:
+    pNMHDR = (NMHDR*)lParam;
+    switch (pNMHDR->code) {
+    case PSN_KILLACTIVE: // About to lose focus
+      // Do validation here - see help for PSN_KILLACTIVE for info on how to return
+      return FALSE;
+      break;
+    case PSN_APPLY: // User clicked OK/Apply - apply the changes
+      return FALSE;
+      break;
+    }
+    break;
   }
   return FALSE;
 }
