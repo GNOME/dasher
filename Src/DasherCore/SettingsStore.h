@@ -27,6 +27,15 @@ class Dasher::CParameterNotificationEvent;
 	string Values may contain special characters where appropriate.
 */
 
+// Types that are parameters can be
+enum ParameterType
+{
+  ParamBool,
+  ParamLong,
+  ParamString,
+  ParamInvalid
+};
+
 class CSettingsStore {
 public:
 
@@ -44,6 +53,9 @@ public:
   bool GetBoolParameter(int iParameter);
   long GetLongParameter(int iParameter);
   std::string GetStringParameter(int iParameter);
+
+  ParameterType   GetParameterType(int iParameter);
+  std::string     GetParameterName(int iParameter);
 
   void LoadPersistent();
 

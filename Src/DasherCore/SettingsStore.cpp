@@ -143,6 +143,49 @@ std::string CSettingsStore::GetStringParameter(int iParameter) {
   return s_oParamTables.StringParamTable[iParameter - FIRST_SP].value;
 }
 
+// Used to determine what data type a given parameter ID is.
+ParameterType CSettingsStore::GetParameterType(int iParameter)
+{
+  if ((iParameter >= FIRST_BP) && (iParameter < FIRST_LP))
+    return ParamBool;
+  if ((iParameter >= FIRST_LP) && (iParameter < FIRST_SP))
+    return ParamLong;
+  if ((iParameter >= FIRST_SP) && (iParameter < END_OF_SPS))
+    return ParamString;
+
+  return ParamInvalid;
+}
+
+// Gets the string name for the given parameter
+std::string CSettingsStore::GetParameterName(int iParameter)
+{
+  // Pull the registry name out of the correct table depending on the parameter type
+  switch (GetParameterType(iParameter))
+  {
+  case (ParamBool):
+    {
+      DASHER_ASSERT(iParameter == s_oParamTables.BoolParamTable[iParameter - FIRST_BP].key);
+      return s_oParamTables.BoolParamTable[iParameter - FIRST_BP].regName;
+      break;
+    }
+  case (ParamLong):
+    {
+      DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter - FIRST_LP].key);
+      return s_oParamTables.LongParamTable[iParameter - FIRST_LP].regName;
+      break;
+    }
+  case (ParamString):
+    {
+      DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter - FIRST_SP].key);
+      return s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName;
+      break;
+    }
+  };
+
+  return "";
+}
+
+
 ////////////////////////////////////////////////////////////
 //// DEPRECATED FUNCTIONS BELOW
 

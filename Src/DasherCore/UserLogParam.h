@@ -11,6 +11,7 @@
 
 #include <string>
 #include <vector>
+#include "Parameters.h"
 
 using namespace std;
 
@@ -22,6 +23,37 @@ enum eUserLogParam
   userLogParamTrackInTrial    = 4,    // Do we also store a copy of the parameter value within a trial?
   userLogParamForceInTrial    = 8,    // Do we always log the value of this parameter when a new trial is created?
   userLogParamShortInCycle    = 16    // In short logging, does the value get added to the end of a cycle stats line?
+};
+
+// We need to have a lookup table that maps parameters we want to track in 
+// the UserLog object and what their behavior is.
+struct UserLogParamMask {
+  int key;
+  int mask;
+};
+
+static UserLogParamMask s_UserLogParamMaskTable [] = {
+  {SP_ALPHABET_ID,          userLogParamOutputToSimple},
+  {SP_COLOUR_ID,            userLogParamOutputToSimple},
+  {LP_MAX_BITRATE,          userLogParamOutputToSimple | 
+                            userLogParamTrackMultiple | 
+                            userLogParamTrackInTrial |
+                            userLogParamForceInTrial |
+                            userLogParamShortInCycle},
+  {BP_CONTROL_MODE,         userLogParamOutputToSimple},
+  {LP_UNIFORM,              userLogParamOutputToSimple},
+  {LP_YSCALE,               userLogParamOutputToSimple},
+  {BP_NUMBER_DIMENSIONS,    userLogParamOutputToSimple},
+  {BP_EYETRACKER_MODE,      userLogParamOutputToSimple},
+  {LP_LANGUAGE_MODEL_ID,    userLogParamOutputToSimple},
+  {LP_LM_MAX_ORDER,         userLogParamOutputToSimple},
+  {LP_LM_EXCLUSION,         userLogParamOutputToSimple},
+  {LP_LM_UPDATE_EXCLUSION,  userLogParamOutputToSimple},
+  {LP_LM_ALPHA,             userLogParamOutputToSimple},
+  {LP_LM_BETA,              userLogParamOutputToSimple},
+  {LP_LM_MIXTURE,           userLogParamOutputToSimple},
+  {LP_LM_WORD_ALPHA,        userLogParamOutputToSimple},
+  {-1, -1}  // Flag value that should always be at the end
 };
 
 class CUserLogParam;

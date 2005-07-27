@@ -36,3 +36,14 @@ void CDasherComponent::SetLongParameter(int iParameter, long lValue) const {
 void CDasherComponent::SetStringParameter(int iParameter, std::string & sValue) const {
   m_pSettingsStore->SetStringParameter(iParameter, sValue);
 }
+
+ParameterType CDasherComponent::GetParameterType(int iParameter) const {
+  if (m_pSettingsStore != NULL)
+    return m_pSettingsStore->GetParameterType(iParameter);
+  return ParamInvalid;
+}
+std::string CDasherComponent::GetParameterName(int iParameter) const {
+  if (m_pSettingsStore != NULL)
+    return m_pSettingsStore->GetParameterName(iParameter);
+  return "";
+}

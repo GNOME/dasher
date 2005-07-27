@@ -11,7 +11,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CUserLog::CUserLog(int iLogTypeMask, Dasher::CAlphabet* pAlphabet)
+CUserLog::CUserLog(Dasher::CEventHandler *pEventHandler, 
+                   CSettingsStore *pSettingsStore, 
+                   int iLogTypeMask, 
+                   Dasher::CAlphabet* pAlphabet) : CDasherComponent(pEventHandler, pSettingsStore)
 {
   //CFunctionLogger f1("CUserLog::CUserLog", g_pLogger);
 
@@ -30,6 +33,9 @@ CUserLog::CUserLog(int iLogTypeMask, Dasher::CAlphabet* pAlphabet)
 
   if (m_pApplicationSpan == NULL)
     g_pLogger->Log("CUserLog::CUserLog, failed to create m_pApplicationSpan!", logNORMAL);
+
+  AddInitialParam();
+
 }
 
 CUserLog::~CUserLog()
@@ -647,6 +653,39 @@ int CUserLog::GetLogLevelMask()
 
   return m_iLevelMask;
 }
+  
+// This gets called whenever parameters get changed that we are tracking
+void CUserLog::HandleEvent(Dasher::CEvent* pEvent)
+{  
+  if(pEvent->m_iEventType == 1) {
+    Dasher::CParameterNotificationEvent* pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+
+g_pLogger->Log("CUserLog::HandleEvent, parameter = %d", logDEBUG, pEvt->m_iParameter);
+
+    int i = 0;
+
+    // Go through each of the parameters in our lookup table from UserLogParam.h.
+    // If the key matches the notification event, then we want to push the
+    // parameter change to the logging object.
+    while (s_UserLogParamMaskTable[i].key != -1)
+    {
+      int iParameter = pEvt->m_iParameter;
+
+      if (s_UserLogParamMaskTable[i].key == iParameter)
+      {
+        int iOptionMask = s_UserLogParamMaskTable[i].mask;
+
+        UpdateParam(iParameter, iOptionMask);
+        return;
+      }
+
+      i++;
+
+    } // end while (s_UserLogParamMaskTable[i].key != -1)
+
+  } // end if (pEvent->m_iEventType == 1)
+
+}
 
 ////////////////////////////////////////// private methods ////////////////////////////////////////////////
 
@@ -1019,6 +1058,59 @@ string CUserLog::GetVersionInfo()
 
   return strResult;
 }
+
+// Forces all the parameters we are tracking to be intially set, used when the
+// object is first starting up.
+void CUserLog::AddInitialParam()
+{
+  int i = 0;
+  while (s_UserLogParamMaskTable[i].key != -1)
+  {
+    UpdateParam(s_UserLogParamMaskTable[i].key, s_UserLogParamMaskTable[i].mask);
+    i++;
+  }
+}
+
+// Helper method that takes a parameter ID a la Parameters.h and
+// looks up its type, name and value and pushes into our object
+// using the specified options mask.
+void CUserLog::UpdateParam(int iParameter, int iOptionMask)
+{
+  string  strParamName  = GetParameterName(iParameter);
+
+  // What method we call depends on the type of the parameter
+  switch (GetParameterType(iParameter))
+  {
+  case (ParamBool):
+    {
+      // Convert bool to a integer
+      int iValue = 0;
+      if (GetBoolParameter(iParameter))
+        iValue = 1;
+      AddParam(strParamName, iValue, iOptionMask);
+      return;
+      break;
+    }
+  case (ParamLong):
+    {
+      AddParam(strParamName, GetLongParameter(iParameter), iOptionMask);
+      return;
+      break;
+    }
+  case (ParamString):
+    {
+      AddParam(strParamName, GetStringParameter(iParameter), iOptionMask);
+      return;
+      break;
+    }       
+  default:
+    {
+      g_pLogger->Log("CUserLog::UpdateParam, matched parameter %d but unknown type %d", logNORMAL, iParameter, GetParameterType(iParameter));
+      break;
+    }
+  };
+}
+
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // Below here are methods that are just used in the standalone tool that reads in 

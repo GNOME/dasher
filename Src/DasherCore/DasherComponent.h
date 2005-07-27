@@ -30,6 +30,9 @@ class Dasher::CDasherComponent {
   void SetLongParameter(int iParameter, long lValue) const;
   void SetStringParameter(int iParameter, std::string & sValue) const;
 
+  ParameterType   GetParameterType(int iParameter) const;
+  std::string     GetParameterName(int iParameter) const;
+
  protected:
   Dasher::CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;

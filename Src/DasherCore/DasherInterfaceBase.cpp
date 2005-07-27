@@ -65,13 +65,6 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 
 void CDasherInterfaceBase::Realize() {
 
-  // Create the user logging object if we are suppose to.  We wait
-  // until now so we have the real value of the parameter and not
-  // just the default.
-  int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
-  if (iUserLogLevel > 0) 
-    m_pUserLog = new CUserLog(iUserLogLevel);  
-
   ChangeColours(GetStringParameter(SP_COLOUR_ID));
   ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
 
@@ -79,6 +72,19 @@ void CDasherInterfaceBase::Realize() {
     SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
   else
     SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
+
+  // Create the user logging object if we are suppose to.  We wait
+  // until now so we have the real value of the parameter and not
+  // just the default.
+  int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
+  if (iUserLogLevel > 0) 
+    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel);  
+
+  // All the setup is done by now, so let the user log object know
+  // that future parameter changes should be logged.
+  if (m_pUserLog != NULL)
+    m_pUserLog->InitIsDone();
+
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {

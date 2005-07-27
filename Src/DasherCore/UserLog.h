@@ -36,6 +36,8 @@
 #include "Alphabet/Alphabet.h"
 #include <algorithm>
 #include "UserLogParam.h"
+#include "DasherComponent.h"
+#include "Event.h"
 
 // We'll only compile in some bits if we are the tool that reads in UserLog files
 // and can operate on them in some way.
@@ -74,10 +76,13 @@ typedef vector<VECTOR_STRING>               VECTOR_VECTOR_STRING;
 typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 #endif
 
-class CUserLog 
+// We need to be notified when parameters we are logging get changed, so we'll
+// subclass CDasherComponent and implement the HandleEvent() method.
+
+class CUserLog : public Dasher::CDasherComponent
 {
 public:
-  CUserLog(int iLogTypeMask, Dasher::CAlphabet* pAlphabet = NULL);
+  CUserLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iLogTypeMask, Dasher::CAlphabet* pAlphabet = NULL);
   ~CUserLog();
 
   // Methods called whenever our user interface gets a relevant event, this
@@ -101,6 +106,8 @@ public:
   void                        InitIsDone();
   void                        SetOuputFilename(const string& strFilename = "");
   int                         GetLogLevelMask();
+
+  void                        HandleEvent(Dasher::CEvent* pEvent);
 
 #ifdef USER_LOG_TOOL
   CUserLog(string strXMLFilename);
@@ -140,6 +147,8 @@ protected:
   string                      GetCycleParamStats();
   string                      GetVersionInfo();
   void                        InitMemberVars();
+  void                        AddInitialParam();
+  void                        UpdateParam(int iParameter, int iOptionMask);
 
   // Things that support simple stats of a single Start/Stop cycle:
   Dasher::VECTOR_SYMBOL_PROB  m_vCycleHistory;          // Tracks just the most recent Start/Stop cycle, used for simple logging
