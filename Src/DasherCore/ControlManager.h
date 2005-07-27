@@ -38,6 +38,7 @@ namespace Dasher {
     };
 
     CControlManager(CDasherModel *pModel, CLanguageModel *pLanguageModel );
+    ~CControlManager();
 
     ///
     /// Does nothing - control manager isn't reference counted.

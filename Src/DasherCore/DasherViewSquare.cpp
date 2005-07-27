@@ -210,6 +210,13 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   DasherModel->SetActive(rActive);
 }
 
+CDasherViewSquare::~CDasherViewSquare() {
+  if (m_pDelayDraw != NULL) {
+    delete m_pDelayDraw;
+    m_pDelayDraw = NULL;
+  }
+}
+
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext) {
 
   DASHER_ASSERT(y2 >= y1);

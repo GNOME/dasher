@@ -41,6 +41,7 @@ public:
   /// can be extracted from the model and passed too.
 
   CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel);
+  ~CDasherViewSquare();
 
   ///
   /// Convert input coordinates to dasher coordinates and evolve the model

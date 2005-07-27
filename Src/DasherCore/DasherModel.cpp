@@ -112,6 +112,11 @@ CDasherModel::~CDasherModel() {
   delete m_pAlphabetManagerFactory;
   delete m_pControlManagerFactory;
 
+  if (m_pGameMode != NULL) {
+    delete m_pGameMode;
+    m_pGameMode = NULL;
+  }
+
   m_pLanguageModel->ReleaseContext(LearnContext);
   delete m_pLanguageModel;
 
