@@ -196,6 +196,12 @@
 				RelativePath=".\Widgets\AboutBox.h">
 			</File>
 			<File
+				RelativePath=".\Widgets\AdvancedPage.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\AdvancedPage.h">
+			</File>
+			<File
 				RelativePath=".\Widgets\AlphabetBox.cpp">
 			</File>
 			<File
@@ -214,6 +220,12 @@
 				RelativePath="Widgets\ColourBox.h">
 			</File>
 			<File
+				RelativePath=".\Widgets\ControlPage.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\ControlPage.h">
+			</File>
+			<File
 				RelativePath=".\Widgets\Edit.cpp">
 			</File>
 			<File
@@ -230,6 +242,12 @@
 			</File>
 			<File
 				RelativePath="Widgets\KeyControl.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\LMPage.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\LMPage.h">
 			</File>
 			<File
 				RelativePath=".\Widgets\Menu.cpp">
@@ -275,6 +293,12 @@
 			</File>
 			<File
 				RelativePath=".\Widgets\Toolbar.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\ViewPage.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\ViewPage.h">
 			</File>
 			<File
 				RelativePath=".\widgets\WindowSelect.h">

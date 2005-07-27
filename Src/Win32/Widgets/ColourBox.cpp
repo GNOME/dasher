@@ -29,7 +29,7 @@ static char THIS_FILE[] = __FILE__;
 CColourBox::CColourBox(HWND Parent, CDasherInterface *DI)
 :m_pDasherInterface(DI), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)) {
   m_hwnd = 0;
-  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_COLOUR, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
+  //DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_COLOUR, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
 }
 
 void CColourBox::PopulateList() {

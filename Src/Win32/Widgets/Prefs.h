@@ -14,6 +14,14 @@
 
 #include "../Dasher.h"
 
+#include "AlphabetBox.h"
+#include "ColourBox.h"
+#include "ControlPage.h"
+#include "ViewPage.h"
+#include "AdvancedPage.h"
+#include "LMPage.h"
+
+
 class CPrefs:public CWinWrap {
 public:
   CPrefs(HWND hParent, CDasher * pDasher);
@@ -21,8 +29,15 @@ public:
 protected:
     LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-    HWND m_hCustomBox;
+  HWND m_hCustomBox;
   CDasher *m_pDasher;
+
+  CAlphabetBox *m_pAlphabetBox;
+  CColourBox *m_pColourBox;
+  CControlPage *m_pControlPage;
+  CViewPage *m_pViewPage;
+  CAdvancedPage *m_pAdvancedPage;
+  CLMPage *m_pLMPage;
 };
 
 #endif  /* #ifndef __PrefsBox_h__ */

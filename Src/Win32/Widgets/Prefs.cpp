@@ -32,6 +32,17 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
 :m_pDasher(pDasher) {
   m_hwnd = 0;
 
+  // FIXME - is hParent still needed here?
+
+  m_pAlphabetBox = new CAlphabetBox(hParent, pDasher);
+  m_pColourBox = new CColourBox(hParent, pDasher);
+  m_pControlPage = new CControlPage(hParent, pDasher);
+  m_pViewPage = new CViewPage(hParent, pDasher);
+  m_pAdvancedPage = new CAdvancedPage(hParent, pDasher);
+  m_pLMPage = new CLMPage(hParent, pDasher);
+
+  // FIXME - need to delete these at end
+
     PROPSHEETPAGE psp[6];
     PROPSHEETHEADER psh;
 
@@ -42,7 +53,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
     psp[0].pszIcon = NULL;
     psp[0].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[0].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ALPHABET);
-    psp[0].lParam = (LPARAM) this;
+    psp[0].lParam = (LPARAM) m_pAlphabetBox;
     psp[0].pfnCallback = NULL;
 
     psp[1].dwSize = sizeof(PROPSHEETPAGE);
@@ -52,7 +63,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
     psp[1].pszIcon = NULL;
     psp[1].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[1].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_COLOUR);
-    psp[1].lParam = (LPARAM) this;
+    psp[1].lParam = (LPARAM) m_pColourBox;
     psp[1].pfnCallback = NULL;
 
     psp[2].dwSize = sizeof(PROPSHEETPAGE);
@@ -62,7 +73,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
     psp[2].pszIcon = NULL;
     psp[2].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[2].pszTitle = MAKEINTRESOURCE(IDS_PREFS_CONTROL);
-    psp[2].lParam = (LPARAM) this;
+    psp[2].lParam = (LPARAM) m_pControlPage;
     psp[2].pfnCallback = NULL;
 
     psp[3].dwSize = sizeof(PROPSHEETPAGE);
@@ -72,7 +83,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
     psp[3].pszIcon = NULL;
     psp[3].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[3].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_VIEW);
-    psp[3].lParam = (LPARAM) this;
+    psp[3].lParam = (LPARAM) m_pViewPage;
     psp[3].pfnCallback = NULL;
 
     psp[4].dwSize = sizeof(PROPSHEETPAGE);
@@ -82,7 +93,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
     psp[4].pszIcon = NULL;
     psp[4].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[4].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ADVANCED);
-    psp[4].lParam = (LPARAM) this;
+    psp[4].lParam = (LPARAM) m_pAdvancedPage;
     psp[4].pfnCallback = NULL;
 
     psp[5].dwSize = sizeof(PROPSHEETPAGE);
@@ -92,7 +103,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
     psp[5].pszIcon = NULL;
     psp[5].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[5].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_LM);
-    psp[5].lParam = (LPARAM) this;
+    psp[5].lParam = (LPARAM) m_pLMPage;
     psp[5].pfnCallback = NULL;
     
     psh.dwSize = sizeof(PROPSHEETHEADER);

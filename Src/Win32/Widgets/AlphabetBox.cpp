@@ -27,7 +27,7 @@ static char THIS_FILE[] = __FILE__;
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
 :m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
-  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_ALPHABET, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
+ // DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_ALPHABET, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
 }
 
 void CAlphabetBox::PopulateList() {

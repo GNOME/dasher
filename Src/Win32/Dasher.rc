@@ -140,51 +140,13 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "Select A&ll\tCtrl+A",         ID_EDIT_SELECTALL
     END
-    POPUP "&View"
-    BEGIN
-        POPUP "&Orientation"
-        BEGIN
-            MENUITEM "&Alphabet Default",           ID_ORIENT_ALPHABET
-            MENUITEM SEPARATOR
-            MENUITEM "&Left to Right",              ID_ORIENT_LR, CHECKED
-            MENUITEM "&Right to Left",              ID_ORIENT_RL
-            MENUITEM "&Top to Bottom",              ID_ORIENT_TB
-            MENUITEM "&Bottom to Top",              ID_ORIENT_BT
-        END
-        MENUITEM SEPARATOR
-        POPUP "Toolbar"
-        BEGIN
-            MENUITEM "&Visible",                    ID_TB_SHOW
-            MENUITEM SEPARATOR
-            MENUITEM "Show &Text",                  ID_TB_TEXT
-            MENUITEM "&Large Icons",                ID_TB_LARGE
-        END
-        MENUITEM "Speed &Slider",               ID_SHOW_SLIDE
-        MENUITEM SEPARATOR
-        MENUITEM "&Fix layout",                 ID_FIX_SPLITTER
-    END
     POPUP "Options"
     BEGIN
-        MENUITEM "Edit General Options...",     ID_OPTIONS_PREFS
-        MENUITEM "Edit Advanced Options...",    32814
+        MENUITEM "Preferences...",              ID_OPTIONS_PREFS
         MENUITEM SEPARATOR
-        MENUITEM "&Alphabet...",                ID_OPTIONS_ALPHABET
-        MENUITEM "Colours...",                  ID_OPTIONS_COLOURS
-        POPUP "File &Encoding"
-        BEGIN
-            MENUITEM "Current Windows ANSI &Codepage", 
-                                                    ID_SAVE_AS_USER_CODEPAGE
-            , CHECKED
-            MENUITEM "Current &Alphabet Default Codepage", 
-                                                    ID_SAVE_AS_ALPHABET_CODEPAGE
-
-            MENUITEM SEPARATOR
-            MENUITEM "&Unicode (UTF-8)",            ID_SAVE_AS_UTF8
-            MENUITEM "U&nicode (UTF-16)",           ID_SAVE_AS_UTF16_LITTLE
-            MENUITEM "Unicode (UTF-16&BE)",         ID_SAVE_AS_UTF16_BIG
-        END
-        MENUITEM SEPARATOR
-        POPUP "Font Size"
+        MENUITEM "Edit Font...",                ID_OPTIONS_EDITFONT
+        MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
+        POPUP "Dasher Font Size"
         BEGIN
             MENUITEM "Normal",                      ID_OPTIONS_FONTSIZE_NORMAL
             , CHECKED
@@ -193,8 +155,6 @@ BEGIN
             MENUITEM "Very Large",                  ID_OPTIONS_FONTSIZE_VERYLARGE
 
         END
-        MENUITEM "Editing Font...",             ID_OPTIONS_EDITFONT
-        MENUITEM "&Dasher Font...",             ID_OPTIONS_DASHERFONT
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
         MENUITEM SEPARATOR
         MENUITEM "Enter Text into Other Window...", ID_OPTIONS_ENTERTEXT
