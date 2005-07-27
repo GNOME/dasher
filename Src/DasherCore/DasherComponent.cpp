@@ -1,0 +1,38 @@
+#include "DasherComponent.h"
+#include "Event.h"
+#include "EventHandler.h"
+
+using namespace Dasher;
+
+CDasherComponent::CDasherComponent(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
+  :m_pEventHandler(pEventHandler), m_pSettingsStore(pSettingsStore) {
+
+  m_pEventHandler->RegisterListener(this);
+
+};
+CDasherComponent::~CDasherComponent() {
+  m_pEventHandler->UnregisterListener(this);
+};
+
+void CDasherComponent::InsertEvent(Dasher::CEvent * pEvent) {
+  m_pEventHandler->InsertEvent(pEvent);
+};
+
+bool CDasherComponent::GetBoolParameter(int iParameter) const {
+  return m_pSettingsStore->GetBoolParameter(iParameter);
+}
+long CDasherComponent::GetLongParameter(int iParameter) const {
+  return m_pSettingsStore->GetLongParameter(iParameter);
+}
+std::string CDasherComponent::GetStringParameter(int iParameter)const {
+  return m_pSettingsStore->GetStringParameter(iParameter);
+}
+void CDasherComponent::SetBoolParameter(int iParameter, bool bValue) const {
+  m_pSettingsStore->SetBoolParameter(iParameter, bValue);
+}
+void CDasherComponent::SetLongParameter(int iParameter, long lValue) const {
+  m_pSettingsStore->SetLongParameter(iParameter, lValue);
+}
+void CDasherComponent::SetStringParameter(int iParameter, std::string & sValue) const {
+  m_pSettingsStore->SetStringParameter(iParameter, sValue);
+}
