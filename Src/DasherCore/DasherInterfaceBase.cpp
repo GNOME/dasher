@@ -94,7 +94,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pColours;
-  delete m_pEventHandler;
 
   // Do NOT delete Edit box or Screen. This class did not create them.
 
@@ -111,6 +110,9 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
     g_pLogger = NULL;
   }
 
+  // Must delete event handler after all CDasherComponent derived classes
+
+  delete m_pEventHandler;
 }
 
 void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
