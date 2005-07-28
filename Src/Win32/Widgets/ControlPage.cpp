@@ -34,6 +34,16 @@ CControlPage::CControlPage(HWND Parent, CDasherInterface *DI)
 void CControlPage::PopulateList() {
 }
 
+bool CControlPage::Validate() {
+  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
+  return TRUE;
+}
+
+bool CControlPage::Apply() {
+  // Return false (and notify the user) if something is wrong.
+  return TRUE;
+}
+
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
   NMHDR *pNMHDR;
   
@@ -54,11 +64,15 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     pNMHDR = (NMHDR*)lParam;
     switch (pNMHDR->code) {
     case PSN_KILLACTIVE: // About to lose focus
-      // Do validation here - see help for PSN_KILLACTIVE for info on how to return
-      return FALSE;
+      SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, Validate());
+      return TRUE;
       break;
     case PSN_APPLY: // User clicked OK/Apply - apply the changes
-      return FALSE;
+      if(Apply())
+        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_NOERROR);
+      else
+        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_INVALID);
+      return TRUE;
       break;
     }
     break;
