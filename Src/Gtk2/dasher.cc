@@ -156,6 +156,8 @@ extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint i
 
 void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
+  load_app_parameters();
+
   dasher_accel = gtk_accel_group_new(); //?
 
   widgets = pGladeXML;          // obsolete?

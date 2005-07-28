@@ -1,6 +1,8 @@
 #ifndef __appsettings_h__
 #define __appsettings_h__
 
+#include <gtk/gtk.h>
+
 enum { 
   APP_BP_DRAW_MOUSE_LINE, APP_BP_DRAW_MOUSE, APP_BP_TIME_STAMP, APP_BP_SHOW_TOOLBAR,
   APP_BP_SHOW_TOOLBAR_TEXT, APP_BP_SHOW_LARGE_ICONS, APP_BP_FIX_LAYOUT,
@@ -30,7 +32,13 @@ enum {
   APP_SP_TRAIN_FILE, END_OF_APP_SPS
 };
 
+void load_app_parameters();
+
 bool get_app_parameter_bool( int iParameter );
 void set_app_parameter_bool( int iParameter, bool bValue );
+gint get_app_parameter_long( int iParameter );
+void set_app_parameter_long( int iParameter, gint iValue );
+const gchar *get_app_parameter_string( int iParameter );
+void set_app_parameter_string( int iParameter, const gchar *szValue );
 
 #endif

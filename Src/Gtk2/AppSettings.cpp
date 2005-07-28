@@ -1,6 +1,8 @@
 #include "AppSettings.h"
 #include "dasher.h"
 
+#include <string.h>
+
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,
 // since each setting is a unique int, but all 3 arrays start at 0
@@ -122,7 +124,128 @@ bool get_app_parameter_bool( int iParameter ) {
 
 void set_app_parameter_bool( int iParameter, bool bValue ) {
   boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
+
+  if(boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
+    gchar szName[256];
+    
+    strncpy(szName, "/apps/dasher/", 256);
+    strncat(szName,  boolparamtable[ iParameter - FIRST_APP_BP ].regName, 255 - strlen( szName ));
+    
+    GError *pGConfError = NULL;
+    gconf_client_set_bool(g_pGConfClient, szName, bValue, &pGConfError);
+  }
+
   handle_parameter_change( iParameter );
+}
+
+gint get_app_parameter_long( int iParameter ) {
+  return longparamtable[ iParameter - FIRST_APP_LP ].value;
+}
+
+void set_app_parameter_long( int iParameter, gint iValue ) {
+  longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
+
+  if(longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
+    gchar szName[256];
+    
+    strncpy(szName, "/apps/dasher/", 256);
+    strncat(szName,  longparamtable[ iParameter - FIRST_APP_LP ].regName, 255 - strlen( szName ));
+    
+    GError *pGConfError = NULL;
+    gconf_client_set_int(g_pGConfClient, szName, iValue, &pGConfError);
+  }
+
+  handle_parameter_change( iParameter );
+}
+
+const gchar *get_app_parameter_string( int iParameter ) {
+  return stringparamtable[ iParameter - FIRST_APP_SP ].value;
+}
+
+void set_app_parameter_string( int iParameter, const gchar *szValue ) {
+
+  // FIXME - free old string?
+
+  gchar *szNew;
+  szNew = new gchar[strlen(szValue) + 1];
+  strcpy(szNew, szValue);
+
+  stringparamtable[ iParameter - FIRST_APP_SP ].value = szNew;
+
+  if(stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
+    gchar szName[256];
+    
+    strncpy(szName, "/apps/dasher/", 256);
+    strncat(szName,  stringparamtable[ iParameter - FIRST_APP_SP ].regName, 255 - strlen( szName ));
+    
+    GError *pGConfError = NULL;
+    gconf_client_set_string(g_pGConfClient, szName, szValue, &pGConfError);
+  }
+
+  handle_parameter_change( iParameter );
+}
+
+
+void load_app_parameters() {
+  GError *pGConfError = NULL;
+  GConfValue *pGConfValue;
+ 
+  for(int i(0); i < NUM_OF_APP_BPS; ++i ) {
+    if(boolparamtable[i].persistent) {
+      gchar szName[256];
+    
+      strncpy(szName, "/apps/dasher/", 256);
+      strncat(szName,  boolparamtable[i].regName, 255 - strlen( szName ));
+
+      pGConfValue = gconf_client_get_without_default(g_pGConfClient, szName, &pGConfError);
+      
+      if(pGConfValue)
+	boolparamtable[i].value = gconf_value_get_bool(pGConfValue);
+
+      gconf_value_free(pGConfValue);
+    }
+  }
+
+  for(int i(0); i < NUM_OF_APP_LPS; ++i ) {
+    if(longparamtable[i].persistent) {
+      gchar szName[256];
+    
+      strncpy(szName, "/apps/dasher/", 256);
+      strncat(szName,  longparamtable[i].regName, 255 - strlen( szName ));
+
+      pGConfValue = gconf_client_get_without_default(g_pGConfClient, szName, &pGConfError);
+      
+      if(pGConfValue)
+	longparamtable[i].value = gconf_value_get_int(pGConfValue);
+
+      gconf_value_free(pGConfValue);
+    }
+  }
+
+  for(int i(0); i < NUM_OF_APP_SPS; ++i ) {
+    if(stringparamtable[i].persistent) {
+      gchar szName[256];
+    
+      strncpy(szName, "/apps/dasher/", 256);
+      strncat(szName,  stringparamtable[i].regName, 255 - strlen( szName ));
+
+      pGConfValue = gconf_client_get_without_default(g_pGConfClient, szName, &pGConfError);
+      
+      if(pGConfValue) {
+	// FIXME - Free old value?
+
+	const gchar *szValue(gconf_value_get_string(pGConfValue));
+
+	gchar *szNew;
+	szNew = new gchar[strlen(szValue) + 1];
+	strcpy(szNew, szValue);
+	
+	stringparamtable[i].value = szNew;
+      }
+
+      gconf_value_free(pGConfValue);
+    }
+  }
 }
 
 void handle_parameter_change( int iParameter ) {
