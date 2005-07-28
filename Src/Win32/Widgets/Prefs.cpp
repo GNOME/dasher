@@ -41,8 +41,6 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher);
   m_pLMPage = new CLMPage(hParent, pDasher);
 
-  // FIXME - need to delete these at end
-
     PROPSHEETPAGE psp[6];
     PROPSHEETHEADER psh;
 
@@ -124,6 +122,34 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
  // DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_PREFS, hP
     //arent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
   PopulateWidgets();
+}
+
+CPrefs::~CPrefs()
+{
+  if (m_pAlphabetBox != NULL) {
+    delete m_pAlphabetBox;
+    m_pAlphabetBox  = NULL;
+  }
+  if (m_pControlPage != NULL) {
+    delete m_pControlPage;
+    m_pControlPage  = NULL;
+  }
+  if (m_pColourBox != NULL) {
+    delete m_pColourBox;
+    m_pColourBox  = NULL;
+  }
+  if (m_pViewPage != NULL) {
+    delete m_pViewPage;
+    m_pViewPage  = NULL;
+  }
+  if (m_pAdvancedPage != NULL) {
+    delete m_pAdvancedPage;
+    m_pAdvancedPage  = NULL;
+  }
+  if (m_pLMPage != NULL) {
+    delete m_pLMPage;
+    m_pLMPage  = NULL;
+  }
 }
 
 struct menuentry {
