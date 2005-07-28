@@ -78,13 +78,13 @@ void CDasherInterfaceBase::Realize() {
   // just the default.
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
   if (iUserLogLevel > 0) 
-    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel);  
-
+    m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
+    
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
-  if (m_pUserLog != NULL)
+  if (m_pUserLog != NULL) 
     m_pUserLog->InitIsDone();
-
+  
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
