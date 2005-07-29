@@ -41,7 +41,7 @@ WITHQTE=false
 WITHGPE=false
 WITHA11Y=true
 WITHGTK2=true
-WITHCAIRO=false
+WITHCAIRO=true
 
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
@@ -64,7 +64,7 @@ AC_ARG_WITH([a11y],
 	[WITHA11Y=true], [WITHA11Y=false])
 
 AC_ARG_WITH([cairo],
-	AC_HELP_STRING([--with-cairo],[build with cairo support (default is NO)]),
+	AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
 	[WITHCAIRO=true], [WITHCAIRO=false])
 
 if [[ x"$WITHGTK2" = xtrue ]]

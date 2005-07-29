@@ -1,5 +1,9 @@
 2005-07-29  Behdad Esfahbod  <behdad@behdad.org>
 
+	* configure.in: Turn Cairo on by default.
+
+2005-07-29  Behdad Esfahbod  <behdad@behdad.org>
+
 	* Src/DasherCore/DasherViewSquare.cpp (RenderGroups): Initialized
 	mostleft to zero.  Shuts up valgrind warning.
 
