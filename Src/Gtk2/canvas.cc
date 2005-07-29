@@ -397,8 +397,7 @@ void draw_colour_text_string(std::string String, int Colour, int x1, int y1, int
   pango_cairo_show_layout(cr, pLayout);
 #else
   gdk_draw_layout(offscreen_buffer,
-		  gc,
-		  x1, y1-ink->(int)height/2, pLayout);
+		  gc, x1, y1-(int)ink->height/2, pLayout);
 #endif
   END_DRAWING;
 }
