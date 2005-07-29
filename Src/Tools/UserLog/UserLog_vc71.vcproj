@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+	ProjectType="Visual C++"
+	Version="7.10"
+	Name="UserLog"
+	ProjectGUID="{ADD57262-9572-4E6D-A5AC-3050984F5F40}"
+	RootNamespace="UserLog"
+	Keyword="ManagedCProj">
+	<Platforms>
+		<Platform
+			Name="Win32"/>
+	</Platforms>
+	<Configurations>
+		<Configuration
+			Name="Unicode Debug|Win32"
+			OutputDirectory=".\Target/Win32 Unicode Debug"
+			IntermediateDirectory=".\Target/Win32 Unicode Debug/Intermediate"
+			ConfigurationType="1"
+			CharacterSet="1"
+			ManagedExtensions="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				Optimization="0"
+				FavorSizeOrSpeed="0"
+				AdditionalIncludeDirectories=".;../../Dashercore"
+				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_UNICODE,USER_LOG_TOOL"
+				MinimalRebuild="FALSE"
+				BasicRuntimeChecks="3"
+				RuntimeLibrary="1"
+				ForceConformanceInForLoopScope="FALSE"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				BrowseInformation="1"
+				WarningLevel="3"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				IgnoreImportLibrary="FALSE"
+				AdditionalOptions="/MACHINE:I386"
+				OutputFile=".\Target/Win32 Unicode Debug/UserLog.exe"
+				LinkIncremental="2"
+				SuppressStartupBanner="FALSE"
+				AdditionalLibraryDirectories=""
+				GenerateDebugInformation="TRUE"
+				AssemblyDebug="1"
+				ProgramDatabaseFile=".\Target/Win32 Unicode Debug/UserLog.pdb"
+				GenerateMapFile="FALSE"
+				SubSystem="0"
+				EntryPointSymbol=""/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+		<Configuration
+			Name="Unicode Release|Win32"
+			OutputDirectory=".\Target/Win32 Unicode Release"
+			IntermediateDirectory=".\Target/Win32 Unicode Release/Intermediate"
+			ConfigurationType="1"
+			CharacterSet="1"
+			ManagedExtensions="FALSE">
+			<Tool
+				Name="VCCLCompilerTool"
+				AdditionalIncludeDirectories=".;../../Dashercore"
+				PreprocessorDefinitions="WIN32;NDEBUG;_UNICODE,USER_LOG_TOOL"
+				MinimalRebuild="FALSE"
+				RuntimeLibrary="0"
+				UsePrecompiledHeader="2"
+				PrecompiledHeaderThrough="WinCommon.h"
+				WarningLevel="3"
+				DebugInformationFormat="3"/>
+			<Tool
+				Name="VCCustomBuildTool"/>
+			<Tool
+				Name="VCLinkerTool"
+				OutputFile=".\Target/Win32 Unicode Release/UserLog.exe"
+				LinkIncremental="2"
+				GenerateDebugInformation="TRUE"
+				ProgramDatabaseFile=".\Target/Win32 Unicode Release/UserLog.pdb"/>
+			<Tool
+				Name="VCMIDLTool"/>
+			<Tool
+				Name="VCPostBuildEventTool"/>
+			<Tool
+				Name="VCPreBuildEventTool"/>
+			<Tool
+				Name="VCPreLinkEventTool"/>
+			<Tool
+				Name="VCResourceCompilerTool"/>
+			<Tool
+				Name="VCWebServiceProxyGeneratorTool"/>
+			<Tool
+				Name="VCXMLDataGeneratorTool"/>
+			<Tool
+				Name="VCWebDeploymentTool"/>
+			<Tool
+				Name="VCManagedWrapperGeneratorTool"/>
+			<Tool
+				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+		</Configuration>
+	</Configurations>
+	<References>
+	</References>
+	<Files>
+		<Filter
+			Name="Source Files"
+			Filter="cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx"
+			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}">
+			<File
+				RelativePath=".\main.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Common\Trace.cpp">
+			</File>
+			<File
+				RelativePath="..\..\Common\Trace.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="Header Files"
+			Filter="h;hpp;hxx;hm;inl;inc;xsd"
+			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}">
+		</Filter>
+		<Filter
+			Name="Resource Files"
+			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx"
+			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}">
+		</Filter>
+	</Files>
+	<Globals>
+	</Globals>
+</VisualStudioProject>
