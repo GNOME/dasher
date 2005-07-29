@@ -83,6 +83,7 @@ class CUserLog : public Dasher::CDasherComponent
 {
 public:
   CUserLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iLogTypeMask, Dasher::CAlphabet* pAlphabet = NULL);
+
   ~CUserLog();
 
   // Methods called whenever our user interface gets a relevant event, this

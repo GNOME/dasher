@@ -7,11 +7,13 @@ using namespace Dasher;
 CDasherComponent::CDasherComponent(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
   :m_pEventHandler(pEventHandler), m_pSettingsStore(pSettingsStore) {
 
-  m_pEventHandler->RegisterListener(this);
+  if (m_pEventHandler != NULL)
+    m_pEventHandler->RegisterListener(this);
 
 };
 CDasherComponent::~CDasherComponent() {
-  m_pEventHandler->UnregisterListener(this);
+  if (m_pEventHandler != NULL)
+    m_pEventHandler->UnregisterListener(this);
 };
 
 void CDasherComponent::InsertEvent(Dasher::CEvent * pEvent) {

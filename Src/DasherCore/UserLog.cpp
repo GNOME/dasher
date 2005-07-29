@@ -34,8 +34,11 @@ CUserLog::CUserLog(Dasher::CEventHandler *pEventHandler,
   if (m_pApplicationSpan == NULL)
     g_pLogger->Log("CUserLog::CUserLog, failed to create m_pApplicationSpan!", logNORMAL);
 
-  AddInitialParam();
-
+  // From the load test harness, we create object directly without a settings store
+  // and event handler.  In this case, we don't want to try and push the intial
+  // parameters.
+  if ((pEventHandler != NULL) && (pSettingsStore != NULL))
+    AddInitialParam();
 }
 
 CUserLog::~CUserLog()

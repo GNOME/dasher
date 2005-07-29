@@ -3,6 +3,7 @@
 	ProjectType="Visual C++"
 	Version="7.10"
 	Name="DasherCore"
+	ProjectGUID="{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}"
 	SccProjectName=""
 	SccLocalPath="">
 	<Platforms>
