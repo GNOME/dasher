@@ -38,12 +38,7 @@
 #include "UserLogParam.h"
 #include "DasherComponent.h"
 #include "Event.h"
-
-// We'll only compile in some bits if we are the tool that reads in UserLog files
-// and can operate on them in some way.
-#ifdef USER_LOG_TOOL
 #include "XMLUtil.h"
-#endif
 
 using namespace std;
 
@@ -110,11 +105,10 @@ public:
 
   void                        HandleEvent(Dasher::CEvent* pEvent);
 
-#ifdef USER_LOG_TOOL
+  // Methods used by utility that can post-process the log files:
   CUserLog(string strXMLFilename);
   VECTOR_VECTOR_STRING        GetTabMouseXY(bool bReturnNormalized);
   VECTOR_VECTOR_DENSITY_GRIDS GetMouseDensity(int iGridSize);
-#endif
 
 protected:
   CTimeSpan*                  m_pApplicationSpan;         // How long the application has been up

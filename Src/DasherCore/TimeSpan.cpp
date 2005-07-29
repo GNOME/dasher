@@ -193,8 +193,6 @@ void CTimeSpan::InitMemberVars()
   m_strStartDate  = "";
 }
 
-#ifdef USER_LOG_TOOL
-
 // Construct based on some yummy XML like:
 // 		<Elapsed>12.062</Elapsed>
 //		<Date>Jul 04 2005</Date>
@@ -212,5 +210,3 @@ CTimeSpan::CTimeSpan(const string& strName, const string& strXML)
 
   m_strName       = strName;
 }
-
-#endif

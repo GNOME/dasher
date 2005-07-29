@@ -11,7 +11,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CUserLogTrial::CUserLogTrial(string strCurrentTrialFilename)
+CUserLogTrial::CUserLogTrial(const string& strCurrentTrialFilename)
 {
   //CFunctionLogger f1("CUserLogTrial::CUserLogTrial", g_pLogger);
 
@@ -1076,10 +1076,9 @@ string CUserLogTrial::GetNavCyclesXML(const string& strPrefix)
   return strResult;
 }
 
-#ifdef USER_LOG_TOOL
-
-// Construct based on some XML
-CUserLogTrial::CUserLogTrial(const string& strXML)
+// Construct based on some XML, second parameter is just to make signature
+// different from the normal constructor.
+CUserLogTrial::CUserLogTrial(const string& strXML, int iIgnored)
 {
   //CFunctionLogger f1("CUserLogTrial::CUserLogTrial(XML)", g_pLogger);
 
@@ -1119,13 +1118,13 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
   VECTOR_STRING vMousePositions;
   VECTOR_STRING vAdded;
 
-  for (VECTOR_STRING_ITER iter = vectorNavs.begin(); iter < vectorNavs.end(); iter++)
+  for (VECTOR_STRING_ITER iter = vNavs.begin(); iter < vNavs.end(); iter++)
   {
     strTime              = "";
     strLocations         = "";
     strMousePositions    = "";
-    vectorLocations.erase(vLocations.begin(), vLocations.end());
-    vectorMousePositions.erase(vMousePositions.begin(), vMousePositions.end());
+    vLocations.erase(vLocations.begin(), vLocations.end());
+    vMousePositions.erase(vMousePositions.begin(), vMousePositions.end());
 
     strTime             = XMLUtil::GetElementString("Time", *iter, true);
     strLocations        = XMLUtil::GetElementString("Locations", *iter, true);
@@ -1172,7 +1171,7 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
         vAdded                    = XMLUtil::GetElementStrings("Add", *iter2);                
         pLocation->pVectorAdded   = new Dasher::VECTOR_SYMBOL_PROB_DISPLAY;
 
-        for (VECTOR_STRING_ITER iter3 = vectorAdded.begin(); iter3 < vectorAdded.end(); iter3++)
+        for (VECTOR_STRING_ITER iter3 = vAdded.begin(); iter3 < vAdded.end(); iter3++)
         {
           Dasher::SymbolProbDisplay sAdd;
 
@@ -1190,7 +1189,7 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
         // If this was a deleted event, then we need to erase some stuff from the running history
         // Be careful not to pop more things than we have (this will hork the
         // memory up on linux but not windows).
-        int iActualNumToDelete = min((int) m_vHistory.size(), location->numToDelete);
+        int iActualNumToDelete = min((int) m_vHistory.size(), pLocation->numDeleted);
         for (int i = 0; i < iActualNumToDelete; i++)
           m_vHistory.pop_back();
 
@@ -1200,8 +1199,8 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
 
     if (strMousePositions.length() > 0)
     {
-      vectorMousePositions = XMLUtil::GetElementStrings("Pos", strMousePositions, true);
-      for (VECTOR_STRING_ITER iter2 = vectorMousePositions.begin(); iter2 < vectorMousePositions.end(); iter2++)
+      vMousePositions = XMLUtil::GetElementStrings("Pos", strMousePositions, true);
+      for (VECTOR_STRING_ITER iter2 = vMousePositions.begin(); iter2 < vMousePositions.end(); iter2++)
       {
         CUserLocation* pLocation = new CUserLocation(*iter2);
         pCycle->vectorMouseLocations.push_back(pLocation);
@@ -1209,7 +1208,7 @@ CUserLogTrial::CUserLogTrial(const string& strXML)
 
     }
 
-    m_vpNavCycles.push_back(cycle);
+    m_vpNavCycles.push_back(pCycle);
   }
 
 }
@@ -1253,7 +1252,7 @@ VECTOR_USER_LOG_PARAM_PTR CUserLogTrial::ParseParamsXML(const string& strXML)
 
       pParam->options = 0;
 
-      vResult.push_back(param);
+      vResult.push_back(pParam);
     }
   }
 
@@ -1451,7 +1450,5 @@ DENSITY_GRID CUserLogTrial::MergeGrids(int iGridSize, DENSITY_GRID ppGridA, DENS
 
   return ppResult;
 }
-
-#endif
 
 

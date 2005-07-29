@@ -16,10 +16,7 @@
 #include <sys/timeb.h>
 #include <time.h>
 #include <vector>
-
-#ifdef USER_LOG_TOOL
 #include "XMLUtil.h"
-#endif
 
 using namespace std;
 
@@ -34,10 +31,7 @@ class CTimeSpan
 {
 public:
   CTimeSpan(const string& strName, bool bAddDate);
-
-#ifdef USER_LOG_TOOL
   CTimeSpan(const string& strName, const string& strXML);
-#endif
 
   ~CTimeSpan();
 

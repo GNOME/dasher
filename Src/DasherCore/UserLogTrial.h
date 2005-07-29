@@ -18,8 +18,6 @@
 #include "DasherTypes.h"
 #include "UserLogParam.h"
 #include <algorithm>
-
-#ifdef USER_LOG_TOOL
 #include "XMLUtil.h"
 
 // Types used to return two dimensional grid of double values
@@ -30,8 +28,6 @@ typedef vector<VECTOR_DENSITY_GRIDS>                    VECTOR_VECTOR_DENSITY_GR
 typedef vector<VECTOR_DENSITY_GRIDS>::iterator          VECTOR_VECTOR_DENSITY_GRIDS_ITER;
 typedef vector<VECTOR_VECTOR_DENSITY_GRIDS>             VECTOR_VECTOR_VECTOR_DENSITY_GRIDS;
 typedef vector<VECTOR_VECTOR_DENSITY_GRIDS>::iterator   VECTOR_VECTOR_VECTOR_DENSITY_GRIDS_ITER;
-
-#endif
 
 extern CFileLogger* g_pLogger;
 
@@ -90,7 +86,7 @@ using namespace std;
 class CUserLogTrial
 {
 public:
-  CUserLogTrial(string strCurrentTrialFilename);
+  CUserLogTrial(const string& strCurrentTrialFilename);
   ~CUserLogTrial();
 
   bool                        HasWritingOccured();
@@ -108,14 +104,13 @@ public:
   void                        AddParam(const string& strName, const string& strValue, int iOptionMask = 0);
   static string               GetParamXML(CUserLogParam* pParam, const string& strPrefix = "");
 
-#ifdef USER_LOG_TOOL
-  CUserLogTrial(const string& strXML);
+  // Methods used by utility that can post-process the log files:
+  CUserLogTrial(const string& strXML, int iIgnored);
   static VECTOR_USER_LOG_PARAM_PTR    ParseParamsXML(const string& strXML);
   static WindowSize                   ParseWindowXML(const string& strXML);
   VECTOR_STRING                       GetTabMouseXY(bool bReturnNormalized);
   VECTOR_DENSITY_GRIDS                GetMouseDensity(int iGridSize);
   static DENSITY_GRID                 MergeGrids(int iGridSize, DENSITY_GRID pGridA, DENSITY_GRID pGridB);
-#endif
 
 protected:
   CTimeSpan*                          m_pSpan;

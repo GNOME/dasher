@@ -1115,13 +1115,10 @@ void CUserLog::UpdateParam(int iParameter, int iOptionMask)
 
 ///////////////////////////////////////////////////////////////////////////////////////
 // Below here are methods that are just used in the standalone tool that reads in 
-// UserLog XML files and does cool things to them.  No real need for this code
-// to be compiled into the mainline Dasher application.
-
-#ifdef USER_LOG_TOOL
+// UserLog XML files and does cool things to them.  
 
 // Load the object from an XML file
-CUserLog::CUserLog(string strXMLFilename) 
+CUserLog::CUserLog(string strXMLFilename) : CDasherComponent(NULL, NULL)
 {
   //CFunctionLogger f1("CUserLog::CUserLog(XML)", g_pLogger);
 
@@ -1195,6 +1192,4 @@ VECTOR_VECTOR_DENSITY_GRIDS CUserLog::GetMouseDensity(int iGridSize)
 
   return vResult;
 }
-
-#endif
 

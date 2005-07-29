@@ -16,10 +16,7 @@
 #include <time.h>
 #include "TimeSpan.h"
 #include <math.h>
-
-#ifdef USER_LOG_TOOL
 #include "XMLUtil.h"
-#endif
 
 using namespace std;
 
@@ -41,16 +38,14 @@ public:
   CUserLocation(int iX, int iY, int iTop, int iLeft, int iBottom, int iRight, bool bStoreIntegerRep, float dNats);
   ~CUserLocation();
 
-#ifdef USER_LOG_TOOL
-  CUserLocation(const string& strXML);
-  string              GetTabMouseXY(bool bReturnNormalized);
-  void                GetMouseGridLocation(int iGridSize, int* pRow, int* pCol);
-#endif
-
-
   string              GetXML(const string& strPrefix = "");
   static double       ComputeNormalizedX(int iX, int iLeft, int iRight);
   static double       ComputeNormalizedY(int iY, int iTop, int iBottom);
+
+  // Used when we want to post-process a XML log file:
+  CUserLocation(const string& strXML);
+  string              GetTabMouseXY(bool bReturnNormalized);
+  void                GetMouseGridLocation(int iGridSize, int* pRow, int* pCol);
 
 private:
   string              m_strTime;

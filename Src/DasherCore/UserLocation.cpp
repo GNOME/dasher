@@ -179,7 +179,6 @@ void CUserLocation::InitMemeberVars()
   m_dNats                 = 0.0;
 }
 
-#ifdef USER_LOG_TOOL
 // Construct based on some XML like:
 //  <Pos>
 //  	<Time>15:49:10.203</Time>
@@ -261,7 +260,5 @@ void CUserLocation::GetMouseGridLocation(int iGridSize, int* pRow, int* pCol)
   *pRow = (int) (m_dNormalizedLocationX * (double) iGridSize);
   *pCol = (int) (m_dNormalizedLocationY * (double) iGridSize);
 }
-
-#endif
 
 
