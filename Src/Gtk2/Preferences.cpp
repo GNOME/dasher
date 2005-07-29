@@ -20,9 +20,6 @@ extern "C" void lmsettings_edited_callback(GtkCellRendererText * cell, gchar * p
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
 
-GtkTreeSelection *lmsettingsselection;
-GtkWidget *lmsettingstreeview;
-GtkListStore *lmsettings_list_store;
 GtkTreeSelection *alphselection, *colourselection;
 GtkWidget *alphabettreeview, *colourtreeview;
 GtkListStore *alph_list_store;
@@ -98,9 +95,36 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
+//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
 
+}
+
+
+// Renderer function for the advanced options list
+
+void AdvancedCellDataFunction(GtkTreeViewColumn *pColumn, GtkCellRenderer *pRenderer, GtkTreeModel *pModel, GtkTreeIter *pIter, gpointer pUserData) {
+  gpointer pData;
+  gtk_tree_model_get(pModel, pIter, 1, &pData, -1);
+
+  GValue *pValue((GValue *)pData);
+  gchar szBuffer[256];
+
+  if(G_VALUE_HOLDS_BOOLEAN(pValue)) {
+    if(g_value_get_boolean(pValue))
+      g_snprintf(szBuffer, sizeof(szBuffer), "Yes");
+    else
+      g_snprintf(szBuffer, sizeof(szBuffer), "No");
+      
+    g_object_set(pRenderer, "text", szBuffer, NULL);
+  }
+  else if(G_VALUE_HOLDS_INT(pValue)) {
+    g_snprintf(szBuffer, sizeof(szBuffer), "%d", g_value_get_int(pValue));
+    g_object_set(pRenderer, "text", szBuffer, NULL);
+  }
+  else if(G_VALUE_HOLDS_STRING(pValue)) {
+    g_object_set(pRenderer, "text", g_value_get_string(pValue), NULL);
+  }
 }
 
 void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
@@ -108,6 +132,71 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
 
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "yaxisscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_YSCALE));
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "mouseposscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_MOUSEPOSDIST));
+
+  // Now populate the generic advanced settings list
+  
+  GtkTreeViewColumn *column;
+  GtkTreeIter advancediter;
+  GtkTreeSelection *advancedselection;
+  GtkWidget *advancedtreeview;
+  GtkListStore *advanced_list_store;
+
+  advancedtreeview = glade_xml_get_widget(pGladeWidgets, "advancedtree");
+
+  // FIXME - we shouldn't need to do this - populate on realize (if not done already)
+  
+  gtk_widget_realize(advancedtreeview);
+
+  advanced_list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
+  gtk_tree_view_set_model(GTK_TREE_VIEW(advancedtreeview), GTK_TREE_MODEL(advanced_list_store));
+  
+  advancedselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(advancedtreeview));
+  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(advancedselection), GTK_SELECTION_BROWSE);
+
+  column = gtk_tree_view_column_new_with_attributes("Setting", gtk_cell_renderer_text_new(), "text", 0, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(advancedtreeview), column);
+  
+  GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
+  g_object_set(renderer, "editable", TRUE, NULL);
+  column = gtk_tree_view_column_new();
+  gtk_tree_view_column_pack_start(column, renderer, TRUE);
+  gtk_tree_view_column_set_cell_data_func( column, renderer, AdvancedCellDataFunction, NULL, NULL);
+
+//   g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(advancedtreeview), column);
+
+  // Clear the contents of the lmsettings list
+  gtk_list_store_clear(advanced_list_store);
+
+  // TODO - store pointers to settings objects directly in list store?
+  
+  for( int i(0); i < NUM_OF_APP_BPS; ++i ) {  
+    GValue *pValue = g_new0(GValue, 1);
+    g_value_init( pValue, G_TYPE_BOOLEAN );
+    g_value_set_boolean(pValue, app_boolparamtable[i].value);
+
+    gtk_list_store_append(advanced_list_store, &advancediter);
+    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, -1);
+  }
+
+  for( int i(0); i < NUM_OF_APP_LPS; ++i ) {  
+    GValue *pValue = g_new0(GValue, 1);
+    g_value_init( pValue, G_TYPE_INT );
+    g_value_set_int(pValue, app_longparamtable[i].value);
+
+    gtk_list_store_append(advanced_list_store, &advancediter);
+    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_longparamtable[i].regName, 1, pValue, -1);
+  } 
+
+  for( int i(0); i < NUM_OF_APP_SPS; ++i ) {  
+    GValue *pValue = g_new0(GValue, 1);
+    g_value_init( pValue, G_TYPE_STRING );
+    g_value_set_string(pValue, app_stringparamtable[i].value);
+
+    gtk_list_store_append(advanced_list_store, &advancediter);
+    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_stringparamtable[i].regName, 1, pValue, -1);
+  }
+
 }
 
 void PopulateLMPage(GladeXML *pGladeWidgets) {
@@ -138,47 +227,6 @@ void PopulateLMPage(GladeXML *pGladeWidgets) {
 	  
   // LM parameters are now obsolete - will eventually be part of the 'advanced' page
 
-//   GtkTreeViewColumn *column;
-//   GtkTreeIter lmsettingsiter;
-
-//   lmsettingstreeview = glade_xml_get_widget(pGladeWidgets, "lmsettingstree");
-
-//   gtk_widget_realize(lmsettingstreeview);
-
-//   lmsettings_list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_LONG);
-//   gtk_tree_view_set_model(GTK_TREE_VIEW(lmsettingstreeview), GTK_TREE_MODEL(lmsettings_list_store));
-//   lmsettingsselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(lmsettingstreeview));
-//   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(lmsettingsselection), GTK_SELECTION_BROWSE);
-//   column = gtk_tree_view_column_new_with_attributes("Lmsettings", gtk_cell_renderer_text_new(), "text", 0, NULL);
-//   gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
-
-//   GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
-//   g_object_set(renderer, "editable", TRUE, NULL);
-
-//   column = gtk_tree_view_column_new_with_attributes("Lmsettingsvals", GTK_CELL_RENDERER(renderer), "text", 1, NULL);
-
-//   g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
-
-//   gtk_tree_view_append_column(GTK_TREE_VIEW(lmsettingstreeview), column);
-
-//   // Clear the contents of the lmsettings list
-//   gtk_list_store_clear(lmsettings_list_store);
-
-//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMaxOrder", 1, 0, -1);
-//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMAlpha", 1, 0, -1);
-//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMBeta", 1, 0, -1);
-//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMExclusion", 1, 0, -1);
-//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMUpdateExclusion", 1, 0, -1);
-//   gtk_list_store_append(lmsettings_list_store, &lmsettingsiter);
-//   gtk_list_store_set(lmsettings_list_store, &lmsettingsiter, 0, "LMMixture", 1, 0, -1);
-
-  //gtk_list_store_append( lmsettings_list_store, &lmsettingsiter );
-  //gtk_list_store_set(  lmsettings_list_store, &lmsettingsiter, 0, "LMBackoffConst", 1, 100, -1 );
 
 }
 

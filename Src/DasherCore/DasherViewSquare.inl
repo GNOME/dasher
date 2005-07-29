@@ -34,10 +34,12 @@ namespace Dasher {
   }
 
   inline Cint32 CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint & s1, screenint & s2) const {
-    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
+//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       y1 = m_ymap.map(y1);
       y2 = m_ymap.map(y2);
-    } if(y1 > DasherModel()->DasherY()) {
+//  } 
+
+if(y1 > DasherModel()->DasherY()) {
       return 0;
     } if(y2 < 0) {
       return 0;
@@ -64,9 +66,11 @@ namespace Dasher {
   }
 
   inline screenint CDasherViewSquare::dashery2screen(myint y) const {
-    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
+//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       y = m_ymap.map(y);
-    } y = (y * CanvasY / DasherModel()->DasherY());
+  //  }
+
+ y = (y * CanvasY / DasherModel()->DasherY());
 
     // Stop overflow when converting to screen coords
     if(y > myint(INT_MAX))
@@ -116,29 +120,29 @@ namespace Dasher {
   inline double CDasherViewSquare::ixmap(double x) const
     // invert x non-linearity
   {
-    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
+//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       if(x < m_dXmpb * m_dXmpc)
         return x / m_dXmpc;
       else
         return m_dXmpb - m_dXmpa + m_dXmpa * exp((x / m_dXmpc - m_dXmpb) / m_dXmpa);
-    }
-    else {
-      return x;
-    }
+//    }
+ //   else {
+ //     return x;
+ //   }
   }
 
   inline double CDasherViewSquare::xmap(double x) const
     // x non-linearity
   {
-    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
+//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       if(x < m_dXmpb)
         return m_dXmpc * x;
       else
         return m_dXmpc * (m_dXmpa * log((x + m_dXmpa - m_dXmpb) / m_dXmpa) + m_dXmpb);
-    }
-    else {
-      return x;
-    }
+ //   }
+ //   else {
+ //     return x;
+  //  }
   }
 
 

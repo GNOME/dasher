@@ -1420,7 +1420,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   // if (eyetracker==true) { dashery=onebutton; }
 
   // If we're in standard mode, fudge things for the vertical acceleration
-  if(GetBoolParameter(BP_NUMBER_DIMENSIONS) == false && GetBoolParameter(BP_KEYBOARD_MODE) == false && GetBoolParameter(BP_EYETRACKER_MODE) == false) {
+  if(GetBoolParameter(BP_NUMBER_DIMENSIONS) == false &&  GetBoolParameter(BP_EYETRACKER_MODE) == false) {
     dashery = m_ymap.unmap(myint(dashery));
     if(dashery > DasherModel()->DasherY()) {
       dashery = DasherModel()->DasherY();

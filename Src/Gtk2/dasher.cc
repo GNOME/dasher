@@ -230,7 +230,7 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   // Well, I suppose you could give it to kids, or impress primitive tribes,
   // or convince members of the appropriate sex that you're somehow deeply cool,
   // but they're not really our design goals.
-  dasher_set_parameter_bool(BOOL_KEYBOARDMODE, true);
+  //  dasher_set_parameter_bool(BOOL_KEYBOARDMODE, true);
 #endif
 
   InitialiseAppParameters();
@@ -347,9 +347,9 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
   else if(iParameter == BP_OUTLINE_MODE) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "outlinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE));
   }
-  else if(iParameter == BP_KEYBOARD_MODE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
-  }
+//   else if(iParameter == BP_KEYBOARD_MODE) {
+//     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
+//   }
   else if(iParameter == BP_PALETTE_CHANGE) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
   }

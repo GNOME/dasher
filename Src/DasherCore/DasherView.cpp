@@ -105,11 +105,11 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay) {
     DrawMouseLine(iMouseX, iMouseY);
     bDidSomething = true;
   }
-  if(GetBoolParameter(BP_KEYBOARD_MODE)) {
-    DrawKeyboard();
-    bDidSomething = true;
+ //  if(GetBoolParameter(BP_KEYBOARD_MODE)) {
+//     DrawKeyboard();
+//     bDidSomething = true;
 
-  }
+//   }
   if(GetLongParameter(LP_MOUSE_POS_BOX) != -1) {
     DrawMousePosBox();
     bDidSomething = true;
@@ -136,8 +136,8 @@ void CDasherView::Render() {
 
   Screen()->SendMarker(1);
 
-  if(GetBoolParameter(BP_KEYBOARD_MODE))
-    DrawKeyboard();
+  //  if(GetBoolParameter(BP_KEYBOARD_MODE))
+  //    DrawKeyboard();
   if(GetLongParameter(LP_MOUSE_POS_BOX) != -1)
     DrawMousePosBox();
 }

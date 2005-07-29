@@ -638,7 +638,7 @@ void CDasherInterfaceBase::ChangeEdit() {
 
 void CDasherInterfaceBase::ChangeEdit(CDashEditbox *NewEdit) {
   m_DashEditbox = NewEdit;
-  m_DashEditbox->SetFont(GetStringParameter(SP_EDIT_FONT), GetLongParameter(LP_EDIT_FONT_SIZE));
+  //  m_DashEditbox->SetFont(GetStringParameter(SP_EDIT_FONT), GetLongParameter(LP_EDIT_FONT_SIZE));
   m_DashEditbox->SetInterface(this);
   m_DashEditbox->New("");
   ChangeEdit();

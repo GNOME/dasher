@@ -6,21 +6,19 @@
 // All parameters go into the enums here
 // They are unique across the different types
 enum { 
-  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE, BP_TIME_STAMP, BP_SHOW_TOOLBAR,
-  BP_SHOW_TOOLBAR_TEXT, BP_SHOW_LARGE_ICONS, BP_FIX_LAYOUT,
-  BP_SHOW_SLIDER, BP_COPY_ALL_ON_STOP, BP_START_MOUSE,
-  BP_START_SPACE, BP_KEY_CONTROL, BP_WINDOW_PAUSE,
-  BP_CONTROL_MODE, BP_COLOUR_MODE, BP_KEYBOARD_MODE, BP_MOUSEPOS_MODE,
-  BP_SPEECH_MODE, BP_OUTLINE_MODE, BP_PALETTE_CHANGE, BP_NUMBER_DIMENSIONS,
+  BP_DRAW_MOUSE_LINE, BP_DRAW_MOUSE,
+  BP_SHOW_SLIDER, BP_START_MOUSE,
+  BP_START_SPACE, BP_KEY_CONTROL,  BP_CONTROL_MODE, 
+  BP_COLOUR_MODE, BP_MOUSEPOS_MODE,
+  BP_OUTLINE_MODE, BP_PALETTE_CHANGE, BP_NUMBER_DIMENSIONS,
   BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
   BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
   BP_LM_LETTER_EXCLUSION, END_OF_BPS
 };
 
 enum { 
-  LP_ORIENTATION = END_OF_BPS, LP_REAL_ORIENTATION, LP_MAX_BITRATE, LP_FILE_ENCODING,
-  LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_EDIT_FONT_SIZE, LP_EDIT_HEIGHT,
-  LP_SCREEN_WIDTH, LP_SCREEN_HEIGHT, LP_DASHER_FONTSIZE,
+  LP_ORIENTATION = END_OF_BPS, LP_REAL_ORIENTATION, LP_MAX_BITRATE,
+  LP_VIEW_ID, LP_LANGUAGE_MODEL_ID, LP_DASHER_FONTSIZE,
   LP_UNIFORM, LP_YSCALE, LP_MOUSEPOSDIST, LP_TRUNCATION,
   LP_TRUNCATIONTYPE, LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
@@ -30,7 +28,7 @@ enum {
 
 enum {
   SP_ALPHABET_ID = END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
-  SP_EDIT_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
+  SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
   SP_TRAIN_FILE, END_OF_SPS
 };
 
@@ -78,22 +76,13 @@ struct sp_table {
 static bp_table boolparamtable[] = {
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, false, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", PERS, true, "Draw Mouse Position"},
-  {BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, "TimeStampNewFiles"},
-  {BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, "ViewToolbar"},
-  {BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, "ShowToolbarText"},
-  {BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, "ShowLargeIcons"},
-  {BP_FIX_LAYOUT, "FixLayout", PERS, false, "FixLayout"},
   {BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, true, "ShowSpeedSlider"},
-  {BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, "CopyAllOnStop"},
   {BP_START_MOUSE, "StartOnLeft", PERS, true, "StartOnLeft"},
   {BP_START_SPACE, "StartOnSpace", PERS, false, "StartOnSpace"},
   {BP_KEY_CONTROL, "KeyControl", PERS, false, "KeyControl"},
-  {BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, "PauseOutsideWindow"},
   {BP_CONTROL_MODE, "ControlMode", PERS, false, "ControlMode"},
   {BP_COLOUR_MODE, "ColourMode", PERS, true, "ColourMode"},
-  {BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, "KeyboardMode"},
   {BP_MOUSEPOS_MODE, "StartOnMousePosition", PERS, false, "StartOnMousePosition"},
-  {BP_SPEECH_MODE, "SpeechEnabled", PERS, false, "SpeechEnabled"},
   {BP_OUTLINE_MODE, "OutlineBoxes", PERS, true, "OutlineBoxes"},
   {BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
   {BP_NUMBER_DIMENSIONS, "NumberDimensions", PERS, false, "NumberDimensions"},
@@ -111,13 +100,8 @@ static lp_table longparamtable[] = {
   {LP_ORIENTATION, "ScreenOrientation", PERS, 0, "Screen Orientation"},
   {LP_REAL_ORIENTATION, "RealOrientation", !PERS, 0, "Actual screen orientation (allowing for alphabet default)"},
   {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 150, "Max Bit Rate Times 100"},
-  {LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
   {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
-  {LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
-  {LP_EDIT_HEIGHT, "EditHeight", PERS, 75, "EditHeight0"},
-  {LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, "ScreenWidth"},
-  {LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, "ScreenHeight"},
   {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 1, "DasherFontSize"},
   {LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
@@ -140,7 +124,6 @@ static sp_table stringparamtable[] = {
   {SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},
   {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"},
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
-  {SP_EDIT_FONT, "EditFont", PERS, "", "EditFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
   {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "", "File with strings to practice writing"},
