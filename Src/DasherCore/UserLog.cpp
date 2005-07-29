@@ -1142,7 +1142,7 @@ CUserLog::CUserLog(string strXMLFilename) : CDasherComponent(NULL, NULL)
   // Now construct each of the Trial objects based on its section of XML
   for (VECTOR_STRING_ITER iter = vectorTrials.begin(); iter < vectorTrials.end(); iter++)
   {
-    CUserLogTrial* pTrial = new CUserLogTrial(*iter);
+    CUserLogTrial* pTrial = new CUserLogTrial(*iter, 0);
 
     if (pTrial != NULL)
       m_vpTrials.push_back(pTrial);
