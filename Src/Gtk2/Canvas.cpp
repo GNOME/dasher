@@ -290,6 +290,27 @@ void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
   }
 }
 
+bool CCanvas::GetCanvasSize(GdkRectangle *pRectangle)
+{
+  if ((pRectangle == NULL) || (m_pCanvas == NULL))
+    return false;
+ 
+  // Using gtk_window_get_frame_extents() only seems to return the position
+  // and size of the parent Dasher window.  So we'll get the widgets position
+  // and use its size to determine the bounding rectangle.
+  int iX = 0;
+  int iY = 0;
+
+  gdk_window_get_position(m_pCanvas->window, &iX, &iY);
+
+  pRectangle->x       = iX;
+  pRectangle->y       = iY;
+  pRectangle->width   = m_iWidth;
+  pRectangle->height  = m_iHeight;
+
+  return true;
+}
+
 extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data) {
   return ((CCanvas*)data)->ExposeEvent(widget, event);
 }

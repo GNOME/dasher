@@ -264,13 +264,42 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
 };
 
 int CDasherControl::TimerEvent() {
-
   int x, y;
 
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
   m_pMouseInput->SetCoordinates(x, y);
 
   NewFrame(get_time());
+
+  // Update our UserLog object about the current mouse position
+  CUserLog* pUserLog = GetUserLogPtr();
+  if (pUserLog != NULL) {  
+      // We want current canvas and window coordinates so normalization
+      // is done properly with respect to the canvas.
+      GdkRectangle sWindowRect;
+      GdkRectangle sCanvasRect;
+
+      gdk_window_get_frame_extents(m_pCanvas->window, &sWindowRect);
+
+      pUserLog->AddWindowSize(sWindowRect.y, 
+                              sWindowRect.x, 
+                              sWindowRect.y + sWindowRect.height, 
+                              sWindowRect.x + sWindowRect.width);
+
+      if (m_pScreen != NULL) {
+        if (m_pScreen->GetCanvasSize(&sCanvasRect))
+          pUserLog->AddCanvasSize(sCanvasRect.y, 
+                                  sCanvasRect.x, 
+                                  sCanvasRect.y + sCanvasRect.height, 
+                                  sCanvasRect.x + sCanvasRect.width);
+      }
+
+      int iMouseX = 0;
+      int iMouseY = 0;  
+      gdk_window_get_pointer(NULL, &iMouseX, &iMouseY, NULL);
+
+      pUserLog->AddMouseLocationNormalized(iMouseX, iMouseY, true, GetNats());
+  }
 
   return 1;
 
@@ -397,6 +426,15 @@ void CDasherControl::scan_colour_files() {
   }
 
   // FIXME - need to delete glob?
+}
+
+// Tell the logging object that a new user trial is starting.
+void CDasherControl::UserLogNewTrial()
+{
+  CUserLog* pUserLog = GetUserLogPtr();
+  if (pUserLog != NULL) { 
+    pUserLog->NewTrial();
+  }
 }
 
 // FIXME - these two methods seem a bit pointless!

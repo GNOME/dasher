@@ -453,7 +453,9 @@ public:
   void RegisterNode( int iID, const std::string &strLabel, int iColour );
   
   void ConnectNode(int iChild, int iParent, int iAfter);
-    
+
+  /// Gets a pointer to the object doing user logging
+	CUserLog*       GetUserLogPtr();
 
 protected:
   CAlphabet *m_Alphabet;

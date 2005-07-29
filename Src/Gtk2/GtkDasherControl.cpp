@@ -153,3 +153,8 @@ void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const
 void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter) {
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ConnectNode(iChild, iParent, iAfter);
 }
+
+void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->UserLogNewTrial();
+}
+

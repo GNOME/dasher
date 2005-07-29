@@ -10,6 +10,7 @@
 #include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DashEdit.h"
 #include "../DasherCore/DasherInterface.h"
+#include "../DasherCore/UserLog.h"
 
 ///
 /// \brief C++ core of the Dasher GTK UI component.
@@ -245,6 +246,11 @@ public:
 
   void SelectAll() {
   };
+
+  ///
+  /// Called by UI needs to signal a new user trial is starting.
+  ///
+  void UserLogNewTrial();
 
 private:
 

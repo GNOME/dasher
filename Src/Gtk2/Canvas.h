@@ -161,6 +161,11 @@ public:
 
   void SetColourScheme(const CCustomColours *Colours);
 
+  /// 
+  /// Gets the location and size of our canvas.
+  /// Returns true on success, false otherwise.
+  bool GetCanvasSize(GdkRectangle *pRectangle);
+
 private:
 
   ///

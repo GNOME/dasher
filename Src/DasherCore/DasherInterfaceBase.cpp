@@ -800,3 +800,8 @@ std::string CDasherInterfaceBase::GetStringParameter(int iParameter) {
   return m_pSettingsStore->GetStringParameter(iParameter);
 }
 
+// We need to be able to get at the UserLog object from outside the interface
+CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
+	return m_pUserLog;
+}
+
