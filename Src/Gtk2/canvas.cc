@@ -164,9 +164,11 @@ void send_marker_callback( int iMarker ) {
 
 /* Drawing primitives */
 
-#define BEGIN_DRAWING					\
+#define SHOULD_WE					\
   if (setup==false||preferences==true)			\
-    return;						\
+    return
+#define BEGIN_DRAWING					\
+  SHOULD_WE;						\
   BEGIN_DRAWING_BACKEND
 
 #define END_DRAWING					\
@@ -435,7 +437,7 @@ PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
   // includes the display text and the size.
 
   char buffer[128]; // FIXME - what if we exceed this?
-
+    
   snprintf( buffer, 128, "%d_%s", iSize, sDisplayText.c_str() );
 
   //  std::stringstream sCacheName;
@@ -465,8 +467,9 @@ PangoLayout *get_pango_layout( std::string sDisplayText, int iSize ) {
 
 void text_size_callback(const std::string &String, int* Width, int* Height, int size)
 {
-  if (setup==false||preferences==true)
-      return;
+  *Width = *Height = 0;
+
+  SHOULD_WE;
 
   // Get a pango layout from the cache.
 

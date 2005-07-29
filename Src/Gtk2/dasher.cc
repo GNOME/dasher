@@ -1300,7 +1300,6 @@ slider_key_press_event (GtkWidget *widget, GdkEventKey *event, gpointer data)
 extern "C" gboolean
 button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 {
-  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   gboolean *returnType;
 
 #ifdef WITH_GPE
@@ -1312,6 +1311,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
     return FALSE;
 #endif
 
+  GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
   focusEvent->type = GDK_FOCUS_CHANGE;
   focusEvent->window = (GdkWindow *) the_canvas;
   focusEvent->send_event = FALSE;
@@ -1319,6 +1319,7 @@ button_press_event (GtkWidget *widget, GdkEventButton *event, gpointer data)
 
   gtk_widget_grab_focus(GTK_WIDGET(the_canvas));
   g_signal_emit_by_name(GTK_OBJECT(the_canvas), "focus_in_event", GTK_WIDGET(the_canvas), focusEvent, NULL, &returnType);
+  g_free (focusEvent);
 
   // CJB,  2003-08.  If we have a selection, replace it with the new input.
   // This code is duplicated in key_press_event.

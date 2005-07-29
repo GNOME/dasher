@@ -660,7 +660,9 @@ void speak_buffer()
 void set_editbox_font(std::string FontName)
 {
   if (FontName!="") {
-    gtk_widget_modify_font (the_text_view,pango_font_description_from_string(FontName.c_str()));
+    PangoFontDescription *pfd = pango_font_description_from_string(FontName.c_str());
+    gtk_widget_modify_font (the_text_view, pfd);
+    pango_font_description_free (pfd);
   }
 }
 

@@ -156,6 +156,8 @@ void handle_text_size(const std::string &String, int* Width, int* Height, int Si
 {
   if( text_size_callback != NULL )
     text_size_callback(String, Width, Height, Size);
+  else
+    *Width = *Height = 0;
 }
 
 void handle_edit_output(symbol Character)

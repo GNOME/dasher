@@ -135,7 +135,7 @@ void CDasherViewSquare::RenderGroups(CDasherNode* Render, myint y1, myint y2)
 		myint hbnd=Children[upper-1]->Hbnd();
 		myint newy1=y1+(range*lbnd)/DasherModel().Normalization();
 		myint newy2=y1+(range*hbnd)/DasherModel().Normalization();
-		int mostleft;
+		int mostleft = 0;
 		if (ColourMode==true) 
 		{
 			std::string Label = DasherModel().GroupLabel(iGroup);
@@ -474,7 +474,7 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
   // FIXME - there's some horrible stuff here due to CanvasX and
   // CanvasY having no sane relationship with the actual width and
   // height of the canvas
-  
+
   screenint iScreenCanvasMinX = 0;
   screenint iScreenCanvasMaxX = 0;
   screenint iScreenCanvasMinY = 0;

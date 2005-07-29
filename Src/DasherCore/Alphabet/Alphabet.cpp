@@ -89,8 +89,9 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore) 
 	bool KeyIsPrefix=false;
 	int extras;
 	unsigned int bit;
+	unsigned int inputSize = Input->size();
 
-	for (unsigned int i=0; i<Input->size(); i++) {
+	for (unsigned int i=0; i<inputSize; i++) {
 
 		Tmp = (*Input)[i];
 
@@ -103,9 +104,9 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore) 
 		  extras = 1;
 		  for (bit = 0x20; ((*Input)[i] & bit) != 0; bit >>= 1)
 		    extras++;
-		  if (extras > 5) {
+		  if (extras > 3) {
 		  } // Malformed character
-		  while (extras-->0) {
+		  while (extras-->0 && i<inputSize) {
 		    Tmp += (*Input)[++i];
 		  }
 		}
@@ -114,9 +115,20 @@ void CAlphabet::GetSymbols(vector<symbol>* Symbols, string* Input, bool IsMore) 
 
 		if (KeyIsPrefix) {
 			CurSymbol = 0;
-			for (; i<Input->size(); i++) {
+			for (; i<inputSize; i++) {
 
 				Tmp += (*Input)[i];
+
+				if ((*Input)[i] & 0x80) { // Character is more than 1 byte long
+				  extras = 1;
+				  for (bit = 0x20; ((*Input)[i] & bit) != 0; bit >>= 1)
+				    extras++;
+				  if (extras > 3) {
+				  } // Malformed character
+				  while (extras-->0 && i<inputSize) {
+				    Tmp += (*Input)[++i];
+				  }
+				}
 
 				TmpSymbol = TextMap.Get(Tmp, &KeyIsPrefix);
 				if (TmpSymbol>0) {

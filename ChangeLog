@@ -1,3 +1,19 @@
+2005-07-29  Behdad Esfahbod  <behdad@behdad.org>
+
+	* Src/DasherCore/DasherViewSquare.cpp (RenderGroups): Initialized
+	mostleft to zero.  Shuts up valgrind warning.
+
+	* Src/DasherCore/libdasher.cc, Src/Gtk2/canvas.cc: Set Width and
+	Height to zero if failing for any reason.  Shuts up valgrind warning.
+
+	* Src/Gtk2/dasher.cc: Leak fix. Free focusEvent.
+
+	* Src/Gtk2/edit.cc: Leak fix.  Free pango_font_description.
+
+	* Src/DasherCore/Alphabet/Alphabet.cpp: Fixed a slight buffer
+	overflow.  Better UTF-8 handling.  In valid UTF-8, no character is
+	longer than 4 bytes.
+
 2005-07-25  Behdad Esfahbod  <behdad@behdad.org>
 
 	* Src/DasherCore/DasherViewSquare.cpp, Src/DasherCore/libdasher.cc,
