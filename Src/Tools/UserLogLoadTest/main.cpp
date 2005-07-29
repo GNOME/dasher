@@ -17,7 +17,6 @@ extern CFileLogger* g_pLogger;
 
 #include "../../DasherCore/Alphabet/Alphabet.h"
 #include "../../DasherCore/Alphabet/AlphIO.h"
-#include "../../DasherCore/Win32/DasherInterface.h"
 
 #include <stdlib.h>
 #include <stdio.h>
