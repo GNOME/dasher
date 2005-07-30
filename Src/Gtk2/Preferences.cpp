@@ -16,7 +16,7 @@ void PopulateControlPage(GladeXML * pGladeWidgets);
 void PopulateViewPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 
-extern "C" void lmsettings_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
+extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
 
@@ -24,6 +24,9 @@ GtkTreeSelection *alphselection, *colourselection;
 GtkWidget *alphabettreeview, *colourtreeview;
 GtkListStore *alph_list_store;
 GtkListStore *colour_list_store;
+
+GtkTreeModel *m_pAdvancedModel;
+
 GtkWidget *preferences_window;
 GtkWidget *train_dialogue;
 
@@ -147,24 +150,26 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   
   gtk_widget_realize(advancedtreeview);
 
-  advanced_list_store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_POINTER);
+  advanced_list_store = gtk_list_store_new(3, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_INT);
   gtk_tree_view_set_model(GTK_TREE_VIEW(advancedtreeview), GTK_TREE_MODEL(advanced_list_store));
+
+  m_pAdvancedModel = GTK_TREE_MODEL(advanced_list_store);
   
   advancedselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(advancedtreeview));
   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(advancedselection), GTK_SELECTION_BROWSE);
 
   column = gtk_tree_view_column_new_with_attributes("Setting", gtk_cell_renderer_text_new(), "text", 0, NULL);
   gtk_tree_view_append_column(GTK_TREE_VIEW(advancedtreeview), column);
-  
+
   GtkCellRenderer *renderer = gtk_cell_renderer_text_new();
   g_object_set(renderer, "editable", TRUE, NULL);
   column = gtk_tree_view_column_new();
   gtk_tree_view_column_pack_start(column, renderer, TRUE);
   gtk_tree_view_column_set_cell_data_func( column, renderer, AdvancedCellDataFunction, NULL, NULL);
 
-//   g_signal_connect(renderer, "edited", (GCallback) lmsettings_edited_callback, NULL);
+  g_signal_connect(renderer, "edited", (GCallback) advanced_edited_callback, advanced_list_store);
   gtk_tree_view_append_column(GTK_TREE_VIEW(advancedtreeview), column);
-
+  
   // Clear the contents of the lmsettings list
   gtk_list_store_clear(advanced_list_store);
 
@@ -173,28 +178,28 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   for( int i(0); i < NUM_OF_APP_BPS; ++i ) {  
     GValue *pValue = g_new0(GValue, 1);
     g_value_init( pValue, G_TYPE_BOOLEAN );
-    g_value_set_boolean(pValue, app_boolparamtable[i].value);
+    g_value_set_boolean(pValue, get_app_parameter_bool(app_boolparamtable[i].key));
 
     gtk_list_store_append(advanced_list_store, &advancediter);
-    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, -1);
+    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, 2, app_boolparamtable[i].key,  -1);
   }
 
   for( int i(0); i < NUM_OF_APP_LPS; ++i ) {  
     GValue *pValue = g_new0(GValue, 1);
     g_value_init( pValue, G_TYPE_INT );
-    g_value_set_int(pValue, app_longparamtable[i].value);
+    g_value_set_int(pValue, get_app_parameter_long(app_longparamtable[i].key));
 
     gtk_list_store_append(advanced_list_store, &advancediter);
-    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_longparamtable[i].regName, 1, pValue, -1);
+    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_longparamtable[i].regName, 1, pValue, 2, app_longparamtable[i].key, -1);
   } 
 
   for( int i(0); i < NUM_OF_APP_SPS; ++i ) {  
     GValue *pValue = g_new0(GValue, 1);
     g_value_init( pValue, G_TYPE_STRING );
-    g_value_set_string(pValue, app_stringparamtable[i].value);
+    g_value_set_string(pValue, get_app_parameter_string(app_stringparamtable[i].key));
 
     gtk_list_store_append(advanced_list_store, &advancediter);
-    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_stringparamtable[i].regName, 1, pValue, -1);
+    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_stringparamtable[i].regName, 1, pValue, 2, app_stringparamtable[i].key, -1);
   }
 
 }
@@ -582,38 +587,78 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
   }
 }
 
-extern "C" void lmsettings_edited_callback(GtkCellRendererText *cell, gchar *path_string, gchar *new_text, gpointer user_data) {
-
-  // FIXME - REIMPLEMENT
-
-//   GtkTreeModel *model;
-//   model = gtk_tree_view_get_model( GTK_TREE_VIEW(lmsettingstreeview) );
-
-//   GtkTreeIter iter;
-//   gtk_tree_model_get_iter_from_string( model, &iter, path_string );
-
-//   gchar *gv;
-//   gtk_tree_model_get( model, &iter, 0, &gv, -1 );
-
-//   if( strcmp( gv, "LMMaxOrder" ) == 0 )
-//     dasher_set_parameter_int( INT_LM_MAXORDER, atoi( new_text ) );
-//   else if( strcmp( gv, "LMAlpha" ) == 0 )
-//     dasher_set_parameter_int( INT_LM_ALPHA, atoi( new_text ) );
-//   else if( strcmp( gv, "LMBeta" ) == 0 )
-//     dasher_set_parameter_int( INT_LM_BETA, atoi( new_text ) );
-//   else if( strcmp( gv, "LMExclusion" ) == 0 )
-//     dasher_set_parameter_int( INT_LM_EXCLUSION, atoi( new_text ) );
-//   else if( strcmp( gv, "LMUpdateExclusion" ) == 0 )
-//     dasher_set_parameter_int( INT_LM_UPDATE_EXCLUSION, atoi( new_text ) );  
-//   else if( strcmp( gv, "LMMixture" ) == 0 )
-//   dasher_set_parameter_int( INT_LM_MIXTURE, atoi( new_text ) );
-
-}
-
 extern "C" void Adaptive(GtkWidget *widget, gpointer user_data) {
   // FIXME - Not yet implemented
 }
 
 extern "C" void uniform_changed(GtkHScale *hscale) {
   gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
+}
+
+// Advanced 2 page (reorganise!)
+
+extern "C" void advanced_edited_callback(GtkCellRendererText *cell, gchar *path_string, gchar *new_text, gpointer pUserData) {
+
+  // TODO - store integer values in model
+
+  GtkTreeModel *pModel((GtkTreeModel*)pUserData);
+  
+  GtkTreeIter iter;
+  gtk_tree_model_get_iter_from_string( pModel, &iter, path_string );
+  
+  gint iKey;
+  gtk_tree_model_get( pModel, &iter, 2, &iKey, -1 );
+
+  gpointer pData;
+  gtk_tree_model_get( pModel, &iter, 1, &pData, -1 );
+  GValue *pValue((GValue *)pData);
+  
+  if(G_VALUE_HOLDS_BOOLEAN(pValue)) {
+    if(!strcmp(new_text, "Yes"))
+      set_app_parameter_bool(iKey, TRUE);
+    else if(!strcmp(new_text, "No"))
+      set_app_parameter_bool(iKey, FALSE);
+  }
+  else if(G_VALUE_HOLDS_INT(pValue)) {
+
+    // TODO - use strtol here so we can detect errors
+
+    set_app_parameter_long(iKey, atoi(new_text));
+  }
+  else if(G_VALUE_HOLDS_STRING(pValue)) {
+    set_app_parameter_string(iKey, new_text);
+  }   
+}
+
+void update_advanced(int iParameter) {
+  GtkTreeIter sIter;
+
+  bool bMore(gtk_tree_model_get_iter_first(m_pAdvancedModel, &sIter));
+
+  while(bMore) {
+
+    gint iKey;
+    gtk_tree_model_get( m_pAdvancedModel, &sIter, 2, &iKey, -1 );
+
+    if(iKey == iParameter) {
+      gpointer pData;
+      gtk_tree_model_get( m_pAdvancedModel, &sIter, 1, &pData, -1 );
+      GValue *pValue((GValue *)pData);
+
+      if(G_VALUE_HOLDS_BOOLEAN(pValue))
+	g_value_set_boolean(pValue, get_app_parameter_bool(iParameter));
+      else if(G_VALUE_HOLDS_INT(pValue))
+	g_value_set_int(pValue, get_app_parameter_long(iParameter));
+      else if(G_VALUE_HOLDS_STRING(pValue))
+	g_value_set_string(pValue, get_app_parameter_string(iParameter));
+
+      gtk_tree_model_row_changed(m_pAdvancedModel, gtk_tree_model_get_path(m_pAdvancedModel, &sIter), &sIter);
+
+      return;
+    }
+
+    bMore = gtk_tree_model_iter_next(m_pAdvancedModel, &sIter);
+  }
+
+  return;
 }

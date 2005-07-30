@@ -82,7 +82,7 @@ GtkWidget *import_filesel;
 GtkWidget *append_filesel;
 GtkWidget *window;
 GtkWidget *file_selector;
-GtkWidget *pDasherWidget;
+GtkWidget *pDasherWidget = NULL;
 
 // GConf client
 
@@ -353,6 +353,11 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
   else if(iParameter == BP_PALETTE_CHANGE) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
   }
+
+  // See if AppSettings wants to do anything:
+
+  handle_core_change(iParameter);
+
 }
 
 ///
@@ -437,54 +442,18 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
 
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
 
-  switch( iEvent ) {
-  case Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR:
-    edit_move_forward();
-    break;
-  case Dasher::CControlManager::CTL_MOVE_FORWARD_WORD:
-    break;
-  case Dasher::CControlManager::CTL_MOVE_FORWARD_LINE:
-    break;
-  case Dasher::CControlManager::CTL_MOVE_FORWARD_FILE:
-    edit_move_end();
-    break;
-  case Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR:
-    edit_move_back();
-    break;
-  case Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD:
-    break;
-  case Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE:
-    break;
-  case Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE:
-    edit_move_start();
-    break;
-  case Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR:
-    edit_delete_forward_character();
-    break;
-  case Dasher::CControlManager::CTL_DELETE_FORWARD_WORD:
-    edit_delete_forward_word();
-    break;
-  case Dasher::CControlManager::CTL_DELETE_FORWARD_LINE:
-     edit_delete_forward_line();
-     break;
-  case Dasher::CControlManager::CTL_DELETE_FORWARD_FILE:
-    break;
-  case Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR:
-    break;
-  case Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD:
-    edit_delete_backward_word();
-    break;
-  case Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE:
-    edit_delete_backward_line();
-    break;
-  case Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE:
-    break;
-  case Dasher::CControlManager::CTL_USER+1: // Speak all
-    break;
-  case Dasher::CControlManager::CTL_USER+2: // Speak new
-    break;
-  case Dasher::CControlManager::CTL_USER+3: // Repeat speech
-    break;
+  if(!edit_handle_control_event(iEvent)) {
+    switch( iEvent ) {
+    case Dasher::CControlManager::CTL_USER+1: // Speak all
+      SPEAK_DAMN_YOU(get_all_text());
+      break;
+    case Dasher::CControlManager::CTL_USER+2: // Speak new
+      SPEAK_DAMN_YOU(get_new_text());
+      break;
+    case Dasher::CControlManager::CTL_USER+3: // Repeat speech
+      repeat_speech();
+      break;
+    }
   }
 }
 

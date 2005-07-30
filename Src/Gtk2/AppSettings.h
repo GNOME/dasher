@@ -24,7 +24,7 @@ enum {
   C_LP_TRUNCATIONTYPE, C_LP_LM_MAX_ORDER, C_LP_LM_EXCLUSION,
   C_LP_LM_UPDATE_EXCLUSION, C_LP_LM_ALPHA, C_LP_LM_BETA,
   C_LP_LM_MIXTURE, C_LP_MOUSE_POS_BOX, C_LP_NORMALIZATION, C_LP_LINE_WIDTH, 
-  C_LP_LM_WORD_ALPHA, 
+  C_LP_LM_WORD_ALPHA, C_LP_USER_LOG_LEVEL_MASK, 
 
 
   APP_LP_FILE_ENCODING,APP_LP_EDIT_FONT_SIZE, APP_LP_EDIT_HEIGHT,
@@ -46,13 +46,20 @@ enum {
 #define FIRST_APP_LP END_OF_APP_BPS
 #define FIRST_APP_SP END_OF_APP_LPS
 
+#define FIRST_APP_APP_BP APP_BP_TIME_STAMP
+#define FIRST_APP_APP_LP APP_LP_FILE_ENCODING
+#define FIRST_APP_APP_SP APP_SP_EDIT_FONT
+
+#define CORE_BP_OFFSET 0
+#define CORE_LP_OFFSET (END_OF_APP_BPS - FIRST_APP_APP_BP + CORE_BP_OFFSET)
+#define CORE_SP_OFFSET (END_OF_APP_LPS - FIRST_APP_APP_LP + CORE_LP_OFFSET)
+
 // Define the number of each type of setting
 #define NUM_OF_APP_BPS END_OF_APP_BPS
 #define NUM_OF_APP_LPS (END_OF_APP_LPS - END_OF_APP_BPS)
 #define NUM_OF_APP_SPS (END_OF_APP_SPS - END_OF_APP_LPS)
 
 #define PERS true
-
 
 struct app_bp_table {
   int key;
@@ -88,5 +95,7 @@ gint get_app_parameter_long( int iParameter );
 void set_app_parameter_long( int iParameter, gint iValue );
 const gchar *get_app_parameter_string( int iParameter );
 void set_app_parameter_string( int iParameter, const gchar *szValue );
+
+void handle_core_change(int iParameter);
 
 #endif

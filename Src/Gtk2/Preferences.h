@@ -6,5 +6,6 @@
 #include <glade/glade.h>
 
 void initialise_preferences_dialogue(GladeXML * pGladeWidgets);
+void update_advanced(int iParameter);
 
 #endif

@@ -136,7 +136,6 @@ long CSettingsStore::GetLongParameter(int iParameter) {
 
 std::string CSettingsStore::GetStringParameter(int iParameter) {
   // Check that the parameter is in fact in the right spot in the table
-
   DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter - FIRST_SP].key);
 
   // Return the value

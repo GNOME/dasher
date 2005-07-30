@@ -48,6 +48,23 @@ extern gboolean file_modified;
 
 gboolean g_bIgnoreCursorMove( false );
 
+// Basic cursor movement commands
+
+enum {
+  EDIT_FORWARDS, 
+  EDIT_BACKWARDS
+};
+  
+enum {
+  EDIT_CHAR,
+  EDIT_WORD,
+  EDIT_LINE,
+  EDIT_FILE
+};
+
+void edit_move(int iDirection, int iDist);
+void edit_delete(int iDirection, int iDist);
+
 // Old stuff (but quite probably still needed)
 
 extern "C" void choose_filename() {
@@ -169,7 +186,7 @@ void set_mark() {
   gtk_text_buffer_create_mark(the_text_buffer, "new_start", &oBufferEnd, true);
 }
 
-gchar *get_new_text() {
+const gchar *get_new_text() {
   GtkTextIter oNewStart;
   GtkTextIter oNewEnd;
   GtkTextIter oDummy;
@@ -179,6 +196,16 @@ gchar *get_new_text() {
 
   return gtk_text_buffer_get_text( the_text_buffer, &oNewStart, &oNewEnd, false );
   
+}
+
+const gchar *get_all_text() {
+  GtkTextIter oStart;
+  GtkTextIter oEnd;
+
+  gtk_text_buffer_get_start_iter(the_text_buffer, &oStart);
+  gtk_text_buffer_get_end_iter(the_text_buffer, &oEnd);
+
+  return gtk_text_buffer_get_text( the_text_buffer, &oStart, &oEnd, false );
 }
 
 void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data) {
@@ -298,96 +325,270 @@ void write_to_file() {
 //   outputtext="";
 }
 
-void gtk2_edit_outputcontrol_callback(void *pointer, int data) {
-  switch (data) {
-#ifdef GNOME_A11Y
-  case 1:
-    if(pointer != NULL) {
-      Accessible *myfoo;
-      myfoo = (Accessible *) pointer;
-      AccessibleAction_doAction(Accessible_getAction(myfoo), 0);
-    }
-    break;
-  case 30:
-    if(pointer != NULL) {
-      set_textbox((Accessible *) pointer);
-    }
-    break;
-  case 31:
-    if(pointer != NULL) {
-      //            wnck_window_activate((WnckWindow *)pointer, gtk_get_current_event_time());
-    }
-    break;
-#endif
-  case 2:
-    // stop
-
-    // FIXME - Reimplement
-
-    //    dasher_control_toggle_pause();
-    break;
-  case 3:
-
-    // FIXME - REIMPLEMENT
-    //  pause
-//     dasher_pause(0,0);
-//     if (onedmode==true) {
-//       dasher_halt();
+// void gtk2_edit_outputcontrol_callback(void *pointer, int data) {
+//   switch (data) {
+// #ifdef GNOME_A11Y
+//   case 1:
+//     if(pointer != NULL) {
+//       Accessible *myfoo;
+//       myfoo = (Accessible *) pointer;
+//       AccessibleAction_doAction(Accessible_getAction(myfoo), 0);
 //     }
-//     paused=true;
+//     break;
+//   case 30:
+//     if(pointer != NULL) {
+//       set_textbox((Accessible *) pointer);
+//     }
+//     break;
+//   case 31:
+//     if(pointer != NULL) {
+//       //            wnck_window_activate((WnckWindow *)pointer, gtk_get_current_event_time());
+//     }
+//     break;
+// #endif
+//   case 2:
+//     // stop
 
-//     if (mouseposstart==true)
-//       draw_mouseposbox(0);
+//     // FIXME - Reimplement
+
+//     //    dasher_control_toggle_pause();
+//     break;
+//   case 3:
+
+//     // FIXME - REIMPLEMENT
+//     //  pause
+// //     dasher_pause(0,0);
+// //     if (onedmode==true) {
+// //       dasher_halt();
+// //     }
+// //     paused=true;
+
+// //     if (mouseposstart==true)
+// //       draw_mouseposbox(0);
+//     break;
+//   case 4:
+// #ifdef GNOME_SPEECH
+//     speak_buffer();
+// #endif
+//     break;
+//   case 5:
+// #ifdef GNOME_SPEECH
+//     speak();
+// #endif
+//     break;
+//   case 6:
+// #ifdef GNOME_SPEECH
+//     speak_last();
+// #endif
+//     break;
+//   case 11:
+//     // move left
+//     edit_move_back();
+//     break;
+//   case 12:
+//     // move right
+//     edit_move_forward();
+//     break;
+//   case 13:
+//     edit_move_start();
+//     break;
+//   case 14:
+//     edit_move_end();
+//     break;
+//   case 21:
+//     edit_delete_forward_character();
+//     break;
+//   case 22:
+//     edit_delete_forward_word();
+//     break;
+//   case 23:
+//     edit_delete_forward_line();
+//     break;
+//   case 24:
+//     // FIXME - reimplement
+//     //    gtk2_edit_delete_callback(std::string(""));
+//     break;
+//   case 25:
+//     edit_delete_backward_word();
+//     break;
+//   case 26:
+//     edit_delete_backward_line();
+//     break;
+//   }
+// }
+
+bool edit_handle_control_event(gint iEvent) {
+
+  switch( iEvent ) {
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR:
+    edit_move(EDIT_FORWARDS, EDIT_CHAR);
+    return true;
     break;
-  case 4:
-#ifdef GNOME_SPEECH
-    speak_buffer();
-#endif
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_WORD:
+    edit_move(EDIT_FORWARDS, EDIT_WORD);
+    return true;
     break;
-  case 5:
-#ifdef GNOME_SPEECH
-    speak();
-#endif
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_LINE:
+    edit_move(EDIT_FORWARDS, EDIT_LINE);
+    return true;
     break;
-  case 6:
-#ifdef GNOME_SPEECH
-    speak_last();
-#endif
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_FILE: 
+    edit_move(EDIT_FORWARDS, EDIT_FILE);
+    return true;
     break;
-  case 11:
-    // move left
-    edit_move_back();
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR:
+    edit_move(EDIT_BACKWARDS, EDIT_CHAR);
+    return true;
     break;
-  case 12:
-    // move right
-    edit_move_forward();
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD:
+    edit_move(EDIT_BACKWARDS, EDIT_WORD);
+    return true;
     break;
-  case 13:
-    edit_move_start();
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE:
+    edit_move(EDIT_BACKWARDS, EDIT_LINE);    
+ return true;
     break;
-  case 14:
-    edit_move_end();
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE:
+    edit_move(EDIT_BACKWARDS, EDIT_FILE);
+    return true;
     break;
-  case 21:
-    edit_delete_forward_character();
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR:
+    edit_delete(EDIT_FORWARDS, EDIT_CHAR);
+    return true;
     break;
-  case 22:
-    edit_delete_forward_word();
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_WORD:
+    edit_delete(EDIT_FORWARDS, EDIT_WORD);
+    return true;
     break;
-  case 23:
-    edit_delete_forward_line();
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_LINE:
+    edit_delete(EDIT_FORWARDS, EDIT_LINE);
+    return true;
     break;
-  case 24:
-    // FIXME - reimplement
-    //    gtk2_edit_delete_callback(std::string(""));
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_FILE:
+    edit_delete(EDIT_FORWARDS, EDIT_FILE);
+    return true;
     break;
-  case 25:
-    edit_delete_backward_word();
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR:
+    edit_delete(EDIT_BACKWARDS, EDIT_CHAR);
+    return true;
     break;
-  case 26:
-    edit_delete_backward_line();
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD:
+    edit_delete(EDIT_BACKWARDS, EDIT_WORD);
+    return true;
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE:
+    edit_delete(EDIT_BACKWARDS, EDIT_LINE);
+    return true;
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE:
+    edit_delete(EDIT_BACKWARDS, EDIT_FILE);
+    return true;
+    break;
+  default:
+    return false;
     break;
   }
+
+  return false;
+}
+
+void edit_move(int iDirection, int iDist) {
+  g_bIgnoreCursorMove = true;
+  
+  GtkTextIter sPos;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer, &sPos, gtk_text_buffer_get_insert(the_text_buffer));
+  
+  if(iDirection == EDIT_FORWARDS) {
+    switch(iDist) {
+    case EDIT_CHAR:
+      gtk_text_iter_forward_char(&sPos);
+      break;
+    case EDIT_WORD:
+      gtk_text_iter_forward_word_end(&sPos);
+      break;
+    case EDIT_LINE:
+      gtk_text_iter_forward_line(&sPos);
+      break;
+    case EDIT_FILE:
+      gtk_text_iter_forward_to_end(&sPos);
+      break;
+    }
+  }
+  else { 
+    switch(iDist) {
+    case EDIT_CHAR:
+      gtk_text_iter_backward_char(&sPos);
+      break;
+    case EDIT_WORD:
+      gtk_text_iter_backward_word_start(&sPos);
+      break;
+    case EDIT_LINE:
+      gtk_text_iter_backward_line(&sPos);
+      break;
+    case EDIT_FILE:
+      gtk_text_buffer_get_start_iter(the_text_buffer, &sPos);
+      break;
+    }
+  }
+
+  gtk_text_buffer_place_cursor(the_text_buffer, &sPos);
+  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+
+  // FIXME - put a11y stuff in here
+
+  g_bIgnoreCursorMove = false;
+}
+
+void edit_delete(int iDirection, int iDist) { 
+  g_bIgnoreCursorMove = true;
+  
+  GtkTextIter sPosStart;
+  GtkTextIter sPosEnd;
+
+  gtk_text_buffer_get_iter_at_mark(the_text_buffer, &sPosStart, gtk_text_buffer_get_insert(the_text_buffer));
+
+  sPosEnd = sPosStart;
+  
+  if(iDirection == EDIT_FORWARDS) {
+    switch(iDist) {
+    case EDIT_CHAR:
+      gtk_text_iter_forward_char(&sPosStart);
+      break;
+    case EDIT_WORD:
+      gtk_text_iter_forward_word_end(&sPosStart);
+      break;
+    case EDIT_LINE:
+      gtk_text_iter_forward_line(&sPosStart);
+      break;
+    case EDIT_FILE:
+      gtk_text_iter_forward_to_end(&sPosStart);
+      break;
+    }
+  }
+  else { 
+    switch(iDist) {
+    case EDIT_CHAR:
+      gtk_text_iter_backward_char(&sPosStart);
+      break;
+    case EDIT_WORD:
+      gtk_text_iter_backward_word_start(&sPosStart);
+      break;
+    case EDIT_LINE:
+      gtk_text_iter_backward_line(&sPosStart);
+      break;
+    case EDIT_FILE:
+      gtk_text_buffer_get_start_iter(the_text_buffer, &sPosStart);
+      break;
+    }
+  }
+
+  gtk_text_buffer_delete(the_text_buffer, &sPosStart, &sPosEnd);
+  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+
+  // FIXME - put a11y stuff in here
+
+  g_bIgnoreCursorMove = false;
 }
 
 void edit_move_forward() { 

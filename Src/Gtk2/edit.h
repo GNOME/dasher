@@ -31,6 +31,7 @@ typedef enum {
   CLIPBOARD_CLEAR,
 } clipboard_action;
 
+bool edit_handle_control_event(gint iEvent);
 void initialise_edit(GladeXML * pGladeXML);
 void cleanup_edit();
 
@@ -54,7 +55,8 @@ void select_all();
 void clear_edit();
 
 void set_mark();
-gchar *get_new_text();
+const gchar *get_new_text();
+const gchar *get_all_text();
 
 extern GtkWidget *the_text_view;
 extern GtkTextBuffer *the_text_buffer;

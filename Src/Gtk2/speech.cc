@@ -1,4 +1,5 @@
 #include "speech.h"
+#include <string.h>
 
 #ifdef GNOME_SPEECH
 
@@ -11,6 +12,8 @@ GNOME_Speech_Speaker speaker;
 GNOME_Speech_VoiceInfoList *voices;
 CORBA_Environment ev;
 CORBA_Object rv = NULL;
+
+gchar *m_szLast = NULL;
 
 void setup_speech() {
 
@@ -81,13 +84,30 @@ void SPEAK_DAMN_YOU(const gchar *speech) {
   if(speaker != NULL) {
     GNOME_Speech_Speaker_say(speaker, speech, &ev);
   }
+
+  if( m_szLast != NULL )
+    delete[] m_szLast;
+
+  m_szLast = new gchar(strlen(speech) + 1);
+  
+  strcpy(m_szLast, speech);
+}
+
+void repeat_speech() {
+  if( m_szLast != NULL )
+    SPEAK_DAMN_YOU( m_szLast );
 }
 
 #else 
+
+// FIXME - surely we just never call these if there's no speech support?
+
 void setup_speech() {
 };
 void teardown_speech() {
 };
 void SPEAK_DAMN_YOU(const gchar *speech) {
+};
+void repeat_speech() {
 };
 #endif

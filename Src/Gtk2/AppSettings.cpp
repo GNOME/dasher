@@ -1,9 +1,11 @@
 #include "AppSettings.h"
 #include "dasher.h"
+#include "GtkDasherControl.h"
+#include "Preferences.h"
 
 #include <string.h>
 
-
+#include <iostream>
 
 // First level structures with only basic data types because you
 // cannot initialize struct tables with objects
@@ -67,6 +69,7 @@ app_lp_table app_longparamtable[] = {
   {C_LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
   {C_LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
   {C_LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
+  {C_LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"},
 
   {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
   {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
@@ -91,70 +94,90 @@ app_sp_table app_stringparamtable[] = {
 void handle_parameter_change( int iParameter );
 
 bool get_app_parameter_bool( int iParameter ) {
-  return app_boolparamtable[ iParameter - FIRST_APP_BP ].value;
+  if( iParameter < FIRST_APP_APP_BP )
+    return gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_BP_OFFSET);
+  else
+    return app_boolparamtable[ iParameter - FIRST_APP_BP ].value;
 }
 
 void set_app_parameter_bool( int iParameter, bool bValue ) {
-  app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
-
-  if(app_boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
-    gchar szName[256];
+  if( iParameter < FIRST_APP_APP_BP )
+    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_BP_OFFSET, bValue);
+  else {
+    app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
     
-    strncpy(szName, "/apps/dasher/", 256);
-    strncat(szName,  app_boolparamtable[ iParameter - FIRST_APP_BP ].regName, 255 - strlen( szName ));
-    
-    GError *pGConfError = NULL;
-    gconf_client_set_bool(g_pGConfClient, szName, bValue, &pGConfError);
+    if(app_boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
+      gchar szName[256];
+      
+      strncpy(szName, "/apps/dasher/", 256);
+      strncat(szName,  app_boolparamtable[ iParameter - FIRST_APP_BP ].regName, 255 - strlen( szName ));
+      
+      GError *pGConfError = NULL;
+      gconf_client_set_bool(g_pGConfClient, szName, bValue, &pGConfError);
+    }
+    handle_parameter_change( iParameter );
   }
-
-  handle_parameter_change( iParameter );
 }
 
-gint get_app_parameter_long( int iParameter ) {
-  return app_longparamtable[ iParameter - FIRST_APP_LP ].value;
+gint get_app_parameter_long( int iParameter ) { 
+  if( iParameter < FIRST_APP_APP_LP )
+    return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_LP_OFFSET);
+  else
+    return app_longparamtable[ iParameter - FIRST_APP_LP ].value;
 }
 
 void set_app_parameter_long( int iParameter, gint iValue ) {
-  app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
-
-  if(app_longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
-    gchar szName[256];
+  if( iParameter < FIRST_APP_APP_LP )
+    gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_LP_OFFSET, iValue);
+  else {
+    app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
     
-    strncpy(szName, "/apps/dasher/", 256);
-    strncat(szName,  app_longparamtable[ iParameter - FIRST_APP_LP ].regName, 255 - strlen( szName ));
+    if(app_longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
+      gchar szName[256];
+      
+      strncpy(szName, "/apps/dasher/", 256);
+      strncat(szName,  app_longparamtable[ iParameter - FIRST_APP_LP ].regName, 255 - strlen( szName ));
+      
+      GError *pGConfError = NULL;
+      gconf_client_set_int(g_pGConfClient, szName, iValue, &pGConfError);
+    }
     
-    GError *pGConfError = NULL;
-    gconf_client_set_int(g_pGConfClient, szName, iValue, &pGConfError);
+    handle_parameter_change( iParameter );
   }
-
-  handle_parameter_change( iParameter );
 }
 
 const gchar *get_app_parameter_string( int iParameter ) {
-  return app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
+  if( iParameter < FIRST_APP_APP_SP )
+    return gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_SP_OFFSET);
+  else
+    return app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
 }
 
 void set_app_parameter_string( int iParameter, const gchar *szValue ) {
-
-  // FIXME - free old string?
-
-  gchar *szNew;
-  szNew = new gchar[strlen(szValue) + 1];
-  strcpy(szNew, szValue);
-
-  app_stringparamtable[ iParameter - FIRST_APP_SP ].value = szNew;
-
-  if(app_stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
-    gchar szName[256];
+  if( iParameter < FIRST_APP_APP_SP )
+    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_SP_OFFSET, szValue);
+  else {
     
-    strncpy(szName, "/apps/dasher/", 256);
-    strncat(szName,  app_stringparamtable[ iParameter - FIRST_APP_SP ].regName, 255 - strlen( szName ));
+    // FIXME - free old string?
     
-    GError *pGConfError = NULL;
-    gconf_client_set_string(g_pGConfClient, szName, szValue, &pGConfError);
+    gchar *szNew;
+    szNew = new gchar[strlen(szValue) + 1];
+    strcpy(szNew, szValue);
+    
+    app_stringparamtable[ iParameter - FIRST_APP_SP ].value = szNew;
+    
+    if(app_stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
+      gchar szName[256];
+      
+      strncpy(szName, "/apps/dasher/", 256);
+      strncat(szName,  app_stringparamtable[ iParameter - FIRST_APP_SP ].regName, 255 - strlen( szName ));
+      
+      GError *pGConfError = NULL;
+      gconf_client_set_string(g_pGConfClient, szName, szValue, &pGConfError);
+    }
+    
+    handle_parameter_change( iParameter );
   }
-
-  handle_parameter_change( iParameter );
 }
 
 
@@ -220,6 +243,15 @@ void load_app_parameters() {
   }
 }
 
+void handle_core_change(int iParameter) {
+  if( iParameter < FIRST_LP )
+    handle_parameter_change(iParameter + CORE_BP_OFFSET);
+  else if( iParameter < FIRST_SP )
+    handle_parameter_change(iParameter + CORE_LP_OFFSET);
+  else
+    handle_parameter_change(iParameter + CORE_SP_OFFSET);
+}
+
 void handle_parameter_change( int iParameter ) {
   // TODO - pass this to individual components? Do we want a full event framework?
 
@@ -231,5 +263,7 @@ void handle_parameter_change( int iParameter ) {
       gtk_widget_hide( toolbar );
     break;
   }
+
+  update_advanced(iParameter);
 
 }
