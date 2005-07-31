@@ -30,6 +30,11 @@ GtkTreeModel *m_pAdvancedModel;
 GtkWidget *preferences_window;
 GtkWidget *train_dialogue;
 
+GtkWidget *m_pLRButton;
+GtkWidget *m_pRLButton;
+GtkWidget *m_pTBButton;
+GtkWidget *m_pBTButton;
+
 #define _(_x) gettext(_x)
 
 // Stuff to do with training threads
@@ -71,26 +76,87 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
 
 void PopulateViewPage(GladeXML *pGladeWidgets) {
 
+  m_pLRButton = glade_xml_get_widget(pGladeWidgets, "radiobutton2");
+  m_pRLButton = glade_xml_get_widget(pGladeWidgets, "radiobutton3");
+  m_pTBButton = glade_xml_get_widget(pGladeWidgets, "radiobutton4");
+  m_pBTButton = glade_xml_get_widget(pGladeWidgets, "radiobutton5");
+
   switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION)) {
   case Dasher::Opts::Alphabet:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE);
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE); 
+    
+  
+    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION)) {
+    case Dasher::Opts::LeftToRight:
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pLRButton), TRUE);
+      break;
+    case Dasher::Opts::RightToLeft:
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pRLButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pRLButton), TRUE);
+      break;
+    case Dasher::Opts::TopToBottom:
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+      break;
+    case Dasher::Opts::BottomToTop:
+      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
+	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+      break;
+    }
+
+    // FIXME - we're almost definitely generating events which hange the orientation here (is this a problem?)
+    
+    gtk_widget_set_sensitive(m_pLRButton, FALSE);
+    gtk_widget_set_sensitive(m_pRLButton, FALSE);
+    gtk_widget_set_sensitive(m_pTBButton, FALSE);
+    gtk_widget_set_sensitive(m_pBTButton, FALSE);
+
     break;
   case Dasher::Opts::LeftToRight:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2")), TRUE);
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton2")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+
+    gtk_widget_set_sensitive(m_pLRButton, TRUE);
+    gtk_widget_set_sensitive(m_pRLButton, TRUE);
+    gtk_widget_set_sensitive(m_pTBButton, TRUE);
+    gtk_widget_set_sensitive(m_pBTButton, TRUE);
     break;
   case Dasher::Opts::RightToLeft:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3")), TRUE);
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton3")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+
+    gtk_widget_set_sensitive(m_pLRButton, TRUE);
+    gtk_widget_set_sensitive(m_pRLButton, TRUE);
+    gtk_widget_set_sensitive(m_pTBButton, TRUE);
+    gtk_widget_set_sensitive(m_pBTButton, TRUE);
     break;
   case Dasher::Opts::TopToBottom:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4")), TRUE);
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton4")), TRUE);  
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+
+    gtk_widget_set_sensitive(m_pLRButton, TRUE);
+    gtk_widget_set_sensitive(m_pRLButton, TRUE);
+    gtk_widget_set_sensitive(m_pTBButton, TRUE);
+    gtk_widget_set_sensitive(m_pBTButton, TRUE);
     break;
   case Dasher::Opts::BottomToTop:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5"))) != TRUE)
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5")), TRUE);
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton5")), TRUE); 
+    if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12"))) != TRUE)
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton12")), TRUE); 
+
+    gtk_widget_set_sensitive(m_pLRButton, TRUE);
+    gtk_widget_set_sensitive(m_pRLButton, TRUE);
+    gtk_widget_set_sensitive(m_pTBButton, TRUE);
+    gtk_widget_set_sensitive(m_pBTButton, TRUE);
     break;
   }
 
@@ -316,6 +382,17 @@ void generate_preferences(GladeXML *pGladeWidgets) {
 
   // Connect up a signal so we can select a new colour scheme
   g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
+
+  if(gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE)) {
+    if(!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "autocolour"))))
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "autocolour")), TRUE); 
+    gtk_widget_set_sensitive(colourtreeview, FALSE);
+  }
+  else {
+    if(!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "manualcolour"))))
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "manualcolour")), TRUE); 
+    gtk_widget_set_sensitive(colourtreeview, TRUE);
+  }
 }
 
 void update_colours() {
@@ -452,22 +529,20 @@ extern "C" void colour_select(GtkTreeSelection *selection, gpointer data) {
 
   // FIXME - REIMPLEMENT
 
-//   GtkTreeIter iter;
-//   GtkTreeModel *model;
-//   gchar *colour;
+   GtkTreeIter iter;
+   GtkTreeModel *model;
+   gchar *colour;
 
-//   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-//     gtk_tree_model_get(model, &iter, 0, &colour, -1);
+   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
+     gtk_tree_model_get(model, &iter, 0, &colour, -1);
 
-//     dasher_set_parameter_string( STRING_COLOUR, colour );    
+     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID, colour);    
 
-//     // Reset the colour selection as well
-//     colourscheme=colour;
+     // Reset the colour selection as well
 
-//     dasher_redraw();
 
-//     g_free(colour);
-//   }
+     g_free(colour);
+   }
 }
 
 // 'Control' Page
@@ -514,6 +589,41 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
   if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton1")) {
       gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::Alphabet);
+      
+      // FIXME - get rid of global variables here.
+
+      gtk_widget_set_sensitive(m_pLRButton, FALSE);
+      gtk_widget_set_sensitive(m_pRLButton, FALSE);
+      gtk_widget_set_sensitive(m_pTBButton, FALSE);
+      gtk_widget_set_sensitive(m_pBTButton, FALSE);
+
+      
+      switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION)) {
+      case Dasher::Opts::LeftToRight:
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pLRButton), TRUE);
+	break;
+      case Dasher::Opts::RightToLeft:
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pRLButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pRLButton), TRUE);
+	break;
+      case Dasher::Opts::TopToBottom:
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+	break;
+      case Dasher::Opts::BottomToTop:
+	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pTBButton)) != TRUE)
+	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
+	break;
+      }
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton12")) {
+      gtk_widget_set_sensitive(m_pLRButton, TRUE);
+      gtk_widget_set_sensitive(m_pRLButton, TRUE);
+      gtk_widget_set_sensitive(m_pTBButton, TRUE);
+      gtk_widget_set_sensitive(m_pBTButton, TRUE);
+
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION,  gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION));
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton2")) {
       gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::LeftToRight);
@@ -553,6 +663,19 @@ extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void palettechange(GtkWidget *widget, gpointer user_data) {
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, GTK_TOGGLE_BUTTON(widget)->active);
+}
+
+extern "C" void autocolour_clicked(GtkWidget *widget, gpointer user_data) {
+  if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
+    if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "autocolour")) { 
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, TRUE);
+      gtk_widget_set_sensitive(colourtreeview, FALSE);
+    }
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "manualcolour")) { 
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, FALSE);
+      gtk_widget_set_sensitive(colourtreeview, TRUE);
+    }
+  }
 }
 
 // 'Advanced' Page
