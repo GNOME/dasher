@@ -62,12 +62,12 @@ textentry(false) {
 
   // FIXME - for some reason I seem to have broken speech support :-(
 
-  //HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
-  //if (hr!=S_OK)
-  //      pVoice=0;
-  //if (pVoice!=0) {
-  //      pVoice->Speak(L"",SPF_ASYNC,NULL);
-  //}
+  HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
+  if (hr!=S_OK)
+        pVoice=0;
+  if (pVoice!=0) {
+        pVoice->Speak(L"",SPF_ASYNC,NULL);
+  }
 #endif
 }
 
@@ -1073,10 +1073,12 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
 
 void CEdit::speak(int what) {
 
+// Todo - put this in a separate class
+
 #ifndef DASHER_WINCE
 
   if(pVoice != 0) {
-    if(what == 1) {
+    if(what == 1) { // All
       int speechlength = GetWindowTextLength(m_hwnd);
       LPTSTR allspeech = new TCHAR[speechlength + 1];
       GetWindowText(m_hwnd, allspeech, speechlength + 1);
@@ -1092,7 +1094,7 @@ void CEdit::speak(int what) {
       delete allspeech;
       speech.resize(0);
     }
-    else if(what == 2) {
+    else if(what == 2) { // New
 #ifdef _UNICODE
       pVoice->Speak(speech.c_str(), SPF_ASYNC, NULL);
 #else
@@ -1104,7 +1106,7 @@ void CEdit::speak(int what) {
       lastspeech = speech;
       speech.resize(0);
     }
-    else if(what == 3) {
+    else if(what == 3) { // Repeat
 #ifdef _UNICODE
       pVoice->Speak(lastspeech.c_str(), SPF_ASYNC, NULL);
 #else

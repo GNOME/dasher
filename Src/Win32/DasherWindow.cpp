@@ -81,6 +81,29 @@ CDasherWindow::CDasherWindow()
   m_pCanvas = m_pDasher->GetCanvas();
   m_pSlidebar = m_pDasher->GetSlidebar();
   m_pSplitter = new CSplitter(m_hwnd, m_pDasher, 100, this);
+
+// Add extra control nodes
+
+  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER, "Speak", -1 );
+  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+1, "All", -1 );
+  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+2, "New", -1 );
+  m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+3, "Repeat", -1 );
+
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER, Dasher::CControlManager::CTL_ROOT, -2);
+
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER+1, Dasher::CControlManager::CTL_USER, -2);
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER+2, Dasher::CControlManager::CTL_USER, -2);
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_USER+3, Dasher::CControlManager::CTL_USER, -2);
+ 
+  m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+1, -2);
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+1, -2);
+  
+  m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+2, -2);
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+2, -2);
+
+  m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+3, -2);
+  m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
+
 }
 
 CDasherWindow::~CDasherWindow() {
@@ -199,13 +222,16 @@ void CDasherWindow::HandleControlEvent(int iID) {
       m_pEdit->Delete(EDIT_BACKWARDS, EDIT_FILE);
     break;
   case Dasher::CControlManager::CTL_USER+1: // Speak all
-    //SPEAK_DAMN_YOU(get_all_text());
+    if(m_pEdit)
+      m_pEdit->speak(1);
     break;
   case Dasher::CControlManager::CTL_USER+2: // Speak new
-    //SPEAK_DAMN_YOU(get_new_text());
+    if(m_pEdit)
+      m_pEdit->speak(2);
     break;
   case Dasher::CControlManager::CTL_USER+3: // Repeat speech
-    //repeat_speech();
+    if(m_pEdit)
+      m_pEdit->speak(3);
     break;
   }
 }
@@ -227,6 +253,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       case EV_START:
         break;
       case EV_STOP:
+        if(m_pEdit)
+          m_pEdit->speak(2);
         break;
       case EV_CONTROL:
         HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
