@@ -26,7 +26,7 @@ msgid "translator_credits"
 msgstr ""
 "Ilkka Tuohela, 2004\n"
 "\n"
-"http://gnome-fi.org/"
+"http://gnome.fi/"
 
 #: ../Src/Gtk2/Menu.cc:454 ../Src/Gtk2/dasher.glade.h:39
 #: ../Src/Gtk2/dashergpe.glade.h:35
