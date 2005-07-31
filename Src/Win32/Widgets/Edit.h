@@ -35,6 +35,18 @@ extern CComModule _Module;
 
 class CCanvas;
 
+enum {
+  EDIT_FORWARDS,
+  EDIT_BACKWARDS
+};
+
+enum {
+  EDIT_CHAR,
+  EDIT_WORD,
+  EDIT_LINE,
+  EDIT_FILE
+};
+
 class CEdit:public Dasher::CDashEditbox, public CWinWrap {
 public:
   CEdit(HWND Parent);
@@ -45,6 +57,10 @@ public:
     return m_hwnd;
   } // As EN_UPDATE message go to parent, need this. void UserSave(HANDLE FileHandle);
   void UserOpen(HANDLE FileHandle);
+
+  void Move(int iDirection, int iDist);
+  void Delete(int iDirection, int iDist);
+  void SetKeyboardTarget(HWND hwnd);
 
   // Overriding file virtual functions
   void TimeStampNewFiles(bool Value);
@@ -113,6 +129,9 @@ protected:
 private:
   HWND Parent;
   WNDPROC TextWndFunc;
+
+  HWND m_hTarget;
+  bool m_bForwardKeyboard;
 
   HANDLE FileHandle;            // Keeping a lock on files makes File I/O safer,
   // especially for the append mode!

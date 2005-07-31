@@ -8,6 +8,12 @@
 #include "EditWrapper.h"
 #include "../DasherCore/UserLog.h"
 
+extern CONST UINT WM_DASHER_EVENT;
+#define _WM_DASHER_EVENT (LPCWSTR)"wm_dasher_event"
+
+extern CONST UINT WM_DASHER_FOCUS;
+#define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
+
 namespace Dasher {
   class CDasher;
 } 

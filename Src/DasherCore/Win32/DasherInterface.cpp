@@ -14,9 +14,6 @@ static char THIS_FILE[] = __FILE__;
 
 CDasherInterface::CDasherInterface(void) {
   m_pSettingsStore = new CWinOptions( "Inference Group", "Dasher3", m_pEventHandler );
-
-  Realize();
-
 }
 
 CDasherInterface::~CDasherInterface(void) {

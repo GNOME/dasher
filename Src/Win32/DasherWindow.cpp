@@ -13,6 +13,7 @@
 #include "Common/WinMenus.h"
 
 #include "../DasherCore/DasherTypes.h"
+#include "../DasherCore/ControlManager.h"
 #include "Widgets/AboutBox.h"
 #include "Widgets/AlphabetBox.h"
 #include "Widgets/ColourBox.h"
@@ -131,10 +132,119 @@ bool CDasherWindow::LoadWindowState() {
   return false;
 }
 
+void CDasherWindow::HandleControlEvent(int iID) {
+  switch(iID) {
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_FORWARDS, EDIT_CHAR);
+    break;
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_WORD:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_FORWARDS, EDIT_WORD);
+    break;
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_LINE:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_FORWARDS, EDIT_LINE);
+    break;
+  case Dasher::CControlManager::CTL_MOVE_FORWARD_FILE: 
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_FORWARDS, EDIT_FILE);
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_BACKWARDS, EDIT_CHAR);
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_BACKWARDS, EDIT_WORD);
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_BACKWARDS, EDIT_LINE);    
+    break;
+  case Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE:
+    if(m_pEdit)
+      m_pEdit->Move(EDIT_BACKWARDS, EDIT_FILE);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_FORWARDS, EDIT_CHAR);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_WORD:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_FORWARDS, EDIT_WORD);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_LINE:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_FORWARDS, EDIT_LINE);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_FORWARD_FILE:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_FORWARDS, EDIT_FILE);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_BACKWARDS, EDIT_CHAR);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_BACKWARDS, EDIT_WORD);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_BACKWARDS, EDIT_LINE);
+    break;
+  case Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE:
+    if(m_pEdit)
+      m_pEdit->Delete(EDIT_BACKWARDS, EDIT_FILE);
+    break;
+  case Dasher::CControlManager::CTL_USER+1: // Speak all
+    //SPEAK_DAMN_YOU(get_all_text());
+    break;
+  case Dasher::CControlManager::CTL_USER+2: // Speak new
+    //SPEAK_DAMN_YOU(get_new_text());
+    break;
+  case Dasher::CControlManager::CTL_USER+3: // Repeat speech
+    //repeat_speech();
+    break;
+  }
+}
+
 LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
   RECT windowsize;
+
+  if(message == WM_DASHER_EVENT) {
+    // We can't switch on a dynamically allocated value...
+    CEvent *pEvent( (CEvent *)lParam );
+
+    switch(pEvent->m_iEventType) {
+      case EV_PARAM_NOTIFY:
+         break;
+      case EV_EDIT:
+        break;
+      case EV_EDIT_CONTEXT:
+        break;
+      case EV_START:
+        break;
+      case EV_STOP:
+        break;
+      case EV_CONTROL:
+        HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
+        break;
+      default:
+        break;
+    }
+  }
+  else if(message == WM_DASHER_FOCUS) {
+    SetFocus(m_pEdit->GetHwnd());
+    HWND *pHwnd((HWND *)lParam);
+    m_pEdit->SetKeyboardTarget(*pHwnd);
+  }
+  else {
+  // ...Everything else is static system messages
+
   switch (message) {
-  case MY_LAYOUT:
+    case MY_LAYOUT:
     Layout();
     break;
   case WM_COMMAND:
@@ -189,8 +299,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
           ChooseFont(&Data);
           string FontName;
           WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-          m_pDasher->SetLongParameter(LP_EDIT_FONT_SIZE, lf.lfHeight);
-          m_pDasher->SetStringParameter(SP_EDIT_FONT, FontName);
+     //     m_pDasher->SetLongParameter(LP_EDIT_FONT_SIZE, lf.lfHeight);
+//m_pDasher->SetStringParameter(SP_EDIT_FONT, FontName);
         }
         break;
       case ID_OPTIONS_DASHERFONT:{
@@ -209,8 +319,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         }
         break;
       case ID_OPTIONS_RESETFONT:
-        m_pDasher->SetLongParameter(LP_EDIT_FONT_SIZE, 0);
-        m_pDasher->SetStringParameter(SP_EDIT_FONT, "");
+//        m_pDasher->SetLongParameter(LP_EDIT_FONT_SIZE, 0);
+ //       m_pDasher->SetStringParameter(SP_EDIT_FONT, "");
         m_pDasher->SetStringParameter(SP_DASHER_FONT, "");
         break;
       case IDM_ABOUT:{
@@ -242,16 +352,16 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 
       // FIXME - These options shouldn't pass through the interface
       case ID_TB_SHOW:
-        m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
-        m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+   //     m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
+    //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
         break;
       case ID_TB_TEXT:
-        m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
-        m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+    //    m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
+    //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
         break;
       case ID_TB_LARGE:
-        m_pDasher->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
-        m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+    //    m_pDasher->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
+    //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
         break;
       case ID_EDIT_SELECTALL:
         if(m_pEdit)
@@ -303,7 +413,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         // FIXME - This options shouldn't passs through the interface
 
       case ID_FIX_SPLITTER:
-        m_pDasher->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
+   //     m_pDasher->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
         break;
       case ID_SHOW_SLIDE:
         m_pDasher->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
@@ -311,10 +421,10 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 
         // FIXME - These options shouldn't pass through the interface
       case ID_TIMESTAMP:
-        m_pDasher->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
+      //  m_pDasher->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
         break;
       case ID_COPY_ALL_ON_STOP:
-        m_pDasher->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
+      //  m_pDasher->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
         break;
 
       case ID_ORIENT_ALPHABET:
@@ -339,28 +449,29 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         
       // FIXME - These options shouldn't pass through the interface
       // !!! Need to make this work. Probably get interface to tell edit box how to save and screen how to display
-      case ID_SAVE_AS_USER_CODEPAGE:
-      case ID_SAVE_AS_ALPHABET_CODEPAGE:
-      case ID_SAVE_AS_UTF8:
-      case ID_SAVE_AS_UTF16_LITTLE:
-      case ID_SAVE_AS_UTF16_BIG:
-        if(wmId==ID_SAVE_AS_USER_CODEPAGE) {
-          m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
-        } else if(wmId==ID_SAVE_AS_ALPHABET_CODEPAGE) {
-          m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
-        } else if(wmId==ID_SAVE_AS_UTF8) {
-          m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
-        } else if(wmId==ID_SAVE_AS_UTF16_LITTLE) {
-          m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
-        } else if(wmId==ID_SAVE_AS_UTF16_BIG) {
-          m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
-        } else {// If not any of these, this is the default setting
-          m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
-        }
-        break;
+     // case ID_SAVE_AS_USER_CODEPAGE:
+     // case ID_SAVE_AS_ALPHABET_CODEPAGE:
+     // case ID_SAVE_AS_UTF8:
+     // case ID_SAVE_AS_UTF16_LITTLE:
+     // case ID_SAVE_AS_UTF16_BIG:
+     //   if(wmId==ID_SAVE_AS_USER_CODEPAGE) {
+     ////     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
+     //   } else if(wmId==ID_SAVE_AS_ALPHABET_CODEPAGE) {
+     //  //   m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
+     //   } else if(wmId==ID_SAVE_AS_UTF8) {
+     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
+     //   } else if(wmId==ID_SAVE_AS_UTF16_LITTLE) {
+     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
+     //   } else if(wmId==ID_SAVE_AS_UTF16_BIG) {
+     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
+     //   } else {// If not any of these, this is the default setting
+     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
+     //   }
+     //   break;
       default:
         return DefWindowProc(m_hwnd, message, wParam, lParam);
-      }
+        }
+     
     }
     PopulateSettings();
     Layout();
@@ -391,12 +502,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
   case WM_SIZE:
     if(wParam == SIZE_MINIMIZED)
       break;
-    m_pDasher->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
-    m_pDasher->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
+//    m_pDasher->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
+ //   m_pDasher->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
     Layout();
     break;
   default:
     return DefWindowProc(m_hwnd, message, wParam, lParam);
+  }
   }
   return 0;
 }
@@ -475,16 +587,16 @@ void CDasherWindow::PopulateSettings() {
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==2);
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
 
-    WinMenu.SetStatus(ID_TB_SHOW, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-    WinMenu.SetStatus(ID_TB_TEXT, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-    WinMenu.SetStatus(ID_TB_LARGE, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
+//    WinMenu.SetStatus(ID_TB_SHOW, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+//    WinMenu.SetStatus(ID_TB_TEXT, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
+  //  WinMenu.SetStatus(ID_TB_LARGE, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
 
-    WinMenu.SetStatus(ID_TB_TEXT, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-    WinMenu.SetStatus(ID_TB_LARGE, false, m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
-    WinMenu.SetStatus(ID_FIX_SPLITTER, false, m_pDasher->GetBoolParameter(BP_FIX_LAYOUT));
-    WinMenu.SetStatus(ID_SHOW_SLIDE, false, m_pDasher->GetBoolParameter(BP_SHOW_SLIDER));
-    WinMenu.SetStatus(ID_TIMESTAMP, false, m_pDasher->GetBoolParameter(BP_TIME_STAMP));
-    WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP));
+   // WinMenu.SetStatus(ID_TB_TEXT, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
+//    WinMenu.SetStatus(ID_TB_LARGE, false, m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
+  //  WinMenu.SetStatus(ID_FIX_SPLITTER, false, m_pDasher->GetBoolParameter(BP_FIX_LAYOUT));
+//    WinMenu.SetStatus(ID_SHOW_SLIDE, false, m_pDasher->GetBoolParameter(BP_SHOW_SLIDER));
+//    WinMenu.SetStatus(ID_TIMESTAMP, false, m_pDasher->GetBoolParameter(BP_TIME_STAMP));
+//    WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP));
     WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, m_pDasher->GetBoolParameter(BP_CONTROL_MODE));
 
     WinMenu.SetStatus(ID_ORIENT_ALPHABET, false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::Alphabet);
@@ -493,10 +605,10 @@ void CDasherWindow::PopulateSettings() {
     WinMenu.SetStatus(ID_ORIENT_TB,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::TopToBottom);
     WinMenu.SetStatus(ID_ORIENT_BT,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::BottomToTop);
 
-    WinMenu.SetStatus(ID_SAVE_AS_USER_CODEPAGE,     false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UserDefault);
-    WinMenu.SetStatus(ID_SAVE_AS_ALPHABET_CODEPAGE, false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::AlphabetDefault);
-    WinMenu.SetStatus(ID_SAVE_AS_UTF8,              false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF8);
-    WinMenu.SetStatus(ID_SAVE_AS_UTF16_LITTLE,      false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16LE);
-    WinMenu.SetStatus(ID_SAVE_AS_UTF16_BIG,         false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16BE);
+ //   WinMenu.SetStatus(ID_SAVE_AS_USER_CODEPAGE,     false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UserDefault);
+  //  WinMenu.SetStatus(ID_SAVE_AS_ALPHABET_CODEPAGE, false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::AlphabetDefault);
+ //   WinMenu.SetStatus(ID_SAVE_AS_UTF8,              false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF8);
+ //   WinMenu.SetStatus(ID_SAVE_AS_UTF16_LITTLE,      false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16LE);
+  //  WinMenu.SetStatus(ID_SAVE_AS_UTF16_BIG,         false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16BE);
   }
 }

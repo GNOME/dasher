@@ -9,8 +9,8 @@
 #include "WinCommon.h"
 
 #include "Canvas.h"
-
 #include "Edit.h"
+#include "../Dasher.h"
 
 #define WM_DASHER_TIMER WM_USER + 128   // FIXME - shouldn't define this twice
 
@@ -117,6 +117,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
   case WM_COMMAND:
     SendMessage(Parent, message, wParam, lParam);
+    return 0;
+  case WM_SETFOCUS:
+    SendMessage(Parent, WM_DASHER_FOCUS, 0, (LPARAM)&m_hwnd);
     return 0;
   case WM_KEYDOWN:
     switch (wParam) {
@@ -334,13 +337,13 @@ int CCanvas::OnTimer() {
     return 0;
   }
 
-  if(m_pDasherInterface->GetBoolParameter(BP_WINDOW_PAUSE) == true) {
-    RECT windowrect;
+//  if(m_pDasherInterface->GetBoolParameter(BP_WINDOW_PAUSE) == true) {
+  //  RECT windowrect;
 
-    GetWindowRect(m_hwnd, &windowrect);
-    if(mousepos.y > windowrect.bottom || mousepos.y < windowrect.top || mousepos.x > windowrect.right || mousepos.x < windowrect.left)
-      return 0;
-  }
+//    GetWindowRect(m_hwnd, &windowrect);
+ //   if(mousepos.y > windowrect.bottom || mousepos.y < windowrect.top || mousepos.x > windowrect.right || mousepos.x < windowrect.left)
+//      return 0;
+ // }
 
   ScreenToClient(m_hwnd, &mousepos);
   imousey = mousepos.y;

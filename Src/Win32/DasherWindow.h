@@ -54,6 +54,12 @@ private:
   // Method to set values of all settings in the menu
   void PopulateSettings();
 
+  /// 
+  /// Handle control events
+  ///
+
+  void HandleControlEvent(int iID);
+
   // Widgets:
   CToolbar *m_pToolbar;
   CEdit *m_pEdit;

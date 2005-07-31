@@ -27,7 +27,6 @@ static char THIS_FILE[] = __FILE__;
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
 :m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
- // DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_ALPHABET, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
 }
 
 void CAlphabetBox::PopulateList() {
@@ -288,7 +287,19 @@ bool CAlphabetBox::UpdateInfo() {
   return true;
 }
 
+bool CAlphabetBox::Validate() {
+  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
+  return TRUE;
+}
+
+bool CAlphabetBox::Apply() {
+  // Return false (and notify the user) if something is wrong.
+  return TRUE;
+}
+
 LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  NMHDR *pNMHDR;
+
   switch (message) {
   case WM_INITDIALOG:
     if(!m_hwnd) {               // If this is the initial dialog for the first time
@@ -309,6 +320,20 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     return TRUE;
     break;
   case WM_NOTIFY:{
+    pNMHDR = (NMHDR*)lParam;
+    switch (pNMHDR->code) {
+    case PSN_KILLACTIVE: // About to lose focus
+      SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, Validate());
+      return TRUE;
+      break;
+    case PSN_APPLY: // User clicked OK/Apply - apply the changes
+      if(Apply())
+        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_NOERROR);
+      else
+        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_INVALID);
+      return TRUE;
+      break;
+    case UDN_DELTAPOS:
       // Moving stuff in here
       if(CurrentInfo.Groups.size() < 1) {
         return TRUE;
@@ -356,8 +381,9 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         ShowGroupChars();
       }
       return TRUE;
-      break;
+      break; // End UDN_DELTAPOS
     }
+  }
   case WM_COMMAND:
     switch (LOWORD(wParam)) {
     case (IDC_DISPLAY):
@@ -514,6 +540,7 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       return TRUE;
       break;
     }
+  break;
   }
   return FALSE;
 }

@@ -26,7 +26,7 @@ static char THIS_FILE[] = __FILE__;
 
 CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI)
 :m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
-  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR))
+//  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR))
     CreateToolbar();
 }
 
@@ -34,15 +34,15 @@ int CToolbar::Resize() {
   // Makes the toolbar fit the buttons and fill the width of the window
   // Return height of toolbar for information
 
-  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR)) {
+//  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR)) {
     SendMessage(m_hwnd, TB_AUTOSIZE, 0, 0);
     RECT TB_rect;
     GetWindowRect(m_hwnd, &TB_rect);
     return (TB_rect.bottom - TB_rect.top);
-  }
-  else {
-    return 0;
-  }
+  //}
+//  else {
+ //   return 0;
+ // }
 }
 
 void CToolbar::ShowToolbar(bool bValue) {
@@ -69,22 +69,22 @@ void CToolbar::CreateToolbar() {
   // Get Standard toolbar bitmaps.
   TBADDBITMAP bitmaps;
   bitmaps.hInst = HINST_COMMCTRL;
-  if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
-    bitmaps.nID = IDB_STD_SMALL_COLOR;
-  }
-  else {
+ // if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
+ //   bitmaps.nID = IDB_STD_SMALL_COLOR;
+//  }
+//  else {
     bitmaps.nID = IDB_STD_LARGE_COLOR;
-  }
+//  }
   SendMessage(m_hwnd, TB_ADDBITMAP, 0, (LPARAM) & bitmaps);
 
   // Get Non-standard Copy-All bitmap
   bitmaps.hInst = WinHelper::hInstApp;
-  if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
-    bitmaps.nID = IDB_COPY_ALL_SMALL_COLOR;
-  }
-  else {
+//  if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
+  //  bitmaps.nID = IDB_COPY_ALL_SMALL_COLOR;
+ // }
+ // else {
     bitmaps.nID = IDB_COPY_ALL_LARGE_COLOR;
-  }
+//  }
 
   const int COPY_ALL_INDEX = SendMessage(m_hwnd, TB_ADDBITMAP, 0, (LPARAM) & bitmaps);
 
@@ -94,7 +94,7 @@ void CToolbar::CreateToolbar() {
 
   TBBUTTON buttons[tbnum];
 
-  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT)) {
+//  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT)) {
     // Load strings from resource file (this could be more elegant)
     Tstring AllButtons;
     Tstring CurButton;
@@ -118,7 +118,7 @@ void CToolbar::CreateToolbar() {
     //TCHAR buttontext[]=TEXT("New\0Open\0Save\0Cut\0Copy\0Paste\0");
 
     SendMessage(m_hwnd, TB_ADDSTRING, 0, (DWORD) buttontext);
-  }
+ // }
 
   // TODO: Should do tooltips
 

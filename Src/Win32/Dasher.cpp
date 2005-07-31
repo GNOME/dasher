@@ -22,6 +22,9 @@ static char THIS_FILE[] = __FILE__;
 // shouldn't collide with anything else in our code.
 #define WM_DASHER_TIMER WM_USER + 128
 
+CONST UINT WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
+CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
+
 //void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
 void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface) {
   using namespace WinHelper;
@@ -58,6 +61,9 @@ void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Int
 CDasher::CDasher(HWND Parent):m_hParent(Parent) {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
+ // if(WM_DASHER_EVENT == 0)
+ // WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
+
   m_bWorkerShutdown = false;
 
   using namespace WinHelper;
@@ -93,6 +99,8 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent) {
   Colours = AppData;
   Colours += TEXT("colour*.xml");
   AddFiles(Alphabets, Colours, this);
+
+Realize();
 
   SetBoolParameter(BP_COLOUR_MODE, true);
   ChangeLanguageModel(0);
@@ -230,6 +238,9 @@ void CDasher::OnTimer() {
 }
 
 void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
+
+  SendMessage(m_hParent, WM_DASHER_EVENT, 0, (LPARAM)pEvent);
+
   // Here we send SendMessage calls to the DasherWindow class
   if( pEvent->m_iEventType == 1 ) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));

@@ -31,6 +31,11 @@ private:
   void PopulateList();
   void InitCustomBox();
   bool UpdateInfo();
+  bool Apply();
+  bool Validate();
+
+ TCHAR m_tcBuffer[1000];
+
 };
 
 #endif  /* #ifndef __AlphabetBox_h__ */

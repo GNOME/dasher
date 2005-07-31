@@ -41,6 +41,8 @@ private:
   void ShowGroupChars();
   void CustomCharacter(std::string Display, std::string Text, int Colour);
   bool UpdateInfo();
+  bool Apply();
+  bool Validate();
 };
 
 #endif /* #ifndef __AlphabetBox_h__ */

@@ -72,35 +72,7 @@ void CKeyBox::PopulateWidgets() {
 	widgets[17]=IDC_9Y;
 
 	int* coords = m_pCanvas->getkeycoords(); */
-  ypixels = m_pDasher->GetLongParameter(LP_YSCALE);
-  mouseposdist = m_pDasher->GetLongParameter(LP_MOUSEPOSDIST);
 
-/*	for (int i=0; i<18; i++) {
-			keycoords[i]=coords[i];
-	}
-*/
-  HWND EditBox = GetDlgItem(m_hwnd, IDC_YPIX);
-  SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-
-  // Perhaps a typedef for std::basic_ostringstream<TCHAR> would be useful
-//      std::basic_ostringstream<TCHAR> strYPix;
-//      strYPix << ypixels;
-
-  _sntprintf(m_tcBuffer, 100, TEXT("%d"), ypixels);
-//
-//      SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM)(LPCSTR) Buffer);
-  SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
-//      delete[] Buffer;
-
-  EditBox = GetDlgItem(m_hwnd, IDC_MOUSEPOSDIST);
-  SendMessage(EditBox, LB_RESETCONTENT, 0, 0);
-
-  _sntprintf(m_tcBuffer, 100, TEXT("%d"), mouseposdist);
-//      std::basic_ostringstream<TCHAR> strMousePosDist;
-//      strMousePosDist << mouseposdist;
-
-  SendMessage(EditBox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
-//      delete[] Buffer;
 
   slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
   SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
