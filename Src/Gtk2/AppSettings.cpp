@@ -7,30 +7,7 @@
 
 #include <iostream>
 
-app_bp_table app_boolparamtable[] = {
-  {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, "TimeStampNewFiles"},
-  {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, "ViewToolbar"},
-  {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, "ShowToolbarText"},
-  {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, "ShowLargeIcons"},
-  {APP_BP_FIX_LAYOUT, "FixLayout", PERS, false, "FixLayout"},
-  {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, "CopyAllOnStop"},
-  {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, "PauseOutsideWindow"},
-  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, "SpeechEnabled"},
-  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, "KeyboardMode"}
-};
-
-app_lp_table app_longparamtable[] = {
-  {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
-  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
-  {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, "EditHeight0"},
-  {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, "ScreenWidth"},
-  {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, "ScreenHeight"}
-
-};
-
-app_sp_table app_stringparamtable[] = {
-  {APP_SP_EDIT_FONT, "EditFont", PERS, "", "EditFont"}
-};
+#include "../Common/AppSettingsData.h"
 
 void handle_parameter_change( int iParameter );
 

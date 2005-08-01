@@ -1,0 +1,50 @@
+#include "AppSettingsHeader.h"
+
+// This file is an include file purely for the purposes of
+// cross-platform consistency. IT WILL NOT LINK IF INCLUDED IN MORE
+// THAN ONE PLACE! You probably want to obtain values via the
+// application settings object instead.
+
+#define PERS true
+
+// The following tables contain details of the application specific
+// settings. Fields are:
+//
+// Key: See corresponding enum in AppSettingsHeader.h - entries *must*
+// be in the same order as in the enum
+// 
+// Registry Name: Short text, without spaces. Used as the registry key
+// and for other 'machine readable' purposes. Please make the name
+// indicative of the purpose of the setting.
+//
+// Persistence: Whether this should be persistent or set at the begining of each setting.
+//
+// Default value: Hopefully pretty obvious
+//
+// Human-readable Name: Used for help text etc. Please make sure this
+// is useful
+
+app_bp_table app_boolparamtable[] = {
+  {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, "TimeStampNewFiles"},
+  {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, "ViewToolbar"},
+  {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, "ShowToolbarText"},
+  {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, "ShowLargeIcons"},
+  {APP_BP_FIX_LAYOUT, "FixLayout", PERS, false, "FixLayout"},
+  {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, "CopyAllOnStop"},
+  {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, "PauseOutsideWindow"},
+  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, "SpeechEnabled"},
+  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, "KeyboardMode"}
+};
+
+app_lp_table app_longparamtable[] = {
+  {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
+  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
+  {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, "EditHeight0"},
+  {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, "ScreenWidth"},
+  {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, "ScreenHeight"}
+
+};
+
+app_sp_table app_stringparamtable[] = {
+  {APP_SP_EDIT_FONT, "EditFont", PERS, "", "EditFont"}
+};
