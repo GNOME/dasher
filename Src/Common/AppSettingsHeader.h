@@ -1,6 +1,8 @@
 #ifndef __appsettingsheader_h__
 #define __appsettingsheader_h__
 
+#include "../DasherCore/Parameters.h"
+
 enum { 
   APP_BP_TIME_STAMP = END_OF_SPS, APP_BP_SHOW_TOOLBAR,
   APP_BP_SHOW_TOOLBAR_TEXT, APP_BP_SHOW_LARGE_ICONS, APP_BP_FIX_LAYOUT,
