@@ -7,35 +7,7 @@
 
 #include <iostream>
 
-// First level structures with only basic data types because you
-// cannot initialize struct tables with objects
-// These will be turned into std::strings in the ParamTables() object 
-
-
-// The only important thing here is that these are in the same order
-// as the enum declarations (could add check in class that enforces this instead)
 app_bp_table app_boolparamtable[] = {
-  {C_BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, false, "Draw Mouse Line"},
-  {C_BP_DRAW_MOUSE, "DrawMouse", PERS, true, "Draw Mouse Position"},
-  {C_BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, true, "ShowSpeedSlider"},
-  {C_BP_START_MOUSE, "StartOnLeft", PERS, true, "StartOnLeft"},
-  {C_BP_START_SPACE, "StartOnSpace", PERS, false, "StartOnSpace"},
-  {C_BP_KEY_CONTROL, "KeyControl", PERS, false, "KeyControl"},
-  {C_BP_CONTROL_MODE, "ControlMode", PERS, false, "ControlMode"},
-  {C_BP_COLOUR_MODE, "ColourMode", PERS, true, "ColourMode"},
-  {C_BP_MOUSEPOS_MODE, "StartOnMousePosition", PERS, false, "StartOnMousePosition"},
-  {C_BP_OUTLINE_MODE, "OutlineBoxes", PERS, true, "OutlineBoxes"},
-  {C_BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
-  {C_BP_NUMBER_DIMENSIONS, "NumberDimensions", PERS, false, "NumberDimensions"},
-  {C_BP_EYETRACKER_MODE, "EyetrackerMode", PERS, false, "EyetrackerMode"},
-  {C_BP_AUTOCALIBRATE, "Autocalibrate", PERS, false, "Autocalibrate"},
-  {C_BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
-  {C_BP_GAME_MODE, "GameMode", PERS, false, "Dasher Game Mode"},
-  {C_BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
-  {C_BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"},
-  {C_BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
-  {C_BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, false, "Whether to do letter exclusion in the word-based model"},
-
   {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, "TimeStampNewFiles"},
   {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, "ViewToolbar"},
   {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, "ShowToolbarText"},
@@ -48,29 +20,6 @@ app_bp_table app_boolparamtable[] = {
 };
 
 app_lp_table app_longparamtable[] = {
-  {C_LP_ORIENTATION, "ScreenOrientation", PERS, 0, "Screen Orientation"},
-  {C_LP_REAL_ORIENTATION, "RealOrientation", !PERS, 0, "Actual screen orientation (allowing for alphabet default)"},
-  {C_LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 150, "Max Bit Rate Times 100"},
-  {C_LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
-  {C_LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 1, "LanguageModelID"},
-  {C_LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 1, "DasherFontSize"},
-  {C_LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
-  {C_LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
-  {C_LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
-  {C_LP_TRUNCATION, "Truncation", PERS, 0, "Truncation"},
-  {C_LP_TRUNCATIONTYPE, "TruncationType", PERS, 0, "TruncationType"},
-  {C_LP_LM_MAX_ORDER, "LMMaxOrder", PERS, 5, "LMMaxOrder"},
-  {C_LP_LM_EXCLUSION, "LMExclusion", PERS, 0, "LMExclusion"},
-  {C_LP_LM_UPDATE_EXCLUSION, "LMUpdateExclusion", PERS, 1, "LMUpdateExclusion"},
-  {C_LP_LM_ALPHA, "LMAlpha", PERS, 100, "LMAlpha"},
-  {C_LP_LM_BETA, "LMBeta", PERS, 100, "LMBeta"},
-  {C_LP_LM_MIXTURE, "LMMixture", PERS, 50, "LMMixture"},
-  {C_LP_MOUSE_POS_BOX, "MousePosBox", !PERS, -1, "Mouse Position Box Indicator"},
-  {C_LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
-  {C_LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
-  {C_LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
-  {C_LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"},
-
   {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
   {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
   {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, "EditHeight0"},
@@ -80,29 +29,27 @@ app_lp_table app_longparamtable[] = {
 };
 
 app_sp_table app_stringparamtable[] = {
-  {C_SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},
-  {C_SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"},
-  {C_SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
-  {C_SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
-  {C_SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
-  {C_SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "", "File with strings to practice writing"},
-  {C_SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
-
   {APP_SP_EDIT_FONT, "EditFont", PERS, "", "EditFont"}
 };
 
 void handle_parameter_change( int iParameter );
 
+void init_app_settings() {
+}
+
+void delete_app_settings() {
+}
+
 bool get_app_parameter_bool( int iParameter ) {
-  if( iParameter < FIRST_APP_APP_BP )
-    return gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_BP_OFFSET);
+  if( iParameter < END_OF_BPS )
+    return gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
     return app_boolparamtable[ iParameter - FIRST_APP_BP ].value;
 }
 
 void set_app_parameter_bool( int iParameter, bool bValue ) {
-  if( iParameter < FIRST_APP_APP_BP )
-    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_BP_OFFSET, bValue);
+  if( iParameter < END_OF_BPS )
+    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter, bValue);
   else {
     app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
     
@@ -120,15 +67,15 @@ void set_app_parameter_bool( int iParameter, bool bValue ) {
 }
 
 gint get_app_parameter_long( int iParameter ) { 
-  if( iParameter < FIRST_APP_APP_LP )
-    return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_LP_OFFSET);
+  if( iParameter < END_OF_LPS)
+    return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
     return app_longparamtable[ iParameter - FIRST_APP_LP ].value;
 }
 
 void set_app_parameter_long( int iParameter, gint iValue ) {
-  if( iParameter < FIRST_APP_APP_LP )
-    gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_LP_OFFSET, iValue);
+  if( iParameter < END_OF_LPS)
+    gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter, iValue);
   else {
     app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
     
@@ -147,15 +94,15 @@ void set_app_parameter_long( int iParameter, gint iValue ) {
 }
 
 const gchar *get_app_parameter_string( int iParameter ) {
-  if( iParameter < FIRST_APP_APP_SP )
-    return gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_SP_OFFSET);
+  if( iParameter < END_OF_SPS )
+    return gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
     return app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
 }
 
 void set_app_parameter_string( int iParameter, const gchar *szValue ) {
-  if( iParameter < FIRST_APP_APP_SP )
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter - CORE_SP_OFFSET, szValue);
+  if( iParameter < END_OF_SPS )
+    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
   else {
     
     // FIXME - free old string?
@@ -245,11 +192,11 @@ void load_app_parameters() {
 
 void handle_core_change(int iParameter) {
   if( iParameter < FIRST_LP )
-    handle_parameter_change(iParameter + CORE_BP_OFFSET);
+    handle_parameter_change(iParameter);
   else if( iParameter < FIRST_SP )
-    handle_parameter_change(iParameter + CORE_LP_OFFSET);
+    handle_parameter_change(iParameter);
   else
-    handle_parameter_change(iParameter + CORE_SP_OFFSET);
+    handle_parameter_change(iParameter);
 }
 
 void handle_parameter_change( int iParameter ) {

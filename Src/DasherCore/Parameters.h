@@ -120,6 +120,7 @@ static lp_table longparamtable[] = {
   {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
   {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"}
 };
+
 static sp_table stringparamtable[] = {
   {SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},
   {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"},

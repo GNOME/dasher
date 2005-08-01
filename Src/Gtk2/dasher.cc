@@ -156,6 +156,7 @@ extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint i
 
 void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
+  init_app_settings();
   load_app_parameters();
 
   dasher_accel = gtk_accel_group_new(); //?
@@ -251,6 +252,7 @@ void InitialiseAppParameters() {
 
 void interface_cleanup() {
   cleanup_edit();
+  delete_app_settings();
 }
 
 ///

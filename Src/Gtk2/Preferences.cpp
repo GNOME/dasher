@@ -244,7 +244,11 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   for( int i(0); i < NUM_OF_APP_BPS; ++i ) {  
     GValue *pValue = g_new0(GValue, 1);
     g_value_init( pValue, G_TYPE_BOOLEAN );
+
+    std::cout << "p: " << i << " " << app_boolparamtable[i].key << std::endl;
+
     g_value_set_boolean(pValue, get_app_parameter_bool(app_boolparamtable[i].key));
+
 
     gtk_list_store_append(advanced_list_store, &advancediter);
     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, 2, app_boolparamtable[i].key,  -1);
