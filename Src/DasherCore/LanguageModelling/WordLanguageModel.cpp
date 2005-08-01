@@ -117,19 +117,32 @@ CWordLanguageModel::CWordnode * CWordLanguageModel::AddSymbolToNode(CWordnode *p
 // CWordLanguageModel defs
 /////////////////////////////////////////////////////////////////////
 
-CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, const CSymbolAlphabet &Alphabet)
-:CLanguageModel(pEventHandler, pSettingsStore, Alphabet), NodesAllocated(0), max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, 
+				       const CSymbolAlphabet &Alphabet)
+  :CLanguageModel(pEventHandler, pSettingsStore, Alphabet), NodesAllocated(0), 
+   max_order(2), m_NodeAlloc(8192), m_ContextAlloc(1024) {
+  
+  // Construct a root node for the trie
+
   m_pRoot = m_NodeAlloc.Alloc();
   m_pRoot->sbl = -1;
-  m_rootcontext = new CWordContext(m_pRoot, 0);
-
   m_pRoot->count = 0;
+
+  // Create a spelling model
+
+  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
+
+  // Construct a root context
+  
+  m_rootcontext = new CWordContext(m_pRoot, 0);
+  
+  m_rootcontext->m_pSpellingModel = pSpellingModel;
+  m_rootcontext->oSpellingContext = pSpellingModel->CreateEmptyContext();
 
   iWordStart = 8192;
 
   nextid = iWordStart;          // Start of indices for words - may need to increase this for *really* large alphabets
 
-  pSpellingModel = new CPPMLanguageModel(m_pEventHandler, m_pSettingsStore, Alphabet);
 
   if(GetBoolParameter(BP_LM_DICTIONARY)) {
 
@@ -160,7 +173,7 @@ CWordLanguageModel::CWordLanguageModel(Dasher::CEventHandler *pEventHandler, CSe
 
   }
 
-  oSpellingContext = pSpellingModel->CreateEmptyContext();
+  //  oSpellingContext = pSpellingModel->CreateEmptyContext();
 
   wordidx = 0;
 
@@ -288,7 +301,7 @@ void CWordLanguageModel::GetProbs(Context context, vector <unsigned int >&probs,
 
   int iSpellingNorm(wordcontext->m_iSpellingNorm);
 
-  pSpellingModel->GetProbs(oSpellingContext, wordcontext->oSpellingProbs, iSpellingNorm);
+  wordcontext->m_pSpellingModel->GetProbs(wordcontext->oSpellingContext, wordcontext->oSpellingProbs, iSpellingNorm);
 
   double dNorm(0.0);
 
@@ -456,11 +469,11 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
 
     if((nextid > oldnextid) || (GetBoolParameter(BP_LM_LETTER_EXCLUSION))) {
       //
-      pSpellingModel->ReleaseContext(oSpellingContext);
-      oSpellingContext = pSpellingModel->CreateEmptyContext();
+      context.m_pSpellingModel->ReleaseContext(context.oSpellingContext);
+      context.oSpellingContext = context.m_pSpellingModel->CreateEmptyContext();
 
       for(std::vector < int >::iterator it(oSymbols.begin()); it != oSymbols.end(); ++it) {
-        pSpellingModel->LearnSymbol(oSpellingContext, *it);
+        context.m_pSpellingModel->LearnSymbol(context.oSpellingContext, *it);
       }
 
     }
@@ -516,8 +529,8 @@ void CWordLanguageModel::CollapseContext(CWordLanguageModel::CWordContext &conte
     context.order = context.word_order;
     context.current_word = "";
 
-    pSpellingModel->ReleaseContext(oSpellingContext);
-    oSpellingContext = pSpellingModel->CreateEmptyContext();
+    context.m_pSpellingModel->ReleaseContext(context.oSpellingContext);
+    context.oSpellingContext = context.m_pSpellingModel->CreateEmptyContext();
 
   }
 
@@ -550,11 +563,12 @@ void CWordLanguageModel::LearnSymbol(Context c, int Symbol) {
 void CWordLanguageModel::AddSymbol(CWordLanguageModel::CWordContext &context, symbol sym, bool bLearn) {
   DASHER_ASSERT(sym >= 0 && sym < GetSize());
 
-  context.m_dSpellingFactor *= context.oSpellingProbs[sym] / static_cast < double >(context.m_iSpellingNorm);
+  if( context.oSpellingProbs.size() != 0 )
+    context.m_dSpellingFactor *= context.oSpellingProbs[sym] / static_cast < double >(context.m_iSpellingNorm);
 
   // Update the context for the spelling model;
 
-  pSpellingModel->EnterSymbol(oSpellingContext, sym);
+  context.m_pSpellingModel->EnterSymbol(context.oSpellingContext, sym);
 
   // Add the symbol to the letter part of the context. Note that we don't do any learning at this stage
 

@@ -1601,19 +1601,20 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
 }
 
 void CDasherViewSquare::DrawGameModePointer() {
+
   myint loc = DasherModel()->GetGameModePointerLoc();
 
   if(loc == myint(INT64_MIN))
     return;
 
   if(loc > DasherModel()->DasherY())
-    DasherDrawCentredRectangle(-50, DasherModel()->DasherY(), 5, 135, Opts::ColorSchemes(5), false);
+    DasherDrawCentredRectangle(-50, DasherModel()->DasherY(), 5, 135, Opts::ColorSchemes(Objects), false);
 
   else if(loc < 0)
-    DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(5), false);
+    DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(Objects), false);
 
   else
-    DasherDrawCentredRectangle(-50, loc, 7, 135, Opts::ColorSchemes(5), false);
+    DasherDrawCentredRectangle(-50, loc, 7, 135, Opts::ColorSchemes(Objects), false);
 
 }
 

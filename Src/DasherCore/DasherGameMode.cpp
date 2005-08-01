@@ -8,11 +8,11 @@
 CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CDasherModel *model)
 :CDasherComponent(pEventHandler, pSettingsStore), m_model(model), m_DasherInterface(pDashIface) {
   if(InitializeTargetFile() == myint(-1)) {
-    //DASHER_ASSERT(0);   // OOPS Can't open file with target text
+    DASHER_ASSERT(0);   // OOPS Can't open file with target text
   }
 
   if(GetNextTargetString() == myint(-1)) {
-    //DASHER_ASSERT(0);   // OOPS can't get a string to write
+    DASHER_ASSERT(0);   // OOPS can't get a string to write
   }
 }
 
@@ -20,8 +20,11 @@ myint CDasherGameMode::GetDasherCoordOfTarget() {
   bool KeyIsPrefix = false;     // For alphabet call
   std::string Context;
 
+  // Oops - we don't have an edit box any more :-( 
+
   // This is the text that has been written so far
-  m_DasherInterface->GetEditbox()->get_new_context(Context, 1000);
+  //  m_DasherInterface->GetEditbox()->get_new_context(Context, 1000);
+  Context = "foo";
 
   int posOfFirstDifference = 0;
   alphabet_map alphabetmap = m_model->GetAlphabet().GetAlphabetMap();
@@ -167,7 +170,7 @@ myint CDasherGameMode::InitializeTargetFile() {
 
 myint CDasherGameMode::GetNextTargetString() {
   if(TargetStrings.size() == 0)
-    return 0;
+    return -1;
 
   int r = rand();
 

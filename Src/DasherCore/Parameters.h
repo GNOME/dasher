@@ -126,7 +126,7 @@ static sp_table stringparamtable[] = {
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
-  {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "", "File with strings to practice writing"},
+  {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "gamemode_english_GB.txt", "File with strings to practice writing"},
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"}
 };
 

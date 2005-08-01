@@ -63,6 +63,8 @@ namespace Dasher {
       void RecursiveDump(std::ofstream & file);
     };
 
+
+
     class CWordContext {
     public:
       CWordContext(CWordContext const &input) {
@@ -71,8 +73,10 @@ namespace Dasher {
         current_word = input.current_word;
         order = input.order;
         word_order = input.word_order;
-    } CWordContext(CWordnode * _head = 0, int _order = 0):head(_head), order(_order), word_head(_head), word_order(0) {
-      };                        // FIXME - doesn't work if we're trying to create a non-empty context
+      } 
+      
+      CWordContext(CWordnode * _head = 0, int _order = 0): head(_head), order(_order), word_head(_head), word_order(0)
+	{};                        // FIXME - doesn't work if we're trying to create a non-empty context
       ~CWordContext() {
       };
       void dump();
@@ -86,6 +90,16 @@ namespace Dasher {
       std::vector < unsigned int >oSpellingProbs;
       int m_iSpellingNorm;
       double m_dSpellingFactor;
+
+      /// Pointer to the letter based model - note that we don't
+      /// actually own this, so don't delete it
+
+      CPPMLanguageModel *m_pSpellingModel;
+
+      ///
+      /// The corresponding context in the spelling model
+
+      CPPMLanguageModel::Context oSpellingContext;
 
     };
 
@@ -112,7 +126,7 @@ namespace Dasher {
     int max_order;
 
     CPPMLanguageModel *pSpellingModel;  // Use this to predict the spellings of new words
-    CPPMLanguageModel::Context oSpellingContext;
+
 
     mutable CSimplePooledAlloc < CWordnode > m_NodeAlloc;
     CPooledAlloc < CWordContext > m_ContextAlloc;
@@ -139,9 +153,7 @@ namespace Dasher {
 ///////////////////////////////////////////////////////////////////
 
   inline CLanguageModel::Context CWordLanguageModel::CreateEmptyContext() {
-    CWordContext *pCont = m_ContextAlloc.Alloc();
-    *pCont = *m_rootcontext;
-    return (Context) pCont;
+    return CloneContext((Context)m_rootcontext);
   }
 
 ///////////////////////////////////////////////////////////////////
@@ -150,13 +162,23 @@ namespace Dasher {
     CWordContext *pCont = m_ContextAlloc.Alloc();
     CWordContext *pCopy = (CWordContext *) Copy;
     *pCont = *pCopy;
+
+    // Create a clone of the spelling context
+
+    pCont->oSpellingContext = pCont->m_pSpellingModel->CloneContext(pCopy->oSpellingContext);
+
     return (Context) pCont;
   }
 
 ///////////////////////////////////////////////////////////////////
 
   inline void CWordLanguageModel::ReleaseContext(Context release) {
-    m_ContextAlloc.Free((CWordContext *) release);
+    // Urgh!
+    CWordContext *pCont(reinterpret_cast<CWordContext *>(release));
+    
+    pCont->m_pSpellingModel->ReleaseContext(pCont->oSpellingContext);
+
+    m_ContextAlloc.Free(pCont);
   }
 
 ///////////////////////////////////////////////////////////////////

@@ -457,7 +457,10 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   // Apply options from alphabet
 
   SetStringParameter(SP_TRAIN_FILE, m_Alphabet->GetTrainingFile());
-  SetStringParameter(SP_GAME_TEXT_FILE, m_Alphabet->GetGameModeFile());
+
+  if((m_Alphabet->GetGameModeFile()).length() > 0)
+    SetStringParameter(SP_GAME_TEXT_FILE, m_Alphabet->GetGameModeFile());
+  
 
   // DJW_TODO - control mode
   //   if (m_ControlMode==true) {
