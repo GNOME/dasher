@@ -241,36 +241,36 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
 
   // TODO - store pointers to settings objects directly in list store?
   
-  for( int i(0); i < NUM_OF_APP_BPS; ++i ) {  
-    GValue *pValue = g_new0(GValue, 1);
-    g_value_init( pValue, G_TYPE_BOOLEAN );
+ //  for( int i(0); i < NUM_OF_APP_BPS; ++i ) {  
+//     GValue *pValue = g_new0(GValue, 1);
+//     g_value_init( pValue, G_TYPE_BOOLEAN );
 
-    std::cout << "p: " << i << " " << app_boolparamtable[i].key << std::endl;
+//     std::cout << "p: " << i << " " << app_boolparamtable[i].key << std::endl;
 
-    g_value_set_boolean(pValue, get_app_parameter_bool(app_boolparamtable[i].key));
+//     g_value_set_boolean(pValue, get_app_parameter_bool(app_boolparamtable[i].key));
 
 
-    gtk_list_store_append(advanced_list_store, &advancediter);
-    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, 2, app_boolparamtable[i].key,  -1);
-  }
+//     gtk_list_store_append(advanced_list_store, &advancediter);
+//     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, 2, app_boolparamtable[i].key,  -1);
+//   }
 
-  for( int i(0); i < NUM_OF_APP_LPS; ++i ) {  
-    GValue *pValue = g_new0(GValue, 1);
-    g_value_init( pValue, G_TYPE_INT );
-    g_value_set_int(pValue, get_app_parameter_long(app_longparamtable[i].key));
+//   for( int i(0); i < NUM_OF_APP_LPS; ++i ) {  
+//     GValue *pValue = g_new0(GValue, 1);
+//     g_value_init( pValue, G_TYPE_INT );
+//     g_value_set_int(pValue, get_app_parameter_long(app_longparamtable[i].key));
 
-    gtk_list_store_append(advanced_list_store, &advancediter);
-    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_longparamtable[i].regName, 1, pValue, 2, app_longparamtable[i].key, -1);
-  } 
+//     gtk_list_store_append(advanced_list_store, &advancediter);
+//     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_longparamtable[i].regName, 1, pValue, 2, app_longparamtable[i].key, -1);
+//   } 
 
-  for( int i(0); i < NUM_OF_APP_SPS; ++i ) {  
-    GValue *pValue = g_new0(GValue, 1);
-    g_value_init( pValue, G_TYPE_STRING );
-    g_value_set_string(pValue, get_app_parameter_string(app_stringparamtable[i].key));
+//   for( int i(0); i < NUM_OF_APP_SPS; ++i ) {  
+//     GValue *pValue = g_new0(GValue, 1);
+//     g_value_init( pValue, G_TYPE_STRING );
+//     g_value_set_string(pValue, get_app_parameter_string(app_stringparamtable[i].key));
 
-    gtk_list_store_append(advanced_list_store, &advancediter);
-    gtk_list_store_set(advanced_list_store, &advancediter, 0, app_stringparamtable[i].regName, 1, pValue, 2, app_stringparamtable[i].key, -1);
-  }
+//     gtk_list_store_append(advanced_list_store, &advancediter);
+//     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_stringparamtable[i].regName, 1, pValue, 2, app_stringparamtable[i].key, -1);
+//   }
 
 }
 
