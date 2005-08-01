@@ -7,6 +7,30 @@
 
 #define PERS true
 
+struct app_bp_table {
+  int key;
+  char *regName;
+  bool persistent;
+  bool value;
+  char *humanReadable;
+};
+
+struct app_lp_table {
+  int key;
+  char *regName;
+  bool persistent;
+  long value;
+  char *humanReadable;
+};
+
+struct app_sp_table {
+  int key;
+  char *regName;
+  bool persistent;
+  char *value;
+  char *humanReadable;
+};
+
 // The following tables contain details of the application specific
 // settings. Fields are:
 //

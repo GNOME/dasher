@@ -17,31 +17,6 @@
 #define NUM_OF_APP_LPS (END_OF_APP_LPS - END_OF_APP_BPS)
 #define NUM_OF_APP_SPS (END_OF_APP_SPS - END_OF_APP_LPS)
 
-struct app_bp_table {
-  int key;
-  char *regName;
-  bool persistent;
-  bool value;
-  char *humanReadable;
-};
-struct app_lp_table {
-  int key;
-  char *regName;
-  bool persistent;
-  long value;
-  char *humanReadable;
-};
-struct app_sp_table {
-  int key;
-  char *regName;
-  bool persistent;
-  char *value;
-  char *humanReadable;
-};
-
-extern app_bp_table app_boolparamtable[];
-extern app_lp_table app_longparamtable[];
-extern app_sp_table app_stringparamtable[];
 
 void init_app_settings();
 void delete_app_settings();
