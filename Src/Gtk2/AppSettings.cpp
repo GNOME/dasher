@@ -191,3 +191,52 @@ void handle_parameter_change( int iParameter ) {
   update_advanced(iParameter);
 
 }
+
+int GetParameterCount() {
+  return END_OF_APP_SPS;
+};
+
+int GetParameterType(int iParameter) {
+  if(iParameter < END_OF_BPS)
+    return DASHER_TYPE_BOOL;
+  else if(iParameter < END_OF_LPS)
+    return DASHER_TYPE_LONG;
+  else if(iParameter < END_OF_SPS)
+    return DASHER_TYPE_STRING;
+  else if(iParameter < END_OF_APP_BPS)
+    return DASHER_TYPE_BOOL;
+  else if(iParameter < END_OF_APP_LPS)
+    return DASHER_TYPE_LONG;
+  else 
+    return DASHER_TYPE_STRING;
+}
+
+const gchar *GetParameterRegName(int iParameter) {
+  if(iParameter < END_OF_BPS)
+    return boolparamtable[iParameter - FIRST_BP].regName;
+  else if(iParameter < END_OF_LPS)
+    return longparamtable[iParameter - FIRST_LP].regName;
+  else if(iParameter < END_OF_SPS)
+    return stringparamtable[iParameter - FIRST_SP].regName;
+  else if(iParameter < END_OF_APP_BPS)
+    return app_boolparamtable[iParameter - FIRST_APP_BP].regName;
+  else if(iParameter < END_OF_APP_LPS)
+    return app_longparamtable[iParameter - FIRST_APP_LP].regName;
+  else 
+    return app_stringparamtable[iParameter - FIRST_APP_SP].regName;
+}
+
+const gchar *GetParameterHumanName(int iParameter) {
+  if(iParameter < END_OF_BPS)
+    return boolparamtable[iParameter - FIRST_BP].humanReadable;
+  else if(iParameter < END_OF_LPS)
+    return longparamtable[iParameter - FIRST_LP].humanReadable;
+  else if(iParameter < END_OF_SPS)
+    return stringparamtable[iParameter - FIRST_SP].humanReadable;
+  else if(iParameter < END_OF_APP_BPS)
+    return app_boolparamtable[iParameter - FIRST_APP_BP].humanReadable;
+  else if(iParameter < END_OF_APP_LPS)
+    return app_longparamtable[iParameter - FIRST_APP_LP].humanReadable;
+  else 
+    return app_stringparamtable[iParameter - FIRST_APP_SP].humanReadable;
+}

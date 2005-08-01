@@ -241,37 +241,30 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
 
   // TODO - store pointers to settings objects directly in list store?
   
- //  for( int i(0); i < NUM_OF_APP_BPS; ++i ) {  
-//     GValue *pValue = g_new0(GValue, 1);
-//     g_value_init( pValue, G_TYPE_BOOLEAN );
+  for(int i(0); i < GetParameterCount(); ++i ) {
+    GValue *pValue = g_new0(GValue, 1);
 
-//     std::cout << "p: " << i << " " << app_boolparamtable[i].key << std::endl;
-
-//     g_value_set_boolean(pValue, get_app_parameter_bool(app_boolparamtable[i].key));
-
-
-//     gtk_list_store_append(advanced_list_store, &advancediter);
-//     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_boolparamtable[i].regName, 1, pValue, 2, app_boolparamtable[i].key,  -1);
-//   }
-
-//   for( int i(0); i < NUM_OF_APP_LPS; ++i ) {  
-//     GValue *pValue = g_new0(GValue, 1);
-//     g_value_init( pValue, G_TYPE_INT );
-//     g_value_set_int(pValue, get_app_parameter_long(app_longparamtable[i].key));
-
-//     gtk_list_store_append(advanced_list_store, &advancediter);
-//     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_longparamtable[i].regName, 1, pValue, 2, app_longparamtable[i].key, -1);
-//   } 
-
-//   for( int i(0); i < NUM_OF_APP_SPS; ++i ) {  
-//     GValue *pValue = g_new0(GValue, 1);
-//     g_value_init( pValue, G_TYPE_STRING );
-//     g_value_set_string(pValue, get_app_parameter_string(app_stringparamtable[i].key));
-
-//     gtk_list_store_append(advanced_list_store, &advancediter);
-//     gtk_list_store_set(advanced_list_store, &advancediter, 0, app_stringparamtable[i].regName, 1, pValue, 2, app_stringparamtable[i].key, -1);
-//   }
-
+    switch(GetParameterType(i)) {
+    case DASHER_TYPE_BOOL:
+      g_value_init( pValue, G_TYPE_BOOLEAN );
+      g_value_set_boolean(pValue, get_app_parameter_bool(i));
+      gtk_list_store_append(advanced_list_store, &advancediter);
+      gtk_list_store_set(advanced_list_store, &advancediter, 0, GetParameterRegName(i), 1, pValue, 2, i,  -1);
+      break;
+    case DASHER_TYPE_LONG:
+      g_value_init( pValue, G_TYPE_INT );
+      g_value_set_int(pValue, get_app_parameter_long(i));
+      gtk_list_store_append(advanced_list_store, &advancediter);
+      gtk_list_store_set(advanced_list_store, &advancediter, 0, GetParameterRegName(i), 1, pValue, 2, i, -1);
+      break;
+    case DASHER_TYPE_STRING:
+      g_value_init( pValue, G_TYPE_STRING );
+      g_value_set_string(pValue, get_app_parameter_string(i));
+      gtk_list_store_append(advanced_list_store, &advancediter);
+      gtk_list_store_set(advanced_list_store, &advancediter, 0, GetParameterRegName(i), 1, pValue, 2, i, -1);
+      break;
+    }
+  }
 }
 
 void PopulateLMPage(GladeXML *pGladeWidgets) {

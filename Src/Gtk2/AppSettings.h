@@ -17,6 +17,11 @@
 #define NUM_OF_APP_LPS (END_OF_APP_LPS - END_OF_APP_BPS)
 #define NUM_OF_APP_SPS (END_OF_APP_SPS - END_OF_APP_LPS)
 
+enum {
+  DASHER_TYPE_BOOL,
+  DASHER_TYPE_LONG,
+  DASHER_TYPE_STRING
+};
 
 void init_app_settings();
 void delete_app_settings();
@@ -30,5 +35,10 @@ const gchar *get_app_parameter_string( int iParameter );
 void set_app_parameter_string( int iParameter, const gchar *szValue );
 
 void handle_core_change(int iParameter);
+
+int GetParameterCount();
+int GetParameterType(int iParameter);
+const gchar *GetParameterRegName(int iParameter);
+const gchar *GetParameterHumanName(int iParameter);
 
 #endif
