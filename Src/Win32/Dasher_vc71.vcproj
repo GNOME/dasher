@@ -348,6 +348,12 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath=".\AppSettings.cpp">
+		</File>
+		<File
+			RelativePath=".\AppSettings.h">
+		</File>
+		<File
 			RelativePath="Dasher.cpp">
 		</File>
 		<File

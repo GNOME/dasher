@@ -26,8 +26,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CControlPage::CControlPage(HWND Parent, CDasherInterface *DI)
-:m_pDasherInterface(DI), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)) {
+CControlPage::CControlPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+:m_pDasherInterface(DI), m_pAppSettings(pAppSettings) {
   m_hwnd = 0;
 }
 
@@ -40,18 +40,12 @@ struct menuentry {
 static menuentry menutable[] = {
   {BP_START_MOUSE, IDC_LEFT},
   {BP_START_SPACE, IDC_SPACE},
-//  {BP_WINDOW_PAUSE, IDC_WINDOWPAUSE},
   {BP_MOUSEPOS_MODE, IDC_MOUSEPOS},
   {BP_NUMBER_DIMENSIONS, IDC_1D},
   {BP_EYETRACKER_MODE, IDC_EYETRACKER},
- // {BP_KEY_CONTROL, IDC_BUTTON},
- // {BP_OUTLINE_MODE, IDC_OUTLINE},
- // {BP_DRAW_MOUSE, IDC_DRAWMOUSE},
- // {BP_DRAW_MOUSE_LINE, IDC_DRAWMOUSELINE},
- // {BP_PALETTE_CHANGE, IDC_COLOURSCHEME},
- // {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
-//  {BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP}, // Same
- // {BP_SPEECH_MODE, IDC_SPEECH}     // Same
+  {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP},
+  {APP_BP_SPEECH_MODE, IDC_SPEECH},
+  {APP_BP_WINDOW_PAUSE, IDC_WINDOWPAUSE}
 };
 
 void CControlPage::PopulateList() {
@@ -59,7 +53,7 @@ void CControlPage::PopulateList() {
   // in m_pDasher
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
-    if(m_pDasherInterface->GetBoolParameter(menutable[ii].paramNum)) {
+    if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
     }
     else  {
@@ -74,6 +68,12 @@ bool CControlPage::Validate() {
 }
 
 bool CControlPage::Apply() {
+  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
+  {
+    m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
+      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0));
+  }
+
   // Return false (and notify the user) if something is wrong.
   return TRUE;
 }
@@ -94,6 +94,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     case (IDC_DISPLAY):
       break;
     }
+    break;
   case WM_NOTIFY:
     pNMHDR = (NMHDR*)lParam;
     switch (pNMHDR->code) {

@@ -26,8 +26,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CViewPage::CViewPage(HWND Parent, CDasherInterface *DI)
-:m_pDasherInterface(DI), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)) {
+CViewPage::CViewPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+:m_pDasherInterface(DI), m_pAppSettings(pAppSettings) {
   m_hwnd = 0;
 }
 
@@ -38,14 +38,12 @@ struct menuentry {
 
 // List of menu items that will be displayed in the General Preferences
 static menuentry menutable[] = {
- // {BP_KEY_CONTROL, IDC_BUTTON},
+  {APP_BP_SHOW_TOOLBAR, IDC_CHECK1},
+  {BP_SHOW_SLIDER, IDC_CHECK2},
   {BP_OUTLINE_MODE, IDC_OUTLINE},
   {BP_DRAW_MOUSE, IDC_DRAWMOUSE},
   {BP_DRAW_MOUSE_LINE, IDC_DRAWMOUSELINE},
   {BP_PALETTE_CHANGE, IDC_COLOURSCHEME},
- // {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
- // {BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP}, // Same
-  //{BP_SPEECH_MODE, IDC_SPEECH}     // Same
 };
 
 void CViewPage::PopulateList() {
@@ -53,12 +51,32 @@ void CViewPage::PopulateList() {
   // in m_pDasher
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
-    if(m_pDasherInterface->GetBoolParameter(menutable[ii].paramNum)) {
+    if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
     }
     else  {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
+  }
+
+  // Populate the orientation selection:
+
+  switch(m_pAppSettings->GetLongParameter(LP_ORIENTATION)) {
+    case Dasher::Opts::AlphabetDefault:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::LeftToRight:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::RightToLeft:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::TopToBottom:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case Dasher::Opts::BottomToTop:
+      SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_SETCHECK, BST_CHECKED, 0);
+      break;
   }
 }
 
@@ -68,6 +86,24 @@ bool CViewPage::Validate() {
 }
 
 bool CViewPage::Apply() {
+  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
+  {
+    m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
+      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0));
+  }
+
+
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_GETCHECK, BST_CHECKED, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::AlphabetDefault);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_GETCHECK, BST_CHECKED, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::LeftToRight);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_GETCHECK, BST_CHECKED, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::RightToLeft);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_GETCHECK, BST_CHECKED, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::TopToBottom);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, BST_CHECKED, 0))
+    m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::BottomToTop);
+
   // Return false (and notify the user) if something is wrong.
   return TRUE;
 }
@@ -89,6 +125,7 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     case (IDC_DISPLAY):
       break;
     }
+    break;
   case WM_NOTIFY:
     pNMHDR = (NMHDR*)lParam;
     switch (pNMHDR->code) {

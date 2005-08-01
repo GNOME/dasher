@@ -10,17 +10,19 @@
 #define __ViewPage_h__
 
 #include "../resource.h"
+#include "../AppSettings.h"
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
 
 class CViewPage:public CWinWrap {
 public:
-  CViewPage(HWND Parent, CDasherInterface * DI);
+  CViewPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
+  CDasherInterface *m_pDasherInterface;
+  CAppSettings *m_pAppSettings;
   HWND CustomBox;
 
   std::vector < std::string > ColourList;

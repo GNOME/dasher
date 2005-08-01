@@ -28,16 +28,16 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CPrefs::CPrefs(HWND hParent, CDasher *pDasher)
-:m_pDasher(pDasher) {
+CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
+:m_pDasher(pDasher), m_pAppSettings(pAppSettings) {
   m_hwnd = 0;
 
   // FIXME - is hParent still needed here?
 
   m_pAlphabetBox = new CAlphabetBox(hParent, pDasher);
   m_pColourBox = new CColourBox(hParent, pDasher);
-  m_pControlPage = new CControlPage(hParent, pDasher);
-  m_pViewPage = new CViewPage(hParent, pDasher);
+  m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
+  m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher);
   m_pLMPage = new CLMPage(hParent, pDasher);
 

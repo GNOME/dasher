@@ -22,8 +22,10 @@
 #include "Widgets/Prefs.h"
 #include "Widgets/Toolbar.h"
 #include "Widgets/Slidebar.h"
+
 #include "DasherMouseInput.h"
 #include "Dasher.h"
+
 using namespace Dasher;
 using namespace std;
 
@@ -68,6 +70,8 @@ CDasherWindow::CDasherWindow()
   m_pEdit = new CEdit(m_hwnd);
   m_pToolbar = new CToolbar(m_hwnd, m_pDasher);
 
+
+
   // Set an object to handle edit events
   m_pDasher->SetEdit(m_pEdit);
 
@@ -82,7 +86,11 @@ CDasherWindow::CDasherWindow()
   m_pSlidebar = m_pDasher->GetSlidebar();
   m_pSplitter = new CSplitter(m_hwnd, m_pDasher, 100, this);
 
-// Add extra control nodes
+  // Create a CAppSettings
+
+  m_pAppSettings = new CAppSettings(m_pDasher);
+
+  // Add extra control nodes
 
   m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER, "Speak", -1 );
   m_pDasher->RegisterNode( Dasher::CControlManager::CTL_USER+1, "All", -1 );
@@ -253,8 +261,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       case EV_START:
         break;
       case EV_STOP:
-        if(m_pEdit)
-          m_pEdit->speak(2);
+        //if(m_pEdit)
+          //m_pEdit->speak(2);
         break;
       case EV_CONTROL:
         HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
@@ -368,7 +376,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
         }
         break;
       case ID_OPTIONS_PREFS:{
-          CPrefs Prefs(m_hwnd, m_pDasher);
+          CPrefs Prefs(m_hwnd, m_pDasher, m_pAppSettings);
         }
         break;
       case ID_HELP_CONTENTS:

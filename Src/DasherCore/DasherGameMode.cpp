@@ -8,11 +8,11 @@
 CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CDasherModel *model)
 :CDasherComponent(pEventHandler, pSettingsStore), m_model(model), m_DasherInterface(pDashIface) {
   if(InitializeTargetFile() == myint(-1)) {
-    DASHER_ASSERT(0);   // OOPS Can't open file with target text
+//    DASHER_ASSERT(0);   // OOPS Can't open file with target text
   }
 
   if(GetNextTargetString() == myint(-1)) {
-    DASHER_ASSERT(0);   // OOPS can't get a string to write
+ //   DASHER_ASSERT(0);   // OOPS can't get a string to write
   }
 }
 

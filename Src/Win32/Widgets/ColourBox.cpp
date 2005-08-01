@@ -59,6 +59,21 @@ void CColourBox::PopulateList() {
   SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_COLOURS, LBN_SELCHANGE), 0);
 }
 
+bool CColourBox::Validate() {
+  // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
+  return TRUE;
+}
+
+bool CColourBox::Apply() {
+  if(m_CurrentColours != std::string("")) {
+    if(m_CurrentColours != m_pDasherInterface->GetStringParameter(SP_COLOUR_ID))
+      m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
+  }
+
+  // Return false (and notify the user) if something is wrong.
+  return TRUE;
+}
+
 void CColourBox::InitCustomBox() {
   // Sort out "spin" or "up down" buttons so that I get messages from them.
   SendMessage(GetDlgItem(CustomBox, IDC_MOVE_GROUP), UDM_SETBUDDY, (WPARAM) GetDlgItem(CustomBox, IDC_GROUP_BUDDY), 0);
@@ -66,6 +81,8 @@ void CColourBox::InitCustomBox() {
 }
 
 LRESULT CColourBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  NMHDR *pNMHDR;
+
   switch (message) {
   case WM_INITDIALOG:
     if(!m_hwnd) {               // If this is the initial dialog for the first time
@@ -73,6 +90,22 @@ LRESULT CColourBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPa
       PopulateList();
     }
     return TRUE;
+    break;
+  case WM_NOTIFY:
+    pNMHDR = (NMHDR*)lParam;
+    switch (pNMHDR->code) {
+    case PSN_KILLACTIVE: // About to lose focus
+      SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, Validate());
+      return TRUE;
+      break;
+    case PSN_APPLY: // User clicked OK/Apply - apply the changes
+      if(Apply())
+        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_NOERROR);
+      else
+        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_INVALID);
+      return TRUE;
+      break;
+    }
     break;
   case WM_COMMAND:
     switch (LOWORD(wParam)) {

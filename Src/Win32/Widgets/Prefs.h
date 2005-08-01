@@ -20,11 +20,12 @@
 #include "ViewPage.h"
 #include "AdvancedPage.h"
 #include "LMPage.h"
+#include "../AppSettings.h"
 
 
 class CPrefs:public CWinWrap {
 public:
-  CPrefs(HWND hParent, CDasher * pDasher);
+  CPrefs(HWND hParent, CDasher * pDasher, CAppSettings *pAppSettings);
   ~CPrefs();
   void PopulateWidgets();
 protected:
@@ -32,6 +33,7 @@ protected:
 private:
   HWND m_hCustomBox;
   CDasher *m_pDasher;
+  CAppSettings *m_pAppSettings;
 
   CAlphabetBox *m_pAlphabetBox;
   CColourBox *m_pColourBox;

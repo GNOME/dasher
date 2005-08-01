@@ -160,7 +160,9 @@ struct sp_info {
 
 namespace Dasher {
   class CParamTables;
-} class Dasher::CParamTables {
+} 
+
+class Dasher::CParamTables {
 
 // These are the parameter tables that store everything
 public:

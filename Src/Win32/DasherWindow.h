@@ -16,6 +16,7 @@
 #include "Widgets/SplashScreen.h"
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
+#include "AppSettings.h"
 
 #include "../../DasherCore/Win32/WinOptions.h"
 
@@ -68,6 +69,8 @@ private:
   CSlidebar *m_pSlidebar;
   CMenu WinMenu;
   CSplash *Splash;
+
+  CAppSettings *m_pAppSettings;
 
   HICON m_hIconSm;
 
