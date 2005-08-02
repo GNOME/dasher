@@ -761,9 +761,14 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   // FIXME - use unicode lengths
 
   if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
-    if(m_pDasherModel != NULL)
-      m_pDasherModel->SetContext(strNewContext);
-    PauseAt(0,0);
+
+
+    if(m_pDasherModel != NULL) {
+      if(m_pDasherModel->m_bContextSensitive) {
+	m_pDasherModel->SetContext(strNewContext);
+	PauseAt(0,0);
+      }
+    }
     
     strCurrentContext = strNewContext;
   }

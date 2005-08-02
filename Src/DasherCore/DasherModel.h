@@ -221,6 +221,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
      m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
   }
 
+  bool m_bContextSensitive;
+
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;

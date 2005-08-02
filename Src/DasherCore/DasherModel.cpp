@@ -96,6 +96,8 @@ m_Active(0, 0) {
 
   m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel);
   m_pControlManagerFactory = new CControlManagerFactory(this, m_pLanguageModel);
+
+  m_bContextSensitive = true;
 }
 
 CDasherModel::~CDasherModel() {

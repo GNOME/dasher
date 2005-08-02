@@ -253,6 +253,7 @@ void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pA
 
   CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
   CControlEvent oEvent(pControlNode->iID);
+  m_pModel->m_bContextSensitive=false;
   m_pModel->InsertEvent(&oEvent);
 };
 

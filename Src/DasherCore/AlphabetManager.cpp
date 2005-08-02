@@ -93,6 +93,7 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 }
 
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+  m_pModel->m_bContextSensitive = true;
   symbol t = pNode->Symbol();
   if(t) { // Ignore symbol 0 (root node)
     Dasher::CEditEvent oEvent(1, m_pModel->GetAlphabet().GetText(t));

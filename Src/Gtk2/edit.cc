@@ -493,7 +493,7 @@ bool edit_handle_control_event(gint iEvent) {
 }
 
 void edit_move(int iDirection, int iDist) {
-  g_bIgnoreCursorMove = true;
+  //  g_bIgnoreCursorMove = true;
   
   GtkTextIter sPos;
 
@@ -537,11 +537,11 @@ void edit_move(int iDirection, int iDist) {
 
   // FIXME - put a11y stuff in here
 
-  g_bIgnoreCursorMove = false;
+  //  g_bIgnoreCursorMove = false;
 }
 
 void edit_delete(int iDirection, int iDist) { 
-  g_bIgnoreCursorMove = true;
+  //  g_bIgnoreCursorMove = true;
   
   GtkTextIter sPosStart;
   GtkTextIter sPosEnd;
@@ -588,7 +588,7 @@ void edit_delete(int iDirection, int iDist) {
 
   // FIXME - put a11y stuff in here
 
-  g_bIgnoreCursorMove = false;
+  //  g_bIgnoreCursorMove = false;
 }
 
 void edit_move_forward() { 
