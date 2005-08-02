@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.hi\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-01 05:29+0000\n"
-"PO-Revision-Date: 2005-08-01 17:06+0530\n"
+"POT-Creation-Date: 2005-08-02 05:37+0000\n"
+"PO-Revision-Date: 2005-08-02 12:57+0530\n"
 "Last-Translator: Rajesh Ranjan <rranjan@redhat.com>\n"
 "Language-Team: Hindi <fedora-trans-hi@redhat.com>\n"
 "MIME-Version: 1.0\n"
@@ -17,6 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 
 #: ../Src/Gtk2/Menu.cc:69 ../Src/Gtk2/Menu.cc:125 ../Src/Gtk2/Menu.cc:180
@@ -39,7 +40,7 @@ msgstr "डैशर"
 msgid "Dasher is a predictive text entry application"
 msgstr "डैशर एक अनुमानयोग्य पाठ प्रविष्ट अनुप्रयोग है"
 
-#: ../Src/Gtk2/Preferences.cpp:496
+#: ../Src/Gtk2/Preferences.cpp:493
 msgid "Training Dasher, please wait"
 msgstr "डैशर को प्रशिक्षित कर रहा है, कृपया इंतजार करें"
 
@@ -290,7 +291,7 @@ msgid "9:"
 msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-msgid "<b>Adaption:</b>"
+msgid "<b>Adaptation:</b>"
 msgstr "<b>अनुकूलन:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
