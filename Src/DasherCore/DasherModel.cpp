@@ -130,8 +130,9 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
 
     switch (pEvt->m_iParameter) {
-    case LP_MAX_BITRATE:
-      m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
+    case LP_MAX_BITRATE: // Delibarate fallthrough
+    case LP_SPEED_DIVISOR:
+      m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / static_cast<double>(GetLongParameter(LP_SPEED_DIVISOR));
       m_fr.SetMaxBitrate(m_dMaxRate);
       break;
     default:
@@ -502,6 +503,7 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
   // FIXME - Need to recurse up possibly unseen parents
 
+
   RecursiveOutput(new_under_cross, pAdded);
 
   // FIXME - Reimplement
@@ -520,9 +522,13 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
 
 void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
-
   if(pNode->Parent() && (!pNode->Parent()->isSeen()))
     RecursiveOutput(pNode->Parent(), pAdded);
+
+  if(pNode->Parent())
+    pNode->Parent()->m_pNodeManager->Leave(pNode->Parent());
+
+  pNode->m_pNodeManager->Enter(pNode);
 
   pNode->Seen(true);
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));

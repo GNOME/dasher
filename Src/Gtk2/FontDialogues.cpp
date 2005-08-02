@@ -38,7 +38,7 @@ extern "C" void set_dasher_font(GtkWidget *widget, gpointer user_data) {
   g_signal_connect(dasher_fontselector->ok_button, "clicked", G_CALLBACK(get_font_from_dialog), (gpointer) dasher_fontselector);
   // FIXME - REIMPLEMENT
   // gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector),GTK_WINDOW(window));
-  // gtk_font_selection_dialog_set_font_name(dasher_fontselector,dasherfont.c_str());
+  gtk_font_selection_dialog_set_font_name(dasher_fontselector,gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget),SP_DASHER_FONT));
   gtk_window_present(GTK_WINDOW(dasher_fontselector));
 }
 

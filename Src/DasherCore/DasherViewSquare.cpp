@@ -52,11 +52,15 @@ void CDasherViewSquare::RenderNodes() {
 
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
-  RecursiveRender(DasherModel()->Root(), DasherModel()->Rootmin(), DasherModel()->Rootmax(), iDasherMaxX);
+  // FIXME - vNodeList might be redundant - remove if this is the case
 
+  std::vector<CDasherNode *> vNodeList;
 
+  RecursiveRender(DasherModel()->Root(), DasherModel()->Rootmin(), DasherModel()->Rootmax(), iDasherMaxX, vNodeList);
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
+
+  //std::cout << "Nodes to tap on: " << vNodeList.size() << std::endl;
 
   Crosshair(DasherModel()->DasherOX());  // add crosshair
 
@@ -77,7 +81,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   }
 }
 
-int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft) {
+int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
   // Decide which colour to use when rendering the child
@@ -127,20 +131,24 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     return 0;
   }
 
-  if(pRender->ChildCount() == 0)
+  if(pRender->ChildCount() == 0) {
+    vNodeList.push_back(pRender);
     return 0;
+  }
 
   int norm = GetLongParameter(LP_NORMALIZATION);
   CDasherNode::ChildMap::const_iterator i;
+
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
     CDasherNode *pChild = i->second;
     if(pChild->Alive()) {
       myint Range = y2 - y1;
       myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
       myint newy2 = y1 + (Range * pChild->Hbnd()) / norm;
-      RecursiveRender(pChild, newy1, newy2, mostleft);
+      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList);
     }
   }
+
   return 1;
 }
 
@@ -847,7 +855,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     else if( iMode == 1 )
       Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, true, false );
     else
-      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, false );
+      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
     break;
   case 1:
     // Raw dasher coordinates
@@ -862,18 +870,20 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
 
   // Apply y scaling
 
-  if( GetLongParameter(LP_YSCALE) > 0 ) {
-
-  double dYScale;
-
-  int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
-
-  if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft ))
-    dYScale = Screen()->GetHeight() / static_cast<double>(GetLongParameter(LP_YSCALE));
-  else
-    dYScale = Screen()->GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
-  
-  iDasherY = myint((iDasherY - DasherModel()->DasherY()/2) * dYScale + DasherModel()->DasherY()/2);
+  if(iMode == 1 ) {
+    if( GetLongParameter(LP_YSCALE) > 0 ) {
+      
+      double dYScale;
+      
+      int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
+      
+      if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft ))
+	dYScale = Screen()->GetHeight() / static_cast<double>(GetLongParameter(LP_YSCALE));
+      else
+	dYScale = Screen()->GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
+      
+      iDasherY = myint((iDasherY - DasherModel()->DasherY()/2) * dYScale + DasherModel()->DasherY()/2);
+    }
   }
 
   // Then apply any non-linearity

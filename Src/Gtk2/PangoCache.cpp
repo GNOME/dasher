@@ -1,10 +1,9 @@
 #include "PangoCache.h"
+#include <iostream>
 
-// FIXME - take font name at creation time
-
-CPangoCache::CPangoCache() {
+CPangoCache::CPangoCache(const std::string &strFontName) {
   font = pango_font_description_new();
-  pango_font_description_set_family(font, "Serif");
+  pango_font_description_set_family(font, strFontName.c_str());
 }
 
 void CPangoCache::ChangeFont(const std::string &strFontName) {

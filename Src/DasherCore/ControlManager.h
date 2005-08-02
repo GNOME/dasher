@@ -73,6 +73,9 @@ namespace Dasher {
     virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization );
     virtual void Undo( CDasherNode *pNode );
 
+    virtual void Enter(CDasherNode *pNode);
+    virtual void Leave(CDasherNode *pNode);
+
     void RegisterNode( int iID, std::string strLabel, int iColour );
     void ConnectNode(int iChild, int iParent, int iAfter);
 

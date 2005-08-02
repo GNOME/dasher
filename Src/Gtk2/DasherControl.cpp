@@ -133,7 +133,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   // Create a pango cache
 
-  m_pPangoCache = new CPangoCache;
+  m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
 
   // Don't create the screen until we've been realised.
 

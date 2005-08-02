@@ -9,7 +9,7 @@
 
 class CPangoCache {
 public:
-  CPangoCache();
+  CPangoCache(const std::string & strFontName);
   void ChangeFont(const std::string & strFontName);
   PangoLayout *GetLayout(GtkWidget * pCanvas, std::string sDisplayText, int iSize);
 

@@ -133,7 +133,7 @@ public:
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft);
+  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList);
 
   ///
   /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.

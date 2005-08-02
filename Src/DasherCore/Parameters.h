@@ -23,7 +23,7 @@ enum {
   LP_TRUNCATIONTYPE, LP_LM_MAX_ORDER, LP_LM_EXCLUSION,
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
-  LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, END_OF_LPS
+  LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, END_OF_LPS
 };
 
 enum {
@@ -118,7 +118,8 @@ static lp_table longparamtable[] = {
   {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
   {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
   {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
-  {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"}
+  {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"},
+  {LP_SPEED_DIVISOR, "SpeedDivisor", !PERS, 100, "Factor by which to slow down (multiplied by 100)"}
 };
 
 static sp_table stringparamtable[] = {
