@@ -571,6 +571,126 @@ void CDasherModel::GoTo(double zoomfactor, myint miMousey)
   OutputCharacters(new_under_cross);
 }
 
+// This is similar to Get_new_goto_coords, but doesn't actually change Rootmax and Rootmin.
+// Instead it gives information for NewGoTo to make direct changes in the root coordinates.
+#define ZOOMDENOM (1<<10)
+#define STEPNUM   48 
+#define STEPDENOM 64
+double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2)
+{
+  m_Stepnum = 58;
+  int iRxnew_dup = iRxnew;
+  // note -- iRxnew is the zoom factor  in units of ZOOMDENOM
+  *o1 = m_Rootmin ;
+  *o2 = m_Rootmax ;
+  DASHER_ASSERT(iRxnew > 0);
+  if (iRxnew < ZOOMDENOM && m_Rootmax<m_DasherY && m_Rootmin>0 ) {
+    // refuse to zoom backwards if the entire root node is visible.
+    cout << "Refusing to zoom backwards." << endl;
+    *iSteps = 0 ;
+    *n1 = m_Rootmin;
+    *n2 = m_Rootmax;
+  } 
+  else {
+    myint above=(mousey-*o1);
+    myint below=(*o2-mousey);
+
+    myint miNewrootzoom= m_DasherY/2 ;
+    myint newRootmax=miNewrootzoom+(below*iRxnew/ZOOMDENOM); // is there a risk of overflow in this multiply?
+    myint newRootmin=miNewrootzoom-(above*iRxnew/ZOOMDENOM);
+    
+    *n1 = newRootmin;
+    *n2 = newRootmax;
+
+    *iSteps = 1;
+    
+    // We might be moving at zoomfactor one vertically, in which case the below invention won't
+    // come up with more than one step.  Look for a mousey difference and use an iSteps concordant
+    // to that if it would be larger than the iSteps created by taking the log of the zoomfactor. 
+    float distance = mousey - (m_DasherY/2);
+
+    double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
+
+    double alpha = 2 * (2 * s);
+    int alternateSteps = int(alpha * distance);
+    // Take log of iRxnew to base ( STEPDENOM / STEPNUM ):
+    if ( STEPDENOM > m_Stepnum && m_Stepnum > 0 ) { // check that the following loop will terminate.
+      //cout << "iRxnew is " << iRxnew << " and ZOOMDENOM is" << ZOOMDENOM << endl;
+      if ( iRxnew > ZOOMDENOM ) {
+        while ( iRxnew > ZOOMDENOM ) {
+          *iSteps += 1;
+          iRxnew = iRxnew * m_Stepnum / STEPDENOM;
+        }
+      } else {
+        while ( iRxnew < ZOOMDENOM ) {
+          *iSteps += 1;
+          iRxnew = iRxnew * STEPDENOM / m_Stepnum;
+        }
+      }
+    }
+    // Done taking log of iRxnew. 
+    if (alternateSteps > *iSteps) {
+      *iSteps = alternateSteps;
+    }
+   }
+
+  double iRxnew_ratio = (double) iRxnew_dup / ZOOMDENOM;
+  double iRxnew_log = log(iRxnew_ratio);
+  return iRxnew_log;
+}
+
+void CDasherModel::NewGoTo(myint n1 , myint n2 , int style) {
+  // Find out the current node under the crosshair
+  CDasherNode *old_under_cross=Get_node_under_crosshair();
+
+  // establish next viewpoint
+  m_Rootmin = n1 ;
+  m_Rootmax = n2 ;
+   
+  // push node under crosshair
+  CDasherNode* new_under_cross = Get_node_under_crosshair();
+  Push_Node(new_under_cross);
+  
+  if ( style >= 2 ) { // "2" means FINAL. "1" means STEP
+	// Ugly hack  --
+    // Push at all locations on the right hand side.
+    int Hack=60 ; // was 20
+    int hack ;
+    int y1 , y2 , hackystep = 34 , mid=m_DasherY/2 , top=m_DasherY*1/20 , bot = m_DasherY*19/20 ;
+    // y1 sweeps the top half of the screen; y2 sweeps the bottom half
+    // choice of `random' hackystep intended to give fairly uniform coverage. 
+    for ( y1 = mid , y2 = mid+hackystep/2 , hack = 1 ; hack <= Hack ; hack ++ ) {
+      // We don't have a mousex, so "emulating" one.
+      CDasherNode* node_under_goto = Get_node_under_mouse(50, y1);
+      Push_Node(node_under_goto);
+      node_under_goto = Get_node_under_mouse(50, y2);
+      Push_Node(node_under_goto);
+    
+      y1 -= hackystep;
+      if ( y1 < top ) { y1 += mid; }
+
+      y2 += hackystep;
+      if ( y1 > bot ) { y2 -= mid; }
+    }
+    // end hack
+  }
+  
+  //Update(m_Root,new_under_cross,0);
+
+  if (new_under_cross!=old_under_cross) {
+    DeleteCharacters(new_under_cross,old_under_cross);
+  }
+
+  if (new_under_cross->isSeen()==true)
+    return;
+
+  new_under_cross->Seen(true);
+
+  OutputCharacters(new_under_cross);
+}
+
+
+
 void CDasherModel::OutputCharacters(CDasherNode *node) {
   if(node->Parent() != NULL && node->Parent()->isSeen() != true) {
     node->Parent()->Seen(true);

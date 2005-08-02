@@ -60,6 +60,12 @@ public:
   /// \todo Document this
   ///
 
+  void ClickTo(int x, int y, int width, int height, int iSteps);
+  
+  ///
+  /// \todo Document this
+  ///
+
   void DrawGoTo(screenint mousex, screenint mousey);
 
   ///

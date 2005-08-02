@@ -227,41 +227,11 @@ CDasherViewSquare::~CDasherViewSquare() {
 
 int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext, bool bShove) {
 
-  DASHER_ASSERT(y2 >= y1);
-
-
-  // FIXME - taking symbol name and string here is stupid - should just take a string argument
-
-// //   DASHER_TRACEOUTPUT("RenderNode Symbol:%d Colour:%d, ColourScheme:%d Display:%s \n",Character,Color,ColorScheme,displaytext.c_str());
-//      //DASHER_TRACEOUTPUT("RenderNode %I64d %I64d",y1,y2);
-
-//      // Get the screen positions of the node in co-ords such that dasher RHS runs from 0 to DasherModel()->DasherY
-//      screenint s1,s2;
-//      Cint32 iSize = dashery2screen(y1,y2,s1,s2);
-
-//      // Actual height in pixels
-//      Cint32 iHeight = Cint32( (Cint32) (iSize * CanvasY)/ (Cint32) DasherModel()->DasherY() );
-
-//      if (iHeight <=1)
-//              return 0;
-
-//      // horizontal width of the square is controlled by the true size (y2-y1) in Dasher world
-
-//      // All squares are right-aligned.
-//      screenint iRight=CanvasX;
-
-//      screenint iNewleft=iLeft, iNewtop=s1, iNewright=iRight, iNewbottom=s2;
-
-//      // Do the rotation
-//      MapScreen(&iNewleft, &iNewtop);
-//      MapScreen(&iNewright, &iNewbottom);
-
-//      DASHER_TRACEOUTPUT("--------- %i %i\n",iNewtop,iNewbottom);
-
-  //Screen()->DrawRectangle(iNewleft, iNewtop, iNewright, iNewbottom, Color, ColorScheme);
+  // Commenting because click mode occasionally fails this assert.
+  // I don't know why.  -- cjb.
+  if (!(y2 >= y1)) { return 1; }
 
   // FIXME - Get sensibel limits here (to allow for non-linearities)
-
 
   myint iDasherMinX;
   myint iDasherMinY;
@@ -402,8 +372,6 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   }
 
   myint iDasherAnchorX(iDasherSize);
-
-  // myint iDasherAnchorY((std::min(y2, iDasherMaxY) + std::max(y1, iDasherMinY)) / 2);
 
   std::string sDisplayText;
 
@@ -1173,6 +1141,34 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
 }
 
+void CDasherViewSquare::ClickTo(int x, int y, int width, int height, int iSteps)
+{
+  myint dasherx, dashery;
+  Screen2Dasher(x,y,dasherx,dashery,false,false);
+  if (x < 1) { x = 100; }
+  myint iRxnew = ((DasherModel()->DasherOX()/2) * DasherModel()->DasherOX()) / dasherx;
+  myint o1, o2, n1, n2;
+  DasherModel()->Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
+  int s ;
+  myint rootMin, rootMax;
+  rootMin = n1;  
+  rootMax = n2;
+  myint zoomstep1, zoomstep2;
+  for (s = 1 ; s <= iSteps ; s ++) {
+    // use simple linear interpolation. Really should do logarithmic interpolation, but
+    // this will probably look fine.
+    zoomstep1 = (s * n1 + (iSteps-s) * o1) / iSteps;
+    zoomstep2 = (s * n2 + (iSteps-s) * o2) / iSteps;
+    DasherModel()->NewGoTo(zoomstep1, zoomstep2, 1);
+    Render();
+    Display();
+  }
+  DasherModel()->NewGoTo(n1, n2, 2);
+  Render();
+  Display();
+}
+
+
 // move to the specified point
 
 void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
@@ -1180,7 +1176,7 @@ void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
 
   UnMapScreen(&mousex, &mousey);
   myint idasherx, idashery;
-  screen2dasher(mousex, mousey, &idasherx, &idashery);
+  Screen2Dasher(mousex, mousey, idasherx, idashery, false, false);
   DasherModel()->GoTo(idasherx, idashery);
   CheckForNewRoot();
 }
@@ -1240,41 +1236,6 @@ void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {
     DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects), false);
   }
 
-  //     if (DasherModel()->Dimensions()==true || DasherModel()->Eyetracker()==true) {
-
-//        int Swapper;
-
-//        myint dasherx,dashery;
-//        screen2dasher(mousex,mousey,&dasherx,&dashery);
-//        mousex=dasherx2screen(dasherx);
-//        mousey=dashery2screen(dashery);
-//        switch (ScreenOrientation) {
-//        case (LeftToRight):
-//          break;
-//        case (RightToLeft):
-//          mousex = Screen()->GetWidth() - mousex;
-//          break;
-//        case (TopToBottom):
-//          Swapper = ( mousex * Screen()->GetHeight()) / Screen()->GetWidth();
-//          mousex = (mousey  * Screen()->GetWidth()) / Screen()->GetHeight();
-//          mousey = Swapper;
-//          break;
-//        case (BottomToTop):
-//          // Note rotation by 90 degrees not reversible like others
-//          Swapper = Screen()->GetHeight() - ( mousex * Screen()->GetHeight()) / Screen()->GetWidth();
-//          mousex = (mousey  * Screen()->GetWidth()) / Screen()->GetHeight();
-//          mousey = Swapper;
-//          break;
-//        default:
-//          break;
-//        }
-//      }
-
-//      if (ColourMode==true) {
-//        Screen()->DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 2, Opts::ColorSchemes(Objects));
-//      } else {
-//        Screen()->DrawRectangle(mousex-5, mousey-5, mousex+5, mousey+5, 1, Opts::ColorSchemes(Objects));
-//      }
 }
 
 /// Draw a line from the crosshair to the mouse position

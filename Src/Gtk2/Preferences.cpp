@@ -552,6 +552,10 @@ extern "C" void SetEyetracker(GtkWidget *widget, gpointer user_data) {
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
+extern "C" void SetClick(GtkWidget *widget, gpointer user_data) {
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CLICK_MODE, GTK_TOGGLE_BUTTON(widget)->active);
+}
+
 extern "C" void startonleft(GtkWidget *widget, gpointer user_data) {
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE, GTK_TOGGLE_BUTTON(widget)->active);
 }
@@ -690,6 +694,13 @@ extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data) {
   int yscale=int(widget->adjustment->value);
   gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_YSCALE, yscale);
 }
+
+// 'Buttons' Page
+
+extern "C" void zoomsteps_changed(GtkHScale *hscale) {
+  //gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ZOOMSTEPS, int(GTK_RANGE(hscale)->adjustment->value));
+}
+
 
 // 'Langauge Model' Page
 

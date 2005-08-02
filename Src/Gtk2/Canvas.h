@@ -166,6 +166,18 @@ public:
   /// Returns true on success, false otherwise.
   bool GetCanvasSize(GdkRectangle *pRectangle);
 
+  /// 
+  /// Canvas width
+  ///
+
+  int m_iWidth;
+
+  ///
+  /// Canvas height
+  ///
+
+  int m_iHeight;
+
 private:
 
   ///
@@ -212,18 +224,6 @@ private:
   ///
 
   GdkColor *colours;
-
-  /// 
-  /// Canvas width
-  ///
-
-  int m_iWidth;
-
-  ///
-  /// Canvas height
-  ///
-
-  int m_iHeight;
 
   ///
   /// Holder for Pango layout extents.

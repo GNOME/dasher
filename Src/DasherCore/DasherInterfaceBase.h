@@ -152,6 +152,14 @@ public:
 
   void TapOn(int MouseX, int MouseY, unsigned long Time);       // Times in milliseconds
 
+  /// "Click mode"
+  /// \param x Mouse x-coord
+  /// \param y Mouse y-coord
+  /// \param width Width of canvas, in pixels
+  /// \param height Height of canvas, in pixels.
+  
+  void ClickTo(int x, int y, int width, int height);
+  
   /// Pause Dasher
   /// \todo Parameters are ignored (?) - remove from definition.
 

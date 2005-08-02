@@ -108,6 +108,8 @@ void CCanvas::Display() {
   // Restore original graphics context (?)
 
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+
+  gtk_main_iteration_do(0);
 }
 
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {

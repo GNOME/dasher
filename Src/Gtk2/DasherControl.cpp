@@ -330,6 +330,14 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
     return FALSE;
 #endif
  
+  // Click mode.
+  if (GetBoolParameter(BP_CLICK_MODE)) {
+    int x, y;
+    Unpause(get_time());
+    gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
+    ClickTo(x, y, m_pScreen->m_iWidth, m_pScreen->m_iHeight);
+    PauseAt(0, 0);
+  }
   // FIXME - This should be moved into a toggle pause routime in CDasherInterface
   
   if(GetBoolParameter(BP_START_MOUSE)) {
@@ -347,8 +355,7 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
   switch (event->keyval) {
   case GDK_space:
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
-
-    if(GetBoolParameter(BP_START_SPACE)) {
+    if(GetBoolParameter(BP_START_SPACE) && !GetBoolParameter(BP_CLICK_MODE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
         Unpause(get_time());
       else

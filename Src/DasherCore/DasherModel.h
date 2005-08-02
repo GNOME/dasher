@@ -129,6 +129,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 	void Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
   void GoTo(double, myint);     // jumps to a new viewpoint
+  void NewGoTo(myint n1, myint n2, int style);
+  double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2);
+
   void Start();                 // initializes the data structure
   void Make_root(int whichchild);       // find a new root node
   void Reparent_root(int lower, int upper);     // change back to the previous root
@@ -272,6 +275,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   double m_dMaxRate;
 
+  int m_Stepnum;
+
   CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
 
   double Get_new_root_coords(myint mousex, myint mousey);
@@ -279,6 +284,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void DoZoom(myint iTargetMin, myint iTargetMax);
 
   void Get_new_goto_coords(double zoomfactor, myint mousey);
+
   void Get_string_under_mouse(const myint smousex, const myint smousey, std::vector < symbol > &str);
 
   

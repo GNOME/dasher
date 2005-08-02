@@ -92,6 +92,10 @@ public:
 
 	virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL)=0;
 
+  /// Dasher Click Mode
+  
+  virtual void ClickTo(int x, int y, int width, int height, int iSteps) = 0;
+
   /// Handles start-on-mouse behaviour - check whether we are in the box, and change box or start on timer,.
   /// \param iTime Current time in ms.
 
