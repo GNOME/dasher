@@ -128,6 +128,12 @@ class Dasher::CDasherNode:private NoClones {
 
   std::string m_strDisplayText;
 
+  ///
+  /// Whether this node shoves or not
+  ///
+
+  bool m_bShove;
+
  private:
 
   const int m_iLbnd, m_iHbnd;   // the cumulative lower and upper bound prob relative to parent

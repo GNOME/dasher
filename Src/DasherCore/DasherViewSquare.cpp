@@ -117,7 +117,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
   display = pRender->m_strDisplayText;
 
-  if(RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display)) {
+  if(RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display, pRender->m_bShove)) {
     // yuk
     if(!pRender->ControlChild() && pRender->Symbol() < DasherModel()->GetAlphabet().GetNumberTextSymbols())
       RenderGroups(pRender, y1, y2, mostleft);
@@ -169,14 +169,14 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
       int Colour = DasherModel()->GroupColour(iGroup);
 
       if(Colour != -1) {
-        RenderNode(0, DasherModel()->GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label);
+        RenderNode(0, DasherModel()->GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label, true);
       }
       else {
-        RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label);
+        RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
       }
     }
     else {
-      RenderNode(0, current - 1, Opts::Groups, newy1, newy2, mostleft, Label);
+      RenderNode(0, current - 1, Opts::Groups, newy1, newy2, mostleft, Label, true);
     }
   }
 }
@@ -217,7 +217,7 @@ CDasherViewSquare::~CDasherViewSquare() {
   }
 }
 
-int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext) {
+int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext, bool bShove) {
 
   DASHER_ASSERT(y2 >= y1);
 
@@ -406,7 +406,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
 
 
   if( sDisplayText.size() > 0 )
-    DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft);
+    DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft, bShove);
 
   return 1;
 }
@@ -974,7 +974,7 @@ void CDasherViewSquare::DasherDrawCentredRectangle(myint iDasherX, myint iDasher
 /// specified as two co-ordinates, intended to the be the corners of
 /// the leading edge of the containing box.
 
-void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft) {
+void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft, bool bShove) {
 
   // Don't draw text which will overlap with text in an ancestor.
 
@@ -1068,15 +1068,17 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
 
   // Update the value of mostleft to take into account the new text
 
-  myint iDasherNewLeft;
-  myint iDasherNewTop;
-  myint iDasherNewRight;
-  myint iDasherNewBottom;
-
-  Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop,false,true);
-  Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom,false,true);
-
-  mostleft = std::min(iDasherNewRight, iDasherNewLeft);
+  if(bShove) {
+    myint iDasherNewLeft;
+    myint iDasherNewTop;
+    myint iDasherNewRight;
+    myint iDasherNewBottom;
+    
+    Screen2Dasher(newleft2, newtop2, iDasherNewLeft, iDasherNewTop,false,true);
+    Screen2Dasher(newright2, newbottom2, iDasherNewRight, iDasherNewBottom,false,true);
+    
+    mostleft = std::min(iDasherNewRight, iDasherNewLeft);
+  }
 
   // Actually draw the text. We use DelayDrawText as the text should
   // be overlayed once all of the boxes have been drawn.

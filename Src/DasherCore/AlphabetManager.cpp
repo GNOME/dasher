@@ -31,8 +31,8 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNewNode = new CDasherNode(*m_pModel, pParent, 0, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, false, 7);
   
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
-
   pNewNode->m_pNodeManager = this;
+  pNewNode->m_bShove = true;
 
   return pNewNode;
 }
@@ -79,6 +79,7 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
       else {
 	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(j));
 	pNewNode->m_pNodeManager = this;
+	pNewNode->m_bShove = true;
       }
 
       pNode->Children()[j] = pNewNode;

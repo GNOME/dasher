@@ -127,7 +127,7 @@ public:
   /// \todo Character and displaytext are redundant. We shouldn't need
   /// to know about alphabets here, so only use the latterr
 
-  int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string & displaytext);
+  int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string & displaytext, bool bShove);
 
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
@@ -231,7 +231,7 @@ private:
   /// Draw text specified in Dasher co-ordinates
   ///
 
-  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft);
+  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
 
   ///
   /// Get minimum visible Dasher Y co-ordinate

@@ -201,6 +201,7 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   pNewNode->m_pNodeManager = this;
   pNewNode->m_pUserData = m_mapControlMap[0];
   pNewNode->m_strDisplayText = static_cast<CControlNode*>(pNewNode->m_pUserData)->strLabel;
+  pNewNode->m_bShove = false;
 
   return pNewNode;
 }
@@ -237,6 +238,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
        pNewNode->m_strDisplayText = (*it)->strLabel;
+       pNewNode->m_bShove = false;
      }
      pNode->Children()[iIdx] = pNewNode;
      ++iIdx;
