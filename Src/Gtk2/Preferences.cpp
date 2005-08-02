@@ -14,6 +14,7 @@ void PopulateLMPage(GladeXML * pGladeWidgets);
 void generate_preferences(GladeXML * pGladeWidgets);
 void PopulateControlPage(GladeXML * pGladeWidgets);
 void PopulateViewPage(GladeXML * pGladeWidgets);
+void PopulateButtonsPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 
 extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
@@ -61,6 +62,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   PopulateControlPage(pGladeWidgets);
   PopulateViewPage(pGladeWidgets);
   PopulateLMPage(pGladeWidgets);
+  PopulateButtonsPage(pGladeWidgets);
   PopulateAdvancedPage(pGladeWidgets);
 }
 
@@ -73,6 +75,10 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
+}
+
+void PopulateButtonsPage(GladeXML *pGladeWidgets) {
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zoomstepsscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_ZOOMSTEPS));
 }
 
 void PopulateViewPage(GladeXML *pGladeWidgets) {
@@ -699,7 +705,7 @@ extern "C" void y_scale_changed(GtkRange *widget, gpointer user_data) {
 // 'Buttons' Page
 
 extern "C" void zoomsteps_changed(GtkHScale *hscale) {
-  //gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ZOOMSTEPS, int(GTK_RANGE(hscale)->adjustment->value));
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ZOOMSTEPS, int(GTK_RANGE(hscale)->adjustment->value));
 }
 
 

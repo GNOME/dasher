@@ -578,7 +578,7 @@ void CDasherModel::GoTo(double zoomfactor, myint miMousey)
 #define STEPDENOM 64
 double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2)
 {
-  m_Stepnum = 58;
+  m_Stepnum = GetLongParameter(LP_ZOOMSTEPS);
   int iRxnew_dup = iRxnew;
   // note -- iRxnew is the zoom factor  in units of ZOOMDENOM
   *o1 = m_Rootmin ;

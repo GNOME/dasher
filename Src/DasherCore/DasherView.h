@@ -94,7 +94,7 @@ public:
 
   /// Dasher Click Mode
   
-  virtual void ClickTo(int x, int y, int width, int height, int iSteps) = 0;
+  virtual void ClickTo(int x, int y, int width, int height) = 0;
 
   /// Handles start-on-mouse behaviour - check whether we are in the box, and change box or start on timer,.
   /// \param iTime Current time in ms.

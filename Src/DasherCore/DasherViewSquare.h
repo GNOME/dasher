@@ -60,7 +60,7 @@ public:
   /// \todo Document this
   ///
 
-  void ClickTo(int x, int y, int width, int height, int iSteps);
+  void ClickTo(int x, int y, int width, int height);
   
   ///
   /// \todo Document this

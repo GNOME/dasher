@@ -1141,11 +1141,12 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
 }
 
-void CDasherViewSquare::ClickTo(int x, int y, int width, int height, int iSteps)
+void CDasherViewSquare::ClickTo(int x, int y, int width, int height)
 {
   myint dasherx, dashery;
   Screen2Dasher(x,y,dasherx,dashery,false,false);
-  if (x < 1) { x = 100; }
+  if (dasherx < 2) { dasherx = 100; }
+  int iSteps = GetLongParameter(LP_ZOOMSTEPS); 
   myint iRxnew = ((DasherModel()->DasherOX()/2) * DasherModel()->DasherOX()) / dasherx;
   myint o1, o2, n1, n2;
   DasherModel()->Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);

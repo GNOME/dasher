@@ -414,7 +414,7 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
 void CDasherInterfaceBase::ClickTo(int x, int y, int width, int height)
 {
     //m_InZoom = 1;
-    m_pDasherView->ClickTo(x, y, width, height, 1);
+    m_pDasherView->ClickTo(x, y, width, height);
     //m_InZoom = 0;
     
 }

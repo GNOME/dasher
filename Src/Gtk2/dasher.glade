@@ -1,4 +1,3 @@
-
 <?xml version="1.0" standalone="no"?> <!--*- mode: xml -*-->
 <!DOCTYPE glade-interface SYSTEM "http://glade.gnome.org/glade-2.0.dtd">
 
@@ -2088,6 +2087,93 @@ your writing speed.</property>
 		  <property name="type">tab</property>
 		</packing>
 	      </child>
+          
+	      <child>
+		<widget class="GtkTable" id="table2">
+		  <property name="visible">True</property>
+		  <property name="n_rows">3</property>
+		  <property name="n_columns">2</property>
+		  <property name="homogeneous">False</property>
+		  <property name="row_spacing">0</property>
+		  <property name="column_spacing">0</property>
+
+		  <child>
+		    <widget class="GtkLabel" id="label54">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">Zoom steps:</property>
+		      <property name="use_underline">False</property>
+		      <property name="justify">GTK_JUSTIFY_LEFT</property>
+		      <property name="wrap">False</property>
+		      <property name="selectable">False</property>
+		      <property name="xalign">0</property>
+		      <property name="yalign">0.5</property>
+		      <property name="xpad">0</property>
+		      <property name="ypad">0</property>
+		      <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+		      <property name="width_chars">-1</property>
+		      <property name="single_line_mode">False</property>
+		      <property name="angle">0</property>
+		    </widget>
+		    <packing>
+		      <property name="left_attach">0</property>
+		      <property name="right_attach">1</property>
+		      <property name="top_attach">0</property>
+		      <property name="bottom_attach">1</property>
+		      <property name="x_options">fill</property>
+		      <property name="y_options"></property>
+		    </packing>
+		  </child>
+
+		  <child>
+		    <widget class="GtkHScale" id="zoomstepsscale">
+		      <property name="visible">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="draw_value">True</property>
+		      <property name="value_pos">GTK_POS_TOP</property>
+		      <property name="digits">0</property>
+		      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
+		      <property name="inverted">False</property>
+		      <property name="adjustment">32 0 63 1 1 0</property>
+		      <signal name="value_changed" handler="zoomsteps_changed" last_modification_time="Thu, 19 Aug 2004 16:43:11 GMT"/>
+		    </widget>
+		    <packing>
+		      <property name="left_attach">1</property>
+		      <property name="right_attach">2</property>
+		      <property name="top_attach">0</property>
+		      <property name="bottom_attach">1</property>
+		      <property name="y_options">fill</property>
+		    </packing>
+		  </child>
+		</widget>
+		<packing>
+		  <property name="tab_expand">False</property>
+		  <property name="tab_fill">True</property>
+		</packing>
+          </child>
+
+          <child>
+        <widget class="GtkLabel" id="label53">
+          <property name="visible">True</property>
+          <property name="label" translatable="yes">Buttons</property>
+          <property name="use_underline">False</property>
+          <property name="use_markup">False</property>
+          <property name="justify">GTK_JUSTIFY_LEFT</property>
+          <property name="wrap">False</property>
+          <property name="selectable">False</property>
+          <property name="xalign">0.5</property>
+          <property name="yalign">0.5</property>
+          <property name="xpad">0</property>
+          <property name="ypad">0</property>
+          <property name="ellipsize">PANGO_ELLIPSIZE_NONE</property>
+          <property name="width_chars">-1</property>
+          <property name="single_line_mode">False</property>
+          <property name="angle">0</property>
+        </widget>
+        <packing>
+          <property name="type">tab</property>
+        </packing>
+          </child>
+
 
 	      <child>
 		<widget class="GtkVBox" id="vbox25">
