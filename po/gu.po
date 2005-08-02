@@ -4,8 +4,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-31 21:26+0000\n"
-"PO-Revision-Date: 2005-08-01 10:37+0530\n"
+"POT-Creation-Date: 2005-08-01 21:26+0000\n"
+"PO-Revision-Date: 2005-08-02 10:12+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +13,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 
 #: ../Src/Gtk2/Menu.cc:69 ../Src/Gtk2/Menu.cc:125 ../Src/Gtk2/Menu.cc:180
 #: ../Src/Gtk2/Menu.cc:223 ../Src/Gtk2/dasher.glade.h:67
@@ -34,7 +35,7 @@ msgstr "ડેશર"
 msgid "Dasher is a predictive text entry application"
 msgstr "ડેશર એ લખાણ પ્રવેશ કાર્યક્રમ છે"
 
-#: ../Src/Gtk2/Preferences.cpp:496
+#: ../Src/Gtk2/Preferences.cpp:500
 msgid "Training Dasher, please wait"
 msgstr "ડેશરની તાલીમ, મહેરબાની કરીને રાહ જુઓ"
 
@@ -285,8 +286,8 @@ msgid "9:"
 msgstr "૯:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-msgid "<b>Adaption:</b>"
-msgstr "<b>અનૂકુલન:</b>"
+msgid "<b>Adaptation:</b>"
+msgstr "<b>અનુકૂલન:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
 msgid "<b>Advanced Settings:</b>"
