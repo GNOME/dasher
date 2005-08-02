@@ -143,10 +143,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	      SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
       else
-	      SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
-      Start();
+	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
       RequestFullRedraw();
       break;
     case SP_ALPHABET_ID:
@@ -160,9 +159,17 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       // multiple redraws.
 
       ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID)); 
+
+      // FIXME - the new widgets in the preferences box are breaking this
+
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	      SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+
       Start();
+      RequestFullRedraw();
+      break;
+    case SP_COLOUR_ID:
+      ChangeColours(GetStringParameter(SP_COLOUR_ID));
       RequestFullRedraw();
       break;
     case LP_LANGUAGE_MODEL_ID:
@@ -478,7 +485,8 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   CreateDasherModel();
 
   if(m_Alphabet->GetPalette() != std::string("") && GetBoolParameter(BP_PALETTE_CHANGE)) {
-    ChangeColours(m_Alphabet->GetPalette());
+    //    ChangeColours(m_Alphabet->GetPalette());
+    SetStringParameter(SP_COLOUR_ID, m_Alphabet->GetPalette());
   }
 
   SetBoolParameter( BP_TRAINING, false );

@@ -113,7 +113,7 @@ void CPPMLanguageModel::GetProbs(Context context, vector<unsigned int> &probs, i
   unsigned int size_of_slice = iToSpend;
   int symbolsleft = 0;
 
-  for(i = 0; i < iNumSymbols; i++)
+  for(i = 1; i < iNumSymbols; i++)
     if(!(exclusions[i] && doExclusion))
       symbolsleft++;
 
@@ -129,7 +129,7 @@ void CPPMLanguageModel::GetProbs(Context context, vector<unsigned int> &probs, i
 //      str2 << std::endl;
 //      DASHER_TRACEOUTPUT("valid %s",str2.str().c_str());
 
-  for(i = 0; i < iNumSymbols; i++) {
+  for(i = 1; i < iNumSymbols; i++) {
     if(!(exclusions[i] && doExclusion)) {
       unsigned int p = size_of_slice / symbolsleft;
       probs[i] += p;
@@ -137,9 +137,9 @@ void CPPMLanguageModel::GetProbs(Context context, vector<unsigned int> &probs, i
     }
   }
 
-  int iLeft = iNumSymbols;
+  int iLeft = iNumSymbols-1;
 
-  for(int j = 0; j < iNumSymbols; ++j) {
+  for(int j = 1; j < iNumSymbols; ++j) {
     unsigned int p = iToSpend / iLeft;
     probs[j] += p;
     --iLeft;

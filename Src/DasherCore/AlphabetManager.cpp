@@ -90,6 +90,9 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
 
 void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
   // Should this be responsible for actually doing the deletion
+
+  //  std::cout << "Deleting: " << pNode << std::endl;
+
 }
 
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {

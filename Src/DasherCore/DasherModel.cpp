@@ -361,11 +361,11 @@ void CDasherModel::DoZoom(myint iTargetMin, myint iTargetMax) {
 
   // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
 
-  if(newRootmin > m_DasherY / 2)
-    newRootmin = m_DasherY / 2;
+  if(newRootmin > m_DasherY / 2 - 1)
+    newRootmin = m_DasherY / 2 - 1;
 
-  if(newRootmax < m_DasherY / 2)
-    newRootmax = m_DasherY / 2;
+  if(newRootmax < m_DasherY / 2 + 1)
+    newRootmax = m_DasherY / 2 + 1;
 
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
