@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-07-31 22:09-0400\n"
-"PO-Revision-Date: 2005-07-31 16:49-0500\n"
+"POT-Creation-Date: 2005-08-02 13:08-0400\n"
+"PO-Revision-Date: 2005-08-02 16:49-0500\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -36,7 +36,7 @@ msgstr "Dasher"
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher is a predictive text entry application"
 
-#: Src/Gtk2/Preferences.cpp:496
+#: Src/Gtk2/Preferences.cpp:493
 msgid "Training Dasher, please wait"
 msgstr "Training Dasher... please wait"
 
@@ -287,7 +287,7 @@ msgid "9:"
 msgstr "9:"
 
 #: Src/Gtk2/dasher.glade.h:6
-msgid "<b>Adaption:</b>"
+msgid "<b>Adaptation:</b>"
 msgstr "<b>Adaptation:</b>"
 
 #: Src/Gtk2/dasher.glade.h:7
@@ -484,45 +484,45 @@ msgstr "New file"
 msgid "Normal"
 msgstr "Normal"
 
-#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire y range:"
-msgstr "Number of pixels that should cover the entire y range:"
-
-#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:51
+#: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
 msgstr "One dimensional mode"
 
-#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:52
+#: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
 msgstr "Open file"
 
-#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:54
+#: Src/Gtk2/dasher.glade.h:59 Src/Gtk2/dashergpe.glade.h:54
 msgid "Paste"
 msgstr "Paste"
 
-#: Src/Gtk2/dasher.glade.h:61 Src/Gtk2/dashergpe.glade.h:55
+#: Src/Gtk2/dasher.glade.h:60 Src/Gtk2/dashergpe.glade.h:55
 msgid "Pause outside window"
 msgstr "Pause outside window"
 
-#: Src/Gtk2/dasher.glade.h:62
+#: Src/Gtk2/dasher.glade.h:61
 msgid "Prediction"
 msgstr "Prediction"
 
-#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:56
+#: Src/Gtk2/dasher.glade.h:62 Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "Right to Left"
 
-#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:57
+#: Src/Gtk2/dasher.glade.h:63 Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
 msgstr "Right/4:"
 
-#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:58
+#: Src/Gtk2/dasher.glade.h:64 Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
 msgstr "Save file"
 
-#: Src/Gtk2/dasher.glade.h:66 Src/Gtk2/dashergpe.glade.h:59
+#: Src/Gtk2/dasher.glade.h:65 Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
 msgstr "Save file as"
+
+#: Src/Gtk2/dasher.glade.h:66
+msgid "Scaling amount (1D mode):"
+msgstr "Scaling amount (1D mode):"
 
 #: Src/Gtk2/dasher.glade.h:68 Src/Gtk2/dashergpe.glade.h:61
 msgid "Select Font"
@@ -677,6 +677,10 @@ msgid ""
 msgstr ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
+
+#: Src/Gtk2/dashergpe.glade.h:50
+msgid "Number of pixels that should cover the entire y range:"
+msgstr "Number of pixels that should cover the entire y range:"
 
 #: Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
