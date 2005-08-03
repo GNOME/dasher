@@ -35,6 +35,8 @@ GtkWidget *m_pLRButton;
 GtkWidget *m_pRLButton;
 GtkWidget *m_pTBButton;
 GtkWidget *m_pBTButton;
+GtkWidget *m_pSpeedSlider;
+
 
 #define _(_x) gettext(_x)
 
@@ -57,6 +59,7 @@ struct TrainingThreadData {
 
 void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   preferences_window = glade_xml_get_widget(pGladeWidgets, "preferences");
+  m_pSpeedSlider = glade_xml_get_widget(pGladeWidgets, "hscale1");
 
   generate_preferences(pGladeWidgets);
   PopulateControlPage(pGladeWidgets);
@@ -67,6 +70,8 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
 }
 
 void PopulateControlPage(GladeXML *pGladeWidgets) {
+  double dNewValue = get_app_parameter_long(LP_MAX_BITRATE) / 100.0;
+  gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue); 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "clickmodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CLICK_MODE));
@@ -75,6 +80,7 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_AUTO_SPEEDCONTROL));
 }
 
 void PopulateButtonsPage(GladeXML *pGladeWidgets) {
@@ -587,6 +593,29 @@ extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data) {
   set_app_parameter_bool(APP_BP_SPEECH_MODE, GTK_TOGGLE_BUTTON(widget)->active);
+}
+
+void preferences_handle_parameter_change(int iParameter)
+{
+  switch(iParameter) {
+  case LP_MAX_BITRATE:
+    {    
+      double dNewValue = get_app_parameter_long(LP_MAX_BITRATE) / 100.0;
+      gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue);
+      break;
+    }
+
+  }
+      
+}
+
+extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
+    long iNewValue = round(gtk_range_get_value(GTK_RANGE(hscale)) * 100);
+    set_app_parameter_long(LP_MAX_BITRATE, iNewValue);
+
+}
+extern "C" void adaptive(GtkWidget *widget, gpointer user_data) {
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_AUTO_SPEEDCONTROL, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 // 'View' Page
