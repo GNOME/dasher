@@ -27,6 +27,8 @@ void init_app_settings();
 void delete_app_settings();
 void load_app_parameters();
 
+void reset_parameter(int iParameter);
+
 bool get_app_parameter_bool( int iParameter );
 void set_app_parameter_bool( int iParameter, bool bValue );
 gint get_app_parameter_long( int iParameter );

@@ -11,6 +11,7 @@ struct app_bp_table {
   int key;
   char *regName;
   bool persistent;
+  bool bDefaultValue;
   bool value;
   char *humanReadable;
 };
@@ -19,6 +20,7 @@ struct app_lp_table {
   int key;
   char *regName;
   bool persistent;
+  long iDefaultValue;
   long value;
   char *humanReadable;
 };
@@ -27,6 +29,7 @@ struct app_sp_table {
   int key;
   char *regName;
   bool persistent;
+  char *szDefaultValue;
   char *value;
   char *humanReadable;
 };
@@ -49,26 +52,26 @@ struct app_sp_table {
 // is useful
 
 app_bp_table app_boolparamtable[] = {
-  {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, "TimeStampNewFiles"},
-  {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, "ViewToolbar"},
-  {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, "ShowToolbarText"},
-  {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, "ShowLargeIcons"},
-  {APP_BP_FIX_LAYOUT, "FixLayout", PERS, false, "FixLayout"},
-  {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, "CopyAllOnStop"},
-  {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, "PauseOutsideWindow"},
-  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, "SpeechEnabled"},
-  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, "KeyboardMode"}
+  {APP_BP_TIME_STAMP, "TimeStampNewFiles", PERS, true, true, "TimeStampNewFiles"},
+  {APP_BP_SHOW_TOOLBAR, "ViewToolbar", PERS, true, true, "ViewToolbar"},
+  {APP_BP_SHOW_TOOLBAR_TEXT, "ShowToolbarText", PERS, true, true, "ShowToolbarText"},
+  {APP_BP_SHOW_LARGE_ICONS, "ShowLargeIcons", PERS, true, true, "ShowLargeIcons"},
+  {APP_BP_FIX_LAYOUT, "FixLayout", PERS, false, false, "FixLayout"},
+  {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, false, "CopyAllOnStop"},
+  {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, false, "PauseOutsideWindow"},
+  {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, false, "SpeechEnabled"},
+  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, false, "KeyboardMode"}
 };
 
 app_lp_table app_longparamtable[] = {
-  {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, "FileEncodingFormat"},
-  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, "EditFontSize"},
-  {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, "EditHeight0"},
-  {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, "ScreenWidth"},
-  {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, "ScreenHeight"}
+  {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, -2, "FileEncodingFormat"},
+  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, 1, "EditFontSize"},
+  {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, 75, "EditHeight0"},
+  {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, 400, "ScreenWidth"},
+  {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, 500, "ScreenHeight"}
 
 };
 
 app_sp_table app_stringparamtable[] = {
-  {APP_SP_EDIT_FONT, "EditFont", PERS, "", "EditFont"}
+  {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 10", NULL, "EditFont"}
 };

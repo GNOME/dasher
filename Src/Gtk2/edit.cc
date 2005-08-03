@@ -908,6 +908,9 @@ void clear_edit() {
 }
 
 void reset_edit_font() {
+
+  // Obsolete (shouldn't have hard coded fonts)
+
   gtk_widget_modify_font(the_text_view, pango_font_description_from_string("Sans 10"));
 }
 

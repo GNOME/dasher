@@ -391,7 +391,10 @@ extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data) {
-  reset_edit_font();
+  //  reset_edit_font();
+
+  reset_parameter(SP_DASHER_FONT);
+  reset_parameter(APP_SP_EDIT_FONT);
 
   // FIXME - REIMPLEMENT
 

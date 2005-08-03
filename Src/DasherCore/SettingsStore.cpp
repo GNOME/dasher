@@ -142,6 +142,20 @@ std::string CSettingsStore::GetStringParameter(int iParameter) {
   return s_oParamTables.StringParamTable[iParameter - FIRST_SP].value;
 }
 
+void CSettingsStore::ResetParameter(int iParameter) {
+  switch(GetParameterType(iParameter)) {
+  case ParamBool:
+    SetBoolParameter(iParameter, boolparamtable[iParameter-FIRST_BP].defaultValue);
+    break;
+  case ParamLong:
+    SetLongParameter(iParameter, longparamtable[iParameter-FIRST_LP].defaultValue);
+    break;
+  case ParamString:
+    SetStringParameter(iParameter, stringparamtable[iParameter-FIRST_SP].defaultValue);
+    break;
+  }
+}
+
 // Used to determine what data type a given parameter ID is.
 ParameterType CSettingsStore::GetParameterType(int iParameter)
 {

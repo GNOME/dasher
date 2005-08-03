@@ -131,6 +131,10 @@ long gtk_dasher_control_get_parameter_long(GtkDasherControl *pControl, int iPara
   return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetLongParameter(iParameter);
 }
 
+void gtk_dasher_control_reset_parameter(GtkDasherControl *pControl, int iParameter) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ResetParameter(iParameter);
+}
+
 const char *gtk_dasher_control_get_parameter_string(GtkDasherControl *pControl, int iParameter) {
   return (((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetStringParameter(iParameter)).c_str();
 }

@@ -66,6 +66,8 @@ void dasher_clear();
 void dasher_start();
 void dasher_redraw();
 
+void main_handle_parameter_change(int iParameter);
+
 extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale * hscale);
 

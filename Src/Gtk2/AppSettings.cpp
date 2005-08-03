@@ -12,9 +12,38 @@
 void handle_parameter_change( int iParameter );
 
 void init_app_settings() {
+  for(int i(0); i < NUM_OF_APP_SPS; ++i) {
+    gchar *szNew;
+    szNew = new gchar[strlen(app_stringparamtable[i].szDefaultValue) + 1];
+    strcpy(szNew, app_stringparamtable[i].szDefaultValue);
+    app_stringparamtable[i].value = szNew;
+  }
 }
 
 void delete_app_settings() {
+  for(int i(0); i < NUM_OF_APP_SPS; ++i)
+   delete[] app_stringparamtable[i].value;
+ }
+
+ void reset_parameter(int iParameter) {
+   if(iParameter < END_OF_SPS) {
+     gtk_dasher_control_reset_parameter(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+     return;
+   }
+   else if(iParameter < END_OF_APP_BPS)
+     app_boolparamtable[ iParameter - FIRST_APP_BP ].value = app_boolparamtable[ iParameter - FIRST_APP_BP ].bDefaultValue;
+   else if(iParameter < END_OF_APP_LPS)
+     app_longparamtable[ iParameter - FIRST_APP_LP ].value = app_longparamtable[ iParameter - FIRST_APP_LP ].iDefaultValue; 
+   else {
+     delete[] app_stringparamtable[iParameter - FIRST_APP_SP].value;
+
+     gchar *szNew;
+     szNew = new gchar[strlen(app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue) + 1];
+     strcpy(szNew, app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue);
+     app_stringparamtable[iParameter - FIRST_APP_SP].value = szNew;
+   }
+
+   handle_parameter_change(iParameter);
 }
 
 bool get_app_parameter_bool( int iParameter ) {
@@ -82,7 +111,7 @@ void set_app_parameter_string( int iParameter, const gchar *szValue ) {
     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
   else {
     
-    // FIXME - free old string?
+    delete[] app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
     
     gchar *szNew;
     szNew = new gchar[strlen(szValue) + 1];
@@ -151,7 +180,7 @@ void load_app_parameters() {
       pGConfValue = gconf_client_get_without_default(g_pGConfClient, szName, &pGConfError);
       
       if(pGConfValue) {
-	// FIXME - Free old value?
+	delete[] app_stringparamtable[i].value;
 
 	const gchar *szValue(gconf_value_get_string(pGConfValue));
 
@@ -167,13 +196,10 @@ void load_app_parameters() {
   }
 }
 
+// Hmm... very pointless function:
+
 void handle_core_change(int iParameter) {
-  if( iParameter < FIRST_LP )
-    handle_parameter_change(iParameter);
-  else if( iParameter < FIRST_SP )
-    handle_parameter_change(iParameter);
-  else
-    handle_parameter_change(iParameter);
+  handle_parameter_change(iParameter);
 }
 
 void handle_parameter_change( int iParameter ) {
@@ -190,6 +216,7 @@ void handle_parameter_change( int iParameter ) {
 
   update_advanced(iParameter);
   preferences_handle_parameter_change(iParameter);
+  main_handle_parameter_change(iParameter);
 }
 
 int GetParameterCount() {

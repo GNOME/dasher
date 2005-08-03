@@ -1,5 +1,6 @@
 #include "dasher.h"
 #include "FontDialogues.h"
+#include "AppSettings.h"
 #include "edit.h"
 #include "GtkDasherControl.h"
 #include "../DasherCore/Parameters.h"
@@ -53,12 +54,7 @@ extern "C" void get_edit_font_from_dialog(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(edit_fontselector);
   if(font_name) {
-
-    // FIXME - REIMPLEMENT
-
-    //    dasher_set_parameter_string( STRING_EDITFONT, font_name );
-    set_editbox_font(font_name);
-    //    editfont=font_name;
+    set_app_parameter_string(APP_SP_EDIT_FONT, font_name);
   }
   edit_fontsel_hide(NULL, NULL);
 }

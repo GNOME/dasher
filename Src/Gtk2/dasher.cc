@@ -358,9 +358,17 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
 
   // See if AppSettings wants to do anything:
 
+  // Hmm - this seems to be the wrong way around...
+
   handle_core_change(iParameter);
 
 }
+
+void main_handle_parameter_change(int iParameter) {
+  if(iParameter == APP_SP_EDIT_FONT)
+    set_editbox_font(get_app_parameter_string(APP_SP_EDIT_FONT));
+}
+
 
 ///
 /// Load the window state (dimensions etc.) from GConf

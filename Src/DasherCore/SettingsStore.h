@@ -54,6 +54,8 @@ public:
   long GetLongParameter(int iParameter);
   std::string GetStringParameter(int iParameter);
 
+  void ResetParameter(int iParameter);
+
   ParameterType   GetParameterType(int iParameter);
   std::string     GetParameterName(int iParameter);
 

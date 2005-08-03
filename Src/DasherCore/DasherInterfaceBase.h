@@ -108,6 +108,11 @@ public:
 
   std::string GetStringParameter(int iParameter);
 
+  ///
+  /// Reset a parameter to the default value
+  
+  void ResetParameter(int iParmater);
+
   /// Forward events to listeners in the SettingsUI and Editbox.
   /// \param pEvent The event to forward.
   /// \todo Should be protected.

@@ -44,6 +44,7 @@ void gtk_dasher_control_set_parameter_long(GtkDasherControl * pControl, int iPar
 void gtk_dasher_control_set_parameter_string(GtkDasherControl * pControl, int iParameter, const char *szValue);
 bool gtk_dasher_control_get_parameter_bool(GtkDasherControl * pControl, int iParameter);
 long gtk_dasher_control_get_parameter_long(GtkDasherControl * pControl, int iParameter);
+void gtk_dasher_control_reset_parameter(GtkDasherControl * pControl, int iParameter);
 const char *gtk_dasher_control_get_parameter_string(GtkDasherControl * pControl, int iParameter);
 GArray *gtk_dasher_control_get_allowed_values(GtkDasherControl * pControl, int iParameter);
 void gtk_dasher_control_train(GtkDasherControl * pControl, const gchar * szFilename);
