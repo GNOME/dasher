@@ -169,7 +169,7 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
       // disable the candidate if the symbol does not match the present symbol
       for(unsigned int j(0); j < candidate.size(); j++) {
         if(kanji_pos < candidate[j].size()) {
-          if(ppmcontext->history[i] != candidate[j][kanji_pos]) {
+          if(ppmcontext->history[ui] != candidate[j][kanji_pos]) {
             for(unsigned int k(0); k < candidate[j].size(); k++) {
               candidate[j][k] = GetStartConversionSymbol();
             }
