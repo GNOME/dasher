@@ -189,7 +189,7 @@ void handle_parameter_change( int iParameter ) {
   }
 
   update_advanced(iParameter);
-
+  preferences_handle_parameter_change(iParameter);
 }
 
 int GetParameterCount() {
