@@ -1,3 +1,4 @@
+#include <iostream>
 #include "DasherControl.h"
 #include "Timer.h"
 #include "../DasherCore/DasherInterface.h"
@@ -7,7 +8,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
 #include <sys/stat.h>
-
+using namespace std;
 // 'Private' methods (only used in this file)
 
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
@@ -351,7 +352,7 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 }
 
 gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
-
+  cout << "Key press event!" << endl;
   switch (event->keyval) {
   case GDK_space:
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
