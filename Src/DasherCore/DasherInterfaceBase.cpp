@@ -141,6 +141,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       Start();
       RequestFullRedraw();
       break;
+    case BP_OUTLINE_MODE:
+      RequestFullRedraw();
+      break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
 	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());

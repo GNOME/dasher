@@ -112,7 +112,7 @@ extern "C" void select_open_file(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void save_file(GtkWidget *widget, gpointer user_data) {
   if(filename != NULL) {
-    //    save_file_as(filename,FALSE); // FIXME - REIMPLEMENT
+    save_file_as(filename,FALSE); // FIXME - REIMPLEMENT
   }
   else {
     select_save_file_as(NULL, NULL);
@@ -134,7 +134,7 @@ extern "C" void select_save_file_as(GtkWidget *widget, gpointer user_data) {
 #else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 #endif
-    //    save_file_as(filename,FALSE); // FIXME - REIMPLEMENT
+    save_file_as(filename,FALSE);
     g_free(filename);
   }
   gtk_widget_destroy(filesel);
@@ -145,6 +145,9 @@ extern "C" void select_save_file_as(GtkWidget *widget, gpointer user_data) {
 extern "C" void save_file_from_filesel_and_quit(GtkWidget *selector2, GtkFileSelection *selector) {
   filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(selector));
   if(save_file_as(filename, FALSE) == false) {
+
+    // FIXME - do we really just want to fail silently if the save operation fails?
+
     return;
   }
   else {
@@ -282,16 +285,13 @@ extern "C" void select_save_file_as_and_quit(GtkWidget *widget, gpointer user_da
 
 extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data) {
   if(filename != NULL) {
-
-    // FIXME - REIMPLEMENT
-
-    //    if (save_file_as(filename,FALSE)==true) {
+    if (save_file_as(filename,FALSE)==true) {
     //  exiting=TRUE;
     SaveWindowState();
     gtk_main_quit();
-    // } else {
-    return;
-    //}
+    } else {
+      return;
+    }
   }
   else {
     select_save_file_as(NULL, NULL);

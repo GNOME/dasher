@@ -37,6 +37,9 @@ GtkWidget *m_pTBButton;
 GtkWidget *m_pBTButton;
 GtkWidget *m_pSpeedSlider;
 
+// Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
+
+bool g_bIgnoreSignals(false);
 
 #define _(_x) gettext(_x)
 
@@ -99,7 +102,8 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1"))) != TRUE)
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE); 
     
-  
+    g_bIgnoreSignals = true;
+
     switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION)) {
     case Dasher::Opts::LeftToRight:
       if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
@@ -119,12 +123,13 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
       break;
     }
 
-    // FIXME - we're almost definitely generating events which hange the orientation here (is this a problem?)
-    
+    g_bIgnoreSignals = false;
+
     gtk_widget_set_sensitive(m_pLRButton, FALSE);
     gtk_widget_set_sensitive(m_pRLButton, FALSE);
     gtk_widget_set_sensitive(m_pTBButton, FALSE);
     gtk_widget_set_sensitive(m_pBTButton, FALSE);
+
 
     break;
   case Dasher::Opts::LeftToRight:
@@ -179,7 +184,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
 //   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
-
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE));
 }
 
 
@@ -622,6 +627,9 @@ extern "C" void adaptive(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 
+  if(g_bIgnoreSignals)
+    return;
+
   // Again, this could be neater.
   if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton1")) {
@@ -634,6 +642,8 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
       gtk_widget_set_sensitive(m_pTBButton, FALSE);
       gtk_widget_set_sensitive(m_pBTButton, FALSE);
 
+
+      g_bIgnoreSignals = true;
       
       switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION)) {
       case Dasher::Opts::LeftToRight:
@@ -653,6 +663,8 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pTBButton), TRUE);
 	break;
       }
+
+      g_bIgnoreSignals = false;
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton12")) {
       gtk_widget_set_sensitive(m_pLRButton, TRUE);
