@@ -1,3 +1,9 @@
+2005-08-03  Behdad Esfahbod  <behdad@behdad.org>
+
+	* Src/Gtk2/accessibility.cc: Move #include accessibility.h after
+	#include dasher.h such that we see the effect of config.h in
+	accessibility.h.  Was breaking build with GNOME_A11Y. (Kjartan Maraas)
+
 2005-07-29  Behdad Esfahbod  <behdad@behdad.org>
 
 	* configure.in: Turn Cairo on by default.
