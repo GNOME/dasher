@@ -291,12 +291,21 @@ double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
 
   // Avoid Mousex=0, as this corresponds to infinite zoom
 
+  // If Mousex is too large we risk overflow errors, so make limit it
+  // (this is a somewhat empirical limit - at some point we should
+  // probably do it a little more scientifically)
+
+  if(Mousex > 60000000)
+    Mousex = 60000000;
+
   int iTargetMin(Mousey - (m_DasherY * Mousex) / (2 * m_DasherOX));
   int iTargetMax(Mousey + (m_DasherY * Mousex) / (2 * m_DasherOX));
 
   // Calculate what the extremes of the viewport will be when the
   // point under the cursor is at the cross-hair. This is where 
   // we want to be in iSteps updates
+
+  //  std::cout << iTargetMin << " " << iTargetMax << std::endl;
 
   int iSteps = m_fr.Steps();
 
@@ -335,8 +344,6 @@ double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
     iTargetMax = iNewTargetMax;
 
   }
-
-  //  std::cout << Mousey << " " << iTargetMin << " " << iTargetMax << std::endl;
 
   // Check we're not going faster than the speed slider setting
   // allows, and adjust if necessary. Note that if we re-size the
