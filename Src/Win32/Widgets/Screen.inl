@@ -16,11 +16,15 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
   Rect.top = y1;
   Rect.right = x2;
   Rect.bottom = y2;
-  FillRect(m_hDCBuffer, &Rect, brush);
+  if(bFill)
+    FillRect(m_hDCBuffer, &Rect, brush);
 
 #ifndef DASHER_WINCE
   if(bDrawOutlines) {
-    FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(3));
+    if(iOutlineColour == -1)
+      FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(3));
+    else
+      FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
   }
 #endif
 
