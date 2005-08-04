@@ -591,12 +591,12 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
     iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
-    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactorX);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorX);
+    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactorY);
     break;
   case Dasher::Opts::BottomToTop:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactorX);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorX);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactorY);
     break;
   }
 }
