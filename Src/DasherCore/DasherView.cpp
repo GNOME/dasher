@@ -70,10 +70,10 @@ void CDasherView::DrawMousePosBox() {
 
   switch (iDrawMousePosBox) {
   case 1:
-    Screen()->DrawRectangle(0, iHeight / 2 - iMousePosDist + 50, iWidth, iHeight / 2 - iMousePosDist - 50, 119, Opts::Nodes1,false);
+    Screen()->DrawRectangle(8, iHeight / 2 - iMousePosDist + 50, iWidth-16, iHeight / 2 - iMousePosDist - 50, 0, 119, Opts::Nodes1,true, false, 4);
     break;
   case 2:
-    Screen()->DrawRectangle(0, iHeight / 2 + iMousePosDist + 50, iWidth, iHeight / 2 + iMousePosDist - 50, 120, Opts::Nodes1,false);
+    Screen()->DrawRectangle(8, iHeight / 2 + iMousePosDist + 50, iWidth-16, iHeight / 2 + iMousePosDist - 50, 0, 120, Opts::Nodes1,true, false, 4);
     break;
   default:
     //      DASHER_ASSERT(0);

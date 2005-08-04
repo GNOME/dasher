@@ -260,7 +260,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, ColorScheme, GetBoolParameter(BP_OUTLINE_MODE));
+    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, ColorScheme, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
   }
   else {
     int iDasherY(DasherModel()->DasherY());
@@ -923,7 +923,7 @@ void CDasherViewSquare::DasherPolygon(myint *x, myint *y, int n, int iColour) {
 
 // Draw a box specified in Dasher co-ordinates
 
-void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
+void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
 
   screenint iScreenLeft;
   screenint iScreenTop;
@@ -933,7 +933,7 @@ void CDasherViewSquare::DasherDrawRectangle(myint iLeft, myint iTop, myint iRigh
   Dasher2Screen(iLeft, iTop, iScreenLeft, iScreenTop);
   Dasher2Screen(iRight, iBottom, iScreenRight, iScreenBottom);
 
-  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, ColorScheme, bDrawOutline);
+  Screen()->DrawRectangle(iScreenLeft, iScreenTop, iScreenRight, iScreenBottom, Color, iOutlineColour, ColorScheme, bDrawOutline, bFill, iThickness);
 }
 
 /// Draw a rectangle centred on a given dasher co-ordinate, but with a size specified in screen co-ordinates (used for drawing the mouse blob)
@@ -945,7 +945,7 @@ void CDasherViewSquare::DasherDrawCentredRectangle(myint iDasherX, myint iDasher
 
   Dasher2Screen(iDasherX, iDasherY, iScreenX, iScreenY);
 
-  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, ColorScheme, bDrawOutline);
+  Screen()->DrawRectangle(iScreenX - iSize, iScreenY - iSize, iScreenX + iSize, iScreenY + iSize, Color, -1, ColorScheme, bDrawOutline, true, 1);
 }
 
 /// Draw text specified in Dasher co-ordinates. The position is
@@ -1202,9 +1202,9 @@ void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
   right = dasherx2screen(right);
 
   // Draw the lines
-  Screen()->DrawRectangle(left, top + 5, right, top - 5, 1, Opts::ColorSchemes(Objects), false);
-  Screen()->DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
-  Screen()->DrawRectangle(left, bottom + 5, right, bottom - 5, 1, Opts::ColorSchemes(Objects), false);
+  Screen()->DrawRectangle(left, top + 5, right, top - 5, 1, -1, Opts::ColorSchemes(Objects), false, true, 1);
+  Screen()->DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, -1, Opts::ColorSchemes(Objects), false, true, 1);
+  Screen()->DrawRectangle(left, bottom + 5, right, bottom - 5, 1, -1, Opts::ColorSchemes(Objects), false, true, 1);
 }
 
 void CDasherViewSquare::DrawMouse(screenint mousex, screenint mousey) {

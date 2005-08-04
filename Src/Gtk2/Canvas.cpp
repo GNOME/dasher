@@ -112,12 +112,18 @@ void CCanvas::Display() {
   gtk_main_iteration_do(0);
 }
 
-void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) {
+void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
   GdkGC *graphics_context;
   GdkColormap *colormap;
   GdkGCValues origvalues;
 
-  GdkColor outline = colours[3];
+  GdkColor outline;
+
+  if( iOutlineColour == -1 )
+    outline = colours[3];
+  else
+    outline = colours[iOutlineColour];
+    
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
 
@@ -150,16 +156,21 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, Opts::Col
     iTop = y2;
     iHeight = y1 - y2;
   }
-  
-  gdk_gc_set_foreground(graphics_context, &foreground);
-  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth, iHeight);
+
+  if(bFill) {
+    gdk_gc_set_foreground(graphics_context, &foreground);
+    gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth, iHeight);
+  }
   
   if(bDrawOutline) {
     gdk_gc_set_foreground(graphics_context, &outline);
+    gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, FALSE, iLeft, iTop, iWidth, iHeight);
   }
 
   gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_LINE_WIDTH);
+  
 }
 
 void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {

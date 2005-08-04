@@ -102,7 +102,7 @@ public:
   /// \param bDrawOutline Whether or not to draw outlines for the boxes
   ///
 
-  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutine);
+  void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutine, bool bFill, int iThickness);
 
   ///
   /// Send a marker to indicate phases of the redraw process. This is

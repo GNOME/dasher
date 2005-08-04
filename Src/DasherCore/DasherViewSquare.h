@@ -225,7 +225,7 @@ private:
   /// Draw a rectangle specified in Dasher co-ordinates
   ///
 
-  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, Opts::ColorSchemes ColorScheme,bool bDrawOutline);
+  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme,bool bDrawOutline, bool bFill, int iThickness);
 
   ///
   /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)

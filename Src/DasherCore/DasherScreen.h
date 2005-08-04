@@ -72,9 +72,11 @@ public:
   //! \param y2 bottom right of rectangle (y coordinate)
   //! \param Color the colour to be used (numeric)
   //! \param ColorScheme Which colourscheme is to be used
-  //! \param bDrawOutline Wheter to draw an outline or not
+  //! \param bDrawOutline Whether to draw an outline or not
+  /// \param bFill Whether to fill or not
+  /// \param iThickness Line thickness for outline
 
-  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline) = 0;
+  virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) = 0;
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
