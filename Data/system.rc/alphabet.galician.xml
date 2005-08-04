@@ -1,0 +1,131 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<alphabets>
+<alphabet name="Galego / Galician with punctuation and numerals">
+<!--
+Galician is a Romance language spoken by about 3 million people in Galicia, in the north-west corner of Spain. Galician is more or less mutually intelligible with Portuguese.
+-->
+<orientation type="LR"/>
+<encoding type="Western"/>
+<palette>Default</palette>
+<train>training_galician_ES.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="lower case letters" b="0">
+<s d="&#x0061;" t="&#x0061;"  note=" A "   />
+<s d="&#x00E1;" t="&#x00E1;"  note=" A WITH ACUTE "   />
+<s d="&#x0062;" t="&#x0062;"  note=" B "   />
+<s d="&#x0063;" t="&#x0063;"  note=" C "   />
+<s d="&#x0064;" t="&#x0064;"  note=" D "   />
+<s d="&#x0065;" t="&#x0065;"  note=" E "   />
+<s d="&#x00E9;" t="&#x00E9;"  note=" E WITH ACUTE "   />
+<s d="&#x0066;" t="&#x0066;"  note=" F "   />
+<s d="&#x0067;" t="&#x0067;"  note=" G "   />
+<s d="&#x0068;" t="&#x0068;"  note=" H "   />
+<s d="&#x0069;" t="&#x0069;"  note=" I "   />
+<s d="&#x00ED;" t="&#x00ED;"  note=" I WITH ACUTE "   />
+<s d="&#x006A;" t="&#x006A;"  note=" J "   />
+<s d="&#x006B;" t="&#x006B;"  note=" K "   />
+<s d="&#x006C;" t="&#x006C;"  note=" L "   />
+<s d="&#x006D;" t="&#x006D;"  note=" M "   />
+<s d="&#x006E;" t="&#x006E;"  note=" N "   />
+<s d="&#x00F1;" t="&#x00F1;"  note=" N WITH TILDE "   />
+<s d="&#x006F;" t="&#x006F;"  note=" O "   />
+<s d="&#x00F3;" t="&#x00F3;"  note=" O WITH ACUTE "   />
+<s d="&#x0070;" t="&#x0070;"  note=" P "   />
+<s d="&#x0071;" t="&#x0071;"  note=" Q "   />
+<s d="&#x0072;" t="&#x0072;"  note=" R "   />
+<s d="&#x0073;" t="&#x0073;"  note=" S "   />
+<s d="&#x0074;" t="&#x0074;"  note=" T "   />
+<s d="&#x0075;" t="&#x0075;"  note=" U "   />
+<s d="&#x00FA;" t="&#x00FA;"  note=" U WITH ACUTE "   />
+<s d="&#x0076;" t="&#x0076;"  note=" V "   />
+<s d="&#x0077;" t="&#x0077;"  note=" W "   />
+<s d="&#x0078;" t="&#x0078;"  note=" X "   />
+<s d="&#x0079;" t="&#x0079;"  note=" Y "   />
+<s d="&#x007A;" t="&#x007A;"  note=" Z "   />
+</group> 
+<group name="upper case letters" b="111"> 
+<s d="&#x0041;" t="&#x0041;"  note=" A "   />
+<s d="&#x00C1;" t="&#x00C1;"  note=" A WITH ACUTE "   />
+<s d="&#x0042;" t="&#x0042;"  note=" B "   />
+<s d="&#x0043;" t="&#x0043;"  note=" C "   />
+<s d="&#x0044;" t="&#x0044;"  note=" D "   />
+<s d="&#x0045;" t="&#x0045;"  note=" E "   />
+<s d="&#x00C9;" t="&#x00C9;"  note=" E WITH ACUTE "   />
+<s d="&#x0046;" t="&#x0046;"  note=" F "   />
+<s d="&#x0047;" t="&#x0047;"  note=" G "   />
+<s d="&#x0048;" t="&#x0048;"  note=" H "   />
+<s d="&#x0049;" t="&#x0049;"  note=" I "   />
+<s d="&#x00CD;" t="&#x00CD;"  note=" I WITH ACUTE "   />
+<s d="&#x004A;" t="&#x004A;"  note=" J "   />
+<s d="&#x004B;" t="&#x004B;"  note=" K "   />
+<s d="&#x004C;" t="&#x004C;"  note=" L "   />
+<s d="&#x004D;" t="&#x004D;"  note=" M "   />
+<s d="&#x004E;" t="&#x004E;"  note=" N "   />
+<s d="&#x00D1;" t="&#x00D1;"  note=" N WITH TILDE "   />
+<s d="&#x004F;" t="&#x004F;"  note=" O "   />
+<s d="&#x00D3;" t="&#x00D3;"  note=" O WITH ACUTE "   />
+<s d="&#x0050;" t="&#x0050;"  note=" P "   />
+<s d="&#x0051;" t="&#x0051;"  note=" Q "   />
+<s d="&#x0052;" t="&#x0052;"  note=" R "   />
+<s d="&#x0053;" t="&#x0053;"  note=" S "   />
+<s d="&#x0054;" t="&#x0054;"  note=" T "   />
+<s d="&#x0055;" t="&#x0055;"  note=" U "   />
+<s d="&#x00DA;" t="&#x00DA;"  note=" U WITH ACUTE "   />
+<s d="&#x0056;" t="&#x0056;"  note=" V "   />
+<s d="&#x0057;" t="&#x0057;"  note=" W "   />
+<s d="&#x0058;" t="&#x0058;"  note=" X "   />
+<s d="&#x0059;" t="&#x0059;"  note=" Y "   />
+<s d="&#x005A;" t="&#x005A;"  note=" Z "   />
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1"/>
+<s d="2" t="2"/>
+<s d="3" t="3"/>
+<s d="4" t="4"/>
+<s d="5" t="5"/>
+<s d="6" t="6"/>
+<s d="7" t="7"/>
+<s d="8" t="8"/>
+<s d="9" t="9"/>
+<s d="0" t="0"/>
+</group>
+<group name="Punctuation" b="112">
+<s d="%" t="%"/>
+<s d="*" t="*"/>
+<s d="+" t="+"/>
+<s d="=" t="="/>
+<s d="/" t="/"/>
+<s d="#" t="#"/>
+<s d="$" t="$"/>
+<s d="|" t="|"/>
+<s d="\" t="\"/>
+<s d="~" t="~"/>
+<s d="^" t="^"/>
+<s d="_" t="_"/>
+<s d="&amp;" t="&amp;"/>
+<s d="@" t="@"/>
+<s d="[" t="["/>
+<s d="]" t="]"/>
+<s d="{" t="{"/>
+<s d="}" t="}"/>
+<s d="&lt;" t="&lt;"/>
+<s d="&gt;" t="&gt;"/>
+<s d="(" t="("/>
+<s d=")" t=")"/>
+<s d="&quot;" t="&quot;"/>
+<s d="`" t="`"/>
+<s d="&apos;" t="&apos;"/>
+<s d="-" t="-"/>
+<s d=":" t=":"/>
+<s d=";" t=";"/>
+<s d="?" t="?"/>
+<s d="!" t="!"/>
+<s d="," t=","/>
+<s d="." t="."/>
+</group>
+</alphabet>
+</alphabets>
