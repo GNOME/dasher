@@ -88,7 +88,7 @@ CDasherWindow::CDasherWindow()
 
   // Create a CAppSettings
 
-  m_pAppSettings = new CAppSettings(m_pDasher);
+  m_pAppSettings = new CAppSettings(m_pDasher, m_hwnd);
 
   // Add extra control nodes
 
@@ -161,6 +161,14 @@ void CDasherWindow::SaveWindowState() const {
 
 bool CDasherWindow::LoadWindowState() {
   return false;
+}
+
+void CDasherWindow::HandleParameterChange(int iParameter) {
+  switch(iParameter) {
+    case APP_BP_SHOW_TOOLBAR:
+      m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
+      break;
+  }
 }
 
 void CDasherWindow::HandleControlEvent(int iID) {
@@ -253,7 +261,8 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
 
     switch(pEvent->m_iEventType) {
       case EV_PARAM_NOTIFY:
-         break;
+        HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
+        break;
       case EV_EDIT:
         break;
       case EV_EDIT_CONTEXT:

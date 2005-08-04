@@ -37,10 +37,10 @@ const uint64 uint64_0xffffffff00000000ULL = 0xffffffff00000000ULL;
 class Cint32 {
  public:
   static int32 Max() {
-    return std::numeric_limits < int32 >::max();
+    return std::numeric_limits< int32 >::max();
   }
   static int32 Min() {
-    return std::numeric_limits < int32 >::min();
+    return std::numeric_limits< int32 >::min();
   }
 
   Cint32() {

@@ -61,6 +61,8 @@ private:
 
   void HandleControlEvent(int iID);
 
+  void HandleParameterChange(int iParameter);
+
   // Widgets:
   CToolbar *m_pToolbar;
   CEdit *m_pEdit;

@@ -16,6 +16,7 @@
 #include <windows.h>
 #include <winbase.h>
 #include <Commdlg.h>
+#include <limits>
 
 // Use common controls
 #include <commctrl.h>

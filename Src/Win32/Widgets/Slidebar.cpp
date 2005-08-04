@@ -93,7 +93,7 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, do
   // Slider format: bit rate range of 0-8 with control precision of 0.01
   SendMessage(SB_slider, TBM_SETPAGESIZE, 0L, 20);      // PgUp and PgDown change bitrate by reasonable amount
   SendMessage(SB_slider, TBM_SETTICFREQ, 100, 0L);
-  SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 800));
+  SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(10, 800));
   SendMessage(SB_slider, TBM_SETPOS, TRUE, 201);        // TRUE means can show it now.
   WinWrapMap::add(SB_slider, this);
   SL_WndFunc = (WNDPROC) SetWindowLong(SB_slider, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
