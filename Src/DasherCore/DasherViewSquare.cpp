@@ -472,24 +472,27 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
 
-  double dScaleFactor(GetScaleFactor( eOrientation ));
+  double dScaleFactorX;
+  double dScaleFactorY;
+  
+  GetScaleFactor(eOrientation, &dScaleFactorX, &dScaleFactorY);
 
   switch(eOrientation) {
   case Dasher::Opts::LeftToRight:
-    iDasherX = myint(iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
+    iDasherX = myint(iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) / dScaleFactorX);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactorY);
     break;
   case Dasher::Opts::RightToLeft:
-    iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
+    iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactorX);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iDasherX = myint(iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
+    iDasherX = myint(iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) / dScaleFactorY);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactorX);
     break;
   case Dasher::Opts::BottomToTop:
-    iDasherX = myint(iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactor);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactor);
+    iDasherX = myint(iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) / dScaleFactorY);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / dScaleFactorX);
     break;
   }
 
@@ -501,7 +504,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 }
 
 
-double CDasherViewSquare::GetScaleFactor( int eOrientation ) {
+void CDasherViewSquare::GetScaleFactor( int eOrientation, double *dScaleFactorX, double *dScaleFactorY ) {
 
   // Things we're likely to need:
 
@@ -540,8 +543,18 @@ double CDasherViewSquare::GetScaleFactor( int eOrientation ) {
   else
     dScaleFactor = dVScaleFactor;
 
-  return dScaleFactor;
-
+  if( iScreenWidth > 4 * iScreenHeight ) {
+    *dScaleFactorX = dScaleFactor * iScreenWidth / (4*iScreenHeight);
+    *dScaleFactorY = dScaleFactor;
+  } 
+  else if(iScreenHeight > 4 * iScreenWidth) {
+    *dScaleFactorX = dScaleFactor;
+    *dScaleFactorY = dScaleFactor * iScreenHeight / (4*iScreenWidth);
+  }
+  else {
+    *dScaleFactorX = dScaleFactor;
+    *dScaleFactorY = dScaleFactor;
+  }
 }
 
 /// Convert dasher co-ordinates to screen co-ordinates
@@ -563,24 +576,27 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
 
-  double dScaleFactor( GetScaleFactor( eOrientation ) );
+  double dScaleFactorX;
+  double dScaleFactorY;
+
+  GetScaleFactor( eOrientation, &dScaleFactorX, &dScaleFactorY);
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    iScreenX = screenint(iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
+    iScreenX = screenint(iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactorX);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
     break;
   case Dasher::Opts::RightToLeft:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactorX);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
-    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
+    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * dScaleFactorX);
     break;
   case Dasher::Opts::BottomToTop:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactor);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * dScaleFactorY);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * dScaleFactorX);
     break;
   }
 }

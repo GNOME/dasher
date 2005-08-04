@@ -8,7 +8,7 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines) {
+inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness) {
 //      HBRUSH brush=m_Brushes[ColorScheme][Color%m_Brushes[ColorScheme].size()];
   HBRUSH brush = CScreen::GetBrush(Color);
   RECT Rect;

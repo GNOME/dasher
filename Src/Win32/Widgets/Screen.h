@@ -45,7 +45,7 @@ public:
   //! Draw UTF8-encoded string String of size Size positioned at x1 and y1
   void DrawString(const std::string & String, Dasher::screenint x1, Dasher::screenint y1, int Size);
 
-  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines);
+  void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness);
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array

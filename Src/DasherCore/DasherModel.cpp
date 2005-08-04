@@ -614,7 +614,7 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
     // We might be moving at zoomfactor one vertically, in which case the below invention won't
     // come up with more than one step.  Look for a mousey difference and use an iSteps concordant
     // to that if it would be larger than the iSteps created by taking the log of the zoomfactor. 
-    float distance = mousey - (m_DasherY/2);
+    int distance = mousey - (m_DasherY/2);
 
     double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
 

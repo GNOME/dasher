@@ -335,8 +335,7 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
           ChooseFont(&Data);
           string FontName;
           WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-     //     m_pDasher->SetLongParameter(LP_EDIT_FONT_SIZE, lf.lfHeight);
-//m_pDasher->SetStringParameter(SP_EDIT_FONT, FontName);
+          m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
         }
         break;
       case ID_OPTIONS_DASHERFONT:{
@@ -351,13 +350,12 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
           ChooseFont(&Data);
           string FontName;
           WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-          m_pDasher->SetStringParameter(SP_DASHER_FONT, FontName);
+          m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
         }
         break;
       case ID_OPTIONS_RESETFONT:
-//        m_pDasher->SetLongParameter(LP_EDIT_FONT_SIZE, 0);
- //       m_pDasher->SetStringParameter(SP_EDIT_FONT, "");
-        m_pDasher->SetStringParameter(SP_DASHER_FONT, "");
+        m_pAppSettings->ResetParamater(SP_DASHER_FONT);
+        m_pAppSettings->ResetParamater(APP_SP_EDIT_FONT);
         break;
       case IDM_ABOUT:{
           CAboutbox Aboutbox(m_hwnd);

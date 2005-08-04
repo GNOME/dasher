@@ -107,7 +107,7 @@ public:
   /// Get the scale factor for conversion between Dasher co-ordinates
   /// and screen co-ordinates
 
-  double GetScaleFactor( int eOrientation );
+  void GetScaleFactor( int eOrientation, double *dScaleFactorX, double *dScaleFactorY );
 
   /// Checks for start on mouse behaviour and updates which boxes are
   /// displayed, triggers starts etc.

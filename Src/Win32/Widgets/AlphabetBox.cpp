@@ -295,8 +295,8 @@ bool CAlphabetBox::Validate() {
 bool CAlphabetBox::Apply() {
 
   if(m_CurrentAlphabet != std::string("")) {
-    if(m_CurrentAlphabet != m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID));
-      m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);
+    if(m_CurrentAlphabet != m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID))
+      m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet); 
   }
 
   // Return false (and notify the user) if something is wrong.
