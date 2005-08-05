@@ -152,10 +152,9 @@ CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguag
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_FILE, -2);
 }
 
-// FIXME - need to take all this down (free control tree);
 CControlManager::~CControlManager()
 {
-  for (std::map<int,CControlNode*>::iterator i = m_mapControlMap.begin(); i != m_mapControlMap.end(); i++) {
+  for(std::map<int,CControlNode*>::iterator i = m_mapControlMap.begin(); i != m_mapControlMap.end(); i++) {
     CControlNode* pNewNode = i->second;
     if (pNewNode != NULL) {
       delete pNewNode;
