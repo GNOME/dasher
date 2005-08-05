@@ -1,3 +1,7 @@
+2005-08-05  Behdad Esfahbod  <behdad@behdad.org>
+
+	* configure.in:  Fix around Xtst. (#14950)
+
 2005-08-03  Behdad Esfahbod  <behdad@behdad.org>
 
 	* Src/Gtk2/accessibility.cc: Move #include accessibility.h after
