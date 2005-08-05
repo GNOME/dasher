@@ -99,6 +99,7 @@
 #define IDC_BUTTON3                     1018
 #define IDC_ADD_GROUP                   1019
 #define IDC_CLIPTOALPH_UNORDERED        1020
+#define IDC_THICKLINE                   1020
 #define IDC_LIST2                       1021
 #define IDC_LIST_GROUP                  1022
 #define IDC_CLIPTOALPH_ORDERED          1023

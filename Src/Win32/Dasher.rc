@@ -468,16 +468,16 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "View Options:",IDC_STATIC,6,82,248,94
+    GROUPBOX        "View Options:",IDC_STATIC,6,82,248,121
     CONTROL         "Draw box outlines",IDC_OUTLINE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,12,148,73,10
+                    WS_TABSTOP,12,160,73,10
     CONTROL         "Show mouse position",IDC_DRAWMOUSE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,12,120,83,10
     CONTROL         "Draw line between crosshair and mouse",
                     IDC_DRAWMOUSELINE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
                     12,134,236,10
     CONTROL         "Change colour scheme automatically",IDC_COLOURSCHEME,
-                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,162,201,8
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,12,175,201,8
     GROUPBOX        "Orientation:",IDC_STATIC,6,6,248,71
     CONTROL         "Alphabet default",IDC_RADIO1,"Button",
                     BS_AUTORADIOBUTTON,12,16,69,10
@@ -493,6 +493,8 @@ BEGIN
                     WS_TABSTOP,12,92,58,10
     CONTROL         "Show speed slider",IDC_CHECK2,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,12,106,73,10
+    CONTROL         "Increase line thickness",IDC_THICKLINE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,22,147,88,10
 END
 
 IDD_DIALOG4 DIALOGEX 0, 0, 256, 239
@@ -661,6 +663,7 @@ BEGIN
         LEFTMARGIN, 6
         RIGHTMARGIN, 254
         VERTGUIDE, 12
+        VERTGUIDE, 22
         VERTGUIDE, 248
         TOPMARGIN, 6
         BOTTOMMARGIN, 232

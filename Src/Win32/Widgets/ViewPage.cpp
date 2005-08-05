@@ -59,6 +59,11 @@ void CViewPage::PopulateList() {
     }
   }
 
+  if(m_pAppSettings->GetLongParameter(LP_LINE_WIDTH) > 1)
+    SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_SETCHECK, BST_CHECKED, 0);
+  else
+    SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_SETCHECK, BST_UNCHECKED, 0);
+
   // Populate the orientation selection:
 
   switch(m_pAppSettings->GetLongParameter(LP_ORIENTATION)) {
@@ -92,16 +97,20 @@ bool CViewPage::Apply() {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0));
   }
 
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(LP_LINE_WIDTH, 3);
+  else
+    m_pAppSettings->SetLongParameter(LP_LINE_WIDTH, 1);
 
-  if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_GETCHECK, BST_CHECKED, 0))
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO1), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::AlphabetDefault);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_GETCHECK, BST_CHECKED, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO2), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::LeftToRight);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_GETCHECK, BST_CHECKED, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO3), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::RightToLeft);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_GETCHECK, BST_CHECKED, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO4), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::TopToBottom);
-  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, BST_CHECKED, 0))
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::BottomToTop);
 
   // Return false (and notify the user) if something is wrong.
