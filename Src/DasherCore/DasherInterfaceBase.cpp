@@ -770,7 +770,7 @@ void CDasherInterfaceBase::ResetNats() {
 
 
 void CDasherInterfaceBase::SetContext(std::string strNewContext) {
-  
+
   // We keep track of an internal context and compare that to what
   // we are given - don't restart Dasher if nothing has changed.
   // This should really be integrated with DasherModel, which

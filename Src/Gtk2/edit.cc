@@ -240,7 +240,6 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
   g_bIgnoreCursorMove = true;
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
-  g_bIgnoreCursorMove = false;
   dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
@@ -252,6 +251,9 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
     return;
   }
 #endif
+
+  g_bIgnoreCursorMove = false;
+
 
   if(keyboardmodeon) {
 #ifdef X_HAVE_UTF8_STRING
@@ -683,8 +685,9 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
   gtk_text_iter_backward_chars(start, displaylength);
  g_bIgnoreCursorMove = true;
   gtk_text_buffer_delete(the_text_buffer, start, end);
- g_bIgnoreCursorMove = false;
   dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+ g_bIgnoreCursorMove = false;
+
 
 #ifdef GNOME_SPEECH
   if(((signed int)say.length() - length) >= 0) {
