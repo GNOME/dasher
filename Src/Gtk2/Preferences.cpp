@@ -529,6 +529,8 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
 
     struct TrainingThreadData *pThreadData(new struct TrainingThreadData);
 
+    std::cout << "*" << _("Training Dasher, please wait") << "*" << std::endl;
+
     train_dialogue = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, _("Training Dasher, please wait"));
     gtk_window_set_resizable(GTK_WINDOW(train_dialogue), FALSE);
     gtk_window_present(GTK_WINDOW(train_dialogue));
@@ -536,6 +538,11 @@ extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
     pThreadData->szAlphabet = alph;
     pThreadData->pTrainingDialogue = train_dialogue;
     pThreadData->pDasherControl = pDasherWidget;
+
+    // Clear the queue of GTK events to make sure the dialogue gets displayed before we start training.
+
+    while(gtk_events_pending())
+      gtk_main_iteration();
 
     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet);
  

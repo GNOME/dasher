@@ -635,6 +635,11 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
     Me->InputInfo.PreferredColours = Me->CData;
     return;
   }
+
+//   if(!strcmp(name, "group")) {
+//     Me->pOpenGroups.pop_back();
+//     return;
+//   }
 }
 
 void CAlphIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {

@@ -164,10 +164,10 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID)); 
 
       // FIXME - the new widgets in the preferences box are breaking this
-
+      
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
-
+ 	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+      
       Start();
       RequestFullRedraw();
       break;
