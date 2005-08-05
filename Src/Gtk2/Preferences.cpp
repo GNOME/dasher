@@ -17,6 +17,8 @@ void PopulateViewPage(GladeXML * pGladeWidgets);
 void PopulateButtonsPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 
+void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
+
 extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
@@ -350,12 +352,9 @@ void generate_preferences(GladeXML *pGladeWidgets) {
     gtk_list_store_append(alph_list_store, &alphiter);
     gtk_list_store_set(alph_list_store, &alphiter, 0, pCurrentAlphabet, -1);
 
-    if(!strcmp(pCurrentAlphabet, gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID))) {
-      gchar ugly_path_hack[100];
-      sprintf(ugly_path_hack, "%d", i);
-      gtk_tree_selection_select_iter(alphselection, &alphiter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview), gtk_tree_path_new_from_string(ugly_path_hack), NULL, false);
-    }
+    if(!strcmp(pCurrentAlphabet, gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID)))
+      SetAlphabetSelection(i, &alphiter);
+    
   }
 
   g_array_free(pAlphabetArray, true);
@@ -415,6 +414,22 @@ void generate_preferences(GladeXML *pGladeWidgets) {
     gtk_widget_set_sensitive(colourtreeview, TRUE);
   }
 }
+
+void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter) {
+ //  gchar ugly_path_hack[100];
+//   sprintf(ugly_path_hack, "%d", i);
+  gtk_tree_selection_select_iter(alphselection, pAlphIter);
+
+  // GtkTreePath *pPath(gtk_tree_path_new_from_string(ugly_path_hack));
+
+  GtkTreePath *pPath(gtk_tree_model_get_path(GTK_TREE_MODEL(alph_list_store), pAlphIter));
+  
+  gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview), pPath, NULL, false);
+  gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(alphabettreeview), pPath, NULL, false, 0.5, 0.0);
+  
+  gtk_tree_path_free(pPath);
+}
+
 
 void update_colours() {
 

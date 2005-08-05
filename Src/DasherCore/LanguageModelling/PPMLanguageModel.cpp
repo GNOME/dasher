@@ -154,6 +154,11 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context, int s
         // creates new nodes, updates counts
         // and leaves 'context' at the new context
 {
+  // Ignore attempts to add the root symbol
+
+  if(sym==0)
+    return;
+
   DASHER_ASSERT(sym >= 0 && sym < GetSize());
 
   CPPMnode *vineptr, *temp;
@@ -184,6 +189,9 @@ void CPPMLanguageModel::AddSymbol(CPPMLanguageModel::CPPMContext &context, int s
 // Update context with symbol 'Symbol'
 
 void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
+  if(Symbol==0)
+    return;
+
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
 
   CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
@@ -223,6 +231,10 @@ void CPPMLanguageModel::EnterSymbol(Context c, int Symbol) {
 /////////////////////////////////////////////////////////////////////
 
 void CPPMLanguageModel::LearnSymbol(Context c, int Symbol) {
+  if(Symbol==0)
+    return;
+  
+
   DASHER_ASSERT(Symbol >= 0 && Symbol < GetSize());
   CPPMLanguageModel::CPPMContext & context = *(CPPMContext *) (c);
   AddSymbol(context, Symbol);
