@@ -509,16 +509,16 @@ BEGIN
                     IDC_STATIC,12,122,232,18
     EDITTEXT        IDC_UNIFORMVAL,12,145,30,12,ES_AUTOHSCROLL | ES_READONLY
     GROUPBOX        "Language Model:",IDC_STATIC,6,5,244,65
-    CONTROL         "Standard letter-based PPM",IDC_RADIO1,"Button",
+    CONTROL         "Standard letter-based PPM",IDC_LM_PPM,"Button",
                     BS_AUTORADIOBUTTON,12,16,102,10
-    CONTROL         "Word-based model",IDC_RADIO2,"Button",
+    CONTROL         "Word-based model",IDC_LM_WORD,"Button",
                     BS_AUTORADIOBUTTON,12,29,76,10
-    CONTROL         "Mixture model (PPM/dictionary)",IDC_RADIO3,"Button",
+    CONTROL         "Mixture model (PPM/dictionary)",IDC_LM_MIXTURE,"Button",
                     BS_AUTORADIOBUTTON,12,42,115,10
-    CONTROL         "Japanese",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,12,55,
-                    47,10
+    CONTROL         "Japanese",IDC_LM_JAPANESE,"Button",BS_AUTORADIOBUTTON,
+                    12,55,47,10
     GROUPBOX        "Adaptation:",IDC_STATIC,6,78,244,25
-    CONTROL         "Language model adapts as you write",IDC_CHECK1,"Button",
+    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,12,88,133,10
     GROUPBOX        "Smoothing:",IDC_STATIC,6,112,244,54
 END

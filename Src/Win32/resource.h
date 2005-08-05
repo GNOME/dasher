@@ -192,6 +192,11 @@
 #define IDC_RADIO5                      1111
 #define IDC_CHECK1                      1112
 #define IDC_CHECK2                      1113
+#define IDC_ADAPTIVE                    1114
+#define IDC_LM_PPM                      1115
+#define IDC_LM_WORD                     1116
+#define IDC_LM_MIXTURE                  1117
+#define IDC_LM_JAPANESE                 1118
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -245,7 +250,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1114
+#define _APS_NEXT_CONTROL_VALUE         1119
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

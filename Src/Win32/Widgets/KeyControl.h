@@ -35,8 +35,6 @@ private:
   bool Editing;
   bool SelectionSet;
 
-  TCHAR m_tcBuffer[1000];
-
 };
 
 #endif  /* #ifndef __AlphabetBox_h__ */

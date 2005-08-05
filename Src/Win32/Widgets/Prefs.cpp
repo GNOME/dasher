@@ -39,7 +39,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
   m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher);
-  m_pLMPage = new CLMPage(hParent, pDasher);
+  m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
 
     PROPSHEETPAGE psp[6];
     PROPSHEETHEADER psh;

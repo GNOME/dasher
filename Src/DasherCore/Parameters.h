@@ -14,7 +14,7 @@ enum {
   BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
   BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
   BP_LM_LETTER_EXCLUSION, BP_AUTO_SPEEDCONTROL, BP_CLICK_MODE, 
-  END_OF_BPS
+  BP_LM_ADAPTIVE, END_OF_BPS
 };
 
 enum { 
@@ -97,7 +97,8 @@ static bp_table boolparamtable[] = {
   {BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
   {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, false, "Whether to do letter exclusion in the word-based model"},
   {BP_AUTO_SPEEDCONTROL, "AutoSpeedControl", PERS, true, "AutoSpeedControl"},
-  {BP_CLICK_MODE, "ClickMode", PERS, false, "Dasher Click Mode"}
+  {BP_CLICK_MODE, "ClickMode", PERS, false, "Dasher Click Mode"},
+  {BP_LM_ADAPTIVE, "LMAdaptive", PERS, true, "Whether language model should learn as you enter text"}
 };
 
 static lp_table longparamtable[] = {

@@ -74,13 +74,7 @@ void CKeyBox::PopulateWidgets() {
 	int* coords = m_pCanvas->getkeycoords(); */
 
 
-  slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
-  SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
-  SendMessage(slider, TBM_SETTICFREQ, 10, 0L);
-  SendMessage(slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 1000));
-  SendMessage(slider, TBM_SETPOS, TRUE, (LPARAM) m_pDasher->GetLongParameter(LP_UNIFORM));
-
-  uniformbox = GetDlgItem(m_hwnd, IDC_UNIFORMVAL);
+ 
 
 //      std::basic_ostringstream<TCHAR> strUniform;
 //      strUniform.setf(ios::fixed);
@@ -89,9 +83,7 @@ void CKeyBox::PopulateWidgets() {
 
 // FIXME - why do we store things like 'uniform' here - surely they should be stored in the interface?
 
-  _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), m_pDasher->GetLongParameter(LP_UNIFORM) / 10.0);
-
-  SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+  
 
 /*	for (int i=0; i<18; i++) {
 		EditBox = GetDlgItem(m_hwnd, widgets[i]);
@@ -124,22 +116,7 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
       return TRUE;
       break;
     }
-  case WM_HSCROLL:
-    if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
-      // Some messages give the new postion
-      NewUniform = HIWORD(wParam);
-    }
-    else {
-      // Otherwise we have to ask for it
-      long Pos = SendMessage(slider, TBM_GETPOS, 0, 0);
-      NewUniform = Pos;
-    }
-    {
-      _sntprintf(m_tcBuffer, 100, TEXT("%0.1f"), NewUniform / 10);
-      SendMessage(uniformbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
-    }
-    return TRUE;
-    break;
+
   case WM_COMMAND:
     switch (LOWORD(wParam)) {
     case (IDC_DISPLAY):
