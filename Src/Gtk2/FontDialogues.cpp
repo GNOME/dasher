@@ -18,6 +18,10 @@ GtkFontSelectionDialog *dasher_fontselector, *edit_fontselector;
 void InitialiseFontDialogues(GladeXML *pGladeWidgets) {
   dasher_fontselector = GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(pGladeWidgets, "dasher_fontselector"));
   edit_fontselector = GTK_FONT_SELECTION_DIALOG(glade_xml_get_widget(pGladeWidgets, "edit_fontselector"));
+
+ gtk_window_set_transient_for(GTK_WINDOW(dasher_fontselector), GTK_WINDOW(window));
+ gtk_window_set_transient_for(GTK_WINDOW(edit_fontselector), GTK_WINDOW(window));
+
 }
 
 extern "C" gboolean fontsel_hide(GtkWidget *widget, gpointer user_data) {

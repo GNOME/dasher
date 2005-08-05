@@ -64,6 +64,9 @@ struct TrainingThreadData {
 
 void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   preferences_window = glade_xml_get_widget(pGladeWidgets, "preferences");
+
+  gtk_window_set_transient_for(GTK_WINDOW(preferences_window), GTK_WINDOW(window));
+
   m_pSpeedSlider = glade_xml_get_widget(pGladeWidgets, "hscale1");
 
   generate_preferences(pGladeWidgets);
