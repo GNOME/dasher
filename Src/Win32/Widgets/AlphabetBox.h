@@ -26,6 +26,11 @@ private:
   std::vector < std::string > AlphabetList;
   std::string m_CurrentAlphabet;
   Dasher::CAlphIO::AlphInfo CurrentInfo;
+
+  std::vector < std::string > ColourList;
+  std::string m_CurrentColours;
+  Dasher::CColourIO::ColourInfo CurrentColourInfo;
+
   // Some status flags:
   bool Editing;
   bool EditChar;

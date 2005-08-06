@@ -25,7 +25,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
-:m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
+:m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
 }
 
@@ -54,6 +54,30 @@ void CAlphabetBox::PopulateList() {
   }
   // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
   SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_ALPHABETS, LBN_SELCHANGE), 0);
+
+  ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
+  m_pDasherInterface->GetColours(&ColourList);
+
+  // Add each string to list box and index each one
+  SelectionSet = false;
+  for(unsigned int i = 0; i < ColourList.size(); i++) {
+    Tstring Item;
+    WinUTF8::UTF8string_to_wstring(ColourList[i], Item);
+    LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
+    SendMessage(ListBox, LB_SETITEMDATA, Index, (LPARAM) i);
+    if(ColourList[i] == m_CurrentColours) {
+      SendMessage(ListBox, LB_SETCURSEL, Index, 0);
+      SelectionSet = true;
+    }
+  }
+  if(SelectionSet == false) {
+    SendMessage(ListBox, LB_SETCURSEL, 0, 0);
+    LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, 0, 0);
+    m_CurrentColours = ColourList[CurrentIndex];
+  }
+  // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
+  SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_COLOURS, LBN_SELCHANGE), 0);
+
 }
 
 void CAlphabetBox::InitCustomBox() {
@@ -299,6 +323,10 @@ bool CAlphabetBox::Apply() {
       m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet); 
   }
 
+  if(m_CurrentColours != std::string("")) {
+        m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
+  }
+
   // Return false (and notify the user) if something is wrong.
   return TRUE;
 }
@@ -418,6 +446,15 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
           EnableWindow(GetDlgItem(m_hwnd, IDC_DEL_ALPH), FALSE);
           EnableWindow(GetDlgItem(m_hwnd, IDC_EDIT), FALSE);
         }
+      }
+      return TRUE;
+      break;
+      case (IDC_COLOURS):
+      if(HIWORD(wParam) == LBN_SELCHANGE) {
+        HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
+        LRESULT CurrentItem = SendMessage(ListBox, LB_GETCURSEL, 0, 0);
+        LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, CurrentItem, 0);
+        m_CurrentColours = ColourList[CurrentIndex];
       }
       return TRUE;
       break;
