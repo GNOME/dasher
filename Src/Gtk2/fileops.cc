@@ -1,7 +1,7 @@
 #include <gtk/gtk.h>
 #include <stdio.h>
-#include "fileops.h"
 #include "dasher.h"
+#include "fileops.h"
 #include "edit.h"
 
 extern gboolean file_modified;

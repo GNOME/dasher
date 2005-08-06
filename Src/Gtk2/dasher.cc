@@ -20,11 +20,6 @@
 #include <gnome-speech/gnome-speech.h>
 #endif
 
-#ifdef GNOME_LIBS
-#include <libgnomeui/libgnomeui.h>
-#include <libgnome/libgnome.h>
-#endif
-
 #include "mouse_input.h"
 
 #include "libdasher.h"
@@ -34,6 +29,11 @@
 #include "edit.h"
 #include "accessibility.h"
 #include "fileops.h"
+
+#ifdef GNOME_LIBS
+#include <libgnomeui/libgnomeui.h>
+#include <libgnome/libgnome.h>
+#endif
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"

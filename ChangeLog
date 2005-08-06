@@ -1,6 +1,12 @@
+2005-08-06  Behdad Esfahbod  <behdad@behdad.org>
+
+	* Src/main.cc, Src/Gtk2/dasher.cc, Src/Gtk2/fileops.cc: Move
+	#include's around such that we see the effect of config.h soon.
+	Was breaking build with GNOME_A11Y. (#312765)
+
 2005-08-05  Behdad Esfahbod  <behdad@behdad.org>
 
-	* configure.in:  Fix around Xtst. (#14950)
+	* configure.in:  Fix around Xtst. (#140950)
 
 2005-08-03  Behdad Esfahbod  <behdad@behdad.org>
 

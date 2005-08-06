@@ -2,6 +2,22 @@
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
 
+#define PREFIX "/usr/"
+#define SYSCONFDIR "/usr/share/dasher/"
+#define LIBDIR "/usr/lib/"
+#define DATADIR "/usr/share/dasher/"
+
+#include <libintl.h>
+#include <locale.h>
+#include <stdio.h>
+#include <stdlib.h>
+//#include <getopt.h>
+
+#include "libdasher.h"
+#include "dasher.h"
+#include "canvas.h"
+#include "edit.h"
+
 #ifndef WITH_GPE
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
@@ -27,22 +43,6 @@ static const struct poptOption options [] =
   {NULL, '\0', 0, NULL, 0}
 };
 #endif
-
-#define PREFIX "/usr/"
-#define SYSCONFDIR "/usr/share/dasher/"
-#define LIBDIR "/usr/lib/"
-#define DATADIR "/usr/share/dasher/"
-
-#include <libintl.h>
-#include <locale.h>
-#include <stdio.h>
-#include <stdlib.h>
-//#include <getopt.h>
-
-#include "libdasher.h"
-#include "dasher.h"
-#include "canvas.h"
-#include "edit.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
