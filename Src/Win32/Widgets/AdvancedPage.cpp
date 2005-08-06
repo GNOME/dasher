@@ -26,8 +26,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAdvancedPage::CAdvancedPage(HWND Parent, CDasherInterface *DI)
-:m_pDasherInterface(DI), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)) {
+CAdvancedPage::CAdvancedPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+:m_pDasherInterface(DI), m_pAppSettings(pAppSettings) {
   m_hwnd = 0;
 }
 
@@ -41,7 +41,27 @@ struct menuentry {
 //  {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
 //};
 
+std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) {
+  HWND Control = GetDlgItem(Dialog, ControlID);
+  LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;      // +1 to allow for terminator
+  TCHAR *Buffer = new TCHAR[BufferLength];
+  SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
+  string ItemName;
+  WinUTF8::wstring_to_UTF8string(Buffer, ItemName);
+  delete[]Buffer;
+  return ItemName;
+}
+
 void CAdvancedPage::PopulateList() {
+
+   if(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP)) {
+      SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
+    }
+    else  {
+      SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_UNCHECKED, 0);
+    }
+
+
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasherInterface
  /* for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
@@ -92,7 +112,15 @@ bool CAdvancedPage::Validate() {
 }
 
 bool CAdvancedPage::Apply() {
-  // Return false (and notify the user) if something is wrong.
+
+  m_pAppSettings->SetBoolParameter( APP_BP_TIME_STAMP, SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_GETCHECK, 0, 0));
+  
+  int ypixels = atoi(GetControlText(m_hwnd, IDC_YPIX).c_str());
+  int mouseposdist = atoi(GetControlText(m_hwnd, IDC_MOUSEPOSDIST).c_str());
+      
+  m_pDasherInterface->SetLongParameter(LP_YSCALE, ypixels);
+  m_pDasherInterface->SetLongParameter(LP_MOUSEPOSDIST, mouseposdist);
+
   return TRUE;
 }
 

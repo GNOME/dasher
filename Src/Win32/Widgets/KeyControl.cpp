@@ -149,13 +149,7 @@ LRESULT CKeyBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 			keycoords[15]=atoi(GetControlText(Window,IDC_8Y).c_str());
 			keycoords[16]=atoi(GetControlText(Window,IDC_9X).c_str());
 			keycoords[17]=atoi(GetControlText(Window,IDC_9Y).c_str()); */
-      ypixels = atoi(GetControlText(Window, IDC_YPIX).c_str());
-      mouseposdist = atoi(GetControlText(Window, IDC_MOUSEPOSDIST).c_str());
-      EndDialog(Window, LOWORD(wParam));
-      //      m_pCanvas->setkeycoords(keycoords);
-      m_pDasher->SetLongParameter(LP_YSCALE, ypixels);
-
-      m_pDasher->SetLongParameter(LP_MOUSEPOSDIST, mouseposdist);
+     
       if(NewUniform != -1) {
         // DJW - this looks a bit nasty
         m_pDasher->SetLongParameter(LP_UNIFORM, static_cast < long >(NewUniform));

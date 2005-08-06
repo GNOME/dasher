@@ -97,6 +97,7 @@ void CScreen::SetInterface(CDasherInterface *DasherInterface) {
 
 void CScreen::SetColourScheme(const Dasher::CCustomColours *pColours) {
   m_cPens.clear();
+  m_cBrushes.clear();
   m_pColours = pColours;
 }
 
@@ -154,9 +155,17 @@ void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, 
 
   HFONT old = (HFONT) SelectObject(m_hDCBuffer, CScreen::GetFont(iSize));
 
+  COLORREF iCRefOld;
+  COLORREF iCRefNew;
+
+  iCRefNew = RGB(m_pColours->GetRed(4), m_pColours->GetGreen(4), m_pColours->GetBlue(4));
+  
+  iCRefOld = SetTextColor(m_hDCBuffer, iCRefNew);
+
   // The Windows API dumps all its function names in the global namespace, ::
   ::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE);
-
+  
+  SetTextColor(m_hDCBuffer, iCRefOld);
   SelectObject(m_hDCBuffer, old);
 }
 

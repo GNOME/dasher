@@ -168,6 +168,9 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
     case APP_BP_SHOW_TOOLBAR:
       m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
       break;
+    case APP_BP_TIME_STAMP:
+      m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
+      break;
   }
 }
 

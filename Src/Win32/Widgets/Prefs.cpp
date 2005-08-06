@@ -38,7 +38,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
   m_pColourBox = new CColourBox(hParent, pDasher);
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
   m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
-  m_pAdvancedPage = new CAdvancedPage(hParent, pDasher);
+  m_pAdvancedPage = new CAdvancedPage(hParent, pDasher, pAppSettings);
   m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
 
     PROPSHEETPAGE psp[6];
