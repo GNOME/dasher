@@ -20,11 +20,23 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
     FillRect(m_hDCBuffer, &Rect, brush);
 
 #ifndef DASHER_WINCE
+
   if(bDrawOutlines) {
+
+    point aPoints[5];
+
+    aPoints[0].x=x1; aPoints[0].y=y1;
+    aPoints[1].x=x2; aPoints[1].y=y1;
+    aPoints[2].x=x2; aPoints[2].y=y2;
+    aPoints[3].x=x1; aPoints[3].y=y2;
+    aPoints[4].x=x1; aPoints[4].y=y1;
+
     if(iOutlineColour == -1)
-      FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(3));
+     //FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(3));
+     Polyline(aPoints, 5, iThickness, 3);
     else
-      FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
+      //FrameRect(m_hDCBuffer, &Rect, CScreen::GetBrush(iOutlineColour));
+      Polyline(aPoints, 5, iThickness, iOutlineColour);
   }
 #endif
 
