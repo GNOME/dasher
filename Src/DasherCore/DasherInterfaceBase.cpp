@@ -323,6 +323,11 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 void CDasherInterfaceBase::Halt() {
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
+  if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
+    SetLongParameter(LP_MOUSE_POS_BOX, 1);
+  }
+
+
   // This will cause us to reinitialise the frame rate counter - ie we start off slowly
   if(m_pDasherModel != 0)
     m_pDasherModel->Halt();

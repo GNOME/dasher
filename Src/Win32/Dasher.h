@@ -42,6 +42,9 @@ public:
 
   CUserLog*     GetUserLogPtr();
 
+  virtual void WriteTrainFile(const std::string &strNewText);
+
+
 private:
 
   void                    AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface * Interface);

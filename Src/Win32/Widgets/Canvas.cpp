@@ -191,9 +191,9 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
   case WM_LBUTTONDBLCLK:
     // fall through
   case WM_LBUTTONDOWN:
-    startturbo = GetTickCount();
+ //   startturbo = GetTickCount();
     SetFocus(Window);
-
+ /*
     lbuttonheld = 1;
     lastlbutton = GetTickCount();
     direction = !direction;
@@ -201,7 +201,17 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
     if(startonleft == false) {
       return 0;
     }
-    StartStop();
+    StartStop();*/
+
+  if(m_pDasherInterface->GetBoolParameter(BP_START_MOUSE)) {
+    if(m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
+      m_pDasherInterface->Unpause(GetTickCount());
+    else
+      m_pDasherInterface->PauseAt(0, 0);
+  }
+
+
+
     return 0;
   case WM_LBUTTONUP:
     endturbo = GetTickCount();
@@ -372,7 +382,10 @@ void CCanvas::startspace() {
     return;
   }
   else {
-    StartStop();
+    if(m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
+      m_pDasherInterface->Unpause(GetTickCount());
+    else
+      m_pDasherInterface->PauseAt(0, 0);
   }
 }
 

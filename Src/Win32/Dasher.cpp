@@ -4,9 +4,11 @@
 #include ".\dasher.h"
 #include "../DasherCore/Event.h"
 #include "EditWrapper.h"
+#include "WinUTF8.h"
 
 using namespace std;
 using namespace Dasher;
+using namespace WinUTF8;
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -127,6 +129,9 @@ Realize();
 }
 
 CDasher::~CDasher(void) {
+
+  WriteTrainFileFull();
+
   ShutdownWorkerThread();
 
   delete m_pCanvas;
@@ -281,4 +286,36 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
 
 void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
   m_pEditWrapper->SetEventHandler(pEdit);
+}
+
+void Dasher::CDasher::WriteTrainFile(const std::string &strNewText) {
+  // FIXME - use parameter
+  const string & TrainFile = GetStringParameter(SP_USER_LOC) + GetTrainFile();
+  if(TrainFile == "")
+    return;
+
+  if(strNewText == "")
+    return;
+
+  Tstring TTrainFile;
+  UTF8string_to_wstring(TrainFile, TTrainFile);
+
+  HANDLE hFile = CreateFile(TTrainFile.c_str(),
+                            GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+
+  if(hFile == INVALID_HANDLE_VALUE) {
+    OutputDebugString(TEXT("Can not open file\n"));
+  }
+  else {
+    DWORD NumberOfBytesWritten;
+    SetFilePointer(hFile, 0, NULL, FILE_END);
+
+  // Surely there are better ways to write to files than this??
+
+    for(unsigned int i = 0; i < strNewText.size(); i++) {
+      WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
+    }
+
+       CloseHandle(hFile);
+  }
 }

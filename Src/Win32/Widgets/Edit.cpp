@@ -293,8 +293,10 @@ void CEdit::TNew(const Tstring &filename) {
   FileHandle = INVALID_HANDLE_VALUE;
   AppendMode = false;
   Clear();
-  m_pDasherInterface->Start();
-  m_pDasherInterface->Redraw();
+  //m_pDasherInterface->Start();
+  //m_pDasherInterface->Redraw();
+
+  m_pDasherInterface->SetContext("");
 }
 
 bool CEdit::TOpen(const Tstring &filename) {
