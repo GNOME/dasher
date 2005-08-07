@@ -20,6 +20,8 @@
 #include <libgnome/libgnome.h>
 #include <libgnomeui/libgnomeui.h>
 #include <libgnomevfs/gnome-vfs.h>
+#endif
+
 #include <popt.h>
 
 static const struct poptOption options[] = {
@@ -27,9 +29,13 @@ static const struct poptOption options[] = {
   {"preferences", 'p', POPT_ARG_NONE, NULL, 1, "Show preferences window only", NULL},
   {"textentry", 'o', POPT_ARG_NONE, NULL, 1, "Onscreen text entry mode", NULL},
   {"pipe", 's', POPT_ARG_NONE, NULL, 1, "Pipe text to stdout", NULL},
+#ifndef GNOME_LIBS
+  // Gnome will add its own help
+  POPT_AUTOHELP
+#endif
   {NULL, '\0', 0, NULL, 0, NULL, NULL}
 };
-#endif
+
 
 #define PREFIX "/usr/"
 #define SYSCONFDIR "/usr/share/dasher/"
@@ -92,11 +98,11 @@ int main(int argc, char *argv[]) {
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);
+  
+  poptContext sContext; 
 
 #ifdef GNOME_LIBS
   GnomeProgram *program = 0;
-
-  poptContext sContext; 
 
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
 
@@ -105,7 +111,7 @@ int main(int argc, char *argv[]) {
   
   gnome_vfs_init();
 #else
-  sContext = poptGetContext(NULL, argc, argv, options, 0);
+  sContext = poptGetContext(NULL, argc, (const char**)argv, options, 0);
 #endif
 
   while(1) {
