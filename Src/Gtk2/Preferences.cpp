@@ -15,6 +15,7 @@ void generate_preferences(GladeXML * pGladeWidgets);
 void PopulateControlPage(GladeXML * pGladeWidgets);
 void PopulateViewPage(GladeXML * pGladeWidgets);
 void PopulateButtonsPage(GladeXML * pGladeWidgets);
+void PopulateButtonSetupPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 
 void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
@@ -74,6 +75,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   PopulateViewPage(pGladeWidgets);
   PopulateLMPage(pGladeWidgets);
   PopulateButtonsPage(pGladeWidgets);
+  PopulateButtonSetupPage(pGladeWidgets);
   PopulateAdvancedPage(pGladeWidgets);
 }
 
@@ -93,6 +95,24 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
 
 void PopulateButtonsPage(GladeXML *pGladeWidgets) {
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zoomstepsscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_ZOOMSTEPS));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onebuttonstaticbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONONESTATIC));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onebuttondynamicbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONONEDYNAMIC));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "twobuttondirectbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONDIRECT));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fourbuttondirectbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONFOURDIRECT));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "alternatingdirectbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONALTERNATINGDIRECT));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "compassmodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_COMPASSMODE));
+}
+
+void PopulateButtonSetupPage(GladeXML *pGladeWidgets) {
+  int rightzoom =  gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_RIGHTZOOM);
+  rightzoom = int(rightzoom/1024);
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "rightzoomscale")), rightzoom);
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "numberofboxesscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_B));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "sparameterscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_S));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zparameterscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_Z));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "rparameterscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_R));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "pulsingmodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONPULSING));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "steadymodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONSTEADY));
 }
 
 void PopulateViewPage(GladeXML *pGladeWidgets) {
@@ -787,8 +807,82 @@ extern "C" void zoomsteps_changed(GtkHScale *hscale) {
   gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ZOOMSTEPS, int(GTK_RANGE(hscale)->adjustment->value));
 }
 
+extern "C" void button_one_static_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONONESTATIC, GTK_TOGGLE_BUTTON(widget)->active );
+}
 
-// 'Langauge Model' Page
+extern "C" void button_one_dynamic_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONONEDYNAMIC, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void button_menu_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONMENU, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void button_pulsing_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONPULSING, GTK_TOGGLE_BUTTON(widget)->active );
+} 
+
+extern "C" void button_steady_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONSTEADY, GTK_TOGGLE_BUTTON(widget)->active );
+} 
+
+extern "C" void button_direct_menu_mode(GtkWidget *widget, gpointer user_data)
+{ 
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONDIRECT, GTK_TOGGLE_BUTTON(widget)->active );
+} 
+
+extern "C" void button_four_direct_menu_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONFOURDIRECT, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void button_direct_alternating_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONALTERNATINGDIRECT, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void button_compass_mode(GtkWidget *widget, gpointer user_data)
+{
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_COMPASSMODE, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+// 'Button setup' Page
+
+extern "C" void zoomfactor_changed(GtkHScale *hscale) {
+  //gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ZOOMFACTOR, int(GTK_RANGE(hscale)->adjustment->value));
+} 
+
+extern "C" void droptime_changed(GtkHScale *hscale) {
+  //gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_DROPTIME,  int(GTK_RANGE(hscale)->adjustment->value));
+} 
+
+extern "C" void numberofboxes_changed(GtkHScale *hscale) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_B, int(GTK_RANGE(hscale)->adjustment->value));
+}
+
+extern "C" void sparameter_changed(GtkHScale *hscale) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_S, int(GTK_RANGE(hscale)->adjustment->value));
+}
+
+extern "C" void rightzoom_changed(GtkHScale *hscale) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_RIGHTZOOM, (1024 * GTK_RANGE(hscale)->adjustment->value));
+}
+
+extern "C" void zparameter_changed(GtkHScale *hscale) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_Z, int(GTK_RANGE(hscale)->adjustment->value) );
+}
+
+extern "C" void rparameter_changed(GtkHScale *hscale) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_R, int(GTK_RANGE(hscale)->adjustment->value) );
+}
+
+// 'Language Model' Page
 
 extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
   if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {

@@ -14,7 +14,10 @@ enum {
   BP_EYETRACKER_MODE, BP_AUTOCALIBRATE, BP_DASHER_PAUSED,
   BP_GAME_MODE, BP_TRAINING, BP_REDRAW, BP_LM_DICTIONARY, 
   BP_LM_LETTER_EXCLUSION, BP_AUTO_SPEEDCONTROL, BP_CLICK_MODE, 
-  BP_LM_ADAPTIVE, END_OF_BPS
+  BP_LM_ADAPTIVE, BP_BUTTONONESTATIC, BP_BUTTONONEDYNAMIC,
+  BP_BUTTONMENU, BP_BUTTONPULSING, BP_BUTTONSTEADY, 
+  BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
+  BP_COMPASSMODE, END_OF_BPS
 };
 
 enum { 
@@ -25,7 +28,7 @@ enum {
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, 
-  LP_ZOOMSTEPS, END_OF_LPS
+  LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM, END_OF_LPS
 };
 
 enum {
@@ -98,7 +101,16 @@ static bp_table boolparamtable[] = {
   {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, false, "Whether to do letter exclusion in the word-based model"},
   {BP_AUTO_SPEEDCONTROL, "AutoSpeedControl", PERS, true, "AutoSpeedControl"},
   {BP_CLICK_MODE, "ClickMode", PERS, false, "Dasher Click Mode"},
-  {BP_LM_ADAPTIVE, "LMAdaptive", PERS, true, "Whether language model should learn as you enter text"}
+  {BP_LM_ADAPTIVE, "LMAdaptive", PERS, true, "Whether language model should learn as you enter text"},
+  {BP_BUTTONONESTATIC, "ButtonOneStaticMode", PERS, false, "One-button static mode"},
+  {BP_BUTTONONEDYNAMIC, "ButtonOneDynamicMode", PERS, false, "One-button dynamic mode"},
+  {BP_BUTTONMENU, "ButtonMenuMode", PERS, false, "Button menu mode"},
+  {BP_BUTTONPULSING, "ButtonPulsingMode", PERS, false, "One-button dynamic pulsing mode"},
+  {BP_BUTTONSTEADY, "ButtonSteadyMode", PERS, true, "One-button dynamic steady mode"},
+  {BP_BUTTONDIRECT, "ButtonDirectMode", PERS, false, "Three-button direct mode"},
+  {BP_BUTTONFOURDIRECT, "ButtonFourDirectMode", PERS, false, "Four-button direct mode"},
+  {BP_BUTTONALTERNATINGDIRECT, "ButtonAlternatingDirectMode", PERS, true, "Alternating direct mode"},
+  {BP_COMPASSMODE, "ButtonCompassMode", PERS, false, "Compass mode"}
 };
 
 static lp_table longparamtable[] = {
@@ -125,7 +137,12 @@ static lp_table longparamtable[] = {
   {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
   {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"},
   {LP_SPEED_DIVISOR, "SpeedDivisor", !PERS, 100, "Factor by which to slow down (multiplied by 100)"},
-  {LP_ZOOMSTEPS, "Zoomsteps", PERS, 32, "Integerised ratio of zoom size for click/button mode, denom 64."}
+  {LP_ZOOMSTEPS, "Zoomsteps", PERS, 32, "Integerised ratio of zoom size for click/button mode, denom 64."},
+  {LP_B, "ButtonMenuBoxes", PERS, 4, "Number of boxes for button menu mode"},
+  {LP_S, "ButtonMenuSafety", PERS, 25, "Safety parameter for button mode, in percent."},
+  {LP_Z, "ButtonMenuBackwardsBox", PERS, 1, "Number of back-up boxes for button menu mode"},
+  {LP_R, "ButtonModeNonuniformity", PERS, 0, "Button mode box non-uniformity"},
+  {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5, "Zoomfactor (*1024) for compass mode"}
 };
 
 static sp_table stringparamtable[] = {
