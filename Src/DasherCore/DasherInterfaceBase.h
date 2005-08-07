@@ -468,9 +468,15 @@ public:
   void ConnectNode(int iChild, int iParent, int iAfter);
 
   /// Gets a pointer to the object doing user logging
-	CUserLog*       GetUserLogPtr();
+  CUserLog*       GetUserLogPtr();
+  
+  virtual void WriteTrainFile(const std::string &strNewText) {
+  };
 
 protected:
+  void WriteTrainFileFull();
+  void WriteTrainFilePartial();
+
   CAlphabet *m_Alphabet;
   CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
@@ -487,6 +493,8 @@ protected:
 
   std::vector < std::string > m_AlphabetFilenames;
   std::vector < std::string > m_ColourFilenames;
+
+  std::string strTrainfileBuffer;
 
   static const std::string EmptyString;
 

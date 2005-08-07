@@ -252,6 +252,8 @@ public:
   ///
   void UserLogNewTrial();
 
+  void WriteTrainFile(const std::string &strNewText);
+
 private:
 
   GtkWidget *m_pVBox;

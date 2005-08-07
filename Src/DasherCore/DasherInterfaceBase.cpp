@@ -56,6 +56,8 @@ CDasherInterfaceBase::CDasherInterfaceBase()
   m_pEventHandler = new CEventHandler(this);
   strCurrentContext = ". ";
 
+  strTrainfileBuffer = "";
+
   // Global logging object we can use from anywhere
   g_pLogger = new CFileLogger("dasher.log",
                               g_iLogLevel,
@@ -88,6 +90,7 @@ void CDasherInterfaceBase::Realize() {
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
+
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_Alphabet;
   delete m_pDasherView;
@@ -204,9 +207,13 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       strCurrentContext += pEditEvent->m_sText;
       if( strCurrentContext.size() > 20 )
 	strCurrentContext = strCurrentContext.substr( strCurrentContext.size() - 20 );
+
+      strTrainfileBuffer += pEditEvent->m_sText;
     }
     else if(pEditEvent->m_iEditType == 2) {
       strCurrentContext = strCurrentContext.substr( 0, strCurrentContext.size() - pEditEvent->m_sText.size());
+
+      strTrainfileBuffer = strTrainfileBuffer.substr( 0, strTrainfileBuffer.size() - pEditEvent->m_sText.size());
     }
   }
   else if(pEvent->m_iEventType == EV_CONTROL) {
@@ -222,6 +229,19 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     }
 
   }
+}
+
+void CDasherInterfaceBase::WriteTrainFileFull() {
+  WriteTrainFile(strTrainfileBuffer);
+  strTrainfileBuffer = "";
+}
+
+void CDasherInterfaceBase::WriteTrainFilePartial() {
+
+  // FIXME - what if we're midway through a unicode character?
+
+  WriteTrainFile(strTrainfileBuffer.substr(0,100));
+  strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
 
 void CDasherInterfaceBase::RequestFullRedraw() {
@@ -457,6 +477,12 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   // dialogue before this happens - also, what happens if the list of
   // alphabet files changes at runtime?
 
+  // Update the training file first
+
+  WriteTrainFileFull();
+
+  // Lock Dasher to prevent changes from happening while we're training.
+
   SetBoolParameter( BP_TRAINING, true );
 
   if(!m_AlphIO)
@@ -478,6 +504,8 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   // Apply options from alphabet
 
   SetStringParameter(SP_TRAIN_FILE, m_Alphabet->GetTrainingFile());
+
+
 
   if((m_Alphabet->GetGameModeFile()).length() > 0)
     SetStringParameter(SP_GAME_TEXT_FILE, m_Alphabet->GetGameModeFile());
@@ -506,7 +534,6 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   SetBoolParameter( BP_TRAINING, false );
 
   Start();
-
   //}
 }
 
@@ -793,6 +820,8 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
     }
     
     strCurrentContext = strNewContext;
+
+    WriteTrainFileFull();
   }
 }
 

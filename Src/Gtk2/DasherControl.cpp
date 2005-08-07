@@ -4,6 +4,8 @@
 #include "../DasherCore/DasherInterface.h"
 #include "../DasherCore/Event.h"
 
+#include <fcntl.h>
+
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
@@ -144,6 +146,8 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
 CDasherControl::~CDasherControl() {
 
+  WriteTrainFileFull();
+
   // Delete the input device
 
   if(m_pMouseInput != NULL) {
@@ -209,6 +213,17 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     HandleEvent(pEvent);
   }
 
+}
+
+void CDasherControl::WriteTrainFile(const std::string &strNewText) {
+  if(strNewText.length() == 0)
+    return;
+
+  std::string strFilename(GetStringParameter(SP_USER_LOC) + GetStringParameter(SP_TRAIN_FILE));
+
+  int fd=open(strFilename.c_str(),O_CREAT|O_WRONLY|O_APPEND,S_IRUSR|S_IWUSR);
+  write(fd,strNewText.c_str(),strNewText.length());
+  close(fd);
 }
 
 void CDasherControl::HandleParameterNotification(int iParameter) {

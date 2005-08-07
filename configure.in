@@ -114,6 +114,7 @@ if [[ x"$WITHGNOME" = xtrue ]]; then
 fi
 
 if [[ x"$WITHSPEECH" = xtrue ]]; then
+		     echo "foobar"
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
 	AC_DEFINE([GNOME_SPEECH])
 	SPEECH_SOURCES='speech.$(OBJEXT)'
