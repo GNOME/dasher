@@ -23,7 +23,11 @@
 #include <popt.h>
 
 static const struct poptOption options[] = {
-  {NULL, '\0', 0, NULL, 0}
+  {"timedata", 'w', POPT_ARG_NONE, NULL, 1, "Write basic timing information to stdout", NULL},
+  {"preferences", 'p', POPT_ARG_NONE, NULL, 1, "Show preferences window only", NULL},
+  {"textentry", 'o', POPT_ARG_NONE, NULL, 1, "Onscreen text entry mode", NULL},
+  {"pipe", 's', POPT_ARG_NONE, NULL, 1, "Pipe text to stdout", NULL},
+  {NULL, '\0', 0, NULL, 0, NULL, NULL}
 };
 #endif
 
@@ -91,10 +95,46 @@ int main(int argc, char *argv[]) {
 
 #ifdef GNOME_LIBS
   GnomeProgram *program = 0;
+
+  poptContext sContext; 
+
   program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
 
+  g_object_get(G_OBJECT(program), GNOME_PARAM_POPT_CONTEXT, &sContext, NULL);
+  poptResetContext(sContext);
+  
   gnome_vfs_init();
+#else
+  sContext = poptGetContext(NULL, argc, argv, options, 0);
 #endif
+
+  while(1) {
+    int iNextOption;
+
+    iNextOption = poptGetNextOpt(sContext);
+
+    if(iNextOption == -1)
+      break;
+
+    switch(iNextOption) {
+    case 1:
+      // Print number of characters produced per second
+      timedata = TRUE;
+      break;
+    case 2:
+      // Only show the preferences window
+      preferences = TRUE;
+      break;
+    case 3:
+      // Onscreen text entry mode
+      textentry = TRUE;
+      break;
+    case 4:
+      // Pipe stuff to stdout
+      stdoutpipe = TRUE;
+      break;
+    }
+  }
 
   // Set up the app GConf client
 
@@ -140,31 +180,31 @@ int main(int argc, char *argv[]) {
   bonobo_activate();
 #endif
 
-  while(1) {
-    c = getopt(argc, argv, "wpos");
+//   while(1) {
+//     c = getopt(argc, argv, "wpos");
 
-    if(c == -1)
-      break;
+//     if(c == -1)
+//       break;
 
-    switch (c) {
-    case 'w':
-      // Print number of characters produced per second
-      timedata = TRUE;
-      break;
-    case 'p':
-      // Only show the preferences window
-      preferences = TRUE;
-      break;
-    case 'o':
-      // Onscreen text entry mode
-      textentry = TRUE;
-      break;
-    case 's':
-      // Pipe stuff to stdout
-      stdoutpipe = TRUE;
-      break;
-    }
-  }
+//     switch (c) {
+//     case 'w':
+//       // Print number of characters produced per second
+//       timedata = TRUE;
+//       break;
+//     case 'p':
+//       // Only show the preferences window
+//       preferences = TRUE;
+//       break;
+//     case 'o':
+//       // Onscreen text entry mode
+//       textentry = TRUE;
+//       break;
+//     case 's':
+//       // Pipe stuff to stdout
+//       stdoutpipe = TRUE;
+//       break;
+//     }
+//   }
 
 //   dasher_set_string_callback( parameter_string_callback );
 //   dasher_set_double_callback( parameter_double_callback );
