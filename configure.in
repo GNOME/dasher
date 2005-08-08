@@ -35,14 +35,15 @@ AM_GLIB_GNU_GETTEXT
 AC_PROG_CXX
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
-WITHGNOME=true
-WITHSPEECH=true
-WITHQTE=false
-WITHGPE=false
-WITHA11Y=true
-WITHGTK2=true
-WITHCAIRO=true
-
+AC_ARG_WITH([gtk2],
+	 AC_HELP_STRING([--with-gtk2],[build with Gtk+ 2 support (default is YES)]), 
+	 if test $withval = "no"; then
+	   WITHGTK2=false; 
+	 else
+	   WITHGTK2=true;
+         fi, 
+	 WITHGTK2=true)
+	 
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
 	 if test $withval = "no"; then

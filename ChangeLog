@@ -1,3 +1,7 @@
+2005-08-08  Behdad Esfahbod  <behdad@behdad.org>
+
+	* configure.in: Fix more of AC_ARG_WITH handling.  (#311490)
+
 2005-08-06  Behdad Esfahbod  <behdad@behdad.org>
 
 	* Src/main.cc, Src/Gtk2/dasher.cc, Src/Gtk2/fileops.cc: Move
