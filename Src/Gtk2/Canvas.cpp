@@ -15,8 +15,13 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   
   m_iWidth = m_pCanvas->allocation.width;
   m_iHeight = m_pCanvas->allocation.height;
+
+
+  std::cout << "Width: " << m_iWidth << " Height: " << m_iHeight << std::endl;
   
   // Construct the buffer pixmaps
+
+  m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
   m_pDisplayBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
   m_pDecorationBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
@@ -38,9 +43,10 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
 CCanvas::~CCanvas() {
   // Free the buffer pixmaps
 
-  g_free(m_pDisplayBuffer);
-  g_free(m_pDecorationBuffer);
-  g_free(m_pOnscreenBuffer);
+  g_object_unref(m_pDummyBuffer);
+  g_object_unref(m_pDisplayBuffer);
+  g_object_unref(m_pDecorationBuffer);
+  g_object_unref(m_pOnscreenBuffer);
 
   g_signal_handler_disconnect(m_pCanvas, lSignalHandler);
 

@@ -211,6 +211,7 @@ private:
   ///
 
   GdkPixmap *m_pOffscreenBuffer;
+  GdkPixmap *m_pDummyBuffer;
 
   /// 
   /// The Pango cache - used to store pre-computed pango layouts as
