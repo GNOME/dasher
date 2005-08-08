@@ -45,27 +45,57 @@ WITHCAIRO=true
 
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
-	[WITHGNOME=true],[WITHGNOME=false])
+	 if test $withval = "no"; then
+	   WITHGNOME=false; 
+	 else
+	   WITHGNOME=true;
+         fi, 
+	 WITHGNOME=true)
 
 AC_ARG_WITH([speech],
-	AC_HELP_STRING([--with-speech],[build with speech support (default is YES)]),
-	[WITHSPEECH=true],[WITHSPEECH=false])
+	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]),
+	 if test $withval = "no"; then
+	   WITHSPEECH=false; 
+	 else
+	   WITHSPEECH=true;
+         fi, 
+	 WITHSPEECH=false)
 
 AC_ARG_WITH([qte],
-	AC_HELP_STRING([--with-qte],[build with QTE support (default is NO)]), 
-	[WITHQTE=true],[WITHQTE=false])
+	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO - currently untested)]), 
+	 if test $withval = "no"; then
+	   WITHQTE=false; 
+	 else
+	   WITHQTE=true;
+         fi, 
+	 WITHQTE=false)
 
 AC_ARG_WITH([gpe],
-	AC_HELP_STRING([--with-gpe],[build with gpe support (default is NO)]),
-	[WITHGPE=true],[WITHGPE=false])
+	 AC_HELP_STRING([--with-gpe],[build with GPE support (default is NO - currently untested)]), 
+	 if test $withval = "no"; then
+	   WITHGPE=false; 
+	 else
+	   WITHGPE=true;
+         fi, 
+	 WITHGPE=false)
 
 AC_ARG_WITH([a11y],
-	AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library (default is YES)]),
-	[WITHA11Y=true], [WITHA11Y=false])
+	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library (default is YES)]),
+	 if test $withval = "no"; then
+	   WITHA11Y=false; 
+	 else
+	   WITHA11Y=true;
+         fi, 
+	 WITHA11Y=true)
 
 AC_ARG_WITH([cairo],
-	AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
-	[WITHCAIRO=true], [WITHCAIRO=false])
+	 AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
+	 if test $withval = "no"; then
+	   WITHCAIRO=false; 
+	 else
+	   WITHCAIRO=true;
+         fi, 
+	 WITHCAIRO=true)
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
