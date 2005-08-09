@@ -201,6 +201,9 @@ void CDasherControl::CanvasConfigureEvent() {
   ChangeScreen(m_pScreen);
 
   Redraw();
+  
+  SetLongParameter(LP_SCREENHEIGHT, m_pScreen->m_iHeight);
+  SetLongParameter(LP_SCREENWIDTH,  m_pScreen->m_iWidth);
 }
 
 void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
