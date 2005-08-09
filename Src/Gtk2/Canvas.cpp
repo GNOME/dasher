@@ -16,9 +16,6 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   m_iWidth = m_pCanvas->allocation.width;
   m_iHeight = m_pCanvas->allocation.height;
 
-
-  std::cout << "Width: " << m_iWidth << " Height: " << m_iHeight << std::endl;
-  
   // Construct the buffer pixmaps
 
   m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
