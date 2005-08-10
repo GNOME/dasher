@@ -355,6 +355,12 @@
 			RelativePath=".\DashEdit.h">
 		</File>
 		<File
+			RelativePath=".\DasherButtons.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherButtons.h">
+		</File>
+		<File
 			RelativePath=".\DasherComponent.cpp">
 		</File>
 		<File
