@@ -33,6 +33,7 @@ class Dasher::CEventHandler;
 class Dasher::CEvent;
 class CSettingsStore;
 class CUserLog;
+class CDasherButtons;
 
 #include <map>
 #include <iostream>
@@ -505,6 +506,7 @@ protected:
   CEventHandler * m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
   CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
+  CDasherButtons* m_pDasherButtons;
 
 };
 

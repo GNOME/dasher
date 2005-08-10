@@ -17,6 +17,7 @@
 #include "EventHandler.h"
 #include "Event.h"
 #include "UserLog.h"
+#include "DasherButtons.h"
 
 #include <iostream>
 #include <memory>
@@ -52,7 +53,9 @@ const string CDasherInterfaceBase::EmptyString = "";
 
 CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
-                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL) {
+                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL), 
+                  m_pDasherButtons(NULL) {
+
   m_pEventHandler = new CEventHandler(this);
   strCurrentContext = ". ";
 
@@ -81,6 +84,8 @@ void CDasherInterfaceBase::Realize() {
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
   if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
+
+    m_pDasherButtons = new CDasherButtons(m_pSettingsStore);
     
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
@@ -97,7 +102,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pColours;
-
+  delete m_pDasherButtons;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
   // When we destruct on shutdown, we'll output any detailed log file
