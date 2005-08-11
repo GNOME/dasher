@@ -2,6 +2,7 @@
 // Copyright 2005, Chris Ball and David MacKay.  GPL.
 
 #include "DasherButtons.h"
+#include <valarray>
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -99,7 +100,7 @@ void CDasherButtons::SetupBoxes()
   }
   // Define the unnormalized probabilities
 
-  double p[B+Z+1];
+  std::valarray<double> p(B+Z+1);
   double sum;
   int b;
   for (sum = 0, b = 1; b <= B; b++) {
@@ -128,12 +129,12 @@ void CDasherButtons::SetupBoxes()
 
   int fullrange = BY3 - BY2;
 
-  int displayedtop[B+Z+1];
-  int displayedbottom[B+Z+1];
-  int pdash[B+Z+1];
-  int displayedcentre[B+Z+1];
-  int truecentre[B+Z+1];
-  int zoom[B+Z+1];
+  std::valarray<int> displayedtop(B+Z+1);
+  std::valarray<int> displayedbottom(B+Z+1);
+  std::valarray<int> pdash(B+Z+1);
+  std::valarray<int> displayedcentre(B+Z+1);
+  std::valarray<int> truecentre(B+Z+1);
+  std::valarray<int> zoom(B+Z+1);
 
   for (int b = 1; b <= B; b++) {
     if (b == 1) {		// fix top of the first box.
