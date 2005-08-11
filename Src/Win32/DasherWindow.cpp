@@ -120,7 +120,7 @@ CDasherWindow::~CDasherWindow() {
   delete m_pEdit;
   delete m_pSplitter;
   delete m_pDasher;
-
+  delete m_pAppSettings;
   DestroyIcon(m_hIconSm);
   WinWrapMap::remove(m_hwnd);
 }
