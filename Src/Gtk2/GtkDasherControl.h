@@ -15,6 +15,13 @@ G_BEGIN_DECLS
 #define GTK_DASHER_CONTROL_CLASS(klass)	(GTK_CHECK_CLASS_CAST ((klass), TYPE_GTK_DASHER_CONTROL, GtkDasherControlClass ))
 #define IS_GTK_DASHER_CONTROL(obj)		(GTK_CHECK_TYPE ((obj), TYPE_GTK_DASHER_CONTROL))
 #define IS_GTK_DASHER_CONTROL_CLASS(klass)	(GTK_CHECK_CLASS_TYPE ((klass), TYPE_GTK_DASHER_CONTROL))
+
+// CJB -- shorter access to parameters.
+#define getLong(x) gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), x )
+#define getBool(x) gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), x )
+#define getString(x) gtk_dasher_control_get_parameter_string( GTK_DASHER_CONTROL(pDasherWidget), x )
+
+
 typedef struct _GtkDasherControl GtkDasherControl;
 typedef struct _GtkDasherControlClass GtkDasherControlClass;
 

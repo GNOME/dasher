@@ -82,37 +82,37 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
 void PopulateControlPage(GladeXML *pGladeWidgets) {
   double dNewValue = get_app_parameter_long(LP_MAX_BITRATE) / 100.0;
   gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue); 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "clickmodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CLICK_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), getBool(BP_NUMBER_DIMENSIONS));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), getBool(BP_EYETRACKER_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "clickmodebutton")), getBool(BP_CLICK_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), getBool(BP_START_MOUSE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), getBool(BP_START_SPACE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), getBool(BP_MOUSEPOS_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_AUTO_SPEEDCONTROL));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), getBool(BP_AUTO_SPEEDCONTROL));
 }
 
 void PopulateButtonsPage(GladeXML *pGladeWidgets) {
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zoomstepsscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_ZOOMSTEPS));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onebuttonstaticbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONONESTATIC));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onebuttondynamicbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONONEDYNAMIC));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "twobuttondirectbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONDIRECT));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fourbuttondirectbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONFOURDIRECT));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "alternatingdirectbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONALTERNATINGDIRECT));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "compassmodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_COMPASSMODE));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zoomstepsscale")), getLong(LP_ZOOMSTEPS));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onebuttonstaticbutton")), getBool(BP_BUTTONONESTATIC));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onebuttondynamicbutton")), getBool(BP_BUTTONONEDYNAMIC));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "twobuttondirectbutton")), getBool(BP_BUTTONDIRECT));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fourbuttondirectbutton")), getBool(BP_BUTTONFOURDIRECT));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "alternatingdirectbutton")), getBool(BP_BUTTONALTERNATINGDIRECT));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "compassmodebutton")), getBool(BP_COMPASSMODE));
 }
 
 void PopulateButtonSetupPage(GladeXML *pGladeWidgets) {
-  int rightzoom =  gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_RIGHTZOOM);
+  int rightzoom =  getLong(LP_RIGHTZOOM);
   rightzoom = int(rightzoom/1024);
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "rightzoomscale")), rightzoom);
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "numberofboxesscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_B));
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "sparameterscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_S));
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zparameterscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_Z));
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "rparameterscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_R));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "pulsingmodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONPULSING));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "steadymodebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONSTEADY));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "numberofboxesscale")), getLong(LP_B));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "sparameterscale")), getLong(LP_S));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "zparameterscale")), getLong(LP_Z));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "rparameterscale")), getLong(LP_R));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "pulsingmodebutton")), getBool(BP_BUTTONPULSING));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "steadymodebutton")), getBool(BP_BUTTONSTEADY));
 }
 
 void PopulateViewPage(GladeXML *pGladeWidgets) {
@@ -122,14 +122,14 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
   m_pTBButton = glade_xml_get_widget(pGladeWidgets, "radiobutton4");
   m_pBTButton = glade_xml_get_widget(pGladeWidgets, "radiobutton5");
 
-  switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION)) {
+  switch (getLong(LP_ORIENTATION)) {
   case Dasher::Opts::Alphabet:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1"))) != TRUE)
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton1")), TRUE); 
     
     g_bIgnoreSignals = true;
 
-    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION)) {
+    switch (getLong(LP_REAL_ORIENTATION)) {
     case Dasher::Opts::LeftToRight:
       if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
 	gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pLRButton), TRUE);
@@ -204,18 +204,18 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
   }
 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), get_app_parameter_bool( APP_BP_SHOW_TOOLBAR) );
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), getBool(BP_SHOW_SLIDER));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), getBool(BP_DRAW_MOUSE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), getBool(BP_DRAW_MOUSE_LINE));
 
-  if(gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LINE_WIDTH) > 1)
+  if(getLong(LP_LINE_WIDTH) > 1)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), true);
   else
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), false);
 
-//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE));
+//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEYBOARD_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), getBool(BP_PALETTE_CHANGE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), getBool(BP_OUTLINE_MODE));
 }
 
 
@@ -248,8 +248,8 @@ void AdvancedCellDataFunction(GtkTreeViewColumn *pColumn, GtkCellRenderer *pRend
 void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "timestampbutton")), get_app_parameter_bool( APP_BP_TIME_STAMP ) );
 
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "yaxisscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_YSCALE));
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "mouseposscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_MOUSEPOSDIST));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "yaxisscale")), getLong(LP_YSCALE));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "mouseposscale")), getLong(LP_MOUSEPOSDIST));
 
   // Now populate the generic advanced settings list
   
@@ -340,7 +340,7 @@ void PopulateLMPage(GladeXML *pGladeWidgets) {
   }
   
 
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL( pDasherWidget ), LP_UNIFORM)/10.0);
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), getLong(LP_UNIFORM)/10.0);
 	  
   // LM parameters are now obsolete - will eventually be part of the 'advanced' page
 
@@ -375,7 +375,7 @@ void generate_preferences(GladeXML *pGladeWidgets) {
     gtk_list_store_append(alph_list_store, &alphiter);
     gtk_list_store_set(alph_list_store, &alphiter, 0, pCurrentAlphabet, -1);
 
-    if(!strcmp(pCurrentAlphabet, gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID)))
+    if(!strcmp(pCurrentAlphabet, getString(SP_ALPHABET_ID)))
       SetAlphabetSelection(i, &alphiter);
     
   }
@@ -413,7 +413,7 @@ void generate_preferences(GladeXML *pGladeWidgets) {
     gtk_list_store_append(colour_list_store, &colouriter);
     gtk_list_store_set(colour_list_store, &colouriter, 0, pCurrentColour, -1);
 
-    if(!strcmp(pCurrentColour, gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID))) {
+    if(!strcmp(pCurrentColour, getString(SP_COLOUR_ID))) {
       gchar ugly_path_hack[100];
       sprintf(ugly_path_hack, "%d", i);
       gtk_tree_selection_select_iter(colourselection, &colouriter);
@@ -426,7 +426,7 @@ void generate_preferences(GladeXML *pGladeWidgets) {
   // Connect up a signal so we can select a new colour scheme
   g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
 
-  if(gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE)) {
+  if(getBool(BP_PALETTE_CHANGE)) {
     if(!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "autocolour"))))
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "autocolour")), TRUE); 
     gtk_widget_set_sensitive(colourtreeview, FALSE);
@@ -696,7 +696,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 
       g_bIgnoreSignals = true;
       
-      switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION)) {
+      switch (getLong(LP_REAL_ORIENTATION)) {
       case Dasher::Opts::LeftToRight:
 	if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(m_pLRButton)) != TRUE)
 	  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(m_pLRButton), TRUE);
@@ -723,7 +723,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
       gtk_widget_set_sensitive(m_pTBButton, TRUE);
       gtk_widget_set_sensitive(m_pBTButton, TRUE);
 
-      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION,  gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_REAL_ORIENTATION));
+      gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION,  getLong(LP_REAL_ORIENTATION));
     }
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "radiobutton2")) {
       gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION, Dasher::Opts::LeftToRight);
