@@ -34,7 +34,7 @@ void CDasherButtons::SetupBoxes()
   int B            = m_pSettingsStore->GetLongParameter(LP_B);
   int s            = m_pSettingsStore->GetLongParameter(LP_S);
   int Z            = m_pSettingsStore->GetLongParameter(LP_Z);
-  int R            = m_pSettingsStore->GetLongParameter(LP_R);
+  int r            = m_pSettingsStore->GetLongParameter(LP_R);
   int rightzoom    = m_pSettingsStore->GetLongParameter(LP_RIGHTZOOM);
 
   int Y = dasherheight;
