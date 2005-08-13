@@ -353,9 +353,12 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
 //   else if(iParameter == BP_KEYBOARD_MODE) {
 //     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
 //   }
-  else if(iParameter == BP_PALETTE_CHANGE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
-  }
+
+// FIXME - this is now part of the colour selection group
+
+//   else if(iParameter == BP_PALETTE_CHANGE) {
+//     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "palettebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE));
+//   }
 
   // See if AppSettings wants to do anything:
 

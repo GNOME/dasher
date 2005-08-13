@@ -101,6 +101,15 @@ int main(int argc, char *argv[]) {
   
   poptContext sContext; 
 
+#ifdef WITH_GPE
+  gpe_application_init(&argc, &argv);
+  init_xsettings();
+#else
+  gtk_init(&argc, &argv);
+
+#endif
+
+
 #ifdef GNOME_LIBS
   GnomeProgram *program = 0;
 
@@ -155,13 +164,6 @@ int main(int argc, char *argv[]) {
 
   // ---
 
-#ifdef WITH_GPE
-  gpe_application_init(&argc, &argv);
-  init_xsettings();
-#else
-  gtk_init(&argc, &argv);
-
-#endif
 
   // We need thread support for updating the splash window while
   // training...

@@ -26,6 +26,7 @@ class Dasher::CDasherNode:private NoClones {
 
   // Node relationships
   typedef HASH_MAP < symbol, CDasherNode * >ChildMap;
+
   ChildMap & Children();
   const ChildMap & GetChildren() const;
   // replaced by Children()

@@ -214,7 +214,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), false);
 
 //   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEYBOARD_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), getBool(BP_PALETTE_CHANGE));
+//  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), getBool(BP_PALETTE_CHANGE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), getBool(BP_OUTLINE_MODE));
 }
 
@@ -249,7 +249,7 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "timestampbutton")), get_app_parameter_bool( APP_BP_TIME_STAMP ) );
 
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "yaxisscale")), getLong(LP_YSCALE));
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "mouseposscale")), getLong(LP_MOUSEPOSDIST));
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "mouseposstartscale")), getLong(LP_MOUSEPOSDIST));
 
   // Now populate the generic advanced settings list
   
@@ -942,6 +942,12 @@ extern "C" void advanced_edited_callback(GtkCellRendererText *cell, gchar *path_
 }
 
 void update_advanced(int iParameter) {
+
+  // Don't do anything if we haven't created the tree model yet.
+
+  if(!GTK_IS_TREE_MODEL(m_pAdvancedModel))
+    return;
+
   GtkTreeIter sIter;
 
   bool bMore(gtk_tree_model_get_iter_first(m_pAdvancedModel, &sIter));
