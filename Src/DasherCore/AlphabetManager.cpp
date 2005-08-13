@@ -48,7 +48,7 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
     m_pModel->GetProbs(pNode->Context(), newchars, cum, m_pModel->GetLongParameter(LP_NORMALIZATION));
     int iChildCount = newchars.size();
 
-    DASHER_TRACEOUTPUT("ChildCount %d\n", iChildCount);
+//    DASHER_TRACEOUTPUT("ChildCount %d\n", iChildCount);
     // work out cumulative probs in place
     for(int i = 1; i < iChildCount; i++)
       cum[i] += cum[i - 1];
