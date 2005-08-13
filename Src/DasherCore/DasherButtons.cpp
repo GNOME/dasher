@@ -136,7 +136,7 @@ void CDasherButtons::SetupBoxes()
   std::valarray<int> truecentre(B+Z+1);
   std::valarray<int> zoom(B+Z+1);
 
-  for (int b = 1; b <= B; b++) {
+  for (b = 1; b <= B; b++) {
     if (b == 1) {		// fix top of the first box.
       displayedtop[b] = BY2;
     } else {
@@ -157,7 +157,7 @@ void CDasherButtons::SetupBoxes()
     //cout << "smallestzoomfound: " << smallestzoomfound << endl;
     //cout << "zoom[b]: " << zoom[b] << endl;
     if (zoom[b] < smallestzoom) {
-      smallestzoom = zoom[b];
+      smallestzoom = static_cast<float>(zoom[b]);
     }			// this finds the biggest box in the list.
 
     if (zoom[b] < ZOOMDENOM) {
@@ -243,7 +243,7 @@ void CDasherButtons::SetupBoxes()
   }
   // report all outputs
 
-  for (int b = 1; b <= B+Z; b++) {
+  for ( b = 1; b <= B+Z; b++) {
     boxes_ptr[b].top = displayedtop[b];
     boxes_ptr[b].bottom = displayedbottom[b];
     boxes_ptr[b].zoomloc = truecentre[b];
