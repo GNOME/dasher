@@ -11,6 +11,8 @@
 #include "LanguageModelling/LanguageModel.h"
 #include "NodeManager.h"
 
+#include <deque>
+
 // CDasherNode represents a rectangle and character 
 
 namespace Dasher {
@@ -25,7 +27,9 @@ class Dasher::CDasherNode:private NoClones {
   ~CDasherNode();
 
   // Node relationships
-  typedef HASH_MAP < symbol, CDasherNode * >ChildMap;
+ //typedef HASH_MAP < symbol, CDasherNode * >ChildMap;
+
+  typedef std::deque<CDasherNode*> ChildMap;
 
   ChildMap & Children();
   const ChildMap & GetChildren() const;
@@ -42,7 +46,7 @@ class Dasher::CDasherNode:private NoClones {
   // Orphan Child
   void OrphanChild(CDasherNode * pChild);
 
-  void DeleteNephews(int iChild);
+  void DeleteNephews(CDasherNode *pChild);
 
   // Lower and higher bounds, and the range
   int Lbnd() const;
@@ -235,14 +239,14 @@ inline int CDasherNode::Range() const {
   return m_iHbnd - m_iLbnd;
 }
 
-inline HASH_MAP < symbol, CDasherNode * >&CDasherNode::Children() {
+inline CDasherNode::ChildMap &CDasherNode::Children() {
   /*    // DJW - please make sure DASHER_ASSERT is implemented on your platform
      DASHER_ASSERT(m_mChildren.size()==0);
      m_mChildren = mChildren; */
   return m_mChildren;
 }
 
-inline const HASH_MAP < symbol, CDasherNode * >&CDasherNode::GetChildren() const {
+inline const CDasherNode::ChildMap &CDasherNode::GetChildren() const {
   return m_mChildren;
 }
 

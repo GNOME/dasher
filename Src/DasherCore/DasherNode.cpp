@@ -55,10 +55,10 @@ void CDasherNode::Get_string_under(const int iNormalization, const myint miY1, c
   myint miRange = miY2 - miY1;
   ChildMap::const_iterator i;
   for(i = GetChildren().begin(); i != GetChildren().end(); i++) {
-    myint miNewy1 = miY1 + (miRange * i->second->m_iLbnd) / iNormalization;
-    myint miNewy2 = miY1 + (miRange * i->second->m_iHbnd) / iNormalization;
+    myint miNewy1 = miY1 + (miRange * (*i)->m_iLbnd) / iNormalization;
+    myint miNewy2 = miY1 + (miRange * (*i)->m_iHbnd) / iNormalization;
     if(miMousey < miNewy2 && miMousey > miNewy1 && miMousex < miNewy2 - miNewy1) {
-      i->second->Get_string_under(iNormalization, miNewy1, miNewy2, miMousex, miMousey, vString);
+      (*i)->Get_string_under(iNormalization, miNewy1, miNewy2, miMousex, miMousey, vString);
       return;
     }
   }
@@ -71,7 +71,7 @@ CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, m
   m_bAlive = true;
   ChildMap::const_iterator i;
   for(i = GetChildren().begin(); i != GetChildren().end(); i++) {
-    CDasherNode *pChild = i->second;
+    CDasherNode *pChild = *i;
 
     myint miNewy1 = miY1 + (miRange * pChild->m_iLbnd) / iNormalization;
     myint miNewy2 = miY1 + (miRange * pChild->m_iHbnd) / iNormalization;
@@ -89,9 +89,9 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
 
   ChildMap::const_iterator i;
   for(i = GetChildren().begin(); i != GetChildren().end(); i++) {
-    if(i->second != pChild) {
-      i->second->Delete_children();
-      delete i->second;
+    if((*i) != pChild) {
+      (*i)->Delete_children();
+      delete (*i);
     }
 
   }
@@ -100,13 +100,13 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
 }
 
 // Delete nephews of the child which has the specified symbol
-void CDasherNode::DeleteNephews(int iSym) {
+void CDasherNode::DeleteNephews(CDasherNode *pChild) {
   DASHER_ASSERT(Children().size() > 0);
 
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
-    if(i->first != iSym) {
-      i->second->Delete_children();
+    if(*i != pChild) {
+      (*i)->Delete_children();
     }
 
   }
@@ -116,7 +116,7 @@ void CDasherNode::Delete_children() {
   ChildMap::iterator i;
   for(i = Children().begin(); i != Children().end(); i++) {
     // i->second->Delete_children(); (gets called by destructor)
-    delete i->second;
+    delete (*i);
   }
   Children().clear();
   SetHasAllChildren(false);

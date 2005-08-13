@@ -67,6 +67,10 @@ void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
     ColorSchemes ChildScheme;
 
     int iLbnd = 0;
+
+
+pNode->Children().resize(iChildCount); 
+
     for(int j = 0; j < iChildCount; j++) {
       if(newchars[j] == m_pModel->GetSpaceSymbol())
         ChildScheme = SpecialScheme;

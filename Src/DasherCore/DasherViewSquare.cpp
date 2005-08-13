@@ -140,7 +140,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   CDasherNode::ChildMap::const_iterator i;
 
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
-    CDasherNode *pChild = i->second;
+    CDasherNode *pChild = *i;
     if(pChild->Alive()) {
       myint Range = y2 - y1;
       myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
@@ -414,15 +414,15 @@ void CDasherViewSquare::CheckForNewRoot() {
     return;
 
   int alive = 0;
-  symbol theone = 0;
+  CDasherNode *theone = 0;
 
  
   // Find whether there is exactly one alive child; if more, we don't care.
   CDasherNode::ChildMap::iterator i;
   for(i = children.begin(); i != children.end(); i++) {
-    if(i->second->Alive()) {
+    if((*i)->Alive()) {
       alive++;
-      theone = i->first;
+      theone = *i;
       if(alive > 1)
         break;
     }
@@ -436,8 +436,8 @@ void CDasherViewSquare::CheckForNewRoot() {
     y2 = DasherModel()->Rootmax();
     myint range = y2 - y1;
     
-    myint newy1 = y1 + (range * children[theone]->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-    myint newy2 = y1 + (range * children[theone]->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+    myint newy1 = y1 + (range * theone->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+    myint newy2 = y1 + (range * theone->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
     if(newy1 < iDasherMinY && newy2 > iDasherMaxY)
       if( (newy2 - newy1) > iDasherMaxX ) {
         DasherModel()->Make_root(theone);

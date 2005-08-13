@@ -142,7 +142,7 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 
 }
 
-void CDasherModel::Make_root(int whichchild)
+void CDasherModel::Make_root(CDasherNode *whichchild)
 // find a new root node 
 {
 
@@ -160,7 +160,7 @@ void CDasherModel::Make_root(int whichchild)
 
   oldroots.push_back(m_Root);
 
-  m_Root = m_Root->Children()[whichchild];
+  m_Root = whichchild;
 
   while(oldroots.size() > 10) {
     oldroots[0]->OrphanChild(oldroots[1]);
@@ -877,9 +877,9 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   if(pNode->HasAllChildren()) {
     DASHER_ASSERT(pNode->Children().size() > 0);
     // if there are children just give them a poke
-    HASH_MAP<symbol, CDasherNode *>::iterator i;
+    CDasherNode::ChildMap::iterator i;
     for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
-      (*i).second->Alive(true);
+      (*i)->Alive(true);
     return;
   }
 

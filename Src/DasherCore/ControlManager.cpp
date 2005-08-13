@@ -239,7 +239,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
        pNewNode->m_strDisplayText = (*it)->strLabel;
        pNewNode->m_bShove = false;
      }
-     pNode->Children()[iIdx] = pNewNode;
+     pNode->Children().push_back(pNewNode);
      ++iIdx;
    }
 }
