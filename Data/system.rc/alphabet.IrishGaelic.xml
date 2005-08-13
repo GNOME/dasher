@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="IrishGaelic with punctuation and numerals">
+<alphabet name="Gaeilge na h&#x00C9;ireann / Irish Gaelic with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <control d="Control" t=""/>

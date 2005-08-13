@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="ScotsGaelic with punctuation and numerals">
+<alphabet name="G&#x00E0;idhlig / Scots Gaelic with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <control d="Control" t=""/>

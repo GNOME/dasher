@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Chinese (simplified chinese, in pin yin groups)"> <!-- Alphabet created by David MacKay using write.p.  Thanks to Juan K Lin for help -->
+<alphabet name="Chinese / &#31616;&#20307;&#20013;&#25991; (simplified chinese, in pin yin groups)"> <!-- Alphabet created by David MacKay using write.p.  Thanks to Juan K Lin for help -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <control d="Control" t=""/>

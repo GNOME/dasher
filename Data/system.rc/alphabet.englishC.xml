@@ -66,26 +66,33 @@
 <s d="Y" t="Y" b="34"/>
 <s d="Z" t="Z" b="35"/>
 </group>
-<group name="Combining accents" b="71">
-<s d="&#x0060;"  t="&#x0300;" b="72" note="COMBINING GRAVE ACCENT  "/>
-<s d="&#x00B4;"  t="&#x0301;" b="82" note="COMBINING ACUTE ACCENT  "/>
-<s d="&#x005E;"  t="&#x0302;" b="72" note="COMBINING CIRCUMFLEX ACCENT  "/>
-<s d="&#x007E;"  t="&#x0303;" b="82" note="COMBINING TILDE  "/>
-<s d="&#x00AF;"  t="&#x0304;" b="72" note="COMBINING MACRON  "/>
-<s d="&#x00B8;"  t="&#x0327;" b="82" note="COMBINING CEDILLA  "/>
-<s d="&#x00A8;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT "/>
+<group name="Combining accents" b="51">
+<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="&#x0060; COMBINING GRAVE ACCENT  "/>
+<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="&#x00B4; COMBINING ACUTE ACCENT  "/>
+<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="&#x005E; COMBINING CIRCUMFLEX ACCENT  "/>
+<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="&#x007E; COMBINING TILDE  "/>
+<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="&#x00AF; COMBINING MACRON  "/>
+<s d="&#x25cc;&#x0306;"  t="&#x0306;" b="82" note="&#x02D8; COMBINING BREVE"/>
+<s d="&#x25cc;&#x0307;"  t="&#x0307;" b="72" note="&#x02D9; COMBINING DOT ABOVE"/>
+<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="82" note="&#x00A8; COMBINING DIAERESIS or UMLAUT "/>
+<s d="&#x25cc;&#x030A;"  t="&#x030A;" b="72" note="&#x02DA; COMBINING RING ABOVE"/>
+<s d="&#x25cc;&#x030B;"  t="&#x030B;" b="82" note="&#x02DD; COMBINING DOUBLE ACUTE ACCENT"/>
+<s d="&#x25cc;&#x030C;"  t="&#x030C;" b="72" note="&#x02C7; COMBINING CARON"/>
+<s d="&#x25cc;&#x0326;"  t="&#x0326;" b="82" note="       COMBINING COMMA BELOW"/>
+<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="72" note="&#x00B8; COMBINING CEDILLA  "/>
+<s d="&#x25cc;&#x0328;"  t="&#x0328;" b="82" note="&#x02DB; COMBINING OGONEK"/>
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1" b="90"/>
-<s d="2" t="2" b="105"/>
-<s d="3" t="3" b="91"/>
-<s d="4" t="4" b="106"/>
-<s d="5" t="5" b="92"/>
-<s d="6" t="6" b="107"/>
-<s d="7" t="7" b="93"/>
-<s d="8" t="8" b="108"/>
-<s d="9" t="9" b="94"/>
-<s d="0" t="0" b="109"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
 </group>
 <group name="Punctuation" b="112">
 <s b="90" d="%" t="%"/>
@@ -116,14 +123,15 @@
 <s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
 <s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
 <s b="109" d="`" t="`" note="left quote from keyboard" />
-<s b="105" d="&apos;" t="&apos;" note="apostrophe" />
+<s b="105" d="&#x2358;" t="&apos;" note=" apostrophe"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s b="100" d="-" t="-"/>
 <s b="101" d=":" t=":"/>
 <s b="102" d=";" t=";"/>
 <s b="103" d="?" t="?"/>
 <s b="104" d="!" t="!"/>
 <s b="100" d="," t=","/>
-<s b="104" d="." t="."/>
+<s d="&#183;" t="." b="104"/>
 </group>
 </alphabet>
 </alphabets>

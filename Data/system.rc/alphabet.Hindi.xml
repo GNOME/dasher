@@ -2,12 +2,12 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Hindi - Devanagari with punctuation and numerals">
+<alphabet name="Hindi / &#2361;&#2367;&#2306;&#2342;&#2368; with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Hindi_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" "/>
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="DEVANAGARI letters" b="0">
@@ -82,21 +82,21 @@
 <s d="&#x093E;" t="&#x093E;" note="DEVANAGARI VOWEL SIGN AA " />
 <s d="&#x093F;" t="&#x093F;" note="DEVANAGARI VOWEL SIGN I " />
 <s d="&#x0940;" t="&#x0940;" note="DEVANAGARI VOWEL SIGN II " />
-<s d="&#x0941;" t="&#x0941;" note="DEVANAGARI VOWEL SIGN U " />
-<s d="&#x0942;" t="&#x0942;" note="DEVANAGARI VOWEL SIGN UU " />
-<s d="&#x0943;" t="&#x0943;" note="DEVANAGARI VOWEL SIGN VOCALIC R " />
-<s d="&#x0944;" t="&#x0944;" note="DEVANAGARI VOWEL SIGN VOCALIC RR " />
-<s d="&#x0962;" t="&#x0962;" note="DEVANAGARI VOWEL SIGN VOCALIC L " />
-<s d="&#x0963;" t="&#x0963;" note="DEVANAGARI VOWEL SIGN VOCALIC LL " />
-<s d="&#x0945;" t="&#x0945;" note="DEVANAGARI VOWEL SIGN CANDRA E " />
-<s d="&#x0946;" t="&#x0946;" note="DEVANAGARI VOWEL SIGN SHORT E " />
-<s d="&#x0947;" t="&#x0947;" note="DEVANAGARI VOWEL SIGN E " />
-<s d="&#x0948;" t="&#x0948;" note="DEVANAGARI VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0941;" t="&#x0941;" note="DEVANAGARI VOWEL SIGN U " />
+<s d="&#x25cc;&#x0942;" t="&#x0942;" note="DEVANAGARI VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0943;" t="&#x0943;" note="DEVANAGARI VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0944;" t="&#x0944;" note="DEVANAGARI VOWEL SIGN VOCALIC RR " />
+<s d="&#x25cc;&#x0962;" t="&#x0962;" note="DEVANAGARI VOWEL SIGN VOCALIC L " />
+<s d="&#x25cc;&#x0963;" t="&#x0963;" note="DEVANAGARI VOWEL SIGN VOCALIC LL " />
+<s d="&#x25cc;&#x0945;" t="&#x0945;" note="DEVANAGARI VOWEL SIGN CANDRA E " />
+<s d="&#x25cc;&#x0946;" t="&#x0946;" note="DEVANAGARI VOWEL SIGN SHORT E " />
+<s d="&#x25cc;&#x0947;" t="&#x0947;" note="DEVANAGARI VOWEL SIGN E " />
+<s d="&#x25cc;&#x0948;" t="&#x0948;" note="DEVANAGARI VOWEL SIGN AI " />
 <s d="&#x0949;" t="&#x0949;" note="DEVANAGARI VOWEL SIGN CANDRA O " />
 <s d="&#x094A;" t="&#x094A;" note="DEVANAGARI VOWEL SIGN SHORT O " />
 <s d="&#x094B;" t="&#x094B;" note="DEVANAGARI VOWEL SIGN O " />
 <s d="&#x094C;" t="&#x094C;" note="DEVANAGARI VOWEL SIGN AU " />
-<s d="&#x094D;" t="&#x094D;" note="DEVANAGARI SIGN VIRAMA " />
+<s d="&#x25cc;&#x094D;" t="&#x094D;" note="DEVANAGARI SIGN VIRAMA " />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>

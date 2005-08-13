@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <train>training_hiragana83_JP.txt</train>
 <palette>European/Asian</palette>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="83 Letters (actually 81)" b="0">
@@ -93,17 +93,17 @@
 <s d="&#12435;" t="&#12435;" b="74" note=" N " />
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
 </group>
-<group name="Numerals"  b="113" >
-<s d="1" t="1"  b="35" />
-<s d="2" t="2"  b="36" />
-<s d="3" t="3"  b="34" />
-<s d="4" t="4"  b="35" />
-<s d="5" t="5"  b="36" />
-<s d="6" t="6"  b="34" />
-<s d="7" t="7"  b="35" />
-<s d="8" t="8"  b="36" />
-<s d="9" t="9"  b="34" />
-<s d="0" t="0"  b="35" />
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>
@@ -181,21 +181,21 @@
 <s d="&#12431;" t="&#12431;" b="89" note=" WA " />
 <s d="&#12434;" t="&#12434;" b="79" note=" WO " />
 <s d="&#12435;" t="&#12435;" b="74" note=" N " />
-<s d="&#12443;" t="&#12441;" b="99" note="diacritical buzz"  />
-<s d="&#12444;" t="&#12442;" b="97" note="diacritical pop"  />
+<s d="&#x25cc;&#12441;" t="&#12441;" b="99" note="diacritical buzz &#x25cc;&#12441; &#12443;"  />
+<s d="&#x25cc;&#12442;" t="&#12442;" b="97" note="diacritical pop  &#x25cc;&#12442; &#12444;"  />
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
 </group>
-<group name="Numerals"  b="113" >
-<s d="1" t="1"  b="35" />
-<s d="2" t="2"  b="36" />
-<s d="3" t="3"  b="34" />
-<s d="4" t="4"  b="35" />
-<s d="5" t="5"  b="36" />
-<s d="6" t="6"  b="34" />
-<s d="7" t="7"  b="35" />
-<s d="8" t="8"  b="36" />
-<s d="9" t="9"  b="34" />
-<s d="0" t="0"  b="35" />
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>
@@ -295,21 +295,21 @@
 <s d="&#12435;" t="&#12435;" b="74" note=" N " />
 </group>
 <group name="DIACR" b="9" label="">
-<s d="&#12443;" t="&#12441;" b="99" note="diacritical buzz"  />
-<s d="&#12444;" t="&#12442;" b="97" note="diacritical pop"  />
+<s d="&#x25cc;&#12443;" t="&#12441;" b="99" note="diacritical buzz"  />
+<s d="&#x25cc;&#12444;" t="&#12442;" b="97" note="diacritical pop"  />
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
 </group>
-<group name="Numerals"  b="113" >
-<s d="1" t="1"  b="35" />
-<s d="2" t="2"  b="36" />
-<s d="3" t="3"  b="34" />
-<s d="4" t="4"  b="35" />
-<s d="5" t="5"  b="36" />
-<s d="6" t="6"  b="34" />
-<s d="7" t="7"  b="35" />
-<s d="8" t="8"  b="36" />
-<s d="9" t="9"  b="34" />
-<s d="0" t="0"  b="35" />
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>
@@ -417,17 +417,17 @@
 <s d="&#12444;" t="&#12442;" b="97" note="diacritical pop"  />
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="95" />
 </group>
-<group name="Numerals"  b="113" >
-<s d="1" t="1"  b="35" />
-<s d="2" t="2"  b="36" />
-<s d="3" t="3"  b="34" />
-<s d="4" t="4"  b="35" />
-<s d="5" t="5"  b="36" />
-<s d="6" t="6"  b="34" />
-<s d="7" t="7"  b="35" />
-<s d="8" t="8"  b="36" />
-<s d="9" t="9"  b="34" />
-<s d="0" t="0"  b="35" />
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="91"/>
+<s d="3" t="3" b="92"/>
+<s d="4" t="4" b="93"/>
+<s d="5" t="5" b="94"/>
+<s d="6" t="6" b="90"/>
+<s d="7" t="7" b="91"/>
+<s d="8" t="8" b="92"/>
+<s d="9" t="9" b="93"/>
+<s d="0" t="0" b="94"/>
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>

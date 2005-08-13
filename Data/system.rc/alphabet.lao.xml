@@ -39,37 +39,37 @@
 <s d="&#x0EAD;" t="&#x0EAD;" note=" LAO LETTER O  "/>
 <s d="&#x0EAE;" t="&#x0EAE;" note=" LAO LETTER HO TAM  "/>
 </group>
-<group name="lao vowels" b="111">
-<s d="&#x0EB0;" t="&#x0EB0;" note=" LAO VOWEL SIGN A  "/>
-<s d="&#x0EB1;" t="&#x0EB1;" note=" LAO VOWEL SIGN MAI KAN  "/>
-<s d="&#x0EB2;" t="&#x0EB2;" note=" LAO VOWEL SIGN AA  "/>
-<s d="&#x0EB3;" t="&#x0EB3;" note=" LAO VOWEL SIGN AM  "/>
-<s d="&#x0EB4;" t="&#x0EB4;" note=" LAO VOWEL SIGN I  "/>
-<s d="&#x0EB5;" t="&#x0EB5;" note=" LAO VOWEL SIGN II  "/>
-<s d="&#x0EB6;" t="&#x0EB6;" note=" LAO VOWEL SIGN Y  "/>
-<s d="&#x0EB7;" t="&#x0EB7;" note=" LAO VOWEL SIGN YY  "/>
-<s d="&#x0EB8;" t="&#x0EB8;" note=" LAO VOWEL SIGN U  "/>
-<s d="&#x0EB9;" t="&#x0EB9;" note=" LAO VOWEL SIGN UU  "/>
-<s d="&#x0EBB;" t="&#x0EBB;" note=" LAO VOWEL SIGN MAI KON  "/>
-<s d="&#x0EBC;" t="&#x0EBC;" note=" LAO SEMIVOWEL SIGN LO  "/>
-<s d="&#x0EBD;" t="&#x0EBD;" note=" LAO SEMIVOWEL SIGN NYO  "/>
-<s d="&#x0EC0;" t="&#x0EC0;" note=" LAO VOWEL SIGN E  "/>
-<s d="&#x0EC1;" t="&#x0EC1;" note=" LAO VOWEL SIGN EI  "/>
-<s d="&#x0EC2;" t="&#x0EC2;" note=" LAO VOWEL SIGN O  "/>
-<s d="&#x0EC3;" t="&#x0EC3;" note=" LAO VOWEL SIGN AY  "/>
-<s d="&#x0EC4;" t="&#x0EC4;" note=" LAO VOWEL SIGN AI  "/>
+<group name="lao vowels (combining)" b="111">
+<s d="&#x25cc;&#x0EB0;" t="&#x0EB0;" note=" LAO VOWEL SIGN A  "/>
+<s d="&#x25cc;&#x0EB1;" t="&#x0EB1;" note=" LAO VOWEL SIGN MAI KAN  "/>
+<s d="&#x25cc;&#x0EB2;" t="&#x0EB2;" note=" LAO VOWEL SIGN AA  "/>
+<s d="&#x25cc;&#x0EB3;" t="&#x0EB3;" note=" LAO VOWEL SIGN AM  "/>
+<s d="&#x25cc;&#x0EB4;" t="&#x0EB4;" note=" LAO VOWEL SIGN I  "/>
+<s d="&#x25cc;&#x0EB5;" t="&#x0EB5;" note=" LAO VOWEL SIGN II  "/>
+<s d="&#x25cc;&#x0EB6;" t="&#x0EB6;" note=" LAO VOWEL SIGN Y  "/>
+<s d="&#x25cc;&#x0EB7;" t="&#x0EB7;" note=" LAO VOWEL SIGN YY  "/>
+<s d="&#x25cc;&#x0EB8;" t="&#x0EB8;" note=" LAO VOWEL SIGN U  "/>
+<s d="&#x25cc;&#x0EB9;" t="&#x0EB9;" note=" LAO VOWEL SIGN UU  "/>
+<s d="&#x25cc;&#x0EBB;" t="&#x0EBB;" note=" LAO VOWEL SIGN MAI KON  "/>
+<s d="&#x25cc;&#x0EBC;" t="&#x0EBC;" note=" LAO SEMIVOWEL SIGN LO  "/>
+<s d="&#x25cc;&#x0EBD;" t="&#x0EBD;" note=" LAO SEMIVOWEL SIGN NYO  "/>
+<s d="&#x25cc;&#x0EC0;" t="&#x0EC0;" note=" LAO VOWEL SIGN E  "/>
+<s d="&#x25cc;&#x0EC1;" t="&#x0EC1;" note=" LAO VOWEL SIGN EI  "/>
+<s d="&#x25cc;&#x0EC2;" t="&#x0EC2;" note=" LAO VOWEL SIGN O  "/>
+<s d="&#x25cc;&#x0EC3;" t="&#x0EC3;" note=" LAO VOWEL SIGN AY  "/>
+<s d="&#x25cc;&#x0EC4;" t="&#x0EC4;" note=" LAO VOWEL SIGN AI  "/>
 </group>
-<group name="lao tones" b="71">
-<s d="&#x0EC6;" t="&#x0EC6;" note=" LAO KO LA  "/>
-<s d="&#x0EC8;" t="&#x0EC8;" note=" LAO TONE MAI EK  "/>
-<s d="&#x0EC9;" t="&#x0EC9;" note=" LAO TONE MAI THO  "/>
-<s d="&#x0ECA;" t="&#x0ECA;" note=" LAO TONE MAI TI  "/>
-<s d="&#x0ECB;" t="&#x0ECB;" note=" LAO TONE MAI CATAWA  "/>
+<group name="lao tones (combining)" b="51">
+<s d="&#x25cc;&#x0EC6;" t="&#x0EC6;" note=" LAO KO LA  "/>
+<s d="&#x25cc;&#x0EC8;" t="&#x0EC8;" note=" LAO TONE MAI EK  "/>
+<s d="&#x25cc;&#x0EC9;" t="&#x0EC9;" note=" LAO TONE MAI THO  "/>
+<s d="&#x25cc;&#x0ECA;" t="&#x0ECA;" note=" LAO TONE MAI TI  "/>
+<s d="&#x25cc;&#x0ECB;" t="&#x0ECB;" note=" LAO TONE MAI CATAWA  "/>
 </group>
 <group name="Punctuation?" b="112">
 <s d="&#x0EAF;" t="&#x0EAF;" note=" LAO ELLIPSIS  "/>
-<s d="&#x0ECC;" t="&#x0ECC;" note=" LAO CANCELLATION MARK  "/>
-<s d="&#x0ECD;" t="&#x0ECD;" note=" LAO NIGGAHITA  "/>
+<s d="&#x25cc;&#x0ECC;" t="&#x0ECC;" note=" LAO CANCELLATION MARK  "/>
+<s d="&#x25cc;&#x0ECD;" t="&#x0ECD;" note=" LAO NIGGAHITA  "/>
 <s d="&#x0EDC;" t="&#x0EDC;" note=" LAO HO NO  "/>
 <s d="&#x0EDD;" t="&#x0EDD;" note=" LAO HO MO "/>
 </group>

@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Oriya_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="ORIYA letters" b="0">
@@ -66,19 +66,19 @@
 </group>
 <group name="vowels, other signs and marks" >
 <s d="&#x0B3D;" t="&#x0B3D;" note="ORIYA SIGN AVAGRAHA " />
-<s d="&#x0B3E;" t="&#x0B3E;" note="ORIYA VOWEL SIGN AA " />
-<s d="&#x0B3F;" t="&#x0B3F;" note="ORIYA VOWEL SIGN I " />
-<s d="&#x0B40;" t="&#x0B40;" note="ORIYA VOWEL SIGN II " />
-<s d="&#x0B41;" t="&#x0B41;" note="ORIYA VOWEL SIGN U " />
-<s d="&#x0B42;" t="&#x0B42;" note="ORIYA VOWEL SIGN UU " />
-<s d="&#x0B43;" t="&#x0B43;" note="ORIYA VOWEL SIGN VOCALIC R " />
-<s d="&#x0B47;" t="&#x0B47;" note="ORIYA VOWEL SIGN E " />
-<s d="&#x0B48;" t="&#x0B48;" note="ORIYA VOWEL SIGN AI " />
-<s d="&#x0B4B;" t="&#x0B4B;" note="ORIYA VOWEL SIGN O " />
-<s d="&#x0B4C;" t="&#x0B4C;" note="ORIYA VOWEL SIGN AU " />
-<s d="&#x0B4D;" t="&#x0B4D;" note="ORIYA SIGN VIRAMA " />
-<s d="&#x0B56;" t="&#x0B56;" note="ORIYA AI LENGTH MARK " />
-<s d="&#x0B57;" t="&#x0B57;" note="ORIYA AU LENGTH MARK " />
+<s d="&#x0B3E;" t="&#x0B3E;" note="ORIYA &#x25cc; VOWEL SIGN AA " />
+<s d="&#x0B3F;" t="&#x0B3F;" note="ORIYA &#x25cc; VOWEL SIGN I " />
+<s d="&#x0B40;" t="&#x0B40;" note="ORIYA &#x25cc; VOWEL SIGN II " />
+<s d="&#x0B41;" t="&#x0B41;" note="ORIYA &#x25cc; VOWEL SIGN U " />
+<s d="&#x0B42;" t="&#x0B42;" note="ORIYA &#x25cc; VOWEL SIGN UU " />
+<s d="&#x0B43;" t="&#x0B43;" note="ORIYA &#x25cc; VOWEL SIGN VOCALIC R " />
+<s d="&#x0B47;" t="&#x0B47;" note="ORIYA &#x25cc; VOWEL SIGN E " />
+<s d="&#x0B48;" t="&#x0B48;" note="ORIYA &#x25cc; VOWEL SIGN AI " />
+<s d="&#x0B4B;" t="&#x0B4B;" note="ORIYA &#x25cc; VOWEL SIGN O " />
+<s d="&#x0B4C;" t="&#x0B4C;" note="ORIYA &#x25cc; VOWEL SIGN AU " />
+<s d="&#x0B4D;" t="&#x0B4D;" note="ORIYA &#x25cc; SIGN VIRAMA " />
+<s d="&#x0B56;" t="&#x0B56;" note="ORIYA &#x25cc; AI LENGTH MARK " />
+<s d="&#x0B57;" t="&#x0B57;" note="ORIYA &#x25cc; AU LENGTH MARK " />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>

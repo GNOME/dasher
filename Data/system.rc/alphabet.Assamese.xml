@@ -65,21 +65,21 @@
 <s d="&#x09BD;" t="&#x09BD;"  note=" SIGN AVAGRAHA  "  />
 </group>			    
 <group name="Bengali vowels" >	    
-<s d="&#x09BE;" t="&#x09BE;"  note=" VOWEL SIGN AA  "  />
-<s d="&#x09BF;" t="&#x09BF;"  note=" VOWEL SIGN I  "  />
-<s d="&#x09C0;" t="&#x09C0;"  note=" VOWEL SIGN II  "  />
-<s d="&#x09C1;" t="&#x09C1;"  note=" VOWEL SIGN U  "  />
-<s d="&#x09C2;" t="&#x09C2;"  note=" VOWEL SIGN UU  "  />
-<s d="&#x09C3;" t="&#x09C3;"  note=" VOWEL SIGN VOCALIC R  "  />
-<s d="&#x09C4;" t="&#x09C4;"  note=" VOWEL SIGN VOCALIC RR  "  />
-<s d="&#x09E2;" t="&#x09E2;"  note=" VOWEL SIGN VOCALIC L  "  />
-<s d="&#x09E3;" t="&#x09E3;"  note=" VOWEL SIGN VOCALIC LL  "  />
-<s d="&#x09C7;" t="&#x09C7;"  note=" VOWEL SIGN E  "  />
-<s d="&#x09C8;" t="&#x09C8;"  note=" VOWEL SIGN AI  "  />
-<s d="&#x09CB;" t="&#x09CB;"  note=" VOWEL SIGN O  "  />
-<s d="&#x09CC;" t="&#x09CC;"  note=" VOWEL SIGN AU  "  />
-<s d="&#x09CD;" t="&#x09CD;"  note=" SIGN VIRAMA  "  />
-<s d="&#x09D7;" t="&#x09D7;"  note=" AU LENGTH MARK  "  />
+<s d="&#x25cc;&#x09BE;" t="&#x09BE;"  note=" VOWEL SIGN AA  "  />
+<s d="&#x25cc;&#x09BF;" t="&#x09BF;"  note=" VOWEL SIGN I  "  />
+<s d="&#x25cc;&#x09C0;" t="&#x09C0;"  note=" VOWEL SIGN II  "  />
+<s d="&#x25cc;&#x09C1;" t="&#x09C1;"  note=" VOWEL SIGN U  "  />
+<s d="&#x25cc;&#x09C2;" t="&#x09C2;"  note=" VOWEL SIGN UU  "  />
+<s d="&#x25cc;&#x09C3;" t="&#x09C3;"  note=" VOWEL SIGN VOCALIC R  "  />
+<s d="&#x25cc;&#x09C4;" t="&#x09C4;"  note=" VOWEL SIGN VOCALIC RR  "  />
+<s d="&#x25cc;&#x09E2;" t="&#x09E2;"  note=" VOWEL SIGN VOCALIC L  "  />
+<s d="&#x25cc;&#x09E3;" t="&#x09E3;"  note=" VOWEL SIGN VOCALIC LL  "  />
+<s d="&#x25cc;&#x09C7;" t="&#x09C7;"  note=" VOWEL SIGN E  "  />
+<s d="&#x25cc;&#x09C8;" t="&#x09C8;"  note=" VOWEL SIGN AI  "  />
+<s d="&#x25cc;&#x09CB;" t="&#x09CB;"  note=" VOWEL SIGN O  "  />
+<s d="&#x25cc;&#x09CC;" t="&#x09CC;"  note=" VOWEL SIGN AU  "  />
+<s d="&#x25cc;&#x09CD;" t="&#x09CD;"  note=" SIGN VIRAMA  "  />
+<s d="&#x25cc;&#x09D7;" t="&#x09D7;"  note=" AU LENGTH MARK  "  />
 </group>
 <group name="Bengali numbers" b="113">
 <s d="&#x09E7;" t="&#x09E7;"  note="BENGALI DIGIT ONE"/>

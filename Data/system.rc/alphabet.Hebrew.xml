@@ -68,14 +68,14 @@
 <s d="_" t="_"/>
 <s d="&amp;" t="&amp;"/>
 <s d="@" t="@"/>
-<s d="[" t="["/>
-<s d="]" t="]"/>
-<s d="{" t="{"/>
-<s d="}" t="}"/>
-<s d="&lt;" t="&lt;"/>
-<s d="&gt;" t="&gt;"/>
-<s d="(" t="("/>
-<s d=")" t=")"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>
@@ -139,55 +139,55 @@
 <s d="&#x05F4;" t="&#x05F4;"  note="Garshayim"/>
 </group>	          
 <group name="Points (Vowels) (Nequdot, &#x5E0;&#x5E7;&#x5D5;&#x5D3;&#x5D5;&#x5EA;)" b="112">
-<s d="&#x05B0;" t="&#x05B0;" note="vowel: combining sheva" />
-<s d="&#x05B1;" t="&#x05B1;" note="vowel: combining hatef segol" />
-<s d="&#x05B2;" t="&#x05B2;" note="vowel: combining" />
-<s d="&#x05B3;" t="&#x05B3;" note="vowel: combining" />
-<s d="&#x05B4;" t="&#x05B4;" note="vowel: combining"/>
-<s d="&#x05B5;" t="&#x05B5;" note="vowel: combining"/>
-<s d="&#x05B6;" t="&#x05B6;" note="vowel: combining"/>
-<s d="&#x05B7;" t="&#x05B7;" note="vowel: combining"/>
-<s d="&#x05B8;" t="&#x05B8;" note="vowel: combining"/>
-<s d="&#x05B9;" t="&#x05B9;" note="vowel: combining"/>
-<s d="&#x05BB;" t="&#x05BB;" note="vowel: combining"/>
-<s d="&#x05BC;" t="&#x05BC;" note="vowel: combining"/>
-<s d="&#x05BD;" t="&#x05BD;" note="vowel: combining"/>
-<s d="&#x05BF;" t="&#x05BF;" note="vowel: combining rafe"/>
-<s d="&#x05C1;" t="&#x05C1;" note="vowel: combining shin dot"/>
-<s d="&#x05C2;" t="&#x05C2;" note="vowel: combining sin dot"/>
-<s d="&#x05C4;" t="&#x05C4;" note="vowel: combining mark upper dot"/>
+<s d="&#x25cc;&#x05B0;" t="&#x05B0;" note="vowel: combining sheva" />
+<s d="&#x25cc;&#x05B1;" t="&#x05B1;" note="vowel: combining hatef segol" />
+<s d="&#x25cc;&#x05B2;" t="&#x05B2;" note="vowel: combining" />
+<s d="&#x25cc;&#x05B3;" t="&#x05B3;" note="vowel: combining" />
+<s d="&#x25cc;&#x05B4;" t="&#x05B4;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B5;" t="&#x05B5;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B6;" t="&#x05B6;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B7;" t="&#x05B7;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B8;" t="&#x05B8;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05B9;" t="&#x05B9;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BB;" t="&#x05BB;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BC;" t="&#x05BC;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BD;" t="&#x05BD;" note="vowel: combining"/>
+<s d="&#x25cc;&#x05BF;" t="&#x05BF;" note="vowel: combining rafe"/>
+<s d="&#x25cc;&#x05C1;" t="&#x05C1;" note="vowel: combining shin dot"/>
+<s d="&#x25cc;&#x05C2;" t="&#x05C2;" note="vowel: combining sin dot"/>
+<s d="&#x25cc;&#x05C4;" t="&#x05C4;" note="vowel: combining mark upper dot"/>
 </group>	          
 <group name="Hebrew cantillation marks (Teamim, &#x5D8;&#x5E2;&#x5DE;&#x5D9;&#x5DD;)" b="111">
-<s d="&#x0591;" t="&#x0591;" />
-<s d="&#x0592;" t="&#x0592;" />
-<s d="&#x0593;" t="&#x0593;" />
-<s d="&#x0594;" t="&#x0594;" />
-<s d="&#x0595;" t="&#x0595;" />
-<s d="&#x0596;" t="&#x0596;" />
-<s d="&#x0597;" t="&#x0597;" />
-<s d="&#x0598;" t="&#x0598;" />
-<s d="&#x0599;" t="&#x0599;" />
-<s d="&#x059A;" t="&#x059A;" />
-<s d="&#x059B;" t="&#x059B;" />
-<s d="&#x059C;" t="&#x059C;" />
-<s d="&#x059D;" t="&#x059D;" />
-<s d="&#x059E;" t="&#x059E;" />
-<s d="&#x059F;" t="&#x059F;" />
-<s d="&#x05A0;" t="&#x05A0;" />
-<s d="&#x05A1;" t="&#x05A1;" />
-<s d="&#x05A3;" t="&#x05A3;" />
-<s d="&#x05A4;" t="&#x05A4;" />
-<s d="&#x05A5;" t="&#x05A5;" />
-<s d="&#x05A6;" t="&#x05A6;" />
-<s d="&#x05A7;" t="&#x05A7;" />
-<s d="&#x05A8;" t="&#x05A8;" />
-<s d="&#x05A9;" t="&#x05A9;" />
-<s d="&#x05AA;" t="&#x05AA;" />
-<s d="&#x05AB;" t="&#x05AB;" />
-<s d="&#x05AC;" t="&#x05AC;" />
-<s d="&#x05AD;" t="&#x05AD;" />
-<s d="&#x05AE;" t="&#x05AE;" />
-<s d="&#x05AF;" t="&#x05AF;" />
+<s d="&#x25cc;&#x0591;" t="&#x0591;" />
+<s d="&#x25cc;&#x0592;" t="&#x0592;" />
+<s d="&#x25cc;&#x0593;" t="&#x0593;" />
+<s d="&#x25cc;&#x0594;" t="&#x0594;" />
+<s d="&#x25cc;&#x0595;" t="&#x0595;" />
+<s d="&#x25cc;&#x0596;" t="&#x0596;" />
+<s d="&#x25cc;&#x0597;" t="&#x0597;" />
+<s d="&#x25cc;&#x0598;" t="&#x0598;" />
+<s d="&#x25cc;&#x0599;" t="&#x0599;" />
+<s d="&#x25cc;&#x059A;" t="&#x059A;" />
+<s d="&#x25cc;&#x059B;" t="&#x059B;" />
+<s d="&#x25cc;&#x059C;" t="&#x059C;" />
+<s d="&#x25cc;&#x059D;" t="&#x059D;" />
+<s d="&#x25cc;&#x059E;" t="&#x059E;" />
+<s d="&#x25cc;&#x059F;" t="&#x059F;" />
+<s d="&#x25cc;&#x05A0;" t="&#x05A0;" />
+<s d="&#x25cc;&#x05A1;" t="&#x05A1;" />
+<s d="&#x25cc;&#x05A3;" t="&#x05A3;" />
+<s d="&#x25cc;&#x05A4;" t="&#x05A4;" />
+<s d="&#x25cc;&#x05A5;" t="&#x05A5;" />
+<s d="&#x25cc;&#x05A6;" t="&#x05A6;" />
+<s d="&#x25cc;&#x05A7;" t="&#x05A7;" />
+<s d="&#x25cc;&#x05A8;" t="&#x05A8;" />
+<s d="&#x25cc;&#x05A9;" t="&#x05A9;" />
+<s d="&#x25cc;&#x05AA;" t="&#x05AA;" />
+<s d="&#x25cc;&#x05AB;" t="&#x05AB;" />
+<s d="&#x25cc;&#x05AC;" t="&#x05AC;" />
+<s d="&#x25cc;&#x05AD;" t="&#x05AD;" />
+<s d="&#x25cc;&#x05AE;" t="&#x05AE;" />
+<s d="&#x25cc;&#x05AF;" t="&#x05AF;" />
 </group>	          
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -217,14 +217,14 @@
 <s d="_" t="_"/>
 <s d="&amp;" t="&amp;"/>
 <s d="@" t="@"/>
-<s d="[" t="["/>
-<s d="]" t="]"/>
-<s d="{" t="{"/>
-<s d="}" t="}"/>
-<s d="&lt;" t="&lt;"/>
-<s d="&gt;" t="&gt;"/>
-<s d="(" t="("/>
-<s d=")" t=")"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>

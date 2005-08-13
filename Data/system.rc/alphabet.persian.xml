@@ -1,918 +1,162 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
-<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<!-- Author: David MacKay and Behdad  -->
 <alphabets>
-<alphabet name="persian with punctuation and numerals">
-<orientation type="LR"/>
+<alphabet name="Persian (Nested groups) with punctuation and numerals">
+<orientation type="RL"/>
 <encoding type="Western"/>
-<palette>Default</palette>
+<palette>European/Asian</palette>
 <train>training_persian_IR.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
-<group name="persian letters" b="0">
-<s d="&#x0622;" t="&#x0622;"  note="ARABIC LETTER ALEF WITH MADDA ABOVE  class(p)"  />
-<s d="&#xFE82;" t="&#xFE82;"  note="ARABIC LETTER ALEF WITH MADDA ABOVE FINAL FORM  class(t)"  />
-<s d="&#xFE81;" t="&#xFE81;"  note="ARABIC LETTER ALEF WITH MADDA ABOVE ISOLATED FORM  class(t)"  />
-<s d="&#x0627;" t="&#x0627;"  note="ARABIC LETTER ALEF  class(p)"  />
-<s d="&#xFE8E;" t="&#xFE8E;"  note="ARABIC LETTER ALEF FINAL FORM  class(t)"  />
-<s d="&#xFE8D;" t="&#xFE8D;"  note="ARABIC LETTER ALEF ISOLATED FORM  class(t)"  />
-<s d="&#xFD3C;" t="&#xFD3C;"  note="ARABIC LIGATURE ALEF WITH FATHATAN FINAL FORM  class(s)"  />
-<s d="&#xFD3D;" t="&#xFD3D;"  note="ARABIC LIGATURE ALEF WITH FATHATAN ISOLATED FORM  class(t)"  />
-<s d="&#x0671;" t="&#x0671;"  note="ARABIC LETTER ALEF WASLA  class(s)"  />
-<s d="&#xFB51;" t="&#xFB51;"  note="ARABIC LETTER ALEF WASLA FINAL FORM  class(t)"  />
-<s d="&#xFB50;" t="&#xFB50;"  note="ARABIC LETTER ALEF WASLA ISOLATED FORM  class(t)"  />
-<s d="&#x0675;" t="&#x0675;"  note="ARABIC LETTER HIGH HAMZA ALEF  class(es)"  />
-<s d="&#xFDF3;" t="&#xFDF3;"  note="ARABIC LIGATURE AKBAR ISOLATED FORM  class(es)"  />
-<s d="&#xFDF2;" t="&#xFDF2;"  note="ARABIC LIGATURE ALLAH ISOLATED FORM  class(es)"  />
-<s d="&#x0621;" t="&#x0621;"  note="ARABIC LETTER HAMZA  class(p)"  />
-<s d="&#x0674;" t="&#x0674;"  note="ARABIC LETTER HIGH HAMZA  class(t)"  />
-<s d="&#x06FD;" t="&#x06FD;"  note="ARABIC SIGN SINDHI AMPERSAND  class(q)"  />
-<s d="&#xFE80;" t="&#xFE80;"  note="ARABIC LETTER HAMZA ISOLATED FORM  class(t)"  />
-<s d="&#x0623;" t="&#x0623;"  note="ARABIC LETTER ALEF WITH HAMZA ABOVE  class(s)"  />
-<s d="&#xFE84;" t="&#xFE84;"  note="ARABIC LETTER ALEF WITH HAMZA ABOVE FINAL FORM  class(t)"  />
-<s d="&#xFE83;" t="&#xFE83;"  note="ARABIC LETTER ALEF WITH HAMZA ABOVE ISOLATED FORM  class(t)"  />
-<s d="&#x0672;" t="&#x0672;"  note="ARABIC LETTER ALEF WITH WAVY HAMZA ABOVE  class(s)"  />
-<s d="&#x0625;" t="&#x0625;"  note="ARABIC LETTER ALEF WITH HAMZA BELOW  class(s)"  />
-<s d="&#xFE88;" t="&#xFE88;"  note="ARABIC LETTER ALEF WITH HAMZA BELOW FINAL FORM  class(t)"  />
-<s d="&#xFE87;" t="&#xFE87;"  note="ARABIC LETTER ALEF WITH HAMZA BELOW ISOLATED FORM  class(t)"  />
-<s d="&#x0673;" t="&#x0673;"  note="ARABIC LETTER ALEF WITH WAVY HAMZA BELOW  class(s)"  />
-<s d="&#x0624;" t="&#x0624;"  note="ARABIC LETTER WAW WITH HAMZA ABOVE  class(s)"  />
-<s d="&#xFE86;" t="&#xFE86;"  note="ARABIC LETTER WAW WITH HAMZA ABOVE FINAL FORM  class(t)"  />
-<s d="&#xFE85;" t="&#xFE85;"  note="ARABIC LETTER WAW WITH HAMZA ABOVE ISOLATED FORM  class(t)"  />
-<s d="&#x0626;" t="&#x0626;"  note="ARABIC LETTER YEH WITH HAMZA ABOVE  class(s)"  />
-<s d="&#xFE8B;" t="&#xFE8B;"  note="ARABIC LETTER YEH WITH HAMZA ABOVE INITIAL FORM  class(t)"  />
-<s d="&#xFE8C;" t="&#xFE8C;"  note="ARABIC LETTER YEH WITH HAMZA ABOVE MEDIAL FORM  class(t)"  />
-<s d="&#xFE8A;" t="&#xFE8A;"  note="ARABIC LETTER YEH WITH HAMZA ABOVE FINAL FORM  class(t)"  />
-<s d="&#xFE89;" t="&#xFE89;"  note="ARABIC LETTER YEH WITH HAMZA ABOVE ISOLATED FORM  class(t)"  />
-<s d="&#xFBEB;" t="&#xFBEB;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF FINAL FORM  class(es)"  />
-<s d="&#xFBEA;" t="&#xFBEA;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF ISOLATED FORM  class(et)"  />
-<s d="&#xFC97;" t="&#xFC97;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC00;" t="&#xFC00;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFC98;" t="&#xFC98;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC01;" t="&#xFC01;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFC99;" t="&#xFC99;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC64;" t="&#xFC64;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFC65;" t="&#xFC65;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ZAIN FINAL FORM  class(es)"  />
-<s d="&#xFC9A;" t="&#xFC9A;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCDF;" t="&#xFCDF;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC66;" t="&#xFC66;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC02;" t="&#xFC02;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFC67;" t="&#xFC67;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH NOON FINAL FORM  class(es)"  />
-<s d="&#xFBEF;" t="&#xFBEF;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH WAW FINAL FORM  class(es)"  />
-<s d="&#xFBEE;" t="&#xFBEE;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH WAW ISOLATED FORM  class(et)"  />
-<s d="&#xFBF3;" t="&#xFBF3;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH OE FINAL FORM  class(es)"  />
-<s d="&#xFBF2;" t="&#xFBF2;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH OE ISOLATED FORM  class(et)"  />
-<s d="&#xFBF1;" t="&#xFBF1;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH U FINAL FORM  class(es)"  />
-<s d="&#xFBF0;" t="&#xFBF0;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH U ISOLATED FORM  class(et)"  />
-<s d="&#xFBF5;" t="&#xFBF5;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YU FINAL FORM  class(es)"  />
-<s d="&#xFBF4;" t="&#xFBF4;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YU ISOLATED FORM  class(et)"  />
-<s d="&#xFC9B;" t="&#xFC9B;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCE0;" t="&#xFCE0;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFBED;" t="&#xFBED;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH AE FINAL FORM  class(es)"  />
-<s d="&#xFBEC;" t="&#xFBEC;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH AE ISOLATED FORM  class(et)"  />
-<s d="&#xFBFB;" t="&#xFBFB;"  note="ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA INITIAL FORM  class(es)"  />
-<s d="&#xFBFA;" t="&#xFBFA;"  note="ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA FINAL FORM  class(et)"  />
-<s d="&#xFC68;" t="&#xFC68;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF MAKSURA FINAL FORM  class(eq)"  />
-<s d="&#xFBF9;" t="&#xFBF9;"  note="ARABIC LIGATURE UIGHUR KIRGHIZ YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC03;" t="&#xFC03;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH ALEF MAKSURA ISOLATED FORM  class(eq)"  />
-<s d="&#xFC69;" t="&#xFC69;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC04;" t="&#xFC04;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#xFBF8;" t="&#xFBF8;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH E INITIAL FORM  class(es)"  />
-<s d="&#xFBF7;" t="&#xFBF7;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH E FINAL FORM  class(et)"  />
-<s d="&#xFBF6;" t="&#xFBF6;"  note="ARABIC LIGATURE YEH WITH HAMZA ABOVE WITH E ISOLATED FORM  class(et)"  />
-<s d="&#x066E;" t="&#x066E;"  note="ARABIC LETTER DOTLESS BEH  class(p)"  />
-<s d="&#x0628;" t="&#x0628;"  note="ARABIC LETTER BEH  class(p)"  />
-<s d="&#xFE91;" t="&#xFE91;"  note="ARABIC LETTER BEH INITIAL FORM  class(t)"  />
-<s d="&#xFE92;" t="&#xFE92;"  note="ARABIC LETTER BEH MEDIAL FORM  class(t)"  />
-<s d="&#xFE90;" t="&#xFE90;"  note="ARABIC LETTER BEH FINAL FORM  class(t)"  />
-<s d="&#xFE8F;" t="&#xFE8F;"  note="ARABIC LETTER BEH ISOLATED FORM  class(t)"  />
-<s d="&#xFC9C;" t="&#xFC9C;"  note="ARABIC LIGATURE BEH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC05;" t="&#xFC05;"  note="ARABIC LIGATURE BEH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFC9D;" t="&#xFC9D;"  note="ARABIC LIGATURE BEH WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC06;" t="&#xFC06;"  note="ARABIC LIGATURE BEH WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFDC2;" t="&#xFDC2;"  note="ARABIC LIGATURE BEH WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC9E;" t="&#xFC9E;"  note="ARABIC LIGATURE BEH WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC07;" t="&#xFC07;"  note="ARABIC LIGATURE BEH WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD9E;" t="&#xFD9E;"  note="ARABIC LIGATURE BEH WITH KHAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC6A;" t="&#xFC6A;"  note="ARABIC LIGATURE BEH WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFC6B;" t="&#xFC6B;"  note="ARABIC LIGATURE BEH WITH ZAIN FINAL FORM  class(es)"  />
-<s d="&#xFC9F;" t="&#xFC9F;"  note="ARABIC LIGATURE BEH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCE1;" t="&#xFCE1;"  note="ARABIC LIGATURE BEH WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC6C;" t="&#xFC6C;"  note="ARABIC LIGATURE BEH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC08;" t="&#xFC08;"  note="ARABIC LIGATURE BEH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFC6D;" t="&#xFC6D;"  note="ARABIC LIGATURE BEH WITH NOON FINAL FORM  class(es)"  />
-<s d="&#xFCA0;" t="&#xFCA0;"  note="ARABIC LIGATURE BEH WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCE2;" t="&#xFCE2;"  note="ARABIC LIGATURE BEH WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFC6E;" t="&#xFC6E;"  note="ARABIC LIGATURE BEH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC09;" t="&#xFC09;"  note="ARABIC LIGATURE BEH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC6F;" t="&#xFC6F;"  note="ARABIC LIGATURE BEH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC0A;" t="&#xFC0A;"  note="ARABIC LIGATURE BEH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x067B;" t="&#x067B;"  note="ARABIC LETTER BEEH  class(p)"  />
-<s d="&#xFB54;" t="&#xFB54;"  note="ARABIC LETTER BEEH INITIAL FORM  class(t)"  />
-<s d="&#xFB55;" t="&#xFB55;"  note="ARABIC LETTER BEEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB53;" t="&#xFB53;"  note="ARABIC LETTER BEEH FINAL FORM  class(t)"  />
-<s d="&#xFB52;" t="&#xFB52;"  note="ARABIC LETTER BEEH ISOLATED FORM  class(t)"  />
-<s d="&#x067E;" t="&#x067E;"  note="ARABIC LETTER PEH  class(p)"  />
-<s d="&#xFB58;" t="&#xFB58;"  note="ARABIC LETTER PEH INITIAL FORM  class(t)"  />
-<s d="&#xFB59;" t="&#xFB59;"  note="ARABIC LETTER PEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB57;" t="&#xFB57;"  note="ARABIC LETTER PEH FINAL FORM  class(t)"  />
-<s d="&#xFB56;" t="&#xFB56;"  note="ARABIC LETTER PEH ISOLATED FORM  class(t)"  />
-<s d="&#x0680;" t="&#x0680;"  note="ARABIC LETTER BEHEH  class(p)"  />
-<s d="&#xFB5C;" t="&#xFB5C;"  note="ARABIC LETTER BEHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB5D;" t="&#xFB5D;"  note="ARABIC LETTER BEHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB5B;" t="&#xFB5B;"  note="ARABIC LETTER BEHEH FINAL FORM  class(t)"  />
-<s d="&#xFB5A;" t="&#xFB5A;"  note="ARABIC LETTER BEHEH ISOLATED FORM  class(t)"  />
-<s d="&#x062A;" t="&#x062A;"  note="ARABIC LETTER TEH  class(p)"  />
-<s d="&#xFE97;" t="&#xFE97;"  note="ARABIC LETTER TEH INITIAL FORM  class(t)"  />
-<s d="&#xFE98;" t="&#xFE98;"  note="ARABIC LETTER TEH MEDIAL FORM  class(t)"  />
-<s d="&#xFE96;" t="&#xFE96;"  note="ARABIC LETTER TEH FINAL FORM  class(t)"  />
-<s d="&#xFE95;" t="&#xFE95;"  note="ARABIC LETTER TEH ISOLATED FORM  class(t)"  />
-<s d="&#xFCA1;" t="&#xFCA1;"  note="ARABIC LIGATURE TEH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC0B;" t="&#xFC0B;"  note="ARABIC LIGATURE TEH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD50;" t="&#xFD50;"  note="ARABIC LIGATURE TEH WITH JEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDA0;" t="&#xFDA0;"  note="ARABIC LIGATURE TEH WITH JEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD9F;" t="&#xFD9F;"  note="ARABIC LIGATURE TEH WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCA2;" t="&#xFCA2;"  note="ARABIC LIGATURE TEH WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC0C;" t="&#xFC0C;"  note="ARABIC LIGATURE TEH WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD52;" t="&#xFD52;"  note="ARABIC LIGATURE TEH WITH HAH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD51;" t="&#xFD51;"  note="ARABIC LIGATURE TEH WITH HAH WITH JEEM FINAL FORM  class(et)"  />
-<s d="&#xFD53;" t="&#xFD53;"  note="ARABIC LIGATURE TEH WITH HAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCA3;" t="&#xFCA3;"  note="ARABIC LIGATURE TEH WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC0D;" t="&#xFC0D;"  note="ARABIC LIGATURE TEH WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD54;" t="&#xFD54;"  note="ARABIC LIGATURE TEH WITH KHAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDA2;" t="&#xFDA2;"  note="ARABIC LIGATURE TEH WITH KHAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDA1;" t="&#xFDA1;"  note="ARABIC LIGATURE TEH WITH KHAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC70;" t="&#xFC70;"  note="ARABIC LIGATURE TEH WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFC71;" t="&#xFC71;"  note="ARABIC LIGATURE TEH WITH ZAIN FINAL FORM  class(es)"  />
-<s d="&#xFCA4;" t="&#xFCA4;"  note="ARABIC LIGATURE TEH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCE3;" t="&#xFCE3;"  note="ARABIC LIGATURE TEH WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC72;" t="&#xFC72;"  note="ARABIC LIGATURE TEH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC0E;" t="&#xFC0E;"  note="ARABIC LIGATURE TEH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD55;" t="&#xFD55;"  note="ARABIC LIGATURE TEH WITH MEEM WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD56;" t="&#xFD56;"  note="ARABIC LIGATURE TEH WITH MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD57;" t="&#xFD57;"  note="ARABIC LIGATURE TEH WITH MEEM WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFDA4;" t="&#xFDA4;"  note="ARABIC LIGATURE TEH WITH MEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDA3;" t="&#xFDA3;"  note="ARABIC LIGATURE TEH WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC73;" t="&#xFC73;"  note="ARABIC LIGATURE TEH WITH NOON FINAL FORM  class(es)"  />
-<s d="&#xFCA5;" t="&#xFCA5;"  note="ARABIC LIGATURE TEH WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCE4;" t="&#xFCE4;"  note="ARABIC LIGATURE TEH WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFC74;" t="&#xFC74;"  note="ARABIC LIGATURE TEH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC0F;" t="&#xFC0F;"  note="ARABIC LIGATURE TEH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC75;" t="&#xFC75;"  note="ARABIC LIGATURE TEH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC10;" t="&#xFC10;"  note="ARABIC LIGATURE TEH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x062B;" t="&#x062B;"  note="ARABIC LETTER THEH  class(p)"  />
-<s d="&#xFE9B;" t="&#xFE9B;"  note="ARABIC LETTER THEH INITIAL FORM  class(t)"  />
-<s d="&#xFE9C;" t="&#xFE9C;"  note="ARABIC LETTER THEH MEDIAL FORM  class(t)"  />
-<s d="&#xFE9A;" t="&#xFE9A;"  note="ARABIC LETTER THEH FINAL FORM  class(t)"  />
-<s d="&#xFE99;" t="&#xFE99;"  note="ARABIC LETTER THEH ISOLATED FORM  class(t)"  />
-<s d="&#xFC11;" t="&#xFC11;"  note="ARABIC LIGATURE THEH WITH JEEM ISOLATED FORM  class(es)"  />
-<s d="&#xFC76;" t="&#xFC76;"  note="ARABIC LIGATURE THEH WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFC77;" t="&#xFC77;"  note="ARABIC LIGATURE THEH WITH ZAIN FINAL FORM  class(es)"  />
-<s d="&#xFCA6;" t="&#xFCA6;"  note="ARABIC LIGATURE THEH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCE5;" t="&#xFCE5;"  note="ARABIC LIGATURE THEH WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC78;" t="&#xFC78;"  note="ARABIC LIGATURE THEH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC12;" t="&#xFC12;"  note="ARABIC LIGATURE THEH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFC79;" t="&#xFC79;"  note="ARABIC LIGATURE THEH WITH NOON FINAL FORM  class(es)"  />
-<s d="&#xFCE6;" t="&#xFCE6;"  note="ARABIC LIGATURE THEH WITH HEH MEDIAL FORM  class(es)"  />
-<s d="&#xFC7A;" t="&#xFC7A;"  note="ARABIC LIGATURE THEH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC13;" t="&#xFC13;"  note="ARABIC LIGATURE THEH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC7B;" t="&#xFC7B;"  note="ARABIC LIGATURE THEH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC14;" t="&#xFC14;"  note="ARABIC LIGATURE THEH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x0679;" t="&#x0679;"  note="ARABIC LETTER TTEH  class(p)"  />
-<s d="&#xFB68;" t="&#xFB68;"  note="ARABIC LETTER TTEH INITIAL FORM  class(t)"  />
-<s d="&#xFB69;" t="&#xFB69;"  note="ARABIC LETTER TTEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB67;" t="&#xFB67;"  note="ARABIC LETTER TTEH FINAL FORM  class(t)"  />
-<s d="&#xFB66;" t="&#xFB66;"  note="ARABIC LETTER TTEH ISOLATED FORM  class(t)"  />
-<s d="&#x067A;" t="&#x067A;"  note="ARABIC LETTER TTEHEH  class(p)"  />
-<s d="&#xFB60;" t="&#xFB60;"  note="ARABIC LETTER TTEHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB61;" t="&#xFB61;"  note="ARABIC LETTER TTEHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB5F;" t="&#xFB5F;"  note="ARABIC LETTER TTEHEH FINAL FORM  class(t)"  />
-<s d="&#xFB5E;" t="&#xFB5E;"  note="ARABIC LETTER TTEHEH ISOLATED FORM  class(t)"  />
-<s d="&#x067C;" t="&#x067C;"  note="ARABIC LETTER TEH WITH RING  class(p)"  />
-<s d="&#x067D;" t="&#x067D;"  note="ARABIC LETTER TEH WITH THREE DOTS ABOVE DOWNWARDS  class(p)"  />
-<s d="&#x067F;" t="&#x067F;"  note="ARABIC LETTER TEHEH  class(p)"  />
-<s d="&#xFB64;" t="&#xFB64;"  note="ARABIC LETTER TEHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB65;" t="&#xFB65;"  note="ARABIC LETTER TEHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB63;" t="&#xFB63;"  note="ARABIC LETTER TEHEH FINAL FORM  class(t)"  />
-<s d="&#xFB62;" t="&#xFB62;"  note="ARABIC LETTER TEHEH ISOLATED FORM  class(t)"  />
-<s d="&#x062C;" t="&#x062C;"  note="ARABIC LETTER JEEM  class(p)"  />
-<s d="&#xFE9F;" t="&#xFE9F;"  note="ARABIC LETTER JEEM INITIAL FORM  class(t)"  />
-<s d="&#xFEA0;" t="&#xFEA0;"  note="ARABIC LETTER JEEM MEDIAL FORM  class(t)"  />
-<s d="&#xFE9E;" t="&#xFE9E;"  note="ARABIC LETTER JEEM FINAL FORM  class(t)"  />
-<s d="&#xFE9D;" t="&#xFE9D;"  note="ARABIC LETTER JEEM ISOLATED FORM  class(t)"  />
-<s d="&#xFCA7;" t="&#xFCA7;"  note="ARABIC LIGATURE JEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC15;" t="&#xFC15;"  note="ARABIC LIGATURE JEEM WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFDA6;" t="&#xFDA6;"  note="ARABIC LIGATURE JEEM WITH HAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDBE;" t="&#xFDBE;"  note="ARABIC LIGATURE JEEM WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFDFB;" t="&#xFDFB;"  note="ARABIC LIGATURE JALLAJALALOUHOU  class(es)"  />
-<s d="&#xFCA8;" t="&#xFCA8;"  note="ARABIC LIGATURE JEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC16;" t="&#xFC16;"  note="ARABIC LIGATURE JEEM WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD59;" t="&#xFD59;"  note="ARABIC LIGATURE JEEM WITH MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD58;" t="&#xFD58;"  note="ARABIC LIGATURE JEEM WITH MEEM WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFDA7;" t="&#xFDA7;"  note="ARABIC LIGATURE JEEM WITH MEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDA5;" t="&#xFDA5;"  note="ARABIC LIGATURE JEEM WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD1D;" t="&#xFD1D;"  note="ARABIC LIGATURE JEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD01;" t="&#xFD01;"  note="ARABIC LIGATURE JEEM WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD1E;" t="&#xFD1E;"  note="ARABIC LIGATURE JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD02;" t="&#xFD02;"  note="ARABIC LIGATURE JEEM WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x0683;" t="&#x0683;"  note="ARABIC LETTER NYEH  class(p)"  />
-<s d="&#xFB78;" t="&#xFB78;"  note="ARABIC LETTER NYEH INITIAL FORM  class(t)"  />
-<s d="&#xFB79;" t="&#xFB79;"  note="ARABIC LETTER NYEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB77;" t="&#xFB77;"  note="ARABIC LETTER NYEH FINAL FORM  class(t)"  />
-<s d="&#xFB76;" t="&#xFB76;"  note="ARABIC LETTER NYEH ISOLATED FORM  class(t)"  />
-<s d="&#x0684;" t="&#x0684;"  note="ARABIC LETTER DYEH  class(p)"  />
-<s d="&#xFB74;" t="&#xFB74;"  note="ARABIC LETTER DYEH INITIAL FORM  class(t)"  />
-<s d="&#xFB75;" t="&#xFB75;"  note="ARABIC LETTER DYEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB73;" t="&#xFB73;"  note="ARABIC LETTER DYEH FINAL FORM  class(t)"  />
-<s d="&#xFB72;" t="&#xFB72;"  note="ARABIC LETTER DYEH ISOLATED FORM  class(t)"  />
-<s d="&#x0686;" t="&#x0686;"  note="ARABIC LETTER TCHEH  class(p)"  />
-<s d="&#xFB7C;" t="&#xFB7C;"  note="ARABIC LETTER TCHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB7D;" t="&#xFB7D;"  note="ARABIC LETTER TCHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB7B;" t="&#xFB7B;"  note="ARABIC LETTER TCHEH FINAL FORM  class(t)"  />
-<s d="&#xFB7A;" t="&#xFB7A;"  note="ARABIC LETTER TCHEH ISOLATED FORM  class(t)"  />
-<s d="&#x06BF;" t="&#x06BF;"  note="ARABIC LETTER TCHEH WITH DOT ABOVE  class(p)"  />
-<s d="&#x0687;" t="&#x0687;"  note="ARABIC LETTER TCHEHEH  class(p)"  />
-<s d="&#xFB80;" t="&#xFB80;"  note="ARABIC LETTER TCHEHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB81;" t="&#xFB81;"  note="ARABIC LETTER TCHEHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB7F;" t="&#xFB7F;"  note="ARABIC LETTER TCHEHEH FINAL FORM  class(t)"  />
-<s d="&#xFB7E;" t="&#xFB7E;"  note="ARABIC LETTER TCHEHEH ISOLATED FORM  class(t)"  />
-<s d="&#x062D;" t="&#x062D;"  note="ARABIC LETTER HAH  class(p)"  />
-<s d="&#xFEA3;" t="&#xFEA3;"  note="ARABIC LETTER HAH INITIAL FORM  class(t)"  />
-<s d="&#xFEA4;" t="&#xFEA4;"  note="ARABIC LETTER HAH MEDIAL FORM  class(t)"  />
-<s d="&#xFEA2;" t="&#xFEA2;"  note="ARABIC LETTER HAH FINAL FORM  class(t)"  />
-<s d="&#xFEA1;" t="&#xFEA1;"  note="ARABIC LETTER HAH ISOLATED FORM  class(t)"  />
-<s d="&#xFCA9;" t="&#xFCA9;"  note="ARABIC LIGATURE HAH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC17;" t="&#xFC17;"  note="ARABIC LIGATURE HAH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDBF;" t="&#xFDBF;"  note="ARABIC LIGATURE HAH WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCAA;" t="&#xFCAA;"  note="ARABIC LIGATURE HAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC18;" t="&#xFC18;"  note="ARABIC LIGATURE HAH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD5B;" t="&#xFD5B;"  note="ARABIC LIGATURE HAH WITH MEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD5A;" t="&#xFD5A;"  note="ARABIC LIGATURE HAH WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD1B;" t="&#xFD1B;"  note="ARABIC LIGATURE HAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCFF;" t="&#xFCFF;"  note="ARABIC LIGATURE HAH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD1C;" t="&#xFD1C;"  note="ARABIC LIGATURE HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD00;" t="&#xFD00;"  note="ARABIC LIGATURE HAH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x062E;" t="&#x062E;"  note="ARABIC LETTER KHAH  class(p)"  />
-<s d="&#xFEA7;" t="&#xFEA7;"  note="ARABIC LETTER KHAH INITIAL FORM  class(t)"  />
-<s d="&#xFEA8;" t="&#xFEA8;"  note="ARABIC LETTER KHAH MEDIAL FORM  class(t)"  />
-<s d="&#xFEA6;" t="&#xFEA6;"  note="ARABIC LETTER KHAH FINAL FORM  class(t)"  />
-<s d="&#xFEA5;" t="&#xFEA5;"  note="ARABIC LETTER KHAH ISOLATED FORM  class(t)"  />
-<s d="&#xFCAB;" t="&#xFCAB;"  note="ARABIC LIGATURE KHAH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC19;" t="&#xFC19;"  note="ARABIC LIGATURE KHAH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFC1A;" t="&#xFC1A;"  note="ARABIC LIGATURE KHAH WITH HAH ISOLATED FORM  class(es)"  />
-<s d="&#xFCAC;" t="&#xFCAC;"  note="ARABIC LIGATURE KHAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC1B;" t="&#xFC1B;"  note="ARABIC LIGATURE KHAH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD1F;" t="&#xFD1F;"  note="ARABIC LIGATURE KHAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD03;" t="&#xFD03;"  note="ARABIC LIGATURE KHAH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD20;" t="&#xFD20;"  note="ARABIC LIGATURE KHAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD04;" t="&#xFD04;"  note="ARABIC LIGATURE KHAH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x0681;" t="&#x0681;"  note="ARABIC LETTER HAH WITH HAMZA ABOVE  class(p)"  />
-<s d="&#x0682;" t="&#x0682;"  note="ARABIC LETTER HAH WITH TWO DOTS VERTICAL ABOVE  class(p)"  />
-<s d="&#x0685;" t="&#x0685;"  note="ARABIC LETTER HAH WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x062F;" t="&#x062F;"  note="ARABIC LETTER DAL  class(p)"  />
-<s d="&#xFEAA;" t="&#xFEAA;"  note="ARABIC LETTER DAL FINAL FORM  class(t)"  />
-<s d="&#xFEA9;" t="&#xFEA9;"  note="ARABIC LETTER DAL ISOLATED FORM  class(t)"  />
-<s d="&#x0630;" t="&#x0630;"  note="ARABIC LETTER THAL  class(p)"  />
-<s d="&#xFEAC;" t="&#xFEAC;"  note="ARABIC LETTER THAL FINAL FORM  class(t)"  />
-<s d="&#xFEAB;" t="&#xFEAB;"  note="ARABIC LETTER THAL ISOLATED FORM  class(t)"  />
-<s d="&#xFC5B;" t="&#xFC5B;"  note="ARABIC LIGATURE THAL WITH SUPERSCRIPT ALEF ISOLATED FORM  class(s)"  />
-<s d="&#x0688;" t="&#x0688;"  note="ARABIC LETTER DDAL  class(p)"  />
-<s d="&#xFB89;" t="&#xFB89;"  note="ARABIC LETTER DDAL FINAL FORM  class(t)"  />
-<s d="&#xFB88;" t="&#xFB88;"  note="ARABIC LETTER DDAL ISOLATED FORM  class(t)"  />
-<s d="&#x0689;" t="&#x0689;"  note="ARABIC LETTER DAL WITH RING  class(p)"  />
-<s d="&#x068A;" t="&#x068A;"  note="ARABIC LETTER DAL WITH DOT BELOW  class(p)"  />
-<s d="&#x068B;" t="&#x068B;"  note="ARABIC LETTER DAL WITH DOT BELOW AND SMALL TAH  class(p)"  />
-<s d="&#x068C;" t="&#x068C;"  note="ARABIC LETTER DAHAL  class(p)"  />
-<s d="&#xFB85;" t="&#xFB85;"  note="ARABIC LETTER DAHAL FINAL FORM  class(t)"  />
-<s d="&#xFB84;" t="&#xFB84;"  note="ARABIC LETTER DAHAL ISOLATED FORM  class(t)"  />
-<s d="&#x068D;" t="&#x068D;"  note="ARABIC LETTER DDAHAL  class(p)"  />
-<s d="&#xFB83;" t="&#xFB83;"  note="ARABIC LETTER DDAHAL FINAL FORM  class(t)"  />
-<s d="&#xFB82;" t="&#xFB82;"  note="ARABIC LETTER DDAHAL ISOLATED FORM  class(t)"  />
-<s d="&#x068E;" t="&#x068E;"  note="ARABIC LETTER DUL  class(p)"  />
-<s d="&#xFB87;" t="&#xFB87;"  note="ARABIC LETTER DUL FINAL FORM  class(t)"  />
-<s d="&#xFB86;" t="&#xFB86;"  note="ARABIC LETTER DUL ISOLATED FORM  class(t)"  />
-<s d="&#x068F;" t="&#x068F;"  note="ARABIC LETTER DAL WITH THREE DOTS ABOVE DOWNWARDS  class(p)"  />
-<s d="&#x0690;" t="&#x0690;"  note="ARABIC LETTER DAL WITH FOUR DOTS ABOVE  class(p)"  />
-<s d="&#x06EE;" t="&#x06EE;"  note="ARABIC LETTER DAL WITH INVERTED V  class(p)"  />
-<s d="&#x0631;" t="&#x0631;"  note="ARABIC LETTER REH  class(p)"  />
-<s d="&#xFEAE;" t="&#xFEAE;"  note="ARABIC LETTER REH FINAL FORM  class(t)"  />
-<s d="&#xFEAD;" t="&#xFEAD;"  note="ARABIC LETTER REH ISOLATED FORM  class(t)"  />
-<s d="&#xFC5C;" t="&#xFC5C;"  note="ARABIC LIGATURE REH WITH SUPERSCRIPT ALEF ISOLATED FORM  class(s)"  />
-<s d="&#xFDF6;" t="&#xFDF6;"  note="ARABIC LIGATURE RASOUL ISOLATED FORM  class(es)"  />
-<s d="&#xFDFC;" t="&#xFDFC;"  note="RIAL SIGN  class(es)"  />
-<s d="&#x0632;" t="&#x0632;"  note="ARABIC LETTER ZAIN  class(p)"  />
-<s d="&#xFEB0;" t="&#xFEB0;"  note="ARABIC LETTER ZAIN FINAL FORM  class(t)"  />
-<s d="&#xFEAF;" t="&#xFEAF;"  note="ARABIC LETTER ZAIN ISOLATED FORM  class(t)"  />
-<s d="&#x0691;" t="&#x0691;"  note="ARABIC LETTER RREH  class(p)"  />
-<s d="&#xFB8D;" t="&#xFB8D;"  note="ARABIC LETTER RREH FINAL FORM  class(t)"  />
-<s d="&#xFB8C;" t="&#xFB8C;"  note="ARABIC LETTER RREH ISOLATED FORM  class(t)"  />
-<s d="&#x0692;" t="&#x0692;"  note="ARABIC LETTER REH WITH SMALL V  class(p)"  />
-<s d="&#x0693;" t="&#x0693;"  note="ARABIC LETTER REH WITH RING  class(p)"  />
-<s d="&#x0694;" t="&#x0694;"  note="ARABIC LETTER REH WITH DOT BELOW  class(p)"  />
-<s d="&#x0695;" t="&#x0695;"  note="ARABIC LETTER REH WITH SMALL V BELOW  class(p)"  />
-<s d="&#x0696;" t="&#x0696;"  note="ARABIC LETTER REH WITH DOT BELOW AND DOT ABOVE  class(p)"  />
-<s d="&#x0697;" t="&#x0697;"  note="ARABIC LETTER REH WITH TWO DOTS ABOVE  class(p)"  />
-<s d="&#x0698;" t="&#x0698;"  note="ARABIC LETTER JEH  class(p)"  />
-<s d="&#xFB8B;" t="&#xFB8B;"  note="ARABIC LETTER JEH FINAL FORM  class(t)"  />
-<s d="&#xFB8A;" t="&#xFB8A;"  note="ARABIC LETTER JEH ISOLATED FORM  class(t)"  />
-<s d="&#x0699;" t="&#x0699;"  note="ARABIC LETTER REH WITH FOUR DOTS ABOVE  class(p)"  />
-<s d="&#x06EF;" t="&#x06EF;"  note="ARABIC LETTER REH WITH INVERTED V  class(p)"  />
-<s d="&#x0633;" t="&#x0633;"  note="ARABIC LETTER SEEN  class(p)"  />
-<s d="&#xFEB3;" t="&#xFEB3;"  note="ARABIC LETTER SEEN INITIAL FORM  class(t)"  />
-<s d="&#xFEB4;" t="&#xFEB4;"  note="ARABIC LETTER SEEN MEDIAL FORM  class(t)"  />
-<s d="&#xFEB2;" t="&#xFEB2;"  note="ARABIC LETTER SEEN FINAL FORM  class(t)"  />
-<s d="&#xFEB1;" t="&#xFEB1;"  note="ARABIC LETTER SEEN ISOLATED FORM  class(t)"  />
-<s d="&#xFCAD;" t="&#xFCAD;"  note="ARABIC LIGATURE SEEN WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD34;" t="&#xFD34;"  note="ARABIC LIGATURE SEEN WITH JEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC1C;" t="&#xFC1C;"  note="ARABIC LIGATURE SEEN WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD5D;" t="&#xFD5D;"  note="ARABIC LIGATURE SEEN WITH JEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD5E;" t="&#xFD5E;"  note="ARABIC LIGATURE SEEN WITH JEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCAE;" t="&#xFCAE;"  note="ARABIC LIGATURE SEEN WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD35;" t="&#xFD35;"  note="ARABIC LIGATURE SEEN WITH HAH MEDIAL FORM  class(et)"  />
-<s d="&#xFC1D;" t="&#xFC1D;"  note="ARABIC LIGATURE SEEN WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD5C;" t="&#xFD5C;"  note="ARABIC LIGATURE SEEN WITH HAH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCAF;" t="&#xFCAF;"  note="ARABIC LIGATURE SEEN WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFD36;" t="&#xFD36;"  note="ARABIC LIGATURE SEEN WITH KHAH MEDIAL FORM  class(et)"  />
-<s d="&#xFC1E;" t="&#xFC1E;"  note="ARABIC LIGATURE SEEN WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFDA8;" t="&#xFDA8;"  note="ARABIC LIGATURE SEEN WITH KHAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDC6;" t="&#xFDC6;"  note="ARABIC LIGATURE SEEN WITH KHAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD2A;" t="&#xFD2A;"  note="ARABIC LIGATURE SEEN WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFD0E;" t="&#xFD0E;"  note="ARABIC LIGATURE SEEN WITH REH ISOLATED FORM  class(et)"  />
-<s d="&#xFCB0;" t="&#xFCB0;"  note="ARABIC LIGATURE SEEN WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCE7;" t="&#xFCE7;"  note="ARABIC LIGATURE SEEN WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC1F;" t="&#xFC1F;"  note="ARABIC LIGATURE SEEN WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD61;" t="&#xFD61;"  note="ARABIC LIGATURE SEEN WITH MEEM WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD60;" t="&#xFD60;"  note="ARABIC LIGATURE SEEN WITH MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD5F;" t="&#xFD5F;"  note="ARABIC LIGATURE SEEN WITH MEEM WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFD63;" t="&#xFD63;"  note="ARABIC LIGATURE SEEN WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD62;" t="&#xFD62;"  note="ARABIC LIGATURE SEEN WITH MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD31;" t="&#xFD31;"  note="ARABIC LIGATURE SEEN WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCE8;" t="&#xFCE8;"  note="ARABIC LIGATURE SEEN WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFD17;" t="&#xFD17;"  note="ARABIC LIGATURE SEEN WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCFB;" t="&#xFCFB;"  note="ARABIC LIGATURE SEEN WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD18;" t="&#xFD18;"  note="ARABIC LIGATURE SEEN WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCFC;" t="&#xFCFC;"  note="ARABIC LIGATURE SEEN WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x0634;" t="&#x0634;"  note="ARABIC LETTER SHEEN  class(p)"  />
-<s d="&#xFEB7;" t="&#xFEB7;"  note="ARABIC LETTER SHEEN INITIAL FORM  class(t)"  />
-<s d="&#xFEB8;" t="&#xFEB8;"  note="ARABIC LETTER SHEEN MEDIAL FORM  class(t)"  />
-<s d="&#xFEB6;" t="&#xFEB6;"  note="ARABIC LETTER SHEEN FINAL FORM  class(t)"  />
-<s d="&#xFEB5;" t="&#xFEB5;"  note="ARABIC LETTER SHEEN ISOLATED FORM  class(t)"  />
-<s d="&#xFD2D;" t="&#xFD2D;"  note="ARABIC LIGATURE SHEEN WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD37;" t="&#xFD37;"  note="ARABIC LIGATURE SHEEN WITH JEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFD25;" t="&#xFD25;"  note="ARABIC LIGATURE SHEEN WITH JEEM FINAL FORM  class(et)"  />
-<s d="&#xFD09;" t="&#xFD09;"  note="ARABIC LIGATURE SHEEN WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD69;" t="&#xFD69;"  note="ARABIC LIGATURE SHEEN WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD2E;" t="&#xFD2E;"  note="ARABIC LIGATURE SHEEN WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD38;" t="&#xFD38;"  note="ARABIC LIGATURE SHEEN WITH HAH MEDIAL FORM  class(et)"  />
-<s d="&#xFD26;" t="&#xFD26;"  note="ARABIC LIGATURE SHEEN WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFD0A;" t="&#xFD0A;"  note="ARABIC LIGATURE SHEEN WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD68;" t="&#xFD68;"  note="ARABIC LIGATURE SHEEN WITH HAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD67;" t="&#xFD67;"  note="ARABIC LIGATURE SHEEN WITH HAH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFDAA;" t="&#xFDAA;"  note="ARABIC LIGATURE SHEEN WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD2F;" t="&#xFD2F;"  note="ARABIC LIGATURE SHEEN WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFD39;" t="&#xFD39;"  note="ARABIC LIGATURE SHEEN WITH KHAH MEDIAL FORM  class(et)"  />
-<s d="&#xFD27;" t="&#xFD27;"  note="ARABIC LIGATURE SHEEN WITH KHAH FINAL FORM  class(et)"  />
-<s d="&#xFD0B;" t="&#xFD0B;"  note="ARABIC LIGATURE SHEEN WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD29;" t="&#xFD29;"  note="ARABIC LIGATURE SHEEN WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFD0D;" t="&#xFD0D;"  note="ARABIC LIGATURE SHEEN WITH REH ISOLATED FORM  class(et)"  />
-<s d="&#xFD30;" t="&#xFD30;"  note="ARABIC LIGATURE SHEEN WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCE9;" t="&#xFCE9;"  note="ARABIC LIGATURE SHEEN WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFD28;" t="&#xFD28;"  note="ARABIC LIGATURE SHEEN WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD0C;" t="&#xFD0C;"  note="ARABIC LIGATURE SHEEN WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD6B;" t="&#xFD6B;"  note="ARABIC LIGATURE SHEEN WITH MEEM WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFD6A;" t="&#xFD6A;"  note="ARABIC LIGATURE SHEEN WITH MEEM WITH KHAH FINAL FORM  class(et)"  />
-<s d="&#xFD6D;" t="&#xFD6D;"  note="ARABIC LIGATURE SHEEN WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD6C;" t="&#xFD6C;"  note="ARABIC LIGATURE SHEEN WITH MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD32;" t="&#xFD32;"  note="ARABIC LIGATURE SHEEN WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCEA;" t="&#xFCEA;"  note="ARABIC LIGATURE SHEEN WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFD19;" t="&#xFD19;"  note="ARABIC LIGATURE SHEEN WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCFD;" t="&#xFCFD;"  note="ARABIC LIGATURE SHEEN WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD1A;" t="&#xFD1A;"  note="ARABIC LIGATURE SHEEN WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCFE;" t="&#xFCFE;"  note="ARABIC LIGATURE SHEEN WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x069A;" t="&#x069A;"  note="ARABIC LETTER SEEN WITH DOT BELOW AND DOT ABOVE  class(p)"  />
-<s d="&#x069B;" t="&#x069B;"  note="ARABIC LETTER SEEN WITH THREE DOTS BELOW  class(p)"  />
-<s d="&#x069C;" t="&#x069C;"  note="ARABIC LETTER SEEN WITH THREE DOTS BELOW AND THREE DOTS ABOVE  class(p)"  />
-<s d="&#x06FA;" t="&#x06FA;"  note="ARABIC LETTER SHEEN WITH DOT BELOW  class(p)"  />
-<s d="&#x0635;" t="&#x0635;"  note="ARABIC LETTER SAD  class(p)"  />
-<s d="&#xFEBB;" t="&#xFEBB;"  note="ARABIC LETTER SAD INITIAL FORM  class(t)"  />
-<s d="&#xFEBC;" t="&#xFEBC;"  note="ARABIC LETTER SAD MEDIAL FORM  class(t)"  />
-<s d="&#xFEBA;" t="&#xFEBA;"  note="ARABIC LETTER SAD FINAL FORM  class(t)"  />
-<s d="&#xFEB9;" t="&#xFEB9;"  note="ARABIC LETTER SAD ISOLATED FORM  class(t)"  />
-<s d="&#xFCB1;" t="&#xFCB1;"  note="ARABIC LIGATURE SAD WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC20;" t="&#xFC20;"  note="ARABIC LIGATURE SAD WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD65;" t="&#xFD65;"  note="ARABIC LIGATURE SAD WITH HAH WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD64;" t="&#xFD64;"  note="ARABIC LIGATURE SAD WITH HAH WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFDA9;" t="&#xFDA9;"  note="ARABIC LIGATURE SAD WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCB2;" t="&#xFCB2;"  note="ARABIC LIGATURE SAD WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFD2B;" t="&#xFD2B;"  note="ARABIC LIGATURE SAD WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFD0F;" t="&#xFD0F;"  note="ARABIC LIGATURE SAD WITH REH ISOLATED FORM  class(et)"  />
-<s d="&#xFDF5;" t="&#xFDF5;"  note="ARABIC LIGATURE SALAM ISOLATED FORM  class(es)"  />
-<s d="&#xFDF9;" t="&#xFDF9;"  note="ARABIC LIGATURE SALLA ISOLATED FORM  class(es)"  />
-<s d="&#xFDFA;" t="&#xFDFA;"  note="ARABIC LIGATURE SALLALLAHOU ALAYHE WASALLAM   class(es)"  />
-<s d="&#xFDF0;" t="&#xFDF0;"  note="ARABIC LIGATURE SALLA USED AS KORANIC STOP SIGN ISOLATED FORM  class(es)"  />
-<s d="&#xFCB3;" t="&#xFCB3;"  note="ARABIC LIGATURE SAD WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC21;" t="&#xFC21;"  note="ARABIC LIGATURE SAD WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDC5;" t="&#xFDC5;"  note="ARABIC LIGATURE SAD WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD66;" t="&#xFD66;"  note="ARABIC LIGATURE SAD WITH MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD21;" t="&#xFD21;"  note="ARABIC LIGATURE SAD WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD05;" t="&#xFD05;"  note="ARABIC LIGATURE SAD WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD22;" t="&#xFD22;"  note="ARABIC LIGATURE SAD WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD06;" t="&#xFD06;"  note="ARABIC LIGATURE SAD WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x0636;" t="&#x0636;"  note="ARABIC LETTER DAD  class(p)"  />
-<s d="&#xFEBF;" t="&#xFEBF;"  note="ARABIC LETTER DAD INITIAL FORM  class(t)"  />
-<s d="&#xFEC0;" t="&#xFEC0;"  note="ARABIC LETTER DAD MEDIAL FORM  class(t)"  />
-<s d="&#xFEBE;" t="&#xFEBE;"  note="ARABIC LETTER DAD FINAL FORM  class(t)"  />
-<s d="&#xFEBD;" t="&#xFEBD;"  note="ARABIC LETTER DAD ISOLATED FORM  class(t)"  />
-<s d="&#xFCB4;" t="&#xFCB4;"  note="ARABIC LIGATURE DAD WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC22;" t="&#xFC22;"  note="ARABIC LIGATURE DAD WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFCB5;" t="&#xFCB5;"  note="ARABIC LIGATURE DAD WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC23;" t="&#xFC23;"  note="ARABIC LIGATURE DAD WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD6E;" t="&#xFD6E;"  note="ARABIC LIGATURE DAD WITH HAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDAB;" t="&#xFDAB;"  note="ARABIC LIGATURE DAD WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCB6;" t="&#xFCB6;"  note="ARABIC LIGATURE DAD WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC24;" t="&#xFC24;"  note="ARABIC LIGATURE DAD WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD70;" t="&#xFD70;"  note="ARABIC LIGATURE DAD WITH KHAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD6F;" t="&#xFD6F;"  note="ARABIC LIGATURE DAD WITH KHAH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD2C;" t="&#xFD2C;"  note="ARABIC LIGATURE DAD WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFD10;" t="&#xFD10;"  note="ARABIC LIGATURE DAD WITH REH ISOLATED FORM  class(et)"  />
-<s d="&#xFCB7;" t="&#xFCB7;"  note="ARABIC LIGATURE DAD WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC25;" t="&#xFC25;"  note="ARABIC LIGATURE DAD WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD23;" t="&#xFD23;"  note="ARABIC LIGATURE DAD WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD07;" t="&#xFD07;"  note="ARABIC LIGATURE DAD WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD24;" t="&#xFD24;"  note="ARABIC LIGATURE DAD WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD08;" t="&#xFD08;"  note="ARABIC LIGATURE DAD WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x069D;" t="&#x069D;"  note="ARABIC LETTER SAD WITH TWO DOTS BELOW  class(p)"  />
-<s d="&#x069E;" t="&#x069E;"  note="ARABIC LETTER SAD WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x06FB;" t="&#x06FB;"  note="ARABIC LETTER DAD WITH DOT BELOW  class(p)"  />
-<s d="&#x0637;" t="&#x0637;"  note="ARABIC LETTER TAH  class(p)"  />
-<s d="&#xFEC3;" t="&#xFEC3;"  note="ARABIC LETTER TAH INITIAL FORM  class(t)"  />
-<s d="&#xFEC4;" t="&#xFEC4;"  note="ARABIC LETTER TAH MEDIAL FORM  class(t)"  />
-<s d="&#xFEC2;" t="&#xFEC2;"  note="ARABIC LETTER TAH FINAL FORM  class(t)"  />
-<s d="&#xFEC1;" t="&#xFEC1;"  note="ARABIC LETTER TAH ISOLATED FORM  class(t)"  />
-<s d="&#xFCB8;" t="&#xFCB8;"  note="ARABIC LIGATURE TAH WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC26;" t="&#xFC26;"  note="ARABIC LIGATURE TAH WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD33;" t="&#xFD33;"  note="ARABIC LIGATURE TAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD3A;" t="&#xFD3A;"  note="ARABIC LIGATURE TAH WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC27;" t="&#xFC27;"  note="ARABIC LIGATURE TAH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD72;" t="&#xFD72;"  note="ARABIC LIGATURE TAH WITH MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD71;" t="&#xFD71;"  note="ARABIC LIGATURE TAH WITH MEEM WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFD73;" t="&#xFD73;"  note="ARABIC LIGATURE TAH WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD74;" t="&#xFD74;"  note="ARABIC LIGATURE TAH WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD11;" t="&#xFD11;"  note="ARABIC LIGATURE TAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCF5;" t="&#xFCF5;"  note="ARABIC LIGATURE TAH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD12;" t="&#xFD12;"  note="ARABIC LIGATURE TAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCF6;" t="&#xFCF6;"  note="ARABIC LIGATURE TAH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x0638;" t="&#x0638;"  note="ARABIC LETTER ZAH  class(p)"  />
-<s d="&#xFEC7;" t="&#xFEC7;"  note="ARABIC LETTER ZAH INITIAL FORM  class(t)"  />
-<s d="&#xFEC8;" t="&#xFEC8;"  note="ARABIC LETTER ZAH MEDIAL FORM  class(t)"  />
-<s d="&#xFEC6;" t="&#xFEC6;"  note="ARABIC LETTER ZAH FINAL FORM  class(t)"  />
-<s d="&#xFEC5;" t="&#xFEC5;"  note="ARABIC LETTER ZAH ISOLATED FORM  class(t)"  />
-<s d="&#xFCB9;" t="&#xFCB9;"  note="ARABIC LIGATURE ZAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD3B;" t="&#xFD3B;"  note="ARABIC LIGATURE ZAH WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC28;" t="&#xFC28;"  note="ARABIC LIGATURE ZAH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#x069F;" t="&#x069F;"  note="ARABIC LETTER TAH WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x0639;" t="&#x0639;"  note="ARABIC LETTER AIN  class(p)"  />
-<s d="&#xFECB;" t="&#xFECB;"  note="ARABIC LETTER AIN INITIAL FORM  class(t)"  />
-<s d="&#xFECC;" t="&#xFECC;"  note="ARABIC LETTER AIN MEDIAL FORM  class(t)"  />
-<s d="&#xFECA;" t="&#xFECA;"  note="ARABIC LETTER AIN FINAL FORM  class(t)"  />
-<s d="&#xFEC9;" t="&#xFEC9;"  note="ARABIC LETTER AIN ISOLATED FORM  class(t)"  />
-<s d="&#xFCBA;" t="&#xFCBA;"  note="ARABIC LIGATURE AIN WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC29;" t="&#xFC29;"  note="ARABIC LIGATURE AIN WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDC4;" t="&#xFDC4;"  note="ARABIC LIGATURE AIN WITH JEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD75;" t="&#xFD75;"  note="ARABIC LIGATURE AIN WITH JEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFDF7;" t="&#xFDF7;"  note="ARABIC LIGATURE ALAYHE ISOLATED FORM  class(es)"  />
-<s d="&#xFCBB;" t="&#xFCBB;"  note="ARABIC LIGATURE AIN WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC2A;" t="&#xFC2A;"  note="ARABIC LIGATURE AIN WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD77;" t="&#xFD77;"  note="ARABIC LIGATURE AIN WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD76;" t="&#xFD76;"  note="ARABIC LIGATURE AIN WITH MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD78;" t="&#xFD78;"  note="ARABIC LIGATURE AIN WITH MEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDB6;" t="&#xFDB6;"  note="ARABIC LIGATURE AIN WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD13;" t="&#xFD13;"  note="ARABIC LIGATURE AIN WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCF7;" t="&#xFCF7;"  note="ARABIC LIGATURE AIN WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD14;" t="&#xFD14;"  note="ARABIC LIGATURE AIN WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCF8;" t="&#xFCF8;"  note="ARABIC LIGATURE AIN WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x063A;" t="&#x063A;"  note="ARABIC LETTER GHAIN  class(p)"  />
-<s d="&#xFECF;" t="&#xFECF;"  note="ARABIC LETTER GHAIN INITIAL FORM  class(t)"  />
-<s d="&#xFED0;" t="&#xFED0;"  note="ARABIC LETTER GHAIN MEDIAL FORM  class(t)"  />
-<s d="&#xFECE;" t="&#xFECE;"  note="ARABIC LETTER GHAIN FINAL FORM  class(t)"  />
-<s d="&#xFECD;" t="&#xFECD;"  note="ARABIC LETTER GHAIN ISOLATED FORM  class(t)"  />
-<s d="&#xFCBC;" t="&#xFCBC;"  note="ARABIC LIGATURE GHAIN WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC2B;" t="&#xFC2B;"  note="ARABIC LIGATURE GHAIN WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFCBD;" t="&#xFCBD;"  note="ARABIC LIGATURE GHAIN WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC2C;" t="&#xFC2C;"  note="ARABIC LIGATURE GHAIN WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD79;" t="&#xFD79;"  note="ARABIC LIGATURE GHAIN WITH MEEM WITH MEEM FINAL FORM  class(es)"  />
-<s d="&#xFD7B;" t="&#xFD7B;"  note="ARABIC LIGATURE GHAIN WITH MEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD7A;" t="&#xFD7A;"  note="ARABIC LIGATURE GHAIN WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFD15;" t="&#xFD15;"  note="ARABIC LIGATURE GHAIN WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFCF9;" t="&#xFCF9;"  note="ARABIC LIGATURE GHAIN WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFD16;" t="&#xFD16;"  note="ARABIC LIGATURE GHAIN WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCFA;" t="&#xFCFA;"  note="ARABIC LIGATURE GHAIN WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x06A0;" t="&#x06A0;"  note="ARABIC LETTER AIN WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x06FC;" t="&#x06FC;"  note="ARABIC LETTER GHAIN WITH DOT BELOW  class(p)"  />
-<s d="&#x0641;" t="&#x0641;"  note="ARABIC LETTER FEH  class(p)"  />
-<s d="&#xFED3;" t="&#xFED3;"  note="ARABIC LETTER FEH INITIAL FORM  class(t)"  />
-<s d="&#xFED4;" t="&#xFED4;"  note="ARABIC LETTER FEH MEDIAL FORM  class(t)"  />
-<s d="&#xFED2;" t="&#xFED2;"  note="ARABIC LETTER FEH FINAL FORM  class(t)"  />
-<s d="&#xFED1;" t="&#xFED1;"  note="ARABIC LETTER FEH ISOLATED FORM  class(t)"  />
-<s d="&#xFCBE;" t="&#xFCBE;"  note="ARABIC LIGATURE FEH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC2D;" t="&#xFC2D;"  note="ARABIC LIGATURE FEH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFCBF;" t="&#xFCBF;"  note="ARABIC LIGATURE FEH WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC2E;" t="&#xFC2E;"  note="ARABIC LIGATURE FEH WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFCC0;" t="&#xFCC0;"  note="ARABIC LIGATURE FEH WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC2F;" t="&#xFC2F;"  note="ARABIC LIGATURE FEH WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD7D;" t="&#xFD7D;"  note="ARABIC LIGATURE FEH WITH KHAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD7C;" t="&#xFD7C;"  note="ARABIC LIGATURE FEH WITH KHAH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFCC1;" t="&#xFCC1;"  note="ARABIC LIGATURE FEH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC30;" t="&#xFC30;"  note="ARABIC LIGATURE FEH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDC1;" t="&#xFDC1;"  note="ARABIC LIGATURE FEH WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC7C;" t="&#xFC7C;"  note="ARABIC LIGATURE FEH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC31;" t="&#xFC31;"  note="ARABIC LIGATURE FEH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC7D;" t="&#xFC7D;"  note="ARABIC LIGATURE FEH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC32;" t="&#xFC32;"  note="ARABIC LIGATURE FEH WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x06A1;" t="&#x06A1;"  note="ARABIC LETTER DOTLESS FEH  class(p)"  />
-<s d="&#x06A2;" t="&#x06A2;"  note="ARABIC LETTER FEH WITH DOT MOVED BELOW  class(p)"  />
-<s d="&#x06A3;" t="&#x06A3;"  note="ARABIC LETTER FEH WITH DOT BELOW  class(p)"  />
-<s d="&#x06A4;" t="&#x06A4;"  note="ARABIC LETTER VEH  class(p)"  />
-<s d="&#xFB6C;" t="&#xFB6C;"  note="ARABIC LETTER VEH INITIAL FORM  class(t)"  />
-<s d="&#xFB6D;" t="&#xFB6D;"  note="ARABIC LETTER VEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB6B;" t="&#xFB6B;"  note="ARABIC LETTER VEH FINAL FORM  class(t)"  />
-<s d="&#xFB6A;" t="&#xFB6A;"  note="ARABIC LETTER VEH ISOLATED FORM  class(t)"  />
-<s d="&#x06A5;" t="&#x06A5;"  note="ARABIC LETTER FEH WITH THREE DOTS BELOW  class(p)"  />
-<s d="&#x06A6;" t="&#x06A6;"  note="ARABIC LETTER PEHEH  class(p)"  />
-<s d="&#xFB70;" t="&#xFB70;"  note="ARABIC LETTER PEHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB71;" t="&#xFB71;"  note="ARABIC LETTER PEHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB6F;" t="&#xFB6F;"  note="ARABIC LETTER PEHEH FINAL FORM  class(t)"  />
-<s d="&#xFB6E;" t="&#xFB6E;"  note="ARABIC LETTER PEHEH ISOLATED FORM  class(t)"  />
-<s d="&#x066F;" t="&#x066F;"  note="ARABIC LETTER DOTLESS QAF  class(p)"  />
-<s d="&#x0642;" t="&#x0642;"  note="ARABIC LETTER QAF  class(p)"  />
-<s d="&#xFED7;" t="&#xFED7;"  note="ARABIC LETTER QAF INITIAL FORM  class(t)"  />
-<s d="&#xFED8;" t="&#xFED8;"  note="ARABIC LETTER QAF MEDIAL FORM  class(t)"  />
-<s d="&#xFED6;" t="&#xFED6;"  note="ARABIC LETTER QAF FINAL FORM  class(t)"  />
-<s d="&#xFED5;" t="&#xFED5;"  note="ARABIC LETTER QAF ISOLATED FORM  class(t)"  />
-<s d="&#xFCC2;" t="&#xFCC2;"  note="ARABIC LIGATURE QAF WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC33;" t="&#xFC33;"  note="ARABIC LIGATURE QAF WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFDF1;" t="&#xFDF1;"  note="ARABIC LIGATURE QALA USED AS KORANIC STOP SIGN ISOLATED FORM  class(es)"  />
-<s d="&#xFCC3;" t="&#xFCC3;"  note="ARABIC LIGATURE QAF WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC34;" t="&#xFC34;"  note="ARABIC LIGATURE QAF WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDB4;" t="&#xFDB4;"  note="ARABIC LIGATURE QAF WITH MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD7E;" t="&#xFD7E;"  note="ARABIC LIGATURE QAF WITH MEEM WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFD7F;" t="&#xFD7F;"  note="ARABIC LIGATURE QAF WITH MEEM WITH MEEM FINAL FORM  class(es)"  />
-<s d="&#xFDB2;" t="&#xFDB2;"  note="ARABIC LIGATURE QAF WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC7E;" t="&#xFC7E;"  note="ARABIC LIGATURE QAF WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC35;" t="&#xFC35;"  note="ARABIC LIGATURE QAF WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC7F;" t="&#xFC7F;"  note="ARABIC LIGATURE QAF WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC36;" t="&#xFC36;"  note="ARABIC LIGATURE QAF WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x06A7;" t="&#x06A7;"  note="ARABIC LETTER QAF WITH DOT ABOVE  class(p)"  />
-<s d="&#x06A8;" t="&#x06A8;"  note="ARABIC LETTER QAF WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x06A9;" t="&#x06A9;"  note="ARABIC LETTER KEHEH  class(p)"  />
-<s d="&#xFB90;" t="&#xFB90;"  note="ARABIC LETTER KEHEH INITIAL FORM  class(t)"  />
-<s d="&#xFB91;" t="&#xFB91;"  note="ARABIC LETTER KEHEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB8F;" t="&#xFB8F;"  note="ARABIC LETTER KEHEH FINAL FORM  class(t)"  />
-<s d="&#xFB8E;" t="&#xFB8E;"  note="ARABIC LETTER KEHEH ISOLATED FORM  class(t)"  />
-<s d="&#x06AA;" t="&#x06AA;"  note="ARABIC LETTER SWASH KAF  class(s)"  />
-<s d="&#x06AB;" t="&#x06AB;"  note="ARABIC LETTER KAF WITH RING  class(s)"  />
-<s d="&#x0643;" t="&#x0643;"  note="ARABIC LETTER KAF  class(s)"  />
-<s d="&#xFEDB;" t="&#xFEDB;"  note="ARABIC LETTER KAF INITIAL FORM  class(t)"  />
-<s d="&#xFEDC;" t="&#xFEDC;"  note="ARABIC LETTER KAF MEDIAL FORM  class(t)"  />
-<s d="&#xFEDA;" t="&#xFEDA;"  note="ARABIC LETTER KAF FINAL FORM  class(t)"  />
-<s d="&#xFED9;" t="&#xFED9;"  note="ARABIC LETTER KAF ISOLATED FORM  class(t)"  />
-<s d="&#x06AC;" t="&#x06AC;"  note="ARABIC LETTER KAF WITH DOT ABOVE  class(s)"  />
-<s d="&#x06AD;" t="&#x06AD;"  note="ARABIC LETTER NG  class(s)"  />
-<s d="&#xFBD5;" t="&#xFBD5;"  note="ARABIC LETTER NG INITIAL FORM  class(t)"  />
-<s d="&#xFBD6;" t="&#xFBD6;"  note="ARABIC LETTER NG MEDIAL FORM  class(t)"  />
-<s d="&#xFBD4;" t="&#xFBD4;"  note="ARABIC LETTER NG FINAL FORM  class(t)"  />
-<s d="&#xFBD3;" t="&#xFBD3;"  note="ARABIC LETTER NG ISOLATED FORM  class(t)"  />
-<s d="&#x06AE;" t="&#x06AE;"  note="ARABIC LETTER KAF WITH THREE DOTS BELOW  class(s)"  />
-<s d="&#xFC80;" t="&#xFC80;"  note="ARABIC LIGATURE KAF WITH ALEF FINAL FORM  class(es)"  />
-<s d="&#xFC37;" t="&#xFC37;"  note="ARABIC LIGATURE KAF WITH ALEF ISOLATED FORM  class(et)"  />
-<s d="&#xFCC4;" t="&#xFCC4;"  note="ARABIC LIGATURE KAF WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC38;" t="&#xFC38;"  note="ARABIC LIGATURE KAF WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFCC5;" t="&#xFCC5;"  note="ARABIC LIGATURE KAF WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC39;" t="&#xFC39;"  note="ARABIC LIGATURE KAF WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFCC6;" t="&#xFCC6;"  note="ARABIC LIGATURE KAF WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC3A;" t="&#xFC3A;"  note="ARABIC LIGATURE KAF WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFCC7;" t="&#xFCC7;"  note="ARABIC LIGATURE KAF WITH LAM INITIAL FORM  class(es)"  />
-<s d="&#xFCEB;" t="&#xFCEB;"  note="ARABIC LIGATURE KAF WITH LAM MEDIAL FORM  class(et)"  />
-<s d="&#xFC81;" t="&#xFC81;"  note="ARABIC LIGATURE KAF WITH LAM FINAL FORM  class(et)"  />
-<s d="&#xFC3B;" t="&#xFC3B;"  note="ARABIC LIGATURE KAF WITH LAM ISOLATED FORM  class(et)"  />
-<s d="&#xFCC8;" t="&#xFCC8;"  note="ARABIC LIGATURE KAF WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCEC;" t="&#xFCEC;"  note="ARABIC LIGATURE KAF WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC82;" t="&#xFC82;"  note="ARABIC LIGATURE KAF WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC3C;" t="&#xFC3C;"  note="ARABIC LIGATURE KAF WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDC3;" t="&#xFDC3;"  note="ARABIC LIGATURE KAF WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDBB;" t="&#xFDBB;"  note="ARABIC LIGATURE KAF WITH MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFDB7;" t="&#xFDB7;"  note="ARABIC LIGATURE KAF WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC83;" t="&#xFC83;"  note="ARABIC LIGATURE KAF WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC3D;" t="&#xFC3D;"  note="ARABIC LIGATURE KAF WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC84;" t="&#xFC84;"  note="ARABIC LIGATURE KAF WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC3E;" t="&#xFC3E;"  note="ARABIC LIGATURE KAF WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x06AF;" t="&#x06AF;"  note="ARABIC LETTER GAF  class(p)"  />
-<s d="&#xFB94;" t="&#xFB94;"  note="ARABIC LETTER GAF INITIAL FORM  class(t)"  />
-<s d="&#xFB95;" t="&#xFB95;"  note="ARABIC LETTER GAF MEDIAL FORM  class(t)"  />
-<s d="&#xFB93;" t="&#xFB93;"  note="ARABIC LETTER GAF FINAL FORM  class(t)"  />
-<s d="&#xFB92;" t="&#xFB92;"  note="ARABIC LETTER GAF ISOLATED FORM  class(t)"  />
-<s d="&#x06B0;" t="&#x06B0;"  note="ARABIC LETTER GAF WITH RING  class(p)"  />
-<s d="&#x06B1;" t="&#x06B1;"  note="ARABIC LETTER NGOEH  class(p)"  />
-<s d="&#xFB9C;" t="&#xFB9C;"  note="ARABIC LETTER NGOEH INITIAL FORM  class(t)"  />
-<s d="&#xFB9D;" t="&#xFB9D;"  note="ARABIC LETTER NGOEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB9B;" t="&#xFB9B;"  note="ARABIC LETTER NGOEH FINAL FORM  class(t)"  />
-<s d="&#xFB9A;" t="&#xFB9A;"  note="ARABIC LETTER NGOEH ISOLATED FORM  class(t)"  />
-<s d="&#x06B2;" t="&#x06B2;"  note="ARABIC LETTER GAF WITH TWO DOTS BELOW  class(p)"  />
-<s d="&#x06B3;" t="&#x06B3;"  note="ARABIC LETTER GUEH  class(p)"  />
-<s d="&#xFB98;" t="&#xFB98;"  note="ARABIC LETTER GUEH INITIAL FORM  class(t)"  />
-<s d="&#xFB99;" t="&#xFB99;"  note="ARABIC LETTER GUEH MEDIAL FORM  class(t)"  />
-<s d="&#xFB97;" t="&#xFB97;"  note="ARABIC LETTER GUEH FINAL FORM  class(t)"  />
-<s d="&#xFB96;" t="&#xFB96;"  note="ARABIC LETTER GUEH ISOLATED FORM  class(t)"  />
-<s d="&#x06B4;" t="&#x06B4;"  note="ARABIC LETTER GAF WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x0644;" t="&#x0644;"  note="ARABIC LETTER LAM  class(p)"  />
-<s d="&#xFEDF;" t="&#xFEDF;"  note="ARABIC LETTER LAM INITIAL FORM  class(t)"  />
-<s d="&#xFEE0;" t="&#xFEE0;"  note="ARABIC LETTER LAM MEDIAL FORM  class(t)"  />
-<s d="&#xFEDE;" t="&#xFEDE;"  note="ARABIC LETTER LAM FINAL FORM  class(t)"  />
-<s d="&#xFEDD;" t="&#xFEDD;"  note="ARABIC LETTER LAM ISOLATED FORM  class(t)"  />
-<s d="&#xFEF6;" t="&#xFEF6;"  note="ARABIC LIGATURE LAM WITH ALEF WITH MADDA ABOVE FINAL FORM  class(es)"  />
-<s d="&#xFEF5;" t="&#xFEF5;"  note="ARABIC LIGATURE LAM WITH ALEF WITH MADDA ABOVE ISOLATED FORM  class(et)"  />
-<s d="&#xFEF8;" t="&#xFEF8;"  note="ARABIC LIGATURE LAM WITH ALEF WITH HAMZA ABOVE FINAL FORM  class(es)"  />
-<s d="&#xFEF7;" t="&#xFEF7;"  note="ARABIC LIGATURE LAM WITH ALEF WITH HAMZA ABOVE ISOLATED FORM  class(et)"  />
-<s d="&#xFEFA;" t="&#xFEFA;"  note="ARABIC LIGATURE LAM WITH ALEF WITH HAMZA BELOW FINAL FORM  class(es)"  />
-<s d="&#xFEF9;" t="&#xFEF9;"  note="ARABIC LIGATURE LAM WITH ALEF WITH HAMZA BELOW ISOLATED FORM  class(et)"  />
-<s d="&#xFEFC;" t="&#xFEFC;"  note="ARABIC LIGATURE LAM WITH ALEF FINAL FORM  class(es)"  />
-<s d="&#xFEFB;" t="&#xFEFB;"  note="ARABIC LIGATURE LAM WITH ALEF ISOLATED FORM  class(et)"  />
-<s d="&#xFCC9;" t="&#xFCC9;"  note="ARABIC LIGATURE LAM WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC3F;" t="&#xFC3F;"  note="ARABIC LIGATURE LAM WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD83;" t="&#xFD83;"  note="ARABIC LIGATURE LAM WITH JEEM WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD84;" t="&#xFD84;"  note="ARABIC LIGATURE LAM WITH JEEM WITH JEEM FINAL FORM  class(et)"  />
-<s d="&#xFDBA;" t="&#xFDBA;"  note="ARABIC LIGATURE LAM WITH JEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDBC;" t="&#xFDBC;"  note="ARABIC LIGATURE LAM WITH JEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFDAC;" t="&#xFDAC;"  note="ARABIC LIGATURE LAM WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCCA;" t="&#xFCCA;"  note="ARABIC LIGATURE LAM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC40;" t="&#xFC40;"  note="ARABIC LIGATURE LAM WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFDB5;" t="&#xFDB5;"  note="ARABIC LIGATURE LAM WITH HAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD80;" t="&#xFD80;"  note="ARABIC LIGATURE LAM WITH HAH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD82;" t="&#xFD82;"  note="ARABIC LIGATURE LAM WITH HAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD81;" t="&#xFD81;"  note="ARABIC LIGATURE LAM WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCCB;" t="&#xFCCB;"  note="ARABIC LIGATURE LAM WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC41;" t="&#xFC41;"  note="ARABIC LIGATURE LAM WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD86;" t="&#xFD86;"  note="ARABIC LIGATURE LAM WITH KHAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD85;" t="&#xFD85;"  note="ARABIC LIGATURE LAM WITH KHAH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFCCC;" t="&#xFCCC;"  note="ARABIC LIGATURE LAM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCED;" t="&#xFCED;"  note="ARABIC LIGATURE LAM WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC85;" t="&#xFC85;"  note="ARABIC LIGATURE LAM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC42;" t="&#xFC42;"  note="ARABIC LIGATURE LAM WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD88;" t="&#xFD88;"  note="ARABIC LIGATURE LAM WITH MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD87;" t="&#xFD87;"  note="ARABIC LIGATURE LAM WITH MEEM WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFDAD;" t="&#xFDAD;"  note="ARABIC LIGATURE LAM WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCCD;" t="&#xFCCD;"  note="ARABIC LIGATURE LAM WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFC86;" t="&#xFC86;"  note="ARABIC LIGATURE LAM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC43;" t="&#xFC43;"  note="ARABIC LIGATURE LAM WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC87;" t="&#xFC87;"  note="ARABIC LIGATURE LAM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC44;" t="&#xFC44;"  note="ARABIC LIGATURE LAM WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x06B5;" t="&#x06B5;"  note="ARABIC LETTER LAM WITH SMALL V  class(p)"  />
-<s d="&#x06B6;" t="&#x06B6;"  note="ARABIC LETTER LAM WITH DOT ABOVE  class(p)"  />
-<s d="&#x06B7;" t="&#x06B7;"  note="ARABIC LETTER LAM WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x06B8;" t="&#x06B8;"  note="ARABIC LETTER LAM WITH THREE DOTS BELOW  class(p)"  />
-<s d="&#x0645;" t="&#x0645;"  note="ARABIC LETTER MEEM  class(p)"  />
-<s d="&#xFEE3;" t="&#xFEE3;"  note="ARABIC LETTER MEEM INITIAL FORM  class(t)"  />
-<s d="&#xFEE4;" t="&#xFEE4;"  note="ARABIC LETTER MEEM MEDIAL FORM  class(t)"  />
-<s d="&#xFEE2;" t="&#xFEE2;"  note="ARABIC LETTER MEEM FINAL FORM  class(t)"  />
-<s d="&#xFEE1;" t="&#xFEE1;"  note="ARABIC LETTER MEEM ISOLATED FORM  class(t)"  />
-<s d="&#x06FE;" t="&#x06FE;"  note="ARABIC SIGN SINDHI POSTPOSITION MEN  class(s)"  />
-<s d="&#xFC88;" t="&#xFC88;"  note="ARABIC LIGATURE MEEM WITH ALEF FINAL FORM  class(es)"  />
-<s d="&#xFCCE;" t="&#xFCCE;"  note="ARABIC LIGATURE MEEM WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC45;" t="&#xFC45;"  note="ARABIC LIGATURE MEEM WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD8C;" t="&#xFD8C;"  note="ARABIC LIGATURE MEEM WITH JEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFD92;" t="&#xFD92;"  note="ARABIC LIGATURE MEEM WITH JEEM WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFD8D;" t="&#xFD8D;"  note="ARABIC LIGATURE MEEM WITH JEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDC0;" t="&#xFDC0;"  note="ARABIC LIGATURE MEEM WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCCF;" t="&#xFCCF;"  note="ARABIC LIGATURE MEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC46;" t="&#xFC46;"  note="ARABIC LIGATURE MEEM WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD89;" t="&#xFD89;"  note="ARABIC LIGATURE MEEM WITH HAH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD8A;" t="&#xFD8A;"  note="ARABIC LIGATURE MEEM WITH HAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDF4;" t="&#xFDF4;"  note="ARABIC LIGATURE MOHAMMAD ISOLATED FORM  class(es)"  />
-<s d="&#xFD8B;" t="&#xFD8B;"  note="ARABIC LIGATURE MEEM WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCD0;" t="&#xFCD0;"  note="ARABIC LIGATURE MEEM WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC47;" t="&#xFC47;"  note="ARABIC LIGATURE MEEM WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD8E;" t="&#xFD8E;"  note="ARABIC LIGATURE MEEM WITH KHAH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD8F;" t="&#xFD8F;"  note="ARABIC LIGATURE MEEM WITH KHAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFDB9;" t="&#xFDB9;"  note="ARABIC LIGATURE MEEM WITH KHAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCD1;" t="&#xFCD1;"  note="ARABIC LIGATURE MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC89;" t="&#xFC89;"  note="ARABIC LIGATURE MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC48;" t="&#xFC48;"  note="ARABIC LIGATURE MEEM WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDB1;" t="&#xFDB1;"  note="ARABIC LIGATURE MEEM WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC49;" t="&#xFC49;"  note="ARABIC LIGATURE MEEM WITH ALEF MAKSURA ISOLATED FORM  class(es)"  />
-<s d="&#xFC4A;" t="&#xFC4A;"  note="ARABIC LIGATURE MEEM WITH YEH ISOLATED FORM  class(es)"  />
-<s d="&#x0646;" t="&#x0646;"  note="ARABIC LETTER NOON  class(p)"  />
-<s d="&#xFEE7;" t="&#xFEE7;"  note="ARABIC LETTER NOON INITIAL FORM  class(t)"  />
-<s d="&#xFEE8;" t="&#xFEE8;"  note="ARABIC LETTER NOON MEDIAL FORM  class(t)"  />
-<s d="&#xFEE6;" t="&#xFEE6;"  note="ARABIC LETTER NOON FINAL FORM  class(t)"  />
-<s d="&#xFEE5;" t="&#xFEE5;"  note="ARABIC LETTER NOON ISOLATED FORM  class(t)"  />
-<s d="&#xFCD2;" t="&#xFCD2;"  note="ARABIC LIGATURE NOON WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC4B;" t="&#xFC4B;"  note="ARABIC LIGATURE NOON WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDB8;" t="&#xFDB8;"  note="ARABIC LIGATURE NOON WITH JEEM WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFDBD;" t="&#xFDBD;"  note="ARABIC LIGATURE NOON WITH JEEM WITH HAH FINAL FORM  class(et)"  />
-<s d="&#xFD98;" t="&#xFD98;"  note="ARABIC LIGATURE NOON WITH JEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD97;" t="&#xFD97;"  note="ARABIC LIGATURE NOON WITH JEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFD99;" t="&#xFD99;"  note="ARABIC LIGATURE NOON WITH JEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDC7;" t="&#xFDC7;"  note="ARABIC LIGATURE NOON WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCD3;" t="&#xFCD3;"  note="ARABIC LIGATURE NOON WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC4C;" t="&#xFC4C;"  note="ARABIC LIGATURE NOON WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFD95;" t="&#xFD95;"  note="ARABIC LIGATURE NOON WITH HAH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD96;" t="&#xFD96;"  note="ARABIC LIGATURE NOON WITH HAH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFDB3;" t="&#xFDB3;"  note="ARABIC LIGATURE NOON WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCD4;" t="&#xFCD4;"  note="ARABIC LIGATURE NOON WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC4D;" t="&#xFC4D;"  note="ARABIC LIGATURE NOON WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFC8A;" t="&#xFC8A;"  note="ARABIC LIGATURE NOON WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFC8B;" t="&#xFC8B;"  note="ARABIC LIGATURE NOON WITH ZAIN FINAL FORM  class(es)"  />
-<s d="&#xFCD5;" t="&#xFCD5;"  note="ARABIC LIGATURE NOON WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCEE;" t="&#xFCEE;"  note="ARABIC LIGATURE NOON WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC8C;" t="&#xFC8C;"  note="ARABIC LIGATURE NOON WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC4E;" t="&#xFC4E;"  note="ARABIC LIGATURE NOON WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD9B;" t="&#xFD9B;"  note="ARABIC LIGATURE NOON WITH MEEM WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFD9A;" t="&#xFD9A;"  note="ARABIC LIGATURE NOON WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC8D;" t="&#xFC8D;"  note="ARABIC LIGATURE NOON WITH NOON FINAL FORM  class(es)"  />
-<s d="&#xFCD6;" t="&#xFCD6;"  note="ARABIC LIGATURE NOON WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCEF;" t="&#xFCEF;"  note="ARABIC LIGATURE NOON WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFC8E;" t="&#xFC8E;"  note="ARABIC LIGATURE NOON WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC4F;" t="&#xFC4F;"  note="ARABIC LIGATURE NOON WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC8F;" t="&#xFC8F;"  note="ARABIC LIGATURE NOON WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC50;" t="&#xFC50;"  note="ARABIC LIGATURE NOON WITH YEH ISOLATED FORM  class(et)"  />
-<s d="&#x06BA;" t="&#x06BA;"  note="ARABIC LETTER NOON GHUNNA  class(p)"  />
-<s d="&#xFB9F;" t="&#xFB9F;"  note="ARABIC LETTER NOON GHUNNA FINAL FORM  class(t)"  />
-<s d="&#xFB9E;" t="&#xFB9E;"  note="ARABIC LETTER NOON GHUNNA ISOLATED FORM  class(t)"  />
-<s d="&#x06BB;" t="&#x06BB;"  note="ARABIC LETTER RNOON  class(p)"  />
-<s d="&#xFBA2;" t="&#xFBA2;"  note="ARABIC LETTER RNOON INITIAL FORM  class(t)"  />
-<s d="&#xFBA3;" t="&#xFBA3;"  note="ARABIC LETTER RNOON MEDIAL FORM  class(t)"  />
-<s d="&#xFBA1;" t="&#xFBA1;"  note="ARABIC LETTER RNOON FINAL FORM  class(t)"  />
-<s d="&#xFBA0;" t="&#xFBA0;"  note="ARABIC LETTER RNOON ISOLATED FORM  class(t)"  />
-<s d="&#x06BC;" t="&#x06BC;"  note="ARABIC LETTER NOON WITH RING  class(p)"  />
-<s d="&#x06BD;" t="&#x06BD;"  note="ARABIC LETTER NOON WITH THREE DOTS ABOVE  class(p)"  />
-<s d="&#x06B9;" t="&#x06B9;"  note="ARABIC LETTER NOON WITH DOT BELOW  class(p)"  />
-<s d="&#x06FF;" t="&#x06FF;"  note="ARABIC LETTER HEH WITH INVERTED V  class(p)"  />
-<s d="&#x0648;" t="&#x0648;"  note="ARABIC LETTER WAW  class(p)"  />
-<s d="&#x06E5;" t="&#x06E5;"  note="ARABIC SMALL WAW  class(t)"  />
-<s d="&#xFEEE;" t="&#xFEEE;"  note="ARABIC LETTER WAW FINAL FORM  class(t)"  />
-<s d="&#xFEED;" t="&#xFEED;"  note="ARABIC LETTER WAW ISOLATED FORM  class(t)"  />
-<s d="&#x0676;" t="&#x0676;"  note="ARABIC LETTER HIGH HAMZA WAW  class(es)"  />
-<s d="&#xFDF8;" t="&#xFDF8;"  note="ARABIC LIGATURE WASALLAM ISOLATED FORM  class(es)"  />
-<s d="&#x06C4;" t="&#x06C4;"  note="ARABIC LETTER WAW WITH RING  class(p)"  />
-<s d="&#x06C5;" t="&#x06C5;"  note="ARABIC LETTER KIRGHIZ OE  class(p)"  />
-<s d="&#xFBE1;" t="&#xFBE1;"  note="ARABIC LETTER KIRGHIZ OE FINAL FORM  class(t)"  />
-<s d="&#xFBE0;" t="&#xFBE0;"  note="ARABIC LETTER KIRGHIZ OE ISOLATED FORM  class(t)"  />
-<s d="&#x06C6;" t="&#x06C6;"  note="ARABIC LETTER OE  class(p)"  />
-<s d="&#xFBDA;" t="&#xFBDA;"  note="ARABIC LETTER OE FINAL FORM  class(t)"  />
-<s d="&#xFBD9;" t="&#xFBD9;"  note="ARABIC LETTER OE ISOLATED FORM  class(t)"  />
-<s d="&#x06C7;" t="&#x06C7;"  note="ARABIC LETTER U  class(p)"  />
-<s d="&#xFBD8;" t="&#xFBD8;"  note="ARABIC LETTER U FINAL FORM  class(t)"  />
-<s d="&#xFBD7;" t="&#xFBD7;"  note="ARABIC LETTER U ISOLATED FORM  class(t)"  />
-<s d="&#x0677;" t="&#x0677;"  note="ARABIC LETTER U WITH HAMZA ABOVE  class(es)"  />
-<s d="&#xFBDD;" t="&#xFBDD;"  note="ARABIC LETTER U WITH HAMZA ABOVE ISOLATED FORM  class(et)"  />
-<s d="&#x06C8;" t="&#x06C8;"  note="ARABIC LETTER YU  class(p)"  />
-<s d="&#xFBDC;" t="&#xFBDC;"  note="ARABIC LETTER YU FINAL FORM  class(t)"  />
-<s d="&#xFBDB;" t="&#xFBDB;"  note="ARABIC LETTER YU ISOLATED FORM  class(t)"  />
-<s d="&#x06C9;" t="&#x06C9;"  note="ARABIC LETTER KIRGHIZ YU  class(p)"  />
-<s d="&#xFBE3;" t="&#xFBE3;"  note="ARABIC LETTER KIRGHIZ YU FINAL FORM  class(t)"  />
-<s d="&#xFBE2;" t="&#xFBE2;"  note="ARABIC LETTER KIRGHIZ YU ISOLATED FORM  class(t)"  />
-<s d="&#x06CA;" t="&#x06CA;"  note="ARABIC LETTER WAW WITH TWO DOTS ABOVE  class(p)"  />
-<s d="&#x06CB;" t="&#x06CB;"  note="ARABIC LETTER VE  class(p)"  />
-<s d="&#xFBDF;" t="&#xFBDF;"  note="ARABIC LETTER VE FINAL FORM  class(t)"  />
-<s d="&#xFBDE;" t="&#xFBDE;"  note="ARABIC LETTER VE ISOLATED FORM  class(t)"  />
-<s d="&#x06CF;" t="&#x06CF;"  note="ARABIC LETTER WAW WITH DOT ABOVE  class(p)"  />
-<s d="&#x0647;" t="&#x0647;"  note="ARABIC LETTER HEH  class(p)"  />
-<s d="&#xFEEB;" t="&#xFEEB;"  note="ARABIC LETTER HEH INITIAL FORM  class(t)"  />
-<s d="&#xFEEC;" t="&#xFEEC;"  note="ARABIC LETTER HEH MEDIAL FORM  class(t)"  />
-<s d="&#xFEEA;" t="&#xFEEA;"  note="ARABIC LETTER HEH FINAL FORM  class(t)"  />
-<s d="&#xFEE9;" t="&#xFEE9;"  note="ARABIC LETTER HEH ISOLATED FORM  class(t)"  />
-<s d="&#xFCD9;" t="&#xFCD9;"  note="ARABIC LIGATURE HEH WITH SUPERSCRIPT ALEF INITIAL FORM  class(s)"  />
-<s d="&#x06D5;" t="&#x06D5;"  note="ARABIC LETTER AE  class(s)"  />
-<s d="&#x06C1;" t="&#x06C1;"  note="ARABIC LETTER HEH GOAL  class(s)"  />
-<s d="&#x06C2;" t="&#x06C2;"  note="ARABIC LETTER HEH GOAL WITH HAMZA ABOVE  class(t)"  />
-<s d="&#xFBA8;" t="&#xFBA8;"  note="ARABIC LETTER HEH GOAL INITIAL FORM  class(t)"  />
-<s d="&#xFBA9;" t="&#xFBA9;"  note="ARABIC LETTER HEH GOAL MEDIAL FORM  class(t)"  />
-<s d="&#xFBA7;" t="&#xFBA7;"  note="ARABIC LETTER HEH GOAL FINAL FORM  class(t)"  />
-<s d="&#xFBA6;" t="&#xFBA6;"  note="ARABIC LETTER HEH GOAL ISOLATED FORM  class(t)"  />
-<s d="&#x0629;" t="&#x0629;"  note="ARABIC LETTER TEH MARBUTA  class(s)"  />
-<s d="&#xFE94;" t="&#xFE94;"  note="ARABIC LETTER TEH MARBUTA FINAL FORM  class(t)"  />
-<s d="&#xFE93;" t="&#xFE93;"  note="ARABIC LETTER TEH MARBUTA ISOLATED FORM  class(t)"  />
-<s d="&#x06C3;" t="&#x06C3;"  note="ARABIC LETTER TEH MARBUTA GOAL  class(s)"  />
-<s d="&#x06C0;" t="&#x06C0;"  note="ARABIC LETTER HEH WITH YEH ABOVE  class(s)"  />
-<s d="&#xFBA5;" t="&#xFBA5;"  note="ARABIC LETTER HEH WITH YEH ABOVE FINAL FORM  class(t)"  />
-<s d="&#xFBA4;" t="&#xFBA4;"  note="ARABIC LETTER HEH WITH YEH ABOVE ISOLATED FORM  class(t)"  />
-<s d="&#x06BE;" t="&#x06BE;"  note="ARABIC LETTER HEH DOACHASHMEE  class(s)"  />
-<s d="&#xFBAC;" t="&#xFBAC;"  note="ARABIC LETTER HEH DOACHASHMEE INITIAL FORM  class(t)"  />
-<s d="&#xFBAD;" t="&#xFBAD;"  note="ARABIC LETTER HEH DOACHASHMEE MEDIAL FORM  class(t)"  />
-<s d="&#xFBAB;" t="&#xFBAB;"  note="ARABIC LETTER HEH DOACHASHMEE FINAL FORM  class(t)"  />
-<s d="&#xFBAA;" t="&#xFBAA;"  note="ARABIC LETTER HEH DOACHASHMEE ISOLATED FORM  class(t)"  />
-<s d="&#xFCD7;" t="&#xFCD7;"  note="ARABIC LIGATURE HEH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC51;" t="&#xFC51;"  note="ARABIC LIGATURE HEH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFCD8;" t="&#xFCD8;"  note="ARABIC LIGATURE HEH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC52;" t="&#xFC52;"  note="ARABIC LIGATURE HEH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD93;" t="&#xFD93;"  note="ARABIC LIGATURE HEH WITH MEEM WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD94;" t="&#xFD94;"  note="ARABIC LIGATURE HEH WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC53;" t="&#xFC53;"  note="ARABIC LIGATURE HEH WITH ALEF MAKSURA ISOLATED FORM  class(es)"  />
-<s d="&#xFC54;" t="&#xFC54;"  note="ARABIC LIGATURE HEH WITH YEH ISOLATED FORM  class(es)"  />
-<s d="&#x06CC;" t="&#x06CC;"  note="ARABIC LETTER FARSI YEH  class(p)"  />
-<s d="&#xFBFE;" t="&#xFBFE;"  note="ARABIC LETTER FARSI YEH INITIAL FORM  class(t)"  />
-<s d="&#xFBFF;" t="&#xFBFF;"  note="ARABIC LETTER FARSI YEH MEDIAL FORM  class(t)"  />
-<s d="&#xFBFD;" t="&#xFBFD;"  note="ARABIC LETTER FARSI YEH FINAL FORM  class(t)"  />
-<s d="&#xFBFC;" t="&#xFBFC;"  note="ARABIC LETTER FARSI YEH ISOLATED FORM  class(t)"  />
-<s d="&#x0649;" t="&#x0649;"  note="ARABIC LETTER ALEF MAKSURA  class(s)"  />
-<s d="&#xFBE8;" t="&#xFBE8;"  note="ARABIC LETTER UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA INITIAL FORM  class(t)"  />
-<s d="&#xFBE9;" t="&#xFBE9;"  note="ARABIC LETTER UIGHUR KAZAKH KIRGHIZ ALEF MAKSURA MEDIAL FORM  class(t)"  />
-<s d="&#xFC90;" t="&#xFC90;"  note="ARABIC LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF FINAL FORM  class(t)"  />
-<s d="&#xFEF0;" t="&#xFEF0;"  note="ARABIC LETTER ALEF MAKSURA FINAL FORM  class(q)"  />
-<s d="&#xFC5D;" t="&#xFC5D;"  note="ARABIC LIGATURE ALEF MAKSURA WITH SUPERSCRIPT ALEF ISOLATED FORM  class(t)"  />
-<s d="&#xFEEF;" t="&#xFEEF;"  note="ARABIC LETTER ALEF MAKSURA ISOLATED FORM  class(q)"  />
-<s d="&#x06D2;" t="&#x06D2;"  note="ARABIC LETTER YEH BARREE  class(s)"  />
-<s d="&#x06D3;" t="&#x06D3;"  note="ARABIC LETTER YEH BARREE WITH HAMZA ABOVE  class(q)"  />
-<s d="&#xFBAF;" t="&#xFBAF;"  note="ARABIC LETTER YEH BARREE FINAL FORM  class(t)"  />
-<s d="&#xFBB1;" t="&#xFBB1;"  note="ARABIC LETTER YEH BARREE WITH HAMZA ABOVE FINAL FORM  class(q)"  />
-<s d="&#xFBAE;" t="&#xFBAE;"  note="ARABIC LETTER YEH BARREE ISOLATED FORM  class(t)"  />
-<s d="&#xFBB0;" t="&#xFBB0;"  note="ARABIC LETTER YEH BARREE WITH HAMZA ABOVE ISOLATED FORM  class(q)"  />
-<s d="&#x064A;" t="&#x064A;"  note="ARABIC LETTER YEH  class(s)"  />
-<s d="&#x06E6;" t="&#x06E6;"  note="ARABIC SMALL YEH  class(t)"  />
-<s d="&#x0678;" t="&#x0678;"  note="ARABIC LETTER HIGH HAMZA YEH  class(t)"  />
-<s d="&#xFEF3;" t="&#xFEF3;"  note="ARABIC LETTER YEH INITIAL FORM  class(t)"  />
-<s d="&#xFEF4;" t="&#xFEF4;"  note="ARABIC LETTER YEH MEDIAL FORM  class(t)"  />
-<s d="&#xFEF2;" t="&#xFEF2;"  note="ARABIC LETTER YEH FINAL FORM  class(t)"  />
-<s d="&#xFEF1;" t="&#xFEF1;"  note="ARABIC LETTER YEH ISOLATED FORM  class(t)"  />
-<s d="&#x06D0;" t="&#x06D0;"  note="ARABIC LETTER E  class(s)"  />
-<s d="&#xFBE6;" t="&#xFBE6;"  note="ARABIC LETTER E INITIAL FORM  class(t)"  />
-<s d="&#xFBE7;" t="&#xFBE7;"  note="ARABIC LETTER E MEDIAL FORM  class(t)"  />
-<s d="&#xFBE5;" t="&#xFBE5;"  note="ARABIC LETTER E FINAL FORM  class(t)"  />
-<s d="&#xFBE4;" t="&#xFBE4;"  note="ARABIC LETTER E ISOLATED FORM  class(t)"  />
-<s d="&#x06D1;" t="&#x06D1;"  note="ARABIC LETTER YEH WITH THREE DOTS BELOW  class(s)"  />
-<s d="&#x06CD;" t="&#x06CD;"  note="ARABIC LETTER YEH WITH TAIL  class(s)"  />
-<s d="&#x06CE;" t="&#x06CE;"  note="ARABIC LETTER YEH WITH SMALL V  class(s)"  />
-<s d="&#xFCDA;" t="&#xFCDA;"  note="ARABIC LIGATURE YEH WITH JEEM INITIAL FORM  class(es)"  />
-<s d="&#xFC55;" t="&#xFC55;"  note="ARABIC LIGATURE YEH WITH JEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFDAF;" t="&#xFDAF;"  note="ARABIC LIGATURE YEH WITH JEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCDB;" t="&#xFCDB;"  note="ARABIC LIGATURE YEH WITH HAH INITIAL FORM  class(es)"  />
-<s d="&#xFC56;" t="&#xFC56;"  note="ARABIC LIGATURE YEH WITH HAH ISOLATED FORM  class(et)"  />
-<s d="&#xFDAE;" t="&#xFDAE;"  note="ARABIC LIGATURE YEH WITH HAH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFCDC;" t="&#xFCDC;"  note="ARABIC LIGATURE YEH WITH KHAH INITIAL FORM  class(es)"  />
-<s d="&#xFC57;" t="&#xFC57;"  note="ARABIC LIGATURE YEH WITH KHAH ISOLATED FORM  class(et)"  />
-<s d="&#xFC91;" t="&#xFC91;"  note="ARABIC LIGATURE YEH WITH REH FINAL FORM  class(es)"  />
-<s d="&#xFC92;" t="&#xFC92;"  note="ARABIC LIGATURE YEH WITH ZAIN FINAL FORM  class(es)"  />
-<s d="&#xFCDD;" t="&#xFCDD;"  note="ARABIC LIGATURE YEH WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFCF0;" t="&#xFCF0;"  note="ARABIC LIGATURE YEH WITH MEEM MEDIAL FORM  class(et)"  />
-<s d="&#xFC93;" t="&#xFC93;"  note="ARABIC LIGATURE YEH WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFC58;" t="&#xFC58;"  note="ARABIC LIGATURE YEH WITH MEEM ISOLATED FORM  class(et)"  />
-<s d="&#xFD9D;" t="&#xFD9D;"  note="ARABIC LIGATURE YEH WITH MEEM WITH MEEM INITIAL FORM  class(es)"  />
-<s d="&#xFD9C;" t="&#xFD9C;"  note="ARABIC LIGATURE YEH WITH MEEM WITH MEEM FINAL FORM  class(et)"  />
-<s d="&#xFDB0;" t="&#xFDB0;"  note="ARABIC LIGATURE YEH WITH MEEM WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC94;" t="&#xFC94;"  note="ARABIC LIGATURE YEH WITH NOON FINAL FORM  class(es)"  />
-<s d="&#xFCDE;" t="&#xFCDE;"  note="ARABIC LIGATURE YEH WITH HEH INITIAL FORM  class(es)"  />
-<s d="&#xFCF1;" t="&#xFCF1;"  note="ARABIC LIGATURE YEH WITH HEH MEDIAL FORM  class(et)"  />
-<s d="&#xFC95;" t="&#xFC95;"  note="ARABIC LIGATURE YEH WITH ALEF MAKSURA FINAL FORM  class(es)"  />
-<s d="&#xFC59;" t="&#xFC59;"  note="ARABIC LIGATURE YEH WITH ALEF MAKSURA ISOLATED FORM  class(et)"  />
-<s d="&#xFC96;" t="&#xFC96;"  note="ARABIC LIGATURE YEH WITH YEH FINAL FORM  class(es)"  />
-<s d="&#xFC5A;" t="&#xFC5A;"  note="ARABIC LIGATURE YEH WITH YEH ISOLATED FORM  class(et)"  />
+<group name="Persian letters" b="0">
+<group name="Vowels etc" b="110">
+<s d="&#x25cc;&#x064E;" t="&#x064E;"  b="90"  note="fatha"  />
+<s d="&#x25cc;&#x0650;" t="&#x0650;"  b="91" note="kasra"  />
+<s d="&#x25cc;&#x064F;" t="&#x064F;"  b="92"  note="damma"  />
+<s d="&#x25cc;&#x0651;" t="&#x0651;"  b="93" note="shadda"  />
+<s d="&#x25cc;&#x0652;" t="&#x0652;"  b="94"  note="sukun"  />
+<s d="&#x25cc;&#x064B;" t="&#x064B;"  b="90" note="FATHATAN"  />
+<s d="&#x25cc;&#x064D;" t="&#x064D;"  b="91"  note="kasratan"  />
+<s d="&#x25cc;&#x064C;" t="&#x064C;"  b="92" note="dammatan"  />
+<s d="&#x25cc;&#x0653;" t="&#x0653;"  b="93"  note="maddah above" />
+<s d="&#x25cc;&#x0654;" t="&#x0654;"  b="94" note="hamza above" />
+<s d="&#x25cc;&#x0655;" t="&#x0655;"  b="90" note="hamza below" />
+<s d="&#x25cc;&#x0670;" t="&#x0670;"  b="91" note="superscript alef" />
 </group>
-<group name="Numbers" b="113">
-<s d="1" t="1"/>
-<s d="2" t="2"/>
-<s d="3" t="3"/>
-<s d="4" t="4"/>
-<s d="5" t="5"/>
-<s d="6" t="6"/>
-<s d="7" t="7"/>
-<s d="8" t="8"/>
-<s d="9" t="9"/>
-<s d="0" t="0"/>
+<group name="Hamza" b="60">
+<s d="&#x0621;" t="&#x0621;" b="70" note="HAMZA  "  />
 </group>
-<group name="Punctuation" b="112">
-<s d="%" t="%"/>
-<s d="*" t="*"/>
-<s d="+" t="+"/>
-<s d="=" t="="/>
-<s d="/" t="/"/>
-<s d="#" t="#"/>
-<s d="$" t="$"/>
-<s d="|" t="|"/>
-<s d="\" t="\"/>
-<s d="~" t="~"/>
-<s d="^" t="^"/>
-<s d="_" t="_"/>
-<s d="&amp;" t="&amp;"/>
-<s d="@" t="@"/>
-<s d="[" t="["/>
-<s d="]" t="]"/>
-<s d="{" t="{"/>
-<s d="}" t="}"/>
-<s d="&lt;" t="&lt;"/>
-<s d="&gt;" t="&gt;"/>
-<s d="(" t="("/>
-<s d=")" t=")"/>
-<s d="&quot;" t="&quot;"/>
-<s d="`" t="`"/>
-<s d="&apos;" t="&apos;"/>
-<s d="-" t="-"/>
-<s d=":" t=":"/>
-<s d=";" t=";"/>
-<s d="?" t="?"/>
-<s d="!" t="!"/>
-<s d="," t=","/>
-<s d="." t="."/>
+<group  b="60" name="alef" >
+<s d="&#x0622;" t="&#x0622;" b="80" note="ALEF WITH MADDA ABOVE  "  />
+<s d="&#x0627;" t="&#x0627;" b="70" note="ALEF  "  />
+<s d="&#x0623;" t="&#x0623;" b="80" note="ALEF WITH HAMZA ABOVE  "  />
+</group>
+<group b="61" >
+<s d="&#x0628;" t="&#x0628;" b="81" note="BEH  "  />
+<s d="&#x067e;" t="&#x067e;" b="71" note="PEH  "  />
+<s d="&#x062A;" t="&#x062A;" b="81" note="TEH  "  />
+<s d="&#x062B;" t="&#x062B;" b="71" note="THEH  "  />
+</group>
+<group b="62" >
+<s d="&#x062C;" t="&#x062C;" b="82" note="JEEM  "  />
+<s d="&#x0686;" t="&#x0686;" b="72" note="TCHEH "  />
+<s d="&#x062D;" t="&#x062D;" b="82" note="HAH  "  />
+<s d="&#x062E;" t="&#x062E;" b="72" note="KHAH  "  />
+</group>
+<group b="63" >
+<s d="&#x062F;" t="&#x062F;" b="73" note="DAL  "  />
+<s d="&#x0630;" t="&#x0630;" b="83" note="THAL  "  />
+<s d="&#x0631;" t="&#x0631;" b="73" note="REH  "  />
+<s d="&#x0632;" t="&#x0632;" b="83" note="ZAIN  "  />
+<s d="&#x0698;" t="&#x0698;" b="73" note="JEH "  />
+</group>
+<group b="64" >
+<s d="&#x0633;" t="&#x0633;" b="84" note="SEEN  "  />
+<s d="&#x0634;" t="&#x0634;" b="74" note="SHEEN  "  />
+</group>
+<group b="65" >
+<s d="&#x0635;" t="&#x0635;" b="75" note="SAD  "  />
+<s d="&#x0636;" t="&#x0636;" b="85" note="DAD  "  />
+<s d="&#x0637;" t="&#x0637;" b="75" note="TAH  "  />
+<s d="&#x0638;" t="&#x0638;" b="85" note="ZAH  "  />
+</group>
+<group b="66" >
+<s d="&#x0639;" t="&#x0639;" b="86" note="AIN  "  />
+<s d="&#x063A;" t="&#x063A;" b="76" note="GHAIN  "  />
+<s d="&#x0641;" t="&#x0641;" b="86" note="FEH  "  />
+<s d="&#x0642;" t="&#x0642;" b="76" note="QAF  "  />
+</group>
+<group b="67" >
+<s d="&#x06A9;" t="&#x06A9;" b="77" note="KAF (unicode LETTER KEHEH)"  />
+<s d="&#x06af;" t="&#x06af;" b="87" note="GAF  "  />
+</group>
+<group b="68" >
+<s d="&#x0644;" t="&#x0644;" b="78" note=" LAM  "  />
+<s d="&#x0645;" t="&#x0645;" b="88" note=" MEEM  "  />
+<s d="&#x0646;" t="&#x0646;" b="78" note=" NOON  "  />
+</group>
+<group b="69" >
+<s d="&#x0648;" t="&#x0648;" b="79" note=" WAW  "  />
+<s d="&#x0624;" t="&#x0624;" b="89" note=" WAW WITH HAMZA ABOVE  "  />
+<s d="&#x0647;&#x200d;" t="&#x0647;" b="79" note=" HEH (with non-joiner added to the canvas glyph) "  />
+<s d="&#x06CC;" t="&#x06CC;" b="89" note="ARABIC LETTER FARSI YEH "  />
+<s d="&#x0626;" t="&#x0626;" b="79" note=" YEH WITH HAMZA ABOVE  "  />
+</group>
+</group>
+<group name="Arabic letters" b="115">
+<s b="99" t="&#x0640;" d="&#x0640;" note="ARABIC TATWEEL joining character"/>
+<s d="&#x0625;" t="&#x0625;" b="70" note="ALEF WITH HAMZA BELOW  "  />
+<s d="&#x0671;" t="&#x0671;" b="80" note="ALEF WASLA  "  />
+<s d="&#x0643;" t="&#x0643;" b="77" note="ARABIC KAF perhaps omit this"/>
+<s d="&#x0629;" t="&#x0629;" b="79" note=" TEH MARBUTA  "  />
+<s d="&#x0649;&#x200d;" t="&#x0649;" b="89" note=" ALEF MAKSURA (Looks like YEH!)"  />
+<s d="&#x064A;" t="&#x064A;" b="79" note=" YEH  "  />
+</group>
+<group name="Persian numbers" b="113">
+<s d="&#x06F1;" t="&#x06F1;"  b="105"  note="ONE"/>
+<s d="&#x06F2;" t="&#x06F2;"  b="106" note="TWO"/>
+<s d="&#x06F3;" t="&#x06F3;"  b="107"  note="THREE"/>
+<s d="&#x06F4;" t="&#x06F4;"  b="108" note="FOUR"/>
+<s d="&#x06F5;" t="&#x06F5;"  b="109"  note="FIVE"/>
+<s d="&#x06F6;" t="&#x06F6;"  b="105" note="SIX"/>
+<s d="&#x06F7;" t="&#x06F7;"  b="106"  note="SEVEN"/>
+<s d="&#x06F8;" t="&#x06F8;"  b="107" note="EIGHT"/>
+<s d="&#x06F9;" t="&#x06F9;"  b="108"  note="NINE"/>
+<s d="&#x06F0;" t="&#x06F0;"  b="109" note="ZERO"/>
+<s d="&#x066b;" t="&#x066b;"  b="104" note="decimal point"/>
+<s d="&#x066c;" t="&#x066c;"  b="102" note="thousands"/>
+</group>
+<group name="ASCII Punctuation" b="114">
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="99" d="~" t="~"/>
+<s b="98" d="@" t="@"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="90" d="%" t="%"/>
+<s b="95" d="^" t="^"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="91" d="*" t="*"/>
+<s b="100" d="-" t="-"/>
+<s b="96" d="_" t="_"/>
+<s b="98" d="\" t="\"/>
+<s b="97" d="|" t="|"/>
+</group>
+<group name="Persian Punctuation" b="112">
+<s b="90"    d="&#xfdfc;" t="&#xfdfc;"  note="currency"/>
+<s b="91" d="&#x066A;" t="&#x066A;" note="Arabic percent"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="&#x2212;" t="&#x2212;" note="minus"/>
+<s b="94" d="&#x00d7;" t="&#x00d7;" note="times"/>
+<s b="90" d="&#x00f7;" t="&#x00f7;" note="divide"/>
+<s b="91" d="=" t="="/>
+<s b="92" d="/" t="/" note="keep in persian as separator"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
+<s d="&#x200F;&#x2039;&#x200F;" t="&#x2039;" note="French opening single quotation mark" />
+<s d="&#x200F;&#x203A;&#x200F;" t="&#x203A;" note="French opening single quotation mark" />
+<s d="&#x200F;&#x00AB;&#x200F;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x200F;&#x00BB;&#x200F;" t="&#x00BB;" note="French right double quotation mark" />
+<s b="100" d="&#x2010;" t="&#x2010;"/>
+<s b="100" d="!" t="!"/>
+<s b="101" d="&#x061F;" t="&#x061F;"  note="Arabic question mark"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d="&#x061B;" t="&#x061B;"  note="Arabic semicolon"/>
+<s b="103"  d="&#x060C;" t="&#x060C;"  note="Arabic comma"/>
+<s b="104" d="." t="."/>
+</group>
+<group name="Joiners" b="111">
+<s b="73" t="&#x200c;" d="&#x2225;" note="Zero width non-joiner"/>
+<s b="74" t="&#x200d;" d="&#x2195;" note="Zero width joiner"/>
 </group>
 </alphabet>
 </alphabets>
+

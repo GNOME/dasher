@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
 <alphabet name="Pure Katakana">
-<orientation type="TB"/>
+<orientation type="UD"/>
 <encoding type="Western"/>
 <palette>Hiragana</palette>
 <train>training_Japanese_JP.txt</train>

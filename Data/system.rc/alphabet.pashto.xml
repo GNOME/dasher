@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
-<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
-<!-- Author: David MacKay and Behdad  -->
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<!-- Author: David MacKay; NEEDS CHECKING BY AN EXPERT!  -->
 <alphabets>
 <alphabet name="Pashto (Nested groups) with punctuation and numerals">
+<!-- Pashto / &#1662;&#1690;&#1578;&#1608; -->
 <orientation type="RL"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
@@ -29,7 +30,7 @@
 <group name="Hamza" b="60">
 <s d="&#x0621;" t="&#x0621;" b="70" note="HAMZA  "  />
 </group>
-<group  b="60" name="alef" label="&#x0627;">
+<group  b="60" name="alef" >
 <s d="&#x0622;" t="&#x0622;" b="80" note="ALEF WITH MADDA ABOVE  "  />
 <s d="&#x0627;" t="&#x0627;" b="70" note="ALEF  "  />
 <s d="&#x0623;" t="&#x0623;" b="80" note="ALEF WITH HAMZA ABOVE  "  />
@@ -39,31 +40,44 @@
 <s d="&#x067e;" t="&#x067e;" b="71" note="PEH  "  />
 <s d="&#x062A;" t="&#x062A;" b="81" note="TEH  "  />
 <s d="&#x062B;" t="&#x062B;" b="71" note="THEH  "  />
-<s d="&#x067A;" t="&#x067A;"  note="ARABIC LETTER TTEHEH  class(p)"  />
-<s d="&#x067F;" t="&#x067F;"  note="ARABIC LETTER TEHEH  class(p)"  />
-</group>
+<s d="&#x067A;" t="&#x067A;" b="81" note="ARABIC LETTER TTEHEH  class(p)"  />
+<s d="&#x067D;" t="&#x067D;" b="71" note="SE or THEH? - ARABIC LETTER TEH WITH THREE DOTS ABOVE DOWNWARDS  class(p)"  />
+<s d="&#x067F;" t="&#x067F;" b="81" note="ARABIC LETTER TEHEH  class(p)"  />
+</group>		     
 <group b="62" >
 <s d="&#x062C;" t="&#x062C;" b="82" note="JEEM  "  />
+<s d="&#x0681;" t="&#x0681;"  note="ZEEM? ARABIC LETTER HAH WITH HAMZA ABOVE  class(p)"  />
 <s d="&#x0686;" t="&#x0686;" b="72" note="TCHEH "  />
+<s d="&#x0685;" t="&#x0685;"  note="SEEM? ARABIC LETTER HAH WITH THREE DOTS ABOVE  class(p)"  />
 <s d="&#x062D;" t="&#x062D;" b="82" note="HAH  "  />
 <s d="&#x062E;" t="&#x062E;" b="72" note="KHAH  "  />
 </group>
 <group b="63" >
 <s d="&#x062F;" t="&#x062F;" b="73" note="DAL  "  />
+<s d="&#x0689;" t="&#x0689;"  note="DDAL ARABIC LETTER DAL WITH RING  class(p)"  />
 <s d="&#x0630;" t="&#x0630;" b="83" note="THAL  "  />
 <s d="&#x0631;" t="&#x0631;" b="73" note="REH  "  />
-<s d="&#x0632;" t="&#x0632;" b="83" note="ZAIN  "  />
+<s d="&#x0693;" t="&#x0693;"  note="RREH ARABIC LETTER REH WITH RING  class(p)"  />
+<s d="&#x0632;" t="&#x0632;" b="83" note="ZEH / ZAIN  "  />
+<s d="&#x0692;" t="&#x0692;"  note="ARABIC LETTER REH WITH SMALL V  class(p)"  />
+<s d="&#x0694;" t="&#x0694;"  note="ARABIC LETTER REH WITH DOT BELOW  class(p)"  />
+<s d="&#x0695;" t="&#x0695;"  note="ARABIC LETTER REH WITH SMALL V BELOW  class(p)"  />
+<s d="&#x0697;" t="&#x0697;"  note="ARABIC LETTER REH WITH TWO DOTS ABOVE  class(p)"  />
 <s d="&#x0698;" t="&#x0698;" b="73" note="JEH "  />
+<s d="&#x0696;" t="&#x0696;"  note="ARABIC LETTER REH WITH DOT BELOW AND DOT ABOVE  class(p)"  />
+<s d="&#x0699;" t="&#x0699;"  note="ARABIC LETTER REH WITH FOUR DOTS ABOVE  class(p)"  />
+<!-- <s d="&#x06EF;" t="&#x06EF;"  note="ARABIC LETTER REH WITH INVERTED V  class(p)"  /> -->
 </group>
 <group b="64" >
 <s d="&#x0633;" t="&#x0633;" b="84" note="SEEN  "  />
 <s d="&#x0634;" t="&#x0634;" b="74" note="SHEEN  "  />
+<s d="&#x06FA;" t="&#x06FA;"  note="KHEEN? - ARABIC LETTER SHEEN WITH DOT BELOW  class(p)"  />
 </group>
 <group b="65" >
 <s d="&#x0635;" t="&#x0635;" b="75" note="SAD  "  />
 <s d="&#x0636;" t="&#x0636;" b="85" note="DAD  "  />
-<s d="&#x0637;" t="&#x0637;" b="75" note="TAH  "  />
-<s d="&#x0638;" t="&#x0638;" b="85" note="ZAH  "  />
+<s d="&#x0637;" t="&#x0637;" b="75" note="TWEH? TAH  "  />
+<s d="&#x0638;" t="&#x0638;" b="85" note="ZWEH? ZAH  "  />
 </group>
 <group b="66" >
 <s d="&#x0639;" t="&#x0639;" b="86" note="AIN  "  />
@@ -79,10 +93,18 @@
 <s d="&#x0644;" t="&#x0644;" b="78" note=" LAM  "  />
 <s d="&#x0645;" t="&#x0645;" b="88" note=" MEEM  "  />
 <s d="&#x0646;" t="&#x0646;" b="78" note=" NOON  "  />
+<s d="&#x06BC;" t="&#x06BC;"  note="NOORR? - ARABIC LETTER NOON WITH RING  class(p)"  />
 </group>
 <group b="69" >
+<!-- <s d="&#x06FF;" t="&#x06FF;"  note="ARABIC LETTER HEH WITH INVERTED V  class(p)"  /> -->
 <s d="&#x0648;" t="&#x0648;" b="79" note=" WAW  "  />
 <s d="&#x0624;" t="&#x0624;" b="89" note=" WAW WITH HAMZA ABOVE  "  />
+<s d="&#x06C5;" t="&#x06C5;"  note="ARABIC LETTER KIRGHIZ OE  class(p)"  />
+<s d="&#x06C6;" t="&#x06C6;"  note="ARABIC LETTER OE  class(p)"  />
+<s d="&#x06C8;" t="&#x06C8;"  note="ARABIC LETTER YU  class(p)"  />
+<s d="&#x06CA;" t="&#x06CA;"  note="ARABIC LETTER WAW WITH TWO DOTS ABOVE  class(p)"  />
+<s d="&#x06CB;" t="&#x06CB;"  note="ARABIC LETTER VE  class(p)"  />
+<!-- <s d="&#x06CF;" t="&#x06CF;"  note="ARABIC LETTER WAW WITH DOT ABOVE  class(p)"  /> -->
 <s d="&#x0647;&#x200d;" t="&#x0647;" b="79" note=" HEH (with non-joiner added to the canvas glyph) "  />
 <s d="&#x06CC;" t="&#x06CC;" b="89" note="ARABIC LETTER FARSI YEH "  />
 <s d="&#x0626;" t="&#x0626;" b="79" note=" YEH WITH HAMZA ABOVE  "  />
@@ -125,7 +147,7 @@
 <s b="98" d="\" t="\"/>
 <s b="97" d="|" t="|"/>
 </group>
-<group name="Persian Punctuation" b="112">
+<group name="Punctuation" b="112">
 <s b="90"    d="&#xfdfc;" t="&#xfdfc;"  note="currency"/>
 <s b="91" d="&#x066A;" t="&#x066A;" note="Arabic percent"/>
 <s b="92" d="+" t="+"/>

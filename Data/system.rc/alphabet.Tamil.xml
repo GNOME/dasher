@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Tamil_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="TAMIL letters" b="0">
@@ -48,19 +48,19 @@
 <s d="&#x0BB9;" t="&#x0BB9;"  note="TAMIL LETTER HA  class(p)"  />
 </group>
 <group name="other signs, marks, and vowels" >
-<s d="&#x0BBE;" t="&#x0BBE;"  note="TAMIL VOWEL SIGN AA  class(p)"  />
-<s d="&#x0BBF;" t="&#x0BBF;"  note="TAMIL VOWEL SIGN I  class(p)"  />
-<s d="&#x0BC0;" t="&#x0BC0;"  note="TAMIL VOWEL SIGN II  class(p)"  />
-<s d="&#x0BC1;" t="&#x0BC1;"  note="TAMIL VOWEL SIGN U  class(p)"  />
-<s d="&#x0BC2;" t="&#x0BC2;"  note="TAMIL VOWEL SIGN UU  class(p)"  />
-<s d="&#x0BC6;" t="&#x0BC6;"  note="TAMIL VOWEL SIGN E  class(p)"  />
-<s d="&#x0BC7;" t="&#x0BC7;"  note="TAMIL VOWEL SIGN EE  class(p)"  />
-<s d="&#x0BC8;" t="&#x0BC8;"  note="TAMIL VOWEL SIGN AI  class(p)"  />
-<s d="&#x0BCA;" t="&#x0BCA;"  note="TAMIL VOWEL SIGN O  class(p)"  />
-<s d="&#x0BCB;" t="&#x0BCB;"  note="TAMIL VOWEL SIGN OO  class(p)"  />
-<s d="&#x0BCC;" t="&#x0BCC;"  note="TAMIL VOWEL SIGN AU  class(p)"  />
-<s d="&#x0BCD;" t="&#x0BCD;"  note="TAMIL SIGN VIRAMA  class(p)"  />
-<s d="&#x0BD7;" t="&#x0BD7;"  note="TAMIL AU LENGTH MARK  class(p)"  />
+<s d="&#x25cc;&#x0BBE;" t="&#x0BBE;"  note="TAMIL VOWEL SIGN AA  class(p)"  />
+<s d="&#x25cc;&#x0BBF;" t="&#x0BBF;"  note="TAMIL VOWEL SIGN I  class(p)"  />
+<s d="&#x25cc;&#x0BC0;" t="&#x0BC0;"  note="TAMIL VOWEL SIGN II  class(p)"  />
+<s d="&#x25cc;&#x0BC1;" t="&#x0BC1;"  note="TAMIL VOWEL SIGN U  class(p)"  />
+<s d="&#x25cc;&#x0BC2;" t="&#x0BC2;"  note="TAMIL VOWEL SIGN UU  class(p)"  />
+<s d="&#x25cc;&#x0BC6;" t="&#x0BC6;"  note="TAMIL VOWEL SIGN E  class(p)"  />
+<s d="&#x25cc;&#x0BC7;" t="&#x0BC7;"  note="TAMIL VOWEL SIGN EE  class(p)"  />
+<s d="&#x25cc;&#x0BC8;" t="&#x0BC8;"  note="TAMIL VOWEL SIGN AI  class(p)"  />
+<s d="&#x25cc;&#x0BCA;" t="&#x0BCA;"  note="TAMIL VOWEL SIGN O  class(p)"  />
+<s d="&#x25cc;&#x0BCB;" t="&#x0BCB;"  note="TAMIL VOWEL SIGN OO  class(p)"  />
+<s d="&#x25cc;&#x0BCC;" t="&#x0BCC;"  note="TAMIL VOWEL SIGN AU  class(p)"  />
+<s d="&#x25cc;&#x0BCD;" t="&#x0BCD;"  note="TAMIL SIGN VIRAMA  class(p)"  />
+<s d="&#x25cc;&#x0BD7;" t="&#x0BD7;"  note="TAMIL AU LENGTH MARK  class(p)"  />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -106,7 +106,7 @@
 <s d="?" t="?"/>
 <s d="!" t="!"/>
 <s d="," t=","/>
-<s d="." t="."/>
+<s d="&#183;" t="."/>
 </group>
 </alphabet>
 </alphabets>

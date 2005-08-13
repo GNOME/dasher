@@ -60,18 +60,18 @@
 <s d="&#x1055;" t="&#x1055;"  note=" VOCALIC LL  "  />
 </group>
 <group name="Vowels Myanmar" b="111">
-<s d="&#x102C;" t="&#x102C;"  note=" VOWEL SIGN AA  "  />
-<s d="&#x102D;" t="&#x102D;"  note=" VOWEL SIGN I  "  />
-<s d="&#x102E;" t="&#x102E;"  note=" VOWEL SIGN II  "  />
-<s d="&#x102F;" t="&#x102F;"  note=" VOWEL SIGN U  "  />
-<s d="&#x1030;" t="&#x1030;"  note=" VOWEL SIGN UU  "  />
-<s d="&#x1031;" t="&#x1031;"  note=" VOWEL SIGN E  "  />
-<s d="&#x1032;" t="&#x1032;"  note=" VOWEL SIGN AI  "  />
-<s d="&#x1056;" t="&#x1056;"  note=" VOWEL SIGN VOCALIC R  "  />
-<s d="&#x1057;" t="&#x1057;"  note=" VOWEL SIGN VOCALIC RR  "  />
-<s d="&#x1058;" t="&#x1058;"  note=" VOWEL SIGN VOCALIC L  "  />
-<s d="&#x1059;" t="&#x1059;"  note=" VOWEL SIGN VOCALIC LL  "  />
-<s d="&#x1039;" t="&#x1039;"  note=" SIGN VIRAMA  "  />
+<s d="&#x25cc;&#x102C;" t="&#x102C;"  note=" VOWEL SIGN AA  "  />
+<s d="&#x25cc;&#x102D;" t="&#x102D;"  note=" VOWEL SIGN I  "  />
+<s d="&#x25cc;&#x102E;" t="&#x102E;"  note=" VOWEL SIGN II  "  />
+<s d="&#x25cc;&#x102F;" t="&#x102F;"  note=" VOWEL SIGN U  "  />
+<s d="&#x25cc;&#x1030;" t="&#x1030;"  note=" VOWEL SIGN UU  "  />
+<s d="&#x25cc;&#x1031;" t="&#x1031;"  note=" VOWEL SIGN E  "  />
+<s d="&#x25cc;&#x1032;" t="&#x1032;"  note=" VOWEL SIGN AI  "  />
+<s d="&#x25cc;&#x1056;" t="&#x1056;"  note=" VOWEL SIGN VOCALIC R  "  />
+<s d="&#x25cc;&#x1057;" t="&#x1057;"  note=" VOWEL SIGN VOCALIC RR  "  />
+<s d="&#x25cc;&#x1058;" t="&#x1058;"  note=" VOWEL SIGN VOCALIC L  "  />
+<s d="&#x25cc;&#x1059;" t="&#x1059;"  note=" VOWEL SIGN VOCALIC LL  "  />
+<s d="&#x25cc;&#x1039;" t="&#x1039;"  note=" SIGN VIRAMA  "  />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>

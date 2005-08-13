@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_bengali_BD.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="bengali letters" b="0">
@@ -65,21 +65,21 @@
 <s d="&#x09BD;" t="&#x09BD;"  note=" SIGN AVAGRAHA  class(p)"  />
 </group>			    
 <group name="Bengali vowels" >	    
-<s d="&#x09BE;" t="&#x09BE;"  note=" VOWEL SIGN AA  class(p)"  />
-<s d="&#x09BF;" t="&#x09BF;"  note=" VOWEL SIGN I  class(p)"  />
-<s d="&#x09C0;" t="&#x09C0;"  note=" VOWEL SIGN II  class(p)"  />
-<s d="&#x09C1;" t="&#x09C1;"  note=" VOWEL SIGN U  class(p)"  />
-<s d="&#x09C2;" t="&#x09C2;"  note=" VOWEL SIGN UU  class(p)"  />
-<s d="&#x09C3;" t="&#x09C3;"  note=" VOWEL SIGN VOCALIC R  class(p)"  />
-<s d="&#x09C4;" t="&#x09C4;"  note=" VOWEL SIGN VOCALIC RR  class(p)"  />
-<s d="&#x09E2;" t="&#x09E2;"  note=" VOWEL SIGN VOCALIC L  class(p)"  />
-<s d="&#x09E3;" t="&#x09E3;"  note=" VOWEL SIGN VOCALIC LL  class(p)"  />
-<s d="&#x09C7;" t="&#x09C7;"  note=" VOWEL SIGN E  class(p)"  />
-<s d="&#x09C8;" t="&#x09C8;"  note=" VOWEL SIGN AI  class(p)"  />
-<s d="&#x09CB;" t="&#x09CB;"  note=" VOWEL SIGN O  class(p)"  />
-<s d="&#x09CC;" t="&#x09CC;"  note=" VOWEL SIGN AU  class(p)"  />
-<s d="&#x09CD;" t="&#x09CD;"  note=" SIGN VIRAMA  class(p)"  />
-<s d="&#x09D7;" t="&#x09D7;"  note=" AU LENGTH MARK  class(p)"  />
+<s d="&#x25cc;&#x09BE;" t="&#x09BE;"  note=" VOWEL SIGN AA  class(p)"  />
+<s d="&#x25cc;&#x09BF;" t="&#x09BF;"  note=" VOWEL SIGN I  class(p)"  />
+<s d="&#x25cc;&#x09C0;" t="&#x09C0;"  note=" VOWEL SIGN II  class(p)"  />
+<s d="&#x25cc;&#x09C1;" t="&#x09C1;"  note=" VOWEL SIGN U  class(p)"  />
+<s d="&#x25cc;&#x09C2;" t="&#x09C2;"  note=" VOWEL SIGN UU  class(p)"  />
+<s d="&#x25cc;&#x09C3;" t="&#x09C3;"  note=" VOWEL SIGN VOCALIC R  class(p)"  />
+<s d="&#x25cc;&#x09C4;" t="&#x09C4;"  note=" VOWEL SIGN VOCALIC RR  class(p)"  />
+<s d="&#x25cc;&#x09E2;" t="&#x09E2;"  note=" VOWEL SIGN VOCALIC L  class(p)"  />
+<s d="&#x25cc;&#x09E3;" t="&#x09E3;"  note=" VOWEL SIGN VOCALIC LL  class(p)"  />
+<s d="&#x25cc;&#x09C7;" t="&#x09C7;"  note=" VOWEL SIGN E  class(p)"  />
+<s d="&#x25cc;&#x09C8;" t="&#x09C8;"  note=" VOWEL SIGN AI  class(p)"  />
+<s d="&#x25cc;&#x09CB;" t="&#x09CB;"  note=" VOWEL SIGN O  class(p)"  />
+<s d="&#x25cc;&#x09CC;" t="&#x09CC;"  note=" VOWEL SIGN AU  class(p)"  />
+<s d="&#x25cc;&#x09CD;" t="&#x09CD;"  note=" SIGN VIRAMA  class(p)"  />
+<s d="&#x25cc;&#x09D7;" t="&#x09D7;"  note=" AU LENGTH MARK  class(p)"  />
 </group>
 <group name="Bengali numbers" b="113">
 <s d="&#x09E7;" t="&#x09E7;"  note="BENGALI DIGIT ONE"/>
@@ -131,6 +131,7 @@
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s d="-" t="-"/>
 <s d=":" t=":"/>
 <s d=";" t=";"/>
