@@ -48,7 +48,7 @@ CJapaneseLanguageModel::CJapaneseLanguageModel(Dasher::CEventHandler *pEventHand
 
   // Cache the result of update exclusion - otherwise we have to look up a lot when training, which is slow
 
-  bUpdateExclusion = GetLongParameter(LP_LM_UPDATE_EXCLUSION);
+  bUpdateExclusion = ( GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
   
 }
 

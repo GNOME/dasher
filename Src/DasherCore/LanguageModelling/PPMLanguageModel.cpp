@@ -42,7 +42,7 @@ CPPMLanguageModel::CPPMLanguageModel(Dasher::CEventHandler *pEventHandler, CSett
 
   // FIXME - this should be a boolean parameter
 
-  bUpdateExclusion = GetLongParameter(LP_LM_UPDATE_EXCLUSION);
+  bUpdateExclusion = ( GetLongParameter(LP_LM_UPDATE_EXCLUSION) !=0 );
 
 }
 
