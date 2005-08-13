@@ -10,7 +10,6 @@
 // DJW20050505 - renamed DrawText to DrawString - windows defines DrawText as a macro and it's 
 // really hard to work around
 // Also make CDasher screen operate in UTF8 strings only
-// Eventually, I want abstract CDasherScreen even further from DasherCore
 
 namespace Dasher {
   class CDasherScreen;
@@ -59,7 +58,7 @@ public:
 
   // Send a marker to indicate 'phases' of drawing. 
 
-  virtual void SendMarker(int iMarker) {
+  virtual void SendMarker(int /*iMarker*/ ) {
   };
 
   // Draw a filled rectangle - given position and color id
