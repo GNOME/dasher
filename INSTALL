@@ -1,0 +1,8 @@
+Dasher Installation Instructions
+================================
+
+Please see the appropriate file for your platform:
+
+   INSTALL.Linux    - Linux (and possibly related *NIX flavours)
+   INSTALL.Windows  - Microsoft Windows
+   INSTALL.WinCE    - Microsoft Windows CE.
