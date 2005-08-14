@@ -1,3 +1,8 @@
+2005-08-14  Phil Cowans <pjc51@cam.ac.uk>
+	* Src/Gtk2/GenerateSchema.cpp, Src/Gtk2/Makefile.am: Added a
+	simple utility to generate a GConf .schema file from the parameter
+	header files.
+	
 2005-07-21  Behdad Esfahbod  <behdad@behdad.org>
 	* AUTHORS, README: Minor wording changes.
 

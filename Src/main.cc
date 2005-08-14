@@ -160,6 +160,8 @@ int main(int argc, char *argv[]) {
     exit(1);
   }
 
+  // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
+
   g_pGConfClient = gconf_client_get_default();
 
   // ---
