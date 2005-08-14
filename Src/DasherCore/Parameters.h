@@ -99,7 +99,7 @@ static bp_table boolparamtable[] = {
   {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},
   {BP_REDRAW, "Redraw", !PERS, false, "Force a full redraw at the next timer event"},
   {BP_LM_DICTIONARY, "Dictionary", PERS, true, "Whether the word-based language model uses a dictionary"},
-  {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, false, "Whether to do letter exclusion in the word-based model"},
+  {BP_LM_LETTER_EXCLUSION, "LetterExclusion", PERS, true, "Whether to do letter exclusion in the word-based model"},
   {BP_AUTO_SPEEDCONTROL, "AutoSpeedControl", PERS, true, "AutoSpeedControl"},
   {BP_CLICK_MODE, "ClickMode", PERS, false, "Dasher Click Mode"},
   {BP_LM_ADAPTIVE, "LMAdaptive", PERS, true, "Whether language model should learn as you enter text"},
