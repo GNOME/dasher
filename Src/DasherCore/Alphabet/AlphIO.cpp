@@ -68,6 +68,7 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector <string >Fil
 }
 
 void CAlphIO::ParseFile(std::string Filename) {
+
   FILE *Input;
   if((Input = fopen(Filename.c_str(), "r")) == (FILE *) 0) {
     // could not open file
