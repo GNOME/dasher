@@ -150,6 +150,8 @@ void CJapaneseLanguageModel::GetProbs(Context context, vector <unsigned int >&pr
         }
       }
 
+      //      std::cout << "Candidate list has " << cand_list.size() << " entries" << std::endl;
+
       // convert strings to symbols
       for(unsigned int j(0); j < cand_list.size(); j++) {
         //cout << "[" << j << "]" << cand_list[j] << endl;

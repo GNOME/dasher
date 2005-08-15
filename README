@@ -13,6 +13,10 @@ high rates of text entry.
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
 
+New Features In 3.99.0
+----------------------
+
+
 Requirements
 ------------
 Dasher makes use of the following third party software (note that this
@@ -29,6 +33,7 @@ Linux:
  * GTK+ (2.2 or greated) (required)
  * GNOME (optional, but highly recommended)
  * GNOME Speech (optional)
+ * Libcanna (optional, for Hiragana to Kanji conversion)
 
 MS Windows:
  * MS Speech API (optional)

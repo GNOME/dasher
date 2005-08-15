@@ -82,6 +82,12 @@ int CKanjiConversionCanna::ConvertKanji(string str) {
                   strlen(inbuf),        // length of given string
                   (RK_XFER << RK_XFERBITS) | RK_KFER);  // mode
 
+  if(nbun == -1) {
+    // Crude error detection - I don't know enough Japanese to figure out how to do this properly :-(
+    
+    std::cerr << "Error - Canna conversion failed, possibly could not connect to server." << std::endl;
+  }
+
   /* Convert each phrase into Kanji */
   cd = iconv_open("UTF8", "EUC-JP");
   for(int i = 0; i < nbun; i++) {
