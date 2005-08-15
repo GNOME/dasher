@@ -434,12 +434,18 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   // In alphabetical order
   gchar *authors[] = {
     "Chris Ball",
-    "Phil Cowens",
+    "Phil Cowans",
+    "Frederik Eaton",
+    "Behdad Esfahbod",
     "Matthew Garrett",
+    "Chris Hack",
     "David MacKay",
     "Iain Murray",
+    "Takashi Kaburagi",
+    "Keith Vertanen",
     "Hanna Wallach",
     "David Ward",
+    "Brian Williams",
     NULL
   };
 
