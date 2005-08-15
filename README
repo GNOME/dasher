@@ -15,7 +15,7 @@ may be found in the Doc/ subdirectory
 
 New Features In 3.99.0
 ----------------------
-
+ * Japanese Kanji text entry (See 'Kanji Entry' below)
 
 Requirements
 ------------
@@ -53,6 +53,30 @@ and Hiragana (Japanese).  We aren't legally allowed to distribute a font for
 the IPA, but you can download one yourself from:  
 
    http://www.sil.org/computing/fonts/encore-ipa.html
+
+Kanji Entry
+-----------
+
+Dasher 3.99.0 contains experimental support for Japanese Kanji entry
+by Hiragana conversion. To build Dasher with this enabled on Linux,
+you need the libcanna conversion library. You also need to be able to
+access a canna conversion server, which can be on the local machine or
+over a network. Please note that Dasher will not start a canna server
+if none is running - you must do so manually before running Dasher. 
+Please see the Canna documentation for more details.
+
+Kanji conversion in Microsoft Windows is via the IME API, which is
+part of Windows XP and Asian builds of earlier Windows
+versions. Support for Kanji conversion in Dasher under Windows is
+still very much under development, so please take care when trying
+it out. In particular, Dasher will crash if you try to enable Kanji
+conversion on a machine which does not have Japanese localisation
+installed.
+
+To use Kanji conversion in Dasher, you must select 'Hiragana ... (For
+use with Hapanese language model)' from the 'Alphabet' section of the
+preferences dialogue, and the Japanese language model from the
+'Prediction' section.
 
 Support and Feedback
 --------------------
