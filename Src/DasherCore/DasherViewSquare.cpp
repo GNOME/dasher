@@ -202,6 +202,10 @@ CDasherViewSquare::Cymap::Cymap(myint iScale) {
 CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel)
 :CDasherView(pEventHandler, pSettingsStore, DasherScreen, DasherModel) {
 
+  // Make sure that the auto calibration is set to zero berfore we start
+
+  m_yAutoOffset = 0;
+
   bInBox = false;
   m_pDelayDraw = new CDelayedDraw();
   ChangeScreen(DasherScreen);
@@ -770,6 +774,7 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
 /// Convert raw Dasher co-ordinates to eyetracker position
 
 void CDasherViewSquare::Dasher2Eyetracker(myint &iDasherX, myint &iDasherY) {
+
   double disty=DasherModel()->DasherOY()-iDasherY;
 
   myint x( iDasherX );
@@ -792,6 +797,8 @@ void CDasherViewSquare::Dasher2Eyetracker(myint &iDasherX, myint &iDasherY) {
       if(double_x < xmax_y) { 
         double_x = xmax_y; 
       } 
+
+      //      std::cout << xmax_y << std::endl;
 
       x = myint(dasherOX*double_x);
 
@@ -832,7 +839,6 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
       // First apply the autocalibration offset
       iInputY += int (m_yAutoOffset);   // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
     }
-
 
     if( iMode == 0 )
       Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
@@ -1132,8 +1138,8 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
   delete[]pCoordinates;
 
-  bool autocalibrate = 0;
-  if(autocalibrate) {
+  //  bool autocalibrate = GetBoolParameter(BP_AUTOCALIBRATE);
+  if(GetBoolParameter(BP_AUTOCALIBRATE) && GetBoolParameter(BP_EYETRACKER_MODE)) {
     AutoCalibrate(&mousex, &mousey);
   }
 
@@ -1629,10 +1635,9 @@ bool CDasherViewSquare::HandleStartOnMouse(int iTime) {
 
   delete pCoordinates;
 
-  bool autocalibrate = 0;
-  if(autocalibrate) {
-    AutoCalibrate(&mousex, &mousey);
-  }
+//   if(GetBoolParameter(BP_AUTOCALIBRATE)) {
+//     AutoCalibrate(&mousex, &mousey);
+//   }
 
   myint iDasherX;
   myint iDasherY;

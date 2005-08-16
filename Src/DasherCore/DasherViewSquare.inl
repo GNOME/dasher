@@ -16,7 +16,7 @@ namespace Dasher {
     // set x=xmax(y).  But set xmax=c if(xmax>c).
     // I would set a=1, b=1, c=16, to start with. 
 
-    int a = 1, b = 1, c = 10;
+    int a = 1, b = 1, c = 100;
     double xmax = a * (exp(b * y * y) - 1);
     //cout << "xmax = " << xmax << endl;
 
