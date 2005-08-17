@@ -1018,13 +1018,18 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
 
   // Compute font size based on position
   int Size = GetLongParameter( LP_DASHER_FONTSIZE );
-  screenint iLeftTimesFontSize = (iAnchorX1 + iAnchorX2) * Size / 2;
-  if(iLeftTimesFontSize > DasherModel()->DasherY() * 1 / 20)
+
+  // FIXME - this could be much more elegant, and probably needs a
+  // rethink anyway - behvaiour here is too dependent on screen size
+
+  screenint iLeftTimesFontSize = (DasherModel()->DasherY() - (iAnchorX1 + iAnchorX2)/ 2 )*Size;
+  if(iLeftTimesFontSize < DasherModel()->DasherY() * 19/ 20)
     Size *= 20;
-  else if(iLeftTimesFontSize > DasherModel()->DasherY() * 1 / 160)
+  else if(iLeftTimesFontSize < DasherModel()->DasherY() * 159 / 160)
     Size *= 14;
   else
     Size *= 11;
+  
 
   screenint TextWidth, TextHeight;
 

@@ -162,6 +162,9 @@ void initialise_edit(GladeXML *pGladeXML) {
 
   g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
 
+  set_editbox_font(get_app_parameter_string(APP_SP_EDIT_FONT));
+
+
 #ifdef X_HAVE_UTF8_STRING
   XDisplayKeycodes(dpy, &min, &max);
   origkeymap = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
