@@ -127,7 +127,7 @@
 <s b="108" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
 <s b="109" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
 <s b="105" d="&#x0027;" t="&#x0027;" note="vertical single quote" />
-<s b="106" d="&#x2358;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="106" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
 <s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
 <s b="108" d="&#x2039;" t="&#x2039;" note="French left single quotation mark" />
 <s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
@@ -225,7 +225,7 @@
 <s b="44"  d="&#x00C5;" t="&#x00C5;" />
 </group>
 <group name="Punctuation" b="112">
-<s b="106" d="&#x2358;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="106" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
 <s b="103"  d="?" t="?"/>
 <s b="104"  d="!" t="!"/>
 <s b="100"  d="," t=","/>

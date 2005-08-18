@@ -69,8 +69,9 @@
 <group name="Punctuation" b="112">
 <s d="&amp;" t="&amp;" b="99"/>
 <s d="&quot;" t="&quot;" b="109"/>
-<!-- <s b="105" d="&#x2358;" t="&apos;" note=" apostrophe"/> -->
-<s b="105" d="&#x2323;&#x0313;" t="&apos;" note=" apostrophe"/>
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
+<!-- <s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/> -->
+<!-- <s b="105" d="&#x2323;&#x0313;" t="&apos;" note=" apostrophe above a smile arc"/> -->
 <!-- <s b="105" d="&#x2319;&#x0313;" t="&apos;" note=" apostrophe"/> -->
 <s d="?" t="?" b="103"/>
 <s d="!" t="!" b="104"/>
@@ -158,7 +159,7 @@
 <group name="Punctuation" b="112">
 <s d="&amp;" t="&amp;" b="99"/>
 <s d="&quot;" t="&quot;" b="109"/>
-<s b="105" d="&#x2358;" t="&apos;" note=" apostrophe"/>
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
 <s d="?" t="?" b="103"/>
 <s d="!" t="!" b="104"/>
 <s d="," t="," b="100"/>
@@ -272,7 +273,7 @@
 <s b="107" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
 <s b="108" d="&#x2019;" t="&#x2019;" note="right single quotation mark and apostrophe" />
 <s b="109" d="`" t="`" note="left quote from keyboard" />
-<s b="105" d="&#x2358;" t="&apos;" note=" apostrophe"/>
+<s b="105" d="&#x25cc;&#x0313;" t="&apos;" note=" apostrophe"/>
 <s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s b="100" d="-" t="-"/>
 <s b="101" d=":" t=":"/>
@@ -319,7 +320,7 @@
 <s d="z" t="z" b="35"/>
 </group>
 <group name="Punctuation" b="112">
-<s b="105" d="&#x2358;"  t="&apos;" />
+<s b="105" d="&#x25cc;&#x0313;"  t="&apos;" />
 <s b="103" d="?" t="?" />
 <s b="104" d="!" t="!" />
 <s b="100" d="," t="," />

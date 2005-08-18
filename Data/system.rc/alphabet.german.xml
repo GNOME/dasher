@@ -116,7 +116,7 @@
 <s b="108" d="&#x201A;" t="&#x201A;" note="German left single quotation mark; Albanian right" />
 <s b="109" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
 <s b="105" d="&#x0027;" t="&#x0027;" note="vertical single quote" />
-<s b="106" d="&#x2358;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="106" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
 <s b="9"   d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s b="100"  d="-" t="-"/>
 <s b="101"  d=":" t=":"/>

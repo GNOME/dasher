@@ -3,7 +3,7 @@
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
 <!-- Edited by T.Kaburagi 6  July 2005 -->
 <alphabets>
-<alphabet name="Hiragana &#12402;&#12425;&#12364;&#12394; (For use with Japanese language model)">
+<alphabet name="Japanese Canna">
 <!-- $Id$ -->
 <orientation type="LR"/>
 <encoding type="Western"/>
