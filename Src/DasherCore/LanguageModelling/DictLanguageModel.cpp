@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "../../Common/Common.h"
+#include "Common.h"
 #include "DictLanguageModel.h"
 
 #include <math.h>
