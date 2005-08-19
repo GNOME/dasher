@@ -117,7 +117,6 @@ main(int argc, char *argv[])
   gnome_vfs_init();
 #endif
 
-
   // We need thread support for updating the splash window while
   // training...
 
