@@ -31,6 +31,7 @@ libdashercore_a_SOURCES = \
 		libdasher.h \
 		libdasher_private.h \
 		SettingsStore.cpp \
-		SettingsStore.h
+		SettingsStore.h \
+		View/DelayedDraw.h
 
 AM_CXXFLAGS = -I$(srcdir)/../Common

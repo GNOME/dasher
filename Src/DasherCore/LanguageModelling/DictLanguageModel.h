@@ -10,11 +10,11 @@
 #define __DictLanguageModel_h__
 
 
-#include "Common/NoClones.h"
-#include "Common/Allocators/PooledAlloc.h"
+#include "../../Common/NoClones.h"
+#include "../../Common/Allocators/PooledAlloc.h"
 #include "LanguageModel.h"
 #include "PPMLanguageModel.h"
-#include "DasherTypes.h"
+#include "../DasherTypes.h"
 
 #include <vector>
 #include <map>
