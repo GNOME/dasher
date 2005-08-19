@@ -87,7 +87,7 @@ AC_ARG_WITH([a11y],
 	 else
 	   WITHA11Y=true;
          fi, 
-	 WITHA11Y=true)
+	 WITHA11Y=false)
 
 AC_ARG_WITH([cairo],
 	 AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
@@ -96,7 +96,7 @@ AC_ARG_WITH([cairo],
 	 else
 	   WITHCAIRO=true;
          fi, 
-	 WITHCAIRO=true)
+	 WITHCAIRO=false)
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 

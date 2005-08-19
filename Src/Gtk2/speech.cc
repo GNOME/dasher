@@ -79,6 +79,7 @@ void teardown_speech() {
 
   bonobo_object_release_unref (speaker, NULL);
   CORBA_free (voices);
+  GNOME_Speech_SynthesisDriver_unref(rv, &ev);
   CORBA_exception_free (&ev);
 
 }

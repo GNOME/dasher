@@ -1768,7 +1768,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data)
   // In alphabetical order
   gchar *authors[] = {
     "Chris Ball",
-    "Phil Cowens",
+    "Phil Cowans",
     "Matthew Garrett",
     "David MacKay",
     "Iain Murray",
