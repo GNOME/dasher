@@ -38,7 +38,7 @@
 <s d="y" t="y"/>
 <s d="z" t="z"/>
 </group>
-<group name="Phonetic symbols">
+<group name="Phonetic symbols" b="111">
 <s d="&#593;" t="&#593;"/>
 <s d="&#592;" t="&#592;"/>
 <s d="&#594;" t="&#594;"/>
@@ -169,7 +169,7 @@
 <s d="&#768;" t="&#768;"/>
 <s d="&#783;" t="&#783;"/>-->
 </group>
-<group name="Punctuation">
+<group name="Punctuation"  b="112">
 <s d="&amp;" t="&amp;"/>
 <s d="&quot;" t="&quot;"/>
 <s d="&apos;" t="&apos;"/>

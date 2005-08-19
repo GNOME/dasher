@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Icelandic with punctuation and numerals">
+<alphabet name="Icelandic / &#x00CD;slensku with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
@@ -44,7 +44,7 @@
 <s d="&#x0079;" t="&#x0079;" />
 <s d="&#x00FD;" t="&#x00FD;" />
 <s d="&#x007A;" t="&#x007A;" />
-<s d="&#x00FE;" t="&#x00FE;" />
+<s d="&#x00FE;" t="&#x00FE;" note="thorn" />
 <s d="&#x00E6;" t="&#x00E6;" />
 <s d="&#x00E4;" t="&#x00E4;" />
 <s d="&#x00F6;" t="&#x00F6;" />
@@ -85,7 +85,7 @@
 <s d="&#x0059;" t="&#x0059;" />
 <s d="&#x00DD;" t="&#x00DD;" />
 <s d="&#x005A;" t="&#x005A;" />
-<s d="&#x00DE;" t="&#x00DE;" />
+<s d="&#x00DE;" t="&#x00DE;" note="thorn" />
 <s d="&#x00C6;" t="&#x00C6;" />
 <s d="&#x00C4;" t="&#x00C4;" />
 <s d="&#x00D6;" t="&#x00D6;" />

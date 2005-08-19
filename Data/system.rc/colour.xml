@@ -124,7 +124,7 @@
 <colour r="180" g="238" b="180"/>
 <colour r="155" g="205" b="155"/>
 <colour r="0" g="255" b="255"/>
-<!-- groups (110-129)-->
+<!-- groups (110-139) 110: red  111: yellow ;   112: GREEn;    113: RED  -->
 <colour r="255" g="0" b="0"/>
 <colour r="255" g="255" b="0"/>
 <colour r="0" g="200" b="0"/>
@@ -145,15 +145,15 @@
 <colour r="0" g="200" b="0"/>
 <colour r="255" g="0" b="0"/>
 <colour r="255" g="255" b="0"/>
-<!-- currently unused (130-137)-->
+<!-- currently unused (130-137) -->
 <colour r="0" g="0" b="0"/>
 <colour r="0" g="0" b="0"/>
 <colour r="0" g="0" b="0"/>
 <colour r="0" g="0" b="0"/>
-<colour r="0" g="0" b="0"/>
-<colour r="0" g="0" b="0"/>
-<colour r="0" g="0" b="0"/>
-<colour r="0" g="0" b="0"/>
+<colour r="255" g="160" b="100"/>
+<colour r="255" g="100" b="204"/>
+<colour r="200" g="255" b="20"/>
+<colour r="150" g="255" b="50"/>
 <!-- alternate control node -->
 <colour r="80" g="80" b="80"/>
 <!-- alternate space -->

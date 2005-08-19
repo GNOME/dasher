@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Kannada_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="KANNADA  letters" b="0">
@@ -65,23 +65,23 @@
 <s d="&#x0CB3;" t="&#x0CB3;" note="KANNADA LETTER LLA " />
 <s d="&#x0CDE;" t="&#x0CDE;" note="KANNADA LETTER FA " />
 </group>
-<group name="Kannada vowel signs and other marks">
-<s d="&#x0CBE;" t="&#x0CBE;" note="KANNADA VOWEL SIGN AA " />
-<s d="&#x0CBF;" t="&#x0CBF;" note="KANNADA VOWEL SIGN I " />
-<s d="&#x0CC0;" t="&#x0CC0;" note="KANNADA VOWEL SIGN II " />
-<s d="&#x0CC1;" t="&#x0CC1;" note="KANNADA VOWEL SIGN U " />
-<s d="&#x0CC2;" t="&#x0CC2;" note="KANNADA VOWEL SIGN UU " />
-<s d="&#x0CC3;" t="&#x0CC3;" note="KANNADA VOWEL SIGN VOCALIC R " />
-<s d="&#x0CC4;" t="&#x0CC4;" note="KANNADA VOWEL SIGN VOCALIC RR " />
-<s d="&#x0CC6;" t="&#x0CC6;" note="KANNADA VOWEL SIGN E " />
-<s d="&#x0CC7;" t="&#x0CC7;" note="KANNADA VOWEL SIGN EE " />
-<s d="&#x0CC8;" t="&#x0CC8;" note="KANNADA VOWEL SIGN AI " />
-<s d="&#x0CCA;" t="&#x0CCA;" note="KANNADA VOWEL SIGN O " />
-<s d="&#x0CCB;" t="&#x0CCB;" note="KANNADA VOWEL SIGN OO " />
-<s d="&#x0CCC;" t="&#x0CCC;" note="KANNADA VOWEL SIGN AU " />
-<s d="&#x0CCD;" t="&#x0CCD;" note="KANNADA SIGN VIRAMA " />
-<s d="&#x0CD5;" t="&#x0CD5;" note="KANNADA LENGTH MARK " />
-<s d="&#x0CD6;" t="&#x0CD6;" note="KANNADA AI LENGTH MARK " />
+<group name="Kannada vowel signs and other marks"  b="111">
+<s d="&#x25cc;&#x0CBE;" t="&#x0CBE;" note="KANNADA VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0CBF;" t="&#x0CBF;" note="KANNADA VOWEL SIGN I " />
+<s d="&#x25cc;&#x0CC0;" t="&#x0CC0;" note="KANNADA VOWEL SIGN II " />
+<s d="&#x25cc;&#x0CC1;" t="&#x0CC1;" note="KANNADA VOWEL SIGN U " />
+<s d="&#x25cc;&#x0CC2;" t="&#x0CC2;" note="KANNADA VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0CC3;" t="&#x0CC3;" note="KANNADA VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0CC4;" t="&#x0CC4;" note="KANNADA VOWEL SIGN VOCALIC RR " />
+<s d="&#x25cc;&#x0CC6;" t="&#x0CC6;" note="KANNADA VOWEL SIGN E " />
+<s d="&#x25cc;&#x0CC7;" t="&#x0CC7;" note="KANNADA VOWEL SIGN EE " />
+<s d="&#x25cc;&#x0CC8;" t="&#x0CC8;" note="KANNADA VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0CCA;" t="&#x0CCA;" note="KANNADA VOWEL SIGN O " />
+<s d="&#x25cc;&#x0CCB;" t="&#x0CCB;" note="KANNADA VOWEL SIGN OO " />
+<s d="&#x25cc;&#x0CCC;" t="&#x0CCC;" note="KANNADA VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0CCD;" t="&#x0CCD;" note="KANNADA SIGN VIRAMA " />
+<s d="&#x25cc;&#x0CD5;" t="&#x0CD5;" note="KANNADA LENGTH MARK " />
+<s d="&#x25cc;&#x0CD6;" t="&#x0CD6;" note="KANNADA AI LENGTH MARK " />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -127,7 +127,7 @@
 <s d="?" t="?"/>
 <s d="!" t="!"/>
 <s d="," t=","/>
-<s d="." t="."/>
+<s d="&#183;" t="."/>
 </group>
 </alphabet>
 </alphabets>

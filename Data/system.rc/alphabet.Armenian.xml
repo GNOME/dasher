@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Armenian with punctuation and numerals">
+<alphabet name="Armenian / &#1344;&#1377;&#1397;&#1381;&#1408;&#1381;&#1398; with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>

@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Sinhala_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="SINHALA letters" b="0">
@@ -72,24 +72,24 @@
 <s d="&#x0DC6;" t="&#x0DC6;"  note="SINHALA LETTER FAYANNA  "  />
 </group>
 <group name="signs and vowels" >
-<s d="&#x0DCA;" t="&#x0DCA;"  note="SINHALA SIGN AL-LAKUNA  "  />
-<s d="&#x0DCF;" t="&#x0DCF;"  note="SINHALA VOWEL SIGN AELA-PILLA  "  />
-<s d="&#x0DD0;" t="&#x0DD0;"  note="SINHALA VOWEL SIGN KETTI AEDA-PILLA  "  />
-<s d="&#x0DD1;" t="&#x0DD1;"  note="SINHALA VOWEL SIGN DIGA AEDA-PILLA  "  />
-<s d="&#x0DD2;" t="&#x0DD2;"  note="SINHALA VOWEL SIGN KETTI IS-PILLA  "  />
-<s d="&#x0DD3;" t="&#x0DD3;"  note="SINHALA VOWEL SIGN DIGA IS-PILLA  "  />
-<s d="&#x0DD4;" t="&#x0DD4;"  note="SINHALA VOWEL SIGN KETTI PAA-PILLA  "  />
-<s d="&#x0DD6;" t="&#x0DD6;"  note="SINHALA VOWEL SIGN DIGA PAA-PILLA  "  />
-<s d="&#x0DD8;" t="&#x0DD8;"  note="SINHALA VOWEL SIGN GAETTA-PILLA  "  />
-<s d="&#x0DD9;" t="&#x0DD9;"  note="SINHALA VOWEL SIGN KOMBUVA  "  />
-<s d="&#x0DDA;" t="&#x0DDA;"  note="SINHALA VOWEL SIGN DIGA KOMBUVA  "  />
-<s d="&#x0DDB;" t="&#x0DDB;"  note="SINHALA VOWEL SIGN KOMBU DEKA  "  />
-<s d="&#x0DDC;" t="&#x0DDC;"  note="SINHALA VOWEL SIGN KOMBUVA HAA AELA-PILLA  "  />
-<s d="&#x0DDD;" t="&#x0DDD;"  note="SINHALA VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA  "  />
-<s d="&#x0DDE;" t="&#x0DDE;"  note="SINHALA VOWEL SIGN KOMBUVA HAA GAYANUKITTA  "  />
-<s d="&#x0DDF;" t="&#x0DDF;"  note="SINHALA VOWEL SIGN GAYANUKITTA  "  />
-<s d="&#x0DF2;" t="&#x0DF2;"  note="SINHALA VOWEL SIGN DIGA GAETTA-PILLA  "  />
-<s d="&#x0DF3;" t="&#x0DF3;"  note="SINHALA VOWEL SIGN DIGA GAYANUKITTA  "  />
+<s d="&#x25cc;&#x0DCA;" t="&#x0DCA;"  note="SINHALA SIGN AL-LAKUNA  "  />
+<s d="&#x25cc;&#x0DCF;" t="&#x0DCF;"  note="SINHALA VOWEL SIGN AELA-PILLA  "  />
+<s d="&#x25cc;&#x0DD0;" t="&#x0DD0;"  note="SINHALA VOWEL SIGN KETTI AEDA-PILLA  "  />
+<s d="&#x25cc;&#x0DD1;" t="&#x0DD1;"  note="SINHALA VOWEL SIGN DIGA AEDA-PILLA  "  />
+<s d="&#x25cc;&#x0DD2;" t="&#x0DD2;"  note="SINHALA VOWEL SIGN KETTI IS-PILLA  "  />
+<s d="&#x25cc;&#x0DD3;" t="&#x0DD3;"  note="SINHALA VOWEL SIGN DIGA IS-PILLA  "  />
+<s d="&#x25cc;&#x0DD4;" t="&#x0DD4;"  note="SINHALA VOWEL SIGN KETTI PAA-PILLA  "  />
+<s d="&#x25cc;&#x0DD6;" t="&#x0DD6;"  note="SINHALA VOWEL SIGN DIGA PAA-PILLA  "  />
+<s d="&#x25cc;&#x0DD8;" t="&#x0DD8;"  note="SINHALA VOWEL SIGN GAETTA-PILLA  "  />
+<s d="&#x25cc;&#x0DD9;" t="&#x0DD9;"  note="SINHALA VOWEL SIGN KOMBUVA  "  />
+<s d="&#x25cc;&#x0DDA;" t="&#x0DDA;"  note="SINHALA VOWEL SIGN DIGA KOMBUVA  "  />
+<s d="&#x25cc;&#x0DDB;" t="&#x0DDB;"  note="SINHALA VOWEL SIGN KOMBU DEKA  "  />
+<s d="&#x25cc;&#x0DDC;" t="&#x0DDC;"  note="SINHALA VOWEL SIGN KOMBUVA HAA AELA-PILLA  "  />
+<s d="&#x25cc;&#x0DDD;" t="&#x0DDD;"  note="SINHALA VOWEL SIGN KOMBUVA HAA DIGA AELA-PILLA  "  />
+<s d="&#x25cc;&#x0DDE;" t="&#x0DDE;"  note="SINHALA VOWEL SIGN KOMBUVA HAA GAYANUKITTA  "  />
+<s d="&#x25cc;&#x0DDF;" t="&#x0DDF;"  note="SINHALA VOWEL SIGN GAYANUKITTA  "  />
+<s d="&#x25cc;&#x0DF2;" t="&#x0DF2;"  note="SINHALA VOWEL SIGN DIGA GAETTA-PILLA  "  />
+<s d="&#x25cc;&#x0DF3;" t="&#x0DF3;"  note="SINHALA VOWEL SIGN DIGA GAYANUKITTA  "  />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -135,7 +135,7 @@
 <s d="?" t="?"/>
 <s d="!" t="!"/>
 <s d="," t=","/>
-<s d="." t="."/>
+<s d="&#183;" t="."/>
 </group>
 </alphabet>
 </alphabets>

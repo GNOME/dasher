@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Malayalam_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="MALAYALAM letters" b="0">
@@ -64,21 +64,21 @@
 <s d="&#x0D38;" t="&#x0D38;" note="MALAYALAM LETTER SA " />
 <s d="&#x0D39;" t="&#x0D39;" note="MALAYALAM LETTER HA " />
 </group>
-<group name="Vowels and other signs">
-<s d="&#x0D3E;" t="&#x0D3E;" note="MALAYALAM VOWEL SIGN AA " />
-<s d="&#x0D3F;" t="&#x0D3F;" note="MALAYALAM VOWEL SIGN I " />
-<s d="&#x0D40;" t="&#x0D40;" note="MALAYALAM VOWEL SIGN II " />
-<s d="&#x0D41;" t="&#x0D41;" note="MALAYALAM VOWEL SIGN U " />
-<s d="&#x0D42;" t="&#x0D42;" note="MALAYALAM VOWEL SIGN UU " />
-<s d="&#x0D43;" t="&#x0D43;" note="MALAYALAM VOWEL SIGN VOCALIC R " />
-<s d="&#x0D46;" t="&#x0D46;" note="MALAYALAM VOWEL SIGN E " />
-<s d="&#x0D47;" t="&#x0D47;" note="MALAYALAM VOWEL SIGN EE " />
-<s d="&#x0D48;" t="&#x0D48;" note="MALAYALAM VOWEL SIGN AI " />
-<s d="&#x0D4A;" t="&#x0D4A;" note="MALAYALAM VOWEL SIGN O " />
-<s d="&#x0D4B;" t="&#x0D4B;" note="MALAYALAM VOWEL SIGN OO " />
-<s d="&#x0D4C;" t="&#x0D4C;" note="MALAYALAM VOWEL SIGN AU " />
-<s d="&#x0D4D;" t="&#x0D4D;" note="MALAYALAM SIGN VIRAMA " />
-<s d="&#x0D57;" t="&#x0D57;" note="MALAYALAM AU LENGTH MARK " />
+<group name="Vowels and other signs"  b="111">
+<s d="&#x25cc;&#x0D3E;" t="&#x0D3E;" note="MALAYALAM VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0D3F;" t="&#x0D3F;" note="MALAYALAM VOWEL SIGN I " />
+<s d="&#x25cc;&#x0D40;" t="&#x0D40;" note="MALAYALAM VOWEL SIGN II " />
+<s d="&#x25cc;&#x0D41;" t="&#x0D41;" note="MALAYALAM VOWEL SIGN U " />
+<s d="&#x25cc;&#x0D42;" t="&#x0D42;" note="MALAYALAM VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0D43;" t="&#x0D43;" note="MALAYALAM VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0D46;" t="&#x0D46;" note="MALAYALAM VOWEL SIGN E " />
+<s d="&#x25cc;&#x0D47;" t="&#x0D47;" note="MALAYALAM VOWEL SIGN EE " />
+<s d="&#x25cc;&#x0D48;" t="&#x0D48;" note="MALAYALAM VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0D4A;" t="&#x0D4A;" note="MALAYALAM VOWEL SIGN O " />
+<s d="&#x25cc;&#x0D4B;" t="&#x0D4B;" note="MALAYALAM VOWEL SIGN OO " />
+<s d="&#x25cc;&#x0D4C;" t="&#x0D4C;" note="MALAYALAM VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0D4D;" t="&#x0D4D;" note="MALAYALAM SIGN VIRAMA " />
+<s d="&#x25cc;&#x0D57;" t="&#x0D57;" note="MALAYALAM AU LENGTH MARK " />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>

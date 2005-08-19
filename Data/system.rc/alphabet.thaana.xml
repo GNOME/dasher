@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_thaana_MV.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="thaana letters" b="0">
@@ -52,17 +52,17 @@
 <s d="&#x07B1;" t="&#x07B1;"  note="NAA  class(p)"  />
 </group>			    
 <group name="thaana vowels">	    
-<s d="&#x07A6;" t="&#x07A6;"  note="ABAFILI  class(p)"  />
-<s d="&#x07A7;" t="&#x07A7;"  note="AABAAFILI  class(p)"  />
-<s d="&#x07A8;" t="&#x07A8;"  note="IBIFILI  class(p)"  />
-<s d="&#x07A9;" t="&#x07A9;"  note="EEBEEFILI  class(p)"  />
-<s d="&#x07AA;" t="&#x07AA;"  note="UBUFILI  class(p)"  />
-<s d="&#x07AB;" t="&#x07AB;"  note="OOBOOFILI  class(p)"  />
-<s d="&#x07AC;" t="&#x07AC;"  note="EBEFILI  class(p)"  />
-<s d="&#x07AD;" t="&#x07AD;"  note="EYBEYFILI  class(p)"  />
-<s d="&#x07AE;" t="&#x07AE;"  note="OBOFILI  class(p)"  />
-<s d="&#x07AF;" t="&#x07AF;"  note="OABOAFILI  class(p)"  />
-<s d="&#x07B0;" t="&#x07B0;"  note="SUKUN  class(p)"  />
+<s d="&#x25cc;&#x07A6;" t="&#x07A6;"  note="ABAFILI  class(p)"  />
+<s d="&#x25cc;&#x07A7;" t="&#x07A7;"  note="AABAAFILI  class(p)"  />
+<s d="&#x25cc;&#x07A8;" t="&#x07A8;"  note="IBIFILI  class(p)"  />
+<s d="&#x25cc;&#x07A9;" t="&#x07A9;"  note="EEBEEFILI  class(p)"  />
+<s d="&#x25cc;&#x07AA;" t="&#x07AA;"  note="UBUFILI  class(p)"  />
+<s d="&#x25cc;&#x07AB;" t="&#x07AB;"  note="OOBOOFILI  class(p)"  />
+<s d="&#x25cc;&#x07AC;" t="&#x07AC;"  note="EBEFILI  class(p)"  />
+<s d="&#x25cc;&#x07AD;" t="&#x07AD;"  note="EYBEYFILI  class(p)"  />
+<s d="&#x25cc;&#x07AE;" t="&#x07AE;"  note="OBOFILI  class(p)"  />
+<s d="&#x25cc;&#x07AF;" t="&#x07AF;"  note="OABOAFILI  class(p)"  />
+<s d="&#x25cc;&#x07B0;" t="&#x07B0;"  note="SUKUN  class(p)"  />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -108,7 +108,7 @@
 <s d="?" t="?"/>
 <s d="!" t="!"/>
 <s d="," t=","/>
-<s d="." t="."/>
+<s d="&#183;" t="."/>
 </group>
 </alphabet>
 </alphabets>

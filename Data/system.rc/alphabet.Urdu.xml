@@ -1,0 +1,162 @@
+<?xml version="1.0"?>
+<!DOCTYPE alphabets SYSTEM "alphabet.dtd">
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
+<alphabets>
+<alphabet name="Urdu with punctuation and numerals">
+<orientation type="RL"/>
+<encoding type="Western"/>
+<palette>European/Asian</palette>
+<train>training_Urdu_PK.txt</train>
+<space d="&#x25a1;" t=" " b="9" />
+<paragraph d="&#182;" b="9"/>
+<control d="Control" t="" b="8"/>
+<group name="letters" b="0">
+<group name="Vowels etc" b="110">
+<s d="&#x25cc;&#x064B;" t="&#x064B;"   b="90"  note="FATHATAN - RARE"  />
+<s d="&#x25cc;&#x064C;" t="&#x064C;"   b="91"  note="dammatan - RARE"  />
+<s d="&#x25cc;&#x064D;" t="&#x064D;"   b="92"  note="kasratan - RARE"  />
+<s d="&#x25cc;&#x064E;" t="&#x064E;"   b="93"  note="fatha "  />
+<s d="&#x25cc;&#x064F;" t="&#x064F;"   b="94"  note="damma"  />
+<s d="&#x25cc;&#x0650;" t="&#x0650;"   b="90"  note="kasra "  />
+<s d="&#x25cc;&#x0651;" t="&#x0651;"   b="91"  note="shadda"  />
+<s d="&#x25cc;&#x0652;" t="&#x0652;"   b="92"  note="sukun - RARE"  />
+<!-- <s d="&#x0653;" t="&#x0653;"      note="maddah above (sometimes used to make combined characters)"  /> -->
+<s d="&#x0654;" t="&#x0654;"    b="93"  note="hamza above (sometimes used to make combined characters)"  />
+<!-- <s d="&#x0655;" t="&#x0655;"  b="70"  note="hamza below (sometimes used to make combined characters)"  /> -->
+<s d="&#x25cc;&#x0670;" t="&#x0670;"   b="94"  note="superscript alef"  />
+</group>
+<group name="Hamza" b="60">
+<s d="&#x0622;" t="&#x0622;"  b="80" note="ARABIC LETTER ALEF WITH MADDA ABOVE  "  />
+<s d="&#x0627;" t="&#x0627;" b="70"   note=" ALEF  "  />
+<s d="&#x0621;" t="&#x0621;" b="70" note=" HAMZA  RARE"  />
+<!-- <s d="&#x0623;" t="&#x0623;"  b="70" note="ARABIC LETTER ALEF WITH HAMZA ABOVE   RARE "  /> -->
+<!-- <s d="&#x0672;" t="&#x0672;"  b="80" note="ARABIC LETTER ALEF WITH WAVY HAMZA ABOVE  "  /> -->
+<!-- <s d="&#x0624;" t="&#x0624;"  b="79"  note="ARABIC LETTER WAW WITH HAMZA ABOVE    RARE "  /> -->
+<!-- <s d="&#x0625;" t="&#x0625;"  b="70" note="ARABIC LETTER ALEF WITH HAMZA BELOW   RARE "  /> -->
+</group>
+<group b="61" >
+<s d="&#x0628;" t="&#x0628;"  b="81"  note=" BEH  "  />
+<!-- <s d="&#x0629;" t="&#x0629;"   b="71"  note=" TEH MARBUTA   RARE "  /> -->
+<s d="&#x062A;" t="&#x062A;"  b="71"  note=" TEH  "  />
+<s d="&#x0679;" t="&#x0679;"  b="81" note=" TTEH "  />
+<s d="&#x062B;" t="&#x062B;"  b="71" note=" THEH  "  />
+</group>
+<group b="62" >
+<s d="&#x062C;" t="&#x062C;"  b="72" note=" JEEM  "  />
+<s d="&#x0686;" t="&#x0686;"  b="72" note="TCHEH "  />
+<s d="&#x062D;" t="&#x062D;"  b="82" note=" HAH  "  />
+<s d="&#x062E;" t="&#x062E;"   b="72"  note=" KHAH  "  />
+</group>
+<group b="63" >
+<s d="&#x062F;" t="&#x062F;"   b="73"  note=" DAL  "  />
+<s d="&#x0688;" t="&#x0688;"   b="83"  note="DDAL"  />
+<s d="&#x0630;" t="&#x0630;"   b="73"  note=" THAL  "  />
+<s d="&#x0631;" t="&#x0631;"   b="83"  note=" REH  "  />
+<s d="&#x0691;" t="&#x0691;"   b="73" note=" RREH "  />
+<s d="&#x0632;" t="&#x0632;"   b="83"  note=" ZAIN  "  />
+<s d="&#x0698;" t="&#x0698;"   b="73" note="JEH "  />
+</group>
+<group b="64" >
+<s d="&#x0633;" t="&#x0633;"   b="74"  note=" SEEN  "  />
+<s d="&#x0634;" t="&#x0634;"   b="84"  note=" SHEEN  "  />
+</group>
+<group b="65" >
+<s d="&#x0635;" t="&#x0635;"   b="75"  note=" SAD  "  />
+<s d="&#x0636;" t="&#x0636;"   b="85"  note=" DAD  "  />
+<s d="&#x0637;" t="&#x0637;"   b="75"  note=" TAH  "  />
+<s d="&#x0638;" t="&#x0638;"   b="85"  note=" ZAH  "  />
+</group>
+<group b="66" >
+<s d="&#x0639;" t="&#x0639;"   b="76"  note=" AIN  "  />
+<s d="&#x063A;" t="&#x063A;"   b="86"  note=" GHAIN  "  />
+<s d="&#x0641;" t="&#x0641;"   b="76"  note=" FEH  "  />
+<s d="&#x0642;" t="&#x0642;"   b="86"  note=" QAF  "  />
+</group>
+<group b="67" >
+<!-- <s d="&#x0643;" t="&#x0643;"   b="76"  note=" KAF  "  /> -->
+<s d="&#x0644;" t="&#x0644;"   b="77"  note=" LAM  "  />
+<s d="&#x0645;" t="&#x0645;"   b="87"  note=" MEEM  "  />
+<s d="&#x0646;" t="&#x0646;"   b="77"  note=" NOON  "  />
+<!-- <s d="&#x0647;" t="&#x0647;"   b="78"  note=" HEH  "  /> -->
+</group>
+<group b="68" >
+<s d="&#x0648;" t="&#x0648;"   b="78"  note=" WAW  "  />
+<!-- <s d="&#x0649;" t="&#x0649;"   b="89"  note=" ALEF MAKSURA (Looks like YEH!)"  /> -->
+<!-- <s d="&#x064A;" t="&#x064A;"   b="79"  note=" YEH  "  /> -->
+<s d="&#x0626;" t="&#x0626;"  b="88" note=" YEH WITH HAMZA ABOVE  "  />
+</group>
+<!-- note unused group colour 69/79/89 -->
+</group>
+<group name="Numbers" b="113">
+<s d="1" t="1" b="90"/>
+<s d="2" t="2" b="105"/>
+<s d="3" t="3" b="91"/>
+<s d="4" t="4" b="106"/>
+<s d="5" t="5" b="92"/>
+<s d="6" t="6" b="107"/>
+<s d="7" t="7" b="93"/>
+<s d="8" t="8" b="108"/>
+<s d="9" t="9" b="94"/>
+<s d="0" t="0" b="109"/>
+</group>
+<group name="Arabic-Indic numbers" b="116">
+<s d="&#x0661;" t="&#x0661;"  b="90"	 note="ONE"/>
+<s d="&#x0662;" t="&#x0662;"  b="105" note="TWO"/>
+<s d="&#x0663;" t="&#x0663;"  b="91"	 note="THREE"/>
+<s d="&#x0664;" t="&#x0664;"  b="106" note="FOUR"/>
+<s d="&#x0665;" t="&#x0665;"  b="92"	 note="FIVE"/>
+<s d="&#x0666;" t="&#x0666;"  b="107" note="SIX"/>
+<s d="&#x0667;" t="&#x0667;"  b="93"	 note="SEVEN"/>
+<s d="&#x0668;" t="&#x0668;"  b="108" note="EIGHT"/>
+<s d="&#x0669;" t="&#x0669;"  b="94"	 note="NINE"/>
+<s d="&#x0660;" t="&#x0660;"  b="109" note="ZERO"/>
+</group>
+<group name="ASCII Punctuation" b="114">
+<s b="99" d="~" t="~"/>
+<s b="98" d="@" t="@"/>
+<s b="95" d="#" t="#"/>
+<s b="96" d="$" t="$"/>
+<s b="90" d="%" t="%"/>
+<s b="95" d="^" t="^"/>
+<s b="97" d="&amp;" t="&amp;"/> 
+<s b="91" d="*" t="*"/>
+<s b="100" d="-" t="-"/>
+<s b="96" d="_" t="_"/>
+<s b="98" d="\" t="\"/>
+<s b="97" d="|" t="|"/>
+</group>
+<group name="Punctuation" b="112">
+<s b="90"    d="&#xfdfc;" t="&#xfdfc;"  note="currency"/>
+<s b="91" d="&#x066A;" t="&#x066A;" note="Arabic percent"/>
+<s b="92" d="+" t="+"/>
+<s b="93" d="&#x2212;" t="&#x2212;" note="minus"/>
+<s b="94" d="&#x00d7;" t="&#x00d7;" note="times"/>
+<s b="90" d="&#x00f7;" t="&#x00f7;" note="divide"/>
+<s b="91" d="=" t="="/>
+<s b="92" d="/" t="/" note="keep in persian as separator"/>
+<s b="109" d="&#x200F;&lt;&#x200F;" t="&lt;"/>
+<s b="105" d="&#x200F;&gt;&#x200F;" t="&gt;"/>
+<s b="107" d="&#x200F;{&#x200F;" t="{"/>
+<s b="108" d="&#x200F;}&#x200F;" t="}"/>
+<s b="105" d="&#x200F;[&#x200F;" t="["/>
+<s b="106" d="&#x200F;]&#x200F;" t="]"/>
+<s b="106" d="&#x200F;(&#x200F;" t="("/>
+<s b="107" d="&#x200F;)&#x200F;" t=")"/>
+<s d="&#x200F;&#x2039;&#x200F;" t="&#x2039;" note="French opening single quotation mark" />
+<s d="&#x200F;&#x203A;&#x200F;" t="&#x203A;" note="French opening single quotation mark" />
+<s d="&#x200F;&#x00AB;&#x200F;" t="&#x00AB;" note="French left double quotation mark" />
+<s d="&#x200F;&#x00BB;&#x200F;" t="&#x00BB;" note="French right double quotation mark" />
+<s b="100" d="&#x2010;" t="&#x2010;"/>
+<s b="100" d="!" t="!"/>
+<s b="101" d="&#x061F;" t="&#x061F;"  note="Arabic question mark"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d="&#x061B;" t="&#x061B;"  note="Arabic semicolon"/>
+<s b="103"  d="&#x060C;" t="&#x060C;"  note="Arabic comma"/>
+<s b="104" d="." t="."/>
+</group>
+<group name="Joiners" b="111">
+<s b="73" t="&#x200c;" d="&#x2225;" note="Zero width non-joiner"/>
+<s b="74" t="&#x200d;" d="&#x2195;" note="Zero width joiner"/>
+</group>
+</alphabet>
+</alphabets>

@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Gujarati_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="Gujarati letters" b="0">
@@ -63,22 +63,24 @@
 <s d="&#x0AB8;" t="&#x0AB8;" note="GUJARATI LETTER SA " />
 <s d="&#x0AB9;" t="&#x0AB9;" note="GUJARATI LETTER HA " />
 <s d="&#x0ABD;" t="&#x0ABD;" note="GUJARATI SIGN AVAGRAHA " />
-<s d="&#x0ABE;" t="&#x0ABE;" note="GUJARATI VOWEL SIGN AA " />
-<s d="&#x0ABF;" t="&#x0ABF;" note="GUJARATI VOWEL SIGN I " />
-<s d="&#x0AC0;" t="&#x0AC0;" note="GUJARATI VOWEL SIGN II " />
-<s d="&#x0AC1;" t="&#x0AC1;" note="GUJARATI VOWEL SIGN U " />
-<s d="&#x0AC2;" t="&#x0AC2;" note="GUJARATI VOWEL SIGN UU " />
-<s d="&#x0AC3;" t="&#x0AC3;" note="GUJARATI VOWEL SIGN VOCALIC R " />
-<s d="&#x0AC4;" t="&#x0AC4;" note="GUJARATI VOWEL SIGN VOCALIC RR " />
-<s d="&#x0AE2;" t="&#x0AE2;" note="GUJARATI VOWEL SIGN VOCALIC L " />
-<s d="&#x0AE3;" t="&#x0AE3;" note="GUJARATI VOWEL SIGN VOCALIC LL " />
-<s d="&#x0AC5;" t="&#x0AC5;" note="GUJARATI VOWEL SIGN CANDRA E " />
-<s d="&#x0AC7;" t="&#x0AC7;" note="GUJARATI VOWEL SIGN E " />
-<s d="&#x0AC8;" t="&#x0AC8;" note="GUJARATI VOWEL SIGN AI " />
-<s d="&#x0AC9;" t="&#x0AC9;" note="GUJARATI VOWEL SIGN CANDRA O " />
-<s d="&#x0ACB;" t="&#x0ACB;" note="GUJARATI VOWEL SIGN O " />
-<s d="&#x0ACC;" t="&#x0ACC;" note="GUJARATI VOWEL SIGN AU " />
-<s d="&#x0ACD;" t="&#x0ACD;" note="GUJARATI SIGN VIRAMA " />
+</group>
+<group name="vowel signs and other marks"  b="111">
+<s d="&#x25cc;&#x0ABE;" t="&#x0ABE;" note="GUJARATI VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0ABF;" t="&#x0ABF;" note="GUJARATI VOWEL SIGN I " />
+<s d="&#x25cc;&#x0AC0;" t="&#x0AC0;" note="GUJARATI VOWEL SIGN II " />
+<s d="&#x25cc;&#x0AC1;" t="&#x0AC1;" note="GUJARATI VOWEL SIGN U " />
+<s d="&#x25cc;&#x0AC2;" t="&#x0AC2;" note="GUJARATI VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0AC3;" t="&#x0AC3;" note="GUJARATI VOWEL SIGN VOCALIC R " />
+<s d="&#x25cc;&#x0AC4;" t="&#x0AC4;" note="GUJARATI VOWEL SIGN VOCALIC RR " />
+<s d="&#x25cc;&#x0AE2;" t="&#x0AE2;" note="GUJARATI VOWEL SIGN VOCALIC L " />
+<s d="&#x25cc;&#x0AE3;" t="&#x0AE3;" note="GUJARATI VOWEL SIGN VOCALIC LL " />
+<s d="&#x25cc;&#x0AC5;" t="&#x0AC5;" note="GUJARATI VOWEL SIGN CANDRA E " />
+<s d="&#x25cc;&#x0AC7;" t="&#x0AC7;" note="GUJARATI VOWEL SIGN E " />
+<s d="&#x25cc;&#x0AC8;" t="&#x0AC8;" note="GUJARATI VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0AC9;" t="&#x0AC9;" note="GUJARATI VOWEL SIGN CANDRA O " />
+<s d="&#x25cc;&#x0ACB;" t="&#x0ACB;" note="GUJARATI VOWEL SIGN O " />
+<s d="&#x25cc;&#x0ACC;" t="&#x0ACC;" note="GUJARATI VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0ACD;" t="&#x0ACD;" note="GUJARATI SIGN VIRAMA " />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -118,6 +120,7 @@
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s d="-" t="-"/>
 <s d=":" t=":"/>
 <s d=";" t=";"/>

@@ -2,7 +2,7 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Thai with punctuation and numerals">
+<alphabet name="Thai / &#3616;&#3634;&#3625;&#3634;&#3652;&#3607;&#3618; with punctuation and numerals">
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
@@ -59,23 +59,23 @@
 <s d="&#x0E2E;" t="&#x0E2E;" />
 </group>
 <group name="Character modifiers?"  b="111">
-<s d="&#x0E4D;" t="&#x0E4D;" />
-<s d="&#x0E30;" t="&#x0E30;" />
-<s d="&#x0E31;" t="&#x0E31;" />
-<s d="&#x0E32;" t="&#x0E32;" />
-<s d="&#x0E45;" t="&#x0E45;" />
-<s d="&#x0E33;" t="&#x0E33;" />
-<s d="&#x0E34;" t="&#x0E34;" />
-<s d="&#x0E35;" t="&#x0E35;" />
-<s d="&#x0E36;" t="&#x0E36;" />
-<s d="&#x0E37;" t="&#x0E37;" />
-<s d="&#x0E38;" t="&#x0E38;" />
-<s d="&#x0E39;" t="&#x0E39;" />
-<s d="&#x0E40;" t="&#x0E40;" />
-<s d="&#x0E41;" t="&#x0E41;" />
-<s d="&#x0E42;" t="&#x0E42;" />
-<s d="&#x0E43;" t="&#x0E43;" />
-<s d="&#x0E44;" t="&#x0E44;" />
+<s d="&#x25cc;&#x0E4D;" t="&#x0E4D;" />
+<s d="&#x25cc;&#x0E30;" t="&#x0E30;" />
+<s d="&#x25cc;&#x0E31;" t="&#x0E31;" />
+<s d="&#x25cc;&#x0E32;" t="&#x0E32;" />
+<s d="&#x25cc;&#x0E45;" t="&#x0E45;" />
+<s d="&#x25cc;&#x0E33;" t="&#x0E33;" />
+<s d="&#x25cc;&#x0E34;" t="&#x0E34;" />
+<s d="&#x25cc;&#x0E35;" t="&#x0E35;" />
+<s d="&#x25cc;&#x0E36;" t="&#x0E36;" />
+<s d="&#x25cc;&#x0E37;" t="&#x0E37;" />
+<s d="&#x25cc;&#x0E38;" t="&#x0E38;" />
+<s d="&#x25cc;&#x0E39;" t="&#x0E39;" />
+<s d="&#x25cc;&#x0E40;" t="&#x0E40;" />
+<s d="&#x25cc;&#x0E41;" t="&#x0E41;" />
+<s d="&#x25cc;&#x0E42;" t="&#x0E42;" />
+<s d="&#x25cc;&#x0E43;" t="&#x0E43;" />
+<s d="&#x25cc;&#x0E44;" t="&#x0E44;" />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>

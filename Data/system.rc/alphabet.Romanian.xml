@@ -2,12 +2,14 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Romanian with punctuation and numerals">
+<alphabet name="Rom&#x00E2;n&#x0103; / Romanian with punctuation and numerals">
+<!-- Romanian is a Romance language spoken by about 24
+      million people in Romania, Moldova and Ukraine.      -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Romanian_RO.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" "/>
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="lower case letters" b="0">

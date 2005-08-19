@@ -7,7 +7,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Punjabi_IN.txt</train>
-<space d="_" t=" " b="9" />
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="GURMUKHI letters" b="0">
@@ -63,17 +63,17 @@
 <s d="&#x0A35;" t="&#x0A35;" note="GURMUKHI LETTER VA " />
 <s d="&#x0A5C;" t="&#x0A5C;" note="GURMUKHI LETTER RRA " />
 </group>
-<group name="GURMUKHI vowels">
-<s d="&#x0A3E;" t="&#x0A3E;" note="GURMUKHI VOWEL SIGN AA " />
-<s d="&#x0A3F;" t="&#x0A3F;" note="GURMUKHI VOWEL SIGN I " />
-<s d="&#x0A40;" t="&#x0A40;" note="GURMUKHI VOWEL SIGN II " />
-<s d="&#x0A41;" t="&#x0A41;" note="GURMUKHI VOWEL SIGN U " />
-<s d="&#x0A42;" t="&#x0A42;" note="GURMUKHI VOWEL SIGN UU " />
-<s d="&#x0A47;" t="&#x0A47;" note="GURMUKHI VOWEL SIGN EE " />
-<s d="&#x0A48;" t="&#x0A48;" note="GURMUKHI VOWEL SIGN AI " />
-<s d="&#x0A4B;" t="&#x0A4B;" note="GURMUKHI VOWEL SIGN OO " />
-<s d="&#x0A4C;" t="&#x0A4C;" note="GURMUKHI VOWEL SIGN AU " />
-<s d="&#x0A4D;" t="&#x0A4D;" note="GURMUKHI SIGN VIRAMA " />
+<group name="GURMUKHI vowels" b="111">
+<s d="&#x25cc;&#x0A3E;" t="&#x0A3E;" note="GURMUKHI VOWEL SIGN AA " />
+<s d="&#x25cc;&#x0A3F;" t="&#x0A3F;" note="GURMUKHI VOWEL SIGN I " />
+<s d="&#x25cc;&#x0A40;" t="&#x0A40;" note="GURMUKHI VOWEL SIGN II " />
+<s d="&#x25cc;&#x0A41;" t="&#x0A41;" note="GURMUKHI VOWEL SIGN U " />
+<s d="&#x25cc;&#x0A42;" t="&#x0A42;" note="GURMUKHI VOWEL SIGN UU " />
+<s d="&#x25cc;&#x0A47;" t="&#x0A47;" note="GURMUKHI VOWEL SIGN EE " />
+<s d="&#x25cc;&#x0A48;" t="&#x0A48;" note="GURMUKHI VOWEL SIGN AI " />
+<s d="&#x25cc;&#x0A4B;" t="&#x0A4B;" note="GURMUKHI VOWEL SIGN OO " />
+<s d="&#x25cc;&#x0A4C;" t="&#x0A4C;" note="GURMUKHI VOWEL SIGN AU " />
+<s d="&#x25cc;&#x0A4D;" t="&#x0A4D;" note="GURMUKHI SIGN VIRAMA " />
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1"/>
@@ -113,6 +113,7 @@
 <s d="&quot;" t="&quot;"/>
 <s d="`" t="`"/>
 <s d="&apos;" t="&apos;"/>
+<s b="9"  d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s d="-" t="-"/>
 <s d=":" t=":"/>
 <s d=";" t=";"/>

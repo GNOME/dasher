@@ -8,7 +8,7 @@
 <palette>Default</palette>
 <train>training_emma_GB.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="_" t=" " b="9"/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <group name="Lower case Latin letters" b="0">
 <s d="a" t="a" b="10"/>
@@ -81,7 +81,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_emmaLC_GB.txt</train>
-<space d="_" t=" "/>
+<space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters" b="0">
