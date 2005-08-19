@@ -100,11 +100,6 @@ class Dasher::CDasherView
 
 	void SetInput( CDasherInput *_pInput ) {
 
-	  // Delete the old class if we have one
-	  
-	  if( m_pInput )
-	    delete m_pInput;
-
 	  m_pInput = _pInput;
 
 	  // Tell the new object about maximum values

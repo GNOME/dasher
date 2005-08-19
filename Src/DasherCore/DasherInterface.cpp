@@ -8,12 +8,13 @@
 
 #include "../Common/Common.h"
 
-#include "DasherInterface.h"
-
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 
 #include <iostream>
+
+#include "DasherInterface.h"
+
 
 namespace {
 	#include "stdio.h"
@@ -51,7 +52,9 @@ m_TrainFile(""),
 m_DasherFont(""), 
 m_DasherFontSize(Opts::Normal), 
 m_EditFont(""), 
-m_EditFontSize(0)
+m_EditFontSize(0),
+m_pInput(NULL)
+
 {
   m_Params = new CLanguageModelParams;
 }
@@ -237,6 +240,9 @@ void CDasherInterface::Redraw(int iMouseX,int iMouseY)
 }
 
 void CDasherInterface::SetInput( CDasherInput *_pInput ) {
+
+  m_pInput = _pInput;
+
   if (m_pDasherView!=0) 
     m_pDasherView->SetInput( _pInput );
 }
@@ -404,7 +410,7 @@ void CDasherInterface::ChangeLanguageModel(int NewLanguageModelID)
   if( NewLanguageModelID != m_LanguageModelID ) {
     m_LanguageModelID = NewLanguageModelID;
     if (m_Alphabet!=0) {
-      
+     
       CreateDasherModel();
       
       // We need to call start here so that the root is recreated, otherwise it will fail (this is probably something which needs to be fixed in a more integrated way)
@@ -462,6 +468,10 @@ void CDasherInterface::ChangeView(unsigned int NewViewID)
 			m_pDasherView = new CDasherViewSquare(m_DasherScreen, *m_pDasherModel, m_Orientation, m_ColourMode);
 		m_pDasherView->SetDrawMouse(m_DrawMouse);
 		m_pDasherView->SetDrawMouseLine(m_DrawMouseLine);
+
+		if(m_pInput)
+		  m_pDasherView->SetInput(m_pInput);
+
 
 	}
 }

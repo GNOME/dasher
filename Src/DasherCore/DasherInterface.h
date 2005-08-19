@@ -20,6 +20,7 @@
 #include "DasherAppInterface.h"
 #include "DasherSettingsInterface.h"
 
+
 #include "DasherScreen.h"
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
@@ -203,7 +204,8 @@ private:
 	CAlphIO::AlphInfo m_AlphInfo;
 	CColourIO* m_ColourIO;
 	CColourIO::ColourInfo m_ColourInfo;
-	
+	CDasherInput *m_pInput;
+
 	std::string AlphabetID;
 	std::string ColourID;
 	int m_LanguageModelID;
