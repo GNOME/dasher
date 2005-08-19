@@ -102,14 +102,6 @@ main(int argc, char *argv[])
   bind_textdomain_codeset (PACKAGE, "UTF-8");
   textdomain (PACKAGE);
 
-#ifdef GNOME_LIBS
-  GnomeProgram *program=0;
-  program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
-
-  gnome_vfs_init();
-
-#endif
-
 #ifdef WITH_GPE
   gpe_application_init (&argc, &argv);
   init_xsettings();
@@ -117,6 +109,14 @@ main(int argc, char *argv[])
   gtk_init (&argc, &argv);
   gconf_init( argc, argv, &gconferror );
 #endif
+
+#ifdef GNOME_LIBS
+  GnomeProgram *program=0;
+  program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
+
+  gnome_vfs_init();
+#endif
+
 
   // We need thread support for updating the splash window while
   // training...

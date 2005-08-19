@@ -42,6 +42,8 @@ CDasherModel::CDasherModel(const CAlphabet* pAlphabet, CDashEditbox* pEditbox, L
   m_bControlMode(false)
 {
 
+  ResetNats();
+
   // Convert the full alphabet to a symbolic representation for use in the language model
   
   CSymbolAlphabet alphabet( pAlphabet->GetNumberTextSymbols() );
