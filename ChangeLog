@@ -1,4 +1,8 @@
-2005-08-14  Phil Cowans <pjc51@cam.ac.uk>
+2005-08-20  Roozbeh Pournader  <roozbeh@farsiweb.info>
+
+	* configure.in: Added "fa" (Persian) to ALL_LINGUAS.
+
+2005-08-14  Phil Cowans  <pjc51@cam.ac.uk>
 	* Src/Gtk2/GenerateSchema.cpp, Src/Gtk2/Makefile.am: Added a
 	simple utility to generate a GConf .schema file from the parameter
 	header files.
