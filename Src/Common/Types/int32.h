@@ -296,9 +296,6 @@ inline Cint32::Cint32(Cint64 i) {
   m_i = int32(i);
 }
 
-inline bool operator>(Cint32 lhs, Cint64 rhs) {
-  return lhs > (Cint32(rhs));
-}
 
 inline Cint32 abs(Cint32 t) {
   return Cint32(abs(int32(t)));

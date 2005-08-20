@@ -366,6 +366,15 @@ inline bool operator >(int32 lhs, Cint64 rhs) {
   return Cint64(lhs) > rhs;
 }
 
+inline bool operator <(Cint32 lhs, Cint64 rhs) {
+  return Cint64(lhs) < rhs;
+}
+
+inline bool operator >(Cint32 lhs, Cint64 rhs) {
+  return Cint64(lhs) > rhs;
+}
+
+
 #else
 
 typedef int64 Cint64;
