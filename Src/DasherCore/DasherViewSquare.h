@@ -4,9 +4,19 @@
 
 #ifndef __DasherViewSquare_h__
 #define __DasherViewSquare_h__
+#ifdef _WIN32
+#include <cmath>
 
+#endif
 #include "DasherView.h"
+#include <deque>
+#define _CHRIS_LOGGING
+#ifdef _CHRIS_LOGGING
+#include <ctime>
+#include <iostream>
 
+#endif
+using namespace std;
 namespace Dasher {
   class CDasherViewSquare;
   class CDasherView;
@@ -277,6 +287,40 @@ private:
   ///
 
   myint m_iDasherYCache;
+
+
+  //Auto-speed control functions
+  void SpeedControl(myint iDasherX, myint iDasherY);
+  double Variance();
+  double UpdateMinRadius();
+  double UpdateBitrate(double dBitrate);
+  int UpdateSampleSize(double dBitrate);
+  void UpdateSigmas(double r);
+  //
+  double round(double d)
+  {
+    if(d - floor(d) >= 0.5)
+ 	   return ceil(d);
+    else
+ 	   return floor(d);
+ 
+  };
+  
+  //	myint s_Y1,s_Y2,s_Y3;
+  
+  
+  // Variables for speed control
+  double m_dSampleScale, m_dSampleOffset;
+  int m_nSpeedCounter, m_nSpeedSamples;
+  double m_dSpeedMax, m_dSpeedMin;
+  double m_dTier1, m_dTier2, m_dTier3, m_dTier4;
+  double m_dChange1, m_dChange2, m_dChange3, m_dChange4;
+  
+  typedef std::deque<double> DOUBLE_DEQUE;
+  DOUBLE_DEQUE m_dequeAngles;
+  
+  //variables for adaptive radius calculations...
+  double m_dSigma1, m_dSigma2, m_dMinRadius;
 
   // Class definitions
 

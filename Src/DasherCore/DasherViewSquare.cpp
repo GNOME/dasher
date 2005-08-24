@@ -74,7 +74,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {
-    
+
     default:
       break;
     }
@@ -216,6 +216,33 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   m_dXmpc = 0.9;
   m_dXmpd = 0.5;                // slow X movement when accelerating Y
 
+
+  //scale no. samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
+  m_dSampleScale = 1.5;
+  m_dSampleOffset = 1.3;
+  
+  //tolerance for automatic speed control
+  m_dTier1 = 0.0005;  //  should be arranged so that tier4 > tier3 > tier2 > tier1 !!!
+  m_dTier2 = 0.01;
+  m_dTier3 = 0.2;
+  m_dTier4 = 0.31;
+  //bitrate fractional changes for auto-speed control
+  m_dChange1 = 1.1;
+  m_dChange2 = 1.02;
+  m_dChange3 = 0.97;
+  m_dChange4 = 0.94;
+  //cap bitrate at...
+  m_dSpeedMax = 8.0;
+  m_dSpeedMin = 0.1;
+  //variance of two-centred-gaussians for adaptive radius
+  m_dSigma1 = 0.5; 
+  m_dSigma2 = 0.05;
+  //Initialise auto-speed control
+  m_nSpeedCounter = 0;
+  UpdateMinRadius();
+  UpdateSampleSize(double(round(GetLongParameter(LP_MAX_BITRATE) / 100.0))); 
+
+  //KeyControl=false;
   m_ymap = Cymap(DasherModel->DasherY());
 
   CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel->DasherY()));
@@ -1154,7 +1181,6 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
   // Convert the input co-ordinates to dasher co-ordinates
 
   Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, DasherModel()->GetMode());
-
   m_iDasherXCache = iDasherX;
   m_iDasherYCache = iDasherY;
 
@@ -1162,7 +1188,14 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
   DasherModel()->Tap_on_display(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
 
+  SpeedControl(iDasherX, iDasherY);
+
+
   CheckForNewRoot();
+    iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
+    iDasherY = m_ymap.map(iDasherY);
+
+
 
   // Cache the Dasher Co-ordinates, so we can use them later for things like drawing the mouse position
 

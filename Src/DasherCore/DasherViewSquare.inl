@@ -9,6 +9,168 @@
 #include "DasherModel.h"
 
 namespace Dasher {
+
+inline double CDasherViewSquare::UpdateBitrate(double dBitrate)
+{
+  double var = Variance();
+  if(var < m_dTier1)
+  {
+      dBitrate *= m_dChange1;
+  }
+  else if(var < m_dTier2)
+  {
+      dBitrate *= m_dChange2;
+  }
+  else if(var > m_dTier4) //Tier 4 comes before tier 3 because tier4 > tier3 !!!
+  {
+      dBitrate *= m_dChange4;
+  }
+  else if(var > m_dTier3)
+  {
+      dBitrate *= m_dChange3;
+  }
+  //else if( in the middle )
+  //    nothing happens! ;
+  return dBitrate;
+}
+        
+inline double CDasherViewSquare::Variance()
+{      
+  ///////////////////////////////////////////////
+  //
+  //  Finds variance for automatic speed control
+  //
+
+  double dSum1, dSum2, avgcos, avgsin;
+  dSum1 = dSum2 = 0.0;
+  DOUBLE_DEQUE::iterator i;
+  for(i = m_dequeAngles.begin(); i != m_dequeAngles.end(); i++) {
+    dSum1 += cos(*i);
+    dSum2 += sin(*i);
+  }
+  avgcos = dSum1 / (1.0 * m_dequeAngles.size());
+  avgsin = dSum2 / (1.0 * m_dequeAngles.size());
+  return -log(avgcos * avgcos + avgsin * avgsin);
+
+}
+
+inline int CDasherViewSquare::UpdateSampleSize(double dBitrate)
+{
+//  METHOD 2: The number of samples depends on the clock rate of the
+//  machine (framerate) and the user's speed (bitrate).
+
+  double dFramerate = DasherModel()->Framerate();
+  double dSpeedSamples = 0.0;
+  
+  if(dBitrate < 1.0)// for the purposes of this function
+    dBitrate = 1.0; // we don't care exactly how slow we're going
+                    // *really* low speeds are ~ equivalent?
+/*  if(dFramerate <= 8.0)
+    dSpeedSamples = 8.0 * (m_dSampleScale / dBitrate + m_dSampleOffset);
+  else if(dFramerate <= 16.0)
+    dSpeedSamples = 16.0 * (m_dSampleScale / dBitrate + m_dSampleOffset);
+  else if(dFramerate <= 24.0)
+    dSpeedSamples = 24.0 * (m_dSampleScale / dBitrate + m_dSampleOffset);
+  else*/
+    dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
+  
+  m_nSpeedSamples = int(round(dSpeedSamples));
+  return m_nSpeedSamples;
+}
+
+inline double CDasherViewSquare::UpdateMinRadius() 
+{
+  /////////////////////////////////////////////////////////////
+  //
+  //  double UpdateMinRadius() - return adaptive min radius for
+  //  auto-speed control. Calculated by DJCM's
+  //  mixture-of-2-centred-gaussians model.
+
+  m_dMinRadius = sqrt( log( (m_dSigma2 * m_dSigma2) / (m_dSigma1 * m_dSigma1) ) / 
+                ( 1 / (m_dSigma1 * m_dSigma1) - 1 / (m_dSigma2 * m_dSigma2)) );
+  return m_dMinRadius;
+}
+
+inline void CDasherViewSquare::UpdateSigmas(double r)
+{
+  double dSamples = 15.0 * DasherModel()->Framerate();//double(m_nSpeedSamples);
+  if(r > m_dMinRadius)
+    m_dSigma1 = m_dSigma1 - (m_dSigma1 - r * r) / dSamples;
+  else 
+    m_dSigma2 = m_dSigma2 - (m_dSigma2 - r * r) / dSamples;
+}
+
+inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
+{
+  /////////////////////////////////////////////////////////////////
+  //
+  //  AUTOMATIC SPEED CONTROL, CEH 7/05: Analyse variance of angle
+  //  mouse pointer makes with +ve x-axis
+  //
+
+  if(GetBoolParameter(BP_AUTO_SPEEDCONTROL) && !GetBoolParameter(BP_DASHER_PAUSED)) {
+    
+//  Coordinate transforms:    
+    iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
+    iDasherY = m_ymap.map(iDasherY);
+
+    myint iDasherOX = myint(xmap(DasherModel()->DasherOX() / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
+    myint iDasherOY = m_ymap.map(DasherModel()->DasherOY());
+
+    double x = -(iDasherX - iDasherOX) / double(iDasherOX); //  FIXME - for the purposes of adaptive min radius
+    double y = -(iDasherY - iDasherOY) / double(iDasherOY); //  this normalisation works well????
+    
+    double theta = atan2(y, x);
+    double r = sqrt(x * x + y * y);
+    double dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
+
+    UpdateSigmas(r);
+
+//  Data collection:
+    
+    if(r > m_dMinRadius && abs(theta) < 1.25) { //FIXME - should we ignore backwards AND vertical data?
+      m_nSpeedCounter++;
+      m_dequeAngles.push_back(theta);
+      while(m_dequeAngles.size() > m_nSpeedSamples) {
+	m_dequeAngles.pop_front();
+      }
+      
+    }
+
+//cout << iDasherOX << " " << iDasherOY << endl;
+    
+    if(m_nSpeedCounter > m_nSpeedSamples) 
+    {
+      //do speed control every so often!
+      
+      UpdateSampleSize(dBitrate);
+      UpdateMinRadius();
+      dBitrate = UpdateBitrate(dBitrate);
+
+      //always keep bitrate values sane
+      if(dBitrate > m_dSpeedMax) 
+      {
+	dBitrate = m_dSpeedMax;
+      }
+      else if(dBitrate < m_dSpeedMin) 
+      {
+	dBitrate = m_dSpeedMin;
+      }
+
+      long lBitrateTimes100 =  long(round(dBitrate * 100)); //Dasher settings want long numerical parameters
+
+      SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
+      m_nSpeedCounter = 0;	  
+    
+    }	
+  
+  }  
+  
+}
+
+
+
+
   inline double CDasherViewSquare::xmax(double x, double y) const {
     // DJCM -- define a function xmax(y) thus:
     // xmax(y) = a*[exp(b*y*y)-1] 
