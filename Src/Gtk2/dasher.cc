@@ -1011,6 +1011,7 @@ timer_callback(gpointer data)
     oldy = y;
     
     if (mouseposstart==true) {
+
       // The user must hold the mouse pointer inside the red box, then the yellow box
       // If the user fails to move to the yellow box, display the red box again and
       // start over

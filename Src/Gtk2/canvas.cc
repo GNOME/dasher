@@ -305,7 +305,7 @@ void draw_mouseposbox(int which) {
 #else
   gdk_colormap_alloc_color(colormap, &color,FALSE, TRUE);
   gdk_gc_set_foreground (gc, &color);
-  gdk_draw_rectangle (offscreen_buffer, gc, FALSE, 0, top, (the_canvas->allocation.width-1), 100);
+  gdk_draw_rectangle (offscreen_buffer, gc, TRUE, 0, top, (the_canvas->allocation.width-1), 100);
 #endif
 
   END_DRAWING;
@@ -352,6 +352,14 @@ void display_callback()
 
   GdkRectangle update_rect;
 
+  if(paused) {
+    if(firstbox)
+      draw_mouseposbox(0);
+    else if(secondbox)
+      draw_mouseposbox(1);
+  }
+      
+  
   if (offscreen_buffer != onscreen_buffer)
     gdk_draw_drawable( onscreen_buffer,
 		       the_canvas->style->fg_gc[GTK_WIDGET_STATE (the_canvas)],
@@ -359,6 +367,8 @@ void display_callback()
 		       0, 0, 0,0,
 		       the_canvas->allocation.width,
 		       the_canvas->allocation.height);
+
+
 
   // Invalidate the full canvas to force it to be redrawn on-screen
 

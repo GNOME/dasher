@@ -26,8 +26,6 @@ Known Issues
 ------------
   * GNOME a11y integration may not be stable on all platforms. It is
 currently disabled by default.
-  * 'Start on mouse position' mode doesn't seem to be working -
-hopefully we'll get this working before the full release.
 
 For Linux PDAs
 --------------
