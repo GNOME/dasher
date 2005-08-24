@@ -10,6 +10,7 @@
 
 #include "AdvancedPage.h"
 #include "../resource.h"
+#include "../Common/StringUtils.h"
 
 #include <utility>              // for std::pair
 
@@ -41,14 +42,14 @@ struct menuentry {
 //  {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
 //};
 
-std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) {
+std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) 
+{
   HWND Control = GetDlgItem(Dialog, ControlID);
-  LRESULT BufferLength = SendMessage(Control, WM_GETTEXTLENGTH, 0, 0) + 1;      // +1 to allow for terminator
-  TCHAR *Buffer = new TCHAR[BufferLength];
-  SendMessage(Control, WM_GETTEXT, BufferLength, (LPARAM) Buffer);
+  std::wstring str;
+  wincommon::GetWindowText( Control, str);
+
   string ItemName;
-  WinUTF8::wstring_to_UTF8string(Buffer, ItemName);
-  delete[]Buffer;
+  WinUTF8::wstring_to_UTF8string(str, ItemName);
   return ItemName;
 }
 

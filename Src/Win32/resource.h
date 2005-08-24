@@ -122,6 +122,7 @@
 #define IDC_DISPLAY                     1039
 #define IDC_EDIT2                       1040
 #define IDC_UNIFORMVAL                  1040
+#define IDC_IDLETIME                    1040
 #define IDC_TEXT                        1041
 #define IDOK_NEWALPH                    1042
 #define IDC_NEW_ALPH_STRING             1043
@@ -171,7 +172,9 @@
 #define IDC_MOUSEPOS                    1089
 #define IDC_CONTROL                     1090
 #define IDC_OUTLINE                     1091
+#define IDC_STOPIDLE                    1091
 #define IDC_TIMESTAMP                   1092
+#define IDC_STYLUS                      1092
 #define IDC_COPYALLONSTOP               1093
 #define IDC_DRAWMOUSE                   1094
 #define IDC_SPEECH                      1096

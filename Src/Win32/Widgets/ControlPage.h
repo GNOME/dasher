@@ -1,4 +1,4 @@
-// AlphabetBox.h
+// ControlPage.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -13,7 +13,8 @@
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
-#include "../AppSettings.h"
+
+class CAppSettings;
 
 class CControlPage:public CWinWrap {
 public:
@@ -37,4 +38,4 @@ private:
   bool Validate();
 };
 
-#endif  /* #ifndef __AlphabetBox_h__ */
+#endif  // ndef
