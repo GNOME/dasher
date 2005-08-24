@@ -27,7 +27,10 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CCanvas::CCanvas(HWND Parent, CDasherInterface *DI)
-:m_pDasherInterface(DI), imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0) {
+:m_pDasherInterface(DI), imousex(0), imousey(0), Parent(Parent), buttonnum(0), mousepostime(0) ,
+ m_dwTicksLastEvent(0), m_bButtonDown(false)
+
+{
 
 #ifndef _WIN32_WCE
   WNDCLASSEX canvasclass;
@@ -37,7 +40,7 @@ CCanvas::CCanvas(HWND Parent, CDasherInterface *DI)
   canvasclass.lpfnWndProc = WinWrapMap::WndProc;
   canvasclass.hCursor = LoadCursor(NULL, IDC_CROSS);
 //      canvasclass.style=canvasclass.style|WS_EX_TOOLWINDOW;
-  canvasclass.style = CS_OWNDC; // give this window its own Private DC
+  canvasclass.style = CS_OWNDC | CS_DBLCLKS ; // give this window its own Private DC
   if(RegisterClassEx(&canvasclass) == 0)
     exit(0);
 #else
@@ -47,7 +50,7 @@ CCanvas::CCanvas(HWND Parent, CDasherInterface *DI)
 
 #endif
 
-  m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("CANVAS"), NULL, WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
+  m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("CANVAS"), NULL, WS_CHILD | WS_VISIBLE , 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
 
   WinWrapMap::add(m_hwnd, this);
 //      SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
@@ -177,7 +180,7 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
       }
     case VK_SPACE:
       startspace();
-      return 0;
+       return 0;
     case VK_F11:
       wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_pDasherInterface->GetAutoOffset());
       MessageBox(Window, tmpAutoOffset, NULL, 1);
@@ -189,7 +192,12 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
       return 0;
     }
   case WM_LBUTTONDBLCLK:
-    // fall through
+	if( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
+	{
+	    m_pDasherInterface->PauseAt(0, 0);
+	}
+	return 0;
+	  // fall through
   case WM_LBUTTONDOWN:
  //   startturbo = GetTickCount();
     SetFocus(Window);
@@ -203,15 +211,23 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
     }
     StartStop();*/
 
-  if(m_pDasherInterface->GetBoolParameter(BP_START_MOUSE)) {
-    if(m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-      m_pDasherInterface->Unpause(GetTickCount());
-    else
-      m_pDasherInterface->PauseAt(0, 0);
-  }
+	
+	if ( m_pDasherInterface->GetBoolParameter(BP_START_MOUSE) ) 
+	{
+		if (m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
+			m_pDasherInterface->Unpause(GetTickCount());
+		else
+			m_pDasherInterface->PauseAt(0, 0);
+	}
+	else if ( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
+	{
+		// DJW - for the time being we only do stylus mode if not BP_START_MOUSE 
 
+		if ( m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED) )
+			m_pDasherInterface->Unpause(GetTickCount());
+	}
 
-
+	m_bButtonDown = true;
     return 0;
   case WM_LBUTTONUP:
     endturbo = GetTickCount();
@@ -223,11 +239,26 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
       OutputDebugString(deb);
     }
     lbuttonheld = 0;
+
+	m_bButtonDown = false;
+    
+	return 0;
+  case WM_RBUTTONDOWN:
+	  if( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
+	  {
+		  if( m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED) )
+			  m_pDasherInterface->Unpause(GetTickCount());
+	  }
+	  m_bButtonDown = true;
+	  return 0;
+  case WM_RBUTTONUP:
+	m_bButtonDown = false;
     return 0;
   case WM_MOUSEMOVE:
     imousex = LOWORD(lParam);
     imousey = HIWORD(lParam);
-    return 0;
+    m_dwTicksLastEvent	= GetTickCount();
+  return 0;
   case WM_PAINT:
     PAINTSTRUCT ps;
     BeginPaint(Window, &ps);
@@ -265,120 +296,138 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
 
 int CCanvas::OnTimer() {
 
-  POINT mousepos2;
-  GetCursorPos(&mousepos2);
+	POINT mousepos2;
+	GetCursorPos(&mousepos2);
 
-  ScreenToClient(m_hwnd, &mousepos2);
+	ScreenToClient(m_hwnd, &mousepos2);
 
-  POINT mousepos;
-  GetCursorPos(&mousepos);
+	POINT mousepos;
+	GetCursorPos(&mousepos);
 
-//  if(running == 0) {
-//    ScreenToClient(m_hwnd, &mousepos);
-//    if(m_pDasherInterface->GetBoolParameter(BP_MOUSEPOS_MODE) == true) // configuration option
-//    {
-//      //                      DASHER_TRACEOUTPUT("first:%d second:%d %d\n",firstwindow,secondwindow,m_iMousePosDist);
-//      if(firstwindow != true && secondwindow != true) {
-//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
-//        firstwindow = true;
-//      }
-//      int mouseDist = m_pDasherInterface->GetLongParameter(LP_MOUSEPOSDIST);
-//      if(mousepos.y > m_pScreen->GetHeight() / 2 - mouseDist - 50 && mousepos.y < m_pScreen->GetHeight() / 2 - mouseDist + 50 && firstwindow == true) {
-//        // Mouse is in the top box
-//        if(mousepostime == 0) {
-//          mousepostime = GetTickCount();
-//        }
-//        else if((GetTickCount() - mousepostime) > 2000) {
-//          firstwindow = false;
-//          secondwindow = true;
-//          mousepostime = 0;
-//          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
-//        }
-//      }
-//      else if(firstwindow == true) {
-//        mousepostime = 0;
-//      }
-//      if(secondwindow == true) {
-//        if(mousepos.y < m_pScreen->GetHeight() / 2 + mouseDist + 50 && mousepos.y > (m_pScreen->GetHeight() / 2 + mouseDist - 50)) {
-//          // In second window
-//          if(mousepostime == 0) {
-//            mousepostime = GetTickCount();
-//          }
-//          else if((GetTickCount() - mousepostime) > 2000) {
-//            m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, -1);
-//            StartStop();
-//          }
-//        }
-//        else if(mousepostime > 0) {
-//          secondwindow = false;
-//          firstwindow = true;
-//          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
-//          mousepostime = 0;
-//        }
-//      }
-//    }
-//    imousey = mousepos.y;
-//
-//    imousex = mousepos.x;
-//
-//    if(m_pDasherInterface->GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
-//      double scalefactor;
-//      if(yscaling == 0) {
-//        scalefactor = 2.0;
-//      }
-//      else {
-//        scalefactor = m_pScreen->GetHeight() / yscaling;
-//      }
-//      imousey -= m_pScreen->GetHeight() / 2;
-//      imousey *= scalefactor;
-//      imousey += m_pScreen->GetHeight() / 2;
-//    }
-//
-//    if((GetTickCount() - previoustime) > 200) {
-//      if(firstwindow == true) {
-//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
-//      }
-//      else if(secondwindow == true) {
-//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
-//      }
-//
-//      previoustime = GetTickCount();
-//    }
-//
-//    return 0;
-//  }
-//
-////  if(m_pDasherInterface->GetBoolParameter(BP_WINDOW_PAUSE) == true) {
-//  //  RECT windowrect;
-//
-////    GetWindowRect(m_hwnd, &windowrect);
-// //   if(mousepos.y > windowrect.bottom || mousepos.y < windowrect.top || mousepos.x > windowrect.right || mousepos.x < windowrect.left)
-////      return 0;
-// // }
-//
-//  ScreenToClient(m_hwnd, &mousepos);
-//  imousey = mousepos.y;
-//  imousex = mousepos.x;
-//
-//  if(m_pDasherInterface->GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
-//    double scalefactor;
-//    if(yscaling == 0) {
-//      scalefactor = 2;
-//    }
-//    else {
-//      scalefactor = m_pScreen->GetHeight() / yscaling;
-//    }
-//    imousey -= m_pScreen->GetHeight() / 2;
-//    imousey *= scalefactor;
-//    imousey += m_pScreen->GetHeight() / 2;
-//  }
+	//  if(running == 0) {
+	//    ScreenToClient(m_hwnd, &mousepos);
+	//    if(m_pDasherInterface->GetBoolParameter(BP_MOUSEPOS_MODE) == true) // configuration option
+	//    {
+	//      //                      DASHER_TRACEOUTPUT("first:%d second:%d %d\n",firstwindow,secondwindow,m_iMousePosDist);
+	//      if(firstwindow != true && secondwindow != true) {
+	//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
+	//        firstwindow = true;
+	//      }
+	//      int mouseDist = m_pDasherInterface->GetLongParameter(LP_MOUSEPOSDIST);
+	//      if(mousepos.y > m_pScreen->GetHeight() / 2 - mouseDist - 50 && mousepos.y < m_pScreen->GetHeight() / 2 - mouseDist + 50 && firstwindow == true) {
+	//        // Mouse is in the top box
+	//        if(mousepostime == 0) {
+	//          mousepostime = GetTickCount();
+	//        }
+	//        else if((GetTickCount() - mousepostime) > 2000) {
+	//          firstwindow = false;
+	//          secondwindow = true;
+	//          mousepostime = 0;
+	//          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
+	//        }
+	//      }
+	//      else if(firstwindow == true) {
+	//        mousepostime = 0;
+	//      }
+	//      if(secondwindow == true) {
+	//        if(mousepos.y < m_pScreen->GetHeight() / 2 + mouseDist + 50 && mousepos.y > (m_pScreen->GetHeight() / 2 + mouseDist - 50)) {
+	//          // In second window
+	//          if(mousepostime == 0) {
+	//            mousepostime = GetTickCount();
+	//          }
+	//          else if((GetTickCount() - mousepostime) > 2000) {
+	//            m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, -1);
+	//            StartStop();
+	//          }
+	//        }
+	//        else if(mousepostime > 0) {
+	//          secondwindow = false;
+	//          firstwindow = true;
+	//          m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
+	//          mousepostime = 0;
+	//        }
+	//      }
+	//    }
+	//    imousey = mousepos.y;
+	//
+	//    imousex = mousepos.x;
+	//
+	//    if(m_pDasherInterface->GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
+	//      double scalefactor;
+	//      if(yscaling == 0) {
+	//        scalefactor = 2.0;
+	//      }
+	//      else {
+	//        scalefactor = m_pScreen->GetHeight() / yscaling;
+	//      }
+	//      imousey -= m_pScreen->GetHeight() / 2;
+	//      imousey *= scalefactor;
+	//      imousey += m_pScreen->GetHeight() / 2;
+	//    }
+	//
+	//    if((GetTickCount() - previoustime) > 200) {
+	//      if(firstwindow == true) {
+	//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 1);
+	//      }
+	//      else if(secondwindow == true) {
+	//        m_pDasherInterface->SetLongParameter(LP_MOUSE_POS_BOX, 2);
+	//      }
+	//
+	//      previoustime = GetTickCount();
+	//    }
+	//
+	//    return 0;
+	//  }
+	//
+	////  if(m_pDasherInterface->GetBoolParameter(BP_WINDOW_PAUSE) == true) {
+	//  //  RECT windowrect;
+	//
+	////    GetWindowRect(m_hwnd, &windowrect);
+	// //   if(mousepos.y > windowrect.bottom || mousepos.y < windowrect.top || mousepos.x > windowrect.right || mousepos.x < windowrect.left)
+	////      return 0;
+	// // }
+	//
+	//  ScreenToClient(m_hwnd, &mousepos);
+	//  imousey = mousepos.y;
+	//  imousex = mousepos.x;
+	//
+	//  if(m_pDasherInterface->GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
+	//    double scalefactor;
+	//    if(yscaling == 0) {
+	//      scalefactor = 2;
+	//    }
+	//    else {
+	//      scalefactor = m_pScreen->GetHeight() / yscaling;
+	//    }
+	//    imousey -= m_pScreen->GetHeight() / 2;
+	//    imousey *= scalefactor;
+	//    imousey += m_pScreen->GetHeight() / 2;
+	//  }
 
-  m_pDasherInterface->NewFrame(GetTickCount());//TapOn(imousex, imousey, GetTickCount());
-  return 0;
+	DWORD dwTicks = GetTickCount();
+
+	// If not paused need to consider stop on idle
+	if( !m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED)  ) 
+	{
+		// only pause if button is not down
+		if( !m_bButtonDown && m_pDasherInterface->GetBoolParameter(BP_STOP_IDLE)  ) 
+		{
+			if (dwTicks - m_dwTicksLastEvent > m_pDasherInterface->GetLongParameter(LP_STOP_IDLETIME) )
+			{
+				// idle time exceeded
+				m_pDasherInterface->PauseAt(0, 0);
+				return 0;
+			}
+		}
+	}
+
+	m_pDasherInterface->NewFrame(dwTicks);//TapOn(imousex, imousey, GetTickCount());
+	return 0;
 
 }
+
 void CCanvas::startspace() {
-  if(m_pDasherInterface->GetBoolParameter(BP_START_SPACE) == false) {
+   if(m_pDasherInterface->GetBoolParameter(BP_START_SPACE) == false) {
     return;
   }
   else {

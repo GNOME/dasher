@@ -1,3 +1,8 @@
+2005-08-24  David Ward <d.j.ward.94@gmail.com>
+	* Src/DasherCore/Parameters.h: New Parameters for 'Stylus' and 
+	'Stop on Idle' modes
+	* Win32 UI to implement these
+
 2005-08-20  Roozbeh Pournader  <roozbeh@farsiweb.info>
 
 	* configure.in: Added "fa" (Persian) to ALL_LINGUAS.

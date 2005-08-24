@@ -1,4 +1,4 @@
-
+#include "WinCommon.h"
 
 #include ".\dashermouseinput.h"
 

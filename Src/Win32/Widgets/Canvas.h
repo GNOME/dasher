@@ -111,6 +111,12 @@ private:
   DWORD mousepostime;
   DWORD previoustime;
   RECT coords;
+
+  // Indicates that a button is depressed, so we dont stop on idle
+  bool m_bButtonDown;
+  // Ticks as last event, for stop on idle
+  DWORD m_dwTicksLastEvent;
+
 };
 
 #endif /* #ifndef __Canvas_h__ */

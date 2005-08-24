@@ -1,6 +1,5 @@
 #pragma once
 #include "../DasherCore/DasherInput.h"
-#include <windows.h>
 
 namespace Dasher {
   class CDasherMouseInput;

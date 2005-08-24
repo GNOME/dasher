@@ -420,7 +420,7 @@ BEGIN
                     WS_TABSTOP,14,18,117,8
     CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,30,125,8
-    GROUPBOX        "Start and stop",IDC_CONTROL,7,97,204,88
+    GROUPBOX        "Start and stop",IDC_CONTROL,7,97,204,134
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,110,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
@@ -439,6 +439,13 @@ BEGIN
     CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",TBS_BOTH | 
                     TBS_NOTICKS | WS_TABSTOP,44,76,160,12
     EDITTEXT        IDC_SPEEDVAL,14,76,30,12,ES_AUTOHSCROLL | ES_READONLY
+    CONTROL         "Stop on idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,193,55,10
+    CONTROL         "Stylus",IDC_STYLUS,"Button",BS_AUTOCHECKBOX | 
+                    WS_TABSTOP,14,181,35,10
+    EDITTEXT        IDC_IDLETIME,29,205,40,14,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_DISABLED
+    LTEXT           "idle time (milliseconds)",IDC_STATIC,75,206,76,8
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
