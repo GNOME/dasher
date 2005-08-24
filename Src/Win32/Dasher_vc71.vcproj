@@ -314,6 +314,9 @@
 				RelativePath="Common\DasherEncodingToCP.h">
 			</File>
 			<File
+				RelativePath=".\Common\StringUtils.h">
+			</File>
+			<File
 				RelativePath="Common\WinCommon.h">
 			</File>
 			<File
