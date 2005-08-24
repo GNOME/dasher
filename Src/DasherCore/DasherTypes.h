@@ -33,7 +33,7 @@
 // new word and don't use underscores (except as above).
 //
 
-//#include "../Common/Types/int.h"
+#include "../Common/Types/int.h"
 #include "../Common/Types/int32.h"
 #include "../Common/Types/int64.h"
 #include <string>

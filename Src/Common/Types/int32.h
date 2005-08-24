@@ -27,8 +27,8 @@ class Cint64;
 #endif
 
 #ifdef NON_STANDARD_LL
-const int64 int64_0xffffffff80000000LL = 0xffffffff80000000i 64;
-const uint64 uint64_0xffffffff00000000ULL = 0xffffffff80000000u i64;
+const int64 int64_0xffffffff80000000LL = 0xffffffff80000000i64;
+const uint64 uint64_0xffffffff00000000ULL = 0xffffffff80000000ui64;
 #else
 const int64 int64_0xffffffff80000000LL = 0xffffffff80000000LL;
 const uint64 uint64_0xffffffff00000000ULL = 0xffffffff00000000ULL;

@@ -17,7 +17,7 @@
 #include <sys/timeb.h>
 #include <time.h>
 #include <map>
-
+#include "DasherTypes.h"
 // Probably better to enable in project settings since FileLogger.h is included from several physical locations.
 // #define DEBUG_ONLY_LOGGING   // Enabled debug logging that has been ifdef'd to prevent performance problems in release build
 

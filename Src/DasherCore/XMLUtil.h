@@ -52,7 +52,7 @@ public:
   static string			              LoadFile(const string& filename, unsigned int iSizeHint = 128000);
   static string			              GetElementString(const string& strTag, const string& strXML, bool bStripWhiteSpace = true);
   static int				              GetElementInt(const string& strTag, const string& strXML, bool* pFound = NULL);
-  static long long		            GetElementLongLong(const string& strTag, const string& strXML, bool* pFound = NULL);
+  static int64		            GetElementLongLong(const string& strTag, const string& strXML, bool* pFound = NULL);
   static float			              GetElementFloat(const string& strTag, const string& strXML, bool* pFound = NULL);
   static VECTOR_STRING	          GetElementStrings(const string& strTag, const string& strXML, bool bStripWhiteSpace = true);
   static VECTOR_NAME_VALUE_PAIR   GetNameValuePairs(const string& strXML, bool bStripWhiteSpace = true);
