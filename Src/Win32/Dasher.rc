@@ -415,24 +415,30 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Control Style:",IDC_STATIC,7,7,204,38
+    GROUPBOX        "Control Style:",IDC_STATIC,7,7,204,37
     CONTROL         "One dimensional mode",IDC_1D,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,14,18,117,8
     CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,30,125,8
-    GROUPBOX        "Start and stop",IDC_CONTROL,7,48,204,88
+    GROUPBOX        "Start and stop",IDC_CONTROL,7,97,204,88
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,61,147,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,110,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,73,126,8
+                    WS_TABSTOP,14,122,126,8
     CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,121,144,8
-    CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,85,136,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,170,144,8
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,109,84,8
+                    WS_TABSTOP,14,158,84,8
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,96,67,10
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,145,67,10
+    GROUPBOX        "Speed",IDC_STATIC,7,44,204,50
+    CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,60,101,10
+    CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,134,136,8
+    CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,44,76,160,12
+    EDITTEXT        IDC_SPEEDVAL,14,76,30,12,ES_AUTOHSCROLL | ES_READONLY
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238

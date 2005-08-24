@@ -171,6 +171,9 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
     case APP_BP_TIME_STAMP:
       m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
       break;
+	case LP_MAX_BITRATE:
+	  m_pSlidebar->SetValue(m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
+	  break;
   }
 }
 

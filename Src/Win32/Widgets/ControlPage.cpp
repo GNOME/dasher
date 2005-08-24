@@ -45,12 +45,26 @@ static menuentry menutable[] = {
   {BP_EYETRACKER_MODE, IDC_EYETRACKER},
   {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP},
   {APP_BP_SPEECH_MODE, IDC_SPEECH},
-  {APP_BP_WINDOW_PAUSE, IDC_WINDOWPAUSE}
+  {APP_BP_WINDOW_PAUSE, IDC_WINDOWPAUSE},
+  {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED}
 };
 
 void CControlPage::PopulateList() {
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasher
+
+  SB_slider = GetDlgItem(m_hwnd, IDC_SPEEDSLIDER);
+
+  SendMessage(SB_slider, TBM_SETPAGESIZE, 0L, 20);      // PgUp and PgDown change bitrate by reasonable amount
+  SendMessage(SB_slider, TBM_SETTICFREQ, 100, 0L);
+  SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(10, 800));
+  
+  speedbox = GetDlgItem(m_hwnd, IDC_SPEEDVAL);  
+
+  SendMessage(SB_slider, TBM_SETPOS, TRUE, (LPARAM) m_pAppSettings->GetLongParameter(LP_MAX_BITRATE));
+  _sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
+  SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+  
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) {
@@ -68,6 +82,10 @@ bool CControlPage::Validate() {
 }
 
 bool CControlPage::Apply() {
+
+  double NewSpeed;
+  NewSpeed = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
+  m_pAppSettings->SetLongParameter( LP_MAX_BITRATE, NewSpeed);
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
@@ -80,7 +98,7 @@ bool CControlPage::Apply() {
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
   NMHDR *pNMHDR;
-  
+  double NewSpeed;
   switch (message) {
   case WM_INITDIALOG:
     if(!m_hwnd) {               // If this is the initial dialog for the first time
@@ -95,6 +113,24 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
       break;
     }
     break;
+
+  case WM_HSCROLL:
+    if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
+      // Some messages give the new postion
+      NewSpeed = HIWORD(wParam);
+    }
+    else {
+      // Otherwise we have to ask for it
+      long Pos = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
+      NewSpeed = Pos;
+    }
+    {
+      _sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), NewSpeed / 100);
+      SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
+    }
+    return TRUE;
+    break;
+
   case WM_NOTIFY:
     pNMHDR = (NMHDR*)lParam;
     switch (pNMHDR->code) {

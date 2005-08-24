@@ -28,7 +28,9 @@ private:
   std::vector < std::string > ColourList;
   std::string m_CurrentColours;
   Dasher::CColourIO::ColourInfo CurrentInfo;
-
+  TCHAR m_tcBuffer[1000];
+  HWND SB_slider;
+  HWND speedbox;
   // Some status flags:
   void PopulateList();
   bool Apply();

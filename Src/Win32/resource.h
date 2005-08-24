@@ -197,6 +197,9 @@
 #define IDC_LM_WORD                     1116
 #define IDC_LM_MIXTURE                  1117
 #define IDC_LM_JAPANESE                 1118
+#define IDC_AUTOSPEED                   1119
+#define IDC_SPEEDSLIDER                 1120
+#define IDC_SPEEDVAL                    1121
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -250,7 +253,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1119
+#define _APS_NEXT_CONTROL_VALUE         1122
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
