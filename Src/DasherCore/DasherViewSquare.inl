@@ -132,13 +132,11 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
       m_nSpeedCounter++;
       m_dequeAngles.push_back(theta);
       while(m_dequeAngles.size() > m_nSpeedSamples) {
-	m_dequeAngles.pop_front();
+	    m_dequeAngles.pop_front();
       }
       
     }
 
-//cout << iDasherOX << " " << iDasherOY << endl;
-    
     if(m_nSpeedCounter > m_nSpeedSamples) 
     {
       //do speed control every so often!
@@ -150,11 +148,11 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
       //always keep bitrate values sane
       if(dBitrate > m_dSpeedMax) 
       {
-	dBitrate = m_dSpeedMax;
+	    dBitrate = m_dSpeedMax;
       }
       else if(dBitrate < m_dSpeedMin) 
       {
-	dBitrate = m_dSpeedMin;
+	    dBitrate = m_dSpeedMin;
       }
 
       long lBitrateTimes100 =  long(round(dBitrate * 100)); //Dasher settings want long numerical parameters
@@ -167,9 +165,6 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
   }  
   
 }
-
-
-
 
   inline double CDasherViewSquare::xmax(double x, double y) const {
     // DJCM -- define a function xmax(y) thus:

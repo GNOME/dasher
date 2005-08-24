@@ -6,17 +6,11 @@
 #define __DasherViewSquare_h__
 #ifdef _WIN32
 #include <cmath>
-
 #endif
 #include "DasherView.h"
 #include <deque>
-#define _CHRIS_LOGGING
-#ifdef _CHRIS_LOGGING
-#include <ctime>
-#include <iostream>
 
-#endif
-using namespace std;
+
 namespace Dasher {
   class CDasherViewSquare;
   class CDasherView;
@@ -296,7 +290,8 @@ private:
   double UpdateBitrate(double dBitrate);
   int UpdateSampleSize(double dBitrate);
   void UpdateSigmas(double r);
-  //
+#ifdef _WIN32
+  //FIXME - couldn't find windows version of round so here's one:
   double round(double d)
   {
     if(d - floor(d) >= 0.5)
@@ -305,7 +300,7 @@ private:
  	   return floor(d);
  
   };
-  
+#endif
   //	myint s_Y1,s_Y2,s_Y3;
   
   

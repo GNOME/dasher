@@ -1190,15 +1190,10 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
   SpeedControl(iDasherX, iDasherY);
 
-
   CheckForNewRoot();
-    iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
-    iDasherY = m_ymap.map(iDasherY);
-
-
-
   // Cache the Dasher Co-ordinates, so we can use them later for things like drawing the mouse position
-
+  iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
+  iDasherY = m_ymap.map(iDasherY);
 }
 
 void CDasherViewSquare::ClickTo(int x, int y, int width, int height)
