@@ -77,7 +77,8 @@ void CControlPage::PopulateList() {
   // enable idletime control if button checked
   BOOL bIdle =  m_pAppSettings->GetBoolParameter(BP_STOP_IDLE) ? TRUE : FALSE;
   EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bIdle);
-  
+  EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bIdle);
+			
   // Set the idle time data
   SetDlgItemInt ( m_hwnd, IDC_IDLETIME, m_pAppSettings->GetLongParameter( LP_STOP_IDLETIME) , TRUE);
 
@@ -135,6 +136,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			// set activity of the idle time edit control
 			BOOL bChecked =  SendMessage(GetDlgItem(m_hwnd, IDC_STOPIDLE), BM_GETCHECK, 0, 0) !=0;
 			EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bChecked);
+			EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bChecked);
 			break;
 		}
 		break;

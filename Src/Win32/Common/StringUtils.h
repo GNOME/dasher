@@ -13,6 +13,7 @@
 
 namespace wincommon
 {
+	/// Get Window text as a unicode string	
 	
 	inline void GetWindowText(HWND hWnd, std::wstring& str)
 	{
@@ -22,6 +23,10 @@ namespace wincommon
 		str = pszBuffer;
 		delete [] pszBuffer;
 	}
+
+	// Get Window text as an integer
+	// returns true if conversion from text to int suceeded
+	// false if the conversion failed (contents may be not numerical)
 
 	inline bool GetWindowInt( HWND hWnd, int& i)
 	{

@@ -445,7 +445,8 @@ BEGIN
                     WS_TABSTOP,14,181,35,10
     EDITTEXT        IDC_IDLETIME,29,205,40,14,ES_AUTOHSCROLL | ES_NUMBER | 
                     WS_DISABLED
-    LTEXT           "idle time (milliseconds)",IDC_STATIC,75,206,76,8
+    LTEXT           "idle time (milliseconds)",IDC_STATICIDLETIME,75,206,76,
+                    8,WS_DISABLED
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
