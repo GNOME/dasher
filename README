@@ -1,6 +1,6 @@
 Dasher
 ------
-This is a preview release of Dasher 3.2.16
+This is a full release of Dasher 3.2.17
 
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It
@@ -20,7 +20,6 @@ You can find the Dasher website at:
 New features in this release
 ----------------------------
   * Several bugfixes.
-  * Experimental Cairo support (enable with --with-cairo).
 
 Known Issues
 ------------
