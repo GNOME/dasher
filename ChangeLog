@@ -1,3 +1,7 @@
+2005-08-28  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Backported fix to integer overflow bug from 4.0 branch
+
 2005-08-24  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Fixed bug preventing start on mouse position boxes from

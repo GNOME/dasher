@@ -553,7 +553,6 @@ void CDasherViewSquare::Screen2Dasher( screenint iInputX, screenint iInputY, myi
 /// Convert dasher co-ordinates to screen co-ordinates
 
 void CDasherViewSquare::Dasher2Screen( myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY ) {
-
   // Apply the nonlinearities
 
   iDasherX = myint(xmap( iDasherX / static_cast<double>( DasherModel().DasherY() ) ) * DasherModel().DasherY());
@@ -640,6 +639,28 @@ void CDasherViewSquare::Dasher2Screen( myint iDasherX, myint iDasherY, screenint
  default:
    break;
  }
+}
+
+
+void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
+  switch( ScreenOrientation ) {
+  case Dasher::Opts::LeftToRight:
+    Screen2Dasher(Screen().GetWidth(),0,iDasherMinX,iDasherMinY,true);
+    Screen2Dasher(0,Screen().GetHeight(),iDasherMaxX,iDasherMaxY,true);
+    break;
+  case Dasher::Opts::RightToLeft:
+    Screen2Dasher(0,0,iDasherMinX,iDasherMinY,true);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY,true);
+    break;
+  case Dasher::Opts::TopToBottom:
+    Screen2Dasher(0,Screen().GetHeight(),iDasherMinX,iDasherMinY,true);
+    Screen2Dasher(Screen().GetWidth(),0,iDasherMaxX,iDasherMaxY,true);
+    break;
+  case Dasher::Opts::BottomToTop:
+    Screen2Dasher(0,0,iDasherMinX,iDasherMinY,true);
+    Screen2Dasher(Screen().GetWidth(),Screen().GetHeight(),iDasherMaxX,iDasherMaxY,true);
+    break;
+  }
 }
 
 /// The minimum Dasher Y co-ordinate which will be visible
@@ -910,6 +931,22 @@ void CDasherViewSquare::DasherPolygon( myint *x, myint *y, int n, int iColour ) 
 void CDasherViewSquare::DasherDrawRectangle( myint iLeft, myint iTop, myint iRight, myint iBottom,
 					     const int Color, Opts::ColorSchemes ColorScheme ) {
   
+  // Truncate to the screen first:
+
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
+  iLeft = std::min( iDasherMaxX, std::max( iDasherMinX, iLeft ) );
+  iTop = std::min( iDasherMaxY, std::max( iDasherMinY, iTop ) );
+  iRight = std::min( iDasherMaxX, std::max( iDasherMinX, iRight ) );
+  iBottom = std::min( iDasherMaxY, std::max( iDasherMinY, iBottom ) );
+
+  //
+
   screenint iScreenLeft;
   screenint iScreenTop;
   screenint iScreenRight;

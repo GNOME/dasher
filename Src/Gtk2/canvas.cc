@@ -184,7 +184,8 @@ void draw_rectangle_callback(int x1, int y1, int x2, int y2, int Color, Opts::Co
     i = x2, x2 = x1, x1 = i;
   if( y2 < y1)
     i = y2, y2 = y1, y1 = i;
-  
+
+
   BEGIN_DRAWING;
   SET_COLOR(Color);
 #if WITH_CAIRO

@@ -72,6 +72,8 @@ private:
 					 const int Color, Opts::ColorSchemes ColorScheme );
 	void DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string &sDisplayText, int &mostleft );
 
+	void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
+
 	myint DasherVisibleMinY();
 	myint DasherVisibleMaxY();
 
