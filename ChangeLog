@@ -2,6 +2,8 @@
 
 	* Backported fix to integer overflow bug from 4.0 branch
 	* Fixed bug in handling of 'delete backwards line'
+	* Backported fix to canvas font size bug
+	* Made sure that Pango cache is cleared when Dasher font is changed
 
 2005-08-24  Phil Cowans  <pjc51@cam.ac.uk>
 

@@ -496,6 +496,7 @@ void set_canvas_font(std::string fontname)
   if(fontname!="") {
     pango_font_description_free(font);
     font=pango_font_description_from_string(fontname.c_str());
+    oPangoCache.clear();
     dasher_redraw();
   }
 }
