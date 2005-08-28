@@ -4,7 +4,8 @@
 	* Fixed bug in handling of 'delete backwards line'
 	* Backported fix to canvas font size bug
 	* Made sure that Pango cache is cleared when Dasher font is changed
-
+	* Bumped version number
+	
 2005-08-24  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Fixed bug preventing start on mouse position boxes from
