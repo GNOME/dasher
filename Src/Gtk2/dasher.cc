@@ -337,9 +337,9 @@ generate_preferences(GtkWidget *widget, gpointer user_data) {
 
   int alphabet_count, colour_count;
 
-  const int alphabetlist_size = 128;
+  const int alphabetlist_size = 1024;
   const char *alphabetlist[ alphabetlist_size ];
-  const int colourlist_size=128;
+  const int colourlist_size=1024;
   const char *colourlist[ colourlist_size ];
   GtkTreeIter alphiter, colouriter;
 

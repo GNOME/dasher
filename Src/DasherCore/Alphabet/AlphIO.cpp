@@ -44,6 +44,7 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector<string> File
 	
 	LoadMutable = false;
 	ParseFile(SystemLocation + "alphabet.xml");
+
 	if (Filenames.size()>0) {
 	  for (unsigned int i=0; i<Filenames.size(); i++) {
 	    ParseFile(SystemLocation + Filenames[i]);
