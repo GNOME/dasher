@@ -45,7 +45,7 @@ AC_ARG_WITH([gtk2],
 	 WITHGTK2=true)
 	 
 AC_ARG_WITH([gnome],
-	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
+	 AC_HELP_STRING([--with-gnome],[build with GNOME support (default is YES)]), 
 	 if test $withval = "no"; then
 	   WITHGNOME=false; 
 	 else
@@ -63,7 +63,7 @@ AC_ARG_WITH([speech],
 	 WITHSPEECH=false)
 
 AC_ARG_WITH([qte],
-	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO - currently untested)]), 
+	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
 	 if test $withval = "no"; then
 	   WITHQTE=false; 
 	 else
@@ -72,7 +72,7 @@ AC_ARG_WITH([qte],
 	 WITHQTE=false)
 
 AC_ARG_WITH([gpe],
-	 AC_HELP_STRING([--with-gpe],[build with GPE support (default is NO - currently untested)]), 
+	 AC_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
 	 if test $withval = "no"; then
 	   WITHGPE=false; 
 	 else
@@ -81,7 +81,7 @@ AC_ARG_WITH([gpe],
 	 WITHGPE=false)
 
 AC_ARG_WITH([a11y],
-	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library (default is YES)]),
+	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility framework (default is NO)]),
 	 if test $withval = "no"; then
 	   WITHA11Y=false; 
 	 else
@@ -96,7 +96,7 @@ AC_ARG_WITH([cairo],
 	 else
 	   WITHCAIRO=true;
          fi, 
-	 WITHCAIRO=false)
+	 WITHCAIRO=true)
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
