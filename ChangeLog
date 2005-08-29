@@ -1,6 +1,7 @@
 2005-08-29  Behdad Esfahbod  <behdad@behdad.org>
 
 	* configure.in: Fixed default values of options.
+	* Data/Translations/training_persian_IR.txt: Added.
 
 2005-08-28  Phil Cowans  <pjc51@cam.ac.uk>
 
