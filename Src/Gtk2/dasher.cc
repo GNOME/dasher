@@ -219,7 +219,7 @@ void update_colours()
   }
 
   colourscheme=dasher_get_current_colours();
-  const int colourlist_size=128;
+  const int colourlist_size=1024;
   const char *colourlist[ colourlist_size ];
   int colour_count = dasher_get_colours( colourlist, colourlist_size );
   for (int i=0; i<colour_count; i++) {
