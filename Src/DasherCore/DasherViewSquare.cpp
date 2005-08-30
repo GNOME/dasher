@@ -240,8 +240,8 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   //Initialise auto-speed control
   m_nSpeedCounter = 0;
   UpdateMinRadius();
-  UpdateSampleSize(double(round(GetLongParameter(LP_MAX_BITRATE) / 100.0))); 
-
+  UpdateSampleSize(); 
+  m_dBitrate = double(round(GetLongParameter(LP_MAX_BITRATE) / 100.0));
   //KeyControl=false;
   m_ymap = Cymap(DasherModel->DasherY());
 
