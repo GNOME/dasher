@@ -34,6 +34,21 @@ protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
   WNDPROC sliderWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
+
+
+#ifdef _WIN32
+  //FIXME - Linux implements a double round(double) function in mathcalls.h but I couldn't
+  //  find the windows equivalent. Required to make the speed slider behave.
+  double round(double d)
+  {
+    if(d - floor(d) < 0.5)
+ 	   return floor(d);
+    else
+ 	   return ceil(d);
+ 
+  };
+#endif
+
   double SlideVal;
 
   // Message handler stuff

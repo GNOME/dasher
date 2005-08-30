@@ -162,7 +162,7 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     }
     SetEditBox(NewBitrate);
     if(LOWORD(wParam) == TB_ENDTRACK)
-      m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, (long)(NewBitrate*100.0));
+      m_pDasherInterface->SetLongParameter(LP_MAX_BITRATE, long(round(NewBitrate*100.0)));
     break;
   }
   return result;
@@ -170,7 +170,7 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
 
 void CSlidebar::SetValue(double NewSlideVal) {  SlideVal = NewSlideVal;  SetSlideBar(SlideVal);  SetEditBox(SlideVal);} double CSlidebar::GetValue() {
   return SlideVal;}
-void CSlidebar::SetSlideBar(double value) {  SendMessage(SB_slider, TBM_SETPOS, (WPARAM) TRUE, (LPARAM) (value * 100));}
+void CSlidebar::SetSlideBar(double value) {  SendMessage(SB_slider, TBM_SETPOS, (WPARAM) TRUE, (LPARAM) round(value * 100));}
 
 void CSlidebar::SetEditBox(double value) {
   //Tstring s = double2string(value); // see below for this travesty
