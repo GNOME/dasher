@@ -9,29 +9,45 @@
 #include "DasherModel.h"
 
 namespace Dasher {
-
-inline double CDasherViewSquare::UpdateBitrate(double dBitrate)
+inline double CDasherViewSquare::UpdateBitrate()
 {
+  ////////////////////////////////////////////////
+  //
+  //  Change max bitrate based on variance of angle 
+  //  in dasher space.
+  //
+
   double var = Variance();
   if(var < m_dTier1)
   {
-      dBitrate *= m_dChange1;
+      m_dBitrate *= m_dChange1;
   }
   else if(var < m_dTier2)
   {
-      dBitrate *= m_dChange2;
+      m_dBitrate *= m_dChange2;
   }
   else if(var > m_dTier4) //Tier 4 comes before tier 3 because tier4 > tier3 !!!
   {
-      dBitrate *= m_dChange4;
+      m_dBitrate *= m_dChange4;
   }
   else if(var > m_dTier3)
   {
-      dBitrate *= m_dChange3;
+      m_dBitrate *= m_dChange3;
   }
   //else if( in the middle )
   //    nothing happens! ;
-  return dBitrate;
+
+  //always keep bitrate values sane
+  if(m_dBitrate > m_dSpeedMax) 
+  {
+    m_dBitrate = m_dSpeedMax;
+  }
+  else if(m_dBitrate < m_dSpeedMin) 
+  {
+    m_dBitrate = m_dSpeedMin;
+  }
+
+  return m_dBitrate;
 }
         
 inline double CDasherViewSquare::Variance()
@@ -54,25 +70,18 @@ inline double CDasherViewSquare::Variance()
 
 }
 
-inline int CDasherViewSquare::UpdateSampleSize(double dBitrate)
+inline int CDasherViewSquare::UpdateSampleSize()
 {
 //  METHOD 2: The number of samples depends on the clock rate of the
 //  machine (framerate) and the user's speed (bitrate).
 
   double dFramerate = DasherModel()->Framerate();
   double dSpeedSamples = 0.0;
-  
+  double dBitrate = m_dBitrate; 
   if(dBitrate < 1.0)// for the purposes of this function
     dBitrate = 1.0; // we don't care exactly how slow we're going
                     // *really* low speeds are ~ equivalent?
-/*  if(dFramerate <= 8.0)
-    dSpeedSamples = 8.0 * (m_dSampleScale / dBitrate + m_dSampleOffset);
-  else if(dFramerate <= 16.0)
-    dSpeedSamples = 16.0 * (m_dSampleScale / dBitrate + m_dSampleOffset);
-  else if(dFramerate <= 24.0)
-    dSpeedSamples = 24.0 * (m_dSampleScale / dBitrate + m_dSampleOffset);
-  else*/
-    dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
+  dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
   
   m_nSpeedSamples = int(round(dSpeedSamples));
   return m_nSpeedSamples;
@@ -93,7 +102,7 @@ inline double CDasherViewSquare::UpdateMinRadius()
 
 inline void CDasherViewSquare::UpdateSigmas(double r)
 {
-  double dSamples = 15.0 * DasherModel()->Framerate();//double(m_nSpeedSamples);
+  double dSamples = 60.0 * DasherModel()->Framerate() / m_dBitrate;//double(m_nSpeedSamples);
   if(r > m_dMinRadius)
     m_dSigma1 = m_dSigma1 - (m_dSigma1 - r * r) / dSamples;
   else 
@@ -105,7 +114,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
   /////////////////////////////////////////////////////////////////
   //
   //  AUTOMATIC SPEED CONTROL, CEH 7/05: Analyse variance of angle
-  //  mouse pointer makes with +ve x-axis
+  //  mouse position makes with +ve x-axis in Dasher-space
   //
 
   if(GetBoolParameter(BP_AUTO_SPEEDCONTROL) && !GetBoolParameter(BP_DASHER_PAUSED)) {
@@ -122,7 +131,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
     
     double theta = atan2(y, x);
     double r = sqrt(x * x + y * y);
-    double dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
+    m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
 
     UpdateSigmas(r);
 
@@ -141,22 +150,10 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
     {
       //do speed control every so often!
       
-      UpdateSampleSize(dBitrate);
+      UpdateSampleSize();
       UpdateMinRadius();
-      dBitrate = UpdateBitrate(dBitrate);
-
-      //always keep bitrate values sane
-      if(dBitrate > m_dSpeedMax) 
-      {
-	    dBitrate = m_dSpeedMax;
-      }
-      else if(dBitrate < m_dSpeedMin) 
-      {
-	    dBitrate = m_dSpeedMin;
-      }
-
-      long lBitrateTimes100 =  long(round(dBitrate * 100)); //Dasher settings want long numerical parameters
-
+      UpdateBitrate();
+      long lBitrateTimes100 =  long(round(m_dBitrate * 100)); //Dasher settings want long numerical parameters
       SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
       m_nSpeedCounter = 0;	  
     
