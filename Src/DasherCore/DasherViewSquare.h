@@ -10,6 +10,7 @@
 #include "DasherView.h"
 #include <deque>
 
+using namespace std;
 
 namespace Dasher {
   class CDasherViewSquare;
@@ -282,29 +283,30 @@ private:
 
   myint m_iDasherYCache;
 
-
   //Auto-speed control functions
   void SpeedControl(myint iDasherX, myint iDasherY);
   double Variance();
   double UpdateMinRadius();
-  double UpdateBitrate(double dBitrate);
-  int UpdateSampleSize(double dBitrate);
+  double UpdateBitrate();
+  int UpdateSampleSize();
   void UpdateSigmas(double r);
+  
+  //
 #ifdef _WIN32
   //FIXME - couldn't find windows version of round so here's one:
   double round(double d)
   {
-    if(d - floor(d) >= 0.5)
- 	   return ceil(d);
-    else
+    if(d - floor(d) < 0.5)
  	   return floor(d);
+    else
+ 	   return ceil(d);
  
   };
 #endif
   //	myint s_Y1,s_Y2,s_Y3;
   
-  
   // Variables for speed control
+  double m_dBitrate;
   double m_dSampleScale, m_dSampleOffset;
   int m_nSpeedCounter, m_nSpeedSamples;
   double m_dSpeedMax, m_dSpeedMin;
