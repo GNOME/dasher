@@ -153,7 +153,9 @@ extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint i
 /// This is actually closer to 'initialise application', so name
 /// should really be changed to reflect this
 ///
-
+extern "C" void realize_widget(GtkWidget* pWidget, gpointer pUserData) {
+  gtk_dasher_control_set_focus( GTK_DASHER_CONTROL(pDasherWidget));
+}
 void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
   init_app_settings();
@@ -178,9 +180,10 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   // Construct a Dasher control
 
   pDasherWidget = gtk_dasher_control_new();
-
+  g_signal_connect(GTK_WIDGET(pDasherWidget), "realize", G_CALLBACK(realize_widget), NULL); 
+  
   // Add UI control node stuff (might be better elsewhere)
-
+  
   gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, "Speak", -1 );
   gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+1, "All", -1 );
   gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+2, "New", -1 );

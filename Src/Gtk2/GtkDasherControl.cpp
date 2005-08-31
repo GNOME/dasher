@@ -161,4 +161,8 @@ void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl) {
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->UserLogNewTrial();
 }
+void gtk_dasher_control_set_focus(GtkDasherControl * pControl){
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->SetFocus();
+
+}
 

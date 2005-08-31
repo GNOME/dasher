@@ -156,6 +156,9 @@ CDasherControl::~CDasherControl() {
   }
 }
 
+void CDasherControl::SetFocus() {
+  gtk_widget_grab_focus(m_pCanvas);
+}
 
 GArray *CDasherControl::GetAllowedValues(int iParameter) {
 
