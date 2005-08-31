@@ -555,6 +555,9 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
  //   m_pDasher->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
     Layout();
     break;
+  case WM_SETFOCUS:
+    SetFocus(m_pCanvas->getwindow());
+    break;
   default:
     return DefWindowProc(m_hwnd, message, wParam, lParam);
   }

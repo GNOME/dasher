@@ -108,16 +108,15 @@ void CCanvas::Paint() {
 }
 
 LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-
-  TCHAR tmpAutoOffset[25];
-
+#ifdef _DEBUG
+  TCHAR tmpAutoOffset[128];
+#endif
   //OutputDebugString(TEXT("Canvas WndProc\n"));
 
   switch (message) {
   case WM_DASHER_TIMER:
     OnTimer();
     return 0;
-
   case WM_COMMAND:
     SendMessage(Parent, message, wParam, lParam);
     return 0;
@@ -181,13 +180,16 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
     case VK_SPACE:
       startspace();
        return 0;
-    case VK_F11:
+#ifdef _DEBUG
+	case VK_F11:
       wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_pDasherInterface->GetAutoOffset());
-      MessageBox(Window, tmpAutoOffset, NULL, 1);
+      MessageBox(Window, tmpAutoOffset, TEXT("Auto-offset Value"), MB_OK);
       return 0;
+#endif
     case VK_F12:
       centrecursor();
       return 0;
+
     default:
       return 0;
     }
