@@ -12,7 +12,7 @@
 #include <sys/stat.h>
 using namespace std;
 // 'Private' methods (only used in this file)
-
+extern "C" gint key_release_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
 extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
@@ -94,6 +94,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   // We'll use the same call back for keyboard events from the canvas
   // and slider - maybe this isn't the right thing to do long term
 
+  g_signal_connect(m_pCanvas, "key-release-event", G_CALLBACK(key_release_event), this);
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
   g_signal_connect(m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this);
 
@@ -372,8 +373,31 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
   return false;
 }
 
+gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
+  switch (event->keyval) {
+ 
+  case GDK_Shift_L:
+  case GDK_Shift_R: //deliberate fall through
+     if(event->state & GDK_CONTROL_MASK)
+        SetLongParameter(LP_BOOSTFACTOR, 25);
+      else
+        SetLongParameter(LP_BOOSTFACTOR, 100);
+    break;
+  case GDK_Control_L:
+  case GDK_Control_R: //deliberate fall through
+     if(event->state & GDK_SHIFT_MASK)
+        SetLongParameter(LP_BOOSTFACTOR, 175);
+      else
+        SetLongParameter(LP_BOOSTFACTOR, 100);
+    break;
+  }  
+  return 0;
+
+
+}
 gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
-  cout << "Key press event!" << endl;
+//  cout << "Key press event!" << endl;
+
   switch (event->keyval) {
   case GDK_space:
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
@@ -384,8 +408,16 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
         PauseAt(0, 0);
     }
     break;
-  }
   
+  case GDK_Shift_L:
+  case GDK_Shift_R: //deliberate fall through
+    SetLongParameter(LP_BOOSTFACTOR, 175);
+    break;
+  case GDK_Control_L:
+  case GDK_Control_R: //deliberate fall through
+    SetLongParameter(LP_BOOSTFACTOR, 25);
+    break;
+  }  
   return 0;
 }
 
@@ -481,7 +513,6 @@ int CDasherControl::colour_filter(const gchar *filename, GPatternSpec *colourglo
 // method, so we pass a pointer to th object in the user_data field
 // and use a wrapper function. Please do not put any functional code
 // here.
-
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data) {
   static_cast < CDasherControl * >(user_data)->RealizeCanvas();
 }
@@ -508,4 +539,7 @@ extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *eve
 
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData) {
   static_cast<CDasherControl*>(pUserData)->CanvasDestroyEvent();
+}
+extern "C" gint key_release_event(GtkWidget *pWidget, GdkEventKey *event, gpointer pUserData) {
+  return static_cast<CDasherControl*>(pUserData)->KeyReleaseEvent(event);
 }

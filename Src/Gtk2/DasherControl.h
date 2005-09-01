@@ -86,9 +86,10 @@ public:
   /// code, but some of it performs useful functions such as recalibration,
   /// so this needs to be re-implemented.
   ///
-
-  gint KeyPressEvent(GdkEventKey * event);
-
+  
+ gint KeyReleaseEvent(GdkEventKey * event);
+ gint KeyPressEvent(GdkEventKey * event);
+ 
   ///
   /// Scan for alphabet XML files in the system and user directories
   /// and add them to the interface.  
