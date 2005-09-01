@@ -29,7 +29,7 @@ enum {
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, 
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM, LP_SCREENWIDTH,
-  LP_SCREENHEIGHT, END_OF_LPS
+  LP_SCREENHEIGHT, LP_BOOSTFACTOR, END_OF_LPS
 };
 
 enum {
@@ -148,7 +148,8 @@ static lp_table longparamtable[] = {
   {LP_R, "ButtonModeNonuniformity", PERS, 0, "Button mode box non-uniformity"},
   {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5, "Zoomfactor (*1024) for compass mode"},
   {LP_SCREENWIDTH, "ScreenWidth", PERS, 1, "Width of screen, in pixels."},
-  {LP_SCREENHEIGHT, "ScreenHeight", PERS, 1, "Heightof screen, in pixels."}
+  {LP_SCREENHEIGHT, "ScreenHeight", PERS, 1, "Heightof screen, in pixels."},
+  {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"}
 };
 
 static sp_table stringparamtable[] = {

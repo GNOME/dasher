@@ -131,8 +131,9 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 
     switch (pEvt->m_iParameter) {
     case LP_MAX_BITRATE: // Delibarate fallthrough
+    case LP_BOOSTFACTOR: // Deliberate fallthrough
     case LP_SPEED_DIVISOR:
-      m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / static_cast<double>(GetLongParameter(LP_SPEED_DIVISOR));
+      m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 100 / static_cast<double>(GetLongParameter(LP_SPEED_DIVISOR));
       m_fr.SetMaxBitrate(m_dMaxRate);
       break;
     default:
