@@ -155,13 +155,29 @@ void CDasherWindow::Show(int nCmdShow) {
 }
 
 void CDasherWindow::SaveWindowState() const {
+#ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   wp.length = sizeof(WINDOWPLACEMENT);
+  
+  if(GetWindowPlacement(m_hwnd, &wp)) {//function call succeeds
+    m_pAppSettings->SaveSetting("WindowState", &wp);
+  }
+#endif
 }
 
 bool CDasherWindow::LoadWindowState() {
+#ifndef DASHER_WINCE
+  WINDOWPLACEMENT wp;
+  
+  if(m_pAppSettings->LoadSetting("WindowState", &wp)) {
+	if(SetWindowPlacement(m_hwnd, &wp))
+      return true;
+  }
+#endif
   return false;
 }
+
+
 
 void CDasherWindow::HandleParameterChange(int iParameter) {
   switch(iParameter) {

@@ -13,7 +13,8 @@
 #include "../Dasher.h"
 
 #define WM_DASHER_TIMER WM_USER + 128   // FIXME - shouldn't define this twice
-
+#define PRESSED		0x8000
+#define REPEAT		0x40000000
 using namespace Dasher;
 
 // Track memory leaks on Windows to the line that new'd the memory
@@ -112,7 +113,6 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
   TCHAR tmpAutoOffset[128];
 #endif
   //OutputDebugString(TEXT("Canvas WndProc\n"));
-
   switch (message) {
   case WM_DASHER_TIMER:
     OnTimer();
@@ -123,6 +123,24 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
   case WM_SETFOCUS:
     SendMessage(Parent, WM_DASHER_FOCUS, 0, (LPARAM)&m_hwnd);
     return 0;
+  case WM_KEYUP:
+	  switch(wParam) {
+      case VK_SHIFT:
+		  if(GetKeyState(VK_CONTROL) & PRESSED)
+			  m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 25);
+		  else
+			  m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 100);
+		  return 0;
+	  case VK_CONTROL:
+		  if(GetKeyState(VK_SHIFT) & PRESSED)
+			  m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 175);
+		  else
+			  m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 100);
+
+		  return 0;
+	  default:
+		  return 0;		  
+	  }
   case WM_KEYDOWN:
     switch (wParam) {
       if(m_pDasherInterface->GetBoolParameter(BP_KEY_CONTROL) == true) {
@@ -189,7 +207,17 @@ LRESULT CCanvas::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
     case VK_F12:
       centrecursor();
       return 0;
+	case VK_SHIFT:
+		
+	  if(lParam ^ REPEAT) // ignore auto-repeat
+		m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 175);
+	  
+	  return 0;
 
+	case VK_CONTROL:
+	  if(lParam ^ REPEAT) // ignore auto-repeat
+	    m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 25);
+	  return 0;
     default:
       return 0;
     }
