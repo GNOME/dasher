@@ -624,6 +624,11 @@ void CEdit::Move(int iDirection, int iDist) {
         else
           iEnd = iLineStart+iLineLength;
       }
+	  else if(iEndLine == iNumLines - 1) {
+		// we're on the last line so go to end of file
+		iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
+        iEnd = iNumChars + 1;
+      }
       iStart = iEnd;
       break;
     case EDIT_FILE: 
@@ -661,6 +666,12 @@ void CEdit::Move(int iDirection, int iDist) {
       iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
       if( iStartLine > 0)
         --iStartLine;
+	  else if( iStartLine == 0)
+	  {
+	    // we're on the first line so go to start of file...
+	    iStart = iEnd = 0;
+		break;
+	  }
       iLineStart = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iStartLine, 0);
       iLineLength = SendMessage(m_hwnd, EM_LINELENGTH, (WPARAM)iStartLine, 0);
       if( iLineOffset < iLineLength )
@@ -677,6 +688,7 @@ void CEdit::Move(int iDirection, int iDist) {
   }
 
   SendMessage(m_hwnd, EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  SendMessage(m_hwnd, EM_SCROLLCARET, 0, 0); //scroll the caret into view!
 }
 
 void CEdit::Delete(int iDirection, int iDist) {
