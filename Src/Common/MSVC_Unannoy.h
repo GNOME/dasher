@@ -11,6 +11,8 @@
 #ifdef _MSC_VER
 #pragma warning(disable:4786)
 #pragma warning(disable:4018)
+
+#pragma warning(disable:4996)   // warning C4996: 'fopen' was declared deprecated
 #endif
 
 #endif /* #ifndef __MSVC_Unannoy_h__ */
