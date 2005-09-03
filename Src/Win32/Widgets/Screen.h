@@ -80,7 +80,6 @@ public:
 
 private:
   const void point2POINT(const point * In, POINT * Out, int Number);
-  inline GetDisplayTstring(Dasher::symbol Symbol);
 
   void TextSize_Impl(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
 
