@@ -1023,7 +1023,7 @@ string CUserLog::GetCycleParamStats()
 
   // Find the last instance of any parameter marked as needed to be on
   // the cycle stats line.
-  for (VECTOR_USER_LOG_PARAM_PTR_ITER iter = m_vParams.end() - 1; iter >= m_vParams.begin(); iter--)
+  for (VECTOR_USER_LOG_PARAM_PTR_REV_ITER iter = m_vParams.rbegin(); iter != m_vParams.rend(); ++iter)
   {
     if (((*iter) != NULL) && ((*iter)->options & userLogParamShortInCycle))
     {

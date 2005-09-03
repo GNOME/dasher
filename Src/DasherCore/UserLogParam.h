@@ -58,8 +58,9 @@ static UserLogParamMask s_UserLogParamMaskTable [] = {
 
 class CUserLogParam;
 
-typedef vector<CUserLogParam*>              VECTOR_USER_LOG_PARAM_PTR;
-typedef vector<CUserLogParam*>::iterator    VECTOR_USER_LOG_PARAM_PTR_ITER;
+typedef vector<CUserLogParam*>                      VECTOR_USER_LOG_PARAM_PTR;
+typedef vector<CUserLogParam*>::iterator            VECTOR_USER_LOG_PARAM_PTR_ITER;
+typedef vector<CUserLogParam*>::reverse_iterator    VECTOR_USER_LOG_PARAM_PTR_REV_ITER;
 
 class CUserLogParam
 {
