@@ -173,7 +173,7 @@ msgstr "Faili valimine"
 #: Src/Gtk2/dasher.cc:1663
 msgid "translator_credits"
 msgstr ""
-"Priit Laes <amd@store20.com>, 2004, 2005.\n"
+"Priit Laes <amd@store20.com>, 2003-2005.\n"
 "Ivar Smolin <okul@linux.ee>, 2005."
 
 #: Src/Gtk2/dasher.cc:1665 Src/Gtk2/dasher.glade.h:34
