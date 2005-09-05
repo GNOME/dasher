@@ -1,3 +1,6 @@
+2005-09-05  Phil Cowans  <pjc51@cam.ac.uk>
+	* Bumped version number for GNOME 2.12 release
+
 2005-08-29  Behdad Esfahbod  <behdad@behdad.org>
 
 	* configure.in: Fixed default values of options.
