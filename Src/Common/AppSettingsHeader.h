@@ -16,7 +16,11 @@ enum {
 };
 
 enum {
-  APP_SP_EDIT_FONT = END_OF_APP_LPS, END_OF_APP_SPS
+  APP_SP_EDIT_FONT = END_OF_APP_LPS, 
+#ifndef DASHER_WINCE
+  APP_SP_WINDOW_STATE, 
+#endif
+  END_OF_APP_SPS
 };
 
 #endif
