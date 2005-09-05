@@ -1,0 +1,7 @@
+<!ELEMENT controllabels (label*)>
+<!ATTLIST controllabels name CDATA #REQUIRED>
+
+<!ELEMENT label EMPTY>
+<!ATTLIST label id CDATA #REQUIRED>
+<!ATTLIST label value CDATA #REQUIRED>
+<!ATTLIST label color CDATA #REQUIRED>
