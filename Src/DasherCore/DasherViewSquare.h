@@ -4,9 +4,6 @@
 
 #ifndef __DasherViewSquare_h__
 #define __DasherViewSquare_h__
-#ifdef _WIN32
-#include <cmath>
-#endif
 #include "DasherView.h"
 #include <deque>
 
