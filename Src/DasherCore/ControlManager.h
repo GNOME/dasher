@@ -3,9 +3,21 @@
 
 #include "NodeManager.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
+#include "DasherModel.h"
+#include "DasherNode.h"
+#include "Event.h"
 
 #include <vector>
 #include <map>
+#include <fstream>
+#include <iostream>
+#include <sys/stat.h>
+#include <string>
+namespace expat {
+#include "../Common/Expat/lib/expat.h"
+}
+using namespace expat;
+using namespace std;
 
 namespace Dasher {
 
@@ -81,6 +93,13 @@ namespace Dasher {
 
 
   private:
+
+	static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
+	static void XmlEndHandler(void *pUserData, const XML_Char *szName);
+	static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
+	int LoadLabelsFromFile(string strFileName, int iFileSize);
+    int LoadDefaultLabels();
+	int ConnectNodes();
     CDasherModel *m_pModel;
     CLanguageModel *m_pLanguageModel;
 

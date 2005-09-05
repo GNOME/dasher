@@ -1,11 +1,4 @@
 #include "ControlManager.h"
-#include "DasherModel.h"
-#include "DasherNode.h"
-#include "Event.h"
-
-#include <vector>
-#include <iostream>
-
 using namespace Dasher;
 
 // Track memory leaks on Windows to the line that new'd the memory
@@ -20,9 +13,50 @@ static char THIS_FILE[] = __FILE__;
 
 CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguageModel  )
   : m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
+  string SystemString = m_pModel->GetStringParameter(SP_SYSTEM_LOC);
+  string UserLocation = m_pModel->GetStringParameter(SP_USER_LOC);
+  
+  struct stat sFileInfo;
+  string strFileName = UserLocation + "controllabels.xml";  //  check first location for file
+  if(stat(strFileName.c_str(), &sFileInfo) == -1) {
+    //  something went wrong
+    strFileName = SystemString + "controllabels.xml"; //  check second location for file
+    if(stat(strFileName.c_str(), &sFileInfo) == -1) {
+      // all else fails do something default
+      LoadDefaultLabels();
+    }
+      else
+	LoadLabelsFromFile(strFileName, sFileInfo.st_size);
+  }
+  else
+    LoadLabelsFromFile(strFileName, sFileInfo.st_size);
+  
+  ConnectNodes();
+}
 
-  // FIXME - Unicode names?
+int CControlManager::LoadLabelsFromFile(string strFileName, int iFileSize) {
 
+  // Implement Unicode names via xml from file:
+  char* szFileBuffer = new char[iFileSize];
+  ifstream oFile(strFileName.c_str());
+  oFile.read(szFileBuffer, iFileSize);
+  XML_Parser Parser = XML_ParserCreate(NULL);
+
+  // Members passed as callbacks must be static, so don't have a "this" pointer.
+  // We give them one through horrible casting so they can effect changes.
+  XML_SetUserData(Parser, this);
+
+  XML_SetElementHandler(Parser, XmlStartHandler, XmlEndHandler);
+  XML_SetCharacterDataHandler(Parser, XmlCDataHandler);
+  XML_Parse(Parser, szFileBuffer, iFileSize, false);
+  //  deallocate resources
+  XML_ParserFree(Parser);
+  oFile.close();
+  delete [] szFileBuffer;
+  return 0;
+}
+
+int CControlManager::LoadDefaultLabels() {
   RegisterNode(CTL_ROOT, "Control", 8);
   RegisterNode(CTL_STOP, "Stop", 242);
   RegisterNode(CTL_PAUSE, "Pause", 241);
@@ -48,7 +82,10 @@ CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguag
   RegisterNode(CTL_DELETE_BACKWARD_WORD, "<<", -1);
   RegisterNode(CTL_DELETE_BACKWARD_LINE, "<<<", -1);
   RegisterNode(CTL_DELETE_BACKWARD_FILE, "<<<<", -1);
-  
+  return 0;
+}
+
+int CControlManager::ConnectNodes() {
   ConnectNode(-1, CTL_ROOT, -2);
   ConnectNode(CTL_STOP, CTL_ROOT, -2);
   ConnectNode(CTL_PAUSE, CTL_ROOT, -2);
@@ -150,6 +187,7 @@ CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguag
   ConnectNode(CTL_ROOT, CTL_DELETE_BACKWARD_FILE, -2);
   ConnectNode(CTL_DELETE_FORWARD, CTL_DELETE_BACKWARD_FILE, -2);
   ConnectNode(CTL_DELETE_BACKWARD, CTL_DELETE_BACKWARD_FILE, -2);
+  return 0;
 }
 
 CControlManager::~CControlManager()
@@ -254,17 +292,49 @@ void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pA
   CControlEvent oEvent(pControlNode->iID);
   m_pModel->m_bContextSensitive=false;
   m_pModel->InsertEvent(&oEvent);
-};
+}
 
 void CControlManager::Undo( CDasherNode *pNode ) {
   // Do we ever need this?
   // One other thing we probably want is notification when we leave a node - that way we can eg speed up again if we slowed down
-};
+}
 
 void CControlManager::Enter(CDasherNode *pNode) {
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 200);
-};
+  // Slow down to half the speed we were at
+  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 200);//m_pModel->GetLongParameter(LP_SPEED_DIVISOR) * 2);
+}
 
 void CControlManager::Leave(CDasherNode *pNode) {
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100);
-};
+  // Now speed back up, by doubling the speed we were at in control mode
+  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100); //m_pModel->GetLongParameter(LP_SPEED_DIVISOR) / 2);
+}
+
+void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
+  static int n = 0;
+  int colour;
+  string str;
+  if(0==strcmp(szName, "label"))
+  {
+    for(int i = 0; aszAttr[i]; i += 2)
+    {
+      if(0==strcmp(aszAttr[i],"value"))
+      {
+        str = string(aszAttr[i+1]);
+      }
+      if(0==strcmp(aszAttr[i],"color"))
+      {
+        colour = atoi(aszAttr[i+1]);
+      }  
+    }
+    ((CControlManager*)pUserData)->RegisterNode(n++, str, colour);
+    
+  }
+}
+
+void CControlManager::XmlEndHandler(void *pUserData, const XML_Char *szName) {
+  return;
+}
+
+void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
+  return;
+}
