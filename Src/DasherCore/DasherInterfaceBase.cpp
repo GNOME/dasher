@@ -693,7 +693,7 @@ void CDasherInterfaceBase::GetColours(std::vector <std::string >*ColourList) {
 }
 
 void CDasherInterfaceBase::ChangeEdit() {
-  CreateDasherModel();
+//  CreateDasherModel(); FIXME - should this ever be called here?
   Start();
   Redraw();
 }

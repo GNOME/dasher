@@ -11,11 +11,13 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+int CControlManager::m_iNextID = 0;
+
 CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguageModel  )
   : m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
   string SystemString = m_pModel->GetStringParameter(SP_SYSTEM_LOC);
   string UserLocation = m_pModel->GetStringParameter(SP_USER_LOC);
-  
+  m_iNextID = 0;
   struct stat sFileInfo;
   string strFileName = UserLocation + "controllabels.xml";  //  check first location for file
   if(stat(strFileName.c_str(), &sFileInfo) == -1) {
@@ -216,8 +218,12 @@ void CControlManager::ConnectNode(int iChild, int iParent, int iAfter) {
 
   // FIXME - iAfter currently ignored (eventually -1 = start, -2 = end)
 
-  if( iChild == -1 ) // Corresponds to escaping back to alphabet
-    m_mapControlMap[iParent]->vChildren.push_back(NULL);
+  if( iChild == -1 ) {// Corresponds to escaping back to alphabet
+    CControlNode* node = m_mapControlMap[iParent];
+	if(node)
+		node->vChildren.push_back(NULL);
+
+  }
   else
     m_mapControlMap[iParent]->vChildren.push_back(m_mapControlMap[iChild]); 
 }
@@ -310,7 +316,7 @@ void CControlManager::Leave(CDasherNode *pNode) {
 }
 
 void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
-  static int n = 0;
+  
   int colour;
   string str;
   if(0==strcmp(szName, "label"))
@@ -326,7 +332,7 @@ void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, c
         colour = atoi(aszAttr[i+1]);
       }  
     }
-    ((CControlManager*)pUserData)->RegisterNode(n++, str, colour);
+	((CControlManager*)pUserData)->RegisterNode(CControlManager::m_iNextID++, str, colour);
     
   }
 }

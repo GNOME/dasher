@@ -24,8 +24,9 @@ namespace Dasher {
   class CDasherModel;
 
   ///
-  /// A node manager which deals with alphabets and language models.
-  ///
+  /// A node manager which deals with control nodes.
+  /// Currently can only have one instance due to use 
+  /// of static members for callbacks from expat.
   
   class CControlManager : public CNodeManager {
   public:
@@ -97,6 +98,7 @@ namespace Dasher {
 	static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
 	static void XmlEndHandler(void *pUserData, const XML_Char *szName);
 	static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
+	static int m_iNextID;
 	int LoadLabelsFromFile(string strFileName, int iFileSize);
     int LoadDefaultLabels();
 	int ConnectNodes();
