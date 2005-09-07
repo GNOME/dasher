@@ -36,7 +36,7 @@ AccessibleText *textbox = NULL;
 AccessibleEditableText *edittextbox = NULL;
 #endif
 
-GtkWidget *text_view;
+//GtkWidget *text_view;
 GtkWidget *text_scrolled_window;
 
 gunichar *wideoutput;
@@ -513,7 +513,11 @@ void edit_move(int iDirection, int iDist) {
       gtk_text_iter_forward_word_end(&sPos);
       break;
     case EDIT_LINE:
-      gtk_text_iter_forward_line(&sPos);
+      if(!dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos))
+      {
+        dasher_gtk_text_view_forward_display_line (DASHER_GTK_TEXT_VIEW(the_text_view), &sPos);
+        dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos);
+      }
       break;
     case EDIT_FILE:
       gtk_text_iter_forward_to_end(&sPos);
@@ -529,7 +533,9 @@ void edit_move(int iDirection, int iDist) {
       gtk_text_iter_backward_word_start(&sPos);
       break;
     case EDIT_LINE:
-      gtk_text_iter_backward_line(&sPos);
+    
+      if(!dasher_gtk_text_view_backward_display_line_start(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos))
+        dasher_gtk_text_view_backward_display_line(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos);
       break;
     case EDIT_FILE:
       gtk_text_buffer_get_start_iter(the_text_buffer, &sPos);
@@ -564,7 +570,11 @@ void edit_delete(int iDirection, int iDist) {
       gtk_text_iter_forward_word_end(&sPosStart);
       break;
     case EDIT_LINE:
-      gtk_text_iter_forward_line(&sPosStart);
+      if(!dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart))
+      {
+        dasher_gtk_text_view_forward_display_line (DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart);
+        dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart);
+      }
       break;
     case EDIT_FILE:
       gtk_text_iter_forward_to_end(&sPosStart);
@@ -580,7 +590,8 @@ void edit_delete(int iDirection, int iDist) {
       gtk_text_iter_backward_word_start(&sPosStart);
       break;
     case EDIT_LINE:
-      gtk_text_iter_backward_line(&sPosStart);
+      if(!dasher_gtk_text_view_backward_display_line_start(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart))
+        dasher_gtk_text_view_backward_display_line(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart);
       break;
     case EDIT_FILE:
       gtk_text_buffer_get_start_iter(the_text_buffer, &sPosStart);
