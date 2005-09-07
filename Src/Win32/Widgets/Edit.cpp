@@ -578,12 +578,12 @@ void CEdit::Move(int iDirection, int iDist) {
   int iEnd;
   SendMessage(m_hwnd, EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
 
-  int iStartLine;
+//  int iStartLine;
   int iEndLine;
-  int iLineOffset;
-  int iLineLength;
-  int iLineStart;
-  int iNumLines;
+//  int iLineOffset;
+//  int iLineLength;
+//  int iLineStart;
+//  int iNumLines;
   int iNumChars;
 
   HLOCAL hMemHandle;
@@ -612,7 +612,7 @@ void CEdit::Move(int iDirection, int iDist) {
       iStart = iEnd;
       break;
     case EDIT_LINE:
-      iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+/*      iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
       iNumLines = SendMessage(m_hwnd, EM_GETLINECOUNT, 0, 0);
       if( iEndLine < iNumLines - 1) {
@@ -629,7 +629,14 @@ void CEdit::Move(int iDirection, int iDist) {
 		iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
         iEnd = iNumChars + 1;
       }
-      iStart = iEnd;
+*/    
+      // Make it behave like the 'End' key, unless we're at the end of the current line.
+	  // Then go down a line.
+	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0) - 1; // end of this line
+	  if(iStart==iEnd)  // we were already at the end so go down a line
+		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0) - 1;
+	  iStart = iEnd;
       break;
     case EDIT_FILE: 
       iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
@@ -661,6 +668,7 @@ void CEdit::Move(int iDirection, int iDist) {
       iStart = iEnd;
       break;
     case EDIT_LINE:
+/*
       iStartLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iStart, 0);
       iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
@@ -678,7 +686,12 @@ void CEdit::Move(int iDirection, int iDist) {
         iStart = iLineStart+iLineOffset;
       else
         iStart = iLineStart+iLineLength;
-      iEnd = iStart;
+*/
+	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
+	  if(iStart==iEnd)  // we were already at the start so go up a line
+		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
+	  iStart = iEnd;
       break;
     case EDIT_FILE:
       iStart = 0;
@@ -695,10 +708,10 @@ void CEdit::Delete(int iDirection, int iDist) {
   int iStart;
   int iEnd;
   int iEndLine;
-  int iLineOffset;
-  int iLineLength;
-  int iLineStart;
-  int iNumLines;
+//  int iLineOffset;
+//  int iLineLength;
+//  int iLineStart;
+//  int iNumLines;
   int iNumChars;
 
   HLOCAL hMemHandle;
@@ -722,6 +735,7 @@ void CEdit::Delete(int iDirection, int iDist) {
         iEnd = iNumChars + 1;
       break;
     case EDIT_LINE:
+/*
       iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
       iNumLines = SendMessage(m_hwnd, EM_GETLINECOUNT, 0, 0);
@@ -734,6 +748,11 @@ void CEdit::Delete(int iDirection, int iDist) {
         else
           iEnd = iLineStart+iLineLength;
       }
+  */
+	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0); // end of this line
+	  if(iStart==iEnd)  // we were already at the end so go down a line
+		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0);
       break;
     case EDIT_FILE: 
       iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
@@ -761,7 +780,7 @@ void CEdit::Delete(int iDirection, int iDist) {
       }
       break;
     case EDIT_LINE:
-       iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+/*       iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
       iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
       iNumLines = SendMessage(m_hwnd, EM_GETLINECOUNT, 0, 0);
       if(iEndLine > 0) {
@@ -773,6 +792,12 @@ void CEdit::Delete(int iDirection, int iDist) {
         else
           iEnd = iLineStart+iLineLength;
       }
+	  */
+	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
+	  if(iStart==iEnd)  // we were already at the start so go up a line
+		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
+
       break;
     case EDIT_FILE:
       iEnd = 0;
