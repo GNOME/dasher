@@ -57,24 +57,24 @@ enum {
 // These will be turned into std::strings in the ParamTables() object 
 struct bp_table {
   int key;
-  char *regName;
+  const char *regName;
   bool persistent;
   bool defaultValue;
-  char *humanReadable;
+  const char *humanReadable;
 };
 struct lp_table {
   int key;
-  char *regName;
+  const char *regName;
   bool persistent;
   long defaultValue;
-  char *humanReadable;
+  const char *humanReadable;
 };
 struct sp_table {
   int key;
-  char *regName;
+  const char *regName;
   bool persistent;
-  char *defaultValue;
-  char *humanReadable;
+  const char *defaultValue;
+  const char *humanReadable;
 };
 
 // The only important thing here is that these are in the same order

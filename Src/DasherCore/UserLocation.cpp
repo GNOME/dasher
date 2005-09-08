@@ -242,7 +242,7 @@ string CUserLocation::GetTabMouseXY(bool bReturnNormalized)
   if (bReturnNormalized)
     sprintf(szNum, "%0.4f\t%0.4f\n", m_dNormalizedLocationX, m_dNormalizedLocationY);
   else
-    sprintf(szNum, "%0.4f\t%0.4f\n", m_iLocationX, m_iLocationY);
+    sprintf(szNum, "%0.4f\t%0.4f\n", (double)m_iLocationX, (double)m_iLocationY);
 
   strResult += szNum;
 

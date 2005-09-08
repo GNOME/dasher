@@ -137,7 +137,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
 
 //  Data collection:
     
-    if(r > m_dMinRadius && abs(theta) < 1.25) { //FIXME - should we ignore backwards AND vertical data?
+    if(r > m_dMinRadius && fabs(theta) < 1.25) { //FIXME - should we ignore backwards AND vertical data?
       m_nSpeedCounter++;
       m_dequeAngles.push_back(theta);
       while(m_dequeAngles.size() > m_nSpeedSamples) {
