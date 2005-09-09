@@ -12,7 +12,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-10 19:27+0545\n"
+"POT-Creation-Date: 2005-09-09 12:35+0200\n"
 "PO-Revision-Date: 2005-05-29 03:09-0400\n"
 "Last-Translator: Kapil Timilsina <lipak21@gmail.com>\n"
 "Language-Team: Nepali <info@mpp.org.np>\n"
@@ -296,8 +296,9 @@ msgid "<b>Color Selection:</b>"
 msgstr "<b>रङ्ग छनौट:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
-msgid "<b>Compass mode</b>"
-msgstr ""
+#, fuzzy
+msgid "<b>Compass Mode</b>"
+msgstr "<b>एकबाट अर्कोमा फड्कने बटन शैलि:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -305,65 +306,65 @@ msgstr "<b>शैलि नियन्त्रक:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
 #, fuzzy
-msgid "<b>Language Model Settings:</b>"
-msgstr "<b>शुरु गरिरहेको र रोकिरहेको:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>Language Model:</b>"
 msgstr "<b>एकबाट अर्कोमा फड्कने बटन शैलि:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16
+#: ../Src/Gtk2/dasher.glade.h:15
 #, fuzzy
-msgid "<b>Menu mode</b>"
+msgid "<b>Menu Mode</b>"
 msgstr "<b>वेग</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>फुटकर बिकल्प:</b>"
 
+#: ../Src/Gtk2/dasher.glade.h:17
+#, fuzzy
+msgid "<b>One-Button Dynamic Mode</b>"
+msgstr "<b>एकबाट अर्कोमा फड्कने बटन शैलि:</b>"
+
 #: ../Src/Gtk2/dasher.glade.h:18
 #, fuzzy
-msgid "<b>One-button dynamic mode</b>"
+msgid "<b>One-Button Static Mode</b>"
 msgstr "<b>एकबाट अर्कोमा फड्कने बटन शैलि:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:19
-#, fuzzy
-msgid "<b>One-button static mode</b>"
-msgstr "<b>एकबाट अर्कोमा फड्कने बटन शैलि:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
 msgstr "<b>अभिमुखिकरण:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "<b>Smoothing:</b>"
 msgstr "<b>लचिलो:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:21
 #, fuzzy
 msgid "<b>Speed:</b>"
 msgstr "<b>वेग</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>शुरु गरिरहेको र रोकिरहेको:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:15
 msgid "<b>Toggle button Mode:</b>"
 msgstr "<b>एकबाट अर्कोमा फड्कने बटन शैलि:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
 msgstr "<b>दृष्य बिकल्पहरु:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:17
 msgid "<b>X/Y Coordinates:</b>"
 msgstr "<b>X/Y एकश्रेणिमा ल्याउनु:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Y मेरुदण्ड बिकल्पहरु:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:27
+#, fuzzy
+msgid "<b>Zoom steps:</b>"
+msgstr "<b>शैलि नियन्त्रक:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:28
 #, fuzzy
@@ -717,58 +718,54 @@ msgid "Y:"
 msgstr "वाई:"
 
 #: ../Src/Gtk2/dasher.glade.h:116
-msgid "Zoom steps:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:117
 msgid "Zoom:"
 msgstr ""
 
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
 msgstr "_बारेमा"
 
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
 msgstr "लेखपत्रको खुट्टा"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:81
+#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:81
 msgid "_Dasher Font"
 msgstr "_ड्यासर अक्षर"
 
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:82
+#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:82
 msgid "_Dasher Font Size"
 msgstr "_ड्यासर अक्षर आकार"
 
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:83
 msgid "_Edit"
 msgstr "-सम्पादन गर्नु"
 
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:84
+#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:84
 msgid "_Edit Font"
 msgstr "अक्षर सम्पादन गर्नु"
 
-#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
 msgstr "_लेखपत्र"
 
-#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:86
 msgid "_Help"
 msgstr "_सहयोग"
 
-#: ../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
 msgstr "प्रशिक्षण पाठ आयात"
 
-#: ../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashergpe.glade.h:88
+#: ../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:88
 msgid "_Options"
 msgstr "विकल्प"
 
-#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:89
+#: ../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashergpe.glade.h:89
 msgid "_Reset fonts"
 msgstr "अक्षर पुन:स्थापना"
 
-#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:90
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
@@ -823,21 +820,6 @@ msgstr "शुरुवातका आवाजहरु अयोग्य"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "चेतावनि: भाषण मुल्यांकन आधारमा स्थापित गर्न अयोग्य \n"
 
-#: ../Src/main.cc:107
+#: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr " दासरमा पाठ प्रवेश"
-
-#~ msgid "Training Dasher, please wait"
-#~ msgstr "ड्याशर शिक्षा, कृपया पर्ख"
-
-#~ msgid "translator_credits"
-#~ msgstr "अनुबादक बिशेषता"
-
-#~ msgid "Dasher is a predictive text entry application"
-#~ msgstr "ड्यासर एउटा प्रेडेक्टिभ पाठ प्रवेश गर्ने प्रार्थनापत्र हो"
-
-#~ msgid "%d characters output in %ld seconds\n"
-#~ msgstr "%dअक्षरहरुको निकास %ld सेकेन्डहरुमा\n"
-
-#~ msgid "Speed"
-#~ msgstr "गति"

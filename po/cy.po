@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-23 23:46+0100\n"
+"POT-Creation-Date: 2005-09-09 12:35+0200\n"
 "PO-Revision-Date: 2005-08-22 22:50-0000\n"
 "Last-Translator: Bryn Salisbury <bryn@randomlyevil.org.uk>\n"
 "Language-Team: Welsh <gnome-cy@pengwyn.linux.org.uk>\n"
@@ -817,24 +817,3 @@ msgstr "Rhybudd: ni ellir gosod paramedrau siarad\n"
 #: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr "Cofnod Testun Dasher"
-
-#~ msgid "Training Dasher, please wait"
-#~ msgstr "Yn hyfforddi Dasher. Arhoswch, os gwelwch yn dda"
-
-#~ msgid "translator_credits"
-#~ msgstr ""
-#~ "Telsa Gwynne <hobbit@aloss.ukuu.org.uk>\n"
-#~ "Dafydd Harries <daf@muse.19inch.net>\n"
-#~ "Bryn Salisbury <bryn@randomlyevil.org.uk>"
-
-#~ msgid "Dasher is a predictive text entry application"
-#~ msgstr "Mae Dasher yn rhaglen fewnbwn testun daroganol"
-
-#~ msgid "%d characters output in %ld seconds\n"
-#~ msgstr "Allbynnwyd %d nod o fewn %ld eiliad\n"
-
-#~ msgid "Speed"
-#~ msgstr "Cyflymder"
-
-#~ msgid "Language Model"
-#~ msgstr "Model Iaith"

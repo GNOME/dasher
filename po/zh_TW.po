@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.99\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-08-14 20:29+0800\n"
+"POT-Creation-Date: 2005-09-09 12:35+0200\n"
 "PO-Revision-Date: 2005-08-13 09:39+0800\n"
 "Last-Translator: Woodman Tuen <woodman@culturecom.com.hk>\n"
 "Language-Team: Chinese (traditional) <community@linuxhall.org>\n"
@@ -814,26 +814,3 @@ msgstr "警告：不能設定朗讀參數\n"
 #: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr "Dasher 文字輸入"
-
-#~ msgid "Training Dasher, please wait"
-#~ msgstr "正在調整 Dasher 中，請稍候"
-
-#~ msgid "translator_credits"
-#~ msgstr ""
-#~ "如對翻譯有任何意見，請送一封電子郵件給\n"
-#~ "以下地址，GNOME 翻譯團隊會盡快回覆您：\n"
-#~ "community@linuxhall.org\n"
-#~ "\n"
-#~ "Woodman Tuen <wmtuen@gmail.com>, 2005"
-
-#~ msgid "Dasher is a predictive text entry application"
-#~ msgstr "Dasher 是一個以預測方式來輸入文字的應用程式"
-
-#~ msgid "%d characters output in %ld seconds\n"
-#~ msgstr "在 %2$ld 秒中輸出了 %1$d 個字符\n"
-
-#~ msgid "Speed"
-#~ msgstr "速度"
-
-#~ msgid "Language Model"
-#~ msgstr "語言模式"

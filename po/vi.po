@@ -729,9 +729,3 @@ msgstr "Cảnh báo: không thể lập tham số nói tiếng\n"
 #: ../Src/main.cc:94
 msgid "Dasher Text Entry"
 msgstr "Nhập chữ Dasher"
-
-#~ msgid "Advanced2"
-#~ msgstr "Nâng cao2"
-
-#~ msgid "Language Model"
-#~ msgstr "Mẫu ngôn ngữ"
