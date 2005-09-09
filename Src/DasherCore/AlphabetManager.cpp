@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "AlphabetManager.h"
 #include "DasherModel.h"
 #include "DasherNode.h"
@@ -5,7 +8,6 @@
 #include "EventHandler.h"
 
 #include <vector>
-#include <iostream>
 
 using namespace Dasher;
 

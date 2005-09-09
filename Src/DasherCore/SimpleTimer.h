@@ -6,7 +6,6 @@
 #ifndef __SIMPLE_TIMER_H__
 #define __SIMPLE_TIMER_H__
 
-#include <sys/timeb.h>
 #include <time.h>
 
 class CSimpleTimer

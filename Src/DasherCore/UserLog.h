@@ -30,8 +30,6 @@
 #include <vector>
 #include "SimpleTimer.h"
 #include "TimeSpan.h"
-#include <iostream>
-#include <fstream>
 #include "UserLogTrial.h"
 #include "Alphabet/Alphabet.h"
 #include <algorithm>

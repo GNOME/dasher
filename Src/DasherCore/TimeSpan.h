@@ -13,7 +13,6 @@
 #include "FileLogger.h"
 #include <string>
 #include "SimpleTimer.h"
-#include <sys/timeb.h>
 #include <time.h>
 #include <vector>
 #include "XMLUtil.h"

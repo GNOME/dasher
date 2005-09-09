@@ -13,6 +13,7 @@
 #include <cmath>
 #include <stack>
 #include <iostream>
+#include <fstream>
 
 using namespace Dasher;
 using namespace std;

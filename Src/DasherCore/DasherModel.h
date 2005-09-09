@@ -21,7 +21,6 @@
 #include <deque>
 #include "DasherGameMode.h"
 
-#include <iostream>
 
 namespace Dasher {
   class CDasherModel;

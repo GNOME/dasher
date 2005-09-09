@@ -36,7 +36,6 @@ class CUserLog;
 class CDasherButtons;
 
 #include <map>
-#include <iostream>
 #include <algorithm>
 
 namespace Dasher {

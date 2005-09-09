@@ -1,4 +1,3 @@
-
 // FileLogger
 //
 // A very simple class that does logging to a file.
@@ -14,7 +13,6 @@
 #include <stdio.h>
 #include <string>
 #include <stdarg.h>
-#include <sys/timeb.h>
 #include <time.h>
 #include <map>
 #include "DasherTypes.h"

@@ -1,5 +1,6 @@
 
 #include "TimeSpan.h"
+#include <sys/timeb.h>
 
 #ifdef _WIN32
 // In order to track leaks to line number, we need this at the top of every file

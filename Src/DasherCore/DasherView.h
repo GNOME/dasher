@@ -16,7 +16,6 @@ namespace Dasher {
 #include "DasherTypes.h"
 #include "DasherComponent.h"
 
-#include <iostream>
 
 // CDasherView is an abstract view class
 // See the CDasherViewSquare class for an example

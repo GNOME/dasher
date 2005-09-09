@@ -8,7 +8,6 @@
 
 #include "../Common/Common.h"
 
-#include <iostream>
 
 #include "DasherView.h"
 #include "Event.h"
