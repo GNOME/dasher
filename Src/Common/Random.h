@@ -20,6 +20,8 @@ inline int RandomInt() {
 
 #else
 
+#include <stdlib.h>
+
 inline int RandomInt() {
   return rand();
 }
