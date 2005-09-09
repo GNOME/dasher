@@ -3,7 +3,6 @@
 // Copyright (c) 2001-2005 David Ward
 
 #include "../Common/Common.h"
-#include <iostream>
 #include "../Common/Random.h"
 #include "DasherModel.h"
 

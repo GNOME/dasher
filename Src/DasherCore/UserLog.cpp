@@ -1,5 +1,6 @@
 
 #include "UserLog.h"
+#include <fstream>
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
