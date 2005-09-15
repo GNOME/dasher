@@ -160,10 +160,9 @@ void CDasherView::SetInput(CDasherInput * _pInput) {
 
   DASHER_ASSERT_VALIDPTR_RW(_pInput);
 
-  // Delete the old class if we have one
-
-  if(m_pInput)
-    delete m_pInput;
+  // Don't delete the old input class; whoever is calling this method
+  // might want to keep several Input class instances around and
+  // change which one is currently driving dasher without deleting any
 
   m_pInput = _pInput;
 

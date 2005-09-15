@@ -4,6 +4,7 @@
 #include "PangoCache.h"
 #include "Canvas.h"
 #include "mouse_input.h"
+#include "socket_input.h"
 
 #include "GtkDasherControl.h"
 
@@ -263,10 +264,16 @@ private:
   GtkWidget *m_pSpeedFrame;
 
   ///
-  /// Abstracted input device object.
+  /// Abstracted input device object for mouse input.
   ///
 
   CDasherMouseInput *m_pMouseInput;
+
+  ///
+  /// Abstracted input device object for TCP/IP socket input.
+  ///
+
+  CDasherSocketInput *m_pSocketInput;
 
   ///
   /// Cache of Pango layouts

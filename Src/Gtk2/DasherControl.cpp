@@ -130,10 +130,24 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 //   m_pInterface->ChangeEdit(this);
 //   m_pInterface->SetSettingsUI(this);
 
-  // Create an input device object - FIXME - should make this more flexible
-
+  // Create an input device object
+  // We deliberately don't create the SocketInput object if we're not
+  // going to use it; don't want to start listening on socket unnecessarily
+  // But we do need to keep a MouseInput object around, since the mouse coords
+  // are written to that object whether or not we use it to drive Dasher
+  m_pSocketInput = NULL;
   m_pMouseInput = new CDasherMouseInput;
-  SetInput(m_pMouseInput);
+  if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
+    cout << "Creating object" << endl;
+    m_pSocketInput = new CDasherSocketInput(m_pEventHandler, m_pSettingsStore);
+    cout << "created object" << endl;
+    m_pSocketInput->StartListening();
+    cout << "started listening" << endl;
+    SetInput(m_pSocketInput);
+  }
+  else {
+    SetInput(m_pMouseInput);
+  }
 
   // Create a pango cache
 
@@ -252,6 +266,27 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
       else {
         gtk_widget_hide(GTK_WIDGET(m_pSpeedFrame));
       }
+    }
+  }
+  else if(iParameter == BP_SOCKET_INPUT_ENABLE) {
+    std::cerr << "Handling change of SOCKET_INPUT_ENABLE: new value is " << GetBoolParameter(BP_SOCKET_INPUT_ENABLE) << std::endl;
+    if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
+      if(m_pSocketInput == NULL) {
+	m_pSocketInput = new CDasherSocketInput(m_pEventHandler, m_pSettingsStore);
+      }
+      if(!m_pSocketInput->isListening()) {
+	m_pSocketInput->StartListening();
+      }
+      SetInput(m_pSocketInput);
+    }
+    else {
+      if(m_pMouseInput == NULL) { // shouldn't occur
+	m_pMouseInput = new CDasherMouseInput;
+      }
+      if(m_pSocketInput != NULL) {
+	m_pSocketInput->StopListening();
+      }
+      SetInput(m_pMouseInput);
     }
   }
 

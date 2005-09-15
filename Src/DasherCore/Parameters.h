@@ -17,7 +17,7 @@ enum {
   BP_LM_ADAPTIVE, BP_BUTTONONESTATIC, BP_BUTTONONEDYNAMIC,
   BP_BUTTONMENU, BP_BUTTONPULSING, BP_BUTTONSTEADY, 
   BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
-  BP_COMPASSMODE, END_OF_BPS
+  BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, END_OF_BPS
 };
 
 enum { 
@@ -29,13 +29,15 @@ enum {
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, 
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM, LP_SCREENWIDTH,
-  LP_SCREENHEIGHT, LP_BOOSTFACTOR, END_OF_LPS
+  LP_SCREENHEIGHT, LP_BOOSTFACTOR, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
+  LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, END_OF_LPS
 };
 
 enum {
   SP_ALPHABET_ID = END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
   SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
-  SP_TRAIN_FILE, END_OF_SPS
+  SP_TRAIN_FILE, SP_SOCKET_INPUT_X_LABEL, SP_SOCKET_INPUT_Y_LABEL,
+  END_OF_SPS
 };
 
 // Define first int value of the first element of each type.
@@ -113,7 +115,9 @@ static bp_table boolparamtable[] = {
   {BP_BUTTONDIRECT, "ButtonDirectMode", PERS, false, "Three-button direct mode"},
   {BP_BUTTONFOURDIRECT, "ButtonFourDirectMode", PERS, false, "Four-button direct mode"},
   {BP_BUTTONALTERNATINGDIRECT, "ButtonAlternatingDirectMode", PERS, true, "Alternating direct mode"},
-  {BP_COMPASSMODE, "ButtonCompassMode", PERS, false, "Compass mode"}
+  {BP_COMPASSMODE, "ButtonCompassMode", PERS, false, "Compass mode"},
+  {BP_SOCKET_INPUT_ENABLE, "SocketInputEnable", PERS, false, "Read pointer coordinates from network socket instead of mouse"},
+  {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"}
 };
 
 static lp_table longparamtable[] = {
@@ -149,7 +153,12 @@ static lp_table longparamtable[] = {
   {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5, "Zoomfactor (*1024) for compass mode"},
   {LP_SCREENWIDTH, "ScreenWidth", PERS, 1, "Width of screen, in pixels."},
   {LP_SCREENHEIGHT, "ScreenHeight", PERS, 1, "Heightof screen, in pixels."},
-  {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"}
+  {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
+  {LP_SOCKET_PORT, "SocketPort", PERS, 20320, "UDP/TCP socket to use for network socket input"},
+  {LP_SOCKET_INPUT_X_MIN, "SocketInputXMinTimes1000", PERS, 0, "Bottom of range of X values expected from network input"},
+  {LP_SOCKET_INPUT_X_MAX, "SocketInputXMaxTimes1000", PERS, 1000, "Top of range of X values expected from network input"},
+  {LP_SOCKET_INPUT_Y_MIN, "SocketInputYMinTimes1000", PERS, 0, "Bottom of range of Y values expected from network input"},
+  {LP_SOCKET_INPUT_Y_MAX, "SocketInputYMaxTimes1000", PERS, 1000, "Top of range of Y values expected from network input"}
 };
 
 static sp_table stringparamtable[] = {
@@ -159,7 +168,9 @@ static sp_table stringparamtable[] = {
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},
   {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "gamemode_english_GB.txt", "File with strings to practice writing"},
-  {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"}
+  {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
+  {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
+  {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"}
 };
 
 // This is the structure of each table that the settings will access

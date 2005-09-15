@@ -9,7 +9,10 @@
 
 namespace Dasher {
   class CDasherInput;
-} class Dasher::CDasherInput {
+}
+
+class Dasher::CDasherInput {
+
 public:
 
   virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {

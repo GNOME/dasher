@@ -16,6 +16,7 @@ void PopulateControlPage(GladeXML * pGladeWidgets);
 void PopulateViewPage(GladeXML * pGladeWidgets);
 void PopulateButtonsPage(GladeXML * pGladeWidgets);
 void PopulateButtonSetupPage(GladeXML * pGladeWidgets);
+void PopulateSocketPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 
 void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
@@ -76,6 +77,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   PopulateLMPage(pGladeWidgets);
   PopulateButtonsPage(pGladeWidgets);
   PopulateButtonSetupPage(pGladeWidgets);
+  PopulateSocketPage(pGladeWidgets);
   PopulateAdvancedPage(pGladeWidgets);
 }
 
@@ -216,6 +218,22 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
 //   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEYBOARD_MODE));
 //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), getBool(BP_PALETTE_CHANGE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), getBool(BP_OUTLINE_MODE));
+}
+
+
+void PopulateSocketPage(GladeXML *pGladeWidgets) {
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "cb_socketenable")), getBool(BP_SOCKET_INPUT_ENABLE));
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(pGladeWidgets, "socketport")), (double) getLong(LP_SOCKET_PORT));
+
+  gtk_entry_set_text(GTK_ENTRY(glade_xml_get_widget(pGladeWidgets, "entrysocketxlabel")), getString(SP_SOCKET_INPUT_X_LABEL));
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(pGladeWidgets, "socketxmin")), ((double) getLong(LP_SOCKET_INPUT_X_MIN)) / 1000);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(pGladeWidgets, "socketxmax")), ((double) getLong(LP_SOCKET_INPUT_X_MAX)) / 1000);
+
+  gtk_entry_set_text(GTK_ENTRY(glade_xml_get_widget(pGladeWidgets, "entrysocketylabel")), getString(SP_SOCKET_INPUT_Y_LABEL));
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(pGladeWidgets, "socketymin")), ((double) getLong(LP_SOCKET_INPUT_Y_MIN)) / 1000);
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(pGladeWidgets, "socketymax")), ((double) getLong(LP_SOCKET_INPUT_Y_MAX)) / 1000);
+
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "cb_socketdebug")), getBool(BP_SOCKET_DEBUG));
 }
 
 
@@ -905,6 +923,46 @@ extern "C" void Adaptive(GtkWidget *widget, gpointer user_data) {
 extern "C" void uniform_changed(GtkHScale *hscale) {
   gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
 }
+
+
+// 'Socket' Page
+
+extern "C" void socketenable_toggled(GtkToggleButton *widget) {
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SOCKET_INPUT_ENABLE, GTK_TOGGLE_BUTTON(widget)->active);
+}
+
+extern "C" void socketport_changed(GtkSpinButton *widget) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_SOCKET_PORT, gtk_spin_button_get_value_as_int(widget));
+}
+
+extern "C" void socketxlabel_changed(GtkEntry *widget) {
+  gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_SOCKET_INPUT_X_LABEL,gtk_entry_get_text(widget));
+}
+
+extern "C" void socketxmin_changed(GtkSpinButton *widget) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_SOCKET_INPUT_X_MIN, (long) (gtk_spin_button_get_value(widget)*1000.0));
+}
+
+extern "C" void socketxmax_changed(GtkSpinButton *widget) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_SOCKET_INPUT_X_MAX, (long) (gtk_spin_button_get_value(widget)*1000.0));
+}
+
+extern "C" void socketylabel_changed(GtkEntry *widget) {
+  gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_SOCKET_INPUT_Y_LABEL,gtk_entry_get_text(widget));
+}
+
+extern "C" void socketymin_changed(GtkSpinButton *widget) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_SOCKET_INPUT_Y_MIN, (long) (gtk_spin_button_get_value(widget)*1000.0));
+}
+extern "C" void socketymax_changed(GtkSpinButton *widget) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_SOCKET_INPUT_Y_MAX, (long) (gtk_spin_button_get_value(widget)*1000.0));
+}
+
+extern "C" void socketdebug_toggled(GtkToggleButton *widget) {
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SOCKET_DEBUG, GTK_TOGGLE_BUTTON(widget)->active);
+}
+
+
 
 // Advanced 2 page (reorganise!)
 
