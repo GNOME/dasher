@@ -14,9 +14,9 @@ static char THIS_FILE[] = __FILE__;
 #include "../Win32/Common/WinUTF8.h"
 #ifdef _WIN32
 #include <windows.h>
-#else
-#include <sys/timeb.h>
 #endif
+
+#include <sys/timeb.h>
 
 CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel iLogLevel, int iOptionsMask)
 {
