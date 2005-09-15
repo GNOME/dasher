@@ -1,3 +1,7 @@
+2005-09-15  Seb Wills <saw27@mrao.cam.ac.uk>
+	* Added network socket input support (Linux version). New files:
+        Gtk2/socket_input.h and Gtk2/socket_input.cc. New preferences pane.
+	
 2005-09-08  Behdad Esfahbod  <behdad@gnome.org>
 	* Src/DasherCore/DasherViewSquare.inl: Use fabs() instead of abs().
 
