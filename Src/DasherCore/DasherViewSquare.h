@@ -281,16 +281,63 @@ private:
   myint m_iDasherYCache;
 
   //Auto-speed control functions
+  
+  ///
+  /// AUTO-SPEED-CONTROL
+  /// This is the main speed control function and drives all of auto speed control.
+  /// \param non-linear Dasher x coord
+  /// \param non-linear Dasher y coord
+  ///
+  
   void SpeedControl(myint iDasherX, myint iDasherY);
+
+  ///
+  /// AUTO-SPEED-CONTROL
+  /// Calculates the running variance of the angle between the +ve x-axis and the line joining 
+  /// the cross hair to the mouse position.
+  ///
+  
   double Variance();
+
+  ///
+  /// AUTO-SPEED-CONTROL
+  /// Updates the exclusion radius for auto speed control.
+  ///
+  
   double UpdateMinRadius();
+
+  ///
+  /// AUTO-SPEED-CONTROL
+  /// Applies changes to the max bit rate depending on the running variance
+  /// of the angle between the +ve x-axis and the line joining 
+  /// the cross hair to the mouse position.
+  ///
+  
   double UpdateBitrate();
+
+  ///
+  /// AUTO-SPEED-CONTROL
+  /// Adapts the number of samples taken so that auto speed control
+  /// is invariant to clock rate and user ability (!!!).
+  ///
+  
   int UpdateSampleSize();
+
+  ///
+  /// AUTO-SPEED-CONTROL
+  /// Updates the *variances* of the two populations of mixture-of-2-Gaussians
+  /// distribution of radii. These are used to calculate the exclusion radius.
+  /// \param radius
+  ///
+  
   void UpdateSigmas(double r);
   
   //
 #ifdef _WIN32
-  //FIXME - couldn't find windows version of round so here's one:
+  ///
+  /// FIXME - couldn't find windows version of round(double) so here's one!
+  /// \param number to be rounded
+  ///
   double round(double d)
   {
     if(d - floor(d) < 0.5)
@@ -303,15 +350,20 @@ private:
   //	myint s_Y1,s_Y2,s_Y3;
   
   // Variables for speed control
-  double m_dBitrate;
-  double m_dSampleScale, m_dSampleOffset;
-  int m_nSpeedCounter, m_nSpeedSamples;
-  double m_dSpeedMax, m_dSpeedMin;
-  double m_dTier1, m_dTier2, m_dTier3, m_dTier4;
-  double m_dChange1, m_dChange2, m_dChange3, m_dChange4;
   
+  //
+  // AUTO-SPEED-CONTROL  
+  double m_dBitrate; //  stores max bit rate internally
+  double m_dSampleScale, m_dSampleOffset; // internal, control sample size
+  int m_nSpeedCounter;  // keep track of how many samples
+  int m_nSpeedSamples;  // upper limit on #samples
+  double m_dSpeedMax, m_dSpeedMin; // bit rate always within this range
+  double m_dTier1, m_dTier2, m_dTier3, m_dTier4; // variance tolerance tiers 
+  double m_dChange1, m_dChange2, m_dChange3, m_dChange4; // fractional changes to bit rate
+  double m_dMinRRate; // controls rate at which min. r adapts HIGHER===SLOWER!
+  double m_dSensitivity; // not used, control sensitivity of auto speed control
   typedef std::deque<double> DOUBLE_DEQUE;
-  DOUBLE_DEQUE m_dequeAngles;
+  DOUBLE_DEQUE m_dequeAngles; // store angles for statistics
   
   //variables for adaptive radius calculations...
   double m_dSigma1, m_dSigma2, m_dMinRadius;

@@ -29,7 +29,7 @@ enum {
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, 
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM, LP_SCREENWIDTH,
-  LP_SCREENHEIGHT, LP_BOOSTFACTOR, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
+  LP_SCREENHEIGHT, LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, END_OF_LPS
 };
 
@@ -154,6 +154,7 @@ static lp_table longparamtable[] = {
   {LP_SCREENWIDTH, "ScreenWidth", PERS, 1, "Width of screen, in pixels."},
   {LP_SCREENHEIGHT, "ScreenHeight", PERS, 1, "Heightof screen, in pixels."},
   {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
+  {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", PERS, 100, "Sensitivity of automatic speed control (percent)"},
   {LP_SOCKET_PORT, "SocketPort", PERS, 20320, "UDP/TCP socket to use for network socket input"},
   {LP_SOCKET_INPUT_X_MIN, "SocketInputXMinTimes1000", PERS, 0, "Bottom of range of X values expected from network input"},
   {LP_SOCKET_INPUT_X_MAX, "SocketInputXMaxTimes1000", PERS, 1000, "Top of range of X values expected from network input"},

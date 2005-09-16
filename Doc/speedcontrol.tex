@@ -1,0 +1,488 @@
+\documentclass[a4paper,11pt,notitlepage]{article}
+
+\usepackage[dvipdfm]{graphicx}
+
+\usepackage[left = 1.125in , right = 1in, top = 1in, bottom = 1in]{geometry}
+
+\usepackage{amsmath}
+
+\usepackage{amsfonts}
+
+\usepackage{fancyhdr}
+
+\setlength{\parindent}{0pt} \setlength{\parskip}{1ex plus 1ex}
+
+\author{\footnotesize{Christopher Ethan Hack (ceh58@cam.ac.uk), Churchill College}}
+
+\title{\textbf{Automatic Speed Control for Dasher}}
+
+\pagestyle{fancy} 
+
+\lhead{} 
+
+\chead{\textit{Automatic Speed Control for Dasher}}
+
+\rhead{} 
+
+\lfoot{} 
+
+\cfoot{\thepage} 
+
+\rfoot{} 
+
+\headheight = 15.6pt
+
+\renewcommand{\headrulewidth}{0pt}
+
+\renewcommand{\footrulewidth}{0pt}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+An automatic speed control for Dasher was implemented to enhance user
+experience. A user's stress level is measured by looking at the
+variation of the angle between the positive $x$-axis and the line
+joining the crosshair to the cursor position. The higher the variance,
+the higher the user stress; this indicates Dasher is running too
+fast. User trials backed up this idea, so speed control was
+implemented along these lines. So far, it has performed well in
+trials.
+\end{abstract}
+
+\section{Introduction}\label{sec:Intro}
+
+The maximum bit rate (speed) at which Dasher runs can always be set by the
+speed control slider, which appears optionally at the bottom of the main
+window. The maximum speed at which a user can use Dasher depends to a large
+extent on the user's skill. Very experienced users will be able to write
+successfully at higher bit rates. However, if a user is operating Dasher at a
+bit rate which is inappropriate for them, their experience will certainly be
+less enjoyable and they will probably end up writing more slowly. Furthermore,
+users may not bother experimenting with the speed slider to work out a
+comfortable bit rate for themselves. Worse still, users may even be
+\emph{unable} to play around with the speed slider. This could make using
+Dasher frustrating, so an automatic speed control is a desirable feature.
+
+In order to implement automatic speed contorl for Dasher, why not ask
+the question ``how can we tell how well a user is doing'' or perhaps
+``how can we tell how stressful a user is finding using Dasher''? If
+a user was doing badly or finding the experience stressful we could
+slow Dasher down. If a user seemed bored, we could speed up.
+
+In Dasher 1.6.8 this problem was tackled by looking at the mean $x$
+coordinate of the mouse. Being far to the right of the screen on
+average indicated boredom, to the left (near the crosshair), stress,
+with a safe comfort zone in the middle. In general this may be
+unsatisfactory; you can imagine user behaviour patterns where you
+might want to write at high speed with very small gestures causing
+the mouse to be kept very near the crosshair for example.
+
+Our hypothesis is that a better indicator is \emph{the variation of
+the angle between the positive $x$-axis and the line joining the
+crosshair to the cursor position}. If this variance is high, it would
+indicate a high level of user distress. Mathematically, our variance,
+$\sigma$, is:
+
+\begin{equation}\label{equ:var}
+\sigma=-\log{\left( \langle \cos \theta \rangle^2 + \langle \sin \theta \rangle^2 \right)}
+\end{equation}
+
+$\theta$ is the angle and $\langle\ldots\rangle$ indicates some kind
+of time averaging. This definition was chosen because it is
+robust. Any definition based on a simple statistical variance of the
+angle has the weakness that any measure of the angle must be
+discontinuous at some point round the circle.
+
+\section{Experiment}
+
+In order to test this hypothesis, we carried out a series of simple
+user trials. 4 intermediate ability Dasher (direct mode) users carried
+out short text composition tasks at a range of different
+speeds\footnote{See Keith Vertanen's paper, `An Empirical Evaluation
+of Keyboard-less Text Composition'.}. Their behaviour was
+logged. Users were also asked to give a qualitative description of
+their Dasher experience after each trial.
+
+We also had one test subject perform similar experiments using a
+breath-mouse and 1-dimensional mode Dasher, and using an eyetracker.
+
+\section{Results}
+
+The results (not included here) were definitive (though not really
+inherently interesting). A running variance (see
+Section \ref{sec:Intro}) was calculated. There was a clear link between
+user distress (indicated in qualitative feedback) when Dasher was
+running at too high a speed for them and the variance as we calculated
+it. This provided enough stimulus to continue to develop an automatic
+speed control based on this measure of user performance. This held
+true for direct mode and for other input modes.
+
+By looking more closely at such results, we could also see what sort
+of values the variance takes during periods of boredom and
+stress. This will be instructive when it comes to designing our
+auto-speed control.
+
+\section{Design Requirements for an Automatic Speed Control}
+
+\emph{This isn't as easy as it sounds.}
+
+\subsection{Timescales}\label{item:time} 
+
+Our automatic speed control can be thought of in terms of two
+timescales. One is the timescale over which the variance is updated,
+$\tau_v$, the other is the timescale over which changes are made to
+the bit rate, $\tau_c$. If $\tau_v \gg \tau_c$, this is bad
+news\footnote{DJCM}! This means the speed is changing more quickly
+than our measure of user stress adapts and the change will
+``overshoot''. Making sure that our system avoids this is very
+important. We should aim for $\tau_c \gg \tau_g$. However, if the
+speed changes \emph{too slowly}, the system will be of limited use.
+
+\subsection{Misleading Scenarios}\label{item:back} 
+
+We should exclude backwards data (i.e. when the user is deleting
+characters). This is because when a user is backing up, their
+behaviour probably isn't giving us useful information on their
+performance while writing (which hopefully is the majority of the
+time!). Furthermore, movement of the mouse backwards and forwards
+creates annoying spikes in any measure of the variance. Though this
+may well be a sign that Dasher is running to fast for the user, it may
+also be that they have changed their mind about what to write. We
+don't want to give too much emphasis to this. Furthermore, a user in
+trouble may spend a lot of time `scrolling' vertically. Typically,
+this will result in a low variance and could be mistaken for
+\emph{good} performance! To avoid this, we should also exclude data in
+the forward-vertical-scrolling region.
+
+\subsection{Sampling}\label{item:samp} 
+
+The design also involves sampling. Dasher does not guarantee that any
+function will be called consistently at fixed intervals. In order to
+make the design invariant to the clock rate of the machine it runs on,
+we want to make sure the \emph{time period over which we measure the
+variance is constant for varying clock rates}. This means sampling
+more frequently when Dasher is running on a fast machine.
+
+\subsection{Invariance to User Skill}\label{item:bitr} 
+
+We also want to make the design invariant to a user's ability level,
+which is tied in to the bit rate they use Dasher at. A more skilled
+user working at a higher bit rate will inherently have a greater
+variance (over a fixed time period) compared to a poor user working at
+low bit rates. Essentially, this means the length of time over which
+we sample should be inversely proportional to the current bit rate.
+
+\subsection{Minimum Radius}\label{item:minr} 
+
+Data where the mouse position is very near the central crosshair
+should be excluded. There are two reasons for this. First, a user may
+rest near the crosshair as they consider what to write next so this
+data is not useful for speed control. Second, small changes in mouse
+position near the crosshair will result in big changes of angle. This
+would be bad for the model we have in mind. Some sort of minimum
+exclusion radius must be included. It should also be adaptive; if a
+user tends to spend all their time a long way from the crosshair, it
+should be bigger.
+
+\subsection{The Graphical User Interface}\label{item:gui} 
+
+Automatic speed control must also be seamlessly integrated into the
+Dasher user interface, as an option that can be turned on and off. A
+check box and speed slider control should be added to the Preferences
+dialogue box.
+
+\subsection{Bonus Features}
+
+We will also implement boost and brake buttons for Dasher, such that
+it speeds up or slows down when the respective button is being held
+down.
+
+\section{Implementation}
+
+Automatic speed control is implemented as part of the
+\texttt{CDasherViewSquare} class. The code can be found in the files
+`DasherViewSquare.h' (declarations) and `DasherViewSquare.inl'
+(implementations) in the `dasher/Src/DasherCore'
+directory. Initialisation of relevant class members is carried out in
+the class constructor in `DasherViewSquare.cpp'. In order to slightly
+modularise speed control, the functionality has been split up into
+several functions. Nearly all the free numerical parameters of the
+model are specified as class member variables and initialised in the
+constructor. There are a lot of them!
+
+Ideally, we want a single automatic speed control to work for all
+modes of Dasher. Hence we use internal Dasher coordinates for
+calculating an internal `Dasher angle' rather than screen
+coordinates. This is because in eyetracker and one-dimensional modes
+the mouse position in screen coordinates isn't always meaningful.
+
+\textbf{\texttt{void CDasherViewSquare::SpeedControl(myint iDasherX,
+myint iDasherY)}}. This is the main auto-speed control function and
+drives auto-speed control.
+
+The first thing we do here is coordinate transformations. We're fed
+non-linear Dasher space coordinates, but we need to re-linearise them
+so the geometry is sane and make the crosshair the origin of
+coordinates rather than top right corner. We also use normalised
+coordinates such that the width of the screen corresponds to 2.0. This
+is because the minimum radius calculations (see Section \ref{sec:exr})
+only works for small radii.
+
+
+The angle \texttt{theta} is calculated and stored in an
+\texttt{std::deque<double>} structure for later variance
+calculations. Auto-speed control then works as follows.
+
+\subsection{Changing the Bit Rate Based on the Angular Variance}\label{sec:chng}
+
+The basic idea behind our design goes like this:
+
+\begin{enumerate}
+\item\label{item:first} Calculate our `Dasher angle', $\theta$ and
+store it at the back of a deque structure. This is a single
+sample. Count the number of samples we take.
+\item While there are more samples in the \texttt{deque} than the current
+sample size (see Section \ref{sec:Size}) remove items from the front
+of the deque.
+\item After we have collected enough samples i.e. enough time has
+elapsed, calculate the variance using Equation \ref{equ:var}. This is
+the job of \texttt{CDasherViewSquare::Variance()}. Reset the sample
+count. Time averaging is accomplished by looking back at the last $n$
+samples, where $n$ is the sample size as mentioned above and
+calculated as per Section \ref{sec:Size}. At this point the exclusion
+radius and sample size (see Sections \ref{sec:Size} and \ref{sec:exr})
+are updated to take account of changing conditions. Because the sample
+size can (and does) change, we need to use a more flexible
+\texttt{deque} structure rather than anything simpler/more
+lightweight.
+\item Using a 5-tier system, update the bit rate. This 5-tier system
+gives great flexibility but also simplicity. Schematically:
+\begin{itemize}
+\item If the variance is very low, increase the bit rate a lot.
+\item If the variance is quite low, increase the bit rate a little.
+\item If we're in the middle do nothing.
+\item If the variance is quite high, decrease the bit rate a little.
+\item If the variance is very high, decrease the bit rate a lot.
+\end{itemize}
+Changes are made to the bit rate on a percentage basis, so the faster
+you're going already, the more the bit rate changes by. This helps
+fulfill design requirement \ref{item:bitr}.
+\item Never let the bit rate fall below 0.1 or above
+  8.0. \texttt{CDasherViewSquare::UpdateBitrate()} takes care of these
+  last 2 steps.
+\item Repeat from step \ref{item:first}.
+\end{enumerate}
+
+Let's think about design requirement \ref{item:time} briefly. The bit
+rate can only be changed after a certain time has elapsed. This is the
+same time period over which the variance is measured. This would seem
+to make $\tau_c = \tau_g$ (see design requirement
+\ref{item:time}). However, things are complicated by the 5-tier system
+for changing the bit rate (see above). This system means that the bit
+rate doesn't always change every time \texttt{UpdateBitrate()} is
+called. Hence, on average, the bit rate is actually changing on a
+longer timescale than we measure the variance on. The tier system also
+means the bit rate can still adapt rapidly enough to make auto-speed
+control useful. We have fulfilled our design requirement.
+
+\subsection{Excluding Misleading Data}
+
+As design requirement \ref{item:back}, certain aspects of user
+behaviour could be na\"ively mistaken for the user having a good, easy
+time when this is not the case. To prevent this confusion, only the
+forward sector covering roughly $\pm72^{\circ}$ from the positive
+$x$-axis is included. When the cursor is outside of this area,
+auto-speed control is effectively paused. This makes sure we don't
+have the problems noted in design requirement \ref{item:back}.
+
+\subsection{Sample Size}\label{sec:Size}
+
+We sample once per Dasher frame. In order to address Design
+Requirements \ref{item:samp} and \ref{item:bitr}, we keep track of the
+\emph{number} of samples taken and vary this number so that if the
+frame rate is the only thing that varies we sample over a constant
+time. The number of samples we take per variance measure, $N$, is
+given by:
+
+\begin{equation}
+N = F(m/B + c)
+\end{equation}
+
+$F$ is the frame rate, $B$ is the bit rate and $m$ and $c$ are
+constants. So as $F$ varies the \emph{time} over which we sample
+should be roughly constant. Furthermore, we address Design Requirement
+\ref{item:bitr}; we sample over a shorter time when Dasher is running
+at a higher bit rate. All of this is given in code in the function
+\texttt{CDasherViewSquare::UpdateSampleSize()}. The constants are
+specified in member variables of the class (see the code for details).
+
+Note that because of the inverse relation to the bit rate, any $B < 1$
+are set to $B = 1$ for the purposes of this calculation, so $N$
+doesn't get too big. This is a bit of a fudge, but if $N$ is too big,
+speed control is very unresponsive.
+
+\subsection{The Minimum Radius}\label{sec:exr}
+
+This fulfills Design Requirement \ref{item:minr}. The minimum radius
+is set up to be adaptive (i.e. it will increase/decrease if a user
+is always far from/near the crosshair). How do we do this? It's like a
+clustering problem. To a first (very loose) approximation we think of
+the distribution of radii as a mixture-of-2-centred-Gaussians, with
+two standard deviations. The two means represent two different
+populations, radii when the user is dawdling and radii when the user
+is progressing. Every time we sample a radius we have to decide which
+population it belongs to and update things according. Schematically it
+works like this:
+
+\begin{enumerate}
+\item Initialise the two standard deviations and find an initial guess
+for the minimum radius.
+\item\label{item:mrs} Every radius we sample we assign to either the
+`dawdling near crosshair' population or the `writing at the right of
+the screen' population, depending on whether it is more or less than
+our min. radius.
+\item Update the standard deviation of that population
+accordingly. These two steps are performed in \texttt{void
+CDasherViewSquare::UpdateSigmas(double r)}.
+\item Every now and then, recalculate the min. radius using the
+updated standard deviations. This step is carried out in
+\texttt{CDasherViewSquare::UpdateMinRadius()}.
+\item Repeat from step \ref{item:mrs}.
+\end{enumerate}
+
+According to DJCM's mixture-of-2-centred-Gaussians model for the
+distribution of radii, the critical radius is given by:
+
+\begin{equation}\label{Equn:r}
+r_{crit}^2 = \frac{\ln\left(\frac{\sigma_2^2}{\sigma_1^2}\right)}{\left(\frac{1}{\sigma_1^2} - \frac{1}{\sigma_2^2}\right)}
+\end{equation}
+
+$\sigma_1$ is the standard deviation of the `writing' population and
+$\sigma_2$ is the standard deviation of the `dawdling' population. It
+has been empirically noted that this formula \emph{does not work} for
+$\sigma \gg 1$ (or more to the point for $r \gg 1$) so normalised
+coordinates are used to keep $r$ in range.
+
+These values are updated by the moving-average `sludgy
+update rule':
+
+\begin{equation}
+S_{(k+1)} := \alpha S_{(k)} + (1 - \alpha)r^2
+\end{equation}
+
+$\alpha$ ($\alpha < 1$ always!) measures how manys guys we're
+averaging over; the bigger $\alpha$ the more guys we use.
+
+We simultaneously keeps track of 2 values of $S$, one for each
+population and perform this update after assigning a value of $r$ to a
+population. For each population, asymptotically, $S_{(k)} \simeq
+\langle r^2 \rangle$ so we make the association $\sigma_i^2 =
+S_{(k)}$. These updated values of $\sigma$ are then periodically used
+to update $r_{crit}$ according to equation \ref{Equn:r}. We've
+designed the system so that the minimum radius adapts much more slowly
+than the bit rate.
+
+\subsection{Brake and Boost Mode}
+
+One non-auto-speed control bonus feature we've implemented are `boost' and
+`brake' keys for Dasher. If you hold down control, Dasher slows by
+75\% of the underlying bit rate; if you hold down shift Dasher speeds
+up by 75\% of the underlying bit rate. This is implemented differently
+under Linux and Windows because of the different ways they handle
+keyboard input. See `/dasher/Src/Gtk2/DasherControl.cpp' and
+`/dasher/Src/Win32/Widgets/Canvas.cpp' for details. The crucial common
+factor is that the boost/brake is handled by changing the value of the
+Dasher-parameter \texttt{LP\_BOOSTFACTOR}.
+
+\subsection{Other Notes}
+
+After some testing, it was found that the auto-speed control model did
+not interact well with Dasher control mode. It would seem that that
+users behave differently when using contorl mode. This confuses the
+auto-speed control, and so auto-speed control should be automatically
+disabled when the user enters a control node and enabled when they
+leave.
+
+The problem with this is that bugs in the implementation of the way
+Dasher parses the tree of Dasher nodes mean sometimes auto-speed
+control is not turned back on when you leave a control node! This is a
+bug in \texttt{CDasherModel}, not in speed control. That section of the
+code is due to be rewritten, as of September, 2005.
+
+\section{Testing Automatic Speed Control}
+
+Carrying out full statistically rigorous tests of automatic speed
+control as well as evaluating its psychological and qualitative impact
+on Dasher users would be time consuming and require a large volunteer
+base of test subjects. This really wasn't feasible.
+
+So instead smaller scale evaluations were carried out, without extensive
+statistical calculations. Experienced Dasher users found that auto-speed
+control would settle down at an appropriate bit rate for them and stay there.
+Less experienced users found auto-speed control picked out a lower speed than
+they might have expected but that it made them feel better about using Dasher.
+A test using the breath mouse and one-dimensional mode also proved successful.
+
+Only somewhat rudimentary tests were carried out using the eyetracker and
+breath mouse. Novice users of both devices reported that speed control was
+satisfactory. Eyetracker input is very similar to direct input and it is
+envisaged that auto-speed control will function in a similar way in both modes.
+If anything, auto speed control will be more useful for eyetracker users
+because their attention is necessarily completely focussed on what they are
+writing and it's hard to look away from the canvas.
+
+\section{Discussion}
+
+In general, automatic speed control has so far proved successful. It
+speeds up and slows down appropriately when a user is bored or
+stressed respectively. It settles down to a fairly consistent speed
+which suits the user well. Still, certain things could be further
+considered:
+
+\begin{enumerate}
+\item The whole thing could do with more extensive testing. All the
+parameters have been tuned by the trials already carried out, but
+there is still probably room for improvement.
+
+\item The interaction with control mode isn't very elegant and is made
+worse by the bugs in \texttt{CDasherModel}. When \texttt{CDasherModel}
+is fixed up, this could be looked at.
+
+\item As noted in section \ref{sec:chng}, the minimum time period over
+which the variance can be changed is tied directly to the period over
+which the variance is measured. This is partly because these periods
+are both subject to being invariant to machine clock rate and user
+ability (see sections \ref{item:samp}, \ref{item:bitr} and
+\ref{sec:Size}). They are bound to be calculated in a similar way and
+empirically having them equal was found to work. However, this need not be the
+case. By decreasing the value of the member variable
+\texttt{m\_dSensitivity} (currently set to 1.0) this relationship can
+be altered. This could be investigated further.
+
+\item One-dimensional mode is also something of a challenge. In tests,
+the model performed quite well and satisfied our single trial
+subject. However, is it optimal for 1D mode? Could improvements be
+made?
+
+\item An alternative model suggested for auto-speed control was to
+model the user's behaviour as a solution to the damped, simple
+harmonic oscillator differential equation. Exactly what the ideal
+solution would be and how to implement this easily and efficiently was
+not immediately clear. That's why we used the simpler angular variance
+model. This alternative could be worth further consideration.
+
+\item A question from an object-oriented programming perspective: Does
+auto-speed control belong in \texttt{CDasherViewSquare}? Could it be
+put into its own class as an abstract auto-speed control object? Or
+would that be silly?
+
+\end{enumerate}
+
+In the end, automatic speed control based on angular variance proved
+successful. It has been committed to CVS and should be released in
+Dasher v4.0. Testing by the general public will ultimately decide its
+worth!
+
+\end{document}

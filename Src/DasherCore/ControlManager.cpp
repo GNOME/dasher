@@ -1,6 +1,6 @@
 #include "ControlManager.h"
 using namespace Dasher;
-
+using namespace std;
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
 #ifdef _DEBUG
@@ -303,17 +303,27 @@ void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pA
 void CControlManager::Undo( CDasherNode *pNode ) {
   // Do we ever need this?
   // One other thing we probably want is notification when we leave a node - that way we can eg speed up again if we slowed down
+  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100);
+  //Re-enable auto speed control!
+  m_pModel->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  
 }
 
 void CControlManager::Enter(CDasherNode *pNode) {
   // Slow down to half the speed we were at
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 200);//m_pModel->GetLongParameter(LP_SPEED_DIVISOR) * 2);
+  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 200);
+  //Disable auto speed control!
+  m_pModel->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
 }
+
 
 void CControlManager::Leave(CDasherNode *pNode) {
   // Now speed back up, by doubling the speed we were at in control mode
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100); //m_pModel->GetLongParameter(LP_SPEED_DIVISOR) / 2);
+  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100);
+  //Re-enable auto speed control!
+  m_pModel->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
 }
+
 
 void CControlManager::XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr) {
   
@@ -344,3 +354,4 @@ void CControlManager::XmlEndHandler(void *pUserData, const XML_Char *szName) {
 void CControlManager::XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength){
   return;
 }
+

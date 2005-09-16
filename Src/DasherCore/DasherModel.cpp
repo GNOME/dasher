@@ -3,10 +3,9 @@
 // Copyright (c) 2001-2005 David Ward
 
 #include "../Common/Common.h"
+#include <iostream>
 #include "../Common/Random.h"
 #include "DasherModel.h"
-
-#include <iostream>
 
 using namespace Dasher;
 using namespace std;
@@ -595,7 +594,7 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
   DASHER_ASSERT(iRxnew > 0);
   if (iRxnew < ZOOMDENOM && m_Rootmax<m_DasherY && m_Rootmin>0 ) {
     // refuse to zoom backwards if the entire root node is visible.
-	  std::cout << "Refusing to zoom backwards." << endl;
+    cout << "Refusing to zoom backwards." << endl;
     *iSteps = 0 ;
     *n1 = m_Rootmin;
     *n2 = m_Rootmax;
@@ -732,15 +731,17 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   if(newnode->isSeen() == true) {
     if(oldnode->Parent() == newnode) {
       oldnode->m_pNodeManager->Undo(oldnode);
+      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
       if (pNumDeleted != NULL)
-				(*pNumDeleted)++;
+        (*pNumDeleted)++;
       oldnode->Seen(false);
       return true;
     }
     if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
       oldnode->m_pNodeManager->Undo(oldnode);
+      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
       if (pNumDeleted != NULL)
-				(*pNumDeleted)++;
+	(*pNumDeleted)++;
       oldnode->Seen(false);
       return true;
     }
@@ -761,8 +762,9 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
       }
 
       oldnode->m_pNodeManager->Undo(oldnode);
+      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
       if (pNumDeleted != NULL)
-				(*pNumDeleted)++;
+	(*pNumDeleted)++;
       oldnode = oldnode->Parent();
       if(oldnode == NULL) {
         return false;

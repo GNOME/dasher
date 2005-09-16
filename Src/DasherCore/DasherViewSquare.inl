@@ -9,14 +9,15 @@
 #include "DasherModel.h"
 
 namespace Dasher {
+  ////////////////////////////////////////////////
+  ///
+  ///  Change max bitrate based on variance of angle 
+  ///  in dasher space.
+  ///
+  /////////////////////////////////////////////////
+
 inline double CDasherViewSquare::UpdateBitrate()
 {
-  ////////////////////////////////////////////////
-  //
-  //  Change max bitrate based on variance of angle 
-  //  in dasher space.
-  //
-
   double var = Variance();
   if(var < m_dTier1)
   {
@@ -49,32 +50,39 @@ inline double CDasherViewSquare::UpdateBitrate()
 
   return m_dBitrate;
 }
-        
+  ///////////////////////////////////////////////
+  ///
+  ///  Finds variance for automatic speed control
+  ///
+  //////////////////////////////////////////////
+       
 inline double CDasherViewSquare::Variance()
 {      
-  ///////////////////////////////////////////////
-  //
-  //  Finds variance for automatic speed control
-  //
-
-  double dSum1, dSum2, avgcos, avgsin;
-  dSum1 = dSum2 = 0.0;
+  double avgcos, avgsin;
+  avgsin = avgcos = 0.0;
   DOUBLE_DEQUE::iterator i;
+  // find average of cos(theta) and sin(theta) 
   for(i = m_dequeAngles.begin(); i != m_dequeAngles.end(); i++) {
-    dSum1 += cos(*i);
-    dSum2 += sin(*i);
+    avgcos += cos(*i);
+    avgsin += sin(*i);
   }
-  avgcos = dSum1 / (1.0 * m_dequeAngles.size());
-  avgsin = dSum2 / (1.0 * m_dequeAngles.size());
+  avgcos /= (1.0 * m_dequeAngles.size());
+  avgsin /= (1.0 * m_dequeAngles.size());
+  //return variance (see dasher/Doc/speedcontrol.tex)
   return -log(avgcos * avgcos + avgsin * avgsin);
 
 }
+//////////////////////////////////////////////////////////////////////
+///
+///  The number of samples depends on the clock rate of the
+///  machine (framerate) and the user's speed (bitrate). See 
+///  speedcontrol.tex in dasher/Doc/ dir.
+///
+/////////////////////////////////////////////////////////////////////
+
 
 inline int CDasherViewSquare::UpdateSampleSize()
 {
-//  METHOD 2: The number of samples depends on the clock rate of the
-//  machine (framerate) and the user's speed (bitrate).
-
   double dFramerate = DasherModel()->Framerate();
   double dSpeedSamples = 0.0;
   double dBitrate = m_dBitrate; 
@@ -82,41 +90,50 @@ inline int CDasherViewSquare::UpdateSampleSize()
     dBitrate = 1.0; // we don't care exactly how slow we're going
                     // *really* low speeds are ~ equivalent?
   dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
-  
+ 
   m_nSpeedSamples = int(round(dSpeedSamples));
   return m_nSpeedSamples;
 }
+  /////////////////////////////////////////////////////////////
+  ///
+  ///  double UpdateMinRadius() - find adaptive min radius for
+  ///  auto-speed control. Calculated by DJCM's
+  ///  mixture-of-2-centred-gaussians model.
+  ///
+  ///////////////////////////////////////////////////////////
 
 inline double CDasherViewSquare::UpdateMinRadius() 
 {
-  /////////////////////////////////////////////////////////////
-  //
-  //  double UpdateMinRadius() - return adaptive min radius for
-  //  auto-speed control. Calculated by DJCM's
-  //  mixture-of-2-centred-gaussians model.
-
   m_dMinRadius = sqrt( log( (m_dSigma2 * m_dSigma2) / (m_dSigma1 * m_dSigma1) ) / 
                 ( 1 / (m_dSigma1 * m_dSigma1) - 1 / (m_dSigma2 * m_dSigma2)) );
   return m_dMinRadius;
 }
 
+//////////////////////////////////////////////////////////////
+///
+///  NB: updates VARIANCES of two populations of 
+///  mixture-of-2-centred-Gaussians model!
+///
+//////////////////////////////////////////////////////////////
+
 inline void CDasherViewSquare::UpdateSigmas(double r)
 {
-  double dSamples = 60.0 * DasherModel()->Framerate() / m_dBitrate;//double(m_nSpeedSamples);
+  double dSamples = m_dMinRRate* DasherModel()->Framerate() / m_dBitrate;
   if(r > m_dMinRadius)
     m_dSigma1 = m_dSigma1 - (m_dSigma1 - r * r) / dSamples;
   else 
     m_dSigma2 = m_dSigma2 - (m_dSigma2 - r * r) / dSamples;
 }
 
-inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
-{
-  /////////////////////////////////////////////////////////////////
-  //
-  //  AUTOMATIC SPEED CONTROL, CEH 7/05: Analyse variance of angle
-  //  mouse position makes with +ve x-axis in Dasher-space
-  //
+/////////////////////////////////////////////////////////////////
+///
+///  AUTOMATIC SPEED CONTROL, CEH 7/05: Analyse variance of angle
+///  mouse position makes with +ve x-axis in Dasher-space
+///
+////////////////////////////////////////////////////////////////
 
+
+inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY) {
   if(GetBoolParameter(BP_AUTO_SPEEDCONTROL) && !GetBoolParameter(BP_DASHER_PAUSED)) {
     
 //  Coordinate transforms:    
@@ -126,9 +143,8 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
     myint iDasherOX = myint(xmap(DasherModel()->DasherOX() / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
     myint iDasherOY = m_ymap.map(DasherModel()->DasherOY());
 
-    double x = -(iDasherX - iDasherOX) / double(iDasherOX); //  FIXME - for the purposes of adaptive min radius
-    double y = -(iDasherY - iDasherOY) / double(iDasherOY); //  this normalisation works well????
-    
+    double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works 
+    double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
     double theta = atan2(y, x);
     double r = sqrt(x * x + y * y);
     m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
@@ -137,7 +153,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
 
 //  Data collection:
     
-    if(r > m_dMinRadius && fabs(theta) < 1.25) { //FIXME - should we ignore backwards AND vertical data?
+    if(r > m_dMinRadius && abs(theta) < 1.25) {
       m_nSpeedCounter++;
       m_dequeAngles.push_back(theta);
       while(m_dequeAngles.size() > m_nSpeedSamples) {
@@ -145,9 +161,8 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY)
       }
       
     }
-
-    if(m_nSpeedCounter > m_nSpeedSamples) 
-    {
+    m_dSensitivity = GetLongParameter(LP_AUTOSPEED_SENSITIVITY) / 100.0;
+    if(m_nSpeedCounter > round(m_nSpeedSamples / m_dSensitivity)) {
       //do speed control every so often!
       
       UpdateSampleSize();

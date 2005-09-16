@@ -15,6 +15,7 @@
 #include <algorithm>
 #include <limits>
 
+#include <iostream>
 
 using namespace Dasher;
 
@@ -216,10 +217,11 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   m_dXmpd = 0.5;                // slow X movement when accelerating Y
 
 
-  //scale no. samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
+  //scale #samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
   m_dSampleScale = 1.5;
   m_dSampleOffset = 1.3;
-  
+  m_dMinRRate = 80.0;
+  m_dSensitivity = GetLongParameter(LP_AUTOSPEED_SENSITIVITY) / 100.0; //param only, no GUI!
   //tolerance for automatic speed control
   m_dTier1 = 0.0005;  //  should be arranged so that tier4 > tier3 > tier2 > tier1 !!!
   m_dTier2 = 0.01;
