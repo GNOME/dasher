@@ -4,7 +4,7 @@
 #include "PangoCache.h"
 #include "Canvas.h"
 #include "mouse_input.h"
-#include "socket_input.h"
+#include "../DasherCore/SocketInput.h"
 
 #include "GtkDasherControl.h"
 
@@ -273,7 +273,7 @@ private:
   /// Abstracted input device object for TCP/IP socket input.
   ///
 
-  CDasherSocketInput *m_pSocketInput;
+  CSocketInput *m_pSocketInput;
 
   ///
   /// Cache of Pango layouts

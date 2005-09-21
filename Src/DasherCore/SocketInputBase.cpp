@@ -41,6 +41,9 @@ Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSetti
   SetRawRange(1, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MIN)) / 1000.0, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MAX)) / 1000.0);
   SetCoordinateLabel(0, GetStringParameter(SP_SOCKET_INPUT_X_LABEL).c_str());
   SetCoordinateLabel(1, GetStringParameter(SP_SOCKET_INPUT_Y_LABEL).c_str());
+  if(debug_socket_input) {
+    cerr << "Socket input is initialised but not yet enabled" << endl;
+  }
 
 }
 
@@ -88,6 +91,10 @@ bool Dasher::CSocketInputBase::StartListening() {
   // rather than attempt to bind to the same port twice.
   if(readerRunning) {
     StopListening();
+  }
+
+  if(debug_socket_input) {
+    cerr << "Socket input: binding to socket and starting to listen." << endl;
   }
 
   if((sock = socket(PF_INET, SOCK_DGRAM, 0)) == -1) {

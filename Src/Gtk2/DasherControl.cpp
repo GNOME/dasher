@@ -130,19 +130,14 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 //   m_pInterface->ChangeEdit(this);
 //   m_pInterface->SetSettingsUI(this);
 
-  // Create an input device object
-  // We deliberately don't create the SocketInput object if we're not
-  // going to use it; don't want to start listening on socket unnecessarily
-  // But we do need to keep a MouseInput object around, since the mouse coords
-  // are written to that object whether or not we use it to drive Dasher
-  m_pSocketInput = NULL;
+  // Create input device objects
+  // (We create the SocketInput object now even if socket input is not enabled, because
+  // we are not allowed to create it in response to a parameter update event later, because
+  // that would mean registering a new event listener during the processing of an event.
+  m_pSocketInput = new CSocketInput(m_pEventHandler, m_pSettingsStore);
   m_pMouseInput = new CDasherMouseInput;
   if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-    cout << "Creating object" << endl;
-    m_pSocketInput = new CDasherSocketInput(m_pEventHandler, m_pSettingsStore);
-    cout << "created object" << endl;
     m_pSocketInput->StartListening();
-    cout << "started listening" << endl;
     SetInput(m_pSocketInput);
   }
   else {
@@ -163,12 +158,17 @@ CDasherControl::~CDasherControl() {
 
   WriteTrainFileFull();
 
-  // Delete the input device
+  // Delete the input devices
 
   if(m_pMouseInput != NULL) {
     delete m_pMouseInput;
     m_pMouseInput = NULL;
   }
+  if(m_pSocketInput != NULL) {
+    delete m_pSocketInput;
+    m_pSocketInput = NULL;
+  }
+
 }
 
 void CDasherControl::SetFocus() {
@@ -269,10 +269,9 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
     }
   }
   else if(iParameter == BP_SOCKET_INPUT_ENABLE) {
-    std::cerr << "Handling change of SOCKET_INPUT_ENABLE: new value is " << GetBoolParameter(BP_SOCKET_INPUT_ENABLE) << std::endl;
     if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-      if(m_pSocketInput == NULL) {
-	m_pSocketInput = new CDasherSocketInput(m_pEventHandler, m_pSettingsStore);
+      if(m_pSocketInput == NULL) { // shouldn't happen
+	m_pSocketInput = new CSocketInput(m_pEventHandler, m_pSettingsStore);
       }
       if(!m_pSocketInput->isListening()) {
 	m_pSocketInput->StartListening();

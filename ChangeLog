@@ -3,6 +3,10 @@
 	files: DasherCore/SocketInputBase.{cpp,h}, 
 	DasherCore/Win32/SocketInput.{cpp,h}. Windows build
 	now requires ws2_32.lib (winsock2). New preferences page.
+	
+	* Refactored Linux support for network socket input so it shares
+	a base class with the Windows implementation. Removed
+        Gtk2/socket_input.{cc,h}, added DasherCore/SocketInput.{cpp,h}.
 
 2005-09-15  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Added network socket input support (Linux version). New files:
