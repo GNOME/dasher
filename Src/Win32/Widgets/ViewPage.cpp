@@ -139,14 +139,14 @@ LRESULT CViewPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
     pNMHDR = (NMHDR*)lParam;
     switch (pNMHDR->code) {
     case PSN_KILLACTIVE: // About to lose focus
-      SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, Validate());
+      SetWindowLong( Window, DWL_MSGRESULT, !Validate());
       return TRUE;
       break;
     case PSN_APPLY: // User clicked OK/Apply - apply the changes
       if(Apply())
-        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_NOERROR);
+        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_NOERROR);
       else
-        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_INVALID);
+        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_INVALID);
       return TRUE;
       break;
     }
