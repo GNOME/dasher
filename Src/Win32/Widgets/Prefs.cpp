@@ -31,8 +31,9 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
   m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher, pAppSettings);
   m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
+  m_pSocketPage = new CSocketPage(hParent, pDasher, pAppSettings);
 
-    PROPSHEETPAGE psp[5];
+    PROPSHEETPAGE psp[6];
     PROPSHEETHEADER psh;
 
     psp[0].dwSize = sizeof(PROPSHEETPAGE);
@@ -88,12 +89,22 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psp[4].dwSize = sizeof(PROPSHEETPAGE);
     psp[4].dwFlags = PSP_USEICONID | PSP_USETITLE;
     psp[4].hInstance = WinHelper::hInstApp;
-    psp[4].pszTemplate = MAKEINTRESOURCE(IDD_DIALOG4);
+    psp[4].pszTemplate = MAKEINTRESOURCE(IDD_LM);
     psp[4].pszIcon = NULL;
     psp[4].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[4].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_LM);
     psp[4].lParam = (LPARAM) m_pLMPage;
     psp[4].pfnCallback = NULL;
+
+    psp[5].dwSize = sizeof(PROPSHEETPAGE);
+    psp[5].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[5].hInstance = WinHelper::hInstApp;
+    psp[5].pszTemplate = MAKEINTRESOURCE(IDD_SOCKET);
+    psp[5].pszIcon = NULL;
+    psp[5].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+    psp[5].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_SOCKET);
+    psp[5].lParam = (LPARAM) m_pSocketPage;
+    psp[5].pfnCallback = NULL;
     
     psh.dwSize = sizeof(PROPSHEETHEADER);
     psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
@@ -140,6 +151,10 @@ CPrefs::~CPrefs()
   if (m_pLMPage != NULL) {
     delete m_pLMPage;
     m_pLMPage  = NULL;
+  }
+  if (m_pSocketPage != NULL) {
+    delete m_pSocketPage;
+    m_pSocketPage  = NULL;
   }
 }
 

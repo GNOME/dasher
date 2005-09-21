@@ -20,6 +20,7 @@
 #include "ViewPage.h"
 #include "AdvancedPage.h"
 #include "LMPage.h"
+#include "SocketPage.h"
 #include "../AppSettings.h"
 
 
@@ -41,6 +42,7 @@ private:
   CViewPage *m_pViewPage;
   CAdvancedPage *m_pAdvancedPage;
   CLMPage *m_pLMPage;
+  CSocketPage *m_pSocketPage;
 };
 
 #endif  /* #ifndef __PrefsBox_h__ */

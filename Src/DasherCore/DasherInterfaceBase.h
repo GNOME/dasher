@@ -67,6 +67,16 @@ public:
   virtual CSettingsStore *CreateSettingsStore() = 0;
 
   ///
+  /// Return a pointer to the current EventHandler (the one
+  /// which the CSettingsStore is using to notify parameter
+  /// changes)
+  ///
+
+  virtual CEventHandler *GetEventHandler() {
+    return m_pEventHandler;
+  };
+
+  ///
   /// Set a boolean parameter.
   /// \param iParameter The parameter to set.
   /// \param bValue The new value.

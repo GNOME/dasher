@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding = "Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.0"
+	Version="7.00"
 	Name="DasherCore"
 	ProjectGUID="{6D28E9AB-8FCF-499A-AD31-2343BBC6878C}"
 	SccProjectName=""
@@ -58,12 +58,6 @@
 				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Unicode Debug|Win32"
@@ -109,15 +103,8 @@
 				Culture="1033"/>
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
-			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
-	
 	<Files>
 		<Filter
 			Name="LanguageModelling"
@@ -260,6 +247,12 @@
 				RelativePath="Win32\DasherInterface.h">
 			</File>
 			<File
+				RelativePath="Win32\SocketInput.cpp">
+			</File>
+			<File
+				RelativePath="Win32\SocketInput.h">
+			</File>
+			<File
 				RelativePath="Win32\WinCommon.h">
 			</File>
 			<File
@@ -294,6 +287,12 @@
 			</File>
 		</Filter>
 		<File
+			RelativePath="Alphabet\AlphIO.cpp">
+		</File>
+		<File
+			RelativePath="Alphabet\AlphIO.h">
+		</File>
+		<File
 			RelativePath="Alphabet\Alphabet.cpp">
 		</File>
 		<File
@@ -316,12 +315,6 @@
 		</File>
 		<File
 			RelativePath="Alphabet\AlphabetMap.h">
-		</File>
-		<File
-			RelativePath="Alphabet\AlphIO.cpp">
-		</File>
-		<File
-			RelativePath="Alphabet\AlphIO.h">
 		</File>
 		<File
 			RelativePath="ColourIO.cpp">
@@ -442,6 +435,12 @@
 		</File>
 		<File
 			RelativePath=".\SettingsStore.h">
+		</File>
+		<File
+			RelativePath="SocketInputBase.cpp">
+		</File>
+		<File
+			RelativePath="SocketInputBase.h">
 		</File>
 	</Files>
 	<Globals>

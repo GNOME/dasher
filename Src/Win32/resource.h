@@ -61,12 +61,17 @@
 #define IDD_CUSTOMLETTER                151
 #define IDS_PREFS_LM                    151
 #define IDD_ADDLETTERS                  152
+#define IDS_PREFS_SOCKET                152
 #define IDD_NEWALPHABET                 153
+#define IDS_SOCKET_ERROR_TITLE          153
 #define IDD_NEWGROUP                    154
+#define IDS_ERR_SOCKET_PORT             154
 #define IDD_EDITLETTER                  155
+#define IDS_ERR_SOCKET_MINMAX           155
 #define IDD_KEYCONTROL                  156
 #define ID_Menu                         156
 #define IDD_KEYCONTROL2                 156
+#define IDS_ERR_SOCKET_TITLE            156
 #define IDD_ADDKEYS                     157
 #define ID_OPTIONS_EDITFONT             157
 #define IDD_WINSELECT                   158
@@ -85,6 +90,8 @@
 #define ID_OPTIONS_COLOURS              171
 #define IDD_DIALOG3                     173
 #define IDD_DIALOG4                     174
+#define IDD_SOCKET                      174
+#define IDD_LM                          175
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -123,7 +130,9 @@
 #define IDC_EDIT2                       1040
 #define IDC_UNIFORMVAL                  1040
 #define IDC_IDLETIME                    1040
+#define IDC_SOCKET_X_LABEL              1040
 #define IDC_TEXT                        1041
+#define IDC_SOCKET_Y_LABEL              1041
 #define IDOK_NEWALPH                    1042
 #define IDC_NEW_ALPH_STRING             1043
 #define IDOK_CUSTOMIZE                  1044
@@ -188,6 +197,7 @@
 #define IDC_CONTROLCHAR                 1103
 #define IDC_EDIT1                       1104
 #define IDC_COLOUR                      1104
+#define IDC_SOCKET_PORT                 1104
 #define IDC_RADIO1                      1107
 #define IDC_RADIO2                      1108
 #define IDC_RADIO3                      1109
@@ -204,6 +214,11 @@
 #define IDC_SPEEDSLIDER                 1120
 #define IDC_SPEEDVAL                    1121
 #define IDC_STATICIDLETIME              1122
+#define IDC_SOCKET_X_MIN                1123
+#define IDC_SOCKET_X_MAX                1124
+#define IDC_SOCKET_ENABLE               1125
+#define IDC_SOCKET_Y_MIN                1126
+#define IDC_SOCKET_Y_MAX                1127
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -257,7 +272,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1123
+#define _APS_NEXT_CONTROL_VALUE         1126
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

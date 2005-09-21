@@ -510,7 +510,35 @@ BEGIN
                     BS_AUTOCHECKBOX | WS_TABSTOP,25,145,88,10
 END
 
-IDD_DIALOG4 DIALOGEX 0, 0, 218, 238
+IDD_SOCKET DIALOGEX 0, 0, 218, 238
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Network socket input:",IDC_STATIC,7,7,204,217
+    CONTROL         "Control Dasher from network socket instead of mouse",
+                    IDC_SOCKET_ENABLE,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    16,23,188,10
+    EDITTEXT        IDC_SOCKET_PORT,47,39,37,14,ES_AUTOHSCROLL
+    LTEXT           "Port",IDC_STATIC,21,41,14,8
+    GROUPBOX        "X Coordinate",IDC_STATIC,19,57,178,72
+    EDITTEXT        IDC_SOCKET_X_LABEL,69,69,91,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SOCKET_X_MIN,69,87,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SOCKET_X_MAX,69,106,40,14,ES_AUTOHSCROLL
+    LTEXT           "Label",IDC_STATIC,28,72,18,8
+    LTEXT           "Min value",IDC_STATIC,28,90,31,8
+    LTEXT           "Max value",IDC_STATIC,28,108,34,8
+    GROUPBOX        "Y (or 1D) Coordinate",IDC_STATIC,19,133,178,72
+    EDITTEXT        IDC_SOCKET_Y_LABEL,69,144,91,15,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SOCKET_Y_MIN,69,163,40,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SOCKET_Y_MAX,69,182,40,14,ES_AUTOHSCROLL
+    LTEXT           "Label",IDC_STATIC,27,147,18,8
+    LTEXT           "Min value",IDC_STATIC,27,166,31,8
+    LTEXT           "Max value",IDC_STATIC,27,184,34,8
+END
+
+IDD_LM DIALOGEX 0, 0, 218, 238
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
 CAPTION "Dialog"
@@ -677,7 +705,15 @@ BEGIN
         BOTTOMMARGIN, 231
     END
 
-    IDD_DIALOG4, DIALOG
+    IDD_SOCKET, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 231
+    END
+
+    IDD_LM, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 211
@@ -793,6 +829,11 @@ BEGIN
     IDS_UNSAVED_CHANGES     "Unsaved changes"
     IDS_PREFS_ADVANCED      "Advanced"
     IDS_PREFS_LM            "Prediction"
+    IDS_PREFS_SOCKET        "Socket"
+    IDS_SOCKET_ERROR_TITLE  "Error"
+    IDS_ERR_SOCKET_PORT     "Please enter a port number between 1 and 65535"
+    IDS_ERR_SOCKET_MINMAX   "Unable to parse one of the minimum/maximum values. Please enter numbers only in these fields."
+    IDS_ERR_SOCKET_TITLE    "Dasher Socket Input error"
 END
 
 #endif    // English (U.K.) resources

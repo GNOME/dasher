@@ -1,7 +1,7 @@
-<?xml version="1.0" encoding="Windows-1252"?>
+<?xml version="1.0" encoding = "Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="7.0"
+	Version="7.00"
 	Name="Dasher"
 	SccProjectName=""
 	SccLocalPath="">
@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib ws2_32.lib"
 				OutputFile=".\Target/Win32 Unicode Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -68,13 +68,7 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
 				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 		<Configuration
 			Name="Unicode Release|Win32"
@@ -139,16 +133,9 @@
 			<Tool
 				Name="VCWebServiceProxyGeneratorTool"/>
 			<Tool
-				Name="VCXMLDataGeneratorTool"/>
-			<Tool
 				Name="VCWebDeploymentTool"/>
-			<Tool
-				Name="VCManagedWrapperGeneratorTool"/>
-			<Tool
-				Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
 		</Configuration>
 	</Configurations>
-	
 	<Files>
 		<Filter
 			Name="Resource Files"
@@ -189,10 +176,10 @@
 			Name="Widgets"
 			Filter=".cpp">
 			<File
-				RelativePath=".\Widgets\Aboutbox.cpp">
+				RelativePath=".\Widgets\AboutBox.h">
 			</File>
 			<File
-				RelativePath=".\Widgets\AboutBox.h">
+				RelativePath=".\Widgets\Aboutbox.cpp">
 			</File>
 			<File
 				RelativePath=".\Widgets\AdvancedPage.cpp">
@@ -274,6 +261,12 @@
 			</File>
 			<File
 				RelativePath=".\Widgets\Slidebar.h">
+			</File>
+			<File
+				RelativePath="Widgets\SocketPage.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\SocketPage.h">
 			</File>
 			<File
 				RelativePath=".\Widgets\SplashScreen.cpp">
@@ -377,10 +370,10 @@
 			RelativePath="EditWrapper.h">
 		</File>
 		<File
-			RelativePath=".\resource.h">
+			RelativePath=".\WinMain.cpp">
 		</File>
 		<File
-			RelativePath=".\WinMain.cpp">
+			RelativePath=".\resource.h">
 		</File>
 	</Files>
 	<Globals>

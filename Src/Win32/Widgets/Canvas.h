@@ -11,14 +11,16 @@
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/DasherTypes.h"
+#include "../../DasherCore/DasherComponent.h"
 
 #include "../DasherMouseInput.h"
+#include "../../DasherCore/Win32/SocketInput.h"
 
 #include "Screen.h"
 
 class CEdit;
 
-class CCanvas:public CWinWrap {
+class CCanvas:public CWinWrap, public CDasherComponent {
 public:
   CCanvas(HWND Parent, CDasherInterface * DI);
   ~CCanvas();
@@ -80,6 +82,8 @@ public:
 
   bool GetCanvasSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
 
+  void HandleEvent(Dasher::CEvent *pEvent);
+
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
@@ -91,9 +95,10 @@ private:
   CScreen *m_pScreen;
   CDasherInterface * m_pDasherInterface;
 
-  // Mouse Input Abstraction
+  // Input devices:
 
-  Dasher::CDasherMouseInput * m_pInput;
+  Dasher::CDasherMouseInput * m_pMouseInput;
+  Dasher::CSocketInput * m_pSocketInput;
 
   Dasher::screenint imousex, imousey;
   UINT MY_TIMER;

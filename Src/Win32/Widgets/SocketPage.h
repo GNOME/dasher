@@ -1,0 +1,46 @@
+// SocketPage.h
+//
+/////////////////////////////////////////////////////////////////////////////
+//
+// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+//
+/////////////////////////////////////////////////////////////////////////////
+
+#ifndef __SocketPage_h__
+#define __SocketPage_h__
+
+#include "../resource.h"
+#include "../AppSettings.h"
+
+#include "../../DasherCore/Win32/DasherInterface.h"
+
+class CSocketPage:public CWinWrap {
+public:
+  CSocketPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
+protected:
+  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+private:
+  CDasherInterface * m_pDasherInterface;
+  CAppSettings *m_pAppSettings;
+  
+  //HWND slider;
+  //HWND uniformbox;
+
+  TCHAR m_tcBuffer[1000];
+
+
+  // Some status flags:
+  void PopulateList();
+  void InitCustomBox();
+  bool UpdateInfo();
+   bool Apply();
+  bool Validate();
+
+  // validation subroutines:
+  bool validateTextBoxes(bool apply, bool noerror);
+  bool checkMinOrMax(bool apply, bool noerror, int paramID, int idc);
+  bool checkLabel(bool apply, bool noerror, int paramID, int idc);
+  bool checkPort(bool apply, bool noerror);
+};
+
+#endif  /* #ifndef __SocketPage_h__ */

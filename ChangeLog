@@ -1,3 +1,9 @@
+2005-09-21  Seb Wills <saw27@mrao.cam.ac.uk>
+	* Added Windows support for network socket input. New source 
+	files: DasherCore/SocketInputBase.{cpp,h}, 
+	DasherCore/Win32/SocketInput.{cpp,h}. Windows build
+	now requires ws2_32.lib (winsock2). New preferences page.
+
 2005-09-15  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Added network socket input support (Linux version). New files:
         Gtk2/socket_input.h and Gtk2/socket_input.cc. New preferences pane.
