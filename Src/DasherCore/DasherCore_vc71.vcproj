@@ -444,6 +444,18 @@
 		<File
 			RelativePath=".\SettingsStore.h">
 		</File>
+		<File
+			RelativePath=".\Win32\SocketInput.cpp">
+		</File>
+		<File
+			RelativePath=".\Win32\SocketInput.h">
+		</File>
+		<File
+			RelativePath=".\SocketInputBase.cpp">
+		</File>
+		<File
+			RelativePath=".\SocketInputBase.h">
+		</File>
 	</Files>
 	<Globals>
 	</Globals>

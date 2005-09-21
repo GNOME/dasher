@@ -40,7 +40,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalOptions="/MACHINE:I386"
-				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib"
+				AdditionalDependencies="odbc32.lib odbccp32.lib comctl32.lib WS2_32.lib"
 				OutputFile=".\Target/Win32 Unicode Debug/Dasher.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="TRUE"
@@ -275,6 +275,12 @@
 			</File>
 			<File
 				RelativePath=".\Widgets\Slidebar.h">
+			</File>
+			<File
+				RelativePath=".\Widgets\SocketPage.cpp">
+			</File>
+			<File
+				RelativePath=".\Widgets\SocketPage.h">
 			</File>
 			<File
 				RelativePath=".\Widgets\SplashScreen.cpp">
