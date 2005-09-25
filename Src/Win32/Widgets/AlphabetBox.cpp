@@ -27,6 +27,7 @@ static char THIS_FILE[] = __FILE__;
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
 :m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
+  m_hPropertySheet = 0;
 }
 
 void CAlphabetBox::PopulateList() {
@@ -355,16 +356,19 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     break;
   case WM_NOTIFY:{
     pNMHDR = (NMHDR*)lParam;
+    if(m_hPropertySheet==0) {
+      m_hPropertySheet = pNMHDR->hwndFrom;
+    }
     switch (pNMHDR->code) {
     case PSN_KILLACTIVE: // About to lose focus
-      SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, Validate());
+      SetWindowLong( Window, DWL_MSGRESULT, !Validate());
       return TRUE;
       break;
     case PSN_APPLY: // User clicked OK/Apply - apply the changes
       if(Apply())
-        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_NOERROR);
+        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_NOERROR);
       else
-        SetWindowLong( pNMHDR->hwndFrom, DWL_MSGRESULT, PSNRET_INVALID);
+        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_INVALID);
       return TRUE;
       break;
     case UDN_DELTAPOS:
@@ -419,6 +423,14 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
     }
   }
   case WM_COMMAND:
+    
+    if(HIWORD(wParam)==BN_CLICKED || HIWORD(wParam)==LBN_SELCHANGE) {
+      if(LOWORD(wParam) != 0 && m_hPropertySheet != 0 && m_hwnd != 0) {
+          PropSheet_Changed(m_hPropertySheet, m_hwnd); // enables the 'Apply' button
+          // Behaviour isn't *perfect* since it activates the Apply button even if you, say,
+          // click 'new' alphabet then click Cancel when asked for a name.
+      }
+    }
     switch (LOWORD(wParam)) {
     case (IDC_DISPLAY):
       if(HIWORD(wParam) == EN_CHANGE) {

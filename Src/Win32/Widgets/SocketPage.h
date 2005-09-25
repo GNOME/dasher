@@ -9,31 +9,24 @@
 #ifndef __SocketPage_h__
 #define __SocketPage_h__
 
+#include "PrefsPageBase.h"
+
 #include "../resource.h"
 #include "../AppSettings.h"
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 
-class CSocketPage:public CWinWrap {
+class CSocketPage:public CPrefsPageBase {
 public:
   CSocketPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
-protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
-  CAppSettings *m_pAppSettings;
-  
-  //HWND slider;
-  //HWND uniformbox;
 
   TCHAR m_tcBuffer[1000];
 
-
-  // Some status flags:
   void PopulateList();
   void InitCustomBox();
   bool UpdateInfo();
-   bool Apply();
+  bool Apply();
   bool Validate();
 
   // validation subroutines:

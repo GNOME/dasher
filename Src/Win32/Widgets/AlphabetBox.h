@@ -20,6 +20,7 @@ protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
   CDasherInterface * m_pDasherInterface;
+  HWND m_hPropertySheet;
 
   HWND CustomBox;
 
@@ -48,6 +49,7 @@ private:
   bool UpdateInfo();
   bool Apply();
   bool Validate();
+
 };
 
 #endif /* #ifndef __AlphabetBox_h__ */

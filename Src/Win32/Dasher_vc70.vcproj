@@ -248,6 +248,12 @@
 				RelativePath="Widgets\Prefs.h">
 			</File>
 			<File
+				RelativePath="Widgets\PrefsPageBase.cpp">
+			</File>
+			<File
+				RelativePath="Widgets\PrefsPageBase.h">
+			</File>
+			<File
 				RelativePath=".\Widgets\Screen.cpp">
 			</File>
 			<File

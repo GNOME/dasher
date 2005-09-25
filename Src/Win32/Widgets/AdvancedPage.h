@@ -1,4 +1,4 @@
-// AlphabetBox.h
+// AdvancedPage.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -9,20 +9,19 @@
 #ifndef __AdvancedPage_h__
 #define __AdvancedPage_h__
 
+#include "PrefsPageBase.h"
+
 #include "../resource.h"
 #include "../AppSettings.h"
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
 
-class CAdvancedPage:public CWinWrap {
+class CAdvancedPage:public CPrefsPageBase {
 public:
   CAdvancedPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
 protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
-  CAppSettings *m_pAppSettings;
   HWND CustomBox;
 
   std::string GetControlText(HWND Dialog, int ControlID);

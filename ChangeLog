@@ -1,3 +1,9 @@
+2005-09-26  Seb Wills <saw27@mrao.cam.ac.uk>
+	* Implemented correct behaviour of 'Apply' button in Windows
+	preferences dialog. Re-factored the classes for each page of
+	preferences to use a common parent class. New files:
+	Src/Win32/Widgets/PrefsPageBase.{cpp,h}
+
 2005-09-21  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Added Windows support for network socket input. New source 
 	files: DasherCore/SocketInputBase.{cpp,h}, 

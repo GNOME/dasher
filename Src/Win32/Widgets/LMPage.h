@@ -1,4 +1,4 @@
-// AlphabetBox.h
+// LMPage.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -9,20 +9,20 @@
 #ifndef __LMPage_h__
 #define __LMPage_h__
 
+#include "PrefsPageBase.h"
+
 #include "../resource.h"
 #include "../AppSettings.h"
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
 
-class CLMPage:public CWinWrap {
+class CLMPage:public CPrefsPageBase {
 public:
   CLMPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
-  CAppSettings *m_pAppSettings;
   
   HWND slider;
   HWND uniformbox;

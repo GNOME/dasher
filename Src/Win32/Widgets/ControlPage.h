@@ -9,6 +9,8 @@
 #ifndef __ControlPage_h__
 #define __ControlPage_h__
 
+#include "PrefsPageBase.h"
+
 #include "../resource.h"
 
 #include "../../DasherCore/Win32/DasherInterface.h"
@@ -16,16 +18,14 @@
 
 class CAppSettings;
 
-class CControlPage:public CWinWrap {
+class CControlPage:public CPrefsPageBase {
 public:
   CControlPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
   HWND CustomBox;
-  CAppSettings *m_pAppSettings;
-
+  
   std::vector < std::string > ColourList;
   std::string m_CurrentColours;
   Dasher::CColourIO::ColourInfo CurrentInfo;

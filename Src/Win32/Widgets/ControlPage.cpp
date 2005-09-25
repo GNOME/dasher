@@ -20,8 +20,7 @@ using namespace std;
 
 
 CControlPage::CControlPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
-:m_pDasherInterface(DI), m_pAppSettings(pAppSettings) {
-  m_hwnd = 0;
+:CPrefsPageBase(Parent, DI, pAppSettings) {
 }
 
 struct menuentry {
@@ -116,17 +115,9 @@ bool CControlPage::Apply()
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
 
-	NMHDR *pNMHDR;
 	double NewSpeed;
 	switch (message) 
-	{
-	case WM_INITDIALOG:
-		if(!m_hwnd) {               // If this is the initial dialog for the first time
-			m_hwnd = Window;
-			PopulateList();
-		}
-		return TRUE;
-		break;
+	{	
 	case WM_COMMAND:
 		switch (LOWORD(wParam)) 
 		{
@@ -137,6 +128,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			BOOL bChecked =  SendMessage(GetDlgItem(m_hwnd, IDC_STOPIDLE), BM_GETCHECK, 0, 0) !=0;
 			EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bChecked);
 			EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bChecked);
+                        // don't return: also want to pass event on to superclass to trigger Apply activation
 			break;
 		}
 		break;
@@ -158,22 +150,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		return TRUE;
 		break;
 
-	case WM_NOTIFY:
-		pNMHDR = (NMHDR*)lParam;
-		switch (pNMHDR->code) {
-	case PSN_KILLACTIVE: // About to lose focus
-		SetWindowLong( Window, DWL_MSGRESULT, !Validate());
-		return TRUE;
-		break;
-	case PSN_APPLY: // User clicked OK/Apply - apply the changes
-		if(Apply())
-			SetWindowLong( Window, DWL_MSGRESULT, PSNRET_NOERROR);
-		else
-			SetWindowLong( Window, DWL_MSGRESULT, PSNRET_INVALID);
-		return TRUE;
-		break;
-		}
-		break;
-	}
-	return FALSE;
+        }
+        // pass on to superclass:
+        return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
 }

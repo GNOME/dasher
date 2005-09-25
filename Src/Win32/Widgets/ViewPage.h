@@ -1,4 +1,4 @@
-// AlphabetBox.h
+// ViewPage.h
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -9,20 +9,19 @@
 #ifndef __ViewPage_h__
 #define __ViewPage_h__
 
+#include "PrefsPageBase.h"
+
 #include "../resource.h"
 #include "../AppSettings.h"
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
 
-class CViewPage:public CWinWrap {
+class CViewPage:public CPrefsPageBase {
 public:
   CViewPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings);
 protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface *m_pDasherInterface;
-  CAppSettings *m_pAppSettings;
   HWND CustomBox;
 
   std::vector < std::string > ColourList;
@@ -37,4 +36,4 @@ private:
  bool Validate();
 };
 
-#endif  /* #ifndef __AlphabetBox_h__ */
+#endif  /* #ifndef */

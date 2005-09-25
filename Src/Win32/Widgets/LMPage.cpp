@@ -1,4 +1,4 @@
-// AlphabetBox.cpp
+// LMPage.cpp
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -27,10 +27,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CLMPage::CLMPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
-:m_pDasherInterface(DI), m_pAppSettings(pAppSettings) {
-  m_hwnd = 0;
-
-  
+:CPrefsPageBase(Parent, DI, pAppSettings) {
+ 
 }
 
 void CLMPage::PopulateList() {
@@ -98,23 +96,11 @@ bool CLMPage::Apply() {
 
 LRESULT CLMPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
   
-  NMHDR *pNMHDR;
   double NewUniform;
 
+  // most things we pass on to CPrefsPageBase, but we need to handle slider motion
+
   switch (message) {
-  case WM_INITDIALOG:
-    if(!m_hwnd) {               // If this is the initial dialog for the first time
-      m_hwnd = Window;
-      PopulateList();
-    }
-    return TRUE;
-    break;
-  case WM_COMMAND:
-    switch (LOWORD(wParam)) {
-    case (IDC_DISPLAY):
-      break;
-    }
-    break;
   case WM_HSCROLL:
     if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
       // Some messages give the new postion
@@ -131,22 +117,8 @@ LRESULT CLMPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam
     }
     return TRUE;
     break;
-  case WM_NOTIFY:
-    pNMHDR = (NMHDR*)lParam;
-    switch (pNMHDR->code) {
-    case PSN_KILLACTIVE: // About to lose focus
-      SetWindowLong( Window, DWL_MSGRESULT, !Validate());
-      return TRUE;
-      break;
-    case PSN_APPLY: // User clicked OK/Apply - apply the changes
-      if(Apply())
-        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_NOERROR);
-      else
-        SetWindowLong( Window, DWL_MSGRESULT, PSNRET_INVALID);
-      return TRUE;
-      break;
-    }
-    break;
+  default:
+    return CPrefsPageBase::WndProc(Window, message, wParam, lParam);
   }
-  return FALSE;
+  //return FALSE;
 }
