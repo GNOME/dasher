@@ -446,6 +446,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
     "Hanna Wallach",
     "David Ward",
     "Brian Williams",
+    "Seb Wills",
     NULL
   };
 
