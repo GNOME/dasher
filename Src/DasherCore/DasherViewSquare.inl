@@ -153,7 +153,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY) {
 
 //  Data collection:
     
-    if(r > m_dMinRadius && abs(theta) < 1.25) {
+    if(r > m_dMinRadius && fabs(theta) < 1.25) {
       m_nSpeedCounter++;
       m_dequeAngles.push_back(theta);
       while(m_dequeAngles.size() > m_nSpeedSamples) {
