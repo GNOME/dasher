@@ -1,3 +1,8 @@
+2005-09-29  Christian Rose  <menthos@menthos.com>
+
+	* sv.po: Reverted unauthorized changes made by
+	user 'kloczek'.
+
 2005-08-23  Rhys Jones  <rhys@sucs.org>
 
 	* cy.po: Merged typo fixes from gnome-2-12 branch.
