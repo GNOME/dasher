@@ -174,6 +174,15 @@ void CSocketInputBase::SetCoordinateLabel( int iWhichCoordinate, const char *Lab
   }
 }
 
+void CSocketInputBase::SetRawRange(int iWhich, double dMin, double dMax) {
+  rawMinValues[iWhich] = dMin;
+  rawMaxValues[iWhich] = dMax;
+  if(debug_socket_input) {
+    std::cerr << "Socket input: set coordinate " << iWhich << " input range to: min: " << dMin << ", max: " << dMax << "." << std::endl;
+  }
+}
+
+
 // private methods:
 
 void CSocketInputBase::ReadForever() {
@@ -258,8 +267,11 @@ void CSocketInputBase::ParseMessage(char *message) {
           }
           else {
             // straightforward linear mapping to dasher coordinates:
-            if(rawMaxValues[i] != rawMinValues[i]) { // prevent nasty explosion
-              dasherCoordinates[i] = (myint) ((rawdouble - rawMinValues[i]) / (rawMaxValues[i] - rawMinValues[i]) * (double)dasherMaxCoordinateValues[i]);
+	    // Treat X coordinate specially: reverse sense so it has the more intuitive left-to-right direction
+	    double min = (i==0) ? rawMaxValues[i] : rawMinValues[i];
+	    double max = (i==0) ? rawMinValues[i] : rawMaxValues[i];
+            if(max != min) { // prevent nasty explosion
+              dasherCoordinates[i] = (myint) ((rawdouble - min) / (max - min) * (double)dasherMaxCoordinateValues[i]);
             }
           }
 

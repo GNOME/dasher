@@ -88,13 +88,7 @@ public:
   // never overwritten), so won't segfault.
   virtual void SetCoordinateLabel(int iWhichCoordinate, const char *Label);
 
-  virtual void SetRawRange(int iWhich, double dMin, double dMax) {
-    rawMinValues[iWhich] = dMin;
-    rawMaxValues[iWhich] = dMax;
-    if(debug_socket_input) {
-      std::cerr << "Socket input: set coordinate " << iWhich << " input range to: min: " << dMin << ", max: " << dMax << "." << std::endl;
-    }
-  }
+  virtual void SetRawRange(int iWhich, double dMin, double dMax);
 
 protected:
 
