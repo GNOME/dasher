@@ -13,9 +13,9 @@ CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):C
   //    gconf_init( argc, argv, &gconferror );
   the_gconf_client = gconf_client_get_default();
 
-  gconf_client_add_dir(the_gconf_client, "/apps/dasher", GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
+  gconf_client_add_dir(the_gconf_client, "/apps/dasher4", GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
-  gconf_client_notify_add(the_gconf_client, "/apps/dasher", ListenerCallback, this, NULL, NULL);
+  gconf_client_notify_add(the_gconf_client, "/apps/dasher4", ListenerCallback, this, NULL, NULL);
 
   LoadPersistent();
 
@@ -30,7 +30,7 @@ CGnomeSettingsStore::~CGnomeSettingsStore() {
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
   char keypath[1024];
 
-  snprintf(keypath, 1024, "/apps/dasher/%s", Key.c_str());
+  snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
 
   GError *the_error = NULL;
 
@@ -49,7 +49,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, long *Value) {
   char keypath[1024];
 
-  snprintf(keypath, 1024, "/apps/dasher/%s", Key.c_str());
+  snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
 
   GError *the_error = NULL;
 
@@ -68,7 +68,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, long *Value) {
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value) {
   char keypath[1024];
 
-  snprintf(keypath, 1024, "/apps/dasher/%s", Key.c_str());
+  snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
 
   GError *the_error = NULL;
 
@@ -87,7 +87,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, bool Value) {
   char keypath[1024];
 
-  snprintf(keypath, 1024, "/apps/dasher/%s", Key.c_str());
+  snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
 
   GError *the_error = NULL;
 
@@ -97,7 +97,7 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, bool Value) {
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, long Value) {
   char keypath[1024];
 
-  snprintf(keypath, 1024, "/apps/dasher/%s", Key.c_str());
+  snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
 
   GError *the_error = NULL;
 
@@ -107,7 +107,7 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, long Value) {
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, const std::string &Value) {
   char keypath[1024];
 
-  snprintf(keypath, 1024, "/apps/dasher/%s", Key.c_str());
+  snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
 
   GError *the_error = NULL;
 
