@@ -11,7 +11,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-#include "../Win32/Common/WinUTF8.h"
+//#include "../Win32/Common/WinUTF8.h" // FIXME - if this is now cross plaform, can we move it elsewhere?
+
+
 #ifdef _WIN32
 #include <windows.h>
 #endif

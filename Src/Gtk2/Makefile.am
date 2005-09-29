@@ -13,11 +13,53 @@ settings_store =
 non_settings_store = gpesettings_store.cc gpesettings_store.h
 endif
 
-EXTRA_DIST = $(non_settings_store)
+EXTRA_DIST = $(non_settings_store) \
+             dashergtktextviewalias.h \
+             dashergtktextviewaliasdef.c
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
-libdashergtk_a_SOURCES = dasher.cc dasher.h edit.cc edit.h accessibility.cc accessibility.h speech.cc speech.h fileops.cc fileops.h dasher.glade dashergpe.glade DasherControl.cpp Timer.cpp Menu.cc Menu.h Preferences.cpp FontDialogues.cpp Canvas.cpp GtkDasherControl.cpp PangoCache.cpp $(settings_store) dashergtktextview.c dashergtktextview.h AppSettings.cpp
+libdashergtk_a_SOURCES = AppSettings.cpp \
+                         AppSettings.h \
+                         Canvas.cpp \
+                         Canvas.h \
+                         DasherControl.cpp \
+                         DasherControl.h \
+                         FontDialogues.cpp \
+                         FontDialogues.h \
+                         GenerateSchema.cpp \
+                         GtkDasherControl.cpp \
+                         GtkDasherControl.h \
+                         Menu.cc \
+                         Menu.h \
+                         PangoCache.cpp \
+                         PangoCache.h \
+                         Preferences.cpp \
+                         Preferences.h \
+                         Timer.cpp \
+                         Timer.h \
+                         accessibility.cc \
+                         accessibility.h \
+                         dasher.cc \
+                         dasher.glade \
+                         dasher.h \
+                         dashergpe.glade \
+                         dashergtktextview.c \
+                         dashergtktextview.h \
+                         edit.cc \
+                         edit.h \
+                         fileops.cc \
+                         fileops.h \
+                         gtkinclude \
+                         mouse_input.h \
+                         speech.cc \
+                         speech.h \
+                         $(settings_store) \
+                         gtkinclude/gi18n-lib.h \
+                         gtkinclude/gtkintl.h \
+                         gtkinclude/gtkmarshalers.h \
+                         gtkinclude/gtktextutil.h
+
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@

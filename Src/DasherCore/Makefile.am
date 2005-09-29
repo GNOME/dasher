@@ -1,6 +1,80 @@
 SUBDIRS = LanguageModelling Alphabet
 
 noinst_LIBRARIES = libdashercore.a
-libdashercore_a_SOURCES = ColourIO.cpp CustomColours.cpp CustomColours.h Context.h DasherInterfaceBase.cpp DasherSettingsInterface.cpp DasherViewSquare.h SettingsStore.cpp AlphIO.h ColourIO.h DasherScreen.h DasherSettingsInterface.h DasherViewSquare.inl SettingsStore.h CustomAlphabet.h DasherModel.cpp DasherTypes.h DasherWidgetInterface.h FrameRate.h Alphabet.h DashEdit.h DasherModel.h DasherView.cpp  DasherAppInterface.h DasherNode.cpp DasherView.h AlphabetMap.h DasherNode.h DasherView.inl  DasherViewSquare.cpp EventHandler.cpp GnomeSettingsStore.cpp AlphabetManager.cpp AlphabetManagerFactory.cpp ControlManager.cpp ControlManagerFactory.cpp UserLocation.cpp UserLog.cpp UserLogTrial.cpp TimeSpan.cpp SimpleTimer.cpp FileLogger.cpp UserLogParam.cpp DasherGameMode.cpp DasherComponent.cpp DelayedDraw.cpp XMLUtil.cpp DasherButtons.cpp DasherButtons.h SocketInputBase.h SocketInputBase.cpp SocketInput.h SocketInput.cpp
+libdashercore_a_SOURCES = AlphabetManager.cpp \
+                          AlphabetManager.h \
+                          AlphabetManagerFactory.cpp \
+                          AlphabetManagerFactory.h \
+                          ColourIO.cpp \
+                          ColourIO.h \
+                          ControlManager.cpp \
+                          ControlManager.h \
+                          ControlManagerFactory.cpp \
+                          ControlManagerFactory.h \
+                          CustomColours.cpp \
+                          CustomColours.h \
+                          DashEdit.cpp \
+                          DashEdit.h \
+                          DasherAppInterface.h \
+                          DasherButtons.cpp \
+                          DasherButtons.h \
+                          DasherComponent.cpp \
+                          DasherComponent.h \
+                          DasherGameMode.cpp \
+                          DasherGameMode.h \
+                          DasherInput.h \
+                          DasherInterface.h \
+                          DasherInterfaceBase.cpp \
+                          DasherInterfaceBase.h \
+                          DasherModel.cpp \
+                          DasherModel.h \
+                          DasherNode.cpp \
+                          DasherNode.h \
+                          DasherScreen.h \
+                          DasherSettingsInterface.cpp \
+                          DasherSettingsInterface.h \
+                          DasherTypes.h \
+                          DasherView.cpp \
+                          DasherView.h \
+                          DasherView.inl \
+                          DasherViewSquare.cpp \
+                          DasherViewSquare.h \
+                          DasherViewSquare.inl \
+                          DasherWidgetInterface.h \
+                          DelayedDraw.cpp \
+                          Event.h \
+                          EventHandler.cpp \
+                          EventHandler.h \
+                          FileLogger.cpp \
+                          FileLogger.h \
+                          FrameRate.h \
+                          GnomeSettingsStore.cpp \
+                          GnomeSettingsStore.h \
+                          MemoryLeak.cpp \
+                          MemoryLeak.h \
+                          NodeManager.h \
+                          NodeManagerFactory.h \
+                          Parameters.h \
+                          SettingsStore.cpp \
+                          SettingsStore.h \
+                          SimpleTimer.cpp \
+                          SimpleTimer.h \
+                          SocketInput.cpp \
+                          SocketInput.h \
+                          SocketInputBase.cpp \
+                          SocketInputBase.h \
+                          TimeSpan.cpp \
+                          TimeSpan.h \
+                          UserLocation.cpp \
+                          UserLocation.h \
+                          UserLog.cpp \
+                          UserLog.h \
+                          UserLogParam.cpp \
+                          UserLogParam.h \
+                          UserLogTrial.cpp \
+                          UserLogTrial.h \
+                          View/DelayedDraw.h \
+                          XMLUtil.cpp \
+                          XMLUtil.h
 
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 

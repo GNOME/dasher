@@ -1,4 +1,7 @@
-
 noinst_LIBRARIES = libdasheralphabet.a
-libdasheralphabet_a_SOURCES = Alphabet.cpp AlphIO.cpp AlphabetMap.cpp
-AM_CXXFLAGS =
+libdasheralphabet_a_SOURCES = AlphIO.cpp \
+                              AlphIO.h \
+                              Alphabet.cpp \
+                              Alphabet.h \
+                              AlphabetMap.cpp \
+                              AlphabetMap.h
