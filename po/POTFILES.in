@@ -1,8 +1,12 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
+Src/DasherCore/SocketInput.cpp
+Src/Gtk2/Menu.cc
+Src/Gtk2/Preferences.cpp
 Src/Gtk2/accessibility.cc
 Src/Gtk2/dasher.cc
 Src/Gtk2/dasher.glade
 Src/Gtk2/dashergpe.glade
+Src/Gtk2/dashergtktextview.c
 Src/Gtk2/speech.cc
 Src/main.cc

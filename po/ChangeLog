@@ -1,3 +1,8 @@
+2005-09-30  Adam Weinberger  <adamw@gnome.org>
+
+	* POTFILES.in: Added missing files.
+	* en_CA.po: Updated Canadian English translation.
+
 2005-09-29  Christian Rose  <menthos@menthos.com>
 
 	* sv.po: Reverted unauthorized changes made by
