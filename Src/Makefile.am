@@ -8,7 +8,7 @@ bin_PROGRAMS = dasher
 
 if DOGTK2
 
-SUBDIRS = DasherCore Gtk2 Common Gtk2-Experimental
+SUBDIRS = DasherCore Gtk2 Common Gtk2-Experimental Win32
 dasher_SOURCES = main.cc
 
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(gthread_CFLAGS) $(wnck_CFLAGS) -I$(srcdir)/Gtk2/ -I$(srcdir)/DasherCore/ -I$(srcdir)/../intl -I$(top_srcdir)/intl -DPACKAGE_LOCALE_DIR=\"$(PREFIX)/share/locale\" -DPROGDATA=\"$(pkgdatadir)\"

@@ -25,6 +25,7 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          Canvas.h \
                          DasherControl.cpp \
                          DasherControl.h \
+                         FileDialogues.cpp \
                          FontDialogues.cpp \
                          FontDialogues.h \
                          GenerateSchema.cpp \

@@ -220,6 +220,10 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   gtk_widget_set_sensitive(glade_xml_get_widget(pGladeXML, "speakbutton"), false);
 #endif
 
+#ifndef JAPANESE
+  gtk_widget_hide(glade_xml_get_widget(pGladeXML, "radiobutton9"));
+#endif
+
   // Initialise the various components
 
   initialise_edit(pGladeXML);
@@ -294,10 +298,12 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
       if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8"))) != TRUE)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8")), TRUE);
       break;
+#ifdef JAPANESE
     case 4:
       if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton9"))) != TRUE)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton9")), TRUE);
       break;
+#endif
     }
   }
   else if(iParameter == LP_ORIENTATION) {

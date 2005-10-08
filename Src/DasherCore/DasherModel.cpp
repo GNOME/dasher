@@ -16,7 +16,10 @@ using namespace std;
 #include "LanguageModelling/WordLanguageModel.h"
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
+
+#ifdef JAPANESE
 #include "LanguageModelling/JapaneseLanguageModel.h"
+#endif
 
 using namespace Dasher;
 using namespace std;
@@ -66,9 +69,11 @@ m_Active(0, 0) {
   case 3:
     m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;  
+#ifdef JAPANESE
   case 4:
     m_pLanguageModel = new CJapaneseLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;
+#endif
   default:
     // If there is a bogus value for the language model ID, we'll default
     // to our trusty old PPM language model.

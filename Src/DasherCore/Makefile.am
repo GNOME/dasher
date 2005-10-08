@@ -78,3 +78,27 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           XMLUtil.h
 
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 
+
+EXTRA_DIST = \
+		Win32/DasherInterface.cpp \
+		Win32/DasherInterface.h \
+		Win32/SocketInput.cpp \
+		Win32/SocketInput.h \
+		Win32/WinCommon.h \
+		Win32/WinHelper.cpp \
+		Win32/WinHelper.h \
+		Win32/WinLocalisation.cpp \
+		Win32/WinLocalisation.h \
+		Win32/WinOptions.cpp \
+		Win32/WinOptions.h \
+		Win32/WinUTF8.cpp \
+		Win32/WinUTF8.h \
+		Win32/WinWrap.cpp \
+		Win32/WinWrap.h \
+		LanguageModelling/BigramLanguageModel.cpp \
+		LanguageModelling/BigramLanguageModel.h \
+		LanguageModelling/KanjiConversionIME.cpp \
+		LanguageModelling/KanjiConversionIME.h \
+		DasherCore.vcproj \
+		DasherCore_vc70.vcproj \
+		DasherCore_vc71.vcproj

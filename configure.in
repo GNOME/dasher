@@ -70,6 +70,16 @@ AC_ARG_WITH([a11y],
          fi, 
 	 WITHA11Y=true)
 
+AC_ARG_WITH([japanese],
+	 AC_HELP_STRING([--with-japanese],[build with support for Japanese Kanji entry (experimental - default is NO)]),
+	 if test $withval = "no"; then
+	   WITHJAPANESE=false; 
+	 else
+	   WITHJAPANESE=true;
+         fi, 
+	 WITHJAPANESE=false)
+
+
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
@@ -146,6 +156,10 @@ if [[ x"$WITHA11Y" = xtrue ]]; then
 	AC_DEFINE([GNOME_A11Y])
 fi
 
+if [[ x"$WITHJAPANESE" = xtrue ]]; then
+	AC_DEFINE([JAPANESE])
+fi
+
 if [[ x"$WITHGPE" = xtrue ]]; then
 	AC_DEFINE([WITH_GPE])
 fi
@@ -183,6 +197,7 @@ AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
+AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
@@ -209,6 +224,7 @@ AC_CONFIG_FILES([Makefile
 		 Src/Gtk2/Makefile
 		 Src/Gtk2-Experimental/Makefile
 		 Src/Qt/Makefile
+                 Src/Win32/Makefile
 		 Data/Makefile
 		 Data/Translations/Makefile
 		 Data/system.rc/Makefile

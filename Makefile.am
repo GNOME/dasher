@@ -6,6 +6,9 @@ distuninstallcheck_listfiles = \
 		grep -v '^\./share/gnome/help'
 
 EXTRA_DIST = \
+		INSTALL.Linux \
+		INSTALL.WinCE \
+		INSTALL.Windows \
 		NEWS \
 		MAINTAINERS \
 		intltool-merge.in \

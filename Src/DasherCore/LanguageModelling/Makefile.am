@@ -1,11 +1,16 @@
 noinst_LIBRARIES = libdasherlm.a
+
+if JAPANESE
+japanese_source = JapaneseLanguageModel.cpp JapaneseLanguageModel.h KanjiConversion.h KanjiConversionCanna.cpp  KanjiConversionCanna.h
+japanese_extra_dist = 
+else
+japanese_source =
+japanese_extra_dist = JapaneseLanguageModel.cpp JapaneseLanguageModel.hKanjiConversion.h KanjiConversionCanna.cpp  KanjiConversionCanna.h
+endif
+
 libdasherlm_a_SOURCES = DictLanguageModel.cpp \
                         DictLanguageModel.h \
-                        JapaneseLanguageModel.cpp \
-                        JapaneseLanguageModel.h \
-                        KanjiConversion.h \
-                        KanjiConversionCanna.cpp \
-                        KanjiConversionCanna.h \
+                        $(japanese_source) \
                         LanguageModel.cpp \
                         LanguageModel.h \
                         LanguageModelParams.h \
@@ -15,3 +20,5 @@ libdasherlm_a_SOURCES = DictLanguageModel.cpp \
                         SymbolAlphabet.h \
                         WordLanguageModel.cpp \
                         WordLanguageModel.h
+
+EXTRA_DIST = $(japanese_extra_dist)

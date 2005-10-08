@@ -1,3 +1,4 @@
+#include <gtk/gtk.h>
 
 // Code for managing file selection dialogues - obsolete after GNOME 2.3
 
