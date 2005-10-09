@@ -5,7 +5,7 @@ japanese_source = JapaneseLanguageModel.cpp JapaneseLanguageModel.h KanjiConvers
 japanese_extra_dist = 
 else
 japanese_source =
-japanese_extra_dist = JapaneseLanguageModel.cpp JapaneseLanguageModel.hKanjiConversion.h KanjiConversionCanna.cpp  KanjiConversionCanna.h
+japanese_extra_dist = JapaneseLanguageModel.cpp JapaneseLanguageModel.h KanjiConversion.h KanjiConversionCanna.cpp  KanjiConversionCanna.h
 endif
 
 libdasherlm_a_SOURCES = DictLanguageModel.cpp \
