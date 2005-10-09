@@ -32,6 +32,9 @@ CLMPage::CLMPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
 }
 
 void CLMPage::PopulateList() {
+#ifndef JAPANESE
+    EnableWindow(GetDlgItem(m_hwnd, IDC_LM_JAPANESE), FALSE);
+#endif
 
     slider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
     SendMessage(slider, TBM_SETPAGESIZE, 0L, 20); // PgUp and PgDown change bitrate by reasonable amount
@@ -62,9 +65,11 @@ void CLMPage::PopulateList() {
     case 3:
       SendMessage(GetDlgItem(m_hwnd, IDC_LM_MIXTURE), BM_SETCHECK, BST_CHECKED, 0);
       break;
+#ifdef JAPANESE
     case 4:
       SendMessage(GetDlgItem(m_hwnd, IDC_LM_JAPANESE), BM_SETCHECK, BST_CHECKED, 0);
       break;
+#endif
    }
 
 }
@@ -87,8 +92,10 @@ bool CLMPage::Apply() {
     m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 2);
   else if(SendMessage(GetDlgItem(m_hwnd, IDC_LM_MIXTURE), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 3);
+#ifdef JAPANESE
   else if(SendMessage(GetDlgItem(m_hwnd, IDC_LM_JAPANESE), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_LANGUAGE_MODEL_ID, 4);
+#endif
 
   // Return false (and notify the user) if something is wrong.
   return TRUE;
