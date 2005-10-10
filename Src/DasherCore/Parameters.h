@@ -226,22 +226,22 @@ public:
       BoolParamTable[ii].regName = boolparamtable[ii].regName;
     } 
     
-    for(int ii = 0; ii < NUM_OF_LPS; ii++) {
-      LongParamTable[ii].key = longparamtable[ii].key;
-      LongParamTable[ii].value = longparamtable[ii].defaultValue;
-      LongParamTable[ii].defaultVal = longparamtable[ii].defaultValue;
-      LongParamTable[ii].humanReadable = longparamtable[ii].humanReadable;
-      LongParamTable[ii].persistent = longparamtable[ii].persistent;
-      LongParamTable[ii].regName = longparamtable[ii].regName;
+    for(int ij = 0; ij < NUM_OF_LPS; ij++) {
+      LongParamTable[ij].key = longparamtable[ij].key;
+      LongParamTable[ij].value = longparamtable[ij].defaultValue;
+      LongParamTable[ij].defaultVal = longparamtable[ij].defaultValue;
+      LongParamTable[ij].humanReadable = longparamtable[ij].humanReadable;
+      LongParamTable[ij].persistent = longparamtable[ij].persistent;
+      LongParamTable[ij].regName = longparamtable[ij].regName;
     }
 
-    for(int ii = 0; ii < NUM_OF_SPS; ii++) {
-      StringParamTable[ii].key = stringparamtable[ii].key;
-      StringParamTable[ii].value = stringparamtable[ii].defaultValue;
-      StringParamTable[ii].defaultVal = stringparamtable[ii].defaultValue;
-      StringParamTable[ii].humanReadable = stringparamtable[ii].humanReadable;
-      StringParamTable[ii].persistent = stringparamtable[ii].persistent;
-      StringParamTable[ii].regName = stringparamtable[ii].regName;
+    for(int ik = 0; ik < NUM_OF_SPS; ik++) {
+      StringParamTable[ik].key = stringparamtable[ik].key;
+      StringParamTable[ik].value = stringparamtable[ik].defaultValue;
+      StringParamTable[ik].defaultVal = stringparamtable[ik].defaultValue;
+      StringParamTable[ik].humanReadable = stringparamtable[ik].humanReadable;
+      StringParamTable[ik].persistent = stringparamtable[ik].persistent;
+      StringParamTable[ik].regName = stringparamtable[ik].regName;
     }
   };
 
