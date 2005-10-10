@@ -12,7 +12,6 @@
 
 #include "FileLogger.h"
 #include <string>
-#include <sys/timeb.h>
 #include <time.h>
 #include "TimeSpan.h"
 #include <math.h>
