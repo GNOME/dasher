@@ -1,6 +1,9 @@
 
 #include "XMLUtil.h"
 
+#include <sys/types.h>
+#include <sys/stat.h>
+
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
 #ifdef _DEBUG
