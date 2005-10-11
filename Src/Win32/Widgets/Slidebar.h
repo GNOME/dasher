@@ -30,6 +30,12 @@ public:
   } void SetValue(double NewSlideVal);
   double GetValue();
 
+  HWND getwindow() {
+    return m_hwnd;
+  };
+
+  void Redraw(LPDRAWITEMSTRUCT pDrawItem);
+
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
   WNDPROC sliderWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
@@ -72,8 +78,13 @@ private:
   int edit_width;
   int edit_height;
 
+  int m_iBorderTop;
+
   int m_Height;
   int m_Width;
+
+  int m_iLabelWidth;
+  int m_iLabelHeight;
 
   int m_NormalHeight;
 

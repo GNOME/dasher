@@ -74,7 +74,19 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, do
   // The static control, which acts as a container
   Tstring MaxSpeed;
   WinLocalisation::GetResourceString(IDS_MAX_SPEED, &MaxSpeed);
-  m_hwnd = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), MaxSpeed.c_str(), WS_CHILD | WS_TABSTOP, 0, 0, 0, 0, ParentWindow, NULL, WinHelper::hInstApp, NULL);
+  m_hwnd = CreateWindowEx(WS_EX_CONTROLPARENT, TEXT("STATIC"), MaxSpeed.c_str(), WS_CHILD | WS_TABSTOP | SS_OWNERDRAW, 0, 0, 0, 0, ParentWindow, NULL, WinHelper::hInstApp, NULL);
+
+  HDC hDC(GetDC(m_hwnd));
+  SelectObject(hDC,hGuiFont);
+
+  SIZE sSize;
+  GetTextExtentPoint32(hDC, MaxSpeed.c_str(), MaxSpeed.size(), &sSize);
+
+  m_iLabelWidth = sSize.cx;
+  m_iLabelHeight = sSize.cy;
+
+  m_iBorderTop = sSize.cy + 8;
+
   WinWrapMap::add(m_hwnd, this);
   SB_WndFunc = (WNDPROC) SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
   SendMessage(m_hwnd, WM_SETFONT, (WPARAM) hGuiFont, true);
@@ -101,9 +113,42 @@ CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface, do
   SetValue(StartValue);
 }
 
+void CSlidebar::Redraw(LPDRAWITEMSTRUCT pDrawItem) {
+  Tstring MaxSpeed;
+  WinLocalisation::GetResourceString(IDS_MAX_SPEED, &MaxSpeed);
+
+  HGDIOBJ hGuiFont;
+  hGuiFont = GetStockObject(DEFAULT_GUI_FONT);
+  SelectObject(pDrawItem->hDC,hGuiFont); // FIXME - I think we're supposed to store the old value
+
+  RECT sRect;
+
+  sRect.left = 0;
+  sRect.top = 0;
+  sRect.right = m_Width;
+  sRect.bottom = m_Height;
+
+  FillRect(pDrawItem->hDC, &sRect, GetSysColorBrush(COLOR_3DFACE));
+
+  sRect.left = 4;
+  sRect.top = 4 + m_iLabelHeight / 2;
+  sRect.right = m_Width - 4;
+  sRect.bottom = m_Height - 4;
+
+  DrawEdge(pDrawItem->hDC, &sRect, EDGE_ETCHED, BF_RECT);
+
+  sRect.left = 11;
+  sRect.top = 4;
+  sRect.right = 11 + m_iLabelWidth;
+  sRect.bottom = 4 + m_iLabelHeight;
+
+  DrawText(pDrawItem->hDC,MaxSpeed.c_str(),MaxSpeed.size(),&sRect,DT_LEFT);
+};
+
 int CSlidebar::Resize(int Width, int Base) {
   if(m_pDasherInterface->GetBoolParameter(BP_SHOW_SLIDER))
-    m_Height = m_NormalHeight;
+   // m_Height = m_NormalHeight;
+   m_Height = edit_height + m_iBorderTop + 11;
   else
     m_Height = 0;
 
@@ -113,13 +158,23 @@ int CSlidebar::Resize(int Width, int Base) {
   MoveWindow(m_hwnd, 0, Base - m_Height, m_Width, m_Height, TRUE);
 
   // The edit control
-  MoveWindow(SB_edit, static_width,     // x
-             (m_Height - edit_height) / 2,      // y
+  MoveWindow(SB_edit, 11,     // x
+             m_iBorderTop,      // y
              edit_width, edit_height, TRUE);
 
   // The slider
-  int pos2 = static_width + edit_width;
-  MoveWindow(SB_slider, pos2, 0, Width - pos2, m_Height, TRUE);
+  int pos2 = 15 + edit_width;
+  MoveWindow(SB_slider, pos2, m_iBorderTop, Width - pos2 - 11, edit_height, TRUE);
+
+  RECT sRect;
+
+  sRect.left = 0;
+  sRect.right = m_Width;
+  sRect.top = 0;
+  sRect.bottom = m_Height;
+
+  InvalidateRect(m_hwnd, &sRect, false);
+
 
   return m_Height;
 }

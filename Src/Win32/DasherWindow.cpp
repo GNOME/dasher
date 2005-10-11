@@ -574,6 +574,13 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
   case WM_SETFOCUS:
     SetFocus(m_pCanvas->getwindow());
     break;
+  case WM_DRAWITEM:
+    if(((LPDRAWITEMSTRUCT)lParam)->hwndItem == m_pSlidebar->getwindow()) {
+      m_pSlidebar->Redraw((LPDRAWITEMSTRUCT)lParam);
+    }
+    else
+      return DefWindowProc(m_hwnd, message, wParam, lParam); 
+    break;
   default:
     return DefWindowProc(m_hwnd, message, wParam, lParam);
   }

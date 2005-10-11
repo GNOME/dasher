@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=Dasher
-OutputBaseFilename=Dasher 3.2.0
-AppVerName=Dasher 3.2.0
+OutputBaseFilename=Dasher 3.99.0
+AppVerName=Dasher 3.99.0
 AppPublisher=Dasher Project
 AppPublisherURL=http://www.inference.phy.cam.ac.uk/dasher/
 AppSupportURL=http://www.inference.phy.cam.ac.uk/dasher/
@@ -29,7 +29,8 @@ Source: "..\..\..\Data\system.rc\alphabet.xsl"; DestDir: "{app}\system.rc"; Copy
 Source: "..\..\..\Data\system.rc\alphabet.dtd"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\system.rc\colour.dtd"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\system.rc\colour*.xml"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
-
+Source: "..\..\..\Data\system.rc\controllabels.xml"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
+Source: "..\..\..\Data\system.rc\controllabels.dtd"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 
 [INI]
 Filename: "{app}\Dasher.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://www.inference.phy.cam.ac.uk/dasher/"
