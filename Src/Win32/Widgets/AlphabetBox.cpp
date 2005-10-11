@@ -34,7 +34,12 @@ void CAlphabetBox::PopulateList() {
   HWND ListBox = GetDlgItem(m_hwnd, IDC_ALPHABETS);
   SendMessage(ListBox, LB_RESETCONTENT, 0, 0);
 
+  m_CurrentAlphabet = m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID);
+
   m_pDasherInterface->GetAlphabets(&AlphabetList);
+
+  int iDefaultIndex(-1);
+  int iFallbackIndex(-1);
 
   // Add each string to list box and index each one
   bool SelectionSet = false;
@@ -43,15 +48,26 @@ void CAlphabetBox::PopulateList() {
     WinUTF8::UTF8string_to_wstring(AlphabetList[i], Item);
     LRESULT Index = SendMessage(ListBox, LB_ADDSTRING, 0, (LPARAM) Item.c_str());
     SendMessage(ListBox, LB_SETITEMDATA, Index, (LPARAM) i);
+   
     if(AlphabetList[i] == m_CurrentAlphabet) {
       SendMessage(ListBox, LB_SETCURSEL, Index, 0);
       SelectionSet = true;
     }
   }
+
+  
   if(SelectionSet == false) {
-    SendMessage(ListBox, LB_SETCURSEL, 0, 0);
-    LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, 0, 0);
-    m_CurrentAlphabet = AlphabetList[CurrentIndex];
+
+  iDefaultIndex =  SendMessage(ListBox, LB_FINDSTRING, -1, (LPARAM)L"English alphabet - limited punctuation");
+  if(iDefaultIndex == LB_ERR) {
+    iDefaultIndex =  SendMessage(ListBox, LB_FINDSTRING, -1, (LPARAM)L"Default");
+    if(iDefaultIndex == LB_ERR)
+      iDefaultIndex = 0;
+  }
+
+  SendMessage(ListBox, LB_SETCURSEL, iDefaultIndex, 0);
+  LRESULT CurrentIndex = SendMessage(ListBox, LB_GETITEMDATA, 0, 0);
+  m_CurrentAlphabet = AlphabetList[CurrentIndex];
   }
   // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
   SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_ALPHABETS, LBN_SELCHANGE), 0);
