@@ -21,8 +21,6 @@ public:
   CSocketPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
 private:
 
-  TCHAR m_tcBuffer[1000];
-
   void PopulateList();
   void InitCustomBox();
   bool UpdateInfo();

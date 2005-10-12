@@ -39,18 +39,20 @@ void CSocketPage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_ENABLE), BM_SETCHECK, BST_UNCHECKED, 0);
     }
     
+    const int buflen=256; // code below assumes this is > 100
+    TCHAR m_tcBuffer[buflen];
     _sntprintf(m_tcBuffer, 100, _T("%ld"), m_pAppSettings->GetLongParameter(LP_SOCKET_PORT));
     SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_PORT), WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
 
     
-    mbstowcs(m_tcBuffer, m_pAppSettings->GetStringParameter(SP_SOCKET_INPUT_X_LABEL).c_str(), sizeof(m_tcBuffer)-1);
+    mbstowcs(m_tcBuffer, m_pAppSettings->GetStringParameter(SP_SOCKET_INPUT_X_LABEL).c_str(), buflen-1);
     // Usually mbstowcs will terminate the target sting, except if we reached the max
     // no. of chars, in which case we terminate ourselves:
-    m_tcBuffer[sizeof(m_tcBuffer)-1] = 0; // terminate 
+    m_tcBuffer[buflen-1] = 0; // terminate 
     SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_X_LABEL), WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
 
-    mbstowcs(m_tcBuffer, m_pAppSettings->GetStringParameter(SP_SOCKET_INPUT_Y_LABEL).c_str(), sizeof(m_tcBuffer)-1);
-    m_tcBuffer[sizeof(m_tcBuffer)-1] = 0; // terminate 
+    mbstowcs(m_tcBuffer, m_pAppSettings->GetStringParameter(SP_SOCKET_INPUT_Y_LABEL).c_str(), buflen-1);
+    m_tcBuffer[buflen-1] = 0; // terminate 
     SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_Y_LABEL), WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
 
     _sntprintf(m_tcBuffer, 100, _T("%.3f"), m_pAppSettings->GetLongParameter(LP_SOCKET_INPUT_X_MIN)/1000.0);
@@ -97,6 +99,7 @@ bool CSocketPage::validateTextBoxes(bool apply, bool noerror) {
 
 bool CSocketPage::checkPort(bool apply, bool noerror) {
   long longval;
+  TCHAR m_tcBuffer[256];
   SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_PORT), WM_GETTEXT, 100, (LPARAM) m_tcBuffer);
   if(_stscanf(m_tcBuffer, TEXT("%ld"), &longval) != 1 || longval < 1 || longval > 65535) {
     if(!noerror) {
@@ -116,6 +119,7 @@ bool CSocketPage::checkPort(bool apply, bool noerror) {
 bool CSocketPage::checkMinOrMax(bool apply, bool noerror, int paramID, int idc) {
   double doubleval;
 
+  TCHAR m_tcBuffer[256];
   SendMessage(GetDlgItem(m_hwnd, idc), WM_GETTEXT, 100, (LPARAM) m_tcBuffer);
   if(_stscanf(m_tcBuffer, TEXT("%lf"), &doubleval) != 1) {
     if(!noerror) {
@@ -133,6 +137,7 @@ bool CSocketPage::checkMinOrMax(bool apply, bool noerror, int paramID, int idc) 
 }
 
 bool CSocketPage::checkLabel(bool apply, bool noerror, int paramID, int idc) {
+  TCHAR m_tcBuffer[256];
   SendMessage(GetDlgItem(m_hwnd, idc), WM_GETTEXT, 100, (LPARAM) m_tcBuffer);
   if(apply) {
     char cbuf[1000];
