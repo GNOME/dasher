@@ -218,7 +218,10 @@
 #define IDC_SOCKET_X_MAX                1124
 #define IDC_SOCKET_ENABLE               1125
 #define IDC_SOCKET_Y_MIN                1126
+#define IDC_ORDINARY                    1126
 #define IDC_SOCKET_Y_MAX                1127
+#define IDC_CLICKMODE                   1128
+#define IDC_BUTTONMODE                  1129
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -272,7 +275,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        175
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1126
+#define _APS_NEXT_CONTROL_VALUE         1130
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

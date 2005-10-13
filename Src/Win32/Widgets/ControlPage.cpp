@@ -73,6 +73,10 @@ void CControlPage::PopulateList() {
     }
   }
 
+  if(!m_pAppSettings->GetBoolParameter(BP_NUMBER_DIMENSIONS) && !m_pAppSettings->GetBoolParameter(BP_EYETRACKER_MODE))
+    SendMessage(GetDlgItem(m_hwnd, IDC_ORDINARY), BM_SETCHECK, BST_CHECKED, 0);
+
+
   // enable idletime control if button checked
   BOOL bIdle =  m_pAppSettings->GetBoolParameter(BP_STOP_IDLE) ? TRUE : FALSE;
   EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bIdle);

@@ -415,38 +415,44 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Control Style",IDC_STATIC,7,7,204,37
-    CONTROL         "One dimensional mode",IDC_1D,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,18,117,8
-    CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,30,125,8
-    GROUPBOX        "Start And Stop",IDC_CONTROL,7,92,204,125
+    GROUPBOX        "Control Style",IDC_STATIC,7,7,204,49
+    GROUPBOX        "Start And Stop",IDC_CONTROL,7,104,204,125
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,103,147,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,114,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,114,126,8
+                    WS_TABSTOP,14,126,126,8
     CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,162,144,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,174,144,8
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,151,84,8
+                    WS_TABSTOP,14,162,84,8
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,138,67,10
-    GROUPBOX        "Speed",IDC_STATIC,7,47,204,42
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,149,67,10
+    GROUPBOX        "Speed",IDC_STATIC,7,58,204,42
     CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,58,101,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,69,101,8
     CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,127,136,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,138,136,8
     CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,44,70,160,12
-    EDITTEXT        IDC_SPEEDVAL,14,70,30,12,ES_AUTOHSCROLL | ES_READONLY
+                    TBS_NOTICKS | WS_TABSTOP,44,82,160,12
+    EDITTEXT        IDC_SPEEDVAL,14,82,30,12,ES_AUTOHSCROLL | ES_READONLY
     CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,186,124,10
+                    WS_TABSTOP,14,197,124,10
     CONTROL         "Stylus control",IDC_STYLUS,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,174,59,10
-    EDITTEXT        IDC_IDLETIME,26,198,40,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_TABSTOP,14,186,59,10
+    EDITTEXT        IDC_IDLETIME,26,210,40,12,ES_AUTOHSCROLL | ES_NUMBER | 
                     WS_DISABLED
-    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,199,76,
+    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,210,76,
                     8,WS_DISABLED
+    CONTROL         "Ordinary control",IDC_ORDINARY,"Button",
+                    BS_AUTORADIOBUTTON,14,18,68,10
+    CONTROL         "One dimensional mode",IDC_1D,"Button",
+                    BS_AUTORADIOBUTTON,14,30,87,10
+    CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
+                    BS_AUTORADIOBUTTON,14,42,70,10
+    CONTROL         "Click mode",IDC_CLICKMODE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_DISABLED,115,18,49,10
+    CONTROL         "Button mode",IDC_BUTTONMODE,"Button",BS_AUTORADIOBUTTON | 
+                    WS_DISABLED,115,30,57,10
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
@@ -672,7 +678,6 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 211
         TOPMARGIN, 7
-        BOTTOMMARGIN, 231
     END
 
     IDD_COLOUR, DIALOG
