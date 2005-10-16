@@ -12,7 +12,6 @@
 #include "Event.h"
 #include "EventHandler.h"
 
-#include <iostream>
 
 using namespace std;
 
@@ -45,22 +44,22 @@ void CSettingsStore::LoadPersistent() {
         SaveSetting(s_oParamTables.BoolParamTable[i].regName, s_oParamTables.BoolParamTable[i].value);            
   }
 
-  for(int i(0); i < NUM_OF_LPS; ++i) {
+  for(int j(0); j < NUM_OF_LPS; ++j) {
     long lValue;
-    if(s_oParamTables.LongParamTable[i].persistent)
-      if(LoadSetting(s_oParamTables.LongParamTable[i].regName, &lValue)) 
-        s_oParamTables.LongParamTable[i].value = lValue;
+    if(s_oParamTables.LongParamTable[j].persistent)
+      if(LoadSetting(s_oParamTables.LongParamTable[j].regName, &lValue)) 
+        s_oParamTables.LongParamTable[j].value = lValue;
       else
-        SaveSetting(s_oParamTables.LongParamTable[i].regName, s_oParamTables.LongParamTable[i].value);            
+        SaveSetting(s_oParamTables.LongParamTable[j].regName, s_oParamTables.LongParamTable[j].value);            
   }
 
-  for(int i(0); i < NUM_OF_SPS; ++i) {
+  for(int k(0); k < NUM_OF_SPS; ++k) {
     std::string strValue;
-    if(s_oParamTables.StringParamTable[i].persistent)
-      if(LoadSetting(s_oParamTables.StringParamTable[i].regName, &strValue))
-        s_oParamTables.StringParamTable[i].value = strValue;
+    if(s_oParamTables.StringParamTable[k].persistent)
+      if(LoadSetting(s_oParamTables.StringParamTable[k].regName, &strValue))
+        s_oParamTables.StringParamTable[k].value = strValue;
       else
-        SaveSetting(s_oParamTables.StringParamTable[i].regName, s_oParamTables.StringParamTable[i].value);            
+        SaveSetting(s_oParamTables.StringParamTable[k].regName, s_oParamTables.StringParamTable[k].value);            
   }
 }
 
