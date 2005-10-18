@@ -28,6 +28,12 @@ static char THIS_FILE[] = __FILE__;
 CSocketInput::CSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore)
 :CSocketInputBase(pEventHandler, pSettingsStore) {
 
+  allocatedConsole = false;
+
+  // Although SetDebug is called in the constructore for CSocketInputBase, that invokes CSocketInputBase::SetDebug,
+  // and we need to invoke CSocketInput::SetDebug to bring up the debug messages window if debugging is enabled.
+  SetDebug(GetBoolParameter(BP_SOCKET_DEBUG));
+  
   // Windows-specific initialisation of Winsock:
   WORD wVersionRequested;
   WSADATA wsaData;  
@@ -70,8 +76,15 @@ void CSocketInput::CancelReaderThread() {
   TerminateThread(m_readerThreadHandle, 1);
 }
 
+void CSocketInput::ReportError(std::string s) {
+  CString msg(s.c_str()); //FIXME: check what goes on here with encodings. Is s in UTF-8? Do we need to call mbstowcs or something on it?
+  Tstring ErrTitle;
+  WinLocalisation::GetResourceString(IDS_ERR_SOCKET_TITLE, &ErrTitle);
+  MessageBox(NULL, msg, ErrTitle.c_str(), MB_OK | MB_ICONEXCLAMATION);
+}
+
 void CSocketInput::ReportErrnoError(std::string prefix) {
-  CString msg(prefix.c_str()); //FIXME: check what goes on here with encodings. Is prefix in UTF-8? Do we nee dto call mbstowcs or something on it?
+  CString msg(prefix.c_str()); 
   //wchar_t *tmp = new wchar_t[mbstowcs(NULL, (const char *) prefix.c_str(), 1024)];
 
   msg += _TEXT(": Errno reports '");
@@ -83,4 +96,13 @@ void CSocketInput::ReportErrnoError(std::string prefix) {
   Tstring ErrTitle;
   WinLocalisation::GetResourceString(IDS_ERR_SOCKET_TITLE, &ErrTitle);
   MessageBox(NULL, msg, ErrTitle.c_str(), MB_OK | MB_ICONEXCLAMATION);
+}
+
+void CSocketInput::SetDebug(bool _debug) {
+  if(_debug && !allocatedConsole) {
+    AllocConsole();
+    freopen("conout$", "w", stderr); // makes stderr go to the new console window (but not std::cerr, it seems!)    
+    allocatedConsole = true;
+  }
+  CSocketInputBase::SetDebug(_debug);
 }

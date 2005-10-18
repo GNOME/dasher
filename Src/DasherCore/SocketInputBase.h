@@ -33,9 +33,7 @@ public:
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  virtual void SetDebug(bool _debug) {
-    debug_socket_input = _debug;
-  }
+  virtual void SetDebug(bool _debug);
 
   virtual bool StartListening();
 
@@ -118,8 +116,10 @@ protected:
 
   virtual void ReportErrnoError(std::string prefix); // override as appropriate for each platform
 
-  //virtual void ReportError(std::string s); // override as appropriate for each platform
+  virtual void ReportError(std::string s); // override as appropriate for each platform
     
+  virtual void SocketDebugMsg(const char *pszFormat, ...);
+  
 };
 
 #endif

@@ -17,11 +17,14 @@ public:
 
   CSocketInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore);
   ~CSocketInput();
+
+  void SetDebug(bool _debug);
   
 private:
 
   HWND m_hwnd;
   HANDLE m_readerThreadHandle;
+  bool allocatedConsole;
 
   bool LaunchReaderThread();
 
@@ -29,6 +32,6 @@ private:
 
   void ReportErrnoError(std::string prefix);
 
-  //void ReportError(std::string s);
+  void ReportError(std::string s);
 
 };

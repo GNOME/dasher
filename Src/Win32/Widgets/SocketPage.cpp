@@ -67,6 +67,8 @@ void CSocketPage::PopulateList() {
     _sntprintf(m_tcBuffer, 100, _T("%.3f"), m_pAppSettings->GetLongParameter(LP_SOCKET_INPUT_Y_MAX)/1000.0);
     SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_Y_MAX), WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
     
+    SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_DEBUG), BM_SETCHECK, m_pAppSettings->GetBoolParameter(BP_SOCKET_DEBUG) ? BST_CHECKED : BST_UNCHECKED, 0);
+    
 }
 
 bool CSocketPage::Validate() {
@@ -78,7 +80,7 @@ bool CSocketPage::Validate() {
 bool CSocketPage::Apply() {
   OutputDebugString(TEXT("Apply() called\n"));
   m_pAppSettings->SetBoolParameter(BP_SOCKET_INPUT_ENABLE, SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_ENABLE), BM_GETCHECK, 0, 0));
-  
+  m_pAppSettings->SetBoolParameter(BP_SOCKET_DEBUG, SendMessage(GetDlgItem(m_hwnd, IDC_SOCKET_DEBUG), BM_GETCHECK, 0, 0));  
   return validateTextBoxes(TRUE, FALSE);
   
 }

@@ -8,6 +8,7 @@
 
 #include <string.h>
 #include <errno.h>
+#include <stdarg.h>
 #ifdef WIN32
  #include <winsock2.h>
  #define DASHER_SOCKET_CLOSE_FUNCTION closesocket
@@ -41,10 +42,7 @@ Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSetti
   SetRawRange(1, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MIN)) / 1000.0, ((double)GetLongParameter(LP_SOCKET_INPUT_Y_MAX)) / 1000.0);
   SetCoordinateLabel(0, GetStringParameter(SP_SOCKET_INPUT_X_LABEL).c_str());
   SetCoordinateLabel(1, GetStringParameter(SP_SOCKET_INPUT_Y_LABEL).c_str());
-  if(debug_socket_input) {
-    cerr << "Socket input is initialised but not yet enabled" << endl;
-  }
-
+  SocketDebugMsg("Socket input is initialised but not yet enabled");
 }
 
 Dasher::CSocketInputBase::~CSocketInputBase() {
@@ -93,9 +91,7 @@ bool Dasher::CSocketInputBase::StartListening() {
     StopListening();
   }
 
-  if(debug_socket_input) {
-    cerr << "Socket input: binding to socket and starting to listen." << endl;
-  }
+  SocketDebugMsg("Socket input: binding to socket and starting to listen.");
 
   if((sock = socket(PF_INET, SOCK_DGRAM, 0)) == -1) {
     ReportErrnoError("Error creating socket"); //FIXME should use _( (gettext), but need something cross-platform.
@@ -137,22 +133,16 @@ void Dasher::CSocketInputBase::StopListening() {
     DASHER_SOCKET_CLOSE_FUNCTION(sock);
   }
   readerRunning = false;
-  if(debug_socket_input) {
-    cerr << "Socket input: stopped listening to socket." << endl;
-  }
+  SocketDebugMsg("Socket input: stopped listening to socket.");
 }
 
 void CSocketInputBase::SetReaderPort(int _port) {
   if(_port == port) {
-    if(debug_socket_input) {
-      cerr << "SetReaderPort called with same value (" << port << "), so ignoring." << endl;
-    }
+    SocketDebugMsg("SetReaderPort called with same value (%d), so ignoring.",port);
     return;
   }
 
-  if(debug_socket_input) {
-    cerr << "Setting socket input port to " << _port << endl;
-  }
+  SocketDebugMsg("Setting socket input port to %d.", _port);
   if(readerRunning) {
     StopListening();
     port = _port;
@@ -169,17 +159,13 @@ void CSocketInputBase::SetCoordinateLabel( int iWhichCoordinate, const char *Lab
     cerr << "Warning truncating socket input label '" << Label << "' to " << DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH << " characters." << endl;
   }
   strncpy(coordinateNames[iWhichCoordinate], Label, DASHER_SOCKET_INPUT_MAX_COORDINATE_LABEL_LENGTH);
-  if(debug_socket_input) {
-    cerr << "Socket input: set coordinate " << iWhichCoordinate << " label to '" << coordinateNames[iWhichCoordinate] << "'." << endl;
-  }
+  SocketDebugMsg("Socket input: set coordinate %d label to '%s'.", iWhichCoordinate,  coordinateNames[iWhichCoordinate]);
 }
 
 void CSocketInputBase::SetRawRange(int iWhich, double dMin, double dMax) {
   rawMinValues[iWhich] = dMin;
   rawMaxValues[iWhich] = dMax;
-  if(debug_socket_input) {
-    std::cerr << "Socket input: set coordinate " << iWhich << " input range to: min: " << dMin << ", max: " << dMax << "." << std::endl;
-  }
+  SocketDebugMsg("Socket input: set coordinate %d input range to: min: %lf, max: %lf.", iWhich, dMin, dMax);
 }
 
 
@@ -190,18 +176,14 @@ void CSocketInputBase::ReadForever() {
 
   int numbytes;
   while(sock >= 0) {
-    if(debug_socket_input) {
-      std::cerr << "Reading from socket..." << std::endl;
-    }
+    SocketDebugMsg("Reading from socket...");
     if((numbytes = recv(sock, buffer, sizeof(buffer) - 1, 0)) == -1) {
-      std::cerr << "Socket input: Error reading from socket" << std::endl;
+      ReportError("Socket input: Error reading from socket");
       continue;
     }
     buffer[numbytes] = '\0';
 
-    if(debug_socket_input) {
-      std::cerr << " received string: '" << buffer << "'." << std::endl;
-    }
+    SocketDebugMsg(" received string: '%s'.", buffer);
 
     ParseMessage(buffer);
 
@@ -223,14 +205,10 @@ void CSocketInputBase::ParseMessage(char *message) {
     for(int i = 0; i < coordinateCount; i++) {
       int len = strlen(coordinateNames[i]);
       if(strncmp(coordinateNames[i], message, len) == 0) {
-        if(debug_socket_input) {
-          cerr << "Matched label '" << coordinateNames[i]; // message completed later
-        }
+        SocketDebugMsg("Matched label '%s'...", coordinateNames[i]);
         // First len chars match the label of this coordinate. Value should be at the next non-space char.
         if(sscanf(message + len, "%lf", &rawdouble) == 1) {
-          if(debug_socket_input) {
-            cerr << "', parsed value as " << rawdouble << "." << endl;
-          }
+          SocketDebugMsg("...parsed value as %lf.", rawdouble);
 
 #ifdef DASHER_SOCKET_INPUT_BCI2000_OVERFLOW_WORKAROUND
           // a temporary workaround to undo an integer overflow that occurs in messages sent from BCI2000
@@ -275,15 +253,11 @@ void CSocketInputBase::ParseMessage(char *message) {
             }
           }
 
-          if(debug_socket_input) {
-            cerr << "Socket input: new value for coordinate " << i << " rescales to " << (unsigned int) dasherCoordinates[i] << " in dasher's internal coordinates (range 0-" << (int) dasherMaxCoordinateValues[i] << ")." << endl;
-          }
+          SocketDebugMsg("Socket input: new value for coordinate %d rescales to %u in Dasher's internal coordinates (range 0-%d).", i, (unsigned int) dasherCoordinates[i], (int) dasherMaxCoordinateValues[i]);
 
           // don't break out of the for loop in case we get asked to drive two coordinates from same label
         } else {
-          if(debug_socket_input) {
-            cerr << ", but couldn't parse the text following that label as a number." << endl;
-          }
+          SocketDebugMsg("... but couldn't parse the text following that label as a number.");
         }
       }
     }
@@ -292,14 +266,33 @@ void CSocketInputBase::ParseMessage(char *message) {
   }
 }
 
-/*
+void CSocketInputBase::SetDebug(bool _debug) {
+  if(!_debug) {
+    SocketDebugMsg("Disabling socket debug messages.");
+  }
+  debug_socket_input = _debug;
+  if(_debug) {
+    SocketDebugMsg("Enabled socket debug messages.");
+  }
+}
+
 void CSocketInputBase::ReportError(string s) {
   // override this to pop up a message box etc.
   cerr << s << endl;
-}*/
+}
 
 void CSocketInputBase::ReportErrnoError(string prefix) {
   // override this to pop up a message box
   cerr << "Dasher Socket Input error: ";
   perror(prefix.c_str());
+}
+
+void CSocketInputBase::SocketDebugMsg(const char *pszFormat, ...) {
+  if(debug_socket_input) {
+    va_list v;
+    va_start(v, pszFormat);
+    vfprintf(stderr, pszFormat, v);
+    fprintf(stderr, "\n");
+    va_end(v);
+  }
 }

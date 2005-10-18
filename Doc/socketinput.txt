@@ -27,6 +27,15 @@ contain a check-box to enable socket input. When selected, the cursor
 position is updated only by UDP packets (as specified below), and not
 by the mouse.
 
+To assist with diagnosing any problems you experience when using an
+external application to drive Dasher, there is an option in the
+preferences to display debugging messages. When this option is enabled,
+Dasher will display messages showing the contents of all messages
+received through the UDP port and information about how it is processing
+them. Under Linux, these debug messages are printed to the console
+(stderr); in Windows a console window is opened when you enable this
+option and the messages are displayed in it.
+
 Message format
 ==============
 
