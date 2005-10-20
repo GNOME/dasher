@@ -2,6 +2,7 @@
 	* Move canna check into --with-japanese option
 	* Add --with-maemo option		
 	* Set more sensible default build options with --with-maemo
+	* Add missing include files
 	
 2005-09-26  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Implemented correct behaviour of 'Apply' button in Windows

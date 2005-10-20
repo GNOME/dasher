@@ -9,6 +9,7 @@
 #include "DasherTypes.h"
 
 #include <cstring>
+#include <libintl.h>
 
 void PopulateLMPage(GladeXML * pGladeWidgets);
 void generate_preferences(GladeXML * pGladeWidgets);

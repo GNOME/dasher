@@ -8,6 +8,7 @@
 #include "SocketInputBase.h"
 
 #include <pthread.h>
+#include <libintl.h>
 
 #define _(_x) gettext(_x)
 
