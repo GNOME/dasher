@@ -6,6 +6,7 @@
 	* Remove wnck hard dependencies
 	* Only use XTest calls if Xtst is present
 	* Remove hard libbonobo dependency from Gtk2-Experimental
+	* Check for popt, and make code conditional on that
 	
 2005-09-26  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Implemented correct behaviour of 'Apply' button in Windows

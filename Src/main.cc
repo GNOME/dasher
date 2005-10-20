@@ -22,6 +22,7 @@
 #include <libgnomevfs/gnome-vfs.h>
 #endif
 
+#ifdef HAVE_POPT
 #include <popt.h>
 
 static const struct poptOption options[] = {
@@ -35,7 +36,7 @@ static const struct poptOption options[] = {
 #endif
   {NULL, '\0', 0, NULL, 0, NULL, NULL}
 };
-
+#endif
 
 #define PREFIX "/usr/"
 #define SYSCONFDIR "/usr/share/dasher/"
@@ -98,8 +99,10 @@ int main(int argc, char *argv[]) {
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);
-  
+
+#ifdef HAVE_POPT  
   poptContext sContext; 
+#endif
 
 #ifdef WITH_GPE
   gpe_application_init(&argc, &argv);
@@ -109,7 +112,7 @@ int main(int argc, char *argv[]) {
 
 #endif
 
-
+#ifdef HAVE_POPT
 #ifdef GNOME_LIBS
   GnomeProgram *program = 0;
 
@@ -150,6 +153,7 @@ int main(int argc, char *argv[]) {
       break;
     }
   }
+#endif // HAVE_POPT
 
   // Set up the app GConf client
 

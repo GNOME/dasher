@@ -177,12 +177,17 @@ fi
 if [[ x"$BUILDGTK2" = xtrue ]]; then 
 	PKG_CHECK_MODULES(glade, libglade-2.0)
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
+	AC_CHECK_LIB(popt, poptGetNextOpt, POPT_LIBS=-lpopt)	
+	if test "x$POPT_LIBS" != x; then
+	   AC_DEFINE([HAVE_POPT])
+	fi
 	if [[ x"$WITHMAEMO" = xfalse ]]; then
 		PKG_CHECK_MODULES(wnck, libwnck-1.0)
 	        AC_DEFINE([HAVE_WNCK])
 	fi
 fi
 
+AC_SUBST(POPT_LIBS)
 AC_SUBST(gnome_speech_LIBS)
 AC_SUBST(gnome_speech_CFLAGS)
 AC_SUBST([SPEECH_SOURCES])
