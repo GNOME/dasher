@@ -856,6 +856,7 @@
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
 			      <property name="group">ordinarymodebutton</property>
+                              <signal name="clicked" handler="SetDimension" last_modification_time="Tue, 23 Sep 2003 11:14:47 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -877,6 +878,7 @@
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
 			      <property name="group">ordinarymodebutton</property>
+                              <signal name="clicked" handler="SetEyetracker" last_modification_time="Tue, 23 Sep 2003 00:48:20 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -898,6 +900,7 @@
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
 			      <property name="group">ordinarymodebutton</property>
+                              <signal name="clicked" handler="SetClick" last_modification_time="Tue, 23 Sep 2003 00:48:20 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -919,6 +922,7 @@
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
 			      <property name="group">ordinarymodebutton</property>
+                              <signal name="clicked" handler="keycontrol" last_modification_time="Tue, 23 Sep 2003 00:48:45 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
