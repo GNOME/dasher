@@ -256,9 +256,8 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
   g_bIgnoreCursorMove = false;
 
-
   if(keyboardmodeon) {
-#ifdef X_HAVE_UTF8_STRING
+#if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
     // FIXME
     // We should really check this at runtime rather than compile time
     // Ought to be possible by doing keysym_to_string on a Unicode keysym
@@ -734,7 +733,7 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
 #endif
 
   if(keyboardmodeon) {
-#ifdef X_HAVE_UTF8_STRING
+#if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
     Display *dpy;
     dpy = gdk_x11_get_default_xdisplay();
     KeyCode code;
