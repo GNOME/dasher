@@ -824,7 +824,27 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="onedbutton">
+			    <widget class="GtkRadioButton" id="ordinarymodebutton">
+			      <property name="border_width">2</property>
+			      <property name="visible">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="label" translatable="yes">Ordinary control</property>
+			      <property name="use_underline">True</property>
+			      <property name="relief">GTK_RELIEF_NORMAL</property>
+			      <property name="focus_on_click">True</property>
+			      <property name="active">False</property>
+			      <property name="inconsistent">False</property>
+			      <property name="draw_indicator">True</property>
+			    </widget>
+			    <packing>
+			      <property name="padding">0</property>
+			      <property name="expand">False</property>
+			      <property name="fill">False</property>
+			    </packing>
+			  </child>
+
+			  <child>
+			    <widget class="GtkRadioButton" id="onedbutton">
 			      <property name="border_width">2</property>
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
@@ -835,7 +855,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
-			      <signal name="clicked" handler="SetDimension" last_modification_time="Tue, 23 Sep 2003 11:14:47 GMT"/>
+			      <property name="group">ordinarymodebutton</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -845,7 +865,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="eyetrackerbutton">
+			    <widget class="GtkRadioButton" id="eyetrackerbutton">
 			      <property name="border_width">2</property>
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
@@ -856,7 +876,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
-			      <signal name="clicked" handler="SetEyetracker" last_modification_time="Tue, 23 Sep 2003 00:48:20 GMT"/>
+			      <property name="group">ordinarymodebutton</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -866,7 +886,7 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="clickmodebutton">
+			    <widget class="GtkRadioButton" id="clickmodebutton">
 			      <property name="border_width">2</property>
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
@@ -877,7 +897,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
-			      <signal name="clicked" handler="SetClick" last_modification_time="Tue, 23 Sep 2003 00:48:20 GMT"/>
+			      <property name="group">ordinarymodebutton</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
@@ -887,8 +907,9 @@
 			  </child>
 
 			  <child>
-			    <widget class="GtkCheckButton" id="keyboardbutton">
+			    <widget class="GtkRadioButton" id="keyboardbutton">
 			      <property name="border_width">2</property>
+			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Button mode</property>
 			      <property name="use_underline">True</property>
@@ -897,7 +918,7 @@
 			      <property name="active">False</property>
 			      <property name="inconsistent">False</property>
 			      <property name="draw_indicator">True</property>
-			      <signal name="clicked" handler="keycontrol" last_modification_time="Tue, 23 Sep 2003 00:48:45 GMT"/>
+			      <property name="group">ordinarymodebutton</property>
 			    </widget>
 			    <packing>
 			      <property name="padding">0</property>
