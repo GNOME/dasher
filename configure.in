@@ -23,7 +23,6 @@ AC_PROG_CXX
 WITHGTK2=true;
 
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
-AC_CHECK_LIB(canna, RkBgnBun,, AC_MSG_ERROR([Canna library not found.]))
 
 AC_ARG_WITH([gnome],
 	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
@@ -75,6 +74,7 @@ AC_ARG_WITH([japanese],
 	 if test $withval = "no"; then
 	   WITHJAPANESE=false; 
 	 else
+	   AC_CHECK_LIB(canna, RkBgnBun,, AC_MSG_ERROR([Canna library not found.]))
 	   WITHJAPANESE=true;
          fi, 
 	 WITHJAPANESE=false)
@@ -224,7 +224,6 @@ AC_CONFIG_FILES([Makefile
 		 Src/Gtk2/Makefile
 		 Src/Gtk2-Experimental/Makefile
 		 Src/Qt/Makefile
-                 Src/Win32/Makefile
 		 Data/Makefile
 		 Data/Translations/Makefile
 		 Data/system.rc/Makefile
