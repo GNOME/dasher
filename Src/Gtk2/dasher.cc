@@ -401,21 +401,32 @@ void LoadWindowState() {
   GConfValue *pGConfValue;
 
   pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenWidth", &pGConfError);
+
+  if(!pGConfValue)
+    return;
+
   iWindowWidth = gconf_value_get_int(pGConfValue);
   gconf_value_free(pGConfValue);
 
-  pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenHeight", &pGConfError);
+  pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenHeight", &pGConfError); 
+
+  if(!pGConfValue)
+    return;
+
   iWindowHeight = gconf_value_get_int(pGConfValue);
   gconf_value_free(pGConfValue);
 
   gtk_window_set_default_size(GTK_WINDOW(window), iWindowWidth, iWindowHeight);
 
   pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/EditHeight", &pGConfError);
+
+  if(!pGConfValue)
+    return;
+  
   iEditHeight = gconf_value_get_int(pGConfValue);
   gconf_value_free(pGConfValue);
 
   gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets, "vpaned1")), iEditHeight);
-
 }
 
 ///

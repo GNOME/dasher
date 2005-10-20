@@ -147,10 +147,11 @@ void load_app_parameters() {
 
       pGConfValue = gconf_client_get_without_default(g_pGConfClient, szName, &pGConfError);
       
-      if(pGConfValue)
+      if(pGConfValue) {
 	app_boolparamtable[i].value = gconf_value_get_bool(pGConfValue);
 
-      gconf_value_free(pGConfValue);
+	gconf_value_free(pGConfValue);
+      }
     }
   }
 
@@ -163,10 +164,11 @@ void load_app_parameters() {
 
       pGConfValue = gconf_client_get_without_default(g_pGConfClient, szName, &pGConfError);
       
-      if(pGConfValue)
+      if(pGConfValue) {
 	app_longparamtable[i].value = gconf_value_get_int(pGConfValue);
 
-      gconf_value_free(pGConfValue);
+	gconf_value_free(pGConfValue);
+      }
     }
   }
 
@@ -189,9 +191,8 @@ void load_app_parameters() {
 	strcpy(szNew, szValue);
 	
 	app_stringparamtable[i].value = szNew;
+	gconf_value_free(pGConfValue);
       }
-
-      gconf_value_free(pGConfValue);
     }
   }
 }
