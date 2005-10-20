@@ -33,16 +33,6 @@ AC_ARG_WITH([gnome],
          fi, 
 	 WITHGNOME=true)
 
-AC_ARG_WITH([maemo],
-	AC_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
-	if test $withval = "yes"; then
-	   WITHMAEMO=true;
-	   WITHGNOME=false;
-	else
-	   WITHMAEMO=false;
-        fi,
-	WITHMAEMO=false)
-
 AC_ARG_WITH([speech],
 	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]),
 	 if test $withval = "no"; then
@@ -89,6 +79,16 @@ AC_ARG_WITH([japanese],
          fi, 
 	 WITHJAPANESE=false)
 
+AC_ARG_WITH([maemo],
+	AC_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
+	if test $withval = "yes"; then
+	   WITHMAEMO=true;
+	   WITHGNOME=false;
+	   WITHA11Y=false;
+	else
+	   WITHMAEMO=false;
+        fi,
+	WITHMAEMO=false)
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
@@ -177,7 +177,10 @@ fi
 if [[ x"$BUILDGTK2" = xtrue ]]; then 
 	PKG_CHECK_MODULES(glade, libglade-2.0)
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
-	PKG_CHECK_MODULES(wnck, libwnck-1.0)
+	if [[ x"$WITHMAEMO" = xfalse ]]; then
+		PKG_CHECK_MODULES(wnck, libwnck-1.0)
+	        AC_DEFINE([HAVE_WNCK])
+	fi
 fi
 
 AC_SUBST(gnome_speech_LIBS)
