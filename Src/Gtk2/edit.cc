@@ -5,7 +5,6 @@
 #include "DasherControl.h"
 #include "AppSettings.h"
 #include <iostream>
-#include <libwnck/libwnck.h>
 
 extern int paused;
 extern bool keyboardmodeon;

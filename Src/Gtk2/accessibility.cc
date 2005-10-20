@@ -3,7 +3,11 @@
 #include "edit.h"
 #include <libintl.h>
 #include <iostream>
+
+#ifdef HAVE_WNCK
 #include <libwnck/libwnck.h>
+WnckScreen *wnckscreen;
+#endif
 
 ControlTree *menutree;
 ControlTree *buttontree;
@@ -22,7 +26,6 @@ extern gboolean quitting;
 extern GtkWidget *the_canvas;
 extern GtkWidget *window;
 
-WnckScreen *wnckscreen;
 
 gboolean panels = FALSE;
 gboolean building = FALSE;
@@ -41,8 +44,11 @@ void setupa11y() {
   focusListener = SPI_createAccessibleEventListener(dasher_focus_listener, NULL);
   SPI_registerGlobalEventListener(focusListener, "focus:");
 #endif
+
+#ifdef HAVE_WNCK
   // FIXME - should check for correct screen
   wnckscreen = wnck_screen_get_default();
+#endif  
 }
 
 void setuptree(ControlTree *tree, ControlTree *parent, ControlTree *children, ControlTree *next, void *pointer, int data, std::string string, int colour) {
@@ -151,7 +157,11 @@ ControlTree *buildcontroltree() {
 #ifndef GNOME_A11Y
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
   // null pointers rather than children
+#ifdef HAVE_WNCK
   menutree = windowtree;
+#else
+  menutree = stoptree;
+#endif // HAVE_WNCK
 #endif
   dummy->pointer = NULL;
   dummy->data = 0;
@@ -160,12 +170,14 @@ ControlTree *buildcontroltree() {
   dummy->text = _("Control");
   dummy->colour = 8;
 
+#ifdef HAVE_WNCK
   windowtree->pointer = NULL;
   windowtree->data = 0;
   windowtree->children = buildwindowtree();
   windowtree->text = _("Windows");
   windowtree->colour = -1;
   windowtree->next = stoptree;
+#endif
 
   stoptree->pointer = (void *)1;
   stoptree->data = 2;
@@ -218,7 +230,11 @@ ControlTree *buildcontroltree() {
   else {
     pausetree->next = NULL;
   }
+#ifdef HAVE_WNCK
   return windowtree;
+#else
+  return stoptree;
+#endif
 }
 
 ControlTree *buildmovetree(ControlTree *movetree) {
@@ -437,6 +453,7 @@ ControlTree *builddeletetree(ControlTree *deletetree) {
 }
 
 ControlTree *buildwindowtree() {
+#ifdef HAVE_WNCK
   GList *l;
   wnck_screen_force_update(wnckscreen);
   ControlTree *firstchild = new ControlTree;
@@ -464,6 +481,7 @@ ControlTree *buildwindowtree() {
   tmptree->parent->next = NULL;
   delete tmptree;
   return firstchild;
+#endif
 }
 
 #ifdef GNOME_A11Y
