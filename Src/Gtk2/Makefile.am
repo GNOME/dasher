@@ -7,8 +7,15 @@ if WITH_GPE
 gladefile = dashergpe.glade
 settings_store = gpesettings_store.cc gpesettings_store.h
 non_settings_store = 
+
+else
+
+if WITH_MAEMO
+gladefile = dashermaemo.glade
 else
 gladefile = dasher.glade
+endif
+
 settings_store = 
 non_settings_store = gpesettings_store.cc gpesettings_store.h
 endif

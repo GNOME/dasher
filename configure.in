@@ -176,11 +176,18 @@ fi
 
 if [[ x"$WITHMAEMO" = xtrue ]]; then
       AC_DEFINE([WITH_MAEMO])
+      dnl Yes, this sucks
+      glade_LIBS="/usr/lib/libglade-2.0.a"
       PKG_CHECK_MODULES(hildon, hildon-libs)
 fi			
 
 if [[ x"$BUILDGTK2" = xtrue ]]; then 
 	PKG_CHECK_MODULES(glade, libglade-2.0)
+	if [[ x"$WITHMAEMO" = xtrue ]]; then
+	        dnl Yes, this sucks
+		glade_LIBS=`echo $glade_LIBS | sed s/-lglade-2.0//`
+		glade_LIBS="$glade_LIBS /usr/lib/libglade-2.0.a"
+	fi
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 	AC_CHECK_LIB(popt, poptGetNextOpt, POPT_LIBS=-lpopt)	
 	if test "x$POPT_LIBS" != x; then
@@ -223,6 +230,7 @@ AM_CONDITIONAL(DOQTE, test x$WITHQTE = xtrue)
 AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
+AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
