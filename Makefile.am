@@ -56,3 +56,13 @@ MAINTAINERCLEANFILES = \
 		$(srcdir)/Src/Test/omf.make \
 		$(srcdir)/Src/Test/xmldocs.make \
 		`find "$(srcdir)" -regex '.*/Src/Common/Expat' -prune -o -type f -name Makefile.in -print`
+
+maemo-install: all
+	- mkdir tmp_build
+	cp -a Data/maemo/* tmp_build
+	cp Src/dasher tmp_build/usr/bin/dasher
+	strip tmp_build/usr/bin/dasher
+	cp Src/Gtk2/dashergpe.glade tmp_build/usr/share/dasher
+	cp Data/system.rc/training_english_GB.txt Data/system.rc/alphabet.english.xml Data/system.rc/colour.xml tmp_build/usr/share/dasher
+	dpkg-deb -b tmp_build dasher.deb 
+	rm -rf tmp_build
