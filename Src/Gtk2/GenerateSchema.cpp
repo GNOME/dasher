@@ -46,8 +46,8 @@ CSchema::CSchema(const std::string &strKeyName, int iType,
 
 void CSchema::Dump() {
   std::cout << "<schema>" << std::endl;
-  std::cout << "<key>/schemas/apps/dasher/" << m_strKeyName << "</key>";
-  std::cout << "<applyto>/apps/dasher/" << m_strKeyName << "</applyto>";
+  std::cout << "<key>/schemas/apps/dasher4/" << m_strKeyName << "</key>";
+  std::cout << "<applyto>/apps/dasher4/" << m_strKeyName << "</applyto>";
   std::cout << "<owner>dasher</owner>" << std::endl;
   std::cout << "<type>" << m_strType << "</type>" << std::endl;
   std::cout << "<default>" << m_strDefault << "</default>" << std::endl;

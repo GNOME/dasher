@@ -7,6 +7,11 @@
 #include <gconf/gconf-client.h>
 #endif
 
+#ifdef WITH_MAEMO
+#include <hildon-lgpl/hildon-widgets/hildon-app.h>
+#include <hildon-lgpl/hildon-widgets/hildon-appview.h>
+#endif
+
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
 //#include <gnome.h>
 #include <libbonobo.h>
@@ -91,6 +96,10 @@ GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *ev
 
 int main(int argc, char *argv[]) {
   GladeXML *xml;
+#ifdef WITH_MAEMO
+  HildonApp *app;
+  HildonAppView *appview;
+#endif
 
   int c;
   XWMHints wm_hints;
@@ -109,7 +118,6 @@ int main(int argc, char *argv[]) {
   init_xsettings();
 #else
   gtk_init(&argc, &argv);
-
 #endif
 
 #ifdef HAVE_POPT
@@ -165,8 +173,9 @@ int main(int argc, char *argv[]) {
   }
 
   // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
-
+  
   g_pGConfClient = gconf_client_get_default();
+  g_print("Client=%p\n",g_pGConfClient);
 
   // ---
 
@@ -194,44 +203,6 @@ int main(int argc, char *argv[]) {
   bonobo_activate();
 #endif
 
-//   while(1) {
-//     c = getopt(argc, argv, "wpos");
-
-//     if(c == -1)
-//       break;
-
-//     switch (c) {
-//     case 'w':
-//       // Print number of characters produced per second
-//       timedata = TRUE;
-//       break;
-//     case 'p':
-//       // Only show the preferences window
-//       preferences = TRUE;
-//       break;
-//     case 'o':
-//       // Onscreen text entry mode
-//       textentry = TRUE;
-//       break;
-//     case 's':
-//       // Pipe stuff to stdout
-//       stdoutpipe = TRUE;
-//       break;
-//     }
-//   }
-
-//   dasher_set_string_callback( parameter_string_callback );
-//   dasher_set_double_callback( parameter_double_callback );
-//   dasher_set_int_callback( parameter_int_callback );
-//   dasher_set_bool_callback( parameter_bool_callback );
-
-//   dasher_set_edit_output_callback( gtk2_edit_output_callback );
-//   dasher_set_edit_outputcontrol_callback( gtk2_edit_outputcontrol_callback );
-
-//   dasher_set_edit_delete_callback( gtk2_edit_delete_callback );
-//   dasher_set_get_new_context_callback( gtk2_get_new_context_callback );
-//   dasher_set_clipboard_callback( gtk2_clipboard_callback );
-
   oldx = -1;
   oldy = -1;
 
@@ -256,11 +227,46 @@ int main(int argc, char *argv[]) {
   gtk_window_set_decorated(GTK_WINDOW(window), false);
 #endif
 
+#ifndef WITH_MAEMO
   gtk_widget_show(window);
+#else
+  appview = HILDON_APPVIEW( hildon_appview_new(NULL) );
+  app = HILDON_APP( hildon_app_new() );
+  hildon_app_set_appview( app, appview );
+  hildon_app_set_title( app, ("Dasher" )); 
+  window = glade_xml_get_widget(xml, "vpaned1");
+  gtk_widget_reparent (window, GTK_WIDGET(appview));
+  gtk_paned_set_position(GTK_PANED(window), 100);
 
-  //  if (preferences!=TRUE) {
+  /* Do menu setup */
+  GtkMenu *main_menu;
+  GtkWidget *file_menu;
+  GtkWidget *file_menu_item;
+  GtkWidget *options_menu;
+  GtkWidget *options_menu_item;
+  main_menu = hildon_appview_get_menu(appview);
+  file_menu = glade_xml_get_widget(xml, "menuitem4_menu");
+  options_menu = glade_xml_get_widget(xml, "options1_menu");
+  file_menu_item = gtk_menu_item_new_with_label ("File");
+  options_menu_item = gtk_menu_item_new_with_label ("Options");
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu);
+//  gtk_widget_reparent (GTK_WIDGET(main_menu), file_menu);
+//  gtk_widget_reparent (GTK_WIDGET(main_menu), options_menu);
+  gtk_menu_append( main_menu, file_menu_item);
+  gtk_menu_append( main_menu, options_menu_item);
+  gtk_widget_show_all( GTK_WIDGET( main_menu ) );
+
+  /* And toolbar */
+  GtkWidget *toolbar;
+  toolbar = glade_xml_get_widget(xml, "toolbar");
+  g_print("Got %p\n",toolbar);
+  gtk_widget_reparent (toolbar, appview->vbox);
+
+  gtk_widget_show_all(GTK_WIDGET(app));
+#endif
+
   setup = TRUE;
-  //  }
 
   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
   wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
@@ -269,9 +275,11 @@ int main(int argc, char *argv[]) {
   wm_hints.flags = InputHint;
   wm_hints.input = False;
 
+#ifndef WITH_MAEMO
   XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
   XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
   gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+#endif
 
 #ifdef GNOME_SPEECH
   setup_speech();
