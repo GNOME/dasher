@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-10-15 12:44+0200\n"
-"PO-Revision-Date: 2005-10-15 16:21+0300\n"
+"PO-Revision-Date: 2005-10-17 19:20+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -298,9 +298,8 @@ msgid "9:"
 msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-#, fuzzy
 msgid "<b>Adaptation:</b>"
-msgstr "<b>Kohandamine:</b>"
+msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:7
 msgid "<b>Advanced Settings:</b>"
@@ -315,18 +314,16 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>Nupu juhtimise sätted</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
 msgid "<b>Button modes:</b>"
-msgstr "<b>Nupurežiimi sisse/väljalülitamine</b>"
+msgstr "<b>Nupurežiimid:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Värvi valimine:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
-#, fuzzy
 msgid "<b>Compass Mode</b>"
-msgstr "<b>Keelemudel</b>"
+msgstr "<b>Kompassirežiim</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -337,23 +334,20 @@ msgid "<b>Language Model:</b>"
 msgstr "<b>Keelemudel</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>Menu Mode</b>"
-msgstr "<b>Keelemudel</b>"
+msgstr "<b>Menüürežiim</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>Muud valikud</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17
-#, fuzzy
 msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>Nupurežiimi sisse/väljalülitamine</b>"
+msgstr "<b>Ühe nupuga dünaamiline režiim</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:18
-#, fuzzy
 msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>Nupurežiimi sisse/väljalülitamine</b>"
+msgstr "<b>Ühe nupuga staatliline režiim</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
@@ -400,14 +394,12 @@ msgid "<b>Y Coordinate</b>"
 msgstr "<b>Y-koordinaat</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:30
-#, fuzzy
 msgid "<b>Zoom steps:</b>"
-msgstr "<b>Juhtimisstiil:</b>"
+msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:31
-#, fuzzy
 msgid "Adapt speed automatically"
-msgstr "Värviskeemi automaatne muutmine"
+msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
@@ -450,13 +442,12 @@ msgid "Button:"
 msgstr "Nupp:"
 
 #: ../Src/Gtk2/dasher.glade.h:43
-#, fuzzy
 msgid "Click mode"
-msgstr "Juhtimisrežiim"
+msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:44
 msgid "Compass mode"
-msgstr ""
+msgstr "Kompassirežiim"
 
 #: ../Src/Gtk2/dasher.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
@@ -569,11 +560,11 @@ msgstr "Vasakule/2:"
 
 #: ../Src/Gtk2/dasher.glade.h:74
 msgid "Max"
-msgstr ""
+msgstr "Suurim"
 
 #: ../Src/Gtk2/dasher.glade.h:75
 msgid "Min"
-msgstr ""
+msgstr "Väikseim"
 
 #: ../Src/Gtk2/dasher.glade.h:76
 msgid "Miscellaneous"
@@ -597,7 +588,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:81
 msgid "Number of boxes:"
-msgstr ""
+msgstr "Kastide arv:"
 
 #: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
@@ -608,9 +599,8 @@ msgid "One-button dynamic mode"
 msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:84
-#, fuzzy
 msgid "One-button static mode"
-msgstr "Nupu režiim"
+msgstr "Ühe nupuga staatliline režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
@@ -626,7 +616,7 @@ msgstr "Pausimine väljaspool akent"
 
 #: ../Src/Gtk2/dasher.glade.h:88
 msgid "Port"
-msgstr ""
+msgstr "Port"
 
 #: ../Src/Gtk2/dasher.glade.h:89
 msgid "Prediction"
@@ -645,9 +635,8 @@ msgid "Right to Left"
 msgstr "Paremalt vasakule"
 
 #: ../Src/Gtk2/dasher.glade.h:93
-#, fuzzy
 msgid "Right zoom:  "
-msgstr "Paremalt vasakule"
+msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
@@ -687,7 +676,7 @@ msgstr "Tööriistariba nähtaval"
 
 #: ../Src/Gtk2/dasher.glade.h:104
 msgid "Socket"
-msgstr ""
+msgstr "Sokkel"
 
 #: ../Src/Gtk2/dasher.glade.h:105 ../Src/Gtk2/dashergpe.glade.h:65
 msgid "Speak on stop"
@@ -711,7 +700,7 @@ msgstr "Alustamine hiire asukoha järgi"
 
 #: ../Src/Gtk2/dasher.glade.h:110
 msgid "Static menu mode"
-msgstr ""
+msgstr "Staatlilise menüü režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:111
 msgid "Steady mode"
@@ -865,11 +854,11 @@ msgstr "Vali _kõik"
 
 #: ../Src/Gtk2/dashergtktextview.c:7079
 msgid "Input _Methods"
-msgstr ""
+msgstr "Sisestus_moodused"
 
 #: ../Src/Gtk2/dashergtktextview.c:7090
 msgid "_Insert Unicode Control Character"
-msgstr ""
+msgstr "L_isa unikoodi juhtsümbol"
 
 #: ../Src/Gtk2/speech.cc:27
 #, c-format
