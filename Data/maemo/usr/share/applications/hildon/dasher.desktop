@@ -1,0 +1,12 @@
+[Desktop Entry]
+Encoding=UTF-8
+Version=1.0
+Name=Dasher
+Comment=Dasher text entry
+Exec=/var/lib/install/usr/bin/dasher
+Terminal=false
+Type=Application
+Categories=System;
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Service=dasher
+X-Osso-Type=application/x-executable

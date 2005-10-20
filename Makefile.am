@@ -64,5 +64,6 @@ maemo-install: all
 	strip tmp_build/usr/bin/dasher
 	cp Src/Gtk2/dashergpe.glade tmp_build/usr/share/dasher
 	cp Data/system.rc/training_english_GB.txt Data/system.rc/alphabet.english.xml Data/system.rc/colour.xml tmp_build/usr/share/dasher
+	ln -sf /var/lib/install/usr/share/applications/hildon/dasher.desktop tmp_build/etc/others-menu/extra_applications/0301_dasher.desktop
 	dpkg-deb -b tmp_build dasher.deb 
 	rm -rf tmp_build
