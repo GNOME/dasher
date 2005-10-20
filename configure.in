@@ -33,6 +33,16 @@ AC_ARG_WITH([gnome],
          fi, 
 	 WITHGNOME=true)
 
+AC_ARG_WITH([maemo],
+	AC_HELP_STRING([--with-maemo],[build with Maemo support (default is NO)]),
+	if test $withval = "yes"; then
+	   WITHMAEMO=true;
+	   WITHGNOME=false;
+	else
+	   WITHMAEMO=false;
+        fi,
+	WITHMAEMO=false)
+
 AC_ARG_WITH([speech],
 	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]),
 	 if test $withval = "no"; then
@@ -224,6 +234,7 @@ AC_CONFIG_FILES([Makefile
 		 Src/Gtk2/Makefile
 		 Src/Gtk2-Experimental/Makefile
 		 Src/Qt/Makefile
+		 Src/Win32/Makefile
 		 Data/Makefile
 		 Data/Translations/Makefile
 		 Data/system.rc/Makefile

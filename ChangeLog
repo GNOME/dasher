@@ -1,5 +1,6 @@
 2005-10-20  Matthew Garrett <mjg59@srcf.ucam.org>
 	* Move canna check into --with-japanese option
+	* Add --with-maemo option		
 	
 2005-09-26  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Implemented correct behaviour of 'Apply' button in Windows
