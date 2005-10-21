@@ -535,14 +535,13 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
 }
 
-
-void CDasherViewSquare::GetScaleFactor( int eOrientation, double *dScaleFactorX, double *dScaleFactorY ) {
-
-  // Things we're likely to need:
-
+void CDasherViewSquare::SetScaleFactor( void )
+{
   myint iDasherWidth = DasherModel()->DasherY();
-  myint iDasherHeight = DasherModel()->DasherY();
+  myint iDasherHeight = iDasherWidth;
 
+  std::cout << "SetScaleFactor\n";
+  
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
 
@@ -555,37 +554,54 @@ void CDasherViewSquare::GetScaleFactor( int eOrientation, double *dScaleFactorX,
   myint iMinY( 0 );
   myint iMaxY( iDasherHeight );
 
+  double dLRHScaleFactor;
+  double dLRVScaleFactor;
+  double dTBHScaleFactor;
+  double dTBVScaleFactor;
 
-  double dHScaleFactor;
-  double dVScaleFactor;
-
-  if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft )) {
-    dHScaleFactor = iScreenWidth / static_cast<double>( iMaxX - iMinX );
-    dVScaleFactor = iScreenHeight / static_cast<double>( iMaxY - iMinY );
-  }
-  else {
-    dHScaleFactor = iScreenWidth / static_cast<double>( iMaxY - iMinY );
-    dVScaleFactor = iScreenHeight / static_cast<double>( iMaxX - iMinX );
-  }
+  dLRHScaleFactor = iScreenWidth / static_cast<double>( iMaxX - iMinX );
+  dLRVScaleFactor = iScreenHeight / static_cast<double>( iMaxY - iMinY );
+  dTBHScaleFactor = iScreenWidth / static_cast<double>( iMaxY - iMinY );
+  dTBVScaleFactor = iScreenHeight / static_cast<double>( iMaxX - iMinX );
     
-  double dScaleFactor;
+  double dLRScaleFactor;
+  double dTBScaleFactor;
 
-  if( dHScaleFactor < dVScaleFactor )
-    dScaleFactor = dHScaleFactor;
-  else
-    dScaleFactor = dVScaleFactor;
+  if( dLRHScaleFactor < dLRVScaleFactor ) {
+    dLRScaleFactor = dLRHScaleFactor;
+    dTBScaleFactor = dTBVScaleFactor;
+  } else {
+    dLRScaleFactor = dLRVScaleFactor;
+    dTBScaleFactor = dTBHScaleFactor;
+  }
 
   if( iScreenWidth > 4 * iScreenHeight ) {
-    *dScaleFactorX = dScaleFactor * iScreenWidth / (4*iScreenHeight);
-    *dScaleFactorY = dScaleFactor;
+    dLRScaleFactorX = dLRScaleFactor * iScreenWidth / (4*iScreenHeight);
+    dLRScaleFactorY = dLRScaleFactor;
+    dTBScaleFactorX = dTBScaleFactor * iScreenWidth / (4*iScreenHeight);
+    dTBScaleFactorY = dTBScaleFactor;
   } 
   else if(iScreenHeight > 4 * iScreenWidth) {
-    *dScaleFactorX = dScaleFactor;
-    *dScaleFactorY = dScaleFactor * iScreenHeight / (4*iScreenWidth);
+    dLRScaleFactorX = dLRScaleFactor;
+    dLRScaleFactorY = dLRScaleFactor * iScreenHeight / (4*iScreenWidth);
+    dTBScaleFactorX = dTBScaleFactor;
+    dTBScaleFactorY = dTBScaleFactor * iScreenHeight / (4*iScreenWidth);
+  } else {
+    dLRScaleFactorX = dLRScaleFactor;
+    dLRScaleFactorY = dLRScaleFactor;
+    dTBScaleFactorX = dTBScaleFactor;
+    dTBScaleFactorY = dTBScaleFactor;
   }
-  else {
-    *dScaleFactorX = dScaleFactor;
-    *dScaleFactorY = dScaleFactor;
+}
+
+void CDasherViewSquare::GetScaleFactor( int eOrientation, double *dScaleFactorX, double *dScaleFactorY ) {
+
+  if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft )) {
+    *dScaleFactorX = dLRScaleFactorX;
+    *dScaleFactorY = dLRScaleFactorY;
+ } else {
+    *dScaleFactorX = dTBScaleFactorX;
+    *dScaleFactorY = dTBScaleFactorY;
   }
 }
 
@@ -1398,6 +1414,7 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CanvasX = 9 * Width / 10;
   CanvasBorder = Width - CanvasX;
   CanvasY = Height;
+  SetScaleFactor();
 }
 
 int CDasherViewSquare::GetAutoOffset() const {

@@ -431,6 +431,15 @@ private:
 
   Cymap m_ymap;
 
+  // Called on screen size changes
+  void SetScaleFactor();
+
+  // Cached values for scaling
+  double dLRScaleFactorX;
+  double dLRScaleFactorY;
+  double dTBScaleFactorX;
+  double dTBScaleFactorY;
+
 };
 
 #include "DasherViewSquare.inl"
