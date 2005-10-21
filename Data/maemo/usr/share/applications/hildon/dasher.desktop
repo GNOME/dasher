@@ -4,6 +4,7 @@ Version=1.0
 Name=Dasher
 Comment=Dasher text entry
 Exec=/var/lib/install/usr/bin/dasher
+Icon=dasher
 Terminal=false
 Type=Application
 Categories=System;
