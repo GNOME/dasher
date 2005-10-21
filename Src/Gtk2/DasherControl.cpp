@@ -86,6 +86,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   // call the object
 
   g_signal_connect(m_pCanvas, "button_press_event", G_CALLBACK(button_press_event), this);
+  g_signal_connect(m_pCanvas, "button_release_event", G_CALLBACK(button_press_event), this);
   g_signal_connect(m_pSpeedHScale, "value-changed", G_CALLBACK(speed_changed), this);
   g_signal_connect_after(m_pCanvas, "realize", G_CALLBACK(realize_canvas), this);
   g_signal_connect(m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this);
@@ -382,7 +383,7 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
 
-#ifdef WITH_GPE
+#if (defined WITH_GPE || defined WITH_MAEMO)
   // GPE version requires the button to be held down rather than clicked
   if((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
     return FALSE;
