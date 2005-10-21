@@ -212,7 +212,6 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   g_signal_connect(pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL);
 
-  
   gtk_paned_add2(GTK_PANED(vpane), pDasherWidget);
 
 #ifndef GNOME_SPEECH

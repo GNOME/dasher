@@ -2,6 +2,7 @@
 	* Add SetScaleFactor to Changescreen, avoid calculating the
 	scaling factor on every lookup
 	* Stop scrolling on button release on embedded platforms
+	* Remove swathes of floating point maths
 
 2005-10-20  Matthew Garrett <mjg59@srcf.ucam.org>
 	* Move canna check into --with-japanese option

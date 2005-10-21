@@ -109,7 +109,7 @@ public:
   /// Get the scale factor for conversion between Dasher co-ordinates
   /// and screen co-ordinates
 
-  void GetScaleFactor( int eOrientation, double *dScaleFactorX, double *dScaleFactorY );
+  void GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY );
 
   /// Checks for start on mouse behaviour and updates which boxes are
   /// displayed, triggers starts etc.
@@ -435,11 +435,13 @@ private:
   void SetScaleFactor();
 
   // Cached values for scaling
-  double dLRScaleFactorX;
-  double dLRScaleFactorY;
-  double dTBScaleFactorX;
-  double dTBScaleFactorY;
+  myint iLRScaleFactorX;
+  myint iLRScaleFactorY;
+  myint iTBScaleFactorX;
+  myint iTBScaleFactorY;
 
+  // The factor that scale factors are multipled by 
+  long lScalingFactor;
 };
 
 #include "DasherViewSquare.inl"
