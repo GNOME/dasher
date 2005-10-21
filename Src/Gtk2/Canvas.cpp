@@ -32,9 +32,11 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
 
   lSignalHandler = g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
 
-  gtk_widget_add_events(m_pCanvas, GDK_EXPOSURE_MASK);
+/*  gtk_widget_add_events(m_pCanvas, GDK_EXPOSURE_MASK);
   gtk_widget_add_events(m_pCanvas, GDK_BUTTON_PRESS_MASK);
   gtk_widget_add_events(m_pCanvas, GDK_BUTTON_RELEASE_MASK);
+*/
+  gtk_widget_add_events(m_pCanvas, GDK_ALL_EVENTS_MASK);
 }
 
 CCanvas::~CCanvas() {
