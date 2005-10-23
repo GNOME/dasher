@@ -109,6 +109,8 @@ private:
 	bool drawoutlines;
 	int mouseposdist;
 
+  const Dasher::CCustomColours* m_pColours;
+
 	struct CTextSizeInput
 	{
 		std::string m_String;

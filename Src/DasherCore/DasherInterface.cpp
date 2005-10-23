@@ -328,13 +328,13 @@ void CDasherInterface::ChangeAlphabet(const std::string& NewAlphabetID)
 	  delete m_pDasherModel;
 	  m_pDasherModel=0;
 	  CreateDasherModel();
-
+ Start();
 	  
 	  if (m_Alphabet->GetPalette()!= std::string("") && m_PaletteChange==true) {
 	    ChangeColours(m_Alphabet->GetPalette());
 	  }
 	  
-	  Start();
+	 
 	  
 	  // We can only change the orientation after we have called
 	  // Start, as this will prompt a redraw, which will fail if the
@@ -382,6 +382,8 @@ void CDasherInterface::ChangeColours(const std::string& NewColourID)
 	if (m_DasherScreen!=0) {
 	  m_DasherScreen->SetColourScheme(m_pColours);
 	}
+
+  Redraw();
 }
 
 std::string CDasherInterface::GetCurrentColours() {

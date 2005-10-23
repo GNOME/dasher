@@ -1013,9 +1013,9 @@ void CDasherViewSquare::DasherDrawText( myint iAnchorX1, myint iAnchorY1, myint 
   int Size = Screen().GetFontSize();
 
   screenint iLeftTimesFontSize = (DasherModel().DasherY() - (iAnchorX1 + iAnchorX2)/ 2 )*Size;
-  if(iLeftTimesFontSize < DasherModel().DasherY() * 19/ 20)
+  if(iLeftTimesFontSize < (screenint)(DasherModel().DasherY() * 19/ 20))
     Size *= 20;
-  else if(iLeftTimesFontSize < DasherModel().DasherY() * 159 / 160)
+  else if(iLeftTimesFontSize < (screenint)(DasherModel().DasherY() * 159 / 160))
     Size *= 14;
   else
     Size *= 11;

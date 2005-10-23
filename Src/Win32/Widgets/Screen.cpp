@@ -136,13 +136,20 @@ void CScreen::SetFontSize(FontSize size)
 
 void CScreen::SetColourScheme(const Dasher::CCustomColours* pColours)
 {
+
+  // FIXME - dodgy - we don't 'own' this array
+  m_pColours = pColours;
+
 	// DJW - must delete brushes ala free_colours. Would be nice to encapsuted this into a Brush Container
 	while (m_Brushes.size()!=0) {
 		DeleteObject(m_Brushes.back());
-		DeleteObject(m_Pens.back());
 		m_Brushes.pop_back();
-		m_Pens.pop_back();
 	}
+
+  while (m_Pens.size()!=0) {
+  	DeleteObject(m_Pens.back());
+    m_Pens.pop_back();
+  }
 
 	int numcolours=pColours->GetNumColours();
 	
@@ -278,14 +285,21 @@ void CScreen::DrawString(const std::string& OutputString, Dasher::screenint x1, 
 	Rect.top = y1;
 	Rect.right = x1+50;
 	Rect.bottom = y1+50;
-	
+
+  COLORREF iCRefOld;
+  COLORREF iCRefNew;
+
+  iCRefNew = RGB(m_pColours->GetRed(4), m_pColours->GetGreen(4), m_pColours->GetBlue(4));
+  
+  iCRefOld = SetTextColor(m_hDCBuffer, iCRefNew);
+
 	HFONT old= (HFONT) SelectObject(m_hDCBuffer, m_ptrFontStore->GetFont(iSize));
 
-
-	// The Windows API dumps all its function names in the global namespace, ::
+  // The Windows API dumps all its function names in the global namespace, ::
 	::DrawText(m_hDCBuffer, OutputText.c_str(), OutputText.size(), &Rect, DT_LEFT | DT_TOP | DT_NOCLIP | DT_NOPREFIX | DT_SINGLELINE );
 	
 	SelectObject(m_hDCBuffer,old);
+  SetTextColor(m_hDCBuffer, iCRefOld);
 }
 
 /////////////////////////////////////////////////////////////////////////////

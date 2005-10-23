@@ -28,7 +28,15 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 #ifndef DASHER_WINCE
 	if (drawoutlines==true) {
-		FrameRect(m_hDCBuffer, &Rect, m_Brushes[3]);
+    point aPoints[5];
+
+    aPoints[0].x=x1; aPoints[0].y=y1;
+    aPoints[1].x=x2; aPoints[1].y=y1;
+    aPoints[2].x=x2; aPoints[2].y=y2;
+    aPoints[3].x=x1; aPoints[3].y=y2;
+    aPoints[4].x=x1; aPoints[4].y=y1;
+
+    Polyline(aPoints, 5, 3);
 	}
 #endif
 
