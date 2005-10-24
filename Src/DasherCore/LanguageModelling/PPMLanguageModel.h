@@ -15,6 +15,7 @@
 #include "LanguageModel.h"
 
 #include <vector>
+#include <fstream>
 
 namespace Dasher {
 
@@ -43,8 +44,6 @@ namespace Dasher {
       return NodesAllocated;
     }
 
-  private:
-
     class CPPMnode {
     public:
       CPPMnode * find_symbol(int sym)const;
@@ -56,6 +55,13 @@ namespace Dasher {
       CPPMnode(int sym);
       CPPMnode();
     };
+
+
+    virtual bool WriteToFile(std::string strFilename);
+    virtual bool ReadFromFile(std::string strFilename);
+    bool RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile);
+    int GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx);
+    CPPMnode *GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap);
 
     class CPPMContext {
     public:

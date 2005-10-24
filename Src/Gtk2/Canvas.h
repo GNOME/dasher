@@ -39,6 +39,7 @@ public:
 
   bool ExposeEvent( GtkWidget *pWidget, GdkEventExpose *pEvent);
 
+
   // CDasherScreen methods
 
   ///

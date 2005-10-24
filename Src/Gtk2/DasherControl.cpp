@@ -19,6 +19,8 @@ extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
 extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
+
 
 // Global variables - Make as many of these local or clas members as possible.
 
@@ -99,6 +101,8 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
   g_signal_connect(m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this);
 
+  g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
+
   // Set up directory locations and so on.
 
   char *home_dir;
@@ -174,6 +178,21 @@ CDasherControl::~CDasherControl() {
     m_pSocketInput = NULL;
   }
 
+}
+
+bool CDasherControl::FocusEvent(GtkWidget *pWidget, GdkEventFocus *pEvent) {
+  if((pEvent->type == GDK_FOCUS_CHANGE) && (pEvent->in)) {
+    GdkEventFocus *focusEvent = (GdkEventFocus *) g_malloc(sizeof(GdkEventFocus));
+    gboolean *returnType;
+    
+    focusEvent->type = GDK_FOCUS_CHANGE;
+    focusEvent->window = (GdkWindow *) m_pDasherControl;
+    focusEvent->send_event = FALSE;
+    focusEvent->in = TRUE;
+
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "focus_in_event", GTK_WIDGET(m_pDasherControl), focusEvent, NULL, &returnType);
+  }
+  return true;
 }
 
 void CDasherControl::SetFocus() {
@@ -435,8 +454,6 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
 
 }
 gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
-//  cout << "Key press event!" << endl;
-
   switch (event->keyval) {
   case GDK_space:
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
@@ -581,4 +598,8 @@ extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData) {
 }
 extern "C" gint key_release_event(GtkWidget *pWidget, GdkEventKey *event, gpointer pUserData) {
   return static_cast<CDasherControl*>(pUserData)->KeyReleaseEvent(event);
+}
+
+extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
+  return ((CDasherControl*)data)->FocusEvent(widget, event);
 }

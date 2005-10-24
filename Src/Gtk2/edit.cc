@@ -47,6 +47,10 @@ extern gboolean file_modified;
 
 gboolean g_bIgnoreCursorMove( false );
 
+/// Whether to forward keyboard events
+
+gboolean g_bForwardKeyboard(false);
+
 // Basic cursor movement commands
 
 enum {
@@ -65,6 +69,10 @@ void edit_move(int iDirection, int iDist);
 void edit_delete(int iDirection, int iDist);
 
 // Old stuff (but quite probably still needed)
+
+extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
+extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 extern "C" void choose_filename() {
   if( get_app_parameter_bool( APP_BP_TIME_STAMP )) {
@@ -154,12 +162,20 @@ void initialise_edit(GladeXML *pGladeXML) {
   the_text_clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   the_primary_selection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
 
-  the_text_buffer = dasher_gtk_text_view_get_buffer(DASHER_GTK_TEXT_VIEW(the_text_view));
+  the_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(the_text_view));
 
   // We need to monitor the text buffer for mark_set in order to get
   // signals when the cursor is moved
 
   g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
+
+  
+  //  gtk_widget_add_events(GTK_WIDGET(the_text_view), GDK_BUTTON_RELEASE_MASK);
+  g_signal_connect(G_OBJECT(the_text_view), "button-release-event", G_CALLBACK(take_real_focus), NULL);
+
+  g_signal_connect(G_OBJECT(the_text_view), "key-press-event", G_CALLBACK(edit_key_press), NULL);
+  g_signal_connect(G_OBJECT(the_text_view), "key-release-event", G_CALLBACK(edit_key_release), NULL);
+
 
   set_editbox_font(get_app_parameter_string(APP_SP_EDIT_FONT));
 
@@ -242,7 +258,7 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
   g_bIgnoreCursorMove = true;
   gtk_text_buffer_insert_at_cursor(the_text_buffer, label.c_str(), -1);
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
   if(textbox != NULL) {
@@ -511,10 +527,10 @@ void edit_move(int iDirection, int iDist) {
       gtk_text_iter_forward_word_end(&sPos);
       break;
     case EDIT_LINE:
-      if(!dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos))
+      if(!gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(the_text_view), &sPos))
       {
-        dasher_gtk_text_view_forward_display_line (DASHER_GTK_TEXT_VIEW(the_text_view), &sPos);
-        dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos);
+        gtk_text_view_forward_display_line (GTK_TEXT_VIEW(the_text_view), &sPos);
+        gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(the_text_view), &sPos);
       }
       break;
     case EDIT_FILE:
@@ -532,8 +548,8 @@ void edit_move(int iDirection, int iDist) {
       break;
     case EDIT_LINE:
     
-      if(!dasher_gtk_text_view_backward_display_line_start(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos))
-        dasher_gtk_text_view_backward_display_line(DASHER_GTK_TEXT_VIEW(the_text_view), &sPos);
+      if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(the_text_view), &sPos))
+        gtk_text_view_backward_display_line(GTK_TEXT_VIEW(the_text_view), &sPos);
       break;
     case EDIT_FILE:
       gtk_text_buffer_get_start_iter(the_text_buffer, &sPos);
@@ -542,7 +558,7 @@ void edit_move(int iDirection, int iDist) {
   }
 
   gtk_text_buffer_place_cursor(the_text_buffer, &sPos);
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
   // FIXME - put a11y stuff in here
 
@@ -568,10 +584,10 @@ void edit_delete(int iDirection, int iDist) {
       gtk_text_iter_forward_word_end(&sPosStart);
       break;
     case EDIT_LINE:
-      if(!dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart))
+      if(!gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(the_text_view), &sPosStart))
       {
-        dasher_gtk_text_view_forward_display_line (DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart);
-        dasher_gtk_text_view_forward_display_line_end(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart);
+        gtk_text_view_forward_display_line (GTK_TEXT_VIEW(the_text_view), &sPosStart);
+        gtk_text_view_forward_display_line_end(GTK_TEXT_VIEW(the_text_view), &sPosStart);
       }
       break;
     case EDIT_FILE:
@@ -588,8 +604,8 @@ void edit_delete(int iDirection, int iDist) {
       gtk_text_iter_backward_word_start(&sPosStart);
       break;
     case EDIT_LINE:
-      if(!dasher_gtk_text_view_backward_display_line_start(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart))
-        dasher_gtk_text_view_backward_display_line(DASHER_GTK_TEXT_VIEW(the_text_view), &sPosStart);
+      if(!gtk_text_view_backward_display_line_start(GTK_TEXT_VIEW(the_text_view), &sPosStart))
+        gtk_text_view_backward_display_line(GTK_TEXT_VIEW(the_text_view), &sPosStart);
       break;
     case EDIT_FILE:
       gtk_text_buffer_get_start_iter(the_text_buffer, &sPosStart);
@@ -598,7 +614,7 @@ void edit_delete(int iDirection, int iDist) {
   }
 
   gtk_text_buffer_delete(the_text_buffer, &sPosStart, &sPosEnd);
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
   // FIXME - put a11y stuff in here
 
@@ -616,7 +632,7 @@ void edit_move_forward() {
   gtk_text_buffer_place_cursor(the_text_buffer, pos);
   g_bIgnoreCursorMove = false;
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
   int position = AccessibleText_getCaretOffset(textbox);
@@ -636,7 +652,7 @@ g_bIgnoreCursorMove = true;
 
   gtk_text_buffer_place_cursor(the_text_buffer, pos);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
   int position = AccessibleText_getCaretOffset(textbox);
@@ -657,7 +673,7 @@ g_bIgnoreCursorMove = true;
 
   gtk_text_buffer_place_cursor(the_text_buffer, pos);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
  g_bIgnoreCursorMove = false;
 }
 
@@ -671,7 +687,7 @@ g_bIgnoreCursorMove = true;
 
   gtk_text_buffer_place_cursor(the_text_buffer, pos);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
 g_bIgnoreCursorMove = false;
 }
 
@@ -697,7 +713,7 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
   gtk_text_iter_backward_chars(start, displaylength);
  g_bIgnoreCursorMove = true;
   gtk_text_buffer_delete(the_text_buffer, start, end);
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
  g_bIgnoreCursorMove = false;
 
 
@@ -770,7 +786,7 @@ void edit_delete_forward_character() {
 
   gtk_text_buffer_delete(the_text_buffer, start, end);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
 
 #ifdef GNOME_A11Y
   if(textbox != NULL) {
@@ -798,7 +814,7 @@ void edit_delete_forward_word() {
 
   gtk_text_buffer_delete(the_text_buffer, start, end);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer));
  g_bIgnoreCursorMove = false;
 }
 
@@ -815,7 +831,7 @@ void edit_delete_forward_line() {
 
   gtk_text_buffer_delete(the_text_buffer, start, end);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
 g_bIgnoreCursorMove = false;
 }
 
@@ -832,7 +848,7 @@ g_bIgnoreCursorMove = true;
 
   gtk_text_buffer_delete(the_text_buffer, start, end);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
 g_bIgnoreCursorMove = false;
 }
 
@@ -849,7 +865,7 @@ g_bIgnoreCursorMove = true;
 
   gtk_text_buffer_delete(the_text_buffer, start, end);
 
-  dasher_gtk_text_view_scroll_mark_onscreen(DASHER_GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
+  gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(the_text_buffer)); 
 g_bIgnoreCursorMove = false;
 }
 
@@ -1038,4 +1054,37 @@ gboolean a11y_text_entry() {
   }
 #endif
   return FALSE;
+}
+
+gboolean grab_focus() {
+  gtk_widget_grab_focus(the_text_view);
+  g_bForwardKeyboard = true;
+  return true;
+}
+
+extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
+  g_bForwardKeyboard = false;
+  return false;
+}
+
+extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
+  if(g_bForwardKeyboard) {
+    gboolean *returnType;
+    g_signal_emit_by_name(GTK_OBJECT(pDasherWidget), "key_press_event", event, &returnType);
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data) { 
+  if(g_bForwardKeyboard) {
+    gboolean *returnType;
+    g_signal_emit_by_name(GTK_OBJECT(pDasherWidget), "key_release_event", event, &returnType);
+    return true;
+  }
+  else {
+    return false;
+  }
 }

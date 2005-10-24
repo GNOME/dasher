@@ -41,10 +41,15 @@ struct _GtkDasherControlClass {
   void (*dasher_edit_insert) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
   void (*dasher_edit_delete) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
   void (*dasher_control) (GtkDasherControl * pDasherControl, gint iEvent, gpointer data);
+  gboolean (*key_press_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
+  gboolean (*key_release_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
 };
 
 GtkWidget *gtk_dasher_control_new();
 GType gtk_dasher_control_get_type();
+
+gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
+gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
 
 void gtk_dasher_control_set_parameter_bool(GtkDasherControl * pControl, int iParameter, bool bValue);
 void gtk_dasher_control_set_parameter_long(GtkDasherControl * pControl, int iParameter, long lValue);

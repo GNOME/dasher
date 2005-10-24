@@ -39,6 +39,15 @@ public:
   // Event handlers
   // FIXME - we should probably pass all parameters to these from the "C" callbacks
   void SetFocus();
+
+
+  ///
+  /// GTK Signal handler for the canvas getting the focus (which it gives away to the edit box)
+  ///
+
+  bool FocusEvent(GtkWidget *pWidget, GdkEventFocus *pEvent);
+
+
   ///
   /// Called when the canvas gets realized (ie when internal resources have been allocated), so we can finalise setup.
   ///

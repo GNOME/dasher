@@ -72,6 +72,14 @@ public:
 
   virtual int GetMemory() = 0;
 
+  virtual bool WriteToFile(std::string strFilename) {
+    return false;
+  };
+
+  virtual bool ReadFromFile(std::string strFilename) {
+    return false;
+  };
+
  protected:
   int GetSize() const {
     return m_Alphabet.GetSize();

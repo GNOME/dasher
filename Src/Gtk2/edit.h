@@ -80,3 +80,4 @@ void set_textbox(Accessible * textbox);
 #endif
 
 gboolean a11y_text_entry();
+gboolean grab_focus();

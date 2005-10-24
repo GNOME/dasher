@@ -65,6 +65,20 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface);
   ~CDasherModel();
 
+  bool WriteLMToFile(const std::string &strFilename) {
+    if(m_pLanguageModel)
+      return m_pLanguageModel->WriteToFile(strFilename);
+    else
+      return false;
+  }
+
+  bool ReadLMFromFile(const std::string &strFilename) {
+    if(m_pLanguageModel)
+      return m_pLanguageModel->ReadFromFile(strFilename);
+    else
+      return false;
+  }
+
   void HandleEvent(Dasher::CEvent * pEvent);
 
   CTrainer *GetTrainer();

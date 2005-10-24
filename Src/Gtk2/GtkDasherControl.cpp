@@ -5,6 +5,8 @@
 #include <vector>
 #include <string>
 
+#include <gtk/gtkmarshal.h>
+
 struct _GtkDasherControlPrivate {
   CDasherControl *pControl;
 };
@@ -73,13 +75,18 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("dasher_control", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_control), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
+//   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("key_press_event", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, key_press_event), NULL, NULL, gtk_marshal_BOOLEAN__POINTER, G_TYPE_BOOLEAN, 1, GDK_TYPE_EVENT | G_SIGNAL_TYPE_STATIC_SCOPE);
+
+//   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("key_release_event", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, key_release_event), NULL, NULL, gtk_marshal_BOOLEAN__POINTER, G_TYPE_BOOLEAN, 1, GDK_TYPE_EVENT | G_SIGNAL_TYPE_STATIC_SCOPE);
+
   pClass->dasher_changed = NULL;
   pClass->dasher_start = NULL;
   pClass->dasher_stop = NULL;
   pClass->dasher_edit_insert = NULL;
   pClass->dasher_edit_delete = NULL;
   pClass->dasher_control = NULL;
-
+  //  pClass->key_press_event = gtk_dasher_control_default_key_press_handler;
+  // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }
 
 static void gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
@@ -90,6 +97,10 @@ static void gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
   pDasherControl->private_data = pPrivateData;
 
   pPrivateData->pControl = new CDasherControl(&(pDasherControl->box), pDasherControl);
+
+  g_signal_connect(G_OBJECT(pDasherControl), "key-press-event", G_CALLBACK(gtk_dasher_control_default_key_press_handler), pPrivateData->pControl);
+  g_signal_connect(G_OBJECT(pDasherControl), "key-release-event", G_CALLBACK(gtk_dasher_control_default_key_release_handler), pPrivateData->pControl);
+
 }
 
 static void gtk_dasher_control_destroy(GObject *pObject) {
@@ -166,3 +177,11 @@ void gtk_dasher_control_set_focus(GtkDasherControl * pControl){
 
 }
 
+gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data){
+  static_cast<CDasherControl *>(data)->KeyPressEvent(pEvent);
+}
+
+
+gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data) {
+ static_cast<CDasherControl *>(data)->KeyReleaseEvent(pEvent);
+}

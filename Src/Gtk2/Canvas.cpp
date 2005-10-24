@@ -295,6 +295,8 @@ bool CCanvas::ExposeEvent(GtkWidget *pWidget, GdkEventExpose *pEvent) {
   return true;
 }
 
+
+
 void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
   int iNumColours(Colours->GetNumColours());
 
@@ -332,3 +334,4 @@ bool CCanvas::GetCanvasSize(GdkRectangle *pRectangle)
 extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data) {
   return ((CCanvas*)data)->ExposeEvent(widget, event);
 }
+

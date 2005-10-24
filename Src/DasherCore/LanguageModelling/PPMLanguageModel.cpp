@@ -369,3 +369,114 @@ CPPMLanguageModel::CPPMnode * CPPMLanguageModel::AddSymbolToNode(CPPMnode *pNode
   return pReturn;
 
 }
+
+struct BinaryRecord {
+  int m_iIndex;
+  int m_iChild;
+  int m_iNext;
+  int m_iVine;
+  unsigned short int m_iCount;
+  short int m_iSymbol;
+};
+
+bool CPPMLanguageModel::WriteToFile(std::string strFilename) {
+
+  std::map<CPPMnode *, int> mapIdx;
+  int iNextIdx(1); // Index of 0 means NULL;
+
+  std::ofstream oOutputFile(strFilename.c_str());
+
+  RecursiveWrite(m_pRoot, &mapIdx, &iNextIdx, &oOutputFile);
+
+  oOutputFile.close();
+
+  return false;
+};
+
+bool CPPMLanguageModel::RecursiveWrite(CPPMnode *pNode, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx, std::ofstream *pOutputFile) {
+
+  // Dump node here
+
+  BinaryRecord sBR;
+
+  sBR.m_iIndex = GetIndex(pNode, pmapIdx, pNextIdx); 
+  sBR.m_iChild = GetIndex(pNode->child, pmapIdx, pNextIdx); 
+  sBR.m_iNext = GetIndex(pNode->next, pmapIdx, pNextIdx); 
+  sBR.m_iVine = GetIndex(pNode->vine, pmapIdx, pNextIdx);
+  sBR.m_iCount = pNode->count;
+  sBR.m_iSymbol = pNode->symbol;
+
+  pOutputFile->write(reinterpret_cast<char*>(&sBR), sizeof(BinaryRecord));
+
+  CPPMnode *pCurrentChild(pNode->child);
+  
+  while(pCurrentChild != NULL) {
+    RecursiveWrite(pCurrentChild, pmapIdx, pNextIdx, pOutputFile);
+    pCurrentChild = pCurrentChild->next;
+  }
+
+  return true;
+};
+
+int CPPMLanguageModel::GetIndex(CPPMnode *pAddr, std::map<CPPMnode *, int> *pmapIdx, int *pNextIdx) {
+
+  int iIndex;
+  if(pAddr == NULL)
+    iIndex = 0;
+  else {
+    std::map<CPPMnode *, int>::iterator it(pmapIdx->find(pAddr));
+    
+    if(it == pmapIdx->end()) {
+      iIndex = *pNextIdx;
+      pmapIdx->insert(std::pair<CPPMnode *, int>(pAddr, iIndex));
+      ++(*pNextIdx);
+    }
+    else {
+      iIndex = it->second;
+    }
+  }
+  return iIndex;
+};
+
+bool CPPMLanguageModel::ReadFromFile(std::string strFilename) {
+  
+  std::ifstream oInputFile(strFilename.c_str());
+  std::map<int, CPPMnode*> oMap;
+  BinaryRecord sBR;
+  bool bStarted(false);
+
+  while(!oInputFile.eof()) {
+    oInputFile.read(reinterpret_cast<char *>(&sBR), sizeof(BinaryRecord));
+
+    CPPMnode *pCurrent(GetAddress(sBR.m_iIndex, &oMap));
+
+    pCurrent->child = GetAddress(sBR.m_iChild, &oMap);
+    pCurrent->next = GetAddress(sBR.m_iNext, &oMap);
+    pCurrent->vine = GetAddress(sBR.m_iVine, &oMap);
+    pCurrent->count = sBR.m_iCount;
+    pCurrent->symbol = sBR.m_iSymbol;
+
+    if(!bStarted) {
+      m_pRoot = pCurrent;
+      bStarted = true;
+    }
+  }
+
+  oInputFile.close();
+
+  return false;
+};
+
+CPPMLanguageModel::CPPMnode *CPPMLanguageModel::GetAddress(int iIndex, std::map<int, CPPMnode*> *pMap) {
+  std::map<int, CPPMnode*>::iterator it(pMap->find(iIndex));
+
+  if(it == pMap->end()) {
+    CPPMnode *pNewNode;
+    pNewNode = m_NodeAlloc.Alloc();
+    pMap->insert(std::pair<int, CPPMnode*>(iIndex, pNewNode));
+    return pNewNode;
+  }
+  else {
+    return it->second;
+  }
+}

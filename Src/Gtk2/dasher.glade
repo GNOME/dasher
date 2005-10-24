@@ -476,7 +476,7 @@
 		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
 		      <child>
-			<widget class="DasherGtkTextView" id="the_text_view">
+			<widget class="GtkTextView" id="the_text_view">
 			  <property name="visible">True</property>
 			  <property name="can_default">True</property>
 			  <property name="can_focus">True</property>
