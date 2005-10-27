@@ -1,22 +1,19 @@
-# Беларускі пераклад dasher.HEAD.
-# translation of dasher.HEAD.po to Belarusian
 # Беларускі пераклад dasher.
 # This file is distributed under the same license as the PACKAGE package.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
-# Ales Nyakhaychyk <nab@mail.by>, 2004.
+# Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
+# Ales Nyakhaychyk <nab@mail.by>, 2004, 2005.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD\n"
+"Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-09 12:35+0200\n"
-"PO-Revision-Date: 2004-02-17 01:18+0200\n"
+"PO-Revision-Date: 2005-10-27 18:45+0300\n"
 "Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.0.2\n"
+"Content-Transfer-Encoding: 8bit"
 
 #. Paneltree
 #. |         /-menutree
@@ -26,24 +23,23 @@ msgstr ""
 #. Tree, parent, children, next, pointer, data, string, colour
 #: ../Src/Gtk2/accessibility.cc:77
 msgid "Panels"
-msgstr ""
+msgstr "Панэлі"
 
 #: ../Src/Gtk2/accessibility.cc:78
 msgid "Application"
-msgstr ""
+msgstr "Дастасаваньне"
 
 #: ../Src/Gtk2/accessibility.cc:79
 msgid "Menus"
 msgstr "Мэню"
 
 #: ../Src/Gtk2/accessibility.cc:80 ../Src/Gtk2/dasher.glade.h:39
-#, fuzzy
 msgid "Buttons"
-msgstr "Кнопка:"
+msgstr "Кнопка"
 
 #: ../Src/Gtk2/accessibility.cc:81
 msgid "Text"
-msgstr ""
+msgstr "Тэкст"
 
 #: ../Src/Gtk2/accessibility.cc:160 ../Src/Gtk2/dasher.glade.h:42
 #: ../Src/Gtk2/dashergpe.glade.h:28
@@ -52,7 +48,7 @@ msgstr "Кантроль"
 
 #: ../Src/Gtk2/accessibility.cc:166
 msgid "Windows"
-msgstr ""
+msgstr "Вокны"
 
 #: ../Src/Gtk2/accessibility.cc:173
 msgid "Stop"
@@ -104,48 +100,43 @@ msgstr "Паўтарыць"
 
 #: ../Src/Gtk2/accessibility.cc:297
 msgid "1"
-msgstr ""
+msgstr "1"
 
 #: ../Src/Gtk2/accessibility.cc:304
 msgid "2"
-msgstr ""
+msgstr "2"
 
 #: ../Src/Gtk2/accessibility.cc:311
 msgid "3"
-msgstr ""
+msgstr "3"
 
 #: ../Src/Gtk2/accessibility.cc:318
 msgid "4"
-msgstr ""
+msgstr "4"
 
 #: ../Src/Gtk2/accessibility.cc:325
-#, fuzzy
 msgid "5"
-msgstr "5:"
+msgstr "5"
 
 #: ../Src/Gtk2/accessibility.cc:332
-#, fuzzy
 msgid "6"
-msgstr "6:"
+msgstr "6"
 
 #: ../Src/Gtk2/accessibility.cc:339
-#, fuzzy
 msgid "7"
-msgstr "7:"
+msgstr "7"
 
 #: ../Src/Gtk2/accessibility.cc:346
-#, fuzzy
 msgid "8"
-msgstr "8:"
+msgstr "8"
 
 #: ../Src/Gtk2/accessibility.cc:353
-#, fuzzy
 msgid "9"
-msgstr "9:"
+msgstr "9"
 
 #: ../Src/Gtk2/accessibility.cc:360
 msgid "10"
-msgstr ""
+msgstr "10"
 
 #: ../Src/Gtk2/accessibility.cc:392 ../Src/Gtk2/accessibility.cc:416
 msgid "Character"
@@ -161,7 +152,7 @@ msgstr "Радок"
 
 #: ../Src/Gtk2/accessibility.cc:545
 msgid "Unknown"
-msgstr ""
+msgstr "Невядома"
 
 #. void interface_setup(GladeXML *xml) {
 #. What's this doing here? I'm sure we ought to just be using whatever
@@ -271,14 +262,12 @@ msgid "9:"
 msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-#, fuzzy
 msgid "<b>Adaptation:</b>"
-msgstr "<b>Спагляданьне:</b>"
+msgstr "<b>Адаптаваньне:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
-#, fuzzy
 msgid "<b>Advanced Settings:</b>"
-msgstr "<b>Вылучэньне абэцэды:</b>"
+msgstr "<b>Пашыраныя наладкі:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
@@ -289,46 +278,40 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>Наладка клявішаў кантролю</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
 msgid "<b>Button modes:</b>"
-msgstr "<b>Пераключэньне кнопкі рэжыму:</b>"
+msgstr "<b>Рэжымы кнопак:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
-#, fuzzy
 msgid "<b>Color Selection:</b>"
-msgstr "<b>Вылучэньне колераў:</b>"
+msgstr "<b>Вылучэньне колеру:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
 msgid "<b>Compass Mode</b>"
-msgstr ""
+msgstr "<b>Рэжым компаса</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
 msgstr "<b>Стыль кантролю:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
-#, fuzzy
 msgid "<b>Language Model:</b>"
-msgstr "<b>Пераключэньне кнопкі рэжыму:</b>"
+msgstr "<b>Моўная мадэль:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>Menu Mode</b>"
-msgstr "<b>Пераключэньне кнопкі рэжыму:</b>"
+msgstr "<b>Рэжым мэню</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>Разнастайныя выбары:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17
-#, fuzzy
 msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>Пераключэньне кнопкі рэжыму:</b>"
+msgstr "<b>Аднакнопачны дынамічны рэжым</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:18
-#, fuzzy
 msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>Пераключэньне кнопкі рэжыму:</b>"
+msgstr "<b>Аднакнопачны статычны рэжым</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
@@ -339,9 +322,8 @@ msgid "<b>Smoothing:</b>"
 msgstr "<b>Згладжваньне:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:21
-#, fuzzy
 msgid "<b>Speed:</b>"
-msgstr "<b>Згладжваньне:</b>"
+msgstr "<b>Хуткасьць:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
@@ -364,14 +346,12 @@ msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Выбары восі Y:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:27
-#, fuzzy
 msgid "<b>Zoom steps:</b>"
-msgstr "<b>Стыль кантролю:</b>"
+msgstr "<b>Крокі павелічэньня:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:28
-#, fuzzy
 msgid "Adapt speed automatically"
-msgstr "Аўтаматычна зьмяняць схему колераў"
+msgstr "Аўтаматычна адаптаваць хуткасьць"
 
 #: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
@@ -387,7 +367,7 @@ msgstr "Дапомная абэцэда"
 
 #: ../Src/Gtk2/dasher.glade.h:32
 msgid "Alternating direct mode"
-msgstr ""
+msgstr "Альтэрнатыўны наўпросты рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -406,22 +386,20 @@ msgid "Button mode"
 msgstr "Рэжым кнопкі"
 
 #: ../Src/Gtk2/dasher.glade.h:37
-#, fuzzy
 msgid "Button setup"
-msgstr "Наладкі кантролю кнопак"
+msgstr "Наладка кнопкі"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
 msgstr "Кнопка:"
 
 #: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
 msgid "Click mode"
-msgstr "Рэжым кантролю"
+msgstr "Рэжым пстрычкі"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Compass mode"
-msgstr ""
+msgstr "Рэжым компаса"
 
 #: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
@@ -440,9 +418,8 @@ msgid "Copy all on stop"
 msgstr "Капіяваць усё на спыненьні"
 
 #: ../Src/Gtk2/dasher.glade.h:47
-#, fuzzy
 msgid "Custom:"
-msgstr "Выразаць"
+msgstr "Адмыслова:"
 
 #: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
@@ -462,7 +439,7 @@ msgstr "Перавагі Калатоўкі"
 
 #: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
+msgstr "Дыстанцыя ад цэнтральнай лініі да пачатку пазыцыі мышы:"
 
 #: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -470,7 +447,7 @@ msgstr "Долу/3:"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
-msgstr ""
+msgstr "Маляваць межы чатырохкутнікаў"
 
 #: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
@@ -478,7 +455,7 @@ msgstr "Маляваць лінію паміж крыжыкам і мышой"
 
 #: ../Src/Gtk2/dasher.glade.h:56
 msgid "Drop time:  "
-msgstr ""
+msgstr "Час зьнікненьня:  "
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -494,14 +471,15 @@ msgstr "Рэжым адсочваньня вачэй"
 
 #: ../Src/Gtk2/dasher.glade.h:60
 msgid "Four-button direct mode"
-msgstr ""
+msgstr "Чатырохкнопачны наўпросты рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:61
 msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
-msgstr ""
+msgstr "Калі гэты рэжым будзе вылучаны, уверх і ўніх будуць вадзіць назад і ўперад "
+"паміж каардынатамі, а ўправа - будзе пацьвярджаць выбар"
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Increase line thickness"
@@ -509,11 +487,11 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Japanese"
-msgstr ""
+msgstr "Японская"
 
 #: ../Src/Gtk2/dasher.glade.h:65
 msgid "Language model adapts as you write."
-msgstr ""
+msgstr "Моўная мадэль адаптуецца да таго, што вы ўводзіце."
 
 #: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:45
 msgid "Large"
@@ -528,9 +506,8 @@ msgid "Left/2:"
 msgstr "Налева/2:"
 
 #: ../Src/Gtk2/dasher.glade.h:69
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>Разнастайныя выбары:</b>"
+msgstr "Разнастайные"
 
 #: ../Src/Gtk2/dasher.glade.h:70
 msgid "Mixture model (PPM/dictionary)"
@@ -550,7 +527,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:74
 msgid "Number of boxes:"
-msgstr ""
+msgstr "Колькасьць скрыняў:"
 
 #: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
@@ -558,12 +535,11 @@ msgstr "Аднавымяральны рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:76
 msgid "One-button dynamic mode"
-msgstr ""
+msgstr "Аднакнопачны дынамічны рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:77
-#, fuzzy
 msgid "One-button static mode"
-msgstr "Рэжым кнопкі"
+msgstr "Аднакнопачны статычны рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
@@ -579,21 +555,19 @@ msgstr "Прыпыняцца па за межамі вакна"
 
 #: ../Src/Gtk2/dasher.glade.h:81
 msgid "Prediction"
-msgstr ""
+msgstr "Прадказаньне"
 
 #: ../Src/Gtk2/dasher.glade.h:82
-#, fuzzy
 msgid "Pulsing mode"
-msgstr "Рэжым кнопкі"
+msgstr "Пульсуючы рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "Зправа на лева"
 
 #: ../Src/Gtk2/dasher.glade.h:84
-#, fuzzy
 msgid "Right zoom:  "
-msgstr "Зправа на лева"
+msgstr "Правае павелічэньне:  "
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
@@ -601,7 +575,7 @@ msgstr "Направа/4:"
 
 #: ../Src/Gtk2/dasher.glade.h:86
 msgid "Safety margin:"
-msgstr ""
+msgstr "Бясьпечная мяжа:"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
@@ -641,7 +615,7 @@ msgstr "Вымаўляць на спыненьні"
 
 #: ../Src/Gtk2/dasher.glade.h:96
 msgid "Standard letter-based PPM"
-msgstr ""
+msgstr "Стандартны літаразаснаваны PPM"
 
 #: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
@@ -657,15 +631,15 @@ msgstr "Пачынаць ад становішча мышы"
 
 #: ../Src/Gtk2/dasher.glade.h:100
 msgid "Static menu mode"
-msgstr ""
+msgstr "Рэжым статычнага мэню"
 
 #: ../Src/Gtk2/dasher.glade.h:101
 msgid "Steady mode"
-msgstr ""
+msgstr "Трывалы рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:102
 msgid "Three-button direct mode"
-msgstr ""
+msgstr "Трохкнопачны наўпросты рэжым"
 
 #: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
@@ -704,7 +678,7 @@ msgstr "Выгляд"
 
 #: ../Src/Gtk2/dasher.glade.h:113
 msgid "Word-based model"
-msgstr ""
+msgstr "Слоўнікавая мадэль"
 
 #: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:77
 msgid "X:"
@@ -716,7 +690,7 @@ msgstr "Y:"
 
 #: ../Src/Gtk2/dasher.glade.h:116
 msgid "Zoom:"
-msgstr ""
+msgstr "Маштаб:"
 
 #: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
@@ -768,14 +742,13 @@ msgstr "абвгдеёжз АБВГДЕЁЖЗ"
 
 #: ../Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
-msgstr ""
+msgstr "<b>Хуткасьць</b>"
 
 #: ../Src/Gtk2/dashergpe.glade.h:26
 msgid "Change colour scheme automatically"
 msgstr "Аўтаматычна зьмяняць схему колераў"
 
 #: ../Src/Gtk2/dashergpe.glade.h:27
-#, fuzzy
 msgid "Color"
 msgstr "Колер"
 
@@ -787,12 +760,11 @@ msgstr ""
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
-msgstr ""
+msgstr "Колькасьць піксалаяў, якая мусіць пакрываць увесь дыяпазон па Y:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
-#, fuzzy
 msgid "Orientation"
-msgstr "<b>Спагляданьне:</b>"
+msgstr "Спагляданьне"
 
 #: ../Src/Gtk2/dashergpe.glade.h:74
 msgid ""
@@ -803,12 +775,12 @@ msgstr ""
 #: ../Src/Gtk2/speech.cc:27
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr ""
+msgstr "Немагчыма праініцыялізаваць падтрымку вымаўленьня\n"
 
 #: ../Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices\n"
-msgstr ""
+msgstr "Немагчыма праініцыялізаваць галасы\n"
 
 #: ../Src/Gtk2/speech.cc:62
 #, c-format
@@ -818,3 +790,4 @@ msgstr "Увага! Немагчыма ўсталяваць парамэтры �
 #: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr "Увод тэкста калатоўкай"
+
