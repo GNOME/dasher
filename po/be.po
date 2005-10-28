@@ -2,13 +2,14 @@
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
 # Ales Nyakhaychyk <nab@mail.by>, 2004, 2005.
-#
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-09 12:35+0200\n"
-"PO-Revision-Date: 2005-10-27 18:45+0300\n"
+"PO-Revision-Date: 2005-10-28 11:29+0300\n"
 "Last-Translator: Ales Nyakhaychyk <nab@mail.by>\n"
 "Language-Team: Belarusian <i18n@mova.org>\n"
 "MIME-Version: 1.0\n"
@@ -375,7 +376,7 @@ msgstr "Ад долу ў гору"
 
 #: ../Src/Gtk2/dasher.glade.h:34
 msgid "Box non-uniformity:"
-msgstr ""
+msgstr "Неаднолькавасьць чатырохкутнікаў:"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
@@ -483,7 +484,7 @@ msgstr "Калі гэты рэжым будзе вылучаны, уверх і 
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Increase line thickness"
-msgstr ""
+msgstr "Павялічыць таўшчыню ліній"
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Japanese"
@@ -511,7 +512,7 @@ msgstr "Разнастайные"
 
 #: ../Src/Gtk2/dasher.glade.h:70
 msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+msgstr "Мадэль зьмешваньня (PPM/слоўнік)"
 
 #: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
@@ -523,7 +524,7 @@ msgstr "Звычайны"
 
 #: ../Src/Gtk2/dasher.glade.h:73
 msgid "Number of \"zoom-out boxes\":"
-msgstr ""
+msgstr "Колькасьць \"аддаленых чатырохкутнікаў\":"
 
 #: ../Src/Gtk2/dasher.glade.h:74
 msgid "Number of boxes:"
@@ -587,7 +588,7 @@ msgstr "Захаваць файл як"
 
 #: ../Src/Gtk2/dasher.glade.h:89
 msgid "Scaling amount (1D mode):"
-msgstr ""
+msgstr "Велічыня маштабаваньня (рэхым 1D):"
 
 #: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
@@ -667,6 +668,9 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
+"Гэтая наладка прызначана для кантролю памераў \n"
+"чатырохкутнікаў зь літарамі. Заўважце, што большае\n"
+"значэньне азначае мешншую хуткасьць пісьма."
 
 #: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
@@ -757,6 +761,8 @@ msgid ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
 msgstr ""
+"Калі гэты рэжым будзе вылучаны, уверх і ўніх будуць вадзіць назад і ўперад·"
+"паміж каардынатамі, а ўправа - будзе пацьвярджаць выбар"
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
@@ -771,6 +777,7 @@ msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
 msgstr ""
+"Гэтая наладка прызначана для кантролю памераў чатырохкутнікаў зь літарамі. Заўважце, што большае значэньне азначае мешншую хуткасьць пісьма."
 
 #: ../Src/Gtk2/speech.cc:27
 #, c-format
