@@ -1,6 +1,6 @@
 # Swedish messages for dasher.
-# Copyright (C) 2004 Free Software Foundation, Inc.
-# Christian Rose <menthos@menthos.com>, 2004.
+# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
+# Christian Rose <menthos@menthos.com>, 2004, 2005.
 #
 # $Id$
 #
@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2004-08-19 16:38+0200\n"
-"PO-Revision-Date: 2004-08-19 16:39+0200\n"
+"PO-Revision-Date: 2005-11-06 20:17+0100\n"
 "Last-Translator: Christian Rose <menthos@menthos.com>\n"
 "Language-Team: Swedish <sv@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -263,7 +263,7 @@ msgstr "Standardalfabet"
 
 #: Src/Gtk2/dasher.glade.h:21 Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
-msgstr "Uppifrån och ned"
+msgstr "Nedifrån och upp"
 
 #: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
