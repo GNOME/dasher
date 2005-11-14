@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-10-28 22:42+0200\n"
-"PO-Revision-Date: 2005-10-28 22:51+0200\n"
+"POT-Creation-Date: 2005-11-06 19:56+0100\n"
+"PO-Revision-Date: 2005-11-14 20:13+0100\n"
 "Last-Translator: \n"
 "Language-Team:  <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -517,7 +517,8 @@ msgstr "Preferencias de Dasher"
 #: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:37
 #: ../Src/Gtk2/dashermaemo.glade.h:56
 msgid "Distance from centreline for start on mouse position:"
-msgstr "Distancia desde la línea central para el inicio de la posición del ratón:"
+msgstr ""
+"Distancia desde la línea central para el inicio de la posición del ratón:"
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:38
 #: ../Src/Gtk2/dashermaemo.glade.h:57
@@ -674,7 +675,8 @@ msgstr "Predicción"
 
 #: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:91
 msgid "Print socket-related debugging information to console"
-msgstr "Imprime la información de depuración relacionada con el socket en la consola"
+msgstr ""
+"Imprime la información de depuración relacionada con el socket en la consola"
 
 #: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:92
 msgid "Pulsing mode"
@@ -766,7 +768,7 @@ msgstr "Modo de menú estático"
 
 #: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashermaemo.glade.h:112
 msgid "Steady mode"
-msgstr ""
+msgstr "Modo firme"
 
 #: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashermaemo.glade.h:113
 msgid "Three-button direct mode"
@@ -961,4 +963,3 @@ msgstr "Advertencia: No se pueden establecer los parámetros de habla\n"
 #: ../Src/main.cc:127
 msgid "Dasher Text Entry"
 msgstr "Entrada de texto Dasher"
-
