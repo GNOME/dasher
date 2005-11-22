@@ -11,7 +11,6 @@
 #include "Alphabet.h"
 #include "AlphabetMap.h"
 
-#include <iostream>
 
 using namespace Dasher;
 using namespace std;
