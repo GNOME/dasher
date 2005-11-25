@@ -6,5 +6,5 @@ Icon=dasher.png
 Terminal=false
 Type=Application
 StartupNotify=true
-Categories=Application;Accessibility
+Categories=Utility;Accessibility
 Encoding=UTF-8
