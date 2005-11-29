@@ -59,7 +59,7 @@ OtherData 12s
 
 In this example, Dasher would probably be configured with
 "XCoordinate" as its label for the X coordinate, and "YCoordinate" for
-the YCoordinate. Individual packets do not need to contain both (or
+the Y Coordinate. Individual packets do not need to contain both (or
 either of) an X and Y coordinate value. In this example, the "OtherData"
 line would be ignored by Dasher.
 
@@ -76,12 +76,16 @@ values that Dasher should expect to receive for each coordinate. These
 are used to linearly transform values received into Dasher's internal
 coordinate system.
 
-Assuming that you are using left-to-right writing orientation, then for the
-X coordinate, a value equal to the 'min' value specified in the preferences
-corresponds to the left-hand edge of the Dasher landscape, 'max' corresponds
-to the right-hand edge, and values in-between are mapped linearly between
-these extremes in the obvious manner. For the Y coordinate, 'min' and 'max'
-correspond to the bottom and top of the Dasher landscape, respectively.
+Assuming that you are using left-to-right writing orientation, then
+for the X coordinate, a value equal to the 'min' value specified in
+the preferences corresponds to the left-hand edge of the Dasher
+landscape. Ideally, 'max' corresponds to the right-hand edge, and
+values in-between are mapped linearly between these extremes in the
+obvious manner, however this is not currently (2005-11-29) the case;
+somebody needs to look into the various non-linearities applied to the
+coordinates and make socket input be treated more similarly to mouse
+input. For the Y coordinate, 'min' and 'max' correspond to the top and
+bottom of the Dasher landscape, respectively.
 
 Note that you can invert the sense of an input by swapping the values
 for 'min' and 'max' so that 'max' is numerically smaller than 'min'. The
