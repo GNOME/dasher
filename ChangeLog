@@ -1,3 +1,7 @@
+2005-12-06  Theppitak Karoonboonyanan  <thep@linux.thai.net>
+
+	* configure.in: Added 'th' (Thai) to ALL_LINGUAS.
+
 2005-11-25  Behdad Esfahbod  <behdad@gnome.org>
 	* Data/dasher.desktop: Categorize as Utility instead of Application.
 	That's the recommended fd.o classification.
