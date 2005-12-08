@@ -52,8 +52,6 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher.glade \
                          dasher.h \
                          dashergpe.glade \
-                         dashergtktextview.c \
-                         dashergtktextview.h \
                          edit.cc \
                          edit.h \
                          fileops.cc \
@@ -62,11 +60,7 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          mouse_input.h \
                          speech.cc \
                          speech.h \
-                         $(settings_store) \
-                         gtkinclude/gi18n-lib.h \
-                         gtkinclude/gtkintl.h \
-                         gtkinclude/gtkmarshalers.h \
-                         gtkinclude/gtktextutil.h
+                         $(settings_store)
 
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@

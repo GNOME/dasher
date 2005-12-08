@@ -1,7 +1,7 @@
 //#include "libdasher.h"
 #include "GtkDasherControl.h"
 #include <gtk/gtk.h>
-#include "dashergtktextview.h"
+//#include "dashergtktextview.h"
 #include <X11/keysym.h>
 #include <sys/types.h>
 #include <sys/stat.h>
@@ -65,7 +65,7 @@ extern GtkClipboard *the_text_clipboard;
 void set_editbox_font(std::string FontName);
 void reset_edit_font();
 void gtk2_get_new_context_callback(std::string & str, int max);
-void handle_cursor_move(DasherGtkTextView * textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
+void handle_cursor_move(GtkTextView * textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
 void write_to_file();
 void outputpipe();
 

@@ -226,7 +226,7 @@ const gchar *get_all_text() {
   return gtk_text_buffer_get_text( the_text_buffer, &oStart, &oEnd, false );
 }
 
-void handle_cursor_move(DasherGtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data) {
+void handle_cursor_move(GtkTextView *textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data) {
 
   // FIXME - REIMPLEMENT
 
