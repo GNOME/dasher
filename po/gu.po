@@ -5,14 +5,14 @@ msgstr ""
 "Project-Id-Version: dasher.HEAD.gu\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-09 12:35+0200\n"
-"PO-Revision-Date: 2005-08-04 10:51+0530\n"
+"PO-Revision-Date: 2005-12-11 16:18+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
-"Plural-Forms: nplurals=2; plural=(n!=1);\n"
+"Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
 "\n"
 "\n"
 "\n"
@@ -281,18 +281,16 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>બટન નિયંત્રક સુયોજન</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
 msgid "<b>Button modes:</b>"
-msgstr "<b>બટનની સ્થિતિ ફેરબદલી કરો:</b>"
+msgstr "<b>બટન સ્થિતિઓ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>રંગની પસંદગી:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
-#, fuzzy
 msgid "<b>Compass Mode</b>"
-msgstr "<b>ભાષા મોડેલ:</b>"
+msgstr "<b>કમ્પાસ સ્થિતિ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -303,23 +301,20 @@ msgid "<b>Language Model:</b>"
 msgstr "<b>ભાષા મોડેલ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>Menu Mode</b>"
-msgstr "<b>ભાષા મોડેલ:</b>"
+msgstr "<b>મેનુ સ્થિતિ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>મિશ્રિત વિકલ્પો:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17
-#, fuzzy
 msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>બટનની સ્થિતિ ફેરબદલી કરો:</b>"
+msgstr "<b>એક-બટન વૈશ્વિક સ્થિતિ</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:18
-#, fuzzy
 msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>બટનની સ્થિતિ ફેરબદલી કરો:</b>"
+msgstr "<b>એક-બટન સ્ટેટિક સ્થિતિ</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
@@ -354,9 +349,8 @@ msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Y અક્ષ વિકલ્પો:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:27
-#, fuzzy
 msgid "<b>Zoom steps:</b>"
-msgstr "નાનામોટાપણાના પગલાંઓ:"
+msgstr "<b>નાનામોટાપણાના પગલાંઓ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:28
 msgid "Adapt speed automatically"
@@ -376,7 +370,7 @@ msgstr "મૂળભુત વર્ણમાળા"
 
 #: ../Src/Gtk2/dasher.glade.h:32
 msgid "Alternating direct mode"
-msgstr ""
+msgstr "સીધી સ્થિતિ બદલી રહ્યા છીએ"
 
 #: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -384,7 +378,7 @@ msgstr "નીચેથી ઉપર"
 
 #: ../Src/Gtk2/dasher.glade.h:34
 msgid "Box non-uniformity:"
-msgstr ""
+msgstr "બોક્સ બિન-એકત્રીકરણ:"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
@@ -395,9 +389,8 @@ msgid "Button mode"
 msgstr "બટન સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:37
-#, fuzzy
 msgid "Button setup"
-msgstr "બટન નિયંત્રણ સુયોજન"
+msgstr "બટન સુયોજન"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
@@ -409,7 +402,7 @@ msgstr "ક્લિક સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Compass mode"
-msgstr ""
+msgstr "કમ્પાસ સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
@@ -465,7 +458,7 @@ msgstr "ક્રોસવાળો અને માઉસ વચ્ચે લ�
 
 #: ../Src/Gtk2/dasher.glade.h:56
 msgid "Drop time:  "
-msgstr ""
+msgstr "મૂકવાનો સમય:  "
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -481,7 +474,7 @@ msgstr "આઈટ્રેકર સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:60
 msgid "Four-button direct mode"
-msgstr ""
+msgstr "ચાર-બટન સીધી સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:61
 msgid ""
@@ -494,7 +487,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Increase line thickness"
-msgstr ""
+msgstr "લીટી જાડાઈ વધારો"
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Japanese"
@@ -534,11 +527,11 @@ msgstr "સામાન્ય"
 
 #: ../Src/Gtk2/dasher.glade.h:73
 msgid "Number of \"zoom-out boxes\":"
-msgstr ""
+msgstr "\"બોક્સ નાના કરો\" ની સંખ્યા:"
 
 #: ../Src/Gtk2/dasher.glade.h:74
 msgid "Number of boxes:"
-msgstr ""
+msgstr "બોક્સની સંખ્યા:"
 
 #: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
@@ -546,12 +539,11 @@ msgstr "એક પરિમાણવાળી સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:76
 msgid "One-button dynamic mode"
-msgstr ""
+msgstr "એક-બટન વૈશ્વિક સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:77
-#, fuzzy
 msgid "One-button static mode"
-msgstr "બટન સ્થિતિ"
+msgstr "એક-બટન સ્ટેટિક સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
@@ -570,18 +562,16 @@ msgid "Prediction"
 msgstr "ધારણા"
 
 #: ../Src/Gtk2/dasher.glade.h:82
-#, fuzzy
 msgid "Pulsing mode"
-msgstr "ક્લિક સ્થિતિ"
+msgstr "પલ્સીંગ સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "જમણેથી ડાબે"
 
 #: ../Src/Gtk2/dasher.glade.h:84
-#, fuzzy
 msgid "Right zoom:  "
-msgstr "જમણેથી ડાબે"
+msgstr "જમણે નાનામોટાપણું:  "
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
@@ -589,7 +579,7 @@ msgstr "જમણું/૪:"
 
 #: ../Src/Gtk2/dasher.glade.h:86
 msgid "Safety margin:"
-msgstr ""
+msgstr "સુરક્ષા હાંસિયો:"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
@@ -645,15 +635,15 @@ msgstr "માઉસની સ્થિતિ સાથે શરુ કરો"
 
 #: ../Src/Gtk2/dasher.glade.h:100
 msgid "Static menu mode"
-msgstr ""
+msgstr "સ્ટેટિક મેનુ સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:101
 msgid "Steady mode"
-msgstr ""
+msgstr "સ્ટેડી સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:102
 msgid "Three-button direct mode"
-msgstr ""
+msgstr "ત્રણ-બટન સીધી સ્થિતિ"
 
 #: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
@@ -706,9 +696,8 @@ msgid "Y:"
 msgstr "Y:"
 
 #: ../Src/Gtk2/dasher.glade.h:116
-#, fuzzy
 msgid "Zoom:"
-msgstr "નાનામોટાપણાના પગલાંઓ:"
+msgstr "નાનામોટાપણું:"
 
 #: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
@@ -812,3 +801,4 @@ msgstr "ચેતવણી: બોલીના પરિમાણો સુય�
 #: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr "ડેશર લખાણ પ્રવેશ"
+
