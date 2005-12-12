@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: dasher 3.99.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-11-28 09:42+0700\n"
-"PO-Revision-Date: 2005-12-06 20:58+0700\n"
+"PO-Revision-Date: 2005-12-12 13:56+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -369,7 +369,7 @@ msgstr "<b>ข้อมูลเข้าทางซ็อกเก็ต</b>"
 
 #: Src/Gtk2/dasher.glade.h:22 Src/Gtk2/dashermaemo.glade.h:22
 msgid "<b>Speed:</b>"
-msgstr ""
+msgstr "<b>อัตราเร็ว:</b>"
 
 #: Src/Gtk2/dasher.glade.h:23 Src/Gtk2/dashergpe.glade.h:14
 #: Src/Gtk2/dashermaemo.glade.h:23
@@ -393,7 +393,7 @@ msgstr "<b>พิกัดแกน X</b>"
 #: Src/Gtk2/dasher.glade.h:27 Src/Gtk2/dashergpe.glade.h:17
 #: Src/Gtk2/dashermaemo.glade.h:27
 msgid "<b>X/Y Coordinates:</b>"
-msgstr ""
+msgstr "<b>พิกัด X/Y:</b>"
 
 #: Src/Gtk2/dasher.glade.h:28 Src/Gtk2/dashergpe.glade.h:18
 #: Src/Gtk2/dashermaemo.glade.h:28
@@ -443,7 +443,7 @@ msgstr ""
 #: Src/Gtk2/dasher.glade.h:38 Src/Gtk2/dashergpe.glade.h:23
 #: Src/Gtk2/dashermaemo.glade.h:38
 msgid "Button control setup"
-msgstr ""
+msgstr "การตั้งค่าปุ่มควบคุม"
 
 #: Src/Gtk2/dasher.glade.h:39 Src/Gtk2/dashergpe.glade.h:24
 #: Src/Gtk2/dashermaemo.glade.h:39
@@ -457,7 +457,7 @@ msgstr ""
 #: Src/Gtk2/dasher.glade.h:41 Src/Gtk2/dashergpe.glade.h:25
 #: Src/Gtk2/dashermaemo.glade.h:41
 msgid "Button:"
-msgstr ""
+msgstr "ปุ่ม:"
 
 #: Src/Gtk2/dasher.glade.h:43 Src/Gtk2/dashermaemo.glade.h:43
 msgid "Click mode"
@@ -518,7 +518,7 @@ msgstr "ระยะจากเส้นกึ่งกลางที่จะ
 #: Src/Gtk2/dasher.glade.h:57 Src/Gtk2/dashergpe.glade.h:38
 #: Src/Gtk2/dashermaemo.glade.h:57
 msgid "Down/3:"
-msgstr ""
+msgstr "ลง/3:"
 
 #: Src/Gtk2/dasher.glade.h:58 Src/Gtk2/dashergpe.glade.h:39
 #: Src/Gtk2/dashermaemo.glade.h:58
@@ -589,7 +589,7 @@ msgstr "ซ้ายไปขวา"
 #: Src/Gtk2/dasher.glade.h:73 Src/Gtk2/dashergpe.glade.h:47
 #: Src/Gtk2/dashermaemo.glade.h:73
 msgid "Left/2:"
-msgstr ""
+msgstr "ซ้าย/2:"
 
 #: Src/Gtk2/dasher.glade.h:74 Src/Gtk2/dashermaemo.glade.h:74
 msgid "Max"
@@ -685,7 +685,7 @@ msgstr ""
 #: Src/Gtk2/dasher.glade.h:95 Src/Gtk2/dashergpe.glade.h:57
 #: Src/Gtk2/dashermaemo.glade.h:95
 msgid "Right/4:"
-msgstr ""
+msgstr "ขวา/4:"
 
 #: Src/Gtk2/dasher.glade.h:96 Src/Gtk2/dashermaemo.glade.h:96
 msgid "Safety margin:"
@@ -789,7 +789,7 @@ msgstr "กำลังฝึกหัด Dasher - กรุณารอสั�
 #: Src/Gtk2/dasher.glade.h:118 Src/Gtk2/dashergpe.glade.h:73
 #: Src/Gtk2/dashermaemo.glade.h:118
 msgid "Up/1:"
-msgstr ""
+msgstr "ขึ้น/1:"
 
 #: Src/Gtk2/dasher.glade.h:119 Src/Gtk2/dashermaemo.glade.h:119
 msgid ""
@@ -818,12 +818,12 @@ msgstr "โมเดลอิงคำ"
 #: Src/Gtk2/dasher.glade.h:125 Src/Gtk2/dashergpe.glade.h:77
 #: Src/Gtk2/dashermaemo.glade.h:125
 msgid "X:"
-msgstr ""
+msgstr "X:"
 
 #: Src/Gtk2/dasher.glade.h:126 Src/Gtk2/dashergpe.glade.h:78
 #: Src/Gtk2/dashermaemo.glade.h:126
 msgid "Y:"
-msgstr ""
+msgstr "Y:"
 
 #: Src/Gtk2/dasher.glade.h:127 Src/Gtk2/dashermaemo.glade.h:127
 msgid "Zoom:"
@@ -887,7 +887,7 @@ msgstr "_คืนค่าแบบอักษร"
 #: Src/Gtk2/dasher.glade.h:139 Src/Gtk2/dashergpe.glade.h:90
 #: Src/Gtk2/dashermaemo.glade.h:139
 msgid "abcdefghijk ABCDEFGHIJK"
-msgstr ""
+msgstr "abcdefghijk ABCDEFGHIJK วิญญูมุ่งรู้พิฆาตปื้นขี้ฝุ่นเลษฏุ"
 
 #: Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
