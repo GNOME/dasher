@@ -12,9 +12,9 @@ msgstr ""
 "Project-Id-Version: dasher.HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-09 12:35+0200\n"
-"PO-Revision-Date: 2005-07-11 11:24+0530\n"
+"PO-Revision-Date: 2005-12-16 18:05+0530\n"
 "Last-Translator: Amanpreet Singh Alam <amanpreetalam@yahoo.com>\n"
-"Language-Team: Punjabi <fedora-transa-pa@redhat.com>\n"
+"Language-Team: Punjabi <fedora-trans-pa@redhat.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -270,14 +270,12 @@ msgid "9:"
 msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-#, fuzzy
 msgid "<b>Adaptation:</b>"
-msgstr "<b>ਅਨੁਕੂਲ:</b>"
+msgstr "<b>ਅਨੁਕੂਲਕਤਾ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
-#, fuzzy
 msgid "<b>Advanced Settings:</b>"
-msgstr "<b>ਭਾਸ਼ਾ ਮਾਡਲ ਸੈਟਿੰਗ:</b>"
+msgstr "<b>ਤਕਨੀਕੀ ਸਥਾਪਨ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
@@ -288,18 +286,16 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>ਬਟਨ ਕੰਟਰੋਲ ਸੈਟਅੱਪ</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
 msgid "<b>Button modes:</b>"
-msgstr "<b>ਬਟਨ ਮੋਡ ਤਬਦੀਲ:</b>"
+msgstr "<b>ਬਟਨ ਢੰਗ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>ਰੰਗ ਚੋਣ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
-#, fuzzy
 msgid "<b>Compass Mode</b>"
-msgstr "<b>ਭਾਸ਼ਾ ਮਾਡਲ:</b>"
+msgstr "<b>ਨਿਰਮਾਣ ਢੰਗ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -310,23 +306,20 @@ msgid "<b>Language Model:</b>"
 msgstr "<b>ਭਾਸ਼ਾ ਮਾਡਲ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>Menu Mode</b>"
-msgstr "<b>ਭਾਸ਼ਾ ਮਾਡਲ:</b>"
+msgstr "<b>ਮੇਨੂ ਢੰਗ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>ਫੁਟਕਲ ਚੋਣ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17
-#, fuzzy
 msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>ਬਟਨ ਮੋਡ ਤਬਦੀਲ:</b>"
+msgstr "<b>ਇੱਕ-ਬਟਨ ਸਫ਼ਰੀ ਢੰਗ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:18
-#, fuzzy
 msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>ਬਟਨ ਮੋਡ ਤਬਦੀਲ:</b>"
+msgstr "<b>ਇੱਕ-ਬਟਨ ਸਥਿਰ ਢੰਗ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
@@ -337,9 +330,8 @@ msgid "<b>Smoothing:</b>"
 msgstr "<b>ਮੁਲਾਇਮ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:21
-#, fuzzy
 msgid "<b>Speed:</b>"
-msgstr "<b>ਗਤੀ</b>"
+msgstr "<b>ਗਤੀ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
@@ -362,14 +354,12 @@ msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Y ਧੁਰਾ ਚੋਣ:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:27
-#, fuzzy
 msgid "<b>Zoom steps:</b>"
-msgstr "<b>ਕੰਟਰੋਲ ਸ਼ੈਲੀ:</b>"
+msgstr "<b>ਜ਼ੂਮ ਪਗ਼:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:28
-#, fuzzy
 msgid "Adapt speed automatically"
-msgstr "ਰੰਗ ਸਕੀਮ ਸਵੈ-ਤਬਦੀਲ ਕਰੋ"
+msgstr "ਪ੍ਰਾਪਤੀ ਗਤੀ ਸਵੈ-ਚਾਲਤ"
 
 #: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
@@ -385,7 +375,7 @@ msgstr "ਮੂਲ ਲਿੱਪੀ"
 
 #: ../Src/Gtk2/dasher.glade.h:32
 msgid "Alternating direct mode"
-msgstr ""
+msgstr "ਬਦਲਵਾਂ ਸਿੱਧਾ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -393,7 +383,7 @@ msgstr "ਹੇਠੋਂ ਉਪੱਰ"
 
 #: ../Src/Gtk2/dasher.glade.h:34
 msgid "Box non-uniformity:"
-msgstr ""
+msgstr "ਬਕਸਾ ਨਾ-ਇਕਸਾਰਤਾ:"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
@@ -404,22 +394,20 @@ msgid "Button mode"
 msgstr "ਬਟਨ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:37
-#, fuzzy
 msgid "Button setup"
-msgstr "ਬਟਨ ਕੰਟਰੋਲ ਸੈਟਅੱਪ"
+msgstr "ਬਟਨ ਸੈਟਅੱਪ"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
 msgstr "ਬਟਨ:"
 
 #: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
 msgid "Click mode"
-msgstr "ਕੰਟਰੋਲ ਢੰਗ"
+msgstr "ਦਬਾਉਣ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Compass mode"
-msgstr ""
+msgstr "ਕੰਪਾਸ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
@@ -438,9 +426,8 @@ msgid "Copy all on stop"
 msgstr "ਰੋਕਣ 'ਤੇ ਸਭ ਦੀ ਨਕਲ"
 
 #: ../Src/Gtk2/dasher.glade.h:47
-#, fuzzy
 msgid "Custom:"
-msgstr "ਕੱਟੋ"
+msgstr "ਕਸਟਮ:"
 
 #: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
@@ -476,7 +463,7 @@ msgstr "ਕਰਾਸ-ਹੇਅਰ ਅਤੇ ਮਾਊਸ ਵਿੱਚ ਰੇਖ�
 
 #: ../Src/Gtk2/dasher.glade.h:56
 msgid "Drop time:  "
-msgstr ""
+msgstr "ਡਿਗਣ ਸਮਾਂ:"
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -492,7 +479,7 @@ msgstr "ਆਈ-ਟਰੈਕਰ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:60
 msgid "Four-button direct mode"
-msgstr ""
+msgstr "ਚਾਰ-ਬਟਨ ਸਿੱਧਾ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:61
 msgid ""
@@ -505,11 +492,11 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Increase line thickness"
-msgstr ""
+msgstr "ਸਤਰ ਦੀ ਮੋਟਾਈ ਵਧਾਓ"
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Japanese"
-msgstr ""
+msgstr "ਜਾਪਾਨੀ"
 
 #: ../Src/Gtk2/dasher.glade.h:65
 msgid "Language model adapts as you write."
@@ -528,9 +515,8 @@ msgid "Left/2:"
 msgstr "ਖੱਬਾ/2:"
 
 #: ../Src/Gtk2/dasher.glade.h:69
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>ਫੁਟਕਲ ਚੋਣ:</b>"
+msgstr "ਫੁਟਕਲ"
 
 #: ../Src/Gtk2/dasher.glade.h:70
 msgid "Mixture model (PPM/dictionary)"
@@ -546,11 +532,11 @@ msgstr "ਸਧਾਰਨ"
 
 #: ../Src/Gtk2/dasher.glade.h:73
 msgid "Number of \"zoom-out boxes\":"
-msgstr ""
+msgstr "\"ਜ਼ੂਮ ਬਾਹਰ ਬਕਸਿਆਂ\" ਦੀ ਪੁਸ਼ਟੀ:"
 
 #: ../Src/Gtk2/dasher.glade.h:74
 msgid "Number of boxes:"
-msgstr ""
+msgstr "ਬਕਸਿਆਂ ਦੀ ਗਿਣਤੀ:"
 
 #: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
@@ -558,12 +544,11 @@ msgstr "ਇੱਕ ਆਯਮ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:76
 msgid "One-button dynamic mode"
-msgstr ""
+msgstr "ਇੱਕ-ਬਟਨ ਸਫ਼ਰੀ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:77
-#, fuzzy
 msgid "One-button static mode"
-msgstr "ਬਟਨ ਢੰਗ"
+msgstr "ਇੱਕ-ਬਟਨ ਸਥਿਰ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
@@ -579,21 +564,19 @@ msgstr "ਬਾਹਰੀ ਝਰੋਖਾ ਨੂੰ ਵਿਰਾਮ"
 
 #: ../Src/Gtk2/dasher.glade.h:81
 msgid "Prediction"
-msgstr ""
+msgstr "ਪੁਸ਼ਟੀ"
 
 #: ../Src/Gtk2/dasher.glade.h:82
-#, fuzzy
 msgid "Pulsing mode"
-msgstr "ਬਟਨ ਢੰਗ"
+msgstr "ਪਲਸਿੰਗ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "ਸੱਜੇ ਤੋਂ ਖੱਬੇ"
 
 #: ../Src/Gtk2/dasher.glade.h:84
-#, fuzzy
 msgid "Right zoom:  "
-msgstr "ਸੱਜੇ ਤੋਂ ਖੱਬੇ"
+msgstr "ਸੱਜਾ ਜ਼ੂਮ:  "
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
@@ -601,7 +584,7 @@ msgstr "ਸੱਜਾ/4:"
 
 #: ../Src/Gtk2/dasher.glade.h:86
 msgid "Safety margin:"
-msgstr ""
+msgstr "ਸੁਰੱਖਿਅਤ ਹਾਸ਼ੀਆ:"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
@@ -613,7 +596,7 @@ msgstr "ਫਾਇਲ ਏਦਾਂ ਸੰਭਾਲੋ"
 
 #: ../Src/Gtk2/dasher.glade.h:89
 msgid "Scaling amount (1D mode):"
-msgstr ""
+msgstr "ਸਕੇਲਿੰਘ ਮਾਤਰਾ (1D ਢੰਗ):"
 
 #: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
@@ -657,15 +640,15 @@ msgstr "ਮਾਊਸ ਦੀ ਸਥਿਤੀ ਨਾਲ ਚਲਾਉ"
 
 #: ../Src/Gtk2/dasher.glade.h:100
 msgid "Static menu mode"
-msgstr ""
+msgstr "ਸਥਿਰ ਮੇਨੂ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:101
 msgid "Steady mode"
-msgstr ""
+msgstr "ਸਥਿਰ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:102
 msgid "Three-button direct mode"
-msgstr ""
+msgstr "ਤਿੰਨ-ਬਟਨ ਸਿੱਧਾ ਢੰਗ"
 
 #: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
@@ -719,7 +702,7 @@ msgstr "Y:"
 
 #: ../Src/Gtk2/dasher.glade.h:116
 msgid "Zoom:"
-msgstr ""
+msgstr "ਜ਼ੂਮ"
 
 #: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
@@ -811,9 +794,9 @@ msgid "Unable to initialize speech support\n"
 msgstr "ਆਵਾਜ਼ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਫਲ\n"
 
 #: ../Src/Gtk2/speech.cc:50
-#, fuzzy, c-format
+#, c-format
 msgid "Unable to initialize voices\n"
-msgstr "ਆਵਾਜ਼ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਫਲ"
+msgstr "ਆਵਾਜ਼ ਨੂੰ ਸ਼ੁਰੂ ਕਰਨ ਵਿੱਚ ਅਸਫਲ\n"
 
 #: ../Src/Gtk2/speech.cc:62
 #, c-format
@@ -823,3 +806,4 @@ msgstr "ਚੇਤਵਾਨੀ: ਆਵਾਜ਼ ਪੈਰਾਮੀਟਰ ਨਿ�
 #: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr "ਡੈਸ਼ਰ ਪਾਠ ਇੰਦਰਾਜ਼"
+
