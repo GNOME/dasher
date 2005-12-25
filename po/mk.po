@@ -2,7 +2,7 @@
 # translation of dasher.HEAD.po to Macedonian
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) 2005 THE PACKAGE'S COPYRIGHT HOLDER.
-# Arangel Angov <ufo@linux.net.mk>, 2004.
+# Arangel Angov <ufo@linux.net.mk>, 2004, 2005.
 # Арангел Ангов <ufo@linux.net.mk>, 2005.
 #
 msgid ""
@@ -10,13 +10,13 @@ msgstr ""
 "Project-Id-Version: mk\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2005-09-09 12:35+0200\n"
-"PO-Revision-Date: 2005-07-24 21:21+0200\n"
-"Last-Translator: Арангел Ангов <ufo@linux.net.mk>\n"
+"PO-Revision-Date: 2005-12-25 18:36+0100\n"
+"Last-Translator: Arangel Angov <ufo@linux.net.mk>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10\n"
+"X-Generator: KBabel 1.10.2\n"
 
 #. Paneltree
 #. |         /-menutree
@@ -265,14 +265,12 @@ msgid "9:"
 msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-#, fuzzy
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Адаптација:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
-#, fuzzy
 msgid "<b>Advanced Settings:</b>"
-msgstr "<b>Поставувања за јазик:</b>"
+msgstr "<b>Напредни поставувања:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
 msgid "<b>Alphabet Selection:</b>"
@@ -283,18 +281,16 @@ msgid "<b>Button control setup</b>"
 msgstr "<b>Подесување за контрола на копчињата</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
 msgid "<b>Button modes:</b>"
-msgstr "<b>Менување на режим со копчиња:</b>"
+msgstr "<b>Режим на копчиња:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Избор на боја:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
-#, fuzzy
 msgid "<b>Compass Mode</b>"
-msgstr "<b>Јазик:</b>"
+msgstr "<b>Режим со компас</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
@@ -305,23 +301,20 @@ msgid "<b>Language Model:</b>"
 msgstr "<b>Јазик:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>Menu Mode</b>"
-msgstr "<b>Јазик:</b>"
+msgstr "<b>Режим со мени</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>Разни опции:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17
-#, fuzzy
 msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>Менување на режим со копчиња:</b>"
+msgstr "<b>Динамички режим за едно копче</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:18
-#, fuzzy
 msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>Менување на режим со копчиња:</b>"
+msgstr "<b>Статички режим за едно копче</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "<b>Orientation:</b>"
@@ -332,9 +325,8 @@ msgid "<b>Smoothing:</b>"
 msgstr "<b>Мазнење:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:21
-#, fuzzy
 msgid "<b>Speed:</b>"
-msgstr "<b>Брзина</b>"
+msgstr "<b>Брзина:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:14
 msgid "<b>Starting And Stopping:</b>"
@@ -357,14 +349,12 @@ msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Опции за оската Y:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:27
-#, fuzzy
 msgid "<b>Zoom steps:</b>"
-msgstr "<b>Стил на контрола:</b>"
+msgstr "<b>Чекори за зумирање:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:28
-#, fuzzy
 msgid "Adapt speed automatically"
-msgstr "Смени ја бојата на шемата автоматски"
+msgstr "Адаптирај ја брзината автоматски"
 
 #: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
@@ -380,7 +370,7 @@ msgstr "Стандардна азбука"
 
 #: ../Src/Gtk2/dasher.glade.h:32
 msgid "Alternating direct mode"
-msgstr ""
+msgstr "Менувачки директен режим"
 
 #: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:22
 msgid "Bottom to Top"
@@ -388,7 +378,7 @@ msgstr "Од доле до горе"
 
 #: ../Src/Gtk2/dasher.glade.h:34
 msgid "Box non-uniformity:"
-msgstr ""
+msgstr "Менување на кутивчињата:"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:23
 msgid "Button control setup"
@@ -399,22 +389,20 @@ msgid "Button mode"
 msgstr "Режим со копчиња"
 
 #: ../Src/Gtk2/dasher.glade.h:37
-#, fuzzy
 msgid "Button setup"
-msgstr "Подесување за контрола на копчињат"
+msgstr "Поставување на копчињата"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "Button:"
 msgstr "Копче:"
 
 #: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
 msgid "Click mode"
-msgstr "Контролен режим"
+msgstr "Режим за кликање"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Compass mode"
-msgstr ""
+msgstr "Режим со компас"
 
 #: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
@@ -433,9 +421,8 @@ msgid "Copy all on stop"
 msgstr "Копирај сѐ по стопирањето"
 
 #: ../Src/Gtk2/dasher.glade.h:47
-#, fuzzy
 msgid "Custom:"
-msgstr "Отсечи"
+msgstr "Сопствен:"
 
 #: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
@@ -455,8 +442,7 @@ msgstr "Параметри за dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
-"Далечината од линијата во центарот за почетокот на позицијата на глувчето:"
+msgstr "Далечината од линијата во центарот за почетокот на позицијата на глувчето:"
 
 #: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:38
 msgid "Down/3:"
@@ -472,7 +458,7 @@ msgstr "Нацртај линија помеѓу глушецот и покаж�
 
 #: ../Src/Gtk2/dasher.glade.h:56
 msgid "Drop time:  "
-msgstr ""
+msgstr "Време за испуштање:  "
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
@@ -488,7 +474,7 @@ msgstr "Режим на следење"
 
 #: ../Src/Gtk2/dasher.glade.h:60
 msgid "Four-button direct mode"
-msgstr ""
+msgstr "Директен режим со четири копчиња"
 
 #: ../Src/Gtk2/dasher.glade.h:61
 msgid ""
@@ -502,7 +488,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Increase line thickness"
-msgstr ""
+msgstr "Зголемена дебелина на линијата"
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Japanese"
@@ -525,9 +511,8 @@ msgid "Left/2:"
 msgstr "Лево/2:"
 
 #: ../Src/Gtk2/dasher.glade.h:69
-#, fuzzy
 msgid "Miscellaneous"
-msgstr "<b>Разни опции:</b>"
+msgstr "Разно"
 
 #: ../Src/Gtk2/dasher.glade.h:70
 msgid "Mixture model (PPM/dictionary)"
@@ -543,11 +528,11 @@ msgstr "Нормално"
 
 #: ../Src/Gtk2/dasher.glade.h:73
 msgid "Number of \"zoom-out boxes\":"
-msgstr ""
+msgstr "Број на \"одзумирани кутивчиња\":"
 
 #: ../Src/Gtk2/dasher.glade.h:74
 msgid "Number of boxes:"
-msgstr ""
+msgstr "Број на кутивчиња:"
 
 #: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
@@ -555,12 +540,11 @@ msgstr "Едно-димензионален режим"
 
 #: ../Src/Gtk2/dasher.glade.h:76
 msgid "One-button dynamic mode"
-msgstr ""
+msgstr "Динамички режим за едно копче"
 
 #: ../Src/Gtk2/dasher.glade.h:77
-#, fuzzy
 msgid "One-button static mode"
-msgstr "Режим со копчиња"
+msgstr "Статичен режим за едно копче"
 
 #: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
@@ -576,21 +560,19 @@ msgstr "Паузирај надвор од прозорецот"
 
 #: ../Src/Gtk2/dasher.glade.h:81
 msgid "Prediction"
-msgstr ""
+msgstr "Предвидување"
 
 #: ../Src/Gtk2/dasher.glade.h:82
-#, fuzzy
 msgid "Pulsing mode"
-msgstr "Режим со копчиња"
+msgstr "Режим со пулсирање"
 
 #: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:56
 msgid "Right to Left"
 msgstr "Од десно налево"
 
 #: ../Src/Gtk2/dasher.glade.h:84
-#, fuzzy
 msgid "Right zoom:  "
-msgstr "Од десно налево"
+msgstr "Десен зум:  "
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:57
 msgid "Right/4:"
@@ -598,7 +580,7 @@ msgstr "Десно/4:"
 
 #: ../Src/Gtk2/dasher.glade.h:86
 msgid "Safety margin:"
-msgstr ""
+msgstr "Маргина за сигурност:"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
@@ -610,15 +592,15 @@ msgstr "Зачувај датотека како"
 
 #: ../Src/Gtk2/dasher.glade.h:89
 msgid "Scaling amount (1D mode):"
-msgstr ""
+msgstr "Количина на мерење (режим 1D):"
 
 #: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:60
 msgid "Select File"
-msgstr "Одберете датотека"
+msgstr "Изберете датотека"
 
 #: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:61
 msgid "Select Font"
-msgstr "Одбери фонт"
+msgstr "Узберете фонт"
 
 #: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
@@ -654,15 +636,15 @@ msgstr "Започни со позицијата на глушецот"
 
 #: ../Src/Gtk2/dasher.glade.h:100
 msgid "Static menu mode"
-msgstr ""
+msgstr "Режим со статичко мени"
 
 #: ../Src/Gtk2/dasher.glade.h:101
 msgid "Steady mode"
-msgstr ""
+msgstr "Мирен режим"
 
 #: ../Src/Gtk2/dasher.glade.h:102
 msgid "Three-button direct mode"
-msgstr ""
+msgstr "Директен режим со три копчиња"
 
 #: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
@@ -716,7 +698,7 @@ msgstr "Y:"
 
 #: ../Src/Gtk2/dasher.glade.h:116
 msgid "Zoom:"
-msgstr ""
+msgstr "Зум:"
 
 #: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
@@ -821,3 +803,4 @@ msgstr "Предупредување: не можам да ги поставам
 #: ../Src/main.cc:116
 msgid "Dasher Text Entry"
 msgstr "Поле за внесување на Dasher"
+
