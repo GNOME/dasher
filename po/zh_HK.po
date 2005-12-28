@@ -169,7 +169,7 @@ msgstr "選擇檔案"
 msgid "translator_credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
-"以下地址，GNOME 翻譯團隊會盡快回覆您：\n"
+"以下地址，GNOME 翻譯隊伍會盡快回覆你：\n"
 "community@linuxhall.org\n"
 "\n"
 "Woodman Tuen <wmtuen@gmail.com>, 2005"
@@ -477,7 +477,7 @@ msgid ""
 "your writing speed."
 msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
-"注意選擇較大數值將會減慢您的書寫速度。"
+"注意選擇較大數值將會減慢你的書寫速度。"
 
 #: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
@@ -565,7 +565,7 @@ msgid ""
 "selecting high values will slow your writing speed."
 msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
-"注意選擇較大數值將會減慢您的書寫速度。"
+"注意選擇較大數值將會減慢你的書寫速度。"
 
 #: ../Src/Gtk2/speech.cc:24
 #, c-format
@@ -585,4 +585,3 @@ msgstr "警告：不能設定朗讀參數\n"
 #: ../Src/main.cc:115
 msgid "Dasher Text Entry"
 msgstr "Dasher 文字輸入"
-
