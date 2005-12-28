@@ -1,3 +1,7 @@
+2005-12-28  Abel Cheung  <maddog@linuxhall.org>
+
+	* configure.in: Added "vi" "zh_HK" to ALL_LINGUAS.
+
 2005-10-23  Phil Cowans  <pjc51@cam.ac.uk>
 	* A few small fixes to Windows colour scheme code
 	* Bumped version number
