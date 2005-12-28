@@ -1,3 +1,7 @@
+2005-12-28  Abel Cheung  <maddog@linuxhall.org>
+
+	* configure.in: Added "vi" "zh_HK" to ALL_LINGUAS.
+
 2005-12-26  Timur Jamakeev  <timurj@cvs.gnome.org>
 
 	* configure.in: Added "ky" (Kirghiz) to ALL_LINGUAS
