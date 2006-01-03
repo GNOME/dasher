@@ -5,6 +5,8 @@
 #include "../../DasherCore/DasherTypes.h"
 #include "Edit.h"
 
+#include "WinWrap.h"
+
 class CWinSel:public CWinWrap {
 public:
   CWinSel(HWND Parent, CEdit * m_pEdit);

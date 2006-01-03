@@ -34,11 +34,14 @@ typedef std::basic_string < TCHAR > Tstring;
 
 #include "WinUTF8.h"
 #include "WinHelper.h"
-#include "WinWrap.h"
 #include "WinLocalisation.h"
 
 #if DASHER_WIN32 <= 1300
 namespace stdext = std;
 #endif
+
+#include <atlbase.h>
+#include <atlwin.h>
+
 
 #endif /* #ifndef __WinHelper_h__ */

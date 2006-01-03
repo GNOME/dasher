@@ -13,6 +13,7 @@
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
+#include "WinWrap.h"
 
 class CColourBox:public CWinWrap {
 public:

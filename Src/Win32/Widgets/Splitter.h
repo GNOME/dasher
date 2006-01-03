@@ -2,42 +2,79 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+// Copyright (c) 2002-2006 Iain Murray, Inference Group, Cavendish, Cambridge.
 //
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __Splitter_h__
 #define __Splitter_h__
 
-#define MY_LAYOUT WM_USER+2
+/////////////////////////////////////////////////////////////////////////////
 
-#include "../../DasherCore/Win32/DasherInterface.h"
+// Abstract interface - callback for resize of splitter
 
-class CSplitterOwner {
+class CSplitterOwner 
+{
 public:
-  virtual void Layout() = 0;
+	virtual void Layout() = 0;
 };
 
-class CSplitter:public CWinWrap {
+/////////////////////////////////////////////////////////////////////////////
+
+class CSplitter :public ATL::CWindowImpl<CSplitter>
+{	
+
 public:
-  CSplitter(HWND Parent, CDasherInterface *DI, int Pos, CSplitterOwner * NewOwner);
-  void Move(int Pos, int Width);
-  int GetHeight() {
-    return GetSystemMetrics(SM_CYSIZEFRAME);
-  } 
-  int GetPos() {
-    return m_Pos;
-  }
+
+	CSplitter(CSplitterOwner* pOwner,int Pos);
+	
+	HWND Create(HWND Parent);
+
+	void Move(int Pos, int Width);
+	
+	int GetHeight() 
+	{
+		return GetSystemMetrics(SM_CYSIZEFRAME);
+	} 
+	
+	int GetPos() 
+	{
+		return m_iPos;
+	}
+
+	static ATL::CWndClassInfo& GetWndClassInfo() 
+	{ 
+		static ATL::CWndClassInfo wc = \
+		{ \
+			{ sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW , StartWindowProc, \
+			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_ACTIVEBORDER + 1), NULL, _T("HSplitter"), NULL }, \
+			NULL, NULL, MAKEINTRESOURCE(IDC_SIZENS), TRUE, 0, _T("") \
+		}; \
+		return wc;
+	}
+
+	BEGIN_MSG_MAP( CSplitter )
+	    MESSAGE_HANDLER(WM_MOUSEMOVE, OnMouseMove)
+	    MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
+	    MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
+	END_MSG_MAP()
 
 protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+
+	enum SplitStatus
+	{ 
+		None, 
+		Sizing 
+	};
+	
+	LRESULT OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+
 private:
-  CDasherInterface *m_pDasherInterface;
-  CSplitterOwner *Owner;
-  int m_Pos;
-  HWND m_hwnd, Parent;
-  Tstring CreateMyClass();
-  enum SplitStatuses { None, Sizing } SplitStatus;
+  CSplitterOwner* m_pOwner;
+  int m_iPos;
+  SplitStatus m_SplitStatus;
 };
 
 #endif  /* #ifndef __Splitter_h__ */

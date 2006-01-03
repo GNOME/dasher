@@ -10,18 +10,24 @@
 #define __KeyBox_h__
 
 #include "../resource.h"
+#include "WinWrap.h"
 
-#include "../Dasher.h"
+namespace Dasher
+{
+	class CDasher;
+}
 
-class CKeyBox:public CWinWrap {
+
+class CKeyBox: public CWinWrap 
+{
 public:
-  CKeyBox(HWND Parent, CDasher * pDasher);
+	CKeyBox(HWND Parent, Dasher::CDasher * pDasher);
   void PopulateWidgets();
     std::string GetControlText(HWND Dialog, int ControlID);
 protected:
     LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-    CDasher * m_pDasher;
+	Dasher::CDasher * m_pDasher;
 
   HWND CustomBox;
   HWND slider;

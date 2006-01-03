@@ -24,64 +24,96 @@ class CToolbar;
 class CSlidebar;
 namespace Dasher {
   class CDasher;
-  class CDasherComponent;
 };
 
 // Abstract interfaces to the Dasher engine
 #include "../DasherCore/Win32/DasherInterface.h"
 
-class CDasherWindow : public CWinWrap, public CSplitterOwner {
+class CDasherWindow : 
+	public ATL::CWindowImpl<CDasherWindow>, 
+	public CSplitterOwner 
+{
 public:
-  CDasherWindow();
-  ~CDasherWindow();
+	CDasherWindow();
+	~CDasherWindow();
 
-  void Show(int nCmdShow);
-  int MessageLoop();
+	DECLARE_WND_CLASS(_T("DASHER") )
 
-  void SaveWindowState() const;
-  bool LoadWindowState();
+	BEGIN_MSG_MAP( CDasherWindow )
+		MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
+		MESSAGE_HANDLER(WM_COMMAND, OnCommand)
+		MESSAGE_HANDLER(WM_CLOSE, OnClose)
+		MESSAGE_HANDLER(WM_SIZE, OnSize)
+		MESSAGE_HANDLER(WM_GETMINMAXINFO,OnGetMinMaxInfo)
+		MESSAGE_HANDLER(WM_INITMENUPOPUP,OnInitMenuPopup)
+		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
+		MESSAGE_HANDLER(WM_DRAWITEM,OnDrawItem)
+		MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
+	END_MSG_MAP()
 
-protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+	LRESULT OnDrawItem(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+
+
+	// Create window (and children)
+	// failure returns NULL
+	HWND Create();
+
+	void Show(int nCmdShow);
+
+	int MessageLoop();
 
 private:
-  Dasher::CDasher *m_pDasher;
+ 
+	// Main processing function, called by MessageLoop
+	void Main();
 
-  HACCEL hAccelTable;
+	void SaveWindowState() const;
+	bool LoadWindowState();
 
-  // Fiddly Window initialisation
-  Tstring CreateMyClass();
+	Dasher::CDasher *m_pDasher;
 
-  // Method to set values of all settings in the menu
-  void PopulateSettings();
+	HACCEL hAccelTable;
 
-  /// 
-  /// Handle control events
-  ///
+	// Method to set values of all settings in the menu
+	void PopulateSettings();
 
-  void HandleControlEvent(int iID);
+	/// 
+	/// Handle control events
+	///
 
-  void HandleParameterChange(int iParameter);
+	void HandleControlEvent(int iID);
 
-  // Widgets:
-  CToolbar *m_pToolbar;
-  CEdit *m_pEdit;
-  CCanvas *m_pCanvas;
-  CSplitter *m_pSplitter;
-  CSlidebar *m_pSlidebar;
-  CMenu WinMenu;
-  CSplash *Splash;
+	void HandleParameterChange(int iParameter);
 
-  CAppSettings *m_pAppSettings;
+	// Widgets:
+	CToolbar *m_pToolbar;
+	CEdit *m_pEdit;
+	CCanvas *m_pCanvas;
+	CSplitter *m_pSplitter;
+	CSlidebar *m_pSlidebar;
+	CMenu WinMenu;
+	CSplash *Splash;
 
-  HICON m_hIconSm;
+	CAppSettings *m_pAppSettings;
 
-  LPCWSTR AutoOffset;
-  LPCWSTR DialogCaption;
-  char tmpAutoOffset[25];
+	HICON m_hIconSm;
 
-  // Misc window handling
-  void Layout();
+	LPCWSTR AutoOffset;
+	LPCWSTR DialogCaption;
+	char tmpAutoOffset[25];
+
+	// Misc window handling
+	void Layout();
 
 };
 

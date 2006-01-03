@@ -243,16 +243,6 @@
 			</File>
 		</Filter>
 		<Filter
-			Name="Framework"
-			Filter="">
-			<File
-				RelativePath="Framework\Window.cpp">
-			</File>
-			<File
-				RelativePath="Framework\Window.h">
-			</File>
-		</Filter>
-		<Filter
 			Name="Widgets"
 			Filter=".cpp">
 			<File
@@ -426,6 +416,25 @@
 			</File>
 			<File
 				RelativePath="Common\WinWrap.h">
+			</File>
+		</Filter>
+		<Filter
+			Name="TabletPC"
+			Filter="">
+			<File
+				RelativePath=".\TabletPC\CursorInRange.cpp">
+			</File>
+			<File
+				RelativePath=".\TabletPC\CursorInRange.h">
+			</File>
+			<File
+				RelativePath=".\TabletPC\InkCollectorEvents.cpp">
+			</File>
+			<File
+				RelativePath=".\TabletPC\InkCollectorEvents.h">
+			</File>
+			<File
+				RelativePath=".\TabletPC\SystemInfo.h">
 			</File>
 		</Filter>
 		<File

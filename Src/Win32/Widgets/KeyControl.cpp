@@ -10,6 +10,7 @@
 
 #include "KeyControl.h"
 #include "../resource.h"
+#include "../Dasher.h"
 
 #include <utility>              // for std::pair
 //#include <sstream>
@@ -17,20 +18,12 @@
 using namespace Dasher;
 using namespace std;
 
-// Track memory leaks on Windows to the line that new'd the memory
-#ifdef _WIN32
-#ifdef _DEBUG
-#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-#endif
 
 // FIXME - lines marked //F need to be reimplemented using the new scheme
 
 CKeyBox::CKeyBox(HWND Parent, CDasher *pDasher)
-:m_pDasher(pDasher), NewUniform(-1) {
+:m_pDasher(pDasher), NewUniform(-1) 
+{
 //      m_sBuffer.resize(1000);
   m_hwnd = 0;
   DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_KEYCONTROL1, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);

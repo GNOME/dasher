@@ -110,7 +110,7 @@ bool CControlPage::Apply()
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
-      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0));
+      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
   }
 
 	// Return false (and notify the user) if something is wrong.
@@ -129,7 +129,7 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			break;
 		case IDC_STOPIDLE:
 			// set activity of the idle time edit control
-			BOOL bChecked =  SendMessage(GetDlgItem(m_hwnd, IDC_STOPIDLE), BM_GETCHECK, 0, 0) !=0;
+			BOOL bChecked =  SendMessage(GetDlgItem(m_hwnd, IDC_STOPIDLE), BM_GETCHECK, 0, 0) == BST_CHECKED;
 			EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bChecked);
 			EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bChecked);
                         // don't return: also want to pass event on to superclass to trigger Apply activation

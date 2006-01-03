@@ -9,6 +9,8 @@
 #ifndef __SplashScreen_h__
 #define __SplashScreen_h__
 
+#include "WinWrap.h"
+
 class CSplash:public CWinWrap {
 public:
   CSplash(HWND Parent);

@@ -7,99 +7,80 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "WinCommon.h"
-
 #include "Splitter.h"
-
-// Track memory leaks on Windows to the line that new'd the memory
-#ifdef _WIN32
-#ifdef _DEBUG
-#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-#endif
 
 // For WinCE
 #ifndef MAKEPOINTS
 #define MAKEPOINTS(l)   (*((POINTS FAR *) & (l)))
 #endif
 
-CSplitter::CSplitter(HWND Parent, CDasherInterface *DI, int Pos, CSplitterOwner *NewOwner)
-              :SplitStatus(None), m_pDasherInterface(DI), m_Pos(Pos), Parent(Parent), Owner(NewOwner) {
-  Tstring WndClassName = CreateMyClass();
+/////////////////////////////////////////////////////////////////////////////
 
-  m_hwnd = CreateWindowEx(0, WndClassName.c_str(), NULL, WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
+CSplitter::CSplitter(CSplitterOwner* pOwner, int iPos)
+          :	m_SplitStatus(None), m_iPos(iPos), m_pOwner(pOwner) 
+{
 
-  WinWrapMap::add(m_hwnd, this);
 }
 
-void CSplitter::Move(int Pos, int Width) {
-  m_Pos = Pos;
-  MoveWindow(m_hwnd, 0, Pos, Width, GetSystemMetrics(SM_CYSIZEFRAME), TRUE);
+/////////////////////////////////////////////////////////////////////////////
+
+HWND CSplitter::Create(HWND hParent)
+{	
+	return CWindowImpl<CSplitter>::Create(hParent,NULL,NULL,WS_CHILD | WS_VISIBLE);
 }
 
-Tstring CSplitter::CreateMyClass() {
-  TCHAR *WndClassName = TEXT("HSplitter");
+/////////////////////////////////////////////////////////////////////////////
 
-  if(WinWrapMap::Register(WndClassName)) {
-    WNDCLASSEX wndclass;
-    memset(&wndclass, 0, sizeof(WNDCLASSEX));
-    wndclass.cbSize = sizeof(WNDCLASSEX);
-    wndclass.style = CS_HREDRAW | CS_VREDRAW;
-    wndclass.lpfnWndProc = WinWrapMap::WndProc;
-    wndclass.hInstance = WinHelper::hInstApp;
-    wndclass.hCursor = LoadCursor(NULL, IDC_SIZENS);
-    wndclass.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
-    wndclass.lpszMenuName = NULL;
-    wndclass.lpszClassName = WndClassName;
-
-    RegisterClassEx(&wndclass);
-  }
-
-  return Tstring(WndClassName);
+void CSplitter::Move(int iPos, int Width) 
+{
+	m_iPos = iPos;
+	MoveWindow(0, m_iPos, Width, GetSystemMetrics(SM_CYSIZEFRAME), TRUE);
 }
 
-LRESULT CSplitter::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  switch (message) {
-  case WM_LBUTTONDOWN:
-    {
-      SplitStatus = Sizing;
-      SetCapture(m_hwnd);
-    }
-    break;
-  case WM_LBUTTONUP:
-    if(SplitStatus == Sizing) {
-      SplitStatus = None;
-      ReleaseCapture();
-    }
-    break;
-  case WM_MOUSEMOVE:
-    {
-      POINTS Tmp = MAKEPOINTS(lParam);
-      POINT MousePos;
-      MousePos.x = Tmp.x;
-      MousePos.y = Tmp.y;
-      MapWindowPoints(m_hwnd, Parent, &MousePos, 1);
-      if(SplitStatus == Sizing) {
-        RECT ParentRect, MyRect;
-        GetWindowRect(Parent, &ParentRect);
-        GetWindowRect(m_hwnd, &MyRect);
-        m_Pos = MousePos.y - GetSystemMetrics(SM_CYSIZEFRAME) / 2;
-        // Layout();
-        Owner->Layout();
-      }
-      break;
-    }
-    break;
-  case WM_DESTROY:
-    {
-      OutputDebugString(TEXT("Splitter WM_DESTROY\n"));
-      return DefWindowProc(Window, message, wParam, lParam);
-    }
+/////////////////////////////////////////////////////////////////////////////
 
-  default:
-    return DefWindowProc(Window, message, wParam, lParam);
-  }
-  return 0;
+LRESULT CSplitter::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	m_SplitStatus = Sizing;
+    SetCapture();
+	return 0;
 }
+
+/////////////////////////////////////////////////////////////////////////////
+
+LRESULT CSplitter::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	if( m_SplitStatus == Sizing) 
+	{
+		m_SplitStatus = None;
+		ReleaseCapture();
+	}
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+LRESULT CSplitter::OnMouseMove(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	POINTS Tmp = MAKEPOINTS(lParam);
+	POINT MousePos;
+	MousePos.x = Tmp.x;
+	MousePos.y = Tmp.y;
+	MapWindowPoints( GetParent(), &MousePos, 1);
+	
+	if( m_SplitStatus == Sizing) 
+	{
+		RECT ParentRect, MyRect;
+		::GetWindowRect( GetParent(), &ParentRect);
+		GetWindowRect(&MyRect);
+		m_iPos = MousePos.y - GetSystemMetrics(SM_CYSIZEFRAME) / 2;
+		// Layout();
+		m_pOwner->Layout();
+	}
+	return 0;
+}
+/////////////////////////////////////////////////////////////////////////////
+

@@ -17,10 +17,11 @@
 
 #include "../../DasherCore/Win32/DasherInterface.h"
 #include "Canvas.h"
+#include "WinWrap.h"
 
 class CSlidebar:public CWinWrap {
 public:
-  CSlidebar(HWND ParentWindow, CDasherInterface * DasherInterface, double StartValue = 2.51, CCanvas * NewDasherCanvas = 0);
+	CSlidebar(HWND ParentWindow, CDasherInterface * DasherInterface, double StartValue = 2.51, CCanvas * NewDasherCanvas = 0);
 
   // Base is the desired position of the bottom of the slidebar.
   // The height of the slide bar is returned.

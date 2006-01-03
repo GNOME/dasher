@@ -14,6 +14,7 @@
 
 #include "../resource.h"
 #include <utility>              // for std::pair
+#include "../Dasher.h"
 
 using namespace Dasher;
 using namespace std;

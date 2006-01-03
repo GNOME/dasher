@@ -93,7 +93,7 @@ bool CViewPage::Apply() {
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
-      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0));
+      SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
   }
 
   if(SendMessage(GetDlgItem(m_hwnd, IDC_THICKLINE), BM_GETCHECK, 0, 0))

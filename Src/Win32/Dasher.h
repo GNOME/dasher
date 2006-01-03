@@ -1,14 +1,6 @@
 #pragma once
 
-
-
 #include "../DasherCore/Win32/DasherInterface.h"
-#include "Common/WinHelper.h"
-#include "Common/WinWrap.h"
-#include "DasherWindow.h"
-#include "Widgets/Canvas.h"
-#include "Widgets/Slidebar.h"
-#include "EditWrapper.h"
 #include "../DasherCore/UserLog.h"
 
 extern CONST UINT WM_DASHER_EVENT;
@@ -20,8 +12,12 @@ extern CONST UINT WM_DASHER_FOCUS;
 namespace Dasher {
   class CDasher;
 } 
+class CCanvas;
+class CSlidebar;
+class CEditWrapper;
 
-class Dasher::CDasher : public CDasherInterface {
+class Dasher::CDasher : public CDasherInterface 
+{
 public:
   CDasher(HWND Parent);
   ~CDasher(void);
@@ -29,7 +25,7 @@ public:
   // The following functions will not be part of the final interface
 
   CCanvas *GetCanvas() {
-    return m_pCanvas;
+	  return m_pCanvas;
   }
 
   CSlidebar *GetSlidebar() {
@@ -44,22 +40,26 @@ public:
 
   virtual void WriteTrainFile(const std::string &strNewText);
 
+    void					  Main(); 
+
 
 private:
 
   void                    AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface * Interface);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
-  static DWORD WINAPI     WorkerThread(LPVOID lpParam);     // Spins around and sends WM_DASHER_TIMER message
-  void                    ShutdownWorkerThread();           // Called when we want the worker thread to stop
-  void                    OnTimer();                        // Does the periodic work
+  void                    Log();                        // Does the logging
 
   CCanvas *m_pCanvas;
   CSlidebar *m_pSlidebar;
   CEditWrapper *m_pEditWrapper;
 
-  HANDLE m_workerThread;        // Handle to our worker thread that periodically checks on user's activities
-  bool m_bWorkerShutdown;       // Set to true when the worker should terminate
-    
+ 
+// Retired  
+  // static DWORD WINAPI     WorkerThread(LPVOID lpParam);     // Spins around and sends WM_DASHER_TIMER message
+  // void                    ShutdownWorkerThread();           // Called when we want the worker thread to stop
+  // HANDLE m_workerThread;        // Handle to our worker thread that periodically checks on user's activities
+  // HANDLE m_EventWorkerThreadShutdown; // Event for thread-safe thread shutdown 
+
   HWND m_hParent;
 
 };

@@ -9,10 +9,6 @@
 #ifndef __Edit_h__
 #define __Edit_h__
 
-#include "../../Common/MSVC_Unannoy.h"
-#include <string>
-#include <vector>
-
 #define _ATL_APARTMENT_THREADED
 #include <atlbase.h>
 
@@ -30,10 +26,10 @@ extern CComModule _Module;
 
 #include "../../DasherCore/DashEdit.h"
 
-#include "FilenameGUI.h"
 #include <Oleacc.h>
 
 class CCanvas;
+class CFilenameGUI;
 
 enum {
   EDIT_FORWARDS,
@@ -47,128 +43,155 @@ enum {
   EDIT_FILE
 };
 
-class CEdit:public Dasher::CDashEditbox, public CWinWrap {
+class CEdit	:	public Dasher::CDashEditbox, 
+				public ATL::CWindowImpl<CEdit>
+{
 public:
-  CEdit(HWND Parent);
-  ~CEdit();
 
-  void Move(int x, int y, int Width, int Height);
-  HWND GetHwnd() {
-    return m_hwnd;
-  } // As EN_UPDATE message go to parent, need this. void UserSave(HANDLE FileHandle);
-  void UserOpen(HANDLE FileHandle);
+	CEdit();
+	~CEdit();
 
-  void Move(int iDirection, int iDist);
-  void Delete(int iDirection, int iDist);
-  void SetKeyboardTarget(HWND hwnd);
+	HWND Create(HWND hParent);
 
-  // Overriding file virtual functions
-  void TimeStampNewFiles(bool Value);
-  void New(const std::string & filename);
-  bool Open(const std::string & filename);
-  bool OpenAppendMode(const std::string & filename);
-  bool SaveAs(const std::string & filename);
-  bool Save();
-  // Functions for Windows GUI to call
-  void New();
-  void Open();
-  void OpenAppendMode();
-  void SaveAs();
-  std::string Import();
-  void SetDirty();              // Parent window gets notification Edit window has changed.
+	// Superclass the built-in EDIT window class
+	DECLARE_WND_SUPERCLASS(NULL, _T("EDIT") )
 
-  void Cut();
-  void Copy();
-  void CopyAll();
-  void Paste();
-  void SelectAll();
-  void Clear();
+	BEGIN_MSG_MAP( CEdit )
+		MESSAGE_HANDLER(WM_LBUTTONDOWN, OnLButtonDown)
+		MESSAGE_HANDLER(WM_LBUTTONUP, OnLButtonUp)
+		MESSAGE_HANDLER(WM_CHAR, OnChar)
+		MESSAGE_HANDLER(WM_KEYDOWN, OnKeyDown)
+		MESSAGE_HANDLER(WM_KEYUP, OnKeyUp)
+		MESSAGE_HANDLER(WM_COMMAND, OnCommand)
+	END_MSG_MAP()
 
-  void SetEncoding(Dasher::Opts::FileEncodingFormats Encoding);
-  void SetFont(std::string Name, long Size);
 
-  void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
+	HRESULT OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	HRESULT OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	HRESULT OnChar(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	HRESULT OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	HRESULT OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	HRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
-  // write some buffered output to file
-  void write_to_file();
 
-  // get the context from the current cursor position with max history
-  void get_new_context(std::string & str, int max);
+	void Move(int x, int y, int Width, int Height);
+	HWND GetHwnd() 
+	{
+		return m_hWnd;
+	} // As EN_UPDATE message go to parent, need this. void UserSave(HANDLE FileHandle);
+	void UserOpen(HANDLE FileHandle);
 
-  // called when characters fall of the LHS of the screen
-  void output(const std::string & sText);
+	void Move(int iDirection, int iDist);
+	void Delete(int iDirection, int iDist);
+	void SetKeyboardTarget(HWND hwnd);
 
-  // called when outputting a control symbol
-  void outputcontrol(void *pointer, int data, int type);
+	// Overriding file virtual functions
+	void TimeStampNewFiles(bool Value);
+	void New(const std::string & filename);
+	bool Open(const std::string & filename);
+	bool OpenAppendMode(const std::string & filename);
+	bool SaveAs(const std::string & filename);
+	bool Save();
+	// Functions for Windows GUI to call
+	void New();
+	void Open();
+	void OpenAppendMode();
+	void SaveAs();
+	std::string Import();
+	void SetDirty();              // Parent window gets notification Edit window has changed.
 
-  // remove the previous character
+	void Cut();
+	void Copy();
+	void CopyAll();
+	void Paste();
+	void SelectAll();
+	void Clear();
 
-  void deletetext(const std::string & sText);
+	void SetEncoding(Dasher::Opts::FileEncodingFormats Encoding);
+	void SetFont(std::string Name, long Size);
 
-  // set the window that text should be entered into
+	void SetInterface(Dasher::CDasherInterfaceBase * DasherInterface);
 
-  void SetWindow(HWND window);
+	// write some buffered output to file
+	void write_to_file();
 
-  // toggle text entry mode
-  void TextEntry(bool Value) {
-    textentry = Value;
-  }
-  bool GetTextEntry() {
-    return textentry;
-  }
+	// get the context from the current cursor position with max history
+	void get_new_context(std::string & str, int max);
 
-  // speak text
-  void speak(int what);
+	// called when characters fall of the LHS of the screen
+	void output(const std::string & sText);
 
-  // set canvas
-  //void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
+	// called when outputting a control symbol
+	void outputcontrol(void *pointer, int data, int type);
+
+	// remove the previous character
+
+	void deletetext(const std::string & sText);
+
+	// set the window that text should be entered into
+
+	void SetWindow(HWND window);
+
+	// toggle text entry mode
+	void TextEntry(bool Value) {
+		textentry = Value;
+	}
+	bool GetTextEntry() {
+		return textentry;
+	}
+
+	// speak text
+	void speak(int what);
+
+	// set canvas
+	//void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
 
 protected:
-  bool m_dirty;
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+	bool m_dirty;
+	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  HWND Parent;
-  WNDPROC TextWndFunc;
+	HWND Parent;
+	WNDPROC TextWndFunc;
 
-  HWND m_hTarget;
-  bool m_bForwardKeyboard;
+	HWND m_hTarget;
+	bool m_bForwardKeyboard;
 
-  HANDLE FileHandle;            // Keeping a lock on files makes File I/O safer,
-  // especially for the append mode!
-  CFilenameGUI *m_FilenameGUI;
-  Tstring m_filename;
-  HWND textwindow;
-  bool AppendMode;
-  void TNew(const Tstring & filename);
-  bool TOpen(const Tstring & filename);
-  bool TOpenAppendMode(const Tstring & filename);
-  bool TSaveAs(const Tstring & filename);
+	HANDLE FileHandle;            // Keeping a lock on files makes File I/O safer,
+	// especially for the append mode!
+	CFilenameGUI *m_FilenameGUI;
+	Tstring m_filename;
+	HWND textwindow;
+	bool AppendMode;
+	void TNew(const Tstring & filename);
+	bool TOpen(const Tstring & filename);
+	bool TOpenAppendMode(const Tstring & filename);
+	bool TSaveAs(const Tstring & filename);
 
-  HFONT m_Font;
-  std::string m_FontName;
-  long m_FontSize;
+	HFONT m_Font;
+	std::string m_FontName;
+	long m_FontSize;
 
-  std::string m_Output;         // UTF-8 to go to training file
-  UINT CodePage;                // for font and possible for finding the encoding
-  Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
+	std::string m_Output;         // UTF-8 to go to training file
+	UINT CodePage;                // for font and possible for finding the encoding
+	Dasher::Opts::FileEncodingFormats m_Encoding; // file encoding option (may say to use codepage or user setting)
 
-  DWORD threadid;
-  HWND targetwindow;
-  bool textentry;
+	DWORD threadid;
+	HWND targetwindow;
+	bool textentry;
 #ifdef _UNICODE
-  INPUT fakekey[2];
+	INPUT fakekey[2];
 #endif
 
 #ifndef DASHER_WINCE
-  ISpVoice *pVoice;
+	ISpVoice *pVoice;
 #endif
-  Tstring speech;
-  Tstring lastspeech;
-  Tstring newchar;
+	Tstring speech;
+	Tstring lastspeech;
+	Tstring newchar;
 
-  void InsertText(Tstring InsertText);  // add symbol to edit control
+	void InsertText(Tstring InsertText);  // add symbol to edit control
 
-//      CCanvas* Canvas;
+	//      CCanvas* Canvas;
 };
 
 #endif /* #ifndef __Edit_h__ */

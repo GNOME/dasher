@@ -12,6 +12,7 @@
 #ifndef __PrefsPageBase_h__
 #define __PrefsPageBase_h__
 
+#include "WinWrap.h"
 #include "../resource.h"
 #include "../AppSettings.h"
 

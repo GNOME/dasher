@@ -29,21 +29,27 @@
 using namespace Dasher;
 using namespace std;
 
-// Track memory leaks on Windows to the line that new'd the memory
-#ifdef _WIN32
-#ifdef _DEBUG
-#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-#endif
 
 #define IDT_TIMER1 200
 
 CDasherWindow::CDasherWindow()
-:Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0), m_pDasher(0), m_pCanvas(0) {
+:Splash(0), m_pToolbar(0), m_pEdit(0), m_pSlidebar(0), m_pSplitter(0), m_pDasher(0), m_pCanvas(0) 
+{
 
+	m_hIconSm = (HICON) LoadImage(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
+
+	ATL::CWndClassInfo& wc = CDasherWindow::GetWndClassInfo();
+	wc.m_wc.hIcon = LoadIcon(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER);
+	wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
+    wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
+//    wc.m_wc.lpszClassName = WndClassName;      // Not in a resource - does not require translation
+	wc.m_wc.hIconSm        = m_hIconSm;
+	
+}
+
+HWND CDasherWindow::Create()
+{
   hAccelTable = LoadAccelerators(WinHelper::hInstApp, (LPCTSTR) IDC_DASHER);
 
   // Get window title from resource script
@@ -51,9 +57,10 @@ CDasherWindow::CDasherWindow()
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 
   // Create the Main window
-  Tstring WndClassName = CreateMyClass();
-  m_hwnd = CreateWindowEx(0, WndClassName.c_str(), WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN, CW_USEDEFAULT, CW_USEDEFAULT, 400, 500, NULL, NULL, WinHelper::hInstApp, NULL);
-  WinWrapMap::add(m_hwnd, this);
+  //Tstring WndClassName = CreateMyClass();
+
+
+  HWND hWnd = CWindowImpl<CDasherWindow>::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
   // Splash screen (turned off for debugging when it gets in the way)
   // It is deleted when Show() is called.
@@ -66,9 +73,12 @@ CDasherWindow::CDasherWindow()
    */
 
   // Create Widgets
-  m_pDasher = new CDasher(m_hwnd);
-  m_pEdit = new CEdit(m_hwnd);
-  m_pToolbar = new CToolbar(m_hwnd, m_pDasher);
+  m_pDasher = new CDasher(hWnd);
+
+  m_pEdit = new CEdit();
+  m_pEdit->Create(hWnd);
+
+  m_pToolbar = new CToolbar(hWnd, m_pDasher);
 
 
 
@@ -84,11 +94,14 @@ CDasherWindow::CDasherWindow()
 
   m_pCanvas = m_pDasher->GetCanvas();
   m_pSlidebar = m_pDasher->GetSlidebar();
-  m_pSplitter = new CSplitter(m_hwnd, m_pDasher, 100, this);
+
+  m_pSplitter = new CSplitter(this,100);
+  HWND hSplitter =  m_pSplitter->Create(hWnd);
+  if (!hSplitter)
+	  return 0;
 
   // Create a CAppSettings
-
-  m_pAppSettings = new CAppSettings(m_pDasher, m_hwnd);
+  m_pAppSettings = new CAppSettings(m_pDasher, hWnd);
 
   // Add extra control nodes
 
@@ -112,6 +125,7 @@ CDasherWindow::CDasherWindow()
   m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+3, -2);
   m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
 
+  return hWnd;
 }
 
 CDasherWindow::~CDasherWindow() {
@@ -122,11 +136,11 @@ CDasherWindow::~CDasherWindow() {
   delete m_pDasher;
   delete m_pAppSettings;
   DestroyIcon(m_hIconSm);
-  WinWrapMap::remove(m_hwnd);
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
+/////////////////////////////////////////////////////////////////////////////
+/*
 int CDasherWindow::MessageLoop() {
   MSG msg;
   while(GetMessage(&msg, NULL, 0, 0)) {
@@ -138,8 +152,47 @@ int CDasherWindow::MessageLoop() {
 
   return msg.wParam;
 }
+*/
 
-void CDasherWindow::Show(int nCmdShow) {
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherWindow::Main()
+{
+	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
+	m_pDasher->Main();
+	Sleep(20); // limits framerate to 50fps
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+int CDasherWindow::MessageLoop() 
+{
+	MSG msg;
+
+	while( 1 )
+	{
+		
+		while (PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
+		{
+			if (msg.message == WM_QUIT)
+				return msg.wParam;
+
+			if(!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
+			{
+				TranslateMessage(&msg);
+				DispatchMessage(&msg);
+			}
+		}
+
+		Main();
+    } 
+
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+void CDasherWindow::Show(int nCmdShow) 
+{
   // Make sure Dasher has started up.
   m_pDasher->Start();
 
@@ -148,18 +201,18 @@ void CDasherWindow::Show(int nCmdShow) {
   Splash = 0;
 
   // Show Window
-  InvalidateRect(m_hwnd, NULL, FALSE);
+  InvalidateRect( NULL, FALSE);
   if(!LoadWindowState())
-    ShowWindow(m_hwnd, nCmdShow);       // Now set up. Kill splash screen and display main window
-  UpdateWindow(m_hwnd);
+    ShowWindow(nCmdShow);       // Now set up. Kill splash screen and display main window
 }
 
-void CDasherWindow::SaveWindowState() const {
+void CDasherWindow::SaveWindowState() const 
+{
 #ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   wp.length = sizeof(WINDOWPLACEMENT);
   
-  if(GetWindowPlacement(m_hwnd, &wp)) {//function call succeeds
+  if(GetWindowPlacement( &wp)) {//function call succeeds
     m_pAppSettings->SaveSetting("WindowState", &wp);
   }
 #endif
@@ -169,8 +222,9 @@ bool CDasherWindow::LoadWindowState() {
 #ifndef DASHER_WINCE
   WINDOWPLACEMENT wp;
   
-  if(m_pAppSettings->LoadSetting("WindowState", &wp)) {
-	if(SetWindowPlacement(m_hwnd, &wp))
+  if(m_pAppSettings->LoadSetting("WindowState", &wp)) 
+  {
+	if(SetWindowPlacement(&wp))
       return true;
   }
 #endif
@@ -274,11 +328,253 @@ void CDasherWindow::HandleControlEvent(int iID) {
   }
 }
 
-LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  RECT windowsize;
 
-  if(message == WM_DASHER_EVENT) {
-    // We can't switch on a dynamically allocated value...
+
+LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	const int wmId = LOWORD(wParam);
+	const int wmEvent = HIWORD(wParam);
+
+	// Tell edit box if it has changed. It should know itself really, but this is easier
+	if( m_pEdit && ((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
+		m_pEdit->SetDirty();
+		return 0;
+	}
+
+	RECT windowsize;
+
+	// Parse the menu selections:
+	switch (wmId) 
+	{
+	  case ID_OPTIONS_ENTERTEXT:
+		  GetWindowRect( &windowsize);
+		  if(m_pEdit->GetTextEntry() == false) {
+			  SetWindowPos(HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
+			  m_pEdit->TextEntry(true);
+		  }
+		  else 
+		  {
+			  SetWindowPos(HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
+			  m_pEdit->TextEntry(false);
+		  }
+		  return 0;
+	  case ID_OPTIONS_CONTROLMODE:
+		  m_pDasher->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
+		  m_pDasher->RequestFullRedraw();
+		  return 0;
+	  case ID_OPTIONS_FONTSIZE_NORMAL:
+		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
+		  m_pDasher->RequestFullRedraw();
+		  break;
+	  case ID_OPTIONS_FONTSIZE_LARGE:
+		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
+		  m_pDasher->RequestFullRedraw();
+		  break;
+	  case ID_OPTIONS_FONTSIZE_VERYLARGE:
+		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
+		  m_pDasher->RequestFullRedraw();
+		  break;
+	  case ID_OPTIONS_EDITFONT:{
+		  CHOOSEFONT Data;
+		  LOGFONT lf;
+		  HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
+		  GetObject(Font, sizeof(LOGFONT), &lf);
+		  Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
+		  Data.lStructSize = sizeof(CHOOSEFONT);
+		  Data.hwndOwner = m_hWnd;
+		  Data.lpLogFont = &lf;
+		  ChooseFont(&Data);
+		  string FontName;
+		  WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
+		  m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
+							   }
+							   break;
+	  case ID_OPTIONS_DASHERFONT:
+		  {
+		  CHOOSEFONT Data;
+		  LOGFONT lf;
+		  HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
+		  GetObject(Font, sizeof(LOGFONT), &lf);
+		  Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
+		  Data.lStructSize = sizeof(CHOOSEFONT);
+		  Data.hwndOwner = m_hWnd;
+		  Data.lpLogFont = &lf;
+		  ChooseFont(&Data);
+		  string FontName;
+		  WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
+		  m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
+		 }
+		 return 0;
+	  case ID_OPTIONS_RESETFONT:
+		  m_pAppSettings->ResetParamater(SP_DASHER_FONT);
+		  m_pAppSettings->ResetParamater(APP_SP_EDIT_FONT);
+		  return 0;
+	  case IDM_ABOUT:
+		  {
+			  CAboutBox Aboutbox;
+			  Aboutbox.DoModal(m_hWnd);
+			  return 0;
+		  }
+	  case ID_OPTIONS_EDITKEYS:
+		  {
+			  CKeyBox KeyBox(m_hWnd, m_pDasher);
+			  return 0;
+		  }
+	  case ID_OPTIONS_ALPHABET:
+		  {
+			  CAlphabetBox AlphabetBox(m_hWnd, m_pDasher);
+			  return 0;
+		  }
+	  case ID_OPTIONS_COLOURS:
+		  {
+			  CColourBox ColourBox(m_hWnd, m_pDasher);
+		  return 0;
+		  }
+	  case ID_OPTIONS_PREFS:
+		  {
+		  CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
+		  return 0;
+		  }
+	  case ID_HELP_CONTENTS:
+		  WinHelp(TEXT("dasher.hlp"), HELP_FINDER, 0);
+		  return 0;
+	  case IDM_EXIT:
+		  //SendMessage(m_hWnd, WM_CLOSE, 0, 0);
+		  DestroyWindow();
+		  return 0;
+	
+		  // FIXME - These options shouldn't pass through the interface
+	  case ID_TB_SHOW:
+		  //     m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
+		  //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+		  return 0;
+	  case ID_TB_TEXT:
+		  //    m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
+		  //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+		  return 0;
+	  case ID_TB_LARGE:
+		  //    m_pDasher->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
+		  //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
+		  return 0;
+	  case ID_EDIT_SELECTALL:
+		  if(m_pEdit)
+			  m_pEdit->SelectAll();
+		  return 0;
+	  case ID_EDIT_CUT:
+		  if(m_pEdit)
+			  m_pEdit->Cut();
+		  return 0;
+	  case ID_EDIT_COPY:
+		  if(m_pEdit)
+			  m_pEdit->Copy();
+		  return 0;
+	  case ID_EDIT_COPY_ALL:
+		  if(m_pEdit)
+			  m_pEdit->CopyAll();
+		  return 0;
+	  case ID_EDIT_PASTE:
+		  if(m_pEdit)
+			  m_pEdit->Paste();
+		  return 0;
+	  case ID_FILE_NEW:
+		  if(m_pEdit)
+			  m_pEdit->New();
+		  // Selecting file->new indicates a new trial to our user logging object
+		  if (m_pDasher != NULL) {
+			  CUserLog* pUserLog = m_pDasher->GetUserLogPtr();
+			  if (pUserLog != NULL)
+				  pUserLog->NewTrial();
+		  }
+		  return 0;
+	  case ID_FILE_OPEN:
+		  if(m_pEdit)
+			  m_pEdit->Open();
+		  return 0;
+	  case ID_FILE_SAVE:
+		  if(m_pEdit)
+			  if(!m_pEdit->Save())
+				  m_pEdit->SaveAs();
+		  return 0;
+	  case ID_FILE_SAVE_AS:
+		  if(m_pEdit)
+			  m_pEdit->SaveAs();
+		  return 0;
+	  case ID_IMPORT_TRAINFILE:
+		  m_pDasher->TrainFile(m_pEdit->Import());
+		  return 0;
+	
+		  // FIXME - This options shouldn't passs through the interface
+
+	  case ID_FIX_SPLITTER:
+		  //     m_pDasher->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
+		  return 0;
+	  case ID_SHOW_SLIDE:
+		  m_pDasher->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
+		  return 0;
+	
+		  // FIXME - These options shouldn't pass through the interface
+	  case ID_TIMESTAMP:
+		  //  m_pDasher->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
+		  return 0;
+	  case ID_COPY_ALL_ON_STOP:
+		  //  m_pDasher->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
+		  return 0;
+	
+	  case ID_ORIENT_ALPHABET:
+	  case ID_ORIENT_LR:
+	  case ID_ORIENT_RL:
+	  case ID_ORIENT_TB:
+	  case ID_ORIENT_BT:
+		  if(wmId==ID_ORIENT_ALPHABET) {
+			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::Alphabet);
+		  } else if(wmId==ID_ORIENT_LR) {
+			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::LeftToRight);
+		  } else if(wmId==ID_ORIENT_RL) {
+			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::RightToLeft);
+		  } else if(wmId==ID_ORIENT_TB) {
+			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::TopToBottom);
+		  } else if(wmId==ID_ORIENT_BT) {
+			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::BottomToTop);
+		  } else {  // If not any of these, this is the default setting
+			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::LeftToRight);
+		  }
+		  return 0;
+	
+		  // FIXME - These options shouldn't pass through the interface
+		  // !!! Need to make this work. Probably get interface to tell edit box how to save and screen how to display
+		  // case ID_SAVE_AS_USER_CODEPAGE:
+		  // case ID_SAVE_AS_ALPHABET_CODEPAGE:
+		  // case ID_SAVE_AS_UTF8:
+		  // case ID_SAVE_AS_UTF16_LITTLE:
+		  // case ID_SAVE_AS_UTF16_BIG:
+		  //   if(wmId==ID_SAVE_AS_USER_CODEPAGE) {
+		  ////     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
+		  //   } else if(wmId==ID_SAVE_AS_ALPHABET_CODEPAGE) {
+		  //  //   m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
+		  //   } else if(wmId==ID_SAVE_AS_UTF8) {
+		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
+		  //   } else if(wmId==ID_SAVE_AS_UTF16_LITTLE) {
+		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
+		  //   } else if(wmId==ID_SAVE_AS_UTF16_BIG) {
+		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
+		  //   } else {// If not any of these, this is the default setting
+		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
+		  //   }
+		  //   break;
+	  default:
+		  return DefWindowProc(message, wParam, lParam);
+	}
+
+	PopulateSettings();
+	Layout();
+	return 0;
+}
+
+LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+
+	// We can't switch on a dynamically allocated value...
     CEvent *pEvent( (CEvent *)lParam );
 
     switch(pEvent->m_iEventType) {
@@ -301,326 +597,120 @@ LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM 
       default:
         break;
     }
-  }
-  else if(message == WM_DASHER_FOCUS) {
-    SetFocus(m_pEdit->GetHwnd());
+	return 0;
+}
+
+LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	::SetFocus(m_pEdit->GetHwnd());
     HWND *pHwnd((HWND *)lParam);
     m_pEdit->SetKeyboardTarget(*pHwnd);
-  }
-  else {
-  // ...Everything else is static system messages
+	return 0;
+}
 
-  switch (message) {
-    case MY_LAYOUT:
-    Layout();
-    break;
-  case WM_COMMAND:
-    {
-      const int wmId = LOWORD(wParam);
-      const int wmEvent = HIWORD(wParam);
 
-      // Tell edit box if it has changed. It should know itself really, but this is easier
-      if( m_pEdit && ((HWND) lParam == m_pEdit->GetHwnd()) && (HIWORD(wParam) == EN_CHANGE)) {
-        m_pEdit->SetDirty();
-        break;
-      }
 
-      // Parse the menu selections:
-      switch (wmId) {
-      case ID_OPTIONS_ENTERTEXT:
-        GetWindowRect(m_hwnd, &windowsize);
-        if(m_pEdit->GetTextEntry() == false) {
-          SetWindowPos(m_hwnd, HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
-          m_pEdit->TextEntry(true);
-        }
-        else {
-          SetWindowPos(m_hwnd, HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
-          m_pEdit->TextEntry(false);
-        }
-        break;
-      case ID_OPTIONS_CONTROLMODE:
-        m_pDasher->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
-        m_pDasher->RequestFullRedraw();
-        break;
-      case ID_OPTIONS_FONTSIZE_NORMAL:
-        m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
-        m_pDasher->RequestFullRedraw();
-        break;
-      case ID_OPTIONS_FONTSIZE_LARGE:
-        m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
-        m_pDasher->RequestFullRedraw();
-        break;
-      case ID_OPTIONS_FONTSIZE_VERYLARGE:
-        m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
-        m_pDasher->RequestFullRedraw();
-        break;
-      case ID_OPTIONS_EDITFONT:{
-          CHOOSEFONT Data;
-          LOGFONT lf;
-          HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
-          GetObject(Font, sizeof(LOGFONT), &lf);
-          Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
-          Data.lStructSize = sizeof(CHOOSEFONT);
-          Data.hwndOwner = m_hwnd;
-          Data.lpLogFont = &lf;
-          ChooseFont(&Data);
-          string FontName;
-          WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-          m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
-        }
-        break;
-      case ID_OPTIONS_DASHERFONT:{
-          CHOOSEFONT Data;
-          LOGFONT lf;
-          HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
-          GetObject(Font, sizeof(LOGFONT), &lf);
-          Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
-          Data.lStructSize = sizeof(CHOOSEFONT);
-          Data.hwndOwner = m_hwnd;
-          Data.lpLogFont = &lf;
-          ChooseFont(&Data);
-          string FontName;
-          WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-          m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
-        }
-        break;
-      case ID_OPTIONS_RESETFONT:
-        m_pAppSettings->ResetParamater(SP_DASHER_FONT);
-        m_pAppSettings->ResetParamater(APP_SP_EDIT_FONT);
-        break;
-      case IDM_ABOUT:{
-          CAboutbox Aboutbox(m_hwnd);
-        }
-        break;
-      case ID_OPTIONS_EDITKEYS:{
-          CKeyBox KeyBox(m_hwnd, m_pDasher);
-        }
-        break;
-      case ID_OPTIONS_ALPHABET:{
-          CAlphabetBox AlphabetBox(m_hwnd, m_pDasher);
-        }
-        break;
-      case ID_OPTIONS_COLOURS:{
-          CColourBox ColourBox(m_hwnd, m_pDasher);
-        }
-        break;
-      case ID_OPTIONS_PREFS:{
-          CPrefs Prefs(m_hwnd, m_pDasher, m_pAppSettings);
-        }
-        break;
-      case ID_HELP_CONTENTS:
-        WinHelp(m_hwnd, TEXT("dasher.hlp"), HELP_FINDER, 0);
-        break;
-      case IDM_EXIT:
-        SendMessage(m_hwnd, WM_CLOSE, 0, 0);
-        break;
+LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	OutputDebugString(TEXT("DasherWindow WM_DESTROY\n"));
 
-      // FIXME - These options shouldn't pass through the interface
-      case ID_TB_SHOW:
-   //     m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
-    //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-        break;
-      case ID_TB_TEXT:
-    //    m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
-    //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-        break;
-      case ID_TB_LARGE:
-    //    m_pDasher->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
-    //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-        break;
-      case ID_EDIT_SELECTALL:
-        if(m_pEdit)
-          m_pEdit->SelectAll();
-        break;
-      case ID_EDIT_CUT:
-        if(m_pEdit)
-          m_pEdit->Cut();
-        break;
-      case ID_EDIT_COPY:
-        if(m_pEdit)
-          m_pEdit->Copy();
-        break;
-      case ID_EDIT_COPY_ALL:
-        if(m_pEdit)
-          m_pEdit->CopyAll();
-        break;
-      case ID_EDIT_PASTE:
-        if(m_pEdit)
-          m_pEdit->Paste();
-        break;
-      case ID_FILE_NEW:
-        if(m_pEdit)
-          m_pEdit->New();
-        // Selecting file->new indicates a new trial to our user logging object
-        if (m_pDasher != NULL) {
-          CUserLog* pUserLog = m_pDasher->GetUserLogPtr();
-          if (pUserLog != NULL)
-            pUserLog->NewTrial();
-        }
-        break;
-      case ID_FILE_OPEN:
-        if(m_pEdit)
-          m_pEdit->Open();
-        break;
-      case ID_FILE_SAVE:
-        if(m_pEdit)
-          if(!m_pEdit->Save())
-            m_pEdit->SaveAs();
-        break;
-      case ID_FILE_SAVE_AS:
-        if(m_pEdit)
-          m_pEdit->SaveAs();
-        break;
-      case ID_IMPORT_TRAINFILE:
-        m_pDasher->TrainFile(m_pEdit->Import());
-        break;
+	if(m_pEdit != 0) {
+		m_pEdit->write_to_file();
+	}
+	PostQuitMessage(0);
+	return 0;
+}
 
-        // FIXME - This options shouldn't passs through the interface
+LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	// not yet created
+	if (m_pToolbar == 0 || m_pSplitter == 0 || m_pSlidebar == 0)
+		return 0;
 
-      case ID_FIX_SPLITTER:
-   //     m_pDasher->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
-        break;
-      case ID_SHOW_SLIDE:
-        m_pDasher->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
-        break;
-
-        // FIXME - These options shouldn't pass through the interface
-      case ID_TIMESTAMP:
-      //  m_pDasher->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
-        break;
-      case ID_COPY_ALL_ON_STOP:
-      //  m_pDasher->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
-        break;
-
-      case ID_ORIENT_ALPHABET:
-      case ID_ORIENT_LR:
-      case ID_ORIENT_RL:
-      case ID_ORIENT_TB:
-      case ID_ORIENT_BT:
-        if(wmId==ID_ORIENT_ALPHABET) {
-          m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::Alphabet);
-        } else if(wmId==ID_ORIENT_LR) {
-          m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::LeftToRight);
-        } else if(wmId==ID_ORIENT_RL) {
-          m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::RightToLeft);
-        } else if(wmId==ID_ORIENT_TB) {
-          m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::TopToBottom);
-        } else if(wmId==ID_ORIENT_BT) {
-          m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::BottomToTop);
-        } else {  // If not any of these, this is the default setting
-          m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::LeftToRight);
-        }
-        break;
-        
-      // FIXME - These options shouldn't pass through the interface
-      // !!! Need to make this work. Probably get interface to tell edit box how to save and screen how to display
-     // case ID_SAVE_AS_USER_CODEPAGE:
-     // case ID_SAVE_AS_ALPHABET_CODEPAGE:
-     // case ID_SAVE_AS_UTF8:
-     // case ID_SAVE_AS_UTF16_LITTLE:
-     // case ID_SAVE_AS_UTF16_BIG:
-     //   if(wmId==ID_SAVE_AS_USER_CODEPAGE) {
-     ////     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
-     //   } else if(wmId==ID_SAVE_AS_ALPHABET_CODEPAGE) {
-     //  //   m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
-     //   } else if(wmId==ID_SAVE_AS_UTF8) {
-     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
-     //   } else if(wmId==ID_SAVE_AS_UTF16_LITTLE) {
-     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
-     //   } else if(wmId==ID_SAVE_AS_UTF16_BIG) {
-     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
-     //   } else {// If not any of these, this is the default setting
-     //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
-     //   }
-     //   break;
-      default:
-        return DefWindowProc(m_hwnd, message, wParam, lParam);
-        }
-     
-    }
-    PopulateSettings();
-    Layout();
-    break;
-  case WM_DESTROY:
-    OutputDebugString(TEXT("DasherWindow WM_DESTROY\n"));
-
-    if(m_pEdit != 0) {
-      m_pEdit->write_to_file();
-    }
-    PostQuitMessage(0);
-    break;
-  case WM_GETMINMAXINFO:
-    LPPOINT lppt;
+	bHandled = TRUE;
+	LPPOINT lppt;
     lppt = (LPPOINT) lParam;    // lParam points to array of POINTs
     lppt[3].x = 100;            // Set minimum width (arbitrary)
     // Set minimum height:
     lppt[3].y = m_pToolbar->Resize() + m_pSplitter->GetPos()
       + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
-    break;
-  case WM_INITMENUPOPUP:
-    PopulateSettings();
-    WinMenu.SortOut((HMENU) wParam);
-    break;
-  case WM_CLOSE:
-    SaveWindowState();
-    return DefWindowProc(m_hwnd, message, wParam, lParam);
-  case WM_SIZE:
-    if(wParam == SIZE_MINIMIZED)
-      break;
+
+	return 0;
+}
+
+LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE; 
+	PopulateSettings();
+	WinMenu.SortOut((HMENU) wParam);
+	return 0;
+}
+
+LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = FALSE;
+	SaveWindowState();
+	return 0;
+}
+
+LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	if(wParam == SIZE_MINIMIZED)
+      return 0;
 //    m_pDasher->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
  //   m_pDasher->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
     Layout();
-    break;
-  case WM_SETFOCUS:
-    SetFocus(m_pCanvas->getwindow());
-    break;
-  case WM_DRAWITEM:
-    if(((LPDRAWITEMSTRUCT)lParam)->hwndItem == m_pSlidebar->getwindow()) {
+
+	return 0;
+}
+
+
+LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE; 
+	::SetFocus(m_pCanvas->getwindow());
+ 	return 0;
+}
+
+LRESULT CDasherWindow::OnDrawItem(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE; 
+	if(((LPDRAWITEMSTRUCT)lParam)->hwndItem == m_pSlidebar->getwindow()) 
+	{
       m_pSlidebar->Redraw((LPDRAWITEMSTRUCT)lParam);
     }
     else
-      return DefWindowProc(m_hwnd, message, wParam, lParam); 
-    break;
-  default:
-    return DefWindowProc(m_hwnd, message, wParam, lParam);
-  }
-  }
-  return 0;
+      return DefWindowProc( message, wParam, lParam); 
+ 
+	return 0;
 }
 
-Tstring CDasherWindow::CreateMyClass() {
-  TCHAR *WndClassName = TEXT("DASHER");
+LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	if (message == WM_DASHER_EVENT)
+		return OnDasherEvent( message, wParam, lParam, bHandled);
+	else if (message == WM_DASHER_FOCUS)
+		return OnDasherFocus(message, wParam, lParam, bHandled);
+	
+	return 0;
 
-  if(WinWrapMap::Register(WndClassName)) {
-    WNDCLASSEX wndclass;
-    memset(&wndclass, 0, sizeof(WNDCLASSEX));
-    wndclass.cbSize = sizeof(WNDCLASSEX);
-    wndclass.style = 0;         //CS_HREDRAW | CS_VREDRAW; // these causes a lot of flickering
-    wndclass.lpfnWndProc = WinWrapMap::WndProc;
-    wndclass.cbClsExtra = 0;
-    wndclass.cbWndExtra = 0;
-    wndclass.hInstance = WinHelper::hInstApp;
-    wndclass.hIcon = LoadIcon(wndclass.hInstance, (LPCTSTR) IDI_DASHER);
-    wndclass.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wndclass.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
-    wndclass.lpszMenuName = (LPCTSTR) IDC_DASHER;
-    wndclass.lpszClassName = WndClassName;      // Not in a resource - does not require translation
-    //wndclass.hIconSm        = LoadIcon(wndclass.hInstance, (LPCTSTR)IDI_DASHER);
-    // This gives a better small icon:
-
-    m_hIconSm = (HICON) LoadImage(wndclass.hInstance, (LPCTSTR) IDI_DASHER, IMAGE_ICON, GetSystemMetrics(SM_CXSMICON), GetSystemMetrics(SM_CYSMICON), LR_DEFAULTCOLOR);
-
-    wndclass.hIconSm = m_hIconSm;
-
-    RegisterClassEx(&wndclass);
-  }
-
-  return Tstring(WndClassName);
 }
 
-void CDasherWindow::Layout() {
+//LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  //RECT windowsize;
+//  switch (message) {
+  //  case MY_LAYOUT:
+  //  Layout();
+ //   break;
+
+
+void CDasherWindow::Layout() 
+{
   RECT ClientRect;
-  GetClientRect(m_hwnd, &ClientRect);
+  GetClientRect( &ClientRect);
   const int Width = ClientRect.right;
   const int Height = ClientRect.bottom;
 

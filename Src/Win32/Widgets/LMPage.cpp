@@ -80,7 +80,7 @@ bool CLMPage::Validate() {
 }
 
 bool CLMPage::Apply() {
-  m_pAppSettings->SetBoolParameter( BP_LM_ADAPTIVE, SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_GETCHECK, 0, 0));
+  m_pAppSettings->SetBoolParameter( BP_LM_ADAPTIVE, SendMessage(GetDlgItem(m_hwnd, IDC_ADAPTIVE), BM_GETCHECK, 0, 0)!=0 );
   
   double NewUniform;
   NewUniform = SendMessage(slider, TBM_GETPOS, 0, 0);

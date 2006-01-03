@@ -2,7 +2,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2002 David Ward
+// Copyright (c) 2002-2006 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
@@ -15,61 +15,62 @@
 #include "WinCommon.h"
 
 #include "Edit.h"
-#include "Canvas.h"
-//#include <mbstring.h>
+#include "FilenameGUI.h"
 #include "../resource.h"
+#include "../../DasherCore/Win32/DasherInterface.h"
 
 #include "../Common/DasherEncodingToCP.h"
 
 using namespace Dasher;
 using namespace std;
-
 using namespace WinLocalisation;
 using namespace WinUTF8;
 
-// Track memory leaks on Windows to the line that new'd the memory
-#ifdef _WIN32
-#ifdef _DEBUG
-#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-#endif
 
-CEdit::CEdit(HWND Parent):Parent(Parent), m_FontSize(0), m_FontName(""), FileHandle(INVALID_HANDLE_VALUE), m_FilenameGUI(0), threadid(0), targetwindow(0),
+/////////////////////////////////////////////////////////////////////////////
+
+CEdit::CEdit() : m_FontSize(0), m_FontName(""), FileHandle(INVALID_HANDLE_VALUE), 
+				m_FilenameGUI(0), threadid(0), targetwindow(0),
 #ifndef DASHER_WINCE
 pVoice(0),
 #endif
-textentry(false) {
+				textentry(false) 
+{
   Tstring WindowTitle;
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
   m_FilenameGUI = new CFilenameGUI(Parent, WindowTitle.c_str());
 
   CodePage = GetUserCodePage();
   m_Font = GetCodePageFont(CodePage, 14);
-  m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("edit"), NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
-
-  // subclass the Window Procedure so we can add functionality
-  WinWrapMap::add(m_hwnd, this);
-  TextWndFunc = (WNDPROC) SetWindowLong(m_hwnd, GWL_WNDPROC, (LONG) WinWrapMap::WndProc);
-  ShowWindow(m_hwnd, SW_SHOW);
-
+ 
   // Initialise speech support
   speech.resize(0);
 
 #ifndef DASHER_WINCE
 
   // FIXME - for some reason I seem to have broken speech support :-(
-
   HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
   if (hr!=S_OK)
         pVoice=0;
-  if (pVoice!=0) {
+  if (pVoice!=0) 
+  {
         pVoice->Speak(L"",SPF_ASYNC,NULL);
   }
+
 #endif
 }
+
+////////////////////////////////////////////////////////////////////////////
+
+HWND CEdit::Create(HWND hParent)
+{
+	HWND hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
+
+// m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("edit"), NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
+
+	return hWnd;
+}
+
 
 CEdit::~CEdit() {
   DeleteObject(m_Font);
@@ -88,8 +89,9 @@ CEdit::~CEdit() {
     CloseHandle(FileHandle);
 }
 
-void CEdit::Move(int x, int y, int Width, int Height) {
-  MoveWindow(m_hwnd, x, y, Width, Height, TRUE);
+void CEdit::Move(int x, int y, int Width, int Height) 
+{
+  MoveWindow( x, y, Width, Height, TRUE);
 }
 
 void CEdit::New(const string &filename) {
@@ -137,9 +139,9 @@ bool CEdit::Save() {
   SetEndOfFile(FileHandle);
 
   // Get all the text from the edit control
-  LRESULT EditLength = 1 + SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
+  LRESULT EditLength = 1 + SendMessage( WM_GETTEXTLENGTH, 0, 0);
   TCHAR *EditText = new TCHAR[EditLength];
-  EditLength = SendMessage(m_hwnd, WM_GETTEXT, (WPARAM) EditLength, (LPARAM) EditText);
+  EditLength = SendMessage( WM_GETTEXT, (WPARAM) EditLength, (LPARAM) EditText);
 
   DWORD NumberOfBytesWritten;   // Used by WriteFile
 
@@ -370,12 +372,14 @@ bool CEdit::TSaveAs(const Tstring &filename) {
     return false;
 }
 
-void CEdit::Cut() {
-  SendMessage(m_hwnd, WM_CUT, 0, 0);
+void CEdit::Cut() 
+{
+  SendMessage(WM_CUT, 0, 0);
 }
 
-void CEdit::Copy() {
-  SendMessage(m_hwnd, WM_COPY, 0, 0);
+void CEdit::Copy() 
+{
+  SendMessage(WM_COPY, 0, 0);
 /*
 #ifndef _UNICODE
 	HGLOBAL handle;
@@ -391,27 +395,31 @@ void CEdit::Copy() {
 */
 }
 
-void CEdit::CopyAll() {
+void CEdit::CopyAll() 
+{
   // One might think this would lead to flickering of selecting and
   // unselecting. It doesn't seem to. Using the clipboard directly
   // is fiddly, so this cheat is useful.
   DWORD start, finish;
-  SendMessage(m_hwnd, EM_GETSEL, (LONG) & start, (LONG) & finish);
-  SendMessage(m_hwnd, EM_SETSEL, 0, -1);
-  SendMessage(m_hwnd, WM_COPY, 0, 0);
-  SendMessage(m_hwnd, EM_SETSEL, (LONG) start, (LONG) finish);
+  SendMessage(EM_GETSEL, (LONG) & start, (LONG) & finish);
+  SendMessage(EM_SETSEL, 0, -1);
+  SendMessage(WM_COPY, 0, 0);
+  SendMessage(EM_SETSEL, (LONG) start, (LONG) finish);
 }
 
-void CEdit::Paste() {
-  SendMessage(m_hwnd, WM_PASTE, 0, 0);
+void CEdit::Paste() 
+{
+  SendMessage(WM_PASTE, 0, 0);
 }
 
-void CEdit::SelectAll() {
-  SendMessage(m_hwnd, EM_SETSEL, 0, -1);
+void CEdit::SelectAll() 
+{
+  SendMessage(EM_SETSEL, 0, -1);
 }
 
-void CEdit::Clear() {
-  SendMessage(m_hwnd, WM_SETTEXT, 0, (LPARAM) TEXT(""));
+void CEdit::Clear() 
+{
+  SendMessage(WM_SETTEXT, 0, (LPARAM) TEXT(""));
   speech.resize(0);
 }
 
@@ -438,7 +446,7 @@ void CEdit::SetFont(string Name, long Size) {
   else
     m_Font = CreateFont(-Size, 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, FontName.c_str());    // DEFAULT_CHARSET => font made just from Size and FontName
 
-  SendMessage(m_hwnd, WM_SETFONT, (WPARAM) m_Font, true);
+  SendMessage(WM_SETFONT, (WPARAM) m_Font, true);
 #else
   // not implemented
 #pragma message ( "CEdit::SetFot not implemented on WinCE")
@@ -486,11 +494,11 @@ void CEdit::get_new_context(string &str, int max) {
   // This is a bit silly, but works for now. IAM 2002/08
 
   int iStart, iFinish;
-  SendMessage(m_hwnd, EM_GETSEL, (LONG) & iStart, (LONG) & iFinish);
+  SendMessage(EM_GETSEL, (LONG) & iStart, (LONG) & iFinish);
 
   TCHAR *tString = new TCHAR[iFinish + 1];
 
-  SendMessage(m_hwnd, WM_GETTEXT, (LONG) (iStart + 1), (LONG) tString);
+  SendMessage(WM_GETTEXT, (LONG) (iStart + 1), (LONG) tString);
 
   string Wasteful;
   wstring_to_UTF8string(tString, Wasteful);
@@ -519,7 +527,7 @@ void CEdit::output(const std::string &sText) {
       fakekey[0].ki.time = fakekey[1].ki.time = 0;
       fakekey[1].ki.dwFlags = KEYEVENTF_KEYUP;
 
-      SetFocus(targetwindow);
+	  ::SetFocus(targetwindow);
       SendInput(2, fakekey, sizeof(INPUT));
     }
     wchar_t outputstring[256];
@@ -535,7 +543,7 @@ void CEdit::output(const std::string &sText) {
       fakekey[0].ki.wVk = 0;
       fakekey[0].ki.time = NULL;
       fakekey[0].ki.wScan = outputstring[j];
-      SetFocus(targetwindow);
+	  ::SetFocus(targetwindow);
       SendInput(1, fakekey, sizeof(INPUT));
     }
 #else
@@ -576,7 +584,7 @@ void CEdit::Move(int iDirection, int iDist) {
 
   int iStart;
   int iEnd;
-  SendMessage(m_hwnd, EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
 
 //  int iStartLine;
   int iEndLine;
@@ -599,8 +607,8 @@ void CEdit::Move(int iDirection, int iDist) {
     case EDIT_WORD:
       // Hmm... words are hard - this is a rough and ready approximation:
 
-      iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(m_hwnd, EM_GETHANDLE, 0, 0);
+      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      hMemHandle = (HLOCAL)SendMessage( EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
 
@@ -612,13 +620,13 @@ void CEdit::Move(int iDirection, int iDist) {
       iStart = iEnd;
       break;
     case EDIT_LINE:
-/*      iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(m_hwnd, EM_GETLINECOUNT, 0, 0);
+/*      iEndLine = SendMessage( EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+      iLineOffset = iEnd - SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
+      iNumLines = SendMessage( EM_GETLINECOUNT, 0, 0);
       if( iEndLine < iNumLines - 1) {
         ++iEndLine;
-        iLineStart = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(m_hwnd, EM_LINELENGTH, (WPARAM)iEndLine, 0);
+        iLineStart = SendMessage( EM_LINEINDEX, (WPARAM)iEndLine, 0);
+        iLineLength = SendMessage( EM_LINELENGTH, (WPARAM)iEndLine, 0);
         if( iLineOffset < iLineLength )
           iEnd = iLineStart+iLineOffset;
         else
@@ -626,20 +634,20 @@ void CEdit::Move(int iDirection, int iDist) {
       }
 	  else if(iEndLine == iNumLines - 1) {
 		// we're on the last line so go to end of file
-		iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
+		iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
         iEnd = iNumChars + 1;
       }
 */    
       // Make it behave like the 'End' key, unless we're at the end of the current line.
 	  // Then go down a line.
-	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0) - 1; // end of this line
+	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0) - 1; // end of this line
 	  if(iStart==iEnd)  // we were already at the end so go down a line
-		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0) - 1;
+		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0) - 1;
 	  iStart = iEnd;
       break;
     case EDIT_FILE: 
-      iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
+      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       iEnd = iNumChars + 1;
       iStart = iEnd;
       break;
@@ -653,8 +661,8 @@ void CEdit::Move(int iDirection, int iDist) {
       iEnd = iStart;
       break;
     case EDIT_WORD:
-      iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(m_hwnd, EM_GETHANDLE, 0, 0);
+      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
 
@@ -669,9 +677,9 @@ void CEdit::Move(int iDirection, int iDist) {
       break;
     case EDIT_LINE:
 /*
-      iStartLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iStart, 0);
-      iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
+      iStartLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iStart, 0);
+      iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
       if( iStartLine > 0)
         --iStartLine;
 	  else if( iStartLine == 0)
@@ -680,17 +688,17 @@ void CEdit::Move(int iDirection, int iDist) {
 	    iStart = iEnd = 0;
 		break;
 	  }
-      iLineStart = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iStartLine, 0);
-      iLineLength = SendMessage(m_hwnd, EM_LINELENGTH, (WPARAM)iStartLine, 0);
+      iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iStartLine, 0);
+      iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iStartLine, 0);
       if( iLineOffset < iLineLength )
         iStart = iLineStart+iLineOffset;
       else
         iStart = iLineStart+iLineLength;
 */
-	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
+	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
 	  if(iStart==iEnd)  // we were already at the start so go up a line
-		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
+		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
 	  iStart = iEnd;
       break;
     case EDIT_FILE:
@@ -700,8 +708,8 @@ void CEdit::Move(int iDirection, int iDist) {
     }
   }
 
-  SendMessage(m_hwnd, EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
-  SendMessage(m_hwnd, EM_SCROLLCARET, 0, 0); //scroll the caret into view!
+  SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  SendMessage(EM_SCROLLCARET, 0, 0); //scroll the caret into view!
 }
 
 void CEdit::Delete(int iDirection, int iDist) {
@@ -717,7 +725,7 @@ void CEdit::Delete(int iDirection, int iDist) {
   HLOCAL hMemHandle;
   std::wstring strBufferText;
 
-  SendMessage(m_hwnd, EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
+  SendMessage(EM_GETSEL, (WPARAM)&iStart, (LPARAM)&iEnd);
 
   if(iDirection == EDIT_FORWARDS) {
     switch(iDist) {
@@ -725,8 +733,8 @@ void CEdit::Delete(int iDirection, int iDist) {
       ++iEnd;
       break;
     case EDIT_WORD:
-      iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(m_hwnd, EM_GETHANDLE, 0, 0);
+      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
 
@@ -736,26 +744,26 @@ void CEdit::Delete(int iDirection, int iDist) {
       break;
     case EDIT_LINE:
 /*
-      iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(m_hwnd, EM_GETLINECOUNT, 0, 0);
+      iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
+      iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
       if( iEndLine < iNumLines - 1) {
         ++iEndLine;
-        iLineStart = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(m_hwnd, EM_LINELENGTH, (WPARAM)iEndLine, 0);
+        iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
+        iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iEndLine, 0);
         if( iLineOffset < iLineLength )
           iEnd = iLineStart+iLineOffset;
         else
           iEnd = iLineStart+iLineLength;
       }
   */
-	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0); // end of this line
+	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 1), 0); // end of this line
 	  if(iStart==iEnd)  // we were already at the end so go down a line
-		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0);
+		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine + 2), 0);
       break;
     case EDIT_FILE: 
-      iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
+      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
       iEnd = iNumChars + 1;
       break;
     }
@@ -766,8 +774,8 @@ void CEdit::Delete(int iDirection, int iDist) {
       --iEnd;
       break;
     case EDIT_WORD:
-      iNumChars = SendMessage(m_hwnd, WM_GETTEXTLENGTH, 0, 0);
-      hMemHandle = (HLOCAL)SendMessage(m_hwnd, EM_GETHANDLE, 0, 0);
+      iNumChars = SendMessage(WM_GETTEXTLENGTH, 0, 0);
+      hMemHandle = (HLOCAL)SendMessage(EM_GETHANDLE, 0, 0);
       strBufferText = std::wstring((WCHAR*)LocalLock(hMemHandle), iNumChars);
       LocalUnlock(hMemHandle);
 
@@ -780,23 +788,23 @@ void CEdit::Delete(int iDirection, int iDist) {
       }
       break;
     case EDIT_LINE:
-/*       iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-      iLineOffset = iEnd - SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
-      iNumLines = SendMessage(m_hwnd, EM_GETLINECOUNT, 0, 0);
+/*       iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+      iLineOffset = iEnd - SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
+      iNumLines = SendMessage(EM_GETLINECOUNT, 0, 0);
       if(iEndLine > 0) {
         --iEndLine;
-        iLineStart = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)iEndLine, 0);
-        iLineLength = SendMessage(m_hwnd, EM_LINELENGTH, (WPARAM)iEndLine, 0);
+        iLineStart = SendMessage(EM_LINEINDEX, (WPARAM)iEndLine, 0);
+        iLineLength = SendMessage(EM_LINELENGTH, (WPARAM)iEndLine, 0);
         if( iLineOffset < iLineLength )
           iEnd = iLineStart+iLineOffset;
         else
           iEnd = iLineStart+iLineLength;
       }
 	  */
-	  iEndLine = SendMessage(m_hwnd, EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
-	  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
+	  iEndLine = SendMessage(EM_LINEFROMCHAR, (WPARAM)iEnd, 0);
+	  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine), 0); // start of this line
 	  if(iStart==iEnd)  // we were already at the start so go up a line
-		  iEnd = SendMessage(m_hwnd, EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
+		  iEnd = SendMessage(EM_LINEINDEX, (WPARAM)(iEndLine - 1), 0);
 
       break;
     case EDIT_FILE:
@@ -805,75 +813,103 @@ void CEdit::Delete(int iDirection, int iDist) {
     }
   }
 
-  SendMessage(m_hwnd, EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
-  SendMessage(m_hwnd, EM_REPLACESEL, (WPARAM)true, (LPARAM)"");
+  SendMessage(EM_SETSEL, (WPARAM)iStart, (LPARAM)iEnd);
+  SendMessage(EM_REPLACESEL, (WPARAM)true, (LPARAM)"");
 }
 
-void CEdit::SetKeyboardTarget(HWND hwnd) {
+/////////////////////////////////////////////////////////////////////////////
+
+void CEdit::SetKeyboardTarget(HWND hwnd) 
+{
   m_bForwardKeyboard = true;
   m_hTarget = hwnd;
 }
 
-LRESULT CEdit::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  //LRESULT result = CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
+/////////////////////////////////////////////////////////////////////////////
 
-  // Urgh - can't we just handle messages in the parent window like evryone else?
-
-  switch (message) {
-  case WM_LBUTTONDOWN:
+LRESULT CEdit::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
     m_bForwardKeyboard = false;
-    return CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
-    break;
-  case WM_LBUTTONUP:
-
-    // This doesn't seem to work...
-    // if we click the mouse in the edit control, update the Dasher display
-    //m_pDasherInterface->ChangeEdit();
-    //InvalidateRect(Window, NULL, FALSE);
-    return CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
-    break;
-  case WM_CHAR: 
-    if(!m_bForwardKeyboard)
-      return CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
-    else
-      return 0;
-    break;
-  case WM_KEYDOWN:
-    if(m_bForwardKeyboard) {
-      SendMessage(m_hTarget,message,wParam,lParam);
-      return 0;
-    }
-    else
-      return CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
-    break;
-  case WM_KEYUP:
-    if(m_bForwardKeyboard) {
-      SendMessage(m_hTarget,message,wParam,lParam);
-      return 0;
-    }
-    else {
-  
-
-    // if we enter text or move around the edit control, update the Dasher display
-    //if (Canvas->Running()==false) {   // FIXME - reimplement this
-    //      m_pDasherInterface->ChangeEdit();
-    //}
-    InvalidateRect(Window, NULL, FALSE);
-    return CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
-    }
-    break;
-  case WM_COMMAND:
-    return SendMessage(Parent, message, wParam, lParam);
-    break;
-  case WM_DESTROY:
-    OutputDebugString(TEXT("CEdit WM_DESTROY\n"));
-    break;
-  }
-  return CallWindowProc(TextWndFunc, Window, message, wParam, lParam);
+	bHandled = FALSE; // let the EDIT class handle it
+	return 0;
 }
 
+/////////////////////////////////////////////////////////////////////////////
+
+LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+    // This doesn't seem to work...
+    // if we click the mouse in the edit control, update the Dasher display
+
+	// DJW20060101 - I put the following line back in, and it half-works
+	// The Dasher display resets to the root context, rather than pulling the
+	// context from the edit control
+	m_pDasherInterface->ChangeEdit();
+    InvalidateRect(NULL, FALSE);
+
+	bHandled = FALSE; // let the EDIT class handle it
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+HRESULT CEdit::OnChar(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	if(!m_bForwardKeyboard)
+		bHandled = FALSE; // let the EDIT class handle it
+	else
+		bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
+
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+HRESULT CEdit::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	if(m_bForwardKeyboard) 
+	{
+		SendMessage(m_hTarget,message,wParam,lParam);
+		bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
+	}
+	else
+		bHandled = FALSE; // let the EDIT class handle it
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+HRESULT CEdit::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	if(m_bForwardKeyboard) 
+	{
+		SendMessage(m_hTarget,message,wParam,lParam);
+		bHandled = TRUE; // traps the message, preventing it from reaching the EDIT control
+	}
+	else 
+	{
+		// if we enter text or move around the edit control, update the Dasher display
+		//if (Canvas->Running()==false) {   // FIXME - reimplement this
+		//      m_pDasherInterface->ChangeEdit();
+		//}
+		InvalidateRect(NULL, FALSE);
+		bHandled = FALSE; // let the EDIT class handle it
+	}
+	return 0;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
+HRESULT CEdit::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
+{
+	bHandled = TRUE;
+	return SendMessage( GetParent() , message, wParam, lParam);
+}
+
+/////////////////////////////////////////////////////////////////////////////
+
 void CEdit::InsertText(Tstring InsertText) {
-  SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LPARAM) InsertText.c_str());
+  SendMessage(EM_REPLACESEL, TRUE, (LPARAM) InsertText.c_str());
 }
 
 // TODO The following were inline in DJW's code. Think about reinstating
@@ -904,15 +940,15 @@ void CEdit::deletetext(const std::string &sText) {
   // by the number of characters to be deleted
 
   DWORD start, finish;
-  SendMessage(m_hwnd, EM_GETSEL, (LONG) & start, (LONG) & finish);
+  SendMessage(EM_GETSEL, (LONG) & start, (LONG) & finish);
   start -= iLength;
-  SendMessage(m_hwnd, EM_SETSEL, (LONG) start, (LONG) finish);
+  SendMessage(EM_SETSEL, (LONG) start, (LONG) finish);
 
   // Replace the selection with a null string
 
   TCHAR out[2];
   wsprintf(out, TEXT(""));
-  SendMessage(m_hwnd, EM_REPLACESEL, TRUE, (LONG) out);
+  SendMessage(EM_REPLACESEL, TRUE, (LONG) out);
 
   // FIXME - I *think* we still only want to send one keyboard event to delete a 
   // newline pair, but we're now assuming we'll never have two real characters for
@@ -925,7 +961,7 @@ void CEdit::deletetext(const std::string &sText) {
     fakekey[0].ki.time = fakekey[1].ki.time = 0;
     fakekey[1].ki.dwFlags = KEYEVENTF_KEYUP;
 
-    SetFocus(targetwindow);
+	::SetFocus(targetwindow);
     SendInput(2, fakekey, sizeof(INPUT));
 #else
     SetFocus(targetwindow);
@@ -1001,15 +1037,15 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
       break;
     case 11:
       // move left
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
+      SendMessage(WM_KEYDOWN, VK_LEFT, NULL);
 
-      SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+      SendMessage(WM_KEYUP, VK_LEFT, NULL);
 
       break;
     case 12:
       // move right
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
+      SendMessage(WM_KEYDOWN, VK_RIGHT, NULL);
+      SendMessage(WM_KEYUP, VK_RIGHT, NULL);
       break;
     case 13:
       // move to the start of the document
@@ -1019,8 +1055,8 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
       pbKeyState[VK_CONTROL] |= 0x80;
       SetKeyboardState((LPBYTE) & pbKeyState);
 #endif
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_HOME, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_HOME, NULL);
+      SendMessage(WM_KEYDOWN, VK_HOME, NULL);
+      SendMessage(WM_KEYUP, VK_HOME, NULL);
 
 #ifndef DASHER_WINCE
       pbKeyState[VK_CONTROL] &= ~0x80;
@@ -1036,8 +1072,8 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
       SetKeyboardState((LPBYTE) & pbKeyState);
 #endif
 
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_END, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_END, NULL);
+      SendMessage(WM_KEYDOWN, VK_END, NULL);
+      SendMessage(WM_KEYUP, VK_END, NULL);
 
 #ifndef DASHER_WINCE
       pbKeyState[VK_CONTROL] &= ~0x80;
@@ -1046,8 +1082,8 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
       break;
     case 21:
       //delete next character
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
+      SendMessage(WM_KEYDOWN, VK_DELETE, NULL);
+      SendMessage(WM_KEYUP, VK_DELETE, NULL);
       break;
     case 22:
 
@@ -1058,15 +1094,15 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
       pbKeyState[VK_SHIFT] |= 0x80;
       SetKeyboardState((LPBYTE) & pbKeyState);
 #endif
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_RIGHT, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_RIGHT, NULL);
+      SendMessage(WM_KEYDOWN, VK_RIGHT, NULL);
+      SendMessage(WM_KEYUP, VK_RIGHT, NULL);
 
 #ifndef DASHER_WINCE
       pbKeyState[VK_SHIFT] &= ~0x80;
       pbKeyState[VK_CONTROL] &= ~0x80;
       SetKeyboardState((LPBYTE) & pbKeyState);
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
+      SendMessage(WM_KEYDOWN, VK_DELETE, NULL);
+      SendMessage(WM_KEYUP, VK_DELETE, NULL);
 #endif
       break;
     case 24:
@@ -1080,16 +1116,16 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
       SetKeyboardState((LPBYTE) & pbKeyState);
 #endif
 
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_LEFT, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_LEFT, NULL);
+      SendMessage(WM_KEYDOWN, VK_LEFT, NULL);
+      SendMessage(WM_KEYUP, VK_LEFT, NULL);
 
 #ifndef DASHER_WINCE
       pbKeyState[VK_SHIFT] &= ~0x80;
       pbKeyState[VK_CONTROL] &= ~0x80;
       SetKeyboardState((LPBYTE) & pbKeyState);
 #endif
-      SendMessage(m_hwnd, WM_KEYDOWN, VK_DELETE, NULL);
-      SendMessage(m_hwnd, WM_KEYUP, VK_DELETE, NULL);
+      SendMessage(WM_KEYDOWN, VK_DELETE, NULL);
+      SendMessage(WM_KEYUP, VK_DELETE, NULL);
       break;
     }
     return;
@@ -1118,9 +1154,9 @@ void CEdit::speak(int what) {
 
   if(pVoice != 0) {
     if(what == 1) { // All
-      int speechlength = GetWindowTextLength(m_hwnd);
+      int speechlength = GetWindowTextLength();
       LPTSTR allspeech = new TCHAR[speechlength + 1];
-      GetWindowText(m_hwnd, allspeech, speechlength + 1);
+      GetWindowText(allspeech, speechlength + 1);
 #ifdef _UNICODE
       pVoice->Speak(allspeech, SPF_ASYNC, NULL);
 #else

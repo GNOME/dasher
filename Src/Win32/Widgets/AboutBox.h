@@ -2,18 +2,36 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 //
-// Copyright (c) 2002 Iain Murray, Inference Group, Cavendish, Cambridge.
+// Copyright (c) 2005 David Ward
 //
 /////////////////////////////////////////////////////////////////////////////
 
 #ifndef __AboutBox_h__
 #define __AboutBox_h__
+#include "../resource.h"
 
-class CAboutbox {
+/////////////////////////////////////////////////////////////////////////////
+
+class CAboutBox : public CDialogImpl<CAboutBox>
+{
 public:
-  CAboutbox(HWND Parent);
+
+	CAboutBox() {} 
+
+	enum { IDD = IDD_ABOUTBOX };
+
+	BEGIN_MSG_MAP(CAboutDlg)
+		COMMAND_ID_HANDLER(IDOK, OnClose)
+	END_MSG_MAP()
+
+
 private:
-  static LRESULT CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam);
+	LRESULT OnClose(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+	{
+		EndDialog(wID);
+		return 0;
+	}
+
 };
 
 #endif  /* #ifndef __AboutBox_h__ */

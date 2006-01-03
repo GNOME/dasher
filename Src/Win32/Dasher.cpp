@@ -1,24 +1,19 @@
 
 #include "WinCommon.h"          // must include pch first
 
-#include ".\dasher.h"
+#include "Dasher.h"
 #include "../DasherCore/Event.h"
 #include "EditWrapper.h"
 #include "WinUTF8.h"
+#include "DasherWindow.h"
+#include "Widgets/Canvas.h"
+#include "Widgets/Slidebar.h"
+#include "EditWrapper.h"
+
 
 using namespace std;
 using namespace Dasher;
 using namespace WinUTF8;
-
-// Track memory leaks on Windows to the line that new'd the memory
-#ifdef _WIN32
-#ifdef _DEBUG
-#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-#endif
 
 // Used to signal our message loop to do our periodic work, the value
 // shouldn't collide with anything else in our code.
@@ -28,7 +23,8 @@ CONST UINT WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
 CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
 
 //void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
-void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface) {
+void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface) 
+{
   using namespace WinHelper;
   using namespace WinUTF8;
 
@@ -60,13 +56,11 @@ void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Int
   }
 }
 
-CDasher::CDasher(HWND Parent):m_hParent(Parent) {
+CDasher::CDasher(HWND Parent):m_hParent(Parent) 
+{
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
- // if(WM_DASHER_EVENT == 0)
- // WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
 
-  m_bWorkerShutdown = false;
 
   using namespace WinHelper;
   using namespace WinUTF8;
@@ -113,18 +107,33 @@ Realize();
 
   ChangeEdit(m_pEditWrapper);
 
-  m_pCanvas = new CCanvas(m_hParent, this);
+  m_pCanvas = new CCanvas(this);
+  m_pCanvas->Create(m_hParent); // TODO - check return 
+
   m_pSlidebar = new CSlidebar(m_hParent, this, ((double)GetLongParameter(LP_MAX_BITRATE))/100.0, m_pCanvas);
 
-  // Start up our thread that will periodically handle user movement.  We pass in a pointer to ourselves
-  // since the thread function must be static but needs to act on the object that created it.
-  DWORD dwThreadId = 0;
-  m_workerThread = CreateThread(NULL,   // default security attributes 
-                                0,      // use default stack size  
-                                CDasher::WorkerThread,  // thread function 
-                                this,   // argument to thread function 
-                                0,      // use default creation flags 
-                                &dwThreadId);   // returns the thread identifier 
+
+  // DJW 20051228 - this threading code was not at all thread-safe. Initially tried to fix it, 
+  // but eventually decided to go for a non-threaded approach.
+
+  // Start up our thread that will periodically handle user movement.  
+  // We pass in a pointer to ourselves since the thread function must be static 
+  // but needs to act on the object that created it.
+ 
+  //m_EventWorkerThreadShutdown = CreateEvent(
+  //      NULL,         // no security attributes
+  //      TRUE,         // bManual
+  //      FALSE,         // bSignalled
+  //      NULL
+  //      ); 
+  //
+  //DWORD dwThreadId = 0;
+  //m_workerThread = CreateThread(NULL,   // default security attributes 
+  //                              0,      // use default stack size  
+  //                              CDasher::WorkerThread,  // thread function 
+  //                              this,   // argument to thread function 
+  //                              0,      // use default creation flags 
+  //                              &dwThreadId);   // returns the thread identifier 
 
 }
 
@@ -132,7 +141,7 @@ CDasher::~CDasher(void) {
 
   WriteTrainFileFull();
 
-  ShutdownWorkerThread();
+//  ShutdownWorkerThread();
 
   delete m_pCanvas;
   delete m_pSlidebar;
@@ -143,69 +152,85 @@ CDasher::~CDasher(void) {
 // This use to be done with a SetTimer() call, but this horked up 
 // the Visual Studio debugger.  Now we send a user specified message
 // to the pump and use this to drive the updates.
-DWORD CDasher::WorkerThread(LPVOID lpParam) {
-  CDasher *parent = (CDasher *) lpParam;
+//DWORD CDasher::WorkerThread(LPVOID lpParam) 
+//{
+//
+//  CDasher& dasher = * ((CDasher *) lpParam);
+//
+//  while(1)
+//  {
+//	  DWORD dwResult = WaitForSingleObject(dasher.m_EventWorkerThreadShutdown, 50);
+//	  switch (dwResult)
+//	  {
+//	  case WAIT_TIMEOUT:
+//		  SendMessage(dasher.GetCanvas()->getwindow(), WM_DASHER_TIMER, NULL, NULL); 
+//		  break;
+//	  case WAIT_OBJECT_0:
+//		  DASHER_TRACEOUTPUT("Thread exiting on WorkerThreadShutdown Event\n");
+//		  ExitThread(0);
+//	  default:
+//		  DASHER_ASSERT(0);
+//		  DASHER_TRACEOUTPUT("Unreachable code?\n");
+//		  return 1;
+//
+//	  }
+//
+//  }
+//
+//
+//    // Do any periodic work that this object handles
+//
+//	// DJW20051220 - this isn't thread safe
+//	// Recommend doing this work in repsonse to WM_DASHER_TIMER or some other custom message
+//	// parent->OnTimer();
+//
+//  return 0;
+//}
+//
+//// Called when we want to get the worker thread to stop.
+//void CDasher::ShutdownWorkerThread() 
+//{
+// 
+//	if (m_workerThread == NULL)
+//		return;
+//
+//	const int MAX_BEFORE_HARD_KILL = 2000;        // Maximum time to try for a gracefull thread shutdown
+//
+//	SetEvent(m_EventWorkerThreadShutdown);
+//
+//
+//	// Give the thread some time to shut itself down gracefully
+//    DWORD dwResult = WaitForSingleObject(m_workerThread, MAX_BEFORE_HARD_KILL);
+//
+//	switch (dwResult)
+//	{
+//	case WAIT_TIMEOUT:
+//		DASHER_TRACEOUTPUT("WAIT_TIMEOUT - killing worker thread\n");
+//		TerminateThread(m_workerThread, 0);
+//		break;
+//	case WAIT_OBJECT_0:
+//		DASHER_TRACEOUTPUT("Thread exited successfully\n");
+//		break;
+//	default:
+//		DASHER_ASSERT(0);
+//		DASHER_TRACEOUTPUT("Unreachable code?\n");
+//	}
+//	
+//	CloseHandle(m_workerThread);
+//    m_workerThread = NULL;
+//
+//}
 
-  if(parent == NULL) {
-    return -1;
-  }
 
-  while(!parent->m_bWorkerShutdown) {
-    ::Sleep(20);
-    SendMessage(parent->GetCanvas()->getwindow(), WM_DASHER_TIMER, NULL, NULL); // FIXME
-
-    // Do any periodic work that this object handles
-    parent->OnTimer();
-  }
-
-  return 0;
-}
-
-// Called when we want to get the worker thread to stop.
-void CDasher::ShutdownWorkerThread() {
-  const int CHECK_EVERY_MS = 100;       // Time between successive attempts to gracefully shutdown
-  const int MAX_BEFORE_HARD_KILL = 2000;        // Maximum time to try for a gracefull thread shutdown
-
-  m_bWorkerShutdown = true;
-
-  if(m_workerThread != NULL) {
-    // Give the thread some time to shut itself down gracefully
-    int elapsed = 0;
-    DWORD dwResult = WAIT_TIMEOUT;
-
-    while((dwResult == WAIT_TIMEOUT) && (elapsed < MAX_BEFORE_HARD_KILL)) {
-      dwResult = WaitForSingleObject(m_workerThread, 100);
-
-      if(dwResult == WAIT_TIMEOUT) {
-        elapsed += CHECK_EVERY_MS;
-        ::Sleep(CHECK_EVERY_MS);
-      }
-    }
-
-    // If all else fails, we'll hard kill the thread
-    if(dwResult == WAIT_TIMEOUT)
-      TerminateThread(m_workerThread, 0);
-
-    CloseHandle(m_workerThread);
-    m_workerThread = NULL;
-  }
+void CDasher::Main()
+{
+	if (m_pCanvas)
+		m_pCanvas->DoFrame();
 }
 
 // Handles the work we need to do periodically on a timer event
-void CDasher::OnTimer() {
-  // HWND testwindow = NULL;
-
-  // Ugh. Can't find a desperately nicer way of doing this, though
-  //  testwindow = GetForegroundWindow();
-  //  if (testwindow != m_hwnd) 
-  //  {
-  //      if (m_pEdit != NULL) // FIXME
-  //          m_pEdit->SetWindow(testwindow);
-  //  }
-
-  // if (m_pCanvas != NULL) // FIXME
-  //     m_pCanvas->OnTimer();
-
+void CDasher::Log() 
+{
 
   CUserLog* pUserLog = GetUserLogPtr();
 
@@ -223,7 +248,7 @@ void CDasher::OnTimer() {
         int     iBottom  = 0;
         int     iRight   = 0;
 
-        if (m_pCanvas->GetCanvasSize(&iTop, &iLeft, &iBottom, &iRight))
+        if (m_pCanvas->GetCanvasSize(iTop, iLeft, iBottom, iRight))
           pUserLog->AddCanvasSize(iTop, iLeft, iBottom, iRight);
 
         // Also update the size of the window in the UserLogTrial object
