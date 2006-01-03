@@ -441,7 +441,7 @@ private:
   myint iTBScaleFactorY;
 
   // The factor that scale factors are multipled by 
-  long long lScalingFactor;
+  myint m_iScalingFactor;
 };
 
 #include "DasherViewSquare.inl"

@@ -508,8 +508,8 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   switch(eOrientation) {
   case Dasher::Opts::LeftToRight:
-    iDasherX = iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) * lScalingFactor / iScaleFactorX;
-    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * lScalingFactor / iScaleFactorY;
+    iDasherX = iDasherWidth / 2 - ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor / iScaleFactorX;
+    iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor / iScaleFactorY;
     break;
   case Dasher::Opts::RightToLeft:
     iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / iScaleFactorX);
@@ -573,21 +573,21 @@ void CDasherViewSquare::SetScaleFactor( void )
   }
 
   if( iScreenWidth > 4 * iScreenHeight ) {
-    iLRScaleFactorX = dLRScaleFactor * iScreenWidth / (4*iScreenHeight) * lScalingFactor;
-    iLRScaleFactorY = dLRScaleFactor * lScalingFactor;
-    iTBScaleFactorX = dTBScaleFactor * iScreenWidth / (4*iScreenHeight) * lScalingFactor;
-    iTBScaleFactorY = dTBScaleFactor * lScalingFactor;
+    iLRScaleFactorX = dLRScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
+    iLRScaleFactorY = dLRScaleFactor * m_iScalingFactor;
+    iTBScaleFactorX = dTBScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
+    iTBScaleFactorY = dTBScaleFactor * m_iScalingFactor;
   } 
   else if(iScreenHeight > 4 * iScreenWidth) {
-    iLRScaleFactorX = dLRScaleFactor * lScalingFactor;
-    iLRScaleFactorY = dLRScaleFactor * iScreenHeight / (4*iScreenWidth) * lScalingFactor;
-    iTBScaleFactorX = dTBScaleFactor * lScalingFactor;
-    iTBScaleFactorY = dTBScaleFactor * iScreenHeight / (4*iScreenWidth) * lScalingFactor;
+    iLRScaleFactorX = dLRScaleFactor * m_iScalingFactor;
+    iLRScaleFactorY = dLRScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
+    iTBScaleFactorX = dTBScaleFactor * m_iScalingFactor;
+    iTBScaleFactorY = dTBScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
   } else {
-    iLRScaleFactorX = dLRScaleFactor * lScalingFactor;
-    iLRScaleFactorY = dLRScaleFactor * lScalingFactor;
-    iTBScaleFactorX = dTBScaleFactor * lScalingFactor;
-    iTBScaleFactorY = dTBScaleFactor * lScalingFactor;
+    iLRScaleFactorX = dLRScaleFactor * m_iScalingFactor;
+    iLRScaleFactorY = dLRScaleFactor * m_iScalingFactor;
+    iTBScaleFactorX = dTBScaleFactor * m_iScalingFactor;
+    iTBScaleFactorY = dTBScaleFactor * m_iScalingFactor;
   }
 }
 
@@ -631,8 +631,8 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
   switch( eOrientation ) {
   case Dasher::Opts::LeftToRight:
-    iScreenX = screenint(iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX / lScalingFactor);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY / lScalingFactor);
+    iScreenX = screenint(iScreenWidth / 2 - ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX / m_iScalingFactor);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY / m_iScalingFactor);
     break;
   case Dasher::Opts::RightToLeft:
     iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX);
@@ -1417,7 +1417,7 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CanvasX = 9 * Width / 10;
   CanvasBorder = Width - CanvasX;
   CanvasY = Height;
-  lScalingFactor = 100000000;
+  m_iScalingFactor = 100000000;
   SetScaleFactor();
 }
 
