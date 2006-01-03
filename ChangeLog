@@ -1,3 +1,5 @@
+2006-01-23  David Ward <d.j.ward.94@gmail.com>
+	* Src/Win32: TabletPC support for Win32 platform 
 2005-12-28  Abel Cheung  <maddog@linuxhall.org>
 
 	* configure.in: Added "vi" "zh_HK" to ALL_LINGUAS.
