@@ -409,14 +409,14 @@ BEGIN
                     IDC_STATIC,7,7,113,28
 END
 
-IDD_PREFS DIALOGEX 0, 0, 218, 238
+IDD_PREFS DIALOGEX 0, 0, 219, 226
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Control Style",IDC_STATIC,7,7,204,49
-    GROUPBOX        "Start And Stop",IDC_CONTROL,7,104,204,125
+    GROUPBOX        "Control Style",IDC_STATIC,7,7,205,49
+    GROUPBOX        "Start And Stop",IDC_CONTROL,7,101,205,114
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,114,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
@@ -427,7 +427,7 @@ BEGIN
                     WS_TABSTOP,14,162,84,8
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,149,67,10
-    GROUPBOX        "Speed",IDC_STATIC,7,58,204,42
+    GROUPBOX        "Speed",IDC_STATIC,7,58,205,42
     CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,69,101,8
     CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
@@ -436,12 +436,10 @@ BEGIN
                     TBS_NOTICKS | WS_TABSTOP,44,82,160,12
     EDITTEXT        IDC_SPEEDVAL,14,82,30,12,ES_AUTOHSCROLL | ES_READONLY
     CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,197,124,10
-    CONTROL         "Stylus control",IDC_STYLUS,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,186,59,10
-    EDITTEXT        IDC_IDLETIME,26,210,40,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_TABSTOP,14,186,124,10
+    EDITTEXT        IDC_IDLETIME,26,199,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
                     WS_DISABLED
-    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,210,76,
+    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,201,76,
                     8,WS_DISABLED
     CONTROL         "Ordinary control",IDC_ORDINARY,"Button",
                     BS_AUTORADIOBUTTON,14,18,68,10
@@ -678,8 +676,9 @@ BEGIN
     IDD_PREFS, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 211
+        RIGHTMARGIN, 212
         TOPMARGIN, 7
+        BOTTOMMARGIN, 215
     END
 
     IDD_COLOUR, DIALOG

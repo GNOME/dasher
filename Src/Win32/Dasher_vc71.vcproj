@@ -246,9 +246,6 @@
 			Name="Widgets"
 			Filter=".cpp">
 			<File
-				RelativePath=".\Widgets\Aboutbox.cpp">
-			</File>
-			<File
 				RelativePath=".\Widgets\AboutBox.h">
 			</File>
 			<File

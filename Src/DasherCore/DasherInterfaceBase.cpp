@@ -261,7 +261,8 @@ void CDasherInterfaceBase::AddColourFilename(std::string Filename) {
   m_ColourFilenames.push_back(Filename);
 }
 
-void CDasherInterfaceBase::CreateDasherModel() {
+void CDasherInterfaceBase::CreateDasherModel() 
+{
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
 
   //  if(m_DashEditbox != 0 && lmID != -1) { We don't need an edit box any more
@@ -269,8 +270,10 @@ void CDasherInterfaceBase::CreateDasherModel() {
 
     // Delete the old model and create a new one
 
-    if(m_pDasherModel != NULL) {
+    if(m_pDasherModel != NULL) 
+	{
       delete m_pDasherModel;
+
     }
 
     m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
@@ -623,11 +626,13 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
   // FIXME - this shouldn't be here
   SetLongParameter(LP_VIEW_ID, NewViewID);
 
-  if(m_DasherScreen != 0 && m_pDasherModel != 0) {
-    delete m_pDasherView;
-    m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, m_pDasherModel);
+  if(m_DasherScreen != 0 && m_pDasherModel != 0) 
+  {
+	  delete m_pDasherView;
+	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, m_pDasherModel);
 
-    m_pDasherView->SetInput(m_pInput);
+	  if (m_pInput)
+		  m_pDasherView->SetInput(m_pInput);
   }
 }
 

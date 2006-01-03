@@ -10,7 +10,7 @@
 
 // Visual leak detector
 #ifdef _DEBUG
- #include "vld/vld.h"
+ //#include "vld/vld.h"
 #endif 
 
 #include "Common/WinHelper.h"
