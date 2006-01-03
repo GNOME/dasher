@@ -196,7 +196,7 @@ void CSocketInputBase::ParseMessage(char *message) {
 
   char *p;
   double rawdouble;
-  myint dasherCoordinateTemp;
+ // myint dasherCoordinateTemp;
   // parse line by line
   while((p = strchr(message, '\n')) != NULL) {
     *p = '\0';
