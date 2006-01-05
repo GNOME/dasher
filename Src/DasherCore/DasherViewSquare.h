@@ -33,7 +33,7 @@ public:
 	virtual void RenderNodes();
 	
 	void ChangeScreen(CDasherScreen* NewScreen);
-	void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey);
+	void DrawGoTo(screenint mousex, screenint mousey);
 	void DrawMouse(screenint mousex, screenint mousey);
 	void DrawMouseLine(screenint mousex, screenint mousey);
 	void DrawKeyboard();
