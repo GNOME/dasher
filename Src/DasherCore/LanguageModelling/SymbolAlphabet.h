@@ -36,7 +36,7 @@ namespace Dasher {
     // iSize is the number of Symbols - please dont change the constructor
     // Add functions to set customizable behaviour
 
-    CSymbolAlphabet::CSymbolAlphabet(int iSize)
+    CSymbolAlphabet(int iSize)
     : m_iSize(iSize) {
       //                    DASHER_ASSERT(iSize>0);
 

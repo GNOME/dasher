@@ -560,46 +560,18 @@ void CDasherViewSquare::SetScaleFactor( void )
   dLRVScaleFactor = iScreenHeight / static_cast<double>( iMaxY - iMinY );
   dTBHScaleFactor = iScreenWidth / static_cast<double>( iMaxY - iMinY );
   dTBVScaleFactor = iScreenHeight / static_cast<double>( iMaxX - iMinX );
-    
-  double dLRScaleFactor;
-  double dTBScaleFactor;
 
-//   if( dLRHScaleFactor < dLRVScaleFactor ) {
-//     dLRScaleFactor = dLRHScaleFactor;
-//     dTBScaleFactor = dTBVScaleFactor;
-//   } else {
-//     dLRScaleFactor = dLRVScaleFactor;
-//     dTBScaleFactor = dTBHScaleFactor;
-//   }
-
-  dLRScaleFactor = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRScaleFactor / 4.0);
-  dTBScaleFactor = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBScaleFactor / 4.0);
-
-//   if( iScreenWidth > 4 * iScreenHeight ) {
-//     iLRScaleFactorX = dLRScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
-//     iLRScaleFactorY = dLRScaleFactor * m_iScalingFactor;
-//     iTBScaleFactorY = dTBScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
-//     iTBScaleFactorX = dTBScaleFactor * m_iScalingFactor;
-//   } 
-//   else if(iScreenHeight > 4 * iScreenWidth) {
-//     iLRScaleFactorX = dLRScaleFactor * m_iScalingFactor;
-//     iLRScaleFactorY = dLRScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
-//     iTBScaleFactorY = dTBScaleFactor * m_iScalingFactor;
-//     iTBScaleFactorX = dTBScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
-//   } else {
-    iLRScaleFactorX = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRHScaleFactor / 4.0) * m_iScalingFactor;
-    iLRScaleFactorY = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRVScaleFactor / 4.0) * m_iScalingFactor;
-    iTBScaleFactorX = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBVScaleFactor / 4.0) * m_iScalingFactor;
-    iTBScaleFactorY = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBHScaleFactor / 4.0) * m_iScalingFactor;
-    //  }
+  iLRScaleFactorX = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRHScaleFactor / 4.0) * m_iScalingFactor;
+  iLRScaleFactorY = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRVScaleFactor / 4.0) * m_iScalingFactor;
+  iTBScaleFactorX = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBVScaleFactor / 4.0) * m_iScalingFactor;
+  iTBScaleFactorY = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBHScaleFactor / 4.0) * m_iScalingFactor;
 }
 
 void CDasherViewSquare::GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY ) {
-
   if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft )) {
     *iScaleFactorX = iLRScaleFactorX;
     *iScaleFactorY = iLRScaleFactorY;
- } else {
+  } else {
     *iScaleFactorX = iTBScaleFactorX;
     *iScaleFactorY = iTBScaleFactorY;
   }
