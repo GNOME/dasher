@@ -512,16 +512,16 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
     iDasherY = iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor / iScaleFactorY;
     break;
   case Dasher::Opts::RightToLeft:
-    iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) / iScaleFactorX);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) / iScaleFactorY);
+    iDasherX = myint(iDasherWidth / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
     break;
   case Dasher::Opts::TopToBottom:
-    iDasherX = myint(iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) / iScaleFactorY);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / iScaleFactorX);
+    iDasherX = myint(iDasherWidth / 2 - ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
     break;
   case Dasher::Opts::BottomToTop:
-    iDasherX = myint(iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) / iScaleFactorY);
-    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) / iScaleFactorX);
+    iDasherX = myint(iDasherWidth / 2 + ( iInputY - iScreenHeight / 2 ) * m_iScalingFactor/ iScaleFactorY);
+    iDasherY = myint(iDasherHeight / 2 + ( iInputX - iScreenWidth / 2 ) * m_iScalingFactor/ iScaleFactorX);
     break;
   }
 
@@ -564,31 +564,34 @@ void CDasherViewSquare::SetScaleFactor( void )
   double dLRScaleFactor;
   double dTBScaleFactor;
 
-  if( dLRHScaleFactor < dLRVScaleFactor ) {
-    dLRScaleFactor = dLRHScaleFactor;
-    dTBScaleFactor = dTBVScaleFactor;
-  } else {
-    dLRScaleFactor = dLRVScaleFactor;
-    dTBScaleFactor = dTBHScaleFactor;
-  }
+//   if( dLRHScaleFactor < dLRVScaleFactor ) {
+//     dLRScaleFactor = dLRHScaleFactor;
+//     dTBScaleFactor = dTBVScaleFactor;
+//   } else {
+//     dLRScaleFactor = dLRVScaleFactor;
+//     dTBScaleFactor = dTBHScaleFactor;
+//   }
 
-  if( iScreenWidth > 4 * iScreenHeight ) {
-    iLRScaleFactorX = dLRScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
-    iLRScaleFactorY = dLRScaleFactor * m_iScalingFactor;
-    iTBScaleFactorX = dTBScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
-    iTBScaleFactorY = dTBScaleFactor * m_iScalingFactor;
-  } 
-  else if(iScreenHeight > 4 * iScreenWidth) {
-    iLRScaleFactorX = dLRScaleFactor * m_iScalingFactor;
-    iLRScaleFactorY = dLRScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
-    iTBScaleFactorX = dTBScaleFactor * m_iScalingFactor;
-    iTBScaleFactorY = dTBScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
-  } else {
-    iLRScaleFactorX = dLRScaleFactor * m_iScalingFactor;
-    iLRScaleFactorY = dLRScaleFactor * m_iScalingFactor;
-    iTBScaleFactorX = dTBScaleFactor * m_iScalingFactor;
-    iTBScaleFactorY = dTBScaleFactor * m_iScalingFactor;
-  }
+  dLRScaleFactor = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRScaleFactor / 4.0);
+  dTBScaleFactor = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBScaleFactor / 4.0);
+
+//   if( iScreenWidth > 4 * iScreenHeight ) {
+//     iLRScaleFactorX = dLRScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
+//     iLRScaleFactorY = dLRScaleFactor * m_iScalingFactor;
+//     iTBScaleFactorY = dTBScaleFactor * iScreenWidth / (4*iScreenHeight) * m_iScalingFactor;
+//     iTBScaleFactorX = dTBScaleFactor * m_iScalingFactor;
+//   } 
+//   else if(iScreenHeight > 4 * iScreenWidth) {
+//     iLRScaleFactorX = dLRScaleFactor * m_iScalingFactor;
+//     iLRScaleFactorY = dLRScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
+//     iTBScaleFactorY = dTBScaleFactor * m_iScalingFactor;
+//     iTBScaleFactorX = dTBScaleFactor * iScreenHeight / (4*iScreenWidth) * m_iScalingFactor;
+//   } else {
+    iLRScaleFactorX = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRHScaleFactor / 4.0) * m_iScalingFactor;
+    iLRScaleFactorY = std::max(std::min(dLRHScaleFactor, dLRVScaleFactor), dLRVScaleFactor / 4.0) * m_iScalingFactor;
+    iTBScaleFactorX = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBVScaleFactor / 4.0) * m_iScalingFactor;
+    iTBScaleFactorY = std::max(std::min(dTBHScaleFactor, dTBVScaleFactor), dTBHScaleFactor / 4.0) * m_iScalingFactor;
+    //  }
 }
 
 void CDasherViewSquare::GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY ) {
@@ -635,19 +638,25 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
     iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY / m_iScalingFactor);
     break;
   case Dasher::Opts::RightToLeft:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorX / m_iScalingFactor);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorY / m_iScalingFactor);
     break;
   case Dasher::Opts::TopToBottom:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorX);
-    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorX / m_iScalingFactor);
+    iScreenY = screenint(iScreenHeight / 2 - ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY / m_iScalingFactor);
     break;
   case Dasher::Opts::BottomToTop:
-    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorX);
-    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY);
+    iScreenX = screenint(iScreenWidth / 2 + ( iDasherY - iDasherHeight / 2 ) * iScaleFactorX / m_iScalingFactor);
+    iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY / m_iScalingFactor);
     break;
   }
+
+  //  std::cout << iScaleFactorX << " " << iScaleFactorY  << " " << iScreenWidth << " " << iScreenHeight << std::endl;
+  //std::cout << iDasherX << " -> " << iScreenX << ", " << iDasherY  << " -> " << iScreenY << std::endl;
+
 }
+
+
 
 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
