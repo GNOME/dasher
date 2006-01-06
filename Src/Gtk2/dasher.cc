@@ -567,37 +567,6 @@ extern "C" void button_cyclical_mode(GtkWidget *widget, gpointer user_data) {
   //  set_bool_option_callback("Cyclicalbuttons",cyclickeyboardmodeon);
 }
 
-extern "C" gboolean button_preferences_show(GtkWidget *widget, gpointer user_data) {
-  // FIXME
-  // Ugly, ugly, ugly, ugly. Hmm, could this be done with an enum instead?
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton1")), buttons[1].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton2")), buttons[2].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton3")), buttons[3].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton4")), buttons[4].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton5")), buttons[5].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton6")), buttons[6].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton7")), buttons[7].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton8")), buttons[8].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton9")), buttons[9].x);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton10")), buttons[1].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton11")), buttons[2].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton12")), buttons[3].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton13")), buttons[4].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton14")), buttons[5].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton15")), buttons[6].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton16")), buttons[7].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton17")), buttons[8].y);
-  gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(widgets, "spinbutton18")), buttons[9].y);
-  // FIXME - REIMPLEMENT
-  //  gtk_window_set_transient_for(GTK_WINDOW(glade_xml_get_widget(widgets,"buttonprefs")),GTK_WINDOW(preferences_window));
-  gtk_window_present(GTK_WINDOW(glade_xml_get_widget(widgets, "buttonprefs")));
-  return FALSE;
-}
-
-extern "C" gboolean button_preferences_hide(GtkWidget *widget, gpointer user_data) {
-  gtk_widget_hide(glade_xml_get_widget(widgets, "buttonprefs"));
-  return FALSE;
-}
 
 extern "C" gboolean button_coordinates_changed(GtkWidget *widget, gpointer user_data) {
   GtkSpinButton *spinbutton = GTK_SPIN_BUTTON(widget);
