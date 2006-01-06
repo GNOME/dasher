@@ -60,7 +60,10 @@ void CDasherViewSquare::RenderNodes() {
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
 
-  //std::cout << "Nodes to tap on: " << vNodeList.size() << std::endl;
+  //  std::cout << "Nodes to tap on: " << vNodeList.size() << std::endl;
+
+  for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
+    DasherModel()->Push_Node(*it);
 
   Crosshair(DasherModel()->DasherOX());  // add crosshair
 
@@ -127,6 +130,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
       RenderGroups(pRender, y1, y2, mostleft);
   }
   else {
+    //    std::cout << "Killing Node" << std::endl;
     pRender->Kill();
     return 0;
   }
@@ -141,12 +145,16 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
     CDasherNode *pChild = *i;
-    if(pChild->Alive()) {
+    //    if(pChild->Alive()) {
       myint Range = y2 - y1;
       myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
       myint newy2 = y1 + (Range * pChild->Hbnd()) / norm;
-      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList);
-    }
+
+      if((newy2 - newy1 > 50) || (pChild->Alive())) {
+	pChild->Alive(true);
+	RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList);
+      }
+      //    }
   }
 
   return 1;
@@ -281,8 +289,9 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   if(iHeight <= 1)
     return 0;                   // We're too small to render
 
-  if((y1 > iDasherMaxY) || (y2 < iDasherMinY))
+  if((y1 > iDasherMaxY) || (y2 < iDasherMinY)){
     return 0;                   // We're entirely off screen, so don't render.
+  }
 
   myint iDasherSize(y2 - y1);
 

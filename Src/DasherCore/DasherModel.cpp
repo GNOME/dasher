@@ -451,6 +451,9 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
   // opens up new nodes
 
+  if(false)
+  {
+
   // push node under mouse
   CDasherNode *pUnderMouse = Get_node_under_mouse(miMousex, miMousey);
 
@@ -495,7 +498,7 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
     }
   }
-
+  }
 //      Update(m_Root,under_mouse,0);
 
   CDasherNode *new_under_cross = Get_node_under_crosshair();
@@ -512,6 +515,8 @@ void CDasherModel::Tap_on_display(myint miMousex,
 //     }
      return;
    }
+
+
 
 
   // FIXME - Need to recurse up possibly unseen parents

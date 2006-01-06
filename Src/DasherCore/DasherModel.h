@@ -237,6 +237,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
      m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
   }
 
+  void Push_Node(CDasherNode * pNode);  // give birth to children
+
   bool m_bContextSensitive;
 
  private:
@@ -302,7 +304,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   
 
-  void Push_Node(CDasherNode * pNode);  // give birth to children
+
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 
 
