@@ -241,6 +241,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   bool m_bContextSensitive;
 
+  std::string m_strContextBuffer;
+
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;

@@ -331,6 +331,10 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
       g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str());
     }
   }
+  else if(pEvent->m_iEventType == 3) {
+    CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iMaxLength);
+  }
   else if(pEvent->m_iEventType == 4) {
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_start");
   }

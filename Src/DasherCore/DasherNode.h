@@ -41,6 +41,11 @@ class Dasher::CDasherNode:private NoClones {
   CDasherNode *Parent() const {
     return m_pParent;
   }
+  
+  void SetParent(CDasherNode *pNewParent) {
+    m_pParent = pNewParent;
+  }
+
   bool NodeIsParent(CDasherNode * oldnode) const;
 
   // Orphan Child
@@ -51,6 +56,12 @@ class Dasher::CDasherNode:private NoClones {
   // Lower and higher bounds, and the range
   int Lbnd() const;
   int Hbnd() const;
+
+  void SetRange(int iLower, int iUpper) {
+    m_iLbnd = iLower;
+    m_iHbnd = iUpper;
+  };
+
   int Range() const;
 
   // 'Alive' - this could do with an overhaul
@@ -141,7 +152,7 @@ class Dasher::CDasherNode:private NoClones {
 
  private:
 
-  const int m_iLbnd, m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
+  int m_iLbnd, m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
   //const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
   const symbol m_Symbol;        // the character to display
 

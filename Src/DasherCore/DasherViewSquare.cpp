@@ -150,6 +150,8 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
       myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
       myint newy2 = y1 + (Range * pChild->Hbnd()) / norm;
 
+      // FIXME - make the threshold a parameter
+      
       if((newy2 - newy1 > 50) || (pChild->Alive())) {
 	pChild->Alive(true);
 	RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList);

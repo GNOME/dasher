@@ -80,14 +80,15 @@ public:
     return false;
   };
 
+  const CSymbolAlphabet &SymbolAlphabet() const {
+    return m_Alphabet;
+  };
+
  protected:
   int GetSize() const {
     return m_Alphabet.GetSize();
   }
 
-  const CSymbolAlphabet &SymbolAlphabet() const {
-    return m_Alphabet;
-  }
 
  private:
 

@@ -833,24 +833,30 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   // to back off indefinitely. For now though we'll keep it in a
   // separate string.
 
-  int iContextLength( 6 ); // The 'important' context length - should really get from language model
+//   int iContextLength( 6 ); // The 'important' context length - should really get from language model
 
-  // FIXME - use unicode lengths
+//   // FIXME - use unicode lengths
 
-  if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
+//   if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
 
 
-    if(m_pDasherModel != NULL) {
-      if(m_pDasherModel->m_bContextSensitive) {
-	m_pDasherModel->SetContext(strNewContext);
-	PauseAt(0,0);
-      }
-    }
+//     if(m_pDasherModel != NULL) {
+//       if(m_pDasherModel->m_bContextSensitive) {
+// 	m_pDasherModel->SetContext(strNewContext);
+// 	PauseAt(0,0);
+//       }
+//     }
     
-    strCurrentContext = strNewContext;
+//     strCurrentContext = strNewContext;
 
-    WriteTrainFileFull();
-  }
+//     WriteTrainFileFull();
+//   }
+
+
+  std::cout << "Received context: " << strNewContext << std::endl;
+
+  m_pDasherModel->m_strContextBuffer = strNewContext;
+
 }
 
 // Control mode stuff

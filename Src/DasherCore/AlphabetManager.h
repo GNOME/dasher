@@ -42,7 +42,8 @@ namespace Dasher {
     ///
 
     virtual void PopulateChildren( CDasherNode *pNode );
-    
+    void PopulateChildrenWithSymbol( CDasherNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild );
+
     ///
     /// Delete any storage alocated for this node
     ///
@@ -51,6 +52,8 @@ namespace Dasher {
 
     virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
     virtual void Undo( CDasherNode *pNode );
+
+    virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration);
 
   private:
     CLanguageModel *m_pLanguageModel;

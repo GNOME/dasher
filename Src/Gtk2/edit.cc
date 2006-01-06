@@ -153,6 +153,44 @@ extern "C" gboolean edit_button_release_event(GtkWidget *widget, GtkTextIter *pI
   return FALSE;
 }
 
+
+
+
+void RefreshContext(int iMaxLength) {
+  GtkTextIter start;
+  GtkTextIter end; // Refers to end of context, which is start of selection!
+
+  gtk_text_buffer_get_selection_bounds( the_text_buffer, &end, NULL );
+  start = end;
+
+  gtk_text_iter_backward_chars( &start, iMaxLength );
+
+  gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
+
+//   if( gtk_text_iter_is_start( &start )) {
+
+//     // Urgh - I hate C style strings
+
+//     gchar *szContextNew = new gchar[strlen( szContext ) + 3];
+
+//     strcpy( szContextNew, ". " );
+//     strcat( szContextNew, szContext );
+
+//     gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContextNew );
+    
+//     delete[] szContextNew;
+    
+//   }
+//   else {
+    gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
+    //  }
+  
+
+
+  g_free( szContext );
+}
+
+
 void initialise_edit(GladeXML *pGladeXML) {
   text_scrolled_window = glade_xml_get_widget(pGladeXML, "text_scrolled_window");
   the_text_view = glade_xml_get_widget(pGladeXML, "the_text_view");

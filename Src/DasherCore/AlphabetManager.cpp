@@ -40,6 +40,10 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
 }
 
 void CAlphabetManager::PopulateChildren( CDasherNode *pNode ) {
+  PopulateChildrenWithSymbol( pNode, -2, 0 );
+}
+
+void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExistingSymbol, CDasherNode *pExistingChild ) {
 
   // Actually create the children here
   
@@ -82,6 +86,10 @@ pNode->Children().resize(iChildCount);
 
       if( newchars[j] == m_pModel->GetControlSymbol() )
 	pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j]);
+      else if( newchars[j] == iExistingSymbol) {
+	pNewNode = pExistingChild;
+	pNewNode->SetRange(iLbnd, cum[j]);
+      }
       else {
 	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(j));
 	pNewNode->m_pNodeManager = this;
@@ -125,4 +133,59 @@ void CAlphabetManager::Undo( CDasherNode *pNode ) {
     Dasher::CEditEvent oEvent(2, m_pModel->GetAlphabet().GetText(t));
     m_pModel->InsertEvent(&oEvent);
   }
+}
+
+CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration) {
+
+  m_pModel->m_strContextBuffer = "";
+
+  Dasher::CEditContextEvent oEvent(10);
+  m_pModel->InsertEvent(&oEvent);
+
+  std::string strContext(m_pModel->m_strContextBuffer);
+  std::vector<symbol> vSymbols;
+  m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &strContext, false);
+
+  // Return if the context isn't long enough to build a new parent
+
+  if(vSymbols.size() <= iGeneration)
+    return 0; 
+
+
+  ColorSchemes NormalScheme, SpecialScheme;
+  if((pNode->ColorScheme() == Nodes1) || (pNode->ColorScheme() == Special1)) {
+    NormalScheme = Nodes2;
+    SpecialScheme = Special2;
+  }
+  else {
+    NormalScheme = Nodes1;
+    SpecialScheme = Special1;
+  }
+
+  ColorSchemes ChildScheme;
+  if(vSymbols[vSymbols.size() - iGeneration - 1] == m_pModel->GetSpaceSymbol())
+    ChildScheme = SpecialScheme;
+  else
+    ChildScheme = NormalScheme;
+  
+
+  CDasherNode *pNewNode;
+
+  pNewNode = new CDasherNode(*m_pModel, 0, vSymbols[vSymbols.size() - iGeneration - 1], 0, ChildScheme, 0, 0, m_pLanguageModel, false, m_pModel->GetColour(vSymbols[vSymbols.size() - iGeneration - 1]));
+  
+  CLanguageModel::Context oContext(m_pLanguageModel->CreateEmptyContext());
+
+  for(int i(0); i < vSymbols.size() - iGeneration; ++i)
+    m_pLanguageModel->EnterSymbol(oContext, vSymbols[i]);
+
+  pNewNode->SetContext(oContext);
+  pNewNode->m_pNodeManager = this;
+  pNewNode->m_bShove = true;
+  pNewNode->Seen(true);
+
+  PopulateChildrenWithSymbol( pNewNode, pNode->Symbol(), pNode );
+
+  pNode->SetParent(pNewNode);
+
+  return pNewNode;
 }

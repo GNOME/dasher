@@ -81,3 +81,5 @@ void set_textbox(Accessible * textbox);
 
 gboolean a11y_text_entry();
 gboolean grab_focus();
+
+void RefreshContext(int iMaxLength);

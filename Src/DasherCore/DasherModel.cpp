@@ -185,8 +185,37 @@ void CDasherModel::Reparent_root(int lower, int upper) {
      We need to recalculate the coordinates for the "new" root as the 
      user may have moved around within the current root */
 
-  if(oldroots.size() == 0)      // There is no node to reparent to
+  if(m_Root->Symbol() == 0)
+    return; // Don't try to reparent the root symbol
+
+
+  CDasherNode *pNewRoot;
+
+  if(oldroots.size() == 0) {
+    CDasherNode *pCurrentNode(Get_node_under_crosshair());
+    int iGenerations(0);
+    
+    while(pCurrentNode != m_Root) {
+      ++iGenerations;
+      pCurrentNode = pCurrentNode->Parent();
+    }
+    
+    pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
+
+    lower = m_Root->Lbnd();
+    upper = m_Root->Hbnd();
+
+  }
+  else {
+    pNewRoot = oldroots.back();
+    oldroots.pop_back();
+  }
+
+  // Return if there's no existing parent and no way of recreating one
+
+  if(!pNewRoot) { 
     return;
+  }
 
   /* Determine how zoomed in we are */
 
@@ -194,13 +223,10 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   myint iWidth = upper - lower;
 //  double scalefactor=(m_Rootmax-m_Rootmin)/static_cast<double>(upper-lower);
 
-  m_Root = oldroots.back();
-  oldroots.pop_back();
+  m_Root = pNewRoot;
 
   m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
-
   m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
-
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -733,6 +759,8 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   DASHER_ASSERT_VALIDPTR_RW(newnode);
   DASHER_ASSERT_VALIDPTR_RW(oldnode);
 
+  std::cout << oldnode << " " << oldnode->Parent() << " " << newnode << " " << newnode->Parent() << std::endl;
+
   if(newnode == NULL || oldnode == NULL)
     return false;
 
@@ -760,11 +788,15 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
     // This one's more complicated - the user may have moved onto a new branch
     // Find the last seen node on the new branch
     CDasherNode *lastseen = newnode->Parent();
+
     while(lastseen != NULL && lastseen->isSeen() == false) {
       lastseen = lastseen->Parent();
     };
     // Delete back to last seen node
     while(oldnode != lastseen) {
+
+      std::cout << "oldnode: " << oldnode << std::endl;
+
       oldnode->Seen(false);
       if(oldnode->ControlChild() == true || oldnode->Symbol() == GetControlSymbol() || oldnode->Symbol() == 0) {
         oldnode = oldnode->Parent();

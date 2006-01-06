@@ -147,6 +147,7 @@ extern "C" void handle_start_event(GtkDasherControl * pDasherControl, gpointer d
 extern "C" void handle_stop_event(GtkDasherControl * pDasherControl, gpointer data);
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
 extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
+extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data);
 extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
 
 ///
@@ -212,6 +213,7 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   g_signal_connect(pDasherWidget, "dasher_control", G_CALLBACK(handle_control_event), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL);
+  g_signal_connect(pDasherWidget, "dasher_context_request", G_CALLBACK(handle_context_request), NULL);
   
   g_signal_connect(pDasherWidget, "focus_in_event", G_CALLBACK(focus_in_event), NULL);
 
@@ -477,9 +479,17 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
 
 }
 
+
+extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) {
+  std::cout << "Requested context of length: " << iMaxLength << std::endl;
+
+  RefreshContext(iMaxLength);
+};
+
 ///
 /// Signal handler for control nodes
 ///
+
 
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
 
