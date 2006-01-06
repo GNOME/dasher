@@ -229,7 +229,7 @@ void CControlManager::ConnectNode(int iChild, int iParent, int iAfter) {
 }
 
 
-CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper) {
+CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
   CDasherNode *pNewNode;
 
   // FIXME - is the language model pointer used?
@@ -267,7 +267,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
      if( *it == NULL ) {
        // Escape back to alphabet
-       pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd);
+       pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
      }
      else {
 

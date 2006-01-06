@@ -824,7 +824,16 @@ void CDasherInterfaceBase::ResetNats() {
 }
 
 
-void CDasherInterfaceBase::SetContext(std::string strNewContext) {
+void CDasherInterfaceBase::InvalidateContext() {
+
+  std::cout << "In Invalidate Context" << std::endl;
+
+  m_pDasherModel->m_strContextBuffer = "";
+
+  Dasher::CEditContextEvent oEvent(10);
+  m_pEventHandler->InsertEvent(&oEvent);
+
+  std::string strNewContext(m_pDasherModel->m_strContextBuffer);
 
   // We keep track of an internal context and compare that to what
   // we are given - don't restart Dasher if nothing has changed.
@@ -833,30 +842,30 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   // to back off indefinitely. For now though we'll keep it in a
   // separate string.
 
-//   int iContextLength( 6 ); // The 'important' context length - should really get from language model
+   int iContextLength( 6 ); // The 'important' context length - should really get from language model
 
-//   // FIXME - use unicode lengths
+   // FIXME - use unicode lengths
 
-//   if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
+   if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
 
-
-//     if(m_pDasherModel != NULL) {
-//       if(m_pDasherModel->m_bContextSensitive) {
-// 	m_pDasherModel->SetContext(strNewContext);
-// 	PauseAt(0,0);
-//       }
-//     }
+     if(m_pDasherModel != NULL) {
+       if(m_pDasherModel->m_bContextSensitive) {
+ 	m_pDasherModel->SetContext(strNewContext);
+ 	PauseAt(0,0);
+       }
+     }
     
-//     strCurrentContext = strNewContext;
+     strCurrentContext = strNewContext;
+     WriteTrainFileFull();
+   }
 
-//     WriteTrainFileFull();
-//   }
+   if(m_pDasherView)
+     m_pDasherView->CheckForNewRoot();
+}
 
 
-  std::cout << "Received context: " << strNewContext << std::endl;
-
+void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   m_pDasherModel->m_strContextBuffer = strNewContext;
-
 }
 
 // Control mode stuff

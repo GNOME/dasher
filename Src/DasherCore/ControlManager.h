@@ -69,7 +69,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
     ///
     /// Provide children for the supplied node

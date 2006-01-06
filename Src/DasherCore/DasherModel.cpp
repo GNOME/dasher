@@ -256,7 +256,7 @@ void CDasherModel::Start() {
 
 //              m_pEditbox->get_new_context(ContextString,5);
 
-  std::string strNewContext(". ");
+  std::string strNewContext("");
 
   SetContext(strNewContext);    // FIXME - REALLY REALLY broken!
 
@@ -284,15 +284,24 @@ void CDasherModel::SetContext(std::string &sNewContext) {
   }
   delete m_Root;
 
-  m_Root = m_pAlphabetManagerFactory->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION));
+
   CLanguageModel::Context therootcontext = m_pLanguageModel->CreateEmptyContext();
 
   if(sNewContext.size() == 0) {
-    // If there is no root context, pretend that we've just
-    // finished a sentence
-    sNewContext = ". ";
+    m_Root = m_pAlphabetManagerFactory->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), NULL);
+    
+    EnterText(therootcontext, ". ");  
   }
-  EnterText(therootcontext, sNewContext);
+  else {
+    std::vector<symbol> vSymbols;
+    m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &sNewContext, false);
+    
+    int iRootSymbol(vSymbols[vSymbols.size()-1]);
+    
+    m_Root = m_pAlphabetManagerFactory->GetRoot(NULL, 0,GetLongParameter(LP_NORMALIZATION), &iRootSymbol);
+    
+    EnterText(therootcontext, sNewContext);  
+  }
 
   m_pLanguageModel->ReleaseContext(LearnContext);
   LearnContext = m_pLanguageModel->CloneContext(therootcontext);
@@ -949,7 +958,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
       // For new "root" nodes (such as under control mode), we want to 
       // mimic the root context
       cont = CreateEmptyContext();
-      EnterText(cont, ". ");
+      //      EnterText(cont, "");
     }
     pNode->SetContext(cont);
 

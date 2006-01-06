@@ -17,7 +17,7 @@ namespace Dasher {
     CControlManagerFactory(CDasherModel *pModel, CLanguageModel *pLanguageModel);
     ~CControlManagerFactory();
     
-    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper);
+    virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
     // Control mode stuff
     void RegisterNode( int iID, const std::string &strLabel, int iColour );

@@ -54,7 +54,8 @@ extern "C" void select_new_file(GtkWidget *widget, gpointer user_data) {
 
   choose_filename();
   clear_edit();
-  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pDasherWidget), "");
+  //  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pDasherWidget), "");
+  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
 
   // Starting a new file indicates a new user trial in detailed logging
   gtk_dasher_user_log_new_trial(GTK_DASHER_CONTROL(pDasherWidget));

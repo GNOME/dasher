@@ -21,8 +21,8 @@ CControlManagerFactory::~CControlManagerFactory() {
   delete m_pControlManager;
 }
 
-CDasherNode *CControlManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper) {
-  return m_pControlManager->GetRoot(pParent, iLower, iUpper);
+CDasherNode *CControlManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
+  return m_pControlManager->GetRoot(pParent, iLower, iUpper, pUserData);
 }
 
 void CControlManagerFactory::RegisterNode( int iID, const std::string &strLabel, int iColour ) {

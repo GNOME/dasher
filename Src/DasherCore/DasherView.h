@@ -67,6 +67,8 @@ public:
 
   void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
+  virtual void CheckForNewRoot() {};
+
   //void SetDrawKeyboard(bool bDrawKeyboard);
 
   // 0 - no box, 1 - upper box, 2 - lower box

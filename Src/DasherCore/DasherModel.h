@@ -215,11 +215,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   }
 
 
-  CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper ) {
+  CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
     if( iType == 0 )
-      return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper);
+      return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
     else
-      return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper);
+      return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
   };
   
   // FIXME - only public temporarily

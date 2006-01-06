@@ -74,6 +74,8 @@ extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpo
 extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
+extern "C" gboolean mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data);
+
 extern "C" void choose_filename() {
   if( get_app_parameter_bool( APP_BP_TIME_STAMP )) {
     // Build a filename based on the current time and date
@@ -118,37 +120,40 @@ extern "C" gboolean edit_button_release_event(GtkWidget *widget, GtkTextIter *pI
     return false;
   }
 
-  GtkTextIter start;
-  GtkTextIter end; // Refers to end of context, which is start of selection!
+//   GtkTextIter start;
+//   GtkTextIter end; // Refers to end of context, which is start of selection!
 
-  gtk_text_buffer_get_selection_bounds( the_text_buffer, &end, NULL );
-  start = end;
+//   gtk_text_buffer_get_selection_bounds( the_text_buffer, &end, NULL );
+//   start = end;
 
-  gtk_text_iter_backward_chars( &start, 10 );
+//   gtk_text_iter_backward_chars( &start, 10 );
 
-  gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
+//   gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
 
-  if( gtk_text_iter_is_start( &start )) {
+//   if( gtk_text_iter_is_start( &start )) {
 
-    // Urgh - I hate C style strings
+//     // Urgh - I hate C style strings
 
-    gchar *szContextNew = new gchar[strlen( szContext ) + 3];
+//     gchar *szContextNew = new gchar[strlen( szContext ) + 3];
 
-    strcpy( szContextNew, ". " );
-    strcat( szContextNew, szContext );
+//     strcpy( szContextNew, ". " );
+//     strcat( szContextNew, szContext );
 
-    gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContextNew );
+//     gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContextNew );
     
-    delete[] szContextNew;
+//     delete[] szContextNew;
     
-  }
-  else {
-    gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
-  }
+//   }
+//   else {
+//     gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
+//   }
   
 
 
-  g_free( szContext );
+//   g_free( szContext );
+
+
+//  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
 
   return FALSE;
 }
@@ -166,6 +171,8 @@ void RefreshContext(int iMaxLength) {
   gtk_text_iter_backward_chars( &start, iMaxLength );
 
   gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
+
+  std::cout << "returning context *" << szContext << "* = " << (int)szContext[0]  << std::endl;
 
 //   if( gtk_text_iter_is_start( &start )) {
 
@@ -205,7 +212,7 @@ void initialise_edit(GladeXML *pGladeXML) {
   // We need to monitor the text buffer for mark_set in order to get
   // signals when the cursor is moved
 
-  g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(edit_button_release_event), NULL);
+  g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(mark_set_handler), NULL);
 
   
   //  gtk_widget_add_events(GTK_WIDGET(the_text_view), GDK_BUTTON_RELEASE_MASK);
@@ -1125,4 +1132,11 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
   else {
     return false;
   }
+}
+
+extern "C" gboolean mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data) {
+  // This seems to be a sensible way of determining when the cursor moves
+  const char *szMarkName(gtk_text_mark_get_name(pMark));
+  if(szMarkName && !strcmp(szMarkName,"insert"))
+    gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
 }

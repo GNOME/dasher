@@ -154,7 +154,7 @@ public:
   ///
 
   int GetAutoOffset() const;
-
+  void CheckForNewRoot();
   ///
   /// \todo Document this
   ///
@@ -413,7 +413,7 @@ private:
   double xmap(double x) const;
   double ixmap(double x) const;
 
-  void CheckForNewRoot();
+
   inline void Crosshair(myint sx);
 
   // Data
