@@ -67,7 +67,7 @@ public:
 
   void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
-  virtual void CheckForNewRoot() {};
+  virtual bool CheckForNewRoot() {};
 
   //void SetDrawKeyboard(bool bDrawKeyboard);
 

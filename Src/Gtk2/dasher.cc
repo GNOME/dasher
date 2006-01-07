@@ -476,13 +476,9 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
 
   if(get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP))
     gtk2_clipboard_callback(CLIPBOARD_COPYALL);
-
 }
 
-
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) {
-  std::cout << "Requested context of length: " << iMaxLength << std::endl;
-
   RefreshContext(iMaxLength);
 };
 

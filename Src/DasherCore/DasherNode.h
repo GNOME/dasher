@@ -150,6 +150,21 @@ class Dasher::CDasherNode:private NoClones {
 
   bool m_bShove;
 
+  int MostProbableChild() {
+
+    int iMax(0);
+    int iCurrent;
+
+    for(ChildMap::iterator it(m_mChildren.begin()); it != m_mChildren.end(); ++it) {
+      iCurrent = (*it)->Range();
+
+      if(iCurrent > iMax)
+	iMax = iCurrent;
+    }
+    
+    return iMax;
+  }
+
  private:
 
   int m_iLbnd, m_iHbnd;   // the cumulative lower and upper bound prob relative to parent

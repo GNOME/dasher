@@ -430,7 +430,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   return 1;
 }
 
-void CDasherViewSquare::CheckForNewRoot() {
+bool CDasherViewSquare::CheckForNewRoot() {
   CDasherNode *const root = DasherModel()->Root();
   CDasherNode::ChildMap & children = root->Children();
 
@@ -450,11 +450,11 @@ void CDasherViewSquare::CheckForNewRoot() {
 
   if((y1 > iDasherMinY) || (y2 < iDasherMaxY ) || (y2-y1 < iDasherMaxX)) {
     DasherModel()->Reparent_root(root->Lbnd(), root->Hbnd());
-    return;
+    return true;
   }
 
   if(children.size() == 0)
-    return;
+    return false;
 
   int alive = 0;
   CDasherNode *theone = 0;
@@ -484,9 +484,11 @@ void CDasherViewSquare::CheckForNewRoot() {
     if(newy1 < iDasherMinY && newy2 > iDasherMaxY)
       if( (newy2 - newy1) > iDasherMaxX ) {
         DasherModel()->Make_root(theone);
-        return;
+        return false;
     }
   }
+
+  return false;
 }
 
 /// Convert screen co-ordinates to dasher co-ordinates. This doesn't

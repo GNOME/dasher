@@ -282,8 +282,6 @@ void CDasherInterfaceBase::CreateDasherModel()
 
     string T = m_Alphabet->GetTrainingFile();
 
-    std::cout << "Training start" << std::endl;
-
     TrainFile(GetStringParameter(SP_SYSTEM_LOC) + T);
 
 //     m_pDasherModel->WriteLMToFile("/home/pjc51/dasherlm.dat");
@@ -291,8 +289,6 @@ void CDasherInterfaceBase::CreateDasherModel()
     TrainFile(GetStringParameter(SP_USER_LOC) + T);
 
 //    m_pDasherModel->ReadLMFromFile("/home/pjc51/dasherlm.dat");
-
-    std::cout << "Training end" << std::endl;
 
     // Set various parameters
 
@@ -507,12 +503,8 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
 
   SetBoolParameter( BP_TRAINING, true );
 
-  std::cout << "Checking/Creating Alphabet IO Class" << std::endl;
-
   if(!m_AlphIO)
     m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
-
-  std::cout << "Done." << std::endl;
 
   m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
 
@@ -826,8 +818,6 @@ void CDasherInterfaceBase::ResetNats() {
 
 void CDasherInterfaceBase::InvalidateContext() {
 
-  std::cout << "In Invalidate Context" << std::endl;
-
   m_pDasherModel->m_strContextBuffer = "";
 
   Dasher::CEditContextEvent oEvent(10);
@@ -860,7 +850,9 @@ void CDasherInterfaceBase::InvalidateContext() {
    }
 
    if(m_pDasherView)
-     m_pDasherView->CheckForNewRoot();
+     while( m_pDasherView->CheckForNewRoot() ) {
+       // Do nothing
+     }
 }
 
 

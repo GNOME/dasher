@@ -35,12 +35,21 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
     iSymbol = *((int *)pUserData);
   else
     iSymbol = 0;
-  
-  std::cout << "Creating root with symbol " << iSymbol << std::endl;
 
   // FIXME - Make this a CDasherComponent
 
-  pNewNode = new CDasherNode(*m_pModel, pParent, iSymbol, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, false, 7);
+  int iColour;
+  
+  if(iSymbol == 0)
+    iColour = 7;
+  else
+    iColour = m_pModel->GetColour(iSymbol);
+
+
+  if(iSymbol == m_pModel->GetSpaceSymbol())
+    pNewNode = new CDasherNode(*m_pModel, pParent, iSymbol, 0, Opts::Special1, iLower, iUpper, m_pLanguageModel, false, iColour);
+  else
+    pNewNode = new CDasherNode(*m_pModel, pParent, iSymbol, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, false, iColour);
   
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
@@ -158,8 +167,6 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &strContext, false);
 
   // Return if the context isn't long enough to build a new parent
-
-  std::cout << iGeneration << " " << vSymbols.size() << " *" << m_pModel->m_strContextBuffer << "*" << std::endl;
 
   CDasherNode *pNewNode;
 

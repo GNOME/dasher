@@ -172,8 +172,6 @@ void RefreshContext(int iMaxLength) {
 
   gchar *szContext( gtk_text_buffer_get_text( the_text_buffer, &start, &end, false ));
 
-  std::cout << "returning context *" << szContext << "* = " << (int)szContext[0]  << std::endl;
-
 //   if( gtk_text_iter_is_start( &start )) {
 
 //     // Urgh - I hate C style strings

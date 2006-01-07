@@ -273,8 +273,7 @@ void CDasherModel::Start() {
 }
 
 void CDasherModel::SetContext(std::string &sNewContext) {
-  m_Rootmin = 0;
-  m_Rootmax = m_DasherY;
+  
 
   if(oldroots.size() > 0) {
     delete oldroots[0];
@@ -308,6 +307,13 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 
   m_Root->SetContext(therootcontext);   // node takes control of the context
   Recursive_Push_Node(m_Root, 0);
+
+  double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
+
+  int iWidth( m_DasherY / (2.0*dFraction) );
+
+  m_Rootmin = m_DasherY / 2 - iWidth / 2;
+  m_Rootmax = m_DasherY / 2 + iWidth / 2;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -768,8 +774,6 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   DASHER_ASSERT_VALIDPTR_RW(newnode);
   DASHER_ASSERT_VALIDPTR_RW(oldnode);
 
-  std::cout << oldnode << " " << oldnode->Parent() << " " << newnode << " " << newnode->Parent() << std::endl;
-
   if(newnode == NULL || oldnode == NULL)
     return false;
 
@@ -803,8 +807,6 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
     };
     // Delete back to last seen node
     while(oldnode != lastseen) {
-
-      std::cout << "oldnode: " << oldnode << std::endl;
 
       oldnode->Seen(false);
       if(oldnode->ControlChild() == true || oldnode->Symbol() == GetControlSymbol() || oldnode->Symbol() == 0) {

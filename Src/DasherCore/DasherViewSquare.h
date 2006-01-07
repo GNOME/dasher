@@ -154,7 +154,7 @@ public:
   ///
 
   int GetAutoOffset() const;
-  void CheckForNewRoot();
+  bool CheckForNewRoot();
   ///
   /// \todo Document this
   ///
