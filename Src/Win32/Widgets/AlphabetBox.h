@@ -11,7 +11,7 @@
 
 #include "../resource.h"
 #include "../../DasherCore/Alphabet/AlphIO.h"
-#include "../../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 #include "WinWrap.h"
 
 class CAlphabetBox:public CWinWrap {

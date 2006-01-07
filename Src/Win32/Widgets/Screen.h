@@ -12,7 +12,7 @@
 #include "../../Common/Hash.h"
 
 #include "../../DasherCore/DasherScreen.h"
-#include "../../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 #include "../../Common/NoClones.h"
 
 #include "../GDI/FontStore.h"

@@ -11,9 +11,9 @@
 #include "Canvas.h"
 #include "Edit.h"
 #include "../Dasher.h"
-#include "../../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 #include "../DasherMouseInput.h"
-#include "../../DasherCore/Win32/SocketInput.h"
+#include "../Sockets/SocketInput.h"
 
 
 #define PRESSED		0x8000

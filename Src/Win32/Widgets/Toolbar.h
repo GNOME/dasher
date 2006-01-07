@@ -10,7 +10,7 @@
 #define __Toolbar_h__
 
 #include "../../Common/NoClones.h"
-#include "../../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 
 class CToolbar:private NoClones {
 public:

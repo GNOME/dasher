@@ -14,9 +14,8 @@
 #include <windows.h>
 
 // Look for documenting comments here:
-#include "../SettingsStore.h"
+#include "../../DasherCore/SettingsStore.h"
 #include "../../Common/NoClones.h"
-#include "WinHelper.h"
 
 class Dasher::CEventHandler;
 

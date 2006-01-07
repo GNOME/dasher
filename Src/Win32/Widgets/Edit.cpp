@@ -17,7 +17,7 @@
 #include "Edit.h"
 #include "FilenameGUI.h"
 #include "../resource.h"
-#include "../../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 
 #include "../Common/DasherEncodingToCP.h"
 

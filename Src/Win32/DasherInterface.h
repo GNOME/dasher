@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../DasherInterfaceBase.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 
 class CSettingsStore;
 class CWinOptions;

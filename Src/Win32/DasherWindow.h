@@ -18,7 +18,7 @@
 #include "DasherMouseInput.h"
 #include "AppSettings.h"
 
-#include "../../DasherCore/Win32/WinOptions.h"
+#include "../Common/WinOptions.h"
 
 class CToolbar;
 class CSlidebar;
@@ -27,7 +27,7 @@ namespace Dasher {
 };
 
 // Abstract interfaces to the Dasher engine
-#include "../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 
 class CDasherWindow : 
 	public ATL::CWindowImpl<CDasherWindow>, 

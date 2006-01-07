@@ -403,6 +403,12 @@
 				RelativePath="Common\WinMenus.h">
 			</File>
 			<File
+				RelativePath=".\Common\WinOptions.cpp">
+			</File>
+			<File
+				RelativePath=".\Common\WinOptions.h">
+			</File>
+			<File
 				RelativePath="Common\WinUTF8.cpp">
 			</File>
 			<File
@@ -434,6 +440,16 @@
 				RelativePath=".\TabletPC\SystemInfo.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="Sockets"
+			Filter="">
+			<File
+				RelativePath=".\Sockets\SocketInput.cpp">
+			</File>
+			<File
+				RelativePath=".\Sockets\SocketInput.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath=".\AppSettings.cpp">
 		</File>
@@ -445,6 +461,12 @@
 		</File>
 		<File
 			RelativePath="Dasher.h">
+		</File>
+		<File
+			RelativePath=".\DasherInterface.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherInterface.h">
 		</File>
 		<File
 			RelativePath="DasherMouseInput.cpp">

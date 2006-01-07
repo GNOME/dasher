@@ -1,16 +1,8 @@
-#include ".\dasherinterface.h"
-#include "../DasherInterfaceBase.h"
-#include "WinOptions.h"
 
-// Track memory leaks on Windows to the line that new'd the memory
-#ifdef _WIN32
-#ifdef _DEBUG
-#define DEBUG_NEW new( _NORMAL_BLOCK, THIS_FILE, __LINE__ )
-#define new DEBUG_NEW
-#undef THIS_FILE
-static char THIS_FILE[] = __FILE__;
-#endif
-#endif
+#include "WinCommon.h"
+#include "Dasherinterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
+#include "WinOptions.h"
 
 CDasherInterface::CDasherInterface(void) {
   m_pSettingsStore = new CWinOptions( "Inference Group", "Dasher3", m_pEventHandler );

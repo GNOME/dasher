@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../DasherCore/Win32/DasherInterface.h"
+#include "DasherInterface.h"
 #include "../DasherCore/UserLog.h"
 
 extern CONST UINT WM_DASHER_EVENT;

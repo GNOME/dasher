@@ -1,5 +1,5 @@
 #pragma once
-#include "../SocketInputBase.h"
+#include "../../DasherCore/SocketInputBase.h"
 
 namespace Dasher {
   class CSocketInput;

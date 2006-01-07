@@ -13,7 +13,7 @@
 
 #include "../resource.h"
 
-#include "../../DasherCore/Win32/DasherInterface.h"
+#include "../DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
 
 class CAppSettings;

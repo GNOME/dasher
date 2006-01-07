@@ -389,37 +389,6 @@
 				RelativePath=".\XMLUtil.h">
 			</File>
 		</Filter>
-		<Filter
-			Name="Win32"
-			Filter="">
-			<File
-				RelativePath="Win32\DasherInterface.cpp">
-			</File>
-			<File
-				RelativePath="Win32\DasherInterface.h">
-			</File>
-			<File
-				RelativePath="Win32\WinCommon.h">
-			</File>
-			<File
-				RelativePath="Win32\WinHelper.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinHelper.h">
-			</File>
-			<File
-				RelativePath="Win32\WinLocalisation.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinLocalisation.h">
-			</File>
-			<File
-				RelativePath="Win32\WinOptions.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinOptions.h">
-			</File>
-		</Filter>
 		<File
 			RelativePath="Alphabet\Alphabet.cpp">
 		</File>
@@ -569,12 +538,6 @@
 		</File>
 		<File
 			RelativePath=".\SettingsStore.h">
-		</File>
-		<File
-			RelativePath=".\Win32\SocketInput.cpp">
-		</File>
-		<File
-			RelativePath=".\Win32\SocketInput.h">
 		</File>
 		<File
 			RelativePath=".\SocketInputBase.cpp">
