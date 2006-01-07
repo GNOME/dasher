@@ -200,11 +200,6 @@
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
-				<FileConfiguration
-					Name="Development Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath=".\LanguageModelling\JapaneseLanguageModel.h">
@@ -257,11 +252,6 @@
 				<FileConfiguration
 					Name="Unicode Debug|Win32"
 					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Development Debug|Win32">
 					<Tool
 						Name="VCCLCompilerTool"/>
 				</FileConfiguration>
@@ -428,18 +418,6 @@
 			</File>
 			<File
 				RelativePath="Win32\WinOptions.h">
-			</File>
-			<File
-				RelativePath="Win32\WinUTF8.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinUTF8.h">
-			</File>
-			<File
-				RelativePath="Win32\WinWrap.cpp">
-			</File>
-			<File
-				RelativePath="Win32\WinWrap.h">
 			</File>
 		</Filter>
 		<File

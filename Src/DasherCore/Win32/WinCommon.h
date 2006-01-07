@@ -33,13 +33,12 @@ typedef std::basic_string < TCHAR > Tstring;
 
 #include "../../Common/NoClones.h"
 
-#include "WinUTF8.h"
 #include "WinHelper.h"
-#include "WinWrap.h"
 #include "WinLocalisation.h"
 
 #if DASHER_WIN32 <= 1300
 namespace stdext = std;
 #endif
+
 
 #endif /* #ifndef __WinHelper_h__ */
