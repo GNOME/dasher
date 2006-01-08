@@ -36,10 +36,7 @@ pVoice(0),
 #endif
 				textentry(false) 
 {
-  Tstring WindowTitle;
-  WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
-  m_FilenameGUI = new CFilenameGUI(Parent, WindowTitle.c_str());
-
+  
   CodePage = GetUserCodePage();
   m_Font = GetCodePageFont(CodePage, 14);
  
@@ -66,7 +63,10 @@ HWND CEdit::Create(HWND hParent)
 {
 	HWND hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
 
-// m_hwnd = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("edit"), NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 0, 0, 0, 0, Parent, NULL, WinHelper::hInstApp, NULL);
+	
+	Tstring WindowTitle;
+	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
+	m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str());
 
 	return hWnd;
 }
