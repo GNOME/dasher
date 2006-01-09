@@ -54,7 +54,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
   pNewNode->m_bShove = true;
-  pNewNode->Seen(true);
+  //  pNewNode->Seen(true);
 
   return pNewNode;
 }

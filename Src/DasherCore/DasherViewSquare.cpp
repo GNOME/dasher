@@ -36,14 +36,12 @@ static char THIS_FILE[] = __FILE__;
 // we can always override if necessary.
 
 void CDasherViewSquare::RenderNodes() {
-  
-  Screen()->Blank();
 
   DASHER_ASSERT(DasherModel()->Root() != 0);
 
-  //DASHER_TRACEOUTPUT("RenderNodes\n");
-
   // Render nodes to screen object (should use off screen buffer)
+  
+  Screen()->Blank();
 
   myint iDasherMinX;
   myint iDasherMinY;
@@ -52,24 +50,24 @@ void CDasherViewSquare::RenderNodes() {
 
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
-  // FIXME - vNodeList might be redundant - remove if this is the case
-
   std::vector<CDasherNode *> vNodeList;
   std::vector<CDasherNode *> vDeleteList;
 
   RecursiveRender(DasherModel()->Root(), DasherModel()->Rootmin(), DasherModel()->Rootmax(), iDasherMaxX, vNodeList, vDeleteList);
+
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
 
-  //  std::cout << "Nodes to tap on: " << vNodeList.size() << std::endl;
+  Crosshair(DasherModel()->DasherOX());  // add crosshair
+
+  // Push nodes which have newly become large, and delete nodes which
+  // are now too small.
 
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
     DasherModel()->Push_Node(*it);
 
   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
     (*it)->Delete_children();
-
-  Crosshair(DasherModel()->DasherOX());  // add crosshair
 
 }
 
