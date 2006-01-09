@@ -55,8 +55,9 @@ void CDasherViewSquare::RenderNodes() {
   // FIXME - vNodeList might be redundant - remove if this is the case
 
   std::vector<CDasherNode *> vNodeList;
+  std::vector<CDasherNode *> vDeleteList;
 
-  RecursiveRender(DasherModel()->Root(), DasherModel()->Rootmin(), DasherModel()->Rootmax(), iDasherMaxX, vNodeList);
+  RecursiveRender(DasherModel()->Root(), DasherModel()->Rootmin(), DasherModel()->Rootmax(), iDasherMaxX, vNodeList, vDeleteList);
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
 
@@ -64,6 +65,9 @@ void CDasherViewSquare::RenderNodes() {
 
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
     DasherModel()->Push_Node(*it);
+
+  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
+    (*it)->Delete_children();
 
   Crosshair(DasherModel()->DasherOX());  // add crosshair
 
@@ -84,7 +88,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   }
 }
 
-int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList) {
+int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
   // Decide which colour to use when rendering the child
@@ -131,6 +135,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   }
   else {
     //    std::cout << "Killing Node" << std::endl;
+    vDeleteList.push_back(pRender);
     pRender->Kill();
     return 0;
   }
@@ -154,7 +159,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
       
       if((newy2 - newy1 > 50) || (pChild->Alive())) {
 	pChild->Alive(true);
-	RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList);
+	RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList);
       }
       //    }
   }
@@ -173,31 +178,77 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
 
   const CAlphabet & alphabet = DasherModel()->GetAlphabet();
 
-  for(int iGroup = 1; iGroup < alphabet.GetGroupCount(); iGroup++) {
-    int lower = alphabet.GetGroupStart(iGroup);
-    int upper = alphabet.GetGroupEnd(iGroup);
+//   for(int iGroup = 1; iGroup < alphabet.GetGroupCount(); iGroup++) {
+//     int lower = alphabet.GetGroupStart(iGroup);
+//     int upper = alphabet.GetGroupEnd(iGroup);
 
-    myint lbnd = Children[lower]->Lbnd();
-    myint hbnd = Children[upper - 1]->Hbnd();
-    myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-    myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+//     myint lbnd = Children[lower]->Lbnd();
+//     myint hbnd = Children[upper - 1]->Hbnd();
+//     myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+//     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
 
-    if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      std::string Label = DasherModel()->GroupLabel(iGroup);
-      int Colour = DasherModel()->GroupColour(iGroup);
+//     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
+//       std::string Label = DasherModel()->GroupLabel(iGroup);
+//       int Colour = DasherModel()->GroupColour(iGroup);
 
-      if(Colour != -1) {
-        RenderNode(0, DasherModel()->GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label, true);
-      }
-      else {
-        RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
-      }
-    }
-    else {
-      RenderNode(0, current - 1, Opts::Groups, newy1, newy2, mostleft, Label, true);
-    }
+//       if(Colour != -1) {
+//         RenderNode(0, DasherModel()->GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label, true);
+//       }
+//       else {
+//         RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
+//       }
+//     }
+//     else {
+//       RenderNode(0, current - 1, Opts::Groups, newy1, newy2, mostleft, Label, true);
+//     }
+//   }
+
+  SGroupInfo *pCurrentGroup(alphabet.m_pBaseGroup);
+
+  while(pCurrentGroup) {
+    RecursiveRenderGroups(pCurrentGroup, Children, y1, y2, mostleft);
+    pCurrentGroup = pCurrentGroup->pNext;
   }
 }
+
+void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::deque<CDasherNode*>& Children, myint y1, myint y2, int mostleft) {
+  
+
+  if(pCurrentGroup->bVisible) {
+    myint range = y2 - y1;
+    
+    int lower(pCurrentGroup->iStart);
+    int upper(pCurrentGroup->iEnd);
+    
+    myint lbnd = Children[lower]->Lbnd();
+    myint hbnd = Children[upper - 1]->Hbnd();
+    
+    //std::cout << lbnd << " " << hbnd << std::endl;
+    
+    myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+    myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
+    
+    if(GetBoolParameter(BP_COLOUR_MODE) == true) {
+      //    std::string Label = DasherModel()->GroupLabel(iGroup);
+      std::string Label=pCurrentGroup->strLabel;
+      int Colour = pCurrentGroup->iColour;
+      if(Colour != -1) {
+	RenderNode(0, pCurrentGroup->iColour, Opts::Groups, newy1, newy2, mostleft, Label, true);
+      }
+      else {
+	//      RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
+      }
+    }
+  }
+  
+  SGroupInfo *pCurrentChild(pCurrentGroup->pChild);
+
+  while(pCurrentChild) {
+    RecursiveRenderGroups(pCurrentChild, Children, y1, y2, mostleft);
+    pCurrentChild = pCurrentChild->pNext;
+  }
+}
+
 
 CDasherViewSquare::Cymap::Cymap(myint iScale) {
   double dY1 = 0.25;            // Amount of acceleration
@@ -450,7 +501,7 @@ bool CDasherViewSquare::CheckForNewRoot() {
 
   if((y1 > iDasherMinY) || (y2 < iDasherMaxY ) || (y2-y1 < iDasherMaxX)) {
     DasherModel()->Reparent_root(root->Lbnd(), root->Hbnd());
-    return true;
+    return(DasherModel()->Root() != root);
   }
 
   if(children.size() == 0)

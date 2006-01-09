@@ -6,6 +6,9 @@
 #define __DasherViewSquare_h__
 #include "DasherView.h"
 #include <deque>
+#include "Alphabet/GroupInfo.h"
+
+
 
 using namespace std;
 
@@ -141,7 +144,7 @@ public:
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList);
+  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
 
   ///
   /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
@@ -174,6 +177,8 @@ public:
   virtual void ResetYAutoOffset();
 
 private:
+
+  void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::deque<CDasherNode*>& Children, myint y1, myint y2, int mostleft);
 
   ///
   /// Convert input device position to Dasher co-ordinates
@@ -442,6 +447,8 @@ private:
 
   // The factor that scale factors are multipled by 
   myint m_iScalingFactor;
+
+
 };
 
 #include "DasherViewSquare.inl"

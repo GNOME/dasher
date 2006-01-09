@@ -10,6 +10,8 @@
 #define __AlphIO_h__
 
 #include "../DasherTypes.h"
+//#include "Alphabet.h"
+#include "GroupInfo.h"
 
 #include <string>
 #include <map>
@@ -17,11 +19,22 @@
 #include <utility>              // for std::pair
 #include <stdio.h>              // for C style file IO
 
+/* namespace Dasher { */
+/*   class CAlphabet { */
+/*   public: */
+/*     struct SGroupInfo;  */
+/*   }; */
+/* } */
+
 namespace expat {
 #include "../../Common/Expat/lib/expat.h"
-} namespace Dasher {
+}
+
+namespace Dasher {
   class CAlphIO;
-} class Dasher::CAlphIO {
+} 
+
+class Dasher::CAlphIO {
 public:
   // This structure completely describes the characters used in alphabet
   struct AlphInfo {
@@ -42,6 +55,8 @@ public:
       int Colour;
       std::string Foreground;
     };
+
+    // Obsolete groups stuff
     struct group {
       std::string Description;
       std::vector < character > Characters;
@@ -49,6 +64,12 @@ public:
       std::string Label;
     };
     std::vector < group > Groups;
+    // ---
+
+    int m_iCharacters;
+    std::vector<SGroupInfo *> m_vGroups;
+    SGroupInfo *m_pBaseGroup;
+
     character ParagraphCharacter;       // display and edit text of paragraph character. Use ("", "") if no paragraph character.
     character SpaceCharacter;   // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.
     character ControlCharacter; // display and edit text of Control character. Typically ("", "Control"). Use ("", "") if no control character.
@@ -57,6 +78,9 @@ public:
     character StartConvertCharacter;
     character EndConvertCharacter;
   };
+
+
+  
 
   CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > Filenames);
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;

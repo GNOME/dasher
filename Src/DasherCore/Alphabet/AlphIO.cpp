@@ -376,6 +376,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.SpaceCharacter.Colour = -1;
     Me->InputInfo.ParagraphCharacter.Colour = -1;
     Me->InputInfo.ControlCharacter.Colour = -1;
+    Me->InputInfo.m_iCharacters = 1; // Start at 1 as 0 is the root node symbol
+    Me->InputInfo.m_pBaseGroup = 0;
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         atts++;
@@ -505,6 +507,10 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     NewGroup.Colour = -1;
     NewGroup.Label = "";
     Me->InputInfo.Groups.push_back(NewGroup);
+
+
+    SGroupInfo *pNewGroup(new SGroupInfo);
+
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         atts++;
@@ -514,15 +520,38 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       if(strcmp(*atts, "b") == 0) {
         atts++;
         Me->InputInfo.Groups.back().Colour = atoi(*atts);
+	pNewGroup->iColour = atoi(*atts);
+	if(pNewGroup->iColour == 0)
+	  pNewGroup->bVisible = false;
+	else
+	  pNewGroup->bVisible = true;
         atts--;
       }
       if(strcmp(*atts, "label") == 0) {
         atts++;
         Me->InputInfo.Groups.back().Label = *atts;
+	pNewGroup->strLabel = *atts;
         atts--;
       }
       atts += 2;
     }
+
+    pNewGroup->iStart = Me->InputInfo.m_iCharacters;
+
+    pNewGroup->pChild = NULL;
+
+    if(Me->InputInfo.m_vGroups.size() > 0) {
+      pNewGroup->pNext = Me->InputInfo.m_vGroups.back()->pChild;
+      Me->InputInfo.m_vGroups.back()->pChild = pNewGroup;
+    }
+    else {
+      pNewGroup->pNext = Me->InputInfo.m_pBaseGroup;
+      Me->InputInfo.m_pBaseGroup = pNewGroup;
+    }
+
+
+    Me->InputInfo.m_vGroups.push_back(pNewGroup);
+
     return;
   }
 
@@ -584,6 +613,9 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
   if(strcmp(name, "s") == 0) {
     AlphInfo::character NewCharacter;
+
+    ++Me->InputInfo.m_iCharacters;
+
     NewCharacter.Colour = -1;
     Me->InputInfo.Groups.back().Characters.push_back(NewCharacter);
     AlphInfo::character & Ch = Me->InputInfo.Groups.back().Characters.back();
@@ -637,10 +669,12 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
     return;
   }
 
-//   if(!strcmp(name, "group")) {
-//     Me->pOpenGroups.pop_back();
-//     return;
-//   }
+  if(!strcmp(name, "group")) {
+    //    Me->InputInfo.Groups.pop_back(NewGroup);
+    Me->InputInfo.m_vGroups.back()->iEnd = Me->InputInfo.m_iCharacters;
+    Me->InputInfo.m_vGroups.pop_back();
+    return;
+  }
 }
 
 void CAlphIO::XML_CharacterData(void *userData, const XML_Char *s, int len) {

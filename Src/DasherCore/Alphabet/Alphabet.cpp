@@ -90,6 +90,10 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   if(AlphInfo.ControlCharacter.Display != std::string("") && GetControlSymbol() == -1)
     AddControlSymbol(AlphInfo.ControlCharacter.Text, AlphInfo.ControlCharacter.Display, AlphInfo.ControlCharacter.Colour, AlphInfo.ControlCharacter.Foreground);
 
+  // New group stuff
+
+  m_pBaseGroup = AlphInfo.m_pBaseGroup;
+
 #ifdef DASHER_TRACE
   Trace();
 #endif

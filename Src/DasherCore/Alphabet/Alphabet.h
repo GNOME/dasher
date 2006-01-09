@@ -13,6 +13,7 @@
 #define __DASHER_ALPHABET_H__
 
 #include "../DasherTypes.h"
+#include "GroupInfo.h"
 
 #include <vector>
 #include "AlphabetMap.h"
@@ -22,6 +23,7 @@ namespace Dasher {
 
   class CAlphabet {
   public:
+
 
     CAlphabet();
 
@@ -110,6 +112,7 @@ namespace Dasher {
 
     };
 
+
     CGroupAdder *GetGroupAdder(int iColour, const std::string & strLabel);
 
     // Add the characters that can appear in Nodes
@@ -141,9 +144,14 @@ namespace Dasher {
 
     const alphabet_map GetAlphabetMap() const {
       return TextMap;
-  } private:
+    } 
 
-      Opts::AlphabetTypes m_DefaultEncoding;
+    SGroupInfo *m_pBaseGroup;
+    
+    
+  private:
+
+    Opts::AlphabetTypes m_DefaultEncoding;
     Opts::ScreenOrientations m_Orientation;
     symbol m_ParagraphSymbol;
     symbol m_SpaceSymbol;
@@ -167,6 +175,8 @@ namespace Dasher {
     std::vector < int >m_GroupEnd;      // stores the group end index (1 past the last)
     std::vector < int >m_GroupColour;   // stores the colour of the group
     std::vector < std::string > m_GroupLabel;
+
+    SGroupInfo *pFirstGroup;
 
     alphabet_map TextMap;
 
