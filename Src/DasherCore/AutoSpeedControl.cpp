@@ -1,5 +1,7 @@
 #include "AutoSpeedControl.h"
 
+#include <cmath>
+
 CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate) 
   : CDasherComponent(pEventHandler, pSettingsStore) {
 

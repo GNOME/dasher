@@ -17,7 +17,8 @@ enum {
   BP_LM_ADAPTIVE, BP_BUTTONONESTATIC, BP_BUTTONONEDYNAMIC,
   BP_BUTTONMENU, BP_BUTTONPULSING, BP_BUTTONSTEADY, 
   BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
-  BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, END_OF_BPS
+  BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
+  BP_OLD_STYLE_PUSH, END_OF_BPS
 };
 
 enum { 
@@ -117,7 +118,8 @@ static bp_table boolparamtable[] = {
   {BP_BUTTONALTERNATINGDIRECT, "ButtonAlternatingDirectMode", PERS, true, "Alternating direct mode"},
   {BP_COMPASSMODE, "ButtonCompassMode", PERS, false, "Compass mode"},
   {BP_SOCKET_INPUT_ENABLE, "SocketInputEnable", PERS, false, "Read pointer coordinates from network socket instead of mouse"},
-  {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"}
+  {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"},
+  {BP_OLD_STYLE_PUSH, "OldStylePush", PERS, false, "Old style node pushing algorithm"}
 };
 
 static lp_table longparamtable[] = {

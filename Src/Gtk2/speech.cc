@@ -81,6 +81,7 @@ void teardown_speech() {
 }
 
 void SPEAK_DAMN_YOU(const gchar *speech) {
+  if(speech && (strlen(speech) > 0)) {
   if(speaker != NULL) {
     GNOME_Speech_Speaker_say(speaker, speech, &ev);
   }
@@ -88,10 +89,15 @@ void SPEAK_DAMN_YOU(const gchar *speech) {
   if( m_szLast != NULL )
     delete[] m_szLast;
 
-  m_szLast = new gchar(strlen(speech) + 1);
+  m_szLast = new gchar[strlen(speech) + 1];
   
   strcpy(m_szLast, speech);
+  }
+  else {
+    m_szLast = 0;
+  }
 }
+
 
 void repeat_speech() {
   if( m_szLast != NULL )

@@ -504,7 +504,7 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
   // opens up new nodes
 
-  if(false)
+  if(GetBoolParameter(BP_OLD_STYLE_PUSH))
   {
 
   // push node under mouse
@@ -1012,8 +1012,10 @@ void CDasherModel::RenderToView(CDasherView *pView) {
 
   pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
 
+  if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
     Push_Node(*it);
+  }
   
   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
     (*it)->Delete_children();
@@ -1027,8 +1029,10 @@ bool CDasherModel::RenderToView(CDasherView *pView, int iMouseX, int iMouseY, bo
 
   bReturnValue = pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList, iMouseX, iMouseY, bRedrawDisplay);
 
+  if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
     Push_Node(*it);
+  }
   
   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
     (*it)->Delete_children();
