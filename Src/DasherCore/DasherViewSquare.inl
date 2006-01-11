@@ -9,175 +9,6 @@
 #include "DasherModel.h"
 
 namespace Dasher {
-  ////////////////////////////////////////////////
-  ///
-  ///  Change max bitrate based on variance of angle 
-  ///  in dasher space.
-  ///
-  /////////////////////////////////////////////////
-
-inline double CDasherViewSquare::UpdateBitrate()
-{
-  double var = Variance();
-  if(var < m_dTier1)
-  {
-      m_dBitrate *= m_dChange1;
-  }
-  else if(var < m_dTier2)
-  {
-      m_dBitrate *= m_dChange2;
-  }
-  else if(var > m_dTier4) //Tier 4 comes before tier 3 because tier4 > tier3 !!!
-  {
-      m_dBitrate *= m_dChange4;
-  }
-  else if(var > m_dTier3)
-  {
-      m_dBitrate *= m_dChange3;
-  }
-  //else if( in the middle )
-  //    nothing happens! ;
-
-  //always keep bitrate values sane
-  if(m_dBitrate > m_dSpeedMax) 
-  {
-    m_dBitrate = m_dSpeedMax;
-  }
-  else if(m_dBitrate < m_dSpeedMin) 
-  {
-    m_dBitrate = m_dSpeedMin;
-  }
-
-  return m_dBitrate;
-}
-  ///////////////////////////////////////////////
-  ///
-  ///  Finds variance for automatic speed control
-  ///
-  //////////////////////////////////////////////
-       
-inline double CDasherViewSquare::Variance()
-{      
-  double avgcos, avgsin;
-  avgsin = avgcos = 0.0;
-  DOUBLE_DEQUE::iterator i;
-  // find average of cos(theta) and sin(theta) 
-  for(i = m_dequeAngles.begin(); i != m_dequeAngles.end(); i++) {
-    avgcos += cos(*i);
-    avgsin += sin(*i);
-  }
-  avgcos /= (1.0 * m_dequeAngles.size());
-  avgsin /= (1.0 * m_dequeAngles.size());
-  //return variance (see dasher/Doc/speedcontrol.tex)
-  return -log(avgcos * avgcos + avgsin * avgsin);
-
-}
-//////////////////////////////////////////////////////////////////////
-///
-///  The number of samples depends on the clock rate of the
-///  machine (framerate) and the user's speed (bitrate). See 
-///  speedcontrol.tex in dasher/Doc/ dir.
-///
-/////////////////////////////////////////////////////////////////////
-
-
-inline int CDasherViewSquare::UpdateSampleSize()
-{
-  double dFramerate = DasherModel()->Framerate();
-  double dSpeedSamples = 0.0;
-  double dBitrate = m_dBitrate; 
-  if(dBitrate < 1.0)// for the purposes of this function
-    dBitrate = 1.0; // we don't care exactly how slow we're going
-                    // *really* low speeds are ~ equivalent?
-  dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
- 
-  m_nSpeedSamples = int(round(dSpeedSamples));
-  return m_nSpeedSamples;
-}
-  /////////////////////////////////////////////////////////////
-  ///
-  ///  double UpdateMinRadius() - find adaptive min radius for
-  ///  auto-speed control. Calculated by DJCM's
-  ///  mixture-of-2-centred-gaussians model.
-  ///
-  ///////////////////////////////////////////////////////////
-
-inline double CDasherViewSquare::UpdateMinRadius() 
-{
-  m_dMinRadius = sqrt( log( (m_dSigma2 * m_dSigma2) / (m_dSigma1 * m_dSigma1) ) / 
-                ( 1 / (m_dSigma1 * m_dSigma1) - 1 / (m_dSigma2 * m_dSigma2)) );
-  return m_dMinRadius;
-}
-
-//////////////////////////////////////////////////////////////
-///
-///  NB: updates VARIANCES of two populations of 
-///  mixture-of-2-centred-Gaussians model!
-///
-//////////////////////////////////////////////////////////////
-
-inline void CDasherViewSquare::UpdateSigmas(double r)
-{
-  double dSamples = m_dMinRRate* DasherModel()->Framerate() / m_dBitrate;
-  if(r > m_dMinRadius)
-    m_dSigma1 = m_dSigma1 - (m_dSigma1 - r * r) / dSamples;
-  else 
-    m_dSigma2 = m_dSigma2 - (m_dSigma2 - r * r) / dSamples;
-}
-
-/////////////////////////////////////////////////////////////////
-///
-///  AUTOMATIC SPEED CONTROL, CEH 7/05: Analyse variance of angle
-///  mouse position makes with +ve x-axis in Dasher-space
-///
-////////////////////////////////////////////////////////////////
-
-
-inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY) {
-  if(GetBoolParameter(BP_AUTO_SPEEDCONTROL) && !GetBoolParameter(BP_DASHER_PAUSED)) {
-    
-//  Coordinate transforms:    
-    iDasherX = myint(xmap(iDasherX / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
-    iDasherY = m_ymap.map(iDasherY);
-
-    myint iDasherOX = myint(xmap(DasherModel()->DasherOX() / static_cast < double >(DasherModel()->DasherY())) * DasherModel()->DasherY());
-    myint iDasherOY = m_ymap.map(DasherModel()->DasherOY());
-
-    double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works 
-    double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
-    double theta = atan2(y, x);
-    double r = sqrt(x * x + y * y);
-    m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
-
-    UpdateSigmas(r);
-
-//  Data collection:
-    
-    if(r > m_dMinRadius && fabs(theta) < 1.25) {
-      m_nSpeedCounter++;
-      m_dequeAngles.push_back(theta);
-      while(m_dequeAngles.size() > m_nSpeedSamples) {
-	    m_dequeAngles.pop_front();
-      }
-      
-    }
-    m_dSensitivity = GetLongParameter(LP_AUTOSPEED_SENSITIVITY) / 100.0;
-    if(m_nSpeedCounter > round(m_nSpeedSamples / m_dSensitivity)) {
-      //do speed control every so often!
-      
-      UpdateSampleSize();
-      UpdateMinRadius();
-      UpdateBitrate();
-      long lBitrateTimes100 =  long(round(m_dBitrate * 100)); //Dasher settings want long numerical parameters
-      SetLongParameter(LP_MAX_BITRATE, lBitrateTimes100);
-      m_nSpeedCounter = 0;	  
-    
-    }	
-  
-  }  
-  
-}
-
   inline double CDasherViewSquare::xmax(double x, double y) const {
     // DJCM -- define a function xmax(y) thus:
     // xmax(y) = a*[exp(b*y*y)-1] 
@@ -196,7 +27,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY) {
   }
 
   inline screenint CDasherViewSquare::dasherx2screen(myint sx) const {
-    double x = double (sx) / double (DasherModel()->DasherY());
+    double x = double (sx) / double (GetLongParameter(LP_MAX_Y));
     x = xmap(x);
     return CanvasX - int (x * CanvasX);
 
@@ -208,7 +39,7 @@ inline void CDasherViewSquare::SpeedControl(myint iDasherX, myint iDasherY) {
       y2 = m_ymap.map(y2);
 //  } 
 
-if(y1 > DasherModel()->DasherY()) {
+if(y1 > GetLongParameter(LP_MAX_Y)) {
       return 0;
     } if(y2 < 0) {
       return 0;
@@ -220,14 +51,14 @@ if(y1 > DasherModel()->DasherY()) {
       }
 
     // Is this square actually on the screen? Check bottom
-    if(y2 > DasherModel()->DasherY())
-      y2 = DasherModel()->DasherY();
+    if(y2 > GetLongParameter(LP_MAX_Y))
+      y2 = GetLongParameter(LP_MAX_Y);
 
     Cint32 iSize = Cint32(y2 - y1);
     DASHER_ASSERT(iSize >= 0);
 
-    s1 = screenint(y1 * CanvasY / DasherModel()->DasherY());
-    s2 = screenint(y2 * CanvasY / DasherModel()->DasherY());
+    s1 = screenint(y1 * CanvasY / GetLongParameter(LP_MAX_Y));
+    s2 = screenint(y2 * CanvasY / GetLongParameter(LP_MAX_Y));
 
     DASHER_ASSERT(s2 >= s1);
     return iSize;
@@ -239,7 +70,7 @@ if(y1 > DasherModel()->DasherY()) {
       y = m_ymap.map(y);
   //  }
 
- y = (y * CanvasY / DasherModel()->DasherY());
+ y = (y * CanvasY / GetLongParameter(LP_MAX_Y));
 
     // Stop overflow when converting to screen coords
     if(y > myint(INT_MAX))
@@ -273,10 +104,10 @@ if(y1 > DasherModel()->DasherY()) {
     // Horizontal bar of crosshair
 
     x[0] = 12 * sx / 14;
-    y[0] = DasherModel()->DasherY() / 2;
+    y[0] = GetLongParameter(LP_MAX_Y) / 2;
 
     x[1] = 17 * sx / 14;
-    y[1] = DasherModel()->DasherY() / 2;
+    y[1] = GetLongParameter(LP_MAX_Y) / 2;
 
     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
       DasherPolyline(x, y, 2, 1, 5);

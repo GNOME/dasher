@@ -14,6 +14,8 @@
 #include "CustomColours.h"
 #include "ColourIO.h"
 
+#include "AutoSpeedControl.h"
+
 namespace Dasher {
   class CDashEditbox;
   class CDasherScreen;
@@ -494,6 +496,7 @@ protected:
   CDashEditbox *m_DashEditbox;
   CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
+  CAutoSpeedControl *m_pAutoSpeedControl;
 
   CDasherInput *m_pInput;
 

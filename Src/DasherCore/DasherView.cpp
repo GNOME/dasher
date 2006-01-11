@@ -29,8 +29,8 @@ static char THIS_FILE[] = __FILE__;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pDasherModel(DasherModel), m_pInput(0) {
+CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
+:CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pInput(0) {
 
 }
 
@@ -82,7 +82,7 @@ void CDasherView::DrawMousePosBox() {
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay) {
+bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, int iMouseX, int iMouseY, bool bRedrawDisplay) {
 
   bool bDidSomething(false);    // Have we actually done any drawing - no
   // point updating the display if we
@@ -90,7 +90,7 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay) {
 
   if(bRedrawDisplay) {
     Screen()->SendMarker(0);     // Start of 'dasher field'
-    RenderNodes();
+    RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList);
     bDidSomething = true;
   }
 
@@ -125,13 +125,13 @@ bool CDasherView::Render(int iMouseX, int iMouseY, bool bRedrawDisplay) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CDasherView::Render() {
+void CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
 
   // FIXME - when does this get called?
 
   Screen()->SendMarker(0);
 
-  RenderNodes();
+  RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList);
 
   Screen()->SendMarker(1);
 
@@ -170,8 +170,8 @@ void CDasherView::SetInput(CDasherInput * _pInput) {
 
   myint iMaxCoordinates[2];
 
-  iMaxCoordinates[0] = m_pDasherModel->DasherY();
-  iMaxCoordinates[1] = m_pDasherModel->DasherY();
+  iMaxCoordinates[0] = GetLongParameter(LP_MAX_Y);
+  iMaxCoordinates[1] = GetLongParameter(LP_MAX_Y);
 
   m_pInput->SetMaxCoordinates(2, iMaxCoordinates);
 

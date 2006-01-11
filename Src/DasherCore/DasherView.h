@@ -11,6 +11,7 @@ namespace Dasher {
   class CDasherInput;
   class CDasherComponent;
   class CDasherView;
+  class CDasherNode;
 }
 
 #include "DasherTypes.h"
@@ -56,7 +57,7 @@ public:
   /// \param DasherScreen Pointer to the CDasherScreen object used to do rendering
   /// \param DasherModel Reference to the CDasherModel which is to be represented
 
-  CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen, CDasherModel * DasherModel);
+  CDasherView(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherScreen * DasherScreen);
   virtual ~ CDasherView() {
   }
   ////// Event handler
@@ -67,7 +68,7 @@ public:
 
   void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
-  virtual bool CheckForNewRoot() {};
+  virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
 
   //void SetDrawKeyboard(bool bDrawKeyboard);
 
@@ -76,22 +77,22 @@ public:
 
   /// Render the display
 
-  virtual void Render();
+  virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
 
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
 
-  virtual bool Render(int iMouseX, int iMouseY, bool bRedrawDisplay);
+  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, int iMouseX, int iMouseY, bool bRedrawDisplay);
 
   /// Renders the Dasher node structure
   /// \todo Shouldn't be public?
 
-  virtual void RenderNodes() = 0;
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) = 0;
 
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
 
-  virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL)=0;
+  virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL)=0;
 
   /// Dasher Click Mode
   
@@ -146,16 +147,16 @@ public:
   /// 
   /// Return a reference to the model
 
-  CDasherModel * DasherModel() {
-    return m_pDasherModel;
-  }
+/*   CDasherModel * DasherModel() { */
+/*     return m_pDasherModel; */
+/*   } */
 
   /// \todo Erm...
 
-  const CDasherModel * DasherModel() const {
-    return m_pDasherModel;
-  }
-  ////// Return a reference to the screen
+/*   const CDasherModel * DasherModel() const { */
+/*     return m_pDasherModel; */
+/*   } */
+ ////// Return a reference to the screen
   
   CDasherScreen * Screen() {
     return m_pScreen;
@@ -195,6 +196,12 @@ public:
 
   int GetCoordinateCount();
 
+  virtual void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate) {};
+
+  virtual double xmap(double x) const {return 0.0;};  
+  virtual double ymap(double x) const {return 0.0;};
+
+
 protected:
   // Orientation of Dasher Screen
   inline void MapScreen(screenint * DrawX, screenint * DrawY);
@@ -202,11 +209,13 @@ protected:
 
 private:
   CDasherScreen * m_pScreen;    // provides the graphics (text, lines, rectangles):
-  CDasherModel * m_pDasherModel; // Model view represents
+  //  CDasherModel * m_pDasherModel; // Model view represents
   CDasherInput *m_pInput;       // Input device abstraction
 
   // Pure virtuals to implement
   virtual void Crosshair(myint sx) = 0; // Tells m_Screen to draw a crosshair - or other static decoration
+
+
 };
 
 #include "DasherView.inl"

@@ -5,6 +5,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           AlphabetManager.h \
                           AlphabetManagerFactory.cpp \
                           AlphabetManagerFactory.h \
+                          AutoSpeedControl.cpp \
+                          AutoSpeedControl.h \
                           ColourIO.cpp \
                           ColourIO.h \
                           ControlManager.cpp \

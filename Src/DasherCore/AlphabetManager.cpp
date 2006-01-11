@@ -54,6 +54,8 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
   pNewNode->m_bShove = true;
+  pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
+  pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(iSymbol);
   //  pNewNode->Seen(true);
 
   return pNewNode;
@@ -114,8 +116,10 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
 	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(j));
 	pNewNode->m_pNodeManager = this;
 	pNewNode->m_bShove = true;
+	pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
       }
 
+      pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(newchars[j]);
       pNode->Children()[j] = pNewNode;
       iLbnd = cum[j];
     }
@@ -212,6 +216,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   pNewNode->m_pNodeManager = this;
   pNewNode->m_bShove = true;
   pNewNode->Seen(true);
+  pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
 
   PopulateChildrenWithSymbol( pNewNode, pNode->Symbol(), pNode );
 

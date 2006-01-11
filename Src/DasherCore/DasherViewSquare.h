@@ -45,15 +45,15 @@ public:
   /// passed as parameter to the drawing functions, and data structure
   /// can be extracted from the model and passed too.
 
-  CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen, CDasherModel *DasherModel);
+  CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen);
   ~CDasherViewSquare();
 
   ///
   /// Convert input coordinates to dasher coordinates and evolve the model
   ///
 
-  void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time);
-  void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
+  void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY);
+  void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
 
   ///
   /// \todo Document this
@@ -77,7 +77,7 @@ public:
   /// Render the current state of the model.
   ///
 
-  virtual void RenderNodes();
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
 
   /// 
   /// Supply a new screen to draw to
@@ -157,7 +157,9 @@ public:
   ///
 
   int GetAutoOffset() const;
-  bool CheckForNewRoot();
+
+  bool IsNodeVisible(myint y1, myint y2);
+
   ///
   /// \todo Document this
   ///
@@ -175,6 +177,11 @@ public:
   ///
 
   virtual void ResetYAutoOffset();
+
+  double xmap(double x) const;
+  double ymap(double x) const {
+    return m_ymap.map(x);
+  };
 
 private:
 
@@ -284,60 +291,6 @@ private:
   ///
 
   myint m_iDasherYCache;
-
-  //Auto-speed control functions
-  
-  ///
-  /// AUTO-SPEED-CONTROL
-  /// This is the main speed control function and drives all of auto speed control.
-  /// \param non-linear Dasher x coord
-  /// \param non-linear Dasher y coord
-  ///
-  
-  void SpeedControl(myint iDasherX, myint iDasherY);
-
-  ///
-  /// AUTO-SPEED-CONTROL
-  /// Calculates the running variance of the angle between the +ve x-axis and the line joining 
-  /// the cross hair to the mouse position.
-  ///
-  
-  double Variance();
-
-  ///
-  /// AUTO-SPEED-CONTROL
-  /// Updates the exclusion radius for auto speed control.
-  ///
-  
-  double UpdateMinRadius();
-
-  ///
-  /// AUTO-SPEED-CONTROL
-  /// Applies changes to the max bit rate depending on the running variance
-  /// of the angle between the +ve x-axis and the line joining 
-  /// the cross hair to the mouse position.
-  ///
-  
-  double UpdateBitrate();
-
-  ///
-  /// AUTO-SPEED-CONTROL
-  /// Adapts the number of samples taken so that auto speed control
-  /// is invariant to clock rate and user ability (!!!).
-  ///
-  
-  int UpdateSampleSize();
-
-  ///
-  /// AUTO-SPEED-CONTROL
-  /// Updates the *variances* of the two populations of mixture-of-2-Gaussians
-  /// distribution of radii. These are used to calculate the exclusion radius.
-  /// \param radius
-  ///
-  
-  void UpdateSigmas(double r);
-  
-  //
 #ifdef _WIN32
   ///
   /// FIXME - couldn't find windows version of round(double) so here's one!
@@ -358,20 +311,20 @@ private:
   
   //
   // AUTO-SPEED-CONTROL  
-  double m_dBitrate; //  stores max bit rate internally
-  double m_dSampleScale, m_dSampleOffset; // internal, control sample size
-  int m_nSpeedCounter;  // keep track of how many samples
-  int m_nSpeedSamples;  // upper limit on #samples
-  double m_dSpeedMax, m_dSpeedMin; // bit rate always within this range
-  double m_dTier1, m_dTier2, m_dTier3, m_dTier4; // variance tolerance tiers 
-  double m_dChange1, m_dChange2, m_dChange3, m_dChange4; // fractional changes to bit rate
-  double m_dMinRRate; // controls rate at which min. r adapts HIGHER===SLOWER!
-  double m_dSensitivity; // not used, control sensitivity of auto speed control
-  typedef std::deque<double> DOUBLE_DEQUE;
-  DOUBLE_DEQUE m_dequeAngles; // store angles for statistics
+/*   double m_dBitrate; //  stores max bit rate internally */
+/*   double m_dSampleScale, m_dSampleOffset; // internal, control sample size */
+/*   int m_nSpeedCounter;  // keep track of how many samples */
+/*   int m_nSpeedSamples;  // upper limit on #samples */
+/*   double m_dSpeedMax, m_dSpeedMin; // bit rate always within this range */
+/*   double m_dTier1, m_dTier2, m_dTier3, m_dTier4; // variance tolerance tiers  */
+/*   double m_dChange1, m_dChange2, m_dChange3, m_dChange4; // fractional changes to bit rate */
+/*   double m_dMinRRate; // controls rate at which min. r adapts HIGHER===SLOWER! */
+/*   double m_dSensitivity; // not used, control sensitivity of auto speed control */
+/*   typedef std::deque<double> DOUBLE_DEQUE; */
+/*   DOUBLE_DEQUE m_dequeAngles; // store angles for statistics */
   
-  //variables for adaptive radius calculations...
-  double m_dSigma1, m_dSigma2, m_dMinRadius;
+/*   //variables for adaptive radius calculations... */
+/*   double m_dSigma1, m_dSigma2, m_dMinRadius; */
 
   // Class definitions
 
@@ -415,7 +368,7 @@ private:
   double eyetracker_get_x(double x, double y);
   double eyetracker_get_y(double x, double y);
   double xmax(double x, double y) const;
-  double xmap(double x) const;
+
   double ixmap(double x) const;
 
 

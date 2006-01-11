@@ -53,7 +53,7 @@ const string CDasherInterfaceBase::EmptyString = "";
 
 CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
-                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL), 
+                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL), m_pAutoSpeedControl(0), 
                   m_pDasherButtons(NULL) {
 
   m_pEventHandler = new CEventHandler(this);
@@ -370,7 +370,7 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
 void CDasherInterfaceBase::Redraw() {
   if(m_pDasherView != 0) {
-    m_pDasherView->Render();
+    m_pDasherModel->RenderToView(m_pDasherView);
     m_pDasherView->Display();
   }
 
@@ -378,7 +378,7 @@ void CDasherInterfaceBase::Redraw() {
 
 void CDasherInterfaceBase::Redraw(int iMouseX, int iMouseY) {
   if(m_pDasherView != 0) {
-    if(m_pDasherView->Render(iMouseX, iMouseY, false))  // Only call display if something changed
+    if(m_pDasherModel->RenderToView(m_pDasherView, iMouseX, iMouseY, false))  // Only call display if something changed
       m_pDasherView->Display();
   }
 }
@@ -426,12 +426,16 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
   if(m_pDasherView != 0) {
 
+    myint iDasherX;
+    myint iDasherY;
+
     if (m_pUserLog != NULL) {
       
       Dasher::VECTOR_SYMBOL_PROB vAdded;
       int iNumDeleted = 0;
 
-      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, &vAdded, &iNumDeleted);
+      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, iDasherX, iDasherY, &vAdded, &iNumDeleted);
+      m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, &vAdded, &iNumDeleted);
 
       if (iNumDeleted > 0)
         m_pUserLog->DeleteSymbols(iNumDeleted);
@@ -441,10 +445,15 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
     }
     else {
       // If there is no user logging going on, we don't need to track the symbols added or deleted.
-      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time);
+      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, iDasherX, iDasherY);
+      m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);
     }
 
-    m_pDasherView->Render(MouseX, MouseY, true);
+    m_pDasherModel->CheckForNewRoot(m_pDasherView);
+
+    m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
+
+    m_pDasherModel->RenderToView(m_pDasherView, MouseX, MouseY, true);
     m_pDasherView->Display();
   }
 
@@ -461,7 +470,7 @@ void CDasherInterfaceBase::ClickTo(int x, int y, int width, int height)
 }
 
 void CDasherInterfaceBase::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox) {
-  m_pDasherView->Render(iMouseX, iMouseY, false);
+  m_pDasherModel->RenderToView(m_pDasherView, iMouseX, iMouseY, false);
   //if (iWhichBox!=-1)
   //m_pDasherView->DrawMousePosBox(iWhichBox, m_iMousePosDist);
 
@@ -471,7 +480,7 @@ void CDasherInterfaceBase::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox)
 void CDasherInterfaceBase::GoTo(int MouseX, int MouseY) {
   if(m_pDasherView != 0) {
     m_pDasherView->GoTo(MouseX, MouseY);
-    m_pDasherView->Render();
+    m_pDasherModel->RenderToView(m_pDasherView);
     m_pDasherView->Display();
   }
 }
@@ -621,10 +630,13 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
   if(m_DasherScreen != 0 && m_pDasherModel != 0) 
   {
 	  delete m_pDasherView;
-	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen, m_pDasherModel);
+	  if(m_pAutoSpeedControl)
+	    delete m_pAutoSpeedControl;
+	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
+	  m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore, m_pDasherModel->Framerate());
 
 	  if (m_pInput)
-		  m_pDasherView->SetInput(m_pInput);
+	    m_pDasherView->SetInput(m_pInput);
   }
 }
 
@@ -787,9 +799,9 @@ double CDasherInterfaceBase::GetCurFPS() {
   return 0;
 }
 
-void CDasherInterfaceBase::AddControlTree(ControlTree *controltree) {
-  m_pDasherModel->NewControlTree(controltree);
-}
+// void CDasherInterfaceBase::AddControlTree(ControlTree *controltree) {
+//   m_pDasherModel->NewControlTree(controltree);
+// }
 
 void CDasherInterfaceBase::Render() {
 //  if (m_pDasherView!=0)
@@ -850,7 +862,7 @@ void CDasherInterfaceBase::InvalidateContext() {
    }
 
    if(m_pDasherView)
-     while( m_pDasherView->CheckForNewRoot() ) {
+     while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {
        // Do nothing
      }
 }

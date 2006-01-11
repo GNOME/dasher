@@ -25,6 +25,7 @@
 namespace Dasher {
   class CDasherModel;
   class CDasherInterfaceBase;
+  class CDasherView;
 }
 
 class Dasher::CDasherInterfaceBase;
@@ -121,29 +122,21 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   myint Rootmax() const {
     return m_Rootmax;
   }
-  myint DasherOX() const {
-    return m_DasherOX;
-  }
-  myint DasherOY() const {
-    return m_DasherOY;
-  }
   CDasherNode *Root() const {
     return m_Root;
   }
-  myint DasherY() const {
-    return m_DasherY;
-  }
+
   void OutputCharacters(CDasherNode * node);
-	bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
+  bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
 
   void Trace() const;           // diagnostics
   //void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-	void Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
+  void Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
   void GoTo(double, myint);     // jumps to a new viewpoint
   void NewGoTo(myint n1, myint n2, int style);
-  double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2);
+  double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2);
 
   void Start();                 // initializes the data structure
   void Make_root(CDasherNode *whichchild);       // find a new root node
@@ -172,24 +165,26 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   myint PlotGoTo(myint MouseX, myint MouseY);
 
-  void NewControlTree(ControlTree * tree) {
-    m_pControltree = tree;
-  }
-  ControlTree *GetControlTree() const {
-    return m_pControltree;
-  }
-  struct CRange {
-    CRange(myint _iMin, myint _iMax):iMin(_iMin), iMax(_iMax) {
-    }
-    CRange() {
-    }
-    myint iMin;
-    myint iMax;
-  };
+/*   void NewControlTree(ControlTree * tree) { */
+/*     m_pControltree = tree; */
+/*   } */
+/*   ControlTree *GetControlTree() const { */
+/*     return m_pControltree; */
+/*   } */
 
-  void SetActive(const CRange & range) {
-    m_Active = range;
-  }
+
+/*   struct CRange { */
+/*     CRange(myint _iMin, myint _iMax):iMin(_iMin), iMax(_iMax) { */
+/*     } */
+/*     CRange() { */
+/*     } */
+/*     myint iMin; */
+/*     myint iMax; */
+/*   }; */
+
+/*   void SetActive(const CRange & range) { */
+/*     m_Active = range; */
+/*   } */
 
   void EnterText(CLanguageModel::Context Context, std::string TheText) const;
   void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
@@ -200,21 +195,25 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   symbol GetSpaceSymbol() const {
     return m_pcAlphabet->GetSpaceSymbol();
   }
+
   symbol GetControlSymbol() const {
     return m_pcAlphabet->GetControlSymbol();
   }
+
   const std::string & GetDisplayText(int iSymbol) const {
     return m_pcAlphabet->GetDisplayText(iSymbol);
   }
+
   const CAlphabet & GetAlphabet() const {
     return *m_pcAlphabet;
   }
+
   CDasherNode *Get_node_under_crosshair();    // Needed for Game Mode
+  
   myint GetGameModePointerLoc() {
     return m_pGameMode->GetDasherCoordOfTarget();
   }
-
-
+  
   CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
     if( iType == 0 )
       return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
@@ -242,6 +241,12 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   bool m_bContextSensitive;
 
   std::string m_strContextBuffer;
+
+  void RenderToView(CDasherView *pView);
+  bool RenderToView(CDasherView *pView, int iMouseX, int iMouseY, bool bRedrawDisplay);
+
+  bool CheckForNewRoot(CDasherView *pView);
+
 
  private:
 
@@ -271,17 +276,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   myint m_Rootmin_min, m_Rootmax_max;
 
-  // Size of Dasher's arithmetic coding interval - it defines the Dasher coordinate system
-  myint m_DasherY;
-
-  // x position of crosshair in Dasher coords - distance from RHS is square Dasher
-  myint m_DasherOX;
-
-  // y position of crosshair in Dasher coords - distance from top in square Dasher
-  myint m_DasherOY;
-
   // The active interval over which Dasher nodes are maintained - this is most likely bigger than (0,DasherY)
-  CRange m_Active;
+  //  CRange m_Active;
 
   CFrameRate m_fr;              // keep track of framerate
 
@@ -309,8 +305,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 
-
-  ControlTree *m_pControltree;
+  //  ControlTree *m_pControltree;
 
   CAlphabetManagerFactory *m_pAlphabetManagerFactory;
   CControlManagerFactory *m_pControlManagerFactory;

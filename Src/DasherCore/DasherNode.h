@@ -10,8 +10,10 @@
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h"
 #include "NodeManager.h"
+#include "Alphabet/GroupInfo.h"
 
 #include <deque>
+#include <iostream>
 
 // CDasherNode represents a rectangle and character 
 
@@ -164,6 +166,8 @@ class Dasher::CDasherNode:private NoClones {
     
     return iMax;
   }
+
+  SGroupInfo *m_pBaseGroup;
 
  private:
 
