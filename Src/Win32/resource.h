@@ -92,7 +92,6 @@
 #define IDD_DIALOG4                     174
 #define IDD_SOCKET                      174
 #define IDD_LM                          175
-#define IDD_DIALOG5                     176
 #define IDD_BUTTON_PREFS                176
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
@@ -106,6 +105,7 @@
 #define IDC_BUTTON2                     1016
 #define IDC_DEL_ALPH                    1017
 #define IDC_BUTTON3                     1018
+#define IDC_BUTTON_PREFS                1018
 #define IDC_ADD_GROUP                   1019
 #define IDC_CLIPTOALPH_UNORDERED        1020
 #define IDC_THICKLINE                   1020
@@ -226,6 +226,12 @@
 #define IDC_BUTTONMODE                  1129
 #define IDC_SOCKET_DEBUG                1130
 #define IDC_RADIO6                      1131
+#define IDC_COMPASS                     1131
+#define IDC_ONE_DYNAMIC                 1132
+#define IDC_MENU                        1133
+#define IDC_THREE_DIRECT                1134
+#define IDC_FOUR_DIRECT                 1135
+#define IDC_ALTERNATING_DIRECT          1136
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -279,7 +285,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        177
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1132
+#define _APS_NEXT_CONTROL_VALUE         1137
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

@@ -451,6 +451,7 @@ BEGIN
                     WS_DISABLED,115,18,49,10
     CONTROL         "Button mode",IDC_BUTTONMODE,"Button",BS_AUTORADIOBUTTON,
                     115,30,57,10
+    PUSHBUTTON      "Button1",IDC_BUTTON_PREFS,112,40,50,14
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
@@ -576,19 +577,19 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Static",IDC_STATIC,7,7,204,182
-    CONTROL         "One-button dynamic mode",IDC_RADIO1,"Button",
-                    BS_AUTORADIOBUTTON,17,21,101,10
-    CONTROL         "Static menu mode",IDC_RADIO2,"Button",
-                    BS_AUTORADIOBUTTON,17,33,73,10
-    CONTROL         "Three-button direct mode",IDC_RADIO3,"Button",
-                    BS_AUTORADIOBUTTON,18,47,98,10
-    CONTROL         "Four-button direct mode",IDC_RADIO4,"Button",
-                    BS_AUTORADIOBUTTON,18,62,94,10
-    CONTROL         "Alternating direct mode",IDC_RADIO5,"Button",
-                    BS_AUTORADIOBUTTON,17,78,91,10
-    CONTROL         "Compass mode",IDC_RADIO6,"Button",BS_AUTORADIOBUTTON,19,
-                    95,64,10
+    GROUPBOX        "Button Mode Style",IDC_STATIC,7,7,204,85
+    CONTROL         "One-button dynamic mode",IDC_ONE_DYNAMIC,"Button",
+                    BS_AUTORADIOBUTTON,14,18,101,10
+    CONTROL         "Static menu mode",IDC_MENU,"Button",BS_AUTORADIOBUTTON,
+                    14,30,73,10
+    CONTROL         "Three-button direct mode",IDC_THREE_DIRECT,"Button",
+                    BS_AUTORADIOBUTTON,14,42,98,10
+    CONTROL         "Four-button direct mode",IDC_FOUR_DIRECT,"Button",
+                    BS_AUTORADIOBUTTON,14,54,94,10
+    CONTROL         "Alternating direct mode",IDC_ALTERNATING_DIRECT,"Button",
+                    BS_AUTORADIOBUTTON,14,66,91,10
+    CONTROL         "Compass mode",IDC_COMPASS,"Button",BS_AUTORADIOBUTTON,
+                    14,78,64,10
 END
 
 

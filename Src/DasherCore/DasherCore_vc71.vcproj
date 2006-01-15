@@ -546,6 +546,12 @@
 			RelativePath=".\InputFilter.h">
 		</File>
 		<File
+			RelativePath=".\OneButtonFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\OneButtonFilter.h">
+		</File>
+		<File
 			RelativePath="Parameters.h">
 		</File>
 		<File

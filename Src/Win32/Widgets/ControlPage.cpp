@@ -12,6 +12,7 @@
 #include "../resource.h"
 #include "../Common/StringUtils.h"
 #include "../AppSettings.h"
+#include "../ButtonPrefs.h"
 
 #include <utility>              // for std::pair
 
@@ -128,6 +129,11 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 		{
 		case (IDC_DISPLAY):
 			break;
+    case IDC_BUTTON_PREFS: 
+      {
+        CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+      }
+		  break;
 		case IDC_STOPIDLE:
 			// set activity of the idle time edit control
 			BOOL bChecked =  SendMessage(GetDlgItem(m_hwnd, IDC_STOPIDLE), BM_GETCHECK, 0, 0) == BST_CHECKED;

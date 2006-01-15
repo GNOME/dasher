@@ -34,7 +34,7 @@ CButtonPrefs::CButtonPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSet
     psp[0].dwSize = sizeof(PROPSHEETPAGE);
     psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE;
     psp[0].hInstance = WinHelper::hInstApp;
-    psp[0].pszTemplate = MAKEINTRESOURCE(IDD_ALPHABET);
+    psp[0].pszTemplate = MAKEINTRESOURCE(IDD_BUTTON_PREFS);
     psp[0].pszIcon = NULL;
     psp[0].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
     psp[0].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ALPHABET);
