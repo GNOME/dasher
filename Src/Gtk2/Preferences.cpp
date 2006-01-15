@@ -44,6 +44,7 @@ GtkWidget *m_pSpeedSlider;
 
 GtkWidget *m_pButtonSettings;
 GtkWidget *m_pSocketSettings;
+GtkWidget *m_pAdvancedSettings;
 
 // Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
 
@@ -76,7 +77,8 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   m_pSpeedSlider = glade_xml_get_widget(pGladeWidgets, "hscale1");
 
   m_pButtonSettings = glade_xml_get_widget(pGladeWidgets, "window1");
-  m_pSocketSettings = glade_xml_get_widget(pGladeWidgets, "window2");
+  m_pSocketSettings = glade_xml_get_widget(pGladeWidgets, "window2"); 
+  m_pAdvancedSettings = glade_xml_get_widget(pGladeWidgets, "window3");
 
   generate_preferences(pGladeWidgets);
   PopulateControlPage(pGladeWidgets);
@@ -94,6 +96,7 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), getBool(BP_NUMBER_DIMENSIONS));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), getBool(BP_EYETRACKER_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "clickmodebutton")), getBool(BP_CLICK_MODE));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEY_CONTROL));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), getBool(BP_START_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), getBool(BP_START_SPACE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), getBool(BP_MOUSEPOS_MODE));
@@ -222,7 +225,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
   else
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), false);
 
-//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEYBOARD_MODE));
+  //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEYBOARD_MODE));
 //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), getBool(BP_PALETTE_CHANGE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), getBool(BP_OUTLINE_MODE));
 }
@@ -1085,4 +1088,18 @@ extern "C" gboolean socket_preferences_show(GtkWidget *widget, gpointer user_dat
 extern "C" gboolean socket_preferences_hide(GtkWidget *widget, gpointer user_data) {
   gtk_widget_hide(m_pSocketSettings);
   return FALSE;
+}
+
+extern "C" gboolean advanced_preferences_show(GtkWidget *widget, gpointer user_data) {
+  gtk_window_present(GTK_WINDOW(m_pAdvancedSettings));
+  return FALSE;
+}
+
+extern "C" gboolean advanced_preferences_hide(GtkWidget *widget, gpointer user_data) {
+  gtk_widget_hide(m_pAdvancedSettings);
+  return FALSE;
+}
+
+extern "C" void keycontrol(GtkWidget *widget, gpointer user_data) {
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEY_CONTROL, GTK_TOGGLE_BUTTON(widget)->active );
 }

@@ -23,6 +23,7 @@ enum {
   DASHER_EDIT_DELETE,
   DASHER_CONTROL,
   DASHER_CONTEXT_REQUEST,
+  DASHER_REQUEST_SETTINGS,
   SIGNAL_NUM
 };
 
@@ -82,6 +83,8 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
 //   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("key_release_event", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, key_release_event), NULL, NULL, gtk_marshal_BOOLEAN__POINTER, G_TYPE_BOOLEAN, 1, GDK_TYPE_EVENT | G_SIGNAL_TYPE_STATIC_SCOPE);
 
+  gtk_dasher_control_signals[DASHER_START] = g_signal_new("dasher_request_settings", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_request_settings), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   pClass->dasher_changed = NULL;
   pClass->dasher_start = NULL;
   pClass->dasher_stop = NULL;
@@ -89,6 +92,7 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   pClass->dasher_edit_delete = NULL;
   pClass->dasher_control = NULL;
   pClass->dasher_context_request = NULL;
+  pClass->dasher_request_settings = NULL;
   //  pClass->key_press_event = gtk_dasher_control_default_key_press_handler;
   // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }

@@ -319,6 +319,7 @@ void CAlphIO::CreateDefault() {
   Default.Groups[0].Description = "Lower case Latin letters";
   Default.Groups[0].Characters.resize(Chars.size());
   Default.Groups[0].Colour = 0;
+  Default.m_pBaseGroup = 0;
   for(unsigned int i = 0; i < Chars.size(); i++) {
     Default.Groups[0].Characters[i].Text = Chars[i];
     Default.Groups[0].Characters[i].Display = Chars[i];
@@ -507,9 +508,10 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     NewGroup.Colour = -1;
     NewGroup.Label = "";
     Me->InputInfo.Groups.push_back(NewGroup);
-
-
+    
     SGroupInfo *pNewGroup(new SGroupInfo);
+    pNewGroup->iColour == 0;
+    pNewGroup->bVisible = false;
 
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
@@ -619,6 +621,12 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     NewCharacter.Colour = -1;
     Me->InputInfo.Groups.back().Characters.push_back(NewCharacter);
     AlphInfo::character & Ch = Me->InputInfo.Groups.back().Characters.back();
+    
+    // FIXME - need to do a more sensible job of ensuring that
+    // defaults are correct (plus more generally fixing behaviour when
+    // incomplete/invalid XML is supplied)
+    Ch.Colour=10;
+
     while(*atts != 0) {
       if(strcmp(*atts, "t") == 0) {
         atts++;

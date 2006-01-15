@@ -28,7 +28,6 @@ namespace Dasher {
   class CDasherView;
 }
 
-class Dasher::CDasherInterfaceBase;
 ///
 /// \brief Dasher 'world' data structures and dynamics.
 ///
@@ -87,10 +86,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // framerate functions
   void NewFrame(unsigned long Time) {
     m_fr.NewFrame(Time);
-  }                             // called everytime we render a new frame
+  }
+
+  // called everytime we render a new frame
   double Framerate() const {
     return m_fr.Framerate();
-  } // return the framerate 
+  }
+
   void Reset_framerate(unsigned long Time) {
     m_fr.Reset(Time);
   }
@@ -247,7 +249,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   bool CheckForNewRoot(CDasherView *pView);
 
-
+  void ClickTo(int x, int y, int width, int height, CDasherView *pView);
+  void ScheduleZoom(int dasherx, int dashery);
+ 
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;
@@ -309,6 +313,14 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CAlphabetManagerFactory *m_pAlphabetManagerFactory;
   CControlManagerFactory *m_pControlManagerFactory;
+
+  struct SGotoItem {
+    myint iN1;
+    myint iN2;
+    int iStyle;
+  };
+
+  std::deque<SGotoItem> m_deGotoQueue;
 
   friend class CDasherGameMode;
   friend class CTrainer;

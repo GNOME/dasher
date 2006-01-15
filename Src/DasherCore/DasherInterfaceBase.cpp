@@ -18,6 +18,7 @@
 #include "Event.h"
 #include "UserLog.h"
 #include "DasherButtons.h"
+#include "DynamicFilter.h"
 
 #include <iostream>
 #include <memory>
@@ -85,7 +86,7 @@ void CDasherInterfaceBase::Realize() {
   if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
 
-    m_pDasherButtons = new CDasherButtons(m_pSettingsStore);
+  CreateInputFilter();
     
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
@@ -138,6 +139,20 @@ void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
 
 }
 
+void CDasherInterfaceBase::PreSetNotify(int iParameter) {
+  switch(iParameter) {
+  case SP_ALPHABET_ID: 
+    // Cycle the alphabet history
+    
+    SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
+    SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
+    SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
+    SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
+    
+    break;
+  }
+}
+
 void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
   if(pEvent->m_iEventType == 1) {
@@ -168,6 +183,13 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       // redraw to be performed at the next timer callback. This might
       // not be a bad thing to do elsewhere too, as it will prevent
       // multiple redraws.
+
+      // Cycle the alphabet history
+
+//       SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
+//       SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
+//       SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
+//       SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
 
       ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID)); 
 
@@ -201,6 +223,50 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	else
 	  SetLongParameter(LP_MOUSE_POS_BOX, -1); 
       RequestFullRedraw();
+      break;
+    case BP_NUMBER_DIMENSIONS:
+    case BP_EYETRACKER_MODE:
+    case BP_KEY_CONTROL:
+    case BP_BUTTONONESTATIC:
+    case BP_BUTTONONEDYNAMIC:
+    case BP_BUTTONMENU:
+    case BP_BUTTONDIRECT:
+    case BP_BUTTONFOURDIRECT:
+    case BP_BUTTONALTERNATINGDIRECT:
+    case BP_COMPASSMODE:
+    case BP_CLICK_MODE:
+      // Delibarate fallthrough.  
+      // FIXME - Horrible mess below - should really use
+      // SP_INPUT_FILTER directly for the sake of sanity
+      if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
+	SetStringParameter(SP_INPUT_FILTER, "One Dimensional Mode");
+      else if(GetBoolParameter(BP_EYETRACKER_MODE))
+	SetStringParameter(SP_INPUT_FILTER, "Eyetracker Mode");
+      else if(GetBoolParameter(BP_CLICK_MODE))
+	SetStringParameter(SP_INPUT_FILTER, "Click Mode");
+      else if(GetBoolParameter(BP_KEY_CONTROL)) {
+	// Various button modes
+	if(GetBoolParameter(BP_BUTTONONESTATIC))
+	  SetStringParameter(SP_INPUT_FILTER, "One Button Static");
+	else if(GetBoolParameter(BP_BUTTONONEDYNAMIC))
+	  SetStringParameter(SP_INPUT_FILTER, "One Button Dynamic");
+	else if(GetBoolParameter(BP_BUTTONMENU))
+	  SetStringParameter(SP_INPUT_FILTER, "Button Menu");
+	else if(GetBoolParameter(BP_BUTTONDIRECT))
+	  SetStringParameter(SP_INPUT_FILTER, "Three Button Direct");
+	else if(GetBoolParameter(BP_BUTTONFOURDIRECT))
+	  SetStringParameter(SP_INPUT_FILTER, "Four Button Direct");
+	else if(GetBoolParameter(BP_BUTTONALTERNATINGDIRECT))
+	  SetStringParameter(SP_INPUT_FILTER, "Alternating Direct");
+	else if(GetBoolParameter(BP_COMPASSMODE))
+	  SetStringParameter(SP_INPUT_FILTER, "Compass Mode");
+      }
+      else
+	SetStringParameter(SP_INPUT_FILTER, "Default");
+      break;
+    case SP_INPUT_FILTER:
+      CreateInputFilter();
+      break;
     default:
       break;
     }
@@ -399,7 +465,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
     SetBoolParameter(BP_REDRAW, false);
   }
 
-  if(GetBoolParameter(BP_DASHER_PAUSED) || GetBoolParameter(BP_TRAINING)) {
+  if(GetBoolParameter(BP_TRAINING)) {
     DrawMousePos(0, 0, 0);
   }
   else {
@@ -434,8 +500,13 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
       Dasher::VECTOR_SYMBOL_PROB vAdded;
       int iNumDeleted = 0;
 
-      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, iDasherX, iDasherY, &vAdded, &iNumDeleted);
-      m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, &vAdded, &iNumDeleted);
+      if(m_pDasherButtons) {
+	m_pDasherButtons->Timer(Time, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
+      }
+      else {
+	m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, iDasherX, iDasherY, &vAdded, &iNumDeleted);
+	m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, &vAdded, &iNumDeleted);
+      }
 
       if (iNumDeleted > 0)
         m_pUserLog->DeleteSymbols(iNumDeleted);
@@ -454,6 +525,8 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
     m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
 
     m_pDasherModel->RenderToView(m_pDasherView, MouseX, MouseY, true);
+    if(m_pDasherButtons)
+      m_pDasherButtons->DecorateView(m_pDasherView);
     m_pDasherView->Display();
   }
 
@@ -464,7 +537,7 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
 void CDasherInterfaceBase::ClickTo(int x, int y, int width, int height)
 {
     //m_InZoom = 1;
-    m_pDasherView->ClickTo(x, y, width, height);
+    m_pDasherModel->ClickTo(x, y, width, height, m_pDasherView);
     //m_InZoom = 0;
     
 }
@@ -883,14 +956,20 @@ void CDasherInterfaceBase::ConnectNode(int iChild, int iParent, int iAfter) {
 }
 
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
+  PreSetNotify(iParameter);
+  
   m_pSettingsStore->SetBoolParameter(iParameter, bValue);
 };
 
-void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) {
+void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) { 
+  PreSetNotify(iParameter);
+  
   m_pSettingsStore->SetLongParameter(iParameter, lValue);
 };
 
 void CDasherInterfaceBase::SetStringParameter(int iParameter, const std::string & sValue) {
+  PreSetNotify(iParameter);
+  
   m_pSettingsStore->SetStringParameter(iParameter, sValue);
 };
 
@@ -915,3 +994,41 @@ CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
 	return m_pUserLog;
 }
 
+void CDasherInterfaceBase::KeyDown(int iId) {
+  if(m_pDasherButtons) {
+    m_pDasherButtons->KeyDown(iId, m_pDasherModel);
+  }
+}
+
+void CDasherInterfaceBase::CreateInputFilter()
+{
+  // FIXME - this should eventually be moved into a factory object
+
+  if(m_pDasherButtons) {
+    delete m_pDasherButtons;
+    m_pDasherButtons = NULL;
+  }
+
+  if(GetStringParameter(SP_INPUT_FILTER) == "One Dimensional Mode")
+    m_pDasherButtons = NULL;
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")
+    m_pDasherButtons = NULL;
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Click Mode")
+    m_pDasherButtons = NULL;
+  else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Static")
+    m_pDasherButtons = NULL;
+  else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Dynamic")
+    m_pDasherButtons = new CDynamicFilter(m_pEventHandler, m_pSettingsStore);
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Button Menu")
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 5, 1, true);
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Three Button Direct")
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 3, 0, false);
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Four Button Direct")
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 4, 0, false);
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Alternating Direct")
+    m_pDasherButtons = NULL;
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Compass Mode")
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 4, 2, false);
+  else if(GetStringParameter(SP_INPUT_FILTER) == "Default")
+    m_pDasherButtons = NULL;
+}

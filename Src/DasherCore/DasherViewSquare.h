@@ -62,16 +62,18 @@ public:
   void GoTo(screenint mousex, screenint mousey);
 
   ///
-  /// \todo Document this
+  /// Used by click mode - coordinate system conversion only
   ///
 
-  void ClickTo(int x, int y, int width, int height);
+  void ClickTo(int x, int y, myint &dasherx, myint &dashery);
   
   ///
   /// \todo Document this
   ///
 
   void DrawGoTo(screenint mousex, screenint mousey);
+
+  void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive);
 
   ///
   /// Render the current state of the model.

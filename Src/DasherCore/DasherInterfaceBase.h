@@ -16,6 +16,8 @@
 
 #include "AutoSpeedControl.h"
 
+#include "InputFilter.h"
+
 namespace Dasher {
   class CDashEditbox;
   class CDasherScreen;
@@ -102,6 +104,8 @@ public:
 
   void SetStringParameter(int iParameter, const std::string & sValue);
 
+  void PreSetNotify(int iParameter);
+
   /// Get a boolean parameter
   /// \param iParameter The parameter to get.
   /// \retval The current value.
@@ -153,6 +157,7 @@ public:
   // -----------------------------------------------------
 
   /// Resets the Dasher model. Doesn't actually unpause Dasher.
+  /// \deprecated Use InvalidateContext() instead
 
   void Start();
 
@@ -486,9 +491,13 @@ public:
   virtual void WriteTrainFile(const std::string &strNewText) {
   };
 
+  void KeyDown(int iId);
+
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
+
+  void CreateInputFilter();
 
   CAlphabet *m_Alphabet;
   CCustomColours *m_pColours;
@@ -519,7 +528,7 @@ protected:
   CEventHandler * m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
   CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
-  CDasherButtons* m_pDasherButtons;
+  CInputFilter* m_pDasherButtons;
 
 };
 

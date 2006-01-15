@@ -13,32 +13,46 @@
 #include <algorithm>
 #include "DasherComponent.h"
 #include "Event.h"
+#include "InputFilter.h"
+
 
 using namespace std;
 
-class CDasherButtons
+class CDasherButtons : public CInputFilter
 {
-public:
-  CDasherButtons(CSettingsStore *pSettingsStore);
+ public:
+  CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, int iNumBoxes, int iStyle, bool bMenu);
 
- ~CDasherButtons();
 
-  void                    InitMemberVars();
-  void                        SetupBoxes();
-  void                          GetBoxes();
-  struct box {
-    int top;
-	int bottom;
-	int zoomloc;
-	int zoomfactor;
-  };
+  ~CDasherButtons();
+
+  virtual void HandleEvent(Dasher::CEvent * pEvent);
   
-  struct box boxes_ptr;
+  void DecorateView(CDasherView *pView);
+  
+  void KeyDown(int iId, CDasherModel *pModel);
+  void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
 
- protected:
+  void SetupBoxes();
+
+  struct SBoxInfo {
+    int iTop;
+    int iBottom;
+    int iDisplayTop;
+    int iDisplayBottom;
+  };
+    
+ private:
   CSettingsStore*  m_pSettingsStore;
+  
+  SBoxInfo *m_pBoxes;
 
-  int r, B, Z, p, displayedtop, displayedbottom, zoom, s, pdash, displayedcentre, truecentre;
+  int m_iNumBoxes;
+  int m_iStyle;
+  bool m_bMenu;
+  
+  int iActiveBox;
+
 };
 
 #endif

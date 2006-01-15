@@ -488,6 +488,8 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
   //  std::cout << "miMouseX: " << miMousex << " miMouseY: " << miMousey << std::endl;
 
+  if(!GetBoolParameter(BP_DASHER_PAUSED)) {
+
   // Clear out parameters that might get passed in to track user activity
   if (pAdded != NULL)
     pAdded->clear();
@@ -499,7 +501,7 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
   // works out next viewpoint
   total_nats += Get_new_root_coords(miMousex, miMousey);
-
+  
  
 
   // opens up new nodes
@@ -589,6 +591,14 @@ void CDasherModel::Tap_on_display(myint miMousex,
 //     SetBitrate(m_dMaxRate);
 //   }
   //      m_Root->Recursive_Push_Node(0);
+
+  }
+
+  if(m_deGotoQueue.size() > 0) {
+    NewGoTo(m_deGotoQueue.front().iN1, m_deGotoQueue.front().iN2, m_deGotoQueue.front().iStyle);
+    m_deGotoQueue.pop_front();
+  }
+
 }
 
 
@@ -1041,6 +1051,10 @@ bool CDasherModel::RenderToView(CDasherView *pView, int iMouseX, int iMouseY, bo
 }
 
 bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
+
+  if(m_deGotoQueue.size() > 0)
+    return false;
+
   CDasherNode *root(m_Root);
   CDasherNode::ChildMap & children = m_Root->Children();
   
@@ -1084,4 +1098,63 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   }
   
   return false;
+}
+
+void CDasherModel::ClickTo(int x, int y, int width, int height, CDasherView *pView) {
+  // FIXME - we should just schedule a path here, and tap on should be responsible for following it
+
+   myint dasherx, dashery;
+
+   pView->ClickTo(x, y, dasherx, dashery);
+
+   ScheduleZoom(dasherx,dashery);
+}
+
+void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
+   if (dasherx < 2) { dasherx = 100; }
+   int iSteps = GetLongParameter(LP_ZOOMSTEPS); 
+   myint iRxnew = ((GetLongParameter(LP_OX)/2) * GetLongParameter(LP_OX)) / dasherx;
+   myint o1, o2, n1, n2;
+   Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
+   int s ;
+   myint rootMin, rootMax;
+   rootMin = n1;  
+   rootMax = n2;
+   myint zoomstep1, zoomstep2;
+
+   std::vector<CDasherNode *> vNodeList;
+   std::vector<CDasherNode *> vDeleteList;
+
+   m_deGotoQueue.clear();
+
+   SGotoItem sNewItem;
+
+   for (s = 1 ; s <= iSteps ; s ++) {
+     // use simple linear interpolation. Really should do logarithmic interpolation, but
+     // this will probably look fine.
+     zoomstep1 = (s * n1 + (iSteps-s) * o1) / iSteps;
+     zoomstep2 = (s * n2 + (iSteps-s) * o2) / iSteps;
+
+     sNewItem.iN1 = zoomstep1;
+     sNewItem.iN2 = zoomstep2;
+     sNewItem.iStyle = 1;
+
+     m_deGotoQueue.push_back(sNewItem);
+
+   //   NewGoTo(zoomstep1, zoomstep2, 1);
+//      pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
+//      pView->Display();
+   } 
+
+   sNewItem.iN1 = n1;
+   sNewItem.iN2 = n2;
+   sNewItem.iStyle = 2;
+ 
+   m_deGotoQueue.push_back(sNewItem);
+
+   // NewGoTo(n1, n2, 2);
+//    pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
+//    pView->Display();
+
+//    CheckForNewRoot(pView);
 }

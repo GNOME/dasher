@@ -1210,32 +1210,8 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 #endif
 }
 
-void CDasherViewSquare::ClickTo(int x, int y, int width, int height)
-{
-//   myint dasherx, dashery;
-//   Screen2Dasher(x,y,dasherx,dashery,false,false);
-//   if (dasherx < 2) { dasherx = 100; }
-//   int iSteps = GetLongParameter(LP_ZOOMSTEPS); 
-//   myint iRxnew = ((GetLongParameter(LP_OX)/2) * GetLongParameter(LP_OX)) / dasherx;
-//   myint o1, o2, n1, n2;
-//   DasherModel()->Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
-//   int s ;
-//   myint rootMin, rootMax;
-//   rootMin = n1;  
-//   rootMax = n2;
-//   myint zoomstep1, zoomstep2;
-//   for (s = 1 ; s <= iSteps ; s ++) {
-//     // use simple linear interpolation. Really should do logarithmic interpolation, but
-//     // this will probably look fine.
-//     zoomstep1 = (s * n1 + (iSteps-s) * o1) / iSteps;
-//     zoomstep2 = (s * n2 + (iSteps-s) * o2) / iSteps;
-//     DasherModel()->NewGoTo(zoomstep1, zoomstep2, 1);
-//     Render();
-//     Display();
-//   }
-//   DasherModel()->NewGoTo(n1, n2, 2);
-//   Render();
-//   Display();
+void CDasherViewSquare::ClickTo(int x, int y, myint &dasherx, myint &dashery) {
+   Screen2Dasher(x,y,dasherx,dashery,false,false);
 }
 
 
@@ -1249,6 +1225,32 @@ void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
 //   Screen2Dasher(mousex, mousey, idasherx, idashery, false, false);
 //   DasherModel()->GoTo(idasherx, idashery);
 //   CheckForNewRoot();
+}
+
+void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) {
+
+  screenint left;
+  screenint top;
+  screenint right;
+  screenint bottom;
+
+  myint iHeight(iDasherMax - iDasherMin);
+
+  int iColour;
+
+  if(bActive)
+    iColour = 2;
+  else
+    iColour = 1;
+
+  CDasherScreen::point p[4];
+
+  Dasher2Screen( 0, iDasherMin, p[0].x, p[0].y);
+  Dasher2Screen( iHeight, iDasherMin, p[1].x, p[1].y);
+  Dasher2Screen( iHeight, iDasherMax, p[2].x, p[2].y);
+  Dasher2Screen( 0, iDasherMax, p[3].x, p[3].y);
+
+  Screen()->Polyline(p,4,1,iColour);
 }
 
 void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {

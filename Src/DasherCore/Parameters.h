@@ -35,9 +35,9 @@ enum {
 };
 
 enum {
-  SP_ALPHABET_ID = END_OF_LPS, SP_COLOUR_ID, SP_DASHER_FONT,
-  SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
-  SP_TRAIN_FILE, SP_SOCKET_INPUT_X_LABEL, SP_SOCKET_INPUT_Y_LABEL,
+  SP_ALPHABET_ID = END_OF_LPS, SP_ALPHABET_1, SP_ALPHABET_2, SP_ALPHABET_3, SP_ALPHABET_4, 
+  SP_COLOUR_ID, SP_DASHER_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
+  SP_TRAIN_FILE, SP_SOCKET_INPUT_X_LABEL, SP_SOCKET_INPUT_Y_LABEL, SP_INPUT_FILTER, 
   END_OF_SPS
 };
 
@@ -169,6 +169,10 @@ static lp_table longparamtable[] = {
 
 static sp_table stringparamtable[] = {
   {SP_ALPHABET_ID, "AlphabetID", PERS, "", "AlphabetID"},
+  {SP_ALPHABET_1, "Alphabet1", PERS, "", "Alphabet History 1"},
+  {SP_ALPHABET_2, "Alphabet2", PERS, "", "Alphabet History 2"},
+  {SP_ALPHABET_3, "Alphabet3", PERS, "", "Alphabet History 3"},
+  {SP_ALPHABET_4, "Alphabet4", PERS, "", "Alphabet History 4"},
   {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"},
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
@@ -176,7 +180,8 @@ static sp_table stringparamtable[] = {
   {SP_GAME_TEXT_FILE, "GameTextFile", !PERS, "gamemode_english_GB.txt", "File with strings to practice writing"},
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
-  {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"}
+  {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
+  {SP_INPUT_FILTER, "InputFilter", PERS, "Default", "Input filter used to provide the current control mode"}
 };
 
 // This is the structure of each table that the settings will access

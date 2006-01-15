@@ -44,6 +44,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           DasherViewSquare.inl \
                           DasherWidgetInterface.h \
                           DelayedDraw.cpp \
+                          DynamicFilter.h \
+                          DynamicFilter.cpp \
                           Event.h \
                           EventHandler.cpp \
                           EventHandler.h \

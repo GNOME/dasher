@@ -149,6 +149,7 @@ extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEve
 extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data);
 extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
+extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
 
 ///
 /// Initialise the main window and child components 
@@ -213,7 +214,8 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   g_signal_connect(pDasherWidget, "dasher_control", G_CALLBACK(handle_control_event), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_insert", G_CALLBACK(gtk2_edit_output_callback), NULL);
   g_signal_connect(pDasherWidget, "dasher_edit_delete", G_CALLBACK(gtk2_edit_delete_callback), NULL);
-  g_signal_connect(pDasherWidget, "dasher_context_request", G_CALLBACK(handle_context_request), NULL);
+  g_signal_connect(pDasherWidget, "dasher_context_request", G_CALLBACK(handle_context_request), NULL); 
+  g_signal_connect(pDasherWidget, "dasher_request_settings", G_CALLBACK(handle_request_settings), NULL);
   
   g_signal_connect(pDasherWidget, "focus_in_event", G_CALLBACK(focus_in_event), NULL);
 
@@ -508,6 +510,10 @@ extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer
   return grab_focus();
 }
 
+extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data) {
+  preferences_display(0,0);
+}
+
 // -------------
 // Everything below here is either obsolete, or should definitely be moved to a new home
 // -------------
@@ -560,10 +566,6 @@ extern "C" void file_encoding(GtkWidget *widget, gpointer user_data) {
   //based on the user locale and just forget about it.
 }
 
-extern "C" void keycontrol(GtkWidget *widget, gpointer user_data) {
-  // FIXME - REIMPLEMENT
-  //  dasher_set_parameter_bool( BOOL_KEYBOARDCONTROL, GTK_TOGGLE_BUTTON(widget)->active );
-}
 
 // Probably obsolete button preferences code
 

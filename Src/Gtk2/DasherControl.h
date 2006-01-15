@@ -265,12 +265,22 @@ public:
 
   void WriteTrainFile(const std::string &strNewText);
 
+  void AlphabetComboChanged();
+  void PopulateAlphabetCombol();
+
 private:
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;
   GtkWidget *m_pSpeedHScale;
   GtkWidget *m_pSpeedFrame;
+
+  GtkWidget *m_pStatusBar;
+
+  GtkWidget *m_pSpin;
+  GtkWidget *m_pCombo;
+  GtkWidget *m_pStatusLabel;
+
 
   ///
   /// Abstracted input device object for mouse input.
@@ -301,6 +311,8 @@ private:
   ///
 
   GtkDasherControl *m_pDasherControl;
+
+  int m_iComboCount;
 
 };
 

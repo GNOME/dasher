@@ -96,7 +96,7 @@ public:
 
   /// Dasher Click Mode
   
-  virtual void ClickTo(int x, int y, int width, int height) = 0;
+  virtual void ClickTo(int x, int y, myint &dasherx, myint &dashery) = 0;
 
   /// Handles start-on-mouse behaviour - check whether we are in the box, and change box or start on timer,.
   /// \param iTime Current time in ms.
@@ -122,6 +122,8 @@ public:
   ////// \todo Document this
   virtual void DrawGoTo(screenint mousex, screenint mousey) = 0;
 
+  virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
+
   /// Draw the mouse cursor
   /// \todo Probably shouldn't be public
 
@@ -143,6 +145,8 @@ public:
   /// Draw the game mode pointer
 
   virtual void DrawGameModePointer() = 0;
+
+  virtual void Dasher2Screen(myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY) = 0;
 
   /// 
   /// Return a reference to the model
