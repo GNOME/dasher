@@ -4519,6 +4519,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 		      <property name="active">False</property>
 		      <property name="inconsistent">False</property>
 		      <property name="draw_indicator">True</property>
+		      <property name="group">pulsingmodebutton</property>
 		      <signal name="clicked" handler="button_steady_mode" last_modification_time="Tue, 28 Jun 2005 17:51:41 GMT"/>
 		    </widget>
 		    <packing>

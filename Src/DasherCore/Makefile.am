@@ -58,6 +58,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           MemoryLeak.h \
                           NodeManager.h \
                           NodeManagerFactory.h \
+                          OneButtonFilter.cpp \
+                          OneButtonFilter.h \
                           Parameters.h \
                           SettingsStore.cpp \
                           SettingsStore.h \

@@ -41,10 +41,18 @@ void CDasherButtons::SetupBoxes()
   if(m_iStyle == 2) { // Compass mode
     m_pBoxes = new SBoxInfo[4];
 
-    m_pBoxes[0].iTop = -1000;
-    m_pBoxes[0].iBottom = 5096;
-    m_pBoxes[1].iTop = 1000;
-    m_pBoxes[1].iBottom = 3096;
+    // FIXME - need to relate these to cross-hiar position as stored in the parameters
+
+    // Not sure whether this is at all the right algorithm here - need to check
+
+    m_pBoxes[1].iTop = (2048 - 500) * GetLongParameter(LP_RIGHTZOOM) / (9 * 1024);
+    m_pBoxes[1].iBottom = 4096 - m_pBoxes[1].iTop;
+
+    // Make this the inverse of the right zoom option
+
+    m_pBoxes[0].iTop = -2048 *  m_pBoxes[1].iTop / (2048 -  m_pBoxes[1].iTop);
+    m_pBoxes[0].iBottom = 4096 - m_pBoxes[0].iTop;
+
     m_pBoxes[2].iTop = -1000;
     m_pBoxes[2].iBottom = 3096;
     m_pBoxes[3].iTop = 1000;
@@ -125,7 +133,7 @@ void CDasherButtons::DecorateView(CDasherView *pView) {
 }
  
 
-void CDasherButtons::KeyDown(int iId, CDasherModel *pModel) {
+void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
 
   if(m_bMenu) {
     switch(iId) {
@@ -156,6 +164,8 @@ void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {
 
     switch (pEvt->m_iParameter) {
     case LP_B:
+    case LP_RIGHTZOOM:
+      // Delibarate fallthrough
       SetupBoxes();
       break;
     }

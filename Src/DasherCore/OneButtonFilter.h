@@ -1,12 +1,12 @@
-#ifndef __DYNAMIC_FILTER_H__
-#define __DYNAMIC_FILTER_H__
+#ifndef __ONE_BUTTON_FILTER_H__
+#define __ONE_BUTTON_FILTER_H__
 
 #include "InputFilter.h"
 
-class CDynamicFilter : public CInputFilter {
+class COneButtonFilter : public CInputFilter {
  public:
-  CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore);
-  ~CDynamicFilter();
+  COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore);
+  ~COneButtonFilter();
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
@@ -15,12 +15,10 @@ class CDynamicFilter : public CInputFilter {
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
   
  private:
-  int m_iTarget;
 
-  int *m_iTargetX;
-  int *m_iTargetY;
-
-  int m_iStyle;
+  bool bStarted;
+  int iStartTime;
+  int iLocation;
 };
 
 #endif

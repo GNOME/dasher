@@ -19,6 +19,7 @@
 #include "UserLog.h"
 #include "DasherButtons.h"
 #include "DynamicFilter.h"
+#include "OneButtonFilter.h"
 
 #include <iostream>
 #include <memory>
@@ -994,9 +995,9 @@ CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
 	return m_pUserLog;
 }
 
-void CDasherInterfaceBase::KeyDown(int iId) {
+void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
   if(m_pDasherButtons) {
-    m_pDasherButtons->KeyDown(iId, m_pDasherModel);
+    m_pDasherButtons->KeyDown(iTime, iId, m_pDasherModel);
   }
 }
 
@@ -1016,7 +1017,7 @@ void CDasherInterfaceBase::CreateInputFilter()
   else if(GetStringParameter(SP_INPUT_FILTER) == "Click Mode")
     m_pDasherButtons = NULL;
   else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Static")
-    m_pDasherButtons = NULL;
+    m_pDasherButtons = new COneButtonFilter(m_pEventHandler, m_pSettingsStore);
   else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Dynamic")
     m_pDasherButtons = new CDynamicFilter(m_pEventHandler, m_pSettingsStore);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Button Menu")

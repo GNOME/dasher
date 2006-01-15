@@ -13,7 +13,7 @@ class CInputFilter : public CDasherComponent {
 
   virtual void HandleEvent(Dasher::CEvent * pEvent) {};
   virtual void DecorateView(CDasherView *pView) {};
-  virtual void KeyDown(int iId, CDasherModel *pModel) {};
+  virtual void KeyDown(int Time, int iId, CDasherModel *pModel) {};
   virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {};
 };
 

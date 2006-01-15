@@ -562,16 +562,16 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
     SetLongParameter(LP_BOOSTFACTOR, 25);
     break;
   case GDK_a:
-    KeyDown(1);
+    KeyDown(get_time(), 1);
     break;
   case GDK_s:
-    KeyDown(2);
+    KeyDown(get_time(), 2);
     break;
   case GDK_w:
-    KeyDown(3);
+    KeyDown(get_time(), 3);
     break;
   case GDK_x:
-    KeyDown(4);
+    KeyDown(get_time(), 4);
     break;
   }
 

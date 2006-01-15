@@ -491,7 +491,7 @@ public:
   virtual void WriteTrainFile(const std::string &strNewText) {
   };
 
-  void KeyDown(int iId);
+  void KeyDown(int iTime, int iId);
 
 protected:
   void WriteTrainFileFull();
