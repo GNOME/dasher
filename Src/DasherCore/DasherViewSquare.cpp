@@ -58,7 +58,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
 
-  Crosshair(GetLongParameter(LP_OX));  // add crosshair
+  Crosshair((myint)GetLongParameter(LP_OX));  // add crosshair
 }
 
 void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
@@ -95,7 +95,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 //         Color = 8;
 //       }
 //       else {
-//         Color = (pRender->Symbol() % 3) + 10;
+         Color = (pRender->Symbol() % 3) + 10;
 //       }
     }
   }
@@ -135,7 +135,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     return 0;
   }
 
-  int norm = GetLongParameter(LP_NORMALIZATION);
+  int norm = (myint)GetLongParameter(LP_NORMALIZATION);
   CDasherNode::ChildMap::const_iterator i;
 
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
@@ -294,7 +294,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 //   m_dBitrate = double(round(GetLongParameter(LP_MAX_BITRATE) / 100.0));
 
   //KeyControl=false;
-  m_ymap = Cymap(GetLongParameter(LP_MAX_Y));
+  m_ymap = Cymap((myint)GetLongParameter(LP_MAX_Y));
 
 //   CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel->DasherY()));
 //   DasherModel->SetActive(rActive);
@@ -346,7 +346,7 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
     DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, ColorScheme, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
   }
   else {
-    int iDasherY(GetLongParameter(LP_MAX_Y));
+    int iDasherY((myint)GetLongParameter(LP_MAX_Y));
 
     int iSpacing(iDasherY / 128);       // FIXME - assuming that this is an integer below
 
@@ -494,8 +494,8 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
   // Things we're likely to need:
 
-  myint iDasherWidth = GetLongParameter(LP_MAX_Y);
-  myint iDasherHeight = GetLongParameter(LP_MAX_Y);
+  myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
+  myint iDasherHeight = (myint)GetLongParameter(LP_MAX_Y);
 
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
@@ -535,7 +535,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 #ifndef WITH_MAEMO
   // FIXME - disabled to avoid floating point
   if( bNonlinearity ) {
-  iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
+  iDasherX = myint(ixmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
   iDasherY = m_ymap.unmap(iDasherY);
   }
 #endif
@@ -543,7 +543,7 @@ void CDasherViewSquare::Screen2Dasher(screenint iInputX, screenint iInputY, myin
 
 void CDasherViewSquare::SetScaleFactor( void )
 {
-  myint iDasherWidth = GetLongParameter(LP_MAX_Y);
+  myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
   myint iDasherHeight = iDasherWidth;
 
   screenint iScreenWidth = Screen()->GetWidth();
@@ -592,14 +592,14 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 
 #ifndef WITH_MAEMO
   // FIXME
-  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
+  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * (myint)GetLongParameter(LP_MAX_Y));
   iDasherY = m_ymap.map(iDasherY);
 #endif
 
   // Things we're likely to need:
 
-  myint iDasherWidth = GetLongParameter(LP_MAX_Y);
-  myint iDasherHeight = GetLongParameter(LP_MAX_Y);
+  myint iDasherWidth = (myint)GetLongParameter(LP_MAX_Y);
+  myint iDasherHeight = (myint)GetLongParameter(LP_MAX_Y);
 
   screenint iScreenWidth = Screen()->GetWidth();
   screenint iScreenHeight = Screen()->GetHeight();
@@ -753,10 +753,10 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
     double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
     
     // The distance between the Y coordinate and the centreline in pixels
-    disty=GetLongParameter(LP_OY)-iDasherY;
+    disty=(myint)GetLongParameter(LP_OY)-iDasherY;
         
-    circlesize=    GetLongParameter(LP_MAX_Y)/2.5;
-    yforwardrange= GetLongParameter(LP_MAX_Y)/3.2; // Was 1.6
+    circlesize=    (myint)GetLongParameter(LP_MAX_Y)/2.5;
+    yforwardrange= (myint)GetLongParameter(LP_MAX_Y)/3.2; // Was 1.6
     yfullrange=    yforwardrange*1.6;
     ybackrange=    yfullrange-yforwardrange;
     ellipse_eccentricity=6;
@@ -774,7 +774,7 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
-	iDasherY=myint(-(1+cos(angle))*circlesize/2+GetLongParameter(LP_OY));
+	iDasherY=myint(-(1+cos(angle))*circlesize/2+(myint)GetLongParameter(LP_OY));
       }
     }
     else if (disty <-(yforwardrange)) {
@@ -783,22 +783,22 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
       
       if (yb>1) {
 	x=0;
-	iDasherY=myint(GetLongParameter(LP_OY));
+	iDasherY=myint((myint)GetLongParameter(LP_OY));
       }   
       else {
 	angle=(yb*3.14159)*(yb+(1-yb)*(ybackrange/yforwardrange/ellipse_eccentricity));
 	
 	x=(-sin(angle)*circlesize/2)*ellipse_eccentricity;
-	iDasherY=myint((1+cos(angle))*circlesize/2+GetLongParameter(LP_OY));
+	iDasherY=myint((1+cos(angle))*circlesize/2+(myint)GetLongParameter(LP_OY));
       }   
     }
     
     else {
       angle=((disty*3.14159/2)/yforwardrange);
       x=cos(angle)*circlesize;
-      iDasherY=myint(-sin(angle)*circlesize+GetLongParameter(LP_OY));
+      iDasherY=myint(-sin(angle)*circlesize+(myint)GetLongParameter(LP_OY));
     }
-    x=GetLongParameter(LP_OX)-x;
+    x=(myint)GetLongParameter(LP_OX)-x;
 
     iDasherX = myint(x);
 }
@@ -807,16 +807,16 @@ void CDasherViewSquare::Dasher2OneD(myint &iDasherX, myint &iDasherY) {
 
 void CDasherViewSquare::Dasher2Eyetracker(myint &iDasherX, myint &iDasherY) {
 
-  double disty=GetLongParameter(LP_OY)-iDasherY;
+  double disty=(myint)GetLongParameter(LP_OY)-iDasherY;
 
   myint x( iDasherX );
 
-  myint dasherOX=GetLongParameter(LP_OX); 
+  myint dasherOX=(myint)GetLongParameter(LP_OX); 
 
   //  if( iDasherX < dasherOX ) {
 
       //cout << "dasherOX: " << dasherOX << endl; 
-      myint dasherOY=GetLongParameter(LP_OY); 
+      myint dasherOY=(myint)GetLongParameter(LP_OY); 
          
       // X co-ordinate changes. 
       double double_x = (x/dasherOX);  // Fraction of way over to crosshair
@@ -904,7 +904,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
       else
 	dYScale = Screen()->GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
       
-      iDasherY = myint((iDasherY - GetLongParameter(LP_MAX_Y)/2) * dYScale + GetLongParameter(LP_MAX_Y)/2);
+      iDasherY = myint((iDasherY - (myint)GetLongParameter(LP_MAX_Y)/2) * dYScale + (myint)GetLongParameter(LP_MAX_Y)/2);
     }
   }
 
@@ -1054,10 +1054,10 @@ void CDasherViewSquare::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint i
   // FIXME - this could be much more elegant, and probably needs a
   // rethink anyway - behvaiour here is too dependent on screen size
 
-  screenint iLeftTimesFontSize = (GetLongParameter(LP_MAX_Y) - (iAnchorX1 + iAnchorX2)/ 2 )*Size;
-  if(iLeftTimesFontSize < GetLongParameter(LP_MAX_Y) * 19/ 20)
+  screenint iLeftTimesFontSize = ((myint)GetLongParameter(LP_MAX_Y) - (iAnchorX1 + iAnchorX2)/ 2 )*Size;
+  if(iLeftTimesFontSize < (myint)GetLongParameter(LP_MAX_Y) * 19/ 20)
     Size *= 20;
-  else if(iLeftTimesFontSize < GetLongParameter(LP_MAX_Y) * 159 / 160)
+  else if(iLeftTimesFontSize < (myint)GetLongParameter(LP_MAX_Y) * 159 / 160)
     Size *= 14;
   else
     Size *= 11;
@@ -1348,8 +1348,8 @@ void CDasherViewSquare::DrawMouseLine(screenint mousex, screenint mousey) {
 
   // Start of line is the crosshair location
 
-  x[0] = GetLongParameter(LP_OX);
-  y[0] = GetLongParameter(LP_OY);
+  x[0] = (myint)GetLongParameter(LP_OX);
+  y[0] = (myint)GetLongParameter(LP_OY);
 
   // End of line is the mouse cursor location - note that we should
   // probably be using a chached value rather than computing this
@@ -1477,7 +1477,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   //  then it might be reasonable to re-zero the offset. But don't.
 
   // Convert the Y mouse coordinate to one that's based on the canvas size
-  double dashery = double (imousey * GetLongParameter(LP_MAX_Y) / CanvasY);
+  double dashery = double (imousey * (myint)GetLongParameter(LP_MAX_Y) / CanvasY);
 
   // Convert the X mouse coordinate to one that's based on the canvas size 
   // - we want this the opposite way round to the mouse coordinate system, 
@@ -1509,7 +1509,7 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 
   // If we're in one-dimensional mode, make new x,y
   if(GetBoolParameter(BP_NUMBER_DIMENSIONS) == true) {
-    //if (eyetracker==true && !(x<GetLongParameter(LP_OX) && pow(pow(GetLongParameter(LP_MAX_Y)/2-dashery,2)+pow(x-GetLongParameter(LP_OX),2),0.5)>GetLongParameter(LP_MAX_Y)/2.5)) {
+    //if (eyetracker==true && !(x<(myint)GetLongParameter(LP_OX) && pow(pow(GetLongParameter(LP_MAX_Y)/2-dashery,2)+pow(x-GetLongParameter(LP_OX),2),0.5)>GetLongParameter(LP_MAX_Y)/2.5)) {
     //      *mousex=int(x);
     //      *mousey=int(dashery);
     //      return;
@@ -1526,8 +1526,8 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
     //cout << "dashery: " << rel_dashery << endl << endl;
 
     // The radius of the circle transcribed by the one-dimensional mapping
-    circlesize = GetLongParameter(LP_MAX_Y) / 2.5;
-    yforwardrange = GetLongParameter(LP_MAX_Y) / 1.6;
+    circlesize = (myint)GetLongParameter(LP_MAX_Y) / 2.5;
+    yforwardrange = (myint)GetLongParameter(LP_MAX_Y) / 1.6;
     yfullrange = yforwardrange * 1.6;
     ybackrange = yfullrange - yforwardrange;
     ellipse_eccentricity = 6;
@@ -1572,9 +1572,9 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
   }
   else if(eyetracker == true) {
 
-    myint dasherOX = GetLongParameter(LP_OX);
+    myint dasherOX = (myint)GetLongParameter(LP_OX);
     //cout << "dasherOX: " << dasherOX << endl; 
-    myint dasherOY = GetLongParameter(LP_OY);
+    myint dasherOY = (myint)GetLongParameter(LP_OY);
 
     // X co-ordinate changes. 
     double double_x = (x / dasherOX);
@@ -1632,8 +1632,8 @@ void CDasherViewSquare::screen2dasher(screenint imousex, screenint imousey, myin
 }
 
 void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
-  double dashery = double (*mousey) * double (GetLongParameter(LP_MAX_Y)) / double (CanvasY);
-  myint dasherOY = GetLongParameter(LP_OY);
+  double dashery = double (*mousey) * double ((myint)GetLongParameter(LP_MAX_Y)) / double (CanvasY);
+  myint dasherOY = (myint)GetLongParameter(LP_OY);
   double disty = double (dasherOY) - dashery;
   bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
 
@@ -1643,7 +1643,7 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
     m_ySumCounter++;
 
     m_ySigBiasPercentage = 50;
-    m_ySigBiasPixels = m_ySigBiasPercentage * GetLongParameter(LP_MAX_Y) / 100;
+    m_ySigBiasPixels = m_ySigBiasPercentage * (myint)GetLongParameter(LP_MAX_Y) / 100;
 
     //cout << "yAutoOffset: " << CDasherView::yAutoOffset << endl;
 

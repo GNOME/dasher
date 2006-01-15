@@ -1,6 +1,17 @@
 #include "AutoSpeedControl.h"
 
 #include <cmath>
+#include <cfloat>
+
+double round(double dVal) {
+  double dF = floor(dVal);
+  double dC = ceil(dVal);
+
+  if(dVal - dF < dC - dVal)
+    return dF;
+  else
+    return dC;
+}
 
 CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate) 
   : CDasherComponent(pEventHandler, pSettingsStore) {

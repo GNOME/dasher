@@ -347,12 +347,12 @@ double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
 
   // Cache some results so we don't do a huge number of parameter lookups
 
-  long long int iMaxY(GetLongParameter(LP_MAX_Y));
-  long long int iOX(GetLongParameter(LP_OX));
-  long long int iOY(GetLongParameter(LP_OY));
+  myint iMaxY(GetLongParameter(LP_MAX_Y));
+  myint iOX(GetLongParameter(LP_OX));
+  myint iOY(GetLongParameter(LP_OY));
 
-  int iTargetMin(Mousey - (iMaxY * Mousex) / (2 * iOX));
-  int iTargetMax(Mousey + (iMaxY * Mousex) / (2 * iOY));
+  int iTargetMin(Mousey - ((myint)iMaxY * Mousex) / (2 * (myint)iOX));
+  int iTargetMax(Mousey + ((myint)iMaxY * Mousex) / (2 * (myint)iOY));
 
   // Calculate what the extremes of the viewport will be when the
   // point under the cursor is at the cross-hair. This is where 
@@ -419,22 +419,22 @@ void CDasherModel::DoZoom(myint iTargetMin, myint iTargetMax) {
 
   // std::cout << "iTargetMin: " << iTargetMin << " iTargetMax: " << iTargetMax << std::endl;
 
-  myint newRootmin(((m_Rootmin - iTargetMin) * (long long int)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin));
-  myint newRootmax(((m_Rootmax - iTargetMax) * (long long int)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin) + (long long int)GetLongParameter(LP_MAX_Y));
+  myint newRootmin(((m_Rootmin - iTargetMin) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin));
+  myint newRootmax(((m_Rootmax - iTargetMax) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin) + (myint)GetLongParameter(LP_MAX_Y));
 
   // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
 
-  if(newRootmin > (long long int)GetLongParameter(LP_MAX_Y) / 2 - 1)
-    newRootmin = (long long int)GetLongParameter(LP_MAX_Y) / 2 - 1;
+  if(newRootmin > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
+    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1;
 
-  if(newRootmax < (long long int)GetLongParameter(LP_MAX_Y) / 2 + 1)
-    newRootmax = (long long int)GetLongParameter(LP_MAX_Y) / 2 + 1;
+  if(newRootmax < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
+    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1;
 
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
   // screen.
 
-  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > (long long int)GetLongParameter(LP_MAX_Y) / 4) {
+  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
     // Only update if we're not making things big enough to risk
     // overflow. In theory we should have reparented the root well
     // before getting this far.
@@ -459,21 +459,21 @@ void CDasherModel::Get_new_goto_coords(double zoomfactor, myint MouseY)
   //float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
 
   // Then zoom in appropriately
-  m_Rootmax = m_Rootmax + myint(zoomfactor * (m_Rootmax - GetLongParameter(LP_MAX_Y) / 2));
-  m_Rootmin = m_Rootmin + myint(zoomfactor * (m_Rootmin - GetLongParameter(LP_MAX_Y) / 2));
+  m_Rootmax = m_Rootmax + myint(zoomfactor * (m_Rootmax - (myint)GetLongParameter(LP_MAX_Y) / 2));
+  m_Rootmin = m_Rootmin + myint(zoomfactor * (m_Rootmin - (myint)GetLongParameter(LP_MAX_Y) / 2));
 
   // Afterwards, we need to take care of the vertical offset.
-  myint up = (GetLongParameter(LP_MAX_Y) / 2) - MouseY;
+  myint up = ((myint)GetLongParameter(LP_MAX_Y) / 2) - MouseY;
   m_Rootmax = m_Rootmax + up;
   m_Rootmin = m_Rootmin + up;
 }
 
 myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY) {
   // First, we need to work out how far we need to zoom in
-  double zoomfactor = (GetLongParameter(LP_OX) - MouseX) / (GetLongParameter(LP_OX) * 1.0);
+  double zoomfactor = ((myint)GetLongParameter(LP_OX) - MouseX) / ((myint)GetLongParameter(LP_OX) * 1.0);
   zoomfactor = pow(0.5, zoomfactor);
 
-  myint height = int (GetLongParameter(LP_MAX_Y) * zoomfactor / 2);
+  myint height = int ((myint)GetLongParameter(LP_MAX_Y) * zoomfactor / 2);
 
   return height;
 }
@@ -665,7 +665,7 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
   *o1 = m_Rootmin ;
   *o2 = m_Rootmax ;
   DASHER_ASSERT(iRxnew > 0);
-  if (iRxnew < ZOOMDENOM && m_Rootmax<GetLongParameter(LP_MAX_Y) && m_Rootmin>0 ) {
+  if (iRxnew < ZOOMDENOM && m_Rootmax<(myint)GetLongParameter(LP_MAX_Y) && m_Rootmin>0 ) {
     // refuse to zoom backwards if the entire root node is visible.
     cout << "Refusing to zoom backwards." << endl;
     *iSteps = 0 ;
@@ -688,7 +688,7 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
     // We might be moving at zoomfactor one vertically, in which case the below invention won't
     // come up with more than one step.  Look for a mousey difference and use an iSteps concordant
     // to that if it would be larger than the iSteps created by taking the log of the zoomfactor. 
-    int distance = mousey - (GetLongParameter(LP_MAX_Y)/2);
+    int distance = mousey - ((myint)GetLongParameter(LP_MAX_Y)/2);
 
     double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
 

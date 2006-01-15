@@ -68,6 +68,7 @@ public:
 
   void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
 
+
   virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
 
   //void SetDrawKeyboard(bool bDrawKeyboard);

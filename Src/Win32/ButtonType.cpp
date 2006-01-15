@@ -1,4 +1,4 @@
-// ControlPage.cpp
+// ButtonType.cpp
 //
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -8,7 +8,7 @@
 
 #include "WinCommon.h"
 
-#include "ControlPage.h"
+#include "ButtonType.h"
 #include "../resource.h"
 #include "../Common/StringUtils.h"
 #include "../AppSettings.h"
@@ -19,7 +19,7 @@ using namespace Dasher;
 using namespace std;
 
 
-CControlPage::CControlPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+CButtonTypePage::CButtonTypePage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
 :CPrefsPageBase(Parent, DI, pAppSettings) {
 }
 
@@ -44,21 +44,9 @@ static menuentry menutable[] = {
   {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED}
 };
 
-void CControlPage::PopulateList() {
+void CButtonTypePage::PopulateList() {
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasher
-
-  SB_slider = GetDlgItem(m_hwnd, IDC_SPEEDSLIDER);
-
-  SendMessage(SB_slider, TBM_SETPAGESIZE, 0L, 20);      // PgUp and PgDown change bitrate by reasonable amount
-  SendMessage(SB_slider, TBM_SETTICFREQ, 100, 0L);
-  SendMessage(SB_slider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(10, 800));
-  
-  speedbox = GetDlgItem(m_hwnd, IDC_SPEEDVAL);  
-
-  SendMessage(SB_slider, TBM_SETPOS, TRUE, (LPARAM) m_pAppSettings->GetLongParameter(LP_MAX_BITRATE));
-  _sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
-  SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
 
 
   // all the button checkboxes
@@ -73,27 +61,14 @@ void CControlPage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
   }
-
-  if(!m_pAppSettings->GetBoolParameter(BP_NUMBER_DIMENSIONS) && !m_pAppSettings->GetBoolParameter(BP_EYETRACKER_MODE))
-    SendMessage(GetDlgItem(m_hwnd, IDC_ORDINARY), BM_SETCHECK, BST_CHECKED, 0);
-
-
-  // enable idletime control if button checked
-  BOOL bIdle =  m_pAppSettings->GetBoolParameter(BP_STOP_IDLE) ? TRUE : FALSE;
-  EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bIdle);
-  EnableWindow( GetDlgItem(m_hwnd, IDC_STATICIDLETIME), bIdle);
-			
-  // Set the idle time data
-  SetDlgItemInt ( m_hwnd, IDC_IDLETIME, m_pAppSettings->GetLongParameter( LP_STOP_IDLETIME) , TRUE);
-
 }
 
-bool CControlPage::Validate() {
+bool CButtonTypePage::Validate() {
   // Return false if something is wrong to prevent user from clicking to a different page. Please also pop up a dialogue informing the user at this point.
   return TRUE;
 }
 
-bool CControlPage::Apply() 
+bool CButtonTypePage::Apply() 
 {
 
 	int iIdle;
@@ -118,7 +93,7 @@ bool CControlPage::Apply()
 	return TRUE;
 }
 
-LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+LRESULT CButtonTypePage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
 
 	double NewSpeed;
 	switch (message) 

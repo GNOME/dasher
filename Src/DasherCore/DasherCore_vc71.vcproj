@@ -420,6 +420,12 @@
 			RelativePath="Alphabet\AlphIO.h">
 		</File>
 		<File
+			RelativePath=".\AutoSpeedControl.cpp">
+		</File>
+		<File
+			RelativePath=".\AutoSpeedControl.h">
+		</File>
+		<File
 			RelativePath="ColourIO.cpp">
 		</File>
 		<File
@@ -519,6 +525,12 @@
 			RelativePath=".\View\DelayedDraw.h">
 		</File>
 		<File
+			RelativePath=".\DynamicFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\DynamicFilter.h">
+		</File>
+		<File
 			RelativePath="Event.h">
 		</File>
 		<File
@@ -529,6 +541,9 @@
 		</File>
 		<File
 			RelativePath="FrameRate.h">
+		</File>
+		<File
+			RelativePath=".\InputFilter.h">
 		</File>
 		<File
 			RelativePath="Parameters.h">

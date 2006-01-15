@@ -314,6 +314,18 @@ LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 		if(lParam ^ REPEAT) // ignore auto-repeat
 			m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 25);
 		return 0;
+  case 0x41:
+    m_pDasherInterface->KeyDown(1);
+    return 0;
+  case 0x53:
+    m_pDasherInterface->KeyDown(2);
+    return 0;
+  case 0x57:
+    m_pDasherInterface->KeyDown(3);
+    return 0;
+  case 0x58:
+    m_pDasherInterface->KeyDown(4);
+    return 0;
 	default:
 		return 0;
 	}

@@ -39,7 +39,7 @@ namespace Dasher {
       y2 = m_ymap.map(y2);
 //  } 
 
-if(y1 > GetLongParameter(LP_MAX_Y)) {
+if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
       return 0;
     } if(y2 < 0) {
       return 0;
@@ -51,14 +51,14 @@ if(y1 > GetLongParameter(LP_MAX_Y)) {
       }
 
     // Is this square actually on the screen? Check bottom
-    if(y2 > GetLongParameter(LP_MAX_Y))
+    if(y2 > (myint)GetLongParameter(LP_MAX_Y))
       y2 = GetLongParameter(LP_MAX_Y);
 
     Cint32 iSize = Cint32(y2 - y1);
     DASHER_ASSERT(iSize >= 0);
 
-    s1 = screenint(y1 * CanvasY / GetLongParameter(LP_MAX_Y));
-    s2 = screenint(y2 * CanvasY / GetLongParameter(LP_MAX_Y));
+    s1 = screenint(y1 * CanvasY / (myint)GetLongParameter(LP_MAX_Y));
+    s2 = screenint(y2 * CanvasY / (myint)GetLongParameter(LP_MAX_Y));
 
     DASHER_ASSERT(s2 >= s1);
     return iSize;
@@ -70,7 +70,7 @@ if(y1 > GetLongParameter(LP_MAX_Y)) {
       y = m_ymap.map(y);
   //  }
 
- y = (y * CanvasY / GetLongParameter(LP_MAX_Y));
+ y = (y * CanvasY / (myint)GetLongParameter(LP_MAX_Y));
 
     // Stop overflow when converting to screen coords
     if(y > myint(INT_MAX))
