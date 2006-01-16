@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-15 23:12-0500\n"
+"POT-Creation-Date: 2006-01-16 00:27-0500\n"
 "PO-Revision-Date: 2005-08-03 16:49-0500\n"
 "Last-Translator: Adam Weinberger <adamw@gnome.org>\n"
 "Language-Team: Canadian English <adamw@gnome.org>\n"
@@ -42,8 +42,10 @@ msgid "Dasher is a predictive text entry application"
 msgstr "Dasher is a predictive text entry application"
 
 #: ../Src/Gtk2/Preferences.cpp:583 ../Src/Gtk2/Preferences.cpp:585
-msgid "Training Dasher, please wait"
-msgstr "Training Dasher, please wait"
+#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:117
+msgid "Training Dasher... please wait"
+msgstr "Training Dasher... please wait"
 
 #. Paneltree
 #. |         /-menutree
@@ -519,7 +521,7 @@ msgstr "Dasher Preferences"
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:37
 #: ../Src/Gtk2/dashermaemo.glade.h:56
-msgid "Distance from centreline for start on mouse position:"
+msgid "Distance from centerline for start on mouse position:"
 msgstr "Distance from centreline for start on mouse position:"
 
 #: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:38
@@ -564,9 +566,9 @@ msgstr "Four-button direct mode"
 msgid "General"
 msgstr "General"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:67
 msgid ""
-"If this mode is selected, up  and down will\n"
+"If this mode is selected, up and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
@@ -802,11 +804,6 @@ msgstr "Top to Bottom"
 msgid "Training"
 msgstr "Training"
 
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:117
-msgid "Training Dasher - please wait"
-msgstr "Training Dasher - please wait"
-
 #: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:73
 #: ../Src/Gtk2/dashermaemo.glade.h:118
 msgid "Up/1:"
@@ -919,7 +916,7 @@ msgid "Advanced"
 msgstr "Advanced"
 
 #: ../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
+msgid "Change color scheme automatically"
 msgstr "Change colour scheme automatically"
 
 #: ../Src/Gtk2/dashergpe.glade.h:27
@@ -935,8 +932,8 @@ msgstr ""
 "between coordinates and right will confirm the choice"
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire y range:"
-msgstr "Number of pixels that should cover the entire y range:"
+msgid "Number of pixels that should cover the entire Y range:"
+msgstr "Number of pixels that should cover the entire Y range:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -953,6 +950,16 @@ msgstr ""
 #: ../Src/Gtk2/dashermaemo.glade.h:40
 msgid "Button setup"
 msgstr "Button setup"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:65
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+"If this mode is selected, up and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:105
 msgid "Socket"
