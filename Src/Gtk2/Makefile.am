@@ -20,9 +20,7 @@ settings_store =
 non_settings_store = gpesettings_store.cc gpesettings_store.h
 endif
 
-EXTRA_DIST = $(non_settings_store) \
-             dashergtktextviewalias.h \
-             dashergtktextviewaliasdef.c
+EXTRA_DIST = $(non_settings_store)
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
@@ -52,6 +50,7 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher.glade \
                          dasher.h \
                          dashergpe.glade \
+                         dashermaemo.glade \
                          edit.cc \
                          edit.h \
                          fileops.cc \
@@ -74,4 +73,4 @@ libdashercontrol_a_SOURCES = Timer.cpp Canvas.cpp GtkDasherControl.cpp PangoCach
 #libdashercontrol_a_LIBADD = ../DasherCore/libdashercore.a ../DasherCore/LanguageModelling/libdasherlm.a ../DasherCore/Alphabet/libdasheralphabet.a
 #libdashercontrol_a_LDFLAGS = -L../DasherCore -L../DasherCore/LanguageModelling -L../DasherCore/Alphabet -ldashercore -ldasherlm -ldasheralphabet
 
-pkgdata_DATA = $(gladefile) 
+pkgdata_DATA = dasher.glade dashermaemo.glade

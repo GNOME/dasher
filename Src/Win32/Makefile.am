@@ -13,12 +13,8 @@ EXTRA_DIST = \
 		Common/WinUTF8.h \
 		Common/WinWrap.cpp \
 		Common/WinWrap.h \
-		Framework/Window.cpp \
-		Framework/Window.h \
 		GDI/FontStore.cpp \
 		GDI/FontStore.h \
-		Widgets/AboutBox.cpp \
-		Widgets/AboutBox.h \
 		Widgets/AdvancedPage.cpp \
 		Widgets/AdvancedPage.h \
 		Widgets/AlphabetBox.cpp \

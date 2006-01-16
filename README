@@ -1,6 +1,6 @@
-Dasher version 3.99.0 (4.0 preview 1)
+Dasher version 3.99.1 (4.0 preview 2)
 ------------------------------------- 
-This is Dasher 3.99.0, the first preview release of the upcoming 4.0
+This is Dasher 3.99.1, the second preview release of the upcoming 4.0
 series. It is development code, and should therefore be considered
 potentially unstable, although we have done our best to make it as
 usable as possible.
@@ -13,9 +13,13 @@ high rates of text entry.
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
 
-New Features In 3.99.0
+New Features In 3.99.1
 ----------------------
- * Japanese Kanji text entry (See 'Kanji Entry' below)
+ * (Partial) Button mode support
+ * New style status bar
+ * Infinite backoff
+ * Improved support for symbol groups in alphabets
+ * Improved node creation algorithm
 
 Requirements
 ------------
@@ -37,13 +41,21 @@ Linux:
 
 MS Windows:
  * MS Speech API (optional)
+ * MS Table API (optional - required for tablet start/stop mode)
 
 MS Windows CE:
  * (not sure - if anyone knows then please fill this in)
 
+Known Issues
+------------
+ * Win32 probably doesn't build from the tarball - please use CVS.
+ * Button mode implementation is incomplete (not all modes present,
+   and limited UI support for configuration options)
+
 Installation Instructions
 -------------------------
-Please see the file INSTALL.<platform> for details on how to build and install Dasher from source on your host system.
+Please see the file INSTALL.<platform> for details on how to build and
+install Dasher from source on your host system.
 
 Font Support
 ------------

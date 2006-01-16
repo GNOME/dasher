@@ -4,4 +4,5 @@ libdasheralphabet_a_SOURCES = AlphIO.cpp \
                               Alphabet.cpp \
                               Alphabet.h \
                               AlphabetMap.cpp \
-                              AlphabetMap.h
+                              AlphabetMap.h \
+                              GroupInfo.h

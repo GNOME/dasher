@@ -5,10 +5,14 @@
 	  Spelling fixes and message standardization. Fixes
 	  bug #167320.
 
-2006-01-23  David Ward <d.j.ward.94@gmail.com>
-	* Src/Win32: TabletPC support for Win32 platform 
-2005-12-28  Abel Cheung  <maddog@linuxhall.org>
+2006-01-15  PhilCowans <pjc51@cam.ac.uk>
+	* Tidied up and bumped version number for release
+	* How did the previosu entry happen in the future?
 
+x2006-01-23  David Ward <d.j.ward.94@gmail.com>
+	* Src/Win32: TabletPC support for Win32 platform 
+
+2005-12-28  Abel Cheung  <maddog@linuxhall.org>
 	* configure.in: Added "vi" "zh_HK" to ALL_LINGUAS.
 
 2005-12-26  Timur Jamakeev  <timurj@cvs.gnome.org>

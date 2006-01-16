@@ -90,7 +90,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   gtk_box_pack_start(GTK_BOX(m_pStatusBar), gtk_label_new("Speed:"), 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pSpin, 0, 0, 0);
   gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pCombo, 0, 0, 0);
-  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pStatusLabel, TRUE, TRUE, 0);
+  //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pStatusLabel, TRUE, TRUE, 0);
 
   gtk_box_pack_start(GTK_BOX(m_pVBox), pFrame, TRUE, TRUE, 0);
   //  gtk_box_pack_start(GTK_BOX(m_pVBox), m_pSpeedFrame, FALSE, FALSE, 0);
