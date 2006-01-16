@@ -2144,7 +2144,7 @@ your writing speed.</property>
 			  <child>
 			    <widget class="GtkLabel" id="label27">
 			      <property name="visible">True</property>
-			      <property name="label" translatable="yes">Distance from centreline for start on mouse position:</property>
+			      <property name="label" translatable="yes">Distance from centerline for start on mouse position:</property>
 			      <property name="use_underline">False</property>
 			      <property name="use_markup">True</property>
 			      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -3313,7 +3313,7 @@ your writing speed.</property>
 		      <child>
 			<widget class="GtkLabel" id="label44">
 			  <property name="visible">True</property>
-			  <property name="label" translatable="yes">If this mode is selected, up  and down will
+			  <property name="label" translatable="yes">If this mode is selected, up and down will
 cycle backwards and forwards between coordinates and right will confirm the choice</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">False</property>
@@ -3514,7 +3514,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 	<widget class="GtkLabel" id="label46">
 	  <property name="visible">True</property>
 	  <property name="can_focus">True</property>
-	  <property name="label" translatable="yes">Training Dasher - please wait</property>
+	  <property name="label" translatable="yes">Training Dasher... please wait</property>
 	  <property name="use_underline">False</property>
 	  <property name="use_markup">False</property>
 	  <property name="justify">GTK_JUSTIFY_LEFT</property>

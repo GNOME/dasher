@@ -1,3 +1,10 @@
+2006-01-16  Adam Weinberger  <adamw@gnome.org>
+
+	* Src/Gtk2/dasher.glade, Src/Gtk2/dashergpe.glade,
+	  Src/Gtk2/dahsermaemo.glade, Src/Gtk2/Preferences.cpp:
+	  Spelling fixes and message standardization. Fixes
+	  bug #167320.
+
 2006-01-23  David Ward <d.j.ward.94@gmail.com>
 	* Src/Win32: TabletPC support for Win32 platform 
 2005-12-28  Abel Cheung  <maddog@linuxhall.org>
