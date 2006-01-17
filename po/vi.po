@@ -8,8 +8,8 @@ msgid ""
 ""
 msgstr "Project-Id-Version: dasher Gnome HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-15 21:50+0100\n"
-"PO-Revision-Date: 2006-01-16 15:02+1030\n"
+"POT-Creation-Date: 2006-01-17 05:43+0100\n"
+"PO-Revision-Date: 2006-01-17 16:45+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -44,8 +44,10 @@ msgid "Dasher is a predictive text entry application"
 msgstr "Dasher là một ứng dụng nhập văn ban đoán trước"
 
 #:../Src/Gtk2/Preferences.cpp:583 ../Src/Gtk2/Preferences.cpp:585
-msgid "Training Dasher, please wait"
-msgstr "Đang huấn luyện Dasher, vui lòng chờ"
+#:../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
+#:../Src/Gtk2/dashermaemo.glade.h:117
+msgid "Training Dasher... please wait"
+msgstr "Đang huấn luyện Dasher, vui lòng chờ..."
 
 #.Paneltree
 #.|         /-menutree
@@ -521,7 +523,7 @@ msgstr "Sở thích Dasher"
 
 #:../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:37
 #:../Src/Gtk2/dashermaemo.glade.h:56
-msgid "Distance from centreline for start on mouse position:"
+msgid "Distance from centerline for start on mouse position:"
 msgstr "Bắt đầu vị trí con chuột bao xa từ đường giữa:"
 
 #:../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:38
@@ -566,13 +568,13 @@ msgstr "Chế độ trực tiếp bốn nút"
 msgid "General"
 msgstr "Chung"
 
-#:../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:65
+#:../Src/Gtk2/dasher.glade.h:67
 msgid ""
-"If this mode is selected, up  and down will\n"
+"If this mode is selected, up and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr "Khi chọn chế độ này thì di động lên và xuống sẽ theo chu kỳ tiếp và ngược "
-"giữa tọa độ, và đi về phía phải sẽ xác định lựa chọn ấy."
+"giữa tọa độ, và đi về phía phải sẽ xác định lựa chọn đó."
 
 #:../Src/Gtk2/dasher.glade.h:69 ../Src/Gtk2/dashermaemo.glade.h:67
 msgid "Increase line thickness"
@@ -802,11 +804,6 @@ msgstr "Đỉnh đến đáy"
 msgid "Training"
 msgstr "Huấn luyện"
 
-#:../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
-#:../Src/Gtk2/dashermaemo.glade.h:117
-msgid "Training Dasher - please wait"
-msgstr "Hiện huấn luyện Dasher — vui lòng đời một chút"
-
 #:../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:73
 #:../Src/Gtk2/dashermaemo.glade.h:118
 msgid "Up/1:"
@@ -918,8 +915,8 @@ msgid "Advanced"
 msgstr "Nâng cao"
 
 #:../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "Tự động thay đổi phối hợp màu sắc"
+msgid "Change color scheme automatically"
+msgstr "Tự động thay đổi lược đồ màu sắc"
 
 #:../Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
@@ -933,7 +930,7 @@ msgstr "Khi chọn chế độ này thì di động lên và xuống sẽ theo c
 "giữa tọa độ, và đi về phía phải sẽ xác định lựa chọn ấy."
 
 #:../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire y range:"
+msgid "Number of pixels that should cover the entire Y range:"
 msgstr "Số điểm ảnh nên trải ra phạm vị Y hoàn thành:"
 
 #:../Src/Gtk2/dashergpe.glade.h:53
@@ -950,6 +947,14 @@ msgstr "Hãy sử dụng điều khiển này để điều chỉnh những cỡ
 #:../Src/Gtk2/dashermaemo.glade.h:40
 msgid "Button setup"
 msgstr "Thiết lập nútđiều khiển nút"
+
+#:../Src/Gtk2/dashermaemo.glade.h:65
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr "Khi chọn chế độ này thì di động lên và xuống sẽ theo chu kỳ tiếp và ngược "
+"giữa tọa độ, và đi về phía phải sẽ xác định lựa chọn ấy."
 
 #:../Src/Gtk2/dashermaemo.glade.h:105
 msgid "Socket"
