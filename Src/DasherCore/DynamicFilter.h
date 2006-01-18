@@ -13,6 +13,7 @@ class CDynamicFilter : public CInputFilter {
   virtual void DecorateView(CDasherView *pView);
   virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
+  virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);
   
  private:
   int m_iTarget;
@@ -21,6 +22,10 @@ class CDynamicFilter : public CInputFilter {
   int *m_iTargetY;
 
   int m_iStyle;
+
+  int m_iKeyTime;
+  bool bStarted;
+  bool bBackOff;
 };
 
 #endif

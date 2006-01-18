@@ -18,6 +18,8 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
     m_iStyle = 1;
   else
     m_iStyle = 0;
+
+  bStarted = false;
 }
 
 CDynamicFilter::~CDynamicFilter() {
@@ -58,13 +60,43 @@ void CDynamicFilter::DecorateView(CDasherView *pView) {
 }
 
 void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
-  m_pDasherModel->Tap_on_display(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, 0, 0);
+  myint iX;
+  myint iY;
+
+  if(bBackOff)
+    m_pDasherModel->Tap_on_display(3096,2048, Time, 0, 0);
+  else {
+    if( GetBoolParameter(BP_BUTTONSTEADY) || !bStarted || (Time - m_iKeyTime > 1000)) {
+      iX = m_iTargetX[m_iTarget];
+      iY = m_iTargetY[m_iTarget];
+    }
+    else {
+      iX = ((Time - m_iKeyTime) * m_iTargetX[m_iTarget] + (1000 - (Time - m_iKeyTime)) * 2048) / 1000;
+      iY = ((Time - m_iKeyTime) * m_iTargetY[m_iTarget] + (1000 - (Time - m_iKeyTime)) * 2048) / 1000;
+    }
+
+    m_pDasherModel->Tap_on_display(iX, iY, Time, 0, 0);
+  }
 }
 
 void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
-  if(iId == 1)
+  if(iId == 1) {
     m_iTarget = 1 - m_iTarget;
+    bStarted = true;
+    m_iKeyTime = iTime;
+  }
+  else if(iId == 2) {
+    bBackOff = true;
+  }
 }
+
+void CDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
+  if(iId == 2) {
+    bBackOff = false;
+  }
+}
+
+
 
 void CDynamicFilter::HandleEvent(Dasher::CEvent * pEvent) {
   if(pEvent->m_iEventType == 1) {

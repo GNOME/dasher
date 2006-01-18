@@ -536,6 +536,18 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
       else
         SetLongParameter(LP_BOOSTFACTOR, 100);
     break;
+ case GDK_a:
+    KeyUp(get_time(), 1);
+    break;
+  case GDK_s:
+    KeyUp(get_time(), 2);
+    break;
+  case GDK_w:
+    KeyUp(get_time(), 3);    
+    break;
+  case GDK_x:
+    KeyUp(get_time(), 4);
+    break;
   }  
   return 0;
 

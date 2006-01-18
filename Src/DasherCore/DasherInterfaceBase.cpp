@@ -1001,6 +1001,12 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
   }
 }
 
+void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
+  if(m_pDasherButtons) {
+    m_pDasherButtons->KeyUp(iTime, iId, m_pDasherModel);
+  }
+}
+
 void CDasherInterfaceBase::CreateInputFilter()
 {
   // FIXME - this should eventually be moved into a factory object
@@ -1027,7 +1033,7 @@ void CDasherInterfaceBase::CreateInputFilter()
   else if(GetStringParameter(SP_INPUT_FILTER) == "Four Button Direct")
     m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 4, 0, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Alternating Direct")
-    m_pDasherButtons = NULL;
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 3, 3, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Compass Mode")
     m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 4, 2, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Default")

@@ -37,11 +37,43 @@ CDasherButtons::~CDasherButtons()
 }
 
 void CDasherButtons::SetupBoxes()
-{ 
-  if(m_iStyle == 2) { // Compass mode
+{
+  if(m_iStyle == 3) {
+    // Alternating direct mode
+
     m_pBoxes = new SBoxInfo[4];
 
-    // FIXME - need to relate these to cross-hiar position as stored in the parameters
+    // Fast boxes
+
+    m_pBoxes[0].iTop = 0;
+    m_pBoxes[0].iBottom = 1000;
+    m_pBoxes[1].iTop = 3096;
+    m_pBoxes[1].iBottom = 4096;
+
+    // Slow boxes
+
+    m_pBoxes[2].iTop = 0;
+    m_pBoxes[2].iBottom = 3096;
+    m_pBoxes[3].iTop = 1000;
+    m_pBoxes[3].iBottom = 4096; 
+
+    m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop; 
+    m_pBoxes[0].iDisplayBottom = m_pBoxes[0].iBottom;
+    m_pBoxes[1].iDisplayTop = m_pBoxes[1].iTop; 
+    m_pBoxes[1].iDisplayBottom = m_pBoxes[1].iBottom;
+    m_pBoxes[2].iDisplayTop = m_pBoxes[2].iTop; 
+    m_pBoxes[2].iDisplayBottom = m_pBoxes[2].iBottom;
+    m_pBoxes[3].iDisplayTop = m_pBoxes[3].iTop; 
+    m_pBoxes[3].iDisplayBottom = m_pBoxes[3].iBottom;
+
+    m_iNumBoxes = 4;
+    m_iLastBox = -1;
+    
+  }
+  else if(m_iStyle == 2) { // Compass mode
+    m_pBoxes = new SBoxInfo[4];
+
+    // FIXME - need to relate these to cross-hair position as stored in the parameters
 
     // Not sure whether this is at all the right algorithm here - need to check
 
@@ -81,13 +113,39 @@ void CDasherButtons::SetupBoxes()
     m_pBoxes = new SBoxInfo[m_iNumBoxes];
   
     int iDasherY(GetLongParameter(LP_MAX_Y));
+    int iForwardBoxes(m_iNumBoxes - 1);
+
+    // Calculate the sizes of non-uniform boxes using standard
+    // geometric progression results
+
+    double dRatio;
+    if(m_bMenu)
+      dRatio = ((180 - GetLongParameter(LP_R))/180.0); 
+    else
+      dRatio = 1.0;
+
+    double dMaxSize;
+    if(dRatio == 1.0)
+      dMaxSize = iDasherY / static_cast<double>(iForwardBoxes);
+    else
+      dMaxSize = ((dRatio - 1)/(pow(dRatio, iForwardBoxes) - 1)) * iDasherY; 
+    
+    double dMin(0.0);
+    double dMax;
 
     for(int i(0); i < m_iNumBoxes - 1; ++i) { // One button reserved for backoff
-      m_pBoxes[i].iDisplayTop = (i * iDasherY) / (m_iNumBoxes - 1);
-      m_pBoxes[i].iDisplayBottom = ((i+1) * iDasherY) / (m_iNumBoxes - 1);
+      dMax = dMin + dMaxSize * pow(dRatio, i);
+
+//       m_pBoxes[i].iDisplayTop = (i * iDasherY) / (m_iNumBoxes - 1);
+//       m_pBoxes[i].iDisplayBottom = ((i+1) * iDasherY) / (m_iNumBoxes - 1);
+
+      m_pBoxes[i].iDisplayTop = static_cast<int>(dMin);
+      m_pBoxes[i].iDisplayBottom = static_cast<int>(dMax);
+	
+      m_pBoxes[i].iTop = m_pBoxes[i].iDisplayTop - GetLongParameter(LP_S);
+      m_pBoxes[i].iBottom = m_pBoxes[i].iDisplayBottom + GetLongParameter(LP_S);
       
-      m_pBoxes[i].iTop = m_pBoxes[i].iDisplayTop - 100; // FIXME - hardcoded value
-      m_pBoxes[i].iBottom = m_pBoxes[i].iDisplayBottom + 100;
+      dMin = dMax;
     }
     
     m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
@@ -144,12 +202,33 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       break;
     case 2:
       pModel->ScheduleZoom((m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
+      iActiveBox = 0;
       break;
     }
   }
   else {
-    if(iId <= m_iNumBoxes) 
-      pModel->ScheduleZoom((m_pBoxes[iId-1].iBottom - m_pBoxes[iId-1].iTop)/2, (m_pBoxes[iId-1].iBottom + m_pBoxes[iId-1].iTop)/2);
+    if(m_iStyle == 3) {
+      switch(iId) {
+      case 1:
+	if(m_iLastBox == 1)
+	  pModel->ScheduleZoom((m_pBoxes[2].iBottom - m_pBoxes[2].iTop)/2, (m_pBoxes[2].iBottom + m_pBoxes[2].iTop)/2);
+	else
+	  pModel->ScheduleZoom((m_pBoxes[0].iBottom - m_pBoxes[0].iTop)/2, (m_pBoxes[0].iBottom + m_pBoxes[0].iTop)/2);
+	m_iLastBox = 1;
+	break; 
+      case 2:
+	if(m_iLastBox == 2)
+	  pModel->ScheduleZoom((m_pBoxes[3].iBottom - m_pBoxes[3].iTop)/2, (m_pBoxes[3].iBottom + m_pBoxes[3].iTop)/2);
+	else
+	  pModel->ScheduleZoom((m_pBoxes[1].iBottom - m_pBoxes[1].iTop)/2, (m_pBoxes[1].iBottom + m_pBoxes[1].iTop)/2);
+	m_iLastBox = 2;
+	break;
+      }
+    }
+    else {
+      if(iId <= m_iNumBoxes) 
+	pModel->ScheduleZoom((m_pBoxes[iId-1].iBottom - m_pBoxes[iId-1].iTop)/2, (m_pBoxes[iId-1].iBottom + m_pBoxes[iId-1].iTop)/2);
+    }
   }
 
 }
@@ -165,6 +244,7 @@ void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {
     switch (pEvt->m_iParameter) {
     case LP_B:
     case LP_RIGHTZOOM:
+    case LP_R:
       // Delibarate fallthrough
       SetupBoxes();
       break;

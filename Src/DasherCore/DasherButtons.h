@@ -53,6 +53,8 @@ class CDasherButtons : public CInputFilter
   
   int iActiveBox;
 
+  int m_iLastBox;
+
 };
 
 #endif

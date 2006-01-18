@@ -492,6 +492,7 @@ public:
   };
 
   void KeyDown(int iTime, int iId);
+  void KeyUp(int iTime, int iId);
 
 protected:
   void WriteTrainFileFull();
