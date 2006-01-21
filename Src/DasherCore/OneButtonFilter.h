@@ -5,7 +5,7 @@
 
 class COneButtonFilter : public CInputFilter {
  public:
-  COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore);
+  COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
   ~COneButtonFilter();
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);

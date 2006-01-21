@@ -1,8 +1,8 @@
 #include "OneButtonFilter.h"
 #include "Event.h"
 
-COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore)
-  : CInputFilter(pEventHandler, pSettingsStore) {
+COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface) {
 
   bStarted = 0;
   iLocation = 0;

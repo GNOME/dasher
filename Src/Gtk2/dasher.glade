@@ -947,7 +947,7 @@
 				<widget class="GtkButton" id="button13">
 				  <property name="visible">True</property>
 				  <property name="can_focus">True</property>
-				  <property name="label" translatable="yes">Edit Button-control options</property>
+				  <property name="label" translatable="yes">Button Mode Options</property>
 				  <property name="use_underline">True</property>
 				  <property name="relief">GTK_RELIEF_NORMAL</property>
 				  <property name="focus_on_click">True</property>
@@ -3840,7 +3840,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 			    <widget class="GtkRadioButton" id="twobuttondirectbutton">
 			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
-			      <property name="label" translatable="yes">Three-button direct mode</property>
+			      <property name="label" translatable="yes">Direct mode</property>
 			      <property name="use_underline">True</property>
 			      <property name="relief">GTK_RELIEF_NORMAL</property>
 			      <property name="focus_on_click">True</property>
@@ -3859,7 +3859,6 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 
 			  <child>
 			    <widget class="GtkRadioButton" id="fourbuttondirectbutton">
-			      <property name="visible">True</property>
 			      <property name="can_focus">True</property>
 			      <property name="label" translatable="yes">Four-button direct mode</property>
 			      <property name="use_underline">True</property>
@@ -4062,10 +4061,10 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 		      <property name="can_focus">True</property>
 		      <property name="draw_value">True</property>
 		      <property name="value_pos">GTK_POS_TOP</property>
-		      <property name="digits">0</property>
+		      <property name="digits">1</property>
 		      <property name="update_policy">GTK_UPDATE_CONTINUOUS</property>
 		      <property name="inverted">False</property>
-		      <property name="adjustment">5 1 9 1 1 0</property>
+		      <property name="adjustment">4 1 9 0.10000000149 0.10000000149 0</property>
 		      <signal name="value_changed" handler="rightzoom_changed" last_modification_time="Tue, 19 Apr 2005 17:03:50 GMT"/>
 		    </widget>
 		    <packing>
@@ -4108,7 +4107,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 		  <child>
 		    <widget class="GtkLabel" id="label81">
 		      <property name="visible">True</property>
-		      <property name="label" translatable="yes">&lt;b&gt;Menu Mode&lt;/b&gt;</property>
+		      <property name="label" translatable="yes">&lt;b&gt;Direct Mode And Menu Mode&lt;/b&gt;</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">True</property>
 		      <property name="justify">GTK_JUSTIFY_LEFT</property>
@@ -4314,7 +4313,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 		      <property name="digits">0</property>
 		      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 		      <property name="inverted">False</property>
-		      <property name="adjustment">0 -140 80 1 10 10</property>
+		      <property name="adjustment">0 -400 400 1 10 10</property>
 		      <signal name="value_changed" handler="rparameter_changed" last_modification_time="Sat, 27 Sep 2003 22:29:00 GMT"/>
 		    </widget>
 		    <packing>
@@ -4387,7 +4386,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 		      <property name="digits">1</property>
 		      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 		      <property name="inverted">False</property>
-		      <property name="adjustment">3134.30004883 0 90000 1 1 0</property>
+		      <property name="adjustment">6000 0 90000 1 1 0</property>
 		      <signal name="value_changed" handler="zoomfactor_changed" last_modification_time="Thu, 19 Aug 2004 16:43:00 GMT"/>
 		    </widget>
 		    <packing>
@@ -4410,7 +4409,7 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 		      <property name="digits">1</property>
 		      <property name="update_policy">GTK_UPDATE_DISCONTINUOUS</property>
 		      <property name="inverted">False</property>
-		      <property name="adjustment">0.800000011921 0 100 0.10000000149 0.10000000149 0</property>
+		      <property name="adjustment">1.2 0 100 0.10000000149 0.10000000149 0</property>
 		      <signal name="value_changed" handler="droptime_changed" last_modification_time="Thu, 19 Aug 2004 16:43:11 GMT"/>
 		    </widget>
 		    <packing>
@@ -4452,7 +4451,6 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 
 		  <child>
 		    <widget class="GtkLabel" id="label83">
-		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">&lt;b&gt;One-Button Dynamic Mode&lt;/b&gt;</property>
 		      <property name="use_underline">False</property>
 		      <property name="use_markup">True</property>
@@ -4478,7 +4476,6 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 
 		  <child>
 		    <widget class="GtkRadioButton" id="pulsingmodebutton">
-		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Pulsing mode</property>
 		      <property name="use_underline">True</property>
@@ -4503,7 +4500,6 @@ cycle backwards and forwards between coordinates and right will confirm the choi
 
 		  <child>
 		    <widget class="GtkRadioButton" id="steadymodebutton">
-		      <property name="visible">True</property>
 		      <property name="can_focus">True</property>
 		      <property name="label" translatable="yes">Steady mode</property>
 		      <property name="use_underline">True</property>

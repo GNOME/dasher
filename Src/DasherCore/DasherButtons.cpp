@@ -1,6 +1,8 @@
 // DasherButtons.cpp, build a set of boxes for Button Dasher.
 // Copyright 2005, Chris Ball and David MacKay.  GPL.
 
+// Idea - should back off button always just undo the previous 'forwards' button?
+
 #include "DasherButtons.h"
 #include <valarray>
 #include <iostream>
@@ -17,8 +19,8 @@ static char THIS_FILE[] = __FILE__;
 
 // FIXME - should compass mode be made a separate class?
 
-CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, int iNumBoxes, int iStyle, bool bMenu)
-  : CInputFilter(pEventHandler, pSettingsStore) {
+CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu)
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface) {
 
   m_pBoxes = 0;
 
@@ -38,10 +40,14 @@ CDasherButtons::~CDasherButtons()
 
 void CDasherButtons::SetupBoxes()
 {
+  
+    int iDasherY(GetLongParameter(LP_MAX_Y));
+
+
   if(m_iStyle == 3) {
     // Alternating direct mode
 
-    m_pBoxes = new SBoxInfo[4];
+    m_pBoxes = new SBoxInfo[5];
 
     // Fast boxes
 
@@ -66,18 +72,26 @@ void CDasherButtons::SetupBoxes()
     m_pBoxes[3].iDisplayTop = m_pBoxes[3].iTop; 
     m_pBoxes[3].iDisplayBottom = m_pBoxes[3].iBottom;
 
-    m_iNumBoxes = 4;
+    m_iNumBoxes = 5; 
+    m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
+    m_pBoxes[m_iNumBoxes-1].iDisplayBottom = iDasherY;
+    
+    m_pBoxes[m_iNumBoxes-1].iTop = - iDasherY / 2;
+    m_pBoxes[m_iNumBoxes-1].iBottom = iDasherY * 1.5;
+
     m_iLastBox = -1;
     
   }
   else if(m_iStyle == 2) { // Compass mode
     m_pBoxes = new SBoxInfo[4];
 
+    iTargetWidth = iDasherY * 1024 / GetLongParameter(LP_RIGHTZOOM);
+
     // FIXME - need to relate these to cross-hair position as stored in the parameters
 
     // Not sure whether this is at all the right algorithm here - need to check
 
-    m_pBoxes[1].iTop = (2048 - 500) * GetLongParameter(LP_RIGHTZOOM) / (9 * 1024);
+    m_pBoxes[1].iTop = (2048 - iTargetWidth / 2);
     m_pBoxes[1].iBottom = 4096 - m_pBoxes[1].iTop;
 
     // Make this the inverse of the right zoom option
@@ -85,10 +99,10 @@ void CDasherButtons::SetupBoxes()
     m_pBoxes[0].iTop = -2048 *  m_pBoxes[1].iTop / (2048 -  m_pBoxes[1].iTop);
     m_pBoxes[0].iBottom = 4096 - m_pBoxes[0].iTop;
 
-    m_pBoxes[2].iTop = -1000;
-    m_pBoxes[2].iBottom = 3096;
-    m_pBoxes[3].iTop = 1000;
-    m_pBoxes[3].iBottom = 5096;
+    m_pBoxes[2].iTop = -iTargetWidth;
+    m_pBoxes[2].iBottom = iDasherY - iTargetWidth;
+    m_pBoxes[3].iTop = iTargetWidth;
+    m_pBoxes[3].iBottom = iDasherY + iTargetWidth;
 
     m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop; 
     m_pBoxes[0].iDisplayBottom = m_pBoxes[0].iBottom;
@@ -102,7 +116,7 @@ void CDasherButtons::SetupBoxes()
   }
   else {
 
-    if(m_iStyle == 1) 
+    if((m_iStyle == 1) || (m_iStyle == 0)) 
       m_iNumBoxes = GetLongParameter(LP_B) + 1; // One extra box for backoff
     
     if(m_pBoxes) {
@@ -111,41 +125,115 @@ void CDasherButtons::SetupBoxes()
     }
 
     m_pBoxes = new SBoxInfo[m_iNumBoxes];
-  
-    int iDasherY(GetLongParameter(LP_MAX_Y));
     int iForwardBoxes(m_iNumBoxes - 1);
 
     // Calculate the sizes of non-uniform boxes using standard
     // geometric progression results
 
     double dRatio;
-    if(m_bMenu)
-      dRatio = ((180 - GetLongParameter(LP_R))/180.0); 
-    else
-      dRatio = 1.0;
-
-    double dMaxSize;
-    if(dRatio == 1.0)
-      dMaxSize = iDasherY / static_cast<double>(iForwardBoxes);
-    else
-      dMaxSize = ((dRatio - 1)/(pow(dRatio, iForwardBoxes) - 1)) * iDasherY; 
+    double dNorm;
     
-    double dMin(0.0);
-    double dMax;
+    // FIXME - implement this using DJCM's integer method?
+    // See ~mackay/dasher/buttons/
+    dRatio = pow(129/127.0, -static_cast<double>(GetLongParameter(LP_R)));
 
-    for(int i(0); i < m_iNumBoxes - 1; ++i) { // One button reserved for backoff
-      dMax = dMin + dMaxSize * pow(dRatio, i);
+    if(m_bMenu) {
+
+      double dMaxSize;
+      if(dRatio == 1.0)
+	dMaxSize = iDasherY / static_cast<double>(iForwardBoxes);
+      else
+	dMaxSize = ((dRatio - 1)/(pow(dRatio, iForwardBoxes) - 1)) * iDasherY; 
+      
+      double dMin(0.0);
+      double dMax;
+      
+      for(int i(0); i < m_iNumBoxes - 1; ++i) { // One button reserved for backoff
+	dMax = dMin + dMaxSize * pow(dRatio, i);
 
 //       m_pBoxes[i].iDisplayTop = (i * iDasherY) / (m_iNumBoxes - 1);
 //       m_pBoxes[i].iDisplayBottom = ((i+1) * iDasherY) / (m_iNumBoxes - 1);
-
-      m_pBoxes[i].iDisplayTop = static_cast<int>(dMin);
-      m_pBoxes[i].iDisplayBottom = static_cast<int>(dMax);
 	
+	m_pBoxes[i].iDisplayTop = static_cast<int>(dMin);
+	m_pBoxes[i].iDisplayBottom = static_cast<int>(dMax);
+	
+	m_pBoxes[i].iTop = m_pBoxes[i].iDisplayTop - GetLongParameter(LP_S);
+	m_pBoxes[i].iBottom = m_pBoxes[i].iDisplayBottom + GetLongParameter(LP_S);
+	
+	dMin = dMax;
+      }
+
+    }
+    else {      
+      if(m_iNumBoxes == 2+1) { // Special case for two forwards buttons
+	dNorm = 1+dRatio;
+
+	m_pBoxes[0].iDisplayTop = 0;
+	m_pBoxes[0].iDisplayBottom = (1 / dNorm) * iDasherY;
+	
+	m_pBoxes[1].iDisplayTop = (1 / dNorm) * iDasherY;
+	m_pBoxes[1].iDisplayBottom = iDasherY;
+      }
+      else {
+	int iForwardsButtons(m_iNumBoxes - 1);
+	bool bEven(iForwardsButtons % 2 == 0);
+
+	int iGeometricTerms;
+
+	if(bEven)
+	  iGeometricTerms = iForwardsButtons / 2;
+	else
+	  iGeometricTerms = (1+iForwardsButtons) / 2;
+
+	double dMaxSize;
+
+	if(dRatio == 1.0) {
+	  dMaxSize = iDasherY / iForwardsButtons;
+	}
+	else {
+	  if(bEven)
+	    dMaxSize = iDasherY * (dRatio - 1) / (2 * (pow(dRatio, iGeometricTerms) - 1));
+	  else
+	    dMaxSize = iDasherY * (dRatio - 1) / (2 * (pow(dRatio, iGeometricTerms) - 1) - (dRatio - 1));
+	}
+
+	double dMin;
+	double dMax;
+	
+	if(bEven)
+	  dMin = iDasherY / 2;
+	else
+	  dMin = (iDasherY - dMaxSize)/2;
+
+	int iUpBase;
+	int iDownBase;
+
+	if(bEven) {
+	  iUpBase = iForwardsButtons / 2;
+	  iDownBase = iUpBase - 1;
+	}
+	else {
+	  iUpBase = (iForwardsButtons - 1)/ 2;
+	  iDownBase = iUpBase;
+	}
+	
+	for(int i(0); i < iGeometricTerms; ++i) { // One button reserved for backoff
+	  dMax = dMin + dMaxSize * pow(dRatio, i);
+	  
+	  m_pBoxes[iUpBase + i].iDisplayTop = dMin;
+	  m_pBoxes[iUpBase + i].iDisplayBottom = dMax;
+
+	  m_pBoxes[iDownBase - i].iDisplayTop = iDasherY - dMax;
+	  m_pBoxes[iDownBase - i].iDisplayBottom = iDasherY - dMin;
+
+	  dMin = dMax;
+	}
+      }
+    }
+
+    for(int i(0); i < m_iNumBoxes - 1; ++i) {
       m_pBoxes[i].iTop = m_pBoxes[i].iDisplayTop - GetLongParameter(LP_S);
       m_pBoxes[i].iBottom = m_pBoxes[i].iDisplayBottom + GetLongParameter(LP_S);
-      
-      dMin = dMax;
     }
     
     m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
@@ -162,23 +250,60 @@ void CDasherButtons::DecorateView(CDasherView *pView) {
   if(m_iStyle == 2) {
     CDasherScreen *pScreen(pView->Screen());
 
-    for(int i(-3); i <= 3; i+=2) {
+    int iPos(2048 - iTargetWidth / 2);
+
+    bool bFirst(true);
+
+    while(iPos >= 0) {
       CDasherScreen::point p[2];
 
       myint iDasherX;
       myint iDasherY;
 
       iDasherX = -100;
-      iDasherY = 2048 + 500 * i;
+      iDasherY = iPos;
 
       pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
 
       iDasherX = -1000;
-      iDasherY = 2048 + 500 * i;
+      iDasherY = iPos;
       
       pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
 
-      pScreen->Polyline(p, 2, 1, 1);
+      if(bFirst)
+	pScreen->Polyline(p, 2, 1, 1);
+      else
+	pScreen->Polyline(p, 2, 1, 2);
+
+      iDasherX = -100;
+      iDasherY = 4096 - iPos;
+
+      pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+
+      iDasherX = -1000;
+      iDasherY = 4096 - iPos;
+      
+      pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+
+      if(bFirst)
+	pScreen->Polyline(p, 2, 1, 1);
+      else
+	pScreen->Polyline(p, 2, 1, 2);
+
+      iPos -= iTargetWidth;
+      bFirst = false;
+    }
+  }
+  else if(m_iStyle == 3) {
+    if(m_iLastBox == 1) {
+      pView->NewDrawGoTo(m_pBoxes[2].iDisplayTop, m_pBoxes[2].iDisplayBottom, false);
+      pView->NewDrawGoTo(m_pBoxes[1].iDisplayTop, m_pBoxes[3].iDisplayBottom, false);
+      pView->NewDrawGoTo(m_pBoxes[4].iDisplayTop, m_pBoxes[4].iDisplayBottom, false);
+    }
+    else {
+      pView->NewDrawGoTo(m_pBoxes[0].iDisplayTop, m_pBoxes[0].iDisplayBottom, false);
+      pView->NewDrawGoTo(m_pBoxes[3].iDisplayTop, m_pBoxes[1].iDisplayBottom, false);
+      pView->NewDrawGoTo(m_pBoxes[4].iDisplayTop, m_pBoxes[4].iDisplayBottom, false);
     }
   }
   else {
@@ -222,6 +347,9 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
 	else
 	  pModel->ScheduleZoom((m_pBoxes[1].iBottom - m_pBoxes[1].iTop)/2, (m_pBoxes[1].iBottom + m_pBoxes[1].iTop)/2);
 	m_iLastBox = 2;
+	break;
+      case 3:
+	pModel->ScheduleZoom((m_pBoxes[4].iBottom - m_pBoxes[4].iTop)/2, (m_pBoxes[4].iBottom + m_pBoxes[4].iTop)/2);
 	break;
       }
     }

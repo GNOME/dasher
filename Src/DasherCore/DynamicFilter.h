@@ -5,7 +5,7 @@
 
 class CDynamicFilter : public CInputFilter {
  public:
-  CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore);
+  CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
   ~CDynamicFilter();
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);

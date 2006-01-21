@@ -1023,19 +1023,19 @@ void CDasherInterfaceBase::CreateInputFilter()
   else if(GetStringParameter(SP_INPUT_FILTER) == "Click Mode")
     m_pDasherButtons = NULL;
   else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Static")
-    m_pDasherButtons = new COneButtonFilter(m_pEventHandler, m_pSettingsStore);
+    m_pDasherButtons = new COneButtonFilter(m_pEventHandler, m_pSettingsStore, this);
   else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Dynamic")
-    m_pDasherButtons = new CDynamicFilter(m_pEventHandler, m_pSettingsStore);
+    m_pDasherButtons = new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Button Menu")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 5, 1, true);
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Three Button Direct")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 3, 0, false);
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Four Button Direct")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 4, 0, false);
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Alternating Direct")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 3, 3, false);
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Compass Mode")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, 4, 2, false);
+    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Default")
     m_pDasherButtons = NULL;
 }

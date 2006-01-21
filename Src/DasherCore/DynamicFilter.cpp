@@ -1,8 +1,9 @@
 #include "DynamicFilter.h"
+#include "DasherInterfaceBase.h"
 #include "Event.h"
 
-CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore)
-  : CInputFilter(pEventHandler, pSettingsStore) {
+CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface) {
   m_iTarget = 0;
 
   m_iTargetX = new int[2];
@@ -81,9 +82,16 @@ void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
 
 void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
   if(iId == 1) {
-    m_iTarget = 1 - m_iTarget;
-    bStarted = true;
-    m_iKeyTime = iTime;
+
+    if(GetBoolParameter(BP_DASHER_PAUSED)) {
+      m_pInterface->Unpause(iTime);
+      m_iKeyTime = iTime;
+    }
+    else {
+      m_iTarget = 1 - m_iTarget;
+      bStarted = true;
+      m_iKeyTime = iTime;
+    }
   }
   else if(iId == 2) {
     bBackOff = true;

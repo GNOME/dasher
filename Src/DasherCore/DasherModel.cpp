@@ -693,7 +693,8 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
     double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
 
     double alpha = 2 * (2 * s);
-    int alternateSteps = int(alpha * distance);
+    int alternateSteps = int(alpha * abs(distance));
+
     // Take log of iRxnew to base ( STEPDENOM / STEPNUM ):
     if ( STEPDENOM > m_Stepnum && m_Stepnum > 0 ) { // check that the following loop will terminate.
       //cout << "iRxnew is " << iRxnew << " and ZOOMDENOM is" << ZOOMDENOM << endl;
@@ -709,6 +710,7 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
         }
       }
     }
+
     // Done taking log of iRxnew. 
     if (alternateSteps > *iSteps) {
       *iSteps = alternateSteps;
