@@ -37,8 +37,13 @@
 #include "../Common/Types/int32.h"
 #include "../Common/Types/int64.h"
 #include <string>
+#include <vector>
 
 // Definition for hash_map, platform dependent, not part of STL
+
+// Commented out by pjc - I don't think we use this any more
+// - Okay - maybe we do need this after all
+
 #ifdef DASHER_WIN32
 #include <hash_map>
 #define HASH_MAP stdext::hash_map

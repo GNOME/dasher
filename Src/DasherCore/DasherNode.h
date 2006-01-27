@@ -13,7 +13,7 @@
 #include "Alphabet/GroupInfo.h"
 
 #include <deque>
-#include <iostream>
+//#include <iostream>
 
 // CDasherNode represents a rectangle and character 
 

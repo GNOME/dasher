@@ -27,8 +27,9 @@ CButtonPrefs::CButtonPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSet
   // FIXME - is hParent still needed here?
 
    m_pButtonTypePage = new CButtonTypePage(hParent, pDasher, pAppSettings);
+   m_pButtonSettingsPage = new CButtonSettingsPage(hParent, pDasher, pAppSettings);
 
-    PROPSHEETPAGE psp[1];
+    PROPSHEETPAGE psp[2];
     PROPSHEETHEADER psh;
 
     psp[0].dwSize = sizeof(PROPSHEETPAGE);
@@ -37,17 +38,26 @@ CButtonPrefs::CButtonPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSet
     psp[0].pszTemplate = MAKEINTRESOURCE(IDD_BUTTON_PREFS);
     psp[0].pszIcon = NULL;
     psp[0].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[0].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ALPHABET);
+    psp[0].pszTitle =  MAKEINTRESOURCE(IDS_BUTTON_PREFS_TITLE);
     psp[0].lParam = (LPARAM) m_pButtonTypePage;
     psp[0].pfnCallback = NULL;
 
+    psp[1].dwSize = sizeof(PROPSHEETPAGE);
+    psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[1].hInstance = WinHelper::hInstApp;
+    psp[1].pszTemplate = MAKEINTRESOURCE(IDD_BUTTON_SETTINGS);
+    psp[1].pszIcon = NULL;
+    psp[1].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+    psp[1].pszTitle =  MAKEINTRESOURCE(IDS_BUTTON_SETTINGS_TITLE);
+    psp[1].lParam = (LPARAM) m_pButtonSettingsPage;
+    psp[1].pfnCallback = NULL;
     
     psh.dwSize = sizeof(PROPSHEETHEADER);
     psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
     psh.hwndParent = hParent;
     psh.hInstance = WinHelper::hInstApp;
     psh.pszIcon = NULL;
-    psh.pszCaption =  MAKEINTRESOURCE(IDS_PREFS_TITLE);
+    psh.pszCaption =  MAKEINTRESOURCE(IDS_BUTTON_PREFS_DIALOGUE_TITLE);
     psh.nPages = sizeof(psp) /
        sizeof(PROPSHEETPAGE);
     psh.nStartPage = 0;

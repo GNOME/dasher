@@ -113,7 +113,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
 	pNewNode->SetRange(iLbnd, cum[j]);
       }
       else {
-	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(j));
+	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(newchars[j]));
 	pNewNode->m_pNodeManager = this;
 	pNewNode->m_bShove = true;
 	pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;

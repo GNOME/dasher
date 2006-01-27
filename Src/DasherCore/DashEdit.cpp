@@ -14,7 +14,7 @@ void CDashEditbox::SetInterface(CDasherInterfaceBase * DasherInterface) {
 
 void CDashEditbox::HandleEvent(CEvent * pEvent) {
   if(pEvent->m_iEventType == 2) {
-    Dasher::CEditEvent * pEvt(static_cast < Dasher::CEditEvent * >(pEvent));
+    Dasher::CEditEvent * pEvt(static_cast< Dasher::CEditEvent * >(pEvent));
 
     switch (pEvt->m_iEditType) {
     case 1:

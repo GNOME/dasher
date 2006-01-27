@@ -29,6 +29,8 @@ Control is passed to the main GUI loop, and only returns when the main window cl
 int APIENTRY WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow) {
 
 
+CoInitialize(NULL);
+
   // String literals in this function are not in the resource file as they
   // must NOT be translated.
 

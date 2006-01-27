@@ -6,8 +6,11 @@
 #define IDD_DASHER_DIALOG               102
 #define IDS_APP_TITLE                   103
 #define IDD_DIALOG2                     104
+#define IDS_BUTTON_PREFS_TITLE          104
 #define IDD_ABOUTBOX                    105
+#define IDS_BUTTON_PREFS_DIALOGUE_TITLE 105
 #define IDM_ABOUT                       106
+#define IDS_BUTTON_SETTINGS_TITLE       106
 #define IDS_FILE_SAVE                   107
 #define IDM_EXIT                        108
 #define IDS_FILE_OPEN                   109
@@ -93,6 +96,7 @@
 #define IDD_SOCKET                      174
 #define IDD_LM                          175
 #define IDD_BUTTON_PREFS                176
+#define IDD_BUTTON_SETTINGS             177
 #define IDC_LIST1                       1008
 #define IDC_LIST_ALPH                   1009
 #define IDC_ALPHABETS                   1010
@@ -194,6 +198,8 @@
 #define IDC_COLOURS                     1099
 #define IDC_SLIDER1                     1100
 #define IDC_UNIFORMSLIDER               1100
+#define IDC_ZOOMESTEPS_SLIDER           1100
+#define IDC_RIGHTZOOM_SLIDER            1100
 #define IDC_MOUSEPOSDIST                1101
 #define IDC_PARAGRAPH                   1102
 #define IDC_CONTROLCHAR                 1103
@@ -225,13 +231,16 @@
 #define IDC_CLICKMODE                   1128
 #define IDC_BUTTONMODE                  1129
 #define IDC_SOCKET_DEBUG                1130
-#define IDC_RADIO6                      1131
 #define IDC_COMPASS                     1131
 #define IDC_ONE_DYNAMIC                 1132
 #define IDC_MENU                        1133
 #define IDC_THREE_DIRECT                1134
-#define IDC_FOUR_DIRECT                 1135
 #define IDC_ALTERNATING_DIRECT          1136
+#define IDC_ZOOMSTEPS_LABEL             1137
+#define IDC_NOBOXES_SLIDER              1140
+#define IDC_SAFETY_SLIDER               1141
+#define IDC_NONUNIFORM_SLIDER           1142
+#define IDC_HOTKEY1                     1143
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -283,9 +292,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        177
+#define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1137
+#define _APS_NEXT_CONTROL_VALUE         1144
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

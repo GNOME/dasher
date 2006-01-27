@@ -29,6 +29,8 @@ private:
   void PopulateList();
   bool Apply();
   bool Validate();
+
+  HWND m_hSlider;
 };
 
 #endif  // ndef

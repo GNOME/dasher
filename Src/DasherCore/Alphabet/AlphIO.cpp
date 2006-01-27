@@ -512,7 +512,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.Groups.push_back(NewGroup);
     
     SGroupInfo *pNewGroup(new SGroupInfo);
-    pNewGroup->iColour == 0;
+    pNewGroup->iColour = 0;
     pNewGroup->bVisible = false;
 
     while(*atts != 0) {
@@ -627,7 +627,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     // FIXME - need to do a more sensible job of ensuring that
     // defaults are correct (plus more generally fixing behaviour when
     // incomplete/invalid XML is supplied)
-    Ch.Colour=10;
+    Ch.Colour=-1;
 
     while(*atts != 0) {
       if(strcmp(*atts, "t") == 0) {

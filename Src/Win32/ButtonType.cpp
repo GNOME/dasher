@@ -33,7 +33,6 @@ static menuentry menutable[] = {
   {BP_BUTTONONEDYNAMIC, IDC_ONE_DYNAMIC},
   {BP_BUTTONMENU, IDC_MENU},
   {BP_BUTTONDIRECT, IDC_THREE_DIRECT},
-  {BP_BUTTONFOURDIRECT, IDC_FOUR_DIRECT},
   {BP_BUTTONALTERNATINGDIRECT, IDC_ALTERNATING_DIRECT},
   {BP_COMPASSMODE, IDC_COMPASS}
 };
@@ -41,6 +40,12 @@ static menuentry menutable[] = {
 void CButtonTypePage::PopulateList() {
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasher
+
+  m_hSlider = GetDlgItem(m_hwnd, IDC_UNIFORMSLIDER);
+  SendMessage(m_hSlider, TBM_SETPAGESIZE, 0L, 10); // PgUp and PgDown change bitrate by reasonable amount
+  SendMessage(m_hSlider, TBM_SETRANGE, FALSE, (LPARAM) MAKELONG(0, 63));
+
+  SendMessage(m_hSlider, TBM_SETPOS, TRUE, (LPARAM) m_pAppSettings->GetLongParameter(LP_ZOOMSTEPS));
 
 
   // all the button checkboxes
@@ -55,6 +60,8 @@ void CButtonTypePage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
   }
+
+
 }
 
 bool CButtonTypePage::Validate() {
@@ -69,6 +76,10 @@ bool CButtonTypePage::Apply()
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
   }
+
+  double NewZoomSteps;
+  NewZoomSteps = SendMessage(m_hSlider, TBM_GETPOS, 0, 0);
+  m_pAppSettings->SetLongParameter( LP_ZOOMSTEPS, static_cast<int>(NewZoomSteps));
 
 	// Return false (and notify the user) if something is wrong.
 	return TRUE;

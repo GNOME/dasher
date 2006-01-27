@@ -409,37 +409,37 @@ BEGIN
                     IDC_STATIC,7,7,113,28
 END
 
-IDD_PREFS DIALOGEX 0, 0, 219, 226
+IDD_PREFS DIALOGEX 0, 0, 219, 238
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
 CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Control Style",IDC_STATIC,7,7,205,49
-    GROUPBOX        "Start And Stop",IDC_CONTROL,7,101,205,114
+    GROUPBOX        "Control Style",IDC_STATIC,7,7,205,55
+    GROUPBOX        "Start And Stop",IDC_CONTROL,7,108,205,114
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,114,147,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,119,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,126,126,8
+                    WS_TABSTOP,14,132,126,8
     CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,174,144,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,180,144,8
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,162,84,8
+                    WS_TABSTOP,14,167,84,8
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,149,67,10
-    GROUPBOX        "Speed",IDC_STATIC,7,58,205,42
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,154,67,10
+    GROUPBOX        "Speed",IDC_STATIC,7,63,205,42
     CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,69,101,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,74,101,8
     CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,138,136,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,143,136,8
     CONTROL         "",IDC_SPEEDSLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,44,82,160,12
-    EDITTEXT        IDC_SPEEDVAL,14,82,30,12,ES_AUTOHSCROLL | ES_READONLY
+                    TBS_NOTICKS | WS_TABSTOP,44,87,160,12
+    EDITTEXT        IDC_SPEEDVAL,14,87,30,12,ES_AUTOHSCROLL | ES_READONLY
     CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,186,124,10
-    EDITTEXT        IDC_IDLETIME,26,199,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_TABSTOP,14,191,124,10
+    EDITTEXT        IDC_IDLETIME,26,204,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
                     WS_DISABLED
-    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,201,76,
+    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,207,76,
                     8,WS_DISABLED
     CONTROL         "Ordinary control",IDC_ORDINARY,"Button",
                     BS_AUTORADIOBUTTON,14,18,68,10
@@ -451,7 +451,7 @@ BEGIN
                     WS_DISABLED,115,18,49,10
     CONTROL         "Button mode",IDC_BUTTONMODE,"Button",BS_AUTORADIOBUTTON,
                     115,30,57,10
-    PUSHBUTTON      "Button1",IDC_BUTTON_PREFS,112,40,50,14
+    PUSHBUTTON      "Button Mode Settings",IDC_BUTTON_PREFS,115,42,87,14
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
@@ -577,19 +577,42 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Button Mode Style",IDC_STATIC,7,7,204,85
+    GROUPBOX        "Button Mode Style",IDC_STATIC,7,7,204,73
     CONTROL         "One-button dynamic mode",IDC_ONE_DYNAMIC,"Button",
                     BS_AUTORADIOBUTTON,14,18,101,10
     CONTROL         "Static menu mode",IDC_MENU,"Button",BS_AUTORADIOBUTTON,
                     14,30,73,10
-    CONTROL         "Three-button direct mode",IDC_THREE_DIRECT,"Button",
-                    BS_AUTORADIOBUTTON,14,42,98,10
-    CONTROL         "Four-button direct mode",IDC_FOUR_DIRECT,"Button",
-                    BS_AUTORADIOBUTTON,14,54,94,10
+    CONTROL         "Direct mode",IDC_THREE_DIRECT,"Button",
+                    BS_AUTORADIOBUTTON,14,42,54,10
     CONTROL         "Alternating direct mode",IDC_ALTERNATING_DIRECT,"Button",
-                    BS_AUTORADIOBUTTON,14,66,91,10
+                    BS_AUTORADIOBUTTON,14,54,91,10
     CONTROL         "Compass mode",IDC_COMPASS,"Button",BS_AUTORADIOBUTTON,
-                    14,78,64,10
+                    14,66,64,10
+    GROUPBOX        "Zoom Steps",IDC_ZOOMSTEPS_LABEL,7,82,204,32
+    CONTROL         "",IDC_ZOOMESTEPS_SLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,14,93,190,15
+END
+
+IDD_BUTTON_SETTINGS DIALOGEX 0, 0, 218, 238
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    GROUPBOX        "Compass Mode",IDC_STATIC,7,7,204,32
+    GROUPBOX        "Direct Mode And Menu Mode",IDC_STATIC,7,41,204,69
+    CONTROL         "",IDC_RIGHTZOOM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,83,18,120,15
+    CONTROL         "",IDC_NOBOXES_SLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,82,52,120,15
+    CONTROL         "",IDC_SAFETY_SLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,82,71,120,15
+    CONTROL         "",IDC_NONUNIFORM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,82,90,120,15
+    LTEXT           "Right zoom:",IDC_STATIC,14,21,39,8
+    LTEXT           "Number of boxes:",IDC_STATIC,14,55,58,8
+    LTEXT           "Safety margin:",IDC_STATIC,14,74,48,8
+    LTEXT           "Box non-uniformity:",IDC_STATIC,14,93,64,8
 END
 
 
@@ -700,7 +723,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 212
         TOPMARGIN, 7
-        BOTTOMMARGIN, 215
+        BOTTOMMARGIN, 226
     END
 
     IDD_COLOUR, DIALOG
@@ -750,6 +773,14 @@ BEGIN
     END
 
     IDD_BUTTON_PREFS, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 211
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 231
+    END
+
+    IDD_BUTTON_SETTINGS, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 211
@@ -815,6 +846,9 @@ IDC_SEARCH_CURSOR       CURSOR                  "searchw.cur"
 STRINGTABLE 
 BEGIN
     IDS_APP_TITLE           "Dasher"
+    IDS_BUTTON_PREFS_TITLE  "General"
+    IDS_BUTTON_PREFS_DIALOGUE_TITLE "Button Mode Preferences"
+    IDS_BUTTON_SETTINGS_TITLE "Button Setup"
     IDS_FILE_SAVE           "Save"
     IDS_FILE_OPEN           "Open"
     IDS_FILE_NEW            "New"
