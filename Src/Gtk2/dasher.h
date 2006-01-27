@@ -101,6 +101,7 @@ extern gboolean file_modified;
 extern GtkWidget *pDasherWidget;
 
 extern GtkWidget *window;
+extern GtkWidget *g_pHiddenWindow;
 
 extern bool controlmodeon;
 extern bool keyboardmodeon;
@@ -121,6 +122,8 @@ struct button {
 
 void update_colours();
 void update_alphabets();
+void SetupWMHints();
+GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data);
 
 extern gboolean timestamp;
 

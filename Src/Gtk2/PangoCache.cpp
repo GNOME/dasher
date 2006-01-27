@@ -14,7 +14,11 @@ void CPangoCache::ChangeFont(const std::string &strFontName) {
   oPangoCache.clear();
 }
 
+#if WITH_CAIRO
+PangoLayout *CPangoCache::GetLayout(cairo_t *cr, std::string sDisplayText, int iSize) {
+#else
 PangoLayout *CPangoCache::GetLayout(GtkWidget *pCanvas, std::string sDisplayText, int iSize) {
+#endif
 
   // Calculate the name of the pango layout in the cache - this
   // includes the display text and the size.
@@ -36,7 +40,12 @@ PangoLayout *CPangoCache::GetLayout(GtkWidget *pCanvas, std::string sDisplayText
   if(it != oPangoCache.end())
     return it->second;
   else {
+
+#if WITH_CAIRO
+    PangoLayout *pNewPangoLayout(pango_cairo_create_layout(cr));
+#else
     PangoLayout *pNewPangoLayout(gtk_widget_create_pango_layout(pCanvas, ""));
+#endif
 
     pango_font_description_set_size(font, iSize * PANGO_SCALE);
     pango_layout_set_font_description(pNewPangoLayout, font);

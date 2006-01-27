@@ -1,3 +1,4 @@
+#include "Output.h"
 #include "edit.h"
 #include "dasher.h"
 #include "accessibility.h"
@@ -315,54 +316,56 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
   g_bIgnoreCursorMove = false;
 
-  if(keyboardmodeon) {
+  //  if(keyboardmodeon) {
 #if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
     // FIXME
     // We should really check this at runtime rather than compile time
     // Ought to be possible by doing keysym_to_string on a Unicode keysym
     // and seeing if we get anything back
-    Display *dpy = gdk_x11_get_default_xdisplay();
-    int min, max;
-    KeySym *keysym;
-    KeyCode code;
-    glong numoutput;
+//     Display *dpy = gdk_x11_get_default_xdisplay();
+//     int min, max;
+//     KeySym *keysym;
+//     KeyCode code;
+//     glong numoutput;
 
-    if(label[0] == '\n') {
-      // If it's a nreline, we want to mimic an enter press rather than a raw newline
-      code = XKeysymToKeycode(dpy, XK_Return);
-      if(code != 0) {
-        XTestFakeKeyEvent(dpy, code, True, CurrentTime);
-        XSync(dpy, true);
-        XTestFakeKeyEvent(dpy, code, False, CurrentTime);
-        XSync(dpy, true);
-      }
-    }
-    else {
-      wideoutput = g_utf8_to_ucs4(label.c_str(), -1, NULL, &numoutput, NULL);
-      for(int i = 0; i < numoutput; i++) {
-        modifiedkey = (modifiedkey + 1) % 10;
-        // This gives us the magic X keysym
-        wideoutput[i] = wideoutput[i] | 0x01000000;
+//     if(label[0] == '\n') {
+//       // If it's a nreline, we want to mimic an enter press rather than a raw newline
+//       code = XKeysymToKeycode(dpy, XK_Return);
+//       if(code != 0) {
+//         XTestFakeKeyEvent(dpy, code, True, CurrentTime);
+//         XSync(dpy, true);
+//         XTestFakeKeyEvent(dpy, code, False, CurrentTime);
+//         XSync(dpy, true);
+//       }
+//     }
+//     else {
+//       wideoutput = g_utf8_to_ucs4(label.c_str(), -1, NULL, &numoutput, NULL);
+//       for(int i = 0; i < numoutput; i++) {
+//         modifiedkey = (modifiedkey + 1) % 10;
+//         // This gives us the magic X keysym
+//         wideoutput[i] = wideoutput[i] | 0x01000000;
 
-        XDisplayKeycodes(dpy, &min, &max);
-        keysym = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
-        keysym[(max - min - modifiedkey - 1) * numcodes] = wideoutput[i];
-        XChangeKeyboardMapping(dpy, min, numcodes, keysym, (max - min));
-        XSync(dpy, true);
-        XFree(keysym);
-        // There's no way whatsoever that this could ever possibly
-        // be guaranteed to work (ever), but it does.
-        code = (max - modifiedkey - 1);
-        if(code != 0) {
-          XTestFakeKeyEvent(dpy, code, True, CurrentTime);
-          XSync(dpy, true);
-          XTestFakeKeyEvent(dpy, code, False, CurrentTime);
-          XSync(dpy, true);
-        }
-      }
-      XSync(dpy, true);
-      g_free(wideoutput);
-    }
+//         XDisplayKeycodes(dpy, &min, &max);
+//         keysym = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes); 
+//         keysym[(max - min - modifiedkey - 1) * numcodes] = wideoutput[i];
+//         XChangeKeyboardMapping(dpy, min, numcodes, keysym, (max - min));
+//         XSync(dpy, true);
+//         XFree(keysym);
+//         // There's no way whatsoever that this could ever possibly
+//         // be guaranteed to work (ever), but it does.
+//         code = (max - modifiedkey - 1);
+//         if(code != 0) {
+//           XTestFakeKeyEvent(dpy, code, True, CurrentTime);
+//           XSync(dpy, true);
+//           XTestFakeKeyEvent(dpy, code, False, CurrentTime);
+//           XSync(dpy, true);
+//         }
+//       }
+//       XSync(dpy, true);
+//       g_free(wideoutput);
+//     }
+
+//  SendText(label.c_str());
 #else
 #ifdef GNOME_A11Y
     // This would be the preferred way of doing it, but there's currently
@@ -371,7 +374,7 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
     SPI_generateKeyboardEvent(0, (char *)label.c_str(), SPI_KEY_STRING);
 #endif
 #endif
-  }
+    //}
   outputcharacters++;
 }
 

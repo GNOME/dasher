@@ -18,6 +18,7 @@
 #include <time.h>
 #include <dirent.h>
 #include <X11/Xlib.h>
+#include "Output.h"
 
 // C++ STL headers (ideally minimise the use of C++ outside of the control)
 
@@ -81,6 +82,7 @@ GtkWidget *save_and_quit_filesel;
 GtkWidget *import_filesel;
 GtkWidget *append_filesel;
 GtkWidget *window;
+GtkWidget *g_pHiddenWindow;
 GtkWidget *file_selector;
 GtkWidget *pDasherWidget = NULL;
 
@@ -150,7 +152,7 @@ extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint i
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data);
 extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
-
+void SetupPositioning();
 ///
 /// Initialise the main window and child components 
 /// This is actually closer to 'initialise application', so name
@@ -172,6 +174,14 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
   toolbar = glade_xml_get_widget(pGladeXML, "toolbar");
   window = glade_xml_get_widget(pGladeXML, "window");
+  g_pHiddenWindow = glade_xml_get_widget(pGladeXML, "HiddenWindow");
+
+#ifdef PJC_EXPERIMENTAL
+  gtk_window_set_keep_above(GTK_WINDOW(window), true);
+  gtk_window_set_keep_above(GTK_WINDOW(g_pHiddenWindow), true);
+#endif  
+ 
+
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
   vpane = glade_xml_get_widget(pGladeXML, "vpaned1");
   dasher_menu_bar = glade_xml_get_widget(pGladeXML, "dasher_menu_bar");
@@ -240,6 +250,9 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
 
   LoadWindowState();
+#ifdef PJC_EXPERIMENTAL
+  SetupPositioning();
+#endif
 
 #ifdef WITH_GPE
   // We always want this on in the GPE version, otherwise it's entirely useless
@@ -268,6 +281,48 @@ void InitialiseAppParameters() {
 void interface_cleanup() {
   cleanup_edit();
   delete_app_settings();
+}
+
+
+void SetupWMHints() {
+  XWMHints wm_hints;
+  Atom wm_window_protocols[3];
+
+  wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
+  wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
+  wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+
+  wm_hints.flags = InputHint;
+  wm_hints.input = False;
+
+#ifndef WITH_MAEMO
+  XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
+  XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
+  gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+
+  XSetWMHints(GDK_WINDOW_XDISPLAY(g_pHiddenWindow->window), GDK_WINDOW_XWINDOW(g_pHiddenWindow->window), &wm_hints);
+  XSetWMProtocols(GDK_WINDOW_XDISPLAY(g_pHiddenWindow->window), GDK_WINDOW_XWINDOW(g_pHiddenWindow->window), wm_window_protocols, 3);
+  gdk_window_add_filter(g_pHiddenWindow->window, dasher_discard_take_focus_filter, NULL);
+#endif
+
+  gtk_window_set_keep_above(GTK_WINDOW(window), true);
+  gtk_window_set_keep_above(GTK_WINDOW(g_pHiddenWindow), true);
+}
+
+void SetupPositioning() {
+
+  // FIXME - what does gravity actually achieve here?
+
+  gint iWidth;
+  gint iHeight;
+
+  gtk_window_get_size(GTK_WINDOW(window), &iWidth, &iHeight);
+  gtk_window_set_gravity(GTK_WINDOW(window), GDK_GRAVITY_SOUTH_EAST);
+  gtk_window_move(GTK_WINDOW(window), gdk_screen_width() - iWidth - 32,  gdk_screen_height() - iHeight - 32);
+
+  gtk_window_get_size(GTK_WINDOW(g_pHiddenWindow), &iWidth, &iHeight);
+  gtk_window_set_gravity(GTK_WINDOW(g_pHiddenWindow), GDK_GRAVITY_SOUTH_EAST);
+  gtk_window_move(GTK_WINDOW(g_pHiddenWindow), gdk_screen_width() - iWidth - 32,  gdk_screen_height() - iHeight - 32);
 }
 
 ///
@@ -478,6 +533,10 @@ extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer dat
 
   if(get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP))
     gtk2_clipboard_callback(CLIPBOARD_COPYALL);
+
+  // Send the text to an external application
+
+  //  SendText(get_new_text());
 }
 
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) {
@@ -512,6 +571,38 @@ extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer
 
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data) {
   preferences_display(0,0);
+}
+
+extern "C" void RestoreButton_Clicked(GtkWidget *widget, gpointer user_data) {
+#ifdef PJC_EXPERIMENTAL
+  gtk_widget_show(window);
+  gtk_widget_hide(g_pHiddenWindow);
+  SetupPositioning();
+  SetupWMHints();
+#endif
+}
+
+extern "C" void DoneButton_Clicked(GtkWidget *widget, gpointer user_data) {
+#ifdef PJC_EXPERIMENTAL
+  SendText(get_all_text());
+  clear_edit();
+  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
+  gtk_widget_show(g_pHiddenWindow);
+  gtk_widget_hide(window);
+  SetupPositioning();
+  SetupWMHints();
+#endif
+}
+
+extern "C" void CancelButton_Clicked(GtkWidget *widget, gpointer user_data) {  
+#ifdef PJC_EXPERIMENTAL
+  clear_edit();
+  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
+  gtk_widget_show(g_pHiddenWindow);
+  gtk_widget_hide(window);
+  SetupPositioning();
+  SetupWMHints();
+#endif
 }
 
 // -------------

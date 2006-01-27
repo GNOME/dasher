@@ -86,7 +86,10 @@ extern int oldx, oldy;
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
 
-  if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False)) && keyboardmodeon == true) {
+  //  if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False)) && keyboardmodeon == true) {
+
+if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False))) {
+
     return GDK_FILTER_REMOVE;
   }
   else {
@@ -102,8 +105,7 @@ int main(int argc, char *argv[]) {
 #endif
 
   int c;
-  XWMHints wm_hints;
-  Atom wm_window_protocols[3];
+
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -269,18 +271,8 @@ int main(int argc, char *argv[]) {
 #endif
 
   setup = TRUE;
-
-  wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
-  wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
-  wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
-
-  wm_hints.flags = InputHint;
-  wm_hints.input = False;
-
-#ifndef WITH_MAEMO
-  XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
-  XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
-  gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+#ifdef PJC_EXPERIMENTAL
+  SetupWMHints();
 #endif
 
 #ifdef GNOME_SPEECH

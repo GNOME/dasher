@@ -10,6 +10,8 @@
 
 #include "AlphIO.h"
 
+#include <iostream>
+
 using namespace Dasher;
 using namespace std;
 using namespace expat;
