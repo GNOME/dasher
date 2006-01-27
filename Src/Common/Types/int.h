@@ -33,8 +33,10 @@ typedef unsigned long long int uint64;
 typedef int int32;
 typedef unsigned int uint32;
 
+#ifndef LLONG_MAX
 #define LLONG_MAX 9223372036854775807LL
 #define LLONG_MIN (-LLONG_MAX - 1LL)
+#endif
 
 #endif
 

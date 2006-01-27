@@ -1,9 +1,13 @@
 2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
+	* Src/Common/Types/int.h: Do not redefine LLONG_*. (bug #313116)
+
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
 	* Src/Gtk2/Makefile.am: Remove Output.h and Output.cpp which are
 	removed from source code.
 
-	* Src/Makefile.am (dasher_LDADD): Include libdashermisc.a (#bug 317638) 
+	* Src/Makefile.am (dasher_LDADD): Include libdashermisc.a (bug #317638) 
 
 2006-01-27  Phil Cowans  <pjc51@cam.ac.uk>
 
