@@ -38,8 +38,6 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          GtkDasherControl.h \
                          Menu.cc \
                          Menu.h \
-                         Output.cpp \
-                         Output.h \
                          PangoCache.cpp \
                          PangoCache.h \
                          Preferences.cpp \

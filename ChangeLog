@@ -1,4 +1,12 @@
-2006-01-27  Phil Cowans <pjc51@cam.ac.uk>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* Src/Gtk2/Makefile.am: Remove Output.h and Output.cpp which are
+	removed from source code.
+
+	* Src/Makefile.am (dasher_LDADD): Include libdashermisc.a (#bug 317638) 
+
+2006-01-27  Phil Cowans  <pjc51@cam.ac.uk>
+
 	* Porting cairo support from gnome-2-12 to head. I've got most of
 	Canvas.cpp/h working, although it isn't the most beautiful code in
 	the world yet. Have also added the --with-cairo flag to
