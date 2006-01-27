@@ -11,6 +11,71 @@
 
 #include <iostream>
 
+#if WITH_CAIRO
+
+/* Cairo drawing backend */
+#include <gdk/gdkcairo.h>
+
+typedef struct {
+  double r, g, b;
+} my_cairo_colour_t;
+
+// FIXME - reimplement
+/* cairo_t *display_cr; */
+/* cairo_t *decoration_cr; */
+/* cairo_t *cr; */
+
+/* my_cairo_colour_t *cairo_colours = NULL; */
+
+#define BEGIN_DRAWING_BACKEND				\
+  cairo_save(cr)
+
+#define END_DRAWING_BACKEND				\
+  cairo_restore(cr)
+
+#define SET_COLOR_BACKEND(c)				\
+  do {							\
+    my_cairo_colour_t _c = cairo_colours[(c)];		\
+    cairo_set_source_rgb(cr, _c.r, _c.g, _c.b);	\
+  } while (0)
+
+#else /* WITHOUT_CAIRO */
+
+/* Gdk drawing backend */
+
+
+// FIXME - reimplement
+/* GdkColormap *colormap; */
+/* GdkGC *gc; */
+/* GdkColor *colours = NULL; */
+
+#define BEGIN_DRAWING_BACKEND				\
+  GdkGCValues origvalues;				\
+  gdk_gc_get_values(graphics_context,&origvalues)
+
+#define END_DRAWING_BACKEND				\
+  gdk_gc_set_values(graphics_context,&origvalues,GDK_GC_FOREGROUND)
+
+#define SET_COLOR_BACKEND(c)				\
+  do {							\
+    GdkColor _c = colours[(c)];				\
+    gdk_colormap_alloc_color(colormap, &_c, FALSE, TRUE);	\
+    gdk_gc_set_foreground (graphics_context, &_c);	\
+  } while (0)
+
+#endif /* WITH_CAIRO */
+
+// Some other useful macros (for all backends)
+
+#define BEGIN_DRAWING					\
+  BEGIN_DRAWING_BACKEND
+
+#define END_DRAWING					\
+  END_DRAWING_BACKEND
+
+#define SET_COLOR(c)					\
+  SET_COLOR_BACKEND(c)
+
 using namespace Dasher;
 
 /// CCanvas
@@ -240,6 +305,14 @@ private:
   ///
 
   gulong lSignalHandler;
+
+#if WITH_CAIRO
+  cairo_t *display_cr;
+  cairo_t *decoration_cr;
+  cairo_t *cr;
+  my_cairo_colour_t *cairo_colours;
+#endif  
+
 };
 
 #endif

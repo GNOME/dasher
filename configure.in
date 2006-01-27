@@ -90,6 +90,16 @@ AC_ARG_WITH([maemo],
         fi,
 	WITHMAEMO=false)
 
+AC_ARG_WITH([cairo],
+	 AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
+	 if test $withval = "no"; then
+	   WITHCAIRO=false; 
+	 else
+	   WITHCAIRO=true;
+         fi, 
+	 WITHCAIRO=true)
+
+
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
@@ -180,6 +190,11 @@ if [[ x"$WITHMAEMO" = xtrue ]]; then
       glade_LIBS="/usr/lib/libglade-2.0.a"
       PKG_CHECK_MODULES(hildon, hildon-libs)
 fi			
+
+if [[ x"$WITHCAIRO" = xtrue ]]; then
+	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.6.0)
+	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.7.0)])
+fi
 
 if [[ x"$BUILDGTK2" = xtrue ]]; then 
 	PKG_CHECK_MODULES(glade, libglade-2.0)

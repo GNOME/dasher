@@ -9,6 +9,9 @@ extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gp
 
 CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   : CDasherScreen(pCanvas->allocation.width, pCanvas->allocation.height) {
+
+  cairo_colours = 0;
+  colours = 0;
   
   m_pCanvas = pCanvas;
   m_pPangoCache = pPangoCache;
@@ -17,6 +20,7 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   m_iHeight = m_pCanvas->allocation.height;
 
   // Construct the buffer pixmaps
+  // FIXME - only allocate without cairo
 
   m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
@@ -27,6 +31,23 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   // Set the display buffer to be current
 
   m_pOffscreenBuffer = m_pDisplayBuffer;
+
+
+#if WITH_CAIRO
+  // The lines between origin and pointer is draw here
+  decoration_cr = gdk_cairo_create(m_pDecorationBuffer);
+  cr = decoration_cr;
+//  cairo_translate(cr, -0.5, -0.5);
+  cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
+  cairo_set_line_width(cr, 1.0);
+
+  // Base stuff are drawn here
+  display_cr = gdk_cairo_create(m_pDisplayBuffer);
+  cr = display_cr;
+//  cairo_translate(cr, -0.5, -0.5);
+  cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
+  cairo_set_line_width(cr, 1.0);
+#endif
 
   m_pPangoInk = new PangoRectangle;
 
@@ -42,6 +63,12 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
 CCanvas::~CCanvas() {
   // Free the buffer pixmaps
 
+#if WITH_CAIRO
+  cr = NULL;
+  cairo_destroy(display_cr);
+  cairo_destroy(decoration_cr);
+#endif
+
   g_object_unref(m_pDummyBuffer);
   g_object_unref(m_pDisplayBuffer);
   g_object_unref(m_pDecorationBuffer);
@@ -56,21 +83,26 @@ void CCanvas::Blank() {
 
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkGCValues origvalues;
 
+  // FIXME - this is replicated throughout this file - do something
+  // about that
+
+#if WITH_CAIRO
+#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
+#endif
 
-  gdk_gc_get_values(graphics_context, &origvalues);
+  BEGIN_DRAWING;
+  SET_COLOR(0);
 
-  GdkColor background = colours[0];
-
-  gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
-  gdk_gc_set_foreground(graphics_context, &background);
-
+#if WITH_CAIRO
+  cairo_paint(cr);
+#else
   gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, m_iWidth, m_iHeight);
+#endif
 
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+  END_DRAWING;
 }
 
 void CCanvas::Display() {
@@ -81,17 +113,16 @@ void CCanvas::Display() {
 
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkGCValues origvalues;
 
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
+
+#if WITH_CAIRO
+#else
   colormap = gdk_colormap_get_system();
+#endif
 
-  gdk_gc_get_values(graphics_context, &origvalues);
-
-  GdkColor background = colours[0];
-
-  gdk_colormap_alloc_color(colormap, &background, FALSE, TRUE);
-  gdk_gc_set_foreground(graphics_context, &background);
+  BEGIN_DRAWING;
+  SET_COLOR(0);
 
   // Copy the offscreen buffer into the onscreen buffer
 
@@ -112,7 +143,7 @@ void CCanvas::Display() {
 
   // Restore original graphics context (?)
 
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+  END_DRAWING;
 
   gtk_main_iteration_do(0);
 }
@@ -120,24 +151,14 @@ void CCanvas::Display() {
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkGCValues origvalues;
 
-  GdkColor outline;
-
-  if( iOutlineColour == -1 )
-    outline = colours[3];
-  else
-    outline = colours[iOutlineColour];
-    
+#if WITH_CAIRO
+#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
+#endif
 
-  gdk_gc_get_values(graphics_context, &origvalues);
-
-  GdkColor foreground = colours[Color];
-
-  gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
-  gdk_colormap_alloc_color(colormap, &outline, FALSE, TRUE);
+  BEGIN_DRAWING;
 
   int iLeft;
   int iTop;
@@ -163,19 +184,30 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   }
 
   if(bFill) {
-    gdk_gc_set_foreground(graphics_context, &foreground);
+    SET_COLOR(Color);
+#if WITH_CAIRO
+    cairo_rectangle(cr, x1, y1, x2-x1+1.0, y2-y1+1.0);
+    cairo_fill(cr);
+#else
     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, iLeft, iTop, iWidth, iHeight);
+#endif
   }
   
   if(bDrawOutline) {
-    gdk_gc_set_foreground(graphics_context, &outline);
+    if( iOutlineColour == -1 )
+      SET_COLOR(3);
+    else
+      SET_COLOR(iOutlineColour);
+    
+#if WITH_CAIRO
+    cairo_rectangle(cr, x1+.5, y1+.5, x2-x1, y2-y1);
+    cairo_stroke(cr);
+#else
     gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
     gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, FALSE, iLeft, iTop, iWidth, iHeight);
+#endif
   }
-
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_LINE_WIDTH);
-  
+  END_DRAWING;
 }
 
 void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
@@ -185,51 +217,66 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
 
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkGCValues origvalues;
 
-  GdkColor colour = colours[Colour];
-  GdkPoint *gdk_points;
-
-  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
+#if WITH_CAIRO
+#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
-  gdk_gc_get_values(graphics_context, &origvalues);
   colormap = gdk_colormap_get_system();
+#endif
 
-  gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
-  gdk_gc_set_foreground(graphics_context, &colour);
+  BEGIN_DRAWING;
+  SET_COLOR(Colour);
 
-  gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
- 
+#if WITH_CAIRO
+ cairo_move_to(cr, Points[0].x, Points[0].y);
+  for (int i=1; i < Number; i++)
+    cairo_line_to(cr, Points[i].x, Points[i].y);
+  cairo_close_path(cr);
+  cairo_fill(cr);
+#else
+  GdkPoint *gdk_points;
+  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
+
   for(int i = 0; i < Number; i++) {
     gdk_points[i].x = Points[i].x;
     gdk_points[i].y = Points[i].y;
   }
 
+  gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
   gdk_draw_polygon(m_pOffscreenBuffer, graphics_context, TRUE, gdk_points, Number);
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_LINE_WIDTH);
   g_free(gdk_points);
+#endif
+
+  END_DRAWING;
 }
 
 void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWidth, int Colour) {
 
+  // FIXME - combine this with polygon?
+
   if(iWidth == 1) // This is to make it work propely on Windows
     iWidth = 0; 
-  
+
   GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkGCValues origvalues;
-
-  GdkColor colour = colours[Colour];
-  GdkPoint *gdk_points;
-
-  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
+  
+#if WITH_CAIRO
+#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
-  gdk_gc_get_values(graphics_context, &origvalues);
   colormap = gdk_colormap_get_system();
+#endif
 
-  gdk_colormap_alloc_color(colormap, &colour, FALSE, TRUE);
-  gdk_gc_set_foreground(graphics_context, &colour);
+  BEGIN_DRAWING;
+  SET_COLOR(Colour);
+
+#if WITH_CAIRO
+  cairo_move_to(cr, Points[0].x+.5, Points[0].y+.5);
+  for (int i=1; i < Number; i++)
+    cairo_line_to(cr, Points[i].x+.5, Points[i].y+.5);
+  cairo_stroke(cr);
+#else
+  GdkPoint *gdk_points;
+  gdk_points = (GdkPoint *) g_malloc(Number * sizeof(GdkPoint));
 
   gdk_gc_set_line_attributes(graphics_context, iWidth, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
 
@@ -239,38 +286,51 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   }
 
   gdk_draw_lines(m_pOffscreenBuffer, graphics_context, gdk_points, Number);
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_LINE_WIDTH);
   g_free(gdk_points);
+#endif 
+
+  END_DRAWING;
 }
 
 void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
 
    GdkGC *graphics_context;
   GdkColormap *colormap;
-  GdkGCValues origvalues;
 
+#if WITH_CAIRO
+#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
+#endif
 
-  gdk_gc_get_values(graphics_context, &origvalues);
+  BEGIN_DRAWING;
+  SET_COLOR(4);
 
-  GdkColor foreground = colours[4];
-
-  gdk_colormap_alloc_color(colormap, &foreground, FALSE, TRUE);
-  gdk_gc_set_foreground(graphics_context, &foreground);
-
+#if WITH_CAIRO
+  PangoLayout *pLayout(m_pPangoCache->GetLayout(cr, String, size));
+#else
   PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
-  pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
-  
-  gdk_draw_layout(m_pOffscreenBuffer, graphics_context, x1, y1 - m_pPangoInk->height / 2, pLayout);
+#endif
 
-  gdk_gc_set_values(graphics_context, &origvalues, GDK_GC_FOREGROUND);
+  pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
+
+#if WITH_CAIRO
+  cairo_translate(cr, x1, y1-(int)m_pPangoInk->height/2);
+  pango_cairo_show_layout(cr, pLayout);
+#else
+  gdk_draw_layout(m_pOffscreenBuffer, graphics_context, x1, y1 - m_pPangoInk->height / 2, pLayout);
+#endif
+
+  END_DRAWING;
 }
 
 void CCanvas::TextSize(const std::string &String, int *Width, int *Height, int size) {
-  PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
 
+#if WITH_CAIRO
+  PangoLayout *pLayout(m_pPangoCache->GetLayout(cr, String, size));
+#else
+  PangoLayout *pLayout(m_pPangoCache->GetLayout(GTK_WIDGET(m_pCanvas), String, size));
+#endif
   pango_layout_get_pixel_extents(pLayout, m_pPangoInk, NULL);
 
   *Width = m_pPangoInk->width;
@@ -282,10 +342,16 @@ void CCanvas::SendMarker(int iMarker) {
   switch(iMarker) {
   case 0: // Switch to display buffer
     m_pOffscreenBuffer = m_pDisplayBuffer;
+#if WITH_CAIRO
+    cr = display_cr;
+#endif
     break;
   case 1: // Switch to decorations buffer
     gdk_draw_drawable(m_pDecorationBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDisplayBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
     m_pOffscreenBuffer = m_pDecorationBuffer;
+#if WITH_CAIRO
+    cr = decoration_cr;
+#endif
     break;
   }
 }
@@ -300,13 +366,27 @@ bool CCanvas::ExposeEvent(GtkWidget *pWidget, GdkEventExpose *pEvent) {
 void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
   int iNumColours(Colours->GetNumColours());
 
+  #if WITH_CAIRO
+  if (cairo_colours)
+    delete[] cairo_colours;
+  cairo_colours = new my_cairo_colour_t[iNumColours];
+#else
+  if (colours)
+    delete[] colours;
   colours = new GdkColor[iNumColours];
+#endif
 
   for(int i = 0; i < iNumColours; i++) {
-    colours[i].pixel = 0;
-    colours[i].red = Colours->GetRed(i) * 257;
-    colours[i].green = Colours->GetGreen(i) * 257;
-    colours[i].blue = Colours->GetBlue(i) * 257;
+#if WITH_CAIRO
+    cairo_colours[i].r = Colours->GetRed(i) / 255.0;
+    cairo_colours[i].g = Colours->GetGreen(i) / 255.0;
+    cairo_colours[i].b = Colours->GetBlue(i) / 255.0;
+#else
+    colours[i].pixel=0;
+    colours[i].red=Colours->GetRed(i)*257;
+    colours[i].green=Colours->GetGreen(i)*257;
+    colours[i].blue=Colours->GetBlue(i)*257;
+#endif
   }
 }
 
