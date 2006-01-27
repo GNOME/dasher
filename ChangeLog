@@ -15,7 +15,7 @@
 	* Tidied up and bumped version number for release
 	* How did the previous entry happen in the future?
 
-x2006-01-23  David Ward <d.j.ward.94@gmail.com>
+2006-01-23  David Ward <d.j.ward.94@gmail.com>
 	* Src/Win32: TabletPC support for Win32 platform 
 
 2005-12-28  Abel Cheung  <maddog@linuxhall.org>
@@ -67,11 +67,11 @@ x2006-01-23  David Ward <d.j.ward.94@gmail.com>
 	
 	* Refactored Linux support for network socket input so it shares
 	a base class with the Windows implementation. Removed
-        Gtk2/socket_input.{cc,h}, added DasherCore/SocketInput.{cpp,h}.
+	Gtk2/socket_input.{cc,h}, added DasherCore/SocketInput.{cpp,h}.
 
 2005-09-15  Seb Wills <saw27@mrao.cam.ac.uk>
 	* Added network socket input support (Linux version). New files:
-        Gtk2/socket_input.h and Gtk2/socket_input.cc. New preferences pane.
+	Gtk2/socket_input.h and Gtk2/socket_input.cc. New preferences pane.
 	
 2005-09-08  Behdad Esfahbod  <behdad@gnome.org>
 	* Src/DasherCore/DasherViewSquare.inl: Use fabs() instead of abs().
