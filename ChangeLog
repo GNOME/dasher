@@ -1,3 +1,9 @@
+2006-01-27  Phil Cowans <pjc51@cam.ac.uk>
+	* Porting cairo support from gnome-2-12 to head. I've got most of
+	Canvas.cpp/h working, although it isn't the most beautiful code in
+	the world yet. Have also added the --with-cairo flag to
+	configure.in
+
 2006-01-16  Adam Weinberger  <adamw@gnome.org>
 
 	* Src/Gtk2/dasher.glade, Src/Gtk2/dashergpe.glade,
@@ -5,9 +11,9 @@
 	  Spelling fixes and message standardization. Fixes
 	  bug #167320.
 
-2006-01-15  PhilCowans <pjc51@cam.ac.uk>
+2006-01-15  Phil Cowans <pjc51@cam.ac.uk>
 	* Tidied up and bumped version number for release
-	* How did the previosu entry happen in the future?
+	* How did the previous entry happen in the future?
 
 x2006-01-23  David Ward <d.j.ward.94@gmail.com>
 	* Src/Win32: TabletPC support for Win32 platform 
