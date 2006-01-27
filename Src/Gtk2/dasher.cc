@@ -50,7 +50,7 @@
 
 #include "dasher.h"
 #include "edit.h"
-#include "accessibility.h"
+//#include "accessibility.h"
 #include "fileops.h"
 
 #include "Preferences.h"

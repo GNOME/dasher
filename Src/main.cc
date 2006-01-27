@@ -279,11 +279,8 @@ int main(int argc, char *argv[]) {
   setup_speech();
 #endif
 
-  setupa11y();
-
-  // FIXME - REIMPLEMENT
-//   controltree=gettree();
-//   add_control_tree(controltree);
+  // A11y support disabled for now
+  //  setupa11y();
 
   if(optind < argc) {
     if(!g_path_is_absolute(argv[optind])) {
@@ -314,10 +311,11 @@ int main(int argc, char *argv[]) {
   gnome_vfs_shutdown();
 #endif
 
-#ifdef GNOME_A11Y
-  deletemenutree();
-  SPI_exit();
-#endif
+  // A11y sypport disabled for now
+  //#ifdef GNOME_A11Y
+  //  deletemenutree();
+  //  SPI_exit();
+  //#endif
 
   // Take down GConf client
 

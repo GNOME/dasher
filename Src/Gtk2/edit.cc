@@ -1,7 +1,7 @@
 #include "Output.h"
 #include "edit.h"
 #include "dasher.h"
-#include "accessibility.h"
+//#include "accessibility.h"
 //#include "canvas.h"
 #include "DasherControl.h"
 #include "AppSettings.h"

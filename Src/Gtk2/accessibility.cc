@@ -1,3 +1,8 @@
+//
+// This is obsolete code and is no longer included in the build system
+//
+
+
 #include "accessibility.h"
 //#include "libdasher.h"
 #include "edit.h"
