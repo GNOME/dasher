@@ -77,7 +77,7 @@ extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpo
 extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
-extern "C" static void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data);
+extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data);
 
 extern "C" void choose_filename() {
   if( get_app_parameter_bool( APP_BP_TIME_STAMP )) {
@@ -1135,7 +1135,7 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
   }
 }
 
-extern "C" static void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data) {
+extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data) {
   // This seems to be a sensible way of determining when the cursor moves
   const char *szMarkName(gtk_text_mark_get_name(pMark));
   if(szMarkName && !strcmp(szMarkName,"insert"))

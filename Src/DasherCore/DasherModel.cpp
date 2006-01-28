@@ -8,6 +8,7 @@
 #include "../Common/Random.h"
 #include "DasherModel.h"
 #include "DasherView.h"
+#include "Parameters.h"
 
 using namespace Dasher;
 using namespace std;
@@ -311,7 +312,7 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
 
-  int iWidth( int( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
+  int iWidth( static_cast<int>( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
 
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
