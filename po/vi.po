@@ -8,15 +8,15 @@ msgid ""
 ""
 msgstr "Project-Id-Version: dasher Gnome HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-22 05:22+0100\n"
-"PO-Revision-Date: 2006-01-22 15:11+1030\n"
+"POT-Creation-Date: 2006-01-27 21:51+0100\n"
+"PO-Revision-Date: 2006-01-28 13:51+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b30\n"
+"X-Generator: LocFactoryEditor 1.6b34\n"
 
 #.TODO should probably pop up a Gtk error message and think about how to do i18n:
 #:../Src/DasherCore/SocketInput.cpp:32
@@ -24,7 +24,7 @@ msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Nhập ổ cắm dasher: việc khởi chạy mạch đọc bị lỗi."
 
 #:../Src/Gtk2/Menu.cc:70 ../Src/Gtk2/Menu.cc:126 ../Src/Gtk2/Menu.cc:184
-#:../Src/Gtk2/Menu.cc:227 ../Src/Gtk2/dasher.glade.h:103
+#:../Src/Gtk2/Menu.cc:227 ../Src/Gtk2/dasher.glade.h:105
 #:../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Chọn tập tin"
@@ -34,7 +34,7 @@ msgstr "Chọn tập tin"
 msgid "translator-credits"
 msgstr "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
 
-#:../Src/Gtk2/Menu.cc:465 ../Src/Gtk2/dasher.glade.h:56
+#:../Src/Gtk2/Menu.cc:465 ../Src/Gtk2/dasher.glade.h:57
 #:../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:54
 msgid "Dasher"
 msgstr "Dasher"
@@ -44,7 +44,7 @@ msgid "Dasher is a predictive text entry application"
 msgstr "Dasher là một ứng dụng nhập văn ban đoán trước"
 
 #:../Src/Gtk2/Preferences.cpp:583 ../Src/Gtk2/Preferences.cpp:585
-#:../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
+#:../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
 #:../Src/Gtk2/dashermaemo.glade.h:117
 msgid "Training Dasher... please wait"
 msgstr "Đang huấn luyện Dasher, vui lòng chờ..."
@@ -55,136 +55,136 @@ msgstr "Đang huấn luyện Dasher, vui lòng chờ..."
 #.\-edittree
 #.
 #.Tree, parent, children, next, pointer, data, string, colour
-#:../Src/Gtk2/accessibility.cc:83
+#:../Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Bảng"
 
-#:../Src/Gtk2/accessibility.cc:84
+#:../Src/Gtk2/accessibility.cc:89
 msgid "Application"
 msgstr "Ứng dụng"
 
-#:../Src/Gtk2/accessibility.cc:85
+#:../Src/Gtk2/accessibility.cc:90
 msgid "Menus"
 msgstr "Trình đơn"
 
-#:../Src/Gtk2/accessibility.cc:86 ../Src/Gtk2/dashermaemo.glade.h:42
+#:../Src/Gtk2/accessibility.cc:91 ../Src/Gtk2/dashermaemo.glade.h:42
 msgid "Buttons"
 msgstr "Nút"
 
-#:../Src/Gtk2/accessibility.cc:87
+#:../Src/Gtk2/accessibility.cc:92
 msgid "Text"
 msgstr "Chữ"
 
-#:../Src/Gtk2/accessibility.cc:170 ../Src/Gtk2/dasher.glade.h:47
+#:../Src/Gtk2/accessibility.cc:175 ../Src/Gtk2/dasher.glade.h:48
 #:../Src/Gtk2/dashergpe.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:45
 msgid "Control"
 msgstr "Điều khiển"
 
-#:../Src/Gtk2/accessibility.cc:177
+#:../Src/Gtk2/accessibility.cc:182
 msgid "Windows"
 msgstr "Cửa sổ"
 
-#:../Src/Gtk2/accessibility.cc:185
+#:../Src/Gtk2/accessibility.cc:190
 msgid "Stop"
 msgstr "Dừng"
 
-#:../Src/Gtk2/accessibility.cc:192
+#:../Src/Gtk2/accessibility.cc:197
 msgid "Pause"
 msgstr "Tạm dừng"
 
-#:../Src/Gtk2/accessibility.cc:199
+#:../Src/Gtk2/accessibility.cc:204
 msgid "Move"
 msgstr "Di chuyển"
 
-#:../Src/Gtk2/accessibility.cc:206
+#:../Src/Gtk2/accessibility.cc:211
 msgid "Delete"
 msgstr "Xóa bỏ"
 
-#:../Src/Gtk2/accessibility.cc:216
+#:../Src/Gtk2/accessibility.cc:221
 msgid "Speak"
 msgstr "Nói"
 
-#:../Src/Gtk2/accessibility.cc:248 ../Src/Gtk2/accessibility.cc:402
+#:../Src/Gtk2/accessibility.cc:253 ../Src/Gtk2/accessibility.cc:407
 msgid "<"
 msgstr "←"
 
-#:../Src/Gtk2/accessibility.cc:254 ../Src/Gtk2/accessibility.cc:396
+#:../Src/Gtk2/accessibility.cc:259 ../Src/Gtk2/accessibility.cc:401
 msgid ">"
 msgstr "→"
 
-#:../Src/Gtk2/accessibility.cc:260
+#:../Src/Gtk2/accessibility.cc:265
 msgid "<<<"
 msgstr "⇤"
 
-#:../Src/Gtk2/accessibility.cc:266
+#:../Src/Gtk2/accessibility.cc:271
 msgid ">>>"
 msgstr "⇥"
 
-#:../Src/Gtk2/accessibility.cc:279
+#:../Src/Gtk2/accessibility.cc:284
 msgid "Everything"
 msgstr "Mọi thứ"
 
-#:../Src/Gtk2/accessibility.cc:285
+#:../Src/Gtk2/accessibility.cc:290
 msgid "New"
 msgstr "Mới"
 
-#:../Src/Gtk2/accessibility.cc:291
+#:../Src/Gtk2/accessibility.cc:296
 msgid "Repeat"
 msgstr "Lặp lại"
 
-#:../Src/Gtk2/accessibility.cc:313
+#:../Src/Gtk2/accessibility.cc:318
 msgid "1"
 msgstr "1"
 
-#:../Src/Gtk2/accessibility.cc:320
+#:../Src/Gtk2/accessibility.cc:325
 msgid "2"
 msgstr "2"
 
-#:../Src/Gtk2/accessibility.cc:327
+#:../Src/Gtk2/accessibility.cc:332
 msgid "3"
 msgstr "3"
 
-#:../Src/Gtk2/accessibility.cc:334
+#:../Src/Gtk2/accessibility.cc:339
 msgid "4"
 msgstr "4"
 
-#:../Src/Gtk2/accessibility.cc:341
+#:../Src/Gtk2/accessibility.cc:346
 msgid "5"
 msgstr "5"
 
-#:../Src/Gtk2/accessibility.cc:348
+#:../Src/Gtk2/accessibility.cc:353
 msgid "6"
 msgstr "6"
 
-#:../Src/Gtk2/accessibility.cc:355
+#:../Src/Gtk2/accessibility.cc:360
 msgid "7"
 msgstr "7"
 
-#:../Src/Gtk2/accessibility.cc:362
+#:../Src/Gtk2/accessibility.cc:367
 msgid "8"
 msgstr "8"
 
-#:../Src/Gtk2/accessibility.cc:369
+#:../Src/Gtk2/accessibility.cc:374
 msgid "9"
 msgstr "9"
 
-#:../Src/Gtk2/accessibility.cc:376
+#:../Src/Gtk2/accessibility.cc:381
 msgid "10"
 msgstr "10"
 
-#:../Src/Gtk2/accessibility.cc:408 ../Src/Gtk2/accessibility.cc:432
+#:../Src/Gtk2/accessibility.cc:413 ../Src/Gtk2/accessibility.cc:437
 msgid "Character"
 msgstr "Ký tự"
 
-#:../Src/Gtk2/accessibility.cc:420 ../Src/Gtk2/accessibility.cc:443
+#:../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:448
 msgid "Word"
 msgstr "Từ"
 
-#:../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:449
+#:../Src/Gtk2/accessibility.cc:430 ../Src/Gtk2/accessibility.cc:454
 msgid "Line"
 msgstr "Dòng"
 
-#:../Src/Gtk2/accessibility.cc:563
+#:../Src/Gtk2/accessibility.cc:568
 msgid "Unknown"
 msgstr "Không biết"
 
@@ -474,104 +474,112 @@ msgstr "Chế độ nút"
 msgid "Button:"
 msgstr "Nút:"
 
-#:../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:43
+#:../Src/Gtk2/dasher.glade.h:45
+msgid "Cancel"
+msgstr "Thôi"
+
+#:../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:43
 msgid "Click mode"
 msgstr "Chế độ nhắp"
 
-#:../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:44
+#:../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:44
 msgid "Compass mode"
 msgstr "Chế độ la bàn"
 
-#:../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:46
+#:../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
 msgstr "Điều khiển trình dasher từ ổ cắm mạng, thay vào bằng con chuột (cấp cao)"
 
-#:../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:29
+#:../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #:../Src/Gtk2/dashermaemo.glade.h:47
 msgid "Control mode"
 msgstr "Chế độ điều khiển"
 
-#:../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:30
+#:../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:30
 #:../Src/Gtk2/dashermaemo.glade.h:48
 msgid "Copy"
 msgstr "Chép"
 
-#:../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:31
+#:../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:31
 #:../Src/Gtk2/dashermaemo.glade.h:49
 msgid "Copy _All"
 msgstr "Chép _tất cả"
 
-#:../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:32
+#:../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:32
 #:../Src/Gtk2/dashermaemo.glade.h:50
 msgid "Copy all on stop"
 msgstr "Chép tất cả khi đừng"
 
-#:../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashermaemo.glade.h:51
+#:../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:51
 msgid "Custom:"
 msgstr "Tự chọn:"
 
-#:../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:33
+#:../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:33
 #:../Src/Gtk2/dashermaemo.glade.h:52
 msgid "Cut"
 msgstr "Cắt"
 
-#:../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:34
+#:../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:34
 #:../Src/Gtk2/dashermaemo.glade.h:53
 msgid "Cyclical button mode"
 msgstr "Chế độ nút theo chu kỳ"
 
-#:../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:36
+#:../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
 #:../Src/Gtk2/dashermaemo.glade.h:55
 msgid "Dasher Preferences"
 msgstr "Sở thích Dasher"
 
-#:../Src/Gtk2/dasher.glade.h:58
+#:../Src/Gtk2/dasher.glade.h:59
 msgid "Direct mode"
 msgstr "Chế độ Trực tiếp"
 
-#:../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:37
+#:../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:37
 #:../Src/Gtk2/dashermaemo.glade.h:56
 msgid "Distance from centerline for start on mouse position:"
 msgstr "Bắt đầu vị trí con chuột bao xa từ đường giữa:"
 
-#:../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:38
+#:../Src/Gtk2/dasher.glade.h:61
+msgid "Done"
+msgstr "Đã xong"
+
+#:../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:38
 #:../Src/Gtk2/dashermaemo.glade.h:57
 msgid "Down/3:"
 msgstr "Xuống/3:"
 
-#:../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashergpe.glade.h:39
+#:../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:39
 #:../Src/Gtk2/dashermaemo.glade.h:58
 msgid "Draw box outlines"
 msgstr "Vẽ hình hộp"
 
-#:../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:40
+#:../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:40
 #:../Src/Gtk2/dashermaemo.glade.h:59
 msgid "Draw line between crosshairs and mouse"
 msgstr "Vẽ đường từ dấu chữ thập mảnh đến con chuột"
 
-#:../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashermaemo.glade.h:60
+#:../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:60
 msgid "Drop time:  "
 msgstr "Thời thả:  "
 
-#:../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:42
+#:../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:42
 #:../Src/Gtk2/dashermaemo.glade.h:62
 msgid "Enter text into other windows"
 msgstr "Nhâp chữ vào cửa sổ khác"
 
-#:../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashergpe.glade.h:43
+#:../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:43
 #:../Src/Gtk2/dashermaemo.glade.h:63
 msgid "Eyetracker mode"
 msgstr "Chế độ theo dõi mắt"
 
-#:../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:64
+#:../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:64
 msgid "Four-button direct mode"
 msgstr "Chế độ trực tiếp bốn nút"
 
-#:../Src/Gtk2/dasher.glade.h:67
+#:../Src/Gtk2/dasher.glade.h:69
 msgid "General"
 msgstr "Chung"
 
-#:../Src/Gtk2/dasher.glade.h:68
+#:../Src/Gtk2/dasher.glade.h:70
 msgid ""
 "If this mode is selected, up and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
@@ -579,236 +587,236 @@ msgid ""
 msgstr "Khi chọn chế độ này thì di động lên và xuống sẽ theo chu kỳ tiếp và ngược "
 "giữa tọa độ, và đi về phía phải sẽ xác định lựa chọn đó."
 
-#:../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:67
+#:../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
 msgid "Increase line thickness"
 msgstr "Tăng độ rộng đường"
 
-#:../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:68
+#:../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:68
 msgid "Japanese"
 msgstr "Tiếng Nhật bản"
 
-#:../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:69
+#:../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:69
 msgid "Label"
 msgstr "Nhãn"
 
-#:../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:70
+#:../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:70
 msgid "Language model adapts as you write."
 msgstr "Mẫu hình ngôn ngữ thích ứng khi bạn viết"
 
-#:../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashergpe.glade.h:45
+#:../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:45
 #:../Src/Gtk2/dashermaemo.glade.h:71
 msgid "Large"
 msgstr "Lớn"
 
-#:../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:46
+#:../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:46
 #:../Src/Gtk2/dashermaemo.glade.h:72
 msgid "Left to Right"
 msgstr "Trái sang phải"
 
-#:../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:47
+#:../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:47
 #:../Src/Gtk2/dashermaemo.glade.h:73
 msgid "Left/2:"
 msgstr "Trái/2:"
 
-#:../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:74
+#:../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:74
 msgid "Max"
 msgstr "Tđa"
 
-#:../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashermaemo.glade.h:75
+#:../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:75
 msgid "Min"
 msgstr "TTh"
 
-#:../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:76
+#:../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:76
 msgid "Miscellaneous"
 msgstr "Linh tinh"
 
-#:../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:77
+#:../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:77
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Mẫu trộn (PPM/từ điển)"
 
-#:../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:48
+#:../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:48
 #:../Src/Gtk2/dashermaemo.glade.h:78
 msgid "New file"
 msgstr "Tập tin mới"
 
-#:../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:49
+#:../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:49
 #:../Src/Gtk2/dashermaemo.glade.h:79
 msgid "Normal"
 msgstr "Bình thường"
 
-#:../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:80
+#:../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:80
 msgid "Number of \"zoom-out boxes\":"
 msgstr "Số « hộp mở rộng »:"
 
-#:../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashermaemo.glade.h:81
+#:../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:81
 msgid "Number of boxes:"
 msgstr "Số hộp:"
 
-#:../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:51
+#:../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:51
 #:../Src/Gtk2/dashermaemo.glade.h:82
 msgid "One dimensional mode"
 msgstr "Chế độ chiều đơn"
 
-#:../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:83
+#:../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashermaemo.glade.h:83
 msgid "One-button dynamic mode"
 msgstr "Chế độ động nút đơn"
 
-#:../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashermaemo.glade.h:84
+#:../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:84
 msgid "One-button static mode"
 msgstr "Chế độ tĩnh nút đơn"
 
-#:../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:52
+#:../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:52
 #:../Src/Gtk2/dashermaemo.glade.h:85
 msgid "Open file"
 msgstr "Mở tập tin"
 
-#:../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:86
+#:../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:86
 msgid "Ordinary control"
 msgstr "Điều khiển chuẩn"
 
-#:../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:54
+#:../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:54
 #:../Src/Gtk2/dashermaemo.glade.h:87
 msgid "Paste"
 msgstr "Dán"
 
-#:../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:55
+#:../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:55
 #:../Src/Gtk2/dashermaemo.glade.h:88
 msgid "Pause outside window"
 msgstr "Tạm dừng ngoài cửa sổ"
 
-#:../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:89
+#:../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:89
 msgid "Port"
 msgstr "Cổng"
 
-#:../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashermaemo.glade.h:90
+#:../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:90
 msgid "Prediction"
 msgstr "Dự đoán"
 
-#:../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:91
+#:../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:91
 msgid "Print socket-related debugging information to console"
 msgstr "In ra thông tin gỡ lỗi liên quan đến ổ cắm vào bàn giao tiếp"
 
-#:../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:92
+#:../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:92
 msgid "Pulsing mode"
 msgstr "Chế độ đập"
 
-#:../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashergpe.glade.h:56
+#:../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:56
 #:../Src/Gtk2/dashermaemo.glade.h:93
 msgid "Right to Left"
 msgstr "Phải sang trái"
 
-#:../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:94
+#:../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:94
 msgid "Right zoom:  "
 msgstr "Phóng phải:  "
 
-#:../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:57
+#:../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:57
 #:../Src/Gtk2/dashermaemo.glade.h:95
 msgid "Right/4:"
 msgstr "Phải/4:"
 
-#:../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:96
+#:../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:96
 msgid "Safety margin:"
 msgstr "Số dự trữ an toàn:"
 
-#:../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:58
+#:../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:58
 #:../Src/Gtk2/dashermaemo.glade.h:97
 msgid "Save file"
 msgstr "Lưu tập tin"
 
-#:../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashergpe.glade.h:59
+#:../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:59
 #:../Src/Gtk2/dashermaemo.glade.h:98
 msgid "Save file as"
 msgstr "Lưu tập tin là"
 
-#:../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashermaemo.glade.h:99
+#:../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashermaemo.glade.h:99
 msgid "Scaling amount (1D mode):"
 msgstr "Hệ số co giãn (chế độ một chiều):"
 
-#:../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:61
+#:../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:61
 #:../Src/Gtk2/dashermaemo.glade.h:101
 msgid "Select Font"
 msgstr "Chọn phông chữ"
 
-#:../Src/Gtk2/dasher.glade.h:105
+#:../Src/Gtk2/dasher.glade.h:107
 msgid "Show Advanced Settings"
 msgstr "HIện Thiết lập Cấp cao"
 
-#:../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:62
+#:../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:62
 #:../Src/Gtk2/dashermaemo.glade.h:102
 msgid "Show mouse position"
 msgstr "Hiện vị trí con chuột"
 
-#:../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashergpe.glade.h:63
+#:../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:63
 #:../Src/Gtk2/dashermaemo.glade.h:103
 msgid "Show speed slider"
 msgstr "Hiện con trượt tốc độ"
 
-#:../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:64
+#:../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:64
 #:../Src/Gtk2/dashermaemo.glade.h:104
 msgid "Show toolbar"
 msgstr "Hiện thanh công cụ"
 
-#:../Src/Gtk2/dasher.glade.h:109
+#:../Src/Gtk2/dasher.glade.h:111
 msgid "Socket Options"
 msgstr "Tùy chọn ổ cắm"
 
-#:../Src/Gtk2/dasher.glade.h:110
+#:../Src/Gtk2/dasher.glade.h:112
 msgid "Socket Preferences"
 msgstr "Tùy thích ổ cắm"
 
-#:../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashergpe.glade.h:65
+#:../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:65
 #:../Src/Gtk2/dashermaemo.glade.h:106
 msgid "Speak on stop"
 msgstr "Nói tiếng khi dừng,"
 
-#:../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashermaemo.glade.h:107
+#:../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashermaemo.glade.h:107
 msgid "Standard letter-based PPM"
 msgstr "Trang mỗi phút đưa vào thư chuẩn"
 
-#:../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:66
+#:../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:66
 #:../Src/Gtk2/dashermaemo.glade.h:108
 msgid "Start on left mouse button"
 msgstr "Bắt đầu khi bấm nút trái tren con chuột"
 
-#:../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:67
+#:../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:67
 #:../Src/Gtk2/dashermaemo.glade.h:109
 msgid "Start on space bar"
 msgstr "Bắt đầu khi bấm thanh cách"
 
-#:../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:68
+#:../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:68
 #:../Src/Gtk2/dashermaemo.glade.h:110
 msgid "Start with mouse position"
 msgstr "Bắt đầu tại vị trí con chuôt"
 
-#:../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashermaemo.glade.h:111
+#:../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:111
 msgid "Static menu mode"
 msgstr "Chế độ trình đơn tĩnh"
 
-#:../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashermaemo.glade.h:112
+#:../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:112
 msgid "Steady mode"
 msgstr "Chế độ vững"
 
-#:../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:69
+#:../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:69
 #:../Src/Gtk2/dashermaemo.glade.h:114
 msgid "Timestamp new files"
 msgstr "Nhãn thời gian trên mọi tập tin mới"
 
-#:../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:70
+#:../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:70
 #:../Src/Gtk2/dashermaemo.glade.h:115
 msgid "Top to Bottom"
 msgstr "Đỉnh đến đáy"
 
-#:../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:71
+#:../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:71
 #:../Src/Gtk2/dashermaemo.glade.h:116
 msgid "Training"
 msgstr "Huấn luyện"
 
-#:../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:73
+#:../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:73
 #:../Src/Gtk2/dashermaemo.glade.h:118
 msgid "Up/1:"
 msgstr "Lên/1:"
 
-#:../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashermaemo.glade.h:119
+#:../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashermaemo.glade.h:119
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -817,90 +825,90 @@ msgstr "Hãy sử dụng điều khiển này để điều chỉnh những cỡ
 "của hộp thư. Ghi chú rằng khi bạn chọn giá trí cao\n"
 "thì sẽ giảm tốc độ viết chữ."
 
-#:../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:75
+#:../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:75
 #:../Src/Gtk2/dashermaemo.glade.h:122
 msgid "Very Large"
 msgstr "Rất lớn"
 
-#:../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashergpe.glade.h:76
+#:../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:76
 #:../Src/Gtk2/dashermaemo.glade.h:123
 msgid "View"
 msgstr "Xem"
 
-#:../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashermaemo.glade.h:124
+#:../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashermaemo.glade.h:124
 msgid "Word-based model"
 msgstr "Mẫu đưa vào từ"
 
-#:../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:77
+#:../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashergpe.glade.h:77
 #:../Src/Gtk2/dashermaemo.glade.h:125
 msgid "X:"
 msgstr "X:"
 
-#:../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashergpe.glade.h:78
+#:../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:78
 #:../Src/Gtk2/dashermaemo.glade.h:126
 msgid "Y:"
 msgstr "Y:"
 
-#:../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashermaemo.glade.h:127
+#:../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashermaemo.glade.h:127
 msgid "Zoom:"
 msgstr "Phóng:"
 
-#:../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:79
+#:../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:79
 #:../Src/Gtk2/dashermaemo.glade.h:128
 msgid "_About"
 msgstr "_Giới thiệu"
 
-#:../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashergpe.glade.h:80
+#:../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:80
 #:../Src/Gtk2/dashermaemo.glade.h:129
 msgid "_Append to file"
 msgstr "_Phụ thêm vào tập tin"
 
-#:../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:81
+#:../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:81
 #:../Src/Gtk2/dashermaemo.glade.h:130
 msgid "_Dasher Font"
 msgstr "_Phông chữ Dasher"
 
-#:../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:82
+#:../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:82
 #:../Src/Gtk2/dashermaemo.glade.h:131
 msgid "_Dasher Font Size"
 msgstr "_Cỡ phông chữ Dasher"
 
-#:../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:83
+#:../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:83
 #:../Src/Gtk2/dashermaemo.glade.h:132
 msgid "_Edit"
 msgstr "_Hiệu chỉnh"
 
-#:../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:84
+#:../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:84
 #:../Src/Gtk2/dashermaemo.glade.h:133
 msgid "_Edit Font"
 msgstr "_Hiệu chỉnh phông chữ"
 
-#:../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:85
+#:../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:85
 #:../Src/Gtk2/dashermaemo.glade.h:134
 msgid "_File"
 msgstr "_Tập tin"
 
-#:../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:86
+#:../Src/Gtk2/dasher.glade.h:141 ../Src/Gtk2/dashergpe.glade.h:86
 #:../Src/Gtk2/dashermaemo.glade.h:135
 msgid "_Help"
 msgstr "Trợ _giúp"
 
-#:../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:87
+#:../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:87
 #:../Src/Gtk2/dashermaemo.glade.h:136
 msgid "_Import Training Text"
 msgstr "_Nạp đoạn để huấn luyện"
 
-#:../Src/Gtk2/dasher.glade.h:141 ../Src/Gtk2/dashergpe.glade.h:88
+#:../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:88
 #:../Src/Gtk2/dashermaemo.glade.h:137
 msgid "_Options"
 msgstr "_Tùy chọn"
 
-#:../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:89
+#:../Src/Gtk2/dasher.glade.h:144 ../Src/Gtk2/dashergpe.glade.h:89
 #:../Src/Gtk2/dashermaemo.glade.h:138
 msgid "_Reset fonts"
 msgstr "Đặt _lại phông chữ"
 
-#:../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:90
+#:../Src/Gtk2/dasher.glade.h:145 ../Src/Gtk2/dashergpe.glade.h:90
 #:../Src/Gtk2/dashermaemo.glade.h:139
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "aăâbcdeêghikôươ AĂÂBCDEÊGHIKÔƯƠ"
@@ -986,6 +994,6 @@ msgstr "Không thể khởi động các tiếng nói\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Cảnh báo: không thể lập tham số nói tiếng\n"
 
-#:../Src/main.cc:127
+#:../Src/main.cc:129
 msgid "Dasher Text Entry"
 msgstr "Nhập chữ Dasher"
