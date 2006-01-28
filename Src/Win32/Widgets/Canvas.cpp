@@ -292,7 +292,8 @@ LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 		break;
 		}      // end if key control
 	case VK_SPACE:
-		startspace();
+		//startspace();
+    m_pDasherInterface->KeyDown(GetTickCount(), 0);
 		return 0;
 #ifdef _DEBUG
 	case VK_F11:
@@ -347,32 +348,14 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 
 	OutputDebugString(TEXT("Canvas::LButtonDown\n"));
 
-	//   startturbo = GetTickCount();
-	
-	//SetFocus();
-	
-	/*
-	lbuttonheld = 1;
-	lastlbutton = GetTickCount();
-	direction = !direction;
-	enabletime = 1;
-	if(startonleft == false) {
-	return 0;
-	}
-	StartStop();*/
-
 	LPARAM lp = GetMessageExtraInfo();
 	if (lp == 0xFF515702)
-		return 0;
+		return 0; // WTF???
 
-	if ( m_pDasherInterface->GetBoolParameter(BP_START_MOUSE) ) 
-	{
-		if (m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-			m_pDasherInterface->Unpause(GetTickCount());
-		else
-			m_pDasherInterface->PauseAt(0, 0);
-	}
-//	else if ( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
+
+  m_pDasherInterface->KeyDown(GetTickCount(), 100);
+
+  //	else if ( m_pDasherInterface->GetBoolParameter(BP_START_STYLUS)  ) 
 //	{
 //		// DJW - for the time being we only do stylus mode if not BP_START_MOUSE 
 //

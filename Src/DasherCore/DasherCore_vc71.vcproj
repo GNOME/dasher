@@ -426,6 +426,12 @@
 			RelativePath=".\AutoSpeedControl.h">
 		</File>
 		<File
+			RelativePath=".\ClickFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\ClickFilter.h">
+		</File>
+		<File
 			RelativePath="ColourIO.cpp">
 		</File>
 		<File
@@ -517,6 +523,12 @@
 		</File>
 		<File
 			RelativePath=".\DasherViewSquare.inl">
+		</File>
+		<File
+			RelativePath=".\DefaultFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\DefaultFilter.h">
 		</File>
 		<File
 			RelativePath=".\DelayedDraw.cpp">

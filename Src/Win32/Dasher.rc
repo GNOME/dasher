@@ -420,7 +420,7 @@ BEGIN
     CONTROL         "Start on left mouse button",IDC_LEFT,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,119,147,8
     CONTROL         "Start on space bar",IDC_SPACE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,132,126,8
+                    WS_TABSTOP,14,131,126,8
     CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,180,144,8
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
@@ -447,8 +447,8 @@ BEGIN
                     BS_AUTORADIOBUTTON,14,30,87,10
     CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
                     BS_AUTORADIOBUTTON,14,42,70,10
-    CONTROL         "Click mode",IDC_CLICKMODE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_DISABLED,115,18,49,10
+    CONTROL         "Click mode",IDC_CLICKMODE,"Button",BS_AUTORADIOBUTTON,
+                    115,18,49,10
     CONTROL         "Button mode",IDC_BUTTONMODE,"Button",BS_AUTORADIOBUTTON,
                     115,30,57,10
     PUSHBUTTON      "Button Mode Settings",IDC_BUTTON_PREFS,115,42,87,14
@@ -723,7 +723,6 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 212
         TOPMARGIN, 7
-        BOTTOMMARGIN, 226
     END
 
     IDD_COLOUR, DIALOG

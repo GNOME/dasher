@@ -37,6 +37,7 @@ static menuentry menutable[] = {
   {BP_STOP_IDLE, IDC_STOPIDLE},
   {BP_MOUSEPOS_MODE, IDC_MOUSEPOS},
   {BP_NUMBER_DIMENSIONS, IDC_1D},
+  {BP_CLICK_MODE, IDC_CLICKMODE},
   {BP_EYETRACKER_MODE, IDC_EYETRACKER},
   {BP_KEY_CONTROL, IDC_BUTTONMODE},
   {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP},
@@ -75,7 +76,10 @@ void CControlPage::PopulateList() {
     }
   }
 
-  if(!m_pAppSettings->GetBoolParameter(BP_NUMBER_DIMENSIONS) && !m_pAppSettings->GetBoolParameter(BP_EYETRACKER_MODE))
+  if(!m_pAppSettings->GetBoolParameter(BP_NUMBER_DIMENSIONS) && 
+     !m_pAppSettings->GetBoolParameter(BP_EYETRACKER_MODE) &&
+     !m_pAppSettings->GetBoolParameter(BP_CLICK_MODE) &&
+     !m_pAppSettings->GetBoolParameter(BP_KEY_CONTROL))
     SendMessage(GetDlgItem(m_hwnd, IDC_ORDINARY), BM_SETCHECK, BST_CHECKED, 0);
 
 

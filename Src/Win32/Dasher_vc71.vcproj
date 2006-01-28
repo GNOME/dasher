@@ -22,7 +22,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;"
+				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
@@ -93,7 +93,7 @@
 				EnableIntrinsicFunctions="TRUE"
 				FavorSizeOrSpeed="1"
 				OptimizeForWindowsApplication="TRUE"
-				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;"
+				AdditionalIncludeDirectories="WinCommon;Common;&quot;C:\Program Files\Microsoft Speech SDK 5.1\Include&quot;;&quot;C:\Program Files\Microsoft Tablet PC Platform SDK\Include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_UNICODE;_STATIC;_WIN32_WINNT=0x0500"
 				StringPooling="TRUE"
 				RuntimeLibrary="0"
