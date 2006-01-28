@@ -7,6 +7,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           AlphabetManagerFactory.h \
                           AutoSpeedControl.cpp \
                           AutoSpeedControl.h \
+                          ClickFilter.cpp \
+                          ClickFilter.h \
                           ColourIO.cpp \
                           ColourIO.h \
                           ControlManager.cpp \
@@ -43,6 +45,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           DasherViewSquare.h \
                           DasherViewSquare.inl \
                           DasherWidgetInterface.h \
+                          DefaultFilter.cpp \
+                          DefaultFilter.h \
                           DelayedDraw.cpp \
                           DynamicFilter.h \
                           DynamicFilter.cpp \

@@ -17,12 +17,20 @@
 #include "EventHandler.h"
 #include "Event.h"
 #include "UserLog.h"
+
+// Input filters - eventually these should be wrapped up in a
+// 'FilterManager' class
+#include "ClickFilter.h" 
+#include "DefaultFilter.h"
 #include "DasherButtons.h"
 #include "DynamicFilter.h"
 #include "OneButtonFilter.h"
 
+// STL headers
 #include <iostream>
 #include <memory>
+
+// Legacy C library headers
 namespace {
   #include "stdio.h"
 }
@@ -493,10 +501,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 
 void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
   if(m_pDasherView != 0) {
-
-    myint iDasherX;
-    myint iDasherY;
-
     if (m_pUserLog != NULL) {
       
       Dasher::VECTOR_SYMBOL_PROB vAdded;
@@ -504,10 +508,6 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
 
       if(m_pDasherButtons) {
 	m_pDasherButtons->Timer(Time, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
-      }
-      else {
-	m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, iDasherX, iDasherY, &vAdded, &iNumDeleted);
-	m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, &vAdded, &iNumDeleted);
       }
 
       if (iNumDeleted > 0)
@@ -517,14 +517,15 @@ void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
 
     }
     else {
-      // If there is no user logging going on, we don't need to track the symbols added or deleted.
-      m_pDasherView->TapOnDisplay(MouseX, MouseY, Time, iDasherX, iDasherY);
-      m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);
+      if(m_pDasherButtons) {
+	m_pDasherButtons->Timer(Time, m_pDasherView, m_pDasherModel);
+      }
     }
 
     m_pDasherModel->CheckForNewRoot(m_pDasherView);
 
-    m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
+    // FIXME - reimplement
+
 
     m_pDasherModel->RenderToView(m_pDasherView, MouseX, MouseY, true);
     if(m_pDasherButtons)
@@ -705,10 +706,10 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
   if(m_DasherScreen != 0 && m_pDasherModel != 0) 
   {
 	  delete m_pDasherView;
-	  if(m_pAutoSpeedControl)
-	    delete m_pAutoSpeedControl;
-	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
-	  m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore, m_pDasherModel->Framerate());
+// 	  if(m_pAutoSpeedControl)
+// 	    delete m_pAutoSpeedControl;
+ 	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
+
 
 	  if (m_pInput)
 	    m_pDasherView->SetInput(m_pInput);
@@ -1018,11 +1019,11 @@ void CDasherInterfaceBase::CreateInputFilter()
   }
 
   if(GetStringParameter(SP_INPUT_FILTER) == "One Dimensional Mode")
-    m_pDasherButtons = NULL;
+    m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")
-    m_pDasherButtons = NULL;
+    m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Click Mode")
-    m_pDasherButtons = NULL;
+    m_pDasherButtons = new CClickFilter(m_pEventHandler, m_pSettingsStore, this);
   else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Static")
     m_pDasherButtons = new COneButtonFilter(m_pEventHandler, m_pSettingsStore, this);
   else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Dynamic")
@@ -1038,5 +1039,5 @@ void CDasherInterfaceBase::CreateInputFilter()
   else if(GetStringParameter(SP_INPUT_FILTER) == "Compass Mode")
     m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Default")
-    m_pDasherButtons = NULL;
+    m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
 }

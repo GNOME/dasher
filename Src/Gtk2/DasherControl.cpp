@@ -504,23 +504,9 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
   if((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_2BUTTON_PRESS))
     return FALSE;
 #endif
- 
-  // Click mode.
-  if (GetBoolParameter(BP_CLICK_MODE)) {
-    int x, y;
-    Unpause(get_time());
-    gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
-    ClickTo(x, y, m_pScreen->m_iWidth, m_pScreen->m_iHeight);
-    PauseAt(0, 0);
-  }
-  // FIXME - This should be moved into a toggle pause routime in CDasherInterface
-  
-  if(GetBoolParameter(BP_START_MOUSE)) {
-    if(GetBoolParameter(BP_DASHER_PAUSED))
-      Unpause(get_time());
-    else
-      PauseAt(0, 0);
-  }
+
+  // Tell the core that the event has happened
+  KeyDown(get_time(), 100);
 
   return false;
 }
@@ -562,15 +548,8 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
 gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
   switch (event->keyval) {
   case GDK_space:
-    // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
-    if(GetBoolParameter(BP_START_SPACE) && !GetBoolParameter(BP_CLICK_MODE)) {
-      if(GetBoolParameter(BP_DASHER_PAUSED))
-        Unpause(get_time());
-      else
-        PauseAt(0, 0);
-    }
+    KeyDown(get_time(), 0);
     break;
-  
   case GDK_Shift_L:
   case GDK_Shift_R: //deliberate fall through
     SetLongParameter(LP_BOOSTFACTOR, 175);
@@ -592,7 +571,6 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
     KeyDown(get_time(), 4);
     break;
   }
-
   return 0;
 }
 
@@ -701,6 +679,7 @@ int CDasherControl::colour_filter(const gchar *filename, GPatternSpec *colourglo
 // method, so we pass a pointer to th object in the user_data field
 // and use a wrapper function. Please do not put any functional code
 // here.
+
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data) {
   static_cast < CDasherControl * >(user_data)->RealizeCanvas();
 }

@@ -1,3 +1,6 @@
+2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+	* Provided input handler for 'default' behaviour (Fixes #312440)
+
 2006-01-28  Behdad Esfahbod  <behdad@behdad.org>
 
 	* Data/Translations/training_persian_IR.txt:
@@ -8,7 +11,6 @@
 	* Data/system.rc/alphabet.persian.xml: Comment out nested groups.
 
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
-
 	* Rebuild model when control mode is turned on/off (fixes #318359)
 
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
