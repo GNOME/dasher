@@ -6,7 +6,6 @@ noinst_PROGRAMS = generate-schema
 if WITH_GPE
 gladefile = dashergpe.glade
 settings_store = gpesettings_store.cc gpesettings_store.h
-non_settings_store = 
 
 else
 
@@ -17,10 +16,14 @@ gladefile = dasher.glade
 endif
 
 settings_store = 
-non_settings_store = gpesettings_store.cc gpesettings_store.h
 endif
 
-EXTRA_DIST = $(non_settings_store)
+EXTRA_DIST = \
+			 accessibility.cc \
+			 accessibility.h \
+                         dasher.glade \
+                         dashergpe.glade \
+                         dashermaemo.glade
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
@@ -47,10 +50,7 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          Timer.cpp \
                          Timer.h \
                          dasher.cc \
-                         dasher.glade \
                          dasher.h \
-                         dashergpe.glade \
-                         dashermaemo.glade \
                          edit.cc \
                          edit.h \
                          fileops.cc \
@@ -59,7 +59,6 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          speech.cc \
                          speech.h \
                          $(settings_store)
-
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@

@@ -70,7 +70,7 @@ static const struct poptOption options[] = {
 #include "speech.h"
 #endif
 
-#include "accessibility.h"
+//#include "accessibility.h"
 
 //extern GConfClient *the_gconf_client;
 
