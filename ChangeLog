@@ -1,5 +1,9 @@
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
 
+	* Src/Gtk2/Makefile.am: Put Output.h and Output.cpp back!
+
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
 	* Src/main.cc Src/Common/AppSettingsData.h
 	Src/DasherCore/AlphabetManager.cpp
 	Src/DasherCore/AutoSpeedControl.h

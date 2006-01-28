@@ -38,6 +38,8 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          GtkDasherControl.h \
                          Menu.cc \
                          Menu.h \
+			 Output.cpp \
+			 Output.h \
                          PangoCache.cpp \
                          PangoCache.h \
                          Preferences.cpp \
@@ -53,7 +55,6 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          edit.h \
                          fileops.cc \
                          fileops.h \
-                         gtkinclude \
                          mouse_input.h \
                          speech.cc \
                          speech.h \
