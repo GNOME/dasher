@@ -1,8 +1,15 @@
+2006-01-28  Behdad Esfahbod  <behdad@behdad.org>
+
+	* Data/system.rc/alphabet.persian.xml: Comment out nested groups.
+
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+
 	* Rebuild model when control mode is turned on/off (fixes #318359)
 
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+
 	* Removed "Client=..." debug message
+
 	* Set default log level to 0 so we don't create dasher_usage.log
 	files. You'll need to use gconf-editor to fix this parameter for
 	existing installations.
