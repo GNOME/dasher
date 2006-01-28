@@ -145,7 +145,7 @@ static lp_table longparamtable[] = {
   {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},
   {LP_LINE_WIDTH, "LineWidth", PERS, 1, "Width to draw crosshair and mouse line"},
   {LP_LM_WORD_ALPHA, "WordAlpha", PERS, 50, "Alpha value for word-based model"},
-  {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 1, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"},
+  {LP_USER_LOG_LEVEL_MASK, "UserLogLevelMask", PERS, 0, "Controls level of user logging, 0 = none, 1 = short, 2 = detailed, 3 = both"},
   {LP_SPEED_DIVISOR, "SpeedDivisor", !PERS, 100, "Factor by which to slow down (multiplied by 100)"},
   {LP_ZOOMSTEPS, "Zoomsteps", PERS, 32, "Integerised ratio of zoom size for click/button mode, denom 64."},
   {LP_B, "ButtonMenuBoxes", PERS, 4, "Number of boxes for button menu mode"},

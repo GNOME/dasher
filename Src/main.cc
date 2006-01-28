@@ -176,7 +176,7 @@ int main(int argc, char *argv[]) {
   // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
   
   g_pGConfClient = gconf_client_get_default();
-  g_print("Client=%p\n",g_pGConfClient);
+  //  g_print("GConf Client=%p\n",g_pGConfClient);
 
   // ---
 

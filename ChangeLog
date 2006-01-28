@@ -1,3 +1,9 @@
+2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
+	* Removed "Client=..." debug message
+	* Set default log level to 0 so we don't create dasher_usage.log
+	files. You'll need to use gconf-editor to fix this parameter for
+	existing installations.
+
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
 
 	* configure.in (GTK2BUILD_LIBS): Add --export-dynamic linker flag,

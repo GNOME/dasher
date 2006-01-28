@@ -83,6 +83,7 @@ void CDasherInterfaceBase::Realize() {
   // Create the user logging object if we are suppose to.  We wait
   // until now so we have the real value of the parameter and not
   // just the default.
+
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
   if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
