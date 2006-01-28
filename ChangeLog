@@ -1,5 +1,10 @@
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
 
+	* configure.in (GTK2BUILD_LIBS): Add --export-dynamic linker flag,
+	needed for glade signal auto-connect.  (bug #324067, Matthias Clasen)
+
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
 	* Data/Translations/training_greek_GR.txt,
 	Data/Translations/training_italian_IT.txt: Convert to UTF-8. (bug
 	#320424)
