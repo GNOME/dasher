@@ -1,5 +1,10 @@
 2006-01-28  Behdad Esfahbod  <behdad@behdad.org>
 
+	* Data/Translations/training_persian_IR.txt:
+	* Data/Translations/training_turkish_TR.txt: Added.
+
+2006-01-28  Behdad Esfahbod  <behdad@behdad.org>
+
 	* Data/system.rc/alphabet.persian.xml: Comment out nested groups.
 
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
