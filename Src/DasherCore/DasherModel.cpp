@@ -143,6 +143,9 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) * GetLongParameter(LP_BOOSTFACTOR) / 100 / static_cast<double>(GetLongParameter(LP_SPEED_DIVISOR));
       m_fr.SetMaxBitrate(m_dMaxRate);
       break;
+    case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
+      RebuildAroundNode(Get_node_under_crosshair());
+      break;
     default:
       break;
     }
@@ -153,7 +156,6 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 void CDasherModel::Make_root(CDasherNode *whichchild)
 // find a new root node 
 {
-
   symbol t = m_Root->Symbol();
   if(t < m_pDasherInterface->GetAlphabet()->GetNumberTextSymbols()) {
     // Only learn if we have adaptive behaviour enabled
@@ -179,6 +181,42 @@ void CDasherModel::Make_root(CDasherNode *whichchild)
   myint range = m_Rootmax - m_Rootmin;
   m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+}
+
+void CDasherModel::ClearRootQueue() {
+  while(oldroots.size() > 0) {
+    if(oldroots.size() > 1) {
+      oldroots[0]->OrphanChild(oldroots[1]);
+    }
+    else {
+      oldroots[0]->OrphanChild(m_Root);
+    }
+    delete oldroots[0];
+    oldroots.pop_front();
+  }
+}
+
+void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
+  if(!pNewRoot)
+    return;
+
+  if(pNewRoot == m_Root)
+    return;
+
+  // FIXME - we really ought to check that pNewRoot is actually a
+  // descendent of the root, although that should be guaranteed
+
+  if(!pNewRoot->NodeIsParent(m_Root))
+    RecursiveMakeRoot(pNewRoot->Parent());
+
+  Make_root(pNewRoot);
+}
+
+void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
+  RecursiveMakeRoot(pNode);
+  ClearRootQueue();
+  pNode->Delete_children();
+  pNode->m_pNodeManager->PopulateChildren(pNode);
 }
 
 void CDasherModel::Reparent_root(int lower, int upper) {

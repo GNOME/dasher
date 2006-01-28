@@ -141,7 +141,35 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2);
 
   void Start();                 // initializes the data structure
-  void Make_root(CDasherNode *whichchild);       // find a new root node
+
+  /// 
+  /// Make a child of the root into a new root
+  ///
+
+  void Make_root(CDasherNode *whichchild); 
+
+  ///
+  /// Clear the queue of old roots - used when those nodes become
+  /// invalid, eg during changes to conrol mode
+  ///
+
+  void ClearRootQueue();
+
+  ///
+  /// A version of Make_root which is suitable for arbitrary
+  /// descendents of the root, not just immediate children.
+  ///
+
+  void RecursiveMakeRoot(CDasherNode *pNewRoot);
+
+  ///
+  /// Rebuild the data structure such that a given node is guaranteed
+  /// to be in the same place on the screen. This would usually be the
+  /// node under the crosshair
+  ///
+
+  void RebuildAroundNode(CDasherNode *pNode);
+
   void Reparent_root(int lower, int upper);     // change back to the previous root
 
   int GetMode() {
