@@ -1,5 +1,11 @@
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
 
+	* Data/Translations/training_greek_GR.txt,
+	Data/Translations/training_italian_IT.txt: Convert to UTF-8. (bug
+	#320424)
+
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
 	* Data/Makefile.am: Move dasher.png to the right directory.
 
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
