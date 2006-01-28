@@ -7,13 +7,14 @@
 #include <glade/glade.h>
 //#include "libdasher.h"
 //#include "mouse_input.h"
+#include "fileops.h"
 
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-enum-types.h>
 
-extern "C" void open_file(const char *filename);
-/* //extern "C" void clipboard_copy(void); */
+/* extern "C" void open_file(const char *filename); */
+/* extern "C" void clipboard_copy(void); */
 /* extern "C" void clipboard_cut(void); */
 /* extern "C" void clipboard_paste(void); */
 /* extern "C" void clipboard_copy_all(void); */

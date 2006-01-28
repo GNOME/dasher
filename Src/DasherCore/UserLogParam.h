@@ -32,30 +32,6 @@ struct UserLogParamMask {
   int mask;
 };
 
-static UserLogParamMask s_UserLogParamMaskTable [] = {
-  {SP_ALPHABET_ID,          userLogParamOutputToSimple},
-  {SP_COLOUR_ID,            userLogParamOutputToSimple},
-  {LP_MAX_BITRATE,          userLogParamOutputToSimple | 
-                            userLogParamTrackMultiple | 
-                            userLogParamTrackInTrial |
-                            userLogParamForceInTrial |
-                            userLogParamShortInCycle},
-  {BP_CONTROL_MODE,         userLogParamOutputToSimple},
-  {LP_UNIFORM,              userLogParamOutputToSimple},
-  {LP_YSCALE,               userLogParamOutputToSimple},
-  {BP_NUMBER_DIMENSIONS,    userLogParamOutputToSimple},
-  {BP_EYETRACKER_MODE,      userLogParamOutputToSimple},
-  {LP_LANGUAGE_MODEL_ID,    userLogParamOutputToSimple},
-  {LP_LM_MAX_ORDER,         userLogParamOutputToSimple},
-  {LP_LM_EXCLUSION,         userLogParamOutputToSimple},
-  {LP_LM_UPDATE_EXCLUSION,  userLogParamOutputToSimple},
-  {LP_LM_ALPHA,             userLogParamOutputToSimple},
-  {LP_LM_BETA,              userLogParamOutputToSimple},
-  {LP_LM_MIXTURE,           userLogParamOutputToSimple},
-  {LP_LM_WORD_ALPHA,        userLogParamOutputToSimple},
-  {-1, -1}  // Flag value that should always be at the end
-};
-
 class CUserLogParam;
 
 typedef vector<CUserLogParam*>                      VECTOR_USER_LOG_PARAM_PTR;

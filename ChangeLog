@@ -1,5 +1,19 @@
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
 
+	* Src/main.cc Src/Common/AppSettingsData.h
+	Src/DasherCore/AlphabetManager.cpp
+	Src/DasherCore/AutoSpeedControl.h
+	Src/DasherCore/DasherModel.cpp Src/DasherCore/DasherNode.h
+	Src/DasherCore/DasherViewSquare.cpp
+	Src/DasherCore/DasherViewSquare.h Src/DasherCore/SocketInput.h
+	Src/DasherCore/UserLog.cpp Src/DasherCore/UserLogParam.h
+	Src/DasherCore/UserLogTrial.cpp Src/Gtk2/Canvas.cpp
+	Src/Gtk2/GtkDasherControl.cpp Src/Gtk2/Menu.cc
+	Src/Gtk2/dasher.cc Src/Gtk2/dasher.h Src/Gtk2/edit.cc: Shut up more
+	warning.
+
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
 	* */.cvsignore: Added.
 
 	* INSTALL: Removed from CVS.

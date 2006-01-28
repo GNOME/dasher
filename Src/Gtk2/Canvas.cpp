@@ -82,15 +82,13 @@ CCanvas::~CCanvas() {
 }
 
 void CCanvas::Blank() {
-
+  // FIXME - this is replicated throughout this file - do something
+  // about that
+#if WITH_CAIRO
+#else
   GdkGC *graphics_context;
   GdkColormap *colormap;
 
-  // FIXME - this is replicated throughout this file - do something
-  // about that
-
-#if WITH_CAIRO
-#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
 #endif
@@ -114,7 +112,10 @@ void CCanvas::Display() {
   GdkRectangle update_rect;
 
   GdkGC *graphics_context;
+#if WITH_CAIRO
+#else
   GdkColormap *colormap;
+#endif
 
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
 
@@ -151,11 +152,11 @@ void CCanvas::Display() {
 }
 
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+#if WITH_CAIRO
+#else
   GdkGC *graphics_context;
   GdkColormap *colormap;
 
-#if WITH_CAIRO
-#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
 #endif
@@ -217,11 +218,11 @@ void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colo
   if(iWidth == 1) // This is to make it work propely on Windows
     iWidth = 0; 
 
+#if WITH_CAIRO
+#else
   GdkGC *graphics_context;
   GdkColormap *colormap;
 
-#if WITH_CAIRO
-#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
 #endif
@@ -259,11 +260,11 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   if(iWidth == 1) // This is to make it work propely on Windows
     iWidth = 0; 
 
+#if WITH_CAIRO
+#else
   GdkGC *graphics_context;
   GdkColormap *colormap;
   
-#if WITH_CAIRO
-#else
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
 #endif
@@ -296,11 +297,11 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
 
 void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
 
-   GdkGC *graphics_context;
-  GdkColormap *colormap;
-
 #if WITH_CAIRO
 #else
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
+
   graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
   colormap = gdk_colormap_get_system();
 #endif

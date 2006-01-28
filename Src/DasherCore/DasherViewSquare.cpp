@@ -161,10 +161,10 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
   CDasherNode::ChildMap & Children = Render->Children();
   if(Children.size() == 0)
     return;
-  int current = 0;
+  //int current = 0;
   std::string Label = "";
 
-  myint range = y2 - y1;
+  //myint range = y2 - y1;
 
   //  const CAlphabet & alphabet = DasherModel()->GetAlphabet();
 
@@ -1228,11 +1228,6 @@ void CDasherViewSquare::GoTo(screenint mousex, screenint mousey) {
 }
 
 void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) {
-
-  screenint left;
-  screenint top;
-  screenint right;
-  screenint bottom;
 
   myint iHeight(iDasherMax - iDasherMin);
 

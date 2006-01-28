@@ -106,9 +106,6 @@ int main(int argc, char *argv[]) {
   HildonAppView *appview;
 #endif
 
-  int c;
-
-
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);

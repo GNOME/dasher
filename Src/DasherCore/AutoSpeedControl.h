@@ -33,14 +33,14 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   /// the cross hair to the mouse position.
   ///
   
-  double Variance();
+  inline double Variance();
 
   ///
   /// AUTO-SPEED-CONTROL
   /// Updates the exclusion radius for auto speed control.
   ///
   
-  double UpdateMinRadius();
+  inline double UpdateMinRadius();
 
   ///
   /// AUTO-SPEED-CONTROL
@@ -57,7 +57,7 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
   /// is invariant to clock rate and user ability (!!!).
   ///
   
-  int UpdateSampleSize(double dFrameRate);
+  inline int UpdateSampleSize(double dFrameRate);
 
   ///
   /// AUTO-SPEED-CONTROL

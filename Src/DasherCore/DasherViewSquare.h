@@ -334,7 +334,7 @@ private:
   public:
     Cymap(myint iScale);
     Cymap() {}
-    myint map(myint y) const;
+    inline myint map(myint y) const;
     myint unmap(myint y) const;
   private:
     myint m_Y1, m_Y2, m_Y3;

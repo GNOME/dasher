@@ -85,7 +85,7 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   LearnContext = m_pLanguageModel->CreateEmptyContext();
 
   // various settings
-  int iShift = 12;
+  // int iShift = 12;
   // m_DasherY = 1 << iShift;
   //  m_DasherOY = m_DasherY / 2;
   //  m_DasherOX = m_DasherY / 2;

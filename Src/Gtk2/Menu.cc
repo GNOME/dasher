@@ -435,7 +435,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   //GdkPixbuf* pixbuf = NULL;
 
   // In alphabetical order
-  gchar *authors[] = {
+  const gchar *authors[] = {
     "Chris Ball",
     "Phil Cowans",
     "Frederik Eaton",
@@ -454,7 +454,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   };
 
   // Yeah, should really do some Gnome documentation for it...
-  gchar *documenters[] = {
+  const gchar *documenters[] = {
     "Chris Ball",
     "Matthew Garrett",
     "David MacKay",

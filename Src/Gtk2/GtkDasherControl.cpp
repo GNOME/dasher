@@ -50,7 +50,8 @@ GType gtk_dasher_control_get_type() {
       NULL,
       sizeof(GtkDasherControl),
       0,
-      (GInstanceInitFunc) gtk_dasher_control_init
+      (GInstanceInitFunc) gtk_dasher_control_init,
+      NULL
     };
 
     gtk_dasher_control_type = g_type_register_static(GTK_TYPE_VBOX, "GtkDasherControl", &gtk_dasher_control_info, static_cast < GTypeFlags > (0));
@@ -194,9 +195,11 @@ void gtk_dasher_control_set_focus(GtkDasherControl * pControl){
 
 gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data){
   static_cast<CDasherControl *>(data)->KeyPressEvent(pEvent);
+  return FALSE;
 }
 
 
 gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data) {
  static_cast<CDasherControl *>(data)->KeyReleaseEvent(pEvent);
+ return FALSE;
 }

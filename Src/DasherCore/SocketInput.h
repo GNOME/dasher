@@ -31,6 +31,8 @@ class Dasher::CSocketInput:public CSocketInputBase {
     // don't know how this interacts with recv blocking
 
     myClass->ReadForever();
+
+    return NULL;
   }
 
 public:

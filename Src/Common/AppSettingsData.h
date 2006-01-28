@@ -9,29 +9,29 @@
 
 struct app_bp_table {
   int key;
-  char *regName;
+  const char *regName;
   bool persistent;
   bool bDefaultValue;
   bool value;
-  char *humanReadable;
+  const char *humanReadable;
 };
 
 struct app_lp_table {
   int key;
-  char *regName;
+  const char *regName;
   bool persistent;
   long iDefaultValue;
   long value;
-  char *humanReadable;
+  const char *humanReadable;
 };
 
 struct app_sp_table {
   int key;
-  char *regName;
+  const char *regName;
   bool persistent;
-  char *szDefaultValue;
+  const char *szDefaultValue;
   char *value;
-  char *humanReadable;
+  const char *humanReadable;
 };
 
 // The following tables contain details of the application specific

@@ -126,10 +126,6 @@ gboolean quitting = FALSE;      // Are we in the process of shutting down Dasher
 
 button buttons[10];
 
-#ifndef GNOME_SPEECH
-#define _(_x) gettext(_x)
-#endif
-
 #define NO_PREV_POS -1
 
 gboolean coordcalled;

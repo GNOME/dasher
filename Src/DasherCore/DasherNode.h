@@ -64,7 +64,7 @@ class Dasher::CDasherNode:private NoClones {
     m_iHbnd = iUpper;
   };
 
-  int Range() const;
+  inline int Range() const;
 
   // 'Alive' - this could do with an overhaul
   bool Alive() const {

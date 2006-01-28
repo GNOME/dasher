@@ -77,7 +77,7 @@ extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpo
 extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
-extern "C" gboolean mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data);
+extern "C" static void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data);
 
 extern "C" void choose_filename() {
   if( get_app_parameter_bool( APP_BP_TIME_STAMP )) {
@@ -213,7 +213,7 @@ void initialise_edit(GladeXML *pGladeXML) {
   // We need to monitor the text buffer for mark_set in order to get
   // signals when the cursor is moved
 
-  g_signal_connect(G_OBJECT(the_text_buffer), "mark_set", G_CALLBACK(mark_set_handler), NULL);
+  g_signal_connect(G_OBJECT(the_text_buffer), "mark-set", G_CALLBACK(mark_set_handler), NULL);
 
   
   //  gtk_widget_add_events(GTK_WIDGET(the_text_view), GDK_BUTTON_RELEASE_MASK);
@@ -1137,7 +1137,7 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
   }
 }
 
-extern "C" gboolean mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data) {
+extern "C" static void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data) {
   // This seems to be a sensible way of determining when the cursor moves
   const char *szMarkName(gtk_text_mark_get_name(pMark));
   if(szMarkName && !strcmp(szMarkName,"insert"))
