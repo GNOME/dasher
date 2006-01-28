@@ -84,22 +84,20 @@ extern "C" void choose_filename() {
     // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
-    char *cwd;
-    char *tbuffer;
-
-    cwd = (char *)malloc(1024 * sizeof(char));
-    tbuffer = (char *)malloc(1024 * sizeof(char));
+    char cwd[1000];
+    char tbuffer[200];
 
     ctime = time(NULL);
 
     t_struct = localtime(&ctime);
 
-    snprintf(tbuffer, 256, "dasher-%04d%02d%02d-%02d%02d.txt", (t_struct->tm_year + 1900), (t_struct->tm_mon + 1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
-
     if(filename) {
       g_free((void *)filename);
     }
-    getcwd(cwd, 1024);
+
+    getcwd(cwd, 1000);
+    snprintf(tbuffer, 200, "dasher-%04d%02d%02d-%02d%02d.txt", (t_struct->tm_year + 1900), (t_struct->tm_mon + 1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+
     filename = g_build_path("/", cwd, tbuffer, NULL);
     gtk_window_set_title(GTK_WINDOW(window), filename);
   }

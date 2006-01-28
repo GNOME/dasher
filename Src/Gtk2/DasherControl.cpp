@@ -214,6 +214,10 @@ CDasherControl::~CDasherControl() {
     delete m_pSocketInput;
     m_pSocketInput = NULL;
   }
+  if(m_pPangoCache != NULL) {
+    delete m_pPangoCache;
+    m_pPangoCache = NULL;
+  }
 
 }
 

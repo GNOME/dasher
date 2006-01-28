@@ -1,5 +1,16 @@
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
 
+	Fix a few leaks and memory problems:
+
+	* Src/DasherCore/SocketInputBase.cpp: Initialize port to -1.
+
+	* Src/Gtk2/DasherControl.cpp (CDasherControl::~CDasherControl):
+	Free m_pPangoCache.
+
+	* Src/Gtk2/edit.cc (choose_filename): Not leak cwd and tbuffer.
+
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
 	* Src/Gtk2/Makefile.am: Put Output.h and Output.cpp back!
 
 2006-01-27  Behdad Esfahbod  <behdad@behdad.org>

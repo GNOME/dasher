@@ -25,6 +25,7 @@ using namespace Dasher;
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
 :CDasherComponent(pEventHandler, pSettingsStore), CDasherInput() {
 
+  port = -1;
   debug_socket_input = false;
   readerRunning = false;
   sock = -1;

@@ -369,7 +369,7 @@ bool CCanvas::ExposeEvent(GtkWidget *pWidget, GdkEventExpose *pEvent) {
 void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
   int iNumColours(Colours->GetNumColours());
 
-  #if WITH_CAIRO
+#if WITH_CAIRO
   if (cairo_colours)
     delete[] cairo_colours;
   cairo_colours = new my_cairo_colour_t[iNumColours];
