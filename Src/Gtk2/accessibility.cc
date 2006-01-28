@@ -2,9 +2,9 @@
 // This is obsolete code and is no longer included in the build system
 //
 
+#include "../Common/Common.h"
 
 #include "accessibility.h"
-//#include "libdasher.h"
 #include "edit.h"
 #include <libintl.h>
 #include <iostream>

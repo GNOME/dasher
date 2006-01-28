@@ -8,6 +8,7 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #include "../../Common/Common.h"
+
 #include "JapaneseLanguageModel.h"
 
 #include "KanjiConversion.h"

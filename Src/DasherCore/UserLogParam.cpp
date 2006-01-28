@@ -1,4 +1,6 @@
 
+#include "../Common/Common.h"
+
 #include "UserLogParam.h"
 
 // Track memory leaks on Windows to the line that new'd the memory

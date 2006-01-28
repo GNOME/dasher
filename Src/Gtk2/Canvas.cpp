@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "Canvas.h"
 #include "DasherControl.h"
 

@@ -3,6 +3,9 @@
 
 // Idea - should back off button always just undo the previous 'forwards' button?
 
+#include "../Common/Common.h"
+
+
 #include "DasherButtons.h"
 #include <valarray>
 #include <iostream>
@@ -76,8 +79,8 @@ void CDasherButtons::SetupBoxes()
     m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
     m_pBoxes[m_iNumBoxes-1].iDisplayBottom = iDasherY;
     
-    m_pBoxes[m_iNumBoxes-1].iTop = - iDasherY / 2;
-    m_pBoxes[m_iNumBoxes-1].iBottom = iDasherY * 1.5;
+    m_pBoxes[m_iNumBoxes-1].iTop = int(- iDasherY / 2);
+    m_pBoxes[m_iNumBoxes-1].iBottom = int(iDasherY * 1.5);
 
     m_iLastBox = -1;
     
@@ -169,9 +172,9 @@ void CDasherButtons::SetupBoxes()
 	dNorm = 1+dRatio;
 
 	m_pBoxes[0].iDisplayTop = 0;
-	m_pBoxes[0].iDisplayBottom = (1 / dNorm) * iDasherY;
+	m_pBoxes[0].iDisplayBottom = int( (1 / dNorm) * iDasherY );
 	
-	m_pBoxes[1].iDisplayTop = (1 / dNorm) * iDasherY;
+	m_pBoxes[1].iDisplayTop = int( (1 / dNorm) * iDasherY );
 	m_pBoxes[1].iDisplayBottom = iDasherY;
       }
       else {
@@ -220,11 +223,11 @@ void CDasherButtons::SetupBoxes()
 	for(int i(0); i < iGeometricTerms; ++i) { // One button reserved for backoff
 	  dMax = dMin + dMaxSize * pow(dRatio, i);
 	  
-	  m_pBoxes[iUpBase + i].iDisplayTop = dMin;
-	  m_pBoxes[iUpBase + i].iDisplayBottom = dMax;
+	  m_pBoxes[iUpBase + i].iDisplayTop = int(dMin);
+	  m_pBoxes[iUpBase + i].iDisplayBottom = int(dMax);
 
-	  m_pBoxes[iDownBase - i].iDisplayTop = iDasherY - dMax;
-	  m_pBoxes[iDownBase - i].iDisplayBottom = iDasherY - dMin;
+	  m_pBoxes[iDownBase - i].iDisplayTop = int(iDasherY - dMax);
+	  m_pBoxes[iDownBase - i].iDisplayBottom = int(iDasherY - dMin);
 
 	  dMin = dMax;
 	}
@@ -239,8 +242,8 @@ void CDasherButtons::SetupBoxes()
     m_pBoxes[m_iNumBoxes-1].iDisplayTop = 0;
     m_pBoxes[m_iNumBoxes-1].iDisplayBottom = iDasherY;
     
-    m_pBoxes[m_iNumBoxes-1].iTop = - iDasherY / 2;
-    m_pBoxes[m_iNumBoxes-1].iBottom = iDasherY * 1.5;
+    m_pBoxes[m_iNumBoxes-1].iTop = int(- iDasherY / 2);
+    m_pBoxes[m_iNumBoxes-1].iBottom = int(iDasherY * 1.5);
   }
  
   iActiveBox = 0;

@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "GnomeSettingsStore.h"
 
 #include <iostream>

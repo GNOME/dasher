@@ -1,4 +1,6 @@
 
+#include "../Common/Common.h"
+
 #ifdef _WIN32
 
 #include "MemoryLeak.h"

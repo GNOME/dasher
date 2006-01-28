@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "Output.h"
 #include "edit.h"
 #include "dasher.h"

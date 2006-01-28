@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "GtkDasherControl.h"
 #include "DasherControl.h"
 

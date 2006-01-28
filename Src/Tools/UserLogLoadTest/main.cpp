@@ -4,6 +4,8 @@
 // Copyright 2005 by Keith Vertanen
 //
 
+#include "../Common/Common.h"
+
 #include <string>
 #include <vector>
 

@@ -6,6 +6,8 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
+#include "../../Common/Common.h"
+
 #include "KanjiConversionCanna.h"
 
 #include <iostream>             //For testing 23 June 2005

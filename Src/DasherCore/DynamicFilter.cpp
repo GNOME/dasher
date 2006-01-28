@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "DynamicFilter.h"
 #include "DasherInterfaceBase.h"
 #include "Event.h"

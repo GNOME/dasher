@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "AutoSpeedControl.h"
 
 #include <cmath>
@@ -174,10 +177,10 @@ void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, double dFra
     
 //  Coordinate transforms:    
     iDasherX = myint(pView->xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-    iDasherY = pView->ymap(iDasherY);
+    iDasherY = myint(pView->ymap(iDasherY));
 
     myint iDasherOX = myint(pView->xmap(GetLongParameter(LP_OX) / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
-    myint iDasherOY = pView->ymap(GetLongParameter(LP_OY));
+    myint iDasherOY = myint(pView->ymap(GetLongParameter(LP_OY)));
 
     double x = -(iDasherX - iDasherOX) / double(iDasherOX); //Use normalised coords so min r works 
     double y = -(iDasherY - iDasherOY) / double(iDasherOY); 

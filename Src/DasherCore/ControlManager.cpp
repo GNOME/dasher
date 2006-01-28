@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "ControlManager.h"
 using namespace Dasher;
 using namespace std;

@@ -1,6 +1,8 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[3.99.1],[dasher@mrao.cam.ac.uk])
+AC_INIT([dasher],[3.99.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
+AC_CONFIG_SRCDIR([Src/main.cc])
+AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([gnu check-news])
 AM_MAINTAINER_MODE
 
@@ -9,6 +11,18 @@ AC_PROG_INTLTOOL([0.18])
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
+changequote(,)dnl
+if test "x$GCC" = "xyes"; then
+  case " $CXXFLAGS " in
+  *[\	\ ]-Wall[\	\ ]*) ;;
+  *) CFLAGS="$CXXFLAGS -Wall" ;;
+  esac
+  case " $CXXFLAGS " in
+  *[\ \	]-O[\ \	]*) ;;
+  *) CFLAGS="$CXXFLAGS -O2" ;;
+  esac
+fi
+changequote([,])dnl
 
 AM_ICONV
 
@@ -25,7 +39,7 @@ WITHGTK2=true;
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
 AC_ARG_WITH([gnome],
-	 AC_HELP_STRING([--with-gnome],[build with Gnome support (default is YES)]), 
+	 AC_HELP_STRING([--with-gnome],[build with GNOME support (default is YES)]), 
 	 if test $withval = "no"; then
 	   WITHGNOME=false; 
 	 else
@@ -43,7 +57,7 @@ AC_ARG_WITH([speech],
 	 WITHSPEECH=false)
 
 AC_ARG_WITH([qte],
-	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO - currently untested)]), 
+	 AC_HELP_STRING([--with-qte],[build with QTE support (default is NO -- currently untested)]), 
 	 if test $withval = "no"; then
 	   WITHQTE=false; 
 	 else
@@ -52,7 +66,7 @@ AC_ARG_WITH([qte],
 	 WITHQTE=false)
 
 AC_ARG_WITH([gpe],
-	 AC_HELP_STRING([--with-gpe],[build with GPE support (default is NO - currently untested)]), 
+	 AC_HELP_STRING([--with-gpe],[build with GPE support (default is NO -- currently untested)]), 
 	 if test $withval = "no"; then
 	   WITHGPE=false; 
 	 else
@@ -61,7 +75,7 @@ AC_ARG_WITH([gpe],
 	 WITHGPE=false)
 
 AC_ARG_WITH([a11y],
-	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility library (default is YES)]),
+	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
 	 if test $withval = "no"; then
 	   WITHA11Y=false; 
 	 else
@@ -70,7 +84,7 @@ AC_ARG_WITH([a11y],
 	 WITHA11Y=true)
 
 AC_ARG_WITH([japanese],
-	 AC_HELP_STRING([--with-japanese],[build with support for Japanese Kanji entry (experimental - default is NO)]),
+	 AC_HELP_STRING([--with-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
 	 if test $withval = "no"; then
 	   WITHJAPANESE=false; 
 	 else
@@ -98,7 +112,6 @@ AC_ARG_WITH([cairo],
 	   WITHCAIRO=true;
          fi, 
 	 WITHCAIRO=true)
-
 
 if [[ x"$WITHGTK2" = xtrue ]]
 then 
@@ -147,12 +160,12 @@ dnl path to Xtst
 	        LIBS="$save_LIBS"
 	        break],[AC_MSG_RESULT(no)])
 	  done
-	  if test "x$XTST_LIBS" = x; then
-	    AC_MSG_ERROR(Couldn't find the Xtst library. Check config.log for details)
-	  else
-	    X_LIBS="$X_LIBS $XTST_LIBS"
-	    AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])
-	  fi
+	fi
+	if test "x$XTST_LIBS" = x; then
+	  AC_MSG_ERROR(Couldn't find the Xtst library. Check config.log for details)
+	else
+	  X_LIBS="$X_LIBS $XTST_LIBS"
+	  AC_DEFINE(HAVE_XTST, 1, [The XTest extension is present])
 	fi
 
 AC_SUBST(X_LIBS)
@@ -160,40 +173,39 @@ fi
 
 
 if [[ x"$WITHGNOME" = xtrue ]]; then
-	PKG_CHECK_MODULES(gnome, libgnome-2.0 gnome-vfs-2.0 libgnomeui-2.0)
-	AC_DEFINE([GNOME_LIBS])
+	PKG_CHECK_MODULES(gnome, libgnome-2.0 libgnomeui-2.0 gnome-vfs-2.0)
+	AC_DEFINE([GNOME_LIBS], 1, [libgnome-2, libgnomeui-2, and gnome-vfs-2 are present])
 fi
 
 if [[ x"$WITHSPEECH" = xtrue ]]; then
-        echo "foobar: $WITHSPEECH"
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
-	AC_DEFINE([GNOME_SPEECH])
+	AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
 	SPEECH_SOURCES='speech.$(OBJEXT)'
 fi
 
 if [[ x"$WITHA11Y" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0)
-	AC_DEFINE([GNOME_A11Y])
+	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
 
 if [[ x"$WITHJAPANESE" = xtrue ]]; then
-	AC_DEFINE([JAPANESE])
+	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
 fi
 
 if [[ x"$WITHGPE" = xtrue ]]; then
-	AC_DEFINE([WITH_GPE])
+	AC_DEFINE([WITH_GPE], 1, [gpe is present])
 fi
 
 if [[ x"$WITHMAEMO" = xtrue ]]; then
-      AC_DEFINE([WITH_MAEMO])
+      AC_DEFINE([WITH_MAEMO], 1, [Maemo is present])
       dnl Yes, this sucks
       glade_LIBS="/usr/lib/libglade-2.0.a"
       PKG_CHECK_MODULES(hildon, hildon-libs)
 fi			
 
 if [[ x"$WITHCAIRO" = xtrue ]]; then
-	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.6.0)
-	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.7.0)])
+	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.8.0)
+	AC_DEFINE([WITH_CAIRO], 1, [use cairo (needs Gtk+ >= 2.8.0)])
 fi
 
 if [[ x"$BUILDGTK2" = xtrue ]]; then 
@@ -206,11 +218,11 @@ if [[ x"$BUILDGTK2" = xtrue ]]; then
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 	AC_CHECK_LIB(popt, poptGetNextOpt, POPT_LIBS=-lpopt)	
 	if test "x$POPT_LIBS" != x; then
-	   AC_DEFINE([HAVE_POPT])
+	   AC_DEFINE([HAVE_POPT], 1, [popt is present])
 	fi
 	if [[ x"$WITHMAEMO" = xfalse ]]; then
 		PKG_CHECK_MODULES(wnck, libwnck-1.0)
-	        AC_DEFINE([HAVE_WNCK])
+	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
 	fi
 fi
 
@@ -255,6 +267,7 @@ AC_SUBST(GCONF_CFLAGS)
 AC_SUBST(GCONF_LIBS)
 
 if [[ x"$WITHGPE" = xtrue ]]; then
+	SETTINGS_CFLAGS=" "
 	SETTINGS_LIBS="-lgpewidget -lXsettings-client -lXsettings"
 else
 	SETTINGS_CFLAGS=$GCONF_CFLAGS
@@ -262,6 +275,13 @@ else
 fi
 AC_SUBST(SETTINGS_CFLAGS)
 AC_SUBST(SETTINGS_LIBS)
+
+GTK2BUILD_CFLAGS="$GTK2_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $glade_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
+GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
+
+AC_SUBST(GTK2BUILD_CFLAGS)
+AC_SUBST(GTK2BUILD_LIBS)
+
 
 
 AC_CONFIG_FILES([Makefile

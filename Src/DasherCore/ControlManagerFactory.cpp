@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "ControlManagerFactory.h"
 #include "ControlManager.h"
 

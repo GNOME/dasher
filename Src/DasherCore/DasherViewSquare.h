@@ -182,7 +182,7 @@ public:
 
   double xmap(double x) const;
   double ymap(double x) const {
-    return m_ymap.map(x);
+    return m_ymap.map( (myint)x );
   };
 
 private:

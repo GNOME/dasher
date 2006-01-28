@@ -1,4 +1,6 @@
 
+#include "../Common/Common.h"
+
 #include "UserLog.h"
 #include <fstream>
 #include <sys/timeb.h>

@@ -1,0 +1,7 @@
+Makefile
+Makefile.in
+*.la
+*.lo
+.deps
+.libs
+generate-schema

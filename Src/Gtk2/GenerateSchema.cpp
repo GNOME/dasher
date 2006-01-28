@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "../DasherCore/Parameters.h"
 #include "../Common/AppSettingsData.h"
 

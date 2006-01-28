@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "Preferences.h"
 #include "Parameters.h"
 #include "dasher.h"
@@ -694,7 +696,7 @@ void preferences_handle_parameter_change(int iParameter)
 }
 
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
-    long iNewValue = round(gtk_range_get_value(GTK_RANGE(hscale)) * 100);
+    long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
     set_app_parameter_long(LP_MAX_BITRATE, iNewValue);
 
 }
@@ -899,7 +901,7 @@ extern "C" void sparameter_changed(GtkHScale *hscale) {
 }
 
 extern "C" void rightzoom_changed(GtkHScale *hscale) {
-  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_RIGHTZOOM, (1024 * GTK_RANGE(hscale)->adjustment->value));
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_RIGHTZOOM, long(1024 * GTK_RANGE(hscale)->adjustment->value));
 }
 
 extern "C" void zparameter_changed(GtkHScale *hscale) {

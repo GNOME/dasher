@@ -2,6 +2,8 @@
 //
 // Copyright (c) 2005 David Ward
 
+#include "Common.h"
+
 #include "Trace.h"
 #include "Platform.h"
 

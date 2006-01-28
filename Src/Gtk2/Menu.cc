@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "Menu.h"
 #include "dasher.h"
 #include "edit.h"
@@ -400,10 +402,10 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data) {
   // FIXME - REIMPLEMENT
 
   //  reset_dasher_font();
-//   dasher_set_parameter_string( STRING_DASHERFONT, "DASHERFONT" );
+//   dasher_set_parameter_string( STRING_DASHERFONT, DASHERFONT );
 //   dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
 //   editfont="Sans 10";
-//   dasherfont="DASHERFONT";
+//   dasherfont=DASHERFONT;
 }
 
 extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data) {

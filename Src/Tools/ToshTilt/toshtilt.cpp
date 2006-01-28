@@ -15,6 +15,8 @@
 // the only one I modified. I also had to add ws2_32.lib to the linker
 // dependencies (in the Project properties pages).
 
+#include "../Common/Common.h"
+
 #include "stdafx.h"
 #include "windows.h"
 #include "winsock.h"

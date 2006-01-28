@@ -1,4 +1,6 @@
 
+#include "../Common/Common.h"
+
 #include "XMLUtil.h"
 
 #include <sys/types.h>

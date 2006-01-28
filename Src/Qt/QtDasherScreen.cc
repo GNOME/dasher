@@ -3,6 +3,8 @@
 // Derived from GtkDasherCanvas.cc
 // (c) 2002 Philip Cowans
 
+#include "../Common/Common.h"
+
 #include <iostream>
 #include <string>
 

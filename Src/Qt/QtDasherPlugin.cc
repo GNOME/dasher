@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "QtDasherPlugin.h"
 
 #include <qpe/global.h>

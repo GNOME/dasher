@@ -2,6 +2,8 @@
 //
 // (C) Copyright Seb Wills 2005
 
+#include "../Common/Common.h"
+
 #include "SocketInputBase.h"
 
 #include "../DasherCore/Event.h"

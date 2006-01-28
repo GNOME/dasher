@@ -1,3 +1,30 @@
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
+	* */.cvsignore: Added.
+
+	* INSTALL: Removed from CVS.
+
+	* configure.in: Cleanup.  Added GTK2BUILD_CFLAGS and GTK2BUILD_CFLAGS.
+
+	* Src/Makefile.am, Src/Gtk/Makefile.am: Use the above variables.
+
+	* configure.in: Generate config.h
+
+	* Src/Common/Common.h: #include <config.h"
+
+	* *.cc, *.cpp: #include ".../Common.h"
+
+2006-01-27  Christian Kirbach  <Christian.Kirbach@student.uni-siegen.de>
+
+	* Src/DasherCore/AutoSpeedControl.cpp, Src/DasherCore/DasherButtons.cpp,
+	Src/DasherCore/DasherModel.cpp, Src/DasherCore/DasherViewSquare.cpp,
+	Src/DasherCore/DasherViewSquare.h, Src/Gtk2/Preferences.cpp:
+	Fix 19 gcc 4 compiler warnings.
+
+2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+
+	* configure.in:  Fix around Xtst. (#140950)
+
 2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Src/Common/Types/int.h: Do not redefine LLONG_*. (bug #313116)

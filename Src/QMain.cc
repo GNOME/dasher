@@ -1,3 +1,5 @@
+#include "Common/Common.h"
+
 #include <qapplication.h>
 #include <qpushbutton.h>
 #include <qtopia/qpeapplication.h>

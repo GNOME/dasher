@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "AppSettings.h"
 #include "dasher.h"
 #include "GtkDasherControl.h"

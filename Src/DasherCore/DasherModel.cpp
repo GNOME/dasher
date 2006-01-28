@@ -3,6 +3,7 @@
 // Copyright (c) 2001-2005 David Ward
 
 #include "../Common/Common.h"
+
 #include <iostream>
 #include "../Common/Random.h"
 #include "DasherModel.h"
@@ -310,7 +311,7 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
 
-  int iWidth( GetLongParameter(LP_MAX_Y) / (2.0*dFraction) );
+  int iWidth( int( (GetLongParameter(LP_MAX_Y) / (2.0*dFraction)) ) );
 
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;

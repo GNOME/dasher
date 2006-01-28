@@ -1,4 +1,6 @@
 
+#include "../Common/Common.h"
+
 #include "FileLogger.h"
 
 // Track memory leaks on Windows to the line that new'd the memory

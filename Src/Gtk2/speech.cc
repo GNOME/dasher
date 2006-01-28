@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "speech.h"
 #include <string.h>
 

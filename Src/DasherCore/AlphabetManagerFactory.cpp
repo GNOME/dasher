@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "AlphabetManagerFactory.h"
 
 using namespace Dasher;

@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "dasher.h"
 #include "FontDialogues.h"
 #include "AppSettings.h"

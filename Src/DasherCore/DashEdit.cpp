@@ -1,3 +1,6 @@
+
+#include "../Common/Common.h"
+
 #include "DashEdit.h"
 #include "Event.h"
 #include "EventHandler.h"

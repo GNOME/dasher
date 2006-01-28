@@ -1,3 +1,5 @@
+#include "../Common/Common.h"
+
 #include "gpesettings_store.h"
 
 XSettingsClient *client;

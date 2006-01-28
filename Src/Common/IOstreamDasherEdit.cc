@@ -3,6 +3,8 @@
 // Derived from GtkDasherEdit.cc
 // (c) 2002 Philip Cowans
 
+#include "Common.h"
+
 #include "IOstreamDasherEdit.h"
 
 #include <string>

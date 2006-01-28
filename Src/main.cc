@@ -1,3 +1,5 @@
+#include "Common/Common.h"
+
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
@@ -199,6 +201,9 @@ int main(int argc, char *argv[]) {
 #else
   xml = glade_xml_new(PROGDATA "/dasher.glade", NULL, NULL);
 #endif
+  if (!xml) {
+    g_error("Can't find dasher.glade. Probably not installed properly ...\n");
+  }
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
   if(!bonobo_init(&argc, argv)) {

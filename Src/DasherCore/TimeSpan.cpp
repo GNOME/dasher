@@ -1,4 +1,6 @@
 
+#include "../Common/Common.h"
+
 #include "TimeSpan.h"
 #include <sys/timeb.h>
 
