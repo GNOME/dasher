@@ -90,7 +90,7 @@ inline const void CScreen::point2POINT(const point *In, POINT *Out, int Number) 
 }
 
 inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
-  HASH_MAP <int, HPEN> :: const_iterator hm1_RcIter;
+  stdext::hash_map <int, HPEN> :: const_iterator hm1_RcIter;
   int key = iColor+iWidth*256;
 
   hm1_RcIter = m_cPens.find( key );
@@ -103,7 +103,7 @@ inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
 }
 
 inline HBRUSH& CScreen::GetBrush(int iColor) {
-  HASH_MAP <int, HBRUSH> :: const_iterator hm1_RcIter;
+  stdext::hash_map <int, HBRUSH> :: const_iterator hm1_RcIter;
   int key = iColor;
 
   hm1_RcIter = m_cBrushes.find( key );
@@ -124,7 +124,7 @@ inline HFONT& CScreen::GetFont(int iSize) {
   if (iSize > 50) // ???? Is there a limit to size, should it be a setting?
     iSize = 50;
 
-  HASH_MAP <int, HFONT> :: const_iterator hm1_RcIter;
+  stdext::hash_map <int, HFONT> :: const_iterator hm1_RcIter;
   int key = iSize;
 
   hm1_RcIter = m_cFonts.find( key );

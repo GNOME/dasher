@@ -19,6 +19,7 @@
 
 #include <vector>
 #include <map>
+#include <hash_map>
 
 #ifndef _WIN32_WCE
 #include <cmath>
@@ -99,9 +100,9 @@ private:
   HPEN& GetPen(int iColor, int iWidth);
   HBRUSH& GetBrush(int iColor);
   HFONT& GetFont(int iSize);
-  HASH_MAP <int, HPEN> m_cPens;  // Holds cached pens
-  HASH_MAP <int, HBRUSH> m_cBrushes; // Holds cached brushes
-  HASH_MAP <int, HFONT> m_cFonts;  // Holds cached font sizes for current font
+  stdext::hash_map <int, HPEN> m_cPens;  // Holds cached pens
+  stdext::hash_map <int, HBRUSH> m_cBrushes; // Holds cached brushes
+  stdext::hash_map <int, HFONT> m_cFonts;  // Holds cached font sizes for current font
   std::string FontName; // Shouldn't need to cache, should work on events to reset font cache
 
   struct CTextSizeInput {
