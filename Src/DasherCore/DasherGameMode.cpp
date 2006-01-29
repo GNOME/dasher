@@ -8,6 +8,8 @@
 #include "DasherNode.h"
 #include "DasherView.h"
 
+#include <limits>
+
 CDasherGameMode::CDasherGameMode(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CDasherModel *model)
 :CDasherComponent(pEventHandler, pSettingsStore), m_model(model), m_DasherInterface(pDashIface) {
   if(InitializeTargetFile() == myint(-1)) {

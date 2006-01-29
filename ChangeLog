@@ -1,3 +1,6 @@
+2006-01-29  Phil Cowans <pjc51@cam.ac.uk>
+	* Removed hash_map
+
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
 	* Provided input handler for 'default' behaviour (Fixes #312440)
 
