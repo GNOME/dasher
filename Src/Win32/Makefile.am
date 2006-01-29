@@ -9,12 +9,20 @@ EXTRA_DIST = \
 		Common/WinLocalisation.h \
 		Common/WinMenus.cpp \
 		Common/WinMenus.h \
+		Common/WinOptions.cpp \
+		Common/WinOptions.h \
 		Common/WinUTF8.cpp \
 		Common/WinUTF8.h \
 		Common/WinWrap.cpp \
 		Common/WinWrap.h \
 		GDI/FontStore.cpp \
 		GDI/FontStore.h \
+		TabletPC/CursorInRange.cpp \
+		TabletPC/CursorInRange.h \
+		TabletPC/InkCollectorEvents.cpp \
+		TabletPC/InkCollectorEvents.h \
+		TabletPC/SystemInfo.h \
+		Widgets/AboutBox.h \
 		Widgets/AdvancedPage.cpp \
 		Widgets/AdvancedPage.h \
 		Widgets/AlphabetBox.cpp \
@@ -60,6 +68,10 @@ EXTRA_DIST = \
 		Widgets/WindowSelect.h \
 		AppSettings.cpp \
 		AppSettings.h \
+		ButtonPrefs.cpp \
+		ButtonPrefs.h \
+		ButtonType.cpp \
+		ButtonType.h \
 		CopyAllLarge.bmp \
 		CopyAllSmall.bmp \
 		Dasher.cpp \
@@ -70,6 +82,8 @@ EXTRA_DIST = \
 		Dasher.rc \
 		Dasher.sln \
 		Dasher.vcproj \
+		DasherInterface.cpp \
+		DasherInterface.h \
 		DasherMouseInput.cpp \
 		DasherMouseInput.h \
 		DasherWindow.cpp \

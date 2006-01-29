@@ -464,11 +464,26 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   // This gets pulled out via gettext
   gchar *translator_credits = _("translator-credits");
 
-  about = gnome_about_new(_("Dasher"), PACKAGE_VERSION, "Copyright The Dasher Project\n", _("Dasher is a predictive text entry application"), (const char **)authors, (const char **)documenters, strcmp(translator_credits, "translator-credits") != 0 ? (const char *)translator_credits : NULL, NULL);
+//   about = gnome_about_new(_("Dasher"), PACKAGE_VERSION, "Copyright The Dasher Project\n", _("Dasher is a predictive text entry application"), (const char **)authors, (const char **)documenters, strcmp(translator_credits, "translator-credits") != 0 ? (const char *)translator_credits : NULL, NULL);
 
-  gtk_window_set_transient_for(GTK_WINDOW(about), GTK_WINDOW(window));
-  //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
-  gtk_widget_show(about);
+//   gtk_window_set_transient_for(GTK_WINDOW(about), GTK_WINDOW(window));
+//   //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
+//   gtk_widget_show(about);
+
+  // FIXME - this is 2.6 dependent - what is our minimum GTK
+  // requirement right now?
+
+  gtk_show_about_dialog(GTK_WINDOW(window), 
+			"copyright", "Copyright The Dasher Project", 
+			"comments", _("Dasher is a predictive text entry application"), 
+			"authors", (const char **)authors,
+			"documenters", (const char **)documenters,
+			//"translator-credits", strcmp(translator_credits, "translator-credits") != 0 ? (const char *)translator_credits : NULL,
+			"translator-credits", _("translator-credits"),
+			"website", "http://www.dasher.org.uk/",
+			"version", PACKAGE_VERSION,
+			NULL);
+  
 #else
   // EAT UGLY ABOUT BOX, PHILISTINE
   GtkWidget *label, *button;

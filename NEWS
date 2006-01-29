@@ -1,4 +1,13 @@
 =============
+Dasher 3.99.2
+=============
+
+ * Improved button mode support
+ * Cairo support ported from 3.2 branch
+ * Win32 should build from tarball again
+ * Bugfixes
+
+=============
 Dasher 3.99.1
 =============
 
