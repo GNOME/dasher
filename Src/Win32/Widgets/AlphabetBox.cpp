@@ -572,29 +572,29 @@ LRESULT CAlphabetBox::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
         }
         break;
       }
-    case (IDC_CLONE):
-      Cloning = true;
-      // deliberate fall through
-    case (IDC_ADD_ALPH):
-      DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_NEWALPHABET, Window, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
-      break;
-    case (IDOK_NEWALPH):{
-        m_CurrentAlphabet = ""; // Prevent over-writing another alphabet in rare circumstances.
-        string NewAlph = GetControlText(Window, IDC_NEW_ALPH_STRING);
-        EndDialog(Window, LOWORD(wParam));
-        if(Cloning) {
-          Cloning = false;
-        }
-        else {
-          CAlphIO::AlphInfo Tmp;
-          CurrentInfo = Tmp;
-        }
-        CurrentInfo.AlphID = NewAlph;
-      }                         // deliberate fall through
-    case (IDC_EDIT):
-      Editing = true;
-      DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_CUSTOMALPHABET, Window, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
-      break;
+    //case (IDC_CLONE):
+    //  Cloning = true;
+    //  // deliberate fall through
+    //case (IDC_ADD_ALPH):
+    //  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_NEWALPHABET, Window, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
+    //  break;
+    //case (IDOK_NEWALPH):{
+    //    m_CurrentAlphabet = ""; // Prevent over-writing another alphabet in rare circumstances.
+    //    string NewAlph = GetControlText(Window, IDC_NEW_ALPH_STRING);
+    //    EndDialog(Window, LOWORD(wParam));
+    //    if(Cloning) {
+    //      Cloning = false;
+    //    }
+    //    else {
+    //      CAlphIO::AlphInfo Tmp;
+    //      CurrentInfo = Tmp;
+    //    }
+    //    CurrentInfo.AlphID = NewAlph;
+    //  }                         // deliberate fall through
+    //case (IDC_EDIT):
+    //  Editing = true;
+    //  DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_CUSTOMALPHABET, Window, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
+    //  break;
     case (IDOK):
       if(m_CurrentAlphabet != std::string("")) {
         m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, m_CurrentAlphabet);

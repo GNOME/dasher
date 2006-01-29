@@ -39,7 +39,9 @@ pVoice(0),
   
   CodePage = GetUserCodePage();
   m_Font = GetCodePageFont(CodePage, 14);
- 
+
+  // FIXME - move speech into a new file
+
   // Initialise speech support
   speech.resize(0);
 
@@ -59,14 +61,14 @@ pVoice(0),
 
 ////////////////////////////////////////////////////////////////////////////
 
-HWND CEdit::Create(HWND hParent)
+HWND CEdit::Create(HWND hParent, bool bNewWithDate)
 {
 	HWND hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
 
 	
 	Tstring WindowTitle;
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
-	m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str());
+	m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str(), bNewWithDate);
 
 	return hWnd;
 }
@@ -1192,4 +1194,9 @@ void CEdit::speak(int what) {
   }
 
 #endif
+}
+
+void CEdit::SetNewWithDate(bool bNewWithDate) {
+  if(m_FilenameGUI)
+    m_FilenameGUI->SetNewWithDate(bNewWithDate);
 }

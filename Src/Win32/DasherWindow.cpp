@@ -139,21 +139,20 @@ HWND CDasherWindow::Create()
      #endif
    */
 
-
-
   // Create Widgets
   m_pDasher = new CDasher(hWnd);
 
+  // Create a CAppSettings
+  m_pAppSettings = new CAppSettings(m_pDasher, hWnd);
+
   m_pEdit = new CEdit();
-  m_pEdit->Create(hWnd);
+  m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
 
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
 #endif
 
   m_pToolbar = new CToolbar(hWnd, m_pDasher);
-
-
 
   // Set an object to handle edit events
   m_pDasher->SetEdit(m_pEdit);
@@ -172,9 +171,6 @@ HWND CDasherWindow::Create()
   HWND hSplitter =  m_pSplitter->Create(hWnd);
   if (!hSplitter)
 	  return 0;
-
-  // Create a CAppSettings
-  m_pAppSettings = new CAppSettings(m_pDasher, hWnd);
 
   // Add extra control nodes
 

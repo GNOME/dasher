@@ -186,7 +186,7 @@ LRESULT CSlidebar::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lPar
   if(message == WM_KEYDOWN) {
     switch (wParam) {
     case VK_SPACE:
-      m_pDasherCanvas->startspace();
+      m_pDasherInterface->KeyDown(GetTickCount(), 0);
       return 0;
       break;
     case VK_F12:

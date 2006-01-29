@@ -48,6 +48,7 @@
 #define IDS_PREFS_TITLE                 140
 #define IDD_ALPHABET                    141
 #define IDS_PREFS_CONTROL               141
+#define IDD_ALPHABETPAGE                141
 #define IDS_ORIENT_BT                   142
 #define IDS_ERR_ALPH_DESC               143
 #define IDD_ABOUTBOX_OLD                144
@@ -86,15 +87,19 @@
 #define IDC_SEARCH_CURSOR               165
 #define ID_OPTIONS_EDITKEYBOARDCONTROL  166
 #define IDD_PREFS                       168
+#define IDD_CONTROLPAGE                 168
 #define ID_OPTIONS_PREFS                169
 #define IDD_COLOUR                      169
 #define ID_OPTIONS_CONTROLMODE          170
 #define IDD_KEYCONTROL1                 170
+#define IDD_MISCPAGE                    170
 #define ID_OPTIONS_COLOURS              171
 #define IDD_DIALOG3                     173
+#define IDD_VIEWPAGE                    173
 #define IDD_DIALOG4                     174
 #define IDD_SOCKET                      174
 #define IDD_LM                          175
+#define IDD_LMPAGE                      175
 #define IDD_BUTTON_PREFS                176
 #define IDD_BUTTON_SETTINGS             177
 #define IDC_LIST1                       1008
@@ -240,7 +245,6 @@
 #define IDC_NOBOXES_SLIDER              1140
 #define IDC_SAFETY_SLIDER               1141
 #define IDC_NONUNIFORM_SLIDER           1142
-#define IDC_HOTKEY1                     1143
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773

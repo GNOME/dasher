@@ -130,7 +130,7 @@ public:
   bool getselect() {
     return select;
   }
-  void startspace();
+ 
   void centrecursor();
   void StartStop();
 

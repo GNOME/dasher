@@ -174,22 +174,13 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
     PAINTSTRUCT ps;
     BeginPaint(&ps);
 
-    ///             Screen->SetNextHDC(hdc);
-    //m_pDasherInterface->Redraw();
     m_pScreen->Display();
-    //      if (firstwindow==true) 
-    //      {
-    //              m_pScreen->DrawMousePosBox(0,m_iMousePosDist);
-    //      } 
-    //      else if (secondwindow==true) 
-    //      {
-    //              m_pScreen->DrawMousePosBox(1,m_iMousePosDist);
-    //      }
+
     EndPaint(&ps);
-	bHandled = TRUE;
+
+	  bHandled = TRUE;
     return 0;
 }
-
 
 LRESULT CCanvas::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
@@ -348,10 +339,11 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 
 	OutputDebugString(TEXT("Canvas::LButtonDown\n"));
 
+  // FIXME - what does this do - please document
 	LPARAM lp = GetMessageExtraInfo();
 	if (lp == 0xFF515702)
-		return 0; // WTF???
-
+		return 0; 
+  // ---
 
   m_pDasherInterface->KeyDown(GetTickCount(), 100);
 
@@ -365,7 +357,6 @@ LRESULT CCanvas::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
 
 	m_bButtonDown = true;
 	return 0;
-
 }
 
 LRESULT CCanvas::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
@@ -602,18 +593,6 @@ void CCanvas::DoFrame()
 	}
 
 	m_pDasherInterface->NewFrame(dwTicks);//TapOn(imousex, imousey, GetTickCount());
-}
-
-void CCanvas::startspace() {
-   if(m_pDasherInterface->GetBoolParameter(BP_START_SPACE) == false) {
-    return;
-  }
-  else {
-    if(m_pDasherInterface->GetBoolParameter(BP_DASHER_PAUSED))
-      m_pDasherInterface->Unpause(GetTickCount());
-    else
-      m_pDasherInterface->PauseAt(0, 0);
-  }
 }
 
 void CCanvas::centrecursor() {

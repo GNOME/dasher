@@ -51,7 +51,7 @@ public:
 	CEdit();
 	~CEdit();
 
-	HWND Create(HWND hParent);
+	HWND Create(HWND hParent, bool bNewWithDate);
 
 	// Superclass the built-in EDIT window class
 	DECLARE_WND_SUPERCLASS(NULL, _T("EDIT") )
@@ -145,6 +145,8 @@ public:
 
 	// set canvas
 	//void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
+
+  void SetNewWithDate(bool bNewWithDate);
 
 protected:
 	bool m_dirty;
