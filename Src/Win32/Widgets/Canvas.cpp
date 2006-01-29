@@ -212,100 +212,36 @@ LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
   TCHAR tmpAutoOffset[128];
 #endif
 
+  bHandled = TRUE;
 
-	bHandled = TRUE;
-
-	switch (wParam) 
-	{
-		if(m_pDasherInterface->GetBoolParameter(BP_KEY_CONTROL) == true)
-		{
-	case VK_UP:
-		if(forward == true) 
-		{
-			buttonnum++;
-			if(buttonnum == 9) 
-			{
-				buttonnum = 0;
-			}
-			while(keycoords[buttonnum * 2] == NULL) 
-			{
-				buttonnum++;
-				if(buttonnum == 9) 
-				{
-					buttonnum = 0;
-				}
-			}
-			m_pDasherInterface->DrawGoTo(keycoords[buttonnum * 2], keycoords[buttonnum * 2 + 1]);
-		}
-		else 
-		{
-			m_pDasherInterface->GoTo(keycoords[0], keycoords[1]);
-		}
-		return 0;
-		break;
-	case VK_DOWN:
-		if(backward == true) 
-		{
-			buttonnum--;
-			if(buttonnum == -1) 
-			{
-				buttonnum = 8;
-			}
-			while(keycoords[buttonnum * 2] == NULL) 
-			{
-				buttonnum--;
-				if(buttonnum == -1) 
-				{
-					buttonnum = 8;
-				}
-			}
-			m_pDasherInterface->DrawGoTo(keycoords[buttonnum * 2], keycoords[buttonnum * 2 + 1]);
-		}
-		else 
-		{
-			m_pDasherInterface->GoTo(keycoords[2], keycoords[3]);
-		}
-		return 0;
-	case VK_LEFT:
-		if(select == true) 
-		{
-			m_pDasherInterface->GoTo(keycoords[buttonnum * 2], keycoords[buttonnum * 2 + 1]);
-			m_pDasherInterface->DrawGoTo(keycoords[buttonnum * 2], keycoords[buttonnum * 2 + 1]);
-		}
-		else 
-		{
-			m_pDasherInterface->GoTo(keycoords[4], keycoords[5]);
-		}
-		return 0;
-	case VK_RIGHT:
-		m_pDasherInterface->GoTo(keycoords[6], keycoords[7]);
-		return 0;
-		break;
-		}      // end if key control
+	switch (wParam) {
+  // Space, for start/stop events etc.
 	case VK_SPACE:
-		//startspace();
     m_pDasherInterface->KeyDown(GetTickCount(), 0);
 		return 0;
+
 #ifdef _DEBUG
 	case VK_F11:
 		wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_pDasherInterface->GetAutoOffset());
 		MessageBox(tmpAutoOffset, TEXT("Auto-offset Value"), MB_OK);
 		return 0;
 #endif
-	case VK_F12:
+
+  case VK_F12:
 		centrecursor();
 		return 0;
-	case VK_SHIFT:
 
+  // Boost keys
+	case VK_SHIFT:
 		if(lParam ^ REPEAT) // ignore auto-repeat
 			m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 175);
-
 		return 0;
-
 	case VK_CONTROL:
 		if(lParam ^ REPEAT) // ignore auto-repeat
 			m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 25);
 		return 0;
+
+  // Button mode keys
   case 0x41:
     m_pDasherInterface->KeyDown(GetTickCount(), 1);
     return 0;
