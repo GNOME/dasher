@@ -1,3 +1,7 @@
+2006-01-30  Behdad Esfahbod  <behdad@gnome.org>
+
+	Dasher 3.99.2 released.
+
 2006-01-29  Behdad Esfahbod  <behdad@gnome.org>
 
 	* configure.in: Add "-Wall -Wno-non-virtual-dtor" compiler options.
