@@ -45,11 +45,6 @@ static const struct poptOption options[] = {
 };
 #endif
 
-#define PREFIX "/usr/"
-#define SYSCONFDIR "/usr/share/dasher/"
-#define LIBDIR "/usr/lib/"
-#define DATADIR "/usr/share/dasher/"
-
 #include <libintl.h>
 #include <locale.h>
 #include <stdio.h>
@@ -234,6 +229,7 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifndef WITH_MAEMO
+  gtk_window_set_icon_from_file(GTK_WINDOW(window), DATADIR "/icons/hicolor/48x48/apps/dasher.png", NULL);
   gtk_widget_show(window);
 #else
   appview = HILDON_APPVIEW( hildon_appview_new(NULL) );

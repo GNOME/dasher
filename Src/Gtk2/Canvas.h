@@ -20,12 +20,6 @@ typedef struct {
   double r, g, b;
 } my_cairo_colour_t;
 
-// FIXME - reimplement
-/* cairo_t *display_cr; */
-/* cairo_t *decoration_cr; */
-/* cairo_t *cr; */
-
-/* my_cairo_colour_t *cairo_colours = NULL; */
 
 #define BEGIN_DRAWING_BACKEND				\
   cairo_save(cr)
@@ -40,14 +34,6 @@ typedef struct {
   } while (0)
 
 #else /* WITHOUT_CAIRO */
-
-/* Gdk drawing backend */
-
-
-// FIXME - reimplement
-/* GdkColormap *colormap; */
-/* GdkGC *gc; */
-/* GdkColor *colours = NULL; */
 
 #define BEGIN_DRAWING_BACKEND				\
   GdkGCValues origvalues;				\
@@ -286,12 +272,6 @@ private:
 
   CPangoCache *m_pPangoCache;
 
-  /// 
-  /// Array of colours
-  ///
-
-  GdkColor *colours;
-
   ///
   /// Holder for Pango layout extents.
   ///
@@ -311,6 +291,8 @@ private:
   cairo_t *decoration_cr;
   cairo_t *cr;
   my_cairo_colour_t *cairo_colours;
+#else
+  GdkColor *colours;
 #endif  
 
 };

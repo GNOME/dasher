@@ -1,15 +1,32 @@
+2006-01-29  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Add "-Wall -Wno-non-virtual-dtor" compiler options.
+	Change --with-speech, --with-a11y, and --with-japanese to --enable-*
+	syntax.
+
+	* Src/Makefile.am: Pass PREFIX, LIBDIR, DATADIR, and SYSCONFDIR to
+	the C preprocessor.
+
+	* Src/main.cc: Remove static PREFIX, LIBDIR, DATADIR, and SYSCONFDIR.
+	Set window icon.
+
+	* Src/Gtk2/Canvas.h, Src/Gtk2/Canvas.cpp: Minor cleanup.  Make it
+	build without cairo.
+
+	* Src/Gtk2/Menu.cc: Remove the old libgnome-based About dialog.
+
 2006-01-29  Phil Cowans <pjc51@cam.ac.uk>
 	* Removed hash_map
 
 2006-01-28  Phil Cowans <pjc51@cam.ac.uk>
 	* Provided input handler for 'default' behaviour (Fixes #312440)
 
-2006-01-28  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-28  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/Translations/training_persian_IR.txt:
 	* Data/Translations/training_turkish_TR.txt: Added.
 
-2006-01-28  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-28  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/system.rc/alphabet.persian.xml: Comment out nested groups.
 
@@ -24,22 +41,22 @@
 	files. You'll need to use gconf-editor to fix this parameter for
 	existing installations.
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* configure.in (GTK2BUILD_LIBS): Add --export-dynamic linker flag,
 	needed for glade signal auto-connect.  (bug #324067, Matthias Clasen)
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/Translations/training_greek_GR.txt,
 	Data/Translations/training_italian_IT.txt: Convert to UTF-8. (bug
 	#320424)
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/Makefile.am: Move dasher.png to the right directory.
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	Fix a few leaks and memory problems:
 
@@ -50,11 +67,11 @@
 
 	* Src/Gtk2/edit.cc (choose_filename): Not leak cwd and tbuffer.
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Src/Gtk2/Makefile.am: Put Output.h and Output.cpp back!
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Src/main.cc Src/Common/AppSettingsData.h
 	Src/DasherCore/AlphabetManager.cpp
@@ -68,7 +85,7 @@
 	Src/Gtk2/dasher.cc Src/Gtk2/dasher.h Src/Gtk2/edit.cc: Shut up more
 	warning.
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* */.cvsignore: Added.
 
@@ -91,7 +108,7 @@
 	Src/DasherCore/DasherViewSquare.h, Src/Gtk2/Preferences.cpp:
 	Fix 19 gcc 4 compiler warnings.
 
-2006-01-27  Behdad Esfahbod  <behdad@behdad.org>
+2006-01-27  Behdad Esfahbod  <behdad@gnome.org>
 
 	* configure.in:  Fix around Xtst. (#140950)
 

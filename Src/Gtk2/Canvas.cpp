@@ -12,8 +12,11 @@ extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gp
 CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   : CDasherScreen(pCanvas->allocation.width, pCanvas->allocation.height) {
 
+#if WITH_CAIRO
   cairo_colours = 0;
+#else
   colours = 0;
+#endif
   
   m_pCanvas = pCanvas;
   m_pPangoCache = pPangoCache;
@@ -39,14 +42,12 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   // The lines between origin and pointer is draw here
   decoration_cr = gdk_cairo_create(m_pDecorationBuffer);
   cr = decoration_cr;
-//  cairo_translate(cr, -0.5, -0.5);
   cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
 
   // Base stuff are drawn here
   display_cr = gdk_cairo_create(m_pDisplayBuffer);
   cr = display_cr;
-//  cairo_translate(cr, -0.5, -0.5);
   cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
 #endif

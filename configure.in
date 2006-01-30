@@ -13,13 +13,10 @@ AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
 changequote(,)dnl
 if test "x$GCC" = "xyes"; then
+  CXXFLAGS="$CXXFLAGS -Wall -Wno-non-virtual-dtor"
   case " $CXXFLAGS " in
-  *[\	\ ]-Wall[\	\ ]*) ;;
-  *) CFLAGS="$CXXFLAGS -Wall" ;;
-  esac
-  case " $CXXFLAGS " in
-  *[\ \	]-O[\ \	]*) ;;
-  *) CFLAGS="$CXXFLAGS -O2" ;;
+  *[\ \	]-O*) ;;
+  *) CXXFLAGS="$CXXFLAGS -O2" ;;
   esac
 fi
 changequote([,])dnl
@@ -47,8 +44,8 @@ AC_ARG_WITH([gnome],
          fi, 
 	 WITHGNOME=true)
 
-AC_ARG_WITH([speech],
-	 AC_HELP_STRING([--with-speech],[build with speech support (default is NO)]),
+AC_ARG_ENABLE([speech],
+	 AC_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
 	 if test $withval = "no"; then
 	   WITHSPEECH=false; 
 	 else
@@ -74,8 +71,8 @@ AC_ARG_WITH([gpe],
          fi, 
 	 WITHGPE=false)
 
-AC_ARG_WITH([a11y],
-	 AC_HELP_STRING([--with-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
+AC_ARG_ENABLE([a11y],
+	 AC_HELP_STRING([--enable-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
 	 if test $withval = "no"; then
 	   WITHA11Y=false; 
 	 else
@@ -83,8 +80,8 @@ AC_ARG_WITH([a11y],
          fi, 
 	 WITHA11Y=true)
 
-AC_ARG_WITH([japanese],
-	 AC_HELP_STRING([--with-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
+AC_ARG_ENABLE([japanese],
+	 AC_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
 	 if test $withval = "no"; then
 	   WITHJAPANESE=false; 
 	 else
