@@ -1,3 +1,7 @@
+// FIXME - there's really no reason for this to be in the core any more
+
+
+
 //! Class definition for an edit box
 // DashEdit.h
 //

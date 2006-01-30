@@ -14,7 +14,7 @@ namespace Dasher {
 } 
 class CCanvas;
 class CSlidebar;
-class CEditWrapper;
+class CDashEditbox;
 
 class Dasher::CDasher : public CDasherInterface 
 {
@@ -51,8 +51,7 @@ private:
 
   CCanvas *m_pCanvas;
   CSlidebar *m_pSlidebar;
-  CEditWrapper *m_pEditWrapper;
-
+  CDashEditbox *m_pEdit;
  
 // Retired  
   // static DWORD WINAPI     WorkerThread(LPVOID lpParam);     // Spins around and sends WM_DASHER_TIMER message

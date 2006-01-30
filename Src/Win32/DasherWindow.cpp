@@ -154,9 +154,6 @@ HWND CDasherWindow::Create()
 
   m_pToolbar = new CToolbar(hWnd, m_pDasher);
 
-  // Set an object to handle edit events
-  m_pDasher->SetEdit(m_pEdit);
-
   // FIXME - the edit box really shouldn't need access to the interface, 
   // but at the moment it does, for training, blanking the display etc
 
@@ -304,15 +301,22 @@ bool CDasherWindow::LoadWindowState() {
 
 void CDasherWindow::HandleParameterChange(int iParameter) {
   switch(iParameter) {
-    case APP_BP_SHOW_TOOLBAR:
-      m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
-      break;
-    case APP_BP_TIME_STAMP:
-      m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
-      break;
-	case LP_MAX_BITRATE:
+   case APP_BP_SHOW_TOOLBAR:
+    m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
+    break;
+   case APP_BP_TIME_STAMP:
+    m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
+    break;
+	 case LP_MAX_BITRATE:
 	  m_pSlidebar->SetValue(m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
 	  break;
+   case BP_DASHER_PAUSED:
+    if(m_pAppSettings && m_pDasher && 
+       m_pAppSettings->GetBoolParameter(BP_DASHER_PAUSED) && 
+       m_pAppSettings->GetBoolParameter(APP_BP_COPY_ALL_ON_STOP))
+      if(m_pEdit)
+        m_pEdit->CopyAll();
+    break;
   }
 }
 
@@ -651,6 +655,8 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
         HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
         break;
       case EV_EDIT:
+        if(m_pEdit) 
+          m_pEdit->HandleEvent(pEvent);
         break;
       case EV_EDIT_CONTEXT:
         break;
