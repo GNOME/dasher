@@ -16,6 +16,7 @@
 
 namespace Dasher {
   class CSocketInput;
+  void *ThreadLauncherStub(void *_myClass);
 }
 
 using namespace Dasher;

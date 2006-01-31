@@ -1,5 +1,10 @@
 2006-01-30  Behdad Esfahbod  <behdad@gnome.org>
 
+	* Src/DasherCore/SocketInput.h: Put ThreadLauncherStub in the right
+	namespace. (Bug 327385)
+
+2006-01-30  Behdad Esfahbod  <behdad@gnome.org>
+
 	Dasher 3.99.2 released.
 
 2006-01-29  Behdad Esfahbod  <behdad@gnome.org>
