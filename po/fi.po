@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-31 21:28+0200\n"
-"PO-Revision-Date: 2006-01-31 21:31+0200\n"
+"PO-Revision-Date: 2006-02-01 00:14+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -299,7 +299,7 @@ msgstr "<b>Mukautuminen:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:7
 msgid "<b>Advanced Settings:</b>"
-msgstr "<b>Edistyneet asetukset:</b>"
+msgstr "<b>Lisäasetukset:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
 #: ../Src/Gtk2/dashermaemo.glade.h:8
@@ -919,7 +919,7 @@ msgstr "<b>Nopeus</b>"
 
 #: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
 msgid "Advanced"
-msgstr "Edistyneet"
+msgstr "Lisäasetukset"
 
 #: ../Src/Gtk2/dashergpe.glade.h:26
 msgid "Change color scheme automatically"
