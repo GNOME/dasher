@@ -3,10 +3,13 @@
 
 #include "Dasher.h"
 #include "../DasherCore/Event.h"
+#include "EditWrapper.h"
 #include "WinUTF8.h"
-//#include "DasherWindow.h"
+#include "DasherWindow.h"
 #include "Widgets/Canvas.h"
 #include "Widgets/Slidebar.h"
+#include "EditWrapper.h"
+
 
 using namespace std;
 using namespace Dasher;
@@ -57,7 +60,7 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent)
 {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
-  m_pEdit = 0;
+
 
   using namespace WinHelper;
   using namespace WinUTF8;
@@ -98,6 +101,12 @@ Realize();
   SetBoolParameter(BP_COLOUR_MODE, true);
   ChangeLanguageModel(0);
 
+// FIXME - we should create our own edit object (as a wrapper to pass stuff outside), rather than relying on being passed one
+
+  m_pEditWrapper = new CEditWrapper;
+
+  ChangeEdit(m_pEditWrapper);
+
   m_pCanvas = new CCanvas(this);
   m_pCanvas->Create(m_hParent); // TODO - check return 
 
@@ -136,6 +145,7 @@ CDasher::~CDasher(void) {
 
   delete m_pCanvas;
   delete m_pSlidebar;
+  delete m_pEditWrapper;
 }
 
 // Handle periodically poking the canvas to check for user activity.  
@@ -258,7 +268,20 @@ void CDasher::Log()
 }
 
 void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
+
   SendMessage(m_hParent, WM_DASHER_EVENT, 0, (LPARAM)pEvent);
+
+  // Here we send SendMessage calls to the DasherWindow class
+  if( pEvent->m_iEventType == 1 ) {
+    Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
+    if( pEvt->m_iParameter == BP_DASHER_PAUSED)
+      if( GetBoolParameter(BP_DASHER_PAUSED) )
+        SendMessage(m_hParent, WM_COMMAND, ID_EDIT_COPY_ALL, 0);
+  }
+  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 5)) {
+    if(m_DashEditbox != NULL)
+      m_DashEditbox->HandleEvent(pEvent);
+  }
 }
 
 // Get the pointer to our user logging object
@@ -287,10 +310,7 @@ bool Dasher::CDasher::GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pR
 }
 
 void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
-  // FIXME - we really need to make sure we have a
-  // more sensible way of passing messages out here.
-
-  m_pEdit = pEdit;
+  m_pEditWrapper->SetEventHandler(pEdit);
 }
 
 void Dasher::CDasher::WriteTrainFile(const std::string &strNewText) {

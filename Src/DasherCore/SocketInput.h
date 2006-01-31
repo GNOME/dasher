@@ -25,7 +25,7 @@ using namespace std;
 class Dasher::CSocketInput:public CSocketInputBase {
 
   // This non-member launcher stub function is required because pthreads can't launch a non-static member method.
-  friend void *ThreadLauncherStub(void *_myClass) {
+  friend void *Dasher::ThreadLauncherStub(void *_myClass) {
     CSocketInput *myClass = (CSocketInput *) _myClass;
 
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);     // kill this thread immediately if another thread cancels it

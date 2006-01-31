@@ -256,6 +256,9 @@
 				RelativePath=".\Common\StringUtils.h">
 			</File>
 			<File
+				RelativePath="Common\WinCommon.h">
+			</File>
+			<File
 				RelativePath="Common\WinHelper.cpp">
 			</File>
 			<File
@@ -291,6 +294,88 @@
 			<File
 				RelativePath="Common\WinWrap.h">
 			</File>
+		</Filter>
+		<Filter
+			Name="Control"
+			Filter="">
+			<File
+				RelativePath="Dasher.cpp">
+			</File>
+			<File
+				RelativePath="Dasher.h">
+			</File>
+			<File
+				RelativePath=".\DasherInterface.cpp">
+			</File>
+			<File
+				RelativePath=".\DasherInterface.h">
+			</File>
+			<File
+				RelativePath="DasherMouseInput.cpp">
+			</File>
+			<File
+				RelativePath="DasherMouseInput.h">
+			</File>
+			<File
+				RelativePath="EditWrapper.cpp">
+			</File>
+			<File
+				RelativePath="EditWrapper.h">
+			</File>
+			<Filter
+				Name="TabletPC"
+				Filter="">
+				<File
+					RelativePath=".\TabletPC\CursorInRange.cpp">
+				</File>
+				<File
+					RelativePath=".\TabletPC\CursorInRange.h">
+				</File>
+				<File
+					RelativePath=".\TabletPC\InkCollectorEvents.cpp">
+				</File>
+				<File
+					RelativePath=".\TabletPC\InkCollectorEvents.h">
+				</File>
+				<File
+					RelativePath=".\TabletPC\SystemInfo.h">
+				</File>
+			</Filter>
+			<Filter
+				Name="Sockets"
+				Filter="">
+				<File
+					RelativePath=".\Sockets\SocketInput.cpp">
+				</File>
+				<File
+					RelativePath=".\Sockets\SocketInput.h">
+				</File>
+			</Filter>
+			<Filter
+				Name="Widgets"
+				Filter="">
+				<File
+					RelativePath=".\Widgets\Canvas.cpp">
+				</File>
+				<File
+					RelativePath=".\Widgets\Canvas.h">
+				</File>
+				<File
+					RelativePath=".\Widgets\Screen.cpp">
+				</File>
+				<File
+					RelativePath=".\Widgets\Screen.h">
+				</File>
+				<File
+					RelativePath=".\Widgets\Screen.inl">
+				</File>
+				<File
+					RelativePath=".\Widgets\Slidebar.cpp">
+				</File>
+				<File
+					RelativePath=".\Widgets\Slidebar.h">
+				</File>
+			</Filter>
 		</Filter>
 		<Filter
 			Name="App"

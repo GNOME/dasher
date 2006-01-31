@@ -9,7 +9,7 @@
 #include "WinCommon.h"
 
 #include "Canvas.h"
-//#include "Edit.h"
+#include "Edit.h"
 #include "../Dasher.h"
 #include "../DasherInterface.h"
 #include "../DasherMouseInput.h"
