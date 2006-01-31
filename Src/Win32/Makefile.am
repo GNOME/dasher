@@ -17,6 +17,8 @@ EXTRA_DIST = \
 		Common/WinWrap.h \
 		GDI/FontStore.cpp \
 		GDI/FontStore.h \
+		Sockets/SocketInput.cpp \
+		Sockets/SocketInput.h \
 		TabletPC/CursorInRange.cpp \
 		TabletPC/CursorInRange.h \
 		TabletPC/InkCollectorEvents.cpp \
@@ -70,6 +72,8 @@ EXTRA_DIST = \
 		AppSettings.h \
 		ButtonPrefs.cpp \
 		ButtonPrefs.h \
+		ButtonSettings.cpp \
+		ButtonSettings.h \
 		ButtonType.cpp \
 		ButtonType.h \
 		CopyAllLarge.bmp \

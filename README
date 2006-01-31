@@ -1,7 +1,7 @@
-Dasher version 3.99.2 (4.0 preview 3)
+Dasher version 3.99.3 (4.0 preview 4)
 ------------------------------------- 
 
-This is Dasher 3.99.2, the third preview release of the upcoming 4.0
+This is Dasher 3.99.3, the fourth preview release of the upcoming 4.0
 series. This version is `feature frozen' for 4.0, but it is still to
 some extent development code, and should therefore be considered
 potentially unstable. The full 4.0 release will coincide with the
@@ -19,6 +19,10 @@ high rates of text entry.
 
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
+
+New Features In 3.99.3
+----------------------
+ * Bugfix - missing Win32 source files in archive
 
 New Features In 3.99.2
 ----------------------
