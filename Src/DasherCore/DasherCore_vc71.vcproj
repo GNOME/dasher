@@ -389,6 +389,19 @@
 				RelativePath=".\XMLUtil.h">
 			</File>
 		</Filter>
+		<Filter
+			Name="StartHanders"
+			Filter="">
+			<File
+				RelativePath=".\CircleStartHandler.cpp">
+			</File>
+			<File
+				RelativePath=".\CircleStartHandler.h">
+			</File>
+			<File
+				RelativePath=".\StartHandler.h">
+			</File>
+		</Filter>
 		<File
 			RelativePath="Alphabet\Alphabet.cpp">
 		</File>

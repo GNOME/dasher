@@ -3,6 +3,7 @@
 
 #include "InputFilter.h"
 #include "AutoSpeedControl.h"
+#include "CircleStartHandler.h"
 
 class CDefaultFilter : public CInputFilter {
  public:
@@ -14,13 +15,13 @@ class CDefaultFilter : public CInputFilter {
   virtual void DecorateView(CDasherView *pView);
   virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
- 
+
+protected:
+  virtual void CreateStartHandler();
+
  private:
   CAutoSpeedControl *m_pAutoSpeedControl;
-
-  int m_iStatus;
-  int m_iChangeTime;
-  int m_iCircleRadius;
+  CStartHandler *m_pStartHandler;
 };
 
 #endif

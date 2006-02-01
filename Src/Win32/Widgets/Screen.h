@@ -48,6 +48,8 @@ public:
 
   void DrawRectangle(Dasher::screenint x1, Dasher::screenint y1, Dasher::screenint x2, Dasher::screenint y2, int Color, int iOutlineColour, Dasher::Opts::ColorSchemes ColorScheme, bool bDrawOutlines, bool bFill, int iThickness);
 
+  void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour);
+
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array
   //

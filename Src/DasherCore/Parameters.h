@@ -18,7 +18,7 @@ enum {
   BP_BUTTONMENU, BP_BUTTONPULSING, BP_BUTTONSTEADY, 
   BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
-  BP_OLD_STYLE_PUSH, END_OF_BPS
+  BP_OLD_STYLE_PUSH, BP_CIRCLE_START, END_OF_BPS
 };
 
 enum { 
@@ -119,7 +119,8 @@ static bp_table boolparamtable[] = {
   {BP_COMPASSMODE, "ButtonCompassMode", PERS, false, "Compass mode"},
   {BP_SOCKET_INPUT_ENABLE, "SocketInputEnable", PERS, false, "Read pointer coordinates from network socket instead of mouse"},
   {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"},
-  {BP_OLD_STYLE_PUSH, "OldStylePush", PERS, false, "Old style node pushing algorithm"}
+  {BP_OLD_STYLE_PUSH, "OldStylePush", PERS, false, "Old style node pushing algorithm"},
+  {BP_CIRCLE_START, "CircleStart", PERS, false, "Start on circle mode"}
 };
 
 static lp_table longparamtable[] = {

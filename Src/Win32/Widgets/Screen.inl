@@ -42,6 +42,12 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 }
 
+inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour) {
+  HBRUSH brush = CScreen::GetBrush(iColour);
+
+  Ellipse(m_hDCBuffer, iCX - iR/2, iCY - iR/2, iCX + iR/2, iCY + iR/2);
+}
+
 inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour) {
   HGDIOBJ hpOld;
   hpOld = (HPEN) SelectObject(m_hDCBuffer, GetPen(iColour, iWidth));

@@ -3,12 +3,12 @@
 
 [Setup]
 AppName=Dasher
-OutputBaseFilename=Dasher 3.99.0
-AppVerName=Dasher 3.99.0
+OutputBaseFilename=Dasher 3.99.3
+AppVerName=Dasher 3.99.3
 AppPublisher=Dasher Project
-AppPublisherURL=http://www.inference.phy.cam.ac.uk/dasher/
-AppSupportURL=http://www.inference.phy.cam.ac.uk/dasher/
-AppUpdatesURL=http://www.inference.phy.cam.ac.uk/dasher/
+AppPublisherURL=http://www.dasher.org.uk/
+AppSupportURL=http://www.dasher.org.uk/
+AppUpdatesURL=http://www.dasher.org.uk/
 DefaultDirName={pf}\Dasher
 DefaultGroupName=Dasher
 LicenseFile="..\..\..\Doc\LICENSE.txt"
@@ -33,7 +33,7 @@ Source: "..\..\..\Data\system.rc\controllabels.xml"; DestDir: "{app}\system.rc";
 Source: "..\..\..\Data\system.rc\controllabels.dtd"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 
 [INI]
-Filename: "{app}\Dasher.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://www.inference.phy.cam.ac.uk/dasher/"
+Filename: "{app}\Dasher.url"; Section: "InternetShortcut"; Key: "URL"; String: "http://www.dasher.org.uk/"
 
 [Icons]
 Name: "{group}\Dasher"; Filename: "{app}\Dasher.exe"
