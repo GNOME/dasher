@@ -7,6 +7,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           AlphabetManagerFactory.h \
                           AutoSpeedControl.cpp \
                           AutoSpeedControl.h \
+                          CircleStartHandler.cpp \
+                          CircleStartHandler.h \
                           ClickFilter.cpp \
                           ClickFilter.h \
                           ColourIO.cpp \
@@ -74,6 +76,7 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           SocketInput.h \
                           SocketInputBase.cpp \
                           SocketInputBase.h \
+			  StartHandler.h \
                           TimeSpan.cpp \
                           TimeSpan.h \
                           UserLocation.cpp \
