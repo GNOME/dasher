@@ -17,6 +17,10 @@ class CDefaultFilter : public CInputFilter {
  
  private:
   CAutoSpeedControl *m_pAutoSpeedControl;
+
+  int m_iStatus;
+  int m_iChangeTime;
+  int m_iCircleRadius;
 };
 
 #endif

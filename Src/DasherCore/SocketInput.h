@@ -14,9 +14,17 @@
 #include <iostream>
 #include <pthread.h>
 
+#define GCC_VERSION (__GNUC__ * 10000 \
+                     + __GNUC_MINOR__ * 100 \
+                     + __GNUC_PATCHLEVEL__)
+
+
+
 namespace Dasher {
   class CSocketInput;
+#if GCC_VERSION >= 40100
   void *ThreadLauncherStub(void *_myClass);
+#endif
 }
 
 using namespace Dasher;

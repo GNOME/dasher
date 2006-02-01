@@ -214,6 +214,28 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   END_DRAWING;
 }
 
+void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour) {
+#if WITH_CAIRO
+#else
+  GdkGC *graphics_context;
+  GdkColormap *colormap;
+
+  graphics_context = m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)];
+  colormap = gdk_colormap_get_system();
+#endif
+
+  BEGIN_DRAWING;
+  SET_COLOR(iColour);
+
+#if WITH_CAIRO
+  cairo_arc(cr, iCX, iCY, iR, 0, 2*M_PI);
+#else
+  // FIXME
+#endif
+
+  END_DRAWING;
+}
+
 void CCanvas::Polygon(Dasher::CDasherScreen::point *Points, int Number, int Colour, int iWidth) {
 
   if(iWidth == 1) // This is to make it work propely on Windows
