@@ -539,6 +539,8 @@ void CDasherModel::Tap_on_display(myint miMousex,
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross = Get_node_under_crosshair();
 
+  //  std::cout << "Old: " << old_under_cross << std::endl;
+
   // works out next viewpoint
   total_nats += Get_new_root_coords(miMousex, miMousey);
   
@@ -597,6 +599,8 @@ void CDasherModel::Tap_on_display(myint miMousex,
 //      Update(m_Root,under_mouse,0);
 
   CDasherNode *new_under_cross = Get_node_under_crosshair();
+
+  //  std::cout << "New: " << new_under_cross << std::endl;
 
   // FIXME - Reimplement
 

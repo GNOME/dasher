@@ -14,9 +14,17 @@
 #include <iostream>
 #include <pthread.h>
 
+#define GCC_VERSION (__GNUC__ * 10000 \
+                     + __GNUC_MINOR__ * 100 \
+                     + __GNUC_PATCHLEVEL__)
+
+
+
 namespace Dasher {
   class CSocketInput;
+#if GCC_VERSION >= 40100
   void *ThreadLauncherStub(void *_myClass);
+#endif
 }
 
 using namespace Dasher;
@@ -25,7 +33,7 @@ using namespace std;
 class Dasher::CSocketInput:public CSocketInputBase {
 
   // This non-member launcher stub function is required because pthreads can't launch a non-static member method.
-  friend void *Dasher::ThreadLauncherStub(void *_myClass) {
+  friend void *ThreadLauncherStub(void *_myClass) {
     CSocketInput *myClass = (CSocketInput *) _myClass;
 
     pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);     // kill this thread immediately if another thread cancels it
