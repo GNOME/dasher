@@ -27,6 +27,7 @@ extern CComModule _Module;
 #include "../../DasherCore/DashEdit.h"
 
 #include <Oleacc.h>
+#include <string>
 
 class CCanvas;
 class CFilenameGUI;
@@ -147,6 +148,8 @@ public:
 	//void SetEditCanvas(CCanvas* canvas) {Canvas=canvas;}
 
   void SetNewWithDate(bool bNewWithDate);
+
+  std::string GetContext(int iLength);
 
 protected:
 	bool m_dirty;

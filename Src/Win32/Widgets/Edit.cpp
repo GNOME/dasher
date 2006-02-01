@@ -844,8 +844,10 @@ LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 	// DJW20060101 - I put the following line back in, and it half-works
 	// The Dasher display resets to the root context, rather than pulling the
 	// context from the edit control
-	m_pDasherInterface->ChangeEdit();
-    InvalidateRect(NULL, FALSE);
+//	m_pDasherInterface->ChangeEdit();
+  //  InvalidateRect(NULL, FALSE);
+
+  m_pDasherInterface->InvalidateContext();
 
 	bHandled = FALSE; // let the EDIT class handle it
 	return 0;
@@ -1199,4 +1201,26 @@ void CEdit::speak(int what) {
 void CEdit::SetNewWithDate(bool bNewWithDate) {
   if(m_FilenameGUI)
     m_FilenameGUI->SetNewWithDate(bNewWithDate);
+}
+
+std::string CEdit::GetContext(int iLength) {
+  LRESULT lResult(SendMessage(m_hWnd, EM_GETHANDLE, 0, 0));
+  HLOCAL hMemoryHandle((HLOCAL)lResult);
+
+  int iOffset;
+  SendMessage(m_hWnd, EM_GETSEL, (WPARAM)&iOffset, 0);
+
+  int iStart(iOffset - iLength);
+
+  if(iStart < 0)
+    iStart = 0;
+
+  LPVOID pBuffer(LocalLock(hMemoryHandle));
+  std::wstring strContext((TCHAR *)pBuffer + iStart, iOffset - iStart);
+  LocalUnlock(hMemoryHandle);
+
+  std::string strReturnValue;
+  WinUTF8::wstring_to_UTF8string(strContext, strReturnValue);
+
+  return strReturnValue;
 }

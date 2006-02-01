@@ -659,6 +659,8 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
           m_pEdit->HandleEvent(pEvent);
         break;
       case EV_EDIT_CONTEXT:
+        if(m_pEdit && m_pDasher)
+          m_pDasher->SetContext(m_pEdit->GetContext(((CEditContextEvent*)pEvent)->m_iMaxLength));
         break;
       case EV_START:
         break;

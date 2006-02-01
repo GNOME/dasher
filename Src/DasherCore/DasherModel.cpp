@@ -615,8 +615,6 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
 
   // FIXME - Need to recurse up possibly unseen parents
-
-
   RecursiveOutput(new_under_cross, pAdded);
 
   // FIXME - Reimplement
