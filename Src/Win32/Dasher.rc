@@ -436,6 +436,8 @@ BEGIN
                     WS_TABSTOP,14,131,126,8
     CONTROL         "Start with mouse position",IDC_MOUSEPOS,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,143,136,8
+    COMBOBOX        IDC_MOUSEPOS_STYLE,111,141,94,30,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,154,67,10
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 

@@ -245,6 +245,7 @@
 #define IDC_NOBOXES_SLIDER              1140
 #define IDC_SAFETY_SLIDER               1141
 #define IDC_NONUNIFORM_SLIDER           1142
+#define IDC_MOUSEPOS_STYLE              1144
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -298,7 +299,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1144
+#define _APS_NEXT_CONTROL_VALUE         1145
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

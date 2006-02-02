@@ -42,10 +42,19 @@ inline void CScreen::DrawRectangle(screenint x1, screenint y1, screenint x2, scr
 
 }
 
-inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour) {
-  HBRUSH brush = CScreen::GetBrush(iColour);
+inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, bool bFill) {
+  if(bFill) {
+    HBRUSH hBrush = CScreen::GetBrush(iColour);
+    HBRUSH hBrushOld;
+    hBrushOld = (HBRUSH)SelectObject(m_hDCBuffer, hBrush);
+  
+    Ellipse(m_hDCBuffer, iCX - iR/2, iCY - iR/2, iCX + iR/2, iCY + iR/2);
 
-  Ellipse(m_hDCBuffer, iCX - iR/2, iCY - iR/2, iCX + iR/2, iCY + iR/2);
+    SelectObject(m_hDCBuffer, hBrushOld);
+  }
+  else
+    Arc(m_hDCBuffer, iCX - iR/2, iCY - iR/2, iCX + iR/2, iCY + iR/2,
+                     iCX, iCY - iR/2, iCX, iCY - iR/2 );
 }
 
 inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour) {

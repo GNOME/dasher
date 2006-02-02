@@ -77,7 +77,7 @@ public:
 
   virtual void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) = 0;
 
-  virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour) = 0;
+  virtual void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, bool bFill) = 0;
 
   // Draw a line of fixed colour (usually black). Intended for static UI elements such as a cross-hair
   //! Draw a line between each of the points in the array

@@ -35,7 +35,6 @@ static menuentry menutable[] = {
   {BP_START_SPACE, IDC_SPACE},
   {BP_START_STYLUS, IDC_STYLUS},
   {BP_STOP_IDLE, IDC_STOPIDLE},
-  {BP_MOUSEPOS_MODE, IDC_MOUSEPOS},
   {BP_NUMBER_DIMENSIONS, IDC_1D},
   {BP_CLICK_MODE, IDC_CLICKMODE},
   {BP_EYETRACKER_MODE, IDC_EYETRACKER},
@@ -62,6 +61,23 @@ void CControlPage::PopulateList() {
   _sntprintf(m_tcBuffer, 100, TEXT("%0.2f"), m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
   SendMessage(speedbox, WM_SETTEXT, 0, (LPARAM) m_tcBuffer);
 
+  m_hMousePosStyle = GetDlgItem(m_hwnd, IDC_MOUSEPOS_STYLE);
+  SendMessage(m_hMousePosStyle, CB_ADDSTRING, 0, (LPARAM)L"Centre circle");
+  SendMessage(m_hMousePosStyle, CB_ADDSTRING, 0, (LPARAM)L"Two box");
+
+  if(m_pAppSettings->GetBoolParameter(BP_MOUSEPOS_MODE)) {
+    SendMessage(m_hMousePosStyle, CB_SETCURSEL, 1, 0);
+  }
+  else {
+    SendMessage(m_hMousePosStyle, CB_SETCURSEL, 0, 0);
+  }
+
+  if(m_pAppSettings->GetBoolParameter(BP_MOUSEPOS_MODE) || m_pAppSettings->GetBoolParameter(BP_CIRCLE_START)) {
+    SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_SETCHECK, BST_CHECKED, 0);
+  }
+  else {
+    SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_SETCHECK, BST_UNCHECKED, 0);
+  }
 
   // all the button checkboxes
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
@@ -113,6 +129,25 @@ bool CControlPage::Apply()
   double NewSpeed;
   NewSpeed = SendMessage(SB_slider, TBM_GETPOS, 0, 0);
   m_pAppSettings->SetLongParameter( LP_MAX_BITRATE, NewSpeed);
+
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_MOUSEPOS), BM_GETCHECK, 0, 0) == BST_CHECKED ) {
+    int iComboIdx;
+    iComboIdx = SendMessage(m_hMousePosStyle, CB_GETCURSEL, 0, 0);
+
+    if(iComboIdx == 0) {
+      m_pAppSettings->SetBoolParameter(BP_MOUSEPOS_MODE, false);
+      m_pAppSettings->SetBoolParameter(BP_CIRCLE_START, true);
+    }
+    else {
+      m_pAppSettings->SetBoolParameter(BP_MOUSEPOS_MODE, true);
+      m_pAppSettings->SetBoolParameter(BP_CIRCLE_START, false);
+    }
+  }
+  else {
+    m_pAppSettings->SetBoolParameter(BP_MOUSEPOS_MODE, false);
+    m_pAppSettings->SetBoolParameter(BP_CIRCLE_START, false);
+  }
+
   for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 

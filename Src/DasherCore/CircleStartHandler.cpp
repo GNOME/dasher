@@ -13,10 +13,12 @@ void CCircleStartHandler::DecorateView(CDasherView *pView) {
   screenint iCY;
 
   pView->Dasher2Screen(2048, 2048, iCX, iCY);
-  if(m_iStatus == -1)
-    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 0);
+  if((m_iStatus == 0) || (m_iStatus == 2))
+    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 0, true);
+  else if(m_iStatus == 5)
+    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 1, true);
   else
-    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, m_iStatus);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 0, false);
 }
 
 void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {

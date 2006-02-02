@@ -30,9 +30,12 @@ private:
   std::string m_CurrentColours;
   Dasher::CColourIO::ColourInfo CurrentInfo;
   TCHAR m_tcBuffer[1000];
+  
+  // Handles to important widgets
   HWND SB_slider;
   HWND speedbox;
-  // Some status flags:
+  HWND m_hMousePosStyle;
+  
   void PopulateList();
   bool Apply();
   bool Validate();
