@@ -48,6 +48,9 @@ GtkWidget *m_pButtonSettings;
 GtkWidget *m_pSocketSettings;
 GtkWidget *m_pAdvancedSettings;
 
+GtkWidget *m_pMousePosButton;
+GtkWidget *m_pMousePosStyle;
+
 // Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
 
 bool g_bIgnoreSignals(false);
@@ -101,10 +104,25 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEY_CONTROL));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), getBool(BP_START_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), getBool(BP_START_SPACE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), getBool(BP_MOUSEPOS_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
+   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), getBool(BP_AUTO_SPEEDCONTROL));
+
+  m_pMousePosButton = glade_xml_get_widget(pGladeWidgets, "mouseposbutton");
+  m_pMousePosStyle = glade_xml_get_widget(pGladeWidgets, "MousePosStyle");
+
+  if(get_app_parameter_bool(BP_MOUSEPOS_MODE)) {
+    gtk_combo_box_set_active(GTK_COMBO_BOX(m_pMousePosStyle), 1);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), true);
+  }
+  else if(get_app_parameter_bool(BP_CIRCLE_START)) {
+    gtk_combo_box_set_active(GTK_COMBO_BOX(m_pMousePosStyle), 0);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), true);
+  }
+  else {
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), false);
+  }
+
 }
 
 void PopulateButtonsPage(GladeXML *pGladeWidgets) {
@@ -664,7 +682,40 @@ extern "C" void startonspace(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, GTK_TOGGLE_BUTTON(widget)->active);
+  if(GTK_TOGGLE_BUTTON(widget)->active) {
+    int iIndex;
+    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(m_pMousePosStyle));
+
+    if(iIndex == 1) {
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, true);
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+    }
+    else {
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, true);
+    }
+  }
+  else {
+    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
+    gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+  }
+}
+
+extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
+  // FIXME - duplicate code from extern "C" void startonmousepos
+  if(GTK_TOGGLE_BUTTON(m_pMousePosButton)->active) {
+    int iIndex;
+    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(m_pMousePosStyle));
+    
+    if(iIndex == 1) {
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, true);
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+    }
+    else {
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, true);
+    }
+  }
 }
 
 extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
