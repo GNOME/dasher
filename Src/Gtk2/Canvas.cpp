@@ -214,7 +214,7 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   END_DRAWING;
 }
 
-void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour) {
+void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, bool bFill) {
 #if WITH_CAIRO
 #else
   GdkGC *graphics_context;
