@@ -14,7 +14,9 @@ class Dasher::CEventHandler {
 public:
 
   CEventHandler(Dasher::CDasherInterfaceBase * pInterface):m_pInterface(pInterface) {
+    m_iInHandler = 0;
   };
+
   ~CEventHandler() {
   };
 
@@ -32,6 +34,9 @@ protected:
   // Vector containing all currently registered listeners.
 
   std::vector < Dasher::CDasherComponent * >m_vListeners;
+  std::vector < Dasher::CDasherComponent * >m_vListenerQueue;
+
+  int m_iInHandler;
 
   Dasher::CDasherInterfaceBase * m_pInterface;
 

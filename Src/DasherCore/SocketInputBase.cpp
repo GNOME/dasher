@@ -23,7 +23,9 @@
 using namespace Dasher;
 
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-:CDasherComponent(pEventHandler, pSettingsStore), CDasherInput() {
+  : CDasherInput(pEventHandler, pSettingsStore, 1, 0) {
+
+  std::cout << pEventHandler << " " << pSettingsStore << std::endl;
 
   port = -1;
   debug_socket_input = false;
@@ -55,7 +57,6 @@ Dasher::CSocketInputBase::~CSocketInputBase() {
 }
 
 void Dasher::CSocketInputBase::HandleEvent(Dasher::CEvent *pEvent) {
-
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {

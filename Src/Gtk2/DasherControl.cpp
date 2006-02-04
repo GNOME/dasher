@@ -5,6 +5,7 @@
 #include "Timer.h"
 #include "../DasherCore/DasherInterface.h"
 #include "../DasherCore/Event.h"
+#include "../DasherCore/WrapperFactory.h"
 
 #include <fcntl.h>
 
@@ -180,8 +181,16 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   // (We create the SocketInput object now even if socket input is not enabled, because
   // we are not allowed to create it in response to a parameter update event later, because
   // that would mean registering a new event listener during the processing of an event.
-  m_pSocketInput = new CSocketInput(m_pEventHandler, m_pSettingsStore);
-  m_pMouseInput = new CDasherMouseInput;
+
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+
+  m_pSocketInput = (CSocketInput *)GetModule(1);
+  m_pSocketInput->Ref();
+  
+  m_pMouseInput = (CDasherMouseInput *)GetModule(0);
+  m_pMouseInput->Ref();
+
   if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
     m_pSocketInput->StartListening();
     SetInput(m_pSocketInput);
@@ -207,13 +216,15 @@ CDasherControl::~CDasherControl() {
   // Delete the input devices
 
   if(m_pMouseInput != NULL) {
-    delete m_pMouseInput;
+    m_pMouseInput->Unref();
     m_pMouseInput = NULL;
   }
+
   if(m_pSocketInput != NULL) {
-    delete m_pSocketInput;
+    m_pSocketInput->Unref();
     m_pSocketInput = NULL;
   }
+
   if(m_pPangoCache != NULL) {
     delete m_pPangoCache;
     m_pPangoCache = NULL;
@@ -337,7 +348,8 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
   else if(iParameter == BP_SOCKET_INPUT_ENABLE) {
     if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
       if(m_pSocketInput == NULL) { // shouldn't happen
-	m_pSocketInput = new CSocketInput(m_pEventHandler, m_pSettingsStore);
+	m_pSocketInput = (CSocketInput *)GetModule(1);
+	m_pSocketInput->Ref();
       }
       if(!m_pSocketInput->isListening()) {
 	m_pSocketInput->StartListening();
@@ -346,7 +358,8 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
     }
     else {
       if(m_pMouseInput == NULL) { // shouldn't occur
-	m_pMouseInput = new CDasherMouseInput;
+	m_pMouseInput = (CDasherMouseInput *)GetModule(0);
+	m_pMouseInput->Ref();
       }
       if(m_pSocketInput != NULL) {
 	m_pSocketInput->StopListening();

@@ -13,13 +13,13 @@
 #include "Alphabet/AlphIO.h"
 #include "CustomColours.h"
 #include "ColourIO.h"
+#include "ModuleManager.h"
 
 #include "AutoSpeedControl.h"
 
 #include "InputFilter.h"
 
 namespace Dasher {
-  class CDashEditbox;
   class CDasherScreen;
   class CDasherView;
   class CDasherInput;
@@ -28,7 +28,6 @@ namespace Dasher {
   class CEvent;
 }
 
-class Dasher::CDashEditbox;
 class Dasher::CDasherScreen;
 class Dasher::CDasherView;
 class Dasher::CDasherInput;
@@ -133,7 +132,7 @@ public:
   /// \param pEvent The event to forward.
   /// \todo Should be protected.
 
-  virtual void ExternalEventHandler(Dasher::CEvent * pEvent);
+  virtual void ExternalEventHandler(Dasher::CEvent * pEvent) {};
 
   /// Interface level event handler. For example, responsible for
   /// restarting the Dasher model whenever parameter changes make it
@@ -229,11 +228,6 @@ public:
 
   void ChangeScreen();          // The widgets need to tell the engine when they have been
 
-  /// Force an update of the CEditbox object without changing the pointer
-  /// \todo When is this needed?
-
-  void ChangeEdit();            // affected by external interaction
-
   /// Returns the number of symbols in the alphabet
   /// \retval the number of symbols.
 
@@ -279,11 +273,6 @@ public:
   /// \param NewScreen Pointer to the new CDasherScreen.
 
   void ChangeScreen(CDasherScreen * NewScreen); // We may change the widgets Dasher uses
-
-  /// Supply a new CDashEditbox to receive output events
-  /// \param NewEdit Pointer to the new CDashEditbox.
-
-  void ChangeEdit(CDashEditbox * NewEdit);      // at run time.
 
   /// Train Dasher using a UTF-8 string
   /// \param TrainString The training string.
@@ -472,13 +461,6 @@ public:
     return m_Alphabet;
   }
 
-  /// Get a pointer to the CDashEditbox
-
-  CDashEditbox *GetEditbox() {
-    return m_DashEditbox;
-  }
-
-
   // Control mode stuff
   
   void RegisterNode( int iID, const std::string &strLabel, int iColour );
@@ -494,6 +476,12 @@ public:
   void KeyDown(int iTime, int iId);
   void KeyUp(int iTime, int iId);
 
+  // Module management functions
+  void RegisterFactory(CModuleFactory *pFactory);
+  CDasherModule *GetModule(long long int iID); // TODO - should never be needed externally
+
+  void CreateFactories();
+
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
@@ -503,7 +491,6 @@ protected:
   CAlphabet *m_Alphabet;
   CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
-  CDashEditbox *m_DashEditbox;
   CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
   CAutoSpeedControl *m_pAutoSpeedControl;
@@ -530,6 +517,8 @@ protected:
   CSettingsStore *m_pSettingsStore;
   CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
   CInputFilter* m_pDasherButtons;
+
+  CModuleManager m_oModuleManager;
 
 };
 

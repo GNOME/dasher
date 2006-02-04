@@ -21,7 +21,7 @@ class Dasher::CDasherComponent {
 
   void InsertEvent(Dasher::CEvent * pEvent);
 
-  virtual void HandleEvent(Dasher::CEvent * pEvent) = 0;
+  virtual void HandleEvent(Dasher::CEvent * pEvent) {};
 
   bool GetBoolParameter(int iParameter) const;
   long GetLongParameter(int iParameter) const;

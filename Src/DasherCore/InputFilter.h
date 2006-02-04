@@ -4,16 +4,16 @@
 #include "DasherView.h"
 #include "DasherModel.h"
 
-#include "DasherComponent.h"
+#include "DasherModule.h"
 
 namespace Dasher {
   class CDasherInterfaceBase;
 }
 
-class CInputFilter : public CDasherComponent {
+class CInputFilter : public CDasherModule {
  public:
-  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface)
-    : CDasherComponent(pEventHandler, pSettingsStore) {
+  CInputFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType)
+    : CDasherModule(pEventHandler, pSettingsStore, iID, iType) {
     m_pInterface = pInterface;
   };
 

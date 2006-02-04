@@ -9,7 +9,6 @@
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 #include "ControlManager.h"
-#include "DashEdit.h"
 #include "DasherScreen.h"
 #include "DasherView.h"
 #include "DasherInput.h"
@@ -17,6 +16,7 @@
 #include "EventHandler.h"
 #include "Event.h"
 #include "UserLog.h"
+#include "WrapperFactory.h"
 
 // Input filters - eventually these should be wrapped up in a
 // 'FilterManager' class
@@ -62,11 +62,14 @@ static char THIS_FILE[] = __FILE__;
 const string CDasherInterfaceBase::EmptyString = "";
 
 CDasherInterfaceBase::CDasherInterfaceBase()
-                  :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DashEditbox(0), m_DasherScreen(0),
+                  :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DasherScreen(0),
                   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL), m_pAutoSpeedControl(0), 
                   m_pDasherButtons(NULL) {
 
   m_pEventHandler = new CEventHandler(this);
+
+
+
   strCurrentContext = ". ";
 
   strTrainfileBuffer = "";
@@ -96,6 +99,7 @@ void CDasherInterfaceBase::Realize() {
   if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
 
+  CreateFactories();
   CreateInputFilter();
     
   // All the setup is done by now, so let the user log object know
@@ -132,21 +136,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   // Must delete event handler after all CDasherComponent derived classes
 
   delete m_pEventHandler;
-}
-
-void CDasherInterfaceBase::ExternalEventHandler(Dasher::CEvent *pEvent) {
-  
-  // Obsolete (overwritten by child)
-
-  // Pass events outside
-  if(pEvent->m_iEventType == 1) {
-    //HandleParameterNotification(pEvent->m_iEventType);
-  }
-  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 5)) {
-    if(m_DashEditbox != NULL)
-      m_DashEditbox->HandleEvent(pEvent);
-  }
-
 }
 
 void CDasherInterfaceBase::PreSetNotify(int iParameter) {
@@ -620,8 +609,6 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   //  }
 
   // Recreate widgets and language model
-  if(m_DashEditbox != 0)
-    m_DashEditbox->SetInterface(this);
   if(m_DasherScreen != 0)
     m_DasherScreen->SetInterface(this);
 
@@ -789,21 +776,6 @@ void CDasherInterfaceBase::GetColours(std::vector <std::string >*ColourList) {
     m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_ColourFilenames);
   m_ColourIO->GetColours(ColourList);
 }
-
-void CDasherInterfaceBase::ChangeEdit() {
-//  CreateDasherModel(); FIXME - should this ever be called here?
-  Start();
-  Redraw();
-}
-
-void CDasherInterfaceBase::ChangeEdit(CDashEditbox *NewEdit) {
-  m_DashEditbox = NewEdit;
-  //  m_DashEditbox->SetFont(GetStringParameter(SP_EDIT_FONT), GetLongParameter(LP_EDIT_FONT_SIZE));
-  m_DashEditbox->SetInterface(this);
-  m_DashEditbox->New("");
-  ChangeEdit();
-}
-
 
 void CDasherInterfaceBase::Train(string *TrainString, bool IsMore) {
 //      m_pDasherModel->LearnText(TrainContext, TrainString, IsMore);
@@ -1040,4 +1012,21 @@ void CDasherInterfaceBase::CreateInputFilter()
     m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Default")
     m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
+}
+
+void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {
+  m_oModuleManager.RegisterFactory(pFactory);
+}
+ 
+CDasherModule *CDasherInterfaceBase::GetModule(long long int iID) {
+   return m_oModuleManager.GetModule(iID);
+}
+
+void CDasherInterfaceBase::CreateFactories() {
+  std::cout << m_pEventHandler << " " << m_pSettingsStore << " " <<  m_pDasherModel << std::endl;
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CClickFilter(m_pEventHandler, m_pSettingsStore, this)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
+  // TODO: specialist factory for button mode
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true)));
 }

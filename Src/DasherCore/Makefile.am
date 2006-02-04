@@ -34,6 +34,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           DasherInterfaceBase.h \
                           DasherModel.cpp \
                           DasherModel.h \
+                          DasherModule.cpp \
+                          DasherModule.h \
                           DasherNode.cpp \
                           DasherNode.h \
                           DasherScreen.h \
@@ -63,6 +65,9 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           InputFilter.h \
                           MemoryLeak.cpp \
                           MemoryLeak.h \
+                          ModuleFactory.h \
+                          ModuleManager.cpp \
+                          ModuleManager.h \
                           NodeManager.h \
                           NodeManagerFactory.h \
                           OneButtonFilter.cpp \
@@ -88,6 +93,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           UserLogTrial.cpp \
                           UserLogTrial.h \
                           View/DelayedDraw.h \
+                          WrapperFactory.cpp \
+                          WrapperFactory.h \
                           XMLUtil.cpp \
                           XMLUtil.h
 

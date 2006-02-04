@@ -3,8 +3,8 @@
 
 #include "PangoCache.h"
 #include "Canvas.h"
-#include "mouse_input.h"
 #include "../DasherCore/SocketInput.h"
+#include "mouse_input.h"
 
 #include "GtkDasherControl.h"
 

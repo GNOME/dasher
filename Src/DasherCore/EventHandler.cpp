@@ -6,6 +6,7 @@
 #include "DasherInterfaceBase.h"
 
 #include <algorithm>
+#include <iostream>
 
 using namespace Dasher;
 
@@ -21,8 +22,14 @@ static char THIS_FILE[] = __FILE__;
 
 void CEventHandler::InsertEvent(CEvent *pEvent) {
 
-  // Loop through components and notify them of the event
+  // We may end up here recursively, so keep track of how far down we
+  // are, and only permit new handlers to be registered after all
+  // messages are processed.
 
+  // An alternative approach would be a message queue - this might actually be a bit more sensible
+  ++m_iInHandler;
+
+  // Loop through components and notify them of the event
   for(std::vector < CDasherComponent * >::iterator iCurrent(m_vListeners.begin()); iCurrent != m_vListeners.end(); ++iCurrent) {
     (*iCurrent)->HandleEvent(pEvent);
   }
@@ -30,12 +37,23 @@ void CEventHandler::InsertEvent(CEvent *pEvent) {
   // Call external handler last, to make sure that internal components are fully up to date before external events happen
   m_pInterface->InterfaceEventHandler(pEvent);
   m_pInterface->ExternalEventHandler(pEvent);
+
+  --m_iInHandler;
+
+  if(m_iInHandler == 0) {
+    for(std::vector < CDasherComponent * >::iterator iCurrent(m_vListenerQueue.begin()); iCurrent != m_vListenerQueue.end(); ++iCurrent)
+      m_vListeners.push_back(*iCurrent); 
+    m_vListenerQueue.clear();
+  }
 }
 
 void CEventHandler::RegisterListener(CDasherComponent *pListener) {
-
-  if(std::find(m_vListeners.begin(), m_vListeners.end(), pListener) == m_vListeners.end()) {
-    m_vListeners.push_back(pListener);
+  if((std::find(m_vListeners.begin(), m_vListeners.end(), pListener) == m_vListeners.end()) &&
+     (std::find(m_vListenerQueue.begin(), m_vListenerQueue.end(), pListener) == m_vListenerQueue.end())) {
+    if(!m_iInHandler > 0)
+      m_vListeners.push_back(pListener);
+    else
+      m_vListenerQueue.push_back(pListener);
   }
   else {
     // Can't add the same listener twice

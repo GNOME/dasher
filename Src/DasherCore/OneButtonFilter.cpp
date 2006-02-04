@@ -5,7 +5,7 @@
 #include "Event.h"
 
 COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface) {
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 9, 1) {
 
   bStarted = 0;
   iLocation = 0;

@@ -6,7 +6,7 @@
 #include <iostream>
 
 CDefaultFilter::CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface) {
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 3, 1) {
   m_pStartHandler = 0;
   m_pAutoSpeedControl = new CAutoSpeedControl(m_pEventHandler, m_pSettingsStore, m_pDasherModel->Framerate());
 
@@ -78,4 +78,5 @@ void CDefaultFilter::CreateStartHandler() {
 
   if(GetBoolParameter(BP_CIRCLE_START))
     m_pStartHandler = new CCircleStartHandler(m_pEventHandler, m_pSettingsStore, m_pInterface);
+
 }

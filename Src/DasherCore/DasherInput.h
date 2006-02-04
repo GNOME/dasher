@@ -6,14 +6,19 @@
 #define __DasherInput_h__
 
 #include "DasherTypes.h"
+#include "DasherModule.h"
 
 namespace Dasher {
   class CDasherInput;
 }
 
-class Dasher::CDasherInput {
+class Dasher::CDasherInput : public CDasherModule {
 
 public:
+
+  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType) 
+    : CDasherModule(pEventHandler, pSettingsStore, iID, iType) {
+  };
 
   virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {
   };

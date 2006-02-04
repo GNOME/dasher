@@ -12,6 +12,7 @@
 #include "Event.h"
 #include "EventHandler.h"
 
+#include <iostream>
 
 using namespace std;
 
@@ -75,6 +76,7 @@ void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {
 
   // Initiate events for changed parameter
   Dasher::CParameterNotificationEvent* oEvent = new Dasher::CParameterNotificationEvent(iParameter);
+
   m_pEventHandler->InsertEvent(oEvent);
   delete oEvent;
 

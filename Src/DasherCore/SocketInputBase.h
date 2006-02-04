@@ -23,7 +23,7 @@ namespace Dasher {
 using namespace Dasher;
 using namespace std;
 
-class Dasher::CSocketInputBase:public CDasherInput, public CDasherComponent {
+class Dasher::CSocketInputBase : public CDasherInput {
 
 public:
 

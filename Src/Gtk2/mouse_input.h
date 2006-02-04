@@ -8,8 +8,11 @@
 
 using namespace Dasher;
 
-class CDasherMouseInput:public CDasherInput {
+class CDasherMouseInput : public CDasherInput {
 public:
+  CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
+    : CDasherInput(pEventHandler, pSettingsStore, 0, 0) {
+  };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
   // values were in screen coordinates or 1 if the values were in
@@ -42,6 +45,9 @@ private:
 
 class CDasher1DMouseInput:public CDasherInput {
 public:
+  CDasher1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
+    : CDasherInput(pEventHandler, pSettingsStore, 2, 0) {
+  };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
   // values were in screen coordinates or 1 if the values were in
