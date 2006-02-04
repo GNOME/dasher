@@ -57,7 +57,7 @@ HWND CCanvas::Create(HWND hParent)
 	// we can't safely create it later in response to a parameter change event (because it itself
 	// needs to register an event listener when it constructs itself).
 	m_pSocketInput = new CSocketInput(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore()); // CreateSettingsStore only creates a new one if there isn't one there already
-	m_pMouseInput = new CDasherMouseInput(hWnd);
+	m_pMouseInput = new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, hWnd);
 
 	if(m_pDasherInterface->GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) 
 	{
@@ -615,7 +615,7 @@ void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
       } 
       else {
         if(m_pMouseInput == NULL) { // shouldn't occur
-	        m_pMouseInput = new CDasherMouseInput(m_hWnd);
+	        m_pMouseInput = new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_hWnd);
         }
         if(m_pSocketInput != NULL) {
 	        m_pSocketInput->StopListening();

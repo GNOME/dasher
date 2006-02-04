@@ -838,14 +838,7 @@ LRESULT CEdit::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 
 LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-    // This doesn't seem to work...
-    // if we click the mouse in the edit control, update the Dasher display
-
-	// DJW20060101 - I put the following line back in, and it half-works
-	// The Dasher display resets to the root context, rather than pulling the
-	// context from the edit control
-	m_pDasherInterface->ChangeEdit();
-    InvalidateRect(NULL, FALSE);
+  m_pDasherInterface->InvalidateContext();
 
 	bHandled = FALSE; // let the EDIT class handle it
 	return 0;

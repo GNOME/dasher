@@ -508,6 +508,12 @@
 			RelativePath=".\DasherModel.h">
 		</File>
 		<File
+			RelativePath=".\DasherModule.cpp">
+		</File>
+		<File
+			RelativePath=".\DasherModule.h">
+		</File>
+		<File
 			RelativePath=".\DasherNode.cpp">
 		</File>
 		<File
@@ -571,6 +577,15 @@
 			RelativePath=".\InputFilter.h">
 		</File>
 		<File
+			RelativePath=".\ModuleFactory.h">
+		</File>
+		<File
+			RelativePath=".\ModuleManager.cpp">
+		</File>
+		<File
+			RelativePath=".\ModuleManager.h">
+		</File>
+		<File
 			RelativePath=".\OneButtonFilter.cpp">
 		</File>
 		<File
@@ -590,6 +605,12 @@
 		</File>
 		<File
 			RelativePath=".\SocketInputBase.h">
+		</File>
+		<File
+			RelativePath=".\WrapperFactory.cpp">
+		</File>
+		<File
+			RelativePath=".\WrapperFactory.h">
 		</File>
 	</Files>
 	<Globals>

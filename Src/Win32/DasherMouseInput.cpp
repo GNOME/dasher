@@ -14,7 +14,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CDasherMouseInput::CDasherMouseInput(HWND _hwnd):m_hwnd(_hwnd) {
+CDasherMouseInput::CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, HWND _hwnd)
+: CDasherInput(pEventHandler, pSettingsStore, 0, 0), m_hwnd(_hwnd) {
 }
 
 CDasherMouseInput::~CDasherMouseInput(void) {

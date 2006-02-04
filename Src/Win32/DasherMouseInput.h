@@ -3,9 +3,11 @@
 
 namespace Dasher {
   class CDasherMouseInput;
-} class Dasher::CDasherMouseInput:public CDasherInput {
+} 
+
+class Dasher::CDasherMouseInput : public CDasherInput {
 public:
-  CDasherMouseInput(HWND _hwnd);
+  CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, HWND _hwnd);
   ~CDasherMouseInput(void);
 
   virtual int GetCoordinates(int iN, myint * pCoordinates);
