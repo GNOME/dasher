@@ -8,7 +8,7 @@ CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, 
   m_iCircleRadius = 50;
 }
 
-void CCircleStartHandler::DecorateView(CDasherView *pView) {
+bool CCircleStartHandler::DecorateView(CDasherView *pView) {
   screenint iCX;
   screenint iCY;
 
@@ -19,6 +19,8 @@ void CCircleStartHandler::DecorateView(CDasherView *pView) {
     pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 1, true);
   else
     pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 0, false);
+
+  return true;
 }
 
 void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {

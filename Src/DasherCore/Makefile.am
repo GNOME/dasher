@@ -57,6 +57,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           Event.h \
                           EventHandler.cpp \
                           EventHandler.h \
+                          EyetrackerFilter.cpp \
+                          EyetrackerFilter.h \
                           FileLogger.cpp \
                           FileLogger.h \
                           FrameRate.h \
@@ -72,6 +74,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           NodeManagerFactory.h \
                           OneButtonFilter.cpp \
                           OneButtonFilter.h \
+                          OneDimensionalFilter.cpp \
+                          OneDimensionalFilter.h \
                           Parameters.h \
                           SettingsStore.cpp \
                           SettingsStore.h \
@@ -84,6 +88,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
 			  StartHandler.h \
                           TimeSpan.cpp \
                           TimeSpan.h \
+                          TwoBoxStartHandler.cpp \
+                          TwoBoxStartHandler.h \
                           UserLocation.cpp \
                           UserLocation.h \
                           UserLog.cpp \

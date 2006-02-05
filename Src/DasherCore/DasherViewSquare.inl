@@ -9,22 +9,6 @@
 #include "DasherModel.h"
 
 namespace Dasher {
-  inline double CDasherViewSquare::xmax(double x, double y) const {
-    // DJCM -- define a function xmax(y) thus:
-    // xmax(y) = a*[exp(b*y*y)-1] 
-    // then:  if(x<xmax(y) [if the mouse is to the RIGHT of the line xmax(y)]
-    // set x=xmax(y).  But set xmax=c if(xmax>c).
-    // I would set a=1, b=1, c=16, to start with. 
-
-    int a = 1, b = 1, c = 100;
-    double xmax = a * (exp(b * y * y) - 1);
-    //cout << "xmax = " << xmax << endl;
-
-    if(xmax > c)
-      xmax = c;
-
-    return xmax;
-  }
 
   inline screenint CDasherViewSquare::dasherx2screen(myint sx) const {
     double x = double (sx) / double (GetLongParameter(LP_MAX_Y));

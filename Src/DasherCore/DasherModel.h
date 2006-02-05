@@ -136,9 +136,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
-  void GoTo(double, myint);     // jumps to a new viewpoint
-  void NewGoTo(myint n1, myint n2, int style);
-  double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2);
+/*   void GoTo(double, myint);     // jumps to a new viewpoint */
+   void NewGoTo(myint n1, myint n2, int style);
+   double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2); 
 
   void Start();                 // initializes the data structure
 
@@ -172,19 +172,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void Reparent_root(int lower, int upper);     // change back to the previous root
 
-  int GetMode() {
-    int mode;
-
-    if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-      mode = 1;
-    else if(GetBoolParameter(BP_EYETRACKER_MODE))
-      mode = 2;
-    else
-      mode = 0;
-
-    return mode;
-  }
-
+ 
   void ResetNats() {
     total_nats = 0;
   }
@@ -194,27 +182,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   }
 
   myint PlotGoTo(myint MouseX, myint MouseY);
-
-/*   void NewControlTree(ControlTree * tree) { */
-/*     m_pControltree = tree; */
-/*   } */
-/*   ControlTree *GetControlTree() const { */
-/*     return m_pControltree; */
-/*   } */
-
-
-/*   struct CRange { */
-/*     CRange(myint _iMin, myint _iMax):iMin(_iMin), iMax(_iMax) { */
-/*     } */
-/*     CRange() { */
-/*     } */
-/*     myint iMin; */
-/*     myint iMax; */
-/*   }; */
-
-/*   void SetActive(const CRange & range) { */
-/*     m_Active = range; */
-/*   } */
 
   void EnterText(CLanguageModel::Context Context, std::string TheText) const;
   void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
@@ -277,7 +244,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   bool CheckForNewRoot(CDasherView *pView);
 
-  void ClickTo(int x, int y, int width, int height, CDasherView *pView);
   void ScheduleZoom(int dasherx, int dashery);
  
  private:

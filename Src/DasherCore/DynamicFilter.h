@@ -10,7 +10,7 @@ class CDynamicFilter : public CInputFilter {
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  virtual void DecorateView(CDasherView *pView);
+  virtual bool DecorateView(CDasherView *pView);
   virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);

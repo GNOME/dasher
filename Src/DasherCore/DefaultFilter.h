@@ -3,23 +3,27 @@
 
 #include "InputFilter.h"
 #include "AutoSpeedControl.h"
-#include "CircleStartHandler.h"
+#include "StartHandler.h"
 
 class CDefaultFilter : public CInputFilter {
  public:
-  CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
+  CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel, long long int iID);
   ~CDefaultFilter();
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  virtual void DecorateView(CDasherView *pView);
+  virtual bool DecorateView(CDasherView *pView);
   virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
 
-protected:
+ protected:
   virtual void CreateStartHandler();
-
+  
  private:
+  virtual void DrawMouse(CDasherView *pView);
+  virtual void DrawMouseLine(CDasherView *pView);
+  virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
+
   CAutoSpeedControl *m_pAutoSpeedControl;
   CStartHandler *m_pStartHandler;
 };

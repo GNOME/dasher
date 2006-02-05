@@ -15,7 +15,7 @@ COneButtonFilter::COneButtonFilter(Dasher::CEventHandler * pEventHandler, CSetti
 COneButtonFilter::~COneButtonFilter() {
 }
 
-void COneButtonFilter::DecorateView(CDasherView *pView) {
+bool COneButtonFilter::DecorateView(CDasherView *pView) {
   CDasherScreen *pScreen(pView->Screen());
   CDasherScreen::point p[2];
  
@@ -33,6 +33,8 @@ void COneButtonFilter::DecorateView(CDasherView *pView) {
   pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
   
   pScreen->Polyline(p, 2, 1, 1);
+
+  return true;
 }
 
 void COneButtonFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {

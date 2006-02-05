@@ -16,7 +16,7 @@ namespace Dasher {
 
 #include "DasherTypes.h"
 #include "DasherComponent.h"
-
+#include "View/DelayedDraw.h"
 
 // CDasherView is an abstract view class
 // See the CDasherViewSquare class for an example
@@ -64,11 +64,6 @@ public:
   /// \param pEvent Pointer to incoming event
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
-  /// \deprecated Use parameter interface instead
-
-  void ChangeOrientation(Dasher::Opts::ScreenOrientations Orientation);
-
-
   virtual bool IsNodeVisible(myint y1, myint y2) { return true; };
 
   //void SetDrawKeyboard(bool bDrawKeyboard);
@@ -95,19 +90,23 @@ public:
 
   virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL)=0;
 
-  /// Dasher Click Mode
-  
-  virtual void ClickTo(int x, int y, myint &dasherx, myint &dashery) = 0;
+  /// 
+  /// Convert a screen co-ordinate to Dasher co-ordinates
+  ///
 
-  /// Handles start-on-mouse behaviour - check whether we are in the box, and change box or start on timer,.
-  /// \param iTime Current time in ms.
+  virtual void Screen2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY,bool b1D, bool bNonlinearity) = 0;
 
-  virtual bool HandleStartOnMouse(int iTime) = 0;
+  ///
+  /// Convert Dasher co-ordinates to screen co-ordinates
+  ///
 
-  /// translates the screen coordinates to Dasher coordinates and calls
-  /// dashermodel.GoTo
+  virtual void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY) = 0;
 
-  virtual void GoTo(screenint mousex, screenint mousey) = 0;
+  ///
+  /// Convert input device position to Dasher co-ordinates
+  ///
+
+  virtual void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY, int iType, int iMode) = 0;
 
   /// Change the screen - must be called if the Screen is replaced or resized
   /// \param NewScreen Pointer to the new CDasherScreen.
@@ -125,29 +124,9 @@ public:
 
   virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
 
-  /// Draw the mouse cursor
-  /// \todo Probably shouldn't be public
-
-  virtual void DrawMouse(screenint mousex, screenint mousey) = 0;
-
-  /// Draw the mouse line
-  /// \todo Probably shouldn't be public
-
-  virtual void DrawMouseLine(screenint mousex, screenint mousey) = 0;
-
-  /// \todo Document this
-
-  virtual void DrawKeyboard() = 0;
-
-  /// \todo Document this
-
-  virtual void DrawMousePosBox();
-
   /// Draw the game mode pointer
 
   virtual void DrawGameModePointer() = 0;
-
-  virtual void Dasher2Screen(myint iDasherX, myint iDasherY, screenint &iScreenX, screenint &iScreenY) = 0;
 
   /// 
   /// Return a reference to the model
@@ -207,14 +186,48 @@ public:
   virtual double ymap(double x) const {return 0.0;};
 
 
+  ///
+  /// Draw a polyline specified in Dasher co-ordinates
+  ///
+
+  void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
+
+  ///
+  /// Draw a polygon specified in Dasher co-ordinates
+  ///
+
+  void DasherPolygon(myint * x, myint * y, int n, int iColour);
+
+  ///
+  /// Draw a rectangle specified in Dasher co-ordinates
+  ///
+
+  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme,bool bDrawOutline, bool bFill, int iThickness);
+
+  ///
+  /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)
+  ///
+
+  void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
+
+  ///
+  /// Draw text specified in Dasher co-ordinates
+  ///
+
+  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
+
+
+  virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
+
 protected:
   // Orientation of Dasher Screen
   inline void MapScreen(screenint * DrawX, screenint * DrawY);
   inline void UnMapScreen(screenint * DrawX, screenint * DrawY);
 
+  CDelayedDraw *m_pDelayDraw;
+
 private:
-  CDasherScreen * m_pScreen;    // provides the graphics (text, lines, rectangles):
-  //  CDasherModel * m_pDasherModel; // Model view represents
+  CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
   CDasherInput *m_pInput;       // Input device abstraction
 
   // Pure virtuals to implement

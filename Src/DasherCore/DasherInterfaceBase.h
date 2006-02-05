@@ -166,21 +166,6 @@ public:
 
   void NewFrame(unsigned long iTime);
 
-  /// Prompts Dasher to draw a new frame
-  /// \param Time The current time (in ms). Used to ensure a constant frame rate.
-  /// \todo MouseX and MouseY are currently ignored - remove from the definition.
-  /// \deprecated Use NewFrame instead.
-
-  void TapOn(int MouseX, int MouseY, unsigned long Time);       // Times in milliseconds
-
-  /// "Click mode"
-  /// \param x Mouse x-coord
-  /// \param y Mouse y-coord
-  /// \param width Width of canvas, in pixels
-  /// \param height Height of canvas, in pixels.
-  
-  void ClickTo(int x, int y, int width, int height);
-  
   /// Pause Dasher
   /// \todo Parameters are ignored (?) - remove from definition.
 
@@ -205,23 +190,6 @@ public:
   /// Request a full redraw at the next timer event.
 
   void RequestFullRedraw();
-
-  /// \todo Sort out difference between Redraw functions
-
-  void Redraw(int iMouseX, int iMouseY);
-
-  /// Draw the boxes for start on mouse position
-  /// \todo Shouldn't be called externally
-
-  void DrawMousePos(int MouseX, int MouseY, int iWhichBox);
-
-  /// \todo Document this
-
-  void GoTo(int MouseX, int MouseY);
-
-  /// \todo Document this
-
-  void DrawGoTo(int MouseX, int MouseY);
 
   /// Force an update of the CScreen object without changing the pointer
   /// \todo When is this needed?
@@ -321,10 +289,6 @@ public:
 
   void GetColours(std::vector < std::string > *ColourList);
 
-  /// \todo Document this
-
-  void AddControlTree(ControlTree * controltree);
-
   /////////////////////////////////////////////////////////////////////////////
   // Settings Interface (CDasherSettingsInterface) - options saved between sessions
   /////////////////////////////////////////////////////////////////////////////
@@ -359,10 +323,6 @@ public:
   /// \deprecated Use parameter interface instead
 
   void ChangeView(unsigned int NewViewID);
-
-  /// \deprecated Use parameter interface instead
-
-  void ChangeOrientation(Opts::ScreenOrientations Orientation);
 
   /// \deprecated Use parameter interface instead
 
@@ -431,7 +391,7 @@ public:
 
   /// \todo Document this
 
-  void Render();
+  //  void Render();
 
   /// Provide a new CDasherInput input device object.
   /// \param iID Module ID of new input

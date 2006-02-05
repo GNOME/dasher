@@ -31,7 +31,7 @@ CDynamicFilter::~CDynamicFilter() {
   delete[] m_iTargetY;  
 }
 
-void CDynamicFilter::DecorateView(CDasherView *pView) {
+bool CDynamicFilter::DecorateView(CDasherView *pView) {
 
   CDasherScreen *pScreen(pView->Screen());
 
@@ -61,6 +61,8 @@ void CDynamicFilter::DecorateView(CDasherView *pView) {
   }
 
   pScreen->DrawRectangle(x1, y1, x2, y2, 2, 2, Opts::ColorSchemes(Objects), true, false, 1);
+
+  return true;
 }
 
 void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {

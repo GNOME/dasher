@@ -18,13 +18,14 @@
 #include "UserLog.h"
 #include "WrapperFactory.h"
 
-// Input filters - eventually these should be wrapped up in a
-// 'FilterManager' class
+// Input filters
 #include "ClickFilter.h" 
 #include "DefaultFilter.h"
 #include "DasherButtons.h"
 #include "DynamicFilter.h"
+#include "EyetrackerFilter.h"
 #include "OneButtonFilter.h"
+#include "OneDimensionalFilter.h"
 
 // STL headers
 #include <iostream>
@@ -139,6 +140,10 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 }
 
 void CDasherInterfaceBase::PreSetNotify(int iParameter) {
+
+  // FIXME - make this a more general 'pre-set' event in the message
+  // infrastructure
+
   switch(iParameter) {
   case SP_ALPHABET_ID: 
     // Cycle the alphabet history
@@ -238,9 +243,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       // FIXME - Horrible mess below - should really use
       // SP_INPUT_FILTER directly for the sake of sanity
       if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-	SetLongParameter(LP_INPUT_FILTER, 3); // 1D mode
+	SetLongParameter(LP_INPUT_FILTER, 4); // 1D mode
       else if(GetBoolParameter(BP_EYETRACKER_MODE))
-	SetLongParameter(LP_INPUT_FILTER, 3);//"Eyetracker Mode"
+	SetLongParameter(LP_INPUT_FILTER, 5);//"Eyetracker Mode"
       else if(GetBoolParameter(BP_CLICK_MODE))
 	SetLongParameter(LP_INPUT_FILTER, 7);//"Click Mode"
       else if(GetBoolParameter(BP_KEY_CONTROL)) {
@@ -384,10 +389,6 @@ void CDasherInterfaceBase::Start() {
 void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
-  if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
-    SetLongParameter(LP_MOUSE_POS_BOX, 1);
-  }
-
   // Request a full redraw at the next time step.
   SetBoolParameter(BP_REDRAW, true);
 
@@ -395,7 +396,7 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
   m_pEventHandler->InsertEvent(&oEvent);
 
   if (m_pUserLog != NULL)
-	  m_pUserLog->StopWriting((float) GetNats());
+    m_pUserLog->StopWriting((float) GetNats());
 }
 
 void CDasherInterfaceBase::Halt() {
@@ -423,8 +424,6 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
     m_pDasherView->ResetSumCounter();
   }
 
-  SetLongParameter(LP_MOUSE_POS_BOX, -1);
-
   Dasher::CStartEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
 
@@ -441,14 +440,9 @@ void CDasherInterfaceBase::Redraw() {
 
 }
 
-void CDasherInterfaceBase::Redraw(int iMouseX, int iMouseY) {
-  if(m_pDasherView != 0) {
-    if(m_pDasherModel->RenderToView(m_pDasherView, iMouseX, iMouseY, false))  // Only call display if something changed
-      m_pDasherView->Display();
-  }
-}
-
 void CDasherInterfaceBase::SetInput(int iID) {
+  // FIXME - this shouldn't be the model used here - we should just change a parameter and work from the appropriate listener
+
   if(m_pInput)
     m_pInput->Unref();
 
@@ -461,106 +455,51 @@ void CDasherInterfaceBase::SetInput(int iID) {
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 
-
+  // FIXME - is this the right way to do things
 
   if(GetBoolParameter(BP_REDRAW)) {
     Redraw();
     SetBoolParameter(BP_REDRAW, false);
   }
 
-  if(GetBoolParameter(BP_TRAINING)) {
-    DrawMousePos(0, 0, 0);
-  }
-  else {
-    TapOn(0, 0, iTime);
-  }
-
-  // Deal with start on mouse position
-
-  if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
-    if(m_pDasherView)
-      if(m_pDasherView->HandleStartOnMouse(iTime))
-        Unpause(iTime);
-  }
-
-  //
-  // Things which used to be here, but aren't any more:
-  //
-  //  - finalisation of training thread (needs to be back in UI code)
-  //  - mouse gain (needs to be in view/input device)
-  //  - start on mouse pos (implement in core, but in a second function)
-  //
-}
-
-void CDasherInterfaceBase::TapOn(int MouseX, int MouseY, unsigned long Time) {
   if(m_pDasherView != 0) {
-    if (m_pUserLog != NULL) {
+    
+    if(!GetBoolParameter(BP_TRAINING)) {
+      if (m_pUserLog != NULL) {
+	
+	Dasher::VECTOR_SYMBOL_PROB vAdded;
+	int iNumDeleted = 0;
+	
+	if(m_pDasherButtons) {
+	  m_pDasherButtons->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
+	}
+	
+	if (iNumDeleted > 0)
+	  m_pUserLog->DeleteSymbols(iNumDeleted);
+	if (vAdded.size() > 0)
+	  m_pUserLog->AddSymbols(&vAdded);
+	
+      }
+      else {
+	if(m_pDasherButtons) {
+	  m_pDasherButtons->Timer(iTime, m_pDasherView, m_pDasherModel);
+	}
+      }
       
-      Dasher::VECTOR_SYMBOL_PROB vAdded;
-      int iNumDeleted = 0;
-
-      if(m_pDasherButtons) {
-	m_pDasherButtons->Timer(Time, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
-      }
-
-      if (iNumDeleted > 0)
-        m_pUserLog->DeleteSymbols(iNumDeleted);
-      if (vAdded.size() > 0)
-        m_pUserLog->AddSymbols(&vAdded);
-
-    }
-    else {
-      if(m_pDasherButtons) {
-	m_pDasherButtons->Timer(Time, m_pDasherView, m_pDasherModel);
-      }
+      m_pDasherModel->CheckForNewRoot(m_pDasherView);
     }
 
-    m_pDasherModel->CheckForNewRoot(m_pDasherView);
-
-    // FIXME - reimplement
-
-
-    m_pDasherModel->RenderToView(m_pDasherView, MouseX, MouseY, true);
+    m_pDasherModel->RenderToView(m_pDasherView, 0, 0, true);
+  
     if(m_pDasherButtons)
       m_pDasherButtons->DecorateView(m_pDasherView);
     m_pDasherView->Display();
   }
 
   if(m_pDasherModel != 0)
-    m_pDasherModel->NewFrame(Time);
+    m_pDasherModel->NewFrame(iTime);
 }
 
-void CDasherInterfaceBase::ClickTo(int x, int y, int width, int height)
-{
-    //m_InZoom = 1;
-    m_pDasherModel->ClickTo(x, y, width, height, m_pDasherView);
-    //m_InZoom = 0;
-    
-}
-
-void CDasherInterfaceBase::DrawMousePos(int iMouseX, int iMouseY, int iWhichBox) {
-  m_pDasherModel->RenderToView(m_pDasherView, iMouseX, iMouseY, false);
-  //if (iWhichBox!=-1)
-  //m_pDasherView->DrawMousePosBox(iWhichBox, m_iMousePosDist);
-
-  m_pDasherView->Display();
-}
-
-void CDasherInterfaceBase::GoTo(int MouseX, int MouseY) {
-  if(m_pDasherView != 0) {
-    m_pDasherView->GoTo(MouseX, MouseY);
-    m_pDasherModel->RenderToView(m_pDasherView);
-    m_pDasherView->Display();
-  }
-}
-
-void CDasherInterfaceBase::DrawGoTo(int MouseX, int MouseY) {
-  if(m_pDasherView != 0) {
-//              m_pDasherView->Render(MouseY,MouseY);
-    m_pDasherView->DrawGoTo(MouseX, MouseY);
-    m_pDasherView->Display();
-  }
-}
 
 void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   // Don't bother doing any of this if it's the same alphabet
@@ -851,15 +790,6 @@ double CDasherInterfaceBase::GetCurFPS() {
   return 0;
 }
 
-// void CDasherInterfaceBase::AddControlTree(ControlTree *controltree) {
-//   m_pDasherModel->NewControlTree(controltree);
-// }
-
-void CDasherInterfaceBase::Render() {
-//  if (m_pDasherView!=0)
-  //   m_pDasherView->Render();
-}
-
 int CDasherInterfaceBase::GetAutoOffset() {
   if(m_pDasherView != 0) {
     return m_pDasherView->GetAutoOffset();
@@ -974,13 +904,13 @@ CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
-  if(m_pDasherButtons) {
+  if(m_pDasherButtons && !GetBoolParameter(BP_TRAINING)) {
     m_pDasherButtons->KeyDown(iTime, iId, m_pDasherModel);
   }
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
-  if(m_pDasherButtons) {
+  if(m_pDasherButtons && !GetBoolParameter(BP_TRAINING)) {
     m_pDasherButtons->KeyUp(iTime, iId, m_pDasherModel);
   }
 }
@@ -1005,7 +935,9 @@ CDasherModule *CDasherInterfaceBase::GetModule(long long int iID) {
 }
 
 void CDasherInterfaceBase::CreateFactories() {
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CClickFilter(m_pEventHandler, m_pSettingsStore, this)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   // TODO: specialist factory for button mode

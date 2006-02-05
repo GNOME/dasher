@@ -13,7 +13,8 @@ CClickFilter::CClickFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore
 CClickFilter::~CClickFilter() {
 }
 
-void CClickFilter::DecorateView(CDasherView *pView) {
+bool CClickFilter::DecorateView(CDasherView *pView) {
+  return false;
 }
 
 void CClickFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {

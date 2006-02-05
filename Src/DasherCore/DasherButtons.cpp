@@ -249,7 +249,7 @@ void CDasherButtons::SetupBoxes()
   iActiveBox = 0;
 }
 
-void CDasherButtons::DecorateView(CDasherView *pView) {
+bool CDasherButtons::DecorateView(CDasherView *pView) {
   if(m_iStyle == 2) {
     CDasherScreen *pScreen(pView->Screen());
 
@@ -316,6 +316,8 @@ void CDasherButtons::DecorateView(CDasherView *pView) {
     }
     pView->NewDrawGoTo(m_pBoxes[iActiveBox].iDisplayTop, m_pBoxes[iActiveBox].iDisplayBottom, m_bMenu);
   }
+
+  return true;
 }
  
 

@@ -28,7 +28,7 @@ class CDasherButtons : public CInputFilter
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
   
-  void DecorateView(CDasherView *pView);
+  bool DecorateView(CDasherView *pView);
   
   void KeyDown(int iTime, int iId, CDasherModel *pModel);
   void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);

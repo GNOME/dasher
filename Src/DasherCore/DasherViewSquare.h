@@ -54,18 +54,6 @@ public:
 
   void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY);
   void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
-
-  ///
-  /// \todo Document this
-  ///
-  
-  void GoTo(screenint mousex, screenint mousey);
-
-  ///
-  /// Used by click mode - coordinate system conversion only
-  ///
-
-  void ClickTo(int x, int y, myint &dasherx, myint &dashery);
   
   ///
   /// \todo Document this
@@ -87,24 +75,6 @@ public:
 
   void ChangeScreen(CDasherScreen * NewScreen);
 
-  /// 
-  /// Draw the mouse pointer
-  ///
-
-  void DrawMouse(screenint mousex, screenint mousey);
-
-  ///
-  /// Draw the mouse line
-  ///
-
-  void DrawMouseLine(screenint mousex, screenint mousey);
-
-  ///
-  /// \todo Document this
-  ///
-
-  void DrawKeyboard();
-
   ///
   /// Draw the game mode pointer
   ///
@@ -116,10 +86,6 @@ public:
 
   void GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY );
 
-  /// Checks for start on mouse behaviour and updates which boxes are
-  /// displayed, triggers starts etc.
-
-  virtual bool HandleStartOnMouse(int iTime);
 
   ///
   /// Event handler
@@ -185,16 +151,6 @@ public:
     return m_ymap.map( (myint)x );
   };
 
-private:
-
-  void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::deque<CDasherNode*>& Children, myint y1, myint y2, int mostleft);
-
-  ///
-  /// Convert input device position to Dasher co-ordinates
-  ///
-
-  void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY, int iType, int iMode);
-
   /// 
   /// Convert a screen co-ordinate to Dasher co-ordinates
   ///
@@ -208,52 +164,21 @@ private:
   void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY);
 
   ///
-  /// Applies the 1D mode transformation
+  /// Convert input device position to Dasher co-ordinates
   ///
 
-  void Dasher2OneD(myint & iDasherX, myint & iDasherY);
+  void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY, int iType, int iMode);
 
-  ///
-  /// Applies the eyetracker mode transformation
-  ///
 
-  void Dasher2Eyetracker(myint & iDasherX, myint & iDasherY);
+private:
+
+  void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::deque<CDasherNode*>& Children, myint y1, myint y2, int mostleft);
 
   ///
   /// Trunates co-ordinates to fit on screen
   ///
 
   void TruncateToScreen(screenint & iX, screenint & iY);
-
-  ///
-  /// Draw a polyline specified in Dasher co-ordinates
-  ///
-
-  void DasherPolyline(myint * x, myint * y, int n, int iWidth, int iColour);
-
-  ///
-  /// Draw a polygon specified in Dasher co-ordinates
-  ///
-
-  void DasherPolygon(myint * x, myint * y, int n, int iColour);
-
-  ///
-  /// Draw a rectangle specified in Dasher co-ordinates
-  ///
-
-  void DasherDrawRectangle(myint iLeft, myint iTop, myint iRight, myint iBottom, const int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme,bool bDrawOutline, bool bFill, int iThickness);
-
-  ///
-  /// Draw a centred rectangle specified in Dasher co-ordinates (used for mouse cursor)
-  ///
-
-  void DasherDrawCentredRectangle(myint iDasherX, myint iDasherY, screenint iSize, const int Color, Opts::ColorSchemes ColorScheme, bool bDrawOutline);
-
-  ///
-  /// Draw text specified in Dasher co-ordinates
-  ///
-
-  void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
 
   ///
   /// Get minimum visible Dasher Y co-ordinate
@@ -342,11 +267,6 @@ private:
 
   // the x and y non-linearities
 
-  ///
-  /// \deprecated See Screen2Dasher
-  ///
-
-  void screen2dasher(screenint mousex, screenint mousey, myint * dasherx, myint * dashery) const;
   void AutoCalibrate(screenint * mousex, screenint * mousey);
 
   ///
@@ -382,8 +302,7 @@ private:
   int iBoxStart;                // Time that the current box was drawn
   int iBoxEntered;              // Time when the user enttered the current box
 
-  CDelayedDraw *m_pDelayDraw;
-
+ 
   double m_dXmpa, m_dXmpb, m_dXmpc, m_dXmpd;
   screenint CanvasX, CanvasY, CanvasBorder;
 

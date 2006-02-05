@@ -656,42 +656,6 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
 }
 
 
-void CDasherModel::GoTo(double zoomfactor, myint miMousey)
-        // work out the next viewpoint, opens some new nodes
-{
-  // Find out the current node under the crosshair
-  CDasherNode *old_under_cross = Get_node_under_crosshair();
-
-  // works out next viewpoint
-  Get_new_goto_coords(zoomfactor, miMousey);
-
-  // push node under crosshair
-
-  CDasherNode *new_under_cross = Get_node_under_crosshair();
-
-  Push_Node(new_under_cross);
-
-  // push node under goto point
-
-  // We don't have a mousex, so "emulating" one.
-  CDasherNode *node_under_goto = Get_node_under_mouse(50, miMousey);
-
-  Push_Node(node_under_goto);
-
-//      Update(m_Root,new_under_cross,0);
-
-  if(new_under_cross != old_under_cross) {
-    DeleteCharacters(new_under_cross, old_under_cross);
-  }
-
-  if(new_under_cross->isSeen() == true)
-    return;
-
-  new_under_cross->Seen(true);
-
-  OutputCharacters(new_under_cross);
-}
-
 // This is similar to Get_new_goto_coords, but doesn't actually change Rootmax and Rootmin.
 // Instead it gives information for NewGoTo to make direct changes in the root coordinates.
 #define ZOOMDENOM (1<<10)
@@ -1140,16 +1104,6 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   }
   
   return false;
-}
-
-void CDasherModel::ClickTo(int x, int y, int width, int height, CDasherView *pView) {
-  // FIXME - we should just schedule a path here, and tap on should be responsible for following it
-
-   myint dasherx, dashery;
-
-   pView->ClickTo(x, y, dasherx, dashery);
-
-   ScheduleZoom(dasherx,dashery);
 }
 
 void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
