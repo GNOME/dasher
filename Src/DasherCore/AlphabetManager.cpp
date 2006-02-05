@@ -107,16 +107,36 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
       CDasherNode *pNewNode;
 
       if( newchars[j] == m_pModel->GetControlSymbol() )
-	pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j], NULL);
+      	pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j], NULL);
       else if( newchars[j] == iExistingSymbol) {
-	pNewNode = pExistingChild;
-	pNewNode->SetRange(iLbnd, cum[j]);
+      	pNewNode = pExistingChild;
+	      pNewNode->SetRange(iLbnd, cum[j]);
       }
       else {
-	pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, m_pModel->GetColour(newchars[j]));
-	pNewNode->m_pNodeManager = this;
-	pNewNode->m_bShove = true;
-	pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
+        int iColour(m_pModel->GetColour(newchars[j]));
+        // This is provided for backwards compatibility. 
+        // Colours should always be provided by the alphabet file
+        if(iColour == -1) {
+          if(newchars[j] == m_pModel->GetSpaceSymbol()) {
+            iColour = 9;
+          }
+          else if(newchars[j] == m_pModel->GetControlSymbol()) {
+            iColour = 8;
+          }
+          else {
+            iColour = (newchars[j] % 3) + 10;
+          }
+        }
+
+        // Loop colours if necessary for the colour scheme
+        if((ChildScheme % 2) == 1 && iColour < 130) {    // We don't loop on high
+          iColour += 130;
+        }
+
+	      pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, iColour);
+	      pNewNode->m_pNodeManager = this;
+	      pNewNode->m_bShove = true;
+	      pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
       }
 
       pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(newchars[j]);

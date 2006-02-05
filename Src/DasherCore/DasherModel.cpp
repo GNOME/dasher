@@ -156,6 +156,8 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 void CDasherModel::Make_root(CDasherNode *whichchild)
 // find a new root node 
 {
+
+  // TODO - support for this in alphabet manager
   symbol t = m_Root->Symbol();
   if(t < m_pDasherInterface->GetAlphabet()->GetNumberTextSymbols()) {
     // Only learn if we have adaptive behaviour enabled
@@ -777,7 +779,7 @@ void CDasherModel::NewGoTo(myint n1 , myint n2 , int style) {
 }
 
 
-
+// TODO - is this used any more
 void CDasherModel::OutputCharacters(CDasherNode *node) {
   if(node->Parent() != NULL && node->Parent()->isSeen() != true) {
     node->Parent()->Seen(true);
@@ -789,13 +791,9 @@ void CDasherModel::OutputCharacters(CDasherNode *node) {
     Dasher::CEditEvent oEvent(1, GetAlphabet().GetText(t));
     InsertEvent(&oEvent);
   }
-  else if(node->ControlChild() == true) {
-
-    // FIXME - control events currently not implemented
-//        m_pEditbox->outputcontrol(node->GetControlTree()->pointer,node->GetControlTree()->data,node->GetControlTree()->type);
-  }
 }
 
+// TODO - is this used any more?
 bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
 
   // DJW cant see how either of these can ever be NULL
@@ -837,11 +835,7 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
     while(oldnode != lastseen) {
 
       oldnode->Seen(false);
-      if(oldnode->ControlChild() == true || oldnode->Symbol() == GetControlSymbol() || oldnode->Symbol() == 0) {
-        oldnode = oldnode->Parent();
-        continue;
-      }
-
+      
       oldnode->m_pNodeManager->Undo(oldnode);
       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
       if (pNumDeleted != NULL)

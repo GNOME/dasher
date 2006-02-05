@@ -401,6 +401,12 @@
 			<File
 				RelativePath=".\StartHandler.h">
 			</File>
+			<File
+				RelativePath=".\TwoBoxStartHandler.cpp">
+			</File>
+			<File
+				RelativePath=".\TwoBoxStartHandler.h">
+			</File>
 		</Filter>
 		<File
 			RelativePath="Alphabet\Alphabet.cpp">
@@ -571,6 +577,12 @@
 			RelativePath="EventHandler.h">
 		</File>
 		<File
+			RelativePath=".\EyetrackerFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\EyetrackerFilter.h">
+		</File>
+		<File
 			RelativePath="FrameRate.h">
 		</File>
 		<File
@@ -590,6 +602,12 @@
 		</File>
 		<File
 			RelativePath=".\OneButtonFilter.h">
+		</File>
+		<File
+			RelativePath=".\OneDimensionalFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\OneDimensionalFilter.h">
 		</File>
 		<File
 			RelativePath="Parameters.h">

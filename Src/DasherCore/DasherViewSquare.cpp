@@ -2,6 +2,8 @@
 //
 // Copyright (c) 2001-2004 David Ward
 
+// TODO - there's no real reason to distinguish between groups and nodes here - they're all just boxes to be rendered, with the distinction being at the level of the alphabet manager
+
 #include "../Common/Common.h"
 
 #include "DasherViewSquare.h"
@@ -37,28 +39,31 @@ static char THIS_FILE[] = __FILE__;
 
 // FIXME - duplicated 'mode' code throught - needs to be fixed (actually, mode related stuff, Input2Dasher etc should probably be at least partially in some other class)
 
-void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
+CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
+ : CDasherView(pEventHandler, pSettingsStore, DasherScreen) {
 
-  DASHER_ASSERT(pRoot != 0);
+  // TODO - AutoOffset should be part of the eyetracker input filter
+  // Make sure that the auto calibration is set to zero berfore we start
+  m_yAutoOffset = 0;
 
-  // Render nodes to screen object (should use off screen buffer)
-  
-  Screen()->Blank();
+  m_pDelayDraw = new CDelayedDraw();
+  ChangeScreen(DasherScreen);
 
-  myint iDasherMinX;
-  myint iDasherMinY;
-  myint iDasherMaxX;
-  myint iDasherMaxY;
+  // TODO - Make these parameters
+  // tweak these if you know what you are doing
+  m_dXmpa = 0.2;                // these are for the x non-linearity
+  m_dXmpb = 0.5;
+  m_dXmpc = 0.9;
+  m_dXmpd = 0.5;                // slow X movement when accelerating Y
 
-  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+  m_ymap = Cymap((myint)GetLongParameter(LP_MAX_Y));
+}
 
- 
-  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList);
-
-  // DelayDraw the text nodes
-  m_pDelayDraw->Draw(Screen());
-
-  Crosshair((myint)GetLongParameter(LP_OX));  // add crosshair
+CDasherViewSquare::~CDasherViewSquare() {
+  if (m_pDelayDraw != NULL) {
+    delete m_pDelayDraw;
+    m_pDelayDraw = NULL;
+  }
 }
 
 void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
@@ -76,53 +81,39 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   }
 }
 
+void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
+
+  DASHER_ASSERT(pRoot != 0);
+
+  Screen()->Blank();
+
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+ 
+  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList);
+
+  // DelayDraw the text nodes
+  m_pDelayDraw->Draw(Screen());
+
+  Crosshair((myint)GetLongParameter(LP_OX));  // add crosshair
+}
+
+
 int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
   // Decide which colour to use when rendering the child
-
   int Color;
-
-  if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-    if(pRender->Colour() != -1) {
-      Color = pRender->Colour();
-    }
-    else {
-//       if(pRender->Symbol() == DasherModel()->GetSpaceSymbol()) {
-//         Color = 9;
-//       }
-//       else if(pRender->Symbol() == DasherModel()->GetControlSymbol()) {
-//         Color = 8;
-//       }
-//       else {
-         Color = (pRender->Symbol() % 3) + 10;
-//       }
-    }
-  }
-  else {
-    Color = pRender->Phase() % 3;
-  }
-
-  if((pRender->ColorScheme() % 2) == 1 && Color < 130 && GetBoolParameter(BP_COLOUR_MODE) == true) {    // We don't loop on high
-    Color += 130;               // colours
-  }
-
-  //      DASHER_TRACEOUTPUT("%x ",Render);
+  Color = pRender->Colour();
 
   std::string display;
-//   if(pRender->GetControlTree() != NULL)
-//     display = pRender->GetControlTree()->text;
-
-
   display = pRender->m_strDisplayText;
 
-  if(RenderNode(pRender->Symbol(), Color, pRender->ColorScheme(), y1, y2, mostleft, display, pRender->m_bShove)) {
-    // yuk
-
-    // FIXME - reimplement
-
-    //    if(!pRender->ControlChild() && pRender->Symbol() < DasherModel()->GetAlphabet().GetNumberTextSymbols())
-      RenderGroups(pRender, y1, y2, mostleft);
+  if(RenderNode(Color, pRender->ColorScheme(), y1, y2, mostleft, display, pRender->m_bShove)) {
+    RenderGroups(pRender, y1, y2, mostleft);
   }
   else {
     vDeleteList.push_back(pRender);
@@ -196,12 +187,12 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
   SGroupInfo *pCurrentGroup(Render->m_pBaseGroup);
 
   while(pCurrentGroup) {
-    RecursiveRenderGroups(pCurrentGroup, Children, y1, y2, mostleft);
+    RecursiveRenderGroups(pCurrentGroup, Render, y1, y2, mostleft);
     pCurrentGroup = pCurrentGroup->pNext;
   }
 }
 
-void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::deque<CDasherNode*>& Children, myint y1, myint y2, int mostleft) {
+void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft) {
   
 
   if(pCurrentGroup->bVisible) {
@@ -210,8 +201,8 @@ void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::de
     int lower(pCurrentGroup->iStart);
     int upper(pCurrentGroup->iEnd);
     
-    myint lbnd = Children[lower]->Lbnd();
-    myint hbnd = Children[upper - 1]->Hbnd();
+    myint lbnd = pNode->Children()[lower]->Lbnd();
+    myint hbnd = pNode->Children()[upper - 1]->Hbnd();
     
     //std::cout << lbnd << " " << hbnd << std::endl;
     
@@ -223,10 +214,10 @@ void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::de
       std::string Label=pCurrentGroup->strLabel;
       int Colour = pCurrentGroup->iColour;
       if(Colour != -1) {
-	RenderNode(0, pCurrentGroup->iColour, Opts::Groups, newy1, newy2, mostleft, Label, true);
+	      RenderNode(pCurrentGroup->iColour, Opts::Groups, newy1, newy2, mostleft, Label, true);
       }
       else {
-	//      RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
+	//    RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
       }
     }
   }
@@ -234,8 +225,8 @@ void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::de
   SGroupInfo *pCurrentChild(pCurrentGroup->pChild);
 
   while(pCurrentChild) {
-    RecursiveRenderGroups(pCurrentChild, Children, y1, y2, mostleft);
-    pCurrentChild = pCurrentChild->pNext;
+    RecursiveRenderGroups(pCurrentChild, pNode, y1, y2, mostleft);
+     pCurrentChild = pCurrentChild->pNext;
   }
 }
 
@@ -250,78 +241,23 @@ CDasherViewSquare::Cymap::Cymap(myint iScale) {
   m_Y1 = myint(1.0 / dY1);
 }
 
-CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
-:CDasherView(pEventHandler, pSettingsStore, DasherScreen) {
-
-  // Make sure that the auto calibration is set to zero berfore we start
-
-  m_yAutoOffset = 0;
-
-  m_pDelayDraw = new CDelayedDraw();
-  ChangeScreen(DasherScreen);
-
-  // tweak these if you know what you are doing
-  m_dXmpa = 0.2;                // these are for the x non-linearity
-  m_dXmpb = 0.5;
-  m_dXmpc = 0.9;
-  m_dXmpd = 0.5;                // slow X movement when accelerating Y
 
 
-//   //scale #samples by #samples = m_dSamplesScale / (current bitrate) + m_dSampleOffset
-//   m_dSampleScale = 1.5;
-//   m_dSampleOffset = 1.3;
-//   m_dMinRRate = 80.0;
-//   m_dSensitivity = GetLongParameter(LP_AUTOSPEED_SENSITIVITY) / 100.0; //param only, no GUI!
-//   //tolerance for automatic speed control
-//   m_dTier1 = 0.0005;  //  should be arranged so that tier4 > tier3 > tier2 > tier1 !!!
-//   m_dTier2 = 0.01;
-//   m_dTier3 = 0.2;
-//   m_dTier4 = 0.31;
-//   //bitrate fractional changes for auto-speed control
-//   m_dChange1 = 1.1;
-//   m_dChange2 = 1.02;
-//   m_dChange3 = 0.97;
-//   m_dChange4 = 0.94;
-//   //cap bitrate at...
-//   m_dSpeedMax = 8.0;
-//   m_dSpeedMin = 0.1;
-//   //variance of two-centred-gaussians for adaptive radius
-//   m_dSigma1 = 0.5; 
-//   m_dSigma2 = 0.05;
-//   //Initialise auto-speed control
-//   m_nSpeedCounter = 0;
-//   m_dBitrate = double(round(GetLongParameter(LP_MAX_BITRATE) / 100.0));
-
-  //KeyControl=false;
-  m_ymap = Cymap((myint)GetLongParameter(LP_MAX_Y));
-
-//   CDasherModel::CRange rActive(m_ymap.unmap(0), m_ymap.unmap(DasherModel->DasherY()));
-//   DasherModel->SetActive(rActive);
-}
-
-CDasherViewSquare::~CDasherViewSquare() {
-  if (m_pDelayDraw != NULL) {
-    delete m_pDelayDraw;
-    m_pDelayDraw = NULL;
-  }
-}
-
-int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &displaytext, bool bShove) {
+int CDasherViewSquare::RenderNode(const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
 
   // Commenting because click mode occasionally fails this assert.
   // I don't know why.  -- cjb.
   if (!(y2 >= y1)) { return 1; }
 
-  // FIXME - Get sensibel limits here (to allow for non-linearities)
-
+  // TODO - Get sensibel limits here (to allow for non-linearities)
   myint iDasherMinX;
   myint iDasherMinY;
   myint iDasherMaxX;
   myint iDasherMaxY;
-
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
   screenint s1, s2;
+  // TODO - use new versions of functions
   Cint32 iSize = dashery2screen(y1, y2, s1, s2);
 
   // Actual height in pixels
@@ -454,17 +390,6 @@ int CDasherViewSquare::RenderNode(const symbol Character, const int Color, Opts:
   }
 
   myint iDasherAnchorX(iDasherSize);
-
-  std::string sDisplayText;
-
-
-  // FIXME - reimplement
-
-  //  if(displaytext != std::string(""))
-    sDisplayText = displaytext;
-//   else
-//     sDisplayText = DasherModel()->GetDisplayText(Character);
-
 
   if( sDisplayText.size() > 0 )
     DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft, bShove);
@@ -628,14 +553,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
     iScreenY = screenint(iScreenHeight / 2 + ( iDasherX - iDasherWidth / 2 ) * iScaleFactorY / m_iScalingFactor);
     break;
   }
-
-  //  std::cout << iScaleFactorX << " " << iScaleFactorY  << " " << iScreenWidth << " " << iScreenHeight << std::endl;
-  //std::cout << iDasherX << " -> " << iScreenX << ", " << iDasherY  << " -> " << iScreenY << std::endl;
-
 }
-
-
-
 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
   int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
@@ -769,6 +687,8 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
   switch (iType) {
   case 0:
     // Raw secreen coordinates
+
+    // TODO - autocalibration should be at the level of the eyetracker filter
     if(iMode == 2) {
       // First apply the autocalibration offset
       iInputY += int (m_yAutoOffset);   // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
@@ -809,41 +729,6 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
       iDasherY = myint((iDasherY - (myint)GetLongParameter(LP_MAX_Y)/2) * dYScale + (myint)GetLongParameter(LP_MAX_Y)/2);
     }
   }
-
-  // Then apply any non-linearity
-
-//   switch (iMode) {
-//   case 0:                      // Direct mode
-//     // Simply get the dasher co-ordinate under the mouse cursor
-//     //    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY );
-
-//     // Don't go off the canvas - FIXME - is this always needed, or just in direct mode?
-// //     if(iDasherY > GetLongParameter(LP_MAX_Y))
-// //       iDasherY = GetLongParameter(LP_MAX_Y);
-// //     if(iDasherY < 0)
-// //       iDasherY = 0;
-
-//     break;
-//   case 1:                      // 1D mode
-//     // Ignore orientation - iInputY maps directly to the single dimension in this case
-//     //    iDasherY = iInputY * GetLongParameter(LP_MAX_Y) / Screen()->GetHeight();
-
-//     // Apply non-linear mapping
-//     Dasher2OneD(iDasherX, iDasherY);
-
-//     break;
-//   case 2:                      // Eyetracker mode
-
-//     // Then find the dasher co-ordinate under the offset mouse position
-
-//     // Finally apply the non-linear transformation
-//     Dasher2Eyetracker(iDasherX, iDasherY);
-
-//     break;
-//   default:
-//     // Oops!
-//     break;
-//   }
 }
 
 /// Truncate a set of co-ordinates so that they are on the screen
@@ -1044,6 +929,8 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
     //*mousey=int(dashery);
   }
 }
+
+// TODO - should be elsewhere
 
 void CDasherViewSquare::DrawGameModePointer() {
 

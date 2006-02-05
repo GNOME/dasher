@@ -106,7 +106,7 @@ public:
   /// \todo Character and displaytext are redundant. We shouldn't need
   /// to know about alphabets here, so only use the latterr
 
-  int RenderNode(const symbol Character, const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string & displaytext, bool bShove);
+  int RenderNode(const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
 
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
@@ -172,7 +172,7 @@ public:
 
 private:
 
-  void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, std::deque<CDasherNode*>& Children, myint y1, myint y2, int mostleft);
+  void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft);
 
   ///
   /// Trunates co-ordinates to fit on screen

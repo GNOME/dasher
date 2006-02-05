@@ -25,11 +25,7 @@ namespace Dasher {
 class Dasher::CDasherNode:private NoClones {
  public:
   CDasherNode(const CDasherModel & dashermodel, CDasherNode * parent, symbol Symbol, int iphase, Opts::ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel * lm, bool ControlChild, int Colour, ControlTree * controltree);
-
   ~CDasherNode();
-
-  // Node relationships
- //typedef HASH_MAP < symbol, CDasherNode * >ChildMap;
 
   typedef std::deque<CDasherNode*> ChildMap;
 
@@ -40,6 +36,7 @@ class Dasher::CDasherNode:private NoClones {
   unsigned int ChildCount() const {
     return m_mChildren.size();
   }
+
   CDasherNode *Parent() const {
     return m_pParent;
   }
@@ -83,14 +80,6 @@ class Dasher::CDasherNode:private NoClones {
   } 
   void Seen(bool seen) {
     m_bSeen = seen;
-  }
-
-  // ControlNode-related
-  bool ControlChild() const {
-    return m_bControlChild;
-  } 
-  ControlTree *GetControlTree() {
-    return m_controltree;
   }
 
   //unsigned int Group() const {return m_iGroup;}
@@ -172,11 +161,7 @@ class Dasher::CDasherNode:private NoClones {
  private:
 
   int m_iLbnd, m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
-  //const unsigned int m_iGroup;       // group membership - e.g. 0=nothing 1=caps 2=punc
   const symbol m_Symbol;        // the character to display
-
-  //      CDasherNode** m_ppChildren;          // pointer to array of children
-  //      unsigned int m_iChildCount;                // number of children
 
   ChildMap m_mChildren;         // pointer to array of children
   bool m_bHasAllChildren;       // true if we haven't deleted any children after instantiating them
@@ -185,9 +170,9 @@ class Dasher::CDasherNode:private NoClones {
   int m_iRefCount;              // reference count if ancestor of (or equal to) root node
 
   bool m_bAlive;                // if true, then display node, else dont bother
-  //bool m_bControlNode;               // if true, node is a control node
-  bool m_bControlChild;         // if true, node is offspring of a control node
   bool m_bSeen;                 // if true, node has been output already
+
+
   Opts::ColorSchemes m_ColorScheme;
   int m_iPhase;                 // index for coloring
   int m_iColour;                // for the advanced colour mode
@@ -199,7 +184,6 @@ class Dasher::CDasherNode:private NoClones {
   CLanguageModel::Context m_Context;
 
   CDasherNode *m_pParent;       // pointer to parent
-  ControlTree *m_controltree;
 
   enum {
     typeRoot = 0,
@@ -216,7 +200,7 @@ using namespace Opts;
 #include "DasherModel.h"
 
 inline CDasherNode::CDasherNode(const CDasherModel &dashermodel, CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, bool ControlChild, int Colour =-1, ControlTree *controltree =0)
-:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bControlChild(ControlChild), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_DasherModel(dashermodel), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent), m_controltree(controltree) {
+:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_DasherModel(dashermodel), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
 
   /*
      switch (ColorScheme) {
