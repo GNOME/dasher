@@ -15,8 +15,12 @@
 // 5 = Eyetracker mode
 // 6 = Dynamic Filter
 // 7 = Click Mode
-// 8 = Button mode
+// 8 = Button mode (menu)
 // 9 = One button filter (obsolete?)
+// 10 = Button mode (static 3)
+// 11 = Button mode (static 4)
+// 12 = Button mode (alternating)
+// 13 = Button mode (compass)
 
 CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType) 
   : CDasherComponent(pEventHandler, pSettingsStore) {

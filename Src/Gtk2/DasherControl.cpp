@@ -193,10 +193,10 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
     m_pSocketInput->StartListening();
-    SetInput(m_pSocketInput);
+    SetInput(1);
   }
   else {
-    SetInput(m_pMouseInput);
+    SetInput(0);
   }
 
   // Create a pango cache
@@ -347,24 +347,16 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
   }
   else if(iParameter == BP_SOCKET_INPUT_ENABLE) {
     if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-      if(m_pSocketInput == NULL) { // shouldn't happen
-	m_pSocketInput = (CSocketInput *)GetModule(1);
-	m_pSocketInput->Ref();
-      }
       if(!m_pSocketInput->isListening()) {
 	m_pSocketInput->StartListening();
       }
-      SetInput(m_pSocketInput);
+      SetInput(1);
     }
     else {
-      if(m_pMouseInput == NULL) { // shouldn't occur
-	m_pMouseInput = (CDasherMouseInput *)GetModule(0);
-	m_pMouseInput->Ref();
-      }
       if(m_pSocketInput != NULL) {
 	m_pSocketInput->StopListening();
       }
-      SetInput(m_pMouseInput);
+      SetInput(0);
     }
   }
   else if(iParameter == SP_ALPHABET_ID) {

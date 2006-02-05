@@ -238,32 +238,32 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       // FIXME - Horrible mess below - should really use
       // SP_INPUT_FILTER directly for the sake of sanity
       if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-	SetStringParameter(SP_INPUT_FILTER, "One Dimensional Mode");
+	SetLongParameter(LP_INPUT_FILTER, 3); // 1D mode
       else if(GetBoolParameter(BP_EYETRACKER_MODE))
-	SetStringParameter(SP_INPUT_FILTER, "Eyetracker Mode");
+	SetLongParameter(LP_INPUT_FILTER, 3);//"Eyetracker Mode"
       else if(GetBoolParameter(BP_CLICK_MODE))
-	SetStringParameter(SP_INPUT_FILTER, "Click Mode");
+	SetLongParameter(LP_INPUT_FILTER, 7);//"Click Mode"
       else if(GetBoolParameter(BP_KEY_CONTROL)) {
 	// Various button modes
 	if(GetBoolParameter(BP_BUTTONONESTATIC))
-	  SetStringParameter(SP_INPUT_FILTER, "One Button Static");
+	  SetLongParameter(LP_INPUT_FILTER, 8);//"One Button Static"
 	else if(GetBoolParameter(BP_BUTTONONEDYNAMIC))
-	  SetStringParameter(SP_INPUT_FILTER, "One Button Dynamic");
+	  SetLongParameter(LP_INPUT_FILTER, 6);//"One Button Dynamic"
 	else if(GetBoolParameter(BP_BUTTONMENU))
-	  SetStringParameter(SP_INPUT_FILTER, "Button Menu");
+	  SetLongParameter(LP_INPUT_FILTER, 8);//"Button Menu"
 	else if(GetBoolParameter(BP_BUTTONDIRECT))
-	  SetStringParameter(SP_INPUT_FILTER, "Three Button Direct");
+	  SetLongParameter(LP_INPUT_FILTER, 10); //"Three Button Direct"
 	else if(GetBoolParameter(BP_BUTTONFOURDIRECT))
-	  SetStringParameter(SP_INPUT_FILTER, "Four Button Direct");
+	  SetLongParameter(LP_INPUT_FILTER, 11);//"Four Button Direct"
 	else if(GetBoolParameter(BP_BUTTONALTERNATINGDIRECT))
-	  SetStringParameter(SP_INPUT_FILTER, "Alternating Direct");
+	  SetLongParameter(LP_INPUT_FILTER, 12);//"Alternating Direct"
 	else if(GetBoolParameter(BP_COMPASSMODE))
-	  SetStringParameter(SP_INPUT_FILTER, "Compass Mode");
+	  SetLongParameter(LP_INPUT_FILTER, 13);//"Compass Mode"
       }
       else
-	SetStringParameter(SP_INPUT_FILTER, "Default");
+	SetLongParameter(LP_INPUT_FILTER, 3);//"Default"
       break;
-    case SP_INPUT_FILTER:
+    case LP_INPUT_FILTER:
       CreateInputFilter();
       break;
     default:
@@ -448,11 +448,15 @@ void CDasherInterfaceBase::Redraw(int iMouseX, int iMouseY) {
   }
 }
 
-void CDasherInterfaceBase::SetInput(CDasherInput *_pInput) {
-  m_pInput = _pInput;
+void CDasherInterfaceBase::SetInput(int iID) {
+  if(m_pInput)
+    m_pInput->Unref();
+
+  m_pInput = (CDasherInput *)GetModule(iID);
+  m_pInput->Ref();
 
   if(m_pDasherView != 0)
-    m_pDasherView->SetInput(_pInput);
+    m_pDasherView->SetInput(m_pInput);
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
@@ -983,35 +987,13 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
 
 void CDasherInterfaceBase::CreateInputFilter()
 {
-  // FIXME - this should eventually be moved into a factory object
-
   if(m_pDasherButtons) {
-    delete m_pDasherButtons;
+    m_pDasherButtons->Unref();
     m_pDasherButtons = NULL;
   }
 
-  if(GetStringParameter(SP_INPUT_FILTER) == "One Dimensional Mode")
-    m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")
-    m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Click Mode")
-    m_pDasherButtons = new CClickFilter(m_pEventHandler, m_pSettingsStore, this);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Static")
-    m_pDasherButtons = new COneButtonFilter(m_pEventHandler, m_pSettingsStore, this);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "One Button Dynamic")
-    m_pDasherButtons = new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Button Menu")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Three Button Direct")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Four Button Direct")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Alternating Direct")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Compass Mode")
-    m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false);
-  else if(GetStringParameter(SP_INPUT_FILTER) == "Default")
-    m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
+  m_pDasherButtons = (CInputFilter *)GetModule(GetLongParameter(LP_INPUT_FILTER));
+  m_pDasherButtons->Ref();
 }
 
 void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {
@@ -1023,10 +1005,17 @@ CDasherModule *CDasherInterfaceBase::GetModule(long long int iID) {
 }
 
 void CDasherInterfaceBase::CreateFactories() {
-  std::cout << m_pEventHandler << " " << m_pSettingsStore << " " <<  m_pDasherModel << std::endl;
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CClickFilter(m_pEventHandler, m_pSettingsStore, this)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   // TODO: specialist factory for button mode
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13)));
+
+
+
+
 }

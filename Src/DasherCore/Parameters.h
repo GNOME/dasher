@@ -31,7 +31,7 @@ enum {
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, 
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM, LP_SCREENWIDTH,
   LP_SCREENHEIGHT, LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
-  LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, END_OF_LPS
+  LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, END_OF_LPS
 };
 
 enum {
@@ -165,7 +165,8 @@ static lp_table longparamtable[] = {
   {LP_SOCKET_INPUT_Y_MAX, "SocketInputYMaxTimes1000", PERS, 1000, "Top of range of Y values expected from network input"},
   {LP_OX, "OX", PERS, 2048, "X coordinate of crosshair"},
   {LP_OY, "OY", PERS, 2048, "Y coordinate of crosshair"},
-  {LP_MAX_Y, "MaxY", PERS, 4096, "Maximum Y coordinate"}
+  {LP_MAX_Y, "MaxY", PERS, 4096, "Maximum Y coordinate"},
+  {LP_INPUT_FILTER, "InputFilterID", PERS, 3, "Module ID of input filter"}
 };
 
 static sp_table stringparamtable[] = {
@@ -182,7 +183,7 @@ static sp_table stringparamtable[] = {
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
-  {SP_INPUT_FILTER, "InputFilter", PERS, "Default", "Input filter used to provide the current control mode"}
+  {SP_INPUT_FILTER, "InputFilter", PERS, "Default", "Input filter used to provide the current control mode (obsolete)"}
 };
 
 // This is the structure of each table that the settings will access

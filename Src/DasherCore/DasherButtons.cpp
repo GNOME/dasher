@@ -22,8 +22,8 @@ static char THIS_FILE[] = __FILE__;
 
 // FIXME - should compass mode be made a separate class?
 
-CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 8, 1) {
+CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, long long int iID)
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, 1) {
 
   m_pBoxes = 0;
 

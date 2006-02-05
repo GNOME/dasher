@@ -434,9 +434,9 @@ public:
   void Render();
 
   /// Provide a new CDasherInput input device object.
-  /// \param _pInput Pointer to the new object
+  /// \param iID Module ID of new input
 
-  void SetInput(CDasherInput * _pInput);
+  void SetInput(int iID);
 
   /// Set the context in which Dasher makes predictions
   /// \param strNewContext The new context (UTF-8)
