@@ -14,6 +14,7 @@
 #include "../DasherInterface.h"
 #include "../DasherMouseInput.h"
 #include "../Sockets/SocketInput.h"
+#include "../../DasherCore/WrapperFactory.h"
 
 
 #define PRESSED		0x8000
@@ -56,16 +57,25 @@ HWND CCanvas::Create(HWND hParent)
 	// NB We create the SocketInput object now, even if socket input is not enabled, because
 	// we can't safely create it later in response to a parameter change event (because it itself
 	// needs to register an event listener when it constructs itself).
-	m_pSocketInput = new CSocketInput(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore()); // CreateSettingsStore only creates a new one if there isn't one there already
-	m_pMouseInput = new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, hWnd);
+
+  // CreateSettingsStore only creates a new one if there isn't one there already
+
+  m_pDasherInterface->RegisterFactory(new CWrapperFactory(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore(), new CSocketInput(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore())));
+  m_pDasherInterface->RegisterFactory(new CWrapperFactory(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore(),  new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, hWnd)));
+
+ 	m_pSocketInput = (CSocketInput *)m_pDasherInterface->GetModule(1);
+  m_pSocketInput->Ref();
+
+	m_pMouseInput = (CDasherMouseInput *)m_pDasherInterface->GetModule(0); 
+  m_pMouseInput->Ref();
 
 	if(m_pDasherInterface->GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) 
 	{
 		m_pSocketInput->StartListening();
-		m_pDasherInterface->SetInput(m_pSocketInput);
+		m_pDasherInterface->SetInput(1);
 	}
 	else {
-		m_pDasherInterface->SetInput(m_pMouseInput);
+		m_pDasherInterface->SetInput(0);
 	}
 
 
@@ -604,23 +614,16 @@ void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
     case BP_SOCKET_INPUT_ENABLE:
       OutputDebugString(TEXT("Processing BP_SOCKET_INPUT_ENABLE change\n"));
       if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-        if(m_pSocketInput == NULL) { // shouldn't occur
-          OutputDebugString(TEXT("Created new SocketInput instance\n"));
-	        m_pSocketInput = new CSocketInput(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore()); // CreateSettingsStore only creates a new one if there isn't one there already
-        }
         if(!m_pSocketInput->isListening()) {
 	        m_pSocketInput->StartListening();
         } 
-        m_pDasherInterface->SetInput(m_pSocketInput);
+        m_pDasherInterface->SetInput(1);
       } 
       else {
-        if(m_pMouseInput == NULL) { // shouldn't occur
-	        m_pMouseInput = new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_hWnd);
-        }
         if(m_pSocketInput != NULL) {
 	        m_pSocketInput->StopListening();
         }
-        m_pDasherInterface->SetInput(m_pMouseInput);
+        m_pDasherInterface->SetInput(0);
       }
       break;
     default:
