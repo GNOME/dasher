@@ -837,6 +837,7 @@ void CDasherInterfaceBase::TrainFile(string Filename) {
     InputBuffer[NumberRead] = '\0';
     StringBuffer += InputBuffer;
     bool bIsMore = false;
+
     if(NumberRead == (BufferSize - 1))
       bIsMore = true;
 

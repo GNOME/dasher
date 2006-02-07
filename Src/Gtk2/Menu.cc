@@ -233,11 +233,7 @@ extern "C" void select_import_file(GtkWidget *widget, gpointer user_data) {
 #endif
 
   if(gtk_dialog_run(GTK_DIALOG(filesel)) == GTK_RESPONSE_ACCEPT) {
-#ifdef GNOME_LIBS
-    char *filename = gtk_file_chooser_get_uri(GTK_FILE_CHOOSER(filesel));
-#else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
-#endif
 
     gtk_dasher_control_train(GTK_DASHER_CONTROL(pDasherWidget), filename);
 
