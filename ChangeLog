@@ -1,3 +1,6 @@
+2006-02-09  Phil Cowans  <pjc51@cam.ac.uk>
+	* Changes to default values for parameters
+
 2006-01-30  Phil Cowans  <pjc51@cam.ac.uk>
 	* Fixed broken Win32 source tree
 	* Release 3.99.3

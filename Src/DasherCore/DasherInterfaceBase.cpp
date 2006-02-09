@@ -79,9 +79,8 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 }
 
 void CDasherInterfaceBase::Realize() {
-
-  ChangeColours(GetStringParameter(SP_COLOUR_ID));
   ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
+  ChangeColours(GetStringParameter(SP_COLOUR_ID));
 
   if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
     SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
@@ -276,6 +275,11 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case SP_INPUT_FILTER:
       CreateInputFilter();
+      break; 
+    case BP_PALETTE_CHANGE:
+      if(GetBoolParameter(BP_PALETTE_CHANGE)) {
+	SetStringParameter(SP_COLOUR_ID, m_Alphabet->GetPalette());
+      }
       break;
     default:
       break;
@@ -608,17 +612,9 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
 
   SetStringParameter(SP_TRAIN_FILE, m_Alphabet->GetTrainingFile());
 
-
-
   if((m_Alphabet->GetGameModeFile()).length() > 0)
     SetStringParameter(SP_GAME_TEXT_FILE, m_Alphabet->GetGameModeFile());
   
-
-  // DJW_TODO - control mode
-  //   if (m_ControlMode==true) {
-  //   m_Alphabet->AddControlSymbol();
-  //  }
-
   // Recreate widgets and language model
   if(m_DashEditbox != 0)
     m_DashEditbox->SetInterface(this);
@@ -629,8 +625,7 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   m_pDasherModel = 0;
   CreateDasherModel();
 
-  if(m_Alphabet->GetPalette() != std::string("") && GetBoolParameter(BP_PALETTE_CHANGE)) {
-    //    ChangeColours(m_Alphabet->GetPalette());
+  if(GetBoolParameter(BP_PALETTE_CHANGE)) {
     SetStringParameter(SP_COLOUR_ID, m_Alphabet->GetPalette());
   }
 

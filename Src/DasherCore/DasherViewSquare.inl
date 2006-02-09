@@ -40,7 +40,7 @@ namespace Dasher {
 //  } 
 
 if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
-      return 0;
+     return 0;
     } if(y2 < 0) {
       return 0;
     }

@@ -81,8 +81,12 @@ void CColourIO::GetColours(std::vector <std::string >*ColourList) const {
 }
 
 const CColourIO::ColourInfo & CColourIO::GetInfo(const std::string &ColourID) {
-  if(ColourID == "")            // return Default if no colour scheme is specified
-    return Colours["Default"];
+  if(ColourID == "") {
+    if(Colours.count("European/Asian") != 0)            // return Default if no colour scheme is specified
+      return Colours["European/Asian"];
+    else
+      return Colours["Default"];
+  }
   else {
     if(Colours.count(ColourID) != 0) {
       Colours[ColourID].ColourID = ColourID;    // Ensure consistency
