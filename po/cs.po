@@ -1,49 +1,49 @@
 # Czech translation of dasher.
 # Copyright (C) 2004, 2005 dasher'S COPYRIGHT HOLDER
 # Copyright (C) 2004, 2005 Miloslav Trmac <mitr@volny.cz>
-# This file is distributed under the same license as the PACKAGE package.
+# Copyright (C) 2006 Lukas Novotny <lukasnov@cvs.gnome.org>
+# This file is distributed under the same license as the dasher package.
 # Miloslav Trmac <mitr@volny.cz>, 2004, 2005.
-#
+# Lukas Novotny <lukasnov@cvs.gnome.org>, 2006.
+# 
+# 
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-11-02 21:35+0100\n"
-"PO-Revision-Date: 2005-11-02 22:36+0100\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
+"POT-Creation-Date: 2006-02-09 05:59+0100\n"
+"PO-Revision-Date: 2006-02-09 19:42+0100\n"
+"Last-Translator: Lukas Novotny <lukasnov@cvs.gnome.org>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit\n"
+"Content-Transfer-Encoding: 8bit"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
-#: ../Src/DasherCore/SocketInput.cpp:32
+#: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Vstup socketu Dasheru: nemohu spustit vlákno čteče."
 
-#: ../Src/Gtk2/Menu.cc:69 ../Src/Gtk2/Menu.cc:125 ../Src/Gtk2/Menu.cc:183
-#: ../Src/Gtk2/Menu.cc:226 ../Src/Gtk2/dasher.glade.h:100
+#: ../Src/Gtk2/Menu.cc:72 ../Src/Gtk2/Menu.cc:128 ../Src/Gtk2/Menu.cc:186
+#: ../Src/Gtk2/Menu.cc:229 ../Src/Gtk2/dasher.glade.h:105
 #: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Zvolte soubor"
 
-#. This gets pulled out via gettext
-#: ../Src/Gtk2/Menu.cc:462
-msgid "translator-credits"
-msgstr "Miloslav Trmač <mitr@volny.cz>"
-
-#: ../Src/Gtk2/Menu.cc:464 ../Src/Gtk2/dasher.glade.h:54
-#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:54
-msgid "Dasher"
-msgstr "Dasher"
-
-#: ../Src/Gtk2/Menu.cc:464
+#: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je aplikace pro prediktivní vstup textu"
 
-#: ../Src/Gtk2/Preferences.cpp:574 ../Src/Gtk2/Preferences.cpp:576
-msgid "Training Dasher, please wait"
-msgstr "Učím Dasher, čekejte prosím"
+#: ../Src/Gtk2/Menu.cc:461
+msgid "translator-credits"
+msgstr "Miloslav Trmač <mitr@volny.cz>\n"
+"Lukáš Novotný <lukasnov@cvs.gnome.org>"
+
+#: ../Src/Gtk2/Preferences.cpp:585 ../Src/Gtk2/Preferences.cpp:587
+#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:117
+msgid "Training Dasher... please wait"
+msgstr "Učím Dasher... čekejte prosím"
 
 #. Paneltree
 #. |         /-menutree
@@ -51,137 +51,136 @@ msgstr "Učím Dasher, čekejte prosím"
 #. \-edittree
 #.
 #. Tree, parent, children, next, pointer, data, string, colour
-#: ../Src/Gtk2/accessibility.cc:83
+#: ../Src/Gtk2/accessibility.cc:88
 msgid "Panels"
 msgstr "Panely"
 
-#: ../Src/Gtk2/accessibility.cc:84
+#: ../Src/Gtk2/accessibility.cc:89
 msgid "Application"
 msgstr "Aplikace"
 
-#: ../Src/Gtk2/accessibility.cc:85
+#: ../Src/Gtk2/accessibility.cc:90
 msgid "Menus"
 msgstr "Menu"
 
-#: ../Src/Gtk2/accessibility.cc:86 ../Src/Gtk2/dasher.glade.h:42
-#: ../Src/Gtk2/dashermaemo.glade.h:42
+#: ../Src/Gtk2/accessibility.cc:91 ../Src/Gtk2/dashermaemo.glade.h:42
 msgid "Buttons"
 msgstr "Tlačítka"
 
-#: ../Src/Gtk2/accessibility.cc:87
+#: ../Src/Gtk2/accessibility.cc:92
 msgid "Text"
 msgstr "Text"
 
-#: ../Src/Gtk2/accessibility.cc:170 ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/accessibility.cc:175 ../Src/Gtk2/dasher.glade.h:48
 #: ../Src/Gtk2/dashergpe.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:45
 msgid "Control"
 msgstr "Ovládání"
 
-#: ../Src/Gtk2/accessibility.cc:177
+#: ../Src/Gtk2/accessibility.cc:182
 msgid "Windows"
 msgstr "Okna"
 
-#: ../Src/Gtk2/accessibility.cc:185
+#: ../Src/Gtk2/accessibility.cc:190
 msgid "Stop"
 msgstr "Zastavit"
 
-#: ../Src/Gtk2/accessibility.cc:192
+#: ../Src/Gtk2/accessibility.cc:197
 msgid "Pause"
 msgstr "Pozastavit"
 
-#: ../Src/Gtk2/accessibility.cc:199
+#: ../Src/Gtk2/accessibility.cc:204
 msgid "Move"
 msgstr "Přesunout"
 
-#: ../Src/Gtk2/accessibility.cc:206
+#: ../Src/Gtk2/accessibility.cc:211
 msgid "Delete"
 msgstr "Odstranit"
 
-#: ../Src/Gtk2/accessibility.cc:216
+#: ../Src/Gtk2/accessibility.cc:221
 msgid "Speak"
 msgstr "Mluvit"
 
-#: ../Src/Gtk2/accessibility.cc:248 ../Src/Gtk2/accessibility.cc:402
+#: ../Src/Gtk2/accessibility.cc:253 ../Src/Gtk2/accessibility.cc:407
 msgid "<"
 msgstr "<"
 
-#: ../Src/Gtk2/accessibility.cc:254 ../Src/Gtk2/accessibility.cc:396
+#: ../Src/Gtk2/accessibility.cc:259 ../Src/Gtk2/accessibility.cc:401
 msgid ">"
 msgstr ">"
 
-#: ../Src/Gtk2/accessibility.cc:260
+#: ../Src/Gtk2/accessibility.cc:265
 msgid "<<<"
 msgstr "<<<"
 
-#: ../Src/Gtk2/accessibility.cc:266
+#: ../Src/Gtk2/accessibility.cc:271
 msgid ">>>"
 msgstr ">>>"
 
-#: ../Src/Gtk2/accessibility.cc:279
+#: ../Src/Gtk2/accessibility.cc:284
 msgid "Everything"
 msgstr "Vše"
 
-#: ../Src/Gtk2/accessibility.cc:285
+#: ../Src/Gtk2/accessibility.cc:290
 msgid "New"
 msgstr "Nový"
 
-#: ../Src/Gtk2/accessibility.cc:291
+#: ../Src/Gtk2/accessibility.cc:296
 msgid "Repeat"
 msgstr "Opakovat"
 
-#: ../Src/Gtk2/accessibility.cc:313
+#: ../Src/Gtk2/accessibility.cc:318
 msgid "1"
 msgstr "1"
 
-#: ../Src/Gtk2/accessibility.cc:320
+#: ../Src/Gtk2/accessibility.cc:325
 msgid "2"
 msgstr "2"
 
-#: ../Src/Gtk2/accessibility.cc:327
+#: ../Src/Gtk2/accessibility.cc:332
 msgid "3"
 msgstr "3"
 
-#: ../Src/Gtk2/accessibility.cc:334
+#: ../Src/Gtk2/accessibility.cc:339
 msgid "4"
 msgstr "4"
 
-#: ../Src/Gtk2/accessibility.cc:341
+#: ../Src/Gtk2/accessibility.cc:346
 msgid "5"
 msgstr "5"
 
-#: ../Src/Gtk2/accessibility.cc:348
+#: ../Src/Gtk2/accessibility.cc:353
 msgid "6"
 msgstr "6"
 
-#: ../Src/Gtk2/accessibility.cc:355
+#: ../Src/Gtk2/accessibility.cc:360
 msgid "7"
 msgstr "7"
 
-#: ../Src/Gtk2/accessibility.cc:362
+#: ../Src/Gtk2/accessibility.cc:367
 msgid "8"
 msgstr "8"
 
-#: ../Src/Gtk2/accessibility.cc:369
+#: ../Src/Gtk2/accessibility.cc:374
 msgid "9"
 msgstr "9"
 
-#: ../Src/Gtk2/accessibility.cc:376
+#: ../Src/Gtk2/accessibility.cc:381
 msgid "10"
 msgstr "10"
 
-#: ../Src/Gtk2/accessibility.cc:408 ../Src/Gtk2/accessibility.cc:432
+#: ../Src/Gtk2/accessibility.cc:413 ../Src/Gtk2/accessibility.cc:437
 msgid "Character"
 msgstr "Znak"
 
-#: ../Src/Gtk2/accessibility.cc:420 ../Src/Gtk2/accessibility.cc:443
+#: ../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:448
 msgid "Word"
 msgstr "Slovo"
 
-#: ../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:449
+#: ../Src/Gtk2/accessibility.cc:430 ../Src/Gtk2/accessibility.cc:454
 msgid "Line"
 msgstr "Řádek"
 
-#: ../Src/Gtk2/accessibility.cc:563
+#: ../Src/Gtk2/accessibility.cc:568
 msgid "Unknown"
 msgstr "Neznámý"
 
@@ -333,467 +332,493 @@ msgstr "<b>Režim kompasu</b>"
 msgid "<b>Control Style:</b>"
 msgstr "<b>Styl ovládání:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Direct Mode And Menu Mode</b>"
+msgstr "<b>Přímý režim a režim menu</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15
+msgid "<b>External Input:</b>"
+msgstr "<b>Externí vstup:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:14
 msgid "<b>Language Model:</b>"
 msgstr "<b>Model jazyka:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:15
-msgid "<b>Menu Mode</b>"
-msgstr "<b>Režim menu:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
 #: ../Src/Gtk2/dashermaemo.glade.h:16
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>Různá nastavení:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:17
 msgid "<b>One-Button Dynamic Mode</b>"
 msgstr "<b>Jednotlačítkový dynamický režim</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:18
 msgid "<b>One-Button Static Mode</b>"
 msgstr "<b>Jednotlačítkový statický režim</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
 #: ../Src/Gtk2/dashermaemo.glade.h:19
 msgid "<b>Orientation:</b>"
 msgstr "<b>Orientace:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
 #: ../Src/Gtk2/dashermaemo.glade.h:20
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Vyhlazování:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:21
 msgid "<b>Socket Input</b>"
 msgstr "<b>Vstup socketu</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:22
 msgid "<b>Speed:</b>"
 msgstr "<b>Rychlost:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
 #: ../Src/Gtk2/dashermaemo.glade.h:23
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Spouštění a zastavování:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:24
 msgid "<b>Toggle button Mode:</b>"
 msgstr "<b>Režim tlačítka přepínání:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:16
 #: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "<b>View Options:</b>"
 msgstr "<b>Možnosti zobrazení:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "<b>X Coordinate</b>"
 msgstr "<b>Souřadnice X</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemo.glade.h:27
 msgid "<b>X/Y Coordinates:</b>"
 msgstr "<b>Souřadnice X/Y:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:18
 #: ../Src/Gtk2/dashermaemo.glade.h:28
 msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Možnosti osy Y:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:29
 msgid "<b>Y Coordinate</b>"
 msgstr "<b>Souřadnice Y</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:30
 msgid "<b>Zoom steps:</b>"
 msgstr "<b>Kroky zvětšení:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
 msgid "Adapt speed automatically"
 msgstr "Automaticky přizpůsobit rychlost"
 
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashergpe.glade.h:19
-#: ../Src/Gtk2/dashermaemo.glade.h:32
-msgid "Advanced"
-msgstr "Pokročilé"
+#: ../Src/Gtk2/dasher.glade.h:33
+msgid "Advanced Settings"
+msgstr "Pokročilá nastavení"
 
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:20
 #: ../Src/Gtk2/dashermaemo.glade.h:33
 msgid "Alphabet"
 msgstr "Abeceda"
 
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemo.glade.h:34
 msgid "Alphabet Default"
 msgstr "Implicitní abeceda"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:35
 msgid "Alternating direct mode"
 msgstr "Přepínací přímý režim"
 
-#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:22
 #: ../Src/Gtk2/dashermaemo.glade.h:36
 msgid "Bottom to Top"
 msgstr "Odspodu nahoru"
 
-#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashermaemo.glade.h:37
+#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:37
 msgid "Box non-uniformity:"
 msgstr "Různost obdélníků:"
 
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid "Button Mode Options"
+msgstr "Možnosti režimu tlačítka"
+
+#: ../Src/Gtk2/dasher.glade.h:40
+msgid "Button Preferences"
+msgstr "Nastavení tlačítka"
+
+#: ../Src/Gtk2/dasher.glade.h:41
+msgid "Button Setup"
+msgstr "Nastavení tlačítek"
+
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemo.glade.h:38
 msgid "Button control setup"
 msgstr "Nastavení ovládání tlačítky"
 
-#: ../Src/Gtk2/dasher.glade.h:39 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemo.glade.h:39
 msgid "Button mode"
 msgstr "Režim tlačítka"
 
-#: ../Src/Gtk2/dasher.glade.h:40 ../Src/Gtk2/dashermaemo.glade.h:40
-msgid "Button setup"
-msgstr "Nastavení tlačítek"
-
-#: ../Src/Gtk2/dasher.glade.h:41 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:25
 #: ../Src/Gtk2/dashermaemo.glade.h:41
 msgid "Button:"
 msgstr "Tlačítko:"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:43
+#: ../Src/Gtk2/dasher.glade.h:45
+msgid "Cancel"
+msgstr "Zrušit"
+
+#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:43
 msgid "Click mode"
 msgstr "Režim klikání"
 
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashermaemo.glade.h:44
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:44
 msgid "Compass mode"
 msgstr "Režim kompasu"
 
-#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
 msgstr "Ovládat dasher síťovým socketem místo myši (pokročilé)"
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashergpe.glade.h:29
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
 msgid "Control mode"
 msgstr "Režim ovládání"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:30
+#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:30
 #: ../Src/Gtk2/dashermaemo.glade.h:48
 msgid "Copy"
 msgstr "Kopírovat"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:31
 #: ../Src/Gtk2/dashermaemo.glade.h:49
 msgid "Copy _All"
 msgstr "Kopírovat _vše"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:32
+#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:32
 #: ../Src/Gtk2/dashermaemo.glade.h:50
 msgid "Copy all on stop"
 msgstr "Kopírovat vše při zastavení"
 
-#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashermaemo.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:51
 msgid "Custom:"
 msgstr "Vlastní:"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:33
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:33
 #: ../Src/Gtk2/dashermaemo.glade.h:52
 msgid "Cut"
 msgstr "Vyjmout"
 
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:34
 #: ../Src/Gtk2/dashermaemo.glade.h:53
 msgid "Cyclical button mode"
 msgstr "Cyklický režim tlačítka"
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:36
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:54
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
 #: ../Src/Gtk2/dashermaemo.glade.h:55
 msgid "Dasher Preferences"
 msgstr "Nastavení Dasheru"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:37
-#: ../Src/Gtk2/dashermaemo.glade.h:56
-msgid "Distance from centreline for start on mouse position:"
-msgstr "Vzdálenost od středové čáry při startu podle umístění myši"
+#: ../Src/Gtk2/dasher.glade.h:59
+msgid "Direct mode"
+msgstr "Přímý režim"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:38
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:37
+#: ../Src/Gtk2/dashermaemo.glade.h:56
+msgid "Distance from centerline for start on mouse position:"
+msgstr "Vzdálenost od středové čáry při startu podle umístění myši:"
+
+#: ../Src/Gtk2/dasher.glade.h:61
+msgid "Done"
+msgstr "Hotovo"
+
+#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:38
 #: ../Src/Gtk2/dashermaemo.glade.h:57
 msgid "Down/3:"
 msgstr "Dolů/3:"
 
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:39
 #: ../Src/Gtk2/dashermaemo.glade.h:58
 msgid "Draw box outlines"
 msgstr "Kreslit obrysy obdélníků"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:40
 #: ../Src/Gtk2/dashermaemo.glade.h:59
 msgid "Draw line between crosshairs and mouse"
 msgstr "Kreslit čáru mezi vlasovými kříži a myší"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:60
 msgid "Drop time:  "
 msgstr "Čas upuštění: "
 
-#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashergpe.glade.h:41
-#: ../Src/Gtk2/dashermaemo.glade.h:61
-msgid "Edit Button-control options"
-msgstr "Upravit možnosti ovládání tlačítky"
-
-#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:42
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:42
 #: ../Src/Gtk2/dashermaemo.glade.h:62
 msgid "Enter text into other windows"
 msgstr "Vložit text do jiných oken"
 
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:43
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:43
 #: ../Src/Gtk2/dashermaemo.glade.h:63
 msgid "Eyetracker mode"
 msgstr "Režim sledování oka"
 
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashermaemo.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:64
 msgid "Four-button direct mode"
 msgstr "Čtyřtlačítkový přímý režim"
 
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:69
+msgid "General"
+msgstr "Obecné"
+
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid ""
-"If this mode is selected, up  and down will\n"
+"If this mode is selected, up and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
 msgstr ""
 "Je-li vybrán tento režim, bude nahoru a dolů\n"
 "přepínat vpřed a vzad mezi souřadnicemi a doprava potvrdí výběr"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
 msgid "Increase line thickness"
 msgstr "Zvětšit tloušťku čáry"
 
-#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:68
 msgid "Japanese"
 msgstr "Japonská"
 
-#: ../Src/Gtk2/dasher.glade.h:69 ../Src/Gtk2/dashermaemo.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:69
 msgid "Label"
 msgstr "Popisek"
 
-#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:70
 msgid "Language model adapts as you write."
 msgstr "Model jazyka se adaptuje, když píšete."
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:45
+#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:45
 #: ../Src/Gtk2/dashermaemo.glade.h:71
 msgid "Large"
 msgstr "Velké"
 
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:46
 #: ../Src/Gtk2/dashermaemo.glade.h:72
 msgid "Left to Right"
 msgstr "Zleva doprava"
 
-#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashergpe.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:47
 #: ../Src/Gtk2/dashermaemo.glade.h:73
 msgid "Left/2:"
 msgstr "Doleva/2:"
 
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:74
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:74
 msgid "Max"
 msgstr "Max"
 
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:75
 msgid "Min"
 msgstr "Min"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:76
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:76
 msgid "Miscellaneous"
 msgstr "Různé"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:77
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:77
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Sloučený model (PPM/slovník)"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:48
 #: ../Src/Gtk2/dashermaemo.glade.h:78
 msgid "New file"
 msgstr "Nový soubor"
 
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:49
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:49
 #: ../Src/Gtk2/dashermaemo.glade.h:79
 msgid "Normal"
 msgstr "Normální"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:80
 msgid "Number of \"zoom-out boxes\":"
 msgstr "Počet \"zmenšovacích obdélníků\":"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:81
+#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:81
 msgid "Number of boxes:"
 msgstr "Počet obdélníků:"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:51
 #: ../Src/Gtk2/dashermaemo.glade.h:82
 msgid "One dimensional mode"
 msgstr "Jednorozměrný režim"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashermaemo.glade.h:83
 msgid "One-button dynamic mode"
 msgstr "Jednotlačítkový dynamický režim"
 
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashermaemo.glade.h:84
+#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:84
 msgid "One-button static mode"
 msgstr "Jednotlačítkový statický režim"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:52
 #: ../Src/Gtk2/dashermaemo.glade.h:85
 msgid "Open file"
 msgstr "Otevřít soubor"
 
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:86
+#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:86
 msgid "Ordinary control"
 msgstr "Normální ovládání"
 
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:54
+#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:54
 #: ../Src/Gtk2/dashermaemo.glade.h:87
 msgid "Paste"
 msgstr "Vložit"
 
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:55
 #: ../Src/Gtk2/dashermaemo.glade.h:88
 msgid "Pause outside window"
 msgstr "Vložit mimo okno"
 
-#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:89
+#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:89
 msgid "Port"
 msgstr "Port"
 
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashermaemo.glade.h:90
+#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:90
 msgid "Prediction"
 msgstr "Předpovídání"
 
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:91
+#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:91
 msgid "Print socket-related debugging information to console"
 msgstr "Vypsat ladicí informace související se socketem na konzolu"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:92
+#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:92
 msgid "Pulsing mode"
 msgstr "Pulzující režim"
 
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:56
+#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:56
 #: ../Src/Gtk2/dashermaemo.glade.h:93
 msgid "Right to Left"
 msgstr "Zprava doleva"
 
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:94
+#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:94
 msgid "Right zoom:  "
 msgstr "Pravé zvětšení: "
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:57
+#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:57
 #: ../Src/Gtk2/dashermaemo.glade.h:95
 msgid "Right/4:"
 msgstr "Doprava/4:"
 
-#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:96
+#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:96
 msgid "Safety margin:"
 msgstr "Bezpečnostní okraj:"
 
-#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:58
 #: ../Src/Gtk2/dashermaemo.glade.h:97
 msgid "Save file"
 msgstr "Uložit soubor"
 
-#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:59
 #: ../Src/Gtk2/dashermaemo.glade.h:98
 msgid "Save file as"
 msgstr "Uložit soubor jako"
 
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:99
+#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashermaemo.glade.h:99
 msgid "Scaling amount (1D mode):"
 msgstr "Změna měřítka (režim 1D):"
 
-#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashergpe.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:61
 #: ../Src/Gtk2/dashermaemo.glade.h:101
 msgid "Select Font"
 msgstr "Zvolte písmo"
 
-#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:107
+msgid "Show Advanced Settings"
+msgstr "Zobrazit pokročilá nastavení"
+
+#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:62
 #: ../Src/Gtk2/dashermaemo.glade.h:102
 msgid "Show mouse position"
 msgstr "Zobrazovat umístění myši"
 
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:63
 #: ../Src/Gtk2/dashermaemo.glade.h:103
 msgid "Show speed slider"
 msgstr "Zobrazovat táhlo rychlosti"
 
-#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:64
 #: ../Src/Gtk2/dashermaemo.glade.h:104
 msgid "Show toolbar"
 msgstr "Zobrazovat lištu nástrojů"
 
-#: ../Src/Gtk2/dasher.glade.h:105 ../Src/Gtk2/dashermaemo.glade.h:105
-msgid "Socket"
-msgstr "Socket"
+#: ../Src/Gtk2/dasher.glade.h:111
+msgid "Socket Options"
+msgstr "Možnosti socketu"
 
-#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:112
+msgid "Socket Preferences"
+msgstr "Nastavení socketu"
+
+#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:65
 #: ../Src/Gtk2/dashermaemo.glade.h:106
 msgid "Speak on stop"
 msgstr "Přečíst při zastavení"
 
-#: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashermaemo.glade.h:107
+#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashermaemo.glade.h:107
 msgid "Standard letter-based PPM"
 msgstr "Standardní PPM založené na písmenech"
 
-#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:66
+#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:66
 #: ../Src/Gtk2/dashermaemo.glade.h:108
 msgid "Start on left mouse button"
 msgstr "Spustit levým tlačítkem myši"
 
-#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:67
 #: ../Src/Gtk2/dashermaemo.glade.h:109
 msgid "Start on space bar"
 msgstr "Spustit mezerou"
 
-#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:68
 #: ../Src/Gtk2/dashermaemo.glade.h:110
 msgid "Start with mouse position"
 msgstr "Spustit umístěním myši"
 
-#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashermaemo.glade.h:111
+#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:111
 msgid "Static menu mode"
 msgstr "Režim statického menu"
 
-#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashermaemo.glade.h:112
+#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:112
 msgid "Steady mode"
 msgstr "Klidný režim"
 
-#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashermaemo.glade.h:113
-msgid "Three-button direct mode"
-msgstr "Třítlačítkový přímý režim"
-
-#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:69
 #: ../Src/Gtk2/dashermaemo.glade.h:114
 msgid "Timestamp new files"
 msgstr "Přidávat k novým souborům časový údaj"
 
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:70
 #: ../Src/Gtk2/dashermaemo.glade.h:115
 msgid "Top to Bottom"
 msgstr "Shora dolů"
 
-#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:71
+#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:71
 #: ../Src/Gtk2/dashermaemo.glade.h:116
 msgid "Training"
 msgstr "Učení"
 
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:117
-msgid "Training Dasher - please wait"
-msgstr "Učím Dasher - čekejte prosím"
-
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:73
+#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:73
 #: ../Src/Gtk2/dashermaemo.glade.h:118
 msgid "Up/1:"
 msgstr "Nahoru/1:"
 
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:119
+#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashermaemo.glade.h:119
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -803,90 +828,90 @@ msgstr ""
 "obdélníků písmen. Zvolení velkých hodnot zpomalí vaši\n"
 "rychlost psaní."
 
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:75
 #: ../Src/Gtk2/dashermaemo.glade.h:122
 msgid "Very Large"
 msgstr "Velmi velké"
 
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:76
+#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:76
 #: ../Src/Gtk2/dashermaemo.glade.h:123
 msgid "View"
 msgstr "Zobrazit"
 
-#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashermaemo.glade.h:124
+#: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashermaemo.glade.h:124
 msgid "Word-based model"
 msgstr "Model založený na slovech"
 
-#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashergpe.glade.h:77
+#: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashergpe.glade.h:77
 #: ../Src/Gtk2/dashermaemo.glade.h:125
 msgid "X:"
 msgstr "X:"
 
-#: ../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:78
+#: ../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:78
 #: ../Src/Gtk2/dashermaemo.glade.h:126
 msgid "Y:"
 msgstr "Y:"
 
-#: ../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashermaemo.glade.h:127
+#: ../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashermaemo.glade.h:127
 msgid "Zoom:"
 msgstr "Zvětšení:"
 
-#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:79
 #: ../Src/Gtk2/dashermaemo.glade.h:128
 msgid "_About"
 msgstr "O _aplikaci"
 
-#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:80
 #: ../Src/Gtk2/dashermaemo.glade.h:129
 msgid "_Append to file"
 msgstr "_Připojit do souboru"
 
-#: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashergpe.glade.h:81
+#: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:81
 #: ../Src/Gtk2/dashermaemo.glade.h:130
 msgid "_Dasher Font"
 msgstr "_Písmo Dasheru"
 
-#: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashergpe.glade.h:82
+#: ../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:82
 #: ../Src/Gtk2/dashermaemo.glade.h:131
 msgid "_Dasher Font Size"
 msgstr "_Velikost písma Dasheru"
 
-#: ../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:83
 #: ../Src/Gtk2/dashermaemo.glade.h:132
 msgid "_Edit"
 msgstr "_Upravit"
 
-#: ../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashergpe.glade.h:84
+#: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:84
 #: ../Src/Gtk2/dashermaemo.glade.h:133
 msgid "_Edit Font"
 msgstr "_Upravit písmo"
 
-#: ../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:85
 #: ../Src/Gtk2/dashermaemo.glade.h:134
 msgid "_File"
 msgstr "_Soubor"
 
-#: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dasher.glade.h:141 ../Src/Gtk2/dashergpe.glade.h:86
 #: ../Src/Gtk2/dashermaemo.glade.h:135
 msgid "_Help"
 msgstr "_Nápověda"
 
-#: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:87
 #: ../Src/Gtk2/dashermaemo.glade.h:136
 msgid "_Import Training Text"
 msgstr "_Importovat učící text"
 
-#: ../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:88
+#: ../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:88
 #: ../Src/Gtk2/dashermaemo.glade.h:137
 msgid "_Options"
 msgstr "_Možnosti"
 
-#: ../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:89
+#: ../Src/Gtk2/dasher.glade.h:144 ../Src/Gtk2/dashergpe.glade.h:89
 #: ../Src/Gtk2/dashermaemo.glade.h:138
 msgid "_Reset fonts"
 msgstr "_Vrátit písma na implicitní"
 
-#: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dasher.glade.h:145 ../Src/Gtk2/dashergpe.glade.h:90
 #: ../Src/Gtk2/dashermaemo.glade.h:139
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "aábcčdďeéěf AÁBCČDĎEÉĚF"
@@ -895,13 +920,21 @@ msgstr "aábcčdďeéěf AÁBCČDĎEÉĚF"
 msgid "<b>Speed</b>"
 msgstr "<b>Rychlost</b>"
 
+#: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
+msgid "Advanced"
+msgstr "Pokročilé"
+
 #: ../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
+msgid "Change color scheme automatically"
 msgstr "Automaticky změnit schéma barev"
 
 #: ../Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "Barva"
+
+#: ../Src/Gtk2/dashergpe.glade.h:41 ../Src/Gtk2/dashermaemo.glade.h:61
+msgid "Edit Button-control options"
+msgstr "Upravit možnosti ovládání tlačítky"
 
 #: ../Src/Gtk2/dashergpe.glade.h:44
 msgid ""
@@ -912,8 +945,8 @@ msgstr ""
 "souřadnicemi a doprava potvrdí výběr"
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire y range:"
-msgstr "Počet pixelů, který by měl pokrýt celý rozsah y:"
+msgid "Number of pixels that should cover the entire Y range:"
+msgstr "Počet pixelů, který by měl pokrýt celý rozsah Y:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -927,33 +960,58 @@ msgstr ""
 "Použijte toto ovládání pro úpravu relativních velikostí obdélníků písmen. "
 "Zvolení velkých hodnot zpomalí vaši rychlost psaní."
 
-#: ../Src/Gtk2/dashergtktextview.c:7069
-msgid "Select _All"
-msgstr "Vybrat vš_e"
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+msgid "<b>Menu Mode</b>"
+msgstr "<b>Režim menu:</b>"
 
-#: ../Src/Gtk2/dashergtktextview.c:7079
-msgid "Input _Methods"
-msgstr "Vstupní _metody"
+#: ../Src/Gtk2/dashermaemo.glade.h:40
+msgid "Button setup"
+msgstr "Nastavení tlačítek"
 
-#: ../Src/Gtk2/dashergtktextview.c:7090
-msgid "_Insert Unicode Control Character"
-msgstr "_Vložit řídicí znak Unicode"
+#: ../Src/Gtk2/dashermaemo.glade.h:65
+msgid ""
+"If this mode is selected, up  and down will\n"
+"cycle backwards and forwards between coordinates and right will confirm the "
+"choice"
+msgstr ""
+"Je-li vybrán tento režim, bude nahoru a dolů\n"
+"přepínat vpřed a vzad mezi souřadnicemi a doprava potvrdí výběr"
 
-#: ../Src/Gtk2/speech.cc:27
+#: ../Src/Gtk2/dashermaemo.glade.h:105
+msgid "Socket"
+msgstr "Socket"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:113
+msgid "Three-button direct mode"
+msgstr "Třítlačítkový přímý režim"
+
+#: ../Src/Gtk2/speech.cc:29
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Nemohu inicializovat podporu řeči\n"
 
-#: ../Src/Gtk2/speech.cc:50
+#: ../Src/Gtk2/speech.cc:52
 #, c-format
 msgid "Unable to initialize voices\n"
 msgstr "Nemohu inicializovat hlasy\n"
 
-#: ../Src/Gtk2/speech.cc:62
+#: ../Src/Gtk2/speech.cc:64
 #, c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Varování: nemohu nastavit parametry řeči\n"
 
-#: ../Src/main.cc:127
+#: ../Src/main.cc:123
 msgid "Dasher Text Entry"
 msgstr "Pole textu Dasheru"
+
+#~ msgid "Training Dasher - please wait"
+#~ msgstr "Učím Dasher - čekejte prosím"
+
+#~ msgid "Select _All"
+#~ msgstr "Vybrat vš_e"
+
+#~ msgid "Input _Methods"
+#~ msgstr "Vstupní _metody"
+
+#~ msgid "_Insert Unicode Control Character"
+#~ msgstr "_Vložit řídicí znak Unicode"
