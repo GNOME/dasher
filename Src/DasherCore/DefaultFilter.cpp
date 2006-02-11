@@ -34,17 +34,17 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
     if(GetBoolParameter(BP_START_SPACE) && !GetBoolParameter(BP_CLICK_MODE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
-	m_pInterface->Unpause(iTime);
+      	m_pInterface->Unpause(iTime);
       else
-	m_pInterface->PauseAt(0, 0);
+      	m_pInterface->PauseAt(0, 0);
     }
     break; 
   case 100: // Start on mouse
     if(GetBoolParameter(BP_START_MOUSE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
-	m_pInterface->Unpause(iTime);
+      	m_pInterface->Unpause(iTime);
       else
-	m_pInterface->PauseAt(0, 0);
+      	m_pInterface->PauseAt(0, 0);
     }
     break;
   }

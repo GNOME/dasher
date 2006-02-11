@@ -147,6 +147,7 @@ HWND CDasherWindow::Create()
 
   m_pEdit = new CEdit();
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
+  m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
 
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
@@ -317,6 +318,10 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
       if(m_pEdit)
         m_pEdit->CopyAll();
     break;
+   case APP_SP_EDIT_FONT:
+   case APP_LP_EDIT_FONT_SIZE:
+     m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT),m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
+     break;
   }
 }
 
@@ -460,6 +465,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  string FontName;
 		  WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
 		  m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
+      m_pAppSettings->SetLongParameter(APP_LP_EDIT_FONT_SIZE, lf.lfHeight);
 							   }
 							   break;
 	  case ID_OPTIONS_DASHERFONT:
@@ -692,7 +698,8 @@ LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOO
 {
 	bHandled = TRUE;
 	OutputDebugString(TEXT("DasherWindow WM_DESTROY\n"));
-
+  //if(m_pEdit)
+	 // m_pEdit->New();
 	if(m_pEdit != 0) {
 		m_pEdit->write_to_file();
 	}

@@ -198,8 +198,20 @@ LRESULT CCanvas::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 			m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 175);
 		else
 			m_pDasherInterface->SetLongParameter(LP_BOOSTFACTOR, 100);
-
 		return 0;
+      // Button mode keys
+  case 0x41:
+    m_pDasherInterface->KeyUp(GetTickCount(), 1);
+    return 0;
+  case 0x53:
+    m_pDasherInterface->KeyUp(GetTickCount(), 2);
+    return 0;
+  case 0x57:
+    m_pDasherInterface->KeyUp(GetTickCount(), 3);
+    return 0;
+  case 0x58:
+    m_pDasherInterface->KeyUp(GetTickCount(), 4);
+    return 0;
 	default:
 		return 0;		  
 	}

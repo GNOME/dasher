@@ -24,6 +24,7 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
     m_iStyle = 0;
 
   bStarted = false;
+  bBackOff = false;
 }
 
 CDynamicFilter::~CDynamicFilter() {
@@ -84,8 +85,17 @@ void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
 }
 
 void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
-  if(iId == 1) {
-
+  switch(iId) {
+  case 0: // Start on space
+    // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
+    if(GetBoolParameter(BP_START_SPACE) && !GetBoolParameter(BP_CLICK_MODE)) {
+      if(GetBoolParameter(BP_DASHER_PAUSED))
+      	m_pInterface->Unpause(iTime);
+      else
+      	m_pInterface->PauseAt(0, 0);
+    }
+    break; 
+  case 1:
     if(GetBoolParameter(BP_DASHER_PAUSED)) {
       m_pInterface->Unpause(iTime);
       m_iKeyTime = iTime;
@@ -95,9 +105,20 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       bStarted = true;
       m_iKeyTime = iTime;
     }
-  }
-  else if(iId == 2) {
+    break;
+  case 2:
     bBackOff = true;
+    break;
+  case 100: // Start on mouse
+    if(GetBoolParameter(BP_START_MOUSE)) {
+      if(GetBoolParameter(BP_DASHER_PAUSED))
+      	m_pInterface->Unpause(iTime);
+      else
+      	m_pInterface->PauseAt(0, 0);
+    }
+    break;
+  default:
+    break;
   }
 }
 
