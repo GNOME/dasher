@@ -95,6 +95,7 @@ public:
 	bool Save();
 	// Functions for Windows GUI to call
 	void New();
+  bool QueryClose();
 	void Open();
 	void OpenAppendMode();
 	void SaveAs();

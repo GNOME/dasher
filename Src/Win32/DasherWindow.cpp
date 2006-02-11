@@ -519,7 +519,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  return 0;
 	  case IDM_EXIT:
 		  //SendMessage(m_hWnd, WM_CLOSE, 0, 0);
-		  DestroyWindow();
+		  if(m_pEdit->QueryClose())
+        DestroyWindow();
 		  return 0;
 	
 		  // FIXME - These options shouldn't pass through the interface
@@ -734,9 +735,12 @@ LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lPara
 
 LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-	bHandled = FALSE;
-	SaveWindowState();
-	return 0;
+	bHandled = TRUE;
+  if(m_pEdit->QueryClose()) {
+	  SaveWindowState();
+    DestroyWindow();
+  }
+  return 0;
 }
 
 LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)

@@ -60,6 +60,11 @@ public:
   // FileOpen(), FileSave() or FileSaveAs(). We
   // cannot guess whether these requests succeeded
   // at the client end.
+
+  Tstring GetFilename() {
+    return FileAndPath;
+  };
+
 private:
   static const Tstring Empty;
   Tstring AppName;

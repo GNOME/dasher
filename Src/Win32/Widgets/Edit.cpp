@@ -70,6 +70,8 @@ HWND CEdit::Create(HWND hParent, bool bNewWithDate)
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 	m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str(), bNewWithDate);
 
+  m_filename = m_FilenameGUI->GetFilename();
+
 	return hWnd;
 }
 
@@ -223,6 +225,28 @@ bool CEdit::Save() {
 
 void CEdit::TimeStampNewFiles(bool Value) {
   m_FilenameGUI->SetNewWithDate(Value);
+}
+
+bool CEdit::QueryClose() {
+  switch (m_FilenameGUI->QuerySaveFirst()) {
+  case IDYES:
+    if(!Save()) {
+      if(!TSaveAs(m_FilenameGUI->SaveAs()))
+        return false;
+      else
+        return true;
+    }
+    else {
+      return true;
+    }
+    break;
+  case IDNO:
+    return true;
+    break;
+  default:
+    return false;
+    break;
+  }
 }
 
 void CEdit::New() {
