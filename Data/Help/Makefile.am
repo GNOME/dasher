@@ -1,1 +1,1 @@
-SUBDIRS = Gnome
+SUBDIRS = Gnome PocketPC Win32

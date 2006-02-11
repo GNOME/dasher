@@ -298,6 +298,9 @@ AC_CONFIG_FILES([Makefile
 		 Data/Help/Gnome/Makefile
 		 Data/Help/Gnome/C/Makefile
 		 Data/Help/Gnome/eu/Makefile
+		 Data/Help/PocketPC/Makefile
+		 Data/Help/Win32/Makefile
 		 Doc/Makefile
+		 Utils/Makefile
 		 po/Makefile.in])
 AC_OUTPUT
