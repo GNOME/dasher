@@ -79,11 +79,15 @@ Options
    --without-gnome     Disable features which require the GNOME core
                        libraries (enabled by default).
 
-   --with-speech       Enable GNOME-Speech support (disabled by default).
+   --enable-speech     Enable GNOME-Speech support (disabled by default).
 
-   --without-a11y      Disable support for GNOME accessibility features
+   --disable-a11y      Disable support for GNOME accessibility features
                        (enabled by default). You should probably specify
                        this as well if you're using --without-gnome.
+
+   --enable-japanese   Enable experimental Japanese character conversion 
+                       support. This is very unstable, so only use this if 
+                       you know what you are doing!
 
    The following options include code which is significantly out of
 date and currently untested. It is likely that these options will not

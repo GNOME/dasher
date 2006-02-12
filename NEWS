@@ -1,4 +1,12 @@
 =============
+Dasher 3.99.4
+=============
+
+ * Fixed font behaviour in Windows
+ * Fixed broken start/stop in dynamic button mode
+ * Other minor bugfixes
+
+=============
 Dasher 3.99.3
 =============
 

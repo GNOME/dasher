@@ -1,12 +1,11 @@
-Dasher version 3.99.3 (4.0 preview 4)
+Dasher version 3.99.4 (4.0 preview 5)
 ------------------------------------- 
 
-This is Dasher 3.99.3, the fourth preview release of the upcoming 4.0
+This is Dasher 3.99.4, the fifth preview release of the upcoming 4.0
 series. This version is `feature frozen' for 4.0, but it is still to
 some extent development code, and should therefore be considered
 potentially unstable. The full 4.0 release will coincide with the
-release of GNOME 2.14, with another 3.99 being produced for the GNOME
-beta 2. See:
+release of GNOME 2.14. See:
 
 http://live.gnome.org/TwoPointThirteen
 
@@ -19,6 +18,12 @@ high rates of text entry.
 
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
+
+New Features In 3.99.4
+----------------------
+ * Fixed font behaviour in Windows
+ * Fixed broken start/stop in dynamic button mode
+ * Other minor bugfixes
 
 New Features In 3.99.3
 ----------------------
