@@ -1,5 +1,5 @@
 EXTRA_DIST = \
-		Copying/ Text/ To/ Other/ Applications.htm \
+		CopyingTextToOtherApplications.htm \
 		DASHER.HLP \
 		Dasher.cnt \
 		Dasher.hpj \
