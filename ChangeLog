@@ -1,3 +1,7 @@
+2006-02-11  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Make .bz2 dists.  Don't make .gz dists.
+
 2006-02-09  Phil Cowans  <pjc51@cam.ac.uk>
 	* Changes to default values for parameters
 
