@@ -1,4 +1,5 @@
 #include "Common/Common.h"
+#include "AppSettings.h"
 
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
@@ -224,6 +225,8 @@ int main(int argc, char *argv[]) {
 
   InitialiseMainWindow(argc, argv, xml);
 
+
+
 #ifdef WITH_GPE
   gtk_window_set_decorated(GTK_WINDOW(window), false);
 #endif
@@ -231,6 +234,26 @@ int main(int argc, char *argv[]) {
 #ifndef WITH_MAEMO
   gtk_window_set_icon_from_file(GTK_WINDOW(window), DATADIR "/icons/hicolor/48x48/apps/dasher.png", NULL);
   gtk_widget_show(window);
+
+
+ if(get_app_parameter_bool(APP_BP_KEYBOARD_MODE)) {
+    XWMHints wm_hints;
+    Atom wm_window_protocols[3];
+    
+    wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
+    wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
+    wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+    
+    wm_hints.flags = InputHint;
+    wm_hints.input = False;
+    
+    XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
+    XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
+    gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+    gtk_window_set_keep_above(GTK_WINDOW(window), true);
+  } 
+
+
 #else
   appview = HILDON_APPVIEW( hildon_appview_new(NULL) );
   app = HILDON_APP( hildon_app_new() );

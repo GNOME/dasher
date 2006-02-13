@@ -59,3 +59,15 @@ void SendText(const gchar *szText) {
     g_free(wideoutput);
   }
 }
+
+void DeleteText(int iLength) {
+  Display *dpy;
+  dpy = gdk_x11_get_default_xdisplay();
+  KeyCode code;
+  code = XKeysymToKeycode(dpy, XK_BackSpace);
+  for(int i = 0; i < iLength; i++) {
+    XTestFakeKeyEvent(dpy, code, True, 0);
+    XTestFakeKeyEvent(dpy, code, False, 0);
+  }
+  XFlush(dpy);
+}

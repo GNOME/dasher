@@ -316,6 +316,9 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
   g_bIgnoreCursorMove = false;
 
+  if(get_app_parameter_bool(APP_BP_KEYBOARD_MODE))
+    SendText(label.c_str());
+
   //  if(keyboardmodeon) {
 #if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
     // FIXME
@@ -794,25 +797,28 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
   }
 #endif
 
-  if(keyboardmodeon) {
-#if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
-    Display *dpy;
-    dpy = gdk_x11_get_default_xdisplay();
-    KeyCode code;
-    code = XKeysymToKeycode(dpy, XK_BackSpace);
-    for(int i = 0; i < displaylength; i++) {
-      XTestFakeKeyEvent(dpy, code, True, 0);
-      XTestFakeKeyEvent(dpy, code, False, 0);
-    }
-    XFlush(dpy);
-#else
-#ifdef GNOME_A11Y
-    for(int i = 0; i < displaylength; i++) {
-      SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
-    }
-#endif
-#endif
-  }
+  if(get_app_parameter_bool(APP_BP_KEYBOARD_MODE))
+    DeleteText(displaylength);
+
+//   if(keyboardmodeon) {
+// #if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
+//     Display *dpy;
+//     dpy = gdk_x11_get_default_xdisplay();
+//     KeyCode code;
+//     code = XKeysymToKeycode(dpy, XK_BackSpace);
+//     for(int i = 0; i < displaylength; i++) {
+//       XTestFakeKeyEvent(dpy, code, True, 0);
+//       XTestFakeKeyEvent(dpy, code, False, 0);
+//     }
+//     XFlush(dpy);
+// #else
+// #ifdef GNOME_A11Y
+//     for(int i = 0; i < displaylength; i++) {
+//       SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
+//     }
+// #endif
+// #endif
+//   }
   outputcharacters--;
 
   delete start;

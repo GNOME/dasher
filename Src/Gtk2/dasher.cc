@@ -174,6 +174,9 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   window = glade_xml_get_widget(pGladeXML, "window");
   g_pHiddenWindow = glade_xml_get_widget(pGladeXML, "HiddenWindow");
 
+
+
+
 #ifdef PJC_EXPERIMENTAL
   gtk_window_set_keep_above(GTK_WINDOW(window), true);
   gtk_window_set_keep_above(GTK_WINDOW(g_pHiddenWindow), true);
@@ -261,6 +264,7 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 #endif
 
   InitialiseAppParameters();
+
 }
 
 ///
@@ -436,10 +440,36 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
 }
 
 void main_handle_parameter_change(int iParameter) {
-  if(iParameter == APP_SP_EDIT_FONT)
+  switch(iParameter) {
+  case APP_SP_EDIT_FONT:
     set_editbox_font(get_app_parameter_string(APP_SP_EDIT_FONT));
+    break;
+  case APP_BP_KEYBOARD_MODE:
+    if(get_app_parameter_bool(APP_BP_KEYBOARD_MODE) && GTK_IS_WIDGET(window) && GTK_WIDGET_REALIZED(window)) {
+      XWMHints wm_hints;
+      Atom wm_window_protocols[3];
+      
+      wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
+      wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
+      wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+      
+      wm_hints.flags = InputHint;
+      wm_hints.input = False;
+      
+      XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
+      XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
+      gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+      gtk_window_set_keep_above(GTK_WINDOW(window), true);
+    } 
+    else {
+      gdk_window_remove_filter(window->window, dasher_discard_take_focus_filter, NULL);
+      gtk_window_set_keep_above(GTK_WINDOW(window), false);
+    }
+    break;
+  default:
+    break;
+  }
 }
-
 
 ///
 /// Load the window state (dimensions etc.) from GConf

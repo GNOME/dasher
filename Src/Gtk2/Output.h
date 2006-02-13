@@ -5,3 +5,4 @@
 // 'Public' methods
 
 void SendText(const gchar *szText);
+void DeleteText(int iLength);
