@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-01-26 06:25+0100\n"
-"PO-Revision-Date: 2006-01-26 09:09+0200\n"
+"PO-Revision-Date: 2006-02-14 09:03+0200\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -50,9 +50,8 @@ msgstr "Dasher on ennustav tekstisisestusrakendus"
 #: ../Src/Gtk2/Preferences.cpp:583 ../Src/Gtk2/Preferences.cpp:585
 #: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:72
 #: ../Src/Gtk2/dashermaemo.glade.h:117
-#, fuzzy
 msgid "Training Dasher... please wait"
-msgstr "Dasheri treenimine, palun oota"
+msgstr "Dasheri treenimine... palun oota"
 
 #. Paneltree
 #. |         /-menutree
@@ -307,7 +306,7 @@ msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Adaptation:</b>"
-msgstr ""
+msgstr "<b>Õppimine:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:7
 msgid "<b>Advanced Settings:</b>"
@@ -342,14 +341,12 @@ msgid "<b>Control Style:</b>"
 msgstr "<b>Juhtimisstiil:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
-#, fuzzy
 msgid "<b>Direct Mode And Menu Mode</b>"
-msgstr "<b>Menüürežiim</b>"
+msgstr "<b>Otsene- ja menüürežiim</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>External Input:</b>"
-msgstr "<b>Soklisisend</b>"
+msgstr "<b>Väline sisend:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:14
 msgid "<b>Language Model:</b>"
@@ -421,16 +418,15 @@ msgstr "<b>Y-koordinaat</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:30
 msgid "<b>Zoom steps:</b>"
-msgstr ""
+msgstr "<b>Suurenduse sammud:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
 msgid "Adapt speed automatically"
-msgstr ""
+msgstr "Kiiruse automaatne õppimine"
 
 #: ../Src/Gtk2/dasher.glade.h:33
-#, fuzzy
 msgid "Advanced Settings"
-msgstr "<b>Laiendatud sätted:</b>"
+msgstr "Laiendatud sätted"
 
 #: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:20
 #: ../Src/Gtk2/dashermaemo.glade.h:33
@@ -444,7 +440,7 @@ msgstr "Vaikimisi tähestik"
 
 #: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:35
 msgid "Alternating direct mode"
-msgstr ""
+msgstr "Otsese režiimi asendamine"
 
 #: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:22
 #: ../Src/Gtk2/dashermaemo.glade.h:36
@@ -456,17 +452,14 @@ msgid "Box non-uniformity:"
 msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:39
-#, fuzzy
 msgid "Button Mode Options"
-msgstr "Nupu režiim"
+msgstr "Nupurežiimi valikud"
 
 #: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
 msgid "Button Preferences"
-msgstr "Dasheri eelistused"
+msgstr "Nupu eelistused"
 
 #: ../Src/Gtk2/dasher.glade.h:41
-#, fuzzy
 msgid "Button Setup"
 msgstr "Nupu sätted"
 
@@ -487,7 +480,7 @@ msgstr "Nupp:"
 
 #: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:43
 msgid "Click mode"
-msgstr ""
+msgstr "Klõpsimisrežiim"
 
 #: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:44
 msgid "Compass mode"
@@ -538,11 +531,10 @@ msgstr "Dasheri eelistused"
 
 #: ../Src/Gtk2/dasher.glade.h:58
 msgid "Direct mode"
-msgstr ""
+msgstr "Otsene režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:37
 #: ../Src/Gtk2/dashermaemo.glade.h:56
-#, fuzzy
 msgid "Distance from centerline for start on mouse position:"
 msgstr "Kaugus keskjoonest, kui on määratud startimine hiire asukoha järgi:"
 
@@ -577,14 +569,13 @@ msgstr "Silmajälgimise režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:64
 msgid "Four-button direct mode"
-msgstr ""
+msgstr "Nelja nupuga otsene režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:67
 msgid "General"
-msgstr ""
+msgstr "Üldine"
 
 #: ../Src/Gtk2/dasher.glade.h:68
-#, fuzzy
 msgid ""
 "If this mode is selected, up and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
@@ -665,7 +656,7 @@ msgstr "Ühemõõtmeline režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:83
 msgid "One-button dynamic mode"
-msgstr ""
+msgstr "Ühe nupuga dünaamiline režiim"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashermaemo.glade.h:84
 msgid "One-button static mode"
@@ -858,7 +849,7 @@ msgstr "Y:"
 
 #: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashermaemo.glade.h:127
 msgid "Zoom:"
-msgstr ""
+msgstr "Suurendus:"
 
 #: ../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:79
 #: ../Src/Gtk2/dashermaemo.glade.h:128
@@ -929,7 +920,6 @@ msgid "Advanced"
 msgstr "Laiendatud"
 
 #: ../Src/Gtk2/dashergpe.glade.h:26
-#, fuzzy
 msgid "Change color scheme automatically"
 msgstr "Värviskeemi automaatne muutmine"
 
@@ -950,9 +940,8 @@ msgstr ""
 "tagasi suunda ning parem kinnitab valikut"
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
-#, fuzzy
 msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Pikslite arv, mis peab katma kogu Y vahemiku:"
+msgstr "Pikslite arv, mis peab katma kogu Y-vahemiku:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -989,7 +978,7 @@ msgstr "Sokkel"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:113
 msgid "Three-button direct mode"
-msgstr ""
+msgstr "Kolme nupuga otsene režiim"
 
 #: ../Src/Gtk2/speech.cc:27
 #, c-format
