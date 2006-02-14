@@ -157,7 +157,7 @@ BEGIN
         END
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
         MENUITEM SEPARATOR
-        MENUITEM "Enter Text into Other Window...", ID_OPTIONS_ENTERTEXT
+        MENUITEM "Enter Text into Other Windows", ID_OPTIONS_ENTERTEXT
         MENUITEM "Control Mode",                ID_OPTIONS_CONTROLMODE
     END
     POPUP "&Help"

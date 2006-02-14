@@ -57,11 +57,13 @@ CDasherWindow::CDasherWindow()
 	ATL::CWndClassInfo& wc = CDasherWindow::GetWndClassInfo();
 	wc.m_wc.hIcon = LoadIcon(WinHelper::hInstApp, (LPCTSTR) IDI_DASHER);
 	wc.m_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
-    wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
-    wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
+  wc.m_wc.hbrBackground = (HBRUSH) (COLOR_ACTIVEBORDER + 1); // Must add one to the value we want for some unknown reason
+  wc.m_wc.lpszMenuName = (LPCTSTR) IDC_DASHER;
 //    wc.m_wc.lpszClassName = WndClassName;      // Not in a resource - does not require translation
 	wc.m_wc.hIconSm        = m_hIconSm;
 	
+  m_pKeyboardOutput = new CKeyboardOutput;
+
 #ifdef PJC_EXPERIMENTAL
 
 // Create an acc manager foobar
@@ -127,7 +129,7 @@ HWND CDasherWindow::Create()
   //Tstring WndClassName = CreateMyClass();
 
 
-  HWND hWnd = CWindowImpl<CDasherWindow>::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+  HWND hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN );
 
   // Splash screen (turned off for debugging when it gets in the way)
   // It is deleted when Show() is called.
@@ -144,6 +146,11 @@ HWND CDasherWindow::Create()
 
   // Create a CAppSettings
   m_pAppSettings = new CAppSettings(m_pDasher, hWnd);
+
+  if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE)) {
+    SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
+    SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+  }
 
   m_pEdit = new CEdit();
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
@@ -322,6 +329,16 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
    case APP_LP_EDIT_FONT_SIZE:
      m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT),m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
      break;
+   case APP_BP_KEYBOARD_MODE:
+     if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE)) {
+       SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
+       SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+     }
+     else {
+       SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) & !WS_EX_NOACTIVATE);
+       SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+     }
+     break;
   }
 }
 
@@ -425,16 +442,17 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	switch (wmId) 
 	{
 	  case ID_OPTIONS_ENTERTEXT:
-		  GetWindowRect( &windowsize);
-		  if(m_pEdit->GetTextEntry() == false) {
-			  SetWindowPos(HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
-			  m_pEdit->TextEntry(true);
-		  }
-		  else 
-		  {
-			  SetWindowPos(HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
-			  m_pEdit->TextEntry(false);
-		  }
+		  //GetWindowRect( &windowsize);
+		  //if(m_pEdit->GetTextEntry() == false) {
+			 // SetWindowPos(HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
+			 // m_pEdit->TextEntry(true);
+		  //}
+		  //else 
+		  //{
+			 // SetWindowPos(HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
+			 // m_pEdit->TextEntry(false);
+		  //}
+      m_pAppSettings->SetBoolParameter(APP_BP_KEYBOARD_MODE, !WinMenu.GetCheck(ID_OPTIONS_ENTERTEXT));
 		  return 0;
 	  case ID_OPTIONS_CONTROLMODE:
 		  m_pDasher->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
@@ -650,6 +668,23 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	return 0;
 }
 
+LRESULT CDasherWindow::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  bHandled = TRUE;
+
+  HWND testwindow;
+  testwindow = GetForegroundWindow();
+  
+  if(testwindow != m_hWnd) {
+    if(!m_bHaveTarget || (testwindow != m_hTargetWindow)) {
+      m_hTargetWindow = testwindow;
+      AttachThreadInput(GetCurrentThreadId(),GetWindowThreadProcessId(m_hTargetWindow,NULL),TRUE);
+      m_bHaveTarget = true;
+    }
+  }
+  
+  return 0;
+}
+
 LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	bHandled = TRUE;
@@ -662,8 +697,10 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
         HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
         break;
       case EV_EDIT:
-        if(m_pEdit) 
+        if(m_pEdit)
           m_pEdit->HandleEvent(pEvent);
+        if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE))
+          m_pKeyboardOutput->HandleEvent(pEvent);
         break;
       case EV_EDIT_CONTEXT:
         if(m_pEdit && m_pDasher)
@@ -759,7 +796,8 @@ LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& 
 LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	bHandled = TRUE; 
-	::SetFocus(m_pCanvas->getwindow());
+  if(m_pCanvas)
+    ::SetFocus(m_pCanvas->getwindow());
  	return 0;
 }
 
@@ -840,16 +878,7 @@ void CDasherWindow::PopulateSettings() {
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==2);
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
 
-//    WinMenu.SetStatus(ID_TB_SHOW, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-//    WinMenu.SetStatus(ID_TB_TEXT, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-  //  WinMenu.SetStatus(ID_TB_LARGE, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
-
-   // WinMenu.SetStatus(ID_TB_TEXT, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-//    WinMenu.SetStatus(ID_TB_LARGE, false, m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
-  //  WinMenu.SetStatus(ID_FIX_SPLITTER, false, m_pDasher->GetBoolParameter(BP_FIX_LAYOUT));
-//    WinMenu.SetStatus(ID_SHOW_SLIDE, false, m_pDasher->GetBoolParameter(BP_SHOW_SLIDER));
-//    WinMenu.SetStatus(ID_TIMESTAMP, false, m_pDasher->GetBoolParameter(BP_TIME_STAMP));
-//    WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP));
+    WinMenu.SetStatus(ID_OPTIONS_ENTERTEXT, false, m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE));
     WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, m_pDasher->GetBoolParameter(BP_CONTROL_MODE));
 
     WinMenu.SetStatus(ID_ORIENT_ALPHABET, false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::Alphabet);
@@ -857,12 +886,6 @@ void CDasherWindow::PopulateSettings() {
     WinMenu.SetStatus(ID_ORIENT_RL,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::RightToLeft);
     WinMenu.SetStatus(ID_ORIENT_TB,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::TopToBottom);
     WinMenu.SetStatus(ID_ORIENT_BT,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::BottomToTop);
-
- //   WinMenu.SetStatus(ID_SAVE_AS_USER_CODEPAGE,     false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UserDefault);
-  //  WinMenu.SetStatus(ID_SAVE_AS_ALPHABET_CODEPAGE, false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::AlphabetDefault);
- //   WinMenu.SetStatus(ID_SAVE_AS_UTF8,              false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF8);
- //   WinMenu.SetStatus(ID_SAVE_AS_UTF16_LITTLE,      false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16LE);
-  //  WinMenu.SetStatus(ID_SAVE_AS_UTF16_BIG,         false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16BE);
   }
 }
 

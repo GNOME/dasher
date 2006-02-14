@@ -17,6 +17,7 @@
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
 #include "AppSettings.h"
+#include "KeyboardOutput.h"
 
 #include "../Common/WinOptions.h"
 
@@ -30,7 +31,7 @@ namespace Dasher {
 #include "../DasherInterface.h"
 
 class CDasherWindow : 
-	public ATL::CWindowImpl<CDasherWindow>, 
+  public ATL::CWindowImpl<CDasherWindow>, 
 	public CSplitterOwner 
 {
 public:
@@ -48,6 +49,7 @@ public:
 		MESSAGE_HANDLER(WM_INITMENUPOPUP,OnInitMenuPopup)
 		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
 		MESSAGE_HANDLER(WM_DRAWITEM,OnDrawItem)
+    MESSAGE_HANDLER(WM_TIMER, OnTimer)
 		MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
 	END_MSG_MAP()
 
@@ -62,6 +64,7 @@ public:
 	LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+  LRESULT OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 
 
 	// Create window (and children)
@@ -114,6 +117,11 @@ private:
 
 	// Misc window handling
 	void Layout();
+
+  HWND m_hTargetWindow;
+  bool m_bHaveTarget;
+
+  CKeyboardOutput *m_pKeyboardOutput;
 
 };
 
