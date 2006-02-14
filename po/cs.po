@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-09 22:39+0100\n"
-"PO-Revision-Date: 2006-02-13 03:43+0100\n"
+"POT-Creation-Date: 2006-02-13 05:53+0100\n"
+"PO-Revision-Date: 2006-02-14 04:37+0100\n"
 "Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -441,7 +441,7 @@ msgstr "Různost obdélníků:"
 
 #: ../Src/Gtk2/dasher.glade.h:39
 msgid "Button Mode Options"
-msgstr "Možnosti režimu tlačítek"
+msgstr "Možnosti režimu tlačítka"
 
 #: ../Src/Gtk2/dasher.glade.h:40
 msgid "Button Preferences"
@@ -942,7 +942,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Počet pixelů, které by měly pokrýt celý rozsah Y:"
+msgstr "Počet pixelů, který by měl pokrýt celý rozsah Y:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -999,6 +999,9 @@ msgstr "Varování: nemohu nastavit parametry řeči\n"
 #: ../Src/main.cc:123
 msgid "Dasher Text Entry"
 msgstr "Pole textu Dasheru"
+
+#~ msgid "Training Dasher - please wait"
+#~ msgstr "Učím Dasher - čekejte prosím"
 
 #~ msgid "Select _All"
 #~ msgstr "Vybrat vš_e"
