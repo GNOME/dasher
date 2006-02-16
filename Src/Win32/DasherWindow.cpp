@@ -128,8 +128,15 @@ HWND CDasherWindow::Create()
   // Create the Main window
   //Tstring WndClassName = CreateMyClass();
 
+  // Create a CAppSettings
+  m_pAppSettings = new CAppSettings(m_pDasher, 0);
 
-  HWND hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN );
+  HWND hWnd;
+
+  if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE))
+    hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
+  else
+    hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
   // Splash screen (turned off for debugging when it gets in the way)
   // It is deleted when Show() is called.
@@ -145,12 +152,7 @@ HWND CDasherWindow::Create()
   m_pDasher = new CDasher(hWnd);
 
   // Create a CAppSettings
-  m_pAppSettings = new CAppSettings(m_pDasher, hWnd);
-
-  if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE)) {
-    SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
-    SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-  }
+  m_pAppSettings->SetHwnd(hWnd);
 
   m_pEdit = new CEdit();
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
@@ -682,6 +684,17 @@ LRESULT CDasherWindow::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
     }
   }
   
+  return 0;
+}
+
+LRESULT CDasherWindow::OnShowWindow(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  bHandled = TRUE;
+  
+ /* if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE)) {
+    SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW );
+    SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+  }*/
+
   return 0;
 }
 

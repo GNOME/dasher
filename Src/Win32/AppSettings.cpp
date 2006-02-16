@@ -8,6 +8,8 @@
 using namespace WinUTF8;
 using namespace std;
 
+// TODO: We shouldn't need a window handle here
+
 CAppSettings::CAppSettings(Dasher::CDasher *pDasher, HWND hWnd)
 {
   m_hWnd = hWnd;
@@ -88,64 +90,86 @@ CAppSettings::~CAppSettings(void)
   delete[] m_pStringTable;
 }
 
+// TODO: Need a way of signalling 'not ready yet'
+
 bool CAppSettings::GetBoolParameter(int iParameter) {
   if( iParameter < END_OF_BPS )
-    return m_pDasher->GetBoolParameter(iParameter);
+    if(m_pDasher)
+      return m_pDasher->GetBoolParameter(iParameter);
+    else
+      return false;
   else
     return m_pBoolTable[iParameter - FIRST_APP_BP].value;
 }
 
 void CAppSettings::SetBoolParameter(int iParameter, bool bValue) {
-  if( iParameter < END_OF_BPS )
-    m_pDasher->SetBoolParameter(iParameter , bValue);
+  if( iParameter < END_OF_BPS ) {
+    if(m_pDasher) 
+      m_pDasher->SetBoolParameter(iParameter , bValue);
+  }
   else {
     m_pBoolTable[iParameter - FIRST_APP_BP].value = bValue;
     SaveSetting(m_pBoolTable[iParameter - FIRST_APP_BP].regName, bValue);
 
     Dasher::CParameterNotificationEvent oEvent(iParameter);
-    SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
+    if(m_hWnd != 0)
+      SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
   }
 }
 
 long CAppSettings::GetLongParameter(int iParameter) {
   if( iParameter < END_OF_LPS)
-    return m_pDasher->GetLongParameter(iParameter);
+    if(m_pDasher)
+      return m_pDasher->GetLongParameter(iParameter);
+    else
+      return 0;
   else
     return m_pLongTable[iParameter - FIRST_APP_LP].value;
 }
 
 void CAppSettings::SetLongParameter(int iParameter, long iValue) {
-  if( iParameter < END_OF_LPS )
-    m_pDasher->SetLongParameter(iParameter, iValue);
+  if( iParameter < END_OF_LPS ) {
+    if(m_pDasher)
+      m_pDasher->SetLongParameter(iParameter, iValue);
+  }
   else {
     m_pLongTable[iParameter - FIRST_APP_LP].value = iValue;
     SaveSetting(m_pLongTable[iParameter - FIRST_APP_LP].regName, iValue); 
     Dasher::CParameterNotificationEvent oEvent(iParameter);
-    SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
+    if(m_hWnd != 0)
+      SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
   }
 }
 
 std::string CAppSettings::GetStringParameter(int iParameter) {
   if(iParameter < END_OF_SPS)
-    return m_pDasher->GetStringParameter(iParameter);
+    if(m_pDasher)
+      return m_pDasher->GetStringParameter(iParameter);
+    else
+      return std::string("");
   else
     return m_pStringTable[iParameter - FIRST_APP_SP].value;
 }
 
 void CAppSettings::SetStringParameter(int iParameter, const std::string &strValue) {
-  if(iParameter < END_OF_SPS)
-    m_pDasher->SetStringParameter(iParameter, strValue);
+  if(iParameter < END_OF_SPS) {
+    if(m_pDasher)
+      m_pDasher->SetStringParameter(iParameter, strValue);
+  }
   else {
     m_pStringTable[iParameter - FIRST_APP_SP].value = strValue;
     SaveSetting(m_pStringTable[iParameter - FIRST_APP_SP].regName, strValue);
     Dasher::CParameterNotificationEvent oEvent(iParameter);
-    SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
+    if(m_hWnd != 0)
+      SendMessage(m_hWnd, WM_DASHER_EVENT, 0, (LPARAM)&oEvent);
   }
 }
 
 void CAppSettings::ResetParamater(int iParameter) {
-  if(iParameter < END_OF_SPS)
-    m_pDasher->ResetParameter(iParameter);
+  if(iParameter < END_OF_SPS) {
+    if(m_pDasher)
+      m_pDasher->ResetParameter(iParameter);
+  }
   else if(iParameter < END_OF_APP_BPS)
     SetBoolParameter(iParameter, app_boolparamtable[iParameter - FIRST_APP_BP].bDefaultValue);
   else if(iParameter < END_OF_APP_LPS)

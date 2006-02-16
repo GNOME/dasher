@@ -70,6 +70,10 @@ public:
   void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp);
 #endif
 
+  void SetHwnd(HWND hWnd) {
+    m_hWnd = hWnd;
+  };
+
 private:
   struct bp_info {
     int key;
