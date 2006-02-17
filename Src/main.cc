@@ -229,7 +229,7 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifndef WITH_MAEMO
-  gtk_window_set_icon_from_file(GTK_WINDOW(window), DATADIR "/icons/hicolor/48x48/apps/dasher.png", NULL);
+  gtk_window_set_default_icon_name ("dasher");
   gtk_widget_show(window);
 #else
   appview = HILDON_APPVIEW( hildon_appview_new(NULL) );

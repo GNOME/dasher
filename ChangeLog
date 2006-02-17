@@ -1,3 +1,6 @@
+2006-02-17  Behdad Esfahbod  <behdad@gnome.org>
+	* Src/main.cc: Use gtk_window_set_default_icon_name.
+
 2006-01-30  Phil Cowans  <pjc51@cam.ac.uk>
 	* Fixed broken Win32 source tree
 	* Release 3.99.3
