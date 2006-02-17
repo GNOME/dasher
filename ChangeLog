@@ -1,6 +1,9 @@
+2006-02-17  Behdad Esfahbod  <behdad@gnome.org>
+	* Src/main.cc: Use gtk_window_set_default_icon_name.
+
 2006-02-12  Phil Cowans  <pjc51@cam.ac.uk>
 	* Bump version number for release
-	
+
 2006-02-11  Behdad Esfahbod  <behdad@gnome.org>
 	* configure.in: Make .bz2 dists.  Don't make .gz dists.
 
