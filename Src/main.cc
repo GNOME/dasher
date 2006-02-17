@@ -187,6 +187,10 @@ int main(int argc, char *argv[]) {
 
   //  g_type_class_ref(dasher_gtk_text_view_get_type());
 
+#ifndef WITH_MAEMO
+  gtk_window_set_default_icon_name ("dasher");
+#endif
+
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA "/dashergpe.glade", NULL, NULL);
 #elif WITH_MAEMO
@@ -232,7 +236,6 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifndef WITH_MAEMO
-  gtk_window_set_default_icon_name ("dasher");
   gtk_widget_show(window);
 
 
