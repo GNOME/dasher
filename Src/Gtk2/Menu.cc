@@ -460,6 +460,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
 			"documenters", (const char **)documenters,
 			"translator-credits", _("translator-credits"),
 			"website", "http://www.dasher.org.uk/",
+			"logo-icon-name", "dasher",
 			"version", PACKAGE_VERSION,
 			NULL);
   
