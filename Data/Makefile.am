@@ -9,7 +9,7 @@ svgicondir = $(datadir)/icons/hicolor/scalable/apps
 svgicon_DATA = dasher.svg
 
 install-data-hook:
-	gtk-update-icon-cache -t $(datadir)/icons/hicolor || :
+	gtk-update-icon-cache -f -t $(datadir)/icons/hicolor || :
 
 install-schemas:
 	      GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
