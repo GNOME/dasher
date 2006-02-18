@@ -1,3 +1,14 @@
+2006-02-18  Behdad Esfahbod  <behdad@gnome.org>
+	
+	* Data/dasher.svg, Data/dasher.png: New icon, supposedly based on
+	the Tango Icon Theme Guidelines.
+
+	* Data/Makefile.am: Adapt to above.  Call gtk-update-icon-cache.
+
+	* Src/Gtk2/Menu.cc: Pass logo-icon-name to gtk_show_about_dialog.
+
+	* Src/main.cc (main): Call g_set_application_name.
+
 2006-02-17  Behdad Esfahbod  <behdad@gnome.org>
 	* Src/main.cc: Use gtk_window_set_default_icon_name.
 

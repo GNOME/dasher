@@ -186,6 +186,7 @@ int main(int argc, char *argv[]) {
 
   //  g_type_class_ref(dasher_gtk_text_view_get_type());
 
+  g_set_application_name (_("Dasher"));
 #ifndef WITH_MAEMO
   gtk_window_set_default_icon_name ("dasher");
 #endif
