@@ -1,3 +1,7 @@
+2006-02-19  Erdal Ronahi  <erdal.ronahi@gmail.com>
+
+	* configure.in: Added ku (Kurdish) to ALL_LINGUAS
+
 2006-02-18  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/Makefile.am: Pass -f to gtk-update-icon-cache, as it's
