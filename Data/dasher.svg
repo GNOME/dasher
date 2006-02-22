@@ -15,13 +15,24 @@
    sodipodi:version="0.32"
    inkscape:version="0.43"
    version="1.0"
-   sodipodi:docbase="/home/behdad/src/gnome/dasher-2-14/Data"
+   sodipodi:docbase="/home/behdad/src/gnome/dasher/Data"
    sodipodi:docname="dasher.svg"
-   inkscape:export-filename="/home/behdad/src/gnome/dasher-2-14/Data/dasher.png"
+   inkscape:export-filename="/home/behdad/src/gnome/dasher/Data/dasher.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient2199">
+      <stop
+         style="stop-color:#eff4fa;stop-opacity:1;"
+         offset="0"
+         id="stop2201" />
+      <stop
+         style="stop-color:#adc7e3;stop-opacity:0;"
+         offset="1"
+         id="stop2203" />
+    </linearGradient>
     <linearGradient
        id="linearGradient4816">
       <stop
@@ -36,7 +47,7 @@
     <linearGradient
        id="linearGradient3058">
       <stop
-         style="stop-color:#5f92c9;stop-opacity:1;"
+         style="stop-color:#6e9cce;stop-opacity:1;"
          offset="0"
          id="stop3060" />
       <stop
@@ -63,6 +74,16 @@
        x2="47.000195"
        y2="15.000036"
        gradientTransform="matrix(0.592595,0,0,0.592604,18.94434,29.61091)" />
+    <linearGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient2199"
+       id="linearGradient1322"
+       gradientUnits="userSpaceOnUse"
+       x1="18.999807"
+       y1="15.000036"
+       x2="47.000195"
+       y2="15.000036"
+       gradientTransform="matrix(1.666671,0,0,1.666687,-31.00005,-1.000377)" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -72,15 +93,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="3.959798"
-     inkscape:cx="15.566604"
-     inkscape:cy="34.170712"
+     inkscape:cx="-52.449396"
+     inkscape:cy="30.211673"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showborder="true"
      inkscape:showpageshadow="false"
-     inkscape:window-width="823"
-     inkscape:window-height="548"
-     inkscape:window-x="243"
+     inkscape:window-width="1024"
+     inkscape:window-height="682"
+     inkscape:window-x="0"
      inkscape:window-y="29" />
   <metadata
      id="metadata7">
@@ -120,6 +141,20 @@
      inkscape:groupmode="layer"
      id="layer1">
     <rect
+       style="opacity:0.6;fill:#dbe7f4;fill-opacity:1;fill-rule:evenodd;stroke:#1a324c;stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1324"
+       width="46.999805"
+       height="46.999901"
+       x="0.5"
+       y="0.50009918" />
+    <rect
+       style="opacity:0.6;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient1322);stroke-width:1;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       id="rect1320"
+       width="44.999966"
+       height="44.999851"
+       x="1.5000744"
+       y="1.5000744" />
+    <rect
        style="opacity:1;fill:#729fcf;fill-opacity:1;fill-rule:evenodd;stroke:#1a324c;stroke-width:1.0000174;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect1307"
        width="28.99999"
@@ -127,7 +162,7 @@
        x="18.500259"
        y="0.4997538" />
     <rect
-       style="opacity:1;fill:#3465a4;fill-opacity:1;fill-rule:evenodd;stroke:#1a324c;stroke-width:0.99981028;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+       style="opacity:1;fill:#386fb4;fill-opacity:1;fill-rule:evenodd;stroke:#1a324c;stroke-width:0.99981028;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
        id="rect2333"
        width="18.000076"
        height="18.000189"
@@ -136,22 +171,22 @@
     <text
        xml:space="preserve"
        style="font-size:12px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="20.178572"
-       y="18"
+       x="21.441263"
+       y="18.757614"
        id="text4085"><tspan
          sodipodi:role="line"
          id="tspan4087"
-         x="20.178572"
-         y="18">α</tspan></text>
+         x="21.441263"
+         y="18.757614">α</tspan></text>
     <text
        xml:space="preserve"
        style="font-size:7.8482585px;font-style:normal;font-weight:normal;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;font-family:Bitstream Vera Sans"
-       x="31.28208"
+       x="32.039696"
        y="41.720734"
        id="text4089"><tspan
          sodipodi:role="line"
          id="tspan4091"
-         x="31.28208"
+         x="32.039696"
          y="41.720734">β</tspan></text>
     <rect
        style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:url(#linearGradient3064);stroke-width:1.00045621;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
