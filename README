@@ -1,11 +1,11 @@
-Dasher version 3.99.4 (4.0 preview 5)
+Dasher version 3.99.5 (4.0 preview 6)
 ------------------------------------- 
 
-This is Dasher 3.99.4, the fifth preview release of the upcoming 4.0
-series. This version is `feature frozen' for 4.0, but it is still to
-some extent development code, and should therefore be considered
-potentially unstable. The full 4.0 release will coincide with the
-release of GNOME 2.14. See:
+This is Dasher 3.99.5, the sixth and final preview release of the
+upcoming 4.0 series. This version is `feature frozen' for 4.0, but it
+is still to some extent development code, and should therefore be
+considered potentially unstable. The full 4.0 release will coincide
+with the release of GNOME 2.14. See:
 
 http://live.gnome.org/TwoPointThirteen
 
@@ -18,6 +18,11 @@ high rates of text entry.
 
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
+
+New Features In 3.99.5
+----------------------
+ * New icon
+ * Bugfixes in 'enter text into other windows' mode
 
 New Features In 3.99.4
 ----------------------
@@ -63,9 +68,9 @@ MS Windows CE:
 
 Known Issues
 ------------
- * Win32 probably doesn't build from the tarball - please use CVS.
- * Button mode implementation is incomplete (not all modes present,
-   and limited UI support for configuration options)
+ * Menus cannot be activated by clicking on unfocused in Win32 release
+   when 'enter text into other windows' is selected. Select the start 
+   bar icon before operating menus.
 
 Installation Instructions
 -------------------------
