@@ -15,6 +15,7 @@
 <s b="11"  d="&#224;" t="&#224;" note="grave a"/>
 <s b="12"  d="&#226;" t="&#226;"/>
 <s b="13"  d="&#228;" t="&#228;"/>
+<!-- <s b="69"  d="&#x00E6;" t="&#x00E6;" note="SMALL LETTER AE"/> -->
 <s b="14"  d="b" t="b"/>
 <s b="15"  d="c" t="c"/>
 <s b="16"  d="&#231;" t="&#231;"/>
@@ -36,6 +37,8 @@
 <s b="32"  d="m" t="m"/>
 <s b="33"  d="n" t="n"/>
 <s b="34"  d="o" t="o"/>
+<s b="79"  d="&#xB0;" t="&#xB0;" note="tiny o as in Numero (N^o)"/>
+<!-- <s b="69"  d="&#x0153;" t="&#x0153;" note="SMALL LIGATURE OE"/> -->
 <s b="35"  d="&#244;" t="&#244;"/>
 <s b="36"  d="&#246;" t="&#246;"/>
 <s b="37"  d="p" t="p"/>
@@ -56,7 +59,7 @@
 <group name="Upper case Latin letters"  b="111">
 <s b="10"  d="A" t="A"/>
 <s b="11"  d="&#192;" t="&#192;"/>
-<s b="12"  d="&#194;" t="&#194;"/>
+<s b="12"  d="&#194;" t="&#194;" note="circumflex A"/>
 <s b="13"  d="B" t="B"/>
 <s b="14"  d="C" t="C"/>
 <s b="15"  d="&#199;" t="&#199;"/>
@@ -74,6 +77,7 @@
 <s b="27"  d="M" t="M"/>
 <s b="28"  d="N" t="N"/>
 <s b="29"  d="O" t="O"/>
+<!-- <s b="69" d="&#x0152;" t="&#x0152;" note="CAPITAL LIGATURE OE"/> -->
 <s b="30"  d="P" t="P"/>
 <s b="31"  d="Q" t="Q"/>
 <s b="32"  d="R" t="R"/>
@@ -112,14 +116,14 @@
 <s b="96" d="~" t="~"/>
 <s b="97" d="^" t="^"/>
 <s b="98" d="_" t="_"/>
-<s b="99" d="&amp;" t="&amp;"/> 
+<s b="99" d="&amp;" t="&#x0026;"/> 
 <s b="95" d="@" t="@"/>
 <s b="105" d="[" t="["/>
 <s b="106" d="]" t="]"/>
 <s b="107" d="{" t="{"/>
 <s b="108" d="}" t="}"/>
-<s b="109" d="&lt;" t="&lt;"/>
-<s b="105" d="&gt;" t="&gt;"/>
+<s b="109" d="&lt;" t="&lt;" note="&#x003c;"/>
+<s b="105" d="&gt;" t="&#x003e;"/>
 <s b="106" d="(" t="("/>
 <s b="107" d=")" t=")"/>
 <s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
@@ -127,8 +131,9 @@
 <s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
 <s b="106" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
-<!-- <s b="106" d="&#x0027;" t="&#x0027;" note="vertical single quote" /> -->
-<s b="107" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="107" d="&#x25cc;&#x0313;" t="&#x0027;" note="vertical single quote" />
+<s b="108" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
 <s b="9"    d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s b="100"  d="-" t="-"/>
 <s b="101"  d=":" t=":"/>
@@ -149,6 +154,7 @@
 <paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters">
 <s d="a" t="a" b="10"/>
+<!-- <s b="69"  d="&#x00E6;" t="&#x00E6;" note="SMALL LETTER AE"/> -->
 <s d="b" t="b" b="11"/>
 <s d="c" t="c" b="12"/>
 <s d="d" t="d" b="13"/>
@@ -163,6 +169,7 @@
 <s d="m" t="m" b="22"/>
 <s d="n" t="n" b="23"/>
 <s d="o" t="o" b="24"/>
+<!-- <s b="69"  d="&#x0153;" t="&#x0153;" note="SMALL LIGATURE OE"/> -->
 <s d="p" t="p" b="25"/>
 <s d="q" t="q" b="26"/>
 <s d="r" t="r" b="27"/>
@@ -191,6 +198,7 @@
 <s d="M" t="M" b="22"/>
 <s d="N" t="N" b="23"/>
 <s d="O" t="O" b="24"/>
+<!-- <s d="&#x0152;" t="&#x0152;" b="69"  note="CAPITAL LIGATURE OE"/> -->
 <s d="P" t="P" b="25"/>
 <s d="Q" t="Q" b="26"/>
 <s d="R" t="R" b="27"/>
@@ -211,6 +219,7 @@
 <s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="COMBINING MACRON  &#x00AF; "/>
 <s d="&#x25cc;&#x0327;"  t="&#x0327;" b="82" note="COMBINING CEDILLA &#x00B8; "/>
 <s d="&#x25cc;&#x0308;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT  &#x00A8;"/>
+<s b="79"  d="&#xB0;" t="&#xB0;" note="tiny o as in Numero (N^o)"/>
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1" b="90"/>
@@ -238,14 +247,14 @@
 <s b="96" d="~" t="~"/>
 <s b="97" d="^" t="^"/>
 <s b="98" d="_" t="_"/>
-<s b="99" d="&amp;" t="&amp;"/> 
+<s b="99" d="&amp;" t="&#38;"/> 
 <s b="95" d="@" t="@"/>
 <s b="105" d="[" t="["/>
 <s b="106" d="]" t="]"/>
 <s b="107" d="{" t="{"/>
 <s b="108" d="}" t="}"/>
-<s b="109" d="&lt;" t="&lt;"/>
-<s b="105" d="&gt;" t="&gt;"/>
+<s b="109" d="&lt;" t="&#x003c;"/>
+<s b="105" d="&gt;" t="&#x003e;"/>
 <s b="106" d="(" t="("/>
 <s b="107" d=")" t=")"/>
 <s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
@@ -253,8 +262,9 @@
 <s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
 <s b="106" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
-<!-- <s b="106" d="&#x0027;" t="&#x0027;" note="vertical single quote" /> -->
-<s b="107" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="107" d="&#x25cc;&#x0313;" t="&#x0027;" note="vertical single quote (used as apostrophe)" />
+<s b="108" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
 <s b="9"    d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
 <s b="100"  d="-" t="-"/>
 <s b="101"  d=":" t=":"/>
@@ -332,7 +342,7 @@
 <group name="A" b="10" label="A">
 <s b="10"  d="" t="A"/>
 <s b="72"  d="&#x25cc;&#x0300;" t="&#192;" note="grave A"/>
-<s b="82"  d="&#x25cc;&#x0302;" t="&#194;"/>
+<s b="82"  d="&#x25cc;&#x0302;" t="&#194;" note="circumflex A"/>
 </group>
 <s b="11"  d="B" t="B"/>
 <group name="C" b="10" label="C">
@@ -393,14 +403,14 @@
 <s b="96" d="~" t="~"/>
 <s b="97" d="^" t="^"/>
 <s b="98" d="_" t="_"/>
-<s b="99" d="&amp;" t="&amp;"/> 
+<s b="99" d="&amp;" t="&#38;"/> 
 <s b="95" d="@" t="@"/>
 <s b="105" d="[" t="["/>
 <s b="106" d="]" t="]"/>
 <s b="107" d="{" t="{"/>
 <s b="108" d="}" t="}"/>
-<s b="109" d="&lt;" t="&lt;"/>
-<s b="105" d="&gt;" t="&gt;"/>
+<s b="109" d="&lt;" t="&#60;"/>
+<s b="105" d="&gt;" t="&#62;"/>
 <s b="106" d="(" t="("/>
 <s b="107" d=")" t=")"/>
 <s b="107" d="&#x203A;" t="&#x203A;" note="French right single quotation mark" />
@@ -408,16 +418,17 @@
 <s b="109" d="&#x00BB;" t="&#x00BB;" note="French right double quotation mark" />
 <s b="105" d="&#x00AB;" t="&#x00AB;" note="French left double quotation mark" />
 <s b="106" d="&#x2018;" t="&#x2018;" note="left single quotation mark" />
-<!-- <s b="106" d="&#x0027;" t="&#x0027;" note="vertical single quote" /> -->
-<s b="107" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
-<s b="9"    d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
-<s b="100"  d="-" t="-"/>
-<s b="101"  d=":" t=":"/>
-<s b="102"  d=";" t=";"/>
-<s b="103"  d="?" t="?"/>
-<s b="104"  d="!" t="!"/>
-<s b="100"  d="," t=","/>
-<s b="104"  d="&#183;" t="."/>
+<s b="107" d="&#x25cc;&#x0313;" t="&#x0027;" note="vertical single quote (used as apostrophe)" />
+<s b="108" d="&#x25cc;&#x0313;" t="&#x2019;" note="right single quotation mark and apostrophe" />
+<s b="109" d="&#x0022;" t="&#x0022;" note="deprecated vertical double quotation mark" />
+<s b="9"   d="&#x25CA;" t="&#x9;" note="TAB (represented by a diamond)"/>
+<s b="100" d="-" t="-"/>
+<s b="101" d=":" t=":"/>
+<s b="102" d=";" t=";"/>
+<s b="103" d="?" t="?"/>
+<s b="104" d="!" t="!"/>
+<s b="100" d="," t=","/>
+<s b="104" d="&#183;" t="."/>
 </group>
 </alphabet>
 </alphabets>
