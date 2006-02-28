@@ -28,10 +28,6 @@ extern GtkWidget *window;
 extern GtkWidget *file_selector;
 
 void PopulateMenus(GladeXML *pGladeWidgets) {
-
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "controlmode")), gtk_dasher_control_get_parameter_bool( GTK_DASHER_CONTROL(pDasherWidget), BP_CONTROL_MODE));
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "keyboardmode")), get_app_parameter_bool(APP_BP_KEYBOARD_MODE));
-
   switch(gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE)) {
   case 1:
     gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), true);
@@ -394,34 +390,8 @@ extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data) {
-  //  reset_edit_font();
-
   reset_parameter(SP_DASHER_FONT);
   reset_parameter(APP_SP_EDIT_FONT);
-
-  // FIXME - REIMPLEMENT
-
-  //  reset_dasher_font();
-//   dasher_set_parameter_string( STRING_DASHERFONT, DASHERFONT );
-//   dasher_set_parameter_string( STRING_EDITFONT, "Sans 10" );
-//   editfont="Sans 10";
-//   dasherfont=DASHERFONT;
-}
-
-extern "C" void keyboardmode(GtkWidget *widget, gpointer user_data) {
-  // FIXME - REIMPLEMENT
-//   if (textentry==TRUE) {
-//     gtk_check_menu_item_set_active (GTK_CHECK_MENU_ITEM(glade_xml_get_widget(widgets,"keyboardmode")), true);
-//   } else {
-  set_app_parameter_bool( APP_BP_KEYBOARD_MODE, GTK_CHECK_MENU_ITEM(widget)->active );
-//   }
-}
-
-extern "C" void controlmode(GtkWidget *widget, gpointer user_data) {
-  // FIXME - REIMPLEMENT
-  gtk_dasher_control_set_parameter_bool( GTK_DASHER_CONTROL( pDasherWidget), BP_CONTROL_MODE, GTK_CHECK_MENU_ITEM(widget)->active );
-  //  dasher_start();
-  //  dasher_redraw();
 }
 
 // 'Help' Menu

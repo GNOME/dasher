@@ -6,12 +6,14 @@
 
 #include "accessibility.h"
 #include "edit.h"
+#include "AppSettings.h"
+
 #include <libintl.h>
 #include <iostream>
 
 #ifdef HAVE_WNCK
-#include <libwnck/libwnck.h>
-WnckScreen *wnckscreen;
+// #include <libwnck/libwnck.h>
+// WnckScreen *wnckscreen;
 #endif
 
 ControlTree *menutree;
@@ -36,24 +38,40 @@ gboolean panels = FALSE;
 gboolean building = FALSE;
 
 #ifdef GNOME_A11Y
+
 std::vector < Accessible * >menuitems;
+
 Accessible *desktop = NULL;
 Accessible *focusedwindow = NULL;
 Accessible *dasherwindow = NULL;
+
 static void dasher_focus_listener(const AccessibleEvent * event, void *user_data);
+static void dasher_caret_listener(const AccessibleEvent * event, void *user_data);
 static AccessibleEventListener *focusListener;
+static AccessibleEventListener *caretListener;
+
+AccessibleText *g_pAccessibleText = 0;
+
 #endif
 
 void setupa11y() {
 #ifdef GNOME_A11Y
   focusListener = SPI_createAccessibleEventListener(dasher_focus_listener, NULL);
-  SPI_registerGlobalEventListener(focusListener, "focus:");
-#endif
+  caretListener = SPI_createAccessibleEventListener(dasher_caret_listener, NULL);
 
-#ifdef HAVE_WNCK
-  // FIXME - should check for correct screen
-  wnckscreen = wnck_screen_get_default();
-#endif  
+  register_listeners();
+#endif
+}
+
+void register_listeners() {
+  if(get_app_parameter_long(APP_LP_STYLE) == 2) {
+    SPI_registerGlobalEventListener(focusListener, "focus:");
+    SPI_registerGlobalEventListener(caretListener, "object:text-caret-moved");
+  }
+  else {
+    SPI_deregisterGlobalEventListener(focusListener, "focus:");
+    SPI_deregisterGlobalEventListener(caretListener, "object:text-caret-moved");
+  }
 }
 
 void setuptree(ControlTree *tree, ControlTree *parent, ControlTree *children, ControlTree *next, void *pointer, int data, std::string string, int colour) {
@@ -163,7 +181,7 @@ ControlTree *buildcontroltree() {
   // Otherwise menutree hasn't been set yet, and we end up with a bunch of
   // null pointers rather than children
 #ifdef HAVE_WNCK
-  menutree = windowtree;
+  //  menutree = windowtree;
 #else
   menutree = stoptree;
 #endif // HAVE_WNCK
@@ -176,12 +194,12 @@ ControlTree *buildcontroltree() {
   dummy->colour = 8;
 
 #ifdef HAVE_WNCK
-  windowtree->pointer = NULL;
-  windowtree->data = 0;
-  windowtree->children = buildwindowtree();
-  windowtree->text = _("Windows");
-  windowtree->colour = -1;
-  windowtree->next = stoptree;
+//   windowtree->pointer = NULL;
+//   windowtree->data = 0;
+//   windowtree->children = buildwindowtree();
+//   windowtree->text = _("Windows");
+//   windowtree->colour = -1;
+//   windowtree->next = stoptree;
 #endif
 
   stoptree->pointer = (void *)1;
@@ -236,7 +254,7 @@ ControlTree *buildcontroltree() {
     pausetree->next = NULL;
   }
 #ifdef HAVE_WNCK
-  return windowtree;
+  //  return windowtree;
 #else
   return stoptree;
 #endif
@@ -459,33 +477,33 @@ ControlTree *builddeletetree(ControlTree *deletetree) {
 
 ControlTree *buildwindowtree() {
 #ifdef HAVE_WNCK
-  GList *l;
-  wnck_screen_force_update(wnckscreen);
-  ControlTree *firstchild = new ControlTree;
-  ControlTree *tmptree = firstchild;
-  WnckWindow *window;
-  std::string name;
-  GList *windows = wnck_screen_get_windows(wnckscreen);
+//   GList *l;
+//   wnck_screen_force_update(wnckscreen);
+//   ControlTree *firstchild = new ControlTree;
+//   ControlTree *tmptree = firstchild;
+//   WnckWindow *window;
+//   std::string name;
+//   GList *windows = wnck_screen_get_windows(wnckscreen);
 
-  for(l = windows; l; l = l->next) {
-    window = (WnckWindow *) l->data;
-    name = wnck_window_get_name(window);
-    setuptree(tmptree, NULL, controltree, NULL, (void *)window, 31, name, -1);
-    tmptree->next = new ControlTree;
-    tmptree->next->parent = tmptree;
-    tmptree = tmptree->next;
+//   for(l = windows; l; l = l->next) {
+//     window = (WnckWindow *) l->data;
+//     name = wnck_window_get_name(window);
+//     setuptree(tmptree, NULL, controltree, NULL, (void *)window, 31, name, -1);
+//     tmptree->next = new ControlTree;
+//     tmptree->next->parent = tmptree;
+//     tmptree = tmptree->next;
 
-  }
+//   }
 
-  if(tmptree->parent == NULL) {
-    /* wnck didn't provide us with any windows */
-    delete tmptree;
-    return NULL;
-  }
+//   if(tmptree->parent == NULL) {
+//     /* wnck didn't provide us with any windows */
+//     delete tmptree;
+//     return NULL;
+//   }
 
-  tmptree->parent->next = NULL;
-  delete tmptree;
-  return firstchild;
+//   tmptree->parent->next = NULL;
+//   delete tmptree;
+//   return firstchild;
 #endif
 }
 
@@ -625,55 +643,65 @@ void deletemenutree() {
 }
 
 #ifdef GNOME_A11Y
-void dasher_focus_listener(const AccessibleEvent *event, void *user_data) {
-  char *name;
-  // Don't do this if we're in the middle of doing something else - it'll
-  // just result in badness
-  if(training == TRUE || building == TRUE || quitting == TRUE) {
+
+void dasher_caret_listener(const AccessibleEvent *event, void *user_data) {
+
+  Accessible_ref(event->source);
+
+  AccessibleStateSet *pAStateSet = Accessible_getStateSet(event->source);
+  AccessibleStateSet_ref(pAStateSet);
+
+  if(!AccessibleStateSet_contains(pAStateSet, SPI_STATE_FOCUSED)) {
     return;
   }
 
-  building = TRUE;
+  AccessibleStateSet_unref(pAStateSet);
+  Accessible_unref(event->source);
+  
+  if(g_pAccessibleText) {
+    int iActualPosition = event->detail1;
 
-  Accessible *tempaccessible;
-  Accessible *textaccessible = NULL;
+    std::cout << "Expected: " << g_iExpectedPosition << " Actual: " << iActualPosition << std::endl;
+
+    if((g_iExpectedPosition - iActualPosition) * (g_iOldPosition - iActualPosition) > 0) {
+      gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
+      g_iExpectedPosition = iActualPosition;
+    }
+
+    g_iOldPosition = iActualPosition;
+  }
+}
+
+void dasher_focus_listener(const AccessibleEvent *event, void *user_data) {
+  if(g_pAccessibleText) {
+    AccessibleText_unref(g_pAccessibleText);
+    g_pAccessibleText = 0;
+  }
+  
   Accessible *accessible = event->source;
-  while(dasher_check_window(Accessible_getRole(accessible)) != TRUE) {
-    if(Accessible_getRole(accessible) == SPI_ROLE_TEXT) {
-      AccessibleStateSet *state_set = Accessible_getStateSet(accessible);
-      if(AccessibleStateSet_contains(state_set, SPI_STATE_EDITABLE)) {
-        textaccessible = accessible;
-      }
-    }
-    tempaccessible = Accessible_getParent(accessible);
-    if(tempaccessible == NULL) {
-      break;
-    }
-    Accessible_unref(accessible);
-    accessible = tempaccessible;
-  }
-  name = Accessible_getName(accessible);
-  if(accessible != focusedwindow) {     // The focused window has changed
-    if(!strcmp(name, "Dasher")) {
-      Accessible_unref(accessible);
-    }
-    else {
-      if(focusedwindow != NULL) {
-        Accessible_unref(focusedwindow);
-      }
-      focusedwindow = accessible;
-      deletemenutree();
-      controltree = gettree();
+  Accessible_ref(accessible);
 
-      // FIXME - REIMPLEMENT
+  if(Accessible_isText(accessible) || Accessible_isEditableText(accessible)) {
+    g_pAccessibleText = Accessible_getText(accessible);
+    AccessibleText_ref(g_pAccessibleText);
 
-//       add_control_tree(controltree);
-//       dasher_start();      
-      set_textbox(textaccessible);
-    }
+    g_iExpectedPosition = AccessibleText_getCaretOffset(g_pAccessibleText);
+    g_iOldPosition = g_iExpectedPosition;
   }
-  SPI_freeString(name);
-  building = FALSE;
+
+  Accessible_unref(accessible);
+
+  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
+}
+
+const char *get_accessible_context(int iLength) {
+  if(g_pAccessibleText) {
+    int iOffset(AccessibleText_getCaretOffset(g_pAccessibleText));
+    return AccessibleText_getText(g_pAccessibleText, iOffset-iLength, iOffset);
+  }
+  else {
+    return 0;
+  }
 }
 
 //FIXME - ripped straight from gok. The same qualms as they have apply.

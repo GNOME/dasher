@@ -19,8 +19,6 @@ settings_store =
 endif
 
 EXTRA_DIST = \
-			 accessibility.cc \
-			 accessibility.h \
                          dasher.glade \
                          dashergpe.glade \
                          dashermaemo.glade
@@ -49,8 +47,14 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          Preferences.h \
                          Timer.cpp \
                          Timer.h \
+			 accessibility.cc \
+			 accessibility.h \
                          dasher.cc \
                          dasher.h \
+                         dasher_action.cpp \
+                         dasher_action.h \
+                         dasher_action_keyboard.cpp \
+                         dasher_action_keyboard.h \
                          edit.cc \
                          edit.h \
                          fileops.cc \

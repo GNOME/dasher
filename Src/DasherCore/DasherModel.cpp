@@ -530,7 +530,7 @@ void CDasherModel::Tap_on_display(myint miMousex,
 
   //  std::cout << "miMouseX: " << miMousex << " miMouseY: " << miMousey << std::endl;
 
-  if(!GetBoolParameter(BP_DASHER_PAUSED)) {
+  if(!GetBoolParameter(BP_DASHER_PAUSED) && (m_deGotoQueue.size() == 0) ) {
 
   // Clear out parameters that might get passed in to track user activity
   if (pAdded != NULL)

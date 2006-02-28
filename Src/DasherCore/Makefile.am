@@ -90,6 +90,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           TimeSpan.h \
                           TwoBoxStartHandler.cpp \
                           TwoBoxStartHandler.h \
+			  TwoButtonDynamicFilter.cpp \
+			  TwoButtonDynamicFilter.h \
                           UserLocation.cpp \
                           UserLocation.h \
                           UserLog.cpp \

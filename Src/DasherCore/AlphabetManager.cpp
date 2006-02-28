@@ -56,7 +56,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   pNewNode->m_bShove = true;
   pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
   pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(iSymbol);
-  //  pNewNode->Seen(true);
+  pNewNode->Seen(true);
 
   return pNewNode;
 }

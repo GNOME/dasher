@@ -3,7 +3,7 @@
 #include "Output.h"
 #include "edit.h"
 #include "dasher.h"
-//#include "accessibility.h"
+#include "accessibility.h"
 //#include "canvas.h"
 #include "DasherControl.h"
 #include "AppSettings.h"
@@ -163,6 +163,11 @@ extern "C" gboolean edit_button_release_event(GtkWidget *widget, GtkTextIter *pI
 
 
 void RefreshContext(int iMaxLength) {
+
+  std::cout << "In refresh context" << std::endl;
+
+  if(get_app_parameter_long(APP_LP_STYLE) != 2) {
+
   GtkTextIter start;
   GtkTextIter end; // Refers to end of context, which is start of selection!
 
@@ -190,10 +195,16 @@ void RefreshContext(int iMaxLength) {
 //   else {
     gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
     //  }
-  
-
 
   g_free( szContext );
+  }
+  else {
+    const char *szContext(get_accessible_context(iMaxLength));
+
+    if(szContext)
+      gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext);
+    
+  }
 }
 
 
@@ -315,6 +326,13 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 #endif
 
   g_bIgnoreCursorMove = false;
+
+
+  if(get_app_parameter_long(APP_LP_STYLE) == 2) {
+    ++g_iExpectedPosition;
+    SendText(label.c_str());
+  }
+
 
   //  if(keyboardmodeon) {
 #if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
@@ -793,6 +811,15 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
     return;
   }
 #endif
+
+
+
+  if(get_app_parameter_long(APP_LP_STYLE) == 2) {
+    --g_iExpectedPosition;
+    DeleteText(displaylength);
+  }
+
+
 
   if(keyboardmodeon) {
 #if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)

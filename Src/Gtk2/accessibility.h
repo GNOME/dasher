@@ -14,6 +14,8 @@
 #include <vector>
 #include "DasherTypes.h"
 
+#include "dasher.h"
+
 using namespace Dasher;
 
 enum accessibletype { menus = 1, toolbars = 2, pushbuttons = 3, focusables = 4, textenter = 5 };
@@ -36,3 +38,6 @@ gboolean dasher_check_window(AccessibleRole role);
 gboolean findpanels(Accessible * parent);
 #endif
 #endif
+
+const char *get_accessible_context(int iLength);
+void register_listeners();

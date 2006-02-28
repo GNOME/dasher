@@ -123,7 +123,7 @@ struct button {
 
 void update_colours();
 void update_alphabets();
-void SetupWMHints();
+void SetupWMHints(bool bTopMost);
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data);
 
 extern gboolean timestamp;
@@ -134,6 +134,11 @@ extern GConfClient *g_pGConfClient;     // GConf client for use by the app.
 
 void InitialiseMainWindow(int argc, char **argv, GladeXML * pGladeXML);
 void SaveWindowState();
+
+extern const char *g_szAccessibleContext;
+
+extern int g_iExpectedPosition;
+extern int g_iOldPosition;
 
 // ---
 

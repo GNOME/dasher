@@ -56,6 +56,7 @@ static const struct poptOption options[] = {
 #include "edit.h"
 #include "DasherControl.h"
 #include "Menu.h"
+#include "accessibility.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
@@ -274,15 +275,13 @@ int main(int argc, char *argv[]) {
 
   setup = TRUE;
 #ifdef PJC_EXPERIMENTAL
-  SetupWMHints();
+  SetupWMHints(false);
 #endif
 
 #ifdef GNOME_SPEECH
   setup_speech();
 #endif
 
-  // A11y support disabled for now
-  //  setupa11y();
 
   if(optind < argc) {
     if(!g_path_is_absolute(argv[optind])) {

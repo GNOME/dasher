@@ -1,6 +1,8 @@
 // Routines providing output functionality to other applications
 
 #include "../Common/Common.h"
+#include "accessibility.h"
+
 
 #include <X11/X.h>
 #include <X11/Xlib.h>
@@ -13,6 +15,15 @@
 #include <iostream>
 
 void SendText(const gchar *szText) { 
+  char *szNewText;
+  szNewText = new char[strlen(szText) + 1];
+  strcpy(szNewText, szText);
+  
+  SPI_generateKeyboardEvent(0, szNewText, SPI_KEY_STRING);
+  
+  delete[] szNewText;
+  return;
+
   glong numoutput;
   int numcodes;
   Display *dpy = gdk_x11_get_default_xdisplay();
@@ -32,7 +43,6 @@ void SendText(const gchar *szText) {
   }
   else {
     gunichar *wideoutput = g_utf8_to_ucs4(szText, -1, NULL, &numoutput, NULL);
-
 
     for(int i = 0; i < numoutput; i++) {
       int modifiedkey = (modifiedkey + 1) % 10;
@@ -58,4 +68,16 @@ void SendText(const gchar *szText) {
     XSync(dpy, true);
     g_free(wideoutput);
   }
+}
+
+void DeleteText(int iLength) {
+  Display *dpy;
+  dpy = gdk_x11_get_default_xdisplay();
+  KeyCode code;
+  code = XKeysymToKeycode(dpy, XK_BackSpace);
+  for(int i = 0; i < iLength; i++) {
+    XTestFakeKeyEvent(dpy, code, True, 0);
+    XTestFakeKeyEvent(dpy, code, False, 0);
+  }
+  XFlush(dpy);
 }

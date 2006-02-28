@@ -107,6 +107,8 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), getBool(BP_AUTO_SPEEDCONTROL));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "control_controlmode")), getBool(BP_CONTROL_MODE));
+
 
   m_pMousePosButton = glade_xml_get_widget(pGladeWidgets, "mouseposbutton");
   m_pMousePosStyle = glade_xml_get_widget(pGladeWidgets, "MousePosStyle");
@@ -234,7 +236,19 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     gtk_widget_set_sensitive(m_pBTButton, TRUE);
     break;
   }
-
+  
+  switch(get_app_parameter_long(APP_LP_STYLE)) {
+  case 0:
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_classic")), TRUE);
+    break;
+  case 1: 
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_compose")), TRUE);
+    break;
+  case 2:
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_direct")), TRUE);
+    break;
+  }
+ 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), get_app_parameter_bool( APP_BP_SHOW_TOOLBAR) );
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), getBool(BP_SHOW_SLIDER));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), getBool(BP_DRAW_MOUSE));
@@ -719,7 +733,7 @@ extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
- set_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP, GTK_TOGGLE_BUTTON(widget)->active);
+  set_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
@@ -727,6 +741,11 @@ extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
 
   //  dasher_set_parameter_bool( BOOL_WINDOWPAUSE, GTK_TOGGLE_BUTTON(widget)->active );
 }
+
+extern "C" void on_controlmode_changed(GtkWidget *widget, gpointer user_data) {
+  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CONTROL_MODE, GTK_TOGGLE_BUTTON(widget)->active);
+}
+
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data) {
   set_app_parameter_bool(APP_BP_SPEECH_MODE, GTK_TOGGLE_BUTTON(widget)->active);
@@ -928,9 +947,12 @@ extern "C" void button_direct_alternating_mode(GtkWidget *widget, gpointer user_
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_BUTTONALTERNATINGDIRECT, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
-extern "C" void button_compass_mode(GtkWidget *widget, gpointer user_data)
-{
+extern "C" void button_compass_mode(GtkWidget *widget, gpointer user_data) {
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_COMPASSMODE, GTK_TOGGLE_BUTTON(widget)->active );
+}
+
+extern "C" void button_two_button_dynamic(GtkWidget *widget, gpointer user_data) {
+  gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_INPUT_FILTER, 14);
 }
 
 // 'Button setup' Page
@@ -1156,3 +1178,15 @@ extern "C" gboolean advanced_preferences_hide(GtkWidget *widget, gpointer user_d
 extern "C" void keycontrol(GtkWidget *widget, gpointer user_data) {
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEY_CONTROL, GTK_TOGGLE_BUTTON(widget)->active );
 }
+
+extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
+  if(GTK_TOGGLE_BUTTON(widget)->active) {
+    if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_classic"))
+      set_app_parameter_long(APP_LP_STYLE, 0);
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_compose"))
+      set_app_parameter_long(APP_LP_STYLE, 1);
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_direct"))
+      set_app_parameter_long(APP_LP_STYLE, 2);
+  }
+}
+
