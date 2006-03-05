@@ -52,9 +52,7 @@
 
 #include "dasher.h"
 #include "edit.h"
-//#include "accessibility.h"
 #include "fileops.h"
-
 #include "Preferences.h"
 #include "FontDialogues.h"
 #include "Menu.h"
@@ -89,85 +87,28 @@ GtkWidget *append_filesel;
 GtkWidget *window;
 GtkWidget *g_pHiddenWindow;
 GtkWidget *file_selector;
-GtkWidget *pDasherWidget = NULL;
 
+GtkWidget *pDasherWidget = NULL;
 GtkWidget *g_pEditPane = 0;
 GtkWidget *g_pActionPane = 0;
 
 DasherAction *g_pAction = 0;
 
-// GConf client
-
-//GConfClient *g_pGConfClient;
-
-// Boolean application parameters - note that we shouldn't be specifying default values here - see InitialiseAppParameters() instead
-
-bool keyboardmodeon = false;    // I *think* this is whether to 
-gboolean timestamp;             // Whether to automatically construct new filenames based on timestamp
-gboolean showtoolbar;           // Whether to show the toolbar or not
-gboolean keyboardcontrol;       // ?
-bool cyclickeyboardmodeon = false;      // ? (obsolete?)
-gboolean leavewindowpause;      // Whether to pause Dasher when we leave the window
-gboolean speakonstop = FALSE;   // Whether to speak when Dasher is stopped
-extern gboolean timedata;       // Whether to output logging data (obsolete?)
-//extern gboolean drawoutline;
-extern gboolean textentry;      // Keyboard emulation for entering text into other applications
-extern gboolean stdoutpipe;     // Whether to output text to stdout
-
-// Interger applications parameters
-
-gint fileencoding;
-
-// String application parameters
-
 const gchar *filename = NULL;   // Filename of file currently being edited
-//std::string editfont = "Sans 10";       // Font to use in edit box
-
-// Boolean application status flags
-
-// gboolean setup = FALSE;         // Has setup been completed (?)
-// gboolean indrag = FALSE;        // ?
 
 // Apparently not obsolete, but should be sorted out
 
- gboolean file_modified = FALSE; // Have unsaved changes been made to the current file
- gint outputcharacters;
-
-// gboolean quitting = FALSE;      // Are we in the process of shutting down Dasher 
+gboolean file_modified = FALSE; // Have unsaved changes been made to the current file
+gint outputcharacters;
 
 const char *g_szAccessibleContext = 0;
 int g_iExpectedPosition = -1;
 int g_iOldPosition = -1;
 
-// Possibly obsolete global stuff
-
-
-
-// #define NO_PREV_POS -1
-
-// gboolean coordcalled;
-
-// double bitrate;
-
-// gint buttonnum = 0;
-
-
-
-// time_t lastdirection = 0;
-
 // 'Private' methods
 
 void LoadWindowState();
 void InitialiseAppParameters();
-
-// extern "C" void handle_start_event(GtkDasherControl * pDasherControl, gpointer data);
-// extern "C" void handle_stop_event(GtkDasherControl * pDasherControl, gpointer data);
-// extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data);
-// extern "C" void parameter_notification(GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
-// extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data);
-// extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
-// extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data);
-// extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2);
 void SetupPositioning();
 
 // "member" variables for main window "class"
@@ -184,10 +125,6 @@ double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
 /// This is actually closer to 'initialise application', so name
 /// should really be changed to reflect this
 ///
-extern "C" void realize_widget(GtkWidget* pWidget, gpointer pUserData) {
-  // FIXME - obsolete once we get glade working properly
-  gtk_dasher_control_set_focus( GTK_DASHER_CONTROL(pDasherWidget));
-}
 
 extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData) {
 //   if(g_bOnTop)
@@ -207,31 +144,22 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
   dasher_accel = gtk_accel_group_new(); //?
 
-  widgets = pGladeXML;          // obsolete?
+    widgets = pGladeXML;          // obsolete? NO - used later in this file, but should be
   // Grab some pointers to important GTK widgets from the Glade XML
   // FIXME - do we actually need all of these?
 
-  toolbar = glade_xml_get_widget(pGladeXML, "toolbar");
-
   window = glade_xml_get_widget(pGladeXML, "window");
-  g_signal_connect(GTK_WIDGET(window), "map", G_CALLBACK(on_window_map), NULL);
- 
-
+  toolbar = glade_xml_get_widget(pGladeXML, "toolbar");
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
   vpane = glade_xml_get_widget(pGladeXML, "hpaned1");
   dasher_menu_bar = glade_xml_get_widget(pGladeXML, "dasher_menu_bar");
-
   g_pEditPane = glade_xml_get_widget(pGladeXML, "vbox40");
   g_pActionPane = glade_xml_get_widget(pGladeXML, "vbox39");
+  pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
 
   if( dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR ) ) {
     gtk_widget_show( toolbar );
   }
-
-  // Construct a Dasher control
-
-  //  pDasherWidget = create_dasher_control();
-  pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
   
   // Add UI control node stuff (might be better elsewhere)
   
@@ -286,17 +214,7 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   //  dasher_set_parameter_bool(BOOL_KEYBOARDMODE, true);
 #endif
 
-  InitialiseAppParameters();
-
   g_pAction = DASHER_ACTION(dasher_action_keyboard_new());
-}
-
-///
-/// Initialise the application parameters from GConf - not currently
-/// implemented.
-///
-
-void InitialiseAppParameters() {
 }
 
 ///

@@ -9,11 +9,11 @@
 #include "AppSettings.h"
 #include <iostream>
 
-extern int paused;
-extern bool keyboardmodeon;
+//extern int paused;
+//extern boostdoutpipel keyboardmodeon;
 // extern bool mouseposstart;
-extern bool onedmode;
-extern gboolean stdoutpipe;
+//extern bool onedmode;
+//extern gboolean stdoutpipe;
 
 #include <gdk/gdkx.h>
 
@@ -304,9 +304,9 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
   say += label;
 #endif
 
-  if(stdoutpipe == TRUE) {
-    pipetext += label;
-  }
+//   if(stdoutpipe == TRUE) {
+//     pipetext += label;
+//   }
 
   outputtext += label;
   file_modified = TRUE;
@@ -787,11 +787,11 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
   }
 #endif
 
-  if(stdoutpipe == true) {
-    if(((signed int)pipetext.length() - length) >= 0) {
-      pipetext.resize(pipetext.length() - length);
-    }
-  }
+//   if(stdoutpipe == true) {
+//     if(((signed int)pipetext.length() - length) >= 0) {
+//       pipetext.resize(pipetext.length() - length);
+//     }
+//   }
 
   if(((signed int)outputtext.length() - length) >= 0) {
     outputtext.resize(outputtext.length() - length);
@@ -821,25 +821,25 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
 
 
 
-  if(keyboardmodeon) {
-#if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
-    Display *dpy;
-    dpy = gdk_x11_get_default_xdisplay();
-    KeyCode code;
-    code = XKeysymToKeycode(dpy, XK_BackSpace);
-    for(int i = 0; i < displaylength; i++) {
-      XTestFakeKeyEvent(dpy, code, True, 0);
-      XTestFakeKeyEvent(dpy, code, False, 0);
-    }
-    XFlush(dpy);
-#else
-#ifdef GNOME_A11Y
-    for(int i = 0; i < displaylength; i++) {
-      SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
-    }
-#endif
-#endif
-  }
+//   if(keyboardmodeon) {
+// #if (defined X_HAVE_UTF8_STRING && defined HAVE_XTST)
+//     Display *dpy;
+//     dpy = gdk_x11_get_default_xdisplay();
+//     KeyCode code;
+//     code = XKeysymToKeycode(dpy, XK_BackSpace);
+//     for(int i = 0; i < displaylength; i++) {
+//       XTestFakeKeyEvent(dpy, code, True, 0);
+//       XTestFakeKeyEvent(dpy, code, False, 0);
+//     }
+//     XFlush(dpy);
+// #else
+// #ifdef GNOME_A11Y
+//     for(int i = 0; i < displaylength; i++) {
+//       SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
+//     }
+// #endif
+// #endif
+//   }
   outputcharacters--;
 
   delete start;
@@ -1120,14 +1120,14 @@ void set_textbox(Accessible *newtextbox) {
 }
 #endif
 
-gboolean a11y_text_entry() {
-#ifdef GNOME_A11Y
-  if(textbox != NULL) {
-    return TRUE;
-  }
-#endif
-  return FALSE;
-}
+// gboolean a11y_text_entry() {
+// #ifdef GNOME_A11Y
+//   if(textbox != NULL) {
+//     return TRUE;
+//   }
+// #endif
+//   return FALSE;
+// }
 
 gboolean grab_focus() {
   gtk_widget_grab_focus(the_text_view);
