@@ -5,6 +5,7 @@
 
 #include <cmath>
 #include <cfloat>
+#include <math.h>
 
 double round(double dVal) {
   double dF = floor(dVal);

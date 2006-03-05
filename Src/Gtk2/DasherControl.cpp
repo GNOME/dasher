@@ -1,5 +1,6 @@
 #include "../Common/Common.h"
 
+#include <unistd.h>
 #include <iostream>
 #include "DasherControl.h"
 #include "Timer.h"

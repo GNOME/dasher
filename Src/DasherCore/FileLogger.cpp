@@ -1,4 +1,6 @@
 
+#include <strings.h>
+
 #include "../Common/Common.h"
 
 #include "FileLogger.h"

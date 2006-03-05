@@ -28,11 +28,11 @@ dasher_LDADD = \
 	-lexpat \
 	$(POPT_LIBS) \
 	$(GPELIB) \
-	Common/libdashermisc.a \
 	Gtk2/libdashergtk.a \
 	DasherCore/libdashercore.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
-	DasherCore/Alphabet/libdasheralphabet.a
+	DasherCore/Alphabet/libdasheralphabet.a \
+	Common/libdashermisc.a
 endif
 
 if DOQTE

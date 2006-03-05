@@ -2,6 +2,8 @@
 //
 // (C) Copyright Seb Wills 2005
 
+#include <unistd.h>
+
 #include "../Common/Common.h"
 
 #include "SocketInputBase.h"
