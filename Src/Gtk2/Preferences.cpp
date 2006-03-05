@@ -96,7 +96,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
 }
 
 void PopulateControlPage(GladeXML *pGladeWidgets) {
-  double dNewValue = get_app_parameter_long(LP_MAX_BITRATE) / 100.0;
+  double dNewValue = dasher_app_settings_get_long(g_pDasherAppSettings, LP_MAX_BITRATE) / 100.0;
   gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue); 
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), getBool(BP_NUMBER_DIMENSIONS));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), getBool(BP_EYETRACKER_MODE));
@@ -104,8 +104,8 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEY_CONTROL));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), getBool(BP_START_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), getBool(BP_START_SPACE));
-   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), get_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), get_app_parameter_bool(APP_BP_SPEECH_MODE));
+   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_COPY_ALL_ON_STOP));
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_SPEECH_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), getBool(BP_AUTO_SPEEDCONTROL));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "control_controlmode")), getBool(BP_CONTROL_MODE));
 
@@ -113,11 +113,11 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
   m_pMousePosButton = glade_xml_get_widget(pGladeWidgets, "mouseposbutton");
   m_pMousePosStyle = glade_xml_get_widget(pGladeWidgets, "MousePosStyle");
 
-  if(get_app_parameter_bool(BP_MOUSEPOS_MODE)) {
+  if(dasher_app_settings_get_bool(g_pDasherAppSettings, BP_MOUSEPOS_MODE)) {
     gtk_combo_box_set_active(GTK_COMBO_BOX(m_pMousePosStyle), 1);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), true);
   }
-  else if(get_app_parameter_bool(BP_CIRCLE_START)) {
+  else if(dasher_app_settings_get_bool(g_pDasherAppSettings, BP_CIRCLE_START)) {
     gtk_combo_box_set_active(GTK_COMBO_BOX(m_pMousePosStyle), 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "mouseposbutton")), true);
   }
@@ -237,7 +237,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     break;
   }
   
-  switch(get_app_parameter_long(APP_LP_STYLE)) {
+  switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
   case 0:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_classic")), TRUE);
     break;
@@ -249,7 +249,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     break;
   }
  
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), get_app_parameter_bool( APP_BP_SHOW_TOOLBAR) );
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR) );
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), getBool(BP_SHOW_SLIDER));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), getBool(BP_DRAW_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), getBool(BP_DRAW_MOUSE_LINE));
@@ -308,7 +308,7 @@ void AdvancedCellDataFunction(GtkTreeViewColumn *pColumn, GtkCellRenderer *pRend
 }
 
 void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "timestampbutton")), get_app_parameter_bool( APP_BP_TIME_STAMP ) );
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "timestampbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_TIME_STAMP ) );
 
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "yaxisscale")), getLong(LP_YSCALE));
   gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "mouseposstartscale")), getLong(LP_MOUSEPOSDIST));
@@ -352,27 +352,27 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets) {
 
   // TODO - store pointers to settings objects directly in list store?
   
-  for(int i(0); i < GetParameterCount(); ++i ) {
+  for(int i(0); i < dasher_app_settings_get_count(g_pDasherAppSettings); ++i ) {
     GValue *pValue = g_new0(GValue, 1);
 
-    switch(GetParameterType(i)) {
+    switch(dasher_app_settings_get_parameter_type(g_pDasherAppSettings, i)) {
     case DASHER_TYPE_BOOL:
       g_value_init( pValue, G_TYPE_BOOLEAN );
-      g_value_set_boolean(pValue, get_app_parameter_bool(i));
+      g_value_set_boolean(pValue, dasher_app_settings_get_bool(g_pDasherAppSettings, i));
       gtk_list_store_append(advanced_list_store, &advancediter);
-      gtk_list_store_set(advanced_list_store, &advancediter, 0, GetParameterRegName(i), 1, pValue, 2, i,  -1);
+      gtk_list_store_set(advanced_list_store, &advancediter, 0, dasher_app_settings_get_reg_name(g_pDasherAppSettings, i), 1, pValue, 2, i,  -1);
       break;
     case DASHER_TYPE_LONG:
       g_value_init( pValue, G_TYPE_INT );
-      g_value_set_int(pValue, get_app_parameter_long(i));
+      g_value_set_int(pValue, dasher_app_settings_get_long(g_pDasherAppSettings, i));
       gtk_list_store_append(advanced_list_store, &advancediter);
-      gtk_list_store_set(advanced_list_store, &advancediter, 0, GetParameterRegName(i), 1, pValue, 2, i, -1);
+      gtk_list_store_set(advanced_list_store, &advancediter, 0, dasher_app_settings_get_reg_name(g_pDasherAppSettings, i), 1, pValue, 2, i, -1);
       break;
     case DASHER_TYPE_STRING:
       g_value_init( pValue, G_TYPE_STRING );
-      g_value_set_string(pValue, get_app_parameter_string(i));
+      g_value_set_string(pValue, dasher_app_settings_get_string(g_pDasherAppSettings, i));
       gtk_list_store_append(advanced_list_store, &advancediter);
-      gtk_list_store_set(advanced_list_store, &advancediter, 0, GetParameterRegName(i), 1, pValue, 2, i, -1);
+      gtk_list_store_set(advanced_list_store, &advancediter, 0, dasher_app_settings_get_reg_name(g_pDasherAppSettings, i), 1, pValue, 2, i, -1);
       break;
     }
   }
@@ -733,7 +733,7 @@ extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
-  set_app_parameter_bool(APP_BP_COPY_ALL_ON_STOP, GTK_TOGGLE_BUTTON(widget)->active);
+  dasher_app_settings_set_bool(g_pDasherAppSettings, APP_BP_COPY_ALL_ON_STOP, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
@@ -748,7 +748,7 @@ extern "C" void on_controlmode_changed(GtkWidget *widget, gpointer user_data) {
 
 
 extern "C" void speak(GtkWidget *widget, gpointer user_data) {
-  set_app_parameter_bool(APP_BP_SPEECH_MODE, GTK_TOGGLE_BUTTON(widget)->active);
+  dasher_app_settings_set_bool(g_pDasherAppSettings, APP_BP_SPEECH_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 void preferences_handle_parameter_change(int iParameter)
@@ -756,7 +756,7 @@ void preferences_handle_parameter_change(int iParameter)
   switch(iParameter) {
   case LP_MAX_BITRATE:
     {    
-      double dNewValue = get_app_parameter_long(LP_MAX_BITRATE) / 100.0;
+      double dNewValue = dasher_app_settings_get_long(g_pDasherAppSettings, LP_MAX_BITRATE) / 100.0;
       gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue);
       break;
     }
@@ -767,7 +767,7 @@ void preferences_handle_parameter_change(int iParameter)
 
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
     long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
-    set_app_parameter_long(LP_MAX_BITRATE, iNewValue);
+    dasher_app_settings_set_long(g_pDasherAppSettings, LP_MAX_BITRATE, iNewValue);
 
 }
 extern "C" void adaptive(GtkWidget *widget, gpointer user_data) {
@@ -841,7 +841,7 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 }
 
 extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data) {
-  set_app_parameter_bool( APP_BP_SHOW_TOOLBAR, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_app_settings_set_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
 extern "C" void show_slider(GtkWidget *widget, gpointer user_data) {
@@ -888,7 +888,7 @@ extern "C" void autocolour_clicked(GtkWidget *widget, gpointer user_data) {
 // 'Advanced' Page
 
 extern "C" void timestamp_files(GtkWidget *widget, gpointer user_data) {
-  set_app_parameter_bool( APP_BP_TIME_STAMP, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_app_settings_set_bool(g_pDasherAppSettings,  APP_BP_TIME_STAMP, GTK_TOGGLE_BUTTON(widget)->active );
 }
 
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
@@ -1069,18 +1069,18 @@ extern "C" void advanced_edited_callback(GtkCellRendererText *cell, gchar *path_
   
   if(G_VALUE_HOLDS_BOOLEAN(pValue)) {
     if(!strcmp(new_text, "Yes"))
-      set_app_parameter_bool(iKey, TRUE);
+      dasher_app_settings_set_bool(g_pDasherAppSettings, iKey, TRUE);
     else if(!strcmp(new_text, "No"))
-      set_app_parameter_bool(iKey, FALSE);
+      dasher_app_settings_set_bool(g_pDasherAppSettings, iKey, FALSE);
   }
   else if(G_VALUE_HOLDS_INT(pValue)) {
 
     // TODO - use strtol here so we can detect errors
 
-    set_app_parameter_long(iKey, atoi(new_text));
+    dasher_app_settings_set_long(g_pDasherAppSettings, iKey, atoi(new_text));
   }
   else if(G_VALUE_HOLDS_STRING(pValue)) {
-    set_app_parameter_string(iKey, new_text);
+    dasher_app_settings_set_string(g_pDasherAppSettings, iKey, new_text);
   }   
 }
 
@@ -1106,11 +1106,11 @@ void update_advanced(int iParameter) {
       GValue *pValue((GValue *)pData);
 
       if(G_VALUE_HOLDS_BOOLEAN(pValue))
-	g_value_set_boolean(pValue, get_app_parameter_bool(iParameter));
+	g_value_set_boolean(pValue, dasher_app_settings_get_bool(g_pDasherAppSettings, iParameter));
       else if(G_VALUE_HOLDS_INT(pValue))
-	g_value_set_int(pValue, get_app_parameter_long(iParameter));
+	g_value_set_int(pValue, dasher_app_settings_get_long(g_pDasherAppSettings, iParameter));
       else if(G_VALUE_HOLDS_STRING(pValue))
-	g_value_set_string(pValue, get_app_parameter_string(iParameter));
+	g_value_set_string(pValue, dasher_app_settings_get_string(g_pDasherAppSettings, iParameter));
 
       gtk_tree_model_row_changed(m_pAdvancedModel, gtk_tree_model_get_path(m_pAdvancedModel, &sIter), &sIter);
 
@@ -1182,11 +1182,11 @@ extern "C" void keycontrol(GtkWidget *widget, gpointer user_data) {
 extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
   if(GTK_TOGGLE_BUTTON(widget)->active) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_classic"))
-      set_app_parameter_long(APP_LP_STYLE, 0);
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 0);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_compose"))
-      set_app_parameter_long(APP_LP_STYLE, 1);
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 1);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_direct"))
-      set_app_parameter_long(APP_LP_STYLE, 2);
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 2);
   }
 }
 

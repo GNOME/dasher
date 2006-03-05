@@ -4,10 +4,6 @@
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
 
-#ifndef WITH_GPE
-#include <gconf/gconf.h>
-#include <gconf/gconf-client.h>
-#endif
 
 #ifdef WITH_MAEMO
 #include <hildon-lgpl/hildon-widgets/hildon-app.h>
@@ -74,12 +70,15 @@ gboolean timedata = FALSE;
 gboolean preferences = FALSE;
 gboolean textentry = FALSE;
 gboolean stdoutpipe = FALSE;
-extern gboolean setup, paused;
+//extern gboolean setup, paused;
 extern int optind;
 extern ControlTree *controltree;
 extern const gchar *filename;
 
-extern int oldx, oldy;
+DasherMain *g_pDasherMain;
+DasherAppSettings *g_pDasherAppSettings;
+
+//extern int oldx, oldy;
 
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
@@ -160,22 +159,6 @@ int main(int argc, char *argv[]) {
   }
 #endif // HAVE_POPT
 
-  // Set up the app GConf client
-
-  GError *pGConfError;
-
-  if(!gconf_init(argc, argv, &pGConfError)) {
-    std::cerr << "Failed to initialise gconf: " << pGConfError->message << std::endl;
-    exit(1);
-  }
-
-  // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
-  
-  g_pGConfClient = gconf_client_get_default();
-  //  g_print("GConf Client=%p\n",g_pGConfClient);
-
-  // ---
-
 
   // We need thread support for updating the splash window while
   // training...
@@ -184,6 +167,13 @@ int main(int argc, char *argv[]) {
   if (!g_thread_supported()) 
     g_thread_init(NULL);
 #endif
+
+
+  // Set up the dasher_main
+
+  g_pDasherMain = dasher_main_new(argc, argv);
+  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
+
 
   //  g_type_class_ref(dasher_gtk_text_view_get_type());
 
@@ -210,8 +200,8 @@ int main(int argc, char *argv[]) {
   bonobo_activate();
 #endif
 
-  oldx = -1;
-  oldy = -1;
+//   oldx = -1;
+//   oldy = -1;
 
 #ifdef GNOME_A11Y
   SPI_init();
@@ -273,10 +263,7 @@ int main(int argc, char *argv[]) {
   gtk_widget_show_all(GTK_WIDGET(app));
 #endif
 
-  setup = TRUE;
-#ifdef PJC_EXPERIMENTAL
-  SetupWMHints(false);
-#endif
+  //  setup = TRUE;
 
 #ifdef GNOME_SPEECH
   setup_speech();
@@ -302,6 +289,9 @@ int main(int argc, char *argv[]) {
 
   gtk_main();
 
+  // Shut down the dasher_main
+  // FIXME
+
   interface_cleanup();
 
 #ifdef GNOME_SPEECH
@@ -317,10 +307,6 @@ int main(int argc, char *argv[]) {
   //  deletemenutree();
   //  SPI_exit();
   //#endif
-
-  // Take down GConf client
-
-  g_object_unref(g_pGConfClient);
 
   // ---
 

@@ -80,7 +80,7 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer user_data);
 
 extern "C" void choose_filename() {
-  if( get_app_parameter_bool( APP_BP_TIME_STAMP )) {
+  if( dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_TIME_STAMP )) {
     // Build a filename based on the current time and date
     tm *t_struct;
     time_t ctime;
@@ -166,7 +166,7 @@ void RefreshContext(int iMaxLength) {
 
   std::cout << "In refresh context" << std::endl;
 
-  if(get_app_parameter_long(APP_LP_STYLE) != 2) {
+  if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) != 2) {
 
   GtkTextIter start;
   GtkTextIter end; // Refers to end of context, which is start of selection!
@@ -232,7 +232,7 @@ void initialise_edit(GladeXML *pGladeXML) {
   g_signal_connect(G_OBJECT(the_text_view), "key-release-event", G_CALLBACK(edit_key_release), NULL);
 
 
-  set_editbox_font(get_app_parameter_string(APP_SP_EDIT_FONT));
+  set_editbox_font(dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
 
 
 #ifdef X_HAVE_UTF8_STRING
@@ -328,7 +328,7 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
   g_bIgnoreCursorMove = false;
 
 
-  if(get_app_parameter_long(APP_LP_STYLE) == 2) {
+  if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2) {
     ++g_iExpectedPosition;
     SendText(label.c_str());
   }
@@ -814,7 +814,7 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
 
 
 
-  if(get_app_parameter_long(APP_LP_STYLE) == 2) {
+  if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2) {
     --g_iExpectedPosition;
     DeleteText(displaylength);
   }

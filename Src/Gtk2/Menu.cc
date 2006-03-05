@@ -301,27 +301,24 @@ extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data) {
 
 extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
   GtkWidget *dialog = NULL;
-  quitting = TRUE;
 
   if(file_modified != FALSE) {
     // Ask whether to save the modified file, insert filename if it exists.
     if(filename != NULL) {
-      dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, "Do you want to save your changes to %s?\n\nYour changes will be lost if you don't save them.", filename);
+      dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, _("Do you want to save your changes to %s?\n\nYour changes will be lost if you don't save them."), filename);
     }
     else if(filename == NULL) {
-      dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, "Do you want to save your changes?\n\nYour changes will be lost if you don't save them.");
+      dialog = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_QUESTION, GTK_BUTTONS_NONE, _("Do you want to save your changes?\n\nYour changes will be lost if you don't save them."));
     }
 
-    gtk_dialog_add_buttons(GTK_DIALOG(dialog), "Don't save", GTK_RESPONSE_REJECT, "Don't quit", GTK_RESPONSE_CANCEL, "Save and quit", GTK_RESPONSE_ACCEPT, NULL);
+    gtk_dialog_add_buttons(GTK_DIALOG(dialog), _("Don't save"), GTK_RESPONSE_REJECT, _("Don't quit"), GTK_RESPONSE_CANCEL, _("Save and quit"), GTK_RESPONSE_ACCEPT, NULL);
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
     case GTK_RESPONSE_REJECT:
       //      write_to_file(); // FIXME - REIMPLEMENT
-      exiting = TRUE;
       SaveWindowState();
       gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
-      quitting = FALSE;
       gtk_widget_destroy(GTK_WIDGET(dialog));
       return true;
       break;
@@ -338,7 +335,6 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
     // FIXME - REIMPLEMENT
 
     //    write_to_file();
-    exiting = TRUE;
     SaveWindowState();
     gtk_main_quit();
   }
@@ -390,8 +386,8 @@ extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data) {
-  reset_parameter(SP_DASHER_FONT);
-  reset_parameter(APP_SP_EDIT_FONT);
+  dasher_app_settings_reset(g_pDasherAppSettings, SP_DASHER_FONT);
+  dasher_app_settings_reset(g_pDasherAppSettings, APP_SP_EDIT_FONT);
 }
 
 // 'Help' Menu

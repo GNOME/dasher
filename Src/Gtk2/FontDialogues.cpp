@@ -58,7 +58,7 @@ extern "C" void get_edit_font_from_dialog(GtkWidget *one, GtkWidget *two) {
   char *font_name;
   font_name = gtk_font_selection_dialog_get_font_name(edit_fontselector);
   if(font_name) {
-    set_app_parameter_string(APP_SP_EDIT_FONT, font_name);
+    dasher_app_settings_set_string(g_pDasherAppSettings, APP_SP_EDIT_FONT, font_name);
   }
   edit_fontsel_hide(NULL, NULL);
 }
@@ -70,6 +70,6 @@ extern "C" void set_edit_font(GtkWidget *widget, gpointer user_data) {
   //  GtkWidget *cancel_butto3 = glade_xml_get_widget(widgets,"cancel_butto3");
   //  gtk_widget_hide(cancel_butto3);
 
-  gtk_font_selection_dialog_set_font_name(edit_fontselector,get_app_parameter_string(APP_SP_EDIT_FONT));
+  gtk_font_selection_dialog_set_font_name(edit_fontselector, dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
   gtk_window_present(GTK_WINDOW(edit_fontselector));
 }

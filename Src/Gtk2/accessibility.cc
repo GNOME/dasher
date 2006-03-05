@@ -64,7 +64,7 @@ void setupa11y() {
 }
 
 void register_listeners() {
-  if(get_app_parameter_long(APP_LP_STYLE) == 2) {
+  if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2) {
     SPI_registerGlobalEventListener(focusListener, "focus:");
     SPI_registerGlobalEventListener(caretListener, "object:text-caret-moved");
   }

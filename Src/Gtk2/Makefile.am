@@ -29,6 +29,8 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          AppSettings.h \
                          Canvas.cpp \
                          Canvas.h \
+                         DasherAppSettings.cpp \
+                         DasherAppSettings.h \
                          DasherControl.cpp \
                          DasherControl.h \
                          FileDialogues.cpp \
@@ -55,6 +57,10 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher_action.h \
                          dasher_action_keyboard.cpp \
                          dasher_action_keyboard.h \
+                         dasher_action_speech.cpp \
+                         dasher_action_speech.h \
+                         dasher_main.cpp \
+                         dasher_main.h \
                          edit.cc \
                          edit.h \
                          fileops.cc \
