@@ -1,5 +1,6 @@
-
+#ifndef WIN32
 #include <strings.h>
+#endif
 
 #include "../Common/Common.h"
 

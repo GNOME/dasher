@@ -2,7 +2,9 @@
 //
 // (C) Copyright Seb Wills 2005
 
+#ifndef WIN32
 #include <unistd.h>
+#endif
 
 #include "../Common/Common.h"
 
