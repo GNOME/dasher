@@ -26,7 +26,7 @@ GType dasher_action_keyboard_get_type() {
       NULL
     };
 
-    dasher_action_keyboard_type = g_type_register_static(G_TYPE_OBJECT, "DasherActionKeyboard", &dasher_action_keyboard_info, static_cast < GTypeFlags > (0));
+    dasher_action_keyboard_type = g_type_register_static(TYPE_DASHER_ACTION, "DasherActionKeyboard", &dasher_action_keyboard_info, static_cast < GTypeFlags > (0));
   }
 
   return dasher_action_keyboard_type;

@@ -467,43 +467,16 @@ void main_handle_parameter_change(int iParameter) {
 ///
 
 void LoadWindowState() {
-
-  // FIXME - reimplement
-
-//   int iWindowWidth;
-//   int iWindowHeight;
-//   int iEditHeight;
-
-//   GError *pGConfError = NULL;
-//   GConfValue *pGConfValue;
-
-//   pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenWidth", &pGConfError);
-
-//   if(!pGConfValue)
-//     return;
-
-//   iWindowWidth = gconf_value_get_int(pGConfValue);
-//   gconf_value_free(pGConfValue);
-
-//   pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/ScreenHeight", &pGConfError); 
-
-//   if(!pGConfValue)
-//     return;
-
-//   iWindowHeight = gconf_value_get_int(pGConfValue);
-//   gconf_value_free(pGConfValue);
-
-//   gtk_window_set_default_size(GTK_WINDOW(window), iWindowWidth, iWindowHeight);
-
-//   pGConfValue = gconf_client_get_without_default(g_pGConfClient, "/apps/dasher/EditHeight", &pGConfError);
-
-//   if(!pGConfValue)
-//     return;
+  int iWindowWidth;
+  int iWindowHeight;
+  int iEditHeight;
   
-//   iEditHeight = gconf_value_get_int(pGConfValue);
-//   gconf_value_free(pGConfValue);
-
-//   gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets, "hpaned1")), iEditHeight);
+  iWindowWidth = dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_SCREEN_WIDTH);
+  iWindowHeight = dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_SCREEN_HEIGHT);
+  gtk_window_set_default_size(GTK_WINDOW(window), iWindowWidth, iWindowHeight);
+  
+  iEditHeight = dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_EDIT_HEIGHT);
+  gtk_paned_set_position(GTK_PANED(glade_xml_get_widget(widgets, "hpaned1")), iEditHeight);
 }
 
 ///
@@ -511,23 +484,16 @@ void LoadWindowState() {
 ///
 
 void SaveWindowState() {
+   int iWindowWidth;
+   int iWindowHeight;
+   int iEditHeight;
 
-  // FIXME - reimplement
+   gtk_window_get_size(GTK_WINDOW(window), &iWindowWidth, &iWindowHeight);
+   dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_SCREEN_WIDTH, iWindowWidth);
+   dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_SCREEN_HEIGHT, iWindowHeight);
 
-//   int iWindowWidth;
-//   int iWindowHeight;
-//   int iEditHeight;
-
-//   GError *pGConfError = NULL;
-
-//   gtk_window_get_size(GTK_WINDOW(window), &iWindowWidth, &iWindowHeight);
-
-//   gconf_client_set_int(g_pGConfClient, "/apps/dasher/ScreenWidth", iWindowWidth, &pGConfError);
-//   gconf_client_set_int(g_pGConfClient, "/apps/dasher/ScreenHeight", iWindowHeight, &pGConfError);
-
-//   iEditHeight = gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets, "hpaned1")));
-
-//   gconf_client_set_int(g_pGConfClient, "/apps/dasher/EditHeight", iEditHeight, &pGConfError);
+   iEditHeight = gtk_paned_get_position(GTK_PANED(glade_xml_get_widget(widgets, "hpaned1")));
+   dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_EDIT_HEIGHT, iEditHeight);
 }
 
 ///
