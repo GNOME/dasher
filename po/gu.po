@@ -1,11 +1,12 @@
+# translation of dasher.gnome-2-14.gu.po to Gujarati
 # translation of dasher.HEAD.gu.po to Gujarati
 # Ankit Patel <ankit644@yahoo.com>, 2005, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.HEAD.gu\n"
+"Project-Id-Version: dasher.gnome-2-14.gu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-30 05:42+0100\n"
-"PO-Revision-Date: 2006-01-30 12:55+0530\n"
+"POT-Creation-Date: 2006-03-06 05:32+0100\n"
+"PO-Revision-Date: 2006-03-06 13:18+0530\n"
 "Last-Translator: Ankit Patel <ankit644@yahoo.com>\n"
 "Language-Team: Gujarati <indianoss-gujarati@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -13,6 +14,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n!=1);\n\n"
+"\n"
 "\n"
 "\n"
 "\n"
@@ -34,11 +36,44 @@ msgstr "ડેશર સોકેટ ઈનપુટ: વાંચનાર થ�
 msgid "Select File"
 msgstr "ફાઈલ પસંદ કરો"
 
-#: ../Src/Gtk2/Menu.cc:462
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"શું તમે %s માંના તમારા ફેરફારો સંગ્રહવા માંગો છો?\n"
+"\n"
+"જો તમે તેમને સંગ્રહો નહિં તો તમારા ફેરફારો નષ્ટ થઈ જશે."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"શું તમે તમારા ફેરફારો સંગ્રહવા માંગો છો?\n"
+"\n"
+"જો તમે તેમને સંગ્રહો નહિં તો તમારા ફેરફારો નષ્ટ થઈ જશે."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "સંગ્રહો નહિં"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "બહાર નીકળો નહિં"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "સંગ્રહો અને બહાર નીકળો"
+
+#: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "ડેશર એ ધારણાવાળું લખાણ પ્રવેશ કાર્યક્રમ છે"
 
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
 msgstr "અંકિત પટેલ <ankit644@yahoo.com>"
 
@@ -523,8 +558,9 @@ msgstr "કાપો"
 msgid "Cyclical button mode"
 msgstr "બટનની વતૃળીય સ્થિતિ"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
 msgstr "ડેશર"
 
@@ -1003,7 +1039,7 @@ msgstr "અવાજોનો પ્રારંભ કરવા સમર્થ
 msgid "Warning: unable to set speech parameters\n"
 msgstr "ચેતવણી: બોલીના પરિમાણો સુયોજિત કરવા સમર્થ નથી\n"
 
-#: ../Src/main.cc:123
+#: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "ડેશર લખાણ પ્રવેશ"
 
