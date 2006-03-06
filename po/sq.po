@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher gnome-2-14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-02 05:55+0100\n"
-"PO-Revision-Date: 2006-02-02 10:22+0100\n"
+"POT-Creation-Date: 2006-03-06 05:32+0100\n"
+"PO-Revision-Date: 2006-03-06 11:24+0100\n"
 "Last-Translator: Laurent Dhima <laurenti@alblinux.net>\n"
 "Language-Team: Albanian <gnome-albanian-perkthyesit@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,44 @@ msgstr "Socket i hyrjes së Dasher: dështoi lëshimi i temës së leximit."
 msgid "Select File"
 msgstr "Zgjidh file"
 
-#: ../Src/Gtk2/Menu.cc:462
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Dëshiron të ruash ndryshimet e kryera tek %s?\n"
+"\n"
+"Ndryshimet do të humbasin nëse nuk i ruani."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Dëshiron të ruash ndryshimet e kryera?\n"
+"\n"
+"Ndryshimet do të humbasin nëse nuk i ruani."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Mos ruaj"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Mos dil"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Ruaj dhe dil"
+
+#: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher është një program për futjen e tekstit të prediktuar"
 
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
 msgstr "Laurent Dhima <laurenti@alblinux.net>"
 
@@ -479,7 +512,9 @@ msgstr "Modaliteti kompas"
 
 #: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Kontrollon dasher nga socket i rrjetit në vend të kontrollit nga mouse (mjeshtër)"
+msgstr ""
+"Kontrollon dasher nga socket i rrjetit në vend të kontrollit nga mouse "
+"(mjeshtër)"
 
 #: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
@@ -515,8 +550,9 @@ msgstr "Preje"
 msgid "Cyclical button mode"
 msgstr "Modaliteti me pulsant ciclik"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -582,8 +618,8 @@ msgid ""
 "choice"
 msgstr ""
 "Nëse është zgjedhur kjo menyrë, sipër e poshtë\n"
-"do të ciklojë mbrapa e para midis koordinatave dhe djathtas do të konfermohet "
-"zgjedhja"
+"do të ciklojë mbrapa e para midis koordinatave dhe djathtas do të "
+"konfermohet zgjedhja"
 
 #: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
 msgid "Increase line thickness"
@@ -998,7 +1034,7 @@ msgstr "E pamundur nisja e zërave\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Kujdes: i pamundur rregullimi i parametrave të shqiptimit\n"
 
-#: ../Src/main.cc:123
+#: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Elementi tekst i Dasher"
 
