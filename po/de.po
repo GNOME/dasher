@@ -10,13 +10,13 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher gnome-2-14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-03 23:11+0100\n"
-"PO-Revision-Date: 2006-03-03 23:41+0100\n"
+"POT-Creation-Date: 2006-03-06 22:23+0100\n"
+"PO-Revision-Date: 2006-03-06 22:23+0100\n"
 "Last-Translator: Hendrik Brandt <heb@gnome-de.org>\n"
 "Language-Team: German <gnome-de@gnome.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: 8bit"
+"Content-Transfer-Encoding: 8bit\n"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -29,13 +29,47 @@ msgstr "Dasher-Socket-Eingabe: Reader-Thread konnte nicht gestartet werden."
 msgid "Select File"
 msgstr "Datei wählen"
 
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Möchten Sie Ihre Änderungen in %s abspeichern?\n"
+"\n"
+"Wenn Sie Ihre Änderungen nicht abspeichern, gehen diese verloren."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Möchten Sie Ihre Änderungen abspeichern?\n"
+"\n"
+"Wenn Sie Ihre Änderungen nicht abspeichern, gehen diese verloren."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Nicht abspeichern"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Nicht beenden"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Abspeichern und beenden"
+
 #: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher ist voraus ahnende Texteingabeanwendung"
 
 #: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
-msgstr "Christian Neumair <chris@gnome-de.org>\n"
+msgstr ""
+"Christian Neumair <chris@gnome-de.org>\n"
 "Hendrik Brandt <heb@gnome-de.org>"
 
 #: ../Src/Gtk2/Preferences.cpp:585 ../Src/Gtk2/Preferences.cpp:587
@@ -484,7 +518,8 @@ msgstr "Kompassmodus"
 
 #: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Dasher über einen Netzwerk-Socket anstatt einer Maus steuern (erweitert)"
+msgstr ""
+"Dasher über einen Netzwerk-Socket anstatt einer Maus steuern (erweitert)"
 
 #: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
@@ -778,7 +813,9 @@ msgstr "Beim Stoppen sprechen"
 
 #: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashermaemo.glade.h:107
 msgid "Standard letter-based PPM"
-msgstr "Normales buchstabenbasierendes PPM (PPM: Vorhersage durch teilweise Übereinstimmung)"
+msgstr ""
+"Normales buchstabenbasierendes PPM (PPM: Vorhersage durch teilweise "
+"Übereinstimmung)"
 
 #: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:66
 #: ../Src/Gtk2/dashermaemo.glade.h:108
@@ -1011,4 +1048,3 @@ msgstr "Warnung: Sprachparameter konnten nicht gesetzt werden\n"
 #: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Dasher Texteingabe"
-
