@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-03 17:55+0100\n"
-"PO-Revision-Date: 2006-02-03 17:55+0100\n"
+"POT-Creation-Date: 2006-03-06 16:06+0100\n"
+"PO-Revision-Date: 2006-03-06 16:07+0100\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -27,11 +27,44 @@ msgstr "Inndata til dasher fra plugg: kunne ikke starte lesetråd."
 msgid "Select File"
 msgstr "Velg fil"
 
-#: ../Src/Gtk2/Menu.cc:462
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Vil du lagre dine endringer i %s?\n"
+"\n"
+"Endringene vil gå tapt hvis du ikke lagrer dem."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Vil du lagre dine endringer?\n"
+"\n"
+"Endringene vil gå tapt hvis du ikke lagrer dem."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Ikke lagre"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Ikke avslutt"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Lagre og avslutt"
+
+#: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher er et forutseende program for inntasting av tekst"
 
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
@@ -517,8 +550,9 @@ msgstr "Klipp ut"
 msgid "Cyclical button mode"
 msgstr "Syklisk knappemodus"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -997,6 +1031,6 @@ msgstr "Kan ikke initiere stemmer\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Advarsel: kunne ikke sette parametere for tale\n"
 
-#: ../Src/main.cc:123
+#: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Dasher tekstoppføring"
