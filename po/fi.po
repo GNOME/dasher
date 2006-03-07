@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-01 06:01+0200\n"
-"PO-Revision-Date: 2006-02-01 06:03+0200\n"
+"POT-Creation-Date: 2006-03-07 17:47+0200\n"
+"PO-Revision-Date: 2006-03-07 17:48+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -25,11 +25,44 @@ msgstr "Dasherin pistokkeesta luku: lukijasäiettä ei voitu käynnistää."
 msgid "Select File"
 msgstr "Valitse tiedosto"
 
-#: ../Src/Gtk2/Menu.cc:462
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Haluatko tallentaa muutokset kohteeseen %s?\n"
+"\n"
+"Muutokset hukataan jos niitä ei tallenneta."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Haluatko tallentaa muutokset?\n"
+"\n"
+"Muutokset hukataan jos niitä ei tallenneta."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Älä tallenna"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Älä sulje"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Tallenna ja sulje"
+
+#: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher on ennustava tekstisyöttösovellus"
 
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2004-2005\n"
@@ -517,8 +550,9 @@ msgstr "Leikkaa"
 msgid "Cyclical button mode"
 msgstr "Toistuvien näppäinten tila"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -998,7 +1032,7 @@ msgstr "Puheääniä ei voitu ottaa käyttöön\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Varoitus: puheen parametreja ei voitu asettaa\n"
 
-#: ../Src/main.cc:123
+#: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Dasherin tekstisyöte"
 
