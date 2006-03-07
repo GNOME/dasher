@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-05 13:43+0200\n"
-"PO-Revision-Date: 2006-03-05 13:46+0200\n"
+"POT-Creation-Date: 2006-03-07 10:04+0200\n"
+"PO-Revision-Date: 2006-03-07 10:06+0200\n"
 "Last-Translator: Vladimir Petkov <vpetkov@i-space.org>\n"
 "Language-Team: Bulgarian <dict@fsa-bg.org>\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,39 @@ msgstr "Вход на Dasher от гнездо: неуспех при старт
 #: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Избор на файл"
+
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Искате ли да запазите промените в %s?\n"
+"\n"
+"В противен случай те ще бъдат изгубени."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Искате ли да запазите промените?\n"
+"\n"
+"В противен случай те ще бъдат изгубени.<"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Без запазване"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Продължаване на работата"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Запазване и спиране"
 
 #: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
