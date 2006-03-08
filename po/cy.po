@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-25 12:23+0000\n"
-"PO-Revision-Date: 2006-02-21 21:06-0000\n"
+"POT-Creation-Date: 2006-03-08 13:44+0000\n"
+"PO-Revision-Date: 2006-03-08 12:43-0000\n"
 "Last-Translator: Rhys Jones <rhys@sucs.org>\n"
 "Language-Team: Welsh <gnome-cy@pengwyn.linux.org.uk>\n"
 "MIME-Version: 1.0\n"
@@ -27,6 +27,39 @@ msgstr "Mewnbwn soced Dasher: methu lansio edefyn y darllenydd."
 #: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Dewis Ffeil"
+
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Ydych chi am gadw'ch newidiadau i %s?\n"
+"\n"
+"Fe gollir eich newidiadau os na wnewch chi eu cadw."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Ydych chi am gadw'ch newidiadau?\n"
+"\n"
+"Fe gollir eich newidiadau os na wnewch chi eu cadw."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Peidio â chadw"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Peidio â gorffen"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Cadw a gorffen"
 
 #: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
@@ -698,7 +731,7 @@ msgstr "Rhagwelediad"
 
 #: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:91
 msgid "Print socket-related debugging information to console"
-msgstr "Printio i'r consol y gwybodaeth datnamu ynglŷn â'r soced"
+msgstr "Printio i'r consol y wybodaeth datnamu ynglŷn â'r soced"
 
 #: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:92
 msgid "Pulsing mode"
