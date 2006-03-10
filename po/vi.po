@@ -6,44 +6,69 @@
 # 
 msgid ""
 ""
-msgstr "Project-Id-Version: dasher Gnome HEAD\n"
+msgstr "Project-Id-Version: dasher Gnome 2.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-27 21:51+0100\n"
-"PO-Revision-Date: 2006-01-28 13:51+1030\n"
+"POT-Creation-Date: 2006-03-10 05:38+0100\n"
+"PO-Revision-Date: 2006-03-10 18:10+1030\n"
 "Last-Translator: Clytie Siddall <clytie@riverland.net.au>\n"
 "Language-Team: Vietnamese <gnomevi-list@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0\n"
-"X-Generator: LocFactoryEditor 1.6b34\n"
+"X-Generator: LocFactoryEditor 1.6b36\n"
 
 #.TODO should probably pop up a Gtk error message and think about how to do i18n:
-#:../Src/DasherCore/SocketInput.cpp:32
+#:../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Nhập ổ cắm dasher: việc khởi chạy mạch đọc bị lỗi."
 
-#:../Src/Gtk2/Menu.cc:70 ../Src/Gtk2/Menu.cc:126 ../Src/Gtk2/Menu.cc:184
-#:../Src/Gtk2/Menu.cc:227 ../Src/Gtk2/dasher.glade.h:105
+#:../Src/Gtk2/Menu.cc:72 ../Src/Gtk2/Menu.cc:128 ../Src/Gtk2/Menu.cc:186
+#:../Src/Gtk2/Menu.cc:229 ../Src/Gtk2/dasher.glade.h:105
 #:../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Chọn tập tin"
 
-#.This gets pulled out via gettext
-#:../Src/Gtk2/Menu.cc:463
-msgid "translator-credits"
-msgstr "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
+#:../Src/Gtk2/Menu.cc:309
+#,c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr "Bạn có muốn lưu các thay đổi trong %s không?\n"
+"\n"
+"Các thay đổi này sẽ bị mất nếu bạn không lưu."
 
-#:../Src/Gtk2/Menu.cc:465 ../Src/Gtk2/dasher.glade.h:57
-#:../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:54
-msgid "Dasher"
-msgstr "Dasher"
+#:../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr "Bạn có muốn lưu các thay đổi không?\n"
+"\n"
+"Các thay đổi này sẽ bị mất nếu bạn không lưu."
 
-#:../Src/Gtk2/Menu.cc:465
+#:../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Không lưu"
+
+#:../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Không thoát"
+
+#:../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Lưu rồi thoát"
+
+#:../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher là một ứng dụng nhập văn ban đoán trước"
 
-#:../Src/Gtk2/Preferences.cpp:583 ../Src/Gtk2/Preferences.cpp:585
+#:../Src/Gtk2/Menu.cc:461
+msgid "translator-credits"
+msgstr "Nhóm Việt hóa GNOME (http://gnomevi.sourceforge.net)"
+
+#:../Src/Gtk2/Preferences.cpp:585 ../Src/Gtk2/Preferences.cpp:587
 #:../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
 #:../Src/Gtk2/dashermaemo.glade.h:117
 msgid "Training Dasher... please wait"
@@ -524,6 +549,12 @@ msgstr "Cắt"
 msgid "Cyclical button mode"
 msgstr "Chế độ nút theo chu kỳ"
 
+#.g_type_class_ref(dasher_gtk_text_view_get_type());
+#:../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
+#:../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
+msgid "Dasher"
+msgstr "Dasher"
+
 #:../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
 #:../Src/Gtk2/dashermaemo.glade.h:55
 msgid "Dasher Preferences"
@@ -979,21 +1010,21 @@ msgstr "Ổ cắm"
 msgid "Three-button direct mode"
 msgstr "Chế độ trực tiếp ba nút"
 
-#:../Src/Gtk2/speech.cc:27
+#:../Src/Gtk2/speech.cc:29
 #,c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Không thể khởi động hỗ trợ nói tiếng\n"
 
-#:../Src/Gtk2/speech.cc:50
+#:../Src/Gtk2/speech.cc:52
 #,c-format
 msgid "Unable to initialize voices\n"
 msgstr "Không thể khởi động các tiếng nói\n"
 
-#:../Src/Gtk2/speech.cc:62
+#:../Src/Gtk2/speech.cc:64
 #,c-format
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Cảnh báo: không thể lập tham số nói tiếng\n"
 
-#:../Src/main.cc:129
+#:../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Nhập chữ Dasher"
