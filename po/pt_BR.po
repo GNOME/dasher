@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-26 13:34+0100\n"
-"PO-Revision-Date: 2006-02-27 19:49-0300\n"
-"Last-Translator: Goedson Teixeira Paixao <goedson@debian.org>\n"
+"POT-Creation-Date: 2006-03-11 13:24-0300\n"
+"PO-Revision-Date: 2006-03-10 21:13-0300\n"
+"Last-Translator: Leandro A. F. Pereira <leandro@linuxmag.com.br>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,6 +26,39 @@ msgstr "Entrada por socket do Dasher: falha ao lançar o processo leitor."
 #: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Selecionar Arquivo"
+
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Deseja salvar suas alterações em %s?\n"
+"\n"
+"Suas alterações serão perdidas se não salvá-las."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Deseja salvar suas alterações?\n"
+"\n"
+"Suas alterações serão perdidas se não salvá-las."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Não salvar"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Não sair"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Salvar e Sair"
 
 #: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
@@ -482,7 +515,9 @@ msgstr "Modo de compasso"
 
 #: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Controlar o Dasher a partir de um socket de rede em vez de um mouse (avançado)"
+msgstr ""
+"Controlar o Dasher a partir de um socket de rede em vez de um mouse "
+"(avançado)"
 
 #: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
@@ -535,7 +570,6 @@ msgstr "Modo direto"
 
 #: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:37
 #: ../Src/Gtk2/dashermaemo.glade.h:56
-#, fuzzy
 msgid "Distance from centerline for start on mouse position:"
 msgstr "Distância da linha de centro para a posição inicial do mouse:"
 
@@ -587,7 +621,8 @@ msgid ""
 "choice"
 msgstr ""
 "Se este modo for selecionado, para cima e para baixo\n"
-"circulará para trás e para frente entre as coordenadas, e à direita confirmará a escolha"
+"circulará para trás e para frente entre as coordenadas, e à direita "
+"confirmará a escolha"
 
 #: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
 msgid "Increase line thickness"
