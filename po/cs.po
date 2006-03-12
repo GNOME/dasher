@@ -3,14 +3,15 @@
 # Copyright (C) 2004, 2005, 2006 Miloslav Trmac <mitr@volny.cz>
 # This file is distributed under the same license as the PACKAGE package.
 # Miloslav Trmac <mitr@volny.cz>, 2004 - 2006.
+# Petr Tomeš <ptomes@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-10 13:49+0100\n"
+"POT-Creation-Date: 2006-03-11 05:28+0100\n"
 "PO-Revision-Date: 2006-03-10 17:33+0100\n"
-"Last-Translator: Miloslav Trmac <mitr@volny.cz>\n"
+"Last-Translator: Petr Tomeš <ptomes@gmail.com>\n"
 "Language-Team: Czech <cs@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -90,7 +91,7 @@ msgstr "Aplikace"
 
 #: ../Src/Gtk2/accessibility.cc:90
 msgid "Menus"
-msgstr "Menu"
+msgstr "Nabídky"
 
 #: ../Src/Gtk2/accessibility.cc:91 ../Src/Gtk2/dashermaemo.glade.h:42
 msgid "Buttons"
@@ -363,7 +364,7 @@ msgstr "<b>Styl ovládání:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
 msgid "<b>Direct Mode And Menu Mode</b>"
-msgstr "<b>Přímý režim a režim menu</b>"
+msgstr "<b>Přímý režim a režim nabídky</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
 msgid "<b>External Input:</b>"
@@ -822,7 +823,7 @@ msgstr "Spustit umístěním myši"
 
 #: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:111
 msgid "Static menu mode"
-msgstr "Režim statického menu"
+msgstr "Režim statické nabídky"
 
 #: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:112
 msgid "Steady mode"
@@ -992,7 +993,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dashermaemo.glade.h:15
 msgid "<b>Menu Mode</b>"
-msgstr "<b>Režim menu:</b>"
+msgstr "<b>Režim nabídky:</b>"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:40
 msgid "Button setup"
