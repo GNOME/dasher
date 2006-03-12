@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-29 03:27+0100\n"
-"PO-Revision-Date: 2006-01-29 03:53+0100\n"
+"POT-Creation-Date: 2006-03-12 19:45+0000\n"
+"PO-Revision-Date: 2006-03-12 19:48+0100\n"
 "Last-Translator: Slobodan D. Sredojević <slobo@akrep.be>\n"
 "Language-Team: Serbian (sr) <gnom@prevod.org>\n"
 "MIME-Version: 1.0\n"
@@ -29,8 +29,44 @@ msgstr "Ulaz za Jurišnika iz utičnice: nisam mogao pokrenuti nit čitača."
 msgid "Select File"
 msgstr "Izaberi datoteku"
 
-#. This gets pulled out via gettext
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Da li želite da sačuvate vaše izmene u %s?\n"
+"\n"
+"Izmene će biti izgubljene ukoliko ih ne sačuvate."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Da li želite da sačuvate vaše izmene?\n"
+"\n"
+"Izmene će biti izgubljene ukoliko ih ne sačuvate."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Nemoj sačuvati"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Ne gasi program"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Sačuvaj i ugasi"
+
+#: ../Src/Gtk2/Menu.cc:458
+msgid "Dasher is a predictive text entry application"
+msgstr "Jurišnik služi za predviđanje unosa teksta"
+
+#: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
 msgstr ""
 "Danilo Šegan <danilo@gnome.org>\n"
@@ -38,15 +74,6 @@ msgstr ""
 "Slobodan D. Sredojević <slobo@akrep.be>\n"
 "\n"
 "http://prevod.org — prevodi na srpski jezik"
-
-#: ../Src/Gtk2/Menu.cc:467 ../Src/Gtk2/dasher.glade.h:57
-#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:54
-msgid "Dasher"
-msgstr "Jurišnik"
-
-#: ../Src/Gtk2/Menu.cc:467
-msgid "Dasher is a predictive text entry application"
-msgstr "Jurišnik služi za predviđanje unosa teksta"
 
 #: ../Src/Gtk2/Preferences.cpp:585 ../Src/Gtk2/Preferences.cpp:587
 #: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
@@ -532,6 +559,12 @@ msgstr "Iseci"
 msgid "Cyclical button mode"
 msgstr "Kružni režim dugmadi"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
+msgid "Dasher"
+msgstr "Jurišnik"
+
 #: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
 #: ../Src/Gtk2/dashermaemo.glade.h:55
 msgid "Dasher Preferences"
@@ -1000,6 +1033,7 @@ msgid "Unable to initialize speech support\n"
 msgstr "Ne mogu da podesim podršku za govor\n"
 
 #: ../Src/Gtk2/speech.cc:52
+#, c-format
 msgid "Unable to initialize voices\n"
 msgstr "Ne mogu da podesim glasove\n"
 
@@ -1008,6 +1042,6 @@ msgstr "Ne mogu da podesim glasove\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Upozorenje: ne mogu da postavim parametre govora\n"
 
-#: ../Src/main.cc:128
+#: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Jurišnikov unos teksta"
