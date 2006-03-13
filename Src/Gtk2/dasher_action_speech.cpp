@@ -40,7 +40,7 @@ GType dasher_action_speech_get_type() {
       NULL
     };
 
-    dasher_action_speech_type = g_type_register_static(G_TYPE_OBJECT, "DasherActionSpeech", &dasher_action_speech_info, static_cast < GTypeFlags > (0));
+    dasher_action_speech_type = g_type_register_static(TYPE_DASHER_ACTION, "DasherActionSpeech", &dasher_action_speech_info, static_cast < GTypeFlags > (0));
   }
 
   return dasher_action_speech_type;

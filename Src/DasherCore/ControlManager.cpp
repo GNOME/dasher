@@ -272,6 +272,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
      if( *it == NULL ) {
        // Escape back to alphabet
        pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
+       pNewNode->Seen(false);
      }
      else {
 

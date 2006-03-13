@@ -180,6 +180,7 @@ void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
     bool bStarted = false;
     
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+      bStarted = true;
       if(pCurrentAction->iControlID == iNodeID)
 	dasher_action_execute(pCurrentAction->pAction, dasher_editor_get_all_text(pSelf)); 
       pCurrentAction = pCurrentAction->pNext;
