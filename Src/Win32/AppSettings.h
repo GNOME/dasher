@@ -74,6 +74,10 @@ public:
     m_hWnd = hWnd;
   };
 
+  void SetDasher(Dasher::CDasher *pDasher) {
+    m_pDasher = pDasher;
+  };
+
 private:
   struct bp_info {
     int key;

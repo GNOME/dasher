@@ -129,7 +129,7 @@ HWND CDasherWindow::Create()
   //Tstring WndClassName = CreateMyClass();
 
   // Create a CAppSettings
-  m_pAppSettings = new CAppSettings(m_pDasher, 0);
+  m_pAppSettings = new CAppSettings(0, 0);
 
   HWND hWnd;
 
@@ -153,6 +153,7 @@ HWND CDasherWindow::Create()
 
   // Create a CAppSettings
   m_pAppSettings->SetHwnd(hWnd);
+  m_pAppSettings->SetDasher(m_pDasher);
 
   m_pEdit = new CEdit();
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
