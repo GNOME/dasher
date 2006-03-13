@@ -1,0 +1,53 @@
+#ifndef __dasher_editor_h__
+#define __dasher_editor_h__
+
+#include <glib.h>
+#include <glib-object.h>
+#include <gtk/gtk.h>
+
+#include "dasher_buffer_set.h"
+#include "dasher_action.h"
+
+typedef enum {
+  CLIPBOARD_CUT,
+  CLIPBOARD_COPY,
+  CLIPBOARD_PASTE,
+  CLIPBOARD_COPYALL,
+  CLIPBOARD_SELECTALL,
+  CLIPBOARD_CLEAR,
+} clipboard_action;
+
+G_BEGIN_DECLS
+#define TYPE_DASHER_EDITOR            (dasher_editor_get_type())
+#define DASHER_EDITOR(obj)            (G_TYPE_CHECK_INSTANCE_CAST((obj), TYPE_DASHER_EDITOR, DasherEditor ))
+#define DASHER_EDITOR_CLASS(klass)    (G_TYPE_CHECK_CLASS_CAST ((klass), TYPE_DASHER_EDITOR, DasherEditorClass ))
+#define IS_DASHER_EDITOR(obj)	      (G_TYPE_CHECK_INSTANCE_TYPE((obj), TYPE_DASHER_EDITOR))
+#define IS_DASHER_EDITOR_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), TYPE_DASHER_EDITOR))
+#define DASHER_EDITOR_GET_CLASS(obj)  (G_TYPE_INSTANCE_GET_CLASS ((obj), TYPE_DASHER_EDITOR, DasherEditorClass))
+
+typedef struct _DasherEditor DasherEditor;
+typedef struct _DasherEditorClass DasherEditorClass;
+
+struct _DasherEditor {
+  GObject parent;
+  gpointer private_data;
+};
+
+struct _DasherEditorClass {
+  GObjectClass parent_class;
+};
+
+DasherEditor *dasher_editor_new(GtkTextView *pTextView, GtkVBox *pActionPane);
+GType dasher_editor_get_type();
+
+IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
+void dasher_editor_clipboard(DasherEditor *pSelf, clipboard_action act);
+void dasher_editor_handle_stop(DasherEditor *pSelf);
+void dasher_editor_handle_start(DasherEditor *pSelf);
+void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID);
+void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction);
+void dasher_editor_clear(DasherEditor *pSelf, gboolean bStore);
+G_END_DECLS
+
+#endif
+

@@ -1,6 +1,8 @@
 #ifndef __dasher_action_h__
 #define __dasher_action_h__
 
+// TODO: This should be an interface rather than an instantiable class
+
 #include <glib.h>
 #include <glib-object.h>
 
@@ -24,12 +26,14 @@ struct _DasherActionClass {
   GObjectClass parent_class;
 
   gboolean (*execute)(DasherAction *pSelf, const gchar *szData);
+  const gchar *(*get_name)(DasherAction *pSelf);
 };
 
 DasherAction *dasher_action_new();
 GType dasher_action_get_type();
 
 gboolean dasher_action_execute(DasherAction *pSelf, const gchar *szData);
+const gchar *dasher_action_get_name(DasherAction *pSelf);
 G_END_DECLS
 
 #endif

@@ -20,6 +20,7 @@
 #include <time.h>
 #include <dirent.h>
 #include <X11/Xlib.h>
+#include <X11/Xatom.h>
 #include "Output.h"
 
 // C++ STL headers (ideally minimise the use of C++ outside of the control)
@@ -160,29 +161,6 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   if( dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR ) ) {
     gtk_widget_show( toolbar );
   }
-  
-  // Add UI control node stuff (might be better elsewhere)
-  
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, "Speak", -1 );
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+1, "All", -1 );
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+2, "New", -1 );
-  gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+3, "Repeat", -1 );
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, Dasher::CControlManager::CTL_ROOT, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+1, Dasher::CControlManager::CTL_USER, -2);
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+2, Dasher::CControlManager::CTL_USER, -2);
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER+3, Dasher::CControlManager::CTL_USER, -2);
- 
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER+1, -2);
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+1, -2);
-  
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER+2, -2);
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+2, -2);
-
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER+3, -2);
-  gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
-  // ---
 
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
@@ -248,10 +226,6 @@ void SetupWMHints(bool bTopMost) {
   else {
     gdk_window_remove_filter(window->window, dasher_discard_take_focus_filter, NULL);
   }
-
-//   XSetWMHints(GDK_WINDOW_XDISPLAY(g_pHiddenWindow->window), GDK_WINDOW_XWINDOW(g_pHiddenWindow->window), &wm_hints);
-//   XSetWMProtocols(GDK_WINDOW_XDISPLAY(g_pHiddenWindow->window), GDK_WINDOW_XWINDOW(g_pHiddenWindow->window), wm_window_protocols, 3);
-//   gdk_window_add_filter(g_pHiddenWindow->window, dasher_discard_take_focus_filter, NULL);
 #endif
 
   gtk_window_set_keep_above(GTK_WINDOW(window), bTopMost);
@@ -265,7 +239,7 @@ void SetupPositioning() {
 
   // FIXME - what does gravity actually achieve here?
 
-//   gint iWidth;
+  //   gint iWidth;
 //   gint iHeight;
 
 //   gtk_window_set_gravity(GTK_WINDOW(window), GDK_GRAVITY_SOUTH_EAST);
@@ -285,19 +259,16 @@ void SetupPositioning() {
 
   switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
   case 0:
-    std::cout << "Classic style" << std::endl;
     bShowEdit = true;
     bShowActions = false;
     bTopMost = false;
     break;
   case 1:
-    std::cout << "Composition style" << std::endl;
     bShowEdit = true;
     bShowActions = true;
     bTopMost = true;
     break;
   case 2:
-    std::cout << "Direct style" << std::endl;
     bShowEdit = false;
     bShowActions = false;
     bTopMost = true;
@@ -319,6 +290,146 @@ void SetupPositioning() {
   }
 
   SetupWMHints(bTopMost);
+
+  // This is neat, but needs to be thought through
+
+  int iTargetWidth;
+  int iTargetHeight;
+  int iScreenWidth = gdk_screen_width();
+  int iScreenHeight = gdk_screen_height();
+  int iScreenTop;
+  int iLeft;
+  int iTop;
+
+
+  Atom atom_strut_partial = gdk_x11_get_xatom_by_name("_NET_WM_STRUT_PARTIAL");
+  guint32 struts[12] = {0, 0, 0, 0, 0, 0 ,0 ,0 ,0 ,0 ,0 ,0};
+
+  XChangeProperty(GDK_WINDOW_XDISPLAY(window->window),
+  		  GDK_WINDOW_XWINDOW(window->window),
+  		  atom_strut_partial,
+  		  XA_CARDINAL, 32, PropModeReplace,
+  		  (guchar *)&struts, 12);
+
+  int iDockPosition(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_DOCK_STYLE));
+
+  if(iDockPosition < 4) {
+    gtk_window_unfullscreen(GTK_WINDOW(window));
+  gtk_window_get_size(GTK_WINDOW(window), &iTargetWidth, &iTargetHeight);
+
+  // TODO: Need full struts for old window managers
+
+  Atom atom_work_area = gdk_x11_get_xatom_by_name("_NET_WORKAREA");
+  Atom aReturn;
+  int iFormatReturn;
+  unsigned long iItemsReturn;
+  unsigned long iBytesAfterReturn;
+  unsigned char *iData;
+
+  XGetWindowProperty(GDK_WINDOW_XDISPLAY(GDK_ROOT_PARENT()),
+		     GDK_WINDOW_XWINDOW(GDK_ROOT_PARENT()),
+		     atom_work_area,
+		     0, 4, false,
+		     XA_CARDINAL, 
+		     &aReturn,
+		     &iFormatReturn,
+		     &iItemsReturn,
+		     &iBytesAfterReturn,
+		     &iData);
+
+  // TODO: need to use width here
+  // TODO: need more error checking with raw X11 stuff
+
+  iScreenTop = ((unsigned long *)iData)[1];
+  iScreenHeight = ((unsigned long *)iData)[3];
+
+  XFree(iData);
+
+  switch(iDockPosition) {
+  case 0: // Top left
+    struts[0] = iTargetWidth;
+    struts[4] = iScreenTop;
+    struts[5] = iTargetHeight + iScreenTop;
+
+    iLeft = 0;
+    iTop = iScreenTop;
+    break;
+  case 1: // Top right
+    struts[1] = iTargetWidth;
+    struts[6] = iScreenTop;
+    struts[7] = iTargetHeight + iScreenTop;
+
+    iLeft = iScreenWidth - iTargetWidth;
+    iTop = iScreenTop;
+    break;
+  case 2: // Bottom left
+    struts[0] = iTargetWidth;
+    struts[4] = iScreenHeight + iScreenTop - iTargetHeight;
+    struts[5] = iScreenHeight + iScreenTop;
+
+    iLeft = 0;
+    iTop =  iScreenHeight + iScreenTop - iTargetHeight;
+    break;
+  case 3: // Bottom right
+    struts[1] = iTargetWidth;
+    struts[6] = iScreenHeight + iScreenTop - iTargetHeight;
+    struts[7] = iScreenHeight + iScreenTop;
+
+    iLeft = iScreenWidth - iTargetWidth;
+    iTop = iScreenHeight + iScreenTop - iTargetHeight;
+    break;
+  }
+  
+  XChangeProperty(GDK_WINDOW_XDISPLAY(window->window),
+  		  GDK_WINDOW_XWINDOW(window->window),
+  		  atom_strut_partial,
+  		  XA_CARDINAL, 32, PropModeReplace,
+  		  (guchar *)&struts, 12);
+  
+  Atom atom_type[1];
+  atom_type[0] = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE_DOCK");
+  
+  Atom atom_window_type = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE");
+  
+  XChangeProperty(GDK_WINDOW_XDISPLAY(window->window),
+		  GDK_WINDOW_XWINDOW(window->window),
+		  atom_window_type,
+		  XA_ATOM, 32, PropModeReplace,
+		  (guchar *)&atom_type, 1);
+  
+  gdk_window_move_resize((GdkWindow *)window->window, iLeft, iTop, iTargetWidth, iTargetHeight);
+
+  }
+  else if(iDockPosition == 4) {
+    Atom atom_type[1];
+    atom_type[0] = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE_NORMAL");
+    
+    Atom atom_window_type = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE");
+    
+    XChangeProperty(GDK_WINDOW_XDISPLAY(window->window),
+		    GDK_WINDOW_XWINDOW(window->window),
+		    atom_window_type,
+		    XA_ATOM, 32, PropModeReplace,
+		    (guchar *)&atom_type, 1);
+
+    gtk_window_unfullscreen(GTK_WINDOW(window));
+  }
+  else if(iDockPosition == 5) {
+    Atom atom_type[1];
+    atom_type[0] = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE_NORMAL");
+    
+    Atom atom_window_type = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE");
+    
+    XChangeProperty(GDK_WINDOW_XDISPLAY(window->window),
+		    GDK_WINDOW_XWINDOW(window->window),
+		    atom_window_type,
+		    XA_ATOM, 32, PropModeReplace,
+		    (guchar *)&atom_type, 1);
+
+
+    gtk_window_fullscreen(GTK_WINDOW(window));
+  }
+  
 }
 
 ///
@@ -389,13 +500,16 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
     }
   }
   else if(iParameter == BP_SHOW_SLIDER) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
+    //    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "speedsliderbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER));
+    RefreshWidget(iParameter);
   }
   else if(iParameter == BP_DRAW_MOUSE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
+    //   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "showmousebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE));
+    RefreshWidget(iParameter);
   }
   else if(iParameter == BP_DRAW_MOUSE_LINE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
+    //    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "showmouselinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE));
+    RefreshWidget(iParameter);
   }
   else if(iParameter == BP_NUMBER_DIMENSIONS) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "onedbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS));
@@ -430,7 +544,8 @@ extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iP
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEY_CONTROL));
   }
   else if(iParameter == BP_OUTLINE_MODE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "outlinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE));
+    //    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "outlinebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE));
+    RefreshWidget(iParameter);
   }
 //   else if(iParameter == BP_KEYBOARD_MODE) {
 //     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "keyboardbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEYBOARD_MODE));
@@ -456,6 +571,7 @@ void main_handle_parameter_change(int iParameter) {
     set_editbox_font(dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
     break;
   case APP_LP_STYLE:
+    create_buffer();
     SetupPositioning();
     break;
   }
@@ -502,6 +618,7 @@ void SaveWindowState() {
 
 extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data) {
   set_mark();
+  dasher_editor_handle_start(g_pEditor);
 }
 
 ///
@@ -511,15 +628,7 @@ extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer da
 ///
 
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
-  if(dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_SPEECH_MODE))
-    SPEAK_DAMN_YOU(get_new_text());
-
-  if(dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_COPY_ALL_ON_STOP))
-    gtk2_clipboard_callback(CLIPBOARD_COPYALL);
-
-  // Send the text to an external application
-
-  //  SendText(get_new_text());
+  dasher_editor_handle_stop(g_pEditor);
 }
 
 extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) {
@@ -532,20 +641,7 @@ extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint i
 
 
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
-
-  if(!edit_handle_control_event(iEvent)) {
-    switch( iEvent ) {
-    case Dasher::CControlManager::CTL_USER+1: // Speak all
-      SPEAK_DAMN_YOU(get_all_text());
-      break;
-    case Dasher::CControlManager::CTL_USER+2: // Speak new
-      SPEAK_DAMN_YOU(get_new_text());
-      break;
-    case Dasher::CControlManager::CTL_USER+3: // Repeat speech
-      repeat_speech();
-      break;
-    }
-  }
+  dasher_editor_handle_control(g_pEditor, iEvent);
 }
 
 extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
@@ -554,39 +650,6 @@ extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer
 
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data) {
   preferences_display(0,0);
-}
-
-extern "C" void RestoreButton_Clicked(GtkWidget *widget, gpointer user_data) {
-#ifdef PJC_EXPERIMENTAL
-  gtk_widget_show(window);
-  gtk_widget_hide(g_pHiddenWindow);
-  //  SetupPositioning();
-  //  SetupWMHints();
-#endif
-}
-
-extern "C" void DoneButton_Clicked(GtkWidget *widget, gpointer user_data) {
-  SendText(get_all_text());
-
-  if(g_pAction)
-    dasher_action_execute(g_pAction, get_all_text());
-
-  clear_edit();
-  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
-
-  //  gtk_widget_show(g_pHiddenWindow);
-  // gtk_widget_hide(window);
-  // SetupPositioning();
-  //SetupWMHints();
-}
-
-extern "C" void CancelButton_Clicked(GtkWidget *widget, gpointer user_data) {  
-  clear_edit();
-  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
-  //  gtk_widget_show(g_pHiddenWindow);
-  //  gtk_widget_hide(window);
-  //  SetupPositioning();
-  // SetupWMHints();
 }
 
 extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {

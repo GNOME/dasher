@@ -13,6 +13,26 @@
 #include <cstring>
 #include <libintl.h>
 
+typedef struct _BoolTranslation BoolTranslation;
+
+struct _BoolTranslation {
+  gint iParameter;
+  gchar *szWidgetName;
+  GtkWidget *pWidget;
+};
+
+BoolTranslation sBoolTranslationTable[] = {
+  {BP_DRAW_MOUSE_LINE, "showmouselinebutton", NULL},
+  {BP_DRAW_MOUSE, "showmousebutton", NULL},
+  {BP_SHOW_SLIDER, "speedsliderbutton", NULL},
+  {APP_BP_SHOW_TOOLBAR, "toolbarbutton", NULL},
+  {BP_OUTLINE_MODE, "outlinebutton", NULL}
+};
+
+void RefreshWidget(gint iParameter);
+extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData);
+
+void InitialiseTables(GladeXML *pGladeWidgets);
 void PopulateLMPage(GladeXML * pGladeWidgets);
 void generate_preferences(GladeXML * pGladeWidgets);
 void PopulateControlPage(GladeXML * pGladeWidgets);
@@ -85,6 +105,9 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   m_pSocketSettings = glade_xml_get_widget(pGladeWidgets, "window2"); 
   m_pAdvancedSettings = glade_xml_get_widget(pGladeWidgets, "window3");
 
+  InitialiseTables(pGladeWidgets);
+  RefreshWidget(-1);
+  
   generate_preferences(pGladeWidgets);
   PopulateControlPage(pGladeWidgets);
   PopulateViewPage(pGladeWidgets);
@@ -249,10 +272,10 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     break;
   }
  
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR) );
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), getBool(BP_SHOW_SLIDER));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), getBool(BP_DRAW_MOUSE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), getBool(BP_DRAW_MOUSE_LINE));
+  //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "toolbarbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR) );
+  //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speedsliderbutton")), getBool(BP_SHOW_SLIDER));
+  //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmousebutton")), getBool(BP_DRAW_MOUSE));
+  //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "showmouselinebutton")), getBool(BP_DRAW_MOUSE_LINE));
 
   if(getLong(LP_LINE_WIDTH) > 1)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), true);
@@ -261,7 +284,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
 
   //gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEYBOARD_MODE));
 //  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "palettebutton")), getBool(BP_PALETTE_CHANGE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), getBool(BP_OUTLINE_MODE));
+//  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "outlinebutton")), getBool(BP_OUTLINE_MODE));
 }
 
 
@@ -840,20 +863,8 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
   }
 }
 
-extern "C" void show_toolbar(GtkWidget *widget, gpointer user_data) {
-  dasher_app_settings_set_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR, GTK_TOGGLE_BUTTON(widget)->active );
-}
-
-extern "C" void show_slider(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_SHOW_SLIDER, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-extern "C" void DrawMouse(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-extern "C" void DrawMouseLine(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_DRAW_MOUSE_LINE, GTK_TOGGLE_BUTTON(widget)->active);
+extern "C" void generic_bool_changed(GtkWidget *widget, gpointer user_data) {
+  RefreshParameter(widget, user_data);
 }
 
 extern "C" void ThickLineClicked(GtkWidget *widget, gpointer user_data) {
@@ -861,11 +872,6 @@ extern "C" void ThickLineClicked(GtkWidget *widget, gpointer user_data) {
     gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LINE_WIDTH, 3);
   else
     gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LINE_WIDTH, 1);
-}
-
-extern "C" void outlineboxes(GtkWidget *widget, gpointer user_data) {
-  // drawoutline=GTK_TOGGLE_BUTTON(widget)->active; // FIXME - REIMPLEMENT
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_OUTLINE_MODE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void palettechange(GtkWidget *widget, gpointer user_data) {
@@ -1190,3 +1196,32 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
   }
 }
 
+void InitialiseTables(GladeXML *pGladeWidgets) {
+  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
+
+  for(int i(0); i < iNumBoolEntries; ++i) {
+    sBoolTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sBoolTranslationTable[i].szWidgetName);
+  }
+}
+
+void RefreshWidget(gint iParameter) {
+  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
+  
+  for(int i(0); i < iNumBoolEntries; ++i) {
+    if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter));
+    }
+  }
+}
+
+extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
+  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
+  
+  for(int i(0); i < iNumBoolEntries; ++i) {
+    if((pWidget == NULL) || (sBoolTranslationTable[i].pWidget == pWidget)) {
+      if(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active != dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter)) {
+	dasher_app_settings_set_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter, GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active);
+      }
+    }
+  }
+}

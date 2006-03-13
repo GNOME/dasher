@@ -59,3 +59,10 @@ gboolean dasher_action_execute(DasherAction *pSelf, const gchar *szData) {
   else
     return false;
 }
+
+const gchar *dasher_action_get_name(DasherAction *pSelf) {
+  if(DASHER_ACTION_GET_CLASS(pSelf)->get_name)
+    return DASHER_ACTION_GET_CLASS(pSelf)->get_name(pSelf);
+  else
+    return 0;
+}

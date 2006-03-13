@@ -344,25 +344,25 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
 // 'Edit' menu
 
 extern "C" void clipboard_cut(void) {
-  gtk2_clipboard_callback(CLIPBOARD_CUT);       // FIXME - give this a better name
+  dasher_editor_clipboard(g_pEditor, CLIPBOARD_CUT);       // FIXME - give this a better name
 }
 
 extern "C" void clipboard_copy(void) {
-  gtk2_clipboard_callback(CLIPBOARD_COPY);
+  dasher_editor_clipboard(g_pEditor, CLIPBOARD_COPY);
 }
 
 extern "C" void clipboard_paste(void) {
-  gtk2_clipboard_callback(CLIPBOARD_PASTE);
+  dasher_editor_clipboard(g_pEditor, CLIPBOARD_PASTE);
 }
 
 extern "C" void clipboard_copy_all(void) {
-  gtk2_clipboard_callback(CLIPBOARD_COPYALL);
+  dasher_editor_clipboard(g_pEditor, CLIPBOARD_COPYALL);
 }
 
 // Not actually on the menu, but should be?
 
 extern "C" void clipboard_select_all(void) {
-  gtk2_clipboard_callback(CLIPBOARD_SELECTALL);
+  dasher_editor_clipboard(g_pEditor, CLIPBOARD_SELECTALL);
 }
 
 // 'Options' Menu

@@ -55,10 +55,22 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher.h \
                          dasher_action.cpp \
                          dasher_action.h \
+                         dasher_action_copy.cpp \
+                         dasher_action_copy.h \
                          dasher_action_keyboard.cpp \
                          dasher_action_keyboard.h \
+                         dasher_action_script.cpp \
+                         dasher_action_script.h \
                          dasher_action_speech.cpp \
                          dasher_action_speech.h \
+                         dasher_buffer_set.cpp \
+                         dasher_buffer_set.h \
+                         dasher_editor.cpp \
+                         dasher_editor.h \
+                         dasher_external_buffer.cpp \
+                         dasher_external_buffer.h \
+                         dasher_internal_buffer.cpp \
+                         dasher_internal_buffer.h \
                          dasher_main.cpp \
                          dasher_main.h \
                          edit.cc \

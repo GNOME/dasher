@@ -22,18 +22,11 @@
 
 #include <glade/glade.h>
 
-typedef enum {
-  CLIPBOARD_CUT,
-  CLIPBOARD_COPY,
-  CLIPBOARD_PASTE,
-  CLIPBOARD_COPYALL,
-  CLIPBOARD_SELECTALL,
-  CLIPBOARD_CLEAR,
-} clipboard_action;
 
 bool edit_handle_control_event(gint iEvent);
 void initialise_edit(GladeXML * pGladeXML);
 void cleanup_edit();
+void create_buffer();
 
 extern "C" void gtk2_edit_output_callback(GtkDasherControl * pDasherControl, const gchar * szText, gpointer user_data);
 
@@ -41,17 +34,17 @@ void gtk2_edit_outputcontrol_callback(void *pointer, int data);
 
 extern "C" void gtk2_edit_delete_callback(GtkDasherControl * pDasherControl, const gchar * szText, gpointer user_data);
 
-void edit_move_back();
-void edit_move_forward();
-void edit_move_start();
-void edit_move_end();
-void edit_delete_forward_character();
-void edit_delete_forward_line();
-void edit_delete_forward_word();
-void edit_delete_backward_line();
-void edit_delete_backward_word();
-void gtk2_clipboard_callback(clipboard_action act);
-void select_all();
+/* void edit_move_back(); */
+/* void edit_move_forward(); */
+/* void edit_move_start(); */
+/* void edit_move_end(); */
+/* void edit_delete_forward_character(); */
+/* void edit_delete_forward_line(); */
+/* void edit_delete_forward_word(); */
+/* void edit_delete_backward_line(); */
+/* void edit_delete_backward_word(); */
+/* void gtk2_clipboard_callback(clipboard_action act); */
+/* void select_all(); */
 void clear_edit();
 
 void set_mark();

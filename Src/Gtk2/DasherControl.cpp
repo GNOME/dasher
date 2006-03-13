@@ -623,6 +623,8 @@ void CDasherControl::scan_alphabet_files() {
     }
   }
 
+  g_dir_close(directory);
+
   directory = g_dir_open(user_data_dir, 0, NULL);
 
   while((filename = g_dir_read_name(directory))) {
@@ -631,6 +633,7 @@ void CDasherControl::scan_alphabet_files() {
     }
   }
 
+  g_dir_close(directory);
   // FIXME - need to delete glob?
 }
 

@@ -5,9 +5,13 @@
 
 #include "dasher_main.h"
 #include "DasherAppSettings.h"
+#include "dasher_buffer_set.h"
+#include "dasher_editor.h"
 
 extern DasherMain *g_pDasherMain;
 extern DasherAppSettings *g_pDasherAppSettings;
+extern IDasherBufferSet *g_pBufferSet;
+extern DasherEditor *g_pEditor;
 
 // Old stuff
 
@@ -26,6 +30,8 @@ void interface_late_setup();
 void interface_cleanup();
 
 void main_handle_parameter_change(int iParameter);
+
+void RefreshWidget(int iParameter);
 
 extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale * hscale);

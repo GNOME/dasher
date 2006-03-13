@@ -7,6 +7,7 @@ static void dasher_action_keyboard_class_init(DasherActionKeyboardClass *pClass)
 static void dasher_action_keyboard_init(DasherActionKeyboard *pActionKeyboard);
 static void dasher_action_keyboard_destroy(GObject *pObject);
 static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, const gchar *szData);
+static const gchar *dasher_action_keyboard_get_name(DasherAction *pSelf);
 
 GType dasher_action_keyboard_get_type() {
 
@@ -38,6 +39,7 @@ static void dasher_action_keyboard_class_init(DasherActionKeyboardClass *pClass)
 
   DasherActionClass *pDasherActionClass = (DasherActionClass *) pClass;
   pDasherActionClass->execute = dasher_action_keyboard_execute;
+  pDasherActionClass->get_name = dasher_action_keyboard_get_name;
 }
 
 static void dasher_action_keyboard_init(DasherActionKeyboard *pDasherControl) {
@@ -67,4 +69,8 @@ static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, const gchar 
   
   delete[] szNewText;
   return true;
+}
+
+static const gchar *dasher_action_keyboard_get_name(DasherAction *pSelf) {
+  return "Enter Text";
 }

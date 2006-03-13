@@ -263,12 +263,6 @@ int main(int argc, char *argv[]) {
   gtk_widget_show_all(GTK_WIDGET(app));
 #endif
 
-  //  setup = TRUE;
-
-#ifdef GNOME_SPEECH
-  setup_speech();
-#endif
-
 
   if(optind < argc) {
     if(!g_path_is_absolute(argv[optind])) {

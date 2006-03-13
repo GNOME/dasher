@@ -69,7 +69,8 @@ app_lp_table app_longparamtable[] = {
   {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, 75, "EditHeight0"},
   {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, 400, "ScreenWidth"},
   {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, 500, "ScreenHeight"},
-  {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"}
+  {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
+  {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"}
 };
 
 app_sp_table app_stringparamtable[] = {
