@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-15 02:56+0200\n"
-"PO-Revision-Date: 2006-02-15 02:10+0200\n"
+"POT-Creation-Date: 2006-03-15 16:30+0200\n"
+"PO-Revision-Date: 2006-03-15 16:31+0200\n"
 "Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
@@ -28,6 +28,39 @@ msgstr "Dasher lizdo įvestis: nepavyko paleisti skaityklės gijos."
 #: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Pasirinkti rinkmeną"
+
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Ar norite išsaugoti %s pakeitimus?\n"
+"\n"
+"Jeigu neišsaugosite, Jūsų pakeitimai bus prarasti."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Ar norite išsaugoti pakeitimus?\n"
+"\n"
+"Jeigu neišsaugosite, Jūsų pakeitimai bus prarasti."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Nesaugoti"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Neišeiti"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Išsaugoti ir išeiti"
 
 #: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
@@ -522,8 +555,9 @@ msgstr "Iškirpti"
 msgid "Cyclical button mode"
 msgstr "Ciklinis klavišų režimas"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
 msgstr "Dasher"
 
