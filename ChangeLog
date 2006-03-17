@@ -1,3 +1,7 @@
+2006-03-13  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Bumped version number for release
+
 2006-03-01  Vladimer SIchinava <vlsichinava@gmail.com>
 
         * configure.in: Added ka (Georgian) to ALL_LINGUAS

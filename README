@@ -1,15 +1,7 @@
-Dasher version 3.99.5 (4.0 preview 6)
-------------------------------------- 
+Dasher version 4.0.0
+--------------------
 
-This is Dasher 3.99.5, the sixth and final preview release of the
-upcoming 4.0 series. This version is `feature frozen' for 4.0, but it
-is still to some extent development code, and should therefore be
-considered potentially unstable. The full 4.0 release will coincide
-with the release of GNOME 2.14. See:
-
-http://live.gnome.org/TwoPointThirteen
-
-for details of the release schedule.
+This is Dasher 4.0.0, the first of the new stable series of Dasher releases.
 
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It
@@ -18,6 +10,10 @@ high rates of text entry.
 
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
+
+New Features In 4.0.0
+---------------------
+ * Essentially just a renumbering of 3.99.5
 
 New Features In 3.99.5
 ----------------------
