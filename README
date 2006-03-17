@@ -1,41 +1,18 @@
-Dasher version 4.0.0
+Dasher version 4.0.1
 --------------------
 
-This is Dasher 4.0.0, the first of the new stable series of Dasher releases.
-
-Dasher is a zooming predictive text entry system, designed for situations
-where keyboard input is impractical (for instance, accessibility or PDAs). It
-is usable with highly limited amounts of physical input while still allowing
-high rates of text entry.
+This is Dasher 4.0.1. Dasher is a zooming predictive text entry
+system, designed for situations where keyboard input is impractical
+(for instance, accessibility or PDAs). It is usable with highly
+limited amounts of physical input while still allowing high rates of
+text entry.
 
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
 
-New Features In 4.0.0
+New Features In 4.0.1
 ---------------------
- * Essentially just a renumbering of 3.99.5
-
-New Features In 3.99.5
-----------------------
- * New icon
- * Bugfixes in 'enter text into other windows' mode
-
-New Features In 3.99.4
-----------------------
- * Fixed font behaviour in Windows
- * Fixed broken start/stop in dynamic button mode
- * Other minor bugfixes
-
-New Features In 3.99.3
-----------------------
- * Bugfix - missing Win32 source files in archive
-
-New Features In 3.99.2
-----------------------
- * Improved button mode support
- * Cairo support ported from 3.2 branch
- * Win32 should build from tarball again
- * Bugfixes
+* Bugfix release
 
 Requirements
 ------------

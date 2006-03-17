@@ -1,6 +1,12 @@
-=============
+============
+Dasher 4.0.1
+============
+
+ * Fixed segfault in control mode
+
+============
 Dasher 4.0.0
-=============
+============
 
  * Promoted to stable release
 
