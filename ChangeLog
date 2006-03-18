@@ -1,3 +1,8 @@
+2006-03-17  Jérémy Ar Floc'h  <jeremy.lefloch@gmail.com>
+	
+	* po/br.po: Added Breton translation.
+	* configure.in: Added Breton translation.
+
 2006-03-17  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Bumped version number for release
