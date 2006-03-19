@@ -13,6 +13,8 @@
 #include <cstring>
 #include <libintl.h>
 
+GtkListStore *g_pStore;
+
 typedef struct _BoolTranslation BoolTranslation;
 
 struct _BoolTranslation {
@@ -29,6 +31,15 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_OUTLINE_MODE, "outlinebutton", NULL}
 };
 
+enum {
+  ACTIONS_ID_COLUMN,
+  ACTIONS_NAME_COLUMN,
+  ACTIONS_SHOW_COLUMN,
+  ACTIONS_CONTROL_COLUMN,
+  ACTIONS_AUTO_COLUMN,
+  ACTIONS_N_COLUMNS
+};
+
 void RefreshWidget(gint iParameter);
 extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData);
 
@@ -41,12 +52,14 @@ void PopulateButtonsPage(GladeXML * pGladeWidgets);
 void PopulateButtonSetupPage(GladeXML * pGladeWidgets);
 void PopulateSocketPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
+void PopulateActionsList(GladeXML *pGladeWidgets);
 
 void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
 
 extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
+extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData);
 
 GtkTreeSelection *alphselection, *colourselection;
 GtkWidget *alphabettreeview, *colourtreeview;
@@ -116,6 +129,7 @@ void initialise_preferences_dialogue(GladeXML *pGladeWidgets) {
   PopulateButtonSetupPage(pGladeWidgets);
   PopulateSocketPage(pGladeWidgets);
   PopulateAdvancedPage(pGladeWidgets);
+  PopulateActionsList(pGladeWidgets);
 }
 
 void PopulateControlPage(GladeXML *pGladeWidgets) {
@@ -1223,5 +1237,90 @@ extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
 	dasher_app_settings_set_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter, GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active);
       }
     }
+  }
+}
+
+void PopulateActionsList(GladeXML *pGladeWidgets) {
+  GtkWidget *pTreeView(glade_xml_get_widget(pGladeWidgets, "action_tree_view"));
+
+  g_pStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
+
+  GtkTreeIter oIter;
+
+  dasher_editor_actions_start(g_pEditor);
+
+  while(dasher_editor_actions_more(g_pEditor)) {
+    gtk_list_store_append(g_pStore, &oIter);
+
+    const gchar *szName;
+    gint iID;
+    gboolean bShow;
+    gboolean bControl;
+    gboolean bAuto;
+
+    dasher_editor_actions_get_next(g_pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
+
+    gtk_list_store_set(g_pStore, &oIter, 
+		       ACTIONS_ID_COLUMN, iID,
+		       ACTIONS_NAME_COLUMN, szName,
+		       ACTIONS_SHOW_COLUMN, bShow,
+		       ACTIONS_CONTROL_COLUMN, bControl,
+		       ACTIONS_AUTO_COLUMN, bAuto,
+		       -1);
+  }
+  
+  GtkCellRenderer *pRenderer;
+  GtkTreeViewColumn *pColumn;
+  
+  // TODO: (small) memory leak here at the moment
+  gint *pColumnIndex = new gint[3];
+  pColumnIndex[0] = ACTIONS_SHOW_COLUMN;
+  pColumnIndex[1] = ACTIONS_CONTROL_COLUMN;
+  pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
+
+  pRenderer = gtk_cell_renderer_text_new();
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
+
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
+  pColumn = gtk_tree_view_column_new_with_attributes("Show", pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
+
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
+  pColumn = gtk_tree_view_column_new_with_attributes("Control", pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
+
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
+  pColumn = gtk_tree_view_column_new_with_attributes("Auto", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
+
+  gtk_tree_view_set_model(GTK_TREE_VIEW(pTreeView), GTK_TREE_MODEL(g_pStore));
+}
+
+extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData) {
+  gint *pColumnIndex = (gint *)pUserData;
+
+  GtkTreeIter oIter;
+  gtk_tree_model_get_iter_from_string(GTK_TREE_MODEL(g_pStore), &oIter, szPath);
+  
+  gboolean bSelected;
+  gint iID;
+  gtk_tree_model_get(GTK_TREE_MODEL(g_pStore), &oIter, ACTIONS_ID_COLUMN, &iID, *pColumnIndex, &bSelected, -1);
+
+  gtk_list_store_set(g_pStore, &oIter, *pColumnIndex, !bSelected, -1);
+  
+  switch(*pColumnIndex) {
+  case ACTIONS_SHOW_COLUMN:
+    dasher_editor_action_set_show(g_pEditor, iID, !bSelected);
+    break;
+  case ACTIONS_CONTROL_COLUMN:
+    dasher_editor_action_set_control(g_pEditor, iID, !bSelected);
+    break;
+  case ACTIONS_AUTO_COLUMN:
+    dasher_editor_action_set_auto(g_pEditor, iID, !bSelected);
+    break;
   }
 }

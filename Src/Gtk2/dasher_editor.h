@@ -47,6 +47,12 @@ void dasher_editor_handle_start(DasherEditor *pSelf);
 void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID);
 void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction);
 void dasher_editor_clear(DasherEditor *pSelf, gboolean bStore);
+void dasher_editor_actions_start(DasherEditor *pSelf);
+bool dasher_editor_actions_more(DasherEditor *pSelf);
+void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto);
+void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
+void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
+void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
 G_END_DECLS
 
 #endif

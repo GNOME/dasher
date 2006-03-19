@@ -10,6 +10,19 @@
 #include "dasher_internal_buffer.h"
 #include "GtkDasherControl.h"
 
+typedef struct _EditorAction EditorAction;
+
+struct _EditorAction {
+  DasherAction *pAction;
+  EditorAction *pNext;
+  EditorAction *pPrevious;
+  gint iControlID;
+  gint iID; // TODO: does this need to be separate from iControlID?
+  gboolean bShow;
+  gboolean bControl;
+  gboolean bAuto;
+};
+
 static void dasher_editor_class_init(DasherEditorClass *pClass);
 static void dasher_editor_init(DasherEditor *pEditor);
 static void dasher_editor_destroy(GObject *pObject);
@@ -18,17 +31,10 @@ void dasher_editor_select_all(DasherEditor *pSelf);
 void dasher_editor_setup_actions(DasherEditor *pSelf);
 void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction);
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
+EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID);
+void dasher_editor_rebuild_action_pane(DasherEditor *pSelf);
 
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
-
-typedef struct _EditorAction EditorAction;
-
-struct _EditorAction {
-  DasherAction *pAction;
-  EditorAction *pNext;
-  EditorAction *pPrevious;
-  int iControlID;
-};
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
@@ -39,6 +45,9 @@ struct _DasherEditorPrivate {
   GtkClipboard *pTextClipboard;
   GtkClipboard *pPrimarySelection;
   EditorAction *pActionRing;
+  EditorAction *pActionIter;
+  gboolean bActionIterStarted;
+  gint iNextActionID;
 };
 
 GType dasher_editor_get_type() {
@@ -89,11 +98,11 @@ DasherEditor *dasher_editor_new(GtkTextView *pTextView, GtkVBox *pActionPane) {
   pPrivate->pTextView = pTextView;
   pPrivate->pBuffer = gtk_text_view_get_buffer(pTextView);
   pPrivate->pActionPane = pActionPane;
-
   pPrivate->pTextClipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
-
   pPrivate->pActionRing = NULL;
+  pPrivate->iNextActionID = 0;
+
   dasher_editor_setup_actions(pDasherControl);
 
   return pDasherControl;
@@ -165,6 +174,18 @@ void dasher_editor_select_all(DasherEditor *pSelf) {
 }
 
 void dasher_editor_handle_stop(DasherEditor *pSelf) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+  
+  // See if anything is set to auto:
+  EditorAction *pCurrentAction = pPrivate->pActionRing;
+  bool bStarted = false;
+  
+  while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+    bStarted = true;
+    if(pCurrentAction->bAuto)
+      dasher_action_execute(pCurrentAction->pAction, dasher_editor_get_all_text(pSelf)); 
+    pCurrentAction = pCurrentAction->pNext;
+  }
 }
 
 void dasher_editor_handle_start(DasherEditor *pSelf) {
@@ -195,6 +216,13 @@ void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
 
   EditorAction *pNewEditorAction = new EditorAction;
   pNewEditorAction->pAction = pNewAction;
+  pNewEditorAction->iID = pPrivate->iNextActionID;
+  ++pPrivate->iNextActionID;
+
+  // TODO: Need to get/set registry keys for these
+  pNewEditorAction->bShow = true;
+  pNewEditorAction->bControl = true;
+  pNewEditorAction->bAuto = false;
 
   if(pPrivate->pActionRing) {
     pNewEditorAction->pNext = pPrivate->pActionRing;
@@ -258,17 +286,6 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
   gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, Dasher::CControlManager::CTL_ROOT, -2);
   int iControlOffset(1);
 
-  // Add the cancel button
-  GtkButton *pNewButton = GTK_BUTTON(gtk_button_new_with_label("Clear"));
-  gtk_widget_show(GTK_WIDGET(pNewButton));
-
-  void **pUserData = new void *[2];
-  pUserData[0] = (void *)pSelf;
-  pUserData[1] = 0;
-  
-  g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
-  gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
-
   gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, "Clear", -1 );
   gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, Dasher::CControlManager::CTL_USER, -2);
   gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER + iControlOffset, -2);
@@ -279,22 +296,57 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
 
   while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
     bStarted = true;
-    GtkButton *pNewButton = GTK_BUTTON(gtk_button_new_with_label(dasher_action_get_name(pCurrentAction->pAction)));
-    gtk_widget_show(GTK_WIDGET(pNewButton));
-
-    pUserData = new void *[2];
-    pUserData[0] = (void *)pSelf;
-    pUserData[1] = (void *)(pCurrentAction->pAction);
-
-    g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
-    gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
-
+  
     gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, dasher_action_get_name(pCurrentAction->pAction), -1 );
     gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER + iControlOffset, Dasher::CControlManager::CTL_USER, -2);
     gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), -1, Dasher::CControlManager::CTL_USER + iControlOffset, -2);
     pCurrentAction->iControlID = Dasher::CControlManager::CTL_USER + iControlOffset;
     ++iControlOffset;
     
+    pCurrentAction = pCurrentAction->pNext;
+  }
+
+  dasher_editor_rebuild_action_pane(pSelf);
+}
+
+extern "C" void delete_children_callback(GtkWidget *pWidget, gpointer pUserData) {
+  gtk_widget_destroy(pWidget);
+}
+
+void dasher_editor_rebuild_action_pane(DasherEditor *pSelf) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+  
+  // Delete any existing widgets
+  gtk_container_foreach(GTK_CONTAINER(pPrivate->pActionPane), delete_children_callback, 0);
+
+  // Add the cancel button
+  GtkButton *pNewButton = GTK_BUTTON(gtk_button_new_with_label("Clear"));
+  gtk_widget_show(GTK_WIDGET(pNewButton));
+
+  void **pUserData = new void *[2];
+  pUserData[0] = (void *)pSelf;
+  pUserData[1] = 0;
+  
+  g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
+  gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
+ 
+
+  EditorAction *pCurrentAction = pPrivate->pActionRing;
+  bool bStarted = false;
+
+  while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+    bStarted = true;
+    if(pCurrentAction->bShow) {
+      GtkButton *pNewButton = GTK_BUTTON(gtk_button_new_with_label(dasher_action_get_name(pCurrentAction->pAction)));
+      gtk_widget_show(GTK_WIDGET(pNewButton));
+      
+      pUserData = new void *[2];
+      pUserData[0] = (void *)pSelf;
+      pUserData[1] = (void *)(pCurrentAction->pAction);
+      
+      g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
+      gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
+    }
     pCurrentAction = pCurrentAction->pNext;
   }
 }
@@ -330,6 +382,79 @@ void dasher_editor_clear(DasherEditor *pSelf, gboolean bStore) {
   gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStart);
   gtk_text_buffer_get_end_iter(pPrivate->pBuffer, &oEnd);
   gtk_text_buffer_delete(pPrivate->pBuffer, &oStart, &oEnd);
+}
+
+
+void dasher_editor_actions_start(DasherEditor *pSelf) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+
+  pPrivate->bActionIterStarted = false;
+  pPrivate->pActionIter = pPrivate->pActionRing;
+}
+
+bool dasher_editor_actions_more(DasherEditor *pSelf) {
+ DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+
+ return(!pPrivate->bActionIterStarted || (pPrivate->pActionIter != pPrivate->pActionRing));
+}
+
+void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, gint *iID, gboolean *bShow, gboolean *bControl, gboolean *bAuto) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+  
+  *szName = dasher_action_get_name(pPrivate->pActionIter->pAction);
+  *iID = pPrivate->pActionIter->iID;
+  *bShow = pPrivate->pActionIter->bShow; 
+  *bControl = pPrivate->pActionIter->bControl;
+  *bAuto = pPrivate->pActionIter->bAuto;
+  
+  pPrivate->pActionIter = pPrivate->pActionIter->pNext;
+  pPrivate->bActionIterStarted = true;
+}
+
+void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue) {
+  EditorAction *pAction;
+  pAction = dasher_editor_get_action_by_id(pSelf, iActionID);
+
+  if(pAction) {
+    pAction->bShow = bValue;
+    dasher_editor_rebuild_action_pane(pSelf);
+  }
+}
+
+void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue) {
+  // TODO: Need to actually change behaviour in resonse to these calls
+
+  EditorAction *pAction;
+  pAction = dasher_editor_get_action_by_id(pSelf, iActionID);
+  
+  if(pAction) {
+    pAction->bControl = bValue;
+  }
+}
+
+void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue) { 
+EditorAction *pAction;
+  pAction = dasher_editor_get_action_by_id(pSelf, iActionID);
+
+  if(pAction) {
+    pAction->bAuto = bValue;
+  }
+}
+
+EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID){
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+
+  EditorAction *pCurrentAction = pPrivate->pActionRing;
+  bool bStarted = false;
+  
+  while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+    bStarted = true;
+    if(pCurrentAction->iID == iID)
+      return pCurrentAction;
+    pCurrentAction = pCurrentAction->pNext;
+  }
+  
+  return 0;
 }
 
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData) {
