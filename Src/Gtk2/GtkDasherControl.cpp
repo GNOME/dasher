@@ -185,6 +185,10 @@ void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->ConnectNode(iChild, iParent, iAfter);
 }
 
+void gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->DisconnectNode(iChild, iParent);
+}
+
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl) {
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->UserLogNewTrial();
 }

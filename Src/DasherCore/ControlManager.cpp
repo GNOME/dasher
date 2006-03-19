@@ -223,12 +223,20 @@ void CControlManager::ConnectNode(int iChild, int iParent, int iAfter) {
 
   if( iChild == -1 ) {// Corresponds to escaping back to alphabet
     CControlNode* node = m_mapControlMap[iParent];
-	if(node)
-		node->vChildren.push_back(NULL);
-
+    if(node)
+      node->vChildren.push_back(NULL);
   }
   else
     m_mapControlMap[iParent]->vChildren.push_back(m_mapControlMap[iChild]); 
+}
+
+void CControlManager::DisconnectNode(int iChild, int iParent) {
+  CControlNode* pParentNode = m_mapControlMap[iParent];
+  CControlNode* pChildNode = m_mapControlMap[iChild];
+
+  for(std::vector<CControlNode *>::iterator itChild(pParentNode->vChildren.begin()); itChild != pParentNode->vChildren.end(); ++itChild)
+    if(*itChild == pChildNode)
+      pParentNode->vChildren.erase(itChild);
 }
 
 

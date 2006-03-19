@@ -66,6 +66,7 @@ void gtk_dasher_control_set_context(GtkDasherControl *pControl, const gchar *szC
 void gtk_dasher_control_invalidate_context(GtkDasherControl *pControl);
 void gtk_dasher_control_register_node(GtkDasherControl *pControl, int iID, const gchar *szLabel, int iColour);
 void gtk_dasher_control_connect_node(GtkDasherControl *pControl, int iChild, int iParent, int iAfter);
+void gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, int iParent);
 //FIXME - namespace broken
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);

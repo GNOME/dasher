@@ -429,6 +429,11 @@ void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool b
   
   if(pAction) {
     pAction->bControl = bValue;
+    
+    if(bValue)
+      gtk_dasher_control_connect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER, -2);
+    else
+      gtk_dasher_control_disconnect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER);
   }
 }
 

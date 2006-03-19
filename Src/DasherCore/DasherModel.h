@@ -233,6 +233,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
      m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
   }
 
+  void DisconnectNode(int iChild, int iParent) {
+     m_pControlManagerFactory->DisconnectNode(iChild, iParent);
+  }
+
   void Push_Node(CDasherNode * pNode);  // give birth to children
 
   bool m_bContextSensitive;

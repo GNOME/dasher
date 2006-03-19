@@ -424,8 +424,8 @@ public:
   // Control mode stuff
   
   void RegisterNode( int iID, const std::string &strLabel, int iColour );
-  
   void ConnectNode(int iChild, int iParent, int iAfter);
+  void DisconnectNode(int iChild, int iParent);
 
   /// Gets a pointer to the object doing user logging
   CUserLog*       GetUserLogPtr();

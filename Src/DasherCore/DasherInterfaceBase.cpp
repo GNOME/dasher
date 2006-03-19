@@ -865,6 +865,10 @@ void CDasherInterfaceBase::ConnectNode(int iChild, int iParent, int iAfter) {
   m_pDasherModel->ConnectNode(iChild, iParent, iAfter);
 }
 
+void CDasherInterfaceBase::DisconnectNode(int iChild, int iParent) {
+  m_pDasherModel->DisconnectNode(iChild, iParent);
+}
+
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
   PreSetNotify(iParameter);
   

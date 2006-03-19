@@ -35,3 +35,7 @@ void CControlManagerFactory::RegisterNode( int iID, const std::string &strLabel,
 void CControlManagerFactory::ConnectNode(int iChild, int iParent, int iAfter) {
   m_pControlManager->ConnectNode(iChild, iParent, iAfter);
 }
+
+void CControlManagerFactory::DisconnectNode(int iChild, int iParent) {
+  m_pControlManager->DisconnectNode(iChild, iParent);
+}

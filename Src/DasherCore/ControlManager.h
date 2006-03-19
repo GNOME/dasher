@@ -91,6 +91,7 @@ namespace Dasher {
 
     void RegisterNode( int iID, std::string strLabel, int iColour );
     void ConnectNode(int iChild, int iParent, int iAfter);
+    void DisconnectNode(int iChild, int iParent);
 
 
   private:
