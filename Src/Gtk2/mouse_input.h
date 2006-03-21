@@ -11,7 +11,7 @@ using namespace Dasher;
 class CDasherMouseInput : public CDasherInput {
 public:
   CDasherMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-    : CDasherInput(pEventHandler, pSettingsStore, 0, 0) {
+    : CDasherInput(pEventHandler, pSettingsStore, 0, 0, "Mouse Input") {
   };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
@@ -46,7 +46,7 @@ private:
 class CDasher1DMouseInput:public CDasherInput {
 public:
   CDasher1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-    : CDasherInput(pEventHandler, pSettingsStore, 2, 0) {
+    : CDasherInput(pEventHandler, pSettingsStore, 2, 0, "1D Mouse Input") {
   };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the

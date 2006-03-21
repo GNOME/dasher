@@ -13,6 +13,8 @@ class CWrapperFactory : public CModuleFactory {
   void GetNext(long long int *iID, int *iType, std::string *strName);
 
   CDasherModule *GetModule(long long int iID);
+  std::string GetName(long long int iID);
+  int GetType(long long int iID);
 
  private:
   CDasherModule *m_pModule;

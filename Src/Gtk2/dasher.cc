@@ -59,7 +59,6 @@
 #include "Menu.h"
 #include "AppSettings.h"
 #include "../DasherCore/Parameters.h"
-#include "speech.h"
 #include "accessibility.h"
 
 #include "dasher_action_keyboard.h"

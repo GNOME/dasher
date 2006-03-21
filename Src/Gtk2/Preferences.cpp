@@ -31,6 +31,21 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_OUTLINE_MODE, "outlinebutton", NULL}
 };
 
+typedef struct _StringTranslation StringTranslation;
+
+struct _StringTranslation {
+  gint iParameter;
+  gchar *szWidgetName;
+  GtkWidget *pWidget;
+};
+
+StringTranslation sStringTranslationTable[] = {
+  {SP_ALPHABET_ID, "AlphabetTree", NULL},
+  {SP_COLOUR_ID, "ColorTree", NULL},
+  {SP_INPUT_FILTER, "input_filter_tree_view", NULL},
+  {SP_INPUT_DEVICE, "input_tree_view", NULL}
+};
+
 enum {
   ACTIONS_ID_COLUMN,
   ACTIONS_NAME_COLUMN,
@@ -55,11 +70,14 @@ void PopulateAdvancedPage(GladeXML *pGladeWidgets);
 void PopulateActionsList(GladeXML *pGladeWidgets);
 
 void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
+void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter);
 
 extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData);
+extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData);
+extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData);
 
 GtkTreeSelection *alphselection, *colourselection;
 GtkWidget *alphabettreeview, *colourtreeview;
@@ -448,82 +466,84 @@ void PopulateLMPage(GladeXML *pGladeWidgets) {
 
 void generate_preferences(GladeXML *pGladeWidgets) {
   // We need to populate the lists of alphabets and colours
+//  dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "AlphabetTree")), SP_ALPHABET_ID);
+//  dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "ColorTree")), SP_COLOUR_ID);
 
-  GtkTreeIter alphiter, colouriter;
+//   GtkTreeIter alphiter, colouriter;
 
-  // Build the alphabet tree - this is nasty
-  alphabettreeview = glade_xml_get_widget(pGladeWidgets, "AlphabetTree");
-  alph_list_store = gtk_list_store_new(1, G_TYPE_STRING);
-  gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
-  alphselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(alphabettreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection), GTK_SELECTION_BROWSE);
-  GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes("Alphabet", gtk_cell_renderer_text_new(), "text", 0, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview), column);
+//   // Build the alphabet tree - this is nasty
+//   alphabettreeview = glade_xml_get_widget(pGladeWidgets, "AlphabetTree");
+//   alph_list_store = gtk_list_store_new(1, G_TYPE_STRING);
+//   gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
+//   alphselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(alphabettreeview));
+//   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection), GTK_SELECTION_BROWSE);
+//   GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes("Alphabet", gtk_cell_renderer_text_new(), "text", 0, NULL);
+//   gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview), column);
 
-  // Clear the contents of the alphabet list
-  gtk_list_store_clear(alph_list_store);
+//   // Clear the contents of the alphabet list
+//   gtk_list_store_clear(alph_list_store);
 
-  GArray *pAlphabetArray;
+//   GArray *pAlphabetArray;
 
-  pAlphabetArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID);
+//   pAlphabetArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID);
 
-  for(unsigned int i(0); i < pAlphabetArray->len; ++i) {
+//   for(unsigned int i(0); i < pAlphabetArray->len; ++i) {
 
-    const gchar *pCurrentAlphabet(g_array_index(pAlphabetArray, gchar *, i));
+//     const gchar *pCurrentAlphabet(g_array_index(pAlphabetArray, gchar *, i));
 
-    gtk_list_store_append(alph_list_store, &alphiter);
-    gtk_list_store_set(alph_list_store, &alphiter, 0, pCurrentAlphabet, -1);
+//     gtk_list_store_append(alph_list_store, &alphiter);
+//     gtk_list_store_set(alph_list_store, &alphiter, 0, pCurrentAlphabet, -1);
 
-    if(!strcmp(pCurrentAlphabet, getString(SP_ALPHABET_ID)))
-      SetAlphabetSelection(i, &alphiter);
+//     if(!strcmp(pCurrentAlphabet, getString(SP_ALPHABET_ID)))
+//       SetAlphabetSelection(i, &alphiter);
     
-  }
+//   }
 
-  g_array_free(pAlphabetArray, true);
+//   g_array_free(pAlphabetArray, true);
 
-  // Connect up a signal so we can select a new alphabet
-  g_signal_connect_after(G_OBJECT(alphselection), "changed", GTK_SIGNAL_FUNC(alphabet_select), NULL);
+//   // Connect up a signal so we can select a new alphabet
+//   g_signal_connect_after(G_OBJECT(alphselection), "changed", GTK_SIGNAL_FUNC(alphabet_select), NULL);
 
-  // Do the same for colours
-  colourtreeview = glade_xml_get_widget(pGladeWidgets, "ColorTree");
+//   // Do the same for colours
+//   colourtreeview = glade_xml_get_widget(pGladeWidgets, "ColorTree");
 
-  // Make sure that the colour tree is realized now as we'll need to do
-  // stuff with it before it's actually displayed
-  gtk_widget_realize(colourtreeview);
+//   // Make sure that the colour tree is realized now as we'll need to do
+//   // stuff with it before it's actually displayed
+//   gtk_widget_realize(colourtreeview);
 
-  colour_list_store = gtk_list_store_new(1, G_TYPE_STRING);
-  gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
-  colourselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(colourtreeview));
-  gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection), GTK_SELECTION_BROWSE);
-  column = gtk_tree_view_column_new_with_attributes("Colour", gtk_cell_renderer_text_new(), "text", 0, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview), column);
+//   colour_list_store = gtk_list_store_new(1, G_TYPE_STRING);
+//   gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
+//   colourselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(colourtreeview));
+//   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection), GTK_SELECTION_BROWSE);
+//   column = gtk_tree_view_column_new_with_attributes("Colour", gtk_cell_renderer_text_new(), "text", 0, NULL);
+//   gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview), column);
 
-  // Clear the contents of the colour list
-  gtk_list_store_clear(colour_list_store);
+//   // Clear the contents of the colour list
+//   gtk_list_store_clear(colour_list_store);
 
-  GArray *pColourArray;
+//   GArray *pColourArray;
 
-  pColourArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID);
+//   pColourArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID);
 
-  for(unsigned int i(0); i < pColourArray->len; ++i) {
+//   for(unsigned int i(0); i < pColourArray->len; ++i) {
 
-    const gchar *pCurrentColour(g_array_index(pColourArray, gchar *, i));
+//     const gchar *pCurrentColour(g_array_index(pColourArray, gchar *, i));
 
-    gtk_list_store_append(colour_list_store, &colouriter);
-    gtk_list_store_set(colour_list_store, &colouriter, 0, pCurrentColour, -1);
+//     gtk_list_store_append(colour_list_store, &colouriter);
+//     gtk_list_store_set(colour_list_store, &colouriter, 0, pCurrentColour, -1);
 
-    if(!strcmp(pCurrentColour, getString(SP_COLOUR_ID))) {
-      gchar ugly_path_hack[100];
-      sprintf(ugly_path_hack, "%d", i);
-      gtk_tree_selection_select_iter(colourselection, &colouriter);
-      gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview), gtk_tree_path_new_from_string(ugly_path_hack), NULL, false);
-    }
-  }
+//     if(!strcmp(pCurrentColour, getString(SP_COLOUR_ID))) {
+//       gchar ugly_path_hack[100];
+//       sprintf(ugly_path_hack, "%d", i);
+//       gtk_tree_selection_select_iter(colourselection, &colouriter);
+//       gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview), gtk_tree_path_new_from_string(ugly_path_hack), NULL, false);
+//     }
+//   }
 
-  g_array_free(pColourArray, true);
+//   g_array_free(pColourArray, true);
 
-  // Connect up a signal so we can select a new colour scheme
-  g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
+//   // Connect up a signal so we can select a new colour scheme
+//   g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
 
   if(getBool(BP_PALETTE_CHANGE)) {
     if(!gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "autocolour"))))
@@ -1212,18 +1232,55 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
 
 void InitialiseTables(GladeXML *pGladeWidgets) {
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
-
   for(int i(0); i < iNumBoolEntries; ++i) {
     sBoolTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sBoolTranslationTable[i].szWidgetName);
   }
+
+  int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
+  for(int i(0); i < iNumStringEntries; ++i) {
+    sStringTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szWidgetName);
+    dasher_preferences_populate_list(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget), sStringTranslationTable[i].iParameter);
+    g_signal_connect(sStringTranslationTable[i].pWidget, "realize", (GCallback)on_widget_realize, &sStringTranslationTable[i].iParameter);
+  }
+}
+
+extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
+  gpointer *pPointers = (gpointer *)pUserData;
+
+  gchar *szTarget = (gchar *)pPointers[0];
+  gchar *szComparison;
+  gtk_tree_model_get(pModel, pIter, 1, &szComparison, -1);
+
+  if(!strcmp(szTarget, szComparison)) {
+    gtk_tree_view_set_cursor((GtkTreeView *)pPointers[1], pPath, NULL, false);
+    gtk_tree_view_scroll_to_cell((GtkTreeView *)pPointers[1], pPath, NULL, false, 0.5, 0.0);
+    return true;
+  }
+  
+  return false;
 }
 
 void RefreshWidget(gint iParameter) {
   int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
-  
   for(int i(0); i < iNumBoolEntries; ++i) {
     if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
       gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter));
+    }
+  }
+
+  // TODO: I believe that this is being called initially before the
+  // widgets are realised, so the selection isn't being correctly
+  // brought into view
+  int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
+  for(int i(0); i < iNumStringEntries; ++i) {
+    if((iParameter == -1) || (sStringTranslationTable[i].iParameter == iParameter)) {
+      GtkTreeModel *pModel = gtk_tree_view_get_model(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget));
+
+      const void *pUserData[2];
+      pUserData[0] = dasher_app_settings_get_string(g_pDasherAppSettings, sStringTranslationTable[i].iParameter);
+      pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
+
+      gtk_tree_model_foreach(pModel, refresh_foreach_function, pUserData);
     }
   }
 }
@@ -1298,6 +1355,57 @@ void PopulateActionsList(GladeXML *pGladeWidgets) {
   gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
 
   gtk_tree_view_set_model(GTK_TREE_VIEW(pTreeView), GTK_TREE_MODEL(g_pStore));
+
+  // New input filter selection
+
+//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_filter_tree_view")), SP_INPUT_FILTER);
+//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_tree_view")), SP_INPUT_DEVICE);
+}
+
+void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter) {
+  const gchar *szCurrentValue(gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter));
+
+  GArray *pFilterArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+
+  GtkListStore *pStore = gtk_list_store_new(3, G_TYPE_INT, G_TYPE_STRING, G_TYPE_STRING);
+  gtk_tree_view_set_model(pView, GTK_TREE_MODEL(pStore));
+
+  GtkTreeIter oIter;
+  GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
+
+  for(unsigned int i(0); i < pFilterArray->len; ++i) {
+    const gchar *szCurrentFilter = g_array_index(pFilterArray, gchar *, i);
+   
+    gtk_list_store_append(pStore, &oIter);
+    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, szCurrentFilter, 2, szCurrentFilter, -1);
+ 
+    if(!strcmp(szCurrentFilter, szCurrentValue)) {
+      g_message("Making selection: %s", szCurrentValue);
+      gtk_tree_selection_select_iter(pSelection, &oIter);
+    }
+  }
+
+  GtkCellRenderer *pRenderer;
+  GtkTreeViewColumn *pColumn;
+  
+  pRenderer = gtk_cell_renderer_text_new();
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
+  gtk_tree_view_append_column(pView, pColumn);
+
+  g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
+}
+
+extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData) {
+  GtkTreeIter oIter;
+  GtkTreeModel *pModel;
+  gtk_tree_selection_get_selected(pSelection, &pModel, &oIter);
+  
+  int iParameter;
+  gchar *szValue;
+  gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &szValue, -1);
+
+  g_message("Changing: %d to %s", iParameter, szValue);
+  gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
 }
 
 extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData) {
@@ -1323,4 +1431,10 @@ extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath
     dasher_editor_action_set_auto(g_pEditor, iID, !bSelected);
     break;
   }
+}
+
+extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData) {
+  // TODO: This doesn't seem to be working
+  gint *pParameter = (gint *)pUserData;
+  RefreshWidget(*pParameter);
 }

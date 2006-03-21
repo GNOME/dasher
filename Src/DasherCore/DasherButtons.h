@@ -21,7 +21,7 @@ using namespace std;
 class CDasherButtons : public CInputFilter
 {
  public:
-  CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, long long int iID);
+  CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, long long int iID, const char *szName);
 
 
   ~CDasherButtons();

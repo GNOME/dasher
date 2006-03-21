@@ -6,7 +6,7 @@
 #include "Event.h"
 
 CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 6, 1) {
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 6, 1, "Dynamic Mode") {
   m_iTarget = 0;
 
   m_iTargetX = new int[2];

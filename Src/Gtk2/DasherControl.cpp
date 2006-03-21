@@ -259,15 +259,7 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
   GArray *pRetVal(g_array_new(false, false, sizeof(gchar *)));
 
   std::vector < std::string > vList;
-
-  switch (iParameter) {
-  case SP_ALPHABET_ID:
-    GetAlphabets(&vList);
-    break;
-  case SP_COLOUR_ID:
-    GetColours(&vList);
-    break;
-  }
+  GetPermittedValues(iParameter, vList);
 
   for(std::vector < std::string >::iterator it(vList.begin()); it != vList.end(); ++it) {
     // For internal glib reasons we need to make a variable and then

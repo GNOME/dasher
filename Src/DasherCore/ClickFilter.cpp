@@ -6,7 +6,7 @@
 #include <iostream>
 
 CClickFilter::CClickFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 7, 1) {
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 7, 1, "Click Mode") {
   pDasherView = 0;
 }
 

@@ -12,9 +12,9 @@
 #include <iostream>
 #include <gdk/gdkx.h>
 
-#ifdef GNOME_SPEECH
-#include "speech.h"
-#endif
+// #ifdef GNOME_SPEECH
+// #include "speech.h"
+// #endif
 
 IDasherBufferSet *g_pBufferSet = 0;
 DasherEditor *g_pEditor;

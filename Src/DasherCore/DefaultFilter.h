@@ -7,7 +7,7 @@
 
 class CDefaultFilter : public CInputFilter {
  public:
-  CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel, long long int iID);
+  CDefaultFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel, long long int iID, const char *szName);
   ~CDefaultFilter();
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);

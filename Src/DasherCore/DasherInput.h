@@ -16,8 +16,8 @@ class Dasher::CDasherInput : public CDasherModule {
 
 public:
 
-  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType) 
-    : CDasherModule(pEventHandler, pSettingsStore, iID, iType) {
+  CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
+    : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {
   };
 
   virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {

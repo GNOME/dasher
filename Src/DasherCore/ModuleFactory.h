@@ -14,6 +14,8 @@ class CModuleFactory {
   virtual void GetNext(long long int *iID, int *iType, std::string *strName) = 0;
 
   virtual CDasherModule *GetModule(long long int iID) = 0;
+  virtual std::string GetName(long long int iID) = 0;
+  virtual int GetType(long long int iID) = 0;
 };
 
 #endif

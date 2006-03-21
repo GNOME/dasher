@@ -23,11 +23,12 @@
 // 13 = Button mode (compass)
 // 14 = Two button dynamic filter (Radford mode)
 
-CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType) 
+CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
   : CDasherComponent(pEventHandler, pSettingsStore) {
   m_iID = iID;
   m_iType = iType;
   m_iRefCount = 0;
+  m_szName = szName;
 }
 
 long long int CDasherModule::GetID() {
@@ -36,6 +37,10 @@ long long int CDasherModule::GetID() {
 
 int CDasherModule::GetType() {
   return m_iType;
+}
+
+const char *CDasherModule::GetName() {
+  return m_szName;
 }
 
 void CDasherModule::Ref() {

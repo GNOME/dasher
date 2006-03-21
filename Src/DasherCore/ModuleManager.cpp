@@ -19,3 +19,19 @@ CDasherModule *CModuleManager::GetModule(long long int iID) {
   
   return m_mapModules[iID]->GetModule(iID);
 }
+
+CDasherModule *CModuleManager::GetModuleByName(const std::string strName) {
+  for(std::map<long long int, CModuleFactory *>::iterator it(m_mapModules.begin()); it != m_mapModules.end(); ++it) {
+    if(strName == (it->second)->GetName(it->first))
+      return (it->second)->GetModule(it->first);
+  }
+
+  return 0;
+}
+
+void CModuleManager::ListModules(int iType, std::vector<std::string> &vList) {
+  for(std::map<long long int, CModuleFactory *>::iterator it(m_mapModules.begin()); it != m_mapModules.end(); ++it) {
+    if((it->second)->GetType(it->first) == iType)
+      vList.push_back((it->second)->GetName(it->first));
+  }
+}

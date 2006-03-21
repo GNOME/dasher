@@ -1,7 +1,7 @@
 #include "EyetrackerFilter.h"
 
 CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
-  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5) {
+  : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5, "Eyetracker Mode") {
 }
 
 void CEyetrackerFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {

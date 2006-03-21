@@ -289,6 +289,8 @@ public:
 
   void GetColours(std::vector < std::string > *ColourList);
 
+  void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
+
   /////////////////////////////////////////////////////////////////////////////
   // Settings Interface (CDasherSettingsInterface) - options saved between sessions
   /////////////////////////////////////////////////////////////////////////////
@@ -439,6 +441,7 @@ public:
   // Module management functions
   void RegisterFactory(CModuleFactory *pFactory);
   CDasherModule *GetModule(long long int iID); // TODO - should never be needed externally
+  CDasherModule *GetModuleByName(const std::string &strName);
 
   void CreateFactories();
 

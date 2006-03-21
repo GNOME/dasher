@@ -23,7 +23,7 @@
 using namespace Dasher;
 
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-  : CDasherInput(pEventHandler, pSettingsStore, 1, 0) {
+  : CDasherInput(pEventHandler, pSettingsStore, 1, 0, "Socket Input") {
 
   std::cout << pEventHandler << " " << pSettingsStore << std::endl;
 

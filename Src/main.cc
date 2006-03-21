@@ -58,27 +58,15 @@ static const struct poptOption options[] = {
 #include "gpesettings_store.h"
 #endif
 
-#ifdef GNOME_SPEECH
-#include "speech.h"
-#endif
-
-//#include "accessibility.h"
-
-//extern GConfClient *the_gconf_client;
-
 gboolean timedata = FALSE;
 gboolean preferences = FALSE;
 gboolean textentry = FALSE;
 gboolean stdoutpipe = FALSE;
-//extern gboolean setup, paused;
 extern int optind;
-extern ControlTree *controltree;
 extern const gchar *filename;
 
 DasherMain *g_pDasherMain;
 DasherAppSettings *g_pDasherAppSettings;
-
-//extern int oldx, oldy;
 
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
@@ -283,26 +271,11 @@ int main(int argc, char *argv[]) {
 
   gtk_main();
 
-  // Shut down the dasher_main
-  // FIXME
-
   interface_cleanup();
-
-#ifdef GNOME_SPEECH
-  teardown_speech();
-#endif
 
 #ifdef GNOME_LIBS
   gnome_vfs_shutdown();
 #endif
-
-  // A11y sypport disabled for now
-  //#ifdef GNOME_A11Y
-  //  deletemenutree();
-  //  SPI_exit();
-  //#endif
-
-  // ---
 
   return 0;
 }

@@ -78,8 +78,6 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          fileops.cc \
                          fileops.h \
                          mouse_input.h \
-                         speech.cc \
-                         speech.h \
                          $(settings_store)
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@

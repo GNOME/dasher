@@ -269,7 +269,7 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       else
 	SetLongParameter(LP_INPUT_FILTER, 3);//"Default"
       break;
-    case LP_INPUT_FILTER:
+    case SP_INPUT_FILTER:
       CreateInputFilter();
       break;
     default:
@@ -927,7 +927,7 @@ void CDasherInterfaceBase::CreateInputFilter()
     m_pDasherButtons = NULL;
   }
 
-  m_pDasherButtons = (CInputFilter *)GetModule(GetLongParameter(LP_INPUT_FILTER));
+  m_pDasherButtons = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
   m_pDasherButtons->Ref();
 }
 
@@ -939,21 +939,40 @@ CDasherModule *CDasherInterfaceBase::GetModule(long long int iID) {
    return m_oModuleManager.GetModule(iID);
 }
 
+CDasherModule *CDasherInterfaceBase::GetModuleByName(const std::string &strName) {
+   return m_oModuleManager.GetModuleByName(strName);
+}
+
+
 void CDasherInterfaceBase::CreateFactories() {
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3, "Normal Control")));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new COneDimensionalFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CEyetrackerFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CClickFilter(m_pEventHandler, m_pSettingsStore, this)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   // TODO: specialist factory for button mode
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, "Buttons 1")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, "Buttons 2")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, "Buttons 4")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, "Buttons 5")));
+}
 
-
-
-
+void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {
+  // TODO: Deprecate direct calls to these functions
+  switch (iParameter) {
+  case SP_ALPHABET_ID:
+    GetAlphabets(&vList);
+    break;
+  case SP_COLOUR_ID:
+    GetColours(&vList);
+    break;
+  case SP_INPUT_FILTER:
+    m_oModuleManager.ListModules(1, vList);
+    break;
+  case SP_INPUT_DEVICE:
+    m_oModuleManager.ListModules(0, vList);
+    break;
+  }
 }

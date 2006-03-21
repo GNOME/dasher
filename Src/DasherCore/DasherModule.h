@@ -5,10 +5,11 @@
 
 class CDasherModule : public Dasher::CDasherComponent {
  public:
-  CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType);
+  CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName);
 
   virtual long long int GetID();
   virtual int GetType();
+  virtual const char *GetName();
 
   // Basic Reference counting
 
@@ -28,6 +29,7 @@ class CDasherModule : public Dasher::CDasherComponent {
   long long int m_iID;
   int m_iType;
   int m_iRefCount;
+  const char *m_szName;
 };
 
 #endif
