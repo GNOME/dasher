@@ -1,5 +1,6 @@
 # Add files with translateable strings here.
 # Please keep this file sorted alphabetically.
+Data/dasher.desktop.in.in
 Src/DasherCore/SocketInput.cpp
 Src/Gtk2/Menu.cc
 Src/Gtk2/Preferences.cpp

@@ -291,6 +291,7 @@ AC_CONFIG_FILES([Makefile
 		 Src/Gtk2-Experimental/Makefile
 		 Src/Qt/Makefile
 		 Src/Win32/Makefile
+		 Data/dasher.desktop.in
 		 Data/Makefile
 		 Data/Translations/Makefile
 		 Data/system.rc/Makefile
