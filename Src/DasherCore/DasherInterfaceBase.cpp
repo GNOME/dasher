@@ -68,6 +68,8 @@ CDasherInterfaceBase::CDasherInterfaceBase()
                   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL), m_pAutoSpeedControl(0), 
                   m_pDasherButtons(NULL) {
 
+  m_bGlobalLock = false;
+
   m_pEventHandler = new CEventHandler(this);
 
 
@@ -303,7 +305,11 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       Halt();
       break;
     }
-
+  }
+  else if(pEvent->m_iEventType == EV_LOCK) {
+    // TODO: 'Reference counting' for locks?
+    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
+    m_bGlobalLock = pLockEvent->m_bLock;
   }
 }
 
@@ -334,6 +340,8 @@ void CDasherInterfaceBase::AddColourFilename(std::string Filename) {
 
 void CDasherInterfaceBase::CreateDasherModel() 
 {
+  // TODO: Should training occur here?
+
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
 
   //  if(m_DashEditbox != 0 && lmID != -1) { We don't need an edit box any more
@@ -353,13 +361,24 @@ void CDasherInterfaceBase::CreateDasherModel()
 
     string T = m_Alphabet->GetTrainingFile();
 
-    TrainFile(GetStringParameter(SP_SYSTEM_LOC) + T);
+    struct stat sStatInfo;
+    int iTotalBytes = 0;
 
-//     m_pDasherModel->WriteLMToFile("/home/pjc51/dasherlm.dat");
+    if(!stat((GetStringParameter(SP_SYSTEM_LOC) + T).c_str(), &sStatInfo))
+      iTotalBytes += sStatInfo.st_size;
+   
+    if(!stat((GetStringParameter(SP_USER_LOC) + T).c_str(), &sStatInfo))
+      iTotalBytes += sStatInfo.st_size;
 
-    TrainFile(GetStringParameter(SP_USER_LOC) + T);
-
-//    m_pDasherModel->ReadLMFromFile("/home/pjc51/dasherlm.dat");
+    if(iTotalBytes > 0) {
+      int iOffset;
+      iOffset = TrainFile(GetStringParameter(SP_SYSTEM_LOC) + T, iTotalBytes, 0);
+      TrainFile(GetStringParameter(SP_USER_LOC) + T, iTotalBytes, iOffset);
+    }
+    else {
+      CMessageEvent oEvent("No training text is avilable for the selected alphabet. Dasher will function, but it may be difficult to enter text.\nPlease see http://www.dasher.org.uk/alphabets/ for more information.", 0, 0);
+      m_pEventHandler->InsertEvent(&oEvent);
+    }
 
     // Set various parameters
 
@@ -455,6 +474,9 @@ void CDasherInterfaceBase::SetInput(int iID) {
 }
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
+  // Fail if Dasher is locked
+  if(m_bGlobalLock)
+    return;
 
   // FIXME - is this the right way to do things
 
@@ -515,6 +537,14 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
 
   // Update the training file first
 
+  // Send a lock event
+
+  CLockEvent *pEvent;
+
+  pEvent = new CLockEvent("Training Dasher", true, 0);
+  m_pEventHandler->InsertEvent(pEvent);
+  delete pEvent;
+
   WriteTrainFileFull();
 
   // Lock Dasher to prevent changes from happening while we're training.
@@ -568,6 +598,11 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
   SetBoolParameter( BP_TRAINING, false );
 
   Start();
+
+  pEvent = new CLockEvent("Training Dasher", false, 0);
+  m_pEventHandler->InsertEvent(pEvent);
+  delete pEvent;
+
   //}
 }
 
@@ -732,18 +767,19 @@ void CDasherInterfaceBase::Train(string *TrainString, bool IsMore) {
 	the string instead of reading straight into a string seems to be
 	negligible compared to huge requirements elsewhere.
 */
-void CDasherInterfaceBase::TrainFile(string Filename) {
+int CDasherInterfaceBase::TrainFile(string Filename, int iTotalBytes, int iOffset) {
   if(Filename == "")
-    return;
-
+    return 0;
+  
   FILE *InputFile;
   if((InputFile = fopen(Filename.c_str(), "r")) == (FILE *) 0)
-    return;
+    return 0;
 
   const int BufferSize = 1024;
   char InputBuffer[BufferSize];
   string StringBuffer;
   int NumberRead;
+  int iTotalRead(0);
 
   vector < symbol > Symbols;
 
@@ -760,6 +796,13 @@ void CDasherInterfaceBase::TrainFile(string Filename) {
     m_Alphabet->GetSymbols(&Symbols, &StringBuffer, bIsMore);
 
     pTrainer->Train(Symbols);
+    iTotalRead += NumberRead;
+  
+    // TODO: No reason for this to be a pointer (other than cut/paste laziness!)
+    CLockEvent *pEvent;
+    pEvent = new CLockEvent("Training Dasher", true, static_cast<int>((100.0 * (iTotalRead + iOffset))/iTotalBytes));
+    m_pEventHandler->InsertEvent(pEvent);
+    delete pEvent;
 
   } while(NumberRead == BufferSize - 1);
 
@@ -767,6 +810,7 @@ void CDasherInterfaceBase::TrainFile(string Filename) {
 
   fclose(InputFile);
 
+  return iTotalRead;
 }
 
 void CDasherInterfaceBase::GetFontSizes(std::vector <int >*FontSizes) const {

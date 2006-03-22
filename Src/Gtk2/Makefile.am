@@ -71,6 +71,7 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher_external_buffer.h \
                          dasher_internal_buffer.cpp \
                          dasher_internal_buffer.h \
+			 dasher_lock_dialogue.cpp \
                          dasher_main.cpp \
                          dasher_main.h \
                          edit.cc \

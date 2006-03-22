@@ -9,6 +9,22 @@
 
 #include <glib.h>
 
+typedef struct _DasherLockInfo DasherLockInfo;
+
+struct _DasherLockInfo {
+  const gchar *szMessage;
+  gboolean bLock;
+  gint iPercent;
+};
+
+typedef struct _DasherMessageInfo DasherMessageInfo;
+
+struct _DasherMessageInfo {
+  const gchar *szMessage;
+  gint iID;
+  gint iType;
+};
+
 G_BEGIN_DECLS
 #define TYPE_GTK_DASHER_CONTROL         (gtk_dasher_control_get_type())
 #define GTK_DASHER_CONTROL(obj)         (GTK_CHECK_CAST((obj), TYPE_GTK_DASHER_CONTROL, GtkDasherControl ))
@@ -45,6 +61,8 @@ struct _GtkDasherControlClass {
   gboolean (*key_release_event) (GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data);
   void (*dasher_context_request) (GtkDasherControl * pDasherControl, gint iParameter, gpointer data);
   void (*dasher_request_settings) (GtkDasherControl * pDasherControl, gpointer data);
+  void (*dasher_lock) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
+  void (*dasher_message) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
 };
 
 GtkWidget *gtk_dasher_control_new();

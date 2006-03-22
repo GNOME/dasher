@@ -23,6 +23,16 @@ struct _BoolTranslation {
   GtkWidget *pWidget;
 };
 
+typedef struct _StringTranslation StringTranslation;
+
+struct _StringTranslation {
+  gint iParameter;
+  gchar *szWidgetName;
+  GtkWidget *pWidget;
+};
+
+// Checkbox widgets which map directly to boolean parameters
+
 BoolTranslation sBoolTranslationTable[] = {
   {BP_DRAW_MOUSE_LINE, "showmouselinebutton", NULL},
   {BP_DRAW_MOUSE, "showmousebutton", NULL},
@@ -31,13 +41,7 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_OUTLINE_MODE, "outlinebutton", NULL}
 };
 
-typedef struct _StringTranslation StringTranslation;
-
-struct _StringTranslation {
-  gint iParameter;
-  gchar *szWidgetName;
-  GtkWidget *pWidget;
-};
+// List widgets which map directly to string parameters
 
 StringTranslation sStringTranslationTable[] = {
   {SP_ALPHABET_ID, "AlphabetTree", NULL},

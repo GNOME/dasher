@@ -251,7 +251,7 @@ public:
   /// Train Dasher from a file
   /// \param Filename File to load.
 
-  void TrainFile(std::string Filename); // all training data must be in UTF-8.
+  int TrainFile(std::string Filename, int iTotalBytes, int iOffset); // all training data must be in UTF-8.
 
   /// \todo Document this
 
@@ -482,6 +482,8 @@ protected:
   CInputFilter* m_pDasherButtons;
 
   CModuleManager m_oModuleManager;
+  
+  bool m_bGlobalLock; // The big lock
 
 };
 

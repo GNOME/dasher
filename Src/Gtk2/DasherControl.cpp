@@ -298,7 +298,8 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     HandleParameterNotification(pEvt->m_iParameter);
   }
-  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 6)) {
+  // TODO: Horrible - just keep events here
+  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 8)) {
     HandleEvent(pEvent);
   }
 
@@ -429,9 +430,26 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
   }
   else if(pEvent->m_iEventType == 6) {
-
     CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
+  }
+  else if(pEvent->m_iEventType == 7) {
+    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
+    DasherLockInfo sInfo;
+    sInfo.szMessage = pLockEvent->m_strMessage.c_str();
+    sInfo.bLock = pLockEvent->m_bLock;
+    sInfo.iPercent = pLockEvent->m_iPercent;
+
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_lock_info", &sInfo);
+  }
+  else if(pEvent->m_iEventType == 8) {
+    CMessageEvent *pMessageEvent(static_cast<CMessageEvent *>(pEvent));
+    DasherMessageInfo sInfo;
+    sInfo.szMessage = pMessageEvent->m_strMessage.c_str();
+    sInfo.iID = pMessageEvent->m_iID;
+    sInfo.iType = pMessageEvent->m_iType;
+
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_message", &sInfo);
   }
 };
 

@@ -177,7 +177,7 @@ fi
 if [[ x"$WITHSPEECH" = xtrue ]]; then
 	PKG_CHECK_MODULES(gnome_speech, gnome-speech-1.0 bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0)
 	AC_DEFINE([GNOME_SPEECH], 1, [gnome_speech-1 libraries are present])
-	SPEECH_SOURCES='speech.$(OBJEXT)'
+#	SPEECH_SOURCES='speech.$(OBJEXT)'
 fi
 
 if [[ x"$WITHA11Y" = xtrue ]]; then

@@ -26,6 +26,8 @@ enum {
   DASHER_CONTROL,
   DASHER_CONTEXT_REQUEST,
   DASHER_REQUEST_SETTINGS,
+  DASHER_LOCK_INFO,
+  DASHER_MESSAGE,
   SIGNAL_NUM
 };
 
@@ -86,7 +88,11 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
 //   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("key_release_event", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, key_release_event), NULL, NULL, gtk_marshal_BOOLEAN__POINTER, G_TYPE_BOOLEAN, 1, GDK_TYPE_EVENT | G_SIGNAL_TYPE_STATIC_SCOPE);
 
-  gtk_dasher_control_signals[DASHER_START] = g_signal_new("dasher_request_settings", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_request_settings), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+  gtk_dasher_control_signals[DASHER_REQUEST_SETTINGS] = g_signal_new("dasher_request_settings", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_request_settings), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
+  gtk_dasher_control_signals[DASHER_LOCK_INFO] = g_signal_new("dasher_lock_info", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_lock), NULL, NULL, g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
+
+  gtk_dasher_control_signals[DASHER_MESSAGE] = g_signal_new("dasher_message", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_message), NULL, NULL, g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
   pClass->dasher_changed = NULL;
   pClass->dasher_start = NULL;
@@ -95,7 +101,9 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   pClass->dasher_edit_delete = NULL;
   pClass->dasher_control = NULL;
   pClass->dasher_context_request = NULL;
-  pClass->dasher_request_settings = NULL;
+  pClass->dasher_request_settings = NULL;  
+  pClass->dasher_lock = NULL;
+  pClass->dasher_message = NULL;
   //  pClass->key_press_event = gtk_dasher_control_default_key_press_handler;
   // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }

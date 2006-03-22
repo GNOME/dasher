@@ -444,6 +444,8 @@
 	      <signal name="dasher_context_request" handler="handle_context_request" last_modification_time="Sun, 05 Mar 2006 19:46:54 GMT"/>
 	      <signal name="dasher_request_settings" handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT"/>
 	      <signal name="focus_in_event" handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT"/>
+	      <signal name="dasher_lock_info" handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT"/>
+	      <signal name="dasher_message" handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT"/>
 	    </widget>
 	    <packing>
 	      <property name="shrink">True</property>
@@ -719,6 +721,25 @@
 			  <property name="draw_indicator">True</property>
 			  <property name="group">autocolour</property>
 			  <signal name="clicked" handler="autocolour_clicked" last_modification_time="Sun, 31 Jul 2005 17:07:34 GMT"/>
+			</widget>
+			<packing>
+			  <property name="padding">0</property>
+			  <property name="expand">False</property>
+			  <property name="fill">False</property>
+			</packing>
+		      </child>
+
+		      <child>
+			<widget class="GtkCheckButton" id="manual_colour">
+			  <property name="visible">True</property>
+			  <property name="can_focus">True</property>
+			  <property name="label" translatable="yes">checkbutton1</property>
+			  <property name="use_underline">True</property>
+			  <property name="relief">GTK_RELIEF_NORMAL</property>
+			  <property name="focus_on_click">True</property>
+			  <property name="active">False</property>
+			  <property name="inconsistent">False</property>
+			  <property name="draw_indicator">True</property>
 			</widget>
 			<packing>
 			  <property name="padding">0</property>
@@ -4785,6 +4806,79 @@ your writing speed.</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
       <signal name="clicked" handler="RestoreButton_Clicked" last_modification_time="Mon, 23 Jan 2006 17:43:42 GMT"/>
+    </widget>
+  </child>
+</widget>
+
+<widget class="GtkWindow" id="lock_window">
+  <property name="visible">True</property>
+  <property name="title" translatable="yes">Please Wait...</property>
+  <property name="type">GTK_WINDOW_TOPLEVEL</property>
+  <property name="window_position">GTK_WIN_POS_NONE</property>
+  <property name="modal">False</property>
+  <property name="resizable">True</property>
+  <property name="destroy_with_parent">False</property>
+  <property name="decorated">True</property>
+  <property name="skip_taskbar_hint">False</property>
+  <property name="skip_pager_hint">False</property>
+  <property name="type_hint">GDK_WINDOW_TYPE_HINT_NORMAL</property>
+  <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+
+  <child>
+    <widget class="GtkVBox" id="vbox43">
+      <property name="visible">True</property>
+      <property name="homogeneous">False</property>
+      <property name="spacing">0</property>
+
+      <child>
+	<widget class="GtkLabel" id="lock_message">
+	  <property name="visible">True</property>
+	  <property name="label" translatable="yes">(Message Placeholder - no need to translate)</property>
+	  <property name="use_underline">False</property>
+	  <property name="use_markup">False</property>
+	  <property name="justify">GTK_JUSTIFY_LEFT</property>
+	  <property name="wrap">False</property>
+	  <property name="selectable">False</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xpad">0</property>
+	  <property name="ypad">0</property>
+	</widget>
+	<packing>
+	  <property name="padding">8</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
+
+      <child>
+	<widget class="GtkAlignment" id="alignment38">
+	  <property name="border_width">8</property>
+	  <property name="visible">True</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xscale">1</property>
+	  <property name="yscale">1</property>
+	  <property name="top_padding">0</property>
+	  <property name="bottom_padding">0</property>
+	  <property name="left_padding">0</property>
+	  <property name="right_padding">0</property>
+
+	  <child>
+	    <widget class="GtkProgressBar" id="lock_progress">
+	      <property name="visible">True</property>
+	      <property name="orientation">GTK_PROGRESS_LEFT_TO_RIGHT</property>
+	      <property name="fraction">0</property>
+	      <property name="pulse_step">0.10000000149</property>
+	    </widget>
+	  </child>
+	</widget>
+	<packing>
+	  <property name="padding">0</property>
+	  <property name="expand">False</property>
+	  <property name="fill">False</property>
+	</packing>
+      </child>
     </widget>
   </child>
 </widget>

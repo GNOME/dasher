@@ -62,6 +62,7 @@
 #include "accessibility.h"
 
 #include "dasher_action_keyboard.h"
+#include "dasher_lock_dialogue.h"
 
 // We shouldn't need this - the functions which reference it are obsolete
 #include "../DasherCore/Event.h"
@@ -156,6 +157,8 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   g_pEditPane = glade_xml_get_widget(pGladeXML, "vbox40");
   g_pActionPane = glade_xml_get_widget(pGladeXML, "vbox39");
   pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
+
+  dasher_lock_dialogue_new(pGladeXML);
 
   if( dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR ) ) {
     gtk_widget_show( toolbar );
@@ -654,4 +657,13 @@ extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpoin
 extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
   GtkWidget *pDasherControl = gtk_dasher_control_new();
   return pDasherControl;
+}
+
+extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData) {
+  DasherMessageInfo *pInfo = (DasherMessageInfo *)pMessageInfo;
+  
+  GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, pInfo->szMessage));
+  gtk_dialog_run(GTK_DIALOG(pDialog));
+
+  gtk_widget_destroy(GTK_WIDGET(pDialog));
 }
