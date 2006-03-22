@@ -1,3 +1,8 @@
+2006-03-22  Tommi Vainikainen  <thv@iki.fi>
+
+	* dz.po: Added Dzongkha translation from Pema Geyleg.
+	* Removed random CVS merge errors (===,>>> stuff) from Changelog
+
 2006-03-18  Jérémy Ar Floc'h  <jeremy.lefloch@gmail.com>
 
 	* br.po: Added Breton translation.
@@ -557,7 +562,6 @@
 
 	* et.po: Translation updated.
 
->>>>>>> 1.318
 2005-08-01  Clytie Siddall <clytie@riverland.net.au>
 
         * vi.po: Updated Vietnamese translation.
