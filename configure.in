@@ -26,7 +26,7 @@ AM_ICONV
 GETTEXT_PACKAGE=dasher
 AC_SUBST(GETTEXT_PACKAGE)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE,"$GETTEXT_PACKAGE", [Gettext package])
-ALL_LINGUAS="ar az be bg bn bs ca cs cy da de el en_CA en_GB es et eu fa fi fr ga gl gu he hi hr hu id it ja ko ku ky lt mk mn ms nb ne nl no pa pl pt pt_BR ro ru rw sk sq sr sr@Latn sv ta th tk tr ug uk vi zh_CN zh_HK zh_TW"
+ALL_LINGUAS="ar az be bg bn bs ca cs cy da de dz el en_CA en_GB es et eu fa fi fr ga gl gu he hi hr hu id it ja ko ku ky lt mk mn ms nb ne nl no pa pl pt pt_BR ro ru rw sk sq sr sr@Latn sv ta th tk tr ug uk vi zh_CN zh_HK zh_TW"
 AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CXX
