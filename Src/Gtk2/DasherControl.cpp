@@ -25,49 +25,11 @@ extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
 
-// Global variables - Make as many of these local or clas members as possible.
-
-char *system_data_dir;
-char *user_data_dir;
-
-// 'Public' member variables
-
-gboolean paused = FALSE;
-gboolean exiting = FALSE;
-gboolean training = FALSE;
-GAsyncQueue *trainqueue;
-GtkWidget *train_dialog;
-std::string alphabet;
-ControlTree *controltree;
-bool eyetrackermode = false;
-gboolean direction = TRUE;
-bool onedmode = false;
-gint dasherwidth, dasherheight;
-long yscale, mouseposstartdist = 0;
-gboolean mouseposstart;
-gboolean firstbox = FALSE;
-gboolean secondbox = FALSE;
-time_t starttime = 0;
-time_t starttime2 = 0;
-time_t dasherstarttime;
-
-int oldx;
-int oldy;
-
 // CDasherControl class definitions
 
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
-
   m_pDasherControl = pDasherControl;
-
-  // Set up the GTK widgets
-
   m_pVBox = GTK_WIDGET(pVBox);
-
-  // Set up directory locations and so on.
-
-  // Add all available alphabets and colour schemes to the core
-
 
   Realize();
 
@@ -175,6 +137,8 @@ void CDasherControl::SetupUI() {
 
 void CDasherControl::SetupPaths() {
   char *home_dir;
+  char *user_data_dir;
+  char *system_data_dir;
 
   home_dir = getenv("HOME");
   user_data_dir = new char[strlen(home_dir) + 10];
@@ -202,24 +166,21 @@ void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
   G_CONST_RETURN gchar *filename;
   GPatternSpec *alphabetglob;
   alphabetglob = g_pattern_spec_new("alphabet*xml");
-  directory = g_dir_open(system_data_dir, 0, NULL);
 
+  directory = g_dir_open(GetStringParameter(SP_SYSTEM_LOC).c_str(), 0, NULL);
   while((filename = g_dir_read_name(directory))) {
     if(alphabet_filter(filename, alphabetglob)) {
       vFileList.push_back(filename);
     }
   }
-
   g_dir_close(directory);
 
-  directory = g_dir_open(user_data_dir, 0, NULL);
-
+  directory = g_dir_open(GetStringParameter(SP_USER_LOC).c_str(), 0, NULL);
   while((filename = g_dir_read_name(directory))) {
     if(alphabet_filter(filename, alphabetglob)) {
       vFileList.push_back(filename);
     }
   }
-
   g_dir_close(directory);
   // FIXME - need to delete glob?
 }
@@ -231,21 +192,21 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
   GPatternSpec *colourglob;
   colourglob = g_pattern_spec_new("colour*xml");
 
-  directory = g_dir_open(system_data_dir, 0, NULL);
-
+  directory = g_dir_open(GetStringParameter(SP_SYSTEM_LOC).c_str(), 0, NULL);
   while((filename = g_dir_read_name(directory))) {
     if(colour_filter(filename, colourglob)) {
       vFileList.push_back(filename);
     }
   }
+  g_dir_close(directory);
 
-  directory = g_dir_open(user_data_dir, 0, NULL);
-
+  directory = g_dir_open(GetStringParameter(SP_USER_LOC).c_str(), 0, NULL);
   while((filename = g_dir_read_name(directory))) {
     if(colour_filter(filename, colourglob)) {
       vFileList.push_back(filename);
     }
   }
+  g_dir_close(directory);
 
   // FIXME - need to delete glob?
 }
@@ -668,6 +629,15 @@ void CDasherControl::UserLogNewTrial()
   if (pUserLog != NULL) { 
     pUserLog->NewTrial();
   }
+}
+
+int CDasherControl::GetFileSize(const std::string &strFileName) {
+  struct stat sStatInfo;
+
+  if(!stat(strFileName.c_str(), &sStatInfo))
+    return sStatInfo.st_size;
+  else
+    return 0;
 }
 
 // FIXME - these two methods seem a bit pointless!

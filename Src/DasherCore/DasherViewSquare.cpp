@@ -105,85 +105,43 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
-  // Decide which colour to use when rendering the child
-  int Color;
-  Color = pRender->Colour();
-
-  std::string display;
-  display = pRender->m_strDisplayText;
-
-  if(RenderNode(Color, pRender->ColorScheme(), y1, y2, mostleft, display, pRender->m_bShove)) {
-    RenderGroups(pRender, y1, y2, mostleft);
-  }
-  else {
+  if(!RenderNode(pRender->Colour(), pRender->ColorScheme(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove)) {
     vDeleteList.push_back(pRender);
     pRender->Kill();
     return 0;
   }
-
+  
   if(pRender->ChildCount() == 0) {
     vNodeList.push_back(pRender);
     return 0;
   }
 
-  int norm = (myint)GetLongParameter(LP_NORMALIZATION);
-  CDasherNode::ChildMap::const_iterator i;
+  // Render groups
+  RenderGroups(pRender, y1, y2, mostleft);
 
+  // Render children  
+  int norm = (myint)GetLongParameter(LP_NORMALIZATION);
+
+  CDasherNode::ChildMap::const_iterator i;
   for(i = pRender->GetChildren().begin(); i != pRender->GetChildren().end(); i++) {
     CDasherNode *pChild = *i;
-    //    if(pChild->Alive()) {
-      myint Range = y2 - y1;
-      myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
-      myint newy2 = y1 + (Range * pChild->Hbnd()) / norm;
-
-      // FIXME - make the threshold a parameter
-      
-      if((newy2 - newy1 > 50) || (pChild->Alive())) {
-	pChild->Alive(true);
-	RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList);
-      }
-      //    }
+    
+    myint Range = y2 - y1;
+    myint newy1 = y1 + (Range * pChild->Lbnd()) / norm;
+    myint newy2 = y1 + (Range * pChild->Hbnd()) / norm;
+    
+    // FIXME - make the threshold a parameter
+    
+    if((newy2 - newy1 > 50) || (pChild->Alive())) {
+      pChild->Alive(true);
+      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList);
+    }
   }
-
+  
   return 1;
 }
 
 void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, int mostleft) {
-  CDasherNode::ChildMap & Children = Render->Children();
-  if(Children.size() == 0)
-    return;
-  //int current = 0;
-  std::string Label = "";
-
-  //myint range = y2 - y1;
-
-  //  const CAlphabet & alphabet = DasherModel()->GetAlphabet();
-
-//   for(int iGroup = 1; iGroup < alphabet.GetGroupCount(); iGroup++) {
-//     int lower = alphabet.GetGroupStart(iGroup);
-//     int upper = alphabet.GetGroupEnd(iGroup);
-
-//     myint lbnd = Children[lower]->Lbnd();
-//     myint hbnd = Children[upper - 1]->Hbnd();
-//     myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-//     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
-
-//     if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-//       std::string Label = DasherModel()->GroupLabel(iGroup);
-//       int Colour = DasherModel()->GroupColour(iGroup);
-
-//       if(Colour != -1) {
-//         RenderNode(0, DasherModel()->GroupColour(iGroup), Opts::Groups, newy1, newy2, mostleft, Label, true);
-//       }
-//       else {
-//         RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
-//       }
-//     }
-//     else {
-//       RenderNode(0, current - 1, Opts::Groups, newy1, newy2, mostleft, Label, true);
-//     }
-//   }
-
   SGroupInfo *pCurrentGroup(Render->m_pBaseGroup);
 
   while(pCurrentGroup) {
@@ -194,7 +152,6 @@ void CDasherViewSquare::RenderGroups(CDasherNode *Render, myint y1, myint y2, in
 
 void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft) {
   
-
   if(pCurrentGroup->bVisible) {
     myint range = y2 - y1;
     
@@ -204,29 +161,18 @@ void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasher
     myint lbnd = pNode->Children()[lower]->Lbnd();
     myint hbnd = pNode->Children()[upper - 1]->Hbnd();
     
-    //std::cout << lbnd << " " << hbnd << std::endl;
-    
     myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     
-    if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      //    std::string Label = DasherModel()->GroupLabel(iGroup);
-      std::string Label=pCurrentGroup->strLabel;
-      int Colour = pCurrentGroup->iColour;
-      if(Colour != -1) {
-	      RenderNode(pCurrentGroup->iColour, Opts::Groups, newy1, newy2, mostleft, Label, true);
-      }
-      else {
-	//    RenderNode(0, (current % 3) + 110, Opts::Groups, newy1, newy2, mostleft, Label, true);
-      }
-    }
+    RenderNode(pCurrentGroup->iColour, Opts::Groups, newy1, newy2, mostleft, pCurrentGroup->strLabel, true);
   }
   
+  // Iterate through child groups
   SGroupInfo *pCurrentChild(pCurrentGroup->pChild);
 
   while(pCurrentChild) {
     RecursiveRenderGroups(pCurrentChild, pNode, y1, y2, mostleft);
-     pCurrentChild = pCurrentChild->pNext;
+    pCurrentChild = pCurrentChild->pNext;
   }
 }
 
@@ -818,7 +764,6 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 }
 
 void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) {
-
   myint iHeight(iDasherMax - iDasherMin);
 
   int iColour;
@@ -836,34 +781,6 @@ void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bAc
   Dasher2Screen( 0, iDasherMax, p[3].x, p[3].y);
 
   Screen()->Polyline(p,4,1,iColour);
-}
-
-void CDasherViewSquare::DrawGoTo(screenint mousex, screenint mousey) {
-
-  // FIXME - reimplement
-
-//   // Draw a box surrounding the area of the screen that will be zoomed into
-//   UnMapScreen(&mousex, &mousey);
-//   myint idasherx, idashery;
-//   screen2dasher(mousex, mousey, &idasherx, &idashery);
-//   // So, we have a set of coordinates. We need a bunch of points back.
-//   myint height = DasherModel()->PlotGoTo(idasherx, idashery);
-//   myint top, bottom, left, right;
-
-//   // Convert back to screen coordinates?
-//   top = mousey - height / 2;
-//   bottom = mousey + height / 2;
-//   left = mousex + height / 2;
-//   right = mousex - height / 2;
-//   top = dashery2screen(top);
-//   bottom = dashery2screen(bottom);
-//   left = dasherx2screen(left);
-//   right = dasherx2screen(right);
-
-//   // Draw the lines
-//   Screen()->DrawRectangle(left, top + 5, right, top - 5, 1, -1, Opts::ColorSchemes(Objects), false, true, 1);
-//   Screen()->DrawRectangle(left + 5, top + 5, left, bottom - 5, 1, -1, Opts::ColorSchemes(Objects), false, true, 1);
-//   Screen()->DrawRectangle(left, bottom + 5, right, bottom - 5, 1, -1, Opts::ColorSchemes(Objects), false, true, 1);
 }
 
 void CDasherViewSquare::ResetSum() {

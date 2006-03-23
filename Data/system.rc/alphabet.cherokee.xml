@@ -8,7 +8,7 @@
 <palette>European/Asian</palette>
 <train>training_cherokee_US.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="&#x25a1;" t=" "/>
+<space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="A" b="50" >
 <s d="&#x13A0;" t="&#x13A0;" note=" CHEROKEE LETTER A  "/>

@@ -125,6 +125,7 @@ static void gtk_dasher_control_init(GtkDasherControl *pDasherControl) {
 static void gtk_dasher_control_destroy(GObject *pObject) {
   GtkDasherControl *pDasherControl = GTK_DASHER_CONTROL(pObject);
 
+  static_cast < GtkDasherControlPrivate * >(pDasherControl->private_data)->pControl->StartShutdown();
   delete static_cast < GtkDasherControlPrivate * >(pDasherControl->private_data)->pControl;
   g_free(pDasherControl->private_data);
 

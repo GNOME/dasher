@@ -59,7 +59,7 @@ public:
   /// \todo Document this
   ///
 
-  void DrawGoTo(screenint mousex, screenint mousey);
+/*   void DrawGoTo(screenint mousex, screenint mousey); */
 
   void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive);
 
@@ -92,33 +92,6 @@ public:
   ///
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
-
-  /// Render a single node
-  /// \param Character Symbol ID to be drawn
-  /// \param Color The colour to draw it
-  /// \param ColorScheme Which of the alternating colour schemes to use
-  /// \param y1 Upper extent.
-  /// \param y2 Lower extent
-  /// \param mostleft The left most position in which the text (l->r)
-  /// can be displayed in order to avoid overlap. This is updated by
-  /// the function to allow for the new text
-  /// \param displaytext Text to display.
-  /// \todo Character and displaytext are redundant. We shouldn't need
-  /// to know about alphabets here, so only use the latterr
-
-  int RenderNode(const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
-
-  ///
-  /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
-  ///
-
-  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
-
-  ///
-  /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
-  ///
-  
-  void RenderGroups(CDasherNode * Render, myint y1, myint y2, int mostleft);
 
   /// 
   /// Get the automatic calibration offset
@@ -171,6 +144,35 @@ public:
 
 
 private:
+
+
+  ///
+  /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
+  ///
+
+  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
+
+  ///
+  /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
+  ///
+  
+  void RenderGroups(CDasherNode * Render, myint y1, myint y2, int mostleft);
+
+
+  /// Render a single node
+  /// \param Character Symbol ID to be drawn
+  /// \param Color The colour to draw it
+  /// \param ColorScheme Which of the alternating colour schemes to use
+  /// \param y1 Upper extent.
+  /// \param y2 Lower extent
+  /// \param mostleft The left most position in which the text (l->r)
+  /// can be displayed in order to avoid overlap. This is updated by
+  /// the function to allow for the new text
+  /// \param displaytext Text to display.
+  /// \todo Character and displaytext are redundant. We shouldn't need
+  /// to know about alphabets here, so only use the latterr
+
+  int RenderNode(const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
 
   void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft);
 

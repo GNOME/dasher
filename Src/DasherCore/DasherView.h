@@ -73,12 +73,12 @@ public:
 
   /// Render the display
 
-  virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
+/*   virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList); */
 
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
 
-  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, int iMouseX, int iMouseY, bool bRedrawDisplay);
+  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay);
 
   /// Renders the Dasher node structure
   /// \todo Shouldn't be public?
@@ -119,30 +119,18 @@ public:
   virtual int GetAutoOffset() const {
     return 0;
   }
-  ////// \todo Document this
-  virtual void DrawGoTo(screenint mousex, screenint mousey) = 0;
+/*   ////// \todo Document this */
+/*   virtual void DrawGoTo(screenint mousex, screenint mousey) = 0; */
 
-  virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
+   virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
 
-  /// Draw the game mode pointer
+  /// Draw the game mode pointer - this shouldn't be here
 
   virtual void DrawGameModePointer() = 0;
 
-  /// 
-  /// Return a reference to the model
-
-/*   CDasherModel * DasherModel() { */
-/*     return m_pDasherModel; */
-/*   } */
-
-  /// \todo Erm...
-
-/*   const CDasherModel * DasherModel() const { */
-/*     return m_pDasherModel; */
-/*   } */
- ////// Return a reference to the screen
+  ////// Return a reference to the screen
   
-  CDasherScreen * Screen() {
+  CDasherScreen *Screen() {
     return m_pScreen;
   }
 
@@ -171,20 +159,11 @@ public:
 
   void SetInput(CDasherInput * _pInput);
 
-  /// Get the co-ordinates from the input device
-  /// \todo This shouldn't be public?
-
-  int GetCoordinates(int iN, myint * pCoordinates);
-
-  /// Get the co-ordinate count from the input device
-
-  int GetCoordinateCount();
 
   virtual void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate) {};
 
-  virtual double xmap(double x) const {return 0.0;};  
-  virtual double ymap(double x) const {return 0.0;};
-
+  virtual double xmap(double x) const {return 0.0;};   
+  virtual double ymap(double x) const {return 0.0;}; 
 
   ///
   /// Draw a polyline specified in Dasher co-ordinates
@@ -219,19 +198,30 @@ public:
 
   virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
 
+  /// Get the co-ordinates from the input device
+  /// \todo This shouldn't be public?
+  
+  int GetCoordinates(int iN, myint * pCoordinates); 
+  
+  /// Get the co-ordinate count from the input device
+  
+  int GetCoordinateCount();
+
+
 protected:
   // Orientation of Dasher Screen
   inline void MapScreen(screenint * DrawX, screenint * DrawY);
   inline void UnMapScreen(screenint * DrawX, screenint * DrawY);
 
+ 
   CDelayedDraw *m_pDelayDraw;
 
 private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):
   CDasherInput *m_pInput;       // Input device abstraction
 
-  // Pure virtuals to implement
-  virtual void Crosshair(myint sx) = 0; // Tells m_Screen to draw a crosshair - or other static decoration
+  // Pure virtuals to implement */
+  virtual void Crosshair(myint sx) = 0; // Tells m_Screen to draw a crosshair - or other static decoration */
 
 
 };

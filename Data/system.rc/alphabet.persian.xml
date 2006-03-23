@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
-<!-- Author: David MacKay and Behdad Esfahbod -->
+<!-- Author: David MacKay and Behdad  -->
 <alphabets>
-<alphabet name="Persian with punctuation and numerals">
-<!--alphabet name="Persian (Nested groups) with punctuation and numerals"-->
+<alphabet name="Persian (Nested groups) with punctuation and numerals">
 <orientation type="RL"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
@@ -27,59 +26,59 @@
 <s d="&#x25cc;&#x0655;" t="&#x0655;"  b="90" note="hamza below" />
 <s d="&#x25cc;&#x0670;" t="&#x0670;"  b="91" note="superscript alef" />
 </group>
-<group><!--group b="60" -->
+<group name="Hamza" b="60">
 <s d="&#x0621;" t="&#x0621;" b="70" note="HAMZA  "  />
 </group>
-<group><!--group b="60" -->
+<group  b="60" name="alef" >
 <s d="&#x0622;" t="&#x0622;" b="80" note="ALEF WITH MADDA ABOVE  "  />
 <s d="&#x0627;" t="&#x0627;" b="70" note="ALEF  "  />
 <s d="&#x0623;" t="&#x0623;" b="80" note="ALEF WITH HAMZA ABOVE  "  />
 </group>
-<group><!--group b="61" -->
+<group b="61" >
 <s d="&#x0628;" t="&#x0628;" b="81" note="BEH  "  />
 <s d="&#x067e;" t="&#x067e;" b="71" note="PEH  "  />
 <s d="&#x062A;" t="&#x062A;" b="81" note="TEH  "  />
 <s d="&#x062B;" t="&#x062B;" b="71" note="THEH  "  />
 </group>
-<group><!--group b="62" -->
+<group b="62" >
 <s d="&#x062C;" t="&#x062C;" b="82" note="JEEM  "  />
 <s d="&#x0686;" t="&#x0686;" b="72" note="TCHEH "  />
 <s d="&#x062D;" t="&#x062D;" b="82" note="HAH  "  />
 <s d="&#x062E;" t="&#x062E;" b="72" note="KHAH  "  />
 </group>
-<group><!--group b="63" -->
+<group b="63" >
 <s d="&#x062F;" t="&#x062F;" b="73" note="DAL  "  />
 <s d="&#x0630;" t="&#x0630;" b="83" note="THAL  "  />
 <s d="&#x0631;" t="&#x0631;" b="73" note="REH  "  />
 <s d="&#x0632;" t="&#x0632;" b="83" note="ZAIN  "  />
 <s d="&#x0698;" t="&#x0698;" b="73" note="JEH "  />
 </group>
-<group><!--group b="64" -->
+<group b="64" >
 <s d="&#x0633;" t="&#x0633;" b="84" note="SEEN  "  />
 <s d="&#x0634;" t="&#x0634;" b="74" note="SHEEN  "  />
 </group>
-<group><!--group b="65" -->
+<group b="65" >
 <s d="&#x0635;" t="&#x0635;" b="75" note="SAD  "  />
 <s d="&#x0636;" t="&#x0636;" b="85" note="DAD  "  />
 <s d="&#x0637;" t="&#x0637;" b="75" note="TAH  "  />
 <s d="&#x0638;" t="&#x0638;" b="85" note="ZAH  "  />
 </group>
-<group><!--group b="66" -->
+<group b="66" >
 <s d="&#x0639;" t="&#x0639;" b="86" note="AIN  "  />
 <s d="&#x063A;" t="&#x063A;" b="76" note="GHAIN  "  />
 <s d="&#x0641;" t="&#x0641;" b="86" note="FEH  "  />
 <s d="&#x0642;" t="&#x0642;" b="76" note="QAF  "  />
 </group>
-<group><!--group b="67" -->
+<group b="67" >
 <s d="&#x06A9;" t="&#x06A9;" b="77" note="KAF (unicode LETTER KEHEH)"  />
 <s d="&#x06af;" t="&#x06af;" b="87" note="GAF  "  />
 </group>
-<group><!--group b="68" -->
+<group b="68" >
 <s d="&#x0644;" t="&#x0644;" b="78" note=" LAM  "  />
 <s d="&#x0645;" t="&#x0645;" b="88" note=" MEEM  "  />
 <s d="&#x0646;" t="&#x0646;" b="78" note=" NOON  "  />
 </group>
-<group><!--group b="69" -->
+<group b="69" >
 <s d="&#x0648;" t="&#x0648;" b="79" note=" WAW  "  />
 <s d="&#x0624;" t="&#x0624;" b="89" note=" WAW WITH HAMZA ABOVE  "  />
 <s d="&#x0647;&#x200d;" t="&#x0647;" b="79" note=" HEH (with non-joiner added to the canvas glyph) "  />

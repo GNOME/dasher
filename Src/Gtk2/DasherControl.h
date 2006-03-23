@@ -134,119 +134,6 @@ public:
   };
 
   ///
-  /// Pass events coming from the core to the appropriate handler.
-  ///
-
-  virtual void ExternalEventHandler(Dasher::CEvent *pEvent);
-
-  ///
-  /// Notification from CDasherInterface that a parameter has changed
-  /// \param iParameter The parameter which has changed
-  ///
-
-  virtual void HandleParameterNotification(int iParameter);
-
-  ///
-  /// Notification of events other than parameters having changed.
-  /// \param pEvent Pointer to the event.
-  ///
-
-  void HandleEvent(CEvent * pEvent);
-
-  // The following functions are obsolete and will soon be deleted from the interface
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void write_to_file() {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void get_new_context(std::string & str, int max) {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void output(const std::string & strText) {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void outputcontrol(void *pointer, int data, int type) {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void deletetext(const std::string & strText) {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void Clear() {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void SetEncoding(Opts::FileEncodingFormats Encoding) {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void SetFont(std::string Name, long Size) {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void Cut() {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void Copy() {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void Paste() {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void CopyAll() {
-  };
-
-  ///
-  /// \deprecated Obsolete, soon to be removed from interface
-  ///
-
-  void SelectAll() {
-  };
-
-  ///
   /// Called by UI needs to signal a new user trial is starting.
   ///
   void UserLogNewTrial();
@@ -256,14 +143,29 @@ public:
   void AlphabetComboChanged();
   void PopulateAlphabetCombol();
 
+private:
   //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
+  virtual void HandleEvent(CEvent * pEvent);
+  virtual int GetFileSize(const std::string &strFileName);
 
-private:
+  ///
+  /// Pass events coming from the core to the appropriate handler.
+  ///
+
+  void ExternalEventHandler(Dasher::CEvent *pEvent);
+
+  ///
+  /// Notification from CDasherInterface that a parameter has changed
+  /// \param iParameter The parameter which has changed
+  ///
+
+  void HandleParameterNotification(int iParameter);
+
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;
   GtkWidget *m_pSpeedHScale;

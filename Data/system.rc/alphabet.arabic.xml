@@ -31,7 +31,7 @@
 <group  b="60" name="hamza" >
 <s d="&#x0621;" t="&#x0621;" b="70" note="HAMZA  "  />
 </group>
-<group  b="60" name="alef" label="&#x0627;">
+<group  b="60" name="alef" note="&#x0627;">
 <s d="&#x0622;" t="&#x0622;" b="80" note="ALEF WITH MADDA ABOVE  "  />
 <s d="&#x0623;" t="&#x0623;" b="70" note="ALEF WITH HAMZA ABOVE  "  />
 <!-- <s d="&#x0672;" t="&#x0672;"  b="80" note=" ALEF WITH WAVY HAMZA ABOVE  "  /> -->

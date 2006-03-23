@@ -248,8 +248,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   std::string m_strContextBuffer;
 
-  void RenderToView(CDasherView *pView);
-  bool RenderToView(CDasherView *pView, int iMouseX, int iMouseY, bool bRedrawDisplay);
+  bool RenderToView(CDasherView *pView, bool bRedrawDisplay);
 
   bool CheckForNewRoot(CDasherView *pView);
 

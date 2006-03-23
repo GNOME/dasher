@@ -62,12 +62,6 @@ public:
 
   void Realize();
 
-  /// 
-  /// Create a settings store - to be implemented by the
-  /// platform-dependent derived class
-  ///
-
-  virtual void CreateSettingsStore() = 0;
 
   ///
   /// Return a pointer to the current EventHandler (the one
@@ -393,11 +387,7 @@ public:
 
   void CreateFactories();
 
-  // To be implemented by child class
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
-  virtual void SetupPaths() = 0;
-  virtual void SetupUI() = 0;
+  void StartShutdown();
 
 protected:
   void WriteTrainFileFull();
@@ -423,12 +413,21 @@ protected:
   CModuleManager m_oModuleManager;
   
   bool m_bGlobalLock; // The big lock
-
+  bool m_bShutdownLock;
+  
   // TODO: Make private?
   CDasherModule *GetModule(long long int iID);
   CDasherModule *GetModuleByName(const std::string &strName);
 
  private:
+  // To be implemented by child class
+  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
+  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
+  virtual void SetupPaths() = 0;
+  virtual void SetupUI() = 0;
+  virtual void CreateSettingsStore() = 0;
+  virtual int GetFileSize(const std::string &strFileName) = 0;
+
   void CreateInputFilter();
   void CreateDasherModel();
   void ChangeAlphabet();

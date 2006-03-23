@@ -8,7 +8,7 @@
 <palette>Default</palette>
 <train>training_runic_XX.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="_" t=" " b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="Runic characters" b="0">
 <s d="&#5792;" t="&#x16A0;" note="RUNIC LETTER FEHU FEOH FE F"/>

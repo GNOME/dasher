@@ -7,8 +7,8 @@
 <encoding type="Western"/>
 <palette>European/Asian</palette>
 <train>training_perl_GB.txt</train>
-<space d="&#x25a1;" t=" "/>
-<control d="Control" t=""/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters" b="0">
 <s d="a" t="a" b="10"/>

@@ -8,7 +8,7 @@
 <palette>European/Asian</palette>
 <train>training_ogham_XX.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="&#x25a1;" t=" "/>
+<space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="Ogham" >
 <s d="&#x1681;" t="&#x1681;" note=" OGHAM LETTER BEITH  "/>

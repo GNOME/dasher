@@ -9,7 +9,7 @@
 <palette>European/Asian</palette>
 <train>training_korean_KR.txt</train>
 <space d="&#x25a1;" t=" " b="9" note="box" />
-<control d="Control"/>
+<control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
 <group name="Korean consonants, vowels, and trailers"  b="141" >
 <!-- group name="Korean consonants"  b="141" -->
@@ -219,8 +219,8 @@
 <orientation type="LR"/>
 <encoding type="Western"/>
 <train>training_korean_KR.txt</train>
-<space d="_" t=" "/>
-<control d="Control"/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
 <group name="Korean consonants">
 <s d="&#4352;" t="&#4352;"/>

@@ -67,6 +67,7 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 		   m_pInputFilter(NULL) {
   
   m_bGlobalLock = false;
+  m_bShutdownLock = false;
 
   m_pEventHandler = new CEventHandler(this);
  
@@ -314,6 +315,13 @@ void CDasherInterfaceBase::CreateDasherModel()
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
   if( lmID != -1 ) {
 
+    // Train the new language model
+    CLockEvent *pEvent;
+    
+    pEvent = new CLockEvent("Training Dasher", true, 0);
+    m_pEventHandler->InsertEvent(pEvent);
+    delete pEvent;
+
     // Delete the old model and create a new one
     if(m_pDasherModel) {
       delete m_pDasherModel;
@@ -322,24 +330,12 @@ void CDasherInterfaceBase::CreateDasherModel()
 
     m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO);
     m_Alphabet = m_pDasherModel->GetAlphabetNew();
-
-    // Train the new language model
-    CLockEvent *pEvent;
-    
-    pEvent = new CLockEvent("Training Dasher", true, 0);
-    m_pEventHandler->InsertEvent(pEvent);
-    delete pEvent;
     
     string T = m_Alphabet->GetTrainingFile();
 
-    struct stat sStatInfo;
     int iTotalBytes = 0;
-
-    if(!stat((GetStringParameter(SP_SYSTEM_LOC) + T).c_str(), &sStatInfo))
-      iTotalBytes += sStatInfo.st_size;
-   
-    if(!stat((GetStringParameter(SP_USER_LOC) + T).c_str(), &sStatInfo))
-      iTotalBytes += sStatInfo.st_size;
+    iTotalBytes += GetFileSize(GetStringParameter(SP_SYSTEM_LOC) + T);
+    iTotalBytes += GetFileSize(GetStringParameter(SP_USER_LOC) + T);
 
     if(iTotalBytes > 0) {
       int iOffset;
@@ -416,7 +412,7 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
 void CDasherInterfaceBase::Redraw() {
   if(m_pDasherView != 0) {
-    m_pDasherModel->RenderToView(m_pDasherView);
+    m_pDasherModel->RenderToView(m_pDasherView, false);
     m_pDasherView->Display();
   }
 
@@ -437,7 +433,7 @@ void CDasherInterfaceBase::SetInput(int iID) {
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
   // Fail if Dasher is locked
-  if(m_bGlobalLock)
+  if(m_bGlobalLock || m_bShutdownLock)
     return;
 
   // FIXME - is this the right way to do things
@@ -474,7 +470,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
       m_pDasherModel->CheckForNewRoot(m_pDasherView);
     }
 
-    m_pDasherModel->RenderToView(m_pDasherView, 0, 0, true);
+    m_pDasherModel->RenderToView(m_pDasherView, true);
   
     if(m_pInputFilter)
       m_pInputFilter->DecorateView(m_pDasherView);
@@ -875,7 +871,9 @@ void CDasherInterfaceBase::CreateInputFilter()
   }
 
   m_pInputFilter = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
-  m_pInputFilter->Ref();
+
+  if(m_pInputFilter)
+    m_pInputFilter->Ref();
 }
 
 void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {
@@ -922,4 +920,8 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
     m_oModuleManager.ListModules(0, vList);
     break;
   }
+}
+
+void CDasherInterfaceBase::StartShutdown() {
+  m_bShutdownLock = true;
 }

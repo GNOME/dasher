@@ -1034,28 +1034,28 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
 
 // FIXME - annoying code duplication below
 
-void CDasherModel::RenderToView(CDasherView *pView) {
-  std::vector<CDasherNode *> vNodeList;
-  std::vector<CDasherNode *> vDeleteList;
+// void CDasherModel::RenderToView(CDasherView *pView) {
+//   std::vector<CDasherNode *> vNodeList;
+//   std::vector<CDasherNode *> vDeleteList;
 
-  pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
+//   pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
 
-  if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
-  for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
-    Push_Node(*it);
-  }
+//   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
+//   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
+//     Push_Node(*it);
+//   }
   
-  for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
-    (*it)->Delete_children();
-}
+//   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
+//     (*it)->Delete_children();
+// }
 
-bool CDasherModel::RenderToView(CDasherView *pView, int iMouseX, int iMouseY, bool bRedrawDisplay) {
+bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   std::vector<CDasherNode *> vNodeList;
   std::vector<CDasherNode *> vDeleteList;
 
   bool bReturnValue;
 
-  bReturnValue = pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList, iMouseX, iMouseY, bRedrawDisplay);
+  bReturnValue = pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList, bRedrawDisplay);
 
   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)

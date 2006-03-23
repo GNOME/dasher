@@ -30,7 +30,6 @@ static char THIS_FILE[] = __FILE__;
 
 CDasherView::CDasherView(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherScreen *DasherScreen)
 :CDasherComponent(pEventHandler, pSettingsStore), m_pScreen(DasherScreen), m_pInput(0) {
-
 }
 
 void CDasherView::HandleEvent(Dasher::CEvent *pEvent) {
@@ -51,11 +50,9 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, int iMouseX, int iMouseY, bool bRedrawDisplay) {
+bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay) {
 
-  bool bDidSomething(false);    // Have we actually done any drawing - no
-  // point updating the display if we
-  // didn't
+  bool bDidSomething(false);    // Have we actually done any drawing
 
   if(bRedrawDisplay) {
     Screen()->SendMarker(0);     // Start of 'dasher field'
@@ -64,45 +61,27 @@ bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std
   }
 
   Screen()->SendMarker(1);       // Start of 'decoration'
-
-  if(GetBoolParameter(BP_GAME_MODE) != 0) {
-    DrawGameModePointer();
-    bDidSomething = true;
-  }
-
   return bDidSomething;
-
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-void CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
-
-  // FIXME - when does this get called?
-
-  Screen()->SendMarker(0);
-
-  RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList);
-
-  Screen()->SendMarker(1);
-}
-
-  int CDasherView::GetCoordinateCount() {
-    if(m_pInput)
-      return m_pInput->GetCoordinateCount();
-
+int CDasherView::GetCoordinateCount() {
+  // TODO: Do we really need support for co-ordinate counts other than 2?
+  if(m_pInput)
+    return m_pInput->GetCoordinateCount();
+  else
     return 0;
-  }
+}
 
 int CDasherView::GetCoordinates(int iN, myint * pCoordinates) {
-
   if(m_pInput)
     return m_pInput->GetCoordinates(iN, pCoordinates);
-
-  return 0;
+  else
+    return 0;
 }
 
 void CDasherView::SetInput(CDasherInput * _pInput) {
+  // TODO: Is it sensible to make this responsible for the input
+  // device - I guess it makes sense for now
 
   DASHER_ASSERT_VALIDPTR_RW(_pInput);
 
@@ -120,13 +99,11 @@ void CDasherView::SetInput(CDasherInput * _pInput) {
   iMaxCoordinates[1] = GetLongParameter(LP_MAX_Y);
 
   m_pInput->SetMaxCoordinates(2, iMaxCoordinates);
-
 }
 
 void CDasherView::Display() {
   m_pScreen->Display();
 }
-
 
 /// Draw a polyline specified in Dasher co-ordinates
 
@@ -305,5 +282,4 @@ void CDasherView::DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchor
   // be overlayed once all of the boxes have been drawn.
 
   m_pDelayDraw->DelayDrawText(sDisplayText, newleft2, newtop2, Size);
-
 }
