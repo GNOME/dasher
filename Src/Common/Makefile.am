@@ -5,8 +5,6 @@ libdashermisc_a_SOURCES = \
                 AppSettingsHeader.h \
 		Common.h \
 		Hash.h \
-		IOstreamDasherEdit.cc \
-		IOstreamDasherEdit.h \
 		MSVC_Unannoy.h \
 		myassert.h \
 		NoClones.h \
@@ -20,6 +18,9 @@ libdashermisc_a_SOURCES = \
 		Types/int.h \
 		Types/int32.h \
 		Types/int64.h
+
+#		IOstreamDasherEdit.cc   I have no idea what this does, but it's broken now
+#		IOstreamDasherEdit.h 
 
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 
 

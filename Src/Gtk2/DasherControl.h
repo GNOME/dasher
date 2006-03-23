@@ -10,7 +10,8 @@
 
 #include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DashEdit.h"
-#include "../DasherCore/DasherInterface.h"
+#include "../DasherCore/DasherInterfaceBase.h"
+#include "../DasherCore/GnomeSettingsStore.h"
 #include "../DasherCore/UserLog.h"
 
 ///
@@ -20,7 +21,7 @@
 /// \todo It would really be more sensible for CDasherControl to inheret from CDasherInterface rather than contain a pointer to it
 ///
 
-class CDasherControl : public CDasherInterface {
+class CDasherControl : public CDasherInterfaceBase {
 
 public:
 
@@ -73,7 +74,7 @@ public:
   /// Called when the canvas has been resized, prompts the (re)creation of the CCanvas object.
   ///
 
-  void CanvasConfigureEvent();
+  int CanvasConfigureEvent();
 
   ///
   /// Speed slider has been moved.
@@ -99,22 +100,7 @@ public:
   
  gint KeyReleaseEvent(GdkEventKey * event);
  gint KeyPressEvent(GdkEventKey * event);
- 
-  ///
-  /// Scan for alphabet XML files in the system and user directories
-  /// and add them to the interface.  
-  /// \todo It seems odd that we have to do this externally to the
-  /// interface. We really should make the interface do it at
-  /// construction time.
-  ///
 
-  void scan_alphabet_files();
-
-  ///
-  /// As scan_alpahbet_files, but for colour schemes.
-  ///
-
-  void scan_colour_files();
 
   /// 
   /// \todo Pointless one-line function, bring in to scan_alphabet_files.
@@ -270,8 +256,14 @@ public:
   void AlphabetComboChanged();
   void PopulateAlphabetCombol();
 
-private:
+  //  virtual void CreateSettingsStore();
+  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
+  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
+  virtual void SetupPaths();
+  virtual void SetupUI();
+  virtual void CreateSettingsStore();
 
+private:
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;
   GtkWidget *m_pSpeedHScale;

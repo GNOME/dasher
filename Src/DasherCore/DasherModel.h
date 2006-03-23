@@ -12,6 +12,7 @@
 #include "DasherNode.h"
 #include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"
+#include "Alphabet/AlphIO.h"
 #include "AlphabetManagerFactory.h"
 #include "ControlManagerFactory.h"
 #include <math.h>
@@ -62,7 +63,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     idJapanese = 4
   } LanguageModelID;
 
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface);
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface, CAlphIO *pAlphIO);
   ~CDasherModel();
 
   bool WriteLMToFile(const std::string &strFilename) {
@@ -205,6 +206,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return *m_pcAlphabet;
   }
 
+  CAlphabet *GetAlphabetNew() const {
+    return m_pcAlphabet;
+  }
+
   CDasherNode *Get_node_under_crosshair();    // Needed for Game Mode
   
   myint GetGameModePointerLoc() {
@@ -260,7 +265,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CLanguageModel *m_pLanguageModel;     // pointer to the language model
 
-  const CAlphabet *m_pcAlphabet;        // pointer to the alphabet
+  CAlphabet *m_pcAlphabet;        // pointer to the alphabet
 
   CLanguageModel::Context LearnContext; // Used to add data to model as it is entered
 

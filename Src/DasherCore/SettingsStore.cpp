@@ -28,6 +28,8 @@ static char THIS_FILE[] = __FILE__;
 
 Dasher::CParamTables CSettingsStore::s_oParamTables;
 
+// TODO: Don't propagate changes which don't affect anything.
+
 CSettingsStore::CSettingsStore(Dasher::CEventHandler *pEventHandler):m_pEventHandler(pEventHandler) {
 };
 

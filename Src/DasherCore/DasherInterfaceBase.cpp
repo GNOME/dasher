@@ -61,19 +61,15 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-const string CDasherInterfaceBase::EmptyString = "";
-
 CDasherInterfaceBase::CDasherInterfaceBase()
                   :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DasherScreen(0),
-                  m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL), m_pAutoSpeedControl(0), 
-                  m_pDasherButtons(NULL) {
-
+		   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL),
+		   m_pInputFilter(NULL) {
+  
   m_bGlobalLock = false;
 
   m_pEventHandler = new CEventHandler(this);
-
-
-
+ 
   strCurrentContext = ". ";
 
   strTrainfileBuffer = "";
@@ -87,13 +83,21 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 
 void CDasherInterfaceBase::Realize() {
 
-  ChangeColours(GetStringParameter(SP_COLOUR_ID));
-  ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID));
+  // TODO: What exactly needs to have happened by the time we call Realize()?
+  CreateSettingsStore();
+  SetupUI();
+  SetupPaths();
 
-  if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-    SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
-  else
-    SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
+  std::vector<std::string> vAlphabetFiles;
+  ScanAlphabetFiles(vAlphabetFiles);
+  m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vAlphabetFiles);
+
+  std::vector<std::string> vColourFiles;
+  ScanColourFiles(vColourFiles);
+  m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), vColourFiles);
+
+  ChangeColours();
+  ChangeAlphabet();
 
   // Create the user logging object if we are suppose to.  We wait
   // until now so we have the real value of the parameter and not
@@ -121,7 +125,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pColours;
-  delete m_pDasherButtons;
+  delete m_pInputFilter;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
   // When we destruct on shutdown, we'll output any detailed log file
@@ -176,40 +180,19 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
-	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
+	// TODO: See comment in DasherModel.cpp about prefered values
+	SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
       else
 	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
       RequestFullRedraw();
       break;
     case SP_ALPHABET_ID:
-
-      // I was having problems with X errors when calling a redraw
-      // here - remember that this is called from the training thread,
-      // which leads me to believe that pango is not thread safe, so
-      // instead of actually calling a redraw we just flag for a full
-      // redraw to be performed at the next timer callback. This might
-      // not be a bad thing to do elsewhere too, as it will prevent
-      // multiple redraws.
-
-      // Cycle the alphabet history
-
-//       SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
-//       SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
-//       SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
-//       SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
-
-      ChangeAlphabet(GetStringParameter(SP_ALPHABET_ID)); 
-
-      // FIXME - the new widgets in the preferences box are breaking this
-      
-      if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
- 	SetLongParameter(LP_REAL_ORIENTATION, GetAlphabetOrientation());
-      
+      ChangeAlphabet();
       Start();
       RequestFullRedraw();
       break;
     case SP_COLOUR_ID:
-      ChangeColours(GetStringParameter(SP_COLOUR_ID));
+      ChangeColours();
       RequestFullRedraw();
       break;
     case LP_LANGUAGE_MODEL_ID:
@@ -222,13 +205,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case LP_DASHER_FONTSIZE:
       // TODO - make screen a CDasherComponent child?
-      RequestFullRedraw();
-    case BP_MOUSEPOS_MODE:
-      if(GetBoolParameter(BP_DASHER_PAUSED))
-	if(GetBoolParameter(BP_MOUSEPOS_MODE))
-	  SetLongParameter(LP_MOUSE_POS_BOX, 1);
-	else
-	  SetLongParameter(LP_MOUSE_POS_BOX, -1); 
       RequestFullRedraw();
       break;
     case BP_NUMBER_DIMENSIONS:
@@ -275,8 +251,8 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       CreateInputFilter();
       break;
     default:
-      break;
-    }
+      break;}
+      
   }
   else if(pEvent->m_iEventType == 2) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
@@ -319,9 +295,7 @@ void CDasherInterfaceBase::WriteTrainFileFull() {
 }
 
 void CDasherInterfaceBase::WriteTrainFilePartial() {
-
-  // FIXME - what if we're midway through a unicode character?
-
+  // TODO: what if we're midway through a unicode character?
   WriteTrainFile(strTrainfileBuffer.substr(0,100));
   strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
@@ -330,35 +304,32 @@ void CDasherInterfaceBase::RequestFullRedraw() {
   SetBoolParameter( BP_REDRAW, true );
 }
 
-void CDasherInterfaceBase::AddAlphabetFilename(std::string Filename) {
-  m_AlphabetFilenames.push_back(Filename);
-}
-
-void CDasherInterfaceBase::AddColourFilename(std::string Filename) {
-  m_ColourFilenames.push_back(Filename);
-}
-
 void CDasherInterfaceBase::CreateDasherModel() 
 {
-  // TODO: Should training occur here?
-
+  if(!m_AlphIO)
+    return;
+  
+  // TODO: Move training into model?
+  // TODO: Do we really need to check for a valid language model?
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
-
-  //  if(m_DashEditbox != 0 && lmID != -1) { We don't need an edit box any more
   if( lmID != -1 ) {
 
     // Delete the old model and create a new one
-
-    if(m_pDasherModel != NULL) 
-	{
+    if(m_pDasherModel) {
       delete m_pDasherModel;
-
+      m_pDasherModel = 0;
     }
 
-    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this);
+    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO);
+    m_Alphabet = m_pDasherModel->GetAlphabetNew();
 
     // Train the new language model
-
+    CLockEvent *pEvent;
+    
+    pEvent = new CLockEvent("Training Dasher", true, 0);
+    m_pEventHandler->InsertEvent(pEvent);
+    delete pEvent;
+    
     string T = m_Alphabet->GetTrainingFile();
 
     struct stat sStatInfo;
@@ -380,24 +351,16 @@ void CDasherInterfaceBase::CreateDasherModel()
       m_pEventHandler->InsertEvent(&oEvent);
     }
 
-    // Set various parameters
-
-    //m_pDasherModel->SetControlMode(m_ControlMode);
-
-    if(GetLongParameter(LP_VIEW_ID) != -1)
-      ChangeView(GetLongParameter(LP_VIEW_ID));
+    pEvent = new CLockEvent("Training Dasher", false, 0);
+    m_pEventHandler->InsertEvent(pEvent);
+    delete pEvent;
   }
 }
 
 void CDasherInterfaceBase::Start() {
-  //m_Paused=false;
-  //    SetBoolParameter(BP_DASHER_PAUSED, true);
-
   PauseAt(0, 0);
-
   if(m_pDasherModel != 0) {
     m_pDasherModel->Start();
-    //    m_pDasherModel->Set_paused(m_Paused);
   }
   if(m_pDasherView != 0) {
     m_pDasherView->ResetSum();
@@ -425,7 +388,6 @@ void CDasherInterfaceBase::Halt() {
   if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
     SetLongParameter(LP_MOUSE_POS_BOX, 1);
   }
-
 
   // This will cause us to reinitialise the frame rate counter - ie we start off slowly
   if(m_pDasherModel != 0)
@@ -493,8 +455,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 	Dasher::VECTOR_SYMBOL_PROB vAdded;
 	int iNumDeleted = 0;
 	
-	if(m_pDasherButtons) {
-	  m_pDasherButtons->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
+	if(m_pInputFilter) {
+	  m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
 	}
 	
 	if (iNumDeleted > 0)
@@ -504,8 +466,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 	
       }
       else {
-	if(m_pDasherButtons) {
-	  m_pDasherButtons->Timer(iTime, m_pDasherView, m_pDasherModel);
+	if(m_pInputFilter) {
+	  m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel);
 	}
       }
       
@@ -514,8 +476,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 
     m_pDasherModel->RenderToView(m_pDasherView, 0, 0, true);
   
-    if(m_pDasherButtons)
-      m_pDasherButtons->DecorateView(m_pDasherView);
+    if(m_pInputFilter)
+      m_pInputFilter->DecorateView(m_pDasherView);
     m_pDasherView->Display();
   }
 
@@ -524,26 +486,10 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 }
 
 
-void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
-  // Don't bother doing any of this if it's the same alphabet
-  //  if (GetStringParameter(SP_ALPHABET_ID) != NewAlphabetID) { 
-
-  //     SetStringParameter(SP_ALPHABET_ID, NewAlphabetID); 
-
-  // FIXME - we shouldn't rely on the first call to ChangeAlphabet to
-  // construct the list of filenames - we may need to populate a list
-  // dialogue before this happens - also, what happens if the list of
-  // alphabet files changes at runtime?
-
-  // Update the training file first
+void CDasherInterfaceBase::ChangeAlphabet() {
 
   // Send a lock event
 
-  CLockEvent *pEvent;
-
-  pEvent = new CLockEvent("Training Dasher", true, 0);
-  m_pEventHandler->InsertEvent(pEvent);
-  delete pEvent;
 
   WriteTrainFileFull();
 
@@ -551,16 +497,17 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
 
   SetBoolParameter( BP_TRAINING, true );
 
-  if(!m_AlphIO)
-    m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
+//   m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
 
-  m_AlphInfo = m_AlphIO->GetInfo(NewAlphabetID);
+//   //AlphabetID = m_AlphInfo.AlphID.c_str();
 
-  //AlphabetID = m_AlphInfo.AlphID.c_str();
+//   //  std::auto_ptr < CAlphabet > ptrOld(m_Alphabet);       // So we can delete the old alphabet later
 
-  std::auto_ptr < CAlphabet > ptrOld(m_Alphabet);       // So we can delete the old alphabet later
+//   m_Alphabet = new CAlphabet(m_AlphInfo);
 
-  m_Alphabet = new CAlphabet(m_AlphInfo);
+  delete m_pDasherModel;
+  m_pDasherModel = 0;
+  CreateDasherModel();
 
   // Let our user log object know about the new alphabet since
   // it needs to convert symbols into text for the log file.
@@ -569,105 +516,74 @@ void CDasherInterfaceBase::ChangeAlphabet(const std::string &NewAlphabetID) {
 
   // Apply options from alphabet
 
-  SetStringParameter(SP_TRAIN_FILE, m_Alphabet->GetTrainingFile());
-
-
-
-  if((m_Alphabet->GetGameModeFile()).length() > 0)
-    SetStringParameter(SP_GAME_TEXT_FILE, m_Alphabet->GetGameModeFile());
-  
-
-  // DJW_TODO - control mode
-  //   if (m_ControlMode==true) {
-  //   m_Alphabet->AddControlSymbol();
-  //  }
-
-  // Recreate widgets and language model
-  if(m_DasherScreen != 0)
-    m_DasherScreen->SetInterface(this);
-
-  delete m_pDasherModel;
-  m_pDasherModel = 0;
-  CreateDasherModel();
-
-  if(m_Alphabet->GetPalette() != std::string("") && GetBoolParameter(BP_PALETTE_CHANGE)) {
-    //    ChangeColours(m_Alphabet->GetPalette());
-    SetStringParameter(SP_COLOUR_ID, m_Alphabet->GetPalette());
-  }
-
   SetBoolParameter( BP_TRAINING, false );
 
   Start();
 
-  pEvent = new CLockEvent("Training Dasher", false, 0);
-  m_pEventHandler->InsertEvent(pEvent);
-  delete pEvent;
-
   //}
 }
 
-std::string CDasherInterfaceBase::GetCurrentAlphabet() {
-  return GetStringParameter(SP_ALPHABET_ID);
-}
+// std::string CDasherInterfaceBase::GetCurrentAlphabet() {
+//   return GetStringParameter(SP_ALPHABET_ID);
+// }
 
-void CDasherInterfaceBase::ChangeColours(const std::string &NewColourID) {
+void CDasherInterfaceBase::ChangeColours() {
   if(!m_ColourIO)
-    m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_ColourFilenames);
-  m_ColourInfo = m_ColourIO->GetInfo(NewColourID);
+    return;
 
-  // delete old colours on editing function
-  std::auto_ptr < CCustomColours > ptrColours(m_pColours);
+//   // delete old colours on editing function (ending function? - not really sure what the point of this is - I guess we might fail)
+//   std::auto_ptr < CCustomColours > ptrColours(m_pColours);
 
-  m_pColours = new CCustomColours(m_ColourInfo);
+  if(m_pColours) {
+    delete m_pColours;
+    m_pColours = 0;
+  }
 
-  //ColourID=m_ColourInfo.ColourID;
-
-  //    SetStringParameter(SP_COLOUR_ID, NewColourID);
+ 
+  CColourIO::ColourInfo oColourInfo(m_ColourIO->GetInfo(GetStringParameter(SP_COLOUR_ID)));
+  m_pColours = new CCustomColours(oColourInfo);
 
   if(m_DasherScreen != 0) {
     m_DasherScreen->SetColourScheme(m_pColours);
   }
 }
 
-void CDasherInterfaceBase::ChangeLanguageModel(int NewLanguageModelID) {
+// void CDasherInterfaceBase::ChangeLanguageModel(int NewLanguageModelID) {
 
-  if(NewLanguageModelID != GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
-    SetLongParameter(LP_LANGUAGE_MODEL_ID, NewLanguageModelID);
+//   if(NewLanguageModelID != GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
+//     SetLongParameter(LP_LANGUAGE_MODEL_ID, NewLanguageModelID);
 
-    if(m_Alphabet != 0) {
-      CreateDasherModel();
+//     if(m_Alphabet != 0) {
+//       CreateDasherModel();
 
-      // We need to call start here so that the root is recreated,
-      // otherwise it will fail (this is probably something which
-      // needs to be fixed in a more integrated way)
-      Start();
+//       // We need to call start here so that the root is recreated,
+//       // otherwise it will fail (this is probably something which
+//       // needs to be fixed in a more integrated way)
+//       Start();
 
-    }
-  }
-}
+//     }
+//   }
+// }
 
-void CDasherInterfaceBase::ChangeScreen() {
-  if(m_pDasherView != 0) {
-    m_pDasherView->ChangeScreen(m_DasherScreen);
-  } else {
-    if(GetLongParameter(LP_VIEW_ID) != -1)
-      ChangeView(GetLongParameter(LP_VIEW_ID));
-  }
-}
+// void CDasherInterfaceBase::ChangeScreen() {
+// }
 
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   m_DasherScreen = NewScreen;
   m_DasherScreen->SetColourScheme(m_pColours);
-  m_DasherScreen->SetInterface(this);
-  ChangeScreen();
+
+  if(m_pDasherView != 0) {
+    m_pDasherView->ChangeScreen(m_DasherScreen);
+  } else {
+    if(GetLongParameter(LP_VIEW_ID) != -1)
+      ChangeView();
+  }
+
   Redraw();
 }
 
-void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
-  //TODO Use DasherViewID
-
-  // FIXME - this shouldn't be here
-  SetLongParameter(LP_VIEW_ID, NewViewID);
+void CDasherInterfaceBase::ChangeView() {
+  // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
 
   if(m_DasherScreen != 0 && m_pDasherModel != 0) 
   {
@@ -682,84 +598,71 @@ void CDasherInterfaceBase::ChangeView(unsigned int NewViewID) {
   }
 }
 
-unsigned int CDasherInterfaceBase::GetNumberSymbols() {
-  if(m_Alphabet != 0)
-    return m_Alphabet->GetNumberSymbols();
-  else
-    return 0;
-}
+// unsigned int CDasherInterfaceBase::GetNumberSymbols() {
+//   if(m_Alphabet != 0)
+//     return m_Alphabet->GetNumberSymbols();
+//   else
+//     return 0;
+// }
 
-const string & CDasherInterfaceBase::GetDisplayText(symbol Symbol) {
-  if(m_Alphabet != 0)
-    return m_Alphabet->GetDisplayText(Symbol);
-  else
-    return EmptyString;
-}
+// const string & CDasherInterfaceBase::GetDisplayText(symbol Symbol) {
+//   if(m_Alphabet != 0)
+//     return m_Alphabet->GetDisplayText(Symbol);
+//   else
+//     return EmptyString;
+// }
 
-const string & CDasherInterfaceBase::GetEditText(symbol Symbol) {
-  if(m_Alphabet != 0)
-    return m_Alphabet->GetText(Symbol);
-  else
-    return EmptyString;
-}
+// const string & CDasherInterfaceBase::GetEditText(symbol Symbol) {
+//   if(m_Alphabet != 0)
+//     return m_Alphabet->GetText(Symbol);
+//   else
+//     return EmptyString;
+// }
 
-int CDasherInterfaceBase::GetTextColour(symbol Symbol) {
-  if(m_Alphabet != 0)
-    return m_Alphabet->GetTextColour(Symbol);
-  else
-    return 4;                   // Default colour for text
-}
+// int CDasherInterfaceBase::GetTextColour(symbol Symbol) {
+//   if(m_Alphabet != 0)
+//     return m_Alphabet->GetTextColour(Symbol);
+//   else
+//     return 4;                   // Default colour for text
+// }
 
-Opts::ScreenOrientations CDasherInterfaceBase::GetAlphabetOrientation() {
-  return m_Alphabet->GetOrientation();
-}
+// Opts::ScreenOrientations CDasherInterfaceBase::GetAlphabetOrientation() {
+//   return ;
+// }
 
-Opts::AlphabetTypes CDasherInterfaceBase::GetAlphabetType() {
-  return m_Alphabet->GetType();
-}
+// Opts::AlphabetTypes CDasherInterfaceBase::GetAlphabetType() {
+//   return m_Alphabet->GetType();
+// }
 
-const std::string CDasherInterfaceBase::GetTrainFile() {
-  // DOES NOT RETURN FULLY QUALIFIED PATH - SEPARATE SETTING FOR PATH
-  return GetStringParameter(SP_TRAIN_FILE);
-}
+// const std::string CDasherInterfaceBase::GetTrainFile() {
+//   // DOES NOT RETURN FULLY QUALIFIED PATH - SEPARATE SETTING FOR PATH
+//   return GetStringParameter(SP_TRAIN_FILE);
+//}
 
 void CDasherInterfaceBase::GetAlphabets(std::vector <std::string >*AlphabetList) {
-  if(!m_AlphIO)
-    m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
   m_AlphIO->GetAlphabets(AlphabetList);
 }
 
 const CAlphIO::AlphInfo & CDasherInterfaceBase::GetInfo(const std::string &AlphID) {
-  if(!m_AlphIO)
-    m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
-
   return m_AlphIO->GetInfo(AlphID);
 }
 
 void CDasherInterfaceBase::SetInfo(const CAlphIO::AlphInfo &NewInfo) {
-  if(!m_AlphIO)
-    m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
-
   m_AlphIO->SetInfo(NewInfo);
 }
 
 void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
-  if(!m_AlphIO)
-    m_AlphIO = new CAlphIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_AlphabetFilenames);
-
   m_AlphIO->Delete(AlphID);
 }
 
 void CDasherInterfaceBase::GetColours(std::vector <std::string >*ColourList) {
-  if(!m_ColourIO)
-    m_ColourIO = new CColourIO(GetStringParameter(SP_SYSTEM_LOC), GetStringParameter(SP_USER_LOC), m_ColourFilenames);
   m_ColourIO->GetColours(ColourList);
 }
 
-void CDasherInterfaceBase::Train(string *TrainString, bool IsMore) {
-//      m_pDasherModel->LearnText(TrainContext, TrainString, IsMore);
-  return;
-}
+// void CDasherInterfaceBase::Train(string *TrainString, bool IsMore) {
+// //      m_pDasherModel->LearnText(TrainContext, TrainString, IsMore);
+//   return;
+// }
 
 /*
 	I've used C style I/O because I found that C++ style I/O bloated
@@ -953,26 +856,26 @@ CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
-  if(m_pDasherButtons && !GetBoolParameter(BP_TRAINING)) {
-    m_pDasherButtons->KeyDown(iTime, iId, m_pDasherModel);
+  if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel);
   }
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
-  if(m_pDasherButtons && !GetBoolParameter(BP_TRAINING)) {
-    m_pDasherButtons->KeyUp(iTime, iId, m_pDasherModel);
+  if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
+    m_pInputFilter->KeyUp(iTime, iId, m_pDasherModel);
   }
 }
 
 void CDasherInterfaceBase::CreateInputFilter()
 {
-  if(m_pDasherButtons) {
-    m_pDasherButtons->Unref();
-    m_pDasherButtons = NULL;
+  if(m_pInputFilter) {
+    m_pInputFilter->Unref();
+    m_pInputFilter = NULL;
   }
 
-  m_pDasherButtons = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
-  m_pDasherButtons->Ref();
+  m_pInputFilter = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
+  m_pInputFilter->Ref();
 }
 
 void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {

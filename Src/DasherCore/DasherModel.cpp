@@ -41,7 +41,7 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface)
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CAlphIO *pAlphIO)
 :CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0), 
 m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_pGameMode(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
@@ -51,7 +51,25 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   m_fr.SetMaxBitrate(m_dMaxRate);
 
   // Convert the full alphabet to a symbolic representation for use in the language model
-  m_pcAlphabet = m_pDasherInterface->GetAlphabet();
+
+  // -- put all this in a separate method
+  // TODO: Think about having 'prefered' values here, which get
+  // retrieved by DasherInterfaceBase and used to set parameters
+  CAlphIO::AlphInfo oAlphInfo = pAlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID));
+  m_pcAlphabet = new CAlphabet(oAlphInfo);
+
+  SetStringParameter(SP_TRAIN_FILE, m_pcAlphabet->GetTrainingFile());
+  // TODO: No idea what's up here, but it doesn't like this for some reason:
+  // SetStringParameter(SP_GAME_TEXT_FILE, m_pcAlphabet->GetGameModeFile());
+
+  if(m_pcAlphabet->GetPalette() != std::string("") && GetBoolParameter(BP_PALETTE_CHANGE)) {
+    SetStringParameter(SP_COLOUR_ID, m_pcAlphabet->GetPalette());
+  }
+
+  if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+    SetLongParameter(LP_REAL_ORIENTATION, m_pcAlphabet->GetOrientation());
+  // --
+
   CSymbolAlphabet alphabet(m_pcAlphabet->GetNumberTextSymbols());
   alphabet.SetSpaceSymbol(m_pcAlphabet->GetSpaceSymbol());      // FIXME - is this right, or do we have to do some kind of translation?
   alphabet.SetAlphabetPointer(m_pcAlphabet);    // Horrible hack, but ignore for now.

@@ -3,7 +3,6 @@
 #include <iostream>
 #include "DasherControl.h"
 #include "Timer.h"
-#include "../DasherCore/DasherInterface.h"
 #include "../DasherCore/Event.h"
 #include "../DasherCore/WrapperFactory.h"
 
@@ -14,6 +13,7 @@
 #include <gdk/gdkkeysyms.h>
 #include <sys/stat.h>
 using namespace std;
+
 // 'Private' methods (only used in this file)
 extern "C" gint key_release_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
@@ -24,7 +24,6 @@ extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer 
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
-
 
 // Global variables - Make as many of these local or clas members as possible.
 
@@ -65,6 +64,53 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   m_pVBox = GTK_WIDGET(pVBox);
 
+  // Set up directory locations and so on.
+
+  // Add all available alphabets and colour schemes to the core
+
+
+  Realize();
+
+  m_iComboCount = 0;
+  PopulateAlphabetCombol();
+    
+  // Start the dasher model
+
+  Start();        // FIXME - should we hold off on this until later?
+
+  // Create input device objects
+  // (We create the SocketInput object now even if socket input is not enabled, because
+  // we are not allowed to create it in response to a parameter update event later, because
+  // that would mean registering a new event listener during the processing of an event.
+
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+
+  m_pSocketInput = (CSocketInput *)GetModule(1);
+  m_pSocketInput->Ref();
+  
+  m_pMouseInput = (CDasherMouseInput *)GetModule(0);
+  m_pMouseInput->Ref();
+
+  if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
+    m_pSocketInput->StartListening();
+    SetInput(1);
+  }
+  else {
+    SetInput(0);
+  }
+
+  // Create a pango cache
+
+  m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
+
+  // Don't create the screen until we've been realised.
+
+  m_pScreen = NULL;
+
+}
+
+void CDasherControl::SetupUI() {
   m_pCanvas = gtk_drawing_area_new();
   GTK_WIDGET_SET_FLAGS(m_pCanvas, GTK_CAN_FOCUS);
 
@@ -125,9 +171,9 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   g_signal_connect(m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this);
 
   g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
+}
 
-  // Set up directory locations and so on.
-
+void CDasherControl::SetupPaths() {
   char *home_dir;
 
   home_dir = getenv("HOME");
@@ -145,68 +191,63 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
   SetStringParameter(SP_USER_LOC, user_data_dir);
+}
 
-  // Add all available alphabets and colour schemes to the core
+void CDasherControl::CreateSettingsStore() {
+  m_pSettingsStore = new CGnomeSettingsStore(m_pEventHandler);
+}
 
-  scan_alphabet_files();
-  scan_colour_files();
+void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
+  GDir *directory;
+  G_CONST_RETURN gchar *filename;
+  GPatternSpec *alphabetglob;
+  alphabetglob = g_pattern_spec_new("alphabet*xml");
+  directory = g_dir_open(system_data_dir, 0, NULL);
 
-  Realize();
-
-  m_iComboCount = 0;
-  PopulateAlphabetCombol();
-
-//   GArray *pAlphabetArray;
-
-//   pAlphabetArray = GetAllowedValues(SP_ALPHABET_ID);
-  
-//   for(unsigned int i(0); i < pAlphabetArray->len; ++i) {
-//     const gchar *pCurrentAlphabet(g_array_index(pAlphabetArray, gchar *, i));
-//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), pCurrentAlphabet);
-//     ++m_iComboCount;
-//   }
-  
-//   g_array_free(pAlphabetArray, true);
-    
-  // Start the dasher model
-
-  Start();        // FIXME - should we hold off on this until later?
-
-  // Tell the core that we handle edit events etc.
-
-//   m_pInterface->ChangeEdit(this);
-//   m_pInterface->SetSettingsUI(this);
-
-  // Create input device objects
-  // (We create the SocketInput object now even if socket input is not enabled, because
-  // we are not allowed to create it in response to a parameter update event later, because
-  // that would mean registering a new event listener during the processing of an event.
-
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
-
-  m_pSocketInput = (CSocketInput *)GetModule(1);
-  m_pSocketInput->Ref();
-  
-  m_pMouseInput = (CDasherMouseInput *)GetModule(0);
-  m_pMouseInput->Ref();
-
-  if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-    m_pSocketInput->StartListening();
-    SetInput(1);
-  }
-  else {
-    SetInput(0);
+  while((filename = g_dir_read_name(directory))) {
+    if(alphabet_filter(filename, alphabetglob)) {
+      vFileList.push_back(filename);
+    }
   }
 
-  // Create a pango cache
+  g_dir_close(directory);
 
-  m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
+  directory = g_dir_open(user_data_dir, 0, NULL);
 
-  // Don't create the screen until we've been realised.
+  while((filename = g_dir_read_name(directory))) {
+    if(alphabet_filter(filename, alphabetglob)) {
+      vFileList.push_back(filename);
+    }
+  }
 
-  m_pScreen = NULL;
+  g_dir_close(directory);
+  // FIXME - need to delete glob?
+}
 
+void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
+  GDir *directory;
+  G_CONST_RETURN gchar *filename;
+
+  GPatternSpec *colourglob;
+  colourglob = g_pattern_spec_new("colour*xml");
+
+  directory = g_dir_open(system_data_dir, 0, NULL);
+
+  while((filename = g_dir_read_name(directory))) {
+    if(colour_filter(filename, colourglob)) {
+      vFileList.push_back(filename);
+    }
+  }
+
+  directory = g_dir_open(user_data_dir, 0, NULL);
+
+  while((filename = g_dir_read_name(directory))) {
+    if(colour_filter(filename, colourglob)) {
+      vFileList.push_back(filename);
+    }
+  }
+
+  // FIXME - need to delete glob?
 }
 
 CDasherControl::~CDasherControl() {
@@ -278,7 +319,7 @@ void CDasherControl::RealizeCanvas() {
   g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
 }
 
-void CDasherControl::CanvasConfigureEvent() {
+int CDasherControl::CanvasConfigureEvent() {
 
   if(m_pScreen != NULL)
     delete m_pScreen;
@@ -290,6 +331,8 @@ void CDasherControl::CanvasConfigureEvent() {
   
   SetLongParameter(LP_SCREENHEIGHT, m_pScreen->m_iHeight);
   SetLongParameter(LP_SCREENWIDTH,  m_pScreen->m_iWidth);
+
+  return 0;
 }
 
 void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
@@ -618,61 +661,6 @@ void CDasherControl::AlphabetComboChanged() {
     SetStringParameter(SP_ALPHABET_ID, gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)));
 }
 
-void CDasherControl::scan_alphabet_files() {
-  // Hurrah for glib making this a nice easy thing to do
-  // rather than the WORLD OF PAIN it would otherwise be
-  GDir *directory;
-  G_CONST_RETURN gchar *filename;
-  GPatternSpec *alphabetglob;
-  alphabetglob = g_pattern_spec_new("alphabet*xml");
-  directory = g_dir_open(system_data_dir, 0, NULL);
-
-  while((filename = g_dir_read_name(directory))) {
-    if(alphabet_filter(filename, alphabetglob)) {
-      AddAlphabetFilename(filename);
-    }
-  }
-
-  g_dir_close(directory);
-
-  directory = g_dir_open(user_data_dir, 0, NULL);
-
-  while((filename = g_dir_read_name(directory))) {
-    if(alphabet_filter(filename, alphabetglob)) {
-      AddAlphabetFilename(filename);
-    }
-  }
-
-  g_dir_close(directory);
-  // FIXME - need to delete glob?
-}
-
-void CDasherControl::scan_colour_files() {
-  GDir *directory;
-  G_CONST_RETURN gchar *filename;
-
-  GPatternSpec *colourglob;
-  colourglob = g_pattern_spec_new("colour*xml");
-
-  directory = g_dir_open(system_data_dir, 0, NULL);
-
-  while((filename = g_dir_read_name(directory))) {
-    if(colour_filter(filename, colourglob)) {
-      AddColourFilename(filename);
-    }
-  }
-
-  directory = g_dir_open(user_data_dir, 0, NULL);
-
-  while((filename = g_dir_read_name(directory))) {
-    if(colour_filter(filename, colourglob)) {
-      AddColourFilename(filename);
-    }
-  }
-
-  // FIXME - need to delete glob?
-}
-
 // Tell the logging object that a new user trial is starting.
 void CDasherControl::UserLogNewTrial()
 {
@@ -715,22 +703,19 @@ extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer 
 }
 
 extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data) {
-  ((CDasherControl *) data)->CanvasConfigureEvent();
-
-  // TODO - implement code in UI (ie not here) to save window dimensions on resize
-
-  return FALSE;
+  return static_cast < CDasherControl * >(data)->CanvasConfigureEvent();
 }
 
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData) {
   static_cast<CDasherControl*>(pUserData)->CanvasDestroyEvent();
 }
+
 extern "C" gint key_release_event(GtkWidget *pWidget, GdkEventKey *event, gpointer pUserData) {
   return static_cast<CDasherControl*>(pUserData)->KeyReleaseEvent(event);
 }
 
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
-  return ((CDasherControl*)data)->FocusEvent(widget, event);
+  return static_cast < CDasherControl * >(data)->FocusEvent(widget, event);
 }
 
 extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {

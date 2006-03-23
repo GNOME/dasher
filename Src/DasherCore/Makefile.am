@@ -29,7 +29,6 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           DasherGameMode.cpp \
                           DasherGameMode.h \
                           DasherInput.h \
-                          DasherInterface.h \
                           DasherInterfaceBase.cpp \
                           DasherInterfaceBase.h \
                           DasherModel.cpp \

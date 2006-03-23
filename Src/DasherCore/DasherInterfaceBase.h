@@ -67,7 +67,7 @@ public:
   /// platform-dependent derived class
   ///
 
-  virtual CSettingsStore *CreateSettingsStore() = 0;
+  virtual void CreateSettingsStore() = 0;
 
   ///
   /// Return a pointer to the current EventHandler (the one
@@ -191,44 +191,6 @@ public:
 
   void RequestFullRedraw();
 
-  /// Force an update of the CScreen object without changing the pointer
-  /// \todo When is this needed?
-
-  void ChangeScreen();          // The widgets need to tell the engine when they have been
-
-  /// Returns the number of symbols in the alphabet
-  /// \retval the number of symbols.
-
-  unsigned int GetNumberSymbols();      // These are needed so widgets know
-
-  /// Get the display string for a symbol
-  /// \param Symbol The symbol ID to look up.
-  /// \retval UTF-8 string to be displayed
-
-  const std::string & GetDisplayText(symbol Symbol);    // how to render the alphabet. All
-
-  /// Get the edit string for a symbol
-  /// \param Symbol The symbol ID to look up.
-  /// \retval UTF-8 string to be displayed
-
-  const std::string & GetEditText(symbol Symbol);       // strings are encoded in UTF-8
-
-  /// \todo Document this
-
-  int GetTextColour(symbol Symbol);     // the foreground colour of the text
-
-  /// \todo Document this
-
-  Opts::ScreenOrientations GetAlphabetOrientation();
-
-  /// \todo Document this
-
-  Opts::AlphabetTypes GetAlphabetType();
-
-  /// \todo Document this
-
-  const std::string GetTrainFile();
-
   // App Interface
   // -----------------------------------------------------
 
@@ -241,12 +203,6 @@ public:
   /// \param NewScreen Pointer to the new CDasherScreen.
 
   void ChangeScreen(CDasherScreen * NewScreen); // We may change the widgets Dasher uses
-
-  /// Train Dasher using a UTF-8 string
-  /// \param TrainString The training string.
-  /// \param IsMore Whether to keep state (affects how incomplete UTF-8 characters are handled at the end)
-
-  void Train(std::string * TrainString, bool IsMore);   // Training by string segments or file
 
   /// Train Dasher from a file
   /// \param Filename File to load.
@@ -297,94 +253,88 @@ public:
 
   /// \deprecated Use parameter interface instead
 
-  void ChangeAlphabet(const std::string & NewAlphabetID);
+  /// \deprecated Use parameter interface instead
+
+  //  std::string GetCurrentAlphabet();
 
   /// \deprecated Use parameter interface instead
 
-  std::string GetCurrentAlphabet();
+  /// \deprecated Use parameter interface instead
+
+  //  std::string GetCurrentColours();
 
   /// \deprecated Use parameter interface instead
 
-  void ChangeColours(const std::string & NewColourID);
-
-  /// \deprecated Use parameter interface instead
-
-  std::string GetCurrentColours();
-
-  /// \deprecated Use parameter interface instead
-
-  void ChangeMaxBitRate(double NewMaxBitRate);
+  //  void ChangeMaxBitRate(double NewMaxBitRate);
 
   // DJW - nasty thing about this is - we dont necessarily want the LM to rebuild every
   // time a parameter is change - e.g. if we change 2 or 3 params in a row ???
 
   /// \deprecated Use parameter interface instead
 
-  void ChangeLanguageModel(int NewLanguageModelID);
+/*   void ChangeLanguageModel(int NewLanguageModelID); */
 
   /// \deprecated Use parameter interface instead
 
-  void ChangeView(unsigned int NewViewID);
-
   /// \deprecated Use parameter interface instead
 
-  void SetFileEncoding(Opts::FileEncodingFormats Encoding);
+/*   void SetFileEncoding(Opts::FileEncodingFormats Encoding); */
 
-  /// \deprecated Not part of Dasher control
+/*   /// \deprecated Not part of Dasher control */
 
-  void ShowToolbar(bool Value);
+/*   void ShowToolbar(bool Value); */
 
-  /// \deprecated Not part of Dasher control
+/*   /// \deprecated Not part of Dasher control */
 
-  void ShowToolbarText(bool Value);
+/*   void ShowToolbarText(bool Value); */
 
-  /// \deprecated Not part of Dasher control
+/*   /// \deprecated Not part of Dasher control */
 
-  void SetScreenSize(long Width, long Height);
+/*   void SetScreenSize(long Width, long Height); */
 
-  /// \deprecated Not part of Dasher control
+/*   /// \deprecated Not part of Dasher control */
 
-  void SetEditHeight(long Value);
+/*   void SetEditHeight(long Value); */
 
-  /// \deprecated Not part of Dasher control
+/*   /// \deprecated Not part of Dasher control */
 
-  void SetEditFont(std::string Name, long Size);
+/*   void SetEditFont(std::string Name, long Size); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetDasherFont(std::string Name);
+/*   void SetDasherFont(std::string Name); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetDasherFontSize(Dasher::Opts::FontSize fontsize);
+/*   void SetDasherFontSize(Dasher::Opts::FontSize fontsize); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetDasherDimensions(bool Value);
+/*   void SetDasherDimensions(bool Value); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetDasherEyetracker(bool Value);
+/*   void SetDasherEyetracker(bool Value); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetUniform(int Value);
+/*   void SetUniform(int Value); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetYScale(int Value);
+/*   void SetYScale(int Value); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetMousePosDist(int Value);
+/*   void SetMousePosDist(int Value); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetTruncation(int Value);
+/*   void SetTruncation(int Value); */
 
-  /// \deprecated Use parameter interface instead
+/*   /// \deprecated Use parameter interface instead */
 
-  void SetTruncationType(int Value);
+/*   void SetTruncationType(int Value); */
 
   /// Get the current autocalibration offset
   /// \retval The offset.
@@ -440,51 +390,50 @@ public:
 
   // Module management functions
   void RegisterFactory(CModuleFactory *pFactory);
-  CDasherModule *GetModule(long long int iID); // TODO - should never be needed externally
-  CDasherModule *GetModuleByName(const std::string &strName);
 
   void CreateFactories();
+
+  // To be implemented by child class
+  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
+  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
+  virtual void SetupPaths() = 0;
+  virtual void SetupUI() = 0;
 
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
 
-  void CreateInputFilter();
-
+  // Various 'child' components
   CAlphabet *m_Alphabet;
   CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
   CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
-  CAutoSpeedControl *m_pAutoSpeedControl;
-
   CDasherInput *m_pInput;
-
   CAlphIO *m_AlphIO;
-  CAlphIO::AlphInfo m_AlphInfo;
   CColourIO *m_ColourIO;
-  CColourIO::ColourInfo m_ColourInfo;
-
-  std::vector < std::string > m_AlphabetFilenames;
-  std::vector < std::string > m_ColourFilenames;
 
   std::string strTrainfileBuffer;
-
-  static const std::string EmptyString;
-
-  void CreateDasherModel();
-
   std::string strCurrentContext;
 
-  CEventHandler * m_pEventHandler;
+  CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
-  CUserLog*       m_pUserLog;               // Pointer to the object that handles logging user activity
-  CInputFilter* m_pDasherButtons;
-
+  CUserLog *m_pUserLog;               // Pointer to the object that handles logging user activity
+  CInputFilter* m_pInputFilter;
   CModuleManager m_oModuleManager;
   
   bool m_bGlobalLock; // The big lock
 
+  // TODO: Make private?
+  CDasherModule *GetModule(long long int iID);
+  CDasherModule *GetModuleByName(const std::string &strName);
+
+ private:
+  void CreateInputFilter();
+  void CreateDasherModel();
+  void ChangeAlphabet();
+  void ChangeColours();
+  void ChangeView();
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

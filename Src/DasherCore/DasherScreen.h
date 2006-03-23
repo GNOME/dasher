@@ -29,10 +29,10 @@ public:
   virtual ~ CDasherScreen() {
   }
 
-  //! Set the widget interface used for communication with the core
-  virtual void SetInterface(CDasherInterfaceBase * DasherInterface) {
-    m_pDasherInterface = DasherInterface;
-  }
+/*   //! Set the widget interface used for communication with the core */
+/*   virtual void SetInterface(CDasherInterfaceBase * DasherInterface) { */
+/*     m_pDasherInterface = DasherInterface; */
+/*   } */
 
   //! Return the width of the screen
   screenint GetWidth() {
@@ -132,7 +132,7 @@ protected:
   const screenint m_iWidth, m_iHeight;
 
   //! Pointer to a widget interface for communication with the core
-  CDasherInterfaceBase *m_pDasherInterface;
+  //  CDasherInterfaceBase *m_pDasherInterface;
 };
 
 #endif /* #ifndef __DasherScreen_h_ */
