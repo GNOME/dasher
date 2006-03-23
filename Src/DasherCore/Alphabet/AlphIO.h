@@ -113,6 +113,7 @@ private:
   // Data gathered
   std::string CData;            // Text gathered from when an elemnt starts to when it ends
   AlphInfo InputInfo;
+  bool bFirstGroup;
 
   // Callback functions. These involve the normal dodgy casting to a pointer
   // to an instance to get a C++ class to work with a plain C library.

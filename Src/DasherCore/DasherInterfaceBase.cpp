@@ -108,7 +108,6 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
 
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_Alphabet;
-  delete m_pDasherView;
   delete m_ColourIO;
   delete m_AlphIO;
   delete m_pColours;
@@ -1036,4 +1035,9 @@ void CDasherInterfaceBase::CreateInputFilter()
     m_pDasherButtons = new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false);
   else if(GetStringParameter(SP_INPUT_FILTER) == "Default")
     m_pDasherButtons = new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel);
+}
+
+void CDasherInterfaceBase::StartShutdown() {
+  delete m_pDasherView;
+  m_pDasherView = 0;
 }

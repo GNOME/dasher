@@ -7,8 +7,8 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Malay_MY.txt</train>
-<space d="_" t=" "/>
-<control d="Control" t=""/>
+<space d="&#x25a1;" t=" " b="9"/>
+<control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
 <group name="Lower case Latin letters" b="0">
 <s d="a" t="a"/>

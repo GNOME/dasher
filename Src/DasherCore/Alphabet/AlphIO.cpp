@@ -114,8 +114,8 @@ const CAlphIO::AlphInfo & CAlphIO::GetInfo(const std::string &AlphID) {
   if(AlphID == "") {
     // FIXME - really broken, code duplicated in Win32/Widgets/AlphabetBox.cpp
     // Eww. If no alphabet is configured, default to this one...
-    if(Alphabets.count("English with limited punctuation") != 0) {
-      return Alphabets["English with limited punctuation"];
+    if(Alphabets.count("English alphabet - limited punctuation") != 0) {
+      return Alphabets["English alphabet - limited punctuation"];
     }
     else {
       // unless it doesn't exist, in which case return default
@@ -381,6 +381,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.ControlCharacter.Colour = -1;
     Me->InputInfo.m_iCharacters = 1; // Start at 1 as 0 is the root node symbol
     Me->InputInfo.m_pBaseGroup = 0;
+    Me->bFirstGroup = true;
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         atts++;
@@ -513,7 +514,13 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     
     SGroupInfo *pNewGroup(new SGroupInfo);
     pNewGroup->iColour = 0;
-    pNewGroup->bVisible = false;
+    if(Me->bFirstGroup) {
+      pNewGroup->bVisible = false;
+      Me->bFirstGroup = false;
+    }
+    else {
+      pNewGroup->bVisible = true;
+    }
 
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
@@ -525,11 +532,19 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
         atts++;
         Me->InputInfo.Groups.back().Colour = atoi(*atts);
 	pNewGroup->iColour = atoi(*atts);
-	if(pNewGroup->iColour == 0)
-	  pNewGroup->bVisible = false;
-	else
-	  pNewGroup->bVisible = true;
+// 	if(pNewGroup->iColour == 0)
+// 	  pNewGroup->bVisible = false;
+// 	else
+// 	  pNewGroup->bVisible = true;
         atts--;
+      }
+      if(strcmp(*atts, "visible") == 0) {
+	atts++;
+	if(!strcmp(*atts, "yes"))
+	  pNewGroup->bVisible = true;
+	else if(!strcmp(*atts, "no"))
+	  pNewGroup->bVisible = false;
+	atts--;
       }
       if(strcmp(*atts, "label") == 0) {
         atts++;

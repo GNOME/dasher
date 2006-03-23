@@ -8,7 +8,7 @@
 <palette>Default</palette>
 <train>training_klingon_US.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="_" t=" " b="9"/>
+<space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="Klingon / pIqaD" b="0">
    <s d="&#xf8d0;" t="&#xf8d0;" note="a" />	

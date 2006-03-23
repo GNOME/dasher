@@ -494,6 +494,8 @@ public:
   void KeyDown(int iTime, int iId);
   void KeyUp(int iTime, int iId);
 
+  void StartShutdown();
+
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();

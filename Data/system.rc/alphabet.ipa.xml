@@ -8,7 +8,7 @@
 <palette>Default</palette>
 <train>training_ipa_GB.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="_" t=" "/>
+<space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="Lower case Latin letters">
 <s d="a" t="a"/>

@@ -9,7 +9,7 @@
 <encoding type="Western"/>
 <palette>Default</palette>
 <train>training_Romanian_RO.txt</train>
-<space d="&#x25a1;" t=" "/>
+<space d="&#x25a1;" t=" " b="9"/>
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="lower case letters" b="0">

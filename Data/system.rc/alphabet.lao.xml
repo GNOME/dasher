@@ -8,7 +8,7 @@
 <palette>European/Asian</palette>
 <train>training_lao_LA.txt</train>
 <paragraph d="&#182;" b="9"/>
-<space d="&#x25a1;" t=" "/>
+<space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="Lao letters"  b="0">
 <s d="&#x0E81;" t="&#x0E81;" note=" LAO LETTER KO  "/>
