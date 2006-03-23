@@ -246,7 +246,7 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   // FIXME - is the language model pointer used?
   
 
-  pNewNode = new CDasherNode(*m_pModel, pParent, m_pModel->GetControlSymbol(),0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, false,  m_mapControlMap[0]->iColour);
+  pNewNode = new CDasherNode(pParent, m_pModel->GetControlSymbol(),0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, m_mapControlMap[0]->iColour);
  
   // FIXME - handle context properly
 
@@ -290,7 +290,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 	 iColour = (iIdx%99)+11;
        }
 
-       pNewNode = new CDasherNode(*m_pModel, pNode, m_pModel->GetControlSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, false, iColour);
+       pNewNode = new CDasherNode(pNode, m_pModel->GetControlSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, iColour);
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
        pNewNode->m_strDisplayText = (*it)->strLabel;

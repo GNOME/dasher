@@ -24,15 +24,14 @@ namespace Dasher {
 
 class Dasher::CDasherNode:private NoClones {
  public:
-  CDasherNode(const CDasherModel & dashermodel, CDasherNode * parent, symbol Symbol, int iphase, Opts::ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel * lm, bool ControlChild, int Colour, ControlTree * controltree);
+  CDasherNode(CDasherNode * parent, symbol Symbol, int iphase, Opts::ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel * lm, int Colour);
   ~CDasherNode();
 
   typedef std::deque<CDasherNode*> ChildMap;
 
   ChildMap & Children();
   const ChildMap & GetChildren() const;
-  // replaced by Children()
-  //        void SetChildren(const HASH_MAP<symbol,CDasherNode*> &mChildren);
+  
   unsigned int ChildCount() const {
     return m_mChildren.size();
   }
@@ -49,8 +48,11 @@ class Dasher::CDasherNode:private NoClones {
 
   // Orphan Child
   void OrphanChild(CDasherNode * pChild);
-
   void DeleteNephews(CDasherNode *pChild);
+  void Delete_children();
+  void Trace() const;           // diagnostic
+  CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
+  void Get_string_under(const int, const myint y1, const myint y2, const myint smousex, const myint smousey, std::vector<symbol> &) const;   // get string under given co-ords
 
   // Lower and higher bounds, and the range
   int Lbnd() const;
@@ -67,9 +69,11 @@ class Dasher::CDasherNode:private NoClones {
   bool Alive() const {
     return m_bAlive;
   } 
+
   void Alive(bool b) {
     m_bAlive = b;
   }
+
   void Kill() {
     m_bAlive = 0;
   }
@@ -78,14 +82,15 @@ class Dasher::CDasherNode:private NoClones {
   bool isSeen() const {
     return m_bSeen;
   } 
+
   void Seen(bool seen) {
     m_bSeen = seen;
   }
 
-  //unsigned int Group() const {return m_iGroup;}
-  symbol Symbol() const {
-    return m_Symbol;
-  } 
+  symbol Symbol() const { 
+    return m_Symbol; 
+  }
+
   int Phase() const {
     return m_iPhase;
   }
@@ -96,11 +101,7 @@ class Dasher::CDasherNode:private NoClones {
   int Colour() const {
     return m_iColour;
   } 
-  CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
-  void Get_string_under(const int, const myint y1, const myint y2, const myint smousex, const myint smousey, std::vector<symbol> &) const;   // get string under given co-ords
 
-  void Delete_children();
-  void Trace() const;           // diagnostic
 
   // Set/replace the context
   void SetContext(CLanguageModel::Context Context);
@@ -160,35 +161,28 @@ class Dasher::CDasherNode:private NoClones {
 
  private:
 
-  int m_iLbnd, m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
-  const symbol m_Symbol;        // the character to display
-
-  ChildMap m_mChildren;         // pointer to array of children
-  bool m_bHasAllChildren;       // true if we haven't deleted any children after instantiating them
-
-  bool m_bIsActive;             // true if descendent of a root node
-  int m_iRefCount;              // reference count if ancestor of (or equal to) root node
-
-  bool m_bAlive;                // if true, then display node, else dont bother
-  bool m_bSeen;                 // if true, node has been output already
-
-
+  // Information required to display the node
   Opts::ColorSchemes m_ColorScheme;
   int m_iPhase;                 // index for coloring
   int m_iColour;                // for the advanced colour mode
+  int m_iLbnd;
+  int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
 
-  const CDasherModel & m_DasherModel;
-
-  // Language Modelling 
-  CLanguageModel *m_pLanguageModel;     // pointer to the language model - in future, could be different for each node      
-  CLanguageModel::Context m_Context;
-
+  // Information concerning the behaviour of the node
+  bool m_bIsActive;             // true if descendent of a root node
+  int m_iRefCount;              // reference count if ancestor of (or equal to) root node
+  bool m_bAlive;                // if true, then display node, else dont bother
+  bool m_bSeen;                 // if true, node has been output already
+  
+  // Information internal to the data structure
+  ChildMap m_mChildren;         // pointer to array of children
+  bool m_bHasAllChildren;       // true if we haven't deleted any children after instantiating them
   CDasherNode *m_pParent;       // pointer to parent
 
-  enum {
-    typeRoot = 0,
-    typeSymbol = 1
-  };
+  // TODO: The following should be included in m_pUserData, as they only apply to nodes managed by CAlphabetManager
+  CLanguageModel *m_pLanguageModel;     // pointer to the language model - in future, could be different for each node      
+  CLanguageModel::Context m_Context;
+  const symbol m_Symbol;        // the character to display
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -199,28 +193,8 @@ using namespace Dasher;
 using namespace Opts;
 #include "DasherModel.h"
 
-inline CDasherNode::CDasherNode(const CDasherModel &dashermodel, CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, bool ControlChild, int Colour =-1, ControlTree *controltree =0)
-:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_DasherModel(dashermodel), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
-
-  /*
-     switch (ColorScheme) {
-     case Nodes1:
-     m_ColorScheme = Nodes2;
-     break;
-     case Nodes2:
-     m_ColorScheme = Nodes1;
-     break;
-     case Special1:
-     m_ColorScheme = Special2;
-     break;
-     case Special2:
-     m_ColorScheme = Special1;
-     break;
-     case default:
-     m_ColorScheme = ColorScheme;
-     break;
-     }
-   */
+inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1)
+:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
 }
 
 inline CDasherNode::~CDasherNode() {

@@ -48,19 +48,13 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
 
-  m_pSocketInput = (CSocketInput *)GetModule(1);
-  m_pSocketInput->Ref();
+  CreateInput();
+
+//   m_pSocketInput = (CSocketInput *)GetModule(1);
+//   m_pSocketInput->Ref();
   
   m_pMouseInput = (CDasherMouseInput *)GetModule(0);
   m_pMouseInput->Ref();
-
-  if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-    m_pSocketInput->StartListening();
-    SetInput(1);
-  }
-  else {
-    SetInput(0);
-  }
 
   // Create a pango cache
 
@@ -222,10 +216,10 @@ CDasherControl::~CDasherControl() {
     m_pMouseInput = NULL;
   }
 
-  if(m_pSocketInput != NULL) {
-    m_pSocketInput->Unref();
-    m_pSocketInput = NULL;
-  }
+//   if(m_pSocketInput != NULL) {
+//     m_pSocketInput->Unref();
+//     m_pSocketInput = NULL;
+//   }
 
   if(m_pPangoCache != NULL) {
     delete m_pPangoCache;
@@ -340,20 +334,6 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
       else {
         gtk_widget_hide(GTK_WIDGET(m_pSpeedFrame));
       }
-    }
-  }
-  else if(iParameter == BP_SOCKET_INPUT_ENABLE) {
-    if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
-      if(!m_pSocketInput->isListening()) {
-	m_pSocketInput->StartListening();
-      }
-      SetInput(1);
-    }
-    else {
-      if(m_pSocketInput != NULL) {
-	m_pSocketInput->StopListening();
-      }
-      SetInput(0);
     }
   }
   else if(iParameter == SP_ALPHABET_ID) {

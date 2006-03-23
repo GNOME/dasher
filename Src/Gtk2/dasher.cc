@@ -644,6 +644,7 @@ extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint i
 
 extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
   dasher_editor_handle_control(g_pEditor, iEvent);
+  edit_handle_control_event(iEvent);
 }
 
 extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {

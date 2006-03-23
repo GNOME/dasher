@@ -39,7 +39,6 @@ public:
 
   virtual void StopListening();
 
-
   virtual bool isListening() {
     return readerRunning;
   }
@@ -77,6 +76,14 @@ public:
     for(int i = 0; i < iN && i < DASHER_SOCKET_INPUT_MAX_COORDINATE_COUNT; i++) {
       dasherMaxCoordinateValues[i] = iDasherMax[i];
     }
+  };
+
+  void Activate() {
+    StartListening();
+  };
+  
+  void Deactivate() {
+    StopListening();
   };
 
   // Defines the label used in the input stream for a particular coordinate.

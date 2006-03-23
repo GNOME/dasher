@@ -202,12 +202,12 @@ void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
     
     while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
       bStarted = true;
-      if(pCurrentAction->iControlID == iNodeID)
+      if(pCurrentAction->iControlID == iNodeID) {
 	dasher_action_execute(pCurrentAction->pAction, dasher_editor_get_all_text(pSelf)); 
+	dasher_editor_clear(pSelf, true); 
+      }
       pCurrentAction = pCurrentAction->pNext;
     }
-
-    dasher_editor_clear(pSelf, true); 
   }
 }
 

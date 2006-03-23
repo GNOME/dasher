@@ -174,10 +174,10 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
     case BP_COLOUR_MODE:       // Forces us to redraw the display
       Start();
-      RequestFullRedraw();
+      Redraw();
       break;
     case BP_OUTLINE_MODE:
-      RequestFullRedraw();
+      Redraw();
       break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
@@ -185,28 +185,31 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
       else
 	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
-      RequestFullRedraw();
+      Redraw();
       break;
     case SP_ALPHABET_ID:
       ChangeAlphabet();
       Start();
-      RequestFullRedraw();
+      Redraw();
       break;
     case SP_COLOUR_ID:
       ChangeColours();
-      RequestFullRedraw();
+      Redraw();
       break;
     case LP_LANGUAGE_MODEL_ID:
       CreateDasherModel();
       Start();
-      RequestFullRedraw();
+      Redraw();
       break;
     case LP_LINE_WIDTH:
-      RequestFullRedraw(); // TODO - make this accessible everywhere
+      Redraw(); // TODO - make this accessible everywhere
       break;
     case LP_DASHER_FONTSIZE:
       // TODO - make screen a CDasherComponent child?
-      RequestFullRedraw();
+      Redraw();
+      break;
+    case SP_INPUT_DEVICE:
+      CreateInput();
       break;
     case BP_NUMBER_DIMENSIONS:
     case BP_EYETRACKER_MODE:
@@ -301,9 +304,9 @@ void CDasherInterfaceBase::WriteTrainFilePartial() {
   strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
 
-void CDasherInterfaceBase::RequestFullRedraw() {
-  SetBoolParameter( BP_REDRAW, true );
-}
+// void CDasherInterfaceBase::RequestFullRedraw() {
+//   SetBoolParameter( BP_REDRAW, true );
+// }
 
 void CDasherInterfaceBase::CreateDasherModel() 
 {
@@ -354,6 +357,9 @@ void CDasherInterfaceBase::CreateDasherModel()
 }
 
 void CDasherInterfaceBase::Start() {
+  // TODO: Clarify the relationship between Start() and
+  // InvalidateContext() - I believe that they essentially do the same
+  // thing
   PauseAt(0, 0);
   if(m_pDasherModel != 0) {
     m_pDasherModel->Start();
@@ -410,22 +416,20 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 	  m_pUserLog->StartWriting();
 }
 
-void CDasherInterfaceBase::Redraw() {
-  if(m_pDasherView != 0) {
-    m_pDasherModel->RenderToView(m_pDasherView, false);
-    m_pDasherView->Display();
-  }
-
-}
-
-void CDasherInterfaceBase::SetInput(int iID) {
+void CDasherInterfaceBase::CreateInput() {
   // FIXME - this shouldn't be the model used here - we should just change a parameter and work from the appropriate listener
 
-  if(m_pInput)
+  if(m_pInput) {
+    m_pInput->Deactivate();
     m_pInput->Unref();
+  }
 
-  m_pInput = (CDasherInput *)GetModule(iID);
-  m_pInput->Ref();
+  m_pInput = (CDasherInput *)GetModuleByName(GetStringParameter(SP_INPUT_DEVICE));
+
+  if(m_pInput) {
+    m_pInput->Ref();
+    m_pInput->Activate();
+  }
 
   if(m_pDasherView != 0)
     m_pDasherView->SetInput(m_pInput);
@@ -444,7 +448,6 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
   }
 
   if(m_pDasherView != 0) {
-    
     if(!GetBoolParameter(BP_TRAINING)) {
       if (m_pUserLog != NULL) {
 	
@@ -469,18 +472,26 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
       
       m_pDasherModel->CheckForNewRoot(m_pDasherView);
     }
-
-    m_pDasherModel->RenderToView(m_pDasherView, true);
-  
-    if(m_pInputFilter)
-      m_pInputFilter->DecorateView(m_pDasherView);
-    m_pDasherView->Display();
   }
+
+  Redraw();
 
   if(m_pDasherModel != 0)
     m_pDasherModel->NewFrame(iTime);
 }
 
+/// Full redraw - renders model, decorations and blits onto display
+/// buffer. Not recommended if nothing has changed with the model,
+/// otherwise we're wasting effort.
+
+void CDasherInterfaceBase::Redraw() {
+  if(m_pDasherView != 0) {
+    m_pDasherModel->RenderToView(m_pDasherView,true);
+    if(m_pInputFilter)
+      m_pInputFilter->DecorateView(m_pDasherView);
+    m_pDasherView->Display();
+  }
+}
 
 void CDasherInterfaceBase::ChangeAlphabet() {
 
@@ -544,26 +555,6 @@ void CDasherInterfaceBase::ChangeColours() {
   }
 }
 
-// void CDasherInterfaceBase::ChangeLanguageModel(int NewLanguageModelID) {
-
-//   if(NewLanguageModelID != GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
-//     SetLongParameter(LP_LANGUAGE_MODEL_ID, NewLanguageModelID);
-
-//     if(m_Alphabet != 0) {
-//       CreateDasherModel();
-
-//       // We need to call start here so that the root is recreated,
-//       // otherwise it will fail (this is probably something which
-//       // needs to be fixed in a more integrated way)
-//       Start();
-
-//     }
-//   }
-// }
-
-// void CDasherInterfaceBase::ChangeScreen() {
-// }
-
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   m_DasherScreen = NewScreen;
   m_DasherScreen->SetColourScheme(m_pColours);
@@ -594,47 +585,6 @@ void CDasherInterfaceBase::ChangeView() {
   }
 }
 
-// unsigned int CDasherInterfaceBase::GetNumberSymbols() {
-//   if(m_Alphabet != 0)
-//     return m_Alphabet->GetNumberSymbols();
-//   else
-//     return 0;
-// }
-
-// const string & CDasherInterfaceBase::GetDisplayText(symbol Symbol) {
-//   if(m_Alphabet != 0)
-//     return m_Alphabet->GetDisplayText(Symbol);
-//   else
-//     return EmptyString;
-// }
-
-// const string & CDasherInterfaceBase::GetEditText(symbol Symbol) {
-//   if(m_Alphabet != 0)
-//     return m_Alphabet->GetText(Symbol);
-//   else
-//     return EmptyString;
-// }
-
-// int CDasherInterfaceBase::GetTextColour(symbol Symbol) {
-//   if(m_Alphabet != 0)
-//     return m_Alphabet->GetTextColour(Symbol);
-//   else
-//     return 4;                   // Default colour for text
-// }
-
-// Opts::ScreenOrientations CDasherInterfaceBase::GetAlphabetOrientation() {
-//   return ;
-// }
-
-// Opts::AlphabetTypes CDasherInterfaceBase::GetAlphabetType() {
-//   return m_Alphabet->GetType();
-// }
-
-// const std::string CDasherInterfaceBase::GetTrainFile() {
-//   // DOES NOT RETURN FULLY QUALIFIED PATH - SEPARATE SETTING FOR PATH
-//   return GetStringParameter(SP_TRAIN_FILE);
-//}
-
 void CDasherInterfaceBase::GetAlphabets(std::vector <std::string >*AlphabetList) {
   m_AlphIO->GetAlphabets(AlphabetList);
 }
@@ -654,11 +604,6 @@ void CDasherInterfaceBase::DeleteAlphabet(const std::string &AlphID) {
 void CDasherInterfaceBase::GetColours(std::vector <std::string >*ColourList) {
   m_ColourIO->GetColours(ColourList);
 }
-
-// void CDasherInterfaceBase::Train(string *TrainString, bool IsMore) {
-// //      m_pDasherModel->LearnText(TrainContext, TrainString, IsMore);
-//   return;
-// }
 
 /*
 	I've used C style I/O because I found that C++ style I/O bloated

@@ -136,16 +136,6 @@ public:
 
   void InterfaceEventHandler(Dasher::CEvent * pEvent);
 
-  /// Add an alphabet filename
-  /// \param Filename The filename to add
-
-  void AddAlphabetFilename(std::string Filename);
-
-  /// Add a colour filename
-  /// \param Filename The filename to add
-
-  void AddColourFilename(std::string Filename);
-
   // Widget Interface
   // -----------------------------------------------------
 
@@ -180,10 +170,6 @@ public:
   /// needed during canvas exposure events.
 
   void Redraw();                // correct speed.
-
-  /// Request a full redraw at the next timer event.
-
-  void RequestFullRedraw();
 
   // App Interface
   // -----------------------------------------------------
@@ -340,9 +326,8 @@ public:
   //  void Render();
 
   /// Provide a new CDasherInput input device object.
-  /// \param iID Module ID of new input
 
-  void SetInput(int iID);
+  void CreateInput();
 
   /// Set the context in which Dasher makes predictions
   /// \param strNewContext The new context (UTF-8)

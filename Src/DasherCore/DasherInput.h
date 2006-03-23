@@ -17,21 +17,28 @@ class Dasher::CDasherInput : public CDasherModule {
 public:
 
   CDasherInput(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
-    : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {
-  };
+    : CDasherModule(pEventHandler, pSettingsStore, iID, iType, szName) {};
 
-  virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {
-  };
+  /// Set the maximum values for each of the coordinates. Minimum
+  /// values are assumed to be zero for now
+  virtual void SetMaxCoordinates(int iN, myint * iDasherMax) {};
 
-  // Fill pCoordinates with iN coordinate values, return 0 if the
-  // values were in screen coordinates or 1 if the values were in
-  // Dasher coordinates.
-
+  /// Fill pCoordinates with iN coordinate values, return 0 if the
+  /// values were in screen coordinates or 1 if the values were in
+  /// Dasher coordinates.
   virtual int GetCoordinates(int iN, myint * pCoordinates) = 0;
 
-  // Get the number of co-ordinates that this device supplies
-
+  /// Get the number of co-ordinates that this device supplies
+  ///
   virtual int GetCoordinateCount() = 0;
+  
+  /// Activate the device. If a helper thread needs to be started in
+  /// order to listen for input then do it here.
+  virtual void Activate() {};
+
+  /// Deactivate the device. Please don't hold on to any significant
+  /// resources (eg helper threads) after deactivation.
+  virtual void Deactivate() {};
 };
 
 #endif

@@ -47,9 +47,9 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
 
 
   if(iSymbol == m_pModel->GetSpaceSymbol())
-    pNewNode = new CDasherNode(*m_pModel, pParent, iSymbol, 0, Opts::Special1, iLower, iUpper, m_pLanguageModel, false, iColour);
+    pNewNode = new CDasherNode(pParent, iSymbol, 0, Opts::Special1, iLower, iUpper, m_pLanguageModel, iColour);
   else
-    pNewNode = new CDasherNode(*m_pModel, pParent, iSymbol, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, false, iColour);
+    pNewNode = new CDasherNode(pParent, iSymbol, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, iColour);
   
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
@@ -133,7 +133,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
           iColour += 130;
         }
 
-	      pNewNode = new CDasherNode(*m_pModel, pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, false, iColour);
+	      pNewNode = new CDasherNode(pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, iColour);
 	      pNewNode->m_pNodeManager = this;
 	      pNewNode->m_bShove = true;
 	      pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
@@ -195,7 +195,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   CDasherNode *pNewNode;
 
   if(vSymbols.size() <= iGeneration + 1) {
-    pNewNode = new CDasherNode(*m_pModel, 0, 0, 0,  Opts::Nodes1, 0, 0, m_pLanguageModel, false, 7);
+    pNewNode = new CDasherNode(0, 0, 0,  Opts::Nodes1, 0, 0, m_pLanguageModel, 7);
     
     CLanguageModel::Context oContext(m_pLanguageModel->CreateEmptyContext());
     m_pModel->EnterText(oContext, ". ");
@@ -222,7 +222,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
 
 
 
-  pNewNode = new CDasherNode(*m_pModel, 0, vSymbols[vSymbols.size() - iGeneration - 2], 0, ChildScheme, 0, 0, m_pLanguageModel, false, m_pModel->GetColour(vSymbols[vSymbols.size() - iGeneration - 2]));
+  pNewNode = new CDasherNode(0, vSymbols[vSymbols.size() - iGeneration - 2], 0, ChildScheme, 0, 0, m_pLanguageModel, m_pModel->GetColour(vSymbols[vSymbols.size() - iGeneration - 2]));
   
   CLanguageModel::Context oContext(m_pLanguageModel->CreateEmptyContext());
 
