@@ -52,16 +52,8 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay) {
 
-  bool bDidSomething(false);    // Have we actually done any drawing
-
-  if(bRedrawDisplay) {
-    Screen()->SendMarker(0);     // Start of 'dasher field'
-    RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList);
-    bDidSomething = true;
-  }
-
-  Screen()->SendMarker(1);       // Start of 'decoration'
-  return bDidSomething;
+  RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList);
+  return true;
 }
 
 int CDasherView::GetCoordinateCount() {

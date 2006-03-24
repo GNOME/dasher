@@ -173,11 +173,12 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     switch (pEvt->m_iParameter) {
 
     case BP_COLOUR_MODE:       // Forces us to redraw the display
+      // TODO: Is this variable ever used any more?
       Start();
-      Redraw();
+      Redraw(true);
       break;
     case BP_OUTLINE_MODE:
-      Redraw();
+      Redraw(true);
       break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
@@ -185,72 +186,72 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
       else
 	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
-      Redraw();
+      Redraw(true);
       break;
     case SP_ALPHABET_ID:
       ChangeAlphabet();
       Start();
-      Redraw();
+      Redraw(true);
       break;
     case SP_COLOUR_ID:
       ChangeColours();
-      Redraw();
+      Redraw(true);
       break;
     case LP_LANGUAGE_MODEL_ID:
       CreateDasherModel();
       Start();
-      Redraw();
+      Redraw(true);
       break;
     case LP_LINE_WIDTH:
-      Redraw(); // TODO - make this accessible everywhere
+      Redraw(false); // TODO - make this accessible everywhere
       break;
     case LP_DASHER_FONTSIZE:
       // TODO - make screen a CDasherComponent child?
-      Redraw();
+      Redraw(true);
       break;
     case SP_INPUT_DEVICE:
       CreateInput();
       break;
-    case BP_NUMBER_DIMENSIONS:
-    case BP_EYETRACKER_MODE:
-    case BP_KEY_CONTROL:
-    case BP_BUTTONONESTATIC:
-    case BP_BUTTONONEDYNAMIC:
-    case BP_BUTTONMENU:
-    case BP_BUTTONDIRECT:
-    case BP_BUTTONFOURDIRECT:
-    case BP_BUTTONALTERNATINGDIRECT:
-    case BP_COMPASSMODE:
-    case BP_CLICK_MODE:
-      // Delibarate fallthrough.  
-      // FIXME - Horrible mess below - should really use
-      // SP_INPUT_FILTER directly for the sake of sanity
-      if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-	SetLongParameter(LP_INPUT_FILTER, 4); // 1D mode
-      else if(GetBoolParameter(BP_EYETRACKER_MODE))
-	SetLongParameter(LP_INPUT_FILTER, 5);//"Eyetracker Mode"
-      else if(GetBoolParameter(BP_CLICK_MODE))
-	SetLongParameter(LP_INPUT_FILTER, 7);//"Click Mode"
-      else if(GetBoolParameter(BP_KEY_CONTROL)) {
-	// Various button modes
-	if(GetBoolParameter(BP_BUTTONONESTATIC))
-	  SetLongParameter(LP_INPUT_FILTER, 8);//"One Button Static"
-	else if(GetBoolParameter(BP_BUTTONONEDYNAMIC))
-	  SetLongParameter(LP_INPUT_FILTER, 6);//"One Button Dynamic"
-	else if(GetBoolParameter(BP_BUTTONMENU))
-	  SetLongParameter(LP_INPUT_FILTER, 8);//"Button Menu"
-	else if(GetBoolParameter(BP_BUTTONDIRECT))
-	  SetLongParameter(LP_INPUT_FILTER, 10); //"Three Button Direct"
-	else if(GetBoolParameter(BP_BUTTONFOURDIRECT))
-	  SetLongParameter(LP_INPUT_FILTER, 11);//"Four Button Direct"
-	else if(GetBoolParameter(BP_BUTTONALTERNATINGDIRECT))
-	  SetLongParameter(LP_INPUT_FILTER, 12);//"Alternating Direct"
-	else if(GetBoolParameter(BP_COMPASSMODE))
-	  SetLongParameter(LP_INPUT_FILTER, 13);//"Compass Mode"
-      }
-      else
-	SetLongParameter(LP_INPUT_FILTER, 3);//"Default"
-      break;
+  //   case BP_NUMBER_DIMENSIONS:
+//     case BP_EYETRACKER_MODE:
+//     case BP_KEY_CONTROL:
+//     case BP_BUTTONONESTATIC:
+//     case BP_BUTTONONEDYNAMIC:
+//     case BP_BUTTONMENU:
+//     case BP_BUTTONDIRECT:
+//     case BP_BUTTONFOURDIRECT:
+//     case BP_BUTTONALTERNATINGDIRECT:
+//     case BP_COMPASSMODE:
+//     case BP_CLICK_MODE:
+//       // Delibarate fallthrough.  
+//       // FIXME - Horrible mess below - should really use
+//       // SP_INPUT_FILTER directly for the sake of sanity
+//       if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
+// 	SetLongParameter(LP_INPUT_FILTER, 4); // 1D mode
+//       else if(GetBoolParameter(BP_EYETRACKER_MODE))
+// 	SetLongParameter(LP_INPUT_FILTER, 5);//"Eyetracker Mode"
+//       else if(GetBoolParameter(BP_CLICK_MODE))
+// 	SetLongParameter(LP_INPUT_FILTER, 7);//"Click Mode"
+//       else if(GetBoolParameter(BP_KEY_CONTROL)) {
+// 	// Various button modes
+// 	if(GetBoolParameter(BP_BUTTONONESTATIC))
+// 	  SetLongParameter(LP_INPUT_FILTER, 8);//"One Button Static"
+// 	else if(GetBoolParameter(BP_BUTTONONEDYNAMIC))
+// 	  SetLongParameter(LP_INPUT_FILTER, 6);//"One Button Dynamic"
+// 	else if(GetBoolParameter(BP_BUTTONMENU))
+// 	  SetLongParameter(LP_INPUT_FILTER, 8);//"Button Menu"
+// 	else if(GetBoolParameter(BP_BUTTONDIRECT))
+// 	  SetLongParameter(LP_INPUT_FILTER, 10); //"Three Button Direct"
+// 	else if(GetBoolParameter(BP_BUTTONFOURDIRECT))
+// 	  SetLongParameter(LP_INPUT_FILTER, 11);//"Four Button Direct"
+// 	else if(GetBoolParameter(BP_BUTTONALTERNATINGDIRECT))
+// 	  SetLongParameter(LP_INPUT_FILTER, 12);//"Alternating Direct"
+// 	else if(GetBoolParameter(BP_COMPASSMODE))
+// 	  SetLongParameter(LP_INPUT_FILTER, 13);//"Compass Mode"
+//       }
+//       else
+// 	SetLongParameter(LP_INPUT_FILTER, 3);//"Default"
+//       break;
     case SP_INPUT_FILTER:
       CreateInputFilter();
       break;
@@ -440,12 +441,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
   if(m_bGlobalLock || m_bShutdownLock)
     return;
 
-  // FIXME - is this the right way to do things
-
-  if(GetBoolParameter(BP_REDRAW)) {
-    Redraw();
-    SetBoolParameter(BP_REDRAW, false);
-  }
+  bool bChanged(false);
 
   if(m_pDasherView != 0) {
     if(!GetBoolParameter(BP_TRAINING)) {
@@ -455,6 +451,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 	int iNumDeleted = 0;
 	
 	if(m_pInputFilter) {
+	  bChanged = true; // TODO: Actually make CInputFilter::Timer return bool
 	  m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
 	}
 	
@@ -466,6 +463,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
       }
       else {
 	if(m_pInputFilter) {
+	  bChanged = true;
 	  m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel);
 	}
       }
@@ -474,7 +472,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
     }
   }
 
-  Redraw();
+  Redraw(bChanged);
 
   if(m_pDasherModel != 0)
     m_pDasherModel->NewFrame(iTime);
@@ -484,12 +482,25 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 /// buffer. Not recommended if nothing has changed with the model,
 /// otherwise we're wasting effort.
 
-void CDasherInterfaceBase::Redraw() {
+void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   if(m_pDasherView != 0) {
-    m_pDasherModel->RenderToView(m_pDasherView,true);
-    if(m_pInputFilter)
+
+    if(bRedrawNodes) {
+      m_pDasherView->Screen()->SendMarker(0);
+      m_pDasherModel->RenderToView(m_pDasherView,true);
+    }
+  
+    m_pDasherView->Screen()->SendMarker(1);
+
+    bool bDecorationsChanged(false);
+
+    if(m_pInputFilter) {
+      bDecorationsChanged = true;
       m_pInputFilter->DecorateView(m_pDasherView);
-    m_pDasherView->Display();
+    }
+
+    if(bRedrawNodes || bDecorationsChanged)
+      m_pDasherView->Display();
   }
 }
 
@@ -566,7 +577,7 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
       ChangeView();
   }
 
-  Redraw();
+  Redraw(true);
 }
 
 void CDasherInterfaceBase::ChangeView() {

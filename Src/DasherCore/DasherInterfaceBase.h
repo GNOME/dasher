@@ -169,7 +169,7 @@ public:
   /// Linux drawing is always done to an offscreen buffer, so it's not
   /// needed during canvas exposure events.
 
-  void Redraw();                // correct speed.
+  void Redraw(bool bRedrawNodes);                // correct speed.
 
   // App Interface
   // -----------------------------------------------------

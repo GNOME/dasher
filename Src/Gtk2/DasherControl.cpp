@@ -281,8 +281,6 @@ int CDasherControl::CanvasConfigureEvent() {
 
   m_pScreen = new CCanvas(m_pCanvas, m_pPangoCache);
   ChangeScreen(m_pScreen);
-
-  Redraw();
   
   SetLongParameter(LP_SCREENHEIGHT, m_pScreen->m_iHeight);
   SetLongParameter(LP_SCREENWIDTH,  m_pScreen->m_iWidth);
@@ -318,7 +316,7 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
 
   if(iParameter == SP_DASHER_FONT) {
     m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
-    Redraw();
+    Redraw(true);
   }
   else if(iParameter == LP_MAX_BITRATE) {
     //    gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), GetLongParameter(LP_MAX_BITRATE) / 100.0);
