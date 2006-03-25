@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-25 14:38+0100\n"
+"POT-Creation-Date: 2006-03-25 19:52+0100\n"
 "PO-Revision-Date: 2006-02-25 00:17+0200\n"
 "Last-Translator: GNOME PL Team <translators@gnomepl.org>\n"
 "Language-Team: Polish <translation-team-pl@lists.sourceforge.net>\n"
@@ -28,6 +28,39 @@ msgstr "Wejście gniazda Dashera: nie można uruchomić wątka czytającego."
 #: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Select File"
 msgstr "Wybór pliku"
+
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Czy zapisać zmiany w %s?\n"
+"\n"
+"Zmiany zostaną utracone, jeżeli nie będą zapisane."
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Czy zapisać zmiany?\n"
+"\n"
+"Zmiany zostaną utracone, jeżeli nie będą zapisane."
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "Nie zapisuj"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "Nie kończ"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "Zapisz i zakończ"
 
 #: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
@@ -482,7 +515,8 @@ msgstr "Tryb kompasu"
 
 #: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Sterowanie dasherem poprzez gniazdo sieciowe zamiast myszy (zaawansowane)"
+msgstr ""
+"Sterowanie dasherem poprzez gniazdo sieciowe zamiast myszy (zaawansowane)"
 
 #: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
@@ -1003,4 +1037,3 @@ msgstr "Uwaga: nie można ustawić parametrów mowy\n"
 #: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Wejście tekstowe Dasher"
-
