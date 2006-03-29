@@ -1,3 +1,6 @@
+// TODO: Make inclusion in build system conditional
+#ifdef GNOME_SPEECH
+
 #include "dasher_action_speech.h"
 
 #include <gnome-speech/gnome-speech.h>
@@ -155,3 +158,5 @@ static gboolean dasher_action_speech_execute(DasherAction *pSelf, const gchar *s
 static const gchar *dasher_action_speech_get_name(DasherAction *pSelf) {
   return "Speak";
 }
+
+#endif

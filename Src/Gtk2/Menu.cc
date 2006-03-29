@@ -439,7 +439,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   GtkWidget *label, *button;
   char *tmp;
 
-  about = gtk_dialog_new();
+  GtkWidget *about = gtk_dialog_new();
 
   gtk_dialog_set_has_separator(GTK_DIALOG(about), FALSE);
   gtk_window_set_title(GTK_WINDOW(about), "About Dasher");

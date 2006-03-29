@@ -7,7 +7,10 @@
 #include "DasherControl.h"
 #include "AppSettings.h"
 #include "dasher_internal_buffer.h"
+
+#ifdef GNOME_A11Y
 #include "dasher_external_buffer.h"
+#endif
 
 #include <iostream>
 #include <gdk/gdkx.h>
@@ -198,7 +201,11 @@ void create_buffer() {
   // GRR - how the hell do I do this? Why isn't all this C++ as would be sensible?
 
   if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2)
+#ifdef GNOME_A11Y
     g_pBufferSet = IDASHER_BUFFER_SET(dasher_external_buffer_new());
+#else
+    g_pBufferSet = 0;
+#endif
   else
     g_pBufferSet = dasher_editor_get_buffer_set(g_pEditor);
 

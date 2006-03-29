@@ -165,7 +165,7 @@ int main(int argc, char *argv[]) {
 
   //  g_type_class_ref(dasher_gtk_text_view_get_type());
 
-  g_set_application_name (_("Dasher"));
+  g_set_application_name ("Dasher");
 #ifndef WITH_MAEMO
   gtk_window_set_default_icon_name ("dasher");
 #endif
@@ -173,7 +173,8 @@ int main(int argc, char *argv[]) {
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA "/dashergpe.glade", NULL, NULL);
 #elif WITH_MAEMO
-  xml = glade_xml_new("/var/lib/install" PROGDATA "/dashermaemo.glade", NULL, NULL);
+  //  xml = glade_xml_new("/var/lib/install" PROGDATA "/dashermaemo.glade", NULL, NULL);
+  xml = glade_xml_new(PROGDATA "/dashermaemo.glade", NULL, NULL);
 #else
   xml = glade_xml_new(PROGDATA "/dasher.glade", NULL, NULL);
 #endif
@@ -212,44 +213,44 @@ int main(int argc, char *argv[]) {
   gtk_window_set_decorated(GTK_WINDOW(window), false);
 #endif
 
-#ifndef WITH_MAEMO
+  //#ifndef WITH_MAEMO
   gtk_widget_show(window);
-#else
-  appview = HILDON_APPVIEW( hildon_appview_new(NULL) );
-  app = HILDON_APP( hildon_app_new() );
-  hildon_app_set_appview( app, appview );
-  hildon_app_set_title( app, ("Dasher" )); 
-  window = glade_xml_get_widget(xml, "vpaned1");
-  gtk_widget_reparent (window, GTK_WIDGET(appview));
-  gtk_paned_set_position(GTK_PANED(window), 100);
+// #else
+//   appview = HILDON_APPVIEW( hildon_appview_new(NULL) );
+//   app = HILDON_APP( hildon_app_new() );
+//   hildon_app_set_appview( app, appview );
+//   hildon_app_set_title( app, ("Dasher" )); 
+//   window = glade_xml_get_widget(xml, "vpaned1");
+//   gtk_widget_reparent (window, GTK_WIDGET(appview));
+//   gtk_paned_set_position(GTK_PANED(window), 100);
 
-  /* Do menu setup */
-  GtkMenu *main_menu;
-  GtkWidget *file_menu;
-  GtkWidget *file_menu_item;
-  GtkWidget *options_menu;
-  GtkWidget *options_menu_item;
-  main_menu = hildon_appview_get_menu(appview);
-  file_menu = glade_xml_get_widget(xml, "menuitem4_menu");
-  options_menu = glade_xml_get_widget(xml, "options1_menu");
-  file_menu_item = gtk_menu_item_new_with_label ("File");
-  options_menu_item = gtk_menu_item_new_with_label ("Options");
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
-  gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu);
-//  gtk_widget_reparent (GTK_WIDGET(main_menu), file_menu);
-//  gtk_widget_reparent (GTK_WIDGET(main_menu), options_menu);
-  gtk_menu_append( main_menu, file_menu_item);
-  gtk_menu_append( main_menu, options_menu_item);
-  gtk_widget_show_all( GTK_WIDGET( main_menu ) );
+//   /* Do menu setup */
+//   GtkMenu *main_menu;
+//   GtkWidget *file_menu;
+//   GtkWidget *file_menu_item;
+//   GtkWidget *options_menu;
+//   GtkWidget *options_menu_item;
+//   main_menu = hildon_appview_get_menu(appview);
+//   file_menu = glade_xml_get_widget(xml, "menuitem4_menu");
+//   options_menu = glade_xml_get_widget(xml, "options1_menu");
+//   file_menu_item = gtk_menu_item_new_with_label ("File");
+//   options_menu_item = gtk_menu_item_new_with_label ("Options");
+//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
+//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu);
+// //  gtk_widget_reparent (GTK_WIDGET(main_menu), file_menu);
+// //  gtk_widget_reparent (GTK_WIDGET(main_menu), options_menu);
+//   gtk_menu_append( main_menu, file_menu_item);
+//   gtk_menu_append( main_menu, options_menu_item);
+//   gtk_widget_show_all( GTK_WIDGET( main_menu ) );
 
-  /* And toolbar */
-  GtkWidget *toolbar;
-  toolbar = glade_xml_get_widget(xml, "toolbar");
-  g_print("Got %p\n",toolbar);
-  gtk_widget_reparent (toolbar, appview->vbox);
+//   /* And toolbar */
+//   GtkWidget *toolbar;
+//   toolbar = glade_xml_get_widget(xml, "toolbar");
+//   g_print("Got %p\n",toolbar);
+//   gtk_widget_reparent (toolbar, appview->vbox);
 
-  gtk_widget_show_all(GTK_WIDGET(app));
-#endif
+//   gtk_widget_show_all(GTK_WIDGET(app));
+// #endif
 
 
   if(optind < argc) {

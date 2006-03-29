@@ -61,7 +61,7 @@
 #include "../DasherCore/Parameters.h"
 #include "accessibility.h"
 
-#include "dasher_action_keyboard.h"
+//#include "dasher_action_keyboard.h"
 #include "dasher_lock_dialogue.h"
 
 // We shouldn't need this - the functions which reference it are obsolete
@@ -93,7 +93,7 @@ GtkWidget *pDasherWidget = NULL;
 GtkWidget *g_pEditPane = 0;
 GtkWidget *g_pActionPane = 0;
 
-DasherAction *g_pAction = 0;
+//DasherAction *g_pAction = 0;
 
 const gchar *filename = NULL;   // Filename of file currently being edited
 
@@ -130,11 +130,34 @@ double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
 extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData) {
 //   if(g_bOnTop)
 //     gtk_window_set_keep_above(GTK_WINDOW(window), true);
+#ifdef WITH_MAEMO
+  Window xFocusWindow;
+  int xState;
+  XGetInputFocus(GDK_WINDOW_XDISPLAY(pWidget->window),
+ 		 &xFocusWindow,
+ 		 &xState);
+  GdkWindow *pFocusWindow = gdk_window_foreign_new(xFocusWindow);
+  gdk_window_set_transient_for(GDK_WINDOW(pWidget->window), pFocusWindow);
   
+  Atom atom_type[1];
+  atom_type[0] = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE_INPUT");
+  
+  Atom atom_window_type = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE");
+  
+  XChangeProperty(GDK_WINDOW_XDISPLAY(pWidget->window),
+		  GDK_WINDOW_XWINDOW(pWidget->window),
+		  atom_window_type,
+		  XA_ATOM, 32, PropModeReplace,
+		  (guchar *)&atom_type, 1);
+
+#else
+
   //  SetupWMHints();
   SetupPositioning();
   // A11y support disabled for now
   setupa11y();
+#endif
+
 
 }
 
@@ -150,6 +173,9 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   // FIXME - do we actually need all of these?
 
   window = glade_xml_get_widget(pGladeXML, "window");
+  gtk_window_set_accept_focus(GTK_WINDOW(window), false);
+  gtk_window_set_focus_on_map(GTK_WINDOW(window), false);
+
   toolbar = glade_xml_get_widget(pGladeXML, "toolbar");
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
   vpane = glade_xml_get_widget(pGladeXML, "hpaned1");
@@ -160,9 +186,11 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
 
   dasher_lock_dialogue_new(pGladeXML);
 
+#ifndef WITH_MAEMO
   if( dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_SHOW_TOOLBAR ) ) {
     gtk_widget_show( toolbar );
   }
+#endif
 
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
@@ -180,8 +208,10 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   initialise_preferences_dialogue(pGladeXML);
   InitialiseFontDialogues(pGladeXML);
 
-
+#ifndef WITH_MAEMO
   LoadWindowState();
+#endif
+
 #ifdef PJC_EXPERIMENTAL
   //  SetupPositioning();
 #endif
@@ -194,7 +224,7 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   //  dasher_set_parameter_bool(BOOL_KEYBOARDMODE, true);
 #endif
 
-  g_pAction = DASHER_ACTION(dasher_action_keyboard_new());
+  //  g_pAction = DASHER_ACTION(dasher_action_keyboard_new());
 }
 
 ///

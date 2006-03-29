@@ -1,3 +1,6 @@
+// TODO: Make build system conditional
+#ifdef GNOME_A11Y
+
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
@@ -267,3 +270,5 @@ void focus_listener(const AccessibleEvent *pEvent, void *pUserData) {
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData) {
   dasher_external_buffer_handle_caret((DasherExternalBuffer *)pUserData, pEvent);
 }
+
+#endif

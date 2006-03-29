@@ -1,3 +1,6 @@
+// TODO: Make inclusion of this file in build conditional
+#ifdef GNOMEA11Y
+
 #include "dasher_action_keyboard.h"
 
 #include <cspi/spi.h>
@@ -74,3 +77,5 @@ static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, const gchar 
 static const gchar *dasher_action_keyboard_get_name(DasherAction *pSelf) {
   return "Enter Text";
 }
+
+#endif
