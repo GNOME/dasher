@@ -387,8 +387,6 @@ bool CCanvas::ExposeEvent(GtkWidget *pWidget, GdkEventExpose *pEvent) {
   return true;
 }
 
-
-
 void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
   int iNumColours(Colours->GetNumColours());
 

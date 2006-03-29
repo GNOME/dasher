@@ -69,6 +69,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 void CDasherControl::SetupUI() {
   m_pCanvas = gtk_drawing_area_new();
   GTK_WIDGET_SET_FLAGS(m_pCanvas, GTK_CAN_FOCUS);
+  gtk_widget_set_double_buffered(m_pCanvas, false);
 
   GtkWidget *pFrame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
