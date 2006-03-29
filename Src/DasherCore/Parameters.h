@@ -85,7 +85,11 @@ struct sp_table {
 static bp_table boolparamtable[] = {
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, false, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", PERS, true, "Draw Mouse Position"},
+#ifdef WITH_MAEMO
+  {BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, false, "ShowSpeedSlider"},
+#else
   {BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, true, "ShowSpeedSlider"},
+#endif
   {BP_START_MOUSE, "StartOnLeft", PERS, true, "StartOnLeft"},
   {BP_START_SPACE, "StartOnSpace", PERS, false, "StartOnSpace"},
   {BP_START_STYLUS, "StartOnStylus", PERS, false, "StartOnStylus"},

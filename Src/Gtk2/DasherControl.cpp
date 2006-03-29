@@ -105,7 +105,7 @@ void CDasherControl::SetupUI() {
   gtk_widget_show_all(GTK_WIDGET(m_pVBox));
 
   if(!GetBoolParameter(BP_SHOW_SLIDER))
-    gtk_widget_hide(m_pSpeedFrame);
+    gtk_widget_hide(m_pStatusBar);
 
   // Connect callbacks - note that we need to implement the callbacks
   // as "C" style functions and pass this as user data so they can

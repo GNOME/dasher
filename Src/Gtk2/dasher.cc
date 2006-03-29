@@ -204,7 +204,9 @@ void InitialiseMainWindow(int argc, char **argv, GladeXML *pGladeXML) {
   // Initialise the various components
 
   initialise_edit(pGladeXML);
+#ifndef WITH_MAEMO
   PopulateMenus(pGladeXML);
+#endif
   initialise_preferences_dialogue(pGladeXML);
   InitialiseFontDialogues(pGladeXML);
 
@@ -687,6 +689,9 @@ extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpoin
 
 extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
   GtkWidget *pDasherControl = gtk_dasher_control_new();
+#ifdef WITH_MAEMO
+  gtk_widget_set_size_request(pDasherControl, 175, -1);  
+#endif
   return pDasherControl;
 }
 
