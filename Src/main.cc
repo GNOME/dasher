@@ -3,7 +3,7 @@
 #include <gtk/gtk.h>
 #include <gdk/gdkx.h>
 #include <glade/glade.h>
-
+#include <signal.h>
 
 #ifdef WITH_MAEMO
 #include <hildon-lgpl/hildon-widgets/hildon-app.h>
@@ -68,6 +68,8 @@ extern const gchar *filename;
 DasherMain *g_pDasherMain;
 DasherAppSettings *g_pDasherAppSettings;
 
+void sigint_handler(int iSigNum);
+
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
 
@@ -88,6 +90,8 @@ int main(int argc, char *argv[]) {
   HildonApp *app;
   HildonAppView *appview;
 #endif
+
+  signal(2, sigint_handler);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
@@ -279,4 +283,9 @@ int main(int argc, char *argv[]) {
 #endif
 
   return 0;
+}
+
+void sigint_handler(int iSigNum) {
+  g_message("Trapped SIGINT - attempting shutdown...");
+  exit(0);
 }

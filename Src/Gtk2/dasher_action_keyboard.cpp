@@ -1,5 +1,6 @@
 // TODO: Make inclusion of this file in build conditional
-#ifdef GNOMEA11Y
+#include "config.h"
+#ifdef GNOME_A11Y
 
 #include "dasher_action_keyboard.h"
 

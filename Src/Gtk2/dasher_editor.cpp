@@ -5,6 +5,11 @@
 #include "dasher_action_copy.h"
 #include "dasher_action_script.h"
 
+
+#include "dasher_editor.h"
+#include "dasher_internal_buffer.h"
+#include "GtkDasherControl.h"
+
 #ifdef GNOME_SPEECH
 #include "dasher_action_speech.h"
 #endif 
@@ -13,9 +18,6 @@
 #include "dasher_action_keyboard.h"
 #endif 
 
-#include "dasher_editor.h"
-#include "dasher_internal_buffer.h"
-#include "GtkDasherControl.h"
 
 typedef struct _EditorAction EditorAction;
 
@@ -251,6 +253,7 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
   // TODO: Activate and deactivate methods for actions
   // TODO: Clear shouldn't be a special case (include support for false in clear method)
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_copy_new(pSelf)));
+
 #ifdef GNOME_SPEECH
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_speech_new()));
 #endif

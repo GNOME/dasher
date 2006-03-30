@@ -1,4 +1,5 @@
 // TODO: Make build system conditional
+#include "config.h"
 #ifdef GNOME_A11Y
 
 #include <X11/X.h>
