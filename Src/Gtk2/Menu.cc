@@ -423,15 +423,17 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
     NULL
   };
 
-  gtk_show_about_dialog(GTK_WINDOW(window), 
-			"copyright", "Copyright The Dasher Project", 
+  gtk_show_about_dialog(GTK_WINDOW(window),
+			"authors", authors,
 			"comments", _("Dasher is a predictive text entry application"), 
-			"authors", (const char **)authors,
-			"documenters", (const char **)documenters,
-			"translator-credits", _("translator-credits"),
-			"website", "http://www.dasher.org.uk/",
+			"copyright", "Copyright \xC2\xA9 1998-2006 The Dasher Project", 
+			"documenters", documenters,
+			"license", "GPL 2+",
 			"logo-icon-name", "dasher",
-			"version", PACKAGE_VERSION,
+			"translator-credits", _("translator-credits"),
+			"version", VERSION,
+			"website", "http://www.dasher.org.uk/",
+			"wrap-license", true,
 			NULL);
   
 #else
