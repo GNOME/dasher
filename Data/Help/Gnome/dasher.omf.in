@@ -1,0 +1,10 @@
+<?xml version="1.0" standalone="no"?>
+<omf>
+  <resource>
+    <subject category="GNOME|Accessibility"/>
+    <type>user's guide</type>
+    <relation seriesid="db777e98-5a48-11d8-80d7-838c69977e5d"/>
+    <rights type="proprietary license" holder="Dasher Project"/>
+  </resource>
+</omf>
+

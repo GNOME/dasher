@@ -2,6 +2,7 @@ AC_PREREQ(2.56)
 AC_INIT([dasher],[3.99.3],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
+AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([gnu check-news])
 AM_MAINTAINER_MODE
@@ -280,6 +281,8 @@ AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 
 
+GNOME_DOC_INIT
+
 
 AC_CONFIG_FILES([Makefile
 		 Src/Makefile
@@ -297,7 +300,6 @@ AC_CONFIG_FILES([Makefile
 		 Data/system.rc/Makefile
 		 Data/Help/Makefile
 		 Data/Help/Gnome/Makefile
-		 Data/Help/Gnome/C/Makefile
 		 Data/Help/Gnome/eu/Makefile
 		 Doc/Makefile
 		 po/Makefile.in])

@@ -5,17 +5,23 @@ distuninstallcheck_listfiles = \
 		grep -v '^\./var/scrollkeeper' | \
 		grep -v '^\./share/gnome/help'
 
+DISTCHECK_CONFIGURE_FLAGS = --disable-scrollkeeper
+
 EXTRA_DIST = \
 		INSTALL.Linux \
 		INSTALL.WinCE \
 		INSTALL.Windows \
 		NEWS \
 		MAINTAINERS \
+		gnome-doc-utils.make \
+		m4 \
 		intltool-merge.in \
 		intltool-extract.in \
 		intltool-update.in
 
 DISTCLEANFILES = \
+		gnome-doc-utils.make \
+		m4 \
 		intltool-merge \
 		intltool-extract \
 		intltool-update
