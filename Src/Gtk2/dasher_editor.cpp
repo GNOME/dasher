@@ -94,6 +94,16 @@ static void dasher_editor_init(DasherEditor *pDasherControl) {
 static void dasher_editor_destroy(GObject *pObject) {
   // FIXME - I think we need to chain up through the finalize methods
   // of the parent classes here...
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(((DasherEditor *)pObject)->private_data);
+
+  EditorAction *pCurrentAction = pPrivate->pActionRing;
+  bool bStarted = false;
+  
+  while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+    bStarted = true;
+    g_object_unref(G_OBJECT(pCurrentAction->pAction));
+    pCurrentAction = pCurrentAction->pNext;
+  }
 
   delete (DasherEditorPrivate *)(((DasherEditor *)pObject)->private_data);
 }

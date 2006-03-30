@@ -1,3 +1,8 @@
+2006-03-27  Christian Kirbach  <Christian.Kirbach@siemens.com>
+
+	* configure.in, Src/main.cc: Obey vuntz and do the transition from
+        libpopt to GOption
+
 2006-03-26  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/Makefile.am: Respect DESTDIR.

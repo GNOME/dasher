@@ -119,6 +119,8 @@ static void dasher_action_speech_init(DasherActionSpeech *pDasherControl) {
 }
 
 static void dasher_action_speech_destroy(GObject *pObject) {
+  g_message("Shutting down speech synthesis");
+
   DasherActionSpeechPrivate *pDasherActionSpeechPrivate = (DasherActionSpeechPrivate *)(((DasherActionSpeech *)pObject)->private_data);
   CORBA_Object rv = NULL;
 

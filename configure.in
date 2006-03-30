@@ -34,6 +34,8 @@ PKG_PROG_PKG_CONFIG
 
 WITHGTK2=true;
 
+PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6, have_glib=true, have_glib=false)
+
 AC_CHECK_LIB(expat, XML_Parse,, AC_MSG_ERROR([Expat library not found.]))
 
 AC_ARG_WITH([gnome],
@@ -213,18 +215,15 @@ if [[ x"$BUILDGTK2" = xtrue ]]; then
 		glade_LIBS=`echo $glade_LIBS | sed s/-lglade-2.0//`
 		glade_LIBS="$glade_LIBS /usr/lib/libglade-2.0.a"
 	fi
+
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
-	AC_CHECK_LIB(popt, poptGetNextOpt, POPT_LIBS=-lpopt)	
-	if test "x$POPT_LIBS" != x; then
-	   AC_DEFINE([HAVE_POPT], 1, [popt is present])
-	fi
+
 	if [[ x"$WITHMAEMO" = xfalse ]]; then
 		PKG_CHECK_MODULES(wnck, libwnck-1.0)
 	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
 	fi
 fi
 
-AC_SUBST(POPT_LIBS)
 AC_SUBST(gnome_speech_LIBS)
 AC_SUBST(gnome_speech_CFLAGS)
 AC_SUBST([SPEECH_SOURCES])

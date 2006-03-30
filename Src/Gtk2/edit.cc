@@ -213,6 +213,12 @@ void create_buffer() {
 }
 
 void cleanup_edit() {
+  if(g_pBufferSet)
+    g_object_unref(G_OBJECT(g_pBufferSet));
+
+  if(g_pEditor)
+    g_object_unref(G_OBJECT(g_pEditor));
+
 #ifdef X_HAVE_UTF8_STRING
   // We want to set the keymap back to whatever it was before,
   // if that's possible

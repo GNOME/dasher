@@ -25,22 +25,6 @@
 #include <libgnomevfs/gnome-vfs.h>
 #endif
 
-#ifdef HAVE_POPT
-#include <popt.h>
-
-static const struct poptOption options[] = {
-  {"timedata", 'w', POPT_ARG_NONE, NULL, 1, "Write basic timing information to stdout", NULL},
-  {"preferences", 'p', POPT_ARG_NONE, NULL, 1, "Show preferences window only", NULL},
-  {"textentry", 'o', POPT_ARG_NONE, NULL, 1, "Onscreen text entry mode", NULL},
-  {"pipe", 's', POPT_ARG_NONE, NULL, 1, "Pipe text to stdout", NULL},
-#ifndef GNOME_LIBS
-  // Gnome will add its own help
-  POPT_AUTOHELP
-#endif
-  {NULL, '\0', 0, NULL, 0, NULL, NULL}
-};
-#endif
-
 #include <libintl.h>
 #include <locale.h>
 #include <stdio.h>
@@ -58,10 +42,10 @@ static const struct poptOption options[] = {
 #include "gpesettings_store.h"
 #endif
 
-gboolean timedata = FALSE;
-gboolean preferences = FALSE;
-gboolean textentry = FALSE;
-gboolean stdoutpipe = FALSE;
+// gboolean timedata = FALSE;
+// gboolean preferences = FALSE;
+// gboolean textentry = FALSE;
+// gboolean stdoutpipe = FALSE;
 extern int optind;
 extern const gchar *filename;
 
@@ -69,6 +53,21 @@ DasherMain *g_pDasherMain;
 DasherAppSettings *g_pDasherAppSettings;
 
 void sigint_handler(int iSigNum);
+
+// GOption command line parsing variables
+gboolean timedata = FALSE;
+gboolean preferences = FALSE;
+gboolean textentry = FALSE;
+gboolean stdoutpipe = FALSE;
+
+static const GOptionEntry options[] = {
+  {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+  {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+  {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+  {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+  {NULL}
+};
+
 
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
@@ -97,9 +96,12 @@ int main(int argc, char *argv[]) {
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);
 
-#ifdef HAVE_POPT  
-  poptContext sContext; 
-#endif
+  //parse command line options
+  GOptionContext *goptcontext;
+  goptcontext = g_option_context_new(_("- A text input application honouring accessibility"));
+  g_option_context_add_main_entries(goptcontext, options, "Dasher");
+  g_option_context_parse(goptcontext, &argc, &argv, NULL);
+  //later GnomeProgram will call g_option_context_free() when we unref it
 
 #ifdef WITH_GPE
   gpe_application_init(&argc, &argv);
@@ -108,48 +110,23 @@ int main(int argc, char *argv[]) {
   gtk_init(&argc, &argv);
 #endif
 
-#ifdef HAVE_POPT
 #ifdef GNOME_LIBS
   GnomeProgram *program = 0;
-
-  program = gnome_program_init("Dasher", PACKAGE_VERSION, LIBGNOMEUI_MODULE, argc, argv, GNOME_PARAM_POPT_TABLE, options, GNOME_PROGRAM_STANDARD_PROPERTIES, GNOME_PARAM_HUMAN_READABLE_NAME, _("Dasher Text Entry"), NULL);
-
-  g_object_get(G_OBJECT(program), GNOME_PARAM_POPT_CONTEXT, &sContext, NULL);
-  poptResetContext(sContext);
+#if GLIB_CHECK_VERSION(2,14,0)
+  program = gnome_program_init
+    (argv[0], PACKAGE_VERSION, LIBGNOMEUI_MODULE,
+     argc, argv,
+     GNOME_PARAM_GOPTION_CONTEXT, goptcontext, GNOME_PARAM_NONE);
+#else
+  program = gnome_program_init
+    (argv[0], PACKAGE_VERSION, LIBGNOMEUI_MODULE,
+     argc, argv,
+     GNOME_PARAM_NONE);
+#endif
+#endif
   
   gnome_vfs_init();
-#else
-  sContext = poptGetContext(NULL, argc, (const char**)argv, options, 0);
-#endif
 
-  while(1) {
-    int iNextOption;
-
-    iNextOption = poptGetNextOpt(sContext);
-
-    if(iNextOption == -1)
-      break;
-
-    switch(iNextOption) {
-    case 1:
-      // Print number of characters produced per second
-      timedata = TRUE;
-      break;
-    case 2:
-      // Only show the preferences window
-      preferences = TRUE;
-      break;
-    case 3:
-      // Onscreen text entry mode
-      textentry = TRUE;
-      break;
-    case 4:
-      // Pipe stuff to stdout
-      stdoutpipe = TRUE;
-      break;
-    }
-  }
-#endif // HAVE_POPT
 
 
   // We need thread support for updating the splash window while
@@ -287,5 +264,5 @@ int main(int argc, char *argv[]) {
 
 void sigint_handler(int iSigNum) {
   g_message("Trapped SIGINT - attempting shutdown...");
-  exit(0);
+  gtk_main_quit();
 }
