@@ -723,8 +723,8 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
       case EV_START:
         break;
       case EV_STOP:
-        //if(m_pEdit)
-          //m_pEdit->speak(2);
+        if(m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_MODE) && m_pEdit)
+          m_pEdit->speak(2);
         break;
       case EV_CONTROL:
         HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
