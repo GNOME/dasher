@@ -7,7 +7,7 @@
     <title>Dasher Manual</title>
     <corpauthor role="maintainer">The Dasher Project</corpauthor>
     <copyright>
-      <year>2004</year>
+      <year>2006</year>
       <holder>The Dasher Project</holder>
     </copyright>
     <legalnotice>
@@ -34,15 +34,19 @@
     </abstract>
     <revhistory>
       <revision> 
-	<revnumber>This is version 1.0 of the Dasher manual.</revnumber>
+	<revnumber>1.0.0</revnumber>
 	<date>2004-02-08</date>
+      </revision>
+      <revision> 
+	<revnumber>1.1.0</revnumber>
+	<date>2006-03-31</date>
       </revision>
     </revhistory>
   </articleinfo>
-
+  
   <sect1 id="intro">
     <title>Introduction</title>
-    <para><application>Dasher</application> is an information-efficient
+      <para><application>Dasher</application> is an information-efficient
       text-entry interface, driven by natural continuous pointing
       gestures. Dasher is a competitive text-entry system wherever a
       full-size keyboard cannot be used - for example on a palmtop or
@@ -55,6 +59,1044 @@
       </guisubmenu> submenu of the <guimenu>Main Menu</guimenu>, or by 
       running the command <command>dasher</command> on the command line.</para>
   </sect1>
+
+  <!-- START DJCM MANUAL -->
+
+  <sect1 id="manual1">
+    <title>Dasher</title>
+    <para>Dasher is an information-efficient text-entry interface,
+      driven by natural continuous pointing gestures.
+      Dasher is a competitive text-entry system wherever
+      a full-size keyboard cannot be used - for example,
+      
+      <itemizedlist>
+	<listitem><para>On a palmtop computer;</para></listitem>
+	<listitem><para>on a wearable computer;</para></listitem>
+	<listitem><para>when operating a computer one-handed, by joystick, touchscreen, trackball, or mouse;</para></listitem>
+	<listitem><para>when operating a computer with zero hands (i.e., by head-mouse or by eyetracker).</para></listitem>
+      </itemizedlist>
+    
+    The eyetracking  version of Dasher   allows an experienced user to write text
+    as fast as normal handwriting - 29 words per minute;
+    using a mouse, experienced users can write at 39 words per minute.</para>
+    
+    <para> Dasher can be used to write efficiently in
+    any language. </para> 
+
+  <para>Dasher is fast and fun to learn. (See what
+ users round the world say, in section \ref{sec.users}.) </para>
+
+    <para>Dasher is <emphasis>free software</emphasis>. It's distributed under the same license as GNU/Linux, 
+ the GPL. </para>
+
+    <sect2>
+      <title>How does Dasher work?</title>
+      
+      <blockquote>
+	<attribution>Financial Times,  5th February 2002</attribution>
+	<para>Dasher is like an arcade game: `Attack of the killer alphabets', perhaps.</para>
+      </blockquote>
+
+      <para>Dasher is a zooming interface. You point
+      where you want to go, and the display zooms in  wherever you point.
+      The world into which you are zooming is painted with
+      letters, so that any point you zoom in on corresponds to
+      a piece of text. The more you zoom in, the longer the
+      piece of text you have written. You choose what you write
+      by choosing where to zoom.</para>
+
+      <para>To make the interface efficient, we use the
+	predictions of a language model to determine how
+	much of the world is devoted to each piece of text.
+	Probable pieces of text are given more space,
+	so they are quick and easy to select. Improbable
+	pieces of text (for example, text with spelling mistakes)
+	are given less space, so they are harder to write.
+	The language model learns all the time: if you use a novel
+	word once, it  is easier to write next time.</para>
+
+
+
+      <para>A big advantage of Dasher over other predictive text-entry interfaces
+	that offer word-completions to the user
+	is that it is <emphasis>mode-free</emphasis>: the user does not need to
+      switch from a writing mode to an &ldquo;accept-model-predictions&rsquo; mode.</para>
+
+      <para>Another advantage is that it is easy to train the model
+      on any writing style: simply load up an example
+      file, then write away!</para>
+      
+      <para> It's quite hard to convey in words what Dasher looks like, 
+	so please visit 
+	<ulink url="http://www.dasher.org.uk/" type="http">www.dasher.org.uk</ulink> to see movies.</para>
+    
+    </sect2>
+    <sect2>
+      <title>Dasher explained -- the library analogy</title>
+      <para> Imagine  <emphasis>a library containing all possible books</emphasis>,
+	ordered alphabetically on a single shelf.
+  Books in which the first letter is &ldquo;a&rsquo; are
+  at the left hand side.
+  Books in which the first letter is &ldquo;z&rsquo; are at the right.
+   In  picture (i) below,
+    the shelf is shown vertically with &ldquo;left&rsquo; (a) at the top
+   and &ldquo;right&rsquo; (z) at the bottom.
+ The first book in the &ldquo;a&rsquo; section
+	reads &ldquo;<computeroutput>aaaaaaaaaaaa</computeroutput>...&rsquo;; somewhere to its right are
+  books that start &ldquo;<computeroutput>all good things
+   must come to an end</computeroutput>&hellip;&rsquo;;
+   a tiny bit further to the right are books that
+   start &ldquo;<computeroutput>all good things must come to an enema</computeroutput>&hellip;&rsquo;.</para>
+
+
+<para> When someone writes a piece of text, their choice
+ of the text string can be viewed as a choice of a book
+ from this library of all books - the book that contains exactly the
+ chosen text.
+ How do they choose that book? Let's imagine they want
+ to write &ldquo;<computeroutput>all good things</computeroutput> &hellip;&rsquo;</para>
+<!--
+\begin{center}
+\begin{tabular}{ccc} 
+\mbox{\psfig{figure=images/a-z.gif.50.ps}}&
+\mbox{\psfig{figure=images/aa-az.gif.50.ps}}&
+\mbox{\psfig{figure=images/ala-alz.gif.50.ps}}\\
+(i)(ii)(iii)\\
+\end{tabular}
+%%/dasher/images/a-z.gif.50.gif" 
+%%/dasher/images/aa-az.gif.50.gif" 
+%%/dasher/images/ala-alz.gif.50.gif"
+\end{center}
+      -->
+ <para>First, they walk into the &ldquo;<computeroutput>a</computeroutput>&rsquo; section of the library.
+ There, they are confronted by books starting &ldquo;<computeroutput>aa</computeroutput>&rsquo;, &ldquo;<computeroutput>ab</computeroutput>&rsquo;, &ldquo;<computeroutput>ac</computeroutput>&rdquo;, &hellip; &ldquo;<computeroutput>az</computeroutput>&rsquo;
+ [Picture (ii)].
+ Looking more closely at the &ldquo;<computeroutput>al</computeroutput>&rsquo; section, they can find books
+ starting &ldquo;<computeroutput>ala</computeroutput>&rsquo;, &ldquo;<computeroutput>alb</computeroutput>&rsquo;, &hellip; &ldquo;<computeroutput>alz</computeroutput>&rsquo;
+  [Picture (iii)].</para>
+
+ <para> By looking ever more closely at the shelf, the writer
+  can find the book containing the text he wishes to write.
+  Thus writing can be described as  <emphasis>zooming in on
+  an alphabetical library, steering as you go</emphasis>.</para>
+
+   <para> This is exactly how Dasher works, except for one crucial point:
+	<emphasis>we alter the SIZE of the shelf space devoted to each
+  book in proportion to the probability of the
+	corresponding text.</emphasis>
+  For example, not very many books start with an &ldquo;<computeroutput>x</computeroutput>&rsquo;, so we devote
+  less space to &ldquo;<computeroutput>x</computeroutput>&hellip;&rsquo; books, and more to the
+  more plausible books, thus making it easier to find
+  books that contain probable text.</para>
+
+ <para> Here is the corresponding sequence of pictures
+ of the library  in Dasher. (The character "_&rsquo; denotes the space character.)</para>
+<!--
+\begin{center}
+\begin{tabular}{ccc}
+\mbox{\psfig{figure=images/a-z.m.gif.50.ps}}&
+\mbox{\psfig{figure=images/aa-az.m.gif.50.ps}}&
+\mbox{\psfig{figure=images/ala-alz.m.gif.50.ps}}\\
+(i)&(ii)&(iii)\\
+\end{tabular}
+\end{center}
+							      -->
+
+<para> Dasher can be trained on examples of any writing style,
+ and it learns all the time, picking up your personal
+ turns of phrase.</para>
+
+ <para>The image below shows the state
+ of the Dasher interface 
+ while the user is writing the word
+ `objection'; alternative words that could easily be written
+  at this point include `objective', `objects_', and `object_oriented'.</para>
+<!--
+\begin{center}
+\mbox{\psfig{figure=images/object.ps,width=3.7in}}
+%% <img src="/is/object.gif" width=507 height=447 alt="Dasher text entry interface">
+\end{center}
+								      -->
+								      
+<para> If you find Dasher hard to imagine based on these static pictures,
+ please take a look at the movies on <ulink
+	url="http://www.dasher.org.uk/"
+ type="http">www.dasher.org.uk</ulink>.</para>
+
+
+									  <!--% When  you try Dasher for the first time,  please read the tips for novices.-->
+    </sect2>
+      <sect2>
+      <title>Tips for novices</title>
+  <para>Don't give up if it takes you a minute or two to get started - within
+  ten minutes, you'll be blazing along.
+   It's a lot like driving a car. You should <emphasis>start by driving cautiously</emphasis>.
+  If you can't tell where you are going,   <emphasis>stop going</emphasis>.
+  Indeed, you will probably learn Dasher fastest if you come to it
+  with car-driving analogies in mind, rather than standard computer
+  analogies. For example, the way navigation works
+  is not by DRAGGING but by STEERING:
+    if cars worked like windows computers,
+  you would have to &ldquo;grab&rsquo; the piece of road you want, then &ldquo;drag&rsquo;
+  it towards you;
+  but  in a car, when you wish to drive right, you
+  POINT RIGHT with your steering wheel.
+   Dasher does not work by dragging either. <emphasis>Do not try to grab things
+  and drag them. Just decide where you want to go, and point there.</emphasis></para>
+
+<para> <emphasis>The single most important concept</emphasis> that a novice user needs
+ to understand is that one should always
+ continue <emphasis>inside</emphasis> the 
+  text written so far: to select the book that contains &ldquo;all&rsquo;
+ as its first word, one does <emphasis>not</emphasis> enter the &ldquo;a&rsquo; section
+ of the library, then exit the &ldquo;a&rsquo; section, and
+ enter the &ldquo;l&rsquo; section.
+ One enters the &ldquo;a&rsquo; section, then finds the &ldquo;al&rsquo; section that is
+ <emphasis>within</emphasis> the &ldquo;a&rsquo; section, then enters the &ldquo;all&rsquo; section
+ <emphasis>within</emphasis> the &ldquo;al&rsquo; section.</para>
+
+<para> It's just like finding a name in a phonebook. To find &ldquo;<computeroutput>Alison</computeroutput>&rdquo;,
+  you don't go to the &ldquo;<computeroutput>A</computeroutput>&rdquo; section of the phonebook, then the &ldquo;<computeroutput>L</computeroutput>&rsquo; section:
+									    you go into the &ldquo;<computeroutput>A</computeroutput>&rdquo; section, then find <emphasis>within it</emphasis> the &ldquo;<computeroutput>Al</computeroutput>&rdquo; section,
+  and so forth. Once you are in the &ldquo;<computeroutput>Al</computeroutput>&rdquo; section, you never leave it.</para>
+
+ <para><emphasis>The second most important idea</emphasis> is
+ that what you have written depends <emphasis>only</emphasis> on
+  where you finally end up in the library, not on how you got there;
+  so there is no need to steer accurately on your way to
+  your destination. <emphasis>You are allowed to cut corners.</emphasis>
+  (For example, in the
+ previous image,
+ if you wanted to write  `objects_are', it would
+ be fine to move the mouse straight towards the letters `are',
+ even if this takes the mouse across the unwanted grey `i' square.)</para>
+
+
+
+
+<para><emphasis>Common errors.</emphasis>
+ Often, a beginner who is trying to find a particular
+	letter will drive the display forwards fast while hunting
+	for the letter.  The rule of the road for Dasher users
+	is just like that for car-drivers: don't drive forwards
+	until you have identified where you want to go!
+	So, after you have found the first letter of your sentence,
+	and zoomed towards it, please <emphasis>SLOW DOWN and don't proceed
+	any further into this first letter's square until you
+	have figured out where you should be steering towards</emphasis>.
+	Your next letter <emphasis>is</emphasis> there, immediately inside the
+	first square you have entered. The letters are ordered
+	alphabetically. If you can't see your letter, figure out where it
+	must be on the basis of the letters you <emphasis>can</emphasis> see. Then point to
+	the right place and enter the second letter's square.</para>
+    </sect2>
+    <sect2>
+      <title>Example</title>
+<!--\begin{figure}\begin{center}
+\mbox{\psfig{figure=images/exampleHad2.eps,width=3.5in}}
+\end{center}\caption[a]{Writing `{\tt{I once had a whim}}'. Where should the user steer now?}
+  \label{figHad1}
+										      \end{figure}  -->
+<para> Imagine you want to write `<computeroutput>I once had a whim</computeroutput>'.
+ You write `<computeroutput>I once ha...</computeroutput>' and the Dasher display
+looks like figure \ref{figHad1}.
+     You want to write `<computeroutput>had</computeroutput>'. What should you do?
+     There are lots of letter <computeroutput>d</computeroutput>s on the screen,
+     and all of them are rather small.
+     The five arrows in figure \ref{figHad1} show  some of these
+     <computeroutput>d</computeroutput>s. The purple arrow points
+     to a <computeroutput>d</computeroutput> that we can't see yet, but
+     we know it must be there because we can see `<computeroutput>a</computeroutput>', `<computeroutput>b</computeroutput>', and `<computeroutput>c</computeroutput>'
+     above it.</para>
+
+<!--     \begin{figure}\begin{center}
+\mbox{\psfig{figure=images/exampleHad2a.eps,width=3.5in}}
+\end{center}\caption[a]{
+     Some alternative letter <computeroutput>d</computeroutput>s, with
+     a beginner's error highlighted.}
+  \label{figHad2}
+															  \end{figure}  -->
+     
+															  <para>   A common beginner's mistake is to keep rushing forward and  spot <emphasis>any</emphasis>
+     of these letter <computeroutput>d</computeroutput>s, and zoom into it.
+     For example, figure \ref{figHad3} shows what happens if the user
+     zooms towards the <computeroutput>d</computeroutput> highlighted in figure \ref{figHad2}.</para>
+     
+<!--    \begin{figure}\begin{center}
+\mbox{\psfig{figure=images/exampleHad3a.eps,width=3.5in}}
+\end{center}\caption[a]{
+	 What happens when you select the wrong {d}}.
+	 }
+  \label{figHad3}
+																  \end{figure}  -->
+
+
+  <para>  If you go in this <computeroutput>d</computeroutput>, you are  writing `<computeroutput>I once <emphasis>head</emphasis>...</computeroutput>'.
+     The other two <computeroutput>d</computeroutput>s labelled by red arrows (in figure \ref{figHad1})
+     correspond to
+      writing `<computeroutput>I once <emphasis>heard</emphasis>...</computeroutput>'
+     and
+ `<computeroutput>I once <emphasis>hedge</emphasis>...</computeroutput>'.</para>
+
+ 
+ <para>    It is crucial to understand that there is only one correct <computeroutput>d</computeroutput>,
+    namely the <computeroutput>d</computeroutput> that is immediately inside the
+     blue box corresponding to letter `<computeroutput>a</computeroutput>' in the sequence  `<computeroutput>I once ha</computeroutput>'.
+     That blue box is highlighted in figure \ref{figHad4}.</para>
+													      
+<!--     \begin{figure}\begin{center}
+\mbox{\psfig{figure=images/exampleHad4.eps,width=3.5in}}
+\end{center}\caption[a]{
+	 The correct  letter <computeroutput>d</computeroutput> is the one marked by
+	  the green arrow. This example illustrates the rule &ldquo;always keep going <emphasis>inside</emphasis>
+	  the box that you want"  in this case, the blue box
+	  associated with the letter {\tt{a}} of the word `{\tt{had}}'.
+	  }
+  \label{figHad4}
+																				      \end{figure}  -->
+
+
+     <para>	  If you ever leave that blue box (as we did in figure \ref{figHad3})
+     then we lose the letter `<computeroutput>a</computeroutput>'.</para>
+
+
+    </sect2>
+    <sect2>
+      <title>Summary</title>
+<para> <emphasis>Don't click. Don't drag. And don't speed.</emphasis></para>
+    </sect2>
+    <sect2>
+      <title>What do the colours mean?</title>
+<para>	In the English-language desktop version 3 of
+	 Dasher,
+	 <itemizedlist>
+	<listitem><para><emphasis>white</emphasis> squares  contain the
+	  space characters (always placed
+	    at the bottom of the alphabet);</para></listitem>
+
+ <listitem><para>a special <emphasis>yellow</emphasis> box contains the upper case characters [A-Z];</para></listitem>
+     
+<listitem><para>a  <emphasis>red</emphasis> box contains numerals [0-9] (if the full alphabet is enabled);</para></listitem>
+
+<listitem><para>a  <emphasis>green</emphasis> box contains punctuation characters (with the
+	    characters most similar to the space character
+	    [.,;:-]
+	    placed at the bottom, next to the <emphasis>white</emphasis> space character.
+  Within the punctuation section, letters with similar 
+ roles are coloured similarly: punctuation characters  
+ similar to the period 	    [.,;:-]
+ are coloured slate-blue;</para></listitem>  
+ <listitem><para>the other colours are included simply to discriminate
+	  the squares from each other.</para></listitem>
+ <listitem><para>In  languages with accents (grave, acute, circumflex, etc), 
+ the accents are displayed in an <emphasis>orange</emphasis> box.</para></listitem>
+<listitem><para>	  In the Japanese version of Dasher,  colours
+	    are used to distinguish the different hiragana
+	    groups (eg ka,ki,ku,ke,ko are orange).</para></listitem>
+<listitem><para> In the Korean version of Dasher, three different colours 
+ are used to distinguish initial consonants, vowels, and 
+ terminal consonants.</para></listitem>
+	 </itemizedlist>
+</para>
+<para> You can alter the colour scheme by editing the 
+<computeroutput>colour</computeroutput> and <computeroutput>alphabet</computeroutput> xml files, 
+	as described in <xref linkend="manual3"/>.</para>
+    </sect2>
+    <sect2>
+      <title>How to start dasher (version 3)</title>
+      <para> Set the dasher application
+ running; when the dasher window comes up, either click the left mouse button
+	or press the space bar to set it going. [One of these two will work.]
+	Repeat this action (click or space), when you are finished, to stop dasher from dashing.
+	Your computer's mouse controls Dasher.</para>
+
+  <para> Adjust the speed slider to fix the maximum speed Dasher will zoom at.
+  A speed of 1 is good for a beginner, increasing to  2 after 5 minutes' practice, and to 4 when
+  you are expert.</para>
+    </sect2>
+    <sect2>
+      <title>How to start dasher (version 2) on pocket PC</title>
+      <para>	Install, run (wait a few seconds for it to load up the training file),
+      then touch the screen with the stylus to make dasher move.</para>
+      
+      <para>There are three special strongly-coloured squares in this version of Dasher,
+      coloured yellow, red (in some releases only), and green;  all three squares
+      do not produce any character; these squares indicate sub-groupings of
+      the alphabet. (Uppercase Alphabet, Numerals (in some releases only), 
+      and Punctuation.)</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="manual2">
+    <title>How to use Dasher in real life</title>
+    
+    <para> Dasher can be used to communicate
+    through your computer, and (to some degree) to control your computer.
+    Obviously, the simplest way to communicate with Dasher
+    is to have the person you're talking to watch the screen as you write.
+    But there are lots of other ways to communicate through Dasher.</para>
+    
+    <sect2>
+      <title>Copy to clipboard</title>
+      
+      <para> If you have the `copy on stop' feature switched on,
+      then, every time you stop Dasher, the contents of Dasher's
+      text box get copied directly to your computer's clipboard.
+      You can then use the `Paste' function of another application to
+      transfer what you've written.</para>
+    </sect2>
+    
+    <sect2>
+      <title>Speaking</title>
+      
+      <para>Dasher connects
+      to your computer's built-in text-to-speech system.
+      There are several ways to use Dasher for speaking.</para> 
+
+      <para> You can choose to have Dasher `speak each word':
+      every time you pass through the end of a word (by entering a
+      space character for example), that word gets spoken immediately.</para>
+
+      <para>  You can also choose to have Dasher `speak on stop':
+      every time you stop Dasher moving, everything that is in the
+      text box gets spoken.</para>
+      
+      <para>  Finally, you can speak exactly when you want to
+      by switching on <emphasis>Control Mode</emphasis> (which is under the Options
+      Menu in Dasher version 3). This mode brings up an extra
+      box in the Dasher alphabet, coloured grey, which
+      works a bit like an escape key on a keyboard.
+      If you go inside the Control box, you will find several
+      control-related options:  Stop (red); pause (yellow);
+      Move; Delete; and Speak.
+      Inside the Speak box are the options to
+      `speak everything', `speak new' (just the new words that you wrote
+      since the last utterance), and `speak again' (which re-speaks
+      whatever was last spoken).</para>
+    </sect2>
+    
+    <sect2>
+      <title>Save to file</title>
+      
+      <para> You can save whatever is in the text box of Dasher as a plain
+      text file by clicking the `Save file' icon in the icon bar,
+      or using the menus at the top of the Dasher window (selecting File&rarr;Save).</para>
+    </sect2>
+    
+    <sect2>
+      <title>Send text to other window</title>
+      
+      <para> You can also have whatever is written in Dasher be directly beamed to another
+      window.  Enable the `send text to other window' option under the options
+      menu. Then the window that you select will get Dasher's output.</para>
+    </sect2>
+    
+    <sect2>
+      <title>How to get Dasher to `always stay on top'?</title>
+    
+      <para> In Dasher version 3,  this feature is not currently provided.
+      It may  be
+      the case in Linux, however, that you can configure your window manager  to put
+      particular windows on top, but this will depend  on your
+      operating system configuration.</para>
+ 
+      <para> In Dasher version 4, `always on top' will be possible.</para>
+    </sect2>
+    
+    <sect2>
+      <title>If a dialog box requires
+      keyboard input, can I use Dasher to respond?</title>
+     
+      <para>We intend to make this possible in version 4 --- to have Dasher
+      serve as a general keyboard device.</para>
+      
+      <para> In version 3, you may be able to use the existing methods (for example copy all on
+      stop) to do many tasks, but some tasks remain tricky
+      (for example, using Dasher's `file&rarr;Save as'
+      dialog!).</para>
+    </sect2>
+  
+    <sect2>
+      <title>Font sizes</title>
+      
+      <para> Dasher has a text box (where the text appears) and a Dasher canvas (where all the
+      fun zooming action happens).
+      You can change the font sizes of both these regions using the
+      Dasher menus at the top of the Dasher window.
+      The two fonts are called the `Edit font' (for the text box's font),
+      and the `Dasher font', I think. (I forget the exact menu names in Dasher version 3, sorry.)
+      To change the edit font size bring up the usual dialog box
+      and change size.
+      To change the Dasher canvas size, find the Dasher-size option, which
+      offers three to choose from, named something like: small, medium, and large.</para>
+    </sect2>
+  </sect1>
+  
+  <sect1 id="manual3">
+    <title>Personalizing Dasher</title>
+    <para> There are three classes of files you can tweak in 
+    order to make Dasher work better for you:
+    <computeroutput>alphabet</computeroutput> files, <computeroutput>colour</computeroutput> files, and <computeroutput>training</computeroutput> files.</para> 
+    
+    <sect2>
+      <title>Personalizing the language model</title>
+      <para>Dasher's predictions (in version 3 of Dasher) are based 
+    not on a dictionary but on a training text of ordinary text.
+    For example, when you download 
+																								Dasher version 3, it comes with a file called 
+																								<filename>training_english_GB.txt</filename>. This is 300 kbytes of  
+    ordinary english harvested from various documents on the internet. </para>
+
+    <para> When you use Dasher, it stores everything you write in another personal 
+    file with the same name as the training file.  
+    Next time you use Dasher, it reads in the original training file 
+ and everything you wrote last time, to help it predict better. 
+ Dasher learns all the time. 
+ To get the best results from Dasher: 
+	 <itemizedlist>
+	<listitem><para>If possible, provide Dasher with a training  text in your own 
+ style -- a plain text file 
+ made from documents you have written before, and containing your 
+own pet phrases, friends' names, and so forth. 
+ Either append this file to the training file, or replace  the original training 
+	    file.</para></listitem>
+<listitem><para>
+ If you think your personal training file may have become 
+ corrupted with rubbish text, edit it using any plain text editor. (Or ask 
+ a friend to do this for you.)</para></listitem>
+<listitem><para>
+ If you use Dasher for many months, the personal training file 
+ may become so large that Dasher becomes slow to start up; if so, 
+ edit the training file using a plain text editor.  </para></listitem>
+      </itemizedlist></para>
+    </sect2>
+    <sect2>
+      <title>Personalizing the alphabet</title>
+      <para> Which characters are available to you, and their order, is 
+	determined by the alphabet file. 
+	For example, you might use <filename>alphabet.english.xml</filename>.
+	Dasher comes with many alternative alphabets. 
+	You can edit alphabet  files to change which characters are in the 
+ alphabet, or their order.  When you edit this xml file, it might be 
+ a good idea to save the new file with a new name and change the 
+ name of the alphabets in the new file, to avoid confusion.
+ Each field in the xml file specifies a symbol 
+	by three items: the character that should be <emphasis>displayed</emphasis> (<computeroutput>d=</computeroutput>&hellip;); 
+ the character that goes into the <emphasis>text</emphasis> when this symbol is selected (<computeroutput>t=</computeroutput>&hellip;);
+ and the background colour number of the box for this symbol (<computeroutput>b=</computeroutput>&hellip;), of which 
+ more below.</para>
+  </sect2>
+  <sect2>
+    <title>Personalizing the colour scheme</title>
+ <para>You can change the colours of the Dasher world in two ways. 
+																									    The colour file (for example <filename>colour.xml</filename> or 
+																									    <filename>colour.euroasian.xml</filename>) specifies  the 200 colours  in 
+ the palette  that Dasher uses. 
+ Each line specifies red, green, blue values.</para>
+
+<para> These colours are used to colour multiple objects in dasher.
+ If for example you want to change the colour of the &ldquo;red line&rdquo;, 
+ change the second colour line of the colour file, which reads 
+	<computeroutput>&lt;colour r=&quot;255&quot; g=&quot;0&quot; b=&quot;0&quot;/&gt;</computeroutput>. </para>
+
+
+<para> You can change which of these colours is used  for each symbol's 
+ box by changing the &ldquo;b&rdquo; field for that symbol in the alphabet file.</para>
+  </sect2>
+
+
+
+
+  </sect1>
+  <sect1 id="manual4">
+    <title>Languages</title>
+    
+    <para> Dasher works in hundreds of languages.</para>
+    
+    <para> For each language there is an alphabet file (or possibly more 
+    than one alphabet file). On the Dasher website we aim to supply at 
+    least one training text for each language. If we don't have a good
+    training text for your language, please help us by making one 
+    and sending it to us.</para>
+    
+    <para> See the Dasher website for the list of languages supported by 
+    Dasher. As of October 2005, 
+    all the major languages of the world are well supported, 
+    with the exception of Japanese and Chinese, for which Dasher  version 3 
+    offers only phonetic support (hiragana and pin-yin). In Dasher version 4, 
+    we will provide full support for Japanese and Chinese. </para>
+    
+    <!--    %% Dasher works beautifully in Korean-->
+    
+    <para> [More issues to discuss here: how combining accents work; 
+    fonts. Scripts to convert to composed or decomposed form.]</para>
+  </sect1>
+    
+  <sect1 id="manual5">
+    <title>What's new in  Version 4.0</title>
+    
+    <para> A preview version, 3.99, was released in October 2004.</para>
+
+    <para> There is an automatic speed control, which will speed up Dasher 
+    when it senses you are able to go faster. </para>
+        
+    <para> There is a new socket interface allowing Dasher to listen
+    to head-trackers or gaze-trackers or EEG-interfaces 
+    without going through the mouse.</para>
+    
+    <para> There are several `button modes' for people who want
+    to drive Dasher using one, two, three, or four switches.</para>
+    
+    <para> There is a `click mode', for people who like to point where they want to go,
+    and click to take a single step in that direction. (Good for beginners?)</para>
+ 
+  <sect2>
+    <title>What's coming in version 4.2</title>
+    <para> We will implement a game-mode for Dasher: this will help novices 
+    learn to write.  A teaching hand will guide the  novice when he goes 
+    astray, and novices who write fast without needing much guidance 
+    will win lots of points. </para>
+    
+    <para> New language models will be added, which will make predictions 
+    at the word level as well as the letter level.</para> 
+    
+    <para>Japanese and Chinese will be fully supported. </para>
+    
+    <para>The Dasher team also hopes to create a free web-cam-based 
+    head tracker and gaze tracker, `VIM',  by April 2006. </para>
+  </sect2>
+  </sect1>
+    
+<!--    \newpage
+%\title{Dasher Special Needs Guide}
+%\author{David J.C. MacKay}
+%\maketitle
+\begin{center}
+{\Large\bf Dasher Special Needs Guide}\medskip
+
+{\large David J.C. MacKay}\medskip
+
+\today
+\end{center}
+\begin{quote}
+%\begin{abstract}
+ Dasher can be driven in many ways.
+ This guide helps you find which versions of Dasher 
+ are most efficient for you.
+
+{\em
+ As of April 2005,  the newest versions of Dasher  mentioned here
+ are implemented on the Linux platform only. We aim 
+ to have them all implemented on all platforms by 
+ September 2005.
+}
+%\end{abstract}
+\end{quote} -->
+  <sect1 id="manual6">
+    <title>Dasher Special Needs Guide</title>
+    
+  <para> Dasher is designed on the principle of getting <emphasis>as 
+    much information as possible</emphasis> from the gestures you 
+    can make.</para>
+    
+    <para> We can get information from whichever  of the following
+    is easiest for you:
+      <orderedlist>
+	<listitem><para>
+ <emphasis>Continuous</emphasis> gestures
+ (conveyed via a joystick, trackpad,  head mouse, or 
+ gaze tracker, for example)
+	  often achieve the highest rates of writing.</para></listitem>
+<listitem><para> <emphasis>Discrete</emphasis> gestures 
+ (switches, button presses) may be able to
+	  convey information in three different ways:</para>
+	    <orderedlist>
+<listitem><para> The <emphasis>time</emphasis> at which you press a button can convey information.
+ (This idea is used in grid systems controlled by a single button.)</para></listitem>
+    <listitem><para>  <emphasis>How long</emphasis>
+ you press a button for can convey information. (This idea is 
+ used in Morse code, where two durations are distinguished.) </para></listitem>	
+<listitem><para> The <emphasis>choice</emphasis> of <emphasis>which</emphasis> button you press 
+ can convey information. (This idea is used in ordinary keyboards.)</para></listitem>
+	  </orderedlist></listitem>
+      </orderedlist></para>
+
+  </sect1>
+  <sect1 id="manual7">
+    <title>Continuous gestures</title>
+    <para> Dasher's normal mode (<emphasis>mouse mode</emphasis>) 
+    is driven by a two-dimensional continuous steering gesture. 
+    Dasher also has a <emphasis>one-dimensional mode</emphasis>, for users who can control 
+    only one dimension.</para>
+
+    <para> Can you make one or two continuous gestures?
+    If you can operate a joystick,  mouse,  trackpad, or rollerball, then 
+    you have a two-dimensional control.
+    If you can point on a touch-screen then that's perfect too.
+    Can you move your nose around? If you can shake your head, 
+    that's a one-dimensional control; if you can nod, that's two. 
+    A head-mouse can be quite cheap,
+    and it is  a 
+    convenient way to drive Dasher. (We recommend the 
+    <emphasis>SmartNav3</emphasis> from NaturalPoint, which costs about $200,
+    and works under microsoft windows only;
+    this device used to be called the  NavPoint TrackIR until 
+    2002, when that brand name 
+    was transferred to a different device.
+    We also recommend the Origin instruments
+    <emphasis>Headmouse Extreme</emphasis>, which costs about $1000; it works 
+    as a USB mouse on any computer.)
+    Can you waggle one finger or one foot? These head-mice 
+    can be used to track fingers and feet as well as heads.
+    For a detailed comparison of SmartNav3 with Headmouse Extreme, please see
+      <ulink url="http://www.inference.phy.cam.ac.uk/dasher/Headmouse.html" type="http">http://www.inference.phy.cam.ac.uk/dasher/Headmouse.html</ulink>.</para>
+    
+    <para>If you are severely paralysed, the best option may be 
+    a gaze tracker. Do you have control of where your eyes are looking?
+    With a gaze tracker we can write at 25 words per minute.
+    Gaze trackers are quite expensive: we paid $2000 for the 
+    QuickGlance from EyeTech Digital Systems, and the Tobii eyetracker 
+    costs about $20,000. [We recommend both of these systems. 
+    You attach QuickGlance to an existing computer; Quickglance II costs 
+    about $4000. Tobii is a 
+    complete computer with built-in eyetracking cameras.]
+ Dasher also works with the 
+ Eye response <emphasis>Erica</emphasis>, 
+ with 
+ LC's <emphasis>Eyegaze</emphasis>, and with 
+ Metrovision's gaze-tracker. All three of these systems 
+ are complete computers with eye-tracking cameras attached.</para>
+ 
+<para> If joysticks, mice, rollerballs, and gaze trackers don't work, 
+ there may be a few other  ways to convey a continuous
+ one-dimensional  signal. 
+ Lips and eyebrows should both work, though we don't know 
+ of any  manufacturer selling appropriate devices.  
+ Breath is a one-dimensional signal too. If you can control 
+ your breath, it should be possible to make a breath mouse 
+ for you. We made our $22 breath mouse using a USB optical mouse, 
+ a belt, and some elastic, and our most experienced user can write 
+ at 15 words per minute by breath alone.</para>
+  <sect2>
+    <title>Starting and stopping</title>
+ <para>There are several ways of starting and stopping 
+ Dasher.  Pressing a button (for example, the left mouse button
+ or the space bar) is one option. 
+ But if you can not press any  buttons, it's possible to start 
+ and stop using only continuous gestures:  in the options 
+ menu, select &ldquo;start on position&rdquo;; and switch on &ldquo;control mode&rdquo;.
+ When control mode is switched on, the Dasher alphabet includes 
+ a special Control node (a bit like an <computeroutput>Esc</computeroutput> key on a keyboard), 
+ within which various control functions are available. 
+ When you are inside the control node, Dasher moves more slowly
+ than normal, for safety. The control node options include 
+ `pause' and `stop'. Use `pause' if you are half-way through writing
+ something, and want to pause for a moment. Use `stop' when 
+	you have finished.  <command>Pause</command> and <command>stop</command> produce the same behaviour, 
+	except <command>stop</command> may cause other automatic actions, such 
+ as `speak on stop', or `copy the text 
+% to clipboard 
+ on stop'.</para>
+
+ <para>When Dasher is paused or stopped, it can be restarted using 
+ any of the starting methods that are enabled. 
+ If `start on position' is enabled, then whenever Dasher is stopped 
+ a sequence of large targets will be displayed; you restart 
+ Dasher by pointing at (or looking at)
+ the first (red) target, then the second (yellow) target.
+ (We use two targets in sequence to make it difficult to start 
+ Dasher  by accident.)</para>
+  </sect2>
+  <sect2>
+    <title>Recommendations for head-tracking</title>
+<para> Many trackers have `smoothing' options, which determine the 
+ frequency with which the mouse position is updated;
+ these options are normally used to 
+ smooth and damp down the mouse motion.
+ For Dasher, we don't want such smoothing. 
+ We like instant, live, raw and jerky mouse coordinates. 
+ If there is a `smoothing' control, turn it right down.</para> 
+
+ <para>The `gain' (sometimes called the `speed') of the head-tracker 
+ is also an important setting to adjust. 
+ Some trackers' gains can be adjusted in software. 
+ You can also adjust the gain by changing the geometry 
+ of your tracker: if you move the tracked dot from your forehead 
+ to the brim of a baseball cap, for example, then you 
+ roughly double the gain. Sitting closer to the tracker 
+ may also increase the gain.  
+ Find a gain setting that is comfortable. I like high gain 
+ because it allows me to steer with very small head motions.</para>
+  </sect2>
+  <sect2>
+    <title>Recommendations for gaze-tracking</title>
+ <para>For good results with gaze trackers, we strongly recommend that 
+ the gaze-tracker be made to be as responsive as possible. 
+ Many trackers have `smoothing' options, which determine the 
+ frequency with which the mouse position is updated and the 
+ number of successive gaze images used to estimate 
+ the mouse position. These options are normally used to 
+ smooth and damp down the mouse motion.
+ For Dasher, we don't want such smoothing. 
+ We like instant, live, raw and jerky mouse coordinates. 
+ When you are navigating, your eye moves very quickly to 
+ the target you are interested in, and we want Dasher to respond instantly.
+ The ideal settings for Dasher may be very different from 
+ the ideal settings for other software.  
+ Ask your eyetracker manufacturer to make it easy to 
+ change the settings when switching application. </para>
+ 
+
+<para> Dasher has several options designed for use with gaze-trackers. 
+ We  recommend using <emphasis>eyetracker mode</emphasis> (under Options/Preferences/Control).
+ In this mode, the dynamics of Dasher are slightly different 
+ from standard dynamics, making error-correction easier 
+ by gaze.</para> 
+
+ <para>If your gaze-tracker's calibration drifts with time, for example 
+ when your head moves, then you should select the <emphasis>Autocalibrate
+ eyetracker</emphasis> feature.  When this feature is switched on, Dasher 
+ keeps track of your steering and infers the vertical calibration error, 
+ and corrects for it.  You can see this correction taking effect 
+ by noticing the vertical offset between the mouse position as 
+ displayed by Dasher (by the tip of the red line) and the gaze-tracker's 
+ mouse position (shown by the system's mouse cursor).</para>
+
+ <para>To avoid difficulties with the mouse being bounded by the top 
+ and bottom of the screen, we recommend choosing a window 
+ size for Dasher that is <emphasis>not</emphasis> full-screen in size. 
+ Place the  Dasher window so that there is a margin above and below
+ the Dasher canvas.</para>
+
+      <para><emphasis>Technical note:</emphasis>  In Dasher version 4, we will introduce 
+ alternative ways for Dasher to receive tracking information 
+ from gaze trackers, head trackers, or similar systems.
+ Rather than sending everything through the mouse, we will 
+ enable communication of coordinates, and coordinate-uncertainties,
+ through an alternative socket.</para>
+  </sect2>
+  </sect1>
+  <sect1 id="manual8">
+    <title>I can't use mouse mode or one-dimensional mode</title>
+ <para>OK, we have several versions of <emphasis>button Dasher</emphasis>, 
+ which will be available in Dasher Version 4 from January 2006.</para>
+
+  <sect2>
+    <title>Are time-critical gestures not an option?</title>
+ <para>Some ways of conveying information make use of the <emphasis>timing</emphasis>
+ of gestures.  
+ However, some people can't make gestures at a required instant. 
+ For example, spastics find it very difficult
+ to do an action `exactly now!'</para>
+
+ <para>If time-critical gestures are not an option, 
+	go to <xref linkend="no_time_critical"/>.</para>
+
+      <para>If you <emphasis>can</emphasis> convey information by <emphasis>precisely timed</emphasis> gestures,
+	go to section <xref linkend="timed"/>.</para>
+  </sect2>
+  <sect2 id="no_time_critical">
+    <title>`Timeless' choices of Dasher</title>
+<para> So, you want to steer Dasher at your own pace. 
+ Can you make fairly-accurate continuous gestures, given  time?
+ For example, can you position a pointer accurately  on a screen, 
+ then press a button to indicate that you are ready?
+ Or can you touch a touch-screen fairly accurately?
+<itemizedlist>
+	  <listitem><para>If so, try <emphasis>click mode</emphasis>. Go to section \ref{sec.click}.</para></listitem>
+<listitem><para>
+ Otherwise try <emphasis>direct button mode</emphasis>
+ or <emphasis>menu button mode</emphasis>.
+	      Go to <xref linkend="no_time_critical_button"/>.</para></listitem>
+</itemizedlist>
+</para>
+  </sect2>
+  <sect2>
+    <title>`Timeless' continuous Dasher: click mode</title>
+    
+<para> In <emphasis>click mode</emphasis>, you position the mouse 
+ pointer where you want to go, then press 
+ a button when you are ready.  Dasher then zooms in on the 
+ position you chose.</para>
+
+<para> Alternatively, if you have a touch screen, a single touch on the 
+ screen initiates a zoom to that position. (This functionality 
+ has yet to be implemented.)</para> 
+  </sect2>
+  <sect2 id="no_time_critical_button">
+    <title>`Timeless' choices of Button Dasher</title>
+<para> How many different switches, keys, or buttons 
+      can you easily operate? </para>
+	<variablelist>
+	  <varlistentry>
+	    <term>1</term>
+	    <listitem><para>With just one button, the only timeless way to convey 
+		information is by the <emphasis>duration</emphasis> 
+		of your button-presses.  Can you make a distinction between 
+		short presses and long presses?  If so, you can use 
+		<emphasis>menu button-Dasher</emphasis>. Connect up your short press 
+	      to the `menu' action, and your long press to the `select' action.
+	      </para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>2</term>
+	    <listitem><para>You can use 
+		<emphasis>menu button-Dasher</emphasis>.
+		Connect one button
+		to the `menu' action, and the other 
+		to the `select' action.  If  one button is easier to 
+		press, make that button the `menu' button.
+		 </para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>2&frac12;</term>
+	    <listitem><para>If you can easily press two buttons, and, for special 
+		occasions, you are able to press a third button,
+		you can use
+		<emphasis>menu button-Dasher</emphasis> or
+		<emphasis>direct button-Dasher</emphasis>.
+	      </para>
+	      <orderedlist>
+		<listitem><para>
+		    Set up  <emphasis>menu button-Dasher</emphasis> as described above, and 
+		  use the third button as your escape key -- to make Dasher go away, 
+		  for example. [This feature is not currently provided within Dasher.]</para></listitem>
+		<listitem><para> In 
+		    <emphasis>direct button-Dasher</emphasis>, each button produces a particular 
+		  navigation action such as `up', `down', or `back'.
+		  If you have 2&frac12; buttons, map the convenient
+		  two to `up' and `down',
+		  and the  inconvenient button to `back'.</para></listitem>
+	      </orderedlist>
+	    </listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>3</term>
+	    <listitem><para>You can use <emphasis>direct button-Dasher</emphasis>
+ or <emphasis>menu button-Dasher</emphasis> as described above.</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>4, 5, 6, or 7</term>
+	    <listitem><para>With more than three buttons, 
+ you have the option to use <emphasis>direct button-Dasher</emphasis>
+ with three, four, five, or six  `forward' directions.
+ Please try <emphasis>menu button-Dasher</emphasis> too, even though it uses only 
+ two buttons.</para></listitem>
+	  </varlistentry>
+	  <varlistentry>
+	    <term>8 or more</term>
+	    <listitem><para>Try 
+ <emphasis>direct button-Dasher</emphasis>
+ and <emphasis>menu button-Dasher</emphasis>. 
+ With this many buttons, you also have the option of using 
+ a system like T9 -- the predictive-text system found on many mobile
+ phones.</para></listitem>
+	  </varlistentry>
+	</variablelist>
+
+<para> To read more about 
+ <emphasis>menu button-Dasher</emphasis> 
+ and  <emphasis>direct button-Dasher</emphasis>
+ see sections \ref{sec.menu} and \ref{sec.direct}.</para>
+  </sect2>
+  <sect2 id="timed">
+    <title>Button Dashers that exploit timing</title>
+<para> Two questions:
+ How many different switches, keys, or buttons 
+ can you easily operate?  And can you make switch-closings 
+ and switch-openings with equal timing accuracy?  That is, 
+ can you not only <emphasis>press</emphasis> a button at an accurate time, 
+ but also <emphasis>release</emphasis> it with similar precision?</para>
+
+ <para>Whatever your answers are to these questions, 
+ you have three choices: 
+ <emphasis>static one button mode</emphasis>,
+ <emphasis>one button menu mode</emphasis>
+ and <emphasis>dynamic one button mode</emphasis>.
+ (We've got ideas about how to exploit two or more 
+ precisely-timed buttons, but we haven't implemented them yet.)</para>
+
+ <para>If you want both  presses and releases 
+ to convey information, then select the <emphasis>two events</emphasis>
+ option. (Not yet implemented.)
+ The default is that only button presses convey information, 
+ and the releases are ignored.</para>
+    <sect3>
+      <title>Static one button mode</title>
+ <para>A pointer drifts down the screen. 
+ Press the button when the pointer is alongside
+ your intended destination.
+ If you miss the first chance to click, wait for the 
+ pointer to come back.
+ If you need to back up (unzoom), 
+ press the button when the pointer is at the 
+ top or bottom of the display.</para>
+
+ <para>This is called `static' mode because, as long as you 
+ don't press the  button, Dasher doesn't move.</para>
+
+ <para>This mode has several /parameters that you should adjust to 
+ get best results.  Parameter (name?) controls the 
+ rate of drop of the pointer. 
+ Parameter (name?) 
+ controls the factor by which the display zooms 
+ in.
+ Parameter <emphasis>offset</emphasis>
+ corrects for your personal tendency to press the button 
+ a little early or late. It is measured in milliseconds,
+ and a typical value is 100, which means that you usually press
+ the button 100ms late.</para>
+<para> Another relevant parameter is the (name) parameter, common 
+ to several of the button modes, which controls the time 
+ taken for each zoom event.</para> 
+    </sect3>
+    <sect3>
+      <title>One button menu mode</title>
+ <para>The display cycles through a sequence of navigation directions. 
+ Press the button when the direction you want is highlighted.
+ If you need to back up (unzoom), 
+ press the button when the whole display is highlighted.</para>
+
+ <para>This mode's menus should be configured  as described in 
+ section \ref{sec.menu}.
+ This mode has one additional parameter, (name?),
+ which determines the speed of cycling through the options.</para>
+
+ <para>When choosing the number of menu options and their relative sizes, 
+ bear in mind your clicking ability. If you can click very accurately 
+ but only infrequently, then it may be most efficient for you to increase 
+ the speed parameter, and have more menu options. 
+ Experiment!</para>
+ 
+    </sect3>
+    <sect3>
+      <title>Dynamic one button mode</title>
+ <para>(This mode has not yet been implemented;  
+ in 2003, a different dynamic one-button mode, 
+ also known as metronome mode, was implemented. We believe 
+ the dynamic mode described below will be superior.) </para>
+ 
+<para> In <emphasis>dynamic one-button mode</emphasis>,
+ Dasher moves slowly in one direction while 
+ the button is not pressed, 
+ then changes direction and zooms more rapidly
+ for a fraction of a second  when the button is pressed.</para>
+
+ <para>In the simplest version of this mode, 
+ a second button is used to halt Dasher
+ and to initiate backing up (unzooms).</para>
+
+ <para>In a truly single-button version of this mode, 
+ the steady zooming-in of Dasher  reverses 
+ after a short time, then Dasher pauses and 
+ enters a temporary menu mode, offering the 
+ options to back up, restart, or stop.</para>
+    </sect3>
+  </sect2>
+</sect1>    
+    
+    <!-- END DJCM MANUAL -->
+    
   
   <sect1 id="usage">
     <title>Using Dasher </title>
