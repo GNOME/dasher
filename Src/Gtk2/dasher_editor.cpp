@@ -39,7 +39,6 @@ static void dasher_editor_destroy(GObject *pObject);
 void dasher_editor_select_all(DasherEditor *pSelf);
 void dasher_editor_setup_actions(DasherEditor *pSelf);
 void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction);
-const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
 EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID);
 void dasher_editor_rebuild_action_pane(DasherEditor *pSelf);
 

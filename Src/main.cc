@@ -38,6 +38,7 @@
 #include "Menu.h"
 #include "accessibility.h"
 
+
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
 #endif
@@ -98,7 +99,7 @@ int main(int argc, char *argv[]) {
 
   //parse command line options
   GOptionContext *goptcontext;
-  goptcontext = g_option_context_new(_("- A text input application honouring accessibility"));
+  goptcontext = g_option_context_new(("- A text input application honouring accessibility"));
   g_option_context_add_main_entries(goptcontext, options, "Dasher");
   g_option_context_parse(goptcontext, &argc, &argv, NULL);
   //later GnomeProgram will call g_option_context_free() when we unref it
@@ -123,10 +124,10 @@ int main(int argc, char *argv[]) {
      argc, argv,
      GNOME_PARAM_NONE);
 #endif
-#endif
-  
-  gnome_vfs_init();
 
+
+  gnome_vfs_init();
+#endif
 
 
   // We need thread support for updating the splash window while
@@ -250,6 +251,7 @@ int main(int argc, char *argv[]) {
   else {
     choose_filename();
   }
+
 
   gtk_main();
 

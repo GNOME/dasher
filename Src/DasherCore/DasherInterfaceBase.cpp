@@ -483,25 +483,25 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 /// otherwise we're wasting effort.
 
 void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
-  if(m_pDasherView != 0) {
-
-    if(bRedrawNodes) {
-      m_pDasherView->Screen()->SendMarker(0);
-      m_pDasherModel->RenderToView(m_pDasherView,true);
-    }
+  if(!m_pDasherView || !m_pDasherModel)
+    return;
   
-    m_pDasherView->Screen()->SendMarker(1);
-
-    bool bDecorationsChanged(false);
-
-    if(m_pInputFilter) {
-      bDecorationsChanged = true;
-      m_pInputFilter->DecorateView(m_pDasherView);
-    }
-
-    if(bRedrawNodes || bDecorationsChanged)
-      m_pDasherView->Display();
+  if(bRedrawNodes) {
+    m_pDasherView->Screen()->SendMarker(0);
+    m_pDasherModel->RenderToView(m_pDasherView,true);
   }
+  
+  m_pDasherView->Screen()->SendMarker(1);
+  
+  bool bDecorationsChanged(false);
+  
+  if(m_pInputFilter) {
+    bDecorationsChanged = true;
+    m_pInputFilter->DecorateView(m_pDasherView);
+  }
+  
+  if(bRedrawNodes || bDecorationsChanged)
+    m_pDasherView->Display();
 }
 
 void CDasherInterfaceBase::ChangeAlphabet() {

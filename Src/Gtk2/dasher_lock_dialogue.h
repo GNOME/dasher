@@ -1,1 +1,1 @@
-void dasher_lock_dialogue_new(GladeXML *pGladeXML);
+void dasher_lock_dialogue_new(GladeXML *pGladeXML, GtkWindow *pMainWindow);

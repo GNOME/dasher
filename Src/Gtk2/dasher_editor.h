@@ -53,6 +53,9 @@ void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, g
 void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
+// Temporarily here - move back to private eventually
+const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
+
 G_END_DECLS
 
 #endif
