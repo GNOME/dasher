@@ -59,6 +59,8 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher_action_copy.h \
                          dasher_action_keyboard.cpp \
                          dasher_action_keyboard.h \
+                         dasher_action_keyboard_maemo.cpp \
+                         dasher_action_keyboard_maemo.h \
                          dasher_action_script.cpp \
                          dasher_action_script.h \
                          dasher_action_speech.cpp \

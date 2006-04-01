@@ -97,7 +97,7 @@
 	  <property name="int1">0</property>
 	  <property name="int2">0</property>
 	  <property name="last_modification_time">Wed, 29 Mar 2006 17:31:58 GMT</property>
-          <signal name="dasher_changed" handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT"/>
+	  <signal name="dasher_changed" handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT"/>
 	  <signal name="dasher_start" handler="handle_start_event" last_modification_time="Sun, 05 Mar 2006 19:45:35 GMT"/>
 	  <signal name="dasher_stop" handler="handle_stop_event" last_modification_time="Sun, 05 Mar 2006 19:45:43 GMT"/>
 	  <signal name="dasher_control" handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT"/>
@@ -244,46 +244,17 @@
 	      </child>
 
 	      <child>
-		<widget class="GtkVBox" id="vbox5">
+		<widget class="GtkVBox" id="vbox39">
 		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <widget class="GtkButton" id="button18">
-		      <property name="width_request">50</property>
-		      <property name="height_request">50</property>
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">Y</property>
-		      <property name="use_underline">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		      <signal name="clicked" handler="on_y_clicked" last_modification_time="Sat, 01 Apr 2006 16:14:22 GMT"/>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">True</property>
-		      <property name="fill">True</property>
-		    </packing>
+		    <placeholder/>
 		  </child>
 
 		  <child>
-		    <widget class="GtkButton" id="button19">
-		      <property name="width_request">50</property>
-		      <property name="height_request">50</property>
-		      <property name="visible">True</property>
-		      <property name="can_focus">True</property>
-		      <property name="label" translatable="yes">N</property>
-		      <property name="use_underline">True</property>
-		      <property name="relief">GTK_RELIEF_NORMAL</property>
-		      <property name="focus_on_click">True</property>
-		    </widget>
-		    <packing>
-		      <property name="padding">0</property>
-		      <property name="expand">True</property>
-		      <property name="fill">True</property>
-		    </packing>
+		    <placeholder/>
 		  </child>
 		</widget>
 		<packing>

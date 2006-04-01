@@ -8,10 +8,18 @@
 #include "dasher_buffer_set.h"
 #include "dasher_editor.h"
 
+#include <X11/Xlib.h>
+
 extern DasherMain *g_pDasherMain;
 extern DasherAppSettings *g_pDasherAppSettings;
 extern IDasherBufferSet *g_pBufferSet;
 extern DasherEditor *g_pEditor;
+
+// TODO: sort this out
+extern GdkWindow *g_pFocusWindow;
+extern GdkWindow *g_pRandomWindow;
+extern Window g_FWindow;
+extern Window g_FRandomWindow;
 
 // Old stuff
 

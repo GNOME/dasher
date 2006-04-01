@@ -2,9 +2,6 @@
 #include <string.h>
 
 #include "dasher.h"
-#include "dasher_action_copy.h"
-#include "dasher_action_script.h"
-
 
 #include "dasher_editor.h"
 #include "dasher_internal_buffer.h"
@@ -18,6 +15,12 @@
 #include "dasher_action_keyboard.h"
 #endif 
 
+#ifdef WITH_MAEMO
+#include "dasher_action_keyboard_maemo.h"
+#else
+#include "dasher_action_copy.h"
+#include "dasher_action_script.h"
+#endif
 
 typedef struct _EditorAction EditorAction;
 
@@ -261,7 +264,6 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
   
   // TODO: Activate and deactivate methods for actions
   // TODO: Clear shouldn't be a special case (include support for false in clear method)
-  dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_copy_new(pSelf)));
 
 #ifdef GNOME_SPEECH
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_speech_new()));
@@ -270,6 +272,11 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
 #ifdef GNOME_A11Y
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new()));
 #endif
+
+#ifdef WITH_MAEMO
+  dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_maemo_new()));
+#else
+  dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_copy_new(pSelf)));
 
   GDir *pDirectory;
   G_CONST_RETURN gchar *szFilename;
@@ -305,6 +312,7 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
   }
 
   delete[] szSystemScriptDir;
+#endif
 
   gtk_dasher_control_register_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, "Actions", -1 );
   gtk_dasher_control_connect_node( GTK_DASHER_CONTROL(pDasherWidget), Dasher::CControlManager::CTL_USER, Dasher::CControlManager::CTL_ROOT, -2);
@@ -352,7 +360,12 @@ void dasher_editor_rebuild_action_pane(DasherEditor *pSelf) {
   pUserData[1] = 0;
   
   g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
+#ifdef WITH_MAEMO
+  // For Maemo we want the packing to expand
+  gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), true, true, 0);
+#else
   gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
+#endif
  
 
   EditorAction *pCurrentAction = pPrivate->pActionRing;
@@ -369,7 +382,12 @@ void dasher_editor_rebuild_action_pane(DasherEditor *pSelf) {
       pUserData[1] = (void *)(pCurrentAction->pAction);
       
       g_signal_connect(G_OBJECT(pNewButton), "clicked", G_CALLBACK(action_button_callback), pUserData);
+#ifdef WITH_MAEMO
+      // For Maemo we want the packing to expand
+      gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), true, true, 0);
+#else
       gtk_box_pack_start(GTK_BOX(pPrivate->pActionPane), GTK_WIDGET(pNewButton), false, false, 0);
+#endif
     }
     pCurrentAction = pCurrentAction->pNext;
   }

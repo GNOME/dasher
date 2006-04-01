@@ -32,8 +32,6 @@
 #include <gtk/gtk.h>
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
-#include <gtk/gtkimmodule.h>
-#include <gtk/gtkimmulticontext.h>
 
 #include <gconf/gconf.h>
 
@@ -132,9 +130,8 @@ GdkWindow *g_pRandomWindow;
 Window g_FWindow;
 Window g_FRandomWindow;
 
+// TODO: Move this into a separate class
 GdkFilterReturn peek_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
-  //  g_message("foo");
-
   XEvent *xev = (XEvent *) xevent;
   if(xev->xany.type == ClientMessage) {
     g_message("Atom: %s %d", XGetAtomName(xev->xany.display, xev->xclient.message_type), xev->xclient.format );
@@ -145,63 +142,36 @@ GdkFilterReturn peek_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
 
     g_print("\n");
     
-
-     if(xev->xclient.data.l[3] == 0xd) {
-       gtk_widget_show(GTK_WIDGET(data));
-       g_FRandomWindow = (Window)xev->xclient.data.l[0];
-       g_FWindow = (Window)xev->xclient.data.l[1];
-       g_pFocusWindow = gdk_window_foreign_new(g_FWindow);
-       g_pRandomWindow = gdk_window_foreign_new(g_FRandomWindow);
-       gdk_window_set_transient_for(GDK_WINDOW(GTK_WIDGET(data)->window), g_pFocusWindow);
-     } 
-     else if(xev->xclient.data.l[3] == 0x12) {
-       GdkEventClient sMyEvent;
-       
-       sMyEvent.type = GDK_CLIENT_EVENT;
-       sMyEvent.window = g_pRandomWindow;
-       sMyEvent.send_event = true;
-       sMyEvent.message_type = gdk_atom_intern("_HILDON_IM_COM", true);
-       sMyEvent.data_format = 8; // I know this is wrong...
-       sMyEvent.data.l[0] = g_FRandomWindow;
-       sMyEvent.data.l[1] = 0x7;
-       sMyEvent.data.l[2] = 0;
-       sMyEvent.data.l[3] = 0;
-       sMyEvent.data.l[4] = 0;
-       
-       gdk_event_send_client_message((GdkEvent *)(&sMyEvent), g_FRandomWindow); 
-     }
-     else if(xev->xclient.data.l[3] == 0xb) {
-       gtk_widget_hide(GTK_WIDGET(data));
+    if(xev->xclient.data.l[3] == 0xd) {
+      gtk_widget_show(GTK_WIDGET(data));
+      g_FRandomWindow = (Window)xev->xclient.data.l[0];
+      g_FWindow = (Window)xev->xclient.data.l[1];
+      g_pFocusWindow = gdk_window_foreign_new(g_FWindow);
+      g_pRandomWindow = gdk_window_foreign_new(g_FRandomWindow);
+      gdk_window_set_transient_for(GDK_WINDOW(GTK_WIDGET(data)->window), g_pFocusWindow);
+    } 
+    else if(xev->xclient.data.l[3] == 0x12) {
+      GdkEventClient sMyEvent;
+      
+      sMyEvent.type = GDK_CLIENT_EVENT;
+      sMyEvent.window = g_pRandomWindow;
+      sMyEvent.send_event = true;
+      sMyEvent.message_type = gdk_atom_intern("_HILDON_IM_COM", true);
+      sMyEvent.data_format = 8; // I know this is wrong...
+      sMyEvent.data.l[0] = g_FRandomWindow;
+      sMyEvent.data.l[1] = 0x7;
+      sMyEvent.data.l[2] = 0;
+      sMyEvent.data.l[3] = 0;
+      sMyEvent.data.l[4] = 0;
+      
+      gdk_event_send_client_message((GdkEvent *)(&sMyEvent), g_FRandomWindow); 
+    }
+    else if(xev->xclient.data.l[3] == 0xb) {
+      gtk_widget_hide(GTK_WIDGET(data));
     }
   }
   
-return GDK_FILTER_CONTINUE;
-}
-
-void enter_text(const char *szText) {
-  GdkEventClient sMyEvent;
-
-  for(int i(0); i < strlen(szText); ++i) {
-    sMyEvent.type = GDK_CLIENT_EVENT;
-    sMyEvent.window = g_pRandomWindow;
-    sMyEvent.send_event = true;
-    sMyEvent.message_type = gdk_atom_intern("_HILDON_IM_INSERT_UTF8", true);
-    sMyEvent.data_format = 8; // I know this is wrong...
-    sMyEvent.data.l[0] = 0;
-    sMyEvent.data.l[1] = szText[i];
-    sMyEvent.data.l[2] = 0;
-    sMyEvent.data.l[3] = 0;
-    sMyEvent.data.l[4] = 0;
-
-    gdk_event_send_client_message((GdkEvent *)(&sMyEvent), g_FRandomWindow); 
-  }
-
-  
-}
-
-extern "C" void on_y_clicked(GtkWidget* pWidget, gpointer pUserData) {
-  enter_text(dasher_editor_get_all_text(g_pEditor));
-  dasher_editor_clipboard(g_pEditor, CLIPBOARD_CLEAR);
+  return GDK_FILTER_CONTINUE;
 }
 
 extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData) {
@@ -219,15 +189,6 @@ extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData) {
  		  (guchar *)&xThisWindow, 1);
 
   gdk_window_add_filter(GDK_WINDOW(pWidget->window), peek_filter, pWidget);
-//  gdk_window_add_filter(0, peek_filter, pWidget);
-
- //  Window xFocusWindow;
-//   int xState;
-//   XGetInputFocus(GDK_WINDOW_XDISPLAY(pWidget->window),
-//  		 &xFocusWindow,
-//  		 &xState);
-//   GdkWindow *pFocusWindow = gdk_window_foreign_new(xFocusWindow);
-//   gdk_window_set_transient_for(GDK_WINDOW(pWidget->window), pFocusWindow);
   
   Atom atom_type[1];
   atom_type[0] = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE_INPUT");
