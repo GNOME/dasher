@@ -10,6 +10,14 @@ DOC_FIGURES = figures/figure2.png \
 	      figures/prefs2.png \
 	      figures/prefs3.png \
 	      figures/prefs4.png \
-	      figures/prefs5.png 
+	      figures/prefs5.png \
+              figures/a-z.gif \
+              figures/aa-az.gif \
+              figures/ala-alz.gif \
+              figures/object.gif \
+              figures/exampleHad2.png \
+              figures/exampleHad2a.png \
+              figures/exampleHad3a.png \
+              figures/exampleHad4.png
 
 DOC_LINGUAS = 

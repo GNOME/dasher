@@ -120,7 +120,7 @@
       <para>A big advantage of Dasher over other predictive text-entry interfaces
 	that offer word-completions to the user
 	is that it is <emphasis>mode-free</emphasis>: the user does not need to
-      switch from a writing mode to an &ldquo;accept-model-predictions&rsquo; mode.</para>
+      switch from a writing mode to an &ldquo;accept-model-predictions&rdquo; mode.</para>
 
       <para>Another advantage is that it is easy to train the model
       on any writing style: simply load up an example
@@ -135,18 +135,18 @@
       <title>Dasher explained -- the library analogy</title>
       <para> Imagine  <emphasis>a library containing all possible books</emphasis>,
 	ordered alphabetically on a single shelf.
-  Books in which the first letter is &ldquo;a&rsquo; are
+  Books in which the first letter is &ldquo;a&rdquo; are
   at the left hand side.
-  Books in which the first letter is &ldquo;z&rsquo; are at the right.
+  Books in which the first letter is &ldquo;z&rdquo; are at the right.
    In  picture (i) below,
-    the shelf is shown vertically with &ldquo;left&rsquo; (a) at the top
-   and &ldquo;right&rsquo; (z) at the bottom.
- The first book in the &ldquo;a&rsquo; section
-	reads &ldquo;<computeroutput>aaaaaaaaaaaa</computeroutput>...&rsquo;; somewhere to its right are
+    the shelf is shown vertically with &ldquo;left&rdquo; (a) at the top
+   and &ldquo;right&rdquo; (z) at the bottom.
+ The first book in the &ldquo;a&rdquo; section
+	reads &ldquo;<computeroutput>aaaaaaaaaaaa</computeroutput>...&rdquo;; somewhere to its right are
   books that start &ldquo;<computeroutput>all good things
-   must come to an end</computeroutput>&hellip;&rsquo;;
+   must come to an end</computeroutput>&hellip;&rdquo;;
    a tiny bit further to the right are books that
-   start &ldquo;<computeroutput>all good things must come to an enema</computeroutput>&hellip;&rsquo;.</para>
+   start &ldquo;<computeroutput>all good things must come to an enema</computeroutput>&hellip;&rdquo;.</para>
 
 
 <para> When someone writes a piece of text, their choice
@@ -154,7 +154,18 @@
  from this library of all books - the book that contains exactly the
  chosen text.
  How do they choose that book? Let's imagine they want
- to write &ldquo;<computeroutput>all good things</computeroutput> &hellip;&rsquo;</para>
+ to write &ldquo;<computeroutput>all good things</computeroutput> &hellip;&rdquo;</para>
+<figure>
+<imageobject>
+<imagedata fileref="figures/a-z.gif" />
+</imageobject>
+<imageobject>
+<imagedata fileref="figures/aa-az.gif" />
+</imageobject>
+<imageobject>
+<imagedata fileref="figures/ala-alz.gif" />
+</imageobject>
+</figure>
 <!--
 \begin{center}
 \begin{tabular}{ccc} 
@@ -168,11 +179,11 @@
 %%/dasher/images/ala-alz.gif.50.gif"
 \end{center}
       -->
- <para>First, they walk into the &ldquo;<computeroutput>a</computeroutput>&rsquo; section of the library.
- There, they are confronted by books starting &ldquo;<computeroutput>aa</computeroutput>&rsquo;, &ldquo;<computeroutput>ab</computeroutput>&rsquo;, &ldquo;<computeroutput>ac</computeroutput>&rdquo;, &hellip; &ldquo;<computeroutput>az</computeroutput>&rsquo;
+ <para>First, they walk into the &ldquo;<computeroutput>a</computeroutput>&rdquo; section of the library.
+ There, they are confronted by books starting &ldquo;<computeroutput>aa</computeroutput>&rdquo;, &ldquo;<computeroutput>ab</computeroutput>&rdquo;, &ldquo;<computeroutput>ac</computeroutput>&rdquo;, &hellip; &ldquo;<computeroutput>az</computeroutput>&rdquo;
  [Picture (ii)].
- Looking more closely at the &ldquo;<computeroutput>al</computeroutput>&rsquo; section, they can find books
- starting &ldquo;<computeroutput>ala</computeroutput>&rsquo;, &ldquo;<computeroutput>alb</computeroutput>&rsquo;, &hellip; &ldquo;<computeroutput>alz</computeroutput>&rsquo;
+ Looking more closely at the &ldquo;<computeroutput>al</computeroutput>&rdquo; section, they can find books
+ starting &ldquo;<computeroutput>ala</computeroutput>&rdquo;, &ldquo;<computeroutput>alb</computeroutput>&rdquo;, &hellip; &ldquo;<computeroutput>alz</computeroutput>&rdquo;
   [Picture (iii)].</para>
 
  <para> By looking ever more closely at the shelf, the writer
@@ -184,13 +195,24 @@
 	<emphasis>we alter the SIZE of the shelf space devoted to each
   book in proportion to the probability of the
 	corresponding text.</emphasis>
-  For example, not very many books start with an &ldquo;<computeroutput>x</computeroutput>&rsquo;, so we devote
-  less space to &ldquo;<computeroutput>x</computeroutput>&hellip;&rsquo; books, and more to the
+  For example, not very many books start with an &ldquo;<computeroutput>x</computeroutput>&rdquo;, so we devote
+  less space to &ldquo;<computeroutput>x</computeroutput>&hellip;&rdquo; books, and more to the
   more plausible books, thus making it easier to find
   books that contain probable text.</para>
 
  <para> Here is the corresponding sequence of pictures
- of the library  in Dasher. (The character "_&rsquo; denotes the space character.)</para>
+ of the library  in Dasher. (The character "_&rdquo; denotes the space character.)</para>
+<figure>
+<imageobject>
+<imagedata fileref="figures/a-z.gif" />
+</imageobject>
+<imageobject>
+<imagedata fileref="figures/aa-az.gif" />
+</imageobject>
+<imageobject>
+<imagedata fileref="figures/ala-alz.gif" />
+</imageobject>
+</figure>
 <!--
 \begin{center}
 \begin{tabular}{ccc}
@@ -211,20 +233,19 @@
  while the user is writing the word
  `objection'; alternative words that could easily be written
   at this point include `objective', `objects_', and `object_oriented'.</para>
-<!--
-\begin{center}
-\mbox{\psfig{figure=images/object.ps,width=3.7in}}
-%% <img src="/is/object.gif" width=507 height=447 alt="Dasher text entry interface">
-\end{center}
-								      -->
+<figure>
+<imageobject>
+<imagedata fileref="figures/object.gif" />
+</imageobject>
+</figure>
 								      
 <para> If you find Dasher hard to imagine based on these static pictures,
- please take a look at the movies on <ulink
+	please take a look at the movies on <ulink
 	url="http://www.dasher.org.uk/"
- type="http">www.dasher.org.uk</ulink>.</para>
-
-
-									  <!--% When  you try Dasher for the first time,  please read the tips for novices.-->
+	type="http">www.dasher.org.uk</ulink>.</para>
+      
+      
+      <!--% When  you try Dasher for the first time,  please read the tips for novices.-->
     </sect2>
       <sect2>
       <title>Tips for novices</title>
@@ -237,7 +258,7 @@
   analogies. For example, the way navigation works
   is not by DRAGGING but by STEERING:
     if cars worked like windows computers,
-  you would have to &ldquo;grab&rsquo; the piece of road you want, then &ldquo;drag&rsquo;
+  you would have to &ldquo;grab&rdquo; the piece of road you want, then &ldquo;drag&rdquo;
   it towards you;
   but  in a car, when you wish to drive right, you
   POINT RIGHT with your steering wheel.
@@ -247,16 +268,16 @@
 <para> <emphasis>The single most important concept</emphasis> that a novice user needs
  to understand is that one should always
  continue <emphasis>inside</emphasis> the 
-  text written so far: to select the book that contains &ldquo;all&rsquo;
- as its first word, one does <emphasis>not</emphasis> enter the &ldquo;a&rsquo; section
- of the library, then exit the &ldquo;a&rsquo; section, and
- enter the &ldquo;l&rsquo; section.
- One enters the &ldquo;a&rsquo; section, then finds the &ldquo;al&rsquo; section that is
- <emphasis>within</emphasis> the &ldquo;a&rsquo; section, then enters the &ldquo;all&rsquo; section
- <emphasis>within</emphasis> the &ldquo;al&rsquo; section.</para>
+  text written so far: to select the book that contains &ldquo;all&rdquo;
+ as its first word, one does <emphasis>not</emphasis> enter the &ldquo;a&rdquo; section
+ of the library, then exit the &ldquo;a&rdquo; section, and
+ enter the &ldquo;l&rdquo; section.
+ One enters the &ldquo;a&rdquo; section, then finds the &ldquo;al&rdquo; section that is
+ <emphasis>within</emphasis> the &ldquo;a&rdquo; section, then enters the &ldquo;all&rdquo; section
+ <emphasis>within</emphasis> the &ldquo;al&rdquo; section.</para>
 
 <para> It's just like finding a name in a phonebook. To find &ldquo;<computeroutput>Alison</computeroutput>&rdquo;,
-  you don't go to the &ldquo;<computeroutput>A</computeroutput>&rdquo; section of the phonebook, then the &ldquo;<computeroutput>L</computeroutput>&rsquo; section:
+  you don't go to the &ldquo;<computeroutput>A</computeroutput>&rdquo; section of the phonebook, then the &ldquo;<computeroutput>L</computeroutput>&rdquo; section:
 									    you go into the &ldquo;<computeroutput>A</computeroutput>&rdquo; section, then find <emphasis>within it</emphasis> the &ldquo;<computeroutput>Al</computeroutput>&rdquo; section,
   and so forth. Once you are in the &ldquo;<computeroutput>Al</computeroutput>&rdquo; section, you never leave it.</para>
 
@@ -292,79 +313,76 @@
     </sect2>
     <sect2>
       <title>Example</title>
-<!--\begin{figure}\begin{center}
-\mbox{\psfig{figure=images/exampleHad2.eps,width=3.5in}}
-\end{center}\caption[a]{Writing `{\tt{I once had a whim}}'. Where should the user steer now?}
-  \label{figHad1}
-										      \end{figure}  -->
-<para> Imagine you want to write `<computeroutput>I once had a whim</computeroutput>'.
- You write `<computeroutput>I once ha...</computeroutput>' and the Dasher display
-looks like figure \ref{figHad1}.
-     You want to write `<computeroutput>had</computeroutput>'. What should you do?
-     There are lots of letter <computeroutput>d</computeroutput>s on the screen,
-     and all of them are rather small.
-     The five arrows in figure \ref{figHad1} show  some of these
-     <computeroutput>d</computeroutput>s. The purple arrow points
-     to a <computeroutput>d</computeroutput> that we can't see yet, but
-     we know it must be there because we can see `<computeroutput>a</computeroutput>', `<computeroutput>b</computeroutput>', and `<computeroutput>c</computeroutput>'
-     above it.</para>
-
-<!--     \begin{figure}\begin{center}
-\mbox{\psfig{figure=images/exampleHad2a.eps,width=3.5in}}
-\end{center}\caption[a]{
-     Some alternative letter <computeroutput>d</computeroutput>s, with
-     a beginner's error highlighted.}
-  \label{figHad2}
-															  \end{figure}  -->
-     
-															  <para>   A common beginner's mistake is to keep rushing forward and  spot <emphasis>any</emphasis>
-     of these letter <computeroutput>d</computeroutput>s, and zoom into it.
-     For example, figure \ref{figHad3} shows what happens if the user
-     zooms towards the <computeroutput>d</computeroutput> highlighted in figure \ref{figHad2}.</para>
-     
-<!--    \begin{figure}\begin{center}
-\mbox{\psfig{figure=images/exampleHad3a.eps,width=3.5in}}
-\end{center}\caption[a]{
-	 What happens when you select the wrong {d}}.
-	 }
-  \label{figHad3}
-																  \end{figure}  -->
-
-
-  <para>  If you go in this <computeroutput>d</computeroutput>, you are  writing `<computeroutput>I once <emphasis>head</emphasis>...</computeroutput>'.
-     The other two <computeroutput>d</computeroutput>s labelled by red arrows (in figure \ref{figHad1})
+      <figure id="figHad1">
+	<title>Writing &lsquo;<computeroutput>I once had a whim</computeroutput>&rsquo;. Where should the user steer now?</title>
+	<imageobject>
+	  <imagedata fileref="figures/exampleHad2.png" />
+	</imageobject>
+      </figure>
+      <para> Imagine you want to write `<computeroutput>I once had a whim</computeroutput>'.
+	You write `<computeroutput>I once ha...</computeroutput>' and the Dasher display
+	looks like <xref linkend="figHad1" />.
+	You want to write `<computeroutput>had</computeroutput>'. What should you do?
+	There are lots of letter <computeroutput>d</computeroutput>s on the screen,
+	and all of them are rather small.
+	The five arrows in <xref linkend="figHad1"/> show  some of these
+	<computeroutput>d</computeroutput>s. The purple arrow points
+	to a <computeroutput>d</computeroutput> that we can't see yet, but
+	we know it must be there because we can see `<computeroutput>a</computeroutput>', `<computeroutput>b</computeroutput>', and `<computeroutput>c</computeroutput>'
+      above it.</para>
+      <figure id="figHad2">
+	<title>Some alternative letter
+	  <computeroutput>d</computeroutput>s, with a beginner's error highlighted</title>
+	<imageobject>
+	  <imagedata fileref="figures/exampleHad2a.png" />
+	</imageobject>
+      </figure>
+      <para>   A common beginner's mistake is to keep rushing forward and  spot <emphasis>any</emphasis>
+	of these letter <computeroutput>d</computeroutput>s, and zoom into it.
+	For example, <xref linkend="figHad3"/> shows what happens if the user
+	zooms towards the <computeroutput>d</computeroutput> highlighted in
+	<xref linkend="figHad2"/>.</para>
+      <figure id="figHad3">
+	<title>What happens when you select the wrong <computeroutput>d</computeroutput></title>
+	<imageobject>
+	  <imagedata fileref="figures/exampleHad3a.png" />
+	</imageobject>
+      </figure>
+      
+      
+      <para>If you go in this <computeroutput>d</computeroutput>, you are  writing `<computeroutput>I once <emphasis>head</emphasis>...</computeroutput>'.
+     The other two <computeroutput>d</computeroutput>s labelled by red
+	arrows (in <xref linkend="figHad1"/>)
      correspond to
       writing `<computeroutput>I once <emphasis>heard</emphasis>...</computeroutput>'
-     and
- `<computeroutput>I once <emphasis>hedge</emphasis>...</computeroutput>'.</para>
+	and
+	`<computeroutput>I once <emphasis>hedge</emphasis>...</computeroutput>'.</para>
 
  
  <para>    It is crucial to understand that there is only one correct <computeroutput>d</computeroutput>,
     namely the <computeroutput>d</computeroutput> that is immediately inside the
      blue box corresponding to letter `<computeroutput>a</computeroutput>' in the sequence  `<computeroutput>I once ha</computeroutput>'.
-     That blue box is highlighted in figure \ref{figHad4}.</para>
-													      
-<!--     \begin{figure}\begin{center}
-\mbox{\psfig{figure=images/exampleHad4.eps,width=3.5in}}
-\end{center}\caption[a]{
-	 The correct  letter <computeroutput>d</computeroutput> is the one marked by
+	That blue box is highlighted in <xref linkend="figHad4"/>.</para>
+      <figure id="figHad4">
+	<title>The correct  letter <computeroutput>d</computeroutput> is the one marked by
 	  the green arrow. This example illustrates the rule &ldquo;always keep going <emphasis>inside</emphasis>
-	  the box that you want"  in this case, the blue box
-	  associated with the letter {\tt{a}} of the word `{\tt{had}}'.
-	  }
-  \label{figHad4}
-																				      \end{figure}  -->
+	  the box that you want&rdquo;  in this case, the blue box
+	  associated with the letter <computeroutput>a</computeroutput> of the word &lsquo;<computeroutput>had</computeroutput>&rsquo;
+	</title>
+	<imageobject>
+	  <imagedata fileref="figures/exampleHad4.png" />
+	</imageobject>
+      </figure>													      
 
-
-     <para>	  If you ever leave that blue box (as we did in figure \ref{figHad3})
+      <para>If you ever leave that blue box (as we did in <xref linkend="figHad3"/>)
      then we lose the letter `<computeroutput>a</computeroutput>'.</para>
-
-
     </sect2>
+    
     <sect2>
       <title>Summary</title>
-<para> <emphasis>Don't click. Don't drag. And don't speed.</emphasis></para>
+      <para><emphasis>Don't click. Don't drag. And don't speed.</emphasis></para>
     </sect2>
+    
     <sect2>
       <title>What do the colours mean?</title>
 <para>	In the English-language desktop version 3 of
