@@ -713,7 +713,7 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
       case EV_EDIT:
         if(m_pEdit)
           m_pEdit->HandleEvent(pEvent);
-        if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE))
+        if(m_pAppSettings->GetBoolParameter(APP_BP_KEYBOARD_MODE) && (GetForegroundWindow() != m_hWnd))
           m_pKeyboardOutput->HandleEvent(pEvent);
         break;
       case EV_EDIT_CONTEXT:
