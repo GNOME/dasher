@@ -22,6 +22,7 @@
 // 12 = Button mode (alternating)
 // 13 = Button mode (compass)
 // 14 = Two button dynamic filter (Radford mode)
+// 15 = Stylus input filter
 
 CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
   : CDasherComponent(pEventHandler, pSettingsStore) {

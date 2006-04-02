@@ -26,6 +26,7 @@
 #include "EyetrackerFilter.h"
 #include "OneButtonFilter.h"
 #include "OneDimensionalFilter.h"
+#include "StylusFilter.h"
 #include "TwoButtonDynamicFilter.h"
 
 // STL headers
@@ -858,6 +859,8 @@ void CDasherInterfaceBase::CreateFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, "Buttons 4")));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, "Buttons 5")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,15, "Stylus Control")));
+
 }
 
 void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::string> &vList) {

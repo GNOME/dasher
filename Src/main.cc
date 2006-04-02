@@ -155,8 +155,8 @@ int main(int argc, char *argv[]) {
 #ifdef WITH_GPE
   xml = glade_xml_new(PROGDATA "/dashergpe.glade", NULL, NULL);
 #elif WITH_MAEMO
-  //  xml = glade_xml_new("/var/lib/install" PROGDATA "/dashermaemo.glade", NULL, NULL);
-  xml = glade_xml_new(PROGDATA "/dashermaemo.glade", NULL, NULL);
+  xml = glade_xml_new("/var/lib/install" PROGDATA "/dashermaemo.glade", NULL, NULL);
+  //xml = glade_xml_new(PROGDATA "/dashermaemo.glade", NULL, NULL);
 #else
   xml = glade_xml_new(PROGDATA "/dasher.glade", NULL, NULL);
 #endif

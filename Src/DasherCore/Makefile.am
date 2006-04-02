@@ -85,6 +85,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           SocketInputBase.cpp \
                           SocketInputBase.h \
 			  StartHandler.h \
+			  StylusFilter.cpp \
+			  StylusFilter.h \
                           TimeSpan.cpp \
                           TimeSpan.h \
                           TwoBoxStartHandler.cpp \

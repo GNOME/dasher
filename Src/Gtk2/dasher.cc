@@ -142,7 +142,7 @@ GdkFilterReturn peek_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
 
     g_print("\n");
     
-    if(xev->xclient.data.l[3] == 0xd) {
+    if((xev->xclient.data.l[3] == 0xc) || (xev->xclient.data.l[3] == 0xd)){
       gtk_widget_show(GTK_WIDGET(data));
       g_FRandomWindow = (Window)xev->xclient.data.l[0];
       g_FWindow = (Window)xev->xclient.data.l[1];
@@ -150,7 +150,7 @@ GdkFilterReturn peek_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
       g_pRandomWindow = gdk_window_foreign_new(g_FRandomWindow);
       gdk_window_set_transient_for(GDK_WINDOW(GTK_WIDGET(data)->window), g_pFocusWindow);
     } 
-    else if(xev->xclient.data.l[3] == 0x12) {
+    else if((xev->xclient.data.l[3] == 0x11) || (xev->xclient.data.l[3] == 0x12))  {
       GdkEventClient sMyEvent;
       
       sMyEvent.type = GDK_CLIENT_EVENT;

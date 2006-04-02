@@ -494,17 +494,10 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
 
-#if (defined WITH_GPE || defined WITH_MAEMO)
-  // GPE version requires the button to be held down rather than clicked
-  if((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_BUTTON_RELEASE))
-    return FALSE;
-#else
-  if((event->type != GDK_BUTTON_PRESS) && (event->type != GDK_2BUTTON_PRESS))
-    return FALSE;
-#endif
-
-  // Tell the core that the event has happened
-  KeyDown(get_time(), 100);
+  if(event->type == GDK_BUTTON_PRESS)
+    KeyDown(get_time(), 100);
+  else if(event->type == GDK_BUTTON_RELEASE)
+    KeyUp(get_time(), 100);
 
   return false;
 }
