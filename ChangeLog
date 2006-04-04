@@ -1,7 +1,12 @@
+2006-04-04  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Disable the macros in m4/ as they are all pretty old
+	and were breaking build.
+
 2006-03-27  Christian Kirbach  <Christian.Kirbach@siemens.com>
 
 	* configure.in, Src/main.cc: Obey vuntz and do the transition from
-        libpopt to GOption
+	libpopt to GOption
 
 2006-03-26  Behdad Esfahbod  <behdad@gnome.org>
 

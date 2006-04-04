@@ -2,7 +2,6 @@ AC_PREREQ(2.56)
 AC_INIT([dasher],[3.99.3],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
-AC_CONFIG_MACRO_DIR([m4])
 AC_CONFIG_HEADERS(config.h)
 AM_INIT_AUTOMAKE([gnu check-news])
 AM_MAINTAINER_MODE
@@ -31,7 +30,6 @@ ALL_LINGUAS="ar az be bg bn bs ca cs cy da de dz el en_CA en_GB es et eu fa fi f
 AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CXX
-PKG_PROG_PKG_CONFIG
 
 WITHGTK2=true;
 
