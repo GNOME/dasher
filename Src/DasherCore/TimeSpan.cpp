@@ -2,7 +2,7 @@
 #include "../Common/Common.h"
 
 #include "TimeSpan.h"
-#include <sys/timeb.h>
+#include <sys/time.h>
 
 #ifdef _WIN32
 // In order to track leaks to line number, we need this at the top of every file
@@ -104,12 +104,13 @@ string CTimeSpan::GetXML(const string& strPrefix, bool bSinglePointInTime)
 string CTimeSpan::GetTimeStamp()
 {
   string strTimeStamp = "";
-  struct timeb sTimeBuffer;
+  struct timeval sTimeBuffer;
+  struct timezone sTimezoneBuffer;
   char* szTimeLine = NULL;
 
-  ftime(&sTimeBuffer);
+  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
 
-  szTimeLine = ctime(&(sTimeBuffer.time));
+  szTimeLine = ctime(&(sTimeBuffer.tv_sec));
 
   if ((szTimeLine != NULL) && (strlen(szTimeLine) > 18))
   {
@@ -117,7 +118,7 @@ string CTimeSpan::GetTimeStamp()
       strTimeStamp += szTimeLine[i];
     strTimeStamp += ".";
     char szMs[16];
-    sprintf(szMs, "%d", sTimeBuffer.millitm);
+    sprintf(szMs, "%d", sTimeBuffer.tv_usec / 1000);
     if (strlen(szMs) == 1)
       strTimeStamp += "00";
     else if (strlen(szMs) == 2)
@@ -165,12 +166,13 @@ string CTimeSpan::GetDateStamp()
 {
   std::string strDateStamp = "";
 
-  struct timeb sTimeBuffer;
+  struct timeval sTimeBuffer;
+  struct timezone sTimezoneBuffer;
   char* szTimeLine = NULL;
 
-  ftime(&sTimeBuffer);
+  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
 
-  szTimeLine = ctime(&(sTimeBuffer.time));
+  szTimeLine = ctime(&(sTimeBuffer.tv_sec));
 
   // Format is:
   // Wed Jun 22 10:22:00 2005

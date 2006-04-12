@@ -1,4 +1,6 @@
-SUBDIRS = Help Translations system.rc
+SUBDIRS =  Translations system.rc
+# Help - commented out for now
+
 
 #Applicationsdir = $(datadir)/applications
 #Applications_DATA = dasher.desktop

@@ -104,6 +104,15 @@ AC_ARG_WITH([maemo],
         fi,
 	WITHMAEMO=false)
 
+AC_ARG_WITH([darwin],
+	AC_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
+	if test $withval = "yes"; then
+	   WITHDARWIN=true;
+	else
+	   WITHDARWIN=false;
+	fi,
+	WITHDARWIN=false)
+
 AC_ARG_WITH([cairo],
 	 AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
 	 if test $withval = "no"; then
@@ -117,12 +126,16 @@ if [[ x"$WITHGTK2" = xtrue ]]
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
 	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
+	
+	if [[ x$GCONF2HERE = xfalse ]]; then
+	   AC_MSG_WARN("GConf was not detected - user preferences will not be stored.")
+	fi
 fi
 
-if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
+if [[ x"$GTK2HERE" = xtrue ]] && [[ x"$WITHGTK2" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	BUILDGTK2=true
-elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$GCONF2HERE" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
+elif [[ x"$GTK2HERE" = xtrue ]] && [[ x"$WITHQTE" != xtrue ]]
 then
 	BUILDGTK2=true
 else 
@@ -196,6 +209,10 @@ if [[ x"$WITHGPE" = xtrue ]]; then
 	AC_DEFINE([WITH_GPE], 1, [gpe is present])
 fi
 
+if [[ x"$WITHDARWIN" = xtrue ]]; then
+        AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
+fi
+
 if [[ x"$WITHMAEMO" = xtrue ]]; then
       AC_DEFINE([WITH_MAEMO], 1, [Maemo is present])
       dnl Yes, this sucks
@@ -218,10 +235,15 @@ if [[ x"$BUILDGTK2" = xtrue ]]; then
 
 	PKG_CHECK_MODULES(gthread, gthread-2.0)
 
-	if [[ x"$WITHMAEMO" = xfalse ]]; then
-		PKG_CHECK_MODULES(wnck, libwnck-1.0)
-	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
-	fi
+
+dnl	if [[ x"$WITHMAEMO" = xfalse ]]; then
+dnl		PKG_CHECK_MODULES(wnck, libwnck-1.0)
+dnl	        AC_DEFINE([HAVE_WNCK], 1, [wnck is present])
+dnl	fi
+fi
+
+if [[ x"$GCONF2HERE" = xtrue ]]; then
+        AC_DEFINE([WITH_GCONF], 1, [Use GConf])
 fi
 
 AC_SUBST(gnome_speech_LIBS)
@@ -256,6 +278,7 @@ AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
+AM_CONDITIONAL(WITH_DARWIN, text x$WITHDARWIN = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
@@ -274,8 +297,11 @@ AC_SUBST(SETTINGS_CFLAGS)
 AC_SUBST(SETTINGS_LIBS)
 
 GTK2BUILD_CFLAGS="$GTK2_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $glade_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
-GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS  -Wl,--export-dynamic,"
-
+if [[ x"$WITHDARWIN" = xtrue ]]; then
+      GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
+else
+      GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS -Wl,--export-dynamic,"
+fi
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 
@@ -297,9 +323,12 @@ AC_CONFIG_FILES([Makefile
 		 Data/Makefile
 		 Data/Translations/Makefile
 		 Data/system.rc/Makefile
-		 Data/Help/Makefile
-		 Data/Help/Gnome/Makefile
-		 Data/Help/Gnome/eu/Makefile
-		 Doc/Makefile
 		 po/Makefile.in])
+
+dnl		 Data/Help/Makefile
+dnl		 Data/Help/Gnome/Makefile
+dnl		 Data/Help/Gnome/eu/Makefile
+dnl		 Doc/Makefile
+
+
 AC_OUTPUT

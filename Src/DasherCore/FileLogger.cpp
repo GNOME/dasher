@@ -494,12 +494,13 @@ std::string CFileLogger::GetTimeDateStamp()
 
   if ((m_bTimeStamp) || (m_bDateStamp))
   {
-    struct timeb sTimeBuffer;
+    struct timeval sTimeBuffer;
+    struct timezone sTimezoneBuffer;
     char* szTimeLine = NULL;
 
-    ftime(&sTimeBuffer);
+    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
 
-    szTimeLine = ctime(&(sTimeBuffer.time));
+    szTimeLine = ctime(&(sTimeBuffer.tv_sec));
 
     // Format is:
     // Wed Jun 22 10:22:00 2005
@@ -522,7 +523,7 @@ std::string CFileLogger::GetTimeDateStamp()
           strTimeStamp += szTimeLine[i];
         strTimeStamp += ".";
         char strMs[16];
-        sprintf(strMs, "%d", sTimeBuffer.millitm);
+        sprintf(strMs, "%d", sTimeBuffer.tv_usec / 1000);
         if (strlen(strMs) == 1)
           strTimeStamp += "00";
         else if (strlen(strMs) == 2)

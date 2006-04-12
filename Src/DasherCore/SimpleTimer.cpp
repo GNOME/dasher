@@ -3,7 +3,7 @@
 
 #include "SimpleTimer.h"
 
-#include <sys/timeb.h>
+#include <sys/time.h>
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -17,12 +17,13 @@ static char THIS_FILE[] = __FILE__;
 
 CSimpleTimer::CSimpleTimer()
 {
-  struct timeb sTimeBuffer;
+  struct timeval sTimeBuffer;
+  struct timezone sTimezoneBuffer;
 
-  ftime(&sTimeBuffer);
+  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
 
-  m_iStartMs       = sTimeBuffer.millitm;
-  m_iStartSecond   = sTimeBuffer.time;
+  m_iStartMs       = sTimeBuffer.tv_usec / 1000;
+  m_iStartSecond   = sTimeBuffer.tv_sec;
 }
 
 CSimpleTimer::~CSimpleTimer()
@@ -31,12 +32,13 @@ CSimpleTimer::~CSimpleTimer()
 
 double CSimpleTimer::GetElapsed()
 {
-  struct timeb sTimeBuffer;
+  struct timeval sTimeBuffer;
+  struct timezone sTimezoneBuffer;
 
-  ftime(&sTimeBuffer);
+  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
 
-  int     iEndMs       = sTimeBuffer.millitm;
-  int     iEndSecond   = sTimeBuffer.time;
+  int     iEndMs       = sTimeBuffer.tv_usec / 1000;
+  int     iEndSecond   = sTimeBuffer.tv_sec;
 
   return  ((double) iEndMs     / 1000.0 + (double) iEndSecond) - 
           ((double) m_iStartMs / 1000.0 + (double) m_iStartSecond);

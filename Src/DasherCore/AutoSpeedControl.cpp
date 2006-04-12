@@ -1,3 +1,6 @@
+#ifndef _WIN32
+#include "config.h"
+#endif
 
 #include "../Common/Common.h"
 
@@ -6,6 +9,7 @@
 #include <cmath>
 #include <cfloat>
 
+#ifndef WITH_DARWIN
 double round(double dVal) {
   double dF = floor(dVal);
   double dC = ceil(dVal);
@@ -15,6 +19,7 @@ double round(double dVal) {
   else
     return dC;
 }
+#endif
 
 CAutoSpeedControl::CAutoSpeedControl(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, double dFrameRate) 
   : CDasherComponent(pEventHandler, pSettingsStore) {

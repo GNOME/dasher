@@ -1,3 +1,4 @@
+#include "config.h"
 
 #include "../Common/Common.h"
 
@@ -6,11 +7,12 @@
 #include <iostream>
 
 // FIXME - need to handle gconf errors better here
-
+#ifdef WITH_GCONF
 extern "C" void ListenerCallback(GConfClient * pClient, guint iCNXN_ID, GConfEntry * pEntry, gpointer pUserData);
+#endif
 
 CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):CSettingsStore(pEventHandler) {
-
+#ifdef WITH_GCONF
   // GError *gconferror;
 
   //    gconf_init( argc, argv, &gconferror );
@@ -19,18 +21,20 @@ CGnomeSettingsStore::CGnomeSettingsStore(Dasher::CEventHandler *pEventHandler):C
   gconf_client_add_dir(the_gconf_client, "/apps/dasher4", GCONF_CLIENT_PRELOAD_RECURSIVE, NULL);
 
   gconf_client_notify_add(the_gconf_client, "/apps/dasher4", ListenerCallback, this, NULL, NULL);
+#endif
 
   LoadPersistent();
-
 };
 
 CGnomeSettingsStore::~CGnomeSettingsStore() {
-
+#ifdef WITH_GCONF
   g_object_unref(the_gconf_client);
+#endif
 
 };
 
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
+#ifdef WITH_GCONF
   char keypath[1024];
 
   snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
@@ -47,9 +51,13 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, bool *Value) {
   gconf_value_free(got_value);
 
   return true;
+#else
+  return false;
+#endif
 };
 
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, long *Value) {
+#ifdef WITH_GCONF
   char keypath[1024];
 
   snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
@@ -66,9 +74,13 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, long *Value) {
   gconf_value_free(got_value);
 
   return true;
+#else
+  return false;
+#endif
 };
 
 bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value) {
+#ifdef WITH_GCONF
   char keypath[1024];
 
   snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
@@ -85,9 +97,13 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value
   gconf_value_free(got_value);
 
   return true;
+#else
+  return false;
+#endif
 };
 
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, bool Value) {
+#ifdef WITH_GCONF
   char keypath[1024];
 
   snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
@@ -95,9 +111,11 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, bool Value) {
   GError *the_error = NULL;
 
   gconf_client_set_bool(the_gconf_client, keypath, Value, &the_error);
+#endif
 };
 
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, long Value) {
+#ifdef WITH_GCONF
   char keypath[1024];
 
   snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
@@ -105,9 +123,11 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, long Value) {
   GError *the_error = NULL;
 
   gconf_client_set_int(the_gconf_client, keypath, Value, &the_error);
+#endif
 };
 
 void CGnomeSettingsStore::SaveSetting(const std::string &Key, const std::string &Value) {
+#ifdef WITH_GCONF
   char keypath[1024];
 
   snprintf(keypath, 1024, "/apps/dasher4/%s", Key.c_str());
@@ -115,8 +135,10 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, const std::string 
   GError *the_error = NULL;
 
   gconf_client_set_string(the_gconf_client, keypath, Value.c_str(), &the_error);
+#endif
 };
 
+#ifdef WITH_GCONF
 void CGnomeSettingsStore::NotificationCallback(GConfClient *pClient, guint iCNXN_ID, GConfEntry *pEntry) {
   std::string strKey(pEntry->key);
   std::string strKeyName(strKey.substr(strKey.find_last_of("/") + 1));
@@ -175,3 +197,4 @@ void CGnomeSettingsStore::NotificationCallback(GConfClient *pClient, guint iCNXN
 extern "C" void ListenerCallback(GConfClient *pClient, guint iCnxn_ID, GConfEntry *pEntry, gpointer pUserData) {
   static_cast < CGnomeSettingsStore * >(pUserData)->NotificationCallback(pClient, iCnxn_ID, pEntry);
 }
+#endif

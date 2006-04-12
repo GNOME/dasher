@@ -1,4 +1,6 @@
-SUBDIRS = Src Data po Doc
+SUBDIRS = Src Data po 
+
+# Doc - commented out for experimental os-x build
 
 distuninstallcheck_listfiles = \
 		find . -type f -print | \

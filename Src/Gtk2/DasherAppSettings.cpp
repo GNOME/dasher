@@ -1,6 +1,10 @@
+#include "config.h"
+
+#ifdef WITH_GCONF
 #include <gconf/gconf.h>
 #include <gconf/gconf-client.h>
 #include <gconf/gconf-enum-types.h>
+#endif
 
 #include "DasherAppSettings.h"
 #include "../Common/AppSettingsData.h"
@@ -19,8 +23,10 @@
 // FIXME - should really do something to make this a singleton class
 
 struct _DasherAppSettingsPrivate {
+#ifdef WITH_GCONF
   // GConf interface
   GConfClient *pGConfClient;
+#endif
 };
 
 typedef struct _DasherAppSettingsPrivate DasherAppSettingsPrivate;
@@ -71,7 +77,9 @@ static void dasher_app_settings_init(DasherAppSettings *pDasherControl) {
 }
 
 static void dasher_app_settings_destroy(GObject *pObject) {
+#ifdef WITH_GCONF
   dasher_app_settings_stop_gconf((DasherAppSettings *)pObject);
+#endif
 
   for(int i(0); i < NUM_OF_APP_SPS; ++i)
     delete[] app_stringparamtable[i].value;
@@ -85,6 +93,7 @@ static void dasher_app_settings_destroy(GObject *pObject) {
 }
 
 static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, char **argv) {
+#ifdef WITH_GCONF
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
 
   GError *pGConfError;
@@ -98,15 +107,19 @@ static void dasher_app_settings_init_gconf(DasherAppSettings *pSelf, int argc, c
   // FIXME - apparently there's a function gnome_gconf_get_client - maybe we should use this if building with gnome
   
   pPrivate->pGConfClient = gconf_client_get_default();
+#endif
 }
 
 static void dasher_app_settings_stop_gconf(DasherAppSettings *pSelf) {
+#ifdef WITH_GCONF
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate*)(pSelf->private_data);
 
   g_object_unref(pPrivate->pGConfClient);
+#endif
 }
 
 static void dasher_app_settings_load(DasherAppSettings *pSelf) { 
+#ifdef WITH_GCONF
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
   GError *pGConfError = NULL;
@@ -169,6 +182,7 @@ static void dasher_app_settings_load(DasherAppSettings *pSelf) {
       }
     }
   }
+#endif
 }
 
 // Public methods
@@ -183,8 +197,9 @@ DasherAppSettings *dasher_app_settings_new(int argc, char **argv) {
     strcpy(szNew, app_stringparamtable[i].szDefaultValue);
     app_stringparamtable[i].value = szNew;
   }
-
+#ifdef WITH_GCONF
   dasher_app_settings_init_gconf(pDasherControl, argc, argv);  
+#endif
   dasher_app_settings_load(pDasherControl);
 
   return pDasherControl;
@@ -229,7 +244,7 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
     gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter, bValue);
   else {
     app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
-    
+#ifdef WITH_GCONF    
     if(app_boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
       gchar szName[256];
       
@@ -239,6 +254,7 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
       GError *pGConfError = NULL;
       gconf_client_set_bool(pPrivate->pGConfClient, szName, bValue, &pGConfError);
     }
+#endif
     handle_parameter_change( iParameter );
   }
 }
@@ -260,7 +276,8 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
     gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter, iValue);
   else {
     app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
-    
+
+#ifdef WITH_GCONF    
     if(app_longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
       gchar szName[256];
       
@@ -270,6 +287,7 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
       GError *pGConfError = NULL;
       gconf_client_set_int(pPrivate->pGConfClient, szName, iValue, &pGConfError);
     }
+#endif
     
     handle_parameter_change( iParameter );
   }
@@ -299,6 +317,7 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
     
     app_stringparamtable[ iParameter - FIRST_APP_SP ].value = szNew;
     
+#ifdef WITH_GCONF
     if(app_stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
       gchar szName[256];
       
@@ -308,7 +327,8 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
       GError *pGConfError = NULL;
       gconf_client_set_string(pPrivate->pGConfClient, szName, szValue, &pGConfError);
     }
-    
+#endif    
+
     handle_parameter_change( iParameter );
   }
 }

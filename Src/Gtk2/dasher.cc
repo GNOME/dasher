@@ -33,7 +33,7 @@
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 
-#include <gconf/gconf.h>
+//#include <gconf/gconf.h>
 
 #ifdef GNOME_SPEECH
 #include <libbonobo.h>
