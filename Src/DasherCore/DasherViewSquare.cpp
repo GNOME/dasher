@@ -57,6 +57,8 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
   m_dXmpd = 0.5;                // slow X movement when accelerating Y
 
   m_ymap = Cymap((myint)GetLongParameter(LP_MAX_Y));
+
+  m_bVisibleRegionValid = false;
 }
 
 CDasherViewSquare::~CDasherViewSquare() {
@@ -74,7 +76,9 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {
-      // No parameters are interpreted here
+    case LP_REAL_ORIENTATION:
+      m_bVisibleRegionValid = false;
+      break;
     default:
       break;
     }
@@ -502,26 +506,36 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 }
 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
-  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-  
-  switch( eOrientation ) {
-  case Dasher::Opts::LeftToRight:
-    Screen2Dasher(Screen()->GetWidth(),0,iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(0,Screen()->GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
-    break;
-  case Dasher::Opts::RightToLeft:
-    Screen2Dasher(0,0,iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
-    break;
-  case Dasher::Opts::TopToBottom:
-    Screen2Dasher(0,Screen()->GetHeight(),iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(Screen()->GetWidth(),0,iDasherMaxX,iDasherMaxY,false,true);
-    break;
-  case Dasher::Opts::BottomToTop:
-    Screen2Dasher(0,0,iDasherMinX,iDasherMinY,false,true);
-    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherMaxX,iDasherMaxY,false,true);
-    break;
+
+  if(!m_bVisibleRegionValid) {
+    int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
+    
+    switch( eOrientation ) {
+    case Dasher::Opts::LeftToRight:
+      Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMinX,m_iDasherMinY,false,true);
+      Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY,false,true);
+      break;
+    case Dasher::Opts::RightToLeft:
+      Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY,false,true);
+      Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY,false,true);
+      break;
+    case Dasher::Opts::TopToBottom:
+      Screen2Dasher(0,Screen()->GetHeight(),m_iDasherMinX,m_iDasherMinY,false,true);
+      Screen2Dasher(Screen()->GetWidth(),0,m_iDasherMaxX,m_iDasherMaxY,false,true);
+      break;
+    case Dasher::Opts::BottomToTop:
+      Screen2Dasher(0,0,m_iDasherMinX,m_iDasherMinY,false,true);
+      Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),m_iDasherMaxX,m_iDasherMaxY,false,true);
+      break;
+    }
+    
+    m_bVisibleRegionValid = true;
   }
+
+  iDasherMinX = m_iDasherMinX;
+  iDasherMaxX = m_iDasherMaxX;
+  iDasherMinY = m_iDasherMinY;
+  iDasherMaxY = m_iDasherMaxY;
 }
 
 /// The minimum Dasher Y co-ordinate which will be visible

@@ -303,7 +303,6 @@ private:
   bool bInBox;                  // Whether we're in the mouseposstart box
   int iBoxStart;                // Time that the current box was drawn
   int iBoxEntered;              // Time when the user enttered the current box
-
  
   double m_dXmpa, m_dXmpb, m_dXmpc, m_dXmpd;
   screenint CanvasX, CanvasY, CanvasBorder;
@@ -324,7 +323,12 @@ private:
   // The factor that scale factors are multipled by 
   myint m_iScalingFactor;
 
-
+  // Cached extents of visible region
+  bool m_bVisibleRegionValid;
+  myint m_iDasherMinX;
+  myint m_iDasherMaxX;
+  myint m_iDasherMinY;
+  myint m_iDasherMaxY;
 };
 
 #include "DasherViewSquare.inl"
