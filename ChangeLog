@@ -1,3 +1,8 @@
+2006-04-14  Åsmund Skjæveland  <aasmunds@fys.uio.no>
+
+	* po/nn.po: Added Norwegian Nynorsk translation.
+	* configure.in: Added nn to ALL_LINGUAS.
+
 2006-03-26  Behdad Esfahbod  <behdad@gnome.org>
 
 	* Data/Makefile.am: Respect DESTDIR.
