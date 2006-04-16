@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-06 05:40+0100\n"
-"PO-Revision-Date: 2006-02-06 16:59+0800\n"
+"POT-Creation-Date: 2006-04-16 04:26+0200\n"
+"PO-Revision-Date: 2006-04-16 12:50+0800\n"
 "Last-Translator: Fan Zhang <a17841@bigpond.com>\n"
 "Language-Team: zh_CN <i18n-translation@lists.linux.net.cn>\n"
 "MIME-Version: 1.0\n"
@@ -26,11 +26,38 @@ msgstr "Dasher 套接字输入：调用阅读器线程失败。"
 msgid "Select File"
 msgstr "选择文件"
 
-#: ../Src/Gtk2/Menu.cc:462
+#: ../Src/Gtk2/Menu.cc:309
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr "您是否想要保存您对 %s 的更改？\n\n如果您不保存的话，所作的更改将丢失。"
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr "您是否想要保存您的更改？\n\n如果您不保存的话，所作的更改将丢失。"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't save"
+msgstr "不保存"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Don't quit"
+msgstr "不退出"
+
+#: ../Src/Gtk2/Menu.cc:315
+msgid "Save and quit"
+msgstr "保存并退出"
+
+#: ../Src/Gtk2/Menu.cc:458
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher 是文本输入预测应用程序"
 
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
 msgstr "Funda Wang <fundawang@linux.net.cn>, 2005"
 
@@ -515,8 +542,9 @@ msgstr "剪切"
 msgid "Cyclical button mode"
 msgstr "旋转按钮模式"
 
+#. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -990,6 +1018,6 @@ msgstr "无法初始化语音\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "警告：无法设定语音参数\n"
 
-#: ../Src/main.cc:123
+#: ../Src/main.cc:124
 msgid "Dasher Text Entry"
 msgstr "Dasher 文字输入"
