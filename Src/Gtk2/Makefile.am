@@ -34,7 +34,6 @@ libdashergtk_a_SOURCES = Canvas.cpp \
                          FileDialogues.cpp \
                          FontDialogues.cpp \
                          FontDialogues.h \
-                         GenerateSchema.cpp \
                          GtkDasherControl.cpp \
                          GtkDasherControl.h \
                          Menu.cc \
@@ -45,7 +44,6 @@ libdashergtk_a_SOURCES = Canvas.cpp \
                          Preferences.h \
                          Timer.cpp \
                          Timer.h \
-                         dasher.cc \
                          dasher.h \
                          dasher_action.cpp \
                          dasher_action.h \
