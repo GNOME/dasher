@@ -1,11 +1,8 @@
 #include "../Common/Common.h"
 
-#include "Output.h"
 #include "edit.h"
 #include "dasher.h"
-#include "accessibility.h"
 #include "DasherControl.h"
-#include "AppSettings.h"
 #include "dasher_internal_buffer.h"
 
 #ifdef GNOME_A11Y

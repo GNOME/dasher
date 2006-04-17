@@ -45,8 +45,6 @@ libdashergtk_a_SOURCES = Canvas.cpp \
                          Preferences.h \
                          Timer.cpp \
                          Timer.h \
-			 accessibility.cc \
-			 accessibility.h \
                          dasher.cc \
                          dasher.h \
                          dasher_action.cpp \

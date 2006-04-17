@@ -7,7 +7,6 @@
 #include "fileops.h"
 
 #include "GtkDasherControl.h"
-#include "AppSettings.h"
 
 #include <glib/gi18n.h>
 #ifdef GNOME_LIBS

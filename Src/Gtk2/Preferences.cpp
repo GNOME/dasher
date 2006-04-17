@@ -5,7 +5,6 @@
 #include "dasher.h"
 #include "config.h"
 #include "GtkDasherControl.h"
-#include "AppSettings.h"
 
 #include "DasherControl.h"
 

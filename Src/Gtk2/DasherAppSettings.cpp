@@ -16,10 +16,6 @@
 #include "dasher.h"
 #include "GtkDasherControl.h"
 
-// FIXME - accessing global 'handle parameter change' function
-
-#include "AppSettings.h"
-
 // FIXME - should really do something to make this a singleton class
 
 struct _DasherAppSettingsPrivate {
