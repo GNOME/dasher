@@ -14,11 +14,11 @@
 #include <X11/extensions/XTest.h>
 #endif
 
-#ifdef GNOME_A11Y
-#include <cspi/spi.h>
-#endif
+/* #ifdef GNOME_A11Y */
+/* #include <cspi/spi.h> */
+/* #endif */
 
-#include <string>
+//#include <string>
 
 #include <glade/glade.h>
 
@@ -26,7 +26,7 @@
 bool edit_handle_control_event(gint iEvent);
 void initialise_edit(GladeXML * pGladeXML);
 void cleanup_edit();
-void create_buffer();
+//void create_buffer();
 
 extern "C" void gtk2_edit_output_callback(GtkDasherControl * pDasherControl, const gchar * szText, gpointer user_data);
 
@@ -53,26 +53,17 @@ const gchar *get_all_text();
 
 extern GtkWidget *the_text_view;
 extern GtkTextBuffer *the_text_buffer;
-extern GtkClipboard *the_text_clipboard;
+//extern GtkClipboard *the_text_clipboard;
 
-void set_editbox_font(std::string FontName);
 void reset_edit_font();
 void gtk2_get_new_context_callback(std::string & str, int max);
 void handle_cursor_move(GtkTextView * textview, GtkMovementStep arg1, gint arg2, gboolean arg3, gpointer data);
 void write_to_file();
-void outputpipe();
+//void outputpipe();
 
-#ifdef GNOME_SPEECH
-void speak();
-void speak_last();
-void speak_buffer();
-#endif
+/* #ifdef GNOME_A11Y */
+/* void set_textbox(Accessible * textbox); */
+/* #endif */
 
-#ifdef GNOME_A11Y
-void set_textbox(Accessible * textbox);
-#endif
-
-gboolean a11y_text_entry();
+//gboolean a11y_text_entry();
 gboolean grab_focus();
-
-void RefreshContext(int iMaxLength);

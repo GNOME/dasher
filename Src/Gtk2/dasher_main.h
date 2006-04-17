@@ -1,8 +1,11 @@
 #ifndef __dasher_main_h__
 #define __dasher_main_h__
 
+#include <glade/glade.h>
 #include <glib.h>
 #include <glib-object.h>
+
+#include "DasherAppSettings.h"
 
 G_BEGIN_DECLS
 #define TYPE_DASHER_MAIN            (dasher_main_get_type())
@@ -24,8 +27,16 @@ struct _DasherMainClass {
   GObjectClass parent_class;
 };
 
-DasherMain *dasher_main_new(int argc, char **argv);
+DasherMain *dasher_main_new();
 GType dasher_main_get_type();
+void dasher_main_load_interface(DasherMain *pSelf);
+GladeXML *dasher_main_get_glade(DasherMain *pSelf);
+void dasher_main_setup_window(DasherMain *pSelf);
+void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) ;
+void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSettings);
+void dasher_main_load_state(DasherMain *pSelf);
+void dasher_main_save_state(DasherMain *pSelf);
+void dasher_main_show(DasherMain *pSelf);
 G_END_DECLS
 
 #endif

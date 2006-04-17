@@ -7,19 +7,15 @@
 #include "DasherAppSettings.h"
 #include "dasher_buffer_set.h"
 #include "dasher_editor.h"
+#include "GtkDasherControl.h"
+#include "Preferences.h"
 
 #include <X11/Xlib.h>
 
 extern DasherMain *g_pDasherMain;
 extern DasherAppSettings *g_pDasherAppSettings;
-extern IDasherBufferSet *g_pBufferSet;
 extern DasherEditor *g_pEditor;
-
-// TODO: sort this out
-extern GdkWindow *g_pFocusWindow;
-extern GdkWindow *g_pRandomWindow;
-extern Window g_FWindow;
-extern Window g_FRandomWindow;
+extern DasherPreferencesDialogue *g_pPreferencesDialogue;
 
 // Old stuff
 
@@ -33,18 +29,17 @@ extern Window g_FRandomWindow;
 /* #include <gconf/gconf-client.h> */
 /* #include <gconf/gconf-enum-types.h> */
 
-void interface_setup(GladeXML * xml);
-void interface_late_setup();
-void interface_cleanup();
+/* void interface_setup(GladeXML * xml); */
+/* void interface_late_setup(); */
 
-void main_handle_parameter_change(int iParameter);
+/* void main_handle_parameter_change(int iParameter); */
 
 void RefreshWidget(int iParameter);
 
 extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale * hscale);
 
-extern GtkWidget *vbox, *toolbar;
+//extern GtkWidget *vbox, *toolbar;
 extern GdkPixbuf *p;
 extern GtkWidget *pw;
 extern GtkWidget *text_view;
@@ -70,18 +65,19 @@ extern GtkWidget *window;
 extern GtkWidget *g_pHiddenWindow;
 
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data);
+void SetupPositioning();
+extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data);
 
 extern gboolean timestamp;
 
 // New Stuff
 
-void InitialiseMainWindow(int argc, char **argv, GladeXML * pGladeXML);
-void SaveWindowState();
+void InitialiseMainWindow(int argc, char **argv);
 
-extern const char *g_szAccessibleContext;
+/* extern const char *g_szAccessibleContext; */
 
-extern int g_iExpectedPosition;
-extern int g_iOldPosition;
+/* extern int g_iExpectedPosition; */
+/* extern int g_iOldPosition; */
 
 // ---
 

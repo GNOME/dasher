@@ -15,35 +15,19 @@
 #include <iostream>
 #include <gdk/gdkx.h>
 
-// #ifdef GNOME_SPEECH
-// #include "speech.h"
-// #endif
-
-IDasherBufferSet *g_pBufferSet = 0;
 DasherEditor *g_pEditor;
 
 GtkWidget *the_text_view;
 GtkTextBuffer *the_text_buffer;
-std::string last_said;
-std::string say;
-std::string pipetext;
-std::string outputtext;
+
 KeySym *origkeymap;
 int modifiedkey = 0;
 int numcodes;
 
-#ifdef GNOME_A11Y
-AccessibleText *textbox = NULL;
-AccessibleEditableText *edittextbox = NULL;
-#endif
+// gunichar *wideoutput;
 
-//GtkWidget *text_view;
-GtkWidget *text_scrolled_window;
-
-gunichar *wideoutput;
-
-extern gint outputcharacters;
-extern gboolean file_modified;
+// extern gint outputcharacters;
+// extern gboolean file_modified;
 
 /// Whether to ignore the next cursor movement event
 
@@ -54,8 +38,8 @@ gboolean g_bIgnoreCursorMove( false );
 gboolean g_bForwardKeyboard(false);
 
 
-void edit_move(int iDirection, int iDist);
-void edit_delete(int iDirection, int iDist);
+// void edit_move(int iDirection, int iDist);
+// void edit_delete(int iDirection, int iDist);
 
 // Old stuff (but quite probably still needed)
 
@@ -149,16 +133,7 @@ extern "C" void choose_filename() {
 
 
 
-void RefreshContext(int iMaxLength) {
-  gchar *szContext = idasher_buffer_set_get_context(g_pBufferSet, iMaxLength);
-  
-  if(szContext && (strlen(szContext) > 0))
-    gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
-}
-
-
 void initialise_edit(GladeXML *pGladeXML) {
-  text_scrolled_window = glade_xml_get_widget(pGladeXML, "text_scrolled_window");
   the_text_view = glade_xml_get_widget(pGladeXML, "the_text_view");
 
   int min, max;
@@ -167,9 +142,6 @@ void initialise_edit(GladeXML *pGladeXML) {
   the_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(the_text_view));
 
   g_pEditor = dasher_editor_new(GTK_TEXT_VIEW(the_text_view), GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39")));
-
-  create_buffer();
-
 
   // We need to monitor the text buffer for mark_set in order to get
   // signals when the cursor is moved
@@ -181,53 +153,12 @@ void initialise_edit(GladeXML *pGladeXML) {
   g_signal_connect(G_OBJECT(the_text_view), "key-press-event", G_CALLBACK(edit_key_press), NULL);
   g_signal_connect(G_OBJECT(the_text_view), "key-release-event", G_CALLBACK(edit_key_release), NULL);
 
-
-  set_editbox_font(dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
-
-
 #ifdef X_HAVE_UTF8_STRING
   XDisplayKeycodes(dpy, &min, &max);
   origkeymap = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
 #endif
 }
 
-void create_buffer() {
-  // TODO: need to delete old buffer here
-
-   if(g_pBufferSet != 0) {
-     g_object_unref(G_OBJECT(g_pBufferSet));
-   }
-
-  // GRR - how the hell do I do this? Why isn't all this C++ as would be sensible?
-
-  if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2)
-#ifdef GNOME_A11Y
-    g_pBufferSet = IDASHER_BUFFER_SET(dasher_external_buffer_new());
-#else
-    g_pBufferSet = 0;
-#endif
-  else
-    g_pBufferSet = dasher_editor_get_buffer_set(g_pEditor);
-
-  g_signal_connect(G_OBJECT(g_pBufferSet), "context_changed", G_CALLBACK(context_changed_handler), NULL);
-}
-
-void cleanup_edit() {
-  if(g_pBufferSet)
-    g_object_unref(G_OBJECT(g_pBufferSet));
-
-  if(g_pEditor)
-    g_object_unref(G_OBJECT(g_pEditor));
-
-#ifdef X_HAVE_UTF8_STRING
-  // We want to set the keymap back to whatever it was before,
-  // if that's possible
-  int min, max;
-  Display *dpy = gdk_x11_get_default_xdisplay();
-  XDisplayKeycodes(dpy, &min, &max);
-  XChangeKeyboardMapping(dpy, min, numcodes, origkeymap, (max - min));
-#endif
-}
 
 void set_mark() {
   GtkTextIter oBufferEnd;
@@ -268,7 +199,7 @@ const gchar *get_all_text() {
 // }
 
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
-  idasher_buffer_set_insert(g_pBufferSet, szText);
+  dasher_editor_output(g_pEditor, szText);
 }
 
 void write_to_file() {
@@ -283,54 +214,12 @@ void write_to_file() {
 //   outputtext="";
 }
 
-bool edit_handle_control_event(gint iEvent) {
-
-  // TODO: Think about changing signals so we don't need to do this translation
-
-  struct SControlMap {
-    int iEvent;
-    int iDir;
-    int iDist;
-    bool bDelete;
-  };
-
-  static struct SControlMap sMap[] = {
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_CHAR, EDIT_FORWARDS, EDIT_CHAR, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_WORD, EDIT_FORWARDS, EDIT_WORD, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_LINE, EDIT_FORWARDS, EDIT_LINE, false},
-    {Dasher::CControlManager::CTL_MOVE_FORWARD_FILE, EDIT_FORWARDS, EDIT_FILE, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_CHAR, EDIT_BACKWARDS, EDIT_CHAR, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_WORD, EDIT_BACKWARDS, EDIT_WORD, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_LINE, EDIT_BACKWARDS, EDIT_LINE, false},
-    {Dasher::CControlManager::CTL_MOVE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, false},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_CHAR, EDIT_FORWARDS, EDIT_CHAR, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_WORD, EDIT_FORWARDS, EDIT_WORD, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_LINE, EDIT_FORWARDS, EDIT_LINE, true},
-    {Dasher::CControlManager::CTL_DELETE_FORWARD_FILE, EDIT_FORWARDS, EDIT_FILE, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_CHAR, EDIT_BACKWARDS, EDIT_CHAR, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_WORD, EDIT_BACKWARDS, EDIT_WORD, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_LINE, EDIT_BACKWARDS, EDIT_LINE, true},
-    {Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, true}
-  };    
-
-  for(int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
-    if(sMap[i].iEvent == iEvent) {
-      if(sMap[i].bDelete) 
-	idasher_buffer_set_edit_delete(g_pBufferSet, sMap[i].iDir, sMap[i].iDist);
-      else
-	idasher_buffer_set_edit_move(g_pBufferSet, sMap[i].iDir, sMap[i].iDist);	
-      return true;
-    }
-  }
-
-  return false;
-}
-
 extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
   gint displaylength = g_utf8_strlen(szText, -1);
-  idasher_buffer_set_delete(g_pBufferSet, displaylength);
+  dasher_editor_delete(g_pEditor, displaylength);
 }
 
+// TODO: is this ever called? (probably yes, for internal buffer)
 void clear_edit() {
   GtkTextIter *start, *end;
 
@@ -343,108 +232,6 @@ void clear_edit() {
   gtk_text_buffer_delete(the_text_buffer, start, end);
 
 }
-
-// void gtk2_get_new_context_callback(std::string &str, int max) {
-//   GtkTextIter *start = new GtkTextIter;
-//   GtkTextIter *end = new GtkTextIter;
-
-//   gtk_text_buffer_get_selection_bounds(the_text_buffer, start, end);
-
-//   if(gtk_text_iter_get_offset(start) == gtk_text_iter_get_offset(end)) {
-//     // if there's no slection, just get the context from the cursor
-//     gtk_text_buffer_get_iter_at_mark(the_text_buffer, end, gtk_text_buffer_get_insert(the_text_buffer));
-//     *start = *end;
-//   }
-//   else {
-//     // otherwise, we want to get the context from the left hand edge of
-//     // the selection rather than the right hand edge (which is where the 
-//     // cursor is)
-//     *end = *start;
-//   }
-
-//   gtk_text_iter_backward_chars(start, max);
-
-//   str = std::string(gtk_text_buffer_get_text(the_text_buffer, start, end, FALSE));
-
-//   delete start;
-//   delete end;
-// }
-
-void outputpipe() {
-  printf("%s", pipetext.c_str());
-  fflush(stdout);
-  pipetext = "";
-}
-
-#ifdef GNOME_SPEECH
-
-// void speak() {
-//   if(say.length() > 0) {
-//     while(say.find("\"") != std::string::npos) {
-//       say.replace(say.find("\""), 1, "");
-//     }
-//     SPEAK_DAMN_YOU(say.c_str());
-//     last_said = say;
-//   }
-//   say = "";
-// }
-
-// void speak_last() {
-//   // Repeat whatever it was that we last spoke
-//   if(last_said.length() > 0) {
-//     // Festival seems unhappy about quotes
-//     while(last_said.find("\"") != std::string::npos) {
-//       last_said.replace(last_said.find("\""), 1, "");
-//     }
-//     SPEAK_DAMN_YOU(last_said.c_str());
-//   }
-// }
-
-// void speak_buffer() {
-//   std::string buffer;
-//   GtkTextIter *speak_start, *speak_end;
-
-//   speak_start = new GtkTextIter;
-//   speak_end = new GtkTextIter;
-
-//   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer), speak_start, 0);
-//   gtk_text_buffer_get_iter_at_offset(GTK_TEXT_BUFFER(the_text_buffer), speak_end, -1);
-
-//   buffer = gtk_text_iter_get_slice(speak_start, speak_end);
-
-//   if(buffer.length() > 0) {
-//     while(buffer.find("\"") != std::string::npos) {
-//       buffer.replace(buffer.find("\""), 1, "");
-//     }
-//     SPEAK_DAMN_YOU(buffer.c_str());
-//     last_said = buffer;
-//   }
-// }
-#endif
-
-void set_editbox_font(std::string FontName) {
-  if(FontName != "") {
-    gtk_widget_modify_font(the_text_view, pango_font_description_from_string(FontName.c_str()));
-  }
-}
-
-#ifdef GNOME_A11Y
-void set_textbox(Accessible *newtextbox) {
-  AccessibleText_unref(textbox);
-  AccessibleEditableText_unref(textbox);
-  if(newtextbox == NULL) {
-    textbox = NULL;
-    edittextbox = NULL;
-  }
-  else {
-    AccessibleComponent *component;
-    component = Accessible_getComponent(newtextbox);
-    //    AccessibleComponent_grabFocus(component);
-    textbox = Accessible_getText(newtextbox);
-    edittextbox = Accessible_getEditableText(newtextbox);
-  }
-}
-#endif
 
 gboolean grab_focus() {
   gtk_widget_grab_focus(the_text_view);

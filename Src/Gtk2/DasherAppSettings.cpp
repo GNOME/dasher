@@ -225,7 +225,8 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
     app_stringparamtable[iParameter - FIRST_APP_SP].value = szNew;
   }
   
-  handle_parameter_change(iParameter);
+  // TODO: Use real signals to achieve this
+  parameter_notification(0, iParameter, 0);
 }
 
 bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) {
@@ -255,7 +256,9 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
       gconf_client_set_bool(pPrivate->pGConfClient, szName, bValue, &pGConfError);
     }
 #endif
-    handle_parameter_change( iParameter );
+
+    // TODO: Use real signals to achieve this
+    parameter_notification(0, iParameter, 0);
   }
 }
 
@@ -289,7 +292,8 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
     }
 #endif
     
-    handle_parameter_change( iParameter );
+    // TODO: Use real signals to achieve this
+    parameter_notification(0, iParameter, 0);
   }
 }
 
@@ -329,7 +333,8 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
     }
 #endif    
 
-    handle_parameter_change( iParameter );
+    // TODO: Use real signals to achieve this
+    parameter_notification(0, iParameter, 0);
   }
 }
 

@@ -4,6 +4,8 @@
 
 #include <iostream>
 
+// TODO: Make this a real class
+
 GtkWidget *m_pLockWindow;
 GtkWidget *m_pLockProgress;
 GtkWidget *m_pLockMessage;

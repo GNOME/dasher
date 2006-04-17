@@ -41,6 +41,8 @@ DasherEditor *dasher_editor_new(GtkTextView *pTextView, GtkVBox *pActionPane);
 GType dasher_editor_get_type();
 
 IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
+
+// TODO: Just have one 'handle event' method?
 void dasher_editor_clipboard(DasherEditor *pSelf, clipboard_action act);
 void dasher_editor_handle_stop(DasherEditor *pSelf);
 void dasher_editor_handle_start(DasherEditor *pSelf);
@@ -53,6 +55,12 @@ void dasher_editor_actions_get_next(DasherEditor *pSelf, const gchar **szName, g
 void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
+void dasher_editor_create_buffer(DasherEditor *pSelf);
+void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
+void dasher_editor_output(DasherEditor *pSelf, gchar *szText);
+void dasher_editor_delete(DasherEditor *pSelf, int iLength);
+void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength);
+
 // Temporarily here - move back to private eventually
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
 

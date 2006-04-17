@@ -25,9 +25,7 @@ EXTRA_DIST = \
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
-libdashergtk_a_SOURCES = AppSettings.cpp \
-                         AppSettings.h \
-                         Canvas.cpp \
+libdashergtk_a_SOURCES = Canvas.cpp \
                          Canvas.h \
                          DasherAppSettings.cpp \
                          DasherAppSettings.h \
@@ -41,8 +39,6 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          GtkDasherControl.h \
                          Menu.cc \
                          Menu.h \
-			 Output.cpp \
-			 Output.h \
                          PangoCache.cpp \
                          PangoCache.h \
                          Preferences.cpp \
@@ -74,6 +70,8 @@ libdashergtk_a_SOURCES = AppSettings.cpp \
                          dasher_internal_buffer.cpp \
                          dasher_internal_buffer.h \
 			 dasher_lock_dialogue.cpp \
+			 dasher_maemo_helper.cpp \
+			 dasher_maemo_helper.h \
                          dasher_main.cpp \
                          dasher_main.h \
                          edit.cc \

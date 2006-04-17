@@ -3,6 +3,7 @@
 #ifdef WITH_MAEMO
 
 #include "dasher.h"
+#include "dasher_maemo_helper.h"
 #include "dasher_action_keyboard_maemo.h"
 
 #include <gdk/gdkx.h>

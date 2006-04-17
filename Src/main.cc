@@ -43,17 +43,17 @@
 #include "gpesettings_store.h"
 #endif
 
-// gboolean timedata = FALSE;
-// gboolean preferences = FALSE;
-// gboolean textentry = FALSE;
-// gboolean stdoutpipe = FALSE;
 extern int optind;
 extern const gchar *filename;
 
 DasherMain *g_pDasherMain;
 DasherAppSettings *g_pDasherAppSettings;
+DasherPreferencesDialogue *g_pPreferencesDialogue;
 
 void sigint_handler(int iSigNum);
+
+// TODO: reimplement command line parsing - should just be a way of
+// temporarily overriding parameters
 
 // GOption command line parsing variables
 gboolean timedata = FALSE;
@@ -70,13 +70,13 @@ static const GOptionEntry options[] = {
 };
 
 
+// TODO: Do we actually need this - gtk should in theory have
+// functions to prevent windows from taking focus, but maybe they
+// don't work which is why this is here.
+
 GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   XEvent *xev = (XEvent *) xevent;
-
-  //  if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False)) && keyboardmodeon == true) {
-
-if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False))) {
-
+  if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False))) {
     return GDK_FILTER_REMOVE;
   }
   else {
@@ -85,12 +85,6 @@ if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_a
 }
 
 int main(int argc, char *argv[]) {
-  GladeXML *xml;
-#ifdef WITH_MAEMO
-  HildonApp *app;
-  HildonAppView *appview;
-#endif
-
   signal(2, sigint_handler);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
@@ -130,6 +124,8 @@ int main(int argc, char *argv[]) {
 #endif
 
 
+  // TODO: Do we really need thread support still?
+
   // We need thread support for updating the splash window while
   // training...
 
@@ -139,30 +135,15 @@ int main(int argc, char *argv[]) {
 #endif
 
 
-  // Set up the dasher_main
-
-  g_pDasherMain = dasher_main_new(argc, argv);
-  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
-
 
   //  g_type_class_ref(dasher_gtk_text_view_get_type());
 
-  g_set_application_name ("Dasher");
+  g_set_application_name("Dasher");
 #ifndef WITH_MAEMO
-  gtk_window_set_default_icon_name ("dasher");
+  gtk_window_set_default_icon_name("dasher");
 #endif
 
-#ifdef WITH_GPE
-  xml = glade_xml_new(PROGDATA "/dashergpe.glade", NULL, NULL);
-#elif WITH_MAEMO
-  xml = glade_xml_new("/var/lib/install" PROGDATA "/dashermaemo.glade", NULL, NULL);
-  //xml = glade_xml_new(PROGDATA "/dashermaemo.glade", NULL, NULL);
-#else
-  xml = glade_xml_new(PROGDATA "/dasher.glade", NULL, NULL);
-#endif
-  if (!xml) {
-    g_error("Can't find dasher.glade. Probably not installed properly ...\n");
-  }
+
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
   if(!bonobo_init(&argc, argv)) {
@@ -171,69 +152,15 @@ int main(int argc, char *argv[]) {
   bonobo_activate();
 #endif
 
-//   oldx = -1;
-//   oldy = -1;
-
-#ifdef GNOME_A11Y
-  SPI_init();
-#endif
-
-  glade_xml_signal_autoconnect(xml);
-
-  if(preferences == TRUE) {
-    window = glade_xml_get_widget(xml, "preferences");
-  }
-  else {
-    window = glade_xml_get_widget(xml, "window");
-  }
-
   // Initialise the main window and show it
+  g_pDasherMain = dasher_main_new();
+  
+  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
+  dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
 
-  InitialiseMainWindow(argc, argv, xml);
-
-#ifdef WITH_GPE
-  gtk_window_set_decorated(GTK_WINDOW(window), false);
-#endif
-
-  //#ifndef WITH_MAEMO
-  gtk_widget_show(window);
-// #else
-//   appview = HILDON_APPVIEW( hildon_appview_new(NULL) );
-//   app = HILDON_APP( hildon_app_new() );
-//   hildon_app_set_appview( app, appview );
-//   hildon_app_set_title( app, ("Dasher" )); 
-//   window = glade_xml_get_widget(xml, "vpaned1");
-//   gtk_widget_reparent (window, GTK_WIDGET(appview));
-//   gtk_paned_set_position(GTK_PANED(window), 100);
-
-//   /* Do menu setup */
-//   GtkMenu *main_menu;
-//   GtkWidget *file_menu;
-//   GtkWidget *file_menu_item;
-//   GtkWidget *options_menu;
-//   GtkWidget *options_menu_item;
-//   main_menu = hildon_appview_get_menu(appview);
-//   file_menu = glade_xml_get_widget(xml, "menuitem4_menu");
-//   options_menu = glade_xml_get_widget(xml, "options1_menu");
-//   file_menu_item = gtk_menu_item_new_with_label ("File");
-//   options_menu_item = gtk_menu_item_new_with_label ("Options");
-//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
-//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu);
-// //  gtk_widget_reparent (GTK_WIDGET(main_menu), file_menu);
-// //  gtk_widget_reparent (GTK_WIDGET(main_menu), options_menu);
-//   gtk_menu_append( main_menu, file_menu_item);
-//   gtk_menu_append( main_menu, options_menu_item);
-//   gtk_widget_show_all( GTK_WIDGET( main_menu ) );
-
-//   /* And toolbar */
-//   GtkWidget *toolbar;
-//   toolbar = glade_xml_get_widget(xml, "toolbar");
-//   g_print("Got %p\n",toolbar);
-//   gtk_widget_reparent (toolbar, appview->vbox);
-
-//   gtk_widget_show_all(GTK_WIDGET(app));
-// #endif
-
+  InitialiseMainWindow(argc, argv);
+  
+  dasher_main_show(g_pDasherMain);
 
   if(optind < argc) {
     if(!g_path_is_absolute(argv[optind])) {
@@ -254,8 +181,20 @@ int main(int argc, char *argv[]) {
 
 
   gtk_main();
+  
+  if(g_pEditor)
+    g_object_unref(G_OBJECT(g_pEditor));
 
-  interface_cleanup();
+  // TODO: Figure out what this is supposed to do and reimplement if necessary
+  
+// #ifdef X_HAVE_UTF8_STRING
+//   // We want to set the keymap back to whatever it was before,
+//   // if that's possible
+//   int min, max;
+//   Display *dpy = gdk_x11_get_default_xdisplay();
+//   XDisplayKeycodes(dpy, &min, &max);
+//   XChangeKeyboardMapping(dpy, min, numcodes, origkeymap, (max - min));
+// #endif
 
 #ifdef GNOME_LIBS
   gnome_vfs_shutdown();

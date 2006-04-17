@@ -286,7 +286,6 @@ extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data) {
   if(filename != NULL) {
     if (save_file_as(filename,FALSE)==true) {
     //  exiting=TRUE;
-    SaveWindowState();
     gtk_main_quit();
     } else {
       return;
@@ -294,7 +293,6 @@ extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data) {
   }
   else {
     select_save_file_as(NULL, NULL);
-    SaveWindowState();
     gtk_main_quit();
   }
 }
@@ -312,10 +310,12 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
     }
 
     gtk_dialog_add_buttons(GTK_DIALOG(dialog), _("Don't save"), GTK_RESPONSE_REJECT, _("Don't quit"), GTK_RESPONSE_CANCEL, _("Save and quit"), GTK_RESPONSE_ACCEPT, NULL);
+
+    dasher_main_save_state(g_pDasherMain);
+
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
     case GTK_RESPONSE_REJECT:
       //      write_to_file(); // FIXME - REIMPLEMENT
-      SaveWindowState();
       gtk_main_quit();
       break;
     case GTK_RESPONSE_CANCEL:
@@ -335,7 +335,6 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
     // FIXME - REIMPLEMENT
 
     //    write_to_file();
-    SaveWindowState();
     gtk_main_quit();
   }
   return false;
