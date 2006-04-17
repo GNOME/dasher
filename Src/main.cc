@@ -10,6 +10,7 @@
 #include <hildon-lgpl/hildon-widgets/hildon-appview.h>
 #endif
 
+// TODO: This shouldn't need to be here
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
 //#include <gnome.h>
 #include <libbonobo.h>
@@ -142,7 +143,6 @@ int main(int argc, char *argv[]) {
 #ifndef WITH_MAEMO
   gtk_window_set_default_icon_name("dasher");
 #endif
-
 
 
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)

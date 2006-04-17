@@ -19,7 +19,7 @@ static char THIS_FILE[] = __FILE__;
 #include <windows.h>
 #endif
 
-#include <sys/timeb.h>
+#include <sys/time.h>
 
 CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel iLogLevel, int iOptionsMask)
 {

@@ -83,6 +83,10 @@ GtkWidget *pDasherWidget = NULL;
 //GtkWidget *g_pEditPane = 0;
 //GtkWidget *g_pActionPane = 0;
 
+#ifdef WITH_MAEMO
+Window g_xOldIMWindow; 
+#endif
+
 //DasherAction *g_pAction = 0;
 
 const gchar *filename = NULL;   // Filename of file currently being edited
@@ -116,7 +120,6 @@ double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
 ///
 
 void InitialiseMainWindow(int argc, char **argv) {
-
   GladeXML *pGladeXML;
   pGladeXML = dasher_main_get_glade(g_pDasherMain);
 
@@ -145,6 +148,5 @@ void InitialiseMainWindow(int argc, char **argv) {
   g_pPreferencesDialogue = dasher_preferences_dialogue_new(pGladeXML);
 
   InitialiseFontDialogues(pGladeXML);
-
 }
 

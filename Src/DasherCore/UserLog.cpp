@@ -3,7 +3,7 @@
 
 #include "UserLog.h"
 #include <fstream>
-#include <sys/timeb.h>
+#include <sys/time.h>
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
