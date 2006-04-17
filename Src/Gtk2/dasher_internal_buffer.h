@@ -30,6 +30,8 @@ GType dasher_internal_buffer_get_type();
 
 void dasher_internal_buffer_change_context(DasherInternalBuffer *pSelf);
 
+void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf);
+
 G_END_DECLS
 
 #endif

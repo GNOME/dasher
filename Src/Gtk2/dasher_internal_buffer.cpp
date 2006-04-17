@@ -247,6 +247,19 @@ void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirect
   gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(pPrivate->pTextView), gtk_text_buffer_get_insert(pPrivate->pBuffer));
 }
 
+void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
+  DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
+  GtkTextIter *start, *end;
+
+  start = new GtkTextIter;
+  end = new GtkTextIter;
+
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, start, 0);
+  gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, end, -1);
+
+  gtk_text_buffer_delete(pPrivate->pBuffer, start, end);
+}
+
 // Handlers
 
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData) {

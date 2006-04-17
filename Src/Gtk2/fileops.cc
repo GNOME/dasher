@@ -4,7 +4,6 @@
 #include <stdio.h>
 #include "fileops.h"
 #include "dasher.h"
-#include "edit.h"
 #include "../DasherCore/DasherTypes.h"
 
 extern gboolean file_modified;

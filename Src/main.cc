@@ -34,7 +34,6 @@
 //#include <getopt.h>
 
 #include "dasher.h"
-#include "edit.h"
 #include "DasherControl.h"
 #include "Menu.h"
 #include "FontDialogues.h"
@@ -58,7 +57,7 @@ GtkWidget *vbox;
 GdkPixbuf *p;                   // Hmm... descriptive names
 GtkWidget *pw;
 GtkStyle *style;
-GtkAccelGroup *dasher_accel;
+//GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *open_filesel;
 GtkWidget *save_filesel;
@@ -101,6 +100,19 @@ int g_bDock = true; // Whether to dock the window
 int g_iDockType; // Ignored for now - will determine how the window is docked to the side of the screen
 double g_dXFraction = 0.25; // Fraction of the width of the screen to use;
 double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
+
+/// ---
+
+/// Old stuff from edit.cc
+
+DasherEditor *g_pEditor;
+
+GtkWidget *the_text_view;
+GtkTextBuffer *the_text_buffer;
+
+KeySym *origkeymap;
+int modifiedkey = 0;
+int numcodes;
 
 /// ---
 
@@ -178,15 +190,15 @@ int main(int argc, char *argv[]) {
 #endif
 
 
-  // TODO: Do we really need thread support still?
+//   // TODO: Do we really need thread support still?
 
-  // We need thread support for updating the splash window while
-  // training...
+//   // We need thread support for updating the splash window while
+//   // training...
 
-#ifndef GNOME_LIBS
-  if (!g_thread_supported()) 
-    g_thread_init(NULL);
-#endif
+// #ifndef GNOME_LIBS
+//   if (!g_thread_supported()) 
+//     g_thread_init(NULL);
+// #endif
 
 
 
@@ -198,24 +210,15 @@ int main(int argc, char *argv[]) {
 #endif
 
 
-#if (defined GNOME_SPEECH || defined GNOME_A11Y)
-  if(!bonobo_init(&argc, argv)) {
-    g_error("Can't initialize Bonobo...\n");
-  }
-  bonobo_activate();
-#endif
-
   // Initialise the main window and show it
-  g_pDasherMain = dasher_main_new();
-  
-  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
-  dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
+
+  g_pEditor = dasher_editor_new(argc, argv);
 
 
   GladeXML *pGladeXML;
   pGladeXML = dasher_main_get_glade(g_pDasherMain);
 
-  dasher_accel = gtk_accel_group_new(); //?
+  //  dasher_accel = gtk_accel_group_new(); //?
 
   //    widgets = pGladeXML;          // obsolete? NO - used later in this file, but should be
   // Grab some pointers to important GTK widgets from the Glade XML
@@ -226,13 +229,27 @@ int main(int argc, char *argv[]) {
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
   dasher_menu_bar = glade_xml_get_widget(pGladeXML, "dasher_menu_bar");
   pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
+  the_text_view = glade_xml_get_widget(pGladeXML, "the_text_view");
+  the_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(the_text_view));
+
+  g_signal_connect(G_OBJECT(the_text_view), "button-release-event", G_CALLBACK(take_real_focus), NULL);
+
+  g_signal_connect(G_OBJECT(the_text_view), "key-press-event", G_CALLBACK(edit_key_press), NULL);
+  g_signal_connect(G_OBJECT(the_text_view), "key-release-event", G_CALLBACK(edit_key_release), NULL);
+
 
   dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(window));
 
 
-  // Initialise the various components
+//   int min, max;
+//   Display *dpy = gdk_x11_get_default_xdisplay();
 
-  initialise_edit(pGladeXML);
+// #ifdef X_HAVE_UTF8_STRING
+//   XDisplayKeycodes(dpy, &min, &max);
+//   origkeymap = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
+// #endif
+
+
 #ifndef WITH_MAEMO
   PopulateMenus(pGladeXML);
 #endif
@@ -257,7 +274,8 @@ int main(int argc, char *argv[]) {
     }
   }
   else {
-    choose_filename();
+    // TODO: Call new routine, make generate_filename private
+    dasher_editor_generate_filename(g_pEditor);
   }
 
 

@@ -37,9 +37,10 @@ struct _DasherEditorClass {
   GObjectClass parent_class;
 };
 
-DasherEditor *dasher_editor_new(GtkTextView *pTextView, GtkVBox *pActionPane);
+DasherEditor *dasher_editor_new(int argc, char **argv);
 GType dasher_editor_get_type();
 
+// TODO: Buffer set should really be private
 IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
 
 // TODO: Just have one 'handle event' method?
@@ -60,6 +61,7 @@ void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
 void dasher_editor_delete(DasherEditor *pSelf, int iLength);
 void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength);
+void dasher_editor_generate_filename(DasherEditor *pSelf);
 
 // Temporarily here - move back to private eventually
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);

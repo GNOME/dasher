@@ -2,7 +2,6 @@
 #include <string.h>
 
 #include "dasher.h"
-#include "edit.h"
 #include "dasher_editor.h"
 #include "dasher_internal_buffer.h"
 #include "dasher_external_buffer.h"
@@ -23,6 +22,29 @@
 #include "dasher_action_copy.h"
 #include "dasher_action_script.h"
 #endif
+
+// TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc
+
+// void set_mark() {
+//   GtkTextIter oBufferEnd;
+//   GtkTextIter oBufferStart;
+//   gtk_text_buffer_get_bounds( the_text_buffer, &oBufferStart, &oBufferEnd);
+//   gtk_text_buffer_create_mark(the_text_buffer, "new_start", &oBufferEnd, true);
+// }
+
+// const gchar *get_new_text() {
+//   GtkTextIter oNewStart;
+//   GtkTextIter oNewEnd;
+//   GtkTextIter oDummy;
+
+//   gtk_text_buffer_get_bounds( the_text_buffer, &oDummy, &oNewEnd);
+//   gtk_text_buffer_get_iter_at_mark( the_text_buffer, &oNewStart, gtk_text_buffer_get_mark(the_text_buffer, "new_start"));
+
+//   return gtk_text_buffer_get_text( the_text_buffer, &oNewStart, &oNewEnd, false );
+  
+// }
+
+// ---
 
 typedef struct _EditorAction EditorAction;
 
@@ -48,7 +70,9 @@ EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID);
 void dasher_editor_rebuild_action_pane(DasherEditor *pSelf);
 void dasher_editor_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
 
+// Private methods not in class
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
+extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData);
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
@@ -119,12 +143,21 @@ static void dasher_editor_destroy(GObject *pObject) {
   delete (DasherEditorPrivate *)(((DasherEditor *)pObject)->private_data);
 }
 
-DasherEditor *dasher_editor_new(GtkTextView *pTextView, GtkVBox *pActionPane) {
+DasherEditor *dasher_editor_new(int argc, char **argv) {
   DasherEditor *pDasherControl;
-
   pDasherControl = (DasherEditor *)(g_object_new(dasher_editor_get_type(), NULL));
-
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pDasherControl->private_data);
+
+  g_pDasherMain = dasher_main_new();
+  
+  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
+  dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
+
+  GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
+
+  GtkTextView *pTextView = GTK_TEXT_VIEW(glade_xml_get_widget(pGladeXML, "the_text_view"));
+  GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
+
   pPrivate->pTextView = pTextView;
   pPrivate->pBuffer = gtk_text_view_get_buffer(pTextView);
   pPrivate->pActionPane = pActionPane;
@@ -224,7 +257,7 @@ void dasher_editor_handle_start(DasherEditor *pSelf) {
   // The edit box keeps track of where we started 
 
   // TODO: This should be filtered through the buffer, rather than directly to the edit box
-  set_mark();
+  //  set_mark();
 }
 
 void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
@@ -457,6 +490,7 @@ void dasher_editor_rebuild_action_pane(DasherEditor *pSelf) {
   }
 }
 
+// TODO: We shouldn't need to know about the buffer here - make this a method of the buffer set
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf) { 
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
@@ -482,12 +516,8 @@ void dasher_editor_action_button(DasherEditor *pSelf, DasherAction *pAction) {
 void dasher_editor_clear(DasherEditor *pSelf, gboolean bStore) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
-  GtkTextIter oStart;
-  GtkTextIter oEnd;
-
-  gtk_text_buffer_get_start_iter(pPrivate->pBuffer, &oStart);
-  gtk_text_buffer_get_end_iter(pPrivate->pBuffer, &oEnd);
-  gtk_text_buffer_delete(pPrivate->pBuffer, &oStart, &oEnd);
+  if(IS_DASHER_INTERNAL_BUFFER(pPrivate->pBufferSet))
+    dasher_internal_buffer_clear(DASHER_INTERNAL_BUFFER(pPrivate->pBufferSet));
 }
 
 
@@ -594,8 +624,7 @@ void dasher_editor_create_buffer(DasherEditor *pSelf) {
   else
     pPrivate->pBufferSet = dasher_editor_get_buffer_set(pSelf);
   
-  // TODO: reimplement
-  // g_signal_connect(G_OBJECT(pPrivate->pBufferSet), "context_changed", G_CALLBACK(context_changed_handler), NULL);
+  g_signal_connect(G_OBJECT(pPrivate->pBufferSet), "context_changed", G_CALLBACK(context_changed_handler), NULL);
 }
 
 
@@ -612,6 +641,38 @@ void dasher_editor_display_message(DasherEditor *pSelf, DasherMessageInfo *pMess
   GtkMessageDialog *pDialog = GTK_MESSAGE_DIALOG(gtk_message_dialog_new(0, GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_OK, pMessageInfo->szMessage));
   gtk_dialog_run(GTK_DIALOG(pDialog));
   gtk_widget_destroy(GTK_WIDGET(pDialog));
+}
+
+void dasher_editor_generate_filename(DasherEditor *pSelf) {
+  if( dasher_app_settings_get_bool(g_pDasherAppSettings,  APP_BP_TIME_STAMP )) {
+    // Build a filename based on the current time and date
+    tm *t_struct;
+    time_t ctime;
+    char cwd[1000];
+    char tbuffer[200];
+
+    ctime = time(NULL);
+
+    t_struct = localtime(&ctime);
+
+    if(filename) {
+      g_free((void *)filename);
+    }
+
+    getcwd(cwd, 1000);
+    snprintf(tbuffer, 200, "dasher-%04d%02d%02d-%02d%02d.txt", (t_struct->tm_year + 1900), (t_struct->tm_mon + 1), t_struct->tm_mday, t_struct->tm_hour, t_struct->tm_min);
+
+    filename = g_build_path("/", cwd, tbuffer, NULL);
+  }
+  else {
+    if(filename) {
+      g_free((void *)filename);
+    }
+    filename = NULL;
+  }
+
+  // TODO: Rationalise this - should probably be in 'new' function rather than here
+  dasher_main_set_filename(g_pDasherMain, filename);
 }
 
 // Callbacks
@@ -654,8 +715,16 @@ extern "C" void preferences_display(GtkWidget *widget, gpointer user_data) {
   dasher_preferences_dialogue_show(g_pPreferencesDialogue);
 }
 
-// TODO: Not really sure what happens here - need to sort out focus behaviour in general
-extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
-  // TODO: rationalise this
-  return grab_focus();
+extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
+  gint displaylength = g_utf8_strlen(szText, -1);
+  dasher_editor_delete(g_pEditor, displaylength);
+}
+
+extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
+  dasher_editor_output(g_pEditor, szText);
+}
+
+// TODO: This should call back into editor, not directly into Dasher control
+extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData) {
+  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
 }

@@ -70,8 +70,6 @@ libdashergtk_a_SOURCES = Canvas.cpp \
 			 dasher_maemo_helper.h \
                          dasher_main.cpp \
                          dasher_main.h \
-                         edit.cc \
-                         edit.h \
                          fileops.cc \
                          fileops.h \
                          mouse_input.h \

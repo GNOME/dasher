@@ -2,7 +2,6 @@
 
 #include "Menu.h"
 #include "dasher.h"
-#include "edit.h"
 #include "DasherTypes.h"
 #include "fileops.h"
 
@@ -49,8 +48,10 @@ extern "C" void select_save_file_as(GtkWidget * widget, gpointer user_data);
 extern "C" void select_new_file(GtkWidget *widget, gpointer user_data) {
   //FIXME - confirm this. We should check whether the user wants to lose their work.
 
-  choose_filename();
-  clear_edit();
+  // TODO: Should just call a 'new' method in DasherEditor
+  dasher_editor_generate_filename(g_pEditor);
+  dasher_editor_clear(g_pEditor, false);
+
   //  gtk_dasher_control_set_context(GTK_DASHER_CONTROL(pDasherWidget), "");
   gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
 

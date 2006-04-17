@@ -2,7 +2,6 @@
 
 #include "dasher.h"
 #include "FontDialogues.h"
-#include "edit.h"
 #include "GtkDasherControl.h"
 #include "../DasherCore/Parameters.h"
 

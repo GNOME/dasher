@@ -508,6 +508,18 @@ void dasher_main_on_map(DasherMain *pSelf) {
 #endif
 }
 
+void dasher_main_set_filename(DasherMain *pSelf, const gchar *szFilename) {
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+
+  if(szFilename == 0) {
+    gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), "Dasher");
+  }
+  else {
+    // TODO: Prepend 'Dasher - ' to filename?
+    gtk_window_set_title(GTK_WINDOW(pPrivate->pMainWindow), szFilename);
+  }
+}
+
 // Callbacks
 
 extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
@@ -516,4 +528,46 @@ extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gch
 
 extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData) {
   dasher_main_on_map(g_pDasherMain);
+}
+
+// TODO: Incorporate this into class
+gboolean g_bForwardKeyboard(false);
+
+gboolean grab_focus() {
+  gtk_widget_grab_focus(the_text_view);
+  g_bForwardKeyboard = true;
+  return true;
+}
+
+// TODO: Not really sure what happens here - need to sort out focus behaviour in general
+extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
+  return grab_focus();
+}
+
+// TODO: Next three handlers should just forward into class
+extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {
+  g_bForwardKeyboard = false;
+  return false;
+}
+
+extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data) {
+  if(g_bForwardKeyboard) {
+    gboolean *returnType;
+    g_signal_emit_by_name(GTK_OBJECT(pDasherWidget), "key_press_event", event, &returnType);
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data) { 
+  if(g_bForwardKeyboard) {
+    gboolean *returnType;
+    g_signal_emit_by_name(GTK_OBJECT(pDasherWidget), "key_release_event", event, &returnType);
+    return true;
+  }
+  else {
+    return false;
+  }
 }

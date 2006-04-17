@@ -106,8 +106,14 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   DasherExternalBuffer *pDasherControl;
   pDasherControl = (DasherExternalBuffer *)(g_object_new(dasher_external_buffer_get_type(), NULL));
 
-  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
+  if(!bonobo_is_initialized()) {
+    if(!bonobo_init(&argc, argv)) {
+      g_error("Can't initialize Bonobo...\n");
+    }
+    bonobo_activate();
+  }
 
+  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
   pPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pDasherControl);
   pPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pDasherControl);
 

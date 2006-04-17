@@ -36,8 +36,11 @@ extern DasherPreferencesDialogue *g_pPreferencesDialogue;
 
 void RefreshWidget(int iParameter);
 
-extern "C" void choose_filename();
+//extern "C" void choose_filename();
 extern "C" void uniform_changed(GtkHScale * hscale);
+extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
+extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 //extern GtkWidget *vbox, *toolbar;
 extern GdkPixbuf *p;
@@ -52,9 +55,12 @@ extern GtkWidget *ofilesel;
 extern GtkWidget *ifilesel;
 extern GtkWidget *afilesel;
 extern GtkStyle *style;
-extern GtkAccelGroup *dasher_accel;
+//extern GtkAccelGroup *dasher_accel;
 extern GtkWidget *dasher_menu_bar;
 extern const gchar *filename;
+
+extern GtkWidget *the_text_view;
+extern GtkTextBuffer *the_text_buffer;
 
 //extern gboolean quitting;
 

@@ -37,6 +37,7 @@ void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSett
 void dasher_main_load_state(DasherMain *pSelf);
 void dasher_main_save_state(DasherMain *pSelf);
 void dasher_main_show(DasherMain *pSelf);
+void dasher_main_set_filename(DasherMain *pSelf, const gchar *szFilename);
 G_END_DECLS
 
 #endif
