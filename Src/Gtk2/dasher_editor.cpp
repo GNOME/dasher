@@ -5,6 +5,7 @@
 #include "edit.h"
 #include "dasher_editor.h"
 #include "dasher_internal_buffer.h"
+#include "dasher_external_buffer.h"
 #include "GtkDasherControl.h"
 #include "Preferences.h"
 
@@ -551,7 +552,7 @@ EditorAction *pAction;
   }
 }
 
-void dasher_editor_output(DasherEditor *pSelf, gchar *szText) {
+void dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
 }

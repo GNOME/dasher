@@ -57,7 +57,7 @@ void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool b
 void dasher_editor_action_set_auto(DasherEditor *pSelf, int iActionID, bool bValue);
 void dasher_editor_create_buffer(DasherEditor *pSelf);
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
-void dasher_editor_output(DasherEditor *pSelf, gchar *szText);
+void dasher_editor_output(DasherEditor *pSelf, const gchar *szText);
 void dasher_editor_delete(DasherEditor *pSelf, int iLength);
 void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength);
 
