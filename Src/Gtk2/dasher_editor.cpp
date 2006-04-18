@@ -2,26 +2,28 @@
 #include <string.h>
 
 #include "dasher.h"
-#include "dasher_editor.h"
-#include "dasher_internal_buffer.h"
-#include "dasher_external_buffer.h"
-#include "GtkDasherControl.h"
-#include "Preferences.h"
-
-#ifdef GNOME_SPEECH
-#include "dasher_action_speech.h"
-#endif 
-
+#ifndef WITH_MAEMO
+#include "dasher_action_copy.h"
+#endif
 #ifdef GNOME_A11Y
 #include "dasher_action_keyboard.h"
 #endif 
-
 #ifdef WITH_MAEMO
 #include "dasher_action_keyboard_maemo.h"
 #else
-#include "dasher_action_copy.h"
 #include "dasher_action_script.h"
 #endif
+#ifdef GNOME_SPEECH
+#include "dasher_action_speech.h"
+#endif 
+#include "dasher_editor.h"
+#include "dasher_external_buffer.h"
+#include "dasher_internal_buffer.h"
+#include "dasher_lock_dialogue.h"
+#include "fileops.h"
+#include "FontDialogues.h"
+#include "GtkDasherControl.h"
+#include "Preferences.h"
 
 // TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc
 
@@ -149,11 +151,19 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pDasherControl->private_data);
 
   g_pDasherMain = dasher_main_new();
+
+  GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
+  pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
   
   g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
   dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
 
-  GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
+  // TODO: Make lock diaogue a full method
+  dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(dasher_main_get_window(g_pDasherMain)));
+  // TODO: Bring into object framework
+  InitialiseFontDialogues(pGladeXML);
+  
+  g_pPreferencesDialogue = dasher_preferences_dialogue_new(pGladeXML, pDasherControl);
 
   GtkTextView *pTextView = GTK_TEXT_VIEW(glade_xml_get_widget(pGladeXML, "the_text_view"));
   GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
@@ -167,6 +177,7 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pPrivate->iNextActionID = 0;
 
   dasher_editor_setup_actions(pDasherControl);
+  dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
 
   dasher_editor_create_buffer(pDasherControl);
 
@@ -673,6 +684,16 @@ void dasher_editor_generate_filename(DasherEditor *pSelf) {
 
   // TODO: Rationalise this - should probably be in 'new' function rather than here
   dasher_main_set_filename(g_pDasherMain, filename);
+}
+
+// TODO: Rationalise this
+void dasher_editor_open(DasherEditor *pSelf, const gchar *szFilename) {
+  open_file(szFilename);
+}
+
+// TODO: Rationalise this
+bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend) {
+  return save_file_as(szFilename, bAppend);
 }
 
 // Callbacks

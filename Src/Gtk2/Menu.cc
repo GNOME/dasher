@@ -3,8 +3,6 @@
 #include "Menu.h"
 #include "dasher.h"
 #include "DasherTypes.h"
-#include "fileops.h"
-
 #include "GtkDasherControl.h"
 
 #include <glib/gi18n.h>
@@ -77,7 +75,7 @@ extern "C" void select_open_file(GtkWidget *widget, gpointer user_data) {
 #else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 #endif
-    open_file(filename);
+    dasher_editor_open(g_pEditor, filename);
     g_free(filename);
   }
   gtk_widget_destroy(filesel);
@@ -95,7 +93,7 @@ extern "C" void filesel_hide(GtkWidget *widget, gpointer user_data) {
 extern "C" void open_file_from_filesel(GtkWidget *selector2, GtkFileSelection *selector) {
   filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(selector));
   filesel_hide(GTK_WIDGET(selector->ok_button), NULL);
-  open_file(filename);
+  dasher_editor_open(g_pEditor, filename);
 }
 
 extern "C" void select_open_file(GtkWidget *widget, gpointer user_data) {
@@ -111,7 +109,7 @@ extern "C" void select_open_file(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void save_file(GtkWidget *widget, gpointer user_data) {
   if(filename != NULL) {
-    save_file_as(filename,FALSE); // FIXME - REIMPLEMENT
+    dasher_editor_save_as(g_pEditor, filename,FALSE); // FIXME - REIMPLEMENT
   }
   else {
     select_save_file_as(NULL, NULL);
@@ -133,7 +131,7 @@ extern "C" void select_save_file_as(GtkWidget *widget, gpointer user_data) {
 #else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 #endif
-    save_file_as(filename,FALSE);
+    dasher_editor_save_as(g_pEditor, filename,FALSE);
     g_free(filename);
   }
   gtk_widget_destroy(filesel);
@@ -143,7 +141,7 @@ extern "C" void select_save_file_as(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void save_file_from_filesel_and_quit(GtkWidget *selector2, GtkFileSelection *selector) {
   filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(selector));
-  if(save_file_as(filename, FALSE) == false) {
+  if(dasher_editor_save_as(g_pEditor, filename, FALSE) == false) {
 
     // FIXME - do we really just want to fail silently if the save operation fails?
 
@@ -159,7 +157,7 @@ extern "C" void save_file_from_filesel_and_quit(GtkWidget *selector2, GtkFileSel
 extern "C" void save_file_from_filesel(GtkWidget *selector2, GtkFileSelection *selector) {
   filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(selector));
   filesel_hide(GTK_WIDGET(selector->ok_button), NULL);
-  save_file_as(filename, FALSE);
+  dasher_editor_save_as(g_pEditor, filename, FALSE);
 }
 
 extern "C" void select_save_file_as(GtkWidget *widget, gpointer user_data) {
@@ -191,7 +189,7 @@ extern "C" void select_append_file(GtkWidget *widget, gpointer user_data) {
 #else
     char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(filesel));
 #endif
-    //    save_file_as(filename,TRUE);// FIXME - REIMPLEMENT
+    //    dasher_editor_save_as(g_pEditor, filename,TRUE);// FIXME - REIMPLEMENT
     g_free(filename);
   }
   gtk_widget_destroy(filesel);
@@ -202,7 +200,7 @@ extern "C" void select_append_file(GtkWidget *widget, gpointer user_data) {
 extern "C" void append_file_from_filesel(GtkWidget *selector2, GtkFileSelection *selector) {
   filename = gtk_file_selection_get_filename(GTK_FILE_SELECTION(selector));
 
-  save_file_as(filename, TRUE);
+  dasher_editor_save_as(g_pEditor, filename, TRUE);
 
   filesel_hide(GTK_WIDGET(selector->ok_button), NULL);
 }
@@ -284,7 +282,7 @@ extern "C" void select_save_file_as_and_quit(GtkWidget *widget, gpointer user_da
 
 extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data) {
   if(filename != NULL) {
-    if (save_file_as(filename,FALSE)==true) {
+    if (dasher_editor_save_as(g_pEditor, filename,FALSE)==true) {
     //  exiting=TRUE;
     gtk_main_quit();
     } else {

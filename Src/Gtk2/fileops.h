@@ -1,3 +1,6 @@
+// Please consider this to be a 'friend' class of DasherEditor. Do not
+// include this file directly elsewhere
+
 extern "C" void open_file(const char *myfilename);
 extern "C" bool save_file_as(const char *filename, bool append);
 gboolean unix_vfs_open_file(const char *filename, gchar ** buffer, unsigned long long *size);

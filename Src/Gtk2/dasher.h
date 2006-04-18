@@ -1,96 +1,37 @@
 #ifndef DASHER_H
 #define DASHER_H
 
-// New stuff, but shouldn't need a shared header
+#include <gtk/gtk.h>
 
+#include "dasher_editor.h"
 #include "dasher_main.h"
 #include "DasherAppSettings.h"
-#include "dasher_buffer_set.h"
-#include "dasher_editor.h"
 #include "GtkDasherControl.h"
 #include "Preferences.h"
 
-#include <X11/Xlib.h>
-
+// Global objects - eventually to be made members of the appropriate classes
 extern DasherMain *g_pDasherMain;
 extern DasherAppSettings *g_pDasherAppSettings;
 extern DasherEditor *g_pEditor;
 extern DasherPreferencesDialogue *g_pPreferencesDialogue;
 
-// Old stuff
-
-#include <gtk/gtk.h>
-
-#include <gdk/gdkkeysyms.h>
-#include <glade/glade.h>
-#include "fileops.h"
-
-/* #include <gconf/gconf.h> */
-/* #include <gconf/gconf-client.h> */
-/* #include <gconf/gconf-enum-types.h> */
-
-/* void interface_setup(GladeXML * xml); */
-/* void interface_late_setup(); */
-
-/* void main_handle_parameter_change(int iParameter); */
-
-void RefreshWidget(int iParameter);
-
-//extern "C" void choose_filename();
-extern "C" void uniform_changed(GtkHScale * hscale);
-extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
-extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
-extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
-
-//extern GtkWidget *vbox, *toolbar;
-extern GdkPixbuf *p;
-extern GtkWidget *pw;
-extern GtkWidget *text_view;
-extern GtkWidget *speed_frame;
-extern GtkObject *speed_slider;
-extern GtkScale *speed_hscale;
-extern GtkWidget *text_scrolled_window;
-extern GtkWidget *canvas_frame;
-extern GtkWidget *ofilesel;
-extern GtkWidget *ifilesel;
-extern GtkWidget *afilesel;
-extern GtkStyle *style;
-//extern GtkAccelGroup *dasher_accel;
-extern GtkWidget *dasher_menu_bar;
+// Misc. objects - eventually these need to be figured out and moved to the right places
 extern const gchar *filename;
-
 extern GtkWidget *the_text_view;
 extern GtkTextBuffer *the_text_buffer;
-
-//extern gboolean quitting;
-
 extern gboolean file_modified;
 extern GtkWidget *pDasherWidget;
-
 extern GtkWidget *window;
 extern GtkWidget *g_pHiddenWindow;
 
-GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data);
-void SetupPositioning();
-extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data);
+GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data); 
+extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data); 
 
-extern gboolean timestamp;
-
-// New Stuff
-
-void InitialiseMainWindow(int argc, char **argv);
-
-/* extern const char *g_szAccessibleContext; */
-
-/* extern int g_iExpectedPosition; */
-/* extern int g_iOldPosition; */
-
-// ---
-
-#ifdef WITH_GPE
-#define DASHERFONT "Serif 10"
-#else
-#define DASHERFONT "Serif 12"
-#endif
+// TODO: Reimplement
+/* #ifdef WITH_GPE */
+/* #define DASHERFONT "Serif 10" */
+/* #else */
+/* #define DASHERFONT "Serif 12" */
+/* #endif */
 
 #endif

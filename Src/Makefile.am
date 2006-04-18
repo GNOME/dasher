@@ -30,6 +30,7 @@ dasher_LDADD = \
 	$(GPELIB) \
 	Common/libdashermisc.a \
 	Gtk2/libdashergtk.a \
+	Gtk2/libdashercontrol.a \
 	DasherCore/libdashercore.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
 	DasherCore/Alphabet/libdasheralphabet.a

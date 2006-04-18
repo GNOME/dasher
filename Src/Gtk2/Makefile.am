@@ -25,25 +25,31 @@ EXTRA_DIST = \
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
-libdashergtk_a_SOURCES = Canvas.cpp \
-                         Canvas.h \
+libdashercontrol_a_SOURCES = \
+		Canvas.cpp \
+		Canvas.h \
+		DasherControl.cpp \
+		DasherControl.h \
+		GtkDasherControl.cpp \
+		GtkDasherControl.h \
+		PangoCache.cpp \
+		PangoCache.h \
+		Timer.cpp \
+		Timer.h \
+		mouse_input.h \
+		$(settings_store)
+
+libdashergtk_a_SOURCES = \
                          DasherAppSettings.cpp \
                          DasherAppSettings.h \
-                         DasherControl.cpp \
-                         DasherControl.h \
                          FileDialogues.cpp \
                          FontDialogues.cpp \
                          FontDialogues.h \
-                         GtkDasherControl.cpp \
                          GtkDasherControl.h \
                          Menu.cc \
                          Menu.h \
-                         PangoCache.cpp \
-                         PangoCache.h \
                          Preferences.cpp \
                          Preferences.h \
-                         Timer.cpp \
-                         Timer.h \
                          dasher.h \
                          dasher_action.cpp \
                          dasher_action.h \
@@ -71,9 +77,7 @@ libdashergtk_a_SOURCES = Canvas.cpp \
                          dasher_main.cpp \
                          dasher_main.h \
                          fileops.cc \
-                         fileops.h \
-                         mouse_input.h \
-                         $(settings_store)
+                         fileops.h
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@
@@ -82,8 +86,5 @@ AM_CXXFLAGS = $(GTK2BUILD_CFLAGS) -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgda
 
 AM_CFLAGS = $(GTK2_CFLAGS)
 
-libdashercontrol_a_SOURCES = Timer.cpp Canvas.cpp GtkDasherControl.cpp PangoCache.cpp DasherControl.cpp
-#libdashercontrol_a_LIBADD = ../DasherCore/libdashercore.a ../DasherCore/LanguageModelling/libdasherlm.a ../DasherCore/Alphabet/libdasheralphabet.a
-#libdashercontrol_a_LDFLAGS = -L../DasherCore -L../DasherCore/LanguageModelling -L../DasherCore/Alphabet -ldashercore -ldasherlm -ldasheralphabet
 
 pkgdata_DATA = dasher.glade dashermaemo.glade

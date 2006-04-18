@@ -35,9 +35,6 @@
 
 #include "dasher.h"
 #include "DasherControl.h"
-#include "Menu.h"
-#include "FontDialogues.h"
-#include "dasher_lock_dialogue.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
@@ -189,111 +186,45 @@ int main(int argc, char *argv[]) {
   gnome_vfs_init();
 #endif
 
-
-//   // TODO: Do we really need thread support still?
-
-//   // We need thread support for updating the splash window while
-//   // training...
-
-// #ifndef GNOME_LIBS
-//   if (!g_thread_supported()) 
-//     g_thread_init(NULL);
-// #endif
-
-
-
-  //  g_type_class_ref(dasher_gtk_text_view_get_type());
-
   g_set_application_name("Dasher");
 #ifndef WITH_MAEMO
   gtk_window_set_default_icon_name("dasher");
 #endif
 
 
-  // Initialise the main window and show it
-
+  // Create a main app object
   g_pEditor = dasher_editor_new(argc, argv);
 
-
-  GladeXML *pGladeXML;
-  pGladeXML = dasher_main_get_glade(g_pDasherMain);
-
-  //  dasher_accel = gtk_accel_group_new(); //?
-
-  //    widgets = pGladeXML;          // obsolete? NO - used later in this file, but should be
-  // Grab some pointers to important GTK widgets from the Glade XML
-  // FIXME - do we actually need all of these?
+  GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
 
   window = glade_xml_get_widget(pGladeXML, "window");
-
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
-  dasher_menu_bar = glade_xml_get_widget(pGladeXML, "dasher_menu_bar");
-  pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
   the_text_view = glade_xml_get_widget(pGladeXML, "the_text_view");
   the_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(the_text_view));
-
-  g_signal_connect(G_OBJECT(the_text_view), "button-release-event", G_CALLBACK(take_real_focus), NULL);
-
-  g_signal_connect(G_OBJECT(the_text_view), "key-press-event", G_CALLBACK(edit_key_press), NULL);
-  g_signal_connect(G_OBJECT(the_text_view), "key-release-event", G_CALLBACK(edit_key_release), NULL);
-
-
-  dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(window));
-
-
-//   int min, max;
-//   Display *dpy = gdk_x11_get_default_xdisplay();
-
-// #ifdef X_HAVE_UTF8_STRING
-//   XDisplayKeycodes(dpy, &min, &max);
-//   origkeymap = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
-// #endif
-
-
-#ifndef WITH_MAEMO
-  PopulateMenus(pGladeXML);
-#endif
-
-  g_pPreferencesDialogue = dasher_preferences_dialogue_new(pGladeXML);
-
-  InitialiseFontDialogues(pGladeXML);
   
-  dasher_main_show(g_pDasherMain);
-
   if(optind < argc) {
     if(!g_path_is_absolute(argv[optind])) {
       char *cwd;
       cwd = (char *)malloc(1024 * sizeof(char));
       getcwd(cwd, 1024);
       filename = g_build_path("/", cwd, argv[optind], NULL);
-      open_file(filename);
     }
     else {
       filename = argv[optind];
-      open_file(filename);
     }
+    dasher_editor_open(g_pEditor, filename);
   }
   else {
     // TODO: Call new routine, make generate_filename private
     dasher_editor_generate_filename(g_pEditor);
   }
-
+  
+  dasher_main_show(g_pDasherMain);
 
   gtk_main();
   
   if(g_pEditor)
     g_object_unref(G_OBJECT(g_pEditor));
-
-  // TODO: Figure out what this is supposed to do and reimplement if necessary
-  
-// #ifdef X_HAVE_UTF8_STRING
-//   // We want to set the keymap back to whatever it was before,
-//   // if that's possible
-//   int min, max;
-//   Display *dpy = gdk_x11_get_default_xdisplay();
-//   XDisplayKeycodes(dpy, &min, &max);
-//   XChangeKeyboardMapping(dpy, min, numcodes, origkeymap, (max - min));
-// #endif
 
 #ifdef GNOME_LIBS
   gnome_vfs_shutdown();
@@ -304,5 +235,9 @@ int main(int argc, char *argv[]) {
 
 void sigint_handler(int iSigNum) {
   g_message("Trapped SIGINT - attempting shutdown...");
-  gtk_main_quit();
+
+  if(g_pEditor)
+    g_object_unref(G_OBJECT(g_pEditor));
+  
+  exit(1);
 }

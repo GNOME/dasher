@@ -15,6 +15,31 @@
 #include "dasher_buffer_set.h"
 #include "dasher_external_buffer.h"
 
+// TODO: Figure out if we need this stuff and re-implement
+
+// Before...
+
+//   int min, max;
+//   Display *dpy = gdk_x11_get_default_xdisplay();
+
+// #ifdef X_HAVE_UTF8_STRING
+//   XDisplayKeycodes(dpy, &min, &max);
+//   origkeymap = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
+// #endif
+
+// And after...
+
+// #ifdef X_HAVE_UTF8_STRING
+//   // We want to set the keymap back to whatever it was before,
+//   // if that's possible
+//   int min, max;
+//   Display *dpy = gdk_x11_get_default_xdisplay();
+//   XDisplayKeycodes(dpy, &min, &max);
+//   XChangeKeyboardMapping(dpy, min, numcodes, origkeymap, (max - min));
+// #endif
+
+// ---
+
 static void dasher_external_buffer_class_init(DasherExternalBufferClass *pClass);
 static void dasher_external_buffer_init(DasherExternalBuffer *pAction);
 static void dasher_external_buffer_destroy(GObject *pObject);

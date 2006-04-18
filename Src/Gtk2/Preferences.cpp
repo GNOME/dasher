@@ -75,7 +75,6 @@ void PopulateButtonsPage(GladeXML * pGladeWidgets);
 void PopulateButtonSetupPage(GladeXML * pGladeWidgets);
 void PopulateSocketPage(GladeXML * pGladeWidgets);
 void PopulateAdvancedPage(GladeXML *pGladeWidgets);
-void PopulateActionsList(GladeXML *pGladeWidgets);
 
 void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
 void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter);
@@ -133,6 +132,8 @@ struct TrainingThreadData {
 
 struct _DasherPreferencesDialoguePrivate {
   GtkWindow *pWindow;
+  DasherEditor *pEditor;
+  GtkWidget *pActionTreeView;
 };
 
 typedef struct _DasherPreferencesDialoguePrivate DasherPreferencesDialoguePrivate;
@@ -186,15 +187,19 @@ static void dasher_preferences_dialogue_destroy(GObject *pObject) {
 
 // Public methods
 
-DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets) {
+DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor) {
   DasherPreferencesDialogue *pDasherControl;
   pDasherControl = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
   DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pDasherControl->private_data);
+
+  pPrivate->pEditor = pEditor;
 
   widgets = pGladeWidgets;
 
   preferences_window = glade_xml_get_widget(pGladeWidgets, "preferences");
   pPrivate->pWindow = GTK_WINDOW(preferences_window);
+
+  pPrivate->pActionTreeView =glade_xml_get_widget(pGladeWidgets, "action_tree_view");
 
   gtk_window_set_transient_for(GTK_WINDOW(preferences_window), GTK_WINDOW(window));
 
@@ -215,7 +220,6 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   PopulateButtonSetupPage(pGladeWidgets);
   PopulateSocketPage(pGladeWidgets);
   PopulateAdvancedPage(pGladeWidgets);
-  PopulateActionsList(pGladeWidgets);
 
 #ifndef GNOME_SPEECH
   // This ought to be greyed out if not built with speech support
@@ -375,6 +379,71 @@ void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialog
   }
 }
 
+
+void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf) {
+  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
+  
+  g_pStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
+
+  GtkTreeIter oIter;
+
+  dasher_editor_actions_start(pPrivate->pEditor);
+
+  while(dasher_editor_actions_more(pPrivate->pEditor)) {
+    gtk_list_store_append(g_pStore, &oIter);
+
+    const gchar *szName;
+    gint iID;
+    gboolean bShow;
+    gboolean bControl;
+    gboolean bAuto;
+
+    dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
+
+    gtk_list_store_set(g_pStore, &oIter, 
+		       ACTIONS_ID_COLUMN, iID,
+		       ACTIONS_NAME_COLUMN, szName,
+		       ACTIONS_SHOW_COLUMN, bShow,
+		       ACTIONS_CONTROL_COLUMN, bControl,
+		       ACTIONS_AUTO_COLUMN, bAuto,
+		       -1);
+  }
+  
+  GtkCellRenderer *pRenderer;
+  GtkTreeViewColumn *pColumn;
+  
+  // TODO: (small) memory leak here at the moment
+  gint *pColumnIndex = new gint[3];
+  pColumnIndex[0] = ACTIONS_SHOW_COLUMN;
+  pColumnIndex[1] = ACTIONS_CONTROL_COLUMN;
+  pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
+
+  pRenderer = gtk_cell_renderer_text_new();
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
+  pColumn = gtk_tree_view_column_new_with_attributes("Show", pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
+  pColumn = gtk_tree_view_column_new_with_attributes("Control", pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
+  pColumn = gtk_tree_view_column_new_with_attributes("Auto", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+
+  gtk_tree_view_set_model(GTK_TREE_VIEW(pPrivate->pActionTreeView), GTK_TREE_MODEL(g_pStore));
+
+  // New input filter selection
+
+//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_filter_tree_view")), SP_INPUT_FILTER);
+//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_tree_view")), SP_INPUT_DEVICE);
+}
 
 /// Older stuff
 
@@ -1507,71 +1576,6 @@ extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
       }
     }
   }
-}
-
-void PopulateActionsList(GladeXML *pGladeWidgets) {
-  GtkWidget *pTreeView(glade_xml_get_widget(pGladeWidgets, "action_tree_view"));
-
-  g_pStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
-
-  GtkTreeIter oIter;
-
-  dasher_editor_actions_start(g_pEditor);
-
-  while(dasher_editor_actions_more(g_pEditor)) {
-    gtk_list_store_append(g_pStore, &oIter);
-
-    const gchar *szName;
-    gint iID;
-    gboolean bShow;
-    gboolean bControl;
-    gboolean bAuto;
-
-    dasher_editor_actions_get_next(g_pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
-
-    gtk_list_store_set(g_pStore, &oIter, 
-		       ACTIONS_ID_COLUMN, iID,
-		       ACTIONS_NAME_COLUMN, szName,
-		       ACTIONS_SHOW_COLUMN, bShow,
-		       ACTIONS_CONTROL_COLUMN, bControl,
-		       ACTIONS_AUTO_COLUMN, bAuto,
-		       -1);
-  }
-  
-  GtkCellRenderer *pRenderer;
-  GtkTreeViewColumn *pColumn;
-  
-  // TODO: (small) memory leak here at the moment
-  gint *pColumnIndex = new gint[3];
-  pColumnIndex[0] = ACTIONS_SHOW_COLUMN;
-  pColumnIndex[1] = ACTIONS_CONTROL_COLUMN;
-  pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
-
-  pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
-
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
-  pColumn = gtk_tree_view_column_new_with_attributes("Show", pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
-
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
-  pColumn = gtk_tree_view_column_new_with_attributes("Control", pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
-
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
-  pColumn = gtk_tree_view_column_new_with_attributes("Auto", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pTreeView), pColumn);
-
-  gtk_tree_view_set_model(GTK_TREE_VIEW(pTreeView), GTK_TREE_MODEL(g_pStore));
-
-  // New input filter selection
-
-//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_filter_tree_view")), SP_INPUT_FILTER);
-//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_tree_view")), SP_INPUT_DEVICE);
 }
 
 void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter) {

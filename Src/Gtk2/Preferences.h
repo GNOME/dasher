@@ -8,6 +8,7 @@
 #include <gtk/gtk.h>
 
 #include "DasherAppSettings.h"
+#include "dasher_editor.h"
 
 G_BEGIN_DECLS
 #define TYPE_DASHER_PREFERENCES_DIALOGUE            (dasher_preferences_dialogue_get_type())
@@ -25,14 +26,16 @@ struct _DasherPreferencesDialogue {
   gpointer private_data;
 };
 
+
 struct _DasherPreferencesDialogueClass {
   GObjectClass parent_class;
 };
 
-DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets);
+DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor);
 GType dasher_preferences_dialogue_get_type();
 void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf);
 void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialogue *pSelf, int iParameter);
+void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf);
 G_END_DECLS
 
 #endif

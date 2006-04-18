@@ -10,6 +10,7 @@
 #endif
 #include "dasher_main.h"
 #include "GtkDasherControl.h"
+#include "Menu.cc"
 
 struct _DasherMainPrivate {
   GladeXML *pGladeXML;
@@ -39,6 +40,11 @@ static GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf);
 static void dasher_main_on_map(DasherMain *pSelf);
 static void dasher_main_setup_window_position(DasherMain *pSelf);
 static void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost);
+
+// Private functions not in class
+extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
+extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 
 GType dasher_main_get_type() {
 
@@ -127,6 +133,12 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pMainWindow = glade_xml_get_widget(pPrivate->pGladeXML, "window");
   pPrivate->pToolbar = glade_xml_get_widget(pPrivate->pGladeXML, "toolbar");
 
+  // TODO: Specify callbacks in glade file
+  // TODO: Rationalise focus
+  g_signal_connect(G_OBJECT(pPrivate->pBufferView), "button-release-event", G_CALLBACK(take_real_focus), NULL);
+  g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-press-event", G_CALLBACK(edit_key_press), NULL);
+  g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-release-event", G_CALLBACK(edit_key_release), NULL);
+
   // Create a Maemo helper if necessary
 #ifdef WITH_MAEMO
   pPrivate->pMaemoHelper = dasher_maemo_helper_new(pPrivate->pBufferView);
@@ -166,6 +178,11 @@ GladeXML *dasher_main_get_glade(DasherMain *pSelf) {
   return pPrivate->pGladeXML;
 }
 
+GtkWidget *dasher_main_get_window(DasherMain *pSelf) {
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+  return pPrivate->pMainWindow;
+}
+
 void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSettings) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
   pPrivate->pAppSettings = pAppSettings;
@@ -174,6 +191,10 @@ void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSett
   // values
   
 #ifndef WITH_MAEMO
+  // TODO: bring into object framework
+  PopulateMenus(pPrivate->pGladeXML);
+
+
   if(dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_TOOLBAR)) {
     gtk_widget_show(pPrivate->pToolbar);
   }
