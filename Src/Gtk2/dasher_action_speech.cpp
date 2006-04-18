@@ -137,13 +137,6 @@ DasherActionSpeech *dasher_action_speech_new() {
   DasherActionSpeech *pDasherControl;
   pDasherControl = (DasherActionSpeech *)(g_object_new(dasher_action_speech_get_type(), NULL));
 
-  if(!bonobo_is_initialized()) {
-    if(!bonobo_init(&argc, argv)) {
-      g_error("Can't initialize Bonobo...\n");
-    }
-    bonobo_activate();
-  }
-
   return pDasherControl;
 }
 

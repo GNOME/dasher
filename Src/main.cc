@@ -182,8 +182,16 @@ int main(int argc, char *argv[]) {
      GNOME_PARAM_NONE);
 #endif
 
-
   gnome_vfs_init();
+#endif
+
+#if (defined GNOME_SPEECH || defined GNOME_A11Y)
+  if(!bonobo_is_initialized()) {
+    if(!bonobo_init(&argc, argv)) {
+      g_error("Can't initialize Bonobo...\n");
+    }
+    bonobo_activate();
+  }
 #endif
 
   g_set_application_name("Dasher");
