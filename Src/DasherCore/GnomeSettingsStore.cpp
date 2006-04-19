@@ -90,6 +90,7 @@ bool CGnomeSettingsStore::LoadSetting(const std::string &Key, std::string *Value
   GConfValue *got_value = gconf_client_get_without_default(the_gconf_client, keypath, &the_error);
 
   if(got_value == NULL) {
+    g_warning(the_error->message);
     return false;
   }
 

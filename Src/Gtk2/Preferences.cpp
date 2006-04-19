@@ -188,6 +188,9 @@ static void dasher_preferences_dialogue_destroy(GObject *pObject) {
 // Public methods
 
 DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor) {
+
+  g_message("Creating preferences dialogue");
+
   DasherPreferencesDialogue *pDasherControl;
   pDasherControl = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
   DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pDasherControl->private_data);

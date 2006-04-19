@@ -102,7 +102,7 @@ double g_dYFraction = 0.25; // Fraction of the height of the screen to use;
 
 /// Old stuff from edit.cc
 
-DasherEditor *g_pEditor;
+DasherEditor *g_pEditor = 0;
 
 GtkWidget *the_text_view;
 GtkTextBuffer *the_text_buffer;

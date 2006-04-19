@@ -698,33 +698,39 @@ bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bA
 
 // Callbacks
 
-extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData) {
+extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
   void **pPointers((void **)pUserData);
   dasher_editor_action_button((DasherEditor *)pPointers[0], (DasherAction *)pPointers[1]);
 }
 
-extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data) {
-  dasher_editor_handle_parameter_change(g_pEditor, iParameter);
+extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data) { 
+  if(g_pEditor)
+    dasher_editor_handle_parameter_change(g_pEditor, iParameter);
 }
 
-extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data) {
-  dasher_editor_handle_start(g_pEditor);
+extern "C" void handle_start_event(GtkDasherControl *pDasherControl, gpointer data) { 
+  if(g_pEditor)
+    dasher_editor_handle_start(g_pEditor);
 }
 
 extern "C" void handle_stop_event(GtkDasherControl *pDasherControl, gpointer data) {
-  dasher_editor_handle_stop(g_pEditor);
+  if(g_pEditor)
+    dasher_editor_handle_stop(g_pEditor);
 }
 
-extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) {
-  dasher_editor_refresh_context(g_pEditor, iMaxLength);
+extern "C" void handle_context_request(GtkDasherControl * pDasherControl, gint iMaxLength, gpointer data) { 
+  if(g_pEditor)
+    dasher_editor_refresh_context(g_pEditor, iMaxLength);
 }
 
-extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) {
-  dasher_editor_handle_control(g_pEditor, iEvent);
+extern "C" void handle_control_event(GtkDasherControl *pDasherControl, gint iEvent, gpointer data) { 
+  if(g_pEditor)
+    dasher_editor_handle_control(g_pEditor, iEvent);
 }
 
 extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageInfo, gpointer pUserData) {
-  dasher_editor_display_message(g_pEditor, (DasherMessageInfo *)pMessageInfo);
+ if(g_pEditor)
+   dasher_editor_display_message(g_pEditor, (DasherMessageInfo *)pMessageInfo);
 }
 
 // TODO: The following two should probably be made the same

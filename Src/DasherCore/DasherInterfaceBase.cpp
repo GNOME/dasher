@@ -419,6 +419,9 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 }
 
 void CDasherInterfaceBase::CreateInput() {
+
+  std::cout << "Creating input device: " << GetStringParameter(SP_INPUT_DEVICE) << std::endl;
+
   // FIXME - this shouldn't be the model used here - we should just change a parameter and work from the appropriate listener
 
   if(m_pInput) {

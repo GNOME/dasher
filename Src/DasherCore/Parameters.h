@@ -188,7 +188,7 @@ static sp_table stringparamtable[] = {
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
   {SP_INPUT_FILTER, "InputFilter", PERS, "Normal Control", "Input filter used to provide the current control mode"},
-  {SP_INPUT_DEVICE, "InputDevice", PERS, "", "Driver for the input device"}
+  {SP_INPUT_DEVICE, "InputDevice", PERS, "Mouse Input", "Driver for the input device"}
 };
 
 // This is the structure of each table that the settings will access
