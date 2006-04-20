@@ -228,10 +228,10 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   PopulateSocketPage(pGladeWidgets);
   PopulateAdvancedPage(pGladeWidgets);
 
-#ifndef GNOME_SPEECH
-  // This ought to be greyed out if not built with speech support
-  gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "speakbutton"), false);
-#endif
+// #ifndef GNOME_SPEECH
+//   // This ought to be greyed out if not built with speech support
+//   gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "speakbutton"), false);
+// #endif
 
 #ifndef JAPANESE
   gtk_widget_hide(glade_xml_get_widget(pGladeWidgets, "radiobutton9"));
@@ -436,17 +436,14 @@ void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSe
 void PopulateControlPage(GladeXML *pGladeWidgets) {
   double dNewValue = dasher_app_settings_get_long(g_pDasherAppSettings, LP_MAX_BITRATE) / 100.0;
   gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue); 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), getBool(BP_NUMBER_DIMENSIONS));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), getBool(BP_EYETRACKER_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "clickmodebutton")), getBool(BP_CLICK_MODE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEY_CONTROL));
+//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "onedbutton")), getBool(BP_NUMBER_DIMENSIONS));
+//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "eyetrackerbutton")), getBool(BP_EYETRACKER_MODE));
+//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "clickmodebutton")), getBool(BP_CLICK_MODE));
+//  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "keyboardbutton")), getBool(BP_KEY_CONTROL));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), getBool(BP_START_MOUSE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), getBool(BP_START_SPACE));
-   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "copyallstopbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_COPY_ALL_ON_STOP));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "speakbutton")), dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_SPEECH_MODE));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), getBool(BP_AUTO_SPEEDCONTROL));
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "control_controlmode")), getBool(BP_CONTROL_MODE));
-
 
   m_pMousePosButton = glade_xml_get_widget(pGladeWidgets, "mouseposbutton");
   m_pMousePosStyle = glade_xml_get_widget(pGladeWidgets, "MousePosStyle");
@@ -595,7 +592,7 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
 
 
 void PopulateSocketPage(GladeXML *pGladeWidgets) {
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "cb_socketenable")), getBool(BP_SOCKET_INPUT_ENABLE));
+//   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "cb_socketenable")), getBool(BP_SOCKET_INPUT_ENABLE));
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(glade_xml_get_widget(pGladeWidgets, "socketport")), (double) getLong(LP_SOCKET_PORT));
 
   gtk_entry_set_text(GTK_ENTRY(glade_xml_get_widget(pGladeWidgets, "entrysocketxlabel")), getString(SP_SOCKET_INPUT_X_LABEL));
@@ -818,7 +815,7 @@ void generate_preferences(GladeXML *pGladeWidgets) {
 //   // Connect up a signal so we can select a new colour scheme
 //   g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "autocolour")), !getBool(BP_PALETTE_CHANGE)); 
+  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "manual_colour")), !getBool(BP_PALETTE_CHANGE)); 
   gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "ColorTree"), !getBool(BP_PALETTE_CHANGE));
 }
 

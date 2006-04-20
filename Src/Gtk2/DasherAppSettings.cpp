@@ -125,7 +125,7 @@ static void dasher_app_settings_load(DasherAppSettings *pSelf) {
     if(app_boolparamtable[i].persistent) {
       gchar szName[256];
     
-      strncpy(szName, "/apps/dasher/", 256);
+      strncpy(szName, "/apps/dasher4/", 256);
       strncat(szName,  app_boolparamtable[i].regName, 255 - strlen( szName ));
 
       pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
@@ -142,12 +142,15 @@ static void dasher_app_settings_load(DasherAppSettings *pSelf) {
     if(app_longparamtable[i].persistent) {
       gchar szName[256];
     
-      strncpy(szName, "/apps/dasher/", 256);
+      strncpy(szName, "/apps/dasher4/", 256);
       strncat(szName,  app_longparamtable[i].regName, 255 - strlen( szName ));
 
       pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
+
+      g_message("gconf: %d, %d, %s", i, pGConfValue, szName);
       
       if(pGConfValue) {
+	g_message("%d", gconf_value_get_int(pGConfValue));
 	app_longparamtable[i].value = gconf_value_get_int(pGConfValue);
 
 	gconf_value_free(pGConfValue);
@@ -159,7 +162,7 @@ static void dasher_app_settings_load(DasherAppSettings *pSelf) {
     if(app_stringparamtable[i].persistent) {
       gchar szName[256];
     
-      strncpy(szName, "/apps/dasher/", 256);
+      strncpy(szName, "/apps/dasher4/", 256);
       strncat(szName,  app_stringparamtable[i].regName, 255 - strlen( szName ));
 
       pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
@@ -208,19 +211,22 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
     gtk_dasher_control_reset_parameter(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
     return;
   }
-  else if(iParameter < END_OF_APP_BPS)
-    app_boolparamtable[ iParameter - FIRST_APP_BP ].value = app_boolparamtable[ iParameter - FIRST_APP_BP ].bDefaultValue;
-  else if(iParameter < END_OF_APP_LPS)
-    app_longparamtable[ iParameter - FIRST_APP_LP ].value = app_longparamtable[ iParameter - FIRST_APP_LP ].iDefaultValue; 
   else {
-    delete[] app_stringparamtable[iParameter - FIRST_APP_SP].value;
+    pre_parameter_notification(0, iParameter, 0);
     
-    gchar *szNew;
-    szNew = new gchar[strlen(app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue) + 1];
-    strcpy(szNew, app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue);
-    app_stringparamtable[iParameter - FIRST_APP_SP].value = szNew;
+    if(iParameter < END_OF_APP_BPS)
+      app_boolparamtable[ iParameter - FIRST_APP_BP ].value = app_boolparamtable[ iParameter - FIRST_APP_BP ].bDefaultValue;
+    else if(iParameter < END_OF_APP_LPS)
+      app_longparamtable[ iParameter - FIRST_APP_LP ].value = app_longparamtable[ iParameter - FIRST_APP_LP ].iDefaultValue; 
+    else {
+      delete[] app_stringparamtable[iParameter - FIRST_APP_SP].value;
+      
+      gchar *szNew;
+      szNew = new gchar[strlen(app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue) + 1];
+      strcpy(szNew, app_stringparamtable[iParameter - FIRST_APP_SP].szDefaultValue);
+      app_stringparamtable[iParameter - FIRST_APP_SP].value = szNew;
+    }
   }
-  
   // TODO: Use real signals to achieve this
   parameter_notification(0, iParameter, 0);
 }
@@ -237,15 +243,17 @@ bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) {
 void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool bValue) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
-    if( iParameter < END_OF_BPS )
+  if( iParameter < END_OF_BPS )
     gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter, bValue);
   else {
+    pre_parameter_notification(0, iParameter, 0);
+
     app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
 #ifdef WITH_GCONF    
     if(app_boolparamtable[ iParameter - FIRST_APP_BP ].persistent) {
       gchar szName[256];
       
-      strncpy(szName, "/apps/dasher/", 256);
+      strncpy(szName, "/apps/dasher4/", 256);
       strncat(szName,  app_boolparamtable[ iParameter - FIRST_APP_BP ].regName, 255 - strlen( szName ));
       
       GError *pGConfError = NULL;
@@ -261,6 +269,10 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
 gint dasher_app_settings_get_long(DasherAppSettings *pSelf, int iParameter) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
+  if(iParameter == APP_LP_DOCK_STYLE) {
+    g_message("Getting dock style: %d %d", iParameter < END_OF_LPS, app_longparamtable[ iParameter - FIRST_APP_LP ].value);
+  }
+
    if( iParameter < END_OF_LPS)
     return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
@@ -274,13 +286,15 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
     if( iParameter < END_OF_LPS)
     gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter, iValue);
   else {
+    pre_parameter_notification(0, iParameter, 0);
+
     app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
 
 #ifdef WITH_GCONF    
     if(app_longparamtable[ iParameter - FIRST_APP_LP ].persistent) {
       gchar szName[256];
       
-      strncpy(szName, "/apps/dasher/", 256);
+      strncpy(szName, "/apps/dasher4/", 256);
       strncat(szName,  app_longparamtable[ iParameter - FIRST_APP_LP ].regName, 255 - strlen( szName ));
       
       GError *pGConfError = NULL;
@@ -308,6 +322,7 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
    if( iParameter < END_OF_SPS )
     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
   else {
+    pre_parameter_notification(0, iParameter, 0);
     
     delete[] app_stringparamtable[ iParameter - FIRST_APP_SP ].value;
     
@@ -321,7 +336,7 @@ void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, co
     if(app_stringparamtable[ iParameter - FIRST_APP_SP ].persistent) {
       gchar szName[256];
       
-      strncpy(szName, "/apps/dasher/", 256);
+      strncpy(szName, "/apps/dasher4/", 256);
       strncat(szName,  app_stringparamtable[ iParameter - FIRST_APP_SP ].regName, 255 - strlen( szName ));
       
       GError *pGConfError = NULL;

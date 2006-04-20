@@ -67,7 +67,6 @@ if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
   /// Draw the crosshair
 
   inline void CDasherViewSquare::Crosshair(myint sx) {
-	return;
     myint x[2];
     myint y[2];
 

@@ -243,6 +243,12 @@ int main(int argc, char *argv[]) {
 
 void sigint_handler(int iSigNum) {
   g_message("Trapped SIGINT - attempting shutdown...");
-
-  gtk_main_quit();  
+  if(gtk_main_level() > 0)
+    gtk_main_quit();  
+  else {
+    if(g_pEditor)
+      g_object_unref(G_OBJECT(g_pEditor));
+    
+    exit(0);
+  }
 }

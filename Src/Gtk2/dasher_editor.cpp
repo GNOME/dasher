@@ -71,6 +71,8 @@ void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction);
 EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID);
 void dasher_editor_rebuild_action_pane(DasherEditor *pSelf);
 void dasher_editor_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
+void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
+void dasher_editor_handle_pre_parameter_change(DasherEditor *pSelf, int iParameter);
 
 // Private methods not in class
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
@@ -338,6 +340,10 @@ void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter) 
 
   dasher_preferences_dialogue_handle_parameter_change(g_pPreferencesDialogue, iParameter);
   dasher_main_handle_parameter_change(g_pDasherMain, iParameter);
+}
+
+void dasher_editor_handle_pre_parameter_change(DasherEditor *pSelf, int iParameter) {
+  dasher_main_handle_pre_parameter_change(g_pDasherMain, iParameter);
 }
 
 void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
@@ -701,6 +707,12 @@ bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bA
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
   void **pPointers((void **)pUserData);
   dasher_editor_action_button((DasherEditor *)pPointers[0], (DasherAction *)pPointers[1]);
+}
+
+// NOTE: The next two aren't real signals
+extern "C" void pre_parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data) { 
+  if(g_pEditor)
+    dasher_editor_handle_pre_parameter_change(g_pEditor, iParameter);
 }
 
 extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data) { 

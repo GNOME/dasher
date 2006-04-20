@@ -83,7 +83,7 @@
 		  </child>
 
 		  <child>
-		    <widget class="GtkMenuItem" id="separator1">
+		    <widget class="GtkSeparatorMenuItem" id="separator1">
 		      <property name="visible">True</property>
 		    </widget>
 		  </child>
@@ -209,8 +209,8 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Normal</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">True</property>
-			      <signal name="activate" handler="set_dasher_fontsize" after="yes" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
+			      <property name="active">False</property>
+			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
 			  </child>
 
@@ -221,7 +221,7 @@
 			      <property name="use_underline">True</property>
 			      <property name="active">False</property>
 			      <property name="group">fontsizenormal</property>
-			      <signal name="activate" handler="set_dasher_fontsize" after="yes" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
+			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
 			  </child>
 
@@ -230,9 +230,9 @@
 			      <property name="visible">True</property>
 			      <property name="label" translatable="yes">Very Large</property>
 			      <property name="use_underline">True</property>
-			      <property name="active">False</property>
+			      <property name="active">True</property>
 			      <property name="group">fontsizenormal</property>
-			      <signal name="activate" handler="set_dasher_fontsize" after="yes" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
+			      <signal name="activate" handler="set_dasher_fontsize" last_modification_time="Wed, 24 Sep 2003 12:21:00 GMT"/>
 			    </widget>
 			  </child>
 			</widget>
@@ -263,11 +263,44 @@
 		<widget class="GtkMenu" id="menuitem7_menu">
 
 		  <child>
-		    <widget class="GtkMenuItem" id="menuabout">
+		    <widget class="GtkImageMenuItem" id="help_contents">
+		      <property name="visible">True</property>
+		      <property name="label" translatable="yes">_Contents</property>
+		      <property name="use_underline">True</property>
+		      <signal name="activate" handler="show_help" last_modification_time="Thu, 20 Apr 2006 18:51:53 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image1">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-help</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
+		    </widget>
+		  </child>
+
+		  <child>
+		    <widget class="GtkImageMenuItem" id="menuabout">
 		      <property name="visible">True</property>
 		      <property name="label" translatable="yes">_About</property>
 		      <property name="use_underline">True</property>
 		      <signal name="activate" handler="about_dasher" last_modification_time="Tue, 23 Sep 2003 11:21:50 GMT"/>
+
+		      <child internal-child="image">
+			<widget class="GtkImage" id="image2">
+			  <property name="visible">True</property>
+			  <property name="stock">gtk-about</property>
+			  <property name="icon_size">1</property>
+			  <property name="xalign">0.5</property>
+			  <property name="yalign">0.5</property>
+			  <property name="xpad">0</property>
+			  <property name="ypad">0</property>
+			</widget>
+		      </child>
 		    </widget>
 		  </child>
 		</widget>
@@ -454,7 +487,7 @@
 	  </child>
 
 	  <child>
-	    <widget class="GtkVBox" id="vbox40">
+	    <widget class="GtkHBox" id="vbox40">
 	      <property name="visible">True</property>
 	      <property name="homogeneous">False</property>
 	      <property name="spacing">0</property>
@@ -492,8 +525,6 @@
 			  <property name="right_margin">0</property>
 			  <property name="indent">0</property>
 			  <property name="text" translatable="yes"></property>
-			  <signal name="button_release_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:01:59 GMT"/>
-			  <signal name="key_press_event" handler="edit_button_release_event" after="yes" last_modification_time="Thu, 25 Sep 2003 23:02:05 GMT"/>
 			</widget>
 		      </child>
 		    </widget>
@@ -522,7 +553,7 @@
 		<packing>
 		  <property name="padding">0</property>
 		  <property name="expand">False</property>
-		  <property name="fill">False</property>
+		  <property name="fill">True</property>
 		</packing>
 	      </child>
 	    </widget>
@@ -2642,7 +2673,6 @@ You must have gconf-editor installed and available in your path in order to acce
       <property name="can_focus">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:14 GMT"/>
     </widget>
   </child>
 
@@ -2857,7 +2887,6 @@ You must have gconf-editor installed and available in your path in order to acce
       <property name="can_focus">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:14 GMT"/>
     </widget>
   </child>
 
@@ -2895,7 +2924,6 @@ You must have gconf-editor installed and available in your path in order to acce
       <property name="can_focus">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:14 GMT"/>
     </widget>
   </child>
 
@@ -2933,7 +2961,6 @@ You must have gconf-editor installed and available in your path in order to acce
       <property name="can_focus">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:14 GMT"/>
     </widget>
   </child>
 
@@ -2971,7 +2998,6 @@ You must have gconf-editor installed and available in your path in order to acce
       <property name="can_focus">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="filesel_hide" last_modification_time="Tue, 23 Sep 2003 13:19:14 GMT"/>
     </widget>
   </child>
 
@@ -3481,7 +3507,6 @@ You must have gconf-editor installed and available in your path in order to acce
 		  <property name="active">False</property>
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
-		  <signal name="clicked" handler="button_pulsing_mode" last_modification_time="Tue, 28 Jun 2005 17:51:14 GMT"/>
 		</widget>
 		<packing>
 		  <property name="left_attach">0</property>
@@ -3506,7 +3531,6 @@ You must have gconf-editor installed and available in your path in order to acce
 		  <property name="inconsistent">False</property>
 		  <property name="draw_indicator">True</property>
 		  <property name="group">pulsingmodebutton</property>
-		  <signal name="clicked" handler="button_steady_mode" last_modification_time="Tue, 28 Jun 2005 17:51:41 GMT"/>
 		</widget>
 		<packing>
 		  <property name="left_attach">0</property>
@@ -4361,7 +4385,6 @@ You must have gconf-editor installed and available in your path in order to acce
       <property name="use_underline">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="RestoreButton_Clicked" last_modification_time="Mon, 23 Jan 2006 17:43:42 GMT"/>
     </widget>
   </child>
 </widget>

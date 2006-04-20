@@ -67,8 +67,11 @@ app_lp_table app_longparamtable[] = {
   {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, -2, "FileEncodingFormat"},
   {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, 1, "EditFontSize"},
   {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, 75, "EditHeight0"},
+  {APP_LP_EDIT_WIDTH, "EditWidth", PERS, 75, 75, "EditWidth"},
   {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, 400, "ScreenWidth"},
   {APP_LP_SCREEN_HEIGHT, "ScreenHeight", PERS, 500, 500, "ScreenHeight"},
+  {APP_LP_SCREEN_WIDTH_H, "ScreenWidthH", PERS, 400, 400, "ScreenWidth"},
+  {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", PERS, 500, 500, "ScreenHeight"},
   {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
   {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"}
 };
