@@ -3,7 +3,12 @@
 
 #include "UserLog.h"
 #include <fstream>
+
+#ifdef _WIN32
+#include <sys/timeb.h>
+#else
 #include <sys/time.h>
+#endif
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -650,13 +655,21 @@ void CUserLog::SetOuputFilename(const string& strFilename)
   {
     m_strFilename = USER_LOG_DETAILED_PREFIX;
 
+#ifdef _WIN32
+    struct timeb sTimeBuffer;
+#else
     struct timeval sTimeBuffer;
     struct timezone sTimezoneBuffer;
+#endif
     char* szTimeLine = NULL;
-    
-    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
 
+#ifdef _WIN32
+    ftime(&sTimeBuffer);
+    szTimeLine = ctime(&(sTimeBuffer.time));
+#else
+    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
     szTimeLine = ctime(&(sTimeBuffer.tv_sec));
+#endif
 
     if ((szTimeLine != NULL) && (strlen(szTimeLine) > 18))
     {
@@ -856,13 +869,22 @@ bool CUserLog::UpdateMouseLocation()
 {
   //CFunctionLogger f1("CUserLog::UpdateMouseLocation", g_pLogger);
 
+#ifdef _WIN32
+  struct timeb sTimeBuffer;
+#else
   struct timeval sTimeBuffer;
   struct timezone sTimezoneBuffer;
-  
-  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-  
-  double dTime = (sTimeBuffer.tv_sec * 1000.0) + sTimeBuffer.tv_usec / 1000;
+#endif
 
+#ifdef _WIN32
+  ftime(&sTimeBuffer);
+  double dTime = (sTimeBuffer.time * 1000.0) + sTimeBuffer.millitm;
+#else
+  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
+  double dTime = (sTimeBuffer.tv_sec * 1000.0) + sTimeBuffer.tv_usec / 1000;
+#endif
+
+  
   if ((dTime - m_dLastMouseUpdate) > LOG_MOUSE_EVERY_MS)
   {
     m_dLastMouseUpdate = dTime;

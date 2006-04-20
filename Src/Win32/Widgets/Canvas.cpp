@@ -6,15 +6,13 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "WinCommon.h"
+#include "..\Common\WinCommon.h"
 
 #include "Canvas.h"
 //#include "Edit.h"
 #include "../Dasher.h"
 #include "../DasherInterface.h"
-#include "../DasherMouseInput.h"
-#include "../Sockets/SocketInput.h"
-#include "../../DasherCore/WrapperFactory.h"
+
 
 
 #define PRESSED		0x8000
@@ -26,10 +24,10 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CCanvas::CCanvas(CDasherInterface *DI)
+CCanvas::CCanvas(CDasherInterface *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore)
 	:m_pDasherInterface(DI), imousex(0), imousey(0), buttonnum(0), mousepostime(0) ,
 	m_dwTicksLastEvent(0), m_bButtonDown(false), m_pScreen(0),
-	CDasherComponent(DI->GetEventHandler(), DI->CreateSettingsStore())
+	CDasherComponent(pEventHandler, pSettingsStore)
 
 {
 
@@ -60,23 +58,23 @@ HWND CCanvas::Create(HWND hParent)
 
   // CreateSettingsStore only creates a new one if there isn't one there already
 
-  m_pDasherInterface->RegisterFactory(new CWrapperFactory(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore(), new CSocketInput(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore())));
-  m_pDasherInterface->RegisterFactory(new CWrapperFactory(m_pDasherInterface->GetEventHandler(), m_pDasherInterface->CreateSettingsStore(),  new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, hWnd)));
 
- 	m_pSocketInput = (CSocketInput *)m_pDasherInterface->GetModule(1);
-  m_pSocketInput->Ref();
+// TODO: Reimplement?
 
-	m_pMouseInput = (CDasherMouseInput *)m_pDasherInterface->GetModule(0); 
-  m_pMouseInput->Ref();
+ //	m_pSocketInput = (CSocketInput *)m_pDasherInterface->GetModule(1);
+ // m_pSocketInput->Ref();
 
-	if(m_pDasherInterface->GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) 
+	//m_pMouseInput = (CDasherMouseInput *)m_pDasherInterface->GetModule(0); 
+ // m_pMouseInput->Ref();
+
+	/*if(m_pDasherInterface->GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) 
 	{
 		m_pSocketInput->StartListening();
 		m_pDasherInterface->SetInput(1);
 	}
 	else {
 		m_pDasherInterface->SetInput(0);
-	}
+	}*/
 
 
 	m_pScreen = new CScreen(m_hdc, 300, 300);
@@ -145,12 +143,12 @@ LRESULT CCanvas::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 
 CCanvas::~CCanvas() {
   delete m_pScreen;
-  if(m_pMouseInput != NULL) {
-    delete m_pMouseInput;
-  }
-  if(m_pSocketInput != NULL) {
-    delete m_pSocketInput;
-  }
+  //if(m_pMouseInput != NULL) {
+  //  delete m_pMouseInput;
+  //}
+  //if(m_pSocketInput != NULL) {
+  //  delete m_pSocketInput;
+  //}
 }
 
 void CCanvas::Move(int x, int y, int Width, int Height) 
@@ -611,7 +609,7 @@ void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {
-    case BP_SOCKET_INPUT_ENABLE:
+  /*  case BP_SOCKET_INPUT_ENABLE:
       OutputDebugString(TEXT("Processing BP_SOCKET_INPUT_ENABLE change\n"));
       if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {
         if(!m_pSocketInput->isListening()) {
@@ -625,7 +623,7 @@ void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
         }
         m_pDasherInterface->SetInput(0);
       }
-      break;
+      break;*/
     default:
       break;
     }

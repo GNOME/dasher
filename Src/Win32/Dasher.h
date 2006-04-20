@@ -45,6 +45,12 @@ public:
 
 private:
 
+ virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
+  virtual void ScanColourFiles(std::vector<std::string> &vFileList);
+  virtual void SetupPaths();
+  virtual void SetupUI();
+  virtual int GetFileSize(const std::string &strFileName);
+
   void                    AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface * Interface);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
   void                    Log();                        // Does the logging

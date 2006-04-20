@@ -1,12 +1,17 @@
 
-#include "WinCommon.h"          // must include pch first
+#include "Common\WinCommon.h"          // must include pch first
+
+#include "../DasherCore/WrapperFactory.h"
 
 #include "Dasher.h"
 #include "../DasherCore/Event.h"
-#include "WinUTF8.h"
+#include "Common\WinUTF8.h"
 //#include "DasherWindow.h"
 #include "Widgets/Canvas.h"
 #include "Widgets/Slidebar.h"
+#include "DasherMouseInput.h"
+#include "Sockets/SocketInput.h"
+
 
 using namespace std;
 using namespace Dasher;
@@ -22,7 +27,9 @@ CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
 //void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
 void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface) 
 {
-  using namespace WinHelper;
+// TODO: Reimplement
+
+ /* using namespace WinHelper;
   using namespace WinUTF8;
 
   std::string filename;
@@ -50,7 +57,7 @@ void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Int
     }
     FindClose(handle);
 
-  }
+  }*/
 }
 
 CDasher::CDasher(HWND Parent):m_hParent(Parent) 
@@ -92,14 +99,18 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent)
   Colours = AppData;
   Colours += TEXT("colour*.xml");
   AddFiles(Alphabets, Colours, this);
-
-Realize();
+  
+  
+  Realize();
 
   SetBoolParameter(BP_COLOUR_MODE, true);
-  ChangeLanguageModel(0);
+//  ChangeLanguageModel(0);
 
-  m_pCanvas = new CCanvas(this);
+  m_pCanvas = new CCanvas(this, m_pEventHandler, m_pSettingsStore);
   m_pCanvas->Create(m_hParent); // TODO - check return 
+
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow())));
 
   m_pSlidebar = new CSlidebar(m_hParent, this, ((double)GetLongParameter(LP_MAX_BITRATE))/100.0, m_pCanvas);
 
@@ -294,33 +305,50 @@ void Dasher::CDasher::SetEdit(CDashEditbox * pEdit) {
 }
 
 void Dasher::CDasher::WriteTrainFile(const std::string &strNewText) {
+  // TODO: Reimplement
   // FIXME - use parameter
-  const string & TrainFile = GetStringParameter(SP_USER_LOC) + GetTrainFile();
-  if(TrainFile == "")
+//  const string & TrainFile = GetStringParameter(SP_USER_LOC) + GetTrainFile();
+//  if(TrainFile == "")
     return;
 
-  if(strNewText == "")
-    return;
+  //if(strNewText == "")
+  //  return;
 
-  Tstring TTrainFile;
-  UTF8string_to_wstring(TrainFile, TTrainFile);
+  //Tstring TTrainFile;
+  //UTF8string_to_wstring(TrainFile, TTrainFile);
 
-  HANDLE hFile = CreateFile(TTrainFile.c_str(),
-                            GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+  //HANDLE hFile = CreateFile(TTrainFile.c_str(),
+  //                          GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
-  if(hFile == INVALID_HANDLE_VALUE) {
-    OutputDebugString(TEXT("Can not open file\n"));
-  }
-  else {
-    DWORD NumberOfBytesWritten;
-    SetFilePointer(hFile, 0, NULL, FILE_END);
+  //if(hFile == INVALID_HANDLE_VALUE) {
+  //  OutputDebugString(TEXT("Can not open file\n"));
+  //}
+  //else {
+  //  DWORD NumberOfBytesWritten;
+  //  SetFilePointer(hFile, 0, NULL, FILE_END);
 
-  // Surely there are better ways to write to files than this??
+  //// Surely there are better ways to write to files than this??
 
-    for(unsigned int i = 0; i < strNewText.size(); i++) {
-      WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
-    }
+  //  for(unsigned int i = 0; i < strNewText.size(); i++) {
+  //    WriteFile(hFile, &strNewText[i], 1, &NumberOfBytesWritten, NULL);
+  //  }
 
-       CloseHandle(hFile);
-  }
+  //     CloseHandle(hFile);
+  //}
+}
+
+void CDasher::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
+}
+
+void CDasher::ScanColourFiles(std::vector<std::string> &vFileList) {
+}
+
+void CDasher::SetupPaths() {
+}
+
+void CDasher::SetupUI() {
+}
+
+int CDasher::GetFileSize(const std::string &strFileName) {
+  return 0;
 }

@@ -6,7 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-#include "WinCommon.h"
+#include "..\Common\WinCommon.h"
 
 #include "CursorInRange.h"
 #include <msinkaut_i.c>

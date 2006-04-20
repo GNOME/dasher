@@ -457,35 +457,37 @@ void CEdit::SetFont(string Name, long Size) {
 
 void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   CDashEditbox::SetInterface(DasherInterface);
-
-  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
+// TODO: Reimplement if necessary
+//  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
   SetFont(m_FontName, m_FontSize);
 
 }
 
 void CEdit::write_to_file() {
-  const string & TrainFile = m_pDasherInterface->GetTrainFile();
-  if(TrainFile == "")
-    return;
-  Tstring TTrainFile;
-  UTF8string_to_wstring(TrainFile, TTrainFile);
+  // TODO: Reimplement if necessary
 
-  HANDLE hFile = CreateFile(TTrainFile.c_str(),
-                            GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+  //const string & TrainFile = m_pDasherInterface->GetTrainFile();
+  //if(TrainFile == "")
+  //  return;
+  //Tstring TTrainFile;
+  //UTF8string_to_wstring(TrainFile, TTrainFile);
 
-  if(hFile == INVALID_HANDLE_VALUE) {
-    OutputDebugString(TEXT("Can not open file\n"));
-  }
-  else {
-    DWORD NumberOfBytesWritten;
-    SetFilePointer(hFile, 0, NULL, FILE_END);
-    for(unsigned int i = 0; i < m_Output.size(); i++) {
-      WriteFile(hFile, &m_Output[i], 1, &NumberOfBytesWritten, NULL);
-    }
+  //HANDLE hFile = CreateFile(TTrainFile.c_str(),
+  //                          GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
 
-    m_Output = "";
-    CloseHandle(hFile);
-  }
+  //if(hFile == INVALID_HANDLE_VALUE) {
+  //  OutputDebugString(TEXT("Can not open file\n"));
+  //}
+  //else {
+  //  DWORD NumberOfBytesWritten;
+  //  SetFilePointer(hFile, 0, NULL, FILE_END);
+  //  for(unsigned int i = 0; i < m_Output.size(); i++) {
+  //    WriteFile(hFile, &m_Output[i], 1, &NumberOfBytesWritten, NULL);
+  //  }
+
+  //  m_Output = "";
+  //  CloseHandle(hFile);
+  //}
 }
 
 void CEdit::get_new_context(string &str, int max) {

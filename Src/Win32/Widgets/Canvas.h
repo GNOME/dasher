@@ -64,7 +64,7 @@ public:
 
 	END_MSG_MAP()
 
-	CCanvas(CDasherInterface * DI);
+	CCanvas(CDasherInterface *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
 	~CCanvas();
 
 	HWND Create(HWND hParent);
@@ -158,8 +158,8 @@ private:
 
   // Input devices:
 
-  Dasher::CDasherMouseInput * m_pMouseInput;
-  Dasher::CSocketInput * m_pSocketInput;
+  //Dasher::CDasherMouseInput * m_pMouseInput;
+  //Dasher::CSocketInput * m_pSocketInput;
 
   Dasher::screenint imousex, imousey;
   UINT MY_TIMER;

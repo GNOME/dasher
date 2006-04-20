@@ -131,10 +131,11 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
 }
 
 inline HFONT& CScreen::GetFont(int iSize) {
-  if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {
+  // TODO: Reimplement
+ /* if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {
     FontName = m_pDasherInterface->GetStringParameter(SP_DASHER_FONT);
     m_cFonts.clear();
-  }
+  }*/
 
   if (iSize > 50) // ???? Is there a limit to size, should it be a setting?
     iSize = 50;

@@ -17,7 +17,7 @@
 
 #include "../DasherInterface.h"
 #include "Canvas.h"
-#include "WinWrap.h"
+#include "..\Common\WinWrap.h"
 
 class CSlidebar:public CWinWrap {
 public:

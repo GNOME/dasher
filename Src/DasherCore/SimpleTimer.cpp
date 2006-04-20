@@ -3,7 +3,11 @@
 
 #include "SimpleTimer.h"
 
+#ifdef _WIN32
+#include <sys/timeb.h>
+#else
 #include <sys/time.h>
+#endif
 
 // Track memory leaks on Windows to the line that new'd the memory
 #ifdef _WIN32
@@ -17,13 +21,23 @@ static char THIS_FILE[] = __FILE__;
 
 CSimpleTimer::CSimpleTimer()
 {
+#ifdef _WIN32
+  struct timeb sTimeBuffer;
+#else
   struct timeval sTimeBuffer;
   struct timezone sTimezoneBuffer;
+#endif
 
-  gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
+#ifdef _WIN32
+    ftime(&sTimeBuffer);
+    m_iStartMs       = sTimeBuffer.millitm;
+    m_iStartSecond   = sTimeBuffer.time;
+#else
+    gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
+    m_iStartMs       = sTimeBuffer.tv_usec / 1000;
+    m_iStartSecond   = sTimeBuffer.tv_sec;
+#endif
 
-  m_iStartMs       = sTimeBuffer.tv_usec / 1000;
-  m_iStartSecond   = sTimeBuffer.tv_sec;
 }
 
 CSimpleTimer::~CSimpleTimer()
@@ -32,13 +46,23 @@ CSimpleTimer::~CSimpleTimer()
 
 double CSimpleTimer::GetElapsed()
 {
+#ifdef _WIN32
+  struct timeb sTimeBuffer;
+#else
   struct timeval sTimeBuffer;
   struct timezone sTimezoneBuffer;
+#endif
 
+#ifdef _WIN32
+  ftime(&sTimeBuffer);
+  int     iEndMs       = sTimeBuffer.millitm;
+  int     iEndSecond   = sTimeBuffer.time;
+#else
   gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-
   int     iEndMs       = sTimeBuffer.tv_usec / 1000;
   int     iEndSecond   = sTimeBuffer.tv_sec;
+#endif
+
 
   return  ((double) iEndMs     / 1000.0 + (double) iEndSecond) - 
           ((double) m_iStartMs / 1000.0 + (double) m_iStartSecond);

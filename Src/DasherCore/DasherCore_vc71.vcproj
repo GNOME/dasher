@@ -625,6 +625,18 @@
 			RelativePath=".\SocketInputBase.h">
 		</File>
 		<File
+			RelativePath=".\StylusFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\StylusFilter.h">
+		</File>
+		<File
+			RelativePath=".\TwoButtonDynamicFilter.cpp">
+		</File>
+		<File
+			RelativePath=".\TwoButtonDynamicFilter.h">
+		</File>
+		<File
 			RelativePath=".\WrapperFactory.cpp">
 		</File>
 		<File

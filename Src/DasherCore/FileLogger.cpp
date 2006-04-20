@@ -19,7 +19,11 @@ static char THIS_FILE[] = __FILE__;
 #include <windows.h>
 #endif
 
+#ifdef _WIN32
+#include <sys/timeb.h>
+#else
 #include <sys/time.h>
+#endif
 
 CFileLogger::CFileLogger(const std::string& strFilenamePath, eLogLevel iLogLevel, int iOptionsMask)
 {
@@ -494,14 +498,22 @@ std::string CFileLogger::GetTimeDateStamp()
 
   if ((m_bTimeStamp) || (m_bDateStamp))
   {
+#ifdef _WIN32
+    struct timeb sTimeBuffer;
+#else
     struct timeval sTimeBuffer;
     struct timezone sTimezoneBuffer;
+#endif
     char* szTimeLine = NULL;
 
+#ifdef _WIN32
+    ftime(&sTimeBuffer);
+    szTimeLine = ctime(&(sTimeBuffer.time));
+#else
     gettimeofday(&sTimeBuffer, &sTimezoneBuffer);
-
     szTimeLine = ctime(&(sTimeBuffer.tv_sec));
-
+#endif
+ 
     // Format is:
     // Wed Jun 22 10:22:00 2005
     // 0123456789012345678901234
@@ -523,7 +535,11 @@ std::string CFileLogger::GetTimeDateStamp()
           strTimeStamp += szTimeLine[i];
         strTimeStamp += ".";
         char strMs[16];
+#ifdef _WIN32
+        sprintf(strMs, "%d", sTimeBuffer.millitm);
+#else
         sprintf(strMs, "%d", sTimeBuffer.tv_usec / 1000);
+#endif
         if (strlen(strMs) == 1)
           strTimeStamp += "00";
         else if (strlen(strMs) == 2)

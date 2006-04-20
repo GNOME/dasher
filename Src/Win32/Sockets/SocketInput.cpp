@@ -3,7 +3,7 @@
 //
 // Win32-specific socket input class
 
-#include "WinCommon.h"
+#include "..\Common\WinCommon.h"
 
 #include "./SocketInput.h"
 #include "../../Win32/resource.h" // Probably shouldn't be including a file outside DasherCore. This is needed purely for the resource strings (IDS_...) used in the error message titles

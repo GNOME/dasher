@@ -433,19 +433,19 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  return 0;
 	  case ID_OPTIONS_CONTROLMODE:
 		  m_pDasher->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
-		  m_pDasher->RequestFullRedraw();
+//		  m_pDasher->RequestFullRedraw();
 		  return 0;
 	  case ID_OPTIONS_FONTSIZE_NORMAL:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
-		  m_pDasher->RequestFullRedraw();
+//		  m_pDasher->RequestFullRedraw();
 		  break;
 	  case ID_OPTIONS_FONTSIZE_LARGE:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
-		  m_pDasher->RequestFullRedraw();
+//		  m_pDasher->RequestFullRedraw();
 		  break;
 	  case ID_OPTIONS_FONTSIZE_VERYLARGE:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
-		  m_pDasher->RequestFullRedraw();
+//		  m_pDasher->RequestFullRedraw();
 		  break;
 	  case ID_OPTIONS_EDITFONT:{
 		  CHOOSEFONT Data;
@@ -573,7 +573,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 			  m_pEdit->SaveAs();
 		  return 0;
 	  case ID_IMPORT_TRAINFILE:
-		  m_pDasher->TrainFile(m_pEdit->Import());
+      // TODO: Fix dummy arguments
+		  m_pDasher->TrainFile(m_pEdit->Import(),0,0);
 		  return 0;
 	
 		  // FIXME - This options shouldn't passs through the interface
