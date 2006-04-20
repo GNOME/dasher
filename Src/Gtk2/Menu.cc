@@ -465,8 +465,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
 #endif
 }
 
-// FIXME - I think this is never called?
-
+// TODO: Need to hide menu item if GNOME_LIBS not defined
 extern "C" void show_help(GtkWidget *widget, gpointer user_data) {
 #ifdef GNOME_LIBS
   gnome_help_display_desktop(NULL, "dasher", "dasher", NULL, NULL);

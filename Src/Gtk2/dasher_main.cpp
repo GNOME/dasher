@@ -31,6 +31,7 @@ struct _DasherMainPrivate {
   bool bShowEdit;
   bool bShowActions;
   bool bTopMost;
+  bool bFullScreen;
 
   int iWidth;
   int iHeight;
@@ -294,7 +295,7 @@ GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf) {
 // TODO: Rationalise window setup functions
 void dasher_main_setup_window_position(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
-
+  
 //   if(!GTK_WIDGET_MAPPED(window))
 //     return;
 
@@ -348,9 +349,7 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
   int iDockPosition(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_DOCK_STYLE));
 
   g_message("Dock position: %d", iDockPosition);
-
   if(iDockPosition < 4) {
-    gtk_window_unfullscreen(GTK_WINDOW(window));
 
     //  gtk_window_get_size(GTK_WINDOW(window), &iTargetWidth, &iTargetHeight);
 
@@ -376,7 +375,7 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
 
   // TODO: need to use width here
   // TODO: need more error checking with raw X11 stuff
-
+  
   iScreenTop = ((unsigned long *)iData)[1];
   iScreenHeight = ((unsigned long *)iData)[3];
 
@@ -448,7 +447,7 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
   
   gdk_window_move((GdkWindow *)window->window, iLeft, iTop);
 
-  }
+}
   else if(iDockPosition == 4) {
     Atom atom_type[1];
     atom_type[0] = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE_NORMAL");
@@ -474,17 +473,17 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
 		    atom_window_type,
 		    XA_ATOM, 32, PropModeReplace,
 		    (guchar *)&atom_type, 1);
-
-
+    
+    
     gtk_window_fullscreen(GTK_WINDOW(window));
   }
-  
+
 }
 
 // TODO: Don't pass topmost etc - store in object
 void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
-
+  
   // Stup the global structure
   GtkWidget *pDividerNew;
   
@@ -504,7 +503,12 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
     gtk_widget_reparent(pDasherWidget, pDividerNew);
     gtk_widget_reparent(pPrivate->pEditPane, pDividerNew);
     break;
-  deafult:
+  case 3: // Full Screen
+    pDividerNew = gtk_vpaned_new();
+    gtk_widget_reparent(pPrivate->pEditPane, pDividerNew);
+    gtk_widget_reparent(pDasherWidget, pDividerNew);
+    break;
+  default:
     g_error("Invalid style");
     break;
   }
@@ -531,6 +535,13 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   }
   else {
     gtk_widget_hide(pPrivate->pEditPane);
+}
+
+  if(pPrivate->bFullScreen) {
+    gtk_window_fullscreen(GTK_WINDOW(pPrivate->pMainWindow));
+  }
+  else {
+    gtk_window_unfullscreen(GTK_WINDOW(pPrivate->pMainWindow));
   }
 
   gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), pPrivate->bTopMost);
@@ -549,17 +560,27 @@ void dasher_main_on_map(DasherMain *pSelf) {
     pPrivate->bShowEdit = true;
     pPrivate->bShowActions = false;
     pPrivate->bTopMost = false;
+    pPrivate->bFullScreen = false;
     break;
   case 1:
     pPrivate->bShowEdit = true;
     pPrivate->bShowActions = true;
     pPrivate->bTopMost = true;
+    pPrivate->bFullScreen = false;
     break;
   case 2:
     pPrivate->bShowEdit = false;
     pPrivate->bShowActions = false;
     pPrivate->bTopMost = true;
+    pPrivate->bFullScreen = false;
     break;
+  case 3:
+    pPrivate->bShowEdit = true;
+    pPrivate->bShowActions = false;
+    pPrivate->bTopMost = false;
+    pPrivate->bFullScreen = true;
+    break;
+
   }
 
 

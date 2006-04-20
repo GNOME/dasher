@@ -572,6 +572,9 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     break;
   case 2:
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_direct")), TRUE);
+    break;   
+  case 3:
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_fullscreen")), TRUE);
     break;
   }
  
@@ -1386,6 +1389,8 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
       dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 1);
     else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_direct"))
       dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 2);
+    else if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "appstyle_fullscreen"))
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 3);
   }
 }
 
