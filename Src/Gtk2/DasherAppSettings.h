@@ -61,6 +61,8 @@ int dasher_app_settings_get_count(DasherAppSettings *pSelf);
 int dasher_app_settings_get_parameter_type(DasherAppSettings *pSelf, int iParameter);
 const gchar *dasher_app_settings_get_reg_name(DasherAppSettings *pSelf, int iParameter);
 const gchar *dasher_app_settings_get_human_name(DasherAppSettings *pSelf, int iParameter);
+bool dasher_app_settings_have_advanced(DasherAppSettings *pSelf);
+void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf);
 G_END_DECLS
 
 #endif

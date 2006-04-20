@@ -137,15 +137,15 @@ static const GOptionEntry options[] = {
 // functions to prevent windows from taking focus, but maybe they
 // don't work which is why this is here.
 
-GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
-  XEvent *xev = (XEvent *) xevent;
-  if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False))) {
-    return GDK_FILTER_REMOVE;
-  }
-  else {
-    return GDK_FILTER_CONTINUE;
-  }
-}
+// GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
+//   XEvent *xev = (XEvent *) xevent;
+//   if(xev->xany.type == ClientMessage && (Atom) xev->xclient.data.l[0] == gdk_x11_atom_to_xatom(gdk_atom_intern("WM_TAKE_FOCUS", False))) {
+//     return GDK_FILTER_REMOVE;
+//   }
+//   else {
+//     return GDK_FILTER_CONTINUE;
+//   }
+// }
 
 int main(int argc, char *argv[]) {
   signal(2, sigint_handler);
@@ -244,8 +244,5 @@ int main(int argc, char *argv[]) {
 void sigint_handler(int iSigNum) {
   g_message("Trapped SIGINT - attempting shutdown...");
 
-  if(g_pEditor)
-    g_object_unref(G_OBJECT(g_pEditor));
-  
-  exit(1);
+  gtk_main_quit();  
 }

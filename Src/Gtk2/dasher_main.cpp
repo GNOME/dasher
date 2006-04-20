@@ -26,6 +26,11 @@ struct _DasherMainPrivate {
 #ifdef WITH_MAEMO
   DasherMaemoHelper *pMaemoHelper;
 #endif
+
+  // Properties of the window
+  bool bShowEdit;
+  bool bShowActions;
+  bool bTopMost;
 };
 
 typedef struct _DasherMainPrivate DasherMainPrivate;
@@ -52,7 +57,7 @@ GType dasher_main_get_type() {
 
   if(!dasher_main_type) {
     static const GTypeInfo dasher_main_info = {
-      sizeof(DasherMainClass),
+     sizeof(DasherMainClass),
       NULL,
       NULL,
       (GClassInitFunc) dasher_main_class_init,
@@ -83,10 +88,6 @@ static void dasher_main_init(DasherMain *pDasherControl) {
 
   dasher_main_load_interface(pDasherControl);
   dasher_main_setup_window(pDasherControl);
-
-  // TODO: Rationalise this
-  gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
-  gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), false);
 }
 
 static void dasher_main_destroy(GObject *pObject) {
@@ -284,41 +285,6 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
 //   gtk_window_set_gravity(GTK_WINDOW(g_pHiddenWindow), GDK_GRAVITY_SOUTH_EAST);
 //   gtk_window_move(GTK_WINDOW(g_pHiddenWindow), gdk_screen_width() - iWidth - 32,  gdk_screen_height() - iHeight - 32);
 
-  bool bShowEdit = false;
-  bool bShowActions = false;
-  bool bTopMost = false;
-
-  switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
-  case 0:
-    bShowEdit = true;
-    bShowActions = false;
-    bTopMost = false;
-    break;
-  case 1:
-    bShowEdit = true;
-    bShowActions = true;
-    bTopMost = true;
-    break;
-  case 2:
-    bShowEdit = false;
-    bShowActions = false;
-    bTopMost = true;
-    break;
-  }
-
-  if(bShowActions) {
-    gtk_widget_show(pPrivate->pActionPane);
-  }
-  else {
-    gtk_widget_hide(pPrivate->pActionPane);
-  }
-
-  if(bShowEdit) {
-    gtk_widget_show(pPrivate->pEditPane);
-  }
-  else {
-    gtk_widget_hide(pPrivate->pEditPane);
-  }
 
   // This is neat, but needs to be thought through
 
@@ -463,34 +429,107 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
 
 // TODO: Don't pass topmost etc - store in object
 void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
-#ifndef WITH_MAEMO
-  XWMHints wm_hints;
-  Atom wm_window_protocols[3];
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
-  wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
-  wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
-  wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+  // Stup the global structure
 
-  wm_hints.flags = InputHint;
-  wm_hints.input = False;
+  GtkWidget *pDividerNew;
+  
+  switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
+  case 0: // Classic style
+    pDividerNew = gtk_vpaned_new();
+    gtk_widget_reparent(pPrivate->pEditPane, pDividerNew);
+    gtk_widget_reparent(pDasherWidget, pDividerNew);
+    break;
+  case 1: // Composition
+    pDividerNew = gtk_hpaned_new();
+    gtk_widget_reparent(pDasherWidget, pDividerNew);
+    gtk_widget_reparent(pPrivate->pEditPane, pDividerNew);
+    break;
+  case 2: // Direct
+    pDividerNew = gtk_hpaned_new();
+    gtk_widget_reparent(pDasherWidget, pDividerNew);
+    gtk_widget_reparent(pPrivate->pEditPane, pDividerNew);
+    break;
+  deafult:
+    g_error("Invalid style");
+    break;
+  }
 
-  if(bTopMost) {
-    XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
-    XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
-    gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+  GtkWidget *pOldParent = gtk_widget_get_parent(pPrivate->pDivider);
+  gtk_widget_destroy(pPrivate->pDivider);
+  gtk_box_pack_start(GTK_BOX(pOldParent), pDividerNew, true, true, 0);
+  gtk_widget_show(pDividerNew);
+  pPrivate->pDivider = pDividerNew;
+
+  // Visibility of components
+
+  if(pPrivate->bShowActions) {
+    gtk_widget_show(pPrivate->pActionPane);
   }
   else {
-    gdk_window_remove_filter(window->window, dasher_discard_take_focus_filter, NULL);
+    gtk_widget_hide(pPrivate->pActionPane);
   }
-#endif
 
-  gtk_window_set_keep_above(GTK_WINDOW(window), bTopMost);
+  if(pPrivate->bShowEdit) {
+    gtk_widget_show(pPrivate->pEditPane);
+  }
+  else {
+    gtk_widget_hide(pPrivate->pEditPane);
+  }
 
-  //  gtk_window_set_keep_above(GTK_WINDOW(g_pHiddenWindow), true);
+
+// #ifndef WITH_MAEMO
+//   XWMHints wm_hints;
+//   Atom wm_window_protocols[3];
+
+//   wm_window_protocols[0] = gdk_x11_get_xatom_by_name("WM_DELETE_WINDOW");
+//   wm_window_protocols[1] = gdk_x11_get_xatom_by_name("_NET_WM_PING");
+//   wm_window_protocols[2] = gdk_x11_get_xatom_by_name("WM_TAKE_FOCUS");
+
+//   wm_hints.flags = InputHint;
+//   wm_hints.input = False;
+
+// //   if(pPrivate->bTopMost) {
+// //     XSetWMHints(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), &wm_hints);
+// //     XSetWMProtocols(GDK_WINDOW_XDISPLAY(window->window), GDK_WINDOW_XWINDOW(window->window), wm_window_protocols, 3);
+// //     gdk_window_add_filter(window->window, dasher_discard_take_focus_filter, NULL);
+// //   }
+// //   else {
+// //     gdk_window_remove_filter(window->window, dasher_discard_take_focus_filter, NULL);
+// //   }
+
+// #endif
+
+  gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), pPrivate->bTopMost);
+  gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
+  gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
 }
 
 void dasher_main_on_map(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+
+
+  // Refresh the properties of the window
+
+  switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
+  case 0:
+    pPrivate->bShowEdit = true;
+    pPrivate->bShowActions = false;
+    pPrivate->bTopMost = false;
+    break;
+  case 1:
+    pPrivate->bShowEdit = true;
+    pPrivate->bShowActions = true;
+    pPrivate->bTopMost = true;
+    break;
+  case 2:
+    pPrivate->bShowEdit = false;
+    pPrivate->bShowActions = false;
+    pPrivate->bTopMost = true;
+    break;
+  }
+
 
 //   if(g_bOnTop)
 //     gtk_window_set_keep_above(GTK_WINDOW(window), true);

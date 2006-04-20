@@ -198,6 +198,11 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       ChangeColours();
       Redraw(true);
       break;
+    case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
+    case BP_PALETTE_CHANGE: 
+      if(GetBoolParameter(BP_PALETTE_CHANGE))
+	 SetStringParameter(SP_COLOUR_ID, GetStringParameter(SP_DEFAULT_COLOUR_ID));
+      break;
     case LP_LANGUAGE_MODEL_ID:
       CreateDasherModel();
       Start();
@@ -857,11 +862,11 @@ void CDasherInterfaceBase::CreateFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CTwoButtonDynamicFilter(m_pEventHandler, m_pSettingsStore, this)));
   // TODO: specialist factory for button mode
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, "Buttons 1")));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, "Buttons 2")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 5, 1, true,8, "Menu Mode")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 0, false,10, "Direct Mode")));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 0, false,11, "Buttons 3")));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, "Buttons 4")));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, "Buttons 5")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 3, 3, false,12, "Alternating Direct Mode")));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherButtons(m_pEventHandler, m_pSettingsStore, this, 4, 2, false,13, "Compass Mode")));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CStylusFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,15, "Stylus Control")));
 
 }

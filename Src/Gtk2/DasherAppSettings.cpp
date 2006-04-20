@@ -386,3 +386,21 @@ const gchar *dasher_app_settings_get_human_name(DasherAppSettings *pSelf, int iP
   else 
     return app_stringparamtable[iParameter - FIRST_APP_SP].humanReadable;
 }
+
+bool dasher_app_settings_have_advanced(DasherAppSettings *pSelf) {
+  return(g_find_program_in_path("gconf-editor") != NULL);
+}
+
+void dasher_app_settings_launch_advanced(DasherAppSettings *pSelf) {
+  gchar *szArgs[3];
+
+  szArgs[0] = "gconf-editor";
+  szArgs[1] = "/apps/dasher4";
+  szArgs[2] = NULL;
+
+  GError *pError;
+
+  if(!g_spawn_async(NULL, szArgs, NULL, G_SPAWN_SEARCH_PATH, NULL, NULL, NULL, &pError)) {
+    g_warning("Could not launch gconf-editor: %s", pError->message);
+  }
+}

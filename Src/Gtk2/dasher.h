@@ -24,7 +24,7 @@ extern GtkWidget *pDasherWidget;
 extern GtkWidget *window;
 extern GtkWidget *g_pHiddenWindow;
 
-GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data); 
+//GdkFilterReturn dasher_discard_take_focus_filter(GdkXEvent *xevent, GdkEvent *event, gpointer data); 
 extern "C" void parameter_notification(GtkDasherControl *pDasherControl, gint iParameter, gpointer data); 
 
 // TODO: Reimplement

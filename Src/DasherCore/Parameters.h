@@ -36,7 +36,7 @@ enum {
 
 enum {
   SP_ALPHABET_ID = END_OF_LPS, SP_ALPHABET_1, SP_ALPHABET_2, SP_ALPHABET_3, SP_ALPHABET_4, 
-  SP_COLOUR_ID, SP_DASHER_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
+  SP_COLOUR_ID, SP_DEFAULT_COLOUR_ID, SP_DASHER_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
   SP_TRAIN_FILE, SP_SOCKET_INPUT_X_LABEL, SP_SOCKET_INPUT_Y_LABEL, SP_INPUT_FILTER, SP_INPUT_DEVICE,
   END_OF_SPS
 };
@@ -179,7 +179,8 @@ static sp_table stringparamtable[] = {
   {SP_ALPHABET_2, "Alphabet2", PERS, "", "Alphabet History 2"},
   {SP_ALPHABET_3, "Alphabet3", PERS, "", "Alphabet History 3"},
   {SP_ALPHABET_4, "Alphabet4", PERS, "", "Alphabet History 4"},
-  {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"},
+  {SP_COLOUR_ID, "ColourID", PERS, "", "ColourID"}, 
+  {SP_DEFAULT_COLOUR_ID, "DefaultColourID", !PERS, "", "Default Colour ID (Used for auto-colour mode)"},
   {SP_DASHER_FONT, "DasherFont", PERS, "", "DasherFont"},
   {SP_SYSTEM_LOC, "SystemLocation", !PERS, "sys_", "System Directory"},
   {SP_USER_LOC, "UserLocation", !PERS, "usr_", "User Directory"},

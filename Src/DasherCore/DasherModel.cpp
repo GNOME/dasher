@@ -59,12 +59,7 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   m_pcAlphabet = new CAlphabet(oAlphInfo);
 
   SetStringParameter(SP_TRAIN_FILE, m_pcAlphabet->GetTrainingFile());
-  // TODO: No idea what's up here, but it doesn't like this for some reason:
-  // SetStringParameter(SP_GAME_TEXT_FILE, m_pcAlphabet->GetGameModeFile());
-
-  if(m_pcAlphabet->GetPalette() != std::string("") && GetBoolParameter(BP_PALETTE_CHANGE)) {
-    SetStringParameter(SP_COLOUR_ID, m_pcAlphabet->GetPalette());
-  }
+  SetStringParameter(SP_DEFAULT_COLOUR_ID, m_pcAlphabet->GetPalette());
 
   if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
     SetLongParameter(LP_REAL_ORIENTATION, m_pcAlphabet->GetOrientation());
