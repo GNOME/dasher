@@ -24,86 +24,20 @@ using namespace WinUTF8;
 CONST UINT WM_DASHER_EVENT = RegisterWindowMessage(_WM_DASHER_EVENT);
 CONST UINT WM_DASHER_FOCUS = RegisterWindowMessage(_WM_DASHER_FOCUS);
 
-//void AddFiles(LPCWSTR Alphabets, LPCWSTR Colours, CDasherInterface *Interface)
-void CDasher::AddFiles(Tstring Alphabets, Tstring Colours, CDasherInterface *Interface) 
-{
-// TODO: Reimplement
-
- /* using namespace WinHelper;
-  using namespace WinUTF8;
-
-  std::string filename;
-  WIN32_FIND_DATA find;
-  HANDLE handle;
-
-  handle = FindFirstFile(Alphabets.c_str(), &find);
-  if(handle != INVALID_HANDLE_VALUE) {
-    wstring_to_UTF8string(wstring(find.cFileName), filename);
-    Interface->AddAlphabetFilename(filename);
-    while(FindNextFile(handle, &find) != false) {
-      wstring_to_UTF8string(wstring(find.cFileName), filename);
-      Interface->AddAlphabetFilename(filename);
-    }
-    FindClose(handle);
-  }
-
-  handle = FindFirstFile(Colours.c_str(), &find);
-  if(handle != INVALID_HANDLE_VALUE) {
-    wstring_to_UTF8string(find.cFileName, filename);
-    Interface->AddColourFilename(filename);
-    while(FindNextFile(handle, &find) != false) {
-      wstring_to_UTF8string(find.cFileName, filename);
-      Interface->AddColourFilename(filename);
-    }
-    FindClose(handle);
-
-  }*/
-}
-
 CDasher::CDasher(HWND Parent):m_hParent(Parent) 
 {
   // This class will be a wrapper for the Dasher 'control' - think ActiveX
 
   m_pEdit = 0;
 
-  using namespace WinHelper;
-  using namespace WinUTF8;
-
-  // Get folder names for system and user data.
-  Tstring UserData, AppData;
-  std::string UserData2, AppData2;
-  Tstring Alphabets, Colours;
-  GetUserDirectory(&UserData);
-  GetAppDirectory(&AppData);
-  UserData += TEXT("dasher.rc\\");
-  AppData += TEXT("system.rc\\");
-  CreateDirectory(UserData.c_str(), NULL);      // Try and create folders. Doesn't seem
-  CreateDirectory(AppData.c_str(), NULL);       // to do any harm if they already exist.
-  wstring_to_UTF8string(UserData, UserData2);   // TODO: I don't know if special characters will work.
-  wstring_to_UTF8string(AppData, AppData2);     // ASCII-only filenames are safest. Being English doesn't help debug this...
 
   // Set up COM for the accessibility stuff
   CoInitialize(NULL);
 
-  // Set up Dasher
-  SetStringParameter(SP_SYSTEM_LOC, AppData2);
-  SetStringParameter(SP_USER_LOC, UserData2);
-
-  Alphabets = UserData;
-  Alphabets += TEXT("alphabet*.xml");
-  Colours = UserData;
-  Colours += TEXT("colour*.xml");
-  AddFiles(Alphabets, Colours, this);
-  Alphabets = AppData;
-  Alphabets += TEXT("alphabet*.xml");
-  Colours = AppData;
-  Colours += TEXT("colour*.xml");
-  AddFiles(Alphabets, Colours, this);
   
   
-  Realize();
-
-  SetBoolParameter(BP_COLOUR_MODE, true);
+ 
+ // SetBoolParameter(BP_COLOUR_MODE, true);
 //  ChangeLanguageModel(0);
 
   m_pCanvas = new CCanvas(this, m_pEventHandler, m_pSettingsStore);
@@ -111,6 +45,11 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent)
 
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore, m_pCanvas->getwindow())));
+
+  CreateInput();
+
+ Realize();
+
 
   m_pSlidebar = new CSlidebar(m_hParent, this, ((double)GetLongParameter(LP_MAX_BITRATE))/100.0, m_pCanvas);
 
@@ -337,13 +276,87 @@ void Dasher::CDasher::WriteTrainFile(const std::string &strNewText) {
   //}
 }
 
-void CDasher::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
+void CDasher::ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList) {
+  using namespace WinUTF8;
+
+  std::string filename;
+  WIN32_FIND_DATA find;
+  HANDLE handle;
+
+  handle = FindFirstFile(strMask.c_str(), &find);
+  if(handle != INVALID_HANDLE_VALUE) {
+    wstring_to_UTF8string(wstring(find.cFileName), filename);
+    vFileList.push_back(filename);
+    while(FindNextFile(handle, &find) != false) {
+      wstring_to_UTF8string(wstring(find.cFileName), filename);
+      vFileList.push_back(filename);
+    }
+    FindClose(handle);
+  }
 }
 
 void CDasher::ScanColourFiles(std::vector<std::string> &vFileList) {
+  Tstring Colours;
+
+  // TODO: Is it okay to have duplicate names in the array?
+  std::string strAppData2(GetStringParameter(SP_SYSTEM_LOC));
+  Tstring strAppData;
+
+  WinUTF8::UTF8string_to_wstring(strAppData2, strAppData);
+  
+  Colours = strAppData;
+  Colours += TEXT("colour*.xml");
+  ScanDirectory(Colours, vFileList); 
+
+  std::string strUserData2(GetStringParameter(SP_USER_LOC));
+  Tstring strUserData;
+
+  WinUTF8::UTF8string_to_wstring(strUserData2, strUserData);
+
+  Colours = strUserData;
+  Colours += TEXT("colour*.xml");
+  ScanDirectory(Colours, vFileList); 
+}
+
+void CDasher::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
+  Tstring Alphabets;
+
+  // TODO: Is it okay to have duplicate names in the array?
+  std::string strAppData2(GetStringParameter(SP_SYSTEM_LOC));
+  Tstring strAppData;
+
+  WinUTF8::UTF8string_to_wstring(strAppData2, strAppData);
+  
+  Alphabets = strAppData;
+  Alphabets += TEXT("alphabet*.xml");
+  ScanDirectory(Alphabets, vFileList); 
+
+  std::string strUserData2(GetStringParameter(SP_USER_LOC));
+  Tstring strUserData;
+
+  WinUTF8::UTF8string_to_wstring(strUserData2, strUserData);
+
+  Alphabets = strUserData;
+  Alphabets += TEXT("alphabet*.xml");
+  ScanDirectory(Alphabets, vFileList); 
 }
 
 void CDasher::SetupPaths() {
+  using namespace WinHelper;
+  using namespace WinUTF8;
+
+  Tstring UserData, AppData;
+  std::string UserData2, AppData2;
+  GetUserDirectory(&UserData);
+  GetAppDirectory(&AppData);
+  UserData += TEXT("dasher.rc\\");
+  AppData += TEXT("system.rc\\");
+  CreateDirectory(UserData.c_str(), NULL);      // Try and create folders. Doesn't seem
+  CreateDirectory(AppData.c_str(), NULL);       // to do any harm if they already exist.
+  wstring_to_UTF8string(UserData, UserData2);   // TODO: I don't know if special characters will work.
+  wstring_to_UTF8string(AppData, AppData2);     // ASCII-only filenames are safest. Being English doesn't help debug this...
+  SetStringParameter(SP_SYSTEM_LOC, AppData2);
+  SetStringParameter(SP_USER_LOC, UserData2);
 }
 
 void CDasher::SetupUI() {
