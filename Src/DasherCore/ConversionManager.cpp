@@ -1,6 +1,5 @@
 #include "ConversionManager.h"
 
-#include <iostream>
 #include <string>
 #include <vector>
 
@@ -29,20 +28,18 @@ CConversionManager::CConversionManager(CDasherModel *pModel, CLanguageModel *pLa
   for(std::vector<std::string>::iterator it(vCandidateList.begin()); it != vCandidateList.end(); ++it) {
     CConversionManagerNode *pCurrentNode(m_pRoot);
 
-    std::cout << "Adding: " << *it << std::endl;
-
     // TODO: Need to do unicode here!
-    for(std::string::iterator it2(it->begin()); it2 != it->end(); ++it2) {
+
+
+    for(int j(0); j < it->size(); ++j) {
       CConversionManagerNode *pNextNode;
 
-      std::cout << "Symbol: *" << *it2 << "*" << std::endl;
+      pNextNode = pCurrentNode->FindChild(it->substr(j,1));
 
-      pNextNode = pCurrentNode->FindChild(std::string(1, *it2));
-      
       if(!pNextNode) {
 	pNextNode = new CConversionManagerNode;
 
-	pNextNode->m_strSymbol = std::string(1, *it2);
+	pNextNode->m_strSymbol = it->substr(j,1);
 	pNextNode->m_pChild = 0;
 	pNextNode->m_pNext = pCurrentNode->m_pChild;
 	pNextNode->m_iNumChildren = 0;
@@ -81,16 +78,18 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
 }
 
 void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
+
   CDasherNode *pNewNode;
 
   CConversionManagerNode *pCurrentCMNode(static_cast<CConversionManagerNode *>(pNode->m_pUserData));
   CConversionManagerNode *pCurrentCMChild(pCurrentCMNode->m_pChild);
 
+
   if(pCurrentCMChild) {
     int iIdx(0);
 
     while(pCurrentCMChild) {
-     int iLbnd( iIdx*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
+      int iLbnd( iIdx*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
       int iHbnd( (iIdx+1)*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
 
       // TODO: Parameters here are placeholders - need to figure out what's right

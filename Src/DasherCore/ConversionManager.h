@@ -6,7 +6,6 @@
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "DasherModel.h"
 
-
 namespace Dasher {
   class CDasherNode; // Forward declaration
 
@@ -75,11 +74,14 @@ namespace Dasher {
 	CConversionManagerNode *pCurrentChild(m_pChild);
 
 	while(pCurrentChild) {
+
 	  if(pCurrentChild->m_strSymbol == strSymbol)
 	    return pCurrentChild;
 
 	  pCurrentChild = pCurrentChild->m_pNext;
 	}
+
+	return 0;
       }
     };
 
