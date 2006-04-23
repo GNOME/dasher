@@ -106,8 +106,10 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
         ChildScheme = NormalScheme;
       CDasherNode *pNewNode;
 
-      if( newchars[j] == m_pModel->GetControlSymbol() )
+      if(newchars[j] == m_pModel->GetControlSymbol())
       	pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j], NULL);
+      else if(newchars[j] == m_pModel->GetStartConversionSymbol())
+      	pNewNode = m_pModel->GetRoot(2, pNode, iLbnd, cum[j], NULL);
       else if( newchars[j] == iExistingSymbol) {
       	pNewNode = pExistingChild;
 	      pNewNode->SetRange(iLbnd, cum[j]);

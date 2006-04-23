@@ -17,6 +17,10 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           ControlManager.h \
                           ControlManagerFactory.cpp \
                           ControlManagerFactory.h \
+			  ConversionManager.cpp \
+			  ConversionManager.h \
+			  ConversionManagerFactory.cpp \
+			  ConversionManagerFactory.h \
                           CustomColours.cpp \
                           CustomColours.h \
                           DashEdit.cpp \

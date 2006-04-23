@@ -28,6 +28,7 @@ namespace Dasher {
     /// Get a new root node owned by this manager
     ///
 
+    // TODO: What is the point of the pUserData parameter - the node manager should replace it with its own stuff, surely?
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) = 0;
 
     ///

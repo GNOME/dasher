@@ -15,6 +15,7 @@
 #include "Alphabet/AlphIO.h"
 #include "AlphabetManagerFactory.h"
 #include "ControlManagerFactory.h"
+#include "ConversionManagerFactory.h"
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -198,6 +199,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return m_pcAlphabet->GetControlSymbol();
   }
 
+  symbol GetStartConversionSymbol() const {
+    return m_pcAlphabet->GetStartConversionSymbol();
+  }
+
+
   const std::string & GetDisplayText(int iSymbol) const {
     return m_pcAlphabet->GetDisplayText(iSymbol);
   }
@@ -217,10 +223,14 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   }
   
   CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
-    if( iType == 0 )
+    switch(iType) {
+    case 0:
       return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
-    else
+    case 1:
       return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+    case 2:
+      return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+    }
   };
   
   // FIXME - only public temporarily
@@ -315,6 +325,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CAlphabetManagerFactory *m_pAlphabetManagerFactory;
   CControlManagerFactory *m_pControlManagerFactory;
+  CConversionManagerFactory *m_pConversionManagerFactory;
 
   struct SGotoItem {
     myint iN1;
