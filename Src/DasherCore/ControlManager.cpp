@@ -17,7 +17,7 @@ static char THIS_FILE[] = __FILE__;
 int CControlManager::m_iNextID = 0;
 
 CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguageModel  )
-  : m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
+  : CNodeManager(1), m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
   string SystemString = m_pModel->GetStringParameter(SP_SYSTEM_LOC);
   string UserLocation = m_pModel->GetStringParameter(SP_USER_LOC);
   m_iNextID = 0;

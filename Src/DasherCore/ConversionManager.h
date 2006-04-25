@@ -1,10 +1,11 @@
 #ifndef __conversion_manager_h__
 #define __conversion_manager_h__
 
-#include "NodeManager.h"
+#include "ConversionHelper.h"
+#include "DasherModel.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
-#include "DasherModel.h"
+#include "NodeManager.h"
 
 namespace Dasher {
   class CDasherNode; // Forward declaration
@@ -16,19 +17,31 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel );
+    CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel, CConversionHelper *pHelper);
+
+    ~CConversionManager() {
+      for(int i(0); i < m_iRootCount; ++i)
+	delete m_pRoot[i];
+
+      delete[] m_pRoot;
+    };
 
     ///
     /// Increment reference count
     ///
 
-    virtual void Ref();
+    virtual void Ref() {
+      ++m_iRefCount;
+    };
     
     ///
     /// Decrement reference count
     ///
     
-    virtual void Unref();
+    virtual void Unref() {
+      // TODO: Delete node on last unref
+      --m_iRefCount;
+    };
 
     ///
     /// Get a new root node owned by this manager
@@ -69,7 +82,17 @@ namespace Dasher {
       CConversionManagerNode *m_pChild;
       CConversionManagerNode *m_pNext;
       int m_iNumChildren;
+      int m_iPhrase;
+      
+      ~CConversionManagerNode() {
+	CConversionManagerNode *pCurrentChild(m_pChild);
 
+	while(pCurrentChild) {
+	  delete pCurrentChild;
+	  pCurrentChild = pCurrentChild->m_pNext;
+	}
+      };
+      
       CConversionManagerNode *FindChild(const std::string &strSymbol) {
 	CConversionManagerNode *pCurrentChild(m_pChild);
 
@@ -82,14 +105,21 @@ namespace Dasher {
 	}
 
 	return 0;
-      }
+      };
     };
 
+    void BuildTree(CDasherNode *pRoot);
 
-    CConversionManagerNode *m_pRoot;
+    bool m_bTreeBuilt;
+
+    CConversionManagerNode **m_pRoot;
+    int m_iRootCount;
 
     CDasherModel *m_pModel;
     CLanguageModel *m_pLanguageModel;
+    CConversionHelper *m_pHelper;
+
+    int m_iRefCount;
   };
 
 }

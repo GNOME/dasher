@@ -12,6 +12,14 @@ namespace Dasher {
   
   class CNodeManager {
   public:
+    CNodeManager(int iID) {
+      m_iID = iID;
+    };
+
+    virtual int GetID() {
+      return m_iID;
+    };
+    
     ///
     /// Increment reference count
     ///
@@ -57,6 +65,9 @@ namespace Dasher {
     virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration) {
       return 0;
     }
+
+  private:
+    int m_iID;
   };
 
 }

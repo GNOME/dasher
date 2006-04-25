@@ -23,7 +23,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel ) 
-  : m_pLanguageModel(pLanguageModel), m_pModel(pModel) {
+  : CNodeManager(0), m_pLanguageModel(pLanguageModel), m_pModel(pModel) {
 }
 
 CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {

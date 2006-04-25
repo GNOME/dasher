@@ -1,62 +1,22 @@
 #include "ConversionManager.h"
 
+#include <iostream>
 #include <string>
 #include <vector>
 
 using namespace Dasher;
 
-CConversionManager::CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel) {
+CConversionManager::CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel, CConversionHelper *pHelper) 
+  : CNodeManager(2) {
   m_pModel = pModel;
   m_pLanguageModel = pLanguageModel;
+  m_pHelper = pHelper;
 
-  // Assume that this is sorted:
-  std::vector<std::string> vCandidateList;
-
-  vCandidateList.push_back("hello");
-  vCandidateList.push_back("foo");
-  vCandidateList.push_back("fish");
+  m_iRefCount = 1;
 
   // TODO: Delete list when we're done
-  
-  m_pRoot = new CConversionManagerNode;
 
-  m_pRoot->m_strSymbol = "Convert";
-  m_pRoot->m_pChild = 0;
-  m_pRoot->m_pNext = 0;
-  m_pRoot->m_iNumChildren = 0;
-
-  for(std::vector<std::string>::iterator it(vCandidateList.begin()); it != vCandidateList.end(); ++it) {
-    CConversionManagerNode *pCurrentNode(m_pRoot);
-
-    // TODO: Need to do unicode here!
-
-
-    for(int j(0); j < it->size(); ++j) {
-      CConversionManagerNode *pNextNode;
-
-      pNextNode = pCurrentNode->FindChild(it->substr(j,1));
-
-      if(!pNextNode) {
-	pNextNode = new CConversionManagerNode;
-
-	pNextNode->m_strSymbol = it->substr(j,1);
-	pNextNode->m_pChild = 0;
-	pNextNode->m_pNext = pCurrentNode->m_pChild;
-	pNextNode->m_iNumChildren = 0;
-	pCurrentNode->m_pChild = pNextNode;
-	++pCurrentNode->m_iNumChildren;
-      }
-
-      pCurrentNode = pNextNode;
-    }
-  }
-}
-
-// TODO: Actually need ref counting this time around - and need to check that it's properly implemented elsewhere
-void CConversionManager::Ref() {
-}
-
-void CConversionManager::Unref() {
+  m_bTreeBuilt = false;
 }
 
 CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
@@ -69,8 +29,8 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
 
   pNewNode->m_pNodeManager = this;
-  pNewNode->m_pUserData = m_pRoot;
-  pNewNode->m_strDisplayText = m_pRoot->m_strSymbol;
+  pNewNode->m_pUserData = 0;
+  pNewNode->m_strDisplayText = "Convert";
   pNewNode->m_bShove = false;
   pNewNode->m_pBaseGroup = 0;
 
@@ -79,11 +39,21 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
 
 void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
+  if(!m_bTreeBuilt) {
+    BuildTree(pNode);
+    m_bTreeBuilt = true;
+  }
+
   CDasherNode *pNewNode;
 
   CConversionManagerNode *pCurrentCMNode(static_cast<CConversionManagerNode *>(pNode->m_pUserData));
-  CConversionManagerNode *pCurrentCMChild(pCurrentCMNode->m_pChild);
+  
+  if(pCurrentCMNode == 0)
+    pCurrentCMNode = m_pRoot[0];
+  else if((pCurrentCMNode->m_pChild == 0) && (pCurrentCMNode->m_iPhrase < m_iRootCount - 1))
+    pCurrentCMNode = m_pRoot[pCurrentCMNode->m_iPhrase + 1];
 
+  CConversionManagerNode *pCurrentCMChild(pCurrentCMNode->m_pChild);
 
   if(pCurrentCMChild) {
     int iIdx(0);
@@ -99,9 +69,9 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       
       pNewNode->m_pNodeManager = this;
-      pNewNode->m_pUserData = m_pRoot;
+      pNewNode->m_pUserData = pCurrentCMChild;
       pNewNode->m_strDisplayText = pCurrentCMChild->m_strSymbol;
-      pNewNode->m_bShove = false;
+      pNewNode->m_bShove = true;
       pNewNode->m_pBaseGroup = 0;
       
       pNode->Children().push_back(pNewNode);
@@ -112,17 +82,95 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   }
   else {
     // TODO: Placeholder algorithm here
-    for(int i(0); i < 2; ++i) {
-      int iLbnd( i*(m_pModel->GetLongParameter(LP_NORMALIZATION)/2)); 
-      int iHbnd( (i+1)*(m_pModel->GetLongParameter(LP_NORMALIZATION)/2)); 
+    int iLbnd(0);
+    int iHbnd(m_pModel->GetLongParameter(LP_NORMALIZATION)); 
       
-      pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
-      pNewNode->Seen(false);
+    pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
+    pNewNode->Seen(false);
       
-      pNode->Children().push_back(pNewNode);
-    }
+    pNode->Children().push_back(pNewNode);
   }
 }
 
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
+  // TODO: Need to implement this
+}
+
+void CConversionManager::BuildTree(CDasherNode *pRoot) {
+  CDasherNode *pCurrentNode(pRoot->Parent());
+
+  std::string strCurrentString;
+  
+  while(pCurrentNode) {
+    if(pCurrentNode->m_pNodeManager->GetID() == 2)
+      break;
+
+    // TODO: Need to make this the edit text rather than the display text
+    strCurrentString = pCurrentNode->m_strDisplayText + strCurrentString;
+    pCurrentNode = pCurrentNode->Parent();
+  }
+
+  // Assume that this is sorted:
+  std::vector<std::vector<std::string> > vCandidateList;
+  m_pHelper->Convert(strCurrentString, vCandidateList);
+
+  m_iRootCount = vCandidateList.size();
+
+  m_pRoot = new CConversionManagerNode *[m_iRootCount];
+
+  for(int i(0); i < m_iRootCount; ++i) {
+    m_pRoot[i] = new CConversionManagerNode;
+    
+    m_pRoot[i]->m_strSymbol = "Convert";
+    m_pRoot[i]->m_pChild = 0;
+    m_pRoot[i]->m_pNext = 0;
+    m_pRoot[i]->m_iNumChildren = 0;
+    m_pRoot[i]->m_iPhrase = i;
+
+
+    for(std::vector<std::string>::iterator it(vCandidateList[i].begin()); it != vCandidateList[i].end(); ++it) {
+      CConversionManagerNode *pCurrentNode(m_pRoot[i]);
+      
+      int iIdx(0);
+      
+      // TODO: Need phrase-based conversion
+      while(iIdx < it->size()) {
+	
+	int iLength;
+	
+	// TODO: Really dodgy UTF-8 parser - find a library routine to do this
+	if((static_cast<int>((*it)[iIdx]) & 0x80) == 0)
+	  iLength = 1;
+	else if((static_cast<int>((*it)[iIdx]) & 0xE0) == 0xC0) 
+	  iLength = 2;
+	else if((static_cast<int>((*it)[iIdx]) & 0xF0) == 0xE0)
+	  iLength = 3;
+	else if((static_cast<int>((*it)[iIdx]) & 0xF8) == 0xF0)
+	  iLength = 4;
+	else if((static_cast<int>((*it)[iIdx]) & 0xFC) == 0xF8)
+	  iLength = 5;
+	else
+	  iLength = 6;
+	
+	CConversionManagerNode *pNextNode;
+	
+	pNextNode = pCurrentNode->FindChild(it->substr(iIdx, iLength));
+	
+	if(!pNextNode) {
+	  pNextNode = new CConversionManagerNode;
+	  
+	  pNextNode->m_strSymbol = it->substr(iIdx, iLength);
+	  pNextNode->m_pChild = 0;
+	  pNextNode->m_pNext = pCurrentNode->m_pChild;
+	  pNextNode->m_iNumChildren = 0;
+	  pNextNode->m_iPhrase = pCurrentNode->m_iPhrase;
+	  pCurrentNode->m_pChild = pNextNode;
+	  ++pCurrentNode->m_iNumChildren;
+	}
+	
+	pCurrentNode = pNextNode;
+	iIdx += iLength;
+      }
+    }
+  }
 }

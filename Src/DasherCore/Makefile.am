@@ -7,6 +7,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           AlphabetManagerFactory.h \
                           AutoSpeedControl.cpp \
                           AutoSpeedControl.h \
+			  CannaConversionHelper.cpp \
+			  CannaConversionHelper.h \
                           CircleStartHandler.cpp \
                           CircleStartHandler.h \
                           ClickFilter.cpp \
@@ -17,6 +19,7 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           ControlManager.h \
                           ControlManagerFactory.cpp \
                           ControlManagerFactory.h \
+			  ConversionHelper.h \
 			  ConversionManager.cpp \
 			  ConversionManager.h \
 			  ConversionManagerFactory.cpp \
@@ -80,6 +83,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           OneDimensionalFilter.cpp \
                           OneDimensionalFilter.h \
                           Parameters.h \
+			  PinYinConversionHelper.cpp \
+			  PinYinConversionHelper.h \
                           SettingsStore.cpp \
                           SettingsStore.h \
                           SimpleTimer.cpp \
