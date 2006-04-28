@@ -37,6 +37,7 @@ namespace Dasher {
 class Dasher::CAlphIO {
 public:
   // This structure completely describes the characters used in alphabet
+
   struct AlphInfo {
     // Basic information
     std::string AlphID;
@@ -49,6 +50,7 @@ public:
     Opts::AlphabetTypes Encoding;
     Opts::AlphabetTypes Type;
     Opts::ScreenOrientations Orientation;
+
     struct character {
       std::string Display;
       std::string Text;
@@ -56,19 +58,21 @@ public:
       std::string Foreground;
     };
 
-    // Obsolete groups stuff
-    struct group {
-      std::string Description;
-      std::vector < character > Characters;
-      int Colour;
-      std::string Label;
-    };
-    std::vector < group > Groups;
-    // ---
+/*     // Obsolete groups stuff */
+/*     struct group { */
+/*       std::string Description; */
+/*       std::vector < character > Characters; */
+/*       int Colour; */
+/*       std::string Label; */
+/*     }; */
+/*     std::vector < group > Groups; */
+/*     // --- */
 
     int m_iCharacters;
     std::vector<SGroupInfo *> m_vGroups;
     SGroupInfo *m_pBaseGroup;
+
+    std::vector<character> m_vCharacters;
 
     character ParagraphCharacter;       // display and edit text of paragraph character. Use ("", "") if no paragraph character.
     character SpaceCharacter;   // display and edit text of Space character. Typically (" ", "_"). Use ("", "") if no space character.

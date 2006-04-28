@@ -148,6 +148,11 @@ void CAlphIO::Delete(const std::string &AlphID) {
 }
 
 void CAlphIO::Save(const std::string &AlphID) {
+  // TODO: We cannot reliably output XML at the moment this will have
+  // to be re-implemented if we ever decide that we need to do this
+  // again
+
+
   // Write an XML file containing all the alphabets that have been defined.
   // I am not going to indent the XML file as it will just bloat it, and it
   // is very simple. There are line breaks though as it is very hard to read
@@ -253,35 +258,35 @@ void CAlphIO::Save(const std::string &AlphID) {
     fwrite(Number, sizeof(char), strlen(Number), Output);
     fwrite("\"/>\n", sizeof(char), 4, Output);
 
-    typedef vector < AlphInfo::group >::iterator gi;
-    gi LG = Info.Groups.end();
-    for(gi CG = Info.Groups.begin(); CG != LG; CG++) {
-      fwrite("<group name=\"", sizeof(char), 13, Output);
-      XML_Escape(&CG->Description, true);
-      fwrite(CG->Description.c_str(), sizeof(char), CG->Description.size(), Output);
-      fwrite("\" b=\"", sizeof(char), 5, Output);
-      sprintf(Number, "%d", CG->Colour);
-      fwrite(Number, sizeof(char), strlen(Number), Output);
-      fwrite("\">\n", sizeof(char), 3, Output);
+    //    typedef vector < AlphInfo::group >::iterator gi;
+//     gi LG = Info.Groups.end();
+//     for(gi CG = Info.Groups.begin(); CG != LG; CG++) {
+//       fwrite("<group name=\"", sizeof(char), 13, Output);
+//       XML_Escape(&CG->Description, true);
+//       fwrite(CG->Description.c_str(), sizeof(char), CG->Description.size(), Output);
+//       fwrite("\" b=\"", sizeof(char), 5, Output);
+//       sprintf(Number, "%d", CG->Colour);
+//       fwrite(Number, sizeof(char), strlen(Number), Output);
+//       fwrite("\">\n", sizeof(char), 3, Output);
 
-      // Iterate over CG->Characters
-      typedef vector < AlphInfo::character >::iterator ci;
-      ci LC = CG->Characters.end();
-      for(ci CC = CG->Characters.begin(); CC != LC; CC++) {
-        fwrite("<s d=\"", sizeof(char), 6, Output);
-        XML_Escape(&CC->Display, true);
-        fwrite(CC->Display.c_str(), sizeof(char), CC->Display.size(), Output);
-        fwrite("\" t=\"", sizeof(char), 5, Output);
-        XML_Escape(&CC->Text, true);
-        fwrite(CC->Text.c_str(), sizeof(char), CC->Text.size(), Output);
-        fwrite("\" b=\"", sizeof(char), 5, Output);
-        sprintf(Number, "%d", CC->Colour);
-        fwrite(Number, sizeof(char), strlen(Number), Output);
-        fwrite("\"/>\n", sizeof(char), 4, Output);
-      }
+//       // Iterate over CG->Characters
+//       typedef vector < AlphInfo::character >::iterator ci;
+//       ci LC = CG->Characters.end();
+//       for(ci CC = CG->Characters.begin(); CC != LC; CC++) {
+//         fwrite("<s d=\"", sizeof(char), 6, Output);
+//         XML_Escape(&CC->Display, true);
+//         fwrite(CC->Display.c_str(), sizeof(char), CC->Display.size(), Output);
+//         fwrite("\" t=\"", sizeof(char), 5, Output);
+//         XML_Escape(&CC->Text, true);
+//         fwrite(CC->Text.c_str(), sizeof(char), CC->Text.size(), Output);
+//         fwrite("\" b=\"", sizeof(char), 5, Output);
+//         sprintf(Number, "%d", CC->Colour);
+//         fwrite(Number, sizeof(char), strlen(Number), Output);
+//         fwrite("\"/>\n", sizeof(char), 4, Output);
+//       }
 
-      fwrite("</group>\n", sizeof(char), 9, Output);
-    }
+//       fwrite("</group>\n", sizeof(char), 9, Output);
+//     }
 
     fwrite("</alphabet>\n", sizeof(char), 12, Output);
   }
@@ -317,15 +322,26 @@ void CAlphIO::CreateDefault() {
   Default.GameModeFile = "gamemode_english_GB.txt";
   Default.PreferredColours = "Default";
   string Chars = "abcdefghijklmnopqrstuvwxyz";
-  Default.Groups.resize(1);
-  Default.Groups[0].Description = "Lower case Latin letters";
-  Default.Groups[0].Characters.resize(Chars.size());
-  Default.Groups[0].Colour = 0;
+
+//   // Obsolete
+//   Default.Groups.resize(1);
+//   Default.Groups[0].Description = "Lower case Latin letters";
+//   Default.Groups[0].Characters.resize(Chars.size());
+//   Default.Groups[0].Colour = 0;
+//   Default.m_pBaseGroup = 0;
+//   for(unsigned int i = 0; i < Chars.size(); i++) {
+//     Default.Groups[0].Characters[i].Text = Chars[i];
+//     Default.Groups[0].Characters[i].Display = Chars[i];
+//     Default.Groups[0].Characters[i].Colour = i + 10;
+//   }
+  // ---
   Default.m_pBaseGroup = 0;
-  for(unsigned int i = 0; i < Chars.size(); i++) {
-    Default.Groups[0].Characters[i].Text = Chars[i];
-    Default.Groups[0].Characters[i].Display = Chars[i];
-    Default.Groups[0].Characters[i].Colour = i + 10;
+
+  Default.m_vCharacters.resize(Chars.size());
+  for(unsigned int i(0); i < Chars.size(); i++) {
+    Default.m_vCharacters[i].Text = Chars[i];
+    Default.m_vCharacters[i].Display = Chars[i];
+    Default.m_vCharacters[i].Colour = i + 10;
   }
 }
 
@@ -507,10 +523,10 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   }
 
   if(strcmp(name, "group") == 0) {
-    AlphInfo::group NewGroup;
-    NewGroup.Colour = -1;
-    NewGroup.Label = "";
-    Me->InputInfo.Groups.push_back(NewGroup);
+//     AlphInfo::group NewGroup;
+//     NewGroup.Colour = -1;
+//     NewGroup.Label = "";
+//     Me->InputInfo.Groups.push_back(NewGroup);
     
     SGroupInfo *pNewGroup(new SGroupInfo);
     pNewGroup->iColour = 0;
@@ -524,13 +540,13 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
-        atts++;
-        Me->InputInfo.Groups.back().Description = *atts;
-        atts--;
+//         atts++;
+//         Me->InputInfo.Groups.back().Description = *atts;
+//         atts--;
       }
       if(strcmp(*atts, "b") == 0) {
         atts++;
-        Me->InputInfo.Groups.back().Colour = atoi(*atts);
+	//        Me->InputInfo.Groups.back().Colour = atoi(*atts);
 	pNewGroup->iColour = atoi(*atts);
 // 	if(pNewGroup->iColour == 0)
 // 	  pNewGroup->bVisible = false;
@@ -548,7 +564,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       }
       if(strcmp(*atts, "label") == 0) {
         atts++;
-        Me->InputInfo.Groups.back().Label = *atts;
+	//        Me->InputInfo.Groups.back().Label = *atts;
 	pNewGroup->strLabel = *atts;
         atts--;
       }
@@ -636,8 +652,9 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     ++Me->InputInfo.m_iCharacters;
 
     NewCharacter.Colour = -1;
-    Me->InputInfo.Groups.back().Characters.push_back(NewCharacter);
-    AlphInfo::character & Ch = Me->InputInfo.Groups.back().Characters.back();
+
+    Me->InputInfo.m_vCharacters.push_back(NewCharacter);
+    AlphInfo::character &Ch = Me->InputInfo.m_vCharacters.back();
     
     // FIXME - need to do a more sensible job of ensuring that
     // defaults are correct (plus more generally fixing behaviour when

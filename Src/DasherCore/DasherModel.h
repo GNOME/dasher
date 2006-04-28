@@ -111,12 +111,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   }                             // Use or start at this bitrate
   //void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
 
-  std::string GroupLabel(int group) const {
-    return m_pcAlphabet->GetGroupLabel(group);
-  }
-  int GroupColour(int group) const {
-    return m_pcAlphabet->GetGroupColour(group);
-  }
+/*   std::string GroupLabel(int group) const { */
+/*     return m_pcAlphabet->GetGroupLabel(group); */
+/*   } */
+/*   int GroupColour(int group) const { */
+/*     return m_pcAlphabet->GetGroupColour(group); */
+/*   } */
+
   void SetContext(std::string & sNewContext);
 
   // functions returning private data (read only access)

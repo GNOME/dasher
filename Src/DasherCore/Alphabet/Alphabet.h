@@ -39,11 +39,16 @@ namespace Dasher {
     // Return number of text symbols 
     int GetNumberTextSymbols() const {
       return m_Characters.size() - 1;
-    } Opts::ScreenOrientations GetOrientation() {
+    } 
+
+    Opts::ScreenOrientations GetOrientation() {
       return m_Orientation;
-    } Opts::AlphabetTypes GetType() {
+    } 
+
+    Opts::AlphabetTypes GetType() {
       return m_DefaultEncoding;
     }
+
     std::string & GetTrainingFile() {
       return m_TrainingFile;
     }
@@ -63,30 +68,41 @@ namespace Dasher {
 
     const std::string & GetDisplayText(symbol i) const {
       return m_Display[i];
-    } // return display string for i'th symbol
+    }
+    // return display string for i'th symbol
+
     const std::string & GetText(symbol i) const {
       return m_Characters[i];
-    } // return string for i'th symbol
+    } 
+    // return string for i'th symbol
+
     int GetColour(symbol i) const {
       return m_Colours[i];
-    } // return the colour for i'th symbol
-    int GetGroupColour(int i) const {
-      return m_GroupColour[i];
-    } // return the colour for i'th group 
-    std::string GetGroupLabel(int i)const {
-      return m_GroupLabel[i];
-    }
+    } 
+    // return the colour for i'th symbol
+
+/*     int GetGroupColour(int i) const { */
+/*       return m_GroupColour[i]; */
+/*     }  */
+    // return the colour for i'th group 
+
+/*     std::string GetGroupLabel(int i)const { */
+/*       return m_GroupLabel[i]; */
+/*     } */
+
     int GetTextColour(symbol i);      // return the foreground colour for i'th symbol
     const std::string & GetForeground(symbol i) const {
       return m_Foreground[i];
     } // return the foreground colour for i'th symbol
-    int GetGroupCount() const {
-      return m_iGroups;
-    } int GetGroupStart(int i) const {
-      return m_GroupStart[i];
-    } int GetGroupEnd(int i) const {
-      return m_GroupEnd[i];
-    }
+
+/*     int GetGroupCount() const { */
+/*       return m_iGroups; */
+/*     } int GetGroupStart(int i) const { */
+/*       return m_GroupStart[i]; */
+/*     } int GetGroupEnd(int i) const { */
+/*       return m_GroupEnd[i]; */
+/*     } */
+
     //int get_group(symbol i) const {return m_Group[i];}                
     // return group membership of i'th symbol
     // Fills Symbols with the symbols corresponding to Input. {{{ Note that this
@@ -99,21 +115,6 @@ namespace Dasher {
     void GetSymbols(std::vector<symbol> *Symbols, std::string * Input, bool IsMore) const;
 
     void Trace() const;         // diagnostic
-
-    class CGroupAdder {
-    public:
-      CGroupAdder(CAlphabet & alphabet, int iColour, std::string strLabel);
-       ~CGroupAdder();
-      void AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground);
-
-    private:
-
-        CAlphabet & m_Alphabet;
-
-    };
-
-
-    CGroupAdder *GetGroupAdder(int iColour, const std::string & strLabel);
 
     // Add the characters that can appear in Nodes
     void AddChar(std::string NewCharacter, std::string Display, int Colour, std::string Foreground);    // add single char to the alphabet
@@ -169,18 +170,18 @@ namespace Dasher {
     std::vector < int >m_Colours;       // stores the colour of the characters
     std::vector < std::string > m_Foreground;   // stores the colour of the character foreground
 
-    int m_iGroups;              // number of groups
+    //    int m_iGroups;              // number of groups
 
-    std::vector < int >m_GroupStart;    // stores the group start index
-    std::vector < int >m_GroupEnd;      // stores the group end index (1 past the last)
-    std::vector < int >m_GroupColour;   // stores the colour of the group
-    std::vector < std::string > m_GroupLabel;
+/*     std::vector < int >m_GroupStart;    // stores the group start index */
+/*     std::vector < int >m_GroupEnd;      // stores the group end index (1 past the last) */
+/*     std::vector < int >m_GroupColour;   // stores the colour of the group */
+/*     std::vector < std::string > m_GroupLabel; */
 
     SGroupInfo *pFirstGroup;
 
     alphabet_map TextMap;
 
-    friend class CGroupAdder;
+    //    friend class CGroupAdder;
   };
 
   inline symbol CAlphabet::GetParagraphSymbol() const {

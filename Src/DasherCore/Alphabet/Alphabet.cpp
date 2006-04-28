@@ -28,7 +28,7 @@ static char THIS_FILE[] = __FILE__;
 /////////////////////////////////////////////////////////////////////////////
 
 CAlphabet::CAlphabet()
-:m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1), m_iGroups(0) {
+:m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1) {
   m_Characters.push_back("");
   m_Display.push_back("");
   m_Colours.push_back(-1);
@@ -38,7 +38,7 @@ CAlphabet::CAlphabet()
 /////////////////////////////////////////////////////////////////////////////
 
 CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
-:m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1), m_iGroups(0) {
+:m_DefaultEncoding(Opts::Western), m_Orientation(Opts::LeftToRight), m_ControlSymbol(-1) {
   m_Characters.push_back("");
   m_Display.push_back("");
   m_Colours.push_back(-1);
@@ -52,16 +52,9 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   SetGameModeFile(AlphInfo.GameModeFile);
   SetPalette(AlphInfo.PreferredColours);
 
-//      m_AlphInfo=&AlphInfo;
+  for(std::vector<CAlphIO::AlphInfo::character>::const_iterator it(AlphInfo.m_vCharacters.begin()); it != AlphInfo.m_vCharacters.end(); ++it)
+    AddChar(it->Text, it->Display, it->Colour, it->Foreground);
 
-  // Add all the characters.
-  for(unsigned int i = 0; i < AlphInfo.Groups.size(); i++) {    // loop groups
-    CGroupAdder *pAdder = GetGroupAdder(AlphInfo.Groups[i].Colour, AlphInfo.Groups[i].Label);
-    for(unsigned int j = 0; j < AlphInfo.Groups[i].Characters.size(); j++) {    // loop characters
-      pAdder->AddChar(AlphInfo.Groups[i].Characters[j].Text, AlphInfo.Groups[i].Characters[j].Display, AlphInfo.Groups[i].Characters[j].Colour, AlphInfo.Groups[i].Characters[j].Foreground);
-    }
-    delete pAdder;
-  }
 
   // Set Space character if requested
 
@@ -218,23 +211,23 @@ void CAlphabet::AddEndConversionSymbol(const string NewCharacter, const string D
 // diagnostic dump of character set
 
 void CAlphabet::Trace() const {
-  int i;
-  DASHER_TRACEOUTPUT("GetNumberSymbols() %d\n", GetNumberSymbols());
-  DASHER_TRACEOUTPUT("GetNumberTextSymbols() %d\n", GetNumberTextSymbols());
+//   int i;
+//   DASHER_TRACEOUTPUT("GetNumberSymbols() %d\n", GetNumberSymbols());
+//   DASHER_TRACEOUTPUT("GetNumberTextSymbols() %d\n", GetNumberTextSymbols());
 
-  int iGroup = 0;
-  for(i = 0; i < (int) m_Characters.size(); i++) {
-    if(iGroup < m_iGroups && i == m_GroupStart[iGroup]) {
-      DASHER_TRACEOUTPUT("Group %d '%s'\n", iGroup, m_GroupLabel[iGroup].c_str());
-    }
-    if(iGroup < m_iGroups && i == m_GroupEnd[iGroup]) {
-      DASHER_TRACEOUTPUT("--------\n");
-      iGroup++;
-    }
+//   int iGroup = 0;
+//   for(i = 0; i < (int) m_Characters.size(); i++) {
+//     if(iGroup < m_iGroups && i == m_GroupStart[iGroup]) {
+//       DASHER_TRACEOUTPUT("Group %d '%s'\n", iGroup, m_GroupLabel[iGroup].c_str());
+//     }
+//     if(iGroup < m_iGroups && i == m_GroupEnd[iGroup]) {
+//       DASHER_TRACEOUTPUT("--------\n");
+//       iGroup++;
+//     }
 
-    DASHER_TRACEOUTPUT("Symbol %d Character:'%s' Display:'%s'\n", i, m_Characters[i].c_str(), m_Display[i].c_str());
+//     DASHER_TRACEOUTPUT("Symbol %d Character:'%s' Display:'%s'\n", i, m_Characters[i].c_str(), m_Display[i].c_str());
 
-  }
+//   }
 
 }
 
@@ -252,33 +245,33 @@ int CAlphabet::GetTextColour(symbol Symbol) {
 
 /////////////////////////////////////////////////////////////////////////////
 
-CAlphabet::CGroupAdder * CAlphabet::GetGroupAdder(int iColour, const std::string &strLabel) {
-  return new CGroupAdder(*this, iColour, strLabel);
-}
+// CAlphabet::CGroupAdder * CAlphabet::GetGroupAdder(int iColour, const std::string &strLabel) {
+//   return new CGroupAdder(*this, iColour, strLabel);
+// }
+
+// /////////////////////////////////////////////////////////////////////////////
+
+// CAlphabet::CGroupAdder::CGroupAdder(CAlphabet &alphabet, int iColour, std::string strLabel)
+// :m_Alphabet(alphabet) {
+//   m_Alphabet.m_iGroups++;
+//   m_Alphabet.m_GroupColour.push_back(iColour);
+//   m_Alphabet.m_GroupLabel.push_back(strLabel);
+//   m_Alphabet.m_GroupStart.push_back(m_Alphabet.GetNumberSymbols());
+
+// }
+
+// /////////////////////////////////////////////////////////////////////////////
+
+// CAlphabet::CGroupAdder::~CGroupAdder() {
+//   m_Alphabet.m_GroupEnd.push_back(m_Alphabet.GetNumberSymbols());
+
+// }
 
 /////////////////////////////////////////////////////////////////////////////
 
-CAlphabet::CGroupAdder::CGroupAdder(CAlphabet &alphabet, int iColour, std::string strLabel)
-:m_Alphabet(alphabet) {
-  m_Alphabet.m_iGroups++;
-  m_Alphabet.m_GroupColour.push_back(iColour);
-  m_Alphabet.m_GroupLabel.push_back(strLabel);
-  m_Alphabet.m_GroupStart.push_back(m_Alphabet.GetNumberSymbols());
+// void CAlphabet::CGroupAdder::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
+//   m_Alphabet.AddChar(NewCharacter, Display, Colour, Foreground);
 
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-CAlphabet::CGroupAdder::~CGroupAdder() {
-  m_Alphabet.m_GroupEnd.push_back(m_Alphabet.GetNumberSymbols());
-
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-void CAlphabet::CGroupAdder::AddChar(const std::string NewCharacter, const std::string Display, int Colour, const std::string Foreground) {
-  m_Alphabet.AddChar(NewCharacter, Display, Colour, Foreground);
-
-}
+// }
 
 /////////////////////////////////////////////////////////////////////////////

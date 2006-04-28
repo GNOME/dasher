@@ -518,6 +518,8 @@ void CDasherInterfaceBase::ChangeAlphabet() {
   // Send a lock event
 
 
+  std::cout << "Alphabet set to: ***" << GetStringParameter(SP_ALPHABET_ID) << "***" << std::endl;
+
   WriteTrainFileFull();
 
   // Lock Dasher to prevent changes from happening while we're training.
