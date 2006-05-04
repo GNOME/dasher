@@ -19,7 +19,7 @@ msgstr ""
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:32
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr ""
+msgstr "Dasher, сокет аркылуу кирүү: окуу подпроцесин иштетүү катасы"
 
 #: ../Src/Gtk2/Menu.cc:69 ../Src/Gtk2/Menu.cc:125 ../Src/Gtk2/Menu.cc:183
 #: ../Src/Gtk2/Menu.cc:226 ../Src/Gtk2/dasher.glade.h:100
@@ -39,7 +39,7 @@ msgstr "Dasher"
 
 #: ../Src/Gtk2/Menu.cc:464
 msgid "Dasher is a predictive text entry application"
-msgstr ""
+msgstr "Dasher — предикативдик текст киргизүү аспабы"
 
 #: ../Src/Gtk2/Preferences.cpp:574 ../Src/Gtk2/Preferences.cpp:576
 msgid "Training Dasher, please wait"
@@ -362,7 +362,7 @@ msgstr "<b>Ориентация:</b>"
 #: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:12
 #: ../Src/Gtk2/dashermaemo.glade.h:20
 msgid "<b>Smoothing:</b>"
-msgstr ""
+msgstr "<b>Теңдөө:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashermaemo.glade.h:21
 msgid "<b>Socket Input</b>"
@@ -430,7 +430,7 @@ msgstr "Алдыналынган алфавит"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:35
 msgid "Alternating direct mode"
-msgstr ""
+msgstr "Альтернативдик көрсөтмө режимы"
 
 #: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashergpe.glade.h:22
 #: ../Src/Gtk2/dashermaemo.glade.h:36
@@ -439,7 +439,7 @@ msgstr "Төмөндөн жогору"
 
 #: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashermaemo.glade.h:37
 msgid "Box non-uniformity:"
-msgstr ""
+msgstr "Тик бурчтуктардын тегиз эместиги:"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemo.glade.h:38
@@ -470,7 +470,7 @@ msgstr "Компас режими"
 
 #: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:46
 msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr ""
+msgstr "Чычкандын ордуна Dasher-ди тармактык сокет аркылуу башкаруу (кошумча)"
 
 #: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
@@ -494,7 +494,7 @@ msgstr "Токтогон учурда бардыгын көчүрүү"
 
 #: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashermaemo.glade.h:51
 msgid "Custom:"
-msgstr ""
+msgstr "Башка:"
 
 #: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:33
 #: ../Src/Gtk2/dashermaemo.glade.h:52
@@ -514,7 +514,7 @@ msgstr "Dasher ырастоолору"
 #: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:37
 #: ../Src/Gtk2/dashermaemo.glade.h:56
 msgid "Distance from centreline for start on mouse position:"
-msgstr ""
+msgstr "Старт үчүн борбордук сызыктан чычкан көрсөткүчүнө чейинки аралык:"
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:38
 #: ../Src/Gtk2/dashermaemo.glade.h:57
@@ -529,11 +529,11 @@ msgstr "Тик бурчтуктардын тышкы сызыктарын чий
 #: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:40
 #: ../Src/Gtk2/dashermaemo.glade.h:59
 msgid "Draw line between crosshairs and mouse"
-msgstr ""
+msgstr "Кесилиш менен чычкан ортосунда сызык чийүү"
 
 #: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:60
 msgid "Drop time:  "
-msgstr ""
+msgstr "Кулоо убактысы: "
 
 #: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashergpe.glade.h:41
 #: ../Src/Gtk2/dashermaemo.glade.h:61
@@ -548,11 +548,11 @@ msgstr "Тексти башка терезелерге киргизүү"
 #: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:43
 #: ../Src/Gtk2/dashermaemo.glade.h:63
 msgid "Eyetracker mode"
-msgstr ""
+msgstr "Карама-көз режими"
 
 #: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashermaemo.glade.h:64
 msgid "Four-button direct mode"
-msgstr ""
+msgstr "Төрт баскычтуу көрсөтмө режими"
 
 #: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:65
 msgid ""
@@ -577,7 +577,7 @@ msgstr "Белги"
 
 #: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:70
 msgid "Language model adapts as you write."
-msgstr ""
+msgstr "Тил модели терүү убагындаы адаптацияланат"
 
 #: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:45
 #: ../Src/Gtk2/dashermaemo.glade.h:71
@@ -608,7 +608,7 @@ msgstr "Кошумча параметрлер"
 
 #: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:77
 msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+msgstr "Аралашма модель (PPM/сөздүк)"
 
 #: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:48
 #: ../Src/Gtk2/dashermaemo.glade.h:78
@@ -622,7 +622,7 @@ msgstr "Нормалдуу"
 
 #: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:80
 msgid "Number of \"zoom-out boxes\":"
-msgstr ""
+msgstr "«Масштабды кичирейтүүчү тик бурчтуктардын» саны:"
 
 #: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:81
 msgid "Number of boxes:"
@@ -648,7 +648,7 @@ msgstr "Файл ачуу"
 
 #: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:86
 msgid "Ordinary control"
-msgstr ""
+msgstr "Кадимки башкаруу"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:54
 #: ../Src/Gtk2/dashermaemo.glade.h:87
@@ -666,15 +666,15 @@ msgstr "Порт"
 
 #: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashermaemo.glade.h:90
 msgid "Prediction"
-msgstr ""
+msgstr "Алдыналы айтуу"
 
 #: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:91
 msgid "Print socket-related debugging information to console"
-msgstr ""
+msgstr "Сокетке тийиштүү дебаг маалыматын консолго чыгаруу"
 
 #: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:92
 msgid "Pulsing mode"
-msgstr ""
+msgstr "Импульстук режим"
 
 #: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:56
 #: ../Src/Gtk2/dashermaemo.glade.h:93
@@ -683,7 +683,7 @@ msgstr "Оңдон солго"
 
 #: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:94
 msgid "Right zoom:  "
-msgstr ""
+msgstr "Оң чоңойтуу:  "
 
 #: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:57
 #: ../Src/Gtk2/dashermaemo.glade.h:95
@@ -692,7 +692,7 @@ msgstr "Оңго/4:"
 
 #: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:96
 msgid "Safety margin:"
-msgstr ""
+msgstr "Коопсуз талаа:"
 
 #: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:58
 #: ../Src/Gtk2/dashermaemo.glade.h:97
@@ -706,7 +706,7 @@ msgstr "Файлды жаңыча сактоо"
 
 #: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:99
 msgid "Scaling amount (1D mode):"
-msgstr ""
+msgstr "Масштабдоо мааниси (бир өлчөмдүү режим)"
 
 #: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashergpe.glade.h:61
 #: ../Src/Gtk2/dashermaemo.glade.h:101
@@ -739,7 +739,7 @@ msgstr "Токтогон кезде сүйлөө"
 
 #: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashermaemo.glade.h:107
 msgid "Standard letter-based PPM"
-msgstr ""
+msgstr "Стандарттык тамгага негизделген PPM"
 
 #: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:66
 #: ../Src/Gtk2/dashermaemo.glade.h:108
@@ -762,11 +762,11 @@ msgstr "Статикалык меню режими"
 
 #: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashermaemo.glade.h:112
 msgid "Steady mode"
-msgstr ""
+msgstr "Туруктуу режим"
 
 #: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashermaemo.glade.h:113
 msgid "Three-button direct mode"
-msgstr ""
+msgstr "Үч баскычтуу көрсөтмө режим"
 
 #: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:69
 #: ../Src/Gtk2/dashermaemo.glade.h:114
@@ -799,6 +799,8 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
+"Тамгалардын тик бурчтуктарынын салыштырма\n өлчөмүн ырастоо үчүн бул куралды колдонуңуз.\n"
+"Өтө эле чоң маани, терүү ылдамдыгын төмөндөтөрүн\n эске алыңыз."
 
 #: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:75
 #: ../Src/Gtk2/dashermaemo.glade.h:122
@@ -885,7 +887,6 @@ msgstr "_Ариптерди калыбына келтирүү"
 
 #: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:90
 #: ../Src/Gtk2/dashermaemo.glade.h:139
-#, fuzzy
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "абвгдеёжзик АБВГДЕЁЖЗИК"
 
@@ -909,7 +910,7 @@ msgstr "Эгер бул режим орнотулса, жогору жана т�
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire y range:"
-msgstr ""
+msgstr "Y багытын толук жапкан пикселдердин саны:ы"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -920,16 +921,18 @@ msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
 msgstr ""
+"Тамгалардын тик бурчтуктарынын салыштырма\n өлчөмүн ырастоо үчүн бул куралды колдонуңуз.\n"
+"Өтө эле чоң маани, терүү ылдамдыгын төмөндөтөрүн\n эске алыңыз."
 
 #: ../Src/Gtk2/speech.cc:27
 #, c-format
 msgid "Unable to initialize speech support\n"
-msgstr ""
+msgstr "Үндү колдоону иштетүүгө болбоду\n"
 
 #: ../Src/Gtk2/speech.cc:50
 #, c-format
 msgid "Unable to initialize voices\n"
-msgstr ""
+msgstr "Үндөрдү ишке киргизүүгө болбоду\n"
 
 #: ../Src/Gtk2/speech.cc:62
 #, c-format
@@ -938,5 +941,5 @@ msgstr "Эскертүү: сүйлөө параметрлерин орнотуу
 
 #: ../Src/main.cc:127
 msgid "Dasher Text Entry"
-msgstr ""
+msgstr "Dasher-дин текст киргизүү областы"
 
