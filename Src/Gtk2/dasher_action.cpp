@@ -1,5 +1,11 @@
 #include "dasher_action.h"
 
+struct _DasherActionPrivate {
+  gboolean bActive;
+};
+
+typedef struct _DasherActionPrivate DasherActionPrivate;
+
 static void dasher_action_class_init(DasherActionClass *pClass);
 static void dasher_action_init(DasherAction *pAction);
 static void dasher_action_destroy(GObject *pObject);
@@ -33,11 +39,15 @@ static void dasher_action_class_init(DasherActionClass *pClass) {
   pObjectClass->finalize = dasher_action_destroy;
 
   pClass->execute = 0;
+  pClass->activate = 0;
+  pClass->deactivate = 0;
 }
 
 static void dasher_action_init(DasherAction *pDasherControl) {
-  // Probably a waste of time - we don't really need any private data here
-  pDasherControl->private_data = 0;
+  pDasherControl->private_data = new DasherActionPrivate;
+  DasherActionPrivate *pDasherActionPrivate = (DasherActionPrivate *)(pDasherControl->private_data);
+
+  pDasherActionPrivate->bActive = false;
 }
 
 static void dasher_action_destroy(GObject *pObject) {
@@ -54,6 +64,8 @@ DasherAction *dasher_action_new() {
 }
 
 gboolean dasher_action_execute(DasherAction *pSelf, const gchar *szData) {
+  // TODO: Need to make sure that the action is active first
+
   if(DASHER_ACTION_GET_CLASS(pSelf)->execute)
     return DASHER_ACTION_GET_CLASS(pSelf)->execute(pSelf, szData);
   else
@@ -65,4 +77,42 @@ const gchar *dasher_action_get_name(DasherAction *pSelf) {
     return DASHER_ACTION_GET_CLASS(pSelf)->get_name(pSelf);
   else
     return 0;
+}
+
+gboolean dasher_action_activate(DasherAction *pSelf) {
+  DasherActionPrivate *pDasherActionPrivate = (DasherActionPrivate *)(((DasherAction *)pSelf)->private_data);
+
+  if(pDasherActionPrivate->bActive)
+    return true;
+
+  if(DASHER_ACTION_GET_CLASS(pSelf)->activate) {
+    pDasherActionPrivate->bActive = DASHER_ACTION_GET_CLASS(pSelf)->activate(pSelf);
+    return pDasherActionPrivate->bActive;
+  }
+  else {
+    pDasherActionPrivate->bActive = true;
+    return true;
+  }
+}
+
+gboolean dasher_action_deactivate(DasherAction *pSelf) { 
+  DasherActionPrivate *pDasherActionPrivate = (DasherActionPrivate *)(((DasherAction *)pSelf)->private_data);
+
+  if(!(pDasherActionPrivate->bActive))
+    return true;
+
+  if(DASHER_ACTION_GET_CLASS(pSelf)->deactivate) {
+    pDasherActionPrivate->bActive = !DASHER_ACTION_GET_CLASS(pSelf)->deactivate(pSelf);
+    return !(pDasherActionPrivate->bActive);
+  }
+  else {
+    pDasherActionPrivate->bActive = false;
+    return true;
+  }
+}
+
+gboolean dasher_action_get_active(DasherAction *pSelf) {
+  DasherActionPrivate *pDasherActionPrivate = (DasherActionPrivate *)(((DasherAction *)pSelf)->private_data);
+
+  return pDasherActionPrivate->bActive;
 }

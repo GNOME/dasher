@@ -27,6 +27,8 @@ struct _DasherActionClass {
 
   gboolean (*execute)(DasherAction *pSelf, const gchar *szData);
   const gchar *(*get_name)(DasherAction *pSelf);
+  gboolean (*activate)(DasherAction *pSelf);
+  gboolean (*deactivate)(DasherAction *pSelf);
 };
 
 DasherAction *dasher_action_new();
@@ -34,6 +36,9 @@ GType dasher_action_get_type();
 
 gboolean dasher_action_execute(DasherAction *pSelf, const gchar *szData);
 const gchar *dasher_action_get_name(DasherAction *pSelf);
+gboolean dasher_action_activate(DasherAction *pSelf);
+gboolean dasher_action_deactivate(DasherAction *pSelf);
+gboolean dasher_action_get_active(DasherAction *pSelf);
 G_END_DECLS
 
 #endif

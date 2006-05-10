@@ -333,7 +333,7 @@ public:
   /// \param strNewContext The new context (UTF-8)
 
   void SetContext(std::string strNewContext);
-  void InvalidateContext();
+  void InvalidateContext(bool bForceStart);
 
   /// Get the total number of nats (base-e bits) entered.
   /// \retval The current total

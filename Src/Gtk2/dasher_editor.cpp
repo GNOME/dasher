@@ -73,6 +73,7 @@ void dasher_editor_rebuild_action_pane(DasherEditor *pSelf);
 void dasher_editor_display_message(DasherEditor *pSelf, DasherMessageInfo *pMessageInfo);
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_handle_pre_parameter_change(DasherEditor *pSelf, int iParameter);
+void dasher_editor_check_activity(DasherEditor *pSelf, EditorAction *pAction);
 
 // Private methods not in class
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
@@ -137,6 +138,7 @@ static void dasher_editor_destroy(GObject *pObject) {
   
   while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
     bStarted = true;
+    dasher_action_deactivate(pCurrentAction->pAction);
     g_object_unref(G_OBJECT(pCurrentAction->pAction));
     pCurrentAction = pCurrentAction->pNext;
   }
@@ -355,9 +357,20 @@ void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
   ++pPrivate->iNextActionID;
 
   // TODO: Need to get/set registry keys for these
-  pNewEditorAction->bShow = true;
-  pNewEditorAction->bControl = true;
+  // TODO: Currently hack things so speech is off by default
+
+  if(!strcmp(dasher_action_get_name(pNewEditorAction->pAction), "Speak")) {
+    pNewEditorAction->bShow = false;
+    pNewEditorAction->bControl = false;
+  }
+  else {
+    pNewEditorAction->bShow = true;
+    pNewEditorAction->bControl = true;
+  }
+
   pNewEditorAction->bAuto = false;
+
+  dasher_editor_check_activity(pSelf, pNewEditorAction);
 
   if(pPrivate->pActionRing) {
     pNewEditorAction->pNext = pPrivate->pActionRing;
@@ -570,6 +583,7 @@ void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bVal
 
   if(pAction) {
     pAction->bShow = bValue;
+    dasher_editor_check_activity(pSelf, pAction);
     dasher_editor_rebuild_action_pane(pSelf);
   }
 }
@@ -582,7 +596,7 @@ void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool b
   
   if(pAction) {
     pAction->bControl = bValue;
-    
+    dasher_editor_check_activity(pSelf, pAction);
     if(bValue)
       gtk_dasher_control_connect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER, -2);
     else
@@ -596,6 +610,7 @@ EditorAction *pAction;
 
   if(pAction) {
     pAction->bAuto = bValue;
+    dasher_editor_check_activity(pSelf, pAction);
   }
 }
 
@@ -702,6 +717,16 @@ bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bA
   return save_file_as(szFilename, bAppend);
 }
 
+void dasher_editor_check_activity(DasherEditor *pSelf, EditorAction *pAction) {
+  gboolean bNeedActive(pAction->bShow || pAction->bControl || pAction->bAuto);
+  gboolean bActive(dasher_action_get_active(pAction->pAction));
+
+  if(bNeedActive && !bActive)
+    dasher_action_activate(pAction->pAction);
+  else if(!bNeedActive && bActive)
+    dasher_action_deactivate(pAction->pAction);
+}
+
 // Callbacks
 
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
@@ -765,5 +790,5 @@ extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, cons
 
 // TODO: This should call back into editor, not directly into Dasher control
 extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData) {
-  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget));
+  gtk_dasher_control_invalidate_context(GTK_DASHER_CONTROL(pDasherWidget), false);
 }

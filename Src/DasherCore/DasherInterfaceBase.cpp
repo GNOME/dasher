@@ -721,7 +721,7 @@ void CDasherInterfaceBase::ResetNats() {
 }
 
 
-void CDasherInterfaceBase::InvalidateContext() {
+void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
 
   m_pDasherModel->m_strContextBuffer = "";
 
@@ -741,7 +741,7 @@ void CDasherInterfaceBase::InvalidateContext() {
 
    // FIXME - use unicode lengths
 
-   if( strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0))) {
+   if(bForceStart || (strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0)))) {
 
      if(m_pDasherModel != NULL) {
        if(m_pDasherModel->m_bContextSensitive) {
