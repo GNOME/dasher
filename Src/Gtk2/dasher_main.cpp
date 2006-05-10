@@ -237,6 +237,8 @@ void dasher_main_load_state(DasherMain *pSelf) {
     iWindowHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT_H);
   }
 
+  g_message("Got State: %d %d %d", iWindowWidth, iWindowHeight, iEditHeight);
+
   gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), iWindowWidth, iWindowHeight);
   gtk_paned_set_position(GTK_PANED(pPrivate->pDivider), iEditHeight);
 
@@ -253,6 +255,8 @@ void dasher_main_save_state(DasherMain *pSelf) {
 
    gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWindowWidth, &iWindowHeight);
    iEditHeight = gtk_paned_get_position(GTK_PANED(pPrivate->pDivider));
+
+   g_message("State: %d %d %d", iWindowWidth, iWindowHeight, iEditHeight);
 
    if(dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_STYLE) != 1) {
      dasher_app_settings_set_long(pPrivate->pAppSettings, APP_LP_EDIT_HEIGHT, iEditHeight);

@@ -94,18 +94,18 @@ void CDasherButtons::SetupBoxes()
 
     // Not sure whether this is at all the right algorithm here - need to check
 
-    m_pBoxes[2].iTop = (2048 - iTargetWidth / 2);
-    m_pBoxes[2].iBottom = 4096 - m_pBoxes[2].iTop;
+    m_pBoxes[1].iTop = (2048 - iTargetWidth / 2);
+    m_pBoxes[1].iBottom = 4096 - m_pBoxes[1].iTop;
 
     // Make this the inverse of the right zoom option
 
-    m_pBoxes[0].iTop = -2048 *  m_pBoxes[2].iTop / (2048 -  m_pBoxes[2].iTop);
-    m_pBoxes[0].iBottom = 4096 - m_pBoxes[0].iTop;
+    m_pBoxes[3].iTop = -2048 *  m_pBoxes[1].iTop / (2048 -  m_pBoxes[1].iTop);
+    m_pBoxes[3].iBottom = 4096 - m_pBoxes[3].iTop;
 
-    m_pBoxes[1].iTop = -iTargetWidth;
-    m_pBoxes[1].iBottom = iDasherY - iTargetWidth;
-    m_pBoxes[3].iTop = iTargetWidth;
-    m_pBoxes[3].iBottom = iDasherY + iTargetWidth;
+    m_pBoxes[0].iTop = -iTargetWidth;
+    m_pBoxes[0].iBottom = iDasherY - iTargetWidth;
+    m_pBoxes[2].iTop = iTargetWidth;
+    m_pBoxes[2].iBottom = iDasherY + iTargetWidth;
 
     m_pBoxes[0].iDisplayTop = m_pBoxes[0].iTop; 
     m_pBoxes[0].iDisplayBottom = m_pBoxes[0].iBottom;
@@ -363,6 +363,8 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       }
     }
     else {
+      if(iId == 100) // Ignore mouse events
+	return;
       if(iId == 1)
 	pModel->ScheduleZoom((m_pBoxes[m_iNumBoxes - 1].iBottom - m_pBoxes[m_iNumBoxes - 1].iTop)/2, (m_pBoxes[m_iNumBoxes - 1].iBottom + m_pBoxes[m_iNumBoxes - 1].iTop)/2);
       else if(iId <= m_iNumBoxes) 

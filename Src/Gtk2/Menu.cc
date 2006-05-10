@@ -298,6 +298,8 @@ extern "C" void save_file_and_quit(GtkWidget *widget, gpointer user_data) {
 extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
   GtkWidget *dialog = NULL;
 
+  dasher_main_save_state(g_pDasherMain);
+
   if(file_modified != FALSE) {
     // Ask whether to save the modified file, insert filename if it exists.
     if(filename != NULL) {
@@ -308,8 +310,6 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
     }
 
     gtk_dialog_add_buttons(GTK_DIALOG(dialog), _("Don't save"), GTK_RESPONSE_REJECT, _("Don't quit"), GTK_RESPONSE_CANCEL, _("Save and quit"), GTK_RESPONSE_ACCEPT, NULL);
-
-    dasher_main_save_state(g_pDasherMain);
 
     switch (gtk_dialog_run(GTK_DIALOG(dialog))) {
     case GTK_RESPONSE_REJECT:

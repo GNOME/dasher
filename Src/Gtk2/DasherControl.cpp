@@ -290,10 +290,7 @@ int CDasherControl::CanvasConfigureEvent() {
 
   m_pScreen = new CCanvas(m_pCanvas, m_pPangoCache);
   ChangeScreen(m_pScreen);
-  
-  SetLongParameter(LP_SCREENHEIGHT, m_pScreen->m_iHeight);
-  SetLongParameter(LP_SCREENWIDTH,  m_pScreen->m_iWidth);
-
+ 
   return 0;
 }
 

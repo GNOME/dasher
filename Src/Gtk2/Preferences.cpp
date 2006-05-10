@@ -1477,9 +1477,11 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
 
   for(unsigned int i(0); i < pFilterArray->len; ++i) {
     const gchar *szCurrentFilter = g_array_index(pFilterArray, gchar *, i);
-   
+    gchar *szName = new gchar[strlen(szCurrentFilter) + 1];
+    strcpy(szName, szCurrentFilter);
+
     gtk_list_store_append(pStore, &oIter);
-    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szCurrentFilter, 3, szCurrentFilter, -1);
+    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, 3, szName, -1);
  
     if(!strcmp(szCurrentFilter, szCurrentValue)) {
       g_message("Making selection: %s", szCurrentValue);
@@ -1491,7 +1493,7 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
   GtkTreeViewColumn *pColumn;
   
   pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 3, NULL);
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
   gtk_tree_view_append_column(pView, pColumn);
 
   g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
@@ -1500,18 +1502,19 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
 extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData) {
   GtkTreeIter oIter;
   GtkTreeModel *pModel;
-  gtk_tree_selection_get_selected(pSelection, &pModel, &oIter);
   
-  int iParameter;
-  gpointer pHelper;
-  gchar *szValue;
-  gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, -1);
-
-  g_message("Changing: %d to %s", iParameter, szValue);
-  gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
-
-  if(pHelper)
-    gtk_widget_set_sensitive(GTK_WIDGET(pHelper), (dasher_preferences_dialogue_get_helper(g_pPreferencesDialogue, iParameter, szValue) != NULL));
+  if(gtk_tree_selection_get_selected(pSelection, &pModel, &oIter)) {
+    int iParameter;
+    gpointer pHelper;
+    gchar *szValue;
+    gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, -1);
+    
+    g_message("Changing: %d to %s", iParameter, szValue);
+    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
+    
+    if(pHelper)
+      gtk_widget_set_sensitive(GTK_WIDGET(pHelper), (dasher_preferences_dialogue_get_helper(g_pPreferencesDialogue, iParameter, szValue) != NULL));
+  }
 }
 
 extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData) {
