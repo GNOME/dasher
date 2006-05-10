@@ -781,11 +781,16 @@ void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bAc
   myint iHeight(iDasherMax - iDasherMin);
 
   int iColour;
+  int iWidth;
 
-  if(bActive)
-    iColour = 2;
-  else
+  if(bActive) {
     iColour = 1;
+    iWidth = 3;
+  }
+  else {
+    iColour = 2;
+    iWidth = 1;
+  }
 
   CDasherScreen::point p[4];
 
@@ -794,7 +799,7 @@ void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bAc
   Dasher2Screen( iHeight, iDasherMax, p[2].x, p[2].y);
   Dasher2Screen( 0, iDasherMax, p[3].x, p[3].y);
 
-  Screen()->Polyline(p,4,1,iColour);
+  Screen()->Polyline(p, 4, iWidth, iColour);
 }
 
 void CDasherViewSquare::ResetSum() {

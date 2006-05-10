@@ -86,8 +86,7 @@ void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
 }
 
 void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
-  if(iId == 1) {
-
+  if((iId == 2) || (iId == 3) || (iId == 4)) {
     if(GetBoolParameter(BP_DASHER_PAUSED)) {
       m_pInterface->Unpause(iTime);
       m_iKeyTime = iTime;
@@ -98,13 +97,22 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       m_iKeyTime = iTime;
     }
   }
-  else if(iId == 2) {
+  else if(iId == 1) {
     bBackOff = true;
+  }
+  else if(iId == 0) {
+    if(GetBoolParameter(BP_DASHER_PAUSED)) {
+      m_pInterface->Unpause(iTime);
+      m_iKeyTime = iTime;
+    }
+    else {
+      m_pInterface->PauseAt(0,0); 
+    }
   }
 }
 
 void CDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
-  if(iId == 2) {
+  if(iId == 1) {
     bBackOff = false;
   }
 }

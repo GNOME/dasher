@@ -94,16 +94,16 @@ void CDasherButtons::SetupBoxes()
 
     // Not sure whether this is at all the right algorithm here - need to check
 
-    m_pBoxes[1].iTop = (2048 - iTargetWidth / 2);
-    m_pBoxes[1].iBottom = 4096 - m_pBoxes[1].iTop;
+    m_pBoxes[2].iTop = (2048 - iTargetWidth / 2);
+    m_pBoxes[2].iBottom = 4096 - m_pBoxes[2].iTop;
 
     // Make this the inverse of the right zoom option
 
-    m_pBoxes[0].iTop = -2048 *  m_pBoxes[1].iTop / (2048 -  m_pBoxes[1].iTop);
+    m_pBoxes[0].iTop = -2048 *  m_pBoxes[2].iTop / (2048 -  m_pBoxes[2].iTop);
     m_pBoxes[0].iBottom = 4096 - m_pBoxes[0].iTop;
 
-    m_pBoxes[2].iTop = -iTargetWidth;
-    m_pBoxes[2].iBottom = iDasherY - iTargetWidth;
+    m_pBoxes[1].iTop = -iTargetWidth;
+    m_pBoxes[1].iBottom = iDasherY - iTargetWidth;
     m_pBoxes[3].iTop = iTargetWidth;
     m_pBoxes[3].iBottom = iDasherY + iTargetWidth;
 
@@ -326,41 +326,49 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
   if(m_bMenu) {
     switch(iId) {
     case 1:
+    case 4:
       ++iActiveBox;
       if(iActiveBox == m_iNumBoxes)
 	iActiveBox = 0;
       break;
     case 2:
+    case 3:
       pModel->ScheduleZoom((m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
-      iActiveBox = 0;
+      if(iActiveBox != m_iNumBoxes-1)
+	iActiveBox = 0;
       break;
     }
   }
   else {
     if(m_iStyle == 3) {
       switch(iId) {
-      case 1:
+      case 2:
 	if(m_iLastBox == 1)
 	  pModel->ScheduleZoom((m_pBoxes[2].iBottom - m_pBoxes[2].iTop)/2, (m_pBoxes[2].iBottom + m_pBoxes[2].iTop)/2);
 	else
 	  pModel->ScheduleZoom((m_pBoxes[0].iBottom - m_pBoxes[0].iTop)/2, (m_pBoxes[0].iBottom + m_pBoxes[0].iTop)/2);
 	m_iLastBox = 1;
 	break; 
-      case 2:
+      case 3:
+      case 4:
 	if(m_iLastBox == 2)
 	  pModel->ScheduleZoom((m_pBoxes[3].iBottom - m_pBoxes[3].iTop)/2, (m_pBoxes[3].iBottom + m_pBoxes[3].iTop)/2);
 	else
 	  pModel->ScheduleZoom((m_pBoxes[1].iBottom - m_pBoxes[1].iTop)/2, (m_pBoxes[1].iBottom + m_pBoxes[1].iTop)/2);
 	m_iLastBox = 2;
 	break;
-      case 3:
+      case 1:
 	pModel->ScheduleZoom((m_pBoxes[4].iBottom - m_pBoxes[4].iTop)/2, (m_pBoxes[4].iBottom + m_pBoxes[4].iTop)/2);
 	break;
       }
     }
     else {
-      if(iId <= m_iNumBoxes) 
-	pModel->ScheduleZoom((m_pBoxes[iId-1].iBottom - m_pBoxes[iId-1].iTop)/2, (m_pBoxes[iId-1].iBottom + m_pBoxes[iId-1].iTop)/2);
+      if(iId == 1)
+	pModel->ScheduleZoom((m_pBoxes[m_iNumBoxes - 1].iBottom - m_pBoxes[m_iNumBoxes - 1].iTop)/2, (m_pBoxes[m_iNumBoxes - 1].iBottom + m_pBoxes[m_iNumBoxes - 1].iTop)/2);
+      else if(iId <= m_iNumBoxes) 
+	pModel->ScheduleZoom((m_pBoxes[iId-2].iBottom - m_pBoxes[iId-2].iTop)/2, (m_pBoxes[iId-2].iBottom + m_pBoxes[iId-2].iTop)/2);
+      else
+	pModel->ScheduleZoom((m_pBoxes[m_iNumBoxes-2].iBottom - m_pBoxes[m_iNumBoxes-2].iTop)/2, (m_pBoxes[m_iNumBoxes-2].iBottom + m_pBoxes[m_iNumBoxes-2].iTop)/2);
     }
   }
 

@@ -280,11 +280,11 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
 
   // FIXME - combine this with polygon?
 
+#if WITH_CAIRO
+#else
   if(iWidth == 1) // This is to make it work propely on Windows
     iWidth = 0; 
 
-#if WITH_CAIRO
-#else
   GdkGC *graphics_context;
   GdkColormap *colormap;
   
@@ -296,6 +296,7 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
   SET_COLOR(Colour);
 
 #if WITH_CAIRO
+  cairo_set_line_width(cr, iWidth);
   cairo_move_to(cr, Points[0].x+.5, Points[0].y+.5);
   for (int i=1; i < Number; i++)
     cairo_line_to(cr, Points[i].x+.5, Points[i].y+.5);
