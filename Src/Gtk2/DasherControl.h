@@ -7,6 +7,7 @@
 #include "mouse_input.h"
 
 #include "GtkDasherControl.h"
+#include "KeyboardHelper.h"
 
 #include "../DasherCore/DasherSettingsInterface.h"
 #include "../DasherCore/DashEdit.h"
@@ -207,6 +208,12 @@ private:
   ///
 
   GtkDasherControl *m_pDasherControl;
+
+  ///
+  /// Keyboard helper class
+  ///
+
+  CKeyboardHelper *m_pKeyboardHelper;
 
   int m_iComboCount;
 

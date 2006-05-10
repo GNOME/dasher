@@ -50,6 +50,8 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   std::cout << "Settings store: " << m_pSettingsStore << std::endl;
 
+  m_pKeyboardHelper = new CKeyboardHelper;
+
   CreateInput();
 
 //   m_pSocketInput = (CSocketInput *)GetModule(1);
@@ -229,6 +231,10 @@ CDasherControl::~CDasherControl() {
     m_pPangoCache = NULL;
   }
 
+  if(m_pKeyboardHelper) {
+    delete m_pKeyboardHelper;
+    m_pKeyboardHelper = 0;
+  }
 }
 
 bool CDasherControl::FocusEvent(GtkWidget *pWidget, GdkEventFocus *pEvent) {
@@ -505,65 +511,75 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 }
 
 gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
-  switch (event->keyval) {
- 
-  case GDK_Shift_L:
-  case GDK_Shift_R: //deliberate fall through
-     if(event->state & GDK_CONTROL_MASK)
-        SetLongParameter(LP_BOOSTFACTOR, 25);
-      else
-        SetLongParameter(LP_BOOSTFACTOR, 100);
-    break;
-  case GDK_Control_L:
-  case GDK_Control_R: //deliberate fall through
-     if(event->state & GDK_SHIFT_MASK)
-        SetLongParameter(LP_BOOSTFACTOR, 175);
-      else
-        SetLongParameter(LP_BOOSTFACTOR, 100);
-    break;
- case GDK_a:
-    KeyUp(get_time(), 1);
-    break;
-  case GDK_s:
-    KeyUp(get_time(), 2);
-    break;
-  case GDK_w:
-    KeyUp(get_time(), 3);    
-    break;
-  case GDK_x:
-    KeyUp(get_time(), 4);
-    break;
-  }  
-  return 0;
 
 
-}
-gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
-  switch (event->keyval) {
-  case GDK_space:
-    KeyDown(get_time(), 0);
-    break;
-  case GDK_Shift_L:
-  case GDK_Shift_R: //deliberate fall through
-    SetLongParameter(LP_BOOSTFACTOR, 175);
-    break;
-  case GDK_Control_L:
-  case GDK_Control_R: //deliberate fall through
-    SetLongParameter(LP_BOOSTFACTOR, 25);
-    break;
-  case GDK_a:
-    KeyDown(get_time(), 1);
-    break;
-  case GDK_s:
-    KeyDown(get_time(), 2);
-    break;
-  case GDK_w:
-    KeyDown(get_time(), 3);
-    break;
-  case GDK_x:
-    KeyDown(get_time(), 4);
-    break;
+  if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R)) {
+    if(event->state & GDK_CONTROL_MASK)
+      SetLongParameter(LP_BOOSTFACTOR, 25);
+    else
+      SetLongParameter(LP_BOOSTFACTOR, 100);
   }
+  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)) {
+    if(event->state & GDK_SHIFT_MASK)
+      SetLongParameter(LP_BOOSTFACTOR, 175);
+    else
+      SetLongParameter(LP_BOOSTFACTOR, 100);
+  }
+  else {
+    int iKeyVal;
+
+    if(m_pKeyboardHelper) {
+      int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
+      
+      if(iKeyVal != -1)
+	KeyUp(get_time(), iKeyVal);
+    }
+  }
+
+  return 0;
+}
+
+gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
+  if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R))
+    SetLongParameter(LP_BOOSTFACTOR, 175);
+  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R))
+    SetLongParameter(LP_BOOSTFACTOR, 25);
+  else {
+    int iKeyVal;
+
+    if(m_pKeyboardHelper) {
+      int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
+      
+      if(iKeyVal != -1)
+	KeyDown(get_time(), iKeyVal);
+    }
+  }
+
+//   switch (event->keyval) {
+//   case GDK_space:
+//     KeyDown(get_time(), 0);
+//     break;
+//   case GDK_Shift_L:
+//   case GDK_Shift_R: //deliberate fall through
+//     SetLongParameter(LP_BOOSTFACTOR, 175);
+//     break;
+//   case GDK_Control_L:
+//   case GDK_Control_R: //deliberate fall through
+//     SetLongParameter(LP_BOOSTFACTOR, 25);
+//     break;
+//   case GDK_a:
+//     KeyDown(get_time(), 1);
+//     break;
+//   case GDK_s:
+//     KeyDown(get_time(), 2);
+//     break;
+//   case GDK_w:
+//     KeyDown(get_time(), 3);
+//     break;
+//   case GDK_x:
+//     KeyDown(get_time(), 4);
+//     break;
+//   }
   return 0;
 }
 
