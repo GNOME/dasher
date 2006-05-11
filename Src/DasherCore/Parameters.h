@@ -29,8 +29,8 @@ enum {
   LP_LM_UPDATE_EXCLUSION, LP_LM_ALPHA, LP_LM_BETA,
   LP_LM_MIXTURE, LP_MOUSE_POS_BOX, LP_NORMALIZATION, LP_LINE_WIDTH, 
   LP_LM_WORD_ALPHA, LP_USER_LOG_LEVEL_MASK, LP_SPEED_DIVISOR, 
-  LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM, LP_SCREENWIDTH,
-  LP_SCREENHEIGHT, LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
+  LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM,
+  LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, END_OF_LPS
 };
 
@@ -128,9 +128,9 @@ static bp_table boolparamtable[] = {
 };
 
 static lp_table longparamtable[] = {
-  {LP_ORIENTATION, "ScreenOrientation", PERS, 0, "Screen Orientation"},
+  {LP_ORIENTATION, "ScreenOrientation", PERS, -2, "Screen Orientation"},
   {LP_REAL_ORIENTATION, "RealOrientation", !PERS, 0, "Actual screen orientation (allowing for alphabet default)"},
-  {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 150, "Max Bit Rate Times 100"},
+  {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 80, "Max Bit Rate Times 100"},
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
   {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
   {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 1, "DasherFontSize"},
@@ -157,9 +157,7 @@ static lp_table longparamtable[] = {
   {LP_S, "ButtonMenuSafety", PERS, 25, "Safety parameter for button mode, in percent."},
   {LP_Z, "ButtonMenuBackwardsBox", PERS, 1, "Number of back-up boxes for button menu mode"},
   {LP_R, "ButtonModeNonuniformity", PERS, 0, "Button mode box non-uniformity"},
-  {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5, "Zoomfactor (*1024) for compass mode"},
-  {LP_SCREENWIDTH, "ScreenWidth", PERS, 1, "Width of screen, in pixels."},
-  {LP_SCREENHEIGHT, "ScreenHeight", PERS, 1, "Heightof screen, in pixels."},
+  {LP_RIGHTZOOM, "ButtonCompassModeRightZoom", PERS, 5120, "Zoomfactor (*1024) for compass mode"},
   {LP_BOOSTFACTOR, "BoostFactor", !PERS, 100, "Boost/brake factor (multiplied by 100)"},
   {LP_AUTOSPEED_SENSITIVITY, "AutospeedSensitivity", PERS, 100, "Sensitivity of automatic speed control (percent)"},
   {LP_SOCKET_PORT, "SocketPort", PERS, 20320, "UDP/TCP socket to use for network socket input"},

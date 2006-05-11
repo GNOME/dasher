@@ -1964,7 +1964,6 @@ Two box</property>
 
 		      <child>
 			<widget class="GtkLabel" id="label48">
-			  <property name="visible">True</property>
 			  <property name="label" translatable="yes">&lt;b&gt;Language Model:&lt;/b&gt;</property>
 			  <property name="use_underline">False</property>
 			  <property name="use_markup">True</property>
@@ -1985,7 +1984,6 @@ Two box</property>
 
 		      <child>
 			<widget class="GtkRadioButton" id="radiobutton6">
-			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Standard letter-based PPM</property>
 			  <property name="use_underline">True</property>
@@ -2005,7 +2003,6 @@ Two box</property>
 
 		      <child>
 			<widget class="GtkRadioButton" id="radiobutton7">
-			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Word-based model</property>
 			  <property name="use_underline">True</property>
@@ -2026,7 +2023,6 @@ Two box</property>
 
 		      <child>
 			<widget class="GtkRadioButton" id="radiobutton8">
-			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Mixture model (PPM/dictionary)</property>
 			  <property name="use_underline">True</property>
@@ -2047,7 +2043,6 @@ Two box</property>
 
 		      <child>
 			<widget class="GtkRadioButton" id="radiobutton9">
-			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
 			  <property name="label" translatable="yes">Japanese</property>
 			  <property name="use_underline">True</property>

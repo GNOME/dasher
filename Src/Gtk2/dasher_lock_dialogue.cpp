@@ -14,6 +14,8 @@ void dasher_lock_dialogue_new(GladeXML *pGladeXML, GtkWindow *pMainWindow) {
   m_pLockWindow = glade_xml_get_widget(pGladeXML, "lock_window");
   m_pLockProgress = glade_xml_get_widget(pGladeXML, "lock_progress");
   m_pLockMessage = glade_xml_get_widget(pGladeXML, "lock_message");
+
+  gtk_widget_hide(m_pLockWindow);
   
   gtk_window_set_transient_for(GTK_WINDOW(m_pLockWindow), pMainWindow);
 }

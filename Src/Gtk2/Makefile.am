@@ -74,6 +74,7 @@ libdashergtk_a_SOURCES = \
                          dasher_internal_buffer.cpp \
                          dasher_internal_buffer.h \
 			 dasher_lock_dialogue.cpp \
+			 dasher_lock_dialogue.h \
 			 dasher_maemo_helper.cpp \
 			 dasher_maemo_helper.h \
                          dasher_main.cpp \
