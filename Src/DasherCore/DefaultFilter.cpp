@@ -45,9 +45,8 @@ void CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iDasherY;
 
   m_pDasherView->TapOnDisplay(0, 0, Time, iDasherX, iDasherY);
-
-  int mode;
   
+  ApplyAutoCalibration(iDasherX, iDasherY, true);
   ApplyTransform(iDasherX, iDasherY);
 
   m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);
@@ -142,6 +141,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   
   pView->Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, mode);
 
+  ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
 
   if(GetBoolParameter(BP_COLOUR_MODE) == true) {
@@ -198,6 +198,7 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
  
   pView->Input2Dasher(mousex, mousey, x[1], y[1], iType, mode);
 
+  ApplyAutoCalibration(x[1], y[1], false);
   ApplyTransform(x[1], y[1]);
 
   // Actually plot the line
@@ -211,4 +212,7 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
 }
 
 void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
+}
+
+void CDefaultFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, bool bUpdate) {
 }

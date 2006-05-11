@@ -644,6 +644,8 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
 
   // First convert the supplied co-ordinates to 'linear' Dasher co-ordinates
 
+  //  std::cout << "iType: " << iType << " iMode: " << iMode << std::endl;
+
   switch (iType) {
   case 0:
     // Raw secreen coordinates
@@ -746,7 +748,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
   delete[]pCoordinates;
 
   //  bool autocalibrate = GetBoolParameter(BP_AUTOCALIBRATE);
-  if(GetBoolParameter(BP_AUTOCALIBRATE) && GetBoolParameter(BP_EYETRACKER_MODE)) {
+  if(GetBoolParameter(BP_AUTOCALIBRATE) && (GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")) {
     AutoCalibrate(&mousex, &mousey);
   }
 
@@ -830,20 +832,31 @@ int CDasherViewSquare::GetAutoOffset() const {
 }
 
 void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
+  return;
+  // Y value in dasher coordinates
   double dashery = double (*mousey) * double ((myint)GetLongParameter(LP_MAX_Y)) / double (CanvasY);
+
+  // Origin in dasher coordinates
   myint dasherOY = (myint)GetLongParameter(LP_OY);
+
+  // Distance above origin in dasher coordinates
   double disty = double (dasherOY) - dashery;
+
+  // Whether we're paused or not (sensible choice of name!)
   bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
 
   if(!DasherRunning == true) {
+    // Only update every this number of timesteps
     m_yFilterTimescale = 20;
     m_ySum += (int)disty;
     m_ySumCounter++;
 
     m_ySigBiasPercentage = 50;
+
+    // Despite the name, this is actually measured in dasher coordinates
     m_ySigBiasPixels = m_ySigBiasPercentage * (myint)GetLongParameter(LP_MAX_Y) / 100;
 
-    //cout << "yAutoOffset: " << CDasherView::yAutoOffset << endl;
+    cout << "yAutoOffset: " << m_yAutoOffset << endl;
 
     if(m_ySumCounter > m_yFilterTimescale) {
       m_ySumCounter = 0;

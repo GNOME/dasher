@@ -22,6 +22,7 @@ class CDefaultFilter : public CInputFilter {
  private:
   virtual void DrawMouse(CDasherView *pView);
   virtual void DrawMouseLine(CDasherView *pView);
+  virtual void ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, bool bUpdate);
   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
 
   CAutoSpeedControl *m_pAutoSpeedControl;

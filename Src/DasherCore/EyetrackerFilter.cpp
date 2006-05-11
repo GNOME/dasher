@@ -1,7 +1,18 @@
 #include "EyetrackerFilter.h"
 
+#include <iostream>
+
 CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5, "Eyetracker Mode") {
+
+  // Setup some autocalibration parameters
+  m_iYAutoOffset = 0;
+  
+  m_iSum = 0;
+  m_iSigBiasPixels = 0.5 * GetLongParameter(LP_MAX_Y);
+
+  m_iCounter = 0;
+  m_iFilterTimescale = 20;
 }
 
 void CEyetrackerFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
@@ -56,4 +67,51 @@ double CEyetrackerFilter::xmax(double x, double y) {
     xmax = c;
   
   return xmax;
+}
+
+void CEyetrackerFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, bool bUpdate) {
+  if(!GetBoolParameter(BP_AUTOCALIBRATE))
+    return;
+
+  // TODO: It turns out that this was previously computed in pixels,
+  // altough everythign else made use of Dasher coordinates. Hack in a
+  // factor of 10 to get the offset in Dasher coordinates, but it
+  // would be a good idea at some point to sort this out properly.
+
+  iDasherY -= 10 * m_iYAutoOffset;
+
+  if(GetBoolParameter(BP_DASHER_PAUSED))
+    return;
+
+  if(!bUpdate)
+    return;
+
+  // Now update the auto offset
+
+  myint iDistY = GetLongParameter(LP_OY) - iDasherY; // Distance above crosshair
+
+  m_iSum += iDistY;
+  ++m_iCounter;
+
+  if(m_iCounter > m_iFilterTimescale) {
+    m_iCounter = 0;
+
+    // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+    // change if we're past the significance boundary.
+    
+    // TODO: The conditionals below don't make any sense!
+
+    if(m_iSum > m_iSigBiasPixels || m_iSum < -m_iSigBiasPixels) {
+      if(m_iSum > m_iFilterTimescale) {
+	m_iYAutoOffset--;
+      }
+      else if(m_iSum < -m_iFilterTimescale)
+	m_iYAutoOffset++;
+
+      // TODO: Should this maybe be outside of the if, so that we have
+      // an average offset, rather than just slowing the time it takes
+      // to drift?
+      m_iSum = 0;
+    }
+  }
 }
