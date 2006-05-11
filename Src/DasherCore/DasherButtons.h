@@ -57,6 +57,9 @@ class CDasherButtons : public CInputFilter
 
   int iTargetWidth;
 
+  int m_iLastTime;
+  bool m_bHighlight;
+
 };
 
 #endif

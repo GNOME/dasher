@@ -314,7 +314,7 @@ bool CDasherButtons::DecorateView(CDasherView *pView) {
       if(i != iActiveBox)
 	pView->NewDrawGoTo(m_pBoxes[i].iDisplayTop, m_pBoxes[i].iDisplayBottom, false);
     }
-    pView->NewDrawGoTo(m_pBoxes[iActiveBox].iDisplayTop, m_pBoxes[iActiveBox].iDisplayBottom, m_bMenu);
+    pView->NewDrawGoTo(m_pBoxes[iActiveBox].iDisplayTop, m_pBoxes[iActiveBox].iDisplayBottom, m_bMenu || m_bHighlight);
   }
 
   return true;
@@ -366,17 +366,22 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       if(iId == 100) // Ignore mouse events
 	return;
       if(iId == 1)
-	pModel->ScheduleZoom((m_pBoxes[m_iNumBoxes - 1].iBottom - m_pBoxes[m_iNumBoxes - 1].iTop)/2, (m_pBoxes[m_iNumBoxes - 1].iBottom + m_pBoxes[m_iNumBoxes - 1].iTop)/2);
+	iActiveBox = m_iNumBoxes - 1;
       else if(iId <= m_iNumBoxes) 
-	pModel->ScheduleZoom((m_pBoxes[iId-2].iBottom - m_pBoxes[iId-2].iTop)/2, (m_pBoxes[iId-2].iBottom + m_pBoxes[iId-2].iTop)/2);
+	iActiveBox = iId-2;
       else
-	pModel->ScheduleZoom((m_pBoxes[m_iNumBoxes-2].iBottom - m_pBoxes[m_iNumBoxes-2].iTop)/2, (m_pBoxes[m_iNumBoxes-2].iBottom + m_pBoxes[m_iNumBoxes-2].iTop)/2);
+	iActiveBox = m_iNumBoxes-2;
+
+      m_iLastTime = iTime;
+	
+      pModel->ScheduleZoom((m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
     }
   }
 
 }
 
 void CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+  m_bHighlight = (Time - m_iLastTime < 200);
   m_pDasherModel->Tap_on_display(0, 0, Time, 0, 0);
 }
 

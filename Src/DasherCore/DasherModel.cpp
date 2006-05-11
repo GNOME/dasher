@@ -55,6 +55,11 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   // -- put all this in a separate method
   // TODO: Think about having 'prefered' values here, which get
   // retrieved by DasherInterfaceBase and used to set parameters
+
+  // TODO: We might get a different alphabet to the one we asked for -
+  // if this is the case then the parameter value should be updated,
+  // but not in such a way that it causes everything to be rebuilt.
+
   CAlphIO::AlphInfo oAlphInfo = pAlphIO->GetInfo(GetStringParameter(SP_ALPHABET_ID));
   m_pcAlphabet = new CAlphabet(oAlphInfo);
 

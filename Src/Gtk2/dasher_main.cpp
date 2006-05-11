@@ -274,9 +274,10 @@ void dasher_main_refresh_font(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
   const gchar *szFontName = dasher_app_settings_get_string(pPrivate->pAppSettings, APP_SP_EDIT_FONT);
-  
-  if(!strcmp(szFontName, "")) {
-    gtk_widget_modify_font(pPrivate->pBufferView, pango_font_description_from_string(szFontName));
+  PangoFontDescription *pFD = pango_font_description_from_string(szFontName);
+
+  if(strcmp(szFontName, "")) {
+    gtk_widget_modify_font(pPrivate->pBufferView, pFD);
   }
 }
 
@@ -519,7 +520,8 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
 
   GtkWidget *pOldParent = gtk_widget_get_parent(pPrivate->pDivider);
   gtk_widget_destroy(pPrivate->pDivider);
-  gtk_box_pack_start(GTK_BOX(pOldParent), pDividerNew, true, true, 0);
+  //  gtk_box_pack_start(GTK_BOX(pOldParent), pDividerNew, true, true, 0); 
+  gtk_container_add(GTK_CONTAINER(pOldParent), pDividerNew);
   gtk_widget_show(pDividerNew);
   pPrivate->pDivider = pDividerNew;
 

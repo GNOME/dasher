@@ -455,112 +455,126 @@
       </child>
 
       <child>
-	<widget class="GtkHPaned" id="hpaned1">
+	<widget class="GtkAlignment" id="alignment42">
 	  <property name="visible">True</property>
-	  <property name="can_focus">True</property>
+	  <property name="xalign">0.5</property>
+	  <property name="yalign">0.5</property>
+	  <property name="xscale">1</property>
+	  <property name="yscale">1</property>
+	  <property name="top_padding">0</property>
+	  <property name="bottom_padding">0</property>
+	  <property name="left_padding">0</property>
+	  <property name="right_padding">0</property>
 
 	  <child>
-	    <widget class="Custom" id="DasherControl">
+	    <widget class="GtkHPaned" id="hpaned1">
 	      <property name="visible">True</property>
 	      <property name="can_focus">True</property>
-	      <property name="has_focus">True</property>
-	      <property name="creation_function">create_dasher_control</property>
-	      <property name="int1">0</property>
-	      <property name="int2">0</property>
-	      <property name="last_modification_time">Sun, 05 Mar 2006 19:33:03 GMT</property>
-	      <signal name="dasher_changed" handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT"/>
-	      <signal name="dasher_start" handler="handle_start_event" last_modification_time="Sun, 05 Mar 2006 19:45:35 GMT"/>
-	      <signal name="dasher_stop" handler="handle_stop_event" last_modification_time="Sun, 05 Mar 2006 19:45:43 GMT"/>
-	      <signal name="dasher_control" handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT"/>
-	      <signal name="dasher_edit_insert" handler="gtk2_edit_output_callback" last_modification_time="Sun, 05 Mar 2006 19:46:13 GMT"/>
-	      <signal name="dasher_edit_delete" handler="gtk2_edit_delete_callback" last_modification_time="Sun, 05 Mar 2006 19:46:32 GMT"/>
-	      <signal name="dasher_context_request" handler="handle_context_request" last_modification_time="Sun, 05 Mar 2006 19:46:54 GMT"/>
-	      <signal name="dasher_request_settings" handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT"/>
-	      <signal name="focus_in_event" handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT"/>
-	      <signal name="dasher_lock_info" handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT"/>
-	      <signal name="dasher_message" handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT"/>
-	    </widget>
-	    <packing>
-	      <property name="shrink">True</property>
-	      <property name="resize">False</property>
-	    </packing>
-	  </child>
-
-	  <child>
-	    <widget class="GtkHBox" id="vbox40">
-	      <property name="visible">True</property>
-	      <property name="homogeneous">False</property>
-	      <property name="spacing">0</property>
 
 	      <child>
-		<widget class="GtkScrolledWindow" id="scrolledwindow5">
+		<widget class="Custom" id="DasherControl">
 		  <property name="visible">True</property>
 		  <property name="can_focus">True</property>
-		  <property name="hscrollbar_policy">GTK_POLICY_NEVER</property>
-		  <property name="vscrollbar_policy">GTK_POLICY_NEVER</property>
-		  <property name="shadow_type">GTK_SHADOW_NONE</property>
-		  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
-
-		  <child>
-		    <widget class="GtkViewport" id="viewport4">
-		      <property name="visible">True</property>
-		      <property name="shadow_type">GTK_SHADOW_IN</property>
-
-		      <child>
-			<widget class="GtkTextView" id="the_text_view">
-			  <property name="visible">True</property>
-			  <property name="can_default">True</property>
-			  <property name="can_focus">True</property>
-			  <property name="events">GDK_BUTTON_PRESS_MASK | GDK_KEY_PRESS_MASK</property>
-			  <property name="editable">True</property>
-			  <property name="overwrite">False</property>
-			  <property name="accepts_tab">True</property>
-			  <property name="justification">GTK_JUSTIFY_LEFT</property>
-			  <property name="wrap_mode">GTK_WRAP_WORD</property>
-			  <property name="cursor_visible">True</property>
-			  <property name="pixels_above_lines">0</property>
-			  <property name="pixels_below_lines">0</property>
-			  <property name="pixels_inside_wrap">0</property>
-			  <property name="left_margin">0</property>
-			  <property name="right_margin">0</property>
-			  <property name="indent">0</property>
-			  <property name="text" translatable="yes"></property>
-			</widget>
-		      </child>
-		    </widget>
-		  </child>
+		  <property name="has_focus">True</property>
+		  <property name="creation_function">create_dasher_control</property>
+		  <property name="int1">0</property>
+		  <property name="int2">0</property>
+		  <property name="last_modification_time">Sun, 05 Mar 2006 19:33:03 GMT</property>
+		  <signal name="dasher_changed" handler="parameter_notification" last_modification_time="Sun, 05 Mar 2006 19:45:23 GMT"/>
+		  <signal name="dasher_start" handler="handle_start_event" last_modification_time="Sun, 05 Mar 2006 19:45:35 GMT"/>
+		  <signal name="dasher_stop" handler="handle_stop_event" last_modification_time="Sun, 05 Mar 2006 19:45:43 GMT"/>
+		  <signal name="dasher_control" handler="handle_control_event" last_modification_time="Sun, 05 Mar 2006 19:45:53 GMT"/>
+		  <signal name="dasher_edit_insert" handler="gtk2_edit_output_callback" last_modification_time="Sun, 05 Mar 2006 19:46:13 GMT"/>
+		  <signal name="dasher_edit_delete" handler="gtk2_edit_delete_callback" last_modification_time="Sun, 05 Mar 2006 19:46:32 GMT"/>
+		  <signal name="dasher_context_request" handler="handle_context_request" last_modification_time="Sun, 05 Mar 2006 19:46:54 GMT"/>
+		  <signal name="dasher_request_settings" handler="handle_request_settings" last_modification_time="Sun, 05 Mar 2006 19:47:12 GMT"/>
+		  <signal name="focus_in_event" handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT"/>
+		  <signal name="dasher_lock_info" handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT"/>
+		  <signal name="dasher_message" handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT"/>
 		</widget>
 		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">True</property>
-		  <property name="fill">True</property>
+		  <property name="shrink">True</property>
+		  <property name="resize">False</property>
 		</packing>
 	      </child>
 
 	      <child>
-		<widget class="GtkVBox" id="vbox39">
+		<widget class="GtkHBox" id="vbox40">
+		  <property name="visible">True</property>
 		  <property name="homogeneous">False</property>
 		  <property name="spacing">0</property>
 
 		  <child>
-		    <placeholder/>
+		    <widget class="GtkScrolledWindow" id="scrolledwindow5">
+		      <property name="visible">True</property>
+		      <property name="can_focus">True</property>
+		      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+		      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+		      <property name="shadow_type">GTK_SHADOW_NONE</property>
+		      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
+
+		      <child>
+			<widget class="GtkViewport" id="viewport4">
+			  <property name="visible">True</property>
+			  <property name="shadow_type">GTK_SHADOW_IN</property>
+
+			  <child>
+			    <widget class="GtkTextView" id="the_text_view">
+			      <property name="visible">True</property>
+			      <property name="can_default">True</property>
+			      <property name="can_focus">True</property>
+			      <property name="events">GDK_BUTTON_PRESS_MASK | GDK_KEY_PRESS_MASK</property>
+			      <property name="editable">True</property>
+			      <property name="overwrite">False</property>
+			      <property name="accepts_tab">True</property>
+			      <property name="justification">GTK_JUSTIFY_LEFT</property>
+			      <property name="wrap_mode">GTK_WRAP_WORD</property>
+			      <property name="cursor_visible">True</property>
+			      <property name="pixels_above_lines">0</property>
+			      <property name="pixels_below_lines">0</property>
+			      <property name="pixels_inside_wrap">0</property>
+			      <property name="left_margin">0</property>
+			      <property name="right_margin">0</property>
+			      <property name="indent">0</property>
+			      <property name="text" translatable="yes"></property>
+			    </widget>
+			  </child>
+			</widget>
+		      </child>
+		    </widget>
+		    <packing>
+		      <property name="padding">0</property>
+		      <property name="expand">True</property>
+		      <property name="fill">True</property>
+		    </packing>
 		  </child>
 
 		  <child>
-		    <placeholder/>
+		    <widget class="GtkVBox" id="vbox39">
+		      <property name="homogeneous">False</property>
+		      <property name="spacing">0</property>
+
+		      <child>
+			<placeholder/>
+		      </child>
+
+		      <child>
+			<placeholder/>
+		      </child>
+		    </widget>
+		    <packing>
+		      <property name="padding">0</property>
+		      <property name="expand">False</property>
+		      <property name="fill">True</property>
+		    </packing>
 		  </child>
 		</widget>
 		<packing>
-		  <property name="padding">0</property>
-		  <property name="expand">False</property>
-		  <property name="fill">True</property>
+		  <property name="shrink">True</property>
+		  <property name="resize">True</property>
 		</packing>
 	      </child>
 	    </widget>
-	    <packing>
-	      <property name="shrink">True</property>
-	      <property name="resize">True</property>
-	    </packing>
 	  </child>
 	</widget>
 	<packing>
@@ -2717,37 +2731,44 @@ You must have gconf-editor installed and available in your path in order to acce
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
-  <signal name="delete_event" handler="fontsel_hide" last_modification_time="Tue, 23 Sep 2003 18:16:56 GMT"/>
+  <signal name="delete_event" handler="dasher_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:22:16 GMT"/>
 
   <child internal-child="cancel_button">
-    <widget class="GtkButton" id="cancel_butto">
-      <property name="can_default">True</property>
-      <property name="can_focus">True</property>
-      <property name="relief">GTK_RELIEF_NORMAL</property>
-      <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="fontsel_hide" last_modification_time="Tue, 23 Sep 2003 18:11:49 GMT"/>
-    </widget>
-  </child>
-
-  <child internal-child="apply_button">
-    <widget class="GtkButton" id="cancel_button2">
+    <widget class="GtkButton" id="dasher_font_cancel">
+      <property name="visible">True</property>
       <property name="can_default">True</property>
       <property name="can_focus">True</property>
       <property name="label">gtk-cancel</property>
       <property name="use_stock">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="fontsel_hide" last_modification_time="Sat, 04 Oct 2003 14:42:00 GMT"/>
+      <signal name="clicked" handler="dasher_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:21:14 GMT"/>
+    </widget>
+  </child>
+
+  <child internal-child="apply_button">
+    <widget class="GtkButton" id="dasher_font_apply">
+      <property name="visible">True</property>
+      <property name="can_default">True</property>
+      <property name="can_focus">True</property>
+      <property name="label">gtk-apply</property>
+      <property name="use_stock">True</property>
+      <property name="relief">GTK_RELIEF_NORMAL</property>
+      <property name="focus_on_click">True</property>
+      <signal name="clicked" handler="dasher_font_apply_cb" last_modification_time="Thu, 11 May 2006 15:21:38 GMT"/>
     </widget>
   </child>
 
   <child internal-child="ok_button">
-    <widget class="GtkButton" id="ok_button2">
+    <widget class="GtkButton" id="dasher_font_ok">
       <property name="visible">True</property>
       <property name="can_default">True</property>
       <property name="can_focus">True</property>
+      <property name="label">gtk-ok</property>
+      <property name="use_stock">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
+      <signal name="clicked" handler="dasher_font_ok_cb" last_modification_time="Thu, 11 May 2006 15:22:03 GMT"/>
     </widget>
   </child>
 
@@ -2778,34 +2799,44 @@ You must have gconf-editor installed and available in your path in order to acce
   <property name="skip_pager_hint">False</property>
   <property name="type_hint">GDK_WINDOW_TYPE_HINT_DIALOG</property>
   <property name="gravity">GDK_GRAVITY_NORTH_WEST</property>
+  <signal name="close" handler="edit_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:22:37 GMT"/>
 
   <child internal-child="cancel_button">
-    <widget class="GtkButton" id="cancel_butto3">
+    <widget class="GtkButton" id="edit_font_cancel">
+      <property name="visible">True</property>
       <property name="can_default">True</property>
       <property name="can_focus">True</property>
+      <property name="label">gtk-cancel</property>
+      <property name="use_stock">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
-      <signal name="clicked" handler="edit_fontsel_hide" last_modification_time="Fri, 17 Oct 2003 16:12:24 GMT"/>
+      <signal name="clicked" handler="edit_font_cancel_cb" last_modification_time="Thu, 11 May 2006 15:20:27 GMT"/>
     </widget>
   </child>
 
   <child internal-child="apply_button">
-    <widget class="GtkButton" id="button22">
+    <widget class="GtkButton" id="edit_font_apply">
       <property name="visible">True</property>
       <property name="can_default">True</property>
       <property name="can_focus">True</property>
+      <property name="label">gtk-apply</property>
+      <property name="use_stock">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
+      <signal name="clicked" handler="edit_font_apply_cb" last_modification_time="Thu, 11 May 2006 15:20:19 GMT"/>
     </widget>
   </child>
 
   <child internal-child="ok_button">
-    <widget class="GtkButton" id="ok_button3">
+    <widget class="GtkButton" id="edit_font_ok">
       <property name="visible">True</property>
       <property name="can_default">True</property>
       <property name="can_focus">True</property>
+      <property name="label">gtk-ok</property>
+      <property name="use_stock">True</property>
       <property name="relief">GTK_RELIEF_NORMAL</property>
       <property name="focus_on_click">True</property>
+      <signal name="clicked" handler="edit_font_ok_cb" last_modification_time="Thu, 11 May 2006 15:19:55 GMT"/>
     </widget>
   </child>
 

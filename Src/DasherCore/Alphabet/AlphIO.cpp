@@ -114,8 +114,8 @@ const CAlphIO::AlphInfo & CAlphIO::GetInfo(const std::string &AlphID) {
   if(AlphID == "") {
     // FIXME - really broken, code duplicated in Win32/Widgets/AlphabetBox.cpp
     // Eww. If no alphabet is configured, default to this one...
-    if(Alphabets.count("English alphabet - limited punctuation") != 0) {
-      return Alphabets["English alphabet - limited punctuation"];
+    if(Alphabets.count("English with limited punctuation") != 0) {
+      return Alphabets["English with limited punctuation"];
     }
     else {
       // unless it doesn't exist, in which case return default

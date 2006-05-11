@@ -133,7 +133,7 @@ static lp_table longparamtable[] = {
   {LP_MAX_BITRATE, "MaxBitRateTimes100", PERS, 80, "Max Bit Rate Times 100"},
   {LP_VIEW_ID, "ViewID", PERS, 1, "ViewID"},
   {LP_LANGUAGE_MODEL_ID, "LanguageModelID", PERS, 0, "LanguageModelID"},
-  {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 1, "DasherFontSize"},
+  {LP_DASHER_FONTSIZE, "DasherFontSize", PERS, 2, "DasherFontSize"},
   {LP_UNIFORM, "UniformTimes1000", PERS, 50, "UniformTimes1000"},
   {LP_YSCALE, "YScaling", PERS, 0, "YScaling"},
   {LP_MOUSEPOSDIST, "MousePositionBoxDistance", PERS, 50, "MousePositionBoxDistance"},
