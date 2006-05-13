@@ -47,7 +47,8 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_OUTLINE_MODE, "outlinebutton", NULL},
   {BP_CONTROL_MODE, "control_controlmode", NULL},
   {APP_BP_TIME_STAMP, "timestampbutton", NULL},
-  {BP_AUTOCALIBRATE, "autocalibrate", NULL}
+  {BP_AUTOCALIBRATE, "autocalibrate", NULL},
+  {BP_GLOBAL_KEYBOARD, "keyboardgrab", NULL}
 };
 
 // List widgets which map directly to string parameters

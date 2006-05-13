@@ -4,6 +4,7 @@
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
+
 #include "dasher.h"
 #ifdef WITH_MAEMO
 #include "dasher_maemo_helper.h"
@@ -54,6 +55,7 @@ static void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost);
 extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
+extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event, gpointer data);
 
 GType dasher_main_get_type() {
 
@@ -154,8 +156,8 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), false);
 #endif
 }
-
 void dasher_main_setup_window(DasherMain *pSelf) {
+  gdk_window_add_filter(0, keyboard_filter_cb, 0);
 }
 
 
@@ -686,4 +688,32 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
   else {
     return false;
   }
+}
+
+extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
+  GtkDasherControl *pControl = (GtkDasherControl *)pDasherWidget;
+
+  XEvent *xev = (XEvent *)xevent;
+
+  if(xev->xany.type == KeyPress) {
+    GdkKeymapKey sKeyDetails;
+
+    sKeyDetails.keycode = ((XKeyPressedEvent *)xevent)->keycode;
+    sKeyDetails.group = 0;
+    sKeyDetails.level = 0;
+
+    gtk_dasher_control_external_key_down(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
+  }
+
+  if(xev->xany.type == KeyRelease) { 
+    GdkKeymapKey sKeyDetails;
+
+    sKeyDetails.keycode = ((XKeyReleasedEvent *)xevent)->keycode;
+    sKeyDetails.group = 0;
+    sKeyDetails.level = 0;
+
+    gtk_dasher_control_external_key_up(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
+  }
+
+  return GDK_FILTER_CONTINUE;
 }

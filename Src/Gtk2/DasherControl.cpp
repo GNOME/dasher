@@ -51,6 +51,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   std::cout << "Settings store: " << m_pSettingsStore << std::endl;
 
   m_pKeyboardHelper = new CKeyboardHelper;
+  m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
 
   CreateInput();
 
@@ -318,17 +319,35 @@ void CDasherControl::WriteTrainFile(const std::string &strNewText) {
   close(fd);
 }
 
+void CDasherControl::ExternalKeyDown(int iKeyVal) {
+  if(m_pKeyboardHelper) {
+    int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
+    
+    if(iButtonID != -1)
+      KeyDown(get_time(), iButtonID);
+  }
+}
+
+void CDasherControl::ExternalKeyUp(int iKeyVal) {
+  if(m_pKeyboardHelper) {
+    int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
+    
+    if(iButtonID != -1)
+      KeyUp(get_time(), iButtonID);
+  }
+}
+
 void CDasherControl::HandleParameterNotification(int iParameter) {
 
-  if(iParameter == SP_DASHER_FONT) {
+  switch(iParameter) {
+  case SP_DASHER_FONT:
     m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
     Redraw(true);
-  }
-  else if(iParameter == LP_MAX_BITRATE) {
-    //    gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), GetLongParameter(LP_MAX_BITRATE) / 100.0);
+    break;
+  case LP_MAX_BITRATE:
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(m_pSpin), GetLongParameter(LP_MAX_BITRATE) / 100.0);
-  }
-  else if(iParameter == BP_SHOW_SLIDER) {
+    break;
+  case BP_SHOW_SLIDER:
     if(m_pSpeedFrame != NULL) {
       if(GetBoolParameter(BP_SHOW_SLIDER)) {
         gtk_widget_show(GTK_WIDGET(m_pSpeedFrame));
@@ -339,13 +358,17 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
         gtk_widget_hide(GTK_WIDGET(m_pSpeedFrame));
       }
     }
-  }
-  else if(iParameter == SP_ALPHABET_ID) {
+    break;
+  case SP_ALPHABET_ID:
     PopulateAlphabetCombol();
+    break;
+  case BP_GLOBAL_KEYBOARD:
+    if(m_pKeyboardHelper)
+      m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
+    break;
   }
 
   // Emit a dasher_changed signal to notify the application about changes.
-
   g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_changed", iParameter);
 }
 

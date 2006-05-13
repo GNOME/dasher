@@ -141,6 +141,9 @@ public:
 
   void WriteTrainFile(const std::string &strNewText);
 
+  void ExternalKeyDown(int iKeyVal);
+  void ExternalKeyUp(int iKeyVal);
+
   void AlphabetComboChanged();
   void PopulateAlphabetCombol();
 

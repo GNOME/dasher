@@ -6,8 +6,8 @@
 class CKeyboardHelper {
  public:
   CKeyboardHelper();
-
   int ConvertKeycode(int iCode);
+  int Grab(bool bGrab);
 
  private:
   std::map<int, int> m_mTable;

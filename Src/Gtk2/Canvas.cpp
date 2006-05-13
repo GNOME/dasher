@@ -190,6 +190,7 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   if(bFill) {
     SET_COLOR(Color);
 #if WITH_CAIRO
+    cairo_set_line_width(cr, iThickness);
     cairo_rectangle(cr, x1, y1, x2-x1+1.0, y2-y1+1.0);
     cairo_fill(cr);
 #else
@@ -204,6 +205,7 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
       SET_COLOR(iOutlineColour);
     
 #if WITH_CAIRO
+    cairo_set_line_width(cr, iThickness);
     cairo_rectangle(cr, x1+.5, y1+.5, x2-x1, y2-y1);
     cairo_stroke(cr);
 #else

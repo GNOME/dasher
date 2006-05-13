@@ -40,23 +40,23 @@ bool CDynamicFilter::DecorateView(CDasherView *pView) {
   screenint x2;
   screenint y2;
 
-  if(m_iTarget == 0) {
-    pView->Dasher2Screen(-100, 1000, x1, y1);
+  if(m_iTarget == 1) {
+    pView->Dasher2Screen(-100, 3096, x1, y1);
     pView->Dasher2Screen(-200, 4096, x2, y2);
   }
   else {
     pView->Dasher2Screen(-100, 0, x1, y1);
-    pView->Dasher2Screen(-200, 3096, x2, y2);
+    pView->Dasher2Screen(-200, 1000, x2, y2);
   }
 
-  pScreen->DrawRectangle(x1, y1, x2, y2, 1, 1, Opts::ColorSchemes(Objects), true, false, 1);
+  pScreen->DrawRectangle(x1, y1, x2, y2, 1, 1, Opts::ColorSchemes(Objects), true, false, 2);
     
-  if(m_iTarget == 0) {
+  if(m_iTarget == 1) {
     pView->Dasher2Screen(-100, 0, x1, y1);
-    pView->Dasher2Screen(-200, 3096, x2, y2);
+    pView->Dasher2Screen(-200, 1000, x2, y2);
   }
   else {
-    pView->Dasher2Screen(-100, 1000, x1, y1);
+    pView->Dasher2Screen(-100, 3096, x1, y1);
     pView->Dasher2Screen(-200, 4096, x2, y2);
   }
 
