@@ -358,9 +358,6 @@
 					<File
 						RelativePath=".\Widgets\SplashScreen.cpp">
 					</File>
-					<File
-						RelativePath=".\Widgets\SplashScreen.h">
-					</File>
 					<Filter
 						Name="Preferences"
 						Filter="">
@@ -387,12 +384,6 @@
 						</File>
 						<File
 							RelativePath=".\ButtonSettings.h">
-						</File>
-						<File
-							RelativePath=".\ButtonType.cpp">
-						</File>
-						<File
-							RelativePath=".\ButtonType.h">
 						</File>
 						<File
 							RelativePath="Widgets\ColourBox.cpp">
@@ -435,6 +426,9 @@
 						</File>
 						<File
 							RelativePath=".\Widgets\SocketPage.h">
+						</File>
+						<File
+							RelativePath=".\Widgets\SplashScreen.h">
 						</File>
 						<File
 							RelativePath=".\Widgets\ViewPage.cpp">

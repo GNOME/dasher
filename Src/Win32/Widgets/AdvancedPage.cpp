@@ -41,6 +41,10 @@ struct menuentry {
 //  {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
 //};
 
+// {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP}
+//  {APP_BP_SPEECH_MODE, IDC_SPEECH}
+
+
 std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) 
 {
   HWND Control = GetDlgItem(Dialog, ControlID);

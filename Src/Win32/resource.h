@@ -208,12 +208,18 @@
 #define IDC_ZOOMESTEPS_SLIDER           1100
 #define IDC_RIGHTZOOM_SLIDER            1100
 #define IDC_MOUSEPOSDIST                1101
+#define IDC_ZOOMESTEPS_SLIDER2          1101
+#define IDC_ZOOMSTEPS_SLIDER            1101
 #define IDC_PARAGRAPH                   1102
 #define IDC_CONTROLCHAR                 1103
 #define IDC_EDIT1                       1104
 #define IDC_COLOUR                      1104
 #define IDC_SOCKET_PORT                 1104
+#define IDC_ZOOMSTEPS_VALUE             1104
+#define IDC_RIGHTZOOM_VALUE             1105
+#define IDC_NBOXES_VALUE                1106
 #define IDC_RADIO1                      1107
+#define IDC_NU_VALUE                    1107
 #define IDC_RADIO2                      1108
 #define IDC_RADIO3                      1109
 #define IDC_RADIO4                      1110
@@ -229,9 +235,13 @@
 #define IDC_SPEEDSLIDER                 1120
 #define IDC_SPEEDVAL                    1121
 #define IDC_STATICIDLETIME              1122
+#define IDC_STYLE_STANDALONE            1122
 #define IDC_SOCKET_X_MIN                1123
+#define IDC_STYLE_COMPOSITION           1123
 #define IDC_SOCKET_X_MAX                1124
+#define IDC_STYLE_DIRECT                1124
 #define IDC_SOCKET_ENABLE               1125
+#define IDC_STYLE_FULL                  1125
 #define IDC_SOCKET_Y_MIN                1126
 #define IDC_ORDINARY                    1126
 #define IDC_SOCKET_Y_MAX                1127
@@ -249,6 +259,8 @@
 #define IDC_NONUNIFORM_SLIDER           1142
 #define IDC_MOUSEPOS_STYLE              1144
 #define IDC_AUTOCALIBRATE               1145
+#define IDC_CONTROLMODE                 1146
+#define IDC_SAFETY_VALUE                1146
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -302,7 +314,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1146
+#define _APS_NEXT_CONTROL_VALUE         1147
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

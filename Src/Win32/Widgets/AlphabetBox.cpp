@@ -24,6 +24,17 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+struct menuentry {
+  int paramNum; // enum value in Parameters.h for setting store
+  int idcNum;   // #define value in resource.h for dasher.rc
+  bool bInvert;
+};
+
+// List of menu items that will be displayed in the General Preferences
+static menuentry menutable[] = {
+  {BP_PALETTE_CHANGE, IDC_COLOURSCHEME, true}
+};
+
 CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
 :m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
@@ -94,6 +105,15 @@ void CAlphabetBox::PopulateList() {
   }
   // Tell list box that we have set an item for it (so that delete and edit can be grayed if required)
   SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_COLOURS, LBN_SELCHANGE), 0);
+
+// all the button checkboxes
+  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
+  {
+    if(m_pDasherInterface->GetBoolParameter(menutable[ii].paramNum) != menutable[ii].bInvert) 
+	    SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
+    else  
+	    SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
+  }
 
 }
 
@@ -343,6 +363,14 @@ bool CAlphabetBox::Apply() {
   if(m_CurrentColours != std::string("")) {
         m_pDasherInterface->SetStringParameter(SP_COLOUR_ID, m_CurrentColours);
   }
+
+
+  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
+  {
+    m_pDasherInterface->SetBoolParameter(menutable[ii].paramNum, 
+      (SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED) != menutable[ii].bInvert);
+  }
+
 
   // Return false (and notify the user) if something is wrong.
   return TRUE;

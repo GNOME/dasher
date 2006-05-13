@@ -14,7 +14,6 @@
 
 #include "../AppSettings.h"
 
-#include "ButtonType.h"
 #include "ButtonSettings.h"
 
 namespace Dasher
@@ -35,7 +34,6 @@ private:
   Dasher::CDasher *m_pDasher;
   CAppSettings *m_pAppSettings;
 
-  CButtonTypePage *m_pButtonTypePage;
   CButtonSettingsPage *m_pButtonSettingsPage;
 };
 

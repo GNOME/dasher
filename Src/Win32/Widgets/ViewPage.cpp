@@ -42,7 +42,6 @@ static menuentry menutable[] = {
   {BP_OUTLINE_MODE, IDC_OUTLINE},
   {BP_DRAW_MOUSE, IDC_DRAWMOUSE},
   {BP_DRAW_MOUSE_LINE, IDC_DRAWMOUSELINE},
-  {BP_PALETTE_CHANGE, IDC_COLOURSCHEME},
 };
 
 void CViewPage::PopulateList() {

@@ -30,11 +30,19 @@ private:
   bool Apply();
   bool Validate();
 
+  TCHAR m_tcBuffer[1000];
+  
+  HWND m_hZoomStepsSlider;
   HWND m_hRightZoomSlider;
   HWND m_hNoBoxesSlider;
   HWND m_hSafetySlider;
   HWND m_hNonUniformSlider;
 
+  HWND m_hZoomStepsBox;
+  HWND m_hRightZoomBox;
+  HWND m_hNoBoxesBox;
+  HWND m_hSafetyBox;
+  HWND m_hNonUniformBox;
 };
 
 #endif  // ndef
