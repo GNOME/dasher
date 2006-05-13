@@ -1,684 +1,521 @@
 # Chinese (Taiwan) translation of dasher.
-# Copyright (C) 2004, 2005 Free Software Foundation, Inc.
-# Woodman Tuen <wmtuen@gmail.com>, 2005.
+# Copyright (C) 2004-06 Free Software Foundation, Inc.
+# Woodman Tuen <wmtuen@gmail.com>, 2005-06.
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher 3.99\n"
+"Project-Id-Version: dasher 4.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2005-09-09 12:35+0200\n"
-"PO-Revision-Date: 2005-12-28 07:56+0800\n"
-"Last-Translator: Woodman Tuen <woodman@culturecom.com.hk>\n"
+"POT-Creation-Date: 2006-05-13 21:41+0800\n"
+"PO-Revision-Date: 2006-04-17 21:31+0800\n"
+"Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#. Paneltree
-#. |         /-menutree
-#. Widgettree------buttontree
-#. \-edittree
-#.
-#. Tree, parent, children, next, pointer, data, string, colour
-#: ../Src/Gtk2/accessibility.cc:77
-msgid "Panels"
-msgstr "控制台"
-
-#: ../Src/Gtk2/accessibility.cc:78
-msgid "Application"
-msgstr "應用程式"
-
-#: ../Src/Gtk2/accessibility.cc:79
-msgid "Menus"
-msgstr "選單"
-
-#: ../Src/Gtk2/accessibility.cc:80 ../Src/Gtk2/dasher.glade.h:39
-msgid "Buttons"
-msgstr "按鈕"
-
-#: ../Src/Gtk2/accessibility.cc:81
-msgid "Text"
-msgstr "文字"
-
-#: ../Src/Gtk2/accessibility.cc:160 ../Src/Gtk2/dasher.glade.h:42
-#: ../Src/Gtk2/dashergpe.glade.h:28
-msgid "Control"
-msgstr "控制"
-
-#: ../Src/Gtk2/accessibility.cc:166
-msgid "Windows"
-msgstr "視窗"
-
-#: ../Src/Gtk2/accessibility.cc:173
-msgid "Stop"
-msgstr "停止"
-
-#: ../Src/Gtk2/accessibility.cc:180
-msgid "Pause"
-msgstr "暫停"
-
-#: ../Src/Gtk2/accessibility.cc:187
-msgid "Move"
-msgstr "移動"
-
-#: ../Src/Gtk2/accessibility.cc:194
-msgid "Delete"
-msgstr "刪除"
-
-#: ../Src/Gtk2/accessibility.cc:204
-msgid "Speak"
-msgstr "讀出"
-
-#: ../Src/Gtk2/accessibility.cc:232 ../Src/Gtk2/accessibility.cc:386
-msgid "<"
-msgstr "<"
-
-#: ../Src/Gtk2/accessibility.cc:238 ../Src/Gtk2/accessibility.cc:380
-msgid ">"
-msgstr ">"
-
-#: ../Src/Gtk2/accessibility.cc:244
-msgid "<<<"
-msgstr "<<<"
-
-#: ../Src/Gtk2/accessibility.cc:250
-msgid ">>>"
-msgstr ">>>"
-
-#: ../Src/Gtk2/accessibility.cc:263
-msgid "Everything"
-msgstr "所有東西"
-
-#: ../Src/Gtk2/accessibility.cc:269
-msgid "New"
-msgstr "新增"
-
-#: ../Src/Gtk2/accessibility.cc:275
-msgid "Repeat"
-msgstr "重複"
-
-#: ../Src/Gtk2/accessibility.cc:297
-msgid "1"
-msgstr "1"
-
-#: ../Src/Gtk2/accessibility.cc:304
-msgid "2"
-msgstr "2"
-
-#: ../Src/Gtk2/accessibility.cc:311
-msgid "3"
-msgstr "3"
-
-#: ../Src/Gtk2/accessibility.cc:318
-msgid "4"
-msgstr "4"
-
-#: ../Src/Gtk2/accessibility.cc:325
-msgid "5"
-msgstr "5"
-
-#: ../Src/Gtk2/accessibility.cc:332
-msgid "6"
-msgstr "6"
-
-#: ../Src/Gtk2/accessibility.cc:339
-msgid "7"
-msgstr "7"
-
-#: ../Src/Gtk2/accessibility.cc:346
-msgid "8"
-msgstr "8"
-
-#: ../Src/Gtk2/accessibility.cc:353
-msgid "9"
-msgstr "9"
-
-#: ../Src/Gtk2/accessibility.cc:360
-msgid "10"
-msgstr "10"
-
-#: ../Src/Gtk2/accessibility.cc:392 ../Src/Gtk2/accessibility.cc:416
-msgid "Character"
-msgstr "字元"
-
-#: ../Src/Gtk2/accessibility.cc:404 ../Src/Gtk2/accessibility.cc:427
-msgid "Word"
-msgstr "字詞"
-
-#: ../Src/Gtk2/accessibility.cc:409 ../Src/Gtk2/accessibility.cc:433
-msgid "Line"
-msgstr "行"
-
-#: ../Src/Gtk2/accessibility.cc:545
-msgid "Unknown"
-msgstr "不明"
-
-#. void interface_setup(GladeXML *xml) {
-#. What's this doing here? I'm sure we ought to just be using whatever
-#. the core provides us with
-#. float initial_bitrate = 3.0;
-#. the_canvas=glade_xml_get_widget(xml, "the_canvas");
-#. Needed so we can make it visible or not as we wish
-#. FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
-#. // interface specific preferences
-#. if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
-#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
-#. }
-#. if(get_long_option_callback("YScale",&yscale)!=false) {
-#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
-#. }
-#. if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
-#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
-#. }
-#. // Configure the buttons. FIXME - more enums?
-#. if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
-#. buttons[1].x=0;
-#. }
-#. if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
-#. buttons[2].x=0;
-#. }
-#. if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
-#. buttons[3].x=0;
-#. }
-#. if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
-#. buttons[4].x=0;
-#. }
-#. if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
-#. buttons[5].x=0;
-#. }
-#. if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
-#. buttons[6].x=0;
-#. }
-#. if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
-#. buttons[7].x=0;
-#. }
-#. if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
-#. buttons[8].x=0;
-#. }
-#. if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
-#. buttons[9].x=0;
-#. }
-#. if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
-#. buttons[1].y=0;
-#. }
-#. if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
-#. buttons[2].y=0;
-#. }
-#. if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
-#. buttons[3].y=0;
-#. }
-#. if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
-#. buttons[4].y=0;
-#. }
-#. if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
-#. buttons[5].y=0;
-#. }
-#. if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
-#. buttons[6].y=0;
-#. }
-#. if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
-#. buttons[7].y=0;
-#. }
-#. if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
-#. buttons[8].y=0;
-#. }
-#. if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
-#. buttons[9].y=0;
-#. }
-#. }
-#. void
-#. interface_late_setup() {
-#. Stuff that needs to be done after the core has
-#. set itself up
-#. dasher_set_parameter_int(INT_ONEBUTTON, 0);
-#. alphabet=dasher_get_current_alphabet();
-#. colourscheme=dasher_get_current_colours();
-#. }
-#. void
-#. open_window(GladeXML *xml) {
-#. I have no idea why we need to do this when Glade has theoretically done
-#. so already, but...
-#. FIXME - REIMPLEMENT
-#. }
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
-msgid "5:"
-msgstr "5:"
-
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashergpe.glade.h:2
-msgid "6:"
-msgstr "6:"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:3
-msgid "7:"
-msgstr "7:"
-
-#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashergpe.glade.h:4
-msgid "8:"
-msgstr "8:"
-
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashergpe.glade.h:5
-msgid "9:"
-msgstr "9:"
-
-#: ../Src/Gtk2/dasher.glade.h:6
-#, fuzzy
-msgid "<b>Adaptation:</b>"
-msgstr "<b>排列方向：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7
-#, fuzzy
-msgid "<b>Advanced Settings:</b>"
-msgstr "<b>語言模式設定：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
-msgid "<b>Alphabet Selection:</b>"
-msgstr "<b>字母選擇：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:7
-msgid "<b>Button control setup</b>"
-msgstr "<b>按鈕控制設定</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
-msgid "<b>Button modes:</b>"
-msgstr "<b>切換按鈕模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Color Selection:</b>"
-msgstr "<b>色彩選擇：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:12
-#, fuzzy
-msgid "<b>Compass Mode</b>"
-msgstr "<b>語言模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
-msgid "<b>Control Style:</b>"
-msgstr "<b>控制風格：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:14
-msgid "<b>Language Model:</b>"
-msgstr "<b>語言模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
-msgid "<b>Menu Mode</b>"
-msgstr "<b>語言模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
-msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>其它選項：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:17
-#, fuzzy
-msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>切換按鈕模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18
-#, fuzzy
-msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>切換按鈕模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
-msgid "<b>Orientation:</b>"
-msgstr "<b>排列方向：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:12
-msgid "<b>Smoothing:</b>"
-msgstr "<b>平滑度：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:21
-#, fuzzy
-msgid "<b>Speed:</b>"
-msgstr "<b>速度</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:14
-msgid "<b>Starting And Stopping:</b>"
-msgstr "<b>開始及停止：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:15
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>切換按鈕模式：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:16
-msgid "<b>View Options:</b>"
-msgstr "<b>顯示選項：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:17
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y 坐標：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:18
-msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Y 軸選項：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:27
-#, fuzzy
-msgid "<b>Zoom steps:</b>"
-msgstr "<b>控制風格：</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:28
-#, fuzzy
-msgid "Adapt speed automatically"
-msgstr "自動變更色彩組合"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:19
-msgid "Advanced"
-msgstr "進階"
-
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:20
-msgid "Alphabet"
-msgstr "字母"
-
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashergpe.glade.h:21
-msgid "Alphabet Default"
-msgstr "預設字母"
-
-#: ../Src/Gtk2/dasher.glade.h:32
-msgid "Alternating direct mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:22
-msgid "Bottom to Top"
-msgstr "下至上"
-
-#: ../Src/Gtk2/dasher.glade.h:34
-msgid "Box non-uniformity:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:23
-msgid "Button control setup"
-msgstr "按鈕控制設定"
-
-#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashergpe.glade.h:24
-msgid "Button mode"
-msgstr "按鈕模式"
-
-#: ../Src/Gtk2/dasher.glade.h:37
-#, fuzzy
-msgid "Button setup"
-msgstr "按鈕控制設定"
-
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashergpe.glade.h:25
-msgid "Button:"
-msgstr "按鈕："
-
-#: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
-msgid "Click mode"
-msgstr "控制模式"
-
-#: ../Src/Gtk2/dasher.glade.h:41
-msgid "Compass mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
-msgid "Control mode"
-msgstr "控制模式"
-
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:30
-msgid "Copy"
-msgstr "複製"
-
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashergpe.glade.h:31
-msgid "Copy _All"
-msgstr "全部複製(_A)"
-
-#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashergpe.glade.h:32
-msgid "Copy all on stop"
-msgstr "在停止後複製全部"
-
-#: ../Src/Gtk2/dasher.glade.h:47
-#, fuzzy
-msgid "Custom:"
-msgstr "剪下"
-
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
-msgid "Cut"
-msgstr "剪下"
-
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:34
-msgid "Cyclical button mode"
-msgstr "循環按鈕模式"
-
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:35
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:48
 msgid "Dasher"
 msgstr "Dasher"
 
-#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:36
-msgid "Dasher Preferences"
-msgstr "Dasher 偏好設定"
-
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:37
-msgid "Distance from centreline for start on mouse position:"
-msgstr "中線與滑鼠之間的距離："
-
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:38
-msgid "Down/3:"
-msgstr "下/3："
-
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
-msgid "Draw box outlines"
-msgstr "顯示方塊外框"
-
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:40
-msgid "Draw line between crosshairs and mouse"
-msgstr "在十字準星跟滑鼠浮標間顯示一直線"
-
-#: ../Src/Gtk2/dasher.glade.h:56
-msgid "Drop time:  "
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:41
-msgid "Edit Button-control options"
-msgstr "編輯按鈕控制選項"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:42
-msgid "Enter text into other windows"
-msgstr "在其它視窗中輸入文字"
-
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:43
-msgid "Eyetracker mode"
-msgstr "眼球追縱系統模式"
-
-#: ../Src/Gtk2/dasher.glade.h:60
-msgid "Four-button direct mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:61
-msgid ""
-"If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the choice"
-msgstr ""
-"如果選取此模式，向上及向下移將會在坐標間循環地向後及向前移動。\n"
-"向右移則確定選擇"
-
-#: ../Src/Gtk2/dasher.glade.h:63
-msgid "Increase line thickness"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:64
-msgid "Japanese"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:65
-msgid "Language model adapts as you write."
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:45
-msgid "Large"
-msgstr "大"
-
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:46
-msgid "Left to Right"
-msgstr "左至右"
-
-#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashergpe.glade.h:47
-msgid "Left/2:"
-msgstr "左/2："
-
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Data/dasher.desktop.in.in.h:2
 #, fuzzy
-msgid "Miscellaneous"
-msgstr "<b>其它選項：</b>"
+msgid "Predictive text entry"
+msgstr "Dasher 是一個以預測方式輸入文字的程式"
 
-#: ../Src/Gtk2/dasher.glade.h:70
-msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+#. TODO should probably pop up a Gtk error message and think about how to do i18n:
+#: ../Src/DasherCore/SocketInput.cpp:34
+msgid "Dasher socket input: failed to launch reader thread."
+msgstr "Dasher socket 輸入：無法執行閱讀程式執行緒。"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:48
-msgid "New file"
-msgstr "新增檔案"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:49
-msgid "Normal"
-msgstr "正常"
-
-#: ../Src/Gtk2/dasher.glade.h:73
-msgid "Number of \"zoom-out boxes\":"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:74
-msgid "Number of boxes:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:51
-msgid "One dimensional mode"
-msgstr "一維模式"
-
-#: ../Src/Gtk2/dasher.glade.h:76
-msgid "One-button dynamic mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:77
-#, fuzzy
-msgid "One-button static mode"
-msgstr "按鈕模式"
-
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:52
-msgid "Open file"
-msgstr "開啟檔案"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:54
-msgid "Paste"
-msgstr "貼上"
-
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:55
-msgid "Pause outside window"
-msgstr "當滑鼠在視窗以外時停止運作"
-
-#: ../Src/Gtk2/dasher.glade.h:81
-msgid "Prediction"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:82
-#, fuzzy
-msgid "Pulsing mode"
-msgstr "按鈕模式"
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:56
-msgid "Right to Left"
-msgstr "右至左"
-
-#: ../Src/Gtk2/dasher.glade.h:84
-#, fuzzy
-msgid "Right zoom:  "
-msgstr "右至左"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:57
-msgid "Right/4:"
-msgstr "右/4："
-
-#: ../Src/Gtk2/dasher.glade.h:86
-msgid "Safety margin:"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
-msgid "Save file"
-msgstr "儲存"
-
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:59
-msgid "Save file as"
-msgstr "另存新檔"
-
-#: ../Src/Gtk2/dasher.glade.h:89
-msgid "Scaling amount (1D mode):"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:60
+#: ../Src/Gtk2/Menu.cc:66 ../Src/Gtk2/Menu.cc:122 ../Src/Gtk2/Menu.cc:180
+#: ../Src/Gtk2/Menu.cc:223 ../Src/Gtk2/dasher.glade.h:85
+#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:82
 msgid "Select File"
 msgstr "選擇檔案"
 
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:61
+#: ../Src/Gtk2/Menu.cc:306
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"您是否要將變更儲存到 %s？\n"
+"\n"
+"如不儲存則會失去它們。"
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"您是否要將變更儲存？\n"
+"\n"
+"如不儲存則會失去它們。"
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid "Don't save"
+msgstr "不要儲存"
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid "Don't quit"
+msgstr "不要離開"
+
+#: ../Src/Gtk2/Menu.cc:312
+msgid "Save and quit"
+msgstr "儲存及離開"
+
+#: ../Src/Gtk2/Menu.cc:425
+msgid "Dasher is a predictive text entry application"
+msgstr "Dasher 是一個以預測方式輸入文字的程式"
+
+#: ../Src/Gtk2/Menu.cc:430
+msgid "translator-credits"
+msgstr ""
+"如對翻譯有任何意見，請送一封電子郵件給\n"
+"以下地址，GNOME 翻譯團隊會盡快回覆您：\n"
+"community@linuxhall.org\n"
+"\n"
+"Woodman Tuen <wmtuen@gmail.com> 2004-06"
+
+#: ../Src/Gtk2/Preferences.cpp:930 ../Src/Gtk2/Preferences.cpp:932
+#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:101
+msgid "Training Dasher... please wait"
+msgstr "正在調整 Dasher... 請稍候"
+
+#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:2
+msgid ""
+"<b><i>gconf-editor Not Found</i></b>\n"
+"You must have gconf-editor installed and available in your path in order to "
+"access these settings."
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashermaemo.glade.h:4
+#, fuzzy
+msgid "<b>Actions:</b>"
+msgstr "<b>適應性：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:5
+msgid "<b>Adaptation:</b>"
+msgstr "<b>適應性：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Advanced Settings:</b>"
+msgstr "<b>進階設定：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:7
+msgid "<b>Alphabet Selection:</b>"
+msgstr "<b>字母選擇：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashermaemo.glade.h:8
+#, fuzzy
+msgid "<b>Application Style:</b>"
+msgstr "<b>適應性：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:8
+#: ../Src/Gtk2/dashermaemo.glade.h:10
+msgid "<b>Color Selection:</b>"
+msgstr "<b>色彩選擇：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:11
+msgid "<b>Compass Mode</b>"
+msgstr "<b>指南針模式</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+msgid "<b>Control Style:</b>"
+msgstr "<b>控制風格：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:13
+msgid "<b>Direct Mode And Menu Mode</b>"
+msgstr "<b>直接及選單模式</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:15
+#, fuzzy
+msgid "<b>Input Device:</b>"
+msgstr "<b>速度：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:17
+msgid "<b>Language Model:</b>"
+msgstr "<b>語言模式：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dashermaemo.glade.h:18
+msgid "<b>Miscellaneous Options:</b>"
+msgstr "<b>其它選項：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:19
+msgid "<b>One-Button Dynamic Mode</b>"
+msgstr "<b>單按鍵動態模式</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "<b>One-Button Static Mode</b>"
+msgstr "<b>單按鍵靜態模式</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dashermaemo.glade.h:21
+msgid "<b>Orientation:</b>"
+msgstr "<b>排列方向：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dashermaemo.glade.h:22
+msgid "<b>Smoothing:</b>"
+msgstr "<b>平滑度：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashermaemo.glade.h:23
+msgid "<b>Socket Input</b>"
+msgstr "<b>Socket 輸入</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashermaemo.glade.h:24
+msgid "<b>Speed:</b>"
+msgstr "<b>速度：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "<b>Starting And Stopping:</b>"
+msgstr "<b>開始及停止：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "<b>View Options:</b>"
+msgstr "<b>顯示選項：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashermaemo.glade.h:27
+msgid "<b>X Coordinate</b>"
+msgstr "<b>X 坐標：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:28
+msgid "<b>Y Axis Options:</b>"
+msgstr "<b>Y 軸選項：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashermaemo.glade.h:29
+msgid "<b>Y Coordinate</b>"
+msgstr "<b>Y 坐標：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:27
+#, fuzzy
+msgid "<b>Zoom steps</b>"
+msgstr "<b>放大刻度：</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:31
+msgid "Adapt speed automatically"
+msgstr "自動調整速度"
+
+#: ../Src/Gtk2/dasher.glade.h:29
+msgid ""
+"Additional settings can be accessed directly using the GConf configuration "
+"database Please note that these settings are intended for advanced users "
+"only, and by changing these settings it is possible to put Dasher into an "
+"unusable state."
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:32
+msgid "Advanced Settings"
+msgstr "進階設定"
+
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+msgid "Alphabet"
+msgstr "字母"
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+msgid "Alphabet Default"
+msgstr "預設字母"
+
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemo.glade.h:36
+msgid "Bottom to Top"
+msgstr "下至上"
+
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashermaemo.glade.h:37
+msgid "Box non-uniformity:"
+msgstr "方塊不一致性："
+
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:39
+msgid "Button Preferences"
+msgstr "按鈕偏好設定"
+
+#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:41
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:44
+#, fuzzy
+msgid "Composition"
+msgstr "顯示滑鼠位置"
+
+#: ../Src/Gtk2/dasher.glade.h:39 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:45
+msgid "Control"
+msgstr "控制"
+
+#: ../Src/Gtk2/dasher.glade.h:40 ../Src/Gtk2/dashergpe.glade.h:29
+#: ../Src/Gtk2/dashermaemo.glade.h:46
+msgid "Control mode"
+msgstr "控制模式"
+
+#: ../Src/Gtk2/dasher.glade.h:41 ../Src/Gtk2/dashergpe.glade.h:30
+msgid "Copy"
+msgstr "複製"
+
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:31
+msgid "Copy _All"
+msgstr "全部複製(_A)"
+
+#: ../Src/Gtk2/dasher.glade.h:43
+msgid "Custom colour scheme:"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashermaemo.glade.h:47
+msgid "Custom:"
+msgstr "自訂："
+
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashergpe.glade.h:33
+msgid "Cut"
+msgstr "剪下"
+
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashergpe.glade.h:36
+#: ../Src/Gtk2/dashermaemo.glade.h:49
+msgid "Dasher Preferences"
+msgstr "Dasher 偏好設定"
+
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:50
+#, fuzzy
+msgid "Direct entry"
+msgstr "直接模式"
+
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:37
+#: ../Src/Gtk2/dashermaemo.glade.h:52
+msgid "Distance from centerline for start on mouse position:"
+msgstr "游標開始位置與中線的距離："
+
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:39
+#: ../Src/Gtk2/dashermaemo.glade.h:53
+msgid "Draw box outlines"
+msgstr "顯示方塊外框"
+
+#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:40
+#: ../Src/Gtk2/dashermaemo.glade.h:54
+msgid "Draw line between crosshairs and mouse"
+msgstr "在十字準星跟滑鼠游標間顯示一直線"
+
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashermaemo.glade.h:55
+msgid "Drop time:  "
+msgstr "釋放時間： "
+
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Eyetracker autocalibration"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:54
+msgid "Full Screen"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:58
+msgid "Increase line thickness"
+msgstr "增加線的厚度"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:59
+msgid "Japanese"
+msgstr "日文"
+
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashermaemo.glade.h:60
+msgid "Label"
+msgstr "標籤"
+
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashermaemo.glade.h:61
+msgid "Language model adapts as you write."
+msgstr "適應您書寫的語言模式。"
+
+#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:45
+msgid "Large"
+msgstr "大"
+
+#: ../Src/Gtk2/dasher.glade.h:60
+msgid "Launch GConf editor"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashergpe.glade.h:46
+#: ../Src/Gtk2/dashermaemo.glade.h:62
+msgid "Left to Right"
+msgstr "左至右"
+
+#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashermaemo.glade.h:63
+msgid "Max"
+msgstr "最大"
+
+#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashermaemo.glade.h:64
+msgid "Min"
+msgstr "最小"
+
+#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashermaemo.glade.h:65
+msgid "Miscellaneous"
+msgstr "其它"
+
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:66
+msgid "Mixture model (PPM/dictionary)"
+msgstr "混合模式（PPM/字典）"
+
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:48
+msgid "New file"
+msgstr "新增檔案"
+
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:49
+msgid "Normal"
+msgstr "正常"
+
+#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:67
+msgid "Number of \"zoom-out boxes\":"
+msgstr "“放大方塊”數目："
+
+#: ../Src/Gtk2/dasher.glade.h:69 ../Src/Gtk2/dashermaemo.glade.h:68
+msgid "Number of boxes:"
+msgstr "方塊數目："
+
+#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashergpe.glade.h:52
+msgid "Open file"
+msgstr "開啟檔案"
+
+#: ../Src/Gtk2/dasher.glade.h:71
+#, fuzzy
+msgid "Options"
+msgstr "選項(_O)"
+
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:54
+msgid "Paste"
+msgstr "貼上"
+
+#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashergpe.glade.h:55
+#: ../Src/Gtk2/dashermaemo.glade.h:72
+msgid "Pause outside window"
+msgstr "當滑鼠在視窗以外時停止運作"
+
+#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:73
+msgid "Please Wait..."
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:74
+msgid "Port"
+msgstr "連接埠"
+
+#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:75
+msgid "Prediction"
+msgstr "預測"
+
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:76
+msgid "Print socket-related debugging information to console"
+msgstr "在終端機中列出 Socket 相關的錯誤訊息"
+
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashermaemo.glade.h:77
+msgid "Pulsing mode"
+msgstr "跳動模式"
+
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:78
+msgid "Right to Left"
+msgstr "右至左"
+
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:79
+msgid "Right zoom:  "
+msgstr "右邊放大："
+
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:80
+msgid "Safety margin:"
+msgstr "安全邊界："
+
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:58
+msgid "Save file"
+msgstr "儲存檔案"
+
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:59
+msgid "Save file as"
+msgstr "另存新檔"
+
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashermaemo.glade.h:81
+msgid "Scaling amount (1D mode):"
+msgstr "比例總數（一維模式）"
+
+#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashergpe.glade.h:61
+#: ../Src/Gtk2/dashermaemo.glade.h:83
 msgid "Select Font"
 msgstr "選擇字型"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:62
+#: ../Src/Gtk2/dashermaemo.glade.h:85
 msgid "Show mouse position"
 msgstr "顯示滑鼠位置"
 
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:63
+#: ../Src/Gtk2/dashermaemo.glade.h:86
 msgid "Show speed slider"
 msgstr "顯示速度控制桿"
 
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashergpe.glade.h:64
+#: ../Src/Gtk2/dashermaemo.glade.h:87
 msgid "Show toolbar"
 msgstr "顯示工具列"
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:65
-msgid "Speak on stop"
-msgstr "停止後讀出"
+#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashermaemo.glade.h:89
+msgid "Socket Preferences"
+msgstr "Socket 偏好設定"
 
-#: ../Src/Gtk2/dasher.glade.h:96
+#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:90
+msgid "Stand-alone"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:91
 msgid "Standard letter-based PPM"
 msgstr "標準字母模式"
 
-#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:66
+#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:66
+#: ../Src/Gtk2/dashermaemo.glade.h:92
 msgid "Start on left mouse button"
 msgstr "以滑鼠左鍵開始"
 
-#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:93
 msgid "Start on space bar"
 msgstr "以空白鍵開始"
 
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:68
-msgid "Start with mouse position"
+#: ../Src/Gtk2/dasher.glade.h:95
+#, fuzzy
+msgid "Start with mouse position:"
 msgstr "滑鼠在新的位置開始"
 
-#: ../Src/Gtk2/dasher.glade.h:100
-msgid "Static menu mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:101
+#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:96
 msgid "Steady mode"
-msgstr ""
+msgstr "平穩模式"
 
-#: ../Src/Gtk2/dasher.glade.h:102
-msgid "Three-button direct mode"
-msgstr ""
-
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashergpe.glade.h:69
+#: ../Src/Gtk2/dashermaemo.glade.h:98
 msgid "Timestamp new files"
 msgstr "以時間標記作為新檔案的名稱"
 
-#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:70
+#: ../Src/Gtk2/dashermaemo.glade.h:99
 msgid "Top to Bottom"
 msgstr "上至下"
 
-#: ../Src/Gtk2/dasher.glade.h:105 ../Src/Gtk2/dashergpe.glade.h:71
+#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:71
+#: ../Src/Gtk2/dashermaemo.glade.h:100
 msgid "Training"
 msgstr "調整"
 
-#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:72
-msgid "Training Dasher - please wait"
-msgstr "正在調整 Dasher 中 - 請稍等"
-
-#: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashergpe.glade.h:73
-msgid "Up/1:"
-msgstr "上/1："
-
-#: ../Src/Gtk2/dasher.glade.h:108
+#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:103
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -687,125 +524,456 @@ msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
 "注意選擇較大數值將會減慢您的書寫速度。"
 
-#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashergpe.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:75
 msgid "Very Large"
 msgstr "特大"
 
-#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashergpe.glade.h:76
+#: ../Src/Gtk2/dasher.glade.h:105 ../Src/Gtk2/dashergpe.glade.h:76
+#: ../Src/Gtk2/dashermaemo.glade.h:106
 msgid "View"
 msgstr "顯示"
 
-#: ../Src/Gtk2/dasher.glade.h:113
+#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashermaemo.glade.h:107
 msgid "Word-based model"
 msgstr "字詞模式"
 
-#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:77
-msgid "X:"
-msgstr "X:"
-
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:78
-msgid "Y:"
-msgstr "Y:"
-
-#: ../Src/Gtk2/dasher.glade.h:116
+#: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashermaemo.glade.h:108
 msgid "Zoom:"
-msgstr ""
+msgstr "放大："
 
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:79
 msgid "_About"
 msgstr "關於(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
 msgstr "加入到檔案(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:81
+#: ../Src/Gtk2/dasher.glade.h:110
+msgid "_Contents"
+msgstr ""
+
+#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashergpe.glade.h:81
 msgid "_Dasher Font"
 msgstr "_Dasher 字型"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:82
+#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashergpe.glade.h:82
 msgid "_Dasher Font Size"
 msgstr "_Dasher 字型大小"
 
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:83
 msgid "_Edit"
 msgstr "編輯(_E)"
 
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:84
+#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:84
 msgid "_Edit Font"
 msgstr "編輯字型(_E)"
 
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:85
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:86
 msgid "_Help"
 msgstr "求助(_H)"
 
-#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashergpe.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
-msgstr "匯入教學文字(_I)"
+msgstr "匯入文字(_I)"
 
-#: ../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:88
+#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:88
 msgid "_Options"
 msgstr "選項(_O)"
 
-#: ../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashergpe.glade.h:89
+#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:89
 msgid "_Reset fonts"
 msgstr "重置字型(_R)"
 
-#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dashermaemo.glade.h:109
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "The following is Chinese: ‘中文測試’"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "無法啟動語音支援\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "無法啟用語音\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "警告：不能設定朗讀參數\n"
+
+#: ../Src/Gtk2/dashergpe.glade.h:1
+msgid "5:"
+msgstr "5:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:2
+msgid "6:"
+msgstr "6:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:3
+msgid "7:"
+msgstr "7:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:4
+msgid "8:"
+msgstr "8:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:5
+msgid "9:"
+msgstr "9:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:7
+msgid "<b>Button control setup</b>"
+msgstr "<b>按鈕控制設定</b>"
 
 #: ../Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>速度</b>"
 
+#: ../Src/Gtk2/dashergpe.glade.h:15
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<b>切換按鈕模式：</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:17
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<b>X/Y 坐標：</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19
+msgid "Advanced"
+msgstr "進階"
+
+#: ../Src/Gtk2/dashergpe.glade.h:23
+msgid "Button control setup"
+msgstr "按鈕控制設定"
+
+#: ../Src/Gtk2/dashergpe.glade.h:24
+msgid "Button mode"
+msgstr "按鈕模式"
+
+#: ../Src/Gtk2/dashergpe.glade.h:25
+msgid "Button:"
+msgstr "按鈕："
+
 #: ../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change colour scheme automatically"
-msgstr "自動變更色彩組合"
+msgid "Change color scheme automatically"
+msgstr "自動切換色彩 scheme"
 
 #: ../Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
 msgstr "色彩"
 
+#: ../Src/Gtk2/dashergpe.glade.h:32
+msgid "Copy all on stop"
+msgstr "在停止後複製全部"
+
+#: ../Src/Gtk2/dashergpe.glade.h:34
+msgid "Cyclical button mode"
+msgstr "循環按鈕模式"
+
+#: ../Src/Gtk2/dashergpe.glade.h:38
+msgid "Down/3:"
+msgstr "下/3："
+
+#: ../Src/Gtk2/dashergpe.glade.h:41
+msgid "Edit Button-control options"
+msgstr "編輯按鈕控制選項"
+
+#: ../Src/Gtk2/dashergpe.glade.h:42
+msgid "Enter text into other windows"
+msgstr "在其它視窗中輸入文字"
+
+#: ../Src/Gtk2/dashergpe.glade.h:43
+msgid "Eyetracker mode"
+msgstr "眼球追縱系統模式"
+
 #: ../Src/Gtk2/dashergpe.glade.h:44
-msgid "If this mode is selected, up and down will cycle backwards and forwards between coordinates and right will confirm the choice"
+msgid ""
+"If this mode is selected, up and down will cycle backwards and forwards "
+"between coordinates and right will confirm the choice"
 msgstr ""
 "如果選用本模式，向上及向下移將會在坐標間循環地向後及向前移動。\n"
 "向右移則確定選擇"
 
+#: ../Src/Gtk2/dashergpe.glade.h:47
+msgid "Left/2:"
+msgstr "左/2："
+
 #: ../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire y range:"
-msgstr "覆蓋整個 y 列的像素數目："
+msgid "Number of pixels that should cover the entire Y range:"
+msgstr "覆蓋整個 Y 列的像素數目："
+
+#: ../Src/Gtk2/dashergpe.glade.h:51
+msgid "One dimensional mode"
+msgstr "一維模式"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
 msgstr "排列方向"
 
+#: ../Src/Gtk2/dashergpe.glade.h:57
+msgid "Right/4:"
+msgstr "右/4："
+
+#: ../Src/Gtk2/dashergpe.glade.h:65
+msgid "Speak on stop"
+msgstr "停止後讀出"
+
+#: ../Src/Gtk2/dashergpe.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:94
+msgid "Start with mouse position"
+msgstr "滑鼠在新的位置開始"
+
+#: ../Src/Gtk2/dashergpe.glade.h:73
+msgid "Up/1:"
+msgstr "上/1："
+
 #: ../Src/Gtk2/dashergpe.glade.h:74
-msgid "Use this control to adjust the relative sizes of the letter boxes. Note that selecting high values will slow your writing speed."
+msgid ""
+"Use this control to adjust the relative sizes of the letter boxes. Note that "
+"selecting high values will slow your writing speed."
 msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
 "注意選擇較大數值將會減慢您的書寫速度。"
 
-#: ../Src/Gtk2/speech.cc:27
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "不能啟動語音支援\n"
+#: ../Src/Gtk2/dashergpe.glade.h:77
+msgid "X:"
+msgstr "X:"
 
-#: ../Src/Gtk2/speech.cc:50
-#, fuzzy, c-format
-msgid "Unable to initialize voices\n"
-msgstr "不能啟用語音"
+#: ../Src/Gtk2/dashergpe.glade.h:78
+msgid "Y:"
+msgstr "Y:"
 
-#: ../Src/Gtk2/speech.cc:62
-#, c-format
-msgid "Warning: unable to set speech parameters\n"
-msgstr "警告：不能設定朗讀參數\n"
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr ""
 
-#: ../Src/main.cc:116
-msgid "Dasher Text Entry"
-msgstr "Dasher 文字輸入"
+#: ../Src/Gtk2/dashermaemo.glade.h:9
+msgid "<b>Button modes:</b>"
+msgstr "<b>按鈕模式：</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:14
+msgid "<b>Input Device Drivers:</b>"
+msgstr ""
+
+#: ../Src/Gtk2/dashermaemo.glade.h:16
+#, fuzzy
+msgid "<b>Input Filters:</b>"
+msgstr "<b>按鈕模式：</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+msgid "<b>Zoom steps:</b>"
+msgstr "<b>放大刻度：</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+msgid "Alternating direct mode"
+msgstr "其它直接模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:38
+msgid "Button Mode Options"
+msgstr "按鈕模式選項"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:40
+msgid "Button Setup"
+msgstr "按鈕設定"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:43
+msgid "Compass mode"
+msgstr "指南針模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:51
+msgid "Direct mode"
+msgstr "直接模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:56
+msgid "Four-button direct mode"
+msgstr "四按鍵直接模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:57
+msgid "General"
+msgstr "一般"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:69
+msgid "One-button dynamic mode"
+msgstr "單按鍵動態模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:70
+msgid "One-button static mode"
+msgstr "單按鍵靜態模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:71
+msgid "P"
+msgstr ""
+
+#: ../Src/Gtk2/dashermaemo.glade.h:84
+msgid "Show Advanced Settings"
+msgstr "顯示進階設定"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:88
+msgid "Socket Options"
+msgstr "Socket 選項"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:95
+msgid "Static menu mode"
+msgstr "靜態選單模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:97
+msgid "Testing"
+msgstr ""
+
+#: ../Src/Gtk2/dashermaemo.glade.h:102
+#, fuzzy
+msgid "Two button dynamic mode"
+msgstr "單按鍵動態模式"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:110
+msgid "checkbutton1"
+msgstr ""
+
+#~ msgid "Panels"
+#~ msgstr "控制台"
+
+#~ msgid "Application"
+#~ msgstr "應用程式"
+
+#~ msgid "Menus"
+#~ msgstr "選單"
+
+#~ msgid "Buttons"
+#~ msgstr "按鈕"
+
+#~ msgid "Text"
+#~ msgstr "文字"
+
+#~ msgid "Windows"
+#~ msgstr "視窗"
+
+#~ msgid "Stop"
+#~ msgstr "停止"
+
+#~ msgid "Pause"
+#~ msgstr "暫停"
+
+#~ msgid "Move"
+#~ msgstr "移動"
+
+#~ msgid "Delete"
+#~ msgstr "刪除"
+
+#~ msgid "Speak"
+#~ msgstr "讀出"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "<<<"
+#~ msgstr "<<<"
+
+#~ msgid ">>>"
+#~ msgstr ">>>"
+
+#~ msgid "Everything"
+#~ msgstr "所有東西"
+
+#~ msgid "New"
+#~ msgstr "新增"
+
+#~ msgid "Repeat"
+#~ msgstr "重複"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "2"
+#~ msgstr "2"
+
+#~ msgid "3"
+#~ msgstr "3"
+
+#~ msgid "4"
+#~ msgstr "4"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "6"
+#~ msgstr "6"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid "8"
+#~ msgstr "8"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "Character"
+#~ msgstr "字元"
+
+#~ msgid "Word"
+#~ msgstr "字詞"
+
+#~ msgid "Line"
+#~ msgstr "行"
+
+#~ msgid "Unknown"
+#~ msgstr "不明"
+
+#~ msgid "<b>External Input:</b>"
+#~ msgstr "<b>外置輸入：</b>"
+
+#~ msgid "Cancel"
+#~ msgstr "取消"
+
+#~ msgid "Click mode"
+#~ msgstr "點擊模式"
+
+#~ msgid "Control dasher from network socket instead of mouse (advanced)"
+#~ msgstr "以網路 Socket 取代滑鼠控制 Dasher（進階）"
+
+#~ msgid "Done"
+#~ msgstr "完成"
+
+#~ msgid ""
+#~ "If this mode is selected, up and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "如果選取此模式，向上及向下移\n"
+#~ "將會在坐標間循環地向後及向前移動。向右移則確定選擇"
+
+#~ msgid "Ordinary control"
+#~ msgstr "普通控制"
+
+#~ msgid "<b>Menu Mode</b>"
+#~ msgstr "<b>選單模式：</b>"
+
+#~ msgid "Button setup"
+#~ msgstr "按鈕設定"
+
+#~ msgid ""
+#~ "If this mode is selected, up  and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "如果選取此模式，向上及向下移\n"
+#~ "將會在坐標間循環地向後及向前移動。向右移則確定選擇"
+
+#~ msgid "Socket"
+#~ msgstr "Socket"
+
+#~ msgid "Three-button direct mode"
+#~ msgstr "三按鍵直接模式"
+
+#~ msgid "Dasher Text Entry"
+#~ msgstr "Dasher 文字輸入"
