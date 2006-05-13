@@ -1,6 +1,9 @@
 #include "KeyboardHelper.h"
 
+#include <X11/Xlib.h>
+#include <gdk/gdk.h>
 #include <gdk/gdkkeysyms.h>
+#include <gdk/gdkx.h>
 
 CKeyboardHelper::CKeyboardHelper() {
   // TODO: Hard code the mappings for now, but eventually make these
@@ -60,4 +63,18 @@ int CKeyboardHelper::ConvertKeycode(int iCode) {
     return it->second;
   else
     return -1;
+}
+
+int CKeyboardHelper::Grab(bool bGrab) {
+  for(std::map<int,int>::iterator it(m_mTable.begin()); it != m_mTable.end(); ++it) {
+    GdkKeymapKey *pKeys;
+    int iKeysLength;
+
+    gdk_keymap_get_entries_for_keyval(0, it->first, &pKeys, &iKeysLength);
+    if(bGrab)
+      XGrabKey(GDK_DISPLAY(), pKeys[0].keycode, 0, GDK_ROOT_WINDOW(), true, GrabModeAsync, GrabModeAsync);
+    else
+      XUngrabKey(GDK_DISPLAY(), pKeys[0].keycode, 0, GDK_ROOT_WINDOW());
+    g_free(pKeys);
+  }
 }
