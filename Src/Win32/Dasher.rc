@@ -411,17 +411,7 @@ CAPTION "Dasher Preferences"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Control Style",IDC_STATIC,7,7,205,55
-    CONTROL         "Ordinary control",IDC_ORDINARY,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,18,68,10
-    CONTROL         "One dimensional mode",IDC_1D,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,30,87,10
-    CONTROL         "Eyetracker mode",IDC_EYETRACKER,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,42,70,10
-    CONTROL         "Click mode",IDC_CLICKMODE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,115,18,49,10
-    CONTROL         "Button mode",IDC_BUTTONMODE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,115,30,57,10
-    PUSHBUTTON      "Button Mode Settings",IDC_BUTTON_PREFS,115,42,87,14
+    PUSHBUTTON      "Options",IDC_BUTTON_PREFS,154,42,48,14
     GROUPBOX        "Speed",IDC_STATIC,7,63,205,42
     CONTROL         "Adapt speed automatically",IDC_AUTOSPEED,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,74,101,8
@@ -441,15 +431,21 @@ BEGIN
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,154,67,10
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,167,84,8
+                    WS_TABSTOP,116,119,84,8
     CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,180,144,8
+                    BS_AUTOCHECKBOX | WS_TABSTOP,111,156,91,8
     CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,14,191,124,10
-    EDITTEXT        IDC_IDLETIME,26,204,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
+                    WS_TABSTOP,115,129,65,10
+    EDITTEXT        IDC_IDLETIME,15,166,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
                     WS_DISABLED
-    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,70,207,76,
+    LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,65,165,76,
                     8,WS_DISABLED
+    LISTBOX         IDC_INPUT_LIST,15,198,134,22,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    LISTBOX         IDC_CONTROL_LIST,14,18,134,38,LBS_SORT | 
+                    LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Eyetracker autocalibration",IDC_AUTOCALIBRATE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,20,182,100,10
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
@@ -720,6 +716,7 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 212
         TOPMARGIN, 7
+        HORZGUIDE, 25
     END
 
     IDD_COLOUR, DIALOG

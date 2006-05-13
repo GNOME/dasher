@@ -12,6 +12,7 @@
 #include "../TabletPC/CursorInRange.h"
 #include "../../DasherCore/DasherComponent.h"
 #include "../../DasherCore/DasherTypes.h"
+#include "../KeyboardHelper.h"
 
 namespace Dasher
 {
@@ -185,6 +186,8 @@ private:
 
   // Enables tablet pc events
   CCursorInRange m_CursorInRange;
+
+  CKeyboardHelper *m_pKeyboardHelper;
 
 };
 

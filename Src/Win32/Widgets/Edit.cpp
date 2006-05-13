@@ -298,7 +298,7 @@ void CEdit::TNew(const Tstring &filename) {
   AppendMode = false;
   Clear();
 
-  m_pDasherInterface->InvalidateContext();
+  m_pDasherInterface->InvalidateContext(true);
 }
 
 bool CEdit::TOpen(const Tstring &filename) {
@@ -840,7 +840,7 @@ LRESULT CEdit::OnLButtonDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& b
 
 LRESULT CEdit::OnLButtonUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
-  m_pDasherInterface->InvalidateContext();
+  m_pDasherInterface->InvalidateContext(false);
 
 	bHandled = FALSE; // let the EDIT class handle it
 	return 0;

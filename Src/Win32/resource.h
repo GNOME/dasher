@@ -103,7 +103,9 @@
 #define IDD_BUTTON_PREFS                176
 #define IDD_BUTTON_SETTINGS             177
 #define IDC_LIST1                       1008
+#define IDC_INPUT_LIST                  1008
 #define IDC_LIST_ALPH                   1009
+#define IDC_CONTROL_LIST                1009
 #define IDC_ALPHABETS                   1010
 #define IDC_GROUPS                      1011
 #define IDC_COMBO1                      1012
@@ -246,6 +248,7 @@
 #define IDC_SAFETY_SLIDER               1141
 #define IDC_NONUNIFORM_SLIDER           1142
 #define IDC_MOUSEPOS_STYLE              1144
+#define IDC_AUTOCALIBRATE               1145
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -299,7 +302,7 @@
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        178
 #define _APS_NEXT_COMMAND_VALUE         32817
-#define _APS_NEXT_CONTROL_VALUE         1145
+#define _APS_NEXT_CONTROL_VALUE         1146
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif

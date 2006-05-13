@@ -77,6 +77,8 @@ HWND CCanvas::Create(HWND hParent)
 	}*/
 
 
+  m_pKeyboardHelper = new CKeyboardHelper;
+
 	m_pScreen = new CScreen(m_hdc, 300, 300);
 	//ReleaseDC(m_hwnd,m_hDC);
 	m_pDasherInterface->ChangeScreen(m_pScreen);
@@ -149,6 +151,9 @@ CCanvas::~CCanvas() {
   //if(m_pSocketInput != NULL) {
   //  delete m_pSocketInput;
   //}
+
+  if(m_pKeyboardHelper)
+    delete m_pKeyboardHelper;
 }
 
 void CCanvas::Move(int x, int y, int Width, int Height) 
@@ -193,6 +198,17 @@ LRESULT CCanvas::OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHand
 LRESULT CCanvas::OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	bHandled = TRUE;
+
+  int iKeyVal(-1);
+
+  if(m_pKeyboardHelper)
+    iKeyVal = m_pKeyboardHelper->ConvertKeyCode(wParam);
+
+  if(iKeyVal != -1) {
+    m_pDasherInterface->KeyUp(GetTickCount(), iKeyVal);
+    return 0;
+  }
+
 	switch(wParam) 
 	{
 	case VK_SHIFT:
@@ -221,6 +237,16 @@ LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
 #endif
 
   bHandled = TRUE;
+
+  int iKeyVal(-1);
+
+  if(m_pKeyboardHelper)
+    iKeyVal = m_pKeyboardHelper->ConvertKeyCode(wParam);
+
+  if(iKeyVal != -1) {
+    m_pDasherInterface->KeyDown(GetTickCount(), iKeyVal);
+    return 0;
+  }
 
 	switch (wParam) {
   // Space, for start/stop events etc.

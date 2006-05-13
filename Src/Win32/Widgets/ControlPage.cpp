@@ -35,14 +35,16 @@ static menuentry menutable[] = {
   {BP_START_SPACE, IDC_SPACE},
   {BP_START_STYLUS, IDC_STYLUS},
   {BP_STOP_IDLE, IDC_STOPIDLE},
-  {BP_NUMBER_DIMENSIONS, IDC_1D},
-  {BP_CLICK_MODE, IDC_CLICKMODE},
-  {BP_EYETRACKER_MODE, IDC_EYETRACKER},
-  {BP_KEY_CONTROL, IDC_BUTTONMODE},
   {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP},
   {APP_BP_SPEECH_MODE, IDC_SPEECH},
   {APP_BP_WINDOW_PAUSE, IDC_WINDOWPAUSE},
-  {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED}
+  {BP_AUTO_SPEEDCONTROL, IDC_AUTOSPEED},
+  {BP_AUTOCALIBRATE, IDC_AUTOCALIBRATE}
+};
+
+static menuentry listtable[] = {
+  {SP_INPUT_FILTER, IDC_CONTROL_LIST},
+  {SP_INPUT_DEVICE, IDC_INPUT_LIST}
 };
 
 void CControlPage::PopulateList() {
@@ -92,13 +94,6 @@ void CControlPage::PopulateList() {
     }
   }
 
-  if(!m_pAppSettings->GetBoolParameter(BP_NUMBER_DIMENSIONS) && 
-     !m_pAppSettings->GetBoolParameter(BP_EYETRACKER_MODE) &&
-     !m_pAppSettings->GetBoolParameter(BP_CLICK_MODE) &&
-     !m_pAppSettings->GetBoolParameter(BP_KEY_CONTROL))
-    SendMessage(GetDlgItem(m_hwnd, IDC_ORDINARY), BM_SETCHECK, BST_CHECKED, 0);
-
-
   // enable idletime control if button checked
   BOOL bIdle =  m_pAppSettings->GetBoolParameter(BP_STOP_IDLE) ? TRUE : FALSE;
   EnableWindow( GetDlgItem(m_hwnd, IDC_IDLETIME), bIdle);
@@ -107,6 +102,23 @@ void CControlPage::PopulateList() {
   // Set the idle time data
   SetDlgItemInt ( m_hwnd, IDC_IDLETIME, m_pAppSettings->GetLongParameter( LP_STOP_IDLETIME) , TRUE);
 
+  // List entries:
+
+  for(int i(0); i<sizeof(listtable)/sizeof(menuentry); ++i) {
+ // {
+//    int i(0);
+    std::vector<std::string> vValues;
+    m_pDasherInterface->GetPermittedValues(listtable[i].paramNum, vValues);
+
+    for(std::vector<std::string>::iterator it(vValues.begin()); it != vValues.end(); ++it) {
+      Tstring Item;
+      WinUTF8::UTF8string_to_wstring(*it, Item);
+      int iIdx(SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_ADDSTRING, 0, (LPARAM) Item.c_str()));
+
+      if(*it == m_pAppSettings->GetStringParameter(listtable[i].paramNum))
+        SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_SETCURSEL, iIdx, 0);
+    }
+  }
 }
 
 bool CControlPage::Validate() {
@@ -152,6 +164,20 @@ bool CControlPage::Apply()
   {
     m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, 
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
+  }
+
+  for(int i(0); i < sizeof(listtable)/sizeof(menuentry); ++i) {
+    int iSelection(SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_GETCURSEL, 0, 0));
+    
+    int iLength(SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_GETTEXTLEN, iSelection, 0));
+    TCHAR *szData(new TCHAR[iLength + 1]);
+    SendMessage(GetDlgItem(m_hwnd, listtable[i].idcNum), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+    std::string strNewValue;
+    WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+    delete[] szData;
+
+    m_pAppSettings->SetStringParameter(listtable[i].paramNum, strNewValue);
   }
 
 	// Return false (and notify the user) if something is wrong.

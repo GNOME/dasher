@@ -445,6 +445,12 @@
 			RelativePath=".\AutoSpeedControl.h">
 		</File>
 		<File
+			RelativePath=".\CannaConversionHelper.cpp">
+		</File>
+		<File
+			RelativePath=".\CannaConversionHelper.h">
+		</File>
+		<File
 			RelativePath=".\ClickFilter.cpp">
 		</File>
 		<File
@@ -467,6 +473,21 @@
 		</File>
 		<File
 			RelativePath=".\ControlManagerFactory.h">
+		</File>
+		<File
+			RelativePath=".\ConversionHelper.h">
+		</File>
+		<File
+			RelativePath=".\ConversionManager.cpp">
+		</File>
+		<File
+			RelativePath=".\ConversionManager.h">
+		</File>
+		<File
+			RelativePath=".\ConversionManagerFactory.cpp">
+		</File>
+		<File
+			RelativePath=".\ConversionManagerFactory.h">
 		</File>
 		<File
 			RelativePath="CustomColours.cpp">
@@ -611,6 +632,12 @@
 		</File>
 		<File
 			RelativePath="Parameters.h">
+		</File>
+		<File
+			RelativePath=".\PinYinConversionHelper.cpp">
+		</File>
+		<File
+			RelativePath=".\PinYinConversionHelper.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">

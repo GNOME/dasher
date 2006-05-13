@@ -88,7 +88,7 @@ void CEyetrackerFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, b
 
   // Now update the auto offset
 
-  myint iDistY = GetLongParameter(LP_OY) - iDasherY; // Distance above crosshair
+  myint iDistY = (myint)GetLongParameter(LP_OY) - iDasherY; // Distance above crosshair
 
   m_iSum += iDistY;
   ++m_iCounter;
@@ -103,10 +103,10 @@ void CEyetrackerFilter::ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, b
 
     if(m_iSum > m_iSigBiasPixels || m_iSum < -m_iSigBiasPixels) {
       if(m_iSum > m_iFilterTimescale) {
-	m_iYAutoOffset--;
+      	m_iYAutoOffset = m_iYAutoOffset - 1;
       }
       else if(m_iSum < -m_iFilterTimescale)
-	m_iYAutoOffset++;
+	      m_iYAutoOffset = m_iYAutoOffset + 1;
 
       // TODO: Should this maybe be outside of the if, so that we have
       // an average offset, rather than just slowing the time it takes

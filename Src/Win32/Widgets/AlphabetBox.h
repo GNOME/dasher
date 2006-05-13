@@ -41,13 +41,13 @@ private:
   unsigned int CurrentChar;
 
   void PopulateList();
-  void InitCustomBox();
+  /*void InitCustomBox();
   std::string GetControlText(HWND Dialog, int ControlID);
   void NewGroup(std::string NewGroup);
   void ShowGroups();
   void ShowGroupChars();
   void CustomCharacter(std::string Display, std::string Text, int Colour);
-  bool UpdateInfo();
+  bool UpdateInfo();*/
   bool Apply();
   bool Validate();
 
