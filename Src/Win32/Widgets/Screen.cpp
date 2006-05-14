@@ -90,7 +90,7 @@ CScreen::~CScreen() {
 void CScreen::SetInterface(CDasherInterface *DasherInterface) {
   DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
 
-//  CDasherScreen::SetInterface(DasherInterface);
+ // CDasherScreen::SetInterface(DasherInterface);
 
 //  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
 }

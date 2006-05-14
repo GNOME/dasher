@@ -127,7 +127,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE;JAPANESE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="FALSE"
@@ -443,12 +443,6 @@
 		</File>
 		<File
 			RelativePath=".\AutoSpeedControl.h">
-		</File>
-		<File
-			RelativePath=".\CannaConversionHelper.cpp">
-		</File>
-		<File
-			RelativePath=".\CannaConversionHelper.h">
 		</File>
 		<File
 			RelativePath=".\ClickFilter.cpp">

@@ -29,7 +29,7 @@ using namespace WinUTF8;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CEdit::CEdit() : m_FontSize(0), m_FontName(""), FileHandle(INVALID_HANDLE_VALUE), 
+CEdit::CEdit(CAppSettings *pAppSettings) : m_FontSize(0), m_FontName(""), FileHandle(INVALID_HANDLE_VALUE), 
 				m_FilenameGUI(0), threadid(0), targetwindow(0),
 #ifndef DASHER_WINCE
 pVoice(0),
@@ -37,6 +37,8 @@ pVoice(0),
 				textentry(false) 
 {
   
+m_pAppSettings = pAppSettings;
+
   CodePage = GetUserCodePage();
   m_Font = GetCodePageFont(CodePage, 14);
 
@@ -519,7 +521,8 @@ void CEdit::output(const std::string &sText) {
 
   InsertText(String);
 
-  if(targetwindow != NULL && textentry == true) {
+//  if(targetwindow != NULL && textentry == true) {
+  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
     const char *DisplayText = sText.c_str();
 #ifdef UNICODE
     if(DisplayText[0] == 0xd && DisplayText[1] == 0xa) {
@@ -602,7 +605,7 @@ void CEdit::Move(int iDirection, int iDist) {
   if(iDirection == EDIT_FORWARDS) {
     switch(iDist) {
     case EDIT_CHAR:
-      if(iStart != iEnd)
+      //if(iStart != iEnd)
         ++iEnd;
       iStart = iEnd;
       break;
@@ -949,7 +952,9 @@ void CEdit::deletetext(const std::string &sText) {
   // newline pair, but we're now assuming we'll never have two real characters for
   // a single symbol
 
-  if(targetwindow != NULL && textentry == true) {
+//  if(targetwindow != NULL && textentry == true) {
+if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
+
 #ifdef _UNICODE
     fakekey[0].type = fakekey[1].type = INPUT_KEYBOARD;
     fakekey[0].ki.wVk = fakekey[1].ki.wVk = VK_BACK;
@@ -1142,6 +1147,13 @@ void CEdit::outputcontrol(void *pointer, int data, int type) {
 }
 
 void CEdit::speak(int what) {
+
+  if(!m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_MODE))
+    return;
+
+  // TODO: Horrible hack - don't speak in direct entry mode
+  if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2)
+    return;
 
 // Todo - put this in a separate class
 

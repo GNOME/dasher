@@ -156,8 +156,6 @@ BEGIN
 
         END
         MENUITEM "&Reset Fonts",                ID_OPTIONS_RESETFONT
-        MENUITEM SEPARATOR
-        MENUITEM "Enter Text into Other Window...", ID_OPTIONS_ENTERTEXT
     END
     POPUP "&Help"
     BEGIN
@@ -432,11 +430,11 @@ BEGIN
     CONTROL         "Pause outside window",IDC_WINDOWPAUSE,"Button",
                     BS_AUTOCHECKBOX | WS_TABSTOP,14,110,91,8
     CONTROL         "Stop when idle",IDC_STOPIDLE,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,111,118,65,10
+                    NOT WS_VISIBLE | WS_TABSTOP,111,118,65,10
     EDITTEXT        IDC_IDLETIME,111,131,41,12,ES_AUTOHSCROLL | ES_NUMBER | 
-                    WS_DISABLED
+                    NOT WS_VISIBLE | WS_DISABLED
     LTEXT           "Idle time (milliseconds)",IDC_STATICIDLETIME,136,135,76,
-                    8,WS_DISABLED
+                    8,NOT WS_VISIBLE | WS_DISABLED
     LISTBOX         IDC_INPUT_LIST,14,202,138,24,LBS_SORT | 
                     LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP
     LISTBOX         IDC_CONTROL_LIST,14,18,138,38,LBS_SORT | 
@@ -475,21 +473,20 @@ BEGIN
     EDITTEXT        IDC_YPIX,14,78,30,12,ES_AUTOHSCROLL
     LTEXT           "Pixels covering entire y range",IDC_STATIC,48,80,120,8
     CONTROL         "Speak on stop",IDC_SPEECH,"Button",BS_AUTOCHECKBOX | 
-                    WS_TABSTOP,33,115,84,8
+                    WS_TABSTOP,14,111,84,8
     CONTROL         "Copy all on stop",IDC_COPYALLONSTOP,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,79,129,67,10
-    GROUPBOX        "Actions:",IDC_STATIC,7,100,204,44
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,123,67,10
+    GROUPBOX        "Actions:",IDC_STATIC,7,100,204,36
 END
 
 IDD_VIEWPAGE DIALOGEX 0, 0, 218, 238
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
     WS_SYSMENU
-CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
     GROUPBOX        "Orientation:",IDC_STATIC,7,7,204,74
     CONTROL         "Alphabet default",IDC_RADIO1,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,18,69,10
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,14,18,69,10
     CONTROL         "Left to right",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | 
                     WS_TABSTOP,14,30,54,10
     CONTROL         "Right to left",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON | 
@@ -512,15 +509,16 @@ BEGIN
                     BS_AUTOCHECKBOX | WS_TABSTOP,25,143,88,10
     CONTROL         "Draw box outlines",IDC_OUTLINE,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,14,155,73,10
-    GROUPBOX        "Application Style:",IDC_STATIC,7,174,204,57
     CONTROL         "Stand-alone",IDC_STYLE_STANDALONE,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,184,55,10
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,14,184,55,10
     CONTROL         "Composition",IDC_STYLE_COMPOSITION,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,197,55,10
+                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,145,221,
+                    55,10
     CONTROL         "Direct entry",IDC_STYLE_DIRECT,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,15,211,54,10
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,196,54,10
+    GROUPBOX        "Application Style:",IDC_STATIC,7,174,204,35
     CONTROL         "Full screen",IDC_STYLE_FULL,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,77,185,50,10
+                    NOT WS_VISIBLE | WS_TABSTOP,91,221,50,10
 END
 
 IDD_SOCKET DIALOGEX 0, 0, 218, 238
@@ -559,25 +557,28 @@ STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION |
 CAPTION "Dialog"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    GROUPBOX        "Language Model:",IDC_STATIC,7,7,204,62
+    GROUPBOX        "Language Model:",IDC_STATIC,7,169,204,62,NOT WS_VISIBLE
     CONTROL         "Standard letter-based PPM",IDC_LM_PPM,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,18,102,10
+                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,180,
+                    102,10
     CONTROL         "Word-based model",IDC_LM_WORD,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,30,76,10
+                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,193,
+                    76,10
     CONTROL         "Mixture model (PPM/dictionary)",IDC_LM_MIXTURE,"Button",
-                    BS_AUTORADIOBUTTON | WS_TABSTOP,14,42,115,10
+                    BS_AUTORADIOBUTTON | NOT WS_VISIBLE | WS_TABSTOP,14,204,
+                    115,10
     CONTROL         "Japanese",IDC_LM_JAPANESE,"Button",BS_AUTORADIOBUTTON | 
-                    WS_TABSTOP,14,54,47,10
-    GROUPBOX        "Adaptation:",IDC_STATIC,7,72,204,26
+                    NOT WS_VISIBLE | WS_TABSTOP,14,217,47,10
+    GROUPBOX        "Adaptation:",IDC_STATIC,7,7,204,26
     CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",
-                    BS_AUTOCHECKBOX | WS_TABSTOP,14,83,133,10
-    GROUPBOX        "Smoothing:",IDC_STATIC,7,101,204,52
+                    BS_AUTOCHECKBOX | WS_TABSTOP,14,18,133,10
+    GROUPBOX        "Smoothing:",IDC_STATIC,7,36,204,52
     LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",
-                    IDC_STATIC,14,112,190,18
-    EDITTEXT        IDC_UNIFORMVAL,14,134,30,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    IDC_STATIC,14,47,190,18
+    EDITTEXT        IDC_UNIFORMVAL,14,69,30,12,ES_AUTOHSCROLL | ES_READONLY | 
                     NOT WS_TABSTOP
     CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,44,134,160,12
+                    TBS_NOTICKS | WS_TABSTOP,44,69,160,12
 END
 
 IDD_BUTTON_PREFS DIALOGEX 0, 0, 218, 238
@@ -608,7 +609,7 @@ BEGIN
     GROUPBOX        "Compass Mode",IDC_STATIC,7,43,204,32
     GROUPBOX        "Direct Mode And Menu Mode",IDC_STATIC,7,78,204,69
     CONTROL         "",IDC_RIGHTZOOM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,118,49,85,15
+                    TBS_NOTICKS | WS_TABSTOP,118,54,85,15
     CONTROL         "",IDC_NOBOXES_SLIDER,"msctls_trackbar32",TBS_BOTH | 
                     TBS_NOTICKS | WS_TABSTOP,118,89,84,15
     CONTROL         "",IDC_SAFETY_SLIDER,"msctls_trackbar32",TBS_BOTH | 

@@ -125,9 +125,15 @@ HWND CDasherWindow::Create()
 
   // Create the Main window
   //Tstring WndClassName = CreateMyClass();
+// Create a CAppSettings
+  m_pAppSettings = new CAppSettings(0, 0);
+  int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
 
-
-  HWND hWnd = CWindowImpl<CDasherWindow>::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
+  HWND hWnd;
+  if((iStyle == 1) || (iStyle == 2))
+    hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
+  else
+    hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
 
   // Splash screen (turned off for debugging when it gets in the way)
   // It is deleted when Show() is called.
@@ -143,10 +149,12 @@ HWND CDasherWindow::Create()
   m_pDasher = new CDasher(hWnd);
 
   // Create a CAppSettings
-  m_pAppSettings = new CAppSettings(m_pDasher, hWnd);
+  m_pAppSettings->SetHwnd(hWnd);
+  m_pAppSettings->SetDasher(m_pDasher);
 
-  m_pEdit = new CEdit();
+  m_pEdit = new CEdit(m_pAppSettings);
   m_pEdit->Create(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
+  m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
 
 #ifdef PJC_EXPERIMENTAL
   g_hWnd = m_pEdit->GetHwnd();
@@ -304,6 +312,9 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
    case APP_BP_SHOW_TOOLBAR:
     m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
     break;
+   case APP_LP_STYLE:
+     Layout();
+     break;
    case APP_BP_TIME_STAMP:
     m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
     break;
@@ -311,12 +322,17 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
 	  m_pSlidebar->SetValue(m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
 	  break;
    case BP_DASHER_PAUSED:
+     // TODO: This should be triggered on start/stop event, not here
     if(m_pAppSettings && m_pDasher && 
        m_pAppSettings->GetBoolParameter(BP_DASHER_PAUSED) && 
        m_pAppSettings->GetBoolParameter(APP_BP_COPY_ALL_ON_STOP))
       if(m_pEdit)
         m_pEdit->CopyAll();
     break;
+   case APP_SP_EDIT_FONT:
+   case APP_LP_EDIT_FONT_SIZE:
+     m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
+     break;
   }
 }
 
@@ -460,8 +476,9 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  string FontName;
 		  WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
 		  m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
-							   }
-							   break;
+      m_pAppSettings->SetLongParameter(APP_LP_EDIT_FONT_SIZE, lf.lfHeight);
+	    }
+			break;
 	  case ID_OPTIONS_DASHERFONT:
 		  {
 		  CHOOSEFONT Data;
@@ -664,8 +681,8 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
       case EV_START:
         break;
       case EV_STOP:
-        //if(m_pEdit)
-          //m_pEdit->speak(2);
+        if(m_pEdit)
+          m_pEdit->speak(2);
         break;
       case EV_CONTROL:
         HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
@@ -783,8 +800,25 @@ LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL&
  //   break;
 
 
-void CDasherWindow::Layout() 
-{
+void CDasherWindow::Layout() {
+  int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
+  
+  // Set up the window properties
+
+  if((iStyle == 1) || (iStyle == 2)) {
+    SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) | WS_EX_NOACTIVATE | WS_EX_APPWINDOW);
+    SetWindowPos(HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+  }
+  else {
+    SetWindowLong(GWL_EXSTYLE, GetWindowLong(GWL_EXSTYLE) & !WS_EX_NOACTIVATE);
+    SetWindowPos(HWND_NOTOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
+  }
+
+  // Now do the actual layout
+
+  bool bHorizontal(iStyle == 1); 
+  bool bShowEdit(iStyle != 2);
+
   RECT ClientRect;
   GetClientRect( &ClientRect);
   const int Width = ClientRect.right;
@@ -811,14 +845,33 @@ void CDasherWindow::Layout()
     SplitterPos = min(SplitterPos, MaxCanvas - 3 * SplitterHeight);
     m_pSplitter->Move(SplitterPos, Width);
 
-    if(m_pEdit)
-      m_pEdit->Move(0, CurY, Width, SplitterPos - CurY);
+    if(bHorizontal) {
+      if(m_pCanvas)
+        m_pCanvas->Move(0, CurY, Width / 2, MaxCanvas - CurY);
 
-    CurY = SplitterPos + SplitterHeight;
-    int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
+      if(m_pEdit)
+        m_pEdit->Move(Width / 2, CurY, Width / 2, MaxCanvas - CurY);
+    }
+    else {
+      if(bShowEdit) {
+        m_pEdit->ShowWindow(SW_SHOW);
+        m_pSplitter->ShowWindow(SW_SHOW);
+
+        if(m_pEdit)
+          m_pEdit->Move(0, CurY, Width, SplitterPos - CurY);
+
+        CurY = SplitterPos + SplitterHeight;
+      }
+      else {
+        m_pEdit->ShowWindow(SW_HIDE);
+        m_pSplitter->ShowWindow(SW_HIDE);
+      }
+
+      int CanvasHeight = Height - CurY - SlidebarHeight - GetSystemMetrics(SM_CYEDGE);
  
-    if(m_pCanvas)
-      m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+      if(m_pCanvas)
+        m_pCanvas->Move(0, CurY, Width, CanvasHeight);
+     }
   }
 }
 

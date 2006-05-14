@@ -70,6 +70,14 @@ public:
   void SaveSetting(const std::string & Key, const LPWINDOWPLACEMENT pwp);
 #endif
 
+  void SetHwnd(HWND hWnd) {
+    m_hWnd = hWnd;
+  };
+
+  void SetDasher(Dasher::CDasher *pDasher) {
+    m_pDasher = pDasher;
+  };
+
 private:
   struct bp_info {
     int key;

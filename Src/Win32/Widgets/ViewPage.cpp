@@ -81,6 +81,21 @@ void CViewPage::PopulateList() {
       SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_SETCHECK, BST_CHECKED, 0);
       break;
   }
+
+  switch(m_pAppSettings->GetLongParameter(APP_LP_STYLE)) {
+    case 0:
+      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_STANDALONE), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case 1:
+      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_COMPOSITION), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case 2:
+      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+    case 3:
+      SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_SETCHECK, BST_CHECKED, 0);
+      break;
+  }
 }
 
 bool CViewPage::Validate() {
@@ -110,6 +125,15 @@ bool CViewPage::Apply() {
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::TopToBottom);
   else if(SendMessage(GetDlgItem(m_hwnd, IDC_RADIO5), BM_GETCHECK, 0, 0))
     m_pAppSettings->SetLongParameter(LP_ORIENTATION, Dasher::Opts::BottomToTop);
+
+  if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_STANDALONE), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 0);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_COMPOSITION), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 1);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_DIRECT), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 2);
+  else if(SendMessage(GetDlgItem(m_hwnd, IDC_STYLE_FULL), BM_GETCHECK, 0, 0))
+    m_pAppSettings->SetLongParameter(APP_LP_STYLE, 3);
 
   // Return false (and notify the user) if something is wrong.
   return TRUE;

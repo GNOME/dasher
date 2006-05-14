@@ -25,6 +25,7 @@ extern CComModule _Module;
 #endif
 
 #include "../../DasherCore/DashEdit.h"
+#include "../AppSettings.h"
 
 #include <Oleacc.h>
 
@@ -48,7 +49,7 @@ class CEdit	:	public Dasher::CDashEditbox,
 {
 public:
 
-	CEdit();
+	CEdit(CAppSettings *pAppSettings);
 	~CEdit();
 
 	HWND Create(HWND hParent, bool bNewWithDate);
@@ -192,6 +193,8 @@ private:
 	Tstring newchar;
 
 	void InsertText(Tstring InsertText);  // add symbol to edit control
+
+  CAppSettings *m_pAppSettings;
 
 	//      CCanvas* Canvas;
 };

@@ -37,13 +37,11 @@ struct menuentry {
 };
 
 // List of menu items that will be displayed in the General Preferences
-//static menuentry menutable[] = {
-//  {BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
-//};
-
-// {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP}
-//  {APP_BP_SPEECH_MODE, IDC_SPEECH}
-
+static menuentry menutable[] = {
+  {APP_BP_TIME_STAMP, IDC_TIMESTAMP},   // Not global setting - specific to editbox/widget
+  {APP_BP_COPY_ALL_ON_STOP, IDC_COPYALLONSTOP},
+  {APP_BP_SPEECH_MODE, IDC_SPEECH}
+};
 
 std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID) 
 {
@@ -58,25 +56,25 @@ std::string CAdvancedPage::GetControlText(HWND Dialog, int ControlID)
 
 void CAdvancedPage::PopulateList() {
 
-   if(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP)) {
-      SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
-    }
-    else  {
-      SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_UNCHECKED, 0);
-    }
+   //if(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP)) {
+   //   SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_CHECKED, 0);
+   // }
+   // else  {
+   //   SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_SETCHECK, BST_UNCHECKED, 0);
+   // }
 
 
   // Populate the controls in the dialogue box based on the relevent parameters
   // in m_pDasherInterface
- /* for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
+  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++)
   {
-    if(m_pDasherInterface->GetBoolParameter(menutable[ii].paramNum)) {
+    if(m_pAppSettings->GetBoolParameter(menutable[ii].paramNum)) {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_CHECKED, 0);
     }
     else  {
       SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_SETCHECK, BST_UNCHECKED, 0);
     }
-  }*/
+  }
 
   int ypixels = m_pDasherInterface->GetLongParameter(LP_YSCALE);
   int mouseposdist = m_pDasherInterface->GetLongParameter(LP_MOUSEPOSDIST);
@@ -117,7 +115,11 @@ bool CAdvancedPage::Validate() {
 
 bool CAdvancedPage::Apply() {
 
-  m_pAppSettings->SetBoolParameter( APP_BP_TIME_STAMP, SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_GETCHECK, 0, 0));
+  for(int ii = 0; ii<sizeof(menutable)/sizeof(menuentry); ii++) {
+    m_pAppSettings->SetBoolParameter(menutable[ii].paramNum, SendMessage(GetDlgItem(m_hwnd, menutable[ii].idcNum), BM_GETCHECK, 0, 0) == BST_CHECKED );
+  }
+
+//  m_pAppSettings->SetBoolParameter( APP_BP_TIME_STAMP, SendMessage(GetDlgItem(m_hwnd, IDC_TIMESTAMP), BM_GETCHECK, 0, 0));
   
   int ypixels = atoi(GetControlText(m_hwnd, IDC_YPIX).c_str());
   int mouseposdist = atoi(GetControlText(m_hwnd, IDC_MOUSEPOSDIST).c_str());

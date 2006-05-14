@@ -65,7 +65,7 @@ app_bp_table app_boolparamtable[] = {
 
 app_lp_table app_longparamtable[] = {
   {APP_LP_FILE_ENCODING, "FileEncodingFormat", PERS, -2, -2, "FileEncodingFormat"},
-  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 1, 1, "EditFontSize"},
+  {APP_LP_EDIT_FONT_SIZE, "EditFontSize", PERS, 0, 0, "EditFontSize"},
   {APP_LP_EDIT_HEIGHT, "EditHeight", PERS, 75, 75, "EditHeight0"},
   {APP_LP_EDIT_WIDTH, "EditWidth", PERS, 200, 200, "EditWidth"},
   {APP_LP_SCREEN_WIDTH, "ScreenWidth", PERS, 400, 400, "ScreenWidth"},

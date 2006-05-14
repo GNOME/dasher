@@ -132,10 +132,12 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
 
 inline HFONT& CScreen::GetFont(int iSize) {
   // TODO: Reimplement
- /* if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {
-    FontName = m_pDasherInterface->GetStringParameter(SP_DASHER_FONT);
-    m_cFonts.clear();
-  }*/
+  //if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {
+  //  FontName = m_pDasherInterface->GetStringParameter(SP_DASHER_FONT);
+  //   for(stdext::hash_map<int, HFONT>::const_iterator it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
+  //	       DeleteObject(it->second);
+  //  m_cFonts.clear();
+  //}
 
   if (iSize > 50) // ???? Is there a limit to size, should it be a setting?
     iSize = 50;
@@ -143,9 +145,12 @@ inline HFONT& CScreen::GetFont(int iSize) {
   stdext::hash_map <int, HFONT> :: const_iterator hm1_RcIter;
   int key = iSize;
 
+  std::wstring wstrOutput;
+  WinUTF8::UTF8string_to_wstring(FontName, wstrOutput);
+
   hm1_RcIter = m_cFonts.find( key );
   if( hm1_RcIter == m_cFonts.end() ) {
-    HFONT font = CreateFont(int (-iSize), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, LPCWSTR(FontName.c_str())); // DEFAULT_CHARSET => font made just from Size and FontName
+    HFONT font = CreateFont(int (-iSize), 0, 0, 0, FW_DONTCARE, FALSE, FALSE, FALSE, DEFAULT_CHARSET, OUT_DEFAULT_PRECIS, CLIP_DEFAULT_PRECIS, DEFAULT_QUALITY, FF_DONTCARE, LPCWSTR(wstrOutput.c_str())); // DEFAULT_CHARSET => font made just from Size and FontName
     m_cFonts[key] = font;
   }
   

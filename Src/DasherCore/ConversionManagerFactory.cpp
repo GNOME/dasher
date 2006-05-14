@@ -1,4 +1,7 @@
+#ifndef WIN32
 #include "config.h"
+#endif
+
 #ifdef JAPANESE
 
 #include "ConversionManager.h"
