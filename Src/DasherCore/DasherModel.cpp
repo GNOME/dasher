@@ -121,7 +121,9 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 
   m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel);
   m_pControlManagerFactory = new CControlManagerFactory(this, m_pLanguageModel);
+#ifdef JAPANESE
   m_pConversionManagerFactory = new CConversionManagerFactory(this, m_pLanguageModel);
+#endif
 
   m_bContextSensitive = true;
 }
@@ -139,7 +141,10 @@ CDasherModel::~CDasherModel() {
 
   delete m_pAlphabetManagerFactory;
   delete m_pControlManagerFactory;
+
+#ifdef JAPANESE
   delete m_pConversionManagerFactory;
+#endif
 
   if (m_pGameMode != NULL) {
     delete m_pGameMode;

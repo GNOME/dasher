@@ -108,8 +108,14 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
 
       if(newchars[j] == m_pModel->GetControlSymbol())
       	pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j], NULL);
-      else if(newchars[j] == m_pModel->GetStartConversionSymbol())
+      else if(newchars[j] == m_pModel->GetStartConversionSymbol()) {
+#ifdef JAPANESE
       	pNewNode = m_pModel->GetRoot(2, pNode, iLbnd, cum[j], NULL);
+#else
+	pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, cum[j], NULL);
+	pNewNode->Seen(false);
+#endif
+      }
       else if( newchars[j] == iExistingSymbol) {
       	pNewNode = pExistingChild;
 	      pNewNode->SetRange(iLbnd, cum[j]);

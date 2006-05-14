@@ -1,9 +1,13 @@
+
+
 // DasherModel.h
 //
 // Copyright (c) 2001-2005 David Ward
 
 #ifndef __DasherModel_h__
 #define __DasherModel_h__
+
+#include "config.h"
 
 #include "../Common/NoClones.h"
 
@@ -15,7 +19,11 @@
 #include "Alphabet/AlphIO.h"
 #include "AlphabetManagerFactory.h"
 #include "ControlManagerFactory.h"
+
+#ifdef JAPANESE
 #include "ConversionManagerFactory.h"
+#endif
+
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
@@ -229,8 +237,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
       return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
     case 1:
       return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+#ifdef JAPANESE
     case 2:
       return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
+#endif
     }
   };
   
@@ -326,7 +336,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CAlphabetManagerFactory *m_pAlphabetManagerFactory;
   CControlManagerFactory *m_pControlManagerFactory;
+
+#ifdef JAPANESE
   CConversionManagerFactory *m_pConversionManagerFactory;
+#endif
 
   struct SGotoItem {
     myint iN1;

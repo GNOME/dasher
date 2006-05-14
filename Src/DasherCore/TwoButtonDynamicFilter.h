@@ -25,7 +25,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
 
   int m_iKeyTime;
   bool bStarted;
-  bool bBackOff;
+  bool m_bBackoff;
 };
 
 #endif

@@ -10,6 +10,14 @@
 
 #include "KanjiConversionCanna.h"
 
+#include <canna/jrkanji.h>
+#include <canna/RK.h>
+#include <iconv.h>
+
+#include "KanjiConversion.h"
+
+#define BUFSIZE 10240
+
 #include <iostream>             //For testing 23 June 2005
 
 using namespace Dasher;

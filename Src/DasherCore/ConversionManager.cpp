@@ -1,4 +1,9 @@
+#include "config.h"
+#ifdef JAPANESE
+
 #include "ConversionManager.h"
+#include "Event.h"
+#include "EventHandler.h"
 
 #include <iostream>
 #include <string>
@@ -29,6 +34,8 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
 
   pNewNode->m_pNodeManager = this;
+  pNewNode->m_pNodeManager->Ref();
+
   pNewNode->m_pUserData = 0;
   pNewNode->m_strDisplayText = "Convert";
   pNewNode->m_bShove = false;
@@ -49,11 +56,19 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   CConversionManagerNode *pCurrentCMNode(static_cast<CConversionManagerNode *>(pNode->m_pUserData));
   
   if(pCurrentCMNode == 0)
-    pCurrentCMNode = m_pRoot[0];
+    if(m_pRoot)
+      pCurrentCMNode = m_pRoot[0];
+    else
+      pCurrentCMNode = 0;
   else if((pCurrentCMNode->m_pChild == 0) && (pCurrentCMNode->m_iPhrase < m_iRootCount - 1))
     pCurrentCMNode = m_pRoot[pCurrentCMNode->m_iPhrase + 1];
 
-  CConversionManagerNode *pCurrentCMChild(pCurrentCMNode->m_pChild);
+  CConversionManagerNode *pCurrentCMChild;
+
+  if(pCurrentCMNode)
+    pCurrentCMChild = pCurrentCMNode->m_pChild;
+  else
+    pCurrentCMChild = 0;
 
   if(pCurrentCMChild) {
     int iIdx(0);
@@ -69,6 +84,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
       
       pNewNode->m_pNodeManager = this;
+      pNewNode->m_pNodeManager->Ref();
+
       pNewNode->m_pUserData = pCurrentCMChild;
       pNewNode->m_strDisplayText = pCurrentCMChild->m_strSymbol;
       pNewNode->m_bShove = true;
@@ -94,6 +111,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
   // TODO: Need to implement this
+  
+  pNode->m_pNodeManager->Unref();
 }
 
 void CConversionManager::BuildTree(CDasherNode *pRoot) {
@@ -115,6 +134,10 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
   m_pHelper->Convert(strCurrentString, vCandidateList);
 
   m_iRootCount = vCandidateList.size();
+
+  if(m_iRootCount == 0)
+    m_pRoot = 0;
+  else {
 
   m_pRoot = new CConversionManagerNode *[m_iRootCount];
 
@@ -173,4 +196,29 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
       }
     }
   }
+  }
 }
+
+void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
+  m_pModel->m_bContextSensitive = true; 
+
+  CConversionManagerNode *pCurrentCMNode(static_cast<CConversionManagerNode *>(pNode->m_pUserData));
+
+  if(pCurrentCMNode) {
+    Dasher::CEditEvent oEvent(1, pCurrentCMNode->m_strSymbol);
+    m_pModel->InsertEvent(&oEvent);
+  }
+}
+
+void CConversionManager::Undo( CDasherNode *pNode ) {
+  CConversionManagerNode *pCurrentCMNode(static_cast<CConversionManagerNode *>(pNode->m_pUserData));
+
+  if(pCurrentCMNode) {
+    if(pCurrentCMNode->m_strSymbol.size() > 0) {
+      Dasher::CEditEvent oEvent(2, pCurrentCMNode->m_strSymbol);
+      m_pModel->InsertEvent(&oEvent);
+    }
+  }
+}
+
+#endif

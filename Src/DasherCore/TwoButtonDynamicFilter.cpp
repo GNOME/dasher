@@ -23,6 +23,7 @@ CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventH
     m_iStyle = 0;
 
   bStarted = false;
+  m_bBackoff = false;
 }
 
 CTwoButtonDynamicFilter::~CTwoButtonDynamicFilter() {
@@ -34,56 +35,43 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
 
   CDasherScreen *pScreen(pView->Screen());
 
-  screenint x1;
-  screenint y1;
-  screenint x2;
-  screenint y2;
+  CDasherScreen::point p[2];
+  
+  myint iDasherX;
+  myint iDasherY;
+  
+  iDasherX = -100;
+  iDasherY = 1024;
+  
+  pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+  
+  iDasherX = -1000;
+  iDasherY = 1024;
+  
+  pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  pScreen->Polyline(p, 2, 1, 2);
 
-  if(m_iTarget == 0) {
-    pView->Dasher2Screen(-100, 1000, x1, y1);
-    pView->Dasher2Screen(-200, 4096, x2, y2);
-  }
-  else {
-    pView->Dasher2Screen(-100, 0, x1, y1);
-    pView->Dasher2Screen(-200, 3096, x2, y2);
-  }
-
-  pScreen->DrawRectangle(x1, y1, x2, y2, 1, 1, Opts::ColorSchemes(Objects), true, false, 1);
-    
-  if(m_iTarget == 0) {
-    pView->Dasher2Screen(-100, 0, x1, y1);
-    pView->Dasher2Screen(-200, 3096, x2, y2);
-  }
-  else {
-    pView->Dasher2Screen(-100, 1000, x1, y1);
-    pView->Dasher2Screen(-200, 4096, x2, y2);
-  }
-
-  pScreen->DrawRectangle(x1, y1, x2, y2, 2, 2, Opts::ColorSchemes(Objects), true, false, 1);
+  iDasherX = -100;
+  iDasherY = 3072;
+  
+  pView->Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+  
+  iDasherX = -1000;
+  iDasherY = 3072;
+  
+  pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  pScreen->Polyline(p, 2, 1, 2);
 
   return true;
 }
 
 void CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
-//   myint iX;
-//   myint iY;
-
-//   if(bBackOff)
-//     m_pDasherModel->Tap_on_display(3096,2048, Time, 0, 0);
-//   else {
-//     if( GetBoolParameter(BP_BUTTONSTEADY) || !bStarted || (Time - m_iKeyTime > 1000)) {
-//       iX = m_iTargetX[m_iTarget];
-//       iY = m_iTargetY[m_iTarget];
-//     }
-//     else {
-//       iX = ((Time - m_iKeyTime) * m_iTargetX[m_iTarget] + (1000 - (Time - m_iKeyTime)) * 2048) / 1000;
-//       iY = ((Time - m_iKeyTime) * m_iTargetY[m_iTarget] + (1000 - (Time - m_iKeyTime)) * 2048) / 1000;
-//     }
-
-//     m_pDasherModel->Tap_on_display(iX, iY, Time, 0, 0);
-//   }
-
-  m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
+  if(m_bBackoff)
+    m_pDasherModel->Tap_on_display(4096,2048, Time, 0, 0);
+  else
+    m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
 
 }
 
@@ -100,9 +88,13 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
     }
     break; 
   case 1:
-    pModel->ScheduleZoom(1024,1024);
+    m_bBackoff = true;
     break;
   case 2:
+    pModel->ScheduleZoom(1024,1024);
+    break;
+  case 3:
+  case 4:
     pModel->ScheduleZoom(1024,3096);
     break;
   case 100: // Start on mouse
@@ -118,6 +110,10 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
 }
 
 void CTwoButtonDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
+  switch(iId) {
+  case 1:
+    m_bBackoff = false;
+  }
 }
 
 
