@@ -74,8 +74,6 @@ EXTRA_DIST = \
 		ButtonPrefs.h \
 		ButtonSettings.cpp \
 		ButtonSettings.h \
-		ButtonType.cpp \
-		ButtonType.h \
 		CopyAllLarge.bmp \
 		CopyAllSmall.bmp \
 		Dasher.cpp \

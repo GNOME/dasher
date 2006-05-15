@@ -1,3 +1,7 @@
+2006-05-15  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparation for release
+
 2006-04-18  Behdad Esfahbod  <behdad@gnome.org>
 
 	* configure.in, po/LINGUAS: Update to intltool 0.34.90. (bug #337992)

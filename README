@@ -1,16 +1,11 @@
-Dasher version 3.99.3 (4.0 preview 4)
-------------------------------------- 
+Dasher Version 4.1.0
+--------------------
 
-This is Dasher 3.99.3, the fourth preview release of the upcoming 4.0
-series. This version is `feature frozen' for 4.0, but it is still to
-some extent development code, and should therefore be considered
-potentially unstable. The full 4.0 release will coincide with the
-release of GNOME 2.14, with another 3.99 being produced for the GNOME
-beta 2. See:
-
-http://live.gnome.org/TwoPointThirteen
-
-for details of the release schedule.
+This is Dasher 4.1.0, the first of the new development series leading
+up to 4.2.0, which will hopefully be released with GNOME 2.16. This
+release should be considered a preview for those of you wishing to try
+out the latest features. For a stable version of Dasher, please
+download a release from the 4.0 series.
 
 Dasher is a zooming predictive text entry system, designed for situations
 where keyboard input is impractical (for instance, accessibility or PDAs). It
@@ -20,16 +15,23 @@ high rates of text entry.
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
 
-New Features In 3.99.3
-----------------------
- * Bugfix - missing Win32 source files in archive
+New In 4.1.0
+------------
+* Considerable internal rewriting
+* Introduction of 'application styles' - the aim here is to improve
+  integration with the desktop.
+* Improved button control.
+* Improved support for Hiragana to Kanji conversion.
+* Prototype support for the Maemo environment as used on the Nokia N770.
+* Many bug fixes
+* And anything else I've forgotten...
 
-New Features In 3.99.2
-----------------------
- * Improved button mode support
- * Cairo support ported from 3.2 branch
- * Win32 should build from tarball again
- * Bugfixes
+Known Issues
+------------
+* Not all new features have been ported to Windows.
+* There is a known memory leak in Japanese mode.
+* Button mode may not interact well with the direct entry application 
+  style.
 
 Requirements
 ------------
@@ -56,12 +58,6 @@ MS Windows:
 MS Windows CE:
  * (not sure - if anyone knows then please fill this in)
 
-Known Issues
-------------
- * Win32 probably doesn't build from the tarball - please use CVS.
- * Button mode implementation is incomplete (not all modes present,
-   and limited UI support for configuration options)
-
 Installation Instructions
 -------------------------
 Please see the file INSTALL.<platform> for details on how to build and
@@ -79,7 +75,7 @@ the IPA, but you can download one yourself from:
 Kanji Entry
 -----------
 
-Dasher 3.99.0 contains experimental support for Japanese Kanji entry
+As of Dasher 3.99.0, experimental support for Japanese Kanji entry
 by Hiragana conversion. To build Dasher with this enabled on Linux,
 you need the libcanna conversion library. You also need to be able to
 access a canna conversion server, which can be on the local machine or
@@ -95,10 +91,9 @@ it out. In particular, Dasher will crash if you try to enable Kanji
 conversion on a machine which does not have Japanese localisation
 installed.
 
-To use Kanji conversion in Dasher, you must select 'Hiragana ... (For
-use with Hapanese language model)' from the 'Alphabet' section of the
-preferences dialogue, and the Japanese language model from the
-'Prediction' section.
+To use Kanji conversion in Dasher, you must select 'Japanese Canna'
+from the 'Alphabet' section of the preferences dialogue, and the
+Japanese language model from the 'Prediction' section.
 
 Support and Feedback
 --------------------

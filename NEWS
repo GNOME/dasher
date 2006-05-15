@@ -1,7 +1,14 @@
 ============
 Dasher 4.1.0
 ============
-
+  * Considerable internal rewriting
+  * Introduction of 'application styles' - the aim here is to improve
+    integration with the desktop.   
+  * Improved button control.
+  * Improved support for Hiragana to Kanji conversion.
+  * Prototype support for the Maemo environment as used on the Nokia N770.
+  * Many bug fixes
+  * And anything else I've forgotten...
 
 =============
 Dasher 3.99.3
