@@ -609,29 +609,30 @@ BEGIN
     GROUPBOX        "Compass Mode",IDC_STATIC,7,43,204,32
     GROUPBOX        "Direct Mode And Menu Mode",IDC_STATIC,7,78,204,69
     CONTROL         "",IDC_RIGHTZOOM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,118,54,85,15
+                    TBS_NOTICKS | WS_TABSTOP,112,54,91,15
     CONTROL         "",IDC_NOBOXES_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,118,89,84,15
+                    TBS_NOTICKS | WS_TABSTOP,112,89,91,15
     CONTROL         "",IDC_SAFETY_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,118,107,84,15
+                    TBS_NOTICKS | WS_TABSTOP,112,107,91,15
     CONTROL         "",IDC_NONUNIFORM_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,118,126,84,15
+                    TBS_NOTICKS | WS_TABSTOP,112,126,91,15
     LTEXT           "Right zoom:",IDC_STATIC,14,57,39,8
     LTEXT           "Number of boxes:",IDC_STATIC,14,91,58,8
     LTEXT           "Safety margin:",IDC_STATIC,14,110,48,8
     LTEXT           "Box non-uniformity:",IDC_STATIC,14,129,64,8
     GROUPBOX        "Zoom Steps",IDC_ZOOMSTEPS_LABEL,7,7,204,32
     CONTROL         "",IDC_ZOOMSTEPS_SLIDER,"msctls_trackbar32",TBS_BOTH | 
-                    TBS_NOTICKS | WS_TABSTOP,46,18,158,15
+                    TBS_NOTICKS | WS_TABSTOP,46,18,157,15
     EDITTEXT        IDC_ZOOMSTEPS_VALUE,16,18,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY
+                    ES_READONLY | NOT WS_BORDER
     EDITTEXT        IDC_RIGHTZOOM_VALUE,82,55,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY
+                    ES_READONLY | NOT WS_BORDER
     EDITTEXT        IDC_NBOXES_VALUE,82,90,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY
-    EDITTEXT        IDC_NU_VALUE,82,126,22,14,ES_AUTOHSCROLL | ES_READONLY
+                    ES_READONLY | NOT WS_BORDER
+    EDITTEXT        IDC_NU_VALUE,82,126,22,14,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_BORDER
     EDITTEXT        IDC_SAFETY_VALUE,82,107,22,14,ES_AUTOHSCROLL | 
-                    ES_READONLY
+                    ES_READONLY | NOT WS_BORDER
 END
 
 
@@ -800,7 +801,8 @@ BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 211
         VERTGUIDE, 82
-        VERTGUIDE, 118
+        VERTGUIDE, 112
+        VERTGUIDE, 203
         TOPMARGIN, 7
         BOTTOMMARGIN, 231
     END

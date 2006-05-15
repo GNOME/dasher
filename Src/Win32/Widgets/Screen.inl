@@ -130,6 +130,15 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
   return m_cBrushes[key];
 }
 
+inline void CScreen::SetFont(const std::string &strFont) {
+  if(FontName != strFont) {
+    FontName = strFont;
+     for(stdext::hash_map<int, HFONT>::const_iterator it(m_cFonts.begin()); it != m_cFonts.end(); ++it)
+  	   DeleteObject(it->second);
+    m_cFonts.clear();
+  }
+}
+
 inline HFONT& CScreen::GetFont(int iSize) {
   // TODO: Reimplement
   //if(FontName != m_pDasherInterface->GetStringParameter(SP_DASHER_FONT)) {

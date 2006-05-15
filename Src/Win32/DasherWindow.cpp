@@ -466,17 +466,22 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	  case ID_OPTIONS_EDITFONT:{
 		  CHOOSEFONT Data;
 		  LOGFONT lf;
-		  HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
-		  GetObject(Font, sizeof(LOGFONT), &lf);
+      HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
+      GetObject(Font, sizeof(LOGFONT), &lf);
+      Tstring tstrFaceName;
+      WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), tstrFaceName);
+      _tcscpy(lf.lfFaceName, tstrFaceName.c_str());
+      lf.lfHeight = m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE);
 		  Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
 		  Data.lStructSize = sizeof(CHOOSEFONT);
 		  Data.hwndOwner = m_hWnd;
 		  Data.lpLogFont = &lf;
-		  ChooseFont(&Data);
-		  string FontName;
-		  WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-		  m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
-      m_pAppSettings->SetLongParameter(APP_LP_EDIT_FONT_SIZE, lf.lfHeight);
+      if(ChooseFont(&Data)) {
+		    string FontName;
+		    WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
+		    m_pAppSettings->SetStringParameter(APP_SP_EDIT_FONT, FontName);
+        m_pAppSettings->SetLongParameter(APP_LP_EDIT_FONT_SIZE, lf.lfHeight);
+      }
 	    }
 			break;
 	  case ID_OPTIONS_DASHERFONT:
@@ -485,14 +490,18 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  LOGFONT lf;
 		  HFONT Font = (HFONT) GetStockObject(DEFAULT_GUI_FONT);
 		  GetObject(Font, sizeof(LOGFONT), &lf);
+      Tstring tstrFaceName;
+      WinUTF8::UTF8string_to_wstring(m_pAppSettings->GetStringParameter(SP_DASHER_FONT), tstrFaceName);
+      _tcscpy(lf.lfFaceName, tstrFaceName.c_str());
 		  Data.Flags = CF_INITTOLOGFONTSTRUCT | CF_SCREENFONTS;
 		  Data.lStructSize = sizeof(CHOOSEFONT);
 		  Data.hwndOwner = m_hWnd;
 		  Data.lpLogFont = &lf;
-		  ChooseFont(&Data);
-		  string FontName;
-		  WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
-		  m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
+      if(ChooseFont(&Data)) {
+		    string FontName;
+ 		    WinUTF8::wstring_to_UTF8string(lf.lfFaceName, FontName);
+  		  m_pAppSettings->SetStringParameter(SP_DASHER_FONT, FontName);
+      }
 		 }
 		 return 0;
 	  case ID_OPTIONS_RESETFONT:

@@ -80,6 +80,7 @@ HWND CCanvas::Create(HWND hParent)
   m_pKeyboardHelper = new CKeyboardHelper;
 
 	m_pScreen = new CScreen(m_hdc, 300, 300);
+  m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
 	//ReleaseDC(m_hwnd,m_hDC);
 	m_pDasherInterface->ChangeScreen(m_pScreen);
 
@@ -428,6 +429,7 @@ LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandl
 	if (LOWORD(lParam)>0 && HIWORD(lParam) >0)
 	{
 		m_pScreen = new CScreen(m_hdc, LOWORD(lParam), HIWORD(lParam));
+    m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
 		m_pDasherInterface->ChangeScreen(m_pScreen);
 		InvalidateRect( NULL, FALSE);
 	}
@@ -635,6 +637,9 @@ void CCanvas::HandleEvent(Dasher::CEvent *pEvent) {
   if(pEvent->m_iEventType == 1) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     switch (pEvt->m_iParameter) {
+      case SP_DASHER_FONT:
+        m_pScreen->SetFont(m_pDasherInterface->GetStringParameter(SP_DASHER_FONT));
+        break;
   /*  case BP_SOCKET_INPUT_ENABLE:
       OutputDebugString(TEXT("Processing BP_SOCKET_INPUT_ENABLE change\n"));
       if(GetBoolParameter(BP_SOCKET_INPUT_ENABLE)) {

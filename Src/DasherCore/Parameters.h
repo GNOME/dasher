@@ -102,7 +102,7 @@ static bp_table boolparamtable[] = {
   {BP_PALETTE_CHANGE, "PaletteChange", PERS, true, "PaletteChange"},
   {BP_NUMBER_DIMENSIONS, "NumberDimensions", PERS, false, "NumberDimensions"},
   {BP_EYETRACKER_MODE, "EyetrackerMode", PERS, false, "EyetrackerMode"},
-  {BP_AUTOCALIBRATE, "Autocalibrate", PERS, false, "Autocalibrate"},
+  {BP_AUTOCALIBRATE, "Autocalibrate", PERS, true, "Autocalibrate"},
   {BP_DASHER_PAUSED, "DasherPaused", !PERS, true, "Dasher Paused"},
   {BP_GAME_MODE, "GameMode", PERS, false, "Dasher Game Mode"},
   {BP_TRAINING, "Training", !PERS, false, "Provides locking during training"},

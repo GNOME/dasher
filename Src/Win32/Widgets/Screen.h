@@ -39,6 +39,8 @@ public:
 
   void SetColourScheme(const Dasher::CCustomColours * pColours);
 
+  void SetFont(const std::string &strFont);
+
   void DrawMousePosBox(int which, int iMousePosDist);
 
   void TextSize(const std::string & String, Dasher::screenint * Width, Dasher::screenint * Height, int Size);
