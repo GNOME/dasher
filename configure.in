@@ -3,7 +3,7 @@ AC_INIT([dasher],[4.1.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
-AM_INIT_AUTOMAKE([gnu check-news])
+AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
