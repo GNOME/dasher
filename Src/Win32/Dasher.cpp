@@ -12,6 +12,7 @@
 #include "DasherMouseInput.h"
 #include "Sockets/SocketInput.h"
 
+#include <sys/stat.h>
 
 using namespace std;
 using namespace Dasher;
@@ -363,5 +364,7 @@ void CDasher::SetupUI() {
 }
 
 int CDasher::GetFileSize(const std::string &strFileName) {
-  return 0;
+  struct _stat sStatInfo;
+  _stat(strFileName.c_str(), &sStatInfo);
+  return sStatInfo.st_size;
 }

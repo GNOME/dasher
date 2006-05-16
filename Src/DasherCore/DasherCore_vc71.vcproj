@@ -36,7 +36,7 @@
 				ProgramDataBaseFileName=".\Target/Win32 Unicode Release/Intermediate/"
 				WarningLevel="3"
 				SuppressStartupBanner="TRUE"
-				DebugInformationFormat="3"/>
+				DebugInformationFormat="0"/>
 			<Tool
 				Name="VCCustomBuildTool"/>
 			<Tool
