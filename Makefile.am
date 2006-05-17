@@ -1,6 +1,4 @@
-SUBDIRS = Src Data po 
-
-# Doc - commented out for experimental os-x build
+SUBDIRS = Src Data po Doc
 
 distuninstallcheck_listfiles = \
 		find . -type f -print | \
@@ -26,7 +24,9 @@ DISTCLEANFILES = \
 		m4 \
 		intltool-merge \
 		intltool-extract \
-		intltool-update
+		intltool-update \
+		Data/dasher.desktop \
+		Data/Help/Gnome/Makefile
 
 MAINTAINERCLEANFILES = \
 		$(srcdir)/INSTALL \

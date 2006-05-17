@@ -1,4 +1,4 @@
-SUBDIRS =  Translations system.rc
+SUBDIRS =  Translations system.rc Help
 # Help - commented out for now
 
 

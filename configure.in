@@ -1,5 +1,5 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[4.1.0],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
+AC_INIT([dasher],[4.1.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
@@ -276,7 +276,7 @@ AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
-AM_CONDITIONAL(WITH_DARWIN, text x$WITHDARWIN = xtrue)
+AM_CONDITIONAL(WITH_DARWIN, test x$WITHDARWIN = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
@@ -321,12 +321,13 @@ AC_CONFIG_FILES([Makefile
 		 Data/Makefile
 		 Data/Translations/Makefile
 		 Data/system.rc/Makefile
+		 Data/Help/Makefile
+		 Data/Help/Gnome/Makefile
+		 Doc/Makefile
 		 po/Makefile.in])
 
-dnl		 Data/Help/Makefile
-dnl		 Data/Help/Gnome/Makefile
+
 dnl		 Data/Help/Gnome/eu/Makefile
-dnl		 Doc/Makefile
 
 
 AC_OUTPUT

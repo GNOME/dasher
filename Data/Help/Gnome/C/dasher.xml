@@ -156,6 +156,8 @@
  How do they choose that book? Let's imagine they want
  to write &ldquo;<computeroutput>all good things</computeroutput> &hellip;&rdquo;</para>
 <figure>
+<title>The library of all books.</title>
+<mediaobject>
 <imageobject>
 <imagedata fileref="figures/a-z.gif" />
 </imageobject>
@@ -165,6 +167,7 @@
 <imageobject>
 <imagedata fileref="figures/ala-alz.gif" />
 </imageobject>
+</mediaobject>
 </figure>
 <!--
 \begin{center}
@@ -203,6 +206,8 @@
  <para> Here is the corresponding sequence of pictures
  of the library  in Dasher. (The character "_&rdquo; denotes the space character.)</para>
 <figure>
+<title>The library of all books.</title>
+<mediaobject>
 <imageobject>
 <imagedata fileref="figures/a-z.gif" />
 </imageobject>
@@ -212,6 +217,7 @@
 <imageobject>
 <imagedata fileref="figures/ala-alz.gif" />
 </imageobject>
+</mediaobject>
 </figure>
 <!--
 \begin{center}
@@ -234,9 +240,12 @@
  `objection'; alternative words that could easily be written
   at this point include `objective', `objects_', and `object_oriented'.</para>
 <figure>
+<title>Writing `objection' in Dasher.</title>
+<mediaobject>
 <imageobject>
 <imagedata fileref="figures/object.gif" />
 </imageobject>
+</mediaobject>
 </figure>
 								      
 <para> If you find Dasher hard to imagine based on these static pictures,
@@ -315,9 +324,11 @@
       <title>Example</title>
       <figure id="figHad1">
 	<title>Writing &lsquo;<computeroutput>I once had a whim</computeroutput>&rsquo;. Where should the user steer now?</title>
+	<mediaobject>
 	<imageobject>
 	  <imagedata fileref="figures/exampleHad2.png" />
 	</imageobject>
+	</mediaobject>
       </figure>
       <para> Imagine you want to write `<computeroutput>I once had a whim</computeroutput>'.
 	You write `<computeroutput>I once ha...</computeroutput>' and the Dasher display
@@ -333,9 +344,11 @@
       <figure id="figHad2">
 	<title>Some alternative letter
 	  <computeroutput>d</computeroutput>s, with a beginner's error highlighted</title>
+	<mediaobject>
 	<imageobject>
 	  <imagedata fileref="figures/exampleHad2a.png" />
 	</imageobject>
+	</mediaobject>
       </figure>
       <para>   A common beginner's mistake is to keep rushing forward and  spot <emphasis>any</emphasis>
 	of these letter <computeroutput>d</computeroutput>s, and zoom into it.
@@ -344,19 +357,21 @@
 	<xref linkend="figHad2"/>.</para>
       <figure id="figHad3">
 	<title>What happens when you select the wrong <computeroutput>d</computeroutput></title>
+	<mediaobject>
 	<imageobject>
 	  <imagedata fileref="figures/exampleHad3a.png" />
 	</imageobject>
+	</mediaobject>
       </figure>
       
       
-      <para>If you go in this <computeroutput>d</computeroutput>, you are  writing `<computeroutput>I once <emphasis>head</emphasis>...</computeroutput>'.
+      <para>If you go in this <computeroutput>d</computeroutput>, you are  writing `<computeroutput>I once </computeroutput><emphasis>head</emphasis><computeroutput>...</computeroutput>'.
      The other two <computeroutput>d</computeroutput>s labelled by red
 	arrows (in <xref linkend="figHad1"/>)
      correspond to
-      writing `<computeroutput>I once <emphasis>heard</emphasis>...</computeroutput>'
+      writing `<computeroutput>I once </computeroutput><emphasis>heard</emphasis><computeroutput>...</computeroutput>'
 	and
-	`<computeroutput>I once <emphasis>hedge</emphasis>...</computeroutput>'.</para>
+	`<computeroutput>I once </computeroutput><emphasis>hedge</emphasis><computeroutput>...</computeroutput>'.</para>
 
  
  <para>    It is crucial to understand that there is only one correct <computeroutput>d</computeroutput>,
@@ -369,9 +384,11 @@
 	  the box that you want&rdquo;  in this case, the blue box
 	  associated with the letter <computeroutput>a</computeroutput> of the word &lsquo;<computeroutput>had</computeroutput>&rsquo;
 	</title>
+	<mediaobject>
 	<imageobject>
 	  <imagedata fileref="figures/exampleHad4.png" />
 	</imageobject>
+	</mediaobject>
       </figure>													      
 
       <para>If you ever leave that blue box (as we did in <xref linkend="figHad3"/>)

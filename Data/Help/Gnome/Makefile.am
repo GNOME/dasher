@@ -21,3 +21,4 @@ DOC_FIGURES = figures/figure2.png \
               figures/exampleHad4.png
 
 DOC_LINGUAS = 
+
