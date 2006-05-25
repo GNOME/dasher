@@ -269,15 +269,10 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
 gint dasher_app_settings_get_long(DasherAppSettings *pSelf, int iParameter) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
-  if(iParameter == APP_LP_DOCK_STYLE) {
-    g_message("Getting dock style: %d %d", iParameter < END_OF_LPS, app_longparamtable[ iParameter - FIRST_APP_LP ].value);
-  }
-
-   if( iParameter < END_OF_LPS)
+  if( iParameter < END_OF_LPS)
     return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
     return app_longparamtable[ iParameter - FIRST_APP_LP ].value;
-
 }
 
 void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint iValue) {

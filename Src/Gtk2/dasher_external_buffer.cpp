@@ -136,8 +136,14 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   pPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pDasherControl);
 
   // TODO: Need to deregister these on destruction
-  SPI_registerGlobalEventListener(pPrivate->pFocusListener, "focus:");
-  SPI_registerGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+
+  if(pPrivate->pFocusListener && pPrivate->pCaretListener) {
+    SPI_registerGlobalEventListener(pPrivate->pFocusListener, "focus:");
+    SPI_registerGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+  }
+  else {
+    g_message("Could not obtain an SPI listener");
+  }
 
   pPrivate->pAccessibleText = 0;
 

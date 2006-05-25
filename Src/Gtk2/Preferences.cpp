@@ -48,7 +48,8 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_CONTROL_MODE, "control_controlmode", NULL},
   {APP_BP_TIME_STAMP, "timestampbutton", NULL},
   {BP_AUTOCALIBRATE, "autocalibrate", NULL},
-  {BP_GLOBAL_KEYBOARD, "keyboardgrab", NULL}
+  {BP_GLOBAL_KEYBOARD, "keyboardgrab", NULL},
+  {APP_BP_DOCK, "dockbutton", NULL}
 };
 
 // List widgets which map directly to string parameters
@@ -257,6 +258,8 @@ void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf) {
   // Keep the preferences window in the correct position relative to the
   // main Dasher window
   //  gtk_window_set_transient_for(GTK_WINDOW(preferences_window),GTK_WINDOW(window));
+
+  gtk_window_set_keep_above((pPrivate->pWindow), dasher_main_topmost(g_pDasherMain));
   gtk_window_present(pPrivate->pWindow);
 }
 

@@ -60,7 +60,8 @@ app_bp_table app_boolparamtable[] = {
   {APP_BP_COPY_ALL_ON_STOP, "CopyAllOnStop", PERS, false, false, "CopyAllOnStop"},
   {APP_BP_WINDOW_PAUSE, "PauseOutsideWindow", PERS, false, false, "PauseOutsideWindow"},
   {APP_BP_SPEECH_MODE, "SpeechEnabled", PERS, false, false, "SpeechEnabled"},
-  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, false, "KeyboardMode"}
+  {APP_BP_KEYBOARD_MODE, "KeyboardMode", PERS, false, false, "KeyboardMode"},
+  {APP_BP_DOCK, "Dock", PERS, false, false, "Dock main window"}
 };
 
 app_lp_table app_longparamtable[] = {
@@ -73,7 +74,8 @@ app_lp_table app_longparamtable[] = {
   {APP_LP_SCREEN_WIDTH_H, "ScreenWidthH", PERS, 625, 625, "ScreenWidth"},
   {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", PERS, 250, 250, "ScreenHeight"},
   {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
-  {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"}
+  {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"},
+  {APP_LP_DOCK_POSITION, "DockPosition", PERS, 100, 100, "Dock Position"}
 };
 
 app_sp_table app_stringparamtable[] = {

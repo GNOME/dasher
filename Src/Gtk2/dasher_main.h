@@ -40,6 +40,7 @@ void dasher_main_load_state(DasherMain *pSelf);
 void dasher_main_save_state(DasherMain *pSelf);
 void dasher_main_show(DasherMain *pSelf);
 void dasher_main_set_filename(DasherMain *pSelf, const gchar *szFilename);
+gboolean dasher_main_topmost(DasherMain *pSelf);
 G_END_DECLS
 
 #endif

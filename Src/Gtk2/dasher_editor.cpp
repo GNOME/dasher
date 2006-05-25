@@ -154,12 +154,13 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pDasherControl = (DasherEditor *)(g_object_new(dasher_editor_get_type(), NULL));
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pDasherControl->private_data);
 
+  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
+
   g_pDasherMain = dasher_main_new();
 
   GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
   pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
   
-  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
   dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
 
   // TODO: Make lock diaogue a full method

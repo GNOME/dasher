@@ -71,10 +71,13 @@ int CKeyboardHelper::Grab(bool bGrab) {
     int iKeysLength;
 
     gdk_keymap_get_entries_for_keyval(0, it->first, &pKeys, &iKeysLength);
-    if(bGrab)
-      XGrabKey(GDK_DISPLAY(), pKeys[0].keycode, 0, GDK_ROOT_WINDOW(), true, GrabModeAsync, GrabModeAsync);
-    else
-      XUngrabKey(GDK_DISPLAY(), pKeys[0].keycode, 0, GDK_ROOT_WINDOW());
-    g_free(pKeys);
+
+    if(pKeys) {
+      if(bGrab)
+	XGrabKey(GDK_DISPLAY(), pKeys[0].keycode, 0, GDK_ROOT_WINDOW(), true, GrabModeAsync, GrabModeAsync);
+      else
+	XUngrabKey(GDK_DISPLAY(), pKeys[0].keycode, 0, GDK_ROOT_WINDOW());
+      g_free(pKeys);
+    }
   }
 }
