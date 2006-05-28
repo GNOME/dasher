@@ -1,3 +1,8 @@
+2006-05-27  Behdad Esfahbod  <behdad@gnome.org>
+
+	* configure.in: Bug 343085 – Typos in configure.in causes mishandling
+	of --disable-{speech,a11y,japanese}
+
 2006-05-15  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Preparation for release

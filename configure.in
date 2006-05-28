@@ -47,7 +47,7 @@ AC_ARG_WITH([gnome],
 
 AC_ARG_ENABLE([speech],
 	 AC_HELP_STRING([--enable-speech],[build with speech support (default is NO)]),
-	 if test $withval = "no"; then
+	 if test $enableval = "no"; then
 	   WITHSPEECH=false; 
 	 else
 	   WITHSPEECH=true;
@@ -74,7 +74,7 @@ AC_ARG_WITH([gpe],
 
 AC_ARG_ENABLE([a11y],
 	 AC_HELP_STRING([--enable-a11y],[build with support for the GNOME accessibility framework (default is YES)]),
-	 if test $withval = "no"; then
+	 if test $enableval = "no"; then
 	   WITHA11Y=false; 
 	 else
 	   WITHA11Y=true;
@@ -83,7 +83,7 @@ AC_ARG_ENABLE([a11y],
 
 AC_ARG_ENABLE([japanese],
 	 AC_HELP_STRING([--enable-japanese],[build with support for Japanese Kanji entry (experimental -- default is NO)]),
-	 if test $withval = "no"; then
+	 if test $enableval = "no"; then
 	   WITHJAPANESE=false; 
 	 else
 	   AC_CHECK_LIB(canna, RkBgnBun,, AC_MSG_ERROR([Canna library not found.]))
