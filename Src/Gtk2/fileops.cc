@@ -28,16 +28,39 @@ extern "C" void open_file(const char *myfilename) {
   // FIXME - REIMPLEMENT (shouldn't happen through core)
   //  dasher_clear();
 
-  file_modified = TRUE;
-
   if(size != 0) {
     // Don't attempt to insert new text if the file is empty as it makes
     // GTK cry
     if(g_utf8_validate(buffer, size, NULL) == FALSE) {
       // It's not UTF8, so we do the best we can...
-      gchar *buffer2 = g_locale_to_utf8(buffer, size, NULL, NULL, NULL);
+
+      // If there are zero bytes in the file then we have a problem -
+      // for now, just assert that we can't load these files.
+      for(int i(0); i < size; ++i)
+	if(buffer[i] == 0) {
+	  GtkWidget *pErrorBox = gtk_message_dialog_new(GTK_WINDOW(window), 
+							GTK_DIALOG_MODAL, 
+							GTK_MESSAGE_ERROR,
+							GTK_BUTTONS_OK, 
+							"Could not open the file \"%s\". Please note that Dasher cannot load files containing binary data, which may be the cause of this error.\n", 
+							myfilename);
+	  gtk_dialog_run(GTK_DIALOG(pErrorBox));
+	  gtk_widget_destroy(pErrorBox);
+	  return;
+	}
+
+      file_modified = TRUE;
+
+      gsize iNewSize;
+      gchar *buffer2 = g_strdup(g_locale_to_utf8(buffer, size, NULL, &iNewSize, NULL));
+
+      const gchar *pEnd;
+
+      gboolean bValid = g_utf8_validate(buffer2, -1, &pEnd);
+
       g_free(buffer);
       buffer = buffer2;
+      size = iNewSize;
     }
     gtk_text_buffer_insert_at_cursor(GTK_TEXT_BUFFER(the_text_buffer), buffer, size);
     gtk_text_view_scroll_mark_onscreen(GTK_TEXT_VIEW(the_text_view), gtk_text_buffer_get_insert(GTK_TEXT_BUFFER(the_text_buffer)));
@@ -94,6 +117,7 @@ gboolean gnome_vfs_open_file(const char *myfilename, gchar **buffer, unsigned lo
   *size = (gint) info.size;
   *buffer = (gchar *) g_malloc(*size);
   result = gnome_vfs_read(read_handle, *buffer, *size, &bytes_read);
+
   if(result != GNOME_VFS_OK) {
     vfs_print_error(&result, myfilename);
     g_free(uri);

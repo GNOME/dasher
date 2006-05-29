@@ -395,6 +395,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.SpaceCharacter.Colour = -1;
     Me->InputInfo.ParagraphCharacter.Colour = -1;
     Me->InputInfo.ControlCharacter.Colour = -1;
+    Me->InputInfo.StartConvertCharacter.Text = "";
+    Me->InputInfo.EndConvertCharacter.Text = "";
     Me->InputInfo.m_iCharacters = 1; // Start at 1 as 0 is the root node symbol
     Me->InputInfo.m_pBaseGroup = 0;
     Me->bFirstGroup = true;

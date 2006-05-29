@@ -55,8 +55,6 @@ GdkPixbuf *p;                   // Hmm... descriptive names
 GtkWidget *pw;
 GtkStyle *style;
 
-// TODO: Actually, we do care about this - see runtime errors
-//GtkAccelGroup *dasher_accel;
 GtkWidget *dasher_menu_bar;
 GtkWidget *open_filesel;
 GtkWidget *save_filesel;

@@ -18,11 +18,11 @@ using namespace std;
 extern "C" gint key_release_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
-extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
+//extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
 extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
-extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
+//extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
 
 // CDasherControl class definitions
@@ -79,38 +79,38 @@ void CDasherControl::SetupUI() {
   GtkWidget *pFrame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
   
-  m_pSpeedFrame = gtk_frame_new("Speed:");
+//   m_pSpeedFrame = gtk_frame_new("Speed:");
 
-  m_pSpeedHScale = gtk_hscale_new_with_range(0.1, 8.0, 0.1);
-  gtk_scale_set_digits( GTK_SCALE(m_pSpeedHScale), 1 );
+//   m_pSpeedHScale = gtk_hscale_new_with_range(0.1, 8.0, 0.1);
+//   gtk_scale_set_digits( GTK_SCALE(m_pSpeedHScale), 1 );
 
-  gtk_container_add(GTK_CONTAINER(m_pSpeedFrame), m_pSpeedHScale);
+//   gtk_container_add(GTK_CONTAINER(m_pSpeedFrame), m_pSpeedHScale);
   gtk_container_add(GTK_CONTAINER(pFrame), m_pCanvas);
 
 
-  m_pStatusBar = gtk_hbox_new(false, 2);
+//   m_pStatusBar = gtk_hbox_new(false, 2);
 
-  m_pSpin = gtk_spin_button_new_with_range(0.1, 8.0, 0.1);
-  m_pCombo = gtk_combo_box_new_text();
+//   m_pSpin = gtk_spin_button_new_with_range(0.1, 8.0, 0.1);
+//   m_pCombo = gtk_combo_box_new_text();
 
-  gtk_widget_set_size_request(m_pCombo, 256, -1);
+//   gtk_widget_set_size_request(m_pCombo, 256, -1);
 
-  m_pStatusLabel = gtk_label_new("Characters/min: --");
-  gtk_label_set_justify(GTK_LABEL(m_pStatusLabel), GTK_JUSTIFY_RIGHT);
+//   m_pStatusLabel = gtk_label_new("Characters/min: --");
+//   gtk_label_set_justify(GTK_LABEL(m_pStatusLabel), GTK_JUSTIFY_RIGHT);
 
-  gtk_box_pack_start(GTK_BOX(m_pStatusBar), gtk_label_new("Speed:"), 0, 0, 0);
-  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pSpin, 0, 0, 0);
-  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pCombo, 0, 0, 0);
-  //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pStatusLabel, TRUE, TRUE, 0);
+//   gtk_box_pack_start(GTK_BOX(m_pStatusBar), gtk_label_new("Speed:"), 0, 0, 0);
+//   //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pSpin, 0, 0, 0);
+//   //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pCombo, 0, 0, 0);
+//   //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pStatusLabel, TRUE, TRUE, 0);
 
-  gtk_box_pack_start(GTK_BOX(m_pVBox), pFrame, TRUE, TRUE, 0);
-  //  gtk_box_pack_start(GTK_BOX(m_pVBox), m_pSpeedFrame, FALSE, FALSE, 0);
-  gtk_box_pack_start(GTK_BOX(m_pVBox), m_pStatusBar, FALSE, FALSE, 0);
+   gtk_box_pack_start(GTK_BOX(m_pVBox), pFrame, TRUE, TRUE, 0);
+//   //  gtk_box_pack_start(GTK_BOX(m_pVBox), m_pSpeedFrame, FALSE, FALSE, 0);
+//   gtk_box_pack_start(GTK_BOX(m_pVBox), m_pStatusBar, FALSE, FALSE, 0);
 
   gtk_widget_show_all(GTK_WIDGET(m_pVBox));
 
-  if(!GetBoolParameter(BP_SHOW_SLIDER))
-    gtk_widget_hide(m_pStatusBar);
+//   if(!GetBoolParameter(BP_SHOW_SLIDER))
+//     gtk_widget_hide(m_pStatusBar);
 
   // Connect callbacks - note that we need to implement the callbacks
   // as "C" style functions and pass this as user data so they can
@@ -118,19 +118,19 @@ void CDasherControl::SetupUI() {
 
   g_signal_connect(m_pCanvas, "button_press_event", G_CALLBACK(button_press_event), this);
   g_signal_connect(m_pCanvas, "button_release_event", G_CALLBACK(button_press_event), this);
-  g_signal_connect(m_pSpin, "value-changed", G_CALLBACK(speed_changed), this);
+  // g_signal_connect(m_pSpin, "value-changed", G_CALLBACK(speed_changed), this);
   g_signal_connect_after(m_pCanvas, "realize", G_CALLBACK(realize_canvas), this);
   g_signal_connect(m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this);
   g_signal_connect(m_pCanvas, "destroy", G_CALLBACK(canvas_destroy_event), this);
 
-  g_signal_connect(m_pCombo, "changed", G_CALLBACK(alphabet_combo_changed), this);
+  // g_signal_connect(m_pCombo, "changed", G_CALLBACK(alphabet_combo_changed), this);
 
   // We'll use the same call back for keyboard events from the canvas
   // and slider - maybe this isn't the right thing to do long term
 
   g_signal_connect(m_pCanvas, "key-release-event", G_CALLBACK(key_release_event), this);
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
-  g_signal_connect(m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this);
+//   g_signal_connect(m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this);
 
   g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
 }
@@ -344,9 +344,9 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
     m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
     Redraw(true);
     break;
-  case LP_MAX_BITRATE:
-    gtk_spin_button_set_value(GTK_SPIN_BUTTON(m_pSpin), GetLongParameter(LP_MAX_BITRATE) / 100.0);
-    break;
+//   case LP_MAX_BITRATE:
+//     gtk_spin_button_set_value(GTK_SPIN_BUTTON(m_pSpin), GetLongParameter(LP_MAX_BITRATE) / 100.0);
+//     break;
   case BP_SHOW_SLIDER:
     if(m_pSpeedFrame != NULL) {
       if(GetBoolParameter(BP_SHOW_SLIDER)) {
@@ -373,47 +373,47 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
 }
 
 void CDasherControl::PopulateAlphabetCombol() {
-  for( int i(m_iComboCount - 1); i >=0; --i)
-    gtk_combo_box_remove_text(GTK_COMBO_BOX(m_pCombo), i);
+//   for( int i(m_iComboCount - 1); i >=0; --i)
+//     gtk_combo_box_remove_text(GTK_COMBO_BOX(m_pCombo), i);
   
-  m_iComboCount = 0;
+//   m_iComboCount = 0;
   
-  const char *szValue;
+//   const char *szValue;
   
-  szValue = GetStringParameter(SP_ALPHABET_ID).c_str();
-  if(strlen(szValue) > 0) {
-    gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-    ++m_iComboCount;
-  }
+//   szValue = GetStringParameter(SP_ALPHABET_ID).c_str();
+//   if(strlen(szValue) > 0) {
+//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
+//     ++m_iComboCount;
+//   }
   
-  szValue = GetStringParameter(SP_ALPHABET_1).c_str();
-  if(strlen(szValue) > 0) {
-    gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-    ++m_iComboCount;
-  }
+//   szValue = GetStringParameter(SP_ALPHABET_1).c_str();
+//   if(strlen(szValue) > 0) {
+//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
+//     ++m_iComboCount;
+//   }
   
-  szValue = GetStringParameter(SP_ALPHABET_2).c_str();
-  if(strlen(szValue) > 0) {
-    gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-    ++m_iComboCount;
-  }
+//   szValue = GetStringParameter(SP_ALPHABET_2).c_str();
+//   if(strlen(szValue) > 0) {
+//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
+//     ++m_iComboCount;
+//   }
   
-  szValue = GetStringParameter(SP_ALPHABET_3).c_str();
-  if(strlen(szValue) > 0) {
-    gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-    ++m_iComboCount;
-  }
+//   szValue = GetStringParameter(SP_ALPHABET_3).c_str();
+//   if(strlen(szValue) > 0) {
+//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
+//     ++m_iComboCount;
+//   }
   
-  szValue = GetStringParameter(SP_ALPHABET_4).c_str();
-  if(strlen(szValue) > 0) {
-    gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-    ++m_iComboCount;
-  }
+//   szValue = GetStringParameter(SP_ALPHABET_4).c_str();
+//   if(strlen(szValue) > 0) {
+//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
+//     ++m_iComboCount;
+//   }
   
-  gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), "More Alphabets...");
-  ++m_iComboCount;
+//   gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), "More Alphabets...");
+//   ++m_iComboCount;
 
-  gtk_combo_box_set_active(GTK_COMBO_BOX(m_pCombo), 0);
+//   gtk_combo_box_set_active(GTK_COMBO_BOX(m_pCombo), 0);
 }
 
 
@@ -603,13 +603,13 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
   return 0;
 }
 
-void CDasherControl::SliderEvent() {
-  //  int iNewValue( static_cast<int>(round(gtk_range_get_value(GTK_RANGE(m_pSpeedHScale)) * 100)));
-  int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(m_pSpin)) * 100)));
+// void CDasherControl::SliderEvent() {
+//   //  int iNewValue( static_cast<int>(round(gtk_range_get_value(GTK_RANGE(m_pSpeedHScale)) * 100)));
+//   int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(m_pSpin)) * 100)));
 
-  if(GetLongParameter(LP_MAX_BITRATE) != iNewValue)
-    SetLongParameter(LP_MAX_BITRATE, iNewValue);
-}
+//   if(GetLongParameter(LP_MAX_BITRATE) != iNewValue)
+//     SetLongParameter(LP_MAX_BITRATE, iNewValue);
+// }
 
 void CDasherControl::CanvasDestroyEvent() {
   // Delete the screen
@@ -620,17 +620,17 @@ void CDasherControl::CanvasDestroyEvent() {
   }
 }
 
-void CDasherControl::AlphabetComboChanged() {
-  // std::cout << "Alphabet changed to: " << gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)) << std::endl;
+// void CDasherControl::AlphabetComboChanged() {
+//   // std::cout << "Alphabet changed to: " << gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)) << std::endl;
 
-  if(!strcmp("More Alphabets...",  gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)))) {
-    gtk_combo_box_set_active(GTK_COMBO_BOX(m_pCombo), 0);
+//   if(!strcmp("More Alphabets...",  gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)))) {
+//     gtk_combo_box_set_active(GTK_COMBO_BOX(m_pCombo), 0);
     
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_request_settings");
-  }
-  else if(strcmp(GetStringParameter(SP_ALPHABET_ID).c_str(),  gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo))))
-    SetStringParameter(SP_ALPHABET_ID, gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)));
-}
+//     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_request_settings");
+//   }
+//   else if(strcmp(GetStringParameter(SP_ALPHABET_ID).c_str(),  gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo))))
+//     SetStringParameter(SP_ALPHABET_ID, gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)));
+// }
 
 // Tell the logging object that a new user trial is starting.
 void CDasherControl::UserLogNewTrial()
@@ -670,9 +670,6 @@ extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data) {
   static_cast < CDasherControl * >(user_data)->RealizeCanvas();
 }
 
-extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data) {
-  static_cast < CDasherControl * >(user_data)->SliderEvent();
-}
 
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data) {
   return static_cast < CDasherControl * >(data)->ButtonPressEvent(event);
@@ -698,6 +695,3 @@ extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, 
   return static_cast < CDasherControl * >(data)->FocusEvent(widget, event);
 }
 
-extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {
-  static_cast<CDasherControl*>(pUserData)->AlphabetComboChanged();
-}

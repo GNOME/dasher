@@ -29,6 +29,14 @@ struct _DasherMainPrivate {
   GtkWidget *pDragHandle; 
   GtkWidget *pOuterFrame;
   GtkWidget *pInnerFrame;
+  GtkWidget *pSpeedBox;
+  GtkWidget *pAlphabetCombo;
+
+  GtkListStore *pAlphabetList;
+
+  GtkAccelGroup *pAccel;
+
+  int iComboCount;
 
 #ifdef WITH_MAEMO
   DasherMaemoHelper *pMaemoHelper;
@@ -71,7 +79,8 @@ static void dasher_main_toggle_hidden(DasherMain *pSelf);
 static void dasher_main_grab(DasherMain *pSelf, GdkEventButton *pEvent);
 static void dasher_main_ungrab(DasherMain *pSelf, GdkEventButton *pEvent);
 static gboolean dasher_main_motion(DasherMain *pSelf, GdkEventMotion *pEvent);
-
+static gboolean dasher_main_speed_changed(DasherMain *pSelf);
+static void dasher_main_populate_alphabet_combo(DasherMain *pSelf);
 
 // Private functions not in class
 extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
@@ -166,7 +175,19 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pSideMenu = glade_xml_get_widget(pPrivate->pGladeXML, "SideMenu");
   pPrivate->pDragHandle = glade_xml_get_widget(pPrivate->pGladeXML, "button31");
   pPrivate->pOuterFrame = glade_xml_get_widget(pPrivate->pGladeXML, "OuterFrame");
-  pPrivate->pInnerFrame = glade_xml_get_widget(pPrivate->pGladeXML, "vbox1");
+  pPrivate->pInnerFrame = glade_xml_get_widget(pPrivate->pGladeXML, "vbox1"); 
+  pPrivate->pSpeedBox = glade_xml_get_widget(pPrivate->pGladeXML, "spinbutton1");
+  pPrivate->pAlphabetCombo = glade_xml_get_widget(pPrivate->pGladeXML, "combobox1");
+
+  pPrivate->pAlphabetList = gtk_list_store_new(1, G_TYPE_STRING);
+  gtk_combo_box_set_model(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 
+			  GTK_TREE_MODEL(pPrivate->pAlphabetList));
+
+  GtkCellRenderer *pRenderer;
+  pRenderer = gtk_cell_renderer_text_new();
+  g_object_set(G_OBJECT(pRenderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+  gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(pPrivate->pAlphabetCombo), pRenderer, true);
+  gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(pPrivate->pAlphabetCombo), pRenderer, "text", 0, NULL);
 
   dasher_main_setup_window_type(pSelf);
 
@@ -182,6 +203,8 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "button-release-event", G_CALLBACK(take_real_focus), NULL);
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-press-event", G_CALLBACK(edit_key_press), NULL);
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-release-event", G_CALLBACK(edit_key_release), NULL);
+  
+  
 
   // Create a Maemo helper if necessary
 #ifdef WITH_MAEMO
@@ -219,6 +242,12 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
   case APP_SP_EDIT_FONT:
     dasher_main_refresh_font(pSelf);
     break;
+  case LP_MAX_BITRATE:
+    gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
+    break;
+  case SP_ALPHABET_ID:
+    dasher_main_populate_alphabet_combo(pSelf);
+    break;
   case APP_LP_STYLE:
   case APP_BP_DOCK:
     // You can't generally switch window types once the X11 window has
@@ -230,13 +259,18 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       pPrivate->pMainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
       window = pPrivate->pMainWindow;
 
+      GSList *pAccelList = gtk_accel_groups_from_object(G_OBJECT(pOldWindow));
+
+      while(pAccelList) {
+	gtk_window_add_accel_group(GTK_WINDOW(pPrivate->pMainWindow), GTK_ACCEL_GROUP(pAccelList->data));
+	pAccelList = pAccelList->next;
+      }
+
       dasher_main_setup_window_type(pSelf);
 
       gtk_widget_hide(pOldWindow);
       gtk_widget_reparent(pPrivate->pOuterFrame, pPrivate->pMainWindow);
       gtk_object_destroy(GTK_OBJECT(pOldWindow));
-
-      //      dasher_main_on_map(pSelf);
 
       g_signal_connect(G_OBJECT(pPrivate->pMainWindow), "map", G_CALLBACK(on_window_map), NULL);
       g_signal_connect(G_OBJECT(pPrivate->pMainWindow), "delete_event", G_CALLBACK(ask_save_before_exit), NULL);
@@ -265,6 +299,12 @@ void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSett
   // Now we have access to the settings, we can set up the intial
   // values
   
+  // TODO: put status bar initialisation somewhere else
+  pPrivate->iComboCount = 0;
+  dasher_main_populate_alphabet_combo(pSelf);
+
+  gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
+
 #ifndef WITH_MAEMO
   // TODO: bring into object framework
   PopulateMenus(pPrivate->pGladeXML);
@@ -721,6 +761,79 @@ gboolean dasher_main_topmost(DasherMain *pSelf) {
   return pPrivate->bTopMost;
 }
 
+gboolean dasher_main_speed_changed(DasherMain *pSelf) {
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+  
+  int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(pPrivate->pSpeedBox)) * 100)));
+  
+  if(dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) != iNewValue)
+    dasher_app_settings_set_long(pPrivate->pAppSettings, LP_MAX_BITRATE, iNewValue);
+
+  return true;
+}
+
+void dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+
+  gtk_list_store_clear(pPrivate->pAlphabetList);
+
+  GtkTreeIter sIter;
+  const char *szValue;
+  
+  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_ID);
+  if(strlen(szValue) > 0) {
+    gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
+    gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
+    gtk_combo_box_set_active_iter(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), &sIter);
+  }
+  
+  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_1);
+  if(strlen(szValue) > 0) {
+    gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
+    gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
+  }
+  
+  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_2);
+  if(strlen(szValue) > 0) {
+    gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
+    gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
+  }
+  
+  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_3);
+  if(strlen(szValue) > 0) {
+    gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
+    gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
+  }
+  
+  szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_4);
+  if(strlen(szValue) > 0) {
+    gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
+    gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
+  }
+  
+  gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
+  gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, "More Alphabets...", -1);
+}
+
+gboolean dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+
+  GtkTreeIter sIter;
+  
+  gtk_combo_box_get_active_iter(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), &sIter);
+
+  const char *szSelected;
+  gtk_tree_model_get(GTK_TREE_MODEL(pPrivate->pAlphabetList), &sIter, 0, &szSelected, -1);
+
+  if(!strcmp("More Alphabets...", szSelected)) {
+    gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 0);
+    dasher_preferences_dialogue_show(g_pPreferencesDialogue);
+  }
+  else if(strcmp(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_ID), szSelected))
+    dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
+
+}
+
 // Callbacks
 
 extern "C" GtkWidget *create_dasher_control(gchar *szName, gchar *szString1, gchar *szString2, gint iInt1, gint iInt2) {
@@ -819,4 +932,13 @@ extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event
   }
 
   return GDK_FILTER_CONTINUE;
+}
+
+extern "C" gboolean speed_changed(GtkWidget *pWidget, gpointer user_data) {
+  return dasher_main_speed_changed(g_pDasherMain);
+}
+
+extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {
+  //  static_cast<CDasherControl*>(pUserData)->AlphabetComboChanged();
+  dasher_main_alphabet_combo_changed(g_pDasherMain);
 }

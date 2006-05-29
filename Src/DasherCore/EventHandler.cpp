@@ -48,6 +48,7 @@ void CEventHandler::InsertEvent(CEvent *pEvent) {
 }
 
 void CEventHandler::RegisterListener(CDasherComponent *pListener) {
+
   if((std::find(m_vListeners.begin(), m_vListeners.end(), pListener) == m_vListeners.end()) &&
      (std::find(m_vListenerQueue.begin(), m_vListenerQueue.end(), pListener) == m_vListenerQueue.end())) {
     if(!m_iInHandler > 0)
@@ -68,4 +69,9 @@ void CEventHandler::UnregisterListener(CDasherComponent *pListener) {
 
   if(iFound != m_vListeners.end())
     m_vListeners.erase(iFound);
+
+  iFound = std::find(m_vListenerQueue.begin(), m_vListenerQueue.end(), pListener);
+
+  if(iFound != m_vListenerQueue.end())
+    m_vListenerQueue.erase(iFound);
 }
