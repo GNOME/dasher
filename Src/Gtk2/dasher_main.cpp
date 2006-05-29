@@ -150,13 +150,15 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 #ifdef WITH_GPE
   szGladeFilename = PROGDATA "/dashergpe.glade";
 #elif WITH_MAEMO
-  szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
-  //xml = glade_xml_new(PROGDATA "/dashermaemo.glade", NULL, NULL);
+  //szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
+  szGladeFilename = PROGDATA "/dashermaemo.glade";
 #else
   szGladeFilename = PROGDATA "/dasher.glade";
 #endif
 
-  pPrivate->pGladeXML = glade_xml_new(PROGDATA "/dasher.glade", NULL, NULL);
+  g_message("Glade file is: %s", szGladeFilename);
+
+  pPrivate->pGladeXML = glade_xml_new(szGladeFilename, NULL, NULL);
 
   if (!pPrivate->pGladeXML) {
     g_error("Can't find Glade file: %s. Dasher is unlikely to be correctly installed.", szGladeFilename);
@@ -176,6 +178,8 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pDragHandle = glade_xml_get_widget(pPrivate->pGladeXML, "button31");
   pPrivate->pOuterFrame = glade_xml_get_widget(pPrivate->pGladeXML, "OuterFrame");
   pPrivate->pInnerFrame = glade_xml_get_widget(pPrivate->pGladeXML, "vbox1"); 
+
+#ifndef WITH_MAEMO
   pPrivate->pSpeedBox = glade_xml_get_widget(pPrivate->pGladeXML, "spinbutton1");
   pPrivate->pAlphabetCombo = glade_xml_get_widget(pPrivate->pGladeXML, "combobox1");
 
@@ -192,6 +196,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   dasher_main_setup_window_type(pSelf);
 
   gtk_widget_add_events(pPrivate->pDragHandle, GDK_POINTER_MOTION_MASK);
+#endif
 
   pPrivate->bHidden = false;
   pPrivate->bGrabbed = false;
@@ -208,7 +213,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 
   // Create a Maemo helper if necessary
 #ifdef WITH_MAEMO
-  pPrivate->pMaemoHelper = dasher_maemo_helper_new(pPrivate->pBufferView);
+  pPrivate->pMaemoHelper = dasher_maemo_helper_new(GTK_WINDOW(pPrivate->pMainWindow));
 #endif
 
   // Set up any non-registry-dependent options
@@ -242,9 +247,11 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
   case APP_SP_EDIT_FONT:
     dasher_main_refresh_font(pSelf);
     break;
+#ifndef WITH_MAEMO
   case LP_MAX_BITRATE:
     gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
     break;
+#endif
   case SP_ALPHABET_ID:
     dasher_main_populate_alphabet_combo(pSelf);
     break;
@@ -278,6 +285,29 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       gtk_widget_show(pPrivate->pMainWindow);
     }
     break;
+#ifdef WITH_MAEMO
+  case APP_LP_MAEMO_SIZE: {
+    bool bVisible = GTK_WIDGET_VISIBLE(pPrivate->pMainWindow);
+    gtk_widget_hide(pPrivate->pMainWindow);
+    if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE) == 0) {
+      int iWidth;
+      gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWidth, NULL);
+      gtk_widget_set_size_request(pPrivate->pMainWindow, -1, 150);
+      gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), iWidth, 150);
+      gtk_widget_set_size_request(pDasherWidget, 175, -1);
+    }
+    else {
+      int iWidth;
+      gtk_window_get_size(GTK_WINDOW(pPrivate->pMainWindow), &iWidth, NULL); 
+      gtk_widget_set_size_request(pPrivate->pMainWindow, -1, 250);
+      gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), iWidth, 250);
+      gtk_widget_set_size_request(pDasherWidget, 280, -1);
+    }
+    if(bVisible)
+      gtk_widget_show(pPrivate->pMainWindow);
+    break;
+  }
+#endif
   }
 
 }
@@ -299,13 +329,13 @@ void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSett
   // Now we have access to the settings, we can set up the intial
   // values
   
+#ifndef WITH_MAEMO
+
   // TODO: put status bar initialisation somewhere else
   pPrivate->iComboCount = 0;
   dasher_main_populate_alphabet_combo(pSelf);
 
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
-
-#ifndef WITH_MAEMO
   // TODO: bring into object framework
   PopulateMenus(pPrivate->pGladeXML);
 
@@ -388,6 +418,9 @@ void dasher_main_show(DasherMain *pSelf) {
 }
 
 GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf) {
+
+  g_message("Creating control");
+
   GtkWidget *pDasherControl = gtk_dasher_control_new();
 
 #ifdef WITH_MAEMO
@@ -602,8 +635,14 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   }
 
   gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), pPrivate->bTopMost);
+
+#ifdef WITH_MAEMO
+  gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
+  gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), false);
+#else
   gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
   gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
+#endif
 }
 
 
@@ -614,6 +653,9 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
 // }
 
 void dasher_main_on_map(DasherMain *pSelf) {
+
+  g_message("In map routine");
+
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
   // Refresh the properties of the window
@@ -652,10 +694,10 @@ void dasher_main_on_map(DasherMain *pSelf) {
 
 #ifdef WITH_MAEMO
   
-  Window xThisWindow = GDK_WINDOW_XWINDOW(pWidget->window);
+  Window xThisWindow = GDK_WINDOW_XWINDOW(pPrivate->pMainWindow->window);
   Atom atom_im_window = gdk_x11_get_xatom_by_name("_HILDON_IM_WINDOW");
   
-  XChangeProperty(GDK_WINDOW_XDISPLAY(pWidget->window),
+  XChangeProperty(GDK_WINDOW_XDISPLAY(pPrivate->pMainWindow->window),
  		  GDK_WINDOW_XWINDOW(gdk_screen_get_root_window (gdk_screen_get_default ())),
  		  atom_im_window,
  		  XA_WINDOW, 32, PropModeReplace,
@@ -666,13 +708,25 @@ void dasher_main_on_map(DasherMain *pSelf) {
   
   Atom atom_window_type = gdk_x11_get_xatom_by_name("_NET_WM_WINDOW_TYPE");
   
-  XChangeProperty(GDK_WINDOW_XDISPLAY(pWidget->window),
-		  GDK_WINDOW_XWINDOW(pWidget->window),
+  XChangeProperty(GDK_WINDOW_XDISPLAY(pPrivate->pMainWindow->window),
+		  GDK_WINDOW_XWINDOW(pPrivate->pMainWindow->window),
 		  atom_window_type,
 		  XA_ATOM, 32, PropModeReplace,
 		  (guchar *)&atom_type, 1); 
 
-  dasher_maemo_helper_setup_window(pPrivate->pMainWindow);
+  gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);
+  gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), false);
+
+  if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE) == 0) {
+    gtk_widget_set_size_request(pPrivate->pMainWindow, -1, 150);
+    gtk_widget_set_size_request(pDasherWidget, 175, -1);
+  }
+  else { 
+    gtk_widget_set_size_request(pPrivate->pMainWindow, -1, 250);
+    gtk_widget_set_size_request(pDasherWidget, 280, -1);
+  }
+
+  dasher_maemo_helper_setup_window(pPrivate->pMaemoHelper);
 #else
   dasher_main_setup_window_style(pSelf, false);
   dasher_main_setup_window_position(pSelf);
@@ -773,6 +827,7 @@ gboolean dasher_main_speed_changed(DasherMain *pSelf) {
 }
 
 void dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
+#ifndef WITH_MAEMO
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
   gtk_list_store_clear(pPrivate->pAlphabetList);
@@ -813,6 +868,7 @@ void dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
   
   gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
   gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, "More Alphabets...", -1);
+#endif
 }
 
 gboolean dasher_main_alphabet_combo_changed(DasherMain *pSelf) {

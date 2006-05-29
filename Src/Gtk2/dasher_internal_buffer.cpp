@@ -258,6 +258,8 @@ void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {
   gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, end, -1);
 
   gtk_text_buffer_delete(pPrivate->pBuffer, start, end);
+
+  g_signal_emit(pSelf, idasher_buffer_set_signals[CONTEXT_CHANGED], 0, NULL);
 }
 
 // Handlers

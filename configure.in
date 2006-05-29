@@ -3,11 +3,16 @@ AC_INIT([dasher],[4.1.1],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
+
+dnl The following two changes are required currently for the Maemo build (but will break the GNOME build)
+
 AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
+dnl AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
 IT_PROG_INTLTOOL([0.34.90])
+dnl AC_PROG_INTLTOOL(0.30)
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
@@ -303,9 +308,9 @@ fi
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 
-
+if [[ x"$WITHGNOME" = xtrue ]]; then
 GNOME_DOC_INIT
-
+fi
 
 AC_CONFIG_FILES([Makefile
 		 Src/Makefile

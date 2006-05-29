@@ -168,20 +168,26 @@ void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
   alphabetglob = g_pattern_spec_new("alphabet*xml");
 
   directory = g_dir_open(GetStringParameter(SP_SYSTEM_LOC).c_str(), 0, NULL);
-  while((filename = g_dir_read_name(directory))) {
-    if(alphabet_filter(filename, alphabetglob)) {
-      vFileList.push_back(filename);
+
+  if(directory) {
+    while((filename = g_dir_read_name(directory))) {
+      if(alphabet_filter(filename, alphabetglob)) {
+	vFileList.push_back(filename);
+      }
     }
+    g_dir_close(directory);
   }
-  g_dir_close(directory);
 
   directory = g_dir_open(GetStringParameter(SP_USER_LOC).c_str(), 0, NULL);
-  while((filename = g_dir_read_name(directory))) {
-    if(alphabet_filter(filename, alphabetglob)) {
-      vFileList.push_back(filename);
+
+  if(directory) {
+    while((filename = g_dir_read_name(directory))) {
+      if(alphabet_filter(filename, alphabetglob)) {
+	vFileList.push_back(filename);
+      }
     }
+    g_dir_close(directory);
   }
-  g_dir_close(directory);
   // FIXME - need to delete glob?
 }
 
@@ -193,20 +199,26 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
   colourglob = g_pattern_spec_new("colour*xml");
 
   directory = g_dir_open(GetStringParameter(SP_SYSTEM_LOC).c_str(), 0, NULL);
-  while((filename = g_dir_read_name(directory))) {
-    if(colour_filter(filename, colourglob)) {
-      vFileList.push_back(filename);
+
+  if(directory) {
+    while((filename = g_dir_read_name(directory))) {
+      if(colour_filter(filename, colourglob)) {
+	vFileList.push_back(filename);
+      }
     }
+    g_dir_close(directory);
   }
-  g_dir_close(directory);
 
   directory = g_dir_open(GetStringParameter(SP_USER_LOC).c_str(), 0, NULL);
-  while((filename = g_dir_read_name(directory))) {
-    if(colour_filter(filename, colourglob)) {
-      vFileList.push_back(filename);
+
+  if(directory) {
+    while((filename = g_dir_read_name(directory))) {
+      if(colour_filter(filename, colourglob)) {
+	vFileList.push_back(filename);
+      }
     }
+    g_dir_close(directory);
   }
-  g_dir_close(directory);
 
   // FIXME - need to delete glob?
 }

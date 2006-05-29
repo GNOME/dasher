@@ -187,7 +187,7 @@ static sp_table stringparamtable[] = {
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
-  {SP_INPUT_FILTER, "InputFilter", PERS, "Normal Control", "Input filter used to provide the current control mode"},
+  {SP_INPUT_FILTER, "InputFilter", PERS, "Stylus Control", "Input filter used to provide the current control mode"},
   {SP_INPUT_DEVICE, "InputDevice", PERS, "Mouse Input", "Driver for the input device"}
 };
 

@@ -75,11 +75,18 @@ app_lp_table app_longparamtable[] = {
   {APP_LP_SCREEN_HEIGHT_H, "ScreenHeightH", PERS, 250, 250, "ScreenHeight"},
   {APP_LP_STYLE, "AppStyle", PERS, 0, 0, "Application style"},
   {APP_LP_DOCK_STYLE, "DockStyle", PERS, 4, 4, "Dock Style, 0-3 = docked, 4 = floating, 5 = fullscreen"},
-  {APP_LP_DOCK_POSITION, "DockPosition", PERS, 100, 100, "Dock Position"}
+  {APP_LP_DOCK_POSITION, "DockPosition", PERS, 100, 100, "Dock Position"},
+#ifdef WITH_MAEMO
+  {APP_LP_MAEMO_SIZE, "MaemoSize", PERS, 0, 0, "Size of Maemo input window"},
+#endif
 };
 
 app_sp_table app_stringparamtable[] = {
+#ifdef WITH_MAEMO
+  {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 20", NULL, "EditFont"},
+#else
   {APP_SP_EDIT_FONT, "EditFont", PERS, "Sans 10", NULL, "EditFont"},
+#endif
 #ifndef DASHER_WINCE
   {APP_SP_WINDOW_STATE, "WindowState", PERS, "", NULL, "WindowState"},
 #endif

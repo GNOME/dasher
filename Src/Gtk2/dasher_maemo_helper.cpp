@@ -89,17 +89,16 @@ GdkFilterReturn dasher_maemo_helper_handle_xevent(DasherMaemoHelper *pSelf, GdkX
   XEvent *xev = (XEvent *) pXEvent;
 
   if(xev->xany.type == ClientMessage) {
-    g_message("Atom: %s %d", XGetAtomName(xev->xany.display, xev->xclient.message_type), xev->xclient.format );
+//     g_message("Atom: %s %d", XGetAtomName(xev->xany.display, xev->xclient.message_type), xev->xclient.format );
     
-    for(int i(0); i < 5; ++i) {
-      g_print("%x ", (unsigned int)(xev->xclient.data.l[i]));
-    }
+//     for(int i(0); i < 5; ++i) {
+//       g_print("%x ", (unsigned int)(xev->xclient.data.l[i]));
+//     }
 
-    g_print("\n");
+//     g_print("\n");
     
     if((xev->xclient.data.l[3] == 0xc) || (xev->xclient.data.l[3] == 0xd)){
-      // TODO: Reimplement
-      // gtk_widget_show(GTK_WIDGET(data));
+      gtk_widget_show(GTK_WIDGET(pPrivate->pWindow));
       g_FRandomWindow = (Window)xev->xclient.data.l[0];
       g_FWindow = (Window)xev->xclient.data.l[1];
       g_pFocusWindow = gdk_window_foreign_new(g_FWindow);
@@ -124,8 +123,7 @@ GdkFilterReturn dasher_maemo_helper_handle_xevent(DasherMaemoHelper *pSelf, GdkX
       gdk_event_send_client_message((GdkEvent *)(&sMyEvent), g_FRandomWindow); 
     }
     else if(xev->xclient.data.l[3] == 0xb) {
-      // TODO; Reimplement
-      // gtk_widget_hide(GTK_WIDGET(data));
+      gtk_widget_hide(GTK_WIDGET(pPrivate->pWindow));
     }
   }
   

@@ -3,6 +3,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
+#include <X11/Xlib.h>
 
 // TODO: sort this out
 extern GdkWindow *g_pFocusWindow;
