@@ -73,6 +73,9 @@ void CSettingsStore::SetBoolParameter(int iParameter, bool bValue) {
   // Check that the parameter is in fact in the right spot in the table
   DASHER_ASSERT(iParameter == s_oParamTables.BoolParamTable[iParameter - FIRST_BP].key);
 
+  if(bValue == GetBoolParameter(iParameter))
+    return;
+
   // Set the value
   s_oParamTables.BoolParamTable[iParameter - FIRST_BP].value = bValue;
 
@@ -92,6 +95,9 @@ void CSettingsStore::SetLongParameter(int iParameter, long lValue) {
   // Check that the parameter is in fact in the right spot in the table
   DASHER_ASSERT(iParameter == s_oParamTables.LongParamTable[iParameter - FIRST_LP].key);
 
+  if(lValue == GetLongParameter(iParameter))
+    return;
+
   // Set the value
   s_oParamTables.LongParamTable[iParameter - FIRST_LP].value = lValue;
 
@@ -109,12 +115,19 @@ void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue
   // Check that the parameter is in fact in the right spot in the table
   DASHER_ASSERT(iParameter == s_oParamTables.StringParamTable[iParameter - FIRST_SP].key);
 
+  if(sValue == GetStringParameter(iParameter))
+    return;
+
   // Set the value
   s_oParamTables.StringParamTable[iParameter - FIRST_SP].value = sValue;
+
+  std::cout << "Inserting notification event " << iParameter << " " << sValue << std::endl;
 
   // Initiate events for changed parameter
   Dasher::CParameterNotificationEvent oEvent(iParameter);
   m_pEventHandler->InsertEvent(&oEvent);
+
+  std::cout << "done." << std::endl;
 
   // Write out to permanent storage
   if(s_oParamTables.StringParamTable[iParameter - FIRST_SP].persistent)

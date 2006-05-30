@@ -246,6 +246,9 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
   if( iParameter < END_OF_BPS )
     gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter, bValue);
   else {
+    if(dasher_app_settings_get_bool(pSelf, iParameter) == bValue)
+      return; // Don't attempt to change to the existing value
+   
     pre_parameter_notification(0, iParameter, 0);
 
     app_boolparamtable[ iParameter - FIRST_APP_BP ].value = bValue;
@@ -281,6 +284,9 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
     if( iParameter < END_OF_LPS)
     gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter, iValue);
   else {
+    if(dasher_app_settings_get_long(pSelf, iParameter) == iValue)
+      return; // Don't attempt to change to the existing value
+
     pre_parameter_notification(0, iParameter, 0);
 
     app_longparamtable[ iParameter - FIRST_APP_LP ].value = iValue;
@@ -314,9 +320,12 @@ const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParam
 void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, const gchar *szValue) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 
-   if( iParameter < END_OF_SPS )
+  if( iParameter < END_OF_SPS ) 
     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
   else {
+    if(!strcmp(dasher_app_settings_get_string(pSelf, iParameter), szValue))
+      return; // Don't attempt to change to the existing value
+
     pre_parameter_notification(0, iParameter, 0);
     
     delete[] app_stringparamtable[ iParameter - FIRST_APP_SP ].value;

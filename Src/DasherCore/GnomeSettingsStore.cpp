@@ -140,6 +140,8 @@ void CGnomeSettingsStore::SaveSetting(const std::string &Key, const std::string 
 
 #ifdef WITH_GCONF
 void CGnomeSettingsStore::NotificationCallback(GConfClient *pClient, guint iCNXN_ID, GConfEntry *pEntry) {
+  return;
+
   std::string strKey(pEntry->key);
   std::string strKeyName(strKey.substr(strKey.find_last_of("/") + 1));
 

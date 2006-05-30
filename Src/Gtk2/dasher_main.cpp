@@ -264,6 +264,18 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       GtkWidget *pOldWindow = pPrivate->pMainWindow;
 
       pPrivate->pMainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+
+      GtkWidget *pNewOuter;
+
+      if(((dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 1) || (dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2)) && dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_DOCK)) {
+	pNewOuter = gtk_frame_new(NULL);
+	gtk_frame_set_shadow_type(GTK_FRAME(pNewOuter), GTK_SHADOW_OUT);
+	gtk_container_add(GTK_CONTAINER(pPrivate->pMainWindow), pNewOuter);
+      }
+      else {
+	pNewOuter = pPrivate->pMainWindow;
+      }
+
       window = pPrivate->pMainWindow;
 
       GSList *pAccelList = gtk_accel_groups_from_object(G_OBJECT(pOldWindow));
@@ -276,13 +288,13 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       dasher_main_setup_window_type(pSelf);
 
       gtk_widget_hide(pOldWindow);
-      gtk_widget_reparent(pPrivate->pOuterFrame, pPrivate->pMainWindow);
+      gtk_widget_reparent(pPrivate->pInnerFrame, pNewOuter);
       gtk_object_destroy(GTK_OBJECT(pOldWindow));
 
       g_signal_connect(G_OBJECT(pPrivate->pMainWindow), "map", G_CALLBACK(on_window_map), NULL);
       g_signal_connect(G_OBJECT(pPrivate->pMainWindow), "delete_event", G_CALLBACK(ask_save_before_exit), NULL);
 
-      gtk_widget_show(pPrivate->pMainWindow);
+      gtk_widget_show_all(pPrivate->pMainWindow);
     }
     break;
 #ifdef WITH_MAEMO
@@ -607,7 +619,7 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
     gtk_widget_hide(pPrivate->pMenuBar);
     //    gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), false);
     // TODO: Need to figure out how to hide this sensibly - may involve reparenting and the like
-    gtk_frame_set_shadow_type(GTK_FRAME(pPrivate->pOuterFrame), GTK_SHADOW_OUT);
+
 
 //     gtk_widget_reparent(pPrivate->pInnerFrame, pPrivate->pOuterFrame);
     
@@ -619,7 +631,7 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
     gtk_widget_show(pPrivate->pToolbar);
     gtk_widget_show(pPrivate->pMenuBar);
     //    gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), true);
-    gtk_frame_set_shadow_type(GTK_FRAME(pPrivate->pOuterFrame), GTK_SHADOW_NONE);
+    //    gtk_frame_set_shadow_type(GTK_FRAME(pPrivate->pOuterFrame), GTK_SHADOW_NONE);
 
 //     gtk_widget_ref(pPrivate->pOuterFrame);
 //     gtk_container_remove(GTK_CONTAINER(pPrivate->pMainWindow), pPrivate->pOuterFrame);
@@ -885,9 +897,8 @@ gboolean dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
     gtk_combo_box_set_active(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 0);
     dasher_preferences_dialogue_show(g_pPreferencesDialogue);
   }
-  else if(strcmp(dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_ID), szSelected))
+  else 
     dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
-
 }
 
 // Callbacks

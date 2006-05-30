@@ -97,7 +97,7 @@ public:
 
   void SetStringParameter(int iParameter, const std::string & sValue);
 
-  void PreSetNotify(int iParameter);
+  void PreSetNotify(int iParameter, const std::string &sValue);
 
   /// Get a boolean parameter
   /// \param iParameter The parameter to get.

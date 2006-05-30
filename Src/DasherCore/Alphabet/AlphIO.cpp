@@ -110,28 +110,24 @@ void CAlphIO::GetAlphabets(std::vector <std::string >*AlphabetList) const {
     AlphabetList->push_back((*Cur).second.AlphID);
 }
 
-const CAlphIO::AlphInfo & CAlphIO::GetInfo(const std::string &AlphID) {
-  if(AlphID == "") {
-    // FIXME - really broken, code duplicated in Win32/Widgets/AlphabetBox.cpp
-    // Eww. If no alphabet is configured, default to this one...
-    if(Alphabets.count("English with limited punctuation") != 0) {
-      return Alphabets["English with limited punctuation"];
-    }
-    else {
-      // unless it doesn't exist, in which case return default
-      return Alphabets["Default"];
-    }
+std::string CAlphIO::GetDefault() {
+  if(Alphabets.count("English with limited punctuation") != 0) {
+    return "English with limited punctuation";
   }
   else {
-    if(Alphabets.count(AlphID) != 0) {
-      // if we have the alphabet they ask for, return it
-      Alphabets[AlphID].AlphID = AlphID;        // Ensure consistency
-      return Alphabets[AlphID];
-    }
-    else {
-      // otherwise, give them default - it's better than nothing
-      return Alphabets["Default"];
-    }
+    return "Default";
+  }
+}
+
+const CAlphIO::AlphInfo & CAlphIO::GetInfo(const std::string &AlphID) {
+  if(Alphabets.count(AlphID) != 0) {
+    // if we have the alphabet they ask for, return it
+    Alphabets[AlphID].AlphID = AlphID;        // Ensure consistency
+    return Alphabets[AlphID];
+  }
+  else {
+    // otherwise, give them default - it's better than nothing
+    return Alphabets["Default"];
   }
 }
 

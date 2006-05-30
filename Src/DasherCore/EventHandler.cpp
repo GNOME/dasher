@@ -35,7 +35,9 @@ void CEventHandler::InsertEvent(CEvent *pEvent) {
   }
 
   // Call external handler last, to make sure that internal components are fully up to date before external events happen
+
   m_pInterface->InterfaceEventHandler(pEvent);
+
   m_pInterface->ExternalEventHandler(pEvent);
 
   --m_iInHandler;

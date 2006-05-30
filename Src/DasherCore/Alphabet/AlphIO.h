@@ -88,6 +88,7 @@ public:
 
   CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > Filenames);
   void GetAlphabets(std::vector < std::string > *AlphabetList) const;
+  std::string GetDefault();
   const AlphInfo & GetInfo(const std::string & AlphID);
   void SetInfo(const AlphInfo & NewInfo);
   void Delete(const std::string & AlphID);

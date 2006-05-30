@@ -148,7 +148,7 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_pEventHandler;
 }
 
-void CDasherInterfaceBase::PreSetNotify(int iParameter) {
+void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewValue) {
 
   // FIXME - make this a more general 'pre-set' event in the message
   // infrastructure
@@ -156,12 +156,23 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter) {
   switch(iParameter) {
   case SP_ALPHABET_ID: 
     // Cycle the alphabet history
-    
-    SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
-    SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
-    SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
-    SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
-    
+    std::cout << "Preset: " << sNewValue << std::endl;
+
+    if(GetStringParameter(SP_ALPHABET_ID) != sNewValue) {
+      if(GetStringParameter(SP_ALPHABET_1) != sNewValue) {
+	if(GetStringParameter(SP_ALPHABET_2) != sNewValue) {
+	  if(GetStringParameter(SP_ALPHABET_3) != sNewValue)
+	    SetStringParameter(SP_ALPHABET_4, GetStringParameter(SP_ALPHABET_3));
+	  
+	  SetStringParameter(SP_ALPHABET_3, GetStringParameter(SP_ALPHABET_2));
+	}
+	
+	SetStringParameter(SP_ALPHABET_2, GetStringParameter(SP_ALPHABET_1));
+      }
+      
+      SetStringParameter(SP_ALPHABET_1, GetStringParameter(SP_ALPHABET_ID));
+    }
+
     break;
   }
 }
@@ -515,10 +526,14 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
 
 void CDasherInterfaceBase::ChangeAlphabet() {
 
+  if(GetStringParameter(SP_ALPHABET_ID) == "") {
+    std::cout << "Looking up default alphabet" << std::endl;
+    
+    SetStringParameter(SP_ALPHABET_ID, m_AlphIO->GetDefault());
+    return;
+  }
+  
   // Send a lock event
-
-
-  std::cout << "Alphabet set to: ***" << GetStringParameter(SP_ALPHABET_ID) << "***" << std::endl;
 
   WriteTrainFileFull();
 
@@ -780,20 +795,16 @@ void CDasherInterfaceBase::DisconnectNode(int iChild, int iParent) {
 }
 
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
-  PreSetNotify(iParameter);
-  
   m_pSettingsStore->SetBoolParameter(iParameter, bValue);
 };
 
 void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) { 
-  PreSetNotify(iParameter);
-  
   m_pSettingsStore->SetLongParameter(iParameter, lValue);
 };
 
 void CDasherInterfaceBase::SetStringParameter(int iParameter, const std::string & sValue) {
-  PreSetNotify(iParameter);
-  
+  std::cout << "Setting string parameter: " << iParameter << " " << sValue << std::endl;
+  PreSetNotify(iParameter, sValue);
   m_pSettingsStore->SetStringParameter(iParameter, sValue);
 };
 

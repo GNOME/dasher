@@ -288,7 +288,7 @@ void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf) {
 
 void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialogue *pSelf, int iParameter) {
 
-  update_advanced(iParameter);
+  //  update_advanced(iParameter);
 
   if(iParameter == LP_DASHER_FONTSIZE) {
     switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE)) {
@@ -1470,6 +1470,8 @@ void RefreshWidget(gint iParameter) {
     }
   }
 #endif
+
+  return;
 
   // TODO: I believe that this is being called initially before the
   // widgets are realised, so the selection isn't being correctly
