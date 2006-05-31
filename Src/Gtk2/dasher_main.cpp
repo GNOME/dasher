@@ -150,8 +150,8 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 #ifdef WITH_GPE
   szGladeFilename = PROGDATA "/dashergpe.glade";
 #elif WITH_MAEMO
-  //szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
-  szGladeFilename = PROGDATA "/dashermaemo.glade";
+  szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
+  //szGladeFilename = PROGDATA "/dashermaemo.glade";
 #else
   szGladeFilename = PROGDATA "/dasher.glade";
 #endif

@@ -1,4 +1,5 @@
 #include "../Common/Common.h"
+#include "../../config.h"
 
 #include <iostream>
 #include "DasherControl.h"

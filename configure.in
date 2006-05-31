@@ -129,7 +129,6 @@ if [[ x"$WITHGTK2" = xtrue ]]
 then 
 	PKG_CHECK_MODULES(GTK2, gtk+-2.0 >= 2.6.0,[GTK2HERE=true],[GTK2HERE=false]) 
 	PKG_CHECK_MODULES(GCONF, gconf-2.0,[GCONF2HERE=true],[GCONF2HERE=false])
-	
 	if [[ x$GCONF2HERE = xfalse ]]; then
 	   AC_MSG_WARN("GConf was not detected - user preferences will not be stored.")
 	fi
