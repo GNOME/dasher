@@ -803,7 +803,6 @@ void CDasherInterfaceBase::SetLongParameter(int iParameter, long lValue) {
 };
 
 void CDasherInterfaceBase::SetStringParameter(int iParameter, const std::string & sValue) {
-  std::cout << "Setting string parameter: " << iParameter << " " << sValue << std::endl;
   PreSetNotify(iParameter, sValue);
   m_pSettingsStore->SetStringParameter(iParameter, sValue);
 };

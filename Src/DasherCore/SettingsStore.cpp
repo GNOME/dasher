@@ -121,13 +121,9 @@ void CSettingsStore::SetStringParameter(int iParameter, const std::string sValue
   // Set the value
   s_oParamTables.StringParamTable[iParameter - FIRST_SP].value = sValue;
 
-  std::cout << "Inserting notification event " << iParameter << " " << sValue << std::endl;
-
   // Initiate events for changed parameter
   Dasher::CParameterNotificationEvent oEvent(iParameter);
   m_pEventHandler->InsertEvent(&oEvent);
-
-  std::cout << "done." << std::endl;
 
   // Write out to permanent storage
   if(s_oParamTables.StringParamTable[iParameter - FIRST_SP].persistent)

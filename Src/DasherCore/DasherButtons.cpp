@@ -330,7 +330,7 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       ++iActiveBox;
       if(iActiveBox == m_iNumBoxes)
 	iActiveBox = 0;
-      break;
+       break;
     case 2:
     case 3:
       pModel->ScheduleZoom((m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
