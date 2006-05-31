@@ -284,7 +284,9 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
     // For internal glib reasons we need to make a variable and then
     // pass - we can't use the iterator directly
     const char *pTemp(it->c_str());
-    g_array_append_val(pRetVal, pTemp);
+    char *pTempNew = new char[strlen(pTemp) + 1];
+    strcpy(pTempNew, pTemp);
+    g_array_append_val(pRetVal, pTempNew);
   }
 
   return pRetVal;

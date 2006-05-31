@@ -3,6 +3,10 @@
 
 #include <string>
 
+#ifndef _WIN32
+#include "../../config.h"
+#endif
+
 // All parameters go into the enums here
 // They are unique across the different types
 enum { 
@@ -187,7 +191,11 @@ static sp_table stringparamtable[] = {
   {SP_TRAIN_FILE, "TrainingFile", !PERS, "", "Training text for alphabet"},
   {SP_SOCKET_INPUT_X_LABEL, "SocketInputXLabel", PERS, "x", "Label preceding X values for network input"},
   {SP_SOCKET_INPUT_Y_LABEL, "SocketInputYLabel", PERS, "y", "Label preceding Y values for network input"},
+#ifdef WITH_MAEMO
   {SP_INPUT_FILTER, "InputFilter", PERS, "Stylus Control", "Input filter used to provide the current control mode"},
+#else
+  {SP_INPUT_FILTER, "InputFilter", PERS, "Normal Control", "Input filter used to provide the current control mode"},
+#endif
   {SP_INPUT_DEVICE, "InputDevice", PERS, "Mouse Input", "Driver for the input device"}
 };
 
