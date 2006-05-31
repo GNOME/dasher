@@ -39,8 +39,10 @@ namespace Dasher {
     ///
     
     virtual void Unref() {
-      // TODO: Delete node on last unref
       --m_iRefCount;
+
+      if(m_iRefCount == 0)
+	delete this;
     };
 
     ///

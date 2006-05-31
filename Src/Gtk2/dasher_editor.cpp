@@ -75,6 +75,10 @@ void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_handle_pre_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_check_activity(DasherEditor *pSelf, EditorAction *pAction);
 
+// TODO: Should these be public?
+void dasher_editor_convert(DasherEditor *pSelf);
+void dasher_editor_protect(DasherEditor *pSelf);
+
 // Private methods not in class
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData);
@@ -92,6 +96,7 @@ struct _DasherEditorPrivate {
   gboolean bActionIterStarted;
   gint iNextActionID;
   IDasherBufferSet *pBufferSet;
+  int iConversionCount;
 };
 
 GType dasher_editor_get_type() {
@@ -180,6 +185,7 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
+  pPrivate->iConversionCount = 0;
 
   dasher_editor_setup_actions(pDasherControl);
   dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
@@ -618,11 +624,23 @@ EditorAction *pAction;
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
+  ++pPrivate->iConversionCount;
 }
 
 void dasher_editor_delete(DasherEditor *pSelf, int iLength) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   idasher_buffer_set_delete(pPrivate->pBufferSet, iLength);
+}
+
+void dasher_editor_convert(DasherEditor *pSelf) {
+ DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+ idasher_buffer_set_delete(pPrivate->pBufferSet, pPrivate->iConversionCount);
+}
+
+void dasher_editor_protect(DasherEditor *pSelf) {
+ DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+
+ pPrivate->iConversionCount = 0;
 }
 
 EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID){
@@ -787,6 +805,14 @@ extern "C" void gtk2_edit_delete_callback(GtkDasherControl *pDasherControl, cons
 
 extern "C" void gtk2_edit_output_callback(GtkDasherControl *pDasherControl, const gchar *szText, gpointer user_data) {
   dasher_editor_output(g_pEditor, szText);
+}
+
+extern "C" void convert_cb(GtkDasherControl *pDasherControl, gpointer pUserData) {
+  dasher_editor_convert(g_pEditor);
+}
+
+extern "C" void protect_cb(GtkDasherControl *pDasherControl, gpointer pUserData) {
+  dasher_editor_protect(g_pEditor);
 }
 
 // TODO: This should call back into editor, not directly into Dasher control

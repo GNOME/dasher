@@ -759,7 +759,7 @@ void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
    if(bForceStart || (strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0)))) {
 
      if(m_pDasherModel != NULL) {
-       if(m_pDasherModel->m_bContextSensitive) {
+       if(m_pDasherModel->m_bContextSensitive || bForceStart) {
  	m_pDasherModel->SetContext(strNewContext);
  	PauseAt(0,0);
        }

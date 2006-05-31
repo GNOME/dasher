@@ -23,6 +23,8 @@ enum {
   DASHER_STOP,
   DASHER_EDIT_INSERT,
   DASHER_EDIT_DELETE,
+  DASHER_EDIT_CONVERT,
+  DASHER_EDIT_PROTECT,
   DASHER_CONTROL,
   DASHER_CONTEXT_REQUEST,
   DASHER_REQUEST_SETTINGS,
@@ -80,6 +82,10 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
   gtk_dasher_control_signals[DASHER_EDIT_DELETE] = g_signal_new("dasher_edit_delete", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_edit_delete), NULL, NULL, g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
 
+ gtk_dasher_control_signals[DASHER_EDIT_CONVERT] = g_signal_new("dasher_edit_convert", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_edit_convert), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+ 
+ gtk_dasher_control_signals[DASHER_EDIT_PROTECT] = g_signal_new("dasher_edit_protect", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_edit_protect), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
+
   gtk_dasher_control_signals[DASHER_CONTROL] = g_signal_new("dasher_control", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_control), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
 
   gtk_dasher_control_signals[DASHER_CHANGED] = g_signal_new("dasher_context_request", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_context_request), NULL, NULL, g_cclosure_marshal_VOID__INT, G_TYPE_NONE, 1, G_TYPE_INT);
@@ -99,6 +105,8 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   pClass->dasher_stop = NULL;
   pClass->dasher_edit_insert = NULL;
   pClass->dasher_edit_delete = NULL;
+  pClass->dasher_edit_convert = NULL;
+  pClass->dasher_edit_protect = NULL;
   pClass->dasher_control = NULL;
   pClass->dasher_context_request = NULL;
   pClass->dasher_request_settings = NULL;  

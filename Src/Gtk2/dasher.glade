@@ -636,6 +636,8 @@
 			      <signal name="focus_in_event" handler="focus_in_event" last_modification_time="Sun, 05 Mar 2006 19:47:28 GMT"/>
 			      <signal name="dasher_lock_info" handler="on_lock_info" last_modification_time="Wed, 22 Mar 2006 10:38:44 GMT"/>
 			      <signal name="dasher_message" handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT"/>
+			      <signal name="dasher_edit_convert" handler="convert_cb" last_modification_time="Tue, 30 May 2006 14:21:15 GMT"/>
+			      <signal name="dasher_edit_protect" handler="protect_cb" last_modification_time="Tue, 30 May 2006 14:21:26 GMT"/>
 			    </widget>
 			    <packing>
 			      <property name="shrink">True</property>

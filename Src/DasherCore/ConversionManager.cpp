@@ -22,8 +22,6 @@ CConversionManager::CConversionManager(CDasherModel *pModel, CLanguageModel *pLa
 
   m_iRefCount = 1;
 
-  // TODO: Delete list when we're done
-
   m_bTreeBuilt = false;
 }
 
@@ -209,6 +207,15 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
 
   if(pCurrentCMNode) {
     Dasher::CEditEvent oEvent(1, pCurrentCMNode->m_strSymbol);
+    m_pModel->InsertEvent(&oEvent);
+
+    if(!(pCurrentCMNode->m_pChild)) {
+      Dasher::CEditEvent oEvent(11, "");
+      m_pModel->InsertEvent(&oEvent);
+    }
+  }
+  else {
+    Dasher::CEditEvent oEvent(10, "");
     m_pModel->InsertEvent(&oEvent);
   }
 }

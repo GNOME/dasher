@@ -441,6 +441,12 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
       // Delete event
       g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str());
     }
+    else if(pEditEvent->m_iEditType == 10) {
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_convert");
+    }
+    else if(pEditEvent->m_iEditType == 11) {
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_protect");
+    }
   }
   else if(pEvent->m_iEventType == 3) {
     CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
