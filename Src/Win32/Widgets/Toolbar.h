@@ -14,7 +14,7 @@
 
 class CToolbar:private NoClones {
 public:
-  CToolbar(HWND ParentWindow, CDasherInterface *DI);
+  CToolbar(HWND ParentWindow, CDasherInterface *DI, bool bVisible);
   int Resize();
   void ShowToolbar(bool bValue);
 private:

@@ -38,7 +38,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     PROPSHEETHEADER psh;
 
     psp[0].dwSize = sizeof(PROPSHEETPAGE);
-    psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
     psp[0].hInstance = WinHelper::hInstApp;
     psp[0].pszTemplate = MAKEINTRESOURCE(IDD_ALPHABETPAGE);
     psp[0].pszIcon = NULL;
@@ -58,7 +58,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psp[1].pfnCallback = NULL;*/
 
     psp[1].dwSize = sizeof(PROPSHEETPAGE);
-    psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
     psp[1].hInstance = WinHelper::hInstApp;
     psp[1].pszTemplate = MAKEINTRESOURCE(IDD_CONTROLPAGE);
     psp[1].pszIcon = NULL;
@@ -68,7 +68,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psp[1].pfnCallback = NULL;
 
     psp[2].dwSize = sizeof(PROPSHEETPAGE);
-    psp[2].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[2].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
     psp[2].hInstance = WinHelper::hInstApp;
     psp[2].pszTemplate = MAKEINTRESOURCE(IDD_VIEWPAGE);
     psp[2].pszIcon = NULL;
@@ -78,7 +78,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psp[2].pfnCallback = NULL;
 
     psp[3].dwSize = sizeof(PROPSHEETPAGE);
-    psp[3].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[3].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
     psp[3].hInstance = WinHelper::hInstApp;
     psp[3].pszTemplate = MAKEINTRESOURCE(IDD_LMPAGE);
     psp[3].pszIcon = NULL;
@@ -88,7 +88,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psp[3].pfnCallback = NULL;
 
     psp[4].dwSize = sizeof(PROPSHEETPAGE);
-    psp[4].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[4].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
     psp[4].hInstance = WinHelper::hInstApp;
     psp[4].pszTemplate = MAKEINTRESOURCE(IDD_MISCPAGE);
     psp[4].pszIcon = NULL;
@@ -98,7 +98,7 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psp[4].pfnCallback = NULL;
 
     psp[5].dwSize = sizeof(PROPSHEETPAGE);
-    psp[5].dwFlags = PSP_USEICONID | PSP_USETITLE;
+    psp[5].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
     psp[5].hInstance = WinHelper::hInstApp;
     psp[5].pszTemplate = MAKEINTRESOURCE(IDD_SOCKET);
     psp[5].pszIcon = NULL;
@@ -118,13 +118,16 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
     psh.nStartPage = 0;
     psh.ppsp = (LPCPROPSHEETPAGE) &psp;
     psh.pfnCallback = NULL;
-    PropertySheet(&psh);
+   
 //    return;
 
 
  // DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_PREFS, hP
     //arent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
-  PopulateWidgets();
+   PropertySheet(&psh);
+
+   PopulateWidgets();
+  
 }
 
 CPrefs::~CPrefs()

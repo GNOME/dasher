@@ -160,7 +160,7 @@ HWND CDasherWindow::Create()
   g_hWnd = m_pEdit->GetHwnd();
 #endif
 
-  m_pToolbar = new CToolbar(hWnd, m_pDasher);
+  m_pToolbar = new CToolbar(hWnd, m_pDasher, m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
 
   // FIXME - the edit box really shouldn't need access to the interface, 
   // but at the moment it does, for training, blanking the display etc
@@ -736,8 +736,12 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
     lppt = (LPPOINT) lParam;    // lParam points to array of POINTs
     lppt[3].x = 100;            // Set minimum width (arbitrary)
     // Set minimum height:
-    lppt[3].y = m_pToolbar->Resize() + m_pSplitter->GetPos()
-      + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
+    if(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
+      lppt[3].y = m_pToolbar->Resize() + m_pSplitter->GetPos()
+        + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
+    else
+      lppt[3].y = m_pSplitter->GetPos()
+        + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
 
 	return 0;
 }
@@ -834,7 +838,7 @@ void CDasherWindow::Layout() {
   const int Height = ClientRect.bottom;
 
   int ToolbarHeight;
-  if(m_pToolbar != 0)
+  if((m_pToolbar != 0) && m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
     ToolbarHeight = m_pToolbar->Resize();
   else
     ToolbarHeight = 0;

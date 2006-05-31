@@ -195,6 +195,7 @@ private:
 	void InsertText(Tstring InsertText);  // add symbol to edit control
 
   CAppSettings *m_pAppSettings;
+  HWND m_hWnd;
 
 	//      CCanvas* Canvas;
 };

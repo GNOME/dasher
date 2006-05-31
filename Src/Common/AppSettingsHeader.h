@@ -2,7 +2,9 @@
 #define __appsettingsheader_h__
 
 #include "../DasherCore/Parameters.h"
+#ifndef _WIN32
 #include "../../config.h"
+#endif
 
 enum { 
   APP_BP_TIME_STAMP = END_OF_SPS, APP_BP_SHOW_TOOLBAR,

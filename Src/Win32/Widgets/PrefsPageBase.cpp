@@ -49,7 +49,6 @@ LRESULT CPrefsPageBase::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM
     case EN_CHANGE:
     //case CBN_SELCHANGE: // value is same as LBN_SELCHANGE
     case LBN_SELCHANGE:
-      OutputDebugString(TEXT("Something was changed!"));
       if(m_hPropertySheet != 0 && m_hwnd != 0) {
         PropSheet_Changed(m_hPropertySheet, m_hwnd); // enables the 'Apply' button
         return TRUE;
@@ -63,6 +62,13 @@ LRESULT CPrefsPageBase::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM
       m_hPropertySheet = pNMHDR->hwndFrom;
     }
     switch (pNMHDR->code) {
+    //case PSN_SETACTIVE:
+    //  if(!m_hwnd) {               // If this is the initial dialog for the first time
+    //    m_hwnd = Window;
+    //    PopulateList();
+    //  }
+    //  return TRUE;
+    //  break;
     case PSN_KILLACTIVE: // About to lose focus
       SetWindowLong( Window, DWL_MSGRESULT, !Validate());
       return TRUE;

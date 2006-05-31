@@ -65,14 +65,14 @@ m_pAppSettings = pAppSettings;
 
 HWND CEdit::Create(HWND hParent, bool bNewWithDate)
 {
-	HWND hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
+	m_hWnd = CWindowImpl<CEdit>::Create(hParent, NULL, NULL, ES_NOHIDESEL | WS_CHILD | ES_MULTILINE | WS_VSCROLL | WS_VISIBLE, WS_EX_CLIENTEDGE);
 
 	
 	Tstring WindowTitle;
 	WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 	m_FilenameGUI = new CFilenameGUI(hParent, WindowTitle.c_str(), bNewWithDate);
 
-	return hWnd;
+	return m_hWnd;
 }
 
 

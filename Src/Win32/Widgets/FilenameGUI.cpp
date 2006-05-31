@@ -172,8 +172,10 @@ void CFilenameGUI::SetNewWithDate(bool Value) {
 }
 
 void CFilenameGUI::SetDirty(bool Value) {
-  Dirty = Value;
-  SetWindowTitle();
+  if(Dirty != Value) {
+    Dirty = Value;
+    SetWindowTitle();
+  }
 }
 
 void CFilenameGUI::SetWindowTitle() {

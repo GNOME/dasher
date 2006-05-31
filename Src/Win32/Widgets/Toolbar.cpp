@@ -24,9 +24,9 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI)
+CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI, bool bVisible)
 :m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
-//  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR))
+  if(bVisible)
     CreateToolbar();
 }
 
@@ -34,15 +34,10 @@ int CToolbar::Resize() {
   // Makes the toolbar fit the buttons and fill the width of the window
   // Return height of toolbar for information
 
-//  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR)) {
-    SendMessage(m_hwnd, TB_AUTOSIZE, 0, 0);
-    RECT TB_rect;
-    GetWindowRect(m_hwnd, &TB_rect);
-    return (TB_rect.bottom - TB_rect.top);
-  //}
-//  else {
- //   return 0;
- // }
+  SendMessage(m_hwnd, TB_AUTOSIZE, 0, 0);
+  RECT TB_rect;
+  GetWindowRect(m_hwnd, &TB_rect);
+  return (TB_rect.bottom - TB_rect.top);
 }
 
 void CToolbar::ShowToolbar(bool bValue) {
