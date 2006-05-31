@@ -14,6 +14,8 @@
 #include "DasherModel.h"
 #include "DasherInput.h"
 
+#include <iostream>
+
 using namespace Dasher;
 
 // Track memory leaks on Windows to the line that new'd the memory

@@ -508,6 +508,7 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
 
   if(!m_bVisibleRegionValid) {
+
     int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
     
     switch( eOrientation ) {
@@ -818,6 +819,7 @@ void CDasherViewSquare::ResetYAutoOffset() {
 
 void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CDasherView::ChangeScreen(NewScreen);
+  m_bVisibleRegionValid = false;
   screenint Width = Screen()->GetWidth();
   screenint Height = Screen()->GetHeight();
   CanvasX = 9 * Width / 10;
@@ -856,7 +858,6 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
     // Despite the name, this is actually measured in dasher coordinates
     m_ySigBiasPixels = m_ySigBiasPercentage * (myint)GetLongParameter(LP_MAX_Y) / 100;
 
-    cout << "yAutoOffset: " << m_yAutoOffset << endl;
 
     if(m_ySumCounter > m_yFilterTimescale) {
       m_ySumCounter = 0;

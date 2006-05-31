@@ -324,7 +324,6 @@ private:
   myint m_iScalingFactor;
 
   // Cached extents of visible region
-  bool m_bVisibleRegionValid;
   myint m_iDasherMinX;
   myint m_iDasherMaxX;
   myint m_iDasherMinY;

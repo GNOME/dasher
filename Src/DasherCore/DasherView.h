@@ -212,7 +212,8 @@ protected:
   // Orientation of Dasher Screen
   inline void MapScreen(screenint * DrawX, screenint * DrawY);
   inline void UnMapScreen(screenint * DrawX, screenint * DrawY);
-
+  bool m_bVisibleRegionValid;
+ 
  
   CDelayedDraw *m_pDelayDraw;
 
