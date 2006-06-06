@@ -96,6 +96,8 @@ EXTRA_DIST = \
 		Dasher_vc71.vcproj \
 		EditWrapper.cpp \
 		EditWrapper.h \
+		KeyboardHelper.cpp \
+		KeyboardHelper.h \
 		WinMain.cpp \
 		findere.bmp \
 		finderf.bmp \

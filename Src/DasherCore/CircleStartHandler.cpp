@@ -5,7 +5,7 @@ CCircleStartHandler::CCircleStartHandler(Dasher::CEventHandler * pEventHandler, 
   : CStartHandler(pEventHandler, pSettingsStore, pInterface) {
   m_iStatus = -1;
   m_iChangeTime = 0;
-  m_iCircleRadius = 50;
+  m_iCircleRadius = GetLongParameter(LP_MAX_Y) * GetLongParameter(LP_CIRCLE_PERCENT) / 100;
 }
 
 bool CCircleStartHandler::DecorateView(CDasherView *pView) {
@@ -13,12 +13,20 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
   screenint iCY;
 
   pView->Dasher2Screen(2048, 2048, iCX, iCY);
+
+  screenint iCX2;
+  screenint iCY2;
+ 
+  pView->Dasher2Screen(2048, 2048 + m_iCircleRadius, iCX2, iCY2);
+
+  m_iScreenRadius = iCY2 - iCY;
+
   if((m_iStatus == 0) || (m_iStatus == 2))
-    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 0, true);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 0, true);
   else if(m_iStatus == 5)
-    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 1, true);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 1, true);
   else
-    pView->Screen()->DrawCircle(iCX, iCY, m_iCircleRadius, 0, false);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 0, false);
 
   return true;
 }
@@ -53,7 +61,7 @@ void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherMo
 
   // TODO - need to check that these respond correctly to (eg) external pauses
 
-  if(dR < m_iCircleRadius) {
+  if(dR < m_iScreenRadius) {
     switch(m_iStatus) {
     case -1:
       if(m_pInterface->GetBoolParameter(BP_DASHER_PAUSED))

@@ -227,12 +227,23 @@ void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour
 #endif
 
   BEGIN_DRAWING;
-  SET_COLOR(iColour);
 
+  if(bFill) {
+    SET_COLOR(iColour);
+#if WITH_CAIRO
+    cairo_arc(cr, iCX, iCY, iR, 0, 2*M_PI);
+    cairo_fill(cr);
+#else
+    gdk_draw_arc(m_pOffscreenBuffer, graphics_context, true, iCX - iR, iCY - iR, 2*iR, 2*iR, 0, 23040);
+#endif
+  }
+
+  SET_COLOR(2);
 #if WITH_CAIRO
   cairo_arc(cr, iCX, iCY, iR, 0, 2*M_PI);
+  cairo_stroke(cr);
 #else
-  // FIXME
+  gdk_draw_arc(m_pOffscreenBuffer, graphics_context, false, iCX - iR, iCY - iR, 2*iR, 2*iR, 0, 23040);
 #endif
 
   END_DRAWING;

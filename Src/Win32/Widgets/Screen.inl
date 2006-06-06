@@ -48,13 +48,13 @@ inline void CScreen::DrawCircle(screenint iCX, screenint iCY, screenint iR, int 
     HBRUSH hBrushOld;
     hBrushOld = (HBRUSH)SelectObject(m_hDCBuffer, hBrush);
   
-    Ellipse(m_hDCBuffer, iCX - iR/2, iCY - iR/2, iCX + iR/2, iCY + iR/2);
+    Ellipse(m_hDCBuffer, iCX - iR, iCY - iR, iCX + iR, iCY + iR);
 
     SelectObject(m_hDCBuffer, hBrushOld);
   }
   else
-    Arc(m_hDCBuffer, iCX - iR/2, iCY - iR/2, iCX + iR/2, iCY + iR/2,
-                     iCX, iCY - iR/2, iCX, iCY - iR/2 );
+    Arc(m_hDCBuffer, iCX - iR, iCY - iR, iCX + iR, iCY + iR,
+                     iCX, iCY - iR, iCX, iCY - iR );
 }
 
 inline void CScreen::Polyline(point *Points, int Number, int iWidth, int iColour) {

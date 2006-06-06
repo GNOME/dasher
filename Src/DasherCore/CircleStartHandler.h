@@ -15,6 +15,7 @@ private:
   int m_iStatus;
   int m_iChangeTime;
   int m_iCircleRadius;
+  int m_iScreenRadius;
 };
 
 #endif

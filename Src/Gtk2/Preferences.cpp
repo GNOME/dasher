@@ -1446,6 +1446,7 @@ void InitialiseTables(GladeXML *pGladeWidgets) {
 }
 
 extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
+  
   gpointer *pPointers = (gpointer *)pUserData;
 
   gchar *szTarget = (gchar *)pPointers[0];
@@ -1453,8 +1454,10 @@ extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *
   gtk_tree_model_get(pModel, pIter, 2, &szComparison, -1);
 
   if(!strcmp(szTarget, szComparison)) {
+    // Todo: set selection here?
     gtk_tree_view_set_cursor((GtkTreeView *)pPointers[1], pPath, NULL, false);
-    gtk_tree_view_scroll_to_cell((GtkTreeView *)pPointers[1], pPath, NULL, false, 0.5, 0.0);
+    gtk_tree_view_scroll_to_cell((GtkTreeView *)pPointers[1], pPath, NULL, true, 0.5, 0.0);
+
     return true;
   }
   
@@ -1471,8 +1474,6 @@ void RefreshWidget(gint iParameter) {
   }
 #endif
 
-  return;
-
   // TODO: I believe that this is being called initially before the
   // widgets are realised, so the selection isn't being correctly
   // brought into view
@@ -1484,8 +1485,9 @@ void RefreshWidget(gint iParameter) {
       const void *pUserData[2];
       pUserData[0] = dasher_app_settings_get_string(g_pDasherAppSettings, sStringTranslationTable[i].iParameter);
       pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
-
-      gtk_tree_model_foreach(pModel, refresh_foreach_function, pUserData);
+      
+      if(GTK_WIDGET_REALIZED(sStringTranslationTable[i].pWidget))
+	gtk_tree_model_foreach(pModel, refresh_foreach_function, pUserData);
     }
   }
 }
@@ -1512,7 +1514,15 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
   GtkListStore *pStore = gtk_list_store_new(4, G_TYPE_INT, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING);
   gtk_tree_view_set_model(pView, GTK_TREE_MODEL(pStore));
 
+  GtkCellRenderer *pRenderer;
+  GtkTreeViewColumn *pColumn;
+  
+  pRenderer = gtk_cell_renderer_text_new();
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
+  gtk_tree_view_append_column(pView, pColumn);
+
   GtkTreeIter oIter;
+  GtkTreeIter oSelectedIter;
   GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
 
   for(unsigned int i(0); i < pFilterArray->len; ++i) {
@@ -1529,12 +1539,7 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
     }
   }
 
-  GtkCellRenderer *pRenderer;
-  GtkTreeViewColumn *pColumn;
-  
-  pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
-  gtk_tree_view_append_column(pView, pColumn);
+ 
 
   g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
 }
@@ -1583,7 +1588,9 @@ extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath
 }
 
 extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData) {
+  g_message("Realised");
   // TODO: This doesn't seem to be working
+
   gint *pParameter = (gint *)pUserData;
   RefreshWidget(*pParameter);
 }
