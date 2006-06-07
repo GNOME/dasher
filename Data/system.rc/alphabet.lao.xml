@@ -10,7 +10,14 @@
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9"/>
 <control d="Control" t="" b="8"/>
-<group name="Lao letters"  b="0">
+<group name="lao tones (combining)" b="191"  visible="on">
+<s d="&#x25cc;&#x0EC6;" t="&#x0EC6;" note=" LAO KO LA  "/>
+<s d="&#x25cc;&#x0EC8;" t="&#x0EC8;" note=" LAO TONE MAI EK  "/>
+<s d="&#x25cc;&#x0EC9;" t="&#x0EC9;" note=" LAO TONE MAI THO  "/>
+<s d="&#x25cc;&#x0ECA;" t="&#x0ECA;" note=" LAO TONE MAI TI  "/>
+<s d="&#x25cc;&#x0ECB;" t="&#x0ECB;" note=" LAO TONE MAI CATAWA  "/>
+</group>
+<group name="Lao letters"  b="0"  visible="off">
 <s d="&#x0E81;" t="&#x0E81;" note=" LAO LETTER KO  "/>
 <s d="&#x0E82;" t="&#x0E82;" note=" LAO LETTER KHO SUNG  "/>
 <s d="&#x0E84;" t="&#x0E84;" note=" LAO LETTER KHO TAM  "/>
@@ -58,13 +65,6 @@
 <s d="&#x25cc;&#x0EC2;" t="&#x0EC2;" note=" LAO VOWEL SIGN O  "/>
 <s d="&#x25cc;&#x0EC3;" t="&#x0EC3;" note=" LAO VOWEL SIGN AY  "/>
 <s d="&#x25cc;&#x0EC4;" t="&#x0EC4;" note=" LAO VOWEL SIGN AI  "/>
-</group>
-<group name="lao tones (combining)" b="51">
-<s d="&#x25cc;&#x0EC6;" t="&#x0EC6;" note=" LAO KO LA  "/>
-<s d="&#x25cc;&#x0EC8;" t="&#x0EC8;" note=" LAO TONE MAI EK  "/>
-<s d="&#x25cc;&#x0EC9;" t="&#x0EC9;" note=" LAO TONE MAI THO  "/>
-<s d="&#x25cc;&#x0ECA;" t="&#x0ECA;" note=" LAO TONE MAI TI  "/>
-<s d="&#x25cc;&#x0ECB;" t="&#x0ECB;" note=" LAO TONE MAI CATAWA  "/>
 </group>
 <group name="Punctuation?" b="112">
 <s d="&#x0EAF;" t="&#x0EAF;" note=" LAO ELLIPSIS  "/>

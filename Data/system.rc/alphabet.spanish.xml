@@ -146,7 +146,16 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
-<group name="Lower case Latin letters">
+<group name="Combining accents" b="191"  visible="on">
+<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="COMBINING GRAVE ACCENT &#x0060; "/>
+<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="COMBINING ACUTE ACCENT &#x00B4; "/>
+<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="COMBINING CIRCUMFLEX ACCENT  &#x005E; "/>
+<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="COMBINING TILDE &#x007E;  "/>
+<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="COMBINING MACRON  &#x00AF; "/>
+<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="82" note="COMBINING CEDILLA &#x00B8; "/>
+<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT  &#x00A8;"/>
+</group>
+<group name="Lower case Latin letters"  visible="off">
 <s d="a" t="a" b="10"/>
 <s d="b" t="b" b="11"/>
 <s d="c" t="c" b="12"/>
@@ -201,15 +210,6 @@
 <s d="X" t="X" b="33"/>
 <s d="Y" t="Y" b="34"/>
 <s d="Z" t="Z" b="35"/>
-</group>
-<group name="Combining accents" b="51">
-<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="COMBINING GRAVE ACCENT &#x0060; "/>
-<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="COMBINING ACUTE ACCENT &#x00B4; "/>
-<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="COMBINING CIRCUMFLEX ACCENT  &#x005E; "/>
-<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="COMBINING TILDE &#x007E;  "/>
-<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="COMBINING MACRON  &#x00AF; "/>
-<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="82" note="COMBINING CEDILLA &#x00B8; "/>
-<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT  &#x00A8;"/>
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1" b="90"/>

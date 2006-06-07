@@ -322,16 +322,28 @@
 <colour r="255" g="187" b="255"/>
 <colour r="135" g="206" b="255"/>
 <colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
-<colour r="135" g="206" b="255"/>
-<colour r="255" g="174" b="185"/>
-<colour r="255" g="187" b="255"/>
+<!-- Here I have a DARK, INTENSE Hiragana section, for use as an additional group  resource. Used to be known as 50-59.
+     Now known as 130+60 = 190-199 -->
+<!-- red colour 50+10 -->
+<colour r="245" g="0" b="0"/>
+<!-- orange 50+11 -->
+<colour r="249" g="139" b="0"/>
+<!-- yel  50+12 -->
+<colour r="255" g="250" b="0"/>
+<!-- NEW lime yel/green  50+13 <colour r="190" g="255" b="0"/> -->
+<colour r="223" g="255" b="0"/>
+<!-- green 14 -->
+<colour r="0" g="250" b="0"/>
+<!-- NEW greenblue  60+15 -->
+<colour r="0" g="255" b="200"/>
+<!-- NEW light blue 16  -->
+<colour r="0" g="215" b="240"/>
+<!-- darkerblue 17   -->
+<colour r="0" g="100" b="245"/>
+<!-- blue purple 18  -->
+<colour r="215" g="0" b="250"/>
+<!-- red purple  60+19   -->
+<colour r="250" g="0" b="209"/>
 <!-- end of 60 letters -->
 <!-- red colour 10 -->
 <colour r="255" g="69" b="69"/>

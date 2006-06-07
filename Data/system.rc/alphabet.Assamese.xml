@@ -1,16 +1,21 @@
 <?xml version="1.0"?>
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
-<?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
+<?xml-stylesheet type="text/xsl" href="alphabet-nest.xsl"?>
 <alphabets>
-<alphabet name="Assamese with punctuation and numerals">
+<alphabet name="Assamese &#x0985;&#x09b8;&#x09ae;&#x09c0;&#x09af;&#x09bc;&#x09be;  with punctuation and numerals">
+<!-- See also alphabet.bengali.xml
+ Bangla is the second most commonly spoken language in India.
+ The same script is used by Assamese.
+ -->
 <orientation type="LR"/>
 <encoding type="Western"/>
-<palette>Default</palette>
+<palette>European/Asian</palette>
 <train>training_Assamese_IN.txt</train>
 <space d="&#x25a1;" t=" " b="9" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
 <group name="bengali letters" b="0">
+<group name="bengali vowels" b="0">
 <s d="&#x0985;" t="&#x0985;"  note=" LETTER A  "  />
 <s d="&#x0986;" t="&#x0986;"  note=" LETTER AA  "  />
 <s d="&#x0987;" t="&#x0987;"  note=" LETTER I  "  />
@@ -25,6 +30,8 @@
 <s d="&#x0990;" t="&#x0990;"  note=" LETTER AI  "  />
 <s d="&#x0993;" t="&#x0993;"  note=" LETTER O  "  />
 <s d="&#x0994;" t="&#x0994;"  note=" LETTER AU  "  />
+</group>
+<group name="bengali consonants" b="0">
 <s d="&#x0995;" t="&#x0995;"  note=" LETTER KA  "  />
 <s d="&#x0996;" t="&#x0996;"  note=" LETTER KHA  "  />
 <s d="&#x0997;" t="&#x0997;"  note=" LETTER GA  "  />
@@ -64,7 +71,8 @@
 <s d="&#x09B9;" t="&#x09B9;"  note=" LETTER HA  "  />
 <s d="&#x09BD;" t="&#x09BD;"  note=" SIGN AVAGRAHA  "  />
 </group>			    
-<group name="Bengali vowels" >	    
+</group>			    
+<group name="Bengali combining vowels" b="52" >	    
 <s d="&#x25cc;&#x09BE;" t="&#x09BE;"  note=" VOWEL SIGN AA  "  />
 <s d="&#x25cc;&#x09BF;" t="&#x09BF;"  note=" VOWEL SIGN I  "  />
 <s d="&#x25cc;&#x09C0;" t="&#x09C0;"  note=" VOWEL SIGN II  "  />
@@ -106,6 +114,17 @@
 <s d="0" t="0"/>
 </group>
 <group name="Punctuation" b="112">
+<group name="Bengali Punctuation" b="113">
+<s d="&#x09F2;" t="&#x09F2;" note="RUPEE MARK"/>
+<s d="&#x09F3;" t="&#x09F3;" note="RUPEE SIGN"/>
+<s d="&#x09F4;" t="&#x09F4;" note="CURRENCY NUMERATOR ONE	"/>
+<s d="&#x09F5;" t="&#x09F5;" note="CURRENCY NUMERATOR TWO	"/>
+<s d="&#x09F6;" t="&#x09F6;" note="CURRENCY NUMERATOR THREE"/>
+<s d="&#x09F7;" t="&#x09F7;" note="CURRENCY NUMERATOR FOUR	"/>
+<s d="&#x09F8;" t="&#x09F8;" note="CURRENCY NUMERATOR ONE LESS THAN THE DENOMINATOR"/>
+<s d="&#x09F9;" t="&#x09F9;" note="CURRENCY DENOMINATOR SIXTEEN"/>
+<s d="&#x09FA;" t="&#x09FA;" note="ISSHAR"/>
+</group>
 <s d="%" t="%"/>
 <s d="*" t="*"/>
 <s d="+" t="+"/>

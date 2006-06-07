@@ -152,7 +152,17 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t=""/>
 <paragraph d="&#182;" b="9"/>
-<group name="Lower case Latin letters">
+<group name="Combining accents" b="191" visible="on">
+<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="COMBINING GRAVE ACCENT &#x0060; "/>
+<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="COMBINING ACUTE ACCENT &#x00B4; "/>
+<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="COMBINING CIRCUMFLEX ACCENT  &#x005E; "/>
+<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="COMBINING TILDE &#x007E;  "/>
+<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="COMBINING MACRON  &#x00AF; "/>
+<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="82" note="COMBINING CEDILLA &#x00B8; "/>
+<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT  &#x00A8;"/>
+<s b="79"  d="&#xB0;" t="&#xB0;" note="tiny o as in Numero (N^o)"/>
+</group>
+<group name="Lower case Latin letters" b="0" visible="off">
 <s d="a" t="a" b="10"/>
 <!-- <s b="69"  d="&#x00E6;" t="&#x00E6;" note="SMALL LETTER AE"/> -->
 <s d="b" t="b" b="11"/>
@@ -210,16 +220,6 @@
 <s d="X" t="X" b="33"/>
 <s d="Y" t="Y" b="34"/>
 <s d="Z" t="Z" b="35"/>
-</group>
-<group name="Combining accents" b="51">
-<s d="&#x25cc;&#x0300;"  t="&#x0300;" b="72" note="COMBINING GRAVE ACCENT &#x0060; "/>
-<s d="&#x25cc;&#x0301;"  t="&#x0301;" b="82" note="COMBINING ACUTE ACCENT &#x00B4; "/>
-<s d="&#x25cc;&#x0302;"  t="&#x0302;" b="72" note="COMBINING CIRCUMFLEX ACCENT  &#x005E; "/>
-<s d="&#x25cc;&#x0303;"  t="&#x0303;" b="82" note="COMBINING TILDE &#x007E;  "/>
-<s d="&#x25cc;&#x0304;"  t="&#x0304;" b="72" note="COMBINING MACRON  &#x00AF; "/>
-<s d="&#x25cc;&#x0327;"  t="&#x0327;" b="82" note="COMBINING CEDILLA &#x00B8; "/>
-<s d="&#x25cc;&#x0308;"  t="&#x0308;" b="72" note="COMBINING DIAERESIS or UMLAUT  &#x00A8;"/>
-<s b="79"  d="&#xB0;" t="&#xB0;" note="tiny o as in Numero (N^o)"/>
 </group>
 <group name="Numbers" b="113">
 <s d="1" t="1" b="90"/>
@@ -283,54 +283,64 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
-<group name="Lower case Latin letters" b="0">
-<group name="a" b="10" label="a">
-<s b="10"  d="" t="a"/>
+<group name="Lower case Latin letters" b="0"  visible="off">
+<group name="a" b="10" label="a"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="72"  d="&#x25cc;&#x0300;" t="&#224;" note="grave a"/>
 <s b="82"  d="&#x25cc;&#x0302;" t="&#226;"/>
 <s b="72"  d="&#x25cc;&#x0308;" t="&#228;"/>
 </group>
+<s b="10"  d="" t="a"/>
+</group>
 <s b="11"  d="b" t="b"/>
-<group name="c" b="10" label="c">
+<group name="c" b="10" label="c"  visible="on">
 <s b="10"  d="" t="c"/>
 <s b="82"  d="&#x25cc;&#x0327;" t="&#231;"/>
 </group>
 <s b="12"  d="d" t="d"/>
-<group name="e" b="10" label="e">
-<s b="10"  d="" t="e"/>
+<group name="e" b="10" label="e"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="72"  d="&#x25cc;&#x0300;" t="&#232;"/>
 <s b="82"  d="&#x25cc;&#x0301;" t="&#233;"/>
 <s b="72"  d="&#x25cc;&#x0302;" t="&#234;"/>
 <s b="82"  d="&#x25cc;&#x0308;" t="&#235;"/>
 </group>
+<s b="10"  d="" t="e"/>
+</group>
 <s b="13"  d="f" t="f"/>
 <s b="11"  d="g" t="g"/>
 <s b="12"  d="h" t="h"/>
-<group name="i" b="10" label="i">
-<s b="10"  d="i" t="i"/>
+<group name="i" b="10" label="i"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="72"  d="&#x25cc;&#x0302;" t="&#238;"/>
 <s b="82"  d="&#x25cc;&#x0308;" t="&#239;"/>
+</group>
+<s b="10"  d="i" t="i"/>
 </group>
 <s b="13"  d="j" t="j"/>
 <s b="11"  d="k" t="k"/>
 <s b="12"  d="l" t="l"/>
 <s b="13"  d="m" t="m"/>
 <s b="11"  d="n" t="n"/>
-<group name="o" b="10" label="o">
-<s b="10"  d="" t="o"/>
+<group name="o" b="10" label="o"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="72"  d="&#x25cc;&#x0302;" t="&#244;"/>
 <s b="82"  d="&#x25cc;&#x0308;" t="&#246;"/>
+</group>
+<s b="10"  d="" t="o"/>
 </group>
 <s b="12"  d="p" t="p"/>
 <s b="13"  d="q" t="q"/>
 <s b="11"  d="r" t="r"/>
 <s b="12"  d="s" t="s"/>
 <s b="13"  d="t" t="t"/>
-<group name="u" b="10" label="u">
-<s b="10"  d="" t="u"/>
+<group name="u" b="10" label="u"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="72"  d="&#x25cc;&#x0300;" t="&#249;" note="grave u"/>
 <s b="82"  d="&#x25cc;&#x0302;" t="&#251;"/>
 <s b="72"  d="&#x25cc;&#x0308;" t="&#252;"/>
+</group>
+<s b="10"  d="" t="u"/>
 </group>
 <s b="11"  d="v" t="v"/>
 <s b="12"  d="w" t="w"/>
@@ -338,22 +348,26 @@
 <s b="11"  d="y" t="y"/>
 <s b="12"  d="z" t="z"/>
 </group>
-<group name="Upper case Latin letters"  b="111">
-<group name="A" b="10" label="A">
-<s b="10"  d="" t="A"/>
+<group name="Upper case Latin letters"  b="111" visible="on">
+<group name="A" b="10" label="A"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="72"  d="&#x25cc;&#x0300;" t="&#192;" note="grave A"/>
 <s b="82"  d="&#x25cc;&#x0302;" t="&#194;" note="circumflex A"/>
 </group>
+<s b="10"  d="" t="A"/>
+</group>
 <s b="11"  d="B" t="B"/>
-<group name="C" b="10" label="C">
+<group name="C" b="10" label="C"  visible="on">
 <s b="10"  d="" t="C"/>
 <s b="82"  d="&#x25cc;&#x0327;" t="&#199;"/>
 </group>
 <s b="12"  d="D" t="D"/>
-<group name="E" b="10" label="E">
-<s b="10"  d="" t="E"/>
+<group name="E" b="10" label="E"  visible="on">
+<group name="Combining accents" b="191" visible="on">
 <s b="82"  d="&#x25cc;&#x0301;" t="&#201;"/>
 <s b="72"  d="&#x25cc;&#x0302;" t="&#202;"/>
+</group>
+<s b="10"  d="" t="E"/>
 </group>
 <s b="13"  d="F" t="F"/>
 <s b="11"  d="G" t="G"/>
