@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-31 18:44+0200\n"
-"PO-Revision-Date: 2006-05-31 18:48+0200\n"
+"POT-Creation-Date: 2006-06-07 10:43+0200\n"
+"PO-Revision-Date: 2006-06-07 10:45+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -92,6 +92,8 @@ msgid ""
 "You must have gconf-editor installed and available in your path in order to "
 "access these settings."
 msgstr ""
+"<b><i>gconf-editor ble ikke funnet</i></b>\n"
+"Du må ha gconf-editor installert og tilgjengelig i stien for å få tilgang til disse innstillingene."
 
 #: ../Src/Gtk2/dasher.glade.h:4
 msgid "<b>Actions:</b>"
@@ -299,7 +301,7 @@ msgstr "Avstand fra midtlinjen for start ved musposisjon:"
 
 #: ../Src/Gtk2/dasher.glade.h:53
 msgid "Dock application window"
-msgstr ""
+msgstr "Programvindu i dokk"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
@@ -315,7 +317,7 @@ msgstr "Slipptid:  "
 
 #: ../Src/Gtk2/dasher.glade.h:57
 msgid "Eyetracker autocalibration"
-msgstr ""
+msgstr "Automatisk kalibrering av øyesporing"
 
 #: ../Src/Gtk2/dasher.glade.h:58
 msgid "Full Screen"
