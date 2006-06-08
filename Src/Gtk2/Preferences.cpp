@@ -1534,12 +1534,11 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
     gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, 3, szName, -1);
  
     if(!strcmp(szCurrentFilter, szCurrentValue)) {
-      g_message("Making selection: %s", szCurrentValue);
       gtk_tree_selection_select_iter(pSelection, &oIter);
+      if(pHelper)
+	gtk_widget_set_sensitive(GTK_WIDGET(pHelper), (dasher_preferences_dialogue_get_helper(g_pPreferencesDialogue, iParameter, szName) != NULL));
     }
   }
-
- 
 
   g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
 }
@@ -1554,7 +1553,6 @@ extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserDa
     gchar *szValue;
     gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, -1);
     
-    g_message("Changing: %d to %s", iParameter, szValue);
     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
     
     if(pHelper)

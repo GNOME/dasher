@@ -125,7 +125,6 @@ static void dasher_main_init(DasherMain *pDasherControl) {
   pPrivate->pAppSettings = 0;
 
   dasher_main_load_interface(pDasherControl);
-  dasher_main_setup_window(pDasherControl);
 }
 
 static void dasher_main_destroy(GObject *pObject) {
@@ -222,7 +221,12 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 #endif
 }
 void dasher_main_setup_window(DasherMain *pSelf) {
-  gdk_window_add_filter(0, keyboard_filter_cb, 0);
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+
+  if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GLOBAL_KEYBOARD))
+    gdk_window_add_filter(0, keyboard_filter_cb, 0);
+   else
+     gdk_window_remove_filter(0, keyboard_filter_cb, 0);
 }
 
 
@@ -264,6 +268,7 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       GtkWidget *pOldWindow = pPrivate->pMainWindow;
 
       pPrivate->pMainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
+      gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), 200, 200);
 
       GtkWidget *pNewOuter;
 
@@ -296,6 +301,9 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
 
       gtk_widget_show_all(pPrivate->pMainWindow);
     }
+    break;
+  case BP_GLOBAL_KEYBOARD:
+    dasher_main_setup_window(pSelf);
     break;
 #ifdef WITH_MAEMO
   case APP_LP_MAEMO_SIZE: {
@@ -337,6 +345,8 @@ GtkWidget *dasher_main_get_window(DasherMain *pSelf) {
 void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSettings) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
   pPrivate->pAppSettings = pAppSettings;
+
+  dasher_main_setup_window(pSelf);
 
   // Now we have access to the settings, we can set up the intial
   // values
@@ -445,7 +455,6 @@ GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf) {
 
 // TODO: Rationalise window setup functions
 void dasher_main_setup_window_position(DasherMain *pSelf) {
-
 
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
@@ -986,6 +995,8 @@ extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event
     sKeyDetails.level = 0;
 
     gtk_dasher_control_external_key_down(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
+
+    return GDK_FILTER_REMOVE;
   }
 
   if(xev->xany.type == KeyRelease) { 
@@ -996,6 +1007,8 @@ extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event
     sKeyDetails.level = 0;
 
     gtk_dasher_control_external_key_up(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
+
+    return GDK_FILTER_REMOVE;
   }
 
   return GDK_FILTER_CONTINUE;

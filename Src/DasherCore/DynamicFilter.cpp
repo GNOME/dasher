@@ -100,7 +100,7 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
   else if(iId == 1) {
     bBackOff = true;
   }
-  else if(iId == 0) {
+  else if((iId == 0) || (iId = 100)) {
     if(GetBoolParameter(BP_DASHER_PAUSED)) {
       m_pInterface->Unpause(iTime);
       m_iKeyTime = iTime;

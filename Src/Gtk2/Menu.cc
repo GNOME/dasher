@@ -24,17 +24,14 @@ extern GtkWidget *window;
 extern GtkWidget *file_selector;
 
 void PopulateMenus(GladeXML *pGladeWidgets) {
-  switch(gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE)) {
-  case 1:
-    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), true);
-    break;
-  case 2:
-    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), true);
-    break;
-  case 4:
-    gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), true);
-    break;
-  }
+
+  g_message("Populating menus");
+
+  int iValue = gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE);
+
+  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), iValue == 1);
+  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), iValue == 2);
+  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), iValue == 3);
 }
 
 extern "C" void select_save_file_as(GtkWidget * widget, gpointer user_data);

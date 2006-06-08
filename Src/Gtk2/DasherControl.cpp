@@ -337,7 +337,7 @@ void CDasherControl::WriteTrainFile(const std::string &strNewText) {
 void CDasherControl::ExternalKeyDown(int iKeyVal) {
   if(m_pKeyboardHelper) {
     int iButtonID(m_pKeyboardHelper->ConvertKeycode(iKeyVal));
-    
+
     if(iButtonID != -1)
       KeyDown(get_time(), iButtonID);
   }

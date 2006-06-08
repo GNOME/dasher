@@ -62,7 +62,7 @@ void CDefaultFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
   switch(iId) {
   case 0: // Start on space
     // FIXME - wrap this in a 'start/stop' method (and use for buttons as well as keys)
-    if(GetBoolParameter(BP_START_SPACE) && !GetBoolParameter(BP_CLICK_MODE)) {
+    if(GetBoolParameter(BP_START_SPACE)) {
       if(GetBoolParameter(BP_DASHER_PAUSED))
 	m_pInterface->Unpause(iTime);
       else

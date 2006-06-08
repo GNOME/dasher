@@ -4,12 +4,12 @@
 #include <iostream>
 
 CPangoCache::CPangoCache(const std::string &strFontName) {
-  font = pango_font_description_new();
-  pango_font_description_set_family(font, strFontName.c_str());
+  font = pango_font_description_from_string(strFontName.c_str());
 }
 
 void CPangoCache::ChangeFont(const std::string &strFontName) {
-  pango_font_description_set_family(font, strFontName.c_str());
+  pango_font_description_free(font);
+  font = pango_font_description_from_string(strFontName.c_str());
 
   // FIXME - probably need to free the pango layouts, but I can't find a function to do this.
 
