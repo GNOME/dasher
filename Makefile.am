@@ -1,4 +1,4 @@
-SUBDIRS = Src Data po Doc
+SUBDIRS = Src Data po Doc Utils
 
 distuninstallcheck_listfiles = \
 		find . -type f -print | \
