@@ -914,8 +914,8 @@
 			<widget class="GtkScrolledWindow" id="scrolledwindow13">
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
-			  <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+			  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+			  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 			  <property name="shadow_type">GTK_SHADOW_IN</property>
 			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
@@ -994,10 +994,11 @@
 
 		      <child>
 			<widget class="GtkScrolledWindow" id="scrolledwindow14">
+			  <property name="height_request">128</property>
 			  <property name="visible">True</property>
 			  <property name="can_focus">True</property>
-			  <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
-			  <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+			  <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+			  <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 			  <property name="shadow_type">GTK_SHADOW_IN</property>
 			  <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
@@ -1117,11 +1118,11 @@
 
 				  <child>
 				    <widget class="GtkScrolledWindow" id="scrolledwindow15">
-				      <property name="height_request">128</property>
+				      <property name="height_request">192</property>
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
-				      <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+				      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+				      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 				      <property name="shadow_type">GTK_SHADOW_IN</property>
 				      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
@@ -1531,11 +1532,11 @@ Two box</property>
 
 				  <child>
 				    <widget class="GtkScrolledWindow" id="scrolledwindow12">
-				      <property name="height_request">128</property>
+				      <property name="height_request">64</property>
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
-				      <property name="hscrollbar_policy">GTK_POLICY_ALWAYS</property>
-				      <property name="vscrollbar_policy">GTK_POLICY_ALWAYS</property>
+				      <property name="hscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
+				      <property name="vscrollbar_policy">GTK_POLICY_AUTOMATIC</property>
 				      <property name="shadow_type">GTK_SHADOW_IN</property>
 				      <property name="window_placement">GTK_CORNER_TOP_LEFT</property>
 
