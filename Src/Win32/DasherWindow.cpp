@@ -12,6 +12,7 @@
 #include <Textstor.h>
 #include <Msctf.h>
 #include <Msaatext.h>
+#include <Htmlhelp.h>
 
 #include "DasherWindow.h"
 
@@ -535,7 +536,8 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  return 0;
 		  }
 	  case ID_HELP_CONTENTS:
-		  WinHelp(TEXT("Dasher.chm"), HELP_FINDER, 0);
+		//  WinHelp(TEXT("Dasher.chm"), HELP_FINDER, 0);
+      HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
 		  return 0;
 	  case IDM_EXIT:
 		  //SendMessage(m_hWnd, WM_CLOSE, 0, 0);
