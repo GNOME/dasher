@@ -963,8 +963,15 @@ CDasherModel::CTrainer::CTrainer(CDasherModel &DasherModel)
 }
 
 void CDasherModel::CTrainer::Train(const std::vector <symbol >&vSymbols) {
-  for(unsigned int i(0); i < vSymbols.size(); i++)
+  for(unsigned int i(0); i < vSymbols.size(); i++) {
+//     if(vSymbols[i] == m_DasherModel.GetAlphabetNew()->GetParagraphSymbol()) {
+//       m_DasherModel.m_pLanguageModel->ReleaseContext(m_Context);
+//       m_Context = m_DasherModel.m_pLanguageModel->CreateEmptyContext();
+//     }
+//     else {
     m_DasherModel.m_pLanguageModel->LearnSymbol(m_Context, vSymbols[i]);
+//     }
+  }
 }
 
 CDasherModel::CTrainer::~CTrainer() {

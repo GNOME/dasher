@@ -360,12 +360,7 @@ void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSett
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
   // TODO: bring into object framework
   PopulateMenus(pPrivate->pGladeXML);
-
-
-  if(dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_TOOLBAR)) {
-    gtk_widget_show(pPrivate->pToolbar);
-  }
-
+  
   dasher_main_load_state(pSelf);
 #endif
 
@@ -637,7 +632,10 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   }
   else {
     gtk_widget_hide(pPrivate->pSideMenu);
-    gtk_widget_show(pPrivate->pToolbar);
+    if(dasher_app_settings_get_bool(pPrivate->pAppSettings, APP_BP_SHOW_TOOLBAR))
+      gtk_widget_show(pPrivate->pToolbar);
+    else
+      gtk_widget_hide(pPrivate->pToolbar);
     gtk_widget_show(pPrivate->pMenuBar);
     //    gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), true);
     //    gtk_frame_set_shadow_type(GTK_FRAME(pPrivate->pOuterFrame), GTK_SHADOW_NONE);

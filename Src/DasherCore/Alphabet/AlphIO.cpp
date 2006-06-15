@@ -554,9 +554,9 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       }
       if(strcmp(*atts, "visible") == 0) {
 	atts++;
-	if(!strcmp(*atts, "yes"))
+	if(!strcmp(*atts, "yes") || !strcmp(*atts, "on"))
 	  pNewGroup->bVisible = true;
-	else if(!strcmp(*atts, "no"))
+	else if(!strcmp(*atts, "no") || !strcmp(*atts, "off"))
 	  pNewGroup->bVisible = false;
 	atts--;
       }
