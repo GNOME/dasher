@@ -6,13 +6,13 @@ AC_CONFIG_HEADERS(config.h)
 
 dnl The following two changes are required currently for the Maemo build (but will break the GNOME build)
 
-AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
-dnl AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2 no-dist-gzip])
+dnl AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
-IT_PROG_INTLTOOL([0.34.90])
-dnl AC_PROG_INTLTOOL(0.30)
+dnl IT_PROG_INTLTOOL([0.34.90])
+AC_PROG_INTLTOOL(0.30)
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
@@ -106,6 +106,19 @@ AC_ARG_WITH([maemo],
 	   WITHMAEMO=false;
         fi,
 	WITHMAEMO=false)
+
+AC_ARG_WITH([maemo-fullscreen],
+	AC_HELP_STRING([--with-maemo-fullscreen],[build as standalone Maemo fullscreen app (default is NO)]),
+	if test $withval = "yes"; then
+	   WITHMAEMOFULLSCREEN=true;
+	   WITHMAEMO=true;
+	   WITHGNOME=false;
+	   WITHA11Y=false;
+	else
+	   WITHMAEMOFULLSCREEN=false;
+        fi,
+	WITHMAEMOFULLSCREEN=false)
+
 
 AC_ARG_WITH([darwin],
 	AC_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
@@ -221,6 +234,10 @@ if [[ x"$WITHMAEMO" = xtrue ]]; then
       glade_LIBS="/usr/lib/libglade-2.0.a"
       PKG_CHECK_MODULES(hildon, hildon-libs)
 fi			
+
+if [[ x"$WITHMAEMOFULLSCREEN" = xtrue ]]; then
+      AC_DEFINE([WITH_MAEMOFULLSCREEN], 1, [Building as fullscreen Maemo app])
+fi
 
 if [[ x"$WITHCAIRO" = xtrue ]]; then
 	PKG_CHECK_MODULES(cairo, gtk+-2.0 >= 2.8.0)

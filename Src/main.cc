@@ -5,10 +5,10 @@
 #include <glade/glade.h>
 #include <signal.h>
 
-#ifdef WITH_MAEMO
-#include <hildon-lgpl/hildon-widgets/hildon-app.h>
-#include <hildon-lgpl/hildon-widgets/hildon-appview.h>
-#endif
+// #ifdef WITH_MAEMO
+// #include <hildon-lgpl/hildon-widgets/hildon-app.h>
+// #include <hildon-lgpl/hildon-widgets/hildon-appview.h>
+// #endif
 
 // TODO: This shouldn't need to be here
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)

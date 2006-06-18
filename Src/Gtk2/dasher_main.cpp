@@ -1,6 +1,11 @@
+#include "../../config.h"
+
 #include <gdk/gdk.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#ifdef WITH_MAEMOFULLSCREEN
+#include <hildon-widgets/hildon-program.h>
+#endif
 #include <X11/Xlib.h>
 #include <X11/Xatom.h>
 
@@ -40,6 +45,10 @@ struct _DasherMainPrivate {
 
 #ifdef WITH_MAEMO
   DasherMaemoHelper *pMaemoHelper;
+#ifdef WITH_MAEMOFULLSCREEN
+  HildonProgram *pProgram;
+  HildonWindow *pHWindow;
+#endif
 #endif
 
   // Properties of the window
@@ -149,8 +158,8 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 #ifdef WITH_GPE
   szGladeFilename = PROGDATA "/dashergpe.glade";
 #elif WITH_MAEMO
-  szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
-  //szGladeFilename = PROGDATA "/dashermaemo.glade";
+  //szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
+  szGladeFilename = PROGDATA "/dashermaemo.glade";
 #else
   szGladeFilename = PROGDATA "/dasher.glade";
 #endif
@@ -195,6 +204,49 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   dasher_main_setup_window_type(pSelf);
 
   gtk_widget_add_events(pPrivate->pDragHandle, GDK_POINTER_MOTION_MASK);
+#else
+
+#ifdef WITH_MAEMOFULLSCREEN
+  // TODO: This is horrible - no need to get it from the glade file if we're not going to use it
+  gtk_widget_hide(pPrivate->pMainWindow);
+
+  pPrivate->pProgram = HILDON_PROGRAM(hildon_program_get_instance());
+  //  hildon_app_set_title(pPrivate->pApp, "Dasher"); 
+
+  pPrivate->pHWindow = HILDON_WINDOW(hildon_window_new());
+  hildon_program_add_window(pPrivate->pProgram, pPrivate->pHWindow);
+
+  gtk_widget_reparent(pPrivate->pInnerFrame, GTK_WIDGET(pPrivate->pHWindow));
+  //  gtk_paned_set_position(GTK_PANED(window), 100);
+
+//   /* Do menu setup */
+//   GtkMenu *main_menu;
+//   GtkWidget *file_menu;
+//   GtkWidget *file_menu_item;
+//   GtkWidget *options_menu;
+//   GtkWidget *options_menu_item;
+//   main_menu = hildon_appview_get_menu(appview);
+//   file_menu = glade_xml_get_widget(xml, "menuitem4_menu");
+//   options_menu = glade_xml_get_widget(xml, "options1_menu");
+//   file_menu_item = gtk_menu_item_new_with_label ("File");
+//   options_menu_item = gtk_menu_item_new_with_label ("Options");
+//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
+//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu);
+//   //  gtk_widget_reparent (GTK_WIDGET(main_menu), file_menu);
+//   //  gtk_widget_reparent (GTK_WIDGET(main_menu), options_menu);
+//   gtk_menu_append( main_menu, file_menu_item);
+//   gtk_menu_append( main_menu, options_menu_item);
+//   gtk_widget_show_all( GTK_WIDGET( main_menu ) );
+
+//   /* And toolbar */
+//   GtkWidget *toolbar;
+//   toolbar = glade_xml_get_widget(xml, "toolbar");
+//   g_print("Got %p\n",toolbar);
+//   gtk_widget_reparent (toolbar, appview->vbox);
+
+  gtk_widget_show_all(GTK_WIDGET(pPrivate->pHWindow));
+#endif
+
 #endif
 
   pPrivate->bHidden = false;
@@ -220,13 +272,14 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), false);
 #endif
 }
+
 void dasher_main_setup_window(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
-
+  
   if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_GLOBAL_KEYBOARD))
     gdk_window_add_filter(0, keyboard_filter_cb, 0);
-   else
-     gdk_window_remove_filter(0, keyboard_filter_cb, 0);
+  else
+    gdk_window_remove_filter(0, keyboard_filter_cb, 0);
 }
 
 
@@ -712,7 +765,10 @@ void dasher_main_on_map(DasherMain *pSelf) {
   }
 
 #ifdef WITH_MAEMO
+
+  // TODO: Move more of this stuff into the Maemo helper class
   
+#ifndef WITH_MAEMOFULLSCREEN
   Window xThisWindow = GDK_WINDOW_XWINDOW(pPrivate->pMainWindow->window);
   Atom atom_im_window = gdk_x11_get_xatom_by_name("_HILDON_IM_WINDOW");
   
@@ -746,6 +802,8 @@ void dasher_main_on_map(DasherMain *pSelf) {
   }
 
   dasher_maemo_helper_setup_window(pPrivate->pMaemoHelper);
+#endif
+
 #else
   dasher_main_setup_window_style(pSelf, false);
   dasher_main_setup_window_position(pSelf);
