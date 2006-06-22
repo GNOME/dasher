@@ -100,7 +100,6 @@
 #define IDD_SOCKET                      174
 #define IDD_LM                          175
 #define IDD_LMPAGE                      175
-#define IDD_BUTTON_PREFS                176
 #define IDD_BUTTON_SETTINGS             177
 #define IDC_LIST1                       1008
 #define IDC_INPUT_LIST                  1008
@@ -112,11 +111,14 @@
 #define IDC_CHARS                       1013
 #define IDC_BUTTON1                     1014
 #define IDC_DRAGBUTTON                  1014
+#define IDC_BP_OK                       1014
 #define IDC_ADD_ALPH                    1015
 #define IDC_BUTTON2                     1016
+#define IDC_BP_CANCEL                   1016
 #define IDC_DEL_ALPH                    1017
 #define IDC_BUTTON3                     1018
 #define IDC_BUTTON_PREFS                1018
+#define IDC_BP_APPLY                    1018
 #define IDC_ADD_GROUP                   1019
 #define IDC_CLIPTOALPH_UNORDERED        1020
 #define IDC_THICKLINE                   1020
@@ -208,7 +210,6 @@
 #define IDC_ZOOMESTEPS_SLIDER           1100
 #define IDC_RIGHTZOOM_SLIDER            1100
 #define IDC_MOUSEPOSDIST                1101
-#define IDC_ZOOMESTEPS_SLIDER2          1101
 #define IDC_ZOOMSTEPS_SLIDER            1101
 #define IDC_PARAGRAPH                   1102
 #define IDC_CONTROLCHAR                 1103

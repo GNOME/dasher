@@ -417,7 +417,8 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 /// \return Returns the number of nats entered
 ///
 
-double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
+void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
+                                         myint &iNewMin, myint &iNewMax) {
   // Comments refer to the code immedialtely before them
 
   if(Mousex <= 0) {
@@ -477,96 +478,15 @@ double CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey) {
   // maximum zoom.
 
   if((iTargetMax - iTargetMin) < iMinSize) {
-
     iNewTargetMin = iTargetMin * (iMaxY - iMinSize) / (iMaxY - (iTargetMax - iTargetMin));
     iNewTargetMax = iNewTargetMin + iMinSize;
 
     iTargetMin = iNewTargetMin;
     iTargetMax = iNewTargetMax;
-
   }
 
-  // Check we're not going faster than the speed slider setting
-  // allows, and adjust if necessary. Note that if we re-size the
-  // target we need to be careful about where we centre the new range
-  // (hence the slightly complicated expression above)
-
-  DoZoom(iTargetMin, iTargetMax);
-
-  // Actually do the zooming
-
-  return -1.0 * log((iTargetMax - iTargetMin) / static_cast < double >(iMaxY));
-
-  // Return value is the zoom factor so we can keep track of bitrate.
-}
-
-/// Zoom the display so that [iTargetMin,iTargetMax] (in current
-/// Dasher co-ordinates) are the new extremes of the viewport.
-
-void CDasherModel::DoZoom(myint iTargetMin, myint iTargetMax) {
-
-  // std::cout << "iTargetMin: " << iTargetMin << " iTargetMax: " << iTargetMax << std::endl;
-
-  myint newRootmin(((m_Rootmin - iTargetMin) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin));
-  myint newRootmax(((m_Rootmax - iTargetMax) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin) + (myint)GetLongParameter(LP_MAX_Y));
-
-  // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
-
-  if(newRootmin > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
-    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1;
-
-  if(newRootmax < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
-    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1;
-
-  // Check that we haven't drifted too far. The rule is that we're not
-  // allowed to let the root max and min cross the midpoint of the
-  // screen.
-
-  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
-    // Only update if we're not making things big enough to risk
-    // overflow. In theory we should have reparented the root well
-    // before getting this far.
-    //
-    // Also don't allow the update if it will result in making the
-    // root too small. Again, we should have re-generated a deeper
-    // root in most cases, but the original root is an exception.
-
-    m_Rootmax = newRootmax;
-    m_Rootmin = newRootmin;
-
-    m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
-    m_iTargetMin =  m_iTargetMin + 0.1 * (m_Rootmin - m_iTargetMin);
-  }
-  else {
-    // TODO - force a new root to be chosen, so that we get better
-    // behaviour than just having Dasher stop at this point.
-  }
-}
-
-void CDasherModel::Get_new_goto_coords(double zoomfactor, myint MouseY)
-                                       // this was mousex.
-{
-  // First, we need to work out how far we need to zoom in
-  //float zoomfactor=(m_DasherOX-MouseX)/(m_DasherOX*1.0);
-
-  // Then zoom in appropriately
-  m_Rootmax = m_Rootmax + myint(zoomfactor * (m_Rootmax - (myint)GetLongParameter(LP_MAX_Y) / 2));
-  m_Rootmin = m_Rootmin + myint(zoomfactor * (m_Rootmin - (myint)GetLongParameter(LP_MAX_Y) / 2));
-
-  // Afterwards, we need to take care of the vertical offset.
-  myint up = ((myint)GetLongParameter(LP_MAX_Y) / 2) - MouseY;
-  m_Rootmax = m_Rootmax + up;
-  m_Rootmin = m_Rootmin + up;
-}
-
-myint CDasherModel::PlotGoTo(myint MouseX, myint MouseY) {
-  // First, we need to work out how far we need to zoom in
-  double zoomfactor = ((myint)GetLongParameter(LP_OX) - MouseX) / ((myint)GetLongParameter(LP_OX) * 1.0);
-  zoomfactor = pow(0.5, zoomfactor);
-
-  myint height = int ((myint)GetLongParameter(LP_MAX_Y) * zoomfactor / 2);
-
-  return height;
+  iNewMin = (((m_Rootmin - iTargetMin) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin));
+  iNewMax = (((m_Rootmax - iTargetMax) * (myint)GetLongParameter(LP_MAX_Y)) / (iTargetMax - iTargetMin) + (myint)GetLongParameter(LP_MAX_Y));
 }
 
 bool CDasherModel::Tap_on_display(myint miMousex,
@@ -576,122 +496,94 @@ bool CDasherModel::Tap_on_display(myint miMousex,
                                   int* pNumDeleted) 
         // work out the next viewpoint, opens some new nodes
 {
-  bool bDidSomething(false);
+  // TODO: Reimplement this 
+  // Clear out parameters that might get passed in to track user activity
+  if (pAdded != NULL)
+    pAdded->clear();
+  if (pNumDeleted != NULL)
+    *pNumDeleted = 0;
 
-  if(!GetBoolParameter(BP_DASHER_PAUSED) && (m_deGotoQueue.size() == 0) ) {
+  if(GetBoolParameter(BP_DASHER_PAUSED) && (m_deGotoQueue.size() == 0))
+     return false;
 
-    bDidSomething = true;
+  myint iNewMin;
+  myint iNewMax;
 
-    // Clear out parameters that might get passed in to track user activity
-    if (pAdded != NULL)
-      pAdded->clear();
-    if (pNumDeleted != NULL)
-      *pNumDeleted = 0;
-    
-    // Find out the current node under the crosshair
-    CDasherNode *old_under_cross = Get_node_under_crosshair();
-    
+  if(m_deGotoQueue.size() == 0) {
     // works out next viewpoint
-    total_nats += Get_new_root_coords(miMousex, miMousey);
-    
-    // opens up new nodes
-    if(GetBoolParameter(BP_OLD_STYLE_PUSH)) {
-      // push node under mouse
-      CDasherNode *pUnderMouse = Get_node_under_mouse(miMousex, miMousey);
-      
-      Push_Node(pUnderMouse);
-      
-      if(Framerate() > 4) {
-	// push node under mouse but with x coord on RHS
-	CDasherNode *pRight = Get_node_under_mouse(50, miMousey);
-	Push_Node(pRight);
-      }
-      
-      if(Framerate() > 8) {
-	// push node under the crosshair
-	CDasherNode *pUnderCross = Get_node_under_crosshair();
-	Push_Node(pUnderCross);
-      }
+    Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax);
+  
+    if(GetBoolParameter(BP_OLD_STYLE_PUSH))
+      OldPush(miMousex, miMousey);
+  }
+  else {
+    iNewMin = m_deGotoQueue.front().iN1;
+    iNewMax = m_deGotoQueue.front().iN2;
+    m_deGotoQueue.pop_front();
+  }
+
+  // Now actually zoom to the new location
+  NewGoTo(iNewMin, iNewMax);
+
+  total_nats += -1.0 * log((iNewMax - iNewMin) / 4096.0);
+
+  return true;
+}
+
+void CDasherModel::OldPush(myint iMousex, myint iMousey) {
+  // push node under mouse
+  CDasherNode *pUnderMouse = Get_node_under_mouse(iMousex, iMousey);
+
+  Push_Node(pUnderMouse);
+
+  if(Framerate() > 4) {
+    // push node under mouse but with x coord on RHS
+    CDasherNode *pRight = Get_node_under_mouse(50, iMousey);
+    Push_Node(pRight);
+  }
+
+  if(Framerate() > 8) {
+    // push node under the crosshair
+    CDasherNode *pUnderCross = Get_node_under_crosshair();
+    Push_Node(pUnderCross);
+  }
+
+  int iRandom = RandomInt();
+
+  if(Framerate() > 8) {
+    // add some noise and push another node
+    CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 500 - 250);
+    Push_Node(pRight);
+  }
+
+  iRandom = RandomInt();
+
+  if(Framerate() > 15) {
+    // add some noise and push another node
+    CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 500 - 250);
+    Push_Node(pRight);
+  }
+
+  // only do this is Dasher is flying
+  if(Framerate() > 30) {
+    for(int i = 1; i < int (Framerate() - 30) / 3; i++) {
 
       int iRandom = RandomInt();
       
       if(Framerate() > 8) {
-	// add some noise and push another node
-	CDasherNode *pRight = Get_node_under_mouse(50, miMousey + iRandom % 500 - 250);
-	Push_Node(pRight);
+	      // add some noise and push another node
+      	CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 500 - 250);
+	      Push_Node(pRight);
       }
       
       iRandom = RandomInt();
-      
-      if(Framerate() > 15) {
-	// add some noise and push another node
-	CDasherNode *pRight = Get_node_under_mouse(50, miMousey + iRandom % 500 - 250);
-	Push_Node(pRight);
-      }
-      
-      // only do this is Dasher is flying
-      if(Framerate() > 30) {
-	for(int i = 1; i < int (Framerate() - 30) / 3; i++) {
-	  
-	  iRandom = RandomInt();
-	  // push at a random node on the RHS
-	  CDasherNode *pRight = Get_node_under_mouse(50, miMousey + iRandom % 1000 - 500);
-	  Push_Node(pRight);
-	  
-	}
-      }
+      // push at a random node on the RHS
+      CDasherNode *pRight = Get_node_under_mouse(50, iMousey + iRandom % 1000 - 500);
+      Push_Node(pRight);
+
     }
-    //      Update(m_Root,under_mouse,0);
-    
-  CDasherNode *new_under_cross = Get_node_under_crosshair();
-
-  // FIXME - Reimplement
-
-  if(new_under_cross != old_under_cross) {
-    DeleteCharacters(new_under_cross, old_under_cross, pNumDeleted);
   }
-
-  if(new_under_cross->isSeen() == true) {
-//     if(new_under_cross->ControlChild() != true) {
-//       SetBitrate(m_dMaxRate);
-//     }
-     return bDidSomething;
-  }
-
-
-
-
-  // FIXME - Need to recurse up possibly unseen parents
-
-
-  RecursiveOutput(new_under_cross, pAdded);
-
-  // FIXME - Reimplement
-
-//   if(new_under_cross->ControlChild() == true) {
-//     //            m_pEditbox->outputcontrol(new_under_cross->GetControlTree()->pointer,new_under_cross->GetControlTree()->data,new_under_cross->GetControlTree()->type);
-//     OutputCharacters(new_under_cross);
-//     SetBitrate(m_dMaxRate / 3);
-//   }
-//   else {
-//     OutputCharacters(new_under_cross);
-//     SetBitrate(m_dMaxRate);
-//   }
-  //      m_Root->Recursive_Push_Node(0);
-
-  }
-
-  if(m_deGotoQueue.size() > 0) {
-    bDidSomething = true;
-
-    NewGoTo(m_deGotoQueue.front().iN1, m_deGotoQueue.front().iN2, m_deGotoQueue.front().iStyle);
-    m_deGotoQueue.pop_front();
-  }
-
-  return bDidSomething;
-
 }
-
 
 void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
   if(pNode->Parent() && (!pNode->Parent()->isSeen()))
@@ -777,72 +669,77 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
   return iRxnew_log;
 }
 
-void CDasherModel::NewGoTo(myint n1 , myint n2 , int style) {
+void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax) {
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross=Get_node_under_crosshair();
 
-  // establish next viewpoint
-  m_Rootmin = n1 ;
-  m_Rootmax = n2 ;
-   
+  // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
+
+  if(newRootmin > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
+    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1;
+
+  if(newRootmax < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
+    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1;
+
+  // Check that we haven't drifted too far. The rule is that we're not
+  // allowed to let the root max and min cross the midpoint of the
+  // screen.
+
+  if(newRootmax < m_Rootmax_max && newRootmin > m_Rootmin_min && (newRootmax - newRootmin) > (myint)GetLongParameter(LP_MAX_Y) / 4) {
+    // Only update if we're not making things big enough to risk
+    // overflow. In theory we should have reparented the root well
+    // before getting this far.
+    //
+    // Also don't allow the update if it will result in making the
+    // root too small. Again, we should have re-generated a deeper
+    // root in most cases, but the original root is an exception.
+
+    m_Rootmax = newRootmax;
+    m_Rootmin = newRootmin;
+
+    m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
+    m_iTargetMin =  m_iTargetMin + 0.1 * (m_Rootmin - m_iTargetMin);
+  }
+  else {
+    // TODO - force a new root to be chosen, so that we get better
+    // behaviour than just having Dasher stop at this point.
+  }
+
   // push node under crosshair
   CDasherNode* new_under_cross = Get_node_under_crosshair();
   Push_Node(new_under_cross);
+
+  HandleOutput(new_under_cross, old_under_cross);
+
+ }
+
+void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode) {
+  if(pNewNode != pOldNode)
+    DeleteCharacters(pNewNode, pOldNode);
   
-  if ( style >= 2 ) { // "2" means FINAL. "1" means STEP
-	// Ugly hack  --
-    // Push at all locations on the right hand side.
-    int Hack=60 ; // was 20
-    int hack ;
-    int y1 , y2 , hackystep = 34 , mid=GetLongParameter(LP_MAX_Y)/2 , top=GetLongParameter(LP_MAX_Y)*1/20 , bot = GetLongParameter(LP_MAX_Y)*19/20 ;
-    // y1 sweeps the top half of the screen; y2 sweeps the bottom half
-    // choice of `random' hackystep intended to give fairly uniform coverage. 
-    for ( y1 = mid , y2 = mid+hackystep/2 , hack = 1 ; hack <= Hack ; hack ++ ) {
-      // We don't have a mousex, so "emulating" one.
-      CDasherNode* node_under_goto = Get_node_under_mouse(50, y1);
-      Push_Node(node_under_goto);
-      node_under_goto = Get_node_under_mouse(50, y2);
-      Push_Node(node_under_goto);
-    
-      y1 -= hackystep;
-      if ( y1 < top ) { y1 += mid; }
-
-      y2 += hackystep;
-      if ( y1 > bot ) { y2 -= mid; }
-    }
-    // end hack
-  }
-  
-  //Update(m_Root,new_under_cross,0);
-
-  if (new_under_cross!=old_under_cross) {
-    DeleteCharacters(new_under_cross,old_under_cross);
-  }
-
-  if (new_under_cross->isSeen()==true)
+  if(pNewNode->isSeen())
     return;
 
-  new_under_cross->Seen(true);
-
-  OutputCharacters(new_under_cross);
+  // TODO: Reimplement second parameter
+  RecursiveOutput(pNewNode, NULL);
 }
 
 
 // TODO - is this used any more
-void CDasherModel::OutputCharacters(CDasherNode *node) {
-  if(node->Parent() != NULL && node->Parent()->isSeen() != true) {
-    node->Parent()->Seen(true);
-    OutputCharacters(node->Parent());
-  }
-  symbol t = node->Symbol();
-  if(t)                         // SYM0
-  {
-    Dasher::CEditEvent oEvent(1, GetAlphabet().GetText(t));
-    InsertEvent(&oEvent);
-  }
-}
+//void CDasherModel::OutputCharacters(CDasherNode *node) {
+//  if(node->Parent() != NULL && node->Parent()->isSeen() != true) {
+//    node->Parent()->Seen(true);
+//    OutputCharacters(node->Parent());
+//  }
+//  symbol t = node->Symbol();
+//  if(t)                         // SYM0
+//  {
+//    Dasher::CEditEvent oEvent(1, GetAlphabet().GetText(t));
+//    InsertEvent(&oEvent);
+//  }
+//}
+//
 
-// TODO - is this used any more?
 bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
 
   // DJW cant see how either of these can ever be NULL
@@ -1152,44 +1049,50 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   return false;
 }
 
+double CDasherModel::CorrectionFactor(int dasherx, int dashery) {
+  double dX = 1 - dasherx/2048.0;
+  double dY = dashery/2048.0 - 1;
+
+  double dR = sqrt(pow(dX, 2.0) + pow(dY, 2.0));
+
+  if(fabs(dX) < 0.1)
+    return dR * (1 + dX /2.0+ pow(dX, 2.0) / 3.0 + pow(dX, 3.0) / 4.0 + pow(dX, 4.0) / 5.0);
+  else
+    return -dR * log(1 - dX) / dX;
+}
+
 void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
+
+   // TODO: What is the following line for?
    if (dasherx < 2) { dasherx = 100; }
-   int iSteps = GetLongParameter(LP_ZOOMSTEPS); 
 
+   double dCFactor(CorrectionFactor(dasherx, dashery));
+
+   int iSteps = GetLongParameter(LP_ZOOMSTEPS) * dCFactor;
+  // myint iRxnew = ((GetLongParameter(LP_OX)/2) * GetLongParameter(LP_OX)) / dasherx;
+   myint n1, n2, iTarget1, iTarget2;
+   //Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
  
-   myint iRxnew = ((GetLongParameter(LP_OX)/2) * GetLongParameter(LP_OX)) / dasherx;
-   myint o1, o2, n1, n2;
-   Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
-   int s ;
-   myint rootMin, rootMax;
-   rootMin = n1;  
-   rootMax = n2;
-   myint zoomstep1, zoomstep2;
+   iTarget1 = dashery - dasherx;
+   iTarget2 = dashery + dasherx;
 
-   std::vector<CDasherNode *> vNodeList;
-   std::vector<CDasherNode *> vDeleteList;
+   double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
 
+   n1 = (m_Rootmin - iTarget1) * dZ;
+   n2 = (m_Rootmax - iTarget2) * dZ + 4096;
+ 
    m_deGotoQueue.clear();
-
    SGotoItem sNewItem;
 
-
-
-   for (s = 1 ; s <= iSteps ; s ++) {
+   for(int s(1); s < iSteps; ++s) {
      // use simple linear interpolation. Really should do logarithmic interpolation, but
      // this will probably look fine.
-     zoomstep1 = (s * n1 + (iSteps-s) * o1) / iSteps;
-     zoomstep2 = (s * n2 + (iSteps-s) * o2) / iSteps;
-
-     sNewItem.iN1 = zoomstep1;
-     sNewItem.iN2 = zoomstep2;
+    
+     sNewItem.iN1 = (s * n1 + (iSteps-s) * m_Rootmin) / iSteps;
+     sNewItem.iN2 = (s * n2 + (iSteps-s) * m_Rootmax) / iSteps;
      sNewItem.iStyle = 1;
 
      m_deGotoQueue.push_back(sNewItem);
-
-   //   NewGoTo(zoomstep1, zoomstep2, 1);
-//      pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
-//      pView->Display();
    } 
 
    sNewItem.iN1 = n1;
@@ -1197,12 +1100,6 @@ void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
    sNewItem.iStyle = 2;
  
    m_deGotoQueue.push_back(sNewItem);
-
-   // NewGoTo(n1, n2, 2);
-//    pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
-//    pView->Display();
-
-//    CheckForNewRoot(pView);
 }
 
 void CDasherModel::Offset(int iOffset) {

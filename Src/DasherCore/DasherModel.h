@@ -150,7 +150,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   bool Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
 /*   void GoTo(double, myint);     // jumps to a new viewpoint */
-   void NewGoTo(myint n1, myint n2, int style);
+   void NewGoTo(myint n1, myint n2);
+   void OldPush(myint iMousex, myint iMousey);
    double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2); 
 
   void Start();                 // initializes the data structure
@@ -194,7 +195,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return total_nats;
   }
 
-  myint PlotGoTo(myint MouseX, myint MouseY);
+//  myint PlotGoTo(myint MouseX, myint MouseY);
 
   void EnterText(CLanguageModel::Context Context, std::string TheText) const;
   void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
@@ -277,12 +278,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void ScheduleZoom(int dasherx, int dashery);
 
+  void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode);
+
   int ScheduledSteps() {
     return m_deGotoQueue.size();
   }
 
   void Offset(int iOffset);
-
  
  private:
 
@@ -331,16 +333,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
 
-  double Get_new_root_coords(myint mousex, myint mousey);
+  void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax);
 
-  void DoZoom(myint iTargetMin, myint iTargetMax);
-
-  void Get_new_goto_coords(double zoomfactor, myint mousey);
+ // void Get_new_goto_coords(double zoomfactor, myint mousey);
 
   void Get_string_under_mouse(const myint smousex, const myint smousey, std::vector < symbol > &str);
 
-  
-
+  double CorrectionFactor(int dasherx, int dashery);
 
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 

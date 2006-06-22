@@ -382,12 +382,6 @@
 							RelativePath=".\ButtonPrefs.h">
 						</File>
 						<File
-							RelativePath=".\ButtonSettings.cpp">
-						</File>
-						<File
-							RelativePath=".\ButtonSettings.h">
-						</File>
-						<File
 							RelativePath="Widgets\ColourBox.cpp">
 						</File>
 						<File

@@ -335,6 +335,10 @@ void CDasherWindow::HandleParameterChange(int iParameter) {
      m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
      break;
   }
+
+  // Other things might be interested to:
+  if(m_pSlidebar) 
+    m_pSlidebar->HandleParameterChange(iParameter);
 }
 
 void CDasherWindow::HandleControlEvent(int iID) {
@@ -786,15 +790,9 @@ LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BO
 LRESULT CDasherWindow::OnDrawItem(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
 	bHandled = TRUE; 
-	if(((LPDRAWITEMSTRUCT)lParam)->hwndItem == m_pSlidebar->getwindow()) 
-	{
-      m_pSlidebar->Redraw((LPDRAWITEMSTRUCT)lParam);
-    }
-    else
-      return DefWindowProc( message, wParam, lParam); 
- 
-	return 0;
-}
+	
+  return DefWindowProc( message, wParam, lParam); 
+ }
 
 LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
 {
