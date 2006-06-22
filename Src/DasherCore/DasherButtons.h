@@ -31,7 +31,7 @@ class CDasherButtons : public CInputFilter
   bool DecorateView(CDasherView *pView);
   
   void KeyDown(int iTime, int iId, CDasherModel *pModel);
-  void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
 
   void SetupBoxes();
 
@@ -59,6 +59,7 @@ class CDasherButtons : public CInputFilter
 
   int m_iLastTime;
   bool m_bHighlight;
+  bool m_bDecorationChanged;
 
 };
 

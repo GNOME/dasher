@@ -27,7 +27,6 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   // Construct the buffer pixmaps
   // FIXME - only allocate without cairo
 
-  
 
   m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
@@ -155,6 +154,7 @@ void CCanvas::Display() {
 }
 
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {
+
 #if WITH_CAIRO
 #else
   GdkGC *graphics_context;
@@ -335,7 +335,6 @@ void CCanvas::Polyline(Dasher::CDasherScreen::point *Points, int Number, int iWi
 }
 
 void CCanvas::DrawString(const std::string &String, int x1, int y1, int size) {
-
 #if WITH_CAIRO
 #else
   GdkGC *graphics_context;

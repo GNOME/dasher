@@ -21,7 +21,10 @@ class CInputFilter : public CDasherModule {
   virtual bool DecorateView(CDasherView *pView) { return false; };
   virtual void KeyDown(int Time, int iId, CDasherModel *pModel) {};
   virtual void KeyUp(int Time, int iId, CDasherModel *pModel) {};
-  virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {};
+  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) { return false; };
+
+  virtual void Activate() {};
+  virtual void Deactivate() {};
   
  protected:
   CDasherInterfaceBase *m_pInterface;

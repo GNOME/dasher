@@ -212,9 +212,6 @@ static void dasher_preferences_dialogue_destroy(GObject *pObject) {
 // Public methods
 
 DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidgets, DasherEditor *pEditor) {
-
-  g_message("Creating preferences dialogue");
-
   DasherPreferencesDialogue *pDasherControl;
   pDasherControl = (DasherPreferencesDialogue *)(g_object_new(dasher_preferences_dialogue_get_type(), NULL));
   DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pDasherControl->private_data);
@@ -1588,9 +1585,7 @@ extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath
 }
 
 extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData) {
-  g_message("Realised");
   // TODO: This doesn't seem to be working
-
   gint *pParameter = (gint *)pUserData;
   RefreshWidget(*pParameter);
 }

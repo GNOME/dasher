@@ -147,7 +147,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void Trace() const;           // diagnostics
   //void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-  void Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
+  bool Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
 /*   void GoTo(double, myint);     // jumps to a new viewpoint */
    void NewGoTo(myint n1, myint n2, int style);
@@ -276,6 +276,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   bool CheckForNewRoot(CDasherView *pView);
 
   void ScheduleZoom(int dasherx, int dashery);
+
+  int ScheduledSteps() {
+    return m_deGotoQueue.size();
+  }
+
+  void Offset(int iOffset);
+
  
  private:
 
@@ -302,6 +309,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   // Rootmin and Rootmax specify the position of the root node in Dasher coords
   myint m_Rootmin, m_Rootmax;
+  
+  myint m_iTargetMin;
+  myint m_iTargetMax;
 
   myint m_Rootmin_min, m_Rootmax_max;
 

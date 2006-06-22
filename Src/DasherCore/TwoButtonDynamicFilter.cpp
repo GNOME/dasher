@@ -24,6 +24,7 @@ CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventH
 
   bStarted = false;
   m_bBackoff = false;
+  m_bDecorationChanged = true;
 }
 
 CTwoButtonDynamicFilter::~CTwoButtonDynamicFilter() {
@@ -64,15 +65,16 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   
   pScreen->Polyline(p, 2, 1, 2);
 
-  return true;
+  bool bRV(m_bDecorationChanged);
+  m_bDecorationChanged = false;
+  return bRV;
 }
 
-void CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   if(m_bBackoff)
-    m_pDasherModel->Tap_on_display(4096,2048, Time, 0, 0);
+    return m_pDasherModel->Tap_on_display(4096,2048, Time, 0, 0);
   else
-    m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
-
+    return m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
 }
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
@@ -91,11 +93,11 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
     m_bBackoff = true;
     break;
   case 2:
-    pModel->ScheduleZoom(1024,1024);
+    pModel->Offset(1024);
     break;
   case 3:
   case 4:
-    pModel->ScheduleZoom(1024,3096);
+    pModel->Offset(-1024);
     break;
   case 100: // Start on mouse
     if(GetBoolParameter(BP_START_MOUSE)) {
@@ -133,4 +135,12 @@ void CTwoButtonDynamicFilter::HandleEvent(Dasher::CEvent * pEvent) {
       break;
     }
   }
+}
+
+void CTwoButtonDynamicFilter::Activate() {
+  SetBoolParameter(BP_DELAY_VIEW, true);
+}
+
+void CTwoButtonDynamicFilter::Deactivate() {
+  SetBoolParameter(BP_DELAY_VIEW, false);
 }

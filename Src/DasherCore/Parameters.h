@@ -22,7 +22,8 @@ enum {
   BP_BUTTONMENU, BP_BUTTONPULSING, BP_BUTTONSTEADY, 
   BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
-  BP_OLD_STYLE_PUSH, BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, END_OF_BPS
+  BP_OLD_STYLE_PUSH, BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
+  BP_DELAY_VIEW, END_OF_BPS
 };
 
 enum { 
@@ -130,7 +131,8 @@ static bp_table boolparamtable[] = {
   {BP_SOCKET_DEBUG, "SocketInputDebug", PERS, false, "Print information about socket input processing to console"},
   {BP_OLD_STYLE_PUSH, "OldStylePush", PERS, false, "Old style node pushing algorithm"},
   {BP_CIRCLE_START, "CircleStart", PERS, false, "Start on circle mode"},
-  {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"}
+  {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"},
+  {BP_DELAY_VIEW, "DelayView", !PERS, false, "Delayed dynamics (for two button mode)"}
 };
 
 static lp_table longparamtable[] = {

@@ -11,12 +11,16 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
   virtual bool DecorateView(CDasherView *pView);
-  virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);
   
+  virtual void Activate();
+  virtual void Deactivate();
+
  private:
   int m_iTarget;
+  int m_iTargetCount;
 
   int *m_iTargetX;
   int *m_iTargetY;
@@ -26,6 +30,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   int m_iKeyTime;
   bool bStarted;
   bool m_bBackoff;
+  bool m_bDecorationChanged;
 };
 
 #endif

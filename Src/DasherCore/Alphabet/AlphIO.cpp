@@ -521,13 +521,9 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
   }
 
   if(strcmp(name, "group") == 0) {
-//     AlphInfo::group NewGroup;
-//     NewGroup.Colour = -1;
-//     NewGroup.Label = "";
-//     Me->InputInfo.Groups.push_back(NewGroup);
-    
     SGroupInfo *pNewGroup(new SGroupInfo);
     pNewGroup->iColour = 0;
+
     if(Me->bFirstGroup) {
       pNewGroup->bVisible = false;
       Me->bFirstGroup = false;
@@ -538,18 +534,15 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
+	// TODO: Fix this, or remove if names aren't needed
+
 //         atts++;
 //         Me->InputInfo.Groups.back().Description = *atts;
 //         atts--;
       }
       if(strcmp(*atts, "b") == 0) {
         atts++;
-	//        Me->InputInfo.Groups.back().Colour = atoi(*atts);
 	pNewGroup->iColour = atoi(*atts);
-// 	if(pNewGroup->iColour == 0)
-// 	  pNewGroup->bVisible = false;
-// 	else
-// 	  pNewGroup->bVisible = true;
         atts--;
       }
       if(strcmp(*atts, "visible") == 0) {
@@ -562,7 +555,6 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       }
       if(strcmp(*atts, "label") == 0) {
         atts++;
-	//        Me->InputInfo.Groups.back().Label = *atts;
 	pNewGroup->strLabel = *atts;
         atts--;
       }
@@ -588,7 +580,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     return;
   }
 
-  //-- Added for Kanji Conversion by T.Kaburagi 13 July 2005 START
+  // Special characters for character composition
   if(strcmp(name, "convert") == 0) {
     while(*atts != 0) {
       if(strcmp(*atts, "t") == 0) {
@@ -642,7 +634,6 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     }
     return;
   }
-  //-- Added for Kanji Conversion by T.Kaburagi 13 July 2005 END
 
   if(strcmp(name, "s") == 0) {
     AlphInfo::character NewCharacter;
@@ -710,7 +701,6 @@ void CAlphIO::XML_EndElement(void *userData, const XML_Char *name) {
   }
 
   if(!strcmp(name, "group")) {
-    //    Me->InputInfo.Groups.pop_back(NewGroup);
     Me->InputInfo.m_vGroups.back()->iEnd = Me->InputInfo.m_iCharacters;
     Me->InputInfo.m_vGroups.pop_back();
     return;

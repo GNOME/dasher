@@ -40,7 +40,7 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
   return bDidSomething;
 }
 
-void CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   myint iDasherX;
   myint iDasherY;
 
@@ -49,12 +49,15 @@ void CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   ApplyAutoCalibration(iDasherX, iDasherY, true);
   ApplyTransform(iDasherX, iDasherY);
 
-  m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);
+  bool bDidSomething;
+  bDidSomething = m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);
 
   m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
 
   if(m_pStartHandler)
     m_pStartHandler->Timer(Time, m_pDasherView, m_pDasherModel);
+
+  return bDidSomething;
 }
 
 void CDefaultFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {

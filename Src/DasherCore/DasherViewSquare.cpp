@@ -677,6 +677,8 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
 
   // Apply y scaling
 
+  // TODO: Check that this is still doing something vaguely sensible - I think it isn't
+
   if(iMode == 1 ) {
     if( GetLongParameter(LP_YSCALE) > 0 ) {
       
@@ -754,6 +756,8 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
   }
 
 
+  // TODO: Mode probably isn't being used any more
+
   // Convert the input co-ordinates to dasher co-ordinates
 
   int mode;
@@ -804,6 +808,8 @@ void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bAc
 
   Screen()->Polyline(p, 4, iWidth, iColour);
 }
+
+// TODO: Autocalibration should be in the eyetracker filter class
 
 void CDasherViewSquare::ResetSum() {
   m_ySum = 0;

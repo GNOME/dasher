@@ -78,8 +78,6 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           ModuleManager.h \
                           NodeManager.h \
                           NodeManagerFactory.h \
-                          OneButtonFilter.cpp \
-                          OneButtonFilter.h \
                           OneDimensionalFilter.cpp \
                           OneDimensionalFilter.h \
                           Parameters.h \

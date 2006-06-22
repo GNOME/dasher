@@ -1,5 +1,5 @@
 AC_PREREQ(2.56)
-AC_INIT([dasher],[4.1.4],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
+AC_INIT([dasher],[4.1.5],[http://bugzilla.gnome.org/enter_bug.cgi?product=dasher])
 AC_REVISION([$Id: configure.in,v])
 AC_CONFIG_SRCDIR([Src/main.cc])
 AC_CONFIG_HEADERS(config.h)
@@ -212,7 +212,7 @@ if [[ x"$WITHSPEECH" = xtrue ]]; then
 fi
 
 if [[ x"$WITHA11Y" = xtrue ]]; then
-	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0)
+	PKG_CHECK_MODULES(gnome_a11y, bonobo-activation-2.0 libbonobo-2.0 ORBit-2.0 libgnomeui-2.0 cspi-1.0 atk)
 	AC_DEFINE([GNOME_A11Y], 1, [gnome_a11y libraries are present])
 fi
 

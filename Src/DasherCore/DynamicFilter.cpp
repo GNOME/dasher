@@ -24,6 +24,7 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
     m_iStyle = 0;
 
   bStarted = false;
+  m_bDecorationChanged = true;
 }
 
 CDynamicFilter::~CDynamicFilter() {
@@ -62,15 +63,17 @@ bool CDynamicFilter::DecorateView(CDasherView *pView) {
 
   pScreen->DrawRectangle(x1, y1, x2, y2, 2, 2, Opts::ColorSchemes(Objects), true, false, 1);
 
-  return true;
+  bool bRV(m_bDecorationChanged);
+  m_bDecorationChanged = false;
+  return bRV;
 }
 
-void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   myint iX;
   myint iY;
 
   if(bBackOff)
-    m_pDasherModel->Tap_on_display(3096,2048, Time, 0, 0);
+    return m_pDasherModel->Tap_on_display(3096,2048, Time, 0, 0);
   else {
     if( GetBoolParameter(BP_BUTTONSTEADY) || !bStarted || (Time - m_iKeyTime > 1000)) {
       iX = m_iTargetX[m_iTarget];
@@ -81,7 +84,7 @@ void CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
       iY = ((Time - m_iKeyTime) * m_iTargetY[m_iTarget] + (1000 - (Time - m_iKeyTime)) * 2048) / 1000;
     }
 
-    m_pDasherModel->Tap_on_display(iX, iY, Time, 0, 0);
+    return m_pDasherModel->Tap_on_display(iX, iY, Time, 0, 0);
   }
 }
 
@@ -95,6 +98,7 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
       m_iTarget = 1 - m_iTarget;
       bStarted = true;
       m_iKeyTime = iTime;
+      m_bDecorationChanged = true;
     }
   }
   else if(iId == 1) {

@@ -24,7 +24,7 @@
 #include "DasherButtons.h"
 #include "DynamicFilter.h"
 #include "EyetrackerFilter.h"
-#include "OneButtonFilter.h"
+//#include "OneButtonFilter.h"
 #include "OneDimensionalFilter.h"
 #include "StylusFilter.h"
 #include "TwoButtonDynamicFilter.h"
@@ -156,8 +156,6 @@ void CDasherInterfaceBase::PreSetNotify(int iParameter, const std::string &sNewV
   switch(iParameter) {
   case SP_ALPHABET_ID: 
     // Cycle the alphabet history
-    std::cout << "Preset: " << sNewValue << std::endl;
-
     if(GetStringParameter(SP_ALPHABET_ID) != sNewValue) {
       if(GetStringParameter(SP_ALPHABET_1) != sNewValue) {
 	if(GetStringParameter(SP_ALPHABET_2) != sNewValue) {
@@ -229,52 +227,12 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     case SP_INPUT_DEVICE:
       CreateInput();
       break;
-  //   case BP_NUMBER_DIMENSIONS:
-//     case BP_EYETRACKER_MODE:
-//     case BP_KEY_CONTROL:
-//     case BP_BUTTONONESTATIC:
-//     case BP_BUTTONONEDYNAMIC:
-//     case BP_BUTTONMENU:
-//     case BP_BUTTONDIRECT:
-//     case BP_BUTTONFOURDIRECT:
-//     case BP_BUTTONALTERNATINGDIRECT:
-//     case BP_COMPASSMODE:
-//     case BP_CLICK_MODE:
-//       // Delibarate fallthrough.  
-//       // FIXME - Horrible mess below - should really use
-//       // SP_INPUT_FILTER directly for the sake of sanity
-//       if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-// 	SetLongParameter(LP_INPUT_FILTER, 4); // 1D mode
-//       else if(GetBoolParameter(BP_EYETRACKER_MODE))
-// 	SetLongParameter(LP_INPUT_FILTER, 5);//"Eyetracker Mode"
-//       else if(GetBoolParameter(BP_CLICK_MODE))
-// 	SetLongParameter(LP_INPUT_FILTER, 7);//"Click Mode"
-//       else if(GetBoolParameter(BP_KEY_CONTROL)) {
-// 	// Various button modes
-// 	if(GetBoolParameter(BP_BUTTONONESTATIC))
-// 	  SetLongParameter(LP_INPUT_FILTER, 8);//"One Button Static"
-// 	else if(GetBoolParameter(BP_BUTTONONEDYNAMIC))
-// 	  SetLongParameter(LP_INPUT_FILTER, 6);//"One Button Dynamic"
-// 	else if(GetBoolParameter(BP_BUTTONMENU))
-// 	  SetLongParameter(LP_INPUT_FILTER, 8);//"Button Menu"
-// 	else if(GetBoolParameter(BP_BUTTONDIRECT))
-// 	  SetLongParameter(LP_INPUT_FILTER, 10); //"Three Button Direct"
-// 	else if(GetBoolParameter(BP_BUTTONFOURDIRECT))
-// 	  SetLongParameter(LP_INPUT_FILTER, 11);//"Four Button Direct"
-// 	else if(GetBoolParameter(BP_BUTTONALTERNATINGDIRECT))
-// 	  SetLongParameter(LP_INPUT_FILTER, 12);//"Alternating Direct"
-// 	else if(GetBoolParameter(BP_COMPASSMODE))
-// 	  SetLongParameter(LP_INPUT_FILTER, 13);//"Compass Mode"
-//       }
-//       else
-// 	SetLongParameter(LP_INPUT_FILTER, 3);//"Default"
-//       break;
     case SP_INPUT_FILTER:
       CreateInputFilter();
       break;
     default:
-      break;}
-      
+      break;
+    }
   }
   else if(pEvent->m_iEventType == 2) {
     CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
@@ -321,10 +279,6 @@ void CDasherInterfaceBase::WriteTrainFilePartial() {
   WriteTrainFile(strTrainfileBuffer.substr(0,100));
   strTrainfileBuffer = strTrainfileBuffer.substr(100);
 }
-
-// void CDasherInterfaceBase::RequestFullRedraw() {
-//   SetBoolParameter( BP_REDRAW, true );
-// }
 
 void CDasherInterfaceBase::CreateDasherModel() 
 {
@@ -436,8 +390,6 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
 void CDasherInterfaceBase::CreateInput() {
 
-  std::cout << "Creating input device: " << GetStringParameter(SP_INPUT_DEVICE) << std::endl;
-
   // FIXME - this shouldn't be the model used here - we should just change a parameter and work from the appropriate listener
 
   if(m_pInput) {
@@ -471,8 +423,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 	int iNumDeleted = 0;
 	
 	if(m_pInputFilter) {
-	  bChanged = true; // TODO: Actually make CInputFilter::Timer return bool
-	  m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
 	}
 	
 	if (iNumDeleted > 0)
@@ -483,8 +434,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
       }
       else {
 	if(m_pInputFilter) {
-	  bChanged = true;
-	  m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel);
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel);
 	}
       }
       
@@ -494,6 +444,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 
   Redraw(bChanged);
 
+  // This just passes the time through to the framerate tracker, so we
+  // know how often new frames are being drawn.
   if(m_pDasherModel != 0)
     m_pDasherModel->NewFrame(iTime);
 }
@@ -508,7 +460,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
-    m_pDasherModel->RenderToView(m_pDasherView,true);
+    m_pDasherModel->RenderToView(m_pDasherView, true);
   }
   
   m_pDasherView->Screen()->SendMarker(1);
@@ -516,8 +468,7 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   bool bDecorationsChanged(false);
   
   if(m_pInputFilter) {
-    bDecorationsChanged = true;
-    m_pInputFilter->DecorateView(m_pDasherView);
+    bDecorationsChanged = m_pInputFilter->DecorateView(m_pDasherView);
   }
   
   if(bRedrawNodes || bDecorationsChanged)
@@ -527,9 +478,9 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
 void CDasherInterfaceBase::ChangeAlphabet() {
 
   if(GetStringParameter(SP_ALPHABET_ID) == "") {
-    std::cout << "Looking up default alphabet" << std::endl;
-    
     SetStringParameter(SP_ALPHABET_ID, m_AlphIO->GetDefault());
+    // This will result in ChangeAlphabet() being called again, so
+    // exit from the first recursion
     return;
   }
   
@@ -773,6 +724,8 @@ void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
      while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {
        // Do nothing
      }
+
+   Redraw(true);
 }
 
 
@@ -843,14 +796,17 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
 void CDasherInterfaceBase::CreateInputFilter()
 {
   if(m_pInputFilter) {
+    m_pInputFilter->Deactivate();
     m_pInputFilter->Unref();
     m_pInputFilter = NULL;
   }
 
   m_pInputFilter = (CInputFilter *)GetModuleByName(GetStringParameter(SP_INPUT_FILTER));
 
-  if(m_pInputFilter)
+  if(m_pInputFilter) {
     m_pInputFilter->Ref();
+    m_pInputFilter->Activate();
+  }
 }
 
 void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {

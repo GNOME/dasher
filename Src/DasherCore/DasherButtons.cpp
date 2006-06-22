@@ -33,6 +33,8 @@ CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsS
 
   m_pSettingsStore = pSettingsStore;
 
+  m_bDecorationChanged = true;
+
   SetupBoxes();
 }
 
@@ -317,7 +319,9 @@ bool CDasherButtons::DecorateView(CDasherView *pView) {
     pView->NewDrawGoTo(m_pBoxes[iActiveBox].iDisplayTop, m_pBoxes[iActiveBox].iDisplayBottom, m_bMenu || m_bHighlight);
   }
 
-  return true;
+  bool bRV(m_bDecorationChanged);
+  m_bDecorationChanged = false;
+  return bRV;
 }
  
 
@@ -327,12 +331,14 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
     switch(iId) {
     case 1:
     case 4:
+      m_bDecorationChanged = true;
       ++iActiveBox;
       if(iActiveBox == m_iNumBoxes)
 	iActiveBox = 0;
        break;
     case 2:
     case 3:
+      m_bDecorationChanged = true;
       pModel->ScheduleZoom((m_pBoxes[iActiveBox].iBottom - m_pBoxes[iActiveBox].iTop)/2, (m_pBoxes[iActiveBox].iBottom + m_pBoxes[iActiveBox].iTop)/2);
       if(iActiveBox != m_iNumBoxes-1)
 	iActiveBox = 0;
@@ -380,9 +386,14 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
 
 }
 
-void CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+  bool m_bOldHighlight(m_bHighlight);
   m_bHighlight = (Time - m_iLastTime < 200);
-  m_pDasherModel->Tap_on_display(0, 0, Time, 0, 0);
+
+  if(m_bOldHighlight != m_bHighlight)
+    m_bDecorationChanged = true;
+
+  return m_pDasherModel->Tap_on_display(0, 0, Time, 0, 0);
 }
 
 void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {

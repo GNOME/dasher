@@ -27,7 +27,8 @@ endif
 EXTRA_DIST = \
                          dasher.glade \
                          dashergpe.glade \
-                         dashermaemo.glade
+                         dashermaemo.glade \
+			 dashermaemofullscreen.glade
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
