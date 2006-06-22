@@ -70,9 +70,9 @@ maemo-install: all
 	cp -a Data/maemo/* tmp_build
 	cp Src/dasher tmp_build/usr/bin/dasher
 	strip tmp_build/usr/bin/dasher
-	cp Src/Gtk2/dashermaemo.glade tmp_build/usr/share/dasher
+	cp Src/Gtk2/dashermaemo.glade Src/Gtk2/dashermaemofullscreen.glade tmp_build/usr/share/dasher
 	cp Data/system.rc/training_english_GB.txt Data/system.rc/alphabet.english.xml Data/system.rc/colour.xml tmp_build/usr/share/dasher
-	ln -sf /var/lib/install/usr/share/applications/hildon/dasher.desktop tmp_build/etc/others-menu/extra_applications/0301_dasher.desktop
+	ln -sf /usr/share/applications/hildon/dasher.desktop tmp_build/etc/others-menu/extra_applications/0301_dasher.desktop
 	- find tmp_build -name CVS -exec rm -rf \{\} \;
-	dpkg-deb -b tmp_build dasher.deb 
+	dpkg-deb -b tmp_build dasher_4.1.4.0inferencemaemo1_armel.deb 
 	rm -rf tmp_build

@@ -1,9 +1,8 @@
 Package: dasher
-Version: 4.1.0
-Section: x11
+Version: 4.1.4
+Section: user/utilities
 Priority: optional
-Architecture: arm
-Depends: maemo
+Architecture: armel
 Installed-Size: 1500
 Maintainer: Matthew Garrett <mjg59@srcf.ucam.org>
 Description: A graphical predictive text input system

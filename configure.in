@@ -6,13 +6,13 @@ AC_CONFIG_HEADERS(config.h)
 
 dnl The following two changes are required currently for the Maemo build (but will break the GNOME build)
 
-dnl AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
-AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2 no-dist-gzip])
+AM_INIT_AUTOMAKE([1.9 gnu check-news dist-bzip2 no-dist-gzip])
+dnl AM_INIT_AUTOMAKE([1.8 gnu check-news dist-bzip2 no-dist-gzip])
 AM_MAINTAINER_MODE
 
 AC_PROG_MAKE_SET
-dnl IT_PROG_INTLTOOL([0.34.90])
-AC_PROG_INTLTOOL(0.30)
+IT_PROG_INTLTOOL([0.34.90])
+dnl AC_PROG_INTLTOOL(0.30)
 
 AC_DISABLE_STATIC
 AC_PROG_LIBTOOL
@@ -233,6 +233,7 @@ if [[ x"$WITHMAEMO" = xtrue ]]; then
       dnl Yes, this sucks
       glade_LIBS="/usr/lib/libglade-2.0.a"
       PKG_CHECK_MODULES(hildon, hildon-libs)
+      AC_CHECK_LIB(osso, osso_initialize,, AC_MSG_ERROR([Osso library not found.]))
 fi			
 
 if [[ x"$WITHMAEMOFULLSCREEN" = xtrue ]]; then
@@ -296,6 +297,7 @@ AM_CONDITIONAL(GNOME_SPEECH, test x$WITHSPEECH = xtrue)
 AM_CONDITIONAL(GNOME_A11Y, test x$WITHA11Y = xtrue)
 AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
+AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
 AM_CONDITIONAL(WITH_DARWIN, test x$WITHDARWIN = xtrue)
 
