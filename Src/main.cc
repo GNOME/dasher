@@ -5,10 +5,9 @@
 #include <glade/glade.h>
 #include <signal.h>
 
-// #ifdef WITH_MAEMO
-// #include <hildon-lgpl/hildon-widgets/hildon-app.h>
-// #include <hildon-lgpl/hildon-widgets/hildon-appview.h>
-// #endif
+#ifdef WITH_MAEMO
+#include <libosso.h>
+#endif
 
 // TODO: This shouldn't need to be here
 #if (defined GNOME_SPEECH || defined GNOME_A11Y)
@@ -168,6 +167,12 @@ int main(int argc, char *argv[]) {
   gtk_init(&argc, &argv);
 #endif
 
+#ifdef WITH_MAEMO
+  osso_context_t *osso_context;
+
+  osso_context = osso_initialize("dasher", PACKAGE_VERSION, TRUE, NULL);
+#endif
+
 #ifdef GNOME_LIBS
   GnomeProgram *program = 0;
 #if GLIB_CHECK_VERSION(2,14,0)
@@ -230,6 +235,10 @@ int main(int argc, char *argv[]) {
   dasher_main_show(g_pDasherMain);
 
   gtk_main();
+
+#ifdef WITH_MAEMO
+  osso_deinitialize(osso_context);
+#endif
   
   if(g_pEditor)
     g_object_unref(G_OBJECT(g_pEditor));

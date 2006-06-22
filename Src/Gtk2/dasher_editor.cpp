@@ -169,7 +169,11 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
 
   // TODO: Make lock diaogue a full method
+#ifndef WITH_MAEMO
   dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(dasher_main_get_window(g_pDasherMain)));
+#else
+  dasher_lock_dialogue_new(pGladeXML, 0);
+#endif
   // TODO: Bring into object framework
   InitialiseFontDialogues(pGladeXML);
   
@@ -472,7 +476,9 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
     pCurrentAction = pCurrentAction->pNext;
   }
 
+#ifndef WITH_MAEMOFULLSCREEN
   dasher_editor_rebuild_action_pane(pSelf);
+#endif
 }
 
 extern "C" void delete_children_callback(GtkWidget *pWidget, gpointer pUserData) {

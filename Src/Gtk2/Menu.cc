@@ -445,7 +445,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   gtk_widget_show(label);
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), label, FALSE, FALSE, 0);
 
-  label = gtk_label_new("http://www.inference.phy.cam.ac.uk/dasher/");
+  label = gtk_label_new("http://www.dasher.org.uk/");
   gtk_widget_show(label);
   gtk_box_pack_start(GTK_BOX(GTK_DIALOG(about)->vbox), label, FALSE, FALSE, 0);
 

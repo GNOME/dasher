@@ -148,11 +148,7 @@ void CDasherControl::SetupPaths() {
   mkdir(user_data_dir, S_IRUSR | S_IWUSR | S_IXUSR | S_IRGRP | S_IXGRP | S_IROTH | S_IXOTH);
 
   // PROGDATA is provided by the makefile
-#ifdef WITH_MAEMO
-  system_data_dir = "/var/lib/install" PROGDATA "/";
-#else
   system_data_dir = PROGDATA "/";
-#endif
 
   SetStringParameter(SP_SYSTEM_LOC, system_data_dir);
   SetStringParameter(SP_USER_LOC, user_data_dir);

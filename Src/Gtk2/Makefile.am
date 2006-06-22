@@ -10,7 +10,13 @@ settings_store = gpesettings_store.cc gpesettings_store.h
 else
 
 if WITH_MAEMO
+
+if WITH_MAEMOFULLSCREEN
+gladefile = dashermaemofullscreen.glade
+else
 gladefile = dashermaemo.glade
+endif
+
 else
 gladefile = dasher.glade
 endif
@@ -90,4 +96,4 @@ AM_CXXFLAGS = $(GTK2BUILD_CFLAGS) -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgda
 AM_CFLAGS = $(GTK2_CFLAGS)
 
 
-pkgdata_DATA = dasher.glade dashermaemo.glade
+pkgdata_DATA = dasher.glade dashermaemo.glade dashermaemofullscreen.glade

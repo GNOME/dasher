@@ -158,14 +158,18 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 #ifdef WITH_GPE
   szGladeFilename = PROGDATA "/dashergpe.glade";
 #elif WITH_MAEMO
+#ifdef WITH_MAEMOFULLSCREEN
+  //  szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemofullscreen.glade";
+  szGladeFilename = PROGDATA "/dashermaemofullscreen.glade";
+#else
   //szGladeFilename = "/var/lib/install" PROGDATA "/dashermaemo.glade";
   szGladeFilename = PROGDATA "/dashermaemo.glade";
+#endif
 #else
   szGladeFilename = PROGDATA "/dasher.glade";
 #endif
 
   g_message("Glade file is: %s", szGladeFilename);
-
   pPrivate->pGladeXML = glade_xml_new(szGladeFilename, NULL, NULL);
 
   if (!pPrivate->pGladeXML) {
@@ -185,7 +189,17 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pSideMenu = glade_xml_get_widget(pPrivate->pGladeXML, "SideMenu");
   pPrivate->pDragHandle = glade_xml_get_widget(pPrivate->pGladeXML, "button31");
   pPrivate->pOuterFrame = glade_xml_get_widget(pPrivate->pGladeXML, "OuterFrame");
+
+  // TODO: This could be made more sensible with consistent naming
+#ifdef WITH_MAEMO
+#ifdef WITH_MAEMOFULLSCREEN
+  pPrivate->pInnerFrame = glade_xml_get_widget(pPrivate->pGladeXML, "hpaned1"); 
+#else
+  pPrivate->pInnerFrame = glade_xml_get_widget(pPrivate->pGladeXML, "hbox1"); 
+#endif
+#else
   pPrivate->pInnerFrame = glade_xml_get_widget(pPrivate->pGladeXML, "vbox1"); 
+#endif
 
 #ifndef WITH_MAEMO
   pPrivate->pSpeedBox = glade_xml_get_widget(pPrivate->pGladeXML, "spinbutton1");
@@ -208,7 +222,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 
 #ifdef WITH_MAEMOFULLSCREEN
   // TODO: This is horrible - no need to get it from the glade file if we're not going to use it
-  gtk_widget_hide(pPrivate->pMainWindow);
+
 
   pPrivate->pProgram = HILDON_PROGRAM(hildon_program_get_instance());
   //  hildon_app_set_title(pPrivate->pApp, "Dasher"); 
@@ -219,32 +233,63 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   gtk_widget_reparent(pPrivate->pInnerFrame, GTK_WIDGET(pPrivate->pHWindow));
   //  gtk_paned_set_position(GTK_PANED(window), 100);
 
-//   /* Do menu setup */
-//   GtkMenu *main_menu;
-//   GtkWidget *file_menu;
-//   GtkWidget *file_menu_item;
-//   GtkWidget *options_menu;
-//   GtkWidget *options_menu_item;
+  /* Do menu setup */
+  GtkMenu *main_menu;
+  GtkWidget *file_menu;
+  GtkWidget *file_menu_item;
+  GtkWidget *options_menu;
+  GtkWidget *options_menu_item;
+  GtkWidget *help_menu;
+  GtkWidget *help_menu_item;
+
+
 //   main_menu = hildon_appview_get_menu(appview);
-//   file_menu = glade_xml_get_widget(xml, "menuitem4_menu");
-//   options_menu = glade_xml_get_widget(xml, "options1_menu");
-//   file_menu_item = gtk_menu_item_new_with_label ("File");
-//   options_menu_item = gtk_menu_item_new_with_label ("Options");
-//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
-//   gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu);
-//   //  gtk_widget_reparent (GTK_WIDGET(main_menu), file_menu);
-//   //  gtk_widget_reparent (GTK_WIDGET(main_menu), options_menu);
-//   gtk_menu_append( main_menu, file_menu_item);
-//   gtk_menu_append( main_menu, options_menu_item);
-//   gtk_widget_show_all( GTK_WIDGET( main_menu ) );
+
+  main_menu = GTK_MENU(gtk_menu_new());
+  file_menu = glade_xml_get_widget(pPrivate->pGladeXML, "menuitem4_menu");
+  options_menu = glade_xml_get_widget(pPrivate->pGladeXML, "options1_menu");
+  help_menu = glade_xml_get_widget(pPrivate->pGladeXML, "menuitem7_menu");
+  file_menu_item = gtk_menu_item_new_with_label ("File");
+  options_menu_item = gtk_menu_item_new_with_label ("Options");
+  help_menu_item = gtk_menu_item_new_with_label ("Help");
+
+  g_object_ref(file_menu);
+  g_object_ref(options_menu);
+  g_object_ref(help_menu);
+
+  gtk_menu_item_remove_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "menuitem4")));
+  gtk_menu_item_remove_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "options1")));
+  gtk_menu_item_remove_submenu(GTK_MENU_ITEM(glade_xml_get_widget(pPrivate->pGladeXML, "menuitem7")));
+
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(file_menu_item),file_menu);
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(options_menu_item),options_menu); 
+  gtk_menu_item_set_submenu(GTK_MENU_ITEM(help_menu_item),help_menu);
+  gtk_menu_append(main_menu, file_menu_item);
+  gtk_menu_append(main_menu, options_menu_item);
+  gtk_menu_append(main_menu, help_menu_item);
+
+  g_object_unref(file_menu);
+  g_object_unref(options_menu);
+  g_object_unref(help_menu);
+
+  hildon_program_set_common_menu(pPrivate->pProgram, main_menu); 
+
+  gtk_widget_show_all( GTK_WIDGET( main_menu ) );
 
 //   /* And toolbar */
 //   GtkWidget *toolbar;
-//   toolbar = glade_xml_get_widget(xml, "toolbar");
+//   toolbar = glade_xml_get_widget(pPrivate->pGladeXML, "toolbar");
 //   g_print("Got %p\n",toolbar);
 //   gtk_widget_reparent (toolbar, appview->vbox);
 
   gtk_widget_show_all(GTK_WIDGET(pPrivate->pHWindow));
+
+  gtk_widget_destroy(pPrivate->pMainWindow);
+  pPrivate->pMainWindow = GTK_WIDGET(pPrivate->pHWindow);
+
+  g_signal_connect(G_OBJECT(pPrivate->pHWindow), "delete_event", G_CALLBACK(ask_save_before_exit), NULL);
+
+
 #endif
 
 #endif
@@ -263,7 +308,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   
 
   // Create a Maemo helper if necessary
-#ifdef WITH_MAEMO
+#if defined WITH_MAEMO && !defined WITH_MAEMOFULLSCREEN
   pPrivate->pMaemoHelper = dasher_maemo_helper_new(GTK_WINDOW(pPrivate->pMainWindow));
 #endif
 
@@ -318,6 +363,8 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
     // been mapped, so when the app style is changed the main window
     // needs to be destroyed and recreated.
     {
+      g_message("Setting up window");
+
       GtkWidget *pOldWindow = pPrivate->pMainWindow;
 
       pPrivate->pMainWindow = gtk_window_new(GTK_WINDOW_TOPLEVEL);
@@ -358,8 +405,10 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
   case BP_GLOBAL_KEYBOARD:
     dasher_main_setup_window(pSelf);
     break;
-#ifdef WITH_MAEMO
+#if defined WITH_MAEMO && !defined WITH_MAEMOFULLSCREEN
   case APP_LP_MAEMO_SIZE: {
+    g_message("Maemo size");
+
     bool bVisible = GTK_WIDGET_VISIBLE(pPrivate->pMainWindow);
     gtk_widget_hide(pPrivate->pMainWindow);
     if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE) == 0) {
@@ -405,15 +454,16 @@ void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSett
   // values
   
 #ifndef WITH_MAEMO
-
   // TODO: put status bar initialisation somewhere else
   pPrivate->iComboCount = 0;
   dasher_main_populate_alphabet_combo(pSelf);
 
   gtk_spin_button_set_value(GTK_SPIN_BUTTON(pPrivate->pSpeedBox), dasher_app_settings_get_long(pPrivate->pAppSettings, LP_MAX_BITRATE) / 100.0);
+#endif
+
+#if !defined WITH_MAEMO || defined WITH_MAEMOFULLSCREEN
   // TODO: bring into object framework
   PopulateMenus(pPrivate->pGladeXML);
-  
   dasher_main_load_state(pSelf);
 #endif
 
@@ -438,7 +488,10 @@ void dasher_main_load_state(DasherMain *pSelf) {
     iWindowHeight = dasher_app_settings_get_long(pPrivate->pAppSettings, APP_LP_SCREEN_HEIGHT_H);
   }
 
+#ifndef WITH_MAEMO
   gtk_window_resize(GTK_WINDOW(pPrivate->pMainWindow), iWindowWidth, iWindowHeight);
+#endif
+
   gtk_paned_set_position(GTK_PANED(pPrivate->pDivider), iEditHeight);
 
   pPrivate->iWidth = iWindowWidth;
