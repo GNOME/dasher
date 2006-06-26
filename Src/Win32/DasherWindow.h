@@ -47,11 +47,9 @@ public:
 		MESSAGE_HANDLER(WM_GETMINMAXINFO,OnGetMinMaxInfo)
 		MESSAGE_HANDLER(WM_INITMENUPOPUP,OnInitMenuPopup)
 		MESSAGE_HANDLER(WM_SETFOCUS,OnSetFocus)
-		MESSAGE_HANDLER(WM_DRAWITEM,OnDrawItem)
 		MESSAGE_RANGE_HANDLER(0xC000,0xFFFF,OnOther)
 	END_MSG_MAP()
 
-	LRESULT OnDrawItem(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);

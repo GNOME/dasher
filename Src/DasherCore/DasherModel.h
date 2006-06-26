@@ -284,8 +284,15 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return m_deGotoQueue.size();
   }
 
+  // Apply an offset to the 'target' coordinates - implements the jumps in
+  // two button dynamic mode.
   void Offset(int iOffset);
  
+  // Reset the 'target' root coordinates to match those currently visible. 
+  // Appropriate for abrubt changes in behaviour (such as backing off in 
+  // button modes)
+  void CDasherModel::MatchTarget();
+
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;

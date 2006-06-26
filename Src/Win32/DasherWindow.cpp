@@ -124,9 +124,6 @@ HWND CDasherWindow::Create()
   Tstring WindowTitle;
   WinLocalisation::GetResourceString(IDS_APP_TITLE, &WindowTitle);
 
-  // Create the Main window
-  //Tstring WndClassName = CreateMyClass();
-// Create a CAppSettings
   m_pAppSettings = new CAppSettings(0, 0);
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
 
@@ -135,16 +132,6 @@ HWND CDasherWindow::Create()
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN,  WS_EX_NOACTIVATE | WS_EX_APPWINDOW | WS_EX_TOPMOST);
   else
     hWnd = CWindowImpl<CDasherWindow >::Create(NULL, NULL, WindowTitle.c_str(), WS_OVERLAPPEDWINDOW | WS_CLIPCHILDREN);
-
-  // Splash screen (turned off for debugging when it gets in the way)
-  // It is deleted when Show() is called.
-  /*
-     D'oh I've moved things around. Now Splash being here is totally inappropriate;
-     Need to make it appear and disappear when training.
-     #ifndef _DEBUG
-     Splash = new CSplash(m_hwnd);
-     #endif
-   */
 
   // Create Widgets
   m_pDasher = new CDasher(hWnd);
@@ -161,7 +148,7 @@ HWND CDasherWindow::Create()
   g_hWnd = m_pEdit->GetHwnd();
 #endif
 
-  m_pToolbar = new CToolbar(hWnd, m_pDasher, m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
+  m_pToolbar = new CToolbar(hWnd, m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
 
   // FIXME - the edit box really shouldn't need access to the interface, 
   // but at the moment it does, for training, blanking the display etc
@@ -171,10 +158,14 @@ HWND CDasherWindow::Create()
   // FIXME - we shouldn't need to know about these outside of CDasher
 
   m_pCanvas = m_pDasher->GetCanvas();
-  m_pSlidebar = m_pDasher->GetSlidebar();
+
+  m_pSlidebar = new CSlidebar(hWnd, m_pDasher);
+
 
   m_pSplitter = new CSplitter(this,100);
+  
   HWND hSplitter =  m_pSplitter->Create(hWnd);
+  
   if (!hSplitter)
 	  return 0;
 
@@ -214,22 +205,6 @@ CDasherWindow::~CDasherWindow() {
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-/*
-int CDasherWindow::MessageLoop() {
-  MSG msg;
-  while(GetMessage(&msg, NULL, 0, 0)) {
-    if(!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
-      TranslateMessage(&msg);
-      DispatchMessage(&msg);
-    }
-  }
-
-  return msg.wParam;
-}
-*/
-
-/////////////////////////////////////////////////////////////////////////////
 
 void CDasherWindow::Main()
 {
@@ -237,8 +212,6 @@ void CDasherWindow::Main()
 	m_pDasher->Main();
 	Sleep(20); // limits framerate to 50fps
 }
-
-/////////////////////////////////////////////////////////////////////////////
 
 int CDasherWindow::MessageLoop() 
 {
@@ -306,39 +279,26 @@ bool CDasherWindow::LoadWindowState() {
   return false;
 }
 
-
-
 void CDasherWindow::HandleParameterChange(int iParameter) {
   switch(iParameter) {
    case APP_BP_SHOW_TOOLBAR:
-    m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
-    break;
+     m_pToolbar->ShowToolbar(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR));
+     break;
    case APP_LP_STYLE:
      Layout();
      break;
    case APP_BP_TIME_STAMP:
-    m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
-    break;
+     // TODO: reimplement
+     // m_pEdit->TimeStampNewFiles(m_pAppSettings->GetBoolParameter(APP_BP_TIME_STAMP));
+     break;
 	 case LP_MAX_BITRATE:
-	  m_pSlidebar->SetValue(m_pAppSettings->GetLongParameter(LP_MAX_BITRATE) / 100.0);
+    // TODO: reimplement
 	  break;
-   case BP_DASHER_PAUSED:
-     // TODO: This should be triggered on start/stop event, not here
-    if(m_pAppSettings && m_pDasher && 
-       m_pAppSettings->GetBoolParameter(BP_DASHER_PAUSED) && 
-       m_pAppSettings->GetBoolParameter(APP_BP_COPY_ALL_ON_STOP))
-      if(m_pEdit)
-        m_pEdit->CopyAll();
-    break;
    case APP_SP_EDIT_FONT:
    case APP_LP_EDIT_FONT_SIZE:
      m_pEdit->SetFont(m_pAppSettings->GetStringParameter(APP_SP_EDIT_FONT), m_pAppSettings->GetLongParameter(APP_LP_EDIT_FONT_SIZE));
      break;
   }
-
-  // Other things might be interested to:
-  if(m_pSlidebar) 
-    m_pSlidebar->HandleParameterChange(iParameter);
 }
 
 void CDasherWindow::HandleControlEvent(int iID) {
@@ -440,33 +400,14 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	// Parse the menu selections:
 	switch (wmId) 
 	{
-	  case ID_OPTIONS_ENTERTEXT:
-		  GetWindowRect( &windowsize);
-		  if(m_pEdit->GetTextEntry() == false) {
-			  SetWindowPos(HWND_TOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
-			  m_pEdit->TextEntry(true);
-		  }
-		  else 
-		  {
-			  SetWindowPos(HWND_NOTOPMOST, windowsize.left, windowsize.top, (windowsize.right - windowsize.left), (windowsize.bottom - windowsize.top), NULL);
-			  m_pEdit->TextEntry(false);
-		  }
-		  return 0;
-	  case ID_OPTIONS_CONTROLMODE:
-		  m_pDasher->SetBoolParameter(BP_CONTROL_MODE, !WinMenu.GetCheck(ID_OPTIONS_CONTROLMODE));
-//		  m_pDasher->RequestFullRedraw();
-		  return 0;
 	  case ID_OPTIONS_FONTSIZE_NORMAL:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(1));
-//		  m_pDasher->RequestFullRedraw();
 		  break;
 	  case ID_OPTIONS_FONTSIZE_LARGE:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(2));
-//		  m_pDasher->RequestFullRedraw();
 		  break;
 	  case ID_OPTIONS_FONTSIZE_VERYLARGE:
 		  m_pDasher->SetLongParameter(LP_DASHER_FONTSIZE, Dasher::Opts::FontSize(4));
-//		  m_pDasher->RequestFullRedraw();
 		  break;
 	  case ID_OPTIONS_EDITFONT:{
 		  CHOOSEFONT Data;
@@ -513,53 +454,20 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  m_pAppSettings->ResetParamater(SP_DASHER_FONT);
 		  m_pAppSettings->ResetParamater(APP_SP_EDIT_FONT);
 		  return 0;
-	  case IDM_ABOUT:
-		  {
+	  case IDM_ABOUT: {
 			  CAboutBox Aboutbox;
 			  Aboutbox.DoModal(m_hWnd);
 			  return 0;
 		  }
-	  case ID_OPTIONS_EDITKEYS:
-		  {
-			  CKeyBox KeyBox(m_hWnd, m_pDasher);
-			  return 0;
-		  }
-	  case ID_OPTIONS_ALPHABET:
-		  {
-			  CAlphabetBox AlphabetBox(m_hWnd, m_pDasher);
-			  return 0;
-		  }
-	  case ID_OPTIONS_COLOURS:
-		  {
-			  CColourBox ColourBox(m_hWnd, m_pDasher);
-		  return 0;
-		  }
-	  case ID_OPTIONS_PREFS:
-		  {
-		  CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
-		  return 0;
+	  case ID_OPTIONS_PREFS: {
+		    CPrefs Prefs(m_hWnd, m_pDasher, m_pAppSettings);
+		    return 0;
 		  }
 	  case ID_HELP_CONTENTS:
-		//  WinHelp(TEXT("Dasher.chm"), HELP_FINDER, 0);
       HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
 		  return 0;
 	  case IDM_EXIT:
-		  //SendMessage(m_hWnd, WM_CLOSE, 0, 0);
 		  DestroyWindow();
-		  return 0;
-	
-		  // FIXME - These options shouldn't pass through the interface
-	  case ID_TB_SHOW:
-		  //     m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR, !WinMenu.GetCheck(ID_TB_SHOW));
-		  //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-		  return 0;
-	  case ID_TB_TEXT:
-		  //    m_pDasher->SetBoolParameter(BP_SHOW_TOOLBAR_TEXT, !WinMenu.GetCheck(ID_TB_TEXT));
-		  //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-		  return 0;
-	  case ID_TB_LARGE:
-		  //    m_pDasher->SetBoolParameter(BP_SHOW_LARGE_ICONS, !WinMenu.GetCheck(ID_TB_LARGE));
-		  //    m_pToolbar->ShowToolbar(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
 		  return 0;
 	  case ID_EDIT_SELECTALL:
 		  if(m_pEdit)
@@ -608,66 +516,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
       // TODO: Fix dummy arguments
 		  m_pDasher->TrainFile(m_pEdit->Import(),0,0);
 		  return 0;
-	
-		  // FIXME - This options shouldn't passs through the interface
-
-	  case ID_FIX_SPLITTER:
-		  //     m_pDasher->SetBoolParameter(BP_FIX_LAYOUT, !WinMenu.GetCheck(ID_FIX_SPLITTER));
-		  return 0;
-	  case ID_SHOW_SLIDE:
-		  m_pDasher->SetBoolParameter(BP_SHOW_SLIDER, !WinMenu.GetCheck(ID_SHOW_SLIDE));
-		  return 0;
-	
-		  // FIXME - These options shouldn't pass through the interface
-	  case ID_TIMESTAMP:
-		  //  m_pDasher->SetBoolParameter(BP_TIME_STAMP, !WinMenu.GetCheck(ID_TIMESTAMP));
-		  return 0;
-	  case ID_COPY_ALL_ON_STOP:
-		  //  m_pDasher->SetBoolParameter(BP_COPY_ALL_ON_STOP, !WinMenu.GetCheck(ID_COPY_ALL_ON_STOP));
-		  return 0;
-	
-	  case ID_ORIENT_ALPHABET:
-	  case ID_ORIENT_LR:
-	  case ID_ORIENT_RL:
-	  case ID_ORIENT_TB:
-	  case ID_ORIENT_BT:
-		  if(wmId==ID_ORIENT_ALPHABET) {
-			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::Alphabet);
-		  } else if(wmId==ID_ORIENT_LR) {
-			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::LeftToRight);
-		  } else if(wmId==ID_ORIENT_RL) {
-			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::RightToLeft);
-		  } else if(wmId==ID_ORIENT_TB) {
-			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::TopToBottom);
-		  } else if(wmId==ID_ORIENT_BT) {
-			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::BottomToTop);
-		  } else {  // If not any of these, this is the default setting
-			  m_pDasher->SetLongParameter(LP_ORIENTATION, Opts::LeftToRight);
-		  }
-		  return 0;
-	
-		  // FIXME - These options shouldn't pass through the interface
-		  // !!! Need to make this work. Probably get interface to tell edit box how to save and screen how to display
-		  // case ID_SAVE_AS_USER_CODEPAGE:
-		  // case ID_SAVE_AS_ALPHABET_CODEPAGE:
-		  // case ID_SAVE_AS_UTF8:
-		  // case ID_SAVE_AS_UTF16_LITTLE:
-		  // case ID_SAVE_AS_UTF16_BIG:
-		  //   if(wmId==ID_SAVE_AS_USER_CODEPAGE) {
-		  ////     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
-		  //   } else if(wmId==ID_SAVE_AS_ALPHABET_CODEPAGE) {
-		  //  //   m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::AlphabetDefault);
-		  //   } else if(wmId==ID_SAVE_AS_UTF8) {
-		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF8);
-		  //   } else if(wmId==ID_SAVE_AS_UTF16_LITTLE) {
-		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16LE);
-		  //   } else if(wmId==ID_SAVE_AS_UTF16_BIG) {
-		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UTF16BE);
-		  //   } else {// If not any of these, this is the default setting
-		  //     m_pDasher->SetLongParameter(LP_FILE_ENCODING, Opts::UserDefault);
-		  //   }
-		  //   break;
-	  default:
+    default:
 		  return DefWindowProc(message, wParam, lParam);
 	}
 
@@ -676,63 +525,46 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	return 0;
 }
 
-LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
+LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+	// Apparently putting the typecast directly in the switch doesn't work
+  CEvent *pEvent( (CEvent *)lParam );
 
-	// We can't switch on a dynamically allocated value...
-    CEvent *pEvent( (CEvent *)lParam );
-
-    switch(pEvent->m_iEventType) {
-      case EV_PARAM_NOTIFY:
-        HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
-        break;
-      case EV_EDIT:
-        if(m_pEdit) 
-          m_pEdit->HandleEvent(pEvent);
-        break;
-      case EV_EDIT_CONTEXT:
-        break;
-      case EV_START:
-        break;
-      case EV_STOP:
-        if(m_pEdit)
-          m_pEdit->speak(2);
-        break;
-      case EV_CONTROL:
-        HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
-        break;
-      default:
-        break;
-    }
+  switch(pEvent->m_iEventType) {
+    case EV_PARAM_NOTIFY:
+      HandleParameterChange(((CParameterNotificationEvent *)pEvent)->m_iParameter);
+      break;
+    case EV_CONTROL:
+      HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
+      break;
+    default:
+      break;
+  }
+  
+  if(m_pEdit) 
+     m_pEdit->HandleEvent(pEvent);
+  
 	return 0;
 }
 
-LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
+LRESULT CDasherWindow::OnDasherFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	::SetFocus(m_pEdit->GetHwnd());
-    HWND *pHwnd((HWND *)lParam);
-    m_pEdit->SetKeyboardTarget(*pHwnd);
+
+  // TODO: Is this obsolete?
+  HWND *pHwnd((HWND *)lParam);
+  m_pEdit->SetKeyboardTarget(*pHwnd);
 	return 0;
 }
 
-
-
-LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
-	OutputDebugString(TEXT("DasherWindow WM_DESTROY\n"));
-
+LRESULT CDasherWindow::OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	if(m_pEdit != 0) {
 		m_pEdit->write_to_file();
 	}
-	PostQuitMessage(0);
+
+  PostQuitMessage(0);
 	return 0;
 }
 
-LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
+LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	// not yet created
 	if (m_pToolbar == 0 || m_pSplitter == 0 || m_pSlidebar == 0)
 		return 0;
@@ -743,7 +575,7 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
     lppt[3].x = 100;            // Set minimum width (arbitrary)
     // Set minimum height:
     if(m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
-      lppt[3].y = m_pToolbar->Resize() + m_pSplitter->GetPos()
+      lppt[3].y = m_pToolbar->GetHeight() + m_pSplitter->GetPos()
         + m_pSplitter->GetHeight() + m_pSlidebar->GetHeight() + GetSystemMetrics(SM_CYEDGE) * 10;
     else
       lppt[3].y = m_pSplitter->GetPos()
@@ -752,66 +584,45 @@ LRESULT CDasherWindow::OnGetMinMaxInfo(UINT message, WPARAM wParam, LPARAM lPara
 	return 0;
 }
 
-LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE; 
+LRESULT CDasherWindow::OnInitMenuPopup(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	PopulateSettings();
 	WinMenu.SortOut((HMENU) wParam);
 	return 0;
 }
 
-LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = FALSE;
+LRESULT CDasherWindow::OnClose(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  // TODO: Prompt for confirmation here
 	SaveWindowState();
+  DestroyWindow();
 	return 0;
 }
 
-LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE;
+LRESULT CDasherWindow::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	if(wParam == SIZE_MINIMIZED)
-      return 0;
-//    m_pDasher->SetLongParameter(LP_SCREEN_WIDTH, LOWORD(lParam));
- //   m_pDasher->SetLongParameter(LP_SCREEN_HEIGHT, HIWORD(lParam));
-    Layout();
+    return 0;
+    
+  m_pToolbar->Resize();
+  m_pSlidebar->Resize();
+
+  Layout();
 
 	return 0;
 }
 
 
-LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE; 
+LRESULT CDasherWindow::OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	::SetFocus(m_pCanvas->getwindow());
  	return 0;
 }
 
-LRESULT CDasherWindow::OnDrawItem(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
-	bHandled = TRUE; 
-	
-  return DefWindowProc( message, wParam, lParam); 
- }
-
-LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled)
-{
+LRESULT CDasherWindow::OnOther(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
 	if (message == WM_DASHER_EVENT)
 		return OnDasherEvent( message, wParam, lParam, bHandled);
 	else if (message == WM_DASHER_FOCUS)
 		return OnDasherFocus(message, wParam, lParam, bHandled);
-	
+
 	return 0;
-
 }
-
-//LRESULT CDasherWindow::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
-  //RECT windowsize;
-//  switch (message) {
-  //  case MY_LAYOUT:
-  //  Layout();
- //   break;
-
 
 void CDasherWindow::Layout() {
   int iStyle(m_pAppSettings->GetLongParameter(APP_LP_STYLE));
@@ -839,14 +650,14 @@ void CDasherWindow::Layout() {
 
   int ToolbarHeight;
   if((m_pToolbar != 0) && m_pAppSettings->GetBoolParameter(APP_BP_SHOW_TOOLBAR))
-    ToolbarHeight = m_pToolbar->Resize();
+    ToolbarHeight = m_pToolbar->GetHeight() + 2;
   else
     ToolbarHeight = 0;
   int CurY = ToolbarHeight;
 
   int SlidebarHeight;
   if(m_pSlidebar != 0)
-    SlidebarHeight = m_pSlidebar->Resize(Width, Height);
+    SlidebarHeight = m_pSlidebar->GetHeight();
   else
     SlidebarHeight = 0;
   int MaxCanvas = Height - SlidebarHeight;
@@ -893,33 +704,8 @@ void CDasherWindow::PopulateSettings() {
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_NORMAL, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==1);
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_LARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==2);
     WinMenu.SetStatus(ID_OPTIONS_FONTSIZE_VERYLARGE, false, m_pDasher->GetLongParameter(LP_DASHER_FONTSIZE)==4);
-
-//    WinMenu.SetStatus(ID_TB_SHOW, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR));
-//    WinMenu.SetStatus(ID_TB_TEXT, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-  //  WinMenu.SetStatus(ID_TB_LARGE, !m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR), m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
-
-   // WinMenu.SetStatus(ID_TB_TEXT, false, m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT));
-//    WinMenu.SetStatus(ID_TB_LARGE, false, m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS));
-  //  WinMenu.SetStatus(ID_FIX_SPLITTER, false, m_pDasher->GetBoolParameter(BP_FIX_LAYOUT));
-//    WinMenu.SetStatus(ID_SHOW_SLIDE, false, m_pDasher->GetBoolParameter(BP_SHOW_SLIDER));
-//    WinMenu.SetStatus(ID_TIMESTAMP, false, m_pDasher->GetBoolParameter(BP_TIME_STAMP));
-//    WinMenu.SetStatus(ID_COPY_ALL_ON_STOP, false, m_pDasher->GetBoolParameter(BP_COPY_ALL_ON_STOP));
-    WinMenu.SetStatus(ID_OPTIONS_CONTROLMODE, false, m_pDasher->GetBoolParameter(BP_CONTROL_MODE));
-
-    WinMenu.SetStatus(ID_ORIENT_ALPHABET, false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::Alphabet);
-    WinMenu.SetStatus(ID_ORIENT_LR,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::LeftToRight);
-    WinMenu.SetStatus(ID_ORIENT_RL,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::RightToLeft);
-    WinMenu.SetStatus(ID_ORIENT_TB,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::TopToBottom);
-    WinMenu.SetStatus(ID_ORIENT_BT,       false, m_pDasher->GetLongParameter(LP_ORIENTATION)==Opts::BottomToTop);
-
- //   WinMenu.SetStatus(ID_SAVE_AS_USER_CODEPAGE,     false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UserDefault);
-  //  WinMenu.SetStatus(ID_SAVE_AS_ALPHABET_CODEPAGE, false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::AlphabetDefault);
- //   WinMenu.SetStatus(ID_SAVE_AS_UTF8,              false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF8);
- //   WinMenu.SetStatus(ID_SAVE_AS_UTF16_LITTLE,      false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16LE);
-  //  WinMenu.SetStatus(ID_SAVE_AS_UTF16_BIG,         false, m_pDasher->GetLongParameter(LP_FILE_ENCODING)==Opts::UTF16BE);
   }
 }
-
 
 #ifdef PJC_EXPERIMENTAL
 

@@ -24,8 +24,8 @@ class CDynamicFilter : public CInputFilter {
   int m_iStyle;
 
   int m_iKeyTime;
-  bool bStarted;
-  bool bBackOff;
+  bool m_bStarted;
+  bool m_bBackOff;
   bool m_bDecorationChanged;
 };
 

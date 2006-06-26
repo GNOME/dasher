@@ -28,10 +28,6 @@ public:
 	  return m_pCanvas;
   }
 
-  CSlidebar *GetSlidebar() {
-    return m_pSlidebar;
-  }
-
   void SetEdit(CDashEditbox * pEdit);
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
@@ -55,7 +51,6 @@ private:
   void                    Log();                        // Does the logging
 
   CCanvas *m_pCanvas;
-  CSlidebar *m_pSlidebar;
   CDashEditbox *m_pEdit;
  
 // Retired  

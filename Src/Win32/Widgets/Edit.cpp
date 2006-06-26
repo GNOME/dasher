@@ -15,9 +15,11 @@
 #include "WinCommon.h"
 
 #include "Edit.h"
+#include "../../DasherCore/Event.h"
 #include "FilenameGUI.h"
 #include "../resource.h"
 #include "../DasherInterface.h"
+#include "../ActionSpeech.h"
 
 #include "../Common/DasherEncodingToCP.h"
 
@@ -31,9 +33,6 @@ using namespace WinUTF8;
 
 CEdit::CEdit(CAppSettings *pAppSettings) : m_FontSize(0), m_FontName(""), FileHandle(INVALID_HANDLE_VALUE), 
 				m_FilenameGUI(0), threadid(0), targetwindow(0),
-#ifndef DASHER_WINCE
-pVoice(0),
-#endif
 				textentry(false) 
 {
   
@@ -47,18 +46,10 @@ m_pAppSettings = pAppSettings;
   // Initialise speech support
   speech.resize(0);
 
-#ifndef DASHER_WINCE
 
-  // FIXME - for some reason I seem to have broken speech support :-(
-  HRESULT hr = CoCreateInstance(CLSID_SpVoice, NULL, CLSCTX_ALL, IID_ISpVoice, (void **)&pVoice);
-  if (hr!=S_OK)
-        pVoice=0;
-  if (pVoice!=0) 
-  {
-        pVoice->Speak(L"",SPF_ASYNC,NULL);
-  }
+  m_pActionSpeech = new CActionSpeech;
+  m_pActionSpeech->Activate();
 
-#endif
 }
 
 ////////////////////////////////////////////////////////////////////////////
@@ -79,18 +70,13 @@ HWND CEdit::Create(HWND hParent, bool bNewWithDate)
 CEdit::~CEdit() {
   DeleteObject(m_Font);
 
-#ifndef DASHER_WINCE
-  //// Release the voice object created by constructor
-  //if (pVoice!=NULL)
-  //{     
-  //      pVoice->Release();
-  //      pVoice=NULL;
-  //}
-#endif
-
   delete m_FilenameGUI;
   if(FileHandle != INVALID_HANDLE_VALUE)
     CloseHandle(FileHandle);
+
+  m_pActionSpeech->Deactivate();
+  delete m_pActionSpeech;
+
 }
 
 void CEdit::Move(int x, int y, int Width, int Height) 
@@ -222,10 +208,10 @@ bool CEdit::Save() {
   m_dirty = false;
   return true;
 }
-
-void CEdit::TimeStampNewFiles(bool Value) {
-  m_FilenameGUI->SetNewWithDate(Value);
-}
+//
+//void CEdit::TimeStampNewFiles(bool Value) {
+//  m_FilenameGUI->SetNewWithDate(Value);
+//}
 
 void CEdit::New() {
   switch (m_FilenameGUI->QuerySaveFirst()) {
@@ -458,11 +444,10 @@ void CEdit::SetFont(string Name, long Size) {
 }
 
 void CEdit::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
-  CDashEditbox::SetInterface(DasherInterface);
-// TODO: Reimplement if necessary
-//  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
+  m_pDasherInterface = DasherInterface;
+  
+  // TODO: What on Earth is this doing here?
   SetFont(m_FontName, m_FontSize);
-
 }
 
 void CEdit::write_to_file() {
@@ -981,229 +966,109 @@ if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
   }
 }
 
-void CEdit::SetWindow(HWND window)
-{
+//void CEdit::SetWindow(HWND window)
+//{
+//
+//#ifndef DASHER_WINCE
+//
+//  if(targetwindow != window) {
+//
+//    targetwindow = window;
+//
+//    if(threadid != NULL) {
+//
+//      AttachThreadInput(GetCurrentThreadId(), threadid, FALSE);
+//
+//      //              SetFocus(Parent);
+//
+//    }
+//
+//    if(window != NULL) {
+//
+//      threadid = GetWindowThreadProcessId(window, NULL);
+//
+//      AttachThreadInput(GetCurrentThreadId(), GetWindowThreadProcessId(window, NULL), TRUE);
+//
+//      //              SetFocus(window);
+//
+//    }
+//
+//  }
+//
+//#endif
+//
+//}
 
-#ifndef DASHER_WINCE
-
-  if(targetwindow != window) {
-
-    targetwindow = window;
-
-    if(threadid != NULL) {
-
-      AttachThreadInput(GetCurrentThreadId(), threadid, FALSE);
-
-      //              SetFocus(Parent);
-
-    }
-
-    if(window != NULL) {
-
-      threadid = GetWindowThreadProcessId(window, NULL);
-
-      AttachThreadInput(GetCurrentThreadId(), GetWindowThreadProcessId(window, NULL), TRUE);
-
-      //              SetFocus(window);
-
-    }
-
-  }
-
-#endif
-
-}
-
-void CEdit::outputcontrol(void *pointer, int data, int type) {
-  if(type == 1) {
-    BYTE pbKeyState[256];
-    switch (data) {
-    case 2:
-      // stop
-      //Canvas->StartStop(); // FIXME - reimplement this
-      break;
-    case 3:
-      //    pause
-      //Canvas->Pause(); // FIXME - reimplement this
-      break;
-    case 4:
-      speak(1);
-      break;
-    case 5:
-      speak(2);
-      break;
-    case 6:
-      speak(3);
-      break;
-    case 11:
-      // move left
-      SendMessage(WM_KEYDOWN, VK_LEFT, NULL);
-
-      SendMessage(WM_KEYUP, VK_LEFT, NULL);
-
-      break;
-    case 12:
-      // move right
-      SendMessage(WM_KEYDOWN, VK_RIGHT, NULL);
-      SendMessage(WM_KEYUP, VK_RIGHT, NULL);
-      break;
-    case 13:
-      // move to the start of the document
-
-#ifndef DASHER_WINCE
-      GetKeyboardState((LPBYTE) & pbKeyState);
-      pbKeyState[VK_CONTROL] |= 0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-      SendMessage(WM_KEYDOWN, VK_HOME, NULL);
-      SendMessage(WM_KEYUP, VK_HOME, NULL);
-
-#ifndef DASHER_WINCE
-      pbKeyState[VK_CONTROL] &= ~0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-      break;
-    case 14:
-      // go to end
-
-#ifndef DASHER_WINCE
-      GetKeyboardState((LPBYTE) & pbKeyState);
-      pbKeyState[VK_CONTROL] |= 0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-
-      SendMessage(WM_KEYDOWN, VK_END, NULL);
-      SendMessage(WM_KEYUP, VK_END, NULL);
-
-#ifndef DASHER_WINCE
-      pbKeyState[VK_CONTROL] &= ~0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-      break;
-    case 21:
-      //delete next character
-      SendMessage(WM_KEYDOWN, VK_DELETE, NULL);
-      SendMessage(WM_KEYUP, VK_DELETE, NULL);
-      break;
-    case 22:
-
-#ifndef DASHER_WINCE
-      BYTE pbKeyState[256];
-      GetKeyboardState((LPBYTE) & pbKeyState);
-      pbKeyState[VK_CONTROL] |= 0x80;
-      pbKeyState[VK_SHIFT] |= 0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-      SendMessage(WM_KEYDOWN, VK_RIGHT, NULL);
-      SendMessage(WM_KEYUP, VK_RIGHT, NULL);
-
-#ifndef DASHER_WINCE
-      pbKeyState[VK_SHIFT] &= ~0x80;
-      pbKeyState[VK_CONTROL] &= ~0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-      SendMessage(WM_KEYDOWN, VK_DELETE, NULL);
-      SendMessage(WM_KEYUP, VK_DELETE, NULL);
-#endif
-      break;
-    case 24:
-      deletetext(std::string(" "));     // FIXME - need an actual string here
-      break;
-    case 25:
-#ifndef DASHER_WINCE
-      GetKeyboardState((LPBYTE) & pbKeyState);
-      pbKeyState[VK_CONTROL] |= 0x80;
-      pbKeyState[VK_SHIFT] |= 0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-
-      SendMessage(WM_KEYDOWN, VK_LEFT, NULL);
-      SendMessage(WM_KEYUP, VK_LEFT, NULL);
-
-#ifndef DASHER_WINCE
-      pbKeyState[VK_SHIFT] &= ~0x80;
-      pbKeyState[VK_CONTROL] &= ~0x80;
-      SetKeyboardState((LPBYTE) & pbKeyState);
-#endif
-      SendMessage(WM_KEYDOWN, VK_DELETE, NULL);
-      SendMessage(WM_KEYUP, VK_DELETE, NULL);
-      break;
-    }
-    return;
-  }
-
-  if(pointer == NULL) {
-    return;
-  }
-  IAccessible *AccessibleObject = (IAccessible *) pointer;
-  BSTR AccessibleAction;
-  VARIANT AccessibleVariant;
-  HRESULT hr;
-  VariantInit(&AccessibleVariant);
-  AccessibleVariant.vt = VT_I4;
-  AccessibleVariant.lVal = data;
-  hr = AccessibleObject->get_accDefaultAction(AccessibleVariant, &AccessibleAction);
-  hr = AccessibleObject->accDoDefaultAction(AccessibleVariant);
-  VariantClear(&AccessibleVariant);
-}
 
 void CEdit::speak(int what) {
-
-  if(!m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_MODE))
+  if(!m_pActionSpeech->GetActive())
     return;
 
+  // TODO: The remainder of this function is somewhat horrible and hacky...
+  
   // TODO: Horrible hack - don't speak in direct entry mode
   if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2)
     return;
 
-// Todo - put this in a separate class
+  std::wstring strSpeech;
 
-#ifndef DASHER_WINCE
-
-  if(pVoice != 0) {
-    if(what == 1) { // All
-      int speechlength = GetWindowTextLength();
-      LPTSTR allspeech = new TCHAR[speechlength + 1];
-      GetWindowText(allspeech, speechlength + 1);
-#ifdef _UNICODE
-      pVoice->Speak(allspeech, SPF_ASYNC, NULL);
-#else
-      wchar_t *widespeech = new wchar_t[speechlength + 1];
-      mbstowcs(widespeech, allspeech, speechlength + 1);
-      pVoice->Speak(widespeech, SPF_ASYNC, NULL);
-      delete widespeech;
-#endif
-      lastspeech = allspeech;
-      delete allspeech;
-      speech.resize(0);
-    }
-    else if(what == 2) { // New
-#ifdef _UNICODE
-      pVoice->Speak(speech.c_str(), SPF_ASYNC, NULL);
-#else
-      wchar_t *widespeech = new wchar_t[speech.length() + 1];
-      mbstowcs(widespeech, speech.c_str(), speech.length() + 1);
-      pVoice->Speak(widespeech, SPF_ASYNC, NULL);
-      delete widespeech;
-#endif
-      lastspeech = speech;
-      speech.resize(0);
-    }
-    else if(what == 3) { // Repeat
-#ifdef _UNICODE
-      pVoice->Speak(lastspeech.c_str(), SPF_ASYNC, NULL);
-#else
-      wchar_t *widespeech = new wchar_t[lastspeech.length() + 1];
-      mbstowcs(widespeech, lastspeech.c_str(), lastspeech.length() + 1);
-      pVoice->Speak(widespeech, SPF_ASYNC, NULL);
-      delete widespeech;
-#endif
-    }
+  if(what == 1) { // All
+    int speechlength = GetWindowTextLength();
+    LPTSTR allspeech = new TCHAR[speechlength + 1];
+    GetWindowText(allspeech, speechlength + 1);
+    strSpeech = allspeech;
+    lastspeech = allspeech;
+    delete allspeech;
+    speech.resize(0);
+  }
+  else if(what == 2) { // New
+    strSpeech = speech;
+    lastspeech = speech;
+    speech.resize(0);
+  }
+  else if(what == 3) {
+    strSpeech = lastspeech;
   }
 
-#endif
+  m_pActionSpeech->Execue(strSpeech);
 }
 
 void CEdit::SetNewWithDate(bool bNewWithDate) {
   if(m_FilenameGUI)
     m_FilenameGUI->SetNewWithDate(bNewWithDate);
+}
+
+
+void CEdit::HandleEvent(Dasher::CEvent *pEvent) {
+  // TODO: Note the mess in the parent class which ulitmately results in this being called - sort it out sometime
+
+  switch(pEvent->m_iEventType) {
+    case EV_EDIT:
+      HandleEditEvent(pEvent);
+      break;
+    case EV_STOP:
+      HandleStop();
+      break;
+  }
+}
+
+void CEdit::HandleEditEvent(Dasher::CEvent *pEvent) {
+  Dasher::CEditEvent * pEvt(static_cast< Dasher::CEditEvent * >(pEvent));
+
+  switch (pEvt->m_iEditType) {
+    case 1:
+      output(pEvt->m_sText);
+      break;
+    case 2:
+      deletetext(pEvt->m_sText);
+      break;
+  }
+}
+
+void CEdit::HandleStop() {
+  if(m_pAppSettings->GetBoolParameter(APP_BP_SPEECH_MODE))
+    speak(2);
+
+  if(m_pAppSettings->GetBoolParameter(APP_BP_COPY_ALL_ON_STOP))
+    CopyAll();
 }

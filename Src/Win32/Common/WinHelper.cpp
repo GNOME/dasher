@@ -43,7 +43,7 @@ void WinHelper::InitCommonControlLib() {
 #else
   INITCOMMONCONTROLSEX iccex;
   iccex.dwSize = sizeof(INITCOMMONCONTROLSEX);
-  iccex.dwICC = ICC_BAR_CLASSES;
+  iccex.dwICC = ICC_BAR_CLASSES | ICC_COOL_CLASSES;
   InitCommonControlsEx(&iccex);
 #endif
 

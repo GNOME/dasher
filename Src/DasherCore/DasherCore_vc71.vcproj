@@ -490,12 +490,6 @@
 			RelativePath="CustomColours.h">
 		</File>
 		<File
-			RelativePath=".\DashEdit.cpp">
-		</File>
-		<File
-			RelativePath=".\DashEdit.h">
-		</File>
-		<File
 			RelativePath=".\DasherButtons.cpp">
 		</File>
 		<File

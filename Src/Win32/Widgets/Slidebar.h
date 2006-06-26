@@ -15,94 +15,23 @@
 #ifndef __Slidebar_h__
 #define __Slidebar_h__
 
-#include "../DasherInterface.h"
 #include "Canvas.h"
-#include "..\Common\WinWrap.h"
+#include "../DasherInterface.h"
+#include "StatusControl.h"
 
-class CSlidebar:public CWinWrap {
+class CSlidebar {
 public:
-	CSlidebar(HWND ParentWindow, CDasherInterface * DasherInterface, double StartValue = 2.51, CCanvas * NewDasherCanvas = 0);
+  CSlidebar(HWND ParentWindow, CDasherInterface * DasherInterface);
 
-  // Base is the desired position of the bottom of the slidebar.
-  // The height of the slide bar is returned.
-  int Resize(int Width, int Base);
-  int GetHeight() {
-    return m_Height;
-  };
-  
-  void SetValue(double NewSlideVal);
-  double GetValue();
+  // Called when the parent window gets resized, makes the rebar position itself correctly
+  void Resize();
 
-  HWND getwindow() {
-    return m_hwnd;
-  };
+  // Return the height, used to layout the rest of the window
+  int GetHeight();
 
-  //void Redraw(LPDRAWITEMSTRUCT pDrawItem);
-  void HandleParameterChange(int iParameter);
-
-protected:
-  LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
-  WNDPROC sliderWndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-
-  void PopulateCombo();
-  void AlphabetSelection();
-
-#ifdef _WIN32
-  //FIXME - Linux implements a double round(double) function in mathcalls.h but I couldn't
-  //  find the windows equivalent. Required to make the speed slider behave.
-  double round(double d)
-  {
-    if(d - floor(d) < 0.5)
- 	   return floor(d);
-    else
- 	   return ceil(d);
- 
-  };
-#endif
-
-  double SlideVal;
-
-  int m_iControlHeight;
-
-  // Message handler stuff
-  WNDPROC SB_WndFunc;
-  WNDPROC SL_WndFunc;
-
-  // Used to keep edit box and slide bar in synch.
-  void SetEditBox(double value);
-  //void SetSlideBar(double value);
-
-  // The child windows
-  void CreateEdit();
-  HWND m_hwnd;;                 // Container window for the bar
-  HWND SB_static;               // The bar label
-  HWND SB_edit;                 // To show (or perhaps later type in the speed)
-  //HWND SB_slider;
-  HWND m_hUpDown;
-  HWND m_hCombo;
-  HWND m_hSpeedLabel;
-  HWND m_hAlphabetLabel;
-
-  // These used to help window positioning
-  int static_width;
-  int static_height;            // TODO
-  int edit_width;
-  int edit_height;
-
-  int m_iBorderTop;
-
-  int m_Height;
-  int m_Width;
-
-  int m_iLabelWidth;
-  int m_iLabelHeight;
-
-  int m_NormalHeight;
-
-  // The model to poke
-  CDasherInterface * m_pDasherInterface;
-  CCanvas *m_pDasherCanvas;
+  HWND m_hRebar; 
+  CStatusControl *m_pStatusControl;
 };
 
 #endif  /* #ifndef __Slidebar_h__ */

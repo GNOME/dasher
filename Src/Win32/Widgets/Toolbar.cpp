@@ -6,8 +6,7 @@
 //
 /////////////////////////////////////////////////////////////////////////////
 
-// This is a very much hard-wired toolbar.
-// Code would need more logic and less copy and pasting to be more generally useful.
+// TODO: Prime candidate for ATL
 
 #include "WinCommon.h"
 
@@ -24,20 +23,36 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CToolbar::CToolbar(HWND ParentWindow, CDasherInterface *DI, bool bVisible)
-:m_hwnd(0), ParentWindow(ParentWindow), m_pDasher(DI) {
+struct SToolbarButton {
+  int iBitmap;
+  int iString;
+  int iStringID;
+  int iCommand;
+};
+
+SToolbarButton sButtons[] = {
+  {STD_FILENEW, 0, IDS_FILE_NEW, ID_FILE_NEW},
+  {STD_FILEOPEN, 1, IDS_FILE_OPEN, ID_FILE_OPEN},
+  {STD_FILESAVE, 2, IDS_FILE_SAVE, ID_FILE_SAVE},
+  {-1, -1, 0, 0},
+  {STD_CUT, 3, IDS_EDIT_CUT, ID_EDIT_CUT},
+  {STD_COPY, 4, IDS_EDIT_COPY, ID_EDIT_COPY},
+  {-2, 5, IDS_EDIT_COPY_ALL, ID_EDIT_COPY_ALL},
+  {STD_PASTE, 6, IDS_EDIT_PASTE, ID_EDIT_PASTE}
+};
+
+CToolbar::CToolbar(HWND hParent, bool bVisible) {
+  m_hwnd = 0;
+  m_hRebar = 0;
+
+  m_hParent = hParent;
+
   if(bVisible)
     CreateToolbar();
 }
 
-int CToolbar::Resize() {
-  // Makes the toolbar fit the buttons and fill the width of the window
-  // Return height of toolbar for information
-
-  SendMessage(m_hwnd, TB_AUTOSIZE, 0, 0);
-  RECT TB_rect;
-  GetWindowRect(m_hwnd, &TB_rect);
-  return (TB_rect.bottom - TB_rect.top);
+void CToolbar::Resize() {
+  SendMessage(m_hRebar, WM_SIZE, 0, 0);
 }
 
 void CToolbar::ShowToolbar(bool bValue) {
@@ -50,12 +65,33 @@ void CToolbar::ShowToolbar(bool bValue) {
 void CToolbar::CreateToolbar() {
   WinHelper::InitCommonControlLib();
 
+
+  m_hRebar = CreateWindowEx(WS_EX_TOOLWINDOW,
+                            REBARCLASSNAME,
+                            NULL,
+                            WS_CHILD|WS_VISIBLE|WS_CLIPSIBLINGS|
+                            WS_CLIPCHILDREN|RBS_VARHEIGHT,
+                            0,0,0,0,
+                            m_hParent, NULL, WinHelper::hInstApp,
+                            NULL);
+
+  REBARINFO rbi;
+  rbi.cbSize = sizeof(REBARINFO);
+  rbi.fMask  = 0;
+  rbi.himl   = (HIMAGELIST)NULL;
+  SendMessage(m_hRebar, RB_SETBARINFO, 0, (LPARAM)&rbi);
+
+  REBARBANDINFO rbBand;
+  rbBand.cbSize = sizeof(REBARBANDINFO); 
+  rbBand.fMask  = RBBIM_STYLE | RBBIM_CHILD  | RBBIM_CHILDSIZE;
+  rbBand.fStyle = RBBS_CHILDEDGE | RBBS_FIXEDBMP | RBBS_GRIPPERALWAYS | RBBS_USECHEVRON;
+ 
   // Create Toolbar
 #ifdef OriginalWin95
-  m_hwnd = CreateWindow(TOOLBARCLASSNAME, NULL, WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, ParentWindow, NULL, WinHelper::hInstApp, NULL);
+  m_hwnd = CreateWindow(TOOLBARCLASSNAME, NULL, WS_CHILD | WS_VISIBLE, 0, 0, 0, 0, m_hRebar, NULL, WinHelper::hInstApp, NULL);
 #else
   //Unless I'm going for ultra-compatibility, display a nice flat-style toolbar
-  m_hwnd = CreateWindow(TOOLBARCLASSNAME, NULL, WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT, 0, 0, 0, 0, ParentWindow, NULL, WinHelper::hInstApp, NULL);
+  m_hwnd = CreateWindow(TOOLBARCLASSNAME, NULL, WS_CHILD | WS_VISIBLE | TBSTYLE_FLAT | CCS_NODIVIDER | CCS_NORESIZE | CCS_NOPARENTALIGN, 0, 0, 0, 0, m_hRebar, NULL, WinHelper::hInstApp, NULL);
 #endif
 
   // Allows system to work with any version of common controls library
@@ -64,113 +100,71 @@ void CToolbar::CreateToolbar() {
   // Get Standard toolbar bitmaps.
   TBADDBITMAP bitmaps;
   bitmaps.hInst = HINST_COMMCTRL;
- // if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
- //   bitmaps.nID = IDB_STD_SMALL_COLOR;
-//  }
-//  else {
-    bitmaps.nID = IDB_STD_LARGE_COLOR;
-//  }
+  bitmaps.nID = IDB_STD_LARGE_COLOR;
   SendMessage(m_hwnd, TB_ADDBITMAP, 0, (LPARAM) & bitmaps);
 
   // Get Non-standard Copy-All bitmap
   bitmaps.hInst = WinHelper::hInstApp;
-//  if(m_pDasher->GetBoolParameter(BP_SHOW_LARGE_ICONS) == 0) {
-  //  bitmaps.nID = IDB_COPY_ALL_SMALL_COLOR;
- // }
- // else {
-    bitmaps.nID = IDB_COPY_ALL_LARGE_COLOR;
-//  }
-
+  bitmaps.nID = IDB_COPY_ALL_LARGE_COLOR;
   const int COPY_ALL_INDEX = SendMessage(m_hwnd, TB_ADDBITMAP, 0, (LPARAM) & bitmaps);
 
-  // Create buttons. If you add more you MUST increase the size of the buttons array.
-  // TODO: This could be more flexible. Menus and toolbars are not customisable for now.
-  const int tbnum = 8;
+  Tstring AllButtons;
+  Tstring CurButton;
 
-  TBBUTTON buttons[tbnum];
+  int iNumButtons(sizeof(sButtons)/sizeof(SToolbarButton));
 
-//  if(m_pDasher->GetBoolParameter(BP_SHOW_TOOLBAR_TEXT)) {
-    // Load strings from resource file (this could be more elegant)
-    Tstring AllButtons;
-    Tstring CurButton;
-    WinLocalisation::GetResourceString(IDS_FILE_NEW, &CurButton);
-    AllButtons += CurButton + TEXT('\0');
-    WinLocalisation::GetResourceString(IDS_FILE_OPEN, &CurButton);
-    AllButtons += CurButton + TEXT('\0');
-    WinLocalisation::GetResourceString(IDS_FILE_SAVE, &CurButton);
-    AllButtons += CurButton + TEXT('\0');
-    WinLocalisation::GetResourceString(IDS_EDIT_CUT, &CurButton);
-    AllButtons += CurButton + TEXT('\0');
-    WinLocalisation::GetResourceString(IDS_EDIT_COPY, &CurButton);
-    AllButtons += CurButton + TEXT('\0');
-    WinLocalisation::GetResourceString(IDS_EDIT_COPY_ALL, &CurButton);
-    AllButtons += CurButton + TEXT('\0');
-    WinLocalisation::GetResourceString(IDS_EDIT_PASTE, &CurButton);
-    AllButtons += CurButton + TEXT('\0') + TEXT('\0');
-    const TCHAR *buttontext = AllButtons.c_str();
-
-    // If we didn't use resource files, it would look like this:
-    //TCHAR buttontext[]=TEXT("New\0Open\0Save\0Cut\0Copy\0Paste\0");
-
-    SendMessage(m_hwnd, TB_ADDSTRING, 0, (DWORD) buttontext);
- // }
+  for(int i(0); i < iNumButtons; ++i) {
+    if(sButtons[i].iBitmap != -1) {
+      WinLocalisation::GetResourceString(sButtons[i].iStringID, &CurButton);
+      AllButtons += CurButton + TEXT('\0');
+    }
+  }
+    
+  const TCHAR *szButtontext = AllButtons.c_str();
+  SendMessage(m_hwnd, TB_ADDSTRING, 0, (DWORD) szButtontext);
 
   // TODO: Should do tooltips
 
-  buttons[0].iBitmap = STD_FILENEW;
-  buttons[0].idCommand = ID_FILE_NEW;
-  buttons[0].fsState = TBSTATE_ENABLED;
-  buttons[0].fsStyle = TBSTYLE_BUTTON;
-  buttons[0].iString = 0;
+  TBBUTTON *pButtons(new TBBUTTON[iNumButtons]);
 
-  buttons[1].iBitmap = STD_FILEOPEN;
-  buttons[1].idCommand = ID_FILE_OPEN;
-  buttons[1].fsState = TBSTATE_ENABLED;
-  buttons[1].fsStyle = TBSTYLE_BUTTON;
-  buttons[1].iString = 1;
+  for(int i(0); i < iNumButtons; ++i) {
+    if(sButtons[i].iBitmap == -2)
+      pButtons[i].iBitmap = COPY_ALL_INDEX;
+    else
+      pButtons[i].iBitmap = sButtons[i].iBitmap;
 
-  buttons[2].iBitmap = STD_FILESAVE;
-  buttons[2].idCommand = ID_FILE_SAVE;
-  buttons[2].fsState = TBSTATE_ENABLED;
-  buttons[2].fsStyle = TBSTYLE_BUTTON;
-  buttons[2].iString = 2;
+    pButtons[i].idCommand = sButtons[i].iCommand;
+    pButtons[i].fsState = TBSTATE_ENABLED;
 
-  buttons[3].iBitmap = -1;
-  buttons[3].idCommand = 0;
-  buttons[3].fsState = TBSTATE_INDETERMINATE;
-  buttons[3].fsStyle = TBSTYLE_SEP;
-  buttons[3].iString = -1;
+    // TODO: Not sure if this is the best way to handle the separator
+    if(sButtons[i].iBitmap == -1)
+      pButtons[i].fsStyle = TBSTYLE_SEP;
+    else
+      pButtons[i].fsStyle = TBSTYLE_BUTTON;
+    pButtons[i].iString = sButtons[i].iString;
+  }
 
-  buttons[4].iBitmap = STD_CUT;
-  buttons[4].idCommand = ID_EDIT_CUT;
-  buttons[4].fsState = TBSTATE_ENABLED;
-  buttons[4].fsStyle = TBSTYLE_BUTTON;
-  buttons[4].iString = 3;
+  SendMessage(m_hwnd, TB_ADDBUTTONS, iNumButtons, (LPARAM)pButtons);
 
-  buttons[5].iBitmap = STD_COPY;
-  buttons[5].idCommand = ID_EDIT_COPY;
-  buttons[5].fsState = TBSTATE_ENABLED;
-  buttons[5].fsStyle = TBSTYLE_BUTTON;
-  buttons[5].iString = 4;
+  delete(pButtons);
 
-  buttons[6].iBitmap = COPY_ALL_INDEX;
-  buttons[6].idCommand = ID_EDIT_COPY_ALL;
-  buttons[6].fsState = TBSTATE_ENABLED;
-  buttons[6].fsStyle = TBSTYLE_BUTTON;
-  buttons[6].iString = 5;
+  int dwBtnSize = SendMessage(m_hwnd, TB_GETBUTTONSIZE, 0,0);
 
-  buttons[7].iBitmap = STD_PASTE;
-  buttons[7].idCommand = ID_EDIT_PASTE;
-  buttons[7].fsState = TBSTATE_ENABLED;
-  buttons[7].fsStyle = TBSTYLE_BUTTON;
-  buttons[7].iString = 6;
+  rbBand.hwndChild  = m_hwnd;
+  rbBand.cxMinChild = 0;
+  rbBand.cyMinChild = HIWORD(dwBtnSize);
+  rbBand.cxIdeal = 250;
 
-  SendMessage(m_hwnd, TB_ADDBUTTONS, tbnum, (LPARAM) & buttons);
-
-  Resize();
+  SendMessage(m_hRebar, RB_INSERTBAND, (WPARAM)-1, (LPARAM)&rbBand);
 }
 
 void CToolbar::DestroyToolbar() {
-  DestroyWindow(m_hwnd);
-  m_hwnd=0;
+  DestroyWindow(m_hRebar);
+  m_hRebar = 0;
+}
+
+int CToolbar::GetHeight() {
+  RECT sRect;
+  GetWindowRect(m_hRebar, &sRect);
+  return sRect.bottom - sRect.top;
 }

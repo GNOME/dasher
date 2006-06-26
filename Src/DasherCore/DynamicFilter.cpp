@@ -23,8 +23,9 @@ CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsS
   else
     m_iStyle = 0;
 
-  bStarted = false;
+  m_bStarted = false;
   m_bDecorationChanged = true;
+  m_bBackOff = false;
 }
 
 CDynamicFilter::~CDynamicFilter() {
@@ -72,10 +73,10 @@ bool CDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iX;
   myint iY;
 
-  if(bBackOff)
+  if(m_bBackOff)
     return m_pDasherModel->Tap_on_display(3096,2048, Time, 0, 0);
   else {
-    if( GetBoolParameter(BP_BUTTONSTEADY) || !bStarted || (Time - m_iKeyTime > 1000)) {
+    if( GetBoolParameter(BP_BUTTONSTEADY) || !m_bStarted || (Time - m_iKeyTime > 1000)) {
       iX = m_iTargetX[m_iTarget];
       iY = m_iTargetY[m_iTarget];
     }
@@ -96,13 +97,13 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
     }
     else {
       m_iTarget = 1 - m_iTarget;
-      bStarted = true;
+      m_bStarted = true;
       m_iKeyTime = iTime;
       m_bDecorationChanged = true;
     }
   }
   else if(iId == 1) {
-    bBackOff = true;
+    m_bBackOff = true;
   }
   else if((iId == 0) || (iId = 100)) {
     if(GetBoolParameter(BP_DASHER_PAUSED)) {
@@ -117,7 +118,7 @@ void CDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
 
 void CDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
   if(iId == 1) {
-    bBackOff = false;
+    m_bBackOff = false;
   }
 }
 
@@ -128,13 +129,14 @@ void CDynamicFilter::HandleEvent(Dasher::CEvent * pEvent) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     
     switch (pEvt->m_iParameter) {
+    // Obsolete...
     case BP_BUTTONSTEADY:
     case BP_BUTTONPULSING:
       // Delibarate fall through
       if(GetBoolParameter(BP_BUTTONPULSING))
-	m_iStyle = 1;
+	      m_iStyle = 1;
       else
-	m_iStyle = 0;
+	      m_iStyle = 0;
       break;
     }
   }

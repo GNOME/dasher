@@ -20,17 +20,19 @@ extern CComModule _Module;
 
 #include <atlcom.h>
 
-#ifndef DASHER_WINCE
-#include <sapi.h>
-#endif
-
-#include "../../DasherCore/DashEdit.h"
 #include "../AppSettings.h"
+#include "../DasherAction.h"
+#include "../../DasherCore/DasherTypes.h"
 
 #include <Oleacc.h>
 
 class CCanvas;
 class CFilenameGUI;
+
+namespace Dasher {
+  class CDasherInterfaceBase;
+  class CEvent;
+};
 
 enum {
   EDIT_FORWARDS,
@@ -44,8 +46,7 @@ enum {
   EDIT_FILE
 };
 
-class CEdit	:	public Dasher::CDashEditbox, 
-				public ATL::CWindowImpl<CEdit>
+class CEdit	: public ATL::CWindowImpl<CEdit>
 {
 public:
 
@@ -79,15 +80,17 @@ public:
 	HWND GetHwnd() 
 	{
 		return m_hWnd;
-	} // As EN_UPDATE message go to parent, need this. void UserSave(HANDLE FileHandle);
-	void UserOpen(HANDLE FileHandle);
+	} 
+  
+  // As EN_UPDATE message go to parent, need this. void UserSave(HANDLE FileHandle);
+  void UserOpen(HANDLE FileHandle);
 
 	void Move(int iDirection, int iDist);
 	void Delete(int iDirection, int iDist);
 	void SetKeyboardTarget(HWND hwnd);
 
 	// Overriding file virtual functions
-	void TimeStampNewFiles(bool Value);
+	//void TimeStampNewFiles(bool Value);
 	void New(const std::string & filename);
 	bool Open(const std::string & filename);
 	bool OpenAppendMode(const std::string & filename);
@@ -122,24 +125,11 @@ public:
 	// called when characters fall of the LHS of the screen
 	void output(const std::string & sText);
 
-	// called when outputting a control symbol
-	void outputcontrol(void *pointer, int data, int type);
+	
 
 	// remove the previous character
 
 	void deletetext(const std::string & sText);
-
-	// set the window that text should be entered into
-
-	void SetWindow(HWND window);
-
-	// toggle text entry mode
-	void TextEntry(bool Value) {
-		textentry = Value;
-	}
-	bool GetTextEntry() {
-		return textentry;
-	}
 
 	// speak text
 	void speak(int what);
@@ -149,10 +139,18 @@ public:
 
   void SetNewWithDate(bool bNewWithDate);
 
+  void HandleEvent(Dasher::CEvent *pEvent);
+
 protected:
 	bool m_dirty;
 	LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
+
 private:
+  void HandleEditEvent(Dasher::CEvent *pEvent);
+  void HandleStop();
+
+  Dasher::CDasherInterfaceBase *m_pDasherInterface;
+
 	HWND Parent;
 	WNDPROC TextWndFunc;
 
@@ -185,9 +183,7 @@ private:
 	INPUT fakekey[2];
 #endif
 
-#ifndef DASHER_WINCE
-	ISpVoice *pVoice;
-#endif
+
 	Tstring speech;
 	Tstring lastspeech;
 	Tstring newchar;
@@ -198,6 +194,9 @@ private:
   HWND m_hWnd;
 
 	//      CCanvas* Canvas;
+
+  CDasherAction *m_pActionSpeech;
+
 };
 
 #endif /* #ifndef __Edit_h__ */

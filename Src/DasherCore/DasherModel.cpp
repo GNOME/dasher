@@ -116,9 +116,6 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   m_Rootmin_min = int64_min / iNormalization / 2;
   m_Rootmax_max = int64_max / iNormalization / 2;
 
-  // Initialize Game Mode object
-  m_pGameMode = new CDasherGameMode(pEventHandler, pSettingsStore, m_pDasherInterface, this);
-
   m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel);
   m_pControlManagerFactory = new CControlManagerFactory(this, m_pLanguageModel);
 #ifdef JAPANESE
@@ -146,11 +143,6 @@ CDasherModel::~CDasherModel() {
   delete m_pConversionManagerFactory;
 #endif
 
-  if (m_pGameMode != NULL) {
-    delete m_pGameMode;
-    m_pGameMode = NULL;
-  }
-
   m_pLanguageModel->ReleaseContext(LearnContext);
   delete m_pLanguageModel;
 
@@ -170,6 +162,9 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     case BP_CONTROL_MODE: // Rebuild the model if control mode is switched on/off
       RebuildAroundNode(Get_node_under_crosshair());
+      break;
+    case BP_DELAY_VIEW:
+      MatchTarget();
       break;
     default:
       break;
@@ -1103,6 +1098,11 @@ void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
 }
 
 void CDasherModel::Offset(int iOffset) {
-  m_Rootmin += iOffset;
-  m_Rootmax += iOffset;
+  m_Rootmin = m_iTargetMin + iOffset;
+  m_Rootmax = m_iTargetMax + iOffset;
 } 
+
+void CDasherModel::MatchTarget() {
+  m_Rootmin = m_iTargetMin;
+  m_Rootmax = m_iTargetMax;
+}

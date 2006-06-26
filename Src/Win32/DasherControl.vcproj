@@ -178,12 +178,6 @@
 			<File
 				RelativePath="..\Win32\Widgets\Screen.inl">
 			</File>
-			<File
-				RelativePath="..\Win32\Widgets\Slidebar.cpp">
-			</File>
-			<File
-				RelativePath="..\Win32\Widgets\Slidebar.h">
-			</File>
 		</Filter>
 		<Filter
 			Name="Resource Files"

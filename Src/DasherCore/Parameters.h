@@ -37,7 +37,7 @@ enum {
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM,
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
-  LP_CIRCLE_PERCENT, END_OF_LPS
+  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, END_OF_LPS
 };
 
 enum {
@@ -177,7 +177,8 @@ static lp_table longparamtable[] = {
   {LP_OY, "OY", PERS, 2048, "Y coordinate of crosshair"},
   {LP_MAX_Y, "MaxY", PERS, 4096, "Maximum Y coordinate"},
   {LP_INPUT_FILTER, "InputFilterID", PERS, 3, "Module ID of input filter"},
-  {LP_CIRCLE_PERCENT, "CirclePercent", PERS, 10, "Percentage of nominal vertical range to use for radius of start circle"}
+  {LP_CIRCLE_PERCENT, "CirclePercent", PERS, 10, "Percentage of nominal vertical range to use for radius of start circle"},
+  {LP_TWO_BUTTON_OFFSET, "TwoButtonOffset", PERS, 1024, "Offset for two button dynamic mode"},
 };
 
 static sp_table stringparamtable[] = {

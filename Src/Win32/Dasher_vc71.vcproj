@@ -337,10 +337,22 @@
 					RelativePath=".\Widgets\Menu.h">
 				</File>
 				<File
+					RelativePath=".\Widgets\Slidebar.cpp">
+				</File>
+				<File
+					RelativePath=".\Widgets\Slidebar.h">
+				</File>
+				<File
 					RelativePath=".\Widgets\Splitter.cpp">
 				</File>
 				<File
 					RelativePath=".\Widgets\Splitter.h">
+				</File>
+				<File
+					RelativePath=".\Widgets\StatusControl.cpp">
+				</File>
+				<File
+					RelativePath=".\Widgets\StatusControl.h">
 				</File>
 				<File
 					RelativePath=".\Widgets\Toolbar.cpp">
@@ -434,6 +446,19 @@
 						</File>
 					</Filter>
 				</Filter>
+			</Filter>
+			<Filter
+				Name="Actions"
+				Filter="">
+				<File
+					RelativePath=".\ActionSpeech.cpp">
+				</File>
+				<File
+					RelativePath=".\ActionSpeech.h">
+				</File>
+				<File
+					RelativePath=".\DasherAction.h">
+				</File>
 			</Filter>
 		</Filter>
 	</Files>

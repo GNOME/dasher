@@ -38,7 +38,7 @@ public:
 		static ATL::CWndClassInfo wc = \
 		{ \
 			{ sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW | CS_DBLCLKS, StartWindowProc, \
-			  0, 0, NULL, NULL, NULL, (HBRUSH)(COLOR_WINDOW + 1), NULL, _T("CANVAS"), NULL }, \
+			  0, 0, NULL, NULL, NULL, NULL, NULL, _T("CANVAS"), NULL }, \
 			NULL, NULL, MAKEINTRESOURCE(IDC_CROSS), TRUE, 0, _T("") \
 		}; \
 	return wc;

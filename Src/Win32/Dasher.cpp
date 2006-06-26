@@ -8,7 +8,6 @@
 #include "Common\WinUTF8.h"
 //#include "DasherWindow.h"
 #include "Widgets/Canvas.h"
-#include "Widgets/Slidebar.h"
 #include "DasherMouseInput.h"
 #include "Sockets/SocketInput.h"
 
@@ -52,9 +51,6 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent)
  Realize();
 
 
-  m_pSlidebar = new CSlidebar(m_hParent, this, ((double)GetLongParameter(LP_MAX_BITRATE))/100.0, m_pCanvas);
-
-
   // DJW 20051228 - this threading code was not at all thread-safe. Initially tried to fix it, 
   // but eventually decided to go for a non-threaded approach.
 
@@ -86,7 +82,6 @@ CDasher::~CDasher(void) {
 //  ShutdownWorkerThread();
 
   delete m_pCanvas;
-  delete m_pSlidebar;
 }
 
 // Handle periodically poking the canvas to check for user activity.  
