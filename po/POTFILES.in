@@ -8,4 +8,5 @@ Src/Gtk2/dasher.glade
 Src/Gtk2/dasher_action_speech.cpp
 Src/Gtk2/dashergpe.glade
 Src/Gtk2/dashermaemo.glade
+Src/Gtk2/dashermaemofullscreen.glade
 Src/main.cc
