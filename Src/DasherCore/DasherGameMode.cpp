@@ -3,7 +3,6 @@
 
 #include "DasherGameMode.h"
 #include "DasherInterfaceBase.h"
-#include "DashEdit.h"
 #include "DasherModel.h"
 #include "DasherNode.h"
 #include "DasherView.h"

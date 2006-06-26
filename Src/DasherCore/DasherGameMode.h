@@ -3,7 +3,6 @@
 
 #include "../Common/NoClones.h"
 #include "LanguageModelling/LanguageModel.h"
-#include "DashEdit.h"
 #include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"
 #include "AlphabetManagerFactory.h"
@@ -14,12 +13,11 @@
 #include <vector>
 #include <deque>
 
-class Dasher::CDasherModel;
-class Dasher::CDasherInterfaceBase;
-class Dasher::CEventHandler;
-class Dasher::CDasherNode;
-
 namespace Dasher {
+  class CDasherModel;
+  class CDasherInterfaceBase;
+  class CEventHandler;
+  class CDasherNode;
   class CDasherGameMode;
   class CDasherComponent;
 }

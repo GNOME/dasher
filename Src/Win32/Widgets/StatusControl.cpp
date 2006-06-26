@@ -3,6 +3,9 @@
 
 #include <string>
 
+// TODO: Make this a notify?
+CONST UINT DASHER_SHOW_PREFS = RegisterWindowMessage(_DASHER_SHOW_PREFS);
+
 CStatusControl::CStatusControl(CDasherInterface *pDasherInterface) {
   m_pDasherInterface = pDasherInterface;
 }
@@ -196,10 +199,15 @@ void CStatusControl::SelectAlphabet() {
   TCHAR *szSelection = new TCHAR[iLength + 1];
   SendMessage(m_hCombo, CB_GETLBTEXT, iIndex, (LPARAM)szSelection);
 
-  std::string strNewValue;
-  WinUTF8::wstring_to_UTF8string(szSelection, strNewValue);
+  if(!_tcscmp(szSelection, L"More Alphabets...")) {
+    SendMessage(::GetParent(GetParent().m_hWnd), DASHER_SHOW_PREFS, 0, 0);
+  }
+  else {
+    std::string strNewValue;
+    WinUTF8::wstring_to_UTF8string(szSelection, strNewValue);
 
-  m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, strNewValue);
+    m_pDasherInterface->SetStringParameter(SP_ALPHABET_ID, strNewValue);
+  }
 
   delete[] szSelection;
 }

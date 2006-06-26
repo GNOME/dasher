@@ -14,7 +14,6 @@
 #include "../Common/NoClones.h"
 
 #include "LanguageModelling/LanguageModel.h"
-#include "DashEdit.h"
 #include "DasherNode.h"
 #include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"

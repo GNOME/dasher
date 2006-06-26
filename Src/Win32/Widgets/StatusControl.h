@@ -7,6 +7,9 @@
 #include <atlbase.h>
 #include <atlwin.h>
 
+extern CONST UINT DASHER_SHOW_PREFS;
+#define _DASHER_SHOW_PREFS (LPCWSTR)"dasher_show_prefs"
+
 class CStatusControl : public ATL::CWindowImpl<CStatusControl> {
 public:
   CStatusControl(CDasherInterface *pDasherInterface);
