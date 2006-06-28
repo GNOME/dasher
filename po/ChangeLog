@@ -1,3 +1,8 @@
+2006-06-28  Raivis Dejus  <orvils@gmail.com>
+
+	* lv.po: Added Latvian Translation
+	* LINGUAS: Added 'lv'
+
 2006-06-27  Vincent van Adrighem  <adrighem@gnome.org>
 
 	* nl.po: Translation updated by Tino Meinen.
