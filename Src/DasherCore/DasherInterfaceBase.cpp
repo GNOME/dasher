@@ -860,3 +860,7 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
 void CDasherInterfaceBase::StartShutdown() {
   m_bShutdownLock = true;
 }
+
+bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount) {
+  return GetModuleByName(strName)->GetSettings(pSettings, iCount);
+}

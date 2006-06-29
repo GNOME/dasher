@@ -41,6 +41,8 @@ class CDasherButtons : public CInputFilter
     int iDisplayTop;
     int iDisplayBottom;
   };
+
+  bool GetSettings(SModuleSettings **pSettings, int *iCount);
     
  private:
   CSettingsStore*  m_pSettingsStore;

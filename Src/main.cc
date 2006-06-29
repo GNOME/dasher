@@ -251,7 +251,6 @@ int main(int argc, char *argv[]) {
 }
 
 void sigint_handler(int iSigNum) {
-  g_message("Trapped SIGINT - attempting shutdown...");
   if(gtk_main_level() > 0)
     gtk_main_quit();  
   else {

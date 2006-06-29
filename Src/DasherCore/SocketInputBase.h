@@ -95,6 +95,8 @@ public:
 
   virtual void SetRawRange(int iWhich, double dMin, double dMax);
 
+  bool GetSettings(SModuleSettings **pSettings, int *iCount);
+
 protected:
 
   myint dasherCoordinates[DASHER_SOCKET_INPUT_MAX_COORDINATE_COUNT];

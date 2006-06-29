@@ -32,10 +32,13 @@ struct _DasherMainPrivate {
   GtkWidget *pMenuBar;
   GtkWidget *pSideMenu;
   GtkWidget *pDragHandle; 
-  GtkWidget *pOuterFrame;
   GtkWidget *pInnerFrame;
   GtkWidget *pSpeedBox;
   GtkWidget *pAlphabetCombo;
+  GtkWidget *pStatusControl;
+  GtkWidget *pHideArrow;
+
+  GtkWidget *pContextMenu;
 
   GtkListStore *pAlphabetList;
 
@@ -90,6 +93,7 @@ static void dasher_main_ungrab(DasherMain *pSelf, GdkEventButton *pEvent);
 static gboolean dasher_main_motion(DasherMain *pSelf, GdkEventMotion *pEvent);
 static gboolean dasher_main_speed_changed(DasherMain *pSelf);
 static void dasher_main_populate_alphabet_combo(DasherMain *pSelf);
+void dasher_main_build_context_menu(DasherMain *pSelf);
 
 // Private functions not in class
 extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
@@ -169,7 +173,6 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   szGladeFilename = PROGDATA "/dasher.glade";
 #endif
 
-  g_message("Glade file is: %s", szGladeFilename);
   pPrivate->pGladeXML = glade_xml_new(szGladeFilename, NULL, NULL);
 
   if (!pPrivate->pGladeXML) {
@@ -188,7 +191,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pMenuBar = glade_xml_get_widget(pPrivate->pGladeXML, "dasher_menu_bar");
   pPrivate->pSideMenu = glade_xml_get_widget(pPrivate->pGladeXML, "SideMenu");
   pPrivate->pDragHandle = glade_xml_get_widget(pPrivate->pGladeXML, "button31");
-  pPrivate->pOuterFrame = glade_xml_get_widget(pPrivate->pGladeXML, "OuterFrame");
+  pPrivate->pHideArrow = glade_xml_get_widget(pPrivate->pGladeXML, "hide_arrow");
 
   // TODO: This could be made more sensible with consistent naming
 #ifdef WITH_MAEMO
@@ -204,6 +207,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 #ifndef WITH_MAEMO
   pPrivate->pSpeedBox = glade_xml_get_widget(pPrivate->pGladeXML, "spinbutton1");
   pPrivate->pAlphabetCombo = glade_xml_get_widget(pPrivate->pGladeXML, "combobox1");
+  pPrivate->pStatusControl = glade_xml_get_widget(pPrivate->pGladeXML, "hbox8"); 
 
   pPrivate->pAlphabetList = gtk_list_store_new(1, G_TYPE_STRING);
   gtk_combo_box_set_model(GTK_COMBO_BOX(pPrivate->pAlphabetCombo), 
@@ -305,7 +309,7 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-press-event", G_CALLBACK(edit_key_press), NULL);
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-release-event", G_CALLBACK(edit_key_release), NULL);
   
-  
+  dasher_main_build_context_menu(pSelf);
 
   // Create a Maemo helper if necessary
 #if defined WITH_MAEMO && !defined WITH_MAEMOFULLSCREEN
@@ -345,6 +349,12 @@ void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter) {
       gtk_widget_show(pPrivate->pToolbar);
     else
       gtk_widget_hide(pPrivate->pToolbar);
+    break;
+  case BP_SHOW_SLIDER: // TODO: Shouldn't be a core parmeter
+    if( dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_SHOW_SLIDER))
+      gtk_widget_show(pPrivate->pStatusControl);
+    else
+      gtk_widget_hide(pPrivate->pStatusControl);
     break;
   case APP_SP_EDIT_FONT:
     dasher_main_refresh_font(pSelf);
@@ -541,9 +551,6 @@ void dasher_main_show(DasherMain *pSelf) {
 }
 
 GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf) {
-
-  g_message("Creating control");
-
   GtkWidget *pDasherControl = gtk_dasher_control_new();
 
 #ifdef WITH_MAEMO
@@ -609,7 +616,6 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
 		     &iBytesAfterReturn,
 		     &iData);
 
-  // TODO: need to use width here
   // TODO: need more error checking with raw X11 stuff
   
   iScreenTop = ((unsigned long *)iData)[1];
@@ -618,26 +624,25 @@ void dasher_main_setup_window_position(DasherMain *pSelf) {
   XFree(iData);
 
   
-
-    if(pPrivate->bHidden)
-      iLeft = iScreenWidth - 32; //pPrivate->pSideMenu->allocation.x;
-    else
-      iLeft = iScreenWidth - iTargetWidth - iBuffer;
-
-    if(pPrivate->iPosition < iScreenTop)
-      pPrivate->iPosition = iScreenTop;
-
-    if(pPrivate->iPosition > iScreenTop + iScreenHeight - iTargetHeight)
-      pPrivate->iPosition = iScreenTop + iScreenHeight - iTargetHeight;
- 
-    iTop = pPrivate->iPosition;
-
-    struts[1] = 32;
-    
-    struts[6] = iTop;
-    struts[7] = iTop + iTargetWidth;
-
-    gtk_window_set_gravity(GTK_WINDOW(pPrivate->pMainWindow), GDK_GRAVITY_NORTH_WEST);
+  if(pPrivate->bHidden)
+    iLeft = iScreenWidth - pPrivate->pSideMenu->allocation.width;
+  else
+    iLeft = iScreenWidth - iTargetWidth - iBuffer;
+  
+  if(pPrivate->iPosition < iScreenTop)
+    pPrivate->iPosition = iScreenTop;
+  
+  if(pPrivate->iPosition > iScreenTop + iScreenHeight - iTargetHeight)
+    pPrivate->iPosition = iScreenTop + iScreenHeight - iTargetHeight;
+  
+  iTop = pPrivate->iPosition;
+  
+  struts[1] = pPrivate->pSideMenu->allocation.width;
+  
+  struts[6] = iTop;
+  struts[7] = iTop + iTargetWidth;
+  
+  gtk_window_set_gravity(GTK_WINDOW(pPrivate->pMainWindow), GDK_GRAVITY_NORTH_WEST);
 
   
 //   Atom atom_type[1];
@@ -731,10 +736,6 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
     // TODO: Need to figure out how to hide this sensibly - may involve reparenting and the like
 
 
-//     gtk_widget_reparent(pPrivate->pInnerFrame, pPrivate->pOuterFrame);
-    
-//     gtk_container_add(GTK_CONTAINER(pPrivate->pMainWindow), pPrivate->pOuterFrame);
-//     gtk_widget_reparent(pPrivate->pOuterFrame, pPrivate->pMainWindow);
   }
   else {
     gtk_widget_hide(pPrivate->pSideMenu);
@@ -743,14 +744,12 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
     else
       gtk_widget_hide(pPrivate->pToolbar);
     gtk_widget_show(pPrivate->pMenuBar);
-    //    gtk_window_set_decorated(GTK_WINDOW(pPrivate->pMainWindow), true);
-    //    gtk_frame_set_shadow_type(GTK_FRAME(pPrivate->pOuterFrame), GTK_SHADOW_NONE);
-
-//     gtk_widget_ref(pPrivate->pOuterFrame);
-//     gtk_container_remove(GTK_CONTAINER(pPrivate->pMainWindow), pPrivate->pOuterFrame);
-
-//     gtk_widget_reparent(pPrivate->pInnerFrame, pPrivate->pMainWindow);
   }
+  
+  if(dasher_app_settings_get_bool(pPrivate->pAppSettings, BP_SHOW_SLIDER))
+    gtk_widget_show(pPrivate->pStatusControl);
+  else
+    gtk_widget_hide(pPrivate->pStatusControl);
 
   if(pPrivate->bFullScreen) {
     gtk_window_fullscreen(GTK_WINDOW(pPrivate->pMainWindow));
@@ -778,12 +777,11 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
 // }
 
 void dasher_main_on_map(DasherMain *pSelf) {
-
-  g_message("In map routine");
-
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
   // Refresh the properties of the window
+
+  bool bDock(dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_DOCK));
 
   switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
   case 0:
@@ -798,14 +796,14 @@ void dasher_main_on_map(DasherMain *pSelf) {
     pPrivate->bShowActions = true;
     pPrivate->bTopMost = true;
     pPrivate->bFullScreen = false;
-    pPrivate->bShowSideMenu = true;
+    pPrivate->bShowSideMenu = bDock;
     break;
   case 2:
     pPrivate->bShowEdit = false;
     pPrivate->bShowActions = false;
     pPrivate->bTopMost = true;
     pPrivate->bFullScreen = false;
-    pPrivate->bShowSideMenu = true;
+    pPrivate->bShowSideMenu = bDock;
     break;
   case 3:
     pPrivate->bShowEdit = true;
@@ -865,13 +863,8 @@ void dasher_main_on_map(DasherMain *pSelf) {
 
 static void dasher_main_setup_window_type(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
-
-  std::cout << "App style: " << dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) << std::endl;
   
   if(((dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 1) || (dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2)) && dasher_app_settings_get_bool(g_pDasherAppSettings, APP_BP_DOCK)) {
-
-    std::cout << "Mapped: " << GTK_WIDGET_MAPPED(pPrivate->pMainWindow) << std::endl;
-
     gtk_window_set_type_hint(GTK_WINDOW(pPrivate->pMainWindow), GDK_WINDOW_TYPE_HINT_DOCK);
   }
   else {
@@ -896,22 +889,47 @@ void dasher_main_toggle_hidden(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
   pPrivate->bHidden = !(pPrivate->bHidden);
 
+  if(pPrivate->bHidden)
+    gtk_arrow_set(GTK_ARROW(pPrivate->pHideArrow), GTK_ARROW_LEFT, GTK_SHADOW_NONE);
+  else
+    gtk_arrow_set(GTK_ARROW(pPrivate->pHideArrow), GTK_ARROW_RIGHT, GTK_SHADOW_NONE);
+
   dasher_main_on_map(pSelf);
 }
 
 void dasher_main_grab(DasherMain *pSelf, GdkEventButton *pEvent) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
-  pPrivate->bGrabbed = true;
+  if(pEvent->button == 3) {
+    // Right click -> context menu
 
-  int iWindowX;
-  int iWindowY;
-
-  gtk_window_get_position(GTK_WINDOW(pPrivate->pMainWindow), &iWindowX, &iWindowY);
-
-  pPrivate->dDragOffsetX = pEvent->x_root - iWindowX;
-  pPrivate->dDragOffsetY = pEvent->y_root - iWindowY;
-
+    gtk_menu_popup(GTK_MENU(pPrivate->pContextMenu), NULL,
+		   NULL, NULL, NULL,
+		   pEvent->button, pEvent->time);
+  }
+  else {
+    // Left / middle click -> drag dock
+    pPrivate->bGrabbed = true;
+    
+    int iWindowX;
+    int iWindowY;
+    
+    gtk_window_get_position(GTK_WINDOW(pPrivate->pMainWindow), &iWindowX, &iWindowY);
+    
+    pPrivate->dDragOffsetX = pEvent->x_root - iWindowX;
+    pPrivate->dDragOffsetY = pEvent->y_root - iWindowY;
+    
+    GdkCursor *pCursor = gdk_cursor_new(GDK_FLEUR);
+    
+    gdk_pointer_grab(pPrivate->pMainWindow->window,
+		     TRUE,
+		     (GdkEventMask)(GDK_POINTER_MOTION_MASK | GDK_BUTTON_RELEASE_MASK),
+		     NULL,
+		     pCursor,
+		     pEvent->time);
+    
+    gdk_cursor_unref(pCursor);
+  }
 }
 
 void dasher_main_ungrab(DasherMain *pSelf, GdkEventButton *pEvent) {
@@ -919,6 +937,8 @@ void dasher_main_ungrab(DasherMain *pSelf, GdkEventButton *pEvent) {
 
   pPrivate->bGrabbed = false;
   dasher_main_save_state(pSelf);
+
+  gdk_pointer_ungrab(pEvent->time);
 }
 
 gboolean dasher_main_motion(DasherMain *pSelf, GdkEventMotion *pEvent) {
@@ -1017,6 +1037,34 @@ gboolean dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
   }
   else 
     dasher_app_settings_set_string(pPrivate->pAppSettings, SP_ALPHABET_ID, szSelected);
+}
+
+void dasher_main_build_context_menu(DasherMain *pSelf) {
+  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+
+  pPrivate->pContextMenu = gtk_menu_new();
+
+  GtkWidget *pNewItem;
+
+  pNewItem = gtk_menu_item_new_with_label("Prefences...");
+  gtk_widget_show(pNewItem);
+  gtk_menu_shell_append(GTK_MENU_SHELL(pPrivate->pContextMenu), pNewItem);
+  g_signal_connect(G_OBJECT(pNewItem), "activate", G_CALLBACK(preferences_display), NULL);
+
+  pNewItem = gtk_menu_item_new_with_label("About...");
+  gtk_widget_show(pNewItem);
+  gtk_menu_shell_append(GTK_MENU_SHELL(pPrivate->pContextMenu), pNewItem);
+  g_signal_connect(G_OBJECT(pNewItem), "activate", G_CALLBACK(about_dasher), NULL);
+
+
+  pNewItem = gtk_separator_menu_item_new();
+  gtk_widget_show(pNewItem);
+  gtk_menu_shell_append(GTK_MENU_SHELL(pPrivate->pContextMenu), pNewItem);
+
+  pNewItem = gtk_menu_item_new_with_label("Quit");
+  gtk_widget_show(pNewItem);
+  gtk_menu_shell_append(GTK_MENU_SHELL(pPrivate->pContextMenu), pNewItem);  
+  g_signal_connect(G_OBJECT(pNewItem), "activate", G_CALLBACK(ask_save_before_exit), NULL);
 }
 
 // Callbacks

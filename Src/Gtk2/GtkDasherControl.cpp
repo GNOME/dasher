@@ -226,8 +226,11 @@ gboolean gtk_dasher_control_default_key_press_handler(GtkDasherControl *pDasherC
   return FALSE;
 }
 
-
 gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDasherControl, GdkEventKey *pEvent, gpointer data) {
  static_cast<CDasherControl *>(data)->KeyReleaseEvent(pEvent);
  return FALSE;
+}
+
+gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount) {
+  return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetModuleSettings(szModule, pSettings, iCount);
 }

@@ -143,9 +143,6 @@ public:
   void ExternalKeyDown(int iKeyVal);
   void ExternalKeyUp(int iKeyVal);
 
-  void AlphabetComboChanged();
-  void PopulateAlphabetCombol();
-
 private:
   //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);

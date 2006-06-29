@@ -1,6 +1,7 @@
 #ifndef __DASHER_MODULE_H__
 #define __DASHER_MODULE_H__
 
+#include "../Common/ModuleSettings.h"
 #include "DasherComponent.h"
 
 class CDasherModule : public Dasher::CDasherComponent {
@@ -10,6 +11,10 @@ class CDasherModule : public Dasher::CDasherComponent {
   virtual long long int GetID();
   virtual int GetType();
   virtual const char *GetName();
+
+  virtual bool GetSettings(SModuleSettings **pSettings, int *iCount) {
+    return false;
+  };
 
   // Basic Reference counting
 

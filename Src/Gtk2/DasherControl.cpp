@@ -35,7 +35,6 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   Realize();
 
   m_iComboCount = 0;
-  PopulateAlphabetCombol();
     
   // Start the dasher model
 
@@ -353,24 +352,6 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
     m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
     Redraw(true);
     break;
-//   case LP_MAX_BITRATE:
-//     gtk_spin_button_set_value(GTK_SPIN_BUTTON(m_pSpin), GetLongParameter(LP_MAX_BITRATE) / 100.0);
-//     break;
-  case BP_SHOW_SLIDER:
-    if(m_pSpeedFrame != NULL) {
-      if(GetBoolParameter(BP_SHOW_SLIDER)) {
-        gtk_widget_show(GTK_WIDGET(m_pSpeedFrame));
-
-        gtk_range_set_value(GTK_RANGE(m_pSpeedHScale), GetLongParameter(LP_MAX_BITRATE) / 100.0);
-      }
-      else {
-        gtk_widget_hide(GTK_WIDGET(m_pSpeedFrame));
-      }
-    }
-    break;
-  case SP_ALPHABET_ID:
-    PopulateAlphabetCombol();
-    break;
   case BP_GLOBAL_KEYBOARD:
     if(m_pKeyboardHelper)
       m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
@@ -379,50 +360,6 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
 
   // Emit a dasher_changed signal to notify the application about changes.
   g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_changed", iParameter);
-}
-
-void CDasherControl::PopulateAlphabetCombol() {
-//   for( int i(m_iComboCount - 1); i >=0; --i)
-//     gtk_combo_box_remove_text(GTK_COMBO_BOX(m_pCombo), i);
-  
-//   m_iComboCount = 0;
-  
-//   const char *szValue;
-  
-//   szValue = GetStringParameter(SP_ALPHABET_ID).c_str();
-//   if(strlen(szValue) > 0) {
-//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-//     ++m_iComboCount;
-//   }
-  
-//   szValue = GetStringParameter(SP_ALPHABET_1).c_str();
-//   if(strlen(szValue) > 0) {
-//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-//     ++m_iComboCount;
-//   }
-  
-//   szValue = GetStringParameter(SP_ALPHABET_2).c_str();
-//   if(strlen(szValue) > 0) {
-//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-//     ++m_iComboCount;
-//   }
-  
-//   szValue = GetStringParameter(SP_ALPHABET_3).c_str();
-//   if(strlen(szValue) > 0) {
-//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-//     ++m_iComboCount;
-//   }
-  
-//   szValue = GetStringParameter(SP_ALPHABET_4).c_str();
-//   if(strlen(szValue) > 0) {
-//     gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), szValue);
-//     ++m_iComboCount;
-//   }
-  
-//   gtk_combo_box_append_text(GTK_COMBO_BOX(m_pCombo), "More Alphabets...");
-//   ++m_iComboCount;
-
-//   gtk_combo_box_set_active(GTK_COMBO_BOX(m_pCombo), 0);
 }
 
 
@@ -589,42 +526,8 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
 	KeyDown(get_time(), iKeyVal);
     }
   }
-
-//   switch (event->keyval) {
-//   case GDK_space:
-//     KeyDown(get_time(), 0);
-//     break;
-//   case GDK_Shift_L:
-//   case GDK_Shift_R: //deliberate fall through
-//     SetLongParameter(LP_BOOSTFACTOR, 175);
-//     break;
-//   case GDK_Control_L:
-//   case GDK_Control_R: //deliberate fall through
-//     SetLongParameter(LP_BOOSTFACTOR, 25);
-//     break;
-//   case GDK_a:
-//     KeyDown(get_time(), 1);
-//     break;
-//   case GDK_s:
-//     KeyDown(get_time(), 2);
-//     break;
-//   case GDK_w:
-//     KeyDown(get_time(), 3);
-//     break;
-//   case GDK_x:
-//     KeyDown(get_time(), 4);
-//     break;
-//   }
   return 0;
 }
-
-// void CDasherControl::SliderEvent() {
-//   //  int iNewValue( static_cast<int>(round(gtk_range_get_value(GTK_RANGE(m_pSpeedHScale)) * 100)));
-//   int iNewValue( static_cast<int>(round(gtk_spin_button_get_value_as_float(GTK_SPIN_BUTTON(m_pSpin)) * 100)));
-
-//   if(GetLongParameter(LP_MAX_BITRATE) != iNewValue)
-//     SetLongParameter(LP_MAX_BITRATE, iNewValue);
-// }
 
 void CDasherControl::CanvasDestroyEvent() {
   // Delete the screen
@@ -634,18 +537,6 @@ void CDasherControl::CanvasDestroyEvent() {
     m_pScreen = NULL;
   }
 }
-
-// void CDasherControl::AlphabetComboChanged() {
-//   // std::cout << "Alphabet changed to: " << gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)) << std::endl;
-
-//   if(!strcmp("More Alphabets...",  gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)))) {
-//     gtk_combo_box_set_active(GTK_COMBO_BOX(m_pCombo), 0);
-    
-//     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_request_settings");
-//   }
-//   else if(strcmp(GetStringParameter(SP_ALPHABET_ID).c_str(),  gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo))))
-//     SetStringParameter(SP_ALPHABET_ID, gtk_combo_box_get_active_text(GTK_COMBO_BOX(m_pCombo)));
-// }
 
 // Tell the logging object that a new user trial is starting.
 void CDasherControl::UserLogNewTrial()

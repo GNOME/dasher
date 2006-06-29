@@ -146,11 +146,8 @@ static void dasher_app_settings_load(DasherAppSettings *pSelf) {
       strncat(szName,  app_longparamtable[i].regName, 255 - strlen( szName ));
 
       pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szName, &pGConfError);
-
-      g_message("gconf: %d, %d, %s", i, pGConfValue, szName);
       
       if(pGConfValue) {
-	g_message("%d", gconf_value_get_int(pGConfValue));
 	app_longparamtable[i].value = gconf_value_get_int(pGConfValue);
 
 	gconf_value_free(pGConfValue);

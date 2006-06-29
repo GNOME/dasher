@@ -7,6 +7,8 @@ class CEyetrackerFilter : public CDefaultFilter {
  public:
   CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 
+  bool GetSettings(SModuleSettings **pSettings, int *iCount);
+
  private:
   virtual void ApplyAutoCalibration(myint &iDasherX, myint &iDasherY, bool bUpdate);
   virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);

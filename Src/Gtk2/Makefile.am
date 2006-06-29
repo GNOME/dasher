@@ -87,7 +87,9 @@ libdashergtk_a_SOURCES = \
                          dasher_main.cpp \
                          dasher_main.h \
                          fileops.cc \
-                         fileops.h
+                         fileops.h \
+			 module_settings_window.cpp \
+			 module_settings_window.h 
 
 libdashergtk_a_LIBADD = @SPEECH_SOURCES@
 libdashergtk_a_DEPENDENCIES = @SPEECH_SOURCES@

@@ -10,8 +10,6 @@
 
 #include "AlphIO.h"
 
-#include <iostream>
-
 using namespace Dasher;
 using namespace std;
 using namespace expat;
@@ -69,7 +67,6 @@ CAlphIO::CAlphIO(string SystemLocation, string UserLocation, vector <string >Fil
 }
 
 void CAlphIO::ParseFile(std::string Filename) {
-
   FILE *Input;
   if((Input = fopen(Filename.c_str(), "r")) == (FILE *) 0) {
     // could not open file
@@ -404,6 +401,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       }
       atts += 2;
     }
+
     return;
   }
 

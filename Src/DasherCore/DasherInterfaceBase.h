@@ -9,6 +9,7 @@
 // Check that everything that is not self-contained within the GUI is covered.
 
 #include "../Common/NoClones.h"
+#include "../Common/ModuleSettings.h"
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
 #include "CustomColours.h"
@@ -373,6 +374,8 @@ public:
   void CreateFactories();
 
   void StartShutdown();
+
+  bool GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount);
 
 protected:
   void WriteTrainFileFull();

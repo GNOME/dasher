@@ -20,6 +20,14 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+static SModuleSettings sSettings[] = {
+  {LP_ZOOMSTEPS, T_LONG, 1, 63, 1, 1, "Zoom steps"},
+  {LP_B, T_LONG, 2, 10, 1, 1, "Number of boxes"},
+  {LP_S, T_LONG, 0, 256, 1, 1, "Safety margin"},
+  {LP_R, T_LONG, -400, 400, 1, 10, "Box non-uniformity"},
+  {BP_GLOBAL_KEYBOARD, T_BOOL, -1, -1, -1, -1, "Global keyboard grab"}
+};
+
 // FIXME - should compass mode be made a separate class?
 
 CDasherButtons::CDasherButtons(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, int iNumBoxes, int iStyle, bool bMenu, long long int iID, const char *szName)
@@ -249,6 +257,7 @@ void CDasherButtons::SetupBoxes()
   }
  
   iActiveBox = 0;
+  m_bDecorationChanged = true;
 }
 
 bool CDasherButtons::DecorateView(CDasherView *pView) {
@@ -410,3 +419,10 @@ void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {
     }
   }
 }
+
+bool CDasherButtons::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};

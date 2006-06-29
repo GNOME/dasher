@@ -7,6 +7,7 @@ libdashermisc_a_SOURCES = \
 		Hash.h \
 		MSVC_Unannoy.h \
 		myassert.h \
+		ModuleSettings.h \
 		NoClones.h \
 		Platform.h \
 		Random.h \

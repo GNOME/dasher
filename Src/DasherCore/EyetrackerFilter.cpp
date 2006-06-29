@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+static SModuleSettings sSettings[] = {
+  {BP_AUTOCALIBRATE, T_BOOL, -1, -1, -1, -1, "Automatic calibration:"}
+};
+
 CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 5, "Eyetracker Mode") {
 
@@ -14,6 +18,13 @@ CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSet
   m_iCounter = 0;
   m_iFilterTimescale = 20;
 }
+
+bool CEyetrackerFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};
 
 void CEyetrackerFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
   double disty=(myint)GetLongParameter(LP_OY)-iDasherY;

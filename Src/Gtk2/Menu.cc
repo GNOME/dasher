@@ -24,14 +24,13 @@ extern GtkWidget *window;
 extern GtkWidget *file_selector;
 
 void PopulateMenus(GladeXML *pGladeWidgets) {
-
-  g_message("Populating menus");
+  // TODO: This duplicates functionality elsewhere
 
   int iValue = gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE);
 
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), iValue == 1);
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), iValue == 2);
-  gtk_check_menu_item_set_active( GTK_CHECK_MENU_ITEM(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), iValue == 3);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), iValue == 1);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), iValue == 2);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), iValue == 3);
 }
 
 extern "C" void select_save_file_as(GtkWidget * widget, gpointer user_data);
@@ -366,7 +365,7 @@ extern "C" void clipboard_select_all(void) {
 // Font selector options will be in their own file
 
 extern "C" void set_dasher_fontsize(GtkWidget *widget, gpointer user_data) {
-  if(GTK_CHECK_MENU_ITEM(widget)->active == TRUE) {
+  if(GTK_TOGGLE_BUTTON(widget)->active == TRUE) {
     if(!strcmp(gtk_widget_get_name(GTK_WIDGET(widget)), "fontsizenormal")) {
       gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE, Dasher::Opts::Normal);
     }

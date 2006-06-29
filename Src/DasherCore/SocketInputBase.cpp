@@ -22,6 +22,17 @@
 
 using namespace Dasher;
 
+static SModuleSettings sSettings[] = {
+  {LP_SOCKET_PORT, T_LONGSPIN, 0, 65535, 1, 10, "Port:"},
+  {SP_SOCKET_INPUT_X_LABEL, T_STRING, -1, -1, -1, -1, "X label:"},
+  {LP_SOCKET_INPUT_X_MIN, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "X minimum:"},
+  {LP_SOCKET_INPUT_X_MAX, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "X maximum:"},
+  {SP_SOCKET_INPUT_Y_LABEL, T_STRING, -1, -1, -1, -1, "Y label:"},
+  {LP_SOCKET_INPUT_Y_MIN, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "Y minimum:"},
+  {LP_SOCKET_INPUT_Y_MAX, T_LONGSPIN, -2147480000, 2147480000, 1000, 10000, "Y maximum:"},
+  {BP_SOCKET_DEBUG, T_BOOL, -1, -1, -1, -1, "Print socket-related debugging information to console:"}
+};
+
 Dasher::CSocketInputBase::CSocketInputBase(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
   : CDasherInput(pEventHandler, pSettingsStore, 1, 0, "Socket Input") {
   port = -1;
@@ -297,3 +308,10 @@ void CSocketInputBase::SocketDebugMsg(const char *pszFormat, ...) {
     va_end(v);
   }
 }
+
+bool CSocketInputBase::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};
