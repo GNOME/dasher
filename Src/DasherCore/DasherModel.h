@@ -290,7 +290,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // Reset the 'target' root coordinates to match those currently visible. 
   // Appropriate for abrubt changes in behaviour (such as backing off in 
   // button modes)
-  void CDasherModel::MatchTarget();
+  void MatchTarget();
 
  private:
 
