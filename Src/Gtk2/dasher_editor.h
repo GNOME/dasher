@@ -64,6 +64,7 @@ void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength);
 void dasher_editor_generate_filename(DasherEditor *pSelf);
 void dasher_editor_open(DasherEditor *pSelf, const gchar *szFilename);
 bool dasher_editor_save_as(DasherEditor *pSelf, const gchar *szFilename, bool bAppend);
+void dasher_editor_start_tutorial(DasherEditor *pSelf);
 
 // Temporarily here - move back to private eventually
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);

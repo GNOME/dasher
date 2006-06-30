@@ -238,3 +238,7 @@ gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, con
 void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString) {
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->AddGameModeString(szString);
 }
+
+void gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->PauseAt(0,0);
+}

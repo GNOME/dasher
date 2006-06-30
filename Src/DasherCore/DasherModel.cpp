@@ -46,8 +46,6 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_pGameMode(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 
-  std::cout << bGameMode << " " << strGameModeText << std::endl;
-
 #ifdef JAPANESE
   m_bRequireConversion = true;
 #else

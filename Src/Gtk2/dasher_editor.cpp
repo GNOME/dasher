@@ -192,7 +192,7 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
-  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(GTK_DASHER_CONTROL(pDasherWidget)));
+  pPrivate->pGameModeHelper = 0;
 
   dasher_editor_setup_actions(pDasherControl);
   dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
@@ -638,11 +638,17 @@ EditorAction *pAction;
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
+
+  if(pPrivate->pGameModeHelper)
+    game_mode_helper_output(pPrivate->pGameModeHelper, szText);
 }
 
 void dasher_editor_delete(DasherEditor *pSelf, int iLength) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   idasher_buffer_set_delete(pPrivate->pBufferSet, iLength);
+
+  if(pPrivate->pGameModeHelper)
+    game_mode_helper_delete(pPrivate->pGameModeHelper, iLength);
 }
 
 void dasher_editor_convert(DasherEditor *pSelf) {
@@ -756,6 +762,12 @@ void dasher_editor_check_activity(DasherEditor *pSelf, EditorAction *pAction) {
     dasher_action_activate(pAction->pAction);
   else if(!bNeedActive && bActive)
     dasher_action_deactivate(pAction->pAction);
+}
+
+void dasher_editor_start_tutorial(DasherEditor *pSelf) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+
+  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(GTK_DASHER_CONTROL(pDasherWidget)));
 }
 
 // Callbacks

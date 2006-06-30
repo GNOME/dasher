@@ -574,7 +574,6 @@ GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf) {
   //  g_signal_emit_by_name(G_OBJECT(pSelf), "realized");
 
 
-  //  gtk_dasher_control_add_game_mode_string(GTK_DASHER_CONTROL(pDasherControl), "Hello world, this is a test");
 
   return pDasherControl;
 }

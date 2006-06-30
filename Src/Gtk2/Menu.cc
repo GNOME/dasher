@@ -352,6 +352,10 @@ extern "C" void clipboard_copy_all(void) {
   dasher_editor_clipboard(g_pEditor, CLIPBOARD_COPYALL);
 }
 
+extern "C" void on_menututorial_activate() {
+  dasher_editor_start_tutorial(g_pEditor);
+}
+
 // Not actually on the menu, but should be?
 
 extern "C" void clipboard_select_all(void) {

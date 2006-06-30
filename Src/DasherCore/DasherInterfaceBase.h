@@ -290,6 +290,7 @@ public:
 
   void AddGameModeString(const std::string &strText) {
     m_deGameModeStrings.push_back(strText);
+    PauseAt(0,0);
     CreateDasherModel();
     Start();
   };

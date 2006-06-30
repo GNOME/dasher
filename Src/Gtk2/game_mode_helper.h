@@ -28,6 +28,9 @@ struct _GameModeHelperClass {
 
 GObject *game_mode_helper_new(GtkDasherControl *pControl);
 GType game_mode_helper_get_type();
+
+void game_mode_helper_output(GameModeHelper *pSelf, const gchar *szText);
+void game_mode_helper_delete(GameModeHelper *pSelf, int iLength);
 G_END_DECLS
 
 #endif
