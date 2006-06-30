@@ -17,7 +17,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel );
+    CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText );
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -58,6 +58,13 @@ namespace Dasher {
   private:
     CLanguageModel *m_pLanguageModel;
     CDasherModel *m_pModel;
+
+    std::string m_strGameString;
+    bool m_bGameMode;
+
+    struct SAlphabetData {
+      int iGameOffset;
+    };
 
   };
 

@@ -15,8 +15,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManagerFactory::CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel ) {
-  m_pAlphabetManager = new CAlphabetManager( pModel, pLanguageModel );
+CAlphabetManagerFactory::CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText ) {
+  m_pAlphabetManager = new CAlphabetManager( pModel, pLanguageModel, bGameMode, strGameModeText );
 }
 
 CAlphabetManagerFactory::~CAlphabetManagerFactory() {

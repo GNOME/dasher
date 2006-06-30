@@ -41,10 +41,18 @@ static char THIS_FILE[] = __FILE__;
 
 // CDasherModel
 
-CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CAlphIO *pAlphIO)
+CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CAlphIO *pAlphIO, bool bGameMode, const std::string &strGameModeText)
 :CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0), 
 m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_pGameMode(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
+
+  std::cout << bGameMode << " " << strGameModeText << std::endl;
+
+#ifdef JAPANESE
+  m_bRequireConversion = true;
+#else
+  m_bRequireConversion = false;
+#endif
 
   // Set max bitrate in the FrameRate class
   m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
@@ -116,7 +124,7 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   m_Rootmin_min = int64_min / iNormalization / 2;
   m_Rootmax_max = int64_max / iNormalization / 2;
 
-  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel);
+  m_pAlphabetManagerFactory = new CAlphabetManagerFactory(this, m_pLanguageModel, bGameMode, strGameModeText);
   m_pControlManagerFactory = new CControlManagerFactory(this, m_pLanguageModel);
 #ifdef JAPANESE
   m_pConversionManagerFactory = new CConversionManagerFactory(this, m_pLanguageModel);
@@ -194,7 +202,7 @@ void CDasherModel::Make_root(CDasherNode *whichchild)
 
   m_Root = whichchild;
 
-  while(oldroots.size() > 10) {
+  while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetConverted()))) {
     oldroots[0]->OrphanChild(oldroots[1]);
     delete oldroots[0];
     oldroots.pop_front();

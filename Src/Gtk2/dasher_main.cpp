@@ -75,6 +75,13 @@ struct _DasherMainPrivate {
 
 typedef struct _DasherMainPrivate DasherMainPrivate;
 
+enum {
+  REALIZED,
+  SIGNAL_NUM
+};
+
+static guint dasher_main_signals[SIGNAL_NUM] = { 0 };
+
 // Private member functions
 
 static void dasher_main_class_init(DasherMainClass *pClass);
@@ -128,7 +135,9 @@ GType dasher_main_get_type() {
 
 static void dasher_main_class_init(DasherMainClass *pClass) {
   GObjectClass *pObjectClass = (GObjectClass *) pClass;
-  pObjectClass->finalize = dasher_main_destroy;
+  pObjectClass->finalize = dasher_main_destroy; 
+
+  dasher_main_signals[REALIZED] = g_signal_new("realized", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(DasherMainClass, realized), NULL, NULL, g_cclosure_marshal_VOID__VOID, G_TYPE_NONE, 0);
 }
 
 static void dasher_main_init(DasherMain *pDasherControl) {
@@ -556,6 +565,16 @@ GtkWidget *dasher_main_create_dasher_control(DasherMain *pSelf) {
 #ifdef WITH_MAEMO
   gtk_widget_set_size_request(pDasherControl, 175, -1);  
 #endif
+
+
+  // TODO: all of this stuff is pretty pointless
+
+  //  g_message("%d", pSelf);
+
+  //  g_signal_emit_by_name(G_OBJECT(pSelf), "realized");
+
+
+  //  gtk_dasher_control_add_game_mode_string(GTK_DASHER_CONTROL(pDasherControl), "Hello world, this is a test");
 
   return pDasherControl;
 }

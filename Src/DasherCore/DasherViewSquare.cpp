@@ -85,7 +85,7 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
   }
 }
 
-void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
+void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) {
 
   DASHER_ASSERT(pRoot != 0);
 
@@ -97,7 +97,7 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
   myint iDasherMaxY;
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
  
-  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList);
+  RecursiveRender(pRoot, iRootMin, iRootMax, iDasherMaxX, vNodeList, vDeleteList, iGamePointer, true);
 
   // DelayDraw the text nodes
   m_pDelayDraw->Draw(Screen());
@@ -106,10 +106,10 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 }
 
 
-int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) {
+int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
-  if(!RenderNode(pRender->Colour(), pRender->ColorScheme(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove)) {
+  if(bDraw && !RenderNode(pRender->Colour(), pRender->ColorScheme(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove)) {
     vDeleteList.push_back(pRender);
     pRender->Kill();
     return 0;
@@ -120,6 +120,9 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     return 0;
   }
 
+  if(pRender->GetGame())
+    *iGamePointer = (y1 + y2) / 2;
+  
   // Render groups
   RenderGroups(pRender, y1, y2, mostleft);
 
@@ -138,7 +141,10 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     
     if((newy2 - newy1 > 50) || (pChild->Alive())) {
       pChild->Alive(true);
-      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList);
+      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer, true);
+    }
+    else if(pRender->GetGame()) {
+      RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer, false);
     }
   }
   
@@ -888,7 +894,7 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
 
 // TODO - should be elsewhere
 
-void CDasherViewSquare::DrawGameModePointer() {
+void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
 
   // FIXME - reimplement
 
@@ -904,6 +910,6 @@ void CDasherViewSquare::DrawGameModePointer() {
 //     DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(Objects), false);
 
 //   else
-//     DasherDrawCentredRectangle(-50, loc, 7, 135, Opts::ColorSchemes(Objects), false);
+     DasherDrawCentredRectangle(-50, iPosition, 7, 135, Opts::ColorSchemes(Objects), false);
 
 }

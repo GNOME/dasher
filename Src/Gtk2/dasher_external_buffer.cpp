@@ -46,6 +46,8 @@ static void dasher_external_buffer_destroy(GObject *pObject);
 static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_data);
 void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText);
 void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength);
+void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf);
+void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf);
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMaxLength);
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist);
@@ -113,6 +115,8 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   iface->get_context = (gchar *(*)(IDasherBufferSet *pSelf, gint iMaxLength))dasher_external_buffer_get_context;
   iface->edit_move = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_move;
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_external_buffer_edit_delete;
+  iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_convert;
+  iface->edit_protect = (void (*)(IDasherBufferSet *pSelf))dasher_external_buffer_edit_protect;
 }
 
 static void dasher_external_buffer_destroy(GObject *pObject) {
@@ -264,6 +268,12 @@ void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const Acce
   }
 
   Accessible_unref(accessible);
+}
+
+void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf) {
+}
+
+void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf) {
 }
 
 void dasher_external_buffer_handle_caret(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent) {

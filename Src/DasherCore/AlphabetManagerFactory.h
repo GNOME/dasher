@@ -11,7 +11,7 @@ namespace Dasher {
   
   class CAlphabetManagerFactory : public CNodeManagerFactory {
   public:
-    CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel );
+    CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText );
     ~CAlphabetManagerFactory();
     
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);

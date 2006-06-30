@@ -234,3 +234,7 @@ gboolean gtk_dasher_control_default_key_release_handler(GtkDasherControl *pDashe
 gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount) {
   return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetModuleSettings(szModule, pSettings, iCount);
 }
+
+void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString) {
+  ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->AddGameModeString(szString);
+}

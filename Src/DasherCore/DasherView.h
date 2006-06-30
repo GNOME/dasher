@@ -83,7 +83,7 @@ public:
   /// Renders the Dasher node structure
   /// \todo Shouldn't be public?
 
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList) = 0;
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) = 0;
 
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
@@ -126,7 +126,7 @@ public:
 
   /// Draw the game mode pointer - this shouldn't be here
 
-  virtual void DrawGameModePointer() = 0;
+  virtual void DrawGameModePointer(myint iPosition) = 0;
 
   ////// Return a reference to the screen
   

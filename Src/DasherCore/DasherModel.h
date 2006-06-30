@@ -73,7 +73,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     idJapanese = 4
   } LanguageModelID;
 
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface, CAlphIO *pAlphIO);
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface, CAlphIO *pAlphIO, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
 
   bool WriteLMToFile(const std::string &strFilename) {
@@ -365,6 +365,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   };
 
   std::deque<SGotoItem> m_deGotoQueue;
+  
+  // Whether characters entered by alphabet manager are expected to
+  // require conversion.
+  // TODO: Need to rethink this at some point.
+  bool m_bRequireConversion;
 
   friend class CDasherGameMode;
   friend class CTrainer;

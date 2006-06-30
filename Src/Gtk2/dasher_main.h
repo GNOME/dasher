@@ -25,6 +25,8 @@ struct _DasherMain {
 
 struct _DasherMainClass {
   GObjectClass parent_class;
+
+  void (*realized)(DasherMain *pDasherMain);
 };
 
 DasherMain *dasher_main_new();

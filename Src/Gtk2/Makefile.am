@@ -88,6 +88,8 @@ libdashergtk_a_SOURCES = \
                          dasher_main.h \
                          fileops.cc \
                          fileops.h \
+			 game_mode_helper.cpp \
+			 game_mode_helper.h \
 			 module_settings_window.cpp \
 			 module_settings_window.h 
 

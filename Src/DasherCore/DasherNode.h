@@ -102,6 +102,17 @@ class Dasher::CDasherNode:private NoClones {
     return m_iColour;
   } 
 
+  int SetColour(int iColour) {
+    m_iColour = iColour;
+  }
+
+  void SetGame(bool bInGame) {
+    m_bInGame = bInGame;
+  }
+
+  bool GetGame() {
+    return m_bInGame;
+  }
 
   // Set/replace the context
   void SetContext(CLanguageModel::Context Context);
@@ -116,6 +127,15 @@ class Dasher::CDasherNode:private NoClones {
 
   // Get the probability of this node
   double GetProb(int iNormalization);
+
+  bool GetConverted() {
+    return m_bConverted;
+  };
+
+  // Ensure that this node is marked as being converted, together with
+  // all of its ancestors (assuming that unconverted nodes are
+  // 'contiguous' at the brances of the tree).
+  void ConvertWithAncestors();
 
   // New stuff
   CNodeManager *m_pNodeManager;
@@ -173,6 +193,12 @@ class Dasher::CDasherNode:private NoClones {
   int m_iRefCount;              // reference count if ancestor of (or equal to) root node
   bool m_bAlive;                // if true, then display node, else dont bother
   bool m_bSeen;                 // if true, node has been output already
+
+  // Whether this node has been converted (and can therefore be safely deleted)
+  bool m_bConverted;            
+
+  // Whether this is on the game mode path
+  bool m_bInGame;
   
   // Information internal to the data structure
   ChildMap m_mChildren;         // pointer to array of children
@@ -195,6 +221,9 @@ using namespace Opts;
 
 inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1)
 :m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
+
+  m_bConverted = false;
+  m_bInGame = false;
 }
 
 inline CDasherNode::~CDasherNode() {

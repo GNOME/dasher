@@ -303,7 +303,13 @@ void CDasherInterfaceBase::CreateDasherModel()
       m_pDasherModel = 0;
     }
 
-    m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO);
+    if(m_deGameModeStrings.size() == 0)
+      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO);
+    else {
+      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO, true, m_deGameModeStrings[0]);
+      //      m_deGameModeStrings.pop_front();
+    }
+
     m_Alphabet = m_pDasherModel->GetAlphabetNew();
     
     string T = m_Alphabet->GetTrainingFile();
@@ -778,7 +784,7 @@ void CDasherInterfaceBase::ResetParameter(int iParameter) {
 
 // We need to be able to get at the UserLog object from outside the interface
 CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
-	return m_pUserLog;
+  return m_pUserLog;
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {

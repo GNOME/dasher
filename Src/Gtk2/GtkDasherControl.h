@@ -91,6 +91,7 @@ void gtk_dasher_control_disconnect_node(GtkDasherControl *pControl, int iChild, 
 void gtk_dasher_control_external_key_down(GtkDasherControl *pControl, int iKeyVal);
 void gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal);
 gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount);
+void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString);
 //FIXME - namespace broken
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);

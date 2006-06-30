@@ -22,8 +22,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel ) 
+CAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText ) 
   : CNodeManager(0), m_pLanguageModel(pLanguageModel), m_pModel(pModel) {
+
+  m_bGameMode = bGameMode;
+  m_strGameString = strGameModeText;
 }
 
 CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
@@ -53,10 +56,16 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
+  pNewNode->m_pUserData = new SAlphabetData;
   pNewNode->m_bShove = true;
   pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
   pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(iSymbol);
   pNewNode->Seen(true);
+
+  if(m_bGameMode) {
+    static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = -1;
+    pNewNode->SetGame(true);
+  }
 
   return pNewNode;
 }
@@ -141,13 +150,29 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
           iColour += 130;
         }
 
-	      pNewNode = new CDasherNode(pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, iColour);
-	      pNewNode->m_pNodeManager = this;
-	      pNewNode->m_bShove = true;
-	      pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
+	pNewNode = new CDasherNode(pNode, newchars[j], j, ChildScheme, iLbnd, cum[j], m_pLanguageModel, iColour);
+	pNewNode->m_pNodeManager = this;
+	pNewNode->m_pUserData = new SAlphabetData;
+	pNewNode->m_bShove = true;
+	pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
+
+
+	if(m_bGameMode) {
+	  int iCurrentGameOffset(static_cast<SAlphabetData *>(pNode->m_pUserData)->iGameOffset);
+	  
+	  if((iCurrentGameOffset != -2) && ((iCurrentGameOffset + 1) < m_strGameString.size()) 
+	     && ((m_pModel->GetAlphabet().GetText(newchars[j]))[0] == m_strGameString[iCurrentGameOffset + 1])) {
+	    static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = iCurrentGameOffset + 1;
+	    pNewNode->SetGame(true);
+	  }
+	  else
+	    static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = -2;
+	}
       }
 
       pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(newchars[j]);
+
+     
       pNode->Children()[j] = pNewNode;
       iLbnd = cum[j];
     }
@@ -155,10 +180,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
 }
 
 void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
-  // Should this be responsible for actually doing the deletion
-
-  //  std::cout << "Deleting: " << pNode << std::endl;
-
+  delete static_cast<SAlphabetData *>(pNode->m_pUserData);
 }
 
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
@@ -242,6 +264,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   }
 
   pNewNode->m_pNodeManager = this;
+  pNewNode->m_pUserData = new SAlphabetData;
   pNewNode->m_bShove = true;
   pNewNode->Seen(true);
   pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;

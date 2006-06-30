@@ -21,6 +21,7 @@
 #include "dasher_internal_buffer.h"
 #include "dasher_lock_dialogue.h"
 #include "fileops.h"
+#include "game_mode_helper.h"
 #include "FontDialogues.h"
 #include "GtkDasherControl.h"
 #include "Preferences.h"
@@ -82,6 +83,7 @@ void dasher_editor_protect(DasherEditor *pSelf);
 // Private methods not in class
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData);
 extern "C" void context_changed_handler(GObject *pSource, gpointer pUserData);
+extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData);
 
 typedef struct _DasherEditorPrivate DasherEditorPrivate;
 
@@ -96,7 +98,7 @@ struct _DasherEditorPrivate {
   gboolean bActionIterStarted;
   gint iNextActionID;
   IDasherBufferSet *pBufferSet;
-  int iConversionCount;
+  GameModeHelper *pGameModeHelper;
 };
 
 GType dasher_editor_get_type() {
@@ -162,6 +164,7 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
 
   g_pDasherMain = dasher_main_new();
+  //  g_signal_connect(G_OBJECT(g_pDasherMain), "realized", G_CALLBACK(main_window_realized), pDasherControl);
 
   GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
   pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
@@ -189,7 +192,7 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pPrivate->pPrimarySelection = gtk_clipboard_get(GDK_SELECTION_PRIMARY);
   pPrivate->pActionRing = NULL;
   pPrivate->iNextActionID = 0;
-  pPrivate->iConversionCount = 0;
+  pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(GTK_DASHER_CONTROL(pDasherWidget)));
 
   dasher_editor_setup_actions(pDasherControl);
   dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
@@ -485,6 +488,11 @@ extern "C" void delete_children_callback(GtkWidget *pWidget, gpointer pUserData)
   gtk_widget_destroy(pWidget);
 }
 
+extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData) {
+  g_message("Main window realized");
+}
+
+
 void dasher_editor_rebuild_action_pane(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   
@@ -630,7 +638,6 @@ EditorAction *pAction;
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
   idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
-  ++pPrivate->iConversionCount;
 }
 
 void dasher_editor_delete(DasherEditor *pSelf, int iLength) {
@@ -639,14 +646,13 @@ void dasher_editor_delete(DasherEditor *pSelf, int iLength) {
 }
 
 void dasher_editor_convert(DasherEditor *pSelf) {
- DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
- idasher_buffer_set_delete(pPrivate->pBufferSet, pPrivate->iConversionCount);
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+  idasher_buffer_set_edit_convert(pPrivate->pBufferSet);
 }
 
 void dasher_editor_protect(DasherEditor *pSelf) {
- DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-
- pPrivate->iConversionCount = 0;
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+  idasher_buffer_set_edit_protect(pPrivate->pBufferSet);
 }
 
 EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID){

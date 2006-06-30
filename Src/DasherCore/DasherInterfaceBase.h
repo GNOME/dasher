@@ -228,95 +228,6 @@ public:
 
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Settings Interface (CDasherSettingsInterface) - options saved between sessions
-  /////////////////////////////////////////////////////////////////////////////
-
-  /// \deprecated Use parameter interface instead
-
-  /// \deprecated Use parameter interface instead
-
-  //  std::string GetCurrentAlphabet();
-
-  /// \deprecated Use parameter interface instead
-
-  /// \deprecated Use parameter interface instead
-
-  //  std::string GetCurrentColours();
-
-  /// \deprecated Use parameter interface instead
-
-  //  void ChangeMaxBitRate(double NewMaxBitRate);
-
-  // DJW - nasty thing about this is - we dont necessarily want the LM to rebuild every
-  // time a parameter is change - e.g. if we change 2 or 3 params in a row ???
-
-  /// \deprecated Use parameter interface instead
-
-/*   void ChangeLanguageModel(int NewLanguageModelID); */
-
-  /// \deprecated Use parameter interface instead
-
-  /// \deprecated Use parameter interface instead
-
-/*   void SetFileEncoding(Opts::FileEncodingFormats Encoding); */
-
-/*   /// \deprecated Not part of Dasher control */
-
-/*   void ShowToolbar(bool Value); */
-
-/*   /// \deprecated Not part of Dasher control */
-
-/*   void ShowToolbarText(bool Value); */
-
-/*   /// \deprecated Not part of Dasher control */
-
-/*   void SetScreenSize(long Width, long Height); */
-
-/*   /// \deprecated Not part of Dasher control */
-
-/*   void SetEditHeight(long Value); */
-
-/*   /// \deprecated Not part of Dasher control */
-
-/*   void SetEditFont(std::string Name, long Size); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetDasherFont(std::string Name); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetDasherFontSize(Dasher::Opts::FontSize fontsize); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetDasherDimensions(bool Value); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetDasherEyetracker(bool Value); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetUniform(int Value); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetYScale(int Value); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetMousePosDist(int Value); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetTruncation(int Value); */
-
-/*   /// \deprecated Use parameter interface instead */
-
-/*   void SetTruncationType(int Value); */
-
   /// Get the current autocalibration offset
   /// \retval The offset.
 
@@ -377,6 +288,12 @@ public:
 
   bool GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount);
 
+  void AddGameModeString(const std::string &strText) {
+    m_deGameModeStrings.push_back(strText);
+    CreateDasherModel();
+    Start();
+  };
+
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
@@ -421,6 +338,8 @@ protected:
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();
+
+  std::deque<std::string> m_deGameModeStrings;
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

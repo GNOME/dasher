@@ -100,6 +100,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
   }
   else {
     // TODO: Placeholder algorithm here
+    // TODO: Add an 'end of conversion' node?
     int iLbnd(0);
     int iHbnd(m_pModel->GetLongParameter(LP_NORMALIZATION)); 
       
@@ -209,7 +210,7 @@ void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB*
     Dasher::CEditEvent oEvent(1, pCurrentCMNode->m_strSymbol);
     m_pModel->InsertEvent(&oEvent);
 
-    if(!(pCurrentCMNode->m_pChild)) {
+    if((pNode->GetChildren())[0]->m_pNodeManager != this) {
       Dasher::CEditEvent oEvent(11, "");
       m_pModel->InsertEvent(&oEvent);
     }

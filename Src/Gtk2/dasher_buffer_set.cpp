@@ -68,3 +68,11 @@ void idasher_buffer_set_edit_move(IDasherBufferSet *pSelf, gint iDirection, gint
 void idasher_buffer_set_edit_delete(IDasherBufferSet *pSelf, gint iDirection, gint iDist) {
   IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->edit_delete(pSelf, iDirection, iDist);
 }
+
+void idasher_buffer_set_edit_convert(IDasherBufferSet *pSelf) {
+  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->edit_convert(pSelf);
+}
+
+void idasher_buffer_set_edit_protect(IDasherBufferSet *pSelf) {
+  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->edit_protect(pSelf);
+}

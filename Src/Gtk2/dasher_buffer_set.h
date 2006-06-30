@@ -40,6 +40,8 @@ struct _IDasherBufferSetInterface {
   gchar *(*get_context)(IDasherBufferSet *pSelf, gint iMaxLength);
   void (*edit_move)(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
   void (*edit_delete)(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
+  void (*edit_convert)(IDasherBufferSet *pSelf);
+  void (*edit_protect)(IDasherBufferSet *pSelf);
 };
 
 GType idasher_buffer_set_get_type();
@@ -49,5 +51,8 @@ void idasher_buffer_set_delete(IDasherBufferSet *pSelf, gint iLength);
 gchar *idasher_buffer_set_get_context(IDasherBufferSet *pSelf, gint iMaxLength);
 void idasher_buffer_set_edit_move(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
 void idasher_buffer_set_edit_delete(IDasherBufferSet *pSelf, gint iDirection, gint iDist);
+void idasher_buffer_set_edit_convert(IDasherBufferSet *pSelf);
+void idasher_buffer_set_edit_protect(IDasherBufferSet *pSelf);
+
 
 #endif

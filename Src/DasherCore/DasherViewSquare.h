@@ -67,7 +67,7 @@ public:
   /// Render the current state of the model.
   ///
 
-  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
+  virtual void RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer);
 
   /// 
   /// Supply a new screen to draw to
@@ -79,7 +79,7 @@ public:
   /// Draw the game mode pointer
   ///
 
-  void DrawGameModePointer();
+  void DrawGameModePointer(myint iPosition);
 
   /// Get the scale factor for conversion between Dasher co-ordinates
   /// and screen co-ordinates
@@ -150,7 +150,7 @@ private:
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
   ///
 
-  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList);
+  int RecursiveRender(CDasherNode * Render, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw);
 
   ///
   /// Displays some nodes inside one parent node. Used to group capital letters, accents, punctuation etc.
