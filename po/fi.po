@@ -6,817 +6,569 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-01-31 21:28+0200\n"
-"PO-Revision-Date: 2006-02-01 00:14+0200\n"
+"POT-Creation-Date: 2006-06-29 19:27+0200\n"
+"PO-Revision-Date: 2006-07-01 11:21+0200\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "Ennustava tekstisyöttö"
+
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasherin pistokkeesta luku: lukijasäiettä ei voitu käynnistää."
 
-#: ../Src/Gtk2/Menu.cc:72 ../Src/Gtk2/Menu.cc:128 ../Src/Gtk2/Menu.cc:186
-#: ../Src/Gtk2/Menu.cc:229 ../Src/Gtk2/dasher.glade.h:105
-#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
+#: ../Src/Gtk2/Menu.cc:63 ../Src/Gtk2/Menu.cc:119 ../Src/Gtk2/Menu.cc:177
+#: ../Src/Gtk2/Menu.cc:220 ../Src/Gtk2/dasher.glade.h:90
+#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:50
 msgid "Select File"
 msgstr "Valitse tiedosto"
 
-#: ../Src/Gtk2/Menu.cc:462
+#: ../Src/Gtk2/Menu.cc:303
+#, c-format
+msgid ""
+"Do you want to save your changes to %s?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Haluatko tallentaa muutoksesi kohtaan %s?\n"
+"\n"
+"Muutokset hukataan jos et tallenna niitä."
+
+#: ../Src/Gtk2/Menu.cc:306
+msgid ""
+"Do you want to save your changes?\n"
+"\n"
+"Your changes will be lost if you don't save them."
+msgstr ""
+"Haluatko tallentaa muutoksesi?\n"
+"\n"
+"Muutokset hukataan jos et tallenna niitä."
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid "Don't save"
+msgstr "Älä tallenna"
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid "Don't quit"
+msgstr "Älä sulje"
+
+#: ../Src/Gtk2/Menu.cc:309
+msgid "Save and quit"
+msgstr "Tallenna ja sulje"
+
+#: ../Src/Gtk2/Menu.cc:422
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher on ennustava tekstisyöttösovellus"
 
-#: ../Src/Gtk2/Menu.cc:465
+#: ../Src/Gtk2/Menu.cc:427
 msgid "translator-credits"
 msgstr ""
 "Ilkka Tuohela, 2004-2005\n"
 "\n"
 "http://www.gnome.fi/"
 
-#: ../Src/Gtk2/Preferences.cpp:585 ../Src/Gtk2/Preferences.cpp:587
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:117
+#: ../Src/Gtk2/Preferences.cpp:950 ../Src/Gtk2/Preferences.cpp:952
+#: ../Src/Gtk2/dashergpe.glade.h:72
 msgid "Training Dasher... please wait"
 msgstr "Opetetaan Dasheria... odota hetki"
 
-#. Paneltree
-#. |         /-menutree
-#. Widgettree------buttontree
-#. \-edittree
-#.
-#. Tree, parent, children, next, pointer, data, string, colour
-#: ../Src/Gtk2/accessibility.cc:88
-msgid "Panels"
-msgstr "Paneelit"
+#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(Viestin paikka - ei tarvetta kääntää)"
 
-#: ../Src/Gtk2/accessibility.cc:89
-msgid "Application"
-msgstr "Sovellus"
+#: ../Src/Gtk2/dasher.glade.h:2
+msgid ""
+"<b><i>gconf-editor Not Found</i></b>\n"
+"You must have gconf-editor installed and available in your path in order to "
+"access these settings."
+msgstr ""
+"<b><i>Ohjelmaa gconf-editor ei löydy</i></b>\n"
+"Näiden asetusten muuttamiseksi täytyy ohjelman gconf-editor olla asennettu "
+"ja polulla."
 
-#: ../Src/Gtk2/accessibility.cc:90
-msgid "Menus"
-msgstr "Valikot"
+#: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Actions:</b>"
+msgstr "<b>Toiminnot:</b>"
 
-#: ../Src/Gtk2/accessibility.cc:91 ../Src/Gtk2/dashermaemo.glade.h:42
-msgid "Buttons"
-msgstr "Napit"
-
-#: ../Src/Gtk2/accessibility.cc:92
-msgid "Text"
-msgstr "Teksti"
-
-#: ../Src/Gtk2/accessibility.cc:175 ../Src/Gtk2/dasher.glade.h:48
-#: ../Src/Gtk2/dashergpe.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:45
-msgid "Control"
-msgstr "Ohjain"
-
-#: ../Src/Gtk2/accessibility.cc:182
-msgid "Windows"
-msgstr "Ikkunat"
-
-#: ../Src/Gtk2/accessibility.cc:190
-msgid "Stop"
-msgstr "Pysäytä"
-
-#: ../Src/Gtk2/accessibility.cc:197
-msgid "Pause"
-msgstr "Pidä tauko"
-
-#: ../Src/Gtk2/accessibility.cc:204
-msgid "Move"
-msgstr "Siirrä"
-
-#: ../Src/Gtk2/accessibility.cc:211
-msgid "Delete"
-msgstr "Poista"
-
-#: ../Src/Gtk2/accessibility.cc:221
-msgid "Speak"
-msgstr "Puhu"
-
-#: ../Src/Gtk2/accessibility.cc:253 ../Src/Gtk2/accessibility.cc:407
-msgid "<"
-msgstr "<"
-
-#: ../Src/Gtk2/accessibility.cc:259 ../Src/Gtk2/accessibility.cc:401
-msgid ">"
-msgstr ">"
-
-#: ../Src/Gtk2/accessibility.cc:265
-msgid "<<<"
-msgstr "<<<"
-
-#: ../Src/Gtk2/accessibility.cc:271
-msgid ">>>"
-msgstr ">>>"
-
-#: ../Src/Gtk2/accessibility.cc:284
-msgid "Everything"
-msgstr "Kaikki"
-
-#: ../Src/Gtk2/accessibility.cc:290
-msgid "New"
-msgstr "Uusi"
-
-#: ../Src/Gtk2/accessibility.cc:296
-msgid "Repeat"
-msgstr "Toista"
-
-#: ../Src/Gtk2/accessibility.cc:318
-msgid "1"
-msgstr "1"
-
-#: ../Src/Gtk2/accessibility.cc:325
-msgid "2"
-msgstr "2"
-
-#: ../Src/Gtk2/accessibility.cc:332
-msgid "3"
-msgstr "3"
-
-#: ../Src/Gtk2/accessibility.cc:339
-msgid "4"
-msgstr "4"
-
-#: ../Src/Gtk2/accessibility.cc:346
-msgid "5"
-msgstr "5"
-
-#: ../Src/Gtk2/accessibility.cc:353
-msgid "6"
-msgstr "6"
-
-#: ../Src/Gtk2/accessibility.cc:360
-msgid "7"
-msgstr "7"
-
-#: ../Src/Gtk2/accessibility.cc:367
-msgid "8"
-msgstr "8"
-
-#: ../Src/Gtk2/accessibility.cc:374
-msgid "9"
-msgstr "9"
-
-#: ../Src/Gtk2/accessibility.cc:381
-msgid "10"
-msgstr "10"
-
-#: ../Src/Gtk2/accessibility.cc:413 ../Src/Gtk2/accessibility.cc:437
-msgid "Character"
-msgstr "Merkki"
-
-#: ../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:448
-msgid "Word"
-msgstr "Sana"
-
-#: ../Src/Gtk2/accessibility.cc:430 ../Src/Gtk2/accessibility.cc:454
-msgid "Line"
-msgstr "Rivi"
-
-#: ../Src/Gtk2/accessibility.cc:568
-msgid "Unknown"
-msgstr "Tuntematon"
-
-#. void interface_setup(GladeXML *xml) {
-#. What's this doing here? I'm sure we ought to just be using whatever
-#. the core provides us with
-#. float initial_bitrate = 3.0;
-#. the_canvas=glade_xml_get_widget(xml, "the_canvas");
-#. Needed so we can make it visible or not as we wish
-#. FIXME - all of the stuff below commented out - we no longer have access to the registry here - need to fix it
-#. // interface specific preferences
-#. if(get_long_option_callback("Mouseposstartdistance",&mouseposstartdist)!=false) {
-#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"mouseposstartscale")),mouseposstartdist);
-#. }
-#. if(get_long_option_callback("YScale",&yscale)!=false) {
-#. gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets,"yaxisscale")),yscale);
-#. }
-#. if(get_bool_option_callback("Cyclicalbuttons",&cyclickeyboardmodeon)!=false) {
-#. gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets,"cyclicalbuttons")),cyclickeyboardmodeon);
-#. }
-#. // Configure the buttons. FIXME - more enums?
-#. if (get_long_option_callback("Button1X",&(buttons[1].x))==false) {
-#. buttons[1].x=0;
-#. }
-#. if (get_long_option_callback("Button2X",&(buttons[2].x))==false) {
-#. buttons[2].x=0;
-#. }
-#. if (get_long_option_callback("Button3X",&(buttons[3].x))==false) {
-#. buttons[3].x=0;
-#. }
-#. if (get_long_option_callback("Button4X",&(buttons[4].x))==false) {
-#. buttons[4].x=0;
-#. }
-#. if (get_long_option_callback("Button5X",&(buttons[5].x))==false) {
-#. buttons[5].x=0;
-#. }
-#. if (get_long_option_callback("Button6X",&(buttons[6].x))==false) {
-#. buttons[6].x=0;
-#. }
-#. if (get_long_option_callback("Button7X",&(buttons[7].x))==false) {
-#. buttons[7].x=0;
-#. }
-#. if (get_long_option_callback("Button8X",&(buttons[8].x))==false) {
-#. buttons[8].x=0;
-#. }
-#. if (get_long_option_callback("Button9X",&(buttons[9].x))==false) {
-#. buttons[9].x=0;
-#. }
-#. if (get_long_option_callback("Button1Y",&(buttons[1].y))==false) {
-#. buttons[1].y=0;
-#. }
-#. if (get_long_option_callback("Button2Y",&(buttons[2].y))==false) {
-#. buttons[2].y=0;
-#. }
-#. if (get_long_option_callback("Button3Y",&(buttons[3].y))==false) {
-#. buttons[3].y=0;
-#. }
-#. if (get_long_option_callback("Button4Y",&(buttons[4].y))==false) {
-#. buttons[4].y=0;
-#. }
-#. if (get_long_option_callback("Button5Y",&(buttons[5].y))==false) {
-#. buttons[5].y=0;
-#. }
-#. if (get_long_option_callback("Button6Y",&(buttons[6].y))==false) {
-#. buttons[6].y=0;
-#. }
-#. if (get_long_option_callback("Button7Y",&(buttons[7].y))==false) {
-#. buttons[7].y=0;
-#. }
-#. if (get_long_option_callback("Button8Y",&(buttons[8].y))==false) {
-#. buttons[8].y=0;
-#. }
-#. if (get_long_option_callback("Button9Y",&(buttons[9].y))==false) {
-#. buttons[9].y=0;
-#. }
-#. }
-#. void
-#. interface_late_setup() {
-#. Stuff that needs to be done after the core has
-#. set itself up
-#. dasher_set_parameter_int(INT_ONEBUTTON, 0);
-#. alphabet=dasher_get_current_alphabet();
-#. colourscheme=dasher_get_current_colours();
-#. }
-#. void
-#. open_window(GladeXML *xml) {
-#. I have no idea why we need to do this when Glade has theoretically done
-#. so already, but...
-#. FIXME - REIMPLEMENT
-#. }
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
-#: ../Src/Gtk2/dashermaemo.glade.h:1
-msgid "5:"
-msgstr "5:"
-
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashergpe.glade.h:2
-#: ../Src/Gtk2/dashermaemo.glade.h:2
-msgid "6:"
-msgstr "6:"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:3
-#: ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "7:"
-msgstr "7:"
-
-#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashergpe.glade.h:4
-#: ../Src/Gtk2/dashermaemo.glade.h:4
-msgid "8:"
-msgstr "8:"
-
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashergpe.glade.h:5
-#: ../Src/Gtk2/dashermaemo.glade.h:5
-msgid "9:"
-msgstr "9:"
-
-#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Mukautuminen:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
 msgid "<b>Advanced Settings:</b>"
 msgstr "<b>Lisäasetukset:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
-#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:6
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Aakkoston valinta:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:7
-#: ../Src/Gtk2/dashermaemo.glade.h:9
-msgid "<b>Button control setup</b>"
-msgstr "<b>Nappiohjaukset asetukset</b>"
+#: ../Src/Gtk2/dasher.glade.h:8
+msgid "<b>Application Style:</b>"
+msgstr "<b>Sovelluksen tyyli:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:10
-msgid "<b>Button modes:</b>"
-msgstr "<b>Painikkkeiden tilat:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
-#: ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "<b>Color Selection:</b>"
 msgstr "<b>Värin valinta:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
 msgid "<b>Compass Mode</b>"
 msgstr "<b>Kompassitila</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:9
 msgid "<b>Control Style:</b>"
 msgstr "<b>Ohjaimen tyyli:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Direct Mode And Menu Mode</b>"
 msgstr "<b>Suora tila ja valikkotila</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15
-msgid "<b>External Input:</b>"
-msgstr "<b>Ulkoinen syöte:</b>"
+#: ../Src/Gtk2/dasher.glade.h:13
+msgid "<b>Docking:</b>"
+msgstr "<b>Telakointi:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Input Device:</b>"
+msgstr "<b>Syöttölaite:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
+msgid "<b>Keyboard options</b>"
+msgstr "<b>Näppäimistön valinnat</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "<b>Language Model:</b>"
 msgstr "<b>Kielimalli:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
-#: ../Src/Gtk2/dashermaemo.glade.h:16
 msgid "<b>Miscellaneous Options:</b>"
 msgstr "<b>Sekalaiset asetukset:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
 msgid "<b>One-Button Dynamic Mode</b>"
 msgstr "<b>Yhden napin dynaaminen tila</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "<b>One-Button Static Mode</b>"
 msgstr "<b>Yhden napin kiinteä tila</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
-#: ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "<b>Orientation:</b>"
 msgstr "<b>Suunta:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
-#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Pehmennys:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "<b>Socket Input</b>"
 msgstr "<b>Pistokkesta luku</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "<b>Speed:</b>"
 msgstr "<b>Nopeus:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
-#: ../Src/Gtk2/dashermaemo.glade.h:23
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Aloitus ja lopetus:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:15
-#: ../Src/Gtk2/dashermaemo.glade.h:24
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Vaihtelunapin tila:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:16
 msgid "<b>View Options:</b>"
 msgstr "<b>Näkymän asetukset:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "<b>X Coordinate</b>"
 msgstr "<b>X-koordinaatti</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:17
-#: ../Src/Gtk2/dashermaemo.glade.h:27
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y-koordinaatit:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:18
-#: ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "<b>Y Axis Options:</b>"
 msgstr "<b>Y-akselin asetukset:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "<b>Y Coordinate</b>"
 msgstr "<b>Y-koordinaatti</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:30
-msgid "<b>Zoom steps:</b>"
-msgstr "<b>Zoomauksen askelet:</b>"
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
+msgid "<b>Zoom steps</b>"
+msgstr "<b>Lähennyksen askelet</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Adapt speed automatically"
 msgstr "Mukaudu automaattisesti nopeuteen"
 
-#: ../Src/Gtk2/dasher.glade.h:33
+#: ../Src/Gtk2/dasher.glade.h:31
+msgid ""
+"Additional settings can be accessed directly using the GConf configuration "
+"database. Please note that these settings are intended for advanced users "
+"only, and by changing these settings it is possible to put Dasher into an "
+"unusable state."
+msgstr ""
+"Lisäasetuksia voidaan muottaa suoraan Gconf-asetustietokannasta. Huomioi "
+"että näiden asetusten muuttaminen on tarkoitettu ainoastaan edistyneille "
+"käyttäjille ja että näiden asetusten avulla on mahdollista saada dasher "
+"käyttökelvottomaan tilaan."
+
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Advanced Settings"
 msgstr "Lisäasetukset"
 
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
 msgid "Alphabet"
 msgstr "Aakkosto"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Alphabet Default"
 msgstr "Oletusaakkosto"
 
-#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:35
-msgid "Alternating direct mode"
-msgstr "Vaihteleva suorasyöttötila"
+#: ../Src/Gtk2/dasher.glade.h:35
+msgid "Alphabet:"
+msgstr "Aakkosto:"
 
-#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemo.glade.h:36
+#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Bottom to Top"
 msgstr "Alhaalta ylös"
 
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:37
+#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
 msgid "Box non-uniformity:"
 msgstr "Laatikon epäyhtenäisyys:"
 
-#: ../Src/Gtk2/dasher.glade.h:39
-msgid "Button Mode Options"
-msgstr "Nappitilan vaihtoehdot"
-
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
 msgid "Button Preferences"
 msgstr "Nappien asetukset"
 
+#: ../Src/Gtk2/dasher.glade.h:39
+msgid ""
+"Centre circle\n"
+"Two box"
+msgstr ""
+"Keskusympyrä\n"
+"Kaksi laatikkoa"
+
 #: ../Src/Gtk2/dasher.glade.h:41
-msgid "Button Setup"
-msgstr "Nappien määrittely"
+msgid "Composition"
+msgstr ""
 
-#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:23
-#: ../Src/Gtk2/dashermaemo.glade.h:38
-msgid "Button control setup"
-msgstr "Nappiohjauksen asetukset"
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+msgid "Control"
+msgstr "Ohjain"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemo.glade.h:39
-msgid "Button mode"
-msgstr "Nappien tila"
-
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:25
-#: ../Src/Gtk2/dashermaemo.glade.h:41
-msgid "Button:"
-msgstr "Nappi:"
-
-#: ../Src/Gtk2/dasher.glade.h:45
-msgid "Cancel"
-msgstr "Peru"
-
-#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:43
-msgid "Click mode"
-msgstr "Napsautustila"
-
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:44
-msgid "Compass mode"
-msgstr "Kompassitila"
-
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
-msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Ohjaa dasheria verkkopistokkeesta hiiren sijasta"
-
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
-#: ../Src/Gtk2/dashermaemo.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
 msgid "Control mode"
 msgstr "Ohjaustila"
 
-#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:30
-#: ../Src/Gtk2/dashermaemo.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:30
 msgid "Copy"
 msgstr "Kopioi"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:31
-#: ../Src/Gtk2/dashermaemo.glade.h:49
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashergpe.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Copy _All"
 msgstr "Kopioi _kaikki"
 
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:32
-#: ../Src/Gtk2/dashermaemo.glade.h:50
-msgid "Copy all on stop"
-msgstr "Kopioi kaikki pysäytettäessä"
+#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+msgid "Custom colour scheme:"
+msgstr "Oma väriyhdistelmä:"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Custom:"
 msgstr "Oma:"
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:33
-#: ../Src/Gtk2/dashermaemo.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
 msgid "Cut"
 msgstr "Leikkaa"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:34
-#: ../Src/Gtk2/dashermaemo.glade.h:53
-msgid "Cyclical button mode"
-msgstr "Toistuvien näppäinten tila"
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54
-msgid "Dasher"
-msgstr "Dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
-#: ../Src/Gtk2/dashermaemo.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:36
+#: ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
 msgid "Dasher Preferences"
 msgstr "Dasherin asetukset"
 
-#: ../Src/Gtk2/dasher.glade.h:59
-msgid "Direct mode"
-msgstr "Suora tila"
+#: ../Src/Gtk2/dasher.glade.h:51
+msgid "Direct entry"
+msgstr "Suorasyöttö"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:37
-#: ../Src/Gtk2/dashermaemo.glade.h:56
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:37
 msgid "Distance from centerline for start on mouse position:"
 msgstr "Etäisyys keskiviivasta hiiren aloitussijaintiin:"
 
-#: ../Src/Gtk2/dasher.glade.h:61
-msgid "Done"
-msgstr "Valmis"
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Dock application window"
+msgstr "Telakoi ohjelman ikkuna"
 
-#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:38
-#: ../Src/Gtk2/dashermaemo.glade.h:57
-msgid "Down/3:"
-msgstr "Alas/3:"
-
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:39
-#: ../Src/Gtk2/dashermaemo.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
 msgid "Draw box outlines"
 msgstr "Piirrä laatikon reunat"
 
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:40
-#: ../Src/Gtk2/dashermaemo.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Piirrä viiva hiiren ja ristikon välille"
 
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "Drop time:  "
 msgstr "Pudotusaika:  "
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:42
-#: ../Src/Gtk2/dashermaemo.glade.h:62
-msgid "Enter text into other windows"
-msgstr "Syötä tekstiä muihin ikkunoihin"
+#: ../Src/Gtk2/dasher.glade.h:57
+msgid "Eyetracker autocalibration"
+msgstr "Silmänseuraajan automaattinen kalibrointi"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:43
-#: ../Src/Gtk2/dashermaemo.glade.h:63
-msgid "Eyetracker mode"
-msgstr "Silmienseurantatila"
+#: ../Src/Gtk2/dasher.glade.h:58
+msgid "Full Screen"
+msgstr "Kokoruutu"
 
-#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:64
-msgid "Four-button direct mode"
-msgstr "Neljän napin suorasyöttötila"
+#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
+msgid "Global keyboard grab"
+msgstr "Järjestelmän näppäimistön varaus"
 
-#: ../Src/Gtk2/dasher.glade.h:69
-msgid "General"
-msgstr "Lisäasetukset"
-
-#: ../Src/Gtk2/dasher.glade.h:70
-msgid ""
-"If this mode is selected, up and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"Jos tämä tila on valittu, ylös- ja alaspäin siirtäminen\n"
-"vaihtaa taakse- ja eteenpäin koordinaattien välillä ja oikealle siirtäminen "
-"vahvistaa valinnan"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:60
 msgid "Increase line thickness"
 msgstr "Kasvata viivan paksuutta"
 
-#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashermaemo.glade.h:36
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "Japanese"
 msgstr "Japaniksi"
 
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashermaemo.glade.h:37
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
 msgid "Label"
 msgstr "Otsikko"
 
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashermaemo.glade.h:38
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
 msgid "Language model adapts as you write."
 msgstr "Kielimalli mukautuu kun kirjoitat"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:45
-#: ../Src/Gtk2/dashermaemo.glade.h:71
+#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:45
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "Large"
 msgstr "Suuri"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:46
-#: ../Src/Gtk2/dashermaemo.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Launch GConf editor"
+msgstr "Käynnistä asetusten muokkain"
+
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:46
+#: ../Src/Gtk2/dashermaemo.glade.h:39
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
 msgid "Left to Right"
 msgstr "Vasemmalta oikealle"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:47
-#: ../Src/Gtk2/dashermaemo.glade.h:73
-msgid "Left/2:"
-msgstr "Vasen/2:"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:74
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:40
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "Max"
 msgstr "Maksimi"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:41
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "Min"
 msgstr "Minimi"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:76
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Miscellaneous"
 msgstr "Sekalaiset"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:77
+#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:42
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Sekoitusmalli (PPM/sanakirja)"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:48
-#: ../Src/Gtk2/dashermaemo.glade.h:78
+#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:48
 msgid "New file"
 msgstr "Uusi tiedosto"
 
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:49
-#: ../Src/Gtk2/dashermaemo.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:49
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
 msgid "Normal"
 msgstr "Normaali"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:43
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "Number of \"zoom-out boxes\":"
 msgstr "\"Loitonnuslaatikoiden\" lukumäärä:"
 
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:81
+#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:44
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:42
 msgid "Number of boxes:"
 msgstr "Laatikoiden lukumäärä:"
 
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:51
-#: ../Src/Gtk2/dashermaemo.glade.h:82
-msgid "One dimensional mode"
-msgstr "Yksiulotteinen tila"
-
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashermaemo.glade.h:83
-msgid "One-button dynamic mode"
-msgstr "Yhden napin dynaaminen tila"
-
-#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:84
-msgid "One-button static mode"
-msgstr "Yhden napin kiinteä tila"
-
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:52
-#: ../Src/Gtk2/dashermaemo.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:52
 msgid "Open file"
 msgstr "Avaa tiedosto"
 
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:86
-msgid "Ordinary control"
-msgstr "Tavallinen ohjaus"
+#: ../Src/Gtk2/dasher.glade.h:76
+msgid "Options"
+msgstr "Valinnat"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:54
-#: ../Src/Gtk2/dashermaemo.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:54
 msgid "Paste"
 msgstr "Liitä"
 
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:55
-#: ../Src/Gtk2/dashermaemo.glade.h:88
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:55
 msgid "Pause outside window"
 msgstr "Pysähdy ikkunan ulkopuolella"
 
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:89
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:46
+msgid "Please Wait..."
+msgstr "Odota hetki..."
+
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:47
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:43
 msgid "Port"
 msgstr "Portti"
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:90
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:48
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:44
 msgid "Prediction"
 msgstr "Ennustus"
 
-#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:91
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:49
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:45
 msgid "Print socket-related debugging information to console"
 msgstr "Näytä pistokkeeseen liittyviä debug-tietoja konsolilla"
 
-#: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:92
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:50
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:46
 msgid "Pulsing mode"
 msgstr "Vilkkuva tila"
 
-#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:56
-#: ../Src/Gtk2/dashermaemo.glade.h:93
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:51
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:47
 msgid "Right to Left"
 msgstr "Oikealta vasemmalle"
 
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:94
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:52
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:48
 msgid "Right zoom:  "
 msgstr "Oikealta zoomaus:"
 
-#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:57
-#: ../Src/Gtk2/dashermaemo.glade.h:95
-msgid "Right/4:"
-msgstr "Oikea/4:"
-
-#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:96
+#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:53
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:49
 msgid "Safety margin:"
 msgstr "Turvaväli:"
 
-#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:58
-#: ../Src/Gtk2/dashermaemo.glade.h:97
+#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
 msgid "Save file"
 msgstr "Tallenna tiedosto"
 
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:59
-#: ../Src/Gtk2/dashermaemo.glade.h:98
+#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:59
 msgid "Save file as"
 msgstr "Tallenna nimellä"
 
-#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashermaemo.glade.h:99
+#: ../Src/Gtk2/dasher.glade.h:89
 msgid "Scaling amount (1D mode):"
 msgstr "Skaalauksen määrä (1D-tila):"
 
-#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:61
-#: ../Src/Gtk2/dashermaemo.glade.h:101
+#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:61
+#: ../Src/Gtk2/dashermaemo.glade.h:55
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:51
 msgid "Select Font"
 msgstr "Valitse kirjasin"
 
-#: ../Src/Gtk2/dasher.glade.h:107
-msgid "Show Advanced Settings"
-msgstr "Näytä lisäasetukset"
-
-#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:62
-#: ../Src/Gtk2/dashermaemo.glade.h:102
+#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:62
 msgid "Show mouse position"
 msgstr "Näytä hiiren sijainti"
 
-#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:63
-#: ../Src/Gtk2/dashermaemo.glade.h:103
+#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:63
 msgid "Show speed slider"
 msgstr "Näytä nopeus-säädin"
 
-#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:64
-#: ../Src/Gtk2/dashermaemo.glade.h:104
+#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:64
 msgid "Show toolbar"
 msgstr "Näytä työkalupalkki"
 
-#: ../Src/Gtk2/dasher.glade.h:111
-msgid "Socket Options"
-msgstr "Pistokkeen vaihtoehdot"
-
-#: ../Src/Gtk2/dasher.glade.h:112
+#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:56
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:52
 msgid "Socket Preferences"
 msgstr "Pistokkeen asetukset"
 
-#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:65
-#: ../Src/Gtk2/dashermaemo.glade.h:106
-msgid "Speak on stop"
-msgstr "Puhu lopetettaessa"
+#: ../Src/Gtk2/dasher.glade.h:96
+msgid "Speed:"
+msgstr "Nopeus:"
 
-#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashermaemo.glade.h:107
+#: ../Src/Gtk2/dasher.glade.h:97
+msgid "Stand-alone"
+msgstr "Itsenäinen"
+
+#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashermaemo.glade.h:57
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:53
 msgid "Standard letter-based PPM"
 msgstr "Normaali kirjaimiin perustuva PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:66
-#: ../Src/Gtk2/dashermaemo.glade.h:108
+#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:66
 msgid "Start on left mouse button"
 msgstr "Aloita vasemmalla hiiren napilla"
 
-#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:67
-#: ../Src/Gtk2/dashermaemo.glade.h:109
+#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:67
 msgid "Start on space bar"
 msgstr "Aloita välilyönnillä"
 
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:68
-#: ../Src/Gtk2/dashermaemo.glade.h:110
-msgid "Start with mouse position"
-msgstr "Aloita hiiren sijainnin perusteella"
+#: ../Src/Gtk2/dasher.glade.h:101
+msgid "Start with mouse position:"
+msgstr "Aloita hiiren sijainnista:"
 
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:111
-msgid "Static menu mode"
-msgstr "Kiinteä valikkotila"
-
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:112
+#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashermaemo.glade.h:58
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:54
 msgid "Steady mode"
 msgstr "Tasainen tila"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:69
-#: ../Src/Gtk2/dashermaemo.glade.h:114
+#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
 msgid "Timestamp new files"
 msgstr "Aikaleimaa uudet tiedostot"
 
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:70
-#: ../Src/Gtk2/dashermaemo.glade.h:115
+#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:70
+#: ../Src/Gtk2/dashermaemo.glade.h:59
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:55
 msgid "Top to Bottom"
 msgstr "Ylhäältä alas"
 
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:71
-#: ../Src/Gtk2/dashermaemo.glade.h:116
-msgid "Training"
-msgstr "Opetetaan"
-
-#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:73
-#: ../Src/Gtk2/dashermaemo.glade.h:118
-msgid "Up/1:"
-msgstr "Ylös/1:"
-
-#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashermaemo.glade.h:119
+#: ../Src/Gtk2/dasher.glade.h:105
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -825,101 +577,154 @@ msgstr ""
 "Käytä tätä säädintä kirjainlaatikoiden suhteellisen koon valitsemiseen. Ota "
 "huomioon, että suuren arvon valinta hidastaa kirjoitusnopeuttasi."
 
-#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:75
-#: ../Src/Gtk2/dashermaemo.glade.h:122
+#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:75
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:56
 msgid "Very Large"
 msgstr "Hyvin suuri"
 
-#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:76
-#: ../Src/Gtk2/dashermaemo.glade.h:123
+#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:76
+#: ../Src/Gtk2/dashermaemo.glade.h:60
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:57
 msgid "View"
 msgstr "Näkymä"
 
-#: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashermaemo.glade.h:124
+#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashermaemo.glade.h:61
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:58
 msgid "Word-based model"
 msgstr "Sanoihin perustuva malli"
 
-#: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashergpe.glade.h:77
-#: ../Src/Gtk2/dashermaemo.glade.h:125
-msgid "X:"
-msgstr "X:"
-
-#: ../Src/Gtk2/dasher.glade.h:132 ../Src/Gtk2/dashergpe.glade.h:78
-#: ../Src/Gtk2/dashermaemo.glade.h:126
-msgid "Y:"
-msgstr "Y:"
-
-#: ../Src/Gtk2/dasher.glade.h:133 ../Src/Gtk2/dashermaemo.glade.h:127
+#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashermaemo.glade.h:62
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:59
 msgid "Zoom:"
 msgstr "Zoomaus:"
 
-#: ../Src/Gtk2/dasher.glade.h:134 ../Src/Gtk2/dashergpe.glade.h:79
-#: ../Src/Gtk2/dashermaemo.glade.h:128
+#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:60
 msgid "_About"
 msgstr "_Tietoja"
 
-#: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:80
-#: ../Src/Gtk2/dashermaemo.glade.h:129
+#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:80
 msgid "_Append to file"
 msgstr "_Lisää tiedostoon"
 
-#: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:81
-#: ../Src/Gtk2/dashermaemo.glade.h:130
+#: ../Src/Gtk2/dasher.glade.h:114
+msgid "_Contents"
+msgstr "_Sisältö"
+
+#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:81
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:61
 msgid "_Dasher Font"
 msgstr "_Dasherin kirjasin"
 
-#: ../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:82
-#: ../Src/Gtk2/dashermaemo.glade.h:131
+#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:82
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:62
 msgid "_Dasher Font Size"
 msgstr "_Dasherin kirjasimen koko"
 
-#: ../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:83
-#: ../Src/Gtk2/dashermaemo.glade.h:132
+#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:63
 msgid "_Edit"
 msgstr "_Muokkaa"
 
-#: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:84
-#: ../Src/Gtk2/dashermaemo.glade.h:133
+#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:84
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:64
 msgid "_Edit Font"
 msgstr "_Muokkaa kirjasinta"
 
-#: ../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:85
-#: ../Src/Gtk2/dashermaemo.glade.h:134
+#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:65
 msgid "_File"
 msgstr "_Tiedosto"
 
-#: ../Src/Gtk2/dasher.glade.h:141 ../Src/Gtk2/dashergpe.glade.h:86
-#: ../Src/Gtk2/dashermaemo.glade.h:135
+#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:66
 msgid "_Help"
 msgstr "O_hje"
 
-#: ../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:87
-#: ../Src/Gtk2/dashermaemo.glade.h:136
+#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:87
 msgid "_Import Training Text"
 msgstr "_Tuo opetusteksti"
 
-#: ../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:88
-#: ../Src/Gtk2/dashermaemo.glade.h:137
+#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:88
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:67
 msgid "_Options"
 msgstr "_Asetukset"
 
-#: ../Src/Gtk2/dasher.glade.h:144 ../Src/Gtk2/dashergpe.glade.h:89
-#: ../Src/Gtk2/dashermaemo.glade.h:138
+#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:89
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:68
 msgid "_Reset fonts"
 msgstr "_Palauta oletuskirjasimet"
 
-#: ../Src/Gtk2/dasher.glade.h:145 ../Src/Gtk2/dashergpe.glade.h:90
-#: ../Src/Gtk2/dashermaemo.glade.h:139
+#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:90
+#: ../Src/Gtk2/dashermaemo.glade.h:63
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:69
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#, c-format
+msgid "Unable to initialize speech support\n"
+msgstr "Puhetuen alustus epäonnistui\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
+msgid "Unable to initialize voices\n"
+msgstr "Puheääniä ei voitu ottaa käyttöön\n"
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
+msgid "Warning: unable to set speech parameters\n"
+msgstr "Varoitus: puheen parametreja ei voitu asettaa\n"
+
+#: ../Src/Gtk2/dashergpe.glade.h:1
+msgid "5:"
+msgstr "5:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:2
+msgid "6:"
+msgstr "6:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:3
+msgid "7:"
+msgstr "7:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:4
+msgid "8:"
+msgstr "8:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:5
+msgid "9:"
+msgstr "9:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:7
+msgid "<b>Button control setup</b>"
+msgstr "<b>Nappiohjaukset asetukset</b>"
 
 #: ../Src/Gtk2/dashergpe.glade.h:13
 msgid "<b>Speed</b>"
 msgstr "<b>Nopeus</b>"
 
-#: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashergpe.glade.h:15
+msgid "<b>Toggle button Mode:</b>"
+msgstr "<b>Vaihtelunapin tila:</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:17
+msgid "<b>X/Y Coordinates:</b>"
+msgstr "<b>X/Y-koordinaatit:</b>"
+
+#: ../Src/Gtk2/dashergpe.glade.h:19
 msgid "Advanced"
 msgstr "Lisäasetukset"
+
+#: ../Src/Gtk2/dashergpe.glade.h:23
+msgid "Button control setup"
+msgstr "Nappiohjauksen asetukset"
+
+#: ../Src/Gtk2/dashergpe.glade.h:24
+msgid "Button mode"
+msgstr "Nappien tila"
+
+#: ../Src/Gtk2/dashergpe.glade.h:25
+msgid "Button:"
+msgstr "Nappi:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:26
 msgid "Change color scheme automatically"
@@ -929,9 +734,29 @@ msgstr "Vaihda väriyhdistelmää automaattisesti"
 msgid "Color"
 msgstr "Väri"
 
-#: ../Src/Gtk2/dashergpe.glade.h:41 ../Src/Gtk2/dashermaemo.glade.h:61
+#: ../Src/Gtk2/dashergpe.glade.h:32
+msgid "Copy all on stop"
+msgstr "Kopioi kaikki pysäytettäessä"
+
+#: ../Src/Gtk2/dashergpe.glade.h:34
+msgid "Cyclical button mode"
+msgstr "Toistuvien näppäinten tila"
+
+#: ../Src/Gtk2/dashergpe.glade.h:38
+msgid "Down/3:"
+msgstr "Alas/3:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:41
 msgid "Edit Button-control options"
 msgstr "Muokkaa nappiohjauksen asetuksia"
+
+#: ../Src/Gtk2/dashergpe.glade.h:42
+msgid "Enter text into other windows"
+msgstr "Syötä tekstiä muihin ikkunoihin"
+
+#: ../Src/Gtk2/dashergpe.glade.h:43
+msgid "Eyetracker mode"
+msgstr "Silmienseurantatila"
 
 #: ../Src/Gtk2/dashergpe.glade.h:44
 msgid ""
@@ -941,13 +766,41 @@ msgstr ""
 "Jos tämä tila on valittu, ylös ja alas siirtyvät takaisin ja eteenpäin "
 "koordinaattien välillä ja oikealle vahvistaa valinnan"
 
+#: ../Src/Gtk2/dashergpe.glade.h:47
+msgid "Left/2:"
+msgstr "Vasen/2:"
+
 #: ../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire Y range:"
 msgstr "Pisteiden määrä, joka kattaa koko y-akselin:"
 
+#: ../Src/Gtk2/dashergpe.glade.h:51
+msgid "One dimensional mode"
+msgstr "Yksiulotteinen tila"
+
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
 msgstr "Suunta"
+
+#: ../Src/Gtk2/dashergpe.glade.h:57
+msgid "Right/4:"
+msgstr "Oikea/4:"
+
+#: ../Src/Gtk2/dashergpe.glade.h:65
+msgid "Speak on stop"
+msgstr "Puhu lopetettaessa"
+
+#: ../Src/Gtk2/dashergpe.glade.h:68
+msgid "Start with mouse position"
+msgstr "Aloita hiiren sijainnin perusteella"
+
+#: ../Src/Gtk2/dashergpe.glade.h:71
+msgid "Training"
+msgstr "Opetetaan"
+
+#: ../Src/Gtk2/dashergpe.glade.h:73
+msgid "Up/1:"
+msgstr "Ylös/1:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:74
 msgid ""
@@ -957,50 +810,212 @@ msgstr ""
 "Käytä tätä ohjainta säätääksesi kirjainlaatikoiden suhteellista kokoa. Ota "
 "huomioon, että suuren koon valinta hidastaa kirjoitusnopeuttasi."
 
-#: ../Src/Gtk2/dashermaemo.glade.h:15
-msgid "<b>Menu Mode</b>"
-msgstr "<b>Valikkotila</b>"
+#: ../Src/Gtk2/dashergpe.glade.h:77
+msgid "X:"
+msgstr "X:"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:40
-msgid "Button setup"
-msgstr "Nappien asetukset"
+#: ../Src/Gtk2/dashergpe.glade.h:78
+msgid "Y:"
+msgstr "Y:"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:65
-msgid ""
-"If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"Jos tämä tila on valittu, ylöspäin ja alaspäin siirtäminen vaihtaa taakse- "
-"ja eteenpäin koordinaattien välillä ja oikealle siirtäminen vahvistaa "
-"valinnan"
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:105
-msgid "Socket"
-msgstr "Pistoke"
+#: ../Src/Gtk2/dashermaemo.glade.h:9
+msgid "<b>Display Size:</b>"
+msgstr "<b>Näytön koko:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:113
-msgid "Three-button direct mode"
-msgstr "Kolminappinen suorasyöttötila"
+#: ../Src/Gtk2/dashermaemo.glade.h:34
+msgid "Enlarge input window"
+msgstr "Suurenna syöttöikkunaa"
 
-#: ../Src/Gtk2/speech.cc:29
-#, c-format
-msgid "Unable to initialize speech support\n"
-msgstr "Puhetuen alustus epäonnistui\n"
+#: ../Src/Gtk2/dashermaemo.glade.h:45
+msgid "P"
+msgstr "P"
 
-#: ../Src/Gtk2/speech.cc:52
-#, c-format
-msgid "Unable to initialize voices\n"
-msgstr "Puheääniä ei voitu ottaa käyttöön\n"
+#~ msgid "Panels"
+#~ msgstr "Paneelit"
 
-#: ../Src/Gtk2/speech.cc:64
-#, c-format
-msgid "Warning: unable to set speech parameters\n"
-msgstr "Varoitus: puheen parametreja ei voitu asettaa\n"
+#~ msgid "Application"
+#~ msgstr "Sovellus"
 
-#: ../Src/main.cc:123
-msgid "Dasher Text Entry"
-msgstr "Dasherin tekstisyöte"
+#~ msgid "Menus"
+#~ msgstr "Valikot"
+
+#~ msgid "Buttons"
+#~ msgstr "Napit"
+
+#~ msgid "Text"
+#~ msgstr "Teksti"
+
+#~ msgid "Windows"
+#~ msgstr "Ikkunat"
+
+#~ msgid "Stop"
+#~ msgstr "Pysäytä"
+
+#~ msgid "Pause"
+#~ msgstr "Pidä tauko"
+
+#~ msgid "Move"
+#~ msgstr "Siirrä"
+
+#~ msgid "Delete"
+#~ msgstr "Poista"
+
+#~ msgid "Speak"
+#~ msgstr "Puhu"
+
+#~ msgid "<"
+#~ msgstr "<"
+
+#~ msgid ">"
+#~ msgstr ">"
+
+#~ msgid "<<<"
+#~ msgstr "<<<"
+
+#~ msgid ">>>"
+#~ msgstr ">>>"
+
+#~ msgid "Everything"
+#~ msgstr "Kaikki"
+
+#~ msgid "New"
+#~ msgstr "Uusi"
+
+#~ msgid "Repeat"
+#~ msgstr "Toista"
+
+#~ msgid "1"
+#~ msgstr "1"
+
+#~ msgid "2"
+#~ msgstr "2"
+
+#~ msgid "3"
+#~ msgstr "3"
+
+#~ msgid "4"
+#~ msgstr "4"
+
+#~ msgid "5"
+#~ msgstr "5"
+
+#~ msgid "6"
+#~ msgstr "6"
+
+#~ msgid "7"
+#~ msgstr "7"
+
+#~ msgid "8"
+#~ msgstr "8"
+
+#~ msgid "9"
+#~ msgstr "9"
+
+#~ msgid "10"
+#~ msgstr "10"
+
+#~ msgid "Character"
+#~ msgstr "Merkki"
+
+#~ msgid "Word"
+#~ msgstr "Sana"
+
+#~ msgid "Line"
+#~ msgstr "Rivi"
+
+#~ msgid "Unknown"
+#~ msgstr "Tuntematon"
+
+#~ msgid "<b>Button modes:</b>"
+#~ msgstr "<b>Painikkkeiden tilat:</b>"
+
+#~ msgid "<b>External Input:</b>"
+#~ msgstr "<b>Ulkoinen syöte:</b>"
+
+#~ msgid "Alternating direct mode"
+#~ msgstr "Vaihteleva suorasyöttötila"
+
+#~ msgid "Button Mode Options"
+#~ msgstr "Nappitilan vaihtoehdot"
+
+#~ msgid "Button Setup"
+#~ msgstr "Nappien määrittely"
+
+#~ msgid "Cancel"
+#~ msgstr "Peru"
+
+#~ msgid "Click mode"
+#~ msgstr "Napsautustila"
+
+#~ msgid "Compass mode"
+#~ msgstr "Kompassitila"
+
+#~ msgid "Control dasher from network socket instead of mouse (advanced)"
+#~ msgstr "Ohjaa dasheria verkkopistokkeesta hiiren sijasta"
+
+#~ msgid "Done"
+#~ msgstr "Valmis"
+
+#~ msgid "Four-button direct mode"
+#~ msgstr "Neljän napin suorasyöttötila"
+
+#~ msgid "General"
+#~ msgstr "Lisäasetukset"
+
+#~ msgid ""
+#~ "If this mode is selected, up and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "Jos tämä tila on valittu, ylös- ja alaspäin siirtäminen\n"
+#~ "vaihtaa taakse- ja eteenpäin koordinaattien välillä ja oikealle "
+#~ "siirtäminen vahvistaa valinnan"
+
+#~ msgid "One-button dynamic mode"
+#~ msgstr "Yhden napin dynaaminen tila"
+
+#~ msgid "One-button static mode"
+#~ msgstr "Yhden napin kiinteä tila"
+
+#~ msgid "Ordinary control"
+#~ msgstr "Tavallinen ohjaus"
+
+#~ msgid "Show Advanced Settings"
+#~ msgstr "Näytä lisäasetukset"
+
+#~ msgid "Socket Options"
+#~ msgstr "Pistokkeen vaihtoehdot"
+
+#~ msgid "Static menu mode"
+#~ msgstr "Kiinteä valikkotila"
+
+#~ msgid "<b>Menu Mode</b>"
+#~ msgstr "<b>Valikkotila</b>"
+
+#~ msgid "Button setup"
+#~ msgstr "Nappien asetukset"
+
+#~ msgid ""
+#~ "If this mode is selected, up  and down will\n"
+#~ "cycle backwards and forwards between coordinates and right will confirm "
+#~ "the choice"
+#~ msgstr ""
+#~ "Jos tämä tila on valittu, ylöspäin ja alaspäin siirtäminen vaihtaa "
+#~ "taakse- ja eteenpäin koordinaattien välillä ja oikealle siirtäminen "
+#~ "vahvistaa valinnan"
+
+#~ msgid "Socket"
+#~ msgstr "Pistoke"
+
+#~ msgid "Three-button direct mode"
+#~ msgstr "Kolminappinen suorasyöttötila"
+
+#~ msgid "Dasher Text Entry"
+#~ msgstr "Dasherin tekstisyöte"
 
 #~ msgid "Training Dasher - please wait"
 #~ msgstr "Opetetaan Dasheria - odota hetki"
