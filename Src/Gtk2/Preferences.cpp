@@ -942,9 +942,7 @@ extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
 }
 
 extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
-  // FIXME - REIMPLEMENT
-
-  //  dasher_set_parameter_bool( BOOL_WINDOWPAUSE, GTK_TOGGLE_BUTTON(widget)->active );
+  dasher_app_settings_set_bool(g_pDasherAppSettings, BP_PAUSE_OUTSIDE, GTK_TOGGLE_BUTTON(widget)->active);
 }
 
 extern "C" void on_controlmode_changed(GtkWidget *widget, gpointer user_data) {

@@ -25,6 +25,8 @@ extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer 
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 //extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
+extern "C" gboolean on_canvas_leave(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData);
+extern "C" gboolean on_canvas_enter(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData);
 
 // CDasherControl class definitions
 
@@ -120,6 +122,9 @@ void CDasherControl::SetupUI() {
   g_signal_connect_after(m_pCanvas, "realize", G_CALLBACK(realize_canvas), this);
   g_signal_connect(m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this);
   g_signal_connect(m_pCanvas, "destroy", G_CALLBACK(canvas_destroy_event), this);
+
+  g_signal_connect(m_pCanvas, "leave-notify-event", G_CALLBACK(on_canvas_leave), this);
+  g_signal_connect(m_pCanvas, "enter-notify-event", G_CALLBACK(on_canvas_enter), this);
 
   // g_signal_connect(m_pCombo, "changed", G_CALLBACK(alphabet_combo_changed), this);
 
@@ -556,6 +561,17 @@ int CDasherControl::GetFileSize(const std::string &strFileName) {
     return 0;
 }
 
+bool CDasherControl::PointerLeft() {
+  if(GetBoolParameter(BP_PAUSE_OUTSIDE))
+    PauseAt(0,0);
+  return false;
+}
+
+bool CDasherControl::PointerEntered() {
+  return false;
+}
+
+
 // FIXME - these two methods seem a bit pointless!
 
 int CDasherControl::alphabet_filter(const gchar *filename, GPatternSpec *alphabetglob) {
@@ -601,3 +617,10 @@ extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, 
   return static_cast < CDasherControl * >(data)->FocusEvent(widget, event);
 }
 
+extern "C" gboolean on_canvas_leave(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData) {
+  return static_cast < CDasherControl * >(pUserData)->PointerLeft();
+}
+
+extern "C" gboolean on_canvas_enter(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData) {
+   return static_cast < CDasherControl * >(pUserData)->PointerEntered();
+}

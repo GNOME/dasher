@@ -54,6 +54,8 @@ bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter);
 void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool bValue);
 gint dasher_app_settings_get_long(DasherAppSettings *pSelf, int iParameter);
 void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint iValue);
+gboolean dasher_app_settings_get_free_long(DasherAppSettings *pSelf, const gchar *szName, gint &iValue);
+void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *szName, gint iValue);
 const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParameter);
 void dasher_app_settings_set_string(DasherAppSettings *pSelf, int iParameter, const gchar *szValue);
 

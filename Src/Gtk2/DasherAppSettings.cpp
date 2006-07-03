@@ -305,6 +305,41 @@ void dasher_app_settings_set_long(DasherAppSettings *pSelf, int iParameter, gint
   }
 }
 
+gboolean dasher_app_settings_get_free_long(DasherAppSettings *pSelf, const gchar *szName, gint &iValue) {
+  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
+
+  gchar szFullName[256];
+      
+  strncpy(szFullName, "/apps/dasher4/", 256);
+  strncat(szFullName, szName, 255 - strlen(szFullName));
+
+  GConfValue *pGConfValue;
+  GError *pGConfError = NULL;
+
+  pGConfValue = gconf_client_get_without_default(pPrivate->pGConfClient, szFullName, &pGConfError);
+      
+  if(pGConfValue) {
+    iValue = gconf_value_get_int(pGConfValue);
+    gconf_value_free(pGConfValue);
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *szName, gint iValue) {   
+  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
+
+  gchar szFullName[256];
+      
+  strncpy(szFullName, "/apps/dasher4/", 256);
+  strncat(szFullName, szName, 255 - strlen(szFullName));
+
+  GError *pGConfError = NULL;
+  gconf_client_set_int(pPrivate->pGConfClient, szFullName, iValue, &pGConfError);
+}
+
 const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParameter) {
   DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
 

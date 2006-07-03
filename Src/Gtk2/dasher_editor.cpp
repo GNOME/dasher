@@ -49,6 +49,10 @@
 
 // ---
 
+#define ACTION_STATE_SHOW 1
+#define ACTION_STATE_CONTROL 2
+#define ACTION_STATE_AUTO 4
+
 typedef struct _EditorAction EditorAction;
 
 struct _EditorAction {
@@ -75,6 +79,7 @@ void dasher_editor_display_message(DasherEditor *pSelf, DasherMessageInfo *pMess
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_handle_pre_parameter_change(DasherEditor *pSelf, int iParameter);
 void dasher_editor_check_activity(DasherEditor *pSelf, EditorAction *pAction);
+void dasher_editor_action_save_state(DasherEditor *pSelf, EditorAction *pAction);
 
 // TODO: Should these be public?
 void dasher_editor_convert(DasherEditor *pSelf);
@@ -370,19 +375,28 @@ void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
   pNewEditorAction->iID = pPrivate->iNextActionID;
   ++pPrivate->iNextActionID;
 
-  // TODO: Need to get/set registry keys for these
-  // TODO: Currently hack things so speech is off by default
+  gchar szRegistryName[256];
+  strncpy(szRegistryName, "Action_", 256);
+  strncat(szRegistryName, dasher_action_get_name(pNewEditorAction->pAction), 255 - strlen(szRegistryName));
 
-  if(!strcmp(dasher_action_get_name(pNewEditorAction->pAction), "Speak")) {
-    pNewEditorAction->bShow = false;
-    pNewEditorAction->bControl = false;
-  }
-  else {
-    pNewEditorAction->bShow = true;
-    pNewEditorAction->bControl = true;
+  for(int i(0); i < strlen(szRegistryName); ++i)
+    if(szRegistryName[i] == ' ')
+      szRegistryName[i] = '_';
+
+  gint iState;
+
+  if(!dasher_app_settings_get_free_long(g_pDasherAppSettings, szRegistryName, iState)) {
+    if(!strcmp(dasher_action_get_name(pNewEditorAction->pAction), "Speak"))
+      iState = 0;
+    else
+      iState = ACTION_STATE_SHOW | ACTION_STATE_CONTROL;
+
+    dasher_app_settings_set_free_long(g_pDasherAppSettings, szRegistryName, iState);
   }
 
-  pNewEditorAction->bAuto = false;
+  pNewEditorAction->bShow = iState & ACTION_STATE_SHOW;
+  pNewEditorAction->bControl = iState & ACTION_STATE_CONTROL;
+  pNewEditorAction->bAuto = iState & ACTION_STATE_AUTO;
 
   dasher_editor_check_activity(pSelf, pNewEditorAction);
 
@@ -606,6 +620,8 @@ void dasher_editor_action_set_show(DasherEditor *pSelf, int iActionID, bool bVal
     pAction->bShow = bValue;
     dasher_editor_check_activity(pSelf, pAction);
     dasher_editor_rebuild_action_pane(pSelf);
+
+    dasher_editor_action_save_state(pSelf, pAction);
   }
 }
 
@@ -622,6 +638,8 @@ void dasher_editor_action_set_control(DasherEditor *pSelf, int iActionID, bool b
       gtk_dasher_control_connect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER, -2);
     else
       gtk_dasher_control_disconnect_node(GTK_DASHER_CONTROL(pDasherWidget), pAction->iControlID, Dasher::CControlManager::CTL_USER);
+    
+    dasher_editor_action_save_state(pSelf, pAction);
   }
 }
 
@@ -632,7 +650,32 @@ EditorAction *pAction;
   if(pAction) {
     pAction->bAuto = bValue;
     dasher_editor_check_activity(pSelf, pAction);
+    
+    dasher_editor_action_save_state(pSelf, pAction);
   }
+}
+
+void dasher_editor_action_save_state(DasherEditor *pSelf, EditorAction *pAction) {
+  gchar szRegistryName[256];
+  strncpy(szRegistryName, "Action_", 256);
+  strncat(szRegistryName, dasher_action_get_name(pAction->pAction), 255 - strlen(szRegistryName));
+
+  for(int i(0); i < strlen(szRegistryName); ++i)
+    if(szRegistryName[i] == ' ')
+      szRegistryName[i] = '_';
+
+  gint iState = 0;
+
+  if(pAction->bShow)
+    iState += ACTION_STATE_SHOW;
+  
+  if(pAction->bControl)
+    iState += ACTION_STATE_CONTROL;
+
+  if(pAction->bAuto)
+    iState += ACTION_STATE_AUTO;
+
+  dasher_app_settings_set_free_long(g_pDasherAppSettings, szRegistryName, iState);
 }
 
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
