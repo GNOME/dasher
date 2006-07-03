@@ -76,3 +76,7 @@ void idasher_buffer_set_edit_convert(IDasherBufferSet *pSelf) {
 void idasher_buffer_set_edit_protect(IDasherBufferSet *pSelf) {
   IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->edit_protect(pSelf);
 }
+
+void idasher_buffer_set_conversion_mode(IDasherBufferSet *pSelf, gboolean bMode) {
+  IDASHER_BUFFER_SET_GET_INTERFACE(pSelf)->conversion_mode(pSelf, bMode);
+}

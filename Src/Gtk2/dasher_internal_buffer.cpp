@@ -15,6 +15,7 @@ void dasher_internal_buffer_edit_move(DasherInternalBuffer *pSelf, int iDirectio
 void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_internal_buffer_edit_convert(DasherInternalBuffer *pSelf);
 void dasher_internal_buffer_edit_protect(DasherInternalBuffer *pSelf);
+void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolean bMode);
 
 // Related signal handlers
 extern "C" void mark_set_handler(GtkWidget *widget, GtkTextIter *pIter, GtkTextMark *pMark, gpointer pUserData);
@@ -27,8 +28,9 @@ struct _DasherInternalBufferPrivate {
   GtkTextTag *pOutputTag;
   GtkTextTag *pHiddenTag;
   GtkTextTag *pVisibleTag;
-  int iLastOffset;
-  int iCurrentState; // 0 = unconverted, 1 = converted
+  gboolean bConversionMode;
+  gint iLastOffset;
+  gint iCurrentState; // 0 = unconverted, 1 = converted
 };
 
 GType dasher_internal_buffer_get_type() {
@@ -83,6 +85,7 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
   iface->edit_delete = (void (*)(IDasherBufferSet *pSelf, gint iDirection, gint iDist))dasher_internal_buffer_edit_delete;
   iface->edit_convert = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_convert;
   iface->edit_protect = (void (*)(IDasherBufferSet *pSelf))dasher_internal_buffer_edit_protect;
+  iface->conversion_mode = (void (*)(IDasherBufferSet *pSelf, gboolean bMode))dasher_internal_buffer_conversion_mode;
 }
 
 static void dasher_internal_buffer_destroy(GObject *pObject) {
@@ -104,7 +107,8 @@ DasherInternalBuffer *dasher_internal_buffer_new(GtkTextView *pTextView) {
   pPrivate->pHiddenTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, "invisible", TRUE, NULL);
   pPrivate->pVisibleTag = gtk_text_buffer_create_tag(pPrivate->pBuffer, NULL, "foreground", "red", NULL);
 
-  pPrivate->iLastOffset = 0;
+  pPrivate->bConversionMode = FALSE;
+  pPrivate->iLastOffset = 1;
   pPrivate->iCurrentState = 0;
 
   g_signal_connect(G_OBJECT(pPrivate->pBuffer), "mark-set", G_CALLBACK(mark_set_handler), pDasherControl);
@@ -122,13 +126,17 @@ void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szT
 
   GtkTextTag *pCurrentTag;
 
-  switch(pPrivate->iCurrentState) {
-  case 0:
-    pCurrentTag = pPrivate->pVisibleTag;
-    break;
-  case 1:
+  if(!pPrivate->bConversionMode)
     pCurrentTag = pPrivate->pOutputTag;
-    break;
+  else {
+    switch(pPrivate->iCurrentState) {
+    case 0:
+      pCurrentTag = pPrivate->pVisibleTag;
+      break;
+    case 1:
+      pCurrentTag = pPrivate->pOutputTag;
+      break;
+    }
   }
 
   gtk_text_buffer_insert_with_tags(pPrivate->pBuffer, &sIter, szText, -1, pCurrentTag, NULL);
@@ -282,6 +290,9 @@ void dasher_internal_buffer_edit_delete(DasherInternalBuffer *pSelf, int iDirect
 void dasher_internal_buffer_edit_convert(DasherInternalBuffer *pSelf) {
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
 
+  if(!(pPrivate->bConversionMode))
+    return;
+
   GtkTextIter sStartIter;
   GtkTextIter sEndIter;
   gtk_text_buffer_get_iter_at_offset(pPrivate->pBuffer, &sStartIter, pPrivate->iLastOffset);
@@ -295,8 +306,25 @@ void dasher_internal_buffer_edit_convert(DasherInternalBuffer *pSelf) {
 void dasher_internal_buffer_edit_protect(DasherInternalBuffer *pSelf) {  
   DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
 
+  if(!(pPrivate->bConversionMode))
+    return;
+
   pPrivate->iCurrentState = 0;
   pPrivate->iLastOffset = gtk_text_buffer_get_char_count(pPrivate->pBuffer);
+}
+
+void dasher_internal_buffer_conversion_mode(DasherInternalBuffer *pSelf, gboolean bMode) {
+  DasherInternalBufferPrivate *pPrivate = (DasherInternalBufferPrivate *)(pSelf->private_data);
+
+  if(bMode) {
+    pPrivate->bConversionMode = TRUE;
+    pPrivate->iCurrentState = 0; 
+    pPrivate->iLastOffset = gtk_text_buffer_get_char_count(pPrivate->pBuffer);
+  }
+  else {
+    pPrivate->bConversionMode = FALSE;
+    pPrivate->iCurrentState = 1;
+  }
 }
 
 void dasher_internal_buffer_clear(DasherInternalBuffer *pSelf) {

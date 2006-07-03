@@ -20,10 +20,6 @@ using namespace std;
 #include "LanguageModelling/DictLanguageModel.h"
 #include "LanguageModelling/MixtureLanguageModel.h"
 
-#ifdef JAPANESE
-#include "LanguageModelling/JapaneseLanguageModel.h"
-#endif
-
 using namespace Dasher;
 using namespace std;
 
@@ -51,6 +47,8 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 #else
   m_bRequireConversion = false;
 #endif
+
+  SetBoolParameter(BP_CONVERSION_MODE, m_bRequireConversion);
 
   // Set max bitrate in the FrameRate class
   m_dMaxRate = GetLongParameter(LP_MAX_BITRATE) / 100.0;
@@ -95,11 +93,6 @@ m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
   case 3:
     m_pLanguageModel = new CMixtureLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
     break;  
-#ifdef JAPANESE
-  case 4:
-    m_pLanguageModel = new CJapaneseLanguageModel(m_pEventHandler, m_pSettingsStore, alphabet);
-    break;
-#endif
   default:
     // If there is a bogus value for the language model ID, we'll default
     // to our trusty old PPM language model.

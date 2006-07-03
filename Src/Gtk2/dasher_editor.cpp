@@ -690,8 +690,10 @@ void dasher_editor_create_buffer(DasherEditor *pSelf) {
 #else
   pPrivate->pBufferSet = 0;
 #endif
-  else
+  else {
     pPrivate->pBufferSet = dasher_editor_get_buffer_set(pSelf);
+    idasher_buffer_set_conversion_mode(pPrivate->pBufferSet, gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CONVERSION_MODE));
+  }
   
   g_signal_connect(G_OBJECT(pPrivate->pBufferSet), "context_changed", G_CALLBACK(context_changed_handler), NULL);
 }
