@@ -42,6 +42,8 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_pGameMode(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 
+  m_bGameMode = bGameMode;
+
 #ifdef JAPANESE
   m_bRequireConversion = true;
 #else
@@ -978,9 +980,9 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   bool bReturnValue;
 
   if(GetBoolParameter(BP_DELAY_VIEW))
-    bReturnValue = pView->Render(m_Root, m_iTargetMin, m_iTargetMax, vNodeList, vDeleteList, bRedrawDisplay);
+    bReturnValue = pView->Render(m_Root, m_iTargetMin, m_iTargetMax, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
   else
-    bReturnValue = pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList, bRedrawDisplay);
+    bReturnValue = pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
 
   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)

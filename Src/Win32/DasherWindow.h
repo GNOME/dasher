@@ -17,6 +17,7 @@
 #include "Widgets/WindowSelect.h"
 #include "DasherMouseInput.h"
 #include "AppSettings.h"
+#include "GameModeHelper.h"
 
 #include "../Common/WinOptions.h"
 
@@ -112,6 +113,8 @@ private:
 
 	// Misc window handling
 	void Layout();
+
+  CGameModeHelper *m_pGameModeHelper;
 
 };
 

@@ -191,6 +191,8 @@ HWND CDasherWindow::Create()
   m_pDasher->ConnectNode(-1, Dasher::CControlManager::CTL_USER+3, -2);
   m_pDasher->ConnectNode(Dasher::CControlManager::CTL_ROOT, Dasher::CControlManager::CTL_USER+3, -2);
 
+  m_pGameModeHelper = 0;
+
   return hWnd;
 }
 
@@ -466,6 +468,9 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 	  case ID_HELP_CONTENTS:
       HtmlHelp(m_hWnd, L"Dasher.chm", HH_DISPLAY_INDEX, NULL);
 		  return 0;
+    case ID_HELP_DASHERTUTORIAL:
+      m_pGameModeHelper = new CGameModeHelper(m_pDasher);
+      return 0;
 	  case IDM_EXIT:
 		  DestroyWindow();
 		  return 0;
@@ -536,6 +541,22 @@ LRESULT CDasherWindow::OnDasherEvent(UINT message, WPARAM wParam, LPARAM lParam,
     case EV_CONTROL:
       HandleControlEvent(((CControlEvent *)pEvent)->m_iID);
       break;
+    case EV_EDIT: 
+      if(m_pGameModeHelper) {
+        Dasher::CEditEvent * pEvt(static_cast< Dasher::CEditEvent * >(pEvent));
+
+        switch (pEvt->m_iEditType) {
+          case 1:
+            m_pGameModeHelper->Output(pEvt->m_sText);
+            break;
+          case 2:
+            m_pGameModeHelper->Delete(pEvt->m_sText.size());
+            break;
+        }
+      }
+      break;
+
+
     default:
       break;
   }

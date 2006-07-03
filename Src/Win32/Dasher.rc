@@ -159,6 +159,7 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
+        MENUITEM "Dasher &Tutorial",            ID_HELP_DASHERTUTORIAL
         MENUITEM "&Help Topics",                ID_HELP_CONTENTS
         MENUITEM SEPARATOR
         MENUITEM "&About Dasher",               IDM_ABOUT

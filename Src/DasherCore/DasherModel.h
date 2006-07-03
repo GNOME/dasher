@@ -354,6 +354,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   CAlphabetManagerFactory *m_pAlphabetManagerFactory;
   CControlManagerFactory *m_pControlManagerFactory;
 
+  bool m_bGameMode;
+
 #ifdef JAPANESE
   CConversionManagerFactory *m_pConversionManagerFactory;
 #endif

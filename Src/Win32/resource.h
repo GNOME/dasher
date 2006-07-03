@@ -307,6 +307,7 @@
 #define ID_OPTIONS_EDITKEYS             32814
 #define ID_OPTIONS_KEYCONTROL           32815
 #define ID_OPTIONS_WINDOWPAUSE          32816
+#define ID_HELP_DASHERTUTORIAL          32817
 #define IDC_STATIC                      -1
 
 // Next default values for new objects
@@ -314,7 +315,7 @@
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
 #define _APS_NEXT_RESOURCE_VALUE        178
-#define _APS_NEXT_COMMAND_VALUE         32817
+#define _APS_NEXT_COMMAND_VALUE         32818
 #define _APS_NEXT_CONTROL_VALUE         1147
 #define _APS_NEXT_SYMED_VALUE           110
 #endif

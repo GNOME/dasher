@@ -76,7 +76,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32,_DEBUG,_WINDOWS,_STATIC,_LIB,_UNICODE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE;JAPANESE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="FALSE"
@@ -185,96 +185,6 @@
 			</File>
 			<File
 				RelativePath="LanguageModelling\DictLanguageModel.h">
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\JapaneseLanguageModel.cpp">
-				<FileConfiguration
-					Name="Unicode Release|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\JapaneseLanguageModel.h">
-				<FileConfiguration
-					Name="Unicode Release|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Development Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\KanjiConversion.h">
-				<FileConfiguration
-					Name="Unicode Release|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Development Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\KanjiConversionIME.cpp">
-				<FileConfiguration
-					Name="Unicode Release|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCLCompilerTool"/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath=".\LanguageModelling\KanjiConversionIME.h">
-				<FileConfiguration
-					Name="Unicode Release|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Unicode Debug|Win32"
-					ExcludedFromBuild="TRUE">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Development Debug|Win32">
-					<Tool
-						Name="VCCustomBuildTool"/>
-				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="LanguageModelling\LanguageModel.cpp">
@@ -502,12 +412,6 @@
 			RelativePath="DasherComponent.h">
 		</File>
 		<File
-			RelativePath=".\DasherGameMode.cpp">
-		</File>
-		<File
-			RelativePath=".\DasherGameMode.h">
-		</File>
-		<File
 			RelativePath="DasherInput.h">
 		</File>
 		<File
@@ -593,6 +497,12 @@
 		</File>
 		<File
 			RelativePath="FrameRate.h">
+		</File>
+		<File
+			RelativePath=".\IMEConversionHelper.cpp">
+		</File>
+		<File
+			RelativePath=".\IMEConversionHelper.h">
 		</File>
 		<File
 			RelativePath=".\InputFilter.h">

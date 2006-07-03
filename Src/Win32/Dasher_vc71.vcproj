@@ -461,6 +461,12 @@
 				</File>
 			</Filter>
 		</Filter>
+		<File
+			RelativePath=".\GameModeHelper.cpp">
+		</File>
+		<File
+			RelativePath=".\GameModeHelper.h">
+		</File>
 	</Files>
 	<Globals>
 		<Global

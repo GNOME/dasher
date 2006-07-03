@@ -78,7 +78,7 @@ public:
   /// Renders Dasher with mouse-dependent items
   /// \todo Clarify relationship between Render functions and probably only expose one
 
-  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay);
+  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode);
 
   /// Renders the Dasher node structure
   /// \todo Shouldn't be public?

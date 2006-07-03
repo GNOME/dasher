@@ -109,7 +109,11 @@ void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iR
 int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2, int mostleft, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer, bool bDraw) {
   DASHER_ASSERT_VALIDPTR_RW(pRender);
 
-  if(bDraw && !RenderNode(pRender->Colour(), pRender->ColorScheme(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove)) {
+  // TODO: We need an overhall of the node creation/deletion logic - make sure that we only maintain the minimum number of nodes which are actually needed.
+  // This is especially true at the moment in Game mode, which feels very sluggish. Node creation also feels slower in Windows than Linux, especially
+  // if many nodes are created at once (eg untrained Hiragana)
+
+  if(bDraw && !RenderNode(pRender->Colour(), pRender->ColorScheme(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove) && !(pRender->GetGame())) {
     vDeleteList.push_back(pRender);
     pRender->Kill();
     return 0;
@@ -895,21 +899,104 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
 // TODO - should be elsewhere
 
 void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
+  // TODO: Horrible code duplication here
 
-  // FIXME - reimplement
+  if(iPosition > (myint)GetLongParameter(LP_MAX_Y)) {
+     CDasherScreen::point p[2];
+  
+  myint iDasherX;
+  myint iDasherY;
+  
+  iDasherX = -400;
+  iDasherY = GetLongParameter(LP_MAX_Y);
+  
+  Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+  
+  iDasherX = -400;
+  iDasherY = GetLongParameter(LP_MAX_Y) - 500;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
 
-//   myint loc = DasherModel()->GetGameModePointerLoc();
+   iDasherX = -300;
+  iDasherY = GetLongParameter(LP_MAX_Y) - 100;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
 
-//   if(loc == myint(INT64_MIN))
-//     return;
+   iDasherX = -500;
+  iDasherY = GetLongParameter(LP_MAX_Y) - 100;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
 
-//   if(loc > GetLongParameter(LP_MAX_Y))
-//     DasherDrawCentredRectangle(-50, GetLongParameter(LP_MAX_Y), 5, 135, Opts::ColorSchemes(Objects), false);
+  }
+  else if(iPosition < 0) {
+         CDasherScreen::point p[2];
+  
+  myint iDasherX;
+  myint iDasherY;
+  
+  iDasherX = -400;
+  iDasherY = 0;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+  
+  iDasherX = -400;
+  iDasherY = 500;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
 
-//   else if(loc < 0)
-//     DasherDrawCentredRectangle(-50, 0, 5, 135, Opts::ColorSchemes(Objects), false);
+   iDasherX = -300;
+  iDasherY = 100;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
 
-//   else
-     DasherDrawCentredRectangle(-50, iPosition, 7, 135, Opts::ColorSchemes(Objects), false);
+   iDasherX = -500;
+  iDasherY = 100;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
+  }
+  else {
+ CDasherScreen::point p[2];
+  
+  myint iDasherX;
+  myint iDasherY;
+  
+  iDasherX = -200;
+  iDasherY = iPosition;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+  
+  iDasherX = -1000;
+  iDasherY = iPosition;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
+
+   iDasherX = -300;
+  iDasherY = iPosition + 100;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
+
+   iDasherX = -300;
+  iDasherY = iPosition - 100;
+  
+  Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+  
+  Screen()->Polyline(p, 2, 1, 2);
+   }
 
 }
