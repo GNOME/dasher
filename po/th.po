@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.99.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-02 20:32+0700\n"
-"PO-Revision-Date: 2006-07-02 20:42+0700\n"
+"POT-Creation-Date: 2006-07-04 11:23+0700\n"
+"PO-Revision-Date: 2006-07-04 11:24+0700\n"
 "Last-Translator: Theppitak Karoonboonyanan <thep@linux.thai.net>\n"
 "Language-Team: Thai <l10n@opentle.org>\n"
 "MIME-Version: 1.0\n"
@@ -304,8 +304,8 @@ msgid "Paste"
 msgstr "แปะ"
 
 #: Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside window"
-msgstr "พักเมื่อออกนอกหน้าต่าง"
+msgid "Pause outside of canvas"
+msgstr "พักเมื่อออกนอกกรอบแผ่นเลื่อน"
 
 #: Src/Gtk2/dasher.glade.h:54 Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
