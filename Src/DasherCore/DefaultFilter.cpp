@@ -45,9 +45,20 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iDasherY;
 
   m_pDasherView->TapOnDisplay(0, 0, Time, iDasherX, iDasherY);
-  
+
   ApplyAutoCalibration(iDasherX, iDasherY, true);
   ApplyTransform(iDasherX, iDasherY);
+
+  if(GetBoolParameter(BP_PAUSE_OUTSIDE)) {
+    myint iDasherMinX;
+    myint iDasherMinY;
+    myint iDasherMaxX;
+    myint iDasherMaxY;
+    m_pDasherView->VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+  
+    if((iDasherX > iDasherMaxX) || (iDasherX < iDasherMinX) || (iDasherY > iDasherMaxY) || (iDasherY < iDasherMinY))
+      m_pInterface->PauseAt(0,0);
+  }
 
   bool bDidSomething;
   bDidSomething = m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);

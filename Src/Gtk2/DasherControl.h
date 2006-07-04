@@ -143,9 +143,6 @@ public:
   void ExternalKeyDown(int iKeyVal);
   void ExternalKeyUp(int iKeyVal);
 
-  bool PointerLeft();
-  bool PointerEntered();
-
 private:
   //  virtual void CreateSettingsStore();
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);

@@ -25,11 +25,8 @@ extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer 
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 //extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
-extern "C" gboolean on_canvas_leave(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData);
-extern "C" gboolean on_canvas_enter(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData);
 
 // CDasherControl class definitions
-
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
   m_pDasherControl = pDasherControl;
   m_pVBox = GTK_WIDGET(pVBox);
@@ -118,22 +115,15 @@ void CDasherControl::SetupUI() {
 
   g_signal_connect(m_pCanvas, "button_press_event", G_CALLBACK(button_press_event), this);
   g_signal_connect(m_pCanvas, "button_release_event", G_CALLBACK(button_press_event), this);
-  // g_signal_connect(m_pSpin, "value-changed", G_CALLBACK(speed_changed), this);
   g_signal_connect_after(m_pCanvas, "realize", G_CALLBACK(realize_canvas), this);
   g_signal_connect(m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this);
   g_signal_connect(m_pCanvas, "destroy", G_CALLBACK(canvas_destroy_event), this);
-
-  g_signal_connect(m_pCanvas, "leave-notify-event", G_CALLBACK(on_canvas_leave), this);
-  g_signal_connect(m_pCanvas, "enter-notify-event", G_CALLBACK(on_canvas_enter), this);
-
-  // g_signal_connect(m_pCombo, "changed", G_CALLBACK(alphabet_combo_changed), this);
 
   // We'll use the same call back for keyboard events from the canvas
   // and slider - maybe this isn't the right thing to do long term
 
   g_signal_connect(m_pCanvas, "key-release-event", G_CALLBACK(key_release_event), this);
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
-//   g_signal_connect(m_pSpeedHScale, "key_press_event", G_CALLBACK(key_press_event), this);
 
   g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
 }
@@ -561,17 +551,6 @@ int CDasherControl::GetFileSize(const std::string &strFileName) {
     return 0;
 }
 
-bool CDasherControl::PointerLeft() {
-  if(GetBoolParameter(BP_PAUSE_OUTSIDE))
-    PauseAt(0,0);
-  return false;
-}
-
-bool CDasherControl::PointerEntered() {
-  return false;
-}
-
-
 // FIXME - these two methods seem a bit pointless!
 
 int CDasherControl::alphabet_filter(const gchar *filename, GPatternSpec *alphabetglob) {
@@ -615,12 +594,4 @@ extern "C" gint key_release_event(GtkWidget *pWidget, GdkEventKey *event, gpoint
 
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
   return static_cast < CDasherControl * >(data)->FocusEvent(widget, event);
-}
-
-extern "C" gboolean on_canvas_leave(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData) {
-  return static_cast < CDasherControl * >(pUserData)->PointerLeft();
-}
-
-extern "C" gboolean on_canvas_enter(GtkWidget *pWidgt, GdkEventCrossing *pEvent, gpointer pUserData) {
-   return static_cast < CDasherControl * >(pUserData)->PointerEntered();
 }
