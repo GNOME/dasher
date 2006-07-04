@@ -49,7 +49,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   ApplyAutoCalibration(iDasherX, iDasherY, true);
   ApplyTransform(iDasherX, iDasherY);
 
-  if(GetBoolParameter(BP_PAUSE_OUTSIDE)) {
+  if(GetBoolParameter(BP_PAUSE_OUTSIDE) && !GetBoolParameter(BP_DASHER_PAUSED)) {
     myint iDasherMinX;
     myint iDasherMinY;
     myint iDasherMaxX;

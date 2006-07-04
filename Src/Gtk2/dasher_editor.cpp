@@ -103,6 +103,8 @@ struct _DasherEditorPrivate {
   gboolean bActionIterStarted;
   gint iNextActionID;
   IDasherBufferSet *pBufferSet;
+  IDasherBufferSet *pExternalBuffer;
+  IDasherBufferSet *pInternalBuffer;
   GameModeHelper *pGameModeHelper;
 };
 
@@ -138,6 +140,8 @@ static void dasher_editor_init(DasherEditor *pDasherControl) {
   pDasherControl->private_data = new DasherEditorPrivate;
 
   ((DasherEditorPrivate *)(pDasherControl->private_data))->pBufferSet = 0;
+  ((DasherEditorPrivate *)(pDasherControl->private_data))->pInternalBuffer = 0;
+  ((DasherEditorPrivate *)(pDasherControl->private_data))->pExternalBuffer = 0;
 }
 
 static void dasher_editor_destroy(GObject *pObject) {
@@ -199,11 +203,10 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pPrivate->iNextActionID = 0;
   pPrivate->pGameModeHelper = 0;
 
+  dasher_editor_create_buffer(pDasherControl);
   dasher_editor_setup_actions(pDasherControl);
   dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
-
-  dasher_editor_create_buffer(pDasherControl);
-
+ 
   return pDasherControl;
 }
 
@@ -425,7 +428,7 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
 #endif
 
 #ifdef GNOME_A11Y
-  dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new()));
+  dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new(pPrivate->pExternalBuffer)));
 #endif
 
 #ifdef WITH_MAEMO
@@ -503,7 +506,6 @@ extern "C" void delete_children_callback(GtkWidget *pWidget, gpointer pUserData)
 }
 
 extern "C" void main_window_realized(DasherMain *pMain, gpointer pUserData) {
-  g_message("Main window realized");
 }
 
 
@@ -723,21 +725,23 @@ EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID){
 void dasher_editor_create_buffer(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
-  if(pPrivate->pBufferSet != 0) {
-    g_object_unref(G_OBJECT(pPrivate->pBufferSet));
+#ifdef GNOME_A11Y
+  if(!(pPrivate->pExternalBuffer))
+    pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
+#endif
+
+  if(!(pPrivate->pInternalBuffer)) {
+    pPrivate->pInternalBuffer = dasher_editor_get_buffer_set(pSelf);
+    idasher_buffer_set_conversion_mode(pPrivate->pInternalBuffer, gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CONVERSION_MODE));
   }
   
   if(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE) == 2)
-#ifdef GNOME_A11Y
-    pPrivate->pBufferSet = IDASHER_BUFFER_SET(dasher_external_buffer_new());
-#else
-  pPrivate->pBufferSet = 0;
-#endif
+    pPrivate->pBufferSet = pPrivate->pExternalBuffer;
   else {
-    pPrivate->pBufferSet = dasher_editor_get_buffer_set(pSelf);
-    idasher_buffer_set_conversion_mode(pPrivate->pBufferSet, gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CONVERSION_MODE));
+    pPrivate->pBufferSet = pPrivate->pInternalBuffer;
   }
-  
+
+  // TODO: Fix this
   g_signal_connect(G_OBJECT(pPrivate->pBufferSet), "context_changed", G_CALLBACK(context_changed_handler), NULL);
 }
 

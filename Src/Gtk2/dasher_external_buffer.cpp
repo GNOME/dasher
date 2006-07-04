@@ -157,6 +157,8 @@ DasherExternalBuffer *dasher_external_buffer_new() {
 }
 
 void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText) { 
+  //  g_message("Insert %s", szText);
+
   char *szNewText;
   szNewText = new char[strlen(szText) + 1];
   strcpy(szNewText, szText);
@@ -165,6 +167,8 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
   
   delete[] szNewText;
   return;
+
+  // EVERYTHING BELOW HERE IN THIS METHOD NOT USED
 
   glong numoutput;
   int numcodes;
@@ -213,6 +217,12 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
 }
 
 void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength) {
+  //  g_message("Delete %d", iLength);
+   
+  SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
+  return;
+
+  
   Display *dpy;
   dpy = gdk_x11_get_default_xdisplay();
   KeyCode code;

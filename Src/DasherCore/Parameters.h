@@ -90,7 +90,7 @@ struct sp_table {
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = {
   {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, false, "Draw Mouse Line"},
-  {BP_DRAW_MOUSE, "DrawMouse", PERS, true, "Draw Mouse Position"},
+  {BP_DRAW_MOUSE, "DrawMouse", PERS, false, "Draw Mouse Position"},
 #ifdef WITH_MAEMO
   {BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, false, "ShowSpeedSlider"},
 #else
@@ -153,8 +153,8 @@ static lp_table longparamtable[] = {
   {LP_LM_MAX_ORDER, "LMMaxOrder", PERS, 5, "LMMaxOrder"},
   {LP_LM_EXCLUSION, "LMExclusion", PERS, 0, "LMExclusion"},
   {LP_LM_UPDATE_EXCLUSION, "LMUpdateExclusion", PERS, 1, "LMUpdateExclusion"},
-  {LP_LM_ALPHA, "LMAlpha", PERS, 100, "LMAlpha"},
-  {LP_LM_BETA, "LMBeta", PERS, 100, "LMBeta"},
+  {LP_LM_ALPHA, "LMAlpha", PERS, 49, "LMAlpha"},
+  {LP_LM_BETA, "LMBeta", PERS, 77, "LMBeta"},
   {LP_LM_MIXTURE, "LMMixture", PERS, 50, "LMMixture"},
   {LP_MOUSE_POS_BOX, "MousePosBox", !PERS, -1, "Mouse Position Box Indicator"},
   {LP_NORMALIZATION, "Normalization", !PERS, 1 << 16, "Interval for child nodes"},

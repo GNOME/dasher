@@ -2,6 +2,7 @@
 #define __dasher_action_keyboard_h__
 
 #include "dasher_action.h"
+#include "dasher_buffer_set.h"
 
 G_BEGIN_DECLS
 #define TYPE_DASHER_ACTION_KEYBOARD           (dasher_action_keyboard_get_type())
@@ -23,7 +24,7 @@ struct _DasherActionKeyboardClass {
   DasherActionClass parent_class;
 };
 
-DasherActionKeyboard *dasher_action_keyboard_new();
+DasherActionKeyboard *dasher_action_keyboard_new(IDasherBufferSet *pBufferSet);
 GType dasher_action_keyboard_get_type();
 
 G_END_DECLS

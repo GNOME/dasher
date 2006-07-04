@@ -1,11 +1,14 @@
-// TODO: Make inclusion of this file in build conditional
 #include "config.h"
-#ifdef GNOME_A11Y
-
 #include "dasher_action_keyboard.h"
 
 #include <cspi/spi.h>
 #include <string.h>
+
+struct _DasherActionKeyboardPrivate {
+  IDasherBufferSet *pBufferSet;
+};
+
+typedef struct _DasherActionKeyboardPrivate DasherActionKeyboardPrivate;
 
 static void dasher_action_keyboard_class_init(DasherActionKeyboardClass *pClass);
 static void dasher_action_keyboard_init(DasherActionKeyboard *pActionKeyboard);
@@ -47,8 +50,7 @@ static void dasher_action_keyboard_class_init(DasherActionKeyboardClass *pClass)
 }
 
 static void dasher_action_keyboard_init(DasherActionKeyboard *pDasherControl) {
-  // Probably a waste of time - we don't really need any private data here
-  pDasherControl->private_data = 0;
+  pDasherControl->private_data = new DasherActionKeyboardPrivate;
 }
 
 static void dasher_action_keyboard_destroy(GObject *pObject) {
@@ -56,27 +58,22 @@ static void dasher_action_keyboard_destroy(GObject *pObject) {
   // of the parent classes here...
 }
 
-DasherActionKeyboard *dasher_action_keyboard_new() {
+DasherActionKeyboard *dasher_action_keyboard_new(IDasherBufferSet *pBufferSet) {
   DasherActionKeyboard *pDasherControl;
-
   pDasherControl = (DasherActionKeyboard *)(g_object_new(dasher_action_keyboard_get_type(), NULL));
+
+  ((DasherActionKeyboardPrivate *)(pDasherControl->private_data))->pBufferSet = pBufferSet;
 
   return pDasherControl;
 }
 
 static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, const gchar *szData) {
-  char *szNewText;
-  szNewText = new char[strlen(szData) + 1];
-  strcpy(szNewText, szData);
-  
-  SPI_generateKeyboardEvent(0, szNewText, SPI_KEY_STRING);
-  
-  delete[] szNewText;
+  DasherActionKeyboardPrivate *pPrivate = (DasherActionKeyboardPrivate *)(DASHER_ACTION_KEYBOARD(pSelf)->private_data);
+   
+  idasher_buffer_set_insert(pPrivate->pBufferSet, szData);
   return true;
 }
 
 static const gchar *dasher_action_keyboard_get_name(DasherAction *pSelf) {
   return "Enter Text";
 }
-
-#endif
