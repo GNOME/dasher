@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: es\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-02 17:10+0200\n"
-"PO-Revision-Date: 2006-07-02 17:11+0200\n"
+"POT-Creation-Date: 2006-07-06 02:55+0200\n"
+"PO-Revision-Date: 2006-07-06 02:55+0200\n"
 "Last-Translator: Francisco Javier F. Serrador <serrador@cvs.gnome.org>\n"
 "Language-Team: Spanish <traductores@es.gnome.org>\n"
 "MIME-Version: 1.0\n"
@@ -308,8 +308,8 @@ msgid "Paste"
 msgstr "Pegar"
 
 #: ../Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside window"
-msgstr "Pausar la ventana exterior"
+msgid "Pause outside of canvas"
+msgstr "Pausar fuera del lienzo"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
