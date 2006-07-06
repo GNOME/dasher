@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-02 19:48+0300\n"
-"PO-Revision-Date: 2006-07-02 19:50+0300\n"
+"POT-Creation-Date: 2006-07-06 11:07+0300\n"
+"PO-Revision-Date: 2006-07-06 11:07+0300\n"
 "Last-Translator: Ilkka Tuohela <hile@iki.fi>\n"
 "Language-Team: Finnish <gnome-fi-laatu@lists.sourceforge.net>\n"
 "MIME-Version: 1.0\n"
@@ -306,8 +306,8 @@ msgid "Paste"
 msgstr "Liitä"
 
 #: ../Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside window"
-msgstr "Pysähdy ikkunan ulkopuolella"
+msgid "Pause outside of canvas"
+msgstr "Keskeytä piirtoalueen ulkopuolella"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
