@@ -821,7 +821,7 @@ msgstr "Trái/2:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Số điểm ảnh nên trải ra phạm vị Y hoàn thành:"
+msgstr "Số điểm ảnh nên trải ra phạm vi Y hoàn thành:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:51
 msgid "One dimensional mode"
