@@ -973,7 +973,7 @@ msgstr "Khi chọn chế độ này thì di động lên và xuống sẽ theo c
 
 #:../Src/Gtk2/dashergpe.glade.h:50
 msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Số điểm ảnh nên trải ra phạm vị Y hoàn thành:"
+msgstr "Số điểm ảnh nên trải ra phạm vi Y hoàn thành:"
 
 #:../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
