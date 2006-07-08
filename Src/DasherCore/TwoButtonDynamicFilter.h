@@ -3,6 +3,8 @@
 
 #include "InputFilter.h"
 
+#include <deque>
+
 class CTwoButtonDynamicFilter : public CInputFilter {
  public:
   CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface);
@@ -16,10 +18,13 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   virtual void Deactivate();
 
  private:
-  int m_iKeyTime;
-
-  bool m_bBackoff;
   bool m_bDecorationChanged;
+  int m_iLasstButton;
+  int m_iKeyDownTime;
+  int m_iState; // 0 = paused, 1 = running 2 = backing off
+  int m_iQueueId;
+  std::deque<int> m_deQueueTimes;
+
 };
 
 #endif

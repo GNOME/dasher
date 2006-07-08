@@ -37,7 +37,7 @@ enum {
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM,
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
-  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, END_OF_LPS
+  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, END_OF_LPS
 };
 
 enum {
@@ -181,6 +181,9 @@ static lp_table longparamtable[] = {
   {LP_INPUT_FILTER, "InputFilterID", PERS, 3, "Module ID of input filter"},
   {LP_CIRCLE_PERCENT, "CirclePercent", PERS, 10, "Percentage of nominal vertical range to use for radius of start circle"},
   {LP_TWO_BUTTON_OFFSET, "TwoButtonOffset", PERS, 1024, "Offset for two button dynamic mode"},
+  {LP_HOLD_TIME, "HoldTime", PERS, 1000, "Time for which buttons must be held to count as long presses, in ms"},
+  {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 1024, "Time in which multiple presses must occur, in ms"},
+  {LP_MULTIPRESS_COUNT, "MultipressCount", PERS, 1024, "Time in which multiple presses must occur to count"},
 };
 
 static sp_table stringparamtable[] = {
