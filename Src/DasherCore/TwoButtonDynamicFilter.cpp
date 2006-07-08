@@ -4,6 +4,8 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+#include <iostream>
+
 // TODO: Move a lot of this stuff into a base class, so that the
 // single and double button dynamic modes can behave in essentially
 // the same way.
@@ -53,9 +55,9 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
 
 bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   if(m_iState == 2)
-    return m_pDasherModel->Tap_on_display(4096,2048, Time, 0, 0);
-  else if(m_iState == 1)
     return m_pDasherModel->Tap_on_display(41943,2048, Time, 0, 0);
+  else if(m_iState == 1)
+    return m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
   else
     return false;
 }
@@ -71,7 +73,7 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
   
   // Check for multiple clicks
   if(iId == m_iQueueId) {
-    while(iTime - m_deQueueTimes.front() > GetLongParameter(LP_HOLD_TIME))
+    while((iTime - m_deQueueTimes.front()) > GetLongParameter(LP_HOLD_TIME))
       m_deQueueTimes.pop_front();
 
     if(m_deQueueTimes.size() > GetLongParameter(LP_MULTIPRESS_COUNT)) { 
@@ -88,7 +90,7 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
 }
 
 void CTwoButtonDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
-  if(iTime - m_iKeyDownTime < GetLongParameter(LP_MULTIPRESS_TIME))
+  if((iTime - m_iKeyDownTime) > GetLongParameter(LP_MULTIPRESS_TIME))
     Event(iTime, iId, 1, pModel);
 }
 
@@ -105,6 +107,8 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   // 0 = ordinary click
   // 1 = long click
   // 2 = multiple click
+
+  std::cout << "Event: " << iTime << " " << iButton << " " << iType << std::endl;
   
   // First sanity check - if Dasher is paused then jump to the
   // appropriate state
