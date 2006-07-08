@@ -18,13 +18,14 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   virtual void Deactivate();
 
  private:
+  void Event(int iTime, int iButton, int iType, CDasherModel *pModel);
+
   bool m_bDecorationChanged;
-  int m_iLasstButton;
+  int m_iLastButton;
   int m_iKeyDownTime;
   int m_iState; // 0 = paused, 1 = running 2 = backing off
   int m_iQueueId;
   std::deque<int> m_deQueueTimes;
-
 };
 
 #endif

@@ -56,11 +56,13 @@ bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDashe
     return m_pDasherModel->Tap_on_display(4096,2048, Time, 0, 0);
   else if(m_iState == 1)
     return m_pDasherModel->Tap_on_display(41943,2048, Time, 0, 0);
+  else
+    return false;
 }
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
   // Pass the basic key down event to the handler
-  Event(iId, 0, pModel);
+  Event(iTime, iId, 0, pModel);
   
   // Store the key down time so that long presses can be determined
   // TODO: This is going to cause problems if multiple buttons are
@@ -68,12 +70,12 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
   m_iKeyDownTime = iTime;
   
   // Check for multiple clicks
-  if(iID == m_iQueueID) {
+  if(iId == m_iQueueId) {
     while(iTime - m_deQueueTimes.front() > GetLongParameter(LP_HOLD_TIME))
       m_deQueueTimes.pop_front();
 
     if(m_deQueueTimes.size() > GetLongParameter(LP_MULTIPRESS_COUNT)) { 
-      Event(iId, 2, pModel);
+      Event(iTime, iId, 2, pModel);
       m_deQueueTimes.clear();
     }
     else
@@ -87,7 +89,7 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
 
 void CTwoButtonDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
   if(iTime - m_iKeyDownTime < GetLongParameter(LP_MULTIPRESS_TIME))
-    Event(iId, 1, pModel);
+    Event(iTime, iId, 1, pModel);
 }
 
 void CTwoButtonDynamicFilter::Activate() {
@@ -98,7 +100,7 @@ void CTwoButtonDynamicFilter::Deactivate() {
   SetBoolParameter(BP_DELAY_VIEW, false);
 }
 
-void CTwoButtonDynamicFilter::Event(int iButton, int iType, CDasherModel *pModel) {
+void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel) {
   // Types:
   // 0 = ordinary click
   // 1 = long click
