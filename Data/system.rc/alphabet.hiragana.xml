@@ -116,8 +116,7 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
-<group name="83 Letters (actually 81)" b="0">
-<group name="aiueo" b="60">
+<group name="aiueo" b="60"  visible="off">
 <s d="&#12353;" t="&#12353;" b="70" note=" SMALL A " />
 <s d="&#12354;" t="&#12354;" b="80"  note=" A " />
 <s d="&#12355;" t="&#12355;" b="70" note=" SMALL I " />
@@ -129,11 +128,11 @@
 <s d="&#12361;" t="&#12361;" b="70" note=" SMALL O " />
 <s d="&#12362;" t="&#12362;" b="80" note=" O " />
 </group>
-<group name="" b="71" label="&#12363;">
+<group name="" b="71" label="&#12363;"  visible="on">
 <s d=""         t="&#12363;" b="71"  note=" KA " />
 <s d="&#12443;" t="&#12364;" b="99"  note=" GA " />
 </group>
-<group name="" b="81" label="&#12365;">
+<group name="" b="81" label="&#12365;"  visible="on">
 <s d="" t="&#12365;" b="81"   note=" KI " />
 <s d="&#12443;" t="&#12366;" b="99"   note=" GI " />
 </group>
@@ -192,7 +191,7 @@
 <s d="" t="&#12392;" b="83" note=" TO " />
 <s d="&#12443;" t="&#12393;" b="99" note=" DO " />
 </group>
-<group name="" b="64">
+<group name="" b="64"  visible="off">
 <s d="&#12394;" t="&#12394;" b="74" note=" NA " />
 <s d="&#12395;" t="&#12395;" b="84" note=" NI " />
 <s d="&#12396;" t="&#12396;" b="74" note=" NU " />
@@ -224,14 +223,14 @@
 <s d="&#12443;" t="&#12412;" b="99" note=" BO " />
 <s d="&#12444;" t="&#12413;" b="97" note=" PO " />
 </group>
-<group name="m" b="">
+<group name="m" b=""  visible="off">
 <s d="&#12414;" t="&#12414;" b="76" note=" MA " />
 <s d="&#12415;" t="&#12415;" b="86" note=" MI " />
 <s d="&#12416;" t="&#12416;" b="76" note=" MU " />
 <s d="&#12417;" t="&#12417;" b="86" note=" ME " />
 <s d="&#12418;" t="&#12418;" b="76" note=" MO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <s d="&#12419;" t="&#12419;" b="77" note=" SMALL YA " />
 <s d="&#12420;" t="&#12420;" b="87" note=" YA " />
 <s d="&#12421;" t="&#12421;" b="77" note=" SMALL YU " />
@@ -239,26 +238,25 @@
 <s d="&#12423;" t="&#12423;" b="77" note=" SMALL YO " />
 <s d="&#12424;" t="&#12424;" b="87" note=" YO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <s d="&#12425;" t="&#12425;" b="78" note=" RA " />
 <s d="&#12426;" t="&#12426;" b="88" note=" RI " />
 <s d="&#12427;" t="&#12427;" b="78" note=" RU " />
 <s d="&#12428;" t="&#12428;" b="88" note=" RE " />
 <s d="&#12429;" t="&#12429;" b="78" note=" RO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <!-- <s d="&#12430;" t="&#12430;" b="79" note=" SMALL WA (not needed?) " /> -->
 <s d="&#12431;" t="&#12431;" b="89" note=" WA " />
 <!-- s d="&#12432;" t="&#12432;" b="79" note=" WI " /> -->
 <!-- s d="&#12433;" t="&#12433;" b="89" note=" WE " /> -->
 <s d="&#12434;" t="&#12434;" b="79" note=" WO " />
 </group>
-<group name="" b="">
+<group name="" b="" visible="off">
 <s d="&#12435;" t="&#12435;" b="74" note=" N " />
 </group>
-<group name="" b="">
+<group name="" b="" visible="off">
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="96" />
-</group>
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>
@@ -280,8 +278,7 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
-<group name="83 Letters (actually 81)" b="0">
-<group name="aiueo" b="60">
+<group name="aiueo" b="60"  visible="off">
 <s d="&#12353;" t="&#12353;" b="70" note=" SMALL A " />
 <s d="&#12354;" t="&#12354;" b="80"  note=" A " />
 <s d="&#12355;" t="&#12355;" b="70" note=" SMALL I " />
@@ -356,7 +353,7 @@
 <s d="&#12443;" t="&#12393;" b="99" note=" DO " />
 <s d="" t="&#12392;" b="83" note=" TO " />
 </group>
-<group name="" b="64">
+<group name="" b="64"  visible="off">
 <s d="&#12394;" t="&#12394;" b="74" note=" NA " />
 <s d="&#12395;" t="&#12395;" b="84" note=" NI " />
 <s d="&#12396;" t="&#12396;" b="74" note=" NU " />
@@ -388,14 +385,14 @@
 <s d="&#12444;" t="&#12413;" b="97" note=" PO " />
 <s d="" t="&#12411;" b="75" note=" HO " />
 </group>
-<group name="m" b="">
+<group name="m" b=""  visible="off">
 <s d="&#12414;" t="&#12414;" b="76" note=" MA " />
 <s d="&#12415;" t="&#12415;" b="86" note=" MI " />
 <s d="&#12416;" t="&#12416;" b="76" note=" MU " />
 <s d="&#12417;" t="&#12417;" b="86" note=" ME " />
 <s d="&#12418;" t="&#12418;" b="76" note=" MO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <s d="&#12419;" t="&#12419;" b="77" note=" SMALL YA " />
 <s d="&#12420;" t="&#12420;" b="87" note=" YA " />
 <s d="&#12421;" t="&#12421;" b="77" note=" SMALL YU " />
@@ -403,26 +400,25 @@
 <s d="&#12423;" t="&#12423;" b="77" note=" SMALL YO " />
 <s d="&#12424;" t="&#12424;" b="87" note=" YO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <s d="&#12425;" t="&#12425;" b="78" note=" RA " />
 <s d="&#12426;" t="&#12426;" b="88" note=" RI " />
 <s d="&#12427;" t="&#12427;" b="78" note=" RU " />
 <s d="&#12428;" t="&#12428;" b="88" note=" RE " />
 <s d="&#12429;" t="&#12429;" b="78" note=" RO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <!-- <s d="&#12430;" t="&#12430;" b="79" note=" SMALL WA (not needed?) " /> -->
 <s d="&#12431;" t="&#12431;" b="89" note=" WA " />
 <!-- s d="&#12432;" t="&#12432;" b="79" note=" WI " /> -->
 <!-- s d="&#12433;" t="&#12433;" b="89" note=" WE " /> -->
 <s d="&#12434;" t="&#12434;" b="79" note=" WO " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <s d="&#12435;" t="&#12435;" b="74" note=" N " />
 </group>
-<group name="" b="">
+<group name="" b=""  visible="off">
 <s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="96" />
-</group>
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>
@@ -444,7 +440,15 @@
 <space d="&#x25a1;" t=" " b="9"/>
 <paragraph d="&#182;" b="9"/>
 <control d="Control" t="" b="8"/>
-<group name="60 Letters (actually 55 plus two diacriticals)" b="0">
+<group name="Diacriticals"  b="9" visible="on">
+<!-- I'd like to replace 443,444 below by 441 and 442, which would be 
+     correct Unicode; but it seems that it renders wrong on my laptop;
+     441,442 are the combining, nonspacing marks                       -->
+<s d="&#x25cc;&#12443;" t="&#12441;" b="99" note="diacritical buzz "  />
+<s d="&#x25cc;&#12444;" t="&#12442;" b="97" note="diacritical pop  "  />
+<s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="96" />
+</group>
+<group name="60 Letters (actually 55 plus two diacriticals)" b="0"  visible="off">
 <s d="&#12353;" t="&#12353;" b="70" note=" SMALL A " />
 <s d="&#12354;" t="&#12354;" b="80" note=" A " />
 <s d="&#12355;" t="&#12355;" b="70" note=" SMALL I " />
@@ -503,12 +507,6 @@
 <!-- s d="&#12433;" t="&#12433;" b="89" note=" WE " /> -->
 <s d="&#12434;" t="&#12434;" b="79" note=" WO " />
 <s d="&#12435;" t="&#12435;" b="74" note=" N " />
-<!-- I'd like to replace 443,444 below by 441 and 442, which would be 
-     correct Unicode; but it seems that it renders wrong on my laptop;
-     441,442 are the combining, nonspacing marks                       -->
-<s d="&#x25cc;&#12443;" t="&#12441;" b="99" note="diacritical buzz "  />
-<s d="&#x25cc;&#12444;" t="&#12442;" b="97" note="diacritical pop  "  />
-<s d="&#12540;" t="&#12540;" note="Japanese long dash (long tone)" b="96" />
 </group>
 <group name="Punctuation"  b="9" >
 <s d="&#65294;"  t="." b="10"/>

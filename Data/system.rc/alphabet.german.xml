@@ -10,7 +10,7 @@
 <paragraph d="&#182;" b="9"/>
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8" />
-<group name="Lower case Latin letters">
+<group name="Lower case Latin letters"  b="0">
 <s b="10" d="a" t="a"/>
 <s b="11" d="&#228;" t="&#228;"/>
 <s b="12" d="b" t="b"/>
@@ -42,7 +42,7 @@
 <s b="38" d="y" t="y"/>
 <s b="39" d="z" t="z"/>
 </group>
-<group name="Upper case Latin letters">
+<group name="Upper case Latin letters" b="111">
 <s b="10"  d="A" t="A"/>
 <s b="11"  d="&#196;" t="&#196;"/>
 <s b="12"  d="B" t="B"/>
