@@ -144,16 +144,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   myint iDasherX;
   myint iDasherY;
 
-  int mode;
-  
-  if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-    mode = 1;
-  else if(GetBoolParameter(BP_EYETRACKER_MODE))
-    mode = 2;
-  else
-    mode = 0;
-  
-  pView->Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, mode);
+  pView->Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, 0);
 
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
@@ -201,16 +192,8 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   // probably be using a chached value rather than computing this
   // separately to TapOn
 
-  int mode;
-  
-  if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-    mode = 1;
-  else if(GetBoolParameter(BP_EYETRACKER_MODE))
-    mode = 2;
-  else
-    mode = 0;
  
-  pView->Input2Dasher(mousex, mousey, x[1], y[1], iType, mode);
+  pView->Input2Dasher(mousex, mousey, x[1], y[1], iType, 0);
 
   ApplyAutoCalibration(x[1], y[1], false);
   ApplyTransform(x[1], y[1]);

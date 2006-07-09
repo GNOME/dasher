@@ -31,8 +31,6 @@ static UserLogParamMask s_UserLogParamMaskTable [] = {
   {BP_CONTROL_MODE,         userLogParamOutputToSimple},
   {LP_UNIFORM,              userLogParamOutputToSimple},
   {LP_YSCALE,               userLogParamOutputToSimple},
-  {BP_NUMBER_DIMENSIONS,    userLogParamOutputToSimple},
-  {BP_EYETRACKER_MODE,      userLogParamOutputToSimple},
   {LP_LANGUAGE_MODEL_ID,    userLogParamOutputToSimple},
   {LP_LM_MAX_ORDER,         userLogParamOutputToSimple},
   {LP_LM_EXCLUSION,         userLogParamOutputToSimple},

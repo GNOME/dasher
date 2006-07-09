@@ -23,6 +23,8 @@ if your're the Dasher maintainer, ie me!:
 
    d) Docs/LICENSE.txt
 
+   e) Inno Setup script
+
 4. Add an item to the ChangeLog and NEWS files
 
 5. Add list of changes to the README file

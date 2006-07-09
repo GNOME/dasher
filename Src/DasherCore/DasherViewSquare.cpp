@@ -772,12 +772,7 @@ void CDasherViewSquare::TapOnDisplay(screenint mousex,
 
   int mode;
   
-  if(GetBoolParameter(BP_NUMBER_DIMENSIONS))
-    mode = 1;
-  else if(GetBoolParameter(BP_EYETRACKER_MODE))
-    mode = 2;
-  else
-    mode = 0;
+  mode = 0;
  
   Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, mode);
   m_iDasherXCache = iDasherX;

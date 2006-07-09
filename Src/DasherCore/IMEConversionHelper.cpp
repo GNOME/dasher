@@ -45,8 +45,11 @@ bool CIMEConversionHelper::Convert(const std::string &strSource, std::vector<std
 		    new_phrase.push_back(strUTF8Output);
 			  //sprintf( buf, "%s\n",(LPBYTE)lpCand + lpCand->dwOffset[i] );
 			  // Find hiragana length
-			  if( wcslen( (WCHAR *)lpCand + lpCand->dwOffset[i] ) > MaxLen )
-  				MaxLen = wcslen( (WCHAR *)lpCand + lpCand->dwOffset[i] );
+
+        MaxLen = strOutput.size();
+
+			  /*if( wcslen( (WCHAR *)lpCand + lpCand->dwOffset[i] ) > MaxLen )
+  				MaxLen = wcslen( (WCHAR *)lpCand + lpCand->dwOffset[i] );*/
 		  }
 		  vResult.push_back(new_phrase);
 		  HeapFree(GetProcessHeap(), 0, lpCand);

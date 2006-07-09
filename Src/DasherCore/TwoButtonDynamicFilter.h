@@ -26,6 +26,8 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   int m_iState; // 0 = paused, 1 = running 2 = backing off
   int m_iQueueId;
   std::deque<int> m_deQueueTimes;
+
+  bool m_bKeyDown;
 };
 
 #endif

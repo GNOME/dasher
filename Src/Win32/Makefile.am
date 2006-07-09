@@ -62,18 +62,20 @@ EXTRA_DIST = \
 		Widgets/SplashScreen.h \
 		Widgets/Splitter.cpp \
 		Widgets/Splitter.h \
+		Widgets/StatusControl.cpp \
+		Widgets/StatusControl.h \
 		Widgets/Toolbar.cpp \
 		Widgets/Toolbar.h \
 		Widgets/ViewPage.cpp \
 		Widgets/ViewPage.h \
 		Widgets/WindowSelect.cpp \
 		Widgets/WindowSelect.h \
+		ActionSpeech.cpp \
+		ActionSpeech.h \
 		AppSettings.cpp \
 		AppSettings.h \
 		ButtonPrefs.cpp \
 		ButtonPrefs.h \
-		ButtonSettings.cpp \
-		ButtonSettings.h \
 		CopyAllLarge.bmp \
 		CopyAllSmall.bmp \
 		Dasher.cpp \
@@ -84,6 +86,7 @@ EXTRA_DIST = \
 		Dasher.rc \
 		Dasher.sln \
 		Dasher.vcproj \
+		DasherAction.h \
 		DasherControl.vcproj \
 		DasherInterface.cpp \
 		DasherInterface.h \
@@ -97,6 +100,8 @@ EXTRA_DIST = \
 		Dasher_vc71.vcproj \
 		EditWrapper.cpp \
 		EditWrapper.h \
+		GameModeHelper.cpp \
+		GameModeHelper.h \
 		KeyboardHelper.cpp \
 		KeyboardHelper.h \
 		WinMain.cpp \
