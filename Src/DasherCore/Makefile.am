@@ -119,4 +119,6 @@ EXTRA_DIST = \
 		LanguageModelling/KanjiConversionIME.h \
 		DasherCore.vcproj \
 		DasherCore_vc70.vcproj \
-		DasherCore_vc71.vcproj
+		DasherCore_vc71.vcproj \
+		IMEConversionHelper.cpp \
+		IMEConversionHelper.h 

@@ -30,7 +30,7 @@
 #include "FrameRate.h"
 #include <vector>
 #include <deque>
-#include "DasherGameMode.h"
+
 
 
 namespace Dasher {
@@ -229,10 +229,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CDasherNode *Get_node_under_crosshair();    // Needed for Game Mode
   
-  myint GetGameModePointerLoc() {
-    return m_pGameMode->GetDasherCoordOfTarget();
-  }
-  
   CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
     switch(iType) {
     case 0:
@@ -290,7 +286,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // Reset the 'target' root coordinates to match those currently visible. 
   // Appropriate for abrubt changes in behaviour (such as backing off in 
   // button modes)
-  void MatchTarget();
+  void MatchTarget(bool bReverse);
 
  private:
 
@@ -307,8 +303,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   CLanguageModel::Context LearnContext; // Used to add data to model as it is entered
 
   /////////////////////////////////////////////////////////////////////////////
-
-  CDasherGameMode *m_pGameMode;
 
   CDasherNode *m_Root;
 
@@ -373,7 +367,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // TODO: Need to rethink this at some point.
   bool m_bRequireConversion;
 
-  friend class CDasherGameMode;
   friend class CTrainer;
   friend class CDasherNode;
 

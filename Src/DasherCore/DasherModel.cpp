@@ -39,7 +39,7 @@ static char THIS_FILE[] = __FILE__;
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CAlphIO *pAlphIO, bool bGameMode, const std::string &strGameModeText)
 :CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0), 
-m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_pGameMode(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
+m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 
   m_bGameMode = bGameMode;
@@ -165,7 +165,7 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       RebuildAroundNode(Get_node_under_crosshair());
       break;
     case BP_DELAY_VIEW:
-      MatchTarget();
+      MatchTarget(GetBoolParameter(BP_DELAY_VIEW));
       break;
     default:
       break;
@@ -1103,7 +1103,13 @@ void CDasherModel::Offset(int iOffset) {
   m_Rootmax = m_iTargetMax + iOffset;
 } 
 
-void CDasherModel::MatchTarget() {
-  m_Rootmin = m_iTargetMin;
-  m_Rootmax = m_iTargetMax;
+void CDasherModel::MatchTarget(bool bReverse) {
+  if(bReverse) {
+    m_iTargetMin = m_Rootmin;
+    m_iTargetMax = m_Rootmax;
+  }
+  else {
+    m_Rootmin = m_iTargetMin;
+    m_Rootmax = m_iTargetMax;
+  }
 }

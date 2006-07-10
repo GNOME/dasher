@@ -10,8 +10,9 @@
 // single and double button dynamic modes can behave in essentially
 // the same way.
 
-CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CInputFilter(pEventHandler, pSettingsStore, pInterface, 14, 1, "Two Button Dynamic Mode") {
+CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
+  : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) { 
+  //14, 1, "Two Button Dynamic Mode") {
   m_iState = 0;
   m_bDecorationChanged = true;
   m_bKeyDown = false;
@@ -55,6 +56,16 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
 }
 
 bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+  if(m_bKeyDown && !m_bKeyHandled && ((Time - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
+    Event(Time, m_iHeldId, 1, m_pDasherModel);
+    m_bKeyHandled = true;
+    return true;
+  }
+ 
+  return TimerImpl(Time, m_pDasherView, m_pDasherModel);
+}
+
+bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   if(m_iState == 2)
     return m_pDasherModel->Tap_on_display(41943,2048, Time, 0, 0);
   else if(m_iState == 1)
@@ -65,7 +76,7 @@ bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDashe
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
   if(m_bKeyDown)
-      return;
+    return;
 
   // Pass the basic key down event to the handler
   Event(iTime, iId, 0, pModel);
@@ -80,7 +91,7 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
     while((m_deQueueTimes.size() > 0) && (iTime - m_deQueueTimes.front()) > GetLongParameter(LP_HOLD_TIME))
       m_deQueueTimes.pop_front();
 
-    if(m_deQueueTimes.size() > GetLongParameter(LP_MULTIPRESS_COUNT)) { 
+    if(m_deQueueTimes.size() == GetLongParameter(LP_MULTIPRESS_COUNT) - 1) { 
       Event(iTime, iId, 2, pModel);
       m_deQueueTimes.clear();
     }
@@ -93,13 +104,12 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
     m_iQueueId = iId;
   }
 
+  m_iHeldId = iId;
   m_bKeyDown = true;
+  m_bKeyHandled = false;
 }
 
 void CTwoButtonDynamicFilter::KeyUp(int iTime, int iId, CDasherModel *pModel) {
-  if((iTime - m_iKeyDownTime) > GetLongParameter(LP_MULTIPRESS_TIME))
-    Event(iTime, iId, 1, pModel);
-
   m_bKeyDown = false;
 }
 
@@ -116,8 +126,6 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   // 0 = ordinary click
   // 1 = long click
   // 2 = multiple click
-
-  std::cout << "Event: " << iTime << " " << iButton << " " << iType << std::endl;
   
   // First sanity check - if Dasher is paused then jump to the
   // appropriate state
@@ -138,19 +146,16 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
     switch(iType) {
     case 0:
       if((iButton == 0) || (iButton == 100)) {
-	      m_iState = 0;
-	      SetBoolParameter(BP_DELAY_VIEW, false);
-	      m_pInterface->PauseAt(0, 0);
+	m_iState = 0;
+	SetBoolParameter(BP_DELAY_VIEW, false);
+	m_pInterface->PauseAt(0, 0);
       }
       else if(iButton == 1) {
-	      SetBoolParameter(BP_DELAY_VIEW, false);
- 	      m_iState = 2;
+	SetBoolParameter(BP_DELAY_VIEW, false);
+	m_iState = 2;
       }
-      else if(iButton == 2) {
-	      pModel->Offset(GetLongParameter(LP_TWO_BUTTON_OFFSET));
-      }
-      else if((iButton == 3) || (iButton == 4)) {
-	      pModel->Offset(-GetLongParameter(LP_TWO_BUTTON_OFFSET));
+      else {
+	ActionButton(iTime, iButton, pModel);
       }
       break;
     case 1: // Delibarate fallthrough
@@ -175,4 +180,13 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   }
 
   m_iLastButton = iButton;
+}
+
+void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel *pModel) {
+  if(iButton == 2) {
+    pModel->Offset(GetLongParameter(LP_TWO_BUTTON_OFFSET));
+  }
+  else if((iButton == 3) || (iButton == 4)) {
+    pModel->Offset(-GetLongParameter(LP_TWO_BUTTON_OFFSET));
+  }
 }

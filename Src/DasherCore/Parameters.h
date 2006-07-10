@@ -180,7 +180,7 @@ static lp_table longparamtable[] = {
   {LP_CIRCLE_PERCENT, "CirclePercent", PERS, 10, "Percentage of nominal vertical range to use for radius of start circle"},
   {LP_TWO_BUTTON_OFFSET, "TwoButtonOffset", PERS, 1024, "Offset for two button dynamic mode"},
   {LP_HOLD_TIME, "HoldTime", PERS, 1000, "Time for which buttons must be held to count as long presses, in ms"},
-  {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 1000, "Time in which multiple presses must occur, in ms"},
+  {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 3000, "Time in which multiple presses must occur, in ms"},
   {LP_MULTIPRESS_COUNT, "MultipressCount", PERS, 3, "Time in which multiple presses must occur to count"},
 };
 
