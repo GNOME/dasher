@@ -7,17 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNOME 2.6\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-06-26 22:40+0200\n"
-"PO-Revision-Date: 2006-06-27 03:35+0200\n"
+"POT-Creation-Date: 2006-07-11 16:16+0200\n"
+"PO-Revision-Date: 2006-07-11 17:38+0200\n"
 "Last-Translator: Tino Meinen <a.t.meinen@chello.nl>\n"
 "Language-Team: nl <vertaling@vrijschrift.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:49
-#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:31
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -32,15 +32,15 @@ msgstr "Tekstinvoer met voorspelling"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher socket-invoer: opstarten reader-thread mislukt."
 
-#: ../Src/Gtk2/Menu.cc:63 ../Src/Gtk2/Menu.cc:119 ../Src/Gtk2/Menu.cc:177
-#: ../Src/Gtk2/Menu.cc:220 ../Src/Gtk2/dasher.glade.h:90
-#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:54
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:50
+#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Bestand selecteren"
 
 # Indien u ze niet opslaat zullen uw wijzigingen verloren gaan.<
-#: ../Src/Gtk2/Menu.cc:303
+#: ../Src/Gtk2/Menu.cc:302
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -51,7 +51,7 @@ msgstr ""
 "\n"
 "Uw wijzigingen zullen verloren gaan als u ze niet opslaat."
 
-#: ../Src/Gtk2/Menu.cc:306
+#: ../Src/Gtk2/Menu.cc:305
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -61,228 +61,137 @@ msgstr ""
 "\n"
 "Uw wijzigingen zullen verloren gaan als u ze niet opslaat."
 
-#: ../Src/Gtk2/Menu.cc:309
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Don't save"
 msgstr "Niet opslaan"
 
-#: ../Src/Gtk2/Menu.cc:309
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Don't quit"
 msgstr "Niet afsluiten"
 
-#: ../Src/Gtk2/Menu.cc:309
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Save and quit"
 msgstr "Opslaan en sluiten"
 
-#: ../Src/Gtk2/Menu.cc:422
+#: ../Src/Gtk2/Menu.cc:425
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher is een toepassing voor tekstinvoer met voorspelling"
 
-#: ../Src/Gtk2/Menu.cc:427
+#: ../Src/Gtk2/Menu.cc:430
 msgid "translator-credits"
 msgstr ""
 "Tino Meinen\n"
 "\n"
 "Kijk voor meer informatie op http://nl.gnome.org/"
 
-#: ../Src/Gtk2/Preferences.cpp:950 ../Src/Gtk2/Preferences.cpp:952
-#: ../Src/Gtk2/dashergpe.glade.h:72
+#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
 msgid "Training Dasher... please wait"
 msgstr "Dasher wordt nu getraind... een ogenblik geduld"
 
-# waarom staat dit er dan in?
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "(Message Placeholder - no need to translate)"
-msgstr "(dummybericht - niet nodig om te vertalen)"
-
-#: ../Src/Gtk2/dasher.glade.h:2
-msgid ""
-"<b><i>gconf-editor Not Found</i></b>\n"
-"You must have gconf-editor installed and available in your path in order to "
-"access these settings."
-msgstr ""
-"<b><i>gconf-editor niet gevonden</i></b>\n"
-"Om deze instellingen te wijzigen moet gconf-editor geïnstalleerd en beschikbaar zijn in uw pad."
-
-#: ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Acties:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Aanpassing:</b>"
 
-# geavanceerde/extra
-#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
-msgid "<b>Advanced Settings:</b>"
-msgstr "<b>Extra instellingen:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:6
-#: ../Src/Gtk2/dashermaemo.glade.h:6
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Alfabetselectie:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Weergaveopties:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Toepassingsopties:</b>"
+
+# vorm/stijl
+#: ../Src/Gtk2/dasher.glade.h:6
 msgid "<b>Application Style:</b>"
-msgstr "<b>Toepassingstijl:</b>"
+msgstr "<b>Toepassingsstijl:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:8
-msgid "<b>Color Selection:</b>"
-msgstr "<b>Kleurselectie:</b>"
+#: ../Src/Gtk2/dasher.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Kleurenschema:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:7
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
-msgid "<b>Compass Mode</b>"
-msgstr "<b>Compasstijl</b>"
-
-# compasmodus/stijl
-#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:9
+# vorm/stijl
+#: ../Src/Gtk2/dasher.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Bedieningsstijl:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:8
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
-msgid "<b>Direct Mode And Menu Mode</b>"
-msgstr "<b>Directe stijl en Menustijl</b>"
+#: ../Src/Gtk2/dasher.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Dasher lettertype:</b>"
 
-# vastzetten/aanmeren  (itt losstaand)
-#: ../Src/Gtk2/dasher.glade.h:13
-msgid "<b>Docking:</b>"
-msgstr "<b>Aanmeren:</b>"
+#: ../Src/Gtk2/dasher.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Richting:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Editor lettertype:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Invoerapparaat:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:10
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
-msgid "<b>Keyboard options</b>"
-msgstr "<b>Toetsenbordopties</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:11
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>Taalmodel:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
-msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>Overige opties:</b>"
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Voorspelling:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:12
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
-msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>Een-knop dynamische stijl</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
-msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>Een-knop statische stijl</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
-#: ../Src/Gtk2/dashermaemo.glade.h:14
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
-msgid "<b>Orientation:</b>"
-msgstr "<b>Oriëntatie:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
-#: ../Src/Gtk2/dashermaemo.glade.h:15
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Vloeiend:</b>"
 
-# hier wordt network socket bedoeld,
-# dasher bedienen vanaf/vanuit een netwerkkaart
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:16
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
-msgid "<b>Socket Input</b>"
-msgstr "<b>Netwerkkaart</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:17
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>Snelheid:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Starten en stoppen:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:16
-msgid "<b>View Options:</b>"
-msgstr "<b>Weergave opties:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashermaemo.glade.h:18
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
-msgid "<b>X Coordinate</b>"
-msgstr "<b>X-coördinaat</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:18
-msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Y-As options:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashermaemo.glade.h:19
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
-msgid "<b>Y Coordinate</b>"
-msgstr "<b>Y-coördinaat</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:20
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
-msgid "<b>Zoom steps</b>"
-msgstr "<b>Zoomstapjes</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:21
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Snelheid automatisch aanpassen"
 
-#: ../Src/Gtk2/dasher.glade.h:31
-msgid ""
-"Additional settings can be accessed directly using the GConf configuration "
-"database. Please note that these settings are intended for advanced users "
-"only, and by changing these settings it is possible to put Dasher into an "
-"unusable state."
-msgstr "Extra instellingen kunnen via de GConf configuratiedatabase worden bereikt. Merk op dat deze instellingen alleen bedoeld zijn voor geavanceerde gebruikers en dat door het ondeskundig wijzigen van deze instellingen Dasher mogelijk in een onbruikbare staat kan worden gebracht."
-
-# geavanceerde/extra
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:22
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
-msgid "Advanced Settings"
-msgstr "Extra instellingen"
-
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemo.glade.h:23
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
-msgid "Alphabet"
-msgstr "Alfabet"
-
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemo.glade.h:24
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "Standaard alfabet"
 
-#: ../Src/Gtk2/dasher.glade.h:35
+#: ../Src/Gtk2/dasher.glade.h:20
 msgid "Alphabet:"
 msgstr "Alfabet:"
 
-#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemo.glade.h:25
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
+# weergave/uiterlijk
+#: ../Src/Gtk2/dasher.glade.h:21
+msgid "Appearance"
+msgstr "Weergave"
+
+#: ../Src/Gtk2/dasher.glade.h:22
+msgid "Application"
+msgstr "Toepassing"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Boven naar beneden"
 
-#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashermaemo.glade.h:26
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
-msgid "Box non-uniformity:"
-msgstr "Box non-uniformiteit:"
-
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:27
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
-msgid "Button Preferences"
-msgstr "Knoppen-voorkeuren"
-
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -291,296 +200,200 @@ msgstr ""
 "Twee kaders"
 
 # samenstelling/compositie
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.glade.h:26
 msgid "Composition"
 msgstr "Samenstelling"
 
-#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:28
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "Bediening"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "Control mode"
 msgstr "Bedieningstijl"
 
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:30
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
 msgid "Copy"
 msgstr "Kopiëren"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashergpe.glade.h:31
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "_Alles kopiëren"
 
-#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:29
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
 msgstr "Aangepst kleurenschema:"
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:30
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Aangepast:"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
 msgid "Cut"
 msgstr "Knippen"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:36
-#: ../Src/Gtk2/dashermaemo.glade.h:32
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher voorkeuren"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "Dasher _leerboek"
+
+#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
 msgstr "Directe invoer"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:37
-msgid "Distance from centerline for start on mouse position:"
-msgstr "Afstand van centrumlijn voor start op muispositie:"
-
-#: ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.glade.h:38
 msgid "Dock application window"
 msgstr "Toepassingsvenster aanmeren"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw box outlines"
 msgstr "Kadercontouren tekenen"
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Lijn tekenen tussen kruisdraad en muis"
 
-# meamo-variant?
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:33
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
-msgid "Drop time:  "
-msgstr "Valtijd:  "
-
-#: ../Src/Gtk2/dasher.glade.h:57
-msgid "Eyetracker autocalibration"
-msgstr "Ogenvolger autocallibratie"
-
-#: ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:41
 msgid "Full Screen"
 msgstr "Volledig scherm"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashermaemo.glade.h:35
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
-msgid "Global keyboard grab"
-msgstr "Toetsenbord volledig overnemen"
-
-#: ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:42
 msgid "Increase line thickness"
 msgstr "Lijndikte vergroten"
 
-#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashermaemo.glade.h:36
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Japans"
 
-#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashermaemo.glade.h:37
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
-msgid "Label"
-msgstr "Label"
+#: ../Src/Gtk2/dasher.glade.h:44
+msgid "Language"
+msgstr "Taal"
 
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashermaemo.glade.h:38
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "Taalmodel past zich aan terwijl u schrijft."
 
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:45
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
-msgid "Large"
-msgstr "Groot"
+#: ../Src/Gtk2/dasher.glade.h:46
+msgid "Large font "
+msgstr "Groot lettertype"
 
-#: ../Src/Gtk2/dasher.glade.h:65
-msgid "Launch GConf editor"
-msgstr "GConf-editor opstarten"
-
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:46
-#: ../Src/Gtk2/dashermaemo.glade.h:39
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Links naar rechts"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:40
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
-msgid "Max"
-msgstr "Max"
-
-#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:41
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
-msgid "Min"
-msgstr "Min"
-
-# extra opties/overige opties
-#: ../Src/Gtk2/dasher.glade.h:69
-msgid "Miscellaneous"
-msgstr "Overige"
-
-#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:42
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Mengmodel (PPM/woordenboek)"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Nieuw bestand"
 
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:49
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
-msgid "Normal"
-msgstr "Normaal"
-
-#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:43
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
-msgid "Number of \"zoom-out boxes\":"
-msgstr "Aantal \"uitzoom-vakken\":"
-
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashermaemo.glade.h:44
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:42
-msgid "Number of boxes:"
-msgstr "Aantal vakken:"
-
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Bestand openen"
 
-#: ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.glade.h:51
 msgid "Options"
 msgstr "Opties"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:54
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Plakken"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:55
-msgid "Pause outside window"
-msgstr "Pauzeren buiten venster"
+# venster/canvas
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Pause outside of canvas"
+msgstr "Pauzeren buiten canvas"
 
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "Een ogenblik geduld..."
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:47
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:43
-msgid "Port"
-msgstr "Poort"
-
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:48
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:44
-msgid "Prediction"
-msgstr "Voorspelling"
-
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:49
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:45
-msgid "Print socket-related debugging information to console"
-msgstr "Toon socket-gerelateerde debug-informatie op het console"
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:50
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:46
-msgid "Pulsing mode"
-msgstr "Pulserings-stijl"
-
 # van rechts naar links
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:56
-#: ../Src/Gtk2/dashermaemo.glade.h:51
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Rechts naar links"
 
-# rechter/rechts
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:52
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:48
-msgid "Right zoom:  "
-msgstr "Rechts zoom:  "
-
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:53
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:49
-msgid "Safety margin:"
-msgstr "Veiligheidsmarge:"
-
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Bestand opslaan"
 
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Bestand opslaan als"
 
-#: ../Src/Gtk2/dasher.glade.h:89
-msgid "Scaling amount (1D mode):"
-msgstr "Schalingshoeveelheid (1D stijl):"
-
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:61
-#: ../Src/Gtk2/dashermaemo.glade.h:55
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Lettertype selecteren"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:60
 msgid "Show mouse position"
 msgstr "Muispositie weergeven"
 
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashergpe.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show speed slider"
 msgstr "Snelheidsmeter tonen"
 
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show toolbar"
 msgstr "Werkbalk tonen"
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:56
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:52
-msgid "Socket Preferences"
-msgstr "Netwerkkaart-voorkeuren"
+#: ../Src/Gtk2/dasher.glade.h:63
+msgid "Small font"
+msgstr "Klein lettertype"
 
-#: ../Src/Gtk2/dasher.glade.h:96
+#: ../Src/Gtk2/dasher.glade.h:64
 msgid "Speed:"
 msgstr "Snelheid:"
 
-#: ../Src/Gtk2/dasher.glade.h:97
+#: ../Src/Gtk2/dasher.glade.h:65
 msgid "Stand-alone"
 msgstr "Losstaand"
 
-#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashermaemo.glade.h:57
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:53
+#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Standaard letter-gebaseerd PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:66
+#: ../Src/Gtk2/dasher.glade.h:67
 msgid "Start on left mouse button"
 msgstr "Starten met linker muisknop"
 
 # starten via spatiebalk
-#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on space bar"
 msgstr "Starten met spatiebalk"
 
-#: ../Src/Gtk2/dasher.glade.h:101
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start with mouse position:"
 msgstr "Starten met muispositie:"
 
-#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashermaemo.glade.h:58
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:54
-msgid "Steady mode"
-msgstr "Stabiele stijl"
-
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Timestamp new files"
 msgstr "Nieuwe bestanden tijdstip meegeven"
 
-#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:70
-#: ../Src/Gtk2/dashermaemo.glade.h:59
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Boven naar onder"
 
-#: ../Src/Gtk2/dasher.glade.h:105
+#: ../Src/Gtk2/dasher.glade.h:72
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -590,89 +403,54 @@ msgstr ""
 "lettervakjes aan te passen. Let op dat het selecteren van\n"
 "hoge waarden uw schrijfsnelheid zal verminderen."
 
-#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:75
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:56
-msgid "Very Large"
-msgstr "Zeer groot"
+#: ../Src/Gtk2/dasher.glade.h:75
+msgid "Very large font"
+msgstr "Zeer groot lettertype"
 
-#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:76
-#: ../Src/Gtk2/dashermaemo.glade.h:60
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:57
-msgid "View"
-msgstr "Beeld"
-
-#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashermaemo.glade.h:61
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Woord-gebaseerd model"
 
-# zoom/zoomen
-#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashermaemo.glade.h:62
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:59
-msgid "Zoom:"
-msgstr "Zoomen:"
-
-#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashergpe.glade.h:79
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "In_fo"
 
-#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "_Achteraan bestand bijvoegen"
 
-#: ../Src/Gtk2/dasher.glade.h:114
+#: ../Src/Gtk2/dasher.glade.h:79
 msgid "_Contents"
 msgstr "_Inhoud"
 
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:81
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:61
-msgid "_Dasher Font"
-msgstr "_Dasher lettertype"
-
-#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:82
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:62
-msgid "_Dasher Font Size"
-msgstr "_Dasher lettertype grootte"
-
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:83
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "Be_werken"
 
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:84
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:64
-msgid "_Edit Font"
-msgstr "Lettertype be_werken"
-
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:85
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Bestand"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:86
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:66
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Hulp"
 
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "Trainingtekst _importeren"
 
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:88
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:67
-msgid "_Options"
-msgstr "_Opties"
+#: ../Src/Gtk2/dasher.glade.h:84
+msgid "_Preferences"
+msgstr "_Voorkeuren"
 
-# opnieuw instellen
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:89
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:68
-msgid "_Reset fonts"
-msgstr "Lettertypen _resetten"
-
-#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:90
-#: ../Src/Gtk2/dashermaemo.glade.h:63
-#: ../Src/Gtk2/dashermaemofullscreen.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
@@ -689,180 +467,347 @@ msgstr "Kon de stemmen niet initialiseren\n"
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Waarschuwing: kon de spraakparameters niet instellen\n"
 
-#: ../Src/Gtk2/dashergpe.glade.h:1
-msgid "5:"
-msgstr "5:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:2
-msgid "6:"
-msgstr "6:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:3
-msgid "7:"
-msgstr "7:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:4
-msgid "8:"
-msgstr "8:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:5
-msgid "9:"
-msgstr "9:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:7
-msgid "<b>Button control setup</b>"
-msgstr "<b>Bedieningsknoppen instellen</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:13
-msgid "<b>Speed</b>"
-msgstr "<b>Snelheid</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:15
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Knoppenstijl omschakelen:</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:17
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y-coördinaten:</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:19
-msgid "Advanced"
-msgstr "Geavanceerd"
-
-#: ../Src/Gtk2/dashergpe.glade.h:23
-msgid "Button control setup"
-msgstr "Bedieningsknoppen instellen"
-
-#: ../Src/Gtk2/dashergpe.glade.h:24
-msgid "Button mode"
-msgstr "Knoppenstijl"
-
-#: ../Src/Gtk2/dashergpe.glade.h:25
-msgid "Button:"
-msgstr "Knop:"
-
-# aanpassen/wijzigen
-#: ../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change color scheme automatically"
-msgstr "Kleurenschema automatisch aanpassen"
-
-# Kleuren
-#: ../Src/Gtk2/dashergpe.glade.h:27
-msgid "Color"
-msgstr "Kleur"
-
-#: ../Src/Gtk2/dashergpe.glade.h:32
-msgid "Copy all on stop"
-msgstr "Alles kopiëren bij stop"
-
-# knoproulatie
-#: ../Src/Gtk2/dashergpe.glade.h:34
-msgid "Cyclical button mode"
-msgstr "Cyclische knoppenstijl"
-
-#: ../Src/Gtk2/dashergpe.glade.h:38
-msgid "Down/3:"
-msgstr "Neer/3:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:41
-msgid "Edit Button-control options"
-msgstr "Bedieningsknoppen-opties bewerken"
-
-#: ../Src/Gtk2/dashergpe.glade.h:42
+#: ../Src/Gtk2/dashergpe.glade.h:6
 msgid "Enter text into other windows"
 msgstr "Tekst invoeren in andere vensters"
 
-#: ../Src/Gtk2/dashergpe.glade.h:43
-msgid "Eyetracker mode"
-msgstr "Oogvolgen-stijl"
+#: ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Groot"
 
-# pijltoetsen?
-#: ../Src/Gtk2/dashergpe.glade.h:44
-msgid ""
-"If this mode is selected, up and down will cycle backwards and forwards "
-"between coordinates and right will confirm the choice"
-msgstr ""
-"Als deze stijl is geselecteerd, zal: 'op en neer' de coördinaten achteruit "
-"en vooruit bewegen, en 'rechts' zal de keuze bevestigen"
+#: ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Normaal"
 
-#: ../Src/Gtk2/dashergpe.glade.h:47
-msgid "Left/2:"
-msgstr "Links/2:"
+#: ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Zeer groot"
 
-# vertikale bereik ipv y-bereik?
-#: ../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Aantal beeldpunten voor het gehele y-bereik:"
+#: ../Src/Gtk2/dashergpe.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_Dasher lettertype"
 
-#: ../Src/Gtk2/dashergpe.glade.h:51
-msgid "One dimensional mode"
-msgstr "Eendimensionale stijl"
+#: ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "_Dasher lettertype grootte"
 
-#: ../Src/Gtk2/dashergpe.glade.h:53
-msgid "Orientation"
-msgstr "Oriëntatie"
+#: ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "Lettertype be_werken"
 
-#: ../Src/Gtk2/dashergpe.glade.h:57
-msgid "Right/4:"
-msgstr "Rechts/4:"
+#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_Opties"
 
-# spreken
-#: ../Src/Gtk2/dashergpe.glade.h:65
-msgid "Speak on stop"
-msgstr "Opzeggen bij stoppen"
-
-#: ../Src/Gtk2/dashergpe.glade.h:68
-msgid "Start with mouse position"
-msgstr "Starten met muispositie"
-
-#: ../Src/Gtk2/dashergpe.glade.h:71
-msgid "Training"
-msgstr "Trainen"
-
-#: ../Src/Gtk2/dashergpe.glade.h:73
-msgid "Up/1:"
-msgstr "Boven/1:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:74
-msgid ""
-"Use this control to adjust the relative sizes of the letter boxes. Note that "
-"selecting high values will slow your writing speed."
-msgstr ""
-"Gebruik deze instelling om de relatieve afmetingen van de lettervakjes aan "
-"te passen. Let op dat het selecteren van hoge waarden uw schrijfsnelheid zal "
-"verminderen."
-
-#: ../Src/Gtk2/dashergpe.glade.h:77
-msgid "X:"
-msgstr "X:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:78
-msgid "Y:"
-msgstr "Y:"
+# opnieuw instellen
+#: ../Src/Gtk2/dashergpe.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "Lettertypen _resetten"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:9
+# waarom staat dit er dan in?
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(dummybericht - niet nodig om te vertalen)"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Display Size:</b>"
 msgstr "<b>Schermgrootte:</b>"
 
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Oriëntatie:</b>"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "Alfabet"
+
 # scherm ipv venster hier beter
-#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemo.glade.h:20
 msgid "Enlarge input window"
 msgstr "Invoerscherm vergroten"
 
 # pauzetoets?
-#: ../Src/Gtk2/dashermaemo.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "P"
 msgstr "P"
 
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "Voorspelling"
+
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Beeld"
+
+#~ msgid ""
+#~ "<b><i>gconf-editor Not Found</i></b>\n"
+#~ "You must have gconf-editor installed and available in your path in order "
+#~ "to access these settings."
+#~ msgstr ""
+#~ "<b><i>gconf-editor niet gevonden</i></b>\n"
+#~ "Om deze instellingen te wijzigen moet gconf-editor geïnstalleerd en "
+#~ "beschikbaar zijn in uw pad."
+
+# geavanceerde/extra
+#~ msgid "<b>Advanced Settings:</b>"
+#~ msgstr "<b>Extra instellingen:</b>"
+
+#~ msgid "<b>Color Selection:</b>"
+#~ msgstr "<b>Kleurselectie:</b>"
+
+#~ msgid "<b>Compass Mode</b>"
+#~ msgstr "<b>Compasstijl</b>"
+
+#~ msgid "<b>Direct Mode And Menu Mode</b>"
+#~ msgstr "<b>Directe stijl en Menustijl</b>"
+
+# vastzetten/aanmeren  (itt losstaand)
+#~ msgid "<b>Docking:</b>"
+#~ msgstr "<b>Aanmeren:</b>"
+
+#~ msgid "<b>Keyboard options</b>"
+#~ msgstr "<b>Toetsenbordopties</b>"
+
+#~ msgid "<b>Miscellaneous Options:</b>"
+#~ msgstr "<b>Overige opties:</b>"
+
+#~ msgid "<b>One-Button Dynamic Mode</b>"
+#~ msgstr "<b>Een-knop dynamische stijl</b>"
+
+#~ msgid "<b>One-Button Static Mode</b>"
+#~ msgstr "<b>Een-knop statische stijl</b>"
+
+# hier wordt network socket bedoeld,
+# dasher bedienen vanaf/vanuit een netwerkkaart
+#~ msgid "<b>Socket Input</b>"
+#~ msgstr "<b>Netwerkkaart</b>"
+
+#~ msgid "<b>X Coordinate</b>"
+#~ msgstr "<b>X-coördinaat</b>"
+
+#~ msgid "<b>Y Axis Options:</b>"
+#~ msgstr "<b>Y-As options:</b>"
+
+#~ msgid "<b>Y Coordinate</b>"
+#~ msgstr "<b>Y-coördinaat</b>"
+
+#~ msgid "<b>Zoom steps</b>"
+#~ msgstr "<b>Zoomstapjes</b>"
+
+#~ msgid ""
+#~ "Additional settings can be accessed directly using the GConf "
+#~ "configuration database. Please note that these settings are intended for "
+#~ "advanced users only, and by changing these settings it is possible to put "
+#~ "Dasher into an unusable state."
+#~ msgstr ""
+#~ "Extra instellingen kunnen via de GConf configuratiedatabase worden "
+#~ "bereikt. Merk op dat deze instellingen alleen bedoeld zijn voor "
+#~ "geavanceerde gebruikers en dat door het ondeskundig wijzigen van deze "
+#~ "instellingen Dasher mogelijk in een onbruikbare staat kan worden gebracht."
+
+# geavanceerde/extra
+#~ msgid "Advanced Settings"
+#~ msgstr "Extra instellingen"
+
+#~ msgid "Box non-uniformity:"
+#~ msgstr "Box non-uniformiteit:"
+
+#~ msgid "Button Preferences"
+#~ msgstr "Knoppen-voorkeuren"
+
+#~ msgid "Distance from centerline for start on mouse position:"
+#~ msgstr "Afstand van centrumlijn voor start op muispositie:"
+
+# meamo-variant?
+#~ msgid "Drop time:  "
+#~ msgstr "Valtijd:  "
+
+#~ msgid "Eyetracker autocalibration"
+#~ msgstr "Ogenvolger autocallibratie"
+
+#~ msgid "Global keyboard grab"
+#~ msgstr "Toetsenbord volledig overnemen"
+
+#~ msgid "Label"
+#~ msgstr "Label"
+
+#~ msgid "Launch GConf editor"
+#~ msgstr "GConf-editor opstarten"
+
+#~ msgid "Max"
+#~ msgstr "Max"
+
+#~ msgid "Min"
+#~ msgstr "Min"
+
+# extra opties/overige opties
+#~ msgid "Miscellaneous"
+#~ msgstr "Overige"
+
+#~ msgid "Number of \"zoom-out boxes\":"
+#~ msgstr "Aantal \"uitzoom-vakken\":"
+
+#~ msgid "Number of boxes:"
+#~ msgstr "Aantal vakken:"
+
+#~ msgid "Port"
+#~ msgstr "Poort"
+
+#~ msgid "Print socket-related debugging information to console"
+#~ msgstr "Toon socket-gerelateerde debug-informatie op het console"
+
+#~ msgid "Pulsing mode"
+#~ msgstr "Pulserings-stijl"
+
+# rechter/rechts
+#~ msgid "Right zoom:  "
+#~ msgstr "Rechts zoom:  "
+
+#~ msgid "Safety margin:"
+#~ msgstr "Veiligheidsmarge:"
+
+#~ msgid "Scaling amount (1D mode):"
+#~ msgstr "Schalingshoeveelheid (1D stijl):"
+
+#~ msgid "Steady mode"
+#~ msgstr "Stabiele stijl"
+
+# zoom/zoomen
+#~ msgid "Zoom:"
+#~ msgstr "Zoomen:"
+
+#~ msgid "5:"
+#~ msgstr "5:"
+
+#~ msgid "6:"
+#~ msgstr "6:"
+
+#~ msgid "7:"
+#~ msgstr "7:"
+
+#~ msgid "8:"
+#~ msgstr "8:"
+
+#~ msgid "9:"
+#~ msgstr "9:"
+
+#~ msgid "<b>Button control setup</b>"
+#~ msgstr "<b>Bedieningsknoppen instellen</b>"
+
+#~ msgid "<b>Speed</b>"
+#~ msgstr "<b>Snelheid</b>"
+
+#~ msgid "<b>Toggle button Mode:</b>"
+#~ msgstr "<b>Knoppenstijl omschakelen:</b>"
+
+#~ msgid "<b>X/Y Coordinates:</b>"
+#~ msgstr "<b>X/Y-coördinaten:</b>"
+
+#~ msgid "Advanced"
+#~ msgstr "Geavanceerd"
+
+#~ msgid "Button control setup"
+#~ msgstr "Bedieningsknoppen instellen"
+
+#~ msgid "Button mode"
+#~ msgstr "Knoppenstijl"
+
+#~ msgid "Button:"
+#~ msgstr "Knop:"
+
+# aanpassen/wijzigen
+#~ msgid "Change color scheme automatically"
+#~ msgstr "Kleurenschema automatisch aanpassen"
+
+# Kleuren
+#~ msgid "Color"
+#~ msgstr "Kleur"
+
+#~ msgid "Copy all on stop"
+#~ msgstr "Alles kopiëren bij stop"
+
+# knoproulatie
+#~ msgid "Cyclical button mode"
+#~ msgstr "Cyclische knoppenstijl"
+
+#~ msgid "Down/3:"
+#~ msgstr "Neer/3:"
+
+#~ msgid "Edit Button-control options"
+#~ msgstr "Bedieningsknoppen-opties bewerken"
+
+#~ msgid "Eyetracker mode"
+#~ msgstr "Oogvolgen-stijl"
+
+# pijltoetsen?
+#~ msgid ""
+#~ "If this mode is selected, up and down will cycle backwards and forwards "
+#~ "between coordinates and right will confirm the choice"
+#~ msgstr ""
+#~ "Als deze stijl is geselecteerd, zal: 'op en neer' de coördinaten "
+#~ "achteruit en vooruit bewegen, en 'rechts' zal de keuze bevestigen"
+
+#~ msgid "Left/2:"
+#~ msgstr "Links/2:"
+
+# vertikale bereik ipv y-bereik?
+#~ msgid "Number of pixels that should cover the entire Y range:"
+#~ msgstr "Aantal beeldpunten voor het gehele y-bereik:"
+
+#~ msgid "One dimensional mode"
+#~ msgstr "Eendimensionale stijl"
+
+#~ msgid "Orientation"
+#~ msgstr "Oriëntatie"
+
+#~ msgid "Right/4:"
+#~ msgstr "Rechts/4:"
+
+# spreken
+#~ msgid "Speak on stop"
+#~ msgstr "Opzeggen bij stoppen"
+
+#~ msgid "Start with mouse position"
+#~ msgstr "Starten met muispositie"
+
+#~ msgid "Training"
+#~ msgstr "Trainen"
+
+#~ msgid "Up/1:"
+#~ msgstr "Boven/1:"
+
+#~ msgid ""
+#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
+#~ "that selecting high values will slow your writing speed."
+#~ msgstr ""
+#~ "Gebruik deze instelling om de relatieve afmetingen van de lettervakjes "
+#~ "aan te passen. Let op dat het selecteren van hoge waarden uw "
+#~ "schrijfsnelheid zal verminderen."
+
+#~ msgid "X:"
+#~ msgstr "X:"
+
+#~ msgid "Y:"
+#~ msgstr "Y:"
+
 #~ msgid "Panels"
 #~ msgstr "Panelen"
-
-#~ msgid "Application"
-#~ msgstr "Toepassing"
 
 #~ msgid "Menus"
 #~ msgstr "Menus"
@@ -961,9 +906,6 @@ msgstr "P"
 #~ msgid "<b>Button modes:</b>"
 #~ msgstr "<b>Knoppenstijl:</b>"
 
-#~ msgid "<b>External Input:</b>"
-#~ msgstr "<b>Externe invoer:</b>"
-
 #~ msgid "Alternating direct mode"
 #~ msgstr "Alternerende directe stijl"
 
@@ -1049,21 +991,11 @@ msgstr "P"
 #~ msgid "Three-button direct mode"
 #~ msgstr "Drie-knop directe stijl"
 
-#~ msgid "Dasher Text Entry"
-#~ msgstr "Dasher tekstinvoer"
-
 #~ msgid "Training Dasher - please wait"
 #~ msgstr "Dasher wordt getraind - een ogenblik geduld"
 
 #~ msgid "%d characters output in %ld seconds\n"
 #~ msgstr "%d tekens uitgevoerd in %ld seconden\n"
-
-#~ msgid "Language Model"
-#~ msgstr "Taalmodel"
-
-# kleurenselectie
-#~ msgid "<b>Colour Selection:</b>"
-#~ msgstr "<b>Kleurselectie:</b>"
 
 # Kleuren
 #~ msgid "Colour"
