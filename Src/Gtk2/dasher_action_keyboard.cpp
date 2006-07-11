@@ -1,7 +1,6 @@
 #include "config.h"
 #include "dasher_action_keyboard.h"
 
-#include <cspi/spi.h>
 #include <string.h>
 
 struct _DasherActionKeyboardPrivate {

@@ -1,4 +1,9 @@
 ============
+Dasher 4.1.7
+============
+  * One line bugfix repairing build without GNOME a11y support
+
+============
 Dasher 4.1.6
 ============
   * Redesigned preferences dialogue
