@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 4.1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-08 20:48+0900\n"
-"PO-Revision-Date: 2006-07-08 21:06+0900\n"
+"POT-Creation-Date: 2006-07-14 03:07+0900\n"
+"PO-Revision-Date: 2006-07-14 03:08+0900\n"
 "Last-Translator: Changwoo Ryu <cwryu@debian.org>\n"
 "Language-Team: GNOME Korea <gnome-kr-hackers@lists.kldp.net>\n"
 "MIME-Version: 1.0\n"
@@ -18,7 +18,7 @@ msgstr ""
 #: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
-msgstr "데셔"
+msgstr "대셔"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
@@ -27,7 +27,7 @@ msgstr "예측 텍스트 입력창"
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr "데셔 소켓 입력: 읽기 스레드를 시작하는 데 실패했습니다."
+msgstr "대셔 소켓 입력: 읽기 스레드를 시작하는 데 실패했습니다."
 
 #: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
 #: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
@@ -71,15 +71,15 @@ msgstr "저장하고 끝내기"
 
 #: ../Src/Gtk2/Menu.cc:425
 msgid "Dasher is a predictive text entry application"
-msgstr "데셔는 예측을 통한 텍스트 입력 프로그램입니다."
+msgstr "대셔는 예측을 통한 텍스트 입력 프로그램입니다."
 
 #: ../Src/Gtk2/Menu.cc:430
 msgid "translator-credits"
-msgstr "Changwoo Ryu <cwryu@debian.org>"
+msgstr "류창우 <cwryu@debian.org>"
 
 #: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
 msgid "Training Dasher... please wait"
-msgstr "데셔 훈련중입니다... 잠시 기다리십시오"
+msgstr "대셔 훈련중입니다... 잠시 기다리십시오"
 
 #: ../Src/Gtk2/dasher.glade.h:1
 msgid "<b>Actions:</b>"
@@ -117,7 +117,7 @@ msgstr "<b>컨트롤 방식:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:9
 msgid "<b>Dasher Font:</b>"
-msgstr "<b>데셔 글꼴:</b>"
+msgstr "<b>대셔 글꼴:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
 msgid "<b>Direction:</b>"
@@ -228,11 +228,11 @@ msgstr "잘라내기"
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
-msgstr "데셔 기본 설정"
+msgstr "대셔 기본 설정"
 
 #: ../Src/Gtk2/dasher.glade.h:36
 msgid "Dasher _Tutorial"
-msgstr "데셔 따라하기(_T)"
+msgstr "대셔 따라하기(_T)"
 
 #: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
@@ -475,12 +475,12 @@ msgstr "아주 크게"
 #: ../Src/Gtk2/dashergpe.glade.h:19
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
 msgid "_Dasher Font"
-msgstr "데셔 글꼴(_D)"
+msgstr "대셔 글꼴(_D)"
 
 #: ../Src/Gtk2/dashergpe.glade.h:20
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
 msgid "_Dasher Font Size"
-msgstr "데셔 글꼴 크기(_D)"
+msgstr "대셔 글꼴 크기(_D)"
 
 #: ../Src/Gtk2/dashergpe.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
