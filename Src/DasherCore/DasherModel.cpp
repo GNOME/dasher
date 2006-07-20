@@ -700,9 +700,9 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax) {
     m_Rootmax = newRootmax;
     m_Rootmin = newRootmin;
 
-    m_iTargetOffset *= 0.9;
-
-//     m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
+    m_iTargetOffset = (m_iTargetOffset * 90) / 100;
+    
+    //     m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
 //     m_iTargetMin =  m_iTargetMin + 0.1 * (m_Rootmin - m_iTargetMin);
   }
   else {
@@ -987,10 +987,10 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
 
   bool bReturnValue;
 
-  if(GetBoolParameter(BP_DELAY_VIEW))
-    bReturnValue = pView->Render(m_Root, m_iTargetMin, m_iTargetMax, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
-  else
-    bReturnValue = pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
+  //if(GetBoolParameter(BP_DELAY_VIEW))
+  //  bReturnValue = pView->Render(m_Root, m_iTargetMin, m_iTargetMax, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
+  //else
+    bReturnValue = pView->Render(m_Root, m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, vNodeList, vDeleteList, bRedrawDisplay, m_bGameMode);
 
   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
