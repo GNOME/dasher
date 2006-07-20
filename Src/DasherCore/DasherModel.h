@@ -315,6 +315,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   myint m_iTargetMin;
   myint m_iTargetMax;
 
+  myint m_iTargetOffset; // Displayed rootmin/max - actual rootmin/rootmax
+
   myint m_Rootmin_min, m_Rootmax_max;
 
   // The active interval over which Dasher nodes are maintained - this is most likely bigger than (0,DasherY)

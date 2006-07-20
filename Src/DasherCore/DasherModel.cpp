@@ -42,6 +42,8 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
 m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 
+  m_iTargetOffset = 0;
+
   m_bGameMode = bGameMode;
 
 #ifdef JAPANESE
@@ -205,9 +207,9 @@ void CDasherModel::Make_root(CDasherNode *whichchild)
   m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   
-  myint iTargetRange = m_iTargetMax - m_iTargetMin;
-  m_iTargetMax = m_iTargetMin + (iTargetRange * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-  m_iTargetMin = m_iTargetMin + (iTargetRange * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+//   myint iTargetRange = m_iTargetMax - m_iTargetMin;
+//   m_iTargetMax = m_iTargetMin + (iTargetRange * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+//   m_iTargetMin = m_iTargetMin + (iTargetRange * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
 }
 
 void CDasherModel::ClearRootQueue() {
@@ -290,7 +292,7 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   /* Determine how zoomed in we are */
 
   myint iRootWidth = m_Rootmax - m_Rootmin;
-  myint iTargetWidth = m_iTargetMax - m_iTargetMin;
+  //  myint iTargetWidth = m_iTargetMax - m_iTargetMin;
   myint iWidth = upper - lower;
 //  double scalefactor=(m_Rootmax-m_Rootmin)/static_cast<double>(upper-lower);
 
@@ -299,8 +301,8 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
   m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
   
-  m_iTargetMax = m_iTargetMax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iTargetWidth / iWidth);
-  m_iTargetMin = m_iTargetMin - (myint(lower) * iTargetWidth / iWidth);
+//   m_iTargetMax = m_iTargetMax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iTargetWidth / iWidth);
+//   m_iTargetMin = m_iTargetMin - (myint(lower) * iTargetWidth / iWidth);
   
   
 }
@@ -308,28 +310,28 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 /////////////////////////////////////////////////////////////////////////////
 
 CDasherNode *CDasherModel::Get_node_under_crosshair() {
-  if(GetBoolParameter(BP_DELAY_VIEW))
-    return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_iTargetMin, m_iTargetMax, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
-  else
-    return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin, m_Rootmax, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
+//   if(GetBoolParameter(BP_DELAY_VIEW))
+//     return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_iTargetMin, m_iTargetMax, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
+//   else
+    return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, GetLongParameter(LP_OX), GetLongParameter(LP_OY));
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 CDasherNode *CDasherModel::Get_node_under_mouse(myint Mousex, myint Mousey) {
- if(GetBoolParameter(BP_DELAY_VIEW))
-    return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_iTargetMin, m_iTargetMax, Mousex, Mousey);
-  else
-    return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin, m_Rootmax, Mousex, Mousey);
+//  if(GetBoolParameter(BP_DELAY_VIEW))
+//     return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_iTargetMin, m_iTargetMax, Mousex, Mousey);
+//   else
+  return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey);
 }
 
 /////////////////////////////////////////////////////////////////////////////
 
 void CDasherModel::Get_string_under_mouse(const myint Mousex, const myint Mousey, vector <symbol >&str) {
-  if(GetBoolParameter(BP_DELAY_VIEW))
-    m_Root->Get_string_under(GetLongParameter(LP_NORMALIZATION), m_iTargetMin, m_iTargetMax, Mousex, Mousey, str);
-  else
-    m_Root->Get_string_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin, m_Rootmax, Mousex, Mousey, str);
+ //  if(GetBoolParameter(BP_DELAY_VIEW))
+//     m_Root->Get_string_under(GetLongParameter(LP_NORMALIZATION), m_iTargetMin, m_iTargetMax, Mousex, Mousey, str);
+//   else
+    m_Root->Get_string_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey, str);
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -399,8 +401,10 @@ void CDasherModel::SetContext(std::string &sNewContext) {
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iWidth / 2;
 
-  m_iTargetMin = m_Rootmin;
-  m_iTargetMax = m_Rootmax;
+  m_iTargetOffset = 0;
+
+//   m_iTargetMin = m_Rootmin;
+//   m_iTargetMax = m_Rootmax;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -696,8 +700,10 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax) {
     m_Rootmax = newRootmax;
     m_Rootmin = newRootmin;
 
-    m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
-    m_iTargetMin =  m_iTargetMin + 0.1 * (m_Rootmin - m_iTargetMin);
+    m_iTargetOffset *= 0.9;
+
+//     m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
+//     m_iTargetMin =  m_iTargetMin + 0.1 * (m_Rootmin - m_iTargetMin);
   }
   else {
     // TODO - force a new root to be chosen, so that we get better
@@ -933,7 +939,7 @@ void CDasherModel::Push_Node(CDasherNode *pNode) {
   }
 
   pNode->Alive(true);
-  
+
   pNode->m_pNodeManager->PopulateChildren(pNode);
   pNode->SetHasAllChildren(true);
 }
@@ -1101,17 +1107,26 @@ void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
 }
 
 void CDasherModel::Offset(int iOffset) {
-  m_Rootmin = m_iTargetMin + iOffset;
-  m_Rootmax = m_iTargetMax + iOffset;
+  m_Rootmin += iOffset;
+  m_Rootmax += iOffset;
+
+  m_iTargetOffset -= iOffset;
 } 
 
 void CDasherModel::MatchTarget(bool bReverse) {
-  if(bReverse) {
-    m_iTargetMin = m_Rootmin;
-    m_iTargetMax = m_Rootmax;
-  }
-  else {
-    m_Rootmin = m_iTargetMin;
-    m_Rootmax = m_iTargetMax;
-  }
+  // TODO: Does anything need to happen wrt bReverse here?
+
+  m_Rootmin += m_iTargetOffset;
+  m_Rootmax += m_iTargetOffset;
+
+  m_iTargetOffset = 0;
+
+//   if(bReverse) {
+//     m_iTargetMin = m_Rootmin;
+//     m_iTargetMax = m_Rootmax;
+//   }
+//   else {
+//     m_Rootmin = m_iTargetMin;
+//     m_Rootmax = m_iTargetMax;
+//   }
 }

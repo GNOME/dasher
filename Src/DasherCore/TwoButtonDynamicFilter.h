@@ -16,6 +16,8 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);
   virtual void Activate();
   virtual void Deactivate();
+
+  virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
   
  protected:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);

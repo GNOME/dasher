@@ -10,6 +10,15 @@
 // single and double button dynamic modes can behave in essentially
 // the same way.
 
+
+static SModuleSettings sSettings[] = {
+  {LP_TWO_BUTTON_OFFSET, T_LONG, 1024, 2048, 2048, 100, "Button offset"},
+  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, "Long press time"},
+  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
+  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff button"}
+};
+
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) { 
   //14, 1, "Two Button Dynamic Mode") {
@@ -150,7 +159,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_pInterface->PauseAt(0, 0);
       }
-      else if(iButton == 1) {
+      else if((iButton == 1) && GetBoolParameter(BP_BACKOFF_BUTTON)) {
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_iState = 2;
       }
@@ -190,3 +199,10 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel 
     pModel->Offset(-GetLongParameter(LP_TWO_BUTTON_OFFSET));
   }
 }
+
+bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};

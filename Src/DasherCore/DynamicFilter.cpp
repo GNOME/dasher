@@ -5,6 +5,13 @@
 #include "DasherInterfaceBase.h"
 #include "Event.h"
 
+static SModuleSettings sSettings[] = {
+  {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, "Long press time"},
+  {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
+  {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff button"}
+};
+
 CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
   : CTwoButtonDynamicFilter(pEventHandler, pSettingsStore, pInterface, 6, 1, "Dynamic Mode") {
   m_iTarget = 0;
@@ -72,3 +79,11 @@ void CDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel *pModel) 
       m_bDecorationChanged = true;
   }
 }
+
+
+bool CDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
+  *pSettings = sSettings;
+  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+
+  return true;
+};

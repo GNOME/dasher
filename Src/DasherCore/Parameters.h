@@ -23,7 +23,7 @@ enum {
   BP_BUTTONDIRECT, BP_BUTTONFOURDIRECT, BP_BUTTONALTERNATINGDIRECT,
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_OLD_STYLE_PUSH, BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
-  BP_DELAY_VIEW, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, END_OF_BPS
+  BP_DELAY_VIEW, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON, END_OF_BPS
 };
 
 enum { 
@@ -132,7 +132,8 @@ static bp_table boolparamtable[] = {
   {BP_GLOBAL_KEYBOARD, "GlobalKeyboard", PERS, false, "Whether to assume global control of the keyboard"},
   {BP_DELAY_VIEW, "DelayView", !PERS, false, "Delayed dynamics (for two button mode)"},
   {BP_CONVERSION_MODE, "ConversionMode", !PERS, false, "Whether Dasher is operating in conversion (eg Japanese) mode"},
-  {BP_PAUSE_OUTSIDE, "PauseOutside", PERS, false, "Whether to pause when pointer leaves canvas area"}
+  {BP_PAUSE_OUTSIDE, "PauseOutside", PERS, false, "Whether to pause when pointer leaves canvas area"},
+  {BP_BACKOFF_BUTTON, "BackoffButton", PERS, true, "Whether to enable the extra backoff button in dynamic mode"}
 };
 
 static lp_table longparamtable[] = {
