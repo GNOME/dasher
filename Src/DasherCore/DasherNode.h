@@ -13,7 +13,7 @@
 #include "Alphabet/GroupInfo.h"
 
 #include <deque>
-//#include <iostream>
+#include <iostream>
 
 // CDasherNode represents a rectangle and character 
 
@@ -179,6 +179,11 @@ class Dasher::CDasherNode:private NoClones {
 
   SGroupInfo *m_pBaseGroup;
 
+
+  // Members only useful for debugging purposes
+  bool m_bWatchDelete; // Notify when this node is deleted
+
+
  private:
 
   // Information required to display the node
@@ -209,6 +214,8 @@ class Dasher::CDasherNode:private NoClones {
   CLanguageModel *m_pLanguageModel;     // pointer to the language model - in future, could be different for each node      
   CLanguageModel::Context m_Context;
   const symbol m_Symbol;        // the character to display
+
+
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -224,18 +231,7 @@ inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase,
 
   m_bConverted = false;
   m_bInGame = false;
-}
-
-inline CDasherNode::~CDasherNode() {
-
-  // Release any storage that the node manager has allocated,
-  // unreference ref counted stuff etc.
-
-  m_pNodeManager->ClearNode( this );
-
-  Delete_children();
-  if(m_Context)
-    m_pLanguageModel->ReleaseContext(m_Context);
+  m_bWatchDelete = false;
 }
 
 inline void CDasherNode::SetContext(CLanguageModel::Context Context) {

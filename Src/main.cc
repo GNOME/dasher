@@ -147,7 +147,7 @@ static const GOptionEntry options[] = {
 // }
 
 int main(int argc, char *argv[]) {
-  signal(2, sigint_handler);
+  //  signal(2, sigint_handler);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");

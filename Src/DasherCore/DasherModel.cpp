@@ -269,6 +269,9 @@ void CDasherModel::Reparent_root(int lower, int upper) {
     
     pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
 
+    //    std::cout << pNewRoot->m_pNodeManager << std::endl;
+    //    pNewRoot->m_bWatchDelete = true;
+
     lower = m_Root->Lbnd();
     upper = m_Root->Hbnd();
 
@@ -737,7 +740,6 @@ void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode) {
 //
 
 bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
-
   // DJW cant see how either of these can ever be NULL
   DASHER_ASSERT_VALIDPTR_RW(newnode);
   DASHER_ASSERT_VALIDPTR_RW(oldnode);

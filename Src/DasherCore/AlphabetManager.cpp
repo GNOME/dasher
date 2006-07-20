@@ -177,6 +177,8 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
       iLbnd = cum[j];
     }
 
+    pNode->SetHasAllChildren(true);
+
 }
 
 void CAlphabetManager::ClearNode( CDasherNode *pNode ) {

@@ -21,6 +21,11 @@ CKeyboardHelper::CKeyboardHelper() {
   m_mTable[GDK_s] = 3;
   m_mTable[GDK_w] = 2;
   m_mTable[GDK_z] = 4;
+
+  m_mTable[GDK_A] = 1;
+  m_mTable[GDK_S] = 3;
+  m_mTable[GDK_W] = 2;
+  m_mTable[GDK_Z] = 4;
   
   // Right of keyboard
 
@@ -28,6 +33,11 @@ CKeyboardHelper::CKeyboardHelper() {
   m_mTable[GDK_k] = 3;
   m_mTable[GDK_i] = 2;
   m_mTable[GDK_m] = 4;
+
+  m_mTable[GDK_J] = 1;
+  m_mTable[GDK_K] = 3;
+  m_mTable[GDK_I] = 2;
+  m_mTable[GDK_M] = 4;
 
   // Arrows
 

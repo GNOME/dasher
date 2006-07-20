@@ -61,17 +61,17 @@ bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDashe
     m_bKeyHandled = true;
     return true;
   }
- 
-  return TimerImpl(Time, m_pDasherView, m_pDasherModel);
-}
 
-bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
   if(m_iState == 2)
     return m_pDasherModel->Tap_on_display(41943,2048, Time, 0, 0);
   else if(m_iState == 1)
-    return m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
+    return TimerImpl(Time, m_pDasherView, m_pDasherModel);
   else
     return false;
+}
+
+bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+  return m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
 }
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {

@@ -20,6 +20,23 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
+// TODO: put this back to being inlined
+CDasherNode::~CDasherNode() {
+
+  // Release any storage that the node manager has allocated,
+  // unreference ref counted stuff etc.
+
+  if(m_bWatchDelete)
+    std::cout << "Deleting " << this << std::endl;
+
+  m_pNodeManager->ClearNode( this );
+
+  Delete_children();
+  if(m_Context)
+    m_pLanguageModel->ReleaseContext(m_Context);
+}
+
+
 void CDasherNode::Trace() const {
   /* TODO sort out
      dchar out[256];

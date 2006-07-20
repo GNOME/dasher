@@ -8,6 +8,7 @@
 
 #include <cmath>
 #include <cfloat>
+#include <iostream>
 
 #ifndef WITH_DARWIN
 double round(double dVal) {
@@ -136,6 +137,7 @@ inline int CAutoSpeedControl::UpdateSampleSize(double dFrameRate)
   dSpeedSamples = dFramerate * (m_dSampleScale / dBitrate + m_dSampleOffset);
  
   m_nSpeedSamples = int(round(dSpeedSamples));
+
   return m_nSpeedSamples;
 }
   /////////////////////////////////////////////////////////////
@@ -191,6 +193,7 @@ void CAutoSpeedControl::SpeedControl(myint iDasherX, myint iDasherY, double dFra
     double y = -(iDasherY - iDasherOY) / double(iDasherOY); 
     double theta = atan2(y, x);
     double r = sqrt(x * x + y * y);
+
     m_dBitrate = GetLongParameter(LP_MAX_BITRATE) / 100.0; //  stored as long(round(true bitrate * 100))
 
     UpdateSigmas(r, dFrameRate);
