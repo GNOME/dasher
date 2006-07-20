@@ -207,6 +207,12 @@ void CDasherModel::Make_root(CDasherNode *whichchild)
   m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   
+  for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
+    myint r = it->iN2 - it->iN1;
+    it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+    it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
+  }
+
 //   myint iTargetRange = m_iTargetMax - m_iTargetMin;
 //   m_iTargetMax = m_iTargetMin + (iTargetRange * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
 //   m_iTargetMin = m_iTargetMin + (iTargetRange * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
@@ -1005,8 +1011,8 @@ bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
 
 bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
 
-  if(m_deGotoQueue.size() > 0)
-    return false;
+//  if(m_deGotoQueue.size() > 0)
+ //   return false;
 
   CDasherNode *root(m_Root);
   CDasherNode::ChildMap & children = m_Root->Children();
