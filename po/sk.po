@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-11 21:19+0200\n"
-"PO-Revision-Date: 2006-07-11 21:23+0200\n"
+"POT-Creation-Date: 2006-07-21 07:05+0200\n"
+"PO-Revision-Date: 2006-07-21 07:05+0200\n"
 "Last-Translator: Marcel Telka <marcel@telka.sk>\n"
 "Language-Team: Slovak <sk-i18n@lists.linux.sk>\n"
 "MIME-Version: 1.0\n"
@@ -33,7 +33,7 @@ msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Zásuvkový vstup Náčrtníka: zlyhalo spustenie čítacieho vlákna"
 
 #: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
 #: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
@@ -313,76 +313,80 @@ msgstr "Prerušiť mimo plátna"
 msgid "Please Wait..."
 msgstr "Prosím, čakajte..."
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "Pr_edvoľby"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Sprava doľava"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Uložiť súbor"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Uložiť súbor ako"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Vybrať písmo"
 
-#: ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "Zobraziť polohu myši"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "Zobraziť jazdca rýchlosti"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "Zobraziť lištu nástrojov"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:64
 msgid "Small font"
 msgstr "Malé písmo"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:65
 msgid "Speed:"
 msgstr "Rýchlosť:"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
 msgstr "Štandardné"
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Štandardné PPM založené na písmenách"
 
-#: ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Spustiť pri stlačení ľavého tlačidla myši"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "Spustiť pri stlačení medzerníka"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Start with mouse position:"
 msgstr "Spustiť s polohou myši:"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "Časová značka nových súborov"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Zhora dole"
 
-#: ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -392,50 +396,46 @@ msgstr ""
 "okien písmena. Poznamenávame, že pri výbere väčších\n"
 "hodnôt sa spomalí vaša rýchlosť písania."
 
-#: ../Src/Gtk2/dasher.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:76
 msgid "Very large font"
 msgstr "Veľmi veľké písmo"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Model založaný na slovách"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_O programe"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "_Pridať k súboru"
 
-#: ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "_Obsah"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Upraviť"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Súbor"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Pomocník"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "_Importovať naučený text"
-
-#: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "_Predvoľby"
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
