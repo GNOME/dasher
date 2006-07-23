@@ -4,6 +4,8 @@
 <glade-interface>
 
 <widget class="GtkWindow" id="window">
+  <property name="can_focus">True</property>
+  <property name="has_focus">True</property>
   <property name="title" translatable="yes">Dasher</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>
@@ -594,6 +596,7 @@
 				  <property name="right_margin">0</property>
 				  <property name="indent">0</property>
 				  <property name="text" translatable="yes"></property>
+				  <signal name="focus_in_event" handler="edit_focus_in_event" last_modification_time="Fri, 21 Jul 2006 10:28:42 GMT"/>
 				</widget>
 			      </child>
 			    </widget>
@@ -913,6 +916,7 @@
 
 			      <child>
 				<widget class="GtkVBox" id="vbox24">
+				  <property name="border_width">8</property>
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
 				  <property name="spacing">0</property>
@@ -1191,6 +1195,7 @@ your writing speed.</property>
 
 			      <child>
 				<widget class="GtkVBox" id="vbox15">
+				  <property name="border_width">8</property>
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
 				  <property name="spacing">0</property>
@@ -1450,9 +1455,10 @@ your writing speed.</property>
 
 			  <child>
 			    <widget class="GtkVBox" id="vbox46">
+			      <property name="border_width">8</property>
 			      <property name="visible">True</property>
 			      <property name="homogeneous">False</property>
-			      <property name="spacing">0</property>
+			      <property name="spacing">4</property>
 
 			      <child>
 				<widget class="GtkScrolledWindow" id="scrolledwindow15">
@@ -1499,7 +1505,6 @@ your writing speed.</property>
 
 				  <child>
 				    <widget class="GtkButton" id="button13">
-				      <property name="border_width">4</property>
 				      <property name="width_request">96</property>
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
@@ -1567,6 +1572,7 @@ your writing speed.</property>
 
 			  <child>
 			    <widget class="GtkAlignment" id="alignment47">
+			      <property name="border_width">8</property>
 			      <property name="visible">True</property>
 			      <property name="xalign">0.5</property>
 			      <property name="yalign">0.5</property>
@@ -1581,7 +1587,7 @@ your writing speed.</property>
 				<widget class="GtkVBox" id="vbox48">
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
-				  <property name="spacing">0</property>
+				  <property name="spacing">4</property>
 
 				  <child>
 				    <widget class="GtkScrolledWindow" id="scrolledwindow12">
@@ -1628,7 +1634,6 @@ your writing speed.</property>
 
 				      <child>
 					<widget class="GtkButton" id="button25">
-					  <property name="border_width">4</property>
 					  <property name="width_request">96</property>
 					  <property name="visible">True</property>
 					  <property name="can_focus">True</property>
@@ -1702,6 +1707,7 @@ your writing speed.</property>
 
 			      <child>
 				<widget class="GtkVBox" id="vbox54">
+				  <property name="border_width">8</property>
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
 				  <property name="spacing">0</property>
@@ -1814,6 +1820,7 @@ your writing speed.</property>
 
 				  <child>
 				    <widget class="GtkVBox" id="vbox13">
+				      <property name="border_width">8</property>
 				      <property name="visible">True</property>
 				      <property name="homogeneous">False</property>
 				      <property name="spacing">0</property>
@@ -2036,7 +2043,7 @@ Two box</property>
 			      <property name="border_width">8</property>
 			      <property name="visible">True</property>
 			      <property name="homogeneous">False</property>
-			      <property name="spacing">0</property>
+			      <property name="spacing">4</property>
 
 			      <child>
 				<widget class="GtkCheckButton" id="manual_colour">
@@ -2151,6 +2158,7 @@ Two box</property>
 
 			      <child>
 				<widget class="GtkVBox" id="vbox16">
+				  <property name="border_width">8</property>
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
 				  <property name="spacing">0</property>
@@ -2309,6 +2317,7 @@ Two box</property>
 
 			      <child>
 				<widget class="GtkVBox" id="vbox56">
+				  <property name="border_width">8</property>
 				  <property name="visible">True</property>
 				  <property name="homogeneous">False</property>
 				  <property name="spacing">0</property>
@@ -2481,6 +2490,7 @@ Two box</property>
 
 		      <child>
 			<widget class="GtkAlignment" id="alignment52">
+			  <property name="border_width">8</property>
 			  <property name="visible">True</property>
 			  <property name="xalign">0.5</property>
 			  <property name="yalign">0.5</property>
@@ -2582,6 +2592,7 @@ Two box</property>
 
 				  <child>
 				    <widget class="GtkVBox" id="vbox53">
+				      <property name="border_width">8</property>
 				      <property name="visible">True</property>
 				      <property name="homogeneous">False</property>
 				      <property name="spacing">0</property>
@@ -2726,6 +2737,7 @@ Two box</property>
 
 				  <child>
 				    <widget class="GtkButton" id="editfontbutton">
+				      <property name="border_width">8</property>
 				      <property name="visible">True</property>
 				      <property name="can_focus">True</property>
 				      <property name="label" translatable="yes"></property>
@@ -2803,6 +2815,7 @@ Two box</property>
 
 				  <child>
 				    <widget class="GtkVBox" id="vbox41">
+				      <property name="border_width">8</property>
 				      <property name="visible">True</property>
 				      <property name="homogeneous">False</property>
 				      <property name="spacing">0</property>

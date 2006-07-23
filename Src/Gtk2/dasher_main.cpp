@@ -1104,7 +1104,7 @@ extern "C" void toggle_hidden(GtkWidget* pWidget, gpointer pUserData) {
 gboolean g_bForwardKeyboard(false);
 
 gboolean grab_focus() {
-  gtk_widget_grab_focus(the_text_view);
+  //  gtk_widget_grab_focus(the_text_view);
   g_bForwardKeyboard = true;
   return true;
 }
@@ -1113,6 +1113,11 @@ gboolean grab_focus() {
 extern "C" bool focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
   return grab_focus();
 }
+
+extern "C" bool edit_focus_in_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
+  return true;
+}
+
 
 // TODO: Next three handlers should just forward into class
 extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data) {

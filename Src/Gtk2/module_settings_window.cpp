@@ -92,21 +92,29 @@ static void module_settings_window_destroy(GObject *pObject) {
 GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gchar *szName, SModuleSettings *pSettings, int iCount) {
   ModuleSettingsWindow *pDasherControl;
   pDasherControl = MODULE_SETTINGS_WINDOW(g_object_new(module_settings_window_get_type(), NULL));
+
+  gtk_window_set_title(GTK_WINDOW(pDasherControl), "Dasher Module Options");
   
   ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pDasherControl->private_data));
   
   pPrivate->pAppSettings = pAppSettings;
+
+  gchar *szFrameTitle = new gchar[strlen(szName)+10];
+  strcpy(szFrameTitle, szName);
+  strcat(szFrameTitle, " Options:");
   
-  GtkWidget *pFrame = gtk_frame_new(szName);
+  GtkWidget *pFrame = gtk_frame_new(szFrameTitle);
+
+  delete[] szFrameTitle;
+
   gtk_container_add(GTK_CONTAINER(pDasherControl->window.vbox), pFrame);
   g_object_set(G_OBJECT(pFrame), "border-width", 8, NULL);
 
   GtkWidget *pTable = gtk_table_new(iCount, 2, FALSE);
+  g_object_set(G_OBJECT(pTable), "border-width", 8, NULL);
   gtk_container_add(GTK_CONTAINER(pFrame), pTable);
   
-  gtk_table_set_row_spacings(GTK_TABLE(pTable), 4);
-  gtk_table_set_col_spacings(GTK_TABLE(pTable), 4);
-  
+ 
   for(int i(0); i < iCount; ++i) {
     GtkWidget *pControl;
     
@@ -122,6 +130,7 @@ GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gch
     }
     else {
       GtkWidget *pLabel = gtk_label_new(pSettings[i].szDescription);
+      gtk_misc_set_alignment(GTK_MISC(pLabel), 0, 0.5);
       gtk_table_attach_defaults(GTK_TABLE(pTable), pLabel, 0, 1, i, i+1);
       
       switch(pSettings[i].iType) {
@@ -165,6 +174,11 @@ GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gch
 
       gtk_table_attach_defaults(GTK_TABLE(pTable), pControl, 1, 2, i, i+1);
     }      
+
+    gtk_table_set_row_spacings(GTK_TABLE(pTable), 4);
+    gtk_table_set_col_spacings(GTK_TABLE(pTable), 4);
+  
+
     ModuleSettingsData *pNewData = new ModuleSettingsData;
 
     pNewData->pNext = pPrivate->pFirst;

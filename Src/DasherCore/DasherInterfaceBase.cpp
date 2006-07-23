@@ -695,12 +695,18 @@ void CDasherInterfaceBase::ResetNats() {
 
 void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
 
+  
+
+  std::cout << "Invalidating context" << std::endl;
+
+
+
   m_pDasherModel->m_strContextBuffer = "";
 
   Dasher::CEditContextEvent oEvent(10);
   m_pEventHandler->InsertEvent(&oEvent);
 
-  std::string strNewContext(m_pDasherModel->m_strContextBuffer);
+   std::string strNewContext(m_pDasherModel->m_strContextBuffer);
 
   // We keep track of an internal context and compare that to what
   // we are given - don't restart Dasher if nothing has changed.
@@ -725,6 +731,8 @@ void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
      strCurrentContext = strNewContext;
      WriteTrainFileFull();
    }
+
+  
 
    if(m_pDasherView)
      while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {

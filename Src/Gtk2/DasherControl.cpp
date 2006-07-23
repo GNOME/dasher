@@ -60,6 +60,13 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   // Create a pango cache
 
+  m_pPangoCache = 0;
+
+  // TODO: Use system defaults?
+  if(GetStringParameter(SP_DASHER_FONT) == "")
+    SetStringParameter(SP_DASHER_FONT, "Sans 10");
+
+ 
   m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
 
   // Don't create the screen until we've been realised.
@@ -344,8 +351,10 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
 
   switch(iParameter) {
   case SP_DASHER_FONT:
-    m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
-    Redraw(true);
+    if(m_pPangoCache) {
+      m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
+      Redraw(true);
+    }
     break;
   case BP_GLOBAL_KEYBOARD:
     if(m_pKeyboardHelper)
