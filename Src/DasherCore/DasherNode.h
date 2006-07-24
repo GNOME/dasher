@@ -87,17 +87,10 @@ class Dasher::CDasherNode:private NoClones {
     m_bSeen = seen;
   }
 
-  symbol Symbol() const { 
-    return m_Symbol; 
-  }
-
-  int Phase() const {
-    return m_iPhase;
-  }
-  // DJW Sort out the colour scheme / phase confusion 
-  Opts::ColorSchemes ColorScheme() const {
-    return m_ColorScheme;
+  symbol Symbol() const {  
+    return m_Symbol;  
   } 
+
   int Colour() const {
     return m_iColour;
   } 
@@ -179,16 +172,10 @@ class Dasher::CDasherNode:private NoClones {
 
   SGroupInfo *m_pBaseGroup;
 
-
   // Members only useful for debugging purposes
   bool m_bWatchDelete; // Notify when this node is deleted
 
-
  private:
-
-  // Information required to display the node
-  Opts::ColorSchemes m_ColorScheme;
-  int m_iPhase;                 // index for coloring
   int m_iColour;                // for the advanced colour mode
   int m_iLbnd;
   int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
@@ -227,7 +214,7 @@ using namespace Opts;
 #include "DasherModel.h"
 
 inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1)
-:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_ColorScheme(ColorScheme), m_iPhase(iphase), m_iColour(Colour), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
+:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_iColour(Colour), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
 
   m_bConverted = false;
   m_bInGame = false;

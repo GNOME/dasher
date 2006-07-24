@@ -16,7 +16,7 @@ static SModuleSettings sSettings[] = {
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, "Long press time"},
   {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
   {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
-  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff button"}
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff and start/stop buttons"}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
@@ -84,6 +84,10 @@ bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CD
 }
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+
+  if(((iId == 0) || (iId == 1) || (iId == 100)) && !GetBoolParameter(BP_BACKOFF_BUTTON))
+    return;
+
   if(m_bKeyDown)
     return;
 
@@ -159,7 +163,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_pInterface->PauseAt(0, 0);
       }
-      else if((iButton == 1) && GetBoolParameter(BP_BACKOFF_BUTTON)) {
+      else if(iButton == 1) {
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_iState = 2;
       }

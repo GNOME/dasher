@@ -295,6 +295,10 @@ public:
     Start();
   };
 
+  void ScheduleRedraw() {
+    m_bRedrawScheduled = true;
+  };
+  
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
@@ -324,6 +328,8 @@ protected:
   // TODO: Make private?
   CDasherModule *GetModule(long long int iID);
   CDasherModule *GetModuleByName(const std::string &strName);
+
+  bool m_bRedrawScheduled;
 
  private:
   // To be implemented by child class

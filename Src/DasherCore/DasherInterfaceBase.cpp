@@ -70,6 +70,8 @@ CDasherInterfaceBase::CDasherInterfaceBase()
   m_bGlobalLock = false;
   m_bShutdownLock = false;
 
+  m_bRedrawScheduled = false;
+
   m_pEventHandler = new CEventHandler(this);
  
   strCurrentContext = ". ";
@@ -448,7 +450,8 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
     }
   }
 
-  Redraw(bChanged);
+  Redraw(bChanged || m_bRedrawScheduled);
+  m_bRedrawScheduled = false;
 
   // This just passes the time through to the framerate tracker, so we
   // know how often new frames are being drawn.
@@ -694,13 +697,6 @@ void CDasherInterfaceBase::ResetNats() {
 
 
 void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
-
-  
-
-  std::cout << "Invalidating context" << std::endl;
-
-
-
   m_pDasherModel->m_strContextBuffer = "";
 
   Dasher::CEditContextEvent oEvent(10);
@@ -739,7 +735,8 @@ void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
        // Do nothing
      }
 
-   Redraw(true);
+   //   Redraw(true);
+   ScheduleRedraw();
 }
 
 

@@ -63,6 +63,8 @@ namespace Dasher {
     bool m_bGameMode;
 
     struct SAlphabetData {
+      symbol iSymbol;
+      int iPhase;
       int iGameOffset;
     };
 

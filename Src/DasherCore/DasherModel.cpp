@@ -956,9 +956,9 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
     return;
   }
 
-  if(pNode->Symbol() == GetControlSymbol()) {
-    return;
-  }
+ //  if(pNode->Symbol() == GetControlSymbol()) {
+//     return;
+//   }
 
   Push_Node(pNode);
 

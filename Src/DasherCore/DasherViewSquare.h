@@ -172,7 +172,7 @@ private:
   /// \todo Character and displaytext are redundant. We shouldn't need
   /// to know about alphabets here, so only use the latterr
 
-  int RenderNode(const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
+  int RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
 
   void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft);
 

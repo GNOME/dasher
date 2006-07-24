@@ -113,7 +113,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   // This is especially true at the moment in Game mode, which feels very sluggish. Node creation also feels slower in Windows than Linux, especially
   // if many nodes are created at once (eg untrained Hiragana)
 
-  if(bDraw && !RenderNode(pRender->Colour(), pRender->ColorScheme(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove) && !(pRender->GetGame())) {
+  if(bDraw && !RenderNode(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove) && !(pRender->GetGame())) {
     vDeleteList.push_back(pRender);
     pRender->Kill();
     return 0;
@@ -178,7 +178,7 @@ void CDasherViewSquare::RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasher
     myint newy1 = y1 + (range * lbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     myint newy2 = y1 + (range * hbnd) / (int)GetLongParameter(LP_NORMALIZATION);
     
-    RenderNode(pCurrentGroup->iColour, Opts::Groups, newy1, newy2, mostleft, pCurrentGroup->strLabel, true);
+    RenderNode(pCurrentGroup->iColour, newy1, newy2, mostleft, pCurrentGroup->strLabel, true);
   }
   
   // Iterate through child groups
@@ -203,7 +203,7 @@ CDasherViewSquare::Cymap::Cymap(myint iScale) {
 
 
 
-int CDasherViewSquare::RenderNode(const int Color, Opts::ColorSchemes ColorScheme, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
+int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
 
   // Commenting because click mode occasionally fails this assert.
   // I don't know why.  -- cjb.
@@ -238,7 +238,7 @@ int CDasherViewSquare::RenderNode(const int Color, Opts::ColorSchemes ColorSchem
   int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, ColorScheme, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
+    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, Nodes1, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
   }
   else {
     int iDasherY((myint)GetLongParameter(LP_MAX_Y));

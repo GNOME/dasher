@@ -89,7 +89,7 @@ struct sp_table {
 // The only important thing here is that these are in the same order
 // as the enum declarations (could add check in class that enforces this instead)
 static bp_table boolparamtable[] = {
-  {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, false, "Draw Mouse Line"},
+  {BP_DRAW_MOUSE_LINE, "DrawMouseLine", PERS, true, "Draw Mouse Line"},
   {BP_DRAW_MOUSE, "DrawMouse", PERS, false, "Draw Mouse Position"},
 #ifdef WITH_MAEMO
   {BP_SHOW_SLIDER, "ShowSpeedSlider", PERS, false, "ShowSpeedSlider"},

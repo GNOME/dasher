@@ -102,6 +102,8 @@ static gboolean dasher_main_speed_changed(DasherMain *pSelf);
 static void dasher_main_populate_alphabet_combo(DasherMain *pSelf);
 void dasher_main_build_context_menu(DasherMain *pSelf);
 
+gboolean grab_focus();
+
 // Private functions not in class
 extern "C" gboolean take_real_focus(GtkWidget *widget, GdkEventFocus *event, gpointer user_data);
 extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
@@ -785,6 +787,9 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
   gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
 #endif
+
+  
+  grab_focus();
 }
 
 
@@ -1104,7 +1109,7 @@ extern "C" void toggle_hidden(GtkWidget* pWidget, gpointer pUserData) {
 gboolean g_bForwardKeyboard(false);
 
 gboolean grab_focus() {
-  //  gtk_widget_grab_focus(the_text_view);
+  gtk_widget_grab_focus(the_text_view);
   g_bForwardKeyboard = true;
   return true;
 }
