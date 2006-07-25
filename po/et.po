@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher GNOME 2.14\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-02-27 06:00+0100\n"
-"PO-Revision-Date: 2005-10-17 19:20+0300\n"
+"PO-Revision-Date: 2006-07-16 11:15+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -332,7 +332,7 @@ msgstr "<b>Kompassirežiim</b>"
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 #: ../Src/Gtk2/dashermaemo.glade.h:13
 msgid "<b>Control Style:</b>"
-msgstr "<b>Juhtimisstiil:</b>"
+msgstr "<b>Juhtimislaad:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
 msgid "<b>Direct Mode And Menu Mode</b>"
@@ -416,7 +416,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
 msgid "Adapt speed automatically"
-msgstr ""
+msgstr "Kiiruse automaatne õppimine"
 
 #: ../Src/Gtk2/dasher.glade.h:33
 msgid "Advanced Settings"
@@ -740,7 +740,7 @@ msgstr ""
 #: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:61
 #: ../Src/Gtk2/dashermaemo.glade.h:101
 msgid "Select Font"
-msgstr "Vali kirjatüüp"
+msgstr "Kirjatüübi valimine"
 
 #: ../Src/Gtk2/dasher.glade.h:107
 msgid "Show Advanced Settings"
@@ -781,12 +781,12 @@ msgstr "Standardne sõnapõhine PPM"
 #: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:66
 #: ../Src/Gtk2/dashermaemo.glade.h:108
 msgid "Start on left mouse button"
-msgstr "Alusta peale vasaku hiirenupu vajutamist"
+msgstr "Alustamine peale vasaku hiirenupu vajutamist"
 
 #: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:67
 #: ../Src/Gtk2/dashermaemo.glade.h:109
 msgid "Start on space bar"
-msgstr "Alusta peale tühiku vajutamist"
+msgstr "Alustamine peale tühiku vajutamist"
 
 #: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:68
 #: ../Src/Gtk2/dashermaemo.glade.h:110
@@ -827,8 +827,8 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Kasuta seda valikut, et kohandada tähekastide suhtelist\n"
-"suurust. Tasub tähele panna, et suuremad väärtused\n"
+"Seda valikut kasutatakse, tähekastide suhtelise suuruse\n"
+"kohandamiseks. Tasub tähele panna, et suuremad väärtused\n"
 "aeglustavad kirjutamiskiirust."
 
 #: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:75
@@ -867,7 +867,7 @@ msgstr "_Programmist lähemalt"
 #: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:80
 #: ../Src/Gtk2/dashermaemo.glade.h:129
 msgid "_Append to file"
-msgstr "_Lisa failile"
+msgstr "Lisa _failile"
 
 #: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:81
 #: ../Src/Gtk2/dashermaemo.glade.h:130
