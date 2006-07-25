@@ -818,6 +818,12 @@ void CDasherInterfaceBase::CreateInputFilter()
     m_pInputFilter->Ref();
     m_pInputFilter->Activate();
   }
+  else {
+    // Fall back to a sensible alternative if for some reason the
+    // current choice isn't valid.
+    if(GetStringParameter(SP_INPUT_FILTER) != "Normal Control")
+      SetStringParameter(SP_INPUT_FILTER, "Normal Control");
+  }
 }
 
 void CDasherInterfaceBase::RegisterFactory(CModuleFactory *pFactory) {

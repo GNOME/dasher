@@ -11,6 +11,7 @@
 
 
 #include "dasher.h"
+#include "dasher_lock_dialogue.h"
 #ifdef WITH_MAEMO
 #include "dasher_maemo_helper.h"
 #endif
@@ -779,6 +780,8 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   }
 
   gtk_window_set_keep_above(GTK_WINDOW(pPrivate->pMainWindow), pPrivate->bTopMost);
+  dasher_lock_dialogue_set_transient(GTK_WINDOW(pPrivate->pMainWindow));
+  
 
 #ifdef WITH_MAEMO
   gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), false);

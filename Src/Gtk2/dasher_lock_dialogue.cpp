@@ -23,10 +23,14 @@ void dasher_lock_dialogue_new(GladeXML *pGladeXML, GtkWindow *pMainWindow) {
 
   gtk_widget_hide(m_pLockWindow);
   
-  gtk_window_set_transient_for(GTK_WINDOW(m_pLockWindow), pMainWindow);
+  dasher_lock_dialogue_set_transient(pMainWindow);
 #else
   m_pLockWindow = 0;
 #endif
+}
+
+void dasher_lock_dialogue_set_transient(GtkWindow *pMainWindow) {
+  gtk_window_set_transient_for(GTK_WINDOW(m_pLockWindow), pMainWindow);
 }
 
 extern "C" void on_lock_info(GtkDasherControl *pDasherControl, gpointer pLockInfo, gpointer pUserData) {
