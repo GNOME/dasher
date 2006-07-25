@@ -1,4 +1,10 @@
 ============
+Dasher 4.1.8
+============
+  * Improvements to dynamic button modes
+  * Many bugfixes
+
+============
 Dasher 4.1.7
 ============
   * One line bugfix repairing build without GNOME a11y support

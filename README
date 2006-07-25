@@ -1,7 +1,7 @@
-Dasher Version 4.1.7
+Dasher Version 4.1.8
 --------------------
 
-This is Dasher 4.1.7, the next in the development series leading
+This is Dasher 4.1.8, the next in the development series leading
 up to 4.2.0, which will hopefully be released with GNOME 2.16. This
 release should be considered a preview for those of you wishing to try
 out the latest features. For a stable version of Dasher, please
@@ -14,6 +14,11 @@ high rates of text entry.
 
 Dasher is Free software released under the GPL. Further documentation
 may be found in the Doc/ subdirectory
+
+New In 4.1.8
+------------
+* Improvements to dynamic button modes
+* Many bugfixes
 
 New In 4.1.7
 ------------
