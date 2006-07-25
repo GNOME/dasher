@@ -41,6 +41,10 @@
 	<revnumber>1.1.0</revnumber>
 	<date>2006-03-31</date>
       </revision>
+      <revision>
+        <revnumber>1.2.0</revnumber>
+	<date>2006-07-11</date>
+      </revision>
     </revhistory>
   </articleinfo>
   
@@ -52,7 +56,7 @@
       full-size keyboard cannot be used - for example on a palmtop or
       wearable computer, or when operating a computer one-handed (by
       joystick, touchscreen or mouse) or zero-handed (i.e. by
-      head-mouse or eyetracker). This document describes version 4.0.0
+      head-mouse or eyetracker). This document describes version 4.1.7
       of <application>Dasher</application>.</para>
     <para><application>Dasher</application> can be started by selecting 
       <guimenuitem>Dasher</guimenuitem> from the <guisubmenu>Accessibility
@@ -120,7 +124,7 @@
       <para>A big advantage of Dasher over other predictive text-entry interfaces
 	that offer word-completions to the user
 	is that it is <emphasis>mode-free</emphasis>: the user does not need to
-      switch from a writing mode to an &ldquo;accept-model-predictions&rdquo; mode.</para>
+      switch from a writing mode to an <quote>accept-model-predictions</quote> mode.</para>
 
       <para>Another advantage is that it is easy to train the model
       on any writing style: simply load up an example
@@ -135,18 +139,18 @@
       <title>Dasher explained -- the library analogy</title>
       <para> Imagine  <emphasis>a library containing all possible books</emphasis>,
 	ordered alphabetically on a single shelf.
-  Books in which the first letter is &ldquo;a&rdquo; are
+  Books in which the first letter is <quote>a</quote>; are
   at the left hand side.
-  Books in which the first letter is &ldquo;z&rdquo; are at the right.
+  Books in which the first letter is <quote>z</quote>; are at the right.
    In  picture (i) below,
-    the shelf is shown vertically with &ldquo;left&rdquo; (a) at the top
-   and &ldquo;right&rdquo; (z) at the bottom.
- The first book in the &ldquo;a&rdquo; section
-	reads &ldquo;<computeroutput>aaaaaaaaaaaa</computeroutput>...&rdquo;; somewhere to its right are
-  books that start &ldquo;<computeroutput>all good things
-   must come to an end</computeroutput>&hellip;&rdquo;;
+    the shelf is shown vertically with <quote>left</quote>; (a) at the top
+   and ,<quote>right</quote>; (z) at the bottom.
+ The first book in the <quote>a</quote>; section
+	reads <quote><computeroutput>aaaaaaaaaaaa</computeroutput>...</quote>; somewhere to its right are
+  books that start <quote><computeroutput>all good things
+   must come to an end</computeroutput>...</quote>;
    a tiny bit further to the right are books that
-   start &ldquo;<computeroutput>all good things must come to an enema</computeroutput>&hellip;&rdquo;.</para>
+   start <quote><computeroutput>all good things must come to an enema</computeroutput>...</quote>.</para>
 
 
 <para> When someone writes a piece of text, their choice
@@ -154,7 +158,7 @@
  from this library of all books - the book that contains exactly the
  chosen text.
  How do they choose that book? Let's imagine they want
- to write &ldquo;<computeroutput>all good things</computeroutput> &hellip;&rdquo;</para>
+ to write <quote><computeroutput>all good things</computeroutput>...</quote>;</para>
 <figure>
 <title>The library of all books.</title>
 <mediaobject>
@@ -182,11 +186,11 @@
 %%/dasher/images/ala-alz.gif.50.gif"
 \end{center}
       -->
- <para>First, they walk into the &ldquo;<computeroutput>a</computeroutput>&rdquo; section of the library.
- There, they are confronted by books starting &ldquo;<computeroutput>aa</computeroutput>&rdquo;, &ldquo;<computeroutput>ab</computeroutput>&rdquo;, &ldquo;<computeroutput>ac</computeroutput>&rdquo;, &hellip; &ldquo;<computeroutput>az</computeroutput>&rdquo;
+ <para>First, they walk into the <quote><computeroutput>a</computeroutput></quote>; section of the library.
+ There, they are confronted by books starting <quote><computeroutput>aa</computeroutput></quote>;, <quote><computeroutput>ab</computeroutput></quote>, <quote><computeroutput>ac</computeroutput>...</quote>; <quote><computeroutput>az</computeroutput></quote>;
  [Picture (ii)].
- Looking more closely at the &ldquo;<computeroutput>al</computeroutput>&rdquo; section, they can find books
- starting &ldquo;<computeroutput>ala</computeroutput>&rdquo;, &ldquo;<computeroutput>alb</computeroutput>&rdquo;, &hellip; &ldquo;<computeroutput>alz</computeroutput>&rdquo;
+ Looking more closely at the <quote><computeroutput>al</computeroutput></quote>; section, they can find books
+ starting <quote><computeroutput>ala</computeroutput></quote>;, <quote>;<computeroutput>alb</computeroutput></quote>;,...; <quote><computeroutput>alz</computeroutput></quote>;
   [Picture (iii)].</para>
 
  <para> By looking ever more closely at the shelf, the writer
@@ -198,13 +202,13 @@
 	<emphasis>we alter the SIZE of the shelf space devoted to each
   book in proportion to the probability of the
 	corresponding text.</emphasis>
-  For example, not very many books start with an &ldquo;<computeroutput>x</computeroutput>&rdquo;, so we devote
-  less space to &ldquo;<computeroutput>x</computeroutput>&hellip;&rdquo; books, and more to the
+  For example, not very many books start with an <quote><computeroutput>x</computeroutput></quote>;, so we devote
+  less space to <quote><computeroutput>x</computeroutput>...;</quote>; books, and more to the
   more plausible books, thus making it easier to find
   books that contain probable text.</para>
 
  <para> Here is the corresponding sequence of pictures
- of the library  in Dasher. (The character "_&rdquo; denotes the space character.)</para>
+ of the library  in Dasher. (The character <quote>_</quote>; denotes the space character.)</para>
 <figure>
 <title>The library of all books.</title>
 <mediaobject>
@@ -267,7 +271,7 @@
   analogies. For example, the way navigation works
   is not by DRAGGING but by STEERING:
     if cars worked like windows computers,
-  you would have to &ldquo;grab&rdquo; the piece of road you want, then &ldquo;drag&rdquo;
+  you would have to <quote>grab</quote> the piece of road you want, then ,<quote>drag</quote>;
   it towards you;
   but  in a car, when you wish to drive right, you
   POINT RIGHT with your steering wheel.
@@ -277,18 +281,18 @@
 <para> <emphasis>The single most important concept</emphasis> that a novice user needs
  to understand is that one should always
  continue <emphasis>inside</emphasis> the 
-  text written so far: to select the book that contains &ldquo;all&rdquo;
- as its first word, one does <emphasis>not</emphasis> enter the &ldquo;a&rdquo; section
- of the library, then exit the &ldquo;a&rdquo; section, and
- enter the &ldquo;l&rdquo; section.
- One enters the &ldquo;a&rdquo; section, then finds the &ldquo;al&rdquo; section that is
- <emphasis>within</emphasis> the &ldquo;a&rdquo; section, then enters the &ldquo;all&rdquo; section
- <emphasis>within</emphasis> the &ldquo;al&rdquo; section.</para>
+  text written so far: to select the book that contains <quote>all</quote>;
+ as its first word, one does <emphasis>not</emphasis> enter the <quote>a</quote>; section
+ of the library, then exit the <quote>;a</quote>; section, and
+ enter the ,<quote>l</quote>; section.
+ One enters the <quote>a</quote>; section, then finds the <quote>al</quote>; section that is
+ <emphasis>within</emphasis> the <quote>a</quote>; section, then enters the <quote>all</quote>; section
+ <emphasis>within</emphasis> the <quote>al</quote>; section.</para>
 
-<para> It's just like finding a name in a phonebook. To find &ldquo;<computeroutput>Alison</computeroutput>&rdquo;,
-  you don't go to the &ldquo;<computeroutput>A</computeroutput>&rdquo; section of the phonebook, then the &ldquo;<computeroutput>L</computeroutput>&rdquo; section:
-									    you go into the &ldquo;<computeroutput>A</computeroutput>&rdquo; section, then find <emphasis>within it</emphasis> the &ldquo;<computeroutput>Al</computeroutput>&rdquo; section,
-  and so forth. Once you are in the &ldquo;<computeroutput>Al</computeroutput>&rdquo; section, you never leave it.</para>
+<para> It's just like finding a name in a phonebook. To find <quote><computeroutput>Alison</computeroutput></quote>;,
+  you don't go to the <quote><computeroutput>A</computeroutput></quote>; section of the phonebook, then the <quote>;<computeroutput>L</computeroutput></quote>; section:
+									    you go into the <quote><computeroutput>A</computeroutput></quote>; section, then find <emphasis>within it</emphasis> the <quote><computeroutput>Al</computeroutput></quote>; section,
+  and so forth. Once you are in the <quote><computeroutput>Al</computeroutput></quote>; section, you never leave it.</para>
 
  <para><emphasis>The second most important idea</emphasis> is
  that what you have written depends <emphasis>only</emphasis> on
@@ -323,7 +327,7 @@
     <sect2>
       <title>Example</title>
       <figure id="figHad1">
-	<title>Writing &lsquo;<computeroutput>I once had a whim</computeroutput>&rsquo;. Where should the user steer now?</title>
+	<title>Writing <quote><computeroutput>I once had a whim</computeroutput></quote>;. Where should the user steer now?</title>
 	<mediaobject>
 	<imageobject>
 	  <imagedata fileref="figures/exampleHad2.png" />
@@ -380,9 +384,9 @@
 	That blue box is highlighted in <xref linkend="figHad4"/>.</para>
       <figure id="figHad4">
 	<title>The correct  letter <computeroutput>d</computeroutput> is the one marked by
-	  the green arrow. This example illustrates the rule &ldquo;always keep going <emphasis>inside</emphasis>
-	  the box that you want&rdquo;  in this case, the blue box
-	  associated with the letter <computeroutput>a</computeroutput> of the word &lsquo;<computeroutput>had</computeroutput>&rsquo;
+	  the green arrow. This example illustrates the rule <quote>always keep going <emphasis>inside</emphasis>
+	  the box that you want</quote>;  in this case, the blue box
+	  associated with the letter <computeroutput>a</computeroutput> of the word <quote><computeroutput>had</computeroutput></quote>;
 	</title>
 	<mediaobject>
 	<imageobject>
@@ -438,7 +442,7 @@
 	as described in <xref linkend="manual3"/>.</para>
     </sect2>
     <sect2>
-      <title>How to start dasher (version 3)</title>
+      <title>How to start dasher (version 4)</title>
       <para> Set the dasher application
  running; when the dasher window comes up, either click the left mouse button
 	or press the space bar to set it going. [One of these two will work.]
@@ -515,7 +519,7 @@
       
       <para> You can save whatever is in the text box of Dasher as a plain
       text file by clicking the `Save file' icon in the icon bar,
-      or using the menus at the top of the Dasher window (selecting File&rarr;Save).</para>
+      or using the menus at the top of the Dasher window (selecting File then Save).</para>
     </sect2>
     
     <sect2>
@@ -526,30 +530,8 @@
       menu. Then the window that you select will get Dasher's output.</para>
     </sect2>
     
-    <sect2>
-      <title>How to get Dasher to `always stay on top'?</title>
     
-      <para> In Dasher version 3,  this feature is not currently provided.
-      It may  be
-      the case in Linux, however, that you can configure your window manager  to put
-      particular windows on top, but this will depend  on your
-      operating system configuration.</para>
- 
-      <para> In Dasher version 4, `always on top' will be possible.</para>
-    </sect2>
     
-    <sect2>
-      <title>If a dialog box requires
-      keyboard input, can I use Dasher to respond?</title>
-     
-      <para>We intend to make this possible in version 4 --- to have Dasher
-      serve as a general keyboard device.</para>
-      
-      <para> In version 3, you may be able to use the existing methods (for example copy all on
-      stop) to do many tasks, but some tasks remain tricky
-      (for example, using Dasher's `file&rarr;Save as'
-      dialog!).</para>
-    </sect2>
   
     <sect2>
       <title>Font sizes</title>
@@ -616,9 +598,9 @@ own pet phrases, friends' names, and so forth.
  a good idea to save the new file with a new name and change the 
  name of the alphabets in the new file, to avoid confusion.
  Each field in the xml file specifies a symbol 
-	by three items: the character that should be <emphasis>displayed</emphasis> (<computeroutput>d=</computeroutput>&hellip;); 
- the character that goes into the <emphasis>text</emphasis> when this symbol is selected (<computeroutput>t=</computeroutput>&hellip;);
- and the background colour number of the box for this symbol (<computeroutput>b=</computeroutput>&hellip;), of which 
+	by three items: the character that should be <emphasis>displayed</emphasis> (<computeroutput>d=</computeroutput>...); 
+ the character that goes into the <emphasis>text</emphasis> when this symbol is selected (<computeroutput>t=</computeroutput>...);
+ and the background colour number of the box for this symbol (<computeroutput>b=</computeroutput>...), of which 
  more below.</para>
   </sect2>
   <sect2>
@@ -630,13 +612,13 @@ own pet phrases, friends' names, and so forth.
  Each line specifies red, green, blue values.</para>
 
 <para> These colours are used to colour multiple objects in dasher.
- If for example you want to change the colour of the &ldquo;red line&rdquo;, 
+ If for example you want to change the colour of the <quote>red line</quote>;, 
  change the second colour line of the colour file, which reads 
 	<computeroutput>&lt;colour r=&quot;255&quot; g=&quot;0&quot; b=&quot;0&quot;/&gt;</computeroutput>. </para>
 
 
 <para> You can change which of these colours is used  for each symbol's 
- box by changing the &ldquo;b&rdquo; field for that symbol in the alphabet file.</para>
+ box by changing the <quote>b</quote>; field for that symbol in the alphabet file.</para>
   </sect2>
 
 
@@ -663,14 +645,12 @@ own pet phrases, friends' names, and so forth.
     
     <!--    %% Dasher works beautifully in Korean-->
     
-    <para> [More issues to discuss here: how combining accents work; 
-    fonts. Scripts to convert to composed or decomposed form.]</para>
+    
   </sect1>
     
   <sect1 id="manual5">
-    <title>What's new in  Version 4.0</title>
-    
-    <para> A preview version, 3.99, was released in October 2004.</para>
+    <title>What's new in  Version 4.1</title>
+   
 
     <para> There is an automatic speed control, which will speed up Dasher 
     when it senses you are able to go faster. </para>
@@ -683,7 +663,9 @@ own pet phrases, friends' names, and so forth.
     to drive Dasher using one, two, three, or four switches.</para>
     
     <para> There is a `click mode', for people who like to point where they want to go,
-    and click to take a single step in that direction. (Good for beginners?)</para>
+    and click to take a single step in that direction. This is aimed at beginners, in particular</para>
+
+ 
  
   <sect2>
     <title>What's coming in version 4.2</title>
@@ -719,12 +701,7 @@ own pet phrases, friends' names, and so forth.
  This guide helps you find which versions of Dasher 
  are most efficient for you.
 
-{\em
- As of April 2005,  the newest versions of Dasher  mentioned here
- are implemented on the Linux platform only. We aim 
- to have them all implemented on all platforms by 
- September 2005.
-}
+
 %\end{abstract}
 \end{quote} -->
   <sect1 id="manual6">
@@ -819,7 +796,7 @@ own pet phrases, friends' names, and so forth.
  or the space bar) is one option. 
  But if you can not press any  buttons, it's possible to start 
  and stop using only continuous gestures:  in the options 
- menu, select &ldquo;start on position&rdquo;; and switch on &ldquo;control mode&rdquo;.
+ menu, select <quote>start on position</quote>; and switch on <quote>control mode</quote>;.
  When control mode is switched on, the Dasher alphabet includes 
  a special Control node (a bit like an <computeroutput>Esc</computeroutput> key on a keyboard), 
  within which various control functions are available. 
@@ -914,7 +891,7 @@ own pet phrases, friends' names, and so forth.
   <sect1 id="manual8">
     <title>I can't use mouse mode or one-dimensional mode</title>
  <para>OK, we have several versions of <emphasis>button Dasher</emphasis>, 
- which will be available in Dasher Version 4 from January 2006.</para>
+  available in Dasher Version 4.</para>
 
   <sect2>
     <title>Are time-critical gestures not an option?</title>
@@ -938,7 +915,7 @@ own pet phrases, friends' names, and so forth.
  then press a button to indicate that you are ready?
  Or can you touch a touch-screen fairly accurately?
 <itemizedlist>
-	  <listitem><para>If so, try <emphasis>click mode</emphasis>. Go to section \ref{sec.click}.</para></listitem>
+	  <listitem><para>If so, try <emphasis>click mode</emphasis>. Go to <xref linkend="time_critical_button"/>.</para></listitem>
 <listitem><para>
  Otherwise try <emphasis>direct button mode</emphasis>
  or <emphasis>menu button mode</emphasis>.
@@ -946,7 +923,7 @@ own pet phrases, friends' names, and so forth.
 </itemizedlist>
 </para>
   </sect2>
-  <sect2>
+  <sect2 id ="time_critical_button">
     <title>`Timeless' continuous Dasher: click mode</title>
     
 <para> In <emphasis>click mode</emphasis>, you position the mouse 
@@ -955,8 +932,7 @@ own pet phrases, friends' names, and so forth.
  position you chose.</para>
 
 <para> Alternatively, if you have a touch screen, a single touch on the 
- screen initiates a zoom to that position. (This functionality 
- has yet to be implemented.)</para> 
+ screen initiates a zoom to that position.</para> 
   </sect2>
   <sect2 id="no_time_critical_button">
     <title>`Timeless' choices of Button Dasher</title>
@@ -984,7 +960,7 @@ own pet phrases, friends' names, and so forth.
 		 </para></listitem>
 	  </varlistentry>
 	  <varlistentry>
-	    <term>2&frac12;</term>
+	    <term>2.5</term>
 	    <listitem><para>If you can easily press two buttons, and, for special 
 		occasions, you are able to press a third button,
 		you can use
@@ -999,7 +975,7 @@ own pet phrases, friends' names, and so forth.
 		<listitem><para> In 
 		    <emphasis>direct button-Dasher</emphasis>, each button produces a particular 
 		  navigation action such as `up', `down', or `back'.
-		  If you have 2&frac12; buttons, map the convenient
+		  If you have 2.5 buttons, map the convenient
 		  two to `up' and `down',
 		  and the  inconvenient button to `back'.</para></listitem>
 	      </orderedlist>
@@ -1029,10 +1005,7 @@ own pet phrases, friends' names, and so forth.
 	  </varlistentry>
 	</variablelist>
 
-<para> To read more about 
- <emphasis>menu button-Dasher</emphasis> 
- and  <emphasis>direct button-Dasher</emphasis>
- see sections \ref{sec.menu} and \ref{sec.direct}.</para>
+
   </sect2>
   <sect2 id="timed">
     <title>Button Dashers that exploit timing</title>
@@ -1092,10 +1065,7 @@ own pet phrases, friends' names, and so forth.
  If you need to back up (unzoom), 
  press the button when the whole display is highlighted.</para>
 
- <para>This mode's menus should be configured  as described in 
- section \ref{sec.menu}.
- This mode has one additional parameter, (name?),
- which determines the speed of cycling through the options.</para>
+ <para>This mode's menus can be configured by selecting <emphasis>preferences</emphasis> from the <emphasis>edit</emphasis> menu, then clicking on <emphasis>control</emphasis> and selecting <emphasis>options</emphasis> below the menu showing all the different modes (the appropriate mode having been selected) </para>
 
  <para>When choosing the number of menu options and their relative sizes, 
  bear in mind your clicking ability. If you can click very accurately 
@@ -1128,7 +1098,58 @@ own pet phrases, friends' names, and so forth.
  options to back up, restart, or stop.</para>
     </sect3>
   </sect2>
-</sect1>    
+</sect1>  
+
+<sect1 id="manual9">
+<title>Summary of <application>Dasher Modes</application></title>
+<para>
+The various modes of <application>Dasher</application> are listed below. The mode may be changed via the <emphasis><quote>edit</quote></emphasis> menu. Select <emphasis><quote>Preferences</quote></emphasis> and then <emphasis><quote>Control</quote></emphasis>.Each mode has a number of variable parameters associated with it which can be adjusted using the <emphasis>options</emphasis> button located below the mode menu.
+</para>
+
+<sect2 id="normal">
+<title>Normal</title>
+<para>
+The original <application>Dasher</application> mode. Functions using a two dimensional steering gesture, from a mouse, say. A one-dimensional mode is also available, for those who may not be able to control two-dimensions.
+</para>
+</sect2>
+
+
+<sect2 id="dynamic">
+<title>Dynamic Mode</title>
+<para>
+<application>Dasher</application> continually zooms in and a single button may be used to move <quote>up</quote> and <quote>down</quote>. There is also a <emphasis>Two Button Dynamic Mode</emphasis> where two buttons are used to control motions <quote>up</quote> and <quote>down</quote>
+</para>
+</sect2>
+
+<sect2 id="click">
+<title>Click Mode</title>
+<para>
+In <emphasis>click mode</emphasis> you position the mouse pointer where you want to go, then press the button when you are ready. <application>Dasher</application> then zooms into the place where you clicked.
+</para>
+</sect2>
+
+<sect2 id="menu">
+<title>Menu and Direct Modes</title>
+<para>
+One button is used to select a location, and once a second button is pressed <application>Dasher</application> zooms to that location. It will stop on reaching tis location, until it receives another location to zoom to.
+</para>
+</sect2>
+
+<sect2 id="compass">
+<title>Compass Mode</title>
+<para>
+Two buttons are used to control vertical position. When the required vertical position has been reached a third button is pressed to zoom in. After zooming in on the location, the user once more selects vertical position.
+</para>
+</sect2> 
+
+<sect2 id="button dynamic">
+<title>Two Button Dynamic Mode</title>
+<para>
+<application>Dasher</application> continually zooms in, whilst two buttons are used to control vertical motion. A third button can be used as a reverse.
+</para>
+</sect2>
+
+</sect1>  
     
     <!-- END DJCM MANUAL -->
     
@@ -1339,6 +1360,8 @@ own pet phrases, friends' names, and so forth.
       </itemizedlist>
     </para>
   </sect1>
+
+
   
   <sect1 id="authors">
     <title>Authors</title>
