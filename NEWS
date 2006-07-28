@@ -1,4 +1,11 @@
 ============
+Dasher 4.0.3
+============
+
+ * Fixed compile error when --without-gnome specified
+ * Regenerated configure to match configure.in
+
+============
 Dasher 4.0.2
 ============
 
