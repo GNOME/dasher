@@ -33,6 +33,10 @@
 #ifdef HAVE_POPT
 #include <popt.h>
 
+#ifndef _
+#define _(_x)s gettext(_x)
+#endif
+
 static const struct poptOption options[] = {
   {"timedata", 'w', POPT_ARG_NONE, NULL, 1, "Write basic timing information to stdout", NULL},
   {"preferences", 'p', POPT_ARG_NONE, NULL, 1, "Show preferences window only", NULL},

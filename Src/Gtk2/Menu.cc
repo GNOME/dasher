@@ -466,7 +466,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
   
 #else
   // EAT UGLY ABOUT BOX, PHILISTINE
-  GtkWidget *label, *button;
+  GtkWidget *label, *button, *about;
   char *tmp;
 
   about = gtk_dialog_new();
