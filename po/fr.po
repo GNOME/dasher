@@ -12,11 +12,11 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Dasher 4.1.7\n"
+"Project-Id-Version: Dasher 4.1.8\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-21 22:08+0200\n"
-"PO-Revision-Date: 2006-07-13 15:01+0100\n"
-"Last-Translator: Samuel Mutel <samuel.mutel@free.fr>\n"
+"POT-Creation-Date: 2006-07-29 11:04+0200\n"
+"PO-Revision-Date: 2006-07-29 11:04+0200\n"
+"Last-Translator: Christophe Merlet (RedFox) <redfox@redfoxcenter.org>\n"
 "Language-Team: GNOME French Team <gnomefr@traduc.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -97,7 +97,7 @@ msgstr "Apprentissage de Dasher...  Veuillez patienter"
 
 #: ../Src/Gtk2/dasher.glade.h:1
 msgid "<b>Actions:</b>"
-msgstr "<b>Actions : </b>"
+msgstr "<b>Actions :</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
@@ -139,7 +139,7 @@ msgstr "<b>Direction :</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11
 msgid "<b>Editor Font:</b>"
-msgstr "<b>Plice de l'éditeur :</b>"
+msgstr "<b>Police de l'éditeur :</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
 msgid "<b>Input Device:</b>"
@@ -228,7 +228,7 @@ msgstr "_Tout copier"
 #: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
-msgstr "Jeu de couleurs personnalisé : "
+msgstr "Jeu de couleurs personnalisé :"
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
