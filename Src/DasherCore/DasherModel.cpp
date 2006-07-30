@@ -366,6 +366,8 @@ void CDasherModel::Start() {
 
 void CDasherModel::SetContext(std::string &sNewContext) {
   
+  m_deGotoQueue.clear();
+
 
   if(oldroots.size() > 0) {
     delete oldroots[0];
