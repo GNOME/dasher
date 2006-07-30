@@ -6,6 +6,7 @@
 <widget class="GtkWindow" id="window">
   <property name="can_focus">True</property>
   <property name="has_focus">True</property>
+  <property name="events">GDK_BUTTON_RELEASE_MASK</property>
   <property name="title" translatable="yes">Dasher</property>
   <property name="type">GTK_WINDOW_TOPLEVEL</property>
   <property name="window_position">GTK_WIN_POS_NONE</property>

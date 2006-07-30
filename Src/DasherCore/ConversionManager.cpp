@@ -72,12 +72,62 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     pCurrentCMChild = 0;
 
   if(pCurrentCMChild) {
+
+    // Calculate sizes for the children. Note that normalisation is
+    // done additiviely rather than multiplicatively, so it's not
+    // quite what was originally planned (but I don't think this is
+    // much of a problem). More serious is the fact that the ordering
+    // is being lost when the tree is created, as nodes begininning
+    // with the same character are merged. This needs to be though
+    // out, but the probabilities should probably be done at the time
+    // of construction of the candidate tree rather than the Dasher
+    // tree (aside - is there any real point having two separate trees
+    // - surely we should just create Dasher nodes right away?).
+    //
+    // The algorithm should also allow for the possibility of the
+    // conversion engine returning probabilities itself, which should
+    // be used in preference to the values infered from the ordering
+    //
+    // Finally, maybe the choices should be presented in lexographic
+    // order, rather than in order returned (really not sure about
+    // this - it needs to be thought through).
+
+    int iSize[pCurrentCMNode->m_iNumChildren];
+    
+    int iRemaining(m_pModel->GetLongParameter(LP_NORMALIZATION));
+
+    for(int i(0); i < pCurrentCMNode->m_iNumChildren; ++i) {
+      iSize[i] = m_pModel->GetLongParameter(LP_NORMALIZATION) / ((i + 1) * (i + 2));
+
+      if(iSize[i] < 1)
+	iSize[i] == 1;
+
+      iRemaining -= iSize[i];
+    }
+
+    int iLeft(pCurrentCMNode->m_iNumChildren);
+    
+    for(int i(0); i < pCurrentCMNode->m_iNumChildren; ++i) {
+      int iDiff(iRemaining / iLeft);
+
+      iSize[i] += iDiff;
+      
+      iRemaining -= iDiff;
+      --iLeft;
+    }
+
     int iIdx(0);
+    int iCum(0);
 
     while(pCurrentCMChild) {
-      int iLbnd( iIdx*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
-      int iHbnd( (iIdx+1)*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
+//       int iLbnd( iIdx*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
+//       int iHbnd( (iIdx+1)*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
 
+      int iLbnd(iCum);
+      int iHbnd(iCum + iSize[iIdx]);
+
+      iCum = iHbnd;
+      
       // TODO: Parameters here are placeholders - need to figure out what's right
       pNewNode = new CDasherNode(pNode, m_pModel->GetStartConversionSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, 1);
       

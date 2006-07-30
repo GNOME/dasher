@@ -98,7 +98,7 @@ static void dasher_main_setup_window_type(DasherMain *pSelf);
 static void dasher_main_toggle_hidden(DasherMain *pSelf);
 static void dasher_main_grab(DasherMain *pSelf, GdkEventButton *pEvent);
 static void dasher_main_ungrab(DasherMain *pSelf, GdkEventButton *pEvent);
-static gboolean dasher_main_motion(DasherMain *pSelf, GdkEventMotion *pEvent);
+static gboolean dasher_main_motion(DasherMain *pSelf);
 static gboolean dasher_main_speed_changed(DasherMain *pSelf);
 static void dasher_main_populate_alphabet_combo(DasherMain *pSelf);
 void dasher_main_build_context_menu(DasherMain *pSelf);
@@ -111,6 +111,7 @@ extern "C" gboolean edit_key_press(GtkWidget *widget, GdkEventKey *event, gpoint
 extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event, gpointer data);
 extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData);
+extern "C" gboolean cb_drag_timeout(gpointer pUserData);
 
 GType dasher_main_get_type() {
 
@@ -204,6 +205,11 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   pPrivate->pSideMenu = glade_xml_get_widget(pPrivate->pGladeXML, "SideMenu");
   pPrivate->pDragHandle = glade_xml_get_widget(pPrivate->pGladeXML, "button31");
   pPrivate->pHideArrow = glade_xml_get_widget(pPrivate->pGladeXML, "hide_arrow");
+
+  gtk_widget_add_events(pPrivate->pDragHandle, 
+			GDK_BUTTON_PRESS_MASK | 
+			GDK_BUTTON_RELEASE_MASK |
+			GDK_POINTER_MOTION_MASK);
 
   // TODO: This could be made more sensible with consistent naming
 #ifdef WITH_MAEMO
@@ -944,17 +950,28 @@ void dasher_main_grab(DasherMain *pSelf, GdkEventButton *pEvent) {
     
     pPrivate->dDragOffsetX = pEvent->x_root - iWindowX;
     pPrivate->dDragOffsetY = pEvent->y_root - iWindowY;
+
+    // Note that we get a grab automatically from X, as we're
+    // configured to receive press and release events. No need to
+    // explicitly add a grab then (and in fact this doesn't work as a
+    // result).
     
-    GdkCursor *pCursor = gdk_cursor_new(GDK_FLEUR);
+    // GdkCursor *pCursor = gdk_cursor_new(GDK_FLEUR);
+
+    // g_message("window %d", pPrivate->pDragHandle->window);
+
+//      int iValue = gdk_pointer_grab(NULL, //pPrivate->pMainWindow->window,
+//  				  TRUE,
+//  				  GDK_BUTTON_RELEASE_MASK | GDK_POINTER_MOTION_MASK,
+//  				  NULL,
+//  				  pCursor,
+//  				  pEvent->time);
+     
+//     g_message("grab value %d", iValue==GDK_GRAB_SUCCESS);
     
-    gdk_pointer_grab(pPrivate->pMainWindow->window,
-		     TRUE,
-		     (GdkEventMask)(GDK_POINTER_MOTION_MASK | GDK_BUTTON_RELEASE_MASK),
-		     NULL,
-		     pCursor,
-		     pEvent->time);
-    
-    gdk_cursor_unref(pCursor);
+//    gdk_cursor_unref(pCursor);
+
+    g_timeout_add(25, cb_drag_timeout, pSelf);
   }
 }
 
@@ -967,22 +984,25 @@ void dasher_main_ungrab(DasherMain *pSelf, GdkEventButton *pEvent) {
   gdk_pointer_ungrab(pEvent->time);
 }
 
-gboolean dasher_main_motion(DasherMain *pSelf, GdkEventMotion *pEvent) {
-  DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
+gboolean dasher_main_motion(DasherMain *pSelf) {
+   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
-  if(pPrivate->bGrabbed) {
-    double dNewX = pEvent->x_root - pPrivate->dDragOffsetX;
-    double dNewY = pEvent->y_root - pPrivate->dDragOffsetY;
+   if(!(pPrivate->bGrabbed))
+     return FALSE;
 
-    pPrivate->iPosition = (int)(floor(dNewY));
+   int iX;
+   int iY;
 
-    dasher_main_setup_window_position(pSelf);
+   gdk_display_get_pointer(gdk_display_get_default(), NULL, &iX, &iY, NULL);
 
-    return true;
-  }
-  else {
-    return false;
-  }
+   double dNewX = iX - pPrivate->dDragOffsetX;
+   double dNewY = iY - pPrivate->dDragOffsetY;
+
+   pPrivate->iPosition = (int)(floor(dNewY));
+
+   dasher_main_setup_window_position(pSelf);
+
+  return TRUE;
 }
 
 gboolean dasher_main_topmost(DasherMain *pSelf) { 
@@ -1166,7 +1186,8 @@ extern "C" gboolean sidemenu_release(GtkWidget *pWidget, GdkEventButton *pEvent,
 }
 
 extern "C" gboolean sidemenu_motion(GtkWidget *pWidget, GdkEventMotion *pEvent, gpointer pData) {
-  return dasher_main_motion(g_pDasherMain, pEvent);
+  //  return dasher_main_motion(g_pDasherMain, pEvent);
+  return false;
 }
 
 
@@ -1209,4 +1230,8 @@ extern "C" gboolean speed_changed(GtkWidget *pWidget, gpointer user_data) {
 extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData) {
   //  static_cast<CDasherControl*>(pUserData)->AlphabetComboChanged();
   dasher_main_alphabet_combo_changed(g_pDasherMain);
+}
+ 
+extern "C" gboolean cb_drag_timeout(gpointer pUserData) {
+  return dasher_main_motion(DASHER_MAIN(pUserData));
 }

@@ -8,9 +8,13 @@ class COneDimensionalFilter : public CDefaultFilter {
   COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel);
 
   bool GetSettings(SModuleSettings **pSettings, int *iCount);
+  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
 
  private:
    virtual void ApplyTransform(myint &iDasherX, myint &iDasherY);
+
+   int iLastY;
+   int iOffset;
 };
 
 #endif

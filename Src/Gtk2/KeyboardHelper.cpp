@@ -63,6 +63,11 @@ CKeyboardHelper::CKeyboardHelper() {
   // 0 = keyboard start/stop
 
   m_mTable[GDK_space] = 0;
+
+  // 10 = calibration key
+  
+  m_mTable[GDK_F12] = 10;
+
 }
 
 int CKeyboardHelper::ConvertKeycode(int iCode) {

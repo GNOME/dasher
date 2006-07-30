@@ -367,6 +367,8 @@ void CDasherModel::Start() {
 void CDasherModel::SetContext(std::string &sNewContext) {
   
 
+  m_deGotoQueue.clear();
+
   if(oldroots.size() > 0) {
     delete oldroots[0];
     oldroots.clear();
@@ -430,18 +432,18 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
                                          myint &iNewMin, myint &iNewMax) {
   // Comments refer to the code immedialtely before them
 
+  // Avoid Mousex=0, as this corresponds to infinite zoom
   if(Mousex <= 0) {
     Mousex = 1;
   }
 
-  // Avoid Mousex=0, as this corresponds to infinite zoom
-
   // If Mousex is too large we risk overflow errors, so make limit it
-  // (this is a somewhat empirical limit - at some point we should
-  // probably do it a little more scientifically)
+  int iSteps = m_fr.Steps();
 
-  if(Mousex > 60000000)
-    Mousex = 60000000;
+  int iMaxX = (1 << 29) / iSteps;
+
+  if(Mousex > iMaxX)
+    Mousex = iMaxX;
 
   // Cache some results so we don't do a huge number of parameter lookups
 
@@ -457,8 +459,6 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
   // we want to be in iSteps updates
 
   //  std::cout << iTargetMin << " " << iTargetMax << std::endl;
-
-  int iSteps = m_fr.Steps();
 
   DASHER_ASSERT(iSteps > 0);
 

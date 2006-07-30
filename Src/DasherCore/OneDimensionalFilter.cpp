@@ -6,6 +6,8 @@ static SModuleSettings sSettings[] = {
 
 COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 4, "One Dimensional Mode") {
+
+  iOffset = 0;
 }
 
 bool COneDimensionalFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
@@ -16,6 +18,9 @@ bool COneDimensionalFilter::GetSettings(SModuleSettings **pSettings, int *iCount
 };
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
+
+  iLastY = iDasherY;
+  iDasherY += iOffset;
 
   double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
   
@@ -68,4 +73,15 @@ void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
   x=(myint)GetLongParameter(LP_OX)-x;
   
   iDasherX = myint(x);
+}
+
+
+void COneDimensionalFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+  
+  if(iId == 10) {
+    iOffset = 2048 - iLastY;
+  }
+  else {
+    CDefaultFilter::KeyDown(iTime, iId, pModel);
+  }
 }
