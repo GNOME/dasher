@@ -34,7 +34,7 @@
 #include <popt.h>
 
 #ifndef _
-#define _(_x)s gettext(_x)
+#define _(_x) gettext(_x)
 #endif
 
 static const struct poptOption options[] = {

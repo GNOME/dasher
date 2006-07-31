@@ -18,7 +18,8 @@ EXTRA_DIST = \
 DISTCLEANFILES = \
 		intltool-merge \
 		intltool-extract \
-		intltool-update
+		intltool-update \
+		po/stamp-it
 
 MAINTAINERCLEANFILES = \
 		$(srcdir)/INSTALL \
