@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.HEAD.mk\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-05-19 14:03+0200\n"
-"PO-Revision-Date: 2006-05-19 17:34+0200\n"
+"POT-Creation-Date: 2006-08-02 17:16+0200\n"
+"PO-Revision-Date: 2006-08-02 18:36+0200\n"
 "Last-Translator: Jovan Naumovski <jovan@lugola.net>\n"
 "Language-Team: Macedonian <ossm-members@hedona.on.net.mk>\n"
 "MIME-Version: 1.0\n"
@@ -19,8 +19,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.11.2\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:47
-#: ../Src/Gtk2/dashergpe.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:48
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
 
@@ -33,13 +34,14 @@ msgstr "Предвидливо внесување на текст"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher socket влез: не успеа да се пушти читачка нишка."
 
-#: ../Src/Gtk2/Menu.cc:66 ../Src/Gtk2/Menu.cc:122 ../Src/Gtk2/Menu.cc:180
-#: ../Src/Gtk2/Menu.cc:223 ../Src/Gtk2/dasher.glade.h:87
-#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:82
+#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Изберете датотека"
 
-#: ../Src/Gtk2/Menu.cc:306
+#: ../Src/Gtk2/Menu.cc:302
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -50,7 +52,7 @@ msgstr ""
 "\n"
 "Вашите промени ќе бидат изгубени ако не ги зачувате. "
 
-#: ../Src/Gtk2/Menu.cc:309
+#: ../Src/Gtk2/Menu.cc:305
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -60,15 +62,15 @@ msgstr ""
 "\n"
 "Вашите промени ќе бидат изгубени ако не ги зачувате."
 
-#: ../Src/Gtk2/Menu.cc:312
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Don't save"
 msgstr "Не зачувувај"
 
-#: ../Src/Gtk2/Menu.cc:312
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Don't quit"
 msgstr "Не завршувај"
 
-#: ../Src/Gtk2/Menu.cc:312
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Save and quit"
 msgstr "Зачувај и затвори"
 
@@ -84,178 +86,111 @@ msgstr ""
 "Слободен Софтвер Македонија\n"
 "http://www.slobodensoftver.org.mk"
 
-#: ../Src/Gtk2/Preferences.cpp:931 ../Src/Gtk2/Preferences.cpp:933
-#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:101
+#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
 msgid "Training Dasher... please wait"
 msgstr "Го тренирам dasher - ве молам почекајте"
 
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "(Message Placeholder - no need to translate)"
-msgstr "(Message Placeholder - no need to translate)"
-
-#: ../Src/Gtk2/dasher.glade.h:2
-msgid ""
-"<b><i>gconf-editor Not Found</i></b>\n"
-"You must have gconf-editor installed and available in your path in order to "
-"access these settings."
-msgstr ""
-"<b><i>gconf-editor не е пронајден</i></b>\n"
-"Морате да го инсталирате gconf-editor за да имате пристап до овие поставувања."
-
-#: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dasher.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Акции:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Адаптација:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
-msgid "<b>Advanced Settings:</b>"
-msgstr "<b>Напредни поставувања:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashergpe.glade.h:6
-#: ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Избор на азбука:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Опции за изгледот:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Опции за апликацијата:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Стил на апликација:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:8
-#: ../Src/Gtk2/dashermaemo.glade.h:10
-msgid "<b>Color Selection:</b>"
-msgstr "<b>Избор на боја:</b>"
+#: ../Src/Gtk2/dasher.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Шема за боја:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:11
-msgid "<b>Compass Mode</b>"
-msgstr "<b>Режим со компас</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Стил на контрола:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:13
-msgid "<b>Direct Mode And Menu Mode</b>"
-msgstr "<b>Директен режим и режим со мени</b>"
+#: ../Src/Gtk2/dasher.glade.h:9
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Фонт за dasher:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:10
+msgid "<b>Direction:</b>"
+msgstr "<b>Насока:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Фонт на уредувач:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Влезен уред:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14
-msgid "<b>Keyboard options</b>"
-msgstr "<b>Опции за тастатурата:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>Јазик:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:10
-#: ../Src/Gtk2/dashermaemo.glade.h:18
-msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>Разни опции:</b>"
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Предвидување:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashermaemo.glade.h:19
-msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>Динамички режим за едно копче</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:20
-msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>Статички режим за едно копче</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:11
-#: ../Src/Gtk2/dashermaemo.glade.h:21
-msgid "<b>Orientation:</b>"
-msgstr "<b>Ориентација:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:12
-#: ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Мазнење:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashermaemo.glade.h:23
-msgid "<b>Socket Input</b>"
-msgstr "<b>Socket влез</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>Брзина:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashergpe.glade.h:14
-#: ../Src/Gtk2/dashermaemo.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Подигнување и стопирање:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemo.glade.h:26
-msgid "<b>View Options:</b>"
-msgstr "<b>Опции за преглед:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashermaemo.glade.h:27
-msgid "<b>X Coordinate</b>"
-msgstr "<b>X координата:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:18
-#: ../Src/Gtk2/dashermaemo.glade.h:28
-msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Опции за оската Y:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:29
-msgid "<b>Y Coordinate</b>"
-msgstr "<b>Y координата:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:28
-msgid "<b>Zoom steps</b>"
-msgstr "<b>Чекори за зумирање</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Адаптирај ја брзината автоматски"
 
-#: ../Src/Gtk2/dasher.glade.h:30
-msgid ""
-"Additional settings can be accessed directly using the GConf configuration "
-"database Please note that these settings are intended for advanced users "
-"only, and by changing these settings it is possible to put Dasher into an "
-"unusable state."
-msgstr ""
-"До додатните поставувања може да се пристапи директно преку GConf конфигурациската "
-"база на податоци. Имајте во предвид дека овие поставувања се наменети за напредни "
-"корисници и со промена на овие поставувања можно е да го ставите Dasher во неупотреблива "
-"состојба."
-
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:32
-msgid "Advanced Settings"
-msgstr "Напредни поставувања"
-
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemo.glade.h:33
-msgid "Alphabet"
-msgstr "Азбука"
-
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "Стандардна азбука"
 
-#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemo.glade.h:36
+#: ../Src/Gtk2/dasher.glade.h:20
+msgid "Alphabet:"
+msgstr "Азбука:"
+
+#: ../Src/Gtk2/dasher.glade.h:21
+msgid "Appearance"
+msgstr "Изглед"
+
+#: ../Src/Gtk2/dasher.glade.h:22
+msgid "Application"
+msgstr "Апликација"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Од доле до горе"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:37
-msgid "Box non-uniformity:"
-msgstr "Менување на кутивчињата:"
-
-#: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:39
-msgid "Button Preferences"
-msgstr "Параметри за копчето"
-
-#: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashermaemo.glade.h:41
+#: ../Src/Gtk2/dasher.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -263,269 +198,201 @@ msgstr ""
 "Централен круг\n"
 "Две коцки"
 
-#: ../Src/Gtk2/dasher.glade.h:39 ../Src/Gtk2/dashermaemo.glade.h:44
+#: ../Src/Gtk2/dasher.glade.h:26
 msgid "Composition"
 msgstr "Прекројување"
 
-#: ../Src/Gtk2/dasher.glade.h:40 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:45
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "Контрола"
 
-#: ../Src/Gtk2/dasher.glade.h:41 ../Src/Gtk2/dashergpe.glade.h:29
-#: ../Src/Gtk2/dashermaemo.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "Control mode"
 msgstr "Контролен режим"
 
-#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:30
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
 msgid "Copy"
 msgstr "Копирај"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Копирај _сѐ"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
 msgstr "Прилагодена шема на обојување:"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Сопствен:"
 
-#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashergpe.glade.h:33
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
 msgid "Cut"
 msgstr "Отсечи"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:36
-#: ../Src/Gtk2/dashermaemo.glade.h:49
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Параметри за dasher"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:50
+#: ../Src/Gtk2/dasher.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "_Упатство за Dasher"
+
+#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
 msgstr "Директно внесување"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:37
-#: ../Src/Gtk2/dashermaemo.glade.h:52
-msgid "Distance from centerline for start on mouse position:"
-msgstr "Далечината од линијата во центарот за почетокот на позицијата на глувчето:"
+#: ../Src/Gtk2/dasher.glade.h:38
+msgid "Dock application window"
+msgstr "Вгнезди го прозорецот на апликацијата"
 
-#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:39
-#: ../Src/Gtk2/dashermaemo.glade.h:53
+#: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw box outlines"
 msgstr "Нацртај ги надворешните линии на кутијата"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:40
-#: ../Src/Gtk2/dashermaemo.glade.h:54
+#: ../Src/Gtk2/dasher.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Нацртај линија помеѓу глушецот и покажувачот"
 
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashermaemo.glade.h:55
-msgid "Drop time:  "
-msgstr "Време за испуштање:  "
-
-#: ../Src/Gtk2/dasher.glade.h:54
-msgid "Eyetracker autocalibration"
-msgstr "Автоматско калибрирање на следачот на очи"
-
-#: ../Src/Gtk2/dasher.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:41
 msgid "Full Screen"
 msgstr "На цел екран"
 
-#: ../Src/Gtk2/dasher.glade.h:56
-msgid "Global keyboard grab"
-msgstr "Внесување со тастатура од секаде"
-
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashermaemo.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:42
 msgid "Increase line thickness"
 msgstr "Зголемена дебелина на линијата"
 
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashermaemo.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Јапонски"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashermaemo.glade.h:60
-msgid "Label"
-msgstr "Ознака"
+#: ../Src/Gtk2/dasher.glade.h:44
+msgid "Language"
+msgstr "Јазик"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "Јазикот се адаптира при пишувањето."
 
-#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashergpe.glade.h:45
-msgid "Large"
-msgstr "Големо"
+#: ../Src/Gtk2/dasher.glade.h:46
+msgid "Large font "
+msgstr "Голем фонт"
 
-#: ../Src/Gtk2/dasher.glade.h:62
-msgid "Launch GConf editor"
-msgstr "Пушти го GConf уредувачот"
-
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:46
-#: ../Src/Gtk2/dashermaemo.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Од лево надесно"
 
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashermaemo.glade.h:63
-msgid "Max"
-msgstr "Макс"
-
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:64
-msgid "Min"
-msgstr "Мин"
-
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:65
-msgid "Miscellaneous"
-msgstr "Разно"
-
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:66
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Измешан модел (PPM/речник)"
 
-#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashergpe.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Нова датотека"
 
-#: ../Src/Gtk2/dasher.glade.h:69 ../Src/Gtk2/dashergpe.glade.h:49
-msgid "Normal"
-msgstr "Нормално"
-
-#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashermaemo.glade.h:67
-msgid "Number of \"zoom-out boxes\":"
-msgstr "Број на \"одзумирани кутивчиња\":"
-
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:68
-msgid "Number of boxes:"
-msgstr "Број на кутивчиња:"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashergpe.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Отвори датотека"
 
-#: ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.glade.h:51
 msgid "Options"
 msgstr "Опции"
 
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashergpe.glade.h:54
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Вметни"
 
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashergpe.glade.h:55
-#: ../Src/Gtk2/dashermaemo.glade.h:72
-msgid "Pause outside window"
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Pause outside of canvas"
 msgstr "Паузирај надвор од прозорецот"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:73
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "Ве молам, почекајте..."
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:74
-msgid "Port"
-msgstr "Порта"
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "Пр_еференци"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashermaemo.glade.h:75
-msgid "Prediction"
-msgstr "Предвидување"
-
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:76
-msgid "Print socket-related debugging information to console"
-msgstr "Печати socket-поврзано со информација за дебагирање во конзола"
-
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashermaemo.glade.h:77
-msgid "Pulsing mode"
-msgstr "Режим со пулсирање"
-
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:56
-#: ../Src/Gtk2/dashermaemo.glade.h:78
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Од десно налево"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:79
-msgid "Right zoom:  "
-msgstr "Десен зум:  "
-
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:80
-msgid "Safety margin:"
-msgstr "Маргина за сигурност:"
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Зачувај датотека"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Зачувај датотека како"
 
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:81
-msgid "Scaling amount (1D mode):"
-msgstr "Количина на мерење (режим 1D):"
-
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:61
-#: ../Src/Gtk2/dashermaemo.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Изберете фонт"
 
-#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashergpe.glade.h:62
-#: ../Src/Gtk2/dashermaemo.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "Покажи ја позицијата на глушецот"
 
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:63
-#: ../Src/Gtk2/dashermaemo.glade.h:86
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "Покажи го брзиот лизгач"
 
-#: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashergpe.glade.h:64
-#: ../Src/Gtk2/dashermaemo.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "Покажи лента со алатки"
 
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashermaemo.glade.h:89
-msgid "Socket Preferences"
-msgstr "Перференци за dasher"
+#: ../Src/Gtk2/dasher.glade.h:64
+msgid "Small font"
+msgstr "Мал фонт"
 
-#: ../Src/Gtk2/dasher.glade.h:93 ../Src/Gtk2/dashermaemo.glade.h:90
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Speed:"
+msgstr "Брзина:"
+
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
 msgstr "Независно"
 
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:91
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "PPM базиран на стандардно писмо"
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:66
-#: ../Src/Gtk2/dashermaemo.glade.h:92
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Започни со левото копче од глушецот"
 
-#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashergpe.glade.h:67
-#: ../Src/Gtk2/dashermaemo.glade.h:93
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "Започни со копчето space"
 
-#: ../Src/Gtk2/dasher.glade.h:97
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Start with mouse position:"
 msgstr "Започни со следнава позицијата на глушецот:"
 
-#: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashermaemo.glade.h:96
-msgid "Steady mode"
-msgstr "Мирен режим"
-
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:69
-#: ../Src/Gtk2/dashermaemo.glade.h:98
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "Нови датотеки со временски запис"
 
-#: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:70
-#: ../Src/Gtk2/dashermaemo.glade.h:99
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Од горе надолу"
 
-#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashergpe.glade.h:71
-#: ../Src/Gtk2/dashermaemo.glade.h:100
-msgid "Training"
-msgstr "Тренирање"
-
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashermaemo.glade.h:103
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -535,73 +402,50 @@ msgstr ""
 "на полињата за буквите. Имајте на ум дека со избирањето на висока вредност "
 "ќе ја успорите брзината на запишувањето."
 
-#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:75
-msgid "Very Large"
-msgstr "Многу големо"
+#: ../Src/Gtk2/dasher.glade.h:76
+msgid "Very large font"
+msgstr "Многу голем фонт"
 
-#: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashergpe.glade.h:76
-#: ../Src/Gtk2/dashermaemo.glade.h:106
-msgid "View"
-msgstr "Преглед"
-
-#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashermaemo.glade.h:107
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Модел базиран на збор"
 
-#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashermaemo.glade.h:108
-msgid "Zoom:"
-msgstr "Зум:"
-
-#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_За"
 
-#: ../Src/Gtk2/dasher.glade.h:111 ../Src/Gtk2/dashergpe.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "_Припои до датотека"
 
-#: ../Src/Gtk2/dasher.glade.h:112
+#: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "_Содржини"
 
-#: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:81
-msgid "_Dasher Font"
-msgstr "Фонт за _dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashergpe.glade.h:82
-msgid "_Dasher Font Size"
-msgstr "Големина на фонт за _dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Уреди"
 
-#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:84
-msgid "_Edit Font"
-msgstr "_Уреди фонт"
-
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashergpe.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Датотека"
 
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashergpe.glade.h:86
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Помош"
 
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "_Увези текст за тренирање"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:88
-msgid "_Options"
-msgstr "_Опции"
-
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:89
-msgid "_Reset fonts"
-msgstr "_Ресетирај фонтови"
-
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:90
-#: ../Src/Gtk2/dashermaemo.glade.h:109
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
@@ -618,228 +462,87 @@ msgstr "Не можам да ги иницијализирам гласовит�
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Предупредување: не можам да ги поставам параметрите за говорот\n"
 
-#: ../Src/Gtk2/dashergpe.glade.h:1
-msgid "5:"
-msgstr "5:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:2
-msgid "6:"
-msgstr "6:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:3
-msgid "7:"
-msgstr "7:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:4
-msgid "8:"
-msgstr "8:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:5
-msgid "9:"
-msgstr "9:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:7
-msgid "<b>Button control setup</b>"
-msgstr "<b>Подесување за контрола на копчињата</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:13
-msgid "<b>Speed</b>"
-msgstr "<b>Брзина</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:15
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Менување на режим со копчиња:</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:17
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y координати:</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:19
-msgid "Advanced"
-msgstr "Напредно"
-
-#: ../Src/Gtk2/dashergpe.glade.h:23
-msgid "Button control setup"
-msgstr "Подесување за контрола на копчињат"
-
-#: ../Src/Gtk2/dashergpe.glade.h:24
-msgid "Button mode"
-msgstr "Режим со копчиња"
-
-#: ../Src/Gtk2/dashergpe.glade.h:25
-msgid "Button:"
-msgstr "Копче:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change color scheme automatically"
-msgstr "Автоматски смени ја бојата на шемата"
-
-#: ../Src/Gtk2/dashergpe.glade.h:27
-msgid "Color"
-msgstr "Боја"
-
-#: ../Src/Gtk2/dashergpe.glade.h:32
-msgid "Copy all on stop"
-msgstr "Копирај сѐ по стопирањето"
-
-#: ../Src/Gtk2/dashergpe.glade.h:34
-msgid "Cyclical button mode"
-msgstr "Кружен режим на копчето"
-
-#: ../Src/Gtk2/dashergpe.glade.h:38
-msgid "Down/3:"
-msgstr "Долу/3:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:41
-msgid "Edit Button-control options"
-msgstr "Уреди ги опциите за контрола на копчињата"
-
-#: ../Src/Gtk2/dashergpe.glade.h:42
+#: ../Src/Gtk2/dashergpe.glade.h:6
 msgid "Enter text into other windows"
 msgstr "Внеси текст во други прозорци"
 
-#: ../Src/Gtk2/dashergpe.glade.h:43
-msgid "Eyetracker mode"
-msgstr "Режим на следење"
+#: ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Големо"
 
-#: ../Src/Gtk2/dashergpe.glade.h:44
-msgid ""
-"If this mode is selected, up and down will cycle backwards and forwards "
-"between coordinates and right will confirm the choice"
-msgstr ""
-"Ако е избран овој режим, горе и доле ќе бидат заменети со напред и назад, а "
-"десното копче ќе служи за потврда"
+#: ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Нормално"
 
-#: ../Src/Gtk2/dashergpe.glade.h:47
-msgid "Left/2:"
-msgstr "Лево/2:"
+#: ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Многу големо"
 
-#: ../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Број на пиксели кои што треба да го покријат целиот опсег на y:"
+#: ../Src/Gtk2/dashergpe.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "Фонт за _dasher"
 
-#: ../Src/Gtk2/dashergpe.glade.h:51
-msgid "One dimensional mode"
-msgstr "Едно-димензионален режим"
+#: ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "Големина на фонт за _dasher"
 
-#: ../Src/Gtk2/dashergpe.glade.h:53
-msgid "Orientation"
-msgstr "Ориентација"
+#: ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "_Уреди фонт"
 
-#: ../Src/Gtk2/dashergpe.glade.h:57
-msgid "Right/4:"
-msgstr "Десно/4:"
+#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_Опции"
 
-#: ../Src/Gtk2/dashergpe.glade.h:65
-msgid "Speak on stop"
-msgstr "Збори по стопирањето"
-
-#: ../Src/Gtk2/dashergpe.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:94
-msgid "Start with mouse position"
-msgstr "Започни со позицијата на глушецот"
-
-#: ../Src/Gtk2/dashergpe.glade.h:73
-msgid "Up/1:"
-msgstr "Горе/1:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:74
-msgid ""
-"Use this control to adjust the relative sizes of the letter boxes. Note that "
-"selecting high values will slow your writing speed."
-msgstr ""
-"Користете ја оваа контрола за менување на релативните големини на полињата "
-"за буквите. Имајте на ум дека избирањето на висока вреднос ќе ја успори "
-"брзината на запишување."
-
-#: ../Src/Gtk2/dashergpe.glade.h:77
-msgid "X:"
-msgstr "X:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:78
-msgid "Y:"
-msgstr "Y:"
+#: ../Src/Gtk2/dashergpe.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "_Ресетирај фонтови"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "\n"
 msgstr "\n"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:9
-msgid "<b>Button modes:</b>"
-msgstr "<b>Режим на копчиња:</b>"
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(Message Placeholder - no need to translate)"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:14
-msgid "<b>Input Device Drivers:</b>"
-msgstr "<b>Драјвери за влезен уред:</b>"
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Display Size:</b>"
+msgstr "<b>Големина на приказ:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:16
-msgid "<b>Input Filters:</b>"
-msgstr "<b>Филтри за внесувањето:</b>"
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Ориентација:</b>"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:30
-msgid "<b>Zoom steps:</b>"
-msgstr "<b>Чекори за зумирање:</b>"
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "Азбука"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:35
-msgid "Alternating direct mode"
-msgstr "Менувачки директен режим"
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "Enlarge input window"
+msgstr "Зголеми го влезниот прозорец"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:38
-msgid "Button Mode Options"
-msgstr "Опции за режим со копчиња"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:40
-msgid "Button Setup"
-msgstr "Поставување на копчињата"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:43
-msgid "Compass mode"
-msgstr "Режим со компас"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:51
-msgid "Direct mode"
-msgstr "Директен режим"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:56
-msgid "Four-button direct mode"
-msgstr "Директен режим со четири копчиња"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:57
-msgid "General"
-msgstr "Главно"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:69
-msgid "One-button dynamic mode"
-msgstr "Динамички режим за едно копче"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:70
-msgid "One-button static mode"
-msgstr "Статичен режим за едно копче"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:71
+#: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "P"
 msgstr "P"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:84
-msgid "Show Advanced Settings"
-msgstr "Покажи напредни поставувања"
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "Предвидување"
 
-#: ../Src/Gtk2/dashermaemo.glade.h:88
-msgid "Socket Options"
-msgstr "Socket oпции"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:95
-msgid "Static menu mode"
-msgstr "Режим со статичко мени"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:97
-msgid "Testing"
-msgstr "Тестирам"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:102
-msgid "Two button dynamic mode"
-msgstr "Динамички режим за две копчиња"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:110
-msgid "checkbutton1"
-msgstr "checkbutton1"
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Преглед"
 
