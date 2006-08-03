@@ -16,7 +16,8 @@ static SModuleSettings sSettings[] = {
   {LP_HOLD_TIME, T_LONG, 100, 10000, 1000, 100, "Long press time"},
   {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
   {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
-  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff and start/stop buttons"}
+  {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff and start/stop buttons"},
+  {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, "Reverse up and down buttons"}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
@@ -196,11 +197,16 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
 }
 
 void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel *pModel) {
+  int iFactor(1);
+
+  if(GetBoolParameter(BP_TWOBUTTON_REVERSE))
+    iFactor = -1;
+
   if(iButton == 2) {
-    pModel->Offset(GetLongParameter(LP_TWO_BUTTON_OFFSET));
+    pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET));
   }
   else if((iButton == 3) || (iButton == 4)) {
-    pModel->Offset(-GetLongParameter(LP_TWO_BUTTON_OFFSET));
+    pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET));
   }
 }
 
