@@ -1,3 +1,7 @@
+2006-08-03  Arangel Angov <ufo@linux.net.mk>
+
+	* Added sl.po to /po and 'sl' to LINGUAS.
+
 2006-07-24  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Preparation for release
