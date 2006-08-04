@@ -35,6 +35,8 @@ AM_GLIB_GNU_GETTEXT
 
 AC_PROG_CXX
 
+AC_PROG_LD_GNU
+
 WITHGTK2=true;
 
 PKG_CHECK_MODULES(GLIB, glib-2.0 >= 2.6, have_glib=true, have_glib=false)
@@ -318,11 +320,28 @@ AC_SUBST(SETTINGS_CFLAGS)
 AC_SUBST(SETTINGS_LIBS)
 
 GTK2BUILD_CFLAGS="$GTK2_CFLAGS $SETTINGS_CFLAGS $gthread_CFLAGS $gnome_speech_CFLAGS $gnome_a11y_CFLAGS $glade_CFLAGS $gnome_CFLAGS $wnck_CFLAGS $hildon_CFLAGS"
-if [[ x"$WITHDARWIN" = xtrue ]]; then
-      GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS"
+
+dnl Check for GNU ld stolen from libtool.m4 - code reuse would be nice here
+
+AC_CACHE_CHECK([if the linker ($LD) is GNU ld], have_prog_gnu_ld,
+[# I'd rather use --version here, but apparently some GNU lds only accept -v.
+case `$LD -v 2>&1 </dev/null` in
+*GNU* | *'with BFD'*)
+have_prog_gnu_ld=yes
+;;
+*)
+have_prog_gnu_ld=no
+;;
+esac])
+
+if [[ x"$have_prog_gnu_ld" ]]; then
+   ed_flags="-Wl,--export-dynamic,"
 else
-      GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS -Wl,--export-dynamic,"
+   ed_flags=""
 fi
+
+GTK2BUILD_LIBS="$X_LIBS $GTK2_LIBS $SETTINGS_LIBS $gthread_LIBS $gnome_speech_LIBS $gnome_a11y_LIBS $glade_LIBS $gnome_LIBS $wnck_LIBS $hildon_LIBS $ed_flags"
+
 AC_SUBST(GTK2BUILD_CFLAGS)
 AC_SUBST(GTK2BUILD_LIBS)
 

@@ -1067,7 +1067,7 @@ void dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
 #endif
 }
 
-gboolean dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
+void dasher_main_alphabet_combo_changed(DasherMain *pSelf) {
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
   GtkTreeIter sIter;

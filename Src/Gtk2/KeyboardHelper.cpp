@@ -80,7 +80,7 @@ int CKeyboardHelper::ConvertKeycode(int iCode) {
     return -1;
 }
 
-int CKeyboardHelper::Grab(bool bGrab) {
+void CKeyboardHelper::Grab(bool bGrab) {
   for(std::map<int,int>::iterator it(m_mTable.begin()); it != m_mTable.end(); ++it) {
     GdkKeymapKey *pKeys;
     int iKeysLength;

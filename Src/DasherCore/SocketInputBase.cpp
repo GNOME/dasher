@@ -12,12 +12,13 @@
 #include <errno.h>
 #include <stdarg.h>
 #ifdef WIN32
- #include <winsock2.h>
- #define DASHER_SOCKET_CLOSE_FUNCTION closesocket
+#include <winsock2.h>
+#define DASHER_SOCKET_CLOSE_FUNCTION closesocket
 #else
- #include <sys/socket.h>
- #include <netinet/in.h>
- #define DASHER_SOCKET_CLOSE_FUNCTION close
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <unistd.h>
+#define DASHER_SOCKET_CLOSE_FUNCTION close
 #endif
 
 using namespace Dasher;

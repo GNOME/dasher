@@ -47,7 +47,7 @@ namespace Dasher {
 /// mode). We should probably consider creating separate classes for
 /// these.
 
-class Dasher::CDasherView:public CDasherComponent
+class Dasher::CDasherView : public Dasher::CDasherComponent
 {
 public:
 

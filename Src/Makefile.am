@@ -33,7 +33,8 @@ dasher_LDADD = \
 	Gtk2/libdashercontrol.a \
 	DasherCore/libdashercore.a \
 	DasherCore/LanguageModelling/libdasherlm.a \
-	DasherCore/Alphabet/libdasheralphabet.a
+	DasherCore/Alphabet/libdasheralphabet.a \
+	Common/libdashermisc.a
 endif
 
 if DOQTE
