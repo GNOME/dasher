@@ -434,7 +434,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
 			"wrap-license", true,
 			NULL);
 #else
-  gchar *translator_credits = _("translator_credits");
+  gchar *translator_credits = _("translator-credits");
 
   GtkWidget *about = gnome_about_new (_("Dasher"), 
 			   PACKAGE_VERSION, 
@@ -442,7 +442,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
 			   _("Dasher is a predictive text entry application"),
 			   (const char **)authors,
 			   (const char **)documenters,
-			   strcmp (translator_credits, "translator_credits") != 0 ? (const char *)translator_credits : NULL,
+			   strcmp (translator_credits, "translator-credits") != 0 ? (const char *)translator_credits : NULL,
 			   NULL);
   
   gtk_window_set_transient_for (GTK_WINDOW(about), GTK_WINDOW (window));
