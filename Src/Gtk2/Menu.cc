@@ -391,7 +391,7 @@ extern "C" void reset_fonts(GtkWidget *widget, gpointer user_data) {
 
 extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
 
-#ifdef GNOME_LIBS
+#if (defined GNOME_LIBS) || (GTK_CHECK_VERSION(2,6,0))
 
   // In alphabetical order
   const gchar *authors[] = {
@@ -420,6 +420,7 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
     NULL
   };
 
+#if GTK_CHECK_VERSION(2,6,0)
   gtk_show_about_dialog(GTK_WINDOW(window),
 			"authors", authors,
 			"comments", _("Dasher is a predictive text entry application"), 
@@ -432,6 +433,23 @@ extern "C" void about_dasher(GtkWidget *widget, gpointer user_data) {
 			"website", "http://www.dasher.org.uk/",
 			"wrap-license", true,
 			NULL);
+#else
+  gchar *translator_credits = _("translator_credits");
+
+  GtkWidget *about = gnome_about_new (_("Dasher"), 
+			   PACKAGE_VERSION, 
+			   "Copyright The Dasher Project\n",
+			   _("Dasher is a predictive text entry application"),
+			   (const char **)authors,
+			   (const char **)documenters,
+			   strcmp (translator_credits, "translator_credits") != 0 ? (const char *)translator_credits : NULL,
+			   NULL);
+  
+  gtk_window_set_transient_for (GTK_WINDOW(about), GTK_WINDOW (window));
+  //  g_signal_connect (G_OBJECT (about), "destory", G_CALLBACK (gtk_widget_destroyed), &about);
+  gtk_widget_show(about);
+
+#endif
   
 #else
   // EAT UGLY ABOUT BOX, PHILISTINE

@@ -123,6 +123,8 @@ gboolean preferences = FALSE;
 gboolean textentry = FALSE;
 gboolean stdoutpipe = FALSE;
 
+// TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
+#if GLIB_CHECK_VERSION(2,14,0)
 static const GOptionEntry options[] = {
   {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
   {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
@@ -130,7 +132,7 @@ static const GOptionEntry options[] = {
   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
   {NULL}
 };
-
+#endif
 
 // TODO: Do we actually need this - gtk should in theory have
 // functions to prevent windows from taking focus, but maybe they
@@ -153,12 +155,14 @@ int main(int argc, char *argv[]) {
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);
 
+#if GLIB_CHECK_VERSION(2,14,0)
   //parse command line options
   GOptionContext *goptcontext;
   goptcontext = g_option_context_new(("- A text input application honouring accessibility"));
   g_option_context_add_main_entries(goptcontext, options, "Dasher");
   g_option_context_parse(goptcontext, &argc, &argv, NULL);
   //later GnomeProgram will call g_option_context_free() when we unref it
+#endif 
 
 #ifdef WITH_GPE
   gpe_application_init(&argc, &argv);
@@ -200,7 +204,7 @@ int main(int argc, char *argv[]) {
 #endif
 
   g_set_application_name("Dasher");
-#ifndef WITH_MAEMO
+#if (!defined WITH_MAEMO) && GTK_CHECK_VERSION(2,6,0)
   gtk_window_set_default_icon_name("dasher");
 #endif
 

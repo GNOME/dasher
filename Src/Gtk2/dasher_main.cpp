@@ -794,7 +794,9 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
   gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), false);
 #else
   gtk_window_set_accept_focus(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
+#if GTK_CHECK_VERSION(2,6,0)
   gtk_window_set_focus_on_map(GTK_WINDOW(pPrivate->pMainWindow), !(pPrivate->bTopMost));
+#endif
 #endif
 
   
