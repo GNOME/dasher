@@ -183,7 +183,7 @@
 \end{tabular}
 %%/dasher/images/a-z.gif.50.gif" 
 %%/dasher/images/aa-az.gif.50.gif" 
-%%/dasher/images/ala-alz.gif.50.gif"
+%%/dasher/images/ala-alz.gif.50.gif
 \end{center}
       -->
  <para>First, they walk into the <quote><computeroutput>a</computeroutput></quote>; section of the library.
@@ -1142,7 +1142,7 @@ Two buttons are used to control vertical position. When the required vertical po
 </para>
 </sect2> 
 
-<sect2 id="button dynamic">
+<sect2 id="buttondynamic">
 <title>Two Button Dynamic Mode</title>
 <para>
 <application>Dasher</application> continually zooms in, whilst two buttons are used to control vertical motion. A third button can be used as a reverse.

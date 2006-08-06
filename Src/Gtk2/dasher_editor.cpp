@@ -345,12 +345,14 @@ void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
     {Dasher::CControlManager::CTL_DELETE_BACKWARD_FILE, EDIT_BACKWARDS, EDIT_FILE, true}
   };    
 
-  for(int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
-    if(sMap[i].iEvent == iNodeID) {
-      if(sMap[i].bDelete) 
-	idasher_buffer_set_edit_delete(pPrivate->pBufferSet, sMap[i].iDir, sMap[i].iDist);
-      else
-	idasher_buffer_set_edit_move(pPrivate->pBufferSet, sMap[i].iDir, sMap[i].iDist);	
+  if(pPrivate->pBufferSet) {
+    for(int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
+      if(sMap[i].iEvent == iNodeID) {
+	if(sMap[i].bDelete) 
+	  idasher_buffer_set_edit_delete(pPrivate->pBufferSet, sMap[i].iDir, sMap[i].iDist);
+	else
+	  idasher_buffer_set_edit_move(pPrivate->pBufferSet, sMap[i].iDir, sMap[i].iDist);	
+      }
     }
   }
 }
@@ -682,15 +684,19 @@ void dasher_editor_action_save_state(DasherEditor *pSelf, EditorAction *pAction)
 
 void dasher_editor_output(DasherEditor *pSelf, const gchar *szText) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-  idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
+
+  if(pPrivate->pBufferSet)
+    idasher_buffer_set_insert(pPrivate->pBufferSet, szText);
 
   if(pPrivate->pGameModeHelper)
     game_mode_helper_output(pPrivate->pGameModeHelper, szText);
 }
 
 void dasher_editor_delete(DasherEditor *pSelf, int iLength) {
-  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-  idasher_buffer_set_delete(pPrivate->pBufferSet, iLength);
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data); 
+
+  if(pPrivate->pBufferSet)
+    idasher_buffer_set_delete(pPrivate->pBufferSet, iLength);
 
   if(pPrivate->pGameModeHelper)
     game_mode_helper_delete(pPrivate->pGameModeHelper, iLength);
@@ -698,12 +704,16 @@ void dasher_editor_delete(DasherEditor *pSelf, int iLength) {
 
 void dasher_editor_convert(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-  idasher_buffer_set_edit_convert(pPrivate->pBufferSet);
+
+  if(pPrivate->pBufferSet)
+    idasher_buffer_set_edit_convert(pPrivate->pBufferSet);
 }
 
 void dasher_editor_protect(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
-  idasher_buffer_set_edit_protect(pPrivate->pBufferSet);
+
+  if(pPrivate->pBufferSet)
+    idasher_buffer_set_edit_protect(pPrivate->pBufferSet);
 }
 
 EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID){
@@ -749,7 +759,12 @@ void dasher_editor_create_buffer(DasherEditor *pSelf) {
 void dasher_editor_refresh_context(DasherEditor *pSelf, int iMaxLength) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
-  gchar *szContext = idasher_buffer_set_get_context(pPrivate->pBufferSet, iMaxLength);
+  gchar *szContext;
+
+  if(pPrivate->pBufferSet)
+    szContext = idasher_buffer_set_get_context(pPrivate->pBufferSet, iMaxLength);
+  else
+    szContext = "";
   
   if(szContext && (strlen(szContext) > 0))
     gtk_dasher_control_set_context( GTK_DASHER_CONTROL(pDasherWidget), szContext );
