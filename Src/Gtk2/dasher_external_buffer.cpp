@@ -62,6 +62,7 @@ struct _DasherExternalBufferPrivate {
   AccessibleEventListener *pFocusListener;
   AccessibleEventListener *pCaretListener;
   AccessibleText *pAccessibleText;
+  gboolean bSPIInit;
 };
 
 GType dasher_external_buffer_get_type() {
@@ -120,7 +121,6 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
 }
 
 static void dasher_external_buffer_destroy(GObject *pObject) {
-  g_message("In destructor");
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(((DasherExternalBuffer *)pObject)->private_data);
 
   SPI_deregisterGlobalEventListener(pPrivate->pFocusListener, "focus:");
@@ -131,23 +131,31 @@ static void dasher_external_buffer_destroy(GObject *pObject) {
 }
 
 DasherExternalBuffer *dasher_external_buffer_new() {
-  g_message("creating buffer");
   DasherExternalBuffer *pDasherControl;
   pDasherControl = (DasherExternalBuffer *)(g_object_new(dasher_external_buffer_get_type(), NULL));
 
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
-  pPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pDasherControl);
-  pPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pDasherControl);
 
-  // TODO: Need to deregister these on destruction
-
-  if(pPrivate->pFocusListener && pPrivate->pCaretListener) {
-    SPI_registerGlobalEventListener(pPrivate->pFocusListener, "focus:");
-    SPI_registerGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+  if(SPI_init() == 2) {
+    g_message("Could not initilaise SPI - accessibility options disabled");
+    pPrivate->bSPIInit = false;
   }
   else {
-    g_message("Could not obtain an SPI listener");
-  }
+    pPrivate->bSPIInit = true;
+
+    pPrivate->pFocusListener = SPI_createAccessibleEventListener(focus_listener, pDasherControl);
+    pPrivate->pCaretListener = SPI_createAccessibleEventListener(caret_listener, pDasherControl);
+    
+    // TODO: Need to deregister these on destruction
+    
+    if(pPrivate->pFocusListener && pPrivate->pCaretListener) {
+      SPI_registerGlobalEventListener(pPrivate->pFocusListener, "focus:");
+      SPI_registerGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+    }
+    else {
+      g_message("Could not obtain an SPI listener");
+    }
+  }    
 
   pPrivate->pAccessibleText = 0;
 
@@ -155,6 +163,11 @@ DasherExternalBuffer *dasher_external_buffer_new() {
 }
 
 void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText) { 
+  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
+
+  if(!pPrivate->bSPIInit)
+    return;
+
   char *szNewText;
   szNewText = new char[strlen(szText) + 1];
   strcpy(szNewText, szText);
@@ -213,6 +226,11 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
 }
 
 void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength) {
+  DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
+
+  if(!pPrivate->bSPIInit)
+    return;
+
   SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
   return;
 
