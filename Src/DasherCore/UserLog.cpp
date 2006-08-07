@@ -813,7 +813,7 @@ string CUserLog::GetXML()
   {
     CUserLogTrial* pTrial = (CUserLogTrial*) m_vpTrials[i];
 
-    // Only log trials that actually had some writing in it
+   // Only log trials that actually had some writing in it
     if ((pTrial != NULL) && (pTrial->HasWritingOccured()))
     {
       strResult += pTrial->GetXML("\t\t");

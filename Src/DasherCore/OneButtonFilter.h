@@ -11,7 +11,7 @@ class COneButtonFilter : public CInputFilter {
   virtual void HandleEvent(Dasher::CEvent * pEvent);
 
   virtual bool DecorateView(CDasherView *pView);
-  virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  virtual void Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
   
  private:

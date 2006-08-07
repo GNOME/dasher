@@ -65,7 +65,7 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   return bRV;
 }
 
-bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   if(m_bKeyDown && !m_bKeyHandled && ((Time - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
     Event(Time, m_iHeldId, 1, m_pDasherModel);
     m_bKeyHandled = true;
@@ -73,15 +73,15 @@ bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDashe
   }
 
   if(m_iState == 2)
-    return m_pDasherModel->Tap_on_display(41943,2048, Time, 0, 0);
+    return m_pDasherModel->Tap_on_display(41943,2048, Time, pAdded, pNumDeleted);
   else if(m_iState == 1)
-    return TimerImpl(Time, m_pDasherView, m_pDasherModel);
+    return TimerImpl(Time, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted);
   else
     return false;
 }
 
-bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
-  return m_pDasherModel->Tap_on_display(100,2048, Time, 0, 0);
+bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
+  return m_pDasherModel->Tap_on_display(100,2048, Time, pAdded, pNumDeleted);
 }
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {

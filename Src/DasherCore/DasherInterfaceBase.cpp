@@ -108,6 +108,7 @@ void CDasherInterfaceBase::Realize() {
   // just the default.
 
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
+
   if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
 
@@ -431,7 +432,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
 	int iNumDeleted = 0;
 	
 	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel); // FIXME - need logging stuff here
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, &vAdded, &iNumDeleted);
 	}
 	
 	if (iNumDeleted > 0)
@@ -442,7 +443,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
       }
       else {
 	if(m_pInputFilter) {
-	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel);
+	  bChanged = m_pInputFilter->Timer(iTime, m_pDasherView, m_pDasherModel, 0, 0);
 	}
       }
       

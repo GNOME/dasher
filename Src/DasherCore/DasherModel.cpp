@@ -532,7 +532,7 @@ bool CDasherModel::Tap_on_display(myint miMousex,
   }
 
   // Now actually zoom to the new location
-  NewGoTo(iNewMin, iNewMax);
+  NewGoTo(iNewMin, iNewMax, pAdded, pNumDeleted);
 
   total_nats += -1.0 * log((iNewMax - iNewMin) / 4096.0);
 
@@ -678,7 +678,7 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
   return iRxnew_log;
 }
 
-void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax) {
+void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross=Get_node_under_crosshair();
 
@@ -720,19 +720,18 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax) {
   CDasherNode* new_under_cross = Get_node_under_crosshair();
   Push_Node(new_under_cross);
 
-  HandleOutput(new_under_cross, old_under_cross);
+  HandleOutput(new_under_cross, old_under_cross, pAdded, pNumDeleted);
+}
 
- }
-
-void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode) {
+void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   if(pNewNode != pOldNode)
-    DeleteCharacters(pNewNode, pOldNode);
+    DeleteCharacters(pNewNode, pOldNode, pNumDeleted);
   
   if(pNewNode->isSeen())
     return;
 
   // TODO: Reimplement second parameter
-  RecursiveOutput(pNewNode, NULL);
+  RecursiveOutput(pNewNode, pAdded);
 }
 
 

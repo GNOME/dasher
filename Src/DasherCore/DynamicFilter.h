@@ -13,7 +13,7 @@ class CDynamicFilter : public CTwoButtonDynamicFilter {
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
 
  protected:
-  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   virtual void ActionButton(int iTime, int iButton, CDasherModel *pModel);
   
  private:

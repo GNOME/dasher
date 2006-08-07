@@ -184,6 +184,7 @@ void CUserLogTrial::StartWriting()
       pLastLocation->span->Continue();
   }
 
+  NavCycle* newCycle = AddNavCycle();
 }
 
 void CUserLogTrial::StopWriting()

@@ -149,7 +149,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   bool Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
 /*   void GoTo(double, myint);     // jumps to a new viewpoint */
-   void NewGoTo(myint n1, myint n2);
+   void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
    void OldPush(myint iMousex, myint iMousey);
    double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2); 
 
@@ -273,7 +273,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void ScheduleZoom(int dasherx, int dashery);
 
-  void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode);
+  void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
 
   int ScheduledSteps() {
     return m_deGotoQueue.size();

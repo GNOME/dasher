@@ -17,10 +17,10 @@ bool CClickFilter::DecorateView(CDasherView *pView) {
   return false;
 }
 
-bool CClickFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CClickFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   // FIXME - REALLY, REALLY horrible - bleh
   pDasherView = m_pDasherView;
-  return m_pDasherModel->Tap_on_display(0, 0, Time, 0, 0);
+  return m_pDasherModel->Tap_on_display(0, 0, Time, pAdded, pNumDeleted);
 }
 
 void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {

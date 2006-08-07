@@ -11,7 +11,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
 
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView);
-  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);
   virtual void Activate();
@@ -20,7 +20,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
   
  protected:
-  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel);
+  virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
   virtual void ActionButton(int iTime, int iButton, CDasherModel *pModel);
 
   bool m_bDecorationChanged;

@@ -40,7 +40,7 @@ bool CDefaultFilter::DecorateView(CDasherView *pView) {
   return bDidSomething;
 }
 
-bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   myint iDasherX;
   myint iDasherY;
 
@@ -61,7 +61,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   }
 
   bool bDidSomething;
-  bDidSomething = m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, 0, 0);
+  bDidSomething = m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
 
   m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
 
