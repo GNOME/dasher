@@ -1,14 +1,17 @@
 // TODO: Make build system conditional
 #include "config.h"
-#ifdef GNOME_A11Y
 
+#include <string.h>
+
+#ifdef GNOME_A11Y
+#include <cspi/spi.h>
+#else
 #include <X11/X.h>
 #include <X11/Xlib.h>
 #include <X11/keysym.h>
 #include <X11/extensions/XTest.h>
 #include <gdk/gdkx.h>
-#include <string.h>
-#include <cspi/spi.h>
+#endif
 
 #include "dasher_buffer_set.h"
 #include "dasher_external_buffer.h"
@@ -50,18 +53,23 @@ void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolea
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMaxLength);
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist);
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist);
+
+#ifdef GNOME_A11Y
 void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent);
 void dasher_external_buffer_handle_caret(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent);
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData);
 void caret_listener(const AccessibleEvent *pEvent, void *pUserData);
+#endif
 
 typedef struct _DasherExternalBufferPrivate DasherExternalBufferPrivate;
 
 struct _DasherExternalBufferPrivate {
+#ifdef GNOME_A11Y
   AccessibleEventListener *pFocusListener;
   AccessibleEventListener *pCaretListener;
   AccessibleText *pAccessibleText;
+#endif
   gboolean bSPIInit;
 };
 
@@ -122,9 +130,10 @@ static void idasher_buffer_set_interface_init (gpointer g_iface, gpointer iface_
 
 static void dasher_external_buffer_destroy(GObject *pObject) {
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(((DasherExternalBuffer *)pObject)->private_data);
-
+#ifdef GNOME_A11Y
   SPI_deregisterGlobalEventListener(pPrivate->pFocusListener, "focus:");
   SPI_deregisterGlobalEventListener(pPrivate->pCaretListener, "object:text-caret-moved");
+#endif
 
   // FIXME - I think we need to chain up through the finalize methods
   // of the parent classes here...
@@ -134,6 +143,7 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   DasherExternalBuffer *pDasherControl;
   pDasherControl = (DasherExternalBuffer *)(g_object_new(dasher_external_buffer_get_type(), NULL));
 
+#ifdef GNOME_A11Y
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pDasherControl->private_data);
 
   if(SPI_init() == 2) {
@@ -158,6 +168,7 @@ DasherExternalBuffer *dasher_external_buffer_new() {
   }    
 
   pPrivate->pAccessibleText = 0;
+#endif
 
   return pDasherControl;
 }
@@ -165,6 +176,7 @@ DasherExternalBuffer *dasher_external_buffer_new() {
 void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szText) { 
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
+#ifdef GNOME_A11Y
   if(!pPrivate->bSPIInit)
     return;
 
@@ -175,10 +187,7 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
   SPI_generateKeyboardEvent(0, szNewText, SPI_KEY_STRING);
   
   delete[] szNewText;
-  return;
-
-  // EVERYTHING BELOW HERE IN THIS METHOD NOT USED
-
+#else
   glong numoutput;
   int numcodes;
   Display *dpy = gdk_x11_get_default_xdisplay();
@@ -223,18 +232,18 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
     XSync(dpy, true);
     g_free(wideoutput);
   }
+#endif
 }
 
 void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength) {
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
+#ifdef GNOME_A11Y
   if(!pPrivate->bSPIInit)
     return;
 
   SPI_generateKeyboardEvent(XK_BackSpace, NULL, SPI_KEY_SYM);
-  return;
-
-  
+#else
   Display *dpy;
   dpy = gdk_x11_get_default_xdisplay();
   KeyCode code;
@@ -244,15 +253,19 @@ void dasher_external_buffer_delete(DasherExternalBuffer *pSelf, int iLength) {
     XTestFakeKeyEvent(dpy, code, False, 0);
   }
   XFlush(dpy);
+#endif
 }
 
 void dasher_external_buffer_edit_move(DasherExternalBuffer *pSelf, int iDirection, int iDist) {
+  // TODO: Implement
 }
 
 void dasher_external_buffer_edit_delete(DasherExternalBuffer *pSelf, int iDirection, int iDist) {
+  // TODO: Implement
 }
 
 gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMaxLength) {
+#ifdef GNOME_A11Y
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
 
   if(pPrivate->pAccessibleText) {
@@ -267,8 +280,21 @@ gchar *dasher_external_buffer_get_context(DasherExternalBuffer *pSelf, gint iMax
   else {
     return 0;
   }
+#else
+  return 0;
+#endif
 }
 
+void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf) {
+}
+
+void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf) {
+}
+
+void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolean bMode) {
+}
+
+#ifdef GNOME_A11Y
 void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent) {
   DasherExternalBufferPrivate *pPrivate = (DasherExternalBufferPrivate *)(pSelf->private_data);
   
@@ -292,15 +318,6 @@ void dasher_external_buffer_handle_focus(DasherExternalBuffer *pSelf, const Acce
   }
 
   Accessible_unref(accessible);
-}
-
-void dasher_external_buffer_edit_convert(DasherExternalBuffer *pSelf) {
-}
-
-void dasher_external_buffer_edit_protect(DasherExternalBuffer *pSelf) {
-}
-
-void dasher_external_buffer_conversion_mode(DasherExternalBuffer *pSelf, gboolean bMode) {
 }
 
 void dasher_external_buffer_handle_caret(DasherExternalBuffer *pSelf, const AccessibleEvent *pEvent) {
@@ -328,7 +345,6 @@ void dasher_external_buffer_handle_caret(DasherExternalBuffer *pSelf, const Acce
 
 //     g_iOldPosition = iActualPosition;
 //   }
-
 }
 
 void focus_listener(const AccessibleEvent *pEvent, void *pUserData) {

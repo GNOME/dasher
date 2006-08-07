@@ -5,9 +5,7 @@
 #ifndef WITH_MAEMO
 #include "dasher_action_copy.h"
 #endif
-#ifdef GNOME_A11Y
 #include "dasher_action_keyboard.h"
-#endif 
 #ifdef WITH_MAEMO
 #include "dasher_action_keyboard_maemo.h"
 #else
@@ -429,9 +427,7 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_speech_new()));
 #endif
 
-#ifdef GNOME_A11Y
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_new(pPrivate->pExternalBuffer)));
-#endif
 
 #ifdef WITH_MAEMO
   dasher_editor_add_action(pSelf, DASHER_ACTION(dasher_action_keyboard_maemo_new()));
@@ -735,10 +731,8 @@ EditorAction *dasher_editor_get_action_by_id(DasherEditor *pSelf, int iID){
 void dasher_editor_create_buffer(DasherEditor *pSelf) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
-#ifdef GNOME_A11Y
   if(!(pPrivate->pExternalBuffer))
     pPrivate->pExternalBuffer = IDASHER_BUFFER_SET(dasher_external_buffer_new());
-#endif
 
   if(!(pPrivate->pInternalBuffer)) {
     pPrivate->pInternalBuffer = dasher_editor_get_buffer_set(pSelf);
