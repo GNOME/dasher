@@ -896,6 +896,31 @@ void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
 void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
   // TODO: Horrible code duplication here
 
+
+  // Circular version:
+
+  double dOffset = (iPosition - 2048) / 2048.0;
+
+  double dCos = (1 - pow(dOffset,2.0)) / (1 + pow(dOffset,2.0));
+  double dSin = 2 * dOffset / (1 + pow(dOffset,2.0));
+
+  {
+    CDasherScreen::point p[2];
+
+    myint iDasherX;
+    myint iDasherY;
+
+    iDasherX = 2048;
+    iDasherY = 2048;
+    Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+
+    iDasherX = 2048 - 500 * dCos;
+    iDasherY = 2048 + 500 * dSin;
+    Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+
+    Screen()->Polyline(p, 2, 4, 136); 
+  }
+
   if(iPosition > (myint)GetLongParameter(LP_MAX_Y)) {
      CDasherScreen::point p[2];
   

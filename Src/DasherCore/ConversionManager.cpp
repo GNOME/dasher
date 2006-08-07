@@ -92,7 +92,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     // order, rather than in order returned (really not sure about
     // this - it needs to be thought through).
 
-    int iSize[pCurrentCMNode->m_iNumChildren];
+    int *iSize;
+    iSize = new int[pCurrentCMNode->m_iNumChildren];
     
     int iRemaining(m_pModel->GetLongParameter(LP_NORMALIZATION));
 
@@ -147,6 +148,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pCurrentCMChild = pCurrentCMChild->m_pNext;
       ++iIdx;
     }
+
+    delete[] iSize;
   }
   else {
     // TODO: Placeholder algorithm here
