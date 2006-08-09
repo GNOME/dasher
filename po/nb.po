@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher 3.11.x\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-03 15:10+0200\n"
-"PO-Revision-Date: 2006-08-03 15:13+0200\n"
+"POT-Creation-Date: 2006-08-09 14:16+0200\n"
+"PO-Revision-Date: 2006-08-09 14:18+0200\n"
 "Last-Translator: Kjartan Maraas <kmaraas@gnome.org>\n"
 "Language-Team: Norwegian <i18n-no@lister.ping.uio.no>\n"
 "MIME-Version: 1.0\n"
@@ -16,8 +16,9 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
-#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
@@ -71,11 +72,11 @@ msgstr "Ikke avslutt"
 msgid "Save and quit"
 msgstr "Lagre og avslutt"
 
-#: ../Src/Gtk2/Menu.cc:425
+#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher er et forutseende program for inntasting av tekst"
 
-#: ../Src/Gtk2/Menu.cc:430
+#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
 msgid "translator-credits"
 msgstr "Kjartan Maraas <kmaraas@gnome.org>"
 
@@ -140,7 +141,7 @@ msgstr "<b>Språkmodell:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
 msgid "<b>Prediction:</b>"
-msgstr ""
+msgstr "<b>Forutseelse:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
