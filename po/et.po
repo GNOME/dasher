@@ -9,7 +9,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher HEAD\n"
+"Project-Id-Version: dasher GNOME 2.16\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-16 06:57+0200\n"
 "PO-Revision-Date: 2006-07-16 11:15+0300\n"
@@ -541,37 +541,3 @@ msgstr "Ennustamine"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "Vaade"
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "Nupujuhtimise valikute redigeerimine"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "Kui see režiim on valitud, siis üles ja alla vahetavad koordinaatide "
-#~ "edasi-tagasi suunda ning parem kinnitab valikut"
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "Pikslite arv, mis peab katma kogu Y vahemiku:"
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "Seda väärtust kasutatakse tähekastide suhtelise suuruse määramiseks. "
-#~ "Suuremate väärtuste seadmine alandab sinu kirjutamiskiirust."
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Kui see režiim on valitud, siis üles ja alla\n"
-#~ "vahetavad koordinaatide edasi-tagasi suunda ning parem kinnitab valikut"
-
-#~ msgid "%d characters output in %ld seconds\n"
-#~ msgstr "väljastatud %d märki %ld sekundi jooksul\n"
-
-#~ msgid "<b>Language Model Settings:</b>"
-#~ msgstr "<b>Keelemudeli sätted:</b>"
