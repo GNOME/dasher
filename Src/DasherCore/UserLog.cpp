@@ -1021,8 +1021,8 @@ void CUserLog::PrepareNewTrial()
     VECTOR_STRING vFound;
     if (m_vParams.size() > 0)
     {
-      for (VECTOR_USER_LOG_PARAM_PTR_ITER iter = m_vParams.end() - 1; iter >= m_vParams.begin(); iter--)
-      {
+	  for (VECTOR_USER_LOG_PARAM_PTR_REV_ITER iter = m_vParams.rbegin(); iter != m_vParams.rend(); ++iter)
+	  {
         if (((*iter) != NULL) && ((*iter)->options & userLogParamForceInTrial))
         {
           // Make sure we haven't output this one already

@@ -51,6 +51,7 @@ class CCursorInRange
 {
 public:
 	CCursorInRange();
+	~CCursorInRange();
 
 	// Initialize with a window to receive messsages (fails if Tablet subsystem isnt found)
 	HRESULT Initialize(HWND hwnd);

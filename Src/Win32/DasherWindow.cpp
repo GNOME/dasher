@@ -9,9 +9,10 @@
 #include "WinCommon.h"
 #include <guiddef.h>
 #include <Oleacc.h>
-#include <Textstor.h>
-#include <Msctf.h>
-#include <Msaatext.h>
+// Don't seem to be needed and not in VC8 platform SDK, kdv
+//#include <Textstor.h>
+//#include <Msctf.h>
+//#include <Msaatext.h>
 #include <Htmlhelp.h>
 
 #include "DasherWindow.h"
@@ -254,6 +255,7 @@ void CDasherWindow::Show(int nCmdShow)
   InvalidateRect( NULL, FALSE);
   if(!LoadWindowState())
     ShowWindow(nCmdShow);       // Now set up. Kill splash screen and display main window
+
 }
 
 void CDasherWindow::SaveWindowState() const 
