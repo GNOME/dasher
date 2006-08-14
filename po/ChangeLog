@@ -1,3 +1,8 @@
+2006-08-14  Matic Žgur  <mr.zgur@gmail.com>
+
+	* sl.po: Added Slovenian translation.
+	* LINGUAS: Added Slovenian (sl) to the list of languages.
+
 2006-08-14  Wouter Bolsterlee  <uws+gnome@xs4all.nl>
 
 	* nl.po: Translation updated by Wouter Bolsterlee.
