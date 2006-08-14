@@ -1,12 +1,13 @@
 # -*- mode:po; coding:utf-8; -*- Slovenian message catalogue for dasher.gnome-2-12.
 # Copyright (C) 2005 Free Software Foundation, Inc.
 # Matej Urbančič <matej.urban@gmail.com>, 2005.
+# Matic Žgur <mr.zgur@gmail.com>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.gnome-2-12\n"
+"Project-Id-Version: dasher\n"
 "POT-Creation-Date: 2005-10-06 12:47+0200\n"
-"PO-Revision-Date: 2006-08-14 10:33+0100\n"
+"PO-Revision-Date: 2006-08-14 15:27+0100\n"
 "Last-Translator: Matic Žgur <mr.zgur@gmail.com>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,14 +27,13 @@ msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
-#, fuzzy
 msgid "Predictive text entry"
-msgstr "Dasher je program za vnosa besedila brez tipkovnice"
+msgstr "Vnos besedila brez tipkovnice"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr ""
+msgstr "Vhod vtiča Dasher: zagon bralčeve niti ni uspel."
 
 #: ../Src/Gtk2/Menu.cc:62
 #: ../Src/Gtk2/Menu.cc:118
@@ -53,6 +53,9 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"Ali želite shraniti spremembe v %s?\n"
+"\n"
+"Spremembe bodo izgubljene, če jih ne shranite."
 
 #: ../Src/Gtk2/Menu.cc:305
 msgid ""
@@ -60,45 +63,46 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"Ali želite shraniti spremembe?\n"
+"\n"
+"Spremembe bodo izgubljene, če jih ne shranite."
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Don't save"
-msgstr ""
+msgstr "Ne shrani"
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Don't quit"
-msgstr ""
+msgstr "Ne končaj"
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Save and quit"
-msgstr ""
+msgstr "Shrani in končaj"
 
 #: ../Src/Gtk2/Menu.cc:425
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher je program za vnosa besedila brez tipkovnice"
 
 #: ../Src/Gtk2/Menu.cc:430
-#, fuzzy
 msgid "translator-credits"
-msgstr "prevajalec"
+msgstr ""
+"Matej Urbančič <matej.urban@gmail.com>\n"
+"Matic Žgur <mr.zgur@gmail.com>"
 
 #: ../Src/Gtk2/Preferences.cpp:822
 #: ../Src/Gtk2/Preferences.cpp:824
-#, fuzzy
 msgid "Training Dasher... please wait"
-msgstr "Urim Dasher, prosim počakajte"
+msgstr "Urjenje programa Dasher ... prosim počakajte"
 
 #: ../Src/Gtk2/dasher.glade.h:1
-#, fuzzy
 msgid "<b>Actions:</b>"
-msgstr "<b>Možnosti Y ordinate:</b>"
+msgstr "<b>Dejanja:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:2
 #: ../Src/Gtk2/dashermaemo.glade.h:4
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
-#, fuzzy
 msgid "<b>Adaptation:</b>"
-msgstr "<b>Usmeritev:</b>"
+msgstr "<b>Prilagoditev:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:3
 #: ../Src/Gtk2/dashermaemo.glade.h:5
@@ -107,60 +111,50 @@ msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Izbira abecede:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:4
-#, fuzzy
 msgid "<b>Appearance Options:</b>"
-msgstr "<b>Možnosti pogleda::</b>"
+msgstr "<b>Možnosti izgleda::</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:5
-#, fuzzy
 msgid "<b>Application Options:</b>"
-msgstr "<b>Možnosti Y ordinate:</b>"
+msgstr "<b>Možnosti programa:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:6
-#, fuzzy
 msgid "<b>Application Style:</b>"
-msgstr "<b>Kontrolni stil:</b>"
+msgstr "<b>Stil programa:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
-#, fuzzy
 msgid "<b>Colour Scheme:</b>"
-msgstr "<b>Izbira barve:</b>"
+msgstr "<b>Barvna shema:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Kontrolni stil:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:9
-#, fuzzy
 msgid "<b>Dasher Font:</b>"
-msgstr "_Dasher pisava"
+msgstr "<b>Dasher pisava:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-#, fuzzy
 msgid "<b>Direction:</b>"
-msgstr "<b>Usmeritev:</b>"
+msgstr "<b>Smer:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11
-#, fuzzy
 msgid "<b>Editor Font:</b>"
-msgstr "<b>Usmeritev:</b>"
+msgstr "<b>Pisava urejevalnika:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12
-#, fuzzy
 msgid "<b>Input Device:</b>"
-msgstr "<b>Hitrost</b>"
+msgstr "<b>Vhodna naprava:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13
 #: ../Src/Gtk2/dashermaemo.glade.h:7
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
-#, fuzzy
 msgid "<b>Language Model:</b>"
-msgstr "<b>Izmenjaj gumbni način:</b>"
+msgstr "<b>Jezikovni model:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
-#, fuzzy
 msgid "<b>Prediction:</b>"
-msgstr "<b>Usmeritev:</b>"
+msgstr "<b>Napoved:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:9
@@ -171,9 +165,8 @@ msgstr "<b>Glajenje:</b>"
 #: ../Src/Gtk2/dasher.glade.h:16
 #: ../Src/Gtk2/dashermaemo.glade.h:10
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
-#, fuzzy
 msgid "<b>Speed:</b>"
-msgstr "<b>Hitrost</b>"
+msgstr "<b>Hitrost:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
@@ -182,9 +175,8 @@ msgstr "<b>Zagon in izklop:</b>"
 #: ../Src/Gtk2/dasher.glade.h:18
 #: ../Src/Gtk2/dashermaemo.glade.h:11
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
-#, fuzzy
 msgid "Adapt speed automatically"
-msgstr "Avtomatično zamenjaj barvno shemo"
+msgstr "Samodejno prilagodi hitrost"
 
 #: ../Src/Gtk2/dasher.glade.h:19
 #: ../Src/Gtk2/dashermaemo.glade.h:13
@@ -193,17 +185,16 @@ msgid "Alphabet Default"
 msgstr "Privzeta abeceda"
 
 #: ../Src/Gtk2/dasher.glade.h:20
-#, fuzzy
 msgid "Alphabet:"
-msgstr "Abeceda"
+msgstr "Abeceda:"
 
 #: ../Src/Gtk2/dasher.glade.h:21
 msgid "Appearance"
-msgstr ""
+msgstr "Izgled"
 
 #: ../Src/Gtk2/dasher.glade.h:22
 msgid "Application"
-msgstr "Aplikacija"
+msgstr "Program"
 
 #: ../Src/Gtk2/dasher.glade.h:23
 #: ../Src/Gtk2/dashermaemo.glade.h:14
@@ -212,15 +203,17 @@ msgid "Bottom to Top"
 msgstr "Z dna proti vrhu."
 
 #: ../Src/Gtk2/dasher.glade.h:24
+#, fuzzy
 msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
+"Središčni krog\n"
+"Dve polji"
 
 #: ../Src/Gtk2/dasher.glade.h:26
-#, fuzzy
 msgid "Composition"
-msgstr "Pokaži položaj miške"
+msgstr "Sestavek"
 
 #: ../Src/Gtk2/dasher.glade.h:27
 #: ../Src/Gtk2/dashermaemo.glade.h:15
@@ -248,14 +241,13 @@ msgstr "Kopiraj _vse"
 #: ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
-msgstr ""
+msgstr "Poljubna barvna shema:"
 
 #: ../Src/Gtk2/dasher.glade.h:32
 #: ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
-#, fuzzy
 msgid "Custom:"
-msgstr "Izreži"
+msgstr "Poljubno:"
 
 #: ../Src/Gtk2/dasher.glade.h:33
 #: ../Src/Gtk2/dashergpe.glade.h:4
@@ -269,18 +261,16 @@ msgid "Dasher Preferences"
 msgstr "Dasher nastavitve"
 
 #: ../Src/Gtk2/dasher.glade.h:36
-#, fuzzy
 msgid "Dasher _Tutorial"
-msgstr "Dasher vnos besedila"
+msgstr "_Vodnik za Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:37
-#, fuzzy
 msgid "Direct entry"
-msgstr "Dasher vnos besedila"
+msgstr "Neposreden vnos"
 
 #: ../Src/Gtk2/dasher.glade.h:38
 msgid "Dock application window"
-msgstr ""
+msgstr "Zasidraj okno programa"
 
 #: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw box outlines"
@@ -292,33 +282,31 @@ msgstr "Nariši črto med prečnimi črtami in miško"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Full Screen"
-msgstr ""
+msgstr "Celozaslonski način"
 
 #: ../Src/Gtk2/dasher.glade.h:42
 msgid "Increase line thickness"
-msgstr ""
+msgstr "Povečaj debelino črt"
 
 #: ../Src/Gtk2/dasher.glade.h:43
 #: ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
-msgstr ""
+msgstr "japonščina"
 
 #: ../Src/Gtk2/dasher.glade.h:44
-#, fuzzy
 msgid "Language"
-msgstr "Veliko"
+msgstr "Jazik"
 
 #: ../Src/Gtk2/dasher.glade.h:45
 #: ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
-msgstr ""
+msgstr "Jezikovni model se prilagaja, medtem ko pišete."
 
 #: ../Src/Gtk2/dasher.glade.h:46
-#, fuzzy
 msgid "Large font "
-msgstr "Veliko"
+msgstr "Velika pisava"
 
 #: ../Src/Gtk2/dasher.glade.h:47
 #: ../Src/Gtk2/dashermaemo.glade.h:23
@@ -330,7 +318,7 @@ msgstr "Z leve proti desni"
 #: ../Src/Gtk2/dashermaemo.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+msgstr "Mešani model (PPM/slovar)"
 
 #: ../Src/Gtk2/dasher.glade.h:49
 #: ../Src/Gtk2/dashergpe.glade.h:8
@@ -343,9 +331,8 @@ msgid "Open file"
 msgstr "Odpri datoteko"
 
 #: ../Src/Gtk2/dasher.glade.h:51
-#, fuzzy
 msgid "Options"
-msgstr "_Možnosti"
+msgstr "Možnosti"
 
 #: ../Src/Gtk2/dasher.glade.h:52
 #: ../Src/Gtk2/dashergpe.glade.h:11
@@ -360,12 +347,11 @@ msgstr "Ustavi izven okna"
 #: ../Src/Gtk2/dasher.glade.h:54
 #: ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
-msgstr ""
+msgstr "Prosim počakajte ..."
 
 #: ../Src/Gtk2/dasher.glade.h:55
-#, fuzzy
 msgid "Pr_eferences"
-msgstr "Dasher nastavitve"
+msgstr "_Nastavitve"
 
 #: ../Src/Gtk2/dasher.glade.h:56
 #: ../Src/Gtk2/dashermaemo.glade.h:28
@@ -404,22 +390,21 @@ msgstr "Pokaži orodno vrstico"
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Small font"
-msgstr ""
+msgstr "Majhna pisava"
 
 #: ../Src/Gtk2/dasher.glade.h:65
-#, fuzzy
 msgid "Speed:"
-msgstr "Hitrost"
+msgstr "Hitrost:"
 
 #: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
-msgstr ""
+msgstr "Samostojen"
 
 #: ../Src/Gtk2/dasher.glade.h:67
 #: ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
-msgstr ""
+msgstr "Standarden, na črkah temelječ PPM"
 
 #: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
@@ -430,9 +415,8 @@ msgid "Start on space bar"
 msgstr "Prični ob pritisku na preslednico"
 
 #: ../Src/Gtk2/dasher.glade.h:70
-#, fuzzy
 msgid "Start with mouse position:"
-msgstr "Prični, ko bo miška v položaju"
+msgstr "Prični, ko bo miška v položaju:"
 
 #: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
@@ -455,15 +439,14 @@ msgstr ""
 "vašo hitrost pisanja."
 
 #: ../Src/Gtk2/dasher.glade.h:76
-#, fuzzy
 msgid "Very large font"
-msgstr "Zelo veliko"
+msgstr "Zelo velika pisava"
 
 #: ../Src/Gtk2/dasher.glade.h:77
 #: ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
-msgstr ""
+msgstr "Na besedah temelječ model"
 
 #: ../Src/Gtk2/dasher.glade.h:78
 #: ../Src/Gtk2/dashergpe.glade.h:17
@@ -478,7 +461,7 @@ msgstr "Pripni d_atoteki"
 
 #: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
-msgstr ""
+msgstr "_Vsebina"
 
 #: ../Src/Gtk2/dasher.glade.h:81
 #: ../Src/Gtk2/dashergpe.glade.h:21
@@ -516,9 +499,8 @@ msgid "Unable to initialize speech support\n"
 msgstr "Ne morem zagnati podpore za govor\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:138
-#, fuzzy
 msgid "Unable to initialize voices\n"
-msgstr "Ne morem zagnati glasov"
+msgstr "Ni mogoče inicializirati glasov\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "Warning: unable to set speech parameters\n"
@@ -570,7 +552,7 @@ msgstr "_Počisti pisavo"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:3
 msgid "(Message Placeholder - no need to translate)"
@@ -578,7 +560,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Display Size:</b>"
-msgstr ""
+msgstr "<b>Velikost prikaza:</b>"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:8
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
@@ -591,18 +573,17 @@ msgid "Alphabet"
 msgstr "Abeceda"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:20
-#, fuzzy
 msgid "Enlarge input window"
-msgstr "Vnesi besedilo v drugo okno"
+msgstr "Povečaj vhodno okno"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "P"
-msgstr ""
+msgstr "P"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:27
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
 msgid "Prediction"
-msgstr ""
+msgstr "Napoved"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:33
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
