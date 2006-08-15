@@ -49,6 +49,17 @@ CUserLogTrial::~CUserLogTrial()
         pCycle->pSpan = NULL;
       }
 
+      for (unsigned int i = 0; i < pCycle->vectorButtons.size(); i++)
+      {
+        CUserButton* pButton = (CUserButton*) pCycle->vectorButtons[i];
+
+        if (pButton != NULL)
+        {
+          delete pButton;
+          pButton = NULL;
+        }
+      }
+
       for (unsigned int i = 0; i < pCycle->vectorMouseLocations.size(); i++)
       {
         CUserLocation* pLocation = (CUserLocation*) pCycle->vectorMouseLocations[i];
@@ -431,6 +442,21 @@ void CUserLogTrial::AddMouseLocationNormalized(int iX, int iY, bool bStoreIntege
   }
   else
     g_pLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);    
+}
+
+void CUserLogTrial::AddKeyDown(int iId) {
+  CUserButton* pButton = new CUserButton(iId);
+
+  if(pButton) {
+    NavCycle* pCycle = GetCurrentNavCycle();
+
+    if(pCycle)
+      pCycle->vectorButtons.push_back(pButton);
+    else
+      g_pLogger->Log("CUserLogTrial::AddLocation, cycle was NULL!", logNORMAL);
+  }
+  else
+    g_pLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);
 }
 
 // Sets the current window size, this includes area for the menu bar, 
@@ -1064,6 +1090,24 @@ string CUserLogTrial::GetNavCyclesXML(const string& strPrefix)
         strResult += "</MousePositions>\n";
       }
 
+      if (pCycle->vectorButtons.size() > 0)
+      {
+        strResult += strPrefixTabTabTab;
+        strResult += "<Buttons>\n";
+
+        for (unsigned int i = 0; i < pCycle->vectorButtons.size(); i++)
+        {
+          CUserButton* pButton = (CUserButton*) pCycle->vectorButtons[i];
+
+          if(pButton)
+          {
+            strResult += pButton->GetXML(strPrefixTabTabTabTab);
+          }
+        }
+
+        strResult += strPrefixTabTabTab;
+        strResult += "</Buttons>\n";
+      }
 
       strResult += strPrefixTabTab;
       strResult += "</Nav>\n";

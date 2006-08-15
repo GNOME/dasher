@@ -24,7 +24,7 @@ enum {
   BP_COMPASSMODE, BP_SOCKET_INPUT_ENABLE, BP_SOCKET_DEBUG, 
   BP_OLD_STYLE_PUSH, BP_CIRCLE_START, BP_GLOBAL_KEYBOARD, 
   BP_DELAY_VIEW, BP_CONVERSION_MODE, BP_PAUSE_OUTSIDE, BP_BACKOFF_BUTTON, 
-  BP_TWOBUTTON_REVERSE, END_OF_BPS
+  BP_TWOBUTTON_REVERSE, BP_SLOW_START, END_OF_BPS
 };
 
 enum { 
@@ -38,7 +38,8 @@ enum {
   LP_ZOOMSTEPS, LP_B, LP_S, LP_Z, LP_R, LP_RIGHTZOOM,
   LP_BOOSTFACTOR, LP_AUTOSPEED_SENSITIVITY, LP_SOCKET_PORT, LP_SOCKET_INPUT_X_MIN, LP_SOCKET_INPUT_X_MAX,
   LP_SOCKET_INPUT_Y_MIN, LP_SOCKET_INPUT_Y_MAX, LP_OX, LP_OY, LP_MAX_Y, LP_INPUT_FILTER, 
-  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, END_OF_LPS
+  LP_CIRCLE_PERCENT, LP_TWO_BUTTON_OFFSET, LP_HOLD_TIME, LP_MULTIPRESS_TIME, LP_MULTIPRESS_COUNT, 
+  LP_SLOW_START_TIME, END_OF_LPS
 };
 
 enum {
@@ -135,7 +136,8 @@ static bp_table boolparamtable[] = {
   {BP_CONVERSION_MODE, "ConversionMode", !PERS, false, "Whether Dasher is operating in conversion (eg Japanese) mode"},
   {BP_PAUSE_OUTSIDE, "PauseOutside", PERS, false, "Whether to pause when pointer leaves canvas area"},
   {BP_BACKOFF_BUTTON, "BackoffButton", PERS, true, "Whether to enable the extra backoff button in dynamic mode"},
-  {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"}
+  {BP_TWOBUTTON_REVERSE, "TwoButtonReverse", PERS, false, "Reverse the up/down buttons in two button mode"},
+  {BP_SLOW_START, "SlowStart", PERS, false, "Start at low speed and insrease"}
 };
 
 static lp_table longparamtable[] = {
@@ -185,6 +187,7 @@ static lp_table longparamtable[] = {
   {LP_HOLD_TIME, "HoldTime", PERS, 1000, "Time for which buttons must be held to count as long presses, in ms"},
   {LP_MULTIPRESS_TIME, "MultipressTime", PERS, 3000, "Time in which multiple presses must occur, in ms"},
   {LP_MULTIPRESS_COUNT, "MultipressCount", PERS, 3, "Time in which multiple presses must occur to count"},
+  {LP_SLOW_START_TIME, "SlowStartTime", PERS, 1000, "Time over which slow start occurs"}
 };
 
 static sp_table stringparamtable[] = {

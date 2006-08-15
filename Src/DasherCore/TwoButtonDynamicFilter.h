@@ -18,6 +18,8 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   virtual void Deactivate();
 
   virtual bool GetSettings(SModuleSettings **pSettings, int *iCount);
+
+  virtual bool GetMinWidth(int &iMinWidth);
   
  protected:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);

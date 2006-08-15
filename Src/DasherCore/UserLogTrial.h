@@ -13,6 +13,7 @@
 #include <vector>
 #include "SimpleTimer.h"
 #include "TimeSpan.h"
+#include "UserButton.h"
 #include "UserLocation.h"
 #include "Alphabet/Alphabet.h"
 #include "DasherTypes.h"
@@ -76,6 +77,7 @@ struct NavCycle
   CTimeSpan*                  pSpan;                    // Tracks time span of this navgiation cycle
   VECTOR_NAV_LOCATION_PTR     vectorNavLocations;       // Locations when text was added or deleted
   VECTOR_USER_LOCATION_PTR    vectorMouseLocations;     // Stores mouse locations and time stamps    
+  VECTOR_USER_BUTTON_PTR      vectorButtons;        // Stores button presses and time stamps
 };
 
 typedef vector<NavCycle*>               VECTOR_NAV_CYCLE_PTR;
@@ -100,6 +102,7 @@ public:
   void                        AddCanvasSize(int iTop, int iLeft, int iBottom, int iRight);
   void                        AddMouseLocation(int iX, int iY, float dNats);
   void                        AddMouseLocationNormalized(int iX, int iY, bool bStoreIntegerRep, float dNats);
+  void AddKeyDown(int iId);
   bool                        IsWriting();
   void                        AddParam(const string& strName, const string& strValue, int iOptionMask = 0);
   static string               GetParamXML(CUserLogParam* pParam, const string& strPrefix = "");

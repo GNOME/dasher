@@ -24,7 +24,6 @@
 #include "DasherButtons.h"
 #include "DynamicFilter.h"
 #include "EyetrackerFilter.h"
-//#include "OneButtonFilter.h"
 #include "OneDimensionalFilter.h"
 #include "StylusFilter.h"
 #include "TwoButtonDynamicFilter.h"
@@ -114,6 +113,9 @@ void CDasherInterfaceBase::Realize() {
 
   CreateFactories();
   CreateInputFilter();
+
+  // FIXME - need to rationalise this sort of thing.
+  InvalidateContext(true);
     
   // All the setup is done by now, so let the user log object know
   // that future parameter changes should be logged.
@@ -185,13 +187,14 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 
     switch (pEvt->m_iParameter) {
 
-    case BP_COLOUR_MODE:       // Forces us to redraw the display
-      // TODO: Is this variable ever used any more?
-      Start();
-      Redraw(true);
-      break;
     case BP_OUTLINE_MODE:
-      Redraw(true);
+      ScheduleRedraw();
+      break;
+    case BP_DRAW_MOUSE:
+      ScheduleRedraw();
+      break;
+    case BP_DRAW_MOUSE_LINE:
+      ScheduleRedraw();
       break;
     case LP_ORIENTATION:
       if(GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
@@ -199,16 +202,15 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
 	SetLongParameter(LP_REAL_ORIENTATION, m_Alphabet->GetOrientation());
       else
 	SetLongParameter(LP_REAL_ORIENTATION, GetLongParameter(LP_ORIENTATION));
-      Redraw(true);
+      ScheduleRedraw();
       break;
     case SP_ALPHABET_ID:
       ChangeAlphabet();
-      Start();
-      Redraw(true);
+      ScheduleRedraw();
       break;
     case SP_COLOUR_ID:
       ChangeColours();
-      Redraw(true);
+      ScheduleRedraw();
       break;
     case SP_DEFAULT_COLOUR_ID: // Delibarate fallthrough
     case BP_PALETTE_CHANGE: 
@@ -217,21 +219,20 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case LP_LANGUAGE_MODEL_ID:
       CreateDasherModel();
-      Start();
-      Redraw(true);
+      ScheduleRedraw();
       break;
     case LP_LINE_WIDTH:
-      Redraw(false); // TODO - make this accessible everywhere
+      ScheduleRedraw();
       break;
     case LP_DASHER_FONTSIZE:
-      // TODO - make screen a CDasherComponent child?
-      Redraw(true);
+      ScheduleRedraw();
       break;
     case SP_INPUT_DEVICE:
       CreateInput();
       break;
     case SP_INPUT_FILTER:
       CreateInputFilter();
+      ScheduleRedraw();
       break;
     default:
       break;
@@ -287,7 +288,7 @@ void CDasherInterfaceBase::CreateDasherModel()
 {
   if(!m_AlphIO)
     return;
-  
+
   // TODO: Move training into model?
   // TODO: Do we really need to check for a valid language model?
   int lmID = GetLongParameter(LP_LANGUAGE_MODEL_ID);
@@ -335,6 +336,8 @@ void CDasherInterfaceBase::CreateDasherModel()
     m_pEventHandler->InsertEvent(pEvent);
     delete pEvent;
   }
+
+  Start();
 }
 
 void CDasherInterfaceBase::Start() {
@@ -349,6 +352,12 @@ void CDasherInterfaceBase::Start() {
     m_pDasherView->ResetSum();
     m_pDasherView->ResetSumCounter();
     m_pDasherView->ResetYAutoOffset();
+  }
+
+  int iMinWidth;
+  
+  if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
+    m_pDasherModel->LimitRoot(iMinWidth);
   }
 }
 
@@ -368,9 +377,11 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 void CDasherInterfaceBase::Halt() {
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
+  // Obsolete?
   if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
     SetLongParameter(LP_MOUSE_POS_BOX, 1);
   }
+  //
 
   // This will cause us to reinitialise the frame rate counter - ie we start off slowly
   if(m_pDasherModel != 0)
@@ -398,9 +409,6 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 }
 
 void CDasherInterfaceBase::CreateInput() {
-
-  // FIXME - this shouldn't be the model used here - we should just change a parameter and work from the appropriate listener
-
   if(m_pInput) {
     m_pInput->Deactivate();
     m_pInput->Unref();
@@ -523,27 +531,19 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 
   SetBoolParameter( BP_TRAINING, false );
 
-  Start();
-
   //}
 }
 
-// std::string CDasherInterfaceBase::GetCurrentAlphabet() {
-//   return GetStringParameter(SP_ALPHABET_ID);
-// }
-
 void CDasherInterfaceBase::ChangeColours() {
+  // TODO: Should be entirely in teh view class?
+
   if(!m_ColourIO)
     return;
-
-//   // delete old colours on editing function (ending function? - not really sure what the point of this is - I guess we might fail)
-//   std::auto_ptr < CCustomColours > ptrColours(m_pColours);
 
   if(m_pColours) {
     delete m_pColours;
     m_pColours = 0;
   }
-
  
   CColourIO::ColourInfo oColourInfo(m_ColourIO->GetInfo(GetStringParameter(SP_COLOUR_ID)));
   m_pColours = new CCustomColours(oColourInfo);
@@ -564,22 +564,19 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
       ChangeView();
   }
 
-  Redraw(true);
+  ScheduleRedraw();
 }
 
 void CDasherInterfaceBase::ChangeView() {
   // TODO: Actually respond to LP_VIEW_ID parameter (although there is only one view at the moment)
 
-  if(m_DasherScreen != 0 && m_pDasherModel != 0) 
-  {
-	  delete m_pDasherView;
-// 	  if(m_pAutoSpeedControl)
-// 	    delete m_pAutoSpeedControl;
- 	  m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
-
-
-	  if (m_pInput)
-	    m_pDasherView->SetInput(m_pInput);
+  if(m_DasherScreen != 0 && m_pDasherModel != 0) {
+    delete m_pDasherView;
+    
+    m_pDasherView = new CDasherViewSquare(m_pEventHandler, m_pSettingsStore, m_DasherScreen);
+ 
+    if (m_pInput)
+      m_pDasherView->SetInput(m_pInput);
   }
 }
 
@@ -729,17 +726,21 @@ void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
      WriteTrainFileFull();
    }
 
-  
+   if(bForceStart) {
+     int iMinWidth;
+
+     if(m_pInputFilter && m_pInputFilter->GetMinWidth(iMinWidth)) {
+       m_pDasherModel->LimitRoot(iMinWidth);
+     }
+   }
 
    if(m_pDasherView)
      while( m_pDasherModel->CheckForNewRoot(m_pDasherView) ) {
        // Do nothing
      }
 
-   //   Redraw(true);
    ScheduleRedraw();
 }
-
 
 void CDasherInterfaceBase::SetContext(std::string strNewContext) {
   m_pDasherModel->m_strContextBuffer = strNewContext;
@@ -794,6 +795,9 @@ CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
+  if(m_pUserLog)
+    m_pUserLog->KeyDown(iId);
+
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
     m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel);
   }
@@ -838,7 +842,6 @@ CDasherModule *CDasherInterfaceBase::GetModule(long long int iID) {
 CDasherModule *CDasherInterfaceBase::GetModuleByName(const std::string &strName) {
    return m_oModuleManager.GetModuleByName(strName);
 }
-
 
 void CDasherInterfaceBase::CreateFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDefaultFilter(m_pEventHandler, m_pSettingsStore, this, m_pDasherModel,3, "Normal Control")));

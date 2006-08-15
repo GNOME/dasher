@@ -38,11 +38,13 @@ static char THIS_FILE[] = __FILE__;
 // CDasherModel
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CAlphIO *pAlphIO, bool bGameMode, const std::string &strGameModeText)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0), total_nats(0.0), 
+:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0),
 m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
 m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
 
   m_iTargetOffset = 0;
+
+  m_dTotalNats = 0.0;
 
   m_bGameMode = bGameMode;
 
@@ -168,6 +170,9 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       break;
     case BP_DELAY_VIEW:
       MatchTarget(GetBoolParameter(BP_DELAY_VIEW));
+      break;
+    case BP_DASHER_PAUSED:
+      m_iStartTime = 0;
       break;
     default:
       break;
@@ -365,8 +370,6 @@ void CDasherModel::Start() {
 }
 
 void CDasherModel::SetContext(std::string &sNewContext) {
-  
-
   m_deGotoQueue.clear();
 
   if(oldroots.size() > 0) {
@@ -429,7 +432,7 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 ///
 
 void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
-                                         myint &iNewMin, myint &iNewMax) {
+                                         myint &iNewMin, myint &iNewMax, unsigned long iTime) {
   // Comments refer to the code immedialtely before them
 
   // Avoid Mousex=0, as this corresponds to infinite zoom
@@ -437,9 +440,21 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
     Mousex = 1;
   }
 
-  // If Mousex is too large we risk overflow errors, so make limit it
+  if(m_iStartTime == 0)
+    m_iStartTime = iTime;
+
   int iSteps = m_fr.Steps();
 
+  double dFactor;
+
+  if(GetBoolParameter(BP_SLOW_START) && ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME)))
+    dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
+  else 
+    dFactor = 1.0;
+
+  iSteps /= dFactor;
+
+  // If Mousex is too large we risk overflow errors, so limit it
   int iMaxX = (1 << 29) / iSteps;
 
   if(Mousex > iMaxX)
@@ -481,7 +496,9 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
   // expressions are in order to reproduce the behaviour of the old
   // algorithm
 
-  myint iMinSize(m_fr.MinSize(iMaxY));
+  myint iMinSize(m_fr.MinSize(iMaxY, dFactor));
+
+  //  std::cout << iTargetMax - iTargetMin << " " << iMinSize << std::endl;
 
   // Calculate the minimum size of the viewport corresponding to the
   // maximum zoom.
@@ -500,7 +517,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
 
 bool CDasherModel::Tap_on_display(myint miMousex,
                                   myint miMousey, 
-                                  unsigned long Time, 
+                                  unsigned long iTime, 
                                   Dasher::VECTOR_SYMBOL_PROB* pAdded, 
                                   int* pNumDeleted) 
         // work out the next viewpoint, opens some new nodes
@@ -520,7 +537,7 @@ bool CDasherModel::Tap_on_display(myint miMousex,
 
   if(m_deGotoQueue.size() == 0) {
     // works out next viewpoint
-    Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax);
+    Get_new_root_coords(miMousex, miMousey, iNewMin, iNewMax, iTime);
   
     if(GetBoolParameter(BP_OLD_STYLE_PUSH))
       OldPush(miMousex, miMousey);
@@ -531,10 +548,11 @@ bool CDasherModel::Tap_on_display(myint miMousex,
     m_deGotoQueue.pop_front();
   }
 
+
+  m_dTotalNats += -1.0 * log((iNewMax - iNewMin) / static_cast<double>(m_Rootmax - m_Rootmin));
+
   // Now actually zoom to the new location
   NewGoTo(iNewMin, iNewMax, pAdded, pNumDeleted);
-
-  total_nats += -1.0 * log((iNewMax - iNewMin) / 4096.0);
 
   return true;
 }
@@ -1134,4 +1152,9 @@ void CDasherModel::MatchTarget(bool bReverse) {
 //     m_Rootmin = m_iTargetMin;
 //     m_Rootmax = m_iTargetMax;
 //   }
+}
+
+void CDasherModel::LimitRoot(int iMaxWidth) {
+  m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iMaxWidth / 2;
+  m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
 }

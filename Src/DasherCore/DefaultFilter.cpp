@@ -149,13 +149,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
 
-  if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-    pView->DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects), false);
-  }
-  else {
-    pView->DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 1, Opts::ColorSchemes(Objects), false);
-  }
-
+  pView->DasherDrawCentredRectangle(iDasherX, iDasherY, 5, 2, Opts::ColorSchemes(Objects), false);
 }
 
 void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
@@ -200,12 +194,7 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
 
   // Actually plot the line
 
-  if(GetBoolParameter(BP_COLOUR_MODE)) {
-    pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
-  }
-  else {
-    pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), -1);
-  }
+  pView->DasherPolyline(x, y, 2, GetLongParameter(LP_LINE_WIDTH), 1);
 }
 
 void CDefaultFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {

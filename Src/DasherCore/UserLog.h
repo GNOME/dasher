@@ -100,7 +100,7 @@ public:
   void                        InitIsDone();
   void                        SetOuputFilename(const string& strFilename = "");
   int                         GetLogLevelMask();
-
+  void KeyDown(int iId);
   void                        HandleEvent(Dasher::CEvent* pEvent);
 
   // Methods used by utility that can post-process the log files:

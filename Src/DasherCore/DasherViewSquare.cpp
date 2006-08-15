@@ -921,6 +921,28 @@ void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
     Screen()->Polyline(p, 2, 4, 136); 
   }
 
+  int iOtherPosition = (1 - (1 / dOffset)) * 2048;
+
+  int iRadius = abs(iPosition - iOtherPosition) / 2;
+  int iCentre = (iPosition + iOtherPosition) / 2;
+
+  {
+    CDasherScreen::point p[2];
+
+    myint iDasherX;
+    myint iDasherY;
+
+    iDasherX = 0;
+    iDasherY = iCentre;
+    Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
+
+    iDasherX = 0;
+    iDasherY = iCentre + iRadius;
+    Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
+
+    Screen()->DrawCircle(p[0].x, p[0].y, abs(p[1].y - p[0].y), 136, false);
+  }
+
   if(iPosition > (myint)GetLongParameter(LP_MAX_Y)) {
      CDasherScreen::point p[2];
   

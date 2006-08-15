@@ -146,7 +146,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void Trace() const;           // diagnostics
   //void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
 
-  bool Tap_on_display(myint, myint, unsigned long Time, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
+  bool Tap_on_display(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
 
 /*   void GoTo(double, myint);     // jumps to a new viewpoint */
    void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
@@ -187,11 +187,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
  
   void ResetNats() {
-    total_nats = 0;
+    m_dTotalNats = 0.0;
   }
 
   double GetNats() {
-    return total_nats;
+    return m_dTotalNats;
   }
 
 //  myint PlotGoTo(myint MouseX, myint MouseY);
@@ -288,6 +288,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // button modes)
   void MatchTarget(bool bReverse);
 
+  // This is pretty horrible - a rethink of the start/reset mechanism
+  // is definitely in order
+  void LimitRoot(int iMaxWidth);
+
+
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;
@@ -324,7 +329,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CFrameRate m_fr;              // keep track of framerate
 
-  double total_nats;            // Information entered so far
+  double m_dTotalNats;            // Information entered so far
 
   // the probability that gets added to every symbol
   double m_dAddProb;
@@ -335,7 +340,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
 
-  void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax);
+  void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
  // void Get_new_goto_coords(double zoomfactor, myint mousey);
 
@@ -351,6 +356,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   CControlManagerFactory *m_pControlManagerFactory;
 
   bool m_bGameMode;
+
+  unsigned long m_iStartTime;
 
 #ifdef JAPANESE
   CConversionManagerFactory *m_pConversionManagerFactory;

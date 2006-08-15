@@ -17,7 +17,9 @@ static SModuleSettings sSettings[] = {
   {LP_MULTIPRESS_TIME, T_LONG, 100, 10000, 1000, 100, "Multiple press time"},
   {LP_MULTIPRESS_COUNT,T_LONG, 2, 10, 1, 1, "Multiple press count"},
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff and start/stop buttons"},
-  {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, "Reverse up and down buttons"}
+  {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, "Reverse up and down buttons"},
+  {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, "Slow startup"},
+  {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, "Startup time"}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
@@ -182,14 +184,14 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
     }
     break;
   case 2:
-    if(iButton == m_iLastButton) {
-      SetBoolParameter(BP_DELAY_VIEW, true);
-      m_iState = 1;
-    }
-    else {
+//     if(iButton == m_iLastButton) {
+//       SetBoolParameter(BP_DELAY_VIEW, true);
+//       m_iState = 1;
+//     }
+//     else {
       m_iState = 0;
       m_pInterface->PauseAt(0, 0);
-    }
+      //    }
     break;
   }
 
@@ -216,3 +218,8 @@ bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCou
 
   return true;
 };
+
+bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
+  iMinWidth = 1024;
+  return true;
+}

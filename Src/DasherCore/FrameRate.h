@@ -30,8 +30,14 @@ public:
   }
   /// Get the minimum size of the target viewport
   ////// TODO: Eventually fix this so that it uses integer maths internally. 
-  myint MinSize(myint t) const {
-    return static_cast < myint > (t / m_dRXmax);
+
+  // dFactor is a temporary change to the frame rate, allowing for
+  // slow start and the like
+  myint MinSize(myint t, double dFactor = 1.0) const {
+    if(dFactor == 1.0)
+      return static_cast < myint > (t / m_dRXmax);
+    else
+      return static_cast < myint > (t / pow(m_dRXmax, dFactor));
   };
 
   int Steps() const {

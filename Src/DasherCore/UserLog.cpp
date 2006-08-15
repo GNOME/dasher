@@ -696,6 +696,13 @@ int CUserLog::GetLogLevelMask()
 
   return m_iLevelMask;
 }
+
+void CUserLog::KeyDown(int iId) {
+  CUserLogTrial* pTrial = GetCurrentTrial();
+  
+  if(pTrial)
+    pTrial->AddKeyDown(iId);
+}
   
 // This gets called whenever parameters get changed that we are tracking
 void CUserLog::HandleEvent(Dasher::CEvent* pEvent)

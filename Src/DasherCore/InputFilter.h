@@ -25,6 +25,10 @@ class CInputFilter : public CDasherModule {
 
   virtual void Activate() {};
   virtual void Deactivate() {};
+
+  virtual bool GetMinWidth(int &iMinWidth) {
+    return false;
+  }
   
  protected:
   CDasherInterfaceBase *m_pInterface;

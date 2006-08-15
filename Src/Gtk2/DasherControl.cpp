@@ -19,11 +19,9 @@ using namespace std;
 extern "C" gint key_release_event(GtkWidget *widget, GdkEventKey *event, gpointer user_data);
 extern "C" gboolean button_press_event(GtkWidget *widget, GdkEventButton *event, gpointer data);
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data);
-//extern "C" void speed_changed(GtkHScale *hscale, gpointer user_data);
 extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *event, gpointer data);
 extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
-//extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
 
 // CDasherControl class definitions
@@ -34,10 +32,6 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   Realize();
 
   m_iComboCount = 0;
-    
-  // Start the dasher model
-
-  Start();        // FIXME - should we hold off on this until later?
 
   // Create input device objects
   // (We create the SocketInput object now even if socket input is not enabled, because
@@ -353,7 +347,7 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
   case SP_DASHER_FONT:
     if(m_pPangoCache) {
       m_pPangoCache->ChangeFont(GetStringParameter(SP_DASHER_FONT));
-      Redraw(true);
+      ScheduleRedraw();
     }
     break;
   case BP_GLOBAL_KEYBOARD:

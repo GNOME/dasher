@@ -8,10 +8,12 @@
 #else
 #include <X11/X.h>
 #include <X11/Xlib.h>
-#include <X11/keysym.h>
 #include <X11/extensions/XTest.h>
 #include <gdk/gdkx.h>
 #endif
+
+#include <X11/keysym.h>
+
 
 #include "dasher_buffer_set.h"
 #include "dasher_external_buffer.h"

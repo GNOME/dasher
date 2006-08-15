@@ -78,12 +78,7 @@ if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
     x[1] = sx;
     y[1] = DasherVisibleMaxY();
 
-    if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      DasherPolyline(x, y, 2, 1, 5);
-    }
-    else {
-      DasherPolyline(x, y, 2, 1, -1);
-    }
+    DasherPolyline(x, y, 2, 1, 5);
 
     // Horizontal bar of crosshair
 
@@ -93,12 +88,7 @@ if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
     x[1] = 17 * sx / 14;
     y[1] = GetLongParameter(LP_MAX_Y) / 2;
 
-    if(GetBoolParameter(BP_COLOUR_MODE) == true) {
-      DasherPolyline(x, y, 2, 1, 5);
-    }
-    else {
-      DasherPolyline(x, y, 2, 1, -1);
-    }
+    DasherPolyline(x, y, 2, 1, 5);
   }
 
   inline double CDasherViewSquare::ixmap(double x) const
