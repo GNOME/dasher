@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-03 06:18+0200\n"
-"PO-Revision-Date: 2006-08-14 10:08+0530\n"
+"POT-Creation-Date: 2006-08-15 23:09+0200\n"
+"PO-Revision-Date: 2006-08-16 09:21+0530\n"
 "Last-Translator: Runa Bhattacharjee <runabh@gmail.com>\n"
 "Language-Team: Bengali India\n"
 "MIME-Version: 1.0\n"
@@ -18,6 +18,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: KBabel 1.9.1\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n\n"
+"\n"
 "\n"
 
 #: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
@@ -36,7 +37,7 @@ msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher সকেট ইনপুট: reader থ্রেড আরম্ভ করতে ব্যর্থ"
 
 #: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
 #: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
@@ -316,84 +317,88 @@ msgid "Paste"
 msgstr "পেস্ট করুন"
 
 #: ../Src/Gtk2/dasher.glade.h:53
-msgid "Pause outside window"
-msgstr "উইন্ডোর বাইরে স্থগিত করা হবে"
+msgid "Pause outside of canvas"
+msgstr "ক্যানভাসের বাইরে স্থগিত করা হবে"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "অনুগ্রহ করে অপেক্ষা করুন..."
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "পছন্দ (_e)"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "ডানদিক থেকে বাঁদিকে"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "ফাইল সংরক্ষণ করুন"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "নতুন রূপে ফাইল সংরক্ষণ করুন"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "ফন্ট নির্বাচন করুন"
 
-#: ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "মাউসের অবস্থান প্রদর্শন করা হবে"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "গতি নির্দেশক স্লাইডার প্রদর্শন করা হবে"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "টুল-বার প্রদর্শন করা হবে"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:64
 msgid "Small font"
 msgstr "ছোট হরফ"
 
 # সায়মিন্দু কয়: কে কথা বলবে ??
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:65
 msgid "Speed:"
 msgstr "গতি:"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
 msgstr "স্বতন্ত্র"
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "প্রমিত অক্ষর-ভিত্তিক PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "মাউসের বাঁদিকের বাটনের ক্লিকে আরম্ভ করা হবে"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "স্পেস-বার টেপা হলে আরম্ভ করা হবে"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Start with mouse position:"
 msgstr "মাউসের অবস্থান দ্বারা আরম্ভ করা হবে:"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "নতুন ফাইলে সময় উল্লিখিত হবে"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "উপর থেকে নীচে"
 
-#: ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -403,50 +408,46 @@ msgstr ""
 "প্রণালী ব্যবহার করুন। উল্লেখ্য, উচ্চ মাপ নির্ধারিত হলে আপনার \n"
 "লেখার গতি হ্রাস পাবে।"
 
-#: ../Src/Gtk2/dasher.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:76
 msgid "Very large font"
 msgstr "অত্যাধিক বড় হরফ"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "শব্দ-ভিত্তিক মডেল"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "পরিচিতি (_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "ফাইলের শেষ অংশে যোগ করা হবে (_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "সূচি(_C)"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "সম্পাদনা (_E)"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "ফাইল (_F)"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "সহায়তা (_H)"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "পদ্ধতি নির্ধারণকারী টেক্সট ইম্পোর্ট করুন (_I)"
-
-#: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "পছন্দ (_P)"
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
@@ -551,277 +552,4 @@ msgstr "অনুমান"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "প্রদর্শন"
-
-msgid "Panels"
-msgstr "প্যানেল"
-
-msgid "Menus"
-msgstr "মেনুসমূহ"
-
-msgid "Buttons"
-msgstr "বাটন"
-
-msgid "Text"
-msgstr "টেক্সট"
-
-msgid "Windows"
-msgstr "উইন্ডোসমূহ"
-
-msgid "Stop"
-msgstr "থামো"
-
-msgid "Pause"
-msgstr "স্থগিত করুন"
-
-msgid "Move"
-msgstr "সরো"
-
-msgid "Delete"
-msgstr "মুছে ফেলো"
-
-msgid "Speak"
-msgstr "কথা বলো"
-
-msgid "<"
-msgstr "<"
-
-msgid ">"
-msgstr ">"
-
-msgid "<<<"
-msgstr "<<<"
-
-msgid ">>>"
-msgstr ">>>"
-
-msgid "Everything"
-msgstr "সবকিছু"
-
-msgid "New"
-msgstr "নতুন"
-
-msgid "Repeat"
-msgstr "পুনরায়"
-
-msgid "1"
-msgstr "১"
-
-msgid "2"
-msgstr "২"
-
-msgid "3"
-msgstr "৩"
-
-msgid "4"
-msgstr "৪"
-
-msgid "5"
-msgstr "৫"
-
-msgid "6"
-msgstr "৬"
-
-msgid "7"
-msgstr "৭"
-
-msgid "8"
-msgstr "৮"
-
-msgid "9"
-msgstr "৯"
-
-msgid "10"
-msgstr "১০"
-
-# FIXME
-msgid "Character"
-msgstr "অক্ষর"
-
-msgid "Word"
-msgstr "শব্দ"
-
-msgid "Line"
-msgstr "লাইন"
-
-msgid "Unknown"
-msgstr "অজানা"
-
-msgid "5:"
-msgstr "৫:"
-
-msgid "6:"
-msgstr "৬:"
-
-msgid "7:"
-msgstr "৭:"
-
-msgid "8:"
-msgstr "৮:"
-
-msgid "9:"
-msgstr "৯:"
-
-msgid "<b>Advanced Settings:</b>"
-msgstr "<b>উন্নত বৈশিষ্ট্য:</b>"
-
-msgid "<b>Button control setup</b>"
-msgstr "<b>বাটন নিয়ন্ত্রণের বৈশিষ্ট্য নির্ধারণ:</b>"
-
-msgid "<b>Button modes:</b>"
-msgstr "<b>বাটন মোড:</b>"
-
-msgid "<b>Menu Mode</b>"
-msgstr "<b>মেনু মোড:</b>"
-
-msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>বিবিধ বিকল্প:</b>"
-
-# FIXME
-msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>এক-বাটন বিশিষ্ট পরিবর্তনশীল মোড:</b>"
-
-msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>এক-বাটন বিশিষ্ট স্থায়ী মোড:</b>"
-
-# FIXME
-msgid "<b>Socket Input</b>"
-msgstr "<b>সকেট ইনপুট:</b>"
-
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>বাটন টগেল মোড:</b>"
-
-msgid "<b>X Coordinate</b>"
-msgstr "<b>X অক্ষ</b>"
-
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y অক্ষ:</b>"
-
-msgid "<b>Y Coordinate</b>"
-msgstr "<b>Y অক্ষ</b>"
-
-msgid "<b>Zoom steps:</b>"
-msgstr "<b>বড় করে প্রদর্শনের প্রণালী:</b>"
-
-msgid "Advanced"
-msgstr "অগ্রসর"
-
-msgid "Button control setup"
-msgstr "বাটন নিয়ন্ত্রণ সেটাপ"
-
-msgid "Button mode"
-msgstr "বাটন মোড"
-
-msgid "Button setup"
-msgstr "বাটনের বৈশিষ্ট্য স্থাপনা"
-
-msgid "Button:"
-msgstr "বাটন:"
-
-msgid "Click mode"
-msgstr "ক্লিক মোড"
-
-msgid "Copy all on stop"
-msgstr "থামার পরে সমগ্র কপি করা হবে"
-
-# sam: changed to আবর্তমান, though not very sure.
-msgid "Cyclical button mode"
-msgstr "আবর্তমান বাটন মোড"
-
-msgid "Distance from centreline for start on mouse position:"
-msgstr "মাউসের অবস্থানে শুরুর জন্যে মধ্যম রেখার থেকে দুরত্ব:"
-
-msgid "Down/3:"
-msgstr "নীচে/৩:"
-
-msgid "Edit Button-control options"
-msgstr "বাটন নিয়ন্ত্রণ সম্বন্ধীয় পছন্দ সম্পাদন করুন"
-
-msgid "Eyetracker mode"
-msgstr "আইট্র্যাকার মোড"
-
-msgid ""
-"If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"এই মোডটি নির্বাচিত থাকলে, উপর এবং নিচ ব্যবহারে\n"
-"কোঅর্ডিনেট সামনের বা পেছনের দিকে আবর্ত হবে। আর ডান এ নির্বাচিত মানটি নিশ্চিত "
-"করবে।"
-
-msgid "Label"
-msgstr "লেবেল"
-
-msgid "Left/2:"
-msgstr "বাম/২"
-
-msgid "Miscellaneous"
-msgstr "বিবিধ"
-
-msgid "One dimensional mode"
-msgstr "এক মাত্রিক মোড"
-
-msgid "One-button static mode"
-msgstr "এক-বাটন বিশিষ্ট স্থায়ী মোড"
-
-msgid "Pulsing mode"
-msgstr "পালস-বিশিষ্ট মোড"
-
-msgid "Right zoom:  "
-msgstr "ডানদিকে বড় করে প্রদর্শন:  "
-
-msgid "Right/4:"
-msgstr "ডান/৪"
-
-msgid "Speak on stop"
-msgstr "থামলে কথা বোলো"
-
-msgid "Training"
-msgstr "প্রশিক্ষণ চলছে"
-
-msgid "Training Dasher - please wait"
-msgstr "Dasher'র ব্যবহারপ্রণালী নির্ধারণ করা হচ্ছে... অনুগ্রহ করে অপেক্ষা করুন"
-
-msgid "Up/1:"
-msgstr "উপরে/১:"
-
-msgid "X:"
-msgstr "X:"
-
-msgid "Y:"
-msgstr "Y:"
-
-# FIXME
-msgid "<b>Speed</b>"
-msgstr "<b>গতি</b>"
-
-msgid "Change colour scheme automatically"
-msgstr "স্বয়ংক্রিয়রূপে রঙের বিন্যাস পরিবর্তন করা হবে"
-
-msgid "Color"
-msgstr "রং"
-
-msgid ""
-"If this mode is selected, up and down will cycle backwards and forwards "
-"between coordinates and right will confirm the choice"
-msgstr ""
-"এই মোডটি নির্বাচিত থাকলে, উপর এবং নিচ ব্যবহারে\n"
-"কোঅর্ডিনেট সামনের বা পেছনের দিকে আবর্ত হবে। আর ডান এ নির্বাচিত মানটি নিশ্চিত "
-"করবে।"
-
-msgid "Number of pixels that should cover the entire y range:"
-msgstr "y অংশটিকে যতগুলি পিক্সেল দিয়ে ঢাকা হবে"
-
-msgid "Orientation"
-msgstr "দিশা"
-
-msgid ""
-"Use this control to adjust the relative sizes of the letter boxes. Note that "
-"selecting high values will slow your writing speed."
-msgstr "বর্ণের বাক্সের আপেক্ষিক মাপ পরিবর্তনের জন্য এই নিয়ন্ত্রণ প্রণালী ব্যবহার করুন। উল্লেখ্য, উচ্চ মাপ নির্ধারিত হলে আপনার লেখার গতি হ্রাস পাবে।"
-
-msgid "Select _All"
-msgstr "সমগ্র নির্বাচন করুন (_A)"
-
-msgid "%d characters output in %ld seconds\n"
-msgstr "%d অক্ষর আউটপুট %ld সেকেন্ডে\n"
 
