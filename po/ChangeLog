@@ -1,3 +1,8 @@
+2006-08-16  Rahul Bhalerao  <b.rahul.pm@gmail.com>
+
+	* LINGUAS: Added an entry for Marathi(mr).
+	* mr.po: Added this file and updated Marathi translation.
+	
 2006-08-16  Daniel Nylander <po@danielnylander.se>
 
 	* sv.po: Updated Swedish translation.
