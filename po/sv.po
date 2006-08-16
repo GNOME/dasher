@@ -1,7 +1,7 @@
 # Swedish messages for dasher.
 # Copyright (C) 2004, 2005, 2006 Free Software Foundation, Inc.
-# Christian Rose <menthos@menthos.com>, 2004, 2005.
 # Daniel Nylander <po@danielnylander.se>, 2006.
+# Christian Rose <menthos@menthos.com>, 2004, 2005.
 #
 # $Id$
 #
@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 06:57+0200\n"
-"PO-Revision-Date: 2006-07-16 12:45+0100\n"
+"POT-Creation-Date: 2006-08-15 15:30+0200\n"
+"PO-Revision-Date: 2006-08-15 19:41+0100\n"
 "Last-Translator: Daniel Nylander <po@danielnylander.se>\n"
 "Language-Team: Swedish <tp-sv@listor.tp-sv.se>\n"
 "MIME-Version: 1.0\n"
@@ -38,7 +38,7 @@ msgstr "Indata till Dasher via uttag: misslyckades med att starta lästråd."
 #: ../Src/Gtk2/Menu.cc:118
 #: ../Src/Gtk2/Menu.cc:176
 #: ../Src/Gtk2/Menu.cc:219
-#: ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:59
 #: ../Src/Gtk2/dashergpe.glade.h:14
 #: ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
@@ -87,7 +87,9 @@ msgid "translator-credits"
 msgstr ""
 "Daniel Nylander\n"
 "Christian Rose\n"
-"Skicka synpunkter på översättningen till tp-sv@listor.tp-sv.se"
+"\n"
+"Skicka synpunkter på översättningen till\n"
+"tp-sv@listor.tp-sv.se"
 
 #: ../Src/Gtk2/Preferences.cpp:822
 #: ../Src/Gtk2/Preferences.cpp:824
@@ -348,81 +350,85 @@ msgid "Please Wait..."
 msgstr "Var god vänta..."
 
 #: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "_Inställningar"
+
+#: ../Src/Gtk2/dasher.glade.h:56
 #: ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Höger till vänster"
 
-#: ../Src/Gtk2/dasher.glade.h:56
+#: ../Src/Gtk2/dasher.glade.h:57
 #: ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Spara fil"
 
-#: ../Src/Gtk2/dasher.glade.h:57
+#: ../Src/Gtk2/dasher.glade.h:58
 #: ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Spara fil som"
 
-#: ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:60
 #: ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Välj typsnitt"
 
-#: ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "Visa musposition"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "Visa hastighetsskjutreglage"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "Visa verktygsrad"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:64
 msgid "Small font"
 msgstr "Litet typsnitt"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:65
 msgid "Speed:"
 msgstr "Hastighet:"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
 msgstr "Fristående"
 
-#: ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.glade.h:67
 #: ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Standard bokstavsbaserad PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Starta vid vänster musknapp"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "Starta vid mellanslagstangent"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Start with mouse position:"
 msgstr "Starta med musposition:"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "Tidsstämpla nya filer"
 
-#: ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.glade.h:72
 #: ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Uppifrån och ned"
 
-#: ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -432,57 +438,53 @@ msgstr ""
 "storlekarna för bokstavslådor. Observera att höga värden\n"
 "kommer att slöa ned din skrivhastighet."
 
-#: ../Src/Gtk2/dasher.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:76
 msgid "Very large font"
 msgstr "Mycket stort typsnitt"
 
-#: ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.glade.h:77
 #: ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Ordbaserad modell"
 
-#: ../Src/Gtk2/dasher.glade.h:77
+#: ../Src/Gtk2/dasher.glade.h:78
 #: ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_Om"
 
-#: ../Src/Gtk2/dasher.glade.h:78
+#: ../Src/Gtk2/dasher.glade.h:79
 #: ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "_Lägg till i fil"
 
-#: ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "_Innehåll"
 
-#: ../Src/Gtk2/dasher.glade.h:80
+#: ../Src/Gtk2/dasher.glade.h:81
 #: ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Redigera"
 
-#: ../Src/Gtk2/dasher.glade.h:81
+#: ../Src/Gtk2/dasher.glade.h:82
 #: ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Arkiv"
 
-#: ../Src/Gtk2/dasher.glade.h:82
+#: ../Src/Gtk2/dasher.glade.h:83
 #: ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Hjälp"
 
-#: ../Src/Gtk2/dasher.glade.h:83
+#: ../Src/Gtk2/dasher.glade.h:84
 #: ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "_Importera träningstext"
-
-#: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "_Inställningar"
 
 #: ../Src/Gtk2/dasher.glade.h:85
 #: ../Src/Gtk2/dashergpe.glade.h:28
@@ -552,9 +554,10 @@ msgstr "_Återställ typsnitt"
 msgid "\n"
 msgstr "\n"
 
+# This is wierd.
 #: ../Src/Gtk2/dashermaemo.glade.h:3
 msgid "(Message Placeholder - no need to translate)"
-msgstr ""
+msgstr " "
 
 #: ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Display Size:</b>"
