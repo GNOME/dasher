@@ -1,35 +1,52 @@
+# translation of lt.po to Lithuanian
 # Lithuanian translation of dasher.
 # Copyright (C) 2004-2006 Free Software Foundation Inc.
 # This file is distributed under the same license as the dasher package.
+#
+#
 # Gediminas Čičinskas <wooz@parok.lt>, 2004.
 # Žygimantas Beručka <zygis@gnome.org>, 2004-2006.
 # Justina Klingaitė <justina.klingaite@gmail.com>, 2005.
-#
-# 
+# Gintautas Miliauskas <gintas@akl.lt>, 2006.
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher HEAD\n"
+"Project-Id-Version: lt\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-03-15 17:00+0200\n"
-"PO-Revision-Date: 2006-03-15 17:02+0200\n"
-"Last-Translator: Žygimantas Beručka <zygis@gnome.org>\n"
+"POT-Creation-Date: 2006-08-18 21:45+0300\n"
+"PO-Revision-Date: 2006-08-18 21:45+0300\n"
+"Last-Translator: Gintautas Miliauskas <gintas@akl.lt>\n"
 "Language-Team: Lithuanian <komp_lt@konferencijos.lt>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms:  nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && (n%"
+"100<10 || n%100>=20) ? 1 : 2);\n"
+
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
+msgid "Dasher"
+msgstr "Dasher"
+
+#: ../Data/dasher.desktop.in.in.h:2
+msgid "Predictive text entry"
+msgstr "Prognozuojamo teksto įvedimas"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher lizdo įvestis: nepavyko paleisti skaityklės gijos."
 
-#: ../Src/Gtk2/Menu.cc:68 ../Src/Gtk2/Menu.cc:124 ../Src/Gtk2/Menu.cc:182
-#: ../Src/Gtk2/Menu.cc:225 ../Src/Gtk2/dasher.glade.h:91
-#: ../Src/Gtk2/dashergpe.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:100
+#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Pasirinkti rinkmeną"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/Menu.cc:302
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -38,9 +55,9 @@ msgid ""
 msgstr ""
 "Ar norite išsaugoti %s pakeitimus?\n"
 "\n"
-"Jeigu neišsaugosite, Jūsų pakeitimai bus prarasti."
+"Jeigu neišsaugosite, pakeitimai bus prarasti."
 
-#: ../Src/Gtk2/Menu.cc:311
+#: ../Src/Gtk2/Menu.cc:305
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -48,25 +65,25 @@ msgid ""
 msgstr ""
 "Ar norite išsaugoti pakeitimus?\n"
 "\n"
-"Jeigu neišsaugosite, Jūsų pakeitimai bus prarasti."
+"Jeigu neišsaugosite, pakeitimai bus prarasti."
 
-#: ../Src/Gtk2/Menu.cc:314
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Don't save"
 msgstr "Nesaugoti"
 
-#: ../Src/Gtk2/Menu.cc:314
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Don't quit"
 msgstr "Neišeiti"
 
-#: ../Src/Gtk2/Menu.cc:314
+#: ../Src/Gtk2/Menu.cc:308
 msgid "Save and quit"
 msgstr "Išsaugoti ir išeiti"
 
-#: ../Src/Gtk2/Menu.cc:428
+#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher yra prognozuojamo teksto įvedimo programa"
 
-#: ../Src/Gtk2/Menu.cc:431
+#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
 msgid "translator-credits"
 msgstr ""
 "Paskutinysis vertėjas:\n"
@@ -74,166 +91,111 @@ msgstr ""
 "Ankstesnysis vertėjas:\n"
 "Gediminas Čičinskas <wooz@parok.lt>"
 
-#: ../Src/Gtk2/Preferences.cpp:640 ../Src/Gtk2/Preferences.cpp:642
-#: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:72
-#: ../Src/Gtk2/dashermaemo.glade.h:117
+#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
 msgid "Training Dasher... please wait"
 msgstr "Palaukite, Dasher dabar apmokomas..."
 
-#: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:6
+#: ../Src/Gtk2/dasher.glade.h:1
+msgid "<b>Actions:</b>"
+msgstr "<b>Veiksmai:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Adaptacija:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:7
-msgid "<b>Advanced Settings:</b>"
-msgstr "<b>Sudėtingesni nustatymai:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:6
-#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Raidyno pasirinkimas:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:4
+msgid "<b>Appearance Options:</b>"
+msgstr "<b>Išvaizdos nustatymai:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:5
+msgid "<b>Application Options:</b>"
+msgstr "<b>Programos nustatymai:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Programos stilius:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:10
-msgid "<b>Button modes:</b>"
-msgstr "<b>Klavišo režimai:</b>"
+#: ../Src/Gtk2/dasher.glade.h:7
+msgid "<b>Colour Scheme:</b>"
+msgstr "<b>Spalvos schema:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashergpe.glade.h:8
-#: ../Src/Gtk2/dashermaemo.glade.h:11
-msgid "<b>Color Selection:</b>"
-msgstr "<b>Spalvos pasirinkimas:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:12
-msgid "<b>Compass Mode</b>"
-msgstr "<b>Kompaso režimas</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:9
-#: ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Valdymo stilius:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:9
-msgid "<b>Direct Mode And Menu Mode</b>"
-msgstr "<b>Tiesioginis režimas ir meniu režimas</b>"
+msgid "<b>Dasher Font:</b>"
+msgstr "<b>Dasher šriftas:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10
-msgid "<b>External Input:</b>"
-msgstr "<b>Išorinė įvestis:</b>"
+msgid "<b>Direction:</b>"
+msgstr "<b>Kryptis:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dasher.glade.h:11
+msgid "<b>Editor Font:</b>"
+msgstr "<b>Redaktoriaus šriftas:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:12
+msgid "<b>Input Device:</b>"
+msgstr "<b>Įvedimo įrenginys:</b>"
+
+#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>Kalbos modelis:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashergpe.glade.h:10
-#: ../Src/Gtk2/dashermaemo.glade.h:16
-msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b>Įvairūs nustatymai:</b>"
+#: ../Src/Gtk2/dasher.glade.h:14
+msgid "<b>Prediction:</b>"
+msgstr "<b>Prognozavimas:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:17
-msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b>Vieno klavišo dinaminis režimas</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:18
-msgid "<b>One-Button Static Mode</b>"
-msgstr "<b>Vieno klavišo statinis režimas</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashergpe.glade.h:11
-#: ../Src/Gtk2/dashermaemo.glade.h:19
-msgid "<b>Orientation:</b>"
-msgstr "<b>Orientacija:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashergpe.glade.h:12
-#: ../Src/Gtk2/dashermaemo.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Lygumas:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashermaemo.glade.h:21
-msgid "<b>Socket Input</b>"
-msgstr "<b>Lizdo įvestis</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>Greitis:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashergpe.glade.h:14
-#: ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Pradėjimas ir pabaigimas:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:16
-#: ../Src/Gtk2/dashermaemo.glade.h:25
-msgid "<b>View Options:</b>"
-msgstr "<b>Vaizdo nustatymai:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashermaemo.glade.h:26
-msgid "<b>X Coordinate</b>"
-msgstr "<b>X koordinatė</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashergpe.glade.h:18
-#: ../Src/Gtk2/dashermaemo.glade.h:28
-msgid "<b>Y Axis Options:</b>"
-msgstr "<b>Y Ašies nustatymai:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:29
-msgid "<b>Y Coordinate</b>"
-msgstr "<b>Y koordinatė:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashermaemo.glade.h:30
-msgid "<b>Zoom steps:</b>"
-msgstr "<b>Mastelio keitimo žingsneliai:</b>"
-
-#: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Automatiškai pritaikyti greitį"
 
-#: ../Src/Gtk2/dasher.glade.h:26
-msgid "Advanced Settings"
-msgstr "Sudėtingesni nustatymai"
-
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashergpe.glade.h:20
-#: ../Src/Gtk2/dashermaemo.glade.h:33
-msgid "Alphabet"
-msgstr "Raidynas"
-
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:21
-#: ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "Numatytas raidynas"
 
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashermaemo.glade.h:35
-msgid "Alternating direct mode"
-msgstr "Keičiamas tiesioginis režimas"
+#: ../Src/Gtk2/dasher.glade.h:20
+msgid "Alphabet:"
+msgstr "Raidynas:"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:22
-#: ../Src/Gtk2/dashermaemo.glade.h:36
+#: ../Src/Gtk2/dasher.glade.h:21
+msgid "Appearance"
+msgstr "Išvaizda"
+
+#: ../Src/Gtk2/dasher.glade.h:22
+msgid "Application"
+msgstr "Programa"
+
+#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Apačia į viršų"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:37
-msgid "Box non-uniformity:"
-msgstr "Dėžutės nevieningumas:"
-
-#: ../Src/Gtk2/dasher.glade.h:32
-msgid "Button Mode Options"
-msgstr "Klavišo režimo nustatymai"
-
-#: ../Src/Gtk2/dasher.glade.h:33
-msgid "Button Preferences"
-msgstr "Klavišo nustatymai"
-
-#: ../Src/Gtk2/dasher.glade.h:34
-msgid "Button Setup"
-msgstr "Klavišo sąranka"
-
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:24
-#: ../Src/Gtk2/dashermaemo.glade.h:39
-msgid "Button mode"
-msgstr "Klavišo režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -241,688 +203,350 @@ msgstr ""
 "Centrinis apskritimas\n"
 "Dvi dėžutės"
 
-#: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:43
-msgid "Click mode"
-msgstr "Spragsėjimo režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:39 ../Src/Gtk2/dashermaemo.glade.h:44
-msgid "Compass mode"
-msgstr "Kompaso režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:26
 msgid "Composition"
 msgstr "Kompozicija"
 
-#: ../Src/Gtk2/dasher.glade.h:41 ../Src/Gtk2/dashergpe.glade.h:28
-#: ../Src/Gtk2/dashermaemo.glade.h:45
+#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "Valdiklis"
 
-#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashermaemo.glade.h:46
-msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Valdyti Dasher per tinklo lizdą, o ne pele (sudėtingiau)"
-
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:29
-#: ../Src/Gtk2/dashermaemo.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "Control mode"
 msgstr "Valdymo režimas"
 
-#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:30
-#: ../Src/Gtk2/dashermaemo.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
 msgid "Copy"
 msgstr "Kopijuoti"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashergpe.glade.h:31
-#: ../Src/Gtk2/dashermaemo.glade.h:49
+#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Kopijuoti _viską"
 
-#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashergpe.glade.h:32
-#: ../Src/Gtk2/dashermaemo.glade.h:50
-msgid "Copy all on stop"
-msgstr "Kopijuoti viską sustabdant"
+#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
+msgid "Custom colour scheme:"
+msgstr "Nurodyta spalvų schema:"
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Pritaikytas:"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:33
-#: ../Src/Gtk2/dashermaemo.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
 msgid "Cut"
 msgstr "Iškirpti"
 
-#. g_type_class_ref(dasher_gtk_text_view_get_type());
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:35
-#: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:180
-msgid "Dasher"
-msgstr "Dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:36
-#: ../Src/Gtk2/dashermaemo.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher nustatymai"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:36
+msgid "Dasher _Tutorial"
+msgstr "Dasher į_vadas"
+
+#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
 msgstr "Tiesioginis įrašas"
 
-#: ../Src/Gtk2/dasher.glade.h:52
-msgid "Direct mode"
-msgstr "Tiesioginis režimas"
+#: ../Src/Gtk2/dasher.glade.h:38
+msgid "Dock application window"
+msgstr "Prikabinti programos langą"
 
-#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:37
-#: ../Src/Gtk2/dashermaemo.glade.h:56
-msgid "Distance from centerline for start on mouse position:"
-msgstr "Atstumas nuo centrinės linijos pradėjimui nuo pelės pozicijos:"
-
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashergpe.glade.h:39
-#: ../Src/Gtk2/dashermaemo.glade.h:58
+#: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw box outlines"
 msgstr "Braižyti apvadų kontūrus"
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashergpe.glade.h:40
-#: ../Src/Gtk2/dashermaemo.glade.h:59
+#: ../Src/Gtk2/dasher.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Braižyti linija tarp taikiklių ir pelės"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:60
-msgid "Drop time:  "
-msgstr "Paleidimo laikas:  "
+#: ../Src/Gtk2/dasher.glade.h:41
+msgid "Full Screen"
+msgstr "Visame ekrane"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:43
-#: ../Src/Gtk2/dashermaemo.glade.h:63
-msgid "Eyetracker mode"
-msgstr "Akies seklio režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashermaemo.glade.h:64
-msgid "Four-button direct mode"
-msgstr "Keturių mygtukų tiesioginis režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:59
-msgid "General"
-msgstr "Bendri"
-
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashermaemo.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:42
 msgid "Increase line thickness"
 msgstr "Padidinti eilučių storumą"
 
-#: ../Src/Gtk2/dasher.glade.h:61 ../Src/Gtk2/dashermaemo.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Japonų"
 
-#: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashermaemo.glade.h:69
-msgid "Label"
-msgstr "Antraštė"
+#: ../Src/Gtk2/dasher.glade.h:44
+msgid "Language"
+msgstr "Kalba"
 
-#: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashermaemo.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
-msgstr "Kalbos modelis prisitaiko, kai Jūs rašote."
+msgstr "Kalbos modelis prisitaiko įvedimo metu."
 
-#: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:45
-#: ../Src/Gtk2/dashermaemo.glade.h:71
-msgid "Large"
-msgstr "Didelis"
+#: ../Src/Gtk2/dasher.glade.h:46
+msgid "Large font "
+msgstr "Didelis šriftas "
 
-#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashergpe.glade.h:46
-#: ../Src/Gtk2/dashermaemo.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Iš kairės į dešnę"
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:74
-msgid "Max"
-msgstr "Maks"
-
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:75
-msgid "Min"
-msgstr "Min"
-
-#: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:76
-msgid "Miscellaneous"
-msgstr "Įvairūs"
-
-#: ../Src/Gtk2/dasher.glade.h:69 ../Src/Gtk2/dashermaemo.glade.h:77
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Sumaišytas modelis (PPM/žodynas)"
 
-#: ../Src/Gtk2/dasher.glade.h:70 ../Src/Gtk2/dashergpe.glade.h:48
-#: ../Src/Gtk2/dashermaemo.glade.h:78
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Nauja rinkmena"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashergpe.glade.h:49
-#: ../Src/Gtk2/dashermaemo.glade.h:79
-msgid "Normal"
-msgstr "Normalus"
-
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:80
-msgid "Number of \"zoom-out boxes\":"
-msgstr "„Atitraukimo dėžučių“ kiekis:"
-
-#: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:81
-msgid "Number of boxes:"
-msgstr "Dėžučių kiekis:"
-
-#: ../Src/Gtk2/dasher.glade.h:74 ../Src/Gtk2/dashergpe.glade.h:51
-#: ../Src/Gtk2/dashermaemo.glade.h:82
-msgid "One dimensional mode"
-msgstr "Vieno matavimo režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:83
-msgid "One-button dynamic mode"
-msgstr "Vieno mygtuko dinaminis režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:84
-msgid "One-button static mode"
-msgstr "Vieno klavišo statinis režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:52
-#: ../Src/Gtk2/dashermaemo.glade.h:85
+#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Atverti rinkmeną"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashermaemo.glade.h:86
-msgid "Ordinary control"
-msgstr "Eilinis valdiklis"
+#: ../Src/Gtk2/dasher.glade.h:51
+msgid "Options"
+msgstr "Nustatymai"
 
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:54
-#: ../Src/Gtk2/dashermaemo.glade.h:87
+#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Įdėti"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:55
-#: ../Src/Gtk2/dashermaemo.glade.h:88
-msgid "Pause outside window"
-msgstr "Sustabdyti išorinį langą"
+#: ../Src/Gtk2/dasher.glade.h:53
+msgid "Pause outside of canvas"
+msgstr "Sustabdyti, išėjus už ribų"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:89
-msgid "Port"
-msgstr "Prievadas"
+#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
+msgid "Please Wait..."
+msgstr "Prašome palaukti..."
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:90
-msgid "Prediction"
-msgstr "Prognozė"
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "_Nustatymai"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashermaemo.glade.h:91
-msgid "Print socket-related debugging information to console"
-msgstr "Konsolėje rodyti su lizdu susijusią derinimo informaciją"
-
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashermaemo.glade.h:92
-msgid "Pulsing mode"
-msgstr "Pulsavimo režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:56
-#: ../Src/Gtk2/dashermaemo.glade.h:93
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Iš dešinės į kairę"
 
-#: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:94
-msgid "Right zoom:  "
-msgstr "Dešinys mastelis:  "
-
-#: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashermaemo.glade.h:96
-msgid "Safety margin:"
-msgstr "Saugumo paraštė:"
-
-#: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashergpe.glade.h:58
-#: ../Src/Gtk2/dashermaemo.glade.h:97
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Išsaugoti rinkmeną"
 
-#: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashergpe.glade.h:59
-#: ../Src/Gtk2/dashermaemo.glade.h:98
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Išsaugoti rinkmeną kaip"
 
-#: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashermaemo.glade.h:99
-msgid "Scaling amount (1D mode):"
-msgstr "Mastelio keitimo dydis (1D režimas):"
-
-#: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:61
-#: ../Src/Gtk2/dashermaemo.glade.h:101
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dashermaemo.glade.h:30
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Pasirinkti šriftą"
 
-#: ../Src/Gtk2/dasher.glade.h:93
-msgid "Show Advanced Settings"
-msgstr "Rodyti sudėtingesnius nustatymus"
-
-#: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashergpe.glade.h:62
-#: ../Src/Gtk2/dashermaemo.glade.h:102
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "Rodyti pelės poziciją"
 
-#: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashergpe.glade.h:63
-#: ../Src/Gtk2/dashermaemo.glade.h:103
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "Rodyti greičio slankiklį"
 
-#: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashergpe.glade.h:64
-#: ../Src/Gtk2/dashermaemo.glade.h:104
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "Rodyti įrankių juostą"
 
-#: ../Src/Gtk2/dasher.glade.h:97
-msgid "Socket Options"
-msgstr "Lizdo nustatymai"
+#: ../Src/Gtk2/dasher.glade.h:64
+msgid "Small font"
+msgstr "Mažas šriftas"
 
-#: ../Src/Gtk2/dasher.glade.h:98
-msgid "Socket Preferences"
-msgstr "Lizdo nustatymai"
+#: ../Src/Gtk2/dasher.glade.h:65
+msgid "Speed:"
+msgstr "Greitis:"
 
-#: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashergpe.glade.h:65
-#: ../Src/Gtk2/dashermaemo.glade.h:106
-msgid "Speak on stop"
-msgstr "Kalbėti sustabdžius"
-
-#: ../Src/Gtk2/dasher.glade.h:100
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
-msgstr ""
+msgstr "Atskiras"
 
-#: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:107
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Standartinis letter-based PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:102 ../Src/Gtk2/dashergpe.glade.h:66
-#: ../Src/Gtk2/dashermaemo.glade.h:108
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Pradėti paspaudus kairį pelės mygtuką"
 
-#: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:67
-#: ../Src/Gtk2/dashermaemo.glade.h:109
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "Pradėti paspaudus tarpo klavišą"
 
-#: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashergpe.glade.h:68
-#: ../Src/Gtk2/dashermaemo.glade.h:110
-msgid "Start with mouse position"
-msgstr "Pradėti su pelės pozicija"
+#: ../Src/Gtk2/dasher.glade.h:70
+msgid "Start with mouse position:"
+msgstr "Pradėti pelės pozicija:"
 
-#: ../Src/Gtk2/dasher.glade.h:105 ../Src/Gtk2/dashermaemo.glade.h:111
-msgid "Static menu mode"
-msgstr "Statinio meniu režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashermaemo.glade.h:112
-msgid "Steady mode"
-msgstr "Tvirtas režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:107 ../Src/Gtk2/dashergpe.glade.h:69
-#: ../Src/Gtk2/dashermaemo.glade.h:114
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "Uždėti laiko žymę naujoms rinkmenoms"
 
-#: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:70
-#: ../Src/Gtk2/dashermaemo.glade.h:115
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Iš viršaus į apačią"
 
-#: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:71
-#: ../Src/Gtk2/dashermaemo.glade.h:116
-msgid "Training"
-msgstr "Mokoma"
-
-#: ../Src/Gtk2/dasher.glade.h:111
-msgid "Two button dynamic mode"
-msgstr "Dviejų mygtukų dinaminis režimas"
-
-#: ../Src/Gtk2/dasher.glade.h:112 ../Src/Gtk2/dashermaemo.glade.h:119
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Naudokite šį valdiklį norėdami priderinti santikynį \n"
+"Naudokite šį valdiklį norėdami priderinti santykinį\n"
 "raidžių dydį. Pastaba: nurodžius dideles reikšmes suletės\n"
-"Jūsų rašymo greitis."
+"rašymo greitis."
 
-#: ../Src/Gtk2/dasher.glade.h:115 ../Src/Gtk2/dashergpe.glade.h:75
-#: ../Src/Gtk2/dashermaemo.glade.h:122
-msgid "Very Large"
-msgstr "Labai didelis"
+#: ../Src/Gtk2/dasher.glade.h:76
+msgid "Very large font"
+msgstr "Labai didelis šriftas"
 
-#: ../Src/Gtk2/dasher.glade.h:116 ../Src/Gtk2/dashergpe.glade.h:76
-#: ../Src/Gtk2/dashermaemo.glade.h:123
-msgid "View"
-msgstr "Peržiūrėti"
-
-#: ../Src/Gtk2/dasher.glade.h:117 ../Src/Gtk2/dashermaemo.glade.h:124
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Žodžiais paremtas modelis"
 
-#: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:127
-msgid "Zoom:"
-msgstr "Mastelis:"
-
-#: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashergpe.glade.h:79
-#: ../Src/Gtk2/dashermaemo.glade.h:128
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_Apie"
 
-#: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:80
-#: ../Src/Gtk2/dashermaemo.glade.h:129
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "_Pridėti prie rinkmenos"
 
-#: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:81
-#: ../Src/Gtk2/dashermaemo.glade.h:130
-msgid "_Dasher Font"
-msgstr "_Dasher šriftas"
+#: ../Src/Gtk2/dasher.glade.h:80
+msgid "_Contents"
+msgstr "_Turinys"
 
-#: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:82
-#: ../Src/Gtk2/dashermaemo.glade.h:131
-msgid "_Dasher Font Size"
-msgstr "_Dasher šrifto dydis"
-
-#: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:83
-#: ../Src/Gtk2/dashermaemo.glade.h:132
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Keisti"
 
-#: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:84
-#: ../Src/Gtk2/dashermaemo.glade.h:133
-msgid "_Edit Font"
-msgstr "_Keisti šriftą"
-
-#: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashergpe.glade.h:85
-#: ../Src/Gtk2/dashermaemo.glade.h:134
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Rinkmena"
 
-#: ../Src/Gtk2/dasher.glade.h:126 ../Src/Gtk2/dashergpe.glade.h:86
-#: ../Src/Gtk2/dashermaemo.glade.h:135
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Žinynas"
 
-#: ../Src/Gtk2/dasher.glade.h:127 ../Src/Gtk2/dashergpe.glade.h:87
-#: ../Src/Gtk2/dashermaemo.glade.h:136
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "_Importuoti apmokymo tekstą"
 
-#: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:88
-#: ../Src/Gtk2/dashermaemo.glade.h:137
-msgid "_Options"
-msgstr "_Nustatymai"
-
-#: ../Src/Gtk2/dasher.glade.h:129 ../Src/Gtk2/dashergpe.glade.h:89
-#: ../Src/Gtk2/dashermaemo.glade.h:138
-msgid "_Reset fonts"
-msgstr "_Atkurti šriftus"
-
-#: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashergpe.glade.h:90
-#: ../Src/Gtk2/dashermaemo.glade.h:139
+#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dashermaemo.glade.h:35
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "abcdefghijk ABCDEFGHIJK"
 
-#: ../Src/Gtk2/dashergpe.glade.h:1 ../Src/Gtk2/dashermaemo.glade.h:1
-msgid "5:"
-msgstr "5:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:2
-msgid "6:"
-msgstr "6:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:3
-msgid "7:"
-msgstr "7:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:4 ../Src/Gtk2/dashermaemo.glade.h:4
-msgid "8:"
-msgstr "8:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:5
-msgid "9:"
-msgstr "9:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:9
-msgid "<b>Button control setup</b>"
-msgstr "<b>Klavišų valdymo suderinimas</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:13
-msgid "<b>Speed</b>"
-msgstr "<b>Greitis</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:24
-msgid "<b>Toggle button Mode:</b>"
-msgstr "<b>Perjungti klavišo režimą:</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:17 ../Src/Gtk2/dashermaemo.glade.h:27
-msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b>X/Y koordinatės:</b>"
-
-#: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
-msgid "Advanced"
-msgstr "Sudėtingas"
-
-#: ../Src/Gtk2/dashergpe.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:38
-msgid "Button control setup"
-msgstr "Klavišo valdymo sąranka"
-
-#: ../Src/Gtk2/dashergpe.glade.h:25 ../Src/Gtk2/dashermaemo.glade.h:41
-msgid "Button:"
-msgstr "Klavišas:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:26
-msgid "Change color scheme automatically"
-msgstr "Pakeisti spalvų schemą automatiškai"
-
-#: ../Src/Gtk2/dashergpe.glade.h:27
-msgid "Color"
-msgstr "Spalva"
-
-#: ../Src/Gtk2/dashergpe.glade.h:34 ../Src/Gtk2/dashermaemo.glade.h:53
-msgid "Cyclical button mode"
-msgstr "Ciklinis klavišų režimas"
-
-#: ../Src/Gtk2/dashergpe.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:57
-msgid "Down/3:"
-msgstr "Žemyn/3:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:41 ../Src/Gtk2/dashermaemo.glade.h:61
-msgid "Edit Button-control options"
-msgstr "Redaguoti klavišų valdymo nustatymus"
-
-#: ../Src/Gtk2/dashergpe.glade.h:42 ../Src/Gtk2/dashermaemo.glade.h:62
-msgid "Enter text into other windows"
-msgstr "Įvesti tekstą į kitus langus"
-
-#: ../Src/Gtk2/dashergpe.glade.h:44
-msgid ""
-"If this mode is selected, up and down will cycle backwards and forwards "
-"between coordinates and right will confirm the choice"
-msgstr ""
-"Jei pasirinkta ši veiksena, viršun ir žemyn perjunginės atgal ir pirmyn tarp "
-"koordinačių, o dešinėn patvirtins pasirinkimą"
-
-#: ../Src/Gtk2/dashergpe.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:73
-msgid "Left/2:"
-msgstr "Kairė/2:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:50
-msgid "Number of pixels that should cover the entire Y range:"
-msgstr "Taškų, kurie turėtų padengti visą Y sritį, kiekis:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:53
-msgid "Orientation"
-msgstr "Orientacija"
-
-#: ../Src/Gtk2/dashergpe.glade.h:57 ../Src/Gtk2/dashermaemo.glade.h:95
-msgid "Right/4:"
-msgstr "Dešinė/4:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:118
-msgid "Up/1:"
-msgstr "Aukštyn/1:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:74
-msgid ""
-"Use this control to adjust the relative sizes of the letter boxes. Note that "
-"selecting high values will slow your writing speed."
-msgstr ""
-"Naudokite šį valdiklį norėdami priderinti santikynį raidžių dydį. Pastaba: "
-"nurodžius dideles reikšmes sulėtės Jūsų rašymo greitis."
-
-#: ../Src/Gtk2/dashergpe.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:125
-msgid "X:"
-msgstr "X:"
-
-#: ../Src/Gtk2/dashergpe.glade.h:78 ../Src/Gtk2/dashermaemo.glade.h:126
-msgid "Y:"
-msgstr "Y:"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:15
-msgid "<b>Menu Mode</b>"
-msgstr "<b>Meniu režimas</b>"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:40
-msgid "Button setup"
-msgstr "Klavišo nustatymai"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:42
-msgid "Buttons"
-msgstr "Mygtukai"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:65
-msgid ""
-"If this mode is selected, up  and down will\n"
-"cycle backwards and forwards between coordinates and right will confirm the "
-"choice"
-msgstr ""
-"Jei pasirinktas šis rėžimas, viršun ir žemyn\n"
-"junginėsis atgal ir pirmyn tarp koordinačių, o dešinėn patvirtins pasirinkimą"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:105
-msgid "Socket"
-msgstr "Lizdas"
-
-#: ../Src/Gtk2/dashermaemo.glade.h:113
-msgid "Three-button direct mode"
-msgstr "Trijų klavišų tiesioginis režimas"
-
-#: ../Src/Gtk2/speech.cc:29
+#: ../Src/Gtk2/dasher_action_speech.cpp:115
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Nepavyko inicializuoti kalbos palaikymo\n"
 
-#: ../Src/Gtk2/speech.cc:52
-#, c-format
+#: ../Src/Gtk2/dasher_action_speech.cpp:138
 msgid "Unable to initialize voices\n"
 msgstr "Nepavyko inicializuoti balsų\n"
 
-#: ../Src/Gtk2/speech.cc:64
-#, c-format
+#: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Įspėjimas: negalima nustatyti kalbėjimo parametrų\n"
 
-#: ../Src/main.cc:123
-msgid "Dasher Text Entry"
-msgstr "Dasher teksto elementas"
+#: ../Src/Gtk2/dashergpe.glade.h:6
+msgid "Enter text into other windows"
+msgstr "Įvesti tekstą į kitus langus"
 
-#~ msgid "Panels"
-#~ msgstr "Skydeliai"
+#: ../Src/Gtk2/dashergpe.glade.h:7
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:19
+msgid "Large"
+msgstr "Didelis"
 
-#~ msgid "Application"
-#~ msgstr "Programa"
+#: ../Src/Gtk2/dashergpe.glade.h:9
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:22
+msgid "Normal"
+msgstr "Normalus"
 
-#~ msgid "Menus"
-#~ msgstr "Meniu"
+#: ../Src/Gtk2/dashergpe.glade.h:16
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
+msgid "Very Large"
+msgstr "Labai didelis"
 
-#~ msgid "Text"
-#~ msgstr "Tekstas"
+#: ../Src/Gtk2/dashergpe.glade.h:19
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
+msgid "_Dasher Font"
+msgstr "_Dasher šriftas"
 
-#~ msgid "Windows"
-#~ msgstr "Langai"
+#: ../Src/Gtk2/dashergpe.glade.h:20
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
+msgid "_Dasher Font Size"
+msgstr "_Dasher šrifto dydis"
 
-#~ msgid "Stop"
-#~ msgstr "Sustabdyti"
+#: ../Src/Gtk2/dashergpe.glade.h:22
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
+msgid "_Edit Font"
+msgstr "_Keisti šriftą"
 
-#~ msgid "Pause"
-#~ msgstr "Pauzė"
+#: ../Src/Gtk2/dashergpe.glade.h:26
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:39
+msgid "_Options"
+msgstr "_Nustatymai"
 
-#~ msgid "Move"
-#~ msgstr "Perkelti"
+#: ../Src/Gtk2/dashergpe.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
+msgid "_Reset fonts"
+msgstr "_Atkurti šriftus"
 
-#~ msgid "Delete"
-#~ msgstr "Ištrinti"
+#: ../Src/Gtk2/dashermaemo.glade.h:1
+msgid "\n"
+msgstr "\n"
 
-#~ msgid "Speak"
-#~ msgstr "Kalbėti"
+#: ../Src/Gtk2/dashermaemo.glade.h:3
+msgid "(Message Placeholder - no need to translate)"
+msgstr "(vieta žinutei)"
 
-#~ msgid "<"
-#~ msgstr "<"
+#: ../Src/Gtk2/dashermaemo.glade.h:6
+msgid "<b>Display Size:</b>"
+msgstr "<b>Ekrano dydis:</b>"
 
-#~ msgid ">"
-#~ msgstr ">"
+#: ../Src/Gtk2/dashermaemo.glade.h:8
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:4
+msgid "<b>Orientation:</b>"
+msgstr "<b>Orientacija:</b>"
 
-#~ msgid "<<<"
-#~ msgstr "<<<"
+#: ../Src/Gtk2/dashermaemo.glade.h:12
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:8
+msgid "Alphabet"
+msgstr "Raidynas"
 
-#~ msgid ">>>"
-#~ msgstr ">>>"
+#: ../Src/Gtk2/dashermaemo.glade.h:20
+msgid "Enlarge input window"
+msgstr "Padidinti įvedimo langą"
 
-#~ msgid "Everything"
-#~ msgstr "Viską"
+#: ../Src/Gtk2/dashermaemo.glade.h:25
+msgid "P"
+msgstr "P"
 
-#~ msgid "New"
-#~ msgstr "Naujas"
+#: ../Src/Gtk2/dashermaemo.glade.h:27
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:23
+msgid "Prediction"
+msgstr "Prognozė"
 
-#~ msgid "Repeat"
-#~ msgstr "Pakartoti"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "Character"
-#~ msgstr "Simbolis"
-
-#~ msgid "Word"
-#~ msgstr "Žodis"
-
-#~ msgid "Line"
-#~ msgstr "Eilutė"
-
-#~ msgid "Unknown"
-#~ msgstr "Nežinoma"
-
-#~ msgid "Cancel"
-#~ msgstr "Atšaukti"
-
-#~ msgid "Done"
-#~ msgstr "Atlikta"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Jei pasirinktas šis rėžimas, viršun ir žemyn\n"
-#~ "junginėsis atgal ir pirmyn tarp koordinačių, o dešinėn patvirtins "
-#~ "pasirinkimą"
-
-#~ msgid "Training Dasher - please wait"
-#~ msgstr "Dasher yra mokomas - prašome palaukti"
+#: ../Src/Gtk2/dashermaemo.glade.h:33
+#: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
+msgid "View"
+msgstr "Peržiūrėti"
