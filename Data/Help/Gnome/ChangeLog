@@ -1,2 +1,8 @@
+2006-08-20  Daniel Nylander <po@danielnylander.se>
+
+	* sv/sv.po: Added initial Swedish translation.
+	* sv/figures: Added directory
+	* Makefile.am: Added sv to DOC_LINGUAS.
+
 2006-03-30  Phil Cowans  <pjc51@cam.ac.uk>
 	* Created file
