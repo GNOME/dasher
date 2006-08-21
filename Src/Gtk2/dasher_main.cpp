@@ -72,6 +72,8 @@ struct _DasherMainPrivate {
   bool bGrabbed;
   double dDragOffsetX;
   double dDragOffsetY;
+
+  gulong iAlphabetComboHandler;
 };
 
 typedef struct _DasherMainPrivate DasherMainPrivate;
@@ -112,6 +114,7 @@ extern "C" gboolean edit_key_release(GtkWidget *widget, GdkEventKey *event, gpoi
 extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event, gpointer data);
 extern "C" void on_window_map(GtkWidget* pWidget, gpointer pUserData);
 extern "C" gboolean cb_drag_timeout(gpointer pUserData);
+extern "C" void alphabet_combo_changed(GtkWidget *pWidget, gpointer pUserData);
 
 GType dasher_main_get_type() {
 
@@ -233,7 +236,9 @@ void dasher_main_load_interface(DasherMain *pSelf) {
 
   GtkCellRenderer *pRenderer;
   pRenderer = gtk_cell_renderer_text_new();
+#if GTK_CHECK_VERSION(2,6,0)
   g_object_set(G_OBJECT(pRenderer), "ellipsize", PANGO_ELLIPSIZE_END, NULL);
+#endif
   gtk_cell_layout_pack_start(GTK_CELL_LAYOUT(pPrivate->pAlphabetCombo), pRenderer, true);
   gtk_cell_layout_set_attributes(GTK_CELL_LAYOUT(pPrivate->pAlphabetCombo), pRenderer, "text", 0, NULL);
 
@@ -326,6 +331,8 @@ void dasher_main_load_interface(DasherMain *pSelf) {
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "button-release-event", G_CALLBACK(take_real_focus), NULL);
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-press-event", G_CALLBACK(edit_key_press), NULL);
   g_signal_connect(G_OBJECT(pPrivate->pBufferView), "key-release-event", G_CALLBACK(edit_key_release), NULL);
+
+  pPrivate->iAlphabetComboHandler = g_signal_connect(G_OBJECT(pPrivate->pAlphabetCombo), "changed", G_CALLBACK(alphabet_combo_changed), NULL);
   
   dasher_main_build_context_menu(pSelf);
 
@@ -1028,12 +1035,19 @@ void dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
 #ifndef WITH_MAEMO
   DasherMainPrivate *pPrivate = (DasherMainPrivate *)(pSelf->private_data);
 
+  // Disconnect the event handler temporarily, otherwise this will
+  // trigger alphabet changes
+
+  g_signal_handler_block(pPrivate->pAlphabetCombo, pPrivate->iAlphabetComboHandler);
+
   gtk_list_store_clear(pPrivate->pAlphabetList);
+
 
   GtkTreeIter sIter;
   const char *szValue;
   
   szValue = dasher_app_settings_get_string(pPrivate->pAppSettings, SP_ALPHABET_ID);
+
   if(strlen(szValue) > 0) {
     gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
     gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, szValue, -1);
@@ -1066,6 +1080,9 @@ void dasher_main_populate_alphabet_combo(DasherMain *pSelf) {
   
   gtk_list_store_append(pPrivate->pAlphabetList, &sIter);
   gtk_list_store_set(pPrivate->pAlphabetList, &sIter, 0, "More Alphabets...", -1);
+
+  g_signal_handler_unblock(pPrivate->pAlphabetCombo, pPrivate->iAlphabetComboHandler);
+
 #endif
 }
 

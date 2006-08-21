@@ -14,7 +14,6 @@
 
 #include <X11/keysym.h>
 
-
 #include "dasher_buffer_set.h"
 #include "dasher_external_buffer.h"
 
