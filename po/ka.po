@@ -1,21 +1,20 @@
-# translation of dasher.gnome-2-14.po to Georgian
+# translation of ka.po to
 # Copyright (C) 2006 THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # Vladimer Sichinava <alinux@siena.linux.it>, 2006.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher.gnome-2-14\n"
+"Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-02-25 06:02+0100\n"
-"PO-Revision-Date: 2006-03-01 16:26+0100\n"
+"POT-Creation-Date: 2006-08-21 17:09+0200\n"
+"PO-Revision-Date: 2006-03-16 18:13+0100\n"
 "Last-Translator: Vladimer Sichinava <alinux@siena.linux.it>\n"
-"Language-Team: Georgian <gnome@inet.ge>\n"
+"Language-Team: Georgian <www.gia.ge>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=1; plural=0"
-
+"Plural-Forms: nplurals=1; plural=0\n"
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 #, fuzzy
@@ -31,7 +30,7 @@ msgstr "ფაილის ამორჩევა"
 #: ../Src/Gtk2/Menu.cc:458
 #, fuzzy
 msgid "Dasher is a predictive text entry application"
-msgstr "a ტექსტი ელემენტი პროგრამა"
+msgstr " არის a ტექსტი ჩანაწერი პროგრამა"
 
 #: ../Src/Gtk2/Menu.cc:461
 msgid "translator-credits"
@@ -41,7 +40,7 @@ msgstr "თარგმანი-შესრულებულია"
 #: ../Src/Gtk2/dasher.glade.h:123 ../Src/Gtk2/dashergpe.glade.h:72
 #: ../Src/Gtk2/dashermaemo.glade.h:117
 msgid "Training Dasher... please wait"
-msgstr ""
+msgstr "Dasher სწავლობს... მოითმინეთ გეთაყვა"
 
 #. Paneltree
 #. |         /-menutree
@@ -51,7 +50,7 @@ msgstr ""
 #. Tree, parent, children, next, pointer, data, string, colour
 #: ../Src/Gtk2/accessibility.cc:88
 msgid "Panels"
-msgstr ""
+msgstr "პანელები"
 
 #: ../Src/Gtk2/accessibility.cc:89
 msgid "Application"
@@ -59,7 +58,7 @@ msgstr "პროგრამა"
 
 #: ../Src/Gtk2/accessibility.cc:90
 msgid "Menus"
-msgstr ""
+msgstr "მენიუ"
 
 #: ../Src/Gtk2/accessibility.cc:91 ../Src/Gtk2/dashermaemo.glade.h:42
 msgid "Buttons"
@@ -96,7 +95,7 @@ msgstr "წაშლა"
 
 #: ../Src/Gtk2/accessibility.cc:221
 msgid "Speak"
-msgstr ""
+msgstr "საუბარი"
 
 #: ../Src/Gtk2/accessibility.cc:253 ../Src/Gtk2/accessibility.cc:407
 msgid "<"
@@ -108,11 +107,11 @@ msgstr ">"
 
 #: ../Src/Gtk2/accessibility.cc:265
 msgid "<<<"
-msgstr ""
+msgstr "<<<"
 
 #: ../Src/Gtk2/accessibility.cc:271
 msgid ">>>"
-msgstr ""
+msgstr ">>>"
 
 #: ../Src/Gtk2/accessibility.cc:284
 msgid "Everything"
@@ -124,7 +123,7 @@ msgstr "ახალი"
 
 #: ../Src/Gtk2/accessibility.cc:296
 msgid "Repeat"
-msgstr ""
+msgstr "გამეორება"
 
 #: ../Src/Gtk2/accessibility.cc:318
 msgid "1"
@@ -172,7 +171,7 @@ msgstr "სიმბოლო"
 
 #: ../Src/Gtk2/accessibility.cc:425 ../Src/Gtk2/accessibility.cc:448
 msgid "Word"
-msgstr ""
+msgstr "სიტყვა"
 
 #: ../Src/Gtk2/accessibility.cc:430 ../Src/Gtk2/accessibility.cc:454
 msgid "Line"
@@ -272,31 +271,31 @@ msgstr "უცნობი"
 #: ../Src/Gtk2/dasher.glade.h:1 ../Src/Gtk2/dashergpe.glade.h:1
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "5:"
-msgstr ""
+msgstr "5:"
 
 #: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashergpe.glade.h:2
 #: ../Src/Gtk2/dashermaemo.glade.h:2
 msgid "6:"
-msgstr ""
+msgstr "6:"
 
 #: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashergpe.glade.h:3
 #: ../Src/Gtk2/dashermaemo.glade.h:3
 msgid "7:"
-msgstr ""
+msgstr "7:"
 
 #: ../Src/Gtk2/dasher.glade.h:4 ../Src/Gtk2/dashergpe.glade.h:4
 #: ../Src/Gtk2/dashermaemo.glade.h:4
 msgid "8:"
-msgstr ""
+msgstr "8:"
 
 #: ../Src/Gtk2/dasher.glade.h:5 ../Src/Gtk2/dashergpe.glade.h:5
 #: ../Src/Gtk2/dashermaemo.glade.h:5
 msgid "9:"
-msgstr ""
+msgstr "9:"
 
 #: ../Src/Gtk2/dasher.glade.h:6 ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Adaptation:</b>"
-msgstr ""
+msgstr "<b>ადაპტაცია:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7 ../Src/Gtk2/dashermaemo.glade.h:7
 msgid "<b>Advanced Settings:</b>"
@@ -304,84 +303,70 @@ msgstr "<b>გაფართოვებული პარამეტრე�
 
 #: ../Src/Gtk2/dasher.glade.h:8 ../Src/Gtk2/dashergpe.glade.h:6
 #: ../Src/Gtk2/dashermaemo.glade.h:8
-#, fuzzy
 msgid "<b>Alphabet Selection:</b>"
-msgstr "<b> არჩეული</b>"
+msgstr "<b>ალფავიტის ამორჩევა</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:9 ../Src/Gtk2/dashergpe.glade.h:7
 #: ../Src/Gtk2/dashermaemo.glade.h:9
-#, fuzzy
 msgid "<b>Button control setup</b>"
-msgstr "<b> ღილაკი</b>"
+msgstr "<b>ღილაკების კონტროლის გამართვა</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:10 ../Src/Gtk2/dashermaemo.glade.h:10
-#, fuzzy
 msgid "<b>Button modes:</b>"
-msgstr "<b> ღილაკი</b>"
+msgstr "<b>ღილაკის რეჟიმი:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:11 ../Src/Gtk2/dashergpe.glade.h:8
 #: ../Src/Gtk2/dashermaemo.glade.h:11
-#, fuzzy
 msgid "<b>Color Selection:</b>"
-msgstr "<b> ფერი არჩეული</b>"
+msgstr "<b>ფერის არჩევა</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:12 ../Src/Gtk2/dashermaemo.glade.h:12
-#, fuzzy
 msgid "<b>Compass Mode</b>"
-msgstr "<b> რეჟიმი</b>"
+msgstr "<b>კომპასის რეჟიმი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashergpe.glade.h:9
 #: ../Src/Gtk2/dashermaemo.glade.h:13
-#, fuzzy
 msgid "<b>Control Style:</b>"
-msgstr "<b> Control სტილი</b>"
+msgstr "<b>მართვის ტიპი:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
-#, fuzzy
 msgid "<b>Direct Mode And Menu Mode</b>"
-msgstr "<b> რეჟიმი მენიუ რეჟიმი</b>"
+msgstr "<b>პირდაპირი რეჟიმი და მენიუ რეჟიმი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
-#, fuzzy
 msgid "<b>External Input:</b>"
-msgstr "<b> გარე შეტანა</b>"
+msgstr "<b>გარე შენატანი:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:14
-#, fuzzy
 msgid "<b>Language Model:</b>"
-msgstr "<b> ენა მოდელი</b>"
+msgstr "<b>ენის მოდელი:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:17 ../Src/Gtk2/dashergpe.glade.h:10
 #: ../Src/Gtk2/dashermaemo.glade.h:16
-#, fuzzy
 msgid "<b>Miscellaneous Options:</b>"
-msgstr "<b> სხვადასხვა ოფციები</b>"
+msgstr "<b>სხვადასხვა ოფციები:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:17
-#, fuzzy
 msgid "<b>One-Button Dynamic Mode</b>"
-msgstr "<b> ერთი ღილაკი რეჟიმი</b>"
+msgstr "<b>ერთი ღილაკიანი დინამიური რეჟიმი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:18
-#, fuzzy
 msgid "<b>One-Button Static Mode</b>"
-msgstr "<b> ერთი ღილაკი რეჟიმი</b>"
+msgstr "<b>ერთ ღილაკიანი რეჟიმი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dashergpe.glade.h:11
 #: ../Src/Gtk2/dashermaemo.glade.h:19
-#, fuzzy
 msgid "<b>Orientation:</b>"
-msgstr "<b> ორიენტაცია</b>"
+msgstr "<b>ორიენტაცია:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:21 ../Src/Gtk2/dashergpe.glade.h:12
 #: ../Src/Gtk2/dashermaemo.glade.h:20
 msgid "<b>Smoothing:</b>"
-msgstr ""
+msgstr "<b>დაგლუვება:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:22 ../Src/Gtk2/dashermaemo.glade.h:21
-#, fuzzy
 msgid "<b>Socket Input</b>"
-msgstr "<b> სოკეტი შეტანა</b>"
+msgstr "<b>სოკეტის შენატანი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:22
 msgid "<b>Speed:</b>"
@@ -389,110 +374,93 @@ msgstr "<b>სიჩქარე:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:24 ../Src/Gtk2/dashergpe.glade.h:14
 #: ../Src/Gtk2/dashermaemo.glade.h:23
-#, fuzzy
 msgid "<b>Starting And Stopping:</b>"
-msgstr "<b> ვრთავ გაჩერება</b>"
+msgstr "<b>ჩართვა და გამორთვა:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:25 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:24
-#, fuzzy
 msgid "<b>Toggle button Mode:</b>"
-msgstr "<b> რეჟიმი</b>"
+msgstr "<b>გადამრთველი ღილაკის რეჟიმი:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:26 ../Src/Gtk2/dashergpe.glade.h:16
 #: ../Src/Gtk2/dashermaemo.glade.h:25
-#, fuzzy
 msgid "<b>View Options:</b>"
-msgstr "<b> ჩვენება ოფციები</b>"
+msgstr "<b>ჩვენების პარამეტრები:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:26
-#, fuzzy
 msgid "<b>X Coordinate</b>"
-msgstr "<b> X</b>"
+msgstr "<b>X კოორდინატი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemo.glade.h:27
-#, fuzzy
 msgid "<b>X/Y Coordinates:</b>"
-msgstr "<b> X Y კოორდინატები</b>"
+msgstr "<b>X/Y კოორდინატები:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:18
 #: ../Src/Gtk2/dashermaemo.glade.h:28
-#, fuzzy
 msgid "<b>Y Axis Options:</b>"
-msgstr "<b> Y ოფციები</b>"
+msgstr "<b>Y ღერძის ოფციები</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashermaemo.glade.h:29
-#, fuzzy
 msgid "<b>Y Coordinate</b>"
-msgstr "<b> Y</b>"
+msgstr "<b>Y კოორდინატი</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:30
-#, fuzzy
 msgid "<b>Zoom steps:</b>"
-msgstr "<b> გადიდება</b>"
+msgstr "<b>გადიდების ნაბიჯები:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:31
 msgid "Adapt speed automatically"
-msgstr ""
+msgstr "სიჩქარის ავტო ადაპტირება"
 
 #: ../Src/Gtk2/dasher.glade.h:33
-#, fuzzy
 msgid "Advanced Settings"
-msgstr "დამატებითი პარამეტრები"
+msgstr "დეტალური პარამეტრები"
 
 #: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:20
 #: ../Src/Gtk2/dashermaemo.glade.h:33
 msgid "Alphabet"
-msgstr ""
+msgstr "ალფავიტი"
 
 #: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemo.glade.h:34
-#, fuzzy
 msgid "Alphabet Default"
-msgstr "ნაგულისხმევი"
+msgstr "ნაგულისხმევი ალფავიტი"
 
 #: ../Src/Gtk2/dasher.glade.h:36 ../Src/Gtk2/dashermaemo.glade.h:35
-#, fuzzy
 msgid "Alternating direct mode"
-msgstr "რეჟიმი"
+msgstr "პირდაპირი რეჟიმის ალტერაცია"
 
 #: ../Src/Gtk2/dasher.glade.h:37 ../Src/Gtk2/dashergpe.glade.h:22
 #: ../Src/Gtk2/dashermaemo.glade.h:36
-#, fuzzy
 msgid "Bottom to Top"
-msgstr "ქვემოთ -სკენ ზემოთ"
+msgstr "ქვემოდან  ზემოთ"
 
 #: ../Src/Gtk2/dasher.glade.h:38 ../Src/Gtk2/dashermaemo.glade.h:37
 msgid "Box non-uniformity:"
-msgstr ""
+msgstr "არაერტგვაროვანი უჯრა:"
 
 #: ../Src/Gtk2/dasher.glade.h:39
-#, fuzzy
 msgid "Button Mode Options"
-msgstr "ღილაკი რეჟიმი ოფციები"
+msgstr "ღილაკებიანი რეჟიმის ოფციები"
 
 #: ../Src/Gtk2/dasher.glade.h:40
-#, fuzzy
 msgid "Button Preferences"
-msgstr "ღილაკი პარამეტრები"
+msgstr "ღილაკის პარამეტრები"
 
 #: ../Src/Gtk2/dasher.glade.h:41
-#, fuzzy
 msgid "Button Setup"
-msgstr "ღილაკი პარამეტრები"
+msgstr "ღილაკის გამართვა"
 
 #: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemo.glade.h:38
-#, fuzzy
 msgid "Button control setup"
-msgstr "ღილაკი"
+msgstr "ღილაკის კონტროლის გამართვა"
 
 #: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemo.glade.h:39
-#, fuzzy
 msgid "Button mode"
-msgstr "ღილაკი რეჟიმი"
+msgstr "ღილაკებიანი რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashergpe.glade.h:25
 #: ../Src/Gtk2/dashermaemo.glade.h:41
@@ -504,25 +472,22 @@ msgid "Cancel"
 msgstr "შეწყვეტა"
 
 #: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:43
-#, fuzzy
 msgid "Click mode"
-msgstr "რეჟიმი"
+msgstr "წკაპის რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:44
-#, fuzzy
 msgid "Compass mode"
-msgstr "რეჟიმი"
+msgstr "კომპასის რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashermaemo.glade.h:46
 #, fuzzy
 msgid "Control dasher from network socket instead of mouse (advanced)"
-msgstr "Control -"
+msgstr "Control ის"
 
 #: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:29
 #: ../Src/Gtk2/dashermaemo.glade.h:47
-#, fuzzy
 msgid "Control mode"
-msgstr "Control რეჟიმი"
+msgstr "კონტროლის რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:30
 #: ../Src/Gtk2/dashermaemo.glade.h:48
@@ -536,9 +501,8 @@ msgstr "დააკოპირე _ყველა"
 
 #: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashergpe.glade.h:32
 #: ../Src/Gtk2/dashermaemo.glade.h:50
-#, fuzzy
 msgid "Copy all on stop"
-msgstr "დააკოპირე ყველა ჩართულია შეჩერება"
+msgstr "შეჩერებისას ყველას კოპირება"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:51
 msgid "Custom:"
@@ -551,32 +515,29 @@ msgstr "ამოჭრა"
 
 #: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:34
 #: ../Src/Gtk2/dashermaemo.glade.h:53
-#, fuzzy
 msgid "Cyclical button mode"
-msgstr "რეჟიმი"
+msgstr "ციკლური ღილაკის რეჟიმი"
 
 #. g_type_class_ref(dasher_gtk_text_view_get_type());
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:35
 #: ../Src/Gtk2/dashermaemo.glade.h:54 ../Src/main.cc:190
 msgid "Dasher"
-msgstr ""
+msgstr "Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:36
 #: ../Src/Gtk2/dashermaemo.glade.h:55
-#, fuzzy
 msgid "Dasher Preferences"
-msgstr "პარამეტრები"
+msgstr "Dasher პარამეტრები"
 
 #: ../Src/Gtk2/dasher.glade.h:59
-#, fuzzy
 msgid "Direct mode"
-msgstr "რეჟიმი"
+msgstr "პირდაპირი რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:37
 #: ../Src/Gtk2/dashermaemo.glade.h:56
 #, fuzzy
 msgid "Distance from centerline for start on mouse position:"
-msgstr "ჩართულია:"
+msgstr "დასაწყისი ჩართულია:"
 
 #: ../Src/Gtk2/dasher.glade.h:61
 msgid "Done"
@@ -584,42 +545,37 @@ msgstr "შესრულებული"
 
 #: ../Src/Gtk2/dasher.glade.h:62 ../Src/Gtk2/dashergpe.glade.h:38
 #: ../Src/Gtk2/dashermaemo.glade.h:57
-#, fuzzy
 msgid "Down/3:"
-msgstr "ქვემოთ:"
+msgstr "ქვემოთ/3:"
 
 #: ../Src/Gtk2/dasher.glade.h:63 ../Src/Gtk2/dashergpe.glade.h:39
 #: ../Src/Gtk2/dashermaemo.glade.h:58
-#, fuzzy
 msgid "Draw box outlines"
-msgstr "ასახვა"
+msgstr "მართკუთხედის კონტურის ასახვა"
 
 #: ../Src/Gtk2/dasher.glade.h:64 ../Src/Gtk2/dashergpe.glade.h:40
 #: ../Src/Gtk2/dashermaemo.glade.h:59
 #, fuzzy
 msgid "Draw line between crosshairs and mouse"
-msgstr "ასახვა ხაზი და"
+msgstr "ასახვა წრფე და"
 
 #: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dashermaemo.glade.h:60
 msgid "Drop time:  "
-msgstr ""
+msgstr "წვეთის დრო:  "
 
 #: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashergpe.glade.h:42
 #: ../Src/Gtk2/dashermaemo.glade.h:62
-#, fuzzy
 msgid "Enter text into other windows"
-msgstr "ტექსტი სხვა"
+msgstr "სხვა ფანჯრებში ტექსტის შეყვანა"
 
 #: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashergpe.glade.h:43
 #: ../Src/Gtk2/dashermaemo.glade.h:63
-#, fuzzy
 msgid "Eyetracker mode"
-msgstr "რეჟიმი"
+msgstr "Eyetracker რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:68 ../Src/Gtk2/dashermaemo.glade.h:64
-#, fuzzy
 msgid "Four-button direct mode"
-msgstr "რეჟიმი"
+msgstr "ოთხ-ღილაკიანი რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:69
 msgid "General"
@@ -631,12 +587,11 @@ msgid ""
 "If this mode is selected, up and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
-msgstr "რეჟიმი ზემოთ და ქვემოთ და და მარჯვენა არჩევანი"
+msgstr "რეჟიმი  არის და და და მარჯვენა არჩევანი"
 
 #: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:67
-#, fuzzy
 msgid "Increase line thickness"
-msgstr "ხაზი"
+msgstr "ხაზის სისქის შეცვლა"
 
 #: ../Src/Gtk2/dasher.glade.h:73 ../Src/Gtk2/dashermaemo.glade.h:68
 msgid "Japanese"
@@ -647,9 +602,8 @@ msgid "Label"
 msgstr "სათაური"
 
 #: ../Src/Gtk2/dasher.glade.h:75 ../Src/Gtk2/dashermaemo.glade.h:70
-#, fuzzy
 msgid "Language model adapts as you write."
-msgstr "ენა."
+msgstr "ენის მოდელი ადაპტირდება წერის პროცესში."
 
 #: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashergpe.glade.h:45
 #: ../Src/Gtk2/dashermaemo.glade.h:71
@@ -658,15 +612,13 @@ msgstr "დიდი"
 
 #: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:46
 #: ../Src/Gtk2/dashermaemo.glade.h:72
-#, fuzzy
 msgid "Left to Right"
-msgstr "მარცხნივ -სკენ მარჯვნივ"
+msgstr "მარცხნიდან მარჯვნივ"
 
 #: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:47
 #: ../Src/Gtk2/dashermaemo.glade.h:73
-#, fuzzy
 msgid "Left/2:"
-msgstr "მარცხნივ:"
+msgstr "მარცხნივ/2:"
 
 #: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashermaemo.glade.h:74
 msgid "Max"
@@ -677,13 +629,12 @@ msgid "Min"
 msgstr "მინიმალური"
 
 #: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashermaemo.glade.h:76
-#, fuzzy
 msgid "Miscellaneous"
 msgstr "სხვადასხვა"
 
 #: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashermaemo.glade.h:77
 msgid "Mixture model (PPM/dictionary)"
-msgstr ""
+msgstr "შერეული მოდელი (PPM/ლექსიკონი)"
 
 #: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:48
 #: ../Src/Gtk2/dashermaemo.glade.h:78
@@ -698,28 +649,25 @@ msgstr "საშუალო"
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashermaemo.glade.h:80
 #, fuzzy
 msgid "Number of \"zoom-out boxes\":"
-msgstr "-:"
+msgstr "ნომერი ის:"
 
 #: ../Src/Gtk2/dasher.glade.h:86 ../Src/Gtk2/dashermaemo.glade.h:81
 #, fuzzy
 msgid "Number of boxes:"
-msgstr "-:"
+msgstr "ნომერი ის:"
 
 #: ../Src/Gtk2/dasher.glade.h:87 ../Src/Gtk2/dashergpe.glade.h:51
 #: ../Src/Gtk2/dashermaemo.glade.h:82
-#, fuzzy
 msgid "One dimensional mode"
-msgstr "ერთი რეჟიმი"
+msgstr "ერთ განზომილებიანი რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:88 ../Src/Gtk2/dashermaemo.glade.h:83
-#, fuzzy
 msgid "One-button dynamic mode"
-msgstr "ერთი რეჟიმი"
+msgstr "ერთ-ღილაკიანი დინამიური რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:89 ../Src/Gtk2/dashermaemo.glade.h:84
-#, fuzzy
 msgid "One-button static mode"
-msgstr "ერთი სტაიკური რეჟიმი"
+msgstr "ერთ-ღილაკიანი სტატიკური რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:90 ../Src/Gtk2/dashergpe.glade.h:52
 #: ../Src/Gtk2/dashermaemo.glade.h:85
@@ -728,7 +676,7 @@ msgstr "ფაილის გახსნა"
 
 #: ../Src/Gtk2/dasher.glade.h:91 ../Src/Gtk2/dashermaemo.glade.h:86
 msgid "Ordinary control"
-msgstr ""
+msgstr "ორდინალური მართვა"
 
 #: ../Src/Gtk2/dasher.glade.h:92 ../Src/Gtk2/dashergpe.glade.h:54
 #: ../Src/Gtk2/dashermaemo.glade.h:87
@@ -739,7 +687,7 @@ msgstr "ჩასმა"
 #: ../Src/Gtk2/dashermaemo.glade.h:88
 #, fuzzy
 msgid "Pause outside window"
-msgstr "პაუზა ფანჯარა"
+msgstr "შეჩერება ფანჯარა"
 
 #: ../Src/Gtk2/dasher.glade.h:94 ../Src/Gtk2/dashermaemo.glade.h:89
 msgid "Port"
@@ -747,34 +695,30 @@ msgstr "პორტი"
 
 #: ../Src/Gtk2/dasher.glade.h:95 ../Src/Gtk2/dashermaemo.glade.h:90
 msgid "Prediction"
-msgstr ""
+msgstr "წინასწარმეტყველება"
 
 #: ../Src/Gtk2/dasher.glade.h:96 ../Src/Gtk2/dashermaemo.glade.h:91
 #, fuzzy
 msgid "Print socket-related debugging information to console"
-msgstr "ბეჭდვა -სკენ"
+msgstr "ბეჭდვა ინფორმაცია -სკენ"
 
 #: ../Src/Gtk2/dasher.glade.h:97 ../Src/Gtk2/dashermaemo.glade.h:92
-#, fuzzy
 msgid "Pulsing mode"
-msgstr "რეჟიმი"
+msgstr "პულსაციის რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:98 ../Src/Gtk2/dashergpe.glade.h:56
 #: ../Src/Gtk2/dashermaemo.glade.h:93
-#, fuzzy
 msgid "Right to Left"
-msgstr "მარჯვნივ -სკენ მარცხნივ"
+msgstr "მარჯვნიდან მარცხნივ"
 
 #: ../Src/Gtk2/dasher.glade.h:99 ../Src/Gtk2/dashermaemo.glade.h:94
-#, fuzzy
 msgid "Right zoom:  "
-msgstr "მარჯვნივ "
+msgstr "მარჯვენა გადიდება:  "
 
 #: ../Src/Gtk2/dasher.glade.h:100 ../Src/Gtk2/dashergpe.glade.h:57
 #: ../Src/Gtk2/dashermaemo.glade.h:95
-#, fuzzy
 msgid "Right/4:"
-msgstr "მარჯვნივ:"
+msgstr "მარჯვნივ/4:"
 
 #: ../Src/Gtk2/dasher.glade.h:101 ../Src/Gtk2/dashermaemo.glade.h:96
 msgid "Safety margin:"
@@ -787,14 +731,13 @@ msgstr "ფაილის შენახვა"
 
 #: ../Src/Gtk2/dasher.glade.h:103 ../Src/Gtk2/dashergpe.glade.h:59
 #: ../Src/Gtk2/dashermaemo.glade.h:98
-#, fuzzy
 msgid "Save file as"
-msgstr "დაიმახსოვრე ფაილი როგორც"
+msgstr "შეინახე ფაილი როგორც"
 
 #: ../Src/Gtk2/dasher.glade.h:104 ../Src/Gtk2/dashermaemo.glade.h:99
 #, fuzzy
 msgid "Scaling amount (1D mode):"
-msgstr "რეჟიმი:"
+msgstr "მაშტაბირება რეჟიმი:"
 
 #: ../Src/Gtk2/dasher.glade.h:106 ../Src/Gtk2/dashergpe.glade.h:61
 #: ../Src/Gtk2/dashermaemo.glade.h:101
@@ -802,43 +745,36 @@ msgid "Select Font"
 msgstr "შრიფტის არჩევა"
 
 #: ../Src/Gtk2/dasher.glade.h:107
-#, fuzzy
 msgid "Show Advanced Settings"
-msgstr "ჩვენება გაფართოვებული პარამეტრები"
+msgstr "გაფართოებული პარამეტრების ჩვენება"
 
 #: ../Src/Gtk2/dasher.glade.h:108 ../Src/Gtk2/dashergpe.glade.h:62
 #: ../Src/Gtk2/dashermaemo.glade.h:102
-#, fuzzy
 msgid "Show mouse position"
-msgstr "ჩვენება"
+msgstr "თაგუნას ადგილმდებარეობის ჩვენება"
 
 #: ../Src/Gtk2/dasher.glade.h:109 ../Src/Gtk2/dashergpe.glade.h:63
 #: ../Src/Gtk2/dashermaemo.glade.h:103
-#, fuzzy
 msgid "Show speed slider"
-msgstr "ჩვენება ჩოჩიალა"
+msgstr "სიჩქარის ცოციის ჩვენება"
 
 #: ../Src/Gtk2/dasher.glade.h:110 ../Src/Gtk2/dashergpe.glade.h:64
 #: ../Src/Gtk2/dashermaemo.glade.h:104
-#, fuzzy
 msgid "Show toolbar"
 msgstr "ინსტრუმენტების პანელის ჩვენება"
 
 #: ../Src/Gtk2/dasher.glade.h:111
-#, fuzzy
 msgid "Socket Options"
 msgstr "სოკეტის პარამეტრები"
 
 #: ../Src/Gtk2/dasher.glade.h:112
-#, fuzzy
 msgid "Socket Preferences"
-msgstr "სოკეტი პარამეტრები"
+msgstr "სოკეტის პარამეტრები"
 
 #: ../Src/Gtk2/dasher.glade.h:113 ../Src/Gtk2/dashergpe.glade.h:65
 #: ../Src/Gtk2/dashermaemo.glade.h:106
-#, fuzzy
 msgid "Speak on stop"
-msgstr "ჩართულია შეჩერება"
+msgstr "საუბარი გამორთვისას"
 
 #: ../Src/Gtk2/dasher.glade.h:114 ../Src/Gtk2/dashermaemo.glade.h:107
 #, fuzzy
@@ -864,9 +800,8 @@ msgid "Start with mouse position"
 msgstr "გაშვება"
 
 #: ../Src/Gtk2/dasher.glade.h:118 ../Src/Gtk2/dashermaemo.glade.h:111
-#, fuzzy
 msgid "Static menu mode"
-msgstr "მენიუ რეჟიმი"
+msgstr "სტატიკური მენიუს რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:119 ../Src/Gtk2/dashermaemo.glade.h:112
 #, fuzzy
@@ -875,26 +810,23 @@ msgstr "რეჟიმი"
 
 #: ../Src/Gtk2/dasher.glade.h:120 ../Src/Gtk2/dashergpe.glade.h:69
 #: ../Src/Gtk2/dashermaemo.glade.h:114
-#, fuzzy
 msgid "Timestamp new files"
-msgstr "დროის შტამპი ახალი ფაილი"
+msgstr "დროის შტამპი ახლად შექმნილ ფაილებში"
 
 #: ../Src/Gtk2/dasher.glade.h:121 ../Src/Gtk2/dashergpe.glade.h:70
 #: ../Src/Gtk2/dashermaemo.glade.h:115
-#, fuzzy
 msgid "Top to Bottom"
-msgstr "ზემოთ -სკენ ქვემოთ"
+msgstr "ზევიდან ქვემოთ"
 
 #: ../Src/Gtk2/dasher.glade.h:122 ../Src/Gtk2/dashergpe.glade.h:71
 #: ../Src/Gtk2/dashermaemo.glade.h:116
 msgid "Training"
-msgstr ""
+msgstr "ვარჯიში"
 
 #: ../Src/Gtk2/dasher.glade.h:124 ../Src/Gtk2/dashergpe.glade.h:73
 #: ../Src/Gtk2/dashermaemo.glade.h:118
-#, fuzzy
 msgid "Up/1:"
-msgstr "ზემოთ:"
+msgstr "ზემოთ/1:"
 
 #: ../Src/Gtk2/dasher.glade.h:125 ../Src/Gtk2/dashermaemo.glade.h:119
 #, fuzzy
@@ -902,7 +834,7 @@ msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
-msgstr "გამოყენება -სკენ - შენიშვნა მაღალი."
+msgstr "გამოყენება -სკენ ის შენიშვნა მაღალი."
 
 #: ../Src/Gtk2/dasher.glade.h:128 ../Src/Gtk2/dashergpe.glade.h:75
 #: ../Src/Gtk2/dashermaemo.glade.h:122
@@ -916,7 +848,7 @@ msgstr "ჩვენება"
 
 #: ../Src/Gtk2/dasher.glade.h:130 ../Src/Gtk2/dashermaemo.glade.h:124
 msgid "Word-based model"
-msgstr ""
+msgstr "სიტყვებზე დაფუძნებული მოდელი"
 
 #: ../Src/Gtk2/dasher.glade.h:131 ../Src/Gtk2/dashergpe.glade.h:77
 #: ../Src/Gtk2/dashermaemo.glade.h:125
@@ -939,21 +871,18 @@ msgstr "_შესახებ"
 
 #: ../Src/Gtk2/dasher.glade.h:135 ../Src/Gtk2/dashergpe.glade.h:80
 #: ../Src/Gtk2/dashermaemo.glade.h:129
-#, fuzzy
 msgid "_Append to file"
-msgstr "-სკენ ფაილი"
+msgstr "ფაილზე მიმ_ატება"
 
 #: ../Src/Gtk2/dasher.glade.h:136 ../Src/Gtk2/dashergpe.glade.h:81
 #: ../Src/Gtk2/dashermaemo.glade.h:130
-#, fuzzy
 msgid "_Dasher Font"
-msgstr "შრიფტი"
+msgstr "შ_რიფტი Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:137 ../Src/Gtk2/dashergpe.glade.h:82
 #: ../Src/Gtk2/dashermaemo.glade.h:131
-#, fuzzy
 msgid "_Dasher Font Size"
-msgstr "შრიფტი ზომა"
+msgstr "_Dasher შრიფტის ზომა"
 
 #: ../Src/Gtk2/dasher.glade.h:138 ../Src/Gtk2/dashergpe.glade.h:83
 #: ../Src/Gtk2/dashermaemo.glade.h:132
@@ -962,9 +891,8 @@ msgstr "_დამუშავება"
 
 #: ../Src/Gtk2/dasher.glade.h:139 ../Src/Gtk2/dashergpe.glade.h:84
 #: ../Src/Gtk2/dashermaemo.glade.h:133
-#, fuzzy
 msgid "_Edit Font"
-msgstr "რედაქტირება შრიფტი"
+msgstr "შრიფტის რ_ედაქტირება"
 
 #: ../Src/Gtk2/dasher.glade.h:140 ../Src/Gtk2/dashergpe.glade.h:85
 #: ../Src/Gtk2/dashermaemo.glade.h:134
@@ -978,9 +906,8 @@ msgstr "_დახმარება"
 
 #: ../Src/Gtk2/dasher.glade.h:142 ../Src/Gtk2/dashergpe.glade.h:87
 #: ../Src/Gtk2/dashermaemo.glade.h:136
-#, fuzzy
 msgid "_Import Training Text"
-msgstr "იმპორტი ტექსტი"
+msgstr "სასწავლო ტექსტის _იმპორტირება"
 
 #: ../Src/Gtk2/dasher.glade.h:143 ../Src/Gtk2/dashergpe.glade.h:88
 #: ../Src/Gtk2/dashermaemo.glade.h:137
@@ -989,9 +916,8 @@ msgstr "ო_ფციები"
 
 #: ../Src/Gtk2/dasher.glade.h:144 ../Src/Gtk2/dashergpe.glade.h:89
 #: ../Src/Gtk2/dashermaemo.glade.h:138
-#, fuzzy
 msgid "_Reset fonts"
-msgstr "განულება"
+msgstr "ხელახალი ფონტების კონფიგუ_რაცია"
 
 #: ../Src/Gtk2/dasher.glade.h:145 ../Src/Gtk2/dashergpe.glade.h:90
 #: ../Src/Gtk2/dashermaemo.glade.h:139
@@ -1004,14 +930,12 @@ msgid "<b>Speed</b>"
 msgstr "<b>სიჩქარე</b>"
 
 #: ../Src/Gtk2/dashergpe.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:32
-#, fuzzy
 msgid "Advanced"
-msgstr "გაფართოვებული"
+msgstr "დეტალური"
 
 #: ../Src/Gtk2/dashergpe.glade.h:26
-#, fuzzy
 msgid "Change color scheme automatically"
-msgstr "შეცვლა"
+msgstr "ფერების სქემის ავტომატური შეცვლა"
 
 #: ../Src/Gtk2/dashergpe.glade.h:27
 msgid "Color"
@@ -1020,19 +944,19 @@ msgstr "ფერი"
 #: ../Src/Gtk2/dashergpe.glade.h:41 ../Src/Gtk2/dashermaemo.glade.h:61
 #, fuzzy
 msgid "Edit Button-control options"
-msgstr "რედაქტირება ღილაკი"
+msgstr "რედაქტირება ღილაკი პარამეტრები"
 
 #: ../Src/Gtk2/dashergpe.glade.h:44
 #, fuzzy
 msgid ""
 "If this mode is selected, up and down will cycle backwards and forwards "
 "between coordinates and right will confirm the choice"
-msgstr "რეჟიმი ზემოთ და ქვემოთ და და მარჯვენა არჩევანი"
+msgstr "რეჟიმი  არის და და და მარჯვენა არჩევანი"
 
 #: ../Src/Gtk2/dashergpe.glade.h:50
 #, fuzzy
 msgid "Number of pixels that should cover the entire Y range:"
-msgstr "- პიქსელი Y:"
+msgstr "ნომერი ის პიქსელი Y:"
 
 #: ../Src/Gtk2/dashergpe.glade.h:53
 msgid "Orientation"
@@ -1043,17 +967,15 @@ msgstr "ორიენტაცია"
 msgid ""
 "Use this control to adjust the relative sizes of the letter boxes. Note that "
 "selecting high values will slow your writing speed."
-msgstr "გამოყენება -სკენ - შენიშვნა მაღალი."
+msgstr "გამოყენება -სკენ ის შენიშვნა მაღალი."
 
 #: ../Src/Gtk2/dashermaemo.glade.h:15
-#, fuzzy
 msgid "<b>Menu Mode</b>"
-msgstr "<b> მენიუ რეჟიმი</b>"
+msgstr "<b>მენიუ რეჟიმი</b>"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:40
-#, fuzzy
 msgid "Button setup"
-msgstr "ღილაკი"
+msgstr "ღილაკის გამართვა"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:65
 #, fuzzy
@@ -1061,7 +983,7 @@ msgid ""
 "If this mode is selected, up  and down will\n"
 "cycle backwards and forwards between coordinates and right will confirm the "
 "choice"
-msgstr "რეჟიმი ზემოთ და ქვემოთ და და მარჯვენა არჩევანი"
+msgstr "რეჟიმი  არის და და და მარჯვენა არჩევანი"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:105
 msgid "Socket"
@@ -1076,19 +998,19 @@ msgstr "რეჟიმი"
 #, c-format
 #, fuzzy
 msgid "Unable to initialize speech support\n"
-msgstr "-სკენ სუპორტი არა"
+msgstr "-სკენ n"
 
 #: ../Src/Gtk2/speech.cc:52
 #, c-format
 #, fuzzy
 msgid "Unable to initialize voices\n"
-msgstr "-სკენ არა"
+msgstr "-სკენ n"
 
 #: ../Src/Gtk2/speech.cc:64
 #, c-format
 #, fuzzy
 msgid "Warning: unable to set speech parameters\n"
-msgstr "გაფრთხილება -სკენ არა"
+msgstr "გაფრთხილება -სკენ მინიჭება n"
 
 #: ../Src/main.cc:124
 #, fuzzy
