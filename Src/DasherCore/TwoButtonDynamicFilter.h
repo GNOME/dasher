@@ -12,7 +12,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView);
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
+  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);
   virtual void Activate();
   virtual void Deactivate();
@@ -23,12 +23,12 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   
  protected:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void ActionButton(int iTime, int iButton, CDasherModel *pModel);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
 
   bool m_bDecorationChanged;
 
  private:
-  void Event(int iTime, int iButton, int iType, CDasherModel *pModel);
+  void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
 
   int m_iLastButton;
   int m_iKeyDownTime;
@@ -39,6 +39,8 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   bool m_bKeyDown;
   bool m_bKeyHandled;
   int m_iHeldId;
+
+  CUserLog *m_pUserLog;
 };
 
 #endif

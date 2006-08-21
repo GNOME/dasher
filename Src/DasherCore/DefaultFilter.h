@@ -14,7 +14,7 @@ class CDefaultFilter : public CInputFilter {
 
   virtual bool DecorateView(CDasherView *pView);
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel);
+  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog);
 
  protected:
   virtual void CreateStartHandler();

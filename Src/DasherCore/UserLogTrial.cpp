@@ -198,7 +198,7 @@ void CUserLogTrial::StartWriting()
   NavCycle* newCycle = AddNavCycle();
 }
 
-void CUserLogTrial::StopWriting()
+void CUserLogTrial::StopWriting(double dBits)
 {
   //CFunctionLogger f1("CUserLogTrial::StopWriting", g_pLogger);
 
@@ -227,6 +227,8 @@ void CUserLogTrial::StopWriting()
     g_pLogger->Log("CUserLogTrial::StopWriting, span was NULL!", logNORMAL);
     return;
   }
+
+  pCycle->dBits = dBits;
   pSpan->Stop();
 
   m_bWritingStart = false;
@@ -444,8 +446,8 @@ void CUserLogTrial::AddMouseLocationNormalized(int iX, int iY, bool bStoreIntege
     g_pLogger->Log("CUserLogTrial::AddLocation, location was NULL!", logNORMAL);    
 }
 
-void CUserLogTrial::AddKeyDown(int iId) {
-  CUserButton* pButton = new CUserButton(iId);
+void CUserLogTrial::AddKeyDown(int iId, int iType, int iEffect) {
+  CUserButton* pButton = new CUserButton(iId, iType, iEffect);
 
   if(pButton) {
     NavCycle* pCycle = GetCurrentNavCycle();
@@ -716,7 +718,10 @@ string CUserLogTrial::GetSummaryXML(const string& strPrefix)
     dAvgBits = pLocation->avgBits;
   }
 
-  strResult += GetStatsXML(strPrefix, strText, m_pSpan, dAvgBits);
+  int iButtonCount = GetButtonCount();
+  double dTotalBits = GetTotalBits();
+
+  strResult += GetStatsXML(strPrefix, strText, m_pSpan, dAvgBits, iButtonCount, dTotalBits);
 
   strResult += strPrefix;
   strResult += "\t</Summary>\n";
@@ -725,7 +730,7 @@ string CUserLogTrial::GetSummaryXML(const string& strPrefix)
 }
 
 // Calculates the various summary stats we output
-string CUserLogTrial::GetStatsXML(const string& strPrefix, const string& strText, CTimeSpan* pSpan, double dAvgBits)
+string CUserLogTrial::GetStatsXML(const string& strPrefix, const string& strText, CTimeSpan* pSpan, double dAvgBits, int iButtonCount, double dTotalBits)
 {
   //CFunctionLogger f1("CUserLogTrial::GetStatsXML", g_pLogger);
 
@@ -748,6 +753,19 @@ string CUserLogTrial::GetStatsXML(const string& strPrefix, const string& strText
   sprintf(m_szTempBuffer, "%0.6f", dAvgBits);
   strResult += m_szTempBuffer;
   strResult += "</AvgBits>\n";
+
+  strResult += strPrefix;
+  strResult += "\t\t<TotalBits>";
+  sprintf(m_szTempBuffer, "%0.6f", dTotalBits);
+  strResult += m_szTempBuffer;
+  strResult += "</TotalBits>\n";
+
+  
+  strResult += strPrefix;
+  strResult += "\t\t<ButtonCount>";
+  sprintf(m_szTempBuffer, "%d", iButtonCount);
+  strResult += m_szTempBuffer;
+  strResult += "</ButtonCount>\n";
 
   // Calculate the number of words and characters
   strResult += strPrefix;
@@ -884,6 +902,25 @@ string CUserLogTrial::GetParamsXML(const string& strPrefix)
 
 }
 
+int CUserLogTrial::GetButtonCount() {
+  int iCount(0);
+
+  for(VECTOR_NAV_CYCLE_PTR::iterator it(m_vpNavCycles.begin()); it != m_vpNavCycles.end(); ++it)
+    for(VECTOR_USER_BUTTON_PTR::iterator it2((*it)->vectorButtons.begin()); it2 != (*it)->vectorButtons.end(); ++it2)
+      iCount += (*it2)->GetCount();
+
+  return iCount;
+}
+
+double CUserLogTrial::GetTotalBits() {
+  double dBits(0.0);
+
+  for(VECTOR_NAV_CYCLE_PTR::iterator it(m_vpNavCycles.begin()); it != m_vpNavCycles.end(); ++it)
+    dBits += (*it)->dBits;
+
+  return dBits;
+}
+
 // Parameters can optionally be specified to be added to the Trial objects.
 // This allows us to easily see what a certain parameter value was used
 // in a given trial.  
@@ -993,15 +1030,24 @@ NavLocation* CUserLogTrial::GetCurrentNavLocation()
 {
   //CFunctionLogger f1("CUserLogTrial::GetCurrentNavLocation", g_pLogger);
 
-  NavCycle* pCycle = GetCurrentNavCycle();
+//   NavCycle* pCycle = GetCurrentNavCycle();
 
-  if (pCycle == NULL)
-    return NULL;
+//   if (pCycle == NULL)
+//     return NULL;
 
-  if (pCycle->vectorNavLocations.size() <= 0)
-    return NULL;
+//   if (pCycle->vectorNavLocations.size() <= 0)
+//     return NULL;
 
-  return (NavLocation*) pCycle->vectorNavLocations[pCycle->vectorNavLocations.size() - 1];
+//   return (NavLocation*) pCycle->vectorNavLocations[pCycle->vectorNavLocations.size() - 1];
+
+  // New version - reverse iterate through the list and find the last nav cycle which has any locations
+
+  for(VECTOR_NAV_CYCLE_PTR::reverse_iterator it(m_vpNavCycles.rbegin()); it != m_vpNavCycles.rend(); ++it) {
+    if((*it)->vectorNavLocations.size() > 0)
+      return (NavLocation*) (*it)->vectorNavLocations[(*it)->vectorNavLocations.size() - 1];
+  }
+
+  return NULL;
 }
 
 // Adds a new navgiation cycle to our collection

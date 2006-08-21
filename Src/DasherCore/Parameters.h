@@ -46,6 +46,7 @@ enum {
   SP_ALPHABET_ID = END_OF_LPS, SP_ALPHABET_1, SP_ALPHABET_2, SP_ALPHABET_3, SP_ALPHABET_4, 
   SP_COLOUR_ID, SP_DEFAULT_COLOUR_ID, SP_DASHER_FONT, SP_SYSTEM_LOC, SP_USER_LOC, SP_GAME_TEXT_FILE,
   SP_TRAIN_FILE, SP_SOCKET_INPUT_X_LABEL, SP_SOCKET_INPUT_Y_LABEL, SP_INPUT_FILTER, SP_INPUT_DEVICE,
+  SP_BUTTON_0, SP_BUTTON_1, SP_BUTTON_2, SP_BUTTON_3, SP_BUTTON_4, SP_BUTTON_10,
   END_OF_SPS
 };
 
@@ -210,7 +211,13 @@ static sp_table stringparamtable[] = {
 #else
   {SP_INPUT_FILTER, "InputFilter", PERS, "Normal Control", "Input filter used to provide the current control mode"},
 #endif
-  {SP_INPUT_DEVICE, "InputDevice", PERS, "Mouse Input", "Driver for the input device"}
+  {SP_INPUT_DEVICE, "InputDevice", PERS, "Mouse Input", "Driver for the input device"},
+  {SP_BUTTON_0, "Button0", PERS, "", "Assignment to button 0"},
+  {SP_BUTTON_1, "Button1", PERS, "", "Assignment to button 1"},
+  {SP_BUTTON_2, "Button2", PERS, "", "Assignment to button 2"},
+  {SP_BUTTON_3, "Button3", PERS, "", "Assignment to button 3"},
+  {SP_BUTTON_4, "Button4", PERS, "", "Assignment to button 4"},
+  {SP_BUTTON_10, "Button10", PERS, "", "Assignment to button 10"}
 };
 
 // This is the structure of each table that the settings will access

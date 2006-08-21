@@ -41,7 +41,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
 
-  m_pKeyboardHelper = new CKeyboardHelper;
+  m_pKeyboardHelper = new CKeyboardHelper(this);
   m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
 
   CreateInput();

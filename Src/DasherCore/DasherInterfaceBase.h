@@ -297,6 +297,8 @@ public:
   void ScheduleRedraw() {
     m_bRedrawScheduled = true;
   };
+
+  void CheckRedraw();
   
 protected:
   void WriteTrainFileFull();
@@ -323,6 +325,7 @@ protected:
   
   bool m_bGlobalLock; // The big lock
   bool m_bShutdownLock;
+  bool m_bRecreateLock;
   
   // TODO: Make private?
   CDasherModule *GetModule(long long int iID);

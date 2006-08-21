@@ -23,7 +23,7 @@ bool CClickFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_p
   return m_pDasherModel->Tap_on_display(0, 0, Time, pAdded, pNumDeleted);
 }
 
-void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog) {
 
   switch(iId) {
   case 100: // Mouse clicks

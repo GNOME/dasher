@@ -76,12 +76,12 @@ void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
 }
 
 
-void COneDimensionalFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+void COneDimensionalFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog) {
   
   if(iId == 10) {
     iOffset = 2048 - iLastY;
   }
   else {
-    CDefaultFilter::KeyDown(iTime, iId, pModel);
+    CDefaultFilter::KeyDown(iTime, iId, pModel, pUserLog);
   }
 }

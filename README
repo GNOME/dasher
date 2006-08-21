@@ -38,6 +38,28 @@ MS Windows:
 MS Windows CE:
  * (not sure - if anyone knows then please fill this in)
 
+Platform Specific Notes
+-----------------------
+* Solaris: Dasher has been tested on Solaris 10. You will need to
+upgrade to gnome-doc-utils 0.3.2 to install the documentation, which
+in turn will require libxml 2.6.12 and libxslt 1.1.8. These packages
+are not required to run dasher once it is built.
+
+There have been some issues with the gthread-2.0 pkgconfig file
+including compiler flags which are not understood by the compiler. You
+may need to shadow this file in another directory with these flags
+removed.
+
+Currently GNU make (gmake) must be used.
+
+* Darwin / OS-X: The native UI in the macos directory is badly out of
+date and will almost definitely require considerable effort to
+build. We do not currently have the resources to maintain this port,
+but if you are interested in contributing then let us know
+(dasher@mrao.cam.ac.uk). The GTK2 front end should build on Darwin
+with minimal changes, and with a recent enough version of GTK will not
+require the X11 server.
+
 Installation Instructions
 -------------------------
 Please see the file INSTALL.<platform> for details on how to build and

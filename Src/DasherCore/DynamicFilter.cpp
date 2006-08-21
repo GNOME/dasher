@@ -73,10 +73,16 @@ bool CDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherMode
   return m_pDasherModel->Tap_on_display(m_iTargetX[m_iTarget], m_iTargetY[m_iTarget], Time, pAdded, pNumDeleted);
 }
 
-void CDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel *pModel) {
+void CDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog) {
   if((iButton == 2) || (iButton == 3) || (iButton == 4)) {
-      m_iTarget = 1 - m_iTarget;
-      m_bDecorationChanged = true;
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 5);
+    m_iTarget = 1 - m_iTarget;
+    m_bDecorationChanged = true;
+  }
+  else {
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 0);
   }
 }
 

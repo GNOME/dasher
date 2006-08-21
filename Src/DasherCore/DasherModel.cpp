@@ -549,7 +549,7 @@ bool CDasherModel::Tap_on_display(myint miMousex,
   }
 
 
-  m_dTotalNats += -1.0 * log((iNewMax - iNewMin) / static_cast<double>(m_Rootmax - m_Rootmin));
+  m_dTotalNats += log((iNewMax - iNewMin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
   // Now actually zoom to the new location
   NewGoTo(iNewMin, iNewMax, pAdded, pNumDeleted);
@@ -702,11 +702,11 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
 
   // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
 
-  if(newRootmin > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
-    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1;
+  if(newRootmin + m_iTargetOffset > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
+    newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1 - m_iTargetOffset;
 
-  if(newRootmax < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
-    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1;
+  if(newRootmax + m_iTargetOffset < (myint)GetLongParameter(LP_MAX_Y) / 2 + 1)
+    newRootmax = (myint)GetLongParameter(LP_MAX_Y) / 2 + 1 - m_iTargetOffset;
 
   // Check that we haven't drifted too far. The rule is that we're not
   // allowed to let the root max and min cross the midpoint of the
@@ -1143,15 +1143,6 @@ void CDasherModel::MatchTarget(bool bReverse) {
   m_Rootmax += m_iTargetOffset;
 
   m_iTargetOffset = 0;
-
-//   if(bReverse) {
-//     m_iTargetMin = m_Rootmin;
-//     m_iTargetMax = m_Rootmax;
-//   }
-//   else {
-//     m_Rootmin = m_iTargetMin;
-//     m_Rootmax = m_iTargetMax;
-//   }
 }
 
 void CDasherModel::LimitRoot(int iMaxWidth) {

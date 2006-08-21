@@ -78,6 +78,7 @@ struct NavCycle
   VECTOR_NAV_LOCATION_PTR     vectorNavLocations;       // Locations when text was added or deleted
   VECTOR_USER_LOCATION_PTR    vectorMouseLocations;     // Stores mouse locations and time stamps    
   VECTOR_USER_BUTTON_PTR      vectorButtons;        // Stores button presses and time stamps
+  double dBits; // Number of bits entered during the cycle, only updated at the end
 };
 
 typedef vector<NavCycle*>               VECTOR_NAV_CYCLE_PTR;
@@ -93,7 +94,7 @@ public:
 
   bool                        HasWritingOccured();
   void                        StartWriting();
-  void                        StopWriting();
+  void                        StopWriting(double dBits);
   void                        AddSymbols(Dasher::VECTOR_SYMBOL_PROB* vpNewSymbolProbs, eUserLogEventType iEvent, Dasher::CAlphabet* pCurrentAlphabet);
   void                        DeleteSymbols(int iNumToDelete, eUserLogEventType iEvent);  
   string                      GetXML(const string& strPrefix = "");
@@ -102,10 +103,13 @@ public:
   void                        AddCanvasSize(int iTop, int iLeft, int iBottom, int iRight);
   void                        AddMouseLocation(int iX, int iY, float dNats);
   void                        AddMouseLocationNormalized(int iX, int iY, bool bStoreIntegerRep, float dNats);
-  void AddKeyDown(int iId);
+  void AddKeyDown(int iId, int iType, int iEffect);
   bool                        IsWriting();
   void                        AddParam(const string& strName, const string& strValue, int iOptionMask = 0);
   static string               GetParamXML(CUserLogParam* pParam, const string& strPrefix = "");
+
+  int GetButtonCount();
+  double GetTotalBits();
 
   // Methods used by utility that can post-process the log files:
   CUserLogTrial(const string& strXML, int iIgnored);
@@ -144,7 +148,7 @@ protected:
   // add there own GetXML() method but reuse code for shared parts.
   string                      GetLocationXML(NavLocation* pLocation, const string& strPrefix);
   string                      GetSummaryXML(const string& strPrefix);
-  string                      GetStatsXML(const string& strPrefix, const string& strText, CTimeSpan* pSpan, double dAvgBits);
+  string                      GetStatsXML(const string& strPrefix, const string& strText, CTimeSpan* pSpan, double dAvgBits, int iButtonCount, double dTotalBits);
   string                      GetWindowCanvasXML(const string& strPrefix);
   string                      GetParamsXML(const string& strPrefix);
   string                      GetNavCyclesXML(const string& strPrefix);

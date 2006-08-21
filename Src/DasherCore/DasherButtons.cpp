@@ -334,7 +334,7 @@ bool CDasherButtons::DecorateView(CDasherView *pView) {
 }
  
 
-void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog) {
 
   if(m_bMenu) {
     switch(iId) {
@@ -395,14 +395,14 @@ void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel) {
 
 }
 
-bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel) {
+bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   bool m_bOldHighlight(m_bHighlight);
   m_bHighlight = (Time - m_iLastTime < 200);
 
   if(m_bOldHighlight != m_bHighlight)
     m_bDecorationChanged = true;
 
-  return m_pDasherModel->Tap_on_display(0, 0, Time, 0, 0);
+  return m_pDasherModel->Tap_on_display(0, 0, Time, pAdded, pNumDeleted);
 }
 
 void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {

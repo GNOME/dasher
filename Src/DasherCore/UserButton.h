@@ -16,12 +16,21 @@ typedef std::vector<CUserButton*>::iterator    VECTOR_USER_BUTTON_PTR_ITER;
 
 class CUserButton {
  public:
-  CUserButton(int iId);
+  CUserButton(int iId, int iType, int iEffect);
 
   std::string GetXML(const std::string& strPrefix = "");
+
+  int GetCount() {
+    if(m_iType == 0)
+      return 1;
+    else
+      return 0;
+  }
     
  protected:
   int m_iId;
+  int m_iType;
+  int m_iEffect;
   std::string m_strStringTime;
 };
 

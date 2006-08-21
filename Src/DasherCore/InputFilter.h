@@ -3,8 +3,8 @@
 
 #include "DasherView.h"
 #include "DasherModel.h"
-
 #include "DasherModule.h"
+#include "UserLog.h"
 
 namespace Dasher {
   class CDasherInterfaceBase;
@@ -19,7 +19,7 @@ class CInputFilter : public CDasherModule {
 
   virtual void HandleEvent(Dasher::CEvent * pEvent) {};
   virtual bool DecorateView(CDasherView *pView) { return false; };
-  virtual void KeyDown(int Time, int iId, CDasherModel *pModel) {};
+  virtual void KeyDown(int Time, int iId, CDasherModel *pModel, CUserLog *pUserLog) {};
   virtual void KeyUp(int Time, int iId, CDasherModel *pModel) {};
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) { return false; };
 

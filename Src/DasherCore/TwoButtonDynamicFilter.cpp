@@ -69,7 +69,7 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
 
 bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   if(m_bKeyDown && !m_bKeyHandled && ((Time - m_iKeyDownTime) > GetLongParameter(LP_HOLD_TIME))) {
-    Event(Time, m_iHeldId, 1, m_pDasherModel);
+    Event(Time, m_iHeldId, 1, m_pDasherModel, m_pUserLog);
     m_bKeyHandled = true;
     return true;
   }
@@ -86,7 +86,9 @@ bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CD
   return m_pDasherModel->Tap_on_display(100,2048, Time, pAdded, pNumDeleted);
 }
 
-void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) {
+void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog) {
+
+  m_pUserLog = pUserLog;
 
   if(((iId == 0) || (iId == 1) || (iId == 100)) && !GetBoolParameter(BP_BACKOFF_BUTTON))
     return;
@@ -95,7 +97,7 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
     return;
 
   // Pass the basic key down event to the handler
-  Event(iTime, iId, 0, pModel);
+  Event(iTime, iId, 0, pModel, pUserLog);
   
   // Store the key down time so that long presses can be determined
   // TODO: This is going to cause problems if multiple buttons are
@@ -108,7 +110,7 @@ void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel) 
       m_deQueueTimes.pop_front();
 
     if(m_deQueueTimes.size() == GetLongParameter(LP_MULTIPRESS_COUNT) - 1) { 
-      Event(iTime, iId, 2, pModel);
+      Event(iTime, iId, 2, pModel, pUserLog);
       m_deQueueTimes.clear();
     }
     else
@@ -137,11 +139,12 @@ void CTwoButtonDynamicFilter::Deactivate() {
   SetBoolParameter(BP_DELAY_VIEW, false);
 }
 
-void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel) {
+void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog) {
   // Types:
   // 0 = ordinary click
   // 1 = long click
   // 2 = multiple click
+
   
   // First sanity check - if Dasher is paused then jump to the
   // appropriate state
@@ -154,6 +157,8 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   // What happens next depends on the state:
   switch(m_iState) {
   case 0: // Any button when paused causes a restart
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 1);
     m_pInterface->Unpause(iTime);
     SetBoolParameter(BP_DELAY_VIEW, true);
     m_iState = 1;
@@ -162,43 +167,50 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
     switch(iType) {
     case 0:
       if((iButton == 0) || (iButton == 100)) {
+	if(pUserLog)
+	  pUserLog->KeyDown(iButton, iType, 2);
 	m_iState = 0;
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_pInterface->PauseAt(0, 0);
       }
       else if(iButton == 1) {
+	if(pUserLog)
+	  pUserLog->KeyDown(iButton, iType, 6);
 	SetBoolParameter(BP_DELAY_VIEW, false);
 	m_iState = 2;
       }
       else {
-	ActionButton(iTime, iButton, pModel);
+	ActionButton(iTime, iButton, iType, pModel, pUserLog);
       }
       break;
     case 1: // Delibarate fallthrough
     case 2: 
       if((iButton >= 2) && (iButton <= 4)) {
-	      SetBoolParameter(BP_DELAY_VIEW, false);
-	      m_iState = 2;
+	if(pUserLog)
+	  pUserLog->KeyDown(iButton, iType, 6);
+	SetBoolParameter(BP_DELAY_VIEW, false);
+	m_iState = 2;
        }
+      else {
+	if(pUserLog)
+	  pUserLog->KeyDown(iButton, iType, 0);
+      }
       break;
     }
     break;
   case 2:
-//     if(iButton == m_iLastButton) {
-//       SetBoolParameter(BP_DELAY_VIEW, true);
-//       m_iState = 1;
-//     }
-//     else {
-      m_iState = 0;
-      m_pInterface->PauseAt(0, 0);
-      //    }
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 2);
+    
+    m_iState = 0;
+    m_pInterface->PauseAt(0, 0);
     break;
   }
 
   m_iLastButton = iButton;
 }
 
-void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel *pModel) {
+void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog) {
   int iFactor(1);
 
   if(GetBoolParameter(BP_TWOBUTTON_REVERSE))
@@ -206,9 +218,17 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, CDasherModel 
 
   if(iButton == 2) {
     pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET));
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 3);
   }
   else if((iButton == 3) || (iButton == 4)) {
     pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET));
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 4);
+  }
+  else {
+    if(pUserLog)
+      pUserLog->KeyDown(iButton, iType, 0);
   }
 }
 

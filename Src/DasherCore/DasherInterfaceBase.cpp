@@ -68,6 +68,7 @@ CDasherInterfaceBase::CDasherInterfaceBase()
   
   m_bGlobalLock = false;
   m_bShutdownLock = false;
+  m_bRecreateLock = false;
 
   m_bRedrawScheduled = false;
 
@@ -219,7 +220,6 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       break;
     case LP_LANGUAGE_MODEL_ID:
       CreateDasherModel();
-      ScheduleRedraw();
       break;
     case LP_LINE_WIDTH:
       ScheduleRedraw();
@@ -301,6 +301,8 @@ void CDasherInterfaceBase::CreateDasherModel()
     m_pEventHandler->InsertEvent(pEvent);
     delete pEvent;
 
+    m_bRecreateLock = true;
+
     // Delete the old model and create a new one
     if(m_pDasherModel) {
       delete m_pDasherModel;
@@ -338,6 +340,9 @@ void CDasherInterfaceBase::CreateDasherModel()
   }
 
   Start();
+  Redraw(true);
+
+  m_bRecreateLock = false;
 }
 
 void CDasherInterfaceBase::Start() {
@@ -405,7 +410,7 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
 
   ResetNats();
   if (m_pUserLog != NULL)
-	  m_pUserLog->StartWriting();
+    m_pUserLog->StartWriting();
 }
 
 void CDasherInterfaceBase::CreateInput() {
@@ -427,7 +432,7 @@ void CDasherInterfaceBase::CreateInput() {
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
   // Fail if Dasher is locked
-  if(m_bGlobalLock || m_bShutdownLock)
+  if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
     return;
 
   bool bChanged(false);
@@ -466,6 +471,13 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
   // know how often new frames are being drawn.
   if(m_pDasherModel != 0)
     m_pDasherModel->NewFrame(iTime);
+}
+
+void CDasherInterfaceBase::CheckRedraw() {
+  if(m_bRedrawScheduled)
+    Redraw(true);
+
+  m_bRedrawScheduled = false;
 }
 
 /// Full redraw - renders model, decorations and blits onto display
@@ -795,15 +807,18 @@ CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
-  if(m_pUserLog)
-    m_pUserLog->KeyDown(iId);
+  if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
+    return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
-    m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel);
+    m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel, m_pUserLog);
   }
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
+  if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
+    return;
+
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
     m_pInputFilter->KeyUp(iTime, iId, m_pDasherModel);
   }

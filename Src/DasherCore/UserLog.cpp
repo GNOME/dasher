@@ -254,7 +254,7 @@ void CUserLog::StopWriting()
         return;
       }
 
-      pTrial->StopWriting();
+      pTrial->StopWriting(GetCycleBits());
     }
   }
 }
@@ -697,11 +697,11 @@ int CUserLog::GetLogLevelMask()
   return m_iLevelMask;
 }
 
-void CUserLog::KeyDown(int iId) {
+void CUserLog::KeyDown(int iId, int iType, int iEffect) {
   CUserLogTrial* pTrial = GetCurrentTrial();
   
   if(pTrial)
-    pTrial->AddKeyDown(iId);
+    pTrial->AddKeyDown(iId, iType, iEffect);
 }
   
 // This gets called whenever parameters get changed that we are tracking
