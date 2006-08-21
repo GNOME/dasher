@@ -122,14 +122,14 @@ AC_ARG_WITH([maemo-fullscreen],
 	WITHMAEMOFULLSCREEN=false)
 
 
-AC_ARG_WITH([darwin],
-	AC_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
-	if test $withval = "yes"; then
-	   WITHDARWIN=true;
-	else
-	   WITHDARWIN=false;
-	fi,
-	WITHDARWIN=false)
+dnl AC_ARG_WITH([darwin],
+dnl 	AC_HELP_STRING([--with-darwin],[build with Darwin (Mac OS X) support (default is NO)]),
+dnl 	if test $withval = "yes"; then
+dnl 	   WITHDARWIN=true;
+dnl 	else
+dnl 	   WITHDARWIN=false;
+dnl 	fi,
+dnl 	WITHDARWIN=false)
 
 AC_ARG_WITH([cairo],
 	 AC_HELP_STRING([--with-cairo],[build with cairo support (default is YES)]),
@@ -226,9 +226,9 @@ if [[ x"$WITHGPE" = xtrue ]]; then
 	AC_DEFINE([WITH_GPE], 1, [gpe is present])
 fi
 
-if [[ x"$WITHDARWIN" = xtrue ]]; then
-        AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
-fi
+dnl if [[ x"$WITHDARWIN" = xtrue ]]; then
+dnl         AC_DEFINE([WITH_DARWIN], 1, [Targeting Darwin/X11])
+dnl fi
 
 if [[ x"$WITHMAEMO" = xtrue ]]; then
       AC_DEFINE([WITH_MAEMO], 1, [Maemo is present])
@@ -301,7 +301,7 @@ AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
-AM_CONDITIONAL(WITH_DARWIN, test x$WITHDARWIN = xtrue)
+dnl AM_CONDITIONAL(WITH_DARWIN, test x$WITHDARWIN = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)
 AC_SUBST(GTK2_LIBS)
