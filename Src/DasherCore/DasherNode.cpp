@@ -110,8 +110,10 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
       (*i)->Delete_children();
       delete (*i);
     }
-
   }
+  
+  pChild->SetParent(NULL);
+
   Children().clear();
   SetHasAllChildren(false);
 }

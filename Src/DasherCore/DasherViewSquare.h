@@ -158,7 +158,6 @@ private:
   
   void RenderGroups(CDasherNode * Render, myint y1, myint y2, int mostleft);
 
-
   /// Render a single node
   /// \param Character Symbol ID to be drawn
   /// \param Color The colour to draw it

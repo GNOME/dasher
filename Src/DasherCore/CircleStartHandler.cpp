@@ -22,11 +22,13 @@ bool CCircleStartHandler::DecorateView(CDasherView *pView) {
   m_iScreenRadius = iCY2 - iCY;
 
   if((m_iStatus == 0) || (m_iStatus == 2))
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 0, true);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 2, 242, 1, true);
+  else if((m_iStatus == 1) || (m_iStatus == 3))
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 240, 0, 1, false);
   else if(m_iStatus == 5)
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 1, true);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 2, 241, 1, true);
   else
-    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 0, false);
+    pView->Screen()->DrawCircle(iCX, iCY, m_iScreenRadius, 240, 0, 3, false);
 
   return true;
 }

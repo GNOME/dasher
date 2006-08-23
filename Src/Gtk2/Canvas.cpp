@@ -218,9 +218,12 @@ void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutl
   END_DRAWING;
 }
 
-void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, bool bFill) {
+void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill) {
 #if WITH_CAIRO
 #else
+  if(iThickness == 1) // This is to make it work propely on Windows
+    iThickness = 0; 
+
   GdkGC *graphics_context;
   GdkColormap *colormap;
 
@@ -231,7 +234,7 @@ void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour
   BEGIN_DRAWING;
 
   if(bFill) {
-    SET_COLOR(iColour);
+    SET_COLOR(iFillColour);
 #if WITH_CAIRO
     cairo_arc(cr, iCX, iCY, iR, 0, 2*M_PI);
     cairo_fill(cr);
@@ -240,11 +243,13 @@ void CCanvas::DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour
 #endif
   }
 
-  SET_COLOR(2);
+  SET_COLOR(iColour);
 #if WITH_CAIRO
+  cairo_set_line_width(cr, iThickness);
   cairo_arc(cr, iCX, iCY, iR, 0, 2*M_PI);
   cairo_stroke(cr);
 #else
+  gdk_gc_set_line_attributes(graphics_context, iThickness, GDK_LINE_SOLID, GDK_CAP_ROUND, GDK_JOIN_ROUND );
   gdk_draw_arc(m_pOffscreenBuffer, graphics_context, false, iCX - iR, iCY - iR, 2*iR, 2*iR, 0, 23040);
 #endif
 

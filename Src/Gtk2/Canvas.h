@@ -156,7 +156,7 @@ public:
 
   void DrawRectangle(screenint x1, screenint y1, screenint x2, screenint y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutine, bool bFill, int iThickness);
 
-  void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, bool bFill);
+  void DrawCircle(screenint iCX, screenint iCY, screenint iR, int iColour, int iFillColour, int iThickness, bool bFill);
 
   ///
   /// Send a marker to indicate phases of the redraw process. This is

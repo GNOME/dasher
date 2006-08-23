@@ -170,7 +170,15 @@ extern "C" bool save_file_as(const char *myfilename, bool append) {
 
   inbuffer = gtk_text_iter_get_slice(start, end);
 
-  length = gtk_text_iter_get_offset(end) - gtk_text_iter_get_offset(start);
+  //  g_message("String %s", inbuffer);
+
+  //length = gtk_text_iter_get_offset(end) - gtk_text_iter_get_offset(start);
+  //length = gtk_text_buffer_get_byte_count(GTK_TEXT_BUFFER(the_text_buffer));
+
+  length = strlen(inbuffer);
+
+  //  g_message("Length is %d", length);
+
   outbuffer = (char *)malloc((length + 1) * sizeof(gchar));
   memcpy((void *)outbuffer, (void *)inbuffer, length * sizeof(gchar));
   outbuffer[length] = 0;

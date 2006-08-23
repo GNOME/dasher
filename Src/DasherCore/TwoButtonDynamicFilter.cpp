@@ -26,8 +26,15 @@ CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventH
   : CInputFilter(pEventHandler, pSettingsStore, pInterface, iID, iType, szName) { 
   //14, 1, "Two Button Dynamic Mode") {
   m_iState = 0;
+  m_iLastTime = -1;
   m_bDecorationChanged = true;
   m_bKeyDown = false;
+
+  m_pLowerTree = NULL;
+  m_pUpperTree = NULL;
+
+  m_iLowerCount = 0;
+  m_iUpperCount = 0;
 }
 
 bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
@@ -242,4 +249,126 @@ bool CTwoButtonDynamicFilter::GetSettings(SModuleSettings **pSettings, int *iCou
 bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
   iMinWidth = 1024;
   return true;
+}
+
+void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime) {
+  if(m_iLastTime == -1) {
+    m_iLastTime = iTime;
+    return;
+  }
+    
+  int iDiff(iTime - m_iLastTime);
+
+  if(!m_pUpperTree) { // Special case: intial data point
+    m_pUpperTree = new SBTree(iDiff);
+    m_iUpperMin = iDiff;
+    m_iUpperCount = 1;
+  }
+  else {
+    if(iDiff >= m_iUpperMin) {
+      m_pUpperTree->Add(iDiff);
+      ++m_iUpperCount;
+    }
+    else {
+      if(!m_pLowerTree) {
+	m_pLowerTree = new SBTree(iDiff);
+	m_iLowerMax = iDiff;
+	m_iLowerCount = 1;
+      }
+      else {
+	m_pLowerTree->Add(iDiff);
+	++m_iLowerCount;
+	if(iDiff > m_iLowerMax)
+	  m_iLowerMax = iDiff;
+      }
+    }
+  }
+
+  // Renormalise the trees - assume that we only need to make one change here
+
+  if(m_iLowerCount < m_iUpperCount / 3) {
+    if(m_pLowerTree)
+      m_pLowerTree->Add(m_iUpperMin);
+    else
+      m_pLowerTree = new SBTree(m_iUpperMin);
+
+    m_pUpperTree->Delete(m_iUpperMin);
+
+    --m_iUpperCount;
+    ++m_iLowerCount;
+
+    m_iLowerMax = m_iUpperMin;
+    m_iUpperMin = m_pUpperTree->GetMin();
+  }
+  else if(m_iLowerCount > m_iUpperCount / 3) {
+    if(m_iLowerCount > 1)
+      m_pLowerTree->Delete(m_iLowerMax);
+    else {
+      delete m_pLowerTree;
+      m_pLowerTree = NULL;
+    }
+    
+    if(m_pUpperTree)
+      m_pUpperTree->Add(m_iLowerMax);
+    else
+      m_pUpperTree = new SBTree(m_iLowerMax);
+
+    --m_iLowerCount;
+    ++m_iUpperCount;
+
+    m_iUpperMin = m_iLowerMax;
+    if(m_pLowerTree)
+      m_iLowerMax = m_pLowerTree->GetMax();
+  }
+}
+
+CTwoButtonDynamicFilter::SBTree::SBTree(int iValue) {
+  m_iValue = iValue;
+  m_pLeft = NULL;
+  m_pRight = NULL;
+}
+
+void CTwoButtonDynamicFilter::SBTree::Add(int iValue) {
+  if(iValue > m_iValue) {
+    if(m_pRight)
+      m_pRight->Add(iValue);
+    else
+      m_pRight = new SBTree(iValue);
+  }
+  else {
+    if(m_pLeft)
+      m_pLeft->Add(iValue);
+    else
+      m_pLeft = new SBTree(iValue);
+  }
+}
+
+CTwoButtonDynamicFilter::SBTree* CTwoButtonDynamicFilter::SBTree::Delete(int iValue) {
+  // Hmm... deleting is awkward in binary trees
+
+  if(iValue == m_iValue) {
+    // Delete me
+  }
+  else if(iValue > m_iValue) {
+    m_pRight = m_pRight->Delete(iValue);
+  }
+  else {
+    m_pLeft = m_pLeft->Delete(iValue);
+  }
+
+  return this;
+}
+
+int CTwoButtonDynamicFilter::SBTree::GetMax() {
+  if(m_pRight)
+    return m_pRight->GetMax();
+  else
+    return m_iValue;
+}
+
+int CTwoButtonDynamicFilter::SBTree::GetMin() {
+  if(m_pLeft)
+    return m_pLeft->GetMax();
+  else
+    return m_iValue;
 }

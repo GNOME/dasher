@@ -940,7 +940,7 @@ void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
     iDasherY = iCentre + iRadius;
     Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
 
-    Screen()->DrawCircle(p[0].x, p[0].y, abs(p[1].y - p[0].y), 136, false);
+    Screen()->DrawCircle(p[0].x, p[0].y, abs(p[1].y - p[0].y), 136, 0, 1, false);
   }
 
   if(iPosition > (myint)GetLongParameter(LP_MAX_Y)) {

@@ -22,6 +22,7 @@ static char THIS_FILE[] = __FILE__;
 
 static SModuleSettings sSettings[] = {
   {LP_ZOOMSTEPS, T_LONG, 1, 63, 1, 1, "Zoom steps"},
+  {LP_RIGHTZOOM, T_LONG, 1024, 10240, 1024, 1024, "Right zoom"},
   {LP_B, T_LONG, 2, 10, 1, 1, "Number of boxes"},
   {LP_S, T_LONG, 0, 256, 1, 1, "Safety margin"},
   {LP_R, T_LONG, -400, 400, 1, 10, "Box non-uniformity"},

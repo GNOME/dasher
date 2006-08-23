@@ -272,9 +272,8 @@ void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf) {
 #ifndef WITH_MAEMOFULLSCREEN
   gtk_window_set_keep_above((pPrivate->pWindow), true);
 #endif
-#else
-  gtk_window_set_keep_above((pPrivate->pWindow), dasher_main_topmost(g_pDasherMain));
 #endif
+  gtk_window_set_keep_above((pPrivate->pWindow), dasher_main_topmost(g_pDasherMain));
   gtk_window_present(pPrivate->pWindow);
 }
 

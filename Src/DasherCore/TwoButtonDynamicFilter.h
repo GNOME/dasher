@@ -29,6 +29,30 @@ class CTwoButtonDynamicFilter : public CInputFilter {
 
  private:
   void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
+  void AutoSpeedSample(int iTime);
+
+  class SBTree {
+  public:
+    SBTree(int iValue);
+    void Add(int iValue);
+    SBTree* Delete(int iValue);
+
+    int GetMax();
+    int GetMin();
+  private:
+    int m_iValue;
+    SBTree *m_pLeft;
+    SBTree *m_pRight;
+  };
+
+  SBTree *m_pLowerTree;
+  SBTree *m_pUpperTree;
+
+  int m_iLowerMax;
+  int m_iUpperMin;
+
+  int m_iUpperCount;
+  int m_iLowerCount;
 
   int m_iLastButton;
   int m_iKeyDownTime;
@@ -39,6 +63,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   bool m_bKeyDown;
   bool m_bKeyHandled;
   int m_iHeldId;
+  int m_iLastTime;
 
   CUserLog *m_pUserLog;
 };

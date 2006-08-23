@@ -393,6 +393,7 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
     Me->InputInfo.m_iCharacters = 1; // Start at 1 as 0 is the root node symbol
     Me->InputInfo.m_pBaseGroup = 0;
     Me->bFirstGroup = true;
+    Me->iGroupIdx = 0;
     while(*atts != 0) {
       if(strcmp(*atts, "name") == 0) {
         atts++;
@@ -520,7 +521,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
   if(strcmp(name, "group") == 0) {
     SGroupInfo *pNewGroup(new SGroupInfo);
-    pNewGroup->iColour = 0;
+    pNewGroup->iColour = (Me->iGroupIdx % 3) + 110; 
+    ++Me->iGroupIdx;
 
     if(Me->bFirstGroup) {
       pNewGroup->bVisible = false;
