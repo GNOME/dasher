@@ -29,12 +29,11 @@ CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventH
   m_iLastTime = -1;
   m_bDecorationChanged = true;
   m_bKeyDown = false;
+}
 
-  m_pLowerTree = NULL;
-  m_pUpperTree = NULL;
-
-  m_iLowerCount = 0;
-  m_iUpperCount = 0;
+CTwoButtonDynamicFilter::~CTwoButtonDynamicFilter() {
+  if(m_pTree)
+    delete m_pTree;
 }
 
 bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
@@ -227,11 +226,13 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET));
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 3);
+    AutoSpeedSample(iTime);
   }
   else if((iButton == 3) || (iButton == 4)) {
     pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET));
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 4);
+    AutoSpeedSample(iTime);
   }
   else {
     if(pUserLog)
@@ -258,77 +259,34 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime) {
   }
     
   int iDiff(iTime - m_iLastTime);
+  m_iLastTime = iTime;
+  
+  if(!m_pTree)
+    m_pTree = new SBTree(iDiff);
+  else
+    m_pTree->Add(iDiff);
 
-  if(!m_pUpperTree) { // Special case: intial data point
-    m_pUpperTree = new SBTree(iDiff);
-    m_iUpperMin = iDiff;
-    m_iUpperCount = 1;
-  }
-  else {
-    if(iDiff >= m_iUpperMin) {
-      m_pUpperTree->Add(iDiff);
-      ++m_iUpperCount;
-    }
-    else {
-      if(!m_pLowerTree) {
-	m_pLowerTree = new SBTree(iDiff);
-	m_iLowerMax = iDiff;
-	m_iLowerCount = 1;
-      }
-      else {
-	m_pLowerTree->Add(iDiff);
-	++m_iLowerCount;
-	if(iDiff > m_iLowerMax)
-	  m_iLowerMax = iDiff;
-      }
-    }
-  }
-
-  // Renormalise the trees - assume that we only need to make one change here
-
-  if(m_iLowerCount < m_iUpperCount / 3) {
-    if(m_pLowerTree)
-      m_pLowerTree->Add(m_iUpperMin);
-    else
-      m_pLowerTree = new SBTree(m_iUpperMin);
-
-    m_pUpperTree->Delete(m_iUpperMin);
-
-    --m_iUpperCount;
-    ++m_iLowerCount;
-
-    m_iLowerMax = m_iUpperMin;
-    m_iUpperMin = m_pUpperTree->GetMin();
-  }
-  else if(m_iLowerCount > m_iUpperCount / 3) {
-    if(m_iLowerCount > 1)
-      m_pLowerTree->Delete(m_iLowerMax);
-    else {
-      delete m_pLowerTree;
-      m_pLowerTree = NULL;
-    }
-    
-    if(m_pUpperTree)
-      m_pUpperTree->Add(m_iLowerMax);
-    else
-      m_pUpperTree = new SBTree(m_iLowerMax);
-
-    --m_iLowerCount;
-    ++m_iUpperCount;
-
-    m_iUpperMin = m_iLowerMax;
-    if(m_pLowerTree)
-      m_iLowerMax = m_pLowerTree->GetMax();
-  }
+  int iMedian(m_pTree->GetOffset(m_pTree->GetCount() / 2));
 }
 
 CTwoButtonDynamicFilter::SBTree::SBTree(int iValue) {
   m_iValue = iValue;
   m_pLeft = NULL;
   m_pRight = NULL;
+  m_iCount = 1;
+}
+
+CTwoButtonDynamicFilter::SBTree::~SBTree() {
+  if(m_pLeft)
+    delete m_pLeft;
+
+  if(m_pRight)
+    delete m_pRight;
 }
 
 void CTwoButtonDynamicFilter::SBTree::Add(int iValue) {
+  ++m_iCount;
+
   if(iValue > m_iValue) {
     if(m_pRight)
       m_pRight->Add(iValue);
@@ -359,16 +317,13 @@ CTwoButtonDynamicFilter::SBTree* CTwoButtonDynamicFilter::SBTree::Delete(int iVa
   return this;
 }
 
-int CTwoButtonDynamicFilter::SBTree::GetMax() {
-  if(m_pRight)
-    return m_pRight->GetMax();
-  else
+int CTwoButtonDynamicFilter::SBTree::GetOffset(int iOffset) {
+  if(m_pLeft && (m_pLeft->GetCount() > iOffset))
+    return m_pLeft->GetOffset(iOffset);
+  else if((m_pLeft && (m_pLeft->GetCount() == iOffset)) || (!m_pLeft && (iOffset == 0)))
     return m_iValue;
-}
-
-int CTwoButtonDynamicFilter::SBTree::GetMin() {
-  if(m_pLeft)
-    return m_pLeft->GetMax();
+  else if(m_pLeft)
+    return m_pRight->GetOffset(iOffset - m_pLeft->GetCount() - 1);
   else
-    return m_iValue;
+    return m_pRight->GetOffset(iOffset - 1);
 }

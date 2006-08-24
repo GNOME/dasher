@@ -8,6 +8,7 @@
 class CTwoButtonDynamicFilter : public CInputFilter {
  public:
   CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName);
+  ~CTwoButtonDynamicFilter();
 
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView);
@@ -34,25 +35,25 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   class SBTree {
   public:
     SBTree(int iValue);
+    ~SBTree();
+
     void Add(int iValue);
     SBTree* Delete(int iValue);
 
-    int GetMax();
-    int GetMin();
+    int GetCount() {
+      return m_iCount;
+    };
+
+    int GetOffset(int iOffset);
+
   private:
     int m_iValue;
     SBTree *m_pLeft;
     SBTree *m_pRight;
+    int m_iCount;
   };
 
-  SBTree *m_pLowerTree;
-  SBTree *m_pUpperTree;
-
-  int m_iLowerMax;
-  int m_iUpperMin;
-
-  int m_iUpperCount;
-  int m_iLowerCount;
+  SBTree *m_pTree;
 
   int m_iLastButton;
   int m_iKeyDownTime;

@@ -302,20 +302,21 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 
   /* Determine how zoomed in we are */
 
-  myint iRootWidth = m_Rootmax - m_Rootmin;
-  //  myint iTargetWidth = m_iTargetMax - m_iTargetMin;
   myint iWidth = upper - lower;
-//  double scalefactor=(m_Rootmax-m_Rootmin)/static_cast<double>(upper-lower);
 
   m_Root = pNewRoot;
 
+  myint iRootWidth;
+
+  iRootWidth = m_Rootmax - m_Rootmin;
   m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
   m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
-  
-//   m_iTargetMax = m_iTargetMax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iTargetWidth / iWidth);
-//   m_iTargetMin = m_iTargetMin - (myint(lower) * iTargetWidth / iWidth);
-  
-  
+
+ for(std::deque<SGotoItem>::iterator it(m_deGotoQueue.begin()); it != m_deGotoQueue.end(); ++it) {
+   iRootWidth = it->iN2 - it->iN1;
+   it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
+   it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iWidth);
+ }
 }
 
 /////////////////////////////////////////////////////////////////////////////
