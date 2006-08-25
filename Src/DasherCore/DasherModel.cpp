@@ -264,13 +264,13 @@ void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
 
 void CDasherModel::Reparent_root(int lower, int upper) {
 
+
   /* Change the root node to the parent of the existing node
      We need to recalculate the coordinates for the "new" root as the 
      user may have moved around within the current root */
 
   if(m_Root->Symbol() == 0)
     return; // Don't try to reparent the root symbol
-
 
   CDasherNode *pNewRoot;
 
@@ -307,11 +307,17 @@ void CDasherModel::Reparent_root(int lower, int upper) {
 
   myint iWidth = upper - lower;
 
+  myint iRootWidth;
+  iRootWidth = m_Rootmax - m_Rootmin;
+
+  if(((myint((GetLongParameter(LP_NORMALIZATION) - upper))  / static_cast<double>(iWidth)) > (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || ((myint(lower) / static_cast<double>(iWidth)) > (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
+    pNewRoot->OrphanChild(m_Root);
+    delete pNewRoot;
+    return;
+  }
+
   m_Root = pNewRoot;
 
-  myint iRootWidth;
-
-  iRootWidth = m_Rootmax - m_Rootmin;
   m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
   m_Rootmin = m_Rootmin - (myint(lower) * iRootWidth / iWidth);
 
@@ -645,7 +651,6 @@ double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps,
   DASHER_ASSERT(iRxnew > 0);
   if (iRxnew < ZOOMDENOM && m_Rootmax<(myint)GetLongParameter(LP_MAX_Y) && m_Rootmin>0 ) {
     // refuse to zoom backwards if the entire root node is visible.
-    cout << "Refusing to zoom backwards." << endl;
     *iSteps = 0 ;
     *n1 = m_Rootmin;
     *n2 = m_Rootmax;
@@ -1042,6 +1047,7 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
     Reparent_root(root->Lbnd(), root->Hbnd());
     return(m_Root != root);
   }
+
 
   if(children.size() == 0)
     return false;

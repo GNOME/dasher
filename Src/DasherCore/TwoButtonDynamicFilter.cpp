@@ -56,7 +56,7 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   
   pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
   
-  pScreen->Polyline(p, 2, 1, 2);
+  pScreen->Polyline(p, 2, 3, 242);
 
   iDasherX = -100;
   iDasherY = 2048 + GetLongParameter(LP_TWO_BUTTON_OFFSET);
@@ -68,7 +68,7 @@ bool CTwoButtonDynamicFilter::DecorateView(CDasherView *pView) {
   
   pView->Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
   
-  pScreen->Polyline(p, 2, 1, 2);
+  pScreen->Polyline(p, 2, 3, 242);
 
   bool bRV(m_bDecorationChanged);
   m_bDecorationChanged = false;
