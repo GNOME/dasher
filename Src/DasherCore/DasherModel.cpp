@@ -172,7 +172,10 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
       MatchTarget(GetBoolParameter(BP_DELAY_VIEW));
       break;
     case BP_DASHER_PAUSED:
-      m_iStartTime = 0;
+      if(GetBoolParameter(BP_SLOW_START))
+	m_iStartTime = 0;
+      else
+	m_iStartTime = 1;
       break;
     default:
       break;
@@ -448,7 +451,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
 
   double dFactor;
 
-  if(GetBoolParameter(BP_SLOW_START) && ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME)))
+  if((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME))
     dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
   else 
     dFactor = 1.0;

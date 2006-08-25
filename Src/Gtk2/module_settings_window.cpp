@@ -139,6 +139,9 @@ GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gch
 					     pSettings[i].iMax / static_cast<double>(pSettings[i].iDivisor), 
 					     pSettings[i].iStep / static_cast<double>(pSettings[i].iDivisor));
 	
+	gtk_range_set_increments(GTK_RANGE(pControl), pSettings[i].iStep / static_cast<double>(pSettings[i].iDivisor),
+				 pSettings[i].iStep / static_cast<double>(pSettings[i].iDivisor));
+
 	gtk_range_set_value(GTK_RANGE(pControl), 
 			    dasher_app_settings_get_long(pPrivate->pAppSettings, pSettings[i].iParameter) 
 			    / static_cast<double>(pSettings[i].iDivisor));

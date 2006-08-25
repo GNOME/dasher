@@ -30,7 +30,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
 
  private:
   void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
-  void AutoSpeedSample(int iTime);
+  void AutoSpeedSample(int iTime, CDasherModel *pModel);
 
   class SBTree {
   public:

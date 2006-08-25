@@ -292,6 +292,9 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // is definitely in order
   void LimitRoot(int iMaxWidth);
 
+  void TriggerSlowdown() {
+    m_iStartTime = 0;
+  };
 
  private:
 

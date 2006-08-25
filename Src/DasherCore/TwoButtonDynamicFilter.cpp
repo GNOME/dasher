@@ -19,7 +19,9 @@ static SModuleSettings sSettings[] = {
   {BP_BACKOFF_BUTTON,T_BOOL, -1, -1, -1, -1, "Enable backoff and start/stop buttons"},
   {BP_TWOBUTTON_REVERSE,T_BOOL, -1, -1, -1, -1, "Reverse up and down buttons"},
   {BP_SLOW_START,T_BOOL, -1, -1, -1, -1, "Slow startup"},
-  {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, "Startup time"}
+  {LP_SLOW_START_TIME, T_LONG, 0, 10000, 1000, 100, "Startup time"},
+  {BP_TWOBUTTON_SPEED,T_BOOL, -1, -1, -1, -1, "Auto speed control"},
+  {LP_DYNAMIC_MEDIAN_FACTOR, T_LONG, 10, 200, 100, 10, "Auto speed threshold"}
 };
 
 CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, long long int iID, int iType, const char *szName)
@@ -226,13 +228,15 @@ void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CD
     pModel->Offset(iFactor * GetLongParameter(LP_TWO_BUTTON_OFFSET));
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 3);
-    AutoSpeedSample(iTime);
+    if(GetBoolParameter(BP_TWOBUTTON_SPEED))
+      AutoSpeedSample(iTime, pModel);
   }
   else if((iButton == 3) || (iButton == 4)) {
     pModel->Offset(iFactor * -GetLongParameter(LP_TWO_BUTTON_OFFSET));
     if(pUserLog)
       pUserLog->KeyDown(iButton, iType, 4);
-    AutoSpeedSample(iTime);
+    if(GetBoolParameter(BP_TWOBUTTON_SPEED))
+      AutoSpeedSample(iTime, pModel);
   }
   else {
     if(pUserLog)
@@ -252,21 +256,27 @@ bool CTwoButtonDynamicFilter::GetMinWidth(int &iMinWidth) {
   return true;
 }
 
-void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime) {
+void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
   if(m_iLastTime == -1) {
     m_iLastTime = iTime;
     return;
   }
-    
+
   int iDiff(iTime - m_iLastTime);
   m_iLastTime = iTime;
+
+  if(m_pTree) {
+    int iMedian(m_pTree->GetOffset(m_pTree->GetCount() / 2));
+    
+    if(iDiff < (iMedian * GetLongParameter(LP_DYNAMIC_MEDIAN_FACTOR)) / 100) {
+      pModel->TriggerSlowdown();
+    }
+  }
   
   if(!m_pTree)
     m_pTree = new SBTree(iDiff);
   else
     m_pTree->Add(iDiff);
-
-  int iMedian(m_pTree->GetOffset(m_pTree->GetCount() / 2));
 }
 
 CTwoButtonDynamicFilter::SBTree::SBTree(int iValue) {

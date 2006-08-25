@@ -55,7 +55,7 @@ CDasherButtons::~CDasherButtons()
 void CDasherButtons::SetupBoxes()
 {
   
-    int iDasherY(GetLongParameter(LP_MAX_Y));
+  int iDasherY(GetLongParameter(LP_MAX_Y));
 
 
   if(m_iStyle == 3) {
