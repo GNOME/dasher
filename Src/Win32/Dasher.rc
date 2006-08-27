@@ -159,7 +159,6 @@ BEGIN
     END
     POPUP "&Help"
     BEGIN
-        MENUITEM "Dasher &Tutorial",            ID_HELP_DASHERTUTORIAL
         MENUITEM "&Help Topics",                ID_HELP_CONTENTS
         MENUITEM SEPARATOR
         MENUITEM "&About Dasher",               IDM_ABOUT
@@ -444,6 +443,7 @@ BEGIN
     CONTROL         "Control mode",IDC_CONTROLMODE,"Button",BS_AUTOCHECKBOX | 
                     WS_TABSTOP,14,122,59,10
     GROUPBOX        "Input Device:",IDC_STATIC,7,191,205,40
+    PUSHBUTTON      "Options",IDC_BUTTON_PREFS2,157,212,48,14
 END
 
 IDD_COLOUR DIALOGEX 0, 0, 256, 238
@@ -722,10 +722,10 @@ BEGIN
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 212
-        VERTGUIDE, 152
         TOPMARGIN, 7
         BOTTOMMARGIN, 231
         HORZGUIDE, 25
+        HORZGUIDE, 226
     END
 
     IDD_COLOUR, DIALOG

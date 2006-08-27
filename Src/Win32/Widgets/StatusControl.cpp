@@ -104,7 +104,7 @@ void CStatusControl::CreateChildren() {
   ::MoveWindow(m_hEdit, 0, 0, m_iEditWidth, iEditHeight, false);
  
   m_hUpDown = CreateWindowEx(WS_EX_CLIENTEDGE, UPDOWN_CLASS, TEXT(""), UDS_ALIGNRIGHT | WS_CHILD  | WS_TABSTOP |WS_VISIBLE |  WS_GROUP, 0, 0, 16, 16, m_hWnd, NULL, WinHelper::hInstApp, NULL);
-  SendMessage(m_hUpDown, UDM_SETRANGE, 0, (LPARAM) MAKELONG(1, 800));
+  SendMessage(m_hUpDown, UDM_SETRANGE, 0, (LPARAM) MAKELONG(800, 1));
 
   // And finally the combo box
   m_hCombo = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("COMBOBOX"), TEXT(""), CBS_DROPDOWNLIST | WS_CHILD | WS_TABSTOP | WS_VISIBLE |WS_GROUP | ES_READONLY, 0, 0, 128, 128, m_hWnd, NULL, WinHelper::hInstApp, NULL);

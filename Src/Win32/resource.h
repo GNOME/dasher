@@ -120,6 +120,7 @@
 #define IDC_BUTTON_PREFS                1018
 #define IDC_BP_APPLY                    1018
 #define IDC_ADD_GROUP                   1019
+#define IDC_BUTTON_PREFS2               1019
 #define IDC_CLIPTOALPH_UNORDERED        1020
 #define IDC_THICKLINE                   1020
 #define IDC_LIST2                       1021

@@ -14,6 +14,7 @@
 #include "../AppSettings.h"
 #include "../ButtonPrefs.h"
 
+
 #include <utility>              // for std::pair
 
 using namespace Dasher;
@@ -185,6 +186,15 @@ bool CControlPage::Apply()
 
 LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
 
+  if(message == WM_MS_CLOSE) {
+    if(m_pModuleSettingsDialogue) {
+      m_pModuleSettingsDialogue->DestroyWindow();
+    }
+    m_pModuleSettingsDialogue = NULL;
+    EnableWindow(m_hwnd, true);
+    return 0;
+  }
+
 	double NewSpeed;
 	switch (message) 
 	{	
@@ -195,7 +205,58 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			break;
     case IDC_BUTTON_PREFS: 
       {
-        CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        int iSelection(SendMessage(GetDlgItem(m_hwnd, listtable[0].idcNum), LB_GETCURSEL, 0, 0));
+    
+        int iLength(SendMessage(GetDlgItem(m_hwnd, listtable[0].idcNum), LB_GETTEXTLEN, iSelection, 0));
+        TCHAR *szData(new TCHAR[iLength + 1]);
+        SendMessage(GetDlgItem(m_hwnd, listtable[0].idcNum), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+        std::string strNewValue;
+        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+        delete[] szData;
+
+        SModuleSettings *pSettings;
+        int iSettingsCount;
+
+        if(!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
+          break;
+
+        RECT sRect;
+
+        m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pDasherInterface);
+        m_pModuleSettingsDialogue->Create(m_hwnd, &sRect);
+        m_pModuleSettingsDialogue->ShowWindow(SW_RESTORE);
+        
+        EnableWindow(m_hwnd, false);
+      }
+		  break;
+    case IDC_BUTTON_PREFS2: 
+      {
+        //CButtonPrefs ButtonPrefs(m_hwnd, 0, m_pAppSettings);
+        int iSelection(SendMessage(GetDlgItem(m_hwnd, listtable[1].idcNum), LB_GETCURSEL, 0, 0));
+    
+        int iLength(SendMessage(GetDlgItem(m_hwnd, listtable[1].idcNum), LB_GETTEXTLEN, iSelection, 0));
+        TCHAR *szData(new TCHAR[iLength + 1]);
+        SendMessage(GetDlgItem(m_hwnd, listtable[1].idcNum), LB_GETTEXT, iSelection, (LPARAM)szData);
+
+        std::string strNewValue;
+        WinUTF8::wstring_to_UTF8string(szData, strNewValue);
+        delete[] szData;
+
+        SModuleSettings *pSettings;
+        int iSettingsCount;
+
+        if(!m_pDasherInterface->GetModuleSettings(strNewValue, &pSettings, &iSettingsCount))
+          break;
+
+        RECT sRect;
+
+        m_pModuleSettingsDialogue = new CModuleSettings(strNewValue, pSettings, iSettingsCount, m_pDasherInterface);
+        m_pModuleSettingsDialogue->Create(m_hwnd, &sRect);
+        m_pModuleSettingsDialogue->ShowWindow(SW_RESTORE);
+        
+        EnableWindow(m_hwnd, false);
       }
 		  break;
 		case IDC_STOPIDLE:
@@ -207,7 +268,6 @@ LRESULT CControlPage::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM l
 			break;
 		}
 		break;
-
 	case WM_HSCROLL:
 		if((LOWORD(wParam) == SB_THUMBPOSITION) | (LOWORD(wParam) == SB_THUMBTRACK)) {
 			// Some messages give the new postion

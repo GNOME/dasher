@@ -445,6 +445,46 @@
 							RelativePath=".\Widgets\ViewPage.h">
 						</File>
 					</Filter>
+					<Filter
+						Name="ModuleSettings"
+						Filter="">
+						<File
+							RelativePath=".\ModuleControl.cpp">
+						</File>
+						<File
+							RelativePath=".\ModuleControl.h">
+						</File>
+						<File
+							RelativePath=".\ModuleControlBool.cpp">
+						</File>
+						<File
+							RelativePath=".\ModuleControlBool.h">
+						</File>
+						<File
+							RelativePath=".\ModuleControlLong.cpp">
+						</File>
+						<File
+							RelativePath=".\ModuleControlLong.h">
+						</File>
+						<File
+							RelativePath=".\ModuleControlLongSpin.cpp">
+						</File>
+						<File
+							RelativePath=".\ModuleControlLongSpin.h">
+						</File>
+						<File
+							RelativePath=".\ModuleControlString.cpp">
+						</File>
+						<File
+							RelativePath=".\ModuleControlString.h">
+						</File>
+						<File
+							RelativePath=".\ModuleSettings.cpp">
+						</File>
+						<File
+							RelativePath=".\ModuleSettings.h">
+						</File>
+					</Filter>
 				</Filter>
 			</Filter>
 			<Filter
