@@ -25,10 +25,10 @@ settings_store =
 endif
 
 EXTRA_DIST = \
-                         dasher.glade \
-                         dashergpe.glade \
-                         dashermaemo.glade \
-			 dashermaemofullscreen.glade
+		dasher.glade \
+		dashergpe.glade \
+		dashermaemo.glade \
+		dashermaemofullscreen.glade
 
 generate_schema_SOURCES = GenerateSchema.cpp
 
@@ -101,4 +101,4 @@ AM_CXXFLAGS = $(GTK2BUILD_CFLAGS) -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgda
 AM_CFLAGS = $(GTK2_CFLAGS)
 
 
-pkgdata_DATA = dasher.glade dashermaemo.glade dashermaemofullscreen.glade
+pkgdata_DATA = $(gladefile)

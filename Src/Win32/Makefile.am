@@ -104,6 +104,18 @@ EXTRA_DIST = \
 		GameModeHelper.h \
 		KeyboardHelper.cpp \
 		KeyboardHelper.h \
+		ModuleControl.cpp \
+		ModuleControl.h \
+		ModuleControlBool.cpp \
+		ModuleControlBool.h \
+		ModuleControlLong.cpp \
+		ModuleControlLong.h \
+		ModuleControlLongSpin.cpp \
+		ModuleControlLongSpin.h \
+		ModuleControlString.cpp \
+		ModuleControlString.h \
+		ModuleSettings.cpp \
+		ModuleSettings.h \
 		WinMain.cpp \
 		findere.bmp \
 		finderf.bmp \
