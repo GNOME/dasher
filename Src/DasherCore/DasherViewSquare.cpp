@@ -923,7 +923,7 @@ void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
 
   int iOtherPosition = (1 - (1 / dOffset)) * 2048;
 
-  int iRadius = abs(static_cast<long int>(iPosition - iOtherPosition)) / 2;
+  int iRadius = abs((int)(iPosition - iOtherPosition)) / 2;
   int iCentre = (iPosition + iOtherPosition) / 2;
 
   {

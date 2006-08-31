@@ -24,7 +24,7 @@ class CUserLogBase : public Dasher::CDasherComponent {
   virtual void AddMouseLocation(int iX, int iY, float dNats) = 0;
   virtual void AddMouseLocationNormalized(int iX, int iY, bool bStoreIntegerRep, float dNats) = 0;
   virtual void OutputFile() = 0;
-  virtual void SetAlphabetPtr(Dasher::CAlphabet* pAlphabet = 0);
+  virtual void SetAlphabetPtr(Dasher::CAlphabet* pAlphabet = 0) = 0;
   virtual void InitIsDone() = 0;
   virtual void SetOuputFilename(const string& strFilename = "") = 0;
   virtual int GetLogLevelMask() = 0;

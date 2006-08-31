@@ -269,6 +269,12 @@
 				RelativePath=".\TimeSpan.h">
 			</File>
 			<File
+				RelativePath=".\UserButton.cpp">
+			</File>
+			<File
+				RelativePath=".\UserButton.h">
+			</File>
+			<File
 				RelativePath=".\UserLocation.cpp">
 			</File>
 			<File
@@ -279,6 +285,9 @@
 			</File>
 			<File
 				RelativePath=".\UserLog.h">
+			</File>
+			<File
+				RelativePath=".\UserLogBase.h">
 			</File>
 			<File
 				RelativePath=".\UserLogParam.cpp">

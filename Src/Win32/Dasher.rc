@@ -67,6 +67,61 @@ END
 
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_PROPPAGE_LARGE DIALOGEX 0, 0, 300, 201
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_CHILD | WS_DISABLED | WS_CAPTION
+CAPTION "Property Page"
+FONT 8, "MS Shell Dlg", 0, 0, 0x0
+BEGIN
+    GROUPBOX        "Static",IDC_STATIC,125,7,168,88
+    GROUPBOX        "Static",IDC_STATIC,7,7,106,187
+    GROUPBOX        "Static",IDC_STATIC,127,106,166,88
+    LISTBOX         IDC_LIST1,19,20,86,118,LBS_SORT | LBS_NOINTEGRALHEIGHT | 
+                    WS_VSCROLL | WS_TABSTOP
+    CONTROL         "Radio1",IDC_RADIO1,"Button",BS_AUTORADIOBUTTON,194,111,
+                    38,10
+    CONTROL         "Radio2",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON,186,124,
+                    38,10
+    CONTROL         "Radio3",IDC_RADIO3,"Button",BS_AUTORADIOBUTTON,183,135,
+                    38,10
+    CONTROL         "Radio4",IDC_RADIO4,"Button",BS_AUTORADIOBUTTON,183,145,
+                    38,10
+    CONTROL         "Radio5",IDC_RADIO5,"Button",BS_AUTORADIOBUTTON,181,161,
+                    38,10
+    LTEXT           "Degree of uniformity (small values increase prediction, large values decrease prediction)",
+                    IDC_STATIC,124,33,156,18
+    EDITTEXT        IDC_UNIFORMVAL,133,63,38,12,ES_AUTOHSCROLL | ES_READONLY | 
+                    NOT WS_TABSTOP
+    CONTROL         "",IDC_UNIFORMSLIDER,"msctls_trackbar32",TBS_BOTH | 
+                    TBS_NOTICKS | WS_TABSTOP,175,63,118,12
+    CONTROL         "Language model adapts as you write",IDC_ADAPTIVE,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,131,17,133,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO 
+BEGIN
+    IDD_PROPPAGE_LARGE, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 194
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
 #endif    // English (U.S.) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -619,6 +674,14 @@ BEGIN
     PUSHBUTTON      "Apply",IDC_BP_APPLY,161,154,50,14,WS_DISABLED
 END
 
+IDD_DIALOG5 DIALOGEX 0, 0, 300, 201
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | 
+    WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -781,6 +844,14 @@ BEGIN
         VERTGUIDE, 203
         TOPMARGIN, 7
         BOTTOMMARGIN, 168
+    END
+
+    IDD_DIALOG5, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 293
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 194
     END
 END
 #endif    // APSTUDIO_INVOKED

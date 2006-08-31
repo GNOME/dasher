@@ -12,6 +12,7 @@
 #define IDM_ABOUT                       106
 #define IDS_BUTTON_SETTINGS_TITLE       106
 #define IDS_FILE_SAVE                   107
+#define IDD_PROPPAGE_LARGE              107
 #define IDM_EXIT                        108
 #define IDS_FILE_OPEN                   109
 #define IDS_HELLO                       110
@@ -101,6 +102,7 @@
 #define IDD_LM                          175
 #define IDD_LMPAGE                      175
 #define IDD_BUTTON_SETTINGS             177
+#define IDD_DIALOG5                     178
 #define IDC_LIST1                       1008
 #define IDC_INPUT_LIST                  1008
 #define IDC_LIST_ALPH                   1009
@@ -263,6 +265,7 @@
 #define IDC_CONTROLMODE                 1146
 #define IDC_SAFETY_VALUE                1146
 #define IDC_SPIN1                       1147
+#define IDC_RADIO6                      1148
 #define ID_FILE_NEW                     32771
 #define ID_EDIT_CUT                     32772
 #define ID_EDIT_COPY                    32773
@@ -315,9 +318,9 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        178
+#define _APS_NEXT_RESOURCE_VALUE        179
 #define _APS_NEXT_COMMAND_VALUE         32818
-#define _APS_NEXT_CONTROL_VALUE         1148
+#define _APS_NEXT_CONTROL_VALUE         1149
 #define _APS_NEXT_SYMED_VALUE           110
 #endif
 #endif
