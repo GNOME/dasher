@@ -5,18 +5,19 @@
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher 4.1.5\n"
+"Project-Id-Version: dasher 0.34.90\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-07 06:22+0200\n"
-"PO-Revision-Date: 2006-07-05 17:00+0800\n"
+"POT-Creation-Date: 2006-08-31 12:26+0800\n"
+"PO-Revision-Date: 2006-08-09 17:25+0800\n"
 "Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
 "Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
-#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
@@ -31,7 +32,7 @@ msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher socket 輸入：無法執行閱讀程式執行緒。"
 
 #: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
 #: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
@@ -70,11 +71,11 @@ msgstr "不要離開"
 msgid "Save and quit"
 msgstr "儲存及離開"
 
-#: ../Src/Gtk2/Menu.cc:425
+#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
 msgid "Dasher is a predictive text entry application"
 msgstr "Dasher 是一個以預測方式輸入文字的程式"
 
-#: ../Src/Gtk2/Menu.cc:430
+#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
 msgid "translator-credits"
 msgstr ""
 "如對翻譯有任何意見，請送一封電子郵件給\n"
@@ -83,7 +84,7 @@ msgstr ""
 "\n"
 "Woodman Tuen <wmtuen@gmail.com> 2004-06"
 
-#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
+#: ../Src/Gtk2/Preferences.cpp:821 ../Src/Gtk2/Preferences.cpp:823
 msgid "Training Dasher... please wait"
 msgstr "正在調整 Dasher... 請稍候"
 
@@ -103,7 +104,7 @@ msgstr "<b>字母選擇：</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:4
 msgid "<b>Appearance Options:</b>"
-msgstr ""
+msgstr "<b>外觀選項：</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:5
 msgid "<b>Application Options:</b>"
@@ -111,11 +112,11 @@ msgstr "<b>程式選項：</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:6
 msgid "<b>Application Style:</b>"
-msgstr ""
+msgstr "<b>外觀風格：</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:7
 msgid "<b>Colour Scheme:</b>"
-msgstr ""
+msgstr "<b>色調搭配</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8
 msgid "<b>Control Style:</b>"
@@ -176,7 +177,7 @@ msgstr "字母："
 
 #: ../Src/Gtk2/dasher.glade.h:21
 msgid "Appearance"
-msgstr ""
+msgstr "外觀"
 
 #: ../Src/Gtk2/dasher.glade.h:22
 msgid "Application"
@@ -192,10 +193,12 @@ msgid ""
 "Centre circle\n"
 "Two box"
 msgstr ""
+"置中圓圈\n"
+"兩個方塊"
 
 #: ../Src/Gtk2/dasher.glade.h:26
 msgid "Composition"
-msgstr ""
+msgstr "寫作"
 
 #: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
@@ -218,7 +221,7 @@ msgstr "全部複製(_A)"
 #: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
-msgstr ""
+msgstr "自訂色調搭配："
 
 #: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
@@ -244,7 +247,7 @@ msgstr "直接輸入"
 
 #: ../Src/Gtk2/dasher.glade.h:38
 msgid "Dock application window"
-msgstr ""
+msgstr "固定程式視窗"
 
 #: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw box outlines"
@@ -308,82 +311,86 @@ msgstr "貼上"
 
 #: ../Src/Gtk2/dasher.glade.h:53
 msgid "Pause outside of canvas"
-msgstr ""
+msgstr "超出畫布後暫停"
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "請稍候..."
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "偏好設定(_E)"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "右至左"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "儲存檔案"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "另存新檔"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "選擇字型"
 
-#: ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "顯示滑鼠位置"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "顯示速度控制桿"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "顯示工具列"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:64
 msgid "Small font"
 msgstr "小字型"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:65
 msgid "Speed:"
 msgstr "速度："
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
 msgstr "獨立"
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "標準字母模式"
 
-#: ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "以滑鼠左鍵開始"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "以空白鍵開始"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Start with mouse position:"
 msgstr "在滑鼠的位置開始："
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "以時間標記作為新檔案的名稱"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "上至下"
 
-#: ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -392,50 +399,46 @@ msgstr ""
 "使用此控制來調整文字方塊的相對大小。\n"
 "注意選擇較大數值將會減慢您的書寫速度。"
 
-#: ../Src/Gtk2/dasher.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:76
 msgid "Very large font"
 msgstr "特大字型"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "字詞模式"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "關於(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "加入到檔案(_A)"
 
-#: ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "內容(_C)"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "編輯(_E)"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "檔案(_F)"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "求助(_H)"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "匯入文字(_I)"
-
-#: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "偏好設定(_P)"
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
@@ -506,7 +509,7 @@ msgstr "\n"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:3
 msgid "(Message Placeholder - no need to translate)"
-msgstr ""
+msgstr "(Message Placeholder - no need to translate)"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Display Size:</b>"
@@ -570,9 +573,8 @@ msgstr "顯示"
 #~ msgid "<b>Y Coordinate</b>"
 #~ msgstr "<b>Y 坐標：</b>"
 
-#, fuzzy
 #~ msgid "<b>Zoom steps</b>"
-#~ msgstr "<b>放大刻度：</b>"
+#~ msgstr "<b>放大刻度</b>"
 
 #~ msgid "Advanced Settings"
 #~ msgstr "進階設定"
@@ -741,10 +743,6 @@ msgstr "顯示"
 #~ msgid "<b>Button modes:</b>"
 #~ msgstr "<b>按鈕模式：</b>"
 
-#, fuzzy
-#~ msgid "<b>Input Filters:</b>"
-#~ msgstr "<b>按鈕模式：</b>"
-
 #~ msgid "<b>Zoom steps:</b>"
 #~ msgstr "<b>放大刻度：</b>"
 
@@ -783,10 +781,6 @@ msgstr "顯示"
 
 #~ msgid "Static menu mode"
 #~ msgstr "靜態選單模式"
-
-#, fuzzy
-#~ msgid "Two button dynamic mode"
-#~ msgstr "單按鍵動態模式"
 
 #~ msgid "Panels"
 #~ msgstr "控制台"
