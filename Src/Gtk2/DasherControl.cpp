@@ -423,7 +423,7 @@ int CDasherControl::TimerEvent() {
   NewFrame(get_time());
 
   // Update our UserLog object about the current mouse position
-  CUserLog* pUserLog = GetUserLogPtr();
+  CUserLogBase* pUserLog = GetUserLogPtr();
   if (pUserLog != NULL) {  
       // We want current canvas and window coordinates so normalization
       // is done properly with respect to the canvas.
@@ -539,7 +539,7 @@ void CDasherControl::CanvasDestroyEvent() {
 // Tell the logging object that a new user trial is starting.
 void CDasherControl::UserLogNewTrial()
 {
-  CUserLog* pUserLog = GetUserLogPtr();
+  CUserLogBase* pUserLog = GetUserLogPtr();
   if (pUserLog != NULL) { 
     pUserLog->NewTrial();
   }

@@ -12,7 +12,7 @@ class CClickFilter : public CInputFilter {
 
   virtual bool DecorateView(CDasherView *pView);
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog);
+  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog);
  
  private:
   CDasherView *pDasherView;

@@ -7,6 +7,8 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           AlphabetManagerFactory.h \
                           AutoSpeedControl.cpp \
                           AutoSpeedControl.h \
+			  BasicLog.cpp \
+			  BasicLog.h \
 			  CannaConversionHelper.cpp \
 			  CannaConversionHelper.h \
                           CircleStartHandler.cpp \

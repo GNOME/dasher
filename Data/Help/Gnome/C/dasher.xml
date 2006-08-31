@@ -1006,7 +1006,8 @@ own pet phrases, friends' names, and so forth.
 
 
   </sect3>
-  <sect3 id="timed">
+</sect2>
+  <sect2 id="timed">
     <title>Button Dashers that exploit timing</title>
 <para> Two questions:
  How many different switches, keys, or buttons 
@@ -1148,7 +1149,7 @@ Two buttons are used to control vertical position. When the required vertical po
 </para>
 </sect2>
 
-</sect2>  
+</sect1>  
     
     <!-- END DJCM MANUAL -->
     

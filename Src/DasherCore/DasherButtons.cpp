@@ -335,7 +335,7 @@ bool CDasherButtons::DecorateView(CDasherView *pView) {
 }
  
 
-void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog) {
+void CDasherButtons::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   if(m_bMenu) {
     switch(iId) {

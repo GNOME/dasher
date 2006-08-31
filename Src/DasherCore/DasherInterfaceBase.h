@@ -36,7 +36,7 @@ class Dasher::CDasherModel;
 class Dasher::CEventHandler;
 class Dasher::CEvent;
 class CSettingsStore;
-class CUserLog;
+class CUserLogBase;
 class CDasherButtons;
 
 #include <map>
@@ -270,7 +270,7 @@ public:
   void DisconnectNode(int iChild, int iParent);
 
   /// Gets a pointer to the object doing user logging
-  CUserLog*       GetUserLogPtr();
+  CUserLogBase*       GetUserLogPtr();
   
   virtual void WriteTrainFile(const std::string &strNewText) {
   };
@@ -319,7 +319,7 @@ protected:
 
   CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
-  CUserLog *m_pUserLog;               // Pointer to the object that handles logging user activity
+  CUserLogBase *m_pUserLog;               // Pointer to the object that handles logging user activity
   CInputFilter* m_pInputFilter;
   CModuleManager m_oModuleManager;
   

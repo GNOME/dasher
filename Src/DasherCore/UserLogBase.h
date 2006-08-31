@@ -2,17 +2,17 @@
 #define __UserLogBase_h__
 
 #include "DasherComponent.h"
+#include "UserLogTrial.h" // Don't want to include this, but needed for event type enum
 
 #include <string>
 
 class CUserLogBase : public Dasher::CDasherComponent {
  public:
   CUserLogBase(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore) : Dasher::CDasherComponent(pEventHandler, pSettingsStore) {};
-  virtual ~CUserLogBase() {};
 
-  virtual void AddParam(const string& strName, const string& strValue, int iOptionMask = 0) {};
-  virtual void AddParam(const string& strName, double dValue, int iOptionMask = 0) = 0;
-  virtual void AddParam(const string& strName, int iValue, int iOptionMask = 0) = 0;
+  virtual void AddParam(const std::string& strName, const std::string& strValue, int iOptionMask = 0) = 0;
+  virtual void AddParam(const std::string& strName, double dValue, int iOptionMask = 0) = 0;
+  virtual void AddParam(const std::string& strName, int iValue, int iOptionMask = 0) = 0;
   virtual void StartWriting() = 0;
   virtual void StopWriting(float dNats) = 0;
   virtual void StopWriting() = 0;
@@ -26,7 +26,7 @@ class CUserLogBase : public Dasher::CDasherComponent {
   virtual void OutputFile() = 0;
   virtual void SetAlphabetPtr(Dasher::CAlphabet* pAlphabet = 0) = 0;
   virtual void InitIsDone() = 0;
-  virtual void SetOuputFilename(const string& strFilename = "") = 0;
+  virtual void SetOuputFilename(const std::string& strFilename = "") = 0;
   virtual int GetLogLevelMask() = 0;
   virtual void KeyDown(int iId, int iType, int iEffect) = 0;
   virtual void HandleEvent(Dasher::CEvent* pEvent) = 0;

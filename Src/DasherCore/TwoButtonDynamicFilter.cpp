@@ -98,7 +98,7 @@ bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CD
   return m_pDasherModel->Tap_on_display(100,2048, Time, pAdded, pNumDeleted);
 }
 
-void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog) {
+void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
 
   m_pUserLog = pUserLog;
 
@@ -151,7 +151,7 @@ void CTwoButtonDynamicFilter::Deactivate() {
   SetBoolParameter(BP_DELAY_VIEW, false);
 }
 
-void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog) {
+void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
   // Types:
   // 0 = ordinary click
   // 1 = long click
@@ -222,7 +222,7 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   m_iLastButton = iButton;
 }
 
-void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog) {
+void CTwoButtonDynamicFilter::ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog) {
   int iFactor(1);
 
   if(GetBoolParameter(BP_TWOBUTTON_REVERSE))

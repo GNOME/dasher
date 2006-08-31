@@ -13,7 +13,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   // Inherited methods
   virtual bool DecorateView(CDasherView *pView);
   virtual bool Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLog *pUserLog);
+  virtual void KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog);
   virtual void KeyUp(int iTime, int iId, CDasherModel *pModel);
   virtual void Activate();
   virtual void Deactivate();
@@ -24,12 +24,12 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   
  protected:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
 
   bool m_bDecorationChanged;
 
  private:
-  void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
+  void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
   void AutoSpeedSample(int iTime, CDasherModel *pModel);
 
   class SBTree {
@@ -66,7 +66,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   int m_iHeldId;
   int m_iLastTime;
 
-  CUserLog *m_pUserLog;
+  CUserLogBase *m_pUserLog;
 };
 
 #endif

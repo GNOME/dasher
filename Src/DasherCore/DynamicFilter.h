@@ -14,7 +14,7 @@ class CDynamicFilter : public CTwoButtonDynamicFilter {
 
  protected:
   virtual bool TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted);
-  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLog *pUserLog);
+  virtual void ActionButton(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
   
  private:
   int m_iTarget;

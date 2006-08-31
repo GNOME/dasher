@@ -558,7 +558,6 @@ bool CDasherModel::Tap_on_display(myint miMousex,
     m_deGotoQueue.pop_front();
   }
 
-
   m_dTotalNats += log((iNewMax - iNewMin) / static_cast<double>(m_Rootmax - m_Rootmin));
 
   // Now actually zoom to the new location

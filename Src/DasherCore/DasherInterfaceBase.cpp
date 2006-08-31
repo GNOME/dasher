@@ -16,6 +16,7 @@
 #include "EventHandler.h"
 #include "Event.h"
 #include "UserLog.h"
+#include "BasicLog.h"
 #include "WrapperFactory.h"
 
 // Input filters
@@ -107,9 +108,13 @@ void CDasherInterfaceBase::Realize() {
   // until now so we have the real value of the parameter and not
   // just the default.
 
+  // TODO: Sort out log type selection
+
   int iUserLogLevel = GetLongParameter(LP_USER_LOG_LEVEL_MASK);
 
-  if (iUserLogLevel > 0) 
+  if(iUserLogLevel == 10)
+    m_pUserLog = new CBasicLog(m_pEventHandler, m_pSettingsStore);
+  else if (iUserLogLevel > 0) 
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
 
   CreateFactories();
@@ -802,7 +807,7 @@ void CDasherInterfaceBase::ResetParameter(int iParameter) {
 }
 
 // We need to be able to get at the UserLog object from outside the interface
-CUserLog* CDasherInterfaceBase::GetUserLogPtr() {
+CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
   return m_pUserLog;
 }
 
