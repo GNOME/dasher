@@ -34,7 +34,7 @@
 #include "Alphabet/Alphabet.h"
 #include <algorithm>
 #include "UserLogParam.h"
-#include "DasherComponent.h"
+#include "UserLogBase.h"
 #include "Event.h"
 #include "XMLUtil.h"
 
@@ -72,7 +72,7 @@ typedef vector<VECTOR_STRING>::iterator     VECTOR_VECTOR_STRING_ITER;
 // We need to be notified when parameters we are logging get changed, so we'll
 // subclass CDasherComponent and implement the HandleEvent() method.
 
-class CUserLog : public Dasher::CDasherComponent
+class CUserLog : public CUserLogBase
 {
 public:
   CUserLog(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iLogTypeMask, Dasher::CAlphabet* pAlphabet = NULL);

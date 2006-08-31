@@ -150,7 +150,7 @@ void CCanvas::Display() {
 
   END_DRAWING;
 
-  gtk_main_iteration_do(0);
+  // gtk_main_iteration_do(0);
 }
 
 void CCanvas::DrawRectangle(int x1, int y1, int x2, int y2, int Color, int iOutlineColour, Opts::ColorSchemes ColorScheme, bool bDrawOutline, bool bFill, int iThickness) {

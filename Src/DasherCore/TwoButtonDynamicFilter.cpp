@@ -31,6 +31,10 @@ CTwoButtonDynamicFilter::CTwoButtonDynamicFilter(Dasher::CEventHandler * pEventH
   m_iLastTime = -1;
   m_bDecorationChanged = true;
   m_bKeyDown = false;
+
+  m_pTree = new SBTree(2000);
+  m_pTree->Add(2000);
+  m_pTree->Add(2000);
 }
 
 CTwoButtonDynamicFilter::~CTwoButtonDynamicFilter() {
@@ -268,7 +272,7 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
   if(m_pTree) {
     int iMedian(m_pTree->GetOffset(m_pTree->GetCount() / 2));
     
-    if(iDiff < (iMedian * GetLongParameter(LP_DYNAMIC_MEDIAN_FACTOR)) / 100) {
+    if((iDiff <= 300) || (iDiff < (iMedian * GetLongParameter(LP_DYNAMIC_MEDIAN_FACTOR)) / 100)) {
       pModel->TriggerSlowdown();
     }
   }

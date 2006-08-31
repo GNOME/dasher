@@ -680,7 +680,7 @@ own pet phrases, friends' names, and so forth.
     <para>Japanese and Chinese will be fully supported. </para>
     
     <para>The Dasher team also hopes to create a free web-cam-based 
-    head tracker and gaze tracker, `VIM',  by April 2006. </para>
+    head tracker and gaze tracker, `FreeVIM',  by December 2006. </para>
   </sect2>
   </sect1>
     
@@ -733,8 +733,7 @@ own pet phrases, friends' names, and so forth.
 	  </orderedlist></listitem>
       </orderedlist></para>
 
-  </sect1>
-  <sect1 id="manual7">
+  <sect2 id="manual7">
     <title>Continuous gestures</title>
     <para> Dasher's normal mode (<emphasis>mouse mode</emphasis>) 
     is driven by a two-dimensional continuous steering gesture. 
@@ -747,7 +746,7 @@ own pet phrases, friends' names, and so forth.
     If you can point on a touch-screen then that's perfect too.
     Can you move your nose around? If you can shake your head, 
     that's a one-dimensional control; if you can nod, that's two. 
-    A head-mouse can be quite cheap,
+     A head-mouse can be quite cheap,
     and it is  a 
     convenient way to drive Dasher. (We recommend the 
     <emphasis>SmartNav3</emphasis> from NaturalPoint, which costs about $200,
@@ -789,7 +788,7 @@ own pet phrases, friends' names, and so forth.
  for you. We made our $22 breath mouse using a USB optical mouse, 
  a belt, and some elastic, and our most experienced user can write 
  at 15 words per minute by breath alone.</para>
-  <sect2>
+  <sect3>
     <title>Starting and stopping</title>
  <para>There are several ways of starting and stopping 
  Dasher.  Pressing a button (for example, the left mouse button
@@ -807,7 +806,7 @@ own pet phrases, friends' names, and so forth.
 	you have finished.  <command>Pause</command> and <command>stop</command> produce the same behaviour, 
 	except <command>stop</command> may cause other automatic actions, such 
  as `speak on stop', or `copy the text 
-% to clipboard 
+<!--% to clipboard -->
  on stop'.</para>
 
  <para>When Dasher is paused or stopped, it can be restarted using 
@@ -818,8 +817,8 @@ own pet phrases, friends' names, and so forth.
  the first (red) target, then the second (yellow) target.
  (We use two targets in sequence to make it difficult to start 
  Dasher  by accident.)</para>
-  </sect2>
-  <sect2>
+  </sect3>
+  <sect3>
     <title>Recommendations for head-tracking</title>
 <para> Many trackers have `smoothing' options, which determine the 
  frequency with which the mouse position is updated;
@@ -839,8 +838,8 @@ own pet phrases, friends' names, and so forth.
  may also increase the gain.  
  Find a gain setting that is comfortable. I like high gain 
  because it allows me to steer with very small head motions.</para>
-  </sect2>
-  <sect2>
+  </sect3>
+  <sect3>
     <title>Recommendations for gaze-tracking</title>
  <para>For good results with gaze trackers, we strongly recommend that 
  the gaze-tracker be made to be as responsive as possible. 
@@ -886,14 +885,14 @@ own pet phrases, friends' names, and so forth.
  Rather than sending everything through the mouse, we will 
  enable communication of coordinates, and coordinate-uncertainties,
  through an alternative socket.</para>
+  </sect3>
   </sect2>
-  </sect1>
-  <sect1 id="manual8">
+  <sect2 id="manual8">
     <title>I can't use mouse mode or one-dimensional mode</title>
  <para>OK, we have several versions of <emphasis>button Dasher</emphasis>, 
   available in Dasher Version 4.</para>
 
-  <sect2>
+  <sect3>
     <title>Are time-critical gestures not an option?</title>
  <para>Some ways of conveying information make use of the <emphasis>timing</emphasis>
  of gestures.  
@@ -906,8 +905,8 @@ own pet phrases, friends' names, and so forth.
 
       <para>If you <emphasis>can</emphasis> convey information by <emphasis>precisely timed</emphasis> gestures,
 	go to section <xref linkend="timed"/>.</para>
-  </sect2>
-  <sect2 id="no_time_critical">
+  </sect3>
+  <sect3 id="no_time_critical">
     <title>`Timeless' choices of Dasher</title>
 <para> So, you want to steer Dasher at your own pace. 
  Can you make fairly-accurate continuous gestures, given  time?
@@ -922,8 +921,8 @@ own pet phrases, friends' names, and so forth.
 	      Go to <xref linkend="no_time_critical_button"/>.</para></listitem>
 </itemizedlist>
 </para>
-  </sect2>
-  <sect2 id ="time_critical_button">
+  </sect3>
+  <sect3 id ="time_critical_button">
     <title>`Timeless' continuous Dasher: click mode</title>
     
 <para> In <emphasis>click mode</emphasis>, you position the mouse 
@@ -933,8 +932,8 @@ own pet phrases, friends' names, and so forth.
 
 <para> Alternatively, if you have a touch screen, a single touch on the 
  screen initiates a zoom to that position.</para> 
-  </sect2>
-  <sect2 id="no_time_critical_button">
+  </sect3>
+  <sect3 id="no_time_critical_button">
     <title>`Timeless' choices of Button Dasher</title>
 <para> How many different switches, keys, or buttons 
       can you easily operate? </para>
@@ -1006,8 +1005,8 @@ own pet phrases, friends' names, and so forth.
 	</variablelist>
 
 
-  </sect2>
-  <sect2 id="timed">
+  </sect3>
+  <sect3 id="timed">
     <title>Button Dashers that exploit timing</title>
 <para> Two questions:
  How many different switches, keys, or buttons 
@@ -1149,7 +1148,7 @@ Two buttons are used to control vertical position. When the required vertical po
 </para>
 </sect2>
 
-</sect1>  
+</sect2>  
     
     <!-- END DJCM MANUAL -->
     

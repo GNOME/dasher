@@ -45,7 +45,7 @@ static UserLogParamMask s_UserLogParamMaskTable [] = {
 CUserLog::CUserLog(Dasher::CEventHandler *pEventHandler, 
                    CSettingsStore *pSettingsStore, 
                    int iLogTypeMask, 
-                   Dasher::CAlphabet* pAlphabet) : CDasherComponent(pEventHandler, pSettingsStore)
+                   Dasher::CAlphabet* pAlphabet) : CUserLogBase(pEventHandler, pSettingsStore)
 {
   //CFunctionLogger f1("CUserLog::CUserLog", g_pLogger);
 
@@ -1176,7 +1176,7 @@ void CUserLog::UpdateParam(int iParameter, int iOptionMask)
 // UserLog XML files and does cool things to them.  
 
 // Load the object from an XML file
-CUserLog::CUserLog(string strXMLFilename) : CDasherComponent(NULL, NULL)
+CUserLog::CUserLog(string strXMLFilename) : CUserLogBase(NULL, NULL)
 {
   //CFunctionLogger f1("CUserLog::CUserLog(XML)", g_pLogger);
 
