@@ -9,16 +9,18 @@ msgid ""
 msgstr ""
 "Project-Id-Version: el\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-16 19:40+0300\n"
-"PO-Revision-Date: 2006-07-16 19:40+0300\n"
+"POT-Creation-Date: 2006-09-02 09:52+0300\n"
+"PO-Revision-Date: 2006-09-02 09:52+0300\n"
 "Last-Translator: Kostas Papadimas <pkst@gnome.org>\n"
 "Language-Team: Greek <team@gnome.gr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: KBabel 1.11.2\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
-#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:439
+#: ../Src/Gtk2/dasher.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
@@ -33,7 +35,7 @@ msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher socket input: αποτυχία εκκίνησης νήματος εκκινητή."
 
 #: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
 #: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
@@ -72,15 +74,15 @@ msgstr "Όχι έξοδος"
 msgid "Save and quit"
 msgstr "Αποθήκευση και έξοδος"
 
-#: ../Src/Gtk2/Menu.cc:425
+#: ../Src/Gtk2/Menu.cc:426 ../Src/Gtk2/Menu.cc:442
 msgid "Dasher is a predictive text entry application"
 msgstr "Ο Dasher είναι μια εφαρμογή πρόγνωσης καταχώρισης κειμένου"
 
-#: ../Src/Gtk2/Menu.cc:430
+#: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
 msgid "translator-credits"
 msgstr "Nikos Charonitakis <charosn@her.forthnet.gr>"
 
-#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
+#: ../Src/Gtk2/Preferences.cpp:821 ../Src/Gtk2/Preferences.cpp:823
 msgid "Training Dasher... please wait"
 msgstr "Εκπαίδευση Dasher... παρακαλώ περιμένετε"
 
@@ -313,76 +315,80 @@ msgstr "Παύση έξω από το καμβά"
 msgid "Please Wait..."
 msgstr "Παρακαλώ περιμένετε..."
 
-#: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.glade.h:55
+msgid "Pr_eferences"
+msgstr "_Προτιμήσεις"
+
+#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Δεξιά προς τα Αριστερά"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Αποθήκευση αρχείου"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Αποθήκευση αρχείου ως"
 
-#: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Επιλογή Γραμματοσειράς"
 
-#: ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show mouse position"
 msgstr "Προβολή θέσης ποντικιού"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show speed slider"
 msgstr "Εμφάνιση μπάρας ταχύτητας"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.glade.h:63
 msgid "Show toolbar"
 msgstr "Προβολή εργαλειοθήκης"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.glade.h:64
 msgid "Small font"
 msgstr "Μικρή γραμματοσειρά"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.glade.h:65
 msgid "Speed:"
 msgstr "Ταχύτητα:"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.glade.h:66
 msgid "Stand-alone"
 msgstr "Stand-alone"
 
-#: ../Src/Gtk2/dasher.glade.h:66 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "PPM βασισμένο σε κανονικό γράμμα"
 
-#: ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Εκκίνηση στο πάτημα του αριστερού κουμπιού του ποντικιού"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.glade.h:69
 msgid "Start on space bar"
 msgstr "Εκκίνηση στο πάτημα του space bar"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.glade.h:70
 msgid "Start with mouse position:"
 msgstr "Εκκίνηση με την θέση του ποντικιού:"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.glade.h:71
 msgid "Timestamp new files"
 msgstr "Αποτύπωση ώρας σε νέα αρχεία"
 
-#: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Πάνω προς τα Κάτω"
 
-#: ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -392,50 +398,46 @@ msgstr ""
 "κουτιών γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει\n"
 "την ταχύτητα γραφής σας."
 
-#: ../Src/Gtk2/dasher.glade.h:75
+#: ../Src/Gtk2/dasher.glade.h:76
 msgid "Very large font"
 msgstr "Πολύ μεγάλη γραμματοσειρά"
 
-#: ../Src/Gtk2/dasher.glade.h:76 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Μοντέλο βασισμένο σε λέξεις"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "Π_ερί"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "Π_ρόσθεση σε αρχείο"
 
-#: ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "_Περιεχόμενα"
 
-#: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "_Επεξεργασία"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Αρχείο"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Βοήθεια"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "Ε_ισαγωγή Κειμένου Εκπαίδευσης"
-
-#: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "_Προτιμήσεις"
 
 #: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
@@ -540,370 +542,3 @@ msgstr "Πρόγνωση"
 msgid "View"
 msgstr "Προβολή"
 
-#~ msgid "Panels"
-#~ msgstr "Πίνακες εφαρμογών"
-
-#~ msgid "Menus"
-#~ msgstr "Μενού"
-
-#~ msgid "Buttons"
-#~ msgstr "Κουμπιά"
-
-#~ msgid "Text"
-#~ msgstr "Κείμενο"
-
-#~ msgid "Windows"
-#~ msgstr "Παράθυρα"
-
-#~ msgid "Stop"
-#~ msgstr "Διακοπή"
-
-#~ msgid "Pause"
-#~ msgstr "Παύση"
-
-#~ msgid "Move"
-#~ msgstr "Μετακίνηση"
-
-#~ msgid "Delete"
-#~ msgstr "Διαγραφή"
-
-#~ msgid "Speak"
-#~ msgstr "Ομιλία"
-
-#~ msgid "<"
-#~ msgstr "<"
-
-#~ msgid ">"
-#~ msgstr ">"
-
-#~ msgid "<<<"
-#~ msgstr "<<<"
-
-#~ msgid ">>>"
-#~ msgstr ">>>"
-
-#~ msgid "Everything"
-#~ msgstr "Όλα"
-
-#~ msgid "New"
-#~ msgstr "Νέο"
-
-#~ msgid "Repeat"
-#~ msgstr "Επανάληψη"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "Character"
-#~ msgstr "Χαρακτήρας"
-
-#~ msgid "Word"
-#~ msgstr "Λέξη"
-
-#~ msgid "Line"
-#~ msgstr "Γραμμή"
-
-#~ msgid "Unknown"
-#~ msgstr "Άγνωστο"
-
-#~ msgid "5:"
-#~ msgstr "5:"
-
-#~ msgid "6:"
-#~ msgstr "6:"
-
-#~ msgid "7:"
-#~ msgstr "7:"
-
-#~ msgid "8:"
-#~ msgstr "8:"
-
-#~ msgid "9:"
-#~ msgstr "9:"
-
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>Προχωρημένες Ρυθμίσεις:</b>"
-
-#~ msgid "<b>Button control setup</b>"
-#~ msgstr "<b>Ρύθμιση κουμπιού ελέγχου</b>"
-
-#~ msgid "<b>Button modes:</b>"
-#~ msgstr "<b>Λειτουργίες κουμπιού:</b>"
-
-#~ msgid "<b>Compass Mode</b>"
-#~ msgstr "<b>Λειτουργία Compass:</b>"
-
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>Απευθείας λειτουργία και λειτουργία μενού</b>"
-
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>Διάφορες Επιλογές:</b>"
-
-#~ msgid "<b>One-Button Dynamic Mode</b>"
-#~ msgstr "<b>Δυναμική λειτουργία ενός κουμπιού:</b>"
-
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>Στατική λειτουργία ενός κουμπιού:</b>"
-
-#~ msgid "<b>Socket Input</b>"
-#~ msgstr "<b>Socket Input</b>"
-
-#~ msgid "<b>Toggle button Mode:</b>"
-#~ msgstr "<b>Λειτουργία Εναλλαγής κουμπιού:</b>"
-
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>Συντεταγμένη X:</b>"
-
-#~ msgid "<b>X/Y Coordinates:</b>"
-#~ msgstr "<b>Συντεταγμένες X/Y:</b>"
-
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Συντεταγμένες Y:</b>"
-
-#~ msgid "<b>Zoom steps:</b>"
-#~ msgstr "<b>Βήματα εστίασης:</b>"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "Προχωρημένες ρυθμίσεις"
-
-#~ msgid "Alternating direct mode"
-#~ msgstr "Εναλλακτική απευθείας λειτουργία"
-
-#~ msgid "Box non-uniformity:"
-#~ msgstr "Μη- ομοιομορφία πλαισίου:"
-
-#~ msgid "Button Mode Options"
-#~ msgstr "Επιλογές λειτουργίας κουμπιού"
-
-#~ msgid "Button Preferences"
-#~ msgstr "Προτιμήσεις κουμπιού"
-
-#~ msgid "Button Setup"
-#~ msgstr "Ρύθμιση κουμπιού"
-
-#~ msgid "Button control setup"
-#~ msgstr "Ρύθμιση ελέγχου κουμπιού"
-
-#~ msgid "Button mode"
-#~ msgstr "Λειτουργία κουμπιού"
-
-#~ msgid "Button:"
-#~ msgstr "Κουμπί:"
-
-#~ msgid "Cancel"
-#~ msgstr "Ακύρωση"
-
-#~ msgid "Click mode"
-#~ msgstr "Λειτουργία κλικ"
-
-#~ msgid "Compass mode"
-#~ msgstr "Λειτουργία πυξίδας"
-
-#~ msgid "Control dasher from network socket instead of mouse (advanced)"
-#~ msgstr ""
-#~ "Έλεγχος του dasher μέσω δικτύου αντί για ποντίκι (για προχωρημένους)"
-
-#~ msgid "Copy all on stop"
-#~ msgstr "Αντιγραφή όλων στη διακοπή"
-
-#~ msgid "Cyclical button mode"
-#~ msgstr "Κυκλική λειτουργία κουμπιού"
-
-#~ msgid "Distance from centerline for start on mouse position:"
-#~ msgstr "Απόσταση από την κεντρική γραμμή για την αρχική θέση του ποντικιού:"
-
-#~ msgid "Done"
-#~ msgstr "Ολοκληρώθηκε"
-
-#~ msgid "Down/3:"
-#~ msgstr "Κάτω/3:"
-
-#~ msgid "Drop time:  "
-#~ msgstr "Drop time:  "
-
-#~ msgid "Eyetracker mode"
-#~ msgstr "Λειτουργία Eyetracker"
-
-#~ msgid "Four-button direct mode"
-#~ msgstr "Απευθείας λειτουργία τεσσάρων κουμπιών"
-
-#~ msgid "General"
-#~ msgstr "Γενικά"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Αν αυτή η λειτουργία επιλεχθεί, το πάνω και κάτω θα\n"
-#~ "κάνουν κύκλο προς τα πίσω και μπροστά μεταξύ των συντεταγμένων και το "
-#~ "δεξιά θα επιβεβαιώνει τη επιλογή"
-
-#~ msgid "Label"
-#~ msgstr "Ετικέτα"
-
-#~ msgid "Left/2:"
-#~ msgstr "Αριστερά/2:"
-
-#~ msgid "Max"
-#~ msgstr "Μεγ"
-
-#~ msgid "Min"
-#~ msgstr "Ελαχ"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "Διάφορα "
-
-#~ msgid "Number of \"zoom-out boxes\":"
-#~ msgstr "Αριθμός \"zoom-out boxes\":"
-
-#~ msgid "Number of boxes:"
-#~ msgstr "Αριθμός κουτιών:"
-
-#~ msgid "One dimensional mode"
-#~ msgstr "Μονοδιάστατη λειτουργία"
-
-#~ msgid "One-button dynamic mode"
-#~ msgstr "Δυναμική λειτουργία ενός κουμπιού"
-
-#~ msgid "One-button static mode"
-#~ msgstr "Στατική λειτουργία ενός κουμπιού"
-
-#~ msgid "Ordinary control"
-#~ msgstr "Κανονικός έλεγχος"
-
-#~ msgid "Port"
-#~ msgstr "Θύρα"
-
-#~ msgid "Print socket-related debugging information to console"
-#~ msgstr "Print socket-related debugging information to console"
-
-#~ msgid "Pulsing mode"
-#~ msgstr "Παλλόμενη Λειτουργία "
-
-#~ msgid "Right zoom:  "
-#~ msgstr "Δεξιά εστίαση:"
-
-#~ msgid "Right/4:"
-#~ msgstr "Δεξιά/4:"
-
-#~ msgid "Safety margin:"
-#~ msgstr "Περιθώριο ασφαλείας:"
-
-#~ msgid "Scaling amount (1D mode):"
-#~ msgstr "Ποσοστό κλιμάκωσης  (Λειτουργία 1Δ):"
-
-#~ msgid "Show Advanced Settings"
-#~ msgstr "Εμφάνιση προχωρημένων ρυθμίσεων"
-
-#~ msgid "Socket Options"
-#~ msgstr "Επιλογές Socket"
-
-#~ msgid "Speak on stop"
-#~ msgstr "Ομιλία στη διακοπή"
-
-#~ msgid "Static menu mode"
-#~ msgstr "Στατική λειτουργία μενού"
-
-#~ msgid "Steady mode"
-#~ msgstr "Σταθερή λειτουργία"
-
-#~ msgid "Training"
-#~ msgstr "Εκπαίδευση"
-
-#~ msgid "Up/1:"
-#~ msgstr "Πάνω/1:"
-
-#~ msgid "X:"
-#~ msgstr "X:"
-
-#~ msgid "Y:"
-#~ msgstr "Y:"
-
-#~ msgid "Zoom:"
-#~ msgstr "Εστίαση:"
-
-#~ msgid "<b>Speed</b>"
-#~ msgstr "<b>Ταχύτητα</b>"
-
-#~ msgid "Advanced"
-#~ msgstr "Για Προχωρημένους"
-
-#~ msgid "Change color scheme automatically"
-#~ msgstr "Αυτόματη αλλαγή σχήματος χρώματος"
-
-#~ msgid "Color"
-#~ msgstr "Χρώμα"
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "Επεξεργασία επιλογών ελέγχου κουμπιών"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "Αν αυτή η λειτουργία επιλεχθεί, το πάνω και κάτω θα κάνουν κύκλο προς τα "
-#~ "πίσω και μπροστά μεταξύ των συντεταγμένων και το δεξιά θα επιβεβαιώνει τη "
-#~ "επιλογή"
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "Αριθμός από εικονοστοιχεία που θα καλύπτουν ολόκληρο το εύρος Y:"
-
-#~ msgid "Orientation"
-#~ msgstr "Προσανατολισμός"
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "Χρήση αυτού του ελέγχου για τη ρύθμιση σχετικών μεγεθών των κουτιών "
-#~ "γραμμάτων. Σημειώστε ότι η επιλογή υψηλών τιμών θα επιβραδύνει την "
-#~ "ταχύτητα γραφής σας."
-
-#~ msgid "<b>Menu Mode</b>"
-#~ msgstr "<b>Λειτουργία μενού:</b>"
-
-#~ msgid "Button setup"
-#~ msgstr "Ρύθμιση ελέγχου κουμπιού"
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Αν αυτή η λειτουργία επιλεχθεί, το πάνω και κάτω θα\n"
-#~ "κάνουν κύκλο προς τα πίσω και μπροστά μεταξύ των συντεταγμένων και το "
-#~ "δεξιά θα επιβεβαιώνει τη επιλογή"
-
-#~ msgid "Socket"
-#~ msgstr "Socket"
-
-#~ msgid "Three-button direct mode"
-#~ msgstr "Απευθείας λειτουργία τριών κουμπιών"
