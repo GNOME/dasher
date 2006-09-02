@@ -1,25 +1,22 @@
 # translation of eu.po to Basque
-# translation of dasher.po to Basque
 # This file is distributed under the same license as the PACKAGE package.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER.
+#
 # Hizkuntza Politikarako Sailburuordetza <hizkpol@ej-gv.es>, 2005.
 # Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>, 2006.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: eu\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-11 11:45+0000\n"
-"PO-Revision-Date: 2006-07-07 12:10+0000\n"
+"POT-Creation-Date: 2006-09-02 11:27+0000\n"
+"PO-Revision-Date: 2006-09-02 11:28+0000\n"
 "Last-Translator: Iñaki Larrañaga Murgoitio <dooteo@euskalgnu.org>\n"
 "Language-Team: Basque <itzulpena@euskalgnu.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.10.2\n"
-"Plural-Forms: Plural-Forms: Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"\n"
-"\n"
+"X-Generator: KBabel 1.11.2\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
 #: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
@@ -34,8 +31,7 @@ msgstr "Sarrerako testu-aurresalea"
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
 msgid "Dasher socket input: failed to launch reader thread."
-msgstr ""
-"Dasher-en sarrerako socket-a: huts egin du irakurtzeko haria abiaraztean."
+msgstr "Dasher-en sarrerako socket-a: huts egin du irakurtzeko haria abiaraztean."
 
 #: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
 #: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:58
@@ -239,84 +235,84 @@ msgid "Dasher Preferences"
 msgstr "Dasher-en hobespenak"
 
 #: ../Src/Gtk2/dasher.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "Dasher-en _tutoretza"
-
-#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
 msgstr "Zuzeneko sarrera"
 
-#: ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Dock application window"
 msgstr "Atrakatu aplikazioaren leihoa"
 
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:38
 msgid "Draw box outlines"
 msgstr "Marraztu kaxa-ingeradak"
 
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw line between crosshairs and mouse"
 msgstr "Marraztu marra gurutzaguneen eta saguaren artean"
 
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.glade.h:40
 msgid "Full Screen"
 msgstr "Pantaila osoa"
 
-#: ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.glade.h:41
 msgid "Increase line thickness"
 msgstr "Handitu marraren lodiera"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Japoniera"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.glade.h:43
 msgid "Language"
 msgstr "Hizkuntza"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.glade.h:44 ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "Hizkuntza modeloa idazkerari egokitzen zaio."
 
-#: ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:45
 msgid "Large font "
 msgstr "Letra-tipo handia "
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dasher.glade.h:46 ../Src/Gtk2/dashermaemo.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Ezkerretik eskuinera"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Modelo nahasia (PPM/hiztegia)"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Fitxategi berria"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Ireki fitxategia"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:50
 msgid "Options"
 msgstr "Aukerak"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dasher.glade.h:51 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Itsatsi"
 
-#: ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.glade.h:52
 msgid "Pause outside of canvas"
 msgstr "Pausarazi oihaletik kanpora"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "Itxaron..."
+
+#: ../Src/Gtk2/dasher.glade.h:54
+msgid "Pr_eferences"
+msgstr "_Hobespenak"
 
 #: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
@@ -438,11 +434,7 @@ msgstr "Lag_untza"
 msgid "_Import Training Text"
 msgstr "_Inportatu trebatzeko testua"
 
-#: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "_Hobespenak"
-
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
@@ -544,3 +536,4 @@ msgstr "Iragarpena"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "Ikusi"
+
