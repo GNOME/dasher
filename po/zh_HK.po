@@ -1,16 +1,16 @@
-# Chinese (Taiwan) translation of dasher.
+# Chinese (Hong Kong) translation of dasher.
 # Copyright (C) 2004-06 Free Software Foundation, Inc.
 # Woodman Tuen <wmtuen@gmail.com>, 2005-06.
 # 
 # 
 msgid ""
 msgstr ""
-"Project-Id-Version: dasher 0.34.90\n"
+"Project-Id-Version: dasher 4.1.5\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-31 12:26+0800\n"
-"PO-Revision-Date: 2006-08-09 17:25+0800\n"
+"POT-Creation-Date: 2006-09-03 21:56+0800\n"
+"PO-Revision-Date: 2006-09-03 21:57+0800\n"
 "Last-Translator: Woodman Tuen <wmtuen@gmail.com>\n"
-"Language-Team: Chinese (Taiwan) <community@linuxhall.org>\n"
+"Language-Team: Chinese (Hong Kong) <community@linuxhall.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -45,7 +45,7 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"你是否要將更改儲存到 %s？\n"
+"是否要將更改儲存到 %s？\n"
 "\n"
 "如不儲存則會失去它們。"
 
@@ -55,7 +55,7 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"你是否要將更改儲存？\n"
+"是否要將更改儲存？\n"
 "\n"
 "如不儲存則會失去它們。"
 
@@ -78,7 +78,7 @@ msgstr "Dasher 是一個以預測方式輸入文字的程式"
 #: ../Src/Gtk2/Menu.cc:431 ../Src/Gtk2/Menu.cc:437
 msgid "translator-credits"
 msgstr ""
-"如對翻譯有任何意見，請送一封電郵給\n"
+"如對翻譯有任何意見，請送一封電子郵件給\n"
 "以下地址，GNOME 翻譯隊伍會盡快回覆你：\n"
 "community@linuxhall.org\n"
 "\n"
@@ -542,378 +542,3 @@ msgstr "預測"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "顯示"
-
-#~ msgid "<b>Advanced Settings:</b>"
-#~ msgstr "<b>進階設定：</b>"
-
-#~ msgid "<b>Compass Mode</b>"
-#~ msgstr "<b>指南針模式</b>"
-
-#~ msgid "<b>Direct Mode And Menu Mode</b>"
-#~ msgstr "<b>直接及選單模式</b>"
-
-#~ msgid "<b>Miscellaneous Options:</b>"
-#~ msgstr "<b>其它選項：</b>"
-
-#~ msgid "<b>One-Button Dynamic Mode</b>"
-#~ msgstr "<b>單按鍵動態模式</b>"
-
-#~ msgid "<b>One-Button Static Mode</b>"
-#~ msgstr "<b>單按鍵靜態模式</b>"
-
-#~ msgid "<b>Socket Input</b>"
-#~ msgstr "<b>Socket 輸入</b>"
-
-#~ msgid "<b>X Coordinate</b>"
-#~ msgstr "<b>X 坐標：</b>"
-
-#~ msgid "<b>Y Axis Options:</b>"
-#~ msgstr "<b>Y 軸選項：</b>"
-
-#~ msgid "<b>Y Coordinate</b>"
-#~ msgstr "<b>Y 坐標：</b>"
-
-#~ msgid "<b>Zoom steps</b>"
-#~ msgstr "<b>放大刻度</b>"
-
-#~ msgid "Advanced Settings"
-#~ msgstr "進階設定"
-
-#~ msgid "Box non-uniformity:"
-#~ msgstr "方塊不一致性："
-
-#~ msgid "Button Preferences"
-#~ msgstr "按鈕偏好設定"
-
-#~ msgid "Distance from centerline for start on mouse position:"
-#~ msgstr "游標開始位置與中線的距離："
-
-#~ msgid "Drop time:  "
-#~ msgstr "釋放時間： "
-
-#~ msgid "Label"
-#~ msgstr "標籤"
-
-#~ msgid "Max"
-#~ msgstr "最大"
-
-#~ msgid "Min"
-#~ msgstr "最小"
-
-#~ msgid "Miscellaneous"
-#~ msgstr "其它"
-
-#~ msgid "Number of \"zoom-out boxes\":"
-#~ msgstr "“放大方塊”數目："
-
-#~ msgid "Number of boxes:"
-#~ msgstr "方塊數目："
-
-#~ msgid "Port"
-#~ msgstr "連接埠"
-
-#~ msgid "Print socket-related debugging information to console"
-#~ msgstr "在終端機中列出 Socket 相關的錯誤訊息"
-
-#~ msgid "Pulsing mode"
-#~ msgstr "跳動模式"
-
-#~ msgid "Right zoom:  "
-#~ msgstr "右邊放大："
-
-#~ msgid "Safety margin:"
-#~ msgstr "安全邊界："
-
-#~ msgid "Scaling amount (1D mode):"
-#~ msgstr "比例總數（一維模式）"
-
-#~ msgid "Steady mode"
-#~ msgstr "平穩模式"
-
-#~ msgid "Training"
-#~ msgstr "調整"
-
-#~ msgid "Zoom:"
-#~ msgstr "放大："
-
-#~ msgid "5:"
-#~ msgstr "5:"
-
-#~ msgid "6:"
-#~ msgstr "6:"
-
-#~ msgid "7:"
-#~ msgstr "7:"
-
-#~ msgid "8:"
-#~ msgstr "8:"
-
-#~ msgid "9:"
-#~ msgstr "9:"
-
-#~ msgid "<b>Button control setup</b>"
-#~ msgstr "<b>按鈕控制設定</b>"
-
-#~ msgid "<b>Speed</b>"
-#~ msgstr "<b>速度</b>"
-
-#~ msgid "<b>Toggle button Mode:</b>"
-#~ msgstr "<b>切換按鈕模式：</b>"
-
-#~ msgid "<b>X/Y Coordinates:</b>"
-#~ msgstr "<b>X/Y 坐標：</b>"
-
-#~ msgid "Advanced"
-#~ msgstr "進階"
-
-#~ msgid "Button control setup"
-#~ msgstr "按鈕控制設定"
-
-#~ msgid "Button mode"
-#~ msgstr "按鈕模式"
-
-#~ msgid "Button:"
-#~ msgstr "按鈕："
-
-#~ msgid "Change color scheme automatically"
-#~ msgstr "自動切換色彩 scheme"
-
-#~ msgid "Color"
-#~ msgstr "色彩"
-
-#~ msgid "Copy all on stop"
-#~ msgstr "在停止後複製全部"
-
-#~ msgid "Cyclical button mode"
-#~ msgstr "循環按鈕模式"
-
-#~ msgid "Down/3:"
-#~ msgstr "下/3："
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "編輯按鈕控制選項"
-
-#~ msgid "Eyetracker mode"
-#~ msgstr "眼球追縱系統模式"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "如果選用本模式，向上及向下移將會在坐標間循環地向後及向前移動。\n"
-#~ "向右移則確定選擇"
-
-#~ msgid "Left/2:"
-#~ msgstr "左/2："
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "覆蓋整個 Y 列的像素數目："
-
-#~ msgid "One dimensional mode"
-#~ msgstr "一維模式"
-
-#~ msgid "Orientation"
-#~ msgstr "排列方向"
-
-#~ msgid "Right/4:"
-#~ msgstr "右/4："
-
-#~ msgid "Speak on stop"
-#~ msgstr "停止後讀出"
-
-#~ msgid "Start with mouse position"
-#~ msgstr "滑鼠在新的位置開始"
-
-#~ msgid "Up/1:"
-#~ msgstr "上/1："
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "使用此控制來調整文字方塊的相對大小。\n"
-#~ "注意選擇較大數值將會減慢您的書寫速度。"
-
-#~ msgid "X:"
-#~ msgstr "X:"
-
-#~ msgid "Y:"
-#~ msgstr "Y:"
-
-#~ msgid "<b>Button modes:</b>"
-#~ msgstr "<b>按鈕模式：</b>"
-
-#~ msgid "<b>Zoom steps:</b>"
-#~ msgstr "<b>放大刻度：</b>"
-
-#~ msgid "Alternating direct mode"
-#~ msgstr "其它直接模式"
-
-#~ msgid "Button Mode Options"
-#~ msgstr "按鈕模式選項"
-
-#~ msgid "Button Setup"
-#~ msgstr "按鈕設定"
-
-#~ msgid "Compass mode"
-#~ msgstr "指南針模式"
-
-#~ msgid "Direct mode"
-#~ msgstr "直接模式"
-
-#~ msgid "Four-button direct mode"
-#~ msgstr "四按鍵直接模式"
-
-#~ msgid "General"
-#~ msgstr "一般"
-
-#~ msgid "One-button dynamic mode"
-#~ msgstr "單按鍵動態模式"
-
-#~ msgid "One-button static mode"
-#~ msgstr "單按鍵靜態模式"
-
-#~ msgid "Show Advanced Settings"
-#~ msgstr "顯示進階設定"
-
-#~ msgid "Socket Options"
-#~ msgstr "Socket 選項"
-
-#~ msgid "Static menu mode"
-#~ msgstr "靜態選單模式"
-
-#~ msgid "Panels"
-#~ msgstr "控制台"
-
-#~ msgid "Menus"
-#~ msgstr "選單"
-
-#~ msgid "Buttons"
-#~ msgstr "按鈕"
-
-#~ msgid "Text"
-#~ msgstr "文字"
-
-#~ msgid "Windows"
-#~ msgstr "視窗"
-
-#~ msgid "Stop"
-#~ msgstr "停止"
-
-#~ msgid "Pause"
-#~ msgstr "暫停"
-
-#~ msgid "Move"
-#~ msgstr "移動"
-
-#~ msgid "Delete"
-#~ msgstr "刪除"
-
-#~ msgid "Speak"
-#~ msgstr "讀出"
-
-#~ msgid "<"
-#~ msgstr "<"
-
-#~ msgid ">"
-#~ msgstr ">"
-
-#~ msgid "<<<"
-#~ msgstr "<<<"
-
-#~ msgid ">>>"
-#~ msgstr ">>>"
-
-#~ msgid "Everything"
-#~ msgstr "所有東西"
-
-#~ msgid "New"
-#~ msgstr "新增"
-
-#~ msgid "Repeat"
-#~ msgstr "重複"
-
-#~ msgid "1"
-#~ msgstr "1"
-
-#~ msgid "2"
-#~ msgstr "2"
-
-#~ msgid "3"
-#~ msgstr "3"
-
-#~ msgid "4"
-#~ msgstr "4"
-
-#~ msgid "5"
-#~ msgstr "5"
-
-#~ msgid "6"
-#~ msgstr "6"
-
-#~ msgid "7"
-#~ msgstr "7"
-
-#~ msgid "8"
-#~ msgstr "8"
-
-#~ msgid "9"
-#~ msgstr "9"
-
-#~ msgid "10"
-#~ msgstr "10"
-
-#~ msgid "Character"
-#~ msgstr "字元"
-
-#~ msgid "Word"
-#~ msgstr "字詞"
-
-#~ msgid "Line"
-#~ msgstr "行"
-
-#~ msgid "Unknown"
-#~ msgstr "不明"
-
-#~ msgid "Cancel"
-#~ msgstr "取消"
-
-#~ msgid "Click mode"
-#~ msgstr "點擊模式"
-
-#~ msgid "Control dasher from network socket instead of mouse (advanced)"
-#~ msgstr "以網路 Socket 取代滑鼠控制 Dasher（進階）"
-
-#~ msgid "Done"
-#~ msgstr "完成"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "如果選取此模式，向上及向下移\n"
-#~ "將會在坐標間循環地向後及向前移動。向右移則確定選擇"
-
-#~ msgid "Ordinary control"
-#~ msgstr "普通控制"
-
-#~ msgid "<b>Menu Mode</b>"
-#~ msgstr "<b>選單模式：</b>"
-
-#~ msgid "Button setup"
-#~ msgstr "按鈕設定"
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "如果選取此模式，向上及向下移\n"
-#~ "將會在坐標間循環地向後及向前移動。向右移則確定選擇"
-
-#~ msgid "Socket"
-#~ msgstr "Socket"
-
-#~ msgid "Three-button direct mode"
-#~ msgstr "三按鍵直接模式"
