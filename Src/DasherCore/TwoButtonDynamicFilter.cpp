@@ -157,6 +157,9 @@ void CTwoButtonDynamicFilter::Event(int iTime, int iButton, int iType, CDasherMo
   // 1 = long click
   // 2 = multiple click
 
+  if(iType == 2)
+    if(GetBoolParameter(BP_TWOBUTTON_SPEED))
+      AutoSpeedUndo(GetLongParameter(LP_MULTIPRESS_COUNT) - 1);
   
   // First sanity check - if Dasher is paused then jump to the
   // appropriate state
@@ -266,6 +269,9 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
     return;
   }
 
+  if(pModel->IsSlowdown(iTime))
+    return;
+
   int iDiff(iTime - m_iLastTime);
   m_iLastTime = iTime;
 
@@ -281,6 +287,21 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
     m_pTree = new SBTree(iDiff);
   else
     m_pTree->Add(iDiff);
+
+  m_deOffsetQueue.push_back(iDiff);
+
+  while(m_deOffsetQueue.size() > 100) {
+    m_pTree = m_pTree->Delete(m_deOffsetQueue.front());
+    m_deOffsetQueue.pop_front();
+  }
+}
+
+void CTwoButtonDynamicFilter::AutoSpeedUndo(int iCount) {
+  for(int i(0); i < iCount; ++i) {
+    if(m_pTree)
+      m_pTree = m_pTree->Delete(m_deOffsetQueue.back());
+    m_deOffsetQueue.pop_back();
+  }
 }
 
 CTwoButtonDynamicFilter::SBTree::SBTree(int iValue) {
@@ -319,16 +340,37 @@ CTwoButtonDynamicFilter::SBTree* CTwoButtonDynamicFilter::SBTree::Delete(int iVa
   // Hmm... deleting is awkward in binary trees
 
   if(iValue == m_iValue) {
-    // Delete me
+    if(!m_pLeft) {
+      SBTree *pOldRight = m_pRight;
+      delete this;
+      return pOldRight;
+    }
+    else {
+      SBTree *pOldLeft = m_pLeft;
+      pOldLeft->SetRightMost(m_pRight);
+      delete this;
+      return pOldLeft;
+    }
   }
   else if(iValue > m_iValue) {
+    --m_iCount;
     m_pRight = m_pRight->Delete(iValue);
   }
   else {
+    --m_iCount;
     m_pLeft = m_pLeft->Delete(iValue);
   }
 
   return this;
+}
+
+void CTwoButtonDynamicFilter::SBTree::SetRightMost(CTwoButtonDynamicFilter::SBTree* pNewTree) {
+  m_iCount += pNewTree->GetCount();
+
+  if(m_pRight)
+    m_pRight->SetRightMost(pNewTree);
+  else
+    m_pRight = pNewTree;
 }
 
 int CTwoButtonDynamicFilter::SBTree::GetOffset(int iOffset) {

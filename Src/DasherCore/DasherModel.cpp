@@ -457,7 +457,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
 
   double dFactor;
 
-  if((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME))
+  if(IsSlowdown(iTime))
     dFactor = 0.1 * (1 + 9 * ((iTime - m_iStartTime) / static_cast<double>(GetLongParameter(LP_SLOW_START_TIME))));
   else 
     dFactor = 1.0;

@@ -296,6 +296,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     m_iStartTime = 0;
   };
 
+  bool IsSlowdown(int iTime) {
+    return ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME));
+  };
+
  private:
 
   CDasherInterfaceBase * m_pDasherInterface;

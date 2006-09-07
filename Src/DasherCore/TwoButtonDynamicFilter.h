@@ -31,6 +31,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
  private:
   void Event(int iTime, int iButton, int iType, CDasherModel *pModel, CUserLogBase *pUserLog);
   void AutoSpeedSample(int iTime, CDasherModel *pModel);
+  void AutoSpeedUndo(int iCount);
 
   class SBTree {
   public:
@@ -46,6 +47,8 @@ class CTwoButtonDynamicFilter : public CInputFilter {
 
     int GetOffset(int iOffset);
 
+    void SetRightMost(SBTree* pNewTree);
+
   private:
     int m_iValue;
     SBTree *m_pLeft;
@@ -54,6 +57,7 @@ class CTwoButtonDynamicFilter : public CInputFilter {
   };
 
   SBTree *m_pTree;
+  std::deque<int> m_deOffsetQueue;
 
   int m_iLastButton;
   int m_iKeyDownTime;
