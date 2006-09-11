@@ -104,6 +104,7 @@ libdashercore_a_SOURCES = AlphabetManager.cpp \
                           UserLocation.h \
                           UserLog.cpp \
                           UserLog.h \
+			  UserLogBase.h \
                           UserLogParam.cpp \
                           UserLogParam.h \
                           UserLogTrial.cpp \

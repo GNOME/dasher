@@ -290,7 +290,7 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
 
   m_deOffsetQueue.push_back(iDiff);
 
-  while(m_deOffsetQueue.size() > 100) {
+  while(m_deOffsetQueue.size() > 10) {
     m_pTree = m_pTree->Delete(m_deOffsetQueue.front());
     m_deOffsetQueue.pop_front();
   }
@@ -342,12 +342,15 @@ CTwoButtonDynamicFilter::SBTree* CTwoButtonDynamicFilter::SBTree::Delete(int iVa
   if(iValue == m_iValue) {
     if(!m_pLeft) {
       SBTree *pOldRight = m_pRight;
+      m_pRight = NULL;
       delete this;
       return pOldRight;
     }
     else {
       SBTree *pOldLeft = m_pLeft;
       pOldLeft->SetRightMost(m_pRight);
+      m_pLeft = NULL;
+      m_pRight = NULL;
       delete this;
       return pOldLeft;
     }
@@ -365,7 +368,8 @@ CTwoButtonDynamicFilter::SBTree* CTwoButtonDynamicFilter::SBTree::Delete(int iVa
 }
 
 void CTwoButtonDynamicFilter::SBTree::SetRightMost(CTwoButtonDynamicFilter::SBTree* pNewTree) {
-  m_iCount += pNewTree->GetCount();
+  if(pNewTree)
+    m_iCount += pNewTree->GetCount();
 
   if(m_pRight)
     m_pRight->SetRightMost(pNewTree);
