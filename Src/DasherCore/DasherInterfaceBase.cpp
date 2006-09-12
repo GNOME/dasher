@@ -6,6 +6,7 @@
 
 #include "DasherInterfaceBase.h"
 
+//#include "ActionButton.h"
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 #include "ControlManager.h"
@@ -119,6 +120,7 @@ void CDasherInterfaceBase::Realize() {
 
   CreateFactories();
   CreateInputFilter();
+  SetupActionButtons();
 
   // FIXME - need to rationalise this sort of thing.
   InvalidateContext(true);
@@ -506,6 +508,8 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
     bDecorationsChanged = m_pInputFilter->DecorateView(m_pDasherView);
   }
   
+  DrawActionButtons();
+
   if(bRedrawNodes || bDecorationsChanged)
     m_pDasherView->Display();
 }
@@ -581,6 +585,7 @@ void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
       ChangeView();
   }
 
+  PositionActionButtons();
   ScheduleRedraw();
 }
 
@@ -904,4 +909,53 @@ void CDasherInterfaceBase::StartShutdown() {
 
 bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount) {
   return GetModuleByName(strName)->GetSettings(pSettings, iCount);
+}
+
+void CDasherInterfaceBase::SetupActionButtons() {
+  m_vLeftButtons.push_back(new CActionButton);
+  m_vLeftButtons.push_back(new CActionButton);
+
+  m_vRightButtons.push_back(new CActionButton);
+  m_vRightButtons.push_back(new CActionButton);
+}
+
+void CDasherInterfaceBase::DestroyActionButtons() {
+  // TODO: implement and call this
+}
+
+void CDasherInterfaceBase::PositionActionButtons() {
+  if(!m_DasherScreen)
+    return;
+
+  int iCurrentOffset(0);
+
+  for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it) {
+    (*it)->SetPosition(0, iCurrentOffset, 32, 32);
+    iCurrentOffset += 32;
+  }
+
+  iCurrentOffset = 0;
+
+  for(std::vector<CActionButton *>::iterator it(m_vRightButtons.begin()); it != m_vRightButtons.end(); ++it) {
+    (*it)->SetPosition(m_DasherScreen->GetWidth() - 128, iCurrentOffset, 128, 32);
+    iCurrentOffset += 32;
+  }
+}
+
+void CDasherInterfaceBase::DrawActionButtons() {
+  if(!m_DasherScreen)
+    return;
+
+  for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it)
+    (*it)->Draw(m_DasherScreen);
+
+  for(std::vector<CActionButton *>::iterator it(m_vRightButtons.begin()); it != m_vRightButtons.end(); ++it)
+    (*it)->Draw(m_DasherScreen);
+}
+
+
+void CDasherInterfaceBase::HandleClickUp(int iX, int iY) {
+}
+
+void CDasherInterfaceBase::HandleClickDown(int iX, int iY) {
 }

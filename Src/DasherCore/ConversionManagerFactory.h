@@ -17,6 +17,9 @@ namespace Dasher {
     CDasherModel *m_pModel;
     CLanguageModel *m_pLanguageModel;
     CConversionHelper *m_pHelper;
+    
+    int m_iCMCount;
+    int pagecount;//test
   };
   
 }

@@ -1,11 +1,19 @@
 #ifndef __conversion_manager_h__
 #define __conversion_manager_h__
 
+
 #include "ConversionHelper.h"
 #include "DasherModel.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
 #include "NodeManager.h"
+
+#include <vector>
+
+
+//both of these start from 0
+typedef int HZIDX; 
+typedef int CANDIDX; 
 
 namespace Dasher {
   class CDasherNode; // Forward declaration
@@ -17,15 +25,18 @@ namespace Dasher {
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel, CConversionHelper *pHelper);
+    CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel, CConversionHelper *pHelper, int CMid);
 
-    ~CConversionManager() {
+    ~CConversionManager();
+
+
+    /* ~CConversionManager() {
       for(int i(0); i < m_iRootCount; ++i)
 	delete m_pRoot[i];
 
       delete[] m_pRoot;
     };
-
+    */
     ///
     /// Increment reference count
     ///
@@ -110,18 +121,38 @@ namespace Dasher {
       };
     };
 
+    bool RecursiveDelTree(SCENode* pNode);
+    
     void BuildTree(CDasherNode *pRoot);
+    void ProcessPhrase(HZIDX HZIndex);
+    int CalculateScore(CDasherNode * pNode, CANDIDX CandIndex);
+    
+    CANDIDX HZLookup(HZIDX HZIndex, const std::string &strSource);//finds the index of a HZ candidate
 
     bool m_bTreeBuilt;
+    bool m_bTraceNeeded;
+    bool m_bPhrasesProcessed[MAX_HZ_NUM-1]; // flags to signal whether
+					    // phrases are processed
+					    // at a particular Chinese
+					    // HZ index position
+					   
 
-    CConversionManagerNode **m_pRoot;
-    int m_iRootCount;
+    SCENode **m_pRoot;
 
+  
+    
     CDasherModel *m_pModel;
     CLanguageModel *m_pLanguageModel;
     CConversionHelper *m_pHelper;
 
     int m_iRefCount;
+    int m_iCMID;
+    int m_iHZCount;
+
+    std::vector<int> vTrace; //used to store the last input string of
+			     //Chinese HZ characters found in
+			     //CalculateScore
+			     
   };
 
 }

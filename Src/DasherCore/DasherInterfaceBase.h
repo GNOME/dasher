@@ -15,6 +15,7 @@
 #include "CustomColours.h"
 #include "ColourIO.h"
 #include "ModuleManager.h"
+#include "ActionButton.h"
 
 #include "AutoSpeedControl.h"
 
@@ -299,7 +300,10 @@ public:
   };
 
   void CheckRedraw();
-  
+
+  void HandleClickUp(int iX, int iY);
+  void HandleClickDown(int iX, int iY);
+   
 protected:
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
@@ -334,7 +338,7 @@ protected:
   bool m_bRedrawScheduled;
 
  private:
-  // To be implemented by child class
+  // To be implemented by child class (TODO - should these be private?)
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
   virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
   virtual void SetupPaths() = 0;
@@ -350,8 +354,15 @@ protected:
 
   void Redraw(bool bRedrawNodes);                // correct speed.
 
+  void SetupActionButtons();
+  void DestroyActionButtons();
+  void PositionActionButtons();
+  void DrawActionButtons();
 
   std::deque<std::string> m_deGameModeStrings;
+
+  std::vector<CActionButton *> m_vLeftButtons;
+  std::vector<CActionButton *> m_vRightButtons;
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

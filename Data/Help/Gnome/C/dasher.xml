@@ -1203,7 +1203,7 @@
         display.</para>
       </sect3>
       <sect3 id="twobutton">
-        <title>Twho button dynamic mode</title>
+        <title>Two button dynamic mode</title>
         <para>Dasher zooms continuously towards the centre of the screen, with the two buttons being
           used to shift the display up and down. The buttons should be pressed whenever the desired
           text is aligned with the two markers.</para>
