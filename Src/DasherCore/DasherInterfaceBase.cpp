@@ -492,12 +492,8 @@ void CDasherInterfaceBase::CheckRedraw() {
 /// otherwise we're wasting effort.
 
 void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
-  std::cout << "Redraw: " << bRedrawNodes << std::endl;
-
   if(!m_pDasherView || !m_pDasherModel)
     return;
-
-  std::cout << "Foo" << std::endl;
   
   if(bRedrawNodes) {
     m_pDasherView->Screen()->SendMarker(0);
@@ -507,8 +503,6 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   m_pDasherView->Screen()->SendMarker(1);
   
   bool bDecorationsChanged(false);
-  
-  std::cout << m_pInputFilter << std::endl;
 
   if(m_pInputFilter) {
     bDecorationsChanged = m_pInputFilter->DecorateView(m_pDasherView);

@@ -289,9 +289,6 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
 void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
   // Start the timer loops as everything is set up
   // Aim for 20 frames per second
-
-  std::cout << m_pCanvas << " " << pWidget << std::endl;
-
   if(!g_bHaveTimer) {
     g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
     g_bHaveTimer = true;
