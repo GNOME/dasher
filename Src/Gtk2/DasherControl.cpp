@@ -23,6 +23,9 @@ extern "C" gint canvas_configure_event(GtkWidget *widget, GdkEventConfigure *eve
 extern "C" gint key_press_event(GtkWidget *widget, GdkEventKey *event, gpointer data);
 extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
+extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
+
+static bool g_bHaveTimer = false;
 
 // CDasherControl class definitions
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
@@ -72,7 +75,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 void CDasherControl::SetupUI() {
   m_pCanvas = gtk_drawing_area_new();
   GTK_WIDGET_SET_FLAGS(m_pCanvas, GTK_CAN_FOCUS);
-  gtk_widget_set_double_buffered(m_pCanvas, true);
+  gtk_widget_set_double_buffered(m_pCanvas, false);
 
   GtkWidget *pFrame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
@@ -127,7 +130,9 @@ void CDasherControl::SetupUI() {
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
 
   g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
+  g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
 }
+
 
 void CDasherControl::SetupPaths() {
   char *home_dir;
@@ -281,11 +286,16 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
   return pRetVal;
 }
 
-void CDasherControl::RealizeCanvas() {
+void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
   // Start the timer loops as everything is set up
   // Aim for 20 frames per second
 
-  g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
+  std::cout << m_pCanvas << " " << pWidget << std::endl;
+
+  if(!g_bHaveTimer) {
+    g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
+    g_bHaveTimer = true;
+  }
 }
 
 int CDasherControl::CanvasConfigureEvent() {
@@ -415,6 +425,9 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
 };
 
 int CDasherControl::TimerEvent() {
+
+  //  return 1;
+
   int x, y;
 
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
@@ -455,6 +468,11 @@ int CDasherControl::TimerEvent() {
   return 1;
 
   // See CVS for code which used to be here
+}
+
+gboolean CDasherControl::ExposeEvent() {
+  NewFrame(get_time());
+  return 1;
 }
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
@@ -571,7 +589,7 @@ int CDasherControl::colour_filter(const gchar *filename, GPatternSpec *colourglo
 // here.
 
 extern "C" void realize_canvas(GtkWidget *widget, gpointer user_data) {
-  static_cast < CDasherControl * >(user_data)->RealizeCanvas();
+  static_cast < CDasherControl * >(user_data)->RealizeCanvas(widget);
 }
 
 
@@ -597,4 +615,8 @@ extern "C" gint key_release_event(GtkWidget *pWidget, GdkEventKey *event, gpoint
 
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data) {
   return static_cast < CDasherControl * >(data)->FocusEvent(widget, event);
+}
+
+extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data) {
+  return ((CDasherControl*)data)->ExposeEvent();
 }

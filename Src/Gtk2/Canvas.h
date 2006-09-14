@@ -240,6 +240,16 @@ private:
 
   GtkWidget *m_pCanvas;
 
+#if WITH_CAIRO
+
+  cairo_surface_t *m_pDisplaySurface;
+  cairo_surface_t *m_pDecorationSurface;
+  cairo_surface_t *m_pOnscreenSurface;
+
+  cairo_surface_t *m_pOffscreenbuffer;
+
+#else
+
   ///
   /// The offscreen buffer containing the 'background'
   ///
@@ -267,6 +277,8 @@ private:
   GdkPixmap *m_pOffscreenBuffer;
   GdkPixmap *m_pDummyBuffer;
 
+#endif
+
   /// 
   /// The Pango cache - used to store pre-computed pango layouts as
   /// they are costly to regenerate every time they are needed.
@@ -280,17 +292,13 @@ private:
 
   PangoRectangle *m_pPangoInk;
 
-  ///
-  /// The signal handler ID for the expose callback - stored so it can
-  /// be disconnected when the CCanvas object is destroyed (which will
-  /// happen whenever the canvas is resized).
-  ///
-
-  gulong lSignalHandler;
-
 #if WITH_CAIRO
   cairo_t *display_cr;
   cairo_t *decoration_cr;
+  cairo_t *onscreen_cr; // TODO: do we need to do our own double buffering?
+
+  cairo_t *widget_cr;
+
   cairo_t *cr;
   my_cairo_colour_t *cairo_colours;
 #else

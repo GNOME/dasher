@@ -55,8 +55,8 @@ class Dasher::CDasherNode:private NoClones {
   void Get_string_under(const int, const myint y1, const myint y2, const myint smousex, const myint smousey, std::vector<symbol> &) const;   // get string under given co-ords
 
   // Lower and higher bounds, and the range
-  int Lbnd() const;
-  int Hbnd() const;
+  inline int Lbnd() const;
+  inline int Hbnd() const;
 
   void SetRange(int iLower, int iUpper) {
     m_iLbnd = iLower;

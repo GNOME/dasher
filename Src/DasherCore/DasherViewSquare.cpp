@@ -86,7 +86,6 @@ void CDasherViewSquare::HandleEvent(Dasher::CEvent *pEvent) {
 }
 
 void CDasherViewSquare::RenderNodes(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, myint *iGamePointer) {
-
   DASHER_ASSERT(pRoot != 0);
 
   Screen()->Blank();

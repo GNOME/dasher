@@ -7,8 +7,6 @@
 
 using namespace Dasher;
 
-extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
-
 CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   : CDasherScreen(pCanvas->allocation.width, pCanvas->allocation.height) {
 
@@ -27,6 +25,13 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
   // Construct the buffer pixmaps
   // FIXME - only allocate without cairo
 
+#if WITH_CAIRO
+
+  m_pDisplaySurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
+  m_pDecorationSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
+  m_pOnscreenSurface = cairo_image_surface_create(CAIRO_FORMAT_RGB24, m_iWidth, m_iHeight);
+
+#else
 
   m_pDummyBuffer = gdk_pixmap_new(pCanvas->window, m_iWidth, m_iHeight, -1);
 
@@ -38,29 +43,29 @@ CCanvas::CCanvas(GtkWidget *pCanvas, CPangoCache *pPangoCache)
 
   m_pOffscreenBuffer = m_pDisplayBuffer;
 
+#endif
+
 
 #if WITH_CAIRO
   // The lines between origin and pointer is draw here
-  decoration_cr = gdk_cairo_create(m_pDecorationBuffer);
+  decoration_cr = cairo_create(m_pDecorationSurface);
   cr = decoration_cr;
   cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
 
   // Base stuff are drawn here
-  display_cr = gdk_cairo_create(m_pDisplayBuffer);
+  display_cr = cairo_create(m_pDisplaySurface);
   cr = display_cr;
   cairo_set_line_cap(cr, CAIRO_LINE_CAP_SQUARE);
   cairo_set_line_width(cr, 1.0);
+
+  onscreen_cr = cairo_create(m_pOnscreenSurface);
+
+  widget_cr = gdk_cairo_create(m_pCanvas->window) ;
+
 #endif
 
   m_pPangoInk = new PangoRectangle;
-
-  lSignalHandler = g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
-
-/*  gtk_widget_add_events(m_pCanvas, GDK_EXPOSURE_MASK);
-  gtk_widget_add_events(m_pCanvas, GDK_BUTTON_PRESS_MASK);
-  gtk_widget_add_events(m_pCanvas, GDK_BUTTON_RELEASE_MASK);
-*/
   gtk_widget_add_events(m_pCanvas, GDK_ALL_EVENTS_MASK);
 }
 
@@ -71,14 +76,12 @@ CCanvas::~CCanvas() {
   cr = NULL;
   cairo_destroy(display_cr);
   cairo_destroy(decoration_cr);
-#endif
-
+#else
   g_object_unref(m_pDummyBuffer);
   g_object_unref(m_pDisplayBuffer);
   g_object_unref(m_pDecorationBuffer);
   g_object_unref(m_pOnscreenBuffer);
-
-  g_signal_handler_disconnect(m_pCanvas, lSignalHandler);
+#endif
 
   delete m_pPangoInk;
 }
@@ -108,9 +111,7 @@ void CCanvas::Blank() {
 }
 
 void CCanvas::Display() {
-
   // FIXME - Some of this stuff is probably not needed
-
   GdkRectangle update_rect;
 
   GdkGC *graphics_context;
@@ -131,20 +132,47 @@ void CCanvas::Display() {
 
   // Copy the offscreen buffer into the onscreen buffer
 
-  gdk_draw_drawable(m_pOnscreenBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pOffscreenBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
+  // TODO: Reimplement (kind of important!)
+
+  //  gdk_draw_drawable(m_pOnscreenBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pOffscreenBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
   
+  //  BEGIN_DRAWING;
+
+//   cairo_set_source_surface(onscreen_cr, m_pDecorationSurface, 0, 0);
+//   cairo_rectangle(onscreen_cr, 0, 0, m_iWidth, m_iHeight);
+//   cairo_fill(onscreen_cr);
+
+
+
+  //  END_DRAWING;
+
   // Blank the offscreen buffer (?)
 
-  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, m_iWidth, m_iHeight);
+  //  gdk_draw_rectangle(m_pOffscreenBuffer, graphics_context, TRUE, 0, 0, m_iWidth, m_iHeight);
 
   // Invalidate the full canvas to force it to be redrawn on-screen
 
-  update_rect.x = 0;
-  update_rect.y = 0;
-  update_rect.width = m_iWidth;
-  update_rect.height = m_iHeight;
+ //  update_rect.x = 0;
+//   update_rect.y = 0;
+//   update_rect.width = m_iWidth;
+//   update_rect.height = m_iHeight;
 
-  gdk_window_invalidate_rect(m_pCanvas->window, &update_rect, FALSE);
+//   gdk_window_invalidate_rect(m_pCanvas->window, &update_rect, FALSE);
+
+  //  BEGIN_DRAWING;
+
+  //  GdkRectangle sRect = {0, 0, m_iWidth, m_iHeight};
+  //  gdk_window_begin_paint_rect(m_pCanvas->window, &sRect);
+
+#if WITH_CAIRO  
+  cairo_set_source_surface(widget_cr, m_pDecorationSurface, 0, 0);
+  cairo_rectangle(widget_cr, 0, 0, m_iWidth, m_iHeight);
+  cairo_fill(widget_cr);
+#else
+  gdk_draw_drawable(m_pCanvas->window, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDecorationBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
+#endif
+
+  //   gdk_window_end_paint(m_pCanvas->window);
 
   // Restore original graphics context (?)
 
@@ -387,24 +415,29 @@ void CCanvas::SendMarker(int iMarker) {
 
   switch(iMarker) {
   case 0: // Switch to display buffer
-    m_pOffscreenBuffer = m_pDisplayBuffer;
 #if WITH_CAIRO
     cr = display_cr;
+#else
+    m_pOffscreenBuffer = m_pDisplayBuffer;
 #endif
     break;
   case 1: // Switch to decorations buffer
+
+#if WITH_CAIRO
+    BEGIN_DRAWING;
+    cairo_set_source_surface(decoration_cr, m_pDisplaySurface, 0, 0);
+    cairo_rectangle(decoration_cr, 0, 0, m_iWidth, m_iHeight);
+    cairo_fill(decoration_cr);
+    END_DRAWING;
+#else
     gdk_draw_drawable(m_pDecorationBuffer, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pDisplayBuffer, 0, 0, 0, 0, m_iWidth, m_iHeight);
     m_pOffscreenBuffer = m_pDecorationBuffer;
+#endif
 #if WITH_CAIRO
     cr = decoration_cr;
 #endif
     break;
   }
-}
-
-bool CCanvas::ExposeEvent(GtkWidget *pWidget, GdkEventExpose *pEvent) {
-  gdk_draw_drawable(m_pCanvas->window, m_pCanvas->style->fg_gc[GTK_WIDGET_STATE(m_pCanvas)], m_pOnscreenBuffer, pEvent->area.x, pEvent->area.y, pEvent->area.x, pEvent->area.y, pEvent->area.width, pEvent->area.height);
-  return true;
 }
 
 void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
@@ -454,8 +487,3 @@ bool CCanvas::GetCanvasSize(GdkRectangle *pRectangle)
 
   return true;
 }
-
-extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data) {
-  return ((CCanvas*)data)->ExposeEvent(widget, event);
-}
-

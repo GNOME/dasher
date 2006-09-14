@@ -53,7 +53,7 @@ public:
   /// Called when the canvas gets realized (ie when internal resources have been allocated), so we can finalise setup.
   ///
 
-  void RealizeCanvas();
+  void RealizeCanvas(GtkWidget *pWidget);
 
   ///
   /// Called periodically by a timer. Used to prompt the interface to perform a redraw
@@ -142,6 +142,8 @@ public:
 
   void ExternalKeyDown(int iKeyVal);
   void ExternalKeyUp(int iKeyVal);
+  
+  gboolean ExposeEvent();
 
 private:
   //  virtual void CreateSettingsStore();

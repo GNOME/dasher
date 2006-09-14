@@ -370,7 +370,6 @@ AC_CONFIG_FILES([Makefile
 		 Src/DasherCore/Alphabet/Makefile
 		 Src/DasherCore/LanguageModelling/Makefile
 		 Src/Gtk2/Makefile
-		 Src/Gtk2-Experimental/Makefile
 		 Src/Qt/Makefile
 		 Src/Win32/Makefile
 		 Data/dasher.desktop.in
