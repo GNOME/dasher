@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-16 06:57+0200\n"
-"PO-Revision-Date: 2006-07-16 11:15+0300\n"
+"PO-Revision-Date: 2006-09-15 22:40+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -27,9 +27,8 @@ msgid "Dasher"
 msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
-#, fuzzy
 msgid "Predictive text entry"
-msgstr "Dasher on ennustav tekstisisestusrakendus"
+msgstr "Ennustav tekstisisestus"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -50,6 +49,9 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"Soovid sa oma muudatusi %s alla salvestada?\n"
+"\n"
+"Salvestamata muudatused lähevad kaotsi."
 
 #: ../Src/Gtk2/Menu.cc:305
 msgid ""
@@ -57,18 +59,21 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
+"Soovid sa oma muudatusi salvestada?\n"
+"\n"
+"Salvestamata muudatused lähevad kaotsi."
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Don't save"
-msgstr ""
+msgstr "Ära salvesta"
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Don't quit"
-msgstr ""
+msgstr "Ära lõpeta"
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Save and quit"
-msgstr ""
+msgstr "Salvesta ja lõpeta"
 
 #: ../Src/Gtk2/Menu.cc:425
 msgid "Dasher is a predictive text entry application"
@@ -99,9 +104,8 @@ msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Tähestiku valimine:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:4
-#, fuzzy
 msgid "<b>Appearance Options:</b>"
-msgstr "<b>Vaatamise valikud:</b>"
+msgstr "<b>Välimuse valikud:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:5
 msgid "<b>Application Options:</b>"
@@ -174,7 +178,7 @@ msgstr "Tähestik:"
 
 #: ../Src/Gtk2/dasher.glade.h:21
 msgid "Appearance"
-msgstr ""
+msgstr "Välimus"
 
 #: ../Src/Gtk2/dasher.glade.h:22
 msgid "Application"
@@ -233,9 +237,8 @@ msgid "Dasher Preferences"
 msgstr "Dasheri eelistused"
 
 #: ../Src/Gtk2/dasher.glade.h:36
-#, fuzzy
 msgid "Dasher _Tutorial"
-msgstr "Dasheri tekstisisestus"
+msgstr "Dasheri _algtõed"
 
 #: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
@@ -306,13 +309,12 @@ msgid "Paste"
 msgstr "Asetamine"
 
 #: ../Src/Gtk2/dasher.glade.h:53
-#, fuzzy
 msgid "Pause outside of canvas"
-msgstr "Pausimine väljaspool akent"
+msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
-msgstr ""
+msgstr "Palun oota..."
 
 #: ../Src/Gtk2/dasher.glade.h:55 ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
@@ -347,7 +349,7 @@ msgstr "Tööriistariba nähtaval"
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Small font"
-msgstr ""
+msgstr "Väike kirjatüüp"
 
 #: ../Src/Gtk2/dasher.glade.h:64
 msgid "Speed:"
@@ -413,7 +415,7 @@ msgstr "Lisa _failile"
 
 #: ../Src/Gtk2/dasher.glade.h:79
 msgid "_Contents"
-msgstr ""
+msgstr "_Sisukord"
 
 #: ../Src/Gtk2/dasher.glade.h:80 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
@@ -503,7 +505,7 @@ msgstr "_Lähtesta kirjatüübid"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "\n"
-msgstr ""
+msgstr "\n"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:3
 msgid "(Message Placeholder - no need to translate)"
@@ -524,9 +526,8 @@ msgid "Alphabet"
 msgstr "Tähestik"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:20
-#, fuzzy
 msgid "Enlarge input window"
-msgstr "Sisesta teksti teistesse akendesse"
+msgstr "Sisestusakna suurendamine"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:25
 msgid "P"
