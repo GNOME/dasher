@@ -58,7 +58,6 @@ static void dasher_maemo_helper_class_init(DasherMaemoHelperClass *pClass) {
 
 static void dasher_maemo_helper_init(DasherMaemoHelper *pDasherControl) {
   pDasherControl->private_data = new DasherMaemoHelperPrivate;
-  DasherMaemoHelperPrivate *pPrivate = (DasherMaemoHelperPrivate *)(pDasherControl->private_data);
 }
 
 static void dasher_maemo_helper_destroy(GObject *pObject) {

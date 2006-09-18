@@ -16,10 +16,11 @@ namespace Dasher {
   class CControlEvent;
   class CLockEvent;
   class CMessageEvent;
+  class CCommandEvent;
 }
 
 enum {
-  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_START, EV_STOP, EV_CONTROL, EV_LOCK, EV_MESSAGE
+  EV_PARAM_NOTIFY = 1, EV_EDIT, EV_EDIT_CONTEXT, EV_START, EV_STOP, EV_CONTROL, EV_LOCK, EV_MESSAGE, EV_COMMAND
 };
 
 class Dasher::CEvent {
@@ -109,6 +110,16 @@ public:
   std::string m_strMessage;
   int m_iID;
   int m_iType;
+};
+
+class Dasher::CCommandEvent : public Dasher::CEvent {
+public:
+  CCommandEvent(const std::string &strCommand) {
+    m_iEventType = EV_COMMAND;
+    m_strCommand = strCommand;
+  };
+  
+  std::string m_strCommand;
 };
 
 

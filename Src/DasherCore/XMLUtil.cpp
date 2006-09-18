@@ -249,8 +249,8 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
   strEnd += strTag;
   strEnd += ">";
 
-  int iPosStart        = strXML.find(strStart);
-  int iPosEnd          = strXML.find(strEnd);
+  unsigned int iPosStart        = strXML.find(strStart);
+  unsigned int iPosEnd          = strXML.find(strEnd);
 
   while ((iPosStart != string::npos) && (iPosEnd != string::npos))
   {
@@ -259,8 +259,8 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
     // we'll count any other instances of the start tag.  If we find some
     // then we require that we continue until we get that number more of
     // close tags.
-    int iCurrentStart    = iPosStart + strStart.length();
-    int iEmbedCount      = 0;
+    unsigned int iCurrentStart    = iPosStart + strStart.length();
+    unsigned int iEmbedCount      = 0;
     while ((iCurrentStart != string::npos) && (iCurrentStart < iPosEnd))
     {
       iCurrentStart = strXML.find(strStart, iCurrentStart);
@@ -271,7 +271,7 @@ VECTOR_STRING XMLUtil::GetElementStrings(const string& strTag, const string& str
       }
     }
     // Now look for end tag to balance the start tags
-    for (int i = 0; i < iEmbedCount; i++)
+    for (unsigned int i = 0; i < iEmbedCount; i++)
     {
       iPosEnd = strXML.find(strEnd, iPosEnd  + strEnd.length());
 

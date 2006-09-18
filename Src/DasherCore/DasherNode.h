@@ -95,7 +95,7 @@ class Dasher::CDasherNode:private NoClones {
     return m_iColour;
   } 
 
-  int SetColour(int iColour) {
+  void SetColour(int iColour) {
     m_iColour = iColour;
   }
 
@@ -214,7 +214,19 @@ using namespace Opts;
 #include "DasherModel.h"
 
 inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1)
-:m_iLbnd(ilbnd), m_iHbnd(ihbnd), m_Symbol(Symbol), m_mChildren(), m_bHasAllChildren(false), m_bIsActive(true), m_iRefCount(0), m_bAlive(true), m_bSeen(false), m_iColour(Colour), m_pLanguageModel(lm), m_Context(CLanguageModel::nullContext), m_pParent(pParent) {
+  : m_mChildren(), m_Symbol(Symbol) {
+
+  m_iLbnd = ilbnd;
+  m_iHbnd = ihbnd;
+  m_bIsActive = true;
+  m_bHasAllChildren = false;
+  m_iRefCount = 0;
+  m_bAlive = true;
+  m_iColour = Colour;
+  m_bSeen = false;
+  m_pLanguageModel = lm;
+  m_pParent = pParent;
+  m_Context = CLanguageModel::nullContext;
 
   m_bConverted = false;
   m_bInGame = false;

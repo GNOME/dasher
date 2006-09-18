@@ -291,6 +291,7 @@ void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
   // Aim for 20 frames per second
   if(!g_bHaveTimer) {
     g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
+    g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 5000, long_timer_callback, this, NULL);
     g_bHaveTimer = true;
   }
 }
@@ -313,7 +314,7 @@ void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
     HandleParameterNotification(pEvt->m_iParameter);
   }
   // TODO: Horrible - just keep events here
-  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 8)) {
+  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 9)) {
     HandleEvent(pEvent);
   }
 
@@ -419,6 +420,10 @@ void CDasherControl::HandleEvent(CEvent *pEvent) {
 
     g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_message", &sInfo);
   }
+  else if(pEvent->m_iEventType == 9) {
+    CCommandEvent *pCommandEvent(static_cast<CCommandEvent *>(pEvent));
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_command", pCommandEvent->m_strCommand.c_str());
+  }
 };
 
 int CDasherControl::TimerEvent() {
@@ -467,6 +472,12 @@ int CDasherControl::TimerEvent() {
   // See CVS for code which used to be here
 }
 
+int CDasherControl::LongTimerEvent() {
+  std::cout << "Framerate: " << GetFramerate() << std::endl;
+  std::cout << "Render count: " << GetRenderCount() << std::endl;
+  return 1;
+}
+
 gboolean CDasherControl::ExposeEvent() {
   NewFrame(get_time());
   return 1;
@@ -486,11 +497,11 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 
   gtk_widget_grab_focus(GTK_WIDGET(m_pCanvas));
   g_signal_emit_by_name(GTK_OBJECT(m_pCanvas), "focus_in_event", GTK_WIDGET(m_pCanvas), focusEvent, NULL, &returnType);
-
+  
   if(event->type == GDK_BUTTON_PRESS)
-    KeyDown(get_time(), 100);
+    HandleClickDown(get_time(), (int)event->x, (int)event->y);
   else if(event->type == GDK_BUTTON_RELEASE)
-    KeyUp(get_time(), 100);
+    HandleClickUp(get_time(), (int)event->x, (int)event->y);
 
   return false;
 }
@@ -511,8 +522,6 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
       SetLongParameter(LP_BOOSTFACTOR, 100);
   }
   else {
-    int iKeyVal;
-
     if(m_pKeyboardHelper) {
       int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
       
@@ -530,8 +539,6 @@ gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
   else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R))
     SetLongParameter(LP_BOOSTFACTOR, 25);
   else {
-    int iKeyVal;
-
     if(m_pKeyboardHelper) {
       int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
       

@@ -131,7 +131,7 @@ void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szT
   GtkTextIter sIter;
   gtk_text_buffer_get_iter_at_mark(pPrivate->pBuffer, &sIter, gtk_text_buffer_get_insert(pPrivate->pBuffer));
 
-  GtkTextTag *pCurrentTag;
+  GtkTextTag *pCurrentTag = NULL;
 
   if(!pPrivate->bConversionMode)
     pCurrentTag = pPrivate->pOutputTag;
@@ -145,6 +145,9 @@ void dasher_internal_buffer_insert(DasherInternalBuffer *pSelf, const gchar *szT
       break;
     }
   }
+
+  if(!pCurrentTag)
+    return;
 
   gtk_text_buffer_insert_with_tags(pPrivate->pBuffer, &sIter, szText, -1, pCurrentTag, NULL);
 

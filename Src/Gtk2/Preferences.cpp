@@ -198,7 +198,6 @@ static void dasher_preferences_dialogue_class_init(DasherPreferencesDialogueClas
 
 static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pDasherControl) {
   pDasherControl->private_data = new DasherPreferencesDialoguePrivate;
-  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pDasherControl->private_data);
 }
 
 static void dasher_preferences_dialogue_destroy(GObject *pObject) {
@@ -1150,6 +1149,7 @@ void update_advanced(int iParameter) {
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
   gtk_window_present(GTK_WINDOW(*pUserData));
+  return FALSE;
 }
 
 extern "C" gboolean advanced_preferences_show(GtkWidget *widget, gpointer user_data) {
@@ -1288,7 +1288,7 @@ void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWid
   gtk_tree_view_append_column(pView, pColumn);
 
   GtkTreeIter oIter;
-  GtkTreeIter oSelectedIter;
+  //  GtkTreeIter oSelectedIter;
   GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
 
   GtkWidget **pHelperWindowRef = new GtkWidget *;

@@ -50,7 +50,7 @@ void CCircleStartHandler::Timer(int iTime, CDasherView *m_pDasherView, CDasherMo
 
   dR = sqrt(pow(static_cast<double>(iCX - iCursorX), 2.0) + pow(static_cast<double>(iCY - iCursorY), 2.0));
 
-  int iNewStatus;
+  int iNewStatus(-1);
 
   // Status flags:
   // -1 undefined

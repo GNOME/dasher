@@ -134,7 +134,7 @@ string CTimeSpan::GetTimeStamp()
 #ifdef _WIN32
     sprintf(szMs, "%d", sTimeBuffer.millitm);
 #else
-    sprintf(szMs, "%d", sTimeBuffer.tv_usec / 1000);
+    sprintf(szMs, "%d", static_cast<int>(sTimeBuffer.tv_usec / 1000));
 #endif
     if (strlen(szMs) == 1)
       strTimeStamp += "00";

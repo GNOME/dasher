@@ -202,8 +202,6 @@ DasherAppSettings *dasher_app_settings_new(int argc, char **argv) {
 }
 
 void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
   if(iParameter < END_OF_SPS) {
     gtk_dasher_control_reset_parameter(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
     return;
@@ -229,8 +227,6 @@ void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter) {
 }
 
 bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
   if( iParameter < END_OF_BPS )
     return gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
@@ -267,8 +263,6 @@ void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool
 }
 
 gint dasher_app_settings_get_long(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
   if( iParameter < END_OF_LPS)
     return gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
@@ -341,8 +335,6 @@ void dasher_app_settings_set_free_long(DasherAppSettings *pSelf, const gchar *sz
 }
 
 const gchar *dasher_app_settings_get_string(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
  if( iParameter < END_OF_SPS )
     return gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
   else
@@ -405,8 +397,6 @@ int dasher_app_settings_get_parameter_type(DasherAppSettings *pSelf, int iParame
 }
 
 const gchar *dasher_app_settings_get_reg_name(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
   if(iParameter < END_OF_BPS)
     return boolparamtable[iParameter - FIRST_BP].regName;
   else if(iParameter < END_OF_LPS)
@@ -422,8 +412,6 @@ const gchar *dasher_app_settings_get_reg_name(DasherAppSettings *pSelf, int iPar
 }
 
 const gchar *dasher_app_settings_get_human_name(DasherAppSettings *pSelf, int iParameter) {
-  DasherAppSettingsPrivate *pPrivate = (DasherAppSettingsPrivate *)(pSelf->private_data);
-
   if(iParameter < END_OF_BPS)
     return boolparamtable[iParameter - FIRST_BP].humanReadable;
   else if(iParameter < END_OF_LPS)

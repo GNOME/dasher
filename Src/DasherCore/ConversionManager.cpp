@@ -178,7 +178,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       //PREVIOUS MODEL: m_pModel->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
       
       if(iSize[i] < 1)
-	iSize[i] == 1;
+	iSize[i] = 1;
       
       iRemaining -= iSize[i];
     }
@@ -318,7 +318,7 @@ void CConversionManager::ProcessPhrase(HZIDX HZIndex){
   SCENode * pPhraseList;
   SCENode * pNode;
   
-  bool stop=0;
+  //  bool stop=0;
 
   int iIdx(0);
   int i;
@@ -510,7 +510,7 @@ int CConversionManager::CalculateScore(CDasherNode * pNode, CANDIDX CandIndex){
       //POSITION 1
 
       if((*itCand).size() !=1){
-	for(int i(0); i<(*itCand).size()-1; i++)
+	for(unsigned int i(0); i<(*itCand).size()-1; i++)
 	  if((*itCand)[i+1]!=vTrace[i]){
 	    addtick = 0;
 	    break;

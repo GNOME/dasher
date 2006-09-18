@@ -70,8 +70,8 @@ class CAutoSpeedControl : public Dasher::CDasherComponent {
 
   double m_dBitrate; //  stores max bit rate internally
   double m_dSampleScale, m_dSampleOffset; // internal, control sample size
-  int m_nSpeedCounter;  // keep track of how many samples
-  int m_nSpeedSamples;  // upper limit on #samples
+  unsigned int m_nSpeedCounter;  // keep track of how many samples
+  unsigned int m_nSpeedSamples;  // upper limit on #samples
   double m_dSpeedMax, m_dSpeedMin; // bit rate always within this range
   double m_dTier1, m_dTier2, m_dTier3, m_dTier4; // variance tolerance tiers 
   double m_dChange1, m_dChange2, m_dChange3, m_dChange4; // fractional changes to bit rate

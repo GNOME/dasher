@@ -112,6 +112,8 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
   // This is especially true at the moment in Game mode, which feels very sluggish. Node creation also feels slower in Windows than Linux, especially
   // if many nodes are created at once (eg untrained Hiragana)
 
+  ++m_iRenderCount;
+
   if(bDraw && !RenderNode(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove) && !(pRender->GetGame())) {
     vDeleteList.push_back(pRender);
     pRender->Kill();
@@ -913,14 +915,14 @@ void CDasherViewSquare::DrawGameModePointer(myint iPosition) {
     iDasherY = 2048;
     Dasher2Screen(iDasherX, iDasherY, p[0].x, p[0].y);
 
-    iDasherX = 2048 - 500 * dCos;
-    iDasherY = 2048 + 500 * dSin;
+    iDasherX = static_cast<int>(2048 - 500 * dCos);
+    iDasherY = static_cast<int>(2048 + 500 * dSin);
     Dasher2Screen(iDasherX, iDasherY, p[1].x, p[1].y);
 
     Screen()->Polyline(p, 2, 4, 136); 
   }
 
-  int iOtherPosition = (1 - (1 / dOffset)) * 2048;
+  int iOtherPosition = static_cast<int>((1 - (1 / dOffset)) * 2048);
 
   int iRadius = abs((int)(iPosition - iOtherPosition)) / 2;
   int iCentre = (iPosition + iOtherPosition) / 2;

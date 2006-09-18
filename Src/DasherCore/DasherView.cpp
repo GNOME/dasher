@@ -54,6 +54,8 @@ void CDasherView::ChangeScreen(CDasherScreen *NewScreen) {
 
 bool CDasherView::Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode) {
 
+  m_iRenderCount = 0;
+
   myint iGamePointer;
   RenderNodes(pRoot, iRootMin, iRootMax, vNodeList, vDeleteList, &iGamePointer);
 

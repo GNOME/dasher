@@ -556,6 +556,7 @@
 			  <signal name="dasher_message" handler="on_message" last_modification_time="Wed, 22 Mar 2006 14:24:04 GMT"/>
 			  <signal name="dasher_edit_convert" handler="convert_cb" last_modification_time="Tue, 30 May 2006 14:21:15 GMT"/>
 			  <signal name="dasher_edit_protect" handler="protect_cb" last_modification_time="Tue, 30 May 2006 14:21:26 GMT"/>
+			  <signal name="dasher_command" handler="on_command" last_modification_time="Thu, 14 Sep 2006 12:13:36 GMT"/>
 			</widget>
 			<packing>
 			  <property name="shrink">True</property>

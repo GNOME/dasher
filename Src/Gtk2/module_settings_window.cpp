@@ -116,7 +116,7 @@ GtkWidget *module_settings_window_new(DasherAppSettings *pAppSettings, const gch
   
  
   for(int i(0); i < iCount; ++i) {
-    GtkWidget *pControl;
+    GtkWidget *pControl = NULL;
     
     if(pSettings[i].iType == T_BOOL) {
       pControl = gtk_check_button_new_with_label(pSettings[i].szDescription); 
@@ -233,7 +233,7 @@ void module_settings_window_handle_long_changed(ModuleSettingsWindow *pSelf, Gtk
 
   ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
 
-  gint iNewValue = gtk_range_get_value(pRange) * pData->iDivisor;
+  gint iNewValue = (gint)(gtk_range_get_value(pRange) * pData->iDivisor);
   dasher_app_settings_set_long(pPrivate->pAppSettings, pData->iParameter, iNewValue);
 }
 
@@ -245,7 +245,7 @@ void module_settings_window_handle_longspin_changed(ModuleSettingsWindow *pSelf,
 
   ModuleSettingsWindowPrivate *pPrivate((ModuleSettingsWindowPrivate *)(pSelf->private_data));
 
-  gint iNewValue = gtk_spin_button_get_value(pSpinButton) * pData->iDivisor;
+  gint iNewValue = (gint)(gtk_spin_button_get_value(pSpinButton) * pData->iDivisor);
   dasher_app_settings_set_long(pPrivate->pAppSettings, pData->iParameter, iNewValue);
 }
 

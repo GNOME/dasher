@@ -195,7 +195,8 @@ void CUserLogTrial::StartWriting()
       pLastLocation->span->Continue();
   }
 
-  NavCycle* newCycle = AddNavCycle();
+  //  NavCycle* newCycle = AddNavCycle();
+  AddNavCycle();
 }
 
 void CUserLogTrial::StopWriting(double dBits)

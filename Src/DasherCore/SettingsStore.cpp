@@ -165,6 +165,9 @@ void CSettingsStore::ResetParameter(int iParameter) {
   case ParamString:
     SetStringParameter(iParameter, stringparamtable[iParameter-FIRST_SP].defaultValue);
     break;
+  case ParamInvalid:
+    // TODO: Error handling?
+    break;
   }
 }
 
@@ -205,7 +208,11 @@ std::string CSettingsStore::GetParameterName(int iParameter)
       return s_oParamTables.StringParamTable[iParameter - FIRST_SP].regName;
       break;
     }
+  case ParamInvalid:
+    // TODO: Error handling?
+    break;
   };
+
 
   return "";
 }

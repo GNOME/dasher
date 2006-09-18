@@ -66,6 +66,7 @@ struct _GtkDasherControlClass {
   void (*dasher_request_settings) (GtkDasherControl * pDasherControl, gpointer data);
   void (*dasher_lock) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
   void (*dasher_message) (GtkDasherControl * pDasherControl, gpointer pLockInfo, gpointer data);
+  void (*dasher_command) (GtkDasherControl * pDasherControl, const gchar * szText, gpointer data);
 };
 
 GtkWidget *gtk_dasher_control_new();
@@ -93,6 +94,8 @@ void gtk_dasher_control_external_key_up(GtkDasherControl *pControl, int iKeyVal)
 gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, const gchar *szModule, SModuleSettings **pSettings, gint *iCount);
 void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString);
 void gtk_dasher_control_force_pause(GtkDasherControl *pControl);
+double gtk_dasher_control_get_framerate(GtkDasherControl *pControl);
+
 //FIXME - namespace broken
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);
 void gtk_dasher_control_set_focus(GtkDasherControl * pControl);

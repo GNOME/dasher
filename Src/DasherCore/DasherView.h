@@ -207,15 +207,19 @@ public:
   
   int GetCoordinateCount();
 
+  int GetRenderCount() {
+    return m_iRenderCount;
+  };
 
 protected:
   // Orientation of Dasher Screen
   inline void MapScreen(screenint * DrawX, screenint * DrawY);
   inline void UnMapScreen(screenint * DrawX, screenint * DrawY);
   bool m_bVisibleRegionValid;
- 
- 
+  
   CDelayedDraw *m_pDelayDraw;
+
+  int m_iRenderCount;
 
 private:
   CDasherScreen *m_pScreen;    // provides the graphics (text, lines, rectangles):

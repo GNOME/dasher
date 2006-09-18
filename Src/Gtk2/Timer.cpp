@@ -9,6 +9,10 @@ gint timer_callback(gpointer data) {
   return static_cast < CDasherControl * >(data)->TimerEvent();
 }
 
+gint long_timer_callback(gpointer data) {
+  return static_cast < CDasherControl * >(data)->LongTimerEvent();
+}
+
 long get_time() {
   // We need to provide a monotonic time source that ticks every millisecond
   long s_now;

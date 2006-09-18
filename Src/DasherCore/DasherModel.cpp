@@ -38,16 +38,21 @@ static char THIS_FILE[] = __FILE__;
 // CDasherModel
 
 CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pDashIface, CAlphIO *pAlphIO, bool bGameMode, const std::string &strGameModeText)
-:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface), m_Root(0),
-m_pLanguageModel(NULL), m_pcAlphabet(NULL), m_Rootmin(0), m_Rootmax(0), m_Rootmin_min(0),
-m_Rootmax_max(0), m_dAddProb(0.0), m_dMaxRate(0.0) {
+:CDasherComponent(pEventHandler, pSettingsStore), m_pDasherInterface(pDashIface) {
 
+  m_Root = 0;
+  m_pLanguageModel =NULL; 
+  m_pcAlphabet = NULL;
+  m_Rootmin = 0;
+  m_Rootmax = 0;
+  m_Rootmin_min = 0;
+  m_Rootmax_max = 0;
+  m_dAddProb = 0.0;
+  m_dMaxRate = 0.0;
   m_iTargetOffset = 0;
-
   m_dTotalNats = 0.0;
-
   m_bGameMode = bGameMode;
-
+ 
 #ifdef JAPANESE
   m_bRequireConversion = true;
 #else
@@ -462,7 +467,7 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
   else 
     dFactor = 1.0;
 
-  iSteps /= dFactor;
+  iSteps = static_cast<int>(iSteps / dFactor);
 
   // If Mousex is too large we risk overflow errors, so limit it
   int iMaxX = (1 << 29) / iSteps;
@@ -1104,7 +1109,7 @@ void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
 
    double dCFactor(CorrectionFactor(dasherx, dashery));
 
-   int iSteps = GetLongParameter(LP_ZOOMSTEPS) * dCFactor;
+   int iSteps = static_cast<int>(GetLongParameter(LP_ZOOMSTEPS) * dCFactor);
   // myint iRxnew = ((GetLongParameter(LP_OX)/2) * GetLongParameter(LP_OX)) / dasherx;
    myint n1, n2, iTarget1, iTarget2;
    //Plan_new_goto_coords(iRxnew, dashery, &iSteps, &o1,&o2,&n1,&n2);
@@ -1114,8 +1119,8 @@ void CDasherModel::ScheduleZoom(int dasherx, int dashery) {
 
    double dZ = 4096 / static_cast<double>(iTarget2 - iTarget1);
 
-   n1 = (m_Rootmin - iTarget1) * dZ;
-   n2 = (m_Rootmax - iTarget2) * dZ + 4096;
+   n1 = static_cast<int>((m_Rootmin - iTarget1) * dZ);
+   n2 = static_cast<int>((m_Rootmax - iTarget2) * dZ + 4096);
  
    m_deGotoQueue.clear();
    SGotoItem sNewItem;

@@ -538,7 +538,7 @@ std::string CFileLogger::GetTimeDateStamp()
 #ifdef _WIN32
         sprintf(strMs, "%d", sTimeBuffer.millitm);
 #else
-        sprintf(strMs, "%d", sTimeBuffer.tv_usec / 1000);
+        sprintf(strMs, "%d", static_cast<int>(sTimeBuffer.tv_usec / 1000));
 #endif
         if (strlen(strMs) == 1)
           strTimeStamp += "00";

@@ -30,6 +30,7 @@ enum {
   DASHER_REQUEST_SETTINGS,
   DASHER_LOCK_INFO,
   DASHER_MESSAGE,
+  DASHER_COMMAND,
   SIGNAL_NUM
 };
 
@@ -100,6 +101,8 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
 
   gtk_dasher_control_signals[DASHER_MESSAGE] = g_signal_new("dasher_message", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_message), NULL, NULL, g_cclosure_marshal_VOID__POINTER, G_TYPE_NONE, 1, G_TYPE_POINTER);
 
+   gtk_dasher_control_signals[DASHER_COMMAND] = g_signal_new("dasher_command", G_TYPE_FROM_CLASS(pClass), static_cast < GSignalFlags > (G_SIGNAL_RUN_FIRST | G_SIGNAL_ACTION), G_STRUCT_OFFSET(GtkDasherControlClass, dasher_command), NULL, NULL, g_cclosure_marshal_VOID__STRING, G_TYPE_NONE, 1, G_TYPE_STRING);
+
   pClass->dasher_changed = NULL;
   pClass->dasher_start = NULL;
   pClass->dasher_stop = NULL;
@@ -112,6 +115,7 @@ static void gtk_dasher_control_class_init(GtkDasherControlClass *pClass) {
   pClass->dasher_request_settings = NULL;  
   pClass->dasher_lock = NULL;
   pClass->dasher_message = NULL;
+  pClass->dasher_command = NULL;
   //  pClass->key_press_event = gtk_dasher_control_default_key_press_handler;
   // pClass->key_release_event = gtk_dasher_control_default_key_release_handler;
 }
@@ -241,4 +245,8 @@ void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const g
 
 void gtk_dasher_control_force_pause(GtkDasherControl *pControl) {
   ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->PauseAt(0,0);
+}
+
+double gtk_dasher_control_get_framerate(GtkDasherControl *pControl) {
+  return ((GtkDasherControlPrivate *) (pControl->private_data))->pControl->GetFramerate();
 }

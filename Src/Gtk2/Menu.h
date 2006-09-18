@@ -10,5 +10,7 @@ extern "C" void about_dasher(GtkWidget * widget, gpointer user_data);
 void PopulateMenus(GladeXML *pGladeWidgets);
 
 extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data);
+extern "C" void about_dasher(GtkWidget *widget, gpointer user_data);
+extern "C" void show_help(GtkWidget *widget, gpointer user_data);
 
 #endif

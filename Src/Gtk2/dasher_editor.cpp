@@ -22,6 +22,7 @@
 #include "game_mode_helper.h"
 #include "FontDialogues.h"
 #include "GtkDasherControl.h"
+#include "Menu.h"
 #include "Preferences.h"
 
 // TODO: Maybe reimplement something along the lines of the following, which used to be in edit.cc
@@ -344,7 +345,7 @@ void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
   };    
 
   if(pPrivate->pBufferSet) {
-    for(int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
+    for(unsigned int i(0); i < sizeof(sMap)/sizeof(struct SControlMap); ++i) {
       if(sMap[i].iEvent == iNodeID) {
 	if(sMap[i].bDelete) 
 	  idasher_buffer_set_edit_delete(pPrivate->pBufferSet, sMap[i].iDir, sMap[i].iDist);
@@ -382,7 +383,7 @@ void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
   strncpy(szRegistryName, "Action_", 256);
   strncat(szRegistryName, dasher_action_get_name(pNewEditorAction->pAction), 255 - strlen(szRegistryName));
 
-  for(int i(0); i < strlen(szRegistryName); ++i)
+  for(unsigned int i(0); i < strlen(szRegistryName); ++i)
     if(szRegistryName[i] == ' ')
       szRegistryName[i] = '_';
 
@@ -660,7 +661,7 @@ void dasher_editor_action_save_state(DasherEditor *pSelf, EditorAction *pAction)
   strncpy(szRegistryName, "Action_", 256);
   strncat(szRegistryName, dasher_action_get_name(pAction->pAction), 255 - strlen(szRegistryName));
 
-  for(int i(0); i < strlen(szRegistryName); ++i)
+  for(unsigned int i(0); i < strlen(szRegistryName); ++i)
     if(szRegistryName[i] == ' ')
       szRegistryName[i] = '_';
 
@@ -828,6 +829,21 @@ void dasher_editor_start_tutorial(DasherEditor *pSelf) {
   pPrivate->pGameModeHelper = GAME_MODE_HELPER(game_mode_helper_new(GTK_DASHER_CONTROL(pDasherWidget)));
 }
 
+void dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
+  if(!strcmp(szCommand, "Preferences")) {
+    dasher_preferences_dialogue_show(g_pPreferencesDialogue);
+  }
+  else if(!strcmp(szCommand, "Exit")) {
+    ask_save_before_exit(NULL, NULL);
+  }
+  else if(!strcmp(szCommand, "Help")) {
+    show_help(NULL, NULL);
+  }
+  else if(!strcmp(szCommand, "About")) {
+    about_dasher(NULL, NULL);
+  }
+}
+
 // Callbacks
 
 extern "C" void action_button_callback(GtkWidget *pWidget, gpointer pUserData) { 
@@ -870,6 +886,13 @@ extern "C" void on_message(GtkDasherControl *pDasherControl, gpointer pMessageIn
  if(g_pEditor)
    dasher_editor_display_message(g_pEditor, (DasherMessageInfo *)pMessageInfo);
 }
+
+
+extern "C" void on_command(GtkDasherControl *pDasherControl, gchar *szCommand, gpointer pUserData) {
+ if(g_pEditor)
+   dasher_editor_command(g_pEditor, szCommand);
+}
+
 
 // TODO: The following two should probably be made the same
 extern "C" void handle_request_settings(GtkDasherControl * pDasherControl, gpointer data) {

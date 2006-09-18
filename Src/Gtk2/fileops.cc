@@ -36,7 +36,7 @@ extern "C" void open_file(const char *myfilename) {
 
       // If there are zero bytes in the file then we have a problem -
       // for now, just assert that we can't load these files.
-      for(int i(0); i < size; ++i)
+      for(unsigned int i(0); i < size; ++i)
 	if(buffer[i] == 0) {
 	  GtkWidget *pErrorBox = gtk_message_dialog_new(GTK_WINDOW(window), 
 							GTK_DIALOG_MODAL, 
@@ -54,9 +54,10 @@ extern "C" void open_file(const char *myfilename) {
       gsize iNewSize;
       gchar *buffer2 = g_strdup(g_locale_to_utf8(buffer, size, NULL, &iNewSize, NULL));
 
-      const gchar *pEnd;
+      // TODO: This function probably needs more thought
 
-      gboolean bValid = g_utf8_validate(buffer2, -1, &pEnd);
+      //      const gchar *pEnd;
+      //gboolean bValid = g_utf8_validate(buffer2, -1, &pEnd);
 
       g_free(buffer);
       buffer = buffer2;
@@ -157,10 +158,11 @@ gboolean unix_vfs_open_file(const char *myfilename, gchar **buffer, unsigned lon
 extern "C" bool save_file_as(const char *myfilename, bool append) {
   unsigned long long length;
   gchar *inbuffer, *outbuffer = NULL;
-  gsize bytes_read, bytes_written;
-  GError *error = NULL;
+  //  gsize bytes_read, bytes_written;
+  gsize bytes_written;
+  //  GError *error = NULL;
   GtkTextIter *start, *end;
-  GIConv cd;
+  //  GIConv cd;
 
   start = new GtkTextIter;
   end = new GtkTextIter;

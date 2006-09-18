@@ -112,7 +112,7 @@ void CCanvas::Blank() {
 
 void CCanvas::Display() {
   // FIXME - Some of this stuff is probably not needed
-  GdkRectangle update_rect;
+  //  GdkRectangle update_rect;
 
   GdkGC *graphics_context;
 #if WITH_CAIRO

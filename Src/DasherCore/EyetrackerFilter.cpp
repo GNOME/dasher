@@ -13,7 +13,7 @@ CEyetrackerFilter::CEyetrackerFilter(Dasher::CEventHandler * pEventHandler, CSet
   m_iYAutoOffset = 0;
   
   m_iSum = 0;
-  m_iSigBiasPixels = 0.5 * GetLongParameter(LP_MAX_Y);
+  m_iSigBiasPixels = static_cast<int>(0.5 * GetLongParameter(LP_MAX_Y));
 
   m_iCounter = 0;
   m_iFilterTimescale = 20;

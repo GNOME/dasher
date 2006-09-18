@@ -734,7 +734,7 @@ void dasher_main_setup_window_style(DasherMain *pSelf, bool bTopMost) {
     break;
   default:
     g_error("Invalid style");
-    break;
+    return;
   }
 
   GtkWidget *pOldParent = gtk_widget_get_parent(pPrivate->pDivider);
@@ -1004,7 +1004,7 @@ gboolean dasher_main_motion(DasherMain *pSelf) {
 
    gdk_display_get_pointer(gdk_display_get_default(), NULL, &iX, &iY, NULL);
 
-   double dNewX = iX - pPrivate->dDragOffsetX;
+   //   double dNewX = iX - pPrivate->dDragOffsetX;
    double dNewY = iY - pPrivate->dDragOffsetY;
 
    pPrivate->iPosition = (int)(floor(dNewY));

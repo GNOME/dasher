@@ -149,7 +149,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
       if(m_bGameMode) {
 	int iCurrentGameOffset(static_cast<SAlphabetData *>(pNode->m_pUserData)->iGameOffset);
 	
-	if((iCurrentGameOffset != -2) && ((iCurrentGameOffset + 1) < m_strGameString.size()) 
+	if((iCurrentGameOffset != -2) && ((iCurrentGameOffset + 1) < static_cast<int>(m_strGameString.size())) 
 	   && ((m_pModel->GetAlphabet().GetText(newchars[j]))[0] == m_strGameString[iCurrentGameOffset + 1])) {
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = iCurrentGameOffset + 1;
 	  pNewNode->SetGame(true);
@@ -219,7 +219,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
 
   symbol iNewSymbol;
 
-  if(vSymbols.size() <= iGeneration + 1) {
+  if(static_cast<int>(vSymbols.size()) <= iGeneration + 1) {
     // Create a root node if there isn't any more context
     iNewPhase = 0;
     iNewSymbol = 0;
@@ -245,7 +245,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
     pNewNode = new CDasherNode(0, iNewSymbol, 0, Nodes1, 0, 0, m_pLanguageModel, iColour);
     CLanguageModel::Context oContext(m_pLanguageModel->CreateEmptyContext());
     
-    for(int i(0); i < vSymbols.size() - iGeneration -1; ++i)
+    for(unsigned int i(0); i < vSymbols.size() - iGeneration -1; ++i)
       m_pLanguageModel->EnterSymbol(oContext, vSymbols[i]);
     
     pNewNode->SetContext(oContext);

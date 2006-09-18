@@ -239,6 +239,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     case 2:
       return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
 #endif
+    default:
+      return NULL;
     }
   };
   
@@ -296,9 +298,13 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     m_iStartTime = 0;
   };
 
-  bool IsSlowdown(int iTime) {
-    return ((iTime - m_iStartTime) < GetLongParameter(LP_SLOW_START_TIME));
+  bool IsSlowdown(unsigned long iTime) {
+    return ((iTime - m_iStartTime) < static_cast<unsigned long>(GetLongParameter(LP_SLOW_START_TIME)));
   };
+
+ protected:
+  int m_iRenderCount;
+
 
  private:
 

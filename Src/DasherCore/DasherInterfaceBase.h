@@ -301,8 +301,13 @@ public:
 
   void CheckRedraw();
 
-  void HandleClickUp(int iX, int iY);
-  void HandleClickDown(int iX, int iY);
+  void HandleClickUp(int iTime, int iX, int iY);
+  void HandleClickDown(int iTime, int iX, int iY);
+
+  void ExecuteCommand(const std::string &strName);
+
+  double GetFramerate();
+  int GetRenderCount();
    
 protected:
   void WriteTrainFileFull();
@@ -357,12 +362,14 @@ protected:
   void SetupActionButtons();
   void DestroyActionButtons();
   void PositionActionButtons();
-  void DrawActionButtons();
+  bool DrawActionButtons();
 
   std::deque<std::string> m_deGameModeStrings;
 
   std::vector<CActionButton *> m_vLeftButtons;
   std::vector<CActionButton *> m_vRightButtons;
+
+  bool m_bOldVisible;
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */

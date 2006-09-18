@@ -63,6 +63,8 @@ public:
   ///
 
   int TimerEvent();
+  int LongTimerEvent();
+
 
   ///
   /// Mouse button pressed on the canvas
