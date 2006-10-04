@@ -258,7 +258,7 @@ msgstr "Täisekraan"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Increase line thickness"
-msgstr ""
+msgstr "Joone paksuse suurendamine"
 
 #: ../Src/Gtk2/dasher.glade.h:42 ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
@@ -306,7 +306,7 @@ msgstr "Asetamine"
 
 #: ../Src/Gtk2/dasher.glade.h:52
 msgid "Pause outside of canvas"
-msgstr ""
+msgstr "Pausimine kui lõuendilt väljas"
 
 #: ../Src/Gtk2/dasher.glade.h:53 ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
