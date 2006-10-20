@@ -29,8 +29,6 @@ libdashercore_a_SOURCES = \
 		ConversionManager.h \
 		ConversionManagerFactory.cpp \
 		ConversionManagerFactory.h \
-		CustomColours.cpp \
-		CustomColours.h \
 		DasherAppInterface.h \
 		DasherButtons.cpp \
 		DasherButtons.h \
@@ -77,6 +75,8 @@ libdashercore_a_SOURCES = \
 		ModuleFactory.h \
 		ModuleManager.cpp \
 		ModuleManager.h \
+		NodeCreationManager.cpp \
+		NodeCreationManager.h \
 		NodeManager.h \
 		NodeManagerFactory.h \
 		OneDimensionalFilter.cpp \

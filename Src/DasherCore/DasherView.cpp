@@ -73,7 +73,7 @@ int CDasherView::GetCoordinateCount() {
     return 0;
 }
 
-int CDasherView::GetCoordinates(int iN, myint * pCoordinates) {
+int CDasherView::GetInputCoordinates(int iN, myint * pCoordinates) {
   if(m_pInput)
     return m_pInput->GetCoordinates(iN, pCoordinates);
   else

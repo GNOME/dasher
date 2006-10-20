@@ -17,21 +17,16 @@
 #include "DasherNode.h"
 #include "DasherComponent.h"
 #include "Alphabet/Alphabet.h"
-#include "Alphabet/AlphIO.h"
 #include "AlphabetManagerFactory.h"
 #include "ControlManagerFactory.h"
-
-#ifdef JAPANESE
 #include "ConversionManagerFactory.h"
-#endif
+#include "NodeCreationManager.h"
 
 #include <math.h>
 #include "DasherTypes.h"
 #include "FrameRate.h"
 #include <vector>
 #include <deque>
-
-
 
 namespace Dasher {
   class CDasherModel;
@@ -50,6 +45,10 @@ namespace Dasher {
 class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 {
  public:
+
+  /// 
+  /// Member class used to train the language model
+  ///
 
   class CTrainer {
   public:
@@ -73,8 +72,12 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     idJapanese = 4
   } LanguageModelID;
 
-  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CDasherInterfaceBase * pDashIface, CAlphIO *pAlphIO, bool bGameMode = false, const std::string &strGameModeText = "");
+  CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase * pDashIface, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
+
+  ///
+  /// Prototype binary dump of language model data
+  ///
 
   bool WriteLMToFile(const std::string &strFilename) {
     if(m_pLanguageModel)
@@ -83,6 +86,10 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
       return false;
   }
 
+  ///
+  /// Prototype binary read of language model data
+  ///
+
   bool ReadLMFromFile(const std::string &strFilename) {
     if(m_pLanguageModel)
       return m_pLanguageModel->ReadFromFile(strFilename);
@@ -90,76 +97,90 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
       return false;
   }
 
+  ///
+  /// Evet handler
+  ///
+
   void HandleEvent(Dasher::CEvent * pEvent);
 
-  CTrainer *GetTrainer();
+  ///
+  /// Return a trainer object for the language model
+  ///
 
-  // framerate functions
+  CTrainer *GetTrainer();
+  
+  ///
+  /// Notify the framerate class that a new frame has occurred
+  ///
+
   void NewFrame(unsigned long Time) {
     m_fr.NewFrame(Time);
   }
 
-  // called everytime we render a new frame
+  ///
+  /// Get the current framerate
+  ///
+
   double Framerate() const {
     return m_fr.Framerate();
   }
+
+  ///
+  /// Reset the framerate class
+  ///
 
   void Reset_framerate(unsigned long Time) {
     m_fr.Reset(Time);
   }
 
+  ///
+  /// Initialise the framerate class - presumably called whenever
+  /// dasher is stoppe, but the actual semantics here need to be
+  /// verified
+  ///
+
   void Halt() {
     m_fr.Initialise();
   }
 
-  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
-
-  // User control of speed
+  ///
+  /// Set the target bitrate - probably shouldn't be called externally
+  /// - could implement through the event subsystem instead
+  ///
+  
   void SetBitrate(double TargetRate) {
     m_fr.SetBitrate(TargetRate);
-  }                             // Use or start at this bitrate
-  //void SetMaxBitrate(double MaxRate) {m_dMaxRate=MaxRate;m_fr.SetMaxBitrate(MaxRate);} // Cap any adaption at this rate
+  } 
 
-/*   std::string GroupLabel(int group) const { */
-/*     return m_pcAlphabet->GetGroupLabel(group); */
-/*   } */
-/*   int GroupColour(int group) const { */
-/*     return m_pcAlphabet->GetGroupColour(group); */
-/*   } */
+  ///
+  /// Set the context in which predictions are made - need to check
+  /// the semantics here. Probably a sensible thing to do here is to
+  /// not allow context changes within an existing model, but to force
+  /// a rebuild. This will only work once the language model has been
+  /// decoupled, as retraining every time would be somewhat
+  /// inconvenient.
+  ///
 
   void SetContext(std::string & sNewContext);
 
-  // functions returning private data (read only access)
-  myint Rootmin() const {
-    return m_Rootmin;
-  }
-  myint Rootmax() const {
-    return m_Rootmax;
-  }
-  CDasherNode *Root() const {
-    return m_Root;
-  }
+/*   /// */
+/*   /// What does this do? */
+/*   /// */
 
-  void OutputCharacters(CDasherNode * node);
-  bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
+/*   void Trace() const;  */
 
-  void Trace() const;           // diagnostics
-  //void Learn_symbol(symbol Symbol) {m_languagemodel->learn_symbol(Symbol);} // feed character to language model
-
-  bool Tap_on_display(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  // evolves the current viewpoint
-
-/*   void GoTo(double, myint);     // jumps to a new viewpoint */
-   void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
-   void OldPush(myint iMousex, myint iMousey);
-   double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2); 
-
-  void Start();                 // initializes the data structure
-
-  /// 
-  /// Make a child of the root into a new root
+  ///
+  /// Update the root location - called in response to regular timer
+  /// callbacks
   ///
 
-  void Make_root(CDasherNode *whichchild); 
+  bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
+  
+  ///
+  /// Check semantics here
+  ///
+
+  void Start();                 // initializes the data structure
 
   ///
   /// Clear the queue of old roots - used when those nodes become
@@ -169,138 +190,168 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void ClearRootQueue();
 
   ///
-  /// A version of Make_root which is suitable for arbitrary
-  /// descendents of the root, not just immediate children.
+  /// Reset counter of total nats entered
   ///
-
-  void RecursiveMakeRoot(CDasherNode *pNewRoot);
-
-  ///
-  /// Rebuild the data structure such that a given node is guaranteed
-  /// to be in the same place on the screen. This would usually be the
-  /// node under the crosshair
-  ///
-
-  void RebuildAroundNode(CDasherNode *pNode);
-
-  void Reparent_root(int lower, int upper);     // change back to the previous root
-
  
   void ResetNats() {
     m_dTotalNats = 0.0;
   }
 
+  ///
+  /// Return the total nats entered
+  ///
+
   double GetNats() {
     return m_dTotalNats;
   }
 
-//  myint PlotGoTo(myint MouseX, myint MouseY);
+  ///
+  /// Update a language model context to include an additional character
+  ///
 
   void EnterText(CLanguageModel::Context Context, std::string TheText) const;
+
+  ///
+  /// Update a language model context to include an additional
+  /// character, also learning the new data.
+
   void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
 
-  CLanguageModel::Context CreateEmptyContext()const;
+  ///
+  /// Create an empty language model context
+  ///
 
-  // Alphabet pass-through functions for widely needed information
+  CLanguageModel::Context CreateEmptyContext() const;
+
+  ///
+  /// Get the symbol ID representing space
+  ///
+
   symbol GetSpaceSymbol() const {
-    return m_pcAlphabet->GetSpaceSymbol();
+    return m_pNodeCreationManager->GetSpaceSymbol();
   }
+
+  ///
+  /// Get the symbol ID representing the control node 
+  ///
 
   symbol GetControlSymbol() const {
-    return m_pcAlphabet->GetControlSymbol();
+    return m_pNodeCreationManager->GetControlSymbol();
   }
+
+  ///
+  /// Get the symbol ID representing the conversion pseudo-character
+  ///
 
   symbol GetStartConversionSymbol() const {
-    return m_pcAlphabet->GetStartConversionSymbol();
+    return m_pNodeCreationManager->GetStartConversionSymbol();
   }
 
+  ///
+  /// Convert a given symbol ID to display text
+  ///
 
   const std::string & GetDisplayText(int iSymbol) const {
-    return m_pcAlphabet->GetDisplayText(iSymbol);
+    return m_pNodeCreationManager->GetDisplayText(iSymbol);
   }
 
-  const CAlphabet & GetAlphabet() const {
-    return *m_pcAlphabet;
-  }
+  ///
+  /// Get a root node of a given type
+  ///
 
-  CAlphabet *GetAlphabetNew() const {
-    return m_pcAlphabet;
-  }
-
-  CDasherNode *Get_node_under_crosshair();    // Needed for Game Mode
-  
   CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
-    switch(iType) {
-    case 0:
-      return m_pAlphabetManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
-    case 1:
-      return m_pControlManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
-#ifdef JAPANESE
-    case 2:
-      return m_pConversionManagerFactory->GetRoot(pParent, iLower, iUpper, pUserData);
-#endif
-    default:
-      return NULL;
-    }
+    return m_pNodeCreationManager->GetRoot(iType, pParent, iLower, iUpper, pUserData);
   };
   
-  // FIXME - only public temporarily
+  ///
+  /// Get the node creation manager (this is temporary - eventually
+  /// the node creation manager will be owned outside of this class)
+  ///
+
+/* /\*   CNodeCreationManager *GetNodeCreationManager() { *\/ */
+/* /\*     return m_pNodeCreationManager; *\/ */
+/*   }; */
+
+  // TODO - only public temporarily - sort this out
   void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
   int GetColour(symbol s) const;
-
   
-  // Control mode stuff
 
-  void RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-    m_pControlManagerFactory->RegisterNode(iID, strLabel, iColour);
-  }
-  
-  void ConnectNode(int iChild, int iParent, int iAfter) {
-     m_pControlManagerFactory->ConnectNode(iChild, iParent, iAfter);
-  }
+  ///
+  /// TODO: Move these elsewhere
+  ///
 
-  void DisconnectNode(int iChild, int iParent) {
-     m_pControlManagerFactory->DisconnectNode(iChild, iParent);
-  }
-
-  void Push_Node(CDasherNode * pNode);  // give birth to children
-
-  bool m_bContextSensitive;
-
+  //  bool m_bContextSensitive;
   std::string m_strContextBuffer;
+
+  /// 
+  /// Render the model to a given view
+  ///
 
   bool RenderToView(CDasherView *pView, bool bRedrawDisplay);
 
-  bool CheckForNewRoot(CDasherView *pView);
+  ///
+  /// Schedule zoom to a given Dasher coordinate (used in click mode,
+  /// button mode etc.)
+  ///
 
   void ScheduleZoom(int dasherx, int dashery);
 
-  void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+  ///
+  /// Return the number of remaining zoom steps
+  ///
 
   int ScheduledSteps() {
     return m_deGotoQueue.size();
   }
 
-  // Apply an offset to the 'target' coordinates - implements the jumps in
-  // two button dynamic mode.
+  ///
+  /// Apply an offset to the 'target' coordinates - implements the jumps in
+  /// two button dynamic mode.
+  ///
+
   void Offset(int iOffset);
  
-  // Reset the 'target' root coordinates to match those currently visible. 
-  // Appropriate for abrubt changes in behaviour (such as backing off in 
-  // button modes)
+  ///
+  /// Reset the 'target' root coordinates to match those currently visible. 
+  /// Appropriate for abrubt changes in behaviour (such as backing off in 
+  /// button modes)
+  /// 
+
   void MatchTarget(bool bReverse);
 
-  // This is pretty horrible - a rethink of the start/reset mechanism
-  // is definitely in order
+  ///
+  /// This is pretty horrible - a rethink of the start/reset mechanism
+  /// is definitely in order. Used to prevent the root node from being
+  /// too large in various modes before Dasher is started.
+  ///
+
   void LimitRoot(int iMaxWidth);
+
+  ///
+  /// Cause Dasher to temporarily slow down (eg as part of automatic
+  /// speed control in n-button dynamic mode).
+  ///
 
   void TriggerSlowdown() {
     m_iStartTime = 0;
   };
 
+  ///
+  /// Return whether Dasher is currently being temporarily slowed or
+  /// not.
+  ///
+
   bool IsSlowdown(unsigned long iTime) {
     return ((iTime - m_iStartTime) < static_cast<unsigned long>(GetLongParameter(LP_SLOW_START_TIME)));
   };
+
+  ///
+  /// Check whether a change of root node is needed, and perform the
+  /// update if so
+  ///
+
+  bool CheckForNewRoot(CDasherView *pView);
 
  protected:
   int m_iRenderCount;
@@ -315,8 +366,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // Interfaces
 
   CLanguageModel *m_pLanguageModel;     // pointer to the language model
-
-  CAlphabet *m_pcAlphabet;        // pointer to the alphabet
 
   CLanguageModel::Context LearnContext; // Used to add data to model as it is entered
 
@@ -363,18 +412,93 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
 
-  //  ControlTree *m_pControltree;
+  ///
+  /// Perform output on a node - recurse up the tree outputting any
+  /// symbols which have not been output so far. Neeed to check
+  /// behaviour with respect to deletion
+  ///
 
-  CAlphabetManagerFactory *m_pAlphabetManagerFactory;
-  CControlManagerFactory *m_pControlManagerFactory;
+  void RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded);
 
+
+  ///
+  /// Go directly to a given coordinate - check semantics
+  ///
+  
+  void NewGoTo(myint n1, myint n2, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+
+  ///
+  /// Check semantics here
+  ///
+
+  void OutputCharacters(CDasherNode * node);
+  bool DeleteCharacters(CDasherNode * newnode, CDasherNode * oldnode, int* pNumDeleted = NULL);
+
+  ///
+  /// Create the children of a Dasher node
+  ///
+
+  void Push_Node(CDasherNode * pNode); 
+
+  /// 
+  /// Old style drilling down of nodes - optionally can still be
+  /// called
+  ///
+
+  void OldPush(myint iMousex, myint iMousey);
+
+  ///
+  /// Schedule smooth transition to a given coordinate
+  ///
+
+  double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2); 
+
+  /// 
+  /// Make a child of the root into a new root
+  ///
+
+  void Make_root(CDasherNode *whichchild); 
+
+  ///
+  /// A version of Make_root which is suitable for arbitrary
+  /// descendents of the root, not just immediate children.
+  ///
+
+  void RecursiveMakeRoot(CDasherNode *pNewRoot);
+
+  ///
+  /// Rebuild the data structure such that a given node is guaranteed
+  /// to be in the same place on the screen. This would usually be the
+  /// node under the crosshair
+  ///
+
+  void RebuildAroundNode(CDasherNode *pNode);
+
+  ///
+  /// Rebuild the parent of the current root - used during backing off
+  ///
+
+  void Reparent_root(int lower, int upper); 
+
+  ///
+  /// Return a pointer to the Dasher node which is currently under the
+  /// crosshair. Apparently this is needed for game mode.
+  ///
+
+  CDasherNode *Get_node_under_crosshair();    
+
+  ///
+  /// Handle the output caused by a change in node being over the
+  /// crosshair
+  ///
+
+  void HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted);
+
+  CNodeCreationManager *m_pNodeCreationManager;
   bool m_bGameMode;
 
-  unsigned long m_iStartTime;
 
-#ifdef JAPANESE
-  CConversionManagerFactory *m_pConversionManagerFactory;
-#endif
+  unsigned long m_iStartTime;
 
   struct SGotoItem {
     myint iN1;
@@ -400,8 +524,8 @@ inline CLanguageModel::Context CDasherModel::CreateEmptyContext() const {
   return m_pLanguageModel->CreateEmptyContext();
 }
 
-inline int CDasherModel::GetColour(symbol s) const {
-  return m_pcAlphabet->GetColour(s);
+inline int CDasherModel::GetColour(symbol s) const { 
+  return m_pNodeCreationManager->GetColour(s); 
 }
 
 #endif /* #ifndef __DasherModel_h__ */

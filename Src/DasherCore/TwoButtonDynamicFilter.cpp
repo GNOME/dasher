@@ -87,7 +87,7 @@ bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDashe
   }
 
   if(m_iState == 2)
-    return m_pDasherModel->Tap_on_display(41943,2048, Time, pAdded, pNumDeleted);
+    return m_pDasherModel->UpdatePosition(41943,2048, Time, pAdded, pNumDeleted);
   else if(m_iState == 1)
     return TimerImpl(Time, m_pDasherView, m_pDasherModel, pAdded, pNumDeleted);
   else
@@ -95,7 +95,7 @@ bool CTwoButtonDynamicFilter::Timer(int Time, CDasherView *m_pDasherView, CDashe
 }
 
 bool CTwoButtonDynamicFilter::TimerImpl(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
-  return m_pDasherModel->Tap_on_display(100,2048, Time, pAdded, pNumDeleted);
+  return m_pDasherModel->UpdatePosition(100,2048, Time, pAdded, pNumDeleted);
 }
 
 void CTwoButtonDynamicFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {

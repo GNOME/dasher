@@ -2,7 +2,11 @@
 #define __PINYIN_CONVERSION_HELPER_H__
 
 #include "ConversionHelper.h"
+#include "DasherNode.h"
 
+//both of these start from 0
+typedef int HZIDX; 
+typedef int CANDIDX; 
 
 
 class CPinYinConversionHelper : public CConversionHelper {
@@ -19,8 +23,11 @@ class CPinYinConversionHelper : public CConversionHelper {
 
   virtual std::vector<std::vector<std::vector<std::vector<std::vector<int> > > > > * GetDP(int CMid);// get data pointer
 
-  virtual int AssignColour(int parentClr, SCENode * pNode, int childIndex);
+  void ProcessPhrase(HZIDX HZIndex);
+  int CalculateScore(CDasherNode * pNode, CANDIDX CandIndex);
+    CANDIDX HZLookup(HZIDX HZIndex, const std::string &strSource);//finds the index of a HZ candidate
 
+ private:
 
   //CONTEXT DATA
   std::vector<std::vector<std::vector<std::vector<std::vector<std::vector<int> > > > > >vContextData;  
@@ -35,11 +42,23 @@ class CPinYinConversionHelper : public CConversionHelper {
   //LEVLE 5 : CELL: STORING PHASES IN HZ INDEX AND ASSIGNED SCORE
   //          IN THE WAY: 1.SCORE 2.Z 3.Y 4.X FOR PHRASE XYZ
   //          PREVIOUSLY PROCESSED
-  
- private:
+		 
+    int m_iCMID;
+    int m_iHZCount;
 
-  int colourStore[2][3]; 
-			 
+    bool m_bTraceNeeded;
+    bool m_bPhrasesProcessed[MAX_HZ_NUM-1]; // flags to signal whether
+					    // phrases are processed
+					    // at a particular Chinese
+					    // HZ index position
+
+
+
+    std::vector<int> vTrace; //used to store the last input string of
+			     //Chinese HZ characters found in
+			     //CalculateScore
+
+
 };
 
 #endif

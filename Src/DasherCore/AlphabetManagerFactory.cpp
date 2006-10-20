@@ -2,6 +2,10 @@
 #include "../Common/Common.h"
 
 #include "AlphabetManagerFactory.h"
+#include "LanguageModelling/PPMLanguageModel.h"
+#include "LanguageModelling/WordLanguageModel.h"
+#include "LanguageModelling/DictLanguageModel.h"
+#include "LanguageModelling/MixtureLanguageModel.h"
 
 using namespace Dasher;
 
@@ -15,8 +19,56 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManagerFactory::CAlphabetManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText ) {
-  m_pAlphabetManager = new CAlphabetManager( pModel, pLanguageModel, bGameMode, strGameModeText );
+CAlphabetManagerFactory::CAlphabetManagerFactory(CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pAlphIO, CNodeCreationManager *pNCManager,  bool bGameMode, const std::string &strGameModeText ) {
+    // -- put all this in a separate method
+  // TODO: Think about having 'prefered' values here, which get
+  // retrieved by DasherInterfaceBase and used to set parameters
+
+  // TODO: We might get a different alphabet to the one we asked for -
+  // if this is the case then the parameter value should be updated,
+  // but not in such a way that it causes everything to be rebuilt.
+
+  Dasher::CAlphIO::AlphInfo oAlphInfo = pAlphIO->GetInfo(pSettingsStore->GetStringParameter(SP_ALPHABET_ID));
+  m_pAlphabet = new CAlphabet(oAlphInfo);
+
+  pSettingsStore->SetStringParameter(SP_TRAIN_FILE, m_pAlphabet->GetTrainingFile());
+  pSettingsStore->SetStringParameter(SP_DEFAULT_COLOUR_ID, m_pAlphabet->GetPalette());
+
+  if(pSettingsStore->GetLongParameter(LP_ORIENTATION) == Dasher::Opts::AlphabetDefault)
+    pSettingsStore->SetLongParameter(LP_REAL_ORIENTATION, m_pAlphabet->GetOrientation());
+  // --
+
+  CSymbolAlphabet alphabet(m_pAlphabet->GetNumberTextSymbols());
+  alphabet.SetSpaceSymbol(m_pAlphabet->GetSpaceSymbol());      // FIXME - is this right, or do we have to do some kind of translation?
+  alphabet.SetAlphabetPointer(m_pAlphabet);    // Horrible hack, but ignore for now.
+
+  // Create an appropriate language model;
+
+  // FIXME - return to using enum here
+
+  switch (pSettingsStore->GetLongParameter(LP_LANGUAGE_MODEL_ID)) {
+  case 0:
+    m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);
+    break;
+  case 2:
+    m_pLanguageModel = new CWordLanguageModel(pEventHandler, pSettingsStore, alphabet);
+    break;
+  case 3:
+    m_pLanguageModel = new CMixtureLanguageModel(pEventHandler, pSettingsStore, alphabet);
+    break;  
+  default:
+    // If there is a bogus value for the language model ID, we'll default
+    // to our trusty old PPM language model.
+    m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);    
+    break;
+  }
+
+  m_iConversionID = oAlphInfo.m_iConversionID;
+
+  // TODO: Tell the alphabet manager about the alphabet here, so we
+  // don't end up having to duck out to the NCM all the time
+
+  m_pAlphabetManager = new CAlphabetManager( pNCManager, m_pLanguageModel, bGameMode, strGameModeText );
 }
 
 CAlphabetManagerFactory::~CAlphabetManagerFactory() {

@@ -95,6 +95,7 @@ gboolean gtk_dasher_control_get_module_settings(GtkDasherControl * pControl, con
 void gtk_dasher_control_add_game_mode_string(GtkDasherControl *pControl, const gchar *szString);
 void gtk_dasher_control_force_pause(GtkDasherControl *pControl);
 double gtk_dasher_control_get_framerate(GtkDasherControl *pControl);
+void gtk_dasher_control_add_action_button(GtkDasherControl *pControl, const gchar *szCommand);
 
 //FIXME - namespace broken
 void gtk_dasher_user_log_new_trial(GtkDasherControl * pControl);

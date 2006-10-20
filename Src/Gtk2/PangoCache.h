@@ -19,7 +19,7 @@ public:
 #endif
 
 private:
-  std::map<int, PangoLayout *> oPangoCache;
+  std::map<std::string, PangoLayout *> oPangoCache;
   PangoFontDescription *font;
 };
 

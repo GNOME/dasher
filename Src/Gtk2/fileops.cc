@@ -31,7 +31,7 @@ extern "C" void open_file(const char *myfilename) {
   if(size != 0) {
     // Don't attempt to insert new text if the file is empty as it makes
     // GTK cry
-    if(g_utf8_validate(buffer, size, NULL) == FALSE) {
+    if(!g_utf8_validate(buffer, size, NULL)) {
       // It's not UTF8, so we do the best we can...
 
       // If there are zero bytes in the file then we have a problem -

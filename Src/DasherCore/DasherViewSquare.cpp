@@ -724,31 +724,22 @@ void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
     iY = Screen()->GetHeight();
 }
 
-// work out the next viewpoint
-// move the rectangles accordingly
-void CDasherViewSquare::TapOnDisplay(screenint mousex,
-                                     screenint mousey, 
-                                     unsigned long Time, 
-				     myint &iDasherX, myint &iDasherY,
-                                     Dasher::VECTOR_SYMBOL_PROB* pAdded, 
-                                     int* pNumDeleted) {
-
-  // FIXME - rename this something more appropriate (all this really should do is convert the coordinates)
-
-  // NOTE - we now ignore the values which are actually passed to the display
+void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
 
   // FIXME - Actually turn autocalibration on and off!
   // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
   // FIXME - Have I broken this by moving it before the offset is applied?
   // FIXME - put ymap stuff back in 
-
   // FIXME - optimise this
 
   int iCoordinateCount(GetCoordinateCount());
 
   myint *pCoordinates(new myint[iCoordinateCount]);
 
-  int iType(GetCoordinates(iCoordinateCount, pCoordinates));
+  int iType(GetInputCoordinates(iCoordinateCount, pCoordinates));
+
+  screenint mousex;
+  screenint mousey;
 
   if(iCoordinateCount == 1) {
     mousex = 0;

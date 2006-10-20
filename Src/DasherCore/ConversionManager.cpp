@@ -13,39 +13,34 @@
 
 using namespace Dasher;
 
-CConversionManager::CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel, CConversionHelper *pHelper, int CMid) 
+CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, int CMid) 
   : CNodeManager(2) {
-  m_pModel = pModel;
-  m_pLanguageModel = pLanguageModel;
+  m_pNCManager = pNCManager;
   m_pHelper = pHelper;
   
-  m_iRefCount = 1;
+  m_iRefCount = 1; // TODO: Is this the right way to handle this, or should we initilise to 0 and enforce a reference from the creator?
   m_iCMID = CMid;
-  m_iHZCount = 0;
+  //  m_iHZCount = 0;
 
   m_bTreeBuilt = false; 
-  
-  //clears the process phrase flags
-  for(int i(0); i<MAX_HZ_NUM; i++)
-    m_bPhrasesProcessed[i]=0;  
 }
 
 CConversionManager::~CConversionManager(){  
-  for (int i(0);i<m_iHZCount; i++)
-    RecursiveDelTree(m_pRoot[i]);
+  //  for (int i(0);i<m_iHZCount; i++)
+    RecursiveDelTree(m_pRoot[0]);
 }
-
-
 
 
 CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
   CDasherNode *pNewNode;
 
   // TODO: Parameters here are placeholders - need to figure out what's right
-  pNewNode = new CDasherNode(pParent, m_pModel->GetStartConversionSymbol(), 0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, 9);
+  pNewNode = new CDasherNode(pParent, m_pNCManager->GetStartConversionSymbol(), 0, Opts::Nodes2, iLower, iUpper, NULL, 9);
  
   // FIXME - handle context properly
-  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+  // TODO: Reimplemnt -----
+  //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+  // -----
 
   pNewNode->m_pNodeManager = this;
   pNewNode->m_pNodeManager->Ref();
@@ -58,57 +53,8 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   return pNewNode;
 }
 
-void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
-
-  if(!m_pModel)
-    return;
-
-  if(!m_bTreeBuilt) {
-    BuildTree(pNode);
-    m_bTreeBuilt = true;
-  }
-
-  m_bTraceNeeded = true;//reset trace bool
-
-  CDasherNode *pNewNode;
-
-  SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
-    
-  if(pCurrentSCENode == 0){ 
-    if(m_pRoot)
-      pCurrentSCENode = m_pRoot[0];
-  }
-  else{
-
-    if((pCurrentSCENode->AcCharCount != m_iHZCount)&&(!pCurrentSCENode->pChild))
-      pCurrentSCENode ->pChild = m_pRoot[pCurrentSCENode->AcCharCount]->pChild;
-
-    else if(pCurrentSCENode->AcCharCount == m_iHZCount)
-      pCurrentSCENode->pChild =0;
-      // std::cout<<"signal  "<<pCurrentSCENode->pChild<<std::endl;
-      // if(pCurrentSCENode->pChild)
-      //	std::cout<<"signal  "<<pCurrentSCENode->pChild->pszConversion<<std::endl;
-   
-
-    //else if (pCurrentSCENode->pChild) already has children
-    //if complete, has pChild is NULL
-
-  }
-  
-  SCENode *pCurrentSCEChild;
-  
-  if(pCurrentSCENode)
-    pCurrentSCEChild = pCurrentSCENode->pChild;
-  else
-    pCurrentSCEChild = 0;
-  
-  if(pCurrentSCEChild) {
-  
-    if(m_iHZCount>1)
-      if(!m_bPhrasesProcessed[pCurrentSCEChild->AcCharCount-1])
-   	if(pCurrentSCEChild->AcCharCount<m_iHZCount)
-	  ProcessPhrase(pCurrentSCEChild->AcCharCount-1);
-    
+// TODO: This function needs to be significantly tidied up
+void CConversionManager::AssignChildSizes(SCENode *pNode, int *pSizes, int iNChildren) {
     // Calculate sizes for the children. Note that normalisation is
     // done additiviely rather than multiplicatively, so it's not
     // quite what was originally planned (but I don't think this is
@@ -129,7 +75,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     // this - it needs to be thought through).
 
 
-
+    //    std::cout << "b" << std::endl;
 
     //TESTING FOR CALCULATESCORE STAGE 1
     //int test;
@@ -141,27 +87,55 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
     //ASSIGNING SCORES AND CALCULATING NODE SIZE
     //Ph: feel free to edit this part to make it more structured
-    int iSize[pCurrentSCEChild->IsHeadAndCandNum];
-    int score[pCurrentSCEChild->IsHeadAndCandNum];
-    int total =0;
-    int max = 0;
-    int CandNum = pCurrentSCEChild -> IsHeadAndCandNum;
+//     int iSize[pCurrentSCEChild->IsHeadAndCandNum];
+//     int score[pCurrentSCEChild->IsHeadAndCandNum];
+//     int total =0;
+//     int max = 0;
+//     int CandNum = pCurrentSCEChild -> IsHeadAndCandNum;
 
-    int iRemaining(m_pModel->GetLongParameter(LP_NORMALIZATION));
+    int iRemaining(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+
+    // Thoughts on the general idea here - this is very close to being
+    // a fully fledged language model, so I think we should go with
+    // that idea, but maybe we need something mode flexible. I'd
+    // imagine:
+    //
+    // 1. Probabilities provided directly with translation? Maybe hard
+    // to represent in the lattice itself. 
+    //
+    // 2. Full n-gram language model provided - in general assign
+    // probabilities to paths through the lattice
+    // 
+    // 3. Ordered results, but no probabilities - using a power law
+    // rule or the like.
+    //
+    // Tempted to assume (1) and (2) can be implemented together, with
+    // a second call to the library at node creation time, and (3) can
+    // be implemented as a fallback if that doesn't work.
+    //
+    // Things to be thought out:
+    // - How to deal with contexts - backtrace at time of call or stored in node?
+    // - Sharing of language model infrastructure?
+    
 
 
+    // Lookup scores for each of the children
 
-    for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i){
-      
-      score[i] = CalculateScore(pNode, i);
-      total += score[i];
-      if(i!=0)
-	if (score[i]>score[i-1])
-	  max = score[i];
-    }
+    // TODO: Reimplement -----
+    
+//     for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i){
+//       score[i] = CalculateScore(pNode, i);
+//       total += score[i];
+//       if(i!=0)
+// 	if (score[i]>score[i-1])
+// 	  max = score[i];
+//     }
 
-    for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i) {
+    // -----
 
+    // Use the scores to calculate the size of the nodes
+
+    for(int i(0); i < iNChildren; ++i) {
 
       //TESTING FOR RESIZING FREQUENT HZ CHARACTERS
       //if(i<5)
@@ -170,39 +144,86 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       //  score[i]=max-5;
       //	}
 
-      if(CandNum == 1)
-      	iSize[i] = m_pModel->GetLongParameter(LP_NORMALIZATION);
-      else
-	iSize[i] = m_pModel->GetLongParameter(LP_NORMALIZATION)*((CandNum-i-1)+2*CandNum*score[i])/(CandNum*(CandNum-1)/2+2*CandNum*total);
+      // TODO: Reimplement new model -----
+
+//       if(CandNum == 1)
+//       	iSize[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION);
+//       else
+// 	iSize[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)*((CandNum-i-1)+2*CandNum*score[i])/(CandNum*(CandNum-1)/2+2*CandNum*total);
       
-      //PREVIOUS MODEL: m_pModel->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
+      // ----
+
+      //PREVIOUS MODEL: m_pNCManager->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
       
-      if(iSize[i] < 1)
-	iSize[i] = 1;
+      pSizes[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
+
+      if(pSizes[i] < 1)
+	pSizes[i] = 1;
       
-      iRemaining -= iSize[i];
+      iRemaining -= pSizes[i];
     }
 
-    int iLeft(pCurrentSCEChild->IsHeadAndCandNum);
+    // Distribute the remaining space evenly
+
+    int iLeft(iNChildren);
     
-    for(int i(0); i < pCurrentSCEChild->IsHeadAndCandNum; ++i) {
+    for(int i(0); i < iNChildren; ++i) {
       int iDiff(iRemaining / iLeft);
 
-      iSize[i] += iDiff;
+      pSizes[i] += iDiff;
       
       iRemaining -= iDiff;
       --iLeft;
     }
+}
+
+void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
+
+  if(!m_pNCManager)
+    return;
+
+  // Do the conversion and build the tree (lattice) if it hasn't been done already.
+  if(!m_bTreeBuilt) {
+    BuildTree(pNode);
+    m_bTreeBuilt = true;
+  }
+
+  CDasherNode *pNewNode;
+  SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
+  SCENode *pCurrentSCEChild;
+  
+  if(pCurrentSCENode)
+    pCurrentSCEChild = pCurrentSCENode->pChild;
+  else {
+    if(m_pRoot)
+      pCurrentSCEChild = m_pRoot[0];
+    else
+      pCurrentSCEChild = 0;
+  }
+  
+  if(pCurrentSCEChild) {
+
+    // TODO: Reimplement (in subclass) -----
+    
+//     if(m_iHZCount>1)
+//       if(!m_bPhrasesProcessed[pCurrentSCEChild->AcCharCount-1])
+//    	if(pCurrentSCEChild->AcCharCount<m_iHZCount)
+// 	  ProcessPhrase(pCurrentSCEChild->AcCharCount-1);
+
+    // -----
+
+    int iSize[pCurrentSCEChild->IsHeadAndCandNum];
+
+    AssignChildSizes(pCurrentSCENode, iSize, pCurrentSCEChild->IsHeadAndCandNum);
 
     int iIdx(0);
     int iCum(0);
   
     int parentClr = pNode->Colour();
 
-    do {
-//       int iLbnd( iIdx*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
-//       int iHbnd( (iIdx+1)*(m_pModel->GetLongParameter(LP_NORMALIZATION)/pCurrentCMNode->m_iNumChildren)); 
+    // Finally loop through and create the children
 
+    do {
       int iLbnd(iCum);
       int iHbnd(iCum + iSize[iIdx]);
 
@@ -211,15 +232,19 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       // TODO: Parameters here are placeholders - need to figure out
       // what's right
       
-      pNewNode = new CDasherNode(pNode, m_pModel->GetStartConversionSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, m_pHelper->AssignColour(parentClr, pCurrentSCEChild, iIdx));
+      pNewNode = new CDasherNode(pNode, m_pNCManager->GetStartConversionSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, NULL, m_pHelper->AssignColour(parentClr, pCurrentSCEChild, iIdx));
       
+      // TODO: Reimplement ----
+
       // FIXME - handle context properly
-      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+      //      pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+      // -----
       
       pNewNode->m_pNodeManager = this;
       pNewNode->m_pNodeManager->Ref();
 
       pNewNode->m_pUserData = pCurrentSCEChild;
+
       pNewNode->m_strDisplayText = pCurrentSCEChild->pszConversion;
       pNewNode->m_bShove = true;
       pNewNode->m_pBaseGroup = 0;
@@ -229,17 +254,16 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pCurrentSCEChild = pCurrentSCEChild->pNext;
       ++iIdx;
     }while(pCurrentSCEChild);
-			     
-    
+
   }
 
   else {
     // TODO: Placeholder algorithm here
     // TODO: Add an 'end of conversion' node?
-      int iLbnd(0);
-    int iHbnd(m_pModel->GetLongParameter(LP_NORMALIZATION)); 
+    int iLbnd(0);
+    int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
       
-    pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
+    pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
     pNewNode->Seen(false);
       
     pNode->Children().push_back(pNewNode);
@@ -248,303 +272,70 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 }
 
 void CConversionManager::ClearNode( CDasherNode *pNode ) {
-  // TODO: Need to implement this
-  
   pNode->m_pNodeManager->Unref();
+}
+
+void CConversionManager::RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth) {
+  while(pCurrent) {
+    for(unsigned int i(0); i < iDepth; ++i) 
+      std::cout << "-";
+    
+    std::cout << " " << pCurrent->pszConversion << " " << pCurrent->IsHeadAndCandNum << " " << pCurrent->CandIndex << " " << pCurrent->IsComplete << " " << pCurrent->AcCharCount << std::endl;
+
+    RecursiveDumpTree(pCurrent->pChild, iDepth + 1);
+    pCurrent = pCurrent->pNext;
+  }
 }
 
 void CConversionManager::BuildTree(CDasherNode *pRoot) {
   CDasherNode *pCurrentNode(pRoot->Parent());
  
-  SCENode * pStartTemp;
   std::string strCurrentString;
-  bool ConversionSuccess;
    m_pHelper->ClearData(m_iCMID);
 
   while(pCurrentNode) {
     if(pCurrentNode->m_pNodeManager->GetID() == 2)
       break;
-    
-    ///  std::cout<<pCurrentNode->m_strDisplayText<<"   "<<pCurrentNode<<"   "<<pCurrentNode->Parent()<<std::endl;
 
     // TODO: Need to make this the edit text rather than the display text
     strCurrentString = pCurrentNode->m_strDisplayText + strCurrentString;
     pCurrentNode = pCurrentNode->Parent();
   }
 
+  // TODO: The remainder of this function is messy - to be sorted out
+  int iHZCount;
+  SCENode *pStartTemp;
+  bool ConversionSuccess;
 
-  ConversionSuccess = m_pHelper ->Convert(strCurrentString, &pStartTemp , &m_iHZCount, m_iCMID); 
-  
-  //m_iHZCount returned from Convert is not 100% dependable(BUT THE
-  //FOLLOWING CODE SHOULD FIX IT)
-  //std::cout << m_iHZCount << std::endl;
+  ConversionSuccess = m_pHelper ->Convert(strCurrentString, &pStartTemp , &iHZCount, m_iCMID); 
 
-  if((!ConversionSuccess)||(m_iHZCount==0))
+  if((!ConversionSuccess)||(iHZCount==0)) {
     m_pRoot = 0;
-  
+  }
   else{
-
-    if(m_iHZCount>MAX_HZ_NUM)
-      m_iHZCount = MAX_HZ_NUM;
-      
-    m_pRoot = new SCENode *[m_iHZCount];
-    
-    int i;
-    
-    for(i=0; (i< m_iHZCount)&&(pStartTemp); i++){
-      m_pRoot[i] = new SCENode;
-      
-      m_pRoot[i]->pszConversion = "Convert";
-      m_pRoot[i]->pChild = pStartTemp;
-      pStartTemp = pStartTemp->pChild;
-      m_pRoot[i]->pNext = 0;
-      m_pRoot[i]->IsHeadAndCandNum = 0;
-    }
-    
-    if(m_pRoot[0]&&(i!=m_iHZCount))
-      m_iHZCount = i;
+    m_pRoot = new SCENode *[1];
+    m_pRoot[0] = pStartTemp;
   } 
 }
     
-
-//THIS FUNCTION IS CALLED WHEN A SET OF CHILDREN IS BEING POPULATED
-//AND BEFORE CALCULATING EACH NODE'S SCORE. THE POSITION IN THE
-//SENTENCE IS GIVEN TO THE PY HELPER->LIBRARY AND A LIST OF PHRASES
-//CORRESPONDING TO THE CHARACTER IS RETURNED. THESE PHRASES ARE
-//PROCESSED INTO THE CONTEXT DATA IN PY HELPER
-    
-void CConversionManager::ProcessPhrase(HZIDX HZIndex){
-  
-  SCENode * pPhraseList;
-  SCENode * pNode;
-  
-  //  bool stop=0;
-
-  int iIdx(0);
-  int i;
-  int score[m_iHZCount-HZIndex];
-
-  CANDIDX CandIndex[m_iHZCount-HZIndex]; //list to store candidates
-					 //returned from HZlookup,
-					 //used to allocate data
-  std::string strtemp;
-
-  std::vector<int>  cell;
-
-  if(!(m_pHelper->GetPhraseList(HZIndex, &pPhraseList, m_iCMID)))
-    return;
-
-  if(pPhraseList->AcCharCount>4)
-    pNode = pPhraseList->pNext;
-  else 
-    pNode = pPhraseList;
-
-  while((pNode)&&(iIdx<=MAX_CARE_PHRASE)){
-
-    //this section needs research. What scores would be a good estimate.
-
-    switch(pNode->AcCharCount){
-    case 2:
-      score[0] = 2;
-      score[1] = 3;
-      break;
-    case 3:
-      score[0] = 3;
-      score[1] = 4;
-      score[2] = 5;
-      break;
-    case 4:
-      score[0] = 4;
-      score[1] = 5;
-      score[2] = 6;
-      score[3] = 7;
-      break;
-    default:
-      for(int j(0); j< m_iHZCount-HZIndex; j++)
-	score[j] = 5+j;
-      break;
-	}
-    
-    
-    for(i=0 ; (i<pNode->AcCharCount); i++){
-      strtemp=pNode->pszConversion;
-
-      //TESTING
-      //std::cout<<"accharcount"<<pNode->AcCharCount<<std::endl;
-      //std::cout<<"the cut string is"<<strtemp.substr(3*i,3)<<std::endl;
-      //std::cout<<"list to look from
-      //is"<<m_pRoot[HZIndex+i]->pChild->pszConversion<<std::endl;
-
-
-      CandIndex[i] = HZLookup(HZIndex+i, strtemp.substr(3*i, 3));
-      
-      //TESTING
-      //std::cout<<"the lookup is"<<CandIndex[i]<<std::endl;
-
-      if(CandIndex[i]==-1)
-	break;
-      else{
-	cell.push_back(score[i]);
-	for(int j(0); j< i; j++)
-	  cell.push_back(CandIndex[i-j-1]);
-	
-	//
-	//say the phrase is XYZ(this) push back in each cell in the
-	//order: score, Z, Y, X so as to match with vTrace in
-	//calculatescore
-
-	if(!(HZIndex + i> MAX_HZ_NUM -1))	
-	  (*(m_pHelper->GetDP(m_iCMID)))[HZIndex +i][CandIndex[i]][HZIndex].push_back(cell);
-	cell.clear();
-	
-      }
-    }
-
-    pNode = pNode ->pNext;
-    iIdx ++;
-  }
-  m_bPhrasesProcessed[HZIndex]=1;
-}
-
-
-    
-CANDIDX CConversionManager::HZLookup(HZIDX HZIndex, const std::string &strSource){
-
-
-  // this was done before candindex was put into node member, change
-  // if have time
-
-  int iIdx(0);
-  if((HZIndex > m_iHZCount-1)||strSource.size()!=3)
-    return -1;
-
-  SCENode * pNode = m_pRoot[HZIndex]->pChild;
-
-  while(pNode&&(iIdx<=MAX_CARE_CAND)){
-    
-    if(strSource== pNode->pszConversion)
-      return iIdx;
-    pNode = pNode->pNext;
-    iIdx++;
-  }
-  
-  return -1;
-}
-
-//CALCULATES SCORE OF A CERTAIN CANDIDATE HZ CHARACTER NODE TO BE
-//POPULATED, FROM THE CONTEXT DATA IN PY HELPER. FINDS VTRACE TO MATCH
-//CONTEXT SEQUENCE STORED IN THE LAST LEVEL OF DATABASE
-
-int CConversionManager::CalculateScore(CDasherNode * pNode, CANDIDX CandIndex){   
-  CDasherNode *pIterateDNode(pNode);
-  SCENode *pTemp;
-
-  HZIDX HZIndex;
-  int score=0;
-
-  bool addtick=1; //bool to signal add score
-
-
-
-  //THIS SECTION IS TO FIND VTRACE, IN THE SAME WAY AS FINDING INPUT
-  //PY STRING
-
-  if(m_bTraceNeeded){
-    vTrace.clear();
-    
-    while(pIterateDNode&&(pIterateDNode->m_pNodeManager->GetID() == 2)) {
-      
-      pTemp=static_cast<SCENode*>(pIterateDNode->m_pUserData);
-      
-      if(!pTemp)
-	pIterateDNode=0;
-      else{
-	vTrace.push_back(pTemp->CandIndex);
-	pIterateDNode= pIterateDNode->Parent();
-      }
-    }
-    
-    //THE FOLLOWING IS TESTING FOR VTRACE
-    // if(vTrace.size()!=0){
-    // std::cout<<"signal"<<std::endl;
-    // for(std::vector<int>::iterator it(vTrace.begin());it!=vTrace.end();it++)
-    //  std::cout<< *it <<std::endl;  
-    //}
-
-  }
-  m_bTraceNeeded= false;
-
-
-
-  
-  if(CandIndex>=MAX_CARE_CAND)
-    return 0;
-
-
-
-  pTemp=static_cast<SCENode*>(pNode->m_pUserData);
-  
-  if(pTemp)
-    HZIndex = pTemp->AcCharCount;
-  else
-    HZIndex = 0;
-
-
-  //THE DATA IS CONSTRUCTED OF UNITS OF SINGLE CELLS STORING CONTEXT SEQUENCE
-  //AND A CORRESPONDING SCORE 
-
-  //LEVEL 1 : HZ INDEX : NUMBER OF CHARACTERS CONVERTED
-  //LEVEL 2 : CAND INDEX : NUMBER OF CANDIDATES WITH EACH POSITION
-  //LEVEL 3 : SUB HZ INDEX :(COULD BE REDUNDANT) CORRESPONDES TO
-  //          INDEX OF CHARACTERS WHICH WERE CONSISTED IN PHRASES
-  //LEVEL 4 : SUB CAND INDEX : WHICH CAND WAS IN THE PHRASE 
-  //LEVLE 5 : CELL: STORING PHASES IN HZ INDEX AND ASSIGNED SCORE
-  //          IN THE WAY: 1.SCORE 2.Z 3.Y 4.X FOR PHRASE XYZ
-  //          PREVIOUSLY PROCESSED
-
-  for(std::vector<std::vector<std::vector<int> > >::iterator itIndex((*(m_pHelper->GetDP(m_iCMID)))[HZIndex][CandIndex].begin()); itIndex!=(*(m_pHelper->GetDP(m_iCMID)))[HZIndex][CandIndex].end();itIndex++){
-
-    for(std::vector<std::vector<int> >::iterator itCand(itIndex->begin()); itCand!=itIndex->end(); itCand++){
-
-      //IF HAS LEFT CONTEXT INFORMATION, MATCH VTRACE WITH CELL
-      //POSITION 1
-
-      if((*itCand).size() !=1){
-	for(unsigned int i(0); i<(*itCand).size()-1; i++)
-	  if((*itCand)[i+1]!=vTrace[i]){
-	    addtick = 0;
-	    break;
-	  }
-	  if(addtick)
-	    score+=(*itCand)[0];
-	  addtick =1;
-      }
-      else
-	score+=(*itCand)[0];
-    }
-  }
-    
-  return score;
-} 
-
-
 void CConversionManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
-  m_pModel->m_bContextSensitive = true; 
+  // TODO: Reimplement this
+  //  m_pNCManager->m_bContextSensitive = true; 
 
   SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
 
   if(pCurrentSCENode) {
     Dasher::CEditEvent oEvent(1, pCurrentSCENode->pszConversion);
-    m_pModel->InsertEvent(&oEvent);
+    m_pNCManager->InsertEvent(&oEvent);
     
     if((pNode->GetChildren())[0]->m_pNodeManager != this) {
       Dasher::CEditEvent oEvent(11, "");
-      m_pModel->InsertEvent(&oEvent);
+      m_pNCManager->InsertEvent(&oEvent);
     }
   }
   else {
     Dasher::CEditEvent oEvent(10, "");
-    m_pModel->InsertEvent(&oEvent);
+    m_pNCManager->InsertEvent(&oEvent);
   }
 }
 
@@ -554,7 +345,7 @@ void CConversionManager::Undo( CDasherNode *pNode ) {
   if(pCurrentSCENode) {
     if(strlen(pCurrentSCENode->pszConversion) > 0) {
       Dasher::CEditEvent oEvent(2, pCurrentSCENode->pszConversion);
-      m_pModel->InsertEvent(&oEvent);
+      m_pNCManager->InsertEvent(&oEvent);
     }
   }
 }

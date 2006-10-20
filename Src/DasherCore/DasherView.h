@@ -88,7 +88,7 @@ public:
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
 
-  virtual void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL)=0;
+  virtual void GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) = 0;
 
   /// 
   /// Convert a screen co-ordinate to Dasher co-ordinates
@@ -201,7 +201,7 @@ public:
   /// Get the co-ordinates from the input device
   /// \todo This shouldn't be public?
   
-  int GetCoordinates(int iN, myint * pCoordinates); 
+  int GetInputCoordinates(int iN, myint * pCoordinates); 
   
   /// Get the co-ordinate count from the input device
   

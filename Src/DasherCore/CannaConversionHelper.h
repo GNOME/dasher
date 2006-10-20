@@ -8,9 +8,25 @@ class CCannaConversionHelper : public CConversionHelper {
   CCannaConversionHelper();
   ~CCannaConversionHelper();
 
-  virtual bool Convert(const std::string &strSource, std::vector<std::vector<std::string> > &vResult);
+  virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid);
+
+/*   virtual bool GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid) { */
+/*     return false; */
+/*   }; */
+
+/*   virtual void BuildDataBase() { */
+/*   }; */
+
+   virtual void ClearData(int CMid) { 
+   }; 
+  
+/*   virtual std::vector<std::vector<std::vector<std::vector<std::vector<int> > > > > * GetDP(int CMid) { */
+/*     return NULL; */
+/*   };//get data pointer */
 
  private:
+  void ProcessCandidate(std::string strCandidate, SCENode *pRoot, SCENode *pTail);
+
   int context_id;
   bool IsInit;   
 };

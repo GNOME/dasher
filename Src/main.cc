@@ -34,6 +34,8 @@
 
 #include "dasher.h"
 #include "DasherControl.h"
+#include "Gtk2/dasher_lock_dialogue.h"
+#include "Gtk2/FontDialogues.h"
 
 #ifdef WITH_GPE
 #include "gpesettings_store.h"
@@ -113,26 +115,17 @@ int numcodes;
 /// ---
 
 void sigint_handler(int iSigNum);
+void clean_up();
 
 // TODO: reimplement command line parsing - should just be a way of
 // temporarily overriding parameters
 
 // GOption command line parsing variables
-gboolean timedata = FALSE;
-gboolean preferences = FALSE;
-gboolean textentry = FALSE;
-gboolean stdoutpipe = FALSE;
+// gboolean timedata = FALSE;
+// gboolean preferences = FALSE;
+// gboolean textentry = FALSE;
+// gboolean stdoutpipe = FALSE;
 
-// TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
-#if GLIB_CHECK_VERSION(2,14,0)
-static const GOptionEntry options[] = {
-  {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
-  {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
-  {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
-  {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
-  {NULL}
-};
-#endif
 
 // TODO: Do we actually need this - gtk should in theory have
 // functions to prevent windows from taking focus, but maybe they
@@ -149,13 +142,25 @@ static const GOptionEntry options[] = {
 // }
 
 int main(int argc, char *argv[]) {
-  //  signal(2, sigint_handler);
+  signal(2, sigint_handler);
 
   bindtextdomain(PACKAGE, LOCALEDIR);
   bind_textdomain_codeset(PACKAGE, "UTF-8");
   textdomain(PACKAGE);
 
-#if GLIB_CHECK_VERSION(2,14,0)
+  gchar *szOptionAppstyle = NULL;
+
+  // TODO: It would be nice to have command line parsing in version prior to goption (eg in Solaris 10)...
+#if GLIB_CHECK_VERSION(2,6,0)
+  static const GOptionEntry options[] = {
+    //   {"timedata", 'w', 0, G_OPTION_ARG_NONE, &timedata, "Write basic timing information to stdout", NULL},
+    //   {"preferences", 'p', 0, G_OPTION_ARG_NONE, &preferences, "Show preferences window only", NULL},
+    //   {"textentry", 'o', 0, G_OPTION_ARG_NONE, &textentry, "Onscreen text entry mode", NULL},
+    //   {"pipe", 's', 0, G_OPTION_ARG_NONE, &stdoutpipe, "Pipe text to stdout", NULL},
+    {"appstyle", 'a', 0, G_OPTION_ARG_STRING, &szOptionAppstyle, "Application style (traditional, direct, compose or fullscreen)", "traditional"},
+    {NULL}
+  };
+
   //parse command line options
   GOptionContext *goptcontext;
   goptcontext = g_option_context_new(("- A text input application honouring accessibility"));
@@ -209,8 +214,38 @@ int main(int argc, char *argv[]) {
 #endif
 
 
-  // Create a main app object
-  g_pEditor = dasher_editor_new(argc, argv);
+  g_pDasherMain = dasher_main_new();
+
+  // Stuff which will eventually be in init of main class
+
+  // 1.
+  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
+  dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
+
+  // 2.
+  if(szOptionAppstyle) {
+    if(!strcmp(szOptionAppstyle, "traditional")) {
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 0);
+    }
+    else if(!strcmp(szOptionAppstyle, "compose")) {
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 1);
+    }
+    else if(!strcmp(szOptionAppstyle, "direct")) {
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 2);
+    }
+    else if(!strcmp(szOptionAppstyle, "fullscreen")) {
+      dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 3);
+    }
+    else {
+      g_error("Application style %s is not supported", szOptionAppstyle);
+    }
+  }
+  else { 
+    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_STYLE, 0);
+  }
+
+  // 3.
+  dasher_main_load_interface(g_pDasherMain);
 
   GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
 
@@ -218,7 +253,17 @@ int main(int argc, char *argv[]) {
   vbox = glade_xml_get_widget(pGladeXML, "vbox1");
   the_text_view = glade_xml_get_widget(pGladeXML, "the_text_view");
   the_text_buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(the_text_view));
+
+  // 4.
+  dasher_app_settings_set_widget(g_pDasherAppSettings, GTK_DASHER_CONTROL(pDasherWidget));
   
+  // 5.
+  // Create a main app object
+  g_pEditor = dasher_editor_new(argc, argv);
+  dasher_editor_initialise(g_pEditor);
+
+  // TODO: Make this part of editor initialisation.
+  // Subclass editors depending on required functionality.
   if(optind < argc) {
     if(!g_path_is_absolute(argv[optind])) {
       char *cwd;
@@ -235,32 +280,62 @@ int main(int argc, char *argv[]) {
     // TODO: Call new routine, make generate_filename private
     dasher_editor_generate_filename(g_pEditor);
   }
+
+  // 6.
+  g_pPreferencesDialogue = dasher_preferences_dialogue_new(pGladeXML, g_pEditor);
+  dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
+  // TODO: Make lock diaogue a full method
+#ifndef WITH_MAEMO
+  dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(dasher_main_get_window(g_pDasherMain)));
+#else
+  dasher_lock_dialogue_new(pGladeXML, 0);
+#endif
+  // TODO: Bring into object framework
+  InitialiseFontDialogues(pGladeXML);
   
+  // 7. 
+  dasher_main_populate_controls(g_pDasherMain);
+
+  // 8.
+  dasher_main_setup_window(g_pDasherMain);
+
+  // 9.
   dasher_main_show(g_pDasherMain);
 
+  // 10.
   gtk_main();
 
-#ifdef WITH_MAEMO
-  osso_deinitialize(osso_context);
-#endif
-  
-  if(g_pEditor)
-    g_object_unref(G_OBJECT(g_pEditor));
-
-#ifdef GNOME_LIBS
-  gnome_vfs_shutdown();
-#endif
+  // 11.
+  clean_up();
 
   return 0;
 }
 
-void sigint_handler(int iSigNum) {
-  if(gtk_main_level() > 0)
+void clean_up() {
+#ifdef WITH_MAEMO
+  osso_deinitialize(osso_context);
+#endif
+
+  // TODO: Really need a sensible object takedown chain (preferences dialogue etc.)
+  
+  if(g_pEditor)
+    g_object_unref(G_OBJECT(g_pEditor));
+  
+  if(g_pDasherMain)
+    g_object_unref(G_OBJECT(g_pDasherMain));
+
+#ifdef GNOME_LIBS
+  gnome_vfs_shutdown();
+#endif
+}
+
+void sigint_handler(int iSigNum) { 
+  if(gtk_main_level() > 0) {
     gtk_main_quit();  
+  }
   else {
-    if(g_pEditor)
-      g_object_unref(G_OBJECT(g_pEditor));
-    
+    // This implies that we haven't got as far as setting up the main loop yet
+    clean_up();
     exit(0);
   }
 }

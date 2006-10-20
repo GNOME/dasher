@@ -219,7 +219,6 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 }
 
 CDasherControl::~CDasherControl() {
-
   WriteTrainFileFull();
 
   // Delete the input devices
@@ -228,11 +227,6 @@ CDasherControl::~CDasherControl() {
     m_pMouseInput->Unref();
     m_pMouseInput = NULL;
   }
-
-//   if(m_pSocketInput != NULL) {
-//     m_pSocketInput->Unref();
-//     m_pSocketInput = NULL;
-//   }
 
   if(m_pPangoCache != NULL) {
     delete m_pPangoCache;
@@ -435,7 +429,7 @@ int CDasherControl::TimerEvent() {
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
   m_pMouseInput->SetCoordinates(x, y);
 
-  NewFrame(get_time());
+  NewFrame(get_time(), false);
 
   // Update our UserLog object about the current mouse position
   CUserLogBase* pUserLog = GetUserLogPtr();
@@ -479,8 +473,8 @@ int CDasherControl::LongTimerEvent() {
 }
 
 gboolean CDasherControl::ExposeEvent() {
-  NewFrame(get_time());
-  return 1;
+  NewFrame(get_time(), true);
+  return 0;
 }
 
 gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {

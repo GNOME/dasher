@@ -23,16 +23,6 @@ extern GtkWidget *append_filesel;
 extern GtkWidget *window;
 extern GtkWidget *file_selector;
 
-void PopulateMenus(GladeXML *pGladeWidgets) {
-  // TODO: This duplicates functionality elsewhere
-
-  int iValue = gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE);
-
-  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), iValue == 1);
-  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), iValue == 2);
-  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), iValue == 3);
-}
-
 extern "C" void select_save_file_as(GtkWidget * widget, gpointer user_data);
 
 // 'File' Menu
@@ -329,9 +319,14 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
     // FIXME - REIMPLEMENT
 
     //    write_to_file();
+
+    g_message("Foo");
+
     gtk_main_quit();
+
+    g_message("Bar");
   }
-  return false;
+  return true;
 }
 
 // 'Edit' menu

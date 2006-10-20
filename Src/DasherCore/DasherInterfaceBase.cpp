@@ -16,6 +16,7 @@
 #include "DasherModel.h"
 #include "EventHandler.h"
 #include "Event.h"
+#include "NodeCreationManager.h"
 #include "UserLog.h"
 #include "BasicLog.h"
 #include "WrapperFactory.h"
@@ -64,9 +65,11 @@ static char THIS_FILE[] = __FILE__;
 #endif
 
 CDasherInterfaceBase::CDasherInterfaceBase()
-                  :m_Alphabet(0), m_pColours(0), m_pDasherModel(0), m_DasherScreen(0),
+                  :m_Alphabet(0), m_pDasherModel(0), m_DasherScreen(0),
 		   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL),
 		   m_pInputFilter(NULL) {
+
+  m_pNCManager = 0;
   
   m_bGlobalLock = false;
   m_bShutdownLock = false;
@@ -139,8 +142,8 @@ CDasherInterfaceBase::~CDasherInterfaceBase() {
   delete m_pDasherView;
   delete m_ColourIO;
   delete m_AlphIO;
-  delete m_pColours;
   delete m_pInputFilter;
+  delete m_pNCManager;
   // Do NOT delete Edit box or Screen. This class did not create them.
 
   // When we destruct on shutdown, we'll output any detailed log file
@@ -199,6 +202,9 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
       ScheduleRedraw();
       break;
     case BP_DRAW_MOUSE:
+      ScheduleRedraw();
+      break;
+    case BP_CONTROL_MODE:
       ScheduleRedraw();
       break;
     case BP_DRAW_MOUSE_LINE:
@@ -316,14 +322,22 @@ void CDasherInterfaceBase::CreateDasherModel()
       m_pDasherModel = 0;
     }
 
-    if(m_deGameModeStrings.size() == 0)
-      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO);
+    if(m_pNCManager) {
+      delete m_pNCManager;
+      m_pNCManager = 0;
+    }
+      
+    if(m_deGameModeStrings.size() == 0) {
+      m_pNCManager = new CNodeCreationManager(m_pEventHandler, m_pSettingsStore, false, "", m_AlphIO);
+      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this);
+    }
     else {
-      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, this, m_AlphIO, true, m_deGameModeStrings[0]);
+      m_pNCManager = new CNodeCreationManager(m_pEventHandler, m_pSettingsStore, true, m_deGameModeStrings[0], m_AlphIO);
+      m_pDasherModel = new CDasherModel(m_pEventHandler, m_pSettingsStore, m_pNCManager, this, true, m_deGameModeStrings[0]);
       //      m_deGameModeStrings.pop_front();
     }
 
-    m_Alphabet = m_pDasherModel->GetAlphabetNew();
+    m_Alphabet = m_pNCManager->GetAlphabet();
     
     string T = m_Alphabet->GetTrainingFile();
 
@@ -437,7 +451,7 @@ void CDasherInterfaceBase::CreateInput() {
     m_pDasherView->SetInput(m_pInput);
 }
 
-void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
+void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // Fail if Dasher is locked
   if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
     return;
@@ -471,7 +485,7 @@ void CDasherInterfaceBase::NewFrame(unsigned long iTime) {
     }
   }
 
-  Redraw(bChanged || m_bRedrawScheduled);
+  Redraw(bChanged || m_bRedrawScheduled || bForceRedraw);
   m_bRedrawScheduled = false;
 
   // This just passes the time through to the framerate tracker, so we
@@ -560,27 +574,16 @@ void CDasherInterfaceBase::ChangeAlphabet() {
 }
 
 void CDasherInterfaceBase::ChangeColours() {
-  // TODO: Should be entirely in teh view class?
-
-  if(!m_ColourIO)
+  if(!m_ColourIO || !m_DasherScreen)
     return;
-
-  if(m_pColours) {
-    delete m_pColours;
-    m_pColours = 0;
-  }
  
-  CColourIO::ColourInfo oColourInfo(m_ColourIO->GetInfo(GetStringParameter(SP_COLOUR_ID)));
-  m_pColours = new CCustomColours(oColourInfo);
-
-  if(m_DasherScreen != 0) {
-    m_DasherScreen->SetColourScheme(m_pColours);
-  }
+  // TODO: Make fuction return a pointer directly
+  m_DasherScreen->SetColourScheme(&(m_ColourIO->GetInfo(GetStringParameter(SP_COLOUR_ID))));
 }
 
 void CDasherInterfaceBase::ChangeScreen(CDasherScreen *NewScreen) {
   m_DasherScreen = NewScreen;
-  m_DasherScreen->SetColourScheme(m_pColours);
+  ChangeColours();
 
   if(m_pDasherView != 0) {
     m_pDasherView->ChangeScreen(m_DasherScreen);
@@ -742,7 +745,9 @@ void CDasherInterfaceBase::InvalidateContext(bool bForceStart) {
    if(bForceStart || (strNewContext.substr( std::max(static_cast<int>(strNewContext.size()) - iContextLength, 0)) != strCurrentContext.substr( std::max(static_cast<int>(strCurrentContext.size()) - iContextLength, 0)))) {
 
      if(m_pDasherModel != NULL) {
-       if(m_pDasherModel->m_bContextSensitive || bForceStart) {
+       // TODO: Reimplement this
+       //       if(m_pDasherModel->m_bContextSensitive || bForceStart) {
+       {
  	m_pDasherModel->SetContext(strNewContext);
  	PauseAt(0,0);
        }
@@ -775,15 +780,15 @@ void CDasherInterfaceBase::SetContext(std::string strNewContext) {
 // Control mode stuff
 
 void CDasherInterfaceBase::RegisterNode( int iID, const std::string &strLabel, int iColour ) {
-  m_pDasherModel->RegisterNode(iID, strLabel, iColour);
+  m_pNCManager->RegisterNode(iID, strLabel, iColour);
 }
 
 void CDasherInterfaceBase::ConnectNode(int iChild, int iParent, int iAfter) {
-  m_pDasherModel->ConnectNode(iChild, iParent, iAfter);
+  m_pNCManager->ConnectNode(iChild, iParent, iAfter);
 }
 
 void CDasherInterfaceBase::DisconnectNode(int iChild, int iParent) {
-  m_pDasherModel->DisconnectNode(iChild, iParent);
+  m_pNCManager->DisconnectNode(iChild, iParent);
 }
 
 void CDasherInterfaceBase::SetBoolParameter(int iParameter, bool bValue) {
@@ -920,9 +925,6 @@ void CDasherInterfaceBase::SetupActionButtons() {
   m_vLeftButtons.push_back(new CActionButton(this, "Preferences", false));
   m_vLeftButtons.push_back(new CActionButton(this, "Help", false));
   m_vLeftButtons.push_back(new CActionButton(this, "About", false));
-
-  m_vRightButtons.push_back(new CActionButton(this, "Command1", false));
-  m_vRightButtons.push_back(new CActionButton(this, "Command2", false));
 }
 
 void CDasherInterfaceBase::DestroyActionButtons() {
@@ -1021,3 +1023,7 @@ int CDasherInterfaceBase::GetRenderCount() {
   else
     return 0;
 }
+
+ void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
+  m_vRightButtons.push_back(new CActionButton(this, strName, false));
+ }

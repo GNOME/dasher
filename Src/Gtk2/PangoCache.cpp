@@ -25,22 +25,21 @@ PangoLayout *CPangoCache::GetLayout(GtkWidget *pCanvas, std::string sDisplayText
   // Calculate the name of the pango layout in the cache - this
   // includes the display text and the size.
 
-//   char buffer[128];             // FIXME - what if we exceed this?
+   char buffer[128];             // FIXME - what if we exceed this?
 
-//   snprintf(buffer, 128, "%d_%s", iSize, sDisplayText.c_str());
-
+   snprintf(buffer, 128, "%d_%s", iSize, sDisplayText.c_str());
 //   //  std::stringstream sCacheName;
 //   //sCacheName << iSize << "_" << sDisplayText;
 
-//   std::string sCacheName(buffer);
+   std::string sCacheName(buffer);
 
   // TODO: This is blatantly not going to work for unicode
-  int iCacheIndex(iSize + 256 * sDisplayText[0]);
+   //  int iCacheIndex(iSize + 256 * sDisplayText[0]);
 
   // If we haven't got a cached pango layout for this string/size yet,
   // create a new one
 
-  std::map<int, PangoLayout *>::iterator it(oPangoCache.find(iCacheIndex));
+  std::map<std::string, PangoLayout *>::iterator it(oPangoCache.find(sCacheName));
 
   if(it != oPangoCache.end())
     return it->second;
@@ -56,7 +55,7 @@ PangoLayout *CPangoCache::GetLayout(GtkWidget *pCanvas, std::string sDisplayText
     pango_layout_set_font_description(pNewPangoLayout, font);
     pango_layout_set_text(pNewPangoLayout, sDisplayText.c_str(), -1);
 
-    oPangoCache[iCacheIndex] = pNewPangoLayout;
+    oPangoCache[sCacheName] = pNewPangoLayout;
 
     return pNewPangoLayout;
   }

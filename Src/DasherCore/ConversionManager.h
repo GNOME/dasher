@@ -1,7 +1,6 @@
 #ifndef __conversion_manager_h__
 #define __conversion_manager_h__
 
-
 #include "ConversionHelper.h"
 #include "DasherModel.h"
 #include "DasherTypes.h"
@@ -10,33 +9,20 @@
 
 #include <vector>
 
-
-//both of these start from 0
-typedef int HZIDX; 
-typedef int CANDIDX; 
-
 namespace Dasher {
   class CDasherNode; // Forward declaration
 
   ///
-  /// Virtual base class for node managers
+  /// Conversion manager class - handles nodes representing the
+  /// conversion of strings in languages where symbols are converted
   ///
   
   class CConversionManager : public CNodeManager {
   public:
     // TODO: We shouldn't need to know about this stuff, but the code is somewhat in knots at the moment
-    CConversionManager(CDasherModel *pModel, CLanguageModel *pLanguageModel, CConversionHelper *pHelper, int CMid);
-
+    CConversionManager(CNodeCreationManager *pNCManager, CConversionHelper *pHelper, int CMid);
     ~CConversionManager();
 
-
-    /* ~CConversionManager() {
-      for(int i(0); i < m_iRootCount; ++i)
-	delete m_pRoot[i];
-
-      delete[] m_pRoot;
-    };
-    */
     ///
     /// Increment reference count
     ///
@@ -63,6 +49,17 @@ namespace Dasher {
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
     ///
+    /// Calculate sizes for each of the children - default
+    /// implementation assigns decending probabilities in a power law
+    /// fashion (so assumes ordering), but specific subclasses are
+    /// free to implement their own behaviour. The only restriction is
+    /// that sizes should be posivive and sum to the appropriate
+    /// normalisation constant
+    ///
+    
+    virtual void AssignChildSizes(SCENode *pNode, int *pSizes, int iNChildren);
+
+    ///
     /// Provide children for the supplied node
     ///
 
@@ -80,81 +77,99 @@ namespace Dasher {
     ///
 
     virtual void Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization);
+
+    ///
+    /// Called when a node is left backwards
+    ///
+
     virtual void Undo( CDasherNode *pNode );
 
+    ///
+    /// Entered backwards
+    ///
+
     virtual void Enter(CDasherNode *pNode) {};
+
+    /// 
+    /// Left forwards
+    ///
+
     virtual void Leave(CDasherNode *pNode) {};
+
+    ///
+    /// Rebuild the parent of a given node - used for when backoff occurs beyond the start of the tree
+    ///
 
     virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration) {
       return 0;
     }
+
   private:
-    class CConversionManagerNode {
-    public:
-      std::string m_strSymbol;
-      CConversionManagerNode *m_pChild;
-      CConversionManagerNode *m_pNext;
-      int m_iNumChildren;
-      int m_iPhrase;
-      
-      ~CConversionManagerNode() {
-	CConversionManagerNode *pCurrentChild(m_pChild);
 
-	while(pCurrentChild) {
-	  delete pCurrentChild;
-	  pCurrentChild = pCurrentChild->m_pNext;
-	}
-      };
-      
-      CConversionManagerNode *FindChild(const std::string &strSymbol) {
-	CConversionManagerNode *pCurrentChild(m_pChild);
-
-	while(pCurrentChild) {
-
-	  if(pCurrentChild->m_strSymbol == strSymbol)
-	    return pCurrentChild;
-
-	  pCurrentChild = pCurrentChild->m_pNext;
-	}
-
-	return 0;
-      };
-    };
-
-    bool RecursiveDelTree(SCENode* pNode);
+    /// 
+    /// Build the conversion tree (lattice) for the given string -
+    /// evaluated late to prevent unnecessary conversions when the
+    /// children of the root node are never instantiated
+    ///
     
     void BuildTree(CDasherNode *pRoot);
-    void ProcessPhrase(HZIDX HZIndex);
-    int CalculateScore(CDasherNode * pNode, CANDIDX CandIndex);
+
+    /// 
+    /// Recursively delete the conversion tree when we're done
+    ///
+
+    bool RecursiveDelTree(SCENode* pNode);
+
+    /// 
+    /// Dump tree to stdout (debug)
+    ///
     
-    CANDIDX HZLookup(HZIDX HZIndex, const std::string &strSource);//finds the index of a HZ candidate
+    void RecursiveDumpTree(SCENode *pCurrent, unsigned int iDepth);
+
+    ///
+    /// Flag whether the tree has already been built
+    ///
 
     bool m_bTreeBuilt;
-    bool m_bTraceNeeded;
-    bool m_bPhrasesProcessed[MAX_HZ_NUM-1]; // flags to signal whether
-					    // phrases are processed
-					    // at a particular Chinese
-					    // HZ index position
-					   
+
+    ///
+    /// Root of the tree (TODO: Why is this a double pointer?)
+    ///
 
     SCENode **m_pRoot;
 
-  
+    ///
+    /// Dasher model (TODO: We ideally shouldn't need to know about this)
+    ///
     
-    CDasherModel *m_pModel;
+    CNodeCreationManager *m_pNCManager;
+
+    ///
+    /// Language model (TODO: We don't need to know about this, surely)
+    ///
+
     CLanguageModel *m_pLanguageModel;
+
+    ///
+    /// Conversion helper
+    ///
+    
     CConversionHelper *m_pHelper;
 
+    ///
+    /// Reference count 
+    ///
+
     int m_iRefCount;
+
+    ///
+    /// Unique identifier, used to talk to the conversion helper so
+    /// that it can be shared between multiple conversion nodes
+    /// without state collisions
+    ///
+
     int m_iCMID;
-    int m_iHZCount;
-
-    std::vector<int> vTrace; //used to store the last input string of
-			     //Chinese HZ characters found in
-			     //CalculateScore
-			     
   };
-
 }
 
 #endif

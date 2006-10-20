@@ -6,6 +6,7 @@
 #define __DasherScreen_h_
 
 #include "DasherTypes.h"
+#include "../DasherCore/ColourIO.h"
 
 // DJW20050505 - renamed DrawText to DrawString - windows defines DrawText as a macro and it's 
 // really hard to work around
@@ -14,8 +15,9 @@
 namespace Dasher {
   class CDasherScreen;
   class CDasherInterfaceBase;
-  class CCustomColours;
 }
+
+
 
 class Dasher::CDasherScreen
 {
@@ -125,7 +127,7 @@ public:
   //! Set a colour scheme
   //!
   //! \param ColourScheme A colour scheme that should be used
-  virtual void SetColourScheme(const CCustomColours * ColourScheme) = 0;
+  virtual void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColourScheme) = 0;
 
 protected:
   //! Width and height of the screen

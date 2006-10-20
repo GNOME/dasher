@@ -40,6 +40,8 @@ struct _DasherEditorClass {
 DasherEditor *dasher_editor_new(int argc, char **argv);
 GType dasher_editor_get_type();
 
+void dasher_editor_initialise(DasherEditor *pSelf);
+
 // TODO: Buffer set should really be private
 IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf);
 

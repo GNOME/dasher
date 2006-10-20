@@ -16,10 +16,10 @@ static char THIS_FILE[] = __FILE__;
 
 int CControlManager::m_iNextID = 0;
 
-CControlManager::CControlManager( CDasherModel *pModel, CLanguageModel *pLanguageModel  )
-  : CNodeManager(1), m_pModel(pModel), m_pLanguageModel(pLanguageModel) {
-  string SystemString = m_pModel->GetStringParameter(SP_SYSTEM_LOC);
-  string UserLocation = m_pModel->GetStringParameter(SP_USER_LOC);
+CControlManager::CControlManager( CNodeCreationManager *pNCManager )
+  : CNodeManager(1), m_pNCManager(pNCManager), m_pLanguageModel(NULL) {
+  string SystemString = m_pNCManager->GetStringParameter(SP_SYSTEM_LOC);
+  string UserLocation = m_pNCManager->GetStringParameter(SP_USER_LOC);
   m_iNextID = 0;
   struct stat sFileInfo;
   string strFileName = UserLocation + "controllabels.xml";  //  check first location for file
@@ -246,11 +246,11 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   // FIXME - is the language model pointer used?
   
 
-  pNewNode = new CDasherNode(pParent, m_pModel->GetControlSymbol(),0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, m_mapControlMap[0]->iColour);
+  pNewNode = new CDasherNode(pParent, m_pNCManager->GetControlSymbol(),0, Opts::Nodes2, iLower, iUpper, m_pLanguageModel, m_mapControlMap[0]->iColour);
  
   // FIXME - handle context properly
 
-  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
+  //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext());
 
   pNewNode->m_pNodeManager = this;
   pNewNode->m_pUserData = m_mapControlMap[0];
@@ -274,12 +274,12 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 
      // FIXME - could do this better
 
-     int iLbnd( iIdx*(m_pModel->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
-     int iHbnd( (iIdx+1)*(m_pModel->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     int iLbnd( iIdx*(m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
+     int iHbnd( (iIdx+1)*(m_pNCManager->GetLongParameter(LP_NORMALIZATION)/iNChildren)); 
 
      if( *it == NULL ) {
        // Escape back to alphabet
-       pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
+       pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
        pNewNode->Seen(false);
      }
      else {
@@ -290,7 +290,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
 	 iColour = (iIdx%99)+11;
        }
 
-       pNewNode = new CDasherNode(pNode, m_pModel->GetControlSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, iColour);
+       pNewNode = new CDasherNode(pNode, m_pNCManager->GetControlSymbol(), 0, Opts::Nodes2, iLbnd, iHbnd, m_pLanguageModel, iColour);
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
        pNewNode->m_strDisplayText = (*it)->strLabel;
@@ -310,32 +310,33 @@ void CControlManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pA
 
   CControlNode *pControlNode(static_cast<CControlNode *>(pNode->m_pUserData));
   CControlEvent oEvent(pControlNode->iID);
-  m_pModel->m_bContextSensitive=false;
-  m_pModel->InsertEvent(&oEvent);
+  // TODO: Need to reimplement this
+  //  m_pNCManager->m_bContextSensitive=false;
+  m_pNCManager->InsertEvent(&oEvent);
 }
 
 void CControlManager::Undo( CDasherNode *pNode ) {
   // Do we ever need this?
   // One other thing we probably want is notification when we leave a node - that way we can eg speed up again if we slowed down
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100);
+  m_pNCManager->SetLongParameter(LP_SPEED_DIVISOR, 100);
   //Re-enable auto speed control!
-  m_pModel->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
   
 }
 
 void CControlManager::Enter(CDasherNode *pNode) {
   // Slow down to half the speed we were at
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 200);
+  m_pNCManager->SetLongParameter(LP_SPEED_DIVISOR, 200);
   //Disable auto speed control!
-  m_pModel->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
+  m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 0);
 }
 
 
 void CControlManager::Leave(CDasherNode *pNode) {
   // Now speed back up, by doubling the speed we were at in control mode
-  m_pModel->SetLongParameter(LP_SPEED_DIVISOR, 100);
+  m_pNCManager->SetLongParameter(LP_SPEED_DIVISOR, 100);
   //Re-enable auto speed control!
-  m_pModel->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
+  m_pNCManager->SetBoolParameter(BP_AUTO_SPEEDCONTROL, 1);
 }
 
 

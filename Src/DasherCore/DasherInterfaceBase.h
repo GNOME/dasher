@@ -15,6 +15,7 @@
 #include "CustomColours.h"
 #include "ColourIO.h"
 #include "ModuleManager.h"
+//#include "NodeCreationManager.h"
 #include "ActionButton.h"
 
 #include "AutoSpeedControl.h"
@@ -39,6 +40,7 @@ class Dasher::CEvent;
 class CSettingsStore;
 class CUserLogBase;
 class CDasherButtons;
+class CNodeCreationManager;
 
 #include <map>
 #include <algorithm>
@@ -150,7 +152,7 @@ public:
   /// \param iTime Current time in ms.
   /// \todo See comments in cpp file for some functionality which needs to be re-implemented
 
-  void NewFrame(unsigned long iTime);
+  void NewFrame(unsigned long iTime, bool bForceRedraw);
 
   /// Pause Dasher
   /// \todo Parameters are ignored (?) - remove from definition.
@@ -196,11 +198,13 @@ public:
 
   /// Get the current rate of text entry.
   /// \retval The rate in characters per minute.
+  /// TODO: Check that this is still used
 
   double GetCurCPM();           // App may want to display characters per minute
 
   /// Get current refresh rate.
   /// \retval The rate in frames per second
+  /// TODO: Check that this is still used
 
   double GetCurFPS();           // or frames per second.
 
@@ -226,16 +230,17 @@ public:
 
   void GetColours(std::vector < std::string > *ColourList);
 
+  ///
+  /// Obtain the permitted values for a string parameter - used to
+  /// geneate preferences dialogues etc.
+  ///
+
   void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
 
   /// Get the current autocalibration offset
   /// \retval The offset.
 
   int GetAutoOffset();
-
-  /// \todo Document this
-
-  //  void Render();
 
   /// Provide a new CDasherInput input device object.
 
@@ -308,6 +313,8 @@ public:
 
   double GetFramerate();
   int GetRenderCount();
+
+  void AddActionButton(const std::string &strName);
    
 protected:
   void WriteTrainFileFull();
@@ -315,13 +322,13 @@ protected:
 
   // Various 'child' components
   CAlphabet *m_Alphabet;
-  CCustomColours *m_pColours;
   CDasherModel *m_pDasherModel;
   CDasherScreen *m_DasherScreen;
   CDasherView *m_pDasherView;
   CDasherInput *m_pInput;
   CAlphIO *m_AlphIO;
   CColourIO *m_ColourIO;
+  CNodeCreationManager *m_pNCManager;
 
   std::string strTrainfileBuffer;
   std::string strCurrentContext;

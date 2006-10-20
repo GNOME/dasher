@@ -1,5 +1,4 @@
 #include "config.h"
-#ifdef JAPANESE
 
 #include "CannaConversionHelper.h"
 
@@ -56,7 +55,7 @@ CCannaConversionHelper::~CCannaConversionHelper() {
   RkFinalize();
 }
 
-bool CCannaConversionHelper::Convert(const std::string &strSource, std::vector<std::vector<std::string> > &vResult) {
+bool CCannaConversionHelper::Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
 
   if(strSource.size() == 0)
     return false;
@@ -91,10 +90,12 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, std::vector<s
     std::cerr << "Error - Canna conversion failed, possibly could not connect to server." << std::endl;
   }
 
+  SCENode *pDummyRoot(new SCENode);
+  pDummyRoot->pChild = NULL;
+
   /* Convert each phrase into Kanji */
   cd = iconv_open("UTF8", "EUC-JP");
-  for(int i = 0; i < nbun; i++) {
-    std::vector<std::string> new_phrase;
+  for(int i = nbun-1; i >= 0; --i) {
     RkGoTo(context_id, i);      // Move to a specific phrase
     int len = RkGetKanjiList(context_id, buf, BUFSIZE); // Get a list of Kanji candidates
 
@@ -112,13 +113,12 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, std::vector<s
       //std::cout << inbytesleft << " ->";
       iconv(cd, &inbuf, &inbytesleft, &outbuf, &outbytesleft);
       *outbuf = '\0';
-      if(strlen((char *)str_utf8))
-        new_phrase.push_back((char *)str_utf8);
+      if(strlen((char *)str_utf8)) {
+	ProcessCandidate((char *)str_utf8, pDummyRoot, pDummyRoot->pChild);
+      }
       //std::cout << "[" << str_utf8 << "] " << outbytesleft << std::endl;
       p += (strlen(p) + 1);
     }
-    vResult.push_back(new_phrase);
-    //CopyCandidate( &pSen->list_phrase[i], buf, len);
   }
   RkEndBun(context_id, 0);      // Close phrase division
 
@@ -126,7 +126,59 @@ bool CCannaConversionHelper::Convert(const std::string &strSource, std::vector<s
   free(buf);
   free(str_utf8);
 
+  *pRoot = pDummyRoot->pChild;
+
+  delete pDummyRoot;
+
   return true;
 }
 
-#endif
+
+void CCannaConversionHelper::ProcessCandidate(std::string strCandidate, SCENode *pRoot, SCENode *pTail) {
+
+  SCENode *pCurrentNode(pRoot);
+
+  int iIdx(0);
+      
+  // TODO: Need phrase-based conversion
+  while(iIdx < strCandidate.size()) {
+	
+    int iLength;
+	
+    // TODO: Really dodgy UTF-8 parser - find a library routine to do this
+    if((static_cast<int>(strCandidate[iIdx]) & 0x80) == 0)
+      iLength = 1;
+    else if((static_cast<int>(strCandidate[iIdx]) & 0xE0) == 0xC0) 
+      iLength = 2;
+    else if((static_cast<int>(strCandidate[iIdx]) & 0xF0) == 0xE0)
+      iLength = 3;
+    else if((static_cast<int>(strCandidate[iIdx]) & 0xF8) == 0xF0)
+      iLength = 4;
+    else if((static_cast<int>(strCandidate[iIdx]) & 0xFC) == 0xF8)
+      iLength = 5;
+    else
+      iLength = 6;
+
+    std::string strSymbol(strCandidate.substr(iIdx, iLength));
+
+    SCENode *pCurrentChild(pCurrentNode->pChild); // TODO: Initialise
+
+    while(pCurrentChild) {
+      if(strSymbol == pCurrentChild->pszConversion)
+	break;
+      pCurrentChild = pCurrentChild->pNext;
+    }
+
+    if(!pCurrentChild) { // Need a new child
+      pCurrentChild = new SCENode;
+      pCurrentChild->pNext = pCurrentNode->pChild;
+      pCurrentChild->pChild = pTail;
+
+      pCurrentChild->pszConversion = new char[strSymbol.size() + 1];
+      strcpy(pCurrentChild->pszConversion, strSymbol.c_str());
+    }
+
+
+    iIdx += iLength;
+  }
+}

@@ -440,8 +440,8 @@ void CCanvas::SendMarker(int iMarker) {
   }
 }
 
-void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
-  int iNumColours(Colours->GetNumColours());
+void CCanvas::SetColourScheme(const CColourIO::ColourInfo *pColourScheme) {
+  int iNumColours(pColourScheme->Reds.size());
 
 #if WITH_CAIRO
   if (cairo_colours)
@@ -455,14 +455,14 @@ void CCanvas::SetColourScheme(const Dasher::CCustomColours *Colours) {
 
   for(int i = 0; i < iNumColours; i++) {
 #if WITH_CAIRO
-    cairo_colours[i].r = Colours->GetRed(i) / 255.0;
-    cairo_colours[i].g = Colours->GetGreen(i) / 255.0;
-    cairo_colours[i].b = Colours->GetBlue(i) / 255.0;
+    cairo_colours[i].r = pColourScheme->Reds[i] / 255.0;
+    cairo_colours[i].g = pColourScheme->Greens[i] / 255.0;
+    cairo_colours[i].b = pColourScheme->Blues[i] / 255.0;
 #else
     colours[i].pixel=0;
-    colours[i].red=Colours->GetRed(i)*257;
-    colours[i].green=Colours->GetGreen(i)*257;
-    colours[i].blue=Colours->GetBlue(i)*257;
+    colours[i].red=pColourScheme->Reds[i]*257;
+    colours[i].green=pColourScheme->Greens[i]*257;
+    colours[i].blue=pColourScheme->Blues[i]*257;
 #endif
   }
 }

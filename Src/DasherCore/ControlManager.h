@@ -50,7 +50,7 @@ namespace Dasher {
 	   CTL_USER
     };
 
-    CControlManager(CDasherModel *pModel, CLanguageModel *pLanguageModel );
+    CControlManager(CNodeCreationManager *pNCManager);
     ~CControlManager();
 
     ///
@@ -96,20 +96,19 @@ namespace Dasher {
 
   private:
 
-	static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
-	static void XmlEndHandler(void *pUserData, const XML_Char *szName);
-	static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
-	static int m_iNextID;
-	int LoadLabelsFromFile(string strFileName, int iFileSize);
+    static void XmlStartHandler(void *pUserData, const XML_Char *szName, const XML_Char **aszAttr);
+    static void XmlEndHandler(void *pUserData, const XML_Char *szName);
+    static void XmlCDataHandler(void *pUserData, const XML_Char *szData, int iLength);
+    
+    int LoadLabelsFromFile(string strFileName, int iFileSize);
     int LoadDefaultLabels();
-	int ConnectNodes();
-    CDasherModel *m_pModel;
+    int ConnectNodes();
+
+    static int m_iNextID;
+    CNodeCreationManager *m_pNCManager;
     CLanguageModel *m_pLanguageModel;
-
     std::map<int,CControlNode*> m_mapControlMap;
-
   };
-
 }
 
 

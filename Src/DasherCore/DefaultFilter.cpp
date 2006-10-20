@@ -44,7 +44,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   myint iDasherX;
   myint iDasherY;
 
-  m_pDasherView->TapOnDisplay(0, 0, Time, iDasherX, iDasherY);
+  m_pDasherView->GetCoordinates(Time, iDasherX, iDasherY);
 
   ApplyAutoCalibration(iDasherX, iDasherY, true);
   ApplyTransform(iDasherX, iDasherY);
@@ -61,7 +61,7 @@ bool CDefaultFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   }
 
   bool bDidSomething;
-  bDidSomething = m_pDasherModel->Tap_on_display(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
+  bDidSomething = m_pDasherModel->UpdatePosition(iDasherX,iDasherY, Time, pAdded, pNumDeleted);
 
   m_pAutoSpeedControl->SpeedControl(iDasherX, iDasherY, m_pDasherModel->Framerate(), m_pDasherView);
 
@@ -126,7 +126,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
 
   myint *pCoordinates(new myint[iCoordinateCount]);
 
-  int iType(pView->GetCoordinates(iCoordinateCount, pCoordinates));
+  int iType(pView->GetInputCoordinates(iCoordinateCount, pCoordinates));
 
   screenint mousex;
   screenint mousey;
@@ -158,7 +158,7 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
 
   myint *pCoordinates(new myint[iCoordinateCount]);
 
-  int iType(pView->GetCoordinates(iCoordinateCount, pCoordinates));
+  int iType(pView->GetInputCoordinates(iCoordinateCount, pCoordinates));
 
   screenint mousex;
   screenint mousey;
@@ -185,7 +185,6 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   // End of line is the mouse cursor location - note that we should
   // probably be using a chached value rather than computing this
   // separately to TapOn
-
  
   pView->Input2Dasher(mousex, mousey, x[1], y[1], iType, 0);
 

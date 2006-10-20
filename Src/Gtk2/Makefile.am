@@ -101,4 +101,10 @@ AM_CXXFLAGS = $(GTK2BUILD_CFLAGS) -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgda
 AM_CFLAGS = $(GTK2_CFLAGS)
 
 
-pkgdata_DATA = dasher.glade dashermaemo.glade dashermaemofullscreen.glade
+pkgdata_DATA = \
+		dasher.traditional.glade \
+		dasher.direct.glade \
+		dasher.compose.glade \
+		dasher.fullscreen.glade \
+		dashermaemo.glade \
+		dashermaemofullscreen.glade

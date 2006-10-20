@@ -149,13 +149,16 @@ static void dasher_editor_destroy(GObject *pObject) {
   DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(((DasherEditor *)pObject)->private_data);
 
   EditorAction *pCurrentAction = pPrivate->pActionRing;
-  bool bStarted = false;
-  
-  while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
-    bStarted = true;
-    dasher_action_deactivate(pCurrentAction->pAction);
-    g_object_unref(G_OBJECT(pCurrentAction->pAction));
-    pCurrentAction = pCurrentAction->pNext;
+
+  if(pCurrentAction) {
+    bool bStarted = false;
+    
+    while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+      bStarted = true;
+      dasher_action_deactivate(pCurrentAction->pAction);
+      g_object_unref(G_OBJECT(pCurrentAction->pAction));
+      pCurrentAction = pCurrentAction->pNext;
+    }
   }
 
   if(pPrivate->pBufferSet)
@@ -167,29 +170,15 @@ static void dasher_editor_destroy(GObject *pObject) {
 DasherEditor *dasher_editor_new(int argc, char **argv) {
   DasherEditor *pDasherControl;
   pDasherControl = (DasherEditor *)(g_object_new(dasher_editor_get_type(), NULL));
-  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pDasherControl->private_data);
 
-  g_pDasherAppSettings = dasher_app_settings_new(argc, argv);
+  return pDasherControl;
+}
 
-  g_pDasherMain = dasher_main_new();
-  //  g_signal_connect(G_OBJECT(g_pDasherMain), "realized", G_CALLBACK(main_window_realized), pDasherControl);
+void dasher_editor_initialise(DasherEditor *pSelf) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
 
   GladeXML *pGladeXML = dasher_main_get_glade(g_pDasherMain);
-  pDasherWidget = glade_xml_get_widget(pGladeXML, "DasherControl");
   
-  dasher_main_set_app_settings(g_pDasherMain, g_pDasherAppSettings);
-
-  // TODO: Make lock diaogue a full method
-#ifndef WITH_MAEMO
-  dasher_lock_dialogue_new(pGladeXML, GTK_WINDOW(dasher_main_get_window(g_pDasherMain)));
-#else
-  dasher_lock_dialogue_new(pGladeXML, 0);
-#endif
-  // TODO: Bring into object framework
-  InitialiseFontDialogues(pGladeXML);
-  
-  g_pPreferencesDialogue = dasher_preferences_dialogue_new(pGladeXML, pDasherControl);
-
   GtkTextView *pTextView = GTK_TEXT_VIEW(glade_xml_get_widget(pGladeXML, "the_text_view"));
   GtkVBox *pActionPane = GTK_VBOX(glade_xml_get_widget(pGladeXML, "vbox39"));
 
@@ -202,11 +191,9 @@ DasherEditor *dasher_editor_new(int argc, char **argv) {
   pPrivate->iNextActionID = 0;
   pPrivate->pGameModeHelper = 0;
 
-  dasher_editor_create_buffer(pDasherControl);
-  dasher_editor_setup_actions(pDasherControl);
-  dasher_preferences_dialogue_populate_actions(g_pPreferencesDialogue);
- 
-  return pDasherControl;
+  dasher_editor_create_buffer(pSelf);
+  dasher_editor_setup_actions(pSelf);
+  //
 }
 
 IDasherBufferSet *dasher_editor_get_buffer_set(DasherEditor *pSelf) {
@@ -279,13 +266,16 @@ void dasher_editor_handle_stop(DasherEditor *pSelf) {
   
   // See if anything is set to auto:
   EditorAction *pCurrentAction = pPrivate->pActionRing;
-  bool bStarted = false;
-  
-  while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
-    bStarted = true;
-    if(pCurrentAction->bAuto)
-      dasher_action_execute(pCurrentAction->pAction, dasher_editor_get_all_text(pSelf)); 
-    pCurrentAction = pCurrentAction->pNext;
+
+  if(pCurrentAction) {
+    bool bStarted = false;
+    
+    while(!bStarted || (pCurrentAction != pPrivate->pActionRing)) {
+      bStarted = true;
+      if(pCurrentAction->bAuto)
+	dasher_action_execute(pCurrentAction->pAction, dasher_editor_get_all_text(pSelf)); 
+      pCurrentAction = pCurrentAction->pNext;
+    }
   }
 }
 
@@ -357,11 +347,11 @@ void dasher_editor_handle_control(DasherEditor *pSelf, int iNodeID) {
 }
 
 void dasher_editor_handle_parameter_change(DasherEditor *pSelf, int iParameter) {
-  switch(iParameter) {
-  case APP_LP_STYLE:
-    dasher_editor_create_buffer(pSelf);
-    break;
-  }
+//   switch(iParameter) {
+//   case APP_LP_STYLE:
+//     dasher_editor_create_buffer(pSelf);
+//     break;
+//   }
 
   dasher_preferences_dialogue_handle_parameter_change(g_pPreferencesDialogue, iParameter);
   dasher_main_handle_parameter_change(g_pDasherMain, iParameter);
@@ -416,6 +406,9 @@ void dasher_editor_add_action(DasherEditor *pSelf, DasherAction *pNewAction) {
   }
 
   pPrivate->pActionRing = pNewEditorAction;
+  
+  if(iState & ACTION_STATE_SHOW)
+  	gtk_dasher_control_add_action_button(GTK_DASHER_CONTROL(pDasherWidget), dasher_action_get_name(pNewEditorAction->pAction));
 }
 
 void dasher_editor_setup_actions(DasherEditor *pSelf) {
@@ -496,7 +489,7 @@ void dasher_editor_setup_actions(DasherEditor *pSelf) {
   }
 
 #ifndef WITH_MAEMOFULLSCREEN
-  dasher_editor_rebuild_action_pane(pSelf);
+  //  dasher_editor_rebuild_action_pane(pSelf);
 #endif
 }
 
@@ -830,6 +823,8 @@ void dasher_editor_start_tutorial(DasherEditor *pSelf) {
 }
 
 void dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
+  DasherEditorPrivate *pPrivate = (DasherEditorPrivate *)(pSelf->private_data);
+
   if(!strcmp(szCommand, "Preferences")) {
     dasher_preferences_dialogue_show(g_pPreferencesDialogue);
   }
@@ -841,6 +836,21 @@ void dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand) {
   }
   else if(!strcmp(szCommand, "About")) {
     about_dasher(NULL, NULL);
+  }
+  else {
+    bool bActionIterStarted = false;
+    EditorAction *pActionIter = pPrivate->pActionRing;
+    
+    while((pActionIter != pPrivate->pActionRing) || !bActionIterStarted) {
+      bActionIterStarted = true;
+
+      if(!strcmp(dasher_action_get_name(pActionIter->pAction), szCommand)) {
+	dasher_action_execute(pActionIter->pAction, dasher_editor_get_all_text(pSelf));
+	return;
+      }
+
+      pActionIter = pActionIter->pNext;
+    }
   }
 }
 

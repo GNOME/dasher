@@ -402,7 +402,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       }
       atts += 2;
     }
-
+    Me->InputInfo.m_iConversionID = 0;
+    
     return;
   }
 
@@ -576,6 +577,19 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
 
 
     Me->InputInfo.m_vGroups.push_back(pNewGroup);
+
+    return;
+  }
+
+  if(!strcmp(name, "conversionmode")) {
+    while(*atts != 0) {
+      if(strcmp(*atts, "id") == 0) {
+        atts++;
+        Me->InputInfo.m_iConversionID = atoi(*atts);
+        atts--;
+      }
+      atts += 2;
+    }
 
     return;
   }

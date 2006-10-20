@@ -2,10 +2,11 @@
 #include "../Common/Common.h"
 
 #include "AlphabetManager.h"
-#include "DasherModel.h"
+//#include "DasherModel.h"
 #include "DasherNode.h"
 #include "Event.h"
 #include "EventHandler.h"
+#include "NodeCreationManager.h"
 
 #include <vector>
 #include <iostream>
@@ -22,8 +23,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CAlphabetManager::CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText ) 
-  : CNodeManager(0), m_pLanguageModel(pLanguageModel), m_pModel(pModel) {
+CAlphabetManager::CAlphabetManager( CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText ) 
+  : CNodeManager(0), m_pLanguageModel(pLanguageModel), m_pNCManager(pNCManager) {
 
   m_bGameMode = bGameMode;
   m_strGameString = strGameModeText;
@@ -46,15 +47,15 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   if(iSymbol == 0)
     iColour = 7;
   else
-    iColour = m_pModel->GetColour(iSymbol);
+    iColour = m_pNCManager->GetColour(iSymbol);
 
   pNewNode = new CDasherNode(pParent, iSymbol, 0, Opts::Nodes1, iLower, iUpper, m_pLanguageModel, iColour);
   
   pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
   pNewNode->m_bShove = true;
-  pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
-  pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(iSymbol);
+  pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
+  pNewNode->m_strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
   pNewNode->Seen(true);
 
   SAlphabetData *pNodeUserData = new SAlphabetData;
@@ -86,7 +87,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
   std::vector < symbol > newchars; // place to put this list of characters
   std::vector < unsigned int >cum; // for the probability list
   
-  m_pModel->GetProbs(pNode->Context(), newchars, cum, m_pModel->GetLongParameter(LP_NORMALIZATION));
+  m_pNCManager->GetProbs(pNode->Context(), newchars, cum, m_pNCManager->GetLongParameter(LP_NORMALIZATION));
   int iChildCount = newchars.size();
   
   // work out cumulative probs in place
@@ -100,30 +101,26 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
   for(int j = 0; j < iChildCount; j++) {
     CDasherNode *pNewNode;
     
-    if(newchars[j] == m_pModel->GetControlSymbol())
-      pNewNode = m_pModel->GetRoot(1, pNode, iLbnd, cum[j], NULL);
-    else if(newchars[j] == m_pModel->GetStartConversionSymbol()) {
-#ifdef JAPANESE
-      pNewNode = m_pModel->GetRoot(2, pNode, iLbnd, cum[j], NULL);
-#else
-      pNewNode = m_pModel->GetRoot(0, pNode, iLbnd, cum[j], NULL);
-      pNewNode->Seen(false);
-#endif
+    if(newchars[j] == m_pNCManager->GetControlSymbol())
+      pNewNode = m_pNCManager->GetRoot(1, pNode, iLbnd, cum[j], NULL);
+    else if(newchars[j] == m_pNCManager->GetStartConversionSymbol()) {
+      // TODO: Need to consider the case where there is no compile-time support for this
+      pNewNode = m_pNCManager->GetRoot(2, pNode, iLbnd, cum[j], NULL);
     }
     else if( newchars[j] == iExistingSymbol) {
       pNewNode = pExistingChild;
       pNewNode->SetRange(iLbnd, cum[j]);
     }
     else {
-      int iColour(m_pModel->GetColour(newchars[j]));
+      int iColour(m_pNCManager->GetColour(newchars[j]));
 
       // This is provided for backwards compatibility. 
       // Colours should always be provided by the alphabet file
       if(iColour == -1) {
-	if(newchars[j] == m_pModel->GetSpaceSymbol()) {
+	if(newchars[j] == m_pNCManager->GetSpaceSymbol()) {
 	  iColour = 9;
 	}
-	else if(newchars[j] == m_pModel->GetControlSymbol()) {
+	else if(newchars[j] == m_pNCManager->GetControlSymbol()) {
 	  iColour = 8;
 	}
 	else {
@@ -138,7 +135,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
       pNewNode = new CDasherNode(pNode, newchars[j], 0, Nodes1, iLbnd, cum[j], m_pLanguageModel, iColour);
       pNewNode->m_pNodeManager = this;
       pNewNode->m_bShove = true;
-      pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
+      pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
       
       SAlphabetData *pNodeUserData = new SAlphabetData;
       pNewNode->m_pUserData = pNodeUserData;
@@ -150,17 +147,22 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
 	int iCurrentGameOffset(static_cast<SAlphabetData *>(pNode->m_pUserData)->iGameOffset);
 	
 	if((iCurrentGameOffset != -2) && ((iCurrentGameOffset + 1) < static_cast<int>(m_strGameString.size())) 
-	   && ((m_pModel->GetAlphabet().GetText(newchars[j]))[0] == m_strGameString[iCurrentGameOffset + 1])) {
+	   && ((m_pNCManager->GetAlphabet()->GetText(newchars[j]))[0] == m_strGameString[iCurrentGameOffset + 1])) {
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = iCurrentGameOffset + 1;
 	  pNewNode->SetGame(true);
 	}
 	else
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = -2;
       }
+
+      CLanguageModel::Context cont;
+      cont = m_pLanguageModel->CloneContext(pNode->Context());
+      m_pLanguageModel->EnterSymbol(cont, pNewNode->Symbol()); // TODO: Don't use symbols?
+      
+      pNewNode->SetContext(cont); // FIXME - handle context properly
     }
     
-    pNewNode->m_strDisplayText = m_pModel->GetAlphabet().GetDisplayText(newchars[j]);
-    
+    pNewNode->m_strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(newchars[j]);
     
     pNode->Children()[j] = pNewNode;
     iLbnd = cum[j];
@@ -174,12 +176,12 @@ void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
 }
 
 void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded, int iNormalization) {
-  m_pModel->m_bContextSensitive = true;
+  //  m_pNCManager->m_bContextSensitive = true;
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
 
   if(t) { // Ignore symbol 0 (root node)
-    Dasher::CEditEvent oEvent(1, m_pModel->GetAlphabet().GetText(t));
-    m_pModel->InsertEvent(&oEvent);
+    Dasher::CEditEvent oEvent(1, m_pNCManager->GetAlphabet()->GetText(t));
+    m_pNCManager->InsertEvent(&oEvent);
 
     // Track this symbol and its probability for logging purposes
     if (pAdded != NULL) {
@@ -195,22 +197,25 @@ void CAlphabetManager::Output( CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* p
 void CAlphabetManager::Undo( CDasherNode *pNode ) {
   symbol t = static_cast<SAlphabetData *>(pNode->m_pUserData)->iSymbol;
   if(t) { // Ignore symbol 0 (root node)
-    Dasher::CEditEvent oEvent(2, m_pModel->GetAlphabet().GetText(t));
-    m_pModel->InsertEvent(&oEvent);
+    Dasher::CEditEvent oEvent(2, m_pNCManager->GetAlphabet()->GetText(t));
+    m_pNCManager->InsertEvent(&oEvent);
   }
 }
 
 CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration) {
 
+  // TODO: Reimplement -----
+
   // Ask for context information
-  m_pModel->m_strContextBuffer = "";
-  Dasher::CEditContextEvent oEvent(10);
-  m_pModel->InsertEvent(&oEvent);
+  //  m_pNCManager->m_strContextBuffer = "";
+  //  Dasher::CEditContextEvent oEvent(10);
+  //  m_pNCManager->InsertEvent(&oEvent);
 
-  std::string strContext(m_pModel->m_strContextBuffer);
+  //  std::string strContext(m_pNCManager->m_strContextBuffer);
   std::vector<symbol> vSymbols;
-  m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &strContext, false);
+  //  m_pLanguageModel->SymbolAlphabet().GetAlphabetPointer()->GetSymbols(&vSymbols, &strContext, false);
 
+  // -----
 
   CDasherNode *pNewNode;
 
@@ -228,7 +233,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
     
     // TODO: Horrible hard coded default context
     CLanguageModel::Context oContext(m_pLanguageModel->CreateEmptyContext());
-    m_pModel->EnterText(oContext, ". ");
+    m_pNCManager->EnterText(oContext, ". ");
     pNewNode->SetContext(oContext);
   }
   else {
@@ -236,7 +241,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
     iNewPhase = ((iOldPhase + 2 - 1) % 2);
     iNewSymbol = vSymbols[vSymbols.size() - iGeneration - 2];
 
-    int iColour(m_pModel->GetColour(vSymbols[vSymbols.size() - iGeneration - 2]));
+    int iColour(m_pNCManager->GetColour(vSymbols[vSymbols.size() - iGeneration - 2]));
 
     // Loop colours if necessary for the colour scheme
     if(iNewPhase == 1)
@@ -254,7 +259,7 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   pNewNode->m_pNodeManager = this;
   pNewNode->m_bShove = true;
   pNewNode->Seen(true);
-  pNewNode->m_pBaseGroup = m_pModel->GetAlphabet().m_pBaseGroup;
+  pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
 
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;

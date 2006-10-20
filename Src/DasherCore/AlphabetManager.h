@@ -6,9 +6,9 @@
 
 #include "Parameters.h"
 
-namespace Dasher {
+class CNodeCreationManager;
 
-  class CDasherModel;
+namespace Dasher {
 
   ///
   /// A node manager which deals with alphabets and language models.
@@ -17,7 +17,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager( CDasherModel *pModel, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText );
+    CAlphabetManager(CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText);
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -57,7 +57,7 @@ namespace Dasher {
 
   private:
     CLanguageModel *m_pLanguageModel;
-    CDasherModel *m_pModel;
+    CNodeCreationManager *m_pNCManager;
 
     std::string m_strGameString;
     bool m_bGameMode;

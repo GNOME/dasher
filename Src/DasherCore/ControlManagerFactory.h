@@ -4,6 +4,8 @@
 #include "NodeManagerFactory.h"
 #include "LanguageModelling/LanguageModel.h"
 
+class CNodeCreationManager;
+
 namespace Dasher {
  class CControlManager;
 }
@@ -14,7 +16,7 @@ namespace Dasher {
   
   class CControlManagerFactory : public CNodeManagerFactory {
   public:
-    CControlManagerFactory(CDasherModel *pModel, CLanguageModel *pLanguageModel);
+    CControlManagerFactory(CNodeCreationManager *pNCManager);
     ~CControlManagerFactory();
     
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);

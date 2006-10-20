@@ -31,6 +31,7 @@ public:
     std::string ColourID;
     bool Mutable;               // If from user we may play. If from system defaults this is immutable. User should take a copy.
 
+    // TODO: It would make a lot more sense if this was a vector of triples rather than three vectors
     // Complete description of the alphabet:
     std::vector < int >Reds;
     std::vector < int >Greens;

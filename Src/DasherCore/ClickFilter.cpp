@@ -20,7 +20,7 @@ bool CClickFilter::DecorateView(CDasherView *pView) {
 bool CClickFilter::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m_pDasherModel, Dasher::VECTOR_SYMBOL_PROB *pAdded, int *pNumDeleted) {
   // FIXME - REALLY, REALLY horrible - bleh
   pDasherView = m_pDasherView;
-  return m_pDasherModel->Tap_on_display(0, 0, Time, pAdded, pNumDeleted);
+  return m_pDasherModel->UpdatePosition(0, 0, Time, pAdded, pNumDeleted);
 }
 
 void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
@@ -31,7 +31,7 @@ void CClickFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBas
       myint iDasherX;
       myint iDasherY;
       
-      pDasherView->TapOnDisplay(0, 0, iTime, iDasherX, iDasherY);
+      pDasherView->GetCoordinates(iTime, iDasherX, iDasherY);
       pModel->ScheduleZoom(iDasherX,iDasherY);
     }
     break;

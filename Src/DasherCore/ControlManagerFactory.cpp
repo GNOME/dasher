@@ -16,8 +16,8 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CControlManagerFactory::CControlManagerFactory( CDasherModel *pModel, CLanguageModel *pLanguageModel ) {
-  m_pControlManager = new CControlManager(pModel, pLanguageModel);
+CControlManagerFactory::CControlManagerFactory(CNodeCreationManager *pNCManager) {
+  m_pControlManager = new CControlManager(pNCManager);
 }
 
 CControlManagerFactory::~CControlManagerFactory() {

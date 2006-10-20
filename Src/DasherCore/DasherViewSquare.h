@@ -52,8 +52,7 @@ public:
   /// Convert input coordinates to dasher coordinates and evolve the model
   ///
 
-  void TapOnDisplay(screenint mousex, screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY);
-  void TapOnDisplay(screenint mousex,screenint mousey, unsigned long Time, myint &iDasherX, myint &iDasherY, VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);
+  void GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY);
   
   ///
   /// \todo Document this

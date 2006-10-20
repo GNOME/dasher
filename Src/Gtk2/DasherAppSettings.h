@@ -6,6 +6,7 @@
 
 #include "../DasherCore/Parameters.h"
 #include "../Common/AppSettingsHeader.h"
+#include "GtkDasherControl.h"
 
 // Define first int value of the first element of each type.
 // Useful for offsetting into specific arrays,
@@ -49,6 +50,7 @@ DasherAppSettings *dasher_app_settings_new(int argc, char **argv);
 GType dasher_app_settings_get_type();
 
 void dasher_app_settings_reset(DasherAppSettings *pSelf, int iParameter);
+void dasher_app_settings_set_widget(DasherAppSettings *pSelf, GtkDasherControl *pWidget);
 
 bool dasher_app_settings_get_bool(DasherAppSettings *pSelf, int iParameter);
 void dasher_app_settings_set_bool(DasherAppSettings *pSelf, int iParameter, bool bValue);

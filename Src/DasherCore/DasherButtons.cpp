@@ -403,7 +403,7 @@ bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   if(m_bOldHighlight != m_bHighlight)
     m_bDecorationChanged = true;
 
-  return m_pDasherModel->Tap_on_display(0, 0, Time, pAdded, pNumDeleted);
+  return m_pDasherModel->UpdatePosition(0, 0, Time, pAdded, pNumDeleted);
 }
 
 void CDasherButtons::HandleEvent(Dasher::CEvent * pEvent) {

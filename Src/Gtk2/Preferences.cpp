@@ -6,6 +6,7 @@
 #include "dasher.h"
 #include "config.h"
 #include "GtkDasherControl.h"
+#include "Menu.h"
 
 #include "DasherControl.h"
 
@@ -17,28 +18,12 @@
 
 // TODO: Reintroduce advanced settings and start on mouse position offset
 
-
-GtkListStore *g_pStore;
-
-// TODO: Get rid of this as soon as possible
-GladeXML *widgets;
-
 typedef struct _BoolTranslation BoolTranslation;
 
 struct _BoolTranslation {
   gint iParameter;
   gchar *szWidgetName;
   GtkWidget *pWidget;
-};
-
-typedef struct _StringTranslation StringTranslation;
-
-struct _StringTranslation {
-  gint iParameter;
-  gchar *szWidgetName;
-  GtkWidget *pWidget;
-  gchar *szHelperName;
-  GtkWidget *pHelper;
 };
 
 // Checkbox widgets which map directly to boolean parameters
@@ -53,12 +38,27 @@ BoolTranslation sBoolTranslationTable[] = {
   {BP_OUTLINE_MODE, "outlinebutton", NULL},
   {BP_CONTROL_MODE, "control_controlmode", NULL},
   {APP_BP_TIME_STAMP, "timestampbutton", NULL},
-  {APP_BP_DOCK, "dockbutton", NULL}
+  {APP_BP_DOCK, "dockbutton", NULL},
+  {BP_START_MOUSE, "leftbutton", NULL},  
+  {BP_START_SPACE, "spacebutton", NULL},
+  {BP_PAUSE_OUTSIDE, "winpausebutton", NULL},
+  {BP_AUTO_SPEEDCONTROL, "adaptivebutton", NULL},
+  {BP_LM_ADAPTIVE, "cb_adaptive", NULL}
 };
 
 #endif
 
 // List widgets which map directly to string parameters
+
+typedef struct _StringTranslation StringTranslation;
+
+struct _StringTranslation {
+  gint iParameter;
+  gchar *szWidgetName;
+  GtkWidget *pWidget;
+  gchar *szHelperName;
+  GtkWidget *pHelper;
+};
 
 #ifdef WITH_MAEMO
 
@@ -89,63 +89,72 @@ enum {
 
 void RefreshWidget(gint iParameter);
 extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData);
-
 void InitialiseTables(GladeXML *pGladeWidgets);
-void PopulateLMPage(GladeXML * pGladeWidgets);
-void generate_preferences(GladeXML * pGladeWidgets);
-void PopulateControlPage(GladeXML * pGladeWidgets);
-void PopulateViewPage(GladeXML * pGladeWidgets);
-void dasher_preferences_populate_font_buttons(DasherPreferencesDialogue *pSelf, GladeXML * pGladeWidgets);
-
-//void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter);
 void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWidget *pHelper);
-
 extern "C" void advanced_edited_callback(GtkCellRendererText * cell, gchar * path_string, gchar * new_text, gpointer user_data);
 extern "C" void colour_select(GtkTreeSelection * selection, gpointer data);
-extern "C" void alphabet_select(GtkTreeSelection * selection, gpointer data);
 extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData);
 extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData);
 extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData);
+extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData);
 
 // Private member variables
 GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue);
 
-GtkTreeSelection *alphselection;
-GtkWidget *alphabettreeview;
-GtkListStore *alph_list_store;
+void populate_special_speed(GladeXML *pGladeWidgets);
+void populate_special_mouse_start(GladeXML *pGladeWidgets);
+void populate_special_orientation(GladeXML *pGladeWidgets);
+void populate_special_appstyle(GladeXML *pGladeWidgets);
+void populate_special_linewidth(GladeXML *pGladeWidgets);
+void populate_special_lm(GladeXML *pGladeWidgets);
+void populate_special_uniform(GladeXML *pGladeWidgets);
+void populate_special_colour(GladeXML *pGladeWidgets);
+void populate_special_dasher_font(GladeXML *pGladeWidgets);
+void populate_special_edit_font(GladeXML *pGladeWidgets);
+void populate_special_fontsize(GladeXML *pGladeWidgets);
 
-GtkTreeModel *m_pAdvancedModel;
+typedef struct _SpecialControl SpecialControl;
 
-GtkWidget *preferences_window;
-GtkWidget *train_dialogue;
-
-GtkWidget *m_pLRButton;
-GtkWidget *m_pRLButton;
-GtkWidget *m_pTBButton;
-GtkWidget *m_pBTButton;
-GtkWidget *m_pSpeedSlider;
-
-GtkWidget *m_pAdvancedSettings;
-
-GtkWidget *m_pMousePosButton;
-GtkWidget *m_pMousePosStyle;
-
-// Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
-
-bool g_bIgnoreSignals(false);
-
-#define _(_x) gettext(_x)
-
-// Stuff to do with training threads
-
-GThread *trainthread;
-
-struct TrainingThreadData {
-  GtkWidget *pDasherControl;
-  GtkWidget *pTrainingDialogue;
-  gchar *szAlphabet;
+struct _SpecialControl {
+  int iID;
+  void (*pPopulate)(GladeXML *);
+  gboolean bPrimary;
 };
 
+SpecialControl sSpecialControlTable[] = {
+  {LP_MAX_BITRATE, populate_special_speed, true},
+  {BP_MOUSEPOS_MODE, populate_special_mouse_start, true},
+  {BP_CIRCLE_START, populate_special_mouse_start, false},
+  {LP_ORIENTATION, populate_special_orientation, true},
+  {LP_REAL_ORIENTATION, populate_special_orientation, false},
+  {APP_LP_STYLE, populate_special_appstyle, true},
+  {LP_LINE_WIDTH, populate_special_linewidth, true},
+  {LP_LANGUAGE_MODEL_ID, populate_special_lm, true},
+  {LP_UNIFORM, populate_special_uniform, true},
+  {BP_PALETTE_CHANGE, populate_special_colour, true},
+  {SP_DASHER_FONT, populate_special_dasher_font, true},
+  {APP_SP_EDIT_FONT, populate_special_edit_font, true}, 
+  {LP_DASHER_FONTSIZE, populate_special_fontsize, true}
+};
+
+void update_special(int iID);
+
+
+static GtkListStore *g_pStore;
+static GladeXML *widgets;
+static GtkWidget *preferences_window;
+static GtkWidget *m_pLRButton;
+static GtkWidget *m_pRLButton;
+static GtkWidget *m_pTBButton;
+static GtkWidget *m_pBTButton;
+static GtkWidget *m_pSpeedSlider;
+static GtkWidget *m_pMousePosButton;
+static GtkWidget *m_pMousePosStyle;
+
+// Set this to ignore signals (ie loops coming back from setting widgets in response to parameters having changed)
+static bool g_bIgnoreSignals(false);
+
+#define _(_x) gettext(_x)
 
 // TODO: Look at coding convention stuff for gobjets
 
@@ -163,9 +172,6 @@ typedef struct _DasherPreferencesDialoguePrivate DasherPreferencesDialoguePrivat
 static void dasher_preferences_dialogue_class_init(DasherPreferencesDialogueClass *pClass);
 static void dasher_preferences_dialogue_init(DasherPreferencesDialogue *pMain);
 static void dasher_preferences_dialogue_destroy(GObject *pObject);
-
-// Private methods not associated with class
-void update_advanced(int iParameter);
 
 GType dasher_preferences_dialogue_get_type() {
 
@@ -224,37 +230,13 @@ DasherPreferencesDialogue *dasher_preferences_dialogue_new(GladeXML *pGladeWidge
   gtk_window_set_transient_for(GTK_WINDOW(preferences_window), GTK_WINDOW(window));
 
   m_pSpeedSlider = glade_xml_get_widget(pGladeWidgets, "hscale1");
-
-  m_pAdvancedSettings = glade_xml_get_widget(pGladeWidgets, "window3");
-
   InitialiseTables(pGladeWidgets);
   RefreshWidget(-1);
-  
-  generate_preferences(pGladeWidgets);
-  PopulateControlPage(pGladeWidgets);
-  PopulateViewPage(pGladeWidgets);
-  PopulateLMPage(pGladeWidgets);
-
-  dasher_preferences_populate_font_buttons(pDasherControl, pGladeWidgets);
-
-// #ifndef GNOME_SPEECH
-//   // This ought to be greyed out if not built with speech support
-//   gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "speakbutton"), false);
-// #endif
+  update_special(-1); // TODO: Make this a class member
 
 #ifndef JAPANESE
   gtk_widget_hide(glade_xml_get_widget(pGladeWidgets, "radiobutton9"));
 #endif
-
-// #ifndef WITH_MAEMO
-//   if(!dasher_app_settings_have_advanced(g_pDasherAppSettings)) {
-//     gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "button27"), dasher_app_settings_have_advanced(g_pDasherAppSettings));
-//     gtk_widget_show(glade_xml_get_widget(pGladeWidgets, "gconfwarning"));
-//   }
-//   else {
-//     gtk_widget_hide(glade_xml_get_widget(pGladeWidgets, "gconfwarning"));
-//   }
-// #endif
 
   return pDasherControl;
 }
@@ -278,195 +260,201 @@ void dasher_preferences_dialogue_show(DasherPreferencesDialogue *pSelf) {
 
 
 void dasher_preferences_dialogue_handle_parameter_change(DasherPreferencesDialogue *pSelf, int iParameter) {
-
-  //  update_advanced(iParameter);
-
-  if(iParameter == LP_DASHER_FONTSIZE) {
-    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE)) {
-    case Opts::Normal:
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "fontsizenormal")), TRUE);
-      break;
-    case Opts::Big:
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "fontsizelarge")), TRUE);
-      break;
-    case Opts::VBig:
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "fontsizevlarge")), TRUE);
-      break;
-    }
-  }
-  else if(iParameter == LP_UNIFORM) {
-    gtk_range_set_value(GTK_RANGE(glade_xml_get_widget(widgets, "uniformhscale")), gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM) / 10.0);
-  }
-  else if(iParameter == LP_LANGUAGE_MODEL_ID) {
-    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID)) {
-    case 0:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton6")), TRUE);
-      break;
-    case 2:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton7")), TRUE);
-      break;
-    case 3:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton8")), TRUE);
-      break;
-#ifdef JAPANESE
-    case 4:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton9"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton9")), TRUE);
-      break;
-#endif
-    }
-  }
-  else if(iParameter == LP_ORIENTATION) {
-    switch (gtk_dasher_control_get_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_ORIENTATION)) {
-    case Opts::Alphabet:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton1")), TRUE);
-      break;
-    case Opts::LeftToRight:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton2")), TRUE);
-      break;
-    case Opts::RightToLeft:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton3")), TRUE);
-      break;
-    case Opts::TopToBottom:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton4")), TRUE);
-      break;
-    case Opts::BottomToTop:
-      if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5"))) != TRUE)
-        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "radiobutton5")), TRUE);
-      break;
-    }
-  }
-  else if(iParameter == BP_START_MOUSE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "leftbutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE));
-  }
-  else if(iParameter == BP_START_SPACE) {
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "spacebutton")), gtk_dasher_control_get_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE));
-  }
-  else if((iParameter == BP_MOUSEPOS_MODE) || (iParameter == BP_CIRCLE_START)) {
-    // FIXME - duplicated code from Preferences.cpp
-    if(dasher_app_settings_get_bool(g_pDasherAppSettings, BP_MOUSEPOS_MODE)) {
-      gtk_combo_box_set_active(GTK_COMBO_BOX(glade_xml_get_widget(widgets, "MousePosStyle")), 1);
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "mouseposbutton")), true);
-    }
-    else if(dasher_app_settings_get_bool(g_pDasherAppSettings, BP_CIRCLE_START)) {
-      gtk_combo_box_set_active(GTK_COMBO_BOX(glade_xml_get_widget(widgets, "MousePosStyle")), 0);
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "mouseposbutton")), true);
-    }
-    else {
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(widgets, "mouseposbutton")), false);
-    }
-  }
-  else if(iParameter == LP_MAX_BITRATE) {
-    double dNewValue = dasher_app_settings_get_long(g_pDasherAppSettings, LP_MAX_BITRATE) / 100.0;
-    gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue);
-  }
-  else if(iParameter == BP_PALETTE_CHANGE) {
-    gtk_widget_set_sensitive(glade_xml_get_widget(widgets, "ColorTree"), !dasher_app_settings_get_bool(g_pDasherAppSettings, BP_PALETTE_CHANGE));
-  }
-  else if((iParameter == SP_DASHER_FONT) || (iParameter == APP_SP_EDIT_FONT))  {
-    dasher_preferences_populate_font_buttons(NULL, widgets);
-  }
-  else {
-    RefreshWidget(iParameter);
-  }
+  RefreshWidget(iParameter);
+  update_special(iParameter);
 }
 
 
-void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf) {
+// --- Generic Options ---
+
+void InitialiseTables(GladeXML *pGladeWidgets) {
 #ifndef WITH_MAEMO
-  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
+  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
+  for(int i(0); i < iNumBoolEntries; ++i) {
+    sBoolTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sBoolTranslationTable[i].szWidgetName);
+  }
+#endif
+
+  int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
+  for(int i(0); i < iNumStringEntries; ++i) {
+    sStringTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szWidgetName);
+    if(sStringTranslationTable[i].szHelperName)
+      sStringTranslationTable[i].pHelper = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szHelperName);
+
+    dasher_preferences_populate_list(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget), sStringTranslationTable[i].iParameter, sStringTranslationTable[i].pHelper);
+    g_signal_connect(sStringTranslationTable[i].pWidget, "realize", (GCallback)on_widget_realize, &sStringTranslationTable[i].iParameter);
+  }
+}
+
+extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
   
-  g_pStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
+  gpointer *pPointers = (gpointer *)pUserData;
 
-  GtkTreeIter oIter;
+  gchar *szTarget = (gchar *)pPointers[0];
+  gchar *szComparison;
+  gtk_tree_model_get(pModel, pIter, 2, &szComparison, -1);
 
-  dasher_editor_actions_start(pPrivate->pEditor);
+  if(!strcmp(szTarget, szComparison)) {
+    // Todo: set selection here?
+    gtk_tree_view_set_cursor((GtkTreeView *)pPointers[1], pPath, NULL, false);
 
-  while(dasher_editor_actions_more(pPrivate->pEditor)) {
-    gtk_list_store_append(g_pStore, &oIter);
+    gtk_tree_view_scroll_to_cell((GtkTreeView *)pPointers[1], pPath, NULL, true, 0.5, 0.0);
 
-    const gchar *szName;
-    gint iID;
-    gboolean bShow;
-    gboolean bControl;
-    gboolean bAuto;
-
-    dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
-
-    gtk_list_store_set(g_pStore, &oIter, 
-		       ACTIONS_ID_COLUMN, iID,
-		       ACTIONS_NAME_COLUMN, szName,
-		       ACTIONS_SHOW_COLUMN, bShow,
-		       ACTIONS_CONTROL_COLUMN, bControl,
-		       ACTIONS_AUTO_COLUMN, bAuto,
-		       -1);
+    return true;
   }
   
+  return false;
+}
+
+void RefreshWidget(gint iParameter) {
+#ifndef WITH_MAEMO
+  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
+  for(int i(0); i < iNumBoolEntries; ++i) {
+    if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
+      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter));
+    }
+  }
+#endif
+
+  // TODO: I believe that this is being called initially before the
+  // widgets are realised, so the selection isn't being correctly
+  // brought into view
+  int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
+  for(int i(0); i < iNumStringEntries; ++i) {
+    if((iParameter == -1) || (sStringTranslationTable[i].iParameter == iParameter)) {
+      GtkTreeModel *pModel = gtk_tree_view_get_model(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget));
+
+      const void *pUserData[2];
+      pUserData[0] = dasher_app_settings_get_string(g_pDasherAppSettings, sStringTranslationTable[i].iParameter);
+      pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
+      
+      if(sStringTranslationTable[i].pWidget && GTK_WIDGET_REALIZED(sStringTranslationTable[i].pWidget))
+	gtk_tree_model_foreach(pModel, refresh_foreach_function, pUserData);
+    }
+  }
+}
+
+extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
+#ifndef WITH_MAEMO
+  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
+  
+  for(int i(0); i < iNumBoolEntries; ++i) {
+    if((pWidget == NULL) || (sBoolTranslationTable[i].pWidget == pWidget)) {
+      if(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active != dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter)) {
+	dasher_app_settings_set_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter, GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active);
+      }
+    }
+  }
+#endif
+}
+
+// TODO: Is this function actually useful? (conversely, is the other call to RefreshFoo elsewhere any use?)
+extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData) {
+  gint *pParameter = (gint *)pUserData;
+  RefreshWidget(*pParameter);
+}
+
+// --- Generic boolean options ---
+
+extern "C" void generic_bool_changed(GtkWidget *widget, gpointer user_data) {
+  RefreshParameter(widget, user_data);
+}
+
+// --- Generic string options ---
+
+void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {
+  // TODO: Need to kill helpers on list depopulation
+
+  const gchar *szCurrentValue(gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter));
+
+  GArray *pFilterArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
+
+  GtkListStore *pStore = gtk_list_store_new(6, G_TYPE_INT, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER);
+  gtk_tree_view_set_model(pView, GTK_TREE_MODEL(pStore));
+
   GtkCellRenderer *pRenderer;
   GtkTreeViewColumn *pColumn;
   
-  // TODO: (small) memory leak here at the moment
-  gint *pColumnIndex = new gint[3];
-  pColumnIndex[0] = ACTIONS_SHOW_COLUMN;
-  pColumnIndex[1] = ACTIONS_CONTROL_COLUMN;
-  pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
-
   pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
-  g_object_set(G_OBJECT(pColumn), "expand", true, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
+  gtk_tree_view_append_column(pView, pColumn);
 
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
-  pColumn = gtk_tree_view_column_new_with_attributes("Show Button", pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+  GtkTreeIter oIter;
+  //  GtkTreeIter oSelectedIter;
+  GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
 
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
-  pColumn = gtk_tree_view_column_new_with_attributes("Control Mode", pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+  GtkWidget **pHelperWindowRef = new GtkWidget *;
 
-  pRenderer = gtk_cell_renderer_toggle_new();
-  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
-  pColumn = gtk_tree_view_column_new_with_attributes("Auto On Stop", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
-  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
+  for(unsigned int i(0); i < pFilterArray->len; ++i) {
+    const gchar *szCurrentFilter = g_array_index(pFilterArray, gchar *, i);
+    gchar *szName = new gchar[strlen(szCurrentFilter) + 1];
+    strcpy(szName, szCurrentFilter);
 
-  gtk_tree_view_set_model(GTK_TREE_VIEW(pPrivate->pActionTreeView), GTK_TREE_MODEL(g_pStore));
+    gtk_list_store_append(pStore, &oIter);
+    GtkWidget *pHelperWindow;
 
-  // New input filter selection
+    if(pHelper) {
+      pHelperWindow = dasher_preferences_dialogue_get_helper(g_pPreferencesDialogue, iParameter, szName);
+      g_signal_connect(G_OBJECT(pHelper), "clicked", G_CALLBACK(show_helper_window), pHelperWindowRef);
+    }
+    else
+      pHelperWindow = NULL;
 
-//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_filter_tree_view")), SP_INPUT_FILTER);
-//   dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "input_tree_view")), SP_INPUT_DEVICE);
-#endif
+    // This is potentially horrible - maybe rethink in the future;
+    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, 3, szName, 4, pHelperWindow, 5, pHelperWindowRef, -1);
+ 
+    if(!strcmp(szCurrentFilter, szCurrentValue)) {
+      gtk_tree_selection_select_iter(pSelection, &oIter);
+      if(pHelper) {
+	gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
+	*pHelperWindowRef = pHelperWindow;
+      }
+    }
+  }
+
+  g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
 }
 
-/// Older stuff
+extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData) {
+  GtkTreeIter oIter;
+  GtkTreeModel *pModel;
+  
+  if(gtk_tree_selection_get_selected(pSelection, &pModel, &oIter)) {
+    int iParameter;
+    gpointer pHelper;
+    gpointer pHelperWindow;
+    gpointer pHelperWindowRef;
+    gchar *szValue;
+    gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
+    
+    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
+    
+    if(pHelper) {
+      gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
+      *((GtkWidget **)pHelperWindowRef) = (GtkWidget *)pHelperWindow;
+    }
+  }
+}
 
+GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue) {
+  SModuleSettings *pSettings;
+  int iCount;
 
-// This file contains callbacks for the controls in the preferences
-// dialogue. Please keep the callbacks in the same order that they
-// appear in the dialogue box
+  if(!gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, &pSettings, &iCount))
+    return NULL;
 
-// TODO: In theory a lot of these could be replaced by a single
-// function by using user_data to store the key.
+  return module_settings_window_new(g_pDasherAppSettings, szValue, pSettings, iCount);
+}
 
-void PopulateControlPage(GladeXML *pGladeWidgets) {
+// --- Special Cases ---
+
+void populate_special_speed(GladeXML *pGladeWidgets) {
   double dNewValue = dasher_app_settings_get_long(g_pDasherAppSettings, LP_MAX_BITRATE) / 100.0;
   gtk_range_set_value(GTK_RANGE(m_pSpeedSlider), dNewValue); 
+}
 
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "adaptivebutton")), getBool(BP_AUTO_SPEEDCONTROL));
-
+void populate_special_mouse_start(GladeXML *pGladeWidgets) {
 #ifndef WITH_MAEMO
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "leftbutton")), getBool(BP_START_MOUSE));
-  gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "spacebutton")), getBool(BP_START_SPACE));
-
   m_pMousePosButton = glade_xml_get_widget(pGladeWidgets, "mouseposbutton");
   m_pMousePosStyle = glade_xml_get_widget(pGladeWidgets, "MousePosStyle");
 
@@ -484,8 +472,7 @@ void PopulateControlPage(GladeXML *pGladeWidgets) {
 #endif 
 }
 
-void PopulateViewPage(GladeXML *pGladeWidgets) {
-
+void populate_special_orientation(GladeXML *pGladeWidgets) {
   m_pLRButton = glade_xml_get_widget(pGladeWidgets, "radiobutton2");
   m_pRLButton = glade_xml_get_widget(pGladeWidgets, "radiobutton3");
   m_pTBButton = glade_xml_get_widget(pGladeWidgets, "radiobutton4");
@@ -571,7 +558,9 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     gtk_widget_set_sensitive(m_pBTButton, TRUE);
     break;
   }
+}
 
+void populate_special_appstyle(GladeXML *pGladeWidgets) {
 #ifndef WITH_MAEMO  
   switch(dasher_app_settings_get_long(g_pDasherAppSettings, APP_LP_STYLE)) {
   case 0:
@@ -587,18 +576,20 @@ void PopulateViewPage(GladeXML *pGladeWidgets) {
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "appstyle_fullscreen")), TRUE);
     break;
   }
+#endif
+}
 
+void populate_special_linewidth(GladeXML *pGladeWidgets) {
+#ifndef WITH_MAEMO
   if(getLong(LP_LINE_WIDTH) > 1)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), true);
   else
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "thicklinebutton")), false);
-
 #endif
 }
 
 
-void PopulateLMPage(GladeXML *pGladeWidgets) {
-
+void populate_special_lm(GladeXML *pGladeWidgets) {
   switch( gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_LANGUAGE_MODEL_ID )) {
   case 0:
     if(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "radiobutton6"))) != TRUE)
@@ -619,283 +610,65 @@ void PopulateLMPage(GladeXML *pGladeWidgets) {
   default:
     break;
   }
-  
-
-  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), getLong(LP_UNIFORM)/10.0);
-	  
-  // LM parameters are now obsolete - will eventually be part of the 'advanced' page
-
-
 }
 
-void generate_preferences(GladeXML *pGladeWidgets) {
-  // We need to populate the lists of alphabets and colours
-//  dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "AlphabetTree")), SP_ALPHABET_ID);
-//  dasher_preferences_populate_list(GTK_TREE_VIEW(glade_xml_get_widget(pGladeWidgets, "ColorTree")), SP_COLOUR_ID);
+void populate_special_uniform(GladeXML *pGladeWidgets) {
+  gtk_range_set_value( GTK_RANGE(glade_xml_get_widget(pGladeWidgets, "uniformhscale")), getLong(LP_UNIFORM)/10.0);
+}
 
-//   GtkTreeIter alphiter, colouriter;
-
-//   // Build the alphabet tree - this is nasty
-//   alphabettreeview = glade_xml_get_widget(pGladeWidgets, "AlphabetTree");
-//   alph_list_store = gtk_list_store_new(1, G_TYPE_STRING);
-//   gtk_tree_view_set_model(GTK_TREE_VIEW(alphabettreeview), GTK_TREE_MODEL(alph_list_store));
-//   alphselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(alphabettreeview));
-//   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(alphselection), GTK_SELECTION_BROWSE);
-//   GtkTreeViewColumn *column = gtk_tree_view_column_new_with_attributes("Alphabet", gtk_cell_renderer_text_new(), "text", 0, NULL);
-//   gtk_tree_view_append_column(GTK_TREE_VIEW(alphabettreeview), column);
-
-//   // Clear the contents of the alphabet list
-//   gtk_list_store_clear(alph_list_store);
-
-//   GArray *pAlphabetArray;
-
-//   pAlphabetArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID);
-
-//   for(unsigned int i(0); i < pAlphabetArray->len; ++i) {
-
-//     const gchar *pCurrentAlphabet(g_array_index(pAlphabetArray, gchar *, i));
-
-//     gtk_list_store_append(alph_list_store, &alphiter);
-//     gtk_list_store_set(alph_list_store, &alphiter, 0, pCurrentAlphabet, -1);
-
-//     if(!strcmp(pCurrentAlphabet, getString(SP_ALPHABET_ID)))
-//       SetAlphabetSelection(i, &alphiter);
-    
-//   }
-
-//   g_array_free(pAlphabetArray, true);
-
-//   // Connect up a signal so we can select a new alphabet
-//   g_signal_connect_after(G_OBJECT(alphselection), "changed", GTK_SIGNAL_FUNC(alphabet_select), NULL);
-
-//   // Do the same for colours
-//   colourtreeview = glade_xml_get_widget(pGladeWidgets, "ColorTree");
-
-//   // Make sure that the colour tree is realized now as we'll need to do
-//   // stuff with it before it's actually displayed
-//   gtk_widget_realize(colourtreeview);
-
-//   colour_list_store = gtk_list_store_new(1, G_TYPE_STRING);
-//   gtk_tree_view_set_model(GTK_TREE_VIEW(colourtreeview), GTK_TREE_MODEL(colour_list_store));
-//   colourselection = gtk_tree_view_get_selection(GTK_TREE_VIEW(colourtreeview));
-//   gtk_tree_selection_set_mode(GTK_TREE_SELECTION(colourselection), GTK_SELECTION_BROWSE);
-//   column = gtk_tree_view_column_new_with_attributes("Colour", gtk_cell_renderer_text_new(), "text", 0, NULL);
-//   gtk_tree_view_append_column(GTK_TREE_VIEW(colourtreeview), column);
-
-//   // Clear the contents of the colour list
-//   gtk_list_store_clear(colour_list_store);
-
-//   GArray *pColourArray;
-
-//   pColourArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID);
-
-//   for(unsigned int i(0); i < pColourArray->len; ++i) {
-
-//     const gchar *pCurrentColour(g_array_index(pColourArray, gchar *, i));
-
-//     gtk_list_store_append(colour_list_store, &colouriter);
-//     gtk_list_store_set(colour_list_store, &colouriter, 0, pCurrentColour, -1);
-
-//     if(!strcmp(pCurrentColour, getString(SP_COLOUR_ID))) {
-//       gchar ugly_path_hack[100];
-//       sprintf(ugly_path_hack, "%d", i);
-//       gtk_tree_selection_select_iter(colourselection, &colouriter);
-//       gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview), gtk_tree_path_new_from_string(ugly_path_hack), NULL, false);
-//     }
-//   }
-
-//   g_array_free(pColourArray, true);
-
-//   // Connect up a signal so we can select a new colour scheme
-//   g_signal_connect_after(G_OBJECT(colourselection), "changed", GTK_SIGNAL_FUNC(colour_select), NULL);
-
+void populate_special_colour(GladeXML *pGladeWidgets) {
   gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "manual_colour")), !getBool(BP_PALETTE_CHANGE)); 
   gtk_widget_set_sensitive(glade_xml_get_widget(pGladeWidgets, "ColorTree"), !getBool(BP_PALETTE_CHANGE));
 }
 
-// void SetAlphabetSelection(int i, GtkTreeIter *pAlphIter) {
-//  //  gchar ugly_path_hack[100];
-// //   sprintf(ugly_path_hack, "%d", i);
-//   gtk_tree_selection_select_iter(alphselection, pAlphIter);
 
-//   // GtkTreePath *pPath(gtk_tree_path_new_from_string(ugly_path_hack));
-
-//   GtkTreePath *pPath(gtk_tree_model_get_path(GTK_TREE_MODEL(alph_list_store), pAlphIter));
-  
-//   gtk_tree_view_set_cursor(GTK_TREE_VIEW(alphabettreeview), pPath, NULL, false);
-//   gtk_tree_view_scroll_to_cell(GTK_TREE_VIEW(alphabettreeview), pPath, NULL, false, 0.5, 0.0);
-  
-//   gtk_tree_path_free(pPath);
-// }
-
-
-void update_colours() {
-
-  // FIXME - REIMPLEMENT
-
-//   if (training==true) {
-//     // We can go back and do this after training, but doing it now would
-//     // break stuff
-//     return;
-//   }
-
-//   colourscheme=dasher_get_current_colours();
-//   const int colourlist_size=512;
-//   const char *colourlist[ colourlist_size ];
-//   int colour_count = dasher_get_colours( colourlist, colourlist_size );
-//   for (int i=0; i<colour_count; i++) {
-//     if (colourscheme==colourlist[i]) {
-//       // We need to build a path - GTK 2.2 lets us do this nicely, but we
-//       // want to support 2.0
-//       gchar ugly_path_hack[100];
-//       sprintf(ugly_path_hack,"%d",i);
-//       gtk_tree_selection_select_path(colourselection,gtk_tree_path_new_from_string(ugly_path_hack));
-//       gtk_tree_view_set_cursor(GTK_TREE_VIEW(colourtreeview),gtk_tree_path_new_from_string(ugly_path_hack),NULL,false);
-//     }
-//   }
+void populate_special_dasher_font(GladeXML *pGladeWidgets) {
+  GtkWidget *pDasherFontButton = glade_xml_get_widget(pGladeWidgets, "dasherfontbutton");
+  PangoFontDescription *pFont = pango_font_description_from_string(dasher_app_settings_get_string(g_pDasherAppSettings, SP_DASHER_FONT));
+  gtk_widget_modify_font(pDasherFontButton, pFont);
+  gtk_button_set_label(GTK_BUTTON(pDasherFontButton), dasher_app_settings_get_string(g_pDasherAppSettings, SP_DASHER_FONT));
 }
 
-// General Callbacks
-
-extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
-  gtk_widget_hide(preferences_window);
-  return TRUE;
+void populate_special_edit_font(GladeXML *pGladeWidgets) {
+  GtkWidget *pEditFontButton = glade_xml_get_widget(pGladeWidgets, "editfontbutton");
+  gtk_button_set_label(GTK_BUTTON(pEditFontButton), dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
 }
-
-// 'Alphabet' Page
-
-// FIXME - maybe have a separate 'training thread' file
-
-gpointer change_alphabet(gpointer alph) {
-
-   std::cout << "Starting training thread" << std::endl;
-
-  struct TrainingThreadData *pThreadData((struct TrainingThreadData *)alph);
-
-  gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet);
-
-  std::cout << "Finished training" << std::endl;
-
-  gtk_widget_destroy(pThreadData->pTrainingDialogue);
-
-  g_free(pThreadData->szAlphabet);
-  delete pThreadData;
-
-  std::cout << "Finished training thread" << std::endl;
-
-  g_thread_exit(NULL);
-
-  return NULL;
-}
-
-extern "C" void alphabet_select(GtkTreeSelection *selection, gpointer data) {
-
-  std::cout << "Thread status: " << g_thread_supported() << std::endl;
-
-  GtkTreeIter iter;
-  GtkTreeModel *model;
-  gchar *alph;
-
-  if(gtk_tree_selection_get_selected(selection, &model, &iter)) {
-    gtk_tree_model_get(model, &iter, 0, &alph, -1);
-
-    // FIXME - Reimplement this check
-
-    // There's no point in training if the alphabet is already selected
-    //   if (alph!=alphabet) {
-    //     alphabet=alph;
-#ifndef WITH_GPE
-    // Don't let them select another alphabet while we're training the first one
-    //  if (training==true) {
-    //  return;
-    //  }
-
-    // Note that we're training - this is needed in order to avoid
-    // doing anything that would conflict with the other thread
-    //  training=TRUE;
-    //      trainqueue=g_async_queue_new();
-
-    struct TrainingThreadData *pThreadData(new struct TrainingThreadData);
-
-    std::cout << "*" << _("Training Dasher... please wait") << "*" << std::endl;
-
-    train_dialogue = gtk_message_dialog_new(GTK_WINDOW(window), GTK_DIALOG_MODAL, GTK_MESSAGE_INFO, GTK_BUTTONS_NONE, _("Training Dasher... please wait"));
-    gtk_window_set_resizable(GTK_WINDOW(train_dialogue), FALSE);
-    gtk_window_present(GTK_WINDOW(train_dialogue));
-
-    pThreadData->szAlphabet = alph;
-    pThreadData->pTrainingDialogue = train_dialogue;
-    pThreadData->pDasherControl = pDasherWidget;
-
-    // Clear the queue of GTK events to make sure the dialogue gets displayed before we start training.
-
-    while(gtk_events_pending())
-      gtk_main_iteration();
-
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, pThreadData->szAlphabet);
  
-    gtk_widget_hide(pThreadData->pTrainingDialogue);
-    gtk_widget_destroy(pThreadData->pTrainingDialogue);
-    
-    g_free(pThreadData->szAlphabet);
-    delete pThreadData;
+void populate_special_fontsize(GladeXML *pGladeWidgets) {
+  int iValue = gtk_dasher_control_get_parameter_long( GTK_DASHER_CONTROL(pDasherWidget), LP_DASHER_FONTSIZE);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizenormal")), iValue == Opts::Normal);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizelarge")), iValue == Opts::Big);
+  gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON(glade_xml_get_widget(pGladeWidgets, "fontsizevlarge")), iValue == Opts::VBig);
+}
 
-    //    trainthread = g_thread_create(change_alphabet, pThreadData, false, NULL);
-
-#else
-    // For GPE, we're not so fussed at the moment
-    //      dasher_set_parameter_string( STRING_ALPHABET, (gchar*)alph );
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_ALPHABET_ID, alph);
-#endif
-    //      g_free(alph);
-    //  } else {
-//       g_free(alph);
-//     }
+void update_special(int iID) {
+  for(unsigned int i(0); i < (sizeof(sSpecialControlTable) / sizeof(SpecialControl)); ++i) {
+    if(((iID == -1) && sSpecialControlTable[i].bPrimary) || (sSpecialControlTable[i].iID == iID)) {
+      (sSpecialControlTable[i].pPopulate)(widgets);
+    }
   }
 }
 
-// 'Color' Page
+// --- Callbacks for 'special case' controls ---
 
-extern "C" void colour_select(GtkTreeSelection *selection, gpointer data) {
+// TODO: Give these a systematic naming convention
+// TODO: Think about trying to combine OnMousePosStyleChanged and startonmousepos
 
-  // FIXME - REIMPLEMENT
-
-   GtkTreeIter iter;
-   GtkTreeModel *model;
-   gchar *colour;
-
-   if (gtk_tree_selection_get_selected (selection, &model, &iter)) {
-     gtk_tree_model_get(model, &iter, 0, &colour, -1);
-
-     gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), SP_COLOUR_ID, colour);    
-
-     // Reset the colour selection as well
-
-
-     g_free(colour);
-   }
-}
-
-// 'Control' Page
-
-// extern "C" void SetDimension(GtkWidget *widget, gpointer user_data) {
-//   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_NUMBER_DIMENSIONS, GTK_TOGGLE_BUTTON(widget)->active);
-// }
-
-// extern "C" void SetEyetracker(GtkWidget *widget, gpointer user_data) {
-//   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_EYETRACKER_MODE, GTK_TOGGLE_BUTTON(widget)->active);
-// }
-
-// extern "C" void SetClick(GtkWidget *widget, gpointer user_data) {
-//   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CLICK_MODE, GTK_TOGGLE_BUTTON(widget)->active);
-// }
-
-extern "C" void startonleft(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_MOUSE, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-extern "C" void startonspace(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_START_SPACE, GTK_TOGGLE_BUTTON(widget)->active);
+extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
+  // FIXME - duplicate code from extern "C" void startonmousepos
+  if(GTK_TOGGLE_BUTTON(m_pMousePosButton)->active) {
+    int iIndex;
+    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(m_pMousePosStyle));
+    
+    if(iIndex == 1) {
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, true);
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
+    }
+    else {
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
+      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, true);
+    }
+  }
 }
 
 extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
@@ -918,50 +691,10 @@ extern "C" void startonmousepos(GtkWidget *widget, gpointer user_data) {
   }
 }
 
-extern "C" void OnMousePosStyleChanged(GtkWidget *widget, gpointer user_data) {
-  // FIXME - duplicate code from extern "C" void startonmousepos
-  if(GTK_TOGGLE_BUTTON(m_pMousePosButton)->active) {
-    int iIndex;
-    iIndex = gtk_combo_box_get_active(GTK_COMBO_BOX(m_pMousePosStyle));
-    
-    if(iIndex == 1) {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, true);
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, false);
-    }
-    else {
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_MOUSEPOS_MODE, false);
-      gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CIRCLE_START, true);
-    }
-  }
-}
-
-extern "C" void copy_all_on_stop(GtkWidget *widget, gpointer user_data) {
-  dasher_app_settings_set_bool(g_pDasherAppSettings, APP_BP_COPY_ALL_ON_STOP, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-extern "C" void windowpause(GtkWidget *widget, gpointer user_data) {
-  dasher_app_settings_set_bool(g_pDasherAppSettings, BP_PAUSE_OUTSIDE, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-extern "C" void on_controlmode_changed(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_CONTROL_MODE, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-
-extern "C" void speak(GtkWidget *widget, gpointer user_data) {
-  dasher_app_settings_set_bool(g_pDasherAppSettings, APP_BP_SPEECH_MODE, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
 extern "C" void PrefsSpeedSliderChanged(GtkHScale *hscale, gpointer user_data) {
     long iNewValue = long(round(gtk_range_get_value(GTK_RANGE(hscale)) * 100));
     dasher_app_settings_set_long(g_pDasherAppSettings, LP_MAX_BITRATE, iNewValue);
-
 }
-extern "C" void adaptive(GtkWidget *widget, gpointer user_data) {
-  gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_AUTO_SPEEDCONTROL, GTK_TOGGLE_BUTTON(widget)->active);
-}
-
-// 'View' Page
 
 extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
 
@@ -1027,10 +760,6 @@ extern "C" void orientation(GtkRadioButton *widget, gpointer user_data) {
   }
 }
 
-extern "C" void generic_bool_changed(GtkWidget *widget, gpointer user_data) {
-  RefreshParameter(widget, user_data);
-}
-
 extern "C" void ThickLineClicked(GtkWidget *widget, gpointer user_data) {
   if(GTK_TOGGLE_BUTTON(widget)->active)
     gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_LINE_WIDTH, 3);
@@ -1041,14 +770,11 @@ extern "C" void ThickLineClicked(GtkWidget *widget, gpointer user_data) {
 extern "C" void autocolour_clicked(GtkWidget *widget, gpointer user_data) {
   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_PALETTE_CHANGE, !GTK_TOGGLE_BUTTON(widget)->active);
 }
-// 'Advanced' Page
 
 extern "C" void mouseposstart_y_changed(GtkRange *widget, gpointer user_data) {
   int mouseposstartdist=int(widget->adjustment->value);
   gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_MOUSEPOSDIST, mouseposstartdist);
 }
-
-// 'Language Model' Page
 
 extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
   if (GTK_TOGGLE_BUTTON(widget)->active==TRUE) {
@@ -1064,117 +790,14 @@ extern "C" void languagemodel(GtkRadioButton *widget, gpointer user_data) {
   }
 }
 
-extern "C" void Adaptive(GtkWidget *widget, gpointer user_data) {
-  // FIXME - Not yet implemented
-}
-
 extern "C" void uniform_changed(GtkHScale *hscale) {
   gtk_dasher_control_set_parameter_long(GTK_DASHER_CONTROL(pDasherWidget), LP_UNIFORM, int (GTK_RANGE(hscale)->adjustment->value * 10));
-}
-
-
-// Advanced 2 page (reorganise!)
-
-extern "C" void advanced_edited_callback(GtkCellRendererText *cell, gchar *path_string, gchar *new_text, gpointer pUserData) {
-
-  // TODO - store integer values in model
-
-  GtkTreeModel *pModel((GtkTreeModel*)pUserData);
-  
-  GtkTreeIter iter;
-  gtk_tree_model_get_iter_from_string( pModel, &iter, path_string );
-  
-  gint iKey;
-  gtk_tree_model_get( pModel, &iter, 2, &iKey, -1 );
-
-  gpointer pData;
-  gtk_tree_model_get( pModel, &iter, 1, &pData, -1 );
-  GValue *pValue((GValue *)pData);
-  
-  if(G_VALUE_HOLDS_BOOLEAN(pValue)) {
-    if(!strcmp(new_text, "Yes"))
-      dasher_app_settings_set_bool(g_pDasherAppSettings, iKey, TRUE);
-    else if(!strcmp(new_text, "No"))
-      dasher_app_settings_set_bool(g_pDasherAppSettings, iKey, FALSE);
-  }
-  else if(G_VALUE_HOLDS_INT(pValue)) {
-
-    // TODO - use strtol here so we can detect errors
-
-    dasher_app_settings_set_long(g_pDasherAppSettings, iKey, atoi(new_text));
-  }
-  else if(G_VALUE_HOLDS_STRING(pValue)) {
-    dasher_app_settings_set_string(g_pDasherAppSettings, iKey, new_text);
-  }   
-}
-
-void update_advanced(int iParameter) {
-
-  // Don't do anything if we haven't created the tree model yet.
-
-  if(!GTK_IS_TREE_MODEL(m_pAdvancedModel))
-    return;
-
-  GtkTreeIter sIter;
-
-  bool bMore(gtk_tree_model_get_iter_first(m_pAdvancedModel, &sIter));
-
-  while(bMore) {
-
-    gint iKey;
-    gtk_tree_model_get( m_pAdvancedModel, &sIter, 2, &iKey, -1 );
-
-    if(iKey == iParameter) {
-      gpointer pData;
-      gtk_tree_model_get( m_pAdvancedModel, &sIter, 1, &pData, -1 );
-      GValue *pValue((GValue *)pData);
-
-      if(G_VALUE_HOLDS_BOOLEAN(pValue))
-	g_value_set_boolean(pValue, dasher_app_settings_get_bool(g_pDasherAppSettings, iParameter));
-      else if(G_VALUE_HOLDS_INT(pValue))
-	g_value_set_int(pValue, dasher_app_settings_get_long(g_pDasherAppSettings, iParameter));
-      else if(G_VALUE_HOLDS_STRING(pValue))
-	g_value_set_string(pValue, dasher_app_settings_get_string(g_pDasherAppSettings, iParameter));
-
-      gtk_tree_model_row_changed(m_pAdvancedModel, gtk_tree_model_get_path(m_pAdvancedModel, &sIter), &sIter);
-
-      return;
-    }
-
-    bMore = gtk_tree_model_iter_next(m_pAdvancedModel, &sIter);
-  }
-
-  return;
 }
 
 extern "C" gboolean show_helper_window(GtkWidget *pWidget, gpointer *pUserData) {
   gtk_window_present(GTK_WINDOW(*pUserData));
   return FALSE;
 }
-
-extern "C" gboolean advanced_preferences_show(GtkWidget *widget, gpointer user_data) {
-  dasher_app_settings_launch_advanced(g_pDasherAppSettings);
-  return FALSE;
-}
-
-// extern "C" gboolean advanced_preferences_hide(GtkWidget *widget, gpointer user_data) {
-//   gtk_widget_hide(m_pAdvancedSettings);
-//   return FALSE;
-// }
-
-// extern "C" void keycontrol(GtkWidget *widget, gpointer user_data) {
-//   gtk_dasher_control_set_parameter_bool(GTK_DASHER_CONTROL(pDasherWidget), BP_KEY_CONTROL, GTK_TOGGLE_BUTTON(widget)->active );
-// }
-
-#ifdef WITH_MAEMO
-extern "C" void on_window_size_changed(GtkWidget *widget, gpointer user_data) {
-  if(GTK_TOGGLE_BUTTON(widget)->active)
-    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE, 1);
-  else
-    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE, 0);
-}
-#endif
-
 
 extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
   if(GTK_TOGGLE_BUTTON(widget)->active) {
@@ -1189,160 +812,73 @@ extern "C" void on_appstyle_changed(GtkWidget *widget, gpointer user_data) {
   }
 }
 
-void InitialiseTables(GladeXML *pGladeWidgets) {
+// --- Actions Selection ---
+
+// Note - for now consider the actions configuration to be *really* a
+// special case (more so than the systematic special cases), as it
+// doesn't even make use of the integer IDs for parameters.
+
+void dasher_preferences_dialogue_populate_actions(DasherPreferencesDialogue *pSelf) {
 #ifndef WITH_MAEMO
-  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
-  for(int i(0); i < iNumBoolEntries; ++i) {
-    sBoolTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sBoolTranslationTable[i].szWidgetName);
-  }
-#endif
-
-  int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
-  for(int i(0); i < iNumStringEntries; ++i) {
-    sStringTranslationTable[i].pWidget = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szWidgetName);
-    if(sStringTranslationTable[i].szHelperName)
-      sStringTranslationTable[i].pHelper = glade_xml_get_widget(pGladeWidgets, sStringTranslationTable[i].szHelperName);
-
-    dasher_preferences_populate_list(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget), sStringTranslationTable[i].iParameter, sStringTranslationTable[i].pHelper);
-    g_signal_connect(sStringTranslationTable[i].pWidget, "realize", (GCallback)on_widget_realize, &sStringTranslationTable[i].iParameter);
-  }
-}
-
-extern "C" gboolean refresh_foreach_function(GtkTreeModel *pModel, GtkTreePath *pPath, GtkTreeIter *pIter, gpointer pUserData) {
+  DasherPreferencesDialoguePrivate *pPrivate = (DasherPreferencesDialoguePrivate *)(pSelf->private_data);
   
-  gpointer *pPointers = (gpointer *)pUserData;
+  g_pStore = gtk_list_store_new(ACTIONS_N_COLUMNS, G_TYPE_INT, G_TYPE_STRING, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN, G_TYPE_BOOLEAN);
 
-  gchar *szTarget = (gchar *)pPointers[0];
-  gchar *szComparison;
-  gtk_tree_model_get(pModel, pIter, 2, &szComparison, -1);
+  GtkTreeIter oIter;
 
-  if(!strcmp(szTarget, szComparison)) {
-    // Todo: set selection here?
-    gtk_tree_view_set_cursor((GtkTreeView *)pPointers[1], pPath, NULL, false);
+  dasher_editor_actions_start(pPrivate->pEditor);
 
-    gtk_tree_view_scroll_to_cell((GtkTreeView *)pPointers[1], pPath, NULL, true, 0.5, 0.0);
+  while(dasher_editor_actions_more(pPrivate->pEditor)) {
+    gtk_list_store_append(g_pStore, &oIter);
 
-    return true;
+    const gchar *szName;
+    gint iID;
+    gboolean bShow;
+    gboolean bControl;
+    gboolean bAuto;
+
+    dasher_editor_actions_get_next(pPrivate->pEditor, &szName, &iID, &bShow, &bControl, &bAuto),
+
+    gtk_list_store_set(g_pStore, &oIter, 
+		       ACTIONS_ID_COLUMN, iID,
+		       ACTIONS_NAME_COLUMN, szName,
+		       ACTIONS_SHOW_COLUMN, bShow,
+		       ACTIONS_CONTROL_COLUMN, bControl,
+		       ACTIONS_AUTO_COLUMN, bAuto,
+		       -1);
   }
   
-  return false;
-}
-
-void RefreshWidget(gint iParameter) {
-#ifndef WITH_MAEMO
-  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
-  for(int i(0); i < iNumBoolEntries; ++i) {
-    if((iParameter == -1) || (sBoolTranslationTable[i].iParameter == iParameter)) {
-      gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget), dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter));
-    }
-  }
-#endif
-
-  // TODO: I believe that this is being called initially before the
-  // widgets are realised, so the selection isn't being correctly
-  // brought into view
-  int iNumStringEntries = sizeof(sStringTranslationTable) / sizeof(StringTranslation);
-  for(int i(0); i < iNumStringEntries; ++i) {
-    if((iParameter == -1) || (sStringTranslationTable[i].iParameter == iParameter)) {
-      GtkTreeModel *pModel = gtk_tree_view_get_model(GTK_TREE_VIEW(sStringTranslationTable[i].pWidget));
-
-      const void *pUserData[2];
-      pUserData[0] = dasher_app_settings_get_string(g_pDasherAppSettings, sStringTranslationTable[i].iParameter);
-      pUserData[1] = GTK_TREE_VIEW(sStringTranslationTable[i].pWidget);
-      
-      if(sStringTranslationTable[i].pWidget && GTK_WIDGET_REALIZED(sStringTranslationTable[i].pWidget))
-	gtk_tree_model_foreach(pModel, refresh_foreach_function, pUserData);
-    }
-  }
-}
-
-extern "C" void RefreshParameter(GtkWidget *pWidget, gpointer pUserData) {
-#ifndef WITH_MAEMO
-  int iNumBoolEntries = sizeof(sBoolTranslationTable) / sizeof(BoolTranslation);
-  
-  for(int i(0); i < iNumBoolEntries; ++i) {
-    if((pWidget == NULL) || (sBoolTranslationTable[i].pWidget == pWidget)) {
-      if(GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active != dasher_app_settings_get_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter)) {
-	dasher_app_settings_set_bool(g_pDasherAppSettings, sBoolTranslationTable[i].iParameter, GTK_TOGGLE_BUTTON(sBoolTranslationTable[i].pWidget)->active);
-      }
-    }
-  }
-#endif
-}
-
-void dasher_preferences_populate_list(GtkTreeView *pView, int iParameter, GtkWidget *pHelper) {
-  // TODO: Need to kill helpers on list depopulation
-
-  const gchar *szCurrentValue(gtk_dasher_control_get_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter));
-
-  GArray *pFilterArray = gtk_dasher_control_get_allowed_values(GTK_DASHER_CONTROL(pDasherWidget), iParameter);
-
-  GtkListStore *pStore = gtk_list_store_new(6, G_TYPE_INT, G_TYPE_POINTER, G_TYPE_STRING, G_TYPE_STRING, G_TYPE_POINTER, G_TYPE_POINTER);
-  gtk_tree_view_set_model(pView, GTK_TREE_MODEL(pStore));
-
   GtkCellRenderer *pRenderer;
   GtkTreeViewColumn *pColumn;
   
+  // TODO: (small) memory leak here at the moment
+  gint *pColumnIndex = new gint[3];
+  pColumnIndex[0] = ACTIONS_SHOW_COLUMN;
+  pColumnIndex[1] = ACTIONS_CONTROL_COLUMN;
+  pColumnIndex[2] = ACTIONS_AUTO_COLUMN;
+
   pRenderer = gtk_cell_renderer_text_new();
-  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", 2, NULL);
-  gtk_tree_view_append_column(pView, pColumn);
+  pColumn = gtk_tree_view_column_new_with_attributes("Action", pRenderer, "text", ACTIONS_NAME_COLUMN, NULL);
+  g_object_set(G_OBJECT(pColumn), "expand", true, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
-  GtkTreeIter oIter;
-  //  GtkTreeIter oSelectedIter;
-  GtkTreeSelection *pSelection = gtk_tree_view_get_selection(pView);
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex);
+  pColumn = gtk_tree_view_column_new_with_attributes("Show Button", pRenderer, "active", ACTIONS_SHOW_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
-  GtkWidget **pHelperWindowRef = new GtkWidget *;
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 1);
+  pColumn = gtk_tree_view_column_new_with_attributes("Control Mode", pRenderer, "active", ACTIONS_CONTROL_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
-  for(unsigned int i(0); i < pFilterArray->len; ++i) {
-    const gchar *szCurrentFilter = g_array_index(pFilterArray, gchar *, i);
-    gchar *szName = new gchar[strlen(szCurrentFilter) + 1];
-    strcpy(szName, szCurrentFilter);
+  pRenderer = gtk_cell_renderer_toggle_new();
+  g_signal_connect(pRenderer, "toggled", (GCallback)on_action_toggle, pColumnIndex + 2);
+  pColumn = gtk_tree_view_column_new_with_attributes("Auto On Stop", pRenderer, "active", ACTIONS_AUTO_COLUMN, NULL);
+  gtk_tree_view_append_column(GTK_TREE_VIEW(pPrivate->pActionTreeView), pColumn);
 
-    gtk_list_store_append(pStore, &oIter);
-    GtkWidget *pHelperWindow;
-
-    if(pHelper) {
-      pHelperWindow = dasher_preferences_dialogue_get_helper(g_pPreferencesDialogue, iParameter, szName);
-      g_signal_connect(G_OBJECT(pHelper), "clicked", G_CALLBACK(show_helper_window), pHelperWindowRef);
-    }
-    else
-      pHelperWindow = NULL;
-
-    // This is potentially horrible - maybe rethink in the future;
-    gtk_list_store_set(pStore, &oIter, 0, iParameter, 1, pHelper, 2, szName, 3, szName, 4, pHelperWindow, 5, pHelperWindowRef, -1);
- 
-    if(!strcmp(szCurrentFilter, szCurrentValue)) {
-      gtk_tree_selection_select_iter(pSelection, &oIter);
-      if(pHelper) {
-	gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
-	*pHelperWindowRef = pHelperWindow;
-      }
-    }
-  }
-
- 
-  g_signal_connect(pSelection, "changed", (GCallback)on_list_selection, 0);
-}
-
-extern "C" void on_list_selection(GtkTreeSelection *pSelection, gpointer pUserData) {
-  GtkTreeIter oIter;
-  GtkTreeModel *pModel;
-  
-  if(gtk_tree_selection_get_selected(pSelection, &pModel, &oIter)) {
-    int iParameter;
-    gpointer pHelper;
-    gpointer pHelperWindow;
-    gpointer pHelperWindowRef;
-    gchar *szValue;
-    gtk_tree_model_get(pModel, &oIter, 0, &iParameter, 1, &pHelper, 2, &szValue, 4, &pHelperWindow, 5, &pHelperWindowRef, -1);
-    
-    gtk_dasher_control_set_parameter_string(GTK_DASHER_CONTROL(pDasherWidget), iParameter, szValue);
-    
-    if(pHelper) {
-      gtk_widget_set_sensitive(GTK_WIDGET(pHelper), pHelperWindow != NULL);
-      *((GtkWidget **)pHelperWindowRef) = (GtkWidget *)pHelperWindow;
-    }
-  }
+  gtk_tree_view_set_model(GTK_TREE_VIEW(pPrivate->pActionTreeView), GTK_TREE_MODEL(g_pStore));
+#endif
 }
 
 extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath, gpointer pUserData) {
@@ -1370,29 +906,26 @@ extern "C" void on_action_toggle(GtkCellRendererToggle *pRenderer, gchar *szPath
   }
 }
 
-extern "C" void on_widget_realize(GtkWidget *pWidget, gpointer pUserData) {
-   gint *pParameter = (gint *)pUserData;
-   RefreshWidget(*pParameter);
+
+// --- General Callbacks ---
+
+// For general purpose operation of the dialogue, rather than dealing
+// with changing specific options
+
+extern "C" gboolean preferences_hide(GtkWidget *widget, gpointer user_data) {
+  gtk_widget_hide(preferences_window);
+  return TRUE;
 }
 
-GtkWidget *dasher_preferences_dialogue_get_helper(DasherPreferencesDialogue *pSelf, int iParameter, const gchar *szValue) {
-  SModuleSettings *pSettings;
-  int iCount;
 
-  if(!gtk_dasher_control_get_module_settings(GTK_DASHER_CONTROL(pDasherWidget), szValue, &pSettings, &iCount))
-    return NULL;
+// --- TODOS:
 
-  return module_settings_window_new(g_pDasherAppSettings, szValue, pSettings, iCount);
+#ifdef WITH_MAEMO
+extern "C" void on_window_size_changed(GtkWidget *widget, gpointer user_data) {
+  if(GTK_TOGGLE_BUTTON(widget)->active)
+    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE, 1);
+  else
+    dasher_app_settings_set_long(g_pDasherAppSettings, APP_LP_MAEMO_SIZE, 0);
 }
+#endif
 
-void dasher_preferences_populate_font_buttons(DasherPreferencesDialogue *pSelf, GladeXML * pGladeWidgets) {
-  GtkWidget *pDasherFontButton = glade_xml_get_widget(pGladeWidgets, "dasherfontbutton");
-
-  PangoFontDescription *pFont = pango_font_description_from_string(dasher_app_settings_get_string(g_pDasherAppSettings, SP_DASHER_FONT));
-  gtk_widget_modify_font(pDasherFontButton, pFont);
-
-  gtk_button_set_label(GTK_BUTTON(pDasherFontButton), dasher_app_settings_get_string(g_pDasherAppSettings, SP_DASHER_FONT));
-
-  GtkWidget *pEditFontButton = glade_xml_get_widget(pGladeWidgets, "editfontbutton");
-  gtk_button_set_label(GTK_BUTTON(pEditFontButton), dasher_app_settings_get_string(g_pDasherAppSettings, APP_SP_EDIT_FONT));
-}

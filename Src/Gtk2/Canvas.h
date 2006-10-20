@@ -213,7 +213,7 @@ public:
   /// \param Colours New colours to use
   ///
 
-  void SetColourScheme(const CCustomColours *Colours);
+  void SetColourScheme(const CColourIO::ColourInfo *pColourScheme);
 
   /// 
   /// Gets the location and size of our canvas.

@@ -34,7 +34,6 @@ GType dasher_main_get_type();
 void dasher_main_load_interface(DasherMain *pSelf);
 GladeXML *dasher_main_get_glade(DasherMain *pSelf);
 GtkWidget *dasher_main_get_window(DasherMain *pSelf);
-void dasher_main_setup_window(DasherMain *pSelf);
 void dasher_main_handle_parameter_change(DasherMain *pSelf, int iParameter);
 void dasher_main_handle_pre_parameter_change(DasherMain *pSelf, int iParameter);
 void dasher_main_set_app_settings(DasherMain *pSelf, DasherAppSettings *pAppSettings);
@@ -43,6 +42,8 @@ void dasher_main_save_state(DasherMain *pSelf);
 void dasher_main_show(DasherMain *pSelf);
 void dasher_main_set_filename(DasherMain *pSelf, const gchar *szFilename);
 gboolean dasher_main_topmost(DasherMain *pSelf);
+void dasher_main_setup_window(DasherMain *pSelf);
+void dasher_main_populate_controls(DasherMain *pSelf);
 G_END_DECLS
 
 #endif
