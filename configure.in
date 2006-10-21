@@ -279,6 +279,7 @@ dnl	fi
 fi
 
 if [[ x"$GCONF2HERE" = xtrue ]]; then
+        AM_GCONF_SOURCE_2
         AC_DEFINE([WITH_GCONF], 1, [Use GConf])
 fi
 

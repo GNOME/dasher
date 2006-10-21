@@ -17,6 +17,21 @@ svgicon_DATA = dasher.svg
 
 gtk_update_icon_cache = gtk-update-icon-cache -f -t $(datadir)/icons/hicolor
 
+if GCONF_SCHEMAS_INSTALL
+schemasdir = $(GCONF_SCHEMA_FILE_DIR)
+schemas_DATA = dasher.schemas
+
+install-data-local: install-schemas
+
+install-schemas:
+	      echo "Schema dir: $(GCONF_SCHEMA_FILE_DIR)"; \
+	      GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
+	      gconftool --makefile-install-rule dasher.schemas
+else
+install-data-local:
+endif
+
+
 install-data-hook:
 	@-if test -z "$(DESTDIR)"; then \
 		echo "Updating Gtk icon cache."; \
@@ -25,9 +40,5 @@ install-data-hook:
 		echo "*** Icon cache not updated.  After install, run this:"; \
 		echo "***   $(gtk_update_icon_cache)"; \
 	fi
-
-install-schemas:
-	      GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-	      gconftool --makefile-install-rule dasher.schemas
 
 EXTRA_DIST = dasher.desktop dasher.png dasher.svg dasher.schemas
