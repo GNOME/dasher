@@ -1,9 +1,4 @@
 SUBDIRS =  Translations system.rc Help
-# Help - commented out for now
-
-
-#Applicationsdir = $(datadir)/applications
-#Applications_DATA = dasher.desktop
 
 desktopdir = $(datadir)/applications
 desktop_in_files = dasher.desktop.in
@@ -22,6 +17,14 @@ schemasdir = $(GCONF_SCHEMA_FILE_DIR)
 schemas_DATA = dasher.schemas
 
 install-data-local: install-schemas
+
+# A note on what happens here, as it's a custome step. The GConf
+# schema is generated directely from the data structures in the
+# SettingsStore and AppSettings objects, so they stay in sync. This is
+# done by building generate-schema, a small, non-installed program in
+# Src/Gtk2/. At install time this gets run to build the schema file,
+# which is then moved installed in the usual way. None of this happens
+# if configure is told not to install schemas.
 
 dasher.schemas:
 	echo -n "Generating schema ... "; \
