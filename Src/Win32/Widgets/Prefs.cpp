@@ -27,139 +27,98 @@ CPrefs::CPrefs(HWND hParent, CDasher *pDasher, CAppSettings *pAppSettings)
   // FIXME - is hParent still needed here?
 
   m_pAlphabetBox = new CAlphabetBox(hParent, pDasher);
-//  m_pColourBox = new CColourBox(hParent, pDasher);
   m_pControlPage = new CControlPage(hParent, pDasher, pAppSettings);
   m_pViewPage = new CViewPage(hParent, pDasher, pAppSettings);
   m_pAdvancedPage = new CAdvancedPage(hParent, pDasher, pAppSettings);
   m_pLMPage = new CLMPage(hParent, pDasher, pAppSettings);
-//  m_pSocketPage = new CSocketPage(hParent, pDasher, pAppSettings);
 
-    PROPSHEETPAGE psp[6];
-    PROPSHEETHEADER psh;
+  // Set up the property sheets which go into the preferences
+  // dialogue.
 
-    psp[0].dwSize = sizeof(PROPSHEETPAGE);
-    psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-    psp[0].hInstance = WinHelper::hInstApp;
-    psp[0].pszTemplate = MAKEINTRESOURCE(IDD_ALPHABETPAGE);
-    psp[0].pszIcon = NULL;
-    psp[0].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[0].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ALPHABET);
-    psp[0].lParam = (LPARAM) m_pAlphabetBox;
-    psp[0].pfnCallback = NULL;
-
-    /*psp[1].dwSize = sizeof(PROPSHEETPAGE);
-    psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE;
-    psp[1].hInstance = WinHelper::hInstApp;
-    psp[1].pszTemplate = MAKEINTRESOURCE(IDD_COLOUR);
-    psp[1].pszIcon = NULL;
-    psp[1].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[1].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_COLOUR);
-    psp[1].lParam = (LPARAM) m_pColourBox;
-    psp[1].pfnCallback = NULL;*/
-
-    psp[1].dwSize = sizeof(PROPSHEETPAGE);
-    psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-    psp[1].hInstance = WinHelper::hInstApp;
-    psp[1].pszTemplate = MAKEINTRESOURCE(IDD_CONTROLPAGE);
-    psp[1].pszIcon = NULL;
-    psp[1].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[1].pszTitle = MAKEINTRESOURCE(IDS_PREFS_CONTROL);
-    psp[1].lParam = (LPARAM) m_pControlPage;
-    psp[1].pfnCallback = NULL;
-
-    psp[2].dwSize = sizeof(PROPSHEETPAGE);
-    psp[2].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-    psp[2].hInstance = WinHelper::hInstApp;
-    psp[2].pszTemplate = MAKEINTRESOURCE(IDD_VIEWPAGE);
-    psp[2].pszIcon = NULL;
-    psp[2].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[2].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_VIEW);
-    psp[2].lParam = (LPARAM) m_pViewPage;
-    psp[2].pfnCallback = NULL;
-
-    psp[3].dwSize = sizeof(PROPSHEETPAGE);
-    psp[3].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-    psp[3].hInstance = WinHelper::hInstApp;
-    psp[3].pszTemplate = MAKEINTRESOURCE(IDD_LMPAGE);
-    psp[3].pszIcon = NULL;
-    psp[3].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[3].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_LM);
-    psp[3].lParam = (LPARAM) m_pLMPage;
-    psp[3].pfnCallback = NULL;
-
-    psp[4].dwSize = sizeof(PROPSHEETPAGE);
-    psp[4].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-    psp[4].hInstance = WinHelper::hInstApp;
-    psp[4].pszTemplate = MAKEINTRESOURCE(IDD_MISCPAGE);
-    psp[4].pszIcon = NULL;
-    psp[4].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    psp[4].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ADVANCED);
-    psp[4].lParam = (LPARAM) m_pAdvancedPage;
-    psp[4].pfnCallback = NULL;
-
-    //psp[5].dwSize = sizeof(PROPSHEETPAGE);
-    //psp[5].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
-    //psp[5].hInstance = WinHelper::hInstApp;
-    //psp[5].pszTemplate = MAKEINTRESOURCE(IDD_SOCKET);
-    //psp[5].pszIcon = NULL;
-    //psp[5].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
-    //psp[5].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_SOCKET);
-    //psp[5].lParam = (LPARAM) m_pSocketPage;
-    //psp[5].pfnCallback = NULL;
-    
-    psh.dwSize = sizeof(PROPSHEETHEADER);
-    psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
-    psh.hwndParent = hParent;
-    psh.hInstance = WinHelper::hInstApp;
-    psh.pszIcon = NULL;
-    psh.pszCaption =  MAKEINTRESOURCE(IDS_PREFS_TITLE);
-    psh.nPages = sizeof(psp) /
-       sizeof(PROPSHEETPAGE);
-    psh.nStartPage = 0;
-    psh.ppsp = (LPCPROPSHEETPAGE) &psp;
-    psh.pfnCallback = NULL;
-   
-//    return;
-
-
- // DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_PREFS, hP
-    //arent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);
-   PropertySheet(&psh);
-
-   PopulateWidgets();
+  PROPSHEETPAGE psp[5];
+  PROPSHEETHEADER psh;
   
+  psp[0].dwSize = sizeof(PROPSHEETPAGE);
+  psp[0].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
+  psp[0].hInstance = WinHelper::hInstApp;
+  psp[0].pszTemplate = MAKEINTRESOURCE(IDD_ALPHABETPAGE);
+  psp[0].pszIcon = NULL;
+  psp[0].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+  psp[0].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ALPHABET);
+  psp[0].lParam = (LPARAM) m_pAlphabetBox;
+  psp[0].pfnCallback = NULL;
+
+  psp[1].dwSize = sizeof(PROPSHEETPAGE);
+  psp[1].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
+  psp[1].hInstance = WinHelper::hInstApp;
+  psp[1].pszTemplate = MAKEINTRESOURCE(IDD_CONTROLPAGE);
+  psp[1].pszIcon = NULL;
+  psp[1].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+  psp[1].pszTitle = MAKEINTRESOURCE(IDS_PREFS_CONTROL);
+  psp[1].lParam = (LPARAM) m_pControlPage;
+  psp[1].pfnCallback = NULL;
+  
+  psp[2].dwSize = sizeof(PROPSHEETPAGE);
+  psp[2].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
+  psp[2].hInstance = WinHelper::hInstApp;
+  psp[2].pszTemplate = MAKEINTRESOURCE(IDD_VIEWPAGE);
+  psp[2].pszIcon = NULL;
+  psp[2].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+  psp[2].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_VIEW);
+  psp[2].lParam = (LPARAM) m_pViewPage;
+  psp[2].pfnCallback = NULL;
+  
+  psp[3].dwSize = sizeof(PROPSHEETPAGE);
+  psp[3].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
+  psp[3].hInstance = WinHelper::hInstApp;
+  psp[3].pszTemplate = MAKEINTRESOURCE(IDD_LMPAGE);
+  psp[3].pszIcon = NULL;
+  psp[3].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+  psp[3].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_LM);
+  psp[3].lParam = (LPARAM) m_pLMPage;
+  psp[3].pfnCallback = NULL;
+
+  psp[4].dwSize = sizeof(PROPSHEETPAGE);
+  psp[4].dwFlags = PSP_USEICONID | PSP_USETITLE | PSP_PREMATURE;
+  psp[4].hInstance = WinHelper::hInstApp;
+  psp[4].pszTemplate = MAKEINTRESOURCE(IDD_MISCPAGE);
+  psp[4].pszIcon = NULL;
+  psp[4].pfnDlgProc = (DLGPROC) WinWrapMap::PSWndProc;
+  psp[4].pszTitle =  MAKEINTRESOURCE(IDS_PREFS_ADVANCED);
+  psp[4].lParam = (LPARAM) m_pAdvancedPage;
+  psp[4].pfnCallback = NULL;
+  
+  psh.dwSize = sizeof(PROPSHEETHEADER);
+  psh.dwFlags = PSH_USEICONID | PSH_PROPSHEETPAGE;
+  psh.hwndParent = hParent;
+  psh.hInstance = WinHelper::hInstApp;
+  psh.pszIcon = NULL;
+  psh.pszCaption =  MAKEINTRESOURCE(IDS_PREFS_TITLE);
+  psh.nPages = sizeof(psp) / sizeof(PROPSHEETPAGE);
+  psh.nStartPage = 0;
+  psh.ppsp = (LPCPROPSHEETPAGE) &psp;
+  psh.pfnCallback = NULL;
+  PropertySheet(&psh);
+  
+  PopulateWidgets();
 }
 
 CPrefs::~CPrefs()
 {
-  if (m_pAlphabetBox != NULL) {
-    delete m_pAlphabetBox;
-    m_pAlphabetBox  = NULL;
-  }
-  if (m_pControlPage != NULL) {
-    delete m_pControlPage;
-    m_pControlPage  = NULL;
-  }
-  //if (m_pColourBox != NULL) {
-  //  delete m_pColourBox;
-  //  m_pColourBox  = NULL;
-  //}
-  if (m_pViewPage != NULL) {
-    delete m_pViewPage;
-    m_pViewPage  = NULL;
-  }
-  if (m_pAdvancedPage != NULL) {
-    delete m_pAdvancedPage;
-    m_pAdvancedPage  = NULL;
-  }
-  if (m_pLMPage != NULL) {
-    delete m_pLMPage;
-    m_pLMPage  = NULL;
-  }
-  /*if (m_pSocketPage != NULL) {
-    delete m_pSocketPage;
-    m_pSocketPage  = NULL;
-  }*/
+  delete m_pAlphabetBox;
+  m_pAlphabetBox = NULL;
+
+  delete m_pControlPage;
+  m_pControlPage = NULL;
+
+  delete m_pViewPage;
+  m_pViewPage = NULL;
+
+  delete m_pAdvancedPage;
+  m_pAdvancedPage = NULL;
+
+  delete m_pLMPage;
+  m_pLMPage = NULL;
 }
 
 
@@ -169,6 +128,8 @@ void CPrefs::PopulateWidgets() {
 }
 
 LRESULT CPrefs::WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam) {
+  // TODO: How much of this actually does something?
+
   switch (message) {
   case WM_INITDIALOG:
     {

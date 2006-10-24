@@ -1,3 +1,7 @@
+2006-09-03  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Preparation for release
+
 2006-08-15  Kjartan Maraas  <kmaraas@gnome.org>
 
 	* configure.in: Fix intltool req.

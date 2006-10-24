@@ -1,4 +1,4 @@
-Dasher 4.1.10
+Dasher 4.2.0
 
 Copyright (C) 2006: The Dasher Project
 

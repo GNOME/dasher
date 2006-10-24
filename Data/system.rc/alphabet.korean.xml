@@ -2,8 +2,9 @@
 <!DOCTYPE alphabets SYSTEM "alphabet.dtd">
 <?xml-stylesheet type="text/xsl" href="alphabet.xsl"?>
 <alphabets>
-<alphabet name="Korean &#54620;&#44397;&#50612; (red,blue,magenta)">
-<!-- Colour scheme added Wed 8/6/05 by David MacKay -->
+<alphabet name="Korean &#54620;&#44397;&#50612; (Combining 67 Jamo)">
+<!-- Colour scheme added Wed 8/6/05 by David MacKay
+     Please switch off "box outlines" for best appearance.  -->
 <orientation type="LR"/>
 <encoding type="Western"/>
 <palette>European/Asian</palette>
@@ -11,8 +12,8 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control" t="" b="8"/>
 <paragraph d="&#182;" b="9"/>
-<group name="Korean consonants, vowels, and trailers"  b="141"  visible="off">
-<group name="Korean consonants"  b="141"  visible="on">
+<!-- <group name="Korean consonants, vowels, and trailers"  b="111"  visible="on"> -->
+<group name="Korean initial consonants"  b="111"  visible="on">
 <s d="&#4352;" t="&#4352;" b="90"/>
 <s d="&#4353;" t="&#4353;" b="91"/>
 <s d="&#4354;" t="&#4354;" b="92"/>
@@ -33,8 +34,8 @@
 <s d="&#4369;" t="&#4369;" b="92"/>
 <s d="&#4370;" t="&#4370;" b="93"/>
 <!-- <s d="&#4447;" t="&#4447;" b="94"/>  -->
-</group>
-<group name="Korean vowels"   b="140">
+</group> 
+<group name="Korean vowels"   b="141">
 <s d="&#4449;" t="&#4449;" b="100" note="a"/>
 <s d="&#4450;" t="&#4450;" b="101" note="ae"/>
 <s d="&#4451;" t="&#4451;" b="102" note="ya"/>
@@ -57,7 +58,7 @@
 <s d="&#4468;" t="&#4468;" b="104" note="yi"/>
 <s d="&#4469;" t="&#4469;" b="100" note="i"/>
 </group> 
-<group name="Korean trailing consonants"   b="142">
+<group name="Korean trailing consonants"   b="129">
 <s d="&#4520;" t="&#4520;" b="105"/>
 <s d="&#4521;" t="&#4521;" b="106"/>
 <s d="&#4522;" t="&#4522;" b="107"/>
@@ -85,13 +86,13 @@
 <s d="&#4544;" t="&#4544;" b="109"/>
 <s d="&#4545;" t="&#4545;" b="105"/>
 <s d="&#4546;" t="&#4546;" b="106"/>
-<!-- /group --> 
-</group>			     
+</group> 
 <group name="Korean filler character "   b="115" >
 <!-- <s d="&#8594;" t="&#4447;" b="65"/> -->
 </group>			     
 </alphabet>			     
-<alphabet name="Korean  &#54620;&#44397;&#50612; (red,blue,magenta) with numerals and punctuation">
+
+<alphabet name="Korean  &#54620;&#44397;&#50612; with numerals and punctuation (Combining 67 Jamo) ">
 <!-- Colour scheme added Wed 8/6/05 by David MacKay -->
 <orientation type="LR"/>
 <encoding type="Western"/>
@@ -100,7 +101,7 @@
 <space d="&#x25a1;" t=" " b="9" note="box" />
 <control d="Control"/>
 <paragraph d="&#182;" b="9"/>
-<group name="Korean letters"  b="141"  visible="off">
+<!-- group name="Korean letters"  b="141"  visible="off" -->
 <group name="Korean initial consonants"  b="111"  visible="on">
 <s d="&#4352;" t="&#4352;" b="90"/>
 <s d="&#4353;" t="&#4353;" b="91"/>
@@ -176,9 +177,9 @@
 <s d="&#4546;" t="&#4546;" b="106"/>
 </group>			     
 <!-- <group name="Korean filler character "   b="115" >
-<s d="&#8594;" t="&#4447;" b="65"/>
-</group>			      -->
-</group>			     
+     <s d="&#8594;" t="&#4447;" b="65"/>
+     </group>			      -->
+<!-- /group -->
 <group name="Numerals"  b="113" >
 <s d="1" t="1"  b="35" />
 <s d="2" t="2"  b="36" />
@@ -217,6 +218,4 @@
 <s b="104" d="&#x2299;" t="&#x2299;" note="korean period?"/>
 </group>
 </alphabet>			     
-
-				     
-				     
+</alphabets>
