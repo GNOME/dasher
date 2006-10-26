@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-16 06:57+0200\n"
-"PO-Revision-Date: 2006-09-21 16:39+0300\n"
+"PO-Revision-Date: 2006-10-26 17:34+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -197,7 +197,7 @@ msgstr ""
 
 #: ../Src/Gtk2/dasher.glade.h:26
 msgid "Composition"
-msgstr "Kombineerimine"
+msgstr "Kombineeritud"
 
 #: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
@@ -242,27 +242,27 @@ msgstr "Dasheri _algtõed"
 
 #: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
-msgstr "Otsesisestus"
+msgstr "Otsesisestusega"
 
 #: ../Src/Gtk2/dasher.glade.h:38
 msgid "Dock application window"
-msgstr "Rakenduse aken dokitud"
+msgstr "Rakenduse aken on dokitud"
 
 #: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw box outlines"
-msgstr "Kastiääriste joonistamine"
+msgstr "Kastile joonistatakse äärised"
 
 #: ../Src/Gtk2/dasher.glade.h:40
 msgid "Draw line between crosshairs and mouse"
-msgstr "Joone tõmbamine sihiku ja kiire vahele"
+msgstr "Sihiku ja kiire vahele tõmmatakse joon"
 
 #: ../Src/Gtk2/dasher.glade.h:41
 msgid "Full Screen"
-msgstr "Täisekraan"
+msgstr "Täisekraaniline"
 
 #: ../Src/Gtk2/dasher.glade.h:42
 msgid "Increase line thickness"
-msgstr "Joone paksuse suurendamine"
+msgstr "Joone paksus on suurendatud"
 
 #: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
@@ -323,11 +323,11 @@ msgstr "Paremalt vasakule"
 
 #: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
-msgstr "Salvestamine faili"
+msgstr "Faili salvestamine"
 
 #: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
-msgstr "Salvestamine teise nimega faili"
+msgstr "Teise nimega faili salvestamine"
 
 #: ../Src/Gtk2/dasher.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
@@ -337,15 +337,15 @@ msgstr "Kirjatüübi valimine"
 
 #: ../Src/Gtk2/dasher.glade.h:60
 msgid "Show mouse position"
-msgstr "Hiire asukoht nähtaval"
+msgstr "Hiire asukoht on nähtaval"
 
 #: ../Src/Gtk2/dasher.glade.h:61
 msgid "Show speed slider"
-msgstr "Kiiruse liugur nähtaval"
+msgstr "Kiiruse liugur on nähtaval"
 
 #: ../Src/Gtk2/dasher.glade.h:62
 msgid "Show toolbar"
-msgstr "Tööriistariba nähtaval"
+msgstr "Tööriistariba on nähtaval"
 
 #: ../Src/Gtk2/dasher.glade.h:63
 msgid "Small font"
@@ -383,7 +383,7 @@ msgstr "Uute failide ajatembeldamine"
 #: ../Src/Gtk2/dasher.glade.h:71 ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
-msgstr "Alt üles"
+msgstr "Ülevalt alla"
 
 #: ../Src/Gtk2/dasher.glade.h:72
 msgid ""
@@ -391,7 +391,7 @@ msgid ""
 "letter boxes. Note that selecting high values will slow\n"
 "your writing speed."
 msgstr ""
-"Seda valikut kasutatakse, tähekastide suhtelise suuruse\n"
+"Seda valikut kasutatakse tähekastide suhtelise suuruse\n"
 "kohandamiseks. Tasub tähele panna, et suuremad väärtused\n"
 "aeglustavad kirjutamiskiirust."
 
@@ -542,37 +542,3 @@ msgstr "Ennustamine"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "Vaade"
-
-#~ msgid "Edit Button-control options"
-#~ msgstr "Nupujuhtimise valikute redigeerimine"
-
-#~ msgid ""
-#~ "If this mode is selected, up and down will cycle backwards and forwards "
-#~ "between coordinates and right will confirm the choice"
-#~ msgstr ""
-#~ "Kui see režiim on valitud, siis üles ja alla vahetavad koordinaatide "
-#~ "edasi-tagasi suunda ning parem kinnitab valikut"
-
-#~ msgid "Number of pixels that should cover the entire Y range:"
-#~ msgstr "Pikslite arv, mis peab katma kogu Y vahemiku:"
-
-#~ msgid ""
-#~ "Use this control to adjust the relative sizes of the letter boxes. Note "
-#~ "that selecting high values will slow your writing speed."
-#~ msgstr ""
-#~ "Seda väärtust kasutatakse tähekastide suhtelise suuruse määramiseks. "
-#~ "Suuremate väärtuste seadmine alandab sinu kirjutamiskiirust."
-
-#~ msgid ""
-#~ "If this mode is selected, up  and down will\n"
-#~ "cycle backwards and forwards between coordinates and right will confirm "
-#~ "the choice"
-#~ msgstr ""
-#~ "Kui see režiim on valitud, siis üles ja alla\n"
-#~ "vahetavad koordinaatide edasi-tagasi suunda ning parem kinnitab valikut"
-
-#~ msgid "%d characters output in %ld seconds\n"
-#~ msgstr "väljastatud %d märki %ld sekundi jooksul\n"
-
-#~ msgid "<b>Language Model Settings:</b>"
-#~ msgstr "<b>Keelemudeli sätted:</b>"
