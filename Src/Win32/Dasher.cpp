@@ -168,7 +168,7 @@ void CDasher::Main()
 void CDasher::Log() 
 {
 
-  CUserLog* pUserLog = GetUserLogPtr();
+  CUserLogBase* pUserLog = GetUserLogPtr();
 
 	// We'll use this timer event to periodically log the user's mouse position
 	if ((pUserLog != NULL) && (m_pCanvas != NULL)) {
@@ -208,7 +208,7 @@ void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
 }
 
 // Get the pointer to our user logging object
-CUserLog* Dasher::CDasher::GetUserLogPtr()
+CUserLogBase* Dasher::CDasher::GetUserLogPtr()
 {
   return m_pUserLog;
 }

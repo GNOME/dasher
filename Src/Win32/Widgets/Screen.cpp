@@ -95,7 +95,7 @@ void CScreen::SetInterface(CDasherInterface *DasherInterface) {
 //  CodePage = EncodingToCP(m_pDasherInterface->GetAlphabetType());
 }
 
-void CScreen::SetColourScheme(const Dasher::CCustomColours *pColours) {
+void CScreen::SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours) {
   m_cPens.clear();
   m_cBrushes.clear();
   m_pColours = pColours;
@@ -158,7 +158,8 @@ void CScreen::DrawString(const std::string &OutputString, Dasher::screenint x1, 
   COLORREF iCRefOld;
   COLORREF iCRefNew;
 
-  iCRefNew = RGB(m_pColours->GetRed(4), m_pColours->GetGreen(4), m_pColours->GetBlue(4));
+  // TODO: Hardcoded numbers
+  iCRefNew = RGB(m_pColours->Reds[4], m_pColours->Greens[4], m_pColours->Blues[4]);
   
   iCRefOld = SetTextColor(m_hDCBuffer, iCRefNew);
 

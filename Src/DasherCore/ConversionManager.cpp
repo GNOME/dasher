@@ -212,7 +212,9 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
     // -----
 
-    int iSize[pCurrentSCEChild->IsHeadAndCandNum];
+    int *iSize;
+    
+    iSize = new int[pCurrentSCEChild->IsHeadAndCandNum];
 
     AssignChildSizes(pCurrentSCENode, iSize, pCurrentSCEChild->IsHeadAndCandNum);
 
@@ -255,6 +257,8 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       ++iIdx;
     }while(pCurrentSCEChild);
 
+
+    delete[] iSize;
   }
 
   else {

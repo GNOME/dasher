@@ -36,8 +36,7 @@ public:
   ~CScreen();
 
   void SetInterface(CDasherInterface * DasherInterface);
-
-  void SetColourScheme(const Dasher::CCustomColours * pColours);
+  void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours);
 
   void SetFont(const std::string &strFont);
 
@@ -98,7 +97,7 @@ private:
   HGDIOBJ m_prevhbmBitDecorations;
   UINT CodePage;
 
-  const Dasher::CCustomColours *m_pColours;
+  const Dasher::CColourIO::ColourInfo *m_pColours;
 
   // USE GET() FUNCTIONS AS THEY CACHE TO AVOID RECREATION OF PENS/BRUSHES/FONT SIZES
   HPEN& GetPen(int iColor, int iWidth);

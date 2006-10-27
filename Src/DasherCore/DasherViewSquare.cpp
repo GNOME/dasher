@@ -6,6 +6,10 @@
 
 #include "../Common/Common.h"
 
+
+
+#include "..\Win32\Common\WinCommon.h"
+
 #include "DasherViewSquare.h"
 #include "DasherModel.h"
 #include "DasherView.h"
@@ -239,7 +243,7 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
   int iTruncationType(GetLongParameter(LP_TRUNCATIONTYPE));
 
   if(iTruncation == 0) {        // Regular squares
-    DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, Nodes1, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
+  //  DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, Nodes1, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
   }
   else {
     int iDasherY((myint)GetLongParameter(LP_MAX_Y));

@@ -1,4 +1,7 @@
+#ifndef _WIN32
 #include "config.h"
+#endif 
+
 #ifdef CHINESE
 
 #include <ChiCEInterface.h>

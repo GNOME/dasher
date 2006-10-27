@@ -564,7 +564,7 @@ void CCanvas::DoFrame()
 		}
 	}
 
-	m_pDasherInterface->NewFrame(dwTicks);//TapOn(imousex, imousey, GetTickCount());
+	m_pDasherInterface->NewFrame(dwTicks, false);//TapOn(imousex, imousey, GetTickCount());
 }
 
 void CCanvas::centrecursor() {

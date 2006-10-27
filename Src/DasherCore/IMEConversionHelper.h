@@ -13,6 +13,15 @@ class CIMEConversionHelper : public CConversionHelper {
 
   virtual bool Convert(const std::string &strSource, std::vector<std::vector<std::string> > &vResult);
 
+
+  // TODO: Implement placeholders
+  virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) {
+    return false;
+  };
+
+  virtual void ClearData(int CMid) {
+  }; 
+
 private:
   bool IsInit;
   HIMC hIMC;

@@ -115,7 +115,7 @@ inline HPEN& CScreen::GetPen(int iColor, int iWidth) {
 
   hm1_RcIter = m_cPens.find( key );
   if( hm1_RcIter == m_cPens.end() ) {
-    HPEN pen = CreatePen(PS_SOLID, iWidth, RGB(m_pColours->GetRed(iColor), m_pColours->GetGreen(iColor), m_pColours->GetBlue(iColor)));
+    HPEN pen = CreatePen(PS_SOLID, iWidth, RGB(m_pColours->Reds[iColor], m_pColours->Greens[iColor], m_pColours->Blues[iColor]));
     m_cPens[key] = pen;
   }
   
@@ -128,7 +128,7 @@ inline HBRUSH& CScreen::GetBrush(int iColor) {
 
   hm1_RcIter = m_cBrushes.find( key );
   if( hm1_RcIter == m_cBrushes.end() ) {
-    HBRUSH brush = CreateSolidBrush(RGB(m_pColours->GetRed(iColor), m_pColours->GetGreen(iColor), m_pColours->GetBlue(iColor)));
+    HBRUSH brush = CreateSolidBrush(RGB(m_pColours->Reds[iColor], m_pColours->Greens[iColor], m_pColours->Blues[iColor]));
     m_cBrushes[key] = brush;
   }
   

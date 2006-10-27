@@ -213,7 +213,7 @@ void CDasherWindow::Main()
 {
 	DASHER_ASSERT_VALIDPTR_RW(m_pDasher);
 	m_pDasher->Main();
-	Sleep(20); // limits framerate to 50fps
+	Sleep(50); // limits framerate to 50fps
 }
 
 int CDasherWindow::MessageLoop() 
@@ -501,7 +501,7 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 			  m_pEdit->New();
 		  // Selecting file->new indicates a new trial to our user logging object
 		  if (m_pDasher != NULL) {
-			  CUserLog* pUserLog = m_pDasher->GetUserLogPtr();
+			  CUserLogBase* pUserLog = m_pDasher->GetUserLogPtr();
 			  if (pUserLog != NULL)
 				  pUserLog->NewTrial();
 		  }

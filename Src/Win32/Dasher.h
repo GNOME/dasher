@@ -32,7 +32,7 @@ public:
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
 
-  CUserLog*     GetUserLogPtr();
+  CUserLogBase*     GetUserLogPtr();
 
   virtual void WriteTrainFile(const std::string &strNewText);
 
