@@ -320,11 +320,7 @@ extern "C" bool ask_save_before_exit(GtkWidget *widget, gpointer data) {
 
     //    write_to_file();
 
-    g_message("Foo");
-
     gtk_main_quit();
-
-    g_message("Bar");
   }
   return true;
 }

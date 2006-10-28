@@ -4,7 +4,7 @@
 #include <string.h>
 
 #ifdef GNOME_A11Y
-#include <libspi/libspi.h>
+#include <cspi/spi.h>
 #else
 #include <X11/X.h>
 #include <X11/Xlib.h>

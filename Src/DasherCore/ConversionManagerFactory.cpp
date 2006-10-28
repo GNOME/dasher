@@ -7,14 +7,18 @@
 #include "DasherModel.h"
 
 #ifdef WIN32
+#ifdef JAPANESE
 #include "IMEConversionHelper.h"
+#endif
 #else
 
 #ifdef CHINESE
 #include "PinYinConversionHelper.h"
 #endif
 
+#ifdef JAPANESE
 #include "CannaConversionHelper.h"
+#endif
 
 #endif
 
@@ -46,16 +50,24 @@ CConversionHelper *CConversionManagerFactory::GetHelper(int iID) {
   case 0: // No conversion required (shouldn't really be called)
     return NULL;
   case 1: // Japanese
+#ifdef JAPANESE
 #ifdef WIN32
     return new CIMEConversionHelper;
 #else
     return new CCannaConversionHelper;
 #endif
+#else
+    return NULL;
+#endif
   case 2: // Chinese
 #ifdef WIN32
     return NULL;
 #else
+#ifdef CHINESE
     return new CPinYinConversionHelper;
+#else
+    return NULL;
+#endif
 #endif
   default:
     // TODO: Error reporting here

@@ -467,8 +467,8 @@ int CDasherControl::TimerEvent() {
 }
 
 int CDasherControl::LongTimerEvent() {
-  std::cout << "Framerate: " << GetFramerate() << std::endl;
-  std::cout << "Render count: " << GetRenderCount() << std::endl;
+//   std::cout << "Framerate: " << GetFramerate() << std::endl;
+//   std::cout << "Render count: " << GetRenderCount() << std::endl;
   return 1;
 }
 
