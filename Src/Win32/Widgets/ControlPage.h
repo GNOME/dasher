@@ -15,6 +15,7 @@
 
 #include "../DasherInterface.h"
 #include "../../DasherCore/ColourIO.h"
+#include "../ModuleSettings.h"
 
 class CAppSettings;
 
@@ -39,6 +40,8 @@ private:
   void PopulateList();
   bool Apply();
   bool Validate();
+
+  CModuleSettings *m_pModuleSettingsDialogue;
 };
 
 #endif  // ndef

@@ -662,6 +662,7 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     // Raw secreen coordinates - TODO: Check whether any of the lat
     // two parameters are used for anything any more
     Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
+    break;
   case 1:
     // Raw dasher coordinates - TODO: see comment above
     iDasherX = iInputX;
