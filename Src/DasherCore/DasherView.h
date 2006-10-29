@@ -106,7 +106,7 @@ public:
   /// Convert input device position to Dasher co-ordinates
   ///
 
-  virtual void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY, int iType, int iMode) = 0;
+  virtual void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY) = 0;
 
   /// Change the screen - must be called if the Screen is replaced or resized
   /// \param NewScreen Pointer to the new CDasherScreen.

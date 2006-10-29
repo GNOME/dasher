@@ -642,46 +642,28 @@ myint CDasherViewSquare::DasherVisibleMaxX() {
 
 /// Convert abstract 'input coordinates', which may or may not
 /// correspond to actual screen positions, depending on the settings,
-/// into dasher co-ordinates. Modes are:
-///
-/// 0 = Direct (ie mouse)
-/// 1 = 1D
-/// 2 = Eyetracker
-///
-/// This should be done once initially, then we work in Dasher
-/// co-ordinates for everything else. Input co-ordinates will be
-/// assumed to range over the extent of the screen.
-///
-/// TODO: Abstract out modes into an enum
+/// into dasher co-ordinates.  This should be done once initially,
+/// then we work in Dasher co-ordinates for everything else. Input
+/// co-ordinates will be assumed to range over the extent of the
+/// screen.
 
-void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY, int iType, int iMode) {
+void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY) {
+  
+  // TODO: iType *is* important - it should determine whether the
+  // input is relative to the screen or in raw dasher coordinates, but
+  // should be used to determine where or not to call this function,
+  // not what happens once we get here. Once that has happened then
+  // this function becomes very pointless and may as well be obsoleted.
 
-  // FIXME - need to incorporate one-button mode?
-
-  // First convert the supplied co-ordinates to 'linear' Dasher co-ordinates
-
-  //  std::cout << "iType: " << iType << " iMode: " << iMode << std::endl;
+  int iType(0);
 
   switch (iType) {
   case 0:
-    // Raw secreen coordinates
-
-    // TODO - autocalibration should be at the level of the eyetracker filter
-    if(iMode == 2) {
-      // First apply the autocalibration offset
-      iInputY += int (m_yAutoOffset);   // FIXME - we need more flexible autocalibration to work with orientations other than left-to-right
-    }
-
-    if( iMode == 0 )
-      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
-    else if( iMode == 1 )
-      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, true, false );
-    else
-      Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
-    break;
+    // Raw secreen coordinates - TODO: Check whether any of the lat
+    // two parameters are used for anything any more
+    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
   case 1:
-    // Raw dasher coordinates
-
+    // Raw dasher coordinates - TODO: see comment above
     iDasherX = iInputX;
     iDasherY = iInputY;
     break;
@@ -689,44 +671,24 @@ void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint
     // ERROR
     break;
   }
-
-  // Apply y scaling
-
-  // TODO: Check that this is still doing something vaguely sensible - I think it isn't
-
-  if(iMode == 1 ) {
-    if( GetLongParameter(LP_YSCALE) > 0 ) {
-      
-      double dYScale;
-      
-      int eOrientation(GetLongParameter(LP_REAL_ORIENTATION));
-      
-      if(( eOrientation == Dasher::Opts::LeftToRight ) || ( eOrientation == Dasher::Opts::RightToLeft ))
-	dYScale = Screen()->GetHeight() / static_cast<double>(GetLongParameter(LP_YSCALE));
-      else
-	dYScale = Screen()->GetWidth() / static_cast<double>(GetLongParameter(LP_YSCALE));
-      
-      iDasherY = myint((iDasherY - (myint)GetLongParameter(LP_MAX_Y)/2) * dYScale + (myint)GetLongParameter(LP_MAX_Y)/2);
-    }
-  }
 }
 
 /// Truncate a set of co-ordinates so that they are on the screen
 
-void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
+// void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
 
-  // I think that this function is now obsolete
+//   // I think that this function is now obsolete
 
-  if(iX < 0)
-    iX = 0;
-  if(iX > Screen()->GetWidth())
-    iX = Screen()->GetWidth();
+//   if(iX < 0)
+//     iX = 0;
+//   if(iX > Screen()->GetWidth())
+//     iX = Screen()->GetWidth();
 
-  if(iY < 0)
-    iY = 0;
-  if(iY > Screen()->GetHeight())
-    iY = Screen()->GetHeight();
-}
+//   if(iY < 0)
+//     iY = 0;
+//   if(iY > Screen()->GetHeight())
+//     iY = Screen()->GetHeight();
+// }
 
 void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
 
@@ -757,9 +719,9 @@ void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myin
   delete[]pCoordinates;
 
   //  bool autocalibrate = GetBoolParameter(BP_AUTOCALIBRATE);
-  if(GetBoolParameter(BP_AUTOCALIBRATE) && (GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")) {
-    AutoCalibrate(&mousex, &mousey);
-  }
+  //  if(GetBoolParameter(BP_AUTOCALIBRATE) && (GetStringParameter(SP_INPUT_FILTER) == "Eyetracker Mode")) {
+    //    AutoCalibrate(&mousex, &mousey);
+  //  }
 
 
   // TODO: Mode probably isn't being used any more
@@ -770,7 +732,7 @@ void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myin
   
   mode = 0;
  
-  Input2Dasher(mousex, mousey, iDasherX, iDasherY, iType, mode);
+  Input2Dasher(mousex, mousey, iDasherX, iDasherY);
   m_iDasherXCache = iDasherX;
   m_iDasherYCache = iDasherY;
 
@@ -840,52 +802,52 @@ int CDasherViewSquare::GetAutoOffset() const {
   return m_yAutoOffset;
 }
 
-void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
-  return;
-  // Y value in dasher coordinates
-  double dashery = double (*mousey) * double ((myint)GetLongParameter(LP_MAX_Y)) / double (CanvasY);
+// void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
+//   return;
+//   // Y value in dasher coordinates
+//   double dashery = double (*mousey) * double ((myint)GetLongParameter(LP_MAX_Y)) / double (CanvasY);
 
-  // Origin in dasher coordinates
-  myint dasherOY = (myint)GetLongParameter(LP_OY);
+//   // Origin in dasher coordinates
+//   myint dasherOY = (myint)GetLongParameter(LP_OY);
 
-  // Distance above origin in dasher coordinates
-  double disty = double (dasherOY) - dashery;
+//   // Distance above origin in dasher coordinates
+//   double disty = double (dasherOY) - dashery;
 
-  // Whether we're paused or not (sensible choice of name!)
-  bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
+//   // Whether we're paused or not (sensible choice of name!)
+//   bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
 
-  if(!DasherRunning == true) {
-    // Only update every this number of timesteps
-    m_yFilterTimescale = 20;
-    m_ySum += (int)disty;
-    m_ySumCounter++;
+//   if(!DasherRunning == true) {
+//     // Only update every this number of timesteps
+//     m_yFilterTimescale = 20;
+//     m_ySum += (int)disty;
+//     m_ySumCounter++;
 
-    m_ySigBiasPercentage = 50;
+//     m_ySigBiasPercentage = 50;
 
-    // Despite the name, this is actually measured in dasher coordinates
-    m_ySigBiasPixels = m_ySigBiasPercentage * (myint)GetLongParameter(LP_MAX_Y) / 100;
+//     // Despite the name, this is actually measured in dasher coordinates
+//     m_ySigBiasPixels = m_ySigBiasPercentage * (myint)GetLongParameter(LP_MAX_Y) / 100;
 
 
-    if(m_ySumCounter > m_yFilterTimescale) {
-      m_ySumCounter = 0;
+//     if(m_ySumCounter > m_yFilterTimescale) {
+//       m_ySumCounter = 0;
 
-      // 'Conditions A', as specified by DJCM.  Only make the auto-offset
-      // change if we're past the significance boundary.
+//       // 'Conditions A', as specified by DJCM.  Only make the auto-offset
+//       // change if we're past the significance boundary.
 
-      if(m_ySum > m_ySigBiasPixels || m_ySum < -m_ySigBiasPixels) {
-        if(m_ySum > m_yFilterTimescale) {
-          m_yAutoOffset--;
-        }
-        else if(m_ySum < -m_yFilterTimescale)
-          m_yAutoOffset++;
+//       if(m_ySum > m_ySigBiasPixels || m_ySum < -m_ySigBiasPixels) {
+//         if(m_ySum > m_yFilterTimescale) {
+//           m_yAutoOffset--;
+//         }
+//         else if(m_ySum < -m_yFilterTimescale)
+//           m_yAutoOffset++;
 
-        m_ySum = 0;
-      }
-    }
+//         m_ySum = 0;
+//       }
+//     }
 
-    //*mousey=int(dashery);
-  }
-}
+//     //*mousey=int(dashery);
+//   }
+// }
 
 // TODO - should be elsewhere
 

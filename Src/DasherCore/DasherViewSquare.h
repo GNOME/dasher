@@ -139,7 +139,7 @@ public:
   /// Convert input device position to Dasher co-ordinates
   ///
 
-  void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY, int iType, int iMode);
+  void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY);
 
 
 private:
@@ -178,7 +178,7 @@ private:
   /// Trunates co-ordinates to fit on screen
   ///
 
-  void TruncateToScreen(screenint & iX, screenint & iY);
+  //  void TruncateToScreen(screenint & iX, screenint & iY);
 
   ///
   /// Get minimum visible Dasher Y co-ordinate
@@ -267,7 +267,7 @@ private:
 
   // the x and y non-linearities
 
-  void AutoCalibrate(screenint * mousex, screenint * mousey);
+  //  void AutoCalibrate(screenint * mousex, screenint * mousey);
 
   ///
   /// \deprecated See Dasher2Screen
