@@ -7,6 +7,7 @@
 #include "DasherInterfaceBase.h"
 
 //#include "ActionButton.h"
+#include "AlphabetManagerFactory.h"
 #include "CustomColours.h"
 #include "DasherViewSquare.h"
 #include "ControlManager.h"
@@ -375,9 +376,9 @@ void CDasherInterfaceBase::Start() {
     m_pDasherModel->Start();
   }
   if(m_pDasherView != 0) {
-    m_pDasherView->ResetSum();
-    m_pDasherView->ResetSumCounter();
-    m_pDasherView->ResetYAutoOffset();
+//     m_pDasherView->ResetSum();
+//     m_pDasherView->ResetSumCounter();
+//     m_pDasherView->ResetYAutoOffset();
   }
 
   int iMinWidth;
@@ -422,8 +423,8 @@ void CDasherInterfaceBase::Unpause(unsigned long Time) {
     //m_pDasherModel->Set_paused(m_Paused);
   }
   if(m_pDasherView != 0) {
-    m_pDasherView->ResetSum();
-    m_pDasherView->ResetSumCounter();
+//     m_pDasherView->ResetSum();
+//     m_pDasherView->ResetSumCounter();
   }
 
   Dasher::CStartEvent oEvent;
@@ -651,7 +652,7 @@ int CDasherInterfaceBase::TrainFile(string Filename, int iTotalBytes, int iOffse
 
   vector < symbol > Symbols;
 
-  CDasherModel::CTrainer * pTrainer = m_pDasherModel->GetTrainer();
+  CAlphabetManagerFactory::CTrainer * pTrainer = m_pDasherModel->GetTrainer();
   do {
     NumberRead = fread(InputBuffer, 1, BufferSize - 1, InputFile);
     InputBuffer[NumberRead] = '\0';
@@ -703,12 +704,12 @@ double CDasherInterfaceBase::GetCurFPS() {
   return 0;
 }
 
-int CDasherInterfaceBase::GetAutoOffset() {
-  if(m_pDasherView != 0) {
-    return m_pDasherView->GetAutoOffset();
-  }
-  return -1;
-}
+// int CDasherInterfaceBase::GetAutoOffset() {
+//   if(m_pDasherView != 0) {
+//     return m_pDasherView->GetAutoOffset();
+//   }
+//   return -1;
+// }
 
 double CDasherInterfaceBase::GetNats() const {
   if(m_pDasherModel)

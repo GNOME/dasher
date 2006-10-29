@@ -63,18 +63,40 @@ CAlphabetManagerFactory::CAlphabetManagerFactory(CEventHandler *pEventHandler, C
     break;
   }
 
+  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+
   m_iConversionID = oAlphInfo.m_iConversionID;
 
   // TODO: Tell the alphabet manager about the alphabet here, so we
   // don't end up having to duck out to the NCM all the time
 
-  m_pAlphabetManager = new CAlphabetManager( pNCManager, m_pLanguageModel, bGameMode, strGameModeText );
+  m_pAlphabetManager = new CAlphabetManager( pNCManager, m_pLanguageModel, m_iLearnContext, bGameMode, strGameModeText );
 }
 
 CAlphabetManagerFactory::~CAlphabetManagerFactory() {
+  m_pLanguageModel->ReleaseContext(m_iLearnContext);
+  delete m_pLanguageModel;
   delete m_pAlphabetManager;
 }
 
 CDasherNode *CAlphabetManagerFactory::GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData) {
   return m_pAlphabetManager->GetRoot(pParent, iLower, iUpper, pUserData);
+}
+
+CAlphabetManagerFactory::CTrainer::CTrainer(CLanguageModel *pLanguageModel) {
+  m_pLanguageModel = pLanguageModel;
+  m_Context = m_pLanguageModel->CreateEmptyContext();
+}
+
+void CAlphabetManagerFactory::CTrainer::Train(const std::vector<symbol> &vSymbols) {
+  for(std::vector<symbol>::const_iterator it(vSymbols.begin()); it != vSymbols.end(); ++it)
+    m_pLanguageModel->LearnSymbol(m_Context, *it);
+}
+
+CAlphabetManagerFactory::CTrainer::~CTrainer() {
+  m_pLanguageModel->ReleaseContext(m_Context);
+}
+
+CAlphabetManagerFactory::CTrainer *CAlphabetManagerFactory::GetTrainer() {
+  return new CTrainer(m_pLanguageModel);
 }

@@ -50,20 +50,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Member class used to train the language model
   ///
 
-  class CTrainer {
-  public:
-    CTrainer(CDasherModel & DasherModel);
-
-    void Train(const std::vector < symbol > &vSymbols);
-
-    ~CTrainer();
-
-  private:
-    CLanguageModel::Context m_Context;
-    CDasherModel & m_DasherModel;
-
-  };
-
   typedef enum {
     idPPM = 0,
     idBigram = 1,
@@ -107,8 +93,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   /// Return a trainer object for the language model
   ///
 
-  CTrainer *GetTrainer();
-  
+  CAlphabetManagerFactory::CTrainer *GetTrainer();
+   
   ///
   /// Notify the framerate class that a new frame has occurred
   ///
@@ -404,10 +390,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
- // void Get_new_goto_coords(double zoomfactor, myint mousey);
-
-  void Get_string_under_mouse(const myint smousex, const myint smousey, std::vector < symbol > &str);
-
   double CorrectionFactor(int dasherx, int dashery);
 
   void Recursive_Push_Node(CDasherNode * pNode, int depth);
@@ -513,8 +495,8 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   // TODO: Need to rethink this at some point.
   bool m_bRequireConversion;
 
-  friend class CTrainer;
-  friend class CDasherNode;
+  //  friend class CTrainer;
+  //  friend class CDasherNode;
 
 };
 

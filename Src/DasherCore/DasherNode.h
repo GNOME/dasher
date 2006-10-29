@@ -15,6 +15,9 @@
 #include <deque>
 #include <iostream>
 
+// Node flag constants
+#define NF_COMMITTED 1
+
 // CDasherNode represents a rectangle and character 
 
 namespace Dasher {
@@ -52,7 +55,6 @@ class Dasher::CDasherNode:private NoClones {
   void Delete_children();
   void Trace() const;           // diagnostic
   CDasherNode *const Get_node_under(int, myint y1, myint y2, myint smousex, myint smousey);   // find node under given co-ords
-  void Get_string_under(const int, const myint y1, const myint y2, const myint smousex, const myint smousey, std::vector<symbol> &) const;   // get string under given co-ords
 
   // Lower and higher bounds, and the range
   inline int Lbnd() const;
@@ -87,10 +89,6 @@ class Dasher::CDasherNode:private NoClones {
     m_bSeen = seen;
   }
 
-  symbol Symbol() const {  
-    return m_Symbol;  
-  } 
-
   int Colour() const {
     return m_iColour;
   } 
@@ -107,13 +105,10 @@ class Dasher::CDasherNode:private NoClones {
     return m_bInGame;
   }
 
-  // Set/replace the context
-  void SetContext(CLanguageModel::Context Context);
-  CLanguageModel::Context Context()const;
-
   bool HasAllChildren() const {
     return m_bHasAllChildren;
   };
+
   void SetHasAllChildren(bool val) {
     m_bHasAllChildren = val;
   };
@@ -125,9 +120,11 @@ class Dasher::CDasherNode:private NoClones {
     return m_bConverted;
   };
 
-  // Ensure that this node is marked as being converted, together with
-  // all of its ancestors (assuming that unconverted nodes are
-  // 'contiguous' at the brances of the tree).
+  /// Ensure that this node is marked as being converted, together with
+  /// all of its ancestors (assuming that unconverted nodes are
+  /// 'contiguous' at the brances of the tree).
+  /// TODO: replace with a generic 'recursive set flag'?
+  
   void ConvertWithAncestors();
 
   // New stuff
@@ -175,6 +172,40 @@ class Dasher::CDasherNode:private NoClones {
   // Members only useful for debugging purposes
   bool m_bWatchDelete; // Notify when this node is deleted
 
+  /// 
+  /// Set various flags corresponding to the state of the node. The following flags are defined:
+  ///
+  /// NF_COMMITTED - Node is 'above' the root, so corresponding symbol
+  /// has been added to text box, language model trained etc
+  ///
+  /// NF_ACTIVE - Not yet implemented
+  ///
+  /// NF_ALIVE - Not yet implemented
+  ///
+  /// NF_SEEN - Not yet implemented
+  ///
+  /// NF_CONVERTED - Not yet implemented
+  ///
+  /// NF_GAME - Not yet implemented
+  ///
+
+  void SetFlag(int iFlag, bool bValue) {
+    if(bValue)
+      m_iFlags = m_iFlags | iFlag;
+    else
+      m_iFlags = m_iFlags & (~iFlag);
+
+    m_pNodeManager->SetFlag(this, iFlag, bValue);
+  }
+
+  ///
+  /// Get the value of a flag for this node
+  ///
+
+  bool GetFlag(int iFlag) {
+    return (m_iFlags & iFlag);
+  }
+
  private:
   int m_iColour;                // for the advanced colour mode
   int m_iLbnd;
@@ -197,12 +228,8 @@ class Dasher::CDasherNode:private NoClones {
   bool m_bHasAllChildren;       // true if we haven't deleted any children after instantiating them
   CDasherNode *m_pParent;       // pointer to parent
 
-  // TODO: The following should be included in m_pUserData, as they only apply to nodes managed by CAlphabetManager
-  CLanguageModel *m_pLanguageModel;     // pointer to the language model - in future, could be different for each node      
-  CLanguageModel::Context m_Context;
-  const symbol m_Symbol;        // the character to display
-
-
+  // Binary flags representing the state of the node
+  int m_iFlags;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -214,7 +241,7 @@ using namespace Opts;
 #include "DasherModel.h"
 
 inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1)
-  : m_mChildren(), m_Symbol(Symbol) {
+  : m_mChildren() {
 
   m_iLbnd = ilbnd;
   m_iHbnd = ihbnd;
@@ -224,19 +251,11 @@ inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase,
   m_bAlive = true;
   m_iColour = Colour;
   m_bSeen = false;
-  m_pLanguageModel = lm;
   m_pParent = pParent;
-  m_Context = CLanguageModel::nullContext;
 
   m_bConverted = false;
   m_bInGame = false;
   m_bWatchDelete = false;
-}
-
-inline void CDasherNode::SetContext(CLanguageModel::Context Context) {
-  if(m_Context)
-    m_pLanguageModel->ReleaseContext(m_Context);
-  m_Context = Context;
 }
 
 inline int CDasherNode::Lbnd() const {
@@ -260,10 +279,6 @@ inline CDasherNode::ChildMap &CDasherNode::Children() {
 
 inline const CDasherNode::ChildMap &CDasherNode::GetChildren() const {
   return m_mChildren;
-}
-
-inline CLanguageModel::Context CDasherNode::Context() const {
-  return m_Context;
 }
 
 #endif /* #ifndef __DasherNode_h__ */

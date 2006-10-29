@@ -85,43 +85,11 @@ public:
 
   void GetScaleFactor( int eOrientation, myint *iScaleFactorX, myint *iScaleFactorY );
 
-
   ///
   /// Event handler
   ///
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
-
-  /// 
-  /// Get the automatic calibration offset
-  ///
-
-  int GetAutoOffset() const;
-
-  bool IsNodeVisible(myint y1, myint y2);
-
-  ///
-  /// \todo Document this
-  ///
-
-  virtual void ResetSum();
-
-  ///
-  /// \todo Document this
-  ///
-
-  virtual void ResetSumCounter();
-
-  ///
-  /// Reset the automatic calibration offset
-  ///
-
-  virtual void ResetYAutoOffset();
-
-  double xmap(double x) const;
-  double ymap(double x) const {
-    return m_ymap.map( (myint)x );
-  };
 
   /// 
   /// Convert a screen co-ordinate to Dasher co-ordinates
@@ -135,15 +103,12 @@ public:
 
   void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY);
 
-  ///
-  /// Convert input device position to Dasher co-ordinates
-  ///
-
-  void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY);
-
 
 private:
-
+  double xmap(double x) const;
+  double ymap(double x) const {
+    return m_ymap.map( (myint)x );
+  };
 
   ///
   /// Recursively render all nodes in a tree. Responsible for all the Render_node calls
@@ -175,49 +140,10 @@ private:
   void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft);
 
   ///
-  /// Trunates co-ordinates to fit on screen
-  ///
-
-  //  void TruncateToScreen(screenint & iX, screenint & iY);
-
-  ///
-  /// Get minimum visible Dasher Y co-ordinate
-  /// \deprecated Use VisibleRegion.
-  ///
-
-  myint DasherVisibleMinY();
-
-  ///
-  /// Get maximum visible Dasher Y co-ordinate
-  /// \deprecated Use VisibleRegion.
-  ///
-
-  myint DasherVisibleMaxY();
-
-  ///
-  /// Get maximum visible Dasher X co-ordinate
-  /// \deprecated Use VisibleRegion.
-  ///
-
-  myint DasherVisibleMaxX();
-
-  ///
   /// Get the bounding box of the visible region.
   ///
 
   void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY );
-
-  ///
-  /// Unused
-  ///
-
-  myint m_iDasherXCache;
-
-  ///
-  /// Unused
-  ///
-
-  myint m_iDasherYCache;
 #ifdef _WIN32
   ///
   /// FIXME - couldn't find windows version of round(double) so here's one!
@@ -232,26 +158,6 @@ private:
  
   };
 #endif
-  //	myint s_Y1,s_Y2,s_Y3;
-  
-  // Variables for speed control
-  
-  //
-  // AUTO-SPEED-CONTROL  
-/*   double m_dBitrate; //  stores max bit rate internally */
-/*   double m_dSampleScale, m_dSampleOffset; // internal, control sample size */
-/*   int m_nSpeedCounter;  // keep track of how many samples */
-/*   int m_nSpeedSamples;  // upper limit on #samples */
-/*   double m_dSpeedMax, m_dSpeedMin; // bit rate always within this range */
-/*   double m_dTier1, m_dTier2, m_dTier3, m_dTier4; // variance tolerance tiers  */
-/*   double m_dChange1, m_dChange2, m_dChange3, m_dChange4; // fractional changes to bit rate */
-/*   double m_dMinRRate; // controls rate at which min. r adapts HIGHER===SLOWER! */
-/*   double m_dSensitivity; // not used, control sensitivity of auto speed control */
-/*   typedef std::deque<double> DOUBLE_DEQUE; */
-/*   DOUBLE_DEQUE m_dequeAngles; // store angles for statistics */
-  
-/*   //variables for adaptive radius calculations... */
-/*   double m_dSigma1, m_dSigma2, m_dMinRadius; */
 
   // Class definitions
 
@@ -265,36 +171,12 @@ private:
     myint m_Y1, m_Y2, m_Y3;
   };
 
-  // the x and y non-linearities
-
-  //  void AutoCalibrate(screenint * mousex, screenint * mousey);
-
-  ///
-  /// \deprecated See Dasher2Screen
-  ///
-
-  screenint dasherx2screen(myint sx) const;
-
-  ///
-  /// \deprecated See Dasher2Screen
-  ///
-
-  screenint dashery2screen(myint sy) const;
-
-  ///
-  /// \deprecated See Dasher2Screen
-  ///
-
-  Cint32 dashery2screen(myint y1, myint y2, screenint & s1, screenint & s2) const;
-
-  double eyetracker_get_x(double x, double y);
-  double eyetracker_get_y(double x, double y);
   double xmax(double x, double y) const;
-
   double ixmap(double x) const;
-
-
   inline void Crosshair(myint sx);
+
+  // Called on screen size changes
+  void SetScaleFactor();
 
   // Data
 
@@ -304,13 +186,7 @@ private:
  
   double m_dXmpa, m_dXmpb, m_dXmpc, m_dXmpd;
   screenint CanvasX, CanvasY, CanvasBorder;
-
-  int m_ySum, m_ySumCounter, m_yFilterTimescale, m_ySigBiasPixels, m_ySigBiasPercentage, m_yAutoOffset;
-
   Cymap m_ymap;
-
-  // Called on screen size changes
-  void SetScaleFactor();
 
   // Cached values for scaling
   myint iLRScaleFactorX;

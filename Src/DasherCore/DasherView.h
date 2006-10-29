@@ -106,7 +106,7 @@ public:
   /// Convert input device position to Dasher co-ordinates
   ///
 
-  virtual void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY) = 0;
+  //  virtual void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY) = 0;
 
   /// Change the screen - must be called if the Screen is replaced or resized
   /// \param NewScreen Pointer to the new CDasherScreen.
@@ -116,13 +116,13 @@ public:
   /// Get autocallibration offset
   /// \retval Current offset
 
-  virtual int GetAutoOffset() const {
-    return 0;
-  }
+/*   virtual int GetAutoOffset() const { */
+/*     return 0; */
+/*   } */
 /*   ////// \todo Document this */
 /*   virtual void DrawGoTo(screenint mousex, screenint mousey) = 0; */
 
-   virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
+  virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
 
   /// Draw the game mode pointer - this shouldn't be here
 
@@ -141,18 +141,18 @@ public:
 
   /// \todo Document this
 
-  virtual void ResetSum() {
-  }
+/*   virtual void ResetSum() { */
+/*   } */
 
-  /// \todo Document this
+/*   /// \todo Document this */
 
-  virtual void ResetSumCounter() {
-  }
+/*   virtual void ResetSumCounter() { */
+/*   } */
 
-  /// \todo Document this
+/*   /// \todo Document this */
 
-  virtual void ResetYAutoOffset() {
-  }
+/*   virtual void ResetYAutoOffset() { */
+/*   } */
 
   /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
   /// \param _pInput Pointer to the new CDasherInput.
@@ -160,7 +160,7 @@ public:
   void SetInput(CDasherInput * _pInput);
 
 
-  virtual void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate) {};
+  //  virtual void SpeedControl(myint iDasherX, myint iDasherY, double dFrameRate) {};
 
   virtual double xmap(double x) const {return 0.0;};   
   virtual double ymap(double x) const {return 0.0;}; 

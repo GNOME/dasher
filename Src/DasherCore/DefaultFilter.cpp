@@ -145,7 +145,7 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   myint iDasherX;
   myint iDasherY;
 
-  pView->Input2Dasher(mousex, mousey, iDasherX, iDasherY);
+  pView->Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true);
 
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
@@ -188,7 +188,7 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   // probably be using a chached value rather than computing this
   // separately to TapOn
  
-  pView->Input2Dasher(mousex, mousey, x[1], y[1]);
+  pView->Screen2Dasher(mousex, mousey, x[1], y[1], false, true);
 
   ApplyAutoCalibration(x[1], y[1], false);
   ApplyTransform(x[1], y[1]);

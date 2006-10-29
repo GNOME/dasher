@@ -118,3 +118,7 @@ void CNodeCreationManager::EnterText(CLanguageModel::Context context, std::strin
   for(unsigned int i = 0; i < Symbols.size(); i++)
     m_pLanguageModel->EnterSymbol(context, Symbols[i]); // FIXME - conversion to symbol alphabet
 }
+
+CAlphabetManagerFactory::CTrainer *CNodeCreationManager::GetTrainer() {
+  return m_pAlphabetManagerFactory->GetTrainer();
+}

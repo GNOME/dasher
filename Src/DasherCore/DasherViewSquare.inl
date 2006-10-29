@@ -10,73 +10,25 @@
 
 namespace Dasher {
 
-  inline screenint CDasherViewSquare::dasherx2screen(myint sx) const {
-    double x = double (sx) / double (GetLongParameter(LP_MAX_Y));
-    x = xmap(x);
-    return CanvasX - int (x * CanvasX);
-
-  }
-
-  inline Cint32 CDasherViewSquare::dashery2screen(myint y1, myint y2, screenint & s1, screenint & s2) const {
-//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
-      y1 = m_ymap.map(y1);
-      y2 = m_ymap.map(y2);
-//  } 
-
-if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
-      return 0;
-    } if(y2 < 0) {
-      return 0;
-    }
-
-    if(y1 < 0)                  // "highest" legal coordinate to draw is 0.
-      {
-        y1 = 0;
-      }
-
-    // Is this square actually on the screen? Check bottom
-    if(y2 > (myint)GetLongParameter(LP_MAX_Y))
-      y2 = GetLongParameter(LP_MAX_Y);
-
-    Cint32 iSize = Cint32(y2 - y1);
-    DASHER_ASSERT(iSize >= 0);
-
-    s1 = screenint(y1 * CanvasY / (myint)GetLongParameter(LP_MAX_Y));
-    s2 = screenint(y2 * CanvasY / (myint)GetLongParameter(LP_MAX_Y));
-
-    DASHER_ASSERT(s2 >= s1);
-    return iSize;
-
-  }
-
-  inline screenint CDasherViewSquare::dashery2screen(myint y) const {
-//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
-      y = m_ymap.map(y);
-  //  }
-
- y = (y * CanvasY / (myint)GetLongParameter(LP_MAX_Y));
-
-    // Stop overflow when converting to screen coords
-    if(y > myint(INT_MAX))
-      return INT_MAX;
-    else if(y < myint(INT_MIN))
-      return INT_MIN;
-    return int (y);
-  }
-
   /// Draw the crosshair
 
   inline void CDasherViewSquare::Crosshair(myint sx) {
+    myint iDasherMinX;
+    myint iDasherMinY;
+    myint iDasherMaxX;
+    myint iDasherMaxY;
+    VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
     myint x[2];
     myint y[2];
 
     // Vertical bar of crosshair
 
     x[0] = sx;
-    y[0] = DasherVisibleMinY();
+    y[0] = iDasherMinY;
 
     x[1] = sx;
-    y[1] = DasherVisibleMaxY();
+    y[1] = iDasherMaxY;
 
     DasherPolyline(x, y, 2, 1, 5);
 
@@ -92,33 +44,20 @@ if(y1 > (myint)GetLongParameter(LP_MAX_Y)) {
   }
 
   inline double CDasherViewSquare::ixmap(double x) const
-    // invert x non-linearity
   {
-//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       if(x < m_dXmpb * m_dXmpc)
         return x / m_dXmpc;
       else
         return m_dXmpb - m_dXmpa + m_dXmpa * exp((x / m_dXmpc - m_dXmpb) / m_dXmpa);
-//    }
- //   else {
- //     return x;
- //   }
   }
 
   inline double CDasherViewSquare::xmap(double x) const
-    // x non-linearity
   {
-//    if(GetBoolParameter(BP_KEYBOARD_MODE) == false) {
       if(x < m_dXmpb)
         return m_dXmpc * x;
       else
         return m_dXmpc * (m_dXmpa * log((x + m_dXmpa - m_dXmpb) / m_dXmpa) + m_dXmpb);
- //   }
- //   else {
- //     return x;
-  //  }
   }
-
 
   inline myint CDasherViewSquare::Cymap::map(myint y) const {
     if(y > m_Y2)

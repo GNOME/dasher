@@ -48,7 +48,7 @@ CDasherViewSquare::CDasherViewSquare(CEventHandler *pEventHandler, CSettingsStor
 
   // TODO - AutoOffset should be part of the eyetracker input filter
   // Make sure that the auto calibration is set to zero berfore we start
-  m_yAutoOffset = 0;
+  //  m_yAutoOffset = 0;
 
   m_pDelayDraw = new CDelayedDraw();
   ChangeScreen(DasherScreen);
@@ -214,19 +214,23 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
   // I don't know why.  -- cjb.
   if (!(y2 >= y1)) { return 1; }
 
-  // TODO - Get sensibel limits here (to allow for non-linearities)
+  // TODO - Get sensible limits here (to allow for non-linearities)
   myint iDasherMinX;
   myint iDasherMinY;
   myint iDasherMaxX;
   myint iDasherMaxY;
+
   VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
 
-  screenint s1, s2;
-  // TODO - use new versions of functions
-  Cint32 iSize = dashery2screen(y1, y2, s1, s2);
+  screenint iScreenX1;
+  screenint iScreenY1;
+  screenint iScreenX2;
+  screenint iScreenY2;
+  
+  Dasher2Screen(0, std::max(y1, iDasherMinY), iScreenX1, iScreenY1);
+  Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
 
-  // Actual height in pixels
-  Cint32 iHeight = Cint32((Cint32) (iSize * CanvasY) / (Cint32) GetLongParameter(LP_MAX_Y));
+  Cint32 iHeight = std::max(iScreenY2 - iScreenY1, 0);
 
   if(iHeight <= 1)
     return 0;                   // We're too small to render
@@ -246,112 +250,113 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
     DasherDrawRectangle(std::min(iDasherSize,iDasherMaxX), std::min(y2,iDasherMaxY), 0, std::max(y1,iDasherMinY), Color, -1, Nodes1, GetBoolParameter(BP_OUTLINE_MODE), true, 1);
   }
   else {
-    int iDasherY((myint)GetLongParameter(LP_MAX_Y));
+    // TODO: Reimplement
 
-    int iSpacing(iDasherY / 128);       // FIXME - assuming that this is an integer below
+//     int iDasherY((myint)GetLongParameter(LP_MAX_Y));
 
-    int iXStart = 0;
+//     int iSpacing(iDasherY / 128);       // FIXME - assuming that this is an integer below
 
-    switch (iTruncationType) {
-    case 1:
-      iXStart = iSize - iSize * iTruncation / 200;
-      break;
-    case 2:
-      iXStart = iSize - iSize * iTruncation / 100;
-      break;
-    }
+//     int iXStart = 0;
 
-    int iTipMin((y2 - y1) * iTruncation / (200) + y1);
-    int iTipMax(y2 - (y2 - y1) * iTruncation / (200));
+//     switch (iTruncationType) {
+//     case 1:
+//       iXStart = iSize - iSize * iTruncation / 200;
+//       break;
+//     case 2:
+//       iXStart = iSize - iSize * iTruncation / 100;
+//       break;
+//     }
 
-    int iLowerMin(((y1 + 1) / iSpacing) * iSpacing);
-    int iLowerMax(((iTipMin - 1) / iSpacing) * iSpacing);
+//     int iTipMin((y2 - y1) * iTruncation / (200) + y1);
+//     int iTipMax(y2 - (y2 - y1) * iTruncation / (200));
 
-    int iUpperMin(((iTipMax + 1) / iSpacing) * iSpacing);
-    int iUpperMax(((y2 - 1) / iSpacing) * iSpacing);
+//     int iLowerMin(((y1 + 1) / iSpacing) * iSpacing);
+//     int iLowerMax(((iTipMin - 1) / iSpacing) * iSpacing);
 
-    if(iLowerMin < 0)
-      iLowerMin = 0;
+//     int iUpperMin(((iTipMax + 1) / iSpacing) * iSpacing);
+//     int iUpperMax(((y2 - 1) / iSpacing) * iSpacing);
 
-    if(iLowerMax < 0)
-      iLowerMax = 0;
+//     if(iLowerMin < 0)
+//       iLowerMin = 0;
 
-    if(iUpperMin < 0)
-      iUpperMin = 0;
+//     if(iLowerMax < 0)
+//       iLowerMax = 0;
 
-    if(iUpperMax < 0)
-      iUpperMax = 0;
+//     if(iUpperMin < 0)
+//       iUpperMin = 0;
 
-    if(iLowerMin > iDasherY)
-      iLowerMin = iDasherY;
+//     if(iUpperMax < 0)
+//       iUpperMax = 0;
 
-    if(iLowerMax > iDasherY)
-      iLowerMax = iDasherY;
+//     if(iLowerMin > iDasherY)
+//       iLowerMin = iDasherY;
 
-    if(iUpperMin > iDasherY)
-      iUpperMin = iDasherY;
+//     if(iLowerMax > iDasherY)
+//       iLowerMax = iDasherY;
 
-    if(iUpperMax > iDasherY)
-      iUpperMax = iDasherY;
+//     if(iUpperMin > iDasherY)
+//       iUpperMin = iDasherY;
 
-    while(iLowerMin < y1)
-      iLowerMin += iSpacing;
+//     if(iUpperMax > iDasherY)
+//       iUpperMax = iDasherY;
 
-    while(iLowerMax > iTipMin)
-      iLowerMax -= iSpacing;
+//     while(iLowerMin < y1)
+//       iLowerMin += iSpacing;
 
-    while(iUpperMin < iTipMax)
-      iUpperMin += iSpacing;
+//     while(iLowerMax > iTipMin)
+//       iLowerMax -= iSpacing;
 
-    while(iUpperMax > y2)
-      iUpperMax -= iSpacing;
+//     while(iUpperMin < iTipMax)
+//       iUpperMin += iSpacing;
 
-    int iLowerCount((iLowerMax - iLowerMin) / iSpacing + 1);
-    int iUpperCount((iUpperMax - iUpperMin) / iSpacing + 1);
+//     while(iUpperMax > y2)
+//       iUpperMax -= iSpacing;
 
-    if(iLowerCount < 0)
-      iLowerCount = 0;
+//     int iLowerCount((iLowerMax - iLowerMin) / iSpacing + 1);
+//     int iUpperCount((iUpperMax - iUpperMin) / iSpacing + 1);
 
-    if(iUpperCount < 0)
-      iUpperCount = 0;
+//     if(iLowerCount < 0)
+//       iLowerCount = 0;
 
-    int iTotalCount(iLowerCount + iUpperCount + 6);
+//     if(iUpperCount < 0)
+//       iUpperCount = 0;
 
-    myint *x = new myint[iTotalCount];
-    myint *y = new myint[iTotalCount];
+//     int iTotalCount(iLowerCount + iUpperCount + 6);
 
-    // Weird duplication here is to make truncated squares possible too
+//     myint *x = new myint[iTotalCount];
+//     myint *y = new myint[iTotalCount];
 
-    x[0] = 0;
-    y[0] = y1;
-    x[1] = iXStart;
-    y[1] = y1;
+//     // Weird duplication here is to make truncated squares possible too
 
-    x[iLowerCount + 2] = iDasherSize;
-    y[iLowerCount + 2] = iTipMin;
-    x[iLowerCount + 3] = iDasherSize;
-    y[iLowerCount + 3] = iTipMax;
+//     x[0] = 0;
+//     y[0] = y1;
+//     x[1] = iXStart;
+//     y[1] = y1;
 
-    x[iTotalCount - 2] = iXStart;
-    y[iTotalCount - 2] = y2;
-    x[iTotalCount - 1] = 0;
-    y[iTotalCount - 1] = y2;
+//     x[iLowerCount + 2] = iDasherSize;
+//     y[iLowerCount + 2] = iTipMin;
+//     x[iLowerCount + 3] = iDasherSize;
+//     y[iLowerCount + 3] = iTipMax;
 
-    for(int i(0); i < iLowerCount; ++i) {
-      x[i + 2] = (iLowerMin + i * iSpacing - y1) * (iDasherSize - iXStart) / (iTipMin - y1) + iXStart;
-      y[i + 2] = iLowerMin + i * iSpacing;
-    }
+//     x[iTotalCount - 2] = iXStart;
+//     y[iTotalCount - 2] = y2;
+//     x[iTotalCount - 1] = 0;
+//     y[iTotalCount - 1] = y2;
 
-    for(int j(0); j < iUpperCount; ++j) {
-      x[j + iLowerCount + 4] = (y2 - (iUpperMin + j * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
-      y[j + iLowerCount + 4] = iUpperMin + j * iSpacing;
-    }
+//     for(int i(0); i < iLowerCount; ++i) {
+//       x[i + 2] = (iLowerMin + i * iSpacing - y1) * (iDasherSize - iXStart) / (iTipMin - y1) + iXStart;
+//       y[i + 2] = iLowerMin + i * iSpacing;
+//     }
 
-    DasherPolygon(x, y, iTotalCount, Color);
+//     for(int j(0); j < iUpperCount; ++j) {
+//       x[j + iLowerCount + 4] = (y2 - (iUpperMin + j * iSpacing)) * (iDasherSize - iXStart) / (y2 - iTipMax) + iXStart;
+//       y[j + iLowerCount + 4] = iUpperMin + j * iSpacing;
+//     }
 
-    delete x;
-    delete y;
+//     DasherPolygon(x, y, iTotalCount, Color);
 
+//     delete x;
+//     delete y;
   }
 
   myint iDasherAnchorX(iDasherSize);
@@ -360,18 +365,6 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
     DasherDrawText(iDasherAnchorX, y1, iDasherAnchorX, y2, sDisplayText, mostleft, bShove);
 
   return 1;
-}
-
-bool CDasherViewSquare::IsNodeVisible(myint y1, myint y2) {
- 
-  myint iDasherMinX;
-  myint iDasherMinY;
-  myint iDasherMaxX;
-  myint iDasherMaxY;
-
-  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
-
-  return (y1 > iDasherMinY) || (y2 < iDasherMaxY ) || (y2-y1 < iDasherMaxX);
 }
 
 /// Convert screen co-ordinates to dasher co-ordinates. This doesn't
@@ -521,6 +514,9 @@ void CDasherViewSquare::Dasher2Screen(myint iDasherX, myint iDasherY, screenint 
 }
 
 void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) {
+  // TODO: Change output parameters to pointers and allow NULL to mean
+  // 'I don't care'. Need to be slightly careful about this as it will
+  // require a slightly more sophisticated caching mechanism
 
   if(!m_bVisibleRegionValid) {
 
@@ -553,143 +549,6 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
   iDasherMinY = m_iDasherMinY;
   iDasherMaxY = m_iDasherMaxY;
 }
-
-/// The minimum Dasher Y co-ordinate which will be visible
-
-myint CDasherViewSquare::DasherVisibleMinY() {
-
-  // Todo - convert all these to a single 'get visible extent' function
-
-  myint iDasherX;
-  myint iDasherY;
-
-  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-
-  switch( eOrientation ) {
-  case Dasher::Opts::LeftToRight:
-    Screen2Dasher(Screen()->GetWidth(),0,iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::RightToLeft:
-    Screen2Dasher(0,0,iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::TopToBottom:
-    Screen2Dasher(0,Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::BottomToTop:
-    Screen2Dasher(0,0,iDasherX,iDasherY,false,true);
-    break;
-  }
-
-  return iDasherY;
-}
-
-/// The maximum Dasher Y co-ordinate which will be visible
-
-myint CDasherViewSquare::DasherVisibleMaxY() {
-  // Todo - convert all these to a single 'get visible extent' function
-
-  myint iDasherX;
-  myint iDasherY;
-
-  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-
-  switch( eOrientation ) {
-  case Dasher::Opts::LeftToRight:
-    Screen2Dasher(0,Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::RightToLeft:
-    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::TopToBottom:
-    Screen2Dasher(Screen()->GetWidth(),0,iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::BottomToTop:
-    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  }
-
-  return iDasherY;
- }
-
-/// The maximum Dasher X co-ordinate which will be visible
-
-myint CDasherViewSquare::DasherVisibleMaxX() {
-   // Todo - convert all these to a single 'get visible extent' function
-
-  myint iDasherX;
-  myint iDasherY;
-
-  int eOrientation( GetLongParameter(LP_REAL_ORIENTATION) );
-
-  switch( eOrientation ) {
-  case Dasher::Opts::LeftToRight:
-    Screen2Dasher(0,Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::RightToLeft:
-    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::TopToBottom:
-    Screen2Dasher(Screen()->GetWidth(),0,iDasherX,iDasherY,false,true);
-    break;
-  case Dasher::Opts::BottomToTop:
-    Screen2Dasher(Screen()->GetWidth(),Screen()->GetHeight(),iDasherX,iDasherY,false,true);
-    break;
-  }
-
-  return iDasherX;
-}
-
-
-/// Convert abstract 'input coordinates', which may or may not
-/// correspond to actual screen positions, depending on the settings,
-/// into dasher co-ordinates.  This should be done once initially,
-/// then we work in Dasher co-ordinates for everything else. Input
-/// co-ordinates will be assumed to range over the extent of the
-/// screen.
-
-void CDasherViewSquare::Input2Dasher(screenint iInputX, screenint iInputY, myint &iDasherX, myint &iDasherY) {
-  
-  // TODO: iType *is* important - it should determine whether the
-  // input is relative to the screen or in raw dasher coordinates, but
-  // should be used to determine where or not to call this function,
-  // not what happens once we get here. Once that has happened then
-  // this function becomes very pointless and may as well be obsoleted.
-
-  int iType(0);
-
-  switch (iType) {
-  case 0:
-    // Raw secreen coordinates - TODO: Check whether any of the lat
-    // two parameters are used for anything any more
-    Screen2Dasher( iInputX, iInputY, iDasherX, iDasherY, false, true );
-    break;
-  case 1:
-    // Raw dasher coordinates - TODO: see comment above
-    iDasherX = iInputX;
-    iDasherY = iInputY;
-    break;
-  default:
-    // ERROR
-    break;
-  }
-}
-
-/// Truncate a set of co-ordinates so that they are on the screen
-
-// void CDasherViewSquare::TruncateToScreen(screenint &iX, screenint &iY) {
-
-//   // I think that this function is now obsolete
-
-//   if(iX < 0)
-//     iX = 0;
-//   if(iX > Screen()->GetWidth())
-//     iX = Screen()->GetWidth();
-
-//   if(iY < 0)
-//     iY = 0;
-//   if(iY > Screen()->GetHeight())
-//     iY = Screen()->GetHeight();
-// }
 
 void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
 
@@ -733,9 +592,11 @@ void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myin
   
   mode = 0;
  
-  Input2Dasher(mousex, mousey, iDasherX, iDasherY);
-  m_iDasherXCache = iDasherX;
-  m_iDasherYCache = iDasherY;
+  //  Input2Dasher(mousex, mousey, iDasherX, iDasherY);
+  Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+
+//   m_iDasherXCache = iDasherX;
+//   m_iDasherYCache = iDasherY;
 
   // Request an update at the calculated co-ordinates
 
@@ -773,20 +634,6 @@ void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bAc
   Screen()->Polyline(p, 4, iWidth, iColour);
 }
 
-// TODO: Autocalibration should be in the eyetracker filter class
-
-void CDasherViewSquare::ResetSum() {
-  m_ySum = 0;
-}
-
-void CDasherViewSquare::ResetSumCounter() {
-  m_ySumCounter = 0;
-}
-
-void CDasherViewSquare::ResetYAutoOffset() {
-  m_yAutoOffset = 0;
-}
-
 void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   CDasherView::ChangeScreen(NewScreen);
   m_bVisibleRegionValid = false;
@@ -798,57 +645,6 @@ void CDasherViewSquare::ChangeScreen(CDasherScreen *NewScreen) {
   m_iScalingFactor = 100000000;
   SetScaleFactor();
 }
-
-int CDasherViewSquare::GetAutoOffset() const {
-  return m_yAutoOffset;
-}
-
-// void CDasherViewSquare::AutoCalibrate(screenint *mousex, screenint *mousey) {
-//   return;
-//   // Y value in dasher coordinates
-//   double dashery = double (*mousey) * double ((myint)GetLongParameter(LP_MAX_Y)) / double (CanvasY);
-
-//   // Origin in dasher coordinates
-//   myint dasherOY = (myint)GetLongParameter(LP_OY);
-
-//   // Distance above origin in dasher coordinates
-//   double disty = double (dasherOY) - dashery;
-
-//   // Whether we're paused or not (sensible choice of name!)
-//   bool DasherRunning = GetBoolParameter(BP_DASHER_PAUSED);
-
-//   if(!DasherRunning == true) {
-//     // Only update every this number of timesteps
-//     m_yFilterTimescale = 20;
-//     m_ySum += (int)disty;
-//     m_ySumCounter++;
-
-//     m_ySigBiasPercentage = 50;
-
-//     // Despite the name, this is actually measured in dasher coordinates
-//     m_ySigBiasPixels = m_ySigBiasPercentage * (myint)GetLongParameter(LP_MAX_Y) / 100;
-
-
-//     if(m_ySumCounter > m_yFilterTimescale) {
-//       m_ySumCounter = 0;
-
-//       // 'Conditions A', as specified by DJCM.  Only make the auto-offset
-//       // change if we're past the significance boundary.
-
-//       if(m_ySum > m_ySigBiasPixels || m_ySum < -m_ySigBiasPixels) {
-//         if(m_ySum > m_yFilterTimescale) {
-//           m_yAutoOffset--;
-//         }
-//         else if(m_ySum < -m_yFilterTimescale)
-//           m_yAutoOffset++;
-
-//         m_ySum = 0;
-//       }
-//     }
-
-//     //*mousey=int(dashery);
-//   }
-// }
 
 // TODO - should be elsewhere
 

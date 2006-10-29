@@ -32,8 +32,6 @@ CDasherNode::~CDasherNode() {
   m_pNodeManager->ClearNode( this );
 
   Delete_children();
-  if(m_Context)
-    m_pLanguageModel->ReleaseContext(m_Context);
 }
 
 
@@ -61,25 +59,6 @@ bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
   else
     return false;
 
-}
-
-void CDasherNode::Get_string_under(const int iNormalization, const myint miY1, const myint miY2, const myint miMousex, const myint miMousey, vector <symbol >&vString) const {
-  // we are over (*this) node so add it to the string 
-  vString.push_back(m_Symbol);
-
-  // look for children who might also be under the coords
-  // FIXME what if not all children are instantiated?
-  myint miRange = miY2 - miY1;
-  ChildMap::const_iterator i;
-  for(i = GetChildren().begin(); i != GetChildren().end(); i++) {
-    myint miNewy1 = miY1 + (miRange * (*i)->m_iLbnd) / iNormalization;
-    myint miNewy2 = miY1 + (miRange * (*i)->m_iHbnd) / iNormalization;
-    if(miMousey < miNewy2 && miMousey > miNewy1 && miMousex < miNewy2 - miNewy1) {
-      (*i)->Get_string_under(iNormalization, miNewy1, miNewy2, miMousex, miMousey, vString);
-      return;
-    }
-  }
-  return;
 }
 
 CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, myint miY2, myint miMousex, myint miMousey) {
@@ -141,7 +120,7 @@ void CDasherNode::Delete_children() {
   SetHasAllChildren(false);
 }
 
-// Gets the probability of this node 
+// Gets the probability of this node, conditioned on the parent
 double CDasherNode::GetProb(int iNormalization) {    
   return (double) (m_iHbnd - m_iLbnd) / (double) iNormalization;
 }

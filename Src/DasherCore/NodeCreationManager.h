@@ -60,6 +60,10 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
     return m_pLanguageModel;
   };
 
+  CLanguageModel::Context GetLearnContext() {
+    return m_pAlphabetManagerFactory->GetLearnContext();
+  }
+
   void GetProbs(CLanguageModel::Context context, std::vector <symbol >&NewSymbols, std::vector <unsigned int >&Probs, int iNorm) const;
   void LearnText(CLanguageModel::Context context, std::string *TheText, bool IsMore);
   void EnterText(CLanguageModel::Context context, std::string TheText) const;
@@ -116,6 +120,8 @@ class CNodeCreationManager : public Dasher::CDasherComponent {
 /*   CAlphabet *GetAlphabet() const { */
 /*     return m_pAlphabet; */
 /*   } */
+
+  CAlphabetManagerFactory::CTrainer *GetTrainer();
 
  private:
   CLanguageModel *m_pLanguageModel;     // pointer to the language model

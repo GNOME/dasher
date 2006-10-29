@@ -17,7 +17,7 @@ namespace Dasher {
   class CAlphabetManager : public CNodeManager {
   public:
 
-    CAlphabetManager(CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, bool bGameMode, const std::string &strGameModeText);
+    CAlphabetManager(CNodeCreationManager *pNCManager, CLanguageModel *pLanguageModel, CLanguageModel::Context iLearnContext, bool bGameMode, const std::string &strGameModeText);
 
     ///
     /// Does nothing - alphabet manager isn't reference counted.
@@ -55,16 +55,20 @@ namespace Dasher {
 
     virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration);
 
+    virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
+
   private:
     CLanguageModel *m_pLanguageModel;
     CNodeCreationManager *m_pNCManager;
-
+    CLanguageModel::Context m_iLearnContext;
     std::string m_strGameString;
     bool m_bGameMode;
 
     struct SAlphabetData {
       symbol iSymbol;
       int iPhase;
+      CLanguageModel *pLanguageModel;
+      CLanguageModel::Context iContext;
       int iGameOffset;
     };
 

@@ -240,7 +240,7 @@ public:
   /// Get the current autocalibration offset
   /// \retval The offset.
 
-  int GetAutoOffset();
+/*   int GetAutoOffset(); */
 
   /// Provide a new CDasherInput input device object.
 

@@ -76,7 +76,7 @@ CDasherModel::CDasherModel(CEventHandler *pEventHandler, CSettingsStore *pSettin
   m_pNodeCreationManager = pNCManager;
 
   m_pLanguageModel = m_pNodeCreationManager->GetLanguageModel();
-  LearnContext = m_pLanguageModel->CreateEmptyContext();
+  //  LearnContext = m_pNodeCreationManager->GetLearnContext();
 
   //  m_bContextSensitive = true;
 }
@@ -93,8 +93,8 @@ CDasherModel::~CDasherModel() {
   if(m_Root)
     delete m_Root;
 
-  m_pLanguageModel->ReleaseContext(LearnContext);
-  delete m_pLanguageModel;
+  //  m_pLanguageModel->ReleaseContext(LearnContext);
+  //  delete m_pLanguageModel;
 }
 
 void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
@@ -131,17 +131,8 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 void CDasherModel::Make_root(CDasherNode *whichchild)
 // find a new root node 
 {
-
-  // TODO - support for this in alphabet manager
-  symbol t = m_Root->Symbol();
-  if(t < m_pDasherInterface->GetAlphabet()->GetNumberTextSymbols()) {
-    // Only learn if we have adaptive behaviour enabled
-
-    // This was m_bAdaptive, which should be a setting for all dasher?
-    if(true)
-      // SYM0
-      m_pLanguageModel->LearnSymbol(LearnContext, t);
-  }
+  // TODO: Need to undo this when root is reparented
+  m_Root->SetFlag(NF_COMMITTED, true);
 
   m_Root->DeleteNephews(whichchild);
 
@@ -213,8 +204,10 @@ void CDasherModel::Reparent_root(int lower, int upper) {
      We need to recalculate the coordinates for the "new" root as the 
      user may have moved around within the current root */
 
-  if(m_Root->Symbol() == 0)
-    return; // Don't try to reparent the root symbol
+  // TODO: Reimplement this
+
+//   if(m_Root->Symbol() == 0)
+//     return; // Don't try to reparent the root symbol
 
   CDasherNode *pNewRoot;
 
@@ -280,10 +273,6 @@ CDasherNode *CDasherModel::Get_node_under_mouse(myint Mousex, myint Mousey) {
   return m_Root->Get_node_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey);
 }
 
-void CDasherModel::Get_string_under_mouse(const myint Mousex, const myint Mousey, vector <symbol >&str) {
-    m_Root->Get_string_under(GetLongParameter(LP_NORMALIZATION), m_Rootmin + m_iTargetOffset, m_Rootmax + m_iTargetOffset, Mousex, Mousey, str);
-}
-
 void CDasherModel::Start() {
 
   // FIXME - re-evaluate this function and SetContext...
@@ -307,6 +296,8 @@ void CDasherModel::Start() {
 }
 
 void CDasherModel::SetContext(std::string &sNewContext) {
+  // TODO: This is probably the area most significantly in need of a
+  // rethink. Get the language model out of here!  
   m_deGotoQueue.clear();
 
   if(oldroots.size() > 0) {
@@ -336,10 +327,12 @@ void CDasherModel::SetContext(std::string &sNewContext) {
     EnterText(therootcontext, sNewContext);  
   }
 
-  m_pLanguageModel->ReleaseContext(LearnContext);
-  LearnContext = m_pLanguageModel->CloneContext(therootcontext);
+  // TODO: Reimplement
+  //  m_pLanguageModel->ReleaseContext(LearnContext);
+  // LearnContext = m_pLanguageModel->CloneContext(therootcontext);
 
-  m_Root->SetContext(therootcontext);   // node takes control of the context
+  // TODO: Reimplement
+  //  m_Root->SetContext(therootcontext);   // node takes control of the context
   Recursive_Push_Node(m_Root, 0);
 
   double dFraction( 1 - (1 - m_Root->MostProbableChild() / static_cast<double>(GetLongParameter(LP_NORMALIZATION))) / 2.0 );
@@ -772,25 +765,6 @@ void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) co
   m_pNodeCreationManager->EnterText(context, TheText);
 }
 
-CDasherModel::CTrainer::CTrainer(CDasherModel &DasherModel)
-:m_DasherModel(DasherModel) {
-  m_Context = m_DasherModel.m_pLanguageModel->CreateEmptyContext();
-}
-
-void CDasherModel::CTrainer::Train(const std::vector<symbol> &vSymbols) {
-  for(std::vector<symbol>::const_iterator it(vSymbols.begin()); it != vSymbols.end(); ++it)
-    m_DasherModel.m_pLanguageModel->LearnSymbol(m_Context, *it);
-}
-
-CDasherModel::CTrainer::~CTrainer() {
-  m_DasherModel.m_pLanguageModel->ReleaseContext(m_Context);
-
-}
-
-CDasherModel::CTrainer * CDasherModel::GetTrainer() {
-  return new CDasherModel::CTrainer(*this);
-}
-
 void CDasherModel::Push_Node(CDasherNode *pNode) {
 
   if(pNode->HasAllChildren()) {
@@ -988,4 +962,9 @@ void CDasherModel::MatchTarget(bool bReverse) {
 void CDasherModel::LimitRoot(int iMaxWidth) {
   m_Rootmin = GetLongParameter(LP_MAX_Y) / 2 - iMaxWidth / 2;
   m_Rootmax = GetLongParameter(LP_MAX_Y) / 2 + iMaxWidth / 2;
+}
+
+
+CAlphabetManagerFactory::CTrainer *CDasherModel::GetTrainer() {
+  return m_pNodeCreationManager->GetTrainer();
 }
