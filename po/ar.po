@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-18 06:24+0200\n"
-"PO-Revision-Date: 2006-07-19 13:05-0000\n"
+"POT-Creation-Date: 2006-10-04 07:12+0200\n"
+"PO-Revision-Date: 2006-10-05 21:07-0000\n"
 "Last-Translator: Djihed Afifi <djihed@gmail.com>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
 "MIME-Version: 1.0\n"
@@ -259,92 +259,92 @@ msgid "Dasher Preferences"
 msgstr "خيارات داشر"
 
 #: ../Src/Gtk2/dasher.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr " _درس داشر "
-
-#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
 msgstr "إدخال مباشر"
 
-#: ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Dock application window"
 msgstr "إرساء نافذة البرنامج"
 
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:38
 msgid "Draw box outlines"
 msgstr "رسم حدود الصناديق"
 
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw line between crosshairs and mouse"
 msgstr "رسم سطر بين العلامة المتقاطعة و الفأرة"
 
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.glade.h:40
 msgid "Full Screen"
 msgstr "كامل الشاشة"
 
-#: ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.glade.h:41
 msgid "Increase line thickness"
 msgstr "خط أسمك"
 
-#: ../Src/Gtk2/dasher.glade.h:43
+#: ../Src/Gtk2/dasher.glade.h:42
 #: ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "اليابانية"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.glade.h:43
 msgid "Language"
 msgstr "لغة"
 
-#: ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/dasher.glade.h:44
 #: ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "نموذج اللغة يتأقلم مع الكتابة"
 
-#: ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:45
 msgid "Large font "
 msgstr "خط عريض"
 
-#: ../Src/Gtk2/dasher.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:46
 #: ../Src/Gtk2/dashermaemo.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "من اليسار إلى اليمين"
 
-#: ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:47
 #: ../Src/Gtk2/dashermaemo.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "نموذج خليط (PPM/قاموس)"
 
-#: ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dasher.glade.h:48
 #: ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "ملف جديد"
 
-#: ../Src/Gtk2/dasher.glade.h:50
+#: ../Src/Gtk2/dasher.glade.h:49
 #: ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "فتح ملف"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:50
 msgid "Options"
 msgstr "خيارات"
 
-#: ../Src/Gtk2/dasher.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:51
 #: ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "لصق"
 
-#: ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.glade.h:52
 msgid "Pause outside of canvas"
 msgstr "توقف مؤقت خارج النافذة"
 
-#: ../Src/Gtk2/dasher.glade.h:54
+#: ../Src/Gtk2/dasher.glade.h:53
 #: ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "الرجاء الإنتظار..."
+
+#: ../Src/Gtk2/dasher.glade.h:54
+msgid "Pr_eferences"
+msgstr "_تفضيلات"
 
 #: ../Src/Gtk2/dasher.glade.h:55
 #: ../Src/Gtk2/dashermaemo.glade.h:28
@@ -479,10 +479,6 @@ msgid "_Import Training Text"
 msgstr "استي_راد نص التدريب"
 
 #: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "_تفضيلات"
-
-#: ../Src/Gtk2/dasher.glade.h:85
 #: ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
@@ -586,6 +582,8 @@ msgstr "تَوَقُّع"
 msgid "View"
 msgstr "عرض"
 
+#~ msgid "Dasher _Tutorial"
+#~ msgstr " _درس داشر "
 #~ msgid "Panels"
 #~ msgstr "شرائط"
 #~ msgid "Menus"
