@@ -846,19 +846,17 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
 
   CDasherNode *root(m_Root);
   CDasherNode::ChildMap & children = m_Root->Children();
-  
+
   if(pView->IsNodeVisible(m_Rootmin,m_Rootmax)) {
     Reparent_root(root->Lbnd(), root->Hbnd());
     return(m_Root != root);
   }
-
 
   if(children.size() == 0)
     return false;
 
   int alive = 0;
   CDasherNode *theone = 0;
-
  
   // Find whether there is exactly one alive child; if more, we don't care.
   CDasherNode::ChildMap::iterator i;

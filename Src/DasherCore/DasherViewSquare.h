@@ -137,6 +137,8 @@ private:
 
   int RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove);
 
+  bool IsNodeVisible(myint y1, myint y2);
+
   void RecursiveRenderGroups(SGroupInfo *pCurrentGroup, CDasherNode *pNode, myint y1, myint y2, int mostleft);
 
   ///

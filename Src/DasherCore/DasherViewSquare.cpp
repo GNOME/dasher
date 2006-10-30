@@ -207,6 +207,17 @@ CDasherViewSquare::Cymap::Cymap(myint iScale) {
 }
 
 
+bool CDasherViewSquare::IsNodeVisible(myint y1, myint y2) {
+  myint iDasherMinX;
+  myint iDasherMinY;
+  myint iDasherMaxX;
+  myint iDasherMaxY;
+
+  VisibleRegion(iDasherMinX, iDasherMinY, iDasherMaxX, iDasherMaxY);
+
+  return ((y2 - y1) < iDasherMaxX) || ((y1 > iDasherMinY) && (y2 < iDasherMaxY));
+}
+
 
 int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &mostleft, const std::string &sDisplayText, bool bShove) {
 

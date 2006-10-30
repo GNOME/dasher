@@ -526,8 +526,9 @@ void CDasherInterfaceBase::Redraw(bool bRedrawNodes) {
   }
 
   bool bActionButtonsChanged(false);
-  
+#ifdef EXPERIMENTAL_FEATURES
   bActionButtonsChanged = DrawActionButtons();
+#endif
 
   if(bRedrawNodes || bDecorationsChanged || bActionButtonsChanged)
     m_pDasherView->Display();
@@ -971,6 +972,7 @@ bool CDasherInterfaceBase::DrawActionButtons() {
 
 
 void CDasherInterfaceBase::HandleClickUp(int iTime, int iX, int iY) {
+#ifdef EXPERIMENTAL_FEATURES
   bool bVisible(GetBoolParameter(BP_DASHER_PAUSED));
 
   for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it) {
@@ -982,11 +984,13 @@ void CDasherInterfaceBase::HandleClickUp(int iTime, int iX, int iY) {
     if((*it)->HandleClickUp(iTime, iX, iY, bVisible))
       return;
   }
+#endif
 
   KeyUp(iTime, 100);
 }
 
 void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
+#ifdef EXPERIMENTAL_FEATURES
   bool bVisible(GetBoolParameter(BP_DASHER_PAUSED));
 
   for(std::vector<CActionButton *>::iterator it(m_vLeftButtons.begin()); it != m_vLeftButtons.end(); ++it) {
@@ -998,6 +1002,7 @@ void CDasherInterfaceBase::HandleClickDown(int iTime, int iX, int iY) {
     if((*it)->HandleClickDown(iTime, iX, iY, bVisible))
       return;
   }
+#endif
 
   KeyDown(iTime, 100);
 }
