@@ -415,12 +415,6 @@
 			RelativePath=".\ConversionManagerFactory.h">
 		</File>
 		<File
-			RelativePath="CustomColours.cpp">
-		</File>
-		<File
-			RelativePath="CustomColours.h">
-		</File>
-		<File
 			RelativePath=".\DasherButtons.cpp">
 		</File>
 		<File
@@ -557,6 +551,9 @@
 		</File>
 		<File
 			RelativePath=".\PinYinConversionHelper.h">
+		</File>
+		<File
+			RelativePath=".\SCENode.h">
 		</File>
 		<File
 			RelativePath=".\SettingsStore.cpp">
