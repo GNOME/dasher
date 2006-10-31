@@ -18,8 +18,12 @@
 namespace Dasher {
   class CLanguageModel;
 }
-////// \brief Language model base class
-////// Base class for all language model components
+
+///
+/// \brief Language model base class
+/// Base class for all language model components
+///
+
 class Dasher::CLanguageModel:public Dasher::CDasherComponent
 {
 public:
@@ -31,46 +35,86 @@ public:
   virtual ~CLanguageModel() {};
 
   virtual void HandleEvent(Dasher::CEvent * pEvent);
+  
+  /// 
+  /// Index of registered context 
+  ///
 
-  // Handle for a language model context
-  // 0 is reserved
   typedef size_t Context;
+
+  ///
+  /// Representation of an invalid context
+  ///
+
   static const size_t nullContext = 0;
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Context creation/destruction
-  ////////////////////////////////////////////////////////////////////////////
+  ///
+  /// @name Context manipulation
+  /// Functions for creating, destroying and alteringn contexts
+  /// @{
 
-  // Create a context (empty)
+  ///
+  /// Create an empty context
+  ///
+
   virtual Context CreateEmptyContext() = 0;
+
+  ///
+  /// Create a copy of an existing context
+  ///
+
   virtual Context CloneContext(Context Context) = 0;
+
+  ///
+  /// Free resources associated with a context
+  ///
+
   virtual void ReleaseContext(Context Context) = 0;
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Context modifiers
-  ////////////////////////////////////////////////////////////////////////////
+  ///
+  /// Update context with a character - only modifies context
+  ///
 
-  // Update context with a character - only modifies context
   virtual void EnterSymbol(Context context, int Symbol) = 0;
 
-  // Add character to the language model at the current context and update the context 
-  // - modifies both the context and the LanguageModel
+  ///
+  /// Add character to the language model at the current context and update the context 
+  /// - modifies both the context and the LanguageModel
+  ///
+
   virtual void LearnSymbol(Context context, int Symbol) = 0;
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Prediction
-  /////////////////////////////////////////////////////////////////////////////
+  /// @}
 
-  // Get symbol probability distribution
+  /// @name Prediction
+  /// Determination of probabilities in a given context
+  /// @{
+  
+  ///
+  /// Get symbol probability distribution
+  /// 
+
   virtual void GetProbs(Context Context, std::vector < unsigned int >&Probs, int iNorm) const = 0;
 
-  // Get some measure of the memory usage for diagnostic
-  // purposes. No need to implement this if you're not comparing
-  // language models. The exact meaning of the result will
-  // depend on the implementation (for example, could be the
-  // number of nodes in a trie, or the physical memory usage).
+  /// @}
+
+  /// @name Status reporting
+  /// Return information usful for debgging purposes
+  /// @{
+
+  /// Get some measure of the memory usage for diagnostic
+  /// purposes. No need to implement this if you're not comparing
+  /// language models. The exact meaning of the result will
+  /// depend on the implementation (for example, could be the
+  /// number of nodes in a trie, or the physical memory usage).
 
   virtual int GetMemory() = 0;
+
+  /// @}
+
+  /// @name Persistant storage
+  /// Binary representation of language model state
+  /// @{
 
   virtual bool WriteToFile(std::string strFilename) {
     return false;
@@ -80,9 +124,18 @@ public:
     return false;
   };
 
+  /// @}
+
+  /// @name Internal member access
+  /// Access to internal member classes. This is dangerous and should
+  /// be considered obsolete.
+  /// @{
+
   const CSymbolAlphabet &SymbolAlphabet() const {
     return m_Alphabet;
   };
+
+  /// @}
 
  protected:
   int GetSize() const {

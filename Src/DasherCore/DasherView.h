@@ -75,11 +75,6 @@ public:
 
 /*   virtual void Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList); */
 
-  /// Renders Dasher with mouse-dependent items
-  /// \todo Clarify relationship between Render functions and probably only expose one
-
-  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode);
-
   /// Renders the Dasher node structure
   /// \todo Shouldn't be public?
 
@@ -89,6 +84,11 @@ public:
   /// dashermodel.TapOnDisplay
 
   virtual void GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) = 0;
+
+  /// 
+  /// @name Coordinate system conversion
+  /// Convert between screen and Dasher coordinates
+  /// @{
 
   /// 
   /// Convert a screen co-ordinate to Dasher co-ordinates
@@ -102,31 +102,29 @@ public:
 
   virtual void Dasher2Screen(myint iDasherX, myint iDasherY, screenint & iScreenX, screenint & iScreenY) = 0;
 
-  ///
-  /// Convert input device position to Dasher co-ordinates
-  ///
-
-  //  virtual void Input2Dasher(screenint iInputX, screenint iInputY, myint & iDasherX, myint & iDasherY) = 0;
+  /// @}
 
   /// Change the screen - must be called if the Screen is replaced or resized
   /// \param NewScreen Pointer to the new CDasherScreen.
 
   virtual void ChangeScreen(CDasherScreen * NewScreen);
 
-  /// Get autocallibration offset
-  /// \retval Current offset
+  /// @name High level drawing
+  /// Drawing more complex structures, generally implemented by derived class
+  /// @{
 
-/*   virtual int GetAutoOffset() const { */
-/*     return 0; */
-/*   } */
-/*   ////// \todo Document this */
-/*   virtual void DrawGoTo(screenint mousex, screenint mousey) = 0; */
+  /// Renders Dasher with mouse-dependent items
+  /// \todo Clarify relationship between Render functions and probably only expose one
+
+  virtual bool Render(CDasherNode *pRoot, myint iRootMin, myint iRootMax, std::vector<CDasherNode *> &vNodeList, std::vector<CDasherNode *> &vDeleteList, bool bRedrawDisplay, bool bGameMode);
 
   virtual void NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) = 0;
 
   /// Draw the game mode pointer - this shouldn't be here
 
   virtual void DrawGameModePointer(myint iPosition) = 0;
+
+  /// @}
 
   ////// Return a reference to the screen
   
@@ -139,21 +137,6 @@ public:
 
   void Display();
 
-  /// \todo Document this
-
-/*   virtual void ResetSum() { */
-/*   } */
-
-/*   /// \todo Document this */
-
-/*   virtual void ResetSumCounter() { */
-/*   } */
-
-/*   /// \todo Document this */
-
-/*   virtual void ResetYAutoOffset() { */
-/*   } */
-
   /// Set the input device class. Note that this class will now assume ownership of the pointer, ie it will delete the object when it's done with it.
   /// \param _pInput Pointer to the new CDasherInput.
 
@@ -164,6 +147,11 @@ public:
 
   virtual double xmap(double x) const {return 0.0;};   
   virtual double ymap(double x) const {return 0.0;}; 
+
+  ///
+  /// @name Low level drawing
+  /// Basic drawing primitives specified in Dasher coordinates.
+  /// @{
 
   ///
   /// Draw a polyline specified in Dasher co-ordinates
@@ -195,6 +183,7 @@ public:
 
   void DasherDrawText(myint iAnchorX1, myint iAnchorY1, myint iAnchorX2, myint iAnchorY2, const std::string & sDisplayText, int &mostleft, bool bShove);
 
+  /// @}
 
   virtual void VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, myint &iDasherMaxX, myint &iDasherMaxY ) = 0;
 

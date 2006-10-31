@@ -49,3 +49,6 @@ install-data-hook:
 	fi
 
 EXTRA_DIST = dasher.desktop dasher.png dasher.svg
+
+DISTCLEANFILES = dasher.schemas
+

@@ -61,6 +61,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   CDasherModel(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, CNodeCreationManager *pNCManager, CDasherInterfaceBase * pDashIface, bool bGameMode = false, const std::string &strGameModeText = "");
   ~CDasherModel();
 
+  /// @name Language model passthroughs 
+  /// These functions should be made obsolete - we can refer to the
+  /// language model now without passing through here.
+  /// @{
+
   ///
   /// Prototype binary dump of language model data
   ///
@@ -84,17 +89,90 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   }
 
   ///
-  /// Evet handler
+  /// Update a language model context to include an additional character
   ///
 
-  void HandleEvent(Dasher::CEvent * pEvent);
+  void EnterText(CLanguageModel::Context Context, std::string TheText) const;
+
+  ///
+  /// Update a language model context to include an additional
+  /// character, also learning the new data.
+
+  void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
+
+  ///
+  /// Create an empty language model context
+  ///
+
+  CLanguageModel::Context CreateEmptyContext() const;
 
   ///
   /// Return a trainer object for the language model
   ///
 
   CAlphabetManagerFactory::CTrainer *GetTrainer();
-   
+
+  void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
+
+  /// @}
+
+  /// @name Alphabet passthroughs
+  /// Should be obsolete - we shound't need to know about alphabets
+  /// outside of the node manager
+  /// @{
+
+  ///
+  /// Get the symbol ID representing space
+  ///
+
+  symbol GetSpaceSymbol() const {
+    return m_pNodeCreationManager->GetSpaceSymbol();
+  }
+
+  ///
+  /// Get the symbol ID representing the control node 
+  ///
+
+  symbol GetControlSymbol() const {
+    return m_pNodeCreationManager->GetControlSymbol();
+  }
+
+  ///
+  /// Get the symbol ID representing the conversion pseudo-character
+  ///
+
+  symbol GetStartConversionSymbol() const {
+    return m_pNodeCreationManager->GetStartConversionSymbol();
+  }
+
+  ///
+  /// Convert a given symbol ID to display text
+  ///
+
+  const std::string & GetDisplayText(int iSymbol) const {
+    return m_pNodeCreationManager->GetDisplayText(iSymbol);
+  }
+
+  int GetColour(symbol s) const;
+
+  /// @}
+
+  ///
+  /// Event handler
+  ///
+
+  void HandleEvent(Dasher::CEvent * pEvent);
+
+  /// @name Dymanic evolution
+  /// Routines detailing the timer dependent evolution of the model
+  /// @{
+
+  ///
+  /// Update the root location - called in response to regular timer
+  /// callbacks
+  ///
+
+  bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
   ///
   /// Notify the framerate class that a new frame has occurred
   ///
@@ -102,6 +180,23 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   void NewFrame(unsigned long Time) {
     m_fr.NewFrame(Time);
   }
+
+  ///
+  /// Apply an offset to the 'target' coordinates - implements the jumps in
+  /// two button dynamic mode.
+  ///
+
+  void Offset(int iOffset);
+ 
+  ///
+  /// Reset the 'target' root coordinates to match those currently visible. 
+  /// Appropriate for abrubt changes in behaviour (such as backing off in 
+  /// button modes)
+  /// 
+
+  void MatchTarget(bool bReverse);
+
+  /// @}
 
   ///
   /// Get the current framerate
@@ -148,19 +243,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   ///
 
   void SetContext(std::string & sNewContext);
-
-/*   /// */
-/*   /// What does this do? */
-/*   /// */
-
-/*   void Trace() const;  */
-
-  ///
-  /// Update the root location - called in response to regular timer
-  /// callbacks
-  ///
-
-  bool UpdatePosition(myint, myint, unsigned long iTime, Dasher::VECTOR_SYMBOL_PROB* pAdded = NULL, int* pNumDeleted = NULL);  
   
   ///
   /// Check semantics here
@@ -191,55 +273,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return m_dTotalNats;
   }
 
-  ///
-  /// Update a language model context to include an additional character
-  ///
-
-  void EnterText(CLanguageModel::Context Context, std::string TheText) const;
-
-  ///
-  /// Update a language model context to include an additional
-  /// character, also learning the new data.
-
-  void LearnText(CLanguageModel::Context Context, std::string * TheText, bool IsMore);
-
-  ///
-  /// Create an empty language model context
-  ///
-
-  CLanguageModel::Context CreateEmptyContext() const;
-
-  ///
-  /// Get the symbol ID representing space
-  ///
-
-  symbol GetSpaceSymbol() const {
-    return m_pNodeCreationManager->GetSpaceSymbol();
-  }
-
-  ///
-  /// Get the symbol ID representing the control node 
-  ///
-
-  symbol GetControlSymbol() const {
-    return m_pNodeCreationManager->GetControlSymbol();
-  }
-
-  ///
-  /// Get the symbol ID representing the conversion pseudo-character
-  ///
-
-  symbol GetStartConversionSymbol() const {
-    return m_pNodeCreationManager->GetStartConversionSymbol();
-  }
-
-  ///
-  /// Convert a given symbol ID to display text
-  ///
-
-  const std::string & GetDisplayText(int iSymbol) const {
-    return m_pNodeCreationManager->GetDisplayText(iSymbol);
-  }
 
   ///
   /// Get a root node of a given type
@@ -248,19 +281,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   CDasherNode *GetRoot( int iType, CDasherNode *pParent, int iLower, int iUpper, void *pUserData ) {
     return m_pNodeCreationManager->GetRoot(iType, pParent, iLower, iUpper, pUserData);
   };
-  
-  ///
-  /// Get the node creation manager (this is temporary - eventually
-  /// the node creation manager will be owned outside of this class)
-  ///
-
-/* /\*   CNodeCreationManager *GetNodeCreationManager() { *\/ */
-/* /\*     return m_pNodeCreationManager; *\/ */
-/*   }; */
-
-  // TODO - only public temporarily - sort this out
-  void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
-  int GetColour(symbol s) const;
   
 
   ///
@@ -271,10 +291,22 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
   std::string m_strContextBuffer;
 
   /// 
+  /// @name Rendering
+  /// Methods to do with rendering the model to a view
+  /// @{
+
+  /// 
   /// Render the model to a given view
   ///
 
   bool RenderToView(CDasherView *pView, bool bRedrawDisplay);
+
+  /// @}
+
+  /// 
+  /// @name Scheduled operation
+  /// E.g. response to button mode
+  /// @{
 
   ///
   /// Schedule zoom to a given Dasher coordinate (used in click mode,
@@ -291,20 +323,7 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
     return m_deGotoQueue.size();
   }
 
-  ///
-  /// Apply an offset to the 'target' coordinates - implements the jumps in
-  /// two button dynamic mode.
-  ///
-
-  void Offset(int iOffset);
- 
-  ///
-  /// Reset the 'target' root coordinates to match those currently visible. 
-  /// Appropriate for abrubt changes in behaviour (such as backing off in 
-  /// button modes)
-  /// 
-
-  void MatchTarget(bool bReverse);
+  /// @}
 
   ///
   /// This is pretty horrible - a rethink of the start/reset mechanism

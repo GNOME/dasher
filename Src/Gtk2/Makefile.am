@@ -25,10 +25,12 @@ settings_store =
 endif
 
 EXTRA_DIST = \
-                         dasher.glade \
-                         dashergpe.glade \
-                         dashermaemo.glade \
-			 dashermaemofullscreen.glade
+		dasher.traditional.glade \
+		dasher.direct.glade \
+		dasher.compose.glade \
+		dasher.fullscreen.glade \
+		dashermaemo.glade \
+		dashermaemofullscreen.glade
 
 generate_schema_SOURCES = GenerateSchema.cpp
 

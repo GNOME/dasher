@@ -4,9 +4,11 @@ Data/dasher.desktop.in.in
 Src/DasherCore/SocketInput.cpp
 Src/Gtk2/Menu.cc
 Src/Gtk2/Preferences.cpp
-Src/Gtk2/dasher.glade
 Src/Gtk2/dasher_action_speech.cpp
-Src/Gtk2/dashergpe.glade
+Src/Gtk2/dasher.traditional.glade
+Src/Gtk2/dasher.direct.glade
+Src/Gtk2/dasher.compose.glade
+Src/Gtk2/dasher.fullscreen.glade
 Src/Gtk2/dashermaemo.glade
 Src/Gtk2/dashermaemofullscreen.glade
 Src/main.cc

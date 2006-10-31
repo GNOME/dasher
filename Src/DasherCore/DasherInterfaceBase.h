@@ -12,10 +12,8 @@
 #include "../Common/ModuleSettings.h"
 #include "Alphabet/Alphabet.h"
 #include "Alphabet/AlphIO.h"
-#include "CustomColours.h"
 #include "ColourIO.h"
 #include "ModuleManager.h"
-//#include "NodeCreationManager.h"
 #include "ActionButton.h"
 
 #include "AutoSpeedControl.h"
@@ -66,6 +64,11 @@ public:
 
   void Realize();
 
+  /// @name Access to internal member classes
+  /// Access various classes contained within the interface. These
+  /// should be considered dangerous and use minimised. Eventually to
+  /// be replaced by properly encapsulated equivalents.
+  /// @{
 
   ///
   /// Return a pointer to the current EventHandler (the one
@@ -76,6 +79,40 @@ public:
   virtual CEventHandler *GetEventHandler() {
     return m_pEventHandler;
   };
+
+  ///
+  /// \deprecated In situ alphabet editing is no longer supported
+  /// \todo Document this
+  ///
+
+  const CAlphIO::AlphInfo & GetInfo(const std::string & AlphID);
+
+  /// \todo Document this
+
+  void SetInfo(const CAlphIO::AlphInfo & NewInfo);
+
+  /// \todo Document this
+
+  void DeleteAlphabet(const std::string & AlphID);
+
+  /// Get a pointer to the current alphabet object
+
+  CAlphabet *GetAlphabet() {
+    return m_Alphabet;
+  }
+
+  /// Gets a pointer to the object doing user logging
+
+  CUserLogBase* GetUserLogPtr();
+
+  // @}
+
+  ///
+  /// @name Parameter manipulation
+  /// Members for manipulating the parameters of the core Dasher object.
+  ///
+
+  //@{
 
   ///
   /// Set a boolean parameter.
@@ -101,8 +138,6 @@ public:
 
   void SetStringParameter(int iParameter, const std::string & sValue);
 
-  void PreSetNotify(int iParameter, const std::string &sValue);
-
   /// Get a boolean parameter
   /// \param iParameter The parameter to get.
   /// \retval The current value.
@@ -123,8 +158,41 @@ public:
 
   ///
   /// Reset a parameter to the default value
-  
+  ///
+
   void ResetParameter(int iParmater);
+  
+  ///
+  /// \todo Document this
+  ///
+
+  void GetAlphabets(std::vector < std::string > *AlphabetList);
+
+  ///
+  /// \todo Document this
+  ///
+
+  void GetColours(std::vector < std::string > *ColourList);
+
+  /// \todo Document this
+
+  void GetFontSizes(std::vector < int >*FontSizes) const;
+
+  ///
+  /// Obtain the permitted values for a string parameter - used to
+  /// geneate preferences dialogues etc.
+  ///
+
+  void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
+
+  /// 
+  /// Get a list of settings which apply to a particular module
+  /// 
+
+  bool GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount);
+
+
+  //@}
 
   /// Forward events to listeners in the SettingsUI and Editbox.
   /// \param pEvent The event to forward.
@@ -140,19 +208,25 @@ public:
 
   void InterfaceEventHandler(Dasher::CEvent * pEvent);
 
-  // Widget Interface
-  // -----------------------------------------------------
 
-  /// Resets the Dasher model. Doesn't actually unpause Dasher.
-  /// \deprecated Use InvalidateContext() instead
+  void PreSetNotify(int iParameter, const std::string &sValue);
 
-  void Start();
 
   /// Draw a new Dasher frame, regardless of whether we're paused etc.
   /// \param iTime Current time in ms.
   /// \todo See comments in cpp file for some functionality which needs to be re-implemented
 
   void NewFrame(unsigned long iTime, bool bForceRedraw);
+
+
+  /// @name Starting and stopping
+  /// Methods used to instruct dynamic motion of Dasher to start or stop
+  /// @{ 
+
+  /// Resets the Dasher model. Doesn't actually unpause Dasher.
+  /// \deprecated Use InvalidateContext() instead
+
+  void Start();
 
   /// Pause Dasher
   /// \todo Parameters are ignored (?) - remove from definition.
@@ -168,10 +242,7 @@ public:
 
   void Unpause(unsigned long Time);     // Dasher run at the
 
-  /// Force a redraw of the Dasher display
-  /// \todo I don't really see the need to call this externally. In
-  /// Linux drawing is always done to an offscreen buffer, so it's not
-  /// needed during canvas exposure events.
+  /// @}
 
 
   // App Interface
@@ -192,51 +263,6 @@ public:
 
   int TrainFile(std::string Filename, int iTotalBytes, int iOffset); // all training data must be in UTF-8.
 
-  /// \todo Document this
-
-  void GetFontSizes(std::vector < int >*FontSizes) const;
-
-  /// Get the current rate of text entry.
-  /// \retval The rate in characters per minute.
-  /// TODO: Check that this is still used
-
-  double GetCurCPM();           // App may want to display characters per minute
-
-  /// Get current refresh rate.
-  /// \retval The rate in frames per second
-  /// TODO: Check that this is still used
-
-  double GetCurFPS();           // or frames per second.
-
-  // Customize alphabet
-
-  /// \todo Document this
-
-  void GetAlphabets(std::vector < std::string > *AlphabetList);
-
-  /// \todo Document this
-
-  const CAlphIO::AlphInfo & GetInfo(const std::string & AlphID);
-
-  /// \todo Document this
-
-  void SetInfo(const CAlphIO::AlphInfo & NewInfo);
-
-  /// \todo Document this
-
-  void DeleteAlphabet(const std::string & AlphID);
-
-  /// \todo Document this
-
-  void GetColours(std::vector < std::string > *ColourList);
-
-  ///
-  /// Obtain the permitted values for a string parameter - used to
-  /// geneate preferences dialogues etc.
-  ///
-
-  void GetPermittedValues(int iParameter, std::vector<std::string> &vList);
-
   /// Get the current autocalibration offset
   /// \retval The offset.
 
@@ -252,6 +278,23 @@ public:
   void SetContext(std::string strNewContext);
   void InvalidateContext(bool bForceStart);
 
+  /// @name Status reporting
+  /// Get information about the runtime status of Dasher which might
+  /// be of interest for debugging purposes etc.
+  /// @{
+
+  /// Get the current rate of text entry.
+  /// \retval The rate in characters per minute.
+  /// TODO: Check that this is still used
+
+  double GetCurCPM();  
+
+  /// Get current refresh rate.
+  /// \retval The rate in frames per second
+  /// TODO: Check that this is still used
+
+  double GetCurFPS();   
+
   /// Get the total number of nats (base-e bits) entered.
   /// \retval The current total
   /// \todo Obsolete since new logging code?
@@ -263,26 +306,44 @@ public:
 
   void ResetNats();
 
-  /// Get a pointer to the current alphabet object
+  double GetFramerate();
 
-  CAlphabet *GetAlphabet() {
-    return m_Alphabet;
-  }
+  int GetRenderCount();
 
-  // Control mode stuff
-  
+  /// @}
+
+  /// @name Control hierarchy and action buttons
+  /// Manipulate the hierarchy of commands presented in control mode etc
+  /// @{
+
   void RegisterNode( int iID, const std::string &strLabel, int iColour );
+
   void ConnectNode(int iChild, int iParent, int iAfter);
+
   void DisconnectNode(int iChild, int iParent);
 
-  /// Gets a pointer to the object doing user logging
-  CUserLogBase*       GetUserLogPtr();
+  void ExecuteCommand(const std::string &strName);
+
+  void AddActionButton(const std::string &strName);
+
+  /// @}
   
   virtual void WriteTrainFile(const std::string &strNewText) {
   };
 
+  /// @name User input
+  /// Deals with forwarding user input to the core
+  /// @{
+
   void KeyDown(int iTime, int iId);
+
   void KeyUp(int iTime, int iId);
+
+  void HandleClickUp(int iTime, int iX, int iY);
+
+  void HandleClickDown(int iTime, int iX, int iY);
+
+  /// @}
 
   // Module management functions
   void RegisterFactory(CModuleFactory *pFactory);
@@ -290,8 +351,6 @@ public:
   void CreateFactories();
 
   void StartShutdown();
-
-  bool GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount);
 
   void AddGameModeString(const std::string &strText) {
     m_deGameModeStrings.push_back(strText);
@@ -305,16 +364,6 @@ public:
   };
 
   void CheckRedraw();
-
-  void HandleClickUp(int iTime, int iX, int iY);
-  void HandleClickDown(int iTime, int iX, int iY);
-
-  void ExecuteCommand(const std::string &strName);
-
-  double GetFramerate();
-  int GetRenderCount();
-
-  void AddActionButton(const std::string &strName);
    
 protected:
   void WriteTrainFileFull();
