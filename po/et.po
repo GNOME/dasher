@@ -12,7 +12,7 @@ msgstr ""
 "Project-Id-Version: dasher HEAD\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2006-07-16 06:57+0200\n"
-"PO-Revision-Date: 2006-10-26 17:34+0300\n"
+"PO-Revision-Date: 2006-10-28 21:13+0300\n"
 "Last-Translator: Ivar Smolin <okul@linux.ee>\n"
 "Language-Team: Estonian <gnome-et@linux.ee>\n"
 "MIME-Version: 1.0\n"
@@ -509,7 +509,7 @@ msgstr "\n"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:3
 msgid "(Message Placeholder - no need to translate)"
-msgstr ""
+msgstr "(Sõnumi kohahoidja - seda pole vaja tõlkida)"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:6
 msgid "<b>Display Size:</b>"
