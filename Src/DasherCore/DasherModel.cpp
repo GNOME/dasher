@@ -725,8 +725,10 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax) {
  }
 
 void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode) {
-  if(pNewNode != pOldNode)
-    DeleteCharacters(pNewNode, pOldNode);
+  if(pNewNode == pOldNode)
+    return;
+
+  DeleteCharacters(pNewNode, pOldNode);
   
   if(pNewNode->isSeen())
     return;
@@ -782,6 +784,10 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   else {
     // This one's more complicated - the user may have moved onto a new branch
     // Find the last seen node on the new branch
+
+    // Note that it's possible here that it just corresponds to moving
+    // forwards rather than backwards. In this case we should get
+    // lastseen == oldnode, hence we don't do anything in the latter loop.
     CDasherNode *lastseen = newnode->Parent();
 
     while(lastseen != NULL && lastseen->isSeen() == false) {
@@ -793,7 +799,13 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
       oldnode->Seen(false);
       
       oldnode->m_pNodeManager->Undo(oldnode);
-      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+
+      // TODO: This is a hack. We really need to think through the
+      // node flags and be absolutely sure that there's nothing
+      // untoward. (cf. bug #370478).
+      if(oldnode->Parent())
+	oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+
       if (pNumDeleted != NULL)
 	(*pNumDeleted)++;
       oldnode = oldnode->Parent();
