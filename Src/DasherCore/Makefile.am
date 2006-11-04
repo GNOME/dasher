@@ -84,6 +84,7 @@ libdashercore_a_SOURCES = \
 		Parameters.h \
 		PinYinConversionHelper.cpp \
 		PinYinConversionHelper.h \
+		SCENode.h \
 		SettingsStore.cpp \
 		SettingsStore.h \
 		SimpleTimer.cpp \

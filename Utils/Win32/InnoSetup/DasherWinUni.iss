@@ -22,7 +22,7 @@ Name: "quicklaunchicon"; Description: "Create a &Quick Launch icon"; GroupDescri
 [Files]
 Source: "..\..\..\Src\Win32\Target\Win32 Unicode Release\Dasher.exe"; DestDir: "{app}"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\Help\Win32\Dasher.chm"; DestDir: "{app}"; CopyMode: alwaysoverwrite
-Source: "..\..\..\Data\system.rc\training_english_GB.txt"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
+Source: "..\..\..\Data\Translations\training_*.txt"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\system.rc\alphabet*.xml"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\system.rc\alphabet.xsl"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite
 Source: "..\..\..\Data\system.rc\alphabet.dtd"; DestDir: "{app}\system.rc"; CopyMode: alwaysoverwrite

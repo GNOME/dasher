@@ -731,7 +731,10 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
       oldnode->Seen(false);
       
       oldnode->m_pNodeManager->Undo(oldnode);
-      oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+
+      if(oldnode->Parent())
+	oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
+
       if (pNumDeleted != NULL)
 	(*pNumDeleted)++;
       oldnode = oldnode->Parent();
