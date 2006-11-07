@@ -1,3 +1,8 @@
+2006-11-07  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Removed unnecessary qualification in CNodeCreationManager (fixes
+	#371877)
+
 2006-11-06  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Preparing 4.3.1 for release
@@ -32,8 +37,8 @@
 
 2006-05-27  Behdad Esfahbod  <behdad@gnome.org>
 
-	* configure.in: Bug 343085 – Typos in configure.in causes mishandling
-	of --disable-{speech,a11y,japanese}
+	* configure.in: Bug 343085 – Typos in configure.in
+	causes mishandling of --disable-{speech,a11y,japanese}
 
 2006-05-15  Phil Cowans  <pjc51@cam.ac.uk>
 

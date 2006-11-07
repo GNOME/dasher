@@ -20,7 +20,7 @@ namespace Dasher {
 class CNodeCreationManager : public Dasher::CDasherComponent {
  public:
   CNodeCreationManager(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO);
-  CNodeCreationManager::~CNodeCreationManager();
+  ~CNodeCreationManager();
   
   ///
   /// Get a root node of a given type
