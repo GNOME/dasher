@@ -250,6 +250,14 @@
 			Name="Logging"
 			>
 			<File
+				RelativePath=".\BasicLog.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\BasicLog.h"
+				>
+			</File>
+			<File
 				RelativePath=".\FileLogger.cpp"
 				>
 			</File>
@@ -282,6 +290,14 @@
 				>
 			</File>
 			<File
+				RelativePath=".\UserButton.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\UserButton.h"
+				>
+			</File>
+			<File
 				RelativePath=".\UserLocation.cpp"
 				>
 			</File>
@@ -295,6 +311,10 @@
 			</File>
 			<File
 				RelativePath=".\UserLog.h"
+				>
+			</File>
+			<File
+				RelativePath=".\UserLogBase.h"
 				>
 			</File>
 			<File
@@ -346,6 +366,14 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath=".\ActionButton.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\ActionButton.h"
+			>
+		</File>
 		<File
 			RelativePath="Alphabet\Alphabet.cpp"
 			>
@@ -608,6 +636,14 @@
 		</File>
 		<File
 			RelativePath=".\ModuleManager.h"
+			>
+		</File>
+		<File
+			RelativePath=".\NodeCreationManager.cpp"
+			>
+		</File>
+		<File
+			RelativePath=".\NodeCreationManager.h"
 			>
 		</File>
 		<File
