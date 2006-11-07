@@ -230,11 +230,21 @@ fi
 
 if [[ x"$WITHJAPANESE" = xtrue ]]; then
 	AC_DEFINE([JAPANESE], 1, [Japanese support enabled])
+	JAPANESE_SOURCES='CannaConversionHelper.$(OBJEXT)'
+else
+	JAPANESE_SOURCES=
 fi
+
+AC_SUBST(JAPANESE_SOURCES)
 
 if [[ x"$WITHCHINESE" = xtrue ]]; then
 	AC_DEFINE([CHINESE], 1, [Chinese support enabled])
+	CHINESE_SOURCES='PinYinConversionHelper.$(OBJEXT)'
+else
+	CHINESE_SOURCES=
 fi
+
+AC_SUBST(CHINESE_SOURCES)
 
 if [[ x"$WITHGPE" = xtrue ]]; then
 	AC_DEFINE([WITH_GPE], 1, [gpe is present])
@@ -316,6 +326,7 @@ AM_CONDITIONAL(WITH_GPE, test x$WITHGPE = xtrue)
 AM_CONDITIONAL(WITH_MAEMO, test x$WITHMAEMO = xtrue)
 AM_CONDITIONAL(WITH_MAEMOFULLSCREEN, test x$WITHMAEMOFULLSCREEN = xtrue)
 AM_CONDITIONAL(JAPANESE, test x$WITHJAPANESE = xtrue)
+AM_CONDITIONAL(CHINESE, test x$WITHCHINESE = xtrue)
 dnl AM_CONDITIONAL(WITH_DARWIN, test x$WITHDARWIN = xtrue)
 
 AC_SUBST(GTK2_CFLAGS)

@@ -2,12 +2,9 @@
 #include "config.h"
 #endif 
 
-#ifdef CHINESE
-
 #include <ChiCEInterface.h>
 #include <iostream>
 #include "PinYinConversionHelper.h"
-
 
 CPinYinConversionHelper::CPinYinConversionHelper(){
 
@@ -347,7 +344,3 @@ int CPinYinConversionHelper::CalculateScore(CDasherNode * pNode, CANDIDX CandInd
     
   return score;
 } 
-
-
-
-#endif

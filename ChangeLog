@@ -2,6 +2,7 @@
 
 	* Removed unnecessary qualification in CNodeCreationManager (fixes
 	#371877)
+	* Fixed up conditional build for Japanese/Chinese (fixes #371935)
 
 2006-11-06  Phil Cowans  <pjc51@cam.ac.uk>
 

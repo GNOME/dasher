@@ -12,8 +12,6 @@ libdashercore_a_SOURCES = \
 		AutoSpeedControl.h \
 		BasicLog.cpp \
 		BasicLog.h \
-		CannaConversionHelper.cpp \
-		CannaConversionHelper.h \
 		CircleStartHandler.cpp \
 		CircleStartHandler.h \
 		ClickFilter.cpp \
@@ -82,8 +80,6 @@ libdashercore_a_SOURCES = \
 		OneDimensionalFilter.cpp \
 		OneDimensionalFilter.h \
 		Parameters.h \
-		PinYinConversionHelper.cpp \
-		PinYinConversionHelper.h \
 		SCENode.h \
 		SettingsStore.cpp \
 		SettingsStore.h \
@@ -118,6 +114,15 @@ libdashercore_a_SOURCES = \
 		WrapperFactory.h \
 		XMLUtil.cpp \
 		XMLUtil.h
+
+libdashercore_a_LIBADD = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
+libdashercore_a_DEPENDENCIES = @CHINESE_SOURCES@ @JAPANESE_SOURCES@
+
+EXTRA_libdashercore_a_SOURCES = \
+		CannaConversionHelper.cpp \
+		CannaConversionHelper.h \
+		PinYinConversionHelper.cpp \
+		PinYinConversionHelper.h
 
 AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a11y_CFLAGS) $(glade_CFLAGS) $(gnome_CFLAGS) $(wnck_CFLAGS) -DWNCK_I_KNOW_THIS_IS_UNSTABLE -I$(srcdir)/../DasherCore -DPROGDATA=\"$(pkgdatadir)\" -I../../intl -I$(top_srcdir)/intl 
 
