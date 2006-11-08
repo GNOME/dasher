@@ -1,3 +1,8 @@
+2006-11-08  Phil Cowans  <pjc51@cam.ac.uk>
+
+        * Revamped 1D mode - now has a specialised input device module and
+	allows coordinate scaling again.
+
 2006-11-07  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Removed unnecessary qualification in CNodeCreationManager (fixes

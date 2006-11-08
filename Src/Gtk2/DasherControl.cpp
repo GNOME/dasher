@@ -43,6 +43,7 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore)));
 
   m_pKeyboardHelper = new CKeyboardHelper(this);
   m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
@@ -54,6 +55,9 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
   
   m_pMouseInput = (CDasherMouseInput *)GetModule(0);
   m_pMouseInput->Ref();
+
+  m_p1DMouseInput = (CDasher1DMouseInput *)GetModule(2);
+  m_p1DMouseInput->Ref();
 
   // Create a pango cache
 
@@ -428,6 +432,16 @@ int CDasherControl::TimerEvent() {
 
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
   m_pMouseInput->SetCoordinates(x, y);
+
+  gdk_window_get_pointer(gdk_get_default_root_window(), &x, &y, NULL);
+
+  int iRootWidth;
+  int iRootHeight;
+
+  gdk_drawable_get_size(gdk_get_default_root_window(), &iRootWidth, &iRootHeight);
+  y = (y - iRootHeight / 2) * 4096 / GetLongParameter(LP_YSCALE);
+
+  m_p1DMouseInput->SetCoordinates(x, y);
 
   NewFrame(get_time(), false);
 

@@ -561,7 +561,7 @@ void CDasherViewSquare::VisibleRegion( myint &iDasherMinX, myint &iDasherMinY, m
   iDasherMaxY = m_iDasherMaxY;
 }
 
-void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
+int CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) {
 
   // FIXME - Actually turn autocalibration on and off!
   // FIXME - AutoCalibrate should use Dasher co-ordinates, not raw mouse co-ordinates?
@@ -599,12 +599,13 @@ void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myin
 
   // Convert the input co-ordinates to dasher co-ordinates
 
-  int mode;
-  
-  mode = 0;
- 
   //  Input2Dasher(mousex, mousey, iDasherX, iDasherY);
-  Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+  if(iType == 0)
+    Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true );
+  else {
+    iDasherX = mousex;
+    iDasherY = mousey;
+  }
 
 //   m_iDasherXCache = iDasherX;
 //   m_iDasherYCache = iDasherY;
@@ -618,6 +619,8 @@ void CDasherViewSquare::GetCoordinates(unsigned long Time, myint &iDasherX, myin
   //  iDasherX = myint(xmap(iDasherX / static_cast < double >(GetLongParameter(LP_MAX_Y))) * GetLongParameter(LP_MAX_Y));
   // iDasherY = m_ymap.map(iDasherY);
 #endif
+
+  return iType;
 }
 
 void CDasherViewSquare::NewDrawGoTo(myint iDasherMin, myint iDasherMax, bool bActive) {

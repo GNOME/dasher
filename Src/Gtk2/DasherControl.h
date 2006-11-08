@@ -187,12 +187,13 @@ private:
   ///
 
   CDasherMouseInput *m_pMouseInput;
+  CDasher1DMouseInput *m_p1DMouseInput;
 
-  ///
-  /// Abstracted input device object for TCP/IP socket input.
-  ///
+/*   /// */
+/*   /// Abstracted input device object for TCP/IP socket input. */
+/*   /// */
 
-  CSocketInput *m_pSocketInput;
+/*   CSocketInput *m_pSocketInput; */
 
   ///
   /// Cache of Pango layouts

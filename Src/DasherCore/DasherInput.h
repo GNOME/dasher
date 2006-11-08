@@ -39,6 +39,14 @@ public:
   /// Deactivate the device. Please don't hold on to any significant
   /// resources (eg helper threads) after deactivation.
   virtual void Deactivate() {};
+
+  /// Handle key down events
+  ///
+  virtual void KeyDown(int iTime, int iId) {};
+
+  ///
+  /// Handle key up events
+  virtual void KeyUp(int iTime, int iId) {};
 };
 
 #endif

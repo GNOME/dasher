@@ -833,6 +833,10 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
     m_pInputFilter->KeyDown(iTime, iId, m_pDasherModel, m_pUserLog);
   }
+
+  if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
+    m_pInput->KeyDown(iTime, iId);
+  }
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
@@ -841,6 +845,10 @@ void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
     m_pInputFilter->KeyUp(iTime, iId, m_pDasherModel);
+  }
+
+  if(m_pInput && !GetBoolParameter(BP_TRAINING)) {
+    m_pInput->KeyUp(iTime, iId);
   }
 }
 

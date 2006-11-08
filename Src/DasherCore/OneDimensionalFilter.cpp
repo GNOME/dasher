@@ -1,26 +1,12 @@
 #include "OneDimensionalFilter.h"
 
-static SModuleSettings sSettings[] = {
-  {LP_YSCALE, T_LONG, 0, 2000, 1, 1, "Scaling amount:"}
-};
-
 COneDimensionalFilter::COneDimensionalFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface, CDasherModel *m_pDasherModel)
   : CDefaultFilter(pEventHandler, pSettingsStore, pInterface, m_pDasherModel, 4, "One Dimensional Mode") {
-
-  iOffset = 0;
 }
-
-bool COneDimensionalFilter::GetSettings(SModuleSettings **pSettings, int *iCount) {
-  *pSettings = sSettings;
-  *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
-
-  return true;
-};
 
 void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
 
   iLastY = iDasherY;
-  iDasherY += iOffset;
 
   double disty,circlesize,yfullrange,yforwardrange,angle,ellipse_eccentricity,ybackrange,yb,x;	
   
@@ -75,13 +61,3 @@ void COneDimensionalFilter::ApplyTransform(myint &iDasherX, myint &iDasherY) {
   iDasherX = myint(x);
 }
 
-
-void COneDimensionalFilter::KeyDown(int iTime, int iId, CDasherModel *pModel, CUserLogBase *pUserLog) {
-  
-  if(iId == 10) {
-    iOffset = 2048 - iLastY;
-  }
-  else {
-    CDefaultFilter::KeyDown(iTime, iId, pModel, pUserLog);
-  }
-}

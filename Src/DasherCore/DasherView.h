@@ -83,7 +83,7 @@ public:
   /// Translates the screen coordinates to Dasher coordinates and calls
   /// dashermodel.TapOnDisplay
 
-  virtual void GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) = 0;
+  virtual int GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY) = 0;
 
   /// 
   /// @name Coordinate system conversion

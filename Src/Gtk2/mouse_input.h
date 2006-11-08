@@ -43,10 +43,16 @@ private:
 
 };
 
+static SModuleSettings sSettings[] = {
+  {LP_YSCALE, T_LONG, 10, 2000, 1, 1, "Pixels covering Y range:"}
+};
+
 class CDasher1DMouseInput:public CDasherInput {
 public:
   CDasher1DMouseInput(CEventHandler * pEventHandler, CSettingsStore * pSettingsStore) 
-    : CDasherInput(pEventHandler, pSettingsStore, 2, 0, "1D Mouse Input") {
+    : CDasherInput(pEventHandler, pSettingsStore, 2, 0, "One Dimensional Mouse Input") {
+
+    m_iOffset = 0;
   };
 
   // Fill pCoordinates with iN coordinate values, return 0 if the
@@ -55,11 +61,11 @@ public:
 
   virtual int GetCoordinates(int iN, myint * pCoordinates) {
 
-    pCoordinates[0] = m_iY * m_iDasherMaxY / 1024;      // FIXME - hard coded screen resolution!!!!!!!!!!
+    pCoordinates[0] = m_iY - m_iOffset;// * m_iDasherMaxY / 1024;      // FIXME - hard coded screen resolution!!!!!!!!!!
 
-    std::cout << m_iY << " " << pCoordinates[0] << std::endl;
+    //    std::cout << m_iY << " " << pCoordinates[0] << std::endl;
 
-    return 0;
+    return 1;
   };
 
   // Get the number of co-ordinates that this device supplies
@@ -81,6 +87,19 @@ public:
     m_iY = _iY;
   };
 
+  void KeyDown(int iTime, int iId) {
+    if(iId == 10) {
+      m_iOffset = m_iY - 2048;
+    }
+  };
+
+  bool GetSettings(SModuleSettings **pSettings, int *iCount) {
+    *pSettings = sSettings;
+    *iCount = sizeof(sSettings) / sizeof(SModuleSettings);
+    
+    return true;
+  };
+
 private:
 
   myint m_iDasherMaxX;
@@ -89,6 +108,7 @@ private:
   myint m_iX;
   myint m_iY;
 
+  myint m_iOffset;
 };
 
 #endif

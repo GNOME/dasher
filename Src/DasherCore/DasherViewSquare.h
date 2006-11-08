@@ -52,7 +52,7 @@ public:
   /// Convert input coordinates to dasher coordinates and evolve the model
   ///
 
-  void GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY);
+  int GetCoordinates(unsigned long Time, myint &iDasherX, myint &iDasherY);
   
   ///
   /// \todo Document this

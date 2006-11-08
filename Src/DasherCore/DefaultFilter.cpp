@@ -145,7 +145,12 @@ void CDefaultFilter::DrawMouse(CDasherView *pView) {
   myint iDasherX;
   myint iDasherY;
 
-  pView->Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true);
+  if(iType == 0)
+    pView->Screen2Dasher(mousex, mousey, iDasherX, iDasherY, false, true);
+  else {
+    iDasherX = mousex;
+    iDasherY = mousey;
+  }
 
   ApplyAutoCalibration(iDasherX, iDasherY, false);
   ApplyTransform(iDasherX, iDasherY);
@@ -187,8 +192,13 @@ void CDefaultFilter::DrawMouseLine(CDasherView *pView) {
   // End of line is the mouse cursor location - note that we should
   // probably be using a chached value rather than computing this
   // separately to TapOn
- 
-  pView->Screen2Dasher(mousex, mousey, x[1], y[1], false, true);
+  
+  if(iType == 0)
+    pView->Screen2Dasher(mousex, mousey, x[1], y[1], false, true);
+  else {
+    x[1] = mousex;
+    y[1] = mousey;
+  }
 
   ApplyAutoCalibration(x[1], y[1], false);
   ApplyTransform(x[1], y[1]);
