@@ -2,6 +2,7 @@
 
         * Revamped 1D mode - now has a specialised input device module and
 	allows coordinate scaling again.
+	* Fixed gconf installation bug in Makefiles (#372448)
 
 2006-11-07  Phil Cowans  <pjc51@cam.ac.uk>
 

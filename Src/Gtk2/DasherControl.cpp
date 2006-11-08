@@ -515,7 +515,9 @@ gboolean CDasherControl::ButtonPressEvent(GdkEventButton *event) {
 }
 
 gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
-
+  // TODO: This is seriously flawed - the semantics of of X11 Keyboard
+  // events mean the there's no guarantee that key up/down events will
+  // be received in pairs.
 
   if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R)) {
     if(event->state & GDK_CONTROL_MASK)

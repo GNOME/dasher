@@ -33,7 +33,7 @@ dasher.schemas:
 
 install-schemas: dasher.schemas
 	GCONF_CONFIG_SOURCE=$(GCONF_SCHEMA_CONFIG_SOURCE) \
-	gconftool --makefile-install-rule dasher.schemas
+	gconftool-2 --makefile-install-rule dasher.schemas
 else
 install-data-local:
 endif
