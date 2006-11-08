@@ -91,30 +91,11 @@ public:
   void CanvasDestroyEvent();
   
   ///
-  /// Key press event on the canvas or the speed slider. This is
-  /// currently a single handler for the two objects, but it may be
-  /// sensible to at least partially split it in the future.
-  /// \todo There's quite a bit of functionality which used to be here in 3.2
-  /// but which has now been removed. Some of this is obsolete button Dasher
-  /// code, but some of it performs useful functions such as recalibration,
-  /// so this needs to be re-implemented.
+  /// Key press event on the canvas\
   ///
   
- gint KeyReleaseEvent(GdkEventKey * event);
- gint KeyPressEvent(GdkEventKey * event);
-
-
-  /// 
-  /// \todo Pointless one-line function, bring in to scan_alphabet_files.
-  ///
-
-  int alphabet_filter(const gchar * filename, GPatternSpec * alphabet);
-
-  ///
-  /// \todo Pointless one-line function, bring in to scan_colour_files.
-  ///
-
-  int colour_filter(const gchar * filename, GPatternSpec * colourglob);
+  gint KeyReleaseEvent(GdkEventKey * event);
+  gint KeyPressEvent(GdkEventKey * event);
 
   ///
   /// Return an array of allowed values for a string parameter.
@@ -154,7 +135,6 @@ private:
   virtual void SetupPaths();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
-  virtual void HandleEvent(CEvent * pEvent);
   virtual int GetFileSize(const std::string &strFileName);
 
   ///
@@ -172,15 +152,6 @@ private:
 
   GtkWidget *m_pVBox;
   GtkWidget *m_pCanvas;
-  GtkWidget *m_pSpeedHScale;
-  GtkWidget *m_pSpeedFrame;
-
-  GtkWidget *m_pStatusBar;
-
-  GtkWidget *m_pSpin;
-  GtkWidget *m_pCombo;
-  GtkWidget *m_pStatusLabel;
-
 
   ///
   /// Abstracted input device object for mouse input.
@@ -188,12 +159,6 @@ private:
 
   CDasherMouseInput *m_pMouseInput;
   CDasher1DMouseInput *m_p1DMouseInput;
-
-/*   /// */
-/*   /// Abstracted input device object for TCP/IP socket input. */
-/*   /// */
-
-/*   CSocketInput *m_pSocketInput; */
 
   ///
   /// Cache of Pango layouts
@@ -218,9 +183,6 @@ private:
   ///
 
   CKeyboardHelper *m_pKeyboardHelper;
-
-  int m_iComboCount;
-
 };
 
 #endif

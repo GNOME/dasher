@@ -34,8 +34,6 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   Realize();
 
-  m_iComboCount = 0;
-
   // Create input device objects
   // (We create the SocketInput object now even if socket input is not enabled, because
   // we are not allowed to create it in response to a parameter update event later, because
@@ -50,8 +48,8 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   CreateInput();
 
-//   m_pSocketInput = (CSocketInput *)GetModule(1);
-//   m_pSocketInput->Ref();
+  // Create locally cached copies of the mouse input objects, as we
+  // need to pass coordinates to them from the timer callback
   
   m_pMouseInput = (CDasherMouseInput *)GetModule(0);
   m_pMouseInput->Ref();
@@ -83,39 +81,10 @@ void CDasherControl::SetupUI() {
 
   GtkWidget *pFrame = gtk_frame_new(NULL);
   gtk_frame_set_shadow_type(GTK_FRAME(pFrame), GTK_SHADOW_IN); 
-  
-//   m_pSpeedFrame = gtk_frame_new("Speed:");
-
-//   m_pSpeedHScale = gtk_hscale_new_with_range(0.1, 8.0, 0.1);
-//   gtk_scale_set_digits( GTK_SCALE(m_pSpeedHScale), 1 );
-
-//   gtk_container_add(GTK_CONTAINER(m_pSpeedFrame), m_pSpeedHScale);
   gtk_container_add(GTK_CONTAINER(pFrame), m_pCanvas);
 
-
-//   m_pStatusBar = gtk_hbox_new(false, 2);
-
-//   m_pSpin = gtk_spin_button_new_with_range(0.1, 8.0, 0.1);
-//   m_pCombo = gtk_combo_box_new_text();
-
-//   gtk_widget_set_size_request(m_pCombo, 256, -1);
-
-//   m_pStatusLabel = gtk_label_new("Characters/min: --");
-//   gtk_label_set_justify(GTK_LABEL(m_pStatusLabel), GTK_JUSTIFY_RIGHT);
-
-//   gtk_box_pack_start(GTK_BOX(m_pStatusBar), gtk_label_new("Speed:"), 0, 0, 0);
-//   //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pSpin, 0, 0, 0);
-//   //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pCombo, 0, 0, 0);
-//   //  gtk_box_pack_start(GTK_BOX(m_pStatusBar), m_pStatusLabel, TRUE, TRUE, 0);
-
-   gtk_box_pack_start(GTK_BOX(m_pVBox), pFrame, TRUE, TRUE, 0);
-//   //  gtk_box_pack_start(GTK_BOX(m_pVBox), m_pSpeedFrame, FALSE, FALSE, 0);
-//   gtk_box_pack_start(GTK_BOX(m_pVBox), m_pStatusBar, FALSE, FALSE, 0);
-
+  gtk_box_pack_start(GTK_BOX(m_pVBox), pFrame, TRUE, TRUE, 0);
   gtk_widget_show_all(GTK_WIDGET(m_pVBox));
-
-//   if(!GetBoolParameter(BP_SHOW_SLIDER))
-//     gtk_widget_hide(m_pStatusBar);
 
   // Connect callbacks - note that we need to implement the callbacks
   // as "C" style functions and pass this as user data so they can
@@ -126,9 +95,6 @@ void CDasherControl::SetupUI() {
   g_signal_connect_after(m_pCanvas, "realize", G_CALLBACK(realize_canvas), this);
   g_signal_connect(m_pCanvas, "configure_event", G_CALLBACK(canvas_configure_event), this);
   g_signal_connect(m_pCanvas, "destroy", G_CALLBACK(canvas_destroy_event), this);
-
-  // We'll use the same call back for keyboard events from the canvas
-  // and slider - maybe this isn't the right thing to do long term
 
   g_signal_connect(m_pCanvas, "key-release-event", G_CALLBACK(key_release_event), this);
   g_signal_connect(m_pCanvas, "key_press_event", G_CALLBACK(key_press_event), this);
@@ -170,9 +136,8 @@ void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
 
   if(directory) {
     while((filename = g_dir_read_name(directory))) {
-      if(alphabet_filter(filename, alphabetglob)) {
+      if(g_pattern_match_string(alphabetglob, filename)) 
 	vFileList.push_back(filename);
-      }
     }
     g_dir_close(directory);
   }
@@ -181,13 +146,13 @@ void CDasherControl::ScanAlphabetFiles(std::vector<std::string> &vFileList) {
 
   if(directory) {
     while((filename = g_dir_read_name(directory))) {
-      if(alphabet_filter(filename, alphabetglob)) {
+      if(g_pattern_match_string(alphabetglob, filename))
 	vFileList.push_back(filename);
-      }
     }
     g_dir_close(directory);
   }
-  // FIXME - need to delete glob?
+
+  g_pattern_spec_free(alphabetglob);
 }
 
 void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
@@ -201,9 +166,8 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 
   if(directory) {
     while((filename = g_dir_read_name(directory))) {
-      if(colour_filter(filename, colourglob)) {
+      if(g_pattern_match_string(colourglob, filename))
 	vFileList.push_back(filename);
-      }
     }
     g_dir_close(directory);
   }
@@ -212,14 +176,13 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 
   if(directory) {
     while((filename = g_dir_read_name(directory))) {
-      if(colour_filter(filename, colourglob)) {
+      if(g_pattern_match_string(colourglob, filename))
 	vFileList.push_back(filename);
-      }
     }
     g_dir_close(directory);
   }
 
-  // FIXME - need to delete glob?
+  g_pattern_spec_free(colourglob);
 }
 
 CDasherControl::~CDasherControl() {
@@ -263,9 +226,7 @@ void CDasherControl::SetFocus() {
 }
 
 GArray *CDasherControl::GetAllowedValues(int iParameter) {
-
-  // FIXME - this should really be implemented in DasherInterface in
-  // place of GetAlphabets and GetColours
+  // Glib version of the STL based core function
 
   GArray *pRetVal(g_array_new(false, false, sizeof(gchar *)));
 
@@ -306,17 +267,68 @@ int CDasherControl::CanvasConfigureEvent() {
 }
 
 void CDasherControl::ExternalEventHandler(Dasher::CEvent *pEvent) {
-  // Pass events outside
-  if(pEvent->m_iEventType == 1) {
+  // Convert events coming from the core to Glib signals.
+
+  if(pEvent->m_iEventType == EV_PARAM_NOTIFY) {
     Dasher::CParameterNotificationEvent * pEvt(static_cast < Dasher::CParameterNotificationEvent * >(pEvent));
     HandleParameterNotification(pEvt->m_iParameter);
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_changed", pEvt->m_iParameter);
   }
-  // TODO: Horrible - just keep events here
-  else if((pEvent->m_iEventType >= 2) && (pEvent->m_iEventType <= 9)) {
-    HandleEvent(pEvent);
+  else if(pEvent->m_iEventType == EV_EDIT) {
+    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
+    
+    if(pEditEvent->m_iEditType == 1) {
+      // Insert event
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str());
+    }
+    else if(pEditEvent->m_iEditType == 2) {
+      // Delete event
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str());
+    }
+    else if(pEditEvent->m_iEditType == 10) {
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_convert");
+    }
+    else if(pEditEvent->m_iEditType == 11) {
+      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_protect");
+    }
   }
+  else if(pEvent->m_iEventType == EV_EDIT_CONTEXT) {
+    CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iMaxLength);
+  }
+  else if(pEvent->m_iEventType == EV_START) {
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_start");
+  }
+  else if(pEvent->m_iEventType == EV_STOP) {
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
+  }
+  else if(pEvent->m_iEventType == EV_CONTROL) {
+    CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
+  }
+  else if(pEvent->m_iEventType == EV_LOCK) {
+    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
+    DasherLockInfo sInfo;
+    sInfo.szMessage = pLockEvent->m_strMessage.c_str();
+    sInfo.bLock = pLockEvent->m_bLock;
+    sInfo.iPercent = pLockEvent->m_iPercent;
 
-}
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_lock_info", &sInfo);
+  }
+  else if(pEvent->m_iEventType == EV_MESSAGE) {
+    CMessageEvent *pMessageEvent(static_cast<CMessageEvent *>(pEvent));
+    DasherMessageInfo sInfo;
+    sInfo.szMessage = pMessageEvent->m_strMessage.c_str();
+    sInfo.iID = pMessageEvent->m_iID;
+    sInfo.iType = pMessageEvent->m_iType;
+
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_message", &sInfo);
+  }
+  else if(pEvent->m_iEventType == EV_COMMAND) {
+    CCommandEvent *pCommandEvent(static_cast<CCommandEvent *>(pEvent));
+    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_command", pCommandEvent->m_strCommand.c_str());
+  }
+};
 
 void CDasherControl::WriteTrainFile(const std::string &strNewText) {
   if(strNewText.length() == 0)
@@ -348,7 +360,6 @@ void CDasherControl::ExternalKeyUp(int iKeyVal) {
 }
 
 void CDasherControl::HandleParameterNotification(int iParameter) {
-
   switch(iParameter) {
   case SP_DASHER_FONT:
     if(m_pPangoCache) {
@@ -361,73 +372,9 @@ void CDasherControl::HandleParameterNotification(int iParameter) {
       m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
     break;
   }
-
-  // Emit a dasher_changed signal to notify the application about changes.
-  g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_changed", iParameter);
 }
 
-
-void CDasherControl::HandleEvent(CEvent *pEvent) {
-  if(pEvent->m_iEventType == 2) {
-    CEditEvent *pEditEvent(static_cast < CEditEvent * >(pEvent));
-
-    if(pEditEvent->m_iEditType == 1) {
-      // Insert event
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_insert", pEditEvent->m_sText.c_str());
-    }
-    else if(pEditEvent->m_iEditType == 2) {
-      // Delete event
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_delete", pEditEvent->m_sText.c_str());
-    }
-    else if(pEditEvent->m_iEditType == 10) {
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_convert");
-    }
-    else if(pEditEvent->m_iEditType == 11) {
-      g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_edit_protect");
-    }
-  }
-  else if(pEvent->m_iEventType == 3) {
-    CEditContextEvent *pEditContextEvent(static_cast < CEditContextEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_context_request", pEditContextEvent->m_iMaxLength);
-  }
-  else if(pEvent->m_iEventType == 4) {
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_start");
-  }
-  else if(pEvent->m_iEventType == 5) {
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_stop");
-  }
-  else if(pEvent->m_iEventType == 6) {
-    CControlEvent *pControlEvent(static_cast < CControlEvent * >(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_control", pControlEvent->m_iID);
-  }
-  else if(pEvent->m_iEventType == 7) {
-    CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
-    DasherLockInfo sInfo;
-    sInfo.szMessage = pLockEvent->m_strMessage.c_str();
-    sInfo.bLock = pLockEvent->m_bLock;
-    sInfo.iPercent = pLockEvent->m_iPercent;
-
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_lock_info", &sInfo);
-  }
-  else if(pEvent->m_iEventType == 8) {
-    CMessageEvent *pMessageEvent(static_cast<CMessageEvent *>(pEvent));
-    DasherMessageInfo sInfo;
-    sInfo.szMessage = pMessageEvent->m_strMessage.c_str();
-    sInfo.iID = pMessageEvent->m_iID;
-    sInfo.iType = pMessageEvent->m_iType;
-
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_message", &sInfo);
-  }
-  else if(pEvent->m_iEventType == 9) {
-    CCommandEvent *pCommandEvent(static_cast<CCommandEvent *>(pEvent));
-    g_signal_emit_by_name(GTK_OBJECT(m_pDasherControl), "dasher_command", pCommandEvent->m_strCommand.c_str());
-  }
-};
-
 int CDasherControl::TimerEvent() {
-
-  //  return 1;
-
   int x, y;
 
   gdk_window_get_pointer(m_pCanvas->window, &x, &y, NULL);
@@ -584,16 +531,6 @@ int CDasherControl::GetFileSize(const std::string &strFileName) {
     return sStatInfo.st_size;
   else
     return 0;
-}
-
-// FIXME - these two methods seem a bit pointless!
-
-int CDasherControl::alphabet_filter(const gchar *filename, GPatternSpec *alphabetglob) {
-  return int (g_pattern_match_string(alphabetglob, filename));
-}
-
-int CDasherControl::colour_filter(const gchar *filename, GPatternSpec *colourglob) {
-  return int (g_pattern_match_string(colourglob, filename));
 }
 
 // "C" style callbacks - these are here just because it's not possible
