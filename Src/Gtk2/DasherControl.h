@@ -91,7 +91,7 @@ public:
   void CanvasDestroyEvent();
   
   ///
-  /// Key press event on the canvas\
+  /// Key press event on the canvas
   ///
   
   gint KeyReleaseEvent(GdkEventKey * event);
@@ -133,9 +133,13 @@ private:
   virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList);
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
+  virtual void CreateLocalFactories();
   virtual void SetupUI();
   virtual void CreateSettingsStore();
   virtual int GetFileSize(const std::string &strFileName);
+
+  void StartTimer();
+  void ShutdownTimer();
 
   ///
   /// Pass events coming from the core to the appropriate handler.

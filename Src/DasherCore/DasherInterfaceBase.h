@@ -366,6 +366,40 @@ public:
   void CheckRedraw();
    
 protected:
+
+  ///
+  /// Notify the core that the UI has been realised. At this point drawing etc. is expected to work
+  ///
+
+  void OnUIRealised();
+
+
+  /// @name State machine functions
+  /// ...
+  /// @{
+
+  enum ETransition {
+    TR_MODEL_INIT,
+    TR_UI_INIT,
+    TR_LOCK,
+    TR_UNLOCK,
+    TR_SHUTDOWN
+  };
+
+  enum EState {
+    ST_START,
+    ST_MODEL,
+    ST_UI,
+    ST_NORMAL,
+    ST_LOCKED,
+    ST_SHUTDOWN
+  };
+
+  void ChangeState(ETransition iTransition);
+
+  /// @}
+
+
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
 
@@ -399,22 +433,85 @@ protected:
   bool m_bRedrawScheduled;
 
  private:
-  // To be implemented by child class (TODO - should these be private?)
-  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
-  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
+
+  /// @name Platform dependent utility functions 
+  /// These functions provide various platform dependent functions
+  /// required by the core. A derived class is created for each
+  /// supported platform which implements these.
+  // @{
+  
+  /// 
+  /// Initialise the SP_SYSTEM_LOC and SP_USER_LOC paths - the exact
+  /// method of doing this will be OS dependent
+  ///
+
   virtual void SetupPaths() = 0;
+
+  /// 
+  /// Produce a list of filenames for alphabet files
+  ///
+
+  virtual void ScanAlphabetFiles(std::vector<std::string> &vFileList) = 0;
+
+  ///
+  /// Produce a list of filenames for colour files
+  ///
+  
+  virtual void ScanColourFiles(std::vector<std::string> &vFileList) = 0;
+
+  ///
+  /// Set up the platform dependent UI for the widget (not the wider
+  /// app). Note that the constructor of the derived class will
+  /// probably want to return details of what was created - this will
+  /// have to happen separately, but we'll need to be careful with the
+  /// semantics.
+  ///
+
   virtual void SetupUI() = 0;
+
+  ///
+  /// Create any module factories which are specific to the platform
+  /// (eg input device drivers)
+  ///
+
+  virtual void CreateLocalFactories() = 0;
+
+  ///
+  /// Create settings store object, which will be platform dependent
+  /// TODO: Can this not be done just by selecting which settings
+  /// store implementation to instantiate?
+  ///
+
   virtual void CreateSettingsStore() = 0;
+
+  ///
+  /// Obtain the size in bytes of a file - the way to do this is
+  /// dependent on the OS (TODO: Check this - any posix on Windows?)
+  ///
+
   virtual int GetFileSize(const std::string &strFileName) = 0;
+
+  ///
+  /// Start the callback timer
+  ///
+
+  virtual void StartTimer() = 0;
+  
+  ///
+  /// Shutdown the callback timer (permenantly - this is called once
+  /// Dasher is committed to closing).
+  ///
+
+  virtual void ShutdownTimer() = 0;
+
+  /// @}
 
   void CreateInputFilter();
   void CreateDasherModel();
   void ChangeAlphabet();
   void ChangeColours();
   void ChangeView();
-
-  void Redraw(bool bRedrawNodes);                // correct speed.
-
+  void Redraw(bool bRedrawNodes);
   void SetupActionButtons();
   void DestroyActionButtons();
   void PositionActionButtons();

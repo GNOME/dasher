@@ -13,7 +13,7 @@ static SModuleSettings sSettings[] = {
 };
 
 CDynamicFilter::CDynamicFilter(Dasher::CEventHandler * pEventHandler, CSettingsStore *pSettingsStore, CDasherInterfaceBase *pInterface)
-  : CTwoButtonDynamicFilter(pEventHandler, pSettingsStore, pInterface, 6, 1, "Dynamic Mode") {
+  : CTwoButtonDynamicFilter(pEventHandler, pSettingsStore, pInterface, 6, 1, "One Button Dynamic Mode") {
   m_iTarget = 0;
 
   m_iTargetX = new int[2];

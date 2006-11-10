@@ -25,7 +25,7 @@ extern "C" void canvas_destroy_event(GtkWidget *pWidget, gpointer pUserData);
 extern "C" gboolean canvas_focus_event(GtkWidget *widget, GdkEventFocus *event, gpointer data);
 extern "C" gint canvas_expose_event(GtkWidget *widget, GdkEventExpose *event, gpointer data);
 
-static bool g_bHaveTimer = false;
+static bool g_iTimeoutID = 0;
 
 // CDasherControl class definitions
 CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl) {
@@ -34,19 +34,22 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   Realize();
 
-  // Create input device objects
-  // (We create the SocketInput object now even if socket input is not enabled, because
-  // we are not allowed to create it in response to a parameter update event later, because
-  // that would mean registering a new event listener during the processing of an event.
-
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
-  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore)));
-
+ 
   m_pKeyboardHelper = new CKeyboardHelper(this);
   m_pKeyboardHelper->Grab(GetBoolParameter(BP_GLOBAL_KEYBOARD));
 
-  CreateInput();
+  // Don't create the screen until we've been realised.
+
+  m_pScreen = NULL;
+
+}
+
+void CDasherControl::CreateLocalFactories() {
+   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
+  RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore)));
+
+  
 
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
@@ -56,21 +59,6 @@ CDasherControl::CDasherControl(GtkVBox *pVBox, GtkDasherControl *pDasherControl)
 
   m_p1DMouseInput = (CDasher1DMouseInput *)GetModule(2);
   m_p1DMouseInput->Ref();
-
-  // Create a pango cache
-
-  m_pPangoCache = 0;
-
-  // TODO: Use system defaults?
-  if(GetStringParameter(SP_DASHER_FONT) == "")
-    SetStringParameter(SP_DASHER_FONT, "Sans 10");
-
- 
-  m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
-
-  // Don't create the screen until we've been realised.
-
-  m_pScreen = NULL;
 
 }
 
@@ -101,6 +89,15 @@ void CDasherControl::SetupUI() {
 
   g_signal_connect(m_pCanvas, "focus_in_event", G_CALLBACK(canvas_focus_event), this);
   g_signal_connect(m_pCanvas, "expose_event", G_CALLBACK(canvas_expose_event), this);
+
+  // Create the Pango cache
+
+  // TODO: Use system defaults?
+  if(GetStringParameter(SP_DASHER_FONT) == "")
+    SetStringParameter(SP_DASHER_FONT, "Sans 10");
+ 
+  m_pPangoCache = new CPangoCache(GetStringParameter(SP_DASHER_FONT));
+
 }
 
 
@@ -188,14 +185,17 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 CDasherControl::~CDasherControl() {
   WriteTrainFileFull();
 
-  // Delete the input devices
-
-  if(m_pMouseInput != NULL) {
+  if(m_pMouseInput) {
     m_pMouseInput->Unref();
     m_pMouseInput = NULL;
   }
 
-  if(m_pPangoCache != NULL) {
+  if(m_p1DMouseInput) {
+    m_p1DMouseInput->Unref();
+    m_p1DMouseInput = NULL;
+  }
+
+  if(m_pPangoCache) {
     delete m_pPangoCache;
     m_pPangoCache = NULL;
   }
@@ -246,13 +246,26 @@ GArray *CDasherControl::GetAllowedValues(int iParameter) {
 }
 
 void CDasherControl::RealizeCanvas(GtkWidget *pWidget) {
+  // TODO: Pointless function - call directly from C callback.
+  OnUIRealised();
+}
+
+void CDasherControl::StartTimer() {
   // Start the timer loops as everything is set up
   // Aim for 20 frames per second
-  if(!g_bHaveTimer) {
-    g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
-    g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 5000, long_timer_callback, this, NULL);
-    g_bHaveTimer = true;
+
+  if(g_iTimeoutID == 0) {
+    g_iTimeoutID = g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 50, timer_callback, this, NULL);
+    // TODO: Reimplement this (or at least reimplement some kind of status reporting)
+    //g_timeout_add_full(G_PRIORITY_DEFAULT_IDLE, 5000, long_timer_callback, this, NULL);
   }
+}
+
+void CDasherControl::ShutdownTimer() {
+  // TODO: Figure out how to implement this - at the moment it's done
+  // through a return value from the timer callback, but it would be
+  // nicer to prevent any further calls as soon as the shutdown signal
+  // has been receieved.
 }
 
 int CDasherControl::CanvasConfigureEvent() {
@@ -467,16 +480,16 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
   // be received in pairs.
 
   if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R)) {
-    if(event->state & GDK_CONTROL_MASK)
-      SetLongParameter(LP_BOOSTFACTOR, 25);
-    else
-      SetLongParameter(LP_BOOSTFACTOR, 100);
+//     if(event->state & GDK_CONTROL_MASK)
+//       SetLongParameter(LP_BOOSTFACTOR, 25);
+//     else
+//       SetLongParameter(LP_BOOSTFACTOR, 100);
   }
   else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R)) {
-    if(event->state & GDK_SHIFT_MASK)
-      SetLongParameter(LP_BOOSTFACTOR, 175);
-    else
-      SetLongParameter(LP_BOOSTFACTOR, 100);
+//     if(event->state & GDK_SHIFT_MASK)
+//       SetLongParameter(LP_BOOSTFACTOR, 175);
+//     else
+//       SetLongParameter(LP_BOOSTFACTOR, 100);
   }
   else {
     if(m_pKeyboardHelper) {
@@ -491,18 +504,18 @@ gint CDasherControl::KeyReleaseEvent(GdkEventKey *event) {
 }
 
 gint CDasherControl::KeyPressEvent(GdkEventKey *event) {
-  if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R))
-    SetLongParameter(LP_BOOSTFACTOR, 175);
-  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R))
-    SetLongParameter(LP_BOOSTFACTOR, 25);
-  else {
+  //  if((event->keyval == GDK_Shift_L) || (event->keyval == GDK_Shift_R))
+    //    SetLongParameter(LP_BOOSTFACTOR, 175);
+  //  else if((event->keyval == GDK_Control_L) || (event->keyval == GDK_Control_R))
+  //   SetLongParameter(LP_BOOSTFACTOR, 25);
+  // else {
     if(m_pKeyboardHelper) {
       int iKeyVal(m_pKeyboardHelper->ConvertKeycode(event->keyval));
       
       if(iKeyVal != -1)
 	KeyDown(get_time(), iKeyVal);
     }
-  }
+    //  }
   return 0;
 }
 

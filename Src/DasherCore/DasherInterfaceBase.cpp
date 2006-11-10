@@ -122,6 +122,9 @@ void CDasherInterfaceBase::Realize() {
     m_pUserLog = new CUserLog(m_pEventHandler, m_pSettingsStore, iUserLogLevel, m_Alphabet);  
 
   CreateFactories();
+  CreateLocalFactories();
+
+  CreateInput();
   CreateInputFilter();
   SetupActionButtons();
 
@@ -922,6 +925,7 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
 }
 
 void CDasherInterfaceBase::StartShutdown() {
+  ShutdownTimer();
   m_bShutdownLock = true;
 }
 
@@ -1037,6 +1041,15 @@ int CDasherInterfaceBase::GetRenderCount() {
     return 0;
 }
 
- void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
+void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
   m_vRightButtons.push_back(new CActionButton(this, strName, false));
- }
+}
+
+
+void CDasherInterfaceBase::OnUIRealised() {
+  StartTimer();
+}
+
+
+void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
+}

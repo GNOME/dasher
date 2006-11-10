@@ -1,3 +1,7 @@
+2006-11-10  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Tidying up core startup sequence.
+
 2006-11-08  Phil Cowans  <pjc51@cam.ac.uk>
 
         * Revamped 1D mode - now has a specialised input device module and
