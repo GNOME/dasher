@@ -1,3 +1,8 @@
+2006-11-12  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* More code tidying
+	* Further work on CDasherInterfaceBase finite state machine
+	
 2006-11-10  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Tidying up core startup sequence.

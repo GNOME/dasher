@@ -162,18 +162,6 @@ public:
 
   void ResetParameter(int iParmater);
   
-  ///
-  /// \todo Document this
-  ///
-
-  void GetAlphabets(std::vector < std::string > *AlphabetList);
-
-  ///
-  /// \todo Document this
-  ///
-
-  void GetColours(std::vector < std::string > *ColourList);
-
   /// \todo Document this
 
   void GetFontSizes(std::vector < int >*FontSizes) const;
@@ -263,15 +251,6 @@ public:
 
   int TrainFile(std::string Filename, int iTotalBytes, int iOffset); // all training data must be in UTF-8.
 
-  /// Get the current autocalibration offset
-  /// \retval The offset.
-
-/*   int GetAutoOffset(); */
-
-  /// Provide a new CDasherInput input device object.
-
-  void CreateInput();
-
   /// Set the context in which Dasher makes predictions
   /// \param strNewContext The new context (UTF-8)
 
@@ -348,8 +327,6 @@ public:
   // Module management functions
   void RegisterFactory(CModuleFactory *pFactory);
 
-  void CreateFactories();
-
   void StartShutdown();
 
   void AddGameModeString(const std::string &strText) {
@@ -403,9 +380,15 @@ protected:
 
   /// @}
 
+  CDasherModule *GetModule(long long int iID);
+  CDasherModule *GetModuleByName(const std::string &strName);
 
+
+  // TODO: Make these private (currently used by child class)
   void WriteTrainFileFull();
   void WriteTrainFilePartial();
+
+
 
   // Various 'child' components
   CAlphabet *m_Alphabet;
@@ -427,15 +410,24 @@ protected:
   CModuleManager m_oModuleManager;
   
   bool m_bGlobalLock; // The big lock
-  bool m_bRecreateLock;
   
-  // TODO: Make private?
-  CDasherModule *GetModule(long long int iID);
-  CDasherModule *GetModuleByName(const std::string &strName);
 
   bool m_bRedrawScheduled;
 
+
+
  private:
+  ///
+  /// \todo Document this
+  ///
+
+  void GetAlphabets(std::vector < std::string > *AlphabetList);
+
+  ///
+  /// \todo Document this
+  ///
+
+  void GetColours(std::vector < std::string > *ColourList);
 
   /// @name Platform dependent utility functions 
   /// These functions provide various platform dependent functions
@@ -509,6 +501,12 @@ protected:
 
   /// @}
 
+
+  /// Provide a new CDasherInput input device object.
+
+  void CreateInput();
+
+  void CreateFactories();
   void CreateInputFilter();
   void CreateDasherModel();
   void ChangeAlphabet();
@@ -522,6 +520,30 @@ protected:
 
   void LeaveState(EState iState);
   void EnterState(EState iState);
+
+  
+  /// @name Lock Management
+  /// Functions for locking/unlocking the core. Note that the lock
+  /// flags parameter is currently ignored, but will be used to give
+  /// finer granularity
+  /// @{
+
+  ///
+  /// Add a lock
+  ///
+
+  void AddLock(int iLockFlags);
+
+  ///
+  /// Release an existing lock. Note that these functions have minimal
+  /// error checking at the moment, so be careful.
+  ///
+
+  void ReleaseLock(int iLockFlags);
+
+  /// @}
+  
+  int m_iLockCount;
 
   EState m_iCurrentState;
 

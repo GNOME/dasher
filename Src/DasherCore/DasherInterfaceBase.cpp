@@ -70,11 +70,11 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 		   m_pInputFilter(NULL) {
 
   m_iCurrentState = ST_START;
+  m_iLockCount = 0;
 
   m_pNCManager = 0;
   
   m_bGlobalLock = false;
-  m_bRecreateLock = false;
 
   m_bRedrawScheduled = false;
 
@@ -288,8 +288,18 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
     }
   }
   else if(pEvent->m_iEventType == EV_LOCK) {
-    // TODO: 'Reference counting' for locks?
     CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
+
+    // TODO: Sort this out - at the moment these don't occur in pairs, so the old boolean variable is still needed
+    if(pLockEvent->m_bLock) {
+      if(m_bGlobalLock)
+	AddLock(0);
+    }
+    else {
+      if(!m_bGlobalLock)
+	ReleaseLock(0);
+    }
+    
     m_bGlobalLock = pLockEvent->m_bLock;
   }
 }
@@ -322,7 +332,7 @@ void CDasherInterfaceBase::CreateDasherModel()
     m_pEventHandler->InsertEvent(pEvent);
     delete pEvent;
 
-    m_bRecreateLock = true;
+    AddLock(0);
 
     // Delete the old model and create a new one
     if(m_pDasherModel) {
@@ -371,7 +381,7 @@ void CDasherInterfaceBase::CreateDasherModel()
   Start();
   Redraw(true);
 
-  m_bRecreateLock = false;
+  ReleaseLock(0);
 }
 
 void CDasherInterfaceBase::Start() {
@@ -461,7 +471,7 @@ void CDasherInterfaceBase::CreateInput() {
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // Fail if Dasher is locked
-  if((m_iCurrentState != ST_NORMAL) || m_bGlobalLock || m_bRecreateLock)
+  if(m_iCurrentState != ST_NORMAL)
     return;
 
   bool bChanged(false);
@@ -835,7 +845,7 @@ CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
-  if((m_iCurrentState != ST_NORMAL) || m_bGlobalLock || m_bRecreateLock)
+  if(m_iCurrentState != ST_NORMAL)
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
@@ -848,7 +858,7 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
-  if((m_iCurrentState != ST_NORMAL) || m_bGlobalLock || m_bRecreateLock)
+  if(m_iCurrentState != ST_NORMAL)
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
@@ -1082,8 +1092,26 @@ void CDasherInterfaceBase::LeaveState(EState iState) {
 
 void CDasherInterfaceBase::EnterState(EState iState) {
   switch(iState) {
-    case ST_SHUTDOWN:
-      ShutdownTimer();  
-      break;
+  case ST_SHUTDOWN:
+    ShutdownTimer();  
+    break;
+  default:
+    // Not handled
+    break;
   }
+}
+
+void CDasherInterfaceBase::AddLock(int iLockFlags) {
+  if(m_iLockCount == 0)
+    ChangeState(TR_LOCK);
+
+  ++m_iLockCount;
+}
+
+void CDasherInterfaceBase::ReleaseLock(int iLockFlags) {
+  if(m_iLockCount > 0)
+    --m_iLockCount;
+
+  if(m_iLockCount == 0)
+    ChangeState(TR_UNLOCK);
 }
