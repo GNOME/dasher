@@ -47,7 +47,7 @@ void CAlphabetBox::PopulateList() {
 
   m_CurrentAlphabet = m_pDasherInterface->GetStringParameter(SP_ALPHABET_ID);
 
-  m_pDasherInterface->GetAlphabets(&AlphabetList);
+  m_pDasherInterface->GetPermittedValues(SP_ALPHABET_ID, AlphabetList);
 
   int iDefaultIndex(-1);
   int iFallbackIndex(-1);
@@ -84,7 +84,7 @@ void CAlphabetBox::PopulateList() {
   SendMessage(m_hwnd, WM_COMMAND, MAKEWPARAM(IDC_ALPHABETS, LBN_SELCHANGE), 0);
 
   ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
-  m_pDasherInterface->GetColours(&ColourList);
+  m_pDasherInterface->GetPermittedValues(SP_COLOUR_ID, ColourList);
 
   // Add each string to list box and index each one
   SelectionSet = false;

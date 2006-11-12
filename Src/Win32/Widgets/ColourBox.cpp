@@ -36,7 +36,7 @@ void CColourBox::PopulateList() {
   HWND ListBox = GetDlgItem(m_hwnd, IDC_COLOURS);
   SendMessage(ListBox, LB_RESETCONTENT, 0, 0);
 
-  m_pDasherInterface->GetColours(&ColourList);
+  m_pDasherInterface->GetPermittedValues(SP_COLOUR_ID, ColourList);
 
   // Add each string to list box and index each one
   bool SelectionSet = false;

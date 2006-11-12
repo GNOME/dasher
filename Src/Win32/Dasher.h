@@ -30,8 +30,6 @@ public:
 
   void ExternalEventHandler(Dasher::CEvent *pEvent);
 
-  CUserLogBase*     GetUserLogPtr();
-
   virtual void WriteTrainFile(const std::string &strNewText);
 
     void					  Main(); 

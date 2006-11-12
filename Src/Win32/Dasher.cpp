@@ -35,7 +35,7 @@ CDasher::CDasher(HWND Parent):m_hParent(Parent) {
 }
 
 CDasher::~CDasher(void) {
-  WriteTrainFileFull();
+//  WriteTrainFileFull();
   delete m_pCanvas;
 }
 
@@ -89,11 +89,6 @@ void CDasher::Log() {
 
 void Dasher::CDasher::ExternalEventHandler(CEvent* pEvent) {
   SendMessage(m_hParent, WM_DASHER_EVENT, 0, (LPARAM)pEvent);
-}
-
-// Get the pointer to our user logging object
-CUserLogBase* Dasher::CDasher::GetUserLogPtr() {
-  return m_pUserLog;
 }
 
 // Gets the size of the window in screen coordinates.  

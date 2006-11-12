@@ -2,6 +2,7 @@
 
 	* More code tidying
 	* Further work on CDasherInterfaceBase finite state machine
+	* Fixed #374456 (UTF-8 conversion error on Win32)
 	
 2006-11-10  Phil Cowans  <pjc51@cam.ac.uk>
 
