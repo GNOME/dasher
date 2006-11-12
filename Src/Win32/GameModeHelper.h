@@ -3,7 +3,7 @@
 
 // TODO: There seems to be an implicit dependence between these header files:
 #include "Common\WinCommon.h"
-#include "DasherInterface.h"
+#include "../DasherCore/DasherInterfaceBase.h"
 
 #include <string>
 

@@ -200,12 +200,6 @@
 			RelativePath="..\Win32\Dasher.h">
 		</File>
 		<File
-			RelativePath="..\Win32\DasherInterface.cpp">
-		</File>
-		<File
-			RelativePath="..\Win32\DasherInterface.h">
-		</File>
-		<File
 			RelativePath="..\Win32\DasherMouseInput.cpp">
 		</File>
 		<File

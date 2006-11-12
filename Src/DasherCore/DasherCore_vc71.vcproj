@@ -76,7 +76,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE;JAPANESE"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_STATIC;_LIB;_UNICODE"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="1"
 				TreatWChar_tAsBuiltInType="FALSE"
@@ -515,9 +515,21 @@
 		</File>
 		<File
 			RelativePath=".\IMEConversionHelper.cpp">
+			<FileConfiguration
+				Name="Unicode Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCLCompilerTool"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\IMEConversionHelper.h">
+			<FileConfiguration
+				Name="Unicode Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCustomBuildTool"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\InputFilter.h">
@@ -548,9 +560,21 @@
 		</File>
 		<File
 			RelativePath=".\PinYinConversionHelper.cpp">
+			<FileConfiguration
+				Name="Unicode Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCLCompilerTool"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\PinYinConversionHelper.h">
+			<FileConfiguration
+				Name="Unicode Debug|Win32"
+				ExcludedFromBuild="TRUE">
+				<Tool
+					Name="VCCustomBuildTool"/>
+			</FileConfiguration>
 		</File>
 		<File
 			RelativePath=".\SCENode.h">

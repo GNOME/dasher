@@ -11,17 +11,17 @@
 
 #include "../resource.h"
 
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/ColourIO.h"
 #include "WinWrap.h"
 
 class CColourBox:public CWinWrap {
 public:
-  CColourBox(HWND Parent, CDasherInterface * DI);
+  CColourBox(HWND Parent, CDasherInterfaceBase * DI);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
+  CDasherInterfaceBase * m_pDasherInterface;
   HWND CustomBox;
 
   std::vector < std::string > ColourList;

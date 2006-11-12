@@ -14,19 +14,16 @@
 #include "../../DasherCore/DasherTypes.h"
 #include "../KeyboardHelper.h"
 
-namespace Dasher
-{
+namespace Dasher {
 	class CDasherMouseInput;
 	class CSocketInput;
+  class CDasher;
+  class CDasherInterfaceBase;
 }
 
-class CDasherInterface;
 class CEdit;
 class CScreen;
-
-#define WM_DASHER_TIMER WM_USER + 128   // FIXME - shouldn't define this twice
-
-
+  
 class CCanvas:	
 	public ATL::CWindowImpl<CCanvas>, 
 	public Dasher::CDasherComponent 
@@ -48,7 +45,7 @@ public:
 	    MESSAGE_HANDLER(WM_PAINT, OnPaint)
 	    MESSAGE_HANDLER(WM_CREATE, OnCreate)
 	    MESSAGE_HANDLER(WM_DESTROY, OnDestroy)
-//	    MESSAGE_HANDLER(WM_DASHER_TIMER, OnTimer)
+	    MESSAGE_HANDLER(WM_TIMER, OnTimer)
 	    MESSAGE_HANDLER(WM_COMMAND, OnCommand)
 	    MESSAGE_HANDLER(WM_SETFOCUS, OnSetFocus)
 	    MESSAGE_HANDLER(WM_KEYUP, OnKeyUp)
@@ -65,7 +62,7 @@ public:
 
 	END_MSG_MAP()
 
-	CCanvas(CDasherInterface *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
+  CCanvas(Dasher::CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore);
 	~CCanvas();
 
 	HWND Create(HWND hParent);
@@ -84,7 +81,7 @@ public:
 	LRESULT OnPaint(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnCreate(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnDestroy(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
-//	LRESULT OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
+	LRESULT OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnSetFocus(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
 	LRESULT OnKeyUp(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled);
@@ -141,7 +138,7 @@ public:
   bool Running() {
     return running;
   }
-  void SetScreenInterface(CDasherInterface * dasherinterface);
+  void SetScreenInterface(Dasher::CDasherInterfaceBase * dasherinterface);
   
   int OnTimer();
 
@@ -155,7 +152,7 @@ private:
   int keycoords[18], buttonnum, yscaling;
   bool forward, backward, select;
   CScreen *m_pScreen;
-  CDasherInterface * m_pDasherInterface;
+  Dasher::CDasher * m_pDasherInterface;
 
   // Input devices:
 

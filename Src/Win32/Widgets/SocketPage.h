@@ -14,11 +14,11 @@
 #include "../resource.h"
 #include "../AppSettings.h"
 
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 
 class CSocketPage:public CPrefsPageBase {
 public:
-  CSocketPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
+  CSocketPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 private:
 
   void PopulateList();

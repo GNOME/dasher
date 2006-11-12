@@ -26,7 +26,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CSocketPage::CSocketPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+CSocketPage::CSocketPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
 :CPrefsPageBase(Parent, DI, pAppSettings) {
 }
 

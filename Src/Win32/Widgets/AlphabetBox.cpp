@@ -35,7 +35,7 @@ static menuentry menutable[] = {
   {BP_PALETTE_CHANGE, IDC_COLOURSCHEME, true}
 };
 
-CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterface *DI)
+CAlphabetBox::CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI)
 :m_pDasherInterface(DI), m_CurrentAlphabet(DI->GetStringParameter(SP_ALPHABET_ID)), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)), Editing(false), Cloning(false), EditChar(false), CustomBox(0), CurrentGroup(0), CurrentChar(0) {
   m_hwnd = 0;
   m_hPropertySheet = 0;

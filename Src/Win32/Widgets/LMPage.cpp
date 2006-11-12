@@ -26,7 +26,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CLMPage::CLMPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+CLMPage::CLMPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
 :CPrefsPageBase(Parent, DI, pAppSettings) {
  
 }

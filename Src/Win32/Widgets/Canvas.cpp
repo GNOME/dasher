@@ -11,7 +11,7 @@
 #include "Canvas.h"
 //#include "Edit.h"
 #include "../Dasher.h"
-#include "../DasherInterface.h"
+//#include "..\..\DasherCore\DasherInterfaceBase.h"
 
 
 
@@ -24,7 +24,7 @@ using namespace Dasher;
 
 /////////////////////////////////////////////////////////////////////////////
 
-CCanvas::CCanvas(CDasherInterface *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore)
+CCanvas::CCanvas(CDasher *DI, Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore)
 	:m_pDasherInterface(DI), imousex(0), imousey(0), buttonnum(0), mousepostime(0) ,
 	m_dwTicksLastEvent(0), m_bButtonDown(false), m_pScreen(0),
 	CDasherComponent(pEventHandler, pSettingsStore)
@@ -97,7 +97,7 @@ HWND CCanvas::Create(HWND hParent)
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CCanvas::SetScreenInterface(CDasherInterface * dasherinterface)
+void CCanvas::SetScreenInterface(Dasher::CDasherInterfaceBase * dasherinterface)
 {
     m_pScreen->SetInterface(dasherinterface);
 }
@@ -255,12 +255,12 @@ LRESULT CCanvas::OnKeyDown(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHa
     m_pDasherInterface->KeyDown(GetTickCount(), 0);
 		return 0;
 
-#ifdef _DEBUG
-	case VK_F11:
-		wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_pDasherInterface->GetAutoOffset());
-		MessageBox(tmpAutoOffset, TEXT("Auto-offset Value"), MB_OK);
-		return 0;
-#endif
+//#ifdef _DEBUG
+//	case VK_F11:
+//		wsprintf(tmpAutoOffset, TEXT("yAutoValue: %d"), m_pDasherInterface->GetAutoOffset());
+//		MessageBox(tmpAutoOffset, TEXT("Auto-offset Value"), MB_OK);
+//		return 0;
+//#endif
 
   case VK_F12:
 		centrecursor();
@@ -436,7 +436,13 @@ LRESULT CCanvas::OnSize(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandl
 	return 0;
 }
 
-/*LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) */
+LRESULT CCanvas::OnTimer(UINT message, WPARAM wParam, LPARAM lParam, BOOL& bHandled) {
+  bHandled = true;
+
+  m_pDasherInterface->Main();
+
+  return 0;
+}
 
 void CCanvas::DoFrame()
 {

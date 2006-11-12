@@ -10,7 +10,7 @@
 #define __Toolbar_h__
 
 #include "../../Common/NoClones.h"
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 
 class CToolbar : private NoClones {
 public:
@@ -33,7 +33,7 @@ private:
   // Destroy the toolbar window (used when it's not visible - shouldn't we just hide it?)
   void DestroyToolbar();
 
-  CDasherInterface *m_pDasher;
+  CDasherInterfaceBase *m_pDasher;
   HWND m_hwnd;
   HWND m_hParent;
   HWND m_hRebar;

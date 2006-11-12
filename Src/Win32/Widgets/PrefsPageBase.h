@@ -16,15 +16,15 @@
 #include "../resource.h"
 #include "../AppSettings.h"
 
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 
 class CPrefsPageBase:public CWinWrap {
 public:
-  CPrefsPageBase(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
+  CPrefsPageBase(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 
-  CDasherInterface * m_pDasherInterface;
+  CDasherInterfaceBase * m_pDasherInterface;
   CAppSettings *m_pAppSettings;
   
   HWND m_hPropertySheet; // the property sheet of which we are one page

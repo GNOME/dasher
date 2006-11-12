@@ -12,7 +12,7 @@
 #include "../../Common/Hash.h"
 
 #include "../../DasherCore/DasherScreen.h"
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../Common/NoClones.h"
 
 #include "../GDI/FontStore.h"
@@ -35,7 +35,7 @@ public:
   CScreen(HDC hdc, Dasher::screenint width, Dasher::screenint height);
   ~CScreen();
 
-  void SetInterface(CDasherInterface * DasherInterface);
+  void SetInterface(Dasher::CDasherInterfaceBase *DasherInterface);
   void SetColourScheme(const Dasher::CColourIO::ColourInfo *pColours);
 
   void SetFont(const std::string &strFont);

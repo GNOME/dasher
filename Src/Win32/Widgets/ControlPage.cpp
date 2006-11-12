@@ -21,7 +21,7 @@ using namespace Dasher;
 using namespace std;
 
 
-CControlPage::CControlPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+CControlPage::CControlPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
 :CPrefsPageBase(Parent, DI, pAppSettings) {
 }
 

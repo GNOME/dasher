@@ -219,25 +219,17 @@ void CDasherWindow::Main()
 int CDasherWindow::MessageLoop() 
 {
 	MSG msg;
-
-	while( 1 )
-	{
 		
-		while (PeekMessage( &msg, NULL, 0, 0, PM_REMOVE ) )
-		{
-			if (msg.message == WM_QUIT)
-				return msg.wParam;
-
-			if(!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) 
-			{
-				TranslateMessage(&msg);
-				DispatchMessage(&msg);
-			}
+  while(GetMessage(&msg, NULL, 0, 0)) {
+  	if(!TranslateAccelerator(msg.hwnd, hAccelTable, &msg)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
 		}
+	}
 
-		Main();
-    } 
+  m_pDasher->StartShutdown();
 
+  return msg.wParam;
 }
 
 /////////////////////////////////////////////////////////////////////////////

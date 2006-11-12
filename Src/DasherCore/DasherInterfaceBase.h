@@ -379,20 +379,24 @@ protected:
   /// @{
 
   enum ETransition {
-    TR_MODEL_INIT,
+    TR_MODEL_INIT = 0,
     TR_UI_INIT,
     TR_LOCK,
     TR_UNLOCK,
-    TR_SHUTDOWN
+    TR_SHUTDOWN,
+    TR_NUM
   };
 
   enum EState {
-    ST_START,
+    ST_START = 0,
     ST_MODEL,
     ST_UI,
     ST_NORMAL,
     ST_LOCKED,
-    ST_SHUTDOWN
+    ST_SHUTDOWN,
+    ST_NUM,
+    ST_FORBIDDEN,
+    ST_DELAY
   };
 
   void ChangeState(ETransition iTransition);
@@ -423,7 +427,6 @@ protected:
   CModuleManager m_oModuleManager;
   
   bool m_bGlobalLock; // The big lock
-  bool m_bShutdownLock;
   bool m_bRecreateLock;
   
   // TODO: Make private?
@@ -516,6 +519,11 @@ protected:
   void DestroyActionButtons();
   void PositionActionButtons();
   bool DrawActionButtons();
+
+  void LeaveState(EState iState);
+  void EnterState(EState iState);
+
+  EState m_iCurrentState;
 
   std::deque<std::string> m_deGameModeStrings;
 

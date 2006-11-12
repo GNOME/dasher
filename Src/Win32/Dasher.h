@@ -1,6 +1,6 @@
 #pragma once
 
-#include "DasherInterface.h"
+#include "../DasherCore/DasherInterfaceBase.h"
 #include "../DasherCore/UserLog.h"
 
 extern CONST UINT WM_DASHER_EVENT;
@@ -9,14 +9,12 @@ extern CONST UINT WM_DASHER_EVENT;
 extern CONST UINT WM_DASHER_FOCUS;
 #define _WM_DASHER_FOCUS (LPCWSTR)"wm_dasher_focus"
 
-namespace Dasher {
-  class CDasher;
-} 
 class CCanvas;
 class CSlidebar;
 class CDashEditbox;
 
-class Dasher::CDasher : public CDasherInterface 
+namespace Dasher {
+class CDasher : public CDasherInterfaceBase 
 {
 public:
   CDasher(HWND Parent);
@@ -45,6 +43,11 @@ private:
   virtual void ScanColourFiles(std::vector<std::string> &vFileList);
   virtual void SetupPaths();
   virtual void SetupUI();
+  virtual void CreateLocalFactories();
+  virtual void StartTimer();
+  virtual void ShutdownTimer();
+  void CreateSettingsStore();
+
   virtual int GetFileSize(const std::string &strFileName);
   void ScanDirectory(const Tstring &strMask, std::vector<std::string> &vFileList);
   bool                    GetWindowSize(int* pTop, int* pLeft, int* pBottom, int* pRight);
@@ -53,12 +56,6 @@ private:
   CCanvas *m_pCanvas;
   CDashEditbox *m_pEdit;
  
-// Retired  
-  // static DWORD WINAPI     WorkerThread(LPVOID lpParam);     // Spins around and sends WM_DASHER_TIMER message
-  // void                    ShutdownWorkerThread();           // Called when we want the worker thread to stop
-  // HANDLE m_workerThread;        // Handle to our worker thread that periodically checks on user's activities
-  // HANDLE m_EventWorkerThreadShutdown; // Event for thread-safe thread shutdown 
-
   HWND m_hParent;
-
 };
+}

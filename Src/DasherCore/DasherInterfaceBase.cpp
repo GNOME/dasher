@@ -69,10 +69,11 @@ CDasherInterfaceBase::CDasherInterfaceBase()
 		   m_pDasherView(0), m_pInput(0), m_AlphIO(0), m_ColourIO(0), m_pUserLog(NULL),
 		   m_pInputFilter(NULL) {
 
+  m_iCurrentState = ST_START;
+
   m_pNCManager = 0;
   
   m_bGlobalLock = false;
-  m_bShutdownLock = false;
   m_bRecreateLock = false;
 
   m_bRedrawScheduled = false;
@@ -136,9 +137,13 @@ void CDasherInterfaceBase::Realize() {
   // that future parameter changes should be logged.
   if (m_pUserLog != NULL) 
     m_pUserLog->InitIsDone();
+
+  ChangeState(TR_MODEL_INIT);
 }
 
 CDasherInterfaceBase::~CDasherInterfaceBase() {
+
+  DASHER_ASSERT(m_iCurrentState == ST_SHUTDOWN);
 
   delete m_pDasherModel;        // The order of some of these deletions matters
   delete m_Alphabet;
@@ -456,7 +461,7 @@ void CDasherInterfaceBase::CreateInput() {
 
 void CDasherInterfaceBase::NewFrame(unsigned long iTime, bool bForceRedraw) {
   // Fail if Dasher is locked
-  if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
+  if((m_iCurrentState != ST_NORMAL) || m_bGlobalLock || m_bRecreateLock)
     return;
 
   bool bChanged(false);
@@ -830,7 +835,7 @@ CUserLogBase* CDasherInterfaceBase::GetUserLogPtr() {
 }
 
 void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
-  if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
+  if((m_iCurrentState != ST_NORMAL) || m_bGlobalLock || m_bRecreateLock)
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
@@ -843,7 +848,7 @@ void CDasherInterfaceBase::KeyDown(int iTime, int iId) {
 }
 
 void CDasherInterfaceBase::KeyUp(int iTime, int iId) {
-  if(m_bGlobalLock || m_bShutdownLock || m_bRecreateLock)
+  if((m_iCurrentState != ST_NORMAL) || m_bGlobalLock || m_bRecreateLock)
     return;
 
   if(m_pInputFilter && !GetBoolParameter(BP_TRAINING)) {
@@ -925,8 +930,7 @@ void CDasherInterfaceBase::GetPermittedValues(int iParameter, std::vector<std::s
 }
 
 void CDasherInterfaceBase::StartShutdown() {
-  ShutdownTimer();
-  m_bShutdownLock = true;
+  ChangeState(TR_SHUTDOWN);
 }
 
 bool CDasherInterfaceBase::GetModuleSettings(const std::string &strName, SModuleSettings **pSettings, int *iCount) {
@@ -1048,8 +1052,38 @@ void CDasherInterfaceBase::AddActionButton(const std::string &strName) {
 
 void CDasherInterfaceBase::OnUIRealised() {
   StartTimer();
+  ChangeState(TR_UI_INIT);
 }
 
 
 void CDasherInterfaceBase::ChangeState(ETransition iTransition) {
+  static EState iTransitionTable[ST_NUM][TR_NUM] = {
+    {ST_MODEL, ST_UI, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},
+    {ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},
+    {ST_NORMAL, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN},
+    {ST_FORBIDDEN, ST_FORBIDDEN, ST_LOCKED, ST_FORBIDDEN, ST_SHUTDOWN},
+    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_NORMAL, ST_FORBIDDEN},
+    {ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN, ST_FORBIDDEN}
+  };
+
+  EState iNewState(iTransitionTable[m_iCurrentState][iTransition]);
+
+  if(iNewState != ST_FORBIDDEN) {
+    LeaveState(m_iCurrentState);
+    EnterState(iNewState);
+
+    m_iCurrentState = iNewState;
+  }
+}
+
+void CDasherInterfaceBase::LeaveState(EState iState) {
+
+}
+
+void CDasherInterfaceBase::EnterState(EState iState) {
+  switch(iState) {
+    case ST_SHUTDOWN:
+      ShutdownTimer();  
+      break;
+  }
 }

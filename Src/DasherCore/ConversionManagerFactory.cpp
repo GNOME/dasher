@@ -45,6 +45,8 @@ CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower
   return pConversionManager->GetRoot(pParent, iLower, iUpper, pUserData);
 }
 
+// TODO: Japanese/Chinese are currently disabled in Win32 - see 'exclude from build' on individual files' property pages, plus preprocessor defines
+
 CConversionHelper *CConversionManagerFactory::GetHelper(int iID) {
   switch(iID) {
   case 0: // No conversion required (shouldn't really be called)

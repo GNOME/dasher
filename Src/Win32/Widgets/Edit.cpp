@@ -18,7 +18,7 @@
 #include "../../DasherCore/Event.h"
 #include "FilenameGUI.h"
 #include "../resource.h"
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 #include "../ActionSpeech.h"
 
 #include "../Common/DasherEncodingToCP.h"

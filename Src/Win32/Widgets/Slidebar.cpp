@@ -25,7 +25,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterface *NewDasherInterface) {
+CSlidebar::CSlidebar(HWND ParentWindow, CDasherInterfaceBase *NewDasherInterface) {
   m_hRebar = CreateWindowEx(WS_EX_TOOLWINDOW,
                             REBARCLASSNAME,
                             NULL,

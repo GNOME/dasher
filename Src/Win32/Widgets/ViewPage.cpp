@@ -26,7 +26,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CViewPage::CViewPage(HWND Parent, CDasherInterface *DI, CAppSettings *pAppSettings)
+CViewPage::CViewPage(HWND Parent, CDasherInterfaceBase *DI, CAppSettings *pAppSettings)
 :CPrefsPageBase(Parent, DI, pAppSettings) {
 }
 

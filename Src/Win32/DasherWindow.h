@@ -28,7 +28,7 @@ namespace Dasher {
 };
 
 // Abstract interfaces to the Dasher engine
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 
 class CDasherWindow : 
 	public ATL::CWindowImpl<CDasherWindow>, 

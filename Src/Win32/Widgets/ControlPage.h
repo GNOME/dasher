@@ -13,7 +13,7 @@
 
 #include "../resource.h"
 
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/ColourIO.h"
 #include "../ModuleSettings.h"
 
@@ -21,7 +21,7 @@ class CAppSettings;
 
 class CControlPage:public CPrefsPageBase {
 public:
-  CControlPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
+  CControlPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:

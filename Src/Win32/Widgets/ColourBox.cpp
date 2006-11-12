@@ -26,7 +26,7 @@ static char THIS_FILE[] = __FILE__;
 #endif
 #endif
 
-CColourBox::CColourBox(HWND Parent, CDasherInterface *DI)
+CColourBox::CColourBox(HWND Parent, CDasherInterfaceBase *DI)
 :m_pDasherInterface(DI), m_CurrentColours(DI->GetStringParameter(SP_COLOUR_ID)) {
   m_hwnd = 0;
   //DialogBoxParam(WinHelper::hInstApp, (LPCTSTR) IDD_COLOUR, Parent, (DLGPROC) WinWrapMap::WndProc, (LPARAM) this);

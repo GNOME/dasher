@@ -14,12 +14,12 @@
 #include "../resource.h"
 #include "../AppSettings.h"
 
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 #include "../../DasherCore/ColourIO.h"
 
 class CAdvancedPage:public CPrefsPageBase {
 public:
-  CAdvancedPage(HWND Parent, CDasherInterface * DI, CAppSettings *pAppSettings);
+  CAdvancedPage(HWND Parent, CDasherInterfaceBase * DI, CAppSettings *pAppSettings);
 protected:
 private:
   HWND CustomBox;

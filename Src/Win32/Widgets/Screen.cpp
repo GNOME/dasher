@@ -87,7 +87,7 @@ CScreen::~CScreen() {
 
 /////////////////////////////////////////////////////////////////////////////
 
-void CScreen::SetInterface(CDasherInterface *DasherInterface) {
+void CScreen::SetInterface(Dasher::CDasherInterfaceBase *DasherInterface) {
   DASHER_ASSERT_VALIDPTR_RW(DasherInterface);
 
  // CDasherScreen::SetInterface(DasherInterface);

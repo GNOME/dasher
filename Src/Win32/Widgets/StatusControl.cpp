@@ -6,7 +6,7 @@
 // TODO: Make this a notify?
 CONST UINT DASHER_SHOW_PREFS = RegisterWindowMessage(_DASHER_SHOW_PREFS);
 
-CStatusControl::CStatusControl(CDasherInterface *pDasherInterface) {
+CStatusControl::CStatusControl(CDasherInterfaceBase *pDasherInterface) {
   m_pDasherInterface = pDasherInterface;
 }
 

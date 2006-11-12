@@ -11,16 +11,16 @@
 
 #include "../resource.h"
 #include "../../DasherCore/Alphabet/AlphIO.h"
-#include "../DasherInterface.h"
+#include "../../DasherCore/DasherInterfaceBase.h"
 #include "WinWrap.h"
 
 class CAlphabetBox:public CWinWrap {
 public:
-  CAlphabetBox(HWND Parent, CDasherInterface *DI);
+  CAlphabetBox(HWND Parent, CDasherInterfaceBase *DI);
 protected:
   LRESULT WndProc(HWND Window, UINT message, WPARAM wParam, LPARAM lParam);
 private:
-  CDasherInterface * m_pDasherInterface;
+  CDasherInterfaceBase * m_pDasherInterface;
   HWND m_hPropertySheet;
 
   HWND CustomBox;

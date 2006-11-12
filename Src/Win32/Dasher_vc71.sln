@@ -23,6 +23,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherControl", "DasherCont
 		{192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8} = {192C1E5C-2D1E-4AA3-91C3-FF2D7ABD67F8}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherInputMethod", "..\DasherInputMethod\DasherInputMethod.vcproj", "{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DasherInputMethodPS", "..\DasherInputMethod\DasherInputMethodPS.vcproj", "{6CE4A024-E9B4-455E-84E0-4816C09FB18F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3} = {43A9E393-F04C-4BC6-B054-EDDD70CC30F3}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -82,6 +91,21 @@ Global
 		{3998D966-9B9E-4214-ACEA-B777985AF4DD}.Unicode Debug.Build.0 = Debug|Win32
 		{3998D966-9B9E-4214-ACEA-B777985AF4DD}.Unicode Release.ActiveCfg = Unicode Release|Win32
 		{3998D966-9B9E-4214-ACEA-B777985AF4DD}.Unicode Release.Build.0 = Unicode Release|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Debug.ActiveCfg = Debug|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Debug.Build.0 = Debug|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Development Debug.ActiveCfg = Debug|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Development Debug.Build.0 = Debug|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Release.ActiveCfg = Release|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Release.Build.0 = Release|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Unicode Debug.ActiveCfg = Debug|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Unicode Debug.Build.0 = Debug|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Unicode Release.ActiveCfg = Release|Win32
+		{43A9E393-F04C-4BC6-B054-EDDD70CC30F3}.Unicode Release.Build.0 = Release|Win32
+		{6CE4A024-E9B4-455E-84E0-4816C09FB18F}.Debug.ActiveCfg = Debug|Win32
+		{6CE4A024-E9B4-455E-84E0-4816C09FB18F}.Development Debug.ActiveCfg = Debug|Win32
+		{6CE4A024-E9B4-455E-84E0-4816C09FB18F}.Release.ActiveCfg = Release|Win32
+		{6CE4A024-E9B4-455E-84E0-4816C09FB18F}.Unicode Debug.ActiveCfg = Debug|Win32
+		{6CE4A024-E9B4-455E-84E0-4816C09FB18F}.Unicode Release.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionItems) = postSolution
 		..\..\ChangeLog = ..\..\ChangeLog

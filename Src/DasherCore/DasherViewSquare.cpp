@@ -241,7 +241,7 @@ int CDasherViewSquare::RenderNode(const int Color, myint y1, myint y2, int &most
   Dasher2Screen(0, std::max(y1, iDasherMinY), iScreenX1, iScreenY1);
   Dasher2Screen(0, std::min(y2, iDasherMaxY), iScreenX2, iScreenY2);
 
-  Cint32 iHeight = std::max(iScreenY2 - iScreenY1, 0);
+  Cint32 iHeight = std::max(iScreenY2 - iScreenY1, (screenint)0);
 
   if(iHeight <= 1)
     return 0;                   // We're too small to render
