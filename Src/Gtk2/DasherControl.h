@@ -121,8 +121,6 @@ public:
   ///
   void UserLogNewTrial();
 
-  void WriteTrainFile(const std::string &strNewText);
-
   void ExternalKeyDown(int iKeyVal);
   void ExternalKeyUp(int iKeyVal);
   
@@ -137,9 +135,9 @@ private:
   virtual void SetupUI();
   virtual void CreateSettingsStore();
   virtual int GetFileSize(const std::string &strFileName);
-
-  void StartTimer();
-  void ShutdownTimer();
+  virtual void WriteTrainFile(const std::string &strNewText);
+  virtual void StartTimer();
+  virtual void ShutdownTimer();
 
   ///
   /// Pass events coming from the core to the appropriate handler.

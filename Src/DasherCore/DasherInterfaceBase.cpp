@@ -421,12 +421,6 @@ void CDasherInterfaceBase::PauseAt(int MouseX, int MouseY) {
 void CDasherInterfaceBase::Halt() {
   SetBoolParameter(BP_DASHER_PAUSED, true);
 
-  // Obsolete?
-  if(GetBoolParameter(BP_MOUSEPOS_MODE)) {
-    SetLongParameter(LP_MOUSE_POS_BOX, 1);
-  }
-  //
-
   // This will cause us to reinitialise the frame rate counter - ie we start off slowly
   if(m_pDasherModel != 0)
     m_pDasherModel->Halt();
@@ -435,14 +429,8 @@ void CDasherInterfaceBase::Halt() {
 void CDasherInterfaceBase::Unpause(unsigned long Time) {
   SetBoolParameter(BP_DASHER_PAUSED, false);
 
-  if(m_pDasherModel != 0) {
+  if(m_pDasherModel != 0) 
     m_pDasherModel->Reset_framerate(Time);
-    //m_pDasherModel->Set_paused(m_Paused);
-  }
-  if(m_pDasherView != 0) {
-//     m_pDasherView->ResetSum();
-//     m_pDasherView->ResetSumCounter();
-  }
 
   Dasher::CStartEvent oEvent;
   m_pEventHandler->InsertEvent(&oEvent);
@@ -1094,6 +1082,7 @@ void CDasherInterfaceBase::EnterState(EState iState) {
   switch(iState) {
   case ST_SHUTDOWN:
     ShutdownTimer();  
+    WriteTrainFileFull();
     break;
   default:
     // Not handled

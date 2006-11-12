@@ -183,8 +183,6 @@ void CDasherControl::ScanColourFiles(std::vector<std::string> &vFileList) {
 }
 
 CDasherControl::~CDasherControl() {
-  WriteTrainFileFull();
-
   if(m_pMouseInput) {
     m_pMouseInput->Unref();
     m_pMouseInput = NULL;

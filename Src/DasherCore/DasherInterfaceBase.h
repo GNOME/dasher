@@ -56,14 +56,6 @@ public:
   CDasherInterfaceBase();
   virtual ~ CDasherInterfaceBase();
 
-  ///
-  /// Allocate resources, create alphabets etc. This is a separate
-  /// routine to the constructor to give us a chance to set up
-  /// parameters before things are created.
-  ///
-
-  void Realize();
-
   /// @name Access to internal member classes
   /// Access various classes contained within the interface. These
   /// should be considered dangerous and use minimised. Eventually to
@@ -306,9 +298,6 @@ public:
   void AddActionButton(const std::string &strName);
 
   /// @}
-  
-  virtual void WriteTrainFile(const std::string &strNewText) {
-  };
 
   /// @name User input
   /// Deals with forwarding user input to the core
@@ -344,16 +333,25 @@ public:
    
 protected:
 
+  /// @name Startup
+  /// Interaction with the derived class during core startup
+  /// @{
+
+  ///
+  /// Allocate resources, create alphabets etc. This is a separate
+  /// routine to the constructor to give us a chance to set up
+  /// parameters before things are created.
+  ///
+
+  void Realize();
+
   ///
   /// Notify the core that the UI has been realised. At this point drawing etc. is expected to work
   ///
 
   void OnUIRealised();
 
-
-  /// @name State machine functions
-  /// ...
-  /// @{
+  /// @}
 
   enum ETransition {
     TR_MODEL_INIT = 0,
@@ -376,6 +374,10 @@ protected:
     ST_DELAY
   };
 
+  /// @name State machine functions
+  /// ...
+  /// @{
+
   void ChangeState(ETransition iTransition);
 
   /// @}
@@ -383,38 +385,8 @@ protected:
   CDasherModule *GetModule(long long int iID);
   CDasherModule *GetModuleByName(const std::string &strName);
 
-
-  // TODO: Make these private (currently used by child class)
-  void WriteTrainFileFull();
-  void WriteTrainFilePartial();
-
-
-
-  // Various 'child' components
-  CAlphabet *m_Alphabet;
-  CDasherModel *m_pDasherModel;
-  CDasherScreen *m_DasherScreen;
-  CDasherView *m_pDasherView;
-  CDasherInput *m_pInput;
-  CAlphIO *m_AlphIO;
-  CColourIO *m_ColourIO;
-  CNodeCreationManager *m_pNCManager;
-
-  std::string strTrainfileBuffer;
-  std::string strCurrentContext;
-
   CEventHandler *m_pEventHandler;
   CSettingsStore *m_pSettingsStore;
-  CUserLogBase *m_pUserLog;               // Pointer to the object that handles logging user activity
-  CInputFilter* m_pInputFilter;
-  CModuleManager m_oModuleManager;
-  
-  bool m_bGlobalLock; // The big lock
-  
-
-  bool m_bRedrawScheduled;
-
-
 
  private:
   ///
@@ -499,6 +471,15 @@ protected:
 
   virtual void ShutdownTimer() = 0;
 
+  ///
+  /// Append text to the trainign file - used to store state between
+  /// sessions
+  /// @todo Pass file path to the fuction rather than having implementations work it out themselves
+  ///
+  
+  virtual void WriteTrainFile(const std::string &strNewText) {
+  };
+
   /// @}
 
 
@@ -520,6 +501,9 @@ protected:
 
   void LeaveState(EState iState);
   void EnterState(EState iState);
+
+  void WriteTrainFileFull();
+  void WriteTrainFilePartial();
 
   
   /// @name Lock Management
@@ -543,16 +527,40 @@ protected:
 
   /// @}
   
-  int m_iLockCount;
-
-  EState m_iCurrentState;
-
   std::deque<std::string> m_deGameModeStrings;
 
   std::vector<CActionButton *> m_vLeftButtons;
   std::vector<CActionButton *> m_vRightButtons;
 
+
+  /// @name Child components
+  /// Various objects which are 'owned' by the core. 
+  /// @{
+  CAlphabet *m_Alphabet;
+  CDasherModel *m_pDasherModel;
+  CDasherScreen *m_DasherScreen;
+  CDasherView *m_pDasherView;
+  CDasherInput *m_pInput;
+  CAlphIO *m_AlphIO;
+  CColourIO *m_ColourIO;
+  CNodeCreationManager *m_pNCManager;
+  CUserLogBase *m_pUserLog; 
+  CInputFilter* m_pInputFilter;
+  CModuleManager m_oModuleManager;
+  /// @}
+
+  std::string strTrainfileBuffer;
+  std::string strCurrentContext;
+
+  /// @name State variables
+  /// Represent the current overall state of the core
+  /// @{
+  bool m_bGlobalLock; // The big lock
+  bool m_bRedrawScheduled;
+  int m_iLockCount;
+  EState m_iCurrentState;
   bool m_bOldVisible;
+  /// @}
 };
 
 #endif /* #ifndef __DasherInterfaceBase_h__ */
