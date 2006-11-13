@@ -506,7 +506,6 @@ void CEdit::output(const std::string &sText) {
 
   InsertText(String);
 
-//  if(targetwindow != NULL && textentry == true) {
   if(m_pAppSettings->GetLongParameter(APP_LP_STYLE) == 2) {
     const char *DisplayText = sText.c_str();
 #ifdef UNICODE
@@ -516,25 +515,21 @@ void CEdit::output(const std::string &sText) {
       fakekey[0].ki.wVk = fakekey[1].ki.wVk = VK_RETURN;
       fakekey[0].ki.time = fakekey[1].ki.time = 0;
       fakekey[1].ki.dwFlags = KEYEVENTF_KEYUP;
-
-	  ::SetFocus(targetwindow);
       SendInput(2, fakekey, sizeof(INPUT));
     }
-    wchar_t outputstring[256];
-    int i = mbstowcs(outputstring, DisplayText, 255);
-
-    for(int j = 0; j < i; j++) {
-      fakekey[0].type = INPUT_KEYBOARD;
+    else {    
+      for(std::wstring::iterator it(String.begin()); it != String.end(); ++it) {
+        fakekey[0].type = INPUT_KEYBOARD;
 #ifdef DASHER_WINCE
-      fakekey[0].ki.dwFlags = KEYEVENTF_KEYUP;
+        fakekey[0].ki.dwFlags = KEYEVENTF_KEYUP;
 #else
-      fakekey[0].ki.dwFlags = KEYEVENTF_UNICODE;
+        fakekey[0].ki.dwFlags = KEYEVENTF_UNICODE;
 #endif
-      fakekey[0].ki.wVk = 0;
-      fakekey[0].ki.time = NULL;
-      fakekey[0].ki.wScan = outputstring[j];
-	  ::SetFocus(targetwindow);
-      SendInput(1, fakekey, sizeof(INPUT));
+        fakekey[0].ki.wVk = 0;
+        fakekey[0].ki.time = NULL;
+        fakekey[0].ki.wScan = *it;
+        SendInput(1, fakekey, sizeof(INPUT));
+      }
     }
 #else
     if(DisplayText[0] == 0xd && DisplayText[1] == 0xa) {
