@@ -1173,6 +1173,9 @@ extern "C" gboolean sidemenu_motion(GtkWidget *pWidget, GdkEventMotion *pEvent, 
 extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event, gpointer data) {
   GtkDasherControl *pControl = (GtkDasherControl *)pDasherWidget;
 
+  if(!xevent)
+    return GDK_FILTER_CONTINUE;
+
   XEvent *xev = (XEvent *)xevent;
 
   if(xev->xany.type == KeyPress) {
@@ -1182,7 +1185,8 @@ extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event
     sKeyDetails.group = 0;
     sKeyDetails.level = 0;
 
-    gtk_dasher_control_external_key_down(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
+    if(pControl)
+      gtk_dasher_control_external_key_down(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
 
     return GDK_FILTER_REMOVE;
   }
@@ -1194,7 +1198,8 @@ extern "C" GdkFilterReturn keyboard_filter_cb(GdkXEvent *xevent, GdkEvent *event
     sKeyDetails.group = 0;
     sKeyDetails.level = 0;
 
-    gtk_dasher_control_external_key_up(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
+    if(pControl)
+      gtk_dasher_control_external_key_up(pControl, gdk_keymap_lookup_key(0, &sKeyDetails));
 
     return GDK_FILTER_REMOVE;
   }
