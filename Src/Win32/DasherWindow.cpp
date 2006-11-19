@@ -517,9 +517,13 @@ LRESULT CDasherWindow::OnCommand(UINT message, WPARAM wParam, LPARAM lParam, BOO
 		  if(m_pEdit)
 			  m_pEdit->SaveAs();
 		  return 0;
+    case ID_FILE_APPEND:
+      if(m_pEdit)
+        m_pEdit->SaveAs();
+      return 0;
 	  case ID_IMPORT_TRAINFILE:
       // TODO: Fix dummy arguments
-		  m_pDasher->TrainFile(m_pEdit->Import(),0,0);
+		  m_pDasher->TrainFileWrapper(m_pEdit->Import(),0,0);
 		  return 0;
     default:
 		  return DefWindowProc(message, wParam, lParam);

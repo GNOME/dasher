@@ -29,7 +29,7 @@ void CModuleControl::Create(HWND hParent) {
 void CModuleControl::Layout(RECT *pRect) {
   MoveWindow(pRect->left, pRect->top, pRect->right - pRect->left, pRect->bottom - pRect->top);
   
-  ::MoveWindow(m_hWndCaption, 0, 0, (pRect->right - pRect->left) / 2, pRect->bottom - pRect->top, TRUE);
+  ::MoveWindow(m_hWndCaption, 0, 0, (pRect->right - pRect->left) / 4, pRect->bottom - pRect->top, TRUE);
 
   RECT sRect;
   sRect.left = (pRect->right - pRect->left) / 2;

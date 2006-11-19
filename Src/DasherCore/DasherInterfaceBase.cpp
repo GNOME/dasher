@@ -602,6 +602,26 @@ void CDasherInterfaceBase::GetColours(std::vector <std::string >*ColourList) {
   m_ColourIO->GetColours(ColourList);
 }
 
+int CDasherInterfaceBase::TrainFileWrapper(string Filename, int iTotalBytes, int iOffset) {
+   // Train the new language model
+    CLockEvent *pEvent;
+    
+    pEvent = new CLockEvent("Training Dasher", true, 0);
+    m_pEventHandler->InsertEvent(pEvent);
+    delete pEvent;
+
+  int iRetVal = TrainFile(Filename, iTotalBytes, iOffset);
+   // Train the new language model
+    
+    
+    pEvent = new CLockEvent("Training Dasher", false, 0);
+    m_pEventHandler->InsertEvent(pEvent);
+    delete pEvent;
+
+
+    return iRetVal;
+}
+
 /*
 	I've used C style I/O because I found that C++ style I/O bloated
 	the Win32 code enormously. The overhead of loading the buffer into

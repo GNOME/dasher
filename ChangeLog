@@ -1,3 +1,7 @@
+2006-11-19  Phil Cowans  <pjc51@cam.ac.uk>
+
+    * Fixed locking bug on 'import training text'
+
 2006-11-18  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Added null pointer checks to keyboard filter callback -

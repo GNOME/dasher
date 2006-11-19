@@ -190,6 +190,10 @@ public:
 
   int TrainFile(std::string Filename, int iTotalBytes, int iOffset); // all training data must be in UTF-8.
 
+  /// Temporary - will not be ported to HEAD  
+  int TrainFileWrapper(std::string Filename, int iTotalBytes, int iOffset); // all training data must be in UTF-8.
+
+
   /// \todo Document this
 
   void GetFontSizes(std::vector < int >*FontSizes) const;
