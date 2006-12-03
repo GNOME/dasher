@@ -1,5 +1,6 @@
 #include "config.h"
 #include "dasher_action_keyboard.h"
+#include "dasher_editor.h"
 
 #include <string.h>
 
@@ -12,7 +13,7 @@ typedef struct _DasherActionKeyboardPrivate DasherActionKeyboardPrivate;
 static void dasher_action_keyboard_class_init(DasherActionKeyboardClass *pClass);
 static void dasher_action_keyboard_init(DasherActionKeyboard *pActionKeyboard);
 static void dasher_action_keyboard_destroy(GObject *pObject);
-static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, const gchar *szData);
+static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
 static const gchar *dasher_action_keyboard_get_name(DasherAction *pSelf);
 
 GType dasher_action_keyboard_get_type() {
@@ -66,10 +67,10 @@ DasherActionKeyboard *dasher_action_keyboard_new(IDasherBufferSet *pBufferSet) {
   return pDasherControl;
 }
 
-static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, const gchar *szData) {
+static gboolean dasher_action_keyboard_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   DasherActionKeyboardPrivate *pPrivate = (DasherActionKeyboardPrivate *)(DASHER_ACTION_KEYBOARD(pSelf)->private_data);
    
-  idasher_buffer_set_insert(pPrivate->pBufferSet, szData);
+  idasher_buffer_set_insert(pPrivate->pBufferSet, dasher_editor_get_all_text(pEditor));
   return true;
 }
 

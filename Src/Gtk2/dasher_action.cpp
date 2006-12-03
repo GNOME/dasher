@@ -41,6 +41,9 @@ static void dasher_action_class_init(DasherActionClass *pClass) {
   pClass->execute = 0;
   pClass->activate = 0;
   pClass->deactivate = 0;
+  pClass->get_name = 0;
+  pClass->get_sub_count = 0;
+  pClass->get_sub_name = 0;
 }
 
 static void dasher_action_init(DasherAction *pDasherControl) {
@@ -63,11 +66,11 @@ DasherAction *dasher_action_new() {
   return pDasherControl;
 }
 
-gboolean dasher_action_execute(DasherAction *pSelf, const gchar *szData) {
+gboolean dasher_action_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   // TODO: Need to make sure that the action is active first
 
   if(DASHER_ACTION_GET_CLASS(pSelf)->execute)
-    return DASHER_ACTION_GET_CLASS(pSelf)->execute(pSelf, szData);
+    return DASHER_ACTION_GET_CLASS(pSelf)->execute(pSelf, pEditor, iIdx);
   else
     return false;
 }
@@ -77,6 +80,20 @@ const gchar *dasher_action_get_name(DasherAction *pSelf) {
     return DASHER_ACTION_GET_CLASS(pSelf)->get_name(pSelf);
   else
     return 0;
+}
+
+int dasher_action_get_sub_count(DasherAction *pSelf) {
+  if(DASHER_ACTION_GET_CLASS(pSelf)->get_sub_count)
+    return DASHER_ACTION_GET_CLASS(pSelf)->get_sub_count(pSelf);
+  else
+    return 0;
+}
+
+const gchar *dasher_action_get_sub_name(DasherAction *pSelf, int iIdx) {
+  if(DASHER_ACTION_GET_CLASS(pSelf)->get_sub_name)
+    return DASHER_ACTION_GET_CLASS(pSelf)->get_sub_name(pSelf, iIdx);
+  else
+    return NULL;
 }
 
 gboolean dasher_action_activate(DasherAction *pSelf) {

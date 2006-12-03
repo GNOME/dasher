@@ -71,6 +71,7 @@ void dasher_editor_command(DasherEditor *pSelf, const gchar *szCommand);
 
 // Temporarily here - move back to private eventually
 const gchar *dasher_editor_get_all_text(DasherEditor *pSelf);
+const gchar *dasher_editor_get_new_text(DasherEditor *pSelf);
 
 G_END_DECLS
 

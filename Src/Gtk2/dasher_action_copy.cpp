@@ -5,7 +5,7 @@
 static void dasher_action_copy_class_init(DasherActionCopyClass *pClass);
 static void dasher_action_copy_init(DasherActionCopy *pActionCopy);
 static void dasher_action_copy_destroy(GObject *pObject);
-static gboolean dasher_action_copy_execute(DasherAction *pSelf, const gchar *szData);
+static gboolean dasher_action_copy_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
 static const gchar *dasher_action_copy_get_name(DasherAction *pSelf);
 
 typedef struct _DasherActionCopyPrivate DasherActionCopyPrivate;
@@ -66,7 +66,7 @@ DasherActionCopy *dasher_action_copy_new(DasherEditor *pEditor) {
   return pDasherControl;
 }
 
-static gboolean dasher_action_copy_execute(DasherAction *pSelf, const gchar *szData) {
+static gboolean dasher_action_copy_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   DasherActionCopyPrivate *pPrivate((DasherActionCopyPrivate *)((DasherActionCopy *)pSelf)->private_data);
   dasher_editor_clipboard(pPrivate->pEditor, CLIPBOARD_COPYALL);
   return true;

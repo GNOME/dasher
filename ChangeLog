@@ -1,3 +1,17 @@
+2006-12-03  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Finished speech restructuring
+	* Fixed type bugs in schema generation utility (#380489)
+
+2006-12-01  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Restructuring of editor actions, so we can have speech back the
+	way it was.
+
+2006-11-22  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* More sensible fix for locking bug on 'import training text'.
+
 2006-11-12  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* More code tidying

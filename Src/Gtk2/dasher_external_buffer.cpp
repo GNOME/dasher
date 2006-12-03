@@ -19,6 +19,8 @@
 
 // TODO: Figure out if we need this stuff and re-implement
 
+// X_HAVE_UTF8_STRING -> attempt to do keyboard mapping? (This won't work without extended keysyms being defined) - no or otherwise?
+
 // Before...
 
 //   int min, max;
@@ -207,27 +209,48 @@ void dasher_external_buffer_insert(DasherExternalBuffer *pSelf, const gchar *szT
     }
   }
   else {
+    // gunichar is a 32 bit data type for UTF32 (aka UCS4) encoded unicodeX
     gunichar *wideoutput = g_utf8_to_ucs4(szText, -1, NULL, &numoutput, NULL);
 
     for(int i = 0; i < numoutput; i++) {
-      int modifiedkey = (modifiedkey + 1) % 10;
-      // This gives us the magic X keysym
-      wideoutput[i] = wideoutput[i] | 0x01000000;
-      
-      XDisplayKeycodes(dpy, &min, &max);
-      keysym = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
-      keysym[(max - min - modifiedkey - 1) * numcodes] = wideoutput[i];
-      XChangeKeyboardMapping(dpy, min, numcodes, keysym, (max - min));
-      XSync(dpy, true);
-      XFree(keysym);
-      // There's no way whatsoever that this could ever possibly
-      // be guaranteed to work (ever), but it does.
-      code = (max - modifiedkey - 1);
-      if(code != 0) {
-	XTestFakeKeyEvent(dpy, code, True, CurrentTime);
+
+      // Erm - this makes no sense
+      int modifiedkey = (i + 1) % 10;
+
+      if(wideoutput[i] < 0x01000000) {
+
+	// See http://wiki.x.org/wiki/KeySyms for the logic behind this
+	// tranlation
+	wideoutput[i] = wideoutput[i] | 0x01000000;
+
+	// TODO: Please see
+	// http://tronche.com/gui/x/xlib/input/keyboard-encoding.html
+	// for an explanation as to why you sometimes get problems
+	// with upper/lower case on some X displays I'm tempted to say
+	// that the XTest stuff is just broken, and require some GNOME
+	// a11y support for direct entry...
+	
+	XDisplayKeycodes(dpy, &min, &max);
+	
+	// Returns the keyboard mapping for the current display - numcodes is the 
+	keysym = XGetKeyboardMapping(dpy, min, max - min + 1, &numcodes);
+	
+	// Reprogramme the keyboard map to use the new keysym
+	keysym[(max - min - modifiedkey - 1) * numcodes] = wideoutput[i];
+	XChangeKeyboardMapping(dpy, min, numcodes, keysym, (max - min));
 	XSync(dpy, true);
-	XTestFakeKeyEvent(dpy, code, False, CurrentTime);
-	XSync(dpy, true);
+	
+	// Delete the old keymap
+	XFree(keysym);
+	// There's no way whatsoever that this could ever possibly
+	// be guaranteed to work (ever), but it does.
+	code = (max - modifiedkey - 1);
+	if(code != 0) {
+	  XTestFakeKeyEvent(dpy, code, True, CurrentTime);
+	  XSync(dpy, true);
+	  XTestFakeKeyEvent(dpy, code, False, CurrentTime);
+	  XSync(dpy, true);
+	}
       }
     }
     XSync(dpy, true);

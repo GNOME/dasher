@@ -290,15 +290,15 @@ void CDasherInterfaceBase::InterfaceEventHandler(Dasher::CEvent *pEvent) {
   else if(pEvent->m_iEventType == EV_LOCK) {
     CLockEvent *pLockEvent(static_cast<CLockEvent *>(pEvent));
 
-    // TODO: Sort this out - at the moment these don't occur in pairs, so the old boolean variable is still needed
-    if(pLockEvent->m_bLock) {
-      if(m_bGlobalLock)
-	AddLock(0);
-    }
-    else {
-      if(!m_bGlobalLock)
-	ReleaseLock(0);
-    }
+//     // TODO: Sort this out - at the moment these don't occur in pairs, so the old boolean variable is still needed
+//     if(pLockEvent->m_bLock) {
+//       if(m_bGlobalLock)
+// 	AddLock(0);
+//     }
+//     else {
+//       if(!m_bGlobalLock)
+// 	ReleaseLock(0);
+//     }
     
     m_bGlobalLock = pLockEvent->m_bLock;
   }
@@ -650,6 +650,8 @@ int CDasherInterfaceBase::TrainFile(string Filename, int iTotalBytes, int iOffse
   if((InputFile = fopen(Filename.c_str(), "r")) == (FILE *) 0)
     return 0;
 
+  AddLock(0);
+
   const int BufferSize = 1024;
   char InputBuffer[BufferSize];
   string StringBuffer;
@@ -684,6 +686,8 @@ int CDasherInterfaceBase::TrainFile(string Filename, int iTotalBytes, int iOffse
   delete pTrainer;
 
   fclose(InputFile);
+
+  ReleaseLock(0);
 
   return iTotalRead;
 }

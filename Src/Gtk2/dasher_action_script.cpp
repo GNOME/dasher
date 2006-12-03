@@ -1,4 +1,5 @@
 #include "dasher_action_script.h"
+#include "dasher_editor.h"
 
 #include <stdlib.h>
 #include <string.h>
@@ -7,7 +8,7 @@
 static void dasher_action_script_class_init(DasherActionScriptClass *pClass);
 static void dasher_action_script_init(DasherActionScript *pActionScript);
 static void dasher_action_script_destroy(GObject *pObject);
-static gboolean dasher_action_script_execute(DasherAction *pSelf, const gchar *szData);
+static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
 static const gchar *dasher_action_script_get_name(DasherAction *pSelf);
 
 typedef struct _DasherActionScriptPrivate DasherActionScriptPrivate;
@@ -72,7 +73,7 @@ DasherActionScript *dasher_action_script_new(const gchar *szPath, const gchar *s
   return pDasherControl;
 }
 
-static gboolean dasher_action_script_execute(DasherAction *pSelf, const gchar *szData) {
+static gboolean dasher_action_script_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   DasherActionScriptPrivate *pPrivate((DasherActionScriptPrivate *)((DasherActionScript *)pSelf)->private_data);
 
   gchar *szFullPath = new gchar[strlen(pPrivate->szPath) + strlen(pPrivate->szFilename) + 1];
@@ -98,6 +99,8 @@ static gboolean dasher_action_script_execute(DasherAction *pSelf, const gchar *s
     g_warning("Could not execute script");
     exit(1);
   }
+
+  const char *szData = dasher_editor_get_all_text(pEditor);
 
   // Write data to the pipe
   write(iPipeFDs[1], szData, strlen(szData));

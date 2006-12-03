@@ -3,6 +3,8 @@
 
 // TODO: This should be an interface rather than an instantiable class
 
+typedef struct _DasherEditor DasherEditor;
+
 #include <glib.h>
 #include <glib-object.h>
 
@@ -25,8 +27,10 @@ struct _DasherAction {
 struct _DasherActionClass {
   GObjectClass parent_class;
 
-  gboolean (*execute)(DasherAction *pSelf, const gchar *szData);
+  gboolean (*execute)(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
   const gchar *(*get_name)(DasherAction *pSelf);
+  int (*get_sub_count)(DasherAction *pSelf);
+  const gchar *(*get_sub_name)(DasherAction *pSelf, int iIdx);  
   gboolean (*activate)(DasherAction *pSelf);
   gboolean (*deactivate)(DasherAction *pSelf);
 };
@@ -34,8 +38,10 @@ struct _DasherActionClass {
 DasherAction *dasher_action_new();
 GType dasher_action_get_type();
 
-gboolean dasher_action_execute(DasherAction *pSelf, const gchar *szData);
+gboolean dasher_action_execute(DasherAction *pSelf, DasherEditor *pEditor, gint iIdx);
 const gchar *dasher_action_get_name(DasherAction *pSelf);
+int dasher_action_get_sub_count(DasherAction *pSelf);
+const gchar *dasher_action_get_sub_name(DasherAction *pSelf, int iIdx);
 gboolean dasher_action_activate(DasherAction *pSelf);
 gboolean dasher_action_deactivate(DasherAction *pSelf);
 gboolean dasher_action_get_active(DasherAction *pSelf);

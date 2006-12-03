@@ -71,12 +71,12 @@ int main(int argc, char **argv) {
       std::string strDefault;
       
       if(boolparamtable[i].defaultValue)
-	strDefault = "true";
+	strDefault = "TRUE";
       else
-	strDefault = "false";
+	strDefault = "FALSE";
       
       CSchema oSchema( boolparamtable[i].regName,
-		       0,
+		       TYPE_BOOL,
 		       strDefault,
 		       "",
 		       boolparamtable[i].humanReadable );
@@ -91,12 +91,12 @@ int main(int argc, char **argv) {
       std::string strDefault;
       
       if(app_boolparamtable[i].bDefaultValue)
-	strDefault = "true";
+	strDefault = "TRUE";
       else
-	strDefault = "false";
+	strDefault = "FALSE";
       
       CSchema oSchema( app_boolparamtable[i].regName,
-		       0,
+		       TYPE_BOOL,
 		       strDefault,
 		       "",
 		       app_boolparamtable[i].humanReadable );
@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 
       
       CSchema oSchema( longparamtable[i].regName,
-		       0,
+		       TYPE_LONG,
 		       ssDefault.str(),
 		       "",
 		       longparamtable[i].humanReadable );
@@ -132,7 +132,7 @@ int main(int argc, char **argv) {
 
       
       CSchema oSchema( app_longparamtable[i].regName,
-		       0,
+		       TYPE_LONG,
 		       ssDefault.str(),
 		       "",
 		       app_longparamtable[i].humanReadable );
@@ -144,7 +144,7 @@ int main(int argc, char **argv) {
   for(int i(0); i < NUM_OF_SPS; ++i) {
     if(stringparamtable[i].persistent) {
       CSchema oSchema( stringparamtable[i].regName,
-		       0,
+		       TYPE_STRING,
 		       stringparamtable[i].defaultValue,
 		       "",
 		       stringparamtable[i].humanReadable );
@@ -156,7 +156,7 @@ int main(int argc, char **argv) {
   for(int i(0); i < END_OF_APP_SPS - END_OF_APP_LPS; ++i) {
     if(app_stringparamtable[i].persistent) {
       CSchema oSchema( app_stringparamtable[i].regName,
-		       0,
+		       TYPE_STRING,
 		       app_stringparamtable[i].szDefaultValue,
 		       "",
 		       app_stringparamtable[i].humanReadable );

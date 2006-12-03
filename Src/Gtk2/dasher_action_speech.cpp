@@ -3,9 +3,10 @@
 #ifdef GNOME_SPEECH
 
 #include "dasher_action_speech.h"
+#include "dasher_editor.h"
 
 #include <gnome-speech/gnome-speech.h>
-#include <bonobo/bonobo-exception.h>
+#include <libbonobo.h>
 #include <libintl.h>
 #include <string.h>
 
@@ -16,6 +17,7 @@ struct _DasherActionSpeechPrivate {
   GNOME_Speech_Speaker speaker;
   GNOME_Speech_VoiceInfoList *voices;
   CORBA_Environment ev;
+  char *szLast;
 };
 
 typedef struct _DasherActionSpeechPrivate DasherActionSpeechPrivate;
@@ -24,8 +26,10 @@ typedef struct _DasherActionSpeechPrivate DasherActionSpeechPrivate;
 static void dasher_action_speech_class_init(DasherActionSpeechClass *pClass);
 static void dasher_action_speech_init(DasherActionSpeech *pActionSpeech);
 static void dasher_action_speech_destroy(GObject *pObject);
-static gboolean dasher_action_speech_execute(DasherAction *pSelf, const gchar *szData);
+static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
 static const gchar *dasher_action_speech_get_name(DasherAction *pSelf);
+static int dasher_action_speech_get_sub_count(DasherAction *pSelf);
+static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx);
 gboolean dasher_action_speech_activate(DasherAction *pSelf);
 gboolean dasher_action_speech_deactivate(DasherAction *pSelf);
 
@@ -60,12 +64,16 @@ static void dasher_action_speech_class_init(DasherActionSpeechClass *pClass) {
   DasherActionClass *pDasherActionClass = (DasherActionClass *) pClass;
   pDasherActionClass->execute = dasher_action_speech_execute;
   pDasherActionClass->get_name = dasher_action_speech_get_name;
+  pDasherActionClass->get_sub_count = dasher_action_speech_get_sub_count;
+  pDasherActionClass->get_sub_name = dasher_action_speech_get_sub_name;
   pDasherActionClass->activate = dasher_action_speech_activate;
   pDasherActionClass->deactivate = dasher_action_speech_deactivate;
 }
 
 static void dasher_action_speech_init(DasherActionSpeech *pDasherControl) {
   pDasherControl->private_data = new DasherActionSpeechPrivate;
+
+  ((DasherActionSpeechPrivate *)(pDasherControl->private_data))->szLast = NULL;
 }
 
 static void dasher_action_speech_destroy(GObject *pObject) {
@@ -80,12 +88,36 @@ DasherActionSpeech *dasher_action_speech_new() {
   return pDasherControl;
 }
 
-static gboolean dasher_action_speech_execute(DasherAction *pSelf, const gchar *szData) {
+static gboolean dasher_action_speech_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) {
   DasherActionSpeechPrivate *pDasherActionSpeechPrivate = (DasherActionSpeechPrivate *)(((DasherActionSpeech *)pSelf)->private_data);
+
+  const char *szData;
+
+  switch(iIdx) {
+  case 0:
+    szData = dasher_editor_get_all_text(pEditor);
+    break;
+  case 1:
+    szData = dasher_editor_get_new_text(pEditor);
+    break;
+  case 2:
+    szData = pDasherActionSpeechPrivate->szLast;
+    break;
+  default:
+    szData = NULL;
+    break;
+  }
 
   if(szData && (strlen(szData) > 0)) {
     if(pDasherActionSpeechPrivate->speaker != NULL) {
       GNOME_Speech_Speaker_say(pDasherActionSpeechPrivate->speaker, szData, &(pDasherActionSpeechPrivate->ev));
+
+      if(pDasherActionSpeechPrivate->szLast)
+	delete pDasherActionSpeechPrivate->szLast;
+
+      pDasherActionSpeechPrivate->szLast = new char[strlen(szData) + 1];
+      strncpy(pDasherActionSpeechPrivate->szLast, szData, strlen(szData) + 1);
+
       return true;
     }
     else {
@@ -99,6 +131,23 @@ static gboolean dasher_action_speech_execute(DasherAction *pSelf, const gchar *s
 
 static const gchar *dasher_action_speech_get_name(DasherAction *pSelf) {
   return "Speak";
+}
+
+static int dasher_action_speech_get_sub_count(DasherAction *pSelf) {
+  return 3;
+}
+
+static const gchar *dasher_action_speech_get_sub_name(DasherAction *pSelf, int iIdx) {
+  switch(iIdx) {
+  case 0:
+    return "All";
+  case 1:
+    return "Last";
+  case 2:
+    return "Repeat";
+  default:
+    return NULL;
+  }
 }
 
 gboolean dasher_action_speech_activate(DasherAction *pSelf) {
@@ -162,8 +211,6 @@ gboolean dasher_action_speech_activate(DasherAction *pSelf) {
 }
 
 gboolean dasher_action_speech_deactivate(DasherAction *pSelf) {
-  g_message("Shutting down speech synthesis");
-
   DasherActionSpeechPrivate *pDasherActionSpeechPrivate = (DasherActionSpeechPrivate *)(((DasherActionSpeech *)pSelf)->private_data);
 
   bonobo_object_release_unref(pDasherActionSpeechPrivate->speaker, NULL);
