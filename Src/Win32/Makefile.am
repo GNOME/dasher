@@ -88,6 +88,7 @@ EXTRA_DIST = \
 		Dasher.vcproj \
 		DasherAction.h \
 		DasherControl.vcproj \
+		DasherControl_vc80.vcproj \
 		DasherMouseInput.cpp \
 		DasherMouseInput.h \
 		DasherWindow.cpp \
@@ -95,7 +96,9 @@ EXTRA_DIST = \
 		Dasher_vc70.sln \
 		Dasher_vc70.vcproj \
 		Dasher_vc71.sln \
-		Dasher_vc71.vcproj \
+		Dasher_vc71.vcproj 
+		Dasher_vc80.sln \
+		Dasher_vc80.vcproj \
 		EditWrapper.cpp \
 		EditWrapper.h \
 		GameModeHelper.cpp \

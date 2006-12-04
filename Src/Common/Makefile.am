@@ -31,5 +31,4 @@ AM_CXXFLAGS = $(GTK2_CFLAGS) $(SETTINGS_CFLAGS) $(gnome_speech_CFLAGS) $(gnome_a
 # start off with, but we also probably want to think about whether
 # including our own expat source tree here is a good idea or not.
 
-
-EXTRA_DIST = Common.vcproj Common_vc70.vcproj Common_vc71.vcproj Expat
+EXTRA_DIST = Common.vcproj Common_vc70.vcproj Common_vc71.vcproj Common_vc80.vcproj Expat
