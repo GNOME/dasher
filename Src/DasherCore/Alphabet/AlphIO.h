@@ -80,6 +80,7 @@ public:
     character StartConvertCharacter;
     character EndConvertCharacter;
     int m_iConversionID;
+    std::string m_strDefaultContext;
   };
 
   CAlphIO(std::string SystemLocation, std::string UserLocation, std::vector < std::string > Filenames);

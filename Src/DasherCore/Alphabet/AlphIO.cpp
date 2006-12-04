@@ -403,7 +403,8 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       atts += 2;
     }
     Me->InputInfo.m_iConversionID = 0;
-    
+    Me->InputInfo.m_strDefaultContext = ". ";
+
     return;
   }
 
@@ -642,6 +643,18 @@ void CAlphIO::XML_StartElement(void *userData, const XML_Char *name, const XML_C
       if(strcmp(*atts, "f") == 0) {
         atts++;
         Me->InputInfo.EndConvertCharacter.Foreground = *atts;
+        atts--;
+      }
+      atts += 2;
+    }
+    return;
+  }
+
+  if(strcmp(name, "context") == 0) {
+    while(*atts != 0) {
+      if(strcmp(*atts, "default") == 0) {
+        atts++;
+        Me->InputInfo.m_strDefaultContext = *atts;
         atts--;
       }
       atts += 2;

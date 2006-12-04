@@ -147,6 +147,10 @@ namespace Dasher {
       return TextMap;
     } 
 
+    const std::string &GetDefaultContext() const {
+      return m_strDefaultContext;
+    }
+
     SGroupInfo *m_pBaseGroup;
     
     
@@ -180,6 +184,8 @@ namespace Dasher {
     SGroupInfo *pFirstGroup;
 
     alphabet_map TextMap;
+
+    std::string m_strDefaultContext;
 
     //    friend class CGroupAdder;
   };

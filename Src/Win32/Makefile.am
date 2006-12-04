@@ -88,8 +88,6 @@ EXTRA_DIST = \
 		Dasher.vcproj \
 		DasherAction.h \
 		DasherControl.vcproj \
-		DasherInterface.cpp \
-		DasherInterface.h \
 		DasherMouseInput.cpp \
 		DasherMouseInput.h \
 		DasherWindow.cpp \

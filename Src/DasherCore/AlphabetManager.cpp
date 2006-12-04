@@ -71,6 +71,15 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   // redundant code
   CLanguageModel::Context iContext;
   iContext = m_pLanguageModel->CreateEmptyContext();
+
+  std::string strContext = m_pNCManager->GetAlphabet()->GetDefaultContext();
+
+  std::vector<symbol> vContextSymbols;
+  m_pNCManager->GetAlphabet()->GetSymbols(&vContextSymbols, &strContext, false);
+
+  for(std::vector<symbol>::iterator it(vContextSymbols.begin()); it != vContextSymbols.end(); ++it)
+    m_pLanguageModel->EnterSymbol(iContext, *it);
+
   pNodeUserData->iContext = iContext;
 
   if(m_bGameMode) {

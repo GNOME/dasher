@@ -47,6 +47,8 @@ CAlphabet::CAlphabet(const CAlphIO::AlphInfo &AlphInfo)
   m_StartConversionSymbol = -1;
   m_EndConversionSymbol = -1;
 
+  m_strDefaultContext = AlphInfo.m_strDefaultContext;
+
   // Set miscellaneous options
 
   SetOrientation(AlphInfo.Orientation);
