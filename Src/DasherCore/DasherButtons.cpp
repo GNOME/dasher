@@ -403,6 +403,13 @@ bool CDasherButtons::Timer(int Time, CDasherView *m_pDasherView, CDasherModel *m
   if(m_bOldHighlight != m_bHighlight)
     m_bDecorationChanged = true;
 
+  // TODO: This is a bit of a hack to make joystick mode work
+  myint iDasherX;
+  myint iDasherY;
+
+  m_pDasherView->GetCoordinates(Time, iDasherX, iDasherY);
+
+
   return m_pDasherModel->UpdatePosition(0, 0, Time, pAdded, pNumDeleted);
 }
 

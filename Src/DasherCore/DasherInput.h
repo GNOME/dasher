@@ -10,6 +10,7 @@
 
 namespace Dasher {
   class CDasherInput;
+  class CDasherInterfaceBase;
 }
 
 class Dasher::CDasherInput : public CDasherModule {

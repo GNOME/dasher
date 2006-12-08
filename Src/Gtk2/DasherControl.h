@@ -4,6 +4,7 @@
 #include "PangoCache.h"
 #include "Canvas.h"
 #include "../DasherCore/SocketInput.h"
+#include "joystick_input.h"
 #include "mouse_input.h"
 
 #include "GtkDasherControl.h"
