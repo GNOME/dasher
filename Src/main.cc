@@ -50,6 +50,11 @@ DasherPreferencesDialogue *g_pPreferencesDialogue;
 
 // Stuff imported from dasher.cc
 
+#ifdef WITH_MAEMO
+  osso_context_t *osso_context;
+#endif
+
+
 
 GtkWidget *vbox;
 GdkPixbuf *p;                   // Hmm... descriptive names
@@ -177,8 +182,6 @@ int main(int argc, char *argv[]) {
 #endif
 
 #ifdef WITH_MAEMO
-  osso_context_t *osso_context;
-
   osso_context = osso_initialize("dasher", PACKAGE_VERSION, TRUE, NULL);
 #endif
 

@@ -11,7 +11,7 @@
 static void dasher_action_keyboard_maemo_class_init(DasherActionKeyboardMaemoClass *pClass);
 static void dasher_action_keyboard_maemo_init(DasherActionKeyboardMaemo *pActionKeyboardMaemo);
 static void dasher_action_keyboard_maemo_destroy(GObject *pObject);
-static gboolean dasher_action_keyboard_maemo_execute(DasherAction *pSelf, const gchar *szData);
+static gboolean dasher_action_keyboard_maemo_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx);
 static const gchar *dasher_action_keyboard_maemo_get_name(DasherAction *pSelf);
 
 GType dasher_action_keyboard_maemo_get_type() {
@@ -65,7 +65,10 @@ DasherActionKeyboardMaemo *dasher_action_keyboard_maemo_new() {
   return pDasherControl;
 }
 
-static gboolean dasher_action_keyboard_maemo_execute(DasherAction *pSelf, const gchar *szData) { 
+static gboolean dasher_action_keyboard_maemo_execute(DasherAction *pSelf, DasherEditor *pEditor, int iIdx) { 
+
+  const char *szData = dasher_editor_get_all_text(pEditor);
+
   // TODO: Make this work properly with UTF-8
   GdkEventClient sMyEvent;
 
