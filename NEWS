@@ -1,4 +1,12 @@
 ============
+Dasher 4.3.3
+============
+  * Basic support for USB joystick control
+  * Updated Win32 project files
+  * Various bugfixes
+  * Translation updates
+
+============
 Dasher 4.3.2
 ============
   * Fix various build-time bugs

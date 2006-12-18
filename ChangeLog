@@ -1,9 +1,14 @@
-2006-12-11  Phil Cowans  <pjc51@pabbay.ra.phy.cam.ac.uk>
+2006-12-18  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Removed debug output
+	* Bumping version number for release (4.3.3)
+
+2006-12-11  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Prevented LP_YSCALE from having value 0
 	* Fixed crash due to uninitialised pango cache (#383314)
 
-2006-12-08  Phil Cowans  <pjc51@pabbay.ra.phy.cam.ac.uk>
+2006-12-08  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Implemented basic joystick mode
 

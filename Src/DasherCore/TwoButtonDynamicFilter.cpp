@@ -298,6 +298,9 @@ void CTwoButtonDynamicFilter::AutoSpeedSample(int iTime, CDasherModel *pModel) {
 
 void CTwoButtonDynamicFilter::AutoSpeedUndo(int iCount) {
   for(int i(0); i < iCount; ++i) {
+    if(m_deOffsetQueue.size() == 0)
+      return;
+
     if(m_pTree)
       m_pTree = m_pTree->Delete(m_deOffsetQueue.back());
     m_deOffsetQueue.pop_back();

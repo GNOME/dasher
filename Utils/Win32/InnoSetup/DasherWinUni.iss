@@ -3,8 +3,8 @@
 
 [Setup]
 AppName=Dasher
-OutputBaseFilename=Dasher 4.3.2
-AppVerName=Dasher 4.3.2
+OutputBaseFilename=Dasher 4.3.3
+AppVerName=Dasher 4.3.3
 AppPublisher=Dasher Project
 AppPublisherURL=http://www.dasher.org.uk/
 AppSupportURL=http://www.dasher.org.uk/

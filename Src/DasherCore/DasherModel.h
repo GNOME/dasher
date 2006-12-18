@@ -112,8 +112,6 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CAlphabetManagerFactory::CTrainer *GetTrainer();
 
-  void GetProbs(CLanguageModel::Context context, std::vector < symbol > &NewSymbols, std::vector < unsigned int >&Probs, int iNorm) const;
-
   /// @}
 
   /// @name Alphabet passthroughs
@@ -358,6 +356,15 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   bool CheckForNewRoot(CDasherView *pView);
 
+  ///
+  /// Notify of a change of cursor position within the attached
+  /// buffer. Resulting action should be appropriate - ie don't
+  /// completely rebuild the model if an existing node covers this
+  /// point
+  ///
+
+  void SetCursorLocation(int iLocation);
+
  protected:
   int m_iRenderCount;
 
@@ -407,6 +414,17 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   CDasherNode *Get_node_under_mouse(myint smousex, myint smousey);
 
+  ///
+  /// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
+  /// 
+  /// Calculate the new co-ordinates for the root node after a single
+  /// update step. For further information, see Doc/geometry.tex.
+  /// 
+  /// \param Mousex x mouse co-ordinate measured right to left.
+  /// \param Mousey y mouse co-ordinate measured top to bottom.
+  /// \return Returns the number of nats entered
+  ///
+
   void Get_new_root_coords(myint mousex, myint mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime);
 
   double CorrectionFactor(int dasherx, int dashery);
@@ -448,17 +466,11 @@ class Dasher::CDasherModel:public Dasher::CDasherComponent, private NoClones
 
   void OldPush(myint iMousex, myint iMousey);
 
-  ///
-  /// Schedule smooth transition to a given coordinate
-  ///
-
-  double Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2); 
-
   /// 
   /// Make a child of the root into a new root
   ///
 
-  void Make_root(CDasherNode *whichchild); 
+  void Make_root(CDasherNode *pNewRoot); 
 
   ///
   /// A version of Make_root which is suitable for arbitrary

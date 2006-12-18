@@ -128,17 +128,20 @@ void CDasherModel::HandleEvent(Dasher::CEvent *pEvent) {
 
 }
 
-void CDasherModel::Make_root(CDasherNode *whichchild)
-// find a new root node 
-{
-  // TODO: Need to undo this when root is reparented
+void CDasherModel::Make_root(CDasherNode *pNewRoot) {
+  if(!pNewRoot->NodeIsParent(m_Root))
+    return;
+
   m_Root->SetFlag(NF_COMMITTED, true);
 
-  m_Root->DeleteNephews(whichchild);
+  // Remove all children of current root other than the new root and
+  // push the new root onto the stack
+
+  // TODO: Is the stack necessary at all? We may as well just keep the
+  // existing data structure?
+  m_Root->DeleteNephews(pNewRoot);
 
   oldroots.push_back(m_Root);
-
-  m_Root = whichchild;
 
   while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetConverted()))) {
     oldroots[0]->OrphanChild(oldroots[1]);
@@ -146,6 +149,9 @@ void CDasherModel::Make_root(CDasherNode *whichchild)
     oldroots.pop_front();
   }
 
+  m_Root = pNewRoot;
+
+  // Update the root coordinates, as well as any currently scheduled locations
   myint range = m_Rootmax - m_Rootmin;
   m_Rootmax = m_Rootmin + (range * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   m_Rootmin = m_Rootmin + (range * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
@@ -155,33 +161,14 @@ void CDasherModel::Make_root(CDasherNode *whichchild)
     it->iN2 = it->iN1 + (r * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
     it->iN1 = it->iN1 + (r * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
   }
-
-//   myint iTargetRange = m_iTargetMax - m_iTargetMin;
-//   m_iTargetMax = m_iTargetMin + (iTargetRange * m_Root->Hbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-//   m_iTargetMin = m_iTargetMin + (iTargetRange * m_Root->Lbnd()) / (int)GetLongParameter(LP_NORMALIZATION);
-}
-
-void CDasherModel::ClearRootQueue() {
-  while(oldroots.size() > 0) {
-    if(oldroots.size() > 1) {
-      oldroots[0]->OrphanChild(oldroots[1]);
-    }
-    else {
-      oldroots[0]->OrphanChild(m_Root);
-    }
-    delete oldroots[0];
-    oldroots.pop_front();
-  }
 }
 
 void CDasherModel::RecursiveMakeRoot(CDasherNode *pNewRoot) {
+  // TODO: Macros for this kind of thing
   if(!pNewRoot)
     return;
 
-  if(pNewRoot == m_Root)
-    return;
-
-  // FIXME - we really ought to check that pNewRoot is actually a
+  // TODO: we really ought to check that pNewRoot is actually a
   // descendent of the root, although that should be guaranteed
 
   if(!pNewRoot->NodeIsParent(m_Root))
@@ -198,20 +185,19 @@ void CDasherModel::RebuildAroundNode(CDasherNode *pNode) {
 }
 
 void CDasherModel::Reparent_root(int lower, int upper) {
-
-
-  /* Change the root node to the parent of the existing node
-     We need to recalculate the coordinates for the "new" root as the 
-     user may have moved around within the current root */
-
-  // TODO: Reimplement this
-
-//   if(m_Root->Symbol() == 0)
-//     return; // Don't try to reparent the root symbol
+  // Change the root node to the parent of the existing node. We need
+  // to recalculate the coordinates for the "new" root as the user may
+  // have moved around within the current root
 
   CDasherNode *pNewRoot;
 
   if(oldroots.size() == 0) {
+    // Figure out how many nodes are between the crosshair and the
+    // current root. This is used to figure out the cursor position of
+    // the current root in order to obtain context.
+
+    // TODO: store cursor position in the node itself. This would make
+    // life a lot easier in several ways
     CDasherNode *pCurrentNode(Get_node_under_crosshair());
     int iGenerations(0);
     
@@ -219,11 +205,9 @@ void CDasherModel::Reparent_root(int lower, int upper) {
       ++iGenerations;
       pCurrentNode = pCurrentNode->Parent();
     }
-    
-    pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
 
-    //    std::cout << pNewRoot->m_pNodeManager << std::endl;
-    //    pNewRoot->m_bWatchDelete = true;
+    // Tell the node manager to rebuild the parent
+    pNewRoot = m_Root->m_pNodeManager->RebuildParent(m_Root, iGenerations);
 
     lower = m_Root->Lbnd();
     upper = m_Root->Hbnd();
@@ -235,24 +219,26 @@ void CDasherModel::Reparent_root(int lower, int upper) {
   }
 
   // Return if there's no existing parent and no way of recreating one
-
   if(!pNewRoot) { 
     return;
   }
 
-  /* Determine how zoomed in we are */
+  pNewRoot->SetFlag(NF_COMMITTED, false);
 
   myint iWidth = upper - lower;
+  myint iRootWidth = m_Rootmax - m_Rootmin;
 
-  myint iRootWidth;
-  iRootWidth = m_Rootmax - m_Rootmin;
-
-  if(((myint((GetLongParameter(LP_NORMALIZATION) - upper))  / static_cast<double>(iWidth)) > (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || ((myint(lower) / static_cast<double>(iWidth)) > (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
+  // Fail and undo root creation if the new root is bigger than allowed by normalisation
+  if(((myint((GetLongParameter(LP_NORMALIZATION) - upper)) / static_cast<double>(iWidth)) 
+      > (m_Rootmax_max - m_Rootmax)/static_cast<double>(iRootWidth)) || 
+     ((myint(lower) / static_cast<double>(iWidth)) 
+      > (m_Rootmin - m_Rootmin_min) / static_cast<double>(iRootWidth))) {
     pNewRoot->OrphanChild(m_Root);
     delete pNewRoot;
     return;
   }
 
+  //Update the root coordinates to reflect the new root
   m_Root = pNewRoot;
 
   m_Rootmax = m_Rootmax + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
@@ -263,6 +249,19 @@ void CDasherModel::Reparent_root(int lower, int upper) {
    it->iN2 = it->iN2 + (myint((GetLongParameter(LP_NORMALIZATION) - upper)) * iRootWidth / iWidth);
    it->iN1 = it->iN1 - (myint(lower) * iRootWidth / iWidth);
  }
+}
+
+void CDasherModel::ClearRootQueue() {
+  while(oldroots.size() > 0) {
+    if(oldroots.size() > 1) {
+      oldroots[0]->OrphanChild(oldroots[1]);
+    }
+    else {
+      oldroots[0]->OrphanChild(m_Root);
+    }
+    delete oldroots[0];
+    oldroots.pop_front();
+  }
 }
 
 CDasherNode *CDasherModel::Get_node_under_crosshair() {
@@ -348,24 +347,9 @@ void CDasherModel::SetContext(std::string &sNewContext) {
 //   m_iTargetMax = m_Rootmax;
 }
 
-/////////////////////////////////////////////////////////////////////////////
+void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey, myint &iNewMin, myint &iNewMax, unsigned long iTime) {
 
-///
-/// CDasherModel::Get_new_root_coords( myint Mousex,myint Mousey )
-/// 
-/// Calculate the new co-ordinates for the root node after a single
-/// update step. For further information, see Doc/geometry.tex.
-/// 
-/// \param Mousex x mouse co-ordinate measured right to left.
-/// \param Mousey y mouse co-ordinate measured top to bottom.
-/// \return Returns the number of nats entered
-///
-
-void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
-                                         myint &iNewMin, myint &iNewMax, unsigned long iTime) {
-  // Comments refer to the code immedialtely before them
-
-  // Avoid Mousex=0, as this corresponds to infinite zoom
+  // Avoid Mousex == 0, as this corresponds to infinite zoom
   if(Mousex <= 0) {
     Mousex = 1;
   }
@@ -396,20 +380,23 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
   myint iOX(GetLongParameter(LP_OX));
   myint iOY(GetLongParameter(LP_OY));
 
-  int iTargetMin(Mousey - ((myint)iMaxY * Mousex) / (2 * (myint)iOX));
-  int iTargetMax(Mousey + ((myint)iMaxY * Mousex) / (2 * (myint)iOY));
-
   // Calculate what the extremes of the viewport will be when the
   // point under the cursor is at the cross-hair. This is where 
   // we want to be in iSteps updates
 
-  //  std::cout << iTargetMin << " " << iTargetMax << std::endl;
-
-  DASHER_ASSERT(iSteps > 0);
+  int iTargetMin(Mousey - ((myint)iMaxY * Mousex) / (2 * (myint)iOX));
+  int iTargetMax(Mousey + ((myint)iMaxY * Mousex) / (2 * (myint)iOY));
 
   // iSteps is the number of update steps we need to get the point
   // under the cursor over to the cross hair. Calculated in order to
   // keep a constant bit-rate.
+
+  DASHER_ASSERT(iSteps > 0);
+
+  // Calculate the new values of iTargetMin and iTargetMax required to
+  // perform a single update step. Note that the slightly awkward
+  // expressions are in order to reproduce the behaviour of the old
+  // algorithm
 
   int iNewTargetMin;
   int iNewTargetMax;
@@ -421,17 +408,10 @@ void CDasherModel::Get_new_root_coords(myint Mousex, myint Mousey,
   iTargetMin = iNewTargetMin;
   iTargetMax = iNewTargetMax;
 
-  // Calculate the new values of iTargetMin and iTargetMax required to
-  // perform a single update step. Note that the slightly awkward
-  // expressions are in order to reproduce the behaviour of the old
-  // algorithm
-
-  myint iMinSize(m_fr.MinSize(iMaxY, dFactor));
-
-  //  std::cout << iTargetMax - iTargetMin << " " << iMinSize << std::endl;
-
   // Calculate the minimum size of the viewport corresponding to the
   // maximum zoom.
+
+  myint iMinSize(m_fr.MinSize(iMaxY, dFactor));
 
   if((iTargetMax - iTargetMin) < iMinSize) {
     iNewTargetMin = iTargetMin * (iMaxY - iMinSize) / (iMaxY - (iTargetMax - iTargetMin));
@@ -550,78 +530,79 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
 
 // This is similar to Get_new_goto_coords, but doesn't actually change Rootmax and Rootmin.
 // Instead it gives information for NewGoTo to make direct changes in the root coordinates.
-#define ZOOMDENOM (1<<10)
-#define STEPNUM   48 
-#define STEPDENOM 64
-double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2)
-{
-  m_Stepnum = GetLongParameter(LP_ZOOMSTEPS);
-  int iRxnew_dup = iRxnew;
-  // note -- iRxnew is the zoom factor  in units of ZOOMDENOM
-  *o1 = m_Rootmin ;
-  *o2 = m_Rootmax ;
-  DASHER_ASSERT(iRxnew > 0);
-  if (iRxnew < ZOOMDENOM && m_Rootmax<(myint)GetLongParameter(LP_MAX_Y) && m_Rootmin>0 ) {
-    // refuse to zoom backwards if the entire root node is visible.
-    *iSteps = 0 ;
-    *n1 = m_Rootmin;
-    *n2 = m_Rootmax;
-  } 
-  else {
-    myint above=(mousey-*o1);
-    myint below=(*o2-mousey);
+// #define ZOOMDENOM (1<<10)
+// #define STEPNUM   48 
+// #define STEPDENOM 64
+// double CDasherModel::Plan_new_goto_coords(int iRxnew, myint mousey, int *iSteps, myint *o1, myint *o2 , myint *n1, myint *n2)
+// {
+//   m_Stepnum = GetLongParameter(LP_ZOOMSTEPS);
+//   int iRxnew_dup = iRxnew;
+//   // note -- iRxnew is the zoom factor  in units of ZOOMDENOM
+//   *o1 = m_Rootmin ;
+//   *o2 = m_Rootmax ;
+//   DASHER_ASSERT(iRxnew > 0);
+//   if (iRxnew < ZOOMDENOM && m_Rootmax<(myint)GetLongParameter(LP_MAX_Y) && m_Rootmin>0 ) {
+//     // refuse to zoom backwards if the entire root node is visible.
+//     *iSteps = 0 ;
+//     *n1 = m_Rootmin;
+//     *n2 = m_Rootmax;
+//   } 
+//   else {
+//     myint above=(mousey-*o1);
+//     myint below=(*o2-mousey);
 
-    myint miNewrootzoom= GetLongParameter(LP_MAX_Y)/2 ;
-    myint newRootmax=miNewrootzoom+(below*iRxnew/ZOOMDENOM); // is there a risk of overflow in this multiply?
-    myint newRootmin=miNewrootzoom-(above*iRxnew/ZOOMDENOM);
+//     myint miNewrootzoom= GetLongParameter(LP_MAX_Y)/2 ;
+//     myint newRootmax=miNewrootzoom+(below*iRxnew/ZOOMDENOM); // is there a risk of overflow in this multiply?
+//     myint newRootmin=miNewrootzoom-(above*iRxnew/ZOOMDENOM);
     
-    *n1 = newRootmin;
-    *n2 = newRootmax;
+//     *n1 = newRootmin;
+//     *n2 = newRootmax;
 
-    *iSteps = 1;
+//     *iSteps = 1;
     
-    // We might be moving at zoomfactor one vertically, in which case the below invention won't
-    // come up with more than one step.  Look for a mousey difference and use an iSteps concordant
-    // to that if it would be larger than the iSteps created by taking the log of the zoomfactor. 
-    int distance = mousey - ((myint)GetLongParameter(LP_MAX_Y)/2);
+//     // We might be moving at zoomfactor one vertically, in which case the below invention won't
+//     // come up with more than one step.  Look for a mousey difference and use an iSteps concordant
+//     // to that if it would be larger than the iSteps created by taking the log of the zoomfactor. 
+//     int distance = mousey - ((myint)GetLongParameter(LP_MAX_Y)/2);
 
-    double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
+//     double s = (log(2.0) * 2 / log( (STEPDENOM*1.0)/(m_Stepnum*1.0)) ) / 4096;
 
-    double alpha = 2 * (2 * s);
-    int alternateSteps = int(alpha * abs(distance));
+//     double alpha = 2 * (2 * s);
+//     int alternateSteps = int(alpha * abs(distance));
 
-    // Take log of iRxnew to base ( STEPDENOM / STEPNUM ):
-    if ( STEPDENOM > m_Stepnum && m_Stepnum > 0 ) { // check that the following loop will terminate.
-      //cout << "iRxnew is " << iRxnew << " and ZOOMDENOM is" << ZOOMDENOM << endl;
-      if ( iRxnew > ZOOMDENOM ) {
-        while ( iRxnew > ZOOMDENOM ) {
-          *iSteps += 1;
-          iRxnew = iRxnew * m_Stepnum / STEPDENOM;
-        }
-      } else {
-        while ( iRxnew < ZOOMDENOM ) {
-          *iSteps += 1;
-          iRxnew = iRxnew * STEPDENOM / m_Stepnum;
-        }
-      }
-    }
+//     // Take log of iRxnew to base ( STEPDENOM / STEPNUM ):
+//     if ( STEPDENOM > m_Stepnum && m_Stepnum > 0 ) { // check that the following loop will terminate.
+//       //cout << "iRxnew is " << iRxnew << " and ZOOMDENOM is" << ZOOMDENOM << endl;
+//       if ( iRxnew > ZOOMDENOM ) {
+//         while ( iRxnew > ZOOMDENOM ) {
+//           *iSteps += 1;
+//           iRxnew = iRxnew * m_Stepnum / STEPDENOM;
+//         }
+//       } else {
+//         while ( iRxnew < ZOOMDENOM ) {
+//           *iSteps += 1;
+//           iRxnew = iRxnew * STEPDENOM / m_Stepnum;
+//         }
+//       }
+//     }
 
-    // Done taking log of iRxnew. 
-    if (alternateSteps > *iSteps) {
-      *iSteps = alternateSteps;
-    }
-   }
+//     // Done taking log of iRxnew. 
+//     if (alternateSteps > *iSteps) {
+//       *iSteps = alternateSteps;
+//     }
+//    }
 
-  double iRxnew_ratio = (double) iRxnew_dup / ZOOMDENOM;
-  double iRxnew_log = log(iRxnew_ratio);
-  return iRxnew_log;
-}
+//   double iRxnew_ratio = (double) iRxnew_dup / ZOOMDENOM;
+//   double iRxnew_log = log(iRxnew_ratio);
+//   return iRxnew_log;
+// }
 
 void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SYMBOL_PROB* pAdded, int* pNumDeleted) {
   // Find out the current node under the crosshair
   CDasherNode *old_under_cross=Get_node_under_crosshair();
 
-  // Update the max and min of the root node to make iTargetMin and iTargetMax the edges of the viewport.
+  // Update the max and min of the root node to make iTargetMin and
+  // iTargetMax the edges of the viewport.
 
   if(newRootmin + m_iTargetOffset > (myint)GetLongParameter(LP_MAX_Y) / 2 - 1)
     newRootmin = (myint)GetLongParameter(LP_MAX_Y) / 2 - 1 - m_iTargetOffset;
@@ -646,16 +627,13 @@ void CDasherModel::NewGoTo(myint newRootmin, myint newRootmax, Dasher::VECTOR_SY
     m_Rootmin = newRootmin;
 
     m_iTargetOffset = (m_iTargetOffset * 90) / 100;
-    
-    //     m_iTargetMax = m_iTargetMax + 0.1 * (m_Rootmax - m_iTargetMax);
-//     m_iTargetMin =  m_iTargetMin + 0.1 * (m_Rootmin - m_iTargetMin);
   }
   else {
     // TODO - force a new root to be chosen, so that we get better
     // behaviour than just having Dasher stop at this point.
   }
 
-  // push node under crosshair
+  // Check whether new nodes need to be created
   CDasherNode* new_under_cross = Get_node_under_crosshair();
   Push_Node(new_under_cross);
 
@@ -669,25 +647,8 @@ void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Da
   if(pNewNode->isSeen())
     return;
 
-  // TODO: Reimplement second parameter
   RecursiveOutput(pNewNode, pAdded);
 }
-
-
-// TODO - is this used any more
-//void CDasherModel::OutputCharacters(CDasherNode *node) {
-//  if(node->Parent() != NULL && node->Parent()->isSeen() != true) {
-//    node->Parent()->Seen(true);
-//    OutputCharacters(node->Parent());
-//  }
-//  symbol t = node->Symbol();
-//  if(t)                         // SYM0
-//  {
-//    Dasher::CEditEvent oEvent(1, GetAlphabet().GetText(t));
-//    InsertEvent(&oEvent);
-//  }
-//}
-//
 
 bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, int* pNumDeleted) {
   // DJW cant see how either of these can ever be NULL
@@ -746,20 +707,6 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
   return false;
 }
 
-/////////////////////////////////////////////////////////////////////////////
-
-// // Diagnostic trace
-// void CDasherModel::Trace() const {
-//   // OutputDebugString(TEXT(" ptr   symbol   context Next  Child    pushme pushed cscheme   lbnd  hbnd \n"));
-//   m_Root->Trace();
-// }
-
-///////////////////////////////////////////////////////////////////
-
-void CDasherModel::GetProbs(CLanguageModel::Context context, vector <symbol >&NewSymbols, vector <unsigned int >&Probs, int iNorm) const {
-  m_pNodeCreationManager->GetProbs(context, NewSymbols, Probs, iNorm);
-}
-
 void CDasherModel::LearnText(CLanguageModel::Context context, string *TheText, bool IsMore) {
   m_pNodeCreationManager->LearnText(context, TheText, IsMore);
 }
@@ -802,23 +749,6 @@ void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
     Recursive_Push_Node(pNode->Children()[i], iDepth - 1);
   }
 }
-
-// FIXME - annoying code duplication below
-
-// void CDasherModel::RenderToView(CDasherView *pView) {
-//   std::vector<CDasherNode *> vNodeList;
-//   std::vector<CDasherNode *> vDeleteList;
-
-//   pView->Render(m_Root, m_Rootmin, m_Rootmax, vNodeList, vDeleteList);
-
-//   if(!GetBoolParameter(BP_OLD_STYLE_PUSH)) {
-//   for(std::vector<CDasherNode *>::iterator it(vNodeList.begin()); it != vNodeList.end(); ++it)
-//     Push_Node(*it);
-//   }
-  
-//   for(std::vector<CDasherNode *>::iterator it(vDeleteList.begin()); it != vDeleteList.end(); ++it)
-//     (*it)->Delete_children();
-// }
 
 bool CDasherModel::RenderToView(CDasherView *pView, bool bRedrawDisplay) {
   std::vector<CDasherNode *> vNodeList;
@@ -968,4 +898,8 @@ void CDasherModel::LimitRoot(int iMaxWidth) {
 
 CAlphabetManagerFactory::CTrainer *CDasherModel::GetTrainer() {
   return m_pNodeCreationManager->GetTrainer();
+}
+
+
+void CDasherModel::SetCursorLocation(int iLocation) {
 }

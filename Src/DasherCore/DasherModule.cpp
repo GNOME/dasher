@@ -24,6 +24,8 @@
 // 14 = Two button dynamic filter (Radford mode)
 // 15 = Stylus input filter
 // 16 = Joystick input
+// 17 = Discrete joystick
+// 18 = 1D joystick
 
 CDasherModule::CDasherModule(Dasher::CEventHandler * pEventHandler, CSettingsStore * pSettingsStore, long long int iID, int iType, const char *szName) 
   : CDasherComponent(pEventHandler, pSettingsStore) {
