@@ -3,14 +3,15 @@
 # This file is distributed under the same license as the dasher package.
 # Rodrigo Lima <rdlima@terra.com.br>, 2004.
 # Goedson Teixeira Paixao <goedson@debian.org>, 2004-2006.
+# Og Maciel <ogmaciel@ubuntu.com>, 2006.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-07-04 14:41+0200\n"
-"PO-Revision-Date: 2006-07-04 14:38-0300\n"
-"Last-Translator: Licio Fernando Nascimento da Fonseca <liciofernando@gmail.com>\n"
+"POT-Creation-Date: 2006-12-16 06:47+0000\n"
+"PO-Revision-Date: 2007-01-03 19:04-0300\n"
+"Last-Translator: Leonardo Ferreira Fontenelle <leo.fontenelle@gmail.com>\n"
 "Language-Team: Brazilian Portuguese <gnome-l10n-br@listas.cipsga.org.br>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,7 +27,7 @@ msgstr "Dasher"
 
 #: ../Data/dasher.desktop.in.in.h:2
 msgid "Predictive text entry"
-msgstr "Entrada de texto preditiva"
+msgstr "Entrada prevista de texto"
 
 #. TODO should probably pop up a Gtk error message and think about how to do i18n:
 #: ../Src/DasherCore/SocketInput.cpp:34
@@ -51,7 +52,7 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"Você quer salvar sua alterações para %s?\n"
+"Você deseja salvar sua alterações para %s?\n"
 "\n"
 "Suas alterações serão perdidas se você não salva-las."
 
@@ -61,13 +62,13 @@ msgid ""
 "\n"
 "Your changes will be lost if you don't save them."
 msgstr ""
-"Você quer salvar suas alterações?\n"
+"Você deseja salvar suas alterações?\n"
 "\n"
 "Suas alterações serão perdidas se você não salva-las."
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Don't save"
-msgstr "Não Salvar"
+msgstr "Não salvar"
 
 #: ../Src/Gtk2/Menu.cc:308
 msgid "Don't quit"
@@ -79,13 +80,15 @@ msgstr "Salvar e sair"
 
 #: ../Src/Gtk2/Menu.cc:425
 msgid "Dasher is a predictive text entry application"
-msgstr "Dasher é uma aplicação de entrada de texto preditiva"
+msgstr "Dasher é uma aplicação de entrada prevista de texto"
 
 #: ../Src/Gtk2/Menu.cc:430
 msgid "translator-credits"
 msgstr ""
 "Rodrigo Lima <rdlima@terra.com.br>\n"
-"Goedson Teixeira Paixao <goedson@debian.org>"
+"Goedson Teixeira Paixao <goedson@debian.org>\n"
+"Og Maciel <ogmaciel@ubuntu.com>\n"
+"Leonardo Ferreira Fontenele <leo.fontenelle@gmail.com>"
 
 #: ../Src/Gtk2/Preferences.cpp:822
 #: ../Src/Gtk2/Preferences.cpp:824
@@ -114,7 +117,7 @@ msgstr "<b>Opções de Aparência:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:5
 msgid "<b>Application Options:</b>"
-msgstr "<b>Opções de Aplicação:</b>"
+msgstr "<b>Opções da Aplicação:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:6
 msgid "<b>Application Style:</b>"
@@ -126,7 +129,7 @@ msgstr "<b>Esquema de Cores:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:8
 msgid "<b>Control Style:</b>"
-msgstr "<b>Modo de Controle:</b>"
+msgstr "<b>Estilo de Controle:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:9
 msgid "<b>Dasher Font:</b>"
@@ -151,15 +154,14 @@ msgid "<b>Language Model:</b>"
 msgstr "<b>Modelo de Idioma:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:14
-#, fuzzy
 msgid "<b>Prediction:</b>"
-msgstr "<b>Orientação:</b>"
+msgstr "<b>Predição:</b>"
 
 #: ../Src/Gtk2/dasher.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:9
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
-msgstr "<b>Uniformidade das Caixas:</b>"
+msgstr "<b>Suavização</b>:"
 
 #: ../Src/Gtk2/dasher.glade.h:16
 #: ../Src/Gtk2/dashermaemo.glade.h:10
@@ -199,7 +201,7 @@ msgstr "Aplicação"
 #: ../Src/Gtk2/dashermaemo.glade.h:14
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
-msgstr "De baixo para cima"
+msgstr "De Baixo para Cima"
 
 #: ../Src/Gtk2/dasher.glade.h:24
 msgid ""
@@ -233,13 +235,13 @@ msgstr "Copiar"
 #: ../Src/Gtk2/dashergpe.glade.h:3
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
-msgstr "Copiar _Tudo"
+msgstr "Copiar T_udo"
 
 #: ../Src/Gtk2/dasher.glade.h:31
 #: ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
-msgstr "Esquema de cores customizadas:"
+msgstr "Esquema de cores personalizadas:"
 
 #: ../Src/Gtk2/dasher.glade.h:32
 #: ../Src/Gtk2/dashermaemo.glade.h:17
@@ -259,93 +261,92 @@ msgid "Dasher Preferences"
 msgstr "Preferências do Dasher"
 
 #: ../Src/Gtk2/dasher.glade.h:36
-msgid "Dasher _Tutorial"
-msgstr "_Tutorial do Dasher"
-
-#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Direct entry"
 msgstr "Entrada direta"
 
-#: ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.glade.h:37
 msgid "Dock application window"
-msgstr "Janela de aplicação "
+msgstr "Encaixar a janela da aplicação "
 
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.glade.h:38
 msgid "Draw box outlines"
 msgstr "Desenhar os contornos da caixas"
 
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.glade.h:39
 msgid "Draw line between crosshairs and mouse"
 msgstr "Desenhar uma linha entre a mira e o mouse"
 
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.glade.h:40
 msgid "Full Screen"
-msgstr "Tela cheia"
+msgstr "Tela Inteira"
 
-#: ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.glade.h:41
 msgid "Increase line thickness"
 msgstr "Aumentar espessura da linha"
 
-#: ../Src/Gtk2/dasher.glade.h:43
+#: ../Src/Gtk2/dasher.glade.h:42
 #: ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Japonês"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.glade.h:43
 msgid "Language"
 msgstr "Idioma"
 
-#: ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/dasher.glade.h:44
 #: ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "O modelo de idioma se adapta conforme você escreve."
 
-#: ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.glade.h:45
 msgid "Large font "
 msgstr "Fonte grande"
 
-#: ../Src/Gtk2/dasher.glade.h:47
+#: ../Src/Gtk2/dasher.glade.h:46
 #: ../Src/Gtk2/dashermaemo.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Esquerda para Direita"
 
-#: ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dasher.glade.h:47
 #: ../Src/Gtk2/dashermaemo.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Modelo Misturado (PPM/dicionário)"
 
-#: ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dasher.glade.h:48
 #: ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Novo arquivo"
 
-#: ../Src/Gtk2/dasher.glade.h:50
+#: ../Src/Gtk2/dasher.glade.h:49
 #: ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Abrir arquivo"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.glade.h:50
 msgid "Options"
 msgstr "Opções"
 
-#: ../Src/Gtk2/dasher.glade.h:52
+#: ../Src/Gtk2/dasher.glade.h:51
 #: ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Colar"
 
-#: ../Src/Gtk2/dasher.glade.h:53
-#, fuzzy
+#: ../Src/Gtk2/dasher.glade.h:52
 msgid "Pause outside of canvas"
-msgstr "Pausar a janela externa"
+msgstr "Pausar fora da tela"
 
-#: ../Src/Gtk2/dasher.glade.h:54
+#: ../Src/Gtk2/dasher.glade.h:53
 #: ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "Por favor aguarde..."
+
+#: ../Src/Gtk2/dasher.glade.h:54
+msgid "Pr_eferences"
+msgstr "_Preferências"
 
 #: ../Src/Gtk2/dasher.glade.h:55
 #: ../Src/Gtk2/dashermaemo.glade.h:28
@@ -392,13 +393,13 @@ msgstr "Velocidade:"
 
 #: ../Src/Gtk2/dasher.glade.h:65
 msgid "Stand-alone"
-msgstr "Sozinho"
+msgstr "Independente"
 
 #: ../Src/Gtk2/dasher.glade.h:66
 #: ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
-msgstr "PPM baseado em letras padrão"
+msgstr "Letras baseadas em PPM padrão"
 
 #: ../Src/Gtk2/dasher.glade.h:67
 msgid "Start on left mouse button"
@@ -414,13 +415,13 @@ msgstr "Iniciar com a posição do mouse:"
 
 #: ../Src/Gtk2/dasher.glade.h:70
 msgid "Timestamp new files"
-msgstr "Marcar a duração dos arquivos novos"
+msgstr "Adicionar horário nos arquivos novos"
 
 #: ../Src/Gtk2/dasher.glade.h:71
 #: ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
-msgstr "De cima para Baixo"
+msgstr "De Cima para Baixo"
 
 #: ../Src/Gtk2/dasher.glade.h:72
 msgid ""
@@ -429,12 +430,12 @@ msgid ""
 "your writing speed."
 msgstr ""
 "Use este controle para ajustar os tamanhos relativos das \n"
-"caixas de letra. Note que ao selecionar valores elevados\n"
+"caixas de letras. Note que ao selecionar valores elevados\n"
 "você irá diminuir a velocidade de escrita."
 
 #: ../Src/Gtk2/dasher.glade.h:75
 msgid "Very large font"
-msgstr "Fonte Bastante Grande"
+msgstr "Fonte muito grande"
 
 #: ../Src/Gtk2/dasher.glade.h:76
 #: ../Src/Gtk2/dashermaemo.glade.h:34
@@ -451,11 +452,11 @@ msgstr "_Sobre"
 #: ../Src/Gtk2/dasher.glade.h:78
 #: ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
-msgstr "_Anexar ao arquivo"
+msgstr "A_nexar ao arquivo"
 
 #: ../Src/Gtk2/dasher.glade.h:79
 msgid "_Contents"
-msgstr "_Conteudos"
+msgstr "_Conteúdo"
 
 #: ../Src/Gtk2/dasher.glade.h:80
 #: ../Src/Gtk2/dashergpe.glade.h:21
@@ -481,10 +482,6 @@ msgid "_Import Training Text"
 msgstr "_Importar Texto de Treinamento"
 
 #: ../Src/Gtk2/dasher.glade.h:84
-msgid "_Preferences"
-msgstr "_Preferências"
-
-#: ../Src/Gtk2/dasher.glade.h:85
 #: ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
@@ -498,7 +495,7 @@ msgstr "Não foi possível inicializar suporte a fala\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:138
 msgid "Unable to initialize voices\n"
-msgstr "Impossível inicializar as vozes\n"
+msgstr "Não foi possível inicializar as vozes\n"
 
 #: ../Src/Gtk2/dasher_action_speech.cpp:150
 msgid "Warning: unable to set speech parameters\n"
@@ -521,17 +518,17 @@ msgstr "Normal"
 #: ../Src/Gtk2/dashergpe.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:29
 msgid "Very Large"
-msgstr "Bastante Grande"
+msgstr "Muito Grande"
 
 #: ../Src/Gtk2/dashergpe.glade.h:19
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:33
 msgid "_Dasher Font"
-msgstr "Fonte do _Dasher"
+msgstr "_Fonte do Dasher"
 
 #: ../Src/Gtk2/dashergpe.glade.h:20
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:34
 msgid "_Dasher Font Size"
-msgstr "Tamanho da Fonte do _Dasher"
+msgstr "_Tamanho da Fonte do Dasher"
 
 #: ../Src/Gtk2/dashergpe.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:36
@@ -546,7 +543,7 @@ msgstr "_Opções"
 #: ../Src/Gtk2/dashergpe.glade.h:27
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:40
 msgid "_Reset fonts"
-msgstr "_Redefinr fontes"
+msgstr "_Restaurar fontes"
 
 #: ../Src/Gtk2/dashermaemo.glade.h:1
 msgid "\n"
@@ -588,6 +585,8 @@ msgstr "Predição"
 msgid "View"
 msgstr "Visualização"
 
+#~ msgid "Dasher _Tutorial"
+#~ msgstr "_Tutorial do Dasher"
 #~ msgid "Panels"
 #~ msgstr "Painéis"
 #~ msgid "Menus"
