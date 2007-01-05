@@ -1,3 +1,8 @@
+2007-01-05  Phil Cowans  <pjc51@cam.ac.uk>
+
+	* Added configure switch for joystick support
+	* Removed placeholder labels from translations
+
 2006-12-18  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Removed debug output
