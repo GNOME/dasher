@@ -1,10 +1,16 @@
 #ifndef __dashercontrol_h__
 #define __dashercontrol_h__
 
+#include "../../config.h"
+
 #include "PangoCache.h"
 #include "Canvas.h"
 #include "../DasherCore/SocketInput.h"
+
+#ifdef JOYSTICK
 #include "joystick_input.h"
+#endif 
+
 #include "mouse_input.h"
 
 #include "GtkDasherControl.h"

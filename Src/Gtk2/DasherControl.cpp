@@ -45,8 +45,11 @@ void CDasherControl::CreateLocalFactories() {
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherMouseInput(m_pEventHandler, m_pSettingsStore)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CSocketInput(m_pEventHandler, m_pSettingsStore)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasher1DMouseInput(m_pEventHandler, m_pSettingsStore)));
+
+#ifdef JOYSTICK
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherJoystickInput(m_pEventHandler, m_pSettingsStore, this)));
   RegisterFactory(new CWrapperFactory(m_pEventHandler, m_pSettingsStore, new CDasherJoystickInputDiscrete(m_pEventHandler, m_pSettingsStore, this)));
+#endif
   
   // Create locally cached copies of the mouse input objects, as we
   // need to pass coordinates to them from the timer callback
