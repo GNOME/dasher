@@ -1,14 +1,54 @@
+
 #ifndef _WIN32
 #include "config.h"
 #endif 
 
+#include "LanguageModelling/LanguageModel.h"
+#include "LanguageModelling/PPMLanguageModel.h"
 #include <ChiCEInterface.h>
 #include <iostream>
+#include <fstream>
 #include "PinYinConversionHelper.h"
 
-CPinYinConversionHelper::CPinYinConversionHelper(){
+using namespace Dasher;
+
+CPinYinConversionHelper::CPinYinConversionHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, Dasher::CAlphIO *pCAlphIO){
+
+  //TESTING FOR UTF-8 CHINESE IN C++ STRING
+  /*
+  FILE *fp;
+  char* SimpChAlphabet = (char*)malloc(62); 
+  fp = fopen("test.txt", "rw");
+  fread(SimpChAlphabet, 1, 62, fp);
+  fclose(fp);
+  */
+
+  const std::string SimpChAlphabet = "Chinese / 简体中文 (simplified chinese, in pin yin groups)";
+
+
+  Dasher::CAlphIO::AlphInfo oAlphInfo = pCAlphIO->GetInfo(SimpChAlphabet);
+  
+  m_pAlphabet = new CAlphabet(oAlphInfo);
+
+  //  std::cout<<SimpChAlphabet<<std::endl;
+  //  for (int i = 0; i < 20; i++)
+  //  std::cout<<m_pAlphabet->GetDisplayText(i)<<std::endl;
 
   // TODO: Need to figure out what this does - it was previously set to true in PopulateChildren
+
+  CSymbolAlphabet alphabet(m_pAlphabet->GetNumberTextSymbols());
+  alphabet.SetSpaceSymbol(m_pAlphabet->GetSpaceSymbol());      // FIXME - is this right, or do we have to do some kind of translation?
+  alphabet.SetAlphabetPointer(m_pAlphabet);    // Horrible hack, but ignore for now.
+
+  m_pLanguageModel = new CPPMLanguageModel(pEventHandler, pSettingsStore, alphabet);
+
+
+  //Train the PPM Model for Chinese Alphabet
+  TrainChPPM();
+
+
+
+  //Old Code
   m_bTraceNeeded = true;//reset trace bool
 
   //clears the process phrase flags
@@ -51,6 +91,133 @@ bool CPinYinConversionHelper::Convert(const std::string &strSource, SCENode ** p
   }
 }
 
+void CPinYinConversionHelper::AssignSizes(SCENode * pStart, CLanguageModel::Context context, long normalization, int uniform, int iNChildren){
+
+  SCENode *pNode = pStart;
+
+  std::vector <unsigned int > Probs;
+
+  int iSymbols = m_pAlphabet->GetNumberSymbols(); 
+  int iLeft(iNChildren);
+  int iRemaining(normalization);
+
+  int uniform_add;
+  int nonuniform_norm;
+  int control_space;
+  int iNorm = normalization;
+  
+
+  //IGNORE CONTROL MODE FOR NOW
+  //  if(!GetBoolParameter(BP_CONTROL_MODE)) {
+  control_space = 0;
+  uniform_add = ((iNorm * uniform) / 1000) / (iSymbols - 2);  // Subtract 2 from no symbols to lose control/root nodes
+  nonuniform_norm = iNorm - (iSymbols - 2) * uniform_add;
+    // }
+    /*
+      else {
+      control_space = int (iNorm * 0.05);
+      uniform_add = (((iNorm - control_space) * uniform / 1000) / (iSymbols - 2));        // Subtract 2 from no symbols to lose control/root nodes
+      nonuniform_norm = iNorm - control_space - (iSymbols - 2) * uniform_add;
+    }
+    */
+
+  // CLanguageModel::Context context = m_pLanguageModel->CreateEmptyContext();
+  m_pLanguageModel->GetProbs(context, Probs, nonuniform_norm);
+
+  /*  
+  std::vector<unsigned int>::iterator it;
+  for(it = Probs.begin();it!=Probs.end(); it++)
+    std::cout<<*it<<",";
+  
+  std::cout<<"end"<<std::endl;
+  */
+
+  //  unsigned int sum; 
+
+
+  unsigned int sumProb=0;
+
+  while(pNode){
+
+    std::vector <symbol >Symbols;
+    std::string HZ = static_cast<std::string>(pNode->pszConversion);
+    // Distribute the remaining space evenly
+    
+    m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
+
+    if(Symbols.size()!=0)
+      sumProb += Probs[Symbols[0]];
+    pNode = pNode->pNext;
+  }
+  
+  pNode = pStart;
+  while(pNode){
+    //    std::cout<<"HZ"<<HZ<<std::endl;
+    std::vector <symbol >Symbols;
+    std::string HZ = static_cast<std::string>(pNode->pszConversion);
+    // Distribute the remaining space evenly
+    
+    m_pAlphabet->GetSymbols(&Symbols, &HZ, 0);    
+
+    if(Symbols.size()!=0){
+      if(sumProb!=0)
+	pNode->NodeSize =Probs[Symbols[0]]*normalization/sumProb;
+      
+      pNode->Symbol = Symbols[0];
+    }
+    else{
+      pNode->NodeSize = 0;//hopefully this will be not be displayed
+      pNode->Symbol = -1;
+    }
+
+    if(pNode->NodeSize < 1)
+      pNode->NodeSize = 1;
+    
+    iRemaining -= pNode->NodeSize; 
+
+    pNode = pNode->pNext;
+  }
+
+  pNode = pStart;
+
+  while(pNode){
+    
+    int iDiff(iRemaining / iLeft);
+    
+    pNode->NodeSize += iDiff;
+    
+    iRemaining -= iDiff;
+    --iLeft;
+    pNode = pNode ->pNext;
+  }
+
+  /*
+  pNode = pStart;
+  while(pNode){
+    std::cout<<pNode->NodeSize<<",";
+    pNode = pNode->pNext;
+  }
+
+  std::cout<<std::endl;
+  */
+
+  //std::cout<<catStr<<std::endl;
+  
+  
+
+  //for(int i=0; i<Symbols.size(); i++)
+  //  std::cout<<Symbols[i]<<",";
+
+  //std::cout<<std::endl;
+  
+  //for(int i=0; i<Symbols.size();i++)
+  //  std::cout<<m_pAlphabet->GetText(Symbols[i]);
+
+  //std::cout<<std::endl;
+
+  // pSizes[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)*(100+5*freq[i])/(100*iNChildren+5*totalFreq);
+
+}
 
 bool CPinYinConversionHelper::GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid){
   SCENode * pStart;
@@ -344,3 +511,156 @@ int CPinYinConversionHelper::CalculateScore(CDasherNode * pNode, CANDIDX CandInd
     
   return score;
 } 
+
+
+void CPinYinConversionHelper::TrainChPPM(){
+
+  for(int i =0; i<15;i++)
+    ProcessFile(i);
+
+}
+
+void CPinYinConversionHelper::ProcessFile(int index){
+
+
+  CLanguageModel::Context trainContext;
+  trainContext = m_pLanguageModel->CreateEmptyContext();
+
+  FILE * fp;
+
+  char strPath[200];
+  
+  const char* Alph="ABCDEFGHJKLMNPR";
+ 
+  char str[4];
+  std::string HZ;
+  int  i, j, iLen;
+
+
+
+  long pos=0;
+  char cget;
+
+  int trialcount=0;
+
+
+  strcpy (strPath, (char *) getenv ("HOME"));
+  strcat (strPath, "/training/corpus/character/");
+  strcat (strPath, "C");
+  strncat (strPath, Alph+index, 1);
+  strcat (strPath, ".txt");
+
+  printf("strPath is %s\n", strPath);
+
+  fp = fopen (strPath, "rb");
+
+  if (!fp)
+    printf("cannot open file or incorrect directory\n");
+
+  while(!feof(fp)){
+    pos = ftell(fp);
+    cget=fgetc(fp);
+      
+    //     printf("OXE$4= %d\n", (unsigned char)0xE4);  **228**
+    //     printf("OXE9= %d\n", (unsigned char)0xE9);   **233**
+    //printf("BEFORE print the integer code for unsigned char %d\n", (unsigned char) cget);
+    while (((unsigned char)cget  < (unsigned char) 0xE4 || (unsigned char) cget > (unsigned char) 0xE9)&&!feof(fp)){
+
+      if((unsigned char) cget > (unsigned char) 0xE9){
+	 
+	fseek(fp, pos, SEEK_SET);
+	fread(str, sizeof(char)*3, 1, fp);
+	str[3]='\0';
+	pos = ftell(fp);
+	cget = fgetc(fp);
+	//printf("UNICODE SYMBOL/NUMBER |%s|\n", str);
+
+      }
+      else if(cget == 32){
+	pos = ftell(fp);
+	cget=fgetc(fp);
+	//fputc(32, op);
+      }
+      else if(cget ==10){
+	pos = ftell(fp);
+	cget=fgetc(fp);
+	//fputc(10, op);
+      }
+      else{   
+	//printf("NON-UNICODE character |%c|\n", cget);
+
+	pos = ftell(fp);
+	cget=fgetc(fp);
+	trialcount ++;
+      }
+    }
+      
+    if(!feof(fp)){
+	
+      fseek(fp, pos, SEEK_SET);
+      fread(str, sizeof(char)*3, 1, fp);
+      str[3]='\0';
+      //printf("HZ |%s|\n",str);
+      //	printf("first byte %d   ", (unsigned char)str[0]);
+      //	printf("seconde byte %d\n", (unsigned char)str[1]);
+      //	printf("third byte %d\n", (unsigned char)str[2]);
+
+      HZ = static_cast<std::string>(str);
+      
+      //      std::cout<<"HZ is "<<HZ<<std::endl;
+
+      std::vector<symbol> Sym;
+      m_pAlphabet->GetSymbols(&Sym, &HZ, 0);
+      
+      if(Sym.size()!=0)
+	m_pLanguageModel->LearnSymbol(trainContext, Sym[0]);
+      else
+	std::cout<<HZ<<"not found!"<<std::endl;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      /*
+
+  while(!feof(fp)){
+   //   pos = ftell(fp);
+    cget=fgetc(fp);
+
+   if(!feof(fp)){
+      fread(str, sizeof(char)*3, 1, fp);
+      str[3]='\0';
+      printf("HZ |%s|\n",str);
+      //	printf("first byte %d   ", (unsigned char)str[0]);
+      //	printf("seconde byte %d\n", (unsigned char)str[1]);
+      //	printf("third byte %d\n", (unsigned char)str[2]);
+
+      HZ = static_cast<std::string>(str);
+      
+      std::cout<<"HZ is "<<HZ<<std::endl;
+
+      std::vector<symbol> Sym;
+      m_pAlphabet->GetSymbols(&Sym, &HZ, 0);
+      
+      if(Sym.size()!=0)
+	m_pLanguageModel->LearnSymbol(trainContext, Sym[0]);
+      //else
+	//	std::cout<<"not found!"<<std::endl;
+ 
+      */
+      
+    }
+  }
+}

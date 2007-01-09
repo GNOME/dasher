@@ -2,6 +2,7 @@
 #define __conversion_manager_h__
 
 #include "ConversionHelper.h"
+#include "AlphabetManager.h"
 #include "DasherModel.h"
 #include "DasherTypes.h"
 #include "LanguageModelling/LanguageModel.h" // Urgh - we really shouldn't need to know about language models here
@@ -57,7 +58,7 @@ namespace Dasher {
     /// normalisation constant
     ///
     
-    virtual void AssignChildSizes(SCENode *pNode, int *pSizes, int iNChildren);
+    virtual void AssignChildSizes(SCENode *pNode, CLanguageModel::Context context, int iNChildren);
 
     ///
     /// Provide children for the supplied node
@@ -103,6 +104,8 @@ namespace Dasher {
     virtual CDasherNode *RebuildParent(CDasherNode *pNode, int iGeneration) {
       return 0;
     }
+
+    virtual void SetFlag(CDasherNode *pNode, int iFlag, bool bValue);
 
   private:
 
@@ -160,6 +163,10 @@ namespace Dasher {
     /// Reference count 
     ///
 
+
+    CLanguageModel::Context m_iLearnContext;
+
+    
     int m_iRefCount;
 
     ///
@@ -169,6 +176,17 @@ namespace Dasher {
     ///
 
     int m_iCMID;
+
+
+    //TODO: REVISE
+    struct SConversionData {
+      //     symbol iSymbol;
+      //     int iPhase;
+      CLanguageModel *pLanguageModel;
+      CLanguageModel::Context iContext;
+      SCENode * pSCENode;
+      //int iGameOffset;
+    };
   };
 }
 

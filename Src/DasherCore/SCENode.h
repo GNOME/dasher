@@ -17,8 +17,17 @@ struct _SCENode {
 
   int IsHeadAndCandNum;
   int CandIndex;
+  int Symbol;
+
   int IsComplete;
   int AcCharCount;  /*accumulative character count*/
+
+  int NodeSize;
+
+  uint HZFreq;
+  float HZProb;
+
+  
   
 };
 

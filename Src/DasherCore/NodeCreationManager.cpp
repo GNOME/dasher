@@ -7,14 +7,14 @@
 
 CNodeCreationManager::CNodeCreationManager(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, bool bGameMode, std::string strGameModeText, Dasher::CAlphIO *pAlphIO) : CDasherComponent(pEventHandler, pSettingsStore) {
   m_pAlphabetManagerFactory = new CAlphabetManagerFactory(pEventHandler, pSettingsStore, pAlphIO, this, bGameMode, strGameModeText);
-
+  
   m_pLanguageModel = m_pAlphabetManagerFactory->GetLanguageModel();
   m_pAlphabet = m_pAlphabetManagerFactory->GetAlphabet();
-
+ 
   int iConversionID(m_pAlphabetManagerFactory->GetConversionID());
 
   m_pControlManagerFactory = new CControlManagerFactory(this);
-  m_pConversionManagerFactory = new CConversionManagerFactory(this, iConversionID);
+  m_pConversionManagerFactory = new CConversionManagerFactory(pEventHandler, pSettingsStore, this, iConversionID, pAlphIO);
 }
 
 CNodeCreationManager::~CNodeCreationManager() {

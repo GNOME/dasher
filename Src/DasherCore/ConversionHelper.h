@@ -4,6 +4,8 @@
 #include <string>
 #include <vector>
 #include "SCENode.h"
+#include "LanguageModelling/LanguageModel.h"
+#include "LanguageModelling/PPMLanguageModel.h"
 
 
 
@@ -33,7 +35,12 @@ class CConversionHelper {
   };
 
   virtual bool Convert(const std::string &strSource, SCENode ** pRoot, int * childCount, int CMid) = 0;
-  
+
+  virtual void AssignSizes(SCENode * pStart, Dasher::CLanguageModel::Context context, long normalization, int uniform, int iNChildren)=0;
+
+  //TODO: figure out why this function cannot return a CLanguageModel
+  virtual Dasher::CLanguageModel * GetLanguageModel()=0;
+ 
 /*   virtual bool GetPhraseList(int HZIndex, SCENode ** psOutput, int CMid)=0; */
 /*   virtual void BuildDataBase()=0; */
   virtual void ClearData(int CMid)=0; 

@@ -61,6 +61,8 @@ class Dasher::CDasherNode:private NoClones {
   inline int Hbnd() const;
 
   void SetRange(int iLower, int iUpper) {
+    //    std::cout << "Setting range: " << iLower << " " << iUpper << std::endl;
+
     m_iLbnd = iLower;
     m_iHbnd = iUpper;
   };

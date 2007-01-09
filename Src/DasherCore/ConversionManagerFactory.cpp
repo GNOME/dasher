@@ -13,6 +13,7 @@
 #else
 
 #ifdef CHINESE
+
 #include "PinYinConversionHelper.h"
 #endif
 
@@ -24,9 +25,9 @@
 
 using namespace Dasher;
 
-CConversionManagerFactory::CConversionManagerFactory(CNodeCreationManager *pNCManager, int iID) {
+CConversionManagerFactory::CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO) {
   m_pNCManager = pNCManager;
-  m_pHelper = GetHelper(iID);
+  m_pHelper = GetHelper(pEventHandler, pSettingsStore, iID, pCAlphIO);
 
   // TODO: These shouldn't be here - need to figure out exactly how it all works
   pagecount = 0; // TODO: Doesn't actually appear to do anything
@@ -47,7 +48,7 @@ CDasherNode *CConversionManagerFactory::GetRoot(CDasherNode *pParent, int iLower
 
 // TODO: Japanese/Chinese are currently disabled in Win32 - see 'exclude from build' on individual files' property pages, plus preprocessor defines
 
-CConversionHelper *CConversionManagerFactory::GetHelper(int iID) {
+CConversionHelper *CConversionManagerFactory::GetHelper(Dasher::CEventHandler *pEventHandler, CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO) {
   switch(iID) {
   case 0: // No conversion required (shouldn't really be called)
     return NULL;
@@ -66,7 +67,7 @@ CConversionHelper *CConversionManagerFactory::GetHelper(int iID) {
     return NULL;
 #else
 #ifdef CHINESE
-    return new CPinYinConversionHelper;
+    return new CPinYinConversionHelper(pEventHandler,pSettingsStore, pCAlphIO);
 #else
     return NULL;
 #endif

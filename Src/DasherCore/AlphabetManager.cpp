@@ -129,6 +129,9 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
     }
     else if( newchars[j] == iExistingSymbol) {
       pNewNode = pExistingChild;
+
+      //      std::cout << "Marker" << std::endl;
+      
       pNewNode->SetRange(iLbnd, cum[j]);
     }
     else {

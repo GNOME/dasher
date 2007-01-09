@@ -5,6 +5,7 @@
 #include "ConversionManager.h"
 #include "Event.h"
 #include "EventHandler.h"
+#include "NodeCreationManager.h"
 
 #include <iostream>
 #include <string>
@@ -17,7 +18,14 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
   : CNodeManager(2) {
   m_pNCManager = pNCManager;
   m_pHelper = pHelper;
-  
+   
+//DOESN'T SEEM INTRINSIC
+//and check why pHelper may be empty
+  if(pHelper)
+    m_pLanguageModel = pHelper->GetLanguageModel();
+
+  m_iLearnContext = m_pLanguageModel->CreateEmptyContext();
+
   m_iRefCount = 1; // TODO: Is this the right way to handle this, or should we initilise to 0 and enforce a reference from the creator?
   m_iCMID = CMid;
   //  m_iHZCount = 0;
@@ -27,7 +35,7 @@ CConversionManager::CConversionManager(CNodeCreationManager *pNCManager, CConver
 
 CConversionManager::~CConversionManager(){  
   //  for (int i(0);i<m_iHZCount; i++)
-    RecursiveDelTree(m_pRoot[0]);
+  RecursiveDelTree(m_pRoot[0]);
 }
 
 
@@ -45,16 +53,32 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pNewNode->m_pNodeManager = this;
   pNewNode->m_pNodeManager->Ref();
 
-  pNewNode->m_pUserData = 0;
+
+  SConversionData *pNodeUserData = new SConversionData;
+  pNewNode->m_pUserData = pNodeUserData;
+  pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
+
   pNewNode->m_strDisplayText = "Convert";
   pNewNode->m_bShove = false;
   pNewNode->m_pBaseGroup = 0;
+
+  CLanguageModel::Context iContext;
+
+  // std::cout<<m_pLanguageModel<<"lala"<<std::endl;
+  if(m_pLanguageModel){
+    iContext = m_pLanguageModel->CreateEmptyContext();
+    pNodeUserData->iContext = iContext;
+  }
+
+  pNodeUserData->pSCENode = 0;
 
   return pNewNode;
 }
 
 // TODO: This function needs to be significantly tidied up
-void CConversionManager::AssignChildSizes(SCENode *pNode, int *pSizes, int iNChildren) {
+// TODO: get rid of pSizes
+
+void CConversionManager::AssignChildSizes(SCENode *pNode, CLanguageModel::Context context, int iNChildren) {
     // Calculate sizes for the children. Note that normalisation is
     // done additiviely rather than multiplicatively, so it's not
     // quite what was originally planned (but I don't think this is
@@ -93,7 +117,7 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, int *pSizes, int iNChi
 //     int max = 0;
 //     int CandNum = pCurrentSCEChild -> IsHeadAndCandNum;
 
-    int iRemaining(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
+// CHANGE    int iRemaining(m_pNCManager->GetLongParameter(LP_NORMALIZATION));
 
     // Thoughts on the general idea here - this is very close to being
     // a fully fledged language model, so I think we should go with
@@ -135,7 +159,10 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, int *pSizes, int iNChi
 
     // Use the scores to calculate the size of the nodes
 
-    for(int i(0); i < iNChildren; ++i) {
+  m_pHelper->AssignSizes(pNode, context, m_pNCManager->GetLongParameter(LP_NORMALIZATION), m_pNCManager->GetLongParameter(LP_UNIFORM), iNChildren);
+
+}
+    //    for(int i(0); i < iNChildren; ++i) {
 
       //TESTING FOR RESIZING FREQUENT HZ CHARACTERS
       //if(i<5)
@@ -154,8 +181,33 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, int *pSizes, int iNChi
       // ----
 
       //PREVIOUS MODEL: m_pNCManager->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
+
+
+      /*
+      SCENode * pIt;
       
-      pSizes[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)/((i + 1) * (i + 2));
+      pIt=pNode;
+
+      uint freq[iNChildren];
+      for(int i(0); i<iNChildren; i++)
+	freq[i] = 0;
+      uint totalFreq=0;
+      uint maxFreq=0;
+
+    
+      while(pIt){
+	freq[pIt->CandIndex]=pIt->HZFreq;
+	totalFreq+=freq[pIt->CandIndex];
+	if(pIt->HZFreq>maxFreq)
+	  maxFreq=pIt->HZFreq;
+	pIt = pIt->pNext;
+      }
+
+      pSizes[i] = m_pNCManager->GetLongParameter(LP_NORMALIZATION)*(100+5*freq[i])/(100*iNChildren+5*totalFreq);
+      */
+	//((i + 1) * (i + 2));
+
+    /*
 
       if(pSizes[i] < 1)
 	pSizes[i] = 1;
@@ -177,23 +229,30 @@ void CConversionManager::AssignChildSizes(SCENode *pNode, int *pSizes, int iNChi
     }
 }
 
+    */
+
 void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
   if(!m_pNCManager)
     return;
 
-  // Do the conversion and build the tree (lattice) if it hasn't been done already.
+  // Do the conversion and build the tree (lattice) if it hasn't been
+  // done already.
+
   if(!m_bTreeBuilt) {
     BuildTree(pNode);
     m_bTreeBuilt = true;
   }
 
   CDasherNode *pNewNode;
-  SCENode *pCurrentSCENode(static_cast<SCENode *>(pNode->m_pUserData));
+
+  
+  
+  SConversionData * pCurrentDataNode (static_cast<SConversionData *>(pNode->m_pUserData));
   SCENode *pCurrentSCEChild;
   
-  if(pCurrentSCENode)
-    pCurrentSCEChild = pCurrentSCENode->pChild;
+  if(pCurrentDataNode->pSCENode)
+    pCurrentSCEChild = pCurrentDataNode->pSCENode->pChild;
   else {
     if(m_pRoot)
       pCurrentSCEChild = m_pRoot[0];
@@ -212,11 +271,13 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
     // -----
 
-    int *iSize;
+    //int *iSize;
     
-    iSize = new int[pCurrentSCEChild->IsHeadAndCandNum];
+    //    iSize = new int[pCurrentSCEChild->IsHeadAndCandNum];
 
-    AssignChildSizes(pCurrentSCENode, iSize, pCurrentSCEChild->IsHeadAndCandNum);
+
+    
+    AssignChildSizes(pCurrentSCEChild, pCurrentDataNode->iContext, pCurrentSCEChild->IsHeadAndCandNum);
 
     int iIdx(0);
     int iCum(0);
@@ -227,7 +288,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
 
     do {
       int iLbnd(iCum);
-      int iHbnd(iCum + iSize[iIdx]);
+      int iHbnd(iCum + pCurrentSCEChild->NodeSize);
 
       iCum = iHbnd;
       
@@ -245,7 +306,25 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       pNewNode->m_pNodeManager = this;
       pNewNode->m_pNodeManager->Ref();
 
-      pNewNode->m_pUserData = pCurrentSCEChild;
+      SConversionData *pNodeUserData = new SConversionData;
+      pNodeUserData ->pSCENode = pCurrentSCEChild;
+      pNodeUserData->pLanguageModel = pCurrentDataNode->pLanguageModel;
+
+      CLanguageModel::Context iContext;
+      iContext = pCurrentDataNode->pLanguageModel->CloneContext(pCurrentDataNode->iContext);
+      if(pCurrentSCEChild ->Symbol !=-1)
+	pNodeUserData->pLanguageModel->EnterSymbol(iContext, pCurrentSCEChild->Symbol); // TODO: Don't use symbols?
+      
+      
+      pNodeUserData->iContext = iContext;
+      
+      pNewNode->m_pUserData = pNodeUserData;
+      // SAlphabetData *pNodeUserData = new SAlphabetData;
+      
+      //pNewNode->m_pUserData = pNodeUserData;
+      
+      //pNodeUserData->iPhase = iNewPhase;
+      //pNodeUserData->iSymbol = iIdx;
 
       pNewNode->m_strDisplayText = pCurrentSCEChild->pszConversion;
       pNewNode->m_bShove = true;
@@ -258,7 +337,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     }while(pCurrentSCEChild);
 
 
-    delete[] iSize;
+    // delete[] iSize;
   }
 
   else {
@@ -295,7 +374,8 @@ void CConversionManager::BuildTree(CDasherNode *pRoot) {
   CDasherNode *pCurrentNode(pRoot->Parent());
  
   std::string strCurrentString;
-   m_pHelper->ClearData(m_iCMID);
+  if(m_pHelper)
+    m_pHelper->ClearData(m_iCMID);
 
   while(pCurrentNode) {
     if(pCurrentNode->m_pNodeManager->GetID() == 2)
@@ -372,5 +452,30 @@ bool CConversionManager::RecursiveDelTree(SCENode* pNode){
 	return 1;
     }
     return RecursiveDelTree(pNode->pChild);
+  }
+}
+
+
+void CConversionManager::SetFlag(CDasherNode *pNode, int iFlag, bool bValue) {
+  switch(iFlag) {
+  case NF_COMMITTED:
+    if(bValue){
+      // TODO: Reimplement (need a learning context, check whether
+      // symbol actually corresponds to character)
+
+      CLanguageModel * pLan =  static_cast<SConversionData *>(pNode->m_pUserData)->pLanguageModel;
+
+      SCENode * pSCENode = static_cast<SConversionData *>(pNode->m_pUserData)->pSCENode; 
+
+      if(!pSCENode)
+	return;
+
+      symbol s =pSCENode ->Symbol;
+    
+     
+      if(s!=-1)
+	pLan->LearnSymbol(m_iLearnContext, s);
+    }
+    break;
   }
 }

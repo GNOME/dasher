@@ -14,11 +14,11 @@ namespace Dasher {
 
   class CConversionManagerFactory : public CNodeManagerFactory {
   public:
-    CConversionManagerFactory(CNodeCreationManager *pNCManager, int iID);
+    CConversionManagerFactory(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, CNodeCreationManager *pNCManager, int iID, Dasher::CAlphIO *pCAlphIO);
     virtual CDasherNode *GetRoot(CDasherNode *pParent, int iLower, int iUpper, void *pUserData);
 
   private:
-    CConversionHelper *GetHelper(int iID);
+    CConversionHelper *GetHelper(Dasher::CEventHandler *pEventHandler,  CSettingsStore *pSettingsStore, int iID, Dasher::CAlphIO *pCAlphIO);
 
     CNodeCreationManager *m_pNCManager;
     CConversionHelper *m_pHelper;
