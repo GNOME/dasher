@@ -17,6 +17,12 @@
 
 // Node flag constants
 #define NF_COMMITTED 1
+#define NF_ACTIVE 2
+#define NF_ALIVE 4
+#define NF_SEEN 8
+#define NF_CONVERTED 16
+#define NF_GAME 32
+#define NF_ALLCHILDREN 64
 
 // CDasherNode represents a rectangle and character 
 
@@ -24,6 +30,8 @@ namespace Dasher {
   class CDasherNode;
   class CDasherModel;
 }
+
+// TODO: Move rendering code into node?
 
 class Dasher::CDasherNode:private NoClones {
  public:
@@ -61,35 +69,11 @@ class Dasher::CDasherNode:private NoClones {
   inline int Hbnd() const;
 
   void SetRange(int iLower, int iUpper) {
-    //    std::cout << "Setting range: " << iLower << " " << iUpper << std::endl;
-
     m_iLbnd = iLower;
     m_iHbnd = iUpper;
   };
 
   inline int Range() const;
-
-  // 'Alive' - this could do with an overhaul
-  bool Alive() const {
-    return m_bAlive;
-  } 
-
-  void Alive(bool b) {
-    m_bAlive = b;
-  }
-
-  void Kill() {
-    m_bAlive = 0;
-  }
-
-  // 'Seen' - this could do with an overhaul
-  bool isSeen() const {
-    return m_bSeen;
-  } 
-
-  void Seen(bool seen) {
-    m_bSeen = seen;
-  }
 
   int Colour() const {
     return m_iColour;
@@ -99,28 +83,9 @@ class Dasher::CDasherNode:private NoClones {
     m_iColour = iColour;
   }
 
-  void SetGame(bool bInGame) {
-    m_bInGame = bInGame;
-  }
-
-  bool GetGame() {
-    return m_bInGame;
-  }
-
-  bool HasAllChildren() const {
-    return m_bHasAllChildren;
-  };
-
-  void SetHasAllChildren(bool val) {
-    m_bHasAllChildren = val;
-  };
 
   // Get the probability of this node
   double GetProb(int iNormalization);
-
-  bool GetConverted() {
-    return m_bConverted;
-  };
 
   /// Ensure that this node is marked as being converted, together with
   /// all of its ancestors (assuming that unconverted nodes are
@@ -129,7 +94,6 @@ class Dasher::CDasherNode:private NoClones {
   
   void ConvertWithAncestors();
 
-  // New stuff
   CNodeManager *m_pNodeManager;
 
   /// Pointer for the node manager to do with as it sees fit :-)
@@ -148,11 +112,6 @@ class Dasher::CDasherNode:private NoClones {
 
   std::string m_strDisplayText;
 
-  ///
-  /// Whether this node shoves or not
-  ///
-
-  bool m_bShove;
 
   int MostProbableChild() {
 
@@ -171,24 +130,23 @@ class Dasher::CDasherNode:private NoClones {
 
   SGroupInfo *m_pBaseGroup;
 
-  // Members only useful for debugging purposes
-  bool m_bWatchDelete; // Notify when this node is deleted
-
   /// 
   /// Set various flags corresponding to the state of the node. The following flags are defined:
   ///
   /// NF_COMMITTED - Node is 'above' the root, so corresponding symbol
   /// has been added to text box, language model trained etc
   ///
-  /// NF_ACTIVE - Not yet implemented
+  /// NF_ACTIVE - Node is a decendent of the root node (TODO: Isnt this everything?)
   ///
-  /// NF_ALIVE - Not yet implemented
+  /// NF_ALIVE - Node is large enough to be displayed
   ///
-  /// NF_SEEN - Not yet implemented
+  /// NF_SEEN - Node has already been output
   ///
-  /// NF_CONVERTED - Not yet implemented
+  /// NF_CONVERTED - Node has been converted (eg Japanese mode)
   ///
-  /// NF_GAME - Not yet implemented
+  /// NF_GAME - Node is on the path in game mode
+  ///
+  /// NF_ALLCHILDREN - Node has all children (TODO: obsolete?)
   ///
 
   void SetFlag(int iFlag, bool bValue) {
@@ -204,8 +162,18 @@ class Dasher::CDasherNode:private NoClones {
   /// Get the value of a flag for this node
   ///
 
-  bool GetFlag(int iFlag) {
+  bool GetFlag(int iFlag) const {
     return (m_iFlags & iFlag);
+  }
+
+  // Temporary placeholders:
+
+  void SetShove(bool bShove) {
+    m_bShove = bShove;
+  }
+
+  bool GetShove() {
+    return m_bShove;
   }
 
  private:
@@ -213,25 +181,19 @@ class Dasher::CDasherNode:private NoClones {
   int m_iLbnd;
   int m_iHbnd;   // the cumulative lower and upper bound prob relative to parent
 
-  // Information concerning the behaviour of the node
-  bool m_bIsActive;             // true if descendent of a root node
   int m_iRefCount;              // reference count if ancestor of (or equal to) root node
-  bool m_bAlive;                // if true, then display node, else dont bother
-  bool m_bSeen;                 // if true, node has been output already
 
-  // Whether this node has been converted (and can therefore be safely deleted)
-  bool m_bConverted;            
-
-  // Whether this is on the game mode path
-  bool m_bInGame;
-  
-  // Information internal to the data structure
   ChildMap m_mChildren;         // pointer to array of children
-  bool m_bHasAllChildren;       // true if we haven't deleted any children after instantiating them
   CDasherNode *m_pParent;       // pointer to parent
 
   // Binary flags representing the state of the node
   int m_iFlags;
+
+  ///
+  /// Whether this node shoves or not
+  ///
+
+  bool m_bShove;
 };
 
 /////////////////////////////////////////////////////////////////////////////
@@ -242,22 +204,17 @@ using namespace Dasher;
 using namespace Opts;
 #include "DasherModel.h"
 
-inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1)
-  : m_mChildren() {
-
+inline CDasherNode::CDasherNode(CDasherNode *pParent, symbol Symbol, int iphase, ColorSchemes ColorScheme, int ilbnd, int ihbnd, CLanguageModel *lm, int Colour =-1) {
+  
   m_iLbnd = ilbnd;
   m_iHbnd = ihbnd;
-  m_bIsActive = true;
-  m_bHasAllChildren = false;
-  m_iRefCount = 0;
-  m_bAlive = true;
   m_iColour = Colour;
-  m_bSeen = false;
   m_pParent = pParent;
 
-  m_bConverted = false;
-  m_bInGame = false;
-  m_bWatchDelete = false;
+  // Default flags
+  m_iFlags = NF_ACTIVE | NF_ALIVE;
+
+  m_iRefCount = 0;
 }
 
 inline int CDasherNode::Lbnd() const {
@@ -273,9 +230,6 @@ inline int CDasherNode::Range() const {
 }
 
 inline CDasherNode::ChildMap &CDasherNode::Children() {
-  /*    // DJW - please make sure DASHER_ASSERT is implemented on your platform
-     DASHER_ASSERT(m_mChildren.size()==0);
-     m_mChildren = mChildren; */
   return m_mChildren;
 }
 

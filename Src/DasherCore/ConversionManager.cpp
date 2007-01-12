@@ -59,7 +59,7 @@ CDasherNode *CConversionManager::GetRoot(CDasherNode *pParent, int iLower, int i
   pNodeUserData->pLanguageModel = m_pHelper->GetLanguageModel();
 
   pNewNode->m_strDisplayText = "Convert";
-  pNewNode->m_bShove = false;
+  pNewNode->SetShove(false);
   pNewNode->m_pBaseGroup = 0;
 
   CLanguageModel::Context iContext;
@@ -327,7 +327,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
       //pNodeUserData->iSymbol = iIdx;
 
       pNewNode->m_strDisplayText = pCurrentSCEChild->pszConversion;
-      pNewNode->m_bShove = true;
+      pNewNode->SetShove(false);
       pNewNode->m_pBaseGroup = 0;
       
       pNode->Children().push_back(pNewNode);
@@ -347,7 +347,7 @@ void CConversionManager::PopulateChildren( CDasherNode *pNode ) {
     int iHbnd(m_pNCManager->GetLongParameter(LP_NORMALIZATION)); 
       
     pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
-    pNewNode->Seen(false);
+    pNewNode->SetFlag(NF_SEEN, false);
       
     pNode->Children().push_back(pNewNode);
     //    pNode->SetHasAllChildren(false);

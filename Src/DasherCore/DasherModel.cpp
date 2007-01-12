@@ -143,7 +143,7 @@ void CDasherModel::Make_root(CDasherNode *pNewRoot) {
 
   oldroots.push_back(m_Root);
 
-  while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetConverted()))) {
+  while((oldroots.size() > 10) && (!m_bRequireConversion || (oldroots[0]->GetFlag(NF_CONVERTED)))) {
     oldroots[0]->OrphanChild(oldroots[1]);
     delete oldroots[0];
     oldroots.pop_front();
@@ -515,7 +515,7 @@ void CDasherModel::OldPush(myint iMousex, myint iMousey) {
 }
 
 void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PROB* pAdded) {
-  if(pNode->Parent() && (!pNode->Parent()->isSeen()))
+  if(pNode->Parent() && (!pNode->Parent()->GetFlag(NF_SEEN)))
     RecursiveOutput(pNode->Parent(), pAdded);
 
   if(pNode->Parent())
@@ -523,7 +523,7 @@ void CDasherModel::RecursiveOutput(CDasherNode *pNode, Dasher::VECTOR_SYMBOL_PRO
 
   pNode->m_pNodeManager->Enter(pNode);
 
-  pNode->Seen(true);
+  pNode->SetFlag(NF_SEEN, true);
   pNode->m_pNodeManager->Output(pNode, pAdded, GetLongParameter(LP_NORMALIZATION));
 }
 
@@ -644,7 +644,7 @@ void CDasherModel::HandleOutput(CDasherNode *pNewNode, CDasherNode *pOldNode, Da
   if(pNewNode != pOldNode)
     DeleteCharacters(pNewNode, pOldNode, pNumDeleted);
   
-  if(pNewNode->isSeen())
+  if(pNewNode->GetFlag(NF_SEEN))
     return;
 
   RecursiveOutput(pNewNode, pAdded);
@@ -660,13 +660,13 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
 
   // This deals with the trivial instance - we're reversing back over
   // text that we've seen already
-  if(newnode->isSeen() == true) {
+  if(newnode->GetFlag(NF_SEEN)) {
     if(oldnode->Parent() == newnode) {
       oldnode->m_pNodeManager->Undo(oldnode);
       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
       if (pNumDeleted != NULL)
         (*pNumDeleted)++;
-      oldnode->Seen(false);
+      oldnode->SetFlag(NF_SEEN, false);
       return true;
     }
     if(DeleteCharacters(newnode, oldnode->Parent(), pNumDeleted) == true) {
@@ -674,7 +674,7 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
       oldnode->Parent()->m_pNodeManager->Enter(oldnode->Parent());
       if (pNumDeleted != NULL)
 	(*pNumDeleted)++;
-      oldnode->Seen(false);
+      oldnode->SetFlag(NF_SEEN, false);
       return true;
     }
   }
@@ -683,13 +683,13 @@ bool CDasherModel::DeleteCharacters(CDasherNode *newnode, CDasherNode *oldnode, 
     // Find the last seen node on the new branch
     CDasherNode *lastseen = newnode->Parent();
 
-    while(lastseen != NULL && lastseen->isSeen() == false) {
+    while(lastseen != NULL && !(lastseen->GetFlag(NF_SEEN))) {
       lastseen = lastseen->Parent();
     };
     // Delete back to last seen node
     while(oldnode != lastseen) {
 
-      oldnode->Seen(false);
+      oldnode->SetFlag(NF_SEEN, false);
       
       oldnode->m_pNodeManager->Undo(oldnode);
 
@@ -717,21 +717,22 @@ void CDasherModel::EnterText(CLanguageModel::Context context, string TheText) co
 
 void CDasherModel::Push_Node(CDasherNode *pNode) {
 
-  if(pNode->HasAllChildren()) {
+  if(pNode->GetFlag(NF_ALLCHILDREN)) {
     DASHER_ASSERT(pNode->Children().size() > 0);
     // if there are children just give them a poke
     CDasherNode::ChildMap::iterator i;
     for(i = pNode->Children().begin(); i != pNode->Children().end(); i++)
-      (*i)->Alive(true);
+      (*i)->SetFlag(NF_ALIVE, true);
     return;
   }
 
   // TODO: Do we really need to delete all of the children at this point?
   pNode->Delete_children();
 
-  pNode->Alive(true);
+  pNode->SetFlag(NF_ALIVE, true);
+
   pNode->m_pNodeManager->PopulateChildren(pNode);
-  pNode->SetHasAllChildren(true);
+  pNode->SetFlag(NF_ALLCHILDREN, true);
 }
 
 void CDasherModel::Recursive_Push_Node(CDasherNode *pNode, int iDepth) {
@@ -794,7 +795,7 @@ bool CDasherModel::CheckForNewRoot(CDasherView *pView) {
   // Find whether there is exactly one alive child; if more, we don't care.
   CDasherNode::ChildMap::iterator i;
   for(i = children.begin(); i != children.end(); i++) {
-    if((*i)->Alive()) {
+    if((*i)->GetFlag(NF_ALIVE)) {
       alive++;
       theone = *i;
       if(alive > 1)

@@ -255,7 +255,7 @@ CDasherNode *CControlManager::GetRoot(CDasherNode *pParent, int iLower, int iUpp
   pNewNode->m_pNodeManager = this;
   pNewNode->m_pUserData = m_mapControlMap[0];
   pNewNode->m_strDisplayText = static_cast<CControlNode*>(pNewNode->m_pUserData)->strLabel;
-  pNewNode->m_bShove = false;
+  pNewNode->SetShove(false);
   pNewNode->m_pBaseGroup = 0;
 
   return pNewNode;
@@ -280,7 +280,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
      if( *it == NULL ) {
        // Escape back to alphabet
        pNewNode = m_pNCManager->GetRoot(0, pNode, iLbnd, iHbnd, NULL);
-       pNewNode->Seen(false);
+       pNewNode->SetFlag(NF_SEEN, false);
      }
      else {
 
@@ -294,7 +294,7 @@ void CControlManager::PopulateChildren( CDasherNode *pNode ) {
        pNewNode->m_pNodeManager = this;
        pNewNode->m_pUserData = *it;
        pNewNode->m_strDisplayText = (*it)->strLabel;
-       pNewNode->m_bShove = false;
+       pNewNode->SetShove(false);
        pNewNode->m_pBaseGroup = 0;
      }
      pNode->Children().push_back(pNewNode);

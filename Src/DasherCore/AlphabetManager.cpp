@@ -54,10 +54,10 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
   
   //  pNewNode->SetContext(m_pLanguageModel->CreateEmptyContext()); // FIXME - handle context properly
   pNewNode->m_pNodeManager = this;
-  pNewNode->m_bShove = true;
+  pNewNode->SetShove(true);
   pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
   pNewNode->m_strDisplayText = m_pNCManager->GetAlphabet()->GetDisplayText(iSymbol);
-  pNewNode->Seen(true);
+  pNewNode->SetFlag(NF_SEEN, true);
 
   SAlphabetData *pNodeUserData = new SAlphabetData;
   pNewNode->m_pUserData = pNodeUserData;
@@ -84,7 +84,7 @@ CDasherNode *CAlphabetManager::GetRoot(CDasherNode *pParent, int iLower, int iUp
 
   if(m_bGameMode) {
     pNodeUserData->iGameOffset = -1;
-    pNewNode->SetGame(true);
+    pNewNode->SetFlag(NF_GAME, true);
   }
 
   return pNewNode;
@@ -157,7 +157,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
       
       pNewNode = new CDasherNode(pNode, newchars[j], 0, Nodes1, iLbnd, cum[j], pParentUserData->pLanguageModel, iColour);
       pNewNode->m_pNodeManager = this;
-      pNewNode->m_bShove = true;
+      pNewNode->SetShove(true);
       pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
       
       SAlphabetData *pNodeUserData = new SAlphabetData;
@@ -172,7 +172,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
 	if((iCurrentGameOffset != -2) && ((iCurrentGameOffset + 1) < static_cast<int>(m_strGameString.size())) 
 	   && ((m_pNCManager->GetAlphabet()->GetText(newchars[j]))[0] == m_strGameString[iCurrentGameOffset + 1])) {
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = iCurrentGameOffset + 1;
-	  pNewNode->SetGame(true);
+	  pNewNode->SetFlag(NF_GAME, true);
 	}
 	else
 	  static_cast<SAlphabetData *>(pNewNode->m_pUserData)->iGameOffset = -2;
@@ -194,7 +194,7 @@ void CAlphabetManager::PopulateChildrenWithSymbol( CDasherNode *pNode, int iExis
     iLbnd = cum[j];
   }
   
-  pNode->SetHasAllChildren(true);
+  pNode->SetFlag(NF_ALLCHILDREN, true);
 }
 
 void CAlphabetManager::ClearNode( CDasherNode *pNode ) {
@@ -283,8 +283,8 @@ CDasherNode *CAlphabetManager::RebuildParent(CDasherNode *pNode, int iGeneration
   }
   
   pNewNode->m_pNodeManager = this;
-  pNewNode->m_bShove = true;
-  pNewNode->Seen(true);
+  pNewNode->SetShove(true);
+  pNewNode->SetFlag(NF_SEEN, true);
   pNewNode->m_pBaseGroup = m_pNCManager->GetAlphabet()->m_pBaseGroup;
 
   SAlphabetData *pNodeUserData = new SAlphabetData;

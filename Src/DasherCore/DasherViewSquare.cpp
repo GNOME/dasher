@@ -120,9 +120,9 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
 
   ++m_iRenderCount;
 
-  if(bDraw && !RenderNode(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->m_bShove) && !(pRender->GetGame())) {
+  if(bDraw && !RenderNode(pRender->Colour(), y1, y2, mostleft, pRender->m_strDisplayText, pRender->GetShove()) && !(pRender->GetFlag(NF_GAME))) {
     vDeleteList.push_back(pRender);
-    pRender->Kill();
+    pRender->SetFlag(NF_ALIVE, false);
     return 0;
   }
   
@@ -131,7 +131,7 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
     return 0;
   }
 
-  if(pRender->GetGame())
+  if(pRender->GetFlag(NF_GAME))
     *iGamePointer = (y1 + y2) / 2;
   
   // Render groups
@@ -150,11 +150,11 @@ int CDasherViewSquare::RecursiveRender(CDasherNode *pRender, myint y1, myint y2,
    
     // FIXME - make the threshold a parameter
     
-    if((newy2 - newy1 > 50) || (pChild->Alive())) {
-      pChild->Alive(true);
+    if((newy2 - newy1 > 50) || (pChild->GetFlag(NF_ALIVE))) {
+      pChild->SetFlag(NF_ALIVE, true);
       RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer, true);
     }
-    else if(pRender->GetGame()) {
+    else if(pRender->GetFlag(NF_GAME)) {
       RecursiveRender(pChild, newy1, newy2, mostleft, vNodeList, vDeleteList, iGamePointer, false);
     }
   }

@@ -22,13 +22,8 @@ static char THIS_FILE[] = __FILE__;
 
 // TODO: put this back to being inlined
 CDasherNode::~CDasherNode() {
-
   // Release any storage that the node manager has allocated,
   // unreference ref counted stuff etc.
-
-  if(m_bWatchDelete)
-    std::cout << "Deleting " << this << std::endl;
-
   m_pNodeManager->ClearNode( this );
 
   Delete_children();
@@ -63,8 +58,10 @@ bool CDasherNode::NodeIsParent(CDasherNode *oldnode) const {
 
 CDasherNode *const CDasherNode::Get_node_under(int iNormalization, myint miY1, myint miY2, myint miMousex, myint miMousey) {
   myint miRange = miY2 - miY1;
-//              m_iAge=0;
-  m_bAlive = true;
+
+  // TODO: Manipulating flags in a 'get' method?
+  SetFlag(NF_ALIVE, true);
+
   ChildMap::const_iterator i;
   for(i = GetChildren().begin(); i != GetChildren().end(); i++) {
     CDasherNode *pChild = *i;
@@ -94,7 +91,7 @@ void CDasherNode::OrphanChild(CDasherNode *pChild) {
   pChild->SetParent(NULL);
 
   Children().clear();
-  SetHasAllChildren(false);
+  SetFlag(NF_ALLCHILDREN, false);
 }
 
 // Delete nephews of the child which has the specified symbol
@@ -117,7 +114,7 @@ void CDasherNode::Delete_children() {
     delete (*i);
   }
   Children().clear();
-  SetHasAllChildren(false);
+  SetFlag(NF_ALLCHILDREN, false);
 }
 
 // Gets the probability of this node, conditioned on the parent
@@ -126,10 +123,10 @@ double CDasherNode::GetProb(int iNormalization) {
 }
 
 void CDasherNode::ConvertWithAncestors() {
-  if(m_bConverted)
+  if(GetFlag(NF_CONVERTED))
     return;
   
-  m_bConverted = true;
+  SetFlag(NF_CONVERTED, true);
 
   if(m_pParent)
     m_pParent->ConvertWithAncestors();
