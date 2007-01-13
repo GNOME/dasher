@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: dasher.gnome-2-16.ar\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2007-01-03 21:29+0000\n"
+"POT-Creation-Date: 2007-01-08 14:57+0000\n"
 "PO-Revision-Date: 2006-12-29 13:38+0200\n"
 "Last-Translator: Mohamed Magdy <alnokta@yahoo.com>\n"
 "Language-Team: Arabic <support@arabeyes.org>\n"
@@ -607,30 +607,6 @@ msgstr "استو_رد نص التدريب"
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "أبجد هوز حطي كلمن سعفص abcdefgh ABCDEFGH"
 
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:67
-msgid "button33"
-msgstr "زر33"
-
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:68
-msgid "button34"
-msgstr "زر34"
-
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:69
-msgid "button35"
-msgstr "زر35"
-
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:70
-msgid "button36"
-msgstr "زر36"
-
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:71
-msgid "button37"
-msgstr "زر37"
-
-#: ../Src/Gtk2/dasher.fullscreen.glade.h:72
-msgid "button38"
-msgstr "زر38"
-
 #: ../Src/Gtk2/dasher.traditional.glade.h:55
 msgid "Pr_eferences..."
 msgstr "_تفضيلات"
@@ -743,6 +719,24 @@ msgstr "تَوَقُّع"
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:30
 msgid "View"
 msgstr "اعرض"
+
+#~ msgid "button33"
+#~ msgstr "زر33"
+
+#~ msgid "button34"
+#~ msgstr "زر34"
+
+#~ msgid "button35"
+#~ msgstr "زر35"
+
+#~ msgid "button36"
+#~ msgstr "زر36"
+
+#~ msgid "button37"
+#~ msgstr "زر37"
+
+#~ msgid "button38"
+#~ msgstr "زر38"
 
 #~ msgid "Training Dasher... please wait"
 #~ msgstr "جاري تدريب داشر... الرجاء الإنتظار"
