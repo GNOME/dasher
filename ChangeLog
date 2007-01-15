@@ -1,3 +1,8 @@
+2007-01-15  Andre Klapper  <a9016009@gmx.de>
+
+	* Src/Gtk2/dashermaemo.glade: remove one string from translation.
+	Fixes bug #346973.
+
 2007-01-12  Phil Cowans  <pjc51@cam.ac.uk>
 
 	* Finished generalised node flags
