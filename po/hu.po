@@ -1,26 +1,29 @@
 # Hungarian translation of dasher.
-# Copyright (C) 2004, 2006 Free Software Foundation, Inc.
+# Copyright (C) 2004, 2006, 2007 Free Software Foundation, Inc.
 # This file is distributed under the same license as the dasher package.
 #
 # Andras Timar <timar@gnome.hu>, 2004.
 # Laszlo Dvornik <dvornik@gnome.hu>, 2004.
-# Gabor Kelemen <kelemeng@gnome.hu>, 2006.
+# Gabor Kelemen <kelemeng@gnome.hu>, 2006, 2007.
 msgid ""
 msgstr ""
 "Project-Id-Version: dasher.gnome-2-16\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2006-08-17 09:13+0200\n"
-"PO-Revision-Date: 2006-09-03 15:08+0200\n"
+"POT-Creation-Date: 2007-01-06 17:46+0000\n"
+"PO-Revision-Date: 2007-01-17 18:20+0100\n"
 "Last-Translator: Gabor Kelemen <kelemeng@gnome.hu>\n"
 "Language-Team: Hungarian <gnome@gnome.hu>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: KBabel 1.11.2\n"
+"X-Generator: KBabel 1.11.4\n"
 "Plural-Forms:  nplurals=2; plural=(n != 1);\n"
 
-#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/dasher.glade.h:34
-#: ../Src/Gtk2/dashergpe.glade.h:5 ../Src/Gtk2/dashermaemo.glade.h:18
+#: ../Data/dasher.desktop.in.in.h:1 ../Src/Gtk2/Menu.cc:430
+#: ../Src/Gtk2/dasher.compose.glade.h:34 ../Src/Gtk2/dasher.direct.glade.h:31
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:30 ../Src/Gtk2/dasher.glade.h:34
+#: ../Src/Gtk2/dasher.traditional.glade.h:34 ../Src/Gtk2/dashergpe.glade.h:5
+#: ../Src/Gtk2/dashermaemo.glade.h:18
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:15
 msgid "Dasher"
 msgstr "Dasher"
@@ -34,14 +37,17 @@ msgstr "Prediktív szövegbevitel"
 msgid "Dasher socket input: failed to launch reader thread."
 msgstr "Dasher foglalatbemenet: az olvasó szál indítása meghiúsult."
 
-#: ../Src/Gtk2/Menu.cc:62 ../Src/Gtk2/Menu.cc:118 ../Src/Gtk2/Menu.cc:176
-#: ../Src/Gtk2/Menu.cc:219 ../Src/Gtk2/dasher.glade.h:59
-#: ../Src/Gtk2/dashergpe.glade.h:14 ../Src/Gtk2/dashermaemo.glade.h:29
+#: ../Src/Gtk2/Menu.cc:52 ../Src/Gtk2/Menu.cc:108 ../Src/Gtk2/Menu.cc:166
+#: ../Src/Gtk2/Menu.cc:209 ../Src/Gtk2/dasher.compose.glade.h:59
+#: ../Src/Gtk2/dasher.direct.glade.h:49
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:48 ../Src/Gtk2/dasher.glade.h:59
+#: ../Src/Gtk2/dasher.traditional.glade.h:59 ../Src/Gtk2/dashergpe.glade.h:14
+#: ../Src/Gtk2/dashermaemo.glade.h:29
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:25
 msgid "Select File"
 msgstr "Fájl kiválasztása"
 
-#: ../Src/Gtk2/Menu.cc:302
+#: ../Src/Gtk2/Menu.cc:292
 #, c-format
 msgid ""
 "Do you want to save your changes to %s?\n"
@@ -52,7 +58,7 @@ msgstr ""
 "\n"
 "Ha nem menti őket, akkor változtatásai elvesznek."
 
-#: ../Src/Gtk2/Menu.cc:305
+#: ../Src/Gtk2/Menu.cc:295
 msgid ""
 "Do you want to save your changes?\n"
 "\n"
@@ -62,134 +68,181 @@ msgstr ""
 "\n"
 "Ha nem menti őket, akkor változtatásai elvesznek."
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/Menu.cc:298
 msgid "Don't save"
 msgstr "Ne mentse"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/Menu.cc:298
 msgid "Don't quit"
 msgstr "Nem lépek ki"
 
-#: ../Src/Gtk2/Menu.cc:308
+#: ../Src/Gtk2/Menu.cc:298
 msgid "Save and quit"
 msgstr "Mentés és kilépés"
 
-#: ../Src/Gtk2/Menu.cc:425
+#: ../Src/Gtk2/Menu.cc:417 ../Src/Gtk2/Menu.cc:433
 msgid "Dasher is a predictive text entry application"
 msgstr "A Dasher egy prediktív szövegbeviteli alkalmazás"
 
-#: ../Src/Gtk2/Menu.cc:430
+#: ../Src/Gtk2/Menu.cc:422 ../Src/Gtk2/Menu.cc:428
 msgid "translator-credits"
 msgstr ""
 "Dvornik László <dvornik@gnome.hu>\n"
 "Kelemen Gábor <kelemeng@gnome.hu>\n"
 "Tímár András <timar@gnome.hu>"
 
-#: ../Src/Gtk2/Preferences.cpp:822 ../Src/Gtk2/Preferences.cpp:824
-msgid "Training Dasher... please wait"
-msgstr "A Dasher edzése... kérem várjon"
-
-#: ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.compose.glade.h:1 ../Src/Gtk2/dasher.direct.glade.h:1
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:1 ../Src/Gtk2/dasher.glade.h:1
+#: ../Src/Gtk2/dasher.traditional.glade.h:1
 msgid "<b>Actions:</b>"
 msgstr "<b>Műveletek:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:2 ../Src/Gtk2/dasher.direct.glade.h:2
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:2 ../Src/Gtk2/dasher.glade.h:2
+#: ../Src/Gtk2/dasher.traditional.glade.h:2 ../Src/Gtk2/dashermaemo.glade.h:4
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:1
 msgid "<b>Adaptation:</b>"
 msgstr "<b>Alkalmazkodás:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
+#: ../Src/Gtk2/dasher.compose.glade.h:3 ../Src/Gtk2/dasher.direct.glade.h:3
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:3 ../Src/Gtk2/dasher.glade.h:3
+#: ../Src/Gtk2/dasher.traditional.glade.h:3 ../Src/Gtk2/dashermaemo.glade.h:5
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:2
 msgid "<b>Alphabet Selection:</b>"
 msgstr "<b>Ábécéválasztás:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:4 ../Src/Gtk2/dasher.direct.glade.h:4
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:4 ../Src/Gtk2/dasher.glade.h:4
+#: ../Src/Gtk2/dasher.traditional.glade.h:4
 msgid "<b>Appearance Options:</b>"
 msgstr "<b>Megjelenés beállításai:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.compose.glade.h:5 ../Src/Gtk2/dasher.direct.glade.h:5
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:5 ../Src/Gtk2/dasher.glade.h:5
+#: ../Src/Gtk2/dasher.traditional.glade.h:5
 msgid "<b>Application Options:</b>"
 msgstr "<b>Alkalmazás beállításai:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.compose.glade.h:6 ../Src/Gtk2/dasher.direct.glade.h:6
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:6 ../Src/Gtk2/dasher.glade.h:6
+#: ../Src/Gtk2/dasher.traditional.glade.h:6
 msgid "<b>Application Style:</b>"
 msgstr "<b>Alkalmazás stílusa:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.compose.glade.h:7 ../Src/Gtk2/dasher.direct.glade.h:7
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:7 ../Src/Gtk2/dasher.glade.h:7
+#: ../Src/Gtk2/dasher.traditional.glade.h:7
 msgid "<b>Colour Scheme:</b>"
 msgstr "<b>Színséma:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:8 ../Src/Gtk2/dasher.direct.glade.h:8
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:8 ../Src/Gtk2/dasher.glade.h:8
+#: ../Src/Gtk2/dasher.traditional.glade.h:8
 msgid "<b>Control Style:</b>"
 msgstr "<b>Vezérlőelem stílusa:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.compose.glade.h:9 ../Src/Gtk2/dasher.direct.glade.h:9
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:9 ../Src/Gtk2/dasher.glade.h:9
+#: ../Src/Gtk2/dasher.traditional.glade.h:9
 msgid "<b>Dasher Font:</b>"
 msgstr "<b>Dasher betűkészlete:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:10 ../Src/Gtk2/dasher.direct.glade.h:10
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:10 ../Src/Gtk2/dasher.glade.h:10
+#: ../Src/Gtk2/dasher.traditional.glade.h:10
 msgid "<b>Direction:</b>"
 msgstr "<b>Irány:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:11 ../Src/Gtk2/dasher.direct.glade.h:11
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:11 ../Src/Gtk2/dasher.glade.h:11
+#: ../Src/Gtk2/dasher.traditional.glade.h:11
 msgid "<b>Editor Font:</b>"
 msgstr "<b>Szerkesztő betűkészlete:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:12 ../Src/Gtk2/dasher.direct.glade.h:12
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:12 ../Src/Gtk2/dasher.glade.h:12
+#: ../Src/Gtk2/dasher.traditional.glade.h:12
 msgid "<b>Input Device:</b>"
 msgstr "<b>Beviteli eszköz:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
+#: ../Src/Gtk2/dasher.compose.glade.h:13 ../Src/Gtk2/dasher.direct.glade.h:13
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:13 ../Src/Gtk2/dasher.glade.h:13
+#: ../Src/Gtk2/dasher.traditional.glade.h:13 ../Src/Gtk2/dashermaemo.glade.h:7
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:3
 msgid "<b>Language Model:</b>"
 msgstr "<b>Nyelvmodell:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.compose.glade.h:14 ../Src/Gtk2/dasher.direct.glade.h:14
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:14 ../Src/Gtk2/dasher.glade.h:14
+#: ../Src/Gtk2/dasher.traditional.glade.h:14
 msgid "<b>Prediction:</b>"
 msgstr "<b>Előrejelzés:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
+#: ../Src/Gtk2/dasher.compose.glade.h:15 ../Src/Gtk2/dasher.direct.glade.h:15
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:15 ../Src/Gtk2/dasher.glade.h:15
+#: ../Src/Gtk2/dasher.traditional.glade.h:15 ../Src/Gtk2/dashermaemo.glade.h:9
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:5
 msgid "<b>Smoothing:</b>"
 msgstr "<b>Simítás:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:16 ../Src/Gtk2/dashermaemo.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:16 ../Src/Gtk2/dasher.direct.glade.h:16
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:16 ../Src/Gtk2/dasher.glade.h:16
+#: ../Src/Gtk2/dasher.traditional.glade.h:16
+#: ../Src/Gtk2/dashermaemo.glade.h:10
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:6
 msgid "<b>Speed:</b>"
 msgstr "<b>Sebesség:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:17 ../Src/Gtk2/dasher.direct.glade.h:17
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:17 ../Src/Gtk2/dasher.glade.h:17
+#: ../Src/Gtk2/dasher.traditional.glade.h:17
 msgid "<b>Starting And Stopping:</b>"
 msgstr "<b>Indítás és leállítás:</b>"
 
-#: ../Src/Gtk2/dasher.glade.h:18 ../Src/Gtk2/dashermaemo.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:18 ../Src/Gtk2/dasher.direct.glade.h:18
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:18 ../Src/Gtk2/dasher.glade.h:18
+#: ../Src/Gtk2/dasher.traditional.glade.h:18
+#: ../Src/Gtk2/dashermaemo.glade.h:11
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:7
 msgid "Adapt speed automatically"
 msgstr "Sebesség automatikus igazítása"
 
-#: ../Src/Gtk2/dasher.glade.h:19 ../Src/Gtk2/dashermaemo.glade.h:13
+#: ../Src/Gtk2/dasher.compose.glade.h:19 ../Src/Gtk2/dasher.direct.glade.h:19
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:19 ../Src/Gtk2/dasher.glade.h:19
+#: ../Src/Gtk2/dasher.traditional.glade.h:19
+#: ../Src/Gtk2/dashermaemo.glade.h:13
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:9
 msgid "Alphabet Default"
 msgstr "Alapértelmezett ábécé"
 
-#: ../Src/Gtk2/dasher.glade.h:20
+#: ../Src/Gtk2/dasher.compose.glade.h:20 ../Src/Gtk2/dasher.direct.glade.h:20
+#: ../Src/Gtk2/dasher.glade.h:20 ../Src/Gtk2/dasher.traditional.glade.h:20
 msgid "Alphabet:"
 msgstr "Ábécé:"
 
-#: ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:21 ../Src/Gtk2/dasher.direct.glade.h:21
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:20 ../Src/Gtk2/dasher.glade.h:21
+#: ../Src/Gtk2/dasher.traditional.glade.h:21
 msgid "Appearance"
 msgstr "Megjelenés"
 
-#: ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.compose.glade.h:22 ../Src/Gtk2/dasher.direct.glade.h:22
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:21 ../Src/Gtk2/dasher.glade.h:22
+#: ../Src/Gtk2/dasher.traditional.glade.h:22
 msgid "Application"
 msgstr "Alkalmazás"
 
-#: ../Src/Gtk2/dasher.glade.h:23 ../Src/Gtk2/dashermaemo.glade.h:14
+#: ../Src/Gtk2/dasher.compose.glade.h:23 ../Src/Gtk2/dasher.direct.glade.h:23
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:22 ../Src/Gtk2/dasher.glade.h:23
+#: ../Src/Gtk2/dasher.traditional.glade.h:23
+#: ../Src/Gtk2/dashermaemo.glade.h:14
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:10
 msgid "Bottom to Top"
 msgstr "Lentről felfelé"
 
-#: ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:24 ../Src/Gtk2/dasher.direct.glade.h:24
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:23 ../Src/Gtk2/dasher.glade.h:24
+#: ../Src/Gtk2/dasher.traditional.glade.h:24
 msgid ""
 "Centre circle\n"
 "Two box"
@@ -197,201 +250,293 @@ msgstr ""
 "Középső kör\n"
 "Két négyzet"
 
-#: ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.compose.glade.h:26 ../Src/Gtk2/dasher.direct.glade.h:26
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:25 ../Src/Gtk2/dasher.glade.h:26
+#: ../Src/Gtk2/dasher.traditional.glade.h:26
 msgid "Composition"
 msgstr "Kompozíció"
 
-#: ../Src/Gtk2/dasher.glade.h:27 ../Src/Gtk2/dashermaemo.glade.h:15
+#: ../Src/Gtk2/dasher.compose.glade.h:27 ../Src/Gtk2/dasher.direct.glade.h:27
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:26 ../Src/Gtk2/dasher.glade.h:27
+#: ../Src/Gtk2/dasher.traditional.glade.h:27
+#: ../Src/Gtk2/dashermaemo.glade.h:15
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:11
 msgid "Control"
 msgstr "Vezérlőelem"
 
-#: ../Src/Gtk2/dasher.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
+#: ../Src/Gtk2/dasher.compose.glade.h:28 ../Src/Gtk2/dasher.direct.glade.h:28
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:27 ../Src/Gtk2/dasher.glade.h:28
+#: ../Src/Gtk2/dasher.traditional.glade.h:28 ../Src/Gtk2/dashergpe.glade.h:1
 msgid "Control mode"
 msgstr "Vezérlőelem mód"
 
-#: ../Src/Gtk2/dasher.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
+#: ../Src/Gtk2/dasher.compose.glade.h:29 ../Src/Gtk2/dasher.glade.h:29
+#: ../Src/Gtk2/dasher.traditional.glade.h:29 ../Src/Gtk2/dashergpe.glade.h:2
 msgid "Copy"
 msgstr "Másolat"
 
-#: ../Src/Gtk2/dasher.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
+#: ../Src/Gtk2/dasher.compose.glade.h:30 ../Src/Gtk2/dasher.glade.h:30
+#: ../Src/Gtk2/dasher.traditional.glade.h:30 ../Src/Gtk2/dashergpe.glade.h:3
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:12
 msgid "Copy _All"
 msgstr "Mi_ndent másol"
 
-#: ../Src/Gtk2/dasher.glade.h:31 ../Src/Gtk2/dashermaemo.glade.h:16
+#: ../Src/Gtk2/dasher.compose.glade.h:31 ../Src/Gtk2/dasher.direct.glade.h:29
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:28 ../Src/Gtk2/dasher.glade.h:31
+#: ../Src/Gtk2/dasher.traditional.glade.h:31
+#: ../Src/Gtk2/dashermaemo.glade.h:16
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:13
 msgid "Custom colour scheme:"
 msgstr "Egyéni színséma:"
 
-#: ../Src/Gtk2/dasher.glade.h:32 ../Src/Gtk2/dashermaemo.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:32 ../Src/Gtk2/dasher.direct.glade.h:30
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:29 ../Src/Gtk2/dasher.glade.h:32
+#: ../Src/Gtk2/dasher.traditional.glade.h:32
+#: ../Src/Gtk2/dashermaemo.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:14
 msgid "Custom:"
 msgstr "Egyéni:"
 
-#: ../Src/Gtk2/dasher.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
+#: ../Src/Gtk2/dasher.compose.glade.h:33 ../Src/Gtk2/dasher.glade.h:33
+#: ../Src/Gtk2/dasher.traditional.glade.h:33 ../Src/Gtk2/dashergpe.glade.h:4
 msgid "Cut"
 msgstr "Kivágás"
 
-#: ../Src/Gtk2/dasher.glade.h:35 ../Src/Gtk2/dashermaemo.glade.h:19
+#: ../Src/Gtk2/dasher.compose.glade.h:35 ../Src/Gtk2/dasher.direct.glade.h:32
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:31 ../Src/Gtk2/dasher.glade.h:35
+#: ../Src/Gtk2/dasher.traditional.glade.h:35
+#: ../Src/Gtk2/dashermaemo.glade.h:19
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:16
 msgid "Dasher Preferences"
 msgstr "Dasher beállításai"
 
-#: ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.compose.glade.h:36 ../Src/Gtk2/dasher.glade.h:36
+#: ../Src/Gtk2/dasher.traditional.glade.h:36
 msgid "Dasher _Tutorial"
 msgstr "Dasher _ismertető"
 
-#: ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.compose.glade.h:37 ../Src/Gtk2/dasher.direct.glade.h:33
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:32 ../Src/Gtk2/dasher.glade.h:37
+#: ../Src/Gtk2/dasher.traditional.glade.h:37
 msgid "Direct entry"
 msgstr "Közvetlen bevitel"
 
-#: ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.compose.glade.h:38 ../Src/Gtk2/dasher.direct.glade.h:34
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:33 ../Src/Gtk2/dasher.glade.h:38
+#: ../Src/Gtk2/dasher.traditional.glade.h:38
 msgid "Dock application window"
 msgstr "Alkalmazásablak dokkolása"
 
-#: ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.compose.glade.h:39 ../Src/Gtk2/dasher.direct.glade.h:35
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:34 ../Src/Gtk2/dasher.glade.h:39
+#: ../Src/Gtk2/dasher.traditional.glade.h:39
 msgid "Draw box outlines"
 msgstr "Dobozkörvonalak rajzolása"
 
-#: ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.compose.glade.h:40 ../Src/Gtk2/dasher.direct.glade.h:36
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:35 ../Src/Gtk2/dasher.glade.h:40
+#: ../Src/Gtk2/dasher.traditional.glade.h:40
 msgid "Draw line between crosshairs and mouse"
 msgstr "Vonal rajzolása a célkeresztek és az egér közé"
 
-#: ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.compose.glade.h:41 ../Src/Gtk2/dasher.direct.glade.h:37
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:36 ../Src/Gtk2/dasher.glade.h:41
+#: ../Src/Gtk2/dasher.traditional.glade.h:41
 msgid "Full Screen"
 msgstr "Teljes képernyő"
 
-#: ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.compose.glade.h:42 ../Src/Gtk2/dasher.direct.glade.h:38
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:37 ../Src/Gtk2/dasher.glade.h:42
+#: ../Src/Gtk2/dasher.traditional.glade.h:42
 msgid "Increase line thickness"
 msgstr "A vonal vastagságának növelése"
 
-#: ../Src/Gtk2/dasher.glade.h:43 ../Src/Gtk2/dashermaemo.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:43 ../Src/Gtk2/dasher.direct.glade.h:39
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:38 ../Src/Gtk2/dasher.glade.h:43
+#: ../Src/Gtk2/dasher.traditional.glade.h:43
+#: ../Src/Gtk2/dashermaemo.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:17
 msgid "Japanese"
 msgstr "Japán"
 
-#: ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.compose.glade.h:44 ../Src/Gtk2/dasher.direct.glade.h:40
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:39 ../Src/Gtk2/dasher.glade.h:44
+#: ../Src/Gtk2/dasher.traditional.glade.h:44
 msgid "Language"
 msgstr "Nyelv"
 
-#: ../Src/Gtk2/dasher.glade.h:45 ../Src/Gtk2/dashermaemo.glade.h:22
+#: ../Src/Gtk2/dasher.compose.glade.h:45 ../Src/Gtk2/dasher.direct.glade.h:41
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:40 ../Src/Gtk2/dasher.glade.h:45
+#: ../Src/Gtk2/dasher.traditional.glade.h:45
+#: ../Src/Gtk2/dashermaemo.glade.h:22
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:18
 msgid "Language model adapts as you write."
 msgstr "A nyelvmodell alkalmazkodik írás közben."
 
-#: ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.compose.glade.h:46 ../Src/Gtk2/dasher.direct.glade.h:42
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:41 ../Src/Gtk2/dasher.glade.h:46
+#: ../Src/Gtk2/dasher.traditional.glade.h:46
 msgid "Large font "
 msgstr "Nagy betűkészlet "
 
-#: ../Src/Gtk2/dasher.glade.h:47 ../Src/Gtk2/dashermaemo.glade.h:23
+#: ../Src/Gtk2/dasher.compose.glade.h:47 ../Src/Gtk2/dasher.direct.glade.h:43
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:42 ../Src/Gtk2/dasher.glade.h:47
+#: ../Src/Gtk2/dasher.traditional.glade.h:47
+#: ../Src/Gtk2/dashermaemo.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:20
 msgid "Left to Right"
 msgstr "Balról jobbra"
 
-#: ../Src/Gtk2/dasher.glade.h:48 ../Src/Gtk2/dashermaemo.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:48 ../Src/Gtk2/dasher.direct.glade.h:44
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:43 ../Src/Gtk2/dasher.glade.h:48
+#: ../Src/Gtk2/dasher.traditional.glade.h:48
+#: ../Src/Gtk2/dashermaemo.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:21
 msgid "Mixture model (PPM/dictionary)"
 msgstr "Keverési modell (PPM/szótár)"
 
-#: ../Src/Gtk2/dasher.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
+#: ../Src/Gtk2/dasher.compose.glade.h:49 ../Src/Gtk2/dasher.glade.h:49
+#: ../Src/Gtk2/dasher.traditional.glade.h:49 ../Src/Gtk2/dashergpe.glade.h:8
 msgid "New file"
 msgstr "Új fájl"
 
-#: ../Src/Gtk2/dasher.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
+#: ../Src/Gtk2/dasher.compose.glade.h:50 ../Src/Gtk2/dasher.glade.h:50
+#: ../Src/Gtk2/dasher.traditional.glade.h:50 ../Src/Gtk2/dashergpe.glade.h:10
 msgid "Open file"
 msgstr "Fájl megnyitása"
 
-#: ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.compose.glade.h:51 ../Src/Gtk2/dasher.direct.glade.h:45
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:44 ../Src/Gtk2/dasher.glade.h:51
+#: ../Src/Gtk2/dasher.traditional.glade.h:51
 msgid "Options"
 msgstr "Beállítások"
 
-#: ../Src/Gtk2/dasher.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
+#: ../Src/Gtk2/dasher.compose.glade.h:52 ../Src/Gtk2/dasher.glade.h:52
+#: ../Src/Gtk2/dasher.traditional.glade.h:52 ../Src/Gtk2/dashergpe.glade.h:11
 msgid "Paste"
 msgstr "Beillesztés"
 
-#: ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.compose.glade.h:53 ../Src/Gtk2/dasher.direct.glade.h:46
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:45 ../Src/Gtk2/dasher.glade.h:53
+#: ../Src/Gtk2/dasher.traditional.glade.h:53
 msgid "Pause outside of canvas"
 msgstr "Vásznon kívüli szünet"
 
-#: ../Src/Gtk2/dasher.glade.h:54 ../Src/Gtk2/dashermaemo.glade.h:26
+#: ../Src/Gtk2/dasher.compose.glade.h:54 ../Src/Gtk2/dasher.direct.glade.h:47
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:46 ../Src/Gtk2/dasher.glade.h:54
+#: ../Src/Gtk2/dasher.traditional.glade.h:54
+#: ../Src/Gtk2/dashermaemo.glade.h:26
 msgid "Please Wait..."
 msgstr "Kis türelmet..."
 
-#: ../Src/Gtk2/dasher.glade.h:55
+#: ../Src/Gtk2/dasher.compose.glade.h:55 ../Src/Gtk2/dasher.glade.h:55
 msgid "Pr_eferences"
 msgstr "_Beállítások"
 
-#: ../Src/Gtk2/dasher.glade.h:56 ../Src/Gtk2/dashermaemo.glade.h:28
+#: ../Src/Gtk2/dasher.compose.glade.h:56 ../Src/Gtk2/dasher.direct.glade.h:48
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:47 ../Src/Gtk2/dasher.glade.h:56
+#: ../Src/Gtk2/dasher.traditional.glade.h:56
+#: ../Src/Gtk2/dashermaemo.glade.h:28
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:24
 msgid "Right to Left"
 msgstr "Jobbról balra"
 
-#: ../Src/Gtk2/dasher.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
+#: ../Src/Gtk2/dasher.compose.glade.h:57 ../Src/Gtk2/dasher.glade.h:57
+#: ../Src/Gtk2/dasher.traditional.glade.h:57 ../Src/Gtk2/dashergpe.glade.h:12
 msgid "Save file"
 msgstr "Fájl mentése"
 
-#: ../Src/Gtk2/dasher.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
+#: ../Src/Gtk2/dasher.compose.glade.h:58 ../Src/Gtk2/dasher.glade.h:58
+#: ../Src/Gtk2/dasher.traditional.glade.h:58 ../Src/Gtk2/dashergpe.glade.h:13
 msgid "Save file as"
 msgstr "Fájl mentése másként"
 
-#: ../Src/Gtk2/dasher.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
+#: ../Src/Gtk2/dasher.compose.glade.h:60 ../Src/Gtk2/dasher.direct.glade.h:50
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:49 ../Src/Gtk2/dasher.glade.h:60
+#: ../Src/Gtk2/dasher.traditional.glade.h:60 ../Src/Gtk2/dashergpe.glade.h:15
 #: ../Src/Gtk2/dashermaemo.glade.h:30
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:26
 msgid "Select Font"
 msgstr "Betűkészlet kiválasztása"
 
-#: ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.compose.glade.h:61 ../Src/Gtk2/dasher.direct.glade.h:51
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:50 ../Src/Gtk2/dasher.glade.h:61
+#: ../Src/Gtk2/dasher.traditional.glade.h:61
 msgid "Show mouse position"
 msgstr "Egér pozíciójának megjelenítése"
 
-#: ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.compose.glade.h:62 ../Src/Gtk2/dasher.direct.glade.h:52
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:51 ../Src/Gtk2/dasher.glade.h:62
+#: ../Src/Gtk2/dasher.traditional.glade.h:62
 msgid "Show speed slider"
 msgstr "Sebességcsúszka megjelenítése"
 
-#: ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.compose.glade.h:63 ../Src/Gtk2/dasher.direct.glade.h:53
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:52 ../Src/Gtk2/dasher.glade.h:63
+#: ../Src/Gtk2/dasher.traditional.glade.h:63
 msgid "Show toolbar"
 msgstr "Eszköztár megjelenítése"
 
-#: ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.compose.glade.h:64 ../Src/Gtk2/dasher.direct.glade.h:54
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:53 ../Src/Gtk2/dasher.glade.h:64
+#: ../Src/Gtk2/dasher.traditional.glade.h:64
 msgid "Small font"
 msgstr "Kis betűkészlet"
 
-#: ../Src/Gtk2/dasher.glade.h:65
+#: ../Src/Gtk2/dasher.compose.glade.h:65 ../Src/Gtk2/dasher.direct.glade.h:55
+#: ../Src/Gtk2/dasher.glade.h:65 ../Src/Gtk2/dasher.traditional.glade.h:65
 msgid "Speed:"
 msgstr "Sebesség:"
 
-#: ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.compose.glade.h:66 ../Src/Gtk2/dasher.direct.glade.h:56
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:54 ../Src/Gtk2/dasher.glade.h:66
+#: ../Src/Gtk2/dasher.traditional.glade.h:66
 msgid "Stand-alone"
 msgstr "Önálló"
 
-#: ../Src/Gtk2/dasher.glade.h:67 ../Src/Gtk2/dashermaemo.glade.h:31
+#: ../Src/Gtk2/dasher.compose.glade.h:67 ../Src/Gtk2/dasher.direct.glade.h:57
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:55 ../Src/Gtk2/dasher.glade.h:67
+#: ../Src/Gtk2/dasher.traditional.glade.h:67
+#: ../Src/Gtk2/dashermaemo.glade.h:31
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:27
 msgid "Standard letter-based PPM"
 msgstr "Szabvány betűalapú PPM"
 
-#: ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.compose.glade.h:68 ../Src/Gtk2/dasher.direct.glade.h:58
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:56 ../Src/Gtk2/dasher.glade.h:68
+#: ../Src/Gtk2/dasher.traditional.glade.h:68
 msgid "Start on left mouse button"
 msgstr "Indulás bal egérgombra"
 
-#: ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.compose.glade.h:69 ../Src/Gtk2/dasher.direct.glade.h:59
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:57 ../Src/Gtk2/dasher.glade.h:69
+#: ../Src/Gtk2/dasher.traditional.glade.h:69
 msgid "Start on space bar"
 msgstr "Indulás szóközre"
 
-#: ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.compose.glade.h:70 ../Src/Gtk2/dasher.direct.glade.h:60
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:58 ../Src/Gtk2/dasher.glade.h:70
+#: ../Src/Gtk2/dasher.traditional.glade.h:70
 msgid "Start with mouse position:"
 msgstr "Indulás ezen egérpozícióval:"
 
-#: ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.compose.glade.h:71 ../Src/Gtk2/dasher.direct.glade.h:61
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:59 ../Src/Gtk2/dasher.glade.h:71
+#: ../Src/Gtk2/dasher.traditional.glade.h:71
 msgid "Timestamp new files"
 msgstr "Új fájlok időbélyegzése"
 
-#: ../Src/Gtk2/dasher.glade.h:72 ../Src/Gtk2/dashermaemo.glade.h:32
+#: ../Src/Gtk2/dasher.compose.glade.h:72 ../Src/Gtk2/dasher.direct.glade.h:62
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:60 ../Src/Gtk2/dasher.glade.h:72
+#: ../Src/Gtk2/dasher.traditional.glade.h:72
+#: ../Src/Gtk2/dashermaemo.glade.h:32
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:28
 msgid "Top to Bottom"
 msgstr "Fentről lefelé"
 
-#: ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.compose.glade.h:73 ../Src/Gtk2/dasher.direct.glade.h:63
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:61 ../Src/Gtk2/dasher.glade.h:73
+#: ../Src/Gtk2/dasher.traditional.glade.h:73
 msgid ""
 "Use this control to adjust the relative sizes of the \n"
 "letter boxes. Note that selecting high values will slow\n"
@@ -401,63 +546,92 @@ msgstr ""
 "állításához. Megjegyzés: magas értékek kiválasztása le\n"
 "fogja lassítani az írási sebességet."
 
-#: ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.compose.glade.h:76 ../Src/Gtk2/dasher.direct.glade.h:66
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:64 ../Src/Gtk2/dasher.glade.h:76
+#: ../Src/Gtk2/dasher.traditional.glade.h:76
 msgid "Very large font"
 msgstr "Nagyon nagy betűkészlet"
 
-#: ../Src/Gtk2/dasher.glade.h:77 ../Src/Gtk2/dashermaemo.glade.h:34
+#: ../Src/Gtk2/dasher.compose.glade.h:77 ../Src/Gtk2/dasher.direct.glade.h:67
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:65 ../Src/Gtk2/dasher.glade.h:77
+#: ../Src/Gtk2/dasher.traditional.glade.h:77
+#: ../Src/Gtk2/dashermaemo.glade.h:34
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:31
 msgid "Word-based model"
 msgstr "Szóalapú modell"
 
-#: ../Src/Gtk2/dasher.glade.h:78 ../Src/Gtk2/dashergpe.glade.h:17
+#: ../Src/Gtk2/dasher.compose.glade.h:78 ../Src/Gtk2/dasher.glade.h:78
+#: ../Src/Gtk2/dashergpe.glade.h:17
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:32
 msgid "_About"
 msgstr "_Névjegy"
 
-#: ../Src/Gtk2/dasher.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
+#: ../Src/Gtk2/dasher.compose.glade.h:79 ../Src/Gtk2/dasher.glade.h:79
+#: ../Src/Gtk2/dasher.traditional.glade.h:79 ../Src/Gtk2/dashergpe.glade.h:18
 msgid "_Append to file"
 msgstr "_Hozzáfűzés fájlhoz"
 
-#: ../Src/Gtk2/dasher.glade.h:80
+#: ../Src/Gtk2/dasher.compose.glade.h:80 ../Src/Gtk2/dasher.glade.h:80
 msgid "_Contents"
 msgstr "_Tartalom"
 
-#: ../Src/Gtk2/dasher.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
+#: ../Src/Gtk2/dasher.compose.glade.h:81 ../Src/Gtk2/dasher.glade.h:81
+#: ../Src/Gtk2/dasher.traditional.glade.h:81 ../Src/Gtk2/dashergpe.glade.h:21
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:35
 msgid "_Edit"
 msgstr "S_zerkesztés"
 
-#: ../Src/Gtk2/dasher.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
+#: ../Src/Gtk2/dasher.compose.glade.h:82 ../Src/Gtk2/dasher.glade.h:82
+#: ../Src/Gtk2/dasher.traditional.glade.h:82 ../Src/Gtk2/dashergpe.glade.h:23
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:37
 msgid "_File"
 msgstr "_Fájl"
 
-#: ../Src/Gtk2/dasher.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
+#: ../Src/Gtk2/dasher.compose.glade.h:83 ../Src/Gtk2/dasher.glade.h:83
+#: ../Src/Gtk2/dasher.traditional.glade.h:83 ../Src/Gtk2/dashergpe.glade.h:24
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:38
 msgid "_Help"
 msgstr "_Súgó"
 
-#: ../Src/Gtk2/dasher.glade.h:84 ../Src/Gtk2/dashergpe.glade.h:25
+#: ../Src/Gtk2/dasher.compose.glade.h:84 ../Src/Gtk2/dasher.glade.h:84
+#: ../Src/Gtk2/dashergpe.glade.h:25
 msgid "_Import Training Text"
 msgstr "Gyakorlószöveg _importálása"
 
-#: ../Src/Gtk2/dasher.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
+#: ../Src/Gtk2/dasher.compose.glade.h:85 ../Src/Gtk2/dasher.direct.glade.h:68
+#: ../Src/Gtk2/dasher.fullscreen.glade.h:66 ../Src/Gtk2/dasher.glade.h:85
+#: ../Src/Gtk2/dasher.traditional.glade.h:85 ../Src/Gtk2/dashergpe.glade.h:28
 #: ../Src/Gtk2/dashermaemo.glade.h:35
 #: ../Src/Gtk2/dashermaemofullscreen.glade.h:41
 msgid "abcdefghijk ABCDEFGHIJK"
 msgstr "árvíztűrő tükörfúrógép ÁRVÍZTŰRŐ TÜKÖRFÚRÓGÉP"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:115
+#: ../Src/Gtk2/dasher.traditional.glade.h:55
+msgid "Pr_eferences..."
+msgstr "_Beállítások..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:78
+msgid "_About..."
+msgstr "_Névjegy..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:80
+msgid "_Contents..."
+msgstr "_Tartalom..."
+
+#: ../Src/Gtk2/dasher.traditional.glade.h:84
+msgid "_Import Training Text..."
+msgstr "Gyakorlószöveg _importálása..."
+
+#: ../Src/Gtk2/dasher_action_speech.cpp:164
 #, c-format
 msgid "Unable to initialize speech support\n"
 msgstr "Nem lehet inicializálni a beszédtámogatást\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:138
+#: ../Src/Gtk2/dasher_action_speech.cpp:187
 msgid "Unable to initialize voices\n"
 msgstr "A hangok nem inicializálhatók\n"
 
-#: ../Src/Gtk2/dasher_action_speech.cpp:150
+#: ../Src/Gtk2/dasher_action_speech.cpp:199
 msgid "Warning: unable to set speech parameters\n"
 msgstr "Figyelmeztetés: nem lehet beállítani a beszéd paramétereket\n"
 
